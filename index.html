@@ -1,218 +1,622 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新島交通株式会社 | SHINJIMA KOTSU</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Shippori+Mincho:wght@400;500;700&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>新島交通株式会社 | Shinjima Kotsu - Premium Medical & Travel</title>
+    <!-- Favicon: Minimalist Text '新' (Dark Grey) -->
+    <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="58" font-size="72" font-weight="600" fill="%232D2D2D" text-anchor="middle" dominant-baseline="central" font-family="Shippori Mincho, serif">新</text></svg>'>
     
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* --- Future Zen 极简纯白风格 --- */
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
-            background-color: #FFFFFF;
-            color: #333;
-            overflow-x: hidden;
-        }
-        h1, h2, h3, .serif { font-family: 'Shippori Mincho', serif; }
+      /* --- 基础设置 --- */
+      body {
+        font-family: 'Noto Sans JP', sans-serif;
+        background-color: #FAFAFA;
+        color: #2D2D2D;
+        overflow-x: hidden;
+      }
+      
+      h1, h2, h3, .serif {
+        font-family: 'Shippori Mincho', serif;
+      }
 
-        /* 导航栏链接动效 */
-        .nav-link { color: #666; font-size: 0.85rem; font-weight: 500; transition: color 0.3s; }
-        .nav-link:hover { color: #000; }
+      /* --- Gemini 科技色调 --- */
+      .gemini-gradient {
+        background: linear-gradient(90deg, #4E8cFF 0%, #9B8cFF 100%);
+      }
+      .gemini-text {
+        background: linear-gradient(90deg, #4E8cFF 0%, #9B8cFF 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
 
-        /* AI 文字渐变 */
-        .gemini-text {
-            background: linear-gradient(90deg, #4E8cFF 0%, #9B8cFF 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-        }
+      /* --- 图片交互与动画 --- */
+      .image-card {
+        transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        overflow: hidden;
+        border-radius: 4px;
+        position: relative;
+      }
+      .image-card:hover img {
+        transform: scale(1.05);
+      }
+      .image-card img {
+        transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      }
 
-        /* 按钮风格 */
-        .btn-black {
-            background-color: #000; color: #fff; padding: 10px 30px; border-radius: 999px;
-            font-size: 0.8rem; font-weight: 600; transition: all 0.3s;
-        }
-        .btn-black:hover { background-color: #333; transform: translateY(-2px); }
+      .nav-blur {
+        background: rgba(250, 250, 250, 0.9);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+      }
 
-        .btn-outline {
-            border: 1px solid #E5E7EB; padding: 8px 24px; border-radius: 999px;
-            font-size: 0.75rem; font-weight: 600; transition: all 0.3s;
-        }
-        .btn-outline:hover { border-color: #000; background: #000; color: #fff; }
+      /* --- 流程图专用样式 (Static Preview) --- */
+      .process-step {
+          position: relative;
+      }
+      .process-line::after {
+          content: '';
+          position: absolute;
+          top: 24px;
+          right: -50%;
+          width: 100%;
+          height: 2px;
+          background-color: #E5E7EB;
+          z-index: 0;
+      }
+      .process-step:last-child .process-line::after {
+          display: none;
+      }
+      @media (max-width: 768px) {
+          .process-line::after { display: none; }
+          .process-step { margin-bottom: 2rem; }
+      }
 
-        /* 淡入动画 */
-        .fade-in-up { animation: fadeInUp 1s ease-out forwards; opacity: 0; transform: translateY(20px); }
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+      /* --- Animations --- */
+      @keyframes kenburns {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.1); }
+      }
+      .animate-kenburns-slow {
+        animation: kenburns 20s ease-out infinite alternate;
+      }
+
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-fade-in-up {
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
     </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.1/",
+    "react": "https://esm.sh/react@^19.2.1",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.1/",
+    "recharts": "https://esm.sh/recharts@^3.5.1",
+    "lucide-react": "https://esm.sh/lucide-react@^0.559.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.33.0"
+  }
+}
+</script>
 </head>
-<body class="antialiased">
-
-    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur border-b border-gray-100">
-        <div class="container mx-auto px-6 h-20 flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-3">
-                <div class="font-serif text-2xl font-bold tracking-widest text-black">
-                    新 <span class="text-sm font-sans font-normal tracking-normal ml-1">SHINJIMA</span>
-                </div>
-                <div class="h-4 w-[1px] bg-gray-300 mx-2"></div>
-                <span class="text-[10px] text-gray-400 uppercase tracking-widest hidden md:inline">大阪府知事登録第2-3115号</span>
-            </a>
-
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="timc.html" class="nav-link">TIMC 特別提携</a>
-                <a href="golf.html" class="nav-link flex items-center gap-1">
-                    <i class="fas fa-leaf text-green-600 text-xs"></i> 名門ゴルフ
+  <body>
+    <!-- 
+      HYBRID ROOT: 
+      Contains static content for immediate preview (GitHub Pages/No-Build).
+      When React loads successfully (Local/Build), this content is replaced by the App component.
+    -->
+    <div id="root">
+        
+        <nav class="fixed w-full z-50 nav-blur transition-all duration-300">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-serif shadow-lg group-hover:shadow-blue-200 transition">新</div>
+                    <div class="flex flex-col">
+                        <span class="text-base font-serif tracking-widest text-gray-900">SHINJIMA</span>
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-gray-400">大阪府知事登録旅行業第2-3115号</span>
+                    </div>
                 </a>
-                <a href="#business" class="nav-link">商務考察</a>
-                <a href="#ai-b2b" class="nav-link gemini-text">AI B2B システム</a>
-                <a href="#about" class="nav-link">会社概要</a>
-                
-                <div class="flex items-center gap-1 text-xs text-gray-500 cursor-pointer hover:text-black ml-4 border-l pl-4">
-                    <i class="fas fa-globe"></i> JA <i class="fas fa-chevron-down text-[10px]"></i>
+                <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-600">
+                    <a href="#timc" class="hover:text-black transition">TIMC 特別提携</a>
+                    <a href="golf.html" class="hover:text-green-700 transition flex items-center gap-1"><i class="fas fa-golf-ball text-green-600"></i> 名門ゴルフ</a>
+                    <a href="#business" class="hover:text-black transition">商務考察</a>
+                    <a href="#ai-b2b" class="gemini-text font-bold relative group py-2">
+                        AI Quote System
+                        <span class="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-blue-400 to-purple-400 opacity-50"></span>
+                    </a>
+                    <a href="#about" class="hover:text-black transition">会社概要</a>
                 </div>
+                <a href="#" class="text-xs font-bold border border-gray-300 px-6 py-2.5 rounded hover:bg-black hover:text-white hover:border-black transition duration-300">PARTNER LOGIN</a>
             </div>
-
-            <a href="#" class="btn-outline hidden md:block">パートナーログイン</a>
-        </div>
-    </nav>
-
-    <header class="relative w-full h-screen flex flex-col items-center justify-center text-center px-4 pt-10">
-        <div class="fade-in-up max-w-4xl">
-            <p class="text-[10px] md:text-xs tracking-[0.3em] uppercase text-gray-400 mb-6 font-medium">
-                OFFICIAL PARTNER OF TIMC & TOKUSHUKAI GROUP
-            </p>
-            
-            <h1 class="text-5xl md:text-8xl font-serif text-gray-900 leading-tight mb-8">
-                静寂と、<br>
-                <span class="italic text-gray-300 font-light">最先端</span>の境目で。
-            </h1>
-            
-            <p class="text-gray-500 text-sm leading-loose max-w-xl mx-auto mb-10 font-light">
-                新島交通は、日本最大の医療グループ「徳洲会」と提携し、<br>
-                TIMC 大阪中央高級医療センターへのVIPアクセスを提供します。<br>
-                最高峰の人間ドック・癒やしの旅・ビジネス視察。
-            </p>
-            
-            <div class="flex justify-center gap-6">
-                <a href="timc.html" class="btn-black">
-                    探索 TIMC 资源
-                </a>
-                <a href="#ai-b2b" class="px-6 py-2 text-sm font-bold border-b border-gray-200 hover:border-black transition">
-                    试用 AI 报价 <i class="fas fa-arrow-right ml-2 text-xs"></i>
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <section class="py-24 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <span class="text-blue-500 text-xs tracking-widest uppercase font-bold">World-Class Technology</span>
-                <h2 class="text-3xl font-serif mt-4">早期発見のための「目」</h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-10 rounded-xl hover:shadow-xl transition duration-500">
-                    <i class="fas fa-dna text-3xl text-blue-500 mb-6"></i>
-                    <h3 class="text-xl font-bold mb-3">Discovery PET/CT</h3>
-                    <p class="text-gray-500 text-xs leading-relaxed">
-                        GE Healthcare 最新半導体技術。<br>
-                        捕捉毫米级微小癌细胞，大幅降低辐射剂量。
-                    </p>
-                </div>
-                <div class="bg-white p-10 rounded-xl hover:shadow-xl transition duration-500">
-                    <i class="fas fa-brain text-3xl text-purple-500 mb-6"></i>
-                    <h3 class="text-xl font-bold mb-3">3.0T Silent MRI</h3>
-                    <p class="text-gray-500 text-xs leading-relaxed">
-                        极度安静的脑部精密检查。<br>
-                        清晰呈现微小脑动脉瘤，预防脑卒中风险。
-                    </p>
-                </div>
-                <div class="bg-white p-10 rounded-xl hover:shadow-xl transition duration-500">
-                    <i class="fas fa-microscope text-3xl text-green-500 mb-6"></i>
-                    <h3 class="text-xl font-bold mb-3">NBI 内視鏡</h3>
-                    <p class="text-gray-500 text-xs leading-relaxed">
-                        Olympus 窄带成像技术。<br>
-                        配合镇静剂，在睡梦中完成无痛胃肠癌筛查。
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="business" class="py-24 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row gap-16 items-center">
-                <div class="md:w-1/2">
-                    <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=2070" 
-                         class="w-full h-[500px] object-cover rounded-lg shadow-2xl grayscale hover:grayscale-0 transition duration-700">
-                </div>
-                <div class="md:w-1/2 space-y-8">
-                    <span class="text-gray-400 text-xs tracking-widest uppercase font-bold">Business & Leisure</span>
-                    <h2 class="text-4xl font-serif">商业洞察与名门挥杆</h2>
-                    <p class="text-gray-500 leading-8 font-light">
-                        不仅仅是安排会议室。我们深入日本关西产业带，为您链接制造业、养老产业及科技企业的参访机会。<br><br>
-                        工作之余，通过我们的会员渠道，直达兵库县“名门高尔夫球场”，体验不对外开放的顶级球道。
-                    </p>
+        </nav>
+    
+        <header class="relative w-full h-[90vh] overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80" alt="Osaka City View" class="absolute inset-0 w-full h-full object-cover opacity-90 animate-kenburns-slow">
+            <div class="absolute inset-0 bg-gradient-to-r from-white/80 via-white/40 to-transparent"></div>
+            <div class="relative z-10 h-full container mx-auto px-6 flex flex-col justify-center">
+                <div class="max-w-2xl animate-fade-in-up">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 border border-gray-400 rounded-full mb-6">
+                        <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                        <span class="text-xs uppercase tracking-widest text-gray-600">Official TIMC Partner</span>
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-serif text-gray-900 leading-[1.2] mb-8">医療と旅の、<br><span class="italic text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">新基準</span>を創る。</h1>
+                    <p class="text-gray-600 text-lg font-light leading-relaxed mb-10 border-l-4 border-blue-500 pl-6">新岛交通与日本最大医疗集团“德洲会”旗下旗舰<br><strong>TIMC 大阪中央高级医疗中心</strong> 达成战略合作。<br>为 B2B 同业提供“绿色通道预约 + 20% 利润空间”的一站式方案。</p>
                     <div class="flex gap-4">
-                        <a href="golf.html" class="btn-outline">查看高尔夫行程</a>
-                        <a href="#ai-b2b" class="btn-outline">定制商务考察</a>
+                        <a href="#ai-b2b" class="bg-gray-900 text-white px-8 py-4 rounded hover:bg-blue-600 transition shadow-lg"><i class="fas fa-calculator mr-2"></i> 试用 AI 报价</a>
+                        <a href="#timc" class="bg-white text-gray-900 border border-gray-200 px-8 py-4 rounded hover:bg-gray-50 transition">查看医疗资源</a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </header>
+    
+        <section id="timc" class="py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <!-- Authority -->
+                <div class="mb-24">
+                    <div class="text-center mb-16">
+                        <span class="text-blue-500 text-xs tracking-widest uppercase font-bold">Authority & Trust</span>
+                        <h3 class="text-3xl font-serif text-gray-900 mt-2">Why TIMC?</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                        <div class="bg-gray-50 p-8 rounded-xl border border-gray-100 hover:shadow-lg transition duration-300 group">
+                            <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition">
+                                <i class="fas fa-building text-xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800 mb-3 font-serif">德洲会集团</h4>
+                            <p className="text-sm text-gray-500 leading-relaxed">
+                                日本最大的私立医疗集团，拥有约 400 家医疗设施。TIMC 汇聚了集团最资深的读影专家与医疗资源，代表了日本预防医学的最高水准。
+                            </p>
+                        </div>
+                        <div class="bg-gray-50 p-8 rounded-xl border border-gray-100 hover:shadow-lg transition duration-300 group">
+                            <div class="w-12 h-12 bg-purple-100 text-purple-700 rounded-full flex items-center justify-center mb-6 group-hover:bg-purple-600 group-hover:text-white transition">
+                                <i class="fas fa-map-marker-alt text-xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800 mb-3 font-serif">黄金立地</h4>
+                            <p className="text-sm text-gray-500 leading-relaxed">
+                                位于大阪站直连的地标建筑 <strong>JP Tower (KITTE Osaka) 11层</strong>。交通极度便利，体检前后可轻松享受关西顶级的购物与美食体验。
+                            </p>
+                        </div>
+                        <div class="bg-gray-50 p-8 rounded-xl border border-gray-100 hover:shadow-lg transition duration-300 group">
+                            <div class="w-12 h-12 bg-gray-200 text-gray-700 rounded-full flex items-center justify-center mb-6 group-hover:bg-gray-800 group-hover:text-white transition">
+                                <i class="fas fa-shield-alt text-xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800 mb-3 font-serif">奢华空间</h4>
+                            <p className="text-sm text-gray-500 leading-relaxed">
+                                告别传统医院的冰冷与拥挤。这里采用<strong>“全室个室”</strong>设计，每一位贵宾都拥有独立卫浴的专属包间，保护隐私，尊贵独享。
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
-    <section id="ai-b2b" class="py-32 bg-gray-900 text-white relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-blue-900/30 to-transparent"></div>
-        <div class="container mx-auto px-6 relative z-10 text-center">
-            <span class="gemini-text font-bold text-sm tracking-widest uppercase">For Travel Agencies</span>
-            <h2 class="text-4xl md:text-5xl font-serif mt-4 mb-6">AI 智能报价系统</h2>
-            <p class="text-gray-400 max-w-2xl mx-auto font-light mb-12">
-                将繁琐留给 AI。专为台湾同业打造，支持自然语言识别行程。<br>
-                "粘贴微信/LINE聊天记录，3秒生成专业报价单"
-            </p>
-            
-            <div class="max-w-3xl mx-auto bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-2xl text-left">
-                <div class="flex items-center gap-2 mb-4">
-                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                    <span class="text-xs text-gray-500 ml-2">Input</span>
+                <!-- Technology -->
+                <div class="mb-24">
+                    <div class="text-center mb-16">
+                        <span class="text-blue-500 text-xs tracking-widest uppercase font-bold">Advanced Equipment</span>
+                        <h3 class="text-3xl font-serif text-gray-900 mt-2 mb-4">世界级的早期筛查技术</h3>
+                        <p class="text-gray-500 text-sm">最新鋭・高グレードの医療機器を配置。オプション機能も装備し、精度の高い検査を快適な環境で提供いたします。</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <!-- Tech 1: CT -->
+                        <div class="flex flex-col gap-4 border-b border-gray-100 pb-8">
+                            <div class="h-64 rounded-lg overflow-hidden group shadow-md">
+                                <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" alt="CT">
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <i class="fas fa-bolt text-yellow-500"></i>
+                                    <h4 class="text-xl font-bold text-gray-800">CT: Spectral CT 7500 (PHILIPS)</h4>
+                                </div>
+                                <p class="text-gray-500 text-sm leading-relaxed text-justify">
+                                    フィリップス社製独自の2層検出器を搭載。低被ばくかつ、マルチコントラスト画像により低侵襲で早期病変の検出が可能。室内には照明・プロジェクター・天井モニターを組み込み、幻想的な光と映像で、検査時間を安らぎの時間に変えます。
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Tech 2: MRI -->
+                        <div class="flex flex-col gap-4 border-b border-gray-100 pb-8">
+                            <div class="h-64 rounded-lg overflow-hidden group shadow-md">
+                                <img src="https://images.unsplash.com/photo-1579684385180-1ea55f9f7485?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" alt="MRI">
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <i class="fas fa-brain text-purple-500"></i>
+                                    <h4 class="text-xl font-bold text-gray-800">MRI: Ingenia Ambition 1.5T (PHILIPS)</h4>
+                                </div>
+                                <p class="text-gray-500 text-sm leading-relaxed text-justify">
+                                    最新AI技術を搭載し、高速撮像での画質劣化を改善。心臓や全身のがんスクリーニングに対応。AI呼吸同期技術により、呼吸を止める時間を短縮、あるいは冠動脈検査などでは呼吸停止なしでの撮像も可能です。動画と音楽を楽しめる空間演出も完備。
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Tech 3: Endo -->
+                        <div class="flex flex-col gap-4 border-b border-gray-100 pb-8">
+                            <div class="h-64 rounded-lg overflow-hidden group shadow-md">
+                                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" alt="Endoscopy">
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <i class="fas fa-eye text-green-500"></i>
+                                    <h4 class="text-xl font-bold text-gray-800">内視鏡: ELUXEO 8000 SYSTEM (FUJIFILM)</h4>
+                                </div>
+                                <p class="text-gray-500 text-sm leading-relaxed text-justify">
+                                    異なる波長のレーザー光を制御し、微細な血管を強調するBLI光で微かな異常を発見。AI診断支援技術がリアルタイムで画像を解析し、「病変の疑いがある部分」を表示して医師の診断を強力にサポートします。
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Tech 4: Dental -->
+                        <div class="flex flex-col gap-4 border-b border-gray-100 pb-8">
+                            <div class="h-64 rounded-lg overflow-hidden group shadow-md">
+                                <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" alt="Dental">
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <i class="fas fa-smile text-blue-500"></i>
+                                    <h4 class="text-xl font-bold text-gray-800">歯科: TRIOS4 (3Shape) & CEREC</h4>
+                                </div>
+                                <p class="text-gray-500 text-sm leading-relaxed text-justify">
+                                    高速3Dスキャナ「TRIOS4」で歯型を瞬時にデジタル化し、う蝕検知機能で虫歯を判定。治療が必要な場合は、院内で「CEREC Primemill」を使用し、セラミックを削り出して即日治療を完結させることも可能です。
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Tech 5: Echo -->
+                        <div class="flex flex-col gap-4 border-b border-gray-100 pb-8 md:border-b-0">
+                            <div class="h-64 rounded-lg overflow-hidden group shadow-md">
+                                <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" alt="Echo">
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <i class="fas fa-heartbeat text-orange-500"></i>
+                                    <h4 class="text-xl font-bold text-gray-800">超音波: Aplio i-700 / ARIETTA850</h4>
+                                </div>
+                                <p class="text-gray-500 text-sm leading-relaxed text-justify">
+                                    CanonおよびFUJIFILMの高グレード装置を導入。甲状腺・乳腺・心臓・腹部など部位に合わせた高精細画像を描出。ARIETTA850はDeepInsight技術（AI）を搭載し、ノイズを除去したクリアな画像で診断を支えます。
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Tech 6: Mammo -->
+                        <div class="flex flex-col gap-4 md:border-b-0">
+                            <div class="h-64 rounded-lg overflow-hidden group shadow-md">
+                                <img src="https://images.unsplash.com/photo-1579684453423-f84349ef60b0?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" alt="Mammo">
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <i class="fas fa-venus text-pink-500"></i>
+                                    <h4 class="text-xl font-bold text-gray-800">マンモグラフィ: AMULET SOPHINITY</h4>
+                                </div>
+                                <p class="text-gray-500 text-sm leading-relaxed text-justify">
+                                    AI技術によるワークフロー向上を実現した最新鋭3Dマンモグラフィ。断層画像を作成するトモシンセシス機能を搭載。圧迫自動減圧制御機能「なごむね」や、体にフィットする形状設計により、検査時の痛みと窮屈さを軽減します。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="font-mono text-sm text-gray-300 mb-6 bg-gray-900 p-4 rounded">
-                    "你好，我们要去大阪做精密体检，2人，住丽思卡尔顿，之后去京都打一场高尔夫，请报价..."
+
+                <!-- Experience -->
+                <div class="mb-24 bg-gray-900 text-white rounded-3xl p-10 md:p-16 relative overflow-hidden">
+                     <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png')"></div>
+                     <div class="relative z-10 text-center mb-12">
+                         <h3 class="text-3xl font-serif">如同度假般的体检之旅</h3>
+                         <p class="text-gray-400 mt-2 text-sm">Experience the Flow</p>
+                     </div>
+                     
+                     <div class="relative z-10 grid grid-cols-1 md:grid-cols-5 gap-6 text-center">
+                        <div class="bg-white/5 p-6 rounded-xl border border-white/10 hover:bg-white/10 transition group">
+                            <div class="text-blue-400 font-mono text-xl mb-4 opacity-50">01</div>
+                            <div class="flex justify-center mb-4 text-white opacity-80 group-hover:scale-110 transition"><i class="fas fa-building text-2xl"></i></div>
+                            <h4 class="font-bold text-lg mb-2">抵达</h4>
+                            <p class="text-xs text-gray-400 leading-relaxed">专车直达 JP Tower，进入如同安缦酒店般的静谧大厅。</p>
+                         </div>
+                         <div class="bg-white/5 p-6 rounded-xl border border-white/10 hover:bg-white/10 transition group">
+                            <div class="text-blue-400 font-mono text-xl mb-4 opacity-50">02</div>
+                            <div class="flex justify-center mb-4 text-white opacity-80 group-hover:scale-110 transition"><i class="fas fa-couch text-2xl"></i></div>
+                            <h4 class="font-bold text-lg mb-2">专属个室</h4>
+                            <p class="text-xs text-gray-400 leading-relaxed">换上舒适的检查服，在您的私人包间内接受问诊。</p>
+                         </div>
+                         <div class="bg-white/5 p-6 rounded-xl border border-white/10 hover:bg-white/10 transition group">
+                            <div class="text-blue-400 font-mono text-xl mb-4 opacity-50">03</div>
+                            <div class="flex justify-center mb-4 text-white opacity-80 group-hover:scale-110 transition"><i class="fas fa-heartbeat text-2xl"></i></div>
+                            <h4 class="font-bold text-lg mb-2">精密检查</h4>
+                            <p class="text-xs text-gray-400 leading-relaxed">导医全程陪同，单向流线设计，高效完成 PET-CT 等检查。</p>
+                         </div>
+                         <div class="bg-white/5 p-6 rounded-xl border border-white/10 hover:bg-white/10 transition group">
+                            <div class="text-blue-400 font-mono text-xl mb-4 opacity-50">04</div>
+                            <div class="flex justify-center mb-4 text-white opacity-80 group-hover:scale-110 transition"><i class="fas fa-file-medical-alt text-2xl"></i></div>
+                            <h4 class="font-bold text-lg mb-2">结果说明</h4>
+                            <p class="text-xs text-gray-400 leading-relaxed">院长级医生在私密诊室内，一对一解读身体状况。</p>
+                         </div>
+                         <div class="bg-white/5 p-6 rounded-xl border border-white/10 hover:bg-white/10 transition group">
+                            <div class="text-blue-400 font-mono text-xl mb-4 opacity-50">05</div>
+                            <div class="flex justify-center mb-4 text-white opacity-80 group-hover:scale-110 transition"><i class="fas fa-coffee text-2xl"></i></div>
+                            <h4 class="font-bold text-lg mb-2">膳食/疗愈</h4>
+                            <p class="text-xs text-gray-400 leading-relaxed">享受特制养生膳食，或由专车接送至有马温泉。</p>
+                         </div>
+                     </div>
                 </div>
-                <button class="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded font-bold transition">
-                    <i class="fas fa-magic mr-2"></i> 生成 B2B 净价方案
-                </button>
+
+                <!-- Packages -->
+                <div class="mb-24">
+                    <div class="text-center mb-16">
+                        <h3 class="text-3xl font-serif text-gray-900">B2B 专属甄选套餐</h3>
+                        <p class="text-gray-500 text-sm mt-2">Recommended Courses</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                        <!-- Premium -->
+                        <div class="border border-gray-200 rounded-2xl p-8 hover:shadow-xl transition hover:-translate-y-1 relative overflow-hidden bg-gradient-to-br from-gray-50 to-white">
+                            <div class="absolute top-0 right-0 bg-gray-900 text-white text-xs font-bold px-4 py-1 rounded-bl-lg">旗舰方案</div>
+                            <h4 class="text-2xl font-serif font-bold text-gray-900 mb-2">Premium PET-CT 全身精密筛查</h4>
+                            <p class="text-sm text-gray-500 mb-6 italic">追求极致安心、有癌症家族史的高净值人群。</p>
+                            <div class="space-y-3 mb-8">
+                                <div class="flex items-center gap-2 text-sm text-gray-700"><i class="fas fa-check-circle text-blue-600"></i> 全身 PET-CT</div>
+                                <div class="flex items-center gap-2 text-sm text-gray-700"><i class="fas fa-check-circle text-blue-600"></i> 脑部 MRI/MRA</div>
+                                <div class="flex items-center gap-2 text-sm text-gray-700"><i class="fas fa-check-circle text-blue-600"></i> 肿瘤标志物</div>
+                                <div class="flex items-center gap-2 text-sm text-gray-700"><i class="fas fa-check-circle text-blue-600"></i> 胃/大肠内视镜（无痛）</div>
+                                <div class="flex items-center gap-2 text-sm text-gray-700"><i class="fas fa-check-circle text-blue-600"></i> 基础生化检查</div>
+                            </div>
+                        </div>
+
+                        <!-- Standard -->
+                        <div class="border border-gray-200 rounded-2xl p-8 hover:shadow-xl transition hover:-translate-y-1 bg-white">
+                             <h4 class="text-2xl font-serif font-bold text-gray-900 mb-2">Standard PET-CT 防癌筛查</h4>
+                            <p class="text-sm text-gray-500 mb-6 italic">商务考察行程紧凑、主要关注癌症风险的精英人士。</p>
+                            <div class="space-y-3 mb-8">
+                                <div class="flex items-center gap-2 text-sm text-gray-700"><i class="fas fa-check-circle text-gray-400"></i> 全身 PET-CT</div>
+                                <div class="flex items-center gap-2 text-sm text-gray-700"><i class="fas fa-check-circle text-gray-400"></i> 肿瘤标志物</div>
+                                <div class="flex items-center gap-2 text-sm text-gray-700"><i class="fas fa-check-circle text-gray-400"></i> 基础生化检查</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA -->
+                <div class="bg-blue-600 rounded-3xl p-12 text-center text-white shadow-2xl shadow-blue-200">
+                    <h3 class="text-3xl md:text-4xl font-serif mb-6">新岛交通 × TIMC 官方直连</h3>
+                    <p class="text-blue-100 max-w-2xl mx-auto mb-10 leading-relaxed">
+                        无需繁琐的日语沟通，无需漫长的排队等待。<br>
+                        通过新岛 AI 系统，一键获取包含“体检+翻译+交通+住宿”的 B2B 打包净价。
+                    </p>
+                    <a href="#ai-b2b" class="bg-white text-blue-800 font-bold px-10 py-4 rounded-full hover:bg-gray-100 transition shadow-lg inline-flex items-center gap-2">
+                        <i class="fas fa-bolt"></i> 立即生成 TIMC 报价单
+                    </a>
+                </div>
+
             </div>
-        </div>
-    </section>
-
-    <section id="about" class="py-24 bg-white">
-        <div class="container mx-auto px-6 max-w-4xl text-center">
-            <h3 class="text-2xl font-serif mb-12 tracking-widest">会社概要</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left text-sm text-gray-600 border-t border-gray-100 pt-10">
-                <div class="space-y-4">
-                    <p><strong class="text-black w-24 inline-block">社名</strong> 新島交通株式会社</p>
-                    <p><strong class="text-black w-24 inline-block">代表者</strong> 員昊 (Yun Hao)</p>
-                    <p><strong class="text-black w-24 inline-block">設立</strong> 2020年（令和2年）2月</p>
+        </section>
+    
+        <section id="business" class="py-24 bg-[#F5F5F7]">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row-reverse gap-16 items-center mb-24">
+                    <div class="md:w-1/2 image-card shadow-lg rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" alt="Business Meeting in Osaka" class="w-full h-[450px] object-cover grayscale hover:grayscale-0 transition duration-700">
+                    </div>
+                    <div class="md:w-1/2 space-y-8 text-right md:text-left">
+                        <div class="flex flex-col md:items-start items-end">
+                            <span class="text-purple-500 text-xs tracking-widest uppercase font-bold">Business & Insights</span>
+                            <h2 class="text-4xl font-serif text-gray-900 mt-4">商业洞察与连接</h2>
+                        </div>
+                        <p class="text-gray-500 leading-8 font-light">
+                            不仅仅是安排会议室。我们深入日本关西产业带，为您链接制造业、养老产业及科技企业的参访机会。
+                            从公务签证函协助到商务晚宴安排，体现专业地接的深度。
+                        </p>
+                    </div>
                 </div>
-                <div class="space-y-4">
-                    <p><strong class="text-black w-24 inline-block">登録免許</strong> 大阪府知事登録旅行業第2-3115号</p>
-                    <p><strong class="text-black w-24 inline-block">所在地</strong> 大阪市浪速区大国1-2-21-602</p>
-                    <p><strong class="text-black w-24 inline-block">主要提携</strong> TIMC / Booking.com / Agoda</p>
+    
+                <div class="max-w-6xl mx-auto">
+                    <!-- Themes -->
+                    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-xl p-8 md:p-12 mb-20 relative z-20">
+                        <h3 class="text-2xl font-serif mb-8 text-center border-b pb-4">提供可能な視察テーマ</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div class="text-center group">
+                                <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-100 transition">
+                                    <i class="fas fa-building text-blue-600 text-2xl"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-800 mb-2">先端製造業</h4>
+                                <p class="text-xs text-gray-500 leading-relaxed">
+                                キーエンス、ダイキン工業などの工場見学や企業ミュージアム訪問。リーン生産方式の現場視察。
+                                </p>
+                            </div>
+                            <div class="text-center group">
+                                <div class="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-100 transition">
+                                    <i class="fas fa-heartbeat text-green-600 text-2xl"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-800 mb-2">介護・福祉</h4>
+                                <p class="text-xs text-gray-500 leading-relaxed">
+                                日本の先進的な高齢者施設や、介護ロボット導入現場の視察。運営ノウハウのレクチャー。
+                                </p>
+                            </div>
+                            <div class="text-center group">
+                                <div class="w-16 h-16 bg-purple-50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-100 transition">
+                                    <i class="fas fa-map-marker-alt text-purple-600 text-2xl"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-800 mb-2">不動産投資</h4>
+                                <p class="text-xs text-gray-500 leading-relaxed">
+                                大阪万博(2025)を見据えたエリア開発視察。タワーマンションや京町家のリノベーション物件案内。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Process Flow -->
+                    <div class="text-center mb-16">
+                        <h3 class="text-2xl font-serif text-gray-900">新島流・商务考察服务流程</h3>
+                        <p class="text-gray-500 text-sm mt-4">从需求构想到落地执行的专业闭环</p>
+                    </div>
+    
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-8 relative px-4 md:px-0">
+                        
+                        <div class="process-step process-line text-center md:text-left z-10">
+                            <div class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold mb-6 mx-auto md:mx-0 shadow-lg relative z-10">1</div>
+                            <h4 class="text-lg font-bold mb-3 text-gray-800">咨询与立项</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                                <span class="text-blue-600 font-bold">AI 初步构想：</span><br>
+                                组团社通过 AI 系统提交模糊需求（如：关西养老产业考察，20人，6月）。系统快速生成初步框架方案与预算范围。
+                            </p>
+                        </div>
+    
+                        <div class="process-step process-line text-center md:text-left z-10">
+                            <div class="w-12 h-12 bg-white border-2 border-blue-600 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mb-6 mx-auto md:mx-0 shadow-lg relative z-10">2</div>
+                            <h4 class="text-lg font-bold mb-3 text-gray-800">资源匹配与策划</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                                <span class="text-blue-600 font-bold">深度定制：</span><br>
+                                新岛 OP 团队介入。根据客户行业，匹配对口的日本企业、政府机构进行参访联络。设计参访路线与交流议程。
+                            </p>
+                        </div>
+    
+                        <div class="process-step process-line text-center md:text-left z-10">
+                            <div class="w-12 h-12 bg-white border-2 border-blue-600 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mb-6 mx-auto md:mx-0 shadow-lg relative z-10">3</div>
+                            <h4 class="text-lg font-bold mb-3 text-gray-800">发函与签证协助</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                                <span class="text-blue-600 font-bold">官方背书：</span><br>
+                                作为日本第二类旅行社，协助出具符合日本外务省要求的【招聘理由书】及【身元保证书】，助力商务签证顺利出签。
+                            </p>
+                        </div>
+    
+                        <div class="process-step process-line text-center md:text-left z-10">
+                            <div class="w-12 h-12 bg-white border-2 border-blue-600 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mb-6 mx-auto md:mx-0 shadow-lg relative z-10">4</div>
+                            <h4 class="text-lg font-bold mb-3 text-gray-800">精细化执行</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                                <span class="text-blue-600 font-bold">现场管理：</span><br>
+                                安排资深商务翻译、合规车辆。新岛督导全程陪同，确保参访流程顺畅，妥善处理突发状况。
+                            </p>
+                        </div>
+    
+                        <div class="process-step text-center md:text-left z-10">
+                            <div class="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center text-xl font-bold mb-6 mx-auto md:mx-0 shadow-lg relative z-10"><i class="fas fa-check"></i></div>
+                            <h4 class="text-lg font-bold mb-3 text-gray-800">结案与反馈</h4>
+                            <p class="text-xs text-gray-500 leading-relaxed bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                                <span class="text-green-600 font-bold">价值延伸：</span><br>
+                                考察结束后提供活动回顾报告。协助组团社与日方企业建立后续联络渠道，促进实质性商业合作。
+                            </p>
+                        </div>
+    
+                    </div>
+
+                    <div class="mt-16 text-center">
+                        <h3 class="text-xl font-bold text-gray-800 mb-6">サポート体制</h3>
+                        <div class="flex flex-wrap justify-center gap-4">
+                           <span class="px-4 py-2 bg-white rounded shadow text-sm text-gray-600">招へい理由書作成 (公務ビザ)</span>
+                           <span class="px-4 py-2 bg-white rounded shadow text-sm text-gray-600">専門通訳手配 (逐次/同時)</span>
+                           <span class="px-4 py-2 bg-white rounded shadow text-sm text-gray-600">会食セッティング</span>
+                           <span class="px-4 py-2 bg-white rounded shadow text-sm text-gray-600">専用車手配 (Alphard/Hiace)</span>
+                        </div>
+                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    
+        <section id="ai-b2b" class="py-24 bg-gray-50 border-t border-gray-200">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <span class="gemini-text font-bold text-sm tracking-widest uppercase">For Partners</span>
+                    <h2 class="text-3xl md:text-4xl font-serif mt-3 mb-4">AI 智能报价演示</h2>
+                    <p class="text-gray-500">输入自然语言，系统将自动调取 TIMC 协议价并叠加 20% 服务利润。</p>
+                </div>
+                <div class="max-w-6xl mx-auto flex flex-col md:flex-row bg-white rounded-xl shadow-2xl overflow-hidden">
+                    <div class="md:w-1/2 p-10 bg-gray-100 border-r border-gray-200">
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Paste Request Here</label>
+                        <div class="bg-white p-6 rounded border border-gray-300 text-sm text-gray-600 font-mono leading-relaxed h-64">"你好，我是雄狮旅游。<br><br>有个高端团，夫妇2人，想要做 <strong>TIMC 的全身精密体检 (PET-CTコース)</strong>。<br><br>日期：11月20日。<br>之后安排3天京都行程，要住安缦，全程阿尔法保姆车。<br>请报个总价 (含服务费)。"</div>
+                        <button class="mt-6 w-full py-4 bg-gray-900 text-white font-bold rounded hover:bg-blue-600 transition flex items-center justify-center gap-2"><i class="fas fa-magic"></i> 生成 B2B 报价单</button>
+                    </div>
+                    <div class="md:w-1/2 p-10 relative">
+                        <div class="absolute top-0 right-0 p-4 opacity-5"><i class="fas fa-robot text-8xl"></i></div>
+                        <div class="space-y-6">
+                            <div class="flex justify-between items-center pb-4 border-b border-gray-100">
+                                <div class="flex items-start gap-3"><div class="w-8 h-8 rounded bg-blue-100 text-blue-600 flex items-center justify-center text-xs"><i class="fas fa-hospital"></i></div><div><p class="text-sm font-bold text-gray-800">TIMC 人間ドック (Premium PET-CT)</p><p class="text-xs text-gray-400">2名様 / 全室個室利用 / 胃・大腸カメラ含</p></div></div>
+                                <div class="text-right"><p class="text-sm font-bold text-gray-800">¥ 880,000</p><p class="text-[10px] text-green-600 bg-green-50 px-1 rounded inline-block">已含20%服务费</p></div>
+                            </div>
+                            <div class="flex justify-between items-center pb-4 border-b border-gray-100">
+                                <div class="flex items-start gap-3"><div class="w-8 h-8 rounded bg-purple-100 text-purple-600 flex items-center justify-center text-xs"><i class="fas fa-hotel"></i></div><div><p class="text-sm font-bold text-gray-800">Aman Kyoto (Susuki Room)</p><p class="text-xs text-gray-400">2泊 / 朝食付 / OTA Price Match</p></div></div>
+                                <div class="text-right"><p class="text-sm font-bold text-gray-800">¥ 640,000</p></div>
+                            </div>
+                            <div class="flex justify-between items-center pb-4 border-b border-gray-100">
+                                <div class="flex items-start gap-3"><div class="w-8 h-8 rounded bg-gray-100 text-gray-600 flex items-center justify-center text-xs"><i class="fas fa-car"></i></div><div><p class="text-sm font-bold text-gray-800">Alphard Executive Lounge</p><p class="text-xs text-gray-400">4日間 / 専属ドライバー</p></div></div>
+                                <div class="text-right"><p class="text-sm font-bold text-gray-800">¥ 360,000</p></div>
+                            </div>
+                            <div class="mt-8 bg-gray-50 p-6 rounded-lg border border-blue-100">
+                                <div class="flex justify-between items-end"><span class="text-sm text-gray-500">TOTAL ESTIMATE (Tax inc.)</span><span class="text-3xl font-serif font-bold text-blue-900">¥ 1,880,000</span></div>
+                                <div class="mt-2 text-right"><span class="text-xs text-gray-400">报价有效期：7天 | 汇率参考: 0.21</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <footer class="bg-white border-t border-gray-100 py-12 text-center text-xs text-gray-400">
-        <p class="mb-2">Powered by Google Gemini AI & GitHub Pages</p>
-        <p>&copy; 2025 Shinjima Kotsu Co., Ltd. All Rights Reserved.</p>
-    </footer>
+        <!-- Founder Section (Static Preview) -->
+        <section class="py-24 bg-white border-t border-gray-100">
+            <div class="container mx-auto px-6">
+               <div class="flex flex-col md:flex-row items-center gap-16">
+                  <div class="md:w-1/3">
+                     <div class="relative">
+                        <div class="absolute inset-0 bg-blue-100 transform translate-x-4 translate-y-4 rounded-xl"></div>
+                        <img 
+                           src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1287&auto=format&fit=crop" 
+                           alt="Founder Portrait" 
+                           class="relative rounded-xl shadow-lg w-full object-cover h-[400px]"
+                        />
+                     </div>
+                  </div>
+                  <div class="md:w-2/3">
+                     <span class="text-blue-600 font-bold tracking-widest uppercase text-xs">創業者メッセージ</span>
+                     <h2 class="text-4xl font-serif text-gray-900 mt-4 mb-6">敬天愛人 - 利他の心</h2>
+                     <div class="relative mb-8">
+                        <i class="fas fa-quote-left absolute -top-4 -left-6 text-gray-100 text-6xl"></i>
+                        <p class="text-gray-600 leading-relaxed relative z-10 text-xl italic font-serif pl-4 border-l-4 border-blue-500">
+                           "人生・仕事の結果 ＝ 考え方 × 熱意 × 能力"
+                        </p>
+                     </div>
+                     <p class="text-gray-500 leading-relaxed text-sm whitespace-pre-line">
+                        私は稲盛和夫氏の経営哲学、「敬天愛人（常に公明正大で謙虚な心を持ち、天を敬い人を愛すること）」を深く信仰しております。
 
-</body>
+                        医療ツーリズムやビジネス視察は、単なる移動や観光ではありません。それは、お客様の人生の質を高め、ビジネスの未来を拓く、極めて尊い行為です。私たちは「利他の心」を判断基準の中心に据え、お客様、パートナー様、そして社会全体にとって善きことは何かを常に問い続けます。
+
+                        新島交通は、心の通ったおもてなしと最新のテクノロジーを融合させ、皆様に感動と安心をお届けすることをお約束します。
+                     </p>
+                     <div class="mt-8 pt-8 border-t border-gray-100">
+                        <p class="font-bold text-gray-900 text-lg">員昊 (Yun Hao)</p>
+                        <p class="text-gray-400 text-sm">代表取締役 / Founder & CEO</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+    
+        <section id="about" class="py-24 bg-[#FAFAFA]">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <h3 class="text-2xl font-serif mb-12 text-center tracking-widest">会社概要</h3>
+                <div class="border-t border-gray-200 text-sm">
+                    <dl class="flex flex-col md:flex-row py-5 border-b border-gray-100 hover:bg-gray-50 transition px-4"><dt class="w-48 font-bold text-gray-400">社名</dt><dd class="flex-1 text-gray-800 font-medium">新島交通株式会社</dd></dl>
+                    <dl class="flex flex-col md:flex-row py-5 border-b border-gray-100 hover:bg-gray-50 transition px-4"><dt class="w-48 font-bold text-gray-400">代表取締役</dt><dd class="flex-1 text-gray-800">員昊 (Yun Hao)</dd></dl>
+                    <dl class="flex flex-col md:flex-row py-5 border-b border-gray-100 hover:bg-gray-50 transition px-4"><dt class="w-48 font-bold text-gray-400">所在地</dt><dd class="flex-1 text-gray-800">〒556-0014 大阪府大阪市浪速区大国1-2-21-602</dd></dl>
+                    <dl class="flex flex-col md:flex-row py-5 border-b border-gray-100 hover:bg-gray-50 transition px-4"><dt class="w-48 font-bold text-gray-400">登録免許</dt><dd class="flex-1 text-gray-800">大阪府知事登録旅行業第2-3115号</dd></dl>
+                    <dl class="flex flex-col md:flex-row py-5 border-b border-gray-100 hover:bg-gray-50 transition px-4"><dt class="w-48 font-bold text-gray-400">主要提携先</dt><dd class="flex-1 text-gray-800">TIMC 大阪中央高級医療センター (Tokushukai Group)<br>Booking.com / Agoda Partner Network</dd></dl>
+                </div>
+            </div>
+        </section>
+    
+        <footer class="bg-[#111] text-white py-12">
+            <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <p>&copy; 2025 Shinjima Kotsu Co., Ltd. All Rights Reserved.</p>
+                <div class="flex gap-4 mt-4 md:mt-0"><span>Authorized by Osaka Prefecture</span><span>Powered by Gemini AI</span></div>
+            </div>
+        </footer>
+
+    </div>
+    
+    <!-- CRITICAL FIX: Entry point for the React Application -->
+    <script type="module" src="./index.tsx"></script>
+  </body>
 </html>
