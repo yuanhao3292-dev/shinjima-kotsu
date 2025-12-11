@@ -77,6 +77,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
 
         <div className="hidden md:flex items-center space-x-8 lg:space-x-12 text-sm font-medium text-gray-600 tracking-wider">
           <button onClick={() => setCurrentPage('medical')} className={`transition hover:text-black ${currentPage === 'medical' ? 'text-blue-600 font-bold' : ''}`}>{t.nav.timc}</button>
+          
+          {/* Golf Entry - Links to external static file */}
+          <a href="golf.html" className="transition hover:text-green-700 flex items-center gap-1 group">
+            <Activity size={14} className="text-green-600 group-hover:animate-bounce" />
+            {t.nav.golf}
+          </a>
+
           <button onClick={() => setCurrentPage('business')} className={`transition hover:text-black ${currentPage === 'business' ? 'text-blue-600 font-bold' : ''}`}>{t.nav.business}</button>
           <button onClick={() => { setCurrentPage('home'); setTimeout(() => document.getElementById('ai-b2b')?.scrollIntoView({behavior: 'smooth'}), 100); }} className="gemini-text font-bold relative group">
             {t.nav.ai}
