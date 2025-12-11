@@ -5,119 +5,214 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>新島交通株式会社 | SHINJIMA KOTSU</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Shippori+Mincho:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Shippori+Mincho:wght@400;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- 核心风格定义: Future Zen (未来禅意) --- */
+        /* --- Future Zen 极简纯白风格 --- */
         body {
             font-family: 'Noto Sans JP', sans-serif;
-            background-color: #FFFFFF; /* 纯白背景 */
-            color: #333333;
+            background-color: #FFFFFF;
+            color: #333;
+            overflow-x: hidden;
         }
-        
-        /* 标题专用衬线体 */
-        h1, h2, h3, .serif {
-            font-family: 'Shippori Mincho', serif;
-        }
+        h1, h2, h3, .serif { font-family: 'Shippori Mincho', serif; }
 
-        /* 导航栏链接样式 */
-        .nav-item {
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: #666;
-            transition: color 0.3s;
-            letter-spacing: 0.05em;
-        }
-        .nav-item:hover {
-            color: #000;
-        }
-        
-        /* AI B2B 特效字 */
-        .ai-text {
-            background: linear-gradient(90deg, #4E8cFF, #9B8cFF);
+        /* 导航栏链接动效 */
+        .nav-link { color: #666; font-size: 0.85rem; font-weight: 500; transition: color 0.3s; }
+        .nav-link:hover { color: #000; }
+
+        /* AI 文字渐变 */
+        .gemini-text {
+            background: linear-gradient(90deg, #4E8cFF 0%, #9B8cFF 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 700;
         }
 
-        /* 按钮样式 */
-        .btn-outline {
-            border: 1px solid #E5E7EB;
-            padding: 8px 24px;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            transition: all 0.3s;
+        /* 按钮风格 */
+        .btn-black {
+            background-color: #000; color: #fff; padding: 10px 30px; border-radius: 999px;
+            font-size: 0.8rem; font-weight: 600; transition: all 0.3s;
         }
-        .btn-outline:hover {
-            border-color: #000;
-            background-color: #000;
-            color: #fff;
-        }
+        .btn-black:hover { background-color: #333; transform: translateY(-2px); }
 
-        /* 极简淡入动画 */
-        .fade-in { animation: fadeIn 1.2s ease-out forwards; opacity: 0; transform: translateY(10px); }
-        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+        .btn-outline {
+            border: 1px solid #E5E7EB; padding: 8px 24px; border-radius: 999px;
+            font-size: 0.75rem; font-weight: 600; transition: all 0.3s;
+        }
+        .btn-outline:hover { border-color: #000; background: #000; color: #fff; }
+
+        /* 淡入动画 */
+        .fade-in-up { animation: fadeInUp 1s ease-out forwards; opacity: 0; transform: translateY(20px); }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="antialiased">
 
-    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-sm">
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur border-b border-gray-100">
         <div class="container mx-auto px-6 h-20 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-3">
                 <div class="font-serif text-2xl font-bold tracking-widest text-black">
                     新 <span class="text-sm font-sans font-normal tracking-normal ml-1">SHINJIMA</span>
                 </div>
                 <div class="h-4 w-[1px] bg-gray-300 mx-2"></div>
-                <span class="text-[10px] text-gray-400 uppercase tracking-widest">新島交通株式会社</span>
+                <span class="text-[10px] text-gray-400 uppercase tracking-widest hidden md:inline">大阪府知事登録第2-3115号</span>
             </a>
 
             <div class="hidden md:flex items-center space-x-8">
-                <a href="timc.html" class="nav-item">TIMC 特別提携</a>
-                <a href="golf.html" class="nav-item flex items-center gap-1">
+                <a href="timc.html" class="nav-link">TIMC 特別提携</a>
+                <a href="golf.html" class="nav-link flex items-center gap-1">
                     <i class="fas fa-leaf text-green-600 text-xs"></i> 名門ゴルフ
                 </a>
-                <a href="#business" class="nav-item">商務考察</a>
-                <a href="#ai-b2b" class="nav-item ai-text">AI B2B システム</a>
-                <a href="#about" class="nav-item">会社概要</a>
+                <a href="#business" class="nav-link">商務考察</a>
+                <a href="#ai-b2b" class="nav-link gemini-text">AI B2B システム</a>
+                <a href="#about" class="nav-link">会社概要</a>
                 
-                <div class="flex items-center gap-1 text-xs text-gray-500 cursor-pointer hover:text-black ml-4">
+                <div class="flex items-center gap-1 text-xs text-gray-500 cursor-pointer hover:text-black ml-4 border-l pl-4">
                     <i class="fas fa-globe"></i> JA <i class="fas fa-chevron-down text-[10px]"></i>
                 </div>
             </div>
 
-            <a href="#" class="btn-outline hidden md:block">
-                パートナーログイン
-            </a>
+            <a href="#" class="btn-outline hidden md:block">パートナーログイン</a>
         </div>
     </nav>
 
-    <main class="relative w-full h-screen flex flex-col items-center justify-center text-center px-4 pt-10">
-        <div class="fade-in">
-            <p class="text-[10px] md:text-xs tracking-[0.3em] uppercase text-gray-400 mb-8 font-medium">
+    <header class="relative w-full h-screen flex flex-col items-center justify-center text-center px-4 pt-10">
+        <div class="fade-in-up max-w-4xl">
+            <p class="text-[10px] md:text-xs tracking-[0.3em] uppercase text-gray-400 mb-6 font-medium">
                 OFFICIAL PARTNER OF TIMC & TOKUSHUKAI GROUP
             </p>
             
-            <h1 class="text-5xl md:text-7xl font-serif text-gray-900 leading-tight mb-8">
+            <h1 class="text-5xl md:text-8xl font-serif text-gray-900 leading-tight mb-8">
                 静寂と、<br>
-                <span class="italic text-gray-400 font-light">最先端</span>の境目で。
+                <span class="italic text-gray-300 font-light">最先端</span>の境目で。
             </h1>
             
-            <p class="text-gray-500 text-sm leading-loose max-w-xl mx-auto mb-12 font-light">
+            <p class="text-gray-500 text-sm leading-loose max-w-xl mx-auto mb-10 font-light">
                 新島交通は、日本最大の医療グループ「徳洲会」と提携し、<br>
                 TIMC 大阪中央高級医療センターへのVIPアクセスを提供します。<br>
                 最高峰の人間ドック・癒やしの旅・ビジネス視察。
             </p>
             
-            <div class="flex justify-center gap-8 items-center">
-                <a href="timc.html" class="text-sm border-b border-gray-300 pb-1 hover:border-black hover:text-black transition text-gray-500">
-                    探索 <i class="fas fa-arrow-right ml-1 text-xs"></i>
+            <div class="flex justify-center gap-6">
+                <a href="timc.html" class="btn-black">
+                    探索 TIMC 资源
+                </a>
+                <a href="#ai-b2b" class="px-6 py-2 text-sm font-bold border-b border-gray-200 hover:border-black transition">
+                    试用 AI 报价 <i class="fas fa-arrow-right ml-2 text-xs"></i>
                 </a>
             </div>
         </div>
-    </main>
+    </header>
 
-    </body>
+    <section class="py-24 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-blue-500 text-xs tracking-widest uppercase font-bold">World-Class Technology</span>
+                <h2 class="text-3xl font-serif mt-4">早期発見のための「目」</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-10 rounded-xl hover:shadow-xl transition duration-500">
+                    <i class="fas fa-dna text-3xl text-blue-500 mb-6"></i>
+                    <h3 class="text-xl font-bold mb-3">Discovery PET/CT</h3>
+                    <p class="text-gray-500 text-xs leading-relaxed">
+                        GE Healthcare 最新半導体技術。<br>
+                        捕捉毫米级微小癌细胞，大幅降低辐射剂量。
+                    </p>
+                </div>
+                <div class="bg-white p-10 rounded-xl hover:shadow-xl transition duration-500">
+                    <i class="fas fa-brain text-3xl text-purple-500 mb-6"></i>
+                    <h3 class="text-xl font-bold mb-3">3.0T Silent MRI</h3>
+                    <p class="text-gray-500 text-xs leading-relaxed">
+                        极度安静的脑部精密检查。<br>
+                        清晰呈现微小脑动脉瘤，预防脑卒中风险。
+                    </p>
+                </div>
+                <div class="bg-white p-10 rounded-xl hover:shadow-xl transition duration-500">
+                    <i class="fas fa-microscope text-3xl text-green-500 mb-6"></i>
+                    <h3 class="text-xl font-bold mb-3">NBI 内視鏡</h3>
+                    <p class="text-gray-500 text-xs leading-relaxed">
+                        Olympus 窄带成像技术。<br>
+                        配合镇静剂，在睡梦中完成无痛胃肠癌筛查。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="business" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row gap-16 items-center">
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=2070" 
+                         class="w-full h-[500px] object-cover rounded-lg shadow-2xl grayscale hover:grayscale-0 transition duration-700">
+                </div>
+                <div class="md:w-1/2 space-y-8">
+                    <span class="text-gray-400 text-xs tracking-widest uppercase font-bold">Business & Leisure</span>
+                    <h2 class="text-4xl font-serif">商业洞察与名门挥杆</h2>
+                    <p class="text-gray-500 leading-8 font-light">
+                        不仅仅是安排会议室。我们深入日本关西产业带，为您链接制造业、养老产业及科技企业的参访机会。<br><br>
+                        工作之余，通过我们的会员渠道，直达兵库县“名门高尔夫球场”，体验不对外开放的顶级球道。
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="golf.html" class="btn-outline">查看高尔夫行程</a>
+                        <a href="#ai-b2b" class="btn-outline">定制商务考察</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ai-b2b" class="py-32 bg-gray-900 text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-blue-900/30 to-transparent"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <span class="gemini-text font-bold text-sm tracking-widest uppercase">For Travel Agencies</span>
+            <h2 class="text-4xl md:text-5xl font-serif mt-4 mb-6">AI 智能报价系统</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto font-light mb-12">
+                将繁琐留给 AI。专为台湾同业打造，支持自然语言识别行程。<br>
+                "粘贴微信/LINE聊天记录，3秒生成专业报价单"
+            </p>
+            
+            <div class="max-w-3xl mx-auto bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-2xl text-left">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    <span class="text-xs text-gray-500 ml-2">Input</span>
+                </div>
+                <div class="font-mono text-sm text-gray-300 mb-6 bg-gray-900 p-4 rounded">
+                    "你好，我们要去大阪做精密体检，2人，住丽思卡尔顿，之后去京都打一场高尔夫，请报价..."
+                </div>
+                <button class="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded font-bold transition">
+                    <i class="fas fa-magic mr-2"></i> 生成 B2B 净价方案
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-4xl text-center">
+            <h3 class="text-2xl font-serif mb-12 tracking-widest">会社概要</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left text-sm text-gray-600 border-t border-gray-100 pt-10">
+                <div class="space-y-4">
+                    <p><strong class="text-black w-24 inline-block">社名</strong> 新島交通株式会社</p>
+                    <p><strong class="text-black w-24 inline-block">代表者</strong> 員昊 (Yun Hao)</p>
+                    <p><strong class="text-black w-24 inline-block">設立</strong> 2020年（令和2年）2月</p>
+                </div>
+                <div class="space-y-4">
+                    <p><strong class="text-black w-24 inline-block">登録免許</strong> 大阪府知事登録旅行業第2-3115号</p>
+                    <p><strong class="text-black w-24 inline-block">所在地</strong> 大阪市浪速区大国1-2-21-602</p>
+                    <p><strong class="text-black w-24 inline-block">主要提携</strong> TIMC / Booking.com / Agoda</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-gray-100 py-12 text-center text-xs text-gray-400">
+        <p class="mb-2">Powered by Google Gemini AI & GitHub Pages</p>
+        <p>&copy; 2025 Shinjima Kotsu Co., Ltd. All Rights Reserved.</p>
+    </footer>
+
+</body>
 </html>
