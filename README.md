@@ -1,34 +1,18 @@
 # 新島交通 B2B Portal (SHINJIMA)
 
-## 📸 图片素材设置指南 (Image Assets)
+## 📸 预览说明 (Preview on GitHub)
 
-本项目支持本地图片加载，若图片缺失将自动降级显示 Unsplash 网络图。
-为了在 GitHub 或生产环境中显示定制化品牌图片，请在项目根目录创建 `images/` 文件夹，并上传以下文件：
+本项目采用了 **"Hybrid Static Preview"** 架构。
 
-### 必须上传的文件清单 (文件名区分大小写)
+*   **即使不运行 React 构建**：您也可以直接打开 `index.html` (或通过 GitHub Pages) 看到完整的静态落地页效果，包含所有精美的 Unsplash 图片和 CSS 动画。这是通过在 `index.html` 中预置静态内容实现的。
+*   **完整功能**：在本地开发环境 (`npm start` 或 Vite) 中，React 会自动接管页面，解锁 Dashboard 和 AI 报价引擎功能。
 
-| 文件名 | 用途 | 建议尺寸 |
-|--------|------|----------|
-| `timc_lobby.jpg` | TIMC 医疗页面的顶部大图 (Hero) | 1920x1080px |
-| `timc_building.jpg` | JP Tower / KITTE 外观图 | 1000x800px |
-| `timc_room.jpg` | VIP 贵宾室内部图 | 1000x800px |
-| `timc_petct.jpg` | PET-CT 或 MRI 设备图 | 800x600px |
+## 📸 图片素材 (Image Assets)
 
-### 📂 目录结构示例
+所有图片均已替换为 **Unsplash 高清网络图库**，无需配置本地文件，GitHub Pages 部署即插即用。
 
-```text
-/ (项目根目录)
-├── index.html
-├── index.tsx
-├── ...
-└── images/          <-- 请创建此文件夹
-    ├── timc_lobby.jpg
-    ├── timc_building.jpg
-    ├── timc_room.jpg
-    └── timc_petct.jpg
-```
+## 🚀 部署说明
 
-## 🚀 部署说明 (GitHub Pages)
-
-由于代码中使用了相对路径 (`src="images/..."`)，本网站完全兼容 GitHub Pages。
-只要 `images` 文件夹与 `index.html` 位于同一层级，上传后即可直接访问。
+1. 进入 GitHub 仓库 Settings > Pages
+2. 选择 `main` 分支作为 Source
+3. 访问生成的网址，即可看到新岛交通的高级落地页。
