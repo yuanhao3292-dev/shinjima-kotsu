@@ -10,31 +10,22 @@ export const Logo: React.FC<LogoProps> = ({ className = "w-10 h-10" }) => (
     className={className} 
     xmlns="http://www.w3.org/2000/svg"
     aria-label="Shinjima Kotsu Logo"
+    fill="currentColor"
   >
-    {/* Outer Seal Border - Golden Yellow matching the image */}
-    <rect 
-      x="7" 
-      y="7" 
-      width="86" 
-      height="86" 
-      rx="16" 
-      stroke="#EAB308" 
-      strokeWidth="8" 
-      fill="none" 
-      strokeLinejoin="round"
-    />
-    
-    {/* Inner Character '新' - Bold and Centered */}
+    {/* 
+       Typographic Logo Mark: '新' (Shin)
+       Font: Shippori Mincho (High-end Serif)
+       Style: Minimalist, Ink-like, No border
+    */}
     <text 
       x="50" 
-      y="55" 
-      fontSize="60" 
-      fontWeight="800" 
-      fill="#EAB308" 
+      y="58" 
+      fontSize="72" 
+      fontWeight="600" 
       textAnchor="middle" 
       dominantBaseline="central"
-      fontFamily="'Noto Sans JP', sans-serif"
-      style={{ letterSpacing: '-2px' }}
+      fontFamily="'Shippori Mincho', serif"
+      style={{ letterSpacing: '-0.02em' }}
     >
       新
     </text>
