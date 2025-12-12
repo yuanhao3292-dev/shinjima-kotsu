@@ -759,7 +759,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
         phone: authFormData.phone,
     };
 
-    emailjs.send(serviceId, templateId, templateParams, publicKey)
+    emailjs.send(serviceId, template_pwyqs7k, templateParams, publicKey)
       .then((response) => {
          console.log('SUCCESS!', response.status, response.text);
          alert("申請已提交，我們會儘快聯繫您！ (Application Submitted)");
