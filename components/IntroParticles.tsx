@@ -5,6 +5,7 @@ import { shaderMaterial } from '@react-three/drei';
 
 // -----------------------------------------------------------------------------
 // 1. Custom Shader Material (Holographic Dark Particles for White BG)
+//    Updated with Mixed Shapes (5-Point Star + 4-Point Gemini Sparkle + Circles)
 // -----------------------------------------------------------------------------
 const HoloParticleMaterial = shaderMaterial(
   {
@@ -14,7 +15,7 @@ const HoloParticleMaterial = shaderMaterial(
     uColor2: new THREE.Color('#0044cc'), // Royal Blue
     uColor3: new THREE.Color('#e6007e'), // Magenta
     uPixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio : 1,
-    uSize: 2.8, // Reduced size for sharper text definition
+    uSize: 2.8, // Base particle size
   },
   // Vertex Shader
   `
@@ -28,7 +29,7 @@ const HoloParticleMaterial = shaderMaterial(
     attribute float aRandom; // Random seed
 
     varying vec3 vPos;
-    varying float vAlpha;
+    varying float vRandom; // Pass random to fragment for shape selection
 
     // Pseudo-random
     float random(vec2 st) {
@@ -47,6 +48,7 @@ const HoloParticleMaterial = shaderMaterial(
 
     void main() {
       vPos = aTarget;
+      vRandom = aRandom;
 
       // Animation Progress with Easing
       float t = easeOutCubic(clamp(uProgress, 0.0, 1.0));
@@ -55,15 +57,13 @@ const HoloParticleMaterial = shaderMaterial(
       vec3 pos = mix(aStart, aTarget, t);
 
       // --- 2. Swirling / Implosion Effect during transition ---
-      // When t is low (exploding), add rotation
       float angle = aRandom * 6.28;
-      float radiusOffset = (1.0 - t) * 15.0; // Increased scatter radius
+      float radiusOffset = (1.0 - t) * 15.0; // Scatter radius
       pos.x += cos(angle + uTime * 2.0) * radiusOffset;
       pos.z += sin(angle + uTime * 2.0) * radiusOffset;
       pos.y += sin(angle * 2.0 + uTime) * radiusOffset * 0.5;
 
-      // --- 3. Idle Floating / Breathing (After formed) ---
-      // Apply mostly when t is close to 1
+      // --- 3. Idle Floating (After formed) ---
       float idleAmp = mix(0.0, 0.15, t); 
       pos.x += noise(pos + vec3(0.0, uTime * 0.5, 0.0)) * idleAmp;
       pos.y += noise(pos + vec3(10.0, uTime * 0.4, 0.0)) * idleAmp;
@@ -73,7 +73,10 @@ const HoloParticleMaterial = shaderMaterial(
       gl_Position = projectionMatrix * mvPosition;
 
       // Size Attenuation
-      gl_PointSize = uSize * uPixelRatio * (40.0 / -mvPosition.z);
+      // Stars (low random value) get a larger size boost to make shape visible
+      float sizeBoost = (aRandom < 0.3) ? 1.8 : 1.0; 
+      
+      gl_PointSize = uSize * uPixelRatio * sizeBoost * (40.0 / -mvPosition.z);
       
       // Particles appear smaller when exploded, larger when formed
       gl_PointSize *= mix(0.3, 1.0, t);
@@ -87,30 +90,67 @@ const HoloParticleMaterial = shaderMaterial(
     uniform float uTime;
 
     varying vec3 vPos;
+    varying float vRandom;
 
     void main() {
-      // Circular Particle
       vec2 xy = gl_PointCoord.xy - vec2(0.5);
-      float dist = length(xy);
-      if (dist > 0.5) discard;
+      float len = length(xy);
+      float alpha = 0.0;
+      float angle = atan(xy.y, xy.x);
+      
+      // --- Mix of Shapes ---
+      // 0.0 - 0.15: 5-Point Star (Classic Star)
+      // 0.15 - 0.30: 4-Point Star (Gemini Sparkle)
+      // 0.30 - 1.00: Circle (Soft Dot)
 
-      // Soft Edge
-      float alpha = smoothstep(0.5, 0.35, dist);
+      if (vRandom < 0.15) {
+          // --- 5-Point Star ---
+          // Rotating
+          float theta = angle + uTime * 2.0;
+          
+          // Cosine wave with frequency 5 gives 5 lobes
+          float lobes = 0.5 + 0.5 * cos(theta * 5.0);
+          
+          // Modulate distance: larger lobes = longer rays (smaller distance metric)
+          // 1.5 base - 0.8 * lobe creates concave star shape
+          float starDist = len * (1.6 - 0.8 * pow(lobes, 2.0)); 
+          
+          alpha = 1.0 - smoothstep(0.0, 0.35, starDist);
+          alpha = pow(alpha, 2.0); // Sharpen core
+      } 
+      else if (vRandom < 0.3) {
+          // --- 4-Point Gemini Sparkle ---
+          // Use sin(2*angle) to create 4 lobes
+          float starFactor = 0.5 + 2.0 * abs(sin(angle * 2.0 + uTime * 1.5));
+          
+          // Squeeze the circle
+          float dist = len * starFactor;
+          
+          alpha = 1.0 - smoothstep(0.0, 0.5, dist);
+          alpha = pow(alpha, 2.5); // Glowing core
+      } 
+      else {
+          // --- Circle ---
+          if (len > 0.5) discard;
+          alpha = smoothstep(0.5, 0.25, len);
+      }
+
+      // Discard faint pixels
+      if (alpha < 0.01) discard;
 
       // Holographic Gradient Mapping
-      // Map spatial position to color gradient
       float gradientX = smoothstep(-8.0, 8.0, vPos.x + sin(uTime * 0.2) * 2.0);
       float gradientY = smoothstep(-2.0, 2.0, vPos.y);
 
       vec3 color = mix(uColor1, uColor2, gradientX);
       color = mix(color, uColor3, gradientY);
 
-      // Add a subtle shine based on time
+      // Add shimmer
       float shine = sin(vPos.x * 0.5 + uTime * 2.0) * 0.5 + 0.5;
       color += vec3(0.1) * shine;
 
-      // Output color (Dark/Rich for white background)
-      gl_FragColor = vec4(color, alpha * 0.85);
+      // Output
+      gl_FragColor = vec4(color, alpha * 0.9);
     }
   `
 );
@@ -129,6 +169,28 @@ const ParticleSystem = () => {
     targets: Float32Array;
     randoms: Float32Array;
   } | null>(null);
+
+  // Responsive Scale State
+  const [meshScale, setMeshScale] = useState<[number, number, number]>([1, 1, 1]);
+
+  useEffect(() => {
+    // Responsive Logic: 
+    // If width < 768px (Mobile), scale down drastically (0.35) to fit vertical screen.
+    // If width >= 768px (Tablet/Desktop), keep scale at 1.0.
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setMeshScale([0.35, 0.35, 0.35]); // Reduced from previous 0.55 to fit better
+      } else {
+        setMeshScale([1, 1, 1]);
+      }
+    };
+
+    // Initial check
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -152,7 +214,7 @@ const ParticleSystem = () => {
 
       // Draw Text (Use CSS font loaded in index.html)
       ctx.fillStyle = 'white';
-      // Reduced font size from 80px to 55px to ensure it fits mobile screens
+      // Font size optimized
       ctx.font = 'bold 55px "Shippori Mincho", serif'; 
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
@@ -264,7 +326,7 @@ const ParticleSystem = () => {
 
   return (
     // @ts-ignore
-    <points ref={pointsRef}>
+    <points ref={pointsRef} scale={meshScale}>
       {/* @ts-ignore */}
       <bufferGeometry>
         {/* @ts-ignore */}

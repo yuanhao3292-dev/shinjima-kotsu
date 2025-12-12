@@ -34,34 +34,46 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, isAiLoading }) => {
     
     setIsSending(true);
 
-    // Prepare EmailJS params
-    // NOTE: In a real deployment, replace these placeholders with your actual EmailJS credentials
-    // from https://dashboard.emailjs.com/
-    const serviceId = 'YOUR_SERVICE_ID'; 
-    const templateId = 'YOUR_TEMPLATE_ID'; 
-    const publicKey = 'YOUR_PUBLIC_KEY'; 
+    // EmailJS Configuration - REAL CREDENTIALS
+    const serviceId = 'service_epq3fhj';
+    const templateId = 'template_fdmp1n3';
+    const publicKey = 'exX0IhSSUjNgMhuGb';
+
+    // Build the message details
+    // "Magic Message" approach: Dump everything into the 'message' field
+    const messageBody = `
+      [Quote Inquiry #${quote.id}]
+      ---------------------------
+      Estimated Total: ¥${quote.estimated_total_jpy.toLocaleString()}
+      Per Person: ¥${quote.per_person_jpy.toLocaleString()}
+      
+      [Sourcing Strategy]
+      ${quote.breakdown.sourcing_strategy}
+      
+      [AI Analysis]
+      ${quote.system_note}
+
+      [Customer Contact]
+      Name: ${contactForm.name}
+      Contact: ${contactForm.contact}
+      
+      Timestamp: ${new Date().toLocaleString()}
+    `;
 
     const templateParams = {
-        to_email: 'info@niijima-koutsu.com',
+        // Universal mapping
+        message: messageBody,
+        
+        // Standard keys
+        from_name: contactForm.name,
+        
+        // Specific keys just in case template uses them
         user_name: contactForm.name,
         user_contact: contactForm.contact,
         quote_id: quote.id,
         total_price: quote.estimated_total_jpy.toLocaleString(),
-        strategy: quote.breakdown.sourcing_strategy,
-        message: `Quote Inquiry for ID #${quote.id}. Please contact immediately.`
+        per_person: quote.per_person_jpy.toLocaleString(),
     };
-
-    // If credentials are not set, we simulate success for the demo
-    if (serviceId === 'YOUR_SERVICE_ID') {
-        setTimeout(() => {
-            console.log("Simulating EmailJS Send:", templateParams);
-            alert("詢價單已發送！\n(模擬成功：請在 EmailJS 配置真實 Key 以發送至 info@niijima-koutsu.com)");
-            setIsSending(false);
-            setShowContactModal(false);
-            setContactForm({ name: '', contact: '' });
-        }, 1500);
-        return;
-    }
 
     emailjs.send(serviceId, templateId, templateParams, publicKey)
       .then((response) => {
@@ -70,8 +82,8 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, isAiLoading }) => {
          setShowContactModal(false);
          setContactForm({ name: '', contact: '' });
       }, (err) => {
-         console.log('FAILED...', err);
-         alert("發送失敗，請稍後再試。");
+         console.error('FAILED...', err);
+         alert("發送失敗 (Send Failed): " + JSON.stringify(err));
       })
       .finally(() => {
          setIsSending(false);
@@ -245,7 +257,7 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, isAiLoading }) => {
                     className="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition shadow-md mt-2 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                  >
                     {isSending ? <Loader2 className="animate-spin" size={16} /> : <Send size={16} />}
-                    {isSending ? '發送中...' : '确认并发送'}
+                    {isSending ? '發送中...' : '確認並發送'}
                  </button>
               </form>
            </div>
