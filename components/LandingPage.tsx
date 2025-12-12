@@ -717,46 +717,37 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // 1. 准备要发送的数据 (Mapping Data)
+    // 1. 准备数据
     const templateParams = {
-      // 对应 EmailJS 模板里的 {{company_name}} 等变量
       company_name: formData.companyName,
       contact_person: formData.contactPerson,
       email: formData.email,
       phone: formData.phone,
-      
-      // 万能字段：把所有信息拼成一句话，防止模板变量漏配
-      message: `【新注册申请】\n公司: ${formData.companyName}\n联系人: ${formData.contactPerson}\n邮箱: ${formData.email}\n电话: ${formData.phone}`
+      // 万能备份字段
+      message: `【新注册】公司:${formData.companyName} / 联系人:${formData.contactPerson} / 电话:${formData.phone}`
     };
 
-    // 2. 发送邮件 (Send Email)
-    // 这里的 ID 是您刚才确认过的最新正确 ID
-    emailjs.send(
-      'service_epq3fhj',       // Service ID (保持不变)
-      'template_pwyqs7k',      // Template ID (新的那个!)
-      templateParams,
-      'exX0IhSSUjNgMhuGb'      // Public Key (您的真实公钥)
-    )
-    .then((result) => {
-      // --- 成功时的处理 ---
-      console.log('SUCCESS!', result.status, result.text);
-      alert("申請已提交，我們會儘快與您聯繫！ (Application Submitted)");
-      setShowAuthModal(false); // 关闭弹窗
-      setAuthFormData({ companyName: '', contactPerson: '', email: '', phone: '' }); // 清空表格
-      
-      // (可选) 模拟登录成功，让用户进入系统
-      onLogin({
-        companyName: formData.companyName,
-        email: formData.email
-      });
-    })
-    .catch((error) => {
-      // --- 失败时的处理 ---
-      console.error('FAILED...', error);
-      // 把错误详情弹出来，方便调试
-      alert("发送失败 (Failed): " + JSON.stringify(error));
-    })
-    .finally(() => {
-      setIsSubmitting(false); // 无论成功失败，都停止转圈
-    });
+    // 2. 发送邮件 (这里已经修好了引号问题)
     emailjs.send('service_epq3fhj', 'template_pwyqs7k', templateParams, 'exX0IhSSUjNgMhuGb')
+      .then((result) => {
+        // --- 成功 ---
+        console.log('SUCCESS!', result.status, result.text);
+        alert("申請已提交，我們會儘快與您聯繫！(Application Submitted)");
+        setShowAuthModal(false);
+        setAuthFormData({ companyName: '', contactPerson: '', email: '', phone: '' });
+        
+        // 模拟登录进入系统
+        onLogin({
+          companyName: formData.companyName,
+          email: formData.email
+        });
+      })
+      .catch((error) => {
+        // --- 失败 ---
+        console.error('FAILED...', error);
+        alert("发送失败 (Failed): " + JSON.stringify(error));
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
+  };
