@@ -36,7 +36,8 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, isAiLoading }) => {
 
     // EmailJS Configuration - REAL CREDENTIALS
     const serviceId = 'service_epq3fhj';
-    const templateId = 'template_pwyqs7k';
+    // CORRECTED TEMPLATE ID FROM USER SCREENSHOT
+    const templateId = 'template_56izaei';
     const publicKey = 'exX0IhSSUjNgMhuGb';
 
     // Build the message details
@@ -75,7 +76,7 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, isAiLoading }) => {
         per_person: quote.per_person_jpy.toLocaleString(),
     };
 
-    emailjs.send(serviceId, template_pwyqs7k, templateParams, publicKey)
+    emailjs.send(serviceId, templateId, templateParams, publicKey)
       .then((response) => {
          console.log('SUCCESS!', response.status, response.text);
          alert("詢價單已發送至 info@niijima-koutsu.com！\n我們的工作人員將盡快與您聯繫。");
