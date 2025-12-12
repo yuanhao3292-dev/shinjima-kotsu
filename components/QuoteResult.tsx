@@ -75,7 +75,7 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, isAiLoading }) => {
         per_person: quote.per_person_jpy.toLocaleString(),
     };
 
-    emailjs.send(serviceId, templateId, templateParams, publicKey)
+    emailjs.send(serviceId, template_pwyqs7k, templateParams, publicKey)
       .then((response) => {
          console.log('SUCCESS!', response.status, response.text);
          alert("詢價單已發送至 info@niijima-koutsu.com！\n我們的工作人員將盡快與您聯繫。");
