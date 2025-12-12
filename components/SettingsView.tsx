@@ -30,7 +30,7 @@ const SettingsView: React.FC = () => {
           </div>
           <div className="md:col-span-2">
              <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-             <input type="email" defaultValue="satoshi@shinjima-kotsu.jp" className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-500 cursor-not-allowed" disabled />
+             <input type="email" defaultValue="satoshi@niijima-koutsu.com" className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-500 cursor-not-allowed" disabled />
           </div>
         </div>
       </div>

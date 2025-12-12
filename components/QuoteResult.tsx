@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { QuoteResponse } from '../types';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
-import { TrendingDown, TrendingUp, Cpu, Download, CheckCircle } from 'lucide-react';
+import { TrendingDown, TrendingUp, Cpu, Download, CheckCircle, Send, User, Phone, Mail, X, Loader2 } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 interface QuoteResultProps {
   quote: QuoteResponse;
@@ -11,7 +12,10 @@ interface QuoteResultProps {
 const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#6366F1'];
 
 const QuoteResult: React.FC<QuoteResultProps> = ({ quote, isAiLoading }) => {
-  
+  const [showContactModal, setShowContactModal] = useState(false);
+  const [contactForm, setContactForm] = useState({ name: '', contact: '' });
+  const [isSending, setIsSending] = useState(false);
+
   const chartData = [
     { name: '住宿', value: quote.breakdown.hotel_cost_basis },
     { name: '交通', value: quote.breakdown.transport },
@@ -20,6 +24,59 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, isAiLoading }) => {
   ].filter(d => d.value > 0);
 
   const isArbitrage = quote.breakdown.sourcing_strategy.includes('OTA');
+
+  const handleSubmitInquiry = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!contactForm.name || !contactForm.contact) {
+        alert("請填寫聯繫人與聯繫方式");
+        return;
+    }
+    
+    setIsSending(true);
+
+    // Prepare EmailJS params
+    // NOTE: In a real deployment, replace these placeholders with your actual EmailJS credentials
+    // from https://dashboard.emailjs.com/
+    const serviceId = 'YOUR_SERVICE_ID'; 
+    const templateId = 'YOUR_TEMPLATE_ID'; 
+    const publicKey = 'YOUR_PUBLIC_KEY'; 
+
+    const templateParams = {
+        to_email: 'info@niijima-koutsu.com',
+        user_name: contactForm.name,
+        user_contact: contactForm.contact,
+        quote_id: quote.id,
+        total_price: quote.estimated_total_jpy.toLocaleString(),
+        strategy: quote.breakdown.sourcing_strategy,
+        message: `Quote Inquiry for ID #${quote.id}. Please contact immediately.`
+    };
+
+    // If credentials are not set, we simulate success for the demo
+    if (serviceId === 'YOUR_SERVICE_ID') {
+        setTimeout(() => {
+            console.log("Simulating EmailJS Send:", templateParams);
+            alert("詢價單已發送！\n(模擬成功：請在 EmailJS 配置真實 Key 以發送至 info@niijima-koutsu.com)");
+            setIsSending(false);
+            setShowContactModal(false);
+            setContactForm({ name: '', contact: '' });
+        }, 1500);
+        return;
+    }
+
+    emailjs.send(serviceId, templateId, templateParams, publicKey)
+      .then((response) => {
+         console.log('SUCCESS!', response.status, response.text);
+         alert("詢價單已發送至 info@niijima-koutsu.com！\n我們的工作人員將盡快與您聯繫。");
+         setShowContactModal(false);
+         setContactForm({ name: '', contact: '' });
+      }, (err) => {
+         console.log('FAILED...', err);
+         alert("發送失敗，請稍後再試。");
+      })
+      .finally(() => {
+         setIsSending(false);
+      });
+  };
 
   return (
     <div className="space-y-6 animate-fade-in-up">
@@ -120,17 +177,81 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, isAiLoading }) => {
 
            {/* Action Buttons */}
            <div className="grid grid-cols-1 gap-3">
-             <button className="flex items-center justify-center gap-2 w-full py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition shadow-lg">
+             <button 
+                onClick={() => setShowContactModal(true)}
+                className="flex items-center justify-center gap-2 w-full py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition shadow-lg"
+             >
+                <Send size={18} />
+                提交訂單給 OP
+             </button>
+             <button className="flex items-center justify-center gap-2 w-full py-3 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
                 <Download size={18} />
                 匯出 PDF 報價單
-             </button>
-             <button className="w-full py-3 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
-                發送給旅行社
              </button>
            </div>
         </div>
 
       </div>
+
+      {/* Contact Modal */}
+      {showContactModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fade-in-up">
+           <div className="bg-white rounded-xl shadow-2xl w-full max-w-sm p-6 relative">
+              <button 
+                onClick={() => setShowContactModal(false)}
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+              >
+                <X size={20} />
+              </button>
+              
+              <h3 className="text-lg font-bold text-gray-800 mb-2">確認聯繫方式</h3>
+              <p className="text-sm text-gray-500 mb-6">
+                請填寫您的聯繫資訊，此報價單將同步發送至 <span className="text-blue-600 font-mono">info@niijima-koutsu.com</span>
+              </p>
+              
+              <form onSubmit={handleSubmitInquiry} className="space-y-4">
+                 <div>
+                    <label className="block text-xs font-bold text-gray-600 uppercase mb-1">聯繫人姓名</label>
+                    <div className="relative">
+                       <User className="absolute left-3 top-2.5 text-gray-400 w-4 h-4" />
+                       <input 
+                         type="text" 
+                         value={contactForm.name}
+                         onChange={(e) => setContactForm({...contactForm, name: e.target.value})}
+                         className="w-full pl-9 p-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none" 
+                         placeholder="王小明"
+                         required
+                       />
+                    </div>
+                 </div>
+                 <div>
+                    <label className="block text-xs font-bold text-gray-600 uppercase mb-1">電話 / 微信 / Line</label>
+                    <div className="relative">
+                       <Phone className="absolute left-3 top-2.5 text-gray-400 w-4 h-4" />
+                       <input 
+                         type="text" 
+                         value={contactForm.contact}
+                         onChange={(e) => setContactForm({...contactForm, contact: e.target.value})}
+                         className="w-full pl-9 p-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none" 
+                         placeholder="+886 912 345 678"
+                         required
+                       />
+                    </div>
+                 </div>
+                 
+                 <button 
+                    type="submit" 
+                    disabled={isSending}
+                    className="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition shadow-md mt-2 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                 >
+                    {isSending ? <Loader2 className="animate-spin" size={16} /> : <Send size={16} />}
+                    {isSending ? '發送中...' : '确认并发送'}
+                 </button>
+              </form>
+           </div>
+        </div>
+      )}
+
     </div>
   );
 };

@@ -1,3 +1,4 @@
+
 export interface HotelRequest {
   stars: number;
   rooms: number;
@@ -38,4 +39,9 @@ export enum LocationType {
   HOKKAIDO = 'Hokkaido',
   KYOTO = 'Kyoto',
   FUKUOKA = 'Fukuoka'
+}
+
+export interface UserProfile {
+  companyName: string;
+  email: string;
 }

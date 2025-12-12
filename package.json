@@ -13,7 +13,12 @@
     "react-dom": "^19.2.1",
     "recharts": "^3.5.1",
     "lucide-react": "^0.559.0",
-    "@google/genai": "^1.33.0"
+    "@google/genai": "^1.33.0",
+    "@emailjs/browser": "^4.4.1",
+    "three": "^0.182.0",
+    "@react-three/fiber": "^9.4.2",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/postprocessing": "^3.0.4"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",

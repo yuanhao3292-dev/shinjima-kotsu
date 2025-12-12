@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { QuoteResponse, ItineraryRequest, LocationType } from '../types';
+import { QuoteResponse, ItineraryRequest, LocationType, UserProfile } from '../types';
 import QuoteForm from './QuoteForm';
 import QuoteResult from './QuoteResult';
 import HistoryView from './HistoryView';
@@ -10,12 +10,13 @@ import { generateAIAnalysis } from '../services/geminiService';
 import { LayoutDashboard, History, Settings, LogOut, Menu, X } from 'lucide-react';
 
 interface DashboardProps {
+  user: UserProfile;
   onLogout: () => void;
 }
 
 type ViewState = 'quote' | 'history' | 'settings';
 
-const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
+const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
   const [currentView, setCurrentView] = useState<ViewState>('quote');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
@@ -24,9 +25,9 @@ const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
   const [quote, setQuote] = useState<QuoteResponse | null>(null);
   const [history, setHistory] = useState<Array<{ quote: QuoteResponse; request: ItineraryRequest }>>([]);
 
-  // Initial Form State
+  // Initial Form State - Pre-fill agency name from registration if possible
   const [request, setRequest] = useState<ItineraryRequest>({
-    agency_name: '',
+    agency_name: user.companyName || '',
     pax: 20,
     travel_days: 5,
     need_bus: true,
@@ -113,7 +114,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
         <div className="p-6 flex items-center gap-3 border-b border-gray-100">
            {/* Sidebar Logo */}
            <div className="w-10 h-10 flex-shrink-0">
-             <Logo className="w-full h-full" />
+             <Logo className="w-full h-full text-[#1a1a1a]" />
            </div>
            <div>
              <h1 className="font-bold text-lg leading-tight">Shinjima<span className="text-blue-600">Admin</span></h1>
@@ -158,7 +159,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
              
              {/* Mobile Header Logo */}
              <div className="md:hidden w-8 h-8 flex-shrink-0">
-               <Logo className="w-full h-full" />
+               <Logo className="w-full h-full text-[#1a1a1a]" />
              </div>
 
              <h2 className="text-xl font-bold text-gray-800 ml-1">
@@ -170,11 +171,14 @@ const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
            
            <div className="flex items-center gap-4">
              <div className="text-right hidden sm:block">
-               <p className="text-sm font-bold text-gray-800">操作員：Satoshi</p>
-               <p className="text-xs text-gray-500">東京總部 (HQ)</p>
+               <p className="text-sm font-bold text-gray-800 flex items-center justify-end gap-1">
+                 <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                 {user.companyName}
+               </p>
+               <p className="text-xs text-gray-500">{user.email}</p>
              </div>
-             <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden border-2 border-white shadow-md">
-               <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Avatar" className="w-full h-full object-cover"/>
+             <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 border-2 border-white shadow-md flex items-center justify-center font-bold text-sm">
+               {user.companyName.charAt(0).toUpperCase()}
              </div>
            </div>
         </header>
