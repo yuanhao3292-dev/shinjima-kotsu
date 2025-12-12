@@ -728,7 +728,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
 
     // EmailJS Credentials - REAL CREDENTIALS INSERTED
     const serviceId = 'service_epq3fhj';
-    const templateId = 'template_56izaei';
+    // CRITICAL FIX: Updated to match user screenshot
+    const templateId = 'template_x7h0fb6';
     const publicKey = 'exX0IhSSUjNgMhuGb';
 
     const fullMessage = `

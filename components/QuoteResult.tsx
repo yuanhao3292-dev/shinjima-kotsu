@@ -44,7 +44,8 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, request, isAiLoading }
     // --- EMAILJS CONFIGURATION ---
     // Please verify these match your dashboard exactly!
     const serviceId = 'service_epq3fhj';
-    const templateId = 'template_56izaei'; 
+    // CRITICAL FIX: Updated to match user screenshot
+    const templateId = 'template_x7h0fb6'; 
     const publicKey = 'exX0IhSSUjNgMhuGb';
 
     // Construct a detailed message for the OP
