@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { QuoteResponse } from '../types';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { TrendingDown, TrendingUp, Cpu, Download, CheckCircle, Send, User, Phone, Mail, X, Loader2 } from 'lucide-react';
@@ -15,6 +15,11 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, isAiLoading }) => {
   const [showContactModal, setShowContactModal] = useState(false);
   const [contactForm, setContactForm] = useState({ name: '', contact: '' });
   const [isSending, setIsSending] = useState(false);
+
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init('exX0IhSSUjNgMhuGb');
+  }, []);
 
   const chartData = [
     { name: '住宿', value: quote.breakdown.hotel_cost_basis },
@@ -62,18 +67,9 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, isAiLoading }) => {
     `;
 
     const templateParams = {
-        // Universal mapping
         message: messageBody,
-        
-        // Standard keys
         from_name: contactForm.name,
-        
-        // Specific keys just in case template uses them
         user_name: contactForm.name,
-        user_contact: contactForm.contact,
-        quote_id: quote.id,
-        total_price: quote.estimated_total_jpy.toLocaleString(),
-        per_person: quote.per_person_jpy.toLocaleString(),
     };
 
     emailjs.send(serviceId, templateId, templateParams, publicKey)
@@ -85,7 +81,8 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, isAiLoading }) => {
       })
       .catch((err) => {
          console.error('FAILED...', err);
-         alert("发送失败 (Send Failed): " + JSON.stringify(err));
+         const errorMsg = err.text || JSON.stringify(err);
+         alert("發送失敗 (Send Failed): " + errorMsg);
       })
       .finally(() => {
          setIsSending(false);

@@ -690,6 +690,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
 
   const t = translations[currentLang];
 
+  // Initialize EmailJS explicitly to handle certain browser environments
+  useEffect(() => {
+    emailjs.init('exX0IhSSUjNgMhuGb');
+  }, []);
+
   // Handle scroll effect for navbar
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -728,8 +733,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
     const templateId = 'template_56izaei';
     const publicKey = 'exX0IhSSUjNgMhuGb';
 
-    // Build a comprehensive message to ensure data visibility even with default templates
-    // This "Magic Message" strategy ensures all data is sent regardless of template variables.
     const fullMessage = `
     [New Partner Registration Request]
     ----------------------------------
@@ -742,32 +745,19 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
     Timestamp: ${new Date().toLocaleString()}
     `;
 
-    // Parameters mapped to template
-    // We map to multiple potential standard keys (from_name, message) in case user has default template
     const templateParams = {
-        // Universal message mapping
         message: fullMessage, 
-        
-        // Standard keys often used in EmailJS defaults
-        from_name: `${authFormData.companyName} - ${authFormData.contactPerson}`,
-        from_email: authFormData.email,
+        from_name: authFormData.contactPerson,
         reply_to: authFormData.email,
-        
-        // Specific keys
         company_name: authFormData.companyName,
-        contact_person: authFormData.contactPerson,
-        email: authFormData.email,
-        phone: authFormData.phone,
     };
 
     emailjs.send(serviceId, templateId, templateParams, publicKey)
       .then((response) => {
          console.log('SUCCESS!', response.status, response.text);
          alert("申請已提交，我們會儘快聯繫您！ (Application Submitted)");
-         // Clear form
          setAuthFormData({ companyName: '', contactPerson: '', email: '', phone: '' });
          setShowAuthModal(false);
-         // Simulate login success so user can see dashboard immediately
          onLogin({
             companyName: authFormData.companyName,
             email: authFormData.email
@@ -775,8 +765,17 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
       })
       .catch((err) => {
          console.error('FAILED...', err);
-         // Show detailed error for debugging
-         alert("发送失败 (Send Failed): " + JSON.stringify(err));
+         // IMPORTANT: Log exact error text for debugging
+         const errorMsg = err.text || JSON.stringify(err);
+         
+         // Graceful Degradation: Even if email fails (e.g. adblocker, domain issue), allow login for the demo.
+         alert(`注意: 郵件發送失敗 (${errorMsg})，但我們將允許您繼續登入系統演示。`);
+         
+         setShowAuthModal(false);
+         onLogin({
+            companyName: authFormData.companyName,
+            email: authFormData.email
+         });
       })
       .finally(() => {
          setIsSendingAuth(false);
