@@ -746,6 +746,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
         message: fullMessage, 
         from_name: authFormData.contactPerson,
         reply_to: authFormData.email,
+        to_email: 'info@niijima-koutsu.com', // Added target email for consistency
         company_name: authFormData.companyName,
     };
 

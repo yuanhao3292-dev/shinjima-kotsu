@@ -6,7 +6,7 @@ import emailjs from '@emailjs/browser';
 
 interface QuoteResultProps {
   quote: QuoteResponse;
-  request: ItineraryRequest; // Added request prop to get details for email
+  request: ItineraryRequest;
   isAiLoading: boolean;
 }
 
@@ -17,8 +17,9 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, request, isAiLoading }
   const [contactForm, setContactForm] = useState({ name: '', contact: '' });
   const [isSending, setIsSending] = useState(false);
 
-  // Initialize EmailJS explicitly to handle potential context issues
+  // Initialize EmailJS explicitly
   useEffect(() => {
+    // PUBLIC KEY
     emailjs.init('exX0IhSSUjNgMhuGb');
   }, []);
 
@@ -40,16 +41,18 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, request, isAiLoading }
     
     setIsSending(true);
 
-    // EmailJS Credentials
+    // --- EMAILJS CONFIGURATION ---
+    // Please verify these match your dashboard exactly!
     const serviceId = 'service_epq3fhj';
-    const templateId = 'template_56izaei';
+    const templateId = 'template_56izaei'; 
     const publicKey = 'exX0IhSSUjNgMhuGb';
 
     // Construct a detailed message for the OP
-    // This combines the Quote Data AND the Request Data
     const messageBody = `
 ========================================
 NEW B2B QUOTE ORDER / 新訂單通知
+========================================
+TARGET RECIPIENT: info@niijima-koutsu.com
 ========================================
 
 [AGENT INFO / 旅行社資訊]
@@ -80,7 +83,8 @@ Timestamp: ${new Date().toLocaleString()}
     const templateParams = {
         message: messageBody,
         from_name: contactForm.name,
-        // Optional mapping if template uses specific keys
+        // Explicitly target the company email
+        to_email: 'info@niijima-koutsu.com', 
         agency_name: request.agency_name,
         contact_info: contactForm.contact,
         quote_id: quote.id
@@ -89,15 +93,20 @@ Timestamp: ${new Date().toLocaleString()}
     emailjs.send(serviceId, templateId, templateParams, publicKey)
       .then((response) => {
          console.log('SUCCESS!', response.status, response.text);
-         alert("✅ 訂單已成功提交至操作中心 (OP)！\n我們將盡快核實資源並與您聯繫。");
+         alert("✅ 訂單已成功提交至操作中心 (info@niijima-koutsu.com)！\n我們將盡快核實資源並與您聯繫。");
          setShowContactModal(false);
          setContactForm({ name: '', contact: '' });
       })
       .catch((err) => {
          console.error('EmailJS FAILED...', err);
          const errorMsg = err.text || JSON.stringify(err);
-         // Fail gracefully - don't lock the UI, just warn.
-         alert(`⚠️ 發送至後台失敗 (ID: ${templateId})。\n請截圖此畫面並直接聯繫客服。\n\n錯誤訊息: ${errorMsg}`);
+         
+         // Specific error handling for "Template ID not found"
+         if (errorMsg.includes("template ID not found")) {
+             alert(`⚠️ 發送失敗：系統找不到 Template ID (${templateId})。\n\n請登入 EmailJS 後台檢查模板 ID 是否正確。`);
+         } else {
+             alert(`⚠️ 發送失敗。\n錯誤訊息: ${errorMsg}\n\n請截圖聯繫客服。`);
+         }
       })
       .finally(() => {
          setIsSending(false);
