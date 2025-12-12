@@ -713,339 +713,50 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
     }
   }, []);
 
-  const handleAuthSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!authFormData.companyName.trim() || !authFormData.email.trim() || !authFormData.contactPerson.trim() || !authFormData.phone.trim()) {
-      setAuthError('全ての項目を入力してください (All fields are required)');
-      return;
-    }
-    
-    setIsSendingAuth(true);
+    setIsSubmitting(true);
 
-    // EmailJS Credentials - REAL CREDENTIALS INSERTED
-    const serviceId = 'service_epq3fhj';
-    const templateId = 'template_pwyqs7k';
-    const publicKey = 'exX0IhSSUjNgMhuGb';
-
-    // Build a comprehensive message to ensure data visibility even with default templates
-    // This "Magic Message" strategy ensures all data is sent regardless of template variables.
-    const fullMessage = `
-    [New Partner Registration Request]
-    ----------------------------------
-    Company Name: ${authFormData.companyName}
-    Contact Person: ${authFormData.contactPerson}
-    Email: ${authFormData.email}
-    Phone: ${authFormData.phone}
-    
-    Language: ${currentLang}
-    Timestamp: ${new Date().toLocaleString()}
-    `;
-
-    // Parameters mapped to template
-    // We map to multiple potential standard keys (from_name, message) in case user has default template
+    // 1. 准备要发送的数据 (Mapping Data)
     const templateParams = {
-        // Universal message mapping
-        message: fullMessage, 
-        
-        // Standard keys often used in EmailJS defaults
-        from_name: `${authFormData.companyName} - ${authFormData.contactPerson}`,
-        from_email: authFormData.email,
-        reply_to: authFormData.email,
-        
-        // Specific keys
-        company_name: authFormData.companyName,
-        contact_person: authFormData.contactPerson,
-        email: authFormData.email,
-        phone: authFormData.phone,
+      // 对应 EmailJS 模板里的 {{company_name}} 等变量
+      company_name: formData.companyName,
+      contact_person: formData.contactPerson,
+      email: formData.email,
+      phone: formData.phone,
+      
+      // 万能字段：把所有信息拼成一句话，防止模板变量漏配
+      message: `【新注册申请】\n公司: ${formData.companyName}\n联系人: ${formData.contactPerson}\n邮箱: ${formData.email}\n电话: ${formData.phone}`
     };
 
-    emailjs.send(serviceId, template_pwyqs7k, templateParams, publicKey)
-      .then((response) => {
-         console.log('SUCCESS!', response.status, response.text);
-         alert("申請已提交，我們會儘快聯繫您！ (Application Submitted)");
-         // Clear form
-         setAuthFormData({ companyName: '', contactPerson: '', email: '', phone: '' });
-         setShowAuthModal(false);
-         // Simulate login success so user can see dashboard immediately
-         onLogin({
-            companyName: authFormData.companyName,
-            email: authFormData.email
-         });
-      })
-      .catch((err) => {
-         console.error('FAILED...', err);
-         // Show detailed error for debugging
-         alert("发送失败 (Send Failed): " + JSON.stringify(err));
-      })
-      .finally(() => {
-         setIsSendingAuth(false);
-      });
-  };
-
-  const openAuthModal = () => {
-    setAuthError('');
-    setShowAuthModal(true);
-  };
-
-  const LanguageSwitcher = () => (
-    <div className="relative">
-      <button 
-        onClick={() => setLangMenuOpen(!langMenuOpen)}
-        className="flex items-center gap-1 text-xs font-bold text-gray-600 hover:text-black transition uppercase tracking-wider"
-      >
-        <Globe size={14} />
-        {currentLang === 'zh-TW' ? '繁中' : currentLang.toUpperCase()}
-        <ChevronDown size={12} />
-      </button>
+    // 2. 发送邮件 (Send Email)
+    // 这里的 ID 是您刚才确认过的最新正确 ID
+    emailjs.send(
+      'service_epq3fhj',       // Service ID (保持不变)
+      'template_pwyqs7k',      // Template ID (新的那个!)
+      templateParams,
+      'exX0IhSSUjNgMhuGb'      // Public Key (您的真实公钥)
+    )
+    .then((result) => {
+      // --- 成功时的处理 ---
+      console.log('SUCCESS!', result.status, result.text);
+      alert("申請已提交，我們會儘快與您聯繫！ (Application Submitted)");
+      setShowAuthModal(false); // 关闭弹窗
+      setAuthFormData({ companyName: '', contactPerson: '', email: '', phone: '' }); // 清空表格
       
-      {langMenuOpen && (
-        <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50 animate-fade-in-down">
-           {[
-             { code: 'ja', label: '日本語' },
-             { code: 'zh-TW', label: '繁體中文' },
-             { code: 'en', label: 'English' }
-           ].map((lang) => (
-             <button
-               key={lang.code}
-               onClick={() => {
-                 setCurrentLang(lang.code as Language);
-                 setLangMenuOpen(false);
-               }}
-               className={`w-full text-left px-4 py-2 text-xs font-medium hover:bg-gray-50 transition ${currentLang === lang.code ? 'text-blue-600 bg-blue-50' : 'text-gray-600'}`}
-             >
-               {lang.label}
-             </button>
-           ))}
-        </div>
-      )}
-    </div>
-  );
-
-  // Common Navbar
-  const Navbar = () => (
-    <nav className={`fixed w-full z-50 transition-all duration-300 border-b ${scrolled ? 'nav-blur border-gray-200 py-3' : 'bg-transparent border-transparent py-5'}`}>
-      <div className="container mx-auto px-6 flex justify-between items-center">
-        {/* Logo */}
-        <div className="flex items-center gap-3 group cursor-pointer" onClick={() => { setCurrentPage('home'); window.scrollTo(0,0); }}>
-          <div className="w-10 h-10 transition-transform duration-300 group-hover:scale-105">
-              <Logo className="w-full h-full text-[#1a1a1a]" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-base font-serif tracking-widest text-gray-900 drop-shadow-sm font-semibold">SHINJIMA</span>
-            <span className="text-[10px] uppercase tracking-[0.2em] text-gray-500">{t.nav.brand_sub}</span>
-          </div>
-        </div>
-
-        {/* Desktop Menu */}
-        <div className="hidden lg:flex items-center space-x-8 text-sm font-medium text-gray-600 tracking-wider">
-          <button onClick={() => setCurrentPage('medical')} className={`transition hover:text-black ${currentPage === 'medical' ? 'text-blue-600 font-bold' : ''}`}>{t.nav.timc}</button>
-          
-          <button onClick={() => setCurrentPage('golf')} className={`transition hover:text-green-700 flex items-center gap-1 group ${currentPage === 'golf' ? 'text-green-700 font-bold' : ''}`}>
-            {t.nav.golf}
-          </button>
-
-          <button onClick={() => setCurrentPage('business')} className={`transition hover:text-black ${currentPage === 'business' ? 'text-blue-600 font-bold' : ''}`}>{t.nav.business}</button>
-          
-          <button onClick={() => setCurrentPage('partner')} className={`transition hover:text-black flex items-center gap-1 ${currentPage === 'partner' ? 'text-blue-600 font-bold' : ''}`}>
-             {t.nav.partner}
-          </button>
-
-          <button onClick={() => { setCurrentPage('home'); setTimeout(() => document.getElementById('ai-b2b')?.scrollIntoView({behavior: 'smooth'}), 100); }} className="gemini-text font-bold relative group">
-            {t.nav.ai}
-            <span className="absolute -bottom-1 left-0 w-0 h-[1px] gemini-gradient transition-all group-hover:w-full"></span>
-          </button>
-          <button onClick={() => { setCurrentPage('home'); setTimeout(() => document.getElementById('about')?.scrollIntoView({behavior: 'smooth'}), 100); }} className="hover:text-black transition">{t.nav.about}</button>
-        </div>
-
-        {/* Desktop Right Actions */}
-        <div className="hidden md:flex items-center gap-6">
-          <LanguageSwitcher />
-          <button 
-            onClick={openAuthModal}
-            className="text-xs border border-gray-800 px-6 py-2 rounded-full hover:bg-gray-800 hover:text-white transition duration-300 uppercase tracking-widest bg-white/50 backdrop-blur-sm"
-          >
-            {t.nav.login}
-          </button>
-        </div>
-
-        {/* Mobile Menu Toggle */}
-        <div className="flex items-center gap-4 lg:hidden">
-            <LanguageSwitcher />
-            <button 
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-gray-800 p-1"
-            >
-               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-        </div>
-      </div>
-
-      {/* Mobile Dropdown Menu */}
-      {mobileMenuOpen && (
-          <div className="absolute top-full left-0 w-full bg-white/95 backdrop-blur-lg border-t border-gray-100 shadow-xl lg:hidden animate-fade-in-down">
-              <div className="flex flex-col p-6 space-y-4 font-serif text-lg text-gray-800">
-                  <button onClick={() => { setCurrentPage('medical'); setMobileMenuOpen(false); }} className="text-left py-2 border-b border-gray-50 flex justify-between items-center">
-                      {t.nav.timc} <ArrowLeft className="rotate-180 opacity-20" size={16} />
-                  </button>
-                  <button onClick={() => { setCurrentPage('golf'); setMobileMenuOpen(false); }} className="text-left py-2 border-b border-gray-50 flex justify-between items-center">
-                      {t.nav.golf} <ArrowLeft className="rotate-180 opacity-20" size={16} />
-                  </button>
-                  <button onClick={() => { setCurrentPage('business'); setMobileMenuOpen(false); }} className="text-left py-2 border-b border-gray-50 flex justify-between items-center">
-                      {t.nav.business} <ArrowLeft className="rotate-180 opacity-20" size={16} />
-                  </button>
-                  <button onClick={() => { setCurrentPage('partner'); setMobileMenuOpen(false); }} className="text-left py-2 border-b border-gray-50 flex justify-between items-center">
-                      {t.nav.partner} <ArrowLeft className="rotate-180 opacity-20" size={16} />
-                  </button>
-                  <button onClick={() => { setCurrentPage('home'); setTimeout(() => document.getElementById('ai-b2b')?.scrollIntoView({behavior: 'smooth'}), 100); setMobileMenuOpen(false); }} className="text-left py-2 border-b border-gray-50 gemini-text font-bold">
-                      {t.nav.ai}
-                  </button>
-                  <button 
-                    onClick={() => { openAuthModal(); setMobileMenuOpen(false); }}
-                    className="mt-4 bg-gray-900 text-white py-3 rounded-lg text-center text-sm font-sans font-bold flex items-center justify-center gap-2"
-                  >
-                     <LogIn size={16} /> {t.nav.login}
-                  </button>
-              </div>
-          </div>
-      )}
-    </nav>
-  );
-
-  // Common Footer
-  const Footer = () => (
-    <footer className="bg-[#111] text-white py-12">
-        <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
-            <p>&copy; 2025 Shinjima Kotsu Co., Ltd. All Rights Reserved.</p>
-            <div className="flex flex-col md:flex-row gap-4 mt-4 md:mt-0 text-center md:text-right">
-              <span>Contact: info@niijima-koutsu.com</span>
-              <span className="hidden md:inline">|</span>
-              <span>Authorized by Osaka Prefecture</span>
-              <span>Powered by Gemini AI</span>
-            </div>
-        </div>
-    </footer>
-  );
-
-  return (
-    <div className="animate-fade-in-up pt-0 bg-white">
-      {/* Auth Modal */}
-      {showAuthModal && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in-up">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
-            <div className="p-6 border-b border-gray-100 flex justify-between items-center">
-              <h3 className="text-xl font-bold font-serif text-gray-900">
-                {currentLang === 'ja' ? 'B2B パートナー登録 (無料)' : currentLang === 'zh-TW' ? '同業夥伴註冊 (免費)' : 'Partner Registration'}
-              </h3>
-              <button onClick={() => setShowAuthModal(false)} className="text-gray-400 hover:text-gray-600 transition">
-                <X size={20} />
-              </button>
-            </div>
-            
-            <div className="p-8">
-              <p className="text-sm text-gray-500 mb-6 leading-relaxed">
-                {currentLang === 'ja' 
-                  ? '御社名と連絡先を入力して、AI見積もりシステムへアクセスしてください。' 
-                  : currentLang === 'zh-TW' 
-                    ? '請輸入貴公司名稱與聯繫方式，即可立即啟用 AI 報價系統。' 
-                    : 'Enter your company and contact details to access the AI Quote System.'}
-              </p>
-
-              <form onSubmit={handleAuthSubmit} className="space-y-4">
-                {/* Company Name */}
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-2">
-                    <Briefcase size={16} className="text-blue-600" />
-                    {currentLang === 'ja' ? '会社名' : currentLang === 'zh-TW' ? '公司名稱' : 'Company Name'}
-                  </label>
-                  <input 
-                    type="text" 
-                    value={authFormData.companyName}
-                    onChange={(e) => setAuthFormData({...authFormData, companyName: e.target.value})}
-                    placeholder={currentLang === 'zh-TW' ? '例如：雄獅旅遊' : 'e.g. HIS Travel'}
-                    className="w-full p-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
-                  />
-                </div>
-
-                {/* Contact Person - ADDED */}
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-2">
-                    <User size={16} className="text-blue-600" />
-                    {currentLang === 'ja' ? '担当者名' : currentLang === 'zh-TW' ? '聯絡人姓名' : 'Contact Person'}
-                  </label>
-                  <input 
-                    type="text" 
-                    value={authFormData.contactPerson}
-                    onChange={(e) => setAuthFormData({...authFormData, contactPerson: e.target.value})}
-                    placeholder={currentLang === 'zh-TW' ? '王小明' : 'Taro Yamada'}
-                    className="w-full p-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
-                  />
-                </div>
-
-                {/* Email */}
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-2">
-                    <Mail size={16} className="text-blue-600" />
-                    {currentLang === 'ja' ? 'メールアドレス' : 'Email'}
-                  </label>
-                  <input 
-                    type="email" 
-                    value={authFormData.email}
-                    onChange={(e) => setAuthFormData({...authFormData, email: e.target.value})}
-                    placeholder="name@company.com"
-                    className="w-full p-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
-                  />
-                </div>
-
-                {/* Phone - ADDED */}
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-2">
-                    <Phone size={16} className="text-blue-600" />
-                    {currentLang === 'ja' ? '電話番号 / LINE' : currentLang === 'zh-TW' ? '電話 / LINE / WeChat' : 'Phone / LINE'}
-                  </label>
-                  <input 
-                    type="text" 
-                    value={authFormData.phone}
-                    onChange={(e) => setAuthFormData({...authFormData, phone: e.target.value})}
-                    placeholder="+886 912 345 678"
-                    className="w-full p-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
-                  />
-                </div>
-
-                {authError && (
-                  <p className="text-xs text-red-500 font-bold">{authError}</p>
-                )}
-
-                <button 
-                  type="submit"
-                  disabled={isSendingAuth}
-                  className="w-full bg-gray-900 text-white font-bold py-4 rounded-lg hover:bg-blue-600 transition shadow-lg mt-4 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSendingAuth ? <Loader2 className="animate-spin" size={16} /> : <ArrowLeft className="rotate-180" size={16} />}
-                  {isSendingAuth 
-                    ? 'Processing...' 
-                    : (currentLang === 'ja' ? '登録してログイン' : currentLang === 'zh-TW' ? '註冊並登入' : 'Register & Login')
-                  }
-                </button>
-              </form>
-            </div>
-            <div className="bg-gray-50 p-4 text-center text-xs text-gray-400">
-              By registering, you agree to our Terms of Service.
-            </div>
-          </div>
-        </div>
-      )}
-
-      <Navbar />
-
-      {/* Main Home View */}
-      {currentPage === 'home' && <HomeView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={openAuthModal} />}
-      {currentPage === 'medical' && <MedicalView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={openAuthModal} />}
-      {currentPage === 'business' && <BusinessView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={openAuthModal} />}
-      {currentPage === 'golf' && <GolfView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={openAuthModal} />}
-      {currentPage === 'partner' && <PartnerView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={openAuthModal} />}
-      <Footer />
-    </div>
-  );
-};
-
-export default LandingPage;
+      // (可选) 模拟登录成功，让用户进入系统
+      onLogin({
+        companyName: formData.companyName,
+        email: formData.email
+      });
+    })
+    .catch((error) => {
+      // --- 失败时的处理 ---
+      console.error('FAILED...', error);
+      // 把错误详情弹出来，方便调试
+      alert("发送失败 (Failed): " + JSON.stringify(error));
+    })
+    .finally(() => {
+      setIsSubmitting(false); // 无论成功失败，都停止转圈
+    });
+  };
