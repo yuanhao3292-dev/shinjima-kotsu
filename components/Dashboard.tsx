@@ -214,7 +214,8 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
                  </div>
                  <div className="xl:col-span-8">
                    {quote ? (
-                     <QuoteResult quote={quote} isAiLoading={aiLoading} />
+                     // PASS REQUEST OBJECT HERE
+                     <QuoteResult quote={quote} request={request} isAiLoading={aiLoading} />
                    ) : (
                      <div className="h-full flex flex-col items-center justify-center text-gray-400 min-h-[400px] border-2 border-dashed border-gray-200 rounded-xl bg-white/50">
                         <div className="bg-blue-50 p-6 rounded-full mb-4">

@@ -678,12 +678,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
   
   // Auth Modal State
   const [showAuthModal, setShowAuthModal] = useState(false);
-  // UPDATED: Added contactPerson and phone to state
+  // UPDATED: Simply keep Company, Contact Person, Email as requested
   const [authFormData, setAuthFormData] = useState({ 
     companyName: '', 
     contactPerson: '',
     email: '', 
-    phone: '' 
   });
   const [authError, setAuthError] = useState('');
   const [isSendingAuth, setIsSendingAuth] = useState(false);
@@ -720,7 +719,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
 
   const handleAuthSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!authFormData.companyName.trim() || !authFormData.email.trim() || !authFormData.contactPerson.trim() || !authFormData.phone.trim()) {
+    if (!authFormData.companyName.trim() || !authFormData.email.trim() || !authFormData.contactPerson.trim()) {
       setAuthError('全ての項目を入力してください (All fields are required)');
       return;
     }
@@ -729,7 +728,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
 
     // EmailJS Credentials - REAL CREDENTIALS INSERTED
     const serviceId = 'service_epq3fhj';
-    // CORRECTED TEMPLATE ID FROM USER SCREENSHOT
     const templateId = 'template_56izaei';
     const publicKey = 'exX0IhSSUjNgMhuGb';
 
@@ -739,7 +737,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
     Company Name: ${authFormData.companyName}
     Contact Person: ${authFormData.contactPerson}
     Email: ${authFormData.email}
-    Phone: ${authFormData.phone}
     
     Language: ${currentLang}
     Timestamp: ${new Date().toLocaleString()}
@@ -756,7 +753,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
       .then((response) => {
          console.log('SUCCESS!', response.status, response.text);
          alert("申請已提交，我們會儘快聯繫您！ (Application Submitted)");
-         setAuthFormData({ companyName: '', contactPerson: '', email: '', phone: '' });
+         setAuthFormData({ companyName: '', contactPerson: '', email: '' });
          setShowAuthModal(false);
          onLogin({
             companyName: authFormData.companyName,
@@ -765,11 +762,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
       })
       .catch((err) => {
          console.error('FAILED...', err);
-         // IMPORTANT: Log exact error text for debugging
          const errorMsg = err.text || JSON.stringify(err);
          
-         // Graceful Degradation: Even if email fails (e.g. adblocker, domain issue), allow login for the demo.
-         alert(`注意: 郵件發送失敗 (${errorMsg})，但我們將允許您繼續登入系統演示。`);
+         // Fail-Safe: Log error but allow login
+         console.warn(`EmailJS failed (${errorMsg}), but allowing login as fallback.`);
          
          setShowAuthModal(false);
          onLogin({
@@ -966,7 +962,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                   />
                 </div>
 
-                {/* Contact Person - ADDED */}
+                {/* Contact Person */}
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-2">
                     <User size={16} className="text-blue-600" />
@@ -992,21 +988,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                     value={authFormData.email}
                     onChange={(e) => setAuthFormData({...authFormData, email: e.target.value})}
                     placeholder="name@company.com"
-                    className="w-full p-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
-                  />
-                </div>
-
-                {/* Phone - ADDED */}
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-2">
-                    <Phone size={16} className="text-blue-600" />
-                    {currentLang === 'ja' ? '電話番号 / LINE' : currentLang === 'zh-TW' ? '電話 / LINE / WeChat' : 'Phone / LINE'}
-                  </label>
-                  <input 
-                    type="text" 
-                    value={authFormData.phone}
-                    onChange={(e) => setAuthFormData({...authFormData, phone: e.target.value})}
-                    placeholder="+886 912 345 678"
                     className="w-full p-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
                   />
                 </div>

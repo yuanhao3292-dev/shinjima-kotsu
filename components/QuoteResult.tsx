@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { QuoteResponse } from '../types';
+import { QuoteResponse, ItineraryRequest } from '../types';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { TrendingDown, TrendingUp, Cpu, Download, CheckCircle, Send, User, Phone, Mail, X, Loader2 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
 interface QuoteResultProps {
   quote: QuoteResponse;
+  request: ItineraryRequest; // Added request prop to get details for email
   isAiLoading: boolean;
 }
 
 const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#6366F1'];
 
-const QuoteResult: React.FC<QuoteResultProps> = ({ quote, isAiLoading }) => {
+const QuoteResult: React.FC<QuoteResultProps> = ({ quote, request, isAiLoading }) => {
   const [showContactModal, setShowContactModal] = useState(false);
   const [contactForm, setContactForm] = useState({ name: '', contact: '' });
   const [isSending, setIsSending] = useState(false);
 
-  // Initialize EmailJS
+  // Initialize EmailJS explicitly to handle potential context issues
   useEffect(() => {
     emailjs.init('exX0IhSSUjNgMhuGb');
   }, []);
@@ -39,50 +40,64 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, isAiLoading }) => {
     
     setIsSending(true);
 
-    // EmailJS Configuration - REAL CREDENTIALS
+    // EmailJS Credentials
     const serviceId = 'service_epq3fhj';
-    // CORRECTED TEMPLATE ID FROM USER SCREENSHOT
     const templateId = 'template_56izaei';
     const publicKey = 'exX0IhSSUjNgMhuGb';
 
-    // Build the message details
-    // "Magic Message" approach: Dump everything into the 'message' field
+    // Construct a detailed message for the OP
+    // This combines the Quote Data AND the Request Data
     const messageBody = `
-      [Quote Inquiry #${quote.id}]
-      ---------------------------
-      Estimated Total: ¥${quote.estimated_total_jpy.toLocaleString()}
-      Per Person: ¥${quote.per_person_jpy.toLocaleString()}
-      
-      [Sourcing Strategy]
-      ${quote.breakdown.sourcing_strategy}
-      
-      [AI Analysis]
-      ${quote.system_note}
+========================================
+NEW B2B QUOTE ORDER / 新訂單通知
+========================================
 
-      [Customer Contact]
-      Name: ${contactForm.name}
-      Contact: ${contactForm.contact}
-      
-      Timestamp: ${new Date().toLocaleString()}
-    `;
+[AGENT INFO / 旅行社資訊]
+Agency Name: ${request.agency_name}
+Contact Person: ${contactForm.name}
+Contact Info: ${contactForm.contact}
+
+[TRIP DETAILS / 行程需求]
+Location: ${request.hotel_req.location}
+Pax: ${request.pax}
+Days: ${request.travel_days}
+Bus Type: ${request.need_bus ? request.bus_type : 'No Bus'}
+Hotel: ${request.hotel_req.stars} Stars, ${request.hotel_req.rooms} Rooms
+
+[QUOTE SUMMARY / 報價結果]
+Quote ID: ${quote.id}
+Total Estimate: ¥${quote.estimated_total_jpy.toLocaleString()}
+Per Person: ¥${quote.per_person_jpy.toLocaleString()}
+Strategy: ${quote.breakdown.sourcing_strategy}
+
+[AI ANALYSIS / 系統備註]
+${quote.system_note}
+
+Timestamp: ${new Date().toLocaleString()}
+========================================
+`;
 
     const templateParams = {
         message: messageBody,
         from_name: contactForm.name,
-        user_name: contactForm.name,
+        // Optional mapping if template uses specific keys
+        agency_name: request.agency_name,
+        contact_info: contactForm.contact,
+        quote_id: quote.id
     };
 
     emailjs.send(serviceId, templateId, templateParams, publicKey)
       .then((response) => {
          console.log('SUCCESS!', response.status, response.text);
-         alert("詢價單已發送至 info@niijima-koutsu.com！\n我們的工作人員將盡快與您聯繫。");
+         alert("✅ 訂單已成功提交至操作中心 (OP)！\n我們將盡快核實資源並與您聯繫。");
          setShowContactModal(false);
          setContactForm({ name: '', contact: '' });
       })
       .catch((err) => {
-         console.error('FAILED...', err);
+         console.error('EmailJS FAILED...', err);
          const errorMsg = err.text || JSON.stringify(err);
-         alert("發送失敗 (Send Failed): " + errorMsg);
+         // Fail gracefully - don't lock the UI, just warn.
+         alert(`⚠️ 發送至後台失敗 (ID: ${templateId})。\n請截圖此畫面並直接聯繫客服。\n\n錯誤訊息: ${errorMsg}`);
       })
       .finally(() => {
          setIsSending(false);
