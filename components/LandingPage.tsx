@@ -24,6 +24,24 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Handle incoming hash links (e.g. from golf.html#ai-b2b)
+  useEffect(() => {
+    if (window.location.hash) {
+        const id = window.location.hash.substring(1);
+        // Small delay to ensure render
+        setTimeout(() => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                // If the hash is for a section on the home page, ensure we are on home
+                if (id === 'ai-b2b' || id === 'about') {
+                    setCurrentPage('home');
+                }
+            }
+        }, 500);
+    }
+  }, []);
+
   const LanguageSwitcher = () => (
     <div className="relative">
       <button 
@@ -40,9 +58,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
            {[
              { code: 'ja', label: '日本語' },
              { code: 'zh-TW', label: '繁體中文' },
-             { code: 'en', label: 'English' },
-             { code: 'ko', label: '한국어' },
-             { code: 'de', label: 'Deutsch' }
+             { code: 'en', label: 'English' }
            ].map((lang) => (
              <button
                key={lang.code}
@@ -453,7 +469,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition group">
                             <div className="h-48 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1678735314088-77114b3d7350?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Luxury Bus Interior" />
+                                <img src="https://images.unsplash.com/photo-1678735314088-77114b3d7350?q=80&w=2000&auto=format&fit=crop" className="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Luxury Bus Interior" />
                             </div>
                             <div className="p-6">
                                 <h4 className="font-bold text-gray-900 mb-2 flex items-center"><Bus className="text-blue-600 mr-2" size={18} /> {t.business.std_1_t}</h4>
@@ -465,7 +481,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
 
                         <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition group">
                             <div className="h-48 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Luxury Hotel Lobby" />
+                                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2000&auto=format&fit=crop" className="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Luxury Hotel Lobby" />
                             </div>
                             <div className="p-6">
                                 <h4 className="font-bold text-gray-900 mb-2 flex items-center"><Building className="text-blue-600 mr-2" size={18} /> {t.business.std_2_t}</h4>
@@ -477,7 +493,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
 
                         <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition group">
                             <div className="h-48 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1579631542720-3a87824fff86?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Kaiseki Dining" />
+                                <img src="https://images.unsplash.com/photo-1579631542720-3a87824fff86?q=80&w=2000&auto=format&fit=crop" className="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Kaiseki Dining" />
                             </div>
                             <div className="p-6">
                                 <h4 className="font-bold text-gray-900 mb-2 flex items-center"><Utensils className="text-blue-600 mr-2" size={18} /> {t.business.std_3_t}</h4>
@@ -514,31 +530,29 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
   const HomeView = () => (
     <div className="bg-[#FAFAFA]">
       {/* Hero Header */}
-      <header className="relative w-full h-screen overflow-hidden flex items-center justify-center">
-        <img 
-          src="https://images.unsplash.com/photo-1528360983277-13d9b152c6d1?q=80&w=2070&auto=format&fit=crop" 
-          alt="" 
-          className="absolute inset-0 w-full h-full object-cover opacity-90 animate-kenburns-slow"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-white/60"></div>
-
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col justify-center items-center h-full">
-          <p className="text-sm md:text-base tracking-[0.3em] uppercase text-gray-600 mb-6 animate-fade-in-up">
-            {t.hero.partner}
-          </p>
-          <h1 className="text-4xl md:text-7xl font-serif text-gray-800 leading-tight mb-8 drop-shadow-sm animate-fade-in-up" style={{animationDelay: '0.2s'}}>
-            {t.hero.title_1}<br />
-            <span className="italic font-light">{t.hero.title_2}</span>{t.hero.title_3}
-          </h1>
-          <p className="text-gray-600 max-w-lg mx-auto leading-relaxed text-sm md:text-base font-light animate-fade-in-up whitespace-pre-line" style={{animationDelay: '0.4s'}}>
-            {t.hero.subtitle}
-          </p>
-          <div className="mt-12 animate-fade-in-up" style={{animationDelay: '0.6s'}}>
-            <button onClick={() => { document.getElementById('ai-b2b')?.scrollIntoView({behavior: 'smooth'}) }} className="inline-flex items-center gap-2 text-sm border-b border-gray-800 pb-1 hover:text-blue-600 hover:border-blue-600 transition group">
-              {t.hero.explore} 
-              <ArrowLeft className="rotate-180" size={14} />
-            </button>
-          </div>
+      <header className="relative w-full h-[85vh] flex items-center justify-center bg-white">
+        {/* No background image */}
+        <div className="container mx-auto px-6 flex flex-col items-center justify-center text-center z-10">
+            <div className="animate-fade-in-up space-y-8">
+                <p className="text-xs md:text-sm tracking-[0.3em] text-gray-500 uppercase font-medium">
+                    {t.hero.partner}
+                </p>
+                <h1 className="text-5xl md:text-7xl font-serif text-[#2D2D2D] leading-tight font-medium">
+                    {t.hero.title_1}<br />
+                    {t.hero.title_2}
+                </h1>
+                <p className="text-gray-500 text-sm md:text-base font-light leading-loose max-w-2xl mx-auto whitespace-pre-line">
+                    {t.hero.subtitle}
+                </p>
+                <div className="pt-8">
+                    <button 
+                        onClick={() => document.getElementById('ai-b2b')?.scrollIntoView({behavior: 'smooth'})}
+                        className="group inline-flex items-center gap-2 text-gray-800 border-b border-gray-800 pb-1 text-sm tracking-widest hover:text-blue-600 hover:border-blue-600 transition duration-300"
+                    >
+                        {t.hero.cta} <ArrowLeft className="rotate-180 group-hover:translate-x-1 transition-transform" size={16} />
+                    </button>
+                </div>
+            </div>
         </div>
       </header>
 
@@ -729,12 +743,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
           
           <div className="border-t border-gray-200 text-sm font-light bg-white shadow-sm rounded-lg overflow-hidden">
             {[
-              { label: t.about.name, value: '新島交通株式会社 (SHINJIMA KOTSU Co., Ltd.)' },
-              { label: t.about.est, value: '2020/02' },
-              { label: t.about.rep, value: 'Yun Hao' },
-              { label: t.about.loc, value: '〒556-0014 大阪府大阪市浪速区大国1-2-21-602' },
-              { label: t.about.client, value: '大阪中央高級医療センター (TIMC)\nBooking.com / Agoda Partner Network' },
-              { label: t.about.lic, value: '大阪府知事登録旅行業第2-3115号' },
+              { label: t.about.name, value: t.about.name_val || '新島交通株式会社 (NIIJIMA KOTSU Co., Ltd.)' },
+              { label: t.about.est, value: t.about.est_val || '2020/02' },
+              { label: t.about.rep, value: t.about.rep_val || '員昊' },
+              { label: t.about.cap, value: t.about.cap_val || '2500万円' },
+              { label: t.about.loc, value: t.about.loc_val || '〒556-0014 大阪府大阪市浪速区大国1-2-21-602' },
+              { label: t.about.client, value: t.about.client_val || 'INSOUホールディングス株式会社\n台湾超200家旅行社\n中国超100家旅行社\n德州会集团\n南海電気鉄道株式会社\n三井住友銀行\n欧洲超15家旅行社' },
+              { label: t.about.lic, value: t.about.lic_val || '大阪府知事登録旅行業第2-3115号\n日本旅行业协会（JATA）正会员' },
             ].map((item, index) => (
               <div key={index} className="grid grid-cols-1 md:grid-cols-12 py-6 border-b border-gray-100 hover:bg-gray-50 transition px-6 group">
                 <div className="md:col-span-3 text-gray-400 font-medium group-hover:text-gray-600 transition">{item.label}</div>
