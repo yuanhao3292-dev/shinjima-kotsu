@@ -759,4 +759,4 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
     .finally(() => {
       setIsSubmitting(false); // 无论成功失败，都停止转圈
     });
-  };
+    emailjs.send('service_epq3fhj', 'template_pwyqs7k', templateParams, 'exX0IhSSUjNgMhuGb')
