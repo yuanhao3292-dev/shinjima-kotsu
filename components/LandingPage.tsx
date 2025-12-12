@@ -724,7 +724,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
 
     // EmailJS Credentials - REAL CREDENTIALS INSERTED
     const serviceId = 'service_epq3fhj';
-    const templateId = 'template_fdmp1n3';
+    const templateId = 'template_pwyqs7k';
     const publicKey = 'exX0IhSSUjNgMhuGb';
 
     // Build a comprehensive message to ensure data visibility even with default templates
@@ -771,10 +771,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
             companyName: authFormData.companyName,
             email: authFormData.email
          });
-      }, (err) => {
+      })
+      .catch((err) => {
          console.error('FAILED...', err);
          // Show detailed error for debugging
-         alert("發送失敗 (Send Failed): " + JSON.stringify(err));
+         alert("发送失败 (Send Failed): " + JSON.stringify(err));
       })
       .finally(() => {
          setIsSendingAuth(false);

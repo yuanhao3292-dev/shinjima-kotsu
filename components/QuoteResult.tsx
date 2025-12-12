@@ -36,7 +36,7 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, isAiLoading }) => {
 
     // EmailJS Configuration - REAL CREDENTIALS
     const serviceId = 'service_epq3fhj';
-    const templateId = 'template_fdmp1n3';
+    const templateId = 'template_pwyqs7k';
     const publicKey = 'exX0IhSSUjNgMhuGb';
 
     // Build the message details
@@ -81,9 +81,10 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, isAiLoading }) => {
          alert("詢價單已發送至 info@niijima-koutsu.com！\n我們的工作人員將盡快與您聯繫。");
          setShowContactModal(false);
          setContactForm({ name: '', contact: '' });
-      }, (err) => {
+      })
+      .catch((err) => {
          console.error('FAILED...', err);
-         alert("發送失敗 (Send Failed): " + JSON.stringify(err));
+         alert("发送失败 (Send Failed): " + JSON.stringify(err));
       })
       .finally(() => {
          setIsSending(false);
