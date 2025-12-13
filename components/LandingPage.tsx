@@ -8,6 +8,7 @@ import emailjs from '@emailjs/browser';
 import IntroParticles from './IntroParticles';
 import MedicalDNA from './MedicalDNA';
 import BusinessNetwork from './BusinessNetwork';
+import PartnerParticles from './PartnerParticles';
 
 // --- IMAGE ASSETS CONFIGURATION ---
 const SITE_IMAGES = {
@@ -654,11 +655,24 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
 // ... (PartnerView, HomeView, LandingPage remain unchanged)
 const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger }) => (
   <div className="animate-fade-in-up pt-24 min-h-screen bg-white">
-     <div className="bg-blue-50 py-24 text-center px-6">
-         <span className="text-blue-600 font-bold tracking-widest text-xs uppercase">{t.partner.hero_tag}</span>
-         <h1 className="text-4xl md:text-5xl font-serif mt-4 mb-6 text-gray-900">{t.partner.hero_title}</h1>
-         <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed whitespace-pre-line">{t.partner.hero_text}</p>
+     {/* Updated Hero for PartnerView using PartnerParticles (SHIN/RAI) */}
+     <div className="relative h-[60vh] flex flex-col items-center justify-center bg-blue-50 overflow-hidden">
+         <div className="absolute inset-0">
+             <PartnerParticles />
+         </div>
+         <div className="relative z-10 text-center px-6 pointer-events-none">
+             <span className="text-blue-600 font-bold tracking-widest text-xs uppercase mb-4 block bg-white/80 backdrop-blur inline-block px-4 py-1 rounded-full border border-blue-100">
+                {t.partner.hero_tag}
+             </span>
+             <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6 bg-clip-text">
+                {t.partner.hero_title}
+             </h1>
+             <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed whitespace-pre-line text-sm md:text-base bg-white/60 p-4 rounded-xl backdrop-blur-sm shadow-sm">
+                {t.partner.hero_text}
+             </p>
+         </div>
      </div>
+
      <div className="container mx-auto px-6 py-24">
          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
              {[

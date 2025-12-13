@@ -76,7 +76,7 @@ export const translations = {
     business: {
       tag: 'Overseas Business Tour',
       title: '海外企業視察・ビジネスツアー',
-      desc: '単なる通訳や移動の手配ではありません。私たちは、海外のお客様と日本企業の架け橋となります。\n医療機器、介護、精密製造など、日本の技術の最前線（現場）へ深く入り込み、\n観光では触れられない真のビジネス・インサイトを提供します。',
+      desc: '「観光」の枠を超え、「実益」を生む旅へ。\n通常の旅行代理店では手配が難しい「企業のバックヤード視察」「医療施設の専門エリア見学」「経営層との意見交換」を実現します。\n単なる移動と宿泊の手配にとどまらず、貴社のビジネス目的に合わせた「学び」と「つながり」をコーディネート。\n関西・東京の産業クラスターを熟知した私たちが、実りあるビジネスツアーをお約束します。',
       btn_case: '視察プランを見る',
       hero_tag: 'Business Inspection & MICE',
       hero_title: '関西産業視察・商務考察',
@@ -393,7 +393,7 @@ export const translations = {
     business: {
       tag: 'Overseas Business Tour',
       title: '海外企業考察・商務之旅',
-      desc: '這不僅僅是翻譯或交通安排。我們是海外客戶與日本企業之間的橋樑。\n深入醫療器材、長照護理、精密製造等日本技術的最前線（現場），\n提供觀光旅遊無法觸及的真實商業洞察。',
+      desc: '超越「觀光」框架，創造「實益」的旅程。\n我們能實現一般旅行社難以安排的「企業後台參觀」、「醫療設施專區見學」、「高層意見交換」。\n不僅限於安排交通與住宿，更為貴公司的商業目標量身打造「學習」與「連結」的機會。\n熟知關西、東京產業聚落的我們，承諾為您帶來成果豐碩的商務考察。',
       btn_case: '查看考察方案',
       hero_tag: 'Business Inspection & MICE',
       hero_title: '關西產業視察・商務考察',
@@ -710,7 +710,7 @@ export const translations = {
     business: {
       tag: 'Overseas Business Tour',
       title: 'Overseas Corporate Inspection & Business Tours',
-      desc: 'This is not merely about arranging interpreters or transport. We serve as a bridge between overseas clients and Japanese enterprises.\nWe dive deep into the frontlines of Japanese technology—such as medical devices, elderly care, and precision manufacturing—\nproviding true business insights inaccessible through ordinary tourism.',
+      desc: 'Move beyond "tourism" to journeys that generate "real profit."\nWe arrange difficult-to-access opportunities: "corporate backyard tours," "specialized medical facility visits," and "executive-level opinion exchanges."\nWe coordinate not just travel and accommodation, but "learning" and "connections" tailored to your business goals.\nWith deep knowledge of Kansai and Tokyo industrial clusters, we promise a fruitful business tour.',
       btn_case: 'View Case Studies',
       hero_tag: 'Business Inspection & MICE',
       hero_title: 'Kansai Industrial Inspection',
