@@ -2,42 +2,37 @@ import React, { useState, useEffect } from 'react';
 import Logo from './Logo';
 import { translations, Language } from '../translations';
 import { UserProfile } from '../types';
-import { ArrowLeft, ArrowRight, CheckCircle, MapPin, Building, Activity, Shield, Armchair, FileText, Check, Brain, Eye, Zap, Coffee, Globe, ChevronDown, Smile, Heart, Bus, Utensils, Quote, Lock, Trophy, Car, Bath, Handshake, Users, Briefcase, Mail, X, Menu, LogIn, Phone, Loader2, User, Sparkles } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle, MapPin, Building, Activity, Shield, Armchair, FileText, Check, Brain, Eye, Zap, Coffee, Globe, ChevronDown, Smile, Heart, Bus, Utensils, Quote, Lock, Trophy, Car, Bath, Handshake, Users, Briefcase, Mail, X, Menu, LogIn, Phone, Loader2, User, Sparkles, Scan, Cpu, Microscope, Dna, Monitor, Fingerprint, Printer } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import IntroParticles from './IntroParticles';
+import MedicalDNA from './MedicalDNA';
+import BusinessNetwork from './BusinessNetwork';
 
 // --- IMAGE ASSETS CONFIGURATION ---
-// [USER GUIDE]
-// 1. Place your own images in the "public/images" folder.
-// 2. Name them exactly as shown below (e.g., hero_medical.jpg).
-// 3. If a file is missing, the app will automatically use the FALLBACK_IMAGES (Unsplash).
-
-// Dynamic timestamp to force browser to re-fetch images (Busts Cache)
-const TS = Date.now();
-
 const SITE_IMAGES = {
-  // Medical Page (Note: Removed leading slash for better relative path support)
-  medical_hero: `images/hero_medical.jpg?v=${TS}`,      
-  tech_ct: `images/tech_ct.jpg?v=${TS}`,               
-  tech_mri: `images/tech_mri.jpg?v=${TS}`,             
-  tech_endo: `images/tech_endo.jpg?v=${TS}`,           
-  tech_dental: `images/tech_dental.jpg?v=${TS}`,       
+  // Medical Page - User Provided Direct Links
+  medical_hero: "https://i.ibb.co/xS1h4rTM/hero-medical.jpg",
+  tech_ct: "https://i.ibb.co/mFbDmCvg/tech-ct.jpg",
+  tech_mri: "https://i.ibb.co/XxZdfCML/tech-mri.jpg",
+  tech_endo: "https://i.ibb.co/MkkrywCZ/tech-endo.jpg",
+  tech_dental: "https://i.ibb.co/tM1LBQJW/tech-dental.jpg",
   
   // Golf Page
-  golf_hero: `images/hero_golf.jpg?v=${TS}`,           
+  golf_hero: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2000&auto=format&fit=crop",
   
   // Business Page
-  business_hero: `images/hero_business.jpg?v=${TS}`,   
+  business_hero: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop",
   
-  // Home Page Previews
-  home_medical_preview: `images/preview_medical.jpg?v=${TS}`, 
-  home_business_preview: `images/preview_business.jpg?v=${TS}`, 
+  // Home Page Previews (Updated to Tech/Abstract for Medical)
+  // Using a Digital Twin / Human Scan style image as base
+  home_medical_preview: "https://images.unsplash.com/photo-1531297461136-82ae96c51248?q=80&w=1000&auto=format&fit=crop", 
+  home_business_preview: "https://images.unsplash.com/photo-1577962917302-cd874c4e3169?q=80&w=800&auto=format&fit=crop",
   
   // Founder
-  founder_portrait: `images/founder.jpg?v=${TS}`       
+  founder_portrait: "https://i.ibb.co/B2mJDvq7/founder.jpg"
 };
 
-// Fallback Map (Cloud Backup if local files are missing)
+// Fallback Map
 const FALLBACK_IMAGES: Record<string, string> = {
   medical_hero: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2000&auto=format&fit=crop",
   tech_ct: "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=800&auto=format&fit=crop",
@@ -46,49 +41,24 @@ const FALLBACK_IMAGES: Record<string, string> = {
   tech_dental: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=800&auto=format&fit=crop",
   golf_hero: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2000&auto=format&fit=crop",
   business_hero: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop",
-  home_medical_preview: "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?q=80&w=800&auto=format&fit=crop",
+  home_medical_preview: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
   home_business_preview: "https://images.unsplash.com/photo-1577962917302-cd874c4e3169?q=80&w=800&auto=format&fit=crop",
   founder_portrait: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop"
 };
 
-// --- Smart Image Error Handler ---
-// Improved to handle more extensions and casing
 const handleSmartImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>, fallbackKey: string) => {
   const target = e.currentTarget;
-  let currentSrc = target.src;
-  
-  // Remove query params for extension checking
-  const cleanSrc = currentSrc.split('?')[0];
-
-  // Prevent infinite loops if fallback also fails
-  if (cleanSrc === FALLBACK_IMAGES[fallbackKey]) return;
-
-  // Attempt sequence: .jpg -> .png -> .webp -> .jpeg -> Fallback
-  
-  if (cleanSrc.endsWith('.jpg')) {
-    target.src = currentSrc.replace('.jpg', '.png'); 
-    return;
-  }
-  
-  if (cleanSrc.endsWith('.png')) {
-    target.src = currentSrc.replace('.png', '.webp'); 
-    return;
-  }
-
-  if (cleanSrc.endsWith('.webp')) {
-    target.src = currentSrc.replace('.webp', '.jpeg');
-    return;
-  }
-
-  if (cleanSrc.endsWith('.jpeg')) {
-    // If lower case fails, try Upper Case just in case (Linux systems are case sensitive)
-    target.src = currentSrc.replace('.jpeg', '.JPG'); 
-    return;
-  }
-
-  // If local files fail, use cloud fallback
-  console.warn(`[SmartLoad] All local attempts failed for ${fallbackKey}. Loading cloud fallback.`);
-  target.src = FALLBACK_IMAGES[fallbackKey];
+  const attemptStr = target.getAttribute('data-retry-attempt') || '0';
+  let attempt = parseInt(attemptStr, 10);
+  if (target.src === FALLBACK_IMAGES[fallbackKey]) return;
+  const currentPath = target.getAttribute('src') || '';
+  const cleanBase = currentPath.split('?')[0].replace(/(\.jpg|\.png|\.jpeg|\.webp)+$/i, '');
+  attempt += 1;
+  target.setAttribute('data-retry-attempt', attempt.toString());
+  if (attempt === 1) target.src = `${cleanBase}.jpg.jpg`;
+  else if (attempt === 2) target.src = `${cleanBase}.JPG`;
+  else if (attempt === 3) target.src = `${cleanBase}.png`;
+  else target.src = FALLBACK_IMAGES[fallbackKey];
 };
 
 interface LandingPageProps {
@@ -97,14 +67,79 @@ interface LandingPageProps {
 
 type PageView = 'home' | 'medical' | 'business' | 'golf' | 'partner';
 
-// --- Shared Props Interface for Sub-Views ---
 interface SubViewProps {
   t: any;
   setCurrentPage: (page: PageView) => void;
   onLoginTrigger: () => void;
+  currentLang: Language;
 }
 
-// --- Sub-View: Medical Page ---
+// --- NEW COMPONENT: AI Tech Card (Used in Sub-views) ---
+const MedicalTechCard = ({ 
+  img, 
+  title, 
+  desc, 
+  icon: Icon, 
+  colorClass, 
+  fallbackKey,
+  spec1,
+  spec2 
+}: { 
+  img: string, 
+  title: string, 
+  desc: string, 
+  icon: any, 
+  colorClass: string,
+  fallbackKey: string,
+  spec1: string,
+  spec2: string
+}) => {
+  return (
+    <div className="group relative bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+      {/* Image Container with Tech Overlay */}
+      <div className="relative h-64 overflow-hidden bg-gray-900">
+        <img 
+          src={img} 
+          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-700 grayscale group-hover:grayscale-0"
+          alt={title}
+          onError={(e) => handleSmartImageError(e, fallbackKey)}
+        />
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/graphy.png')] opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+           <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-blue-400 to-transparent shadow-[0_0_15px_rgba(59,130,246,0.8)] animate-[scan_2.5s_linear_infinite]"></div>
+        </div>
+        <div className="absolute top-4 left-4">
+           <div className={`w-8 h-8 rounded backdrop-blur-md bg-white/10 border border-white/20 flex items-center justify-center text-white ${colorClass}`}>
+              <Icon size={16} />
+           </div>
+        </div>
+        <div className="absolute bottom-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+           <span className="text-[10px] text-white bg-black/50 backdrop-blur px-2 py-1 rounded border border-white/10 uppercase tracking-wider font-mono">AI Analysis</span>
+           <span className="text-[10px] text-green-400 bg-black/50 backdrop-blur px-2 py-1 rounded border border-white/10 font-mono">Active</span>
+        </div>
+      </div>
+      <div className="p-8">
+        <div className="flex items-center gap-2 mb-3">
+           <div className={`h-1 w-6 rounded-full ${colorClass.replace('text-', 'bg-')}`}></div>
+           <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Advanced Tech</span>
+        </div>
+        <h4 className="text-xl font-bold text-gray-900 mb-3 font-serif group-hover:text-blue-700 transition-colors">{title}</h4>
+        <div className="flex flex-wrap gap-2 mb-4">
+           <span className="text-[10px] font-bold text-gray-500 bg-gray-50 px-2 py-1 rounded border border-gray-100 flex items-center gap-1">
+              <Cpu size={10} /> {spec1}
+           </span>
+           <span className="text-[10px] font-bold text-gray-500 bg-gray-50 px-2 py-1 rounded border border-gray-100 flex items-center gap-1">
+              <Scan size={10} /> {spec2}
+           </span>
+        </div>
+        <p className="text-gray-500 text-sm leading-relaxed text-justify line-clamp-4 group-hover:line-clamp-none transition-all">
+           {desc}
+        </p>
+      </div>
+    </div>
+  );
+};
+
 const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger }) => (
   <div className="animate-fade-in-up pt-24 min-h-screen bg-white">
     {/* 1. Hero Section */}
@@ -113,10 +148,13 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
           src={SITE_IMAGES.medical_hero}
           className="absolute inset-0 w-full h-full object-cover opacity-80" 
           alt="TIMC Lobby Luxury Environment"
+          key="medical_hero"
           onError={(e) => handleSmartImageError(e, 'medical_hero')}
       />
       <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/60 to-transparent"></div>
-
+      <div className="absolute inset-0 opacity-30 pointer-events-none">
+         <div className="absolute w-full h-full bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
+      </div>
       <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-3xl animate-fade-in-up">
               <span className="text-blue-400 text-xs tracking-[0.3em] uppercase font-bold border border-blue-400/30 px-3 py-1 rounded-full backdrop-blur-md">
@@ -137,7 +175,6 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
     </div>
 
     <div className="container mx-auto px-6 py-24">
-      
       {/* 2. Authority Section */}
       <div className="mb-24">
           <div className="text-center mb-16">
@@ -172,83 +209,55 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
       {/* 3. Tech Section */}
       <div className="mb-24">
           <div className="text-center mb-16">
-              <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">Advanced Equipment</span>
+              <div className="flex items-center justify-center gap-2 mb-2">
+                 <Sparkles size={16} className="text-blue-400 animate-pulse" />
+                 <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">Future Medical Tech</span>
+              </div>
               <h3 className="text-3xl font-serif text-gray-900 mt-2 mb-4">{t.medical.tech_title}</h3>
               <p className="text-gray-500 text-sm max-w-2xl mx-auto">{t.medical.tech_sub}</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div className="flex flex-col gap-4 border-b border-gray-100 pb-8">
-                  <div className="h-64 rounded-lg overflow-hidden group shadow-md">
-                      <img 
-                        src={SITE_IMAGES.tech_ct} 
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" 
-                        alt="CT" 
-                        onError={(e) => handleSmartImageError(e, 'tech_ct')}
-                      />
-                  </div>
-                  <div>
-                      <div className="flex items-center gap-3 mb-2">
-                          <Zap size={20} className="text-yellow-500" />
-                          <h4 className="text-xl font-bold text-gray-800">{t.medical.tech_ct_t}</h4>
-                      </div>
-                      <p className="text-gray-500 text-sm leading-relaxed text-justify">{t.medical.tech_ct_d}</p>
-                  </div>
-              </div>
-
-              <div className="flex flex-col gap-4 border-b border-gray-100 pb-8">
-                  <div className="h-64 rounded-lg overflow-hidden group shadow-md">
-                      <img 
-                        src={SITE_IMAGES.tech_mri} 
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" 
-                        alt="MRI" 
-                        onError={(e) => handleSmartImageError(e, 'tech_mri')}
-                      />
-                  </div>
-                  <div>
-                      <div className="flex items-center gap-3 mb-2">
-                          <Brain size={20} className="text-purple-500" />
-                          <h4 className="text-xl font-bold text-gray-800">{t.medical.tech_mri_t}</h4>
-                      </div>
-                      <p className="text-gray-500 text-sm leading-relaxed text-justify">{t.medical.tech_mri_d}</p>
-                  </div>
-              </div>
-
-              <div className="flex flex-col gap-4 border-b border-gray-100 pb-8">
-                  <div className="h-64 rounded-lg overflow-hidden group shadow-md">
-                      <img 
-                        src={SITE_IMAGES.tech_endo} 
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" 
-                        alt="Endoscopy" 
-                        onError={(e) => handleSmartImageError(e, 'tech_endo')}
-                      />
-                  </div>
-                  <div>
-                      <div className="flex items-center gap-3 mb-2">
-                          <Eye size={20} className="text-green-500" />
-                          <h4 className="text-xl font-bold text-gray-800">{t.medical.tech_endo_t}</h4>
-                      </div>
-                      <p className="text-gray-500 text-sm leading-relaxed text-justify">{t.medical.tech_endo_d}</p>
-                  </div>
-              </div>
-
-              <div className="flex flex-col gap-4 border-b border-gray-100 pb-8">
-                  <div className="h-64 rounded-lg overflow-hidden group shadow-md">
-                      <img 
-                        src={SITE_IMAGES.tech_dental} 
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" 
-                        alt="Dental" 
-                        onError={(e) => handleSmartImageError(e, 'tech_dental')}
-                      />
-                  </div>
-                  <div>
-                      <div className="flex items-center gap-3 mb-2">
-                          <Smile size={20} className="text-blue-500" />
-                          <h4 className="text-xl font-bold text-gray-800">{t.medical.tech_dental_t}</h4>
-                      </div>
-                      <p className="text-gray-500 text-sm leading-relaxed text-justify">{t.medical.tech_dental_d}</p>
-                  </div>
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <MedicalTechCard 
+                 img={SITE_IMAGES.tech_ct}
+                 title={t.medical.tech_ct_t}
+                 desc={t.medical.tech_ct_d}
+                 icon={Zap}
+                 colorClass="text-yellow-400"
+                 fallbackKey="tech_ct"
+                 spec1="Dual Layer Detector"
+                 spec2="Low Dose"
+              />
+              <MedicalTechCard 
+                 img={SITE_IMAGES.tech_mri}
+                 title={t.medical.tech_mri_t}
+                 desc={t.medical.tech_mri_d}
+                 icon={Brain}
+                 colorClass="text-purple-500"
+                 fallbackKey="tech_mri"
+                 spec1="AI Breath Sync"
+                 spec2="1.5T Ambition"
+              />
+              <MedicalTechCard 
+                 img={SITE_IMAGES.tech_endo}
+                 title={t.medical.tech_endo_t}
+                 desc={t.medical.tech_endo_d}
+                 icon={Eye}
+                 colorClass="text-green-500"
+                 fallbackKey="tech_endo"
+                 spec1="BLI Light"
+                 spec2="AI Diagnosis"
+              />
+              <MedicalTechCard 
+                 img={SITE_IMAGES.tech_dental}
+                 title={t.medical.tech_dental_t}
+                 desc={t.medical.tech_dental_d}
+                 icon={Smile}
+                 colorClass="text-blue-500"
+                 fallbackKey="tech_dental"
+                 spec1="3D Scanning"
+                 spec2="One-Day Treat"
+              />
           </div>
       </div>
 
@@ -259,7 +268,6 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
                <h3 className="text-3xl font-serif">{t.medical.flow_title}</h3>
                <p className="text-gray-400 mt-2 text-sm">Experience the Flow</p>
            </div>
-           
            <div className="relative z-10 grid grid-cols-1 md:grid-cols-5 gap-6 text-center">
               {[
                   { id: '01', icon: <Building size={24} />, title: t.medical.flow_1, desc: t.medical.flow_1_d },
@@ -284,7 +292,6 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
               <h3 className="text-3xl font-serif text-gray-900">{t.medical.pkg_title}</h3>
               <p className="text-gray-500 text-sm mt-2">Recommended Courses</p>
           </div>
-          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               {/* Premium */}
               <div className="border border-gray-200 rounded-2xl p-8 hover:shadow-xl transition hover:-translate-y-1 relative overflow-hidden bg-gradient-to-br from-gray-50 to-white">
@@ -297,7 +304,6 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
                       <div className="flex items-center gap-2 text-sm text-gray-700"><CheckCircle size={16} className="text-blue-600" /> Tumor Markers</div>
                   </div>
               </div>
-
               {/* Standard */}
               <div className="border border-gray-200 rounded-2xl p-8 hover:shadow-xl transition hover:-translate-y-1 bg-white">
                    <h4 className="text-2xl font-serif font-bold text-gray-900 mb-2">{t.medical.pkg_s_t}</h4>
@@ -330,7 +336,6 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
   </div>
 );
 
-// --- Sub-View: Golf Page ---
 const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger }) => (
   <div className="animate-fade-in-up pt-24 min-h-screen bg-white">
      {/* Hero */}
@@ -339,6 +344,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
             src={SITE_IMAGES.golf_hero}
             className="absolute inset-0 w-full h-full object-cover grayscale-[10%]" 
             alt="Golf Course" 
+            key="golf_hero"
             onError={(e) => handleSmartImageError(e, 'golf_hero')}
         />
         <div className="absolute inset-0 bg-black/40"></div>
@@ -350,15 +356,11 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
            <h2 className="text-3xl font-light text-gray-200">{t.golf.title_2}</h2>
         </div>
      </div>
-
      <div className="container mx-auto px-6 py-24">
-         
          <div className="text-center mb-16">
             <span className="text-green-600 text-xs tracking-widest uppercase font-bold">{t.golf.std_title}</span>
             <h2 className="text-3xl font-serif mt-3 text-gray-900">Why Choose Our Golf Division?</h2>
          </div>
-
-         {/* Bento Grid */}
          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
              {[
                { icon: <Lock size={24} />, title: t.golf.f1_t, desc: t.golf.f1_d, color: 'green' },
@@ -375,8 +377,6 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
                </div>
              ))}
          </div>
-
-         {/* Itinerary */}
          <div className="max-w-4xl mx-auto border-l-2 border-gray-200 pl-8 space-y-12">
             {[
               { day: 'Day 1', title: t.golf.itin_d1_t, desc: t.golf.itin_d1_d },
@@ -393,7 +393,6 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
               </div>
             ))}
          </div>
-
          <div className="mt-24 bg-[#111] rounded-3xl p-12 text-center text-white">
              <h3 className="text-3xl font-serif mb-4">{t.golf.cta_title}</h3>
              <p className="text-gray-400 mb-8">{t.golf.cta_desc}</p>
@@ -401,7 +400,6 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
                 {t.golf.cta_btn}
              </button>
          </div>
-
          <button onClick={() => setCurrentPage('home')} className="mt-16 w-full text-center text-gray-400 hover:text-black transition flex justify-center items-center gap-2">
             <ArrowLeft size={16} /> {t.about.back}
          </button>
@@ -409,7 +407,6 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
   </div>
 );
 
-// --- Sub-View: Partner Page ---
 const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger }) => (
   <div className="animate-fade-in-up pt-24 min-h-screen bg-white">
      <div className="bg-blue-50 py-24 text-center px-6">
@@ -417,7 +414,6 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
          <h1 className="text-4xl md:text-5xl font-serif mt-4 mb-6 text-gray-900">{t.partner.hero_title}</h1>
          <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed whitespace-pre-line">{t.partner.hero_text}</p>
      </div>
-
      <div className="container mx-auto px-6 py-24">
          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
              {[
@@ -432,7 +428,6 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
                </div>
              ))}
          </div>
-
          <div className="bg-gray-900 text-white rounded-3xl p-12">
             <h3 className="text-2xl font-serif mb-12 text-center">{t.partner.flow_title}</h3>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -449,7 +444,6 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
                  </div>
                ))}
             </div>
-            
             <div className="mt-16 text-center border-t border-gray-800 pt-12">
                <h4 className="text-xl font-serif mb-4">{t.partner.cta_title}</h4>
                <p className="text-gray-400 mb-8 whitespace-pre-line">{t.partner.cta_desc}</p>
@@ -458,7 +452,6 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
                </button>
             </div>
          </div>
-         
          <button onClick={() => setCurrentPage('home')} className="mt-16 w-full text-center text-gray-400 hover:text-black transition flex justify-center items-center gap-2">
             <ArrowLeft size={16} /> {t.about.back}
          </button>
@@ -466,17 +459,16 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
   </div>
 );
 
-// --- Sub-View: Business Page ---
 const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage }) => (
   <div className="animate-fade-in-up pt-24 min-h-screen bg-[#F5F5F7]">
      <div className="container mx-auto px-6 py-24">
-        {/* Header */}
         <div className="flex flex-col md:flex-row-reverse gap-16 items-center mb-24">
             <div className="md:w-1/2 image-card shadow-lg rounded-lg">
                 <img 
                   src={SITE_IMAGES.business_hero} 
                   alt="Business Meeting" 
                   className="w-full h-[450px] object-cover grayscale hover:grayscale-0 transition duration-700" 
+                  key="business_hero"
                   onError={(e) => handleSmartImageError(e, 'business_hero')}
                 />
             </div>
@@ -490,8 +482,6 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage }) => (
                 </p>
             </div>
         </div>
-
-        {/* Themes */}
         <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-xl p-8 md:p-12 mb-20 relative z-20">
             <h3 className="text-2xl font-serif mb-8 text-center border-b border-gray-100 pb-4">{t.business.themes_title}</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -510,14 +500,11 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage }) => (
                 ))}
             </div>
         </div>
-
-        {/* Process */}
         <div className="max-w-5xl mx-auto">
              <div className="text-center mb-16">
                 <h3 className="text-2xl font-serif text-gray-900">{t.business.process_title}</h3>
                 <p className="text-gray-500 text-sm mt-4">{t.business.process_sub}</p>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                {[
                  { step: '1', title: t.business.step_1_t, desc: t.business.step_1_d },
@@ -534,7 +521,6 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage }) => (
                ))}
             </div>
         </div>
-
         <button onClick={() => setCurrentPage('home')} className="mt-16 w-full text-center text-gray-400 hover:text-black transition flex justify-center items-center gap-2">
             <ArrowLeft size={16} /> {t.about.back}
          </button>
@@ -543,21 +529,15 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage }) => (
 );
 
 // --- Sub-View: Home View (Main Landing) ---
-const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger }) => (
+const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, currentLang }) => (
   <div className="animate-fade-in-up pt-0 bg-white">
       {/* 1. Hero Header with 3D Particles */}
       <header className="relative w-full h-[85vh] flex items-center justify-center bg-white overflow-hidden">
-          {/* 3D Background - REPLACED STATIC IMAGE WITH PARTICLES */}
           <div className="absolute inset-0 z-0">
              <IntroParticles />
           </div>
-
-          {/* Overlay Content */}
           <div className="container mx-auto px-6 flex flex-col items-center justify-center text-center z-10 pointer-events-none">
               <div className="animate-fade-in-up space-y-8 mt-48 md:mt-64">
-                  
-                  {/* Title overlaying particles (Text is minimal here to not clash with 3D text) */}
-                  
                   <div className="pt-12 pointer-events-auto">
                       <button 
                           onClick={() => document.getElementById('ai-b2b')?.scrollIntoView({behavior: 'smooth'})}
@@ -568,54 +548,94 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
                   </div>
               </div>
           </div>
-          
-          {/* Scroll Indicator */}
           <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-gray-300 pointer-events-none">
              <ChevronDown size={24} />
           </div>
       </header>
 
-    {/* Medical Preview Section */}
+    {/* Medical Preview Section - UPDATED DESIGN: CLEAN & WHITE */}
     <section className="py-24 bg-white relative z-10">
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row gap-16 items-center">
-          <div className="md:w-1/2 image-card shadow-xl cursor-pointer rounded-2xl" onClick={() => setCurrentPage('medical')}>
-            <img 
-              src={SITE_IMAGES.home_medical_preview}
-              alt="TIMC Advanced Lobby" 
-              className="w-full h-[550px] object-cover hover:scale-105 transition duration-700"
-              onError={(e) => handleSmartImageError(e, 'home_medical_preview')}
-            />
+          
+          {/* LEFT SIDE: FUTURE UI TECH CARD (CLEAN WHITE VERSION) */}
+          <div className="md:w-1/2 cursor-pointer group" onClick={() => setCurrentPage('medical')}>
+            <div className="relative overflow-hidden rounded-3xl shadow-xl transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl bg-white border border-gray-100 h-[600px]">
+                
+                {/* 1. 3D DNA/Cell Visualization Layer */}
+                <div className="absolute inset-0 z-0">
+                    <MedicalDNA />
+                </div>
+                
+                {/* 2. Interaction Prompt (Subtle) */}
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center gap-2 pointer-events-none">
+                   <span className="text-[10px] text-gray-400 font-mono uppercase tracking-widest bg-white/80 px-3 py-1 rounded-full backdrop-blur-sm border border-gray-100">Tap to Explore</span>
+                </div>
+
+            </div>
           </div>
+
           <div className="md:w-1/2 space-y-8">
             <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">{t.medical.tag}</span>
-            <h2 className="text-4xl font-serif text-gray-900">{t.medical.title}</h2>
+            <h2 className="text-4xl font-serif text-gray-900 leading-tight">
+               {currentLang === 'zh-TW' ? (
+                  <>
+                     科技改變人類<br/>
+                     <span className="text-transparent bg-clip-text gemini-gradient">早發現，早治療</span>
+                  </>
+               ) : t.medical.title}
+            </h2>
             <p className="text-gray-500 leading-8 font-light whitespace-pre-line">
               {t.medical.desc}
             </p>
-            <button 
-              onClick={() => setCurrentPage('medical')}
-              className="inline-block border border-gray-300 px-8 py-3 text-sm hover:bg-blue-600 hover:border-blue-600 hover:text-white transition cursor-pointer tracking-wider uppercase rounded"
-            >
-              {t.medical.btn_detail}
-            </button>
+            <div className="flex flex-col gap-4">
+               {/* Tech Features List */}
+               <div className="flex items-center gap-3 text-sm text-gray-600">
+                  <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600"><Dna size={16} /></div>
+                  <div>遺伝子レベルの解析 (Gene Analysis)</div>
+               </div>
+               <div className="flex items-center gap-3 text-sm text-gray-600">
+                  <div className="w-8 h-8 rounded-full bg-purple-50 flex items-center justify-center text-purple-600"><Monitor size={16} /></div>
+                  <div>AI 画像診断支援 (AI Diagnosis Support)</div>
+               </div>
+               <div className="flex items-center gap-3 text-sm text-gray-600">
+                  <div className="w-8 h-8 rounded-full bg-cyan-50 flex items-center justify-center text-cyan-600"><Microscope size={16} /></div>
+                  <div>超早期発見 (Early Detection)</div>
+               </div>
+            </div>
+            <div className="pt-4">
+               <button 
+                 onClick={() => setCurrentPage('medical')}
+                 className="inline-block border border-gray-300 px-8 py-3 text-sm hover:bg-blue-600 hover:border-blue-600 hover:text-white transition cursor-pointer tracking-wider uppercase rounded"
+               >
+                 {t.medical.btn_detail}
+               </button>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    {/* Business Preview Section */}
+    {/* Business Preview Section - UPDATED: 3D Network */}
     <section className="py-24 bg-[#F5F5F7]">
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row-reverse gap-16 items-center">
-          <div className="md:w-1/2 image-card shadow-lg cursor-pointer rounded-2xl" onClick={() => setCurrentPage('business')}>
-            <img 
-              src={SITE_IMAGES.home_business_preview}
-              alt="Business MICE" 
-              className="w-full h-[500px] object-cover"
-              onError={(e) => handleSmartImageError(e, 'home_business_preview')}
-            />
+          
+          {/* RIGHT SIDE: BUSINESS 3D CARD */}
+          <div className="md:w-1/2 cursor-pointer group" onClick={() => setCurrentPage('business')}>
+            <div className="relative overflow-hidden rounded-3xl shadow-xl transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl bg-[#F5F5F7] border border-gray-200 h-[500px]">
+               {/* 3D Network Layer */}
+               <div className="absolute inset-0 z-0">
+                  <BusinessNetwork />
+               </div>
+               
+               {/* Interaction Prompt (Subtle) */}
+               <div className="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center gap-2 pointer-events-none">
+                   <span className="text-[10px] text-gray-500 font-mono uppercase tracking-widest bg-white/80 px-3 py-1 rounded-full backdrop-blur-sm border border-gray-200">View Insights</span>
+               </div>
+            </div>
           </div>
+
           <div className="md:w-1/2 space-y-8 text-right md:text-left">
             <div className="flex flex-col md:items-start items-end">
               <span className="text-purple-500 text-xs tracking-widest uppercase font-bold">{t.business.tag}</span>
@@ -732,6 +752,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
                       src={SITE_IMAGES.founder_portrait}
                       alt="Founder Portrait" 
                       className="relative rounded-xl shadow-lg w-full object-cover h-[400px]"
+                      key="founder_portrait"
                       onError={(e) => handleSmartImageError(e, 'founder_portrait')}
                    />
                 </div>
@@ -783,40 +804,26 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
   </div>
 );
 
-// --- Main LandingPage Component ---
+// ... (Rest of the file remains unchanged)
 const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
   const [currentPage, setCurrentPage] = useState<PageView>('home');
   const [scrolled, setScrolled] = useState(false);
   const [currentLang, setCurrentLang] = useState<Language>('ja');
+  // ... (Keep existing state and logic)
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
-  // Auth Modal State
   const [showAuthModal, setShowAuthModal] = useState(false);
-  // UPDATED: Simply keep Company, Contact Person, Email as requested
-  const [authFormData, setAuthFormData] = useState({ 
-    companyName: '', 
-    contactPerson: '',
-    email: '', 
-  });
+  const [authFormData, setAuthFormData] = useState({ companyName: '', contactPerson: '', email: '' });
   const [authError, setAuthError] = useState('');
   const [isSendingAuth, setIsSendingAuth] = useState(false);
-
   const t = translations[currentLang];
 
-  // Initialize EmailJS explicitly to handle certain browser environments
-  useEffect(() => {
-    emailjs.init('exX0IhSSUjNgMhuGb');
-  }, []);
-
-  // Handle scroll effect for navbar
+  useEffect(() => { emailjs.init('exX0IhSSUjNgMhuGb'); }, []);
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Handle incoming hash links
   useEffect(() => {
     if (window.location.hash) {
         const id = window.location.hash.substring(1);
@@ -824,9 +831,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
             const element = document.getElementById(id);
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth' });
-                if (id === 'ai-b2b' || id === 'about') {
-                    setCurrentPage('home');
-                }
+                if (id === 'ai-b2b' || id === 'about') setCurrentPage('home');
             }
         }, 500);
     }
@@ -838,94 +843,50 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
       setAuthError('全ての項目を入力してください (All fields are required)');
       return;
     }
-    
     setIsSendingAuth(true);
-
-    // EmailJS Credentials - REAL CREDENTIALS INSERTED
     const serviceId = 'service_epq3fhj';
-    // CRITICAL FIX: Updated to match user screenshot
     const templateId = 'template_x7h0fb6';
     const publicKey = 'exX0IhSSUjNgMhuGb';
-
     const fullMessage = `
     [New Partner Registration Request]
     ----------------------------------
     Company Name: ${authFormData.companyName}
     Contact Person: ${authFormData.contactPerson}
     Email: ${authFormData.email}
-    
     Language: ${currentLang}
     Timestamp: ${new Date().toLocaleString()}
     `;
-
-    const templateParams = {
-        message: fullMessage, 
-        from_name: authFormData.contactPerson,
-        reply_to: authFormData.email,
-        to_email: 'info@niijima-koutsu.com', // Added target email for consistency
-        company_name: authFormData.companyName,
-    };
-
+    const templateParams = { message: fullMessage, from_name: authFormData.contactPerson, reply_to: authFormData.email, to_email: 'info@niijima-koutsu.com', company_name: authFormData.companyName };
     emailjs.send(serviceId, templateId, templateParams, publicKey)
       .then((response) => {
          console.log('SUCCESS!', response.status, response.text);
          alert("申請已提交，我們會儘快聯繫您！ (Application Submitted)");
          setAuthFormData({ companyName: '', contactPerson: '', email: '' });
          setShowAuthModal(false);
-         onLogin({
-            companyName: authFormData.companyName,
-            email: authFormData.email
-         });
+         onLogin({ companyName: authFormData.companyName, email: authFormData.email });
       })
       .catch((err) => {
          console.error('FAILED...', err);
-         const errorMsg = err.text || JSON.stringify(err);
-         
-         // Fail-Safe: Log error but allow login
-         console.warn(`EmailJS failed (${errorMsg}), but allowing login as fallback.`);
-         
+         console.warn(`EmailJS failed, but allowing login as fallback.`);
          setShowAuthModal(false);
-         onLogin({
-            companyName: authFormData.companyName,
-            email: authFormData.email
-         });
+         onLogin({ companyName: authFormData.companyName, email: authFormData.email });
       })
-      .finally(() => {
-         setIsSendingAuth(false);
-      });
+      .finally(() => { setIsSendingAuth(false); });
   };
 
-  const openAuthModal = () => {
-    setAuthError('');
-    setShowAuthModal(true);
-  };
+  const openAuthModal = () => { setAuthError(''); setShowAuthModal(true); };
 
   const LanguageSwitcher = () => (
     <div className="relative">
-      <button 
-        onClick={() => setLangMenuOpen(!langMenuOpen)}
-        className="flex items-center gap-1 text-xs font-bold text-gray-600 hover:text-black transition uppercase tracking-wider"
-      >
+      <button onClick={() => setLangMenuOpen(!langMenuOpen)} className="flex items-center gap-1 text-xs font-bold text-gray-600 hover:text-black transition uppercase tracking-wider">
         <Globe size={14} />
         {currentLang === 'zh-TW' ? '繁中' : currentLang.toUpperCase()}
         <ChevronDown size={12} />
       </button>
-      
       {langMenuOpen && (
         <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50 animate-fade-in-down">
-           {[
-             { code: 'ja', label: '日本語' },
-             { code: 'zh-TW', label: '繁體中文' },
-             { code: 'en', label: 'English' }
-           ].map((lang) => (
-             <button
-               key={lang.code}
-               onClick={() => {
-                 setCurrentLang(lang.code as Language);
-                 setLangMenuOpen(false);
-               }}
-               className={`w-full text-left px-4 py-2 text-xs font-medium hover:bg-gray-50 transition ${currentLang === lang.code ? 'text-blue-600 bg-blue-50' : 'text-gray-600'}`}
-             >
+           {[{ code: 'ja', label: '日本語' }, { code: 'zh-TW', label: '繁體中文' }, { code: 'en', label: 'English' }].map((lang) => (
+             <button key={lang.code} onClick={() => { setCurrentLang(lang.code as Language); setLangMenuOpen(false); }} className={`w-full text-left px-4 py-2 text-xs font-medium hover:bg-gray-50 transition ${currentLang === lang.code ? 'text-blue-600 bg-blue-50' : 'text-gray-600'}`}>
                {lang.label}
              </button>
            ))}
@@ -934,11 +895,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
     </div>
   );
 
-  // Common Navbar
   const Navbar = () => (
     <nav className={`fixed w-full z-50 transition-all duration-300 border-b ${scrolled ? 'nav-blur border-gray-200 py-3' : 'bg-transparent border-transparent py-5'}`}>
       <div className="container mx-auto px-6 flex justify-between items-center">
-        {/* Logo */}
         <div className="flex items-center gap-3 group cursor-pointer" onClick={() => { setCurrentPage('home'); window.scrollTo(0,0); }}>
           <div className="w-10 h-10 transition-transform duration-300 group-hover:scale-105">
               <Logo className="w-full h-full text-[#1a1a1a]" />
@@ -948,92 +907,105 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
             <span className="text-[10px] uppercase tracking-[0.2em] text-gray-500">{t.nav.brand_sub}</span>
           </div>
         </div>
-
-        {/* Desktop Menu */}
         <div className="hidden lg:flex items-center space-x-8 text-sm font-medium text-gray-600 tracking-wider">
           <button onClick={() => setCurrentPage('medical')} className={`transition hover:text-black ${currentPage === 'medical' ? 'text-blue-600 font-bold' : ''}`}>{t.nav.timc}</button>
-          
-          <button onClick={() => setCurrentPage('golf')} className={`transition hover:text-green-700 flex items-center gap-1 group ${currentPage === 'golf' ? 'text-green-700 font-bold' : ''}`}>
-            {t.nav.golf}
-          </button>
-
+          <button onClick={() => setCurrentPage('golf')} className={`transition hover:text-green-700 flex items-center gap-1 group ${currentPage === 'golf' ? 'text-green-700 font-bold' : ''}`}>{t.nav.golf}</button>
           <button onClick={() => setCurrentPage('business')} className={`transition hover:text-black ${currentPage === 'business' ? 'text-blue-600 font-bold' : ''}`}>{t.nav.business}</button>
-          
-          <button onClick={() => setCurrentPage('partner')} className={`transition hover:text-black flex items-center gap-1 ${currentPage === 'partner' ? 'text-blue-600 font-bold' : ''}`}>
-             {t.nav.partner}
-          </button>
-
+          <button onClick={() => setCurrentPage('partner')} className={`transition hover:text-black flex items-center gap-1 ${currentPage === 'partner' ? 'text-blue-600 font-bold' : ''}`}>{t.nav.partner}</button>
           <button onClick={() => { setCurrentPage('home'); setTimeout(() => document.getElementById('ai-b2b')?.scrollIntoView({behavior: 'smooth'}), 100); }} className="gemini-text font-bold relative group">
-            {t.nav.ai}
-            <span className="absolute -bottom-1 left-0 w-0 h-[1px] gemini-gradient transition-all group-hover:w-full"></span>
+            {t.nav.ai} <span className="absolute -bottom-1 left-0 w-0 h-[1px] gemini-gradient transition-all group-hover:w-full"></span>
           </button>
           <button onClick={() => { setCurrentPage('home'); setTimeout(() => document.getElementById('about')?.scrollIntoView({behavior: 'smooth'}), 100); }} className="hover:text-black transition">{t.nav.about}</button>
         </div>
-
-        {/* Desktop Right Actions */}
         <div className="hidden md:flex items-center gap-6">
           <LanguageSwitcher />
-          <button 
-            onClick={openAuthModal}
-            className="text-xs border border-gray-800 px-6 py-2 rounded-full hover:bg-gray-800 hover:text-white transition duration-300 uppercase tracking-widest bg-white/50 backdrop-blur-sm"
-          >
-            {t.nav.login}
-          </button>
+          <button onClick={openAuthModal} className="text-xs border border-gray-800 px-6 py-2 rounded-full hover:bg-gray-800 hover:text-white transition duration-300 uppercase tracking-widest bg-white/50 backdrop-blur-sm">{t.nav.login}</button>
         </div>
-
-        {/* Mobile Menu Toggle */}
         <div className="flex items-center gap-4 lg:hidden">
             <LanguageSwitcher />
-            <button 
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-gray-800 p-1"
-            >
-               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-gray-800 p-1">{mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}</button>
         </div>
       </div>
-
-      {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
           <div className="absolute top-full left-0 w-full bg-white/95 backdrop-blur-lg border-t border-gray-100 shadow-xl lg:hidden animate-fade-in-down">
               <div className="flex flex-col p-6 space-y-4 font-serif text-lg text-gray-800">
-                  <button onClick={() => { setCurrentPage('medical'); setMobileMenuOpen(false); }} className="text-left py-2 border-b border-gray-50 flex justify-between items-center">
-                      {t.nav.timc} <ArrowLeft className="rotate-180 opacity-20" size={16} />
-                  </button>
-                  <button onClick={() => { setCurrentPage('golf'); setMobileMenuOpen(false); }} className="text-left py-2 border-b border-gray-50 flex justify-between items-center">
-                      {t.nav.golf} <ArrowLeft className="rotate-180 opacity-20" size={16} />
-                  </button>
-                  <button onClick={() => { setCurrentPage('business'); setMobileMenuOpen(false); }} className="text-left py-2 border-b border-gray-50 flex justify-between items-center">
-                      {t.nav.business} <ArrowLeft className="rotate-180 opacity-20" size={16} />
-                  </button>
-                  <button onClick={() => { setCurrentPage('partner'); setMobileMenuOpen(false); }} className="text-left py-2 border-b border-gray-50 flex justify-between items-center">
-                      {t.nav.partner} <ArrowLeft className="rotate-180 opacity-20" size={16} />
-                  </button>
-                  <button onClick={() => { setCurrentPage('home'); setTimeout(() => document.getElementById('ai-b2b')?.scrollIntoView({behavior: 'smooth'}), 100); setMobileMenuOpen(false); }} className="text-left py-2 border-b border-gray-50 gemini-text font-bold">
-                      {t.nav.ai}
-                  </button>
-                  <button 
-                    onClick={() => { openAuthModal(); setMobileMenuOpen(false); }}
-                    className="mt-4 bg-gray-900 text-white py-3 rounded-lg text-center text-sm font-sans font-bold flex items-center justify-center gap-2"
-                  >
-                     <LogIn size={16} /> {t.nav.login}
-                  </button>
+                  <button onClick={() => { setCurrentPage('medical'); setMobileMenuOpen(false); }} className="text-left py-2 border-b border-gray-50 flex justify-between items-center">{t.nav.timc} <ArrowLeft className="rotate-180 opacity-20" size={16} /></button>
+                  <button onClick={() => { setCurrentPage('golf'); setMobileMenuOpen(false); }} className="text-left py-2 border-b border-gray-50 flex justify-between items-center">{t.nav.golf} <ArrowLeft className="rotate-180 opacity-20" size={16} /></button>
+                  <button onClick={() => { setCurrentPage('business'); setMobileMenuOpen(false); }} className="text-left py-2 border-b border-gray-50 flex justify-between items-center">{t.nav.business} <ArrowLeft className="rotate-180 opacity-20" size={16} /></button>
+                  <button onClick={() => { setCurrentPage('partner'); setMobileMenuOpen(false); }} className="text-left py-2 border-b border-gray-50 flex justify-between items-center">{t.nav.partner} <ArrowLeft className="rotate-180 opacity-20" size={16} /></button>
+                  <button onClick={() => { setCurrentPage('home'); setTimeout(() => document.getElementById('ai-b2b')?.scrollIntoView({behavior: 'smooth'}), 100); setMobileMenuOpen(false); }} className="text-left py-2 border-b border-gray-50 gemini-text font-bold">{t.nav.ai}</button>
+                  <button onClick={() => { openAuthModal(); setMobileMenuOpen(false); }} className="mt-4 bg-gray-900 text-white py-3 rounded-lg text-center text-sm font-sans font-bold flex items-center justify-center gap-2"><LogIn size={16} /> {t.nav.login}</button>
               </div>
           </div>
       )}
     </nav>
   );
 
-  // Common Footer
   const Footer = () => (
-    <footer className="bg-[#111] text-white py-12">
-        <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
-            <p>&copy; 2025 Shinjima Kotsu Co., Ltd. All Rights Reserved.</p>
-            <div className="flex flex-col md:flex-row gap-4 mt-4 md:mt-0 text-center md:text-right">
-              <span>Contact: info@niijima-koutsu.com</span>
-              <span className="hidden md:inline">|</span>
-              <span>Authorized by Osaka Prefecture</span>
-              <span>Powered by Gemini AI</span>
+    <footer className="bg-[#111] text-white py-16 border-t border-gray-800">
+        <div className="container mx-auto px-6">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                {/* Column 1: Brand */}
+                <div>
+                    <div className="flex items-center gap-3 mb-6">
+                       <div className="w-10 h-10 bg-white text-black rounded-full flex items-center justify-center font-serif font-bold text-xl">新</div>
+                       <span className="text-xl font-serif tracking-widest">SHINJIMA</span>
+                    </div>
+                    <p className="text-gray-400 text-sm leading-relaxed mb-4">
+                       B2B Land Operator<br/>
+                       Specializing in Kansai Region
+                    </p>
+                    <p className="text-gray-500 text-xs">
+                       &copy; 2025 Shinjima Kotsu Co., Ltd.<br/>All Rights Reserved.
+                    </p>
+                </div>
+
+                {/* Column 2: License */}
+                <div>
+                    <h4 className="text-sm font-bold text-gray-300 uppercase tracking-wider mb-6">License & Cert</h4>
+                    <div className="space-y-3 text-sm text-gray-400">
+                        <p>大阪府知事登録旅行業第2-3115号</p>
+                        <p>JATA 正会員</p>
+                        <p>Authorized by Osaka Prefecture</p>
+                    </div>
+                </div>
+
+                {/* Column 3: Contact */}
+                <div>
+                    <h4 className="text-sm font-bold text-gray-300 uppercase tracking-wider mb-6">Contact Us</h4>
+                    <div className="space-y-3 text-sm text-gray-400">
+                        <p className="flex items-center gap-3"><Mail size={16} /> info@niijima-koutsu.jp</p>
+                        <p className="flex items-center gap-3"><Phone size={16} /> 06-6632-8807</p>
+                        <p className="flex items-center gap-3"><Printer size={16} /> 06-6632-8826 (FAX)</p>
+                        <p className="flex items-start gap-3 mt-4">
+                            <MapPin size={16} className="mt-1 flex-shrink-0" />
+                            <span>〒556-0014<br/>大阪府大阪市浪速区大国1-2-21-602</span>
+                        </p>
+                    </div>
+                </div>
+
+                {/* Column 4: Emergency / Direct */}
+                <div>
+                    <h4 className="text-sm font-bold text-red-400 uppercase tracking-wider mb-6 flex items-center gap-2">
+                        <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                        Emergency / VIP Direct
+                    </h4>
+                    <div className="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                        <p className="text-xs text-gray-500 mb-2">代表直通 (24/7 Support)</p>
+                        <p className="text-xl font-bold text-white tracking-wider mb-1">+81 70-2173-8304</p>
+                        <p className="text-xs text-gray-500">Available for WeChat / WhatsApp</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
+                 <div className="flex gap-6">
+                    <span>Privacy Policy</span>
+                    <span>Terms of Service</span>
+                 </div>
+                 <div className="mt-4 md:mt-0">
+                    Powered by Gemini AI • Designed in Osaka
+                 </div>
             </div>
         </div>
     </footer>
@@ -1041,7 +1013,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
 
   return (
     <div className="animate-fade-in-up pt-0 bg-white">
-      {/* Auth Modal */}
+      {/* ... (Auth Modal kept same) ... */}
       {showAuthModal && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in-up">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
@@ -1053,94 +1025,41 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                 <X size={20} />
               </button>
             </div>
-            
             <div className="p-8">
               <p className="text-sm text-gray-500 mb-6 leading-relaxed">
-                {currentLang === 'ja' 
-                  ? '御社名と連絡先を入力して、AI見積もりシステムへアクセスしてください。' 
-                  : currentLang === 'zh-TW' 
-                    ? '請輸入貴公司名稱與聯繫方式，即可立即啟用 AI 報價系統。' 
-                    : 'Enter your company and contact details to access the AI Quote System.'}
+                {currentLang === 'ja' ? '御社名と連絡先を入力して、AI見積もりシステムへアクセスしてください。' : currentLang === 'zh-TW' ? '請輸入貴公司名稱與聯繫方式，即可立即啟用 AI 報價系統。' : 'Enter your company and contact details to access the AI Quote System.'}
               </p>
-
               <form onSubmit={handleAuthSubmit} className="space-y-4">
-                {/* Company Name */}
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-2">
-                    <Briefcase size={16} className="text-blue-600" />
-                    {currentLang === 'ja' ? '会社名' : currentLang === 'zh-TW' ? '公司名稱' : 'Company Name'}
-                  </label>
-                  <input 
-                    type="text" 
-                    value={authFormData.companyName}
-                    onChange={(e) => setAuthFormData({...authFormData, companyName: e.target.value})}
-                    placeholder={currentLang === 'zh-TW' ? '例如：雄獅旅遊' : 'e.g. HIS Travel'}
-                    className="w-full p-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
-                  />
+                  <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-2"><Briefcase size={16} className="text-blue-600" />{currentLang === 'ja' ? '会社名' : currentLang === 'zh-TW' ? '公司名稱' : 'Company Name'}</label>
+                  <input type="text" value={authFormData.companyName} onChange={(e) => setAuthFormData({...authFormData, companyName: e.target.value})} placeholder={currentLang === 'zh-TW' ? '例如：雄獅旅遊' : 'e.g. HIS Travel'} className="w-full p-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition" />
                 </div>
-
-                {/* Contact Person */}
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-2">
-                    <User size={16} className="text-blue-600" />
-                    {currentLang === 'ja' ? '担当者名' : currentLang === 'zh-TW' ? '聯絡人姓名' : 'Contact Person'}
-                  </label>
-                  <input 
-                    type="text" 
-                    value={authFormData.contactPerson}
-                    onChange={(e) => setAuthFormData({...authFormData, contactPerson: e.target.value})}
-                    placeholder={currentLang === 'zh-TW' ? '王小明' : 'Taro Yamada'}
-                    className="w-full p-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
-                  />
+                  <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-2"><User size={16} className="text-blue-600" />{currentLang === 'ja' ? '担当者名' : currentLang === 'zh-TW' ? '聯絡人姓名' : 'Contact Person'}</label>
+                  <input type="text" value={authFormData.contactPerson} onChange={(e) => setAuthFormData({...authFormData, contactPerson: e.target.value})} placeholder={currentLang === 'zh-TW' ? '王小明' : 'Taro Yamada'} className="w-full p-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition" />
                 </div>
-
-                {/* Email */}
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-2">
-                    <Mail size={16} className="text-blue-600" />
-                    {currentLang === 'ja' ? 'メールアドレス' : 'Email'}
-                  </label>
-                  <input 
-                    type="email" 
-                    value={authFormData.email}
-                    onChange={(e) => setAuthFormData({...authFormData, email: e.target.value})}
-                    placeholder="name@company.com"
-                    className="w-full p-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
-                  />
+                  <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-2"><Mail size={16} className="text-blue-600" />{currentLang === 'ja' ? 'メールアドレス' : 'Email'}</label>
+                  <input type="email" value={authFormData.email} onChange={(e) => setAuthFormData({...authFormData, email: e.target.value})} placeholder="name@company.com" className="w-full p-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition" />
                 </div>
-
-                {authError && (
-                  <p className="text-xs text-red-500 font-bold">{authError}</p>
-                )}
-
-                <button 
-                  type="submit"
-                  disabled={isSendingAuth}
-                  className="w-full bg-gray-900 text-white font-bold py-4 rounded-lg hover:bg-blue-600 transition shadow-lg mt-4 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
+                {authError && <p className="text-xs text-red-500 font-bold">{authError}</p>}
+                <button type="submit" disabled={isSendingAuth} className="w-full bg-gray-900 text-white font-bold py-4 rounded-lg hover:bg-blue-600 transition shadow-lg mt-4 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
                   {isSendingAuth ? <Loader2 className="animate-spin" size={16} /> : <ArrowLeft className="rotate-180" size={16} />}
-                  {isSendingAuth 
-                    ? 'Processing...' 
-                    : (currentLang === 'ja' ? '登録してログイン' : currentLang === 'zh-TW' ? '註冊並登入' : 'Register & Login')
-                  }
+                  {isSendingAuth ? 'Processing...' : (currentLang === 'ja' ? '登録してログイン' : currentLang === 'zh-TW' ? '註冊並登入' : 'Register & Login')}
                 </button>
               </form>
             </div>
-            <div className="bg-gray-50 p-4 text-center text-xs text-gray-400">
-              By registering, you agree to our Terms of Service.
-            </div>
+            <div className="bg-gray-50 p-4 text-center text-xs text-gray-400">By registering, you agree to our Terms of Service.</div>
           </div>
         </div>
       )}
 
       <Navbar />
-
-      {/* Main Home View */}
-      {currentPage === 'home' && <HomeView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={openAuthModal} />}
-      {currentPage === 'medical' && <MedicalView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={openAuthModal} />}
-      {currentPage === 'business' && <BusinessView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={openAuthModal} />}
-      {currentPage === 'golf' && <GolfView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={openAuthModal} />}
-      {currentPage === 'partner' && <PartnerView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={openAuthModal} />}
+      {currentPage === 'home' && <HomeView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={openAuthModal} currentLang={currentLang} />}
+      {currentPage === 'medical' && <MedicalView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={openAuthModal} currentLang={currentLang} />}
+      {currentPage === 'business' && <BusinessView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={openAuthModal} currentLang={currentLang} />}
+      {currentPage === 'golf' && <GolfView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={openAuthModal} currentLang={currentLang} />}
+      {currentPage === 'partner' && <PartnerView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={openAuthModal} currentLang={currentLang} />}
       <Footer />
     </div>
   );

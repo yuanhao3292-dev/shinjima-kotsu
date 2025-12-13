@@ -4,82 +4,99 @@ import { Canvas, useFrame, extend } from '@react-three/fiber';
 import { shaderMaterial } from '@react-three/drei';
 
 // -----------------------------------------------------------------------------
-// 1. Custom Shader Material (Holographic Dark Particles for White BG)
-//    Updated with Mixed Shapes (5-Point Star + 4-Point Gemini Sparkle + Circles)
+// Hero Morph Material (The Brand Identity Sequence)
 // -----------------------------------------------------------------------------
-const HoloParticleMaterial = shaderMaterial(
+const HeroMorphMaterial = shaderMaterial(
   {
     uTime: 0,
-    uProgress: 0, // 0 = Exploded, 1 = Formed
-    uColor1: new THREE.Color('#2e008b'), // Deep Violet (Contrast on White)
-    uColor2: new THREE.Color('#0044cc'), // Royal Blue
-    uColor3: new THREE.Color('#e6007e'), // Magenta
+    uState: 0, 
+    // Unified Palette: Navy (Business) -> Royal Blue (Tech) -> Magenta (Medical)
+    uColor1: new THREE.Color('#1e3a8a'), 
+    uColor2: new THREE.Color('#0044cc'), 
+    uColor3: new THREE.Color('#e6007e'), 
     uPixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio : 1,
-    uSize: 2.8, // Base particle size
+    uSize: 3.5, 
   },
   // Vertex Shader
   `
     uniform float uTime;
-    uniform float uProgress;
+    uniform float uState;
     uniform float uPixelRatio;
     uniform float uSize;
 
-    attribute vec3 aTarget; // Text position
-    attribute vec3 aStart;  // Exploded position
-    attribute float aRandom; // Random seed
+    attribute vec3 aPosSphere;
+    attribute vec3 aPosShin; // 新
+    attribute vec3 aPosJima; // 島
+    attribute vec3 aPosKo;   // 交
+    attribute vec3 aPosTsu;  // 通
+    attribute float aRandom;
 
     varying vec3 vPos;
-    varying float vRandom; // Pass random to fragment for shape selection
+    varying float vRandom;
 
-    // Pseudo-random
-    float random(vec2 st) {
-        return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
-    }
-
-    // Simple noise
-    float noise(vec3 p) {
-        return sin(p.x * 0.5 + uTime) * sin(p.y * 0.3 + uTime);
-    }
-
-    // Ease Out Cubic
-    float easeOutCubic(float x) {
-        return 1.0 - pow(1.0 - x, 3.0);
+    float easeInOutCubic(float x) {
+      return x < 0.5 ? 4.0 * x * x * x : 1.0 - pow(-2.0 * x + 2.0, 3.0) / 2.0;
     }
 
     void main() {
-      vPos = aTarget;
       vRandom = aRandom;
+      vec3 pos;
+      
+      // Sequence: Sphere(0) -> Shin(1) -> Jima(2) -> Ko(3) -> Tsu(4) -> Sphere(5/0)
+      float phase = mod(uState, 5.0);
+      float t;
+      
+      if (phase < 1.0) {
+        // Sphere -> Shin (新)
+        t = easeInOutCubic(phase);
+        pos = mix(aPosSphere, aPosShin, t);
+      } else if (phase < 2.0) {
+        // Shin -> Jima (島)
+        t = easeInOutCubic(phase - 1.0);
+        pos = mix(aPosShin, aPosJima, t);
+      } else if (phase < 3.0) {
+        // Jima -> Ko (交)
+        t = easeInOutCubic(phase - 2.0);
+        pos = mix(aPosJima, aPosKo, t);
+      } else if (phase < 4.0) {
+        // Ko -> Tsu (通)
+        t = easeInOutCubic(phase - 3.0);
+        pos = mix(aPosKo, aPosTsu, t);
+      } else {
+        // Tsu -> Sphere
+        t = easeInOutCubic(phase - 4.0);
+        pos = mix(aPosTsu, aPosSphere, t);
+      }
 
-      // Animation Progress with Easing
-      float t = easeOutCubic(clamp(uProgress, 0.0, 1.0));
+      // Organic Noise / Breathing
+      float noiseFreq = 0.5;
+      float noiseAmp = 0.15;
+      pos.x += sin(uTime * 0.5 + pos.y * noiseFreq) * noiseAmp;
+      pos.y += cos(uTime * 0.3 + pos.z * noiseFreq) * noiseAmp;
+      pos.z += sin(uTime * 0.4 + pos.x * noiseFreq) * noiseAmp;
 
-      // --- 1. Interpolation (Start -> Target) ---
-      vec3 pos = mix(aStart, aTarget, t);
+      // Gentle Rotation (Global)
+      // Rotates slowly to show depth
+      float angle = uTime * 0.08;
+      float c = cos(angle);
+      float s = sin(angle);
+      vec3 rotatedPos = vec3(
+        pos.x * c - pos.z * s,
+        pos.y,
+        pos.x * s + pos.z * c
+      );
 
-      // --- 2. Swirling / Implosion Effect during transition ---
-      float angle = aRandom * 6.28;
-      float radiusOffset = (1.0 - t) * 15.0; // Scatter radius
-      pos.x += cos(angle + uTime * 2.0) * radiusOffset;
-      pos.z += sin(angle + uTime * 2.0) * radiusOffset;
-      pos.y += sin(angle * 2.0 + uTime) * radiusOffset * 0.5;
-
-      // --- 3. Idle Floating (After formed) ---
-      float idleAmp = mix(0.0, 0.15, t); 
-      pos.x += noise(pos + vec3(0.0, uTime * 0.5, 0.0)) * idleAmp;
-      pos.y += noise(pos + vec3(10.0, uTime * 0.4, 0.0)) * idleAmp;
-      pos.z += noise(pos + vec3(20.0, uTime * 0.3, 0.0)) * idleAmp;
-
-      vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+      vec4 mvPosition = modelViewMatrix * vec4(rotatedPos, 1.0);
       gl_Position = projectionMatrix * mvPosition;
 
-      // Size Attenuation
-      // Stars (low random value) get a larger size boost to make shape visible
-      float sizeBoost = (aRandom < 0.3) ? 1.8 : 1.0; 
+      // Size attenuation
+      gl_PointSize = uSize * uPixelRatio * (28.0 / -mvPosition.z);
       
-      gl_PointSize = uSize * uPixelRatio * sizeBoost * (40.0 / -mvPosition.z);
-      
-      // Particles appear smaller when exploded, larger when formed
-      gl_PointSize *= mix(0.3, 1.0, t);
+      // Twinkle effect
+      float twinkle = 0.8 + 0.2 * sin(uTime * 3.0 + aRandom * 10.0);
+      gl_PointSize *= twinkle;
+
+      vPos = rotatedPos;
     }
   `,
   // Fragment Shader
@@ -94,305 +111,209 @@ const HoloParticleMaterial = shaderMaterial(
 
     void main() {
       vec2 xy = gl_PointCoord.xy - vec2(0.5);
-      float len = length(xy);
-      float alpha = 0.0;
-      float angle = atan(xy.y, xy.x);
+      float r = length(xy);
+      if (r > 0.5) discard;
       
-      // --- Mix of Shapes ---
-      // 0.0 - 0.15: 5-Point Star (Classic Star)
-      // 0.15 - 0.30: 4-Point Star (Gemini Sparkle)
-      // 0.30 - 1.00: Circle (Soft Dot)
+      // Smooth soft glow
+      float glow = 1.0 - smoothstep(0.0, 0.5, r);
+      glow = pow(glow, 1.8);
 
-      if (vRandom < 0.15) {
-          // --- 5-Point Star ---
-          // Rotating
-          float theta = angle + uTime * 2.0;
-          
-          // Cosine wave with frequency 5 gives 5 lobes
-          float lobes = 0.5 + 0.5 * cos(theta * 5.0);
-          
-          // Modulate distance: larger lobes = longer rays (smaller distance metric)
-          // 1.5 base - 0.8 * lobe creates concave star shape
-          float starDist = len * (1.6 - 0.8 * pow(lobes, 2.0)); 
-          
-          alpha = 1.0 - smoothstep(0.0, 0.35, starDist);
-          alpha = pow(alpha, 2.0); // Sharpen core
-      } 
-      else if (vRandom < 0.3) {
-          // --- 4-Point Gemini Sparkle ---
-          // Use sin(2*angle) to create 4 lobes
-          float starFactor = 0.5 + 2.0 * abs(sin(angle * 2.0 + uTime * 1.5));
-          
-          // Squeeze the circle
-          float dist = len * starFactor;
-          
-          alpha = 1.0 - smoothstep(0.0, 0.5, dist);
-          alpha = pow(alpha, 2.5); // Glowing core
-      } 
-      else {
-          // --- Circle ---
-          if (len > 0.5) discard;
-          alpha = smoothstep(0.5, 0.25, len);
-      }
-
-      // Discard faint pixels
-      if (alpha < 0.01) discard;
-
-      // Holographic Gradient Mapping
-      float gradientX = smoothstep(-8.0, 8.0, vPos.x + sin(uTime * 0.2) * 2.0);
-      float gradientY = smoothstep(-2.0, 2.0, vPos.y);
+      // Gradient Mapping
+      float gradientX = smoothstep(-10.0, 10.0, vPos.x + sin(uTime * 0.2) * 5.0);
+      float gradientY = smoothstep(-5.0, 5.0, vPos.y);
 
       vec3 color = mix(uColor1, uColor2, gradientX);
       color = mix(color, uColor3, gradientY);
 
-      // Add shimmer
-      float shine = sin(vPos.x * 0.5 + uTime * 2.0) * 0.5 + 0.5;
-      color += vec3(0.1) * shine;
-
-      // Output
-      gl_FragColor = vec4(color, alpha * 0.9);
+      gl_FragColor = vec4(color, 0.9 * glow);
     }
   `
 );
 
-extend({ HoloParticleMaterial });
+extend({ HeroMorphMaterial });
 
 // -----------------------------------------------------------------------------
-// 2. Particle System Component (Canvas Sampling Method)
+// Generators
 // -----------------------------------------------------------------------------
+
+// Helper to generate points from text
+const generateTextPoints = (text: string, count: number, width: number, height: number): Float32Array => {
+  const canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return new Float32Array(count * 3);
+
+  ctx.fillStyle = 'black';
+  ctx.fillRect(0, 0, width, height);
+  
+  ctx.fillStyle = 'white';
+  // Use Shippori Mincho for that high-end Japanese serif look
+  ctx.font = 'bold 280px "Shippori Mincho", serif'; 
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, width / 2, height / 2);
+
+  const imageData = ctx.getImageData(0, 0, width, height);
+  const data = imageData.data;
+  const validPoints: [number, number][] = [];
+
+  // Sampling with step to reduce density check
+  for (let y = 0; y < height; y += 4) {
+    for (let x = 0; x < width; x += 4) {
+      const index = (y * width + x) * 4;
+      if (data[index] > 128) { // Red channel > 128
+         validPoints.push([x - width / 2, (y - height / 2) * -1]); 
+      }
+    }
+  }
+
+  const positions = new Float32Array(count * 3);
+  const scale = 0.05; // Scale down to world units
+
+  if (validPoints.length > 0) {
+    for (let i = 0; i < count; i++) {
+        const targetIndex = Math.floor(Math.random() * validPoints.length);
+        const [tx, ty] = validPoints[targetIndex];
+        
+        // Add jitter for volume
+        positions[i * 3] = tx * scale + (Math.random() - 0.5) * 0.2;
+        positions[i * 3 + 1] = ty * scale + (Math.random() - 0.5) * 0.2;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 1.5; // Z depth
+    }
+  }
+  return positions;
+};
+
+const generateParticles = async (count: number) => {
+  // 1. Sphere (Network/Globe)
+  const posSphere = new Float32Array(count * 3);
+  for (let i = 0; i < count; i++) {
+    const r = 8.5;
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(2 * Math.random() - 1);
+    posSphere[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+    posSphere[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+    posSphere[i * 3 + 2] = r * Math.cos(phi);
+  }
+
+  // 2. Text Shapes
+  const canvasSize = 1024;
+  const posShin = generateTextPoints("新", count, canvasSize, canvasSize);
+  const posJima = generateTextPoints("島", count, canvasSize, canvasSize);
+  const posKo = generateTextPoints("交", count, canvasSize, canvasSize);
+  const posTsu = generateTextPoints("通", count, canvasSize, canvasSize);
+
+  // Randoms
+  const randoms = new Float32Array(count);
+  for (let i = 0; i < count; i++) randoms[i] = Math.random();
+
+  return { posSphere, posShin, posJima, posKo, posTsu, randoms };
+};
+
 const ParticleSystem = () => {
   const pointsRef = useRef<THREE.Points>(null);
   const materialRef = useRef<THREE.ShaderMaterial>(null);
-  const [active, setActive] = useState(false);
-  const [particleData, setParticleData] = useState<{
-    positions: Float32Array;
-    targets: Float32Array;
-    randoms: Float32Array;
-  } | null>(null);
-
-  // Responsive Scale State
-  const [meshScale, setMeshScale] = useState<[number, number, number]>([1, 1, 1]);
+  const [data, setData] = useState<any>(null);
+  const [targetState, setTargetState] = useState(0);
 
   useEffect(() => {
-    // Responsive Logic: 
-    // If width < 768px (Mobile), scale down drastically (0.35) to fit vertical screen.
-    // If width >= 768px (Tablet/Desktop), keep scale at 1.0.
-    const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setMeshScale([0.35, 0.35, 0.35]); // Reduced from previous 0.55 to fit better
-      } else {
-        setMeshScale([1, 1, 1]);
-      }
-    };
-
-    // Initial check
-    handleResize();
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    // Wait for fonts to load to ensure text generates correctly
+    document.fonts.ready.then(() => {
+        const init = async () => {
+            const d = await generateParticles(6000); // 6000 particles for density
+            setData(d);
+        };
+        init();
+    });
   }, []);
 
   useEffect(() => {
-    let isMounted = true;
-    const generateParticles = async () => {
-      // Wait for fonts to be ready to ensure correct typeface rendering
-      await document.fonts.ready;
-
-      // Configuration
-      const text = "AIと、その先へ";
-      const particleCount = 6000;
-      const canvasWidth = 1024;
-      const canvasHeight = 256;
-      
-      // 1. Create off-screen canvas for text analysis
-      const canvas = document.createElement('canvas');
-      canvas.width = canvasWidth;
-      canvas.height = canvasHeight;
-      const ctx = canvas.getContext('2d');
-      
-      if (!ctx) return;
-
-      // Draw Text (Use CSS font loaded in index.html)
-      ctx.fillStyle = 'white';
-      // Font size optimized
-      ctx.font = 'bold 55px "Shippori Mincho", serif'; 
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(text, canvasWidth / 2, canvasHeight / 2);
-
-      // 2. Scan pixel data to find text shape
-      const imageData = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
-      const data = imageData.data;
-      const validPoints: [number, number][] = [];
-
-      for (let y = 0; y < canvasHeight; y += 4) { // Step 4 for performance
-        for (let x = 0; x < canvasWidth; x += 4) {
-          const index = (y * canvasWidth + x) * 4;
-          const alpha = data[index + 3];
-          if (alpha > 128) {
-             // Map 2D pixel to 3D world space centered at 0,0
-             // Y is inverted in 3D space
-             validPoints.push([x - canvasWidth / 2, -(y - canvasHeight / 2)]); 
-          }
-        }
-      }
-
-      // 3. Generate Particles
-      const posArray = new Float32Array(particleCount * 3);    // Exploded positions
-      const targetArray = new Float32Array(particleCount * 3); // Text positions
-      const randomArray = new Float32Array(particleCount);
-      
-      const scale = 0.05; // Scale down pixel coordinates to world units
-
-      if (validPoints.length > 0) {
-        for (let i = 0; i < particleCount; i++) {
-            // Target: Pick a random valid point on the text
-            const targetIndex = Math.floor(Math.random() * validPoints.length);
-            const [tx, ty] = validPoints[targetIndex];
-            
-            targetArray[i * 3] = tx * scale;
-            targetArray[i * 3 + 1] = ty * scale;
-            targetArray[i * 3 + 2] = 0; // Flat Z for text
-
-            // Start: Random position on a large sphere (Explosion state)
-            const r = 40 + Math.random() * 20;
-            const theta = Math.random() * Math.PI * 2;
-            const phi = Math.acos(2 * Math.random() - 1);
-            
-            posArray[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-            posArray[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-            posArray[i * 3 + 2] = r * Math.cos(phi);
-
-            // Random
-            randomArray[i] = Math.random();
-        }
-      }
-
-      setParticleData({
-        positions: posArray,
-        targets: targetArray,
-        randoms: randomArray
-      });
-
-      // Start animation sequence with loop
-      const runLoop = async () => {
-         // Wait a bit before first start
-         await new Promise(r => setTimeout(r, 500)); 
-         
-         while (isMounted) {
-             // 1. Form the text
-             setActive(true); 
-             // Time to form (slowly) + hold reading time (total ~7s)
-             await new Promise(r => setTimeout(r, 7000)); 
-             
-             if (!isMounted) break;
-             
-             // 2. Explode the text
-             setActive(false); 
-             // Time to explode + wait in chaos (total ~3s)
-             await new Promise(r => setTimeout(r, 3000)); 
-         }
-      };
-      
-      runLoop();
-    };
-
-    generateParticles();
+    if (!data) return;
     
-    return () => { isMounted = false; };
-  }, []);
+    let timeout: ReturnType<typeof setTimeout>;
+    
+    // The Loop: Sphere -> 新 -> 島 -> 交 -> 通 -> Sphere
+    const sequence = async () => {
+        const holdTime = 2500; // Hold longer to read chars
+        const morphTime = 1200; // Fast morph
+
+        // 0 -> 1 (Sphere -> Shin)
+        setTargetState(1); await new Promise(r => setTimeout(r, morphTime + holdTime));
+        
+        // 1 -> 2 (Shin -> Jima)
+        setTargetState(2); await new Promise(r => setTimeout(r, morphTime + holdTime));
+        
+        // 2 -> 3 (Jima -> Ko)
+        setTargetState(3); await new Promise(r => setTimeout(r, morphTime + holdTime));
+        
+        // 3 -> 4 (Ko -> Tsu)
+        setTargetState(4); await new Promise(r => setTimeout(r, morphTime + holdTime));
+        
+        // 4 -> 5 (Tsu -> Sphere)
+        setTargetState(5); await new Promise(r => setTimeout(r, morphTime + holdTime));
+        
+        // Loop back logic handled in useFrame (5 resets to 0)
+        sequence(); 
+    };
+    
+    // Initial start delay
+    timeout = setTimeout(sequence, 1000);
+    return () => clearTimeout(timeout);
+  }, [data]);
 
   useFrame((state, delta) => {
     if (materialRef.current) {
       materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
       
-      // Animation Progress Logic
-      const target = active ? 1 : 0;
-      const current = materialRef.current.uniforms.uProgress.value;
+      let current = materialRef.current.uniforms.uState.value;
       
-      // Reduced speed from 1.5 to 0.8 for a slower, more zen-like convergence
-      const step = (target - current) * 0.8 * delta; 
-      materialRef.current.uniforms.uProgress.value += step;
-    }
-    
-    // Slight mouse parallax or rotation can be added here
-    if (pointsRef.current) {
-        pointsRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.1) * 0.05;
-        pointsRef.current.rotation.x = Math.cos(state.clock.elapsedTime * 0.15) * 0.02;
+      // Reset logic: When target is 1 (start of loop again) and current is high (>4.9)
+      // we need to wrap smoothly or just reset. 
+      // Current sequence: 0->1->2->3->4->5.
+      // Shader mod(5.0) means 5.0 is equivalent to 0.0.
+      // So animating 4->5 is visually animating Tsu->Sphere.
+      // Once we reach 5, we are visually at Sphere (0).
+      // If we simply reset to 0, there is no jump.
+      
+      if (current > 4.95 && targetState === 1) {
+          materialRef.current.uniforms.uState.value = 0;
+          current = 0;
+      }
+
+      // Smooth interpolation
+      const step = (targetState - current) * 1.5 * delta;
+      materialRef.current.uniforms.uState.value += step;
     }
   });
 
-  if (!particleData) return null;
+  if (!data) return null;
 
   return (
-    // @ts-ignore
-    <points ref={pointsRef} scale={meshScale}>
-      {/* @ts-ignore */}
+    <points ref={pointsRef}>
       <bufferGeometry>
-        {/* @ts-ignore */}
-        <bufferAttribute
-          attach="attributes-position"
-          count={particleData.targets.length / 3}
-          array={particleData.targets} 
-          itemSize={3}
-        />
-        {/* @ts-ignore */}
-        <bufferAttribute
-          attach="attributes-aTarget"
-          count={particleData.targets.length / 3}
-          array={particleData.targets}
-          itemSize={3}
-        />
-        {/* @ts-ignore */}
-        <bufferAttribute
-          attach="attributes-aStart"
-          count={particleData.positions.length / 3}
-          array={particleData.positions}
-          itemSize={3}
-        />
-        {/* @ts-ignore */}
-        <bufferAttribute
-          attach="attributes-aRandom"
-          count={particleData.randoms.length}
-          array={particleData.randoms}
-          itemSize={1}
-        />
-      {/* @ts-ignore */}
+        <bufferAttribute attach="attributes-position" count={data.posSphere.length / 3} array={data.posSphere} itemSize={3} />
+        <bufferAttribute attach="attributes-aPosSphere" count={data.posSphere.length / 3} array={data.posSphere} itemSize={3} />
+        <bufferAttribute attach="attributes-aPosShin" count={data.posShin.length / 3} array={data.posShin} itemSize={3} />
+        <bufferAttribute attach="attributes-aPosJima" count={data.posJima.length / 3} array={data.posJima} itemSize={3} />
+        <bufferAttribute attach="attributes-aPosKo" count={data.posKo.length / 3} array={data.posKo} itemSize={3} />
+        <bufferAttribute attach="attributes-aPosTsu" count={data.posTsu.length / 3} array={data.posTsu} itemSize={3} />
+        <bufferAttribute attach="attributes-aRandom" count={data.randoms.length} array={data.randoms} itemSize={1} />
       </bufferGeometry>
       {/* @ts-ignore */}
-      <holoParticleMaterial
-        ref={materialRef}
-        transparent={true}
-        depthWrite={false}
-        blending={THREE.NormalBlending}
-      />
-    {/* @ts-ignore */}
+      <heroMorphMaterial ref={materialRef} transparent={true} depthWrite={false} blending={THREE.NormalBlending} />
     </points>
   );
 };
 
-// -----------------------------------------------------------------------------
-// 3. Main Export
-// -----------------------------------------------------------------------------
 const IntroParticles: React.FC = () => {
   return (
     <div className="w-full h-full bg-white relative overflow-hidden">
-      <Canvas
-        camera={{ position: [0, 0, 18], fov: 35 }}
-        dpr={[1, 2]} 
-        gl={{ 
-          antialias: true, 
-          alpha: false,
-          powerPreference: "high-performance"
-        }}
-      >
-        {/* @ts-ignore */}
+      <Canvas camera={{ position: [0, 0, 18], fov: 35 }} dpr={[1, 2]} gl={{ antialias: true, alpha: false, powerPreference: "high-performance" }}>
         <color attach="background" args={['#FFFFFF']} />
         <ParticleSystem />
       </Canvas>
-      
-      {/* Decorative Overlay Gradient (Vignette) for Focus */}
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_10%,rgba(255,255,255,0.8)_100%)]"></div>
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_10%,rgba(255,255,255,0.6)_100%)]"></div>
     </div>
   );
 };

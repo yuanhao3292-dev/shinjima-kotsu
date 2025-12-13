@@ -203,7 +203,7 @@ const ParticleSystem = () => {
     const textGeo = new TextGeometry(textString, {
       font: font,
       size: 1.5,
-      depth: 0.1, // Changed height to depth
+      depth: 0.1, // Changed from height to depth
       curveSegments: 12,
       bevelEnabled: true,
       bevelThickness: 0.02,
