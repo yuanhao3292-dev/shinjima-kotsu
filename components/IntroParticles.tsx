@@ -1,3 +1,4 @@
+
 import React, { useMemo, useRef, useState, useEffect } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame, extend } from '@react-three/fiber';
@@ -268,14 +269,7 @@ const ParticleSystem = () => {
       
       let current = materialRef.current.uniforms.uState.value;
       
-      // Reset logic: When target is 1 (start of loop again) and current is high (>4.9)
-      // we need to wrap smoothly or just reset. 
-      // Current sequence: 0->1->2->3->4->5.
-      // Shader mod(5.0) means 5.0 is equivalent to 0.0.
-      // So animating 4->5 is visually animating Tsu->Sphere.
-      // Once we reach 5, we are visually at Sphere (0).
-      // If we simply reset to 0, there is no jump.
-      
+      // Reset logic
       if (current > 4.95 && targetState === 1) {
           materialRef.current.uniforms.uState.value = 0;
           current = 0;
@@ -334,7 +328,7 @@ const IntroParticles: React.FC = () => {
           <ParticleSystem />
         </Canvas>
       )}
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_10%,rgba(255,255,255,0.6)_100%)]"></div>
+      {/* REMOVED GRADIENT OVERLAY TO MAKE PARTICLES POP AS "TOPMOST" LAYER */}
     </div>
   );
 };
