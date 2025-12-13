@@ -64,9 +64,12 @@
 
     <!-- Hero Section -->
     <header class="relative w-full h-[90vh] overflow-hidden flex items-center justify-center">
-        <img src="https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2070&auto=format&fit=crop" 
+        <!-- PATH FIX: Use absolute '/images/' which maps to public/images in dev server -->
+        <img src="/images/hero_golf.jpg" 
              alt="Japanese Golf Course" 
-             class="absolute inset-0 w-full h-full object-cover grayscale-[10%] brightness-75 scale-105 animate-[kenburns_20s_ease-out_infinite_alternate]">
+             class="absolute inset-0 w-full h-full object-cover grayscale-[10%] brightness-75 scale-105 animate-[kenburns_20s_ease-out_infinite_alternate]"
+             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2070&auto=format&fit=crop';"
+        >
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30"></div>
         
         <div class="relative z-10 text-center text-white px-6 max-w-5xl fade-in-up">
