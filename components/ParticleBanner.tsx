@@ -1,6 +1,6 @@
 import React, { useMemo, useRef, useState, useEffect } from 'react';
 import * as THREE from 'three';
-import { Canvas, useFrame, useLoader, extend } from '@react-three/fiber';
+import { Canvas, useFrame, useLoader, extend, Object3DNode } from '@react-three/fiber';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
 import { shaderMaterial, OrbitControls, Float } from '@react-three/drei';
@@ -203,7 +203,7 @@ const ParticleSystem = () => {
     const textGeo = new TextGeometry(textString, {
       font: font,
       size: 1.5,
-      depth: 0.1, // Changed from height to depth
+      height: 0.1, // depth
       curveSegments: 12,
       bevelEnabled: true,
       bevelThickness: 0.02,
@@ -359,7 +359,7 @@ const ParticleBanner: React.FC = () => {
           </Float>
 
           {/* Post Processing for the "Glow" */}
-          <EffectComposer enableNormalPass={false}>
+          <EffectComposer disableNormalPass>
             <Bloom 
               luminanceThreshold={0.2} 
               mipmapBlur 

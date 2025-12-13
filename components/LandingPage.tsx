@@ -6,48 +6,6 @@ import { ArrowLeft, ArrowRight, CheckCircle, MapPin, Building, Activity, Shield,
 import emailjs from '@emailjs/browser';
 import IntroParticles from './IntroParticles';
 
-// --- IMAGE ASSETS CONFIGURATION ---
-// [PATH FIX]
-// In Vite/React, files in the "public" folder are served at the root path.
-// Always use a leading slash "/" to ensure the browser looks in the root directory,
-// regardless of the current URL (e.g., /dashboard, /medical).
-const SITE_IMAGES = {
-  // Medical Page
-  medical_hero: "/images/hero_medical.jpg",      
-  tech_ct: "/images/tech_ct.jpg",               
-  tech_mri: "/images/tech_mri.jpg",             
-  tech_endo: "/images/tech_endo.jpg",           
-  // Added timestamp to force cache refresh for this specific image
-  tech_dental: "/images/tech_dental.jpg?v=1",       
-  
-  // Golf Page
-  golf_hero: "/images/hero_golf.jpg",           
-  
-  // Business Page
-  business_hero: "/images/hero_business.jpg",   
-  
-  // Home Page Previews
-  home_medical_preview: "/images/preview_medical.jpg", 
-  home_business_preview: "/images/preview_business.jpg", 
-  
-  // Founder
-  founder_portrait: "/images/founder.jpg"       
-};
-
-// Fallback Map (Cloud Backup if local files are missing)
-const FALLBACK_IMAGES: Record<string, string> = {
-  medical_hero: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2000&auto=format&fit=crop",
-  tech_ct: "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=800&auto=format&fit=crop",
-  tech_mri: "https://images.unsplash.com/photo-1579684385180-1ea55f9f7485?q=80&w=800&auto=format&fit=crop",
-  tech_endo: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop",
-  tech_dental: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=800&auto=format&fit=crop",
-  golf_hero: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2000&auto=format&fit=crop",
-  business_hero: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop",
-  home_medical_preview: "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?q=80&w=800&auto=format&fit=crop",
-  home_business_preview: "https://images.unsplash.com/photo-1577962917302-cd874c4e3169?q=80&w=800&auto=format&fit=crop",
-  founder_portrait: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop"
-};
-
 interface LandingPageProps {
   onLogin: (user: UserProfile) => void;
 }
@@ -67,13 +25,9 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
     {/* 1. Hero Section */}
     <div className="relative h-[70vh] min-h-[600px] flex items-center overflow-hidden text-white bg-slate-900">
       <img 
-          src={SITE_IMAGES.medical_hero}
+          src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2000&auto=format&fit=crop" 
           className="absolute inset-0 w-full h-full object-cover opacity-80" 
-          alt="TIMC Lobby Luxury Environment"
-          onError={(e) => {
-            console.warn("Local image failed (Medical Hero). Trying fallback.");
-            e.currentTarget.src = FALLBACK_IMAGES.medical_hero;
-          }}
+          alt="TIMC Lobby Luxury Environment" 
       />
       <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/60 to-transparent"></div>
 
@@ -140,12 +94,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
               <div className="flex flex-col gap-4 border-b border-gray-100 pb-8">
                   <div className="h-64 rounded-lg overflow-hidden group shadow-md">
-                      <img 
-                        src={SITE_IMAGES.tech_ct} 
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" 
-                        alt="CT" 
-                        onError={(e) => e.currentTarget.src = FALLBACK_IMAGES.tech_ct}
-                      />
+                      <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=2070&auto=format&fit=crop" className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" alt="CT" />
                   </div>
                   <div>
                       <div className="flex items-center gap-3 mb-2">
@@ -158,12 +107,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
 
               <div className="flex flex-col gap-4 border-b border-gray-100 pb-8">
                   <div className="h-64 rounded-lg overflow-hidden group shadow-md">
-                      <img 
-                        src={SITE_IMAGES.tech_mri} 
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" 
-                        alt="MRI" 
-                        onError={(e) => e.currentTarget.src = FALLBACK_IMAGES.tech_mri}
-                      />
+                      <img src="https://images.unsplash.com/photo-1579684385180-1ea55f9f7485?q=80&w=2000&auto=format&fit=crop" className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" alt="MRI" />
                   </div>
                   <div>
                       <div className="flex items-center gap-3 mb-2">
@@ -176,12 +120,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
 
               <div className="flex flex-col gap-4 border-b border-gray-100 pb-8">
                   <div className="h-64 rounded-lg overflow-hidden group shadow-md">
-                      <img 
-                        src={SITE_IMAGES.tech_endo} 
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" 
-                        alt="Endoscopy" 
-                        onError={(e) => e.currentTarget.src = FALLBACK_IMAGES.tech_endo}
-                      />
+                      <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop" className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" alt="Endoscopy" />
                   </div>
                   <div>
                       <div className="flex items-center gap-3 mb-2">
@@ -194,15 +133,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
 
               <div className="flex flex-col gap-4 border-b border-gray-100 pb-8">
                   <div className="h-64 rounded-lg overflow-hidden group shadow-md">
-                      <img 
-                        src={SITE_IMAGES.tech_dental} 
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" 
-                        alt="Dental" 
-                        onError={(e) => {
-                            console.error("Local dental image failed to load:", SITE_IMAGES.tech_dental);
-                            e.currentTarget.src = FALLBACK_IMAGES.tech_dental;
-                        }}
-                      />
+                      <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=2000&auto=format&fit=crop" className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" alt="Dental" />
                   </div>
                   <div>
                       <div className="flex items-center gap-3 mb-2">
@@ -299,10 +230,9 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
      {/* Hero */}
      <div className="relative h-[60vh] flex items-center justify-center overflow-hidden">
         <img 
-            src={SITE_IMAGES.golf_hero}
+            src="https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2070&auto=format&fit=crop" 
             className="absolute inset-0 w-full h-full object-cover grayscale-[10%]" 
             alt="Golf Course" 
-            onError={(e) => e.currentTarget.src = FALLBACK_IMAGES.golf_hero}
         />
         <div className="absolute inset-0 bg-black/40"></div>
         <div className="relative z-10 text-center text-white">
@@ -436,12 +366,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage }) => (
         {/* Header */}
         <div className="flex flex-col md:flex-row-reverse gap-16 items-center mb-24">
             <div className="md:w-1/2 image-card shadow-lg rounded-lg">
-                <img 
-                  src={SITE_IMAGES.business_hero} 
-                  alt="Business Meeting" 
-                  className="w-full h-[450px] object-cover grayscale hover:grayscale-0 transition duration-700" 
-                  onError={(e) => e.currentTarget.src = FALLBACK_IMAGES.business_hero}
-                />
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" alt="Business Meeting" className="w-full h-[450px] object-cover grayscale hover:grayscale-0 transition duration-700" />
             </div>
             <div className="md:w-1/2 space-y-8 text-right md:text-left">
                 <div className="flex flex-col md:items-start items-end">
@@ -544,10 +469,9 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
         <div className="flex flex-col md:flex-row gap-16 items-center">
           <div className="md:w-1/2 image-card shadow-xl cursor-pointer rounded-2xl" onClick={() => setCurrentPage('medical')}>
             <img 
-              src={SITE_IMAGES.home_medical_preview}
+              src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2525&auto=format&fit=crop" 
               alt="TIMC Advanced Lobby" 
               className="w-full h-[550px] object-cover hover:scale-105 transition duration-700"
-              onError={(e) => e.currentTarget.src = FALLBACK_IMAGES.home_medical_preview}
             />
           </div>
           <div className="md:w-1/2 space-y-8">
@@ -573,10 +497,9 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
         <div className="flex flex-col md:flex-row-reverse gap-16 items-center">
           <div className="md:w-1/2 image-card shadow-lg cursor-pointer rounded-2xl" onClick={() => setCurrentPage('business')}>
             <img 
-              src={SITE_IMAGES.home_business_preview}
+              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" 
               alt="Business MICE" 
               className="w-full h-[500px] object-cover"
-              onError={(e) => e.currentTarget.src = FALLBACK_IMAGES.home_business_preview}
             />
           </div>
           <div className="md:w-1/2 space-y-8 text-right md:text-left">
@@ -692,10 +615,9 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
                 <div className="relative">
                    <div className="absolute inset-0 bg-blue-100 transform translate-x-4 translate-y-4 rounded-xl"></div>
                    <img 
-                      src={SITE_IMAGES.founder_portrait}
+                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1287&auto=format&fit=crop" 
                       alt="Founder Portrait" 
                       className="relative rounded-xl shadow-lg w-full object-cover h-[400px]"
-                      onError={(e) => e.currentTarget.src = FALLBACK_IMAGES.founder_portrait}
                    />
                 </div>
              </div>
