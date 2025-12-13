@@ -52,21 +52,32 @@ const FALLBACK_IMAGES: Record<string, string> = {
 };
 
 // --- Smart Image Error Handler ---
-// Improved to handle more extensions and casing
+// Improved to handle more extensions and casing, specifically double extensions like .jpg.jpg
 const handleSmartImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>, fallbackKey: string) => {
   const target = e.currentTarget;
   let currentSrc = target.src;
   
-  // Remove query params for extension checking
+  // Remove query params for clean checking
   const cleanSrc = currentSrc.split('?')[0];
 
   // Prevent infinite loops if fallback also fails
   if (cleanSrc === FALLBACK_IMAGES[fallbackKey]) return;
 
-  // Attempt sequence: .jpg -> .png -> .webp -> .jpeg -> Fallback
+  // Attempt sequence: 
+  // 1. .jpg (Original failed) -> Try .jpg.jpg (Double extension fix)
+  // 2. .jpg.jpg (Failed) -> Try .png
+  // 3. .png -> .webp -> .jpeg
   
   if (cleanSrc.endsWith('.jpg')) {
-    target.src = currentSrc.replace('.jpg', '.png'); 
+    // FIX: Common issue where users accidentally name file "image.jpg.jpg" because extensions are hidden
+    // If the original .jpg fails, try appending .jpg again.
+    target.src = currentSrc.replace('.jpg', '.jpg.jpg');
+    return;
+  }
+
+  if (cleanSrc.endsWith('.jpg.jpg')) {
+    // If double extension also failed, revert to checking other formats like PNG
+    target.src = currentSrc.replace('.jpg.jpg', '.png'); 
     return;
   }
   
@@ -77,12 +88,6 @@ const handleSmartImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>,
 
   if (cleanSrc.endsWith('.webp')) {
     target.src = currentSrc.replace('.webp', '.jpeg');
-    return;
-  }
-
-  if (cleanSrc.endsWith('.jpeg')) {
-    // If lower case fails, try Upper Case just in case (Linux systems are case sensitive)
-    target.src = currentSrc.replace('.jpeg', '.JPG'); 
     return;
   }
 
