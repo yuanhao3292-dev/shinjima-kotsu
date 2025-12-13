@@ -11,26 +11,30 @@ import IntroParticles from './IntroParticles';
 // 1. Place your own images in the "public/images" folder.
 // 2. Name them exactly as shown below (e.g., hero_medical.jpg).
 // 3. If a file is missing, the app will automatically use the FALLBACK_IMAGES (Unsplash).
+
+// Dynamic timestamp to force browser to re-fetch images (Busts Cache)
+const TS = Date.now();
+
 const SITE_IMAGES = {
-  // Medical Page
-  medical_hero: "/images/hero_medical.jpg",      
-  tech_ct: "/images/tech_ct.jpg",               
-  tech_mri: "/images/tech_mri.jpg",             
-  tech_endo: "/images/tech_endo.jpg",           
-  tech_dental: "/images/tech_dental.jpg",       
+  // Medical Page (Note: Removed leading slash for better relative path support)
+  medical_hero: `images/hero_medical.jpg?v=${TS}`,      
+  tech_ct: `images/tech_ct.jpg?v=${TS}`,               
+  tech_mri: `images/tech_mri.jpg?v=${TS}`,             
+  tech_endo: `images/tech_endo.jpg?v=${TS}`,           
+  tech_dental: `images/tech_dental.jpg?v=${TS}`,       
   
   // Golf Page
-  golf_hero: "/images/hero_golf.jpg",           
+  golf_hero: `images/hero_golf.jpg?v=${TS}`,           
   
   // Business Page
-  business_hero: "/images/hero_business.jpg",   
+  business_hero: `images/hero_business.jpg?v=${TS}`,   
   
   // Home Page Previews
-  home_medical_preview: "/images/preview_medical.jpg", 
-  home_business_preview: "/images/preview_business.jpg", 
+  home_medical_preview: `images/preview_medical.jpg?v=${TS}`, 
+  home_business_preview: `images/preview_business.jpg?v=${TS}`, 
   
   // Founder
-  founder_portrait: "/images/founder.jpg"       
+  founder_portrait: `images/founder.jpg?v=${TS}`       
 };
 
 // Fallback Map (Cloud Backup if local files are missing)
@@ -48,27 +52,41 @@ const FALLBACK_IMAGES: Record<string, string> = {
 };
 
 // --- Smart Image Error Handler ---
-// This attempts to load .png or .jpeg versions if the default .jpg fails
+// Improved to handle more extensions and casing
 const handleSmartImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>, fallbackKey: string) => {
   const target = e.currentTarget;
-  const currentSrc = target.src;
+  let currentSrc = target.src;
   
+  // Remove query params for extension checking
+  const cleanSrc = currentSrc.split('?')[0];
+
   // Prevent infinite loops if fallback also fails
-  if (currentSrc === FALLBACK_IMAGES[fallbackKey]) return;
+  if (cleanSrc === FALLBACK_IMAGES[fallbackKey]) return;
 
-  // 1. If it was .jpg, try .png
-  if (currentSrc.endsWith('.jpg') || currentSrc.includes('.jpg?')) {
-    target.src = currentSrc.replace('.jpg', '.png').split('?')[0]; // Try PNG
+  // Attempt sequence: .jpg -> .png -> .webp -> .jpeg -> Fallback
+  
+  if (cleanSrc.endsWith('.jpg')) {
+    target.src = currentSrc.replace('.jpg', '.png'); 
     return;
   }
   
-  // 2. If it was .png, try .jpeg
-  if (currentSrc.endsWith('.png')) {
-    target.src = currentSrc.replace('.png', '.jpeg'); // Try JPEG
+  if (cleanSrc.endsWith('.png')) {
+    target.src = currentSrc.replace('.png', '.webp'); 
     return;
   }
 
-  // 3. Give up and load cloud fallback
+  if (cleanSrc.endsWith('.webp')) {
+    target.src = currentSrc.replace('.webp', '.jpeg');
+    return;
+  }
+
+  if (cleanSrc.endsWith('.jpeg')) {
+    // If lower case fails, try Upper Case just in case (Linux systems are case sensitive)
+    target.src = currentSrc.replace('.jpeg', '.JPG'); 
+    return;
+  }
+
+  // If local files fail, use cloud fallback
   console.warn(`[SmartLoad] All local attempts failed for ${fallbackKey}. Loading cloud fallback.`);
   target.src = FALLBACK_IMAGES[fallbackKey];
 };
