@@ -1,8 +1,9 @@
+
 import React, { useState, useEffect } from 'react';
 import Logo from './Logo';
 import { translations, Language } from '../translations';
 import { UserProfile } from '../types';
-import { ArrowLeft, ArrowRight, CheckCircle, MapPin, Building, Activity, Shield, Armchair, FileText, Check, Brain, Eye, Zap, Coffee, Globe, ChevronDown, Smile, Heart, Bus, Utensils, Quote, Lock, Trophy, Car, Bath, Handshake, Users, Briefcase, Mail, X, Menu, LogIn, Phone, Loader2, User, Sparkles, Scan, Cpu, Microscope, Dna, Monitor, Fingerprint, Printer } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle, MapPin, Building, Activity, Shield, Armchair, FileText, Check, Brain, Eye, Zap, Coffee, Globe, ChevronDown, Smile, Heart, Bus, Utensils, Quote, Lock, Trophy, Car, Bath, Handshake, Users, Briefcase, Mail, X, Menu, LogIn, Phone, Loader2, User, Sparkles, Scan, Cpu, Microscope, Dna, Monitor, Fingerprint, Printer, Map, Star, Award, MessageSquare, Bot } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import IntroParticles from './IntroParticles';
 import MedicalDNA from './MedicalDNA';
@@ -19,17 +20,29 @@ const SITE_IMAGES = {
   
   // Golf Page
   golf_hero: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2000&auto=format&fit=crop",
+  plan_kansai: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=1000&auto=format&fit=crop", // Plan 1: Classic Green
+  plan_difficult: "https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?q=80&w=1000&auto=format&fit=crop", // Plan 2: Golfer Swing/Action (Replaced)
+  plan_fuji: "https://images.unsplash.com/photo-1563205764-5d59524dc335?q=80&w=1000&auto=format&fit=crop", // Plan 3: Mountain Course Landscape (Replaced)
   
   // Business Page
   business_hero: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop",
-  
-  // Home Page Previews (Updated to Tech/Abstract for Medical)
-  // Using a Digital Twin / Human Scan style image as base
+  // New Business Plan Images
+  biz_medical: "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=1000&auto=format&fit=crop", // Plan 1: Medical Lab/Hospital
+  biz_tokyo: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1000&auto=format&fit=crop", // Plan 2: Tokyo/Ginza City
+  biz_factory: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1000&auto=format&fit=crop", // Plan 3: Precision Factory/Tech
+  biz_resort: "https://images.unsplash.com/photo-1571896349842-6e5a513e610a?q=80&w=1000&auto=format&fit=crop", // Plan 4: Hakone/Resort
+  biz_golden: "https://images.unsplash.com/photo-1490761668535-35497054764d?q=80&w=1000&auto=format&fit=crop", // Plan 5: Shinkansen/Fuji (Golden Route)
+
+  // Home Page Previews
   home_medical_preview: "https://images.unsplash.com/photo-1531297461136-82ae96c51248?q=80&w=1000&auto=format&fit=crop", 
   home_business_preview: "https://images.unsplash.com/photo-1577962917302-cd874c4e3169?q=80&w=800&auto=format&fit=crop",
   
   // Founder
-  founder_portrait: "https://i.ibb.co/B2mJDvq7/founder.jpg"
+  founder_portrait: "https://i.ibb.co/B2mJDvq7/founder.jpg",
+
+  // MOBILE FALLBACKS
+  mobile_medical_fallback: "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?q=80&w=1000&auto=format&fit=crop", 
+  mobile_business_fallback: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?q=80&w=1000&auto=format&fit=crop"  
 };
 
 // Fallback Map
@@ -43,7 +56,15 @@ const FALLBACK_IMAGES: Record<string, string> = {
   business_hero: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop",
   home_medical_preview: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
   home_business_preview: "https://images.unsplash.com/photo-1577962917302-cd874c4e3169?q=80&w=800&auto=format&fit=crop",
-  founder_portrait: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop"
+  founder_portrait: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop",
+  plan_kansai: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=1000&auto=format&fit=crop",
+  plan_difficult: "https://images.unsplash.com/photo-1592919505780-30395071e867?q=80&w=1000&auto=format&fit=crop",
+  plan_fuji: "https://images.unsplash.com/photo-1563205764-5d59524dc335?q=80&w=1000&auto=format&fit=crop",
+  biz_medical: "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=1000&auto=format&fit=crop",
+  biz_tokyo: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1000&auto=format&fit=crop",
+  biz_factory: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1000&auto=format&fit=crop",
+  biz_resort: "https://images.unsplash.com/photo-1571896349842-6e5a513e610a?q=80&w=1000&auto=format&fit=crop",
+  biz_golden: "https://images.unsplash.com/photo-1490761668535-35497054764d?q=80&w=1000&auto=format&fit=crop"
 };
 
 const handleSmartImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>, fallbackKey: string) => {
@@ -74,6 +95,19 @@ interface SubViewProps {
   currentLang: Language;
 }
 
+// Hook to detect mobile screen - ensures stable rendering switch
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+  return isMobile;
+};
+
+// ... (MedicalTechCard and MedicalView remain unchanged) ...
 // --- NEW COMPONENT: AI Tech Card (Used in Sub-views) ---
 const MedicalTechCard = ({ 
   img, 
@@ -336,7 +370,18 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
   </div>
 );
 
-const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger }) => (
+const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger }) => {
+  // Helper to get image based on plan ID
+  const getPlanImage = (id: string) => {
+    switch(id) {
+      case 'kansai-elite': return SITE_IMAGES.plan_kansai;
+      case 'golf-pilgrimage': return SITE_IMAGES.plan_difficult;
+      case 'fuji-spectacular': return SITE_IMAGES.plan_fuji;
+      default: return SITE_IMAGES.golf_hero;
+    }
+  };
+
+  return (
   <div className="animate-fade-in-up pt-24 min-h-screen bg-white">
      {/* Hero */}
      <div className="relative h-[60vh] flex items-center justify-center overflow-hidden">
@@ -377,22 +422,74 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
                </div>
              ))}
          </div>
-         <div className="max-w-4xl mx-auto border-l-2 border-gray-200 pl-8 space-y-12">
-            {[
-              { day: 'Day 1', title: t.golf.itin_d1_t, desc: t.golf.itin_d1_d },
-              { day: 'Day 2', title: t.golf.itin_d2_t, desc: t.golf.itin_d2_d },
-              { day: 'Day 3', title: t.golf.itin_d3_t, desc: t.golf.itin_d3_d },
-              { day: 'Day 4', title: t.golf.itin_d4_t, desc: t.golf.itin_d4_d },
-              { day: 'Day 5', title: t.golf.itin_d5_t, desc: t.golf.itin_d5_d },
-            ].map((day, i) => (
-              <div key={i} className="relative">
-                 <span className="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-white border-4 border-green-500"></span>
-                 <p className="text-xs font-bold text-green-600 mb-1">{day.day}</p>
-                 <h4 className="text-xl font-bold text-gray-800 mb-2">{day.title}</h4>
-                 <p className="text-gray-500 text-sm leading-relaxed">{day.desc}</p>
-              </div>
-            ))}
+
+         {/* Premium Plans Section - New Update */}
+         <div className="mb-24">
+            <div className="text-center mb-16">
+               <h3 className="text-3xl font-serif text-gray-900">Recommended Itineraries</h3>
+               <p className="text-gray-500 text-sm mt-2">Curated for VIPs</p>
+            </div>
+            
+            <div className="space-y-24">
+               {t.golf.plans?.map((plan: any, index: number) => (
+                  <div key={plan.id} className={`flex flex-col ${index % 2 !== 0 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 items-start`}>
+                     {/* Image Card */}
+                     <div className="md:w-1/2 w-full">
+                        <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[400px] group">
+                           <img 
+                              src={getPlanImage(plan.id)}
+                              className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700"
+                              alt={plan.title}
+                              onError={(e) => handleSmartImageError(e, `plan_${plan.id.split('-')[0]}`)}
+                           />
+                           <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+                              {plan.tags.map((tag: string, i: number) => (
+                                 <span key={i} className="bg-black/60 backdrop-blur-md text-white text-[10px] uppercase font-bold px-3 py-1 rounded-full border border-white/20">
+                                    {tag}
+                                 </span>
+                              ))}
+                           </div>
+                        </div>
+                     </div>
+                     
+                     {/* Content */}
+                     <div className="md:w-1/2 w-full">
+                        <div className="flex items-center gap-3 mb-2">
+                           <span className="text-green-600 font-bold text-xs tracking-widest uppercase">Plan 0{index + 1}</span>
+                           <div className="h-px bg-green-200 flex-grow"></div>
+                        </div>
+                        <h3 className="text-2xl md:text-3xl font-serif font-bold text-gray-900 mb-2">{plan.title}</h3>
+                        <h4 className="text-lg text-gray-500 mb-6 font-light">{plan.subtitle}</h4>
+                        <p className="text-gray-600 leading-relaxed mb-8">{plan.desc}</p>
+                        
+                        <div className="bg-gray-50 rounded-xl p-6 border border-gray-100 mb-8">
+                           <div className="flex items-center gap-2 mb-4 text-sm font-bold text-gray-800">
+                              <Building size={16} className="text-green-600" />
+                              <span>Accommodation: {plan.hotel}</span>
+                           </div>
+                           <div className="space-y-4">
+                              {plan.schedule.map((day: any, dIndex: number) => (
+                                 <div key={dIndex} className="flex gap-4 text-sm">
+                                    <span className="font-bold text-gray-400 w-12 flex-shrink-0">{day.day}</span>
+                                    <span className="text-gray-700 leading-relaxed">{day.text}</span>
+                                 </div>
+                              ))}
+                           </div>
+                        </div>
+
+                        <button 
+                           onClick={onLoginTrigger}
+                           className="bg-gray-900 text-white px-8 py-3 rounded-full font-bold hover:bg-green-600 transition shadow-lg flex items-center gap-2"
+                        >
+                           <Award size={18} />
+                           {t.golf.cta_btn}
+                        </button>
+                     </div>
+                  </div>
+               ))}
+            </div>
          </div>
+
          <div className="mt-24 bg-[#111] rounded-3xl p-12 text-center text-white">
              <h3 className="text-3xl font-serif mb-4">{t.golf.cta_title}</h3>
              <p className="text-gray-400 mb-8">{t.golf.cta_desc}</p>
@@ -405,8 +502,156 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
          </button>
      </div>
   </div>
-);
+  );
+};
 
+const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger }) => {
+   // Helper to get image based on plan ID
+   const getBizImage = (id: string) => {
+      switch(id) {
+        case 'biz-plan-1': return SITE_IMAGES.biz_medical;
+        case 'biz-plan-2': return SITE_IMAGES.biz_tokyo;
+        case 'biz-plan-3': return SITE_IMAGES.biz_factory;
+        case 'biz-plan-4': return SITE_IMAGES.biz_resort;
+        case 'biz-plan-5': return SITE_IMAGES.biz_golden;
+        default: return SITE_IMAGES.business_hero;
+      }
+   };
+
+   return (
+    <div className="animate-fade-in-up pt-24 min-h-screen bg-white">
+      {/* Hero */}
+      <div className="relative h-[60vh] flex flex-col items-center justify-center bg-gray-50 overflow-hidden">
+         <div className="absolute inset-0">
+             <BusinessNetwork />
+         </div>
+         <div className="relative z-10 text-center px-6 pointer-events-none">
+            <span className="text-blue-600 font-bold tracking-[0.3em] uppercase text-xs mb-4 block bg-white/80 backdrop-blur inline-block px-4 py-1 rounded-full border border-blue-100">
+                {t.business.hero_tag}
+            </span>
+            <h1 className="text-5xl md:text-7xl font-serif font-bold text-gray-900 mb-6 bg-clip-text">
+                {t.business.hero_title}
+            </h1>
+            <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed whitespace-pre-line">
+                {t.business.hero_text}
+            </p>
+         </div>
+      </div>
+
+      <div className="container mx-auto px-6 py-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24">
+             <div>
+                <h3 className="text-3xl font-serif text-gray-900 mb-6">{t.business.tag}</h3>
+                <p className="text-gray-500 leading-relaxed whitespace-pre-line mb-8">
+                   {t.business.desc}
+                </p>
+                <button onClick={onLoginTrigger} className="bg-blue-600 text-white px-8 py-3 rounded-full font-bold hover:bg-blue-700 transition shadow-lg">
+                   {t.business.btn_case}
+                </button>
+             </div>
+             <div className="grid grid-cols-1 gap-6">
+                {[
+                  { t: t.business.theme_1_t, d: t.business.theme_1_d, i: <Microscope size={20}/> },
+                  { t: t.business.theme_2_t, d: t.business.theme_2_d, i: <Heart size={20}/> },
+                  { t: t.business.theme_3_t, d: t.business.theme_3_d, i: <Building size={20}/> },
+                ].map((item, i) => (
+                  <div key={i} className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition flex gap-4 items-start">
+                     <div className="bg-blue-50 text-blue-600 p-3 rounded-lg">{item.i}</div>
+                     <div>
+                        <h4 className="font-bold text-gray-900">{item.t}</h4>
+                        <p className="text-xs text-gray-500 mt-1">{item.d}</p>
+                     </div>
+                  </div>
+                ))}
+             </div>
+          </div>
+
+          {/* Process Steps */}
+          <div className="mb-24 bg-gray-900 rounded-3xl p-10 md:p-16 text-white overflow-hidden relative">
+             <div className="relative z-10 text-center mb-16">
+                 <h3 className="text-3xl font-serif">{t.business.process_title}</h3>
+                 <p className="text-gray-400 mt-2 text-sm">{t.business.process_sub}</p>
+             </div>
+             <div className="relative z-10 grid grid-cols-1 md:grid-cols-5 gap-4">
+                 {[
+                   { t: t.business.step_1_t, d: t.business.step_1_d },
+                   { t: t.business.step_2_t, d: t.business.step_2_d },
+                   { t: t.business.step_3_t, d: t.business.step_3_d },
+                   { t: t.business.step_4_t, d: t.business.step_4_d },
+                   { t: t.business.step_5_t, d: t.business.step_5_d },
+                 ].map((step, i) => (
+                    <div key={i} className="relative group">
+                       <div className="text-4xl font-mono font-bold text-gray-800 mb-4 group-hover:text-blue-500 transition">0{i+1}</div>
+                       <h4 className="font-bold text-lg mb-2">{step.t}</h4>
+                       <p className="text-xs text-gray-400 leading-relaxed">{step.d}</p>
+                    </div>
+                 ))}
+             </div>
+          </div>
+
+          {/* New Business Plans Section */}
+          <div className="mb-24">
+             <div className="text-center mb-16">
+                <h3 className="text-3xl font-serif text-gray-900">{t.business.itin_title}</h3>
+                <p className="text-gray-500 text-sm mt-2">Curated for Executives</p>
+             </div>
+             
+             <div className="space-y-20">
+                {t.business.plans?.map((plan: any, index: number) => (
+                   <div key={plan.id} className="flex flex-col md:flex-row gap-10 items-start border-b border-gray-100 pb-20 last:border-0 last:pb-0">
+                      {/* Image - Smaller aspect than Golf */}
+                      <div className="md:w-1/3 w-full">
+                         <div className="relative rounded-xl overflow-hidden shadow-lg h-[250px] md:h-[320px] group">
+                            <img 
+                               src={getBizImage(plan.id)}
+                               className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700"
+                               alt={plan.title}
+                               onError={(e) => handleSmartImageError(e, `biz_${plan.id}`)}
+                            />
+                            <div className="absolute inset-0 bg-blue-900/10 group-hover:bg-transparent transition"></div>
+                         </div>
+                      </div>
+                      
+                      {/* Content */}
+                      <div className="md:w-2/3 w-full">
+                         <div className="flex flex-wrap gap-2 mb-4">
+                            {plan.tags.map((tag: string, i: number) => (
+                               <span key={i} className="bg-blue-50 text-blue-700 text-[10px] font-bold px-2 py-1 rounded border border-blue-100">
+                                  {tag}
+                               </span>
+                            ))}
+                         </div>
+                         <h3 className="text-2xl font-serif font-bold text-gray-900 mb-2">{plan.title}</h3>
+                         <h4 className="text-sm font-bold text-gray-500 mb-4">{plan.subtitle}</h4>
+                         <p className="text-gray-600 text-sm leading-relaxed mb-6 border-l-2 border-gray-200 pl-4">{plan.desc}</p>
+                         
+                         <div className="bg-gray-50 rounded-lg p-5 border border-gray-100">
+                            <div className="space-y-3">
+                               {plan.schedule.map((day: any, dIndex: number) => (
+                                  <div key={dIndex} className="flex gap-4 text-xs md:text-sm">
+                                     <span className="font-bold text-gray-400 w-12 flex-shrink-0">{day.day}</span>
+                                     <span className="text-gray-700 leading-relaxed">{day.text}</span>
+                                  </div>
+                               ))}
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                ))}
+             </div>
+          </div>
+          
+          <div className="text-center mt-12">
+             <button onClick={() => setCurrentPage('home')} className="flex items-center gap-2 mx-auto text-gray-500 hover:text-black transition">
+                <ArrowLeft size={16} /> {t.about.back}
+             </button>
+          </div>
+      </div>
+    </div>
+   );
+};
+
+// ... (PartnerView, HomeView, LandingPage remain unchanged)
 const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger }) => (
   <div className="animate-fade-in-up pt-24 min-h-screen bg-white">
      <div className="bg-blue-50 py-24 text-center px-6">
@@ -459,83 +704,20 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
   </div>
 );
 
-const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage }) => (
-  <div className="animate-fade-in-up pt-24 min-h-screen bg-[#F5F5F7]">
-     <div className="container mx-auto px-6 py-24">
-        <div className="flex flex-col md:flex-row-reverse gap-16 items-center mb-24">
-            <div className="md:w-1/2 image-card shadow-lg rounded-lg">
-                <img 
-                  src={SITE_IMAGES.business_hero} 
-                  alt="Business Meeting" 
-                  className="w-full h-[450px] object-cover grayscale hover:grayscale-0 transition duration-700" 
-                  key="business_hero"
-                  onError={(e) => handleSmartImageError(e, 'business_hero')}
-                />
-            </div>
-            <div className="md:w-1/2 space-y-8 text-right md:text-left">
-                <div className="flex flex-col md:items-start items-end">
-                    <span className="text-purple-500 text-xs tracking-widest uppercase font-bold">{t.business.tag}</span>
-                    <h2 className="text-4xl font-serif text-gray-900 mt-4">{t.business.title}</h2>
-                </div>
-                <p className="text-gray-500 leading-8 font-light whitespace-pre-line">
-                    {t.business.desc}
-                </p>
-            </div>
-        </div>
-        <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-xl p-8 md:p-12 mb-20 relative z-20">
-            <h3 className="text-2xl font-serif mb-8 text-center border-b border-gray-100 pb-4">{t.business.themes_title}</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {[
-                  { icon: <Building size={32} />, color: 'blue', title: t.business.theme_1_t, desc: t.business.theme_1_d },
-                  { icon: <Heart size={32} />, color: 'green', title: t.business.theme_2_t, desc: t.business.theme_2_d },
-                  { icon: <MapPin size={32} />, color: 'purple', title: t.business.theme_3_t, desc: t.business.theme_3_d },
-                ].map((item, i) => (
-                  <div key={i} className="text-center group">
-                      <div className={`w-16 h-16 bg-${item.color}-50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-${item.color}-100 transition text-${item.color}-600`}>
-                          {item.icon}
-                      </div>
-                      <h4 className="font-bold text-gray-800 mb-2">{item.title}</h4>
-                      <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
-                  </div>
-                ))}
-            </div>
-        </div>
-        <div className="max-w-5xl mx-auto">
-             <div className="text-center mb-16">
-                <h3 className="text-2xl font-serif text-gray-900">{t.business.process_title}</h3>
-                <p className="text-gray-500 text-sm mt-4">{t.business.process_sub}</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-               {[
-                 { step: '1', title: t.business.step_1_t, desc: t.business.step_1_d },
-                 { step: '2', title: t.business.step_2_t, desc: t.business.step_2_d },
-                 { step: '3', title: t.business.step_3_t, desc: t.business.step_3_d },
-                 { step: '4', title: t.business.step_4_t, desc: t.business.step_4_d },
-                 { step: '✔', title: t.business.step_5_t, desc: t.business.step_5_d },
-               ].map((item, i) => (
-                 <div key={i} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 relative">
-                    <div className="absolute -top-3 left-6 bg-gray-900 text-white w-8 h-8 flex items-center justify-center rounded-full font-bold text-sm border-4 border-[#F5F5F7]">{item.step}</div>
-                    <h4 className="font-bold text-gray-800 mt-2 mb-2">{item.title}</h4>
-                    <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
-                 </div>
-               ))}
-            </div>
-        </div>
-        <button onClick={() => setCurrentPage('home')} className="mt-16 w-full text-center text-gray-400 hover:text-black transition flex justify-center items-center gap-2">
-            <ArrowLeft size={16} /> {t.about.back}
-         </button>
-     </div>
-  </div>
-);
-
 // --- Sub-View: Home View (Main Landing) ---
 const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, currentLang }) => {
+  // STRICT JS MOBILE DETECTION
+  const isMobile = useIsMobile();
+
   return (
   <div className="animate-fade-in-up pt-0 bg-white">
       {/* 1. Hero Header with 3D Particles */}
       <header className="relative w-full h-[85vh] flex items-center justify-center bg-white overflow-hidden">
           <div className="absolute inset-0 z-0">
-             <IntroParticles />
+             {/* Only render complex particles on desktop to allow context for other charts */}
+             {!isMobile && <IntroParticles />}
+             {/* Simple gradient for mobile */}
+             {isMobile && <div className="w-full h-full bg-gradient-to-b from-white via-blue-50 to-white"></div>}
           </div>
           <div className="container mx-auto px-6 flex flex-col items-center justify-center text-center z-10 pointer-events-none">
               <div className="animate-fade-in-up space-y-8 mt-48 md:mt-64">
@@ -554,21 +736,36 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           </div>
       </header>
 
-    {/* Medical Preview Section - UPDATED DESIGN: CLEAN & WHITE */}
+    {/* Medical Preview Section */}
     <section className="py-24 bg-white relative z-10">
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row gap-16 items-center">
           
-          {/* LEFT SIDE: FUTURE UI TECH CARD (CLEAN WHITE VERSION) */}
-          <div className="md:w-1/2 cursor-pointer group" onClick={() => setCurrentPage('medical')}>
-            <div className="relative overflow-hidden rounded-3xl shadow-xl transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl bg-white border border-gray-100 h-[600px]">
+          {/* LEFT SIDE: HYBRID CARD */}
+          <div className="md:w-1/2 cursor-pointer group w-full" onClick={() => setCurrentPage('medical')}>
+            <div className="relative overflow-hidden rounded-3xl shadow-xl transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl bg-white border border-gray-100 h-[400px] md:h-[600px] w-full">
                 
-                {/* 1. 3D DNA/Cell Visualization Layer - OPTIMIZED FOR MOBILE */}
-                <div className="absolute inset-0 z-0">
-                    <MedicalDNA />
-                </div>
+                {/* 1. 3D DNA/Cell Visualization Layer - DESKTOP ONLY (STRICT CHECK) */}
+                {!isMobile && (
+                  <div className="hidden md:block absolute inset-0 z-0">
+                      <MedicalDNA />
+                  </div>
+                )}
+
+                {/* 2. Static Fallback Image - MOBILE ONLY (STRICT CHECK) */}
+                {isMobile && (
+                  <div className="absolute inset-0 z-0">
+                      <img 
+                        src={SITE_IMAGES.mobile_medical_fallback} 
+                        className="w-full h-full object-cover animate-fade-in-up" 
+                        alt="Medical DNA Abstract" 
+                      />
+                      {/* Mobile Overlay to ensure text readability if needed */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent"></div>
+                  </div>
+                )}
                 
-                {/* 2. Interaction Prompt (Subtle) */}
+                {/* 3. Interaction Prompt */}
                 <div className="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center gap-2 pointer-events-none">
                    <span className="text-[10px] text-gray-400 font-mono uppercase tracking-widest bg-white/80 px-3 py-1 rounded-full backdrop-blur-sm border border-gray-100">Tap to Explore</span>
                 </div>
@@ -617,20 +814,35 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       </div>
     </section>
 
-    {/* Business Preview Section - UPDATED: 3D Network */}
+    {/* Business Preview Section */}
     <section className="py-24 bg-[#F5F5F7]">
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row-reverse gap-16 items-center">
           
           {/* RIGHT SIDE: BUSINESS 3D CARD */}
-          <div className="md:w-1/2 cursor-pointer group" onClick={() => setCurrentPage('business')}>
-            <div className="relative overflow-hidden rounded-3xl shadow-xl transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl bg-[#F5F5F7] border border-gray-200 h-[500px]">
-               {/* 3D Network Layer - OPTIMIZED FOR MOBILE */}
-               <div className="absolute inset-0 z-0">
-                  <BusinessNetwork />
-               </div>
+          <div className="md:w-1/2 cursor-pointer group w-full" onClick={() => setCurrentPage('business')}>
+            <div className="relative overflow-hidden rounded-3xl shadow-xl transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl bg-[#F5F5F7] border border-gray-200 h-[400px] md:h-[500px] w-full">
                
-               {/* Interaction Prompt (Subtle) */}
+               {/* 1. 3D Network Layer - DESKTOP ONLY (STRICT CHECK) */}
+               {!isMobile && (
+                  <div className="hidden md:block absolute inset-0 z-0">
+                      <BusinessNetwork />
+                  </div>
+               )}
+
+               {/* 2. Static Fallback Image - MOBILE ONLY (STRICT CHECK) */}
+               {isMobile && (
+                  <div className="absolute inset-0 z-0">
+                      <img 
+                        src={SITE_IMAGES.mobile_business_fallback} 
+                        className="w-full h-full object-cover animate-fade-in-up" 
+                        alt="Global Business Network" 
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
+                  </div>
+               )}
+               
+               {/* Interaction Prompt */}
                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center gap-2 pointer-events-none">
                    <span className="text-[10px] text-gray-500 font-mono uppercase tracking-widest bg-white/80 px-3 py-1 rounded-full backdrop-blur-sm border border-gray-200">View Insights</span>
                </div>

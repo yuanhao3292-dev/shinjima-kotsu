@@ -77,7 +77,7 @@ export const translations = {
       tag: 'Overseas Business Tour',
       title: '海外企業視察・ビジネスツアー',
       desc: '単なる通訳や移動の手配ではありません。私たちは、海外のお客様と日本企業の架け橋となります。\n医療機器、介護、精密製造など、日本の技術の最前線（現場）へ深く入り込み、\n観光では触れられない真のビジネス・インサイトを提供します。',
-      btn_case: '視察事例を見る',
+      btn_case: '視察プランを見る',
       hero_tag: 'Business Inspection & MICE',
       hero_title: '関西産業視察・商務考察',
       hero_text: 'ものづくりの街・大阪から、京都の伝統産業まで。\n企業の成長に直結する、深みのある視察プログラムを提案します。',
@@ -102,18 +102,79 @@ export const translations = {
       step_5_d: '視察後の振り返りレポート提出。日系企業との継続的な関係構築を支援。',
       support_title: 'サポート体制',
       supports: ['招聘理由書作成', '専門通訳手配 (逐次/同時)', '会食セッティング', '専用車手配'],
-      itin_title: '関西のスマート製造と百年経営・5日間の深層視察',
-      itin_desc: '経営者のための特別プログラム。京セラ、川崎重工など世界クラスの企業を深く探訪し、「長壽企業」の遺伝子と「アメーバ経営」「職人精神」を体感します。',
-      itin_day1_t: '大阪到着・天空の夜',
-      itin_day1_d: '関西空港VIP送迎、コンラッド大阪へ。夕食は「天空の鉄板焼き」で大阪の夜景を一望し、アイスブレイク。',
-      itin_day2_t: '京都・経営の神様の哲学',
-      itin_day2_d: '【AM】京セラ本社、稲盛和夫氏の哲学とアメーバ経営を研鑽。【Lunch】菊乃井（ミシュラン）。【PM】島津製作所、ノーベル賞企業のDNAを探る。',
-      itin_day3_t: '神戸・インダストリー4.0と水素',
-      itin_day3_d: '【AM】川崎重工 Robo Stage、人とロボットの協働。【PM】岩谷産業/パナソニック水素センター。【Stay】ザ・リッツ・カールトン大阪。',
-      itin_day4_t: '大阪・精密医療とイノベーション',
-      itin_day4_d: '【AM】TIMC大阪にて最高峰の検診体験。【PM】ダイキン工業 イノベーションセンター Fuha。【Dinner】日中経営者交流晩餐会。',
-      itin_day5_t: '歴史の余韻と帰路',
-      itin_day5_d: '【AM】大阪城天守閣でVIP茶道体験、「一期一会」を体感。【PM】専用車で関西国際空港(KIX)へ。',
+      itin_title: '戦略的ビジネス視察モデルプラン',
+      plans: [
+        {
+          id: 'biz-plan-1',
+          title: 'Plan 1：【3日間】関西先端医療・介護ビジネス視察',
+          subtitle: '神戸医療産業都市と日本のハイエンド介護運営（医療投資家向け）',
+          tags: ['Medical', 'Care Business', 'Kobe Biomedical'],
+          desc: '神戸医療産業都市(KBIC)の視察と、関西エリアの高級有料老人ホームでのDX活用事例を学ぶ集中プラン。',
+          schedule: [
+            { day: 'Day 1', text: 'KIX到着。大阪市内の料亭にてウェルカムディナー＆医療事情オリエンテーション。' },
+            { day: 'Day 2', text: '【AM】神戸医療産業都市(KBIC)視察。【PM】高級有料老人ホーム視察、DX活用に関する意見交換会。' },
+            { day: 'Day 3', text: '【AM】大阪公立大学医学部附属病院等の検診センター動線視察。【PM】帰国。' }
+          ]
+        },
+        {
+          id: 'biz-plan-2',
+          title: 'Plan 2：【4日間】東京・再生医療と美容クリニック経営視察',
+          subtitle: '日本の先端幹細胞治療と「おもてなし」美容医療',
+          tags: ['Regenerative Medicine', 'Aesthetic Clinic', 'Ginza'],
+          desc: '銀座・六本木エリアの最高峰幹細胞クリニックとCPC（細胞加工施設）を訪問。日本の接遇マニュアルを学ぶ。',
+          schedule: [
+            { day: 'Day 1', text: '東京到着。銀座エリアへチェックイン。' },
+            { day: 'Day 2', text: '【AM】都内有名幹細胞クリニックにて院長セミナー。【PM】CPC（細胞培養加工施設）バックヤードツアー。' },
+            { day: 'Day 3', text: '【AM】大手美容クリニックにて接遇・カウンセリングフロー視察。【Eve】日中医療関係者交流会。' },
+            { day: 'Day 4', text: '築地場外市場（食の衛生管理）視察後、帰国。' }
+          ]
+        },
+        {
+          id: 'biz-plan-3',
+          title: 'Plan 3：【5日間】大阪・京都「モノづくり」と長寿企業視察',
+          subtitle: '関西の町工場技術と、100年企業のブランド戦略',
+          tags: ['Monozukuri', 'Longevity Company', 'Panasonic'],
+          desc: '東大阪の世界シェアNo.1町工場技術と、京都の伝統と革新（京セラ・オムロン等）を巡る旅。',
+          schedule: [
+            { day: 'Day 1', text: '大阪到着。' },
+            { day: 'Day 2', text: '【AM】東大阪・精密加工工場視察。【PM】パナソニックミュージアム（松下幸之助歴史館）。' },
+            { day: 'Day 3', text: '【AM】京セラ/オムロン ショールーム。【PM】京都老舗酒造メーカーにてブランド戦略講話。' },
+            { day: 'Day 4', text: '産業展示会への参加、または個別企業表敬訪問。' },
+            { day: 'Day 5', text: '関西国際空港より帰国。' }
+          ]
+        },
+        {
+          id: 'biz-plan-4',
+          title: 'Plan 4：【6日間】東京・横浜・箱根 都市開発とリゾート視察',
+          subtitle: 'TOD（公共交通指向型開発）とウェルネスリゾート運営',
+          tags: ['Urban Development', 'Resort Management', 'MICE'],
+          desc: '麻布台ヒルズなどの最新都市開発と、箱根の高級リゾート運営（インバウンド対応）を学ぶ広域プラン。',
+          schedule: [
+            { day: 'Day 1', text: '東京到着。' },
+            { day: 'Day 2', text: '【AM】麻布台/虎ノ門ヒルズ視察。【PM】豊洲スマートシティ（水素エネルギー活用）。' },
+            { day: 'Day 3', text: '【AM】横浜みなとみらい21（MICE施設）。【PM】箱根へ移動。' },
+            { day: 'Day 4', text: '【AM】箱根高級リゾート視察・意見交換。【PM】大涌谷（観光資源化）。' },
+            { day: 'Day 5', text: '東京へ戻り、表参道・原宿のリテールテック店舗視察。' },
+            { day: 'Day 6', text: '帰国。' }
+          ]
+        },
+        {
+          id: 'biz-plan-5',
+          title: 'Plan 5：【7日間】東名阪・日本産業ゴールデンルート視察',
+          subtitle: '日本経済の大動脈を完全網羅（金融・自動車・未来社会）',
+          tags: ['Golden Route', 'Toyota', 'Expo 2025'],
+          desc: '東京の金融、名古屋の自動車（トヨタ）、大阪の万博・未来社会を網羅する究極の視察ルート。',
+          schedule: [
+            { day: 'Day 1', text: '東京到着。' },
+            { day: 'Day 2', text: '兜町金融街、AI/ロボティクス・ユニコーン企業訪問。' },
+            { day: 'Day 3', text: '名古屋へ移動。【PM】トヨタ産業技術記念館（TPS・カイゼン文化）。' },
+            { day: 'Day 4', text: '京都へ移動。【PM】京都リサーチパーク（産官学連携）。' },
+            { day: 'Day 5', text: '大阪へ移動。【PM】2025大阪万博関連エリア・うめきた2期視察。' },
+            { day: 'Day 6', text: '【AM】大阪高級健診センター視察。【Eve】フェアウェルパーティー。' },
+            { day: 'Day 7', text: '関西国際空港より帰国。' }
+          ]
+        }
+      ],
       std_title: '新島・ハイグレード接待基準',
       std_sub: '視察だけでなく、尊いおもてなしの旅を',
       std_1_t: '陸のファーストクラス',
@@ -138,21 +199,60 @@ export const translations = {
       f3_d: 'ゴルフバッグも余裕で積載できるアルファードやVIPバスを手配。プロドライバーが定刻到着を保証。',
       f4_t: 'アフターゴルフの癒やし',
       f4_d: '19番ホールの後は、有馬温泉などの高級旅館で懐石料理と温泉を堪能。',
-      itin_title: '関西チャンピオンシップツアー (5日間)',
-      itin_loc: '兵庫 & 大阪 • 2ラウンド',
-      itin_d1_t: 'Day 1: 到着・ウェルカムディナー',
-      itin_d1_d: '関西空港(KIX) VIP送迎。ザ・リッツ・カールトン大阪へ。夕食は夜景を望む鉄板焼きでアイスブレイク。',
-      itin_d2_t: 'Day 2: ロイヤル・チャレンジ',
-      itin_d2_d: '【六甲国際ゴルフ倶楽部】(東コース) でティーオフ。サントリーレディス開催地。クラブハウス名物の神戸牛カレーも必食。',
-      itin_d3_t: 'Day 3: 高速グリーンと温泉',
-      itin_d3_d: '【ABCゴルフ倶楽部】へ。高速グリーンで知られる名門。プレー後は有馬温泉へ移動し、金泉・銀泉で疲労回復。',
-      itin_d4_t: 'Day 4: 文化体験 & 表彰式',
-      itin_d4_d: '午前は京都観光（金閣寺等）。夜はミシュラン星付き懐石にて「アワード・ガラ・ディナー」。',
-      itin_d5_t: 'Day 5: 帰路へ',
-      itin_d5_d: 'ゆったりと朝食後、専用車で関西空港へ。搭乗手続きとゴルフバッグ預け入れをサポート。',
       cta_title: '次の親善試合を企画する',
       cta_desc: '企業視察の合間のリフレッシュも、ガチンコ対決も。\n面倒な手配はすべてお任せください。',
-      cta_btn: 'AIシステムでゴルフ行程をカスタマイズ'
+      cta_btn: 'AIシステムでゴルフ行程をカスタマイズ',
+      plans: [
+        {
+          id: 'kansai-elite',
+          title: '【関西の精鋭】5日間・名門2ラウンド',
+          subtitle: '効率重視のラグジュアリープラン',
+          tags: ['5 Days', 'Hyogo Top 100', 'Arima Onsen'],
+          desc: '短期間で日本のゴルフ発祥の地・兵庫県のトップコースを堪能する、効率重視のラグジュアリープラン。六甲国際とABCゴルフ倶楽部へのアクセスを確保。',
+          hotel: 'ホテル阪急レスパイア大阪 (Premium 4 Star)',
+          schedule: [
+            { day: 'Day 1', text: '大阪到着。専用車でお出迎え、ホテルへチェックイン。北新地にてウェルカムディナー（神戸牛）。' },
+            { day: 'Day 2', text: '【六甲国際ゴルフ倶楽部】(東コース) 帝王ジャック・ニクラス監修。サントリーレディス開催地。' },
+            { day: 'Day 3', text: '【ABCゴルフ倶楽部】マイナビABC開催地。日本屈指の高速グリーンと名物18番ホールに挑戦。' },
+            { day: 'Day 4', text: '大阪城公園観光、午後は梅田・阪急百貨店でショッピング。' },
+            { day: 'Day 5', text: '専用車にて空港へお送り。' }
+          ]
+        },
+        {
+          id: 'golf-pilgrimage',
+          title: '【ゴルフ巡礼】関西深訪 7日間・激闘4ラウンド',
+          subtitle: '井上誠一・RTJ Jr. 設計コースを巡る',
+          tags: ['7 Days', 'Difficult Course', 'Kyoto Culture', 'Michelin'],
+          desc: 'ゴルフ愛好家向けのハードな旅程。「井上誠一」や「ロバート・トレント・ジョーンズ・Jr」など、設計家にもこだわった通好みのラインナップ。',
+          hotel: 'スイスホテル南海大阪 (Luxury 5 Star)',
+          schedule: [
+            { day: 'Day 1', text: '大阪到着。チェックイン後、難波エリアで自由行動。' },
+            { day: 'Day 2', text: '【有馬ロイヤルGC・ロイヤルコース】光と影の魔術師・井上誠一氏の傑作。' },
+            { day: 'Day 3', text: '【ゴールデンバレーGC】コースレート77.4。日本屈指の難コースに挑む。' },
+            { day: 'Day 4', text: '京都一日観光（金閣寺・祇園）。ミシュラン星付き懐石で休息。' },
+            { day: 'Day 5', text: '【よみうりカントリークラブ】男子ツアー最終戦の舞台。戦略性が高い丘陵コース。' },
+            { day: 'Day 6', text: '【KOMAカントリークラブ】ゲーリー・プレーヤー設計。打ち上げディナー。' },
+            { day: 'Day 7', text: '専用車にて空港へ。' }
+          ]
+        },
+        {
+          id: 'fuji-spectacular',
+          title: '【富士の絶景】東京＆富士山 7日間・絶景4ラウンド',
+          subtitle: '世界遺産・富士山を望む絶景ゴルフ',
+          tags: ['7 Days', 'Mt. Fuji View', 'Tokyo Ginza', 'Gotemba Outlet'],
+          desc: '東京のシティライフと、御殿場エリアの絶景ゴルフを組み合わせた決定版。太平洋クラブ御殿場コースの予約枠を確保します。',
+          hotel: '銀座 (Quintessa) & 御殿場 (HOTEL CLAD)',
+          schedule: [
+            { day: 'Day 1', text: '東京到着 (HND/NRT)。銀座へチェックイン。' },
+            { day: 'Day 2', text: '【太平洋クラブ・成田コース】ゲーリー・プレーヤー設計。美しい林間コース。' },
+            { day: 'Day 3', text: '【宍戸ヒルズCC・西コース】日本ゴルフツアー選手権開催地。「魔のホール」に挑戦。' },
+            { day: 'Day 4', text: '東京から富士山エリアへ移動。河口湖観光後、HOTEL CLAD（温泉付）へ。' },
+            { day: 'Day 5', text: '【太平洋クラブ・御殿場コース】三井住友VISA太平洋マスターズ開催地。世界的一の名門。' },
+            { day: 'Day 6', text: '【富士桜カントリー倶楽部】フジサンケイクラシック開催地。午後はアウトレットへ。' },
+            { day: 'Day 7', text: '専用車にて羽田/成田空港へ直行。' }
+          ]
+        }
+      ]
     },
     partner: {
       hero_tag: 'Travel Agency Partnership',
@@ -294,7 +394,7 @@ export const translations = {
       tag: 'Overseas Business Tour',
       title: '海外企業考察・商務之旅',
       desc: '這不僅僅是翻譯或交通安排。我們是海外客戶與日本企業之間的橋樑。\n深入醫療器材、長照護理、精密製造等日本技術的最前線（現場），\n提供觀光旅遊無法觸及的真實商業洞察。',
-      btn_case: '查看考察案例',
+      btn_case: '查看考察方案',
       hero_tag: 'Business Inspection & MICE',
       hero_title: '關西產業視察・商務考察',
       hero_text: '從製造之都大阪，到京都的傳統產業。\n我們規劃與企業成長直連的深度視察行程。',
@@ -319,18 +419,79 @@ export const translations = {
       step_5_d: '價值延伸：考察結束後提供活動回顧報告。協助建立後續聯絡渠道。',
       support_title: '支援體制',
       supports: ['招聘理由書作成', '專業翻譯 (逐步/同步)', '商務宴請安排', '專車安排 (Alphard/Hiace)'],
-      itin_title: '關西智造與百年經營 · 5天深度考察',
-      itin_desc: '專為企業家定制。深入京瓷、川崎重工等世界級企業，\n探尋「長壽企業」的經營基因，體驗日本極致的「阿米巴」與「工匠精神」。',
-      itin_day1_t: '抵達大阪 · 雲端之夜',
-      itin_day1_d: '關西機場 VIP 接機，入住大阪康萊德酒店 (Conrad Osaka)。晚宴安排於「雲端鐵板燒」，俯瞰大阪璀璨夜景，開啟破冰交流。',
-      itin_day2_t: '京都 · 經營之聖的哲學',
-      itin_day2_d: '【AM】參訪京瓷 (Kyocera) 總部，研習稻盛和夫「敬天愛人」與阿米巴經營。【Lunch】菊乃井（ミシュラン）。【PM】參訪島津製作所，探究百年企業的諾貝爾獎基因。',
-      itin_day3_t: '神戶 · 工業 4.0 與氫能',
-      itin_day3_d: '【AM】參訪川崎重工 (Kawasaki) Robo Stage，近距離考察人機協作產線。【PM】考察岩谷產業或松下氫能中心，洞察清潔能源未來。【Stay】大阪麗思卡爾頓酒店。',
-      itin_day4_t: '大阪 · 精密醫療與創新',
-      itin_day4_d: '【AM】獨家參訪TIMC 大阪中央高級醫療中心，體驗日本頂尖防癌篩查體系。【PM】大金工業 (Daikin) 創新中心 Fuha。【Dinner】中日企業家交流晚宴。',
-      itin_day5_t: '歷史回響與返程',
-      itin_day5_d: '【AM】大阪城天守閣 VIP 茶道體驗，在戰國遺風中感悟「一期一會」。【PM】專車送往關西國際機場 (KIX)，滿載而歸。',
+      itin_title: '戰略商務考察示範行程',
+      plans: [
+        {
+          id: 'biz-plan-1',
+          title: 'Plan 1：【3天】關西先端醫療・養老商務考察',
+          subtitle: '神戶醫療產業都市與日本高端養老運營（醫療投資家向け）',
+          tags: ['Medical', 'Care Business', 'Kobe Biomedical'],
+          desc: '深入神戶醫療產業都市(KBIC)與關西高級養老院，學習DX技術在照護現場的應用。',
+          schedule: [
+            { day: 'Day 1', text: '抵達大阪。歡迎晚宴（日式料亭）及關西醫療現況簡報。' },
+            { day: 'Day 2', text: '【AM】視察神戶醫療產業都市(KBIC)及理化學研究所。【PM】參訪高級養老設施，與運營團隊交流DX應用。' },
+            { day: 'Day 3', text: '【AM】視察大阪公立大學附屬醫院等機構的健檢中心動線設計。【PM】返程。' }
+          ]
+        },
+        {
+          id: 'biz-plan-2',
+          title: 'Plan 2：【4天】東京・再生醫療與醫美診所經營考察',
+          subtitle: '日本先端幹細胞治療與「日式款待」醫美',
+          tags: ['Regenerative Medicine', 'Aesthetic Clinic', 'Ginza'],
+          desc: '走訪銀座/六本木頂級幹細胞診所與CPC細胞加工中心。學習日式醫美接待流程與術後管理。',
+          schedule: [
+            { day: 'Day 1', text: '抵達東京，入住銀座區域。' },
+            { day: 'Day 2', text: '【AM】知名幹細胞診所院長講座：法規與培養技術。【PM】參觀CPC細胞培養設施（玻璃帷幕見學）。' },
+            { day: 'Day 3', text: '【AM】大型連鎖醫美診所視察：接待SOP與諮詢流程。【Eve】中日醫療業者交流晚宴。' },
+            { day: 'Day 4', text: '視察築地場外市場（食品衛生管理）或機場免稅商業模式。返程。' }
+          ]
+        },
+        {
+          id: 'biz-plan-3',
+          title: 'Plan 3：【5天】大阪・京都「工匠精神」與百年企業考察',
+          subtitle: '關西街道工廠技術與百年企業的品牌戰略',
+          tags: ['Monozukuri', 'Longevity Company', 'Panasonic'],
+          desc: '探訪東大阪世界第一的精密加工技術，以及京瓷、歐姆龍等京都企業的創新之路。',
+          schedule: [
+            { day: 'Day 1', text: '抵達大阪。' },
+            { day: 'Day 2', text: '【AM】東大阪精密加工工廠視察（隱形冠軍企業）。【PM】松下幸之助歷史館（Panasonic Museum）。' },
+            { day: 'Day 3', text: '【AM】京瓷 (Kyocera) 或歐姆龍展示廳。【PM】京都老字號酒造，學習品牌全球化戰略。' },
+            { day: 'Day 4', text: '參加產業展會或安排個別企業拜訪（B2B媒合）。' },
+            { day: 'Day 5', text: '專車前往關西機場返程。' }
+          ]
+        },
+        {
+          id: 'biz-plan-4',
+          title: 'Plan 4：【6天】東京・橫濱・箱根 都市開發與度假村考察',
+          subtitle: 'TOD（公共交通導向型開發）與 Wellness 度假村運營',
+          tags: ['Urban Development', 'Resort Management', 'MICE'],
+          desc: '考察麻布台之丘等最新都市更新項目，以及箱根高級旅館的高單價客群運營策略。',
+          schedule: [
+            { day: 'Day 1', text: '抵達東京。' },
+            { day: 'Day 2', text: '【AM】視察麻布台/虎之門 Hills 都市更新。【PM】豐洲 Smart City（氫能源應用）。' },
+            { day: 'Day 3', text: '【AM】橫濱港未來21區（MICE設施與產業觀光）。【PM】移動至箱根。' },
+            { day: 'Day 4', text: '【AM】箱根高級度假酒店運營視察。【PM】大涌谷地質公園觀光資源化案例。' },
+            { day: 'Day 5', text: '返回東京。表參道/原宿 Retail Tech 無人商店與體驗型店鋪視察。' },
+            { day: 'Day 6', text: '返程。' }
+          ]
+        },
+        {
+          id: 'biz-plan-5',
+          title: 'Plan 5：【7天】東名阪・日本產業黃金路線考察',
+          subtitle: '完全網羅日本經濟大動脈（金融・汽車・未來社會）',
+          tags: ['Golden Route', 'Toyota', 'Expo 2025'],
+          desc: '從東京金融中心，到名古屋豐田汽車大本營，最後抵達大阪萬博未來社會實證場域。',
+          schedule: [
+            { day: 'Day 1', text: '抵達東京。' },
+            { day: 'Day 2', text: '兜町金融街、參訪 AI/機器人獨角獸企業。' },
+            { day: 'Day 3', text: '新幹線前往名古屋。【PM】豐田產業技術紀念館（TPS 精實生產與改善文化）。' },
+            { day: 'Day 4', text: '前往京都。【PM】京都 Research Park（產官學合作孵化器）。' },
+            { day: 'Day 5', text: '前往大阪。【PM】2025 大阪萬博相關區域、梅田二期 (Grand Green) 視察。' },
+            { day: 'Day 6', text: '【AM】大阪高級健診中心視察。【Eve】結業儀式與歡送晚宴。' },
+            { day: 'Day 7', text: '關西國際機場返程。' }
+          ]
+        }
+      ],
       std_title: '新島·高規格接待標準',
       std_sub: '不僅是考察，更是一次尊貴的日本商務旅行',
       std_1_t: '陸地頭等艙',
@@ -355,21 +516,60 @@ export const translations = {
       f3_d: '安排可容納多組球具的 Alphard 或 VIP 巴士。專業司機確保準時抵達發球台。',
       f4_t: '賽後療癒',
       f4_d: '第 19 洞之後，安排有馬溫泉等高級旅館，享受懷石料理與溫泉，消除疲勞。',
-      itin_title: '關西冠軍巡迴賽 (5天)',
-      itin_loc: '兵庫 & 大阪 • 2 場球敘',
-      itin_d1_t: 'Day 1: 抵達 · 歡迎晚宴',
-      itin_d1_d: '關西機場 (KIX) VIP 接機。入住大阪麗思卡爾頓。晚餐於雲端鐵板燒舉行，開啟破冰之旅。',
-      itin_d2_t: 'Day 2: 皇家挑戰',
-      itin_d2_d: '【六甲國際高爾夫俱樂部】(東球場) 開球。三得利女子公開賽舉辦地。俱樂部著名的神戶牛咖哩不容錯過。',
-      itin_d3_t: 'Day 3: 極速果嶺與溫泉',
-      itin_d3_d: '前往【ABC高爾夫俱樂部】，體驗著名的快速果嶺。賽後前往有馬溫泉，享受金湯銀湯。',
-      itin_d4_t: 'Day 4: 文化體驗 & 頒獎典禮',
-      itin_d4_d: '上午京都觀光（金閣寺等）。晚間於米其林星級懷石料理舉辦「頒獎晚宴」。',
-      itin_d5_t: 'Day 5: 賦歸',
-      itin_d5_d: '早餐後，專車送往關西機場。協助辦理登機及球具託運。',
       cta_title: '策劃您的下一場友誼賽',
       cta_desc: '無論是企業考察間隙的休閒，還是好友間的巔峰對決。\n將繁瑣的預訂工作交給我們，您只需專注揮桿。',
-      cta_btn: '使用 AI 系統定制高爾夫行程'
+      cta_btn: '使用 AI 系統定制高爾夫行程',
+      plans: [
+        {
+          id: 'kansai-elite',
+          title: '【關西精銳】5天 · 名門 2 場',
+          subtitle: '效率導向的奢華方案',
+          tags: ['5 Days', 'Hyogo Top 100', 'Arima Onsen'],
+          desc: '短時間內暢打日本高爾夫發祥地——兵庫縣的頂級球場。確保六甲國際與ABC高爾夫俱樂部的預約名額。',
+          hotel: '大阪阪急 Respire 酒店 (Premium 4 Star)',
+          schedule: [
+            { day: 'Day 1', text: '抵達大阪。專車接機，入住酒店。北新地歡迎晚宴（神戶牛）。' },
+            { day: 'Day 2', text: '【六甲國際高爾夫俱樂部】(東球場) 傑克·尼克勞斯監修。三得利女子公開賽舉辦地。' },
+            { day: 'Day 3', text: '【ABC高爾夫俱樂部】Mynavi ABC 舉辦地。挑戰日本屈指可數的快速果嶺與名物 18 洞。' },
+            { day: 'Day 4', text: '大阪城公園觀光，午後於梅田・阪急百貨購物。' },
+            { day: 'Day 5', text: '專車送機。' }
+          ]
+        },
+        {
+          id: 'golf-pilgrimage',
+          title: '【高球朝聖】關西深度 7天 · 激戰 4 場',
+          subtitle: '巡禮井上誠一與 RTJ Jr. 大師設計',
+          tags: ['7 Days', 'Difficult Course', 'Kyoto Culture', 'Michelin'],
+          desc: '專為高爾夫發燒友設計的硬核旅程。嚴選「井上誠一」與「Robert Trent Jones Jr.」等設計大師的傑作，品味球場設計的哲學。',
+          hotel: '大阪南海瑞士酒店 (Luxury 5 Star)',
+          schedule: [
+            { day: 'Day 1', text: '抵達大阪。入住後，難波區域自由活動。' },
+            { day: 'Day 2', text: '【有馬皇家 GC · 皇家球場】光影魔術師·井上誠一的傑作。' },
+            { day: 'Day 3', text: '【Golden Valley GC】難度係數 77.4。挑戰日本屈指可數的超難球場。' },
+            { day: 'Day 4', text: '京都一日遊（金閣寺・祇園）。享用米其林星級懷石料理。' },
+            { day: 'Day 5', text: '【讀賣鄉村俱樂部】男子巡迴賽最終戰舞台。極具戰略性的丘陵球場。' },
+            { day: 'Day 6', text: '【KOMA 鄉村俱樂部】Gary Player 設計。慶功晚宴。' },
+            { day: 'Day 7', text: '專車送機。' }
+          ]
+        },
+        {
+          id: 'fuji-spectacular',
+          title: '【富士絕景】東京 & 富士山 7天 · 絕景 4 場',
+          subtitle: '眺望世界遺產富士山的揮桿之旅',
+          tags: ['7 Days', 'Mt. Fuji View', 'Tokyo Ginza', 'Gotemba Outlet'],
+          desc: '結合東京的都會生活與御殿場地區的絕景高爾夫。我們為您確保太平洋俱樂部御殿場球場的稀缺名額。',
+          hotel: '銀座 (Quintessa) & 御殿場 (HOTEL CLAD)',
+          schedule: [
+            { day: 'Day 1', text: '抵達東京 (HND/NRT)。入住銀座。' },
+            { day: 'Day 2', text: '【太平洋俱樂部 · 成田球場】Gary Player 設計。優美的林間球場。' },
+            { day: 'Day 3', text: '【宍戶 Hills CC · 西球場】日本高爾夫巡迴賽錦標賽舉辦地。挑戰「魔之洞」。' },
+            { day: 'Day 4', text: '移動至富士山區。河口湖觀光後，入住 HOTEL CLAD（附溫泉）。' },
+            { day: 'Day 5', text: '【太平洋俱樂部 · 御殿場球場】三井住友 VISA 太平洋大師賽舉辦地。世界級名門。' },
+            { day: 'Day 6', text: '【富士櫻鄉村俱樂部】富士產經精英賽舉辦地。午後前往 Outlet 購物。' },
+            { day: 'Day 7', text: '專車直達羽田/成田機場。' }
+          ]
+        }
+      ]
     },
     partner: {
       hero_tag: 'Travel Agency Partnership',
@@ -536,18 +736,79 @@ export const translations = {
       step_5_d: 'Post-event reporting and support for continued business relations.',
       support_title: 'Support Services',
       supports: ['Visa Invitation Letters', 'Professional Interpreters', 'Business Dining', 'Luxury Fleet (Alphard)'],
-      itin_title: 'Kansai Smart Mfg & Century-Old Management',
-      itin_desc: 'Custom-made for executives. Deep dive into world-class firms like Kyocera and Kawasaki.\nExplore the DNA of "Long-established Companies" and Amoeba Management.',
-      itin_day1_t: 'Arrival in Osaka - Night in the Clouds',
-      itin_day1_d: 'VIP pickup at KIX to Conrad Osaka. "Teppanyaki in the Clouds" dinner overlooking the skyline for an ice-breaking session.',
-      itin_day2_t: 'Kyoto - Philosophy of Management',
-      itin_day2_d: '[AM] Kyocera HQ: Study Inamori Kazuo\'s philosophy & Amoeba Management. [Lunch] Kikunoi (Michelin 3-Star). [PM] Shimadzu Corp: Exploring the Nobel Prize DNA.',
-      itin_day3_t: 'Kobe - Industry 4.0 & Hydrogen',
-      itin_day3_d: '[AM] Kawasaki Heavy Industries Robo Stage: Human-Robot Collaboration. [PM] Iwatani/Panasonic Hydrogen Center. [Stay] The Ritz-Carlton Osaka.',
-      itin_day4_t: 'Osaka - Precision Medicine & Innovation',
-      itin_day4_d: '[AM] Exclusive visit to TIMC for premium screening. [PM] Daikin Innovation Center "Fuha". [Dinner] Japan-China Entrepreneur Networking Dinner.',
-      itin_day5_t: 'Historical Resonance & Departure',
-      itin_day5_d: '[AM] VIP Tea Ceremony at Osaka Castle. [PM] Private transfer to Kansai International Airport (KIX).',
+      itin_title: 'Strategic Business Inspection Plans',
+      plans: [
+        {
+          id: 'biz-plan-1',
+          title: 'Plan 1: [3 Days] Kansai Advanced Medical & Care Business Tour',
+          subtitle: 'Kobe Biomedical Cluster & High-End Nursing Care Operations',
+          tags: ['Medical', 'Care Business', 'Kobe Biomedical'],
+          desc: 'A focused plan for medical investors. Visit the Kobe Biomedical Innovation Cluster (KBIC) and learn DX applications in luxury nursing homes.',
+          schedule: [
+            { day: 'Day 1', text: 'Arrival at KIX. Welcome Dinner & Orientation on Kansai Medical Trends.' },
+            { day: 'Day 2', text: '[AM] Visit KBIC (RIKEN, etc.). [PM] Inspect a luxury nursing home and discuss DX/sensor integration.' },
+            { day: 'Day 3', text: '[AM] Inspect health checkup center workflow at Osaka Metropolitan Univ. Hospital. [PM] Departure.' }
+          ]
+        },
+        {
+          id: 'biz-plan-2',
+          title: 'Plan 2: [4 Days] Tokyo Regenerative Medicine & Aesthetic Clinic',
+          subtitle: 'Advanced Stem Cell Therapy & "Omotenashi" Beauty',
+          tags: ['Regenerative Medicine', 'Aesthetic Clinic', 'Ginza'],
+          desc: 'Visit top-tier stem cell clinics and CPC facilities in Ginza/Roppongi. Learn Japanese hospitality (Omotenashi) in medical services.',
+          schedule: [
+            { day: 'Day 1', text: 'Arrival in Tokyo. Check-in at Ginza.' },
+            { day: 'Day 2', text: '[AM] Seminar by Director of a Stem Cell Clinic. [PM] CPC (Cell Processing Center) Backyard Tour.' },
+            { day: 'Day 3', text: '[AM] Aesthetic Clinic Inspection: Reception SOP & Counseling Flow. [Eve] Networking Dinner.' },
+            { day: 'Day 4', text: 'Visit Tsukiji Outer Market (Food Hygiene) or Duty-Free Business. Departure.' }
+          ]
+        },
+        {
+          id: 'biz-plan-3',
+          title: 'Plan 3: [5 Days] Osaka/Kyoto "Monozukuri" & Century-Old Enterprises',
+          subtitle: 'Precision Manufacturing & Brand Strategy of Long-Established Firms',
+          tags: ['Monozukuri', 'Longevity Company', 'Panasonic'],
+          desc: 'Explore the world\'s best precision factories in East Osaka and the innovation of Kyoto giants like Kyocera and Omron.',
+          schedule: [
+            { day: 'Day 1', text: 'Arrival in Osaka.' },
+            { day: 'Day 2', text: '[AM] East Osaka Precision Factory Tour. [PM] Panasonic Museum (Konosuke Matsushita).' },
+            { day: 'Day 3', text: '[AM] Kyocera/Omron Showroom. [PM] Brand Strategy Lecture at a Kyoto Sake Brewery.' },
+            { day: 'Day 4', text: 'Attend Industrial Exhibition or Individual B2B Matching.' },
+            { day: 'Day 5', text: 'Departure from Kansai International Airport.' }
+          ]
+        },
+        {
+          id: 'biz-plan-4',
+          title: 'Plan 4: [6 Days] Tokyo/Yokohama/Hakone Urban Dev & Resort',
+          subtitle: 'TOD (Transit-Oriented Development) & Wellness Resort Management',
+          tags: ['Urban Development', 'Resort Management', 'MICE'],
+          desc: 'Inspect urban renewal projects like Azabudai Hills and learn high-end resort operations in Hakone.',
+          schedule: [
+            { day: 'Day 1', text: 'Arrival in Tokyo.' },
+            { day: 'Day 2', text: '[AM] Azabudai/Toranomon Hills. [PM] Toyosu Smart City (Hydrogen Energy).' },
+            { day: 'Day 3', text: '[AM] Yokohama Minato Mirai 21 (MICE). [PM] Transfer to Hakone.' },
+            { day: 'Day 4', text: '[AM] Luxury Resort Inspection. [PM] Owakudani (Geopark Tourism).' },
+            { day: 'Day 5', text: 'Back to Tokyo. Retail Tech Tour in Omotesando/Harajuku.' },
+            { day: 'Day 6', text: 'Departure.' }
+          ]
+        },
+        {
+          id: 'biz-plan-5',
+          title: 'Plan 5: [7 Days] Tokyo-Nagoya-Osaka Industrial Golden Route',
+          subtitle: 'Complete Tour of Japan’s Economic Arteries (Finance, Auto, Future)',
+          tags: ['Golden Route', 'Toyota', 'Expo 2025'],
+          desc: 'Covering Tokyo Finance, Nagoya Automotive (Toyota), and Osaka Expo Future Society.',
+          schedule: [
+            { day: 'Day 1', text: 'Arrival in Tokyo.' },
+            { day: 'Day 2', text: 'Kabutocho Financial District & AI/Robotics Unicorn Visit.' },
+            { day: 'Day 3', text: 'Shinkansen to Nagoya. [PM] Toyota Commemorative Museum of Industry and Technology.' },
+            { day: 'Day 4', text: 'To Kyoto. [PM] Kyoto Research Park (Industry-Academia Collaboration).' },
+            { day: 'Day 5', text: 'To Osaka. [PM] Expo 2025 Site & Umekita Phase 2 Inspection.' },
+            { day: 'Day 6', text: '[AM] Osaka Premium Health Check Center. [Eve] Farewell Party.' },
+            { day: 'Day 7', text: 'Departure from KIX.' }
+          ]
+        }
+      ],
       std_title: 'High-Spec Hospitality Standards',
       std_sub: 'More than an inspection, a prestigious journey.',
       std_1_t: 'First Class on Land',
@@ -572,21 +833,60 @@ export const translations = {
       f3_d: 'Luxury Alphard or VIP Coaches with extra-large luggage capacity for golf bags. Professional drivers ensure punctual tee-time arrivals.',
       f4_t: 'After-Golf Relaxation',
       f4_d: 'The 19th hole is just the beginning. We arrange authentic Kaiseki dinners and stays at top-tier Onsen Ryokans like Arima Onsen.',
-      itin_title: 'Kansai Championship Tour (5 Days)',
-      itin_loc: 'Hyogo & Osaka • 2 Rounds',
-      itin_d1_t: 'Day 1: Arrival & Welcome',
-      itin_d1_d: 'VIP Meet & Greet at Kansai International Airport (KIX). Private transfer to The Ritz-Carlton Osaka. Evening "Ice-Breaker" Teppanyaki Dinner.',
-      itin_d2_t: 'Day 2: The Royal Challenge',
-      itin_d2_d: 'Tee off at Rokko Kokusai Golf Club (East Course). Home to the Suntory Ladies Open. Experience the classic hillside layout.',
-      itin_d3_t: 'Day 3: Speed & Spa',
-      itin_d3_d: 'Play at ABC Golf Club, famous for its lightning-fast greens. Post-game transfer to Arima Onsen for a traditional Ryokan stay.',
-      itin_d4_t: 'Day 4: Culture & Gala',
-      itin_d4_d: 'Morning visit to Kyoto (Kinkaku-ji). Evening Awards Gala Dinner at a Michelin-starred Kaiseki restaurant.',
-      itin_d5_t: 'Day 5: Sayonara',
-      itin_d5_d: 'Relaxed breakfast. Private transfer to KIX airport. Assistance with check-in and golf bag check.',
       cta_title: 'Design Your Next Friendly Match',
       cta_desc: 'Whether it\'s a corporate retreat or a challenge among friends,\nwe handle the details so you can focus on your swing.',
-      cta_btn: 'Customize Golf Itinerary with AI'
+      cta_btn: 'Customize Golf Itinerary with AI',
+      plans: [
+        {
+          id: 'kansai-elite',
+          title: 'Kansai Elite: 5 Days, 2 Premium Rounds',
+          subtitle: 'Efficiency meets Luxury',
+          tags: ['5 Days', 'Hyogo Top 100', 'Arima Onsen'],
+          desc: 'A short but intense trip to Hyogo, the birthplace of Japanese golf. Guaranteed access to Rokko Kokusai and ABC Golf Club.',
+          hotel: 'Hotel Hankyu Respire Osaka (Premium 4 Star)',
+          schedule: [
+            { day: 'Day 1', text: 'Arrival in Osaka. VIP Transfer to Hotel. Welcome Dinner (Kobe Beef) at Kitashinchi.' },
+            { day: 'Day 2', text: '【Rokko Kokusai Golf Club】 (East Course) Jack Nicklaus supervised. Home of Suntory Ladies Open.' },
+            { day: 'Day 3', text: '【ABC Golf Club】 Home of Mynavi ABC. Challenge the lightning-fast greens and the famous 18th hole.' },
+            { day: 'Day 4', text: 'Osaka Castle tour & Shopping at Umeda Hankyu Dept Store.' },
+            { day: 'Day 5', text: 'Private transfer to airport.' }
+          ]
+        },
+        {
+          id: 'golf-pilgrimage',
+          title: 'Golf Pilgrimage: 7 Days, 4 Hard Rounds',
+          subtitle: 'Masterpieces by Seiichi Inoue & RTJ Jr.',
+          tags: ['7 Days', 'Difficult Course', 'Kyoto Culture', 'Michelin'],
+          desc: 'A hardcore itinerary for golf enthusiasts. Featuring designs by legendary architects. A true test of skill.',
+          hotel: 'Swissôtel Nankai Osaka (Luxury 5 Star)',
+          schedule: [
+            { day: 'Day 1', text: 'Arrival in Osaka. Check-in and free time in Namba.' },
+            { day: 'Day 2', text: '【Arima Royal GC (Royal Course)】 A masterpiece of light and shadow by Seiichi Inoue.' },
+            { day: 'Day 3', text: '【Golden Valley GC】 Course Rating 77.4. Challenge one of Japan’s most difficult courses.' },
+            { day: 'Day 4', text: 'Day trip to Kyoto (Kinkakuji, Gion). Michelin-starred Kaiseki dinner.' },
+            { day: 'Day 5', text: '【Yomiuri Country Club】 Former host of the Japan Series JT Cup. Strategic hillside course.' },
+            { day: 'Day 6', text: '【KOMA Country Club】 Designed by Gary Player. Farewell Dinner.' },
+            { day: 'Day 7', text: 'Private transfer to airport.' }
+          ]
+        },
+        {
+          id: 'fuji-spectacular',
+          title: 'Mt. Fuji Spectacular: 7 Days, 4 Scenic Rounds',
+          subtitle: 'Golf with World Heritage Views',
+          tags: ['7 Days', 'Mt. Fuji View', 'Tokyo Ginza', 'Gotemba Outlet'],
+          desc: 'Combine Tokyo city life with scenic golf in Gotemba. We secure slots at the prestigious Taiheiyo Club Gotemba.',
+          hotel: 'Ginza (Quintessa) & Gotemba (HOTEL CLAD)',
+          schedule: [
+            { day: 'Day 1', text: 'Arrival in Tokyo (HND/NRT). Check-in at Ginza.' },
+            { day: 'Day 2', text: '【Taiheiyo Club Narita Course】 Designed by Gary Player. Beautiful woodland course.' },
+            { day: 'Day 3', text: '【Shishido Hills CC (West Course)】 Home of the Japan Golf Tour Championship.' },
+            { day: 'Day 4', text: 'Transfer to Mt. Fuji area. Sightseeing at Lake Kawaguchi. Check-in at HOTEL CLAD (Onsen).' },
+            { day: 'Day 5', text: '【Taiheiyo Club Gotemba Course】 Host of Taiheiyo Masters. World-famous course.' },
+            { day: 'Day 6', text: '【Fujizakura Country Club】 Host of Fujisankei Classic. Shopping at Premium Outlets.' },
+            { day: 'Day 7', text: 'Direct transfer to Haneda/Narita Airport.' }
+          ]
+        }
+      ]
     },
     partner: {
       hero_tag: 'Travel Agency Partnership',
