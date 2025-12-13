@@ -65,20 +65,15 @@ const BioMorphMaterial = shaderMaterial(
       pos.z += sin(uTime * 0.4 + pos.x * noiseFreq) * noiseAmp;
 
       // Rotation logic
-      // DNA Spin (Axial) + Slant is handled in Geometry, but we add spin here
       if (phase >= 0.0 && phase <= 2.0) {
          float dnaMix = 1.0 - abs(phase - 1.0); 
-         // Rotate around local axis (which is slanted in geometry, but here we do simple Y spin for effect)
-         // Actually better to just let it breathe or spin slowly
          float angle = uTime * 0.2 * dnaMix;
          float c = cos(angle);
          float s = sin(angle);
-         // Rotate around Y
          mat2 rot = mat2(c, -s, s, c);
          pos.xz = rot * pos.xz;
       }
       
-      // Cell Rotation (Slow tumble)
       if (phase >= 2.0) {
          float cellMix = 1.0 - abs(phase - 3.0);
          float angle = uTime * 0.1 * cellMix;
@@ -120,8 +115,6 @@ const BioMorphMaterial = shaderMaterial(
       float glow = 1.0 - (r * 2.0);
       glow = pow(glow, 1.5);
 
-      // Color Gradient Logic (Matching IntroParticles)
-      // Map position to color
       float gradientX = smoothstep(-10.0, 10.0, vPos.x + sin(uTime * 0.2) * 2.0);
       float gradientY = smoothstep(-5.0, 5.0, vPos.y);
 
@@ -135,9 +128,7 @@ const BioMorphMaterial = shaderMaterial(
 
 extend({ BioMorphMaterial });
 
-// -----------------------------------------------------------------------------
-// Generator
-// -----------------------------------------------------------------------------
+// ... Generator (same as before, omitted for brevity but logic is unchanged)
 const generateShapes = (count: number) => {
   const posRandom = new Float32Array(count * 3);
   const posDNA = new Float32Array(count * 3);
@@ -145,14 +136,11 @@ const generateShapes = (count: number) => {
   const sizes = new Float32Array(count);
 
   for (let i = 0; i < count; i++) {
-    // 1. Random Cloud (Spread out)
     const rSpread = 18;
     posRandom[i * 3] = (Math.random() - 0.5) * rSpread;
     posRandom[i * 3 + 1] = (Math.random() - 0.5) * rSpread;
     posRandom[i * 3 + 2] = (Math.random() - 0.5) * rSpread;
 
-    // 2. DNA (Slanted)
-    // Base Vertical Helix
     const y = (Math.random() - 0.5) * 14; 
     const radius = 2.2;
     const twist = 0.7;
@@ -161,15 +149,11 @@ const generateShapes = (count: number) => {
     const angle = y * twist + offset;
     
     let dx, dy, dz;
-
-    // Mix strands and rungs
     if (Math.random() > 0.2) {
-       // Strand
        dx = radius * Math.cos(angle);
        dy = y;
        dz = radius * Math.sin(angle);
     } else {
-       // Rung
        const t = Math.random(); 
        const x1 = radius * Math.cos(y * twist);
        const z1 = radius * Math.sin(y * twist);
@@ -180,31 +164,18 @@ const generateShapes = (count: number) => {
        dz = z1 + (z2 - z1) * t;
     }
 
-    // Apply Slant (Rotation around Z axis by ~45 degrees)
-    const slantAngle = Math.PI / 4; // 45 degrees
+    const slantAngle = Math.PI / 4; 
     const cosS = Math.cos(slantAngle);
     const sinS = Math.sin(slantAngle);
-    
-    // Rotate: x' = x*cos - y*sin, y' = x*sin + y*cos
     posDNA[i * 3] = dx * cosS - dy * sinS;
     posDNA[i * 3 + 1] = dx * sinS + dy * cosS;
-    posDNA[i * 3 + 2] = dz; // Z remains same
+    posDNA[i * 3 + 2] = dz; 
 
-    // 3. Cell (Separated Nucleus and Wall)
     let r;
     const rand = Math.random();
-    
-    // Clear separation: 
-    // Nucleus: 0.0 - 2.0
-    // Gap: 2.0 - 5.5
-    // Membrane: 5.5 - 6.5
-    
     if (rand < 0.3) {
-       // Nucleus (Dense Core)
        r = 2.0 * Math.cbrt(Math.random()); 
     } else {
-       // Membrane (Outer Shell)
-       // Distribute on surface sphere with slight thickness
        r = 5.5 + Math.random() * 1.0; 
     }
 
@@ -215,15 +186,13 @@ const generateShapes = (count: number) => {
     posCell[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
     posCell[i * 3 + 2] = r * Math.cos(phi);
 
-    // Sizes
-    sizes[i] = 0.5 + Math.random() * 1.0; // Slightly larger variance
+    sizes[i] = 0.5 + Math.random() * 1.0; 
   }
-
   return { posRandom, posDNA, posCell, sizes };
 };
 
 const BioParticles = () => {
-  const count = 3500; // Increased count slightly
+  const count = 3500;
   const materialRef = useRef<THREE.ShaderMaterial>(null);
   const { posRandom, posDNA, posCell, sizes } = useMemo(() => generateShapes(count), []);
   const [targetState, setTargetState] = useState(0); 
@@ -231,13 +200,9 @@ const BioParticles = () => {
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
     const sequence = async () => {
-        // 1. DNA (State 1)
         setTargetState(1); await new Promise(r => setTimeout(r, 6000));
-        // 2. Disperse (State 2)
         setTargetState(2); await new Promise(r => setTimeout(r, 2000));
-        // 3. Cell (State 3)
         setTargetState(3); await new Promise(r => setTimeout(r, 6000));
-        // 4. Disperse (State 4)
         setTargetState(4); await new Promise(r => setTimeout(r, 2000));
         sequence();
     };
@@ -249,13 +214,10 @@ const BioParticles = () => {
     if (materialRef.current) {
       materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
       let current = materialRef.current.uniforms.uState.value;
-      
-      // Loop reset logic
       if (current > 3.95 && targetState === 1) { 
           materialRef.current.uniforms.uState.value = 0;
           current = 0;
       }
-      
       const step = (targetState - current) * 1.5 * delta;
       materialRef.current.uniforms.uState.value += step;
     }
@@ -277,11 +239,39 @@ const BioParticles = () => {
 };
 
 const MedicalDNA: React.FC = () => {
+  const [isInView, setIsInView] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.05, rootMargin: "50px" } // Looser threshold for mobile
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
-    <div className="w-full h-full relative">
-      <Canvas camera={{ position: [0, 0, 18], fov: 45 }} gl={{ alpha: true, antialias: true }}>
-        <BioParticles />
-      </Canvas>
+    // Explicitly set w-full h-full to ensure container has size
+    <div ref={containerRef} className="w-full h-full relative min-h-[400px]">
+      {isInView && (
+        <Canvas 
+          camera={{ position: [0, 0, 18], fov: 45 }} 
+          // Lower pixel ratio on mobile to save memory (dpr 1-1.5 is usually enough)
+          dpr={[1, 1.5]} 
+          gl={{ alpha: true, antialias: false, powerPreference: 'high-performance' }}
+        >
+          <BioParticles />
+        </Canvas>
+      )}
     </div>
   );
 };

@@ -9,11 +9,11 @@ export const Logo: React.FC<LogoProps> = ({ className = "w-10 h-10" }) => (
     viewBox="0 0 100 100" 
     className={className} 
     xmlns="http://www.w3.org/2000/svg"
-    aria-label="Shinjima Kotsu Logo"
+    aria-label="Niijima Kotsu Logo"
     fill="currentColor"
   >
     {/* 
-       Typographic Logo Mark: '新' (Shin)
+       Typographic Logo Mark: '新' (Niijima)
        Font: Shippori Mincho (High-end Serif)
        Style: Minimalist, Ink-like, No border
     */}

@@ -117,7 +117,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
              <Logo className="w-full h-full text-[#1a1a1a]" />
            </div>
            <div>
-             <h1 className="font-bold text-lg leading-tight">Shinjima<span className="text-blue-600">Admin</span></h1>
+             <h1 className="font-bold text-lg leading-tight">Niijima<span className="text-blue-600">Admin</span></h1>
              <p className="text-xs text-gray-400">新島交通 B2B</p>
            </div>
         </div>

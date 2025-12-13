@@ -529,7 +529,8 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage }) => (
 );
 
 // --- Sub-View: Home View (Main Landing) ---
-const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, currentLang }) => (
+const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, currentLang }) => {
+  return (
   <div className="animate-fade-in-up pt-0 bg-white">
       {/* 1. Hero Header with 3D Particles */}
       <header className="relative w-full h-[85vh] flex items-center justify-center bg-white overflow-hidden">
@@ -562,7 +563,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           <div className="md:w-1/2 cursor-pointer group" onClick={() => setCurrentPage('medical')}>
             <div className="relative overflow-hidden rounded-3xl shadow-xl transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl bg-white border border-gray-100 h-[600px]">
                 
-                {/* 1. 3D DNA/Cell Visualization Layer */}
+                {/* 1. 3D DNA/Cell Visualization Layer - OPTIMIZED FOR MOBILE */}
                 <div className="absolute inset-0 z-0">
                     <MedicalDNA />
                 </div>
@@ -624,7 +625,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           {/* RIGHT SIDE: BUSINESS 3D CARD */}
           <div className="md:w-1/2 cursor-pointer group" onClick={() => setCurrentPage('business')}>
             <div className="relative overflow-hidden rounded-3xl shadow-xl transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl bg-[#F5F5F7] border border-gray-200 h-[500px]">
-               {/* 3D Network Layer */}
+               {/* 3D Network Layer - OPTIMIZED FOR MOBILE */}
                <div className="absolute inset-0 z-0">
                   <BusinessNetwork />
                </div>
@@ -802,7 +803,8 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       </div>
     </section>
   </div>
-);
+  );
+};
 
 // ... (Rest of the file remains unchanged)
 const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
@@ -903,7 +905,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
               <Logo className="w-full h-full text-[#1a1a1a]" />
           </div>
           <div className="flex flex-col">
-            <span className="text-base font-serif tracking-widest text-gray-900 drop-shadow-sm font-semibold">SHINJIMA</span>
+            <span className="text-base font-serif tracking-widest text-gray-900 drop-shadow-sm font-semibold">NIIJIMA</span>
             <span className="text-[10px] uppercase tracking-[0.2em] text-gray-500">{t.nav.brand_sub}</span>
           </div>
         </div>
@@ -949,14 +951,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                 <div>
                     <div className="flex items-center gap-3 mb-6">
                        <div className="w-10 h-10 bg-white text-black rounded-full flex items-center justify-center font-serif font-bold text-xl">新</div>
-                       <span className="text-xl font-serif tracking-widest">SHINJIMA</span>
+                       <span className="text-xl font-serif tracking-widest">NIIJIMA</span>
                     </div>
                     <p className="text-gray-400 text-sm leading-relaxed mb-4">
                        B2B Land Operator<br/>
                        Specializing in Kansai Region
                     </p>
                     <p className="text-gray-500 text-xs">
-                       &copy; 2025 Shinjima Kotsu Co., Ltd.<br/>All Rights Reserved.
+                       &copy; 2025 Niijima Kotsu Co., Ltd.<br/>All Rights Reserved.
                     </p>
                 </div>
 

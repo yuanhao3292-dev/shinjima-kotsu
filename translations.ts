@@ -23,9 +23,9 @@ export const translations = {
       explore: '医療リソースを見る'
     },
     medical: {
-      tag: 'TIMC Authorized Partner',
-      title: 'TIMC 大阪中央高級医療センター',
-      desc: '大阪駅直結・JPタワー大阪 (KITTE大阪) 11階。\n徳洲会グループの旗艦施設として、最高峰の医療技術と\n五つ星ホテルのようなホスピタリティが融合する場所。',
+      tag: 'Predict the Future, Reverse Time',
+      title: '未来を予見し、時を戻す',
+      desc: '日本最先端の再生医療を、あなたの健康管理へ。\n最高峰の精密検査でリスクを予知し、幹細胞技術で老化や重篤な疾患に立ち向かう。\nこれは単なる治療ではなく、科学の力で時間に抗う「生命の革命」です。',
       btn_detail: 'TIMC 施設詳細を見る',
       hero_tag: 'Tokushukai International Medical Center',
       hero_title_1: '未病（Mibyou）の',
@@ -74,9 +74,9 @@ export const translations = {
       cta_btn: 'TIMC 見積書を作成する'
     },
     business: {
-      tag: 'Business & Insights',
-      title: 'ビジネス・インサイト',
-      desc: '単なる会議室の手配ではありません。関西の産業ベルト地帯へ深く入り込み、\n医療機器、介護産業、精密製造業の現場視察をコーディネートします。',
+      tag: 'Overseas Business Tour',
+      title: '海外企業視察・ビジネスツアー',
+      desc: '単なる通訳や移動の手配ではありません。私たちは、海外のお客様と日本企業の架け橋となります。\n医療機器、介護、精密製造など、日本の技術の最前線（現場）へ深く入り込み、\n観光では触れられない真のビジネス・インサイトを提供します。',
       btn_case: '視察事例を見る',
       hero_tag: 'Business Inspection & MICE',
       hero_title: '関西産業視察・商務考察',
@@ -103,7 +103,7 @@ export const translations = {
       support_title: 'サポート体制',
       supports: ['招聘理由書作成', '専門通訳手配 (逐次/同時)', '会食セッティング', '専用車手配'],
       itin_title: '関西のスマート製造と百年経営・5日間の深層視察',
-      itin_desc: '経営者のための特別プログラム。京セラ、川崎重工など世界クラスの企業を深く探訪し、「長寿企業」の遺伝子と「アメーバ経営」「職人精神」を体感します。',
+      itin_desc: '経営者のための特別プログラム。京セラ、川崎重工など世界クラスの企業を深く探訪し、「長壽企業」の遺伝子と「アメーバ経営」「職人精神」を体感します。',
       itin_day1_t: '大阪到着・天空の夜',
       itin_day1_d: '関西空港VIP送迎、コンラッド大阪へ。夕食は「天空の鉄板焼き」で大阪の夜景を一望し、アイスブレイク。',
       itin_day2_t: '京都・経営の神様の哲学',
@@ -240,9 +240,9 @@ export const translations = {
       explore: '探索'
     },
     medical: {
-      tag: 'TIMC Authorized Partner',
-      title: 'TIMC 大阪中央高級醫療中心',
-      desc: '位於 JP Tower 大阪 11 層，德洲會集團的頂級旗艦店。\n我們提供全包廂式的 VIP 體驗。配備 GE 最新型 PET-CT，可發現毫米級病變。',
+      tag: 'Predict the Future, Reverse Time',
+      title: '預見未來，逆轉時光',
+      desc: '將日本先端的再生醫療引入您的健康管理。\n透過頂級精密健檢預知風險，利用幹細胞技術對抗衰老與重疾。\n這不僅是治療，更是一場用科技對抗時間的生命革命。',
       btn_detail: '查看 TIMC 設施詳情',
       hero_tag: 'Tokushukai International Medical Center',
       hero_title_1: '未病 (Mibyou) 的',
@@ -291,9 +291,9 @@ export const translations = {
       cta_btn: '立即生成 TIMC 報價單'
     },
     business: {
-      tag: 'Business & Insights',
-      title: '商業洞察與連結',
-      desc: '不僅僅是安排會議室。我們深入日本關西產業帶，\n為您連結醫療器械、養老產業及精密製造企業的參訪機會。',
+      tag: 'Overseas Business Tour',
+      title: '海外企業考察・商務之旅',
+      desc: '這不僅僅是翻譯或交通安排。我們是海外客戶與日本企業之間的橋樑。\n深入醫療器材、長照護理、精密製造等日本技術的最前線（現場），\n提供觀光旅遊無法觸及的真實商業洞察。',
       btn_case: '查看考察案例',
       hero_tag: 'Business Inspection & MICE',
       hero_title: '關西產業視察・商務考察',
@@ -424,7 +424,7 @@ export const translations = {
       rep_val: '員昊',
       cap_val: '2500万円',
       loc_val: '〒556-0014 大阪府大阪市浪速区大国1-2-21-602',
-      client_val: '【主要合作夥伴】\nINSOUホールディングス株式会社\n医療法人 徳洲会グループ\n南海電気鉄道株式会社\n株式会社 三井住友銀行\n\n【全球網絡】\n台灣合作旅行社 200家以上\n中國合作旅行社 100家以上\n歐洲合作旅行社 15家以上',
+      client_val: '【主要合作夥伴】\nINSOUホールディングス株式会社\n医療法人 徳洲會集團\n南海電気鉄道株式会社\n株式会社 三井住友銀行\n\n【全球網絡】\n台灣合作旅行社 200家以上\n中國合作旅行社 100家以上\n歐洲合作旅行社 15家以上',
       lic_val: '大阪府知事登録旅行業 第2-3115号\n一般社団法人 日本旅行業協会(JATA) 正会員'
     },
     founder: {
@@ -445,27 +445,27 @@ export const translations = {
       ai: 'AI Quote System',
       about: 'About Us',
       login: 'Partner Login',
-      brand_sub: 'Shinjima Kotsu Co., Ltd.'
+      brand_sub: 'Niijima Kotsu Co., Ltd.'
     },
     hero: {
       partner: 'OFFICIAL PARTNER OF TIMC & TOKUSHUKAI GROUP',
       title_1: 'Where Silence',
       title_2: 'Meets the Edge',
       title_3: '',
-      subtitle: 'Shinjima Kotsu, in partnership with Japan’s largest medical group "Tokushukai",\nopens the VIP gate to the TIMC Osaka International Medical Center.\nPremium Checkups · Luxury Retreats · Business Inspections.',
+      subtitle: 'Niijima Kotsu, in partnership with Japan’s largest medical group "Tokushukai",\nopens the VIP gate to the TIMC Osaka International Medical Center.\nPremium Checkups · Luxury Retreats · Business Inspections.',
       cta: 'Try AI Quote System',
       explore: 'Explore'
     },
     medical: {
-      tag: 'TIMC Authorized Partner',
-      title: 'Tokushukai International Medical Center',
-      desc: 'Located on the 11th floor of JP Tower Osaka (KITTE). \nThe flagship facility offering world-class technology fused with 5-star hospitality.',
+      tag: 'Predict the Future, Reverse Time',
+      title: 'Predict the Future, Reverse Time',
+      desc: 'Integrate Japan\'s cutting-edge regenerative medicine into your health management.\nPredict risks through top-tier precision checkups and combat aging and serious diseases using stem cell technology.\nThis is not just treatment; it is a life revolution using science to defy time.',
       btn_detail: 'View Facility Details',
       hero_tag: 'Tokushukai International Medical Center',
       hero_title_1: 'The Ultimate',
       hero_title_2: 'Health Guardian',
       hero_subtitle: 'Japan\'s Largest Medical Group Flagship × JP Tower Osaka',
-      hero_text: 'Top-tier medical technology meets luxury hospitality.\nShinjima Kotsu secures VIP priority access for your premium clients.',
+      hero_text: 'Top-tier medical technology meets luxury hospitality.\nNiijima Kotsu secures VIP priority access for your premium clients.',
       auth_title: 'Why TIMC?',
       auth_1_t: 'Tokushukai Group',
       auth_1_d: 'Japan’s largest private medical group with ~400 facilities. The pinnacle of preventive medicine.',
@@ -503,14 +503,14 @@ export const translations = {
       pkg_p_d: 'For HNWI seeking ultimate peace of mind and family history analysis.',
       pkg_s_t: 'Standard PET-CT Cancer Screen',
       pkg_s_d: 'Ideal for busy executives focusing on major cancer risks.',
-      cta_title: 'Shinjima × TIMC Direct',
+      cta_title: 'Niijima × TIMC Direct',
       cta_text: 'Skip the language barrier and waiting lists.\nGet instant B2B net prices including Checkup + Transfer + Hotel via AI.',
       cta_btn: 'Generate Quote Now'
     },
     business: {
-      tag: 'Business & Insights',
-      title: 'Business Insights',
-      desc: 'More than just meeting rooms. We coordinate deep dives into the Kansai industrial belt,\nconnecting you with MedTech, Elderly Care, and Precision Mfg leaders.',
+      tag: 'Overseas Business Tour',
+      title: 'Overseas Corporate Inspection & Business Tours',
+      desc: 'This is not merely about arranging interpreters or transport. We serve as a bridge between overseas clients and Japanese enterprises.\nWe dive deep into the frontlines of Japanese technology—such as medical devices, elderly care, and precision manufacturing—\nproviding true business insights inaccessible through ordinary tourism.',
       btn_case: 'View Case Studies',
       hero_tag: 'Business Inspection & MICE',
       hero_title: 'Kansai Industrial Inspection',
@@ -591,10 +591,10 @@ export const translations = {
     partner: {
       hero_tag: 'Travel Agency Partnership',
       hero_title: 'Your Kansai Branch Office',
-      hero_text: 'Shinjima Kotsu specializes in B2B Land Operations.\nWe act as your "Kuroko" (invisible support), protecting your brand.',
+      hero_text: 'Niijima Kotsu specializes in B2B Land Operations.\nWe act as your "Kuroko" (invisible support), protecting your brand.',
       trust_title: 'Our Promise',
       trust_1_t: 'Strict Non-Compete',
-      trust_1_d: 'We serve you, not your client. Our staff will never distribute Shinjima business cards to end-users. We act as your staff.',
+      trust_1_d: 'We serve you, not your client. Our staff will never distribute Niijima business cards to end-users. We act as your staff.',
       trust_2_t: 'Legal & Secure',
       trust_2_d: 'Fully licensed by the Osaka Government (Type 2 Travel Agency). Comprehensive insurance coverage for peace of mind.',
       trust_3_t: '24/7 Emergency Support',
@@ -636,7 +636,7 @@ export const translations = {
       client: 'Key Partners',
       lic: 'License',
       back: 'Back to Home',
-      name_val: 'Shinjima Kotsu Co., Ltd.',
+      name_val: 'Niijima Kotsu Co., Ltd.',
       est_val: '2020/02',
       rep_val: 'Yun Hao',
       cap_val: '25 Million JPY',
@@ -650,7 +650,7 @@ export const translations = {
       role: 'Representative Director / Founder & CEO',
       phil_title: 'Respect the Divine and Love People',
       quote: 'Result of Life = Attitude × Effort × Ability',
-      desc: 'I am a firm believer in Kazuo Inamori\'s management philosophy, "Keiten Aijin" (Always be fair and humble, respect the divine, and love people).\n\nMedical tourism and business inspections are not just travel; they are noble acts that improve the quality of life and open up the future of business. We place "Altruism" at the core of our decision-making, constantly asking what is truly good for our clients, partners, and society.\n\nShinjima Kotsu promises to deliver emotion and peace of mind by fusing heartfelt hospitality with the latest technology.'
+      desc: 'I am a firm believer in Kazuo Inamori\'s management philosophy, "Keiten Aijin" (Always be fair and humble, respect the divine, and love people).\n\nMedical tourism and business inspections are not just travel; they are noble acts that improve the quality of life and open up the future of business. We place "Altruism" at the core of our decision-making, constantly asking what is truly good for our clients, partners, and society.\n\nNiijima Kotsu promises to deliver emotion and peace of mind by fusing heartfelt hospitality with the latest technology.'
     }
   }
 };

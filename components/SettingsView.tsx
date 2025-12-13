@@ -100,6 +100,7 @@ const SettingsView: React.FC = () => {
         </div>
       </div>
 
+      {/* Actions */}
       <div className="flex justify-end pt-4">
         <button className="flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow-md font-bold transform active:scale-95">
           <Save size={18} />

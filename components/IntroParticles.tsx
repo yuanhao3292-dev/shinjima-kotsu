@@ -307,12 +307,33 @@ const ParticleSystem = () => {
 };
 
 const IntroParticles: React.FC = () => {
+  const [isInView, setIsInView] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Only mount the canvas when in view to save WebGL context for subsequent 3D sections
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.01, rootMargin: "100px" } // Load slightly before view, keep slightly after
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="w-full h-full bg-white relative overflow-hidden">
-      <Canvas camera={{ position: [0, 0, 18], fov: 35 }} dpr={[1, 2]} gl={{ antialias: true, alpha: false, powerPreference: "high-performance" }}>
-        <color attach="background" args={['#FFFFFF']} />
-        <ParticleSystem />
-      </Canvas>
+    <div ref={containerRef} className="w-full h-full bg-white relative overflow-hidden">
+      {isInView && (
+        <Canvas camera={{ position: [0, 0, 18], fov: 35 }} dpr={[1, 2]} gl={{ antialias: true, alpha: false, powerPreference: "high-performance" }}>
+          <color attach="background" args={['#FFFFFF']} />
+          <ParticleSystem />
+        </Canvas>
+      )}
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_10%,rgba(255,255,255,0.6)_100%)]"></div>
     </div>
   );
