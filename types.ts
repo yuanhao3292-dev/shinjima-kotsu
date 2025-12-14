@@ -12,7 +12,8 @@ export interface ItineraryRequest {
   travel_days: number;
   hotel_req: HotelRequest;
   need_bus: boolean;
-  bus_type: 'coach' | 'minibus';
+  bus_type: 'alphard' | 'hiace' | 'coaster' | 'medium_bus' | 'large_bus';
+  guide_language: 'zh' | 'en'; // Chinese or English
 }
 
 export interface CostBreakdown {
@@ -21,6 +22,7 @@ export interface CostBreakdown {
   hotel_cost_basis: number;
   sourcing_strategy: string;
   margin: number;
+  extras_note?: string; // For highway/parking notes
 }
 
 export interface QuoteResponse {

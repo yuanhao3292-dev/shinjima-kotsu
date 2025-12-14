@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { ItineraryRequest, LocationType } from '../types';
-import { LOCATIONS, STARS } from '../constants';
-import { Calculator, MapPin, Users, Calendar, Bus, Building, Sparkles, MessageSquare } from 'lucide-react';
+import { LOCATIONS, STARS, VEHICLE_LABELS } from '../constants';
+import { Calculator, MapPin, Users, Calendar, Bus, Building, Sparkles, MessageSquare, Languages } from 'lucide-react';
 import { parseSmartImport } from '../services/geminiService';
 
 interface QuoteFormProps {
@@ -9,13 +10,24 @@ interface QuoteFormProps {
   setRequest: React.Dispatch<React.SetStateAction<ItineraryRequest>>;
   onCalculate: () => void;
   loading: boolean;
+  initialImportText?: string;
 }
 
-const QuoteForm: React.FC<QuoteFormProps> = ({ request, setRequest, onCalculate, loading }) => {
+const QuoteForm: React.FC<QuoteFormProps> = ({ request, setRequest, onCalculate, loading, initialImportText }) => {
   const [importText, setImportText] = useState("");
   const [isImporting, setIsImporting] = useState(false);
   const [showImport, setShowImport] = useState(false);
   
+  // If there's an initial text passed (e.g. from Landing Page), auto-open and fill
+  useEffect(() => {
+    if (initialImportText) {
+      setImportText(initialImportText);
+      setShowImport(true);
+      // Optional: Auto-trigger import after a short delay
+      // handleSmartImport(); 
+    }
+  }, [initialImportText]);
+
   const updateField = (field: keyof ItineraryRequest, value: any) => {
     setRequest(prev => ({ ...prev, [field]: value }));
   };
@@ -33,7 +45,6 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ request, setRequest, onCalculate,
     try {
       const parsedData = await parseSmartImport(importText);
       if (parsedData) {
-        // Merge parsed data into current state
         setRequest(prev => ({
           ...prev,
           ...parsedData,
@@ -192,32 +203,51 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ request, setRequest, onCalculate,
           </div>
         </div>
 
-        {/* Transport */}
-        <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-           <div className="flex items-center justify-between mb-2">
-              <label className="text-sm font-bold text-gray-700 flex items-center gap-2">
-                <Bus size={16}/> 需要巴士?
+        {/* Resources: Transport & Guide */}
+        <div className="p-4 bg-gray-50 rounded-lg border border-gray-200 space-y-4">
+           {/* Guide Selection */}
+           <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                <Languages size={14} /> 導遊語言
               </label>
-              <input
-                type="checkbox"
-                checked={request.need_bus}
-                onChange={(e) => updateField('need_bus', e.target.checked)}
-                className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
-              />
+              <select
+                value={request.guide_language}
+                onChange={(e) => updateField('guide_language', e.target.value)}
+                className="w-full p-2 bg-white border border-gray-300 rounded-lg text-sm"
+              >
+                <option value="zh">中文導遊 (25,000 JPY/日)</option>
+                <option value="en">英文導遊 (33,000 JPY/日)</option>
+              </select>
            </div>
-           
-           {request.need_bus && (
-             <div className="mt-2">
-                <select
-                  value={request.bus_type}
-                  onChange={(e) => updateField('bus_type', e.target.value)}
-                  className="w-full p-2 bg-white border border-gray-300 rounded-lg text-sm"
-                >
-                  <option value="coach">大型遊覽車 (45座)</option>
-                  <option value="minibus">中型巴士 (20座)</option>
-                </select>
+
+           {/* Bus Selection */}
+           <div>
+             <div className="flex items-center justify-between mb-2">
+                <label className="text-sm font-bold text-gray-700 flex items-center gap-2">
+                  <Bus size={16}/> 需要用車?
+                </label>
+                <input
+                  type="checkbox"
+                  checked={request.need_bus}
+                  onChange={(e) => updateField('need_bus', e.target.checked)}
+                  className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
+                />
              </div>
-           )}
+             
+             {request.need_bus && (
+               <div className="mt-2">
+                  <select
+                    value={request.bus_type}
+                    onChange={(e) => updateField('bus_type', e.target.value)}
+                    className="w-full p-2 bg-white border border-gray-300 rounded-lg text-sm"
+                  >
+                    {Object.entries(VEHICLE_LABELS).map(([key, label]) => (
+                      <option key={key} value={key}>{label}</option>
+                    ))}
+                  </select>
+               </div>
+             )}
+           </div>
         </div>
 
       </div>
@@ -236,10 +266,10 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ request, setRequest, onCalculate,
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              正在計算最佳費率...
+              正在計算成本與利潤...
             </span>
           ) : (
-            '計算估價'
+            '計算報價'
           )}
         </button>
       </div>

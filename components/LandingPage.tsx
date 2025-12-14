@@ -23,8 +23,8 @@ const SITE_IMAGES = {
   // Golf Page
   golf_hero: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2000&auto=format&fit=crop",
   plan_kansai: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=1000&auto=format&fit=crop", // Plan 1: Classic Green
-  plan_difficult: "https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?q=80&w=1000&auto=format&fit=crop", // Plan 2: Golfer Swing/Action (Replaced)
-  plan_fuji: "https://images.unsplash.com/photo-1563205764-5d59524dc335?q=80&w=1000&auto=format&fit=crop", // Plan 3: Mountain Course Landscape (Replaced)
+  plan_difficult: "https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?q=80&w=1000&auto=format&fit=crop", // Plan 2: Golfer Swing/Action
+  plan_fuji: "https://images.unsplash.com/photo-1563205764-5d59524dc335?q=80&w=1000&auto=format&fit=crop", // Plan 3: Mountain Course Landscape
   
   // Business Page
   business_hero: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop",
@@ -42,9 +42,9 @@ const SITE_IMAGES = {
   // Founder
   founder_portrait: "https://i.ibb.co/B2mJDvq7/founder.jpg",
 
-  // MOBILE FALLBACKS
-  mobile_medical_fallback: "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?q=80&w=1000&auto=format&fit=crop", 
-  mobile_business_fallback: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?q=80&w=1000&auto=format&fit=crop"  
+  // MOBILE FALLBACKS (Updated by User Request)
+  mobile_medical_fallback: "https://i.ibb.co/TDYnsXBb/013-2.jpg", 
+  mobile_business_fallback: "https://i.ibb.co/SjSf9JB/Gemini-Generated-Image-l2elrzl2elrzl2el-1.jpg"  
 };
 
 const FALLBACK_IMAGES: Record<string, string> = {
@@ -88,7 +88,7 @@ const handleSmartImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>,
 };
 
 interface LandingPageProps {
-  onLogin: (user: UserProfile) => void;
+  onLogin: (user: UserProfile, pendingRequest?: string) => void;
 }
 
 type PageView = 'home' | 'medical' | 'business' | 'golf' | 'partner';
@@ -98,6 +98,8 @@ interface SubViewProps {
   setCurrentPage: (page: PageView) => void;
   onLoginTrigger: () => void;
   currentLang: Language;
+  landingInputText?: string;
+  setLandingInputText?: (text: string) => void;
 }
 
 // Hook to detect mobile screen - ensures stable rendering switch
@@ -376,16 +378,16 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
 );
 
 const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger }) => {
-  // ... (GolfView content remains unchanged) ...
-  // Helper to get image based on plan ID
-  const getPlanImage = (id: string) => {
-    switch(id) {
-      case 'kansai-elite': return SITE_IMAGES.plan_kansai;
-      case 'golf-pilgrimage': return SITE_IMAGES.plan_difficult;
-      case 'fuji-spectacular': return SITE_IMAGES.plan_fuji;
-      default: return SITE_IMAGES.golf_hero;
-    }
+  // CONFIGURATION: Map Plan IDs to Image URLs
+  // This makes it easy to add new photos by just adding a key-value pair here
+  const planImages: Record<string, string> = {
+    'kansai-elite': SITE_IMAGES.plan_kansai,
+    'golf-pilgrimage': SITE_IMAGES.plan_difficult,
+    'fuji-spectacular': SITE_IMAGES.plan_fuji,
+    // Add new plan IDs here with their corresponding image URLs
   };
+
+  const getPlanImage = (id: string) => planImages[id] || SITE_IMAGES.golf_hero;
 
   return (
   <div className="animate-fade-in-up pt-24 min-h-screen bg-white">
@@ -512,18 +514,18 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
 };
 
 const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger }) => {
-   // ... (BusinessView content remains unchanged) ...
-   // Helper to get image based on plan ID
-   const getBizImage = (id: string) => {
-      switch(id) {
-        case 'biz-plan-1': return SITE_IMAGES.biz_medical;
-        case 'biz-plan-2': return SITE_IMAGES.biz_tokyo;
-        case 'biz-plan-3': return SITE_IMAGES.biz_factory;
-        case 'biz-plan-4': return SITE_IMAGES.biz_resort;
-        case 'biz-plan-5': return SITE_IMAGES.biz_golden;
-        default: return SITE_IMAGES.business_hero;
-      }
+   // CONFIGURATION: Map Plan IDs to Image URLs
+   // Easily add new plans/images here
+   const planImages: Record<string, string> = {
+      'biz-plan-1': SITE_IMAGES.biz_medical,
+      'biz-plan-2': SITE_IMAGES.biz_tokyo,
+      'biz-plan-3': SITE_IMAGES.biz_factory,
+      'biz-plan-4': SITE_IMAGES.biz_resort,
+      'biz-plan-5': SITE_IMAGES.biz_golden,
+      // Add more here
    };
+
+   const getBizImage = (id: string) => planImages[id] || SITE_IMAGES.business_hero;
 
    return (
     <div className="animate-fade-in-up pt-24 min-h-screen bg-white">
@@ -730,7 +732,7 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
 );
 
 // ... (HomeView remains largely the same but ensure no breaking changes) ...
-const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, currentLang }) => {
+const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, currentLang, landingInputText, setLandingInputText }) => {
   // STRICT JS MOBILE DETECTION
   const isMobile = useIsMobile();
 
@@ -739,10 +741,8 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       {/* 1. Hero Header with 3D Particles */}
       <header className="relative w-full h-[85vh] flex items-center justify-center bg-white overflow-hidden">
           <div className="absolute inset-0 z-0">
-             {/* Only render complex particles on desktop to allow context for other charts */}
-             {!isMobile && <IntroParticles />}
-             {/* Simple gradient for mobile */}
-             {isMobile && <div className="w-full h-full bg-gradient-to-b from-white via-blue-50 to-white"></div>}
+             {/* Use IntroParticles on BOTH Desktop and Mobile as requested */}
+             <IntroParticles />
           </div>
           <div className="container mx-auto px-6 flex flex-col items-center justify-center text-center z-10 pointer-events-none">
               <div className="animate-fade-in-up space-y-8 mt-48 md:mt-64">
@@ -913,8 +913,15 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 <div className="w-2 h-2 rounded-full bg-gray-300"></div>
                 <span className="text-xs text-gray-400 uppercase tracking-wider">{t.ai.input_label}</span>
               </div>
-              <div className="font-mono text-sm text-gray-600 leading-relaxed bg-white border border-gray-100 p-6 rounded-lg mb-8 shadow-sm">
-                {t.ai.input_ph}
+              
+              {/* Interactive Input Area */}
+              <div className="mb-8">
+                <textarea 
+                  className="w-full h-48 font-mono text-sm text-gray-700 leading-relaxed bg-white border border-gray-200 p-6 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 outline-none resize-none transition-all placeholder-gray-300"
+                  placeholder={t.ai.input_ph}
+                  value={landingInputText || ''}
+                  onChange={(e) => setLandingInputText && setLandingInputText(e.target.value)}
+                />
               </div>
             </div>
             <button 
@@ -947,7 +954,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 </div>
                 <div className="text-right">
                   <span className="text-sm font-bold text-gray-800">¥ 880,000</span>
-                  <p className="text-[10px] text-green-600 bg-green-50 px-1 rounded inline-block mt-1">+20% Fee</p>
+                  {/* HIDDEN Profit Margin Display per user request for clean public view */}
                 </div>
               </div>
 
@@ -1053,6 +1060,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
   const [authFormData, setAuthFormData] = useState({ companyName: '', contactPerson: '', email: '' });
   const [authError, setAuthError] = useState('');
   const [isSendingAuth, setIsSendingAuth] = useState(false);
+  
+  // State for the Landing Page Input
+  const [landingInputText, setLandingInputText] = useState("");
+
   const t = translations[currentLang];
 
   useEffect(() => { emailjs.init('exX0IhSSUjNgMhuGb'); }, []);
@@ -1084,7 +1095,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
     // ... (Auth Logic) ...
     setTimeout(() => {
         setIsSendingAuth(false);
-        onLogin({ companyName: authFormData.companyName, email: authFormData.email });
+        // Pass the landingInputText to the onLogin callback
+        onLogin(
+          { companyName: authFormData.companyName, email: authFormData.email },
+          landingInputText
+        );
     }, 1000);
   };
 
@@ -1167,7 +1182,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
 
        {/* Content */}
        <main className="min-h-screen">
-          {currentPage === 'home' && <HomeView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={openAuthModal} currentLang={currentLang} />}
+          {currentPage === 'home' && <HomeView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={openAuthModal} currentLang={currentLang} landingInputText={landingInputText} setLandingInputText={setLandingInputText} />}
           {currentPage === 'medical' && <MedicalView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={openAuthModal} currentLang={currentLang} />}
           {currentPage === 'business' && <BusinessView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={openAuthModal} currentLang={currentLang} />}
           {currentPage === 'golf' && <GolfView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={openAuthModal} currentLang={currentLang} />}
@@ -1236,7 +1251,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                         <span className="hover:text-gray-300 cursor-pointer transition">Privacy Policy</span>
                         <span className="hover:text-gray-300 cursor-pointer transition">Terms of Service</span>
                      </div>
-                     <div class="mt-4 md:mt-0">
+                     <div className="mt-4 md:mt-0">
                         Powered by Niijima AI System • Designed in Osaka
                      </div>
                 </div>

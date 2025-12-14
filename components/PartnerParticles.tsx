@@ -295,12 +295,19 @@ const Particles = () => {
   if (!data) return null;
 
   return (
+    // @ts-ignore
     <points>
+      {/* @ts-ignore */}
       <bufferGeometry>
+        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-position" count={count} array={data.posSphere} itemSize={3} />
+        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aPosSphere" count={count} array={data.posSphere} itemSize={3} />
+        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aPosShin" count={count} array={data.posShin} itemSize={3} />
+        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aPosRai" count={count} array={data.posRai} itemSize={3} />
+        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aSize" count={count} array={data.sizes} itemSize={1} />
       </bufferGeometry>
       {/* @ts-ignore */}

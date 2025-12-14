@@ -1,3 +1,4 @@
+
 import React, { useMemo, useRef, useState, useEffect } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame, extend } from '@react-three/fiber';
@@ -165,12 +166,19 @@ const BusinessParticles = () => {
   });
 
   return (
+    // @ts-ignore
     <points>
+      {/* @ts-ignore */}
       <bufferGeometry>
+        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-position" count={count} array={posRandom} itemSize={3} />
+        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aPosRandom" count={count} array={posRandom} itemSize={3} />
+        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aPosGlobe" count={count} array={posGlobe} itemSize={3} />
+        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aPosCube" count={count} array={posCube} itemSize={3} />
+        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aSize" count={count} array={sizes} itemSize={1} />
       </bufferGeometry>
       {/* @ts-ignore */}

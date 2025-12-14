@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { QuoteResponse, ItineraryRequest, LocationType, UserProfile } from '../types';
 import QuoteForm from './QuoteForm';
@@ -12,11 +13,12 @@ import { LayoutDashboard, History, Settings, LogOut, Menu, X } from 'lucide-reac
 interface DashboardProps {
   user: UserProfile;
   onLogout: () => void;
+  initialRequestText?: string;
 }
 
 type ViewState = 'quote' | 'history' | 'settings';
 
-const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
+const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, initialRequestText }) => {
   const [currentView, setCurrentView] = useState<ViewState>('quote');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
@@ -31,7 +33,8 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
     pax: 20,
     travel_days: 5,
     need_bus: true,
-    bus_type: 'coach',
+    bus_type: 'large_bus', // Default to Large Bus for 20 pax
+    guide_language: 'zh', // Default Chinese
     hotel_req: {
       stars: 4,
       rooms: 10,
@@ -210,6 +213,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
                      setRequest={setRequest} 
                      onCalculate={handleCalculate}
                      loading={loading} 
+                     initialImportText={initialRequestText}
                    />
                  </div>
                  <div className="xl:col-span-8">

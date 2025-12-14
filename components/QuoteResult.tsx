@@ -1,7 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
 import { QuoteResponse, ItineraryRequest } from '../types';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
-import { TrendingDown, TrendingUp, Cpu, Download, CheckCircle, Send, User, Phone, Mail, X, Loader2 } from 'lucide-react';
+import { TrendingDown, TrendingUp, Cpu, Download, CheckCircle, Send, User, Phone, Mail, X, Loader2, AlertCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
 interface QuoteResultProps {
@@ -30,6 +31,7 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, request, isAiLoading }
     { name: '利潤', value: quote.breakdown.margin },
   ].filter(d => d.value > 0);
 
+  // If strategy mentions "OTA", it's dynamic/arbitrage. Otherwise it's standard contract.
   const isArbitrage = quote.breakdown.sourcing_strategy.includes('OTA');
 
   const handleSubmitInquiry = (e: React.FormEvent) => {
@@ -42,9 +44,7 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, request, isAiLoading }
     setIsSending(true);
 
     // --- EMAILJS CONFIGURATION ---
-    // Please verify these match your dashboard exactly!
     const serviceId = 'service_epq3fhj';
-    // CRITICAL FIX: Updated to match user screenshot
     const templateId = 'template_x7h0fb6'; 
     const publicKey = 'exX0IhSSUjNgMhuGb';
 
@@ -66,6 +66,7 @@ Location: ${request.hotel_req.location}
 Pax: ${request.pax}
 Days: ${request.travel_days}
 Bus Type: ${request.need_bus ? request.bus_type : 'No Bus'}
+Guide: ${request.guide_language}
 Hotel: ${request.hotel_req.stars} Stars, ${request.hotel_req.rooms} Rooms
 
 [QUOTE SUMMARY / 報價結果]
@@ -102,7 +103,6 @@ Timestamp: ${new Date().toLocaleString()}
          console.error('EmailJS FAILED...', err);
          const errorMsg = err.text || JSON.stringify(err);
          
-         // Specific error handling for "Template ID not found"
          if (errorMsg.includes("template ID not found")) {
              alert(`⚠️ 發送失敗：系統找不到 Template ID (${templateId})。\n\n請登入 EmailJS 後台檢查模板 ID 是否正確。`);
          } else {
@@ -121,7 +121,7 @@ Timestamp: ${new Date().toLocaleString()}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="bg-gradient-to-br from-indigo-900 to-blue-900 rounded-xl p-6 text-white shadow-xl relative overflow-hidden">
           <div className="relative z-10">
-            <p className="text-blue-200 text-sm font-medium mb-1">預估總價</p>
+            <p className="text-blue-200 text-sm font-medium mb-1">預估總價 (不含雜費)</p>
             <h3 className="text-4xl font-bold tracking-tight">¥{quote.estimated_total_jpy.toLocaleString()}</h3>
             <p className="mt-2 text-indigo-200 text-sm">
               人均： <span className="text-white font-bold">¥{quote.per_person_jpy.toLocaleString()}</span>
@@ -135,7 +135,7 @@ Timestamp: ${new Date().toLocaleString()}
         <div className={`rounded-xl p-6 shadow-lg border relative overflow-hidden flex flex-col justify-center ${
           isArbitrage ? 'bg-green-50 border-green-200' : 'bg-white border-gray-200'
         }`}>
-           <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">採購策略</p>
+           <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">定價策略</p>
            <div className="flex items-center gap-3">
              {isArbitrage ? (
                 <div className="bg-green-100 p-2 rounded-full text-green-700">
@@ -148,9 +148,9 @@ Timestamp: ${new Date().toLocaleString()}
              )}
              <div>
                <p className={`font-bold text-lg ${isArbitrage ? 'text-green-800' : 'text-gray-800'}`}>
-                 {isArbitrage ? '已應用動態定價' : '標準合約價'}
+                 新島標準合約價
                </p>
-               <p className="text-xs text-gray-500 mt-1">{quote.breakdown.sourcing_strategy}</p>
+               <p className="text-xs text-gray-500 mt-1 line-clamp-1">{quote.breakdown.sourcing_strategy}</p>
              </div>
            </div>
         </div>
@@ -161,7 +161,14 @@ Timestamp: ${new Date().toLocaleString()}
         
         {/* Chart Section */}
         <div className="lg:col-span-2 bg-white rounded-xl shadow-md border border-gray-100 p-6">
-          <h4 className="font-bold text-gray-800 mb-4 border-b pb-2">成本結構分析</h4>
+          <h4 className="font-bold text-gray-800 mb-4 border-b pb-2 flex justify-between items-center">
+             <span>成本結構分析</span>
+             {quote.breakdown.extras_note && (
+                <span className="text-xs text-orange-600 bg-orange-50 px-2 py-1 rounded flex items-center gap-1">
+                   <AlertCircle size={12} /> {quote.breakdown.extras_note}
+                </span>
+             )}
+          </h4>
           <div className="h-64 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
