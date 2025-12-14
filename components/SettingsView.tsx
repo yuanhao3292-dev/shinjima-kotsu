@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Save, User, Globe, DollarSign, Bell } from 'lucide-react';
 
@@ -6,7 +7,7 @@ const SettingsView: React.FC = () => {
     <div className="max-w-3xl mx-auto space-y-8 animate-fade-in-up pb-10">
       <div>
         <h2 className="text-2xl font-bold text-gray-800 mb-2">系統設定</h2>
-        <p className="text-gray-500">管理您的個人偏好、預設利潤參數與通知設定。</p>
+        <p className="text-gray-500">管理您的個人偏好、預設費用參數與通知設定。</p>
       </div>
 
       {/* User Profile */}
@@ -44,7 +45,8 @@ const SettingsView: React.FC = () => {
         <div className="p-6 space-y-6">
           <div>
              <div className="flex justify-between items-center mb-2">
-                <label className="block text-sm font-medium text-gray-700">預設利潤率 (Margin)</label>
+                {/* CHANGED LABEL FROM MARGIN TO SERVICE FEE */}
+                <label className="block text-sm font-medium text-gray-700">預設服務費率 (Service Fee)</label>
                 <span className="px-2 py-1 bg-blue-100 text-blue-700 font-bold rounded text-xs">15%</span>
              </div>
              <input type="range" min="5" max="30" defaultValue="15" className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600" />

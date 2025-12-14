@@ -1,8 +1,19 @@
-
 import React, { useMemo, useRef, useState, useEffect } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame, extend } from '@react-three/fiber';
 import { shaderMaterial } from '@react-three/drei';
+
+// Fix for JSX.IntrinsicElements errors in strict TypeScript environments
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      heroMorphMaterial: any;
+      bufferGeometry: any;
+      bufferAttribute: any;
+      points: any;
+    }
+  }
+}
 
 // -----------------------------------------------------------------------------
 // Hero Morph Material (The Brand Identity Sequence)
@@ -284,26 +295,16 @@ const ParticleSystem = () => {
   if (!data) return null;
 
   return (
-    // @ts-ignore
     <points ref={pointsRef}>
-      {/* @ts-ignore */}
       <bufferGeometry>
-        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-position" count={data.posSphere.length / 3} array={data.posSphere} itemSize={3} />
-        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aPosSphere" count={data.posSphere.length / 3} array={data.posSphere} itemSize={3} />
-        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aPosShin" count={data.posShin.length / 3} array={data.posShin} itemSize={3} />
-        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aPosJima" count={data.posJima.length / 3} array={data.posJima} itemSize={3} />
-        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aPosKo" count={data.posKo.length / 3} array={data.posKo} itemSize={3} />
-        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aPosTsu" count={data.posTsu.length / 3} array={data.posTsu} itemSize={3} />
-        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aRandom" count={data.randoms.length} array={data.randoms} itemSize={1} />
       </bufferGeometry>
-      {/* @ts-ignore */}
       <heroMorphMaterial ref={materialRef} transparent={true} depthWrite={false} blending={THREE.NormalBlending} />
     </points>
   );
@@ -333,7 +334,6 @@ const IntroParticles: React.FC = () => {
     <div ref={containerRef} className="w-full h-full bg-white relative overflow-hidden">
       {isInView && (
         <Canvas camera={{ position: [0, 0, 18], fov: 35 }} dpr={[1, 2]} gl={{ antialias: true, alpha: false, powerPreference: "high-performance" }}>
-          {/* @ts-ignore */}
           <color attach="background" args={['#FFFFFF']} />
           <ParticleSystem />
         </Canvas>

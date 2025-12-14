@@ -28,7 +28,7 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, request, isAiLoading }
     { name: '住宿', value: quote.breakdown.hotel_cost_basis },
     { name: '交通', value: quote.breakdown.transport },
     { name: '導遊', value: quote.breakdown.guide },
-    { name: '利潤', value: quote.breakdown.margin },
+    { name: '服務費', value: quote.breakdown.margin }, // Changed from '利潤' to '服務費'
   ].filter(d => d.value > 0);
 
   // If strategy mentions "OTA", it's dynamic/arbitrage. Otherwise it's standard contract.

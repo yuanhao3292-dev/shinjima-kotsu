@@ -1,8 +1,19 @@
-
 import React, { useMemo, useRef, useState, useEffect } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame, extend } from '@react-three/fiber';
 import { shaderMaterial } from '@react-three/drei';
+
+// Fix for JSX.IntrinsicElements errors in strict TypeScript environments
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      businessGridMaterial: any;
+      bufferGeometry: any;
+      bufferAttribute: any;
+      points: any;
+    }
+  }
+}
 
 // -----------------------------------------------------------------------------
 // Business Network Morphing Shader
@@ -166,22 +177,14 @@ const BusinessParticles = () => {
   });
 
   return (
-    // @ts-ignore
     <points>
-      {/* @ts-ignore */}
       <bufferGeometry>
-        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-position" count={count} array={posRandom} itemSize={3} />
-        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aPosRandom" count={count} array={posRandom} itemSize={3} />
-        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aPosGlobe" count={count} array={posGlobe} itemSize={3} />
-        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aPosCube" count={count} array={posCube} itemSize={3} />
-        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aSize" count={count} array={sizes} itemSize={1} />
       </bufferGeometry>
-      {/* @ts-ignore */}
       <businessGridMaterial ref={materialRef} transparent={true} depthWrite={false} blending={THREE.NormalBlending} />
     </points>
   );
