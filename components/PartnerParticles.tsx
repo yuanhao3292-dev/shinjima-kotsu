@@ -3,18 +3,6 @@ import * as THREE from 'three';
 import { Canvas, useFrame, extend } from '@react-three/fiber';
 import { shaderMaterial } from '@react-three/drei';
 
-// Fix for JSX.IntrinsicElements errors in strict TypeScript environments
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      partnerMorphMaterial: any;
-      bufferGeometry: any;
-      bufferAttribute: any;
-      points: any;
-    }
-  }
-}
-
 // -----------------------------------------------------------------------------
 // Partner Trust Morphing Shader
 // Style matches BusinessNetwork (Blue/Navy/Purple) but morphs Text
@@ -306,14 +294,22 @@ const Particles = () => {
   if (!data) return null;
 
   return (
+    // @ts-ignore
     <points>
+      {/* @ts-ignore */}
       <bufferGeometry>
+        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-position" count={count} array={data.posSphere} itemSize={3} />
+        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aPosSphere" count={count} array={data.posSphere} itemSize={3} />
+        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aPosShin" count={count} array={data.posShin} itemSize={3} />
+        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aPosRai" count={count} array={data.posRai} itemSize={3} />
+        {/* @ts-ignore */}
         <bufferAttribute attach="attributes-aSize" count={count} array={data.sizes} itemSize={1} />
       </bufferGeometry>
+      {/* @ts-ignore */}
       <partnerMorphMaterial ref={materialRef} transparent={true} depthWrite={false} blending={THREE.NormalBlending} />
     </points>
   );

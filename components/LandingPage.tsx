@@ -996,7 +996,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                    <img 
                       src={SITE_IMAGES.founder_portrait}
                       alt="Founder Portrait" 
-                      className="relative rounded-xl shadow-lg w-full object-cover h-[400px]"
+                      className="relative rounded-xl shadow-lg w-full h-auto max-h-[600px] object-cover object-top"
                       key="founder_portrait"
                       onError={(e) => handleSmartImageError(e, 'founder_portrait')}
                    />
