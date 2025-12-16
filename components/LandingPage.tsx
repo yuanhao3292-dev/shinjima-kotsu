@@ -24,7 +24,7 @@ const SITE_IMAGES = {
   golf_hero: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2000&auto=format&fit=crop",
   plan_kansai: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=1000&auto=format&fit=crop", // Plan 1: Classic Green
   plan_difficult: "https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?q=80&w=1000&auto=format&fit=crop", // Plan 2: Golfer Swing/Action
-  plan_fuji: "https://images.unsplash.com/photo-1563205764-5d59524dc335?q=80&w=1000&auto=format&fit=crop", // Plan 3: Mountain Course Landscape
+  plan_fuji: "https://i.ibb.co/B2L1nxdg/2025-12-16-16-36-41.png", // Plan 3: Mt. Fuji Spectacular (Updated by User)
   
   // Business Page
   business_hero: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop",
@@ -32,7 +32,7 @@ const SITE_IMAGES = {
   biz_medical: "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=1000&auto=format&fit=crop", // Plan 1: Medical Lab/Hospital
   biz_tokyo: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1000&auto=format&fit=crop", // Plan 2: Tokyo/Ginza City
   biz_factory: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1000&auto=format&fit=crop", // Plan 3: Precision Factory/Tech
-  biz_resort: "https://images.unsplash.com/photo-1571896349842-6e5a513e610a?q=80&w=1000&auto=format&fit=crop", // Plan 4: Hakone/Resort
+  biz_resort: "https://i.ibb.co/rK2b2bZd/2025-12-16-16-38-20.png", // Plan 4: Hakone/Resort (Updated by User)
   biz_golden: "https://images.unsplash.com/photo-1490761668535-35497054764d?q=80&w=1000&auto=format&fit=crop", // Plan 5: Shinkansen/Fuji (Golden Route)
 
   // Home Page Previews
