@@ -327,33 +327,130 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
            </div>
       </div>
 
-      {/* 5. Packages */}
-      <div className="mb-24">
+      {/* 5. Packages - UPDATED 6 COURSES */}
+      <div className="mb-24" id="timc-packages">
           <div className="text-center mb-16">
               <h3 className="text-3xl font-serif text-gray-900">{t.medical.pkg_title}</h3>
-              <p className="text-gray-500 text-sm mt-2">Recommended Courses</p>
+              <p className="text-gray-500 text-sm mt-2">TIMC × NIIJIMA Exclusive B2B Lineup</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {/* Premium */}
-              <div className="border border-gray-200 rounded-2xl p-8 hover:shadow-xl transition hover:-translate-y-1 relative overflow-hidden bg-gradient-to-br from-gray-50 to-white">
-                  <div className="absolute top-0 right-0 bg-gray-900 text-white text-xs font-bold px-4 py-1 rounded-bl-lg">PREMIUM</div>
-                  <h4 className="text-2xl font-serif font-bold text-gray-900 mb-2">{t.medical.pkg_p_t}</h4>
-                  <p className="text-sm text-gray-500 mb-6 italic">{t.medical.pkg_p_d}</p>
-                  <div className="space-y-3 mb-8">
-                      <div className="flex items-center gap-2 text-sm text-gray-700"><CheckCircle size={16} className="text-blue-600" /> PET-CT / MRI</div>
-                      <div className="flex items-center gap-2 text-sm text-gray-700"><CheckCircle size={16} className="text-blue-600" /> Endoscopy</div>
-                      <div className="flex items-center gap-2 text-sm text-gray-700"><CheckCircle size={16} className="text-blue-600" /> Tumor Markers</div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto px-4">
+              
+              {/* 1. VIP Member */}
+              <div className="col-span-1 md:col-span-2 lg:col-span-1 border border-gray-900 rounded-2xl p-6 hover:shadow-2xl transition hover:-translate-y-1 relative overflow-hidden bg-gray-900 text-white flex flex-col">
+                  <div className="absolute top-0 right-0 bg-yellow-500 text-black text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Flagship</div>
+                  <div className="mb-4">
+                      <h4 className="text-xl font-serif font-bold text-yellow-400">VIP 頂級全能套裝</h4>
+                      <p className="text-xs text-gray-400 mt-1">VIP Member Course</p>
                   </div>
-              </div>
-              {/* Standard */}
-              <div className="border border-gray-200 rounded-2xl p-8 hover:shadow-xl transition hover:-translate-y-1 bg-white">
-                   <h4 className="text-2xl font-serif font-bold text-gray-900 mb-2">{t.medical.pkg_s_t}</h4>
-                  <p className="text-sm text-gray-500 mb-6 italic">{t.medical.pkg_s_d}</p>
-                  <div className="space-y-3 mb-8">
-                      <div className="flex items-center gap-2 text-sm text-gray-700"><CheckCircle size={16} className="text-gray-400" /> PET-CT</div>
-                      <div className="flex items-center gap-2 text-sm text-gray-700"><CheckCircle size={16} className="text-gray-400" /> Basic Screen</div>
+                  <p className="text-xs text-gray-300 mb-6 leading-relaxed flex-grow">
+                      針對企業領袖的終極方案。包含腦、心、全身癌篩及消化道內視鏡的「全包式」檢查。
+                  </p>
+                  <div className="space-y-2 mb-6 text-xs">
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> MRI: 腦(MRA)+心+DWIBS+骨盆</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> CT: 胸部+冠脈鈣化+內臟脂肪</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> 內視鏡: 胃鏡+大腸鏡 (鎮靜)</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> 超音波: 頸/心/腹/下肢/乳房(女)</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> 尊享: 單間休息室、精緻餐券</div>
                   </div>
+                  <button onClick={onLoginTrigger} className="w-full py-2 bg-yellow-500 text-black text-xs font-bold rounded hover:bg-yellow-400 transition">詢價</button>
               </div>
+
+              {/* 2. PREMIUM (Cardiac) */}
+              <div className="border border-blue-100 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-gradient-to-br from-blue-50 to-white flex flex-col">
+                   <div className="mb-4">
+                       <h4 className="text-lg font-serif font-bold text-blue-900">PREMIUM (心臟精密)</h4>
+                       <p className="text-xs text-blue-400 mt-1">Premium Cardiac Course</p>
+                   </div>
+                   <p className="text-xs text-gray-500 mb-6 leading-relaxed flex-grow">
+                       針對高壓力、缺乏運動菁英人士。深度評估猝死與動脈硬化風險。
+                   </p>
+                   <div className="space-y-2 mb-6 text-xs text-gray-700">
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> MRI: 心臟(非造影)+腦+DWIBS</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> CT: 冠狀動脈鈣化積分</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> 超音波: 心臟、頸動脈</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> 血液: BNP, 心肌蛋白T, CPK</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> 機能: ABI/CAVI (血管年齡)</div>
+                   </div>
+                   <button onClick={onLoginTrigger} className="w-full py-2 border border-blue-200 text-blue-600 text-xs font-bold rounded hover:bg-blue-50 transition">詢價</button>
+              </div>
+
+              {/* 3. SELECT (Gastro + Colon) */}
+              <div className="border border-green-100 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-white flex flex-col">
+                   <div className="mb-4">
+                       <h4 className="text-lg font-serif font-bold text-green-900">SELECT (胃+大腸鏡)</h4>
+                       <p className="text-xs text-green-500 mt-1">Gastro + Colonoscopy Course</p>
+                   </div>
+                   <p className="text-xs text-gray-500 mb-6 leading-relaxed flex-grow">
+                       應酬頻繁者的最佳選擇。一次完成上下消化道精密檢查 (鎮靜麻醉)。
+                   </p>
+                   <div className="space-y-2 mb-6 text-xs text-gray-700">
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> 內視鏡: 胃鏡 + 大腸鏡</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> 處置: 可當場切除息肉</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> 超音波: 腹部 (肝膽胰脾腎)</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> 感染: 幽門螺旋桿菌抗體</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> 血液: 消化道腫瘤標誌物</div>
+                   </div>
+                   <button onClick={onLoginTrigger} className="w-full py-2 border border-green-200 text-green-600 text-xs font-bold rounded hover:bg-green-50 transition">詢價</button>
+              </div>
+
+              {/* 4. SELECT (Stomach only) */}
+              <div className="border border-teal-100 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-white flex flex-col">
+                   <div className="mb-4">
+                       <h4 className="text-lg font-serif font-bold text-teal-800">SELECT (胃鏡)</h4>
+                       <p className="text-xs text-teal-500 mt-1">Gastroscopy Course</p>
+                   </div>
+                   <p className="text-xs text-gray-500 mb-6 leading-relaxed flex-grow">
+                       針對胃癌高風險族群。無需清腸，檢查時間短，負擔較輕。
+                   </p>
+                   <div className="space-y-2 mb-6 text-xs text-gray-700">
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> 內視鏡: 胃鏡 (經口/經鼻)</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> 超音波: 腹部 (肝膽胰脾腎)</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> 感染: 幽門螺旋桿菌抗體</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> 血液: 胃癌/食道癌風險指標</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> 基礎: 身體測量/視力聽力</div>
+                   </div>
+                   <button onClick={onLoginTrigger} className="w-full py-2 border border-teal-200 text-teal-600 text-xs font-bold rounded hover:bg-teal-50 transition">詢價</button>
+              </div>
+
+              {/* 5. DWIBS */}
+              <div className="border border-purple-100 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-white flex flex-col">
+                   <div className="mb-4">
+                       <h4 className="text-lg font-serif font-bold text-purple-900">DWIBS (防癌篩查)</h4>
+                       <p className="text-xs text-purple-500 mt-1">DWIBS Cancer Screening</p>
+                   </div>
+                   <p className="text-xs text-gray-500 mb-6 leading-relaxed flex-grow">
+                       無輻射全身癌症篩查 MRI。無需顯影劑，適合定期追蹤。
+                   </p>
+                   <div className="space-y-2 mb-6 text-xs text-gray-700">
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> MRI: DWIBS (頸部至骨盆)</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> 血液: 全套腫瘤標誌物</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> 血液: 肝腎功能/常規檢查</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> 特點: 無輻射/無痛/非侵入</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> 對象: 關注全身癌症風險</div>
+                   </div>
+                   <button onClick={onLoginTrigger} className="w-full py-2 border border-purple-200 text-purple-600 text-xs font-bold rounded hover:bg-purple-50 transition">詢價</button>
+              </div>
+
+              {/* 6. BASIC */}
+              <div className="border border-gray-200 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-gray-50 flex flex-col">
+                   <div className="mb-4">
+                       <h4 className="text-lg font-serif font-bold text-gray-800">BASIC (基礎套餐)</h4>
+                       <p className="text-xs text-gray-500 mt-1">Standard Checkup Course</p>
+                   </div>
+                   <p className="text-xs text-gray-500 mb-6 leading-relaxed flex-grow">
+                       包含血液、影像、超音波的標準健檢。高性價比的企業團體首選。
+                   </p>
+                   <div className="space-y-2 mb-6 text-xs text-gray-700">
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> 影像: 胸部X光 + 腹部超音波</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> 血液: 肝腎脂糖/甲狀腺/腫瘤標誌物</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> 基礎: 視力/聽力/眼壓/眼底/心電圖</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> 檢體: 尿液 + 便潛血(2日法)</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> 適用: 年度例行檢查/入職體檢</div>
+                   </div>
+                   <button onClick={onLoginTrigger} className="w-full py-2 border border-gray-300 text-gray-600 text-xs font-bold rounded hover:bg-gray-100 transition">詢價</button>
+              </div>
+
           </div>
       </div>
 
