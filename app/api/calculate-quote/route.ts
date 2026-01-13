@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ItineraryRequest, QuoteResponse } from '@/types';
-import { calculateQuote } from '@/services/pricingEngine';
+import type { ItineraryRequest, QuoteResponse } from '../../../types';
+import { calculateQuote } from '../../../services/pricingEngine';
 
 // 输入验证
 function validateRequest(req: ItineraryRequest): { valid: boolean; error?: string } {

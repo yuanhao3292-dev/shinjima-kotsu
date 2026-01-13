@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenAI, Type } from "@google/genai";
-import { ItineraryRequest } from "@/types";
+import type { ItineraryRequest } from "../../../types";
 
 // 清理 JSON 字符串
 const cleanJsonString = (str: string) => {
