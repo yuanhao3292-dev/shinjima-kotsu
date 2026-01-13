@@ -6,7 +6,7 @@ import QuoteResult from './QuoteResult';
 import HistoryView from './HistoryView';
 import SettingsView from './SettingsView';
 import Logo from './Logo';
-import { calculateQuote } from '../services/pricingEngine';
+import { calculateQuoteAPI } from '../services/apiClient';
 import { generateAIAnalysis } from '../services/geminiService';
 import { LayoutDashboard, History, Settings, LogOut, Menu, X } from 'lucide-react';
 
@@ -55,8 +55,8 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, initialRequestTex
     setCurrentView('quote'); // Ensure we are on the quote view
 
     try {
-      // 1. Calculate the Math (Deterministic)
-      const result = await calculateQuote(request);
+      // 1. Calculate the Math (Call Backend API)
+      const result = await calculateQuoteAPI(request);
       setQuote(result);
       
       // Save to History immediately

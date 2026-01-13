@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { ItineraryRequest, LocationType } from '../types';
 import { LOCATIONS, STARS, VEHICLE_LABELS } from '../constants';
 import { Calculator, MapPin, Users, Calendar, Bus, Building, Sparkles, MessageSquare, Languages } from 'lucide-react';
-import { parseSmartImport } from '../services/geminiService';
+import { parseItineraryAPI } from '../services/apiClient';
 
 interface QuoteFormProps {
   request: ItineraryRequest;
@@ -43,7 +43,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ request, setRequest, onCalculate,
     if (!importText.trim()) return;
     setIsImporting(true);
     try {
-      const parsedData = await parseSmartImport(importText);
+      const parsedData = await parseItineraryAPI(importText);
       if (parsedData) {
         setRequest(prev => ({
           ...prev,
