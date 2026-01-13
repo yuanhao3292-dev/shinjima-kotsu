@@ -2,9 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
 
-  // 支持 Vercel 部署
-  output: 'standalone',
-
   // 环境变量配置
   env: {
     GEMINI_API_KEY: process.env.GEMINI_API_KEY,
@@ -12,21 +9,25 @@ const nextConfig = {
 
   // 图片优化配置
   images: {
-    domains: [
-      'images.unsplash.com',
-      'i.ibb.co',
-      'www.transparenttextures.com'
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.ibb.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.transparenttextures.com',
+      },
     ],
   },
 
   // TypeScript 配置
   typescript: {
     ignoreBuildErrors: false,
-  },
-
-  // ESLint 配置
-  eslint: {
-    ignoreDuringBuilds: false,
   },
 }
 
