@@ -219,7 +219,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
       {/* 2. Authority Section */}
       <div className="mb-24">
           <div className="text-center mb-16">
-              <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">Authority & Trust</span>
+              <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">{t.medical.auth_tag}</span>
               <h3 className="text-3xl font-serif text-gray-900 mt-2">{t.medical.auth_title}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -252,7 +252,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
           <div className="text-center mb-16">
               <div className="flex items-center justify-center gap-2 mb-2">
                  <Sparkles size={16} className="text-blue-400 animate-pulse" />
-                 <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">Future Medical Tech</span>
+                 <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">{t.medical.tech_tag}</span>
               </div>
               <h3 className="text-3xl font-serif text-gray-900 mt-2 mb-4">{t.medical.tech_title}</h3>
               <p className="text-gray-500 text-sm max-w-2xl mx-auto">{t.medical.tech_sub}</p>
@@ -1317,7 +1317,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
     
                     {/* Column 3: Contact */}
                     <div>
-                        <h4 className="text-sm font-bold text-gray-300 uppercase tracking-wider mb-6">Contact Us</h4>
+                        <h4 className="text-sm font-bold text-gray-300 uppercase tracking-wider mb-6">{t.footer.contact_us}</h4>
                         <div className="space-y-3 text-sm text-gray-400">
                             <p className="flex items-center gap-3"><Mail size={16} /> info@niijima-koutsu.jp</p>
                             <p className="flex items-center gap-3"><Phone size={16} /> 06-6632-8807</p>

@@ -32,6 +32,7 @@ export const translations = {
       hero_title_2: '究極の守護',
       hero_subtitle: '日本最大医療グループ「徳洲会」旗艦施設 × 大阪駅ランドマーク JP Tower',
       hero_text: '最先端の医療技術と、五つ星ホテルのホスピタリティが融合。\n新島交通は公式パートナーとして、VIP優先予約枠を確保します。',
+      auth_tag: 'Authority & Trust',
       auth_title: 'Why TIMC?',
       auth_1_t: '徳洲会グループ',
       auth_1_d: '日本最大の民間医療グループ。約400の医療施設を有し、最高水準の予防医学を提供します。',
@@ -39,6 +40,7 @@ export const translations = {
       auth_2_d: '大阪駅直結 JP Tower 11階。アクセス抜群で、検査前後のショッピングや美食も楽しめます。',
       auth_3_t: 'ラグジュアリー空間',
       auth_3_d: '完全個室設計。専用のバスルームとラウンジを備え、プライバシーを徹底的に守ります。',
+      tech_tag: 'Future Medical Tech',
       tech_title: '導入医療機器ラインナップ',
       tech_sub: '最新鋭・高グレードの医療機器を配置。オプション機能も装備し、精度の高い検査を快適な環境で提供いたします。',
       tech_ct_t: 'CT: Spectral CT 7500 (PHILIPS)',
@@ -317,6 +319,9 @@ export const translations = {
       phil_title: '敬天愛人 - 利他の心',
       quote: '人生・仕事の結果 ＝ 考え方 × 熱意 × 能力',
       desc: '私は稲盛和夫氏の経営哲学、「敬天愛人（常に公明正大で謙虚な心を持ち、天を敬い人を愛すること）」を深く信仰しております。\n\n医療ツーリズムやビジネス視察は、単なる移動や観光ではありません。それは、お客様の人生の質を高め、ビジネスの未来を拓く、極めて尊い行為です。私たちは「利他の心」を判断基準の中心に据え、お客様、パートナー様、そして社会全体にとって善きことは何かを常に問い続けます。\n\n新島交通は、心の通ったおもてなしと最新のテクノロジーを融合させ、皆様に感動と安心をお届けすることをお約束します。'
+    },
+    footer: {
+      contact_us: 'お問い合わせ'
     }
   },
   'zh-TW': {
@@ -349,6 +354,7 @@ export const translations = {
       hero_title_2: '極致守護',
       hero_subtitle: '日本最大醫療集團「德洲會」旗艦設施 × 大阪站地標 JP Tower',
       hero_text: '在這裡，頂尖醫療技術與五星級酒店服務完美融合。\n新島交通作為官方授權合作夥伴，為您開啟 VIP 綠色預約通道。',
+      auth_tag: '權威與信賴',
       auth_title: 'Why TIMC?',
       auth_1_t: '德洲會集團',
       auth_1_d: '日本最大的私立醫療集團，擁有約 400 家醫療設施。代表了日本預防醫學的最高水準。',
@@ -356,6 +362,7 @@ export const translations = {
       auth_2_d: '位於大阪站直連的地標建築 JP Tower 11層。交通極度便利，健檢前後可享受頂級購物體驗。',
       auth_3_t: '奢華空間',
       auth_3_d: '告別傳統醫院的擁擠。採用「全室個室」設計，每位貴賓擁有獨立衛浴的專屬包廂。',
+      tech_tag: '未來醫療科技',
       tech_title: '導入醫療設備陣容',
       tech_sub: '配置最新銳、高等級的醫療設備。配備舒適的環境與先進的選項功能，提供高精度的檢查。',
       tech_ct_t: 'CT: Spectral CT 7500 (PHILIPS)',
@@ -634,6 +641,9 @@ export const translations = {
       phil_title: '敬天愛人 - 利他之心',
       quote: '人生・工作的結果 ＝ 思考方式 × 熱情 × 能力',
       desc: '我是稻盛和夫先生經營哲學「敬天愛人（始終心懷公正、謙虛，敬畏上天，關愛世人）」的堅定信徒。\n\n医療旅遊或商務考察，不僅僅是移動或觀光。它是提升客戶生命品質、開拓商業未來的極其尊貴的行為。我們將「利他之心」作為判斷基準的核心，時刻捫心自問：什麼才是對客戶、對合作夥伴、以及對整個社會有益的。\n\n新島交通承諾，將有溫度的一期一會與最新科技相融合，為您帶來感動與安心。'
+    },
+    footer: {
+      contact_us: '聯絡我們'
     }
   },
   en: {
@@ -666,6 +676,7 @@ export const translations = {
       hero_title_2: 'Health Guardian',
       hero_subtitle: 'Japan\'s Largest Medical Group Flagship × JP Tower Osaka',
       hero_text: 'Top-tier medical technology meets luxury hospitality.\nNiijima Kotsu secures VIP priority access for your premium clients.',
+      auth_tag: 'Authority & Trust',
       auth_title: 'Why TIMC?',
       auth_1_t: 'Tokushukai Group',
       auth_1_d: 'Japan’s largest private medical group with ~400 facilities. The pinnacle of preventive medicine.',
@@ -673,6 +684,7 @@ export const translations = {
       auth_2_d: 'Directly connected to Osaka Station (JP Tower 11F). Enjoy premium shopping and dining nearby.',
       auth_3_t: 'Luxury Space',
       auth_3_d: 'All Private Rooms. Exclusive en-suite facilities ensuring complete privacy and comfort.',
+      tech_tag: 'Future Medical Tech',
       tech_title: 'Medical Equipment Lineup',
       tech_sub: 'Featuring the latest, high-grade medical devices. Equipped with advanced options to provide high-precision screenings in a comfortable environment.',
       tech_ct_t: 'CT: Spectral CT 7500 (PHILIPS)',
@@ -951,6 +963,9 @@ export const translations = {
       phil_title: 'Respect the Divine and Love People',
       quote: 'Result of Life = Attitude × Effort × Ability',
       desc: 'I am a firm believer in Kazuo Inamori\'s management philosophy, "Keiten Aijin" (Always be fair and humble, respect the divine, and love people).\n\nMedical tourism and business inspections are not just travel; they are noble acts that improve the quality of life and open up the future of business. We place "Altruism" at the core of our decision-making, constantly asking what is truly good for our clients, partners, and society.\n\nNiijima Kotsu promises to deliver emotion and peace of mind by fusing heartfelt hospitality with the latest technology.'
+    },
+    footer: {
+      contact_us: 'Contact Us'
     }
   }
 };
