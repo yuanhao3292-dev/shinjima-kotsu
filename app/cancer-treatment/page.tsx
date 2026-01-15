@@ -135,14 +135,22 @@ export default function CancerTreatmentPage() {
   return (
     <MemberLayout showFooter={true}>
       {/* Hero Section */}
-      <div className="relative min-h-[70vh] flex items-center overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/medical.png')]"></div>
+      <div className="relative min-h-[85vh] flex items-center overflow-hidden">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2080&auto=format&fit=crop')`,
+          }}
+        >
+          {/* Dark Overlay with Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-blue-900/85 to-slate-900/70"></div>
         </div>
+
+        {/* Decorative Elements */}
         <div className="absolute inset-0">
-          <div className="absolute w-96 h-96 bg-blue-500/20 rounded-full filter blur-3xl top-1/4 -left-20"></div>
-          <div className="absolute w-72 h-72 bg-purple-500/20 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+          <div className="absolute w-96 h-96 bg-blue-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
+          <div className="absolute w-72 h-72 bg-purple-500/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
         </div>
 
         <div className="container mx-auto px-6 relative z-10 py-32">
@@ -150,17 +158,19 @@ export default function CancerTreatmentPage() {
             {/* Badge */}
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full mb-8">
               <HeartPulse size={16} className="text-red-400" />
-              <span className="text-xs font-bold text-white/90 uppercase tracking-wider">日本綜合治療</span>
+              <span className="text-xs font-bold text-white/90 uppercase tracking-wider">日本癌症治療</span>
             </div>
 
             <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
-              癌症患者<br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">赴日治療服務</span>
+              日本癌症治療<br/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">五年存活率領先全球</span>
             </h1>
 
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed max-w-2xl">
-              安全性高、治療精準、重視生活質量（QOL）<br/>
-              強調循證醫學與多學科協作
+            <p className="text-xl text-gray-300 mb-4 leading-relaxed max-w-2xl">
+              柳葉刀研究顯示日本癌症五年存活率達 <span className="text-white font-bold">57.4%</span>
+            </p>
+            <p className="text-lg text-gray-400 mb-8 leading-relaxed max-w-2xl">
+              質子重離子、光免疫療法、BNCT 硼中子俘獲——世界前沿療法匯聚日本
             </p>
 
             <div className="flex flex-wrap gap-4 mb-12">
@@ -169,7 +179,7 @@ export default function CancerTreatmentPage() {
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-full font-bold hover:from-blue-600 hover:to-purple-700 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
               >
                 <MessageSquare size={20} />
-                諮詢治療方案
+                免費諮詢治療方案
                 <ArrowRight size={18} />
               </a>
               <a
@@ -180,19 +190,38 @@ export default function CancerTreatmentPage() {
               </a>
             </div>
 
-            {/* Key Stats */}
-            <div className="flex flex-wrap gap-8 text-white/80">
+            {/* Key Stats - Data Driven */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
+                <div className="text-3xl font-bold text-white mb-1">74.9%</div>
+                <div className="text-sm text-gray-300">胃癌五年存活率</div>
+                <div className="text-xs text-gray-400 mt-1">全球領先</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
+                <div className="text-3xl font-bold text-white mb-1">95%+</div>
+                <div className="text-sm text-gray-300">前列腺癌質子治療</div>
+                <div className="text-xs text-gray-400 mt-1">五年存活率</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
+                <div className="text-3xl font-bold text-white mb-1">1/3</div>
+                <div className="text-sm text-gray-300">費用僅為美國</div>
+                <div className="text-xs text-gray-400 mt-1">性價比更優</div>
+              </div>
+            </div>
+
+            {/* Trust Points */}
+            <div className="flex flex-wrap gap-6 text-white/80">
+              <div className="flex items-center gap-2">
+                <CheckCircle size={18} className="text-green-400" />
+                <span className="text-sm">超早期精密篩查，5mm 腫瘤可檢出</span>
+              </div>
               <div className="flex items-center gap-2">
                 <CheckCircle size={18} className="text-green-400" />
                 <span className="text-sm">專業醫療翻譯全程陪同</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle size={18} className="text-green-400" />
-                <span className="text-sm">遠程會診確認方案後再來日</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle size={18} className="text-green-400" />
-                <span className="text-sm">治療後持續隨訪支持</span>
+                <span className="text-sm">遠程會診確認後再赴日</span>
               </div>
             </div>
           </div>
