@@ -2,7 +2,7 @@ import { ItineraryRequest, QuoteResponse } from '../types';
 
 // API 基础 URL（根据环境自动切换）
 const API_BASE_URL = process.env.NODE_ENV === 'production'
-  ? 'https://linkquoteai.com'
+  ? 'https://www.niijima-koutsu.jp'
   : 'http://localhost:3000';
 
 /**

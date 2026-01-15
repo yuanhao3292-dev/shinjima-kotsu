@@ -990,7 +990,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           <div className="container mx-auto px-6 flex flex-col items-center justify-center text-center z-10 pointer-events-none">
               <div className="animate-fade-in-up space-y-8 mt-48 md:mt-64">
                   <div className="pt-12 pointer-events-auto">
-                      <button
+                      <button 
                           onClick={() => document.getElementById('ai-b2b')?.scrollIntoView({behavior: 'smooth'})}
                           className="group inline-flex items-center gap-2 text-gray-800 border border-gray-300 bg-white/50 backdrop-blur-md px-8 py-3 rounded-full text-sm tracking-widest hover:bg-black hover:text-white hover:border-black transition duration-300 shadow-lg"
                       >
@@ -1003,151 +1003,6 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
              <ChevronDown size={24} />
           </div>
       </header>
-
-      {/* NEW: AI Health Screening Entry Section - Prominent CTA */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-30 pointer-events-none">
-             <div className="absolute w-96 h-96 bg-blue-200 rounded-full filter blur-3xl top-0 left-1/4 -translate-x-1/2"></div>
-             <div className="absolute w-72 h-72 bg-purple-200 rounded-full filter blur-3xl bottom-0 right-1/4 translate-x-1/2"></div>
-          </div>
-
-          <div className="container mx-auto px-6 relative z-10">
-              <div className="max-w-4xl mx-auto text-center">
-                  {/* AI Badge */}
-                  <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-blue-200 px-4 py-2 rounded-full mb-6 shadow-sm">
-                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                      <span className="text-xs font-bold text-blue-700 uppercase tracking-wider">AI 智能健康評估</span>
-                      <Bot size={14} className="text-blue-600" />
-                  </div>
-
-                  <h2 className="text-3xl md:text-5xl font-serif font-bold text-gray-900 mb-6 leading-tight">
-                      {currentLang === 'zh-TW' ? (
-                          <>
-                              不確定是否需要赴日體檢？<br/>
-                              <span className="gemini-text">讓 AI 幫您分析</span>
-                          </>
-                      ) : currentLang === 'ja' ? (
-                          <>
-                              日本での健診が必要か分からない？<br/>
-                              <span className="gemini-text">AIが分析します</span>
-                          </>
-                      ) : (
-                          <>
-                              Not sure if you need a checkup in Japan?<br/>
-                              <span className="gemini-text">Let AI Analyze</span>
-                          </>
-                      )}
-                  </h2>
-
-                  <p className="text-gray-600 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
-                      {currentLang === 'zh-TW'
-                          ? '透過 3 分鐘的智能問答，AI 將根據您的健康狀況、家族病史、生活習慣等因素，評估您的疾病風險並推薦最適合的日本體檢方案。'
-                          : currentLang === 'ja'
-                          ? '3分間のAI問診で、健康状態・家族歴・生活習慣などを分析し、あなたに最適な健診プランをご提案します。'
-                          : 'Through a 3-minute AI assessment, we analyze your health status, family history, and lifestyle to recommend the most suitable Japan medical checkup package for you.'
-                      }
-                  </p>
-
-                  {/* Primary CTA Button */}
-                  <a
-                      href="/health-screening"
-                      className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white px-10 py-5 rounded-full text-lg font-bold hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 transition-all shadow-xl shadow-blue-200/50 hover:shadow-2xl hover:-translate-y-1 group"
-                  >
-                      <Scan className="w-6 h-6 group-hover:animate-pulse" />
-                      <span>{currentLang === 'zh-TW' ? '開始 AI 健康檢測' : currentLang === 'ja' ? 'AI健康診断を開始' : 'Start AI Health Screening'}</span>
-                      <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                  </a>
-
-                  {/* Trust Indicators */}
-                  <div className="flex flex-wrap justify-center gap-8 mt-10 text-sm text-gray-500">
-                      <div className="flex items-center gap-2">
-                          <Shield size={16} className="text-green-600" />
-                          <span>{currentLang === 'zh-TW' ? '隱私安全' : 'Privacy Protected'}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                          <CheckCircle size={16} className="text-blue-600" />
-                          <span>{currentLang === 'zh-TW' ? '免費評估' : 'Free Assessment'}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                          <Sparkles size={16} className="text-purple-600" />
-                          <span>{currentLang === 'zh-TW' ? '專業醫療團隊審核' : 'Medical Team Reviewed'}</span>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </section>
-
-      {/* NEW: Three Cards Navigation Section */}
-      <section className="py-16 bg-white">
-          <div className="container mx-auto px-6">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-
-                  {/* Card 1: AI Health Screening */}
-                  <a href="/health-screening" className="group bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-                      <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                          <Scan size={28} />
-                      </div>
-                      <h3 className="text-xl font-serif font-bold text-gray-900 mb-3 group-hover:text-blue-700 transition-colors">
-                          {currentLang === 'zh-TW' ? 'AI 健康檢測' : currentLang === 'ja' ? 'AI健康診断' : 'AI Health Screening'}
-                      </h3>
-                      <p className="text-gray-500 text-sm leading-relaxed mb-4">
-                          {currentLang === 'zh-TW'
-                              ? '智能問診評估您的健康風險，了解是否需要進一步檢查'
-                              : currentLang === 'ja'
-                              ? 'AI問診であなたの健康リスクを評価'
-                              : 'AI assessment to evaluate your health risks'
-                          }
-                      </p>
-                      <span className="inline-flex items-center gap-1 text-blue-600 text-sm font-bold group-hover:gap-2 transition-all">
-                          {currentLang === 'zh-TW' ? '開始檢測' : 'Start'} <ArrowRight size={14} />
-                      </span>
-                  </a>
-
-                  {/* Card 2: Package Recommender */}
-                  <a href="/package-recommender" className="group bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-                      <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                          <MessageSquare size={28} />
-                      </div>
-                      <h3 className="text-xl font-serif font-bold text-gray-900 mb-3 group-hover:text-green-700 transition-colors">
-                          {currentLang === 'zh-TW' ? '套餐智能推薦' : currentLang === 'ja' ? 'パッケージ推薦' : 'Package Recommender'}
-                      </h3>
-                      <p className="text-gray-500 text-sm leading-relaxed mb-4">
-                          {currentLang === 'zh-TW'
-                              ? '已決定體檢？回答問卷找到最適合您的套餐'
-                              : currentLang === 'ja'
-                              ? '健診決定済み？最適なプランをご提案'
-                              : 'Decided on checkup? Find your ideal package'
-                          }
-                      </p>
-                      <span className="inline-flex items-center gap-1 text-green-600 text-sm font-bold group-hover:gap-2 transition-all">
-                          {currentLang === 'zh-TW' ? '開始推薦' : 'Start'} <ArrowRight size={14} />
-                      </span>
-                  </a>
-
-                  {/* Card 3: Order Lookup */}
-                  <a href="/order-lookup" className="group bg-gradient-to-br from-gray-50 to-slate-50 rounded-2xl p-8 border border-gray-200 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-                      <div className="w-14 h-14 bg-gradient-to-br from-gray-600 to-slate-700 rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                          <FileText size={28} />
-                      </div>
-                      <h3 className="text-xl font-serif font-bold text-gray-900 mb-3 group-hover:text-gray-700 transition-colors">
-                          {currentLang === 'zh-TW' ? '訂單查詢' : currentLang === 'ja' ? '予約確認' : 'Order Lookup'}
-                      </h3>
-                      <p className="text-gray-500 text-sm leading-relaxed mb-4">
-                          {currentLang === 'zh-TW'
-                              ? '已預約？輸入郵箱和訂單號查看預約狀態'
-                              : currentLang === 'ja'
-                              ? '予約済み？予約状況を確認'
-                              : 'Already booked? Check your reservation status'
-                          }
-                      </p>
-                      <span className="inline-flex items-center gap-1 text-gray-600 text-sm font-bold group-hover:gap-2 transition-all">
-                          {currentLang === 'zh-TW' ? '查詢訂單' : 'Check'} <ArrowRight size={14} />
-                      </span>
-                  </a>
-
-              </div>
-          </div>
-      </section>
 
     {/* Medical Preview Section */}
     <section className="py-24 bg-white relative z-10">
@@ -1537,7 +1392,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
             {/* Desktop Menu */}
             <div className="hidden lg:flex items-center gap-8">
                <button onClick={() => setCurrentPage('medical')} className={`text-sm font-medium hover:text-blue-600 transition ${currentPage === 'medical' ? 'text-blue-600 font-bold' : 'text-gray-600'}`}>{t.nav.timc}</button>
-               <button onClick={() => router.push('/cancer-treatment')} className="text-sm font-medium hover:text-red-600 transition text-gray-600">{currentLang === 'zh-TW' ? '日本綜合治療' : currentLang === 'ja' ? '日本総合治療' : 'Cancer Treatment'}</button>
                <button onClick={() => setCurrentPage('golf')} className={`text-sm font-medium hover:text-blue-600 transition ${currentPage === 'golf' ? 'text-blue-600 font-bold' : 'text-gray-600'}`}>{t.nav.golf}</button>
                <button onClick={() => setCurrentPage('business')} className={`text-sm font-medium hover:text-blue-600 transition ${currentPage === 'business' ? 'text-blue-600 font-bold' : 'text-gray-600'}`}>{t.nav.business}</button>
                <button onClick={() => setCurrentPage('partner')} className={`text-sm font-medium hover:text-blue-600 transition ${currentPage === 'partner' ? 'text-blue-600 font-bold' : 'text-gray-600'}`}>{t.nav.partner}</button>
@@ -1566,7 +1420,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
        {mobileMenuOpen && (
           <div className="fixed top-20 left-0 w-full h-[calc(100vh-80px)] bg-white z-40 p-6 flex flex-col gap-6 overflow-y-auto animate-fade-in-down">
               <button onClick={() => { setCurrentPage('medical'); setMobileMenuOpen(false); }} className="text-xl font-serif border-b pb-2">{t.nav.timc}</button>
-              <button onClick={() => { router.push('/cancer-treatment'); setMobileMenuOpen(false); }} className="text-xl font-serif border-b pb-2 text-red-600">{currentLang === 'zh-TW' ? '日本綜合治療' : currentLang === 'ja' ? '日本総合治療' : 'Cancer Treatment'}</button>
               <button onClick={() => { setCurrentPage('golf'); setMobileMenuOpen(false); }} className="text-xl font-serif border-b pb-2">{t.nav.golf}</button>
               <button onClick={() => { setCurrentPage('business'); setMobileMenuOpen(false); }} className="text-xl font-serif border-b pb-2">{t.nav.business}</button>
               <button onClick={() => { setCurrentPage('partner'); setMobileMenuOpen(false); }} className="text-xl font-serif border-b pb-2">{t.nav.partner}</button>

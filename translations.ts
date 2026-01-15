@@ -4,7 +4,7 @@ export type Language = 'ja' | 'zh-TW' | 'en' | 'ko' | 'de';
 export const translations = {
   ja: {
     nav: {
-      timc: 'TIMC 特別提携',
+      timc: '日本精密健檢',
       business: '商務視察',
       golf: '名門ゴルフ',
       partner: '同業パートナー',
@@ -14,13 +14,7 @@ export const translations = {
       brand_sub: '新島交通株式会社'
     },
     hero: {
-      partner: 'OFFICIAL PARTNER OF TIMC & TOKUSHUKAI GROUP',
-      title_1: '静寂と、',
-      title_2: '最先端の境目で。',
-      title_3: '',
-      subtitle: '新島交通は、日本最大医療グループ「徳洲会」と提携し、\nTIMC 大阪中央高級医療センターへのVIPアクセスを提供します。\n最高峰の人間ドック・癒やしの旅・ビジネス視察。',
-      cta: '探索',
-      explore: '医療リソースを見る'
+      cta: '探索'
     },
     medical: {
       tag: 'Predict the Future, Reverse Time',
@@ -28,16 +22,16 @@ export const translations = {
       desc: '日本最先端の再生医療を、あなたの健康管理へ。\n最高峰の精密検査でリスクを予知し、幹細胞技術で老化や重篤な疾患に立ち向かう。\nこれは単なる治療ではなく、科学の力で時間に抗う「生命の革命」です。',
       btn_detail: 'TIMC 施設詳細を見る',
       hero_tag: 'Tokushukai International Medical Center',
-      hero_title_1: '未病（Mibyou）の',
-      hero_title_2: '究極の守護',
+      hero_title_1: '一歩先の発見が',
+      hero_title_2: '十年の安心に',
       hero_subtitle: '日本最大医療グループ「徳洲会」旗艦施設 × 大阪駅ランドマーク JP Tower',
       hero_text: '最先端の医療技術と、五つ星ホテルのホスピタリティが融合。\n新島交通は公式パートナーとして、VIP優先予約枠を確保します。',
       auth_tag: 'Authority & Trust',
       auth_title: 'Why TIMC?',
       auth_1_t: '徳洲会グループ',
       auth_1_d: '日本最大の民間医療グループ。約400の医療施設を有し、最高水準の予防医学を提供します。',
-      auth_2_t: '黄金の立地',
-      auth_2_d: '大阪駅直結 JP Tower 11階。アクセス抜群で、検査前後のショッピングや美食も楽しめます。',
+      auth_2_t: 'トップクラスの医師陣',
+      auth_2_d: '徳洲会グループ4.2万人の医療チームを背景に、全国71病院の専門医リソースがいつでも連携支援。',
       auth_3_t: 'ラグジュアリー空間',
       auth_3_d: '完全個室設計。専用のバスルームとラウンジを備え、プライバシーを徹底的に守ります。',
       tech_tag: 'Future Medical Tech',
@@ -326,23 +320,17 @@ export const translations = {
   },
   'zh-TW': {
     nav: {
-      timc: 'TIMC 特別提携',
+      timc: '日本精密健檢',
       business: '商務考察',
       golf: '名門高爾夫',
       partner: '同業合作',
       ai: 'AI B2B 系統',
       about: '公司簡介',
-      login: '同業登入',
+      login: '會員登入',
       brand_sub: '新島交通株式會社'
     },
     hero: {
-      partner: 'OFFICIAL PARTNER OF TIMC & TOKUSHUKAI GROUP',
-      title_1: '靜寂與，',
-      title_2: '尖端科技',
-      title_3: '的交界。',
-      subtitle: '新島交通攜手日本最大醫療集團「德洲會」，\n為您開啟通往 TIMC 大阪中央高級醫療中心的貴賓通道。\n高端健檢 · 隱世療癒 · 商務考察。',
-      cta: '探索',
-      explore: '探索'
+      cta: '探索'
     },
     medical: {
       tag: 'Predict the Future, Reverse Time',
@@ -350,16 +338,16 @@ export const translations = {
       desc: '將日本先端的再生醫療引入您的健康管理。\n透過頂級精密健檢預知風險，利用幹細胞技術對抗衰老與重疾。\n這不僅是治療，更是一場用科技對抗時間的生命革命。',
       btn_detail: '查看 TIMC 設施詳情',
       hero_tag: 'Tokushukai International Medical Center',
-      hero_title_1: '未病 (Mibyou) 的',
-      hero_title_2: '極致守護',
+      hero_title_1: '早一步發現',
+      hero_title_2: '多十年安心',
       hero_subtitle: '日本最大醫療集團「德洲會」旗艦設施 × 大阪站地標 JP Tower',
       hero_text: '在這裡，頂尖醫療技術與五星級酒店服務完美融合。\n新島交通作為官方授權合作夥伴，為您開啟 VIP 綠色預約通道。',
       auth_tag: '權威與信賴',
       auth_title: 'Why TIMC?',
       auth_1_t: '德洲會集團',
       auth_1_d: '日本最大的私立醫療集團，擁有約 400 家醫療設施。代表了日本預防醫學的最高水準。',
-      auth_2_t: '黃金地段',
-      auth_2_d: '位於大阪站直連的地標建築 JP Tower 11層。交通極度便利，健檢前後可享受頂級購物體驗。',
+      auth_2_t: '頂尖醫師資源',
+      auth_2_d: '背靠德洲會 4.2 萬名醫護團隊，覆蓋全日本 71 家醫院的專科資源隨時調度支援。',
       auth_3_t: '奢華空間',
       auth_3_d: '告別傳統醫院的擁擠。採用「全室個室」設計，每位貴賓擁有獨立衛浴的專屬包廂。',
       tech_tag: '未來醫療科技',
@@ -648,7 +636,7 @@ export const translations = {
   },
   en: {
     nav: {
-      timc: 'TIMC Partnership',
+      timc: 'Japan Premium Health Check',
       business: 'Business MICE',
       golf: 'Premium Golf',
       partner: 'For Partners',

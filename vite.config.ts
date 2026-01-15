@@ -9,11 +9,11 @@ export default defineConfig(({ mode }) => {
         port: 3000,
         host: '0.0.0.0',
         cors: {
-          origin: ['http://localhost:3000', 'https://linkquoteai.com', 'https://www.linkquoteai.com'],
+          origin: ['http://localhost:3000', 'https://niijima-koutsu.jp', 'https://www.niijima-koutsu.jp'],
           credentials: true
         },
         headers: {
-          'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://linkquoteai.com https://www.linkquoteai.com;",
+          'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://niijima-koutsu.jp https://www.niijima-koutsu.jp https://fonts.gstatic.com blob:;",
           'X-Content-Type-Options': 'nosniff',
           'X-Frame-Options': 'DENY',
           'X-XSS-Protection': '1; mode=block',
