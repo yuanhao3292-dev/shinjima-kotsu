@@ -2,10 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
 
-  // 环境变量配置
-  env: {
-    GEMINI_API_KEY: process.env.GEMINI_API_KEY,
-  },
+  // 注意：不要在 env 中暴露敏感 API 密钥到客户端
+  // GEMINI_API_KEY 应该只在服务端使用（API routes）
+  // 如需客户端使用，应使用 NEXT_PUBLIC_ 前缀并确认安全性
 
   // 图片优化配置
   images: {

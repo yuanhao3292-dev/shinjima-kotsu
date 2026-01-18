@@ -1,6 +1,41 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
+// ============================================
+// 简单的内存速率限制器（防止暴力枚举）
+// 生产环境建议使用 Redis 或 Upstash
+// ============================================
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 分钟
+const RATE_LIMIT_MAX_REQUESTS = 5; // 每分钟最多 5 次请求
+
+function checkRateLimit(identifier: string): boolean {
+  const now = Date.now();
+  const record = rateLimitMap.get(identifier);
+
+  // 清理过期记录（简单实现，生产环境需要更好的清理策略）
+  if (rateLimitMap.size > 10000) {
+    for (const [key, value] of rateLimitMap) {
+      if (value.resetTime < now) {
+        rateLimitMap.delete(key);
+      }
+    }
+  }
+
+  if (!record || record.resetTime < now) {
+    // 新记录或已过期
+    rateLimitMap.set(identifier, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+    return true;
+  }
+
+  if (record.count >= RATE_LIMIT_MAX_REQUESTS) {
+    return false; // 超过限制
+  }
+
+  record.count++;
+  return true;
+}
+
 // 延迟初始化 Supabase 客户端
 const getSupabase = () => {
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
@@ -61,6 +96,19 @@ export async function GET(request: NextRequest) {
 // POST: 通过 email + orderId 查询订单详情
 export async function POST(request: NextRequest) {
   try {
+    // 获取客户端 IP 用于速率限制
+    const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+      || request.headers.get('x-real-ip')
+      || 'unknown';
+
+    // 检查速率限制
+    if (!checkRateLimit(clientIp)) {
+      return NextResponse.json(
+        { error: '請求過於頻繁，請稍後再試' },
+        { status: 429 }
+      );
+    }
+
     const supabase = getSupabase();
     const body = await request.json();
     const { email, orderId } = body;

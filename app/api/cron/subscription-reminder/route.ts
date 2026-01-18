@@ -15,8 +15,20 @@ export async function GET(request: NextRequest) {
   const authHeader = request.headers.get('authorization');
   const cronSecret = process.env.CRON_SECRET;
 
+  // 安全修复：生产环境必须配置 CRON_SECRET
+  if (process.env.NODE_ENV === 'production' && !cronSecret) {
+    console.error('CRON_SECRET is not configured in production');
+    return NextResponse.json({ error: 'Server misconfiguration' }, { status: 500 });
+  }
+
+  // 验证 Bearer Token
   if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  // 开发环境警告
+  if (!cronSecret && process.env.NODE_ENV !== 'production') {
+    console.warn('Warning: CRON_SECRET not set, skipping auth in development');
   }
 
   const supabase = createClient(

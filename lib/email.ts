@@ -11,8 +11,8 @@ const getResend = () => {
 
 // 发件人地址 - 使用已验证的 niijima-koutsu.jp 域名
 const FROM_EMAIL = 'TIMC 體檢預約 <noreply@niijima-koutsu.jp>';
-// 抄送给商家的邮箱 - TODO: 替换为您的实际邮箱
-const BCC_EMAIL = 'yuanhao3292@gmail.com'; // 商家通知邮箱
+// 抄送给商家的邮箱 - 从环境变量读取，避免硬编码
+const BCC_EMAIL = process.env.NOTIFICATION_EMAIL || process.env.ADMIN_EMAIL || '';
 
 interface OrderConfirmationData {
   customerName: string;

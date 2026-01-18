@@ -2,8 +2,21 @@ import { NextRequest, NextResponse } from 'next/server';
 import { sendOrderConfirmationEmail } from '@/lib/email';
 
 // 测试邮件 API - 仅用于测试邮件模板
+// 安全限制：仅开发环境可用，生产环境需要 Admin 认证
 export async function POST(request: NextRequest) {
-  // 仅在开发环境或特定条件下允许
+  // 生产环境禁止访问（除非有 Admin Token）
+  if (process.env.NODE_ENV === 'production') {
+    const authHeader = request.headers.get('authorization');
+    const adminSecret = process.env.ADMIN_SECRET;
+
+    if (!adminSecret || authHeader !== `Bearer ${adminSecret}`) {
+      return NextResponse.json(
+        { error: 'This endpoint is disabled in production' },
+        { status: 403 }
+      );
+    }
+  }
+
   const { testEmail } = await request.json();
 
   if (!testEmail) {
