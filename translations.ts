@@ -4,14 +4,15 @@ export type Language = 'ja' | 'zh-TW' | 'en' | 'ko' | 'de';
 export const translations = {
   ja: {
     nav: {
-      timc: '日本精密健檢',
+      timc: '日本精密健診',
       business: '商務視察',
       golf: '名門ゴルフ',
-      partner: '同業パートナー',
-      ai: 'AI B2B システム',
+      partner: '業務提携',
+      guidePartner: 'ガイドパートナー',
       about: '会社概要',
-      login: 'パートナーログイン',
-      brand_sub: '新島交通株式会社'
+      login: 'ログイン',
+      brand_sub: '新島交通株式会社',
+      ai: 'AI見積'
     },
     hero: {
       cta: '探索'
@@ -274,19 +275,33 @@ export const translations = {
       cta_desc: '台湾・中国・欧米の旅行会社様と多数取引実績がございます。\nまずはAI見積もりシステムのデモをお試しください。',
       cta_btn: 'パートナー申請へ進む'
     },
-    ai: {
-      tag: 'For Travel Agencies',
-      title: 'AI インテリジェント見積もり',
-      desc: '面倒な相見積もりはAIにお任せください。\n自然言語で行程を認識し、TIMC契約レートとリアルタイム在庫を自動統合。',
-      input_label: '要望を入力 (LINE/メール)',
-      input_ph: '（例）来月、VIP夫婦2名でTIMCのPET-CTを受けたい。その後京都で3泊、アマン京都希望。全行程アルファードで。',
-      btn_gen: 'AIで即時見積もり',
-      result_tag: 'AI Quotation Result',
-      result_med: '医療リソース (TIMC)',
-      result_stay: '宿泊 (Aman/Hoshinoya)',
-      result_car: '交通 (Alphard)',
-      total: '概算合計 (税込)',
-      note: '*この見積もりはAI試算であり、最終価格は確認書に準じます。'
+    guidePartner: {
+      tag: 'Guide Partnership Program',
+      title: '導遊合夥人計劃',
+      subtitle: '讓每位獨立導遊，都擁有旅行社的資源',
+      desc: '您直接接觸富裕層客戶，卻沒有旅行社資質？\n新島交通作為日本第二類旅行社，為您打通160家高端夜總會、頂級體檢中心、綜合醫療等獨家資源。',
+      service1_title: '高端夜總會',
+      service1_desc: 'INSOU集團160家店舖\n覆蓋全日本（除北海道/沖繩）',
+      service1_icon: 'nightclub',
+      service2_title: 'TIMC精密體檢',
+      service2_desc: '德洲會集團旗艦設施\n大阪JP Tower',
+      service2_icon: 'medical',
+      service3_title: '綜合醫療',
+      service3_desc: '幹細胞·抗衰·專科治療\n日本頂尖醫療資源',
+      service3_icon: 'treatment',
+      commission_title: '透明返金機制',
+      commission_rate: '10%',
+      commission_desc: '消費稅後金額',
+      commission_example: '客戶消費100萬日元 → 您獲得約9.1萬日元返金',
+      rule1_title: '推薦制準入',
+      rule1_desc: '會員推薦才能加入，確保圈子品質',
+      rule2_title: '500元訂金',
+      rule2_desc: '篩選認真客戶，保護商家利益',
+      rule3_title: '月結算',
+      rule3_desc: '穩定可靠，每月準時結算',
+      cta_detail: '了解詳情',
+      cta_apply: '申請加入',
+      footer_note: '已有3000+在日導遊加入我們的合作網絡'
     },
     about: {
       title: '会社概要',
@@ -324,10 +339,11 @@ export const translations = {
       business: '商務考察',
       golf: '名門高爾夫',
       partner: '同業合作',
-      ai: 'AI B2B 系統',
+      guidePartner: '導遊合夥人',
       about: '公司簡介',
       login: '會員登入',
-      brand_sub: '新島交通株式會社'
+      brand_sub: '新島交通株式會社',
+      ai: 'AI 報價'
     },
     hero: {
       cta: '探索'
@@ -590,19 +606,33 @@ export const translations = {
       cta_desc: '我們已與超過 200 家台灣旅行社建立信任關係。\n現在加入，體驗零時差的 AI 報價與高品質地接服務。',
       cta_btn: '提交夥伴申請'
     },
-    ai: {
-      tag: 'For Travel Agencies',
-      title: 'AI 智能報價系統',
-      desc: '將繁瑣的詢價工作留給 AI。專為同業打造。\n支持自然語言識別行程，自動整合 TIMC 協議價與實時庫存。',
-      input_label: '輸入需求 (LINE/Email)',
-      input_ph: '（例）你好，VIP 夫婦 2 人想去大阪做 TIMC 頂級健檢，之後去京都住安縵，全程 Alphard 接送...',
-      btn_gen: 'AI 極速估價',
-      result_tag: 'AI Quotation Result',
-      result_med: '醫療資源 (TIMC)',
-      result_stay: '住宿 (Aman/Hoshinoya)',
-      result_car: '交通 (Alphard)',
-      total: '預估總成本 (含稅)',
-      note: '*此報價為 AI 估算結果，最終價格以人工確認書為準。'
+    guidePartner: {
+      tag: 'Guide Partnership Program',
+      title: '導遊合夥人計劃',
+      subtitle: '讓每位獨立導遊，都擁有旅行社的資源',
+      desc: '您直接接觸富裕層客戶，卻沒有旅行社資質？\n新島交通作為日本第二類旅行社，為您打通160家高端夜總會、頂級體檢中心、綜合醫療等獨家資源。',
+      service1_title: '高端夜總會',
+      service1_desc: 'INSOU集團160家店舖\n覆蓋全日本（除北海道/沖繩）',
+      service1_icon: 'nightclub',
+      service2_title: 'TIMC精密體檢',
+      service2_desc: '德洲會集團旗艦設施\n大阪JP Tower',
+      service2_icon: 'medical',
+      service3_title: '綜合醫療',
+      service3_desc: '幹細胞·抗衰·專科治療\n日本頂尖醫療資源',
+      service3_icon: 'treatment',
+      commission_title: '透明返金機制',
+      commission_rate: '10%',
+      commission_desc: '消費稅後金額',
+      commission_example: '客戶消費100萬日元 → 您獲得約9.1萬日元返金',
+      rule1_title: '推薦制準入',
+      rule1_desc: '會員推薦才能加入，確保圈子品質',
+      rule2_title: '500元訂金',
+      rule2_desc: '篩選認真客戶，保護商家利益',
+      rule3_title: '月結算',
+      rule3_desc: '穩定可靠，每月準時結算',
+      cta_detail: '了解詳情',
+      cta_apply: '申請加入',
+      footer_note: '已有3000+在日導遊加入我們的合作網絡'
     },
     about: {
       title: '會社概要',
@@ -640,10 +670,11 @@ export const translations = {
       business: 'Business MICE',
       golf: 'Premium Golf',
       partner: 'For Partners',
-      ai: 'AI Quote System',
+      guidePartner: 'Guide Partner',
       about: 'About Us',
-      login: 'Partner Login',
-      brand_sub: 'Niijima Kotsu Co., Ltd.'
+      login: 'Login',
+      brand_sub: 'Niijima Kotsu Co., Ltd.',
+      ai: 'AI Quote'
     },
     hero: {
       partner: 'OFFICIAL PARTNER OF TIMC & TOKUSHUKAI GROUP',
@@ -912,19 +943,33 @@ export const translations = {
       cta_desc: 'Join over 200 agencies worldwide.\nExperience the future of DMC services with our AI system.',
       cta_btn: 'Apply Now'
     },
-    ai: {
-      tag: 'For Travel Agencies',
-      title: 'AI Intelligent Quote',
-      desc: 'Leave the complex pricing to AI.\nRecognizes itineraries from natural language and integrates TIMC rates instantly.',
-      input_label: 'Paste Request (Email/Text)',
-      input_ph: 'e.g. VIP-Paar benötigt TIMC Premium Checkup nächsten Monat, dann 3 Nächte im Aman Kyoto...',
-      btn_gen: 'Angebot erstellen',
-      result_tag: 'AI Quotation Result',
-      result_med: 'Medizinisch (TIMC)',
-      result_stay: 'Hotel (Aman/Hoshinoya)',
-      result_car: 'Transport (Alphard)',
-      total: 'Geschätzte Summe (inkl. Steuern)',
-      note: '*AI-Schätzung. Endpreis vorbehaltlich offizieller Bestätigung.'
+    guidePartner: {
+      tag: 'Guide Partnership Program',
+      title: '導遊合夥人計劃',
+      subtitle: '讓每位獨立導遊，都擁有旅行社的資源',
+      desc: '您直接接觸富裕層客戶，卻沒有旅行社資質？\n新島交通作為日本第二類旅行社，為您打通160家高端夜總會、頂級體檢中心、綜合醫療等獨家資源。',
+      service1_title: '高端夜總會',
+      service1_desc: 'INSOU集團160家店舖\n覆蓋全日本（除北海道/沖繩）',
+      service1_icon: 'nightclub',
+      service2_title: 'TIMC精密體檢',
+      service2_desc: '德洲會集團旗艦設施\n大阪JP Tower',
+      service2_icon: 'medical',
+      service3_title: '綜合醫療',
+      service3_desc: '幹細胞·抗衰·專科治療\n日本頂尖醫療資源',
+      service3_icon: 'treatment',
+      commission_title: '透明返金機制',
+      commission_rate: '10%',
+      commission_desc: '消費稅後金額',
+      commission_example: '客戶消費100萬日元 → 您獲得約9.1萬日元返金',
+      rule1_title: '推薦制準入',
+      rule1_desc: '會員推薦才能加入，確保圈子品質',
+      rule2_title: '500元訂金',
+      rule2_desc: '篩選認真客戶，保護商家利益',
+      rule3_title: '月結算',
+      rule3_desc: '穩定可靠，每月準時結算',
+      cta_detail: '了解詳情',
+      cta_apply: '申請加入',
+      footer_note: '已有3000+在日導遊加入我們的合作網絡'
     },
     about: {
       title: 'Company Profile',

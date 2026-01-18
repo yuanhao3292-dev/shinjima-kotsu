@@ -2,20 +2,37 @@
 
 import { useState } from 'react';
 import { MessageCircle, X, Phone, Mail } from 'lucide-react';
-
-// 联系方式
-const PHONE = '06-6632-8807';
-const EMAIL = 'haoyuan@niijima-koutsu.jp';
-
-// LINE 链接（跳转到 LINE 官方页面显示二维码）
-const LINE_URL = 'https://line.me/ti/p/j3XxBP50j9';
-
-// 微信二维码图片路径
-const WECHAT_QR_URL = '/wechat-qr.png';
+import { useWhiteLabel } from '@/lib/contexts/WhiteLabelContext';
+import { DEFAULT_CONTACT } from '@/lib/whitelabel-config';
 
 export default function FloatingContact() {
   const [isOpen, setIsOpen] = useState(false);
   const [showWechatQR, setShowWechatQR] = useState(false);
+
+  // 获取白标配置
+  const { isWhiteLabelMode, contact, isSubscriptionActive, guideConfig } = useWhiteLabel();
+
+  // 白标模式下使用导游联系方式
+  const displayPhone = isWhiteLabelMode && isSubscriptionActive && contact.phone
+    ? contact.phone
+    : DEFAULT_CONTACT.PHONE;
+
+  const displayEmail = isWhiteLabelMode && isSubscriptionActive && contact.email
+    ? contact.email
+    : DEFAULT_CONTACT.EMAIL;
+
+  const displayWechat = isWhiteLabelMode && isSubscriptionActive && contact.wechat
+    ? contact.wechat
+    : null;
+
+  const displayLine = isWhiteLabelMode && isSubscriptionActive && contact.line
+    ? contact.line
+    : null;
+
+  // 白标模式下如果没有配置联系方式，使用官方 LINE
+  const lineUrl = displayLine
+    ? `https://line.me/ti/p/${displayLine}`
+    : DEFAULT_CONTACT.LINE_URL;
 
   return (
     <>
@@ -39,16 +56,24 @@ export default function FloatingContact() {
               </button>
             </div>
 
-            <div className="bg-gray-50 rounded-xl p-4 flex justify-center">
-              <img
-                src={WECHAT_QR_URL}
-                alt="WeChat QR Code"
-                className="w-64 h-64 object-contain"
-              />
+            <div className="bg-gray-50 rounded-xl p-4 flex flex-col items-center justify-center">
+              {/* 白标模式显示微信号，官方模式显示二维码 */}
+              {displayWechat ? (
+                <div className="text-center py-8">
+                  <p className="text-gray-500 text-sm mb-3">请添加微信号：</p>
+                  <p className="text-2xl font-bold text-gray-800 select-all">{displayWechat}</p>
+                </div>
+              ) : (
+                <img
+                  src={DEFAULT_CONTACT.WECHAT_QR_URL}
+                  alt="WeChat QR Code"
+                  className="w-64 h-64 object-contain"
+                />
+              )}
             </div>
 
             <p className="text-center text-gray-600 mt-4 text-sm">
-              請用微信掃描二維碼添加客服
+              {displayWechat ? '添加微信後請說明來意' : '請用微信掃描二維碼添加客服'}
             </p>
 
             <div className="mt-4 text-center text-xs px-3 py-2 rounded-lg bg-[#07C160]/10 text-[#07C160]">
@@ -79,7 +104,7 @@ export default function FloatingContact() {
             <div className="space-y-3">
               {/* LINE 咨询 - 跳转到 LINE 官方页面 */}
               <a
-                href={LINE_URL}
+                href={lineUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full flex items-center gap-3 bg-[#06C755] hover:bg-[#05b34c] text-white px-4 py-3 rounded-xl transition-all duration-200 shadow-lg shadow-green-200"
@@ -89,7 +114,7 @@ export default function FloatingContact() {
                 </svg>
                 <div>
                   <div className="font-bold text-sm">LINE 諮詢</div>
-                  <div className="text-xs text-green-100">即時回覆・推薦</div>
+                  <div className="text-xs text-green-100">{displayLine ? `ID: ${displayLine}` : '即時回覆・推薦'}</div>
                 </div>
               </a>
 
@@ -109,25 +134,25 @@ export default function FloatingContact() {
 
               {/* 电话 */}
               <a
-                href={`tel:${PHONE}`}
+                href={`tel:${displayPhone.replace(/[^0-9+]/g, '')}`}
                 className="flex items-center gap-3 bg-gray-50 hover:bg-gray-100 text-gray-700 px-4 py-3 rounded-xl transition-all duration-200"
               >
                 <Phone size={20} className="text-blue-500" />
                 <div>
                   <div className="font-medium text-sm">電話諮詢</div>
-                  <div className="text-xs text-gray-400">{PHONE}</div>
+                  <div className="text-xs text-gray-400">{displayPhone}</div>
                 </div>
               </a>
 
               {/* 邮件 */}
               <a
-                href={`mailto:${EMAIL}`}
+                href={`mailto:${displayEmail}`}
                 className="flex items-center gap-3 bg-gray-50 hover:bg-gray-100 text-gray-700 px-4 py-3 rounded-xl transition-all duration-200"
               >
                 <Mail size={20} className="text-purple-500" />
                 <div>
                   <div className="font-medium text-sm">電子郵件</div>
-                  <div className="text-xs text-gray-400">{EMAIL}</div>
+                  <div className="text-xs text-gray-400">{displayEmail}</div>
                 </div>
               </a>
             </div>

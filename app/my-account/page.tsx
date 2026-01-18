@@ -17,6 +17,7 @@ import {
   ChevronRight,
   Shield,
   Heart,
+  HeartPulse,
   Sparkles,
   Settings,
 } from 'lucide-react';
@@ -179,7 +180,7 @@ export default function MyAccountPage() {
 
               <Link
                 href="/health-screening"
-                className="flex items-center justify-between p-5 hover:bg-gray-50 transition-colors"
+                className="flex items-center justify-between p-5 hover:bg-gray-50 transition-colors border-b border-gray-100"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center">
@@ -194,6 +195,22 @@ export default function MyAccountPage() {
                       </span>
                     </h3>
                     <p className="text-sm text-gray-500">AI 分析健康風險，推薦日本先端治療</p>
+                  </div>
+                </div>
+                <ChevronRight className="w-5 h-5 text-gray-400" />
+              </Link>
+
+              <Link
+                href="/cancer-treatment"
+                className="flex items-center justify-between p-5 hover:bg-gray-50 transition-colors"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-rose-50 rounded-xl flex items-center justify-center">
+                    <HeartPulse className="w-6 h-6 text-rose-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">日本綜合治療</h3>
+                    <p className="text-sm text-gray-500">質子重離子、光免疫療法、BNCT</p>
                   </div>
                 </div>
                 <ChevronRight className="w-5 h-5 text-gray-400" />

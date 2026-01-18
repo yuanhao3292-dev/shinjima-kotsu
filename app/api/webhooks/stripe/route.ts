@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import { sendOrderConfirmationEmail, sendNewOrderNotificationToMerchant } from '@/lib/email';
+import { sendOrderConfirmationEmail, sendNewOrderNotificationToMerchant, sendGuideCommissionNotification } from '@/lib/email';
 
 // 延迟初始化，避免构建时报错
 const getStripe = () => {
@@ -20,6 +20,58 @@ const getSupabase = () => {
     process.env.SUPABASE_SERVICE_ROLE_KEY
   );
 };
+
+// ============================================
+// 幂等性检查辅助函数
+// ============================================
+
+/**
+ * 检查事件是否已被处理
+ * @returns true 如果事件已处理，false 如果是新事件
+ */
+async function checkEventProcessed(supabase: SupabaseClient, eventId: string): Promise<boolean> {
+  try {
+    const { data, error } = await supabase
+      .from('webhook_events')
+      .select('id')
+      .eq('event_id', eventId)
+      .single();
+
+    // 如果找到记录，说明已处理
+    if (data && !error) {
+      return true;
+    }
+    return false;
+  } catch {
+    // 表不存在或其他错误，允许继续处理
+    return false;
+  }
+}
+
+/**
+ * 记录事件已被处理
+ */
+async function recordEventProcessed(
+  supabase: SupabaseClient,
+  eventId: string,
+  eventType: string,
+  result: 'success' | 'failed' | 'skipped',
+  errorMessage?: string
+): Promise<void> {
+  try {
+    await supabase
+      .from('webhook_events')
+      .insert({
+        event_id: eventId,
+        event_type: eventType,
+        result,
+        error_message: errorMessage,
+      });
+  } catch (err) {
+    // 记录失败不应阻止主流程
+    console.error('记录 webhook 事件失败:', err);
+  }
+}
 
 export async function POST(request: NextRequest) {
   const stripe = getStripe();
@@ -57,12 +109,44 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  // ============================================
+  // 幂等性检查：防止重复处理同一事件
+  // ============================================
+  const isProcessed = await checkEventProcessed(supabase, event.id);
+  if (isProcessed) {
+    console.log(`⏭️ 事件已处理，跳过: ${event.id} (${event.type})`);
+    return NextResponse.json({ received: true, skipped: true });
+  }
+
   // 处理不同的事件类型
   try {
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session;
-        await handleCheckoutSessionCompleted(supabase, session);
+        // 区分白标订阅和普通支付
+        if (session.mode === 'subscription' && session.metadata?.type === 'whitelabel_subscription') {
+          await handleWhiteLabelSubscriptionCreated(supabase, session);
+        } else {
+          await handleCheckoutSessionCompleted(supabase, session);
+        }
+        break;
+      }
+
+      case 'customer.subscription.updated': {
+        const subscription = event.data.object as Stripe.Subscription;
+        await handleSubscriptionUpdated(supabase, subscription);
+        break;
+      }
+
+      case 'customer.subscription.deleted': {
+        const subscription = event.data.object as Stripe.Subscription;
+        await handleSubscriptionDeleted(supabase, subscription);
+        break;
+      }
+
+      case 'invoice.payment_failed': {
+        const invoice = event.data.object as Stripe.Invoice;
+        await handleInvoicePaymentFailed(supabase, invoice);
         break;
       }
 
@@ -82,10 +166,14 @@ export async function POST(request: NextRequest) {
         console.log(`未处理的事件类型: ${event.type}`);
     }
 
+    // 记录事件已成功处理
+    await recordEventProcessed(supabase, event.id, event.type, 'success');
     return NextResponse.json({ received: true });
 
   } catch (error: any) {
     console.error('处理 Webhook 事件失败:', error);
+    // 记录事件处理失败
+    await recordEventProcessed(supabase, event.id, event.type, 'failed', error.message);
     return NextResponse.json(
       { error: 'Webhook handler failed' },
       { status: 500 }
@@ -105,6 +193,14 @@ async function handleCheckoutSessionCompleted(supabase: SupabaseClient, session:
   }
   console.log('Order ID found:', orderId);
 
+  // 提取白标归属信息
+  const guideId = session.metadata?.guide_id || null;
+  const guideSlug = session.metadata?.guide_slug || null;
+  const commissionRate = session.metadata?.commission_rate
+    ? parseFloat(session.metadata.commission_rate)
+    : null;
+  const orderType = session.metadata?.order_type || 'medical';
+
   // 更新订单状态为 paid
   const { error: orderError } = await supabase
     .from('orders')
@@ -118,6 +214,26 @@ async function handleCheckoutSessionCompleted(supabase: SupabaseClient, session:
   if (orderError) {
     console.error('更新订单状态失败:', orderError);
     return;
+  }
+
+  // 如果有导游归属，计算并记录佣金
+  if (guideId && commissionRate) {
+    // 获取订单的客户 ID
+    const { data: orderData } = await supabase
+      .from('orders')
+      .select('customer_id')
+      .eq('id', orderId)
+      .single();
+
+    await calculateAndRecordCommission(supabase, {
+      orderId,
+      guideId,
+      guideSlug,
+      orderType,
+      commissionRate,
+      sessionAmountTotal: session.amount_total || 0,
+      customerId: orderData?.customer_id,
+    });
   }
 
   // 如果有 Stripe Customer ID，更新客户记录
@@ -265,4 +381,279 @@ async function handlePaymentIntentFailed(supabase: SupabaseClient, paymentIntent
       failure_message: paymentIntent.last_payment_error?.message || '支付失败',
       metadata: paymentIntent.metadata,
     });
+}
+
+// ============================================
+// 白标订阅相关处理函数
+// ============================================
+
+// 处理白标订阅创建成功
+async function handleWhiteLabelSubscriptionCreated(supabase: SupabaseClient, session: Stripe.Checkout.Session) {
+  console.log('🎉 WhiteLabel subscription created:', session.id);
+
+  const guideId = session.metadata?.guide_id;
+  if (!guideId) {
+    console.error('导游 ID 缺失, metadata:', JSON.stringify(session.metadata));
+    return;
+  }
+
+  // 更新导游订阅状态
+  const { error } = await supabase
+    .from('guides')
+    .update({
+      subscription_status: 'active',
+      subscription_plan: 'monthly',
+      subscription_start_date: new Date().toISOString(),
+      stripe_subscription_id: session.subscription as string,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('id', guideId);
+
+  if (error) {
+    console.error('更新导游订阅状态失败:', error);
+    return;
+  }
+
+  console.log(`✅ 导游 ${guideId} 白标订阅已激活`);
+}
+
+// 处理订阅更新（续费成功、计划变更等）
+async function handleSubscriptionUpdated(supabase: SupabaseClient, subscription: Stripe.Subscription) {
+  console.log('📝 Subscription updated:', subscription.id, 'Status:', subscription.status);
+
+  // 只处理白标订阅
+  if (subscription.metadata?.type !== 'whitelabel_subscription') {
+    return;
+  }
+
+  const guideId = subscription.metadata?.guide_id;
+  if (!guideId) {
+    // 尝试通过 customer ID 查找
+    const { data: guide } = await supabase
+      .from('guides')
+      .select('id')
+      .eq('stripe_subscription_id', subscription.id)
+      .single();
+
+    if (!guide) {
+      console.error('未找到对应的导游');
+      return;
+    }
+  }
+
+  // 映射 Stripe 状态到我们的状态
+  let subscriptionStatus: 'active' | 'cancelled' | 'past_due' | 'inactive';
+  switch (subscription.status) {
+    case 'active':
+    case 'trialing':
+      subscriptionStatus = 'active';
+      break;
+    case 'past_due':
+      subscriptionStatus = 'past_due';
+      break;
+    case 'canceled':
+    case 'unpaid':
+      subscriptionStatus = 'cancelled';
+      break;
+    default:
+      subscriptionStatus = 'inactive';
+  }
+
+  // 计算订阅结束日期
+  const periodEnd = (subscription as any).current_period_end;
+  const endDate = periodEnd
+    ? new Date(periodEnd * 1000).toISOString()
+    : null;
+
+  await supabase
+    .from('guides')
+    .update({
+      subscription_status: subscriptionStatus,
+      subscription_end_date: endDate,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('stripe_subscription_id', subscription.id);
+
+  console.log(`✅ 订阅 ${subscription.id} 状态已更新为 ${subscriptionStatus}`);
+}
+
+// 处理订阅取消
+async function handleSubscriptionDeleted(supabase: SupabaseClient, subscription: Stripe.Subscription) {
+  console.log('🚫 Subscription deleted:', subscription.id);
+
+  // 更新导游订阅状态
+  await supabase
+    .from('guides')
+    .update({
+      subscription_status: 'cancelled',
+      subscription_plan: 'none',
+      updated_at: new Date().toISOString(),
+    })
+    .eq('stripe_subscription_id', subscription.id);
+
+  console.log(`✅ 订阅 ${subscription.id} 已标记为取消`);
+}
+
+// 处理发票支付失败
+async function handleInvoicePaymentFailed(supabase: SupabaseClient, invoice: Stripe.Invoice) {
+  console.log('⚠️ Invoice payment failed:', invoice.id);
+
+  const subscriptionId = (invoice as any).subscription as string;
+  if (!subscriptionId) {
+    return;
+  }
+
+  // 更新订阅状态为 past_due
+  await supabase
+    .from('guides')
+    .update({
+      subscription_status: 'past_due',
+      updated_at: new Date().toISOString(),
+    })
+    .eq('stripe_subscription_id', subscriptionId);
+
+  console.log(`⚠️ 订阅 ${subscriptionId} 已标记为逾期`);
+}
+
+// ============================================
+// 白标佣金计算
+// ============================================
+
+interface CommissionParams {
+  orderId: string;
+  guideId: string;
+  guideSlug: string | null;
+  orderType: string;
+  commissionRate: number;
+  sessionAmountTotal: number; // Stripe 金额（日元，单位为分）
+  customerId?: string; // 客户 ID，用于判断是否新客首单
+}
+
+// 新客首单奖励率
+const NEW_CUSTOMER_BONUS_RATE = 5; // +5%
+
+/**
+ * 计算并记录白标订单的佣金
+ * 佣金计算公式：(订单金额 / 1.1) × (佣金率 + 新客奖励)%
+ * 其中 /1.1 是扣除日本消费税
+ * 新客首单额外 +5% 奖励
+ */
+async function calculateAndRecordCommission(
+  supabase: SupabaseClient,
+  params: CommissionParams
+) {
+  const { orderId, guideId, guideSlug, orderType, commissionRate, sessionAmountTotal, customerId } = params;
+
+  // Stripe 日元金额不需要除以 100（日元是零小数货币）
+  const orderAmount = sessionAmountTotal;
+
+  // 计算净额（扣除 10% 消费税）
+  const netAmount = Math.round(orderAmount / 1.1);
+
+  // 检查是否是新客户首单（该客户在该导游下的首次付款订单）
+  let isNewCustomerFirstOrder = false;
+  let bonusRate = 0;
+
+  if (customerId) {
+    // 查询该客户在该导游下是否有其他已付款订单
+    const { data: previousOrders, error: queryError } = await supabase
+      .from('orders')
+      .select('id')
+      .eq('customer_id', customerId)
+      .eq('guide_id', guideId)
+      .eq('status', 'paid')
+      .neq('id', orderId) // 排除当前订单
+      .limit(1);
+
+    if (!queryError && (!previousOrders || previousOrders.length === 0)) {
+      isNewCustomerFirstOrder = true;
+      bonusRate = NEW_CUSTOMER_BONUS_RATE;
+      console.log(`🎁 新客首单奖励: 客户=${customerId}, 导游=${guideSlug}, 奖励率=+${bonusRate}%`);
+    }
+  }
+
+  // 计算最终佣金率（基础佣金率 + 新客奖励）
+  const finalCommissionRate = commissionRate + bonusRate;
+
+  // 计算基础佣金和奖励佣金
+  const baseCommission = Math.round(netAmount * commissionRate / 100);
+  const bonusCommission = Math.round(netAmount * bonusRate / 100);
+  const commissionAmount = baseCommission + bonusCommission;
+
+  console.log(`💰 佣金计算: 订单金额=${orderAmount}, 净额=${netAmount}, 基础佣金率=${commissionRate}%, 新客奖励=${bonusRate}%, 总佣金率=${finalCommissionRate}%, 佣金=${commissionAmount}`);
+
+  // 1. 更新 orders 表的佣金信息
+  await supabase
+    .from('orders')
+    .update({
+      commission_amount: commissionAmount,
+      commission_status: 'calculated',
+    })
+    .eq('id', orderId);
+
+  // 2. 创建 whitelabel_orders 记录（包含新客奖励信息）
+  const { error: wlOrderError } = await supabase
+    .from('whitelabel_orders')
+    .insert({
+      guide_id: guideId,
+      order_type: orderType,
+      order_amount: orderAmount,
+      order_currency: 'JPY',
+      status: 'completed',
+      source_order_id: orderId,
+      source_order_table: 'orders',
+      commission_rate: commissionRate,
+      applied_commission_rate: finalCommissionRate,
+      commission_amount: commissionAmount,
+      commission_status: 'calculated',
+      // 新客首单奖励信息（存储在 metadata 中）
+      metadata: isNewCustomerFirstOrder ? {
+        new_customer_bonus: true,
+        bonus_rate: bonusRate,
+        bonus_amount: bonusCommission,
+        base_commission: baseCommission,
+      } : null,
+    });
+
+  if (wlOrderError) {
+    console.error('创建白标订单记录失败:', wlOrderError);
+  } else {
+    const bonusInfo = isNewCustomerFirstOrder ? ` (含新客奖励 +${bonusRate}%)` : '';
+    console.log(`✅ 白标订单记录已创建: 导游=${guideSlug}, 佣金=${commissionAmount}円${bonusInfo}`);
+  }
+
+  // 3. 更新导游的累计佣金
+  const { data: guideData } = await supabase
+    .from('guides')
+    .select('total_commission, name, email')
+    .eq('id', guideId)
+    .single();
+
+  if (guideData) {
+    const newTotal = (guideData.total_commission || 0) + commissionAmount;
+    await supabase
+      .from('guides')
+      .update({
+        total_commission: newTotal,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', guideId);
+
+    console.log(`✅ 导游累计佣金已更新: ${newTotal}円`);
+
+    // 4. 发送佣金通知邮件给导游
+    if (guideData.email) {
+      await sendGuideCommissionNotification({
+        guideEmail: guideData.email,
+        guideName: guideData.name || guideSlug || '合夥人',
+        orderType,
+        orderAmount,
+        commissionAmount,
+        commissionRate: finalCommissionRate,
+        isNewCustomerBonus: isNewCustomerFirstOrder,
+        bonusAmount: bonusCommission > 0 ? bonusCommission : undefined,
+        orderId,
+      });
+    }
+  }
 }

@@ -2,7 +2,6 @@
 
 import LandingPage from '@/components/LandingPage';
 import { UserProfile } from '@/types';
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {

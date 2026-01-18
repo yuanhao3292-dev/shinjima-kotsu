@@ -1,0 +1,85 @@
+{
+  "nav": {
+    "timc": "Japan Medical Checkup",
+    "business": "Business Tours",
+    "golf": "Premium Golf",
+    "partner": "Partnership",
+    "guidePartner": "Guide Partner",
+    "about": "About Us",
+    "login": "Login",
+    "brand": "NIIJIMA",
+    "brandSub": "Niijima Kotsu Co., Ltd.",
+    "ai": "AI Quote",
+    "packages": "Medical Packages",
+    "contact": "Contact Us"
+  },
+  "common": {
+    "learnMore": "Learn More",
+    "bookNow": "Book Now",
+    "price": "Price",
+    "yen": "JPY",
+    "tax": "Tax included",
+    "required": "Required",
+    "optional": "Optional",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "back": "Back",
+    "next": "Next",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success"
+  },
+  "medical": {
+    "title": "Predict the Future, Reverse Time",
+    "subtitle": "Experience Japan's cutting-edge regenerative medicine for your health management",
+    "heroTitle1": "Early Detection",
+    "heroTitle2": "Decade of Peace of Mind",
+    "heroSubtitle": "Japan's Largest Medical Group 'Tokushukai' Flagship Facility × Osaka Station Landmark JP Tower",
+    "packages": "Medical Packages",
+    "booking": "Booking Information",
+    "customerInfo": "Customer Information",
+    "paymentMethod": "Payment Method",
+    "proceedToPayment": "Proceed to Payment",
+    "processing": "Processing..."
+  },
+  "booking": {
+    "name": "Full Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "preferredDate": "Preferred Date",
+    "preferredTime": "Preferred Time",
+    "notes": "Additional Notes",
+    "line": "LINE ID",
+    "wechat": "WeChat ID",
+    "whatsapp": "WhatsApp"
+  },
+  "payment": {
+    "success": "Payment Successful!",
+    "successMessage": "Thank you for your booking. A confirmation email has been sent.",
+    "orderId": "Order ID",
+    "cancel": "Payment Cancelled",
+    "cancelMessage": "Payment was cancelled. No charges were made.",
+    "retry": "Try Again",
+    "backToPackages": "Back to Packages",
+    "methods": "Payment Methods"
+  },
+  "footer": {
+    "company": "Niijima Kotsu Co., Ltd.",
+    "address": "1-2-21-602 Daikoku, Naniwa-ku, Osaka 556-0014, Japan",
+    "phone": "06-6632-8807",
+    "fax": "06-6632-8826",
+    "email": "info@niijima-koutsu.jp",
+    "license": "Osaka Governor Registered Travel Agency No. 2-3115",
+    "jata": "Full Member of Japan Association of Travel Agents (JATA)",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "tokushoho": "Commercial Transactions Act Disclosure",
+    "copyright": "© {year} Niijima Kotsu Co., Ltd. All Rights Reserved."
+  },
+  "legal": {
+    "tokushohoTitle": "Commercial Transactions Act Disclosure",
+    "privacyTitle": "Privacy Policy",
+    "termsTitle": "Terms of Service",
+    "backToTop": "Back to Home"
+  }
+}

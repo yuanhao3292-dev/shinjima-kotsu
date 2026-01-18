@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import MemberLayout from '@/components/MemberLayout';
+import PublicLayout from '@/components/PublicLayout';
 import {
   ArrowLeft, CheckCircle, FileText, Shield, Clock,
   Loader2, CreditCard, Users, Phone, Mail, MessageSquare
@@ -131,9 +131,9 @@ export default function InitialConsultationPage() {
   }
 
   return (
-    <MemberLayout showFooter={true}>
+    <PublicLayout showFooter={true} transparentNav={false}>
       {/* Header */}
-      <div className="bg-white border-b border-gray-100">
+      <div className="pt-20 bg-white border-b border-gray-100">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <Link
             href="/cancer-treatment"
@@ -155,7 +155,7 @@ export default function InitialConsultationPage() {
             </div>
             <div className="text-right">
               <p className="text-4xl font-bold text-white">¥{SERVICE_INFO.price.toLocaleString()}</p>
-              <p className="text-xs text-blue-200 mt-1">含消費稅10%</p>
+              <p className="text-xs text-blue-200 mt-1">日円（税込）</p>
             </div>
           </div>
         </div>
@@ -358,7 +358,10 @@ export default function InitialConsultationPage() {
                 <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                   <div className="flex justify-between items-center mb-4">
                     <span className="text-gray-600">服務費用</span>
-                    <span className="text-2xl font-bold text-gray-900">¥{SERVICE_INFO.price.toLocaleString()}</span>
+                    <div className="text-right">
+                      <span className="text-2xl font-bold text-gray-900">¥{SERVICE_INFO.price.toLocaleString()}</span>
+                      <span className="text-xs text-gray-500 ml-1">日円</span>
+                    </div>
                   </div>
                   <p className="text-xs text-gray-500 mb-4">
                     支付完成後，我們將在 24 小時內與您聯繫，確認資料提交方式
@@ -398,6 +401,6 @@ export default function InitialConsultationPage() {
           </div>
         </div>
       </div>
-    </MemberLayout>
+    </PublicLayout>
   );
 }

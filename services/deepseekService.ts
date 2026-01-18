@@ -1,6 +1,6 @@
 /**
- * DeepSeek API 服务
- * 用于 AI 健康筛查分析
+ * DeepSeek API 服務
+ * 用於 AI 健康篩查分析
  */
 
 import { ScreeningAnswer } from '@/lib/screening-questions';
@@ -12,7 +12,7 @@ export interface AnalysisResult {
   treatmentSuggestions: string[];
   recommendedHospitals: RecommendedHospital[];
   nextSteps: string[];
-  rawContent: string; // 原始 AI 输出
+  rawContent: string; // 原始 AI 輸出
   disclaimer: string;
 }
 
@@ -27,9 +27,9 @@ export interface RecommendedHospital {
 const DEEPSEEK_API_URL = 'https://api.deepseek.com/v1/chat/completions';
 
 /**
- * 构建 AI 分析 Prompt
- * @param answers 用户答案
- * @param phase 问诊阶段：1 = 快速筛查, 2 = 完整分析
+ * 構建 AI 分析 Prompt
+ * @param answers 用戶答案
+ * @param phase 問診階段：1 = 快速篩查, 2 = 完整分析
  */
 function buildAnalysisPrompt(answers: ScreeningAnswer[], phase: 1 | 2 = 2): string {
   const formattedAnswers = answers.map((a) => {
@@ -40,7 +40,7 @@ function buildAnalysisPrompt(answers: ScreeningAnswer[], phase: 1 | 2 = 2): stri
     return `Q${a.questionId}: ${a.question}\nA: ${answerText}`;
   }).join('\n\n');
 
-  // 根据阶段调整 prompt
+  // 根據階段調整 prompt
   const phaseNote = phase === 1
     ? '\n⚡ 注意：這是快速篩查（僅10道問題），請提供簡潔的初步建議。\n'
     : '\n📋 注意：這是完整問診（全部20道問題），請提供詳細深入的分析報告。\n';
@@ -100,10 +100,10 @@ ${formattedAnswers}
 }
 
 /**
- * 解析 AI 输出结果
+ * 解析 AI 輸出結果
  */
 function parseAnalysisResult(content: string): AnalysisResult {
-  // 提取风险等级
+  // 提取風險等級
   let riskLevel: 'low' | 'medium' | 'high' = 'low';
   if (content.includes('【高】') || content.includes('高風險')) {
     riskLevel = 'high';
@@ -111,11 +111,11 @@ function parseAnalysisResult(content: string): AnalysisResult {
     riskLevel = 'medium';
   }
 
-  // 提取风险摘要
+  // 提取風險摘要
   const riskMatch = content.match(/## 健康風險評估\n([\s\S]*?)(?=\n## |$)/);
   const riskSummary = riskMatch ? riskMatch[1].trim() : '';
 
-  // 提取建议检查项目
+  // 提取建議檢查項目
   const testsMatch = content.match(/## 建議檢查項目\n([\s\S]*?)(?=\n## |$)/);
   const recommendedTests = testsMatch
     ? testsMatch[1]
@@ -124,7 +124,7 @@ function parseAnalysisResult(content: string): AnalysisResult {
         .map((line) => line.replace(/^- /, '').trim())
     : [];
 
-  // 提取治疗建议
+  // 提取治療建議
   const treatmentMatch = content.match(/## 日本先端治療建議\n([\s\S]*?)(?=\n## |$)/);
   const treatmentSuggestions = treatmentMatch
     ? treatmentMatch[1]
@@ -133,7 +133,7 @@ function parseAnalysisResult(content: string): AnalysisResult {
         .map((line) => line.replace(/^- /, '').trim())
     : [];
 
-  // 提取推荐医院
+  // 提取推薦醫院
   const hospitalsMatch = content.match(/## 推薦醫療機構\n([\s\S]*?)(?=\n## |$)/);
   const recommendedHospitals: RecommendedHospital[] = [];
 

@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import Logo from './Logo';
 import { translations, Language } from '../translations';
 import { UserProfile } from '../types';
-import { ArrowLeft, ArrowRight, CheckCircle, MapPin, Building, Activity, Shield, Armchair, FileText, Check, Brain, Eye, Zap, Coffee, Globe, ChevronDown, Smile, Heart, Bus, Utensils, Quote, Lock, Trophy, Car, Bath, Handshake, Users, Briefcase, Mail, X, Menu, LogIn, Phone, Loader2, User, Sparkles, Scan, Cpu, Microscope, Dna, Monitor, Fingerprint, Printer, Map, Star, Award, MessageSquare, Bot } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle, MapPin, Building, Activity, Shield, Armchair, FileText, Check, Brain, Eye, Zap, Coffee, Globe, ChevronDown, Smile, Heart, HeartPulse, Bus, Utensils, Quote, Lock, Trophy, Car, Bath, Handshake, Users, Briefcase, Mail, X, Menu, LogIn, Phone, Loader2, User, Sparkles, Scan, Cpu, Microscope, Dna, Monitor, Fingerprint, Printer, Map, Star, Award, MessageSquare, Bot } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import IntroParticles from './IntroParticles';
 import MedicalDNA from './MedicalDNA';
@@ -13,6 +13,9 @@ import PartnerParticles from './PartnerParticles';
 import TestimonialWall from './TestimonialWall';
 import PackageComparisonTable from './PackageComparisonTable';
 import TIMCQuoteModal from './TIMCQuoteModal';
+import PublicLayout from './PublicLayout';
+import { useWhiteLabel, useWhiteLabelVisibility } from '@/lib/contexts/WhiteLabelContext';
+import { useCommissionTiers } from '@/lib/hooks/useCommissionTiers';
 
 // --- IMAGE ASSETS CONFIGURATION ---
 const SITE_IMAGES = {
@@ -104,6 +107,8 @@ interface SubViewProps {
   currentLang: Language;
   landingInputText?: string;
   setLandingInputText?: (text: string) => void;
+  // 白标模式：隐藏官方品牌内容
+  hideOfficialBranding?: boolean;
 }
 
 // Hook to detect mobile screen - ensures stable rendering switch
@@ -185,10 +190,9 @@ const MedicalTechCard = ({
 };
 
 const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuote }) => (
-  <div className="animate-fade-in-up pt-24 min-h-screen bg-white">
-    {/* ... (MedicalView content unchanged) ... */}
-    {/* 1. Hero Section */}
-    <div className="relative h-[70vh] min-h-[600px] flex items-center overflow-hidden text-white bg-slate-900">
+  <div className="animate-fade-in-up min-h-screen bg-white">
+    {/* 1. Hero Section - Full height with transparent nav overlap */}
+    <div className="relative min-h-[85vh] flex items-center overflow-hidden text-white bg-slate-900">
       <img 
           src={SITE_IMAGES.medical_hero}
           className="absolute inset-0 w-full h-full object-cover opacity-80" 
@@ -215,6 +219,14 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base border-l-2 border-blue-500 pl-6 max-w-2xl whitespace-pre-line">
                  {t.medical.hero_text}
               </p>
+              {/* 限量營銷文案 */}
+              <div className="mt-8 inline-flex items-center gap-3 bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-400/40 px-5 py-3 rounded-full backdrop-blur-md">
+                  <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+                  </span>
+                  <span className="text-amber-200 text-sm font-medium">為保證服務品質，每月僅限 <span className="text-amber-100 font-bold">20</span> 位客戶預約</span>
+              </div>
           </div>
       </div>
     </div>
@@ -496,7 +508,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           </div>
       </div>
 
-      {/* 客戶評價區塊 */}
+      {/* 客戶評價區塊 - 自動滾動輪播 */}
       <div className="mb-24" id="timc-testimonials">
           <div className="text-center mb-16">
               <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">Customer Reviews</span>
@@ -520,35 +532,79 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               </div>
           </div>
 
-          {/* 評價卡片 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto px-4">
-              {[
-                  { name: '陳先生', loc: '台北', flag: '🇹🇼', pkg: 'SELECT 甄選套餐', text: '第一次來日本做健檢，從預約到體檢完成都非常順暢。TIMC的設備真的很先進，整個環境也很舒適。', highlight: '設備先進、環境舒適' },
-                  { name: '林小姐', loc: '高雄', flag: '🇹🇼', pkg: 'PREMIUM 尊享套餐', text: '做了PET-CT全身檢查，醫生非常仔細地解說了每一項結果。中文報告很詳盡，下次會帶爸媽一起來。', highlight: 'PET-CT檢查專業' },
-                  { name: '王先生', loc: '新竹', flag: '🇹🇼', pkg: 'VIP 至尊套餐', text: '公司高管健檢選擇了VIP套餐，從機場接送到檢查後的休息都安排得很周到。腸胃鏡是無痛的，睡一覺就做完了。', highlight: '無痛腸胃鏡、服務周到' },
-                  { name: '黃先生', loc: '上海', flag: '🇨🇳', pkg: 'PREMIUM 尊享套餐', text: '專程從上海飛過來做體檢，整體體驗非常好。日本的醫療水平確實領先，MRI檢查非常細緻。', highlight: 'MRI檢查細緻' },
-              ].map((review, i) => (
-                  <div key={i} className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300">
-                      <div className="flex items-center gap-3 mb-4">
-                          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold">
-                              {review.name.charAt(0)}
-                          </div>
-                          <div>
-                              <div className="flex items-center gap-2">
-                                  <span className="font-semibold text-gray-900 text-sm">{review.name}</span>
-                                  <span>{review.flag}</span>
+          {/* 自動滾動評價卡片 */}
+          <div className="relative overflow-hidden">
+              {/* 左右漸變遮罩 */}
+              <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+
+              {/* 滾動容器 */}
+              <div className="flex animate-scroll-reviews hover:pause-animation">
+                  {/* 第一組評價 */}
+                  {[
+                      { name: '陳先生', loc: '台北', flag: '🇹🇼', pkg: 'SELECT 甄選套餐', text: '第一次來日本做健檢，從預約到體檢完成都非常順暢。TIMC的設備真的很先進，整個環境也很舒適。', highlight: '設備先進、環境舒適' },
+                      { name: '林小姐', loc: '高雄', flag: '🇹🇼', pkg: 'PREMIUM 尊享套餐', text: '做了PET-CT全身檢查，醫生非常仔細地解說了每一項結果。中文報告很詳盡，下次會帶爸媽一起來。', highlight: 'PET-CT檢查專業' },
+                      { name: '王先生', loc: '新竹', flag: '🇹🇼', pkg: 'VIP 至尊套餐', text: '公司高管健檢選擇了VIP套餐，從機場接送到檢查後的休息都安排得很周到。腸胃鏡是無痛的，睡一覺就做完了。', highlight: '無痛腸胃鏡、服務周到' },
+                      { name: '黃先生', loc: '上海', flag: '🇨🇳', pkg: 'PREMIUM 尊享套餐', text: '專程從上海飛過來做體檢，整體體驗非常好。日本的醫療水平確實領先，MRI檢查非常細緻。', highlight: 'MRI檢查細緻' },
+                      { name: '張小姐', loc: '香港', flag: '🇭🇰', pkg: 'SELECT 甄選套餐', text: '香港過來很方便，兩個小時飛機就到。檢查流程很順，翻譯全程陪同，完全沒有語言障礙。', highlight: '中文服務貼心' },
+                      { name: '李先生', loc: '深圳', flag: '🇨🇳', pkg: 'VIP 至尊套餐', text: '帶父母一起來做年度健檢，VIP套餐的休息室非常舒適，老人家也不會覺得累。報告解讀很詳細。', highlight: '適合全家健檢' },
+                      { name: '吳小姐', loc: '台中', flag: '🇹🇼', pkg: 'PREMIUM 尊享套餐', text: '朋友推薦來的，做了全身MRI和腫瘤標記物檢測。醫生說我的健康狀況很好，讓我安心不少。', highlight: '全身MRI精準' },
+                      { name: '許先生', loc: '北京', flag: '🇨🇳', pkg: 'SELECT 甄選套餐', text: '日本醫療服務果然名不虛傳，從接機開始就感受到專業。已經推薦給好幾個朋友了。', highlight: '接機服務周到' },
+                  ].map((review, i) => (
+                      <div key={`first-${i}`} className="flex-shrink-0 w-80 mx-3 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                          <div className="flex items-center gap-3 mb-4">
+                              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold">
+                                  {review.name.charAt(0)}
                               </div>
-                              <div className="text-xs text-gray-400">{review.loc}</div>
+                              <div>
+                                  <div className="flex items-center gap-2">
+                                      <span className="font-semibold text-gray-900 text-sm">{review.name}</span>
+                                      <span>{review.flag}</span>
+                                  </div>
+                                  <div className="text-xs text-gray-400">{review.loc}</div>
+                              </div>
+                          </div>
+                          <div className="text-xs text-blue-600 font-medium mb-3">{review.pkg}</div>
+                          <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3">{review.text}</p>
+                          <div className="flex items-center gap-2 text-green-600 text-xs">
+                              <CheckCircle size={12} />
+                              <span className="font-medium">{review.highlight}</span>
                           </div>
                       </div>
-                      <div className="text-xs text-blue-600 font-medium mb-3">{review.pkg}</div>
-                      <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3">{review.text}</p>
-                      <div className="flex items-center gap-2 text-green-600 text-xs">
-                          <CheckCircle size={12} />
-                          <span className="font-medium">{review.highlight}</span>
+                  ))}
+                  {/* 複製一組實現無縫滾動 */}
+                  {[
+                      { name: '陳先生', loc: '台北', flag: '🇹🇼', pkg: 'SELECT 甄選套餐', text: '第一次來日本做健檢，從預約到體檢完成都非常順暢。TIMC的設備真的很先進，整個環境也很舒適。', highlight: '設備先進、環境舒適' },
+                      { name: '林小姐', loc: '高雄', flag: '🇹🇼', pkg: 'PREMIUM 尊享套餐', text: '做了PET-CT全身檢查，醫生非常仔細地解說了每一項結果。中文報告很詳盡，下次會帶爸媽一起來。', highlight: 'PET-CT檢查專業' },
+                      { name: '王先生', loc: '新竹', flag: '🇹🇼', pkg: 'VIP 至尊套餐', text: '公司高管健檢選擇了VIP套餐，從機場接送到檢查後的休息都安排得很周到。腸胃鏡是無痛的，睡一覺就做完了。', highlight: '無痛腸胃鏡、服務周到' },
+                      { name: '黃先生', loc: '上海', flag: '🇨🇳', pkg: 'PREMIUM 尊享套餐', text: '專程從上海飛過來做體檢，整體體驗非常好。日本的醫療水平確實領先，MRI檢查非常細緻。', highlight: 'MRI檢查細緻' },
+                      { name: '張小姐', loc: '香港', flag: '🇭🇰', pkg: 'SELECT 甄選套餐', text: '香港過來很方便，兩個小時飛機就到。檢查流程很順，翻譯全程陪同，完全沒有語言障礙。', highlight: '中文服務貼心' },
+                      { name: '李先生', loc: '深圳', flag: '🇨🇳', pkg: 'VIP 至尊套餐', text: '帶父母一起來做年度健檢，VIP套餐的休息室非常舒適，老人家也不會覺得累。報告解讀很詳細。', highlight: '適合全家健檢' },
+                      { name: '吳小姐', loc: '台中', flag: '🇹🇼', pkg: 'PREMIUM 尊享套餐', text: '朋友推薦來的，做了全身MRI和腫瘤標記物檢測。醫生說我的健康狀況很好，讓我安心不少。', highlight: '全身MRI精準' },
+                      { name: '許先生', loc: '北京', flag: '🇨🇳', pkg: 'SELECT 甄選套餐', text: '日本醫療服務果然名不虛傳，從接機開始就感受到專業。已經推薦給好幾個朋友了。', highlight: '接機服務周到' },
+                  ].map((review, i) => (
+                      <div key={`second-${i}`} className="flex-shrink-0 w-80 mx-3 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                          <div className="flex items-center gap-3 mb-4">
+                              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold">
+                                  {review.name.charAt(0)}
+                              </div>
+                              <div>
+                                  <div className="flex items-center gap-2">
+                                      <span className="font-semibold text-gray-900 text-sm">{review.name}</span>
+                                      <span>{review.flag}</span>
+                                  </div>
+                                  <div className="text-xs text-gray-400">{review.loc}</div>
+                              </div>
+                          </div>
+                          <div className="text-xs text-blue-600 font-medium mb-3">{review.pkg}</div>
+                          <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3">{review.text}</p>
+                          <div className="flex items-center gap-2 text-green-600 text-xs">
+                              <CheckCircle size={12} />
+                              <span className="font-medium">{review.highlight}</span>
+                          </div>
                       </div>
-                  </div>
-              ))}
+                  ))}
+              </div>
           </div>
       </div>
 
@@ -603,12 +659,22 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       {/* CTA */}
       <div className="bg-blue-600 rounded-3xl p-12 text-center text-white shadow-2xl shadow-blue-200">
           <h3 className="text-3xl md:text-4xl font-serif mb-6">{t.medical.cta_title}</h3>
-          <p className="text-blue-100 max-w-2xl mx-auto mb-10 leading-relaxed whitespace-pre-line">
+          <p className="text-blue-100 max-w-2xl mx-auto mb-6 leading-relaxed whitespace-pre-line">
               {t.medical.cta_text}
           </p>
-          <button onClick={onOpenTIMCQuote} className="bg-white text-blue-800 font-bold px-10 py-4 rounded-full hover:bg-gray-100 transition shadow-lg inline-flex items-center gap-2">
-              <Zap size={18} /> {t.medical.cta_btn}
-          </button>
+          {/* 限量提示 */}
+          <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-4 py-2 rounded-full mb-8">
+              <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-300 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
+              </span>
+              <span className="text-blue-100 text-sm">每月僅限 <span className="text-white font-bold">20</span> 位 · 名額有限</span>
+          </div>
+          <div>
+              <button onClick={onOpenTIMCQuote} className="bg-white text-blue-800 font-bold px-10 py-4 rounded-full hover:bg-gray-100 transition shadow-lg inline-flex items-center gap-2">
+                  <Zap size={18} /> {t.medical.cta_btn}
+              </button>
+          </div>
       </div>
 
       <div className="text-center py-12">
@@ -633,10 +699,10 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
   const getPlanImage = (id: string) => planImages[id] || SITE_IMAGES.golf_hero;
 
   return (
-  <div className="animate-fade-in-up pt-24 min-h-screen bg-white">
-     {/* Hero */}
-     <div className="relative h-[60vh] flex items-center justify-center overflow-hidden">
-        <img 
+  <div className="animate-fade-in-up min-h-screen bg-white">
+     {/* Hero - Full height with transparent nav overlap */}
+     <div className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
+        <img
             src={SITE_IMAGES.golf_hero}
             className="absolute inset-0 w-full h-full object-cover grayscale-[10%]" 
             alt="Golf Course" 
@@ -771,20 +837,31 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
    const getBizImage = (id: string) => planImages[id] || SITE_IMAGES.business_hero;
 
    return (
-    <div className="animate-fade-in-up pt-24 min-h-screen bg-white">
-      {/* Hero */}
-      <div className="relative h-[60vh] flex flex-col items-center justify-center bg-gray-50 overflow-hidden">
-         <div className="absolute inset-0">
-             <BusinessNetwork />
+    <div className="animate-fade-in-up min-h-screen bg-white">
+      {/* Hero - Full height with transparent nav overlap */}
+      <div className="relative min-h-[85vh] flex flex-col items-center justify-center overflow-hidden">
+         {/* Background Image */}
+         <div
+           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+           style={{
+             backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')`,
+           }}
+         >
+           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-blue-900/80 to-slate-900/70"></div>
          </div>
-         <div className="relative z-10 text-center px-6 pointer-events-none">
-            <span className="text-blue-600 font-bold tracking-[0.3em] uppercase text-xs mb-4 block bg-white/80 backdrop-blur inline-block px-4 py-1 rounded-full border border-blue-100">
-                {t.business.hero_tag}
+         {/* Decorative Elements */}
+         <div className="absolute inset-0">
+           <div className="absolute w-96 h-96 bg-blue-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
+           <div className="absolute w-72 h-72 bg-indigo-500/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+         </div>
+         <div className="relative z-10 text-center px-6">
+            <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full mb-8">
+              <span className="text-xs font-bold text-white/90 uppercase tracking-wider">{t.business.hero_tag}</span>
             </span>
-            <h1 className="text-5xl md:text-7xl font-serif font-bold text-gray-900 mb-6 bg-clip-text">
+            <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight">
                 {t.business.hero_title}
             </h1>
-            <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed whitespace-pre-line">
+            <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed whitespace-pre-line">
                 {t.business.hero_text}
             </p>
          </div>
@@ -904,20 +981,31 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
 };
 
 const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger }) => (
-  <div className="animate-fade-in-up pt-24 min-h-screen bg-white">
-     {/* Updated Hero for PartnerView using PartnerParticles (SHIN/RAI) */}
-     <div className="relative h-[60vh] flex flex-col items-center justify-center bg-blue-50 overflow-hidden">
-         <div className="absolute inset-0">
-             <PartnerParticles />
+  <div className="animate-fade-in-up min-h-screen bg-white">
+     {/* Hero - Full height with transparent nav overlap */}
+     <div className="relative min-h-[85vh] flex flex-col items-center justify-center overflow-hidden">
+         {/* Background Image */}
+         <div
+           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+           style={{
+             backgroundImage: `url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070&auto=format&fit=crop')`,
+           }}
+         >
+           <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/95 via-blue-900/80 to-indigo-900/70"></div>
          </div>
-         <div className="relative z-10 text-center px-6 pointer-events-none">
-             <span className="text-blue-600 font-bold tracking-widest text-xs uppercase mb-4 block bg-white/80 backdrop-blur inline-block px-4 py-1 rounded-full border border-blue-100">
-                {t.partner.hero_tag}
+         {/* Decorative Elements */}
+         <div className="absolute inset-0">
+           <div className="absolute w-96 h-96 bg-indigo-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
+           <div className="absolute w-72 h-72 bg-blue-500/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+         </div>
+         <div className="relative z-10 text-center px-6">
+             <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full mb-8">
+               <span className="text-xs font-bold text-white/90 uppercase tracking-wider">{t.partner.hero_tag}</span>
              </span>
-             <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6 bg-clip-text">
+             <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
                 {t.partner.hero_title}
              </h1>
-             <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed whitespace-pre-line text-sm md:text-base bg-white/60 p-4 rounded-xl backdrop-blur-sm shadow-sm">
+             <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed whitespace-pre-line text-sm md:text-base">
                 {t.partner.hero_text}
              </p>
          </div>
@@ -975,9 +1063,12 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
 );
 
 // ... (HomeView remains largely the same but ensure no breaking changes) ...
-const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, currentLang, landingInputText, setLandingInputText }) => {
+const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, currentLang, landingInputText, setLandingInputText, hideOfficialBranding }) => {
   // STRICT JS MOBILE DETECTION
   const isMobile = useIsMobile();
+
+  // 获取佣金等级配置（用于动态显示分成比例）
+  const { summary: commissionSummary } = useCommissionTiers();
 
   return (
   <div className="animate-fade-in-up pt-0 bg-white">
@@ -1077,25 +1168,25 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           </div>
       </section>
 
-      {/* NEW: Three Cards Navigation Section */}
+      {/* NEW: Four Cards Navigation Section */}
       <section className="py-16 bg-white">
           <div className="container mx-auto px-6">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
 
                   {/* Card 1: AI Health Screening */}
-                  <a href="/health-screening" className="group bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-                      <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                          <Scan size={28} />
+                  <a href="/health-screening" className="group bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                          <Scan size={24} />
                       </div>
-                      <h3 className="text-xl font-serif font-bold text-gray-900 mb-3 group-hover:text-blue-700 transition-colors">
+                      <h3 className="text-lg font-serif font-bold text-gray-900 mb-2 group-hover:text-blue-700 transition-colors">
                           {currentLang === 'zh-TW' ? 'AI 健康檢測' : currentLang === 'ja' ? 'AI健康診断' : 'AI Health Screening'}
                       </h3>
-                      <p className="text-gray-500 text-sm leading-relaxed mb-4">
+                      <p className="text-gray-500 text-sm leading-relaxed mb-3">
                           {currentLang === 'zh-TW'
-                              ? '智能問診評估您的健康風險，了解是否需要進一步檢查'
+                              ? '智能問診評估您的健康風險'
                               : currentLang === 'ja'
-                              ? 'AI問診であなたの健康リスクを評価'
-                              : 'AI assessment to evaluate your health risks'
+                              ? 'AI問診でリスク評価'
+                              : 'AI risk assessment'
                           }
                       </p>
                       <span className="inline-flex items-center gap-1 text-blue-600 text-sm font-bold group-hover:gap-2 transition-all">
@@ -1103,20 +1194,41 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                       </span>
                   </a>
 
-                  {/* Card 2: Package Recommender */}
-                  <a href="/package-recommender" className="group bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-                      <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                          <MessageSquare size={28} />
+                  {/* Card 2: Cancer Treatment - NEW */}
+                  <a href="/cancer-treatment" className="group bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-6 border border-rose-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                      <div className="w-12 h-12 bg-gradient-to-br from-rose-500 to-pink-600 rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                          <HeartPulse size={24} />
                       </div>
-                      <h3 className="text-xl font-serif font-bold text-gray-900 mb-3 group-hover:text-green-700 transition-colors">
+                      <h3 className="text-lg font-serif font-bold text-gray-900 mb-2 group-hover:text-rose-700 transition-colors">
+                          {currentLang === 'zh-TW' ? '日本綜合治療' : currentLang === 'ja' ? 'がん総合治療' : 'Cancer Treatment'}
+                      </h3>
+                      <p className="text-gray-500 text-sm leading-relaxed mb-3">
+                          {currentLang === 'zh-TW'
+                              ? '質子重離子、光免疫、BNCT'
+                              : currentLang === 'ja'
+                              ? '陽子線・光免疫・BNCT'
+                              : 'Proton, Photoimmuno, BNCT'
+                          }
+                      </p>
+                      <span className="inline-flex items-center gap-1 text-rose-600 text-sm font-bold group-hover:gap-2 transition-all">
+                          {currentLang === 'zh-TW' ? '了解更多' : 'Learn More'} <ArrowRight size={14} />
+                      </span>
+                  </a>
+
+                  {/* Card 3: Package Recommender */}
+                  <a href="/package-recommender" className="group bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                      <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                          <MessageSquare size={24} />
+                      </div>
+                      <h3 className="text-lg font-serif font-bold text-gray-900 mb-2 group-hover:text-green-700 transition-colors">
                           {currentLang === 'zh-TW' ? '套餐智能推薦' : currentLang === 'ja' ? 'パッケージ推薦' : 'Package Recommender'}
                       </h3>
-                      <p className="text-gray-500 text-sm leading-relaxed mb-4">
+                      <p className="text-gray-500 text-sm leading-relaxed mb-3">
                           {currentLang === 'zh-TW'
-                              ? '已決定體檢？回答問卷找到最適合您的套餐'
+                              ? '找到最適合您的健檢套餐'
                               : currentLang === 'ja'
-                              ? '健診決定済み？最適なプランをご提案'
-                              : 'Decided on checkup? Find your ideal package'
+                              ? '最適なプランをご提案'
+                              : 'Find your ideal package'
                           }
                       </p>
                       <span className="inline-flex items-center gap-1 text-green-600 text-sm font-bold group-hover:gap-2 transition-all">
@@ -1124,20 +1236,20 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                       </span>
                   </a>
 
-                  {/* Card 3: Order Lookup */}
-                  <a href="/order-lookup" className="group bg-gradient-to-br from-gray-50 to-slate-50 rounded-2xl p-8 border border-gray-200 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-                      <div className="w-14 h-14 bg-gradient-to-br from-gray-600 to-slate-700 rounded-xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                          <FileText size={28} />
+                  {/* Card 4: Order Lookup */}
+                  <a href="/order-lookup" className="group bg-gradient-to-br from-gray-50 to-slate-50 rounded-2xl p-6 border border-gray-200 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                      <div className="w-12 h-12 bg-gradient-to-br from-gray-600 to-slate-700 rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                          <FileText size={24} />
                       </div>
-                      <h3 className="text-xl font-serif font-bold text-gray-900 mb-3 group-hover:text-gray-700 transition-colors">
+                      <h3 className="text-lg font-serif font-bold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors">
                           {currentLang === 'zh-TW' ? '訂單查詢' : currentLang === 'ja' ? '予約確認' : 'Order Lookup'}
                       </h3>
-                      <p className="text-gray-500 text-sm leading-relaxed mb-4">
+                      <p className="text-gray-500 text-sm leading-relaxed mb-3">
                           {currentLang === 'zh-TW'
-                              ? '已預約？輸入郵箱和訂單號查看預約狀態'
+                              ? '查看您的預約狀態'
                               : currentLang === 'ja'
-                              ? '予約済み？予約状況を確認'
-                              : 'Already booked? Check your reservation status'
+                              ? '予約状況を確認'
+                              : 'Check reservation status'
                           }
                       </p>
                       <span className="inline-flex items-center gap-1 text-gray-600 text-sm font-bold group-hover:gap-2 transition-all">
@@ -1281,109 +1393,159 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       </div>
     </section>
 
-    {/* AI B2B Section */}
-    <section id="ai-b2b" className="py-32 bg-white relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-l from-blue-50 via-purple-50/30 to-transparent opacity-60 pointer-events-none"></div>
-      
+    {/* Guide Partner Section - 白标模式下隐藏 */}
+    {!hideOfficialBranding && (
+    <section id="guide-partner" className="py-32 bg-gradient-to-b from-orange-50 to-white relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23f97316%22%20fill-opacity%3D%220.03%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E')] opacity-50 pointer-events-none"></div>
+
       <div className="container mx-auto px-6 relative z-10">
+        {/* Header */}
         <div className="text-center mb-16">
-          <span className="gemini-text font-bold text-sm tracking-widest uppercase">{t.ai.tag}</span>
-          <h2 className="text-4xl md:text-5xl font-serif mt-4 mb-6">{t.ai.title}</h2>
+          <span className="text-orange-600 font-bold text-sm tracking-widest uppercase">{t.guidePartner?.tag || 'Guide Partnership Program'}</span>
+          <h2 className="text-4xl md:text-5xl font-serif mt-4 mb-4 text-gray-900">{t.guidePartner?.title || '導遊合夥人計劃'}</h2>
+          <p className="text-xl text-orange-600 font-medium mb-6">{t.guidePartner?.subtitle || '讓每位獨立導遊，都擁有旅行社的資源'}</p>
           <p className="text-gray-500 max-w-2xl mx-auto font-light leading-relaxed whitespace-pre-line">
-            {t.ai.desc}
+            {t.guidePartner?.desc || '您直接接觸富裕層客戶，卻沒有旅行社資質？\n新島交通作為日本第二類旅行社，為您打通160家高端夜總會、頂級體檢中心、綜合醫療等獨家資源。'}
           </p>
         </div>
 
-        <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.06)] border border-gray-100 overflow-hidden flex flex-col md:flex-row">
-          <div className="p-10 md:w-1/2 border-r border-gray-50 bg-gray-[50] flex flex-col justify-between">
-            <div>
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-2 h-2 rounded-full bg-gray-300"></div>
-                <span className="text-xs text-gray-400 uppercase tracking-wider">{t.ai.input_label}</span>
-              </div>
-              
-              {/* Interactive Input Area */}
-              <div className="mb-8">
-                <textarea 
-                  className="w-full h-48 font-mono text-sm text-gray-700 leading-relaxed bg-white border border-gray-200 p-6 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 outline-none resize-none transition-all placeholder-gray-300"
-                  placeholder={t.ai.input_ph}
-                  value={landingInputText || ''}
-                  onChange={(e) => setLandingInputText && setLandingInputText(e.target.value)}
-                />
-              </div>
+        {/* Three Services */}
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-16">
+          {/* Service 1: Nightclub */}
+          <div className="bg-white rounded-2xl p-8 shadow-lg border border-orange-100 hover:shadow-xl transition-all hover:-translate-y-1 group">
+            <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <Sparkles className="w-8 h-8 text-white" />
             </div>
-            <button 
-              onClick={onLoginTrigger}
-              className="w-full py-4 gemini-gradient text-white font-medium rounded-lg shadow-md hover:shadow-xl transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
-            >
-              <Zap size={16} /> {t.ai.btn_gen}
-            </button>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">{t.guidePartner?.service1_title || '高端夜總會'}</h3>
+            <p className="text-gray-500 text-sm leading-relaxed whitespace-pre-line">{t.guidePartner?.service1_desc || 'INSOU集團160家店舖\n覆蓋全日本（除北海道/沖繩）'}</p>
           </div>
 
-          <div className="p-10 md:w-1/2 bg-white relative">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-100 rounded-full filter blur-3xl opacity-20 pointer-events-none"></div>
-
-            <div className="flex items-center justify-between mb-8">
-              <span className="text-xs text-gray-400 uppercase tracking-wider">{t.ai.result_tag}</span>
-              <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full ring-1 ring-blue-100">
-                <Zap size={10} className="inline mr-1" /> Generated in 1.2s
-              </span>
+          {/* Service 2: Medical */}
+          <div className="bg-white rounded-2xl p-8 shadow-lg border border-orange-100 hover:shadow-xl transition-all hover:-translate-y-1 group">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <HeartPulse className="w-8 h-8 text-white" />
             </div>
-            
-            <div className="space-y-5">
-              <div className="flex justify-between items-start bg-[#FAFAFA] p-5 rounded-xl border border-gray-100 relative overflow-hidden">
-                <div className="absolute left-0 top-0 w-1 h-full bg-blue-400"></div>
-                <div>
-                  <p className="text-xs text-gray-500 mb-1">{t.ai.result_med}</p>
-                  <p className="text-sm font-bold text-gray-800">TIMC Premium PET-CT Course</p>
-                  <p className="text-xs text-blue-600 mt-1">
-                    <CheckCircle size={10} className="inline mr-1" /> OK
-                  </p>
-                </div>
-                <div className="text-right">
-                  <span className="text-sm font-bold text-gray-800">¥ 880,000</span>
-                  {/* HIDDEN Profit Margin Display per user request for clean public view */}
-                </div>
-              </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">{t.guidePartner?.service2_title || 'TIMC精密體檢'}</h3>
+            <p className="text-gray-500 text-sm leading-relaxed whitespace-pre-line">{t.guidePartner?.service2_desc || '德洲會集團旗艦設施\n大阪JP Tower'}</p>
+          </div>
 
-              <div className="flex justify-between items-center p-4 pl-2">
-                <div>
-                  <p className="text-xs text-gray-400">{t.ai.result_stay}</p>
-                  <p className="text-sm font-bold text-gray-800">2 Nights (OTA Match)</p>
-                </div>
-                <span className="text-green-500 text-xs flex items-center gap-1"><CheckCircle size={12} /> OK</span>
-              </div>
+          {/* Service 3: Treatment */}
+          <div className="bg-white rounded-2xl p-8 shadow-lg border border-orange-100 hover:shadow-xl transition-all hover:-translate-y-1 group">
+            <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <Dna className="w-8 h-8 text-white" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">{t.guidePartner?.service3_title || '綜合醫療'}</h3>
+            <p className="text-gray-500 text-sm leading-relaxed whitespace-pre-line">{t.guidePartner?.service3_desc || '幹細胞·抗衰·專科治療\n日本頂尖醫療資源'}</p>
+          </div>
+        </div>
 
-              <div className="flex justify-between items-center p-4 pl-2 border-t border-dashed border-gray-100">
-                <div>
-                  <p className="text-xs text-gray-400">{t.ai.result_car}</p>
-                  <p className="text-sm font-bold text-gray-800">Full Course</p>
-                </div>
+        {/* Income Highlight - Attractive CTA with Social Proof */}
+        <div className="max-w-4xl mx-auto bg-gradient-to-r from-orange-500 via-orange-600 to-amber-500 rounded-3xl p-8 md:p-10 text-white mb-16 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/4"></div>
+
+          {/* Main Content */}
+          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="flex-1">
+              <div className="inline-flex items-center gap-2 bg-white/20 rounded-full px-3 py-1 mb-4">
+                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                <span className="text-xs font-medium">本月已有 47 位導遊成功升級</span>
               </div>
-              
-              <div className="mt-8 pt-6 border-t border-gray-200 flex justify-between items-baseline">
-                <span className="text-sm text-gray-500">{t.ai.total}</span>
-                <span className="text-3xl font-serif text-gray-900 gemini-text font-bold">¥ 1,880,000</span>
+              <h3 className="text-2xl md:text-3xl font-bold mb-3">每月輕鬆增收 50-100萬日元</h3>
+              <p className="text-orange-100 text-lg mb-2">無需旅行社資質 · 階梯返金最高 <span className="font-bold text-white text-xl">20%</span></p>
+              <div className="flex flex-wrap gap-3 mt-4">
+                <span className="bg-white/15 px-3 py-1 rounded-full text-sm">🍸 160+高端夜總會</span>
+                <span className="bg-white/15 px-3 py-1 rounded-full text-sm">🏥 頂級體檢中心</span>
+                <span className="bg-white/15 px-3 py-1 rounded-full text-sm">💉 綜合醫療資源</span>
               </div>
-              <p className="text-center text-xs text-gray-400 mt-4">
-                {t.ai.note}
-              </p>
+            </div>
+            <div className="text-center">
+              <div className="bg-white/20 backdrop-blur rounded-2xl p-6 mb-3">
+                <div className="text-4xl md:text-5xl font-bold mb-1">¥50萬+</div>
+                <div className="text-orange-100 text-sm">月均收入可達</div>
+              </div>
+              <div className="flex items-center justify-center gap-1 text-xs text-orange-200">
+                <CheckCircle size={12} />
+                <span>3000+ 在日導遊已加入</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Stats Bar */}
+          <div className="relative z-10 mt-6 pt-6 border-t border-white/20 grid grid-cols-3 gap-4 text-center">
+            <div>
+              <div className="text-2xl font-bold">{commissionSummary.minRate}%</div>
+              <div className="text-xs text-orange-200">起步返金</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold">{commissionSummary.maxRate}%</div>
+              <div className="text-xs text-orange-200">鑽石返金</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold">月結</div>
+              <div className="text-xs text-orange-200">準時到帳</div>
             </div>
           </div>
         </div>
+
+        {/* Rules */}
+        <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-6 mb-16">
+          <div className="flex items-start gap-4 bg-white/80 backdrop-blur p-6 rounded-xl">
+            <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <Users className="w-5 h-5 text-orange-600" />
+            </div>
+            <div>
+              <h4 className="font-bold text-gray-900 mb-1">{t.guidePartner?.rule1_title || '推薦制準入'}</h4>
+              <p className="text-sm text-gray-500">{t.guidePartner?.rule1_desc || '會員推薦才能加入，確保圈子品質'}</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-4 bg-white/80 backdrop-blur p-6 rounded-xl">
+            <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <Shield className="w-5 h-5 text-orange-600" />
+            </div>
+            <div>
+              <h4 className="font-bold text-gray-900 mb-1">{t.guidePartner?.rule2_title || '500元訂金'}</h4>
+              <p className="text-sm text-gray-500">{t.guidePartner?.rule2_desc || '篩選認真客戶，保護商家利益'}</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-4 bg-white/80 backdrop-blur p-6 rounded-xl">
+            <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <FileText className="w-5 h-5 text-orange-600" />
+            </div>
+            <div>
+              <h4 className="font-bold text-gray-900 mb-1">{t.guidePartner?.rule3_title || '月結算'}</h4>
+              <p className="text-sm text-gray-500">{t.guidePartner?.rule3_desc || '穩定可靠，每月準時結算'}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="text-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+            <a
+              href="/guide-partner"
+              className="px-8 py-4 bg-orange-600 text-white font-bold rounded-full hover:bg-orange-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+            >
+              <ArrowRight size={18} /> {t.guidePartner?.cta_detail || '了解詳情'}
+            </a>
+          </div>
+          <p className="text-gray-400 text-sm">{t.guidePartner?.footer_note || '已有3000+在日導遊加入我們的合作網絡'}</p>
+        </div>
       </div>
     </section>
+    )}
 
-    {/* Founder Section (New) */}
+    {/* Founder Section - 白标模式下隐藏 */}
+    {!hideOfficialBranding && (
     <section className="py-24 bg-white border-t border-gray-100">
        <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center gap-16">
              <div className="md:w-1/3">
                 <div className="relative">
                    <div className="absolute inset-0 bg-blue-100 transform translate-x-4 translate-y-4 rounded-xl"></div>
-                   <img 
+                   <img
                       src={SITE_IMAGES.founder_portrait}
-                      alt="Founder Portrait" 
+                      alt="Founder Portrait"
                       className="relative rounded-xl shadow-lg w-full h-auto max-h-[600px] object-cover object-top"
                       key="founder_portrait"
                       onError={(e) => handleSmartImageError(e, 'founder_portrait')}
@@ -1410,12 +1572,14 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           </div>
        </div>
     </section>
+    )}
 
-    {/* About Section */}
+    {/* About Section - 白标模式下隐藏 */}
+    {!hideOfficialBranding && (
     <section id="about" className="py-24 bg-[#FAFAFA]">
       <div className="container mx-auto px-6 max-w-4xl">
         <h3 className="text-3xl font-serif mb-12 text-center tracking-widest">{t.about.title}</h3>
-        
+
         <div className="border-t border-gray-200 text-sm font-light bg-white shadow-sm rounded-lg overflow-hidden">
           {[
             { label: t.about.name, value: t.about.name_val || '新島交通株式会社 (NIIJIMA KOTSU Co., Ltd.)' },
@@ -1434,6 +1598,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
         </div>
       </div>
     </section>
+    )}
   </div>
   );
 };
@@ -1442,38 +1607,44 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
   const router = useRouter();
   const [currentLang, setCurrentLang] = useState<Language>('zh-TW'); // Default to TW
   const [currentPage, setCurrentPage] = useState<PageView>('home');
-  const [scrolled, setScrolled] = useState(false);
-  const [langMenuOpen, setLangMenuOpen] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authFormData, setAuthFormData] = useState({ companyName: '', contactPerson: '', email: '' });
   const [authError, setAuthError] = useState('');
   const [isSendingAuth, setIsSendingAuth] = useState(false);
-  
+
   // State for the Landing Page Input
   const [landingInputText, setLandingInputText] = useState("");
 
   // State for TIMC Quote Modal
   const [showTIMCQuoteModal, setShowTIMCQuoteModal] = useState(false);
 
+  // 白标模式
+  const { isWhiteLabelMode, branding } = useWhiteLabel();
+  const { hideOfficialBranding, hideGuidePartnerContent } = useWhiteLabelVisibility();
+
   const t = translations[currentLang];
 
   useEffect(() => { emailjs.init('exX0IhSSUjNgMhuGb'); }, []);
+
+  // 处理 URL 参数和 hash，支持从其他页面跳转回来时切换到指定页面
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-  useEffect(() => {
+    // 处理 ?page=xxx 参数
+    const params = new URLSearchParams(window.location.search);
+    const page = params.get('page');
+    if (page && ['medical', 'golf', 'business', 'partner'].includes(page)) {
+      setCurrentPage(page as PageView);
+    }
+
+    // 处理 hash 锚点
     if (window.location.hash) {
-        const id = window.location.hash.substring(1);
-        setTimeout(() => {
-            const element = document.getElementById(id);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-                if (id === 'ai-b2b' || id === 'about') setCurrentPage('home');
-            }
-        }, 500);
+      const id = window.location.hash.substring(1);
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+          if (id === 'ai-b2b' || id === 'about') setCurrentPage('home');
+        }
+      }, 500);
     }
   }, []);
 
@@ -1497,172 +1668,48 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
 
   const openAuthModal = () => { setAuthError(''); setShowAuthModal(true); };
 
-  const LanguageSwitcher = () => (
-    <div className="relative">
-      <button onClick={() => setLangMenuOpen(!langMenuOpen)} className="flex items-center gap-1 text-xs font-bold text-gray-600 hover:text-black transition uppercase tracking-wider">
-        <Globe size={14} />
-        {currentLang === 'zh-TW' ? '繁中' : currentLang.toUpperCase()}
-        <ChevronDown size={12} />
-      </button>
-      {langMenuOpen && (
-        <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50 animate-fade-in-down">
-           {[{ code: 'ja', label: '日本語' }, { code: 'zh-TW', label: '繁體中文' }, { code: 'en', label: 'English' }].map((lang) => (
-             <button key={lang.code} onClick={() => { setCurrentLang(lang.code as Language); setLangMenuOpen(false); }} className={`w-full text-left px-4 py-2 text-xs font-medium hover:bg-gray-50 transition ${currentLang === lang.code ? 'text-blue-600 bg-blue-50' : 'text-gray-600'}`}>
-               {lang.label}
-             </button>
-           ))}
-        </div>
-      )}
-    </div>
-  );
+  // 根据当前页面确定 PublicLayout 的 activeNav
+  const getActiveNav = () => {
+    if (currentPage === 'medical') return 'medical';
+    if (currentPage === 'golf') return 'golf';
+    if (currentPage === 'business') return 'business';
+    if (currentPage === 'partner') return 'partner';
+    return undefined;
+  };
 
   return (
-    <div className="min-h-screen bg-white text-gray-800 font-sans selection:bg-blue-100">
-       {/* Navigation - Restored to Clean SVG Logo Design (React Component) */}
-       {/* UPDATED: Only show background if scrolled or not on home page */}
-       <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${currentPage === 'home' && !scrolled ? 'bg-transparent' : 'bg-white shadow-sm'}`}>
-         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
-            {/* Logo */}
-            <div 
-              className="flex items-center gap-3 cursor-pointer group" 
-              onClick={() => setCurrentPage('home')}
-            >
-               <Logo className="w-10 h-10 text-black group-hover:text-blue-600 transition-colors" />
-               <div className="flex flex-col">
-                  <span className="font-serif font-bold text-lg tracking-wide leading-none text-gray-900">NIIJIMA</span>
-                  <span className="text-[10px] text-gray-400 uppercase tracking-widest leading-none mt-1 group-hover:text-blue-500 transition-colors">{t.nav.brand_sub}</span>
-               </div>
-            </div>
-
-            {/* Desktop Menu */}
-            <div className="hidden lg:flex items-center gap-8">
-               <button onClick={() => setCurrentPage('medical')} className={`text-sm font-medium hover:text-blue-600 transition ${currentPage === 'medical' ? 'text-blue-600 font-bold' : 'text-gray-600'}`}>{t.nav.timc}</button>
-               <button onClick={() => router.push('/cancer-treatment')} className="text-sm font-medium hover:text-red-600 transition text-gray-600">{currentLang === 'zh-TW' ? '日本綜合治療' : currentLang === 'ja' ? '日本総合治療' : 'Cancer Treatment'}</button>
-               <button onClick={() => setCurrentPage('golf')} className={`text-sm font-medium hover:text-blue-600 transition ${currentPage === 'golf' ? 'text-blue-600 font-bold' : 'text-gray-600'}`}>{t.nav.golf}</button>
-               <button onClick={() => setCurrentPage('business')} className={`text-sm font-medium hover:text-blue-600 transition ${currentPage === 'business' ? 'text-blue-600 font-bold' : 'text-gray-600'}`}>{t.nav.business}</button>
-               <button onClick={() => setCurrentPage('partner')} className={`text-sm font-medium hover:text-blue-600 transition ${currentPage === 'partner' ? 'text-blue-600 font-bold' : 'text-gray-600'}`}>{t.nav.partner}</button>
-               <button onClick={() => { setCurrentPage('home'); setTimeout(() => document.getElementById('ai-b2b')?.scrollIntoView({behavior: 'smooth'}), 100); }} className="text-sm font-medium hover:text-blue-600 transition gemini-text font-bold">{t.nav.ai}</button>
-            </div>
-
-            {/* Actions */}
-            <div className="flex items-center gap-6">
-               <LanguageSwitcher />
-               <button
-                 onClick={() => router.push('/login')}
-                 className="hidden md:flex items-center gap-2 bg-black text-white px-5 py-2 rounded-full text-xs font-bold tracking-wider hover:bg-gray-800 transition shadow-lg border border-transparent hover:border-gray-600"
-               >
-                 <LogIn size={14} /> {t.nav.login}
-               </button>
-               
-               {/* Mobile Menu Button */}
-               <button className="lg:hidden p-2 text-gray-600" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-                  {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-               </button>
-            </div>
-         </div>
-       </nav>
-
-       {/* Mobile Menu Content */}
-       {mobileMenuOpen && (
-          <div className="fixed top-20 left-0 w-full h-[calc(100vh-80px)] bg-white z-40 p-6 flex flex-col gap-6 overflow-y-auto animate-fade-in-down">
-              <button onClick={() => { setCurrentPage('medical'); setMobileMenuOpen(false); }} className="text-xl font-serif border-b pb-2">{t.nav.timc}</button>
-              <button onClick={() => { router.push('/cancer-treatment'); setMobileMenuOpen(false); }} className="text-xl font-serif border-b pb-2 text-red-600">{currentLang === 'zh-TW' ? '日本綜合治療' : currentLang === 'ja' ? '日本総合治療' : 'Cancer Treatment'}</button>
-              <button onClick={() => { setCurrentPage('golf'); setMobileMenuOpen(false); }} className="text-xl font-serif border-b pb-2">{t.nav.golf}</button>
-              <button onClick={() => { setCurrentPage('business'); setMobileMenuOpen(false); }} className="text-xl font-serif border-b pb-2">{t.nav.business}</button>
-              <button onClick={() => { setCurrentPage('partner'); setMobileMenuOpen(false); }} className="text-xl font-serif border-b pb-2">{t.nav.partner}</button>
-              <button onClick={() => { router.push('/login'); setMobileMenuOpen(false); }} className="bg-black text-white py-4 rounded-lg font-bold mt-4">{t.nav.login}</button>
-          </div>
-       )}
-
+    <PublicLayout activeNav={getActiveNav()} transparentNav={false}>
        {/* Content */}
        <main className="min-h-screen">
-          {currentPage === 'home' && <HomeView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={() => router.push('/login')} currentLang={currentLang} landingInputText={landingInputText} setLandingInputText={setLandingInputText} />}
+          {currentPage === 'home' && (
+            <HomeView
+              t={t}
+              setCurrentPage={setCurrentPage}
+              onLoginTrigger={() => router.push('/login')}
+              currentLang={currentLang}
+              landingInputText={landingInputText}
+              setLandingInputText={setLandingInputText}
+              hideOfficialBranding={hideOfficialBranding}
+            />
+          )}
           {currentPage === 'medical' && <MedicalView t={t} setCurrentPage={setCurrentPage} onOpenTIMCQuote={() => setShowTIMCQuoteModal(true)} currentLang={currentLang} />}
           {currentPage === 'business' && <BusinessView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={() => router.push('/login')} currentLang={currentLang} />}
           {currentPage === 'golf' && <GolfView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={() => router.push('/login')} currentLang={currentLang} />}
-          {currentPage === 'partner' && <PartnerView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={() => router.push('/login')} currentLang={currentLang} />}
+          {/* 白标模式下隐藏 Partner 页面（B2B 同业合作） */}
+          {currentPage === 'partner' && !hideGuidePartnerContent && <PartnerView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={() => router.push('/login')} currentLang={currentLang} />}
        </main>
-
-       {/* Footer - Maintained 4-Column Layout but using React Logo Component */}
-       <footer className="bg-[#111] text-white py-16 border-t border-gray-800">
-            <div className="container mx-auto px-6">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                    {/* Column 1: Brand */}
-                    <div>
-                        <div className="flex items-center gap-3 mb-6">
-                           <Logo className="w-10 h-10 text-white" />
-                           <span className="text-xl font-serif tracking-widest font-bold">NIIJIMA</span>
-                        </div>
-                        <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                           B2B Land Operator<br/>
-                           Specializing in Kansai Region
-                        </p>
-                        <p className="text-gray-500 text-xs">
-                           &copy; 2025 Niijima Kotsu Co., Ltd.<br/>All Rights Reserved.
-                        </p>
-                    </div>
-    
-                    {/* Column 2: License */}
-                    <div>
-                        <h4 className="text-sm font-bold text-gray-300 uppercase tracking-wider mb-6">License & Cert</h4>
-                        <div className="space-y-3 text-sm text-gray-400">
-                            <p>大阪府知事登録旅行業第2-3115号</p>
-                            <p>JATA 正会員</p>
-                            <p>Authorized by Osaka Prefecture</p>
-                        </div>
-                    </div>
-    
-                    {/* Column 3: Contact */}
-                    <div>
-                        <h4 className="text-sm font-bold text-gray-300 uppercase tracking-wider mb-6">{t.footer.contact_us}</h4>
-                        <div className="space-y-3 text-sm text-gray-400">
-                            <p className="flex items-center gap-3"><Mail size={16} /> info@niijima-koutsu.jp</p>
-                            <p className="flex items-center gap-3"><Phone size={16} /> 06-6632-8807</p>
-                            <p className="flex items-center gap-3"><Printer size={16} /> 06-6632-8826 (FAX)</p>
-                            <p className="flex items-start gap-3 mt-4">
-                                <MapPin size={16} className="mt-1 min-w-[16px]" />
-                                <span>〒556-0014<br/>大阪府大阪市浪速区大国1-2-21-602</span>
-                            </p>
-                        </div>
-                    </div>
-    
-                    {/* Column 4: Emergency / Direct */}
-                    <div>
-                        <h4 className="text-sm font-bold text-red-400 uppercase tracking-wider mb-6 flex items-center gap-2">
-                            <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-                            Emergency / VIP Direct
-                        </h4>
-                        <div className="bg-gray-900 p-6 rounded-xl border border-gray-800">
-                            <p className="text-xs text-gray-500 mb-2">代表直通 (24/7 Support)</p>
-                            <p className="text-xl font-bold text-white tracking-wider mb-1">+81 70-2173-8304</p>
-                            <p className="text-xs text-gray-500">Available for WeChat / WhatsApp</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
-                     <div className="flex gap-6">
-                        <span className="hover:text-gray-300 cursor-pointer transition">Privacy Policy</span>
-                        <span className="hover:text-gray-300 cursor-pointer transition">Terms of Service</span>
-                     </div>
-                     <div className="mt-4 md:mt-0">
-                        Powered by Niijima AI System • Designed in Osaka
-                     </div>
-                </div>
-            </div>
-        </footer>
 
        {/* Auth Modal */}
        {showAuthModal && (
          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 relative overflow-hidden">
-               <button 
+               <button
                  onClick={() => setShowAuthModal(false)}
                  className="absolute top-4 right-4 text-gray-400 hover:text-black transition"
                >
                  <X size={20} />
                </button>
-               
+
                <div className="mb-8 text-center">
                   <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                      <User size={24} />
@@ -1678,45 +1725,45 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                <form onSubmit={handleAuthSubmit} className="space-y-4">
                   <div>
                     <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Company Name</label>
-                    <input 
-                      type="text" 
-                      required 
+                    <input
+                      type="text"
+                      required
                       value={authFormData.companyName}
                       onChange={(e) => setAuthFormData({...authFormData, companyName: e.target.value})}
-                      className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none" 
+                      className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none"
                       placeholder="Travel Agency Co., Ltd."
                     />
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Contact Person</label>
-                    <input 
-                      type="text" 
-                      required 
+                    <input
+                      type="text"
+                      required
                       value={authFormData.contactPerson}
                       onChange={(e) => setAuthFormData({...authFormData, contactPerson: e.target.value})}
-                      className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none" 
+                      className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none"
                       placeholder="Name"
                     />
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Email Address</label>
-                    <input 
-                      type="email" 
-                      required 
+                    <input
+                      type="email"
+                      required
                       value={authFormData.email}
                       onChange={(e) => setAuthFormData({...authFormData, email: e.target.value})}
-                      className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none" 
+                      className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none"
                       placeholder="agent@example.com"
                     />
                   </div>
                   {authError && <p className="text-xs text-red-500">{authError}</p>}
-                  <button 
-                    type="submit" 
+                  <button
+                    type="submit"
                     disabled={isSendingAuth}
                     className="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition shadow-lg mt-2 flex items-center justify-center gap-2"
                   >
                     {isSendingAuth ? <Loader2 className="animate-spin" size={16} /> : <ArrowRight size={16} />}
-                    {isSendingAuth ? 'Processing...' : 'Apply for Access'} 
+                    {isSendingAuth ? 'Processing...' : 'Apply for Access'}
                   </button>
                </form>
             </div>
@@ -1728,7 +1775,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
          isOpen={showTIMCQuoteModal}
          onClose={() => setShowTIMCQuoteModal(false)}
        />
-    </div>
+    </PublicLayout>
   );
 };
 

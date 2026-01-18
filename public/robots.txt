@@ -1,0 +1,18 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.bespoketrip.jp/sitemap.xml
+
+# Disallow admin, API and private routes
+Disallow: /admin/
+Disallow: /api/
+Disallow: /guide-partner/
+Disallow: /dashboard/
+Disallow: /my-account/
+Disallow: /my-orders/
+Disallow: /auth/
+
+# Allow legal pages
+Allow: /legal/

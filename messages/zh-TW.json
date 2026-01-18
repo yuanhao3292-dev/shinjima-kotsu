@@ -1,0 +1,85 @@
+{
+  "nav": {
+    "timc": "日本精密健檢",
+    "business": "商務考察",
+    "golf": "名門高爾夫",
+    "partner": "同業合作",
+    "guidePartner": "導遊合夥人",
+    "about": "公司簡介",
+    "login": "會員登入",
+    "brand": "NIIJIMA",
+    "brandSub": "新島交通株式會社",
+    "ai": "AI 報價",
+    "packages": "體檢套餐",
+    "contact": "聯繫我們"
+  },
+  "common": {
+    "learnMore": "了解更多",
+    "bookNow": "立即預約",
+    "price": "價格",
+    "yen": "日圓",
+    "tax": "含稅",
+    "required": "必填",
+    "optional": "選填",
+    "submit": "提交",
+    "cancel": "取消",
+    "back": "返回",
+    "next": "下一步",
+    "loading": "載入中...",
+    "error": "發生錯誤",
+    "success": "操作成功"
+  },
+  "medical": {
+    "title": "預見未來，逆轉時光",
+    "subtitle": "將日本先端的再生醫療引入您的健康管理",
+    "heroTitle1": "早一步發現",
+    "heroTitle2": "多十年安心",
+    "heroSubtitle": "日本最大醫療集團「德洲會」旗艦設施 × 大阪站地標 JP Tower",
+    "packages": "體檢套餐一覽",
+    "booking": "預約資訊",
+    "customerInfo": "客戶資訊",
+    "paymentMethod": "支付方式",
+    "proceedToPayment": "前往支付",
+    "processing": "處理中..."
+  },
+  "booking": {
+    "name": "姓名",
+    "email": "電子郵件",
+    "phone": "電話號碼",
+    "preferredDate": "希望日期",
+    "preferredTime": "希望時段",
+    "notes": "備註說明",
+    "line": "LINE ID",
+    "wechat": "微信 ID",
+    "whatsapp": "WhatsApp"
+  },
+  "payment": {
+    "success": "支付成功！",
+    "successMessage": "感謝您的預約。確認郵件已發送至您的信箱。",
+    "orderId": "訂單編號",
+    "cancel": "支付已取消",
+    "cancelMessage": "支付已取消，未產生任何費用。",
+    "retry": "重新嘗試",
+    "backToPackages": "返回套餐列表",
+    "methods": "支付方式"
+  },
+  "footer": {
+    "company": "新島交通株式會社",
+    "address": "〒556-0014 大阪府大阪市浪速區大國1-2-21-602",
+    "phone": "06-6632-8807",
+    "fax": "06-6632-8826",
+    "email": "info@niijima-koutsu.jp",
+    "license": "大阪府知事登錄旅行業 第2-3115號",
+    "jata": "一般社團法人 日本旅行業協會（JATA）正會員",
+    "privacy": "隱私政策",
+    "terms": "使用條款",
+    "tokushoho": "特定商取引法表示",
+    "copyright": "© {year} 新島交通株式會社 版權所有"
+  },
+  "legal": {
+    "tokushohoTitle": "特定商取引法表示",
+    "privacyTitle": "隱私政策",
+    "termsTitle": "使用條款",
+    "backToTop": "返回首頁"
+  }
+}

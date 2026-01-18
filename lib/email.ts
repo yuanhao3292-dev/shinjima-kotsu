@@ -238,3 +238,299 @@ export async function sendNewOrderNotificationToMerchant(data: OrderConfirmation
     console.error('Failed to send merchant notification:', error);
   }
 }
+
+// ============================================
+// 導遊合夥人佣金通知
+// ============================================
+
+interface GuideCommissionNotificationData {
+  guideEmail: string;
+  guideName: string;
+  orderType: string;
+  orderAmount: number;
+  commissionAmount: number;
+  commissionRate: number;
+  isNewCustomerBonus: boolean;
+  bonusAmount?: number;
+  orderId: string;
+}
+
+/**
+ * 發送佣金通知郵件給導遊
+ */
+export async function sendGuideCommissionNotification(data: GuideCommissionNotificationData) {
+  const resend = getResend();
+  if (!resend) {
+    console.log('Email skipped: Resend not configured');
+    return { success: false, error: 'Resend not configured' };
+  }
+
+  const orderTypeLabels: Record<string, string> = {
+    medical: '醫療體檢',
+    golf: '高爾夫旅遊',
+    business: '商務考察',
+  };
+  const orderTypeLabel = orderTypeLabels[data.orderType] || data.orderType;
+
+  const bonusSection = data.isNewCustomerBonus && data.bonusAmount ? `
+    <tr>
+      <td style="color: #7c3aed; padding: 8px 0;">🎁 新客獎勵</td>
+      <td style="color: #7c3aed; text-align: right; font-weight: 600;">+¥${data.bonusAmount.toLocaleString()}</td>
+    </tr>
+  ` : '';
+
+  try {
+    const result = await resend.emails.send({
+      from: 'NIIJIMA Partner <partner@niijima-koutsu.jp>',
+      to: data.guideEmail,
+      subject: `🎉 新佣金到帳！+¥${data.commissionAmount.toLocaleString()} - ${orderTypeLabel}`,
+      html: `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; background-color: #fff7ed; font-family: 'Helvetica Neue', Arial, sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #fff7ed; padding: 40px 20px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+
+          <!-- Header -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); padding: 40px 30px; text-align: center;">
+              <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 600;">NIIJIMA</h1>
+              <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0; font-size: 16px;">Guide Partner Program</p>
+            </td>
+          </tr>
+
+          <!-- Success Message -->
+          <tr>
+            <td style="padding: 40px 30px 20px; text-align: center;">
+              <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border-radius: 50%; display: inline-block; line-height: 80px;">
+                <span style="font-size: 40px;">💰</span>
+              </div>
+              <h2 style="color: #16a34a; margin: 20px 0 10px; font-size: 28px;">新佣金到帳！</h2>
+              <p style="color: #6b7280; margin: 0; font-size: 16px;">恭喜 ${data.guideName}，您的推薦客戶已完成付款</p>
+            </td>
+          </tr>
+
+          <!-- Commission Details -->
+          <tr>
+            <td style="padding: 0 30px 30px;">
+              <div style="background-color: #f0fdf4; border-radius: 12px; padding: 24px; border: 1px solid #bbf7d0;">
+                <h3 style="color: #166534; margin: 0 0 16px; font-size: 16px; font-weight: 600;">佣金明細</h3>
+
+                <table width="100%" style="font-size: 14px;">
+                  <tr>
+                    <td style="color: #64748b; padding: 8px 0;">訂單類型</td>
+                    <td style="color: #1e293b; text-align: right; font-weight: 600;">${orderTypeLabel}</td>
+                  </tr>
+                  <tr>
+                    <td style="color: #64748b; padding: 8px 0;">訂單金額</td>
+                    <td style="color: #1e293b; text-align: right;">¥${data.orderAmount.toLocaleString()}</td>
+                  </tr>
+                  <tr>
+                    <td style="color: #64748b; padding: 8px 0;">佣金率</td>
+                    <td style="color: #1e293b; text-align: right;">${data.commissionRate}%</td>
+                  </tr>
+                  ${bonusSection}
+                  <tr style="border-top: 2px solid #166534;">
+                    <td style="color: #166534; padding: 12px 0 0; font-weight: 600; font-size: 16px;">本次佣金</td>
+                    <td style="color: #166534; text-align: right; font-weight: 700; font-size: 24px;">+¥${data.commissionAmount.toLocaleString()}</td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+
+          ${data.isNewCustomerBonus ? `
+          <!-- New Customer Bonus Banner -->
+          <tr>
+            <td style="padding: 0 30px 30px;">
+              <div style="background: linear-gradient(135deg, #f3e8ff 0%, #fce7f3 100%); border-radius: 12px; padding: 20px; border: 1px solid #e9d5ff;">
+                <p style="color: #7c3aed; margin: 0; font-size: 14px; text-align: center;">
+                  🎁 <strong>新客首單獎勵 +5%</strong> 已自動計入！
+                </p>
+              </div>
+            </td>
+          </tr>
+          ` : ''}
+
+          <!-- CTA -->
+          <tr>
+            <td style="padding: 0 30px 30px; text-align: center;">
+              <a href="https://niijima-koutsu.jp/guide-partner/commission" style="display: inline-block; background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
+                查看佣金詳情
+              </a>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #1e293b; padding: 30px; text-align: center;">
+              <p style="color: #94a3b8; margin: 0 0 8px; font-size: 14px; font-weight: 600;">新島交通株式會社</p>
+              <p style="color: #64748b; margin: 0; font-size: 12px;">Guide Partner Program</p>
+              <p style="color: #475569; margin: 16px 0 0; font-size: 11px;">
+                此郵件由系統自動發送，請勿直接回覆
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+      `,
+    });
+
+    console.log('Guide commission notification sent:', result);
+    return { success: true, data: result };
+  } catch (error: any) {
+    console.error('Failed to send guide commission notification:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+// ============================================
+// KYC 审核结果通知
+// ============================================
+
+interface KYCNotificationData {
+  guideEmail: string;
+  guideName: string;
+  status: 'approved' | 'rejected';
+  reviewNote?: string;
+}
+
+/**
+ * 发送 KYC 审核结果通知邮件
+ */
+export async function sendKYCNotification(data: KYCNotificationData) {
+  const resend = getResend();
+  if (!resend) {
+    console.log('Email skipped: Resend not configured');
+    return { success: false, error: 'Resend not configured' };
+  }
+
+  const isApproved = data.status === 'approved';
+  const subject = isApproved
+    ? '🎉 恭喜！您的身份验证已通过 - NIIJIMA 导游合伙人'
+    : '⚠️ 身份验证未通过 - NIIJIMA 导游合伙人';
+
+  const statusIcon = isApproved ? '✓' : '✗';
+  const statusColor = isApproved ? '#16a34a' : '#dc2626';
+  const statusBgColor = isApproved ? '#dcfce7' : '#fee2e2';
+  const statusText = isApproved ? '验证通过' : '验证未通过';
+  const messageText = isApproved
+    ? '恭喜您！您的身份验证已通过审核，现在可以开始使用白标页面推广业务了。'
+    : '很抱歉，您的身份验证未能通过审核。请检查提交的资料并重新申请。';
+
+  const reviewNoteSection = data.reviewNote ? `
+    <tr>
+      <td style="padding: 20px 30px;">
+        <div style="background-color: #f8fafc; border-radius: 8px; padding: 16px; border-left: 4px solid ${statusColor};">
+          <p style="color: #64748b; margin: 0 0 8px; font-size: 12px; font-weight: 600;">审核备注</p>
+          <p style="color: #1e293b; margin: 0; font-size: 14px;">${data.reviewNote}</p>
+        </div>
+      </td>
+    </tr>
+  ` : '';
+
+  const nextStepSection = isApproved ? `
+    <tr>
+      <td style="padding: 0 30px 30px; text-align: center;">
+        <a href="https://niijima-koutsu.jp/guide-partner/whitelabel"
+           style="display: inline-block; background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600;">
+          设置我的白标页面
+        </a>
+      </td>
+    </tr>
+  ` : `
+    <tr>
+      <td style="padding: 0 30px 30px; text-align: center;">
+        <a href="https://niijima-koutsu.jp/guide-partner/settings"
+           style="display: inline-block; background-color: #3b82f6; color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600;">
+          重新提交资料
+        </a>
+      </td>
+    </tr>
+  `;
+
+  try {
+    const result = await resend.emails.send({
+      from: 'NIIJIMA Partner <partner@niijima-koutsu.jp>',
+      to: data.guideEmail,
+      subject,
+      html: `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; background-color: #f5f5f5; font-family: 'Helvetica Neue', Arial, sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5; padding: 40px 20px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+
+          <!-- Header -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); padding: 40px 30px; text-align: center;">
+              <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 600;">NIIJIMA</h1>
+              <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0; font-size: 16px;">Guide Partner Program</p>
+            </td>
+          </tr>
+
+          <!-- Status Icon -->
+          <tr>
+            <td style="padding: 40px 30px 20px; text-align: center;">
+              <div style="width: 80px; height: 80px; background-color: ${statusBgColor}; border-radius: 50%; display: inline-block; line-height: 80px;">
+                <span style="font-size: 40px; color: ${statusColor};">${statusIcon}</span>
+              </div>
+              <h2 style="color: ${statusColor}; margin: 20px 0 10px; font-size: 24px;">${statusText}</h2>
+              <p style="color: #6b7280; margin: 0; font-size: 16px;">${data.guideName}，您好</p>
+            </td>
+          </tr>
+
+          <!-- Message -->
+          <tr>
+            <td style="padding: 0 30px 20px; text-align: center;">
+              <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0;">
+                ${messageText}
+              </p>
+            </td>
+          </tr>
+
+          ${reviewNoteSection}
+          ${nextStepSection}
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #f8fafc; padding: 20px 30px; text-align: center;">
+              <p style="color: #9ca3af; font-size: 12px; margin: 0;">
+                如有任何问题，请联系我们的客服团队
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+      `,
+    });
+
+    console.log('KYC notification sent:', result);
+    return { success: true, data: result };
+  } catch (error: any) {
+    console.error('Failed to send KYC notification:', error);
+    return { success: false, error: error.message };
+  }
+}

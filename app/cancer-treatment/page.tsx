@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import MemberLayout from '@/components/MemberLayout';
+import PublicLayout from '@/components/PublicLayout';
 import Logo from '@/components/Logo';
 import {
   ArrowLeft, ArrowRight, CheckCircle, Shield, Heart, Activity,
@@ -131,16 +131,17 @@ const PARTNER_INSTITUTIONS = [
 
 export default function CancerTreatmentPage() {
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
+  const [showWechatQR, setShowWechatQR] = useState(false);
 
   return (
-    <MemberLayout showFooter={true}>
+    <PublicLayout showFooter={true} activeNav="cancer">
       {/* Hero Section */}
       <div className="relative min-h-[85vh] flex items-center overflow-hidden">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2080&auto=format&fit=crop')`,
+            backgroundImage: `url('https://images.unsplash.com/photo-1587010580103-fd86b8ea14ca?q=80&w=2080&auto=format&fit=crop')`,
           }}
         >
           {/* Dark Overlay with Gradient */}
@@ -173,13 +174,13 @@ export default function CancerTreatmentPage() {
               質子重離子、光免疫療法、BNCT 硼中子俘獲——世界前沿療法匯聚日本
             </p>
 
-            <div className="flex flex-wrap gap-4 mb-12">
+            <div className="flex flex-wrap gap-4 mb-8">
               <a
                 href="#contact-form"
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-full font-bold hover:from-blue-600 hover:to-purple-700 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
               >
                 <MessageSquare size={20} />
-                免費諮詢治療方案
+                諮詢治療方案
                 <ArrowRight size={18} />
               </a>
               <a
@@ -188,6 +189,15 @@ export default function CancerTreatmentPage() {
               >
                 了解治療流程
               </a>
+            </div>
+
+            {/* 限量營銷文案 */}
+            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-400/40 px-5 py-3 rounded-full backdrop-blur-md mb-12">
+              <span className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+              </span>
+              <span className="text-amber-200 text-sm font-medium">為保證治療品質，每月僅限 <span className="text-amber-100 font-bold">10</span> 位患者接診</span>
             </div>
 
             {/* Key Stats - Data Driven */}
@@ -448,9 +458,17 @@ export default function CancerTreatmentPage() {
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mt-3 mb-4">
                 諮詢服務預約
               </h2>
-              <p className="text-gray-500">
+              <p className="text-gray-500 mb-4">
                 選擇您需要的服務，在線支付後我們將在 24 小時內與您聯繫
               </p>
+              {/* 限量提示 */}
+              <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 px-4 py-2 rounded-full">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                </span>
+                <span className="text-amber-700 text-sm">每月僅限 <span className="font-bold">10</span> 位 · 名額有限</span>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
@@ -464,7 +482,7 @@ export default function CancerTreatmentPage() {
                     </div>
                     <div className="text-right">
                       <p className="text-3xl font-bold">¥{CONSULTATION_SERVICES.initial.price.toLocaleString()}</p>
-                      <p className="text-xs text-blue-200">含稅</p>
+                      <p className="text-xs text-blue-200">日円（税込）</p>
                     </div>
                   </div>
                 </div>
@@ -507,7 +525,7 @@ export default function CancerTreatmentPage() {
                     </div>
                     <div className="text-right">
                       <p className="text-3xl font-bold">¥{CONSULTATION_SERVICES.remote.price.toLocaleString()}</p>
-                      <p className="text-xs text-purple-200">含稅</p>
+                      <p className="text-xs text-purple-200">日円（税込）</p>
                     </div>
                   </div>
                 </div>
@@ -580,13 +598,15 @@ export default function CancerTreatmentPage() {
                   <Mail size={18} />
                   <span className="font-bold">郵件諮詢</span>
                 </a>
-                <a
-                  href="tel:+81-70-2173-8304"
-                  className="flex items-center gap-3 bg-blue-600 text-white p-3 rounded-xl hover:bg-blue-700 transition text-sm"
+                <button
+                  onClick={() => setShowWechatQR(true)}
+                  className="flex items-center gap-3 bg-[#07C160] text-white p-3 rounded-xl hover:bg-[#06ad56] transition text-sm"
                 >
-                  <Phone size={18} />
-                  <span className="font-bold">電話諮詢</span>
-                </a>
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178A1.17 1.17 0 014.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178 1.17 1.17 0 01-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 01.598.082l1.584.926a.272.272 0 00.139.045c.133 0 .241-.108.241-.243 0-.06-.024-.118-.04-.177l-.327-1.233a.49.49 0 01-.009-.102c0-.142.062-.28.177-.375C23.116 17.715 24 16.046 24 14.194c0-2.942-2.696-5.336-7.062-5.336zm-2.745 3.086c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.97-.983zm5.49 0c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.969-.983z"/>
+                  </svg>
+                  <span className="font-bold">微信諮詢</span>
+                </button>
               </div>
             </div>
           </div>
@@ -603,6 +623,45 @@ export default function CancerTreatmentPage() {
           返回首頁
         </Link>
       </div>
-    </MemberLayout>
+
+      {/* WeChat QR Modal */}
+      {showWechatQR && (
+        <div
+          className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4"
+          onClick={() => setShowWechatQR(false)}
+        >
+          <div
+            className="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowWechatQR(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+            >
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <div className="w-16 h-16 bg-[#07C160] rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-10 h-10 text-white" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178A1.17 1.17 0 014.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178 1.17 1.17 0 01-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 01.598.082l1.584.926a.272.272 0 00.139.045c.133 0 .241-.108.241-.243 0-.06-.024-.118-.04-.177l-.327-1.233a.49.49 0 01-.009-.102c0-.142.062-.28.177-.375C23.116 17.715 24 16.046 24 14.194c0-2.942-2.696-5.336-7.062-5.336zm-2.745 3.086c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.97-.983zm5.49 0c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.969-.983z"/>
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">微信諮詢</h3>
+            <p className="text-gray-500 text-sm mb-6">掃描二維碼添加客服微信</p>
+            <div className="bg-gray-50 rounded-xl p-4 mb-4">
+              <img
+                src="https://i.ibb.co/3yBrDKW5/wechat-qr.jpg"
+                alt="WeChat QR Code"
+                className="w-48 h-48 mx-auto"
+              />
+            </div>
+            <p className="text-xs text-gray-400">
+              添加後請注明：癌症治療諮詢
+            </p>
+          </div>
+        </div>
+      )}
+    </PublicLayout>
   );
 }

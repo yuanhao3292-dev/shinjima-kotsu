@@ -1,0 +1,85 @@
+{
+  "nav": {
+    "timc": "日本精密健診",
+    "business": "商務視察",
+    "golf": "名門ゴルフ",
+    "partner": "業務提携",
+    "guidePartner": "ガイドパートナー",
+    "about": "会社概要",
+    "login": "ログイン",
+    "brand": "NIIJIMA",
+    "brandSub": "新島交通株式会社",
+    "ai": "AI見積",
+    "packages": "体検コース",
+    "contact": "お問い合わせ"
+  },
+  "common": {
+    "learnMore": "詳細を見る",
+    "bookNow": "今すぐ予約",
+    "price": "料金",
+    "yen": "円",
+    "tax": "税込",
+    "required": "必須",
+    "optional": "任意",
+    "submit": "送信",
+    "cancel": "キャンセル",
+    "back": "戻る",
+    "next": "次へ",
+    "loading": "読み込み中...",
+    "error": "エラーが発生しました",
+    "success": "成功しました"
+  },
+  "medical": {
+    "title": "未来を予見し、時を戻す",
+    "subtitle": "日本最先端の再生医療を、あなたの健康管理へ",
+    "heroTitle1": "一歩先の発見が",
+    "heroTitle2": "十年の安心に",
+    "heroSubtitle": "日本最大医療グループ「徳洲会」旗艦施設 × 大阪駅ランドマーク JP Tower",
+    "packages": "検査コース一覧",
+    "booking": "予約情報",
+    "customerInfo": "お客様情報",
+    "paymentMethod": "お支払い方法",
+    "proceedToPayment": "お支払いへ進む",
+    "processing": "処理中..."
+  },
+  "booking": {
+    "name": "お名前",
+    "email": "メールアドレス",
+    "phone": "電話番号",
+    "preferredDate": "希望日",
+    "preferredTime": "希望時間帯",
+    "notes": "備考",
+    "line": "LINE ID",
+    "wechat": "WeChat ID",
+    "whatsapp": "WhatsApp"
+  },
+  "payment": {
+    "success": "お支払い完了！",
+    "successMessage": "ご予約ありがとうございます。確認メールをお送りしました。",
+    "orderId": "注文番号",
+    "cancel": "お支払いがキャンセルされました",
+    "cancelMessage": "お支払いはキャンセルされました。料金は発生しておりません。",
+    "retry": "もう一度試す",
+    "backToPackages": "コース一覧に戻る",
+    "methods": "お支払い方法"
+  },
+  "footer": {
+    "company": "新島交通株式会社",
+    "address": "〒556-0014 大阪府大阪市浪速区大国1-2-21-602",
+    "phone": "06-6632-8807",
+    "fax": "06-6632-8826",
+    "email": "info@niijima-koutsu.jp",
+    "license": "大阪府知事登録旅行業 第2-3115号",
+    "jata": "一般社団法人 日本旅行業協会（JATA）正会員",
+    "privacy": "プライバシーポリシー",
+    "terms": "利用規約",
+    "tokushoho": "特定商取引法に基づく表記",
+    "copyright": "© {year} 新島交通株式会社 All Rights Reserved."
+  },
+  "legal": {
+    "tokushohoTitle": "特定商取引法に基づく表記",
+    "privacyTitle": "プライバシーポリシー",
+    "termsTitle": "利用規約",
+    "backToTop": "トップへ戻る"
+  }
+}

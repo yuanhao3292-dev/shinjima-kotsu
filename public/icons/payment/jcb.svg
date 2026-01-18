@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 35" width="50" height="35">
+  <rect width="50" height="35" rx="4" fill="#fff" stroke="#e6e6e6"/>
+  <defs>
+    <linearGradient id="jcb1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#007B40"/>
+      <stop offset="100%" style="stop-color:#55B330"/>
+    </linearGradient>
+    <linearGradient id="jcb2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1D2970"/>
+      <stop offset="100%" style="stop-color:#006CB9"/>
+    </linearGradient>
+    <linearGradient id="jcb3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6E2B2F"/>
+      <stop offset="100%" style="stop-color:#E30138"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="7" width="10" height="21" rx="3" fill="url(#jcb1)"/>
+  <rect x="20" y="7" width="10" height="21" rx="3" fill="url(#jcb2)"/>
+  <rect x="32" y="7" width="10" height="21" rx="3" fill="url(#jcb3)"/>
+  <text x="13" y="20" text-anchor="middle" fill="#fff" font-size="6" font-weight="bold" font-family="Arial">J</text>
+  <text x="25" y="20" text-anchor="middle" fill="#fff" font-size="6" font-weight="bold" font-family="Arial">C</text>
+  <text x="37" y="20" text-anchor="middle" fill="#fff" font-size="6" font-weight="bold" font-family="Arial">B</text>
+</svg>

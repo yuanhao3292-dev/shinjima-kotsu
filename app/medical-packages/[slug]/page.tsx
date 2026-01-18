@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { CheckCircle, Car, Building, Check, Shield, Lock, CreditCard } from 'lucide-react';
 import SmartBackLink from '@/components/SmartBackLink';
 
@@ -455,6 +456,17 @@ export default function PackageDetailPage() {
                   {processing ? '處理中...' : `前往支付 ¥${pkg.price.toLocaleString()}`}
                 </button>
                 <p className="mt-4 text-xs text-gray-400 text-center">點擊「前往支付」後將跳轉到 Stripe 安全支付頁面</p>
+
+                {/* Payment Method Icons */}
+                <div className="mt-4 flex items-center justify-center gap-3">
+                  <span className="text-xs text-gray-400">お支払い方法:</span>
+                  <div className="flex items-center gap-2">
+                    <Image src="/icons/payment/visa.svg" alt="Visa" width={40} height={25} className="h-6 w-auto" />
+                    <Image src="/icons/payment/mastercard.svg" alt="Mastercard" width={40} height={25} className="h-6 w-auto" />
+                    <Image src="/icons/payment/amex.svg" alt="American Express" width={40} height={25} className="h-6 w-auto" />
+                    <Image src="/icons/payment/jcb.svg" alt="JCB" width={40} height={25} className="h-6 w-auto" />
+                  </div>
+                </div>
 
                 <div className="mt-6 flex items-center justify-center gap-6 text-xs text-gray-400">
                   <div className="flex items-center gap-1.5"><Lock size={14} /><span>SSL 安全加密</span></div>

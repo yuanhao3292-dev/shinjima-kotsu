@@ -1,6 +1,11 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import FloatingContact from '@/components/FloatingContact'
+import WhiteLabelTracker from '@/components/WhiteLabelTracker'
+import { WhiteLabelProvider } from '@/lib/contexts/WhiteLabelContext'
+import { getWhiteLabelConfig } from '@/lib/utils/whitelabel-server'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 export const metadata: Metadata = {
   title: 'TIMC OSAKA 體檢預約 | 日本大阪德洲會國際醫療中心 - 新島交通',
@@ -31,22 +36,32 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  // 服务端获取白标配置
+  const whiteLabelConfig = await getWhiteLabelConfig();
+
   return (
     <html lang="ja">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;600;700&display=swap" rel="stylesheet" />
+        {/* 使用 loli.net 镜像，中国大陆可访问 */}
+        <link rel="preconnect" href="https://fonts.loli.net" />
+        <link rel="preconnect" href="https://gstatic.loli.net" crossOrigin="anonymous" />
+        <link href="https://fonts.loli.net/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Shippori+Mincho:wght@400;600;700&display=swap" rel="stylesheet" />
+        {/* Font Awesome - cdnjs 在中国可访问 */}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
       </head>
       <body className="font-sans antialiased">
-        {children}
-        <FloatingContact />
+        <WhiteLabelProvider initialConfig={whiteLabelConfig}>
+          {children}
+          <FloatingContact />
+          <WhiteLabelTracker />
+        </WhiteLabelProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )

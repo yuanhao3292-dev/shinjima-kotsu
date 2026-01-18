@@ -73,6 +73,7 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
           <div className="hidden lg:flex items-center gap-8">
             <Link href="/" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">首頁</Link>
             <Link href="/medical-packages" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">健檢套餐</Link>
+            <Link href="/cancer-treatment" className="text-sm font-medium text-gray-600 hover:text-rose-600 transition">綜合治療</Link>
             <Link href="/health-screening" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">AI 健康篩查</Link>
             <Link href="/faq" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">常見問題</Link>
           </div>

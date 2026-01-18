@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
+import { WHITELABEL_COOKIE_NAME } from '@/lib/types/whitelabel';
 
 // 延迟初始化，避免构建时报错
 const getStripe = () => {
@@ -27,6 +28,35 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json();
     const { packageSlug, customerInfo, preferredDate, preferredTime, notes } = body;
+
+    // 获取白标导游归属（从 Cookie）
+    const guideSlug = request.cookies.get(WHITELABEL_COOKIE_NAME)?.value || null;
+    let guideId: string | null = null;
+    let guideCommissionRate: number | null = null;
+
+    if (guideSlug) {
+      // 查询导游信息和佣金率
+      const { data: guideData } = await supabase
+        .from('guides')
+        .select(`
+          id,
+          commission_tier_id,
+          commission_tiers!inner(commission_rate)
+        `)
+        .eq('slug', guideSlug)
+        .eq('status', 'approved')
+        .eq('subscription_status', 'active')
+        .single();
+
+      if (guideData) {
+        guideId = guideData.id;
+        // commission_tiers 可能是数组或对象
+        const tierData = Array.isArray(guideData.commission_tiers)
+          ? guideData.commission_tiers[0]
+          : guideData.commission_tiers;
+        guideCommissionRate = tierData?.commission_rate || 10;
+      }
+    }
 
     // 1. 从数据库获取套餐信息
     const { data: packageData, error: packageError } = await supabase
@@ -95,7 +125,11 @@ export async function POST(request: NextRequest) {
         customer_snapshot: customerInfo,
         preferred_date: preferredDate || null,
         preferred_time: preferredTime || null,
-        notes: notes || null
+        notes: notes || null,
+        // 白标归属字段
+        referred_by_guide_id: guideId,
+        referred_by_guide_slug: guideSlug,
+        commission_rate: guideCommissionRate
       })
       .select()
       .single();
@@ -108,6 +142,19 @@ export async function POST(request: NextRequest) {
     }
 
     // 4. 创建 Stripe Checkout Session
+    const sessionMetadata: Record<string, string> = {
+      order_id: order.id,
+      package_slug: packageSlug,
+      order_type: 'medical', // 订单类型
+    };
+
+    // 如果有导游归属，添加到 metadata
+    if (guideId) {
+      sessionMetadata.guide_id = guideId;
+      sessionMetadata.guide_slug = guideSlug!;
+      sessionMetadata.commission_rate = String(guideCommissionRate);
+    }
+
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       payment_method_types: ['card'],
@@ -118,10 +165,7 @@ export async function POST(request: NextRequest) {
         },
       ],
       customer_email: customerInfo.email,
-      metadata: {
-        order_id: order.id,
-        package_slug: packageSlug,
-      },
+      metadata: sessionMetadata,
       success_url: `${request.nextUrl.origin}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${request.nextUrl.origin}/payment/cancel?order_id=${order.id}`,
     });
