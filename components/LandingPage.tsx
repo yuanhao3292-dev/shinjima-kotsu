@@ -17,6 +17,7 @@ import TIMCQuoteModal from './TIMCQuoteModal';
 import PublicLayout from './PublicLayout';
 import { useWhiteLabel, useWhiteLabelVisibility } from '@/lib/contexts/WhiteLabelContext';
 import { useCommissionTiers } from '@/lib/hooks/useCommissionTiers';
+import { useSiteImages } from '@/lib/hooks/useSiteImages';
 
 // --- IMAGE ASSETS CONFIGURATION ---
 const SITE_IMAGES = {
@@ -1071,16 +1072,20 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
   // 获取佣金等级配置（用于动态显示分成比例）
   const { summary: commissionSummary } = useCommissionTiers();
 
+  // 从数据库获取网站图片配置
+  const { getImage } = useSiteImages();
+
   // 首页轮播图配置 - 竞拍展位系统
   // 每周竞拍一次，起价 20,000 日币，轮播 3 张图
+  // 图片从数据库 site_images 表读取，可在后台管理
   const heroSlides: CarouselSlide[] = [
     {
       id: 'timc-health-checkup',
       title: currentLang === 'zh-TW' ? '日本 TIMC 精密體檢' : currentLang === 'ja' ? '日本TIMC精密健診' : 'Japan TIMC Premium Checkup',
       subtitle: currentLang === 'zh-TW' ? '德洲會國際醫療中心' : currentLang === 'ja' ? '徳洲会国際医療センター' : 'Tokushukai International Medical Center',
       description: currentLang === 'zh-TW' ? 'PET-CT / MRI / 胃腸鏡 - 早期發現，守護健康' : currentLang === 'ja' ? 'PET-CT / MRI / 胃腸内視鏡 - 早期発見で健康を守る' : 'PET-CT / MRI / Endoscopy - Early Detection for Better Health',
-      imageUrl: 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg',
-      mobileImageUrl: 'https://i.ibb.co/TDYnsXBb/013-2.jpg',
+      imageUrl: getImage('hero_slide_1', 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg'),
+      mobileImageUrl: getImage('hero_slide_1_mobile', 'https://i.ibb.co/TDYnsXBb/013-2.jpg'),
       ctaText: currentLang === 'zh-TW' ? '了解詳情' : currentLang === 'ja' ? '詳細を見る' : 'Learn More',
       ctaLink: '/medical-packages',
       overlayColor: 'rgba(0, 50, 100, 0.5)',
@@ -1092,7 +1097,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       title: currentLang === 'zh-TW' ? 'AI 智能健康檢測' : currentLang === 'ja' ? 'AI健康診断' : 'AI Health Screening',
       subtitle: currentLang === 'zh-TW' ? '3 分鐘了解您的健康風險' : currentLang === 'ja' ? '3分でリスクを把握' : '3-Minute Risk Assessment',
       description: currentLang === 'zh-TW' ? '基於 AI 的專業問診，為您推薦最適合的體檢方案' : currentLang === 'ja' ? 'AIによる問診で最適な健診プランをご提案' : 'AI-powered consultation for personalized health plans',
-      imageUrl: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2000&auto=format&fit=crop',
+      imageUrl: getImage('hero_slide_2', 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2000&auto=format&fit=crop'),
       ctaText: currentLang === 'zh-TW' ? '免費檢測' : currentLang === 'ja' ? '無料診断' : 'Free Screening',
       ctaLink: '/health-screening',
       overlayColor: 'rgba(30, 60, 114, 0.6)',
@@ -1104,7 +1109,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       title: currentLang === 'zh-TW' ? '日本尖端癌症治療' : currentLang === 'ja' ? '日本最先端がん治療' : 'Japan Advanced Cancer Treatment',
       subtitle: currentLang === 'zh-TW' ? '質子重離子 / 光免疫 / BNCT' : currentLang === 'ja' ? '陽子線・光免疫・BNCT' : 'Proton / Photoimmunotherapy / BNCT',
       description: currentLang === 'zh-TW' ? '全球領先的癌症治療技術，精準打擊癌細胞' : currentLang === 'ja' ? '世界最先端の治療技術でがん細胞を狙い撃ち' : 'World-leading technology for precise cancer treatment',
-      imageUrl: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2000&auto=format&fit=crop',
+      imageUrl: getImage('hero_slide_3', 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2000&auto=format&fit=crop'),
       ctaText: currentLang === 'zh-TW' ? '諮詢治療方案' : currentLang === 'ja' ? '治療相談' : 'Consult Now',
       ctaLink: '/cancer-treatment',
       overlayColor: 'rgba(139, 0, 50, 0.5)',

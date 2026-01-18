@@ -14,6 +14,7 @@ interface PublicLayoutProps {
   showFooter?: boolean;
   activeNav?: 'medical' | 'cancer' | 'golf' | 'business' | 'vehicles' | 'partner';
   transparentNav?: boolean; // 是否使用透明导航栏（融入 Hero）
+  onLogoClick?: () => void; // 点击 Logo 时的回调（用于 SPA 内部导航）
 }
 
 const navLabels = {
@@ -52,7 +53,7 @@ const navLabels = {
   },
 };
 
-export default function PublicLayout({ children, showFooter = true, activeNav, transparentNav = true }: PublicLayoutProps) {
+export default function PublicLayout({ children, showFooter = true, activeNav, transparentNav = true, onLogoClick }: PublicLayoutProps) {
   const [currentLang, setCurrentLang] = useState<Language>('zh-TW');
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -143,18 +144,33 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
       }`}>
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            {/* 白标模式下如果有自定义 Logo 则显示，否则显示默认 Logo */}
-            {hideOfficialBranding && branding.logoUrl ? (
-              <img src={branding.logoUrl} alt={displayBrandName} className="w-10 h-10 object-contain" />
-            ) : (
-              <Logo className={`w-10 h-10 transition-colors ${isTransparent ? 'text-white' : 'text-black group-hover:text-blue-600'}`} />
-            )}
-            <div className="flex flex-col">
-              <span className={`font-serif font-bold text-lg tracking-wide leading-none ${isTransparent ? 'text-white' : 'text-gray-900'}`}>{displayBrandName}</span>
-              <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-white/60' : 'text-gray-400 group-hover:text-blue-500'}`}>{displayBrandSub}</span>
-            </div>
-          </Link>
+          {onLogoClick ? (
+            <button onClick={onLogoClick} className="flex items-center gap-3 group">
+              {/* 白标模式下如果有自定义 Logo 则显示，否则显示默认 Logo */}
+              {hideOfficialBranding && branding.logoUrl ? (
+                <img src={branding.logoUrl} alt={displayBrandName} className="w-10 h-10 object-contain" />
+              ) : (
+                <Logo className={`w-10 h-10 transition-colors ${isTransparent ? 'text-white' : 'text-black group-hover:text-blue-600'}`} />
+              )}
+              <div className="flex flex-col">
+                <span className={`font-serif font-bold text-lg tracking-wide leading-none ${isTransparent ? 'text-white' : 'text-gray-900'}`}>{displayBrandName}</span>
+                <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-white/60' : 'text-gray-400 group-hover:text-blue-500'}`}>{displayBrandSub}</span>
+              </div>
+            </button>
+          ) : (
+            <Link href="/" className="flex items-center gap-3 group">
+              {/* 白标模式下如果有自定义 Logo 则显示，否则显示默认 Logo */}
+              {hideOfficialBranding && branding.logoUrl ? (
+                <img src={branding.logoUrl} alt={displayBrandName} className="w-10 h-10 object-contain" />
+              ) : (
+                <Logo className={`w-10 h-10 transition-colors ${isTransparent ? 'text-white' : 'text-black group-hover:text-blue-600'}`} />
+              )}
+              <div className="flex flex-col">
+                <span className={`font-serif font-bold text-lg tracking-wide leading-none ${isTransparent ? 'text-white' : 'text-gray-900'}`}>{displayBrandName}</span>
+                <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-white/60' : 'text-gray-400 group-hover:text-blue-500'}`}>{displayBrandSub}</span>
+              </div>
+            </Link>
+          )}
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center gap-8">
