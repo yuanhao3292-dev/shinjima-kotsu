@@ -1071,30 +1071,58 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
   // 获取佣金等级配置（用于动态显示分成比例）
   const { summary: commissionSummary } = useCommissionTiers();
 
+  // 首页轮播图配置 - 竞拍展位系统
+  // 每周竞拍一次，起价 20,000 日币，轮播 3 张图
+  const heroSlides: CarouselSlide[] = [
+    {
+      id: 'timc-health-checkup',
+      title: currentLang === 'zh-TW' ? '日本 TIMC 精密體檢' : currentLang === 'ja' ? '日本TIMC精密健診' : 'Japan TIMC Premium Checkup',
+      subtitle: currentLang === 'zh-TW' ? '德洲會國際醫療中心' : currentLang === 'ja' ? '徳洲会国際医療センター' : 'Tokushukai International Medical Center',
+      description: currentLang === 'zh-TW' ? 'PET-CT / MRI / 胃腸鏡 - 早期發現，守護健康' : currentLang === 'ja' ? 'PET-CT / MRI / 胃腸内視鏡 - 早期発見で健康を守る' : 'PET-CT / MRI / Endoscopy - Early Detection for Better Health',
+      imageUrl: 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg',
+      mobileImageUrl: 'https://i.ibb.co/TDYnsXBb/013-2.jpg',
+      ctaText: currentLang === 'zh-TW' ? '了解詳情' : currentLang === 'ja' ? '詳細を見る' : 'Learn More',
+      ctaLink: '/medical-packages',
+      overlayColor: 'rgba(0, 50, 100, 0.5)',
+      textPosition: 'center',
+      advertiser: 'TIMC',
+    },
+    {
+      id: 'ai-health-screening',
+      title: currentLang === 'zh-TW' ? 'AI 智能健康檢測' : currentLang === 'ja' ? 'AI健康診断' : 'AI Health Screening',
+      subtitle: currentLang === 'zh-TW' ? '3 分鐘了解您的健康風險' : currentLang === 'ja' ? '3分でリスクを把握' : '3-Minute Risk Assessment',
+      description: currentLang === 'zh-TW' ? '基於 AI 的專業問診，為您推薦最適合的體檢方案' : currentLang === 'ja' ? 'AIによる問診で最適な健診プランをご提案' : 'AI-powered consultation for personalized health plans',
+      imageUrl: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2000&auto=format&fit=crop',
+      ctaText: currentLang === 'zh-TW' ? '免費檢測' : currentLang === 'ja' ? '無料診断' : 'Free Screening',
+      ctaLink: '/health-screening',
+      overlayColor: 'rgba(30, 60, 114, 0.6)',
+      textPosition: 'center',
+      advertiser: 'NIIJIMA',
+    },
+    {
+      id: 'cancer-treatment',
+      title: currentLang === 'zh-TW' ? '日本尖端癌症治療' : currentLang === 'ja' ? '日本最先端がん治療' : 'Japan Advanced Cancer Treatment',
+      subtitle: currentLang === 'zh-TW' ? '質子重離子 / 光免疫 / BNCT' : currentLang === 'ja' ? '陽子線・光免疫・BNCT' : 'Proton / Photoimmunotherapy / BNCT',
+      description: currentLang === 'zh-TW' ? '全球領先的癌症治療技術，精準打擊癌細胞' : currentLang === 'ja' ? '世界最先端の治療技術でがん細胞を狙い撃ち' : 'World-leading technology for precise cancer treatment',
+      imageUrl: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2000&auto=format&fit=crop',
+      ctaText: currentLang === 'zh-TW' ? '諮詢治療方案' : currentLang === 'ja' ? '治療相談' : 'Consult Now',
+      ctaLink: '/cancer-treatment',
+      overlayColor: 'rgba(139, 0, 50, 0.5)',
+      textPosition: 'center',
+      advertiser: 'NIIJIMA',
+    },
+  ];
+
   return (
   <div className="animate-fade-in-up pt-0 bg-white">
-      {/* 1. Hero Header with 3D Particles */}
-      <header className="relative w-full h-[85vh] flex items-center justify-center bg-white overflow-hidden">
-          <div className="absolute inset-0 z-0">
-             {/* Use IntroParticles on BOTH Desktop and Mobile as requested */}
-             <IntroParticles />
-          </div>
-          <div className="container mx-auto px-6 flex flex-col items-center justify-center text-center z-10 pointer-events-none">
-              <div className="animate-fade-in-up space-y-8 mt-48 md:mt-64">
-                  <div className="pt-12 pointer-events-auto">
-                      <button
-                          onClick={() => document.getElementById('ai-b2b')?.scrollIntoView({behavior: 'smooth'})}
-                          className="group inline-flex items-center gap-2 text-gray-800 border border-gray-300 bg-white/50 backdrop-blur-md px-8 py-3 rounded-full text-sm tracking-widest hover:bg-black hover:text-white hover:border-black transition duration-300 shadow-lg"
-                      >
-                          {t.hero.cta} <ArrowLeft className="rotate-180 group-hover:translate-x-1 transition-transform" size={16} />
-                      </button>
-                  </div>
-              </div>
-          </div>
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-gray-300 pointer-events-none">
-             <ChevronDown size={24} />
-          </div>
-      </header>
+      {/* 1. Hero Carousel - 竞拍展位轮播图 */}
+      <HeroCarousel
+        slides={heroSlides}
+        autoPlayInterval={6000}
+        showIndicators={true}
+        showArrows={true}
+        height="85vh"
+      />
 
       {/* NEW: AI Health Screening Entry Section - Prominent CTA */}
       <section className="py-20 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 relative overflow-hidden">
