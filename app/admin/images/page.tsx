@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/lib/supabase/client';
 import {
   ArrowLeft,
   Upload,
@@ -39,7 +39,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 
 export default function AdminImagesPage() {
   const router = useRouter();
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [loading, setLoading] = useState(true);

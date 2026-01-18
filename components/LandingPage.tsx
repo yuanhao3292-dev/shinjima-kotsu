@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Logo from './Logo';
 import { translations, Language } from '../translations';
 import { UserProfile } from '../types';
@@ -1634,6 +1634,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
 const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [currentLang, setCurrentLang] = useState<Language>('zh-TW'); // Default to TW
   const [currentPage, setCurrentPage] = useState<PageView>('home');
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -1656,16 +1657,19 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
   useEffect(() => { emailjs.init('exX0IhSSUjNgMhuGb'); }, []);
 
   // 处理 URL 参数和 hash，支持从其他页面跳转回来时切换到指定页面
+  // 使用 searchParams 监听 URL 变化，解决点击 Logo 无法返回首页的问题
   useEffect(() => {
     // 处理 ?page=xxx 参数
-    const params = new URLSearchParams(window.location.search);
-    const page = params.get('page');
+    const page = searchParams.get('page');
     if (page && ['medical', 'golf', 'business', 'partner'].includes(page)) {
       setCurrentPage(page as PageView);
+    } else {
+      // 如果没有 page 参数，返回首页
+      setCurrentPage('home');
     }
 
     // 处理 hash 锚点
-    if (window.location.hash) {
+    if (typeof window !== 'undefined' && window.location.hash) {
       const id = window.location.hash.substring(1);
       setTimeout(() => {
         const element = document.getElementById(id);
@@ -1675,7 +1679,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
         }
       }, 500);
     }
-  }, []);
+  }, [searchParams]);
 
   const handleAuthSubmit = (e: React.FormEvent) => {
     e.preventDefault();
