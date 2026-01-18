@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
     const authHeader = request.headers.get('Authorization');
     const authResult = await verifyAdminAuth(authHeader);
 
-    if (!authResult.isAdmin) {
+    if (!authResult.isValid) {
       return NextResponse.json(
         { error: authResult.error || '需要管理员权限' },
         { status: 403 }
@@ -162,7 +162,7 @@ export async function PUT(request: NextRequest) {
     const authHeader = request.headers.get('Authorization');
     const authResult = await verifyAdminAuth(authHeader);
 
-    if (!authResult.isAdmin) {
+    if (!authResult.isValid) {
       return NextResponse.json(
         { error: authResult.error || '需要管理员权限' },
         { status: 403 }
