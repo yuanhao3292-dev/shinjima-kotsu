@@ -1716,7 +1716,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
   };
 
   return (
-    <PublicLayout activeNav={getActiveNav()} transparentNav={false}>
+    <PublicLayout activeNav={getActiveNav()} transparentNav={false} onLogoClick={() => setCurrentPage('home')}>
        {/* Content */}
        <main className="min-h-screen">
           {currentPage === 'home' && (

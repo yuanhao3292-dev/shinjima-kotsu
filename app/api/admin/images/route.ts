@@ -97,9 +97,10 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      // 生成文件名
-      const ext = file.name.split('.').pop() || 'jpg';
-      const fileName = `site-images/${imageKey}-${Date.now()}.${ext}`;
+      // 生成文件名（只使用英文和数字，避免中文字符导致上传失败）
+      const ext = (file.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg';
+      const safeKey = imageKey.replace(/[^a-zA-Z0-9_-]/g, '_');
+      const fileName = `site-images/${safeKey}-${Date.now()}.${ext}`;
 
       // 上传到 Supabase Storage
       const { data: uploadData, error: uploadError } = await supabase.storage
