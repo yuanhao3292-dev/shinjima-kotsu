@@ -7,6 +7,7 @@ import { UserProfile } from '../types';
 import { ArrowLeft, ArrowRight, CheckCircle, MapPin, Building, Activity, Shield, Armchair, FileText, Check, Brain, Eye, Zap, Coffee, Globe, ChevronDown, Smile, Heart, HeartPulse, Bus, Utensils, Quote, Lock, Trophy, Car, Bath, Handshake, Users, Briefcase, Mail, X, Menu, LogIn, Phone, Loader2, User, Sparkles, Scan, Cpu, Microscope, Dna, Monitor, Fingerprint, Printer, Map, Star, Award, MessageSquare, Bot } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import IntroParticles from './IntroParticles';
+import HeroCarousel, { CarouselSlide } from './HeroCarousel';
 import MedicalDNA from './MedicalDNA';
 import BusinessNetwork from './BusinessNetwork';
 import PartnerParticles from './PartnerParticles';
