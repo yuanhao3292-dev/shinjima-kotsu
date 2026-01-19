@@ -233,6 +233,31 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       </div>
     </div>
 
+    {/* Hospital Introduction Video Section */}
+    <div className="bg-gradient-to-b from-slate-900 to-slate-800 py-20">
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-12">
+          <span className="text-blue-400 text-xs tracking-[0.3em] uppercase font-bold">Hospital Tour</span>
+          <h3 className="text-3xl font-serif text-white mt-3">{t.medical.video_title || '醫院介紹'}</h3>
+          <p className="text-gray-400 text-sm mt-2 max-w-2xl mx-auto">{t.medical.video_subtitle || '走進德洲會國際醫療中心，感受日本頂級醫療服務'}</p>
+        </div>
+        <div className="max-w-4xl mx-auto">
+          <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-white/10">
+            <video
+              className="w-full h-full object-cover"
+              controls
+              poster="https://i.ibb.co/xS1h4rTM/hero-medical.jpg"
+              preload="metadata"
+            >
+              <source src="/videos/timc-introduction.mp4" type="video/mp4" />
+              您的瀏覽器不支援影片播放
+            </video>
+          </div>
+          <p className="text-center text-gray-500 text-xs mt-4">德洲會國際醫療中心 TIMC - 官方介紹影片</p>
+        </div>
+      </div>
+    </div>
+
     <div className="container mx-auto px-6 py-24">
       {/* 2. Authority Section */}
       <div className="mb-24">
