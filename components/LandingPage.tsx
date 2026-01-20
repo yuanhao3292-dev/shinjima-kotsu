@@ -151,7 +151,7 @@ const MedicalTechCard = ({
       <div className="relative h-64 overflow-hidden bg-gray-900">
         <img 
           src={img} 
-          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-700 grayscale group-hover:grayscale-0"
+          className="w-full h-full object-cover transition-all duration-700"
           alt={title}
           onError={(e) => handleSmartImageError(e, fallbackKey)}
         />

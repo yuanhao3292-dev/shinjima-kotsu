@@ -561,7 +561,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
       {/* 封面 */}
       <Page size="A4" style={[styles.page, styles.coverPage]}>
         <View style={styles.coverHeader}>
-          <Text style={styles.coverBrand}>TIMC x 新島交通</Text>
+          <Text style={styles.coverBrand}>新島交通株式会社</Text>
           <Text style={styles.coverTitle}>AI 健康評估報告</Text>
           <Text style={styles.coverSubtitle}>PERSONALIZED HEALTH ASSESSMENT REPORT</Text>
         </View>
@@ -579,7 +579,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
             </View>
             <View style={[styles.coverInfoRow, { marginBottom: 0 }]}>
               <Text style={styles.coverLabel}>合作醫療機構</Text>
-              <Text style={styles.coverValue}>日本德州會集團（TIMC體檢中心）</Text>
+              <Text style={styles.coverValue}>日本精密健檢中心</Text>
             </View>
           </View>
 
@@ -603,7 +603,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
       {/* 第2頁：風險分析 */}
       <Page size="A4" style={styles.page}>
         <View style={styles.pageHeader}>
-          <Text style={styles.headerBrand}>TIMC</Text>
+          <Text style={styles.headerBrand}>新島交通</Text>
           <Text style={styles.headerTitle}>AI Health Assessment</Text>
         </View>
 
@@ -674,7 +674,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
 
         <View style={styles.footer}>
           <Text style={styles.footerText}>{formatDateShort(createdAt)}</Text>
-          <Text style={styles.footerBrand}>TIMC x 新島交通</Text>
+          <Text style={styles.footerBrand}>新島交通株式会社</Text>
           <Text style={styles.footerText}>第 2 頁</Text>
         </View>
       </Page>
@@ -682,7 +682,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
       {/* 第3頁：檢查建議 */}
       <Page size="A4" style={styles.page}>
         <View style={styles.pageHeader}>
-          <Text style={styles.headerBrand}>TIMC</Text>
+          <Text style={styles.headerBrand}>新島交通</Text>
           <Text style={styles.headerTitle}>AI Health Assessment</Text>
         </View>
 
@@ -736,7 +736,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
 
         <View style={styles.footer}>
           <Text style={styles.footerText}>{formatDateShort(createdAt)}</Text>
-          <Text style={styles.footerBrand}>TIMC x 新島交通</Text>
+          <Text style={styles.footerBrand}>新島交通株式会社</Text>
           <Text style={styles.footerText}>第 3 頁</Text>
         </View>
       </Page>
@@ -744,7 +744,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
       {/* 第4頁：推薦醫院 */}
       <Page size="A4" style={styles.page}>
         <View style={styles.pageHeader}>
-          <Text style={styles.headerBrand}>TIMC</Text>
+          <Text style={styles.headerBrand}>新島交通</Text>
           <Text style={styles.headerTitle}>AI Health Assessment</Text>
         </View>
 
@@ -783,13 +783,13 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
         </View>
 
         <View style={styles.cta}>
-          <Text style={styles.ctaTitle}>預約 TIMC 精密健檢</Text>
+          <Text style={styles.ctaTitle}>預約日本精密健檢</Text>
           <Text style={styles.ctaText}>www.niijima-koutsu.jp/medical-packages</Text>
         </View>
 
         <View style={styles.footer}>
           <Text style={styles.footerText}>2025 新島交通株式会社</Text>
-          <Text style={styles.footerBrand}>TIMC x 新島交通</Text>
+          <Text style={styles.footerBrand}>新島交通株式会社</Text>
           <Text style={styles.footerText}>第 4 頁</Text>
         </View>
       </Page>
@@ -812,7 +812,7 @@ export async function downloadHealthReportPDF(
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
-  link.download = filename || `TIMC-Health-Report-${reportData.id.substring(0, 8).toUpperCase()}.pdf`;
+  link.download = filename || `Niijima-Health-Report-${reportData.id.substring(0, 8).toUpperCase()}.pdf`;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);

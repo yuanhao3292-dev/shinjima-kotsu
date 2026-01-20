@@ -5,29 +5,29 @@ interface LogoProps {
 }
 
 export const Logo: React.FC<LogoProps> = ({ className = "w-10 h-10" }) => (
-  <svg 
-    viewBox="0 0 100 100" 
-    className={className} 
+  <svg
+    viewBox="0 0 100 100"
+    className={className}
     xmlns="http://www.w3.org/2000/svg"
     aria-label="Niijima Kotsu Logo"
     fill="currentColor"
   >
-    {/* 
-       Typographic Logo Mark: '新' (Niijima)
-       Font: Shippori Mincho (High-end Serif)
-       Style: Minimalist, Ink-like, No border
+    {/*
+       Typographic Logo Mark: 'N' (Niijima)
+       Font: Serif style
+       Style: Minimalist, Elegant
     */}
-    <text 
-      x="50" 
-      y="58" 
-      fontSize="72" 
-      fontWeight="600" 
-      textAnchor="middle" 
+    <text
+      x="50"
+      y="58"
+      fontSize="72"
+      fontWeight="700"
+      textAnchor="middle"
       dominantBaseline="central"
-      fontFamily="'Shippori Mincho', serif"
+      fontFamily="'Times New Roman', serif"
       style={{ letterSpacing: '-0.02em' }}
     >
-      新
+      N
     </text>
   </svg>
 );

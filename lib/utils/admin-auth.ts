@@ -19,6 +19,10 @@ function getAdminEmails(): string[] {
  */
 export function isAdmin(email: string): boolean {
   const adminEmails = getAdminEmails();
+  console.log('[Admin Auth] ADMIN_EMAILS env:', process.env.ADMIN_EMAILS);
+  console.log('[Admin Auth] Parsed admin emails:', adminEmails);
+  console.log('[Admin Auth] Checking email:', email.toLowerCase());
+  console.log('[Admin Auth] Is admin:', adminEmails.includes(email.toLowerCase()));
   return adminEmails.includes(email.toLowerCase());
 }
 

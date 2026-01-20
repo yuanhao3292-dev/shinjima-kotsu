@@ -356,7 +356,7 @@ export const translations = {
       hero_tag: 'Tokushukai International Medical Center',
       hero_title_1: '早一步發現',
       hero_title_2: '多十年安心',
-      hero_subtitle: '日本最大醫療集團「德洲會」旗艦設施 × 大阪站地標 JP Tower',
+      hero_subtitle: '日本最大醫療集團「德洲會」旗艦設施：大阪德州會國際體檢中心 TIMC OSAKA',
       hero_text: '在這裡，頂尖醫療技術與五星級酒店服務完美融合。\n新島交通作為官方授權合作夥伴，為您開啟 VIP 綠色預約通道。',
       auth_tag: '權威與信賴',
       auth_title: 'Why TIMC?',

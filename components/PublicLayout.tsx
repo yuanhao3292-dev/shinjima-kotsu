@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import Logo from './Logo';
 import { Globe, ChevronDown, LogIn, X, Menu, Mail, Phone, Printer, MapPin, MessageCircle } from 'lucide-react';
 import { useWhiteLabel, useWhiteLabelVisibility } from '@/lib/contexts/WhiteLabelContext';
 
@@ -146,11 +145,9 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
           {/* Logo */}
           {onLogoClick ? (
             <button onClick={onLogoClick} className="flex items-center gap-3 group">
-              {/* 白标模式下如果有自定义 Logo 则显示，否则显示默认 Logo */}
-              {hideOfficialBranding && branding.logoUrl ? (
+              {/* 白标模式下如果有自定义 Logo 则显示 */}
+              {hideOfficialBranding && branding.logoUrl && (
                 <img src={branding.logoUrl} alt={displayBrandName} className="w-10 h-10 object-contain" />
-              ) : (
-                <Logo className={`w-10 h-10 transition-colors ${isTransparent ? 'text-white' : 'text-black group-hover:text-blue-600'}`} />
               )}
               <div className="flex flex-col">
                 <span className={`font-serif font-bold text-lg tracking-wide leading-none ${isTransparent ? 'text-white' : 'text-gray-900'}`}>{displayBrandName}</span>
@@ -159,11 +156,9 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
             </button>
           ) : (
             <Link href="/" className="flex items-center gap-3 group">
-              {/* 白标模式下如果有自定义 Logo 则显示，否则显示默认 Logo */}
-              {hideOfficialBranding && branding.logoUrl ? (
+              {/* 白标模式下如果有自定义 Logo 则显示 */}
+              {hideOfficialBranding && branding.logoUrl && (
                 <img src={branding.logoUrl} alt={displayBrandName} className="w-10 h-10 object-contain" />
-              ) : (
-                <Logo className={`w-10 h-10 transition-colors ${isTransparent ? 'text-white' : 'text-black group-hover:text-blue-600'}`} />
               )}
               <div className="flex flex-col">
                 <span className={`font-serif font-bold text-lg tracking-wide leading-none ${isTransparent ? 'text-white' : 'text-gray-900'}`}>{displayBrandName}</span>
@@ -247,10 +242,8 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
               {/* Column 1: Brand */}
               <div>
                 <div className="flex items-center gap-3 mb-6">
-                  {hideOfficialBranding && branding.logoUrl ? (
+                  {hideOfficialBranding && branding.logoUrl && (
                     <img src={branding.logoUrl} alt={displayBrandName} className="w-10 h-10 object-contain" />
-                  ) : (
-                    <Logo className="w-10 h-10 text-white" />
                   )}
                   <span className="text-xl font-serif tracking-widest font-bold">{displayBrandName}</span>
                 </div>
