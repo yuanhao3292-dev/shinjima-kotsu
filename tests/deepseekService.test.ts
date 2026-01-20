@@ -339,6 +339,89 @@ describe('generateFallbackAnalysis', () => {
       const result = generateFallbackAnalysis(answers);
       expect(result.riskSummary).not.toContain('經常飲酒');
     });
+
+    // P0 修复：戒烟误判测试
+    it('"已戒烟5年" 不应该被计为吸烟风险', () => {
+      const answers: ScreeningAnswer[] = [
+        { questionId: 5, question: '您是否吸煙？', answer: '是，已戒烟5年了' },
+      ];
+      const result = generateFallbackAnalysis(answers);
+      expect(result.riskSummary).not.toContain('吸煙習慣');
+      expect(result.recommendedTests).not.toContain('肺部CT檢查');
+    });
+
+    it('"戒掉了" 不应该被计为吸烟风险', () => {
+      const answers: ScreeningAnswer[] = [
+        { questionId: 5, question: '您是否吸煙？', answer: '以前抽，戒掉了' },
+      ];
+      const result = generateFallbackAnalysis(answers);
+      expect(result.riskSummary).not.toContain('吸煙習慣');
+    });
+
+    it('"曾經抽烟" 不应该被计为吸烟风险', () => {
+      const answers: ScreeningAnswer[] = [
+        { questionId: 5, question: '您是否吸煙？', answer: '曾經有，现在不抽了' },
+      ];
+      const result = generateFallbackAnalysis(answers);
+      expect(result.riskSummary).not.toContain('吸煙習慣');
+    });
+  });
+
+  // P1 修复：慢性病扩展检测测试
+  describe('慢性病扩展检测', () => {
+    it('高血脂应该推荐血脂四项', () => {
+      const answers: ScreeningAnswer[] = [
+        { questionId: 10, question: '您有什麼慢性疾病？', answer: '高血脂' },
+      ];
+      const result = generateFallbackAnalysis(answers);
+      expect(result.riskFactors).toContain('高血脂');
+      expect(result.recommendedTests).toContain('血脂四項檢測');
+    });
+
+    it('脂肪肝应该推荐肝脏超声波', () => {
+      const answers: ScreeningAnswer[] = [
+        { questionId: 10, question: '您有什麼慢性疾病？', answer: '脂肪肝' },
+      ];
+      const result = generateFallbackAnalysis(answers);
+      expect(result.riskFactors).toContain('脂肪肝');
+      expect(result.recommendedTests).toContain('肝臟超音波檢查');
+    });
+
+    it('痛风应该推荐尿酸检测', () => {
+      const answers: ScreeningAnswer[] = [
+        { questionId: 10, question: '您有什麼慢性疾病？', answer: '痛風' },
+      ];
+      const result = generateFallbackAnalysis(answers);
+      expect(result.riskFactors).toContain('痛風/高尿酸');
+      expect(result.recommendedTests).toContain('尿酸檢測');
+    });
+
+    it('心脏病应该推荐心脏检查', () => {
+      const answers: ScreeningAnswer[] = [
+        { questionId: 10, question: '您有什麼慢性疾病？', answer: '冠心病' },
+      ];
+      const result = generateFallbackAnalysis(answers);
+      expect(result.riskFactors).toContain('心臟疾病');
+      expect(result.recommendedTests).toContain('心臟超音波檢查');
+    });
+
+    it('中风病史应该推荐脑部检查', () => {
+      const answers: ScreeningAnswer[] = [
+        { questionId: 10, question: '您有什麼病史？', answer: '曾經中風' },
+      ];
+      const result = generateFallbackAnalysis(answers);
+      expect(result.riskFactors).toContain('腦血管疾病史');
+      expect(result.recommendedTests).toContain('腦部MRI檢查');
+      expect(result.recommendedTests).toContain('頸動脈超音波');
+    });
+
+    it('胆固醇高应该推荐血脂检测', () => {
+      const answers: ScreeningAnswer[] = [
+        { questionId: 10, question: '您有什麼慢性疾病？', answer: '膽固醇偏高' },
+      ];
+      const result = generateFallbackAnalysis(answers);
+      expect(result.recommendedTests).toContain('血脂四項檢測');
+    });
   });
 
   describe('风险等级判定', () => {

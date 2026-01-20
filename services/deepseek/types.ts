@@ -5,6 +5,7 @@
 export interface AnalysisResult {
   riskLevel: 'low' | 'medium' | 'high';
   riskSummary: string;
+  riskFactors?: string[]; // 識別到的風險因子（規則引擎使用）
   recommendedTests: string[];
   treatmentSuggestions: string[];
   recommendedHospitals: RecommendedHospital[];

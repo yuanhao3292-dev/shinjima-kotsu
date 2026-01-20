@@ -7,6 +7,18 @@ import { ScreeningAnswer } from '@/lib/screening-questions';
 import { AnalysisResult } from './types';
 import { MEDICAL_DISCLAIMER, NEGATION_WORDS } from './constants';
 
+// 戒除/過去式詞彙（表示曾經有但已停止）
+const QUIT_WORDS = ['戒', '已戒', '戒掉', '戒了', '不再', '曾經', '以前', '過去', 'quit', 'stopped', 'used to'];
+
+/**
+ * 檢測文本中是否包含戒除/已停止的信號
+ * 用於避免 "已戒煙5年" 被誤判為當前吸煙風險
+ */
+function containsQuitSignal(text: string): boolean {
+  const lowerText = text.toLowerCase();
+  return QUIT_WORDS.some((word) => lowerText.includes(word));
+}
+
 /**
  * 檢測文本中是否包含否定詞
  * 用於避免 "我不抽煙" 被誤判為抽煙風險
@@ -88,13 +100,16 @@ export function generateFallbackAnalysis(
       }
     }
 
-    // 吸煙（使用否定詞檢測避免 "不抽煙" 誤判）
+    // 吸煙（使用否定詞檢測避免 "不抽煙" 誤判，並檢測戒煙信號）
     if (question.includes('吸煙') || question.includes('抽煙')) {
-      const smokingKeywords = ['是', '有', '每天', '經常', '偶爾'];
-      if (checkRiskFactor(answerText, smokingKeywords)) {
-        riskScore += 2;
-        riskFactors.push('吸煙習慣');
-        recommendedTests.push('肺部CT檢查');
+      // 先檢查是否有戒煙信號（如 "已戒煙5年"）
+      if (!containsQuitSignal(answerText)) {
+        const smokingKeywords = ['是', '有', '每天', '經常', '偶爾'];
+        if (checkRiskFactor(answerText, smokingKeywords)) {
+          riskScore += 2;
+          riskFactors.push('吸煙習慣');
+          recommendedTests.push('肺部CT檢查');
+        }
       }
     }
 
@@ -119,15 +134,53 @@ export function generateFallbackAnalysis(
       }
     }
 
-    // 慢性病
-    if (question.includes('慢性') || question.includes('長期')) {
-      if (answerText.includes('高血壓')) {
+    // 慢性病（擴展檢測範圍）
+    if (question.includes('慢性') || question.includes('長期') || question.includes('疾病') || question.includes('病史')) {
+      // 高血壓
+      if (answerText.includes('高血壓') || answerText.includes('血壓高')) {
         riskScore += 2;
         riskFactors.push('高血壓');
+        recommendedTests.push('血壓監測');
       }
-      if (answerText.includes('糖尿')) {
+      // 糖尿病
+      if (answerText.includes('糖尿') || answerText.includes('血糖高')) {
         riskScore += 2;
         riskFactors.push('糖尿病');
+        recommendedTests.push('血糖檢測');
+        recommendedTests.push('糖化血紅蛋白檢測');
+      }
+      // 高血脂（新增）
+      if (answerText.includes('高血脂') || answerText.includes('膽固醇') || answerText.includes('三酸甘油')) {
+        riskScore += 1;
+        riskFactors.push('高血脂');
+        recommendedTests.push('血脂四項檢測');
+      }
+      // 脂肪肝（新增）
+      if (answerText.includes('脂肪肝')) {
+        riskScore += 1;
+        riskFactors.push('脂肪肝');
+        recommendedTests.push('肝臟超音波檢查');
+        recommendedTests.push('肝功能檢測');
+      }
+      // 痛風（新增）
+      if (answerText.includes('痛風') || answerText.includes('尿酸高')) {
+        riskScore += 1;
+        riskFactors.push('痛風/高尿酸');
+        recommendedTests.push('尿酸檢測');
+      }
+      // 心臟病（新增）
+      if (answerText.includes('心臟病') || answerText.includes('冠心病') || answerText.includes('心肌')) {
+        riskScore += 2;
+        riskFactors.push('心臟疾病');
+        recommendedTests.push('心電圖檢查');
+        recommendedTests.push('心臟超音波檢查');
+      }
+      // 中風（新增）
+      if (answerText.includes('中風') || answerText.includes('腦梗') || answerText.includes('腦出血')) {
+        riskScore += 2;
+        riskFactors.push('腦血管疾病史');
+        recommendedTests.push('腦部MRI檢查');
+        recommendedTests.push('頸動脈超音波');
       }
     }
   });
@@ -166,6 +219,7 @@ export function generateFallbackAnalysis(
   return {
     riskLevel,
     riskSummary,
+    riskFactors, // 導出風險因子供測試和調試
     recommendedTests: uniqueTests.slice(0, 5),
     treatmentSuggestions: [
       '保持均衡飲食和適量運動',
