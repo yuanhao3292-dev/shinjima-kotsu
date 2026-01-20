@@ -147,7 +147,7 @@ function validateAnswers(answers: ScreeningAnswer[]): { valid: boolean; error?: 
  */
 export function generateAnswersHash(answers: ScreeningAnswer[]): string {
   const normalized = answers
-    .map(a => `${a.questionId}:${JSON.stringify(a.answer)}`)
+    .map(a => `${a.questionId}:${JSON.stringify(a.answer)}:${a.note || ''}`)
     .sort()
     .join('|');
 
@@ -157,6 +157,36 @@ export function generateAnswersHash(answers: ScreeningAnswer[]): string {
 // ============================================
 // AI 分析降級策略
 // ============================================
+
+// 否定詞列表（用於規則引擎的否定句檢測）
+const NEGATION_WORDS = ['不', '沒有', '沒', '無', '否', '未', 'not', 'no', "don't", 'never', 'none'];
+
+/**
+ * 檢測文本中是否包含否定詞
+ * 用於避免 "我不抽煙" 被誤判為抽煙風險
+ */
+function containsNegation(text: string, keyword: string): boolean {
+  const lowerText = text.toLowerCase();
+  const keywordIndex = lowerText.indexOf(keyword.toLowerCase());
+
+  if (keywordIndex === -1) return false;
+
+  // 檢查關鍵詞前 10 個字符內是否有否定詞
+  const prefix = lowerText.substring(Math.max(0, keywordIndex - 10), keywordIndex);
+  return NEGATION_WORDS.some(neg => prefix.includes(neg));
+}
+
+/**
+ * 安全地檢測風險因子（考慮否定句）
+ */
+function checkRiskFactor(text: string, keywords: string[]): boolean {
+  for (const keyword of keywords) {
+    if (text.includes(keyword) && !containsNegation(text, keyword)) {
+      return true;
+    }
+  }
+  return false;
+}
 
 /**
  * 基於規則的降級分析
@@ -209,18 +239,19 @@ function generateFallbackAnalysis(answers: ScreeningAnswer[]): AnalysisResult {
       }
     }
 
-    // 吸煙
+    // 吸煙（使用否定詞檢測避免 "不抽煙" 誤判）
     if (question.includes('吸煙') || question.includes('抽煙')) {
-      if (answerText.includes('是') || answerText.includes('有') || answerText.includes('每天')) {
+      const smokingKeywords = ['是', '有', '每天', '經常', '偶爾'];
+      if (checkRiskFactor(answerText, smokingKeywords)) {
         riskScore += 2;
         riskFactors.push('吸煙習慣');
         recommendedTests.push('肺部CT檢查');
       }
     }
 
-    // 飲酒
+    // 飲酒（使用否定詞檢測）
     if (question.includes('飲酒') || question.includes('喝酒')) {
-      if (answerText.includes('經常') || answerText.includes('每天')) {
+      if (checkRiskFactor(answerText, ['經常', '每天', '大量'])) {
         riskScore += 1;
         riskFactors.push('經常飲酒');
         recommendedTests.push('肝功能檢測');
