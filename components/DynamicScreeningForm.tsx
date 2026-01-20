@@ -143,9 +143,10 @@ export default function DynamicScreeningForm({
           const data = await response.json();
           throw new Error(data.error || '保存失敗');
         }
-      } catch (err: any) {
-        console.error('Save error:', err);
-        setError(err.message);
+      } catch (err: unknown) {
+        // 不记录详细错误信息
+        console.warn('Save operation failed');
+        setError('保存失敗，請稍後重試');
       } finally {
         setIsSaving(false);
       }
@@ -224,9 +225,9 @@ export default function DynamicScreeningForm({
       if (!response.ok) throw new Error(data.error || '分析失敗');
 
       router.push(`/health-screening/result/${screeningId}`);
-    } catch (err: any) {
-      console.error('Submit error:', err);
-      setError(err.message);
+    } catch (err: unknown) {
+      console.warn('Quick analysis submission failed');
+      setError('分析請求失敗，請稍後重試');
       setIsSubmitting(false);
     }
   };
@@ -262,9 +263,9 @@ export default function DynamicScreeningForm({
       if (!response.ok) throw new Error(data.error || '分析失敗');
 
       router.push(`/health-screening/result/${screeningId}`);
-    } catch (err: any) {
-      console.error('Submit error:', err);
-      setError(err.message);
+    } catch (err: unknown) {
+      console.warn('Full analysis submission failed');
+      setError('分析請求失敗，請稍後重試');
       setIsSubmitting(false);
     }
   };

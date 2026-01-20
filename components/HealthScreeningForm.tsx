@@ -114,9 +114,10 @@ export default function HealthScreeningForm({
           const data = await response.json();
           throw new Error(data.error || '保存失敗');
         }
-      } catch (err: any) {
-        console.error('Save error:', err);
-        setError(err.message);
+      } catch (err: unknown) {
+        // 不记录详细错误信息到控制台，避免泄露敏感信息
+        console.warn('Save operation failed');
+        setError('保存失敗，請稍後重試');
       } finally {
         setIsSaving(false);
       }
@@ -208,9 +209,10 @@ export default function HealthScreeningForm({
 
       // 跳转到结果页
       router.push(`/health-screening/result/${screeningId}`);
-    } catch (err: any) {
-      console.error('Submit error:', err);
-      setError(err.message);
+    } catch (err: unknown) {
+      // 不记录详细错误信息到控制台
+      console.warn('Analysis submission failed');
+      setError('分析請求失敗，請稍後重試');
       setIsSubmitting(false);
     }
   };

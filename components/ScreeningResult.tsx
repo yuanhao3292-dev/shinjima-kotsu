@@ -329,12 +329,23 @@ export default function ScreeningResult({
         </div>
       )}
 
-      {/* 免责声明 */}
-      <div className="bg-gray-100 rounded-xl p-4 text-sm text-gray-500">
-        <p className="flex items-start gap-2">
-          <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-          <span>{result.disclaimer}</span>
-        </p>
+      {/* 完整医疗免责声明 */}
+      <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 text-sm">
+        <div className="flex items-start gap-3">
+          <AlertCircle className="w-6 h-6 text-amber-600 flex-shrink-0 mt-0.5" />
+          <div className="space-y-2">
+            <h4 className="font-bold text-amber-800">⚠️ 重要醫療免責聲明</h4>
+            <ul className="text-amber-700 space-y-1 list-disc list-inside">
+              <li>本 AI 健康評估系統僅供健康參考，不構成任何形式的醫學診斷、治療建議或處方。</li>
+              <li>AI 分析結果不能替代專業醫療人員的診查、診斷和治療建議。</li>
+              <li>如您被評估為中度或高度健康風險，請儘速諮詢專業醫療機構。</li>
+              <li>任何健康決策請務必諮詢持有執照的醫療專業人員。</li>
+              <li>新島交通株式會社對因使用本系統所做決策產生的任何後果不承擔法律責任。</li>
+              <li>緊急情況請立即撥打急救電話或前往最近醫療機構。</li>
+            </ul>
+            <p className="text-amber-600 text-xs mt-3">© 新島交通株式會社 | 日本精密健檢服務</p>
+          </div>
+        </div>
       </div>
 
       {/* 操作按钮 */}
@@ -344,7 +355,7 @@ export default function ScreeningResult({
           className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium"
         >
           <Stethoscope className="w-5 h-5" />
-          預約 TIMC 健檢套餐
+          預約日本精密健檢
         </Link>
 
         <button

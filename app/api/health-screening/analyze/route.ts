@@ -1,6 +1,11 @@
 /**
- * Health Screening Analysis API v3.0
+ * Health Screening Analysis API v4.0
  * POST: 触发 AI 分析并保存结果
+ *
+ * 安全特性：
+ * - 答案哈希缓存（避免重复分析）
+ * - AI 故障降级
+ * - 安全日志（不记录敏感信息）
  *
  * 支持两阶段问诊系统：
  * - phase: 1 = 快速筛查（10题）→ 初步建议
@@ -9,7 +14,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { analyzeHealthScreening } from '@/services/deepseekService';
+import { analyzeHealthScreening, generateAnswersHash } from '@/services/deepseekService';
 import {
   PHASE_1_QUESTIONS,
   getPhase2QuestionsByBodyParts,
@@ -99,7 +104,8 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (usageError && usageError.code !== 'PGRST116') {
-      console.error('Error fetching usage:', usageError);
+      // 只记录错误类型，不记录详情
+      console.warn('Usage fetch failed with code:', usageError.code);
     }
 
     if (usage && usage.free_remaining <= 0) {
@@ -109,17 +115,33 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 调用 DeepSeek API 分析
-    // 传递 phase 参数让 AI 知道这是快速筛查还是完整分析
+    // 生成答案哈希用于缓存
+    const answersHash = generateAnswersHash(answers);
+
+    // 检查是否有相同答案的缓存分析结果
+    const { data: cachedResult } = await supabase
+      .from('health_screenings')
+      .select('analysis_result')
+      .eq('answers_hash', answersHash)
+      .eq('status', 'completed')
+      .not('analysis_result', 'is', null)
+      .limit(1)
+      .single();
+
     let analysisResult;
-    try {
+
+    if (cachedResult?.analysis_result) {
+      // 使用缓存的分析结果
+      console.info('Using cached analysis result');
+      analysisResult = cachedResult.analysis_result;
+    } else {
+      // 调用 AI 分析（内置降级策略）
+      // analyzeHealthScreening 已包含：
+      // - Prompt 注入防护
+      // - 请求超时处理
+      // - AI 故障降级（规则引擎）
+      // - 输出验证
       analysisResult = await analyzeHealthScreening(answers, phase);
-    } catch (aiError: any) {
-      console.error('AI analysis error:', aiError);
-      return NextResponse.json(
-        { error: 'AI 分析失敗，請稍後重試' },
-        { status: 500 }
-      );
     }
 
     // 更新筛查记录
@@ -128,13 +150,14 @@ export async function POST(request: NextRequest) {
       .update({
         status: 'completed',
         analysis_result: analysisResult,
+        answers_hash: answersHash,
         completed_at: new Date().toISOString(),
       })
       .eq('id', screeningId)
       .eq('user_id', user.id);
 
     if (updateError) {
-      console.error('Error updating screening:', updateError);
+      console.warn('Screening update failed');
       return NextResponse.json({ error: '保存分析結果失敗' }, { status: 500 });
     }
 
@@ -162,10 +185,13 @@ export async function POST(request: NextRequest) {
       success: true,
       analysisResult,
       phase,
+      isCached: !!cachedResult?.analysis_result,
+      isFallback: analysisResult.isFallback || false,
       message: phase === 1 ? '快速篩查分析完成' : '完整分析完成',
     });
-  } catch (error: any) {
-    console.error('Health screening analyze error:', error);
+  } catch (error: unknown) {
+    // 安全日志：不记录详细错误信息
+    console.warn('Health screening analysis request failed');
     return NextResponse.json({ error: '系統錯誤，請稍後重試' }, { status: 500 });
   }
 }
