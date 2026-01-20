@@ -168,7 +168,7 @@ export async function POST(request: NextRequest) {
       freeRemaining: usageInfo.freeRemaining,
       message: '筛查記錄已創建',
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Health screening POST error:', error);
     return NextResponse.json({ error: '系統錯誤，請稍後重試' }, { status: 500 });
   }
@@ -235,7 +235,7 @@ export async function GET(request: NextRequest) {
       freeRemaining: usageInfo.freeRemaining,
       totalUsed: usageInfo.totalUsed,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Health screening GET error:', error);
     return NextResponse.json({ error: '系統錯誤，請稍後重試' }, { status: 500 });
   }

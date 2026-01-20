@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
+import { getSupabaseAdmin } from '@/lib/supabase/api';
 
 /**
  * 订阅到期提醒定时任务
@@ -31,11 +31,7 @@ export async function GET(request: NextRequest) {
     console.warn('Warning: CRON_SECRET not set, skipping auth in development');
   }
 
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
-
+  const supabase = getSupabaseAdmin();
   const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
   if (!resend) {
@@ -121,9 +117,9 @@ export async function GET(request: NextRequest) {
       },
       errors: results.errors.length,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Subscription reminder error:', error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: error instanceof Error ? error.message : '服务器错误' }, { status: 500 });
   }
 }
 

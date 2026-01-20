@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Logo from './Logo';
 import { translations, Language } from '../translations';
@@ -114,37 +114,50 @@ interface SubViewProps {
 }
 
 // Hook to detect mobile screen - ensures stable rendering switch
+// 使用节流优化 resize 事件
 const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
+    let timeoutId: NodeJS.Timeout;
+    const check = () => {
+      // 清除之前的定时器，实现节流
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setIsMobile(window.innerWidth < 768);
+      }, 150); // 150ms 节流
+    };
+    // 初始检查
+    setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', check, { passive: true });
+    return () => {
+      window.removeEventListener('resize', check);
+      clearTimeout(timeoutId);
+    };
   }, []);
   return isMobile;
 };
 
 // --- NEW COMPONENT: AI Tech Card (Used in Sub-views) ---
-const MedicalTechCard = ({ 
-  img, 
-  title, 
-  desc, 
-  icon: Icon, 
-  colorClass, 
+// 使用 React.memo 优化渲染性能
+const MedicalTechCard = memo(function MedicalTechCard({
+  img,
+  title,
+  desc,
+  icon: Icon,
+  colorClass,
   fallbackKey,
-  spec1, 
-  spec2 
-}: { 
-  img: string, 
-  title: string, 
-  desc: string, 
-  icon: any, 
+  spec1,
+  spec2
+}: {
+  img: string,
+  title: string,
+  desc: string,
+  icon: any,
   colorClass: string,
   fallbackKey: string,
   spec1: string,
   spec2: string
-}) => {
+}) {
   return (
     <div className="group relative bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
       {/* Image Container with Tech Overlay */}
@@ -189,8 +202,9 @@ const MedicalTechCard = ({
       </div>
     </div>
   );
-};
+});
 
+// 使用 React.memo 优化 MedicalView 渲染性能
 const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuote }) => (
   <div className="animate-fade-in-up min-h-screen bg-white">
     {/* 1. Hero Section - Full height with transparent nav overlap */}

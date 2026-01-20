@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { maskPII } from '@/lib/utils/encryption';
+import { getSupabaseAdmin } from '@/lib/supabase/api';
 
 // 最低提现金额
 const MIN_WITHDRAWAL_AMOUNT = 5000; // 5,000 日元
@@ -23,6 +19,7 @@ export async function GET(request: NextRequest) {
   }
 
   const token = authHeader.split(' ')[1];
+  const supabase = getSupabaseAdmin();
 
   try {
     // 验证用户
@@ -71,13 +68,15 @@ export async function GET(request: NextRequest) {
         bankName: guide.bank_name,
         bankBranch: guide.bank_branch,
         accountType: guide.bank_account_type,
-        accountNumber: guide.bank_account_number,
-        accountHolder: guide.bank_account_holder,
+        // 脱敏银行账号，只显示后4位
+        accountNumber: guide.bank_account_number ? maskPII(guide.bank_account_number, 4) : null,
+        // 脱敏账户名义人
+        accountHolder: guide.bank_account_holder ? maskPII(guide.bank_account_holder, 4) : null,
       },
       withdrawals: withdrawals || [],
       minAmount: MIN_WITHDRAWAL_AMOUNT,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('提现 API 错误:', error);
     return NextResponse.json({ error: '服务器错误' }, { status: 500 });
   }
@@ -90,6 +89,7 @@ export async function POST(request: NextRequest) {
   }
 
   const token = authHeader.split(' ')[1];
+  const supabase = getSupabaseAdmin();
 
   try {
     // 验证用户
@@ -182,7 +182,7 @@ export async function POST(request: NextRequest) {
       message: '提现申请已提交，我们将在 1-3 个工作日内处理',
       withdrawal,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('提现 API 错误:', error);
     return NextResponse.json({ error: '服务器错误' }, { status: 500 });
   }
@@ -204,6 +204,8 @@ export async function DELETE(request: NextRequest) {
   if (!withdrawalId) {
     return NextResponse.json({ error: '缺少提现 ID' }, { status: 400 });
   }
+
+  const supabase = getSupabaseAdmin();
 
   try {
     // 验证用户
@@ -257,7 +259,7 @@ export async function DELETE(request: NextRequest) {
       success: true,
       message: '提现申请已取消',
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('取消提现错误:', error);
     return NextResponse.json({ error: '服务器错误' }, { status: 500 });
   }

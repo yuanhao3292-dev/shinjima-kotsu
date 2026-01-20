@@ -170,10 +170,11 @@ export async function POST(request: NextRequest) {
     await recordEventProcessed(supabase, event.id, event.type, 'success');
     return NextResponse.json({ received: true });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('处理 Webhook 事件失败:', error);
     // 记录事件处理失败
-    await recordEventProcessed(supabase, event.id, event.type, 'failed', error.message);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    await recordEventProcessed(supabase, event.id, event.type, 'failed', errorMessage);
     return NextResponse.json(
       { error: 'Webhook handler failed' },
       { status: 500 }

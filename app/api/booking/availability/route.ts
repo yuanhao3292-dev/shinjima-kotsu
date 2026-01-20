@@ -1,10 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { getSupabaseAdmin } from '@/lib/supabase/api';
 
 /**
  * 预约可用性检查 API
@@ -30,6 +25,8 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: '日期格式无效，请使用 YYYY-MM-DD' }, { status: 400 });
   }
 
+  const supabase = getSupabaseAdmin();
+
   try {
     if (venueId) {
       // 查询店铺可用性
@@ -43,7 +40,7 @@ export async function GET(request: NextRequest) {
         if (error.message?.includes('does not exist')) {
           const { data: bookings } = await supabase
             .from('bookings')
-            .select('id, booking_time, customer_name')
+            .select('id, booking_time')
             .eq('venue_id', venueId)
             .eq('booking_date', date)
             .not('status', 'in', '("cancelled","no_show")');
@@ -73,7 +70,6 @@ export async function GET(request: NextRequest) {
             .select(`
               id,
               booking_time,
-              customer_name,
               venue:venues(name)
             `)
             .eq('guide_id', guideId)
@@ -90,7 +86,7 @@ export async function GET(request: NextRequest) {
     }
 
     return NextResponse.json({ error: '请提供 venue_id 或 guide_id' }, { status: 400 });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('可用性查询错误:', error);
     return NextResponse.json({ error: '查询失败' }, { status: 500 });
   }
@@ -100,6 +96,8 @@ export async function GET(request: NextRequest) {
  * POST /api/booking/availability - 检查特定时间是否可用
  */
 export async function POST(request: NextRequest) {
+  const supabase = getSupabaseAdmin();
+
   try {
     const body = await request.json();
     const { venueId, guideId, date, time } = body;
@@ -114,7 +112,7 @@ export async function POST(request: NextRequest) {
     if (venueId) {
       const { data: venueConflicts } = await supabase
         .from('bookings')
-        .select('id, customer_name, booking_time')
+        .select('id, booking_time')
         .eq('venue_id', venueId)
         .eq('booking_date', date)
         .not('status', 'in', '("cancelled","no_show")');
@@ -124,7 +122,7 @@ export async function POST(request: NextRequest) {
           if (isTimeConflict(time, booking.booking_time)) {
             conflicts.push({
               type: 'venue',
-              message: `该店铺在 ${booking.booking_time || '当天'} 已有预约（客户：${booking.customer_name}）`,
+              message: `该店铺在 ${booking.booking_time || '当天'} 已有预约`,
               bookingId: booking.id,
             });
           }
@@ -138,7 +136,6 @@ export async function POST(request: NextRequest) {
         .from('bookings')
         .select(`
           id,
-          customer_name,
           booking_time,
           venue:venues(name)
         `)
@@ -149,10 +146,10 @@ export async function POST(request: NextRequest) {
       if (guideConflicts && guideConflicts.length > 0) {
         for (const booking of guideConflicts) {
           if (isTimeConflict(time, booking.booking_time)) {
-            const venue = booking.venue as any;
+            const venue = booking.venue as { name?: string } | null;
             conflicts.push({
               type: 'guide',
-              message: `您在 ${booking.booking_time || '当天'} 已有预约（${venue?.name || ''}，客户：${booking.customer_name}）`,
+              message: `您在 ${booking.booking_time || '当天'} 已有预约${venue?.name ? `（${venue.name}）` : ''}`,
               bookingId: booking.id,
             });
           }
@@ -164,7 +161,7 @@ export async function POST(request: NextRequest) {
       available: conflicts.length === 0,
       conflicts,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('冲突检查错误:', error);
     return NextResponse.json({ error: '检查失败' }, { status: 500 });
   }
@@ -209,7 +206,7 @@ function generateGuidTimeSlots(bookings: any[]) {
       time_slot: timeStr,
       is_available: !conflict,
       venue_name: conflict?.venue?.name || null,
-      customer_name: conflict?.customer_name || null,
+      // 移除 customer_name，保护客户隐私
     });
   }
   return slots;

@@ -84,7 +84,7 @@ export async function GET(request: NextRequest) {
       orderId: order.id,
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Order lookup by session error:', error);
     return NextResponse.json(
       { error: '系统错误' },
@@ -224,7 +224,7 @@ export async function POST(request: NextRequest) {
       }
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Order lookup error:', error);
     return NextResponse.json(
       { error: '系統錯誤，請稍後重試' },

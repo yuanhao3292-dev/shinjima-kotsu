@@ -211,8 +211,18 @@ const generatePartnerShapes = async (count: number) => {
   return { posSphere, posShin, posRai, sizes };
 };
 
+// 动态粒子数量，根据设备性能调整
+const getPartnerParticleCount = (): number => {
+  if (typeof window === 'undefined') return 2000;
+  if (window.innerWidth < 768) return 1500;
+  const cores = navigator.hardwareConcurrency || 4;
+  if (cores <= 2) return 2000;
+  if (cores <= 4) return 2500;
+  return 3000;
+};
+
 const Particles = () => {
-  const count = 4000;
+  const count = getPartnerParticleCount();
   const materialRef = useRef<THREE.ShaderMaterial>(null);
   const [data, setData] = useState<any>(null);
   const [targetState, setTargetState] = useState(0);
@@ -221,7 +231,7 @@ const Particles = () => {
     document.fonts.ready.then(() => {
         generatePartnerShapes(count).then(setData);
     });
-  }, []);
+  }, [count]);
 
   useEffect(() => {
     if (!data) return;

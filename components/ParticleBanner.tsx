@@ -193,8 +193,15 @@ const ParticleSystem = () => {
   const pointsRef = useRef<THREE.Points>(null);
   const materialRef = useRef<THREE.ShaderMaterial>(null);
 
-  // Configuration
-  const particleCount = 4000;
+  // Configuration - 动态粒子数量，根据设备性能调整
+  const particleCount = useMemo(() => {
+    if (typeof window === 'undefined') return 2000;
+    if (window.innerWidth < 768) return 1500;
+    const cores = navigator.hardwareConcurrency || 4;
+    if (cores <= 2) return 2000;
+    if (cores <= 4) return 2500;
+    return 3000;
+  }, []);
   const textString = "SHINJIMA AI";
 
   // Data Generation (Memoized)

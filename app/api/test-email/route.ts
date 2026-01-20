@@ -40,11 +40,11 @@ export async function POST(request: NextRequest) {
       message: '測試郵件已發送',
       result
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('發送測試郵件失敗:', error);
     return NextResponse.json({
       success: false,
-      error: error.message
+      error: error instanceof Error ? error.message : '发送失败'
     }, { status: 500 });
   }
 }

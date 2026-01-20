@@ -1,15 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import { verifyAdminAuth } from '@/lib/utils/admin-auth';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { getSupabaseAdmin } from '@/lib/supabase/api';
 
 // GET - 获取所有图片配置
 export async function GET(request: NextRequest) {
   try {
+    // 验证管理员权限
+    const authHeader = request.headers.get('Authorization');
+    const authResult = await verifyAdminAuth(authHeader);
+
+    if (!authResult.isValid) {
+      return NextResponse.json(
+        { error: authResult.error || '需要管理员权限' },
+        { status: 403 }
+      );
+    }
+
+    const supabase = getSupabaseAdmin();
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category');
 
@@ -64,6 +71,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const supabase = getSupabaseAdmin();
     const formData = await request.formData();
     const imageKey = formData.get('imageKey') as string;
     const file = formData.get('file') as File | null;
@@ -171,6 +179,7 @@ export async function PUT(request: NextRequest) {
       );
     }
 
+    const supabase = getSupabaseAdmin();
     const { imageKey } = await request.json();
 
     if (!imageKey) {

@@ -46,10 +46,10 @@ export async function GET() {
       }
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('API 错误:', error);
     return NextResponse.json(
-      { error: error.message || '服务器错误' },
+      { error: error instanceof Error ? error.message : '服务器错误' },
       { status: 500 }
     );
   }

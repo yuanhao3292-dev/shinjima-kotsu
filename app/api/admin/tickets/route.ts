@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import { verifyAdminAuth } from '@/lib/utils/admin-auth';
+import { getSupabaseAdmin } from '@/lib/supabase/api';
 
 /**
  * 管理员工单 API
@@ -15,11 +15,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: authResult.error }, { status: 401 });
   }
 
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
-
+  const supabase = getSupabaseAdmin();
   const { searchParams } = new URL(request.url);
   const ticketId = searchParams.get('id');
   const status = searchParams.get('status');
@@ -95,7 +91,7 @@ export async function GET(request: NextRequest) {
         stats: statusCounts,
       });
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('工单 API 错误:', error);
     return NextResponse.json({ error: '服务器错误' }, { status: 500 });
   }
@@ -111,10 +107,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: authResult.error }, { status: 401 });
   }
 
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+  const supabase = getSupabaseAdmin();
 
   try {
     const body = await request.json();
@@ -182,7 +175,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ error: '无效的操作' }, { status: 400 });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('工单操作错误:', error);
     return NextResponse.json({ error: '服务器错误' }, { status: 500 });
   }

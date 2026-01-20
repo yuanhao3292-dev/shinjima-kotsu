@@ -1,11 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import { verifyAdminAuth } from '@/lib/utils/admin-auth';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { getSupabaseAdmin } from '@/lib/supabase/api';
 
 /**
  * 审计日志 API
@@ -22,6 +17,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: authResult.error }, { status: 401 });
   }
 
+  const supabase = getSupabaseAdmin();
   const { searchParams } = new URL(request.url);
   const entityType = searchParams.get('entity_type');
   const entityId = searchParams.get('entity_id');
@@ -99,7 +95,7 @@ export async function GET(request: NextRequest) {
       },
       stats: statsMap,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('审计日志 API 错误:', error);
     return NextResponse.json({ error: '服务器错误' }, { status: 500 });
   }
@@ -113,6 +109,8 @@ export async function POST(request: NextRequest) {
   if (!authResult.isValid) {
     return NextResponse.json({ error: authResult.error }, { status: 401 });
   }
+
+  const supabase = getSupabaseAdmin();
 
   try {
     const body = await request.json();
@@ -145,7 +143,7 @@ export async function POST(request: NextRequest) {
       success: true,
       log: data,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('审计日志记录错误:', error);
     return NextResponse.json({ error: '服务器错误' }, { status: 500 });
   }

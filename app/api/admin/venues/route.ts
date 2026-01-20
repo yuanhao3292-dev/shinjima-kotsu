@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import { verifyAdminAuth } from '@/lib/utils/admin-auth';
+import { getSupabaseAdmin } from '@/lib/supabase/api';
 
 /**
  * 管理员店铺管理 API
@@ -16,11 +16,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: authResult.error }, { status: 401 });
   }
 
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
-
+  const supabase = getSupabaseAdmin();
   const { searchParams } = new URL(request.url);
   const venueId = searchParams.get('id');
   const category = searchParams.get('category');
@@ -86,7 +82,7 @@ export async function GET(request: NextRequest) {
         },
       });
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('店铺 API 错误:', error);
     return NextResponse.json({ error: '服务器错误' }, { status: 500 });
   }
@@ -98,10 +94,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: authResult.error }, { status: 401 });
   }
 
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+  const supabase = getSupabaseAdmin();
 
   try {
     const body = await request.json();
@@ -210,7 +203,7 @@ export async function POST(request: NextRequest) {
       default:
         return NextResponse.json({ error: '无效的操作' }, { status: 400 });
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('店铺操作错误:', error);
     return NextResponse.json({ error: '服务器错误' }, { status: 500 });
   }

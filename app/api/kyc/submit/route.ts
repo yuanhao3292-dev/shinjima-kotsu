@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
 import { encryptPII } from '@/lib/utils/encryption';
+import { getSupabaseAdmin } from '@/lib/supabase/api';
+import { validateBody } from '@/lib/validations/validate';
+import { KYCSubmitSchema } from '@/lib/validations/api-schemas';
+import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
 
 /**
  * KYC 提交 API
@@ -10,8 +13,23 @@ import { encryptPII } from '@/lib/utils/encryption';
  */
 export async function POST(request: NextRequest) {
   try {
-    // 获取请求体
-    const body = await request.json();
+    // 速率限制检查（敏感端点：每分钟 10 次）
+    const clientIp = getClientIp(request);
+    const rateLimitResult = checkRateLimit(
+      `${clientIp}:/api/kyc/submit`,
+      RATE_LIMITS.sensitive
+    );
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { error: '请求过于频繁，请稍后再试' },
+        { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
+      );
+    }
+
+    // 使用 Zod 验证输入
+    const validation = await validateBody(request, KYCSubmitSchema);
+    if (!validation.success) return validation.error;
+
     const {
       guideId,
       documentType,
@@ -20,21 +38,10 @@ export async function POST(request: NextRequest) {
       nationality,
       frontUrl,
       backUrl,
-    } = body;
+    } = validation.data;
 
-    // 验证必填字段
-    if (!guideId || !documentType || !documentNumber || !legalName) {
-      return NextResponse.json(
-        { error: '缺少必填字段' },
-        { status: 400 }
-      );
-    }
-
-    // 创建服务端 Supabase 客户端
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    );
+    // 获取服务端 Supabase 客户端
+    const supabase = getSupabaseAdmin();
 
     // 验证请求者身份（通过 Authorization header）
     const authHeader = request.headers.get('authorization');
@@ -108,10 +115,10 @@ export async function POST(request: NextRequest) {
       message: 'KYC 资料已提交，请等待审核',
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('KYC 提交错误:', error);
     return NextResponse.json(
-      { error: error.message || '服务器错误' },
+      { error: error instanceof Error ? error.message : '服务器错误' },
       { status: 500 }
     );
   }

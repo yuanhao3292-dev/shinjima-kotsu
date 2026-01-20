@@ -107,12 +107,13 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(result);
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('AI parsing error:', error);
+    const errorMessage = error instanceof Error ? error.message : '未知错误';
     return NextResponse.json(
       {
         error: 'AI 解析失败',
-        message: process.env.NODE_ENV === 'development' ? error.message : undefined
+        message: process.env.NODE_ENV === 'development' ? errorMessage : undefined
       },
       { status: 500 }
     );

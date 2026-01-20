@@ -224,6 +224,22 @@ const generateParticles = async (count: number) => {
   return { posSphere, posShin, posJima, posKo, posTsu, randoms };
 };
 
+// 根据设备性能动态计算粒子数量
+const getParticleCount = (): number => {
+  if (typeof window === 'undefined') return 2000;
+
+  // 移动端使用较少粒子
+  if (window.innerWidth < 768) return 1500;
+
+  // 检测低性能设备（通过 hardwareConcurrency）
+  const cores = navigator.hardwareConcurrency || 4;
+  if (cores <= 2) return 2000;
+  if (cores <= 4) return 3000;
+
+  // 高性能设备使用更多粒子
+  return 4000;
+};
+
 const ParticleSystem = () => {
   const pointsRef = useRef<THREE.Points>(null);
   const materialRef = useRef<THREE.ShaderMaterial>(null);
@@ -234,7 +250,9 @@ const ParticleSystem = () => {
     // Wait for fonts to load to ensure text generates correctly
     document.fonts.ready.then(() => {
         const init = async () => {
-            const d = await generateParticles(6000); // 6000 particles for density
+            // 动态粒子数量，根据设备性能调整
+            const particleCount = getParticleCount();
+            const d = await generateParticles(particleCount);
             setData(d);
         };
         init();

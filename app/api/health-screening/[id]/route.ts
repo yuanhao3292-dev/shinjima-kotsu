@@ -60,7 +60,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         userEmail: screening.user_email,
       },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Health screening GET [id] error:', error);
     return NextResponse.json({ error: '系統錯誤，請稍後重試' }, { status: 500 });
   }
@@ -139,7 +139,7 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
       success: true,
       message: '答案已保存',
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Health screening PATCH error:', error);
     return NextResponse.json({ error: '系統錯誤，請稍後重試' }, { status: 500 });
   }

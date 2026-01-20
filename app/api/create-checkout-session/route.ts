@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 import { WHITELABEL_COOKIE_NAME } from '@/lib/types/whitelabel';
+import { validateBody } from '@/lib/validations/validate';
+import { CreateCheckoutSessionSchema } from '@/lib/validations/api-schemas';
+import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
 
 // 延迟初始化，避免构建时报错
 const getStripe = () => {
@@ -23,11 +26,26 @@ const getSupabase = () => {
 
 export async function POST(request: NextRequest) {
   try {
+    // 速率限制检查（敏感端点：每分钟 10 次）
+    const clientIp = getClientIp(request);
+    const rateLimitResult = checkRateLimit(
+      `${clientIp}:/api/create-checkout-session`,
+      RATE_LIMITS.sensitive
+    );
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { error: '请求过于频繁，请稍后再试' },
+        { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
+      );
+    }
+
     const stripe = getStripe();
     const supabase = getSupabase();
 
-    const body = await request.json();
-    const { packageSlug, customerInfo, preferredDate, preferredTime, notes } = body;
+    // 使用 Zod 验证输入
+    const validation = await validateBody(request, CreateCheckoutSessionSchema);
+    if (!validation.success) return validation.error;
+    const { packageSlug, customerInfo, preferredDate, preferredTime, notes } = validation.data;
 
     // 获取白标导游归属（从 Cookie）
     const guideSlug = request.cookies.get(WHITELABEL_COOKIE_NAME)?.value || null;
@@ -182,10 +200,10 @@ export async function POST(request: NextRequest) {
       orderId: order.id,
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('创建 Checkout Session 失败:', error);
     return NextResponse.json(
-      { error: error.message || '创建支付会话失败' },
+      { error: error instanceof Error ? error.message : '创建支付会话失败' },
       { status: 500 }
     );
   }
