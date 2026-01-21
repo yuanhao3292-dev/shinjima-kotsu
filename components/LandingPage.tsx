@@ -834,28 +834,13 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
                               ))}
                            </div>
                         </div>
-
-                        <button 
-                           onClick={onLoginTrigger}
-                           className="bg-gray-900 text-white px-8 py-3 rounded-full font-bold hover:bg-green-600 transition shadow-lg flex items-center gap-2"
-                        >
-                           <Award size={18} />
-                           {t.golf.cta_btn}
-                        </button>
                      </div>
                   </div>
                ))}
             </div>
          </div>
 
-         <div className="mt-24 bg-[#111] rounded-3xl p-12 text-center text-white">
-             <h3 className="text-3xl font-serif mb-4">{t.golf.cta_title}</h3>
-             <p className="text-gray-400 mb-8">{t.golf.cta_desc}</p>
-             <button onClick={onLoginTrigger} className="bg-white text-gray-900 px-8 py-3 rounded-full font-bold hover:bg-green-500 hover:text-white transition">
-                {t.golf.cta_btn}
-             </button>
-         </div>
-         <button onClick={() => setCurrentPage('home')} className="mt-16 w-full text-center text-gray-400 hover:text-black transition flex justify-center items-center gap-2">
+         <button onClick={() => setCurrentPage('home')} className="mt-24 w-full text-center text-gray-400 hover:text-black transition flex justify-center items-center gap-2">
             <ArrowLeft size={16} /> {t.about.back}
          </button>
      </div>
