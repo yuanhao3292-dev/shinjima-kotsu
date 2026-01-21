@@ -42,7 +42,6 @@ const navigationStructure = [
     items: [
       { label: '医療ツーリズム', labelZh: '醫療觀光', path: '/business/medical', icon: Stethoscope },
       { label: 'ゴルフツーリズム', labelZh: '高爾夫旅遊', path: '/business/golf', icon: Globe },
-      { label: 'ビジネス視察', labelZh: '商務考察', path: '/business/inspection', icon: Briefcase },
       { label: 'ガイドパートナー', labelZh: '導遊合夥人', path: '/business/partner', icon: Users },
     ]
   },

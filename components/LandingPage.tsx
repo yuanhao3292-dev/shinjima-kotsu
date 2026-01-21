@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Logo from './Logo';
 import { translations, Language } from '../translations';
 import { UserProfile } from '../types';
-import { ArrowLeft, ArrowRight, CheckCircle, MapPin, Building, Activity, Shield, Armchair, FileText, Check, Brain, Eye, Zap, Coffee, Globe, ChevronDown, Smile, Heart, HeartPulse, Bus, Utensils, Quote, Lock, Trophy, Car, Bath, Handshake, Users, Briefcase, Mail, X, Menu, LogIn, Phone, Loader2, User, Sparkles, Scan, Cpu, Microscope, Dna, Monitor, Fingerprint, Printer, Map, Star, Award, MessageSquare, Bot } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle, MapPin, Building, Activity, Shield, Armchair, FileText, Check, Brain, Eye, Zap, Coffee, Globe, ChevronDown, Smile, Heart, HeartPulse, Bus, Utensils, Quote, Lock, Trophy, Car, Bath, Handshake, Users, Briefcase, Mail, X, Menu, LogIn, Phone, Loader2, User, Sparkles, Scan, Cpu, Microscope, Dna, Monitor, Fingerprint, Printer, Map, Star, Award, MessageSquare, Bot, Factory, Stethoscope, ExternalLink } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import IntroParticles from './IntroParticles';
 import HeroCarousel, { CarouselSlide } from './HeroCarousel';
@@ -36,12 +36,13 @@ const SITE_IMAGES = {
   
   // Business Page
   business_hero: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop",
-  // New Business Plan Images
-  biz_medical: "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=1000&auto=format&fit=crop", // Plan 1: Medical Lab/Hospital
-  biz_tokyo: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1000&auto=format&fit=crop", // Plan 2: Tokyo/Ginza City
-  biz_factory: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1000&auto=format&fit=crop", // Plan 3: Precision Factory/Tech
-  biz_resort: "https://i.ibb.co/rK2b2bZd/2025-12-16-16-38-20.png", // Plan 4: Hakone/Resort (Updated by User)
-  biz_golden: "https://images.unsplash.com/photo-1490761668535-35497054764d?q=80&w=1000&auto=format&fit=crop", // Plan 5: Shinkansen/Fuji (Golden Route)
+  // New Business Plan Images - 6 Plans
+  biz_auto: "https://images.unsplash.com/photo-1565043666747-69f6646db940?q=80&w=1000&auto=format&fit=crop", // Plan 1: Toyota/Automotive
+  biz_tech: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop", // Plan 2: Semiconductor/Tech
+  biz_retail: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1000&auto=format&fit=crop", // Plan 3: Retail/UNIQLO
+  biz_medical: "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=1000&auto=format&fit=crop", // Plan 4: Medical/Healthcare
+  biz_food: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=1000&auto=format&fit=crop", // Plan 5: Food/Beverage Factory
+  biz_hospitality: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1000&auto=format&fit=crop", // Plan 6: Hotel/Hospitality
 
   // Home Page Previews
   home_medical_preview: "https://images.unsplash.com/photo-1531297461136-82ae96c51248?q=80&w=1000&auto=format&fit=crop", 
@@ -68,11 +69,12 @@ const FALLBACK_IMAGES: Record<string, string> = {
   plan_fuji: "https://images.unsplash.com/photo-1563205764-5d59524dc335?q=80&w=800&auto=format&fit=crop",
   
   business_hero: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format&fit=crop",
+  biz_auto: "https://images.unsplash.com/photo-1565043666747-69f6646db940?q=80&w=800&auto=format&fit=crop",
+  biz_tech: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop",
+  biz_retail: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=800&auto=format&fit=crop",
   biz_medical: "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=800&auto=format&fit=crop",
-  biz_tokyo: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=800&auto=format&fit=crop",
-  biz_factory: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop",
-  biz_resort: "https://images.unsplash.com/photo-1571896349842-6e5a513e610a?q=80&w=800&auto=format&fit=crop",
-  biz_golden: "https://images.unsplash.com/photo-1490761668535-35497054764d?q=80&w=800&auto=format&fit=crop",
+  biz_food: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=800&auto=format&fit=crop",
+  biz_hospitality: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop",
   
   founder_portrait: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop",
   default: "https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=800&auto=format&fit=crop"
@@ -729,11 +731,13 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
 );
 
 const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger }) => {
-  // CONFIGURATION: Map Plan IDs to Image URLs
+  // CONFIGURATION: Map Plan IDs to Image URLs - 5 Professional Tour Plans
   const planImages: Record<string, string> = {
-    'kansai-elite': SITE_IMAGES.plan_kansai,
-    'golf-pilgrimage': SITE_IMAGES.plan_difficult,
-    'fuji-spectacular': SITE_IMAGES.plan_fuji,
+    'jgto-championship': 'https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=1200&auto=format&fit=crop', // Classic green course
+    'kansai-masters': 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=1200&auto=format&fit=crop', // Scenic course view
+    'fuji-masters-tour': 'https://i.ibb.co/B2L1nxdg/2025-12-16-16-36-41.png', // Mt. Fuji spectacular
+    'lpga-ladies-tour': 'https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?q=80&w=1200&auto=format&fit=crop', // Golfer swing
+    'grand-slam-9days': 'https://images.unsplash.com/photo-1592919505780-303950717480?q=80&w=1200&auto=format&fit=crop', // Championship trophy/elite
   };
 
   const getPlanImage = (id: string) => planImages[id] || SITE_IMAGES.golf_hero;
@@ -1143,12 +1147,12 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
    // CONFIGURATION: Map Plan IDs to Image URLs
    // Easily add new plans/images here
    const planImages: Record<string, string> = {
-      'biz-plan-1': SITE_IMAGES.biz_medical,
-      'biz-plan-2': SITE_IMAGES.biz_tokyo,
-      'biz-plan-3': SITE_IMAGES.biz_factory,
-      'biz-plan-4': SITE_IMAGES.biz_resort,
-      'biz-plan-5': SITE_IMAGES.biz_golden,
-      // Add more here
+      'biz-plan-1': SITE_IMAGES.biz_auto,
+      'biz-plan-2': SITE_IMAGES.biz_tech,
+      'biz-plan-3': SITE_IMAGES.biz_retail,
+      'biz-plan-4': SITE_IMAGES.biz_medical,
+      'biz-plan-5': SITE_IMAGES.biz_food,
+      'biz-plan-6': SITE_IMAGES.biz_hospitality,
    };
 
    const getBizImage = (id: string) => planImages[id] || SITE_IMAGES.business_hero;
@@ -1191,7 +1195,15 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                 <p className="text-gray-500 leading-relaxed whitespace-pre-line mb-8">
                    {t.business.desc}
                 </p>
-                <button onClick={onLoginTrigger} className="bg-blue-600 text-white px-8 py-3 rounded-full font-bold hover:bg-blue-700 transition shadow-lg">
+                <button
+                   onClick={() => {
+                      const element = document.getElementById('business-plans-section');
+                      if (element) {
+                         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }
+                   }}
+                   className="bg-blue-600 text-white px-8 py-3 rounded-full font-bold hover:bg-blue-700 transition shadow-lg"
+                >
                    {t.business.btn_case}
                 </button>
              </div>
@@ -1235,8 +1247,441 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
              </div>
           </div>
 
-          {/* New Business Plans Section */}
+          {/* Bookable Japanese Top Companies Section - 100 Companies */}
           <div className="mb-24">
+             <div className="text-center mb-12">
+                <span className="inline-block bg-blue-50 text-blue-700 text-xs font-bold px-4 py-2 rounded-full mb-4 uppercase tracking-wider">
+                   100+ 頂級企業開放預約
+                </span>
+                <h3 className="text-3xl font-serif text-gray-900 mb-3">可預約考察的日本頂級企業</h3>
+                <p className="text-gray-500 text-sm max-w-2xl mx-auto">以下企業均開放企業考察預約，我們負責全程協調、專業通譯及行程安排</p>
+             </div>
+
+             {/* Company Categories */}
+             <div className="space-y-12">
+                {/* 1. 汽車製造業 */}
+                <div>
+                   <div className="flex items-center gap-3 mb-6">
+                      <div className="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center">
+                         <Factory size={20} className="text-white" />
+                      </div>
+                      <div>
+                         <h4 className="font-bold text-gray-900">汽車製造業</h4>
+                         <p className="text-xs text-gray-500">Automotive Manufacturing</p>
+                      </div>
+                   </div>
+                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {[
+                         { name: '豐田產業技術紀念館', nameEn: 'Toyota Commemorative Museum', desc: '豐田生產方式(TPS)與改善哲學的聖地', url: 'https://www.tcmit.org/', location: '名古屋' },
+                         { name: '豐田汽車', nameEn: 'Toyota Motor Corporation', desc: '全球最大汽車製造商・混合動力先驅', url: 'https://www.toyota.co.jp/', location: '愛知' },
+                         { name: '本田技研工業', nameEn: 'Honda Motor', desc: '摩托車世界第一・ASIMO機器人', url: 'https://www.honda.co.jp/', location: '東京' },
+                         { name: '日產汽車', nameEn: 'Nissan Motor', desc: '電動車先驅・ProPILOT自動駕駛', url: 'https://www.nissan.co.jp/', location: '橫濱' },
+                         { name: '馬自達', nameEn: 'Mazda Motor', desc: '創馳藍天技術・轉子引擎傳奇', url: 'https://www.mazda.co.jp/', location: '廣島' },
+                         { name: '斯巴魯', nameEn: 'Subaru Corporation', desc: '水平對臥引擎・EyeSight安全系統', url: 'https://www.subaru.co.jp/', location: '群馬' },
+                         { name: '三菱汽車', nameEn: 'Mitsubishi Motors', desc: '四輪驅動技術・電動車戰略', url: 'https://www.mitsubishi-motors.co.jp/', location: '東京' },
+                         { name: '鈴木汽車', nameEn: 'Suzuki Motor', desc: '輕型車世界領導者・印度市場霸主', url: 'https://www.suzuki.co.jp/', location: '靜岡' },
+                         { name: '電裝', nameEn: 'DENSO', desc: '汽車零件世界第二・ADAS先進駕駛', url: 'https://www.denso.com/jp/ja/', location: '愛知' },
+                         { name: '愛信精機', nameEn: 'Aisin Corporation', desc: '變速箱世界頂級・豐田集團核心', url: 'https://www.aisin.com/', location: '愛知' },
+                      ].map((company, i) => (
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
+                            <div className="flex justify-between items-start mb-3">
+                               <div>
+                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
+                                  <p className="text-xs text-gray-400">{company.nameEn}</p>
+                               </div>
+                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                            </div>
+                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
+                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>官方網站</span><ExternalLink size={12} /></div>
+                         </a>
+                      ))}
+                   </div>
+                </div>
+
+                {/* 2. 電子與半導體 */}
+                <div>
+                   <div className="flex items-center gap-3 mb-6">
+                      <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
+                         <Cpu size={20} className="text-white" />
+                      </div>
+                      <div>
+                         <h4 className="font-bold text-gray-900">電子與半導體產業</h4>
+                         <p className="text-xs text-gray-500">Electronics & Semiconductor</p>
+                      </div>
+                   </div>
+                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {[
+                         { name: '索尼', nameEn: 'SONY', desc: '影像感測器世界第一・娛樂帝國', url: 'https://www.sony.com/ja/', location: '東京' },
+                         { name: '東京威力科創', nameEn: 'Tokyo Electron', desc: '半導體製造設備世界前三', url: 'https://www.tel.co.jp/', location: '東京' },
+                         { name: '村田製作所', nameEn: 'Murata Manufacturing', desc: '電子元件世界龍頭・MLCC霸主', url: 'https://www.murata.com/ja-jp', location: '京都' },
+                         { name: '京瓷', nameEn: 'KYOCERA', desc: '精密陶瓷・太陽能・稻盛哲學', url: 'https://www.kyocera.co.jp/', location: '京都' },
+                         { name: '日本電產', nameEn: 'Nidec Corporation', desc: '精密馬達世界第一・永守經營學', url: 'https://www.nidec.com/ja-JP/', location: '京都' },
+                         { name: '羅姆半導體', nameEn: 'ROHM Semiconductor', desc: 'SiC功率半導體領導者', url: 'https://www.rohm.co.jp/', location: '京都' },
+                         { name: 'TDK', nameEn: 'TDK Corporation', desc: '電子材料・感測器・電池技術', url: 'https://www.tdk.com/ja/', location: '東京' },
+                         { name: '瑞薩電子', nameEn: 'Renesas Electronics', desc: '車用MCU世界第一・IoT解決方案', url: 'https://www.renesas.com/jp/ja', location: '東京' },
+                         { name: '迪思科', nameEn: 'DISCO Corporation', desc: '半導體切割研磨設備世界第一', url: 'https://www.disco.co.jp/', location: '東京' },
+                         { name: '愛德萬測試', nameEn: 'Advantest', desc: '半導體測試設備世界領導者', url: 'https://www.advantest.com/ja/', location: '東京' },
+                      ].map((company, i) => (
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
+                            <div className="flex justify-between items-start mb-3">
+                               <div>
+                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
+                                  <p className="text-xs text-gray-400">{company.nameEn}</p>
+                               </div>
+                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                            </div>
+                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
+                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>官方網站</span><ExternalLink size={12} /></div>
+                         </a>
+                      ))}
+                   </div>
+                </div>
+
+                {/* 3. 精密機械與自動化 */}
+                <div>
+                   <div className="flex items-center gap-3 mb-6">
+                      <div className="w-10 h-10 bg-slate-700 rounded-lg flex items-center justify-center">
+                         <Factory size={20} className="text-white" />
+                      </div>
+                      <div>
+                         <h4 className="font-bold text-gray-900">精密機械與自動化</h4>
+                         <p className="text-xs text-gray-500">Precision Machinery & Automation</p>
+                      </div>
+                   </div>
+                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {[
+                         { name: '基恩斯', nameEn: 'KEYENCE', desc: 'FA感測器世界龍頭・高利潤經營典範', url: 'https://www.keyence.co.jp/', location: '大阪' },
+                         { name: '發那科', nameEn: 'FANUC', desc: '工業機器人世界市佔率第一', url: 'https://www.fanuc.co.jp/', location: '山梨' },
+                         { name: 'SMC', nameEn: 'SMC Corporation', desc: '氣動元件世界市佔率40%', url: 'https://www.smcworld.com/ja-jp/', location: '東京' },
+                         { name: '安川電機', nameEn: 'Yaskawa Electric', desc: '伺服馬達・工業機器人先驅', url: 'https://www.yaskawa.co.jp/', location: '福岡' },
+                         { name: '川崎重工業', nameEn: 'Kawasaki Heavy Industries', desc: '機器人・航空・造船綜合重工', url: 'https://www.khi.co.jp/', location: '神戶' },
+                         { name: '不二越', nameEn: 'Nachi-Fujikoshi', desc: '工業機器人・軸承・工具機', url: 'https://www.nachi-fujikoshi.co.jp/', location: '富山' },
+                         { name: '歐姆龍', nameEn: 'OMRON', desc: 'FA控制器・感測器・自動化解決方案', url: 'https://www.omron.co.jp/', location: '京都' },
+                         { name: '三菱電機', nameEn: 'Mitsubishi Electric', desc: 'FA系統・電梯・空調・衛星', url: 'https://www.mitsubishielectric.co.jp/', location: '東京' },
+                         { name: '日立製作所', nameEn: 'Hitachi', desc: '社會基礎設施・IT・能源系統', url: 'https://www.hitachi.co.jp/', location: '東京' },
+                         { name: '三菱重工業', nameEn: 'Mitsubishi Heavy Industries', desc: '航空航天・能源・造船重工', url: 'https://www.mhi.com/jp/', location: '東京' },
+                      ].map((company, i) => (
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
+                            <div className="flex justify-between items-start mb-3">
+                               <div>
+                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
+                                  <p className="text-xs text-gray-400">{company.nameEn}</p>
+                               </div>
+                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                            </div>
+                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
+                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>官方網站</span><ExternalLink size={12} /></div>
+                         </a>
+                      ))}
+                   </div>
+                </div>
+
+                {/* 4. 醫療與健康照護 */}
+                <div>
+                   <div className="flex items-center gap-3 mb-6">
+                      <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                         <Stethoscope size={20} className="text-white" />
+                      </div>
+                      <div>
+                         <h4 className="font-bold text-gray-900">醫療與健康照護</h4>
+                         <p className="text-xs text-gray-500">Healthcare & Medical</p>
+                      </div>
+                   </div>
+                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {[
+                         { name: '德洲會醫療集團', nameEn: 'Tokushukai Medical', desc: '日本最大民間醫療集團・71家醫院', url: 'https://www.tokushukai.or.jp/', location: '全國' },
+                         { name: '日醫學館', nameEn: 'NICHIIGAKKAN', desc: '照護設施營運・醫療人才培育龍頭', url: 'https://www.nichiigakkan.co.jp/', location: '全國' },
+                         { name: '神戶醫療產業都市', nameEn: 'Kobe Biomedical Innovation Cluster', desc: '再生醫療・生技產業聚落', url: 'https://www.fbri-kobe.org/', location: '神戶' },
+                         { name: '歐姆龍健康照護', nameEn: 'OMRON Healthcare', desc: '血壓計世界市佔率第一', url: 'https://www.healthcare.omron.co.jp/', location: '京都' },
+                         { name: '希森美康', nameEn: 'Sysmex', desc: '臨床檢驗設備世界領導者', url: 'https://www.sysmex.co.jp/', location: '神戶' },
+                         { name: '泰爾茂', nameEn: 'Terumo', desc: '醫療器材・血液製品・心血管', url: 'https://www.terumo.co.jp/', location: '東京' },
+                         { name: '奧林巴斯', nameEn: 'Olympus', desc: '內視鏡世界市佔率70%', url: 'https://www.olympus.co.jp/', location: '東京' },
+                         { name: '朝日英達', nameEn: 'Asahi Intecc', desc: '導管導絲・微創醫療器材', url: 'https://www.asahi-intecc.co.jp/', location: '愛知' },
+                         { name: '日本光電', nameEn: 'Nihon Kohden', desc: '生理機能檢查設備・AED', url: 'https://www.nihonkohden.co.jp/', location: '東京' },
+                         { name: '島津製作所', nameEn: 'Shimadzu Corporation', desc: '分析儀器・醫療診斷設備', url: 'https://www.shimadzu.co.jp/', location: '京都' },
+                      ].map((company, i) => (
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
+                            <div className="flex justify-between items-start mb-3">
+                               <div>
+                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
+                                  <p className="text-xs text-gray-400">{company.nameEn}</p>
+                               </div>
+                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                            </div>
+                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
+                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>官方網站</span><ExternalLink size={12} /></div>
+                         </a>
+                      ))}
+                   </div>
+                </div>
+
+                {/* 5. 家電與消費電子 */}
+                <div>
+                   <div className="flex items-center gap-3 mb-6">
+                      <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
+                         <Monitor size={20} className="text-white" />
+                      </div>
+                      <div>
+                         <h4 className="font-bold text-gray-900">家電與消費電子</h4>
+                         <p className="text-xs text-gray-500">Consumer Electronics</p>
+                      </div>
+                   </div>
+                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {[
+                         { name: '松下電器博物館', nameEn: 'Panasonic Museum', desc: '松下幸之助經營哲學・歷史館', url: 'https://holdings.panasonic/jp/corporate/about/history/panasonic-museum.html', location: '大阪' },
+                         { name: '松下控股', nameEn: 'Panasonic Holdings', desc: '綜合電子・住宅設備・車載電池', url: 'https://holdings.panasonic/jp/', location: '大阪' },
+                         { name: '大金工業', nameEn: 'DAIKIN', desc: '空調設備世界龍頭・環境技術', url: 'https://www.daikin.co.jp/', location: '大阪' },
+                         { name: '夏普', nameEn: 'SHARP', desc: '液晶面板・太陽能・智慧家電', url: 'https://corporate.jp.sharp/', location: '大阪' },
+                         { name: '東芝', nameEn: 'Toshiba', desc: '能源・基礎設施・半導體', url: 'https://www.global.toshiba/jp/top.html', location: '東京' },
+                         { name: '百樂', nameEn: 'PILOT', desc: '書寫工具世界品牌・摩擦筆', url: 'https://www.pilot.co.jp/', location: '東京' },
+                         { name: '卡西歐', nameEn: 'CASIO', desc: '電子計算機・手錶・電子樂器', url: 'https://www.casio.co.jp/', location: '東京' },
+                         { name: '佳能', nameEn: 'Canon', desc: '相機・影印機・醫療設備', url: 'https://global.canon/', location: '東京' },
+                         { name: '尼康', nameEn: 'Nikon', desc: '光學・精密設備・半導體曝光機', url: 'https://www.nikon.co.jp/', location: '東京' },
+                         { name: '精工愛普生', nameEn: 'Seiko Epson', desc: '印表機・投影機・機器人', url: 'https://www.epson.jp/', location: '長野' },
+                      ].map((company, i) => (
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
+                            <div className="flex justify-between items-start mb-3">
+                               <div>
+                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
+                                  <p className="text-xs text-gray-400">{company.nameEn}</p>
+                               </div>
+                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                            </div>
+                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
+                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>官方網站</span><ExternalLink size={12} /></div>
+                         </a>
+                      ))}
+                   </div>
+                </div>
+
+                {/* 6. 零售與服務業 */}
+                <div>
+                   <div className="flex items-center gap-3 mb-6">
+                      <div className="w-10 h-10 bg-amber-600 rounded-lg flex items-center justify-center">
+                         <Building size={20} className="text-white" />
+                      </div>
+                      <div>
+                         <h4 className="font-bold text-gray-900">零售與服務業</h4>
+                         <p className="text-xs text-gray-500">Retail & Service</p>
+                      </div>
+                   </div>
+                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {[
+                         { name: '永旺集團', nameEn: 'AEON', desc: '日本最大零售集團・購物中心', url: 'https://www.aeon.info/', location: '全國' },
+                         { name: '迅銷', nameEn: 'Fast Retailing (UNIQLO)', desc: 'UNIQLO・SPA模式・柳井正', url: 'https://www.fastretailing.com/jp/', location: '東京' },
+                         { name: '7&I控股', nameEn: 'Seven & i Holdings', desc: '便利店世界最大・零售DX', url: 'https://www.7andi.com/', location: '東京' },
+                         { name: '羅森', nameEn: 'LAWSON', desc: '便利店・健康食品・金融服務', url: 'https://www.lawson.co.jp/', location: '東京' },
+                         { name: '全家', nameEn: 'FamilyMart', desc: '便利店・伊藤忠集團', url: 'https://www.family.co.jp/', location: '東京' },
+                         { name: '高島屋', nameEn: 'Takashimaya', desc: '百貨公司・日本款待服務', url: 'https://www.takashimaya.co.jp/', location: '大阪' },
+                         { name: '三越伊勢丹', nameEn: 'Isetan Mitsukoshi', desc: '百貨龍頭・顧客服務標竿', url: 'https://www.mistore.jp/', location: '東京' },
+                         { name: '唐吉訶德', nameEn: 'Don Quijote', desc: '折扣店・24小時・觀光客人氣', url: 'https://www.donki.com/', location: '全國' },
+                         { name: '宜得利', nameEn: 'NITORI', desc: '家居用品・製造零售一體化', url: 'https://www.nitori.co.jp/', location: '北海道' },
+                         { name: '無印良品', nameEn: 'MUJI / Ryohin Keikaku', desc: '簡約生活・永續發展・全球展店', url: 'https://www.ryohin-keikaku.jp/', location: '東京' },
+                      ].map((company, i) => (
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
+                            <div className="flex justify-between items-start mb-3">
+                               <div>
+                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
+                                  <p className="text-xs text-gray-400">{company.nameEn}</p>
+                               </div>
+                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                            </div>
+                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
+                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>官方網站</span><ExternalLink size={12} /></div>
+                         </a>
+                      ))}
+                   </div>
+                </div>
+
+                {/* 7. 飯店與款待業 */}
+                <div>
+                   <div className="flex items-center gap-3 mb-6">
+                      <div className="w-10 h-10 bg-rose-600 rounded-lg flex items-center justify-center">
+                         <Heart size={20} className="text-white" />
+                      </div>
+                      <div>
+                         <h4 className="font-bold text-gray-900">飯店與款待業</h4>
+                         <p className="text-xs text-gray-500">Hotel & Hospitality</p>
+                      </div>
+                   </div>
+                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {[
+                         { name: '星野集團', nameEn: 'Hoshino Resorts', desc: '日式款待・旅館再生專家', url: 'https://www.hoshinoresorts.com/', location: '全國' },
+                         { name: '帝國飯店', nameEn: 'Imperial Hotel', desc: '日本飯店接待服務的原點', url: 'https://www.imperialhotel.co.jp/', location: '東京' },
+                         { name: '大倉飯店', nameEn: 'Okura Hotels', desc: '日式優雅・傳統與現代融合', url: 'https://www.hotelokura.co.jp/', location: '東京' },
+                         { name: '新大谷飯店', nameEn: 'Hotel New Otani', desc: '日本庭園・宴會服務標竿', url: 'https://www.newotani.co.jp/', location: '東京' },
+                         { name: '王子飯店', nameEn: 'Prince Hotels', desc: '西武集團・都市度假村', url: 'https://www.princehotels.co.jp/', location: '全國' },
+                         { name: '東急飯店', nameEn: 'Tokyu Hotels', desc: '都市型飯店・商務服務', url: 'https://www.tokyuhotels.co.jp/', location: '全國' },
+                         { name: 'APA飯店', nameEn: 'APA Hotels', desc: '商務飯店連鎖・效率經營', url: 'https://www.apahotel.com/', location: '全國' },
+                         { name: '東橫INN', nameEn: 'Toyoko Inn', desc: '經濟型商務飯店・標準化經營', url: 'https://www.toyoko-inn.com/', location: '全國' },
+                         { name: '加賀屋', nameEn: 'Kagaya', desc: '日本第一溫泉旅館・極致款待', url: 'https://www.kagaya.co.jp/', location: '石川' },
+                         { name: '界', nameEn: 'Kai (Hoshino)', desc: '星野旗下・地域特色溫泉旅館', url: 'https://kai-ryokan.jp/', location: '全國' },
+                      ].map((company, i) => (
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
+                            <div className="flex justify-between items-start mb-3">
+                               <div>
+                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
+                                  <p className="text-xs text-gray-400">{company.nameEn}</p>
+                               </div>
+                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                            </div>
+                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
+                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>官方網站</span><ExternalLink size={12} /></div>
+                         </a>
+                      ))}
+                   </div>
+                </div>
+
+                {/* 8. 食品與飲料 */}
+                <div>
+                   <div className="flex items-center gap-3 mb-6">
+                      <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
+                         <Utensils size={20} className="text-white" />
+                      </div>
+                      <div>
+                         <h4 className="font-bold text-gray-900">食品與飲料產業</h4>
+                         <p className="text-xs text-gray-500">Food & Beverage</p>
+                      </div>
+                   </div>
+                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {[
+                         { name: '味之素', nameEn: 'Ajinomoto', desc: '調味料・胺基酸科學世界領導者', url: 'https://www.ajinomoto.co.jp/', location: '東京' },
+                         { name: '日清食品', nameEn: 'Nissin Foods', desc: '泡麵發明者・杯麵博物館', url: 'https://www.nissin.com/jp/', location: '大阪' },
+                         { name: '三得利', nameEn: 'Suntory', desc: '威士忌・飲料・啤酒・藝術', url: 'https://www.suntory.co.jp/', location: '大阪' },
+                         { name: '麒麟控股', nameEn: 'Kirin Holdings', desc: '啤酒・製藥・健康科學', url: 'https://www.kirinholdings.com/', location: '東京' },
+                         { name: '朝日集團', nameEn: 'Asahi Group', desc: '啤酒・飲料・全球擴張', url: 'https://www.asahigroup-holdings.com/company/', location: '東京' },
+                         { name: '養樂多', nameEn: 'Yakult', desc: '乳酸菌飲料・腸道健康科學', url: 'https://www.yakult.co.jp/', location: '東京' },
+                         { name: '可果美', nameEn: 'Kagome', desc: '番茄加工・蔬菜飲料領導者', url: 'https://www.kagome.co.jp/', location: '愛知' },
+                         { name: '龜甲萬', nameEn: 'Kikkoman', desc: '醬油世界品牌・發酵技術', url: 'https://www.kikkoman.com/', location: '千葉' },
+                         { name: '明治控股', nameEn: 'Meiji Holdings', desc: '乳製品・巧克力・製藥', url: 'https://www.meiji.com/', location: '東京' },
+                         { name: '森永製菓', nameEn: 'Morinaga', desc: '糖果・巧克力・健康食品', url: 'https://www.morinaga.co.jp/', location: '東京' },
+                      ].map((company, i) => (
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
+                            <div className="flex justify-between items-start mb-3">
+                               <div>
+                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
+                                  <p className="text-xs text-gray-400">{company.nameEn}</p>
+                               </div>
+                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                            </div>
+                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
+                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>官方網站</span><ExternalLink size={12} /></div>
+                         </a>
+                      ))}
+                   </div>
+                </div>
+
+                {/* 9. 物流與運輸 */}
+                <div>
+                   <div className="flex items-center gap-3 mb-6">
+                      <div className="w-10 h-10 bg-cyan-600 rounded-lg flex items-center justify-center">
+                         <Bus size={20} className="text-white" />
+                      </div>
+                      <div>
+                         <h4 className="font-bold text-gray-900">物流與運輸</h4>
+                         <p className="text-xs text-gray-500">Logistics & Transportation</p>
+                      </div>
+                   </div>
+                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {[
+                         { name: '大和運輸', nameEn: 'Yamato Transport', desc: '宅急便發明者・最後一哩配送', url: 'https://www.yamato-hd.co.jp/', location: '東京' },
+                         { name: '佐川急便', nameEn: 'Sagawa Express', desc: '企業物流・冷鏈配送', url: 'https://www.sagawa-exp.co.jp/', location: '京都' },
+                         { name: '日本通運', nameEn: 'Nippon Express', desc: '綜合物流・國際貨運', url: 'https://www.nipponexpress.com/', location: '東京' },
+                         { name: 'JR東日本', nameEn: 'JR East', desc: '鐵道營運・車站開發・Suica', url: 'https://www.jreast.co.jp/', location: '東京' },
+                         { name: 'JR東海', nameEn: 'JR Central', desc: '東海道新幹線・磁浮列車研發', url: 'https://jr-central.co.jp/', location: '名古屋' },
+                         { name: 'JR西日本', nameEn: 'JR West', desc: '關西鐵道網・觀光列車', url: 'https://www.westjr.co.jp/', location: '大阪' },
+                         { name: '全日空', nameEn: 'ANA', desc: '日本最大航空・星空聯盟', url: 'https://www.ana.co.jp/', location: '東京' },
+                         { name: '日本航空', nameEn: 'JAL', desc: '日本航空・寰宇一家', url: 'https://www.jal.co.jp/', location: '東京' },
+                         { name: '日本郵船', nameEn: 'NYK Line', desc: '海運・物流・郵輪', url: 'https://www.nyk.com/', location: '東京' },
+                         { name: '商船三井', nameEn: 'MOL', desc: '國際海運・LNG運輸', url: 'https://www.mol.co.jp/', location: '東京' },
+                      ].map((company, i) => (
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
+                            <div className="flex justify-between items-start mb-3">
+                               <div>
+                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
+                                  <p className="text-xs text-gray-400">{company.nameEn}</p>
+                               </div>
+                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                            </div>
+                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
+                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>官方網站</span><ExternalLink size={12} /></div>
+                         </a>
+                      ))}
+                   </div>
+                </div>
+
+                {/* 10. 科技與通訊 */}
+                <div>
+                   <div className="flex items-center gap-3 mb-6">
+                      <div className="w-10 h-10 bg-violet-600 rounded-lg flex items-center justify-center">
+                         <Globe size={20} className="text-white" />
+                      </div>
+                      <div>
+                         <h4 className="font-bold text-gray-900">科技與通訊</h4>
+                         <p className="text-xs text-gray-500">Technology & Telecommunications</p>
+                      </div>
+                   </div>
+                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {[
+                         { name: '軟銀集團', nameEn: 'SoftBank Group', desc: 'AI投資・願景基金・孫正義', url: 'https://group.softbank/ja/', location: '東京' },
+                         { name: 'NTT集團', nameEn: 'NTT Group', desc: '電信巨頭・數據中心・研究所', url: 'https://group.ntt/jp/', location: '東京' },
+                         { name: 'KDDI', nameEn: 'KDDI', desc: '行動通訊・au・5G', url: 'https://www.kddi.com/', location: '東京' },
+                         { name: '樂天集團', nameEn: 'Rakuten', desc: '電商・金融科技・行動通訊', url: 'https://corp.rakuten.co.jp/', location: '東京' },
+                         { name: 'LINE雅虎', nameEn: 'LY Corporation', desc: '通訊軟體・入口網站・金融', url: 'https://www.lycorp.co.jp/', location: '東京' },
+                         { name: 'DeNA', nameEn: 'DeNA', desc: '手遊・AI・橫濱棒球隊', url: 'https://dena.com/', location: '東京' },
+                         { name: 'CyberAgent', nameEn: 'CyberAgent', desc: 'ABEMA・廣告・遊戲', url: 'https://www.cyberagent.co.jp/', location: '東京' },
+                         { name: '富士通', nameEn: 'Fujitsu', desc: 'IT服務・超級電腦・量子計算', url: 'https://www.fujitsu.com/jp/', location: '東京' },
+                         { name: 'NEC', nameEn: 'NEC Corporation', desc: '5G・AI・生物識別', url: 'https://jpn.nec.com/', location: '東京' },
+                         { name: 'GMO網路', nameEn: 'GMO Internet', desc: '網域・雲端・金融科技', url: 'https://www.gmo.jp/', location: '東京' },
+                      ].map((company, i) => (
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
+                            <div className="flex justify-between items-start mb-3">
+                               <div>
+                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
+                                  <p className="text-xs text-gray-400">{company.nameEn}</p>
+                               </div>
+                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                            </div>
+                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
+                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>官方網站</span><ExternalLink size={12} /></div>
+                         </a>
+                      ))}
+                   </div>
+                </div>
+             </div>
+
+             {/* Stats Bar */}
+             <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="bg-blue-600 text-white p-6 rounded-xl text-center">
+                   <div className="text-3xl font-bold">100+</div>
+                   <div className="text-sm opacity-80">可預約企業</div>
+                </div>
+                <div className="bg-slate-800 text-white p-6 rounded-xl text-center">
+                   <div className="text-3xl font-bold">10</div>
+                   <div className="text-sm opacity-80">產業類別</div>
+                </div>
+                <div className="bg-purple-600 text-white p-6 rounded-xl text-center">
+                   <div className="text-3xl font-bold">47</div>
+                   <div className="text-sm opacity-80">覆蓋都道府縣</div>
+                </div>
+                <div className="bg-green-600 text-white p-6 rounded-xl text-center">
+                   <div className="text-3xl font-bold">95%</div>
+                   <div className="text-sm opacity-80">預約成功率</div>
+                </div>
+             </div>
+
+             {/* Note */}
+             <div className="mt-8 p-6 bg-blue-50 rounded-xl border border-blue-100">
+                <p className="text-sm text-blue-800">
+                   <span className="font-bold">※ 注意事項</span>
+                   <br />
+                   以上企業均開放一般企業見學與商務考察預約。我們負責考察的預約協調、專業通譯安排、交通接送及住宿統籌。各企業可參訪的時段與內容不盡相同，詳情請洽詢。
+                </p>
+             </div>
+          </div>
+
+          {/* New Business Plans Section */}
+          <div id="business-plans-section" className="mb-24 scroll-mt-24">
              <div className="text-center mb-16">
                 <h3 className="text-3xl font-serif text-gray-900">{t.business.itin_title}</h3>
                 <p className="text-gray-500 text-sm mt-2">Curated for Executives</p>
