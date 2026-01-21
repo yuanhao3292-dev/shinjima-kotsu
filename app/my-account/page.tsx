@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import MemberLayout from '@/components/MemberLayout';
-import Logo from '@/components/Logo';
 import { User } from '@supabase/supabase-js';
 import {
   User as UserIcon,
@@ -19,7 +18,6 @@ import {
   Heart,
   HeartPulse,
   Sparkles,
-  Settings,
 } from 'lucide-react';
 
 export default function MyAccountPage() {
@@ -78,13 +76,6 @@ export default function MyAccountPage() {
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?q=80&w=2000')] bg-cover bg-center opacity-30"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-slate-900/50"></div>
           <div className="relative z-10 flex flex-col justify-center px-16 text-white">
-            <div className="flex items-center gap-3 mb-8">
-              <Logo className="w-12 h-12 text-white" />
-              <div>
-                <span className="font-serif font-bold text-2xl tracking-wide">NIIJIMA</span>
-                <p className="text-xs text-blue-200 uppercase tracking-widest">Medical Tourism</p>
-              </div>
-            </div>
             <h1 className="text-4xl font-serif font-bold mb-6 leading-tight">
               歡迎回來<br />
               <span className="text-blue-400">{userName}</span>
@@ -108,11 +99,6 @@ export default function MyAccountPage() {
         {/* Right Side - Account Info */}
         <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gray-50">
           <div className="w-full max-w-md">
-            {/* Mobile Logo */}
-            <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
-              <Logo className="w-10 h-10 text-blue-600" />
-              <span className="font-serif font-bold text-xl">NIIJIMA</span>
-            </div>
 
             {/* Profile Card */}
             <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 mb-6">

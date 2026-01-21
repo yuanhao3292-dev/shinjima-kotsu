@@ -19,6 +19,8 @@ import {
   PHASE_1_QUESTIONS,
   getPhase2QuestionsByBodyParts,
 } from '@/lib/screening-questions';
+import { validateBody } from '@/lib/validations/validate';
+import { HealthScreeningAnalyzeSchema } from '@/lib/validations/api-schemas';
 
 // 计算所需问题数量
 function calculateRequiredQuestionCount(phase: 1 | 2, bodyMapData: any): number {
@@ -50,17 +52,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const body = await request.json();
-    const { screeningId, phase = 2 } = body; // 默认 phase 2 完整分析
+    // 使用 Zod Schema 验证输入
+    const validation = await validateBody(request, HealthScreeningAnalyzeSchema);
+    if (!validation.success) return validation.error;
+    const { screeningId, phase } = validation.data; // phase 默认为 2（完整分析）
 
-    if (!screeningId) {
-      return NextResponse.json(
-        { error: '請提供筛查記錄 ID' },
-        { status: 400 }
-      );
-    }
-
-    // 获取筛查记录
+    // 获取筛查记录（screeningId 已由 Schema 验证为有效 UUID）
     const { data: screening, error: fetchError } = await supabase
       .from('health_screenings')
       .select('*')

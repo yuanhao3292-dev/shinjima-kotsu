@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
-import Logo from './Logo';
 import { Mail, Phone, Printer, MapPin, User, LogOut } from 'lucide-react';
 
 interface MemberLayoutProps {
@@ -57,16 +56,12 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
       {/* Navigation */}
       <nav className="fixed top-0 left-0 w-full z-50 bg-white shadow-sm">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
-          {/* Logo - 会员页面点击返回会员中心，否则返回首页 */}
+          {/* 返回链接 - 会员页面点击返回会员中心，否则返回首页 */}
           <Link
             href={isLoggedIn && isMemberPage ? '/my-account' : '/'}
-            className="flex items-center gap-3 group"
+            className="text-sm font-medium text-gray-600 hover:text-blue-600 transition"
           >
-            <Logo className="w-10 h-10 text-black group-hover:text-blue-600 transition-colors" />
-            <div className="flex flex-col">
-              <span className="font-serif font-bold text-lg tracking-wide leading-none text-gray-900">NIIJIMA</span>
-              <span className="text-[10px] text-gray-400 uppercase tracking-widest leading-none mt-1 group-hover:text-blue-500 transition-colors">Medical Tourism</span>
-            </div>
+            ← 返回
           </Link>
 
           {/* Desktop Menu */}
@@ -121,10 +116,6 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
             <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
               {/* Column 1: Brand */}
               <div>
-                <div className="flex items-center gap-3 mb-6">
-                  <Logo className="w-10 h-10 text-white" />
-                  <span className="text-xl font-serif tracking-widest font-bold">NIIJIMA</span>
-                </div>
                 <p className="text-gray-400 text-sm leading-relaxed mb-4">
                   專業日本醫療旅遊服務<br/>
                   TIMC 大阪德洲會國際醫療中心

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAdminAuth } from '@/lib/utils/admin-auth';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
+import { AdminImageUploadSchema } from '@/lib/validations/api-schemas';
 
 // GET - 获取所有图片配置
 export async function GET(request: NextRequest) {
@@ -77,9 +78,15 @@ export async function POST(request: NextRequest) {
     const file = formData.get('file') as File | null;
     const imageUrl = formData.get('imageUrl') as string | null;
 
-    if (!imageKey) {
+    // 使用 Zod Schema 验证 FormData 字段
+    const validationResult = AdminImageUploadSchema.safeParse({ imageKey, imageUrl });
+    if (!validationResult.success) {
+      const errors = validationResult.error.issues.map(e => ({
+        field: e.path.join('.'),
+        message: e.message,
+      }));
       return NextResponse.json(
-        { error: '缺少图片标识 imageKey' },
+        { error: '参数验证失败', details: errors },
         { status: 400 }
       );
     }

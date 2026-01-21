@@ -188,6 +188,13 @@ export const translations = {
       desc: '会員制ゴルフ場への特別アクセス。\n精緻なゴルフと「おもてなし」の融合。',
       btn_tour: 'チャンピオンシップツアーを見る',
       std_title: '新島ゴルフ・スタンダード',
+      // 统计数据
+      stat_courses: '提携名門コース',
+      stat_booking: '予約成功率',
+      stat_guests: '年間VIPゲスト',
+      stat_experience: '業界経験',
+      partners_title: '提携名門コース',
+      // 特色服务
       f1_t: '会員制へのアクセス',
       f1_d: '兵庫・大阪のTop 100コースを含む、通常ビジター不可の名門クラブの予約枠を確保。',
       f2_t: 'コンペ運営サポート',
@@ -519,6 +526,13 @@ export const translations = {
       desc: '解鎖日本「會員制」球場的專屬通道。\n體驗極致的高爾夫與日式款待。',
       btn_tour: '查看冠軍巡迴行程',
       std_title: '新島高爾夫 · 服務標準',
+      // 统计数据
+      stat_courses: '合作名門球場',
+      stat_booking: '預約成功率',
+      stat_guests: '年度VIP賓客',
+      stat_experience: '業界經驗',
+      partners_title: '合作名門球場',
+      // 特色服务
       f1_t: '會員制球場預約',
       f1_d: '包含兵庫、大阪 Top 100 球場在內，我們擁有通常不對外開放的名門俱樂部預約權。',
       f2_t: '賽事運營支援',
@@ -855,7 +869,14 @@ export const translations = {
       title_2: 'Tour Japan\'s Elite',
       desc: 'Unlock exclusive access to Japan\'s members-only courses.\nWhere precision golf meets Omotenashi hospitality.',
       btn_tour: 'View Championship Tour',
-      std_title: 'The Shinjima Standard',
+      std_title: 'The Niijima Standard',
+      // Statistics
+      stat_courses: 'Partner Courses',
+      stat_booking: 'Booking Success',
+      stat_guests: 'Annual VIP Guests',
+      stat_experience: 'Years Experience',
+      partners_title: 'Partner Courses',
+      // Features
       f1_t: 'Exclusive Access',
       f1_d: 'We hold reservation rights for prestigious "members-only" clubs typically inaccessible to visitors, including Top 100 courses in Hyogo and Osaka.',
       f2_t: 'Tournament Support',

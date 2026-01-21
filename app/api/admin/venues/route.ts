@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAdminAuth } from '@/lib/utils/admin-auth';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
+import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
+import { validateBody } from '@/lib/validations/validate';
+import { VenueActionSchema, sanitizeSearchInput } from '@/lib/validations/api-schemas';
+import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
 
 /**
  * 管理员店铺管理 API
@@ -11,9 +15,22 @@ import { getSupabaseAdmin } from '@/lib/supabase/api';
  */
 
 export async function GET(request: NextRequest) {
+  // 速率限制
+  const clientIp = getClientIp(request);
+  const rateLimitResult = checkRateLimit(
+    `${clientIp}:/api/admin/venues:GET`,
+    RATE_LIMITS.standard
+  );
+  if (!rateLimitResult.success) {
+    return createErrorResponse(
+      Errors.rateLimit(rateLimitResult.retryAfter),
+      createRateLimitHeaders(rateLimitResult)
+    );
+  }
+
   const authResult = await verifyAdminAuth(request.headers.get('authorization'));
   if (!authResult.isValid) {
-    return NextResponse.json({ error: authResult.error }, { status: 401 });
+    return createErrorResponse(Errors.auth(authResult.error));
   }
 
   const supabase = getSupabaseAdmin();
@@ -22,6 +39,13 @@ export async function GET(request: NextRequest) {
   const category = searchParams.get('category');
   const city = searchParams.get('city');
   const active = searchParams.get('active');
+  const searchRaw = searchParams.get('search');
+  const search = searchRaw ? sanitizeSearchInput(searchRaw) : null;
+
+  // 分页参数
+  const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
+  const limit = Math.min(100, Math.max(1, parseInt(searchParams.get('limit') || '50', 10)));
+  const offset = (page - 1) * limit;
 
   try {
     if (venueId) {
@@ -32,17 +56,18 @@ export async function GET(request: NextRequest) {
         .eq('id', venueId)
         .single();
 
-      if (error) {
-        return NextResponse.json({ error: '店铺不存在' }, { status: 404 });
+      if (error || !venue) {
+        return createErrorResponse(Errors.notFound('店铺不存在'));
       }
 
       return NextResponse.json(venue);
     } else {
-      // 获取店铺列表
+      // 获取店铺列表（带分页）
       let query = supabase
         .from('venues')
-        .select('*')
-        .order('created_at', { ascending: false });
+        .select('*', { count: 'exact' })
+        .order('created_at', { ascending: false })
+        .range(offset, offset + limit - 1);
 
       if (category && category !== 'all') {
         query = query.eq('category', category);
@@ -55,12 +80,16 @@ export async function GET(request: NextRequest) {
       } else if (active === 'false') {
         query = query.eq('is_active', false);
       }
+      // 搜索（已消毒的输入）
+      if (search) {
+        query = query.or(`name.ilike.%${search}%,name_ja.ilike.%${search}%,brand.ilike.%${search}%`);
+      }
 
-      const { data: venues, error } = await query;
+      const { data: venues, error, count } = await query;
 
       if (error) {
-        console.error('获取店铺列表失败:', error);
-        return NextResponse.json({ error: '获取失败' }, { status: 500 });
+        logError(normalizeError(error), { path: '/api/admin/venues', method: 'GET' });
+        return createErrorResponse(Errors.internal('获取店铺列表失败'));
       }
 
       // 统计
@@ -75,6 +104,12 @@ export async function GET(request: NextRequest) {
 
       return NextResponse.json({
         venues: venues || [],
+        pagination: {
+          page,
+          limit,
+          total: count || 0,
+          totalPages: Math.ceil((count || 0) / limit),
+        },
         stats: {
           total: total || 0,
           active: activeCount || 0,
@@ -83,33 +118,41 @@ export async function GET(request: NextRequest) {
       });
     }
   } catch (error: unknown) {
-    console.error('店铺 API 错误:', error);
-    return NextResponse.json({ error: '服务器错误' }, { status: 500 });
+    const apiError = normalizeError(error);
+    logError(apiError, { path: '/api/admin/venues', method: 'GET' });
+    return createErrorResponse(apiError);
   }
 }
 
 export async function POST(request: NextRequest) {
-  const authResult = await verifyAdminAuth(request.headers.get('authorization'));
-  if (!authResult.isValid) {
-    return NextResponse.json({ error: authResult.error }, { status: 401 });
-  }
-
-  const supabase = getSupabaseAdmin();
-
   try {
-    const body = await request.json();
-    const { action, venueId, venueData } = body;
-
-    if (!action) {
-      return NextResponse.json({ error: '缺少操作类型' }, { status: 400 });
+    // 速率限制
+    const clientIp = getClientIp(request);
+    const rateLimitResult = checkRateLimit(
+      `${clientIp}:/api/admin/venues`,
+      RATE_LIMITS.sensitive
+    );
+    if (!rateLimitResult.success) {
+      return createErrorResponse(
+        Errors.rateLimit(rateLimitResult.retryAfter),
+        createRateLimitHeaders(rateLimitResult)
+      );
     }
+
+    const authResult = await verifyAdminAuth(request.headers.get('authorization'));
+    if (!authResult.isValid) {
+      return createErrorResponse(Errors.auth(authResult.error));
+    }
+
+    // 使用 Zod 验证输入
+    const validation = await validateBody(request, VenueActionSchema);
+    if (!validation.success) return validation.error;
+    const { action, venueId, venueData } = validation.data;
+
+    const supabase = getSupabaseAdmin();
 
     switch (action) {
       case 'create': {
-        if (!venueData) {
-          return NextResponse.json({ error: '缺少店铺数据' }, { status: 400 });
-        }
-
         const { error } = await supabase
           .from('venues')
           .insert({
@@ -119,18 +162,17 @@ export async function POST(request: NextRequest) {
           });
 
         if (error) {
-          console.error('创建店铺失败:', error);
-          return NextResponse.json({ error: '创建失败' }, { status: 500 });
+          logError(normalizeError(error), { path: '/api/admin/venues', method: 'POST' });
+          return createErrorResponse(Errors.internal('创建店铺失败'));
         }
+
+        // 记录审计日志
+        await logAuditAction(supabase, 'venue_create', 'venue', 'new', authResult, { venueData });
 
         return NextResponse.json({ success: true, message: '店铺已创建' });
       }
 
       case 'update': {
-        if (!venueId || !venueData) {
-          return NextResponse.json({ error: '缺少必填字段' }, { status: 400 });
-        }
-
         const { error } = await supabase
           .from('venues')
           .update({
@@ -140,18 +182,16 @@ export async function POST(request: NextRequest) {
           .eq('id', venueId);
 
         if (error) {
-          console.error('更新店铺失败:', error);
-          return NextResponse.json({ error: '更新失败' }, { status: 500 });
+          logError(normalizeError(error), { path: '/api/admin/venues', method: 'POST' });
+          return createErrorResponse(Errors.internal('更新店铺失败'));
         }
+
+        await logAuditAction(supabase, 'venue_update', 'venue', venueId!, authResult, { venueData });
 
         return NextResponse.json({ success: true, message: '店铺已更新' });
       }
 
       case 'toggle_active': {
-        if (!venueId) {
-          return NextResponse.json({ error: '缺少店铺 ID' }, { status: 400 });
-        }
-
         // 获取当前状态
         const { data: venue } = await supabase
           .from('venues')
@@ -160,7 +200,7 @@ export async function POST(request: NextRequest) {
           .single();
 
         if (!venue) {
-          return NextResponse.json({ error: '店铺不存在' }, { status: 404 });
+          return createErrorResponse(Errors.notFound('店铺不存在'));
         }
 
         const { error } = await supabase
@@ -172,9 +212,14 @@ export async function POST(request: NextRequest) {
           .eq('id', venueId);
 
         if (error) {
-          console.error('切换店铺状态失败:', error);
-          return NextResponse.json({ error: '操作失败' }, { status: 500 });
+          logError(normalizeError(error), { path: '/api/admin/venues', method: 'POST' });
+          return createErrorResponse(Errors.internal('切换店铺状态失败'));
         }
+
+        await logAuditAction(supabase, 'venue_toggle_active', 'venue', venueId!, authResult, {
+          previousState: venue.is_active,
+          newState: !venue.is_active,
+        });
 
         return NextResponse.json({
           success: true,
@@ -183,28 +228,52 @@ export async function POST(request: NextRequest) {
       }
 
       case 'delete': {
-        if (!venueId) {
-          return NextResponse.json({ error: '缺少店铺 ID' }, { status: 400 });
-        }
-
         const { error } = await supabase
           .from('venues')
           .delete()
           .eq('id', venueId);
 
         if (error) {
-          console.error('删除店铺失败:', error);
-          return NextResponse.json({ error: '删除失败' }, { status: 500 });
+          logError(normalizeError(error), { path: '/api/admin/venues', method: 'POST' });
+          return createErrorResponse(Errors.internal('删除店铺失败'));
         }
+
+        await logAuditAction(supabase, 'venue_delete', 'venue', venueId!, authResult, {});
 
         return NextResponse.json({ success: true, message: '店铺已删除' });
       }
 
       default:
-        return NextResponse.json({ error: '无效的操作' }, { status: 400 });
+        return createErrorResponse(Errors.validation('无效的操作'));
     }
   } catch (error: unknown) {
-    console.error('店铺操作错误:', error);
-    return NextResponse.json({ error: '服务器错误' }, { status: 500 });
+    const apiError = normalizeError(error);
+    logError(apiError, { path: '/api/admin/venues', method: 'POST' });
+    return createErrorResponse(apiError);
+  }
+}
+
+/**
+ * 记录审计日志（封装，失败时打印告警但不阻断主流程）
+ */
+async function logAuditAction(
+  supabase: ReturnType<typeof getSupabaseAdmin>,
+  action: string,
+  entityType: string,
+  entityId: string,
+  authResult: { userId?: string; email?: string },
+  details: Record<string, unknown>
+) {
+  const { error } = await supabase.from('audit_logs').insert({
+    action,
+    entity_type: entityType,
+    entity_id: entityId,
+    admin_id: authResult.userId,
+    admin_email: authResult.email,
+    details,
+  });
+
+  if (error) {
+    console.error('[CRITICAL] 审计日志写入失败:', error);
   }
 }

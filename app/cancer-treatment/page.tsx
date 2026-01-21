@@ -9,7 +9,8 @@ import {
   Zap, Brain, Target, Microscope, Dna, Syringe, Stethoscope,
   FileText, Phone, Mail, Clock, Users, Building, Globe,
   ChevronDown, MessageSquare, Sparkles, Scan, Bot, CircleDot,
-  Atom, Pill, Radio, FlaskConical, HeartPulse, Leaf, CreditCard, Loader2
+  Atom, Pill, Radio, FlaskConical, HeartPulse, Leaf, CreditCard, Loader2,
+  MapPin, Award, Info, ExternalLink
 } from 'lucide-react';
 
 // 咨询服务产品定义
@@ -129,6 +130,285 @@ const PARTNER_INSTITUTIONS = [
   { icon: FlaskConical, label: '再生醫療診所' },
 ];
 
+// 日本知名癌症治療醫療機構介紹（純信息展示，非合作聲明）
+// 關西地區優先置頂
+const JAPAN_MEDICAL_INSTITUTIONS = [
+  {
+    category: '關西地區癌症專門醫院',
+    color: 'red',
+    institutions: [
+      {
+        name: '大阪国際がんセンター',
+        nameZh: '大阪國際癌症中心',
+        location: '大阪府大阪市中央區',
+        website: 'https://oici.jp/',
+        specialty: ['肺癌', '消化器癌', '乳癌', '血液腫瘤', '婦科腫瘤'],
+        features: [
+          '大阪府立癌症專門醫院（2017年新建）',
+          '年間手術量超 5,000 例',
+          '最先端癌症治療設備完備',
+          '癌症基因組醫療核心拠點',
+          '國際患者支援窗口',
+        ],
+        treatments: ['達芬奇機器人手術', '免疫治療', '基因靶向治療', '放射線治療'],
+      },
+      {
+        name: '兵庫県立がんセンター',
+        nameZh: '兵庫縣立癌症中心',
+        location: '兵庫縣明石市',
+        website: 'https://www.hyogo-cc.jp/',
+        specialty: ['肺癌', '消化器癌', '乳癌', '頭頸部癌'],
+        features: [
+          '兵庫縣癌症治療核心醫院',
+          '多學科協作治療體制',
+          '緩和醫療充實',
+          '臨床試驗積極參與',
+        ],
+        treatments: ['微創手術', '化學療法', '放射線治療', '緩和醫療'],
+      },
+      {
+        name: '神戸大学医学部附属病院',
+        nameZh: '神戶大學醫學部附屬醫院',
+        location: '兵庫縣神戶市',
+        website: 'https://www.hosp.kobe-u.ac.jp/',
+        specialty: ['肝膽胰癌', '消化器癌', '乳癌', '血液腫瘤'],
+        features: [
+          '神戶醫療產業都市核心醫院',
+          '肝膽胰外科日本領先',
+          '先進醫療設備完備',
+          '國際醫療交流活躍',
+        ],
+        treatments: ['高難度肝膽胰手術', '免疫治療', '基因組醫療'],
+      },
+      {
+        name: '奈良県立医科大学附属病院',
+        nameZh: '奈良縣立醫科大學附屬醫院',
+        location: '奈良縣橿原市',
+        website: 'https://www.naramed-u.ac.jp/hospital/',
+        specialty: ['消化器癌', '肺癌', '婦科腫瘤', '血液腫瘤'],
+        features: [
+          '奈良縣唯一的特定機能醫院',
+          '癌症診療連攜拠點醫院',
+          '地域醫療支援完善',
+          '多職種團隊醫療',
+        ],
+        treatments: ['腹腔鏡手術', '化學療法', '放射線治療'],
+      },
+      {
+        name: '和歌山県立医科大学附属病院',
+        nameZh: '和歌山縣立醫科大學附屬醫院',
+        location: '和歌山縣和歌山市',
+        website: 'https://www.wakayama-med.ac.jp/hospital/',
+        specialty: ['消化器癌', '肺癌', '乳癌', '泌尿器癌'],
+        features: [
+          '和歌山縣癌症診療核心醫院',
+          '內視鏡治療技術精湛',
+          '癌症基因組醫療拠點',
+          '緩和醫療團隊完備',
+        ],
+        treatments: ['內視鏡手術', '化學療法', '基因組醫療', '緩和醫療'],
+      },
+    ],
+  },
+  {
+    category: '關西地區大學附屬醫院',
+    color: 'green',
+    institutions: [
+      {
+        name: '大阪大学医学部附属病院',
+        nameZh: '大阪大學醫學部附屬醫院',
+        location: '大阪府吹田市',
+        website: 'https://www.hosp.med.osaka-u.ac.jp/',
+        specialty: ['消化器癌', '血液腫瘤', '皮膚癌'],
+        features: [
+          '關西地區頂級醫療機構',
+          '光免疫療法臨床研究領先',
+          '幹細胞治療研究先驅',
+        ],
+        treatments: ['光免疫療法', '再生醫療', 'CAR-T 療法'],
+      },
+      {
+        name: '京都大学医学部附属病院',
+        nameZh: '京都大學醫學部附屬醫院',
+        location: '京都府京都市',
+        website: 'https://www.kuhp.kyoto-u.ac.jp/',
+        specialty: ['血液腫瘤', '消化器癌', '腦腫瘤', '乳癌'],
+        features: [
+          'iPS 細胞研究發源地（山中伸彌教授）',
+          '再生醫療世界領先',
+          '癌症基因組醫療核心拠點',
+          '關西醫學研究重鎮',
+        ],
+        treatments: ['iPS 細胞治療', '基因組醫療', 'CAR-T 療法', '免疫治療'],
+      },
+      {
+        name: '近畿大学医学部附属病院',
+        nameZh: '近畿大學醫學部附屬醫院',
+        location: '大阪府大阪狹山市',
+        website: 'https://www.med.kindai.ac.jp/',
+        specialty: ['肝癌', '腎癌', '膀胱癌', '前列腺癌'],
+        features: [
+          '近大醫院（世界首創完全養殖黑鮪魚聞名）',
+          '泌尿器科腫瘤治療強項',
+          '達芬奇機器人手術經驗豐富',
+          '癌症免疫治療研究活躍',
+        ],
+        treatments: ['達芬奇機器人手術', '免疫檢查點抑制劑', '精準放射治療'],
+      },
+    ],
+  },
+  {
+    category: 'BNCT 硼中子俘獲治療（關西）',
+    color: 'orange',
+    institutions: [
+      {
+        name: '大阪医科薬科大学病院',
+        nameZh: '大阪醫科藥科大學醫院',
+        location: '大阪府高槻市',
+        website: 'https://hospital.ompu.ac.jp/',
+        specialty: ['頭頸部癌（復發）', '腦腫瘤', '惡性黑色素瘤'],
+        features: [
+          '全球首個醫院內設置 BNCT 設備',
+          '對手術困難、復發癌症效果顯著',
+          '單次照射即可完成治療',
+        ],
+        treatments: ['BNCT 硼中子俘獲治療'],
+      },
+    ],
+  },
+  {
+    category: '重粒子線・質子線治療設施（關西）',
+    color: 'purple',
+    institutions: [
+      {
+        name: '兵庫県立粒子線医療センター',
+        nameZh: '兵庫縣立粒子線醫療中心',
+        location: '兵庫縣龍野市',
+        website: 'https://www.hibmc.shingu.hyogo.jp/',
+        specialty: ['肺癌', '肝癌', '前列腺癌', '胰臟癌'],
+        features: [
+          '全球首個同時擁有質子線和重粒子線的設施',
+          '治療適應症最廣',
+          '可根據癌症類型選擇最佳粒子線',
+        ],
+        treatments: ['質子線治療', '重粒子線治療'],
+      },
+    ],
+  },
+  {
+    category: '國立癌症中心（東京）',
+    color: 'blue',
+    institutions: [
+      {
+        name: '国立がん研究センター中央病院',
+        nameZh: '國立癌症研究中心中央醫院',
+        location: '東京都中央區',
+        website: 'https://www.ncc.go.jp/jp/ncch/',
+        specialty: ['消化器癌', '肺癌', '乳癌', '血液腫瘤'],
+        features: [
+          '日本癌症研究最高學府',
+          '年手術量超 8,000 例',
+          '最新臨床試驗優先參與',
+          '多學科團隊會診制度',
+        ],
+        treatments: ['達芬奇機器人手術', '免疫檢查點抑制劑', '基因靶向治療'],
+      },
+      {
+        name: '国立がん研究センター東病院',
+        nameZh: '國立癌症研究中心東醫院',
+        location: '千葉縣柏市',
+        website: 'https://www.ncc.go.jp/jp/ncce/',
+        specialty: ['頭頸部癌', '食道癌', '肝膽胰癌'],
+        features: [
+          '質子線治療先驅',
+          '頭頸部癌治療日本領先',
+          '消化器內視鏡治療技術頂尖',
+          '國際患者支援體制完善',
+        ],
+        treatments: ['質子線治療', '光免疫療法', '內視鏡黏膜下剝離術(ESD)'],
+      },
+    ],
+  },
+  {
+    category: '首都圈大學附屬醫院',
+    color: 'blue',
+    institutions: [
+      {
+        name: '東京大学医学部附属病院',
+        nameZh: '東京大學醫學部附屬醫院',
+        location: '東京都文京區',
+        website: 'https://www.h.u-tokyo.ac.jp/',
+        specialty: ['全科癌症', '罕見癌症', '復發難治癌症'],
+        features: [
+          '日本醫學最高學府',
+          '最新治療技術臨床應用',
+          '疑難雜症診斷能力強',
+        ],
+        treatments: ['CAR-T 細胞療法', '精準醫療', '臨床試驗'],
+      },
+      {
+        name: '慶應義塾大学病院',
+        nameZh: '慶應義塾大學醫院',
+        location: '東京都新宿區',
+        website: 'https://www.hosp.keio.ac.jp/',
+        specialty: ['肺癌', '消化器癌', '婦科腫瘤'],
+        features: [
+          '私立醫學名校附屬醫院',
+          '腫瘤內科實力強勁',
+          '國際患者接待經驗豐富',
+        ],
+        treatments: ['分子靶向治療', '免疫治療', '微創手術'],
+      },
+    ],
+  },
+  {
+    category: '其他地區先進設施',
+    color: 'purple',
+    institutions: [
+      {
+        name: '量子科学技術研究開発機構 QST病院',
+        nameZh: 'QST醫院（原放醫研）',
+        location: '千葉縣千葉市',
+        website: 'https://www.qst.go.jp/',
+        specialty: ['骨軟部肉瘤', '頭頸部癌', '前列腺癌', '肝癌'],
+        features: [
+          '世界重粒子線治療發源地',
+          '治療經驗超 14,000 例',
+          '對放射線抵抗性癌症效果顯著',
+          '短療程（約 3-4 週）',
+        ],
+        treatments: ['重粒子線治療（碳離子線）'],
+      },
+      {
+        name: '静岡県立静岡がんセンター',
+        nameZh: '靜岡縣立靜岡癌症中心',
+        location: '靜岡縣長泉町',
+        website: 'https://www.scchr.jp/',
+        specialty: ['肺癌', '食道癌', '縱隔腫瘤'],
+        features: [
+          '質子線治療經驗豐富',
+          '環境優美，康復氛圍佳',
+          '多學科整合治療',
+        ],
+        treatments: ['質子線治療', '立體定向放射治療'],
+      },
+      {
+        name: '南東北BNCT研究センター',
+        nameZh: '南東北BNCT研究中心',
+        location: '福島縣郡山市',
+        website: 'https://www.southerntohoku-bnct.com/',
+        specialty: ['頭頸部癌', '腦腫瘤', '惡性黑色素瘤'],
+        features: [
+          'BNCT 治療先驅機構',
+          '加速器型 BNCT 治療系統',
+          '無需核反應爐，安全性高',
+        ],
+        treatments: ['BNCT 硼中子俘獲治療'],
+      },
+    ],
+  },
+];
+
 export default function CancerTreatmentPage() {
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
   const [showWechatQR, setShowWechatQR] = useState(false);
@@ -237,6 +517,171 @@ export default function CancerTreatmentPage() {
           </div>
         </div>
       </div>
+
+      {/* Japan Medical Institutions Introduction - 關西優先置頂 */}
+      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <span className="text-blue-600 text-xs tracking-widest uppercase font-bold">Japan Medical Institutions</span>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mt-3 mb-4">
+              日本知名癌症治療醫療機構
+            </h2>
+            <p className="text-gray-500 max-w-3xl mx-auto mb-6">
+              以下資訊旨在幫助您了解日本各大醫療機構的特色與先進治療技術，供您參考選擇
+            </p>
+            {/* 免責聲明 */}
+            <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 px-4 py-2 rounded-lg text-sm text-amber-700">
+              <Info size={16} />
+              <span>以下信息僅供參考，實際治療需以醫院診斷為準</span>
+            </div>
+          </div>
+
+          <div className="space-y-12 max-w-6xl mx-auto">
+            {JAPAN_MEDICAL_INSTITUTIONS.map((category, catIndex) => {
+              const colorClasses: Record<string, {
+                headerBg: string;
+                headerText: string;
+                cardBorder: string;
+                badge: string;
+                tagBg: string;
+                tagText: string;
+              }> = {
+                blue: {
+                  headerBg: 'bg-blue-600',
+                  headerText: 'text-white',
+                  cardBorder: 'border-blue-200',
+                  badge: 'bg-blue-100 text-blue-700',
+                  tagBg: 'bg-blue-50',
+                  tagText: 'text-blue-600',
+                },
+                purple: {
+                  headerBg: 'bg-purple-600',
+                  headerText: 'text-white',
+                  cardBorder: 'border-purple-200',
+                  badge: 'bg-purple-100 text-purple-700',
+                  tagBg: 'bg-purple-50',
+                  tagText: 'text-purple-600',
+                },
+                green: {
+                  headerBg: 'bg-green-600',
+                  headerText: 'text-white',
+                  cardBorder: 'border-green-200',
+                  badge: 'bg-green-100 text-green-700',
+                  tagBg: 'bg-green-50',
+                  tagText: 'text-green-600',
+                },
+                orange: {
+                  headerBg: 'bg-orange-600',
+                  headerText: 'text-white',
+                  cardBorder: 'border-orange-200',
+                  badge: 'bg-orange-100 text-orange-700',
+                  tagBg: 'bg-orange-50',
+                  tagText: 'text-orange-600',
+                },
+                red: {
+                  headerBg: 'bg-red-600',
+                  headerText: 'text-white',
+                  cardBorder: 'border-red-200',
+                  badge: 'bg-red-100 text-red-700',
+                  tagBg: 'bg-red-50',
+                  tagText: 'text-red-600',
+                },
+              };
+              const colors = colorClasses[category.color];
+
+              return (
+                <div key={catIndex}>
+                  {/* Category Header */}
+                  <div className={`${colors.headerBg} ${colors.headerText} px-6 py-4 rounded-t-2xl flex items-center gap-3`}>
+                    <Award size={24} />
+                    <h3 className="text-xl font-bold">{category.category}</h3>
+                  </div>
+
+                  {/* Institutions Grid */}
+                  <div className={`bg-white border-2 ${colors.cardBorder} border-t-0 rounded-b-2xl p-6`}>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      {category.institutions.map((inst, instIndex) => (
+                        <div
+                          key={instIndex}
+                          className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-all duration-300"
+                        >
+                          {/* Hospital Name */}
+                          <div className="mb-4">
+                            <h4 className="text-lg font-bold text-gray-900 mb-1">{inst.name}</h4>
+                            <p className="text-sm text-gray-500">{inst.nameZh}</p>
+                            <div className="flex items-center gap-1 text-xs text-gray-400 mt-1">
+                              <MapPin size={12} />
+                              {inst.location}
+                            </div>
+                          </div>
+
+                          {/* Specialty Tags */}
+                          <div className="mb-4">
+                            <p className="text-xs text-gray-500 mb-2">擅長領域</p>
+                            <div className="flex flex-wrap gap-1">
+                              {inst.specialty.map((spec, i) => (
+                                <span key={i} className={`${colors.badge} text-xs px-2 py-1 rounded-full`}>
+                                  {spec}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Features */}
+                          <div className="mb-4">
+                            <p className="text-xs text-gray-500 mb-2">機構特色</p>
+                            <ul className="space-y-1">
+                              {inst.features.map((feature, i) => (
+                                <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+                                  <CheckCircle size={14} className={`${colors.tagText} mt-0.5 flex-shrink-0`} />
+                                  <span>{feature}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          {/* Treatments */}
+                          <div className="mb-4">
+                            <p className="text-xs text-gray-500 mb-2">特色治療</p>
+                            <div className="flex flex-wrap gap-1">
+                              {inst.treatments.map((treatment, i) => (
+                                <span key={i} className={`${colors.tagBg} ${colors.tagText} text-xs px-2 py-1 rounded border border-current/20`}>
+                                  {treatment}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Website Link */}
+                          {inst.website && (
+                            <a
+                              href={inst.website}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`inline-flex items-center gap-1.5 text-xs ${colors.tagText} hover:underline mt-2 pt-3 border-t border-gray-200`}
+                            >
+                              <ExternalLink size={12} />
+                              <span>醫院官網（外部連結）</span>
+                            </a>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Bottom Note */}
+          <div className="mt-12 text-center">
+            <p className="text-sm text-gray-500 max-w-2xl mx-auto">
+              以上資訊來源於各醫療機構公開資料，僅供患者了解日本癌症治療資源。
+              如需就診，我們將根據您的病情為您推薦最適合的醫療機構。
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Treatment Flow Section */}
       <section id="treatment-flow" className="py-24 bg-white">
@@ -429,8 +874,8 @@ export default function CancerTreatmentPage() {
       <section className="py-20 bg-gradient-to-br from-slate-900 to-blue-900 text-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-serif font-bold mb-4">日本合作醫療機構</h2>
-            <p className="text-gray-300">與日本頂尖醫療機構建立合作關係</p>
+            <h2 className="text-2xl md:text-3xl font-serif font-bold mb-4">可協助諮詢的醫療機構類型</h2>
+            <p className="text-gray-300">涵蓋日本各類頂尖癌症治療設施</p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">

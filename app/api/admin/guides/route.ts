@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAdminAuth } from '@/lib/utils/admin-auth';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
+import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
+import { validateBody } from '@/lib/validations/validate';
+import { GuideActionSchema, sanitizeSearchInput } from '@/lib/validations/api-schemas';
+import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
 
 /**
  * 管理员导游管理 API
@@ -9,16 +13,35 @@ import { getSupabaseAdmin } from '@/lib/supabase/api';
  * GET /api/admin/guides?id=xxx - 获取单个导游详情
  */
 export async function GET(request: NextRequest) {
+  // GET 端点速率限制（防数据枚举攻击）
+  const clientIp = getClientIp(request);
+  const rateLimitResult = checkRateLimit(
+    `${clientIp}:/api/admin/guides:GET`,
+    RATE_LIMITS.standard
+  );
+  if (!rateLimitResult.success) {
+    return createErrorResponse(
+      Errors.rateLimit(rateLimitResult.retryAfter),
+      createRateLimitHeaders(rateLimitResult)
+    );
+  }
+
   const authResult = await verifyAdminAuth(request.headers.get('authorization'));
   if (!authResult.isValid) {
-    return NextResponse.json({ error: authResult.error }, { status: 401 });
+    return createErrorResponse(Errors.auth(authResult.error));
   }
 
   const supabase = getSupabaseAdmin();
   const { searchParams } = new URL(request.url);
   const guideId = searchParams.get('id');
   const status = searchParams.get('status');
-  const search = searchParams.get('search');
+  const searchRaw = searchParams.get('search');
+  const search = searchRaw ? sanitizeSearchInput(searchRaw) : null;
+
+  // 分页参数
+  const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
+  const limit = Math.min(100, Math.max(1, parseInt(searchParams.get('limit') || '50', 10)));
+  const offset = (page - 1) * limit;
 
   try {
     if (guideId) {
@@ -32,8 +55,8 @@ export async function GET(request: NextRequest) {
         .eq('id', guideId)
         .single();
 
-      if (error) {
-        return NextResponse.json({ error: '导游不存在' }, { status: 404 });
+      if (error || !guide) {
+        return createErrorResponse(Errors.notFound('导游不存在'));
       }
 
       // 获取导游的订单统计
@@ -56,7 +79,7 @@ export async function GET(request: NextRequest) {
         },
       });
     } else {
-      // 获取导游列表
+      // 获取导游列表（带分页）
       let query = supabase
         .from('guides')
         .select(`
@@ -65,24 +88,26 @@ export async function GET(request: NextRequest) {
           total_commission, total_bookings,
           referral_code, referred_by,
           created_at, updated_at
-        `)
-        .order('created_at', { ascending: false });
+        `, { count: 'exact' })
+        .order('created_at', { ascending: false })
+        .range(offset, offset + limit - 1);
 
       // 按状态筛选
       if (status && status !== 'all') {
         query = query.eq('status', status);
       }
 
-      // 搜索
+      // 搜索（已消毒的输入）
       if (search) {
         query = query.or(`name.ilike.%${search}%,email.ilike.%${search}%,phone.ilike.%${search}%,referral_code.ilike.%${search}%`);
       }
 
-      const { data: guides, error } = await query;
+      const { data: guides, error, count } = await query;
 
       if (error) {
-        console.error('获取导游列表失败:', error);
-        return NextResponse.json({ error: '获取列表失败' }, { status: 500 });
+        const apiError = normalizeError(error);
+        logError(apiError, { path: '/api/admin/guides', method: 'GET' });
+        return createErrorResponse(Errors.internal('获取导游列表失败'));
       }
 
       // 统计
@@ -102,6 +127,12 @@ export async function GET(request: NextRequest) {
 
       return NextResponse.json({
         guides: guides || [],
+        pagination: {
+          page,
+          limit,
+          total: count || 0,
+          totalPages: Math.ceil((count || 0) / limit),
+        },
         stats: {
           total: total || 0,
           approved: approved || 0,
@@ -111,8 +142,9 @@ export async function GET(request: NextRequest) {
       });
     }
   } catch (error: unknown) {
-    console.error('导游 API 错误:', error);
-    return NextResponse.json({ error: '服务器错误' }, { status: 500 });
+    const apiError = normalizeError(error);
+    logError(apiError, { path: '/api/admin/guides', method: 'GET' });
+    return createErrorResponse(apiError);
   }
 }
 
@@ -120,20 +152,31 @@ export async function GET(request: NextRequest) {
  * POST /api/admin/guides - 更新导游状态
  */
 export async function POST(request: NextRequest) {
-  const authResult = await verifyAdminAuth(request.headers.get('authorization'));
-  if (!authResult.isValid) {
-    return NextResponse.json({ error: authResult.error }, { status: 401 });
-  }
-
-  const supabase = getSupabaseAdmin();
-
   try {
-    const body = await request.json();
-    const { guideId, action, level, note } = body;
-
-    if (!guideId || !action) {
-      return NextResponse.json({ error: '缺少必填字段' }, { status: 400 });
+    // 速率限制检查（管理员敏感操作）
+    const clientIp = getClientIp(request);
+    const rateLimitResult = checkRateLimit(
+      `${clientIp}:/api/admin/guides`,
+      RATE_LIMITS.sensitive
+    );
+    if (!rateLimitResult.success) {
+      return createErrorResponse(
+        Errors.rateLimit(rateLimitResult.retryAfter),
+        createRateLimitHeaders(rateLimitResult)
+      );
     }
+
+    const authResult = await verifyAdminAuth(request.headers.get('authorization'));
+    if (!authResult.isValid) {
+      return createErrorResponse(Errors.auth(authResult.error));
+    }
+
+    // 使用 Zod 验证输入
+    const validation = await validateBody(request, GuideActionSchema);
+    if (!validation.success) return validation.error;
+    const { guideId, action, level, note } = validation.data;
+
+    const supabase = getSupabaseAdmin();
 
     let updateData: Record<string, any> = {
       updated_at: new Date().toISOString(),
@@ -150,13 +193,8 @@ export async function POST(request: NextRequest) {
         updateData.status = 'approved';
         break;
       case 'update_level':
-        if (!level) {
-          return NextResponse.json({ error: '缺少等级参数' }, { status: 400 });
-        }
         updateData.level = level;
         break;
-      default:
-        return NextResponse.json({ error: '无效的操作' }, { status: 400 });
     }
 
     const { error } = await supabase
@@ -165,22 +203,22 @@ export async function POST(request: NextRequest) {
       .eq('id', guideId);
 
     if (error) {
-      console.error('更新导游状态失败:', error);
-      return NextResponse.json({ error: '更新失败' }, { status: 500 });
+      logError(normalizeError(error), { path: '/api/admin/guides', method: 'POST' });
+      return createErrorResponse(Errors.internal('更新导游状态失败'));
     }
 
-    // 记录审计日志
-    try {
-      await supabase.from('audit_logs').insert({
-        action: `guide_${action}`,
-        entity_type: 'guide',
-        entity_id: guideId,
-        admin_id: authResult.userId,
-        admin_email: authResult.email,
-        details: { level, note },
-      });
-    } catch {
-      // 审计日志失败不影响主流程
+    // 记录审计日志（失败时记录告警但不阻断主流程）
+    const { error: auditError } = await supabase.from('audit_logs').insert({
+      action: `guide_${action}`,
+      entity_type: 'guide',
+      entity_id: guideId,
+      admin_id: authResult.userId,
+      admin_email: authResult.email,
+      details: { level, note },
+    });
+
+    if (auditError) {
+      console.error('[CRITICAL] 审计日志写入失败:', auditError);
     }
 
     return NextResponse.json({
@@ -188,7 +226,8 @@ export async function POST(request: NextRequest) {
       message: '操作成功',
     });
   } catch (error: unknown) {
-    console.error('导游操作错误:', error);
-    return NextResponse.json({ error: '服务器错误' }, { status: 500 });
+    const apiError = normalizeError(error);
+    logError(apiError, { path: '/api/admin/guides', method: 'POST' });
+    return createErrorResponse(apiError);
   }
 }

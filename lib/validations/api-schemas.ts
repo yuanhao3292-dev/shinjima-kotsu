@@ -4,6 +4,31 @@
  */
 import { z } from 'zod';
 
+// ==================== 搜索消毒工具 ====================
+
+/**
+ * 消毒搜索输入，防止 SQL/NoSQL 注入
+ * 移除特殊字符，只保留安全字符
+ */
+export function sanitizeSearchInput(input: string): string {
+  if (!input) return '';
+  // 移除 SQL 注入常见字符和 PostgreSQL ilike 通配符攻击
+  return input
+    .replace(/[%_'"\\;(){}[\]<>|&$`!]/g, '') // 移除危险字符
+    .replace(/\s+/g, ' ') // 规范化空格
+    .trim()
+    .slice(0, 100); // 限制长度
+}
+
+// ==================== 分页参数 Schema ====================
+
+export const PaginationSchema = z.object({
+  page: z.coerce.number().int().min(1).default(1),
+  limit: z.coerce.number().int().min(1).max(100).default(20),
+});
+
+export type PaginationInput = z.infer<typeof PaginationSchema>;
+
 // ==================== 通用 Schemas ====================
 
 export const UUIDSchema = z.string().uuid('无效的 ID 格式');
@@ -12,26 +37,42 @@ export const DateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, '日期格式�
 
 export const TimeSchema = z.string().regex(/^\d{2}:\d{2}$/, '时间格式无效，请使用 HH:MM').optional();
 
-export const EmailSchema = z.string().email('邮箱格式无效');
-
-export const PhoneSchema = z.string().min(8, '电话号码至少8位').max(20, '电话号码最多20位').optional();
+// 允许空字符串或有效电话号码
+export const PhoneSchema = z.string().max(20, '电话号码最多20位').refine(
+  (val) => val === '' || val.length >= 8,
+  { message: '电话号码至少8位' }
+).optional();
 
 // ==================== Checkout Session ====================
 
 export const CustomerInfoSchema = z.object({
-  email: EmailSchema,
+  email: z.string().email('邮箱格式无效').optional().or(z.literal('')),
   name: z.string().min(1, '姓名不能为空').max(100, '姓名最多100个字符'),
   phone: PhoneSchema,
   company: z.string().max(200, '公司名最多200个字符').optional(),
   country: z.string().length(2, '国家代码必须是2位').default('TW'),
-});
+  // 社交媒体联系方式（可选）
+  line: z.string().max(100, 'LINE ID最多100个字符').optional(),
+  wechat: z.string().max(100, '微信号最多100个字符').optional(),
+  whatsapp: z.string().max(30, 'WhatsApp号码最多30个字符').optional(),
+}).refine(
+  (data) => {
+    // 至少填写一种联系方式
+    return (data.email && data.email.trim() !== '') ||
+           (data.phone && data.phone.trim() !== '') ||
+           (data.line && data.line.trim() !== '') ||
+           (data.wechat && data.wechat.trim() !== '') ||
+           (data.whatsapp && data.whatsapp.trim() !== '');
+  },
+  { message: '请至少填写一种联系方式（手机、邮箱、LINE、微信或 WhatsApp）' }
+);
 
 export const CreateCheckoutSessionSchema = z.object({
   packageSlug: z.string().min(1, '套餐标识不能为空'),
   customerInfo: CustomerInfoSchema,
-  preferredDate: DateSchema.optional(),
-  preferredTime: TimeSchema,
-  notes: z.string().max(1000, '备注最多1000个字符').optional(),
+  preferredDate: DateSchema.optional().nullable(),
+  preferredTime: TimeSchema.nullable(),
+  notes: z.string().max(1000, '备注最多1000个字符').optional().nullable(),
 });
 
 // ==================== Withdrawal ====================
@@ -154,6 +195,45 @@ export const AuditLogCreateSchema = z.object({
   severity: z.enum(['info', 'warning', 'critical']).default('info'),
 });
 
+// ==================== Health Screening ====================
+
+export const HealthScreeningAnalyzeSchema = z.object({
+  screeningId: UUIDSchema,
+  phase: z.union([z.literal(1), z.literal(2)]).default(2),
+});
+
+// ==================== Whitelabel Subscription ====================
+
+export const WhitelabelSubscriptionSchema = z.object({
+  guideId: UUIDSchema,
+  successUrl: z.string().url('无效的成功回调 URL').optional(),
+  cancelUrl: z.string().url('无效的取消回调 URL').optional(),
+});
+
+// ==================== Calculate Quote ====================
+
+export const CalculateQuoteSchema = z.object({
+  pax: z.number().int().min(1, '人数至少为1').max(1000, '人数不能超过1000'),
+  travel_days: z.number().int().min(1, '天数至少为1').max(365, '天数不能超过365'),
+  hotel_req: z.object({
+    rooms: z.number().int().min(1).max(500),
+    stars: z.number().int().min(3).max(5),
+    nights: z.number().int().min(1).max(365),
+    location: z.string().min(1).max(100),
+  }),
+  need_bus: z.boolean(),
+  bus_type: z.enum(['alphard', 'hiace', 'coaster', 'medium_bus', 'large_bus']),
+  guide_language: z.enum(['zh', 'en']),
+  agency_name: z.string().min(1, '旅行社名称不能为空').max(200, '旅行社名称最多200个字符'),
+});
+
+// ==================== Admin Image Upload ====================
+
+export const AdminImageUploadSchema = z.object({
+  imageKey: z.string().min(1, '图片标识不能为空').regex(/^[a-zA-Z0-9_-]+$/, '图片标识只能包含字母、数字、下划线和连字符'),
+  imageUrl: z.string().url('无效的图片 URL').optional().nullable(),
+});
+
 // ==================== 类型导出 ====================
 
 export type CreateCheckoutSessionInput = z.infer<typeof CreateCheckoutSessionSchema>;
@@ -166,3 +246,7 @@ export type VenueActionInput = z.infer<typeof VenueActionSchema>;
 export type BookingAvailabilityCheckInput = z.infer<typeof BookingAvailabilityCheckSchema>;
 export type TicketActionInput = z.infer<typeof TicketActionSchema>;
 export type AuditLogCreateInput = z.infer<typeof AuditLogCreateSchema>;
+export type HealthScreeningAnalyzeInput = z.infer<typeof HealthScreeningAnalyzeSchema>;
+export type WhitelabelSubscriptionInput = z.infer<typeof WhitelabelSubscriptionSchema>;
+export type CalculateQuoteInput = z.infer<typeof CalculateQuoteSchema>;
+export type AdminImageUploadInput = z.infer<typeof AdminImageUploadSchema>;

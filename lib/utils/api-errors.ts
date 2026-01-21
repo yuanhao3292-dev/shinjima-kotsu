@@ -153,11 +153,25 @@ function isAPIError(error: unknown): error is APIError {
  * 便捷的错误创建函数
  */
 export const Errors = {
-  validation: (message: string, details?: unknown): APIError => ({
-    type: ErrorType.VALIDATION,
-    message,
-    details,
-  }),
+  validation: (
+    messageOrFields: string | Array<{ field: string; message: string }>,
+    details?: unknown
+  ): APIError => {
+    if (typeof messageOrFields === 'string') {
+      return {
+        type: ErrorType.VALIDATION,
+        message: messageOrFields,
+        details,
+      };
+    }
+    // 接受字段验证数组
+    const firstError = messageOrFields[0];
+    return {
+      type: ErrorType.VALIDATION,
+      message: firstError?.message || '参数验证失败',
+      details: { fields: messageOrFields },
+    };
+  },
 
   auth: (message = '请先登录'): APIError => ({
     type: ErrorType.AUTH,
@@ -201,6 +215,8 @@ export function logError(
     path?: string;
     method?: string;
     userId?: string;
+    context?: string;
+    [key: string]: string | undefined;
   }
 ): void {
   const logEntry = {

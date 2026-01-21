@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAdminAuth } from '@/lib/utils/admin-auth';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
+import { validateBody } from '@/lib/validations/validate';
+import { AuditLogCreateSchema } from '@/lib/validations/api-schemas';
 
 /**
  * 审计日志 API
@@ -113,12 +115,10 @@ export async function POST(request: NextRequest) {
   const supabase = getSupabaseAdmin();
 
   try {
-    const body = await request.json();
-    const { action, entityType, entityId, details, severity } = body;
-
-    if (!action || !entityType || !entityId) {
-      return NextResponse.json({ error: '缺少必填字段' }, { status: 400 });
-    }
+    // 使用 Zod Schema 验证输入
+    const validation = await validateBody(request, AuditLogCreateSchema);
+    if (!validation.success) return validation.error;
+    const { action, entityType, entityId, details, severity } = validation.data;
 
     const { data, error } = await supabase
       .from('audit_logs')

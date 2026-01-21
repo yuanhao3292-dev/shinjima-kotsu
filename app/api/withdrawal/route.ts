@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { maskPII } from '@/lib/utils/encryption';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
+import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
+import { validateBody } from '@/lib/validations/validate';
+import { WithdrawalRequestSchema } from '@/lib/validations/api-schemas';
+import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
 
 // 最低提现金额
 const MIN_WITHDRAWAL_AMOUNT = 5000; // 5,000 日元
@@ -13,9 +17,22 @@ const MIN_WITHDRAWAL_AMOUNT = 5000; // 5,000 日元
  */
 
 export async function GET(request: NextRequest) {
+  // GET 端点速率限制
+  const clientIp = getClientIp(request);
+  const rateLimitResult = checkRateLimit(
+    `${clientIp}:/api/withdrawal:GET`,
+    RATE_LIMITS.standard
+  );
+  if (!rateLimitResult.success) {
+    return createErrorResponse(
+      Errors.rateLimit(rateLimitResult.retryAfter),
+      createRateLimitHeaders(rateLimitResult)
+    );
+  }
+
   const authHeader = request.headers.get('authorization');
   if (!authHeader?.startsWith('Bearer ')) {
-    return NextResponse.json({ error: '未授权' }, { status: 401 });
+    return createErrorResponse(Errors.auth('未授权'));
   }
 
   const token = authHeader.split(' ')[1];
@@ -25,7 +42,7 @@ export async function GET(request: NextRequest) {
     // 验证用户
     const { data: { user }, error: authError } = await supabase.auth.getUser(token);
     if (authError || !user) {
-      return NextResponse.json({ error: '认证失败' }, { status: 401 });
+      return createErrorResponse(Errors.auth('认证失败'));
     }
 
     // 获取导游信息
@@ -36,7 +53,7 @@ export async function GET(request: NextRequest) {
       .single();
 
     if (guideError || !guide) {
-      return NextResponse.json({ error: '导游不存在' }, { status: 404 });
+      return createErrorResponse(Errors.notFound('导游不存在'));
     }
 
     // 获取提现历史
@@ -48,8 +65,8 @@ export async function GET(request: NextRequest) {
       .limit(50);
 
     if (withdrawalError) {
-      console.error('获取提现历史失败:', withdrawalError);
-      return NextResponse.json({ error: '获取失败' }, { status: 500 });
+      logError(normalizeError(withdrawalError), { path: '/api/withdrawal', method: 'GET' });
+      return createErrorResponse(Errors.internal('获取提现历史失败'));
     }
 
     // 计算统计
@@ -77,36 +94,45 @@ export async function GET(request: NextRequest) {
       minAmount: MIN_WITHDRAWAL_AMOUNT,
     });
   } catch (error: unknown) {
-    console.error('提现 API 错误:', error);
-    return NextResponse.json({ error: '服务器错误' }, { status: 500 });
+    const apiError = normalizeError(error);
+    logError(apiError, { path: '/api/withdrawal', method: 'GET' });
+    return createErrorResponse(apiError);
   }
 }
 
 export async function POST(request: NextRequest) {
-  const authHeader = request.headers.get('authorization');
-  if (!authHeader?.startsWith('Bearer ')) {
-    return NextResponse.json({ error: '未授权' }, { status: 401 });
-  }
-
-  const token = authHeader.split(' ')[1];
-  const supabase = getSupabaseAdmin();
-
   try {
+    // 速率限制检查（敏感端点）
+    const clientIp = getClientIp(request);
+    const rateLimitResult = checkRateLimit(
+      `${clientIp}:/api/withdrawal`,
+      RATE_LIMITS.sensitive
+    );
+    if (!rateLimitResult.success) {
+      return createErrorResponse(
+        Errors.rateLimit(rateLimitResult.retryAfter),
+        createRateLimitHeaders(rateLimitResult)
+      );
+    }
+
+    const authHeader = request.headers.get('authorization');
+    if (!authHeader?.startsWith('Bearer ')) {
+      return createErrorResponse(Errors.auth('未授权'));
+    }
+
+    const token = authHeader.split(' ')[1];
+    const supabase = getSupabaseAdmin();
+
     // 验证用户
     const { data: { user }, error: authError } = await supabase.auth.getUser(token);
     if (authError || !user) {
-      return NextResponse.json({ error: '认证失败' }, { status: 401 });
+      return createErrorResponse(Errors.auth('认证失败'));
     }
 
-    const body = await request.json();
-    const { amount } = body;
-
-    // 验证金额
-    if (!amount || typeof amount !== 'number' || amount < MIN_WITHDRAWAL_AMOUNT) {
-      return NextResponse.json({
-        error: `提现金额必须至少 ¥${MIN_WITHDRAWAL_AMOUNT.toLocaleString()}`
-      }, { status: 400 });
-    }
+    // 使用 Zod 验证输入
+    const validation = await validateBody(request, WithdrawalRequestSchema);
+    if (!validation.success) return validation.error;
+    const { amount } = validation.data;
 
     // 获取导游信息
     const { data: guide, error: guideError } = await supabase
@@ -116,28 +142,22 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (guideError || !guide) {
-      return NextResponse.json({ error: '导游不存在' }, { status: 404 });
+      return createErrorResponse(Errors.notFound('导游不存在'));
     }
 
     // 检查 KYC 状态
     if (guide.kyc_status !== 'approved') {
-      return NextResponse.json({
-        error: '请先完成身份验证（KYC）才能提现'
-      }, { status: 400 });
+      return createErrorResponse(Errors.business('请先完成身份验证（KYC）才能提现', 'KYC_REQUIRED'));
     }
 
     // 检查银行信息是否完整
     if (!guide.bank_name || !guide.bank_account_number || !guide.bank_account_holder) {
-      return NextResponse.json({
-        error: '请先完善银行账户信息'
-      }, { status: 400 });
+      return createErrorResponse(Errors.business('请先完善银行账户信息', 'BANK_INFO_REQUIRED'));
     }
 
     // 检查余额
     if ((guide.available_balance || 0) < amount) {
-      return NextResponse.json({
-        error: '可提现余额不足'
-      }, { status: 400 });
+      return createErrorResponse(Errors.business('可提现余额不足', 'INSUFFICIENT_BALANCE'));
     }
 
     // 检查是否有待处理的提现申请
@@ -149,9 +169,7 @@ export async function POST(request: NextRequest) {
       .limit(1);
 
     if (pendingRequests && pendingRequests.length > 0) {
-      return NextResponse.json({
-        error: '您有待处理的提现申请，请等待处理完成后再申请'
-      }, { status: 400 });
+      return createErrorResponse(Errors.business('您有待处理的提现申请，请等待处理完成后再申请', 'PENDING_WITHDRAWAL_EXISTS'));
     }
 
     // 创建提现申请
@@ -170,11 +188,11 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (insertError) {
-      console.error('创建提现申请失败:', insertError);
+      logError(normalizeError(insertError), { path: '/api/withdrawal', method: 'POST', context: 'create_withdrawal' });
       if (insertError.message?.includes('余额不足')) {
-        return NextResponse.json({ error: '可提现余额不足' }, { status: 400 });
+        return createErrorResponse(Errors.business('可提现余额不足', 'INSUFFICIENT_BALANCE'));
       }
-      return NextResponse.json({ error: '创建失败' }, { status: 500 });
+      return createErrorResponse(Errors.internal('创建提现申请失败'));
     }
 
     return NextResponse.json({
@@ -183,8 +201,9 @@ export async function POST(request: NextRequest) {
       withdrawal,
     });
   } catch (error: unknown) {
-    console.error('提现 API 错误:', error);
-    return NextResponse.json({ error: '服务器错误' }, { status: 500 });
+    const apiError = normalizeError(error);
+    logError(apiError, { path: '/api/withdrawal', method: 'POST' });
+    return createErrorResponse(apiError);
   }
 }
 
@@ -192,26 +211,39 @@ export async function POST(request: NextRequest) {
  * DELETE /api/withdrawal?id=xxx - 取消提现申请
  */
 export async function DELETE(request: NextRequest) {
-  const authHeader = request.headers.get('authorization');
-  if (!authHeader?.startsWith('Bearer ')) {
-    return NextResponse.json({ error: '未授权' }, { status: 401 });
-  }
-
-  const token = authHeader.split(' ')[1];
-  const { searchParams } = new URL(request.url);
-  const withdrawalId = searchParams.get('id');
-
-  if (!withdrawalId) {
-    return NextResponse.json({ error: '缺少提现 ID' }, { status: 400 });
-  }
-
-  const supabase = getSupabaseAdmin();
-
   try {
+    // DELETE 端点速率限制
+    const clientIp = getClientIp(request);
+    const rateLimitResult = checkRateLimit(
+      `${clientIp}:/api/withdrawal:DELETE`,
+      RATE_LIMITS.sensitive
+    );
+    if (!rateLimitResult.success) {
+      return createErrorResponse(
+        Errors.rateLimit(rateLimitResult.retryAfter),
+        createRateLimitHeaders(rateLimitResult)
+      );
+    }
+
+    const authHeader = request.headers.get('authorization');
+    if (!authHeader?.startsWith('Bearer ')) {
+      return createErrorResponse(Errors.auth('未授权'));
+    }
+
+    const token = authHeader.split(' ')[1];
+    const { searchParams } = new URL(request.url);
+    const withdrawalId = searchParams.get('id');
+
+    if (!withdrawalId) {
+      return createErrorResponse(Errors.validation('缺少提现 ID'));
+    }
+
+    const supabase = getSupabaseAdmin();
+
     // 验证用户
     const { data: { user }, error: authError } = await supabase.auth.getUser(token);
     if (authError || !user) {
-      return NextResponse.json({ error: '认证失败' }, { status: 401 });
+      return createErrorResponse(Errors.auth('认证失败'));
     }
 
     // 获取导游 ID
@@ -222,7 +254,7 @@ export async function DELETE(request: NextRequest) {
       .single();
 
     if (!guide) {
-      return NextResponse.json({ error: '导游不存在' }, { status: 404 });
+      return createErrorResponse(Errors.notFound('导游'));
     }
 
     // 检查提现申请是否存在且属于该导游
@@ -233,15 +265,15 @@ export async function DELETE(request: NextRequest) {
       .single();
 
     if (!withdrawal) {
-      return NextResponse.json({ error: '提现申请不存在' }, { status: 404 });
+      return createErrorResponse(Errors.notFound('提现申请'));
     }
 
     if (withdrawal.guide_id !== guide.id) {
-      return NextResponse.json({ error: '无权操作' }, { status: 403 });
+      return createErrorResponse(Errors.forbidden('无权操作此提现申请'));
     }
 
     if (withdrawal.status !== 'pending') {
-      return NextResponse.json({ error: '只能取消待审核的申请' }, { status: 400 });
+      return createErrorResponse(Errors.business('只能取消待审核的申请', 'WITHDRAWAL_INVALID_STATE'));
     }
 
     // 取消申请（触发器会自动退还余额）
@@ -251,8 +283,8 @@ export async function DELETE(request: NextRequest) {
       .eq('id', withdrawalId);
 
     if (updateError) {
-      console.error('取消提现失败:', updateError);
-      return NextResponse.json({ error: '取消失败' }, { status: 500 });
+      logError(normalizeError(updateError), { path: '/api/withdrawal', method: 'DELETE' });
+      return createErrorResponse(Errors.internal('取消失败'));
     }
 
     return NextResponse.json({
@@ -260,7 +292,8 @@ export async function DELETE(request: NextRequest) {
       message: '提现申请已取消',
     });
   } catch (error: unknown) {
-    console.error('取消提现错误:', error);
-    return NextResponse.json({ error: '服务器错误' }, { status: 500 });
+    const apiError = normalizeError(error);
+    logError(apiError, { path: '/api/withdrawal', method: 'DELETE' });
+    return createErrorResponse(apiError);
   }
 }

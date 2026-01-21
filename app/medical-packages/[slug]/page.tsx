@@ -269,10 +269,13 @@ export default function PackageDetailPage() {
         fullNotes += notes;
       }
 
+      // 将体检时间段 "9:00-16:00" 添加到 notes 中，因为 preferredTime 只接受 HH:MM 格式
+      const notesWithTime = `【體檢時段】9:00 - 16:00\n\n${fullNotes}`.trim();
+
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ packageSlug: slug, customerInfo, preferredDate: preferredDate || null, preferredTime: '9:00-16:00', notes: fullNotes || null }),
+        body: JSON.stringify({ packageSlug: slug, customerInfo, preferredDate: preferredDate || null, notes: notesWithTime || null }),
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || '創建支付會話失敗');
@@ -380,6 +383,7 @@ export default function PackageDetailPage() {
                     <div>
                       <label className="block text-xs text-gray-500 mb-1.5">電子郵箱</label>
                       <input type="email" value={customerInfo.email} onChange={(e) => { setCustomerInfo({ ...customerInfo, email: e.target.value }); setContactError(''); }} className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-sm" placeholder="your@email.com" />
+                      <p className="mt-1 text-xs text-gray-400">如填寫，支付確認及體檢通知將發送至此郵箱</p>
                     </div>
                     <div>
                       <label className="block text-xs text-gray-500 mb-1.5">LINE ID</label>

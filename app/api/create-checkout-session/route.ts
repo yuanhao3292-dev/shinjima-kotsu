@@ -5,6 +5,7 @@ import { WHITELABEL_COOKIE_NAME } from '@/lib/types/whitelabel';
 import { validateBody } from '@/lib/validations/validate';
 import { CreateCheckoutSessionSchema } from '@/lib/validations/api-schemas';
 import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
+import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
 
 // 延迟初始化，避免构建时报错
 const getStripe = () => {
@@ -33,9 +34,9 @@ export async function POST(request: NextRequest) {
       RATE_LIMITS.sensitive
     );
     if (!rateLimitResult.success) {
-      return NextResponse.json(
-        { error: '请求过于频繁，请稍后再试' },
-        { status: 429, headers: createRateLimitHeaders(rateLimitResult) }
+      return createErrorResponse(
+        Errors.rateLimit(rateLimitResult.retryAfter),
+        createRateLimitHeaders(rateLimitResult)
       );
     }
 
@@ -84,48 +85,57 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (packageError || !packageData) {
-      return NextResponse.json(
-        { error: '套餐不存在' },
-        { status: 404 }
-      );
+      return createErrorResponse(Errors.notFound('套餐不存在'));
     }
 
     if (!packageData.stripe_price_id) {
-      return NextResponse.json(
-        { error: '套餐尚未配置 Stripe 价格' },
-        { status: 400 }
-      );
+      return createErrorResponse(Errors.business('套餐尚未配置 Stripe 价格', 'PACKAGE_NOT_CONFIGURED'));
     }
 
     // 2. 创建或获取客户记录
     let customerId: string;
-    const { data: existingCustomer } = await supabase
-      .from('customers')
-      .select('id, stripe_customer_id')
-      .eq('email', customerInfo.email)
-      .single();
+    let existingCustomer = null;
+
+    // 只在有 email 时尝试查找现有客户（避免匹配多个无 email 的客户）
+    if (customerInfo.email && customerInfo.email.trim() !== '') {
+      const { data } = await supabase
+        .from('customers')
+        .select('id, stripe_customer_id')
+        .eq('email', customerInfo.email)
+        .single();
+      existingCustomer = data;
+    }
 
     if (existingCustomer) {
       customerId = existingCustomer.id;
+      // 更新现有客户的社交媒体联系方式（如果有新值）
+      const updateData: Record<string, string | null> = {};
+      if (customerInfo.line) updateData.line = customerInfo.line;
+      if (customerInfo.wechat) updateData.wechat = customerInfo.wechat;
+      if (customerInfo.whatsapp) updateData.whatsapp = customerInfo.whatsapp;
+      if (Object.keys(updateData).length > 0) {
+        await supabase.from('customers').update(updateData).eq('id', customerId);
+      }
     } else {
-      // 创建新客户
+      // 创建新客户（包含社交媒体联系字段）
       const { data: newCustomer, error: customerError } = await supabase
         .from('customers')
         .insert({
-          email: customerInfo.email,
+          email: customerInfo.email || null,
           name: customerInfo.name,
-          phone: customerInfo.phone,
-          company: customerInfo.company,
-          country: customerInfo.country || 'TW'
+          phone: customerInfo.phone || null,
+          company: customerInfo.company || null,
+          country: customerInfo.country || 'TW',
+          line: customerInfo.line || null,
+          wechat: customerInfo.wechat || null,
+          whatsapp: customerInfo.whatsapp || null,
         })
         .select()
         .single();
 
       if (customerError || !newCustomer) {
-        return NextResponse.json(
-          { error: '创建客户失败' },
-          { status: 500 }
-        );
+        logError(normalizeError(customerError), { path: '/api/create-checkout-session', method: 'POST', context: 'create_customer' });
+        return createErrorResponse(Errors.internal('创建客户失败'));
       }
 
       customerId = newCustomer.id;
@@ -147,16 +157,16 @@ export async function POST(request: NextRequest) {
         // 白标归属字段
         referred_by_guide_id: guideId,
         referred_by_guide_slug: guideSlug,
-        commission_rate: guideCommissionRate
+        commission_rate: guideCommissionRate,
       })
       .select()
       .single();
 
     if (orderError || !order) {
-      return NextResponse.json(
-        { error: '创建订单失败' },
-        { status: 500 }
-      );
+      // 输出详细的 Supabase 错误信息
+      console.error('[create-checkout-session] Order creation failed:', JSON.stringify(orderError, null, 2));
+      logError(normalizeError(orderError), { path: '/api/create-checkout-session', method: 'POST', context: 'create_order' });
+      return createErrorResponse(Errors.internal('创建订单失败'));
     }
 
     // 4. 创建 Stripe Checkout Session
@@ -182,7 +192,8 @@ export async function POST(request: NextRequest) {
           quantity: 1,
         },
       ],
-      customer_email: customerInfo.email,
+      // email 现在是可选的，如果没有填写则让 Stripe checkout 页面收集
+      ...(customerInfo.email && { customer_email: customerInfo.email }),
       metadata: sessionMetadata,
       success_url: `${request.nextUrl.origin}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${request.nextUrl.origin}/payment/cancel?order_id=${order.id}`,
@@ -201,10 +212,8 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error: unknown) {
-    console.error('创建 Checkout Session 失败:', error);
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : '创建支付会话失败' },
-      { status: 500 }
-    );
+    const apiError = normalizeError(error);
+    logError(apiError, { path: '/api/create-checkout-session', method: 'POST' });
+    return createErrorResponse(apiError);
   }
 }

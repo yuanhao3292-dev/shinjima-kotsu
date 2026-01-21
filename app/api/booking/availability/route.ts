@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
+import { validateBody } from '@/lib/validations/validate';
+import { BookingAvailabilityCheckSchema } from '@/lib/validations/api-schemas';
 
 /**
  * 预约可用性检查 API
@@ -99,12 +101,10 @@ export async function POST(request: NextRequest) {
   const supabase = getSupabaseAdmin();
 
   try {
-    const body = await request.json();
-    const { venueId, guideId, date, time } = body;
-
-    if (!date) {
-      return NextResponse.json({ error: '请提供日期' }, { status: 400 });
-    }
+    // 使用 Zod Schema 验证输入
+    const validation = await validateBody(request, BookingAvailabilityCheckSchema);
+    if (!validation.success) return validation.error;
+    const { venueId, guideId, date, time } = validation.data;
 
     const conflicts = [];
 

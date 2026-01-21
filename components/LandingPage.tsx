@@ -106,6 +106,7 @@ interface SubViewProps {
   setCurrentPage: (page: PageView) => void;
   onLoginTrigger?: () => void;
   onOpenTIMCQuote?: () => void;
+  onOpenPartnerInquiry?: () => void;
   currentLang: Language;
   landingInputText?: string;
   setLandingInputText?: (text: string) => void;
@@ -729,120 +730,410 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
 
 const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger }) => {
   // CONFIGURATION: Map Plan IDs to Image URLs
-  // This makes it easy to add new photos by just adding a key-value pair here
   const planImages: Record<string, string> = {
     'kansai-elite': SITE_IMAGES.plan_kansai,
     'golf-pilgrimage': SITE_IMAGES.plan_difficult,
     'fuji-spectacular': SITE_IMAGES.plan_fuji,
-    // Add new plan IDs here with their corresponding image URLs
   };
 
   const getPlanImage = (id: string) => planImages[id] || SITE_IMAGES.golf_hero;
 
+  // 合作球场数据（含官网链接）
+  const partnerCourses = [
+    { name: '六甲国際ゴルフ倶楽部', region: '兵庫', rank: 'Top 30', url: 'http://rokkokokusai-kobe.jp/' },
+    { name: 'ABCゴルフ倶楽部', region: '兵庫', rank: 'Top 50', url: 'https://abc-golf.co.jp/' },
+    { name: '太平洋クラブ御殿場コース', region: '静岡', rank: 'Top 10', url: 'https://www.taiheiyoclub.co.jp/course/gotenba/' },
+    { name: '有馬ロイヤルゴルフクラブ', region: '兵庫', rank: 'Top 100', url: 'https://arima-royal.com/' },
+    { name: 'ゴールデンバレーゴルフ倶楽部', region: '兵庫', rank: 'Top 100', url: 'https://www.gvgc.jp/' },
+    { name: '富士桜カントリー倶楽部', region: '山梨', rank: 'Top 50', url: 'https://www.fujizakura-cc.jp/' },
+  ];
+
+  // 统计数据
+  const stats = [
+    { value: '25+', label: t.golf.stat_courses || '提携名門コース', sublabel: 'Premium Courses' },
+    { value: '100%', label: t.golf.stat_booking || '予約成功率', sublabel: 'Booking Success' },
+    { value: '1,500+', label: t.golf.stat_guests || '年間VIPゲスト', sublabel: 'Annual VIP Guests' },
+    { value: '15年', label: t.golf.stat_experience || '業界経験', sublabel: 'Years Experience' },
+  ];
+
   return (
-  <div className="animate-fade-in-up min-h-screen bg-white">
-     {/* Hero - Full height with transparent nav overlap */}
-     <div className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
-        <img
-            src={SITE_IMAGES.golf_hero}
-            className="absolute inset-0 w-full h-full object-cover grayscale-[10%]" 
-            alt="Golf Course" 
-            key="golf_hero"
-            onError={(e) => handleSmartImageError(e, 'golf_hero')}
-        />
-        <div className="absolute inset-0 bg-black/40"></div>
-        <div className="relative z-10 text-center text-white">
-           <span className="inline-block border border-white/30 bg-white/10 backdrop-blur-md px-4 py-1 rounded-full text-xs font-bold tracking-widest mb-4">
-              {t.golf.tag}
-           </span>
-           <h1 className="text-5xl font-serif font-bold mb-4">{t.golf.title_1}</h1>
-           <h2 className="text-3xl font-light text-gray-200">{t.golf.title_2}</h2>
+  <div className="animate-fade-in-up min-h-screen bg-[#FAFAF8]">
+     {/* ===== HERO SECTION - Full Screen Cinematic ===== */}
+     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background with Ken Burns effect */}
+        <div className="absolute inset-0">
+          <img
+              src={SITE_IMAGES.golf_hero}
+              className="absolute inset-0 w-full h-full object-cover animate-kenburns-slow"
+              alt="Golf Course"
+              key="golf_hero"
+              onError={(e) => handleSmartImageError(e, 'golf_hero')}
+          />
+          {/* Multi-layer gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/40 via-transparent to-emerald-950/40"></div>
+        </div>
+
+        {/* Decorative gold lines */}
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent"></div>
+
+        {/* Content */}
+        <div className="relative z-10 text-center text-white px-6 max-w-5xl mx-auto">
+           {/* Premium Badge */}
+           <div className="animate-fade-in-up-delay-1">
+             <span className="inline-flex items-center gap-3 border border-amber-400/40 bg-black/30 backdrop-blur-md px-6 py-2 rounded-full mb-8">
+                <span className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></span>
+                <span className="text-amber-200 text-xs font-medium tracking-[0.25em] uppercase">{t.golf.tag}</span>
+                <span className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></span>
+             </span>
+           </div>
+
+           {/* Main Title with Gold Accent */}
+           <div className="animate-fade-in-up-delay-2">
+             <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold mb-4 tracking-tight">
+               <span className="golf-gold-text">{t.golf.title_1}</span>
+             </h1>
+             <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-light text-white/90 mb-8">{t.golf.title_2}</h2>
+           </div>
+
+           {/* Subtitle */}
+           <div className="animate-fade-in-up-delay-3">
+             <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-12 leading-relaxed whitespace-pre-line font-light">
+               {t.golf.desc}
+             </p>
+           </div>
+
+           {/* CTA Buttons */}
+           <div className="animate-fade-in-up-delay-4 flex flex-col sm:flex-row gap-4 justify-center">
+             <button
+               onClick={onLoginTrigger}
+               className="group relative px-10 py-4 bg-gradient-to-r from-amber-600 to-amber-500 text-white font-bold rounded-full overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(212,175,55,0.4)]"
+             >
+               <span className="relative z-10 flex items-center justify-center gap-2">
+                 <Award size={20} />
+                 {t.golf.cta_btn}
+               </span>
+               <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-amber-400 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+             </button>
+             <button
+               onClick={() => document.getElementById('golf-plans')?.scrollIntoView({ behavior: 'smooth' })}
+               className="px-10 py-4 border border-white/30 text-white font-medium rounded-full hover:bg-white/10 transition-all duration-300 backdrop-blur-sm"
+             >
+               {t.golf.btn_tour || 'View Itineraries'}
+             </button>
+           </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50">
+          <span className="text-xs tracking-widest uppercase">Scroll</span>
+          <div className="w-px h-12 bg-gradient-to-b from-white/50 to-transparent"></div>
         </div>
      </div>
-     <div className="container mx-auto px-6 py-24">
-         <div className="text-center mb-16">
-            <span className="text-green-600 text-xs tracking-widest uppercase font-bold">{t.golf.std_title}</span>
-            <h2 className="text-3xl font-serif mt-3 text-gray-900">Why Choose Our Golf Division?</h2>
+
+     {/* ===== STATS BAR - Floating ===== */}
+     <div className="relative -mt-20 z-20 container mx-auto px-6">
+       <div className="golf-glass rounded-2xl p-8 shadow-2xl">
+         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+           {stats.map((stat, i) => (
+             <div key={i} className="golf-stat-card text-center p-4 rounded-xl hover:bg-emerald-50/50 transition-all duration-500">
+               <div className="text-4xl md:text-5xl font-bold golf-gold-text mb-2">{stat.value}</div>
+               <div className="text-sm font-bold text-gray-800">{stat.label}</div>
+               <div className="text-xs text-gray-400 mt-1">{stat.sublabel}</div>
+             </div>
+           ))}
          </div>
-         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
+       </div>
+     </div>
+
+     {/* ===== BRAND STANDARD SECTION ===== */}
+     <div className="py-24 bg-gradient-to-b from-[#FAFAF8] to-white">
+       <div className="container mx-auto px-6">
+         {/* Section Header */}
+         <div className="text-center mb-16">
+           <div className="inline-flex items-center gap-4 mb-4">
+             <div className="w-12 h-px bg-gradient-to-r from-transparent to-amber-400"></div>
+             <span className="text-amber-600 text-xs tracking-[0.3em] uppercase font-bold">{t.golf.std_title}</span>
+             <div className="w-12 h-px bg-gradient-to-l from-transparent to-amber-400"></div>
+           </div>
+           <h2 className="text-3xl md:text-4xl font-serif text-gray-900 golf-title-decorated">
+             Why Choose Niijima Golf?
+           </h2>
+         </div>
+
+         {/* Feature Cards - Luxury Design */}
+         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
              {[
-               { icon: <Lock size={24} />, title: t.golf.f1_t, desc: t.golf.f1_d, color: 'green' },
-               { icon: <Trophy size={24} />, title: t.golf.f2_t, desc: t.golf.f2_d, color: 'blue' },
-               { icon: <Car size={24} />, title: t.golf.f3_t, desc: t.golf.f3_d, color: 'gray' },
-               { icon: <Bath size={24} />, title: t.golf.f4_t, desc: t.golf.f4_d, color: 'orange' },
+               { icon: <Lock size={28} />, title: t.golf.f1_t, desc: t.golf.f1_d, accent: 'emerald' },
+               { icon: <Trophy size={28} />, title: t.golf.f2_t, desc: t.golf.f2_d, accent: 'amber' },
+               { icon: <Car size={28} />, title: t.golf.f3_t, desc: t.golf.f3_d, accent: 'slate' },
+               { icon: <Bath size={28} />, title: t.golf.f4_t, desc: t.golf.f4_d, accent: 'orange' },
              ].map((item, i) => (
-               <div key={i} className="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:shadow-xl transition duration-300 group hover:-translate-y-1">
-                  <div className={`w-14 h-14 bg-white text-${item.color}-600 rounded-xl flex items-center justify-center mb-6 shadow-sm group-hover:bg-${item.color}-600 group-hover:text-white transition`}>
+               <div
+                 key={i}
+                 className={`golf-luxury-card rounded-2xl p-8 group animate-fade-in-up-delay-${i + 1}`}
+               >
+                  {/* Icon with gradient background */}
+                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500
+                    ${item.accent === 'emerald' ? 'bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white' : ''}
+                    ${item.accent === 'amber' ? 'bg-amber-50 text-amber-600 group-hover:bg-amber-600 group-hover:text-white' : ''}
+                    ${item.accent === 'slate' ? 'bg-slate-100 text-slate-600 group-hover:bg-slate-700 group-hover:text-white' : ''}
+                    ${item.accent === 'orange' ? 'bg-orange-50 text-orange-600 group-hover:bg-orange-500 group-hover:text-white' : ''}
+                  `}>
                     {item.icon}
                   </div>
-                  <h3 className="font-bold text-xl mb-3 font-serif text-gray-800">{item.title}</h3>
+                  {/* Gold top border on hover */}
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-t-2xl"></div>
+                  <h3 className="font-bold text-xl mb-4 font-serif text-gray-900">{item.title}</h3>
                   <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
                </div>
              ))}
          </div>
+       </div>
+     </div>
 
-         {/* Premium Plans Section - New Update */}
-         <div className="mb-24">
-            <div className="text-center mb-16">
-               <h3 className="text-3xl font-serif text-gray-900">Recommended Itineraries</h3>
-               <p className="text-gray-500 text-sm mt-2">Curated for VIPs</p>
-            </div>
-            
-            <div className="space-y-24">
-               {t.golf.plans?.map((plan: any, index: number) => (
-                  <div key={plan.id} className={`flex flex-col ${index % 2 !== 0 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 items-start`}>
-                     {/* Image Card */}
-                     <div className="md:w-1/2 w-full">
-                        <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[400px] group">
-                           <img 
+     {/* ===== PARTNER COURSES SHOWCASE ===== */}
+     <div className="py-20 bg-emerald-950 relative overflow-hidden">
+       {/* Background Pattern */}
+       <div className="absolute inset-0 opacity-5">
+         <div className="absolute inset-0" style={{
+           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+         }}></div>
+       </div>
+
+       <div className="container mx-auto px-6 relative z-10">
+         <div className="text-center mb-12">
+           <div className="inline-flex items-center gap-4 mb-4">
+             <div className="w-12 h-px bg-gradient-to-r from-transparent to-amber-400"></div>
+             <span className="text-amber-400 text-xs tracking-[0.3em] uppercase font-bold">Partner Courses</span>
+             <div className="w-12 h-px bg-gradient-to-l from-transparent to-amber-400"></div>
+           </div>
+           <h2 className="text-3xl md:text-4xl font-serif text-white">{t.golf.partners_title || '提携名門コース'}</h2>
+         </div>
+
+         {/* Course Grid */}
+         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+           {partnerCourses.map((course, i) => (
+             <a
+               key={i}
+               href={course.url}
+               target="_blank"
+               rel="noopener noreferrer"
+               className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 hover:border-amber-400/30 transition-all duration-500 cursor-pointer block"
+             >
+               <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-to-br from-amber-400/20 to-amber-600/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                 <MapPin size={20} className="text-amber-400" />
+               </div>
+               <h4 className="text-white font-bold text-sm mb-1 group-hover:text-amber-300 transition-colors">{course.name}</h4>
+               <p className="text-white/50 text-xs mb-2">{course.region}</p>
+               <span className="inline-block text-[10px] px-2 py-1 bg-amber-400/20 text-amber-300 rounded-full">{course.rank}</span>
+               {/* External link indicator */}
+               <div className="mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                 <span className="text-[10px] text-amber-400/70 flex items-center justify-center gap-1">
+                   Official Site <ArrowRight size={10} />
+                 </span>
+               </div>
+             </a>
+           ))}
+         </div>
+
+         {/* More Courses Hint */}
+         <div className="text-center mt-8">
+           <span className="text-white/40 text-sm">...and 20+ more exclusive courses across Japan</span>
+         </div>
+       </div>
+     </div>
+
+     {/* ===== RECOMMENDED ITINERARIES ===== */}
+     <div id="golf-plans" className="py-24 bg-white">
+       <div className="container mx-auto px-6">
+         {/* Section Header */}
+         <div className="text-center mb-20">
+           <div className="inline-flex items-center gap-4 mb-4">
+             <div className="w-12 h-px bg-gradient-to-r from-transparent to-amber-400"></div>
+             <span className="text-amber-600 text-xs tracking-[0.3em] uppercase font-bold">Signature Itineraries</span>
+             <div className="w-12 h-px bg-gradient-to-l from-transparent to-amber-400"></div>
+           </div>
+           <h2 className="text-3xl md:text-4xl font-serif text-gray-900 mb-4">Recommended Itineraries</h2>
+           <p className="text-gray-500 max-w-xl mx-auto">Curated experiences for discerning golfers</p>
+         </div>
+
+         {/* Plan Cards - Premium Design */}
+         <div className="space-y-32">
+            {t.golf.plans?.map((plan: any, index: number) => (
+               <div
+                 key={plan.id}
+                 className={`flex flex-col ${index % 2 !== 0 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-12 lg:gap-16 items-center`}
+               >
+                  {/* Image Card with Luxury Frame */}
+                  <div className="lg:w-1/2 w-full">
+                     <div className="relative group">
+                        {/* Gold corner decorations */}
+                        <div className="absolute -top-3 -left-3 w-16 h-16 border-t-2 border-l-2 border-amber-400/60 rounded-tl-lg z-10"></div>
+                        <div className="absolute -bottom-3 -right-3 w-16 h-16 border-b-2 border-r-2 border-amber-400/60 rounded-br-lg z-10"></div>
+
+                        {/* Image */}
+                        <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[450px] lg:h-[500px]">
+                           <img
                               src={getPlanImage(plan.id)}
-                              className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700"
+                              className="w-full h-full object-cover transform group-hover:scale-105 transition duration-1000"
                               alt={plan.title}
                               onError={(e) => handleSmartImageError(e, `plan_${plan.id.split('-')[0]}`)}
                            />
-                           <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+                           {/* Gradient overlay */}
+                           <div className="absolute inset-0 golf-image-overlay"></div>
+
+                           {/* Tags overlay */}
+                           <div className="absolute top-6 left-6 flex flex-wrap gap-2">
                               {plan.tags.map((tag: string, i: number) => (
-                                 <span key={i} className="bg-black/60 backdrop-blur-md text-white text-[10px] uppercase font-bold px-3 py-1 rounded-full border border-white/20">
+                                 <span
+                                   key={i}
+                                   className="golf-glass-dark text-white text-[10px] uppercase font-bold px-4 py-2 rounded-full tracking-wider"
+                                 >
                                     {tag}
                                  </span>
                               ))}
                            </div>
-                        </div>
-                     </div>
-                     
-                     {/* Content */}
-                     <div className="md:w-1/2 w-full">
-                        <div className="flex items-center gap-3 mb-2">
-                           <span className="text-green-600 font-bold text-xs tracking-widest uppercase">Plan 0{index + 1}</span>
-                           <div className="h-px bg-green-200 flex-grow"></div>
-                        </div>
-                        <h3 className="text-2xl md:text-3xl font-serif font-bold text-gray-900 mb-2">{plan.title}</h3>
-                        <h4 className="text-lg text-gray-500 mb-6 font-light">{plan.subtitle}</h4>
-                        <p className="text-gray-600 leading-relaxed mb-8">{plan.desc}</p>
-                        
-                        <div className="bg-gray-50 rounded-xl p-6 border border-gray-100 mb-8">
-                           <div className="flex items-center gap-2 mb-4 text-sm font-bold text-gray-800">
-                              <Building size={16} className="text-green-600" />
-                              <span>Accommodation: {plan.hotel}</span>
-                           </div>
-                           <div className="space-y-4">
-                              {plan.schedule.map((day: any, dIndex: number) => (
-                                 <div key={dIndex} className="flex gap-4 text-sm">
-                                    <span className="font-bold text-gray-400 w-12 flex-shrink-0">{day.day}</span>
-                                    <span className="text-gray-700 leading-relaxed">{day.text}</span>
-                                 </div>
-                              ))}
+
+                           {/* Plan number badge */}
+                           <div className="absolute bottom-6 right-6">
+                             <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg">
+                               <span className="text-white font-bold text-lg">0{index + 1}</span>
+                             </div>
                            </div>
                         </div>
                      </div>
                   </div>
-               ))}
-            </div>
-         </div>
 
-         <button onClick={() => setCurrentPage('home')} className="mt-24 w-full text-center text-gray-400 hover:text-black transition flex justify-center items-center gap-2">
-            <ArrowLeft size={16} /> {t.about.back}
-         </button>
+                  {/* Content - Luxury Typography */}
+                  <div className="lg:w-1/2 w-full">
+                     {/* Plan indicator */}
+                     <div className="flex items-center gap-4 mb-4">
+                        <span className="golf-gold-text font-bold text-sm tracking-[0.2em] uppercase">Plan 0{index + 1}</span>
+                        <div className="flex-grow h-px bg-gradient-to-r from-amber-400/50 to-transparent"></div>
+                     </div>
+
+                     <h3 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-3 leading-tight">{plan.title}</h3>
+                     <h4 className="text-lg text-amber-600 mb-6 font-medium">{plan.subtitle}</h4>
+                     <p className="text-gray-600 leading-relaxed mb-10 text-lg">{plan.desc}</p>
+
+                     {/* Schedule Card - Premium Style */}
+                     <div className="golf-luxury-card rounded-2xl p-8 mb-10">
+                        {/* Hotel Info */}
+                        <div className="flex items-center gap-3 mb-6 pb-6 border-b border-gray-100">
+                           <div className="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center">
+                             <Building size={18} className="text-emerald-600" />
+                           </div>
+                           <div>
+                             <span className="text-xs text-gray-400 uppercase tracking-wider">Accommodation</span>
+                             <p className="text-gray-900 font-bold">{plan.hotel}</p>
+                           </div>
+                        </div>
+
+                        {/* Schedule Timeline */}
+                        <div className="space-y-4">
+                           {plan.schedule.map((day: any, dIndex: number) => (
+                              <div key={dIndex} className="flex gap-4 group">
+                                 <div className="flex flex-col items-center">
+                                   <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                                     {dIndex + 1}
+                                   </span>
+                                   {dIndex < plan.schedule.length - 1 && (
+                                     <div className="w-px h-full bg-gradient-to-b from-emerald-200 to-transparent mt-2"></div>
+                                   )}
+                                 </div>
+                                 <div className="flex-1 pb-4">
+                                   <span className="text-xs font-bold text-amber-600 uppercase tracking-wider">{day.day}</span>
+                                   <p className="text-gray-700 leading-relaxed mt-1">{day.text}</p>
+                                 </div>
+                              </div>
+                           ))}
+                        </div>
+                     </div>
+
+                     {/* CTA Button - Gold Gradient */}
+                     <button
+                        onClick={onLoginTrigger}
+                        className="group relative px-10 py-4 bg-gradient-to-r from-emerald-800 to-emerald-700 text-white font-bold rounded-full overflow-hidden transition-all duration-300 hover:shadow-xl flex items-center gap-3"
+                     >
+                        <span>{t.golf.cta_btn}</span>
+                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                     </button>
+                  </div>
+               </div>
+            ))}
+         </div>
+       </div>
+     </div>
+
+     {/* ===== FINAL CTA - Luxury Design ===== */}
+     <div className="relative py-24 overflow-hidden">
+       {/* Background Image with Overlay */}
+       <div className="absolute inset-0">
+         <img
+           src="https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=2000&auto=format&fit=crop"
+           className="w-full h-full object-cover"
+           alt="Golf Background"
+         />
+         <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/95 via-emerald-900/90 to-emerald-950/95"></div>
+       </div>
+
+       {/* Content */}
+       <div className="container mx-auto px-6 relative z-10">
+         <div className="max-w-3xl mx-auto text-center">
+           {/* Gold decorative element */}
+           <div className="flex justify-center mb-8">
+             <div className="w-20 h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
+           </div>
+
+           <h3 className="text-4xl md:text-5xl font-serif text-white mb-6">{t.golf.cta_title}</h3>
+           <p className="text-white/60 text-lg mb-10 leading-relaxed whitespace-pre-line">{t.golf.cta_desc}</p>
+
+           {/* Premium CTA Button */}
+           <button
+             onClick={onLoginTrigger}
+             className="group relative inline-flex items-center gap-3 px-12 py-5 overflow-hidden rounded-full transition-all duration-500"
+           >
+             {/* Animated border */}
+             <span className="absolute inset-0 rounded-full bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 p-[2px]">
+               <span className="absolute inset-[2px] rounded-full bg-emerald-900"></span>
+             </span>
+             <span className="relative z-10 flex items-center gap-3 text-white font-bold">
+               <Sparkles size={20} className="text-amber-400" />
+               {t.golf.cta_btn}
+               <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
+             </span>
+           </button>
+
+           {/* Trust badges */}
+           <div className="mt-12 flex flex-wrap justify-center gap-6 text-white/40 text-sm">
+             <span className="flex items-center gap-2">
+               <Shield size={16} />
+               Licensed Travel Agency
+             </span>
+             <span className="flex items-center gap-2">
+               <Users size={16} />
+               1,500+ VIP Clients
+             </span>
+             <span className="flex items-center gap-2">
+               <Award size={16} />
+               15 Years Experience
+             </span>
+           </div>
+         </div>
+       </div>
+     </div>
+
+     {/* Back to Home */}
+     <div className="py-12 bg-[#FAFAF8]">
+       <button
+         onClick={() => setCurrentPage('home')}
+         className="w-full text-center text-gray-400 hover:text-emerald-600 transition-colors flex justify-center items-center gap-2 group"
+       >
+         <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+         {t.about.back}
+       </button>
      </div>
   </div>
   );
@@ -1006,7 +1297,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
    );
 };
 
-const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger }) => (
+const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerInquiry }) => (
   <div className="animate-fade-in-up min-h-screen bg-white">
      {/* Hero - Full height with transparent nav overlap */}
      <div className="relative min-h-[85vh] flex flex-col items-center justify-center overflow-hidden">
@@ -1076,7 +1367,7 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger
             <div className="mt-16 text-center border-t border-gray-800 pt-12">
                <h4 className="text-xl font-serif mb-4">{t.partner.cta_title}</h4>
                <p className="text-gray-400 mb-8 whitespace-pre-line">{t.partner.cta_desc}</p>
-               <button onClick={onLoginTrigger} className="bg-blue-600 text-white px-10 py-4 rounded-full font-bold hover:bg-blue-500 transition shadow-lg">
+               <button onClick={onOpenPartnerInquiry} className="bg-blue-600 text-white px-10 py-4 rounded-full font-bold hover:bg-blue-500 transition shadow-lg">
                   {t.partner.cta_btn}
                </button>
             </div>
@@ -1677,6 +1968,20 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
   // State for TIMC Quote Modal
   const [showTIMCQuoteModal, setShowTIMCQuoteModal] = useState(false);
 
+  // State for Partner Inquiry Modal
+  const [showPartnerInquiryModal, setShowPartnerInquiryModal] = useState(false);
+  const [partnerInquiryForm, setPartnerInquiryForm] = useState({
+    companyName: '',
+    contactName: '',
+    email: '',
+    phone: '',
+    businessType: '',
+    message: '',
+  });
+  const [isSubmittingInquiry, setIsSubmittingInquiry] = useState(false);
+  const [inquirySubmitStatus, setInquirySubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [inquiryErrorMessage, setInquiryErrorMessage] = useState('');
+
   // 白标模式
   const { isWhiteLabelMode, branding } = useWhiteLabel();
   const { hideOfficialBranding, hideGuidePartnerContent } = useWhiteLabelVisibility();
@@ -1730,6 +2035,48 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
 
   const openAuthModal = () => { setAuthError(''); setShowAuthModal(true); };
 
+  // Partner Inquiry Form handlers
+  const openPartnerInquiryModal = () => {
+    setPartnerInquiryForm({ companyName: '', contactName: '', email: '', phone: '', businessType: '', message: '' });
+    setInquirySubmitStatus('idle');
+    setInquiryErrorMessage('');
+    setShowPartnerInquiryModal(true);
+  };
+
+  const handlePartnerInquirySubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!partnerInquiryForm.companyName.trim() || !partnerInquiryForm.contactName.trim() ||
+        !partnerInquiryForm.email.trim() || !partnerInquiryForm.message.trim()) {
+      setInquiryErrorMessage('請填寫所有必填欄位');
+      return;
+    }
+
+    setIsSubmittingInquiry(true);
+    setInquiryErrorMessage('');
+
+    try {
+      const response = await fetch('/api/partner-inquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(partnerInquiryForm),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setInquirySubmitStatus('success');
+      } else {
+        setInquirySubmitStatus('error');
+        setInquiryErrorMessage(data.error || '提交失敗，請稍後再試');
+      }
+    } catch (error) {
+      setInquirySubmitStatus('error');
+      setInquiryErrorMessage('網絡錯誤，請稍後再試');
+    } finally {
+      setIsSubmittingInquiry(false);
+    }
+  };
+
   // 根据当前页面确定 PublicLayout 的 activeNav
   const getActiveNav = () => {
     if (currentPage === 'medical') return 'medical';
@@ -1758,7 +2105,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
           {currentPage === 'business' && <BusinessView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={() => router.push('/login')} currentLang={currentLang} />}
           {currentPage === 'golf' && <GolfView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={() => router.push('/login')} currentLang={currentLang} />}
           {/* 白标模式下隐藏 Partner 页面（B2B 同业合作） */}
-          {currentPage === 'partner' && !hideGuidePartnerContent && <PartnerView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={() => router.push('/login')} currentLang={currentLang} />}
+          {currentPage === 'partner' && !hideGuidePartnerContent && <PartnerView t={t} setCurrentPage={setCurrentPage} onOpenPartnerInquiry={openPartnerInquiryModal} currentLang={currentLang} />}
        </main>
 
        {/* Auth Modal */}
@@ -1828,6 +2175,174 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                     {isSendingAuth ? 'Processing...' : 'Apply for Access'}
                   </button>
                </form>
+            </div>
+         </div>
+       )}
+
+       {/* Partner Inquiry Modal */}
+       {showPartnerInquiryModal && (
+         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto relative">
+               <button
+                 onClick={() => setShowPartnerInquiryModal(false)}
+                 className="absolute top-4 right-4 text-gray-400 hover:text-black transition z-10"
+               >
+                 <X size={20} />
+               </button>
+
+               {inquirySubmitStatus === 'success' ? (
+                 // Success State
+                 <div className="p-8 text-center">
+                   <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                     <CheckCircle className="text-green-600" size={32} />
+                   </div>
+                   <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">申請已提交</h3>
+                   <p className="text-gray-600 mb-6">
+                     感謝您的合作申請！我們已收到您的信息，<br />
+                     將在 1-2 個工作日內與您聯繫。
+                   </p>
+                   <button
+                     onClick={() => setShowPartnerInquiryModal(false)}
+                     className="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-500 transition"
+                   >
+                     關閉
+                   </button>
+                 </div>
+               ) : (
+                 // Form State
+                 <>
+                   <div className="p-6 border-b border-gray-100">
+                     <div className="flex items-center gap-3">
+                       <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
+                         <Handshake size={20} />
+                       </div>
+                       <div>
+                         <h3 className="text-xl font-serif font-bold text-gray-900">
+                           同業合作申請
+                         </h3>
+                         <p className="text-sm text-gray-500">填寫以下資料，我們將盡快與您聯繫</p>
+                       </div>
+                     </div>
+                   </div>
+
+                   <form onSubmit={handlePartnerInquirySubmit} className="p-6 space-y-4">
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                       <div>
+                         <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                           公司名稱 <span className="text-red-500">*</span>
+                         </label>
+                         <input
+                           type="text"
+                           required
+                           value={partnerInquiryForm.companyName}
+                           onChange={(e) => setPartnerInquiryForm({...partnerInquiryForm, companyName: e.target.value})}
+                           className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                           placeholder="旅行社名稱"
+                         />
+                       </div>
+                       <div>
+                         <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                           聯絡人 <span className="text-red-500">*</span>
+                         </label>
+                         <input
+                           type="text"
+                           required
+                           value={partnerInquiryForm.contactName}
+                           onChange={(e) => setPartnerInquiryForm({...partnerInquiryForm, contactName: e.target.value})}
+                           className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                           placeholder="您的姓名"
+                         />
+                       </div>
+                     </div>
+
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                       <div>
+                         <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                           電子郵件 <span className="text-red-500">*</span>
+                         </label>
+                         <input
+                           type="email"
+                           required
+                           value={partnerInquiryForm.email}
+                           onChange={(e) => setPartnerInquiryForm({...partnerInquiryForm, email: e.target.value})}
+                           className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                           placeholder="email@company.com"
+                         />
+                       </div>
+                       <div>
+                         <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                           聯絡電話
+                         </label>
+                         <input
+                           type="tel"
+                           value={partnerInquiryForm.phone}
+                           onChange={(e) => setPartnerInquiryForm({...partnerInquiryForm, phone: e.target.value})}
+                           className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                           placeholder="+886 912 345 678"
+                         />
+                       </div>
+                     </div>
+
+                     <div>
+                       <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                         業務類型
+                       </label>
+                       <select
+                         value={partnerInquiryForm.businessType}
+                         onChange={(e) => setPartnerInquiryForm({...partnerInquiryForm, businessType: e.target.value})}
+                         className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none bg-white"
+                       >
+                         <option value="">請選擇</option>
+                         <option value="旅行社">旅行社</option>
+                         <option value="OTA 平台">OTA 平台</option>
+                         <option value="導遊/領隊">導遊/領隊</option>
+                         <option value="企業差旅">企業差旅</option>
+                         <option value="其他">其他</option>
+                       </select>
+                     </div>
+
+                     <div>
+                       <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                         合作意向說明 <span className="text-red-500">*</span>
+                       </label>
+                       <textarea
+                         required
+                         rows={4}
+                         value={partnerInquiryForm.message}
+                         onChange={(e) => setPartnerInquiryForm({...partnerInquiryForm, message: e.target.value})}
+                         className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none resize-none"
+                         placeholder="請簡述您的合作需求，例如：主要客群、預計業務量、希望合作的產品類型等..."
+                       />
+                     </div>
+
+                     {inquiryErrorMessage && (
+                       <p className="text-sm text-red-500 bg-red-50 p-3 rounded-lg">{inquiryErrorMessage}</p>
+                     )}
+
+                     <button
+                       type="submit"
+                       disabled={isSubmittingInquiry}
+                       className="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                     >
+                       {isSubmittingInquiry ? (
+                         <>
+                           <Loader2 className="animate-spin" size={16} />
+                           提交中...
+                         </>
+                       ) : (
+                         <>
+                           <Mail size={16} />
+                           提交申請
+                         </>
+                       )}
+                     </button>
+
+                     <p className="text-xs text-gray-400 text-center">
+                       提交後我們會將確認信發送至您的郵箱
+                     </p>
+                   </form>
+                 </>
+               )}
             </div>
          </div>
        )}

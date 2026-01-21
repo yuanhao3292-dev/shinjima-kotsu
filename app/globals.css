@@ -118,3 +118,496 @@ h1, h2, h3, .serif {
 .hover\:pause-animation:hover {
   animation-play-state: paused;
 }
+
+/* ===== GOLF PAGE LUXURY STYLES ===== */
+
+/* 金色奢华渐变 */
+.golf-gold-gradient {
+  background: linear-gradient(135deg, #B8860B 0%, #D4AF37 50%, #F4E4BA 100%);
+}
+
+.golf-gold-text {
+  background: linear-gradient(135deg, #B8860B 0%, #D4AF37 50%, #DAA520 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 深邃绿色（高尔夫经典色） */
+.golf-green-gradient {
+  background: linear-gradient(135deg, #0D4D2B 0%, #1B5E3A 50%, #2E7D4E 100%);
+}
+
+.golf-green-text {
+  color: #1B5E3A;
+}
+
+/* 奢华卡片效果 */
+.golf-luxury-card {
+  background: linear-gradient(145deg, #FFFFFF 0%, #F8F9FA 100%);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.05),
+    0 1px 3px rgba(0, 0, 0, 0.03);
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.golf-luxury-card:hover {
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.1),
+    0 8px 25px rgba(212, 175, 55, 0.08);
+  transform: translateY(-8px);
+}
+
+/* 金色边框装饰线 */
+.golf-gold-border {
+  position: relative;
+}
+
+.golf-gold-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+}
+
+/* 高级分隔线 */
+.golf-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
+}
+
+/* 数据统计卡片闪光效果 */
+.golf-stat-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.golf-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(212, 175, 55, 0.1),
+    transparent
+  );
+  transition: left 0.7s ease;
+}
+
+.golf-stat-card:hover::before {
+  left: 100%;
+}
+
+/* 图片蒙版高级效果 */
+.golf-image-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+}
+
+/* 视差滚动容器 */
+.golf-parallax {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media (max-width: 768px) {
+  .golf-parallax {
+    background-attachment: scroll;
+  }
+}
+
+/* 文字装饰线 */
+.golf-title-decorated {
+  position: relative;
+  display: inline-block;
+}
+
+.golf-title-decorated::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, #D4AF37, #B8860B);
+}
+
+/* 淡入动画 - 延迟版本 */
+@keyframes fadeInUpDelay {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up-delay-1 {
+  animation: fadeInUpDelay 0.8s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-up-delay-2 {
+  animation: fadeInUpDelay 0.8s ease-out 0.4s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-up-delay-3 {
+  animation: fadeInUpDelay 0.8s ease-out 0.6s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-up-delay-4 {
+  animation: fadeInUpDelay 0.8s ease-out 0.8s forwards;
+  opacity: 0;
+}
+
+/* 脉冲光晕效果 */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.5); }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* 旋转边框动画 */
+@keyframes rotateBorder {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.golf-rotating-border {
+  position: relative;
+}
+
+.golf-rotating-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(from 0deg, #D4AF37, #1B5E3A, #D4AF37);
+  border-radius: inherit;
+  z-index: -1;
+  animation: rotateBorder 8s linear infinite;
+}
+
+/* 高级阴影 */
+.golf-premium-shadow {
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.08),
+    0 2px 10px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* 玻璃态效果 */
+.golf-glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.golf-glass-dark {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ===== BUSINESS INSPECTION PREMIUM STYLES ===== */
+
+/* 深邃蓝黑商务渐变 - 象征专业与权威 */
+.business-dark-gradient {
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
+}
+
+/* 铂金色 - 象征顶级与尊贵 */
+.business-platinum-gradient {
+  background: linear-gradient(135deg, #6B7280 0%, #9CA3AF 30%, #D1D5DB 60%, #9CA3AF 100%);
+}
+
+.business-platinum-text {
+  background: linear-gradient(135deg, #6B7280 0%, #9CA3AF 50%, #E5E7EB 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 琥珀金 - 商务视察主题色 */
+.business-amber-gradient {
+  background: linear-gradient(135deg, #92400E 0%, #B45309 50%, #D97706 100%);
+}
+
+.business-amber-text {
+  background: linear-gradient(135deg, #92400E 0%, #B45309 50%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 高端卡片效果 */
+.business-premium-card {
+  background: linear-gradient(145deg, #FFFFFF 0%, #F8FAFC 100%);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.business-premium-card:hover {
+  border-color: rgba(180, 83, 9, 0.3);
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.12),
+    0 8px 24px rgba(180, 83, 9, 0.08);
+  transform: translateY(-6px);
+}
+
+/* 深色高端卡片 */
+.business-dark-card {
+  background: linear-gradient(145deg, #1E293B 0%, #0F172A 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.business-dark-card:hover {
+  border-color: rgba(217, 119, 6, 0.4);
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(217, 119, 6, 0.1);
+  transform: translateY(-4px);
+}
+
+/* 琥珀金边框装饰 */
+.business-amber-border {
+  position: relative;
+}
+
+.business-amber-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #D97706, transparent);
+}
+
+/* 统计卡片闪光效果 */
+.business-stat-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.business-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(217, 119, 6, 0.08),
+    transparent
+  );
+  transition: left 0.7s ease;
+}
+
+.business-stat-card:hover::before {
+  left: 100%;
+}
+
+/* 高级分隔线 */
+.business-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.4), transparent);
+}
+
+/* 标题装饰线 */
+.business-title-decorated {
+  position: relative;
+  display: inline-block;
+}
+
+.business-title-decorated::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #D97706, #92400E);
+}
+
+/* 企业 Logo 展示区 */
+.business-logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.business-logo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  filter: grayscale(100%);
+  opacity: 0.7;
+}
+
+.business-logo-item:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* 流程步骤连接线 */
+.business-step-connector {
+  position: relative;
+}
+
+.business-step-connector::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -2rem;
+  width: calc(100% - 2rem);
+  height: 2px;
+  background: linear-gradient(90deg, #D97706, rgba(217, 119, 6, 0.2));
+  transform: translateY(-50%);
+}
+
+@media (max-width: 768px) {
+  .business-step-connector::after {
+    display: none;
+  }
+}
+
+/* 引用框样式 */
+.business-quote {
+  position: relative;
+  padding-left: 1.5rem;
+  border-left: 4px solid #D97706;
+  font-style: italic;
+}
+
+.business-quote::before {
+  content: '"';
+  position: absolute;
+  top: -0.5rem;
+  left: 0.5rem;
+  font-size: 3rem;
+  color: rgba(217, 119, 6, 0.2);
+  font-family: 'Shippori Mincho', serif;
+  line-height: 1;
+}
+
+/* 数字动态渐变 */
+.business-number-glow {
+  text-shadow: 0 0 30px rgba(217, 119, 6, 0.3);
+}
+
+/* 玻璃态效果 - 商务版 */
+.business-glass {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+/* 徽章样式 */
+.business-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+  border: 1px solid rgba(217, 119, 6, 0.3);
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #92400E;
+}
+
+/* 呼吸光效 */
+@keyframes businessPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(217, 119, 6, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(217, 119, 6, 0.4);
+  }
+}
+
+.animate-business-pulse {
+  animation: businessPulse 3s ease-in-out infinite;
+}
+
+/* 数字计数动画 */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-count-up {
+  animation: countUp 0.6s ease-out forwards;
+}
+
+/* 交错延迟动画 */
+.animate-delay-100 { animation-delay: 100ms; }
+.animate-delay-200 { animation-delay: 200ms; }
+.animate-delay-300 { animation-delay: 300ms; }
+.animate-delay-400 { animation-delay: 400ms; }
+.animate-delay-500 { animation-delay: 500ms; }
+
+/* 图片蒙版 - 商务版 */
+.business-image-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0) 0%,
+    rgba(15, 23, 42, 0.4) 60%,
+    rgba(15, 23, 42, 0.9) 100%
+  );
+}
+
+/* 企业展示卡片 hover 效果 */
+.business-company-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.business-company-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 50%, rgba(217, 119, 6, 0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.business-company-card:hover::after {
+  opacity: 1;
+}

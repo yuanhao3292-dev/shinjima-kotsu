@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createClient } from "@supabase/supabase-js";
+import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
+import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
+import { validateBody } from '@/lib/validations/validate';
+import { WhitelabelSubscriptionSchema } from '@/lib/validations/api-schemas';
 
 const getStripe = () => {
   if (!process.env.STRIPE_SECRET_KEY) {
@@ -28,17 +32,26 @@ const WHITELABEL_MONTHLY_PRICE = 1980; // 日元
 
 export async function POST(request: NextRequest) {
   try {
+    // 速率限制检查（支付敏感端点）
+    const clientIp = getClientIp(request);
+    const rateLimitResult = checkRateLimit(
+      `${clientIp}:/api/whitelabel/create-subscription`,
+      RATE_LIMITS.sensitive
+    );
+    if (!rateLimitResult.success) {
+      return createErrorResponse(
+        Errors.rateLimit(rateLimitResult.retryAfter),
+        createRateLimitHeaders(rateLimitResult)
+      );
+    }
+
     const stripe = getStripe();
     const supabase = getSupabase();
 
-    const { guideId, successUrl, cancelUrl } = await request.json();
-
-    if (!guideId) {
-      return NextResponse.json(
-        { error: "Missing guideId" },
-        { status: 400 }
-      );
-    }
+    // 使用 Zod Schema 验证输入
+    const validation = await validateBody(request, WhitelabelSubscriptionSchema);
+    if (!validation.success) return validation.error;
+    const { guideId, successUrl, cancelUrl } = validation.data;
 
     // 获取导游信息
     const { data: guide, error: guideError } = await supabase
@@ -130,12 +143,8 @@ export async function POST(request: NextRequest) {
       url: session.url,
     });
   } catch (error: unknown) {
-    console.error("Create subscription error:", error);
-    const errorMessage =
-      error instanceof Error ? error.message : "Unknown error";
-    return NextResponse.json(
-      { error: `Failed to create subscription: ${errorMessage}` },
-      { status: 500 }
-    );
+    const apiError = normalizeError(error);
+    logError(apiError, { path: '/api/whitelabel/create-subscription', method: 'POST' });
+    return createErrorResponse(apiError);
   }
 }

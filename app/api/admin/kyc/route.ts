@@ -3,6 +3,10 @@ import { verifyAdminAuth } from '@/lib/utils/admin-auth';
 import { decryptPII, maskPII } from '@/lib/utils/encryption';
 import { sendKYCNotification } from '@/lib/email';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
+import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
+import { validateBody } from '@/lib/validations/validate';
+import { KYCReviewSchema } from '@/lib/validations/api-schemas';
+import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
 
 /**
  * 管理员 KYC API
@@ -11,10 +15,23 @@ import { getSupabaseAdmin } from '@/lib/supabase/api';
  * GET /api/admin/kyc?id=xxx - 获取单个 KYC 详情
  */
 export async function GET(request: NextRequest) {
+  // GET 端点速率限制（防数据枚举攻击）
+  const clientIp = getClientIp(request);
+  const rateLimitResult = checkRateLimit(
+    `${clientIp}:/api/admin/kyc:GET`,
+    RATE_LIMITS.standard
+  );
+  if (!rateLimitResult.success) {
+    return createErrorResponse(
+      Errors.rateLimit(rateLimitResult.retryAfter),
+      createRateLimitHeaders(rateLimitResult)
+    );
+  }
+
   // 验证管理员身份
   const authResult = await verifyAdminAuth(request.headers.get('authorization'));
   if (!authResult.isValid) {
-    return NextResponse.json({ error: authResult.error }, { status: 401 });
+    return createErrorResponse(Errors.auth(authResult.error));
   }
 
   const supabase = getSupabaseAdmin();
@@ -39,7 +56,7 @@ export async function GET(request: NextRequest) {
         .single();
 
       if (error) {
-        return NextResponse.json({ error: '导游不存在' }, { status: 404 });
+        return createErrorResponse(Errors.notFound('导游不存在'));
       }
 
       // 解密身份证号码并脱敏显示
@@ -72,15 +89,16 @@ export async function GET(request: NextRequest) {
         .order('kyc_submitted_at', { ascending: false });
 
       if (error) {
-        console.error('获取 KYC 列表失败:', error);
-        return NextResponse.json({ error: '获取列表失败' }, { status: 500 });
+        logError(normalizeError(error), { path: '/api/admin/kyc', method: 'GET' });
+        return createErrorResponse(Errors.internal('获取 KYC 列表失败'));
       }
 
       return NextResponse.json({ guides: guides || [] });
     }
   } catch (error: unknown) {
-    console.error('KYC API 错误:', error);
-    return NextResponse.json({ error: '服务器错误' }, { status: 500 });
+    const apiError = normalizeError(error);
+    logError(apiError, { path: '/api/admin/kyc', method: 'GET' });
+    return createErrorResponse(apiError);
   }
 }
 
@@ -88,45 +106,58 @@ export async function GET(request: NextRequest) {
  * POST /api/admin/kyc - 审核 KYC
  */
 export async function POST(request: NextRequest) {
-  // 验证管理员身份
-  const authResult = await verifyAdminAuth(request.headers.get('authorization'));
-  if (!authResult.isValid) {
-    return NextResponse.json({ error: authResult.error }, { status: 401 });
-  }
-
-  const supabase = getSupabaseAdmin();
-
   try {
-    const body = await request.json();
-    const { guideId, action, reviewNote } = body;
-
-    if (!guideId || !action) {
-      return NextResponse.json({ error: '缺少必填字段' }, { status: 400 });
+    // 速率限制检查（管理员敏感操作）
+    const clientIp = getClientIp(request);
+    const rateLimitResult = checkRateLimit(
+      `${clientIp}:/api/admin/kyc`,
+      RATE_LIMITS.sensitive
+    );
+    if (!rateLimitResult.success) {
+      return createErrorResponse(
+        Errors.rateLimit(rateLimitResult.retryAfter),
+        createRateLimitHeaders(rateLimitResult)
+      );
     }
 
-    if (!['approve', 'reject'].includes(action)) {
-      return NextResponse.json({ error: '无效的操作' }, { status: 400 });
+    // 验证管理员身份
+    const authResult = await verifyAdminAuth(request.headers.get('authorization'));
+    if (!authResult.isValid) {
+      return createErrorResponse(Errors.auth(authResult.error));
     }
 
+    // 使用 Zod 验证输入
+    const validation = await validateBody(request, KYCReviewSchema);
+    if (!validation.success) return validation.error;
+    const { guideId, action, reviewNote } = validation.data;
+
+    const supabase = getSupabaseAdmin();
     const newStatus = action === 'approve' ? 'approved' : 'rejected';
 
-    // 更新导游 KYC 状态
-    const { error } = await supabase
+    // 更新导游 KYC 状态（状态机保护：只允许从 submitted 状态审核）
+    const { data: updateResult, error } = await supabase
       .from('guides')
       .update({
         kyc_status: newStatus,
         kyc_reviewed_at: new Date().toISOString(),
         kyc_review_note: reviewNote || null,
-        // 如果审核通过，同时更新 status 为 approved
         ...(action === 'approve' ? { status: 'approved' } : {}),
         updated_at: new Date().toISOString(),
       })
       .eq('id', guideId)
-      .eq('kyc_status', 'submitted'); // 只能审核已提交的
+      .eq('kyc_status', 'submitted') // 状态机保护
+      .select('id');
 
     if (error) {
-      console.error('更新 KYC 状态失败:', error);
-      return NextResponse.json({ error: '更新失败' }, { status: 500 });
+      logError(normalizeError(error), { path: '/api/admin/kyc', method: 'POST' });
+      return createErrorResponse(Errors.internal('更新 KYC 状态失败'));
+    }
+
+    // 检查是否实际更新了记录（状态机保护触发）
+    if (!updateResult || updateResult.length === 0) {
+      return createErrorResponse(
+        Errors.business('该 KYC 申请不存在或状态不是待审核', 'KYC_INVALID_STATE')
+      );
     }
 
     // 获取导游信息用于发送邮件
@@ -148,18 +179,19 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // 记录审计日志
-    try {
-      await supabase.from('audit_logs').insert({
-        action: `kyc_${action}`,
-        entity_type: 'guide',
-        entity_id: guideId,
-        admin_id: authResult.userId,
-        admin_email: authResult.email,
-        details: { reviewNote },
-      });
-    } catch {
-      // 审计日志失败不影响主流程
+    // 记录审计日志（失败时记录告警但不阻断主流程）
+    const { error: auditError } = await supabase.from('audit_logs').insert({
+      action: `kyc_${action}`,
+      entity_type: 'guide',
+      entity_id: guideId,
+      admin_id: authResult.userId,
+      admin_email: authResult.email,
+      details: { reviewNote },
+    });
+
+    if (auditError) {
+      console.error('[CRITICAL] 审计日志写入失败:', auditError);
+      // 生产环境可集成告警系统
     }
 
     return NextResponse.json({
@@ -167,7 +199,8 @@ export async function POST(request: NextRequest) {
       message: action === 'approve' ? 'KYC 已通过' : 'KYC 已拒绝',
     });
   } catch (error: unknown) {
-    console.error('KYC 审核错误:', error);
-    return NextResponse.json({ error: '服务器错误' }, { status: 500 });
+    const apiError = normalizeError(error);
+    logError(apiError, { path: '/api/admin/kyc', method: 'POST' });
+    return createErrorResponse(apiError);
   }
 }

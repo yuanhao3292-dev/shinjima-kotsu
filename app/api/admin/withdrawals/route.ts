@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { verifyAdminAuth } from '@/lib/utils/admin-auth';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
 import { Resend } from 'resend';
+import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
+import { validateBody } from '@/lib/validations/validate';
+import { WithdrawalActionSchema } from '@/lib/validations/api-schemas';
+import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
@@ -13,9 +17,22 @@ const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KE
  */
 
 export async function GET(request: NextRequest) {
+  // GET 端点速率限制（防数据枚举攻击）
+  const clientIp = getClientIp(request);
+  const rateLimitResult = checkRateLimit(
+    `${clientIp}:/api/admin/withdrawals:GET`,
+    RATE_LIMITS.standard
+  );
+  if (!rateLimitResult.success) {
+    return createErrorResponse(
+      Errors.rateLimit(rateLimitResult.retryAfter),
+      createRateLimitHeaders(rateLimitResult)
+    );
+  }
+
   const authResult = await verifyAdminAuth(request.headers.get('authorization'));
   if (!authResult.isValid) {
-    return NextResponse.json({ error: authResult.error }, { status: 401 });
+    return createErrorResponse(Errors.auth(authResult.error));
   }
 
   const supabase = getSupabaseAdmin();
@@ -38,8 +55,8 @@ export async function GET(request: NextRequest) {
     const { data: withdrawals, error } = await query.limit(100);
 
     if (error) {
-      console.error('获取提现列表失败:', error);
-      return NextResponse.json({ error: '获取失败' }, { status: 500 });
+      logError(normalizeError(error), { path: '/api/admin/withdrawals', method: 'GET' });
+      return createErrorResponse(Errors.internal('获取提现列表失败'));
     }
 
     // 获取统计数据
@@ -66,31 +83,38 @@ export async function GET(request: NextRequest) {
       stats: statsMap,
     });
   } catch (error: unknown) {
-    console.error('管理员提现 API 错误:', error);
-    return NextResponse.json({ error: '服务器错误' }, { status: 500 });
+    const apiError = normalizeError(error);
+    logError(apiError, { path: '/api/admin/withdrawals', method: 'GET' });
+    return createErrorResponse(apiError);
   }
 }
 
 export async function POST(request: NextRequest) {
-  const authResult = await verifyAdminAuth(request.headers.get('authorization'));
-  if (!authResult.isValid) {
-    return NextResponse.json({ error: authResult.error }, { status: 401 });
-  }
-
-  const supabase = getSupabaseAdmin();
-
   try {
-    const body = await request.json();
-    const { withdrawalId, action, reviewNote, paymentReference } = body;
-
-    if (!withdrawalId || !action) {
-      return NextResponse.json({ error: '缺少必填字段' }, { status: 400 });
+    // 速率限制检查
+    const clientIp = getClientIp(request);
+    const rateLimitResult = checkRateLimit(
+      `${clientIp}:/api/admin/withdrawals`,
+      RATE_LIMITS.sensitive
+    );
+    if (!rateLimitResult.success) {
+      return createErrorResponse(
+        Errors.rateLimit(rateLimitResult.retryAfter),
+        createRateLimitHeaders(rateLimitResult)
+      );
     }
 
-    const validActions = ['approve', 'reject', 'process', 'complete'];
-    if (!validActions.includes(action)) {
-      return NextResponse.json({ error: '无效的操作' }, { status: 400 });
+    const authResult = await verifyAdminAuth(request.headers.get('authorization'));
+    if (!authResult.isValid) {
+      return createErrorResponse(Errors.auth(authResult.error));
     }
+
+    // 使用 Zod 验证输入
+    const validation = await validateBody(request, WithdrawalActionSchema);
+    if (!validation.success) return validation.error;
+    const { withdrawalId, action, reviewNote, paymentReference } = validation.data;
+
+    const supabase = getSupabaseAdmin();
 
     // 获取提现申请
     const { data: withdrawal, error: fetchError } = await supabase
@@ -198,22 +222,22 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 记录审计日志
-    try {
-      await supabase.from('audit_logs').insert({
-        action: `withdrawal_${action}`,
-        entity_type: 'withdrawal_request',
-        entity_id: withdrawalId,
-        admin_id: authResult.userId,
-        admin_email: authResult.email,
-        details: {
-          amount: withdrawal.amount,
-          reviewNote,
-          paymentReference,
-        },
-      });
-    } catch {
-      // 审计日志失败不影响主流程
+    // 记录审计日志（失败时记录告警）
+    const { error: auditError } = await supabase.from('audit_logs').insert({
+      action: `withdrawal_${action}`,
+      entity_type: 'withdrawal_request',
+      entity_id: withdrawalId,
+      admin_id: authResult.userId,
+      admin_email: authResult.email,
+      details: {
+        amount: withdrawal.amount,
+        reviewNote,
+        paymentReference,
+      },
+    });
+
+    if (auditError) {
+      console.error('[CRITICAL] 审计日志写入失败:', auditError);
     }
 
     const actionLabels: Record<string, string> = {
@@ -228,8 +252,9 @@ export async function POST(request: NextRequest) {
       message: `提现申请${actionLabels[action]}`,
     });
   } catch (error: unknown) {
-    console.error('处理提现错误:', error);
-    return NextResponse.json({ error: '服务器错误' }, { status: 500 });
+    const apiError = normalizeError(error);
+    logError(apiError, { path: '/api/admin/withdrawals', method: 'POST' });
+    return createErrorResponse(apiError);
   }
 }
 
