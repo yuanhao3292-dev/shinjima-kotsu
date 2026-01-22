@@ -64,10 +64,10 @@ export default function GuidePartnerPage() {
             </h1>
 
             <p className="text-xl text-gray-300 mb-4 leading-relaxed max-w-2xl mx-auto">
-              您直接接觸富裕層客戶，卻沒有旅行社資質？
+              您認識高端客戶，卻苦於沒有優質服務資源？
             </p>
             <p className="text-lg text-gray-400 mb-8 leading-relaxed max-w-2xl mx-auto">
-              新島交通作為日本第二類旅行社，為您提供合規的客戶介紹通道
+              新島交通提供精密體檢、高級夜總會等服務，您介紹客戶即可獲得報酬
             </p>
 
             <div className="flex flex-wrap justify-center gap-4 mb-8">
@@ -115,23 +115,23 @@ export default function GuidePartnerPage() {
               <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mb-6">
                 <X className="w-6 h-6 text-red-500" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">您遇到的困境</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">您是否有這樣的煩惱</h3>
               <ul className="space-y-3 text-gray-600">
                 <li className="flex items-start gap-3">
                   <span className="text-red-500 mt-1">•</span>
-                  <span>高端夜總會、醫療機構<strong>只和旅行社簽約</strong></span>
+                  <span>客戶詢問精密體檢、高級夜總會，<strong>不知道推薦哪家</strong></span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-red-500 mt-1">•</span>
-                  <span>客戶想去高端場所，您<strong>無法拿到資源</strong></span>
+                  <span>想為客戶提供更多服務，<strong>卻找不到可靠的供應商</strong></span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-red-500 mt-1">•</span>
-                  <span>帶客消費後，<strong>拿不到任何返傭</strong></span>
+                  <span>介紹客戶給其他公司，<strong>自己沒有任何回報</strong></span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-red-500 mt-1">•</span>
-                  <span>個人身份與商家合作，<strong>缺乏信任背書</strong></span>
+                  <span>想建立自己的品牌形象，<strong>但成本太高</strong></span>
                 </li>
               </ul>
             </div>
@@ -145,7 +145,7 @@ export default function GuidePartnerPage() {
               <ul className="space-y-3 text-gray-600">
                 <li className="flex items-start gap-3">
                   <span className="text-green-500 mt-1">✓</span>
-                  <span>由新島交通<strong>統一簽約、預約下單</strong>，合規對接商家</span>
+                  <span>新島交通<strong>直接與商家簽約</strong>，為客戶提供優質服務</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-green-500 mt-1">✓</span>
@@ -310,20 +310,20 @@ export default function GuidePartnerPage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {/* Card 1 - Identity Upgrade */}
+            {/* Card 1 - Professional Services */}
             <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-all border-l-4 border-blue-500">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
                   <Building className="w-5 h-5 text-blue-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900">身份升級</h4>
-                  <p className="text-xs text-gray-400">個人導遊 → 旅行社提攜夥伴</p>
+                  <h4 className="font-bold text-gray-900">專業服務支援</h4>
+                  <p className="text-xs text-gray-400">新島交通提供全方位旅行服務</p>
                 </div>
               </div>
               <p className="text-sm text-gray-600 leading-relaxed">
-                由<span className="font-semibold text-blue-600">「新島交通株式會社」</span>統一提供服務。<br/>
-                高端店舖只認旅行社？現在您可以介紹客戶給我們。
+                <span className="font-semibold text-blue-600">「新島交通株式會社」</span>為您的客戶提供專業服務。<br/>
+                精密體檢、高級夜總會、商務考察，一站式解決。
               </p>
               <div className="mt-4 pt-4 border-t border-gray-100">
                 <p className="text-xs text-gray-400">大阪府知事登錄旅行業 第2-3115號 / JATA正會員</p>

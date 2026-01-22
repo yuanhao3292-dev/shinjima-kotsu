@@ -1885,165 +1885,103 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
         height="85vh"
       />
 
-      {/* 2. 事業領域 - 日本企业风格：简洁、留白、网格布局 */}
-      <section className="py-24 bg-white">
+      {/* 2. ニュースルーム - JTB风格列表式设计 */}
+      <section className="py-20 bg-[#fafafa]">
         <div className="container mx-auto px-6">
-          {/* Section Header - 简洁标题 */}
-          <div className="text-center mb-16">
-            <p className="text-xs tracking-[0.3em] text-gray-400 uppercase mb-3">Business</p>
-            <h2 className="serif text-2xl md:text-3xl text-gray-900 tracking-wide">
-              {currentLang === 'zh-TW' ? '事業領域' : currentLang === 'ja' ? '事業領域' : 'Our Services'}
-            </h2>
-            <div className="w-12 h-[1px] bg-gray-900 mx-auto mt-6"></div>
-          </div>
-
-          {/* Three Business Cards - 极简卡片 */}
-          <div className="grid md:grid-cols-3 gap-[1px] bg-gray-200 max-w-6xl mx-auto">
-
-            {/* Medical */}
-            <div
-              onClick={() => setCurrentPage('medical')}
-              className="group bg-white cursor-pointer"
-            >
-              <div className="relative h-64 overflow-hidden">
-                <img
-                  src={SITE_IMAGES.mobile_medical_fallback}
-                  alt="Medical Tourism"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors"></div>
-              </div>
-              <div className="p-8">
-                <p className="text-[10px] tracking-[0.2em] text-gray-400 uppercase mb-2">Medical Tourism</p>
-                <h3 className="serif text-xl text-gray-900 mb-4 tracking-wide">
-                  {currentLang === 'zh-TW' ? '醫療健檢' : currentLang === 'ja' ? '医療ツーリズム' : 'Medical Checkup'}
-                </h3>
-                <p className="text-sm text-gray-500 leading-relaxed mb-6">
-                  {currentLang === 'zh-TW'
-                    ? '德洲會TIMC精密體檢、PET-CT、MRI、胃腸鏡檢查'
-                    : currentLang === 'ja'
-                    ? '徳洲会TIMC精密健診、PET-CT、MRI、内視鏡検査'
-                    : 'TIMC Premium Checkup, PET-CT, MRI, Endoscopy'}
-                </p>
-                <span className="inline-flex items-center text-xs text-gray-900 font-medium tracking-wide group-hover:tracking-wider transition-all">
-                  {currentLang === 'zh-TW' ? '了解詳情' : '詳細を見る'}
-                  <ArrowRight size={14} className="ml-2 transition-transform group-hover:translate-x-1" />
-                </span>
-              </div>
+          <div className="max-w-4xl mx-auto">
+            {/* 标题 - 居中 */}
+            <div className="text-center mb-12">
+              <h2 className="serif text-2xl md:text-3xl text-gray-900 tracking-wide mb-2">
+                {currentLang === 'zh-TW' ? '最新消息' : 'お知らせ'}
+              </h2>
+              <p className="text-xs tracking-[0.2em] text-gray-400 uppercase">News Room</p>
             </div>
 
-            {/* Business */}
-            <div
-              onClick={() => setCurrentPage('business')}
-              className="group bg-white cursor-pointer"
-            >
-              <div className="relative h-64 overflow-hidden">
-                <img
-                  src={SITE_IMAGES.mobile_business_fallback}
-                  alt="Business Tours"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors"></div>
-              </div>
-              <div className="p-8">
-                <p className="text-[10px] tracking-[0.2em] text-gray-400 uppercase mb-2">Business Inspection</p>
-                <h3 className="serif text-xl text-gray-900 mb-4 tracking-wide">
-                  {currentLang === 'zh-TW' ? '商務考察' : currentLang === 'ja' ? 'ビジネス視察' : 'Business Tours'}
-                </h3>
-                <p className="text-sm text-gray-500 leading-relaxed mb-6">
-                  {currentLang === 'zh-TW'
-                    ? '16大行業深度視察、企業對接、專業翻譯服務'
-                    : currentLang === 'ja'
-                    ? '16業界深度視察、企業マッチング、専門通訳'
-                    : '16 Industry Tours, Business Matching, Interpreters'}
-                </p>
-                <span className="inline-flex items-center text-xs text-gray-900 font-medium tracking-wide group-hover:tracking-wider transition-all">
-                  {currentLang === 'zh-TW' ? '了解詳情' : '詳細を見る'}
-                  <ArrowRight size={14} className="ml-2 transition-transform group-hover:translate-x-1" />
-                </span>
-              </div>
-            </div>
-
-            {/* Golf */}
-            <div
-              onClick={() => setCurrentPage('golf')}
-              className="group bg-white cursor-pointer"
-            >
-              <div className="relative h-64 overflow-hidden">
-                <img
-                  src={SITE_IMAGES.golf_hero}
-                  alt="Golf Tourism"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors"></div>
-              </div>
-              <div className="p-8">
-                <p className="text-[10px] tracking-[0.2em] text-gray-400 uppercase mb-2">Golf Tourism</p>
-                <h3 className="serif text-xl text-gray-900 mb-4 tracking-wide">
-                  {currentLang === 'zh-TW' ? '名門高爾夫' : currentLang === 'ja' ? '名門ゴルフ' : 'Premium Golf'}
-                </h3>
-                <p className="text-sm text-gray-500 leading-relaxed mb-6">
-                  {currentLang === 'zh-TW'
-                    ? '25+名門球場、會員制特別通道、VIP接待服務'
-                    : currentLang === 'ja'
-                    ? '25+名門コース、会員制特別枠、VIP接待'
-                    : '25+ Premium Courses, Member Access, VIP Service'}
-                </p>
-                <span className="inline-flex items-center text-xs text-gray-900 font-medium tracking-wide group-hover:tracking-wider transition-all">
-                  {currentLang === 'zh-TW' ? '了解詳情' : '詳細を見る'}
-                  <ArrowRight size={14} className="ml-2 transition-transform group-hover:translate-x-1" />
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. 新着情報 - News Section */}
-      <section className="py-20 bg-white border-t border-gray-100">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
-              <div>
-                <p className="text-xs tracking-[0.3em] text-gray-400 uppercase mb-3">News</p>
-                <h2 className="serif text-2xl md:text-3xl text-gray-900 tracking-wide">
-                  {currentLang === 'zh-TW' ? '最新消息' : '新着情報'}
-                </h2>
-              </div>
-              <a href="/news" className="inline-flex items-center text-xs text-gray-600 hover:text-gray-900 tracking-wider mt-4 md:mt-0">
-                {currentLang === 'zh-TW' ? '查看全部' : 'すべて見る'}
-                <ArrowRight size={14} className="ml-2" />
-              </a>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
+            {/* 新闻列表 - JTB风格 */}
+            <div className="space-y-0 border-t border-gray-200">
               {[
                 {
-                  date: '2026.01.15',
-                  category: currentLang === 'zh-TW' ? '公告' : 'お知らせ',
+                  date: '2026年1月15日',
+                  categories: [
+                    { label: currentLang === 'zh-TW' ? '公告' : 'お知らせ', highlight: true },
+                    { label: currentLang === 'zh-TW' ? '醫療' : '医療', highlight: false },
+                  ],
                   title: currentLang === 'zh-TW' ? '2026年春節期間營業時間調整通知' : '2026年春節期間の営業時間変更のお知らせ',
                 },
                 {
-                  date: '2026.01.08',
-                  category: currentLang === 'zh-TW' ? '新聞' : 'ニュース',
+                  date: '2026年1月8日',
+                  categories: [
+                    { label: currentLang === 'zh-TW' ? '公告' : 'お知らせ', highlight: true },
+                    { label: currentLang === 'zh-TW' ? '體檢' : '健診', highlight: false },
+                  ],
                   title: currentLang === 'zh-TW' ? 'TIMC OSAKA 2025年度體檢報告正式發布' : 'TIMC OSAKA 2025年度健診レポート発表',
                 },
                 {
-                  date: '2025.12.20',
-                  category: currentLang === 'zh-TW' ? '活動' : 'イベント',
+                  date: '2025年12月20日',
+                  categories: [
+                    { label: currentLang === 'zh-TW' ? '公告' : 'お知らせ', highlight: true },
+                    { label: currentLang === 'zh-TW' ? '高爾夫' : 'ゴルフ', highlight: false },
+                  ],
                   title: currentLang === 'zh-TW' ? '名門高爾夫新春特別企劃開始受付' : '名門ゴルフ新春特別プラン受付開始',
                 },
+                {
+                  date: '2025年12月10日',
+                  categories: [
+                    { label: currentLang === 'zh-TW' ? '公告' : 'お知らせ', highlight: true },
+                    { label: currentLang === 'zh-TW' ? '商務' : 'ビジネス', highlight: false },
+                  ],
+                  title: currentLang === 'zh-TW' ? '2026年日本企業考察行程開放預約' : '2026年日本企業視察ツアー予約受付開始',
+                },
+                {
+                  date: '2025年11月28日',
+                  categories: [
+                    { label: currentLang === 'zh-TW' ? '公告' : 'お知らせ', highlight: true },
+                    { label: currentLang === 'zh-TW' ? '公司' : '会社', highlight: false },
+                  ],
+                  title: currentLang === 'zh-TW' ? '新島交通官方網站全新改版上線' : '新島交通公式サイトリニューアルのお知らせ',
+                },
               ].map((news, index) => (
-                <a key={index} href="/news" className="group block border-b border-gray-100 pb-6 hover:border-gray-300 transition-colors">
-                  <div className="flex items-center gap-4 mb-3">
-                    <span className="text-xs text-gray-400">{news.date}</span>
-                    <span className="text-[10px] px-2 py-0.5 bg-gray-100 text-gray-600">{news.category}</span>
+                <a key={index} href="/news" className="group block py-6 border-b border-gray-200 hover:bg-white transition-colors">
+                  <div className="flex flex-col md:flex-row md:items-start gap-4">
+                    {/* 日期 */}
+                    <div className="text-sm text-gray-500 md:w-32 flex-shrink-0">
+                      {news.date}
+                    </div>
+                    {/* 标签 */}
+                    <div className="flex flex-wrap gap-2 md:w-40 flex-shrink-0">
+                      {news.categories.map((cat, idx) => (
+                        <span
+                          key={idx}
+                          className={`text-xs px-3 py-1 rounded-full border ${
+                            cat.highlight
+                              ? 'border-teal-500 text-teal-600'
+                              : 'border-gray-300 text-gray-500'
+                          }`}
+                        >
+                          {cat.label}
+                        </span>
+                      ))}
+                    </div>
+                    {/* 标题 */}
+                    <div className="flex-1">
+                      <h3 className="text-gray-900 leading-relaxed group-hover:text-teal-600 transition-colors">
+                        {news.title}
+                      </h3>
+                    </div>
                   </div>
-                  <h3 className="text-sm text-gray-900 leading-relaxed group-hover:text-gray-600 transition-colors">
-                    {news.title}
-                  </h3>
                 </a>
               ))}
+            </div>
+
+            {/* 查看更多 */}
+            <div className="text-center mt-10">
+              <a
+                href="/news"
+                className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 border border-gray-300 px-6 py-3 rounded hover:border-gray-400 transition-colors"
+              >
+                {currentLang === 'zh-TW' ? '查看全部消息' : 'すべてのお知らせ'}
+                <ArrowRight size={14} className="ml-2" />
+              </a>
             </div>
           </div>
         </div>
@@ -2054,7 +1992,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
         {/* 全屏背景图 - 温暖的医疗场景 */}
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=2000&auto=format&fit=crop"
+            src={getImage('homepage_medical_bg', 'https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=2000&auto=format&fit=crop')}
             alt="Healthcare"
             className="w-full h-full object-cover"
           />
@@ -2160,7 +2098,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
         {/* 全屏背景图 */}
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?q=80&w=2000&auto=format&fit=crop"
+            src={getImage('homepage_treatment_bg', 'https://images.unsplash.com/photo-1551190822-a9333d879b1f?q=80&w=2000&auto=format&fit=crop')}
             alt="Advanced Medical Treatment"
             className="w-full h-full object-cover"
           />
@@ -2264,7 +2202,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
         {/* 全屏背景图 */}
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2000&auto=format&fit=crop"
+            src={getImage('homepage_golf_bg', 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2000&auto=format&fit=crop')}
             alt="Premium Golf Course"
             className="w-full h-full object-cover"
           />
@@ -2347,7 +2285,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       <section className="relative min-h-[90vh] flex items-center bg-slate-900 text-white">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format&fit=crop"
+            src={getImage('homepage_business_bg', 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format&fit=crop')}
             alt="Business District"
             className="w-full h-full object-cover opacity-30"
           />
