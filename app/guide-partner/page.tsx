@@ -669,6 +669,13 @@ export default function GuidePartnerPage() {
         </div>
       </section>
 
+      {/* Copyright Footer */}
+      <footer className="bg-gray-900 text-white py-6">
+        <div className="container mx-auto px-6 text-center text-xs text-gray-400">
+          <p>© {new Date().getFullYear()} 新島交通株式會社. All rights reserved.</p>
+        </div>
+      </footer>
+
       {/* WeChat QR Modal */}
       {showWechatQR && (
         <div

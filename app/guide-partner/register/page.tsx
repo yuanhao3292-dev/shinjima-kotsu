@@ -377,6 +377,14 @@ function RegisterForm() {
                 </Link>
               </p>
             </div>
+
+            {/* 法律声明 */}
+            <div className="mt-8 pt-6 border-t border-gray-100 text-center">
+              <p className="text-[10px] text-gray-400 leading-relaxed">
+                本サービスは新島交通株式会社が提供しています<br />
+                大阪府知事登録旅行業 第2-3115号 ｜ JATA正会員
+              </p>
+            </div>
           </div>
         </div>
       </div>

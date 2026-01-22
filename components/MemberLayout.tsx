@@ -177,14 +177,26 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
               </div>
             </div>
 
-            <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
-              <div className="flex gap-6">
-                <span className="hover:text-gray-300 cursor-pointer transition">隱私政策</span>
-                <span className="hover:text-gray-300 cursor-pointer transition">服務條款</span>
+            <div className="border-t border-gray-800 pt-8 text-center text-gray-500 text-xs">
+              {/* 法律必须显示的信息 */}
+              <div className="mb-4 text-gray-400">
+                <p>本サービスは新島交通株式会社が提供しています</p>
+                <p className="mt-1">大阪府知事登録旅行業 第2-3115号 ｜ 一般社団法人 日本旅行業協会（JATA）正会員</p>
               </div>
-              <div className="mt-4 md:mt-0">
-                Powered by Niijima AI System
+              <div className="flex flex-wrap justify-center gap-4 mb-4">
+                <Link href="/legal/tokushoho" className="hover:text-white transition">
+                  特定商取引法に基づく表記
+                </Link>
+                <span className="text-gray-700">|</span>
+                <Link href="/legal/privacy" className="hover:text-white transition">
+                  プライバシーポリシー
+                </Link>
+                <span className="text-gray-700">|</span>
+                <Link href="/legal/terms" className="hover:text-white transition">
+                  利用規約
+                </Link>
               </div>
+              <p>© {new Date().getFullYear()} 新島交通株式會社. All rights reserved.</p>
             </div>
           </div>
         </footer>

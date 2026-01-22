@@ -30,49 +30,8 @@ export interface CarouselSlide {
   weekEnd?: string;        // 展示周结束日期
 }
 
-// 默认轮播图数据
-const DEFAULT_SLIDES: CarouselSlide[] = [
-  {
-    id: 'timc-health-checkup',
-    title: '日本 TIMC 精密体检',
-    subtitle: '德洲会国际医疗中心',
-    description: 'PET-CT / MRI / 胃肠镜 - 早期发现，守护健康',
-    imageUrl: 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg',
-    mobileImageUrl: 'https://i.ibb.co/TDYnsXBb/013-2.jpg',
-    ctaText: '了解详情',
-    ctaLink: '/?page=medical',
-    overlayColor: 'rgba(0, 50, 100, 0.5)',
-    textPosition: 'center',
-    advertiser: 'TIMC',
-  },
-  {
-    id: 'ai-health-screening',
-    title: 'AI 智能健康检测',
-    subtitle: '3 分钟了解您的健康风险',
-    description: '基于 AI 的专业问诊，为您推荐最适合的体检方案',
-    imageUrl: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2000&auto=format&fit=crop',
-    ctaText: '免费检测',
-    ctaLink: '/health-screening',
-    overlayColor: 'rgba(30, 60, 114, 0.6)',
-    textPosition: 'center',
-    advertiser: 'NIIJIMA',
-  },
-  {
-    id: 'cancer-treatment',
-    title: '日本尖端癌症治疗',
-    subtitle: '质子重离子 / 光免疫 / BNCT',
-    description: '全球领先的癌症治疗技术，精准打击癌细胞',
-    imageUrl: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2000&auto=format&fit=crop',
-    ctaText: '咨询治疗方案',
-    ctaLink: '/cancer-treatment',
-    overlayColor: 'rgba(139, 0, 50, 0.5)',
-    textPosition: 'center',
-    advertiser: 'NIIJIMA',
-  },
-];
-
 interface HeroCarouselProps {
-  slides?: CarouselSlide[];
+  slides: CarouselSlide[];  // 必须传入 slides，不再使用默认值
   autoPlayInterval?: number; // 自动播放间隔（毫秒），默认 5000
   showIndicators?: boolean;
   showArrows?: boolean;
@@ -80,7 +39,7 @@ interface HeroCarouselProps {
 }
 
 const HeroCarousel: React.FC<HeroCarouselProps> = ({
-  slides = DEFAULT_SLIDES,
+  slides,
   autoPlayInterval = 5000,
   showIndicators = true,
   showArrows = true,
@@ -127,6 +86,18 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
   // 暂停自动播放
   const pauseAutoPlay = () => setIsAutoPlaying(false);
   const resumeAutoPlay = () => setIsAutoPlaying(true);
+
+  // 如果没有 slides，显示加载状态
+  if (!slides || slides.length === 0) {
+    return (
+      <div
+        className="relative w-full overflow-hidden bg-gray-900 flex items-center justify-center"
+        style={{ height }}
+      >
+        <div className="text-white/50">Loading...</div>
+      </div>
+    );
+  }
 
   const currentSlide = slides[currentIndex];
 

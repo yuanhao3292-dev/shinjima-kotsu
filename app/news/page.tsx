@@ -1,62 +1,94 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
-import CompanyLayout from '@/components/CompanyLayout';
-import { Calendar, ChevronRight, Tag } from 'lucide-react';
+import PublicLayout from '@/components/PublicLayout';
+import {
+  Calendar,
+  ChevronRight,
+  Tag,
+  Newspaper,
+  Megaphone,
+  Sparkles,
+  ArrowRight,
+  Clock,
+  TrendingUp,
+  Bell
+} from 'lucide-react';
 
-// 模拟新闻数据
-const newsData = [
+// 新闻分类定义
+type NewsCategory = 'all' | 'announcement' | 'press' | 'service';
+
+interface NewsItem {
+  id: number;
+  date: string;
+  category: 'お知らせ' | 'プレスリリース' | 'サービス';
+  categoryKey: NewsCategory;
+  title: string;
+  summary: string;
+  isNew: boolean;
+  isFeatured?: boolean;
+  image?: string;
+}
+
+// 新闻数据
+const newsData: NewsItem[] = [
   {
     id: 1,
     date: '2025.01.15',
     category: 'お知らせ',
-    categoryColor: 'blue',
+    categoryKey: 'announcement',
     title: '総合医療サービス事業を拡充 - がん治療紹介サービスを新設',
-    summary: '陽子線治療、光免疫療法、BNCT（ホウ素中性子捕捉療法）の紹介サービスを開始いたしました。',
+    summary: '陽子線治療、光免疫療法、BNCT（ホウ素中性子捕捉療法）の紹介サービスを開始いたしました。日本国内の最先端がん治療施設と提携し、華人患者様に最適な治療オプションをご提案いたします。',
     isNew: true,
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1000&auto=format&fit=crop',
   },
   {
     id: 2,
     date: '2024.12.20',
     category: 'プレスリリース',
-    categoryColor: 'green',
+    categoryKey: 'press',
     title: '年末年始の営業について',
-    summary: '2024年12月28日（土）～2025年1月5日（日）は休業とさせていただきます。',
+    summary: '2024年12月28日（土）～2025年1月5日（日）は休業とさせていただきます。期間中のお問い合わせは、1月6日以降に順次対応いたします。',
     isNew: false,
   },
   {
     id: 3,
     date: '2024.11.01',
     category: 'お知らせ',
-    categoryColor: 'blue',
+    categoryKey: 'announcement',
     title: 'Webサイトをリニューアルしました',
-    summary: 'より使いやすく、より多くの情報をお届けできるよう、Webサイトを全面リニューアルいたしました。',
+    summary: 'より使いやすく、より多くの情報をお届けできるよう、Webサイトを全面リニューアルいたしました。新デザインでは、サービス情報へのアクセスがより直感的になりました。',
     isNew: false,
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop',
   },
   {
     id: 4,
     date: '2024.09.15',
     category: 'プレスリリース',
-    categoryColor: 'green',
+    categoryKey: 'press',
     title: 'ガイドパートナープログラム 登録者3,000名突破',
-    summary: '在日華人ガイド向けのパートナープログラムが、登録者3,000名を突破いたしました。',
+    summary: '在日華人ガイド向けのパートナープログラムが、登録者3,000名を突破いたしました。引き続き、パートナーの皆様のビジネス成長を全力でサポートしてまいります。',
     isNew: false,
   },
   {
     id: 5,
     date: '2024.08.01',
     category: 'サービス',
-    categoryColor: 'amber',
+    categoryKey: 'service',
     title: 'AI報価システム「LinkQuote」機能アップデート',
-    summary: '24時間即時見積もり対応のAIシステムに、新たに多言語対応機能を追加しました。',
+    summary: '24時間即時見積もり対応のAIシステムに、新たに多言語対応機能を追加しました。日本語、中国語、英語での見積もり作成が可能になりました。',
     isNew: false,
+    isFeatured: true,
+    image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1000&auto=format&fit=crop',
   },
   {
     id: 6,
     date: '2024.06.20',
     category: 'お知らせ',
-    categoryColor: 'blue',
+    categoryKey: 'announcement',
     title: '夏季の人気プランについて',
     summary: '夏休み期間中は、名門ゴルフツアーおよび精密健診の予約が混み合います。お早めのご予約をお勧めいたします。',
     isNew: false,
@@ -65,104 +97,393 @@ const newsData = [
     id: 7,
     date: '2024.04.01',
     category: 'プレスリリース',
-    categoryColor: 'green',
+    categoryKey: 'press',
     title: '新年度のご挨拶',
-    summary: '2024年度も引き続き、高品質なサービスの提供に努めてまいります。',
+    summary: '2024年度も引き続き、高品質なサービスの提供に努めてまいります。新たなサービス展開にもご期待ください。',
     isNew: false,
   },
   {
     id: 8,
     date: '2024.03.01',
     category: 'サービス',
-    categoryColor: 'amber',
+    categoryKey: 'service',
     title: 'ガイドパートナープログラム開始',
-    summary: '在日華人ガイド向けホワイトラベルソリューションの提供を開始いたしました。',
+    summary: '在日華人ガイド向けホワイトラベルソリューションの提供を開始いたしました。独自ブランドでの高品質サービス提供が可能になります。',
     isNew: false,
   },
 ];
 
+// 分类配置
+const categoryConfig = {
+  all: {
+    label: 'すべて',
+    labelEn: 'All',
+    color: 'bg-slate-900 text-white',
+    lightColor: 'bg-slate-100 text-slate-700',
+    icon: Newspaper
+  },
+  announcement: {
+    label: 'お知らせ',
+    labelEn: 'Announcements',
+    color: 'bg-blue-600 text-white',
+    lightColor: 'bg-blue-50 text-blue-700 border border-blue-200',
+    icon: Bell
+  },
+  press: {
+    label: 'プレスリリース',
+    labelEn: 'Press Releases',
+    color: 'bg-emerald-600 text-white',
+    lightColor: 'bg-emerald-50 text-emerald-700 border border-emerald-200',
+    icon: Megaphone
+  },
+  service: {
+    label: 'サービス',
+    labelEn: 'Services',
+    color: 'bg-amber-500 text-white',
+    lightColor: 'bg-amber-50 text-amber-700 border border-amber-200',
+    icon: Sparkles
+  },
+};
+
 export default function NewsPage() {
-  const categoryColors: Record<string, string> = {
-    blue: 'bg-blue-100 text-blue-700',
-    green: 'bg-green-100 text-green-700',
-    amber: 'bg-amber-100 text-amber-700',
+  const [selectedCategory, setSelectedCategory] = useState<NewsCategory>('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+
+  // 筛选后的新闻
+  const filteredNews = useMemo(() => {
+    if (selectedCategory === 'all') return newsData;
+    return newsData.filter(news => news.categoryKey === selectedCategory);
+  }, [selectedCategory]);
+
+  // 精选新闻（有图片的）
+  const featuredNews = useMemo(() => {
+    return newsData.filter(news => news.isFeatured && news.image);
+  }, []);
+
+  // 分页
+  const totalPages = Math.ceil(filteredNews.length / itemsPerPage);
+  const paginatedNews = filteredNews.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  // 切换分类时重置页码
+  const handleCategoryChange = (category: NewsCategory) => {
+    setSelectedCategory(category);
+    setCurrentPage(1);
   };
 
   return (
-    <CompanyLayout
-      title="ニュースルーム"
-      titleEn="News Room"
-      breadcrumb={[{ label: 'ニュースルーム' }]}
-    >
-      <div className="space-y-8">
-        <p className="text-gray-600">
-          新島交通の最新情報、プレスリリース、サービスに関するお知らせをご覧いただけます。
-        </p>
+    <PublicLayout>
+      <div className="min-h-screen bg-gray-50">
 
-        {/* カテゴリフィルター */}
-        <div className="flex flex-wrap gap-2">
-          <button className="px-4 py-2 bg-slate-900 text-white rounded-full text-sm font-medium">
-            すべて
-          </button>
-          <button className="px-4 py-2 bg-gray-100 text-gray-600 rounded-full text-sm font-medium hover:bg-gray-200 transition">
-            お知らせ
-          </button>
-          <button className="px-4 py-2 bg-gray-100 text-gray-600 rounded-full text-sm font-medium hover:bg-gray-200 transition">
-            プレスリリース
-          </button>
-          <button className="px-4 py-2 bg-gray-100 text-gray-600 rounded-full text-sm font-medium hover:bg-gray-200 transition">
-            サービス
-          </button>
-        </div>
+        {/* Hero Section - 与网站风格统一的大气设计 */}
+        <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden">
+          {/* 背景图片 */}
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=2000&auto=format&fit=crop')`,
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/85 to-slate-900/70" />
+          </div>
 
-        {/* ニュースリスト */}
-        <div className="divide-y divide-gray-100">
-          {newsData.map((news) => (
-            <article
-              key={news.id}
-              className="py-6 group cursor-pointer hover:bg-gray-50 -mx-4 px-4 rounded-lg transition"
-            >
-              <div className="flex flex-col md:flex-row md:items-center gap-4">
-                {/* 日付 */}
-                <div className="flex items-center gap-2 text-sm text-gray-500 md:w-28 flex-shrink-0">
-                  <Calendar size={14} />
-                  {news.date}
+          {/* 装饰元素 */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-1/4 -left-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl" />
+          </div>
+
+          {/* 内容 */}
+          <div className="relative z-10 container mx-auto px-6 py-20 text-center">
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full mb-8">
+              <Newspaper size={14} className="text-blue-400" />
+              <span className="text-xs font-bold text-white/90 uppercase tracking-wider">News Room</span>
+            </div>
+
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 leading-tight">
+              ニュースルーム
+            </h1>
+
+            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              新島交通の最新情報、プレスリリース、<br className="hidden md:block" />
+              サービスに関するお知らせをご覧いただけます
+            </p>
+
+            {/* 面包屑 */}
+            <div className="flex items-center justify-center gap-2 text-sm text-gray-400 mt-8">
+              <Link href="/" className="hover:text-white transition">ホーム</Link>
+              <ChevronRight size={14} />
+              <span className="text-gray-300">ニュースルーム</span>
+            </div>
+          </div>
+
+          {/* 向下滚动提示 */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+            <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+              <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse" />
+            </div>
+          </div>
+        </section>
+
+        {/* 精选新闻 Section */}
+        {featuredNews.length > 0 && (
+          <section className="py-16 bg-white">
+            <div className="container mx-auto px-6">
+              <div className="flex items-center gap-3 mb-10">
+                <div className="w-1 h-8 bg-blue-600 rounded-full" />
+                <div>
+                  <h2 className="text-2xl font-serif font-bold text-gray-900">注目のニュース</h2>
+                  <p className="text-sm text-gray-500">Featured News</p>
                 </div>
-
-                {/* カテゴリ */}
-                <div className="flex items-center gap-2">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${categoryColors[news.categoryColor]}`}>
-                    {news.category}
-                  </span>
-                  {news.isNew && (
-                    <span className="px-2 py-0.5 bg-red-500 text-white rounded text-xs font-bold">
-                      NEW
-                    </span>
-                  )}
-                </div>
-
-                {/* タイトル */}
-                <div className="flex-1">
-                  <h3 className="font-bold text-gray-900 group-hover:text-blue-600 transition mb-1">
-                    {news.title}
-                  </h3>
-                  <p className="text-sm text-gray-500 line-clamp-1">{news.summary}</p>
-                </div>
-
-                {/* 矢印 */}
-                <ChevronRight size={20} className="text-gray-300 group-hover:text-blue-600 transition hidden md:block" />
               </div>
-            </article>
-          ))}
-        </div>
 
-        {/* ページネーション */}
-        <div className="flex justify-center gap-2 pt-8">
-          <button className="w-10 h-10 bg-slate-900 text-white rounded-lg font-medium">1</button>
-          <button className="w-10 h-10 bg-gray-100 text-gray-600 rounded-lg font-medium hover:bg-gray-200 transition">2</button>
-          <button className="w-10 h-10 bg-gray-100 text-gray-600 rounded-lg font-medium hover:bg-gray-200 transition">3</button>
-        </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {featuredNews.map((news, index) => (
+                  <article
+                    key={news.id}
+                    className={`group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer ${
+                      index === 0 ? 'md:col-span-2 md:row-span-2' : ''
+                    }`}
+                  >
+                    {/* 背景图片 */}
+                    <div className={`relative overflow-hidden ${index === 0 ? 'h-[400px]' : 'h-[200px]'}`}>
+                      <img
+                        src={news.image}
+                        alt={news.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                    </div>
+
+                    {/* 内容 */}
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                          categoryConfig[news.categoryKey].lightColor
+                        }`}>
+                          {news.category}
+                        </span>
+                        {news.isNew && (
+                          <span className="px-2 py-0.5 bg-red-500 text-white rounded text-xs font-bold animate-pulse">
+                            NEW
+                          </span>
+                        )}
+                      </div>
+                      <h3 className={`font-bold text-white mb-2 group-hover:text-blue-300 transition-colors ${
+                        index === 0 ? 'text-2xl' : 'text-lg'
+                      }`}>
+                        {news.title}
+                      </h3>
+                      <div className="flex items-center gap-2 text-gray-300 text-sm">
+                        <Calendar size={14} />
+                        <span>{news.date}</span>
+                      </div>
+                    </div>
+
+                    {/* Hover 效果 */}
+                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center">
+                        <ArrowRight size={18} className="text-white" />
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* 新闻一览 Section */}
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-6">
+
+            {/* 分类筛选器 */}
+            <div className="mb-10">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-1 h-8 bg-slate-900 rounded-full" />
+                <div>
+                  <h2 className="text-2xl font-serif font-bold text-gray-900">ニュース一覧</h2>
+                  <p className="text-sm text-gray-500">All News</p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-3">
+                {(Object.keys(categoryConfig) as NewsCategory[]).map((key) => {
+                  const config = categoryConfig[key];
+                  const Icon = config.icon;
+                  const isActive = selectedCategory === key;
+                  const count = key === 'all'
+                    ? newsData.length
+                    : newsData.filter(n => n.categoryKey === key).length;
+
+                  return (
+                    <button
+                      key={key}
+                      onClick={() => handleCategoryChange(key)}
+                      className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                        isActive
+                          ? config.color + ' shadow-lg shadow-slate-200'
+                          : 'bg-white text-gray-600 border border-gray-200 hover:border-gray-300 hover:shadow-md'
+                      }`}
+                    >
+                      <Icon size={16} />
+                      <span>{config.label}</span>
+                      <span className={`ml-1 px-2 py-0.5 rounded-full text-xs ${
+                        isActive ? 'bg-white/20' : 'bg-gray-100'
+                      }`}>
+                        {count}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 新闻列表 */}
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+              {paginatedNews.length > 0 ? (
+                <div className="divide-y divide-gray-100">
+                  {paginatedNews.map((news, index) => {
+                    const config = categoryConfig[news.categoryKey];
+                    const Icon = config.icon;
+
+                    return (
+                      <article
+                        key={news.id}
+                        className="group p-6 hover:bg-gray-50 transition-all duration-300 cursor-pointer"
+                        style={{ animationDelay: `${index * 50}ms` }}
+                      >
+                        <div className="flex flex-col md:flex-row md:items-start gap-4">
+                          {/* 日期 */}
+                          <div className="flex items-center gap-3 md:w-32 flex-shrink-0">
+                            <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-blue-50 transition-colors">
+                              <Calendar size={18} className="text-gray-400 group-hover:text-blue-600 transition-colors" />
+                            </div>
+                            <div>
+                              <div className="text-sm font-bold text-gray-900">{news.date.split('.')[1]}/{news.date.split('.')[2]}</div>
+                              <div className="text-xs text-gray-400">{news.date.split('.')[0]}</div>
+                            </div>
+                          </div>
+
+                          {/* 分类标签 */}
+                          <div className="flex items-center gap-2 md:w-36 flex-shrink-0">
+                            <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold ${config.lightColor}`}>
+                              <Icon size={12} />
+                              {news.category}
+                            </span>
+                            {news.isNew && (
+                              <span className="px-2 py-0.5 bg-red-500 text-white rounded text-xs font-bold animate-pulse">
+                                NEW
+                              </span>
+                            )}
+                          </div>
+
+                          {/* 内容 */}
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors mb-2 text-lg">
+                              {news.title}
+                            </h3>
+                            <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed">
+                              {news.summary}
+                            </p>
+                          </div>
+
+                          {/* 箭头 */}
+                          <div className="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 group-hover:bg-blue-600 transition-all duration-300 flex-shrink-0">
+                            <ChevronRight
+                              size={20}
+                              className="text-gray-400 group-hover:text-white transition-colors"
+                            />
+                          </div>
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="py-20 text-center">
+                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Newspaper size={24} className="text-gray-400" />
+                  </div>
+                  <p className="text-gray-500">該当するニュースがありません</p>
+                </div>
+              )}
+            </div>
+
+            {/* 分页 */}
+            {totalPages > 1 && (
+              <div className="flex justify-center items-center gap-2 mt-10">
+                <button
+                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="w-10 h-10 rounded-lg bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                >
+                  <ChevronRight size={18} className="rotate-180" />
+                </button>
+
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`w-10 h-10 rounded-lg font-medium transition-all ${
+                      currentPage === page
+                        ? 'bg-slate-900 text-white shadow-lg'
+                        : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ))}
+
+                <button
+                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className="w-10 h-10 rounded-lg bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                >
+                  <ChevronRight size={18} />
+                </button>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-20 bg-gradient-to-r from-slate-900 to-slate-800 text-white">
+          <div className="container mx-auto px-6 text-center">
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full mb-6">
+              <TrendingUp size={14} className="text-blue-400" />
+              <span className="text-xs font-bold text-white/90 uppercase tracking-wider">Stay Updated</span>
+            </div>
+
+            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">
+              最新情報をお見逃しなく
+            </h2>
+            <p className="text-gray-300 text-lg mb-10 max-w-2xl mx-auto">
+              新島交通の最新サービスや特別プランの情報をいち早くお届けします
+            </p>
+
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-slate-900 font-bold rounded-full hover:bg-gray-100 transition-colors shadow-lg"
+              >
+                サービス一覧を見る
+                <ArrowRight size={18} />
+              </Link>
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-full hover:bg-white/10 transition-colors"
+              >
+                会社について
+                <ChevronRight size={18} />
+              </Link>
+            </div>
+          </div>
+        </section>
       </div>
-    </CompanyLayout>
+    </PublicLayout>
   );
 }
