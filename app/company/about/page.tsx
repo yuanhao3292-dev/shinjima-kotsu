@@ -54,7 +54,7 @@ export default function AboutPage() {
                   </div>
                   <div className="mt-6 text-center">
                     <p className="text-sm text-gray-500">代表取締役</p>
-                    <p className="text-2xl font-bold text-gray-900 mt-1">袁 浩</p>
+                    <p className="text-2xl font-bold text-gray-900 mt-1">員 昊</p>
                     <p className="text-sm text-gray-400">Yuan Hao</p>
                   </div>
                 </div>
@@ -97,7 +97,7 @@ export default function AboutPage() {
 
                   <div className="mt-8 pt-6 border-t border-gray-200">
                     <p className="text-gray-900 font-bold">新島交通株式会社</p>
-                    <p className="text-gray-600">代表取締役 袁 浩</p>
+                    <p className="text-gray-600">代表取締役 員 昊</p>
                   </div>
                 </div>
               </div>
@@ -164,14 +164,14 @@ export default function AboutPage() {
                     {[
                       { label: '商号', value: '新島交通株式会社' },
                       { label: '英文商号', value: 'NIIJIMA KOTSU Co., Ltd.' },
-                      { label: '設立', value: '2018年4月' },
-                      { label: '資本金', value: '1,000万円' },
-                      { label: '代表者', value: '代表取締役 袁 浩（Yuan Hao）' },
+                      { label: '設立', value: '2020年2月' },
+                      { label: '資本金', value: '2,500万円' },
+                      { label: '代表者', value: '代表取締役 員 昊' },
                       { label: '従業員数', value: '25名（2024年12月現在）' },
-                      { label: '本社所在地', value: '〒541-0053\n大阪府大阪市中央区本町1丁目5番6号\n山甚ビル 8F' },
+                      { label: '本社所在地', value: '〒556-0014\n大阪府大阪市浪速区大国1-2-21\nNICビル602号' },
                       { label: '電話番号', value: '06-6632-8807' },
                       { label: 'メール', value: 'info@niijima-koutsu.jp' },
-                      { label: '事業内容', value: '・インバウンド旅行事業\n・医療ツーリズム事業\n・ゴルフツーリズム事業\n・ビジネス視察事業\n・地域交通事業\n・旅行業システム開発' },
+                      { label: '事業内容', value: '・インバウンド旅行事業\n・医療ツーリズム事業\n・ゴルフツーリズム事業\n・ビジネス視察事業' },
                     ].map((row, index) => (
                       <tr key={index} className="flex flex-col md:table-row hover:bg-white transition">
                         <th className="py-5 px-6 text-left font-bold text-gray-900 bg-gray-100 md:bg-transparent md:w-44">
@@ -308,7 +308,7 @@ export default function AboutPage() {
                   </div>
                   <div>
                     <p className="text-white/60 text-sm">所在地</p>
-                    <p className="text-white font-bold text-sm">大阪市中央区本町1-5-6</p>
+                    <p className="text-white font-bold text-sm">大阪市浪速区大国1-2-21</p>
                   </div>
                 </div>
               </div>

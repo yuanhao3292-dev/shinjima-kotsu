@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Globe, ChevronDown, Check } from 'lucide-react';
 
-type Locale = 'ja' | 'zh-TW' | 'en';
+type Locale = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
 
 interface Language {
   code: Locale;
@@ -15,6 +15,7 @@ interface Language {
 const languages: Language[] = [
   { code: 'ja', name: 'Japanese', nativeName: '日本語', flag: '🇯🇵' },
   { code: 'zh-TW', name: 'Chinese (Traditional)', nativeName: '繁體中文', flag: '🇹🇼' },
+  { code: 'zh-CN', name: 'Chinese (Simplified)', nativeName: '简体中文', flag: '🇨🇳' },
   { code: 'en', name: 'English', nativeName: 'English', flag: '🇺🇸' },
 ];
 
@@ -27,15 +28,16 @@ function getStoredLocale(): Locale {
   const cookies = document.cookie.split(';');
   for (const cookie of cookies) {
     const [name, value] = cookie.trim().split('=');
-    if (name === LOCALE_COOKIE_NAME && ['ja', 'zh-TW', 'en'].includes(value)) {
+    if (name === LOCALE_COOKIE_NAME && ['ja', 'zh-TW', 'zh-CN', 'en'].includes(value)) {
       return value as Locale;
     }
   }
 
-  // Check browser language
+  // Check browser language - more specific matching for Chinese variants
   const browserLang = navigator.language;
   if (browserLang.startsWith('ja')) return 'ja';
-  if (browserLang.startsWith('zh')) return 'zh-TW';
+  if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') return 'zh-TW';
+  if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) return 'zh-CN';
   if (browserLang.startsWith('en')) return 'en';
 
   return 'ja'; // Default

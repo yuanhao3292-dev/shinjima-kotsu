@@ -27,7 +27,7 @@ export default function MessagePage() {
               </div>
               <div className="mt-4 text-center">
                 <p className="text-sm text-gray-500">代表取締役</p>
-                <p className="text-xl font-bold text-gray-900">袁 浩</p>
+                <p className="text-xl font-bold text-gray-900">員 昊</p>
                 <p className="text-sm text-gray-400">Yuan Hao</p>
               </div>
             </div>
