@@ -28,7 +28,7 @@ export default function GolfBusinessPage() {
             { value: '20+', label: '提携名門コース' },
             { value: 'VIP', label: '待遇保証' },
             { value: '1,000+', label: '年間利用者' },
-            { value: '100%', label: '予約成功率' },
+            { value: '98%+', label: '予約成功率' },
           ].map((stat, index) => (
             <div key={index} className="p-4 bg-green-50 rounded-xl text-center">
               <div className="text-2xl font-bold text-green-600">{stat.value}</div>
@@ -43,7 +43,7 @@ export default function GolfBusinessPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
-              { title: '名門コースアクセス', features: ['会員紹介不要', 'トーナメントコース', '完全予約保証'] },
+              { title: '名門コースアクセス', features: ['会員紹介不要', 'トーナメントコース', '提携コース優先予約'] },
               { title: 'VIPサービス', features: ['専属キャディ', 'ラウンジ利用', '優先スタート'] },
               { title: '送迎・宿泊手配', features: ['空港送迎', '高級旅館手配', '温泉付きプラン'] },
               { title: '多言語対応', features: ['中国語サポート', '英語対応可', '通訳同行'] },

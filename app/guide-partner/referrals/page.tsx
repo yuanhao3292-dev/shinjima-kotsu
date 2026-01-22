@@ -210,7 +210,7 @@ export default function ReferralsPage() {
     { icon: LayoutDashboard, label: '控制台', href: '/guide-partner/dashboard' },
     { icon: Store, label: '店舖列表', href: '/guide-partner/venues' },
     { icon: Calendar, label: '我的預約', href: '/guide-partner/bookings' },
-    { icon: Wallet, label: '返金結算', href: '/guide-partner/commission' },
+    { icon: Wallet, label: '報酬結算', href: '/guide-partner/commission' },
     { icon: Users, label: '我的推薦', href: '/guide-partner/referrals', active: true },
     { icon: Settings, label: '帳戶設置', href: '/guide-partner/settings' },
   ];
@@ -414,11 +414,11 @@ export default function ReferralsPage() {
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold">2</div>
-                <p>您可獲得被推薦導遊每筆訂單返金的 2% 作為獎勵</p>
+                <p>您可獲得被推薦導遊每筆訂單報酬的 2% 作為獎勵</p>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold">3</div>
-                <p>獎勵與返金一起按月結算</p>
+                <p>獎勵與報酬一起按月結算</p>
               </div>
             </div>
           </div>

@@ -1,117 +1,39 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import PublicLayout from '@/components/PublicLayout';
 import {
   Calendar,
   ChevronRight,
-  Tag,
   Newspaper,
   Megaphone,
   Sparkles,
   ArrowRight,
-  Clock,
   TrendingUp,
-  Bell
+  Bell,
+  Loader2,
 } from 'lucide-react';
 
 // 新闻分类定义
 type NewsCategory = 'all' | 'announcement' | 'press' | 'service';
 
 interface NewsItem {
-  id: number;
-  date: string;
-  category: 'お知らせ' | 'プレスリリース' | 'サービス';
-  categoryKey: NewsCategory;
+  id: string;
   title: string;
-  summary: string;
-  isNew: boolean;
-  isFeatured?: boolean;
-  image?: string;
+  summary: string | null;
+  category: 'announcement' | 'press' | 'service';
+  image_url: string | null;
+  is_featured: boolean;
+  published_at: string;
 }
 
-// 新闻数据
-const newsData: NewsItem[] = [
-  {
-    id: 1,
-    date: '2025.01.15',
-    category: 'お知らせ',
-    categoryKey: 'announcement',
-    title: '総合医療サービス事業を拡充 - がん治療紹介サービスを新設',
-    summary: '陽子線治療、光免疫療法、BNCT（ホウ素中性子捕捉療法）の紹介サービスを開始いたしました。日本国内の最先端がん治療施設と提携し、華人患者様に最適な治療オプションをご提案いたします。',
-    isNew: true,
-    isFeatured: true,
-    image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1000&auto=format&fit=crop',
-  },
-  {
-    id: 2,
-    date: '2024.12.20',
-    category: 'プレスリリース',
-    categoryKey: 'press',
-    title: '年末年始の営業について',
-    summary: '2024年12月28日（土）～2025年1月5日（日）は休業とさせていただきます。期間中のお問い合わせは、1月6日以降に順次対応いたします。',
-    isNew: false,
-  },
-  {
-    id: 3,
-    date: '2024.11.01',
-    category: 'お知らせ',
-    categoryKey: 'announcement',
-    title: 'Webサイトをリニューアルしました',
-    summary: 'より使いやすく、より多くの情報をお届けできるよう、Webサイトを全面リニューアルいたしました。新デザインでは、サービス情報へのアクセスがより直感的になりました。',
-    isNew: false,
-    isFeatured: true,
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop',
-  },
-  {
-    id: 4,
-    date: '2024.09.15',
-    category: 'プレスリリース',
-    categoryKey: 'press',
-    title: 'ガイドパートナープログラム 登録者3,000名突破',
-    summary: '在日華人ガイド向けのパートナープログラムが、登録者3,000名を突破いたしました。引き続き、パートナーの皆様のビジネス成長を全力でサポートしてまいります。',
-    isNew: false,
-  },
-  {
-    id: 5,
-    date: '2024.08.01',
-    category: 'サービス',
-    categoryKey: 'service',
-    title: 'AI報価システム「LinkQuote」機能アップデート',
-    summary: '24時間即時見積もり対応のAIシステムに、新たに多言語対応機能を追加しました。日本語、中国語、英語での見積もり作成が可能になりました。',
-    isNew: false,
-    isFeatured: true,
-    image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1000&auto=format&fit=crop',
-  },
-  {
-    id: 6,
-    date: '2024.06.20',
-    category: 'お知らせ',
-    categoryKey: 'announcement',
-    title: '夏季の人気プランについて',
-    summary: '夏休み期間中は、名門ゴルフツアーおよび精密健診の予約が混み合います。お早めのご予約をお勧めいたします。',
-    isNew: false,
-  },
-  {
-    id: 7,
-    date: '2024.04.01',
-    category: 'プレスリリース',
-    categoryKey: 'press',
-    title: '新年度のご挨拶',
-    summary: '2024年度も引き続き、高品質なサービスの提供に努めてまいります。新たなサービス展開にもご期待ください。',
-    isNew: false,
-  },
-  {
-    id: 8,
-    date: '2024.03.01',
-    category: 'サービス',
-    categoryKey: 'service',
-    title: 'ガイドパートナープログラム開始',
-    summary: '在日華人ガイド向けホワイトラベルソリューションの提供を開始いたしました。独自ブランドでの高品質サービス提供が可能になります。',
-    isNew: false,
-  },
-];
+interface NewsStats {
+  all: number;
+  announcement: number;
+  press: number;
+  service: number;
+}
 
 // 分类配置
 const categoryConfig = {
@@ -145,25 +67,56 @@ const categoryConfig = {
   },
 };
 
+// 分类日文名映射
+const categoryLabels: Record<string, string> = {
+  announcement: 'お知らせ',
+  press: 'プレスリリース',
+  service: 'サービス',
+};
+
 export default function NewsPage() {
+  const [newsList, setNewsList] = useState<NewsItem[]>([]);
+  const [stats, setStats] = useState<NewsStats | null>(null);
+  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<NewsCategory>('all');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  // 筛选后的新闻
-  const filteredNews = useMemo(() => {
-    if (selectedCategory === 'all') return newsData;
-    return newsData.filter(news => news.categoryKey === selectedCategory);
+  // 加载新闻数据
+  useEffect(() => {
+    loadNews();
   }, [selectedCategory]);
+
+  const loadNews = async () => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams();
+      if (selectedCategory !== 'all') {
+        params.append('category', selectedCategory);
+      }
+      params.append('limit', '50');
+
+      const response = await fetch(`/api/news?${params}`);
+      if (response.ok) {
+        const data = await response.json();
+        setNewsList(data.news || []);
+        setStats(data.stats || null);
+      }
+    } catch (error) {
+      console.error('Load news error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // 精选新闻（有图片的）
   const featuredNews = useMemo(() => {
-    return newsData.filter(news => news.isFeatured && news.image);
-  }, []);
+    return newsList.filter(news => news.is_featured && news.image_url);
+  }, [newsList]);
 
   // 分页
-  const totalPages = Math.ceil(filteredNews.length / itemsPerPage);
-  const paginatedNews = filteredNews.slice(
+  const totalPages = Math.ceil(newsList.length / itemsPerPage);
+  const paginatedNews = newsList.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -172,6 +125,24 @@ export default function NewsPage() {
   const handleCategoryChange = (category: NewsCategory) => {
     setSelectedCategory(category);
     setCurrentPage(1);
+  };
+
+  // 格式化日期
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ja-JP', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).replace(/\//g, '.');
+  };
+
+  // 判断是否为新消息（7天内）
+  const isNewNews = (dateString: string) => {
+    const publishDate = new Date(dateString);
+    const now = new Date();
+    const diffDays = (now.getTime() - publishDate.getTime()) / (1000 * 60 * 60 * 24);
+    return diffDays <= 7;
   };
 
   return (
@@ -229,7 +200,7 @@ export default function NewsPage() {
         </section>
 
         {/* 精选新闻 Section */}
-        {featuredNews.length > 0 && (
+        {!loading && featuredNews.length > 0 && (
           <section className="py-16 bg-white">
             <div className="container mx-auto px-6">
               <div className="flex items-center gap-3 mb-10">
@@ -241,7 +212,7 @@ export default function NewsPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {featuredNews.map((news, index) => (
+                {featuredNews.slice(0, 3).map((news, index) => (
                   <article
                     key={news.id}
                     className={`group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer ${
@@ -251,7 +222,7 @@ export default function NewsPage() {
                     {/* 背景图片 */}
                     <div className={`relative overflow-hidden ${index === 0 ? 'h-[400px]' : 'h-[200px]'}`}>
                       <img
-                        src={news.image}
+                        src={news.image_url!}
                         alt={news.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
@@ -262,11 +233,11 @@ export default function NewsPage() {
                     <div className="absolute bottom-0 left-0 right-0 p-6">
                       <div className="flex items-center gap-3 mb-3">
                         <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                          categoryConfig[news.categoryKey].lightColor
+                          categoryConfig[news.category].lightColor
                         }`}>
-                          {news.category}
+                          {categoryLabels[news.category]}
                         </span>
-                        {news.isNew && (
+                        {isNewNews(news.published_at) && (
                           <span className="px-2 py-0.5 bg-red-500 text-white rounded text-xs font-bold animate-pulse">
                             NEW
                           </span>
@@ -279,7 +250,7 @@ export default function NewsPage() {
                       </h3>
                       <div className="flex items-center gap-2 text-gray-300 text-sm">
                         <Calendar size={14} />
-                        <span>{news.date}</span>
+                        <span>{formatDate(news.published_at)}</span>
                       </div>
                     </div>
 
@@ -315,9 +286,7 @@ export default function NewsPage() {
                   const config = categoryConfig[key];
                   const Icon = config.icon;
                   const isActive = selectedCategory === key;
-                  const count = key === 'all'
-                    ? newsData.length
-                    : newsData.filter(n => n.categoryKey === key).length;
+                  const count = stats ? (key === 'all' ? stats.all : stats[key]) : 0;
 
                   return (
                     <button
@@ -344,10 +313,15 @@ export default function NewsPage() {
 
             {/* 新闻列表 */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-              {paginatedNews.length > 0 ? (
+              {loading ? (
+                <div className="py-20 text-center">
+                  <Loader2 className="w-8 h-8 text-blue-600 animate-spin mx-auto mb-4" />
+                  <p className="text-gray-500">読み込み中...</p>
+                </div>
+              ) : paginatedNews.length > 0 ? (
                 <div className="divide-y divide-gray-100">
                   {paginatedNews.map((news, index) => {
-                    const config = categoryConfig[news.categoryKey];
+                    const config = categoryConfig[news.category];
                     const Icon = config.icon;
 
                     return (
@@ -363,8 +337,12 @@ export default function NewsPage() {
                               <Calendar size={18} className="text-gray-400 group-hover:text-blue-600 transition-colors" />
                             </div>
                             <div>
-                              <div className="text-sm font-bold text-gray-900">{news.date.split('.')[1]}/{news.date.split('.')[2]}</div>
-                              <div className="text-xs text-gray-400">{news.date.split('.')[0]}</div>
+                              <div className="text-sm font-bold text-gray-900">
+                                {formatDate(news.published_at).split('.').slice(1).join('/')}
+                              </div>
+                              <div className="text-xs text-gray-400">
+                                {formatDate(news.published_at).split('.')[0]}
+                              </div>
                             </div>
                           </div>
 
@@ -372,9 +350,9 @@ export default function NewsPage() {
                           <div className="flex items-center gap-2 md:w-36 flex-shrink-0">
                             <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold ${config.lightColor}`}>
                               <Icon size={12} />
-                              {news.category}
+                              {categoryLabels[news.category]}
                             </span>
-                            {news.isNew && (
+                            {isNewNews(news.published_at) && (
                               <span className="px-2 py-0.5 bg-red-500 text-white rounded text-xs font-bold animate-pulse">
                                 NEW
                               </span>
@@ -386,9 +364,11 @@ export default function NewsPage() {
                             <h3 className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors mb-2 text-lg">
                               {news.title}
                             </h3>
-                            <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed">
-                              {news.summary}
-                            </p>
+                            {news.summary && (
+                              <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed">
+                                {news.summary}
+                              </p>
+                            )}
                           </div>
 
                           {/* 箭头 */}

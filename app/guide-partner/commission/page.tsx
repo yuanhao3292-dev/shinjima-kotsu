@@ -136,7 +136,7 @@ export default function CommissionPage() {
 
       setSettlements(settlementsData || []);
 
-      // 載入最近的返金記錄
+      // 載入最近的報酬記錄
       const { data: commissionsData } = await supabase
         .from('bookings')
         .select(`
@@ -309,7 +309,7 @@ export default function CommissionPage() {
     { icon: LayoutDashboard, label: '控制台', href: '/guide-partner/dashboard' },
     { icon: Store, label: '店舖列表', href: '/guide-partner/venues' },
     { icon: Calendar, label: '我的預約', href: '/guide-partner/bookings' },
-    { icon: Wallet, label: '返金結算', href: '/guide-partner/commission', active: true },
+    { icon: Wallet, label: '報酬結算', href: '/guide-partner/commission', active: true },
     { icon: Users, label: '我的推薦', href: '/guide-partner/referrals' },
     { icon: Headphones, label: '客服支援', href: '/guide-partner/support' },
     { icon: Settings, label: '帳戶設置', href: '/guide-partner/settings' },
@@ -321,7 +321,7 @@ export default function CommissionPage() {
       <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b z-50 flex items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <Logo className="w-8 h-8 text-orange-600" />
-          <span className="font-bold">返金結算</span>
+          <span className="font-bold">報酬結算</span>
         </div>
         <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2">
           {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
@@ -376,8 +376,8 @@ export default function CommissionPage() {
         <div className="p-6 lg:p-8">
           {/* Header */}
           <div className="mb-6">
-            <h1 className="text-2xl font-bold text-gray-900">返金結算</h1>
-            <p className="text-gray-500 mt-1">查看您的返金收入和結算記錄</p>
+            <h1 className="text-2xl font-bold text-gray-900">報酬結算</h1>
+            <p className="text-gray-500 mt-1">查看您的報酬收入和結算記錄</p>
           </div>
 
           {/* Stats Cards */}
@@ -422,12 +422,12 @@ export default function CommissionPage() {
                 <span className="text-white font-bold text-lg">{commissionRate}%</span>
               </div>
               <div>
-                <h3 className="font-bold text-orange-800">返金計算方式 · {tierName}</h3>
+                <h3 className="font-bold text-orange-800">報酬計算方式 · {tierName}</h3>
                 <p className="text-sm text-orange-700 mt-1">
-                  返金 = 客戶消費金額 ÷ 1.1（扣除10%消費稅）× {commissionRate}%
+                  報酬 = 客戶消費金額 ÷ 1.1（扣除10%消費稅）× {commissionRate}%
                 </p>
                 <p className="text-xs text-orange-600 mt-2">
-                  例：客戶消費 100 萬日元 → 返金約 ¥{Math.round(1000000 / 1.1 * commissionRate / 100).toLocaleString()}
+                  例：客戶消費 100 萬日元 → 報酬約 ¥{Math.round(1000000 / 1.1 * commissionRate / 100).toLocaleString()}
                 </p>
               </div>
             </div>
@@ -461,7 +461,7 @@ export default function CommissionPage() {
                   : 'bg-white text-gray-600 hover:bg-gray-50 border'
               }`}
             >
-              店舖返金
+              店舖報酬
             </button>
             <button
               onClick={() => setActiveTab('whitelabel')}
@@ -489,7 +489,7 @@ export default function CommissionPage() {
           {activeTab === 'overview' ? (
             <div className="bg-white rounded-xl border">
               <div className="p-4 border-b">
-                <h2 className="font-bold text-gray-900">店舖返金記錄</h2>
+                <h2 className="font-bold text-gray-900">店舖報酬記錄</h2>
               </div>
 
               {recentCommissions.length > 0 ? (
@@ -518,12 +518,12 @@ export default function CommissionPage() {
               ) : (
                 <div className="p-12 text-center text-gray-500">
                   <Wallet className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                  <p>暫無返金記錄</p>
+                  <p>暫無報酬記錄</p>
                   <Link
                     href="/guide-partner/venues"
                     className="inline-block mt-4 text-orange-600 font-medium hover:underline"
                   >
-                    開始預約賺取返金
+                    開始預約賺取報酬
                   </Link>
                 </div>
               )}
@@ -645,7 +645,7 @@ export default function CommissionPage() {
                 <div className="p-12 text-center text-gray-500">
                   <Calendar className="w-12 h-12 mx-auto mb-4 text-gray-300" />
                   <p>暫無結算記錄</p>
-                  <p className="text-sm mt-2">每月初統計上月返金</p>
+                  <p className="text-sm mt-2">每月初統計上月報酬</p>
                 </div>
               )}
             </div>
@@ -655,7 +655,7 @@ export default function CommissionPage() {
           <div className="mt-8 bg-gray-100 rounded-xl p-4">
             <h3 className="font-medium text-gray-700 mb-2">結算說明</h3>
             <ul className="text-sm text-gray-600 space-y-1">
-              <li>• 每月 1-5 日統計上月已完成訂單的返金</li>
+              <li>• 每月 1-5 日統計上月已完成訂單的報酬</li>
               <li>• 確認後通過微信/支付寶/銀行轉帳支付</li>
               <li>• 如有疑問請聯繫客服核實</li>
             </ul>

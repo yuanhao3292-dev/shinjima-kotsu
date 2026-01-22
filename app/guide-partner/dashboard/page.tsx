@@ -251,7 +251,7 @@ export default function GuideDashboard() {
     { icon: LayoutDashboard, label: '控制台', href: '/guide-partner/dashboard', active: true },
     { icon: Store, label: '店舖列表', href: '/guide-partner/venues' },
     { icon: Calendar, label: '我的預約', href: '/guide-partner/bookings' },
-    { icon: Wallet, label: '返金結算', href: '/guide-partner/commission' },
+    { icon: Wallet, label: '報酬結算', href: '/guide-partner/commission' },
     { icon: Users, label: '我的推薦', href: '/guide-partner/referrals' },
     { icon: Trophy, label: '排行榜', href: '/guide-partner/leaderboard' },
     { icon: Globe, label: '白標頁面', href: '/guide-partner/whitelabel', highlight: true },
@@ -384,7 +384,7 @@ export default function GuideDashboard() {
                 </div>
               </div>
               <p className="text-2xl font-bold text-gray-900">¥{(stats?.totalCommission || 0).toLocaleString()}</p>
-              <p className="text-sm text-gray-500">累計返金</p>
+              <p className="text-sm text-gray-500">累計報酬</p>
             </div>
 
             <div className="bg-white rounded-xl p-6 border">
@@ -403,8 +403,8 @@ export default function GuideDashboard() {
             {/* Header with Current Level */}
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="text-lg font-bold text-gray-900">階梯返金制度</h2>
-                <p className="text-sm text-gray-500">季度銷售額越高，返金比例越高</p>
+                <h2 className="text-lg font-bold text-gray-900">階梯報酬制度</h2>
+                <p className="text-sm text-gray-500">季度銷售額越高，報酬比例越高</p>
               </div>
               <div className="text-right">
                 <p className="text-xs text-gray-500">您當前等級</p>
@@ -455,7 +455,7 @@ export default function GuideDashboard() {
                     <span className="text-2xl">🎉</span>
                     <div>
                       <p className="font-bold text-purple-700">恭喜！您已達到最高等級</p>
-                      <p className="text-sm text-purple-600">享受 20% 最高返金比例</p>
+                      <p className="text-sm text-purple-600">享受 20% 最高報酬比例</p>
                     </div>
                   </div>
                 </div>
@@ -476,7 +476,7 @@ export default function GuideDashboard() {
                 </div>
                 <div className="text-[10px] text-gray-500 space-y-0.5">
                   <p>夜總會 · 體檢 · 醫療</p>
-                  <p className="font-medium">統一 10% 返金</p>
+                  <p className="font-medium">統一 10% 報酬</p>
                 </div>
               </div>
 
@@ -492,7 +492,7 @@ export default function GuideDashboard() {
                 </div>
                 <div className="text-[10px] text-gray-500 space-y-0.5">
                   <p>夜總會 · 體檢 · 醫療</p>
-                  <p className="font-medium">統一 12% 返金</p>
+                  <p className="font-medium">統一 12% 報酬</p>
                 </div>
               </div>
 
@@ -508,7 +508,7 @@ export default function GuideDashboard() {
                 </div>
                 <div className="text-[10px] text-gray-500 space-y-0.5">
                   <p>夜總會 · 體檢 · 醫療</p>
-                  <p className="font-medium">統一 15% 返金</p>
+                  <p className="font-medium">統一 15% 報酬</p>
                 </div>
               </div>
 
@@ -524,7 +524,7 @@ export default function GuideDashboard() {
                 </div>
                 <div className="text-[10px] text-gray-500 space-y-0.5">
                   <p>夜總會 · 體檢 · 醫療</p>
-                  <p className="font-medium">統一 20% 返金</p>
+                  <p className="font-medium">統一 20% 報酬</p>
                 </div>
               </div>
             </div>
@@ -537,7 +537,7 @@ export default function GuideDashboard() {
                 </div>
                 <div className="flex-1">
                   <h4 className="font-bold text-green-800 text-sm">🎁 推薦獎勵</h4>
-                  <p className="text-xs text-green-600">成功推薦新導遊加入，您將獲得其首月返金的 <span className="font-bold">10%</span> 作為額外獎勵</p>
+                  <p className="text-xs text-green-600">成功推薦新導遊加入，您將獲得其首月報酬的 <span className="font-bold">10%</span> 作為額外獎勵</p>
                 </div>
               </div>
             </div>
@@ -580,7 +580,7 @@ export default function GuideDashboard() {
               className="bg-white rounded-xl p-6 border hover:border-orange-300 hover:shadow-lg transition group"
             >
               <TrendingUp className="w-8 h-8 text-green-500 mb-3" />
-              <h3 className="font-bold text-gray-900 mb-1">返金結算</h3>
+              <h3 className="font-bold text-gray-900 mb-1">報酬結算</h3>
               <p className="text-sm text-gray-500 mb-3">
                 {stats?.pendingCommission ? `¥${stats.pendingCommission.toLocaleString()} 待結算` : '查看結算記錄'}
               </p>

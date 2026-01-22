@@ -829,7 +829,7 @@ export default function VehiclesPage() {
               { icon: Users, title: '專業持證司機', desc: '司機均持有正規營運資格，經過嚴格背景審查和禮儀培訓' },
               { icon: Clock, title: '準時到達', desc: '提前15分鐘抵達約定地點，若因我方原因遲到，車費減免' },
               { icon: Headphones, title: '24小時支援', desc: '旅途中遇到任何問題，中文客服團隊全天候待命協助' },
-              { icon: Star, title: '滿意度保障', desc: '服務結束後收集反饋，對於不滿意的體驗，我們提供相應補償' }
+              { icon: Star, title: '服務反饋機制', desc: '服務結束後收集反饋，針對服務問題提供改進方案或協商處理' }
             ].map(item => (
               <div key={item.title} className="bg-white/5 backdrop-blur rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition">
                 <div className="w-12 h-12 bg-orange-500/20 rounded-xl flex items-center justify-center mb-4">

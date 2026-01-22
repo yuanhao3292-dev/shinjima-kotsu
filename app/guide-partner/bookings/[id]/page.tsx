@@ -286,7 +286,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
     { icon: LayoutDashboard, label: '控制台', href: '/guide-partner/dashboard' },
     { icon: Store, label: '店舖列表', href: '/guide-partner/venues' },
     { icon: Calendar, label: '我的預約', href: '/guide-partner/bookings', active: true },
-    { icon: Wallet, label: '返金結算', href: '/guide-partner/commission' },
+    { icon: Wallet, label: '報酬結算', href: '/guide-partner/commission' },
     { icon: Users, label: '我的推薦', href: '/guide-partner/referrals' },
     { icon: Settings, label: '帳戶設置', href: '/guide-partner/settings' },
   ];
@@ -446,7 +446,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
               {/* Commission Info */}
               {(booking.actual_spend || booking.status === 'completed') && (
                 <div className="bg-green-50 border border-green-200 rounded-xl p-6">
-                  <h2 className="font-bold text-green-800 mb-4">返金資訊</h2>
+                  <h2 className="font-bold text-green-800 mb-4">報酬資訊</h2>
                   <div className="grid gap-3">
                     <div className="flex justify-between">
                       <span className="text-green-700">實際消費</span>
@@ -457,7 +457,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
                       <span className="text-green-800">¥{booking.spend_before_tax?.toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between pt-3 border-t border-green-200">
-                      <span className="text-green-700 font-medium">返金 (10%)</span>
+                      <span className="text-green-700 font-medium">報酬 (10%)</span>
                       <span className="font-bold text-green-800 text-lg">¥{booking.commission_amount?.toLocaleString()}</span>
                     </div>
                   </div>
@@ -495,7 +495,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
                     </button>
                   </div>
                   <p className="text-sm text-gray-500 mt-2">
-                    錄入後系統將自動計算返金（稅前金額 × 10%）
+                    錄入後系統將自動計算報酬（稅前金額 × 10%）
                   </p>
                 </div>
               )}

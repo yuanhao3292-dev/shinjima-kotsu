@@ -273,7 +273,7 @@ export default function AnalyticsPage() {
     { icon: LayoutDashboard, label: '控制台', href: '/guide-partner/dashboard' },
     { icon: Store, label: '店舖列表', href: '/guide-partner/venues' },
     { icon: Calendar, label: '我的預約', href: '/guide-partner/bookings' },
-    { icon: Wallet, label: '返金結算', href: '/guide-partner/commission' },
+    { icon: Wallet, label: '報酬結算', href: '/guide-partner/commission' },
     { icon: Users, label: '我的推薦', href: '/guide-partner/referrals' },
     { icon: Trophy, label: '排行榜', href: '/guide-partner/leaderboard' },
     { icon: BarChart3, label: '數據分析', href: '/guide-partner/analytics', active: true },

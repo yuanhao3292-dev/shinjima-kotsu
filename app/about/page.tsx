@@ -538,7 +538,7 @@ export default function AboutPage() {
                 了解醫療服務 <ArrowRight size={18} />
               </Link>
               <Link
-                href="/?page=partner"
+                href="/business/partner"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-full hover:bg-white/10 transition-colors"
               >
                 成為合作夥伴 <ChevronRight size={18} />

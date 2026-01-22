@@ -1,12 +1,22 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useState, Suspense, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import PublicLayout from '@/components/PublicLayout';
 import Logo from '@/components/Logo';
 import { Mail, Lock, Loader2, AlertCircle, Eye, EyeOff, User } from 'lucide-react';
+
+// 安全的重定向路径验证
+const getSafeRedirect = (redirect: string | null, allowedPrefix: string, defaultPath: string): string => {
+  if (!redirect) return defaultPath;
+  // 只允许相对路径且必须以指定前缀开头
+  if (redirect.startsWith(allowedPrefix) && !redirect.includes('//') && !redirect.includes('..')) {
+    return redirect;
+  }
+  return defaultPath;
+};
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -16,7 +26,12 @@ function LoginForm() {
   const [error, setError] = useState('');
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirect = searchParams.get('redirect') || '/guide-partner/dashboard';
+
+  // 安全处理重定向路径
+  const safeRedirect = useMemo(() =>
+    getSafeRedirect(searchParams.get('redirect'), '/guide-partner', '/guide-partner/dashboard'),
+    [searchParams]
+  );
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,11 +56,31 @@ function LoginForm() {
         return;
       }
 
-      // 2. 檢查是否是導遊
+      // 2. 檢查是否是管理員（管理員應該使用管理員登入頁面）
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        const verifyResponse = await fetch('/api/admin/verify', {
+          headers: {
+            'Authorization': `Bearer ${session.access_token}`,
+          },
+        });
+        if (verifyResponse.ok) {
+          setError('此帳號是管理員帳號，請使用管理員登入頁面');
+          await supabase.auth.signOut();
+          return;
+        }
+      }
+
+      // 3. 檢查是否是導遊（确保 authData.user 存在）
+      if (!authData.user) {
+        setError('登入失敗，請稍後重試');
+        return;
+      }
+
       const { data: guide, error: guideError } = await supabase
         .from('guides')
         .select('id, status')
-        .eq('auth_user_id', authData.user?.id)
+        .eq('auth_user_id', authData.user.id)
         .single();
 
       if (guideError || !guide) {
@@ -54,7 +89,7 @@ function LoginForm() {
         return;
       }
 
-      // 3. 檢查審核狀態
+      // 4. 檢查審核狀態
       if (guide.status === 'pending') {
         setError('您的帳號正在審核中，請耐心等待');
         await supabase.auth.signOut();
@@ -73,7 +108,8 @@ function LoginForm() {
         return;
       }
 
-      router.push(redirect);
+      // 使用安全验证后的路径
+      router.push(safeRedirect);
       router.refresh();
     } catch {
       setError('登入失敗，請稍後重試');
@@ -120,7 +156,7 @@ function LoginForm() {
               <svg className="w-5 h-5 text-amber-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
-              查看返金和結算記錄
+              查看介紹報酬和結算記錄
             </li>
             <li className="flex items-center gap-2">
               <svg className="w-5 h-5 text-amber-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -152,9 +188,19 @@ function LoginForm() {
             </div>
 
             {error && (
-              <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl flex items-center gap-2 text-sm">
-                <AlertCircle size={18} />
-                <span>{error}</span>
+              <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm">
+                <div className="flex items-center gap-2">
+                  <AlertCircle size={18} />
+                  <span>{error}</span>
+                </div>
+                {error.includes('管理員') && (
+                  <Link
+                    href="/admin/login"
+                    className="mt-2 inline-block text-indigo-600 hover:text-indigo-700 font-medium"
+                  >
+                    → 前往管理員登入頁面
+                  </Link>
+                )}
               </div>
             )}
 

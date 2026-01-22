@@ -172,7 +172,7 @@ export default function BookingsPage() {
     { icon: LayoutDashboard, label: '控制台', href: '/guide-partner/dashboard' },
     { icon: Store, label: '店舖列表', href: '/guide-partner/venues' },
     { icon: Calendar, label: '我的預約', href: '/guide-partner/bookings', active: true },
-    { icon: Wallet, label: '返金結算', href: '/guide-partner/commission' },
+    { icon: Wallet, label: '報酬結算', href: '/guide-partner/commission' },
     { icon: Users, label: '我的推薦', href: '/guide-partner/referrals' },
     { icon: Settings, label: '帳戶設置', href: '/guide-partner/settings' },
   ];
@@ -326,7 +326,7 @@ export default function BookingsPage() {
                       )}
                       {booking.commission_amount && (
                         <div>
-                          <p className="text-xs text-gray-500">返金</p>
+                          <p className="text-xs text-gray-500">報酬</p>
                           <p className="font-bold text-green-600">+¥{booking.commission_amount.toLocaleString()}</p>
                         </div>
                       )}

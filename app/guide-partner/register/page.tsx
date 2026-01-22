@@ -175,12 +175,12 @@ function RegisterForm() {
             </div>
           </div>
           <h1 className="text-4xl font-serif font-bold mb-6 leading-tight">
-            加入導遊合夥人<br />
-            <span className="text-amber-200">開啟高端返金之旅</span>
+            加入導遊提攜夥伴<br />
+            <span className="text-amber-200">客戶介紹計劃</span>
           </h1>
           <p className="text-orange-100 leading-relaxed mb-8 max-w-md">
-            無需旅行社資質，通過新島交通預約 INSOU 夜總會、TIMC 健檢、綜合治療，
-            享受 10% 返金。
+            介紹客戶給新島交通，成功即獲介紹報酬。
+            夜總會、健檢、醫療——豐富服務資源等您推薦。
           </p>
           <div className="space-y-3 text-sm">
             <div className="flex items-center gap-3">
@@ -199,7 +199,7 @@ function RegisterForm() {
               <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
                 <span className="text-amber-200 font-bold">3</span>
               </div>
-              <span>預約服務，享受 10% 返金</span>
+              <span>介紹客戶成功，獲得介紹報酬</span>
             </div>
           </div>
         </div>

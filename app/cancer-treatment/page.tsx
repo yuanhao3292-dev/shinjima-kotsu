@@ -485,19 +485,20 @@ export default function CancerTreatmentPage() {
               <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
                 <div className="text-3xl font-bold text-white mb-1">74.9%</div>
                 <div className="text-sm text-gray-300">胃癌五年存活率</div>
-                <div className="text-xs text-gray-400 mt-1">全球領先</div>
+                <div className="text-xs text-gray-400 mt-1">Lancet 2018*</div>
               </div>
               <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
                 <div className="text-3xl font-bold text-white mb-1">95%+</div>
                 <div className="text-sm text-gray-300">前列腺癌質子治療</div>
-                <div className="text-xs text-gray-400 mt-1">五年存活率</div>
+                <div className="text-xs text-gray-400 mt-1">五年存活率*</div>
               </div>
               <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
                 <div className="text-3xl font-bold text-white mb-1">1/3</div>
                 <div className="text-sm text-gray-300">費用僅為美國</div>
-                <div className="text-xs text-gray-400 mt-1">性價比更優</div>
+                <div className="text-xs text-gray-400 mt-1">參考估算</div>
               </div>
             </div>
+            <p className="text-xs text-gray-500 mb-4">*數據來源：Lancet Oncology 2018; 各醫療機構公開資料。個人療效因病情而異，僅供參考。</p>
 
             {/* Trust Points */}
             <div className="flex flex-wrap gap-6 text-white/80">

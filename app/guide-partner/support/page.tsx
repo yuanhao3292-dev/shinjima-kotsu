@@ -48,7 +48,7 @@ interface TicketReply {
 }
 
 const TICKET_TYPES = [
-  { value: 'commission_dispute', label: '返金糾紛', icon: '💰' },
+  { value: 'commission_dispute', label: '報酬糾紛', icon: '💰' },
   { value: 'order_issue', label: '訂單問題', icon: '📋' },
   { value: 'payment_issue', label: '支付問題', icon: '💳' },
   { value: 'technical_issue', label: '技術問題', icon: '🔧' },
@@ -209,7 +209,7 @@ export default function SupportPage() {
     { icon: LayoutDashboard, label: '控制台', href: '/guide-partner/dashboard' },
     { icon: Store, label: '店舖列表', href: '/guide-partner/venues' },
     { icon: Calendar, label: '我的預約', href: '/guide-partner/bookings' },
-    { icon: Wallet, label: '返金結算', href: '/guide-partner/commission' },
+    { icon: Wallet, label: '報酬結算', href: '/guide-partner/commission' },
     { icon: Users, label: '我的推薦', href: '/guide-partner/referrals' },
     { icon: Globe, label: '白標頁面', href: '/guide-partner/whitelabel' },
     { icon: HeadphonesIcon, label: '幫助支持', href: '/guide-partner/support', active: true },
@@ -307,7 +307,7 @@ export default function SupportPage() {
                 <ul className="text-sm text-blue-700 mt-1 space-y-1">
                   <li>• 普通問題：48 小時內首次回覆</li>
                   <li>• 緊急問題：24 小時內首次回覆</li>
-                  <li>• 返金糾紛：72 小時內處理完成</li>
+                  <li>• 報酬糾紛：72 小時內處理完成</li>
                 </ul>
               </div>
             </div>

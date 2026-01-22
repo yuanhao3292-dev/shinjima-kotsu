@@ -48,11 +48,13 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
-  // 检测移动端
+  // 检测移动端，并标记组件已挂载
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
+    setIsMounted(true);
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
@@ -87,14 +89,14 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
   const pauseAutoPlay = () => setIsAutoPlaying(false);
   const resumeAutoPlay = () => setIsAutoPlaying(true);
 
-  // 如果没有 slides，显示加载状态
-  if (!slides || slides.length === 0) {
+  // 如果没有 slides 或组件未挂载，显示加载状态（防止 hydration 闪现）
+  if (!slides || slides.length === 0 || !isMounted) {
     return (
       <div
         className="relative w-full overflow-hidden bg-gray-900 flex items-center justify-center"
         style={{ height }}
       >
-        <div className="text-white/50">Loading...</div>
+        {/* 空白占位，不显示 Loading 文字 */}
       </div>
     );
   }
@@ -108,32 +110,41 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
       onMouseEnter={pauseAutoPlay}
       onMouseLeave={resumeAutoPlay}
     >
-      {/* 轮播图片 */}
-      {slides.map((slide, index) => (
-        <div
-          key={slide.id}
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
-          }`}
-        >
-          {/* 背景图片 */}
-          <div
-            className="absolute inset-0 bg-cover bg-center transition-transform duration-[10000ms] ease-out"
-            style={{
-              backgroundImage: `url(${isMobile && slide.mobileImageUrl ? slide.mobileImageUrl : slide.imageUrl})`,
-              transform: index === currentIndex ? 'scale(1.05)' : 'scale(1)',
-            }}
-          />
+      {/* 轮播图片 - 只渲染当前和相邻的图片，避免闪现 */}
+      {slides.map((slide, index) => {
+        // 只渲染当前图片、前一张和后一张（用于平滑过渡）
+        const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+        const nextIndex = (currentIndex + 1) % slides.length;
+        const shouldRender = index === currentIndex || index === prevIndex || index === nextIndex;
 
-          {/* 遮罩层 */}
+        if (!shouldRender) return null;
+
+        return (
           <div
-            className="absolute inset-0"
-            style={{
-              background: slide.overlayColor || 'rgba(0, 0, 0, 0.4)',
-            }}
-          />
-        </div>
-      ))}
+            key={slide.id}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+            }`}
+          >
+            {/* 背景图片 */}
+            <div
+              className="absolute inset-0 bg-cover bg-center transition-transform duration-[10000ms] ease-out"
+              style={{
+                backgroundImage: `url(${isMobile && slide.mobileImageUrl ? slide.mobileImageUrl : slide.imageUrl})`,
+                transform: index === currentIndex ? 'scale(1.05)' : 'scale(1)',
+              }}
+            />
+
+            {/* 遮罩层 */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background: slide.overlayColor || 'rgba(0, 0, 0, 0.4)',
+              }}
+            />
+          </div>
+        );
+      })}
 
       {/* 内容区域 */}
       <div className="relative z-20 h-full flex items-center justify-center">

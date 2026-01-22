@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
@@ -12,6 +12,7 @@ import {
   Wallet,
   Store,
   Headphones,
+  Newspaper,
   LogOut,
   Menu,
   X,
@@ -26,6 +27,7 @@ const navItems = [
   { icon: Wallet, label: '結算審核', href: '/admin/settlements' },
   { icon: Headphones, label: '客服工單', href: '/admin/support' },
   { icon: Store, label: '店鋪管理', href: '/admin/venues' },
+  { icon: Newspaper, label: '新聞管理', href: '/admin/news' },
 ];
 
 export default function AdminLayout({
@@ -39,17 +41,22 @@ export default function AdminLayout({
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const router = useRouter();
   const pathname = usePathname();
-  const supabase = createClient();
 
-  useEffect(() => {
-    checkAdminAccess();
-  }, []);
+  // 使用 useMemo 避免每次渲染都创建新的客户端
+  const supabase = useMemo(() => createClient(), []);
 
-  const checkAdminAccess = async () => {
+  const checkAdminAccess = useCallback(async () => {
+    // 登录页面不需要权限检查
+    if (pathname === '/admin/login') {
+      setLoading(false);
+      setIsAdmin(true); // 允许渲染登录页面
+      return;
+    }
+
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user || !user.email) {
-        router.push('/guide-partner/login');
+        router.push('/admin/login');
         return;
       }
 
@@ -57,7 +64,7 @@ export default function AdminLayout({
 
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
-        router.push('/guide-partner/login');
+        router.push('/admin/login');
         return;
       }
 
@@ -70,20 +77,26 @@ export default function AdminLayout({
       if (response.ok) {
         setIsAdmin(true);
       } else {
-        router.push('/guide-partner/dashboard');
+        // 非管理员用户，重定向到管理员登录页
+        await supabase.auth.signOut();
+        router.push('/admin/login');
       }
     } catch (error) {
       console.error('Admin check error:', error);
-      router.push('/guide-partner/login');
+      router.push('/admin/login');
     } finally {
       setLoading(false);
     }
-  };
+  }, [supabase, router, pathname]);
 
-  const handleLogout = async () => {
+  useEffect(() => {
+    checkAdminAccess();
+  }, [checkAdminAccess]);
+
+  const handleLogout = useCallback(async () => {
     await supabase.auth.signOut();
-    router.push('/guide-partner');
-  };
+    router.push('/admin/login');
+  }, [supabase, router]);
 
   if (loading) {
     return (
@@ -98,6 +111,11 @@ export default function AdminLayout({
 
   if (!isAdmin) {
     return null;
+  }
+
+  // 登录页面不显示侧边栏
+  if (pathname === '/admin/login') {
+    return <>{children}</>;
   }
 
   return (

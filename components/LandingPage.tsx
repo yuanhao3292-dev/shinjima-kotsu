@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Logo from './Logo';
 import { translations, Language } from '../translations';
 import { UserProfile } from '../types';
-import { ArrowLeft, ArrowRight, CheckCircle, MapPin, Building, Activity, Shield, Armchair, FileText, Check, Brain, Eye, Zap, Coffee, Globe, ChevronDown, Smile, Heart, HeartPulse, Bus, Utensils, Quote, Lock, Trophy, Car, Bath, Handshake, Users, Briefcase, Mail, X, Menu, LogIn, Phone, Loader2, User, Sparkles, Scan, Cpu, Microscope, Dna, Monitor, Fingerprint, Printer, Map, Star, Award, MessageSquare, Bot, Factory, Stethoscope, ExternalLink } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle, MapPin, Building, Activity, Shield, Armchair, FileText, Check, Brain, Eye, Zap, Coffee, Globe, ChevronDown, Smile, Heart, HeartPulse, Bus, Utensils, Quote, Lock, Trophy, Car, Bath, Handshake, Users, Briefcase, Mail, X, Menu, LogIn, Phone, Loader2, User, Sparkles, Scan, Cpu, Microscope, Dna, Monitor, Fingerprint, Printer, Map, Star, Award, MessageSquare, Bot, Factory, Stethoscope, ExternalLink, Radio } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import HeroCarousel, { CarouselSlide } from './HeroCarousel';
 import TestimonialWall from './TestimonialWall';
@@ -17,20 +17,22 @@ import { useCommissionTiers } from '@/lib/hooks/useCommissionTiers';
 import { useSiteImages } from '@/lib/hooks/useSiteImages';
 
 // --- IMAGE ASSETS CONFIGURATION ---
-const SITE_IMAGES = {
+// 硬编码的默认图片（作为数据库未配置时的 fallback）
+// 所有图片都可以在数据库 site_images 表中更换
+const DEFAULT_SITE_IMAGES: Record<string, string> = {
   // Medical Page - User Provided Direct Links
   medical_hero: "https://i.ibb.co/xS1h4rTM/hero-medical.jpg",
   tech_ct: "https://i.ibb.co/mFbDmCvg/tech-ct.jpg",
   tech_mri: "https://i.ibb.co/XxZdfCML/tech-mri.jpg",
   tech_endo: "https://i.ibb.co/MkkrywCZ/tech-endo.jpg",
   tech_dental: "https://i.ibb.co/tM1LBQJW/tech-dental.jpg",
-  
+
   // Golf Page
   golf_hero: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2000&auto=format&fit=crop",
   plan_kansai: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=1000&auto=format&fit=crop", // Plan 1: Classic Green
   plan_difficult: "https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?q=80&w=1000&auto=format&fit=crop", // Plan 2: Golfer Swing/Action
   plan_fuji: "https://i.ibb.co/B2L1nxdg/2025-12-16-16-36-41.png", // Plan 3: Mt. Fuji Spectacular (Updated by User)
-  
+
   // Business Page
   business_hero: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop",
   // New Business Plan Images - 6 Plans
@@ -53,15 +55,15 @@ const SITE_IMAGES = {
   biz_senior_living: "https://images.unsplash.com/photo-1559234938-b60fff04894d?q=80&w=1000&auto=format&fit=crop", // Plan 16: Senior Living & Dementia Care
 
   // Home Page Previews
-  home_medical_preview: "https://images.unsplash.com/photo-1531297461136-82ae96c51248?q=80&w=1000&auto=format&fit=crop", 
+  home_medical_preview: "https://images.unsplash.com/photo-1531297461136-82ae96c51248?q=80&w=1000&auto=format&fit=crop",
   home_business_preview: "https://images.unsplash.com/photo-1577962917302-cd874c4e3169?q=80&w=800&auto=format&fit=crop",
-  
+
   // Founder
   founder_portrait: "https://i.ibb.co/B2mJDvq7/founder.jpg",
 
   // MOBILE FALLBACKS (Updated by User Request)
-  mobile_medical_fallback: "https://i.ibb.co/TDYnsXBb/013-2.jpg", 
-  mobile_business_fallback: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1200&auto=format&fit=crop"  
+  mobile_medical_fallback: "https://i.ibb.co/TDYnsXBb/013-2.jpg",
+  mobile_business_fallback: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1200&auto=format&fit=crop"
 };
 
 const FALLBACK_IMAGES: Record<string, string> = {
@@ -70,7 +72,7 @@ const FALLBACK_IMAGES: Record<string, string> = {
   tech_mri: "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?q=80&w=800&auto=format&fit=crop",
   tech_endo: "https://images.unsplash.com/photo-1579154204601-01588f351e67?q=80&w=800&auto=format&fit=crop",
   tech_dental: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=800&auto=format&fit=crop",
-  
+
   golf_hero: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=2000&auto=format&fit=crop",
   plan_kansai: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=800&auto=format&fit=crop",
   plan_difficult: "https://images.unsplash.com/photo-1623567341691-389eb3292434?q=80&w=800&auto=format&fit=crop",
@@ -132,6 +134,10 @@ interface SubViewProps {
   setLandingInputText?: (text: string) => void;
   // 白标模式：隐藏官方品牌内容
   hideOfficialBranding?: boolean;
+  // 从数据库获取图片的函数（支持可选的 fallback 参数）
+  getImage: (key: string, fallback?: string) => string;
+  // 图片是否正在加载
+  imagesLoading?: boolean;
 }
 
 // --- NEW COMPONENT: AI Tech Card (Used in Sub-views) ---
@@ -202,13 +208,13 @@ const MedicalTechCard = memo(function MedicalTechCard({
 });
 
 // 使用 React.memo 优化 MedicalView 渲染性能
-const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuote }) => (
+const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuote, getImage }) => (
   <div className="animate-fade-in-up min-h-screen bg-white">
     {/* 1. Hero Section - Full height with transparent nav overlap */}
     <div className="relative min-h-[85vh] flex items-center overflow-hidden text-white bg-slate-900">
-      <img 
-          src={SITE_IMAGES.medical_hero}
-          className="absolute inset-0 w-full h-full object-cover opacity-80" 
+      <img
+          src={getImage('medical_hero')}
+          className="absolute inset-0 w-full h-full object-cover opacity-80"
           alt="TIMC Lobby Luxury Environment"
           key="medical_hero"
           onError={(e) => handleSmartImageError(e, 'medical_hero')}
@@ -219,10 +225,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       </div>
       <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-3xl animate-fade-in-up">
-              <span className="text-blue-400 text-xs tracking-[0.3em] uppercase font-bold border border-blue-400/30 px-3 py-1 rounded-full backdrop-blur-md">
-                 {t.medical.hero_tag}
-              </span>
-              <h1 className="text-5xl md:text-7xl font-serif mt-6 mb-6 leading-[1.2]">
+              <h1 className="text-5xl md:text-7xl font-serif mb-6 leading-[1.2]">
                  {t.medical.hero_title_1}<br/>
                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white">{t.medical.hero_title_2}</span>
               </h1>
@@ -301,58 +304,216 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           </div>
       </div>
 
-      {/* 3. Tech Section */}
-      <div className="mb-24">
-          <div className="text-center mb-16">
-              <div className="flex items-center justify-center gap-2 mb-2">
-                 <Sparkles size={16} className="text-blue-400 animate-pulse" />
-                 <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">{t.medical.tech_tag}</span>
-              </div>
-              <h3 className="text-3xl font-serif text-gray-900 mt-2 mb-4">{t.medical.tech_title}</h3>
-              <p className="text-gray-500 text-sm max-w-2xl mx-auto">{t.medical.tech_sub}</p>
+      {/* 3. Tech Section - 双列全屏背景图设计 */}
+      <div className="mb-0">
+          <div className="text-center py-20 bg-white">
+              <h3 className="text-3xl md:text-4xl font-serif text-gray-900 mb-3">{t.medical.tech_title}</h3>
+              <p className="text-gray-500 text-sm tracking-widest uppercase mb-6">Medical Equipment Lineup</p>
+              <p className="text-gray-600 text-sm max-w-2xl mx-auto px-4">{t.medical.tech_sub}</p>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <MedicalTechCard 
-                 img={SITE_IMAGES.tech_ct}
-                 title={t.medical.tech_ct_t}
-                 desc={t.medical.tech_ct_d}
-                 icon={Zap}
-                 colorClass="text-yellow-400"
-                 fallbackKey="tech_ct"
-                 spec1="Dual Layer Detector"
-                 spec2="Low Dose"
-              />
-              <MedicalTechCard 
-                 img={SITE_IMAGES.tech_mri}
-                 title={t.medical.tech_mri_t}
-                 desc={t.medical.tech_mri_d}
-                 icon={Brain}
-                 colorClass="text-purple-500"
-                 fallbackKey="tech_mri"
-                 spec1="AI Breath Sync"
-                 spec2="1.5T Ambition"
-              />
-              <MedicalTechCard 
-                 img={SITE_IMAGES.tech_endo}
-                 title={t.medical.tech_endo_t}
-                 desc={t.medical.tech_endo_d}
-                 icon={Eye}
-                 colorClass="text-green-500"
-                 fallbackKey="tech_endo"
-                 spec1="BLI Light"
-                 spec2="AI Diagnosis"
-              />
-              <MedicalTechCard 
-                 img={SITE_IMAGES.tech_dental}
-                 title={t.medical.tech_dental_t}
-                 desc={t.medical.tech_dental_d}
-                 icon={Smile}
-                 colorClass="text-blue-500"
-                 fallbackKey="tech_dental"
-                 spec1="3D Scanning"
-                 spec2="One-Day Treat"
-              />
+
+          {/* Row 1: CT + MRI */}
+          <div className="flex flex-col md:flex-row min-h-[50vh]">
+              {/* CT - Left */}
+              <div className="relative flex-1 min-h-[50vh] md:min-h-0 overflow-hidden group">
+                  <img
+                      src={getImage('tech_ct')}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      alt="CT Scanner"
+                      onError={(e) => handleSmartImageError(e, 'tech_ct')}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
+                  <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
+                      <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_ct_t}</h4>
+                      <p className="text-base text-white/80 leading-relaxed">{t.medical.tech_ct_d}</p>
+                  </div>
+              </div>
+              {/* MRI - Right */}
+              <div className="relative flex-1 min-h-[50vh] md:min-h-0 overflow-hidden group">
+                  <img
+                      src={getImage('tech_mri')}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      alt="MRI Scanner"
+                      onError={(e) => handleSmartImageError(e, 'tech_mri')}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
+                  <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
+                      <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_mri_t}</h4>
+                      <p className="text-base text-white/80 leading-relaxed">{t.medical.tech_mri_d}</p>
+                  </div>
+              </div>
+          </div>
+
+          {/* Row 2: Endoscopy + Dental */}
+          <div className="flex flex-col md:flex-row min-h-[50vh]">
+              {/* Endoscopy - Left */}
+              <div className="relative flex-1 min-h-[50vh] md:min-h-0 overflow-hidden group">
+                  <img
+                      src={getImage('tech_endo')}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      alt="Endoscopy"
+                      onError={(e) => handleSmartImageError(e, 'tech_endo')}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
+                  <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
+                      <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_endo_t}</h4>
+                      <p className="text-base text-white/80 leading-relaxed">{t.medical.tech_endo_d}</p>
+                  </div>
+              </div>
+              {/* Dental - Right */}
+              <div className="relative flex-1 min-h-[50vh] md:min-h-0 overflow-hidden group">
+                  <img
+                      src={getImage('tech_dental')}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      alt="Dental"
+                      onError={(e) => handleSmartImageError(e, 'tech_dental')}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
+                  <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
+                      <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_dental_t}</h4>
+                      <p className="text-base text-white/80 leading-relaxed">{t.medical.tech_dental_d}</p>
+                  </div>
+              </div>
+          </div>
+
+          {/* Row 3: Ultrasound + Mammography */}
+          <div className="flex flex-col md:flex-row min-h-[50vh]">
+              {/* Ultrasound - Left */}
+              <div className="relative flex-1 min-h-[50vh] md:min-h-0 overflow-hidden group">
+                  <img
+                      src={getImage('detail_echo')}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      alt="Ultrasound"
+                      onError={(e) => handleSmartImageError(e, 'detail_echo')}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
+                  <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
+                      <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.detail_echo_title}</h4>
+                      <p className="text-base text-white/80 leading-relaxed">{t.medical.detail_echo_desc}</p>
+                  </div>
+              </div>
+              {/* Mammography - Right */}
+              <div className="relative flex-1 min-h-[50vh] md:min-h-0 overflow-hidden group">
+                  <img
+                      src={getImage('detail_mammo')}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      alt="Mammography"
+                      onError={(e) => handleSmartImageError(e, 'detail_mammo')}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
+                  <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
+                      <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.detail_mammo_title}</h4>
+                      <p className="text-base text-white/80 leading-relaxed">{t.medical.detail_mammo_desc}</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      {/* 3.5. Facility & Rooms Section */}
+      <div className="mb-24">
+          <div className="text-center py-20 bg-white">
+              <h3 className="text-3xl md:text-4xl font-serif text-gray-900 mb-3">{t.medical.facility_title}</h3>
+              <p className="text-gray-500 text-sm tracking-widest uppercase mb-6">Facility & Rooms</p>
+              <p className="text-gray-600 text-sm max-w-2xl mx-auto px-4">{t.medical.facility_subtitle}</p>
+          </div>
+
+          <div className="space-y-0">
+              {/* Facility 1 - Center Interior */}
+              <div className="relative min-h-[60vh] flex items-center overflow-hidden">
+                  <img
+                      src={getImage('facility_center')}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      alt="Center Interior"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-transparent"></div>
+                  <div className="relative container mx-auto px-6 py-16">
+                      <div className="max-w-xl">
+                          <div className="flex items-center gap-3 mb-4">
+                              <div className="h-[1px] w-12 bg-amber-400"></div>
+                              <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">01</span>
+                          </div>
+                          <h4 className="text-3xl md:text-4xl text-white mb-6 font-serif">{t.medical.facility_1_title}</h4>
+                          <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_1_desc}</p>
+                          <div className="mt-6 flex gap-3">
+                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">4,000㎡</span>
+                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">Japan's Largest</span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              {/* Facility 2 - Reception */}
+              <div className="relative min-h-[60vh] flex items-center overflow-hidden">
+                  <img
+                      src={getImage('facility_reception')}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      alt="Reception"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-l from-slate-900/90 via-slate-900/70 to-transparent"></div>
+                  <div className="relative container mx-auto px-6 py-16">
+                      <div className="max-w-xl ml-auto text-right">
+                          <div className="flex items-center justify-end gap-3 mb-4">
+                              <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">02</span>
+                              <div className="h-[1px] w-12 bg-amber-400"></div>
+                          </div>
+                          <h4 className="text-3xl md:text-4xl text-white mb-6 font-serif">{t.medical.facility_2_title}</h4>
+                          <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_2_desc}</p>
+                          <div className="mt-6 flex justify-end gap-3">
+                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">Concierge</span>
+                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">Hospitality</span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              {/* Facility 3 - Private Suites */}
+              <div className="relative min-h-[60vh] flex items-center overflow-hidden">
+                  <img
+                      src={getImage('facility_room')}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      alt="Private Suite"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-transparent"></div>
+                  <div className="relative container mx-auto px-6 py-16">
+                      <div className="max-w-xl">
+                          <div className="flex items-center gap-3 mb-4">
+                              <div className="h-[1px] w-12 bg-amber-400"></div>
+                              <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">03</span>
+                          </div>
+                          <h4 className="text-3xl md:text-4xl text-white mb-6 font-serif">{t.medical.facility_3_title}</h4>
+                          <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_3_desc}</p>
+                          <div className="mt-6 flex gap-3 flex-wrap">
+                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">20 Rooms</span>
+                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">30㎡+</span>
+                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">Full Privacy</span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              {/* Facility 4 - Bathroom */}
+              <div className="relative min-h-[60vh] flex items-center overflow-hidden">
+                  <img
+                      src={getImage('facility_bathroom')}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      alt="Bathroom"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-l from-slate-900/90 via-slate-900/70 to-transparent"></div>
+                  <div className="relative container mx-auto px-6 py-16">
+                      <div className="max-w-xl ml-auto text-right">
+                          <div className="flex items-center justify-end gap-3 mb-4">
+                              <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">04</span>
+                              <div className="h-[1px] w-12 bg-amber-400"></div>
+                          </div>
+                          <h4 className="text-3xl md:text-4xl text-white mb-6 font-serif">{t.medical.facility_4_title}</h4>
+                          <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_4_desc}</p>
+                          <div className="mt-6 flex justify-end gap-3">
+                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">Luxury</span>
+                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">Full Amenities</span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
           </div>
       </div>
 
@@ -734,7 +895,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
   </div>
 );
 
-const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger }) => {
+const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, getImage }) => {
   // Default images as fallback - All URLs verified working
   const defaultPlanImages: Record<string, string> = {
     'hokkaido-summer': 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=1200&auto=format&fit=crop',
@@ -776,7 +937,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
       });
   }, []);
 
-  const getPlanImage = (id: string) => planImages[id] || defaultPlanImages[id] || SITE_IMAGES.golf_hero;
+  const getPlanImage = (id: string) => planImages[id] || defaultPlanImages[id] || getImage('golf_hero');
 
   // 合作球场数据（含官网链接）
   const partnerCourses = [
@@ -791,7 +952,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
   // 统计数据
   const stats = [
     { value: '25+', label: t.golf.stat_courses || '提携名門コース', sublabel: 'Premium Courses' },
-    { value: '100%', label: t.golf.stat_booking || '予約成功率', sublabel: 'Booking Success' },
+    { value: '98%+', label: t.golf.stat_booking || '予約成功率', sublabel: 'Booking Success' },
     { value: '1,500+', label: t.golf.stat_guests || '年間VIPゲスト', sublabel: 'Annual VIP Guests' },
     { value: '15年', label: t.golf.stat_experience || '業界経験', sublabel: 'Years Experience' },
   ];
@@ -803,7 +964,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
         {/* Background with Ken Burns effect */}
         <div className="absolute inset-0">
           <img
-              src={SITE_IMAGES.golf_hero}
+              src={getImage('golf_hero')}
               className="absolute inset-0 w-full h-full object-cover animate-kenburns-slow"
               alt="Golf Course"
               key="golf_hero"
@@ -1123,29 +1284,29 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
   );
 };
 
-const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger }) => {
+const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, getImage }) => {
    // CONFIGURATION: Map Plan IDs to Image URLs
-   // Easily add new plans/images here
+   // 所有图片均可通过数据库 site_images 表进行更换
    const planImages: Record<string, string> = {
-      'biz-plan-1': SITE_IMAGES.biz_auto,
-      'biz-plan-2': SITE_IMAGES.biz_tech,
-      'biz-plan-3': SITE_IMAGES.biz_retail,
-      'biz-plan-4': SITE_IMAGES.biz_medical,
-      'biz-plan-5': SITE_IMAGES.biz_food,
-      'biz-plan-6': SITE_IMAGES.biz_hospitality,
-      'biz-plan-7': SITE_IMAGES.biz_century,    // 百年企業經營哲學
-      'biz-plan-8': SITE_IMAGES.biz_precision,  // 精密製造與工匠精神
-      'biz-plan-9': SITE_IMAGES.biz_esg,        // ESG與永續經營
-      'biz-plan-10': SITE_IMAGES.biz_inamori,   // 稻盛和夫哲學
-      'biz-plan-11': SITE_IMAGES.biz_logistics, // 物流與供應鏈
-      'biz-plan-12': SITE_IMAGES.biz_agtech,    // 農業科技與食品安全
-      'biz-plan-13': SITE_IMAGES.biz_dx,        // 數位轉型DX
-      'biz-plan-14': SITE_IMAGES.biz_construction, // 建設與不動產
-      'biz-plan-15': SITE_IMAGES.biz_senior_care,   // 養老產業與銀髮經濟
-      'biz-plan-16': SITE_IMAGES.biz_senior_living, // 高端養老社區與認知症照護
+      'biz-plan-1': getImage('biz_auto'),
+      'biz-plan-2': getImage('biz_tech'),
+      'biz-plan-3': getImage('biz_retail'),
+      'biz-plan-4': getImage('biz_medical'),
+      'biz-plan-5': getImage('biz_food'),
+      'biz-plan-6': getImage('biz_hospitality'),
+      'biz-plan-7': getImage('biz_century'),    // 百年企業經營哲學
+      'biz-plan-8': getImage('biz_precision'),  // 精密製造與工匠精神
+      'biz-plan-9': getImage('biz_esg'),        // ESG與永續經營
+      'biz-plan-10': getImage('biz_inamori'),   // 稻盛和夫哲學
+      'biz-plan-11': getImage('biz_logistics'), // 物流與供應鏈
+      'biz-plan-12': getImage('biz_agtech'),    // 農業科技與食品安全
+      'biz-plan-13': getImage('biz_dx'),        // 數位轉型DX
+      'biz-plan-14': getImage('biz_construction'), // 建設與不動產
+      'biz-plan-15': getImage('biz_senior_care'),   // 養老產業與銀髮經濟
+      'biz-plan-16': getImage('biz_senior_living'), // 高端養老社區與認知症照護
    };
 
-   const getBizImage = (id: string) => planImages[id] || SITE_IMAGES.business_hero;
+   const getBizImage = (id: string) => planImages[id] || getImage('business_hero');
 
    return (
     <div className="animate-fade-in-up min-h-screen bg-white">
@@ -1741,7 +1902,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
    );
 };
 
-const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerInquiry }) => (
+const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerInquiry, getImage }) => (
   <div className="animate-fade-in-up min-h-screen bg-white">
      {/* Hero - Full height with transparent nav overlap */}
      <div className="relative min-h-[85vh] flex flex-col items-center justify-center overflow-hidden">
@@ -1824,12 +1985,11 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
 );
 
 // ... (HomeView remains largely the same but ensure no breaking changes) ...
-const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, currentLang, landingInputText, setLandingInputText, hideOfficialBranding }) => {
+const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, currentLang, landingInputText, setLandingInputText, hideOfficialBranding, getImage, imagesLoading }) => {
   // 获取佣金等级配置（用于动态显示分成比例）
   const { summary: commissionSummary } = useCommissionTiers();
 
-  // 从数据库获取网站图片配置
-  const { getImage } = useSiteImages();
+  // 注意：getImage 函数现在从父组件传入，支持数据库配置的图片
 
   // 首页轮播图配置 - 竞拍展位系统
   // 每周竞拍一次，起价 20,000 日币，轮播 3 张图
@@ -1843,7 +2003,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       imageUrl: getImage('hero_slide_1', 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2000&auto=format&fit=crop'),
       ctaText: currentLang === 'zh-TW' ? '諮詢治療方案' : currentLang === 'ja' ? '治療相談' : 'Consult Now',
       ctaLink: '/cancer-treatment',
-      overlayColor: 'rgba(139, 0, 50, 0.5)',
+      overlayColor: 'rgba(30, 60, 114, 0.5)',
       textPosition: 'center',
       advertiser: 'NIIJIMA',
     },
@@ -1877,13 +2037,23 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
   return (
   <div className="animate-fade-in-up pt-0 bg-white">
       {/* 1. Hero Carousel - 竞拍展位轮播图 */}
-      <HeroCarousel
-        slides={heroSlides}
-        autoPlayInterval={6000}
-        showIndicators={true}
-        showArrows={true}
-        height="85vh"
-      />
+      {/* 图片从数据库加载，加载中显示骨架屏 */}
+      {imagesLoading ? (
+        <div className="relative h-[85vh] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
+          <div className="text-center">
+            <div className="w-16 h-16 border-4 border-white/20 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-white/60 text-sm">Loading...</p>
+          </div>
+        </div>
+      ) : (
+        <HeroCarousel
+          slides={heroSlides}
+          autoPlayInterval={6000}
+          showIndicators={true}
+          showArrows={true}
+          height="85vh"
+        />
+      )}
 
       {/* 2. ニュースルーム - JTB风格列表式设计 */}
       <section className="py-20 bg-[#fafafa]">
@@ -2415,68 +2585,111 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
         </div>
       </section>
 
-      {/* 9. 導遊合作 - 白标模式下隐藏 */}
+      {/* 9. 導遊合作 - 沉浸式全屏背景，与其他板块风格统一 */}
       {!hideOfficialBranding && (
-      <section id="guide-partner" className="py-20 bg-[#0a0a0a] text-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              {/* Left: Text */}
-              <div>
-                <p className="text-[10px] tracking-[0.3em] text-gray-500 uppercase mb-3">Partnership</p>
-                <h2 className="serif text-2xl md:text-3xl text-white mb-6 tracking-wide">
-                  {t.guidePartner?.title || '導遊合夥人計劃'}
-                </h2>
-                <p className="text-gray-400 text-sm leading-relaxed mb-8">
-                  {currentLang === 'zh-TW'
-                    ? '作為日本第二類旅行社，我們為在日導遊提供高端夜總會、精密體檢、綜合醫療等獨家資源對接。無需旅行社資質，階梯返金最高20%。'
-                    : '第二種旅行業者として、在日ガイドの皆様に高級クラブ、精密健診、総合医療などの独占リソースを提供。最大20%のコミッション。'}
-                </p>
-                <div className="flex items-center gap-8 mb-8">
-                  <div>
-                    <div className="text-3xl font-light text-white">¥50万<span className="text-lg">+</span></div>
-                    <div className="text-[10px] text-gray-500 tracking-wider">{currentLang === 'zh-TW' ? '月均收入' : '月平均収入'}</div>
-                  </div>
-                  <div className="w-[1px] h-12 bg-gray-700"></div>
-                  <div>
-                    <div className="text-3xl font-light text-white">{commissionSummary.maxRate}%</div>
-                    <div className="text-[10px] text-gray-500 tracking-wider">{currentLang === 'zh-TW' ? '最高返金' : '最大還元'}</div>
-                  </div>
-                </div>
-                <a
-                  href="/guide-partner"
-                  className="inline-flex items-center text-xs text-white border border-white/30 px-6 py-3 hover:bg-white hover:text-black transition-all tracking-wider"
-                >
-                  {t.guidePartner?.cta_detail || '了解詳情'}
-                  <ArrowRight size={14} className="ml-2" />
-                </a>
-              </div>
+      <section id="guide-partner" className="relative min-h-[90vh] flex items-center">
+        {/* 全屏背景图 */}
+        <div className="absolute inset-0">
+          <img
+            src={getImage('homepage_partner_bg', 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=2000&auto=format&fit=crop')}
+            alt="Partnership"
+            className="w-full h-full object-cover"
+          />
+          {/* 深紫色渐变，传达高端、信任 */}
+          <div className="absolute inset-0 bg-gradient-to-r from-violet-950/90 via-violet-950/70 to-transparent"></div>
+        </div>
 
-              {/* Right: Services */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-4 p-4 border border-gray-800 hover:border-gray-600 transition-colors">
-                  <Sparkles size={20} className="text-gray-500" />
-                  <div>
-                    <div className="text-sm text-white">{t.guidePartner?.service1_title || '高端夜總會'}</div>
-                    <div className="text-[10px] text-gray-500">160+ {currentLang === 'zh-TW' ? '店舖' : '店舗'}</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4 p-4 border border-gray-800 hover:border-gray-600 transition-colors">
-                  <HeartPulse size={20} className="text-gray-500" />
-                  <div>
-                    <div className="text-sm text-white">{t.guidePartner?.service2_title || 'TIMC精密體檢'}</div>
-                    <div className="text-[10px] text-gray-500">{currentLang === 'zh-TW' ? '大阪 JP Tower' : '大阪JPタワー'}</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4 p-4 border border-gray-800 hover:border-gray-600 transition-colors">
-                  <Dna size={20} className="text-gray-500" />
-                  <div>
-                    <div className="text-sm text-white">{t.guidePartner?.service3_title || '綜合醫療'}</div>
-                    <div className="text-[10px] text-gray-500">{currentLang === 'zh-TW' ? '幹細胞·抗衰' : '幹細胞・アンチエイジング'}</div>
-                  </div>
-                </div>
+        <div className="relative container mx-auto px-6 py-24">
+          <div className="max-w-2xl">
+            {/* 标签 */}
+            <div className="flex items-center gap-3 mb-8">
+              <div className="h-[1px] w-12 bg-violet-300"></div>
+              <span className="text-xs tracking-[0.3em] text-violet-300 uppercase">Partnership</span>
+            </div>
+
+            {/* 核心标题 */}
+            <h2 className="serif text-4xl md:text-6xl text-white mb-6 leading-tight">
+              {currentLang === 'zh-TW' ? '導遊提攜夥伴' : 'ガイドパートナー'}
+              <br />
+              <span className="text-violet-300">{currentLang === 'zh-TW' ? '客戶介紹計劃' : '顧客紹介プログラム'}</span>
+            </h2>
+
+            <p className="text-xl text-violet-100/80 mb-8 leading-relaxed font-light">
+              {currentLang === 'zh-TW'
+                ? '新島交通提供高端夜總會、精密體檢、綜合醫療等服務資源。您介紹客戶，我們提供服務，成功即有介紹報酬。'
+                : '新島交通は高級クラブ、精密健診、総合医療などのサービスを提供。お客様をご紹介いただき、成約時に紹介報酬をお支払いします。'}
+            </p>
+
+            {/* 核心数据 */}
+            <div className="grid grid-cols-2 gap-6 mb-10 py-8 border-y border-white/20">
+              <div>
+                <div className="text-4xl font-light text-white mb-1">160<span className="text-violet-300">+</span></div>
+                <div className="text-xs text-violet-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '合作店舖' : '提携店舗'}</div>
+              </div>
+              <div className="border-l border-white/20 pl-6">
+                <div className="text-4xl font-light text-white mb-1">3000<span className="text-violet-300">+</span></div>
+                <div className="text-xs text-violet-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : 'ご利用者様'}</div>
               </div>
             </div>
+
+            {/* 服务亮点标签 */}
+            <div className="flex flex-wrap gap-3 mb-10">
+              {[
+                currentLang === 'zh-TW' ? '高端夜總會' : '高級クラブ',
+                currentLang === 'zh-TW' ? 'TIMC精密體檢' : 'TIMC精密健診',
+                currentLang === 'zh-TW' ? '綜合醫療' : '総合医療',
+                currentLang === 'zh-TW' ? '幹細胞·抗衰' : '幹細胞・アンチエイジング'
+              ].map((tag, idx) => (
+                <span key={idx} className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a
+                href="/guide-partner"
+                className="inline-flex items-center justify-center px-8 py-4 bg-white text-violet-900 text-sm font-medium rounded-lg hover:bg-violet-50 transition-colors"
+              >
+                {currentLang === 'zh-TW' ? '了解詳情' : '詳細を見る'}
+                <ArrowRight size={16} className="ml-2" />
+              </a>
+              <a
+                href="/guide-partner/login"
+                className="inline-flex items-center justify-center px-8 py-4 border border-white/40 text-white text-sm rounded-lg hover:bg-white/10 transition-colors"
+              >
+                {currentLang === 'zh-TW' ? '夥伴登入' : 'パートナーログイン'}
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* 右下角：合作模式卡片（桌面端） */}
+        <div className="hidden lg:block absolute right-8 bottom-8 w-80">
+          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+            <h4 className="text-white font-medium mb-4">{currentLang === 'zh-TW' ? '合作模式' : '提携モデル'}</h4>
+            <div className="space-y-3">
+              {[
+                { name: currentLang === 'zh-TW' ? '您介紹客戶' : 'お客様をご紹介', desc: currentLang === 'zh-TW' ? '推薦有需求的客戶' : 'ニーズのあるお客様を' },
+                { name: currentLang === 'zh-TW' ? '新島提供服務' : '新島がサービス提供', desc: currentLang === 'zh-TW' ? '預約、接待、全程服務' : '予約・接客・全行程' },
+                { name: currentLang === 'zh-TW' ? '成功獲得報酬' : '成約で報酬', desc: currentLang === 'zh-TW' ? '每月結算介紹報酬' : '毎月紹介報酬を精算' },
+              ].map((item, idx) => (
+                <div key={idx} className="flex items-center gap-3 text-sm">
+                  <CheckCircle size={16} className="text-violet-300 flex-shrink-0" />
+                  <div>
+                    <span className="text-white">{item.name}</span>
+                    <span className="text-violet-200/60 ml-2">{item.desc}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {/* 法律声明 */}
+            <p className="text-[10px] text-violet-200/40 mt-4 pt-3 border-t border-white/10 leading-relaxed">
+              {currentLang === 'zh-TW'
+                ? '所有旅行服務由新島交通株式會社提供'
+                : '全ての旅行サービスは新島交通株式会社が提供'}
+            </p>
           </div>
         </div>
       </section>
@@ -2518,6 +2731,18 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
   // 白标模式
   const { isWhiteLabelMode, branding } = useWhiteLabel();
   const { hideOfficialBranding, hideGuidePartnerContent } = useWhiteLabelVisibility();
+
+  // 从数据库获取网站图片配置（支持后台管理更换图片）
+  const { getImage: getDbImage, loading: imagesLoading } = useSiteImages();
+
+  // 获取图片：优先从数据库获取，如果数据库没有则使用硬编码的默认值
+  // @param key - 图片标识符
+  // @param fallback - 可选的备用图片 URL（用于数据库和静态配置都没有的情况）
+  const getImage = (key: string, fallback?: string): string => {
+    const dbImage = getDbImage(key);
+    if (dbImage) return dbImage;
+    return DEFAULT_SITE_IMAGES[key] || fallback || FALLBACK_IMAGES[key] || FALLBACK_IMAGES.default;
+  };
 
   const t = translations[currentLang];
 
@@ -2632,13 +2857,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
               landingInputText={landingInputText}
               setLandingInputText={setLandingInputText}
               hideOfficialBranding={hideOfficialBranding}
+              getImage={getImage}
+              imagesLoading={imagesLoading}
             />
           )}
-          {currentPage === 'medical' && <MedicalView t={t} setCurrentPage={setCurrentPage} onOpenTIMCQuote={() => setShowTIMCQuoteModal(true)} currentLang={currentLang} />}
-          {currentPage === 'business' && <BusinessView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={() => router.push('/login')} currentLang={currentLang} />}
-          {currentPage === 'golf' && <GolfView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={() => router.push('/login')} currentLang={currentLang} />}
+          {currentPage === 'medical' && <MedicalView t={t} setCurrentPage={setCurrentPage} onOpenTIMCQuote={() => setShowTIMCQuoteModal(true)} currentLang={currentLang} getImage={getImage} />}
+          {currentPage === 'business' && <BusinessView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={() => router.push('/login')} currentLang={currentLang} getImage={getImage} />}
+          {currentPage === 'golf' && <GolfView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={() => router.push('/login')} currentLang={currentLang} getImage={getImage} />}
           {/* 白标模式下隐藏 Partner 页面（B2B 同业合作） */}
-          {currentPage === 'partner' && !hideGuidePartnerContent && <PartnerView t={t} setCurrentPage={setCurrentPage} onOpenPartnerInquiry={openPartnerInquiryModal} currentLang={currentLang} />}
+          {currentPage === 'partner' && !hideGuidePartnerContent && <PartnerView t={t} setCurrentPage={setCurrentPage} onOpenPartnerInquiry={openPartnerInquiryModal} currentLang={currentLang} getImage={getImage} />}
        </main>
 
        {/* Auth Modal */}
