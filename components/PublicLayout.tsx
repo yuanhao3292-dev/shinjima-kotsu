@@ -282,54 +282,73 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                 <h4 className="font-bold text-sm uppercase tracking-widest mb-6 text-gray-300">Links</h4>
                 <ul className="space-y-3 text-sm text-gray-400">
                   <li><Link href="/health-screening" className="hover:text-white transition">AI 健康篩查</Link></li>
-                  <li><Link href="/medical-packages" className="hover:text-white transition">健檢套餐</Link></li>
+                  <li><Link href="/?page=medical" className="hover:text-white transition">精密體檢</Link></li>
+                  <li><Link href="/company/about" className="hover:text-white transition">公司介紹</Link></li>
                   <li><Link href="/faq" className="hover:text-white transition">常見問題</Link></li>
                   <li><Link href="/login" className="hover:text-white transition">會員登入</Link></li>
                 </ul>
               </div>
 
-              {/* Column 4: Contact - 白标模式显示导游联系方式 */}
+              {/* Column 4: Contact - 白标模式显示导游联系方式，官方模式显示完整公司信息 */}
               <div>
                 <h4 className="font-bold text-sm uppercase tracking-widest mb-6 text-gray-300">Contact</h4>
                 <ul className="space-y-3 text-sm text-gray-400">
-                  {/* 邮箱 */}
-                  <li className="flex items-center gap-2">
-                    <Mail size={14} />
-                    <span>{contact.email || 'info@niijima-koutsu.jp'}</span>
-                  </li>
-                  {/* 电话 */}
-                  {contact.phone && (
-                    <li className="flex items-center gap-2">
-                      <Phone size={14} />
-                      <span>{contact.phone}</span>
-                    </li>
-                  )}
-                  {/* 微信 - 白标模式显示 */}
-                  {contact.wechat && (
-                    <li className="flex items-center gap-2">
-                      <MessageCircle size={14} />
-                      <span>微信: {contact.wechat}</span>
-                    </li>
-                  )}
-                  {/* LINE - 白标模式显示 */}
-                  {contact.line && (
-                    <li className="flex items-center gap-2">
-                      <MessageCircle size={14} />
-                      <span>LINE: {contact.line}</span>
-                    </li>
-                  )}
-                  {/* 官方模式显示地址 */}
-                  {!hideOfficialBranding && (
-                    <li className="flex items-center gap-2">
-                      <MapPin size={14} />
-                      <span>大阪市中央区</span>
-                    </li>
+                  {hideOfficialBranding ? (
+                    // 白标模式：显示导游联系方式
+                    <>
+                      <li className="flex items-center gap-2">
+                        <Mail size={14} />
+                        <span>{contact.email || 'info@niijima-koutsu.jp'}</span>
+                      </li>
+                      {contact.phone && (
+                        <li className="flex items-center gap-2">
+                          <Phone size={14} />
+                          <span>{contact.phone}</span>
+                        </li>
+                      )}
+                      {contact.wechat && (
+                        <li className="flex items-center gap-2">
+                          <MessageCircle size={14} />
+                          <span>微信: {contact.wechat}</span>
+                        </li>
+                      )}
+                      {contact.line && (
+                        <li className="flex items-center gap-2">
+                          <MessageCircle size={14} />
+                          <span>LINE: {contact.line}</span>
+                        </li>
+                      )}
+                    </>
+                  ) : (
+                    // 官方模式：显示完整公司信息
+                    <>
+                      <li className="flex items-center gap-2">
+                        <Mail size={14} />
+                        <span>haoyuan@niijima-koutsu.jp</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Phone size={14} />
+                        <span>06-6632-8807</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <MapPin size={14} />
+                        <span>〒556-0014 大阪府大阪市浪速区大国1-2-21-602</span>
+                      </li>
+                      <li className="flex items-start gap-2 mt-2">
+                        <span className="text-xs text-gray-500">大阪府知事登録旅行業 第2-3115号</span>
+                      </li>
+                    </>
                   )}
                 </ul>
               </div>
             </div>
 
             <div className="border-t border-gray-800 pt-8 text-center text-gray-500 text-xs">
+              {/* 法律必须显示的信息 - 无论何种模式都必须显示 */}
+              <div className="mb-4 text-gray-400">
+                <p>本サービスは新島交通株式会社が提供しています</p>
+                <p className="mt-1">大阪府知事登録旅行業 第2-3115号 ｜ 一般社団法人 日本旅行業協会（JATA）正会員</p>
+              </div>
               <div className="flex flex-wrap justify-center gap-4 mb-4">
                 <Link href="/legal/tokushoho" className="hover:text-white transition">
                   特定商取引法に基づく表記

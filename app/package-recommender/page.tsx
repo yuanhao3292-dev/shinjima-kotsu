@@ -923,7 +923,7 @@ export default function PackageRecommenderPage() {
                 </div>
               </div>
               <div className="space-y-4">
-                <a href={`/medical-packages/${recommendation.packageSlug}`} className="block w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-xl transition-colors text-center">查看套餐詳情並預約</a>
+                <a href="/?page=medical" className="block w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-xl transition-colors text-center">查看精密體檢</a>
                 <button onClick={() => { setShowResult(false); setCurrentStep(0); setAnswers({}); }} className="block w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3 px-6 rounded-xl transition-colors text-center">重新測試</button>
                 <Link href="/" className="block w-full text-center text-gray-500 hover:text-gray-700 py-2 transition-colors">查看所有套餐</Link>
               </div>

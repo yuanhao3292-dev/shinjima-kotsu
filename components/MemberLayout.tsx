@@ -67,7 +67,7 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center gap-8">
             <Link href="/" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">首頁</Link>
-            <Link href="/medical-packages" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">健檢套餐</Link>
+            <Link href="/?page=medical" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">精密體檢</Link>
             <Link href="/cancer-treatment" className="text-sm font-medium text-gray-600 hover:text-rose-600 transition">綜合治療</Link>
             <Link href="/health-screening" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">AI 健康篩查</Link>
             <Link href="/faq" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">常見問題</Link>
@@ -129,7 +129,7 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
               <div>
                 <h4 className="text-sm font-bold text-gray-300 uppercase tracking-wider mb-6">快速連結</h4>
                 <div className="space-y-3 text-sm text-gray-400">
-                  <Link href="/medical-packages" className="block hover:text-white transition">健檢套餐</Link>
+                  <Link href="/?page=medical" className="block hover:text-white transition">精密體檢</Link>
                   <Link href="/health-screening" className="block hover:text-white transition">AI 健康篩查</Link>
                   <Link href="/order-lookup" className="block hover:text-white transition">訂單查詢</Link>
                   <Link href="/faq" className="block hover:text-white transition">常見問題</Link>

@@ -6,15 +6,12 @@ import { translations, Language } from '../translations';
 import { UserProfile } from '../types';
 import { ArrowLeft, ArrowRight, CheckCircle, MapPin, Building, Activity, Shield, Armchair, FileText, Check, Brain, Eye, Zap, Coffee, Globe, ChevronDown, Smile, Heart, HeartPulse, Bus, Utensils, Quote, Lock, Trophy, Car, Bath, Handshake, Users, Briefcase, Mail, X, Menu, LogIn, Phone, Loader2, User, Sparkles, Scan, Cpu, Microscope, Dna, Monitor, Fingerprint, Printer, Map, Star, Award, MessageSquare, Bot, Factory, Stethoscope, ExternalLink } from 'lucide-react';
 import emailjs from '@emailjs/browser';
-import IntroParticles from './IntroParticles';
 import HeroCarousel, { CarouselSlide } from './HeroCarousel';
-import MedicalDNA from './MedicalDNA';
-import BusinessNetwork from './BusinessNetwork';
-import PartnerParticles from './PartnerParticles';
 import TestimonialWall from './TestimonialWall';
 import PackageComparisonTable from './PackageComparisonTable';
 import TIMCQuoteModal from './TIMCQuoteModal';
 import PublicLayout from './PublicLayout';
+import ContactButtons from './ContactButtons';
 import { useWhiteLabel, useWhiteLabelVisibility } from '@/lib/contexts/WhiteLabelContext';
 import { useCommissionTiers } from '@/lib/hooks/useCommissionTiers';
 import { useSiteImages } from '@/lib/hooks/useSiteImages';
@@ -43,6 +40,17 @@ const SITE_IMAGES = {
   biz_medical: "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=1000&auto=format&fit=crop", // Plan 4: Medical/Healthcare
   biz_food: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=1000&auto=format&fit=crop", // Plan 5: Food/Beverage Factory
   biz_hospitality: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1000&auto=format&fit=crop", // Plan 6: Hotel/Hospitality
+  // New Business Plans (biz-plan-7 to biz-plan-14)
+  biz_century: "https://images.unsplash.com/photo-1480796927426-f609979314bd?q=80&w=1000&auto=format&fit=crop", // Plan 7: Century-old Companies (Kyoto Temple)
+  biz_precision: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1000&auto=format&fit=crop", // Plan 8: Precision Manufacturing
+  biz_esg: "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?q=80&w=1000&auto=format&fit=crop", // Plan 9: ESG/Sustainability
+  biz_inamori: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=80&w=1000&auto=format&fit=crop", // Plan 10: Inamori Philosophy (Kyoto)
+  biz_logistics: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1000&auto=format&fit=crop", // Plan 11: Logistics/Supply Chain
+  biz_agtech: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=1000&auto=format&fit=crop", // Plan 12: AgTech/Food Safety
+  biz_dx: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop", // Plan 13: Digital Transformation
+  biz_construction: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1000&auto=format&fit=crop", // Plan 14: Construction/Real Estate
+  biz_senior_care: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?q=80&w=1000&auto=format&fit=crop", // Plan 15: Senior Care Industry
+  biz_senior_living: "https://images.unsplash.com/photo-1559234938-b60fff04894d?q=80&w=1000&auto=format&fit=crop", // Plan 16: Senior Living & Dementia Care
 
   // Home Page Previews
   home_medical_preview: "https://images.unsplash.com/photo-1531297461136-82ae96c51248?q=80&w=1000&auto=format&fit=crop", 
@@ -53,7 +61,7 @@ const SITE_IMAGES = {
 
   // MOBILE FALLBACKS (Updated by User Request)
   mobile_medical_fallback: "https://i.ibb.co/TDYnsXBb/013-2.jpg", 
-  mobile_business_fallback: "https://i.ibb.co/SjSf9JB/Gemini-Generated-Image-l2elrzl2elrzl2el-1.jpg"  
+  mobile_business_fallback: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1200&auto=format&fit=crop"  
 };
 
 const FALLBACK_IMAGES: Record<string, string> = {
@@ -75,7 +83,17 @@ const FALLBACK_IMAGES: Record<string, string> = {
   biz_medical: "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=800&auto=format&fit=crop",
   biz_food: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=800&auto=format&fit=crop",
   biz_hospitality: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop",
-  
+  biz_century: "https://images.unsplash.com/photo-1480796927426-f609979314bd?q=80&w=800&auto=format&fit=crop",
+  biz_precision: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop",
+  biz_esg: "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?q=80&w=800&auto=format&fit=crop",
+  biz_inamori: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=80&w=800&auto=format&fit=crop",
+  biz_logistics: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop",
+  biz_agtech: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop",
+  biz_dx: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
+  biz_construction: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=800&auto=format&fit=crop",
+  biz_senior_care: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?q=80&w=800&auto=format&fit=crop",
+  biz_senior_living: "https://images.unsplash.com/photo-1559234938-b60fff04894d?q=80&w=800&auto=format&fit=crop",
+
   founder_portrait: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop",
   default: "https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=800&auto=format&fit=crop"
 };
@@ -115,30 +133,6 @@ interface SubViewProps {
   // 白标模式：隐藏官方品牌内容
   hideOfficialBranding?: boolean;
 }
-
-// Hook to detect mobile screen - ensures stable rendering switch
-// 使用节流优化 resize 事件
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    const check = () => {
-      // 清除之前的定时器，实现节流
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        setIsMobile(window.innerWidth < 768);
-      }, 150); // 150ms 节流
-    };
-    // 初始检查
-    setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', check, { passive: true });
-    return () => {
-      window.removeEventListener('resize', check);
-      clearTimeout(timeoutId);
-    };
-  }, []);
-  return isMobile;
-};
 
 // --- NEW COMPONENT: AI Tech Card (Used in Sub-views) ---
 // 使用 React.memo 优化渲染性能
@@ -428,7 +422,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> PET/CT: 全身癌症掃描</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> 尊享: 個室使用・精緻餐券×2</div>
                   </div>
-                  <a href="/medical-packages/vip-member-course" className="w-full py-2 bg-yellow-500 text-black text-xs font-bold rounded hover:bg-yellow-400 transition text-center block">立即下單</a>
+                  <button onClick={onOpenTIMCQuote} className="w-full py-2 bg-yellow-500 text-black text-xs font-bold rounded hover:bg-yellow-400 transition text-center block">立即諮詢</button>
               </div>
 
               {/* 2. PREMIUM (Cardiac) */}
@@ -449,7 +443,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> 血液: NTproBNP・心肌蛋白T・CPK</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> 機能: ABI/CAVI (血管年齡)</div>
                    </div>
-                   <a href="/medical-packages/premium-cardiac-course" className="w-full py-2 border border-blue-200 text-blue-600 text-xs font-bold rounded hover:bg-blue-50 transition text-center block">立即下單</a>
+                   <button onClick={onOpenTIMCQuote} className="w-full py-2 border border-blue-200 text-blue-600 text-xs font-bold rounded hover:bg-blue-50 transition text-center block">立即諮詢</button>
               </div>
 
               {/* 3. SELECT (Gastro + Colon) */}
@@ -470,7 +464,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> 感染: 幽門螺旋桿菌抗體</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> 血液: 消化道腫瘤標誌物</div>
                    </div>
-                   <a href="/medical-packages/select-gastro-colonoscopy" className="w-full py-2 border border-green-200 text-green-600 text-xs font-bold rounded hover:bg-green-50 transition text-center block">立即下單</a>
+                   <button onClick={onOpenTIMCQuote} className="w-full py-2 border border-green-200 text-green-600 text-xs font-bold rounded hover:bg-green-50 transition text-center block">立即諮詢</button>
               </div>
 
               {/* 4. SELECT (Stomach only) */}
@@ -491,7 +485,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> 血液: 胃癌風險指標・腫瘤標誌物</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> 基礎: 身體測量・視力聽力・心電圖</div>
                    </div>
-                   <a href="/medical-packages/select-gastroscopy" className="w-full py-2 border border-teal-200 text-teal-600 text-xs font-bold rounded hover:bg-teal-50 transition text-center block">立即下單</a>
+                   <button onClick={onOpenTIMCQuote} className="w-full py-2 border border-teal-200 text-teal-600 text-xs font-bold rounded hover:bg-teal-50 transition text-center block">立即諮詢</button>
               </div>
 
               {/* 5. DWIBS */}
@@ -512,7 +506,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> 特點: 無輻射・無痛・非侵入</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> 基礎: 身體測量・視力聽力・心電圖</div>
                    </div>
-                   <a href="/medical-packages/dwibs-cancer-screening" className="w-full py-2 border border-purple-200 text-purple-600 text-xs font-bold rounded hover:bg-purple-50 transition text-center block">立即下單</a>
+                   <button onClick={onOpenTIMCQuote} className="w-full py-2 border border-purple-200 text-purple-600 text-xs font-bold rounded hover:bg-purple-50 transition text-center block">立即諮詢</button>
               </div>
 
               {/* 6. BASIC */}
@@ -533,7 +527,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> 檢體: 尿液・便潛血(2日法)</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> 歯科: 口腔掃描・X線・餐券</div>
                    </div>
-                   <a href="/medical-packages/basic-checkup" className="w-full py-2 border border-gray-300 text-gray-600 text-xs font-bold rounded hover:bg-gray-100 transition text-center block">立即下單</a>
+                   <button onClick={onOpenTIMCQuote} className="w-full py-2 border border-gray-300 text-gray-600 text-xs font-bold rounded hover:bg-gray-100 transition text-center block">立即諮詢</button>
               </div>
 
           </div>
@@ -547,7 +541,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           </div>
           <div className="max-w-7xl mx-auto px-4">
               <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-                  <PackageComparisonTable />
+                  <PackageComparisonTable onBookNow={onOpenTIMCQuote} />
               </div>
           </div>
       </div>
@@ -721,8 +715,18 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           </div>
       </div>
 
+      {/* Contact Buttons */}
+      <div className="py-12 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="max-w-2xl mx-auto text-center">
+            <h3 className="text-lg font-bold text-gray-900 mb-4">其他諮詢方式</h3>
+            <ContactButtons />
+          </div>
+        </div>
+      </div>
+
       <div className="text-center py-12">
-         <button onClick={() => setCurrentPage('home')} className="mt-8 inline-flex items-center gap-2 text-gray-500 hover:text-black transition">
+         <button onClick={() => setCurrentPage('home')} className="inline-flex items-center gap-2 text-gray-500 hover:text-black transition">
             <ArrowLeft size={16} /> {t.about.back}
          </button>
       </div>
@@ -731,16 +735,48 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
 );
 
 const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger }) => {
-  // CONFIGURATION: Map Plan IDs to Image URLs - 5 Professional Tour Plans
-  const planImages: Record<string, string> = {
-    'jgto-championship': 'https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=1200&auto=format&fit=crop', // Classic green course
-    'kansai-masters': 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=1200&auto=format&fit=crop', // Scenic course view
-    'fuji-masters-tour': 'https://i.ibb.co/B2L1nxdg/2025-12-16-16-36-41.png', // Mt. Fuji spectacular
-    'lpga-ladies-tour': 'https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?q=80&w=1200&auto=format&fit=crop', // Golfer swing
-    'grand-slam-9days': 'https://images.unsplash.com/photo-1592919505780-303950717480?q=80&w=1200&auto=format&fit=crop', // Championship trophy/elite
+  // Default images as fallback - All URLs verified working
+  const defaultPlanImages: Record<string, string> = {
+    'hokkaido-summer': 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=1200&auto=format&fit=crop',
+    'hokkaido-niseko': 'https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=1200&auto=format&fit=crop',
+    'hokkaido-premium': 'https://images.unsplash.com/photo-1592919505780-303950717480?q=80&w=1200&auto=format&fit=crop',
+    'okinawa-resort': 'https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?q=80&w=1200&auto=format&fit=crop',
+    'okinawa-island-hop': 'https://images.unsplash.com/photo-1596727362302-b8d891c42ab8?q=80&w=1200&auto=format&fit=crop',
+    'kyushu-onsen': 'https://images.unsplash.com/photo-1611374243147-44a702c2d44c?q=80&w=1200&auto=format&fit=crop',
+    'kyushu-championship': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=1200&auto=format&fit=crop',
+    'kyushu-grand': 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=1200&auto=format&fit=crop',
+    'chugoku-sanyo': 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?q=80&w=1200&auto=format&fit=crop',
+    'chugoku-sanin': 'https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=1200&auto=format&fit=crop',
+    'shikoku-pilgrimage': 'https://images.unsplash.com/photo-1589308078059-be1415eab4c3?q=80&w=1200&auto=format&fit=crop',
+    'shikoku-seto': 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=1200&auto=format&fit=crop',
+    'kansai-championship': 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=1200&auto=format&fit=crop',
+    'kansai-kyoto': 'https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=1200&auto=format&fit=crop',
+    'kansai-hirono': 'https://images.unsplash.com/photo-1592919505780-303950717480?q=80&w=1200&auto=format&fit=crop',
+    'tokyo-championship': 'https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?q=80&w=1200&auto=format&fit=crop',
+    'tokyo-fuji': 'https://images.unsplash.com/photo-1596727362302-b8d891c42ab8?q=80&w=1200&auto=format&fit=crop',
+    'tokyo-historic': 'https://images.unsplash.com/photo-1611374243147-44a702c2d44c?q=80&w=1200&auto=format&fit=crop',
+    'chubu-alps': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=1200&auto=format&fit=crop',
+    'chubu-nagoya': 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=1200&auto=format&fit=crop',
   };
 
-  const getPlanImage = (id: string) => planImages[id] || SITE_IMAGES.golf_hero;
+  // State for dynamic images from database
+  const [planImages, setPlanImages] = useState<Record<string, string>>(defaultPlanImages);
+
+  // Fetch images from API (database) on mount
+  useEffect(() => {
+    fetch('/api/golf-plan-images')
+      .then(res => res.json())
+      .then(data => {
+        if (data && typeof data === 'object') {
+          setPlanImages(prev => ({ ...prev, ...data }));
+        }
+      })
+      .catch(err => {
+        console.warn('Failed to fetch golf plan images from API:', err);
+      });
+  }, []);
+
+  const getPlanImage = (id: string) => planImages[id] || defaultPlanImages[id] || SITE_IMAGES.golf_hero;
 
   // 合作球场数据（含官网链接）
   const partnerCourses = [
@@ -1055,15 +1091,6 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
                            ))}
                         </div>
                      </div>
-
-                     {/* CTA Button - Gold Gradient */}
-                     <button
-                        onClick={onLoginTrigger}
-                        className="group relative px-10 py-4 bg-gradient-to-r from-emerald-800 to-emerald-700 text-white font-bold rounded-full overflow-hidden transition-all duration-300 hover:shadow-xl flex items-center gap-3"
-                     >
-                        <span>{t.golf.cta_btn}</span>
-                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                     </button>
                   </div>
                </div>
             ))}
@@ -1071,66 +1098,19 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger })
        </div>
      </div>
 
-     {/* ===== FINAL CTA - Luxury Design ===== */}
-     <div className="relative py-24 overflow-hidden">
-       {/* Background Image with Overlay */}
-       <div className="absolute inset-0">
-         <img
-           src="https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=2000&auto=format&fit=crop"
-           className="w-full h-full object-cover"
-           alt="Golf Background"
-         />
-         <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/95 via-emerald-900/90 to-emerald-950/95"></div>
-       </div>
-
-       {/* Content */}
-       <div className="container mx-auto px-6 relative z-10">
-         <div className="max-w-3xl mx-auto text-center">
-           {/* Gold decorative element */}
-           <div className="flex justify-center mb-8">
-             <div className="w-20 h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
-           </div>
-
-           <h3 className="text-4xl md:text-5xl font-serif text-white mb-6">{t.golf.cta_title}</h3>
-           <p className="text-white/60 text-lg mb-10 leading-relaxed whitespace-pre-line">{t.golf.cta_desc}</p>
-
-           {/* Premium CTA Button */}
-           <button
-             onClick={onLoginTrigger}
-             className="group relative inline-flex items-center gap-3 px-12 py-5 overflow-hidden rounded-full transition-all duration-500"
-           >
-             {/* Animated border */}
-             <span className="absolute inset-0 rounded-full bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 p-[2px]">
-               <span className="absolute inset-[2px] rounded-full bg-emerald-900"></span>
-             </span>
-             <span className="relative z-10 flex items-center gap-3 text-white font-bold">
-               <Sparkles size={20} className="text-amber-400" />
-               {t.golf.cta_btn}
-               <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
-             </span>
-           </button>
-
-           {/* Trust badges */}
-           <div className="mt-12 flex flex-wrap justify-center gap-6 text-white/40 text-sm">
-             <span className="flex items-center gap-2">
-               <Shield size={16} />
-               Licensed Travel Agency
-             </span>
-             <span className="flex items-center gap-2">
-               <Users size={16} />
-               1,500+ VIP Clients
-             </span>
-             <span className="flex items-center gap-2">
-               <Award size={16} />
-               15 Years Experience
-             </span>
-           </div>
+     {/* Contact Buttons */}
+     <div className="py-16 bg-white">
+       <div className="container mx-auto px-6">
+         <div className="max-w-2xl mx-auto text-center">
+           <h3 className="text-2xl font-serif font-bold text-gray-900 mb-2">開始您的高爾夫之旅</h3>
+           <p className="text-gray-500 mb-8">專業球場預約・VIP禮遇・全程陪同</p>
+           <ContactButtons />
          </div>
        </div>
      </div>
 
      {/* Back to Home */}
-     <div className="py-12 bg-[#FAFAF8]">
+     <div className="py-8 bg-[#FAFAF8]">
        <button
          onClick={() => setCurrentPage('home')}
          className="w-full text-center text-gray-400 hover:text-emerald-600 transition-colors flex justify-center items-center gap-2 group"
@@ -1153,6 +1133,16 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
       'biz-plan-4': SITE_IMAGES.biz_medical,
       'biz-plan-5': SITE_IMAGES.biz_food,
       'biz-plan-6': SITE_IMAGES.biz_hospitality,
+      'biz-plan-7': SITE_IMAGES.biz_century,    // 百年企業經營哲學
+      'biz-plan-8': SITE_IMAGES.biz_precision,  // 精密製造與工匠精神
+      'biz-plan-9': SITE_IMAGES.biz_esg,        // ESG與永續經營
+      'biz-plan-10': SITE_IMAGES.biz_inamori,   // 稻盛和夫哲學
+      'biz-plan-11': SITE_IMAGES.biz_logistics, // 物流與供應鏈
+      'biz-plan-12': SITE_IMAGES.biz_agtech,    // 農業科技與食品安全
+      'biz-plan-13': SITE_IMAGES.biz_dx,        // 數位轉型DX
+      'biz-plan-14': SITE_IMAGES.biz_construction, // 建設與不動產
+      'biz-plan-15': SITE_IMAGES.biz_senior_care,   // 養老產業與銀髮經濟
+      'biz-plan-16': SITE_IMAGES.biz_senior_living, // 高端養老社區與認知症照護
    };
 
    const getBizImage = (id: string) => planImages[id] || SITE_IMAGES.business_hero;
@@ -1732,6 +1722,15 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
              </div>
           </div>
           
+          {/* Contact Buttons */}
+          <div className="py-16 bg-gray-50 -mx-6 px-6 mt-16">
+            <div className="max-w-2xl mx-auto text-center">
+              <h3 className="text-2xl font-serif font-bold text-gray-900 mb-2">開始您的商務考察</h3>
+              <p className="text-gray-500 mb-8">專業行程定制・企業參訪安排・全程翻譯陪同</p>
+              <ContactButtons />
+            </div>
+          </div>
+
           <div className="text-center mt-12">
              <button onClick={() => setCurrentPage('home')} className="flex items-center gap-2 mx-auto text-gray-500 hover:text-black transition">
                 <ArrowLeft size={16} /> {t.about.back}
@@ -1826,9 +1825,6 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
 
 // ... (HomeView remains largely the same but ensure no breaking changes) ...
 const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, currentLang, landingInputText, setLandingInputText, hideOfficialBranding }) => {
-  // STRICT JS MOBILE DETECTION
-  const isMobile = useIsMobile();
-
   // 获取佣金等级配置（用于动态显示分成比例）
   const { summary: commissionSummary } = useCommissionTiers();
 
@@ -1840,14 +1836,26 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
   // 图片从数据库 site_images 表读取，可在后台管理
   const heroSlides: CarouselSlide[] = [
     {
+      id: 'cancer-treatment',
+      title: currentLang === 'zh-TW' ? '日本尖端癌症治療' : currentLang === 'ja' ? '日本最先端がん治療' : 'Japan Advanced Cancer Treatment',
+      subtitle: currentLang === 'zh-TW' ? '質子重離子 / 光免疫 / BNCT' : currentLang === 'ja' ? '陽子線・光免疫・BNCT' : 'Proton / Photoimmunotherapy / BNCT',
+      description: currentLang === 'zh-TW' ? '全球領先的癌症治療技術，精準打擊癌細胞' : currentLang === 'ja' ? '世界最先端の治療技術でがん細胞を狙い撃ち' : 'World-leading technology for precise cancer treatment',
+      imageUrl: getImage('hero_slide_1', 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2000&auto=format&fit=crop'),
+      ctaText: currentLang === 'zh-TW' ? '諮詢治療方案' : currentLang === 'ja' ? '治療相談' : 'Consult Now',
+      ctaLink: '/cancer-treatment',
+      overlayColor: 'rgba(139, 0, 50, 0.5)',
+      textPosition: 'center',
+      advertiser: 'NIIJIMA',
+    },
+    {
       id: 'timc-health-checkup',
       title: currentLang === 'zh-TW' ? '日本 TIMC 精密體檢' : currentLang === 'ja' ? '日本TIMC精密健診' : 'Japan TIMC Premium Checkup',
       subtitle: currentLang === 'zh-TW' ? '德洲會國際醫療中心' : currentLang === 'ja' ? '徳洲会国際医療センター' : 'Tokushukai International Medical Center',
       description: currentLang === 'zh-TW' ? 'PET-CT / MRI / 胃腸鏡 - 早期發現，守護健康' : currentLang === 'ja' ? 'PET-CT / MRI / 胃腸内視鏡 - 早期発見で健康を守る' : 'PET-CT / MRI / Endoscopy - Early Detection for Better Health',
-      imageUrl: getImage('hero_slide_1', 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg'),
-      mobileImageUrl: getImage('hero_slide_1_mobile', 'https://i.ibb.co/TDYnsXBb/013-2.jpg'),
+      imageUrl: getImage('hero_slide_2', 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg'),
+      mobileImageUrl: getImage('hero_slide_2_mobile', 'https://i.ibb.co/TDYnsXBb/013-2.jpg'),
       ctaText: currentLang === 'zh-TW' ? '了解詳情' : currentLang === 'ja' ? '詳細を見る' : 'Learn More',
-      ctaLink: '/medical-packages',
+      ctaLink: '/?page=medical',
       overlayColor: 'rgba(0, 50, 100, 0.5)',
       textPosition: 'center',
       advertiser: 'TIMC',
@@ -1857,22 +1865,10 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       title: currentLang === 'zh-TW' ? 'AI 智能健康檢測' : currentLang === 'ja' ? 'AI健康診断' : 'AI Health Screening',
       subtitle: currentLang === 'zh-TW' ? '3 分鐘了解您的健康風險' : currentLang === 'ja' ? '3分でリスクを把握' : '3-Minute Risk Assessment',
       description: currentLang === 'zh-TW' ? '基於 AI 的專業問診，為您推薦最適合的體檢方案' : currentLang === 'ja' ? 'AIによる問診で最適な健診プランをご提案' : 'AI-powered consultation for personalized health plans',
-      imageUrl: getImage('hero_slide_2', 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2000&auto=format&fit=crop'),
+      imageUrl: getImage('hero_slide_3', 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2000&auto=format&fit=crop'),
       ctaText: currentLang === 'zh-TW' ? '免費檢測' : currentLang === 'ja' ? '無料診断' : 'Free Screening',
       ctaLink: '/health-screening',
       overlayColor: 'rgba(30, 60, 114, 0.6)',
-      textPosition: 'center',
-      advertiser: 'NIIJIMA',
-    },
-    {
-      id: 'cancer-treatment',
-      title: currentLang === 'zh-TW' ? '日本尖端癌症治療' : currentLang === 'ja' ? '日本最先端がん治療' : 'Japan Advanced Cancer Treatment',
-      subtitle: currentLang === 'zh-TW' ? '質子重離子 / 光免疫 / BNCT' : currentLang === 'ja' ? '陽子線・光免疫・BNCT' : 'Proton / Photoimmunotherapy / BNCT',
-      description: currentLang === 'zh-TW' ? '全球領先的癌症治療技術，精準打擊癌細胞' : currentLang === 'ja' ? '世界最先端の治療技術でがん細胞を狙い撃ち' : 'World-leading technology for precise cancer treatment',
-      imageUrl: getImage('hero_slide_3', 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2000&auto=format&fit=crop'),
-      ctaText: currentLang === 'zh-TW' ? '諮詢治療方案' : currentLang === 'ja' ? '治療相談' : 'Consult Now',
-      ctaLink: '/cancer-treatment',
-      overlayColor: 'rgba(139, 0, 50, 0.5)',
       textPosition: 'center',
       advertiser: 'NIIJIMA',
     },
@@ -1889,510 +1885,664 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
         height="85vh"
       />
 
-      {/* NEW: AI Health Screening Entry Section - Prominent CTA */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-30 pointer-events-none">
-             <div className="absolute w-96 h-96 bg-blue-200 rounded-full filter blur-3xl top-0 left-1/4 -translate-x-1/2"></div>
-             <div className="absolute w-72 h-72 bg-purple-200 rounded-full filter blur-3xl bottom-0 right-1/4 translate-x-1/2"></div>
-          </div>
-
-          <div className="container mx-auto px-6 relative z-10">
-              <div className="max-w-4xl mx-auto text-center">
-                  {/* AI Badge */}
-                  <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-blue-200 px-4 py-2 rounded-full mb-6 shadow-sm">
-                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                      <span className="text-xs font-bold text-blue-700 uppercase tracking-wider">AI 智能健康評估</span>
-                      <Bot size={14} className="text-blue-600" />
-                  </div>
-
-                  <h2 className="text-3xl md:text-5xl font-serif font-bold text-gray-900 mb-6 leading-tight">
-                      {currentLang === 'zh-TW' ? (
-                          <>
-                              不確定是否需要赴日體檢？<br/>
-                              <span className="gemini-text">讓 AI 幫您分析</span>
-                          </>
-                      ) : currentLang === 'ja' ? (
-                          <>
-                              日本での健診が必要か分からない？<br/>
-                              <span className="gemini-text">AIが分析します</span>
-                          </>
-                      ) : (
-                          <>
-                              Not sure if you need a checkup in Japan?<br/>
-                              <span className="gemini-text">Let AI Analyze</span>
-                          </>
-                      )}
-                  </h2>
-
-                  <p className="text-gray-600 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
-                      {currentLang === 'zh-TW'
-                          ? '透過 3 分鐘的智能問答，AI 將根據您的健康狀況、家族病史、生活習慣等因素，評估您的疾病風險並推薦最適合的日本體檢方案。'
-                          : currentLang === 'ja'
-                          ? '3分間のAI問診で、健康状態・家族歴・生活習慣などを分析し、あなたに最適な健診プランをご提案します。'
-                          : 'Through a 3-minute AI assessment, we analyze your health status, family history, and lifestyle to recommend the most suitable Japan medical checkup package for you.'
-                      }
-                  </p>
-
-                  {/* Primary CTA Button */}
-                  <a
-                      href="/health-screening"
-                      className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white px-10 py-5 rounded-full text-lg font-bold hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 transition-all shadow-xl shadow-blue-200/50 hover:shadow-2xl hover:-translate-y-1 group"
-                  >
-                      <Scan className="w-6 h-6 group-hover:animate-pulse" />
-                      <span>{currentLang === 'zh-TW' ? '開始 AI 健康檢測' : currentLang === 'ja' ? 'AI健康診断を開始' : 'Start AI Health Screening'}</span>
-                      <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                  </a>
-
-                  {/* Trust Indicators */}
-                  <div className="flex flex-wrap justify-center gap-8 mt-10 text-sm text-gray-500">
-                      <div className="flex items-center gap-2">
-                          <Shield size={16} className="text-green-600" />
-                          <span>{currentLang === 'zh-TW' ? '隱私安全' : 'Privacy Protected'}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                          <CheckCircle size={16} className="text-blue-600" />
-                          <span>{currentLang === 'zh-TW' ? '免費評估' : 'Free Assessment'}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                          <Sparkles size={16} className="text-purple-600" />
-                          <span>{currentLang === 'zh-TW' ? '專業醫療團隊審核' : 'Medical Team Reviewed'}</span>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </section>
-
-      {/* NEW: Four Cards Navigation Section */}
-      <section className="py-16 bg-white">
-          <div className="container mx-auto px-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-
-                  {/* Card 1: AI Health Screening */}
-                  <a href="/health-screening" className="group bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform shadow-lg">
-                          <Scan size={24} />
-                      </div>
-                      <h3 className="text-lg font-serif font-bold text-gray-900 mb-2 group-hover:text-blue-700 transition-colors">
-                          {currentLang === 'zh-TW' ? 'AI 健康檢測' : currentLang === 'ja' ? 'AI健康診断' : 'AI Health Screening'}
-                      </h3>
-                      <p className="text-gray-500 text-sm leading-relaxed mb-3">
-                          {currentLang === 'zh-TW'
-                              ? '智能問診評估您的健康風險'
-                              : currentLang === 'ja'
-                              ? 'AI問診でリスク評価'
-                              : 'AI risk assessment'
-                          }
-                      </p>
-                      <span className="inline-flex items-center gap-1 text-blue-600 text-sm font-bold group-hover:gap-2 transition-all">
-                          {currentLang === 'zh-TW' ? '開始檢測' : 'Start'} <ArrowRight size={14} />
-                      </span>
-                  </a>
-
-                  {/* Card 2: Cancer Treatment - NEW */}
-                  <a href="/cancer-treatment" className="group bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-6 border border-rose-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-                      <div className="w-12 h-12 bg-gradient-to-br from-rose-500 to-pink-600 rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform shadow-lg">
-                          <HeartPulse size={24} />
-                      </div>
-                      <h3 className="text-lg font-serif font-bold text-gray-900 mb-2 group-hover:text-rose-700 transition-colors">
-                          {currentLang === 'zh-TW' ? '日本綜合治療' : currentLang === 'ja' ? 'がん総合治療' : 'Cancer Treatment'}
-                      </h3>
-                      <p className="text-gray-500 text-sm leading-relaxed mb-3">
-                          {currentLang === 'zh-TW'
-                              ? '質子重離子、光免疫、BNCT'
-                              : currentLang === 'ja'
-                              ? '陽子線・光免疫・BNCT'
-                              : 'Proton, Photoimmuno, BNCT'
-                          }
-                      </p>
-                      <span className="inline-flex items-center gap-1 text-rose-600 text-sm font-bold group-hover:gap-2 transition-all">
-                          {currentLang === 'zh-TW' ? '了解更多' : 'Learn More'} <ArrowRight size={14} />
-                      </span>
-                  </a>
-
-                  {/* Card 3: Package Recommender */}
-                  <a href="/package-recommender" className="group bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-                      <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform shadow-lg">
-                          <MessageSquare size={24} />
-                      </div>
-                      <h3 className="text-lg font-serif font-bold text-gray-900 mb-2 group-hover:text-green-700 transition-colors">
-                          {currentLang === 'zh-TW' ? '套餐智能推薦' : currentLang === 'ja' ? 'パッケージ推薦' : 'Package Recommender'}
-                      </h3>
-                      <p className="text-gray-500 text-sm leading-relaxed mb-3">
-                          {currentLang === 'zh-TW'
-                              ? '找到最適合您的健檢套餐'
-                              : currentLang === 'ja'
-                              ? '最適なプランをご提案'
-                              : 'Find your ideal package'
-                          }
-                      </p>
-                      <span className="inline-flex items-center gap-1 text-green-600 text-sm font-bold group-hover:gap-2 transition-all">
-                          {currentLang === 'zh-TW' ? '開始推薦' : 'Start'} <ArrowRight size={14} />
-                      </span>
-                  </a>
-
-                  {/* Card 4: Order Lookup */}
-                  <a href="/order-lookup" className="group bg-gradient-to-br from-gray-50 to-slate-50 rounded-2xl p-6 border border-gray-200 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-                      <div className="w-12 h-12 bg-gradient-to-br from-gray-600 to-slate-700 rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform shadow-lg">
-                          <FileText size={24} />
-                      </div>
-                      <h3 className="text-lg font-serif font-bold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors">
-                          {currentLang === 'zh-TW' ? '訂單查詢' : currentLang === 'ja' ? '予約確認' : 'Order Lookup'}
-                      </h3>
-                      <p className="text-gray-500 text-sm leading-relaxed mb-3">
-                          {currentLang === 'zh-TW'
-                              ? '查看您的預約狀態'
-                              : currentLang === 'ja'
-                              ? '予約状況を確認'
-                              : 'Check reservation status'
-                          }
-                      </p>
-                      <span className="inline-flex items-center gap-1 text-gray-600 text-sm font-bold group-hover:gap-2 transition-all">
-                          {currentLang === 'zh-TW' ? '查詢訂單' : 'Check'} <ArrowRight size={14} />
-                      </span>
-                  </a>
-
-              </div>
-          </div>
-      </section>
-
-    {/* Medical Preview Section */}
-    <section className="py-24 bg-white relative z-10">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row gap-16 items-center">
-          
-          {/* LEFT SIDE: HYBRID CARD */}
-          <div className="md:w-1/2 cursor-pointer group w-full" onClick={() => setCurrentPage('medical')}>
-            <div className="relative overflow-hidden rounded-3xl shadow-xl transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl bg-white border border-gray-100 h-[400px] md:h-[600px] w-full">
-                
-                {/* 1. 3D DNA/Cell Visualization Layer - DESKTOP ONLY (STRICT CHECK) */}
-                {!isMobile && (
-                  <div className="hidden md:block absolute inset-0 z-0">
-                      <MedicalDNA />
-                  </div>
-                )}
-
-                {/* 2. Static Fallback Image - MOBILE ONLY (STRICT CHECK) */}
-                {isMobile && (
-                  <div className="absolute inset-0 z-0">
-                      <img 
-                        src={SITE_IMAGES.mobile_medical_fallback} 
-                        className="w-full h-full object-cover animate-fade-in-up" 
-                        alt="Medical DNA Abstract" 
-                      />
-                      {/* Mobile Overlay to ensure text readability if needed */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent"></div>
-                  </div>
-                )}
-                
-                {/* 3. Interaction Prompt */}
-                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center gap-2 pointer-events-none">
-                   <span className="text-[10px] text-gray-400 font-mono uppercase tracking-widest bg-white/80 px-3 py-1 rounded-full backdrop-blur-sm border border-gray-100">Tap to Explore</span>
-                </div>
-
-            </div>
-          </div>
-
-          <div className="md:w-1/2 space-y-8">
-            <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">{t.medical.tag}</span>
-            <h2 className="text-4xl font-serif text-gray-900 leading-tight">
-               {currentLang === 'zh-TW' ? (
-                  <>
-                     科技改變人類<br/>
-                     <span className="gemini-text">早發現，早治療</span>
-                  </>
-               ) : t.medical.title}
+      {/* 2. 事業領域 - 日本企业风格：简洁、留白、网格布局 */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6">
+          {/* Section Header - 简洁标题 */}
+          <div className="text-center mb-16">
+            <p className="text-xs tracking-[0.3em] text-gray-400 uppercase mb-3">Business</p>
+            <h2 className="serif text-2xl md:text-3xl text-gray-900 tracking-wide">
+              {currentLang === 'zh-TW' ? '事業領域' : currentLang === 'ja' ? '事業領域' : 'Our Services'}
             </h2>
-            <p className="text-gray-500 leading-8 font-light whitespace-pre-line">
-              {t.medical.desc}
-            </p>
-            <div className="flex flex-col gap-4">
-               {/* Tech Features List */}
-               <div className="flex items-center gap-3 text-sm text-gray-600">
-                  <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600"><Dna size={16} /></div>
-                  <div>遺伝子レベルの解析 (Gene Analysis)</div>
-               </div>
-               <div className="flex items-center gap-3 text-sm text-gray-600">
-                  <div className="w-8 h-8 rounded-full bg-purple-50 flex items-center justify-center text-purple-600"><Monitor size={16} /></div>
-                  <div>AI 画像診断支援 (AI Diagnosis Support)</div>
-               </div>
-               <div className="flex items-center gap-3 text-sm text-gray-600">
-                  <div className="w-8 h-8 rounded-full bg-cyan-50 flex items-center justify-center text-cyan-600"><Microscope size={16} /></div>
-                  <div>超早期発見 (Early Detection)</div>
-               </div>
-            </div>
-            <div className="pt-4">
-               <button 
-                 onClick={() => setCurrentPage('medical')}
-                 className="inline-block border border-gray-300 px-8 py-3 text-sm hover:bg-blue-600 hover:border-blue-600 hover:text-white transition cursor-pointer tracking-wider uppercase rounded"
-               >
-                 {t.medical.btn_detail}
-               </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    {/* Business Preview Section */}
-    <section className="py-24 bg-[#F5F5F7]">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row-reverse gap-16 items-center">
-          
-          {/* RIGHT SIDE: BUSINESS 3D CARD */}
-          <div className="md:w-1/2 cursor-pointer group w-full" onClick={() => setCurrentPage('business')}>
-            <div className="relative overflow-hidden rounded-3xl shadow-xl transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl bg-[#F5F5F7] border border-gray-200 h-[400px] md:h-[500px] w-full">
-               
-               {/* 1. 3D Network Layer - DESKTOP ONLY (STRICT CHECK) */}
-               {!isMobile && (
-                  <div className="hidden md:block absolute inset-0 z-0">
-                      <BusinessNetwork />
-                  </div>
-               )}
-
-               {/* 2. Static Fallback Image - MOBILE ONLY (STRICT CHECK) */}
-               {isMobile && (
-                  <div className="absolute inset-0 z-0">
-                      <img 
-                        src={SITE_IMAGES.mobile_business_fallback} 
-                        className="w-full h-full object-cover animate-fade-in-up" 
-                        alt="Global Business Network" 
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
-                  </div>
-               )}
-               
-               {/* Interaction Prompt */}
-               <div className="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center gap-2 pointer-events-none">
-                   <span className="text-[10px] text-gray-500 font-mono uppercase tracking-widest bg-white/80 px-3 py-1 rounded-full backdrop-blur-sm border border-gray-200">View Insights</span>
-               </div>
-            </div>
+            <div className="w-12 h-[1px] bg-gray-900 mx-auto mt-6"></div>
           </div>
 
-          <div className="md:w-1/2 space-y-8 text-right md:text-left">
-            <div className="flex flex-col md:items-start items-end">
-              <span className="text-purple-500 text-xs tracking-widest uppercase font-bold">{t.business.tag}</span>
-              <h2 className="text-4xl font-serif text-gray-900 mt-4">{t.business.title}</h2>
+          {/* Three Business Cards - 极简卡片 */}
+          <div className="grid md:grid-cols-3 gap-[1px] bg-gray-200 max-w-6xl mx-auto">
+
+            {/* Medical */}
+            <div
+              onClick={() => setCurrentPage('medical')}
+              className="group bg-white cursor-pointer"
+            >
+              <div className="relative h-64 overflow-hidden">
+                <img
+                  src={SITE_IMAGES.mobile_medical_fallback}
+                  alt="Medical Tourism"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors"></div>
+              </div>
+              <div className="p-8">
+                <p className="text-[10px] tracking-[0.2em] text-gray-400 uppercase mb-2">Medical Tourism</p>
+                <h3 className="serif text-xl text-gray-900 mb-4 tracking-wide">
+                  {currentLang === 'zh-TW' ? '醫療健檢' : currentLang === 'ja' ? '医療ツーリズム' : 'Medical Checkup'}
+                </h3>
+                <p className="text-sm text-gray-500 leading-relaxed mb-6">
+                  {currentLang === 'zh-TW'
+                    ? '德洲會TIMC精密體檢、PET-CT、MRI、胃腸鏡檢查'
+                    : currentLang === 'ja'
+                    ? '徳洲会TIMC精密健診、PET-CT、MRI、内視鏡検査'
+                    : 'TIMC Premium Checkup, PET-CT, MRI, Endoscopy'}
+                </p>
+                <span className="inline-flex items-center text-xs text-gray-900 font-medium tracking-wide group-hover:tracking-wider transition-all">
+                  {currentLang === 'zh-TW' ? '了解詳情' : '詳細を見る'}
+                  <ArrowRight size={14} className="ml-2 transition-transform group-hover:translate-x-1" />
+                </span>
+              </div>
             </div>
-            <p className="text-gray-500 leading-8 font-light whitespace-pre-line">
-              {t.business.desc}
-            </p>
-            <button 
+
+            {/* Business */}
+            <div
               onClick={() => setCurrentPage('business')}
-              className="inline-block border border-gray-300 px-8 py-3 text-sm hover:bg-black hover:text-white transition cursor-pointer tracking-wider uppercase rounded"
+              className="group bg-white cursor-pointer"
             >
-              {t.business.btn_case}
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    {/* Guide Partner Section - 白标模式下隐藏 */}
-    {!hideOfficialBranding && (
-    <section id="guide-partner" className="py-32 bg-gradient-to-b from-orange-50 to-white relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23f97316%22%20fill-opacity%3D%220.03%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E')] opacity-50 pointer-events-none"></div>
-
-      <div className="container mx-auto px-6 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <span className="text-orange-600 font-bold text-sm tracking-widest uppercase">{t.guidePartner?.tag || 'Guide Partnership Program'}</span>
-          <h2 className="text-4xl md:text-5xl font-serif mt-4 mb-4 text-gray-900">{t.guidePartner?.title || '導遊合夥人計劃'}</h2>
-          <p className="text-xl text-orange-600 font-medium mb-6">{t.guidePartner?.subtitle || '讓每位獨立導遊，都擁有旅行社的資源'}</p>
-          <p className="text-gray-500 max-w-2xl mx-auto font-light leading-relaxed whitespace-pre-line">
-            {t.guidePartner?.desc || '您直接接觸富裕層客戶，卻沒有旅行社資質？\n新島交通作為日本第二類旅行社，為您打通160家高端夜總會、頂級體檢中心、綜合醫療等獨家資源。'}
-          </p>
-        </div>
-
-        {/* Three Services */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-16">
-          {/* Service 1: Nightclub */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg border border-orange-100 hover:shadow-xl transition-all hover:-translate-y-1 group">
-            <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <Sparkles className="w-8 h-8 text-white" />
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-3">{t.guidePartner?.service1_title || '高端夜總會'}</h3>
-            <p className="text-gray-500 text-sm leading-relaxed whitespace-pre-line">{t.guidePartner?.service1_desc || 'INSOU集團160家店舖\n覆蓋全日本（除北海道/沖繩）'}</p>
-          </div>
-
-          {/* Service 2: Medical */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg border border-orange-100 hover:shadow-xl transition-all hover:-translate-y-1 group">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <HeartPulse className="w-8 h-8 text-white" />
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-3">{t.guidePartner?.service2_title || 'TIMC精密體檢'}</h3>
-            <p className="text-gray-500 text-sm leading-relaxed whitespace-pre-line">{t.guidePartner?.service2_desc || '德洲會集團旗艦設施\n大阪JP Tower'}</p>
-          </div>
-
-          {/* Service 3: Treatment */}
-          <div className="bg-white rounded-2xl p-8 shadow-lg border border-orange-100 hover:shadow-xl transition-all hover:-translate-y-1 group">
-            <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <Dna className="w-8 h-8 text-white" />
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-3">{t.guidePartner?.service3_title || '綜合醫療'}</h3>
-            <p className="text-gray-500 text-sm leading-relaxed whitespace-pre-line">{t.guidePartner?.service3_desc || '幹細胞·抗衰·專科治療\n日本頂尖醫療資源'}</p>
-          </div>
-        </div>
-
-        {/* Income Highlight - Attractive CTA with Social Proof */}
-        <div className="max-w-4xl mx-auto bg-gradient-to-r from-orange-500 via-orange-600 to-amber-500 rounded-3xl p-8 md:p-10 text-white mb-16 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/4"></div>
-
-          {/* Main Content */}
-          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="flex-1">
-              <div className="inline-flex items-center gap-2 bg-white/20 rounded-full px-3 py-1 mb-4">
-                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                <span className="text-xs font-medium">本月已有 47 位導遊成功升級</span>
+              <div className="relative h-64 overflow-hidden">
+                <img
+                  src={SITE_IMAGES.mobile_business_fallback}
+                  alt="Business Tours"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors"></div>
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-3">每月輕鬆增收 50-100萬日元</h3>
-              <p className="text-orange-100 text-lg mb-2">無需旅行社資質 · 階梯返金最高 <span className="font-bold text-white text-xl">20%</span></p>
-              <div className="flex flex-wrap gap-3 mt-4">
-                <span className="bg-white/15 px-3 py-1 rounded-full text-sm">🍸 160+高端夜總會</span>
-                <span className="bg-white/15 px-3 py-1 rounded-full text-sm">🏥 頂級體檢中心</span>
-                <span className="bg-white/15 px-3 py-1 rounded-full text-sm">💉 綜合醫療資源</span>
+              <div className="p-8">
+                <p className="text-[10px] tracking-[0.2em] text-gray-400 uppercase mb-2">Business Inspection</p>
+                <h3 className="serif text-xl text-gray-900 mb-4 tracking-wide">
+                  {currentLang === 'zh-TW' ? '商務考察' : currentLang === 'ja' ? 'ビジネス視察' : 'Business Tours'}
+                </h3>
+                <p className="text-sm text-gray-500 leading-relaxed mb-6">
+                  {currentLang === 'zh-TW'
+                    ? '16大行業深度視察、企業對接、專業翻譯服務'
+                    : currentLang === 'ja'
+                    ? '16業界深度視察、企業マッチング、専門通訳'
+                    : '16 Industry Tours, Business Matching, Interpreters'}
+                </p>
+                <span className="inline-flex items-center text-xs text-gray-900 font-medium tracking-wide group-hover:tracking-wider transition-all">
+                  {currentLang === 'zh-TW' ? '了解詳情' : '詳細を見る'}
+                  <ArrowRight size={14} className="ml-2 transition-transform group-hover:translate-x-1" />
+                </span>
               </div>
             </div>
-            <div className="text-center">
-              <div className="bg-white/20 backdrop-blur rounded-2xl p-6 mb-3">
-                <div className="text-4xl md:text-5xl font-bold mb-1">¥50萬+</div>
-                <div className="text-orange-100 text-sm">月均收入可達</div>
+
+            {/* Golf */}
+            <div
+              onClick={() => setCurrentPage('golf')}
+              className="group bg-white cursor-pointer"
+            >
+              <div className="relative h-64 overflow-hidden">
+                <img
+                  src={SITE_IMAGES.golf_hero}
+                  alt="Golf Tourism"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors"></div>
               </div>
-              <div className="flex items-center justify-center gap-1 text-xs text-orange-200">
-                <CheckCircle size={12} />
-                <span>3000+ 在日導遊已加入</span>
+              <div className="p-8">
+                <p className="text-[10px] tracking-[0.2em] text-gray-400 uppercase mb-2">Golf Tourism</p>
+                <h3 className="serif text-xl text-gray-900 mb-4 tracking-wide">
+                  {currentLang === 'zh-TW' ? '名門高爾夫' : currentLang === 'ja' ? '名門ゴルフ' : 'Premium Golf'}
+                </h3>
+                <p className="text-sm text-gray-500 leading-relaxed mb-6">
+                  {currentLang === 'zh-TW'
+                    ? '25+名門球場、會員制特別通道、VIP接待服務'
+                    : currentLang === 'ja'
+                    ? '25+名門コース、会員制特別枠、VIP接待'
+                    : '25+ Premium Courses, Member Access, VIP Service'}
+                </p>
+                <span className="inline-flex items-center text-xs text-gray-900 font-medium tracking-wide group-hover:tracking-wider transition-all">
+                  {currentLang === 'zh-TW' ? '了解詳情' : '詳細を見る'}
+                  <ArrowRight size={14} className="ml-2 transition-transform group-hover:translate-x-1" />
+                </span>
               </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Bottom Stats Bar */}
-          <div className="relative z-10 mt-6 pt-6 border-t border-white/20 grid grid-cols-3 gap-4 text-center">
-            <div>
-              <div className="text-2xl font-bold">{commissionSummary.minRate}%</div>
-              <div className="text-xs text-orange-200">起步返金</div>
+      {/* 3. 新着情報 - News Section */}
+      <section className="py-20 bg-white border-t border-gray-100">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
+              <div>
+                <p className="text-xs tracking-[0.3em] text-gray-400 uppercase mb-3">News</p>
+                <h2 className="serif text-2xl md:text-3xl text-gray-900 tracking-wide">
+                  {currentLang === 'zh-TW' ? '最新消息' : '新着情報'}
+                </h2>
+              </div>
+              <a href="/news" className="inline-flex items-center text-xs text-gray-600 hover:text-gray-900 tracking-wider mt-4 md:mt-0">
+                {currentLang === 'zh-TW' ? '查看全部' : 'すべて見る'}
+                <ArrowRight size={14} className="ml-2" />
+              </a>
             </div>
-            <div>
-              <div className="text-2xl font-bold">{commissionSummary.maxRate}%</div>
-              <div className="text-xs text-orange-200">鑽石返金</div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {[
+                {
+                  date: '2026.01.15',
+                  category: currentLang === 'zh-TW' ? '公告' : 'お知らせ',
+                  title: currentLang === 'zh-TW' ? '2026年春節期間營業時間調整通知' : '2026年春節期間の営業時間変更のお知らせ',
+                },
+                {
+                  date: '2026.01.08',
+                  category: currentLang === 'zh-TW' ? '新聞' : 'ニュース',
+                  title: currentLang === 'zh-TW' ? 'TIMC OSAKA 2025年度體檢報告正式發布' : 'TIMC OSAKA 2025年度健診レポート発表',
+                },
+                {
+                  date: '2025.12.20',
+                  category: currentLang === 'zh-TW' ? '活動' : 'イベント',
+                  title: currentLang === 'zh-TW' ? '名門高爾夫新春特別企劃開始受付' : '名門ゴルフ新春特別プラン受付開始',
+                },
+              ].map((news, index) => (
+                <a key={index} href="/news" className="group block border-b border-gray-100 pb-6 hover:border-gray-300 transition-colors">
+                  <div className="flex items-center gap-4 mb-3">
+                    <span className="text-xs text-gray-400">{news.date}</span>
+                    <span className="text-[10px] px-2 py-0.5 bg-gray-100 text-gray-600">{news.category}</span>
+                  </div>
+                  <h3 className="text-sm text-gray-900 leading-relaxed group-hover:text-gray-600 transition-colors">
+                    {news.title}
+                  </h3>
+                </a>
+              ))}
             </div>
-            <div>
-              <div className="text-2xl font-bold">月結</div>
-              <div className="text-xs text-orange-200">準時到帳</div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. 医療サービス - 温暖、舒适、给人希望和安心 */}
+      <section className="relative min-h-[90vh] flex items-center">
+        {/* 全屏背景图 - 温暖的医疗场景 */}
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=2000&auto=format&fit=crop"
+            alt="Healthcare"
+            className="w-full h-full object-cover"
+          />
+          {/* 温暖的渐变，类似高尔夫板块但用蓝绿色调 */}
+          <div className="absolute inset-0 bg-gradient-to-r from-teal-900/90 via-teal-900/70 to-transparent"></div>
+        </div>
+
+        <div className="relative container mx-auto px-6 py-24">
+          <div className="max-w-2xl">
+            {/* 标签 */}
+            <div className="flex items-center gap-3 mb-8">
+              <div className="h-[1px] w-12 bg-teal-300"></div>
+              <span className="text-xs tracking-[0.3em] text-teal-300 uppercase">Medical Tourism</span>
+            </div>
+
+            {/* 核心标题 - 温暖、给人希望 */}
+            <h2 className="serif text-4xl md:text-6xl text-white mb-6 leading-tight">
+              {currentLang === 'zh-TW' ? '把健康交給' : '健康を託す'}
+              <br />
+              <span className="text-teal-300">{currentLang === 'zh-TW' ? '值得信賴的人' : '信頼できる人へ'}</span>
+            </h2>
+
+            <p className="text-xl text-teal-100/80 mb-8 leading-relaxed font-light">
+              {currentLang === 'zh-TW'
+                ? '日本醫療技術全球領先，PET-CT可發現5mm早期病變。我們提供專車接送、全程陪診翻譯、報告解讀——讓您專心照顧健康，其他的交給我們。'
+                : '日本の医療技術は世界トップクラス。PET-CTは5mmの早期病変を発見可能。専用車送迎、全行程通訳同行、レポート解説——健康に専念していただき、他はお任せください。'}
+            </p>
+
+            {/* 核心数据 */}
+            <div className="grid grid-cols-3 gap-6 mb-10 py-8 border-y border-white/20">
+              <div>
+                <div className="text-4xl font-light text-white mb-1">12<span className="text-teal-300">年</span></div>
+                <div className="text-xs text-teal-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '醫療服務經驗' : '医療サービス実績'}</div>
+              </div>
+              <div className="border-x border-white/20 px-6">
+                <div className="text-4xl font-light text-white mb-1">3000<span className="text-teal-300">+</span></div>
+                <div className="text-xs text-teal-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : 'ご利用者様'}</div>
+              </div>
+              <div>
+                <div className="text-4xl font-light text-white mb-1">100<span className="text-teal-300">%</span></div>
+                <div className="text-xs text-teal-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '全程陪同' : '全行程同行'}</div>
+              </div>
+            </div>
+
+            {/* 服务亮点标签 */}
+            <div className="flex flex-wrap gap-3 mb-10">
+              {[
+                currentLang === 'zh-TW' ? '專車接送' : '専用車送迎',
+                currentLang === 'zh-TW' ? '醫療翻譯' : '医療通訳',
+                currentLang === 'zh-TW' ? '報告解讀' : 'レポート解説',
+                currentLang === 'zh-TW' ? '後續跟進' : 'アフターフォロー'
+              ].map((tag, idx) => (
+                <span key={idx} className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a
+                onClick={() => setCurrentPage('medical')}
+                className="inline-flex items-center justify-center px-8 py-4 bg-white text-teal-900 text-sm font-medium rounded-lg hover:bg-teal-50 transition-colors cursor-pointer"
+              >
+                {currentLang === 'zh-TW' ? '了解體檢方案' : '健診プランを見る'}
+                <ArrowRight size={16} className="ml-2" />
+              </a>
+              <a
+                href="/health-screening"
+                className="inline-flex items-center justify-center px-8 py-4 border border-white/40 text-white text-sm rounded-lg hover:bg-white/10 transition-colors"
+              >
+                {currentLang === 'zh-TW' ? '免費健康評估' : '無料健康診断'}
+              </a>
             </div>
           </div>
         </div>
 
-        {/* Rules */}
-        <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-6 mb-16">
-          <div className="flex items-start gap-4 bg-white/80 backdrop-blur p-6 rounded-xl">
-            <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <Users className="w-5 h-5 text-orange-600" />
-            </div>
-            <div>
-              <h4 className="font-bold text-gray-900 mb-1">{t.guidePartner?.rule1_title || '推薦制準入'}</h4>
-              <p className="text-sm text-gray-500">{t.guidePartner?.rule1_desc || '會員推薦才能加入，確保圈子品質'}</p>
+        {/* 右下角：检查项目卡片（桌面端） */}
+        <div className="hidden lg:block absolute right-8 bottom-8 w-80">
+          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+            <h4 className="text-white font-medium mb-4">{currentLang === 'zh-TW' ? '精密檢查項目' : '精密検査項目'}</h4>
+            <div className="space-y-3">
+              {[
+                { name: 'PET-CT', desc: currentLang === 'zh-TW' ? '全身癌症早期篩查' : '全身がん早期検診' },
+                { name: 'MRI 3.0T', desc: currentLang === 'zh-TW' ? '腦部·心臟精密檢查' : '脳・心臓精密検査' },
+                { name: currentLang === 'zh-TW' ? '無痛胃腸鏡' : '無痛内視鏡', desc: currentLang === 'zh-TW' ? '消化道全面檢查' : '消化器系総合検査' },
+              ].map((item, idx) => (
+                <div key={idx} className="flex items-center gap-3 text-sm">
+                  <CheckCircle size={16} className="text-teal-300 flex-shrink-0" />
+                  <div>
+                    <span className="text-white">{item.name}</span>
+                    <span className="text-teal-200/60 ml-2">{item.desc}</span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-          <div className="flex items-start gap-4 bg-white/80 backdrop-blur p-6 rounded-xl">
-            <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <Shield className="w-5 h-5 text-orange-600" />
+        </div>
+      </section>
+
+      {/* 5.5 重疾治療 - 沉浸式全屏背景，与其他板块风格统一 */}
+      <section className="relative min-h-[90vh] flex items-center">
+        {/* 全屏背景图 */}
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?q=80&w=2000&auto=format&fit=crop"
+            alt="Advanced Medical Treatment"
+            className="w-full h-full object-cover"
+          />
+          {/* 深蓝色渐变，传达专业、希望 */}
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 via-blue-950/70 to-transparent"></div>
+        </div>
+
+        <div className="relative container mx-auto px-6 py-24">
+          <div className="max-w-2xl">
+            {/* 标签 */}
+            <div className="flex items-center gap-3 mb-8">
+              <div className="h-[1px] w-12 bg-sky-300"></div>
+              <span className="text-xs tracking-[0.3em] text-sky-300 uppercase">Advanced Treatment</span>
             </div>
-            <div>
-              <h4 className="font-bold text-gray-900 mb-1">{t.guidePartner?.rule2_title || '500元訂金'}</h4>
-              <p className="text-sm text-gray-500">{t.guidePartner?.rule2_desc || '篩選認真客戶，保護商家利益'}</p>
+
+            {/* 核心标题 */}
+            <h2 className="serif text-4xl md:text-6xl text-white mb-6 leading-tight">
+              {currentLang === 'zh-TW' ? '面對重疾' : '重病と向き合う時'}
+              <br />
+              <span className="text-sky-300">{currentLang === 'zh-TW' ? '日本醫療給您更多希望' : '日本医療がもう一つの希望に'}</span>
+            </h2>
+
+            <p className="text-xl text-blue-100/80 mb-8 leading-relaxed font-light">
+              {currentLang === 'zh-TW'
+                ? '質子重離子治療、免疫細胞療法、達文西微創手術——日本癌症5年生存率全球領先。我們協助您獲得日本頂尖醫院的治療機會，全程陪同，讓您專注康復。'
+                : '陽子線・重粒子線治療、免疫細胞療法、ダヴィンチ手術——日本のがん5年生存率は世界トップ。日本トップ病院での治療機会をサポート、全行程同行で治療に専念いただけます。'}
+            </p>
+
+            {/* 核心数据 */}
+            <div className="grid grid-cols-3 gap-6 mb-10 py-8 border-y border-white/20">
+              <div>
+                <div className="text-4xl font-light text-white mb-1">68<span className="text-sky-300">%</span></div>
+                <div className="text-xs text-blue-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '癌症5年生存率' : 'がん5年生存率'}</div>
+              </div>
+              <div className="border-x border-white/20 px-6">
+                <div className="text-4xl font-light text-white mb-1">98<span className="text-sky-300">%</span></div>
+                <div className="text-xs text-blue-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '心臟手術成功率' : '心臓手術成功率'}</div>
+              </div>
+              <div>
+                <div className="text-4xl font-light text-white mb-1">24<span className="text-sky-300">h</span></div>
+                <div className="text-xs text-blue-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '病歷評估響應' : '診療情報評価'}</div>
+              </div>
             </div>
-          </div>
-          <div className="flex items-start gap-4 bg-white/80 backdrop-blur p-6 rounded-xl">
-            <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <FileText className="w-5 h-5 text-orange-600" />
+
+            {/* 治疗领域标签 */}
+            <div className="flex flex-wrap gap-3 mb-10">
+              {[
+                currentLang === 'zh-TW' ? '癌症治療' : 'がん治療',
+                currentLang === 'zh-TW' ? '質子重離子' : '陽子線・重粒子線',
+                currentLang === 'zh-TW' ? '心臟手術' : '心臓手術',
+                currentLang === 'zh-TW' ? '腦血管' : '脳血管治療'
+              ].map((tag, idx) => (
+                <span key={idx} className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">
+                  {tag}
+                </span>
+              ))}
             </div>
-            <div>
-              <h4 className="font-bold text-gray-900 mb-1">{t.guidePartner?.rule3_title || '月結算'}</h4>
-              <p className="text-sm text-gray-500">{t.guidePartner?.rule3_desc || '穩定可靠，每月準時結算'}</p>
+
+            {/* CTA */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a
+                href="/cancer-treatment"
+                className="inline-flex items-center justify-center px-8 py-4 bg-white text-blue-950 text-sm font-medium rounded-lg hover:bg-sky-50 transition-colors"
+              >
+                {currentLang === 'zh-TW' ? '了解治療服務' : '治療サービス詳細'}
+                <ArrowRight size={16} className="ml-2" />
+              </a>
+              <a
+                href="/cancer-treatment/remote-consultation"
+                className="inline-flex items-center justify-center px-8 py-4 border border-white/40 text-white text-sm rounded-lg hover:bg-white/10 transition-colors"
+              >
+                {currentLang === 'zh-TW' ? '免費遠程諮詢' : '無料遠隔相談'}
+              </a>
             </div>
           </div>
         </div>
 
-        {/* CTA */}
-        <div className="text-center">
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+        {/* 右下角：治疗流程简述（桌面端） */}
+        <div className="hidden lg:block absolute right-8 bottom-8 w-80">
+          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+            <h4 className="text-white font-medium mb-4">{currentLang === 'zh-TW' ? '服務流程' : 'サービスの流れ'}</h4>
+            <div className="space-y-3">
+              {[
+                { step: '01', text: currentLang === 'zh-TW' ? '提交病歷，24小時內評估' : '診療情報提出、24時間以内に評価' },
+                { step: '02', text: currentLang === 'zh-TW' ? '制定方案，明確費用' : '治療計画策定、費用明確化' },
+                { step: '03', text: currentLang === 'zh-TW' ? '赴日治療，全程陪同' : '渡航・治療、全行程同行' },
+                { step: '04', text: currentLang === 'zh-TW' ? '回國後持續跟進' : '帰国後継続フォロー' },
+              ].map((item, idx) => (
+                <div key={idx} className="flex items-center gap-3 text-sm">
+                  <span className="w-6 h-6 bg-sky-400/30 rounded-full flex items-center justify-center text-xs text-sky-200 flex-shrink-0">{item.step}</span>
+                  <span className="text-white/80">{item.text}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. ゴルフサービス - Pebble Beach风格：黑白金、大图沉浸、稀缺感 */}
+      <section className="relative min-h-[90vh] flex items-center">
+        {/* 全屏背景图 */}
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2000&auto=format&fit=crop"
+            alt="Premium Golf Course"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
+        </div>
+
+        <div className="relative container mx-auto px-6 py-24">
+          <div className="max-w-2xl">
+            {/* 权威认证标签 */}
+            <div className="flex items-center gap-3 mb-8">
+              <div className="h-[1px] w-12 bg-amber-400"></div>
+              <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">Exclusive Access</span>
+            </div>
+
+            <h2 className="serif text-4xl md:text-6xl text-white mb-6 leading-tight">
+              {currentLang === 'zh-TW' ? '踏入' : '足を踏み入れる'}
+              <br />
+              <span className="text-amber-400">{currentLang === 'zh-TW' ? '傳說中的名門' : '伝説の名門へ'}</span>
+            </h2>
+
+            <p className="text-xl text-gray-300 mb-8 leading-relaxed font-light">
+              {currentLang === 'zh-TW'
+                ? '廣野、霞ヶ関、小野——這些球場的名字，在高爾夫愛好者心中如雷貫耳。平時需要會員介紹才能踏入的聖地，現在向您敞開大門。'
+                : '廣野、霞ヶ関、小野——ゴルフ愛好家なら誰もが憧れる名門。通常は会員紹介が必要な聖地が、今あなたに開かれます。'}
+            </p>
+
+            {/* 核心数据 - 金色边框 */}
+            <div className="grid grid-cols-3 gap-6 mb-10 py-8 border-y border-white/20">
+              <div>
+                <div className="text-4xl font-light text-white mb-1">25<span className="text-amber-400">+</span></div>
+                <div className="text-xs text-gray-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '名門球場' : '名門コース'}</div>
+              </div>
+              <div className="border-x border-white/20 px-6">
+                <div className="text-4xl font-light text-white mb-1">0</div>
+                <div className="text-xs text-gray-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '會員介紹' : '会員紹介不要'}</div>
+              </div>
+              <div>
+                <div className="text-4xl font-light text-white mb-1">VIP</div>
+                <div className="text-xs text-gray-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '專屬待遇' : '専用待遇'}</div>
+              </div>
+            </div>
+
+            {/* 球场列表 */}
+            <div className="mb-10">
+              <div className="text-xs text-gray-500 mb-3 uppercase tracking-wider">{currentLang === 'zh-TW' ? '合作名門' : '提携名門コース'}</div>
+              <div className="flex flex-wrap gap-2">
+                {['廣野ゴルフ倶楽部', '霞ヶ関カンツリー倶楽部', '小野ゴルフ倶楽部', '茨木カンツリー倶楽部', '古賀ゴルフ・クラブ'].map((course, idx) => (
+                  <span key={idx} className="text-sm text-white/80 after:content-['·'] after:mx-2 after:text-amber-400 last:after:content-none">
+                    {course}
+                  </span>
+                ))}
+              </div>
+            </div>
+
             <a
-              href="/guide-partner"
-              className="px-8 py-4 bg-orange-600 text-white font-bold rounded-full hover:bg-orange-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+              onClick={() => setCurrentPage('golf')}
+              className="inline-flex items-center px-8 py-4 bg-amber-400 text-black text-sm font-medium tracking-wider hover:bg-amber-300 transition-colors cursor-pointer"
             >
-              <ArrowRight size={18} /> {t.guidePartner?.cta_detail || '了解詳情'}
+              {currentLang === 'zh-TW' ? '探索名門球場' : '名門コースを見る'}
+              <ArrowRight size={18} className="ml-3" />
             </a>
           </div>
-          <p className="text-gray-400 text-sm">{t.guidePartner?.footer_note || '已有3000+在日導遊加入我們的合作網絡'}</p>
         </div>
-      </div>
-    </section>
-    )}
 
-    {/* Founder Section - 白标模式下隐藏 */}
-    {!hideOfficialBranding && (
-    <section className="py-24 bg-white border-t border-gray-100">
-       <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center gap-16">
-             <div className="md:w-1/3">
-                <div className="relative">
-                   <div className="absolute inset-0 bg-blue-100 transform translate-x-4 translate-y-4 rounded-xl"></div>
-                   <img
-                      src={SITE_IMAGES.founder_portrait}
-                      alt="Founder Portrait"
-                      className="relative rounded-xl shadow-lg w-full h-auto max-h-[600px] object-cover object-top"
-                      key="founder_portrait"
-                      onError={(e) => handleSmartImageError(e, 'founder_portrait')}
-                   />
-                </div>
-             </div>
-             <div className="md:w-2/3">
-                <span className="text-blue-600 font-bold tracking-widest uppercase text-xs">{t.founder.title}</span>
-                <h2 className="text-4xl font-serif text-gray-900 mt-4 mb-6">{t.founder.phil_title}</h2>
-                <div className="relative mb-8">
-                   <Quote className="absolute -top-4 -left-6 text-gray-100 w-16 h-16 transform -scale-x-100" />
-                   <p className="text-gray-600 leading-relaxed relative z-10 text-xl italic font-serif pl-4 border-l-4 border-blue-500">
-                      "{t.founder.quote}"
-                   </p>
-                </div>
-                <p className="text-gray-500 leading-relaxed text-sm whitespace-pre-line">
-                   {t.founder.desc}
-                </p>
-                <div className="mt-8 pt-8 border-t border-gray-100">
-                   <p className="font-bold text-gray-900 text-lg">{t.founder.name}</p>
-                   <p className="text-gray-400 text-sm">{t.founder.role}</p>
-                </div>
-             </div>
-          </div>
-       </div>
-    </section>
-    )}
-
-    {/* About Section - 白标模式下隐藏 */}
-    {!hideOfficialBranding && (
-    <section id="about" className="py-24 bg-[#FAFAFA]">
-      <div className="container mx-auto px-6 max-w-4xl">
-        <h3 className="text-3xl font-serif mb-12 text-center tracking-widest">{t.about.title}</h3>
-
-        <div className="border-t border-gray-200 text-sm font-light bg-white shadow-sm rounded-lg overflow-hidden">
-          {[
-            { label: t.about.name, value: t.about.name_val || '新島交通株式会社 (NIIJIMA KOTSU Co., Ltd.)' },
-            { label: t.about.est, value: t.about.est_val || '2020/02' },
-            { label: t.about.rep, value: t.about.rep_val || '員昊' },
-            { label: t.about.cap, value: t.about.cap_val || '2500万円' },
-            { label: t.about.loc, value: t.about.loc_val || '〒556-0014 大阪府大阪市浪速区大国1-2-21-602' },
-            { label: t.about.client, value: t.about.client_val },
-            { label: t.about.lic, value: t.about.lic_val },
-          ].map((item, index) => (
-            <div key={index} className="grid grid-cols-1 md:grid-cols-12 py-6 border-b border-gray-100 hover:bg-gray-50 transition px-6 group">
-              <div className="md:col-span-3 text-gray-400 font-medium group-hover:text-gray-600 transition">{item.label}</div>
-              <div className="md:col-span-9 text-gray-800 font-medium whitespace-pre-line leading-relaxed">{item.value}</div>
+        {/* 右下角服务标签 */}
+        <div className="absolute bottom-12 right-12 hidden lg:block">
+          <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-6 max-w-xs">
+            <div className="text-xs text-amber-400 mb-2 uppercase tracking-wider">{currentLang === 'zh-TW' ? '尊享服務' : 'プレミアムサービス'}</div>
+            <div className="space-y-2 text-sm text-white/80">
+              <div>✓ {currentLang === 'zh-TW' ? '專屬開球時段' : '専用スタート枠'}</div>
+              <div>✓ {currentLang === 'zh-TW' ? '雙語球童服務' : 'バイリンガルキャディ'}</div>
+              <div>✓ {currentLang === 'zh-TW' ? '溫泉旅館安排' : '温泉旅館手配'}</div>
+              <div>✓ {currentLang === 'zh-TW' ? '懷石料理預約' : '懐石料理予約'}</div>
             </div>
-          ))}
+          </div>
         </div>
-      </div>
-    </section>
-    )}
+      </section>
+
+      {/* 7. ビジネス視察 - Business Inspection 顶尖企业对接 */}
+      <section className="relative min-h-[90vh] flex items-center bg-slate-900 text-white">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format&fit=crop"
+            alt="Business District"
+            className="w-full h-full object-cover opacity-30"
+          />
+        </div>
+        <div className="relative container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-16 items-center">
+              <div>
+                <p className="text-xs tracking-[0.3em] text-amber-400 uppercase mb-4">Business Inspection</p>
+                <h2 className="serif text-3xl md:text-4xl text-white mb-6 leading-tight">
+                  {currentLang === 'zh-TW' ? '對話日本頂尖企業' : '日本トップ企業との対話'}
+                </h2>
+                <p className="text-gray-300 leading-relaxed mb-8">
+                  {currentLang === 'zh-TW'
+                    ? '12年深耕日本商務市場，我們與豐田、松下、資生堂等500強企業建立深度合作。從工廠參觀到高管對談，為您打造真正有價值的商務考察之旅。'
+                    : '12年間日本ビジネス市場を深耕。トヨタ、パナソニック、資生堂など500社以上と深い協力関係を構築。工場見学から経営層との対談まで、真に価値ある視察をご提供。'}
+                </p>
+
+                <div className="grid grid-cols-2 gap-6 mb-10">
+                  {[
+                    { num: '16', label: currentLang === 'zh-TW' ? '行業覆蓋' : '対応業界' },
+                    { num: '500+', label: currentLang === 'zh-TW' ? '合作企業' : '提携企業' },
+                    { num: '98%', label: currentLang === 'zh-TW' ? '客戶滿意度' : '顧客満足度' },
+                    { num: '1000+', label: currentLang === 'zh-TW' ? '成功案例' : '成功実績' },
+                  ].map((stat, idx) => (
+                    <div key={idx} className="border-l-2 border-amber-400/50 pl-4">
+                      <div className="text-2xl font-light text-white">{stat.num}</div>
+                      <div className="text-xs text-gray-400">{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-wrap gap-3 mb-10">
+                  {[
+                    currentLang === 'zh-TW' ? '製造業' : '製造業',
+                    currentLang === 'zh-TW' ? '零售業' : '小売業',
+                    currentLang === 'zh-TW' ? '醫療健康' : '医療・ヘルスケア',
+                    currentLang === 'zh-TW' ? '科技創新' : 'テクノロジー',
+                    currentLang === 'zh-TW' ? '農業食品' : '農業・食品',
+                  ].map((tag, idx) => (
+                    <span key={idx} className="px-3 py-1 text-xs border border-white/20 text-gray-300">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <a
+                  onClick={() => setCurrentPage('business')}
+                  className="inline-flex items-center px-6 py-3 bg-amber-500 text-slate-900 text-sm font-medium hover:bg-amber-400 transition-colors cursor-pointer"
+                >
+                  {currentLang === 'zh-TW' ? '定制考察方案' : '視察プランを相談'}
+                  <ArrowRight size={16} className="ml-2" />
+                </a>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { name: currentLang === 'zh-TW' ? '豐田汽車' : 'トヨタ自動車', type: currentLang === 'zh-TW' ? '製造業' : '製造業' },
+                  { name: currentLang === 'zh-TW' ? '松下電器' : 'パナソニック', type: currentLang === 'zh-TW' ? '電子科技' : '電機' },
+                  { name: currentLang === 'zh-TW' ? '資生堂' : '資生堂', type: currentLang === 'zh-TW' ? '美妝日化' : '化粧品' },
+                  { name: currentLang === 'zh-TW' ? '永旺集團' : 'イオン', type: currentLang === 'zh-TW' ? '零售業' : '小売業' },
+                ].map((company, idx) => (
+                  <div key={idx} className="bg-white/10 backdrop-blur p-6 border border-white/10 hover:border-white/30 transition-colors">
+                    <div className="text-white font-medium mb-1">{company.name}</div>
+                    <div className="text-xs text-gray-400">{company.type}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. 主要取引先 - Partners */}
+      <section className="py-20 bg-[#f8f8f8] border-t border-gray-200">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <p className="text-xs tracking-[0.3em] text-gray-400 uppercase mb-3">Partners</p>
+              <h2 className="serif text-2xl md:text-3xl text-gray-900 tracking-wide">
+                {currentLang === 'zh-TW' ? '合作夥伴' : '主要取引先'}
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+              {[
+                { name: '徳洲会グループ', sub: 'Tokushukai Group' },
+                { name: 'TIMC OSAKA', sub: 'Medical Center' },
+                { name: '帝国ホテル', sub: 'Imperial Hotel' },
+                { name: 'ザ・リッツ・カールトン', sub: 'The Ritz-Carlton' },
+                { name: 'ANA', sub: 'All Nippon Airways' },
+                { name: 'JR西日本', sub: 'JR West' },
+              ].map((partner, index) => (
+                <div key={index} className="bg-white p-6 text-center border border-gray-100 hover:border-gray-300 transition-colors">
+                  <div className="text-sm font-medium text-gray-900 mb-1">{partner.name}</div>
+                  <div className="text-[10px] text-gray-400">{partner.sub}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. 企業理念 - Corporate Philosophy */}
+      <section className="py-24 bg-slate-900 text-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <p className="text-xs tracking-[0.3em] text-gray-500 uppercase mb-6">Corporate Philosophy</p>
+            <h2 className="serif text-3xl md:text-4xl text-white mb-8 leading-relaxed">
+              {currentLang === 'zh-TW'
+                ? '用心連結世界與日本'
+                : '心をつなぐ、世界と日本'}
+            </h2>
+            <p className="text-gray-400 leading-relaxed mb-10 max-w-2xl mx-auto">
+              {currentLang === 'zh-TW'
+                ? '新島交通成立於2018年，致力於為華人旅客提供最高品質的日本旅遊體驗。我們相信，真正的服務不僅是滿足需求，更是創造感動。'
+                : '2018年設立以来、新島交通は華人旅行者の皆様に最高品質の日本旅行体験を提供してまいりました。真のサービスとは、ニーズを満たすだけでなく、感動を創造することだと信じています。'}
+            </p>
+            <a
+              href="/company/message"
+              className="inline-flex items-center text-xs text-white border border-white/30 px-8 py-3 hover:bg-white hover:text-slate-900 transition-all tracking-wider"
+            >
+              {currentLang === 'zh-TW' ? '社長致詞' : '社長メッセージ'}
+              <ArrowRight size={14} className="ml-2" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* 9. 導遊合作 - 白标模式下隐藏 */}
+      {!hideOfficialBranding && (
+      <section id="guide-partner" className="py-20 bg-[#0a0a0a] text-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              {/* Left: Text */}
+              <div>
+                <p className="text-[10px] tracking-[0.3em] text-gray-500 uppercase mb-3">Partnership</p>
+                <h2 className="serif text-2xl md:text-3xl text-white mb-6 tracking-wide">
+                  {t.guidePartner?.title || '導遊合夥人計劃'}
+                </h2>
+                <p className="text-gray-400 text-sm leading-relaxed mb-8">
+                  {currentLang === 'zh-TW'
+                    ? '作為日本第二類旅行社，我們為在日導遊提供高端夜總會、精密體檢、綜合醫療等獨家資源對接。無需旅行社資質，階梯返金最高20%。'
+                    : '第二種旅行業者として、在日ガイドの皆様に高級クラブ、精密健診、総合医療などの独占リソースを提供。最大20%のコミッション。'}
+                </p>
+                <div className="flex items-center gap-8 mb-8">
+                  <div>
+                    <div className="text-3xl font-light text-white">¥50万<span className="text-lg">+</span></div>
+                    <div className="text-[10px] text-gray-500 tracking-wider">{currentLang === 'zh-TW' ? '月均收入' : '月平均収入'}</div>
+                  </div>
+                  <div className="w-[1px] h-12 bg-gray-700"></div>
+                  <div>
+                    <div className="text-3xl font-light text-white">{commissionSummary.maxRate}%</div>
+                    <div className="text-[10px] text-gray-500 tracking-wider">{currentLang === 'zh-TW' ? '最高返金' : '最大還元'}</div>
+                  </div>
+                </div>
+                <a
+                  href="/guide-partner"
+                  className="inline-flex items-center text-xs text-white border border-white/30 px-6 py-3 hover:bg-white hover:text-black transition-all tracking-wider"
+                >
+                  {t.guidePartner?.cta_detail || '了解詳情'}
+                  <ArrowRight size={14} className="ml-2" />
+                </a>
+              </div>
+
+              {/* Right: Services */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-4 p-4 border border-gray-800 hover:border-gray-600 transition-colors">
+                  <Sparkles size={20} className="text-gray-500" />
+                  <div>
+                    <div className="text-sm text-white">{t.guidePartner?.service1_title || '高端夜總會'}</div>
+                    <div className="text-[10px] text-gray-500">160+ {currentLang === 'zh-TW' ? '店舖' : '店舗'}</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 p-4 border border-gray-800 hover:border-gray-600 transition-colors">
+                  <HeartPulse size={20} className="text-gray-500" />
+                  <div>
+                    <div className="text-sm text-white">{t.guidePartner?.service2_title || 'TIMC精密體檢'}</div>
+                    <div className="text-[10px] text-gray-500">{currentLang === 'zh-TW' ? '大阪 JP Tower' : '大阪JPタワー'}</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 p-4 border border-gray-800 hover:border-gray-600 transition-colors">
+                  <Dna size={20} className="text-gray-500" />
+                  <div>
+                    <div className="text-sm text-white">{t.guidePartner?.service3_title || '綜合醫療'}</div>
+                    <div className="text-[10px] text-gray-500">{currentLang === 'zh-TW' ? '幹細胞·抗衰' : '幹細胞・アンチエイジング'}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      )}
   </div>
   );
 };
@@ -2532,7 +2682,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
   };
 
   return (
-    <PublicLayout activeNav={getActiveNav()} transparentNav={false} onLogoClick={() => setCurrentPage('home')}>
+    <PublicLayout activeNav={getActiveNav()} transparentNav={true} onLogoClick={() => setCurrentPage('home')}>
        {/* Content */}
        <main className="min-h-screen">
           {currentPage === 'home' && (

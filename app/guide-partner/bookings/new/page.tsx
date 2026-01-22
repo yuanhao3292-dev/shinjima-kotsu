@@ -456,6 +456,13 @@ function NewBookingForm() {
                 />
               </div>
 
+              {/* 合同主体声明 */}
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                <p className="text-sm text-blue-800">
+                  <strong>ご契約について：</strong>本サービスのご契約は、新島交通株式会社（大阪府知事登録旅行業 第2-3115号）との間で締結されます。お客様との契約主体は新島交通株式会社となります。
+                </p>
+              </div>
+
               {/* Submit */}
               <button
                 type="submit"

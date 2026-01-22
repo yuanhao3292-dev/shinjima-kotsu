@@ -3,15 +3,6 @@ import { MetadataRoute } from 'next';
 // 主域名 - Vercel 部署后别名为 bespoketrip.jp
 const BASE_URL = 'https://www.bespoketrip.jp';
 
-// Medical packages slugs
-const medicalPackages = [
-  'vip-member-course',
-  'premium-cardiac-course',
-  'select-gastro-colonoscopy',
-  'select-gastroscopy',
-  'dwibs-cancer-screening',
-  'basic-checkup'
-];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const currentDate = new Date();
@@ -23,12 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 1.0,
-    },
-    {
-      url: `${BASE_URL}/medical-packages`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.9,
     },
     {
       url: `${BASE_URL}/vehicles`,
@@ -87,13 +72,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // Medical package detail pages
-  const packagePages: MetadataRoute.Sitemap = medicalPackages.map((slug) => ({
-    url: `${BASE_URL}/medical-packages/${slug}`,
-    lastModified: currentDate,
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
-  }));
-
-  return [...staticPages, ...packagePages];
+  return staticPages;
 }

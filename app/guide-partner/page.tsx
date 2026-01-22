@@ -14,7 +14,13 @@ import {
   Building,
   Award,
   ArrowRight,
-  MessageSquare
+  MessageSquare,
+  Globe,
+  Palette,
+  Zap,
+  CreditCard,
+  Link2,
+  Smartphone
 } from 'lucide-react';
 
 // 微信二維碼圖片路徑
@@ -53,7 +59,7 @@ export default function GuidePartnerPage() {
             </div>
 
             <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
-              導遊合夥人計劃<br/>
+              導遊提攜夥伴計劃<br/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-300 to-amber-300">對接旅行社級資源</span>
             </h1>
 
@@ -61,7 +67,7 @@ export default function GuidePartnerPage() {
               您直接接觸富裕層客戶，卻沒有旅行社資質？
             </p>
             <p className="text-lg text-gray-400 mb-8 leading-relaxed max-w-2xl mx-auto">
-              新島交通作為日本第二類旅行社，為您提供合規的高端服務對接通道
+              新島交通作為日本第二類旅行社，為您提供合規的客戶介紹通道
             </p>
 
             <div className="flex flex-wrap justify-center gap-4 mb-8">
@@ -93,7 +99,7 @@ export default function GuidePartnerPage() {
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle size={18} className="text-green-400" />
-                <span className="text-sm">業績獎勵制度</span>
+                <span className="text-sm">介紹報酬制度</span>
               </div>
             </div>
           </div>
@@ -139,7 +145,7 @@ export default function GuidePartnerPage() {
               <ul className="space-y-3 text-gray-600">
                 <li className="flex items-start gap-3">
                   <span className="text-green-500 mt-1">✓</span>
-                  <span>由新島交通<strong>代為預約下單</strong>，合規對接商家</span>
+                  <span>由新島交通<strong>統一簽約、預約下單</strong>，合規對接商家</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-green-500 mt-1">✓</span>
@@ -147,11 +153,11 @@ export default function GuidePartnerPage() {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-green-500 mt-1">✓</span>
-                  <span><strong>業績獎勵制度</strong>，加入後詳細說明</span>
+                  <span><strong>介紹報酬制度</strong>，成功介紹客戶即可獲得報酬</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-green-500 mt-1">✓</span>
-                  <span>新島作為<strong>第三方信用背書</strong>，交易有保障</span>
+                  <span>新島作為<strong>旅行服務提供者</strong>，交易有保障</span>
                 </li>
               </ul>
             </div>
@@ -286,7 +292,7 @@ export default function GuidePartnerPage() {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">月結算</h3>
               <p className="text-gray-500 text-sm leading-relaxed">
-                每月統一結算返金<br/>
+                每月統一結算介紹報酬<br/>
                 支持微信、支付寶、銀行轉帳
               </p>
             </div>
@@ -294,53 +300,309 @@ export default function GuidePartnerPage() {
         </div>
       </section>
 
-      {/* Why Us */}
+      {/* Why Us - Reframed as "What You Get" */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">為什麼選擇新島？</h2>
-            <p className="text-gray-500">合規資質 + 優質資源 = 您的專業後盾</p>
+            <p className="text-orange-500 font-medium text-sm mb-2">加入後您將獲得</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">一張「旅行社級」的入場券</h2>
+            <p className="text-gray-500 max-w-2xl mx-auto">成為新島交通的提攜夥伴，為客戶介紹優質旅行服務</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="flex items-start gap-4 bg-white p-6 rounded-xl shadow-sm">
-              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                <Building className="w-6 h-6 text-blue-600" />
+            {/* Card 1 - Identity Upgrade */}
+            <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-all border-l-4 border-blue-500">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                  <Building className="w-5 h-5 text-blue-600" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900">身份升級</h4>
+                  <p className="text-xs text-gray-400">個人導遊 → 旅行社提攜夥伴</p>
+                </div>
               </div>
-              <div>
-                <h4 className="font-bold text-gray-900 mb-1">日本第二類旅行社資質</h4>
-                <p className="text-sm text-gray-500">大阪府知事登録旅行業 第2-3115號，JATA正會員</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4 bg-white p-6 rounded-xl shadow-sm">
-              <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                <Award className="w-6 h-6 text-purple-600" />
-              </div>
-              <div>
-                <h4 className="font-bold text-gray-900 mb-1">160家高級夜總會資源</h4>
-                <p className="text-sm text-gray-500">覆蓋銀座、六本木、北新地等全日本主要繁華區</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4 bg-white p-6 rounded-xl shadow-sm">
-              <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                <HeartPulse className="w-6 h-6 text-green-600" />
-              </div>
-              <div>
-                <h4 className="font-bold text-gray-900 mb-1">德洲會醫療集團合作</h4>
-                <p className="text-sm text-gray-500">日本大型民間醫療集團，TIMC官方合作夥伴</p>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                由<span className="font-semibold text-blue-600">「新島交通株式會社」</span>統一提供服務。<br/>
+                高端店舖只認旅行社？現在您可以介紹客戶給我們。
+              </p>
+              <div className="mt-4 pt-4 border-t border-gray-100">
+                <p className="text-xs text-gray-400">大阪府知事登錄旅行業 第2-3115號 / JATA正會員</p>
               </div>
             </div>
 
-            <div className="flex items-start gap-4 bg-white p-6 rounded-xl shadow-sm">
-              <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                <Shield className="w-6 h-6 text-orange-600" />
+            {/* Card 2 - Exclusive Access */}
+            <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-all border-l-4 border-purple-500">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                  <Award className="w-5 h-5 text-purple-600" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900">頂級資源直通</h4>
+                  <p className="text-xs text-gray-400">別人約不到，您一個電話搞定</p>
+                </div>
               </div>
-              <div>
-                <h4 className="font-bold text-gray-900 mb-1">透明結算保障</h4>
-                <p className="text-sm text-gray-500">返金計算公開透明，每月準時結算到帳</p>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                銀座、六本木、北新地...<span className="font-semibold text-purple-600">160家高級夜總會</span>隨時待命。<br/>
+                客戶想去哪家？您說了算。
+              </p>
+              <div className="mt-4 pt-4 border-t border-gray-100 flex items-center gap-4">
+                <span className="text-xs bg-purple-50 text-purple-600 px-2 py-1 rounded">當日預約</span>
+                <span className="text-xs bg-purple-50 text-purple-600 px-2 py-1 rounded">專屬通道</span>
               </div>
+            </div>
+
+            {/* Card 3 - Medical Resources */}
+            <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-all border-l-4 border-green-500">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                  <HeartPulse className="w-5 h-5 text-green-600" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900">醫療資源獨家</h4>
+                  <p className="text-xs text-gray-400">日本最大民間醫療集團背書</p>
+                </div>
+              </div>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                德洲會<span className="font-semibold text-green-600">TIMC精密體檢</span>官方合作。<br/>
+                PET-CT、MRI全套檢查，無需層層轉介，直連預約。
+              </p>
+              <div className="mt-4 pt-4 border-t border-gray-100 flex items-center gap-4">
+                <span className="text-xs bg-green-50 text-green-600 px-2 py-1 rounded">中文翻譯</span>
+                <span className="text-xs bg-green-50 text-green-600 px-2 py-1 rounded">專屬VIP通道</span>
+              </div>
+            </div>
+
+            {/* Card 4 - Earnings */}
+            <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-all border-l-4 border-orange-500">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                  <Shield className="w-5 h-5 text-orange-600" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900">介紹報酬有保障</h4>
+                  <p className="text-xs text-gray-400">成功介紹即有報酬</p>
+                </div>
+              </div>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                以前帶客消費，<span className="line-through text-gray-400">報酬？不存在的。</span><br/>
+                現在，<span className="font-semibold text-orange-600">每一單成功介紹都有報酬</span>。明細清楚，準時到帳。
+              </p>
+              <div className="mt-4 pt-4 border-t border-gray-100 flex items-center gap-4">
+                <span className="text-xs bg-orange-50 text-orange-600 px-2 py-1 rounded">每月15日結算</span>
+                <span className="text-xs bg-orange-50 text-orange-600 px-2 py-1 rounded">明細可查</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Whitelabel Partner Site Section - 痛点驱动 */}
+      <section id="whitelabel" className="py-20 bg-gradient-to-br from-indigo-900 via-purple-900 to-indigo-900 text-white overflow-hidden relative">
+        {/* Background Decorations */}
+        <div className="absolute inset-0">
+          <div className="absolute w-96 h-96 bg-purple-500/20 rounded-full filter blur-3xl top-0 -right-20"></div>
+          <div className="absolute w-72 h-72 bg-indigo-500/20 rounded-full filter blur-3xl bottom-0 -left-10"></div>
+        </div>
+
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
+          {/* Pain Point Header - 直击痛点 */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-red-500/20 backdrop-blur-md border border-red-400/30 px-4 py-2 rounded-full mb-6">
+              <X size={16} className="text-red-400" />
+              <span className="text-xs font-bold text-red-300 uppercase tracking-wider">導遊的困境</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              您是不是也遇到這些問題？
+            </h2>
+
+            {/* Pain Points Grid */}
+            <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto mb-12 text-left">
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                <p className="text-red-300 text-sm font-medium mb-1">轉發別人的簡介推薦客戶...</p>
+                <p className="text-white/60 text-xs">結果客戶直接聯繫對方，您白忙一場</p>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                <p className="text-red-300 text-sm font-medium mb-1">發一堆 PDF 給客戶...</p>
+                <p className="text-white/60 text-xs">客戶懶得看，資訊散亂不清晰</p>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                <p className="text-red-300 text-sm font-medium mb-1">自己去對接醫院、餐廳...</p>
+                <p className="text-white/60 text-xs">耗時耗力，還拿不到好價格</p>
+              </div>
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                <p className="text-red-300 text-sm font-medium mb-1">想建個網站展示服務...</p>
+                <p className="text-white/60 text-xs">找設計、找開發，成本動輒幾萬</p>
+              </div>
+            </div>
+
+            {/* Solution Header */}
+            <div className="inline-flex items-center gap-2 bg-green-500/20 backdrop-blur-md border border-green-400/30 px-4 py-2 rounded-full mb-6">
+              <CheckCircle size={16} className="text-green-400" />
+              <span className="text-xs font-bold text-green-300 uppercase tracking-wider">解決方案</span>
+            </div>
+            <h3 className="text-2xl md:text-3xl font-bold mb-4">
+              一個<span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-pink-300">以您品牌展示</span>的專屬網站
+            </h3>
+            <p className="text-gray-300 max-w-2xl mx-auto">
+              套用我們的系統，以您的品牌形象展示服務。<br/>
+              所有旅行服務由新島交通提供，您負責客戶介紹。
+            </p>
+          </div>
+
+          {/* Main Content - Two Columns */}
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left - Features - 解决痛点角度 */}
+            <div className="space-y-6">
+              {/* Feature 1 - 专属品牌展示 */}
+              <div className="flex gap-4 bg-white/5 backdrop-blur-sm rounded-2xl p-5 border border-white/10 hover:bg-white/10 transition-all">
+                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Palette className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-white mb-1">專屬品牌展示</h4>
+                  <p className="text-sm text-gray-300">網站以您的品牌形象呈現，客戶通過您認識服務。<span className="text-purple-300 font-medium">成功介紹即獲報酬</span>。</p>
+                </div>
+              </div>
+
+              {/* Feature 2 - 告别PDF */}
+              <div className="flex gap-4 bg-white/5 backdrop-blur-sm rounded-2xl p-5 border border-white/10 hover:bg-white/10 transition-all">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Globe className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-white mb-1">一個網址勝過十份 PDF</h4>
+                  <p className="text-sm text-gray-300">精密體檢、高級夜總會、醫療服務...<span className="text-blue-300 font-medium">一目了然</span>。客戶自己選，您只需收單。</p>
+                </div>
+              </div>
+
+              {/* Feature 3 - 资源已打通 */}
+              <div className="flex gap-4 bg-white/5 backdrop-blur-sm rounded-2xl p-5 border border-white/10 hover:bg-white/10 transition-all">
+                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Link2 className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-white mb-1">資源我們已經打通</h4>
+                  <p className="text-sm text-gray-300">德洲會醫療、160家高級夜總會、頂級餐廳...<span className="text-green-300 font-medium">您直接用</span>。無需自己一家家談判。</p>
+                </div>
+              </div>
+
+              {/* Feature 4 - 成本对比 */}
+              <div className="flex gap-4 bg-white/5 backdrop-blur-sm rounded-2xl p-5 border border-white/10 hover:bg-white/10 transition-all">
+                <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <CreditCard className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-white mb-1">自建網站？算一筆帳</h4>
+                  <p className="text-sm text-gray-300">
+                    <span className="line-through text-gray-500">設計費 ¥50,000+</span>
+                    <span className="line-through text-gray-500 ml-2">開發費 ¥100,000+</span>
+                    <span className="line-through text-gray-500 ml-2">維護費 ¥5,000/月</span><br/>
+                    現在：<span className="text-orange-300 font-bold">¥1,980/月，全包。</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right - Pricing Card */}
+            <div className="lg:pl-8">
+              <div className="bg-white rounded-3xl p-8 shadow-2xl text-gray-900 relative overflow-hidden">
+                {/* Popular Badge */}
+                <div className="absolute top-4 right-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                  創業首選
+                </div>
+
+                {/* Plan Name */}
+                <div className="mb-6">
+                  <p className="text-sm text-gray-500 mb-1">パートナーサイト利用料</p>
+                  <h3 className="text-2xl font-bold">品牌網站套用方案</h3>
+                </div>
+
+                {/* Price */}
+                <div className="mb-6 pb-6 border-b border-gray-100">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">¥1,980</span>
+                    <span className="text-gray-500">/月（税込）</span>
+                  </div>
+                  <p className="text-sm text-gray-400 mt-2">約 100 元人民幣 / 月 · 一杯咖啡的錢</p>
+                </div>
+
+                {/* Features List - 更突出价值 */}
+                <div className="space-y-4 mb-8">
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    <span className="text-sm"><span className="font-semibold">專屬品牌展示</span>（以您的品牌呈現）</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    <span className="text-sm">專屬域名 yourname.niijima-koutsu.jp</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    <span className="text-sm">全套產品一鍵上架（體檢/夜總會/醫療）</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    <span className="text-sm">客戶直接在線預約下單</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    <span className="text-sm">訂單自動歸屬 + 介紹報酬</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    <span className="text-sm">5 分鐘開通，無需技術背景</span>
+                  </div>
+                </div>
+
+                {/* CTA Button */}
+                <button
+                  onClick={() => setShowWechatQR(true)}
+                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 rounded-xl font-bold hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                >
+                  <Smartphone className="w-5 h-5" />
+                  立即開通我的網站
+                </button>
+
+                {/* Legal Note */}
+                <p className="text-xs text-gray-400 text-center mt-4">
+                  本服務為客戶介紹系統使用授權。<br/>
+                  所有旅行服務由新島交通株式會社（大阪府知事登錄旅行業 第2-3115號）提供。<br/>
+                  您作為介紹人獲得介紹報酬，不構成獨立旅行業經營。
+                </p>
+              </div>
+
+              {/* Trust Points */}
+              <div className="mt-6 flex flex-wrap justify-center gap-4 text-white/70 text-sm">
+                <div className="flex items-center gap-2">
+                  <Shield size={16} className="text-green-400" />
+                  <span>隨時可取消</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle size={16} className="text-green-400" />
+                  <span>無隱藏費用</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Zap size={16} className="text-yellow-400" />
+                  <span>當天開通</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Demo Link Preview */}
+          <div className="mt-16 text-center">
+            <p className="text-gray-400 text-sm mb-4">實際效果：點擊查看已開通夥伴的網站</p>
+            <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 px-6 py-3 rounded-full">
+              <Globe size={18} className="text-purple-300" />
+              <code className="text-purple-200 font-mono">demo.niijima-koutsu.jp</code>
+              <a
+                href="https://demo.niijima-koutsu.jp"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full transition-all"
+              >
+                查看示例 →
+              </a>
             </div>
           </div>
         </div>
@@ -351,8 +613,8 @@ export default function GuidePartnerPage() {
         <div className="max-w-3xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-4">立即申請加入</h2>
           <p className="text-gray-300 mb-8">
-            加入我們，獲取旅行社級別的資源對接能力<br/>
-            掃碼添加客服，請注明：導遊合夥人 + 您的姓名 + 推薦人
+            成為新島交通的提攜夥伴，為客戶介紹優質旅行服務<br/>
+            掃碼添加客服，請注明：提攜夥伴申請 + 您的姓名 + 推薦人
           </p>
 
           <button
@@ -368,6 +630,42 @@ export default function GuidePartnerPage() {
           <p className="mt-6 text-gray-400 text-sm">
             或發送郵件至：<a href="mailto:haoyuan@niijima-koutsu.jp" className="text-orange-400 hover:underline">haoyuan@niijima-koutsu.jp</a>
           </p>
+        </div>
+      </section>
+
+      {/* Legal Disclaimer Footer */}
+      <section className="py-12 bg-gray-100 border-t border-gray-200">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+            <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <Shield className="w-5 h-5 text-blue-600" />
+              重要法律聲明
+            </h3>
+            <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
+              <p>
+                <strong>1. 服務提供者：</strong>本計劃所涉及的所有旅行相關服務（包括但不限於醫療體檢、高爾夫預約、夜總會預約等）均由<strong>新島交通株式會社</strong>（大阪府知事登錄旅行業 第2-3115號）提供。
+              </p>
+              <p>
+                <strong>2. 提攜夥伴的角色：</strong>提攜夥伴（導遊）的角色為「客戶介紹者」，負責向潛在客戶介紹新島交通的服務。提攜夥伴<strong>不是獨立的旅行服務提供者</strong>，不與客戶簽訂任何旅行服務合同。
+              </p>
+              <p>
+                <strong>3. 合同關係：</strong>所有旅行服務合同均在新島交通株式會社與客戶之間簽訂。提攜夥伴與客戶之間不存在直接的服務合同關係。
+              </p>
+              <p>
+                <strong>4. 介紹報酬：</strong>提攜夥伴因成功介紹客戶而獲得的報酬，性質為「紹介手数料」（介紹費），不構成旅行業務收入。
+              </p>
+              <p>
+                <strong>5. 品牌網站：</strong>提攜夥伴使用的品牌網站為新島交通的系統授權使用，網站上的所有服務由新島交通提供，網站底部將明確標示服務提供者信息。
+              </p>
+            </div>
+            <div className="mt-4 pt-4 border-t border-gray-100 flex flex-wrap items-center gap-4 text-xs text-gray-500">
+              <span>新島交通株式會社</span>
+              <span>|</span>
+              <span>大阪府知事登錄旅行業 第2-3115號</span>
+              <span>|</span>
+              <span>一般社團法人 日本旅行業協會（JATA）正會員</span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -405,7 +703,7 @@ export default function GuidePartnerPage() {
 
             <div className="mt-4 bg-orange-50 rounded-xl p-4 text-sm text-orange-700">
               <p className="font-medium mb-1">申請時請注明：</p>
-              <p>導遊合夥人 + 您的姓名 + 推薦人</p>
+              <p>提攜夥伴申請 + 您的姓名 + 推薦人</p>
             </div>
           </div>
         </div>

@@ -14,7 +14,7 @@ function PaymentSuccessContent() {
 
   useEffect(() => {
     if (!sessionId) {
-      router.push('/medical-packages');
+      router.push('/?page=medical');
       return;
     }
 
@@ -106,7 +106,7 @@ function PaymentSuccessContent() {
         {/* 操作按鈕 */}
         <div className="space-y-3">
           <Link
-            href="/medical-packages"
+            href="/?page=medical"
             className="block w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
           >
             返回套餐列表

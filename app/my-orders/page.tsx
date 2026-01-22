@@ -209,7 +209,7 @@ export default function MyOrdersPage() {
                 <h3 className="text-xl font-serif font-bold text-gray-900 mb-3">尚無訂單</h3>
                 <p className="text-gray-500 mb-8">您還沒有任何健檢預約記錄</p>
                 <Link
-                  href="/medical-packages"
+                  href="/?page=medical"
                   className="inline-flex items-center gap-2 bg-black hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg"
                 >
                   <Package className="w-5 h-5" />

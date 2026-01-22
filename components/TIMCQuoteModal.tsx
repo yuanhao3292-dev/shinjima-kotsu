@@ -191,6 +191,13 @@ export const TIMCQuoteModal: React.FC<TIMCQuoteModalProps> = ({ isOpen, onClose 
         <div className="overflow-y-auto max-h-[calc(90vh-120px)]">
           {step === 'form' ? (
             <div className="p-6 space-y-6">
+              {/* 合同主体声明 */}
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <p className="text-sm text-blue-800">
+                  <strong>ご契約について：</strong>本サービスのご契約は、新島交通株式会社（大阪府知事登録旅行業 第2-3115号）との間で締結されます。
+                </p>
+              </div>
+
               {/* 旅行社信息 */}
               <div className="space-y-4">
                 <h3 className="font-bold text-gray-800 flex items-center gap-2">

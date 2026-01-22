@@ -551,9 +551,9 @@ export default function WhiteLabelSettingsPage() {
         {!isSubscribed && (
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 text-center">
             <AlertCircle size={32} className="mx-auto text-amber-500 mb-3" />
-            <h3 className="font-bold text-amber-800 mb-2">需要订阅才能使用白标功能</h3>
+            <h3 className="font-bold text-amber-800 mb-2">需要订阅才能使用品牌展示网站功能</h3>
             <p className="text-amber-700 text-sm mb-4">
-              每月仅需 ¥1,980，即可获得专属品牌页面，所有客户通过您的链接访问都将自动归属于您。
+              每月仅需 ¥1,980，即可获得专属品牌展示页面，所有客户通过您的链接访问都将自动归属于您。
             </p>
             <button
               onClick={handleSubscribe}
@@ -563,6 +563,21 @@ export default function WhiteLabelSettingsPage() {
             </button>
           </div>
         )}
+
+        {/* 法律声明 */}
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
+          <h3 className="font-bold text-blue-800 mb-3 flex items-center gap-2">
+            <AlertCircle size={18} />
+            重要法律声明
+          </h3>
+          <ul className="space-y-2 text-sm text-blue-700">
+            <li>• 品牌展示网站为新岛交通株式会社系统的授权使用</li>
+            <li>• 网站上的所有旅行服务由新岛交通株式会社（大阪府知事登录旅行业 第2-3115号）提供</li>
+            <li>• 您的角色为「客户介绍者」，不是独立的旅行服务提供者</li>
+            <li>• 所有旅行服务合同均在新岛交通与客户之间签订</li>
+            <li>• 网站底部将自动显示服务提供者信息及旅行业登录号</li>
+          </ul>
+        </div>
       </main>
     </div>
   );

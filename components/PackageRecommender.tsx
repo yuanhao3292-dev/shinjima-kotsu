@@ -320,12 +320,12 @@ export default function PackageRecommender({ onClose, onSelectPackage }: Package
                   if (onSelectPackage) {
                     onSelectPackage(recommendation.packageSlug);
                   } else {
-                    window.location.href = `/medical-packages/${recommendation.packageSlug}`;
+                    window.location.href = '/?page=medical';
                   }
                 }}
                 className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 px-6 rounded-xl transition-colors"
               >
-                查看套餐詳情
+                查看精密體檢
               </button>
               <button
                 onClick={() => {

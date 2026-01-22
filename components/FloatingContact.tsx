@@ -157,9 +157,14 @@ export default function FloatingContact() {
               </a>
             </div>
 
-            <div className="mt-4 pt-4 border-t border-gray-100">
+            <div className="mt-4 pt-4 border-t border-gray-100 space-y-2">
               <p className="text-xs text-gray-400 text-center">
                 營業時間：週一至週五 9:00-18:00 (日本時間)
+              </p>
+              {/* 服务提供者声明 - 法律合规必须显示 */}
+              <p className="text-[10px] text-gray-400 text-center leading-tight">
+                本サービスは新島交通株式会社が提供<br/>
+                大阪府知事登録旅行業 第2-3115号
               </p>
             </div>
           </div>

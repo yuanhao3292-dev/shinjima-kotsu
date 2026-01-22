@@ -373,7 +373,11 @@ const formatPrice = (price: number) => {
   return `¥${price.toLocaleString()}`;
 };
 
-export default function PackageComparisonTable() {
+interface PackageComparisonTableProps {
+  onBookNow?: () => void;
+}
+
+export default function PackageComparisonTable({ onBookNow }: PackageComparisonTableProps) {
   const [expandedCategories, setExpandedCategories] = useState<string[]>(
     CHECK_ITEMS.map(c => c.category) // 默认全部展开
   );
@@ -513,16 +517,16 @@ export default function PackageComparisonTable() {
 
         {/* 底部下单按钮 */}
         <div className="sticky bottom-0 p-4 bg-white border-t shadow-lg">
-          <a
-            href={`/medical-packages/${selectedPackage.slug}`}
+          <button
+            onClick={onBookNow}
             className={`block w-full text-center py-3 rounded-xl font-bold text-lg transition ${
               selectedPackage.id === 'vip'
                 ? 'bg-gradient-to-r from-yellow-500 to-yellow-600 text-black'
                 : 'bg-blue-600 text-white hover:bg-blue-700'
             }`}
           >
-            立即預約 {selectedPackage.name}
-          </a>
+            立即諮詢 {selectedPackage.name}
+          </button>
           <div className="text-center text-xs text-gray-400 mt-2">
             含醫療翻譯・報告翻譯・消費稅10%
           </div>
@@ -591,16 +595,16 @@ export default function PackageComparisonTable() {
                 }`}>
                   {formatPrice(pkg.price)}
                 </div>
-                <a
-                  href={`/medical-packages/${pkg.slug}`}
+                <button
+                  onClick={onBookNow}
                   className={`inline-block mt-2 text-xs px-3 py-1 rounded ${
                     pkg.id === 'vip'
                       ? 'bg-yellow-500 text-black hover:bg-yellow-400'
                       : 'bg-blue-500 text-white hover:bg-blue-600'
                   } transition`}
                 >
-                  下單
-                </a>
+                  諮詢
+                </button>
               </div>
             ))}
           </div>

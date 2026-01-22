@@ -56,10 +56,10 @@ export default function PaymentCancelPage() {
           </button>
 
           <Link
-            href="/medical-packages"
+            href="/?page=medical"
             className="block w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
           >
-            返回套餐列表
+            返回精密體檢
           </Link>
 
           <Link

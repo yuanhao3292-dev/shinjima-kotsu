@@ -215,6 +215,13 @@ export default function RemoteConsultationPage() {
             <div className="bg-white rounded-2xl border border-gray-200 p-8">
               <h2 className="text-2xl font-serif font-bold text-gray-900 mb-6">預約信息</h2>
 
+              {/* 合同主体声明 */}
+              <div className="bg-purple-50 border border-purple-200 rounded-xl p-4 mb-6">
+                <p className="text-sm text-purple-800">
+                  <strong>ご契約について：</strong>本サービスのご契約は、新島交通株式会社（大阪府知事登録旅行業 第2-3115号）との間で締結されます。
+                </p>
+              </div>
+
               <form onSubmit={handleSubmit} className="space-y-8">
                 {/* Patient Info */}
                 <div>

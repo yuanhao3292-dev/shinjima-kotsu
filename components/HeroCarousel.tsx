@@ -40,7 +40,7 @@ const DEFAULT_SLIDES: CarouselSlide[] = [
     imageUrl: 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg',
     mobileImageUrl: 'https://i.ibb.co/TDYnsXBb/013-2.jpg',
     ctaText: '了解详情',
-    ctaLink: '/medical-packages',
+    ctaLink: '/?page=medical',
     overlayColor: 'rgba(0, 50, 100, 0.5)',
     textPosition: 'center',
     advertiser: 'TIMC',

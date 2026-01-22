@@ -149,7 +149,7 @@ export default function MyAccountPage() {
               </Link>
 
               <Link
-                href="/medical-packages"
+                href="/?page=medical"
                 className="flex items-center justify-between p-5 hover:bg-gray-50 transition-colors border-b border-gray-100"
               >
                 <div className="flex items-center gap-4">
