@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Globe, ChevronDown, LogIn, X, Menu } from 'lucide-react';
 import { useWhiteLabel, useWhiteLabelVisibility } from '@/lib/contexts/WhiteLabelContext';
 
-type Language = 'zh-TW' | 'ja' | 'en';
+type Language = 'zh-TW' | 'zh-CN' | 'ja' | 'en';
 
 interface PublicLayoutProps {
   children: React.ReactNode;
@@ -46,6 +46,21 @@ const navLabels = {
     memberLoginDesc: '医療・健診のお客様',
     guideLoginDesc: 'ガイドパートナー',
   },
+  'zh-CN': {
+    brand_sub: '新岛交通株式会社',
+    timc: '日本精密健检',
+    cancer: '日本综合治疗',
+    golf: '名门高尔夫',
+    business: '商务考察',
+    vehicles: '车辆介绍',
+    partner: '同业合作',
+    guidePartner: '导游合伙人',
+    login: '会员登录',
+    memberLogin: '个人会员登录',
+    guideLogin: '导游登录',
+    memberLoginDesc: '医疗・健检客户',
+    guideLoginDesc: '导游合伙人',
+  },
   'en': {
     brand_sub: 'Niijima Kotsu Co., Ltd.',
     timc: 'Medical Checkup',
@@ -63,12 +78,48 @@ const navLabels = {
   },
 };
 
+function getInitialLang(): Language {
+  if (typeof window === 'undefined') return 'zh-TW';
+  const cookies = document.cookie.split(';');
+  for (const cookie of cookies) {
+    const [name, value] = cookie.trim().split('=');
+    if (name === 'NEXT_LOCALE' && ['ja', 'zh-TW', 'zh-CN', 'en'].includes(value)) {
+      return value as Language;
+    }
+  }
+  const browserLang = navigator.language;
+  if (browserLang.startsWith('ja')) return 'ja';
+  if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') return 'zh-TW';
+  if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) return 'zh-CN';
+  if (browserLang.startsWith('en')) return 'en';
+  return 'zh-TW';
+}
+
+function persistLang(locale: Language) {
+  const expires = new Date();
+  expires.setFullYear(expires.getFullYear() + 1);
+  document.cookie = `NEXT_LOCALE=${locale};expires=${expires.toUTCString()};path=/;SameSite=Lax`;
+}
+
 export default function PublicLayout({ children, showFooter = true, activeNav, transparentNav = true, onLogoClick }: PublicLayoutProps) {
   const [currentLang, setCurrentLang] = useState<Language>('zh-TW');
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [loginMenuOpen, setLoginMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  // 从 cookie 读取语言偏好
+  useEffect(() => {
+    setCurrentLang(getInitialLang());
+  }, []);
+
+  // 切换语言时持久化到 cookie
+  const handleLangChange = (lang: Language) => {
+    setCurrentLang(lang);
+    persistLang(lang);
+    setLangMenuOpen(false);
+    window.location.reload();
+  };
 
   // 白标模式
   const { isWhiteLabelMode, branding, contact, guideConfig, isSubscriptionActive } = useWhiteLabel();
@@ -124,13 +175,13 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
         }`}
       >
         <Globe size={14} />
-        {currentLang === 'zh-TW' ? '繁中' : currentLang.toUpperCase()}
+        {currentLang === 'zh-TW' ? '繁中' : currentLang === 'zh-CN' ? '简中' : currentLang.toUpperCase()}
         <ChevronDown size={12} />
       </button>
       {langMenuOpen && (
         <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50 animate-fade-in-down">
-          {[{ code: 'ja', label: '日本語' }, { code: 'zh-TW', label: '繁體中文' }, { code: 'en', label: 'English' }].map((lang) => (
-            <button key={lang.code} onClick={() => { setCurrentLang(lang.code as Language); setLangMenuOpen(false); }} className={`w-full text-left px-4 py-2 text-xs font-medium hover:bg-gray-50 transition ${currentLang === lang.code ? 'text-blue-600 bg-blue-50' : 'text-gray-600'}`}>
+          {[{ code: 'ja', label: '日本語' }, { code: 'zh-TW', label: '繁體中文' }, { code: 'zh-CN', label: '简体中文' }, { code: 'en', label: 'English' }].map((lang) => (
+            <button key={lang.code} onClick={() => handleLangChange(lang.code as Language)} className={`w-full text-left px-4 py-2 text-xs font-medium hover:bg-gray-50 transition ${currentLang === lang.code ? 'text-blue-600 bg-blue-50' : 'text-gray-600'}`}>
               {lang.label}
             </button>
           ))}

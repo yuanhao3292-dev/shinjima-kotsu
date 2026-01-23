@@ -21,7 +21,7 @@ export default function MessagePage() {
               <div className="aspect-[3/4] rounded-xl overflow-hidden shadow-lg">
                 <img
                   src="https://i.ibb.co/B2mJDvq7/founder.jpg"
-                  alt="代表取締役 袁浩"
+                  alt="代表取締役 員昊"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -71,7 +71,7 @@ export default function MessagePage() {
 
               <div className="mt-10 pt-6 border-t border-gray-200">
                 <p className="text-gray-900 font-bold">新島交通株式会社</p>
-                <p className="text-gray-600">代表取締役 袁 浩</p>
+                <p className="text-gray-600">代表取締役 員 昊</p>
               </div>
             </div>
           </div>

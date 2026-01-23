@@ -1997,11 +1997,11 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
   const heroSlides: CarouselSlide[] = [
     {
       id: 'cancer-treatment',
-      title: currentLang === 'zh-TW' ? '日本尖端癌症治療' : currentLang === 'ja' ? '日本最先端がん治療' : 'Japan Advanced Cancer Treatment',
-      subtitle: currentLang === 'zh-TW' ? '質子重離子 / 光免疫 / BNCT' : currentLang === 'ja' ? '陽子線・光免疫・BNCT' : 'Proton / Photoimmunotherapy / BNCT',
-      description: currentLang === 'zh-TW' ? '全球領先的癌症治療技術，精準打擊癌細胞' : currentLang === 'ja' ? '世界最先端の治療技術でがん細胞を狙い撃ち' : 'World-leading technology for precise cancer treatment',
+      title: currentLang.startsWith('zh') ? '日本尖端癌症治療' : currentLang === 'ja' ? '日本最先端がん治療' : 'Japan Advanced Cancer Treatment',
+      subtitle: currentLang.startsWith('zh') ? '質子重離子 / 光免疫 / BNCT' : currentLang === 'ja' ? '陽子線・光免疫・BNCT' : 'Proton / Photoimmunotherapy / BNCT',
+      description: currentLang.startsWith('zh') ? '全球領先的癌症治療技術，精準打擊癌細胞' : currentLang === 'ja' ? '世界最先端の治療技術でがん細胞を狙い撃ち' : 'World-leading technology for precise cancer treatment',
       imageUrl: getImage('hero_slide_1', 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2000&auto=format&fit=crop'),
-      ctaText: currentLang === 'zh-TW' ? '諮詢治療方案' : currentLang === 'ja' ? '治療相談' : 'Consult Now',
+      ctaText: currentLang.startsWith('zh') ? '諮詢治療方案' : currentLang === 'ja' ? '治療相談' : 'Consult Now',
       ctaLink: '/cancer-treatment',
       overlayColor: 'rgba(30, 60, 114, 0.5)',
       textPosition: 'center',
@@ -2009,12 +2009,12 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
     },
     {
       id: 'timc-health-checkup',
-      title: currentLang === 'zh-TW' ? '日本 TIMC 精密體檢' : currentLang === 'ja' ? '日本TIMC精密健診' : 'Japan TIMC Premium Checkup',
-      subtitle: currentLang === 'zh-TW' ? '德洲會國際醫療中心' : currentLang === 'ja' ? '徳洲会国際医療センター' : 'Tokushukai International Medical Center',
-      description: currentLang === 'zh-TW' ? 'PET-CT / MRI / 胃腸鏡 - 早期發現，守護健康' : currentLang === 'ja' ? 'PET-CT / MRI / 胃腸内視鏡 - 早期発見で健康を守る' : 'PET-CT / MRI / Endoscopy - Early Detection for Better Health',
+      title: currentLang.startsWith('zh') ? '日本 TIMC 精密體檢' : currentLang === 'ja' ? '日本TIMC精密健診' : 'Japan TIMC Premium Checkup',
+      subtitle: currentLang.startsWith('zh') ? '德洲會國際醫療中心' : currentLang === 'ja' ? '徳洲会国際医療センター' : 'Tokushukai International Medical Center',
+      description: currentLang.startsWith('zh') ? 'PET-CT / MRI / 胃腸鏡 - 早期發現，守護健康' : currentLang === 'ja' ? 'PET-CT / MRI / 胃腸内視鏡 - 早期発見で健康を守る' : 'PET-CT / MRI / Endoscopy - Early Detection for Better Health',
       imageUrl: getImage('hero_slide_2', 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg'),
       mobileImageUrl: getImage('hero_slide_2_mobile', 'https://i.ibb.co/TDYnsXBb/013-2.jpg'),
-      ctaText: currentLang === 'zh-TW' ? '了解詳情' : currentLang === 'ja' ? '詳細を見る' : 'Learn More',
+      ctaText: currentLang.startsWith('zh') ? '了解詳情' : currentLang === 'ja' ? '詳細を見る' : 'Learn More',
       ctaLink: '/?page=medical',
       overlayColor: 'rgba(0, 50, 100, 0.5)',
       textPosition: 'center',
@@ -2022,11 +2022,11 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
     },
     {
       id: 'ai-health-screening',
-      title: currentLang === 'zh-TW' ? 'AI 智能健康檢測' : currentLang === 'ja' ? 'AI健康診断' : 'AI Health Screening',
-      subtitle: currentLang === 'zh-TW' ? '3 分鐘了解您的健康風險' : currentLang === 'ja' ? '3分でリスクを把握' : '3-Minute Risk Assessment',
-      description: currentLang === 'zh-TW' ? '基於 AI 的專業問診，為您推薦最適合的體檢方案' : currentLang === 'ja' ? 'AIによる問診で最適な健診プランをご提案' : 'AI-powered consultation for personalized health plans',
+      title: currentLang.startsWith('zh') ? 'AI 智能健康檢測' : currentLang === 'ja' ? 'AI健康診断' : 'AI Health Screening',
+      subtitle: currentLang.startsWith('zh') ? '3 分鐘了解您的健康風險' : currentLang === 'ja' ? '3分でリスクを把握' : '3-Minute Risk Assessment',
+      description: currentLang.startsWith('zh') ? '基於 AI 的專業問診，為您推薦最適合的體檢方案' : currentLang === 'ja' ? 'AIによる問診で最適な健診プランをご提案' : 'AI-powered consultation for personalized health plans',
       imageUrl: getImage('hero_slide_3', 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2000&auto=format&fit=crop'),
-      ctaText: currentLang === 'zh-TW' ? '免費檢測' : currentLang === 'ja' ? '無料診断' : 'Free Screening',
+      ctaText: currentLang.startsWith('zh') ? '免費檢測' : currentLang === 'ja' ? '無料診断' : 'Free Screening',
       ctaLink: '/health-screening',
       overlayColor: 'rgba(30, 60, 114, 0.6)',
       textPosition: 'center',
@@ -2062,7 +2062,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             {/* 标题 - 居中 */}
             <div className="text-center mb-12">
               <h2 className="serif text-2xl md:text-3xl text-gray-900 tracking-wide mb-2">
-                {currentLang === 'zh-TW' ? '最新消息' : 'お知らせ'}
+                {currentLang.startsWith('zh') ? '最新消息' : 'お知らせ'}
               </h2>
               <p className="text-xs tracking-[0.2em] text-gray-400 uppercase">News Room</p>
             </div>
@@ -2073,42 +2073,42 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 {
                   date: '2026年1月15日',
                   categories: [
-                    { label: currentLang === 'zh-TW' ? '公告' : 'お知らせ', highlight: true },
-                    { label: currentLang === 'zh-TW' ? '醫療' : '医療', highlight: false },
+                    { label: currentLang.startsWith('zh') ? '公告' : 'お知らせ', highlight: true },
+                    { label: currentLang.startsWith('zh') ? '醫療' : '医療', highlight: false },
                   ],
-                  title: currentLang === 'zh-TW' ? '2026年春節期間營業時間調整通知' : '2026年春節期間の営業時間変更のお知らせ',
+                  title: currentLang.startsWith('zh') ? '2026年春節期間營業時間調整通知' : '2026年春節期間の営業時間変更のお知らせ',
                 },
                 {
                   date: '2026年1月8日',
                   categories: [
-                    { label: currentLang === 'zh-TW' ? '公告' : 'お知らせ', highlight: true },
-                    { label: currentLang === 'zh-TW' ? '體檢' : '健診', highlight: false },
+                    { label: currentLang.startsWith('zh') ? '公告' : 'お知らせ', highlight: true },
+                    { label: currentLang.startsWith('zh') ? '體檢' : '健診', highlight: false },
                   ],
-                  title: currentLang === 'zh-TW' ? 'TIMC OSAKA 2025年度體檢報告正式發布' : 'TIMC OSAKA 2025年度健診レポート発表',
+                  title: currentLang.startsWith('zh') ? 'TIMC OSAKA 2025年度體檢報告正式發布' : 'TIMC OSAKA 2025年度健診レポート発表',
                 },
                 {
                   date: '2025年12月20日',
                   categories: [
-                    { label: currentLang === 'zh-TW' ? '公告' : 'お知らせ', highlight: true },
-                    { label: currentLang === 'zh-TW' ? '高爾夫' : 'ゴルフ', highlight: false },
+                    { label: currentLang.startsWith('zh') ? '公告' : 'お知らせ', highlight: true },
+                    { label: currentLang.startsWith('zh') ? '高爾夫' : 'ゴルフ', highlight: false },
                   ],
-                  title: currentLang === 'zh-TW' ? '名門高爾夫新春特別企劃開始受付' : '名門ゴルフ新春特別プラン受付開始',
+                  title: currentLang.startsWith('zh') ? '名門高爾夫新春特別企劃開始受付' : '名門ゴルフ新春特別プラン受付開始',
                 },
                 {
                   date: '2025年12月10日',
                   categories: [
-                    { label: currentLang === 'zh-TW' ? '公告' : 'お知らせ', highlight: true },
-                    { label: currentLang === 'zh-TW' ? '商務' : 'ビジネス', highlight: false },
+                    { label: currentLang.startsWith('zh') ? '公告' : 'お知らせ', highlight: true },
+                    { label: currentLang.startsWith('zh') ? '商務' : 'ビジネス', highlight: false },
                   ],
-                  title: currentLang === 'zh-TW' ? '2026年日本企業考察行程開放預約' : '2026年日本企業視察ツアー予約受付開始',
+                  title: currentLang.startsWith('zh') ? '2026年日本企業考察行程開放預約' : '2026年日本企業視察ツアー予約受付開始',
                 },
                 {
                   date: '2025年11月28日',
                   categories: [
-                    { label: currentLang === 'zh-TW' ? '公告' : 'お知らせ', highlight: true },
-                    { label: currentLang === 'zh-TW' ? '公司' : '会社', highlight: false },
+                    { label: currentLang.startsWith('zh') ? '公告' : 'お知らせ', highlight: true },
+                    { label: currentLang.startsWith('zh') ? '公司' : '会社', highlight: false },
                   ],
-                  title: currentLang === 'zh-TW' ? '新島交通官方網站全新改版上線' : '新島交通公式サイトリニューアルのお知らせ',
+                  title: currentLang.startsWith('zh') ? '新島交通官方網站全新改版上線' : '新島交通公式サイトリニューアルのお知らせ',
                 },
               ].map((news, index) => (
                 <a key={index} href="/news" className="group block py-6 border-b border-gray-200 hover:bg-white transition-colors">
@@ -2149,7 +2149,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 href="/news"
                 className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 border border-gray-300 px-6 py-3 rounded hover:border-gray-400 transition-colors"
               >
-                {currentLang === 'zh-TW' ? '查看全部消息' : 'すべてのお知らせ'}
+                {currentLang.startsWith('zh') ? '查看全部消息' : 'すべてのお知らせ'}
                 <ArrowRight size={14} className="ml-2" />
               </a>
             </div>
@@ -2180,13 +2180,13 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
             {/* 核心标题 - 温暖、给人希望 */}
             <h2 className="serif text-4xl md:text-6xl text-white mb-6 leading-tight">
-              {currentLang === 'zh-TW' ? '把健康交給' : '健康を託す'}
+              {currentLang.startsWith('zh') ? '把健康交給' : '健康を託す'}
               <br />
-              <span className="text-teal-300">{currentLang === 'zh-TW' ? '值得信賴的人' : '信頼できる人へ'}</span>
+              <span className="text-teal-300">{currentLang.startsWith('zh') ? '值得信賴的人' : '信頼できる人へ'}</span>
             </h2>
 
             <p className="text-xl text-teal-100/80 mb-8 leading-relaxed font-light">
-              {currentLang === 'zh-TW'
+              {currentLang.startsWith('zh')
                 ? '日本醫療技術全球領先，PET-CT可發現5mm早期病變。我們提供專車接送、全程陪診翻譯、報告解讀——讓您專心照顧健康，其他的交給我們。'
                 : '日本の医療技術は世界トップクラス。PET-CTは5mmの早期病変を発見可能。専用車送迎、全行程通訳同行、レポート解説——健康に専念していただき、他はお任せください。'}
             </p>
@@ -2195,25 +2195,25 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="grid grid-cols-3 gap-6 mb-10 py-8 border-y border-white/20">
               <div>
                 <div className="text-4xl font-light text-white mb-1">12<span className="text-teal-300">年</span></div>
-                <div className="text-xs text-teal-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '醫療服務經驗' : '医療サービス実績'}</div>
+                <div className="text-xs text-teal-200/60 tracking-wider uppercase">{currentLang.startsWith('zh') ? '醫療服務經驗' : '医療サービス実績'}</div>
               </div>
               <div className="border-x border-white/20 px-6">
                 <div className="text-4xl font-light text-white mb-1">3000<span className="text-teal-300">+</span></div>
-                <div className="text-xs text-teal-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : 'ご利用者様'}</div>
+                <div className="text-xs text-teal-200/60 tracking-wider uppercase">{currentLang.startsWith('zh') ? '服務客戶' : 'ご利用者様'}</div>
               </div>
               <div>
                 <div className="text-4xl font-light text-white mb-1">100<span className="text-teal-300">%</span></div>
-                <div className="text-xs text-teal-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '全程陪同' : '全行程同行'}</div>
+                <div className="text-xs text-teal-200/60 tracking-wider uppercase">{currentLang.startsWith('zh') ? '全程陪同' : '全行程同行'}</div>
               </div>
             </div>
 
             {/* 服务亮点标签 */}
             <div className="flex flex-wrap gap-3 mb-10">
               {[
-                currentLang === 'zh-TW' ? '專車接送' : '専用車送迎',
-                currentLang === 'zh-TW' ? '醫療翻譯' : '医療通訳',
-                currentLang === 'zh-TW' ? '報告解讀' : 'レポート解説',
-                currentLang === 'zh-TW' ? '後續跟進' : 'アフターフォロー'
+                currentLang.startsWith('zh') ? '專車接送' : '専用車送迎',
+                currentLang.startsWith('zh') ? '醫療翻譯' : '医療通訳',
+                currentLang.startsWith('zh') ? '報告解讀' : 'レポート解説',
+                currentLang.startsWith('zh') ? '後續跟進' : 'アフターフォロー'
               ].map((tag, idx) => (
                 <span key={idx} className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">
                   {tag}
@@ -2227,14 +2227,14 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 onClick={() => setCurrentPage('medical')}
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-teal-900 text-sm font-medium rounded-lg hover:bg-teal-50 transition-colors cursor-pointer"
               >
-                {currentLang === 'zh-TW' ? '了解體檢方案' : '健診プランを見る'}
+                {currentLang.startsWith('zh') ? '了解體檢方案' : '健診プランを見る'}
                 <ArrowRight size={16} className="ml-2" />
               </a>
               <a
                 href="/health-screening"
                 className="inline-flex items-center justify-center px-8 py-4 border border-white/40 text-white text-sm rounded-lg hover:bg-white/10 transition-colors"
               >
-                {currentLang === 'zh-TW' ? '免費健康評估' : '無料健康診断'}
+                {currentLang.startsWith('zh') ? '免費健康評估' : '無料健康診断'}
               </a>
             </div>
           </div>
@@ -2243,12 +2243,12 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
         {/* 右下角：检查项目卡片（桌面端） */}
         <div className="hidden lg:block absolute right-8 bottom-8 w-80">
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
-            <h4 className="text-white font-medium mb-4">{currentLang === 'zh-TW' ? '精密檢查項目' : '精密検査項目'}</h4>
+            <h4 className="text-white font-medium mb-4">{currentLang.startsWith('zh') ? '精密檢查項目' : '精密検査項目'}</h4>
             <div className="space-y-3">
               {[
-                { name: 'PET-CT', desc: currentLang === 'zh-TW' ? '全身癌症早期篩查' : '全身がん早期検診' },
-                { name: 'MRI 3.0T', desc: currentLang === 'zh-TW' ? '腦部·心臟精密檢查' : '脳・心臓精密検査' },
-                { name: currentLang === 'zh-TW' ? '無痛胃腸鏡' : '無痛内視鏡', desc: currentLang === 'zh-TW' ? '消化道全面檢查' : '消化器系総合検査' },
+                { name: 'PET-CT', desc: currentLang.startsWith('zh') ? '全身癌症早期篩查' : '全身がん早期検診' },
+                { name: 'MRI 3.0T', desc: currentLang.startsWith('zh') ? '腦部·心臟精密檢查' : '脳・心臓精密検査' },
+                { name: currentLang.startsWith('zh') ? '無痛胃腸鏡' : '無痛内視鏡', desc: currentLang.startsWith('zh') ? '消化道全面檢查' : '消化器系総合検査' },
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-3 text-sm">
                   <CheckCircle size={16} className="text-teal-300 flex-shrink-0" />
@@ -2286,13 +2286,13 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
             {/* 核心标题 */}
             <h2 className="serif text-4xl md:text-6xl text-white mb-6 leading-tight">
-              {currentLang === 'zh-TW' ? '面對重疾' : '重病と向き合う時'}
+              {currentLang.startsWith('zh') ? '面對重疾' : '重病と向き合う時'}
               <br />
-              <span className="text-sky-300">{currentLang === 'zh-TW' ? '日本醫療給您更多希望' : '日本医療がもう一つの希望に'}</span>
+              <span className="text-sky-300">{currentLang.startsWith('zh') ? '日本醫療給您更多希望' : '日本医療がもう一つの希望に'}</span>
             </h2>
 
             <p className="text-xl text-blue-100/80 mb-8 leading-relaxed font-light">
-              {currentLang === 'zh-TW'
+              {currentLang.startsWith('zh')
                 ? '質子重離子治療、免疫細胞療法、達文西微創手術——日本癌症5年生存率全球領先。我們協助您獲得日本頂尖醫院的治療機會，全程陪同，讓您專注康復。'
                 : '陽子線・重粒子線治療、免疫細胞療法、ダヴィンチ手術——日本のがん5年生存率は世界トップ。日本トップ病院での治療機会をサポート、全行程同行で治療に専念いただけます。'}
             </p>
@@ -2301,25 +2301,25 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="grid grid-cols-3 gap-6 mb-10 py-8 border-y border-white/20">
               <div>
                 <div className="text-4xl font-light text-white mb-1">68<span className="text-sky-300">%</span></div>
-                <div className="text-xs text-blue-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '癌症5年生存率' : 'がん5年生存率'}</div>
+                <div className="text-xs text-blue-200/60 tracking-wider uppercase">{currentLang.startsWith('zh') ? '癌症5年生存率' : 'がん5年生存率'}</div>
               </div>
               <div className="border-x border-white/20 px-6">
                 <div className="text-4xl font-light text-white mb-1">98<span className="text-sky-300">%</span></div>
-                <div className="text-xs text-blue-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '心臟手術成功率' : '心臓手術成功率'}</div>
+                <div className="text-xs text-blue-200/60 tracking-wider uppercase">{currentLang.startsWith('zh') ? '心臟手術成功率' : '心臓手術成功率'}</div>
               </div>
               <div>
                 <div className="text-4xl font-light text-white mb-1">24<span className="text-sky-300">h</span></div>
-                <div className="text-xs text-blue-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '病歷評估響應' : '診療情報評価'}</div>
+                <div className="text-xs text-blue-200/60 tracking-wider uppercase">{currentLang.startsWith('zh') ? '病歷評估響應' : '診療情報評価'}</div>
               </div>
             </div>
 
             {/* 治疗领域标签 */}
             <div className="flex flex-wrap gap-3 mb-10">
               {[
-                currentLang === 'zh-TW' ? '癌症治療' : 'がん治療',
-                currentLang === 'zh-TW' ? '質子重離子' : '陽子線・重粒子線',
-                currentLang === 'zh-TW' ? '心臟手術' : '心臓手術',
-                currentLang === 'zh-TW' ? '腦血管' : '脳血管治療'
+                currentLang.startsWith('zh') ? '癌症治療' : 'がん治療',
+                currentLang.startsWith('zh') ? '質子重離子' : '陽子線・重粒子線',
+                currentLang.startsWith('zh') ? '心臟手術' : '心臓手術',
+                currentLang.startsWith('zh') ? '腦血管' : '脳血管治療'
               ].map((tag, idx) => (
                 <span key={idx} className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">
                   {tag}
@@ -2333,14 +2333,14 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 href="/cancer-treatment"
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-blue-950 text-sm font-medium rounded-lg hover:bg-sky-50 transition-colors"
               >
-                {currentLang === 'zh-TW' ? '了解治療服務' : '治療サービス詳細'}
+                {currentLang.startsWith('zh') ? '了解治療服務' : '治療サービス詳細'}
                 <ArrowRight size={16} className="ml-2" />
               </a>
               <a
                 href="/cancer-treatment/remote-consultation"
                 className="inline-flex items-center justify-center px-8 py-4 border border-white/40 text-white text-sm rounded-lg hover:bg-white/10 transition-colors"
               >
-                {currentLang === 'zh-TW' ? '免費遠程諮詢' : '無料遠隔相談'}
+                {currentLang.startsWith('zh') ? '免費遠程諮詢' : '無料遠隔相談'}
               </a>
             </div>
           </div>
@@ -2349,13 +2349,13 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
         {/* 右下角：治疗流程简述（桌面端） */}
         <div className="hidden lg:block absolute right-8 bottom-8 w-80">
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
-            <h4 className="text-white font-medium mb-4">{currentLang === 'zh-TW' ? '服務流程' : 'サービスの流れ'}</h4>
+            <h4 className="text-white font-medium mb-4">{currentLang.startsWith('zh') ? '服務流程' : 'サービスの流れ'}</h4>
             <div className="space-y-3">
               {[
-                { step: '01', text: currentLang === 'zh-TW' ? '提交病歷，24小時內評估' : '診療情報提出、24時間以内に評価' },
-                { step: '02', text: currentLang === 'zh-TW' ? '制定方案，明確費用' : '治療計画策定、費用明確化' },
-                { step: '03', text: currentLang === 'zh-TW' ? '赴日治療，全程陪同' : '渡航・治療、全行程同行' },
-                { step: '04', text: currentLang === 'zh-TW' ? '回國後持續跟進' : '帰国後継続フォロー' },
+                { step: '01', text: currentLang.startsWith('zh') ? '提交病歷，24小時內評估' : '診療情報提出、24時間以内に評価' },
+                { step: '02', text: currentLang.startsWith('zh') ? '制定方案，明確費用' : '治療計画策定、費用明確化' },
+                { step: '03', text: currentLang.startsWith('zh') ? '赴日治療，全程陪同' : '渡航・治療、全行程同行' },
+                { step: '04', text: currentLang.startsWith('zh') ? '回國後持續跟進' : '帰国後継続フォロー' },
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-3 text-sm">
                   <span className="w-6 h-6 bg-sky-400/30 rounded-full flex items-center justify-center text-xs text-sky-200 flex-shrink-0">{item.step}</span>
@@ -2388,13 +2388,13 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             </div>
 
             <h2 className="serif text-4xl md:text-6xl text-white mb-6 leading-tight">
-              {currentLang === 'zh-TW' ? '踏入' : '足を踏み入れる'}
+              {currentLang.startsWith('zh') ? '踏入' : '足を踏み入れる'}
               <br />
-              <span className="text-amber-400">{currentLang === 'zh-TW' ? '傳說中的名門' : '伝説の名門へ'}</span>
+              <span className="text-amber-400">{currentLang.startsWith('zh') ? '傳說中的名門' : '伝説の名門へ'}</span>
             </h2>
 
             <p className="text-xl text-gray-300 mb-8 leading-relaxed font-light">
-              {currentLang === 'zh-TW'
+              {currentLang.startsWith('zh')
                 ? '廣野、霞ヶ関、小野——這些球場的名字，在高爾夫愛好者心中如雷貫耳。平時需要會員介紹才能踏入的聖地，現在向您敞開大門。'
                 : '廣野、霞ヶ関、小野——ゴルフ愛好家なら誰もが憧れる名門。通常は会員紹介が必要な聖地が、今あなたに開かれます。'}
             </p>
@@ -2403,21 +2403,21 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="grid grid-cols-3 gap-6 mb-10 py-8 border-y border-white/20">
               <div>
                 <div className="text-4xl font-light text-white mb-1">25<span className="text-amber-400">+</span></div>
-                <div className="text-xs text-gray-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '名門球場' : '名門コース'}</div>
+                <div className="text-xs text-gray-400 tracking-wider uppercase">{currentLang.startsWith('zh') ? '名門球場' : '名門コース'}</div>
               </div>
               <div className="border-x border-white/20 px-6">
                 <div className="text-4xl font-light text-white mb-1">0</div>
-                <div className="text-xs text-gray-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '會員介紹' : '会員紹介不要'}</div>
+                <div className="text-xs text-gray-400 tracking-wider uppercase">{currentLang.startsWith('zh') ? '會員介紹' : '会員紹介不要'}</div>
               </div>
               <div>
                 <div className="text-4xl font-light text-white mb-1">VIP</div>
-                <div className="text-xs text-gray-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '專屬待遇' : '専用待遇'}</div>
+                <div className="text-xs text-gray-400 tracking-wider uppercase">{currentLang.startsWith('zh') ? '專屬待遇' : '専用待遇'}</div>
               </div>
             </div>
 
             {/* 球场列表 */}
             <div className="mb-10">
-              <div className="text-xs text-gray-500 mb-3 uppercase tracking-wider">{currentLang === 'zh-TW' ? '合作名門' : '提携名門コース'}</div>
+              <div className="text-xs text-gray-500 mb-3 uppercase tracking-wider">{currentLang.startsWith('zh') ? '合作名門' : '提携名門コース'}</div>
               <div className="flex flex-wrap gap-2">
                 {['廣野ゴルフ倶楽部', '霞ヶ関カンツリー倶楽部', '小野ゴルフ倶楽部', '茨木カンツリー倶楽部', '古賀ゴルフ・クラブ'].map((course, idx) => (
                   <span key={idx} className="text-sm text-white/80 after:content-['·'] after:mx-2 after:text-amber-400 last:after:content-none">
@@ -2431,7 +2431,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               onClick={() => setCurrentPage('golf')}
               className="inline-flex items-center px-8 py-4 bg-amber-400 text-black text-sm font-medium tracking-wider hover:bg-amber-300 transition-colors cursor-pointer"
             >
-              {currentLang === 'zh-TW' ? '探索名門球場' : '名門コースを見る'}
+              {currentLang.startsWith('zh') ? '探索名門球場' : '名門コースを見る'}
               <ArrowRight size={18} className="ml-3" />
             </a>
           </div>
@@ -2440,12 +2440,12 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
         {/* 右下角服务标签 */}
         <div className="absolute bottom-12 right-12 hidden lg:block">
           <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-6 max-w-xs">
-            <div className="text-xs text-amber-400 mb-2 uppercase tracking-wider">{currentLang === 'zh-TW' ? '尊享服務' : 'プレミアムサービス'}</div>
+            <div className="text-xs text-amber-400 mb-2 uppercase tracking-wider">{currentLang.startsWith('zh') ? '尊享服務' : 'プレミアムサービス'}</div>
             <div className="space-y-2 text-sm text-white/80">
-              <div>✓ {currentLang === 'zh-TW' ? '專屬開球時段' : '専用スタート枠'}</div>
-              <div>✓ {currentLang === 'zh-TW' ? '雙語球童服務' : 'バイリンガルキャディ'}</div>
-              <div>✓ {currentLang === 'zh-TW' ? '溫泉旅館安排' : '温泉旅館手配'}</div>
-              <div>✓ {currentLang === 'zh-TW' ? '懷石料理預約' : '懐石料理予約'}</div>
+              <div>✓ {currentLang.startsWith('zh') ? '專屬開球時段' : '専用スタート枠'}</div>
+              <div>✓ {currentLang.startsWith('zh') ? '雙語球童服務' : 'バイリンガルキャディ'}</div>
+              <div>✓ {currentLang.startsWith('zh') ? '溫泉旅館安排' : '温泉旅館手配'}</div>
+              <div>✓ {currentLang.startsWith('zh') ? '懷石料理預約' : '懐石料理予約'}</div>
             </div>
           </div>
         </div>
@@ -2466,20 +2466,20 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               <div>
                 <p className="text-xs tracking-[0.3em] text-amber-400 uppercase mb-4">Business Inspection</p>
                 <h2 className="serif text-3xl md:text-4xl text-white mb-6 leading-tight">
-                  {currentLang === 'zh-TW' ? '對話日本頂尖企業' : '日本トップ企業との対話'}
+                  {currentLang.startsWith('zh') ? '對話日本頂尖企業' : '日本トップ企業との対話'}
                 </h2>
                 <p className="text-gray-300 leading-relaxed mb-8">
-                  {currentLang === 'zh-TW'
+                  {currentLang.startsWith('zh')
                     ? '12年深耕日本商務市場，我們與豐田、松下、資生堂等500強企業建立深度合作。從工廠參觀到高管對談，為您打造真正有價值的商務考察之旅。'
                     : '12年間日本ビジネス市場を深耕。トヨタ、パナソニック、資生堂など500社以上と深い協力関係を構築。工場見学から経営層との対談まで、真に価値ある視察をご提供。'}
                 </p>
 
                 <div className="grid grid-cols-2 gap-6 mb-10">
                   {[
-                    { num: '16', label: currentLang === 'zh-TW' ? '行業覆蓋' : '対応業界' },
-                    { num: '500+', label: currentLang === 'zh-TW' ? '合作企業' : '提携企業' },
-                    { num: '98%', label: currentLang === 'zh-TW' ? '客戶滿意度' : '顧客満足度' },
-                    { num: '1000+', label: currentLang === 'zh-TW' ? '成功案例' : '成功実績' },
+                    { num: '16', label: currentLang.startsWith('zh') ? '行業覆蓋' : '対応業界' },
+                    { num: '500+', label: currentLang.startsWith('zh') ? '合作企業' : '提携企業' },
+                    { num: '98%', label: currentLang.startsWith('zh') ? '客戶滿意度' : '顧客満足度' },
+                    { num: '1000+', label: currentLang.startsWith('zh') ? '成功案例' : '成功実績' },
                   ].map((stat, idx) => (
                     <div key={idx} className="border-l-2 border-amber-400/50 pl-4">
                       <div className="text-2xl font-light text-white">{stat.num}</div>
@@ -2490,11 +2490,11 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
                 <div className="flex flex-wrap gap-3 mb-10">
                   {[
-                    currentLang === 'zh-TW' ? '製造業' : '製造業',
-                    currentLang === 'zh-TW' ? '零售業' : '小売業',
-                    currentLang === 'zh-TW' ? '醫療健康' : '医療・ヘルスケア',
-                    currentLang === 'zh-TW' ? '科技創新' : 'テクノロジー',
-                    currentLang === 'zh-TW' ? '農業食品' : '農業・食品',
+                    currentLang.startsWith('zh') ? '製造業' : '製造業',
+                    currentLang.startsWith('zh') ? '零售業' : '小売業',
+                    currentLang.startsWith('zh') ? '醫療健康' : '医療・ヘルスケア',
+                    currentLang.startsWith('zh') ? '科技創新' : 'テクノロジー',
+                    currentLang.startsWith('zh') ? '農業食品' : '農業・食品',
                   ].map((tag, idx) => (
                     <span key={idx} className="px-3 py-1 text-xs border border-white/20 text-gray-300">
                       {tag}
@@ -2506,17 +2506,17 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                   onClick={() => setCurrentPage('business')}
                   className="inline-flex items-center px-6 py-3 bg-amber-500 text-slate-900 text-sm font-medium hover:bg-amber-400 transition-colors cursor-pointer"
                 >
-                  {currentLang === 'zh-TW' ? '定制考察方案' : '視察プランを相談'}
+                  {currentLang.startsWith('zh') ? '定制考察方案' : '視察プランを相談'}
                   <ArrowRight size={16} className="ml-2" />
                 </a>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { name: currentLang === 'zh-TW' ? '豐田汽車' : 'トヨタ自動車', type: currentLang === 'zh-TW' ? '製造業' : '製造業' },
-                  { name: currentLang === 'zh-TW' ? '松下電器' : 'パナソニック', type: currentLang === 'zh-TW' ? '電子科技' : '電機' },
-                  { name: currentLang === 'zh-TW' ? '資生堂' : '資生堂', type: currentLang === 'zh-TW' ? '美妝日化' : '化粧品' },
-                  { name: currentLang === 'zh-TW' ? '永旺集團' : 'イオン', type: currentLang === 'zh-TW' ? '零售業' : '小売業' },
+                  { name: currentLang.startsWith('zh') ? '豐田汽車' : 'トヨタ自動車', type: currentLang.startsWith('zh') ? '製造業' : '製造業' },
+                  { name: currentLang.startsWith('zh') ? '松下電器' : 'パナソニック', type: currentLang.startsWith('zh') ? '電子科技' : '電機' },
+                  { name: currentLang.startsWith('zh') ? '資生堂' : '資生堂', type: currentLang.startsWith('zh') ? '美妝日化' : '化粧品' },
+                  { name: currentLang.startsWith('zh') ? '永旺集團' : 'イオン', type: currentLang.startsWith('zh') ? '零售業' : '小売業' },
                 ].map((company, idx) => (
                   <div key={idx} className="bg-white/10 backdrop-blur p-6 border border-white/10 hover:border-white/30 transition-colors">
                     <div className="text-white font-medium mb-1">{company.name}</div>
@@ -2536,7 +2536,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="text-center mb-12">
               <p className="text-xs tracking-[0.3em] text-gray-400 uppercase mb-3">Partners</p>
               <h2 className="serif text-2xl md:text-3xl text-gray-900 tracking-wide">
-                {currentLang === 'zh-TW' ? '合作夥伴' : '主要取引先'}
+                {currentLang.startsWith('zh') ? '合作夥伴' : '主要取引先'}
               </h2>
             </div>
 
@@ -2565,20 +2565,20 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           <div className="max-w-4xl mx-auto text-center">
             <p className="text-xs tracking-[0.3em] text-gray-500 uppercase mb-6">Corporate Philosophy</p>
             <h2 className="serif text-3xl md:text-4xl text-white mb-8 leading-relaxed">
-              {currentLang === 'zh-TW'
+              {currentLang.startsWith('zh')
                 ? '用心連結世界與日本'
                 : '心をつなぐ、世界と日本'}
             </h2>
             <p className="text-gray-400 leading-relaxed mb-10 max-w-2xl mx-auto">
-              {currentLang === 'zh-TW'
-                ? '新島交通成立於2018年，致力於為華人旅客提供最高品質的日本旅遊體驗。我們相信，真正的服務不僅是滿足需求，更是創造感動。'
-                : '2018年設立以来、新島交通は華人旅行者の皆様に最高品質の日本旅行体験を提供してまいりました。真のサービスとは、ニーズを満たすだけでなく、感動を創造することだと信じています。'}
+              {currentLang.startsWith('zh')
+                ? '新島交通成立於2020年，致力於為華人旅客提供最高品質的日本旅遊體驗。我們相信，真正的服務不僅是滿足需求，更是創造感動。'
+                : '2020年設立以来、新島交通は華人旅行者の皆様に最高品質の日本旅行体験を提供してまいりました。真のサービスとは、ニーズを満たすだけでなく、感動を創造することだと信じています。'}
             </p>
             <a
               href="/company/message"
               className="inline-flex items-center text-xs text-white border border-white/30 px-8 py-3 hover:bg-white hover:text-slate-900 transition-all tracking-wider"
             >
-              {currentLang === 'zh-TW' ? '社長致詞' : '社長メッセージ'}
+              {currentLang.startsWith('zh') ? '社長致詞' : '社長メッセージ'}
               <ArrowRight size={14} className="ml-2" />
             </a>
           </div>
@@ -2609,13 +2609,13 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
             {/* 核心标题 */}
             <h2 className="serif text-4xl md:text-6xl text-white mb-6 leading-tight">
-              {currentLang === 'zh-TW' ? '導遊提攜夥伴' : 'ガイドパートナー'}
+              {currentLang.startsWith('zh') ? '導遊提攜夥伴' : 'ガイドパートナー'}
               <br />
-              <span className="text-violet-300">{currentLang === 'zh-TW' ? '客戶介紹計劃' : '顧客紹介プログラム'}</span>
+              <span className="text-violet-300">{currentLang.startsWith('zh') ? '客戶介紹計劃' : '顧客紹介プログラム'}</span>
             </h2>
 
             <p className="text-xl text-violet-100/80 mb-8 leading-relaxed font-light">
-              {currentLang === 'zh-TW'
+              {currentLang.startsWith('zh')
                 ? '新島交通提供高端夜總會、精密體檢、綜合醫療等服務資源。您介紹客戶，我們提供服務，成功即有介紹報酬。'
                 : '新島交通は高級クラブ、精密健診、総合医療などのサービスを提供。お客様をご紹介いただき、成約時に紹介報酬をお支払いします。'}
             </p>
@@ -2624,21 +2624,21 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="grid grid-cols-2 gap-6 mb-10 py-8 border-y border-white/20">
               <div>
                 <div className="text-4xl font-light text-white mb-1">160<span className="text-violet-300">+</span></div>
-                <div className="text-xs text-violet-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '合作店舖' : '提携店舗'}</div>
+                <div className="text-xs text-violet-200/60 tracking-wider uppercase">{currentLang.startsWith('zh') ? '合作店舖' : '提携店舗'}</div>
               </div>
               <div className="border-l border-white/20 pl-6">
                 <div className="text-4xl font-light text-white mb-1">3000<span className="text-violet-300">+</span></div>
-                <div className="text-xs text-violet-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : 'ご利用者様'}</div>
+                <div className="text-xs text-violet-200/60 tracking-wider uppercase">{currentLang.startsWith('zh') ? '服務客戶' : 'ご利用者様'}</div>
               </div>
             </div>
 
             {/* 服务亮点标签 */}
             <div className="flex flex-wrap gap-3 mb-10">
               {[
-                currentLang === 'zh-TW' ? '高端夜總會' : '高級クラブ',
-                currentLang === 'zh-TW' ? 'TIMC精密體檢' : 'TIMC精密健診',
-                currentLang === 'zh-TW' ? '綜合醫療' : '総合医療',
-                currentLang === 'zh-TW' ? '幹細胞·抗衰' : '幹細胞・アンチエイジング'
+                currentLang.startsWith('zh') ? '高端夜總會' : '高級クラブ',
+                currentLang.startsWith('zh') ? 'TIMC精密體檢' : 'TIMC精密健診',
+                currentLang.startsWith('zh') ? '綜合醫療' : '総合医療',
+                currentLang.startsWith('zh') ? '幹細胞·抗衰' : '幹細胞・アンチエイジング'
               ].map((tag, idx) => (
                 <span key={idx} className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">
                   {tag}
@@ -2652,14 +2652,14 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 href="/guide-partner"
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-violet-900 text-sm font-medium rounded-lg hover:bg-violet-50 transition-colors"
               >
-                {currentLang === 'zh-TW' ? '了解詳情' : '詳細を見る'}
+                {currentLang.startsWith('zh') ? '了解詳情' : '詳細を見る'}
                 <ArrowRight size={16} className="ml-2" />
               </a>
               <a
                 href="/guide-partner/login"
                 className="inline-flex items-center justify-center px-8 py-4 border border-white/40 text-white text-sm rounded-lg hover:bg-white/10 transition-colors"
               >
-                {currentLang === 'zh-TW' ? '夥伴登入' : 'パートナーログイン'}
+                {currentLang.startsWith('zh') ? '夥伴登入' : 'パートナーログイン'}
               </a>
             </div>
           </div>
@@ -2668,12 +2668,12 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
         {/* 右下角：合作模式卡片（桌面端） */}
         <div className="hidden lg:block absolute right-8 bottom-8 w-80">
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
-            <h4 className="text-white font-medium mb-4">{currentLang === 'zh-TW' ? '合作模式' : '提携モデル'}</h4>
+            <h4 className="text-white font-medium mb-4">{currentLang.startsWith('zh') ? '合作模式' : '提携モデル'}</h4>
             <div className="space-y-3">
               {[
-                { name: currentLang === 'zh-TW' ? '您介紹客戶' : 'お客様をご紹介', desc: currentLang === 'zh-TW' ? '推薦有需求的客戶' : 'ニーズのあるお客様を' },
-                { name: currentLang === 'zh-TW' ? '新島提供服務' : '新島がサービス提供', desc: currentLang === 'zh-TW' ? '預約、接待、全程服務' : '予約・接客・全行程' },
-                { name: currentLang === 'zh-TW' ? '成功獲得報酬' : '成約で報酬', desc: currentLang === 'zh-TW' ? '每月結算介紹報酬' : '毎月紹介報酬を精算' },
+                { name: currentLang.startsWith('zh') ? '您介紹客戶' : 'お客様をご紹介', desc: currentLang.startsWith('zh') ? '推薦有需求的客戶' : 'ニーズのあるお客様を' },
+                { name: currentLang.startsWith('zh') ? '新島提供服務' : '新島がサービス提供', desc: currentLang.startsWith('zh') ? '預約、接待、全程服務' : '予約・接客・全行程' },
+                { name: currentLang.startsWith('zh') ? '成功獲得報酬' : '成約で報酬', desc: currentLang.startsWith('zh') ? '每月結算介紹報酬' : '毎月紹介報酬を精算' },
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-3 text-sm">
                   <CheckCircle size={16} className="text-violet-300 flex-shrink-0" />
@@ -2686,7 +2686,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             </div>
             {/* 法律声明 */}
             <p className="text-[10px] text-violet-200/40 mt-4 pt-3 border-t border-white/10 leading-relaxed">
-              {currentLang === 'zh-TW'
+              {currentLang.startsWith('zh')
                 ? '所有旅行服務由新島交通株式會社提供'
                 : '全ての旅行サービスは新島交通株式会社が提供'}
             </p>

@@ -55,9 +55,9 @@ export default function AccessPage() {
                 <div>
                   <div className="font-bold text-gray-900 mb-1">住所</div>
                   <div className="text-gray-600">
-                    〒541-0053<br />
-                    大阪府大阪市中央区本町1丁目5番6号<br />
-                    山甚ビル 8F
+                    〒556-0014<br />
+                    大阪府大阪市浪速区大国1-2-21<br />
+                    NICビル602号
                   </div>
                 </div>
               </div>
@@ -69,8 +69,8 @@ export default function AccessPage() {
                 <div>
                   <div className="font-bold text-gray-900 mb-1">アクセス</div>
                   <div className="text-gray-600">
-                    大阪メトロ 堺筋線・中央線「堺筋本町」駅 12番出口より徒歩1分<br />
-                    大阪メトロ 御堂筋線「本町」駅 3番出口より徒歩5分
+                    大阪メトロ 御堂筋線・四つ橋線「大国町」駅 徒歩3分<br />
+                    南海本線「今宮戎」駅 徒歩5分
                   </div>
                 </div>
               </div>

@@ -199,13 +199,13 @@ export default function AboutPage() {
                 <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
                   <img
                     src="https://i.ibb.co/B2mJDvq7/founder.jpg"
-                    alt="代表取締役 袁浩"
+                    alt="代表取締役 員昊"
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                   <div className="absolute bottom-6 left-6 text-white">
                     <p className="text-sm text-gray-300 mb-1">代表取締役</p>
-                    <p className="text-2xl font-serif font-bold">袁 浩</p>
+                    <p className="text-2xl font-serif font-bold">員 昊</p>
                     <p className="text-sm text-gray-300">Yuan Hao</p>
                   </div>
                 </div>
@@ -262,7 +262,7 @@ export default function AboutPage() {
                     className="h-12 opacity-80 hidden"
                   />
                   <p className="text-gray-900 font-serif text-lg">新島交通株式會社</p>
-                  <p className="text-gray-500">代表取締役 袁 浩</p>
+                  <p className="text-gray-500">代表取締役 員 昊</p>
                 </div>
               </div>
             </div>
@@ -409,7 +409,7 @@ export default function AboutPage() {
             {/* 额外数据行 */}
             <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-                { label: '創立年份', value: '2018年', icon: Calendar },
+                { label: '創立年份', value: '2020年', icon: Calendar },
                 { label: '員工人數', value: '25名+', icon: Users },
                 { label: '服務覆蓋', value: '日本全國', icon: Globe },
               ].map((item, index) => {

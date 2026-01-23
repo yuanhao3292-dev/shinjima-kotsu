@@ -28,7 +28,7 @@ export default function OrganizationPage() {
                 <div className="bg-slate-900 text-white px-8 py-4 rounded-xl shadow-lg">
                   <div className="text-center">
                     <div className="text-sm text-gray-400 mb-1">代表取締役</div>
-                    <div className="font-bold text-lg">袁 浩</div>
+                    <div className="font-bold text-lg">員 昊</div>
                   </div>
                 </div>
               </div>
@@ -102,10 +102,10 @@ export default function OrganizationPage() {
             {[
               {
                 position: '代表取締役',
-                name: '袁 浩',
+                name: '員 昊',
                 nameEn: 'Yuan Hao',
                 photo: 'https://i.ibb.co/B2mJDvq7/founder.jpg',
-                bio: '早稲田大学卒業。大手旅行会社勤務を経て、2018年に新島交通を創業。華人旅客向けインバウンド事業の先駆者として業界をリード。',
+                bio: '早稲田大学卒業。大手旅行会社勤務を経て、2020年に新島交通を創業。華人旅客向けインバウンド事業の先駆者として業界をリード。',
               },
               {
                 position: '取締役 営業本部長',

@@ -17,7 +17,7 @@ export default function CompanyIndexPage() {
     >
       <div className="prose prose-gray max-w-none">
         <p className="text-lg text-gray-600 leading-relaxed mb-8">
-          新島交通株式会社は、2018年の創業以来、「華人旅客と日本の高品質な観光資源をつなぐ架け橋」として、
+          新島交通株式会社は、2020年の創業以来、「華人旅客と日本の高品質な観光資源をつなぐ架け橋」として、
           医療ツーリズム、ゴルフツーリズム、ビジネス視察の三大領域で事業を展開しております。
         </p>
 

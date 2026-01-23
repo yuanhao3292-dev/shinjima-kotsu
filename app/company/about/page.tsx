@@ -48,7 +48,7 @@ export default function AboutPage() {
                     <div className="absolute inset-0 bg-blue-100 transform translate-x-4 translate-y-4 rounded-2xl"></div>
                     <img
                       src="https://i.ibb.co/B2mJDvq7/founder.jpg"
-                      alt="代表取締役 袁浩"
+                      alt="代表取締役 員昊"
                       className="relative rounded-2xl shadow-lg w-full aspect-[3/4] object-cover object-top"
                     />
                   </div>
