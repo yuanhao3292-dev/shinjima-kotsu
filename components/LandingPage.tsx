@@ -225,14 +225,14 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       </div>
       <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-3xl animate-fade-in-up">
-              <h1 className="text-5xl md:text-7xl font-serif mb-6 leading-[1.2]">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif mb-4 md:mb-6 leading-[1.2]">
                  {t.medical.hero_title_1}<br/>
                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white">{t.medical.hero_title_2}</span>
               </h1>
-              <h2 className="text-xl md:text-2xl text-gray-300 font-light mb-8 font-serif">
+              <h2 className="text-base sm:text-lg md:text-2xl text-gray-300 font-light mb-6 md:mb-8 font-serif">
                  {t.medical.hero_subtitle}
               </h2>
-              <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base border-l-2 border-blue-500 pl-6 max-w-2xl whitespace-pre-line">
+              <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base border-l-2 border-blue-500 pl-4 md:pl-6 max-w-2xl whitespace-pre-line">
                  {t.medical.hero_text}
               </p>
               {/* 限量營銷文案 */}
@@ -307,15 +307,15 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       {/* 3. Tech Section - 双列全屏背景图设计 */}
       <div className="mb-0">
           <div className="text-center py-20 bg-white">
-              <h3 className="text-3xl md:text-4xl font-serif text-gray-900 mb-3">{t.medical.tech_title}</h3>
+              <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif text-gray-900 mb-3">{t.medical.tech_title}</h3>
               <p className="text-gray-500 text-sm tracking-widest uppercase mb-6">Medical Equipment Lineup</p>
               <p className="text-gray-600 text-sm max-w-2xl mx-auto px-4">{t.medical.tech_sub}</p>
           </div>
 
           {/* Row 1: CT + MRI */}
-          <div className="flex flex-col md:flex-row min-h-[50vh]">
+          <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
               {/* CT - Left */}
-              <div className="relative flex-1 min-h-[50vh] md:min-h-0 overflow-hidden group">
+              <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
                   <img
                       src={getImage('tech_ct')}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -329,7 +329,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   </div>
               </div>
               {/* MRI - Right */}
-              <div className="relative flex-1 min-h-[50vh] md:min-h-0 overflow-hidden group">
+              <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
                   <img
                       src={getImage('tech_mri')}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -345,9 +345,9 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           </div>
 
           {/* Row 2: Endoscopy + Dental */}
-          <div className="flex flex-col md:flex-row min-h-[50vh]">
+          <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
               {/* Endoscopy - Left */}
-              <div className="relative flex-1 min-h-[50vh] md:min-h-0 overflow-hidden group">
+              <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
                   <img
                       src={getImage('tech_endo')}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -361,7 +361,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   </div>
               </div>
               {/* Dental - Right */}
-              <div className="relative flex-1 min-h-[50vh] md:min-h-0 overflow-hidden group">
+              <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
                   <img
                       src={getImage('tech_dental')}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -377,9 +377,9 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           </div>
 
           {/* Row 3: Ultrasound + Mammography */}
-          <div className="flex flex-col md:flex-row min-h-[50vh]">
+          <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
               {/* Ultrasound - Left */}
-              <div className="relative flex-1 min-h-[50vh] md:min-h-0 overflow-hidden group">
+              <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
                   <img
                       src={getImage('detail_echo')}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -393,7 +393,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   </div>
               </div>
               {/* Mammography - Right */}
-              <div className="relative flex-1 min-h-[50vh] md:min-h-0 overflow-hidden group">
+              <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
                   <img
                       src={getImage('detail_mammo')}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -992,10 +992,10 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
 
            {/* Main Title with Gold Accent */}
            <div className="animate-fade-in-up-delay-2">
-             <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold mb-4 tracking-tight">
+             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-serif font-bold mb-4 tracking-tight">
                <span className="golf-gold-text">{t.golf.title_1}</span>
              </h1>
-             <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-light text-white/90 mb-8">{t.golf.title_2}</h2>
+             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-serif font-light text-white/90 mb-6 md:mb-8">{t.golf.title_2}</h2>
            </div>
 
            {/* Subtitle */}
@@ -1036,10 +1036,10 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
      {/* ===== STATS BAR - Floating ===== */}
      <div className="relative -mt-20 z-20 container mx-auto px-6">
        <div className="golf-glass rounded-2xl p-8 shadow-2xl">
-         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
            {stats.map((stat, i) => (
              <div key={i} className="golf-stat-card text-center p-4 rounded-xl hover:bg-emerald-50/50 transition-all duration-500">
-               <div className="text-4xl md:text-5xl font-bold golf-gold-text mb-2">{stat.value}</div>
+               <div className="text-2xl md:text-4xl lg:text-5xl font-bold golf-gold-text mb-2">{stat.value}</div>
                <div className="text-sm font-bold text-gray-800">{stat.label}</div>
                <div className="text-xs text-gray-400 mt-1">{stat.sublabel}</div>
              </div>
@@ -1114,7 +1114,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
          </div>
 
          {/* Course Grid */}
-         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
            {partnerCourses.map((course, i) => (
              <a
                key={i}
@@ -1330,7 +1330,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
             <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full mb-8">
               <span className="text-xs font-bold text-white/90 uppercase tracking-wider">{t.business.hero_tag}</span>
             </span>
-            <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif font-bold text-white mb-4 md:mb-6 leading-tight">
                 {t.business.hero_title}
             </h1>
             <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed whitespace-pre-line">
@@ -1340,7 +1340,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
       </div>
 
       <div className="container mx-auto px-6 py-24">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center mb-12 md:mb-24">
              <div>
                 <h3 className="text-3xl font-serif text-gray-900 mb-6">{t.business.tag}</h3>
                 <p className="text-gray-500 leading-relaxed whitespace-pre-line mb-8">
@@ -1924,7 +1924,7 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
              <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full mb-8">
                <span className="text-xs font-bold text-white/90 uppercase tracking-wider">{t.partner.hero_tag}</span>
              </span>
-             <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
+             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-serif font-bold text-white mb-4 md:mb-6 leading-tight">
                 {t.partner.hero_title}
              </h1>
              <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed whitespace-pre-line text-sm md:text-base">
@@ -2179,29 +2179,29 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             </div>
 
             {/* 核心标题 - 温暖、给人希望 */}
-            <h2 className="serif text-4xl md:text-6xl text-white mb-6 leading-tight">
+            <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
               {currentLang === 'zh-TW' ? '把健康交給' : currentLang === 'zh-CN' ? '把健康交给' : '健康を託す'}
               <br />
               <span className="text-teal-300">{currentLang === 'zh-TW' ? '值得信賴的人' : currentLang === 'zh-CN' ? '值得信赖的人' : '信頼できる人へ'}</span>
             </h2>
 
-            <p className="text-xl text-teal-100/80 mb-8 leading-relaxed font-light">
+            <p className="text-sm sm:text-base md:text-xl text-teal-100/80 mb-6 md:mb-8 leading-relaxed font-light">
               {currentLang === 'zh-TW' ? '日本醫療技術全球領先，PET-CT可發現5mm早期病變。我們提供專車接送、全程陪診翻譯、報告解讀——讓您專心照顧健康，其他的交給我們。' : currentLang === 'zh-CN' ? '日本医疗技术全球领先，PET-CT可发现5mm早期病变。我们提供专车接送、全程陪诊翻译、报告解读——让您专心照顾健康，其他的交给我们。' : '日本の医療技術は世界トップクラス。PET-CTは5mmの早期病変を発見可能。専用車送迎、全行程通訳同行、レポート解説——健康に専念していただき、他はお任せください。'}
             </p>
 
             {/* 核心数据 */}
-            <div className="grid grid-cols-3 gap-6 mb-10 py-8 border-y border-white/20">
-              <div>
-                <div className="text-4xl font-light text-white mb-1">12<span className="text-teal-300">年</span></div>
-                <div className="text-xs text-teal-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '醫療服務經驗' : currentLang === 'zh-CN' ? '医疗服务经验' : '医療サービス実績'}</div>
+            <div className="grid grid-cols-3 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-white/20">
+              <div className="text-center">
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">12<span className="text-teal-300">年</span></div>
+                <div className="text-[10px] md:text-xs text-teal-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '醫療服務經驗' : currentLang === 'zh-CN' ? '医疗服务经验' : '医療サービス実績'}</div>
               </div>
-              <div className="border-x border-white/20 px-6">
-                <div className="text-4xl font-light text-white mb-1">3000<span className="text-teal-300">+</span></div>
-                <div className="text-xs text-teal-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : currentLang === 'zh-CN' ? '服务客户' : 'ご利用者様'}</div>
+              <div className="border-x border-white/20 px-2 md:px-6 text-center">
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">3000<span className="text-teal-300">+</span></div>
+                <div className="text-[10px] md:text-xs text-teal-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : currentLang === 'zh-CN' ? '服务客户' : 'ご利用者様'}</div>
               </div>
-              <div>
-                <div className="text-4xl font-light text-white mb-1">100<span className="text-teal-300">%</span></div>
-                <div className="text-xs text-teal-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '全程陪同' : currentLang === 'zh-CN' ? '全程陪同' : '全行程同行'}</div>
+              <div className="text-center">
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">100<span className="text-teal-300">%</span></div>
+                <div className="text-[10px] md:text-xs text-teal-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '全程陪同' : currentLang === 'zh-CN' ? '全程陪同' : '全行程同行'}</div>
               </div>
             </div>
 
@@ -2283,29 +2283,29 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             </div>
 
             {/* 核心标题 */}
-            <h2 className="serif text-4xl md:text-6xl text-white mb-6 leading-tight">
+            <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
               {currentLang === 'zh-TW' ? '面對重疾' : currentLang === 'zh-CN' ? '面对重疾' : '重病と向き合う時'}
               <br />
               <span className="text-sky-300">{currentLang === 'zh-TW' ? '日本醫療給您更多希望' : currentLang === 'zh-CN' ? '日本医疗给您更多希望' : '日本医療がもう一つの希望に'}</span>
             </h2>
 
-            <p className="text-xl text-blue-100/80 mb-8 leading-relaxed font-light">
+            <p className="text-sm sm:text-base md:text-xl text-blue-100/80 mb-6 md:mb-8 leading-relaxed font-light">
               {currentLang === 'zh-TW' ? '質子重離子治療、免疫細胞療法、達文西微創手術——日本癌症5年生存率全球領先。我們協助您獲得日本頂尖醫院的治療機會，全程陪同，讓您專注康復。' : currentLang === 'zh-CN' ? '质子重离子治疗、免疫细胞疗法、达文西微创手术——日本癌症5年生存率全球领先。我们协助您获得日本顶尖医院的治疗机会，全程陪同，让您专注康復。' : '陽子線・重粒子線治療、免疫細胞療法、ダヴィンチ手術——日本のがん5年生存率は世界トップ。日本トップ病院での治療機会をサポート、全行程同行で治療に専念いただけます。'}
             </p>
 
             {/* 核心数据 */}
-            <div className="grid grid-cols-3 gap-6 mb-10 py-8 border-y border-white/20">
-              <div>
-                <div className="text-4xl font-light text-white mb-1">68<span className="text-sky-300">%</span></div>
-                <div className="text-xs text-blue-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '癌症5年生存率' : currentLang === 'zh-CN' ? '癌症5年生存率' : 'がん5年生存率'}</div>
+            <div className="grid grid-cols-3 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-white/20">
+              <div className="text-center">
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">68<span className="text-sky-300">%</span></div>
+                <div className="text-[10px] md:text-xs text-blue-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '癌症5年生存率' : currentLang === 'zh-CN' ? '癌症5年生存率' : 'がん5年生存率'}</div>
               </div>
-              <div className="border-x border-white/20 px-6">
-                <div className="text-4xl font-light text-white mb-1">98<span className="text-sky-300">%</span></div>
-                <div className="text-xs text-blue-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '心臟手術成功率' : currentLang === 'zh-CN' ? '心脏手术成功率' : '心臓手術成功率'}</div>
+              <div className="border-x border-white/20 px-2 md:px-6 text-center">
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">98<span className="text-sky-300">%</span></div>
+                <div className="text-[10px] md:text-xs text-blue-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '心臟手術成功率' : currentLang === 'zh-CN' ? '心脏手术成功率' : '心臓手術成功率'}</div>
               </div>
-              <div>
-                <div className="text-4xl font-light text-white mb-1">24<span className="text-sky-300">h</span></div>
-                <div className="text-xs text-blue-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '病歷評估響應' : currentLang === 'zh-CN' ? '病历评估响应' : '診療情報評価'}</div>
+              <div className="text-center">
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">24<span className="text-sky-300">h</span></div>
+                <div className="text-[10px] md:text-xs text-blue-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '病歷評估響應' : currentLang === 'zh-CN' ? '病历评估响应' : '診療情報評価'}</div>
               </div>
             </div>
 
@@ -2383,29 +2383,29 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">Exclusive Access</span>
             </div>
 
-            <h2 className="serif text-4xl md:text-6xl text-white mb-6 leading-tight">
+            <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
               {currentLang === 'zh-TW' ? '踏入' : currentLang === 'zh-CN' ? '踏入' : '足を踏み入れる'}
               <br />
               <span className="text-amber-400">{currentLang === 'zh-TW' ? '傳說中的名門' : currentLang === 'zh-CN' ? '传说中的名门' : '伝説の名門へ'}</span>
             </h2>
 
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed font-light">
+            <p className="text-sm sm:text-base md:text-xl text-gray-300 mb-6 md:mb-8 leading-relaxed font-light">
               {currentLang === 'zh-TW' ? '廣野、霞ヶ関、小野——這些球場的名字，在高爾夫愛好者心中如雷貫耳。平時需要會員介紹才能踏入的聖地，現在向您敞開大門。' : currentLang === 'zh-CN' ? '广野、霞ヶ関、小野——这些球场的名字，在高尔夫爱好者心中如雷貫耳。平时需要会员介绍才能踏入的圣地，现在向您敞开大门。' : '廣野、霞ヶ関、小野——ゴルフ愛好家なら誰もが憧れる名門。通常は会員紹介が必要な聖地が、今あなたに開かれます。'}
             </p>
 
             {/* 核心数据 - 金色边框 */}
-            <div className="grid grid-cols-3 gap-6 mb-10 py-8 border-y border-white/20">
-              <div>
-                <div className="text-4xl font-light text-white mb-1">25<span className="text-amber-400">+</span></div>
-                <div className="text-xs text-gray-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '名門球場' : currentLang === 'zh-CN' ? '名门球场' : '名門コース'}</div>
+            <div className="grid grid-cols-3 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-white/20">
+              <div className="text-center">
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">25<span className="text-amber-400">+</span></div>
+                <div className="text-[10px] md:text-xs text-gray-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '名門球場' : currentLang === 'zh-CN' ? '名门球场' : '名門コース'}</div>
               </div>
-              <div className="border-x border-white/20 px-6">
-                <div className="text-4xl font-light text-white mb-1">0</div>
-                <div className="text-xs text-gray-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '會員介紹' : currentLang === 'zh-CN' ? '会员介绍' : '会員紹介不要'}</div>
+              <div className="border-x border-white/20 px-2 md:px-6 text-center">
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">0</div>
+                <div className="text-[10px] md:text-xs text-gray-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '會員介紹' : currentLang === 'zh-CN' ? '会员介绍' : '会員紹介不要'}</div>
               </div>
-              <div>
-                <div className="text-4xl font-light text-white mb-1">VIP</div>
-                <div className="text-xs text-gray-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '專屬待遇' : currentLang === 'zh-CN' ? '专属待遇' : '専用待遇'}</div>
+              <div className="text-center">
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">VIP</div>
+                <div className="text-[10px] md:text-xs text-gray-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '專屬待遇' : currentLang === 'zh-CN' ? '专属待遇' : '専用待遇'}</div>
               </div>
             </div>
 
@@ -2466,7 +2466,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                   {currentLang === 'zh-TW' ? '12年深耕日本商務市場，我們與豐田、松下、資生堂等500強企業建立深度合作。從工廠參觀到高管對談，為您打造真正有價值的商務考察之旅。' : currentLang === 'zh-CN' ? '12年深耕日本商务市场，我们与丰田、松下、资生堂等500强企业建立深度合作。从工厂参观到高管对谈，为您打造真正有价值的商务考察之旅。' : '12年間日本ビジネス市場を深耕。トヨタ、パナソニック、資生堂など500社以上と深い協力関係を構築。工場見学から経営層との対談まで、真に価値ある視察をご提供。'}
                 </p>
 
-                <div className="grid grid-cols-2 gap-6 mb-10">
+                <div className="grid grid-cols-2 gap-3 md:gap-6 mb-10">
                   {[
                     { num: '16', label: currentLang === 'zh-TW' ? '行業覆蓋' : currentLang === 'zh-CN' ? '行业覆盖' : '対応業界' },
                     { num: '500+', label: currentLang === 'zh-TW' ? '合作企業' : currentLang === 'zh-CN' ? '合作企业' : '提携企業' },
@@ -2532,7 +2532,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               </h2>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-6">
               {[
                 { name: '徳洲会グループ', sub: 'Tokushukai Group' },
                 { name: 'TIMC OSAKA', sub: 'Medical Center' },
@@ -2596,25 +2596,25 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             </div>
 
             {/* 核心标题 */}
-            <h2 className="serif text-4xl md:text-6xl text-white mb-6 leading-tight">
+            <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
               {currentLang === 'zh-TW' ? '導遊提攜夥伴' : currentLang === 'zh-CN' ? '导游提攜伙伴' : 'ガイドパートナー'}
               <br />
               <span className="text-violet-300">{currentLang === 'zh-TW' ? '客戶介紹計劃' : currentLang === 'zh-CN' ? '客户介绍计划' : '顧客紹介プログラム'}</span>
             </h2>
 
-            <p className="text-xl text-violet-100/80 mb-8 leading-relaxed font-light">
+            <p className="text-sm sm:text-base md:text-xl text-violet-100/80 mb-6 md:mb-8 leading-relaxed font-light">
               {currentLang === 'zh-TW' ? '新島交通提供高端夜總會、精密體檢、綜合醫療等服務資源。您介紹客戶，我們提供服務，成功即有介紹報酬。' : currentLang === 'zh-CN' ? '新岛交通提供高端夜总会、精密体检、综合医疗等服务资源。您介绍客户，我们提供服务，成功即有介绍报酬。' : '新島交通は高級クラブ、精密健診、総合医療などのサービスを提供。お客様をご紹介いただき、成約時に紹介報酬をお支払いします。'}
             </p>
 
             {/* 核心数据 */}
-            <div className="grid grid-cols-2 gap-6 mb-10 py-8 border-y border-white/20">
-              <div>
-                <div className="text-4xl font-light text-white mb-1">160<span className="text-violet-300">+</span></div>
+            <div className="grid grid-cols-2 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-white/20">
+              <div className="text-center">
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">160<span className="text-violet-300">+</span></div>
                 <div className="text-xs text-violet-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '合作店舖' : currentLang === 'zh-CN' ? '合作店舖' : '提携店舗'}</div>
               </div>
-              <div className="border-l border-white/20 pl-6">
-                <div className="text-4xl font-light text-white mb-1">3000<span className="text-violet-300">+</span></div>
-                <div className="text-xs text-violet-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : currentLang === 'zh-CN' ? '服务客户' : 'ご利用者様'}</div>
+              <div className="border-l border-white/20 pl-3 md:pl-6 text-center">
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">3000<span className="text-violet-300">+</span></div>
+                <div className="text-[10px] md:text-xs text-violet-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : currentLang === 'zh-CN' ? '服务客户' : 'ご利用者様'}</div>
               </div>
             </div>
 
