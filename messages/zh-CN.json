@@ -1,0 +1,125 @@
+{
+  "nav": {
+    "timc": "日本精密健检",
+    "business": "商务考察",
+    "golf": "名门高尔夫",
+    "partner": "同业合作",
+    "guidePartner": "导游合伙人",
+    "about": "公司简介",
+    "login": "会员登录",
+    "brand": "NIIJIMA",
+    "brandSub": "新岛交通株式会社",
+    "ai": "AI 报价",
+    "packages": "体检套餐",
+    "contact": "联系我们"
+  },
+  "common": {
+    "learnMore": "了解更多",
+    "bookNow": "立即预约",
+    "price": "价格",
+    "yen": "日元",
+    "tax": "含税",
+    "required": "必填",
+    "optional": "选填",
+    "submit": "提交",
+    "cancel": "取消",
+    "back": "返回",
+    "next": "下一步",
+    "loading": "加载中...",
+    "error": "发生错误",
+    "success": "操作成功"
+  },
+  "medical": {
+    "title": "预见未来，逆转时光",
+    "subtitle": "将日本先端的再生医疗引入您的健康管理",
+    "heroTitle1": "早一步发现",
+    "heroTitle2": "多十年安心",
+    "heroSubtitle": "日本最大医疗集团「德洲会」旗舰设施：大阪德州会国际体检中心 TIMC OSAKA",
+    "packages": "体检套餐一览",
+    "booking": "预约资讯",
+    "customerInfo": "客户资讯",
+    "paymentMethod": "支付方式",
+    "proceedToPayment": "前往支付",
+    "processing": "处理中..."
+  },
+  "booking": {
+    "name": "姓名",
+    "email": "电子邮件",
+    "phone": "电话号码",
+    "preferredDate": "希望日期",
+    "preferredTime": "希望时段",
+    "notes": "备注说明",
+    "line": "LINE ID",
+    "wechat": "微信 ID",
+    "whatsapp": "WhatsApp"
+  },
+  "payment": {
+    "success": "支付成功！",
+    "successMessage": "感谢您的预约。确认邮件已发送至您的信箱。",
+    "orderId": "订单编号",
+    "cancel": "支付已取消",
+    "cancelMessage": "支付已取消，未产生任何费用。",
+    "retry": "重新尝试",
+    "backToPackages": "返回套餐列表",
+    "methods": "支付方式"
+  },
+  "footer": {
+    "company": "新岛交通株式会社",
+    "address": "〒556-0014 大阪府大阪市浪速区大国1-2-21-602",
+    "phone": "06-6632-8807",
+    "fax": "06-6632-8826",
+    "email": "info@niijima-koutsu.jp",
+    "license": "大阪府知事登录旅行业 第2-3115号",
+    "jata": "一般社团法人 日本旅行业协会（JATA）正会员",
+    "privacy": "隐私政策",
+    "terms": "使用条款",
+    "tokushoho": "特定商取引法表示",
+    "copyright": "© {year} 新岛交通株式会社 版权所有"
+  },
+  "legal": {
+    "tokushohoTitle": "特定商取引法表示",
+    "privacyTitle": "隐私政策",
+    "termsTitle": "使用条款",
+    "backToTop": "返回首页"
+  },
+  "business": {
+    "golf": {
+      "title": "高尔夫旅游",
+      "titleEn": "Golf Tourism",
+      "intro": "新岛交通的高尔夫旅游提供通常难以预约的会员制名门高尔夫球场特别通道。与关西、关东20多家顶级球场合作，接送、住宿、餐饮全程服务。",
+      "stats": {
+        "courses": "合作名门球场",
+        "vip": "待遇保障",
+        "users": "年度用户",
+        "booking": "预约成功率"
+      },
+      "features": {
+        "title": "服务特色",
+        "course": {
+          "title": "名门球场通道",
+          "items": ["无需会员推荐", "锦标赛球场", "合作球场优先预约"]
+        },
+        "vip": {
+          "title": "VIP服务",
+          "items": ["专属球僮", "会所使用权", "优先开球"]
+        },
+        "transfer": {
+          "title": "接送、住宿安排",
+          "items": ["机场接送", "高级旅馆安排", "温泉方案"]
+        },
+        "language": {
+          "title": "多语言服务",
+          "items": ["中文支持", "英语服务", "翻译随行"]
+        }
+      },
+      "cta": {
+        "title": "高尔夫行程咨询",
+        "button": "查看详情"
+      },
+      "seo": {
+        "title": "高尔夫旅游 | 新岛交通",
+        "description": "在日本名门高尔夫球场体验顶级服务。新岛交通与关西、关东20多家会员制球场合作，提供全程服务。"
+      }
+    }
+  }
+}

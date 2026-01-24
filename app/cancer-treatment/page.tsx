@@ -24,7 +24,7 @@ const pageTranslations = {
   heroDesc: { ja: '陽子線・重粒子線、光免疫療法、BNCT——世界最先端の治療法が日本に集結', 'zh-TW': '質子重離子、光免疫療法、BNCT 硼中子俘獲——世界前沿療法匯聚日本', 'zh-CN': '质子重离子、光免疫疗法、BNCT 硼中子俘获——世界前沿疗法汇聚日本', en: 'Proton/Heavy Ion, Photoimmunotherapy, BNCT — Cutting-edge treatments converge in Japan' } as Record<Language, string>,
   heroCTA: { ja: '治療プランを相談', 'zh-TW': '諮詢治療方案', 'zh-CN': '咨询治疗方案', en: 'Consult Treatment Plan' } as Record<Language, string>,
   heroFlow: { ja: '治療の流れを見る', 'zh-TW': '了解治療流程', 'zh-CN': '了解治疗流程', en: 'View Treatment Process' } as Record<Language, string>,
-  heroLimit: { ja: '治療品質確保のため、月10名様限定', 'zh-TW': '為保證治療品質，每月僅限 10 位患者接診', 'zh-CN': '为保证治疗品质，每月仅限 10 位患者接诊', en: 'Limited to 10 patients per month to ensure quality' } as Record<Language, string>,
+  heroLimit: { ja: '治療品質確保のため、毎日10名様限定', 'zh-TW': '為保證治療品質，每日僅限 10 位患者接診', 'zh-CN': '为保证治疗品质，每日仅限 10 位患者接诊', en: 'Limited to 10 patients per day to ensure quality' } as Record<Language, string>,
   statGastric: { ja: '胃がん5年生存率', 'zh-TW': '胃癌五年存活率', 'zh-CN': '胃癌五年存活率', en: 'Gastric Cancer 5-Year Survival' } as Record<Language, string>,
   statProstate: { ja: '前立腺がん陽子線治療', 'zh-TW': '前列腺癌質子治療', 'zh-CN': '前列腺癌质子治疗', en: 'Prostate Cancer Proton Therapy' } as Record<Language, string>,
   statProstateSub: { ja: '5年生存率*', 'zh-TW': '五年存活率*', 'zh-CN': '五年存活率*', en: '5-Year Survival*' } as Record<Language, string>,
@@ -61,7 +61,7 @@ const pageTranslations = {
   // Service Section
   svcTitle: { ja: 'サービスご予約', 'zh-TW': '諮詢服務預約', 'zh-CN': '咨询服务预约', en: 'Book Consultation Service' } as Record<Language, string>,
   svcDesc: { ja: 'ご希望のサービスを選択し、お支払い後24時間以内にご連絡いたします', 'zh-TW': '選擇您需要的服務，在線支付後我們將在 24 小時內與您聯繫', 'zh-CN': '选择您需要的服务，在线支付后我们将在 24 小时内与您联系', en: 'Select your service, we will contact you within 24 hours after payment' } as Record<Language, string>,
-  svcLimit: { ja: '月10名様限定・残りわずか', 'zh-TW': '每月僅限 10 位 · 名額有限', 'zh-CN': '每月仅限 10 位 · 名额有限', en: 'Limited to 10/month · Spots available' } as Record<Language, string>,
+  svcLimit: { ja: '毎日10名様限定・残りわずか', 'zh-TW': '每日僅限 10 位 · 名額有限', 'zh-CN': '每日仅限 10 位 · 名额有限', en: 'Limited to 10/day · Spots available' } as Record<Language, string>,
   svcTaxIncl: { ja: '日円（税込）', 'zh-TW': '日円（税込）', 'zh-CN': '日元（含税）', en: 'JPY (tax incl.)' } as Record<Language, string>,
   svcBookNow: { ja: '今すぐ予約', 'zh-TW': '立即預約', 'zh-CN': '立即预约', en: 'Book Now' } as Record<Language, string>,
   svcInitial1: { ja: '診療情報の翻訳（中→日）', 'zh-TW': '病歷資料翻譯（中→日）', 'zh-CN': '病历资料翻译（中→日）', en: 'Medical record translation (CN→JP)' } as Record<Language, string>,

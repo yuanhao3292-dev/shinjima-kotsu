@@ -81,5 +81,45 @@
     "privacyTitle": "Privacy Policy",
     "termsTitle": "Terms of Service",
     "backToTop": "Back to Home"
+  },
+  "business": {
+    "golf": {
+      "title": "Golf Tourism",
+      "titleEn": "Golf Tourism",
+      "intro": "NIIJIMA KOTSU's golf tourism provides exclusive access to prestigious membership golf courses that are typically difficult to book. Partnered with over 20 premium courses in Kansai and Kanto, with full support for transfers, accommodation, and dining.",
+      "stats": {
+        "courses": "Partner Courses",
+        "vip": "Treatment Guarantee",
+        "users": "Annual Users",
+        "booking": "Booking Success Rate"
+      },
+      "features": {
+        "title": "Service Features",
+        "course": {
+          "title": "Elite Course Access",
+          "items": ["No member referral needed", "Tournament courses", "Priority booking"]
+        },
+        "vip": {
+          "title": "VIP Service",
+          "items": ["Dedicated caddy", "Lounge access", "Priority tee time"]
+        },
+        "transfer": {
+          "title": "Transfers & Accommodation",
+          "items": ["Airport transfers", "Premium ryokan", "Hot spring plans"]
+        },
+        "language": {
+          "title": "Multilingual Support",
+          "items": ["Chinese support", "English available", "Interpreter included"]
+        }
+      },
+      "cta": {
+        "title": "Golf Tour Inquiries",
+        "button": "View Details"
+      },
+      "seo": {
+        "title": "Golf Tourism | NIIJIMA KOTSU",
+        "description": "Play at Japan's prestigious golf courses. NIIJIMA KOTSU partners with over 20 membership courses in Kansai and Kanto, providing full support."
+      }
+    }
   }
 }
