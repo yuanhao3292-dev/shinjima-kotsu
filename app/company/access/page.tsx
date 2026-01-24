@@ -1,24 +1,175 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import CompanyLayout from '@/components/CompanyLayout';
 import { MapPin, Phone, Mail, Clock, Train, Building } from 'lucide-react';
 
+type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
+
+const pageTranslations = {
+  sectionHQ: {
+    ja: '本社',
+    'zh-TW': '總部',
+    'zh-CN': '总部',
+    en: 'Head Office',
+  },
+  companyFullName: {
+    ja: '新島交通株式会社 本社',
+    'zh-TW': '新島交通株式會社 總部',
+    'zh-CN': '新岛交通株式会社 总部',
+    en: 'NIIJIMA KOTSU Co., Ltd. Head Office',
+  },
+  companyFullNameEn: {
+    ja: 'NIIJIMA KOTSU Co., Ltd. Headquarters',
+    'zh-TW': 'NIIJIMA KOTSU Co., Ltd. Headquarters',
+    'zh-CN': 'NIIJIMA KOTSU Co., Ltd. Headquarters',
+    en: 'NIIJIMA KOTSU Co., Ltd. Headquarters',
+  },
+  labelAddress: {
+    ja: '住所',
+    'zh-TW': '地址',
+    'zh-CN': '地址',
+    en: 'Address',
+  },
+  addressLine: {
+    ja: '大阪府大阪市浪速区大国1-2-21',
+    'zh-TW': '大阪府大阪市浪速區大國1-2-21',
+    'zh-CN': '大阪府大阪市浪速区大国1-2-21',
+    en: '1-2-21 Daikoku, Naniwa-ku, Osaka',
+  },
+  addressBuilding: {
+    ja: 'NICビル602号',
+    'zh-TW': 'NIC大樓602號',
+    'zh-CN': 'NIC大厦602号',
+    en: 'NIC Building 602',
+  },
+  labelAccess: {
+    ja: 'アクセス',
+    'zh-TW': '交通方式',
+    'zh-CN': '交通方式',
+    en: 'Access',
+  },
+  accessLine1: {
+    ja: '大阪メトロ 御堂筋線・四つ橋線「大国町」駅 徒歩3分',
+    'zh-TW': '大阪地鐵 御堂筋線・四橋線「大國町」站 步行3分鐘',
+    'zh-CN': '大阪地铁 御堂筋线・四桥线「大国町」站 步行3分钟',
+    en: 'Osaka Metro Midosuji/Yotsubashi Line "Daikokucho" Station, 3 min walk',
+  },
+  accessLine2: {
+    ja: '南海本線「今宮戎」駅 徒歩5分',
+    'zh-TW': '南海本線「今宮戎」站 步行5分鐘',
+    'zh-CN': '南海本线「今宫戎」站 步行5分钟',
+    en: 'Nankai Main Line "Imamiya-Ebisu" Station, 5 min walk',
+  },
+  labelPhone: {
+    ja: '電話番号',
+    'zh-TW': '電話',
+    'zh-CN': '电话',
+    en: 'Phone',
+  },
+  labelEmail: {
+    ja: 'メール',
+    'zh-TW': '電子信箱',
+    'zh-CN': '电子邮箱',
+    en: 'Email',
+  },
+  labelHours: {
+    ja: '営業時間',
+    'zh-TW': '營業時間',
+    'zh-CN': '营业时间',
+    en: 'Business Hours',
+  },
+  hoursLine: {
+    ja: '平日 9:00 - 18:00',
+    'zh-TW': '週一至週五 9:00 - 18:00',
+    'zh-CN': '周一至周五 9:00 - 18:00',
+    en: 'Weekdays 9:00 - 18:00',
+  },
+  hoursNote: {
+    ja: '※土日祝日は休業',
+    'zh-TW': '※週末及國定假日休息',
+    'zh-CN': '※周末及法定节假日休息',
+    en: '* Closed on weekends and public holidays',
+  },
+  sectionPartnerFacilities: {
+    ja: '主要提携施設',
+    'zh-TW': '主要合作設施',
+    'zh-CN': '主要合作设施',
+    en: 'Partner Facilities',
+  },
+  facilityMedical: {
+    ja: '医療施設',
+    'zh-TW': '醫療設施',
+    'zh-CN': '医疗设施',
+    en: 'Medical Facility',
+  },
+  facilityGolf: {
+    ja: 'ゴルフ施設',
+    'zh-TW': '高爾夫設施',
+    'zh-CN': '高尔夫设施',
+    en: 'Golf Facility',
+  },
+  timcName: {
+    ja: '徳洲会国際医療センター',
+    'zh-TW': '德洲會國際醫療中心',
+    'zh-CN': '德洲会国际医疗中心',
+    en: 'Tokushukai International Medical Center',
+  },
+  timcAddress: {
+    ja: '大阪市北区梅田3-2-2 JP TOWER OSAKA 11F',
+    'zh-TW': '大阪市北區梅田3-2-2 JP TOWER OSAKA 11F',
+    'zh-CN': '大阪市北区梅田3-2-2 JP TOWER OSAKA 11F',
+    en: '3-2-2 Umeda, Kita-ku, Osaka, JP TOWER OSAKA 11F',
+  },
+  golfClubName: {
+    ja: '関西名門ゴルフ倶楽部',
+    'zh-TW': '關西名門高爾夫俱樂部',
+    'zh-CN': '关西名门高尔夫俱乐部',
+    en: 'Kansai Elite Golf Club',
+  },
+  golfAddress: {
+    ja: '大阪府・兵庫県・奈良県 各所',
+    'zh-TW': '大阪府・兵庫縣・奈良縣各地',
+    'zh-CN': '大阪府・兵库县・奈良县各地',
+    en: 'Various locations in Osaka, Hyogo, and Nara',
+  },
+};
+
 export default function AccessPage() {
+  const [currentLang, setCurrentLang] = useState<Language>('ja');
+
+  useEffect(() => {
+    const cookies = document.cookie.split(';');
+    for (const cookie of cookies) {
+      const [name, value] = cookie.trim().split('=');
+      if (name === 'NEXT_LOCALE' && ['ja', 'zh-TW', 'zh-CN', 'en'].includes(value)) {
+        setCurrentLang(value as Language);
+        return;
+      }
+    }
+    const browserLang = navigator.language;
+    if (browserLang.startsWith('ja')) setCurrentLang('ja');
+    else if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') setCurrentLang('zh-TW');
+    else if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) setCurrentLang('zh-CN');
+    else if (browserLang.startsWith('en')) setCurrentLang('en');
+  }, []);
+
+  const t = (key: keyof typeof pageTranslations) => pageTranslations[key][currentLang];
+
   return (
     <CompanyLayout
-      title="所在地"
+      title={{ ja: '所在地', 'zh-TW': '辦公據點', 'zh-CN': '办公地点', en: 'Access' }}
       titleEn="Access"
       breadcrumb={[
-        { label: '企業情報', path: '/company' },
-        { label: '所在地' }
+        { label: { ja: '企業情報', 'zh-TW': '企業資訊', 'zh-CN': '企业信息', en: 'Company' }, path: '/company' },
+        { label: { ja: '所在地', 'zh-TW': '辦公據點', 'zh-CN': '办公地点', en: 'Access' } }
       ]}
     >
       <div className="space-y-12">
         {/* 本社 */}
         <section>
           <h2 className="text-xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-blue-600">
-            本社
+            {t('sectionHQ')}
           </h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -43,8 +194,8 @@ export default function AccessPage() {
                   <Building size={20} className="text-blue-600" />
                 </div>
                 <div>
-                  <div className="font-bold text-gray-900 mb-1">新島交通株式会社 本社</div>
-                  <div className="text-gray-600">NIIJIMA KOTSU Co., Ltd. Headquarters</div>
+                  <div className="font-bold text-gray-900 mb-1">{t('companyFullName')}</div>
+                  <div className="text-gray-600">{t('companyFullNameEn')}</div>
                 </div>
               </div>
 
@@ -53,11 +204,11 @@ export default function AccessPage() {
                   <MapPin size={20} className="text-blue-600" />
                 </div>
                 <div>
-                  <div className="font-bold text-gray-900 mb-1">住所</div>
+                  <div className="font-bold text-gray-900 mb-1">{t('labelAddress')}</div>
                   <div className="text-gray-600">
                     〒556-0014<br />
-                    大阪府大阪市浪速区大国1-2-21<br />
-                    NICビル602号
+                    {t('addressLine')}<br />
+                    {t('addressBuilding')}
                   </div>
                 </div>
               </div>
@@ -67,10 +218,10 @@ export default function AccessPage() {
                   <Train size={20} className="text-blue-600" />
                 </div>
                 <div>
-                  <div className="font-bold text-gray-900 mb-1">アクセス</div>
+                  <div className="font-bold text-gray-900 mb-1">{t('labelAccess')}</div>
                   <div className="text-gray-600">
-                    大阪メトロ 御堂筋線・四つ橋線「大国町」駅 徒歩3分<br />
-                    南海本線「今宮戎」駅 徒歩5分
+                    {t('accessLine1')}<br />
+                    {t('accessLine2')}
                   </div>
                 </div>
               </div>
@@ -80,7 +231,7 @@ export default function AccessPage() {
                   <Phone size={20} className="text-blue-600" />
                 </div>
                 <div>
-                  <div className="font-bold text-gray-900 mb-1">電話番号</div>
+                  <div className="font-bold text-gray-900 mb-1">{t('labelPhone')}</div>
                   <div className="text-gray-600">06-6632-8807</div>
                 </div>
               </div>
@@ -90,7 +241,7 @@ export default function AccessPage() {
                   <Mail size={20} className="text-blue-600" />
                 </div>
                 <div>
-                  <div className="font-bold text-gray-900 mb-1">メール</div>
+                  <div className="font-bold text-gray-900 mb-1">{t('labelEmail')}</div>
                   <div className="text-gray-600">info@niijima-koutsu.jp</div>
                 </div>
               </div>
@@ -100,10 +251,10 @@ export default function AccessPage() {
                   <Clock size={20} className="text-blue-600" />
                 </div>
                 <div>
-                  <div className="font-bold text-gray-900 mb-1">営業時間</div>
+                  <div className="font-bold text-gray-900 mb-1">{t('labelHours')}</div>
                   <div className="text-gray-600">
-                    平日 9:00 - 18:00<br />
-                    <span className="text-sm text-gray-400">※土日祝日は休業</span>
+                    {t('hoursLine')}<br />
+                    <span className="text-sm text-gray-400">{t('hoursNote')}</span>
                   </div>
                 </div>
               </div>
@@ -114,22 +265,22 @@ export default function AccessPage() {
         {/* 提携施設 */}
         <section>
           <h2 className="text-xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-blue-600">
-            主要提携施設
+            {t('sectionPartnerFacilities')}
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               {
                 name: 'TIMC OSAKA',
-                nameJa: '徳洲会国際医療センター',
-                address: '大阪市北区梅田3-2-2 JP TOWER OSAKA 11F',
-                type: '医療施設',
+                nameJa: t('timcName'),
+                address: t('timcAddress'),
+                type: t('facilityMedical'),
               },
               {
-                name: '関西名門ゴルフ倶楽部',
+                name: t('golfClubName'),
                 nameJa: 'Kansai Elite Golf Club',
-                address: '大阪府・兵庫県・奈良県 各所',
-                type: 'ゴルフ施設',
+                address: t('golfAddress'),
+                type: t('facilityGolf'),
               },
             ].map((facility, index) => (
               <div key={index} className="p-5 bg-gray-50 rounded-xl border border-gray-100">

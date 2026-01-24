@@ -15,6 +15,7 @@ import ContactButtons from './ContactButtons';
 import { useWhiteLabel, useWhiteLabelVisibility } from '@/lib/contexts/WhiteLabelContext';
 import { useCommissionTiers } from '@/lib/hooks/useCommissionTiers';
 import { useSiteImages } from '@/lib/hooks/useSiteImages';
+import { localizeText } from '@/lib/utils/text-converter';
 
 // --- IMAGE ASSETS CONFIGURATION ---
 // 硬编码的默认图片（作为数据库未配置时的 fallback）
@@ -208,7 +209,7 @@ const MedicalTechCard = memo(function MedicalTechCard({
 });
 
 // 使用 React.memo 优化 MedicalView 渲染性能
-const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuote, getImage }) => (
+const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuote, currentLang, getImage }) => (
   <div className="animate-fade-in-up min-h-screen bg-white">
     {/* 1. Hero Section - Full height with transparent nav overlap */}
     <div className="relative min-h-[85vh] flex items-center overflow-hidden text-white bg-slate-900">
@@ -241,7 +242,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
                       <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
                   </span>
-                  <span className="text-amber-200 text-sm font-medium">為保證服務品質，每月僅限 <span className="text-amber-100 font-bold">20</span> 位客戶預約</span>
+                  <span className="text-amber-200 text-sm font-medium">{t.medical.limit_badge}</span>
               </div>
           </div>
       </div>
@@ -252,8 +253,8 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
           <span className="text-blue-400 text-xs tracking-[0.3em] uppercase font-bold">Hospital Tour</span>
-          <h3 className="text-3xl font-serif text-white mt-3">{t.medical.video_title || '醫院介紹'}</h3>
-          <p className="text-gray-400 text-sm mt-2 max-w-2xl mx-auto">{t.medical.video_subtitle || '走進德洲會國際醫療中心，感受日本頂級醫療服務'}</p>
+          <h3 className="text-3xl font-serif text-white mt-3">{t.medical.video_title}</h3>
+          <p className="text-gray-400 text-sm mt-2 max-w-2xl mx-auto">{t.medical.video_subtitle}</p>
         </div>
         <div className="max-w-4xl mx-auto">
           <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-white/10">
@@ -264,10 +265,10 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               preload="metadata"
             >
               <source src="https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/videos/copy_A7D2D113-F200-464B-8DC8-AA15F3D66488.MOV" type="video/mp4" />
-              您的瀏覽器不支援影片播放
+              {t.medical.video_fallback}
             </video>
           </div>
-          <p className="text-center text-gray-500 text-xs mt-4">德洲會國際醫療中心 TIMC - 官方介紹影片</p>
+          <p className="text-center text-gray-500 text-xs mt-4">{t.medical.video_caption}</p>
         </div>
       </div>
     </div>
@@ -555,7 +556,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       className="inline-flex items-center gap-3 bg-gradient-to-r from-indigo-600 to-blue-600 text-white px-8 py-4 rounded-full font-bold hover:from-indigo-700 hover:to-blue-700 transition-all shadow-lg shadow-indigo-200 hover:shadow-xl hover:-translate-y-0.5"
                   >
                       <MessageSquare size={20} />
-                      <span>不知道選哪個？智能推薦適合您的套餐</span>
+                      <span>{t.medical.pkg_recommend_btn}</span>
                       <ArrowRight size={18} />
                   </a>
               </div>
@@ -567,128 +568,128 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               <div className="col-span-1 md:col-span-2 lg:col-span-1 border border-gray-900 rounded-2xl p-6 hover:shadow-2xl transition hover:-translate-y-1 relative overflow-hidden bg-gray-900 text-white flex flex-col">
                   <div className="absolute top-0 right-0 bg-yellow-500 text-black text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Flagship</div>
                   <div className="mb-4">
-                      <h4 className="text-xl font-serif font-bold text-yellow-400">VIP 頂級全能套裝</h4>
+                      <h4 className="text-xl font-serif font-bold text-yellow-400">{t.medical.pkg_vip_title}</h4>
                       <p className="text-xs text-gray-400 mt-1">VIP Member Course</p>
                       <p className="text-2xl font-bold text-yellow-400 mt-2">¥1,512,500</p>
-                      <p className="text-[10px] text-gray-500">含醫療翻譯・報告翻譯・消費稅10%</p>
+                      <p className="text-[10px] text-gray-500">{t.medical.pkg_price_note}</p>
                   </div>
                   <p className="text-xs text-gray-300 mb-4 leading-relaxed flex-grow">
-                      針對企業領袖的終極方案。包含腦、心、全身癌篩及消化道內視鏡的「全包式」檢查。
+                      {t.medical.pkg_vip_desc}
                   </p>
                   <div className="space-y-1.5 mb-4 text-xs">
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> MRI: 腦(MRA)+心臟+DWIBS+骨盆</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> CT: 胸部+冠脈鈣化+內臟脂肪</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> 內視鏡: 胃鏡+大腸鏡 (鎮靜麻醉)</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> 超音波: 頸/心/腹/下肢/乳房(女)</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> PET/CT: 全身癌症掃描</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> 尊享: 個室使用・精緻餐券×2</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> {t.medical.pkg_vip_item_1}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> {t.medical.pkg_vip_item_2}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> {t.medical.pkg_vip_item_3}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> {t.medical.pkg_vip_item_4}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> {t.medical.pkg_vip_item_5}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> {t.medical.pkg_vip_item_6}</div>
                   </div>
-                  <button onClick={onOpenTIMCQuote} className="w-full py-2 bg-yellow-500 text-black text-xs font-bold rounded hover:bg-yellow-400 transition text-center block">立即諮詢</button>
+                  <button onClick={onOpenTIMCQuote} className="w-full py-2 bg-yellow-500 text-black text-xs font-bold rounded hover:bg-yellow-400 transition text-center block">{t.medical.pkg_consult_btn}</button>
               </div>
 
               {/* 2. PREMIUM (Cardiac) */}
               <div className="border border-blue-100 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-gradient-to-br from-blue-50 to-white flex flex-col">
                    <div className="mb-4">
-                       <h4 className="text-lg font-serif font-bold text-blue-900">PREMIUM (心臟精密)</h4>
+                       <h4 className="text-lg font-serif font-bold text-blue-900">{t.medical.pkg_premium_title}</h4>
                        <p className="text-xs text-blue-400 mt-1">Premium Cardiac Course</p>
                        <p className="text-xl font-bold text-blue-900 mt-2">¥825,000</p>
-                       <p className="text-[10px] text-gray-400">含醫療翻譯・報告翻譯・消費稅10%</p>
+                       <p className="text-[10px] text-gray-400">{t.medical.pkg_price_note}</p>
                    </div>
                    <p className="text-xs text-gray-500 mb-4 leading-relaxed flex-grow">
-                       針對高壓力、缺乏運動菁英人士。深度評估猝死與動脈硬化風險。
+                       {t.medical.pkg_premium_desc}
                    </p>
                    <div className="space-y-1.5 mb-4 text-xs text-gray-700">
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> MRI: 心臟(非造影)+腦MRA+DWIBS</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> CT: 胸部+冠脈鈣化積分</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> 超音波: 心臟・頸動脈・下肢</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> 血液: NTproBNP・心肌蛋白T・CPK</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> 機能: ABI/CAVI (血管年齡)</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> {t.medical.pkg_premium_item_1}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> {t.medical.pkg_premium_item_2}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> {t.medical.pkg_premium_item_3}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> {t.medical.pkg_premium_item_4}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> {t.medical.pkg_premium_item_5}</div>
                    </div>
-                   <button onClick={onOpenTIMCQuote} className="w-full py-2 border border-blue-200 text-blue-600 text-xs font-bold rounded hover:bg-blue-50 transition text-center block">立即諮詢</button>
+                   <button onClick={onOpenTIMCQuote} className="w-full py-2 border border-blue-200 text-blue-600 text-xs font-bold rounded hover:bg-blue-50 transition text-center block">{t.medical.pkg_consult_btn}</button>
               </div>
 
               {/* 3. SELECT (Gastro + Colon) */}
               <div className="border border-green-100 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-white flex flex-col">
                    <div className="mb-4">
-                       <h4 className="text-lg font-serif font-bold text-green-900">SELECT (胃+大腸鏡)</h4>
+                       <h4 className="text-lg font-serif font-bold text-green-900">{t.medical.pkg_select_gc_title}</h4>
                        <p className="text-xs text-green-500 mt-1">Gastro + Colonoscopy Course</p>
                        <p className="text-xl font-bold text-green-900 mt-2">¥825,000</p>
-                       <p className="text-[10px] text-gray-400">含醫療翻譯・報告翻譯・消費稅10%</p>
+                       <p className="text-[10px] text-gray-400">{t.medical.pkg_price_note}</p>
                    </div>
                    <p className="text-xs text-gray-500 mb-4 leading-relaxed flex-grow">
-                       應酬頻繁者的最佳選擇。一次完成上下消化道精密檢查 (鎮靜麻醉)。
+                       {t.medical.pkg_select_gc_desc}
                    </p>
                    <div className="space-y-1.5 mb-4 text-xs text-gray-700">
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> 內視鏡: 胃鏡+大腸鏡 (鎮靜)</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> 處置: 可當場切除息肉</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> 超音波: 腹部 (肝膽胰脾腎)</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> 感染: 幽門螺旋桿菌抗體</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> 血液: 消化道腫瘤標誌物</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> {t.medical.pkg_select_gc_item_1}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> {t.medical.pkg_select_gc_item_2}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> {t.medical.pkg_select_gc_item_3}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> {t.medical.pkg_select_gc_item_4}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> {t.medical.pkg_select_gc_item_5}</div>
                    </div>
-                   <button onClick={onOpenTIMCQuote} className="w-full py-2 border border-green-200 text-green-600 text-xs font-bold rounded hover:bg-green-50 transition text-center block">立即諮詢</button>
+                   <button onClick={onOpenTIMCQuote} className="w-full py-2 border border-green-200 text-green-600 text-xs font-bold rounded hover:bg-green-50 transition text-center block">{t.medical.pkg_consult_btn}</button>
               </div>
 
               {/* 4. SELECT (Stomach only) */}
               <div className="border border-teal-100 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-white flex flex-col">
                    <div className="mb-4">
-                       <h4 className="text-lg font-serif font-bold text-teal-800">SELECT (胃鏡)</h4>
+                       <h4 className="text-lg font-serif font-bold text-teal-800">{t.medical.pkg_select_g_title}</h4>
                        <p className="text-xs text-teal-500 mt-1">Gastroscopy Course</p>
                        <p className="text-xl font-bold text-teal-800 mt-2">¥687,500</p>
-                       <p className="text-[10px] text-gray-400">含醫療翻譯・報告翻譯・消費稅10%</p>
+                       <p className="text-[10px] text-gray-400">{t.medical.pkg_price_note}</p>
                    </div>
                    <p className="text-xs text-gray-500 mb-4 leading-relaxed flex-grow">
-                       針對胃癌高風險族群。無需清腸，檢查時間短，負擔較輕。
+                       {t.medical.pkg_select_g_desc}
                    </p>
                    <div className="space-y-1.5 mb-4 text-xs text-gray-700">
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> 內視鏡: 胃鏡 (經口/經鼻)</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> 超音波: 腹部 (肝膽胰脾腎)</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> 感染: 幽門螺旋桿菌抗體</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> 血液: 胃癌風險指標・腫瘤標誌物</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> 基礎: 身體測量・視力聽力・心電圖</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> {t.medical.pkg_select_g_item_1}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> {t.medical.pkg_select_g_item_2}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> {t.medical.pkg_select_g_item_3}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> {t.medical.pkg_select_g_item_4}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> {t.medical.pkg_select_g_item_5}</div>
                    </div>
-                   <button onClick={onOpenTIMCQuote} className="w-full py-2 border border-teal-200 text-teal-600 text-xs font-bold rounded hover:bg-teal-50 transition text-center block">立即諮詢</button>
+                   <button onClick={onOpenTIMCQuote} className="w-full py-2 border border-teal-200 text-teal-600 text-xs font-bold rounded hover:bg-teal-50 transition text-center block">{t.medical.pkg_consult_btn}</button>
               </div>
 
               {/* 5. DWIBS */}
               <div className="border border-purple-100 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-white flex flex-col">
                    <div className="mb-4">
-                       <h4 className="text-lg font-serif font-bold text-purple-900">DWIBS (防癌篩查)</h4>
+                       <h4 className="text-lg font-serif font-bold text-purple-900">{t.medical.pkg_dwibs_title}</h4>
                        <p className="text-xs text-purple-500 mt-1">DWIBS Cancer Screening</p>
                        <p className="text-xl font-bold text-purple-900 mt-2">¥275,000</p>
-                       <p className="text-[10px] text-gray-400">含醫療翻譯・報告翻譯・消費稅10%</p>
+                       <p className="text-[10px] text-gray-400">{t.medical.pkg_price_note}</p>
                    </div>
                    <p className="text-xs text-gray-500 mb-4 leading-relaxed flex-grow">
-                       無輻射全身癌症篩查 MRI。無需顯影劑，適合定期追蹤。
+                       {t.medical.pkg_dwibs_desc}
                    </p>
                    <div className="space-y-1.5 mb-4 text-xs text-gray-700">
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> MRI: DWIBS (頸部至骨盆)</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> 血液: 全套腫瘤標誌物</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> 血液: 肝腎功能・甲狀腺</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> 特點: 無輻射・無痛・非侵入</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> 基礎: 身體測量・視力聽力・心電圖</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> {t.medical.pkg_dwibs_item_1}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> {t.medical.pkg_dwibs_item_2}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> {t.medical.pkg_dwibs_item_3}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> {t.medical.pkg_dwibs_item_4}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> {t.medical.pkg_dwibs_item_5}</div>
                    </div>
-                   <button onClick={onOpenTIMCQuote} className="w-full py-2 border border-purple-200 text-purple-600 text-xs font-bold rounded hover:bg-purple-50 transition text-center block">立即諮詢</button>
+                   <button onClick={onOpenTIMCQuote} className="w-full py-2 border border-purple-200 text-purple-600 text-xs font-bold rounded hover:bg-purple-50 transition text-center block">{t.medical.pkg_consult_btn}</button>
               </div>
 
               {/* 6. BASIC */}
               <div className="border border-gray-200 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-gray-50 flex flex-col">
                    <div className="mb-4">
-                       <h4 className="text-lg font-serif font-bold text-gray-800">BASIC (基礎套餐)</h4>
+                       <h4 className="text-lg font-serif font-bold text-gray-800">{t.medical.pkg_basic_title}</h4>
                        <p className="text-xs text-gray-500 mt-1">Standard Checkup Course</p>
                        <p className="text-xl font-bold text-gray-800 mt-2">¥550,000</p>
-                       <p className="text-[10px] text-gray-400">含醫療翻譯・報告翻譯・消費稅10%</p>
+                       <p className="text-[10px] text-gray-400">{t.medical.pkg_price_note}</p>
                    </div>
                    <p className="text-xs text-gray-500 mb-4 leading-relaxed flex-grow">
-                       包含血液、影像、超音波的標準健檢。高性價比的企業團體首選。
+                       {t.medical.pkg_basic_desc}
                    </p>
                    <div className="space-y-1.5 mb-4 text-xs text-gray-700">
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> 影像: 胸部X光・腹部超音波</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> 血液: 肝腎脂糖・甲狀腺・腫瘤標誌物</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> 基礎: 視力・聽力・眼壓・眼底・心電圖</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> 檢體: 尿液・便潛血(2日法)</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> 歯科: 口腔掃描・X線・餐券</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> {t.medical.pkg_basic_item_1}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> {t.medical.pkg_basic_item_2}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> {t.medical.pkg_basic_item_3}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> {t.medical.pkg_basic_item_4}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> {t.medical.pkg_basic_item_5}</div>
                    </div>
-                   <button onClick={onOpenTIMCQuote} className="w-full py-2 border border-gray-300 text-gray-600 text-xs font-bold rounded hover:bg-gray-100 transition text-center block">立即諮詢</button>
+                   <button onClick={onOpenTIMCQuote} className="w-full py-2 border border-gray-300 text-gray-600 text-xs font-bold rounded hover:bg-gray-100 transition text-center block">{t.medical.pkg_consult_btn}</button>
               </div>
 
           </div>
@@ -697,12 +698,12 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       {/* 套餐對比表格 */}
       <div className="mb-24" id="timc-comparison">
           <div className="text-center mb-12">
-              <h3 className="text-3xl font-serif text-gray-900">套餐項目對比</h3>
-              <p className="text-gray-500 text-sm mt-2">一目了然，選擇最適合您的健檢方案</p>
+              <h3 className="text-3xl font-serif text-gray-900">{t.medical.pkg_compare_title}</h3>
+              <p className="text-gray-500 text-sm mt-2">{t.medical.pkg_compare_sub}</p>
           </div>
           <div className="max-w-7xl mx-auto px-4">
               <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-                  <PackageComparisonTable onBookNow={onOpenTIMCQuote} />
+                  <PackageComparisonTable onBookNow={onOpenTIMCQuote} currentLang={currentLang} />
               </div>
           </div>
       </div>
@@ -711,23 +712,23 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       <div className="mb-24" id="timc-testimonials">
           <div className="text-center mb-16">
               <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">Customer Reviews</span>
-              <h3 className="text-3xl font-serif text-gray-900 mt-2">客戶真實體驗</h3>
-              <p className="text-gray-500 text-sm mt-2">來自各地客戶的體檢分享</p>
+              <h3 className="text-3xl font-serif text-gray-900 mt-2">{t.medical.testimonials_title}</h3>
+              <p className="text-gray-500 text-sm mt-2">{t.medical.testimonials_sub}</p>
           </div>
 
           {/* 統計數據 */}
           <div className="flex flex-wrap justify-center gap-12 mb-12">
               <div className="text-center">
                   <div className="text-4xl font-bold text-blue-600">98%</div>
-                  <div className="text-sm text-gray-500 mt-1">滿意度</div>
+                  <div className="text-sm text-gray-500 mt-1">{t.medical.stat_satisfaction}</div>
               </div>
               <div className="text-center">
                   <div className="text-4xl font-bold text-blue-600">500+</div>
-                  <div className="text-sm text-gray-500 mt-1">服務人次</div>
+                  <div className="text-sm text-gray-500 mt-1">{t.medical.stat_served}</div>
               </div>
               <div className="text-center">
                   <div className="text-4xl font-bold text-blue-600">4.9</div>
-                  <div className="text-sm text-gray-500 mt-1">平均評分</div>
+                  <div className="text-sm text-gray-500 mt-1">{t.medical.stat_rating}</div>
               </div>
           </div>
 
@@ -753,21 +754,21 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div key={`first-${i}`} className="flex-shrink-0 w-80 mx-3 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
                           <div className="flex items-center gap-3 mb-4">
                               <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold">
-                                  {review.name.charAt(0)}
+                                  {localizeText(review.name, currentLang || 'zh-TW').charAt(0)}
                               </div>
                               <div>
                                   <div className="flex items-center gap-2">
-                                      <span className="font-semibold text-gray-900 text-sm">{review.name}</span>
+                                      <span className="font-semibold text-gray-900 text-sm">{localizeText(review.name, currentLang || 'zh-TW')}</span>
                                       <span>{review.flag}</span>
                                   </div>
                                   <div className="text-xs text-gray-400">{review.loc}</div>
                               </div>
                           </div>
-                          <div className="text-xs text-blue-600 font-medium mb-3">{review.pkg}</div>
-                          <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3">{review.text}</p>
+                          <div className="text-xs text-blue-600 font-medium mb-3">{localizeText(review.pkg, currentLang || 'zh-TW')}</div>
+                          <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3">{localizeText(review.text, currentLang || 'zh-TW')}</p>
                           <div className="flex items-center gap-2 text-green-600 text-xs">
                               <CheckCircle size={12} />
-                              <span className="font-medium">{review.highlight}</span>
+                              <span className="font-medium">{localizeText(review.highlight, currentLang || 'zh-TW')}</span>
                           </div>
                       </div>
                   ))}
@@ -785,21 +786,21 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div key={`second-${i}`} className="flex-shrink-0 w-80 mx-3 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
                           <div className="flex items-center gap-3 mb-4">
                               <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold">
-                                  {review.name.charAt(0)}
+                                  {localizeText(review.name, currentLang || 'zh-TW').charAt(0)}
                               </div>
                               <div>
                                   <div className="flex items-center gap-2">
-                                      <span className="font-semibold text-gray-900 text-sm">{review.name}</span>
+                                      <span className="font-semibold text-gray-900 text-sm">{localizeText(review.name, currentLang || 'zh-TW')}</span>
                                       <span>{review.flag}</span>
                                   </div>
                                   <div className="text-xs text-gray-400">{review.loc}</div>
                               </div>
                           </div>
-                          <div className="text-xs text-blue-600 font-medium mb-3">{review.pkg}</div>
-                          <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3">{review.text}</p>
+                          <div className="text-xs text-blue-600 font-medium mb-3">{localizeText(review.pkg, currentLang || 'zh-TW')}</div>
+                          <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3">{localizeText(review.text, currentLang || 'zh-TW')}</p>
                           <div className="flex items-center gap-2 text-green-600 text-xs">
                               <CheckCircle size={12} />
-                              <span className="font-medium">{review.highlight}</span>
+                              <span className="font-medium">{localizeText(review.highlight, currentLang || 'zh-TW')}</span>
                           </div>
                       </div>
                   ))}
@@ -811,18 +812,18 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       <div className="mb-24" id="timc-faq">
           <div className="text-center mb-16">
               <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">FAQ</span>
-              <h3 className="text-3xl font-serif text-gray-900 mt-2">常見問題</h3>
-              <p className="text-gray-500 text-sm mt-2">關於 TIMC 體檢的常見疑問解答</p>
+              <h3 className="text-3xl font-serif text-gray-900 mt-2">{t.medical.faq_title}</h3>
+              <p className="text-gray-500 text-sm mt-2">{t.medical.faq_sub}</p>
           </div>
 
           <div className="max-w-3xl mx-auto space-y-4">
               {[
-                  { q: '如何預約 TIMC 體檢？', a: '您可以直接在本網站選擇心儀的套餐，填寫預約資訊後完成線上支付即可。支付成功後，我們的客服會在 1-2 個工作日內與您聯繫，確認具體的體檢日期。' },
-                  { q: '體檢當天需要空腹嗎？', a: '是的，大部分體檢項目需要空腹進行。通常要求體檢前一天晚上 9 點後禁食，只可飲用少量清水。具體要求會在確認預約後發送給您的體檢須知中詳細說明。' },
-                  { q: '有中文服務嗎？', a: '有的。TIMC 配備專業的中文翻譯人員，全程陪同您完成體檢。醫生問診時也會有翻譯在場，確保溝通順暢無障礙。' },
-                  { q: '體檢報告什麼時候能拿到？', a: '體檢完成後約 7-10 個工作日，您會收到完整的中文版體檢報告。報告會以電子郵件發送，如需紙質版可提前告知。' },
-                  { q: '可以取消或改期嗎？', a: '可以的。體檢前 14 天以上可全額退款；體檢前 7-14 天退還 50% 費用；體檢前 7 天內恕不接受取消，但可免費改期一次。改期需提前 3 個工作日通知。' },
-                  { q: 'TIMC 體檢中心在哪裡？', a: 'TIMC OSAKA（德洲會國際醫療中心）位於大阪市北區梅田三丁目 2 番 2 號 JP TOWER OSAKA 11 樓。交通便利，從大阪站步行約 5 分鐘即可到達。' },
+                  { q: t.medical.faq_1_q, a: t.medical.faq_1_a },
+                  { q: t.medical.faq_2_q, a: t.medical.faq_2_a },
+                  { q: t.medical.faq_3_q, a: t.medical.faq_3_a },
+                  { q: t.medical.faq_4_q, a: t.medical.faq_4_a },
+                  { q: t.medical.faq_5_q, a: t.medical.faq_5_a },
+                  { q: t.medical.faq_6_q, a: t.medical.faq_6_a },
               ].map((faq, i) => (
                   <details key={i} className="group bg-white rounded-xl border border-gray-100 overflow-hidden">
                       <summary className="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition">
@@ -843,14 +844,14 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <FileText size={28} className="text-blue-600" />
               </div>
-              <h3 className="text-2xl font-serif font-bold text-gray-900 mb-3">已預約？查詢訂單狀態</h3>
-              <p className="text-gray-500 mb-6">輸入您的電子郵箱和訂單編號，即可查看預約進度</p>
+              <h3 className="text-2xl font-serif font-bold text-gray-900 mb-3">{t.medical.order_title}</h3>
+              <p className="text-gray-500 mb-6">{t.medical.order_sub}</p>
               <a
                   href="/order-lookup"
                   className="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-3 rounded-full font-bold hover:bg-gray-800 transition"
               >
                   <FileText size={18} />
-                  查詢我的訂單
+                  {t.medical.order_btn}
               </a>
           </div>
       </div>
@@ -867,7 +868,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-300 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
               </span>
-              <span className="text-blue-100 text-sm">每月僅限 <span className="text-white font-bold">20</span> 位 · 名額有限</span>
+              <span className="text-blue-100 text-sm">{t.medical.cta_limit}</span>
           </div>
           <div>
               <button onClick={onOpenTIMCQuote} className="bg-white text-blue-800 font-bold px-10 py-4 rounded-full hover:bg-gray-100 transition shadow-lg inline-flex items-center gap-2">
@@ -880,7 +881,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       <div className="py-12 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="max-w-2xl mx-auto text-center">
-            <h3 className="text-lg font-bold text-gray-900 mb-4">其他諮詢方式</h3>
+            <h3 className="text-lg font-bold text-gray-900 mb-4">{t.medical.contact_other}</h3>
             <ContactButtons />
           </div>
         </div>
@@ -1989,6 +1990,25 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
   // 获取佣金等级配置（用于动态显示分成比例）
   const { summary: commissionSummary } = useCommissionTiers();
 
+  // 动态获取最新消息
+  const [newsItems, setNewsItems] = useState<Array<{
+    id: string;
+    title: string;
+    category: string;
+    published_at: string;
+  }>>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`/api/news?limit=5&lang=${currentLang}`)
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if (!cancelled && data?.news) setNewsItems(data.news);
+      })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, [currentLang]);
+
   // 注意：getImage 函数现在从父组件传入，支持数据库配置的图片
 
   // 首页轮播图配置 - 竞拍展位系统
@@ -2062,85 +2082,45 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             {/* 标题 - 居中 */}
             <div className="text-center mb-12">
               <h2 className="serif text-2xl md:text-3xl text-gray-900 tracking-wide mb-2">
-                {currentLang === 'zh-TW' ? '最新消息' : currentLang === 'zh-CN' ? '最新消息' : 'お知らせ'}
+                {currentLang === 'zh-TW' ? '最新消息' : currentLang === 'zh-CN' ? '最新消息' : currentLang === 'en' ? 'News' : 'お知らせ'}
               </h2>
               <p className="text-xs tracking-[0.2em] text-gray-400 uppercase">News Room</p>
             </div>
 
-            {/* 新闻列表 - JTB风格 */}
+            {/* 新闻列表 - 动态从API获取 */}
             <div className="space-y-0 border-t border-gray-200">
-              {[
-                {
-                  date: '2026年1月15日',
-                  categories: [
-                    { label: currentLang === 'zh-TW' ? '公告' : currentLang === 'zh-CN' ? '公告' : 'お知らせ', highlight: true },
-                    { label: currentLang === 'zh-TW' ? '醫療' : currentLang === 'zh-CN' ? '医疗' : '医療', highlight: false },
-                  ],
-                  title: currentLang === 'zh-TW' ? '2026年春節期間營業時間調整通知' : currentLang === 'zh-CN' ? '2026年春节期间营业时间调整通知' : '2026年春節期間の営業時間変更のお知らせ',
-                },
-                {
-                  date: '2026年1月8日',
-                  categories: [
-                    { label: currentLang === 'zh-TW' ? '公告' : currentLang === 'zh-CN' ? '公告' : 'お知らせ', highlight: true },
-                    { label: currentLang === 'zh-TW' ? '體檢' : currentLang === 'zh-CN' ? '体检' : '健診', highlight: false },
-                  ],
-                  title: currentLang === 'zh-TW' ? 'TIMC OSAKA 2025年度體檢報告正式發布' : currentLang === 'zh-CN' ? 'TIMC OSAKA 2025年度体检报告正式发布' : 'TIMC OSAKA 2025年度健診レポート発表',
-                },
-                {
-                  date: '2025年12月20日',
-                  categories: [
-                    { label: currentLang === 'zh-TW' ? '公告' : currentLang === 'zh-CN' ? '公告' : 'お知らせ', highlight: true },
-                    { label: currentLang === 'zh-TW' ? '高爾夫' : currentLang === 'zh-CN' ? '高尔夫' : 'ゴルフ', highlight: false },
-                  ],
-                  title: currentLang === 'zh-TW' ? '名門高爾夫新春特別企劃開始受付' : currentLang === 'zh-CN' ? '名门高尔夫新春特别企划开始受付' : '名門ゴルフ新春特別プラン受付開始',
-                },
-                {
-                  date: '2025年12月10日',
-                  categories: [
-                    { label: currentLang === 'zh-TW' ? '公告' : currentLang === 'zh-CN' ? '公告' : 'お知らせ', highlight: true },
-                    { label: currentLang === 'zh-TW' ? '商務' : currentLang === 'zh-CN' ? '商务' : 'ビジネス', highlight: false },
-                  ],
-                  title: currentLang === 'zh-TW' ? '2026年日本企業考察行程開放預約' : currentLang === 'zh-CN' ? '2026年日本企业考察行程开放预约' : '2026年日本企業視察ツアー予約受付開始',
-                },
-                {
-                  date: '2025年11月28日',
-                  categories: [
-                    { label: currentLang === 'zh-TW' ? '公告' : currentLang === 'zh-CN' ? '公告' : 'お知らせ', highlight: true },
-                    { label: currentLang === 'zh-TW' ? '公司' : currentLang === 'zh-CN' ? '公司' : '会社', highlight: false },
-                  ],
-                  title: currentLang === 'zh-TW' ? '新島交通官方網站全新改版上線' : currentLang === 'zh-CN' ? '新岛交通官方网站全新改版上线' : '新島交通公式サイトリニューアルのお知らせ',
-                },
-              ].map((news, index) => (
-                <a key={index} href="/news" className="group block py-6 border-b border-gray-200 hover:bg-white transition-colors">
-                  <div className="flex flex-col md:flex-row md:items-start gap-4">
-                    {/* 日期 */}
-                    <div className="text-sm text-gray-500 md:w-32 flex-shrink-0">
-                      {news.date}
-                    </div>
-                    {/* 标签 */}
-                    <div className="flex flex-wrap gap-2 md:w-40 flex-shrink-0">
-                      {news.categories.map((cat, idx) => (
-                        <span
-                          key={idx}
-                          className={`text-xs px-3 py-1 rounded-full border ${
-                            cat.highlight
-                              ? 'border-teal-500 text-teal-600'
-                              : 'border-gray-300 text-gray-500'
-                          }`}
-                        >
-                          {cat.label}
+              {newsItems.map((news) => {
+                const date = new Date(news.published_at);
+                const dateStr = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+                const categoryLabel = news.category === 'service'
+                  ? (currentLang === 'zh-TW' ? '服務' : currentLang === 'zh-CN' ? '服务' : currentLang === 'en' ? 'Service' : 'サービス')
+                  : news.category === 'press'
+                  ? (currentLang === 'zh-TW' ? '新聞' : currentLang === 'zh-CN' ? '新闻' : currentLang === 'en' ? 'Press' : 'プレス')
+                  : (currentLang === 'zh-TW' ? '公告' : currentLang === 'zh-CN' ? '公告' : currentLang === 'en' ? 'Notice' : 'お知らせ');
+
+                return (
+                  <a key={news.id} href={`/news/${news.id}`} className="group block py-6 border-b border-gray-200 hover:bg-white transition-colors">
+                    <div className="flex flex-col md:flex-row md:items-start gap-4">
+                      {/* 日期 */}
+                      <div className="text-sm text-gray-500 md:w-32 flex-shrink-0">
+                        {dateStr}
+                      </div>
+                      {/* 标签 */}
+                      <div className="flex flex-wrap gap-2 md:w-40 flex-shrink-0">
+                        <span className="text-xs px-3 py-1 rounded-full border border-teal-500 text-teal-600">
+                          {categoryLabel}
                         </span>
-                      ))}
+                      </div>
+                      {/* 标题 */}
+                      <div className="flex-1">
+                        <h3 className="text-gray-900 leading-relaxed group-hover:text-teal-600 transition-colors">
+                          {localizeText(news.title, currentLang)}
+                        </h3>
+                      </div>
                     </div>
-                    {/* 标题 */}
-                    <div className="flex-1">
-                      <h3 className="text-gray-900 leading-relaxed group-hover:text-teal-600 transition-colors">
-                        {news.title}
-                      </h3>
-                    </div>
-                  </div>
-                </a>
-              ))}
+                  </a>
+                );
+              })}
             </div>
 
             {/* 查看更多 */}
@@ -2149,7 +2129,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 href="/news"
                 className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 border border-gray-300 px-6 py-3 rounded hover:border-gray-400 transition-colors"
               >
-                {currentLang === 'zh-TW' ? '查看全部消息' : currentLang === 'zh-CN' ? '查看全部消息' : 'すべてのお知らせ'}
+                {currentLang === 'zh-TW' ? '查看全部消息' : currentLang === 'zh-CN' ? '查看全部消息' : currentLang === 'en' ? 'View All News' : 'すべてのお知らせ'}
                 <ArrowRight size={14} className="ml-2" />
               </a>
             </div>
@@ -2685,7 +2665,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [currentLang, setCurrentLang] = useState<Language>('zh-TW'); // Default to TW
+  const [currentLang, setCurrentLang] = useState<Language | null>(null);
   const [currentPage, setCurrentPage] = useState<PageView>('home');
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authFormData, setAuthFormData] = useState({ companyName: '', contactPerson: '', email: '' });
@@ -2728,9 +2708,29 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
     return DEFAULT_SITE_IMAGES[key] || fallback || FALLBACK_IMAGES[key] || FALLBACK_IMAGES.default;
   };
 
-  const t = translations[currentLang];
-
   useEffect(() => { emailjs.init('exX0IhSSUjNgMhuGb'); }, []);
+
+  // 从 cookie 读取用户语言偏好
+  useEffect(() => {
+    const cookies = document.cookie.split(';');
+    for (const cookie of cookies) {
+      const [name, value] = cookie.trim().split('=');
+      if (name === 'NEXT_LOCALE' && ['ja', 'zh-TW', 'zh-CN', 'en'].includes(value)) {
+        setCurrentLang(value as Language);
+        return;
+      }
+    }
+    // 如果没有 cookie，根据浏览器语言判断
+    const browserLang = navigator.language;
+    if (browserLang.startsWith('ja')) setCurrentLang('ja');
+    else if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') setCurrentLang('zh-TW');
+    else if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) setCurrentLang('zh-CN');
+    else if (browserLang.startsWith('en')) setCurrentLang('en');
+    else setCurrentLang('ja');
+  }, []);
+
+  const lang: Language = currentLang || 'ja';
+  const t = translations[lang];
 
   // 处理 URL 参数和 hash，支持从其他页面跳转回来时切换到指定页面
   // 使用 searchParams 监听 URL 变化，解决点击 Logo 无法返回首页的问题
@@ -2837,7 +2837,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
               t={t}
               setCurrentPage={setCurrentPage}
               onLoginTrigger={() => router.push('/login')}
-              currentLang={currentLang}
+              currentLang={lang}
               landingInputText={landingInputText}
               setLandingInputText={setLandingInputText}
               hideOfficialBranding={hideOfficialBranding}
@@ -2845,11 +2845,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
               imagesLoading={imagesLoading}
             />
           )}
-          {currentPage === 'medical' && <MedicalView t={t} setCurrentPage={setCurrentPage} onOpenTIMCQuote={() => setShowTIMCQuoteModal(true)} currentLang={currentLang} getImage={getImage} />}
-          {currentPage === 'business' && <BusinessView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={() => router.push('/login')} currentLang={currentLang} getImage={getImage} />}
-          {currentPage === 'golf' && <GolfView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={() => router.push('/login')} currentLang={currentLang} getImage={getImage} />}
+          {currentPage === 'medical' && <MedicalView t={t} setCurrentPage={setCurrentPage} onOpenTIMCQuote={() => setShowTIMCQuoteModal(true)} currentLang={lang} getImage={getImage} />}
+          {currentPage === 'business' && <BusinessView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={() => router.push('/login')} currentLang={lang} getImage={getImage} />}
+          {currentPage === 'golf' && <GolfView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={() => router.push('/login')} currentLang={lang} getImage={getImage} />}
           {/* 白标模式下隐藏 Partner 页面（B2B 同业合作） */}
-          {currentPage === 'partner' && !hideGuidePartnerContent && <PartnerView t={t} setCurrentPage={setCurrentPage} onOpenPartnerInquiry={openPartnerInquiryModal} currentLang={currentLang} getImage={getImage} />}
+          {currentPage === 'partner' && !hideGuidePartnerContent && <PartnerView t={t} setCurrentPage={setCurrentPage} onOpenPartnerInquiry={openPartnerInquiryModal} currentLang={lang} getImage={getImage} />}
        </main>
 
        {/* Auth Modal */}
@@ -2868,7 +2868,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                      <User size={24} />
                   </div>
                   <h3 className="text-2xl font-serif font-bold text-gray-900">
-                    {currentLang === 'ja' ? 'B2B パートナー登録' : 'Partner Application'}
+                    {lang === 'ja' ? 'B2B パートナー登録' : 'Partner Application'}
                   </h3>
                   <p className="text-sm text-gray-500 mt-2">
                     Access exclusive B2B rates and AI quoting system.

@@ -12,6 +12,43 @@ h1, h2, h3, .serif {
   font-family: 'Shippori Mincho', serif;
 }
 
+/* Locale-specific font overrides - !important 覆盖 Tailwind utilities */
+[data-locale="zh-TW"] body,
+[data-locale="zh-TW"] .font-sans {
+  font-family: 'Noto Sans TC', sans-serif !important;
+}
+[data-locale="zh-TW"] h1,
+[data-locale="zh-TW"] h2,
+[data-locale="zh-TW"] h3,
+[data-locale="zh-TW"] .serif,
+[data-locale="zh-TW"] .font-serif {
+  font-family: 'Noto Serif TC', serif !important;
+}
+
+[data-locale="zh-CN"] body,
+[data-locale="zh-CN"] .font-sans {
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans SC', sans-serif !important;
+}
+[data-locale="zh-CN"] h1,
+[data-locale="zh-CN"] h2,
+[data-locale="zh-CN"] h3,
+[data-locale="zh-CN"] .serif,
+[data-locale="zh-CN"] .font-serif {
+  font-family: 'LXGW WenKai', 'Songti SC', 'STSong', 'Source Han Serif SC', serif !important;
+}
+
+[data-locale="en"] body,
+[data-locale="en"] .font-sans {
+  font-family: 'Inter', sans-serif !important;
+}
+[data-locale="en"] h1,
+[data-locale="en"] h2,
+[data-locale="en"] h3,
+[data-locale="en"] .serif,
+[data-locale="en"] .font-serif {
+  font-family: 'Playfair Display', serif !important;
+}
+
 /* Gemini 科技色调 */
 .gemini-gradient {
   background: linear-gradient(90deg, #4E8cFF 0%, #9B8cFF 100%);

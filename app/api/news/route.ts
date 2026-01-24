@@ -9,7 +9,42 @@ import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/uti
  * GET /api/news - 获取已发布的新闻列表
  * GET /api/news?id=xxx - 获取单条新闻详情
  * GET /api/news?featured=true - 获取精选新闻
+ * GET /api/news?lang=ja - 返回指定语言版本（支持 ja, zh-TW, zh-CN, en）
  */
+
+type SupportedLang = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
+const SUPPORTED_LANGS: SupportedLang[] = ['ja', 'zh-TW', 'zh-CN', 'en'];
+
+/**
+ * 解析多语言字段
+ * 如果字段值是 JSON 格式（含语言键），返回对应语言版本
+ * 否则原样返回（视为 zh-TW 默认内容）
+ */
+function resolveI18nField(value: string | null, lang: SupportedLang): string | null {
+  if (!value) return null;
+  try {
+    const parsed = JSON.parse(value);
+    if (typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed)) {
+      // 优先返回请求的语言，fallback: zh-TW → zh-CN → ja → en → 第一个可用值
+      return parsed[lang] || parsed['zh-TW'] || parsed['zh-CN'] || parsed['ja'] || parsed['en'] || value;
+    }
+  } catch {
+    // 不是 JSON，原样返回
+  }
+  return value;
+}
+
+/**
+ * 对新闻对象应用多语言解析
+ */
+function localizeNews(news: Record<string, unknown>, lang: SupportedLang): Record<string, unknown> {
+  return {
+    ...news,
+    title: resolveI18nField(news.title as string | null, lang),
+    summary: resolveI18nField(news.summary as string | null, lang),
+    ...(news.content !== undefined ? { content: resolveI18nField(news.content as string | null, lang) } : {}),
+  };
+}
 
 export async function GET(request: NextRequest) {
   // 速率限制（稍宽松，因为是公开 API）
@@ -30,6 +65,8 @@ export async function GET(request: NextRequest) {
   const newsId = searchParams.get('id');
   const category = searchParams.get('category');
   const featured = searchParams.get('featured');
+  const langParam = searchParams.get('lang');
+  const lang: SupportedLang = SUPPORTED_LANGS.includes(langParam as SupportedLang) ? (langParam as SupportedLang) : 'zh-TW';
 
   // 分页参数
   const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
@@ -51,7 +88,7 @@ export async function GET(request: NextRequest) {
         return createErrorResponse(Errors.notFound('新闻不存在'));
       }
 
-      return NextResponse.json(news);
+      return NextResponse.json(localizeNews(news, lang));
     } else {
       // 获取新闻列表（只返回已发布且发布时间已到的）
       let query = supabase
@@ -105,7 +142,7 @@ export async function GET(request: NextRequest) {
         .lte('published_at', new Date().toISOString());
 
       return NextResponse.json({
-        news: newsList || [],
+        news: (newsList || []).map(item => localizeNews(item, lang)),
         pagination: {
           page,
           limit,

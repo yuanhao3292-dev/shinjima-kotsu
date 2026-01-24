@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import PublicLayout from '@/components/PublicLayout';
 import Logo from '@/components/Logo';
@@ -13,38 +13,109 @@ import {
   MapPin, Award, Info, ExternalLink
 } from 'lucide-react';
 
+type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
+
+const pageTranslations = {
+  // Hero
+  heroBadge: { ja: '日本がん治療', 'zh-TW': '日本癌症治療', 'zh-CN': '日本癌症治疗', en: 'Japan Cancer Treatment' } as Record<Language, string>,
+  heroTitle1: { ja: '日本がん治療', 'zh-TW': '日本癌症治療', 'zh-CN': '日本癌症治疗', en: 'Japan Cancer Treatment' } as Record<Language, string>,
+  heroTitle2: { ja: '5年生存率世界トップ', 'zh-TW': '五年存活率領先全球', 'zh-CN': '五年存活率领先全球', en: '5-Year Survival Rate Leads Globally' } as Record<Language, string>,
+  heroStat: { ja: 'Lancet研究によると日本のがん5年生存率は', 'zh-TW': '柳葉刀研究顯示日本癌症五年存活率達', 'zh-CN': '柳叶刀研究显示日本癌症五年存活率达', en: 'Lancet research shows Japan cancer 5-year survival rate reaches' } as Record<Language, string>,
+  heroDesc: { ja: '陽子線・重粒子線、光免疫療法、BNCT——世界最先端の治療法が日本に集結', 'zh-TW': '質子重離子、光免疫療法、BNCT 硼中子俘獲——世界前沿療法匯聚日本', 'zh-CN': '质子重离子、光免疫疗法、BNCT 硼中子俘获——世界前沿疗法汇聚日本', en: 'Proton/Heavy Ion, Photoimmunotherapy, BNCT — Cutting-edge treatments converge in Japan' } as Record<Language, string>,
+  heroCTA: { ja: '治療プランを相談', 'zh-TW': '諮詢治療方案', 'zh-CN': '咨询治疗方案', en: 'Consult Treatment Plan' } as Record<Language, string>,
+  heroFlow: { ja: '治療の流れを見る', 'zh-TW': '了解治療流程', 'zh-CN': '了解治疗流程', en: 'View Treatment Process' } as Record<Language, string>,
+  heroLimit: { ja: '治療品質確保のため、月10名様限定', 'zh-TW': '為保證治療品質，每月僅限 10 位患者接診', 'zh-CN': '为保证治疗品质，每月仅限 10 位患者接诊', en: 'Limited to 10 patients per month to ensure quality' } as Record<Language, string>,
+  statGastric: { ja: '胃がん5年生存率', 'zh-TW': '胃癌五年存活率', 'zh-CN': '胃癌五年存活率', en: 'Gastric Cancer 5-Year Survival' } as Record<Language, string>,
+  statProstate: { ja: '前立腺がん陽子線治療', 'zh-TW': '前列腺癌質子治療', 'zh-CN': '前列腺癌质子治疗', en: 'Prostate Cancer Proton Therapy' } as Record<Language, string>,
+  statProstateSub: { ja: '5年生存率*', 'zh-TW': '五年存活率*', 'zh-CN': '五年存活率*', en: '5-Year Survival*' } as Record<Language, string>,
+  statCost: { ja: '費用は米国の', 'zh-TW': '費用僅為美國', 'zh-CN': '费用仅为美国', en: 'Cost Only 1/3 of US' } as Record<Language, string>,
+  statCostSub: { ja: '参考概算', 'zh-TW': '參考估算', 'zh-CN': '参考估算', en: 'Reference Estimate' } as Record<Language, string>,
+  dataSource: { ja: '*データ出典：Lancet Oncology 2018; 各医療機関公開資料。個人の治療効果は症状により異なります。参考情報としてご利用ください。', 'zh-TW': '*數據來源：Lancet Oncology 2018; 各醫療機構公開資料。個人療效因病情而異，僅供參考。', 'zh-CN': '*数据来源：Lancet Oncology 2018; 各医疗机构公开资料。个人疗效因病情而异，仅供参考。', en: '*Data source: Lancet Oncology 2018; public data from medical institutions. Individual results vary.' } as Record<Language, string>,
+  trustEarly: { ja: '超早期精密スクリーニング、5mm腫瘍検出可能', 'zh-TW': '超早期精密篩查，5mm 腫瘤可檢出', 'zh-CN': '超早期精密筛查，5mm 肿瘤可检出', en: 'Ultra-early screening, 5mm tumors detectable' } as Record<Language, string>,
+  trustTranslator: { ja: '専門医療通訳が全行程同行', 'zh-TW': '專業醫療翻譯全程陪同', 'zh-CN': '专业医疗翻译全程陪同', en: 'Professional medical interpreter throughout' } as Record<Language, string>,
+  trustRemote: { ja: '遠隔診療確認後に来日', 'zh-TW': '遠程會診確認後再赴日', 'zh-CN': '远程会诊确认后再赴日', en: 'Visit Japan after remote consultation confirmation' } as Record<Language, string>,
+  // Institutions Section
+  instTitle: { ja: '日本の著名ながん治療医療機関', 'zh-TW': '日本知名癌症治療醫療機構', 'zh-CN': '日本知名癌症治疗医疗机构', en: 'Renowned Cancer Treatment Institutions in Japan' } as Record<Language, string>,
+  instDesc: { ja: '各医療機関の特色と先進治療技術をご参考ください', 'zh-TW': '以下資訊旨在幫助您了解日本各大醫療機構的特色與先進治療技術，供您參考選擇', 'zh-CN': '以下资讯旨在帮助您了解日本各大医疗机构的特色与先进治疗技术，供您参考选择', en: 'Learn about the specialties and advanced treatments at major Japanese medical institutions' } as Record<Language, string>,
+  instDisclaimer: { ja: '以下の情報は参考用です。実際の治療は医院の診断に基づきます', 'zh-TW': '以下信息僅供參考，實際治療需以醫院診斷為準', 'zh-CN': '以下信息仅供参考，实际治疗需以医院诊断为准', en: 'Information is for reference only. Actual treatment depends on hospital diagnosis' } as Record<Language, string>,
+  instSpecialty: { ja: '得意分野', 'zh-TW': '擅長領域', 'zh-CN': '擅长领域', en: 'Specialties' } as Record<Language, string>,
+  instFeatures: { ja: '機関の特色', 'zh-TW': '機構特色', 'zh-CN': '机构特色', en: 'Features' } as Record<Language, string>,
+  instTreatments: { ja: '特色治療', 'zh-TW': '特色治療', 'zh-CN': '特色治疗', en: 'Featured Treatments' } as Record<Language, string>,
+  instWebsite: { ja: '病院公式サイト（外部リンク）', 'zh-TW': '醫院官網（外部連結）', 'zh-CN': '医院官网（外部链接）', en: 'Hospital Website (External Link)' } as Record<Language, string>,
+  instBottomNote: { ja: '以上の情報は各医療機関の公開資料に基づきます。受診をご希望の場合、患者様の病状に最適な医療機関をご推薦いたします。', 'zh-TW': '以上資訊來源於各醫療機構公開資料，僅供患者了解日本癌症治療資源。如需就診，我們將根據您的病情為您推薦最適合的醫療機構。', 'zh-CN': '以上资讯来源于各医疗机构公开资料，仅供患者了解日本癌症治疗资源。如需就诊，我们将根据您的病情为您推荐最适合的医疗机构。', en: 'Information sourced from public data. We will recommend the most suitable institution based on your condition.' } as Record<Language, string>,
+  // Treatment Flow Section
+  flowTitle: { ja: 'がん患者の来日治療フロー', 'zh-TW': '癌症患者赴日治療流程', 'zh-CN': '癌症患者赴日治疗流程', en: 'Cancer Patient Treatment Process in Japan' } as Record<Language, string>,
+  flowDesc: { ja: '初回相談から治療完了まで、全行程プロフェッショナルサポート', 'zh-TW': '從前期諮詢到治療完成，全程專業支援，讓您安心治療', 'zh-CN': '从前期咨询到治疗完成，全程专业支援，让您安心治疗', en: 'Professional support from initial consultation to treatment completion' } as Record<Language, string>,
+  // Standard Treatment Section
+  stdTitle: { ja: 'がん標準治療', 'zh-TW': '癌症標準治療', 'zh-CN': '癌症标准治疗', en: 'Standard Cancer Treatments' } as Record<Language, string>,
+  stdDesc: { ja: '高い安全性、精密な治療、QOL重視、EBMと多職種連携を強調', 'zh-TW': '安全性高、治療精準、重視生活質量（QOL）、強調循證醫學與多學科協作', 'zh-CN': '安全性高、治疗精准、重视生活质量（QOL）、强调循证医学与多学科协作', en: 'High safety, precision treatment, QOL-focused, evidence-based multidisciplinary approach' } as Record<Language, string>,
+  // Regenerative Section
+  regenTitle: { ja: '再生医療等の補助治療', 'zh-TW': '再生醫療等輔助治療', 'zh-CN': '再生医疗等辅助治疗', en: 'Regenerative Medicine & Supportive Treatments' } as Record<Language, string>,
+  regenDesc: { ja: '最新の再生医療技術で身体回復と再発予防をサポート', 'zh-TW': '結合最新再生醫療技術，幫助患者身體恢復並預防癌症復發', 'zh-CN': '结合最新再生医疗技术，帮助患者身体恢复并预防癌症复发', en: 'Supporting recovery and recurrence prevention with regenerative medicine' } as Record<Language, string>,
+  regenRecovery: { ja: '身体回復', 'zh-TW': '身體恢復', 'zh-CN': '身体恢复', en: 'Body Recovery' } as Record<Language, string>,
+  regenHealth: { ja: '長期健康管理', 'zh-TW': '長期健康管理', 'zh-CN': '长期健康管理', en: 'Long-term Health' } as Record<Language, string>,
+  regenPrevention: { ja: '再発予防', 'zh-TW': '預防復發', 'zh-CN': '预防复发', en: 'Recurrence Prevention' } as Record<Language, string>,
+  // Partner Section
+  partnerTitle: { ja: '相談可能な医療機関タイプ', 'zh-TW': '可協助諮詢的醫療機構類型', 'zh-CN': '可协助咨询的医疗机构类型', en: 'Types of Partner Medical Institutions' } as Record<Language, string>,
+  partnerDesc: { ja: '日本各種トップクラスのがん治療施設を網羅', 'zh-TW': '涵蓋日本各類頂尖癌症治療設施', 'zh-CN': '涵盖日本各类顶尖癌症治疗设施', en: 'Covering top cancer treatment facilities across Japan' } as Record<Language, string>,
+  // Service Section
+  svcTitle: { ja: 'サービスご予約', 'zh-TW': '諮詢服務預約', 'zh-CN': '咨询服务预约', en: 'Book Consultation Service' } as Record<Language, string>,
+  svcDesc: { ja: 'ご希望のサービスを選択し、お支払い後24時間以内にご連絡いたします', 'zh-TW': '選擇您需要的服務，在線支付後我們將在 24 小時內與您聯繫', 'zh-CN': '选择您需要的服务，在线支付后我们将在 24 小时内与您联系', en: 'Select your service, we will contact you within 24 hours after payment' } as Record<Language, string>,
+  svcLimit: { ja: '月10名様限定・残りわずか', 'zh-TW': '每月僅限 10 位 · 名額有限', 'zh-CN': '每月仅限 10 位 · 名额有限', en: 'Limited to 10/month · Spots available' } as Record<Language, string>,
+  svcTaxIncl: { ja: '日円（税込）', 'zh-TW': '日円（税込）', 'zh-CN': '日元（含税）', en: 'JPY (tax incl.)' } as Record<Language, string>,
+  svcBookNow: { ja: '今すぐ予約', 'zh-TW': '立即預約', 'zh-CN': '立即预约', en: 'Book Now' } as Record<Language, string>,
+  svcInitial1: { ja: '診療情報の翻訳（中→日）', 'zh-TW': '病歷資料翻譯（中→日）', 'zh-CN': '病历资料翻译（中→日）', en: 'Medical record translation (CN→JP)' } as Record<Language, string>,
+  svcInitial2: { ja: '日本の病院への初期相談', 'zh-TW': '日本醫院初步諮詢', 'zh-CN': '日本医院初步咨询', en: 'Initial hospital consultation' } as Record<Language, string>,
+  svcInitial3: { ja: '治療可能性評価レポート', 'zh-TW': '治療可行性評估報告', 'zh-CN': '治疗可行性评估报告', en: 'Treatment feasibility report' } as Record<Language, string>,
+  svcInitial4: { ja: '費用概算のご説明', 'zh-TW': '費用概算說明', 'zh-CN': '费用概算说明', en: 'Cost estimation explanation' } as Record<Language, string>,
+  svcRemote1: { ja: '日本専門医とのビデオ診察', 'zh-TW': '日本專科醫生視頻會診', 'zh-CN': '日本专科医生视频会诊', en: 'Video consultation with Japanese specialist' } as Record<Language, string>,
+  svcRemote2: { ja: '専門医療通訳が全行程同行', 'zh-TW': '專業醫療翻譯全程陪同', 'zh-CN': '专业医疗翻译全程陪同', en: 'Professional medical interpreter throughout' } as Record<Language, string>,
+  svcRemote3: { ja: '詳細な治療計画のご説明', 'zh-TW': '詳細治療方案說明', 'zh-CN': '详细治疗方案说明', en: 'Detailed treatment plan explanation' } as Record<Language, string>,
+  svcRemote4: { ja: '治療費用の明細見積', 'zh-TW': '治療費用明細報價', 'zh-CN': '治疗费用明细报价', en: 'Detailed treatment cost quotation' } as Record<Language, string>,
+  memberTitle: { ja: '会員制度のご案内', 'zh-TW': '會員體系說明', 'zh-CN': '会员体系说明', en: 'Membership System' } as Record<Language, string>,
+  memberDesc: { ja: 'がん治療相談サービスはTIMC健診と同じ会員制度を共有しています。いずれかのサービスご購入後、NIIJIMA会員となり「マイオーダー」から全予約をご確認いただけます。', 'zh-TW': '癌症治療諮詢服務與 TIMC 體檢服務共用同一會員體系。購買任一服務後，您將自動成為 NIIJIMA 會員，可在「我的訂單」中查看所有預約記錄，並享受會員專屬服務。', 'zh-CN': '癌症治疗咨询服务与 TIMC 体检服务共用同一会员体系。购买任一服务后，您将自动成为 NIIJIMA 会员，可在「我的订单」中查看所有预约记录，并享受会员专属服务。', en: 'Cancer consultation shares the same membership system with TIMC health screening. After purchasing any service, you become a NIIJIMA member with access to all booking records.' } as Record<Language, string>,
+  contactTitle: { ja: 'お支払い前のご質問はお気軽に', 'zh-TW': '付款前有疑問？歡迎諮詢', 'zh-CN': '付款前有疑问？欢迎咨询', en: 'Questions before payment? Contact us' } as Record<Language, string>,
+  contactLine: { ja: 'LINEで相談', 'zh-TW': 'LINE 諮詢', 'zh-CN': 'LINE 咨询', en: 'LINE Chat' } as Record<Language, string>,
+  contactEmail: { ja: 'メールで相談', 'zh-TW': '郵件諮詢', 'zh-CN': '邮件咨询', en: 'Email Us' } as Record<Language, string>,
+  contactWechat: { ja: 'WeChatで相談', 'zh-TW': '微信諮詢', 'zh-CN': '微信咨询', en: 'WeChat' } as Record<Language, string>,
+  backHome: { ja: 'ホームに戻る', 'zh-TW': '返回首頁', 'zh-CN': '返回首页', en: 'Back to Home' } as Record<Language, string>,
+  wechatTitle: { ja: 'WeChat相談', 'zh-TW': '微信諮詢', 'zh-CN': '微信咨询', en: 'WeChat Consultation' } as Record<Language, string>,
+  wechatScan: { ja: 'QRコードをスキャンして追加', 'zh-TW': '掃描二維碼添加客服微信', 'zh-CN': '扫描二维码添加客服微信', en: 'Scan QR code to add us' } as Record<Language, string>,
+  wechatNote: { ja: '追加後「がん治療相談」とお伝えください', 'zh-TW': '添加後請注明：癌症治療諮詢', 'zh-CN': '添加后请注明：癌症治疗咨询', en: 'Please note: Cancer treatment consultation' } as Record<Language, string>,
+};
+
 // 咨询服务产品定义
 const CONSULTATION_SERVICES = {
   initial: {
     id: 'cancer-initial-consultation',
     slug: 'cancer-initial-consultation',
-    name: '前期諮詢服務',
+    name: { ja: '初期相談サービス', 'zh-TW': '前期諮詢服務', 'zh-CN': '前期咨询服务', en: 'Initial Consultation' } as Record<Language, string>,
     nameEn: 'Initial Consultation',
     price: 221000,
-    description: '資料翻譯、醫院諮詢、治療方案初步評估',
+    description: { ja: '資料翻訳・病院相談・治療プラン初期評価', 'zh-TW': '資料翻譯、醫院諮詢、治療方案初步評估', 'zh-CN': '资料翻译、医院咨询、治疗方案初步评估', en: 'Document translation, hospital consultation, initial treatment assessment' } as Record<Language, string>,
   },
   remote: {
     id: 'cancer-remote-consultation',
     slug: 'cancer-remote-consultation',
-    name: '遠程會診服務',
+    name: { ja: '遠隔診療サービス', 'zh-TW': '遠程會診服務', 'zh-CN': '远程会诊服务', en: 'Remote Consultation' } as Record<Language, string>,
     nameEn: 'Remote Consultation',
     price: 243000,
-    description: '與日本醫生遠程視頻會診、討論治療方案、費用概算',
+    description: { ja: '日本の医師とのビデオ診察・治療方針相談・費用概算', 'zh-TW': '與日本醫生遠程視頻會診、討論治療方案、費用概算', 'zh-CN': '与日本医生远程视频会诊、讨论治疗方案、费用概算', en: 'Video consultation with Japanese doctors, treatment planning, cost estimation' } as Record<Language, string>,
   },
 };
 
 // 治疗流程步骤数据
 const TREATMENT_FLOW = [
-  { step: 1, title: '前期咨詢', subtitle: '提交申請・提供資料', fee: '221,000', feeLabel: '日元', from: '患者', to: '中介', desc: '治療信息提供書、血液/病理報告、CT/MRI/PET數據、手術記錄等', serviceKey: 'initial' as const },
-  { step: 2, title: '支付前期諮詢費', subtitle: '選擇合適的醫院與醫生', fee: null, feeLabel: null, from: '患者', to: '中介', desc: null, serviceKey: null },
-  { step: 3, title: '資料翻譯', subtitle: '諮詢醫院', fee: null, feeLabel: null, from: '中介', to: '醫院/患者', desc: null, serviceKey: null },
-  { step: 4, title: '赴日前遠程會診', subtitle: '討論治療方案', fee: '243,000', feeLabel: '日元', from: '醫院', to: '患者', desc: '討論治療方案，提供治療計劃，提示治療費概算金額', serviceKey: 'remote' as const },
-  { step: 5, title: '決定來日治療', subtitle: '支付預付金', fee: null, feeLabel: null, from: '患者', to: '中介', desc: null, serviceKey: null },
-  { step: 6, title: '確定來日日期', subtitle: '如需要申請醫療簽證', fee: null, feeLabel: null, from: '患者', to: '中介', desc: null, serviceKey: null },
-  { step: 7, title: '預約就診', subtitle: '安排翻譯', fee: null, feeLabel: null, from: '中介', to: '醫院/患者', desc: '安排有經驗及資格的專業醫療翻譯', serviceKey: null },
-  { step: 8, title: '來日治療', subtitle: '就診支援', fee: null, feeLabel: null, from: '中介/醫院', to: '患者', desc: null, serviceKey: null },
-  { step: 9, title: '治療結束', subtitle: '費用結算', fee: null, feeLabel: null, from: '中介/醫院', to: '患者', desc: null, serviceKey: null },
-  { step: 10, title: '後續支持', subtitle: '遠程隨訪', fee: null, feeLabel: null, from: '醫院', to: '患者', desc: '提供病歷以及給中國醫生的治療總結與建議，必要時做線上隨訪或遠程諮詢', serviceKey: null },
+  { step: 1, title: { ja: '初期相談', 'zh-TW': '前期咨詢', 'zh-CN': '前期咨询', en: 'Initial Consultation' } as Record<Language, string>, subtitle: { ja: '申請提出・資料提供', 'zh-TW': '提交申請・提供資料', 'zh-CN': '提交申请・提供资料', en: 'Submit Application & Documents' } as Record<Language, string>, fee: '221,000', feeLabel: { ja: '円', 'zh-TW': '日元', 'zh-CN': '日元', en: 'JPY' } as Record<Language, string>, from: { ja: '患者', 'zh-TW': '患者', 'zh-CN': '患者', en: 'Patient' } as Record<Language, string>, to: { ja: '仲介', 'zh-TW': '中介', 'zh-CN': '中介', en: 'Agent' } as Record<Language, string>, desc: { ja: '治療情報提供書、血液/病理レポート、CT/MRI/PETデータ、手術記録等', 'zh-TW': '治療信息提供書、血液/病理報告、CT/MRI/PET數據、手術記錄等', 'zh-CN': '治疗信息提供书、血液/病理报告、CT/MRI/PET数据、手术记录等', en: 'Treatment info, blood/pathology reports, CT/MRI/PET data, surgical records' } as Record<Language, string>, serviceKey: 'initial' as const },
+  { step: 2, title: { ja: '初期相談料お支払い', 'zh-TW': '支付前期諮詢費', 'zh-CN': '支付前期咨询费', en: 'Pay Initial Consultation Fee' } as Record<Language, string>, subtitle: { ja: '最適な病院・医師の選定', 'zh-TW': '選擇合適的醫院與醫生', 'zh-CN': '选择合适的医院与医生', en: 'Select Suitable Hospital & Doctor' } as Record<Language, string>, fee: null, feeLabel: null, from: { ja: '患者', 'zh-TW': '患者', 'zh-CN': '患者', en: 'Patient' } as Record<Language, string>, to: { ja: '仲介', 'zh-TW': '中介', 'zh-CN': '中介', en: 'Agent' } as Record<Language, string>, desc: null, serviceKey: null },
+  { step: 3, title: { ja: '資料翻訳', 'zh-TW': '資料翻譯', 'zh-CN': '资料翻译', en: 'Document Translation' } as Record<Language, string>, subtitle: { ja: '病院への相談', 'zh-TW': '諮詢醫院', 'zh-CN': '咨询医院', en: 'Hospital Consultation' } as Record<Language, string>, fee: null, feeLabel: null, from: { ja: '仲介', 'zh-TW': '中介', 'zh-CN': '中介', en: 'Agent' } as Record<Language, string>, to: { ja: '病院/患者', 'zh-TW': '醫院/患者', 'zh-CN': '医院/患者', en: 'Hospital/Patient' } as Record<Language, string>, desc: null, serviceKey: null },
+  { step: 4, title: { ja: '来日前遠隔診療', 'zh-TW': '赴日前遠程會診', 'zh-CN': '赴日前远程会诊', en: 'Pre-visit Remote Consultation' } as Record<Language, string>, subtitle: { ja: '治療方針の相談', 'zh-TW': '討論治療方案', 'zh-CN': '讨论治疗方案', en: 'Discuss Treatment Plan' } as Record<Language, string>, fee: '243,000', feeLabel: { ja: '円', 'zh-TW': '日元', 'zh-CN': '日元', en: 'JPY' } as Record<Language, string>, from: { ja: '病院', 'zh-TW': '醫院', 'zh-CN': '医院', en: 'Hospital' } as Record<Language, string>, to: { ja: '患者', 'zh-TW': '患者', 'zh-CN': '患者', en: 'Patient' } as Record<Language, string>, desc: { ja: '治療方針の相談、治療計画の提供、治療費概算の提示', 'zh-TW': '討論治療方案，提供治療計劃，提示治療費概算金額', 'zh-CN': '讨论治疗方案，提供治疗计划，提示治疗费概算金额', en: 'Discuss treatment plan, provide cost estimation' } as Record<Language, string>, serviceKey: 'remote' as const },
+  { step: 5, title: { ja: '来日治療の決定', 'zh-TW': '決定來日治療', 'zh-CN': '决定来日治疗', en: 'Decide to Visit Japan' } as Record<Language, string>, subtitle: { ja: '前払金のお支払い', 'zh-TW': '支付預付金', 'zh-CN': '支付预付金', en: 'Pay Deposit' } as Record<Language, string>, fee: null, feeLabel: null, from: { ja: '患者', 'zh-TW': '患者', 'zh-CN': '患者', en: 'Patient' } as Record<Language, string>, to: { ja: '仲介', 'zh-TW': '中介', 'zh-CN': '中介', en: 'Agent' } as Record<Language, string>, desc: null, serviceKey: null },
+  { step: 6, title: { ja: '来日日程の確定', 'zh-TW': '確定來日日期', 'zh-CN': '确定来日日期', en: 'Confirm Visit Date' } as Record<Language, string>, subtitle: { ja: '必要に応じて医療ビザ申請', 'zh-TW': '如需要申請醫療簽證', 'zh-CN': '如需要申请医疗签证', en: 'Apply for Medical Visa if Needed' } as Record<Language, string>, fee: null, feeLabel: null, from: { ja: '患者', 'zh-TW': '患者', 'zh-CN': '患者', en: 'Patient' } as Record<Language, string>, to: { ja: '仲介', 'zh-TW': '中介', 'zh-CN': '中介', en: 'Agent' } as Record<Language, string>, desc: null, serviceKey: null },
+  { step: 7, title: { ja: '受診予約', 'zh-TW': '預約就診', 'zh-CN': '预约就诊', en: 'Book Appointment' } as Record<Language, string>, subtitle: { ja: '通訳の手配', 'zh-TW': '安排翻譯', 'zh-CN': '安排翻译', en: 'Arrange Interpreter' } as Record<Language, string>, fee: null, feeLabel: null, from: { ja: '仲介', 'zh-TW': '中介', 'zh-CN': '中介', en: 'Agent' } as Record<Language, string>, to: { ja: '病院/患者', 'zh-TW': '醫院/患者', 'zh-CN': '医院/患者', en: 'Hospital/Patient' } as Record<Language, string>, desc: { ja: '経験と資格を有する専門医療通訳を手配', 'zh-TW': '安排有經驗及資格的專業醫療翻譯', 'zh-CN': '安排有经验及资格的专业医疗翻译', en: 'Arrange experienced professional medical interpreter' } as Record<Language, string>, serviceKey: null },
+  { step: 8, title: { ja: '来日治療', 'zh-TW': '來日治療', 'zh-CN': '来日治疗', en: 'Treatment in Japan' } as Record<Language, string>, subtitle: { ja: '受診サポート', 'zh-TW': '就診支援', 'zh-CN': '就诊支援', en: 'Visit Support' } as Record<Language, string>, fee: null, feeLabel: null, from: { ja: '仲介/病院', 'zh-TW': '中介/醫院', 'zh-CN': '中介/医院', en: 'Agent/Hospital' } as Record<Language, string>, to: { ja: '患者', 'zh-TW': '患者', 'zh-CN': '患者', en: 'Patient' } as Record<Language, string>, desc: null, serviceKey: null },
+  { step: 9, title: { ja: '治療完了', 'zh-TW': '治療結束', 'zh-CN': '治疗结束', en: 'Treatment Completed' } as Record<Language, string>, subtitle: { ja: '費用精算', 'zh-TW': '費用結算', 'zh-CN': '费用结算', en: 'Final Settlement' } as Record<Language, string>, fee: null, feeLabel: null, from: { ja: '仲介/病院', 'zh-TW': '中介/醫院', 'zh-CN': '中介/医院', en: 'Agent/Hospital' } as Record<Language, string>, to: { ja: '患者', 'zh-TW': '患者', 'zh-CN': '患者', en: 'Patient' } as Record<Language, string>, desc: null, serviceKey: null },
+  { step: 10, title: { ja: 'アフターサポート', 'zh-TW': '後續支持', 'zh-CN': '后续支持', en: 'Follow-up Support' } as Record<Language, string>, subtitle: { ja: '遠隔フォローアップ', 'zh-TW': '遠程隨訪', 'zh-CN': '远程随访', en: 'Remote Follow-up' } as Record<Language, string>, fee: null, feeLabel: null, from: { ja: '病院', 'zh-TW': '醫院', 'zh-CN': '医院', en: 'Hospital' } as Record<Language, string>, to: { ja: '患者', 'zh-TW': '患者', 'zh-CN': '患者', en: 'Patient' } as Record<Language, string>, desc: { ja: '病歴および中国の医師への治療まとめと提案を提供。必要に応じてオンライン経過観察や遠隔相談を実施', 'zh-TW': '提供病歷以及給中國醫生的治療總結與建議，必要時做線上隨訪或遠程諮詢', 'zh-CN': '提供病历以及给中国医生的治疗总结与建议，必要时做线上随访或远程咨询', en: 'Provide medical records and treatment summary for home doctors, with online follow-up if needed' } as Record<Language, string>, serviceKey: null },
 ];
 
 // 標準治療方式
@@ -52,42 +123,62 @@ const STANDARD_TREATMENTS = [
   {
     id: 'surgery',
     icon: Stethoscope,
-    title: '手術',
+    title: { ja: '手術', 'zh-TW': '手術', 'zh-CN': '手术', en: 'Surgery' } as Record<Language, string>,
     color: 'blue',
-    features: ['創傷小、恢復快、安全性高', '不僅追求生存率，更重視術後生活質量', '進食、排尿、說話等功能保護'],
-    desc: '日本微創手術技術世界領先，在追求治癒的同時最大限度保護患者的生活質量。'
+    features: [
+      { ja: '創傷が小さく、回復が早く、安全性が高い', 'zh-TW': '創傷小、恢復快、安全性高', 'zh-CN': '创伤小、恢复快、安全性高', en: 'Minimally invasive, fast recovery, high safety' } as Record<Language, string>,
+      { ja: '生存率だけでなく、術後のQOLを重視', 'zh-TW': '不僅追求生存率，更重視術後生活質量', 'zh-CN': '不仅追求生存率，更重视术后生活质量', en: 'Prioritizes post-surgery quality of life' } as Record<Language, string>,
+      { ja: '食事・排尿・会話等の機能保護', 'zh-TW': '進食、排尿、說話等功能保護', 'zh-CN': '进食、排尿、说话等功能保护', en: 'Protects eating, urinary, speech functions' } as Record<Language, string>,
+    ],
+    desc: { ja: '日本の低侵襲手術技術は世界をリードし、治癒を追求しながら最大限にQOLを保護します。', 'zh-TW': '日本微創手術技術世界領先，在追求治癒的同時最大限度保護患者的生活質量。', 'zh-CN': '日本微创手术技术世界领先，在追求治愈的同时最大限度保护患者的生活质量。', en: 'Japan leads in minimally invasive surgery, maximizing quality of life while pursuing cure.' } as Record<Language, string>,
   },
   {
     id: 'chemo',
     icon: Pill,
-    title: '化學治療',
+    title: { ja: '化学療法', 'zh-TW': '化學治療', 'zh-CN': '化学治疗', en: 'Chemotherapy' } as Record<Language, string>,
     color: 'green',
-    features: ['根據患者年齡、體力、合併症調整劑量', '副作用管理非常細緻', '適合高齡患者、慢性腫瘤患者'],
-    desc: '不一味追求最大劑量，而是根據個體差異制定最適合的方案，把副作用降到最低。'
+    features: [
+      { ja: '患者の年齢・体力・合併症に応じて投与量を調整', 'zh-TW': '根據患者年齡、體力、合併症調整劑量', 'zh-CN': '根据患者年龄、体力、合并症调整剂量', en: 'Dosage adjusted for age, fitness, comorbidities' } as Record<Language, string>,
+      { ja: '副作用管理が非常にきめ細かい', 'zh-TW': '副作用管理非常細緻', 'zh-CN': '副作用管理非常细致', en: 'Meticulous side effect management' } as Record<Language, string>,
+      { ja: '高齢患者や慢性腫瘍患者に最適', 'zh-TW': '適合高齡患者、慢性腫瘤患者', 'zh-CN': '适合高龄患者、慢性肿瘤患者', en: 'Suitable for elderly and chronic tumor patients' } as Record<Language, string>,
+    ],
+    desc: { ja: '最大投与量を追求せず、個体差に基づき最適な方案を策定し、副作用を最小限に抑えます。', 'zh-TW': '不一味追求最大劑量，而是根據個體差異制定最適合的方案，把副作用降到最低。', 'zh-CN': '不一味追求最大剂量，而是根据个体差异制定最适合的方案，把副作用降到最低。', en: 'Optimized for individual differences, minimizing side effects rather than maximizing dosage.' } as Record<Language, string>,
   },
   {
     id: 'radiation',
     icon: Radio,
-    title: '放射線治療',
+    title: { ja: '放射線治療', 'zh-TW': '放射線治療', 'zh-CN': '放射线治疗', en: 'Radiation Therapy' } as Record<Language, string>,
     color: 'purple',
-    features: ['陽子線、重離子線治療世界領先', '立體定向放射治療技術成熟', '最大限度保護正常組織，減少併發症'],
-    desc: '高精度放射線技術可精準打擊腫瘤細胞，同時將對周圍正常組織的損傷降到最低。'
+    features: [
+      { ja: '陽子線・重粒子線治療で世界をリード', 'zh-TW': '陽子線、重離子線治療世界領先', 'zh-CN': '质子线、重离子线治疗世界领先', en: 'World-leading proton and heavy ion therapy' } as Record<Language, string>,
+      { ja: '定位放射線治療技術が成熟', 'zh-TW': '立體定向放射治療技術成熟', 'zh-CN': '立体定向放射治疗技术成熟', en: 'Mature stereotactic radiation technology' } as Record<Language, string>,
+      { ja: '正常組織を最大限に保護し合併症を軽減', 'zh-TW': '最大限度保護正常組織，減少併發症', 'zh-CN': '最大限度保护正常组织，减少并发症', en: 'Maximum protection of normal tissue' } as Record<Language, string>,
+    ],
+    desc: { ja: '高精度放射線技術で腫瘍細胞を精確に攻撃し、周囲の正常組織への損傷を最小限に抑えます。', 'zh-TW': '高精度放射線技術可精準打擊腫瘤細胞，同時將對周圍正常組織的損傷降到最低。', 'zh-CN': '高精度放射线技术可精准打击肿瘤细胞，同时将对周围正常组织的损伤降到最低。', en: 'High-precision radiation precisely targets tumor cells while minimizing damage to surrounding tissue.' } as Record<Language, string>,
   },
   {
     id: 'immune',
     icon: Shield,
-    title: '免疫治療',
+    title: { ja: '免疫療法', 'zh-TW': '免疫治療', 'zh-CN': '免疫治疗', en: 'Immunotherapy' } as Record<Language, string>,
     color: 'orange',
-    features: ['嚴格篩選適應症', '高度警惕免疫相關不良反應', '把對正常器官的「誤傷」控制到最低'],
-    desc: '在發揮免疫治療效果的同時，通過精細管理避免免疫系統攻擊正常器官。'
+    features: [
+      { ja: '適応症の厳格なスクリーニング', 'zh-TW': '嚴格篩選適應症', 'zh-CN': '严格筛选适应症', en: 'Strict indication screening' } as Record<Language, string>,
+      { ja: '免疫関連有害事象に高度に警戒', 'zh-TW': '高度警惕免疫相關不良反應', 'zh-CN': '高度警惕免疫相关不良反应', en: 'Highly vigilant of immune-related adverse events' } as Record<Language, string>,
+      { ja: '正常臓器への「誤爆」を最小限に', 'zh-TW': '把對正常器官的「誤傷」控制到最低', 'zh-CN': '把对正常器官的"误伤"控制到最低', en: 'Minimize "friendly fire" on normal organs' } as Record<Language, string>,
+    ],
+    desc: { ja: '免疫療法の効果を発揮しながら、精密な管理で免疫系統による正常臓器への攻撃を防ぎます。', 'zh-TW': '在發揮免疫治療效果的同時，通過精細管理避免免疫系統攻擊正常器官。', 'zh-CN': '在发挥免疫治疗效果的同时，通过精细管理避免免疫系统攻击正常器官。', en: 'Leveraging immunotherapy while preventing immune attacks on normal organs through precise management.' } as Record<Language, string>,
   },
   {
     id: 'targeted',
     icon: Target,
-    title: '靶向治療',
+    title: { ja: '標的治療', 'zh-TW': '靶向治療', 'zh-CN': '靶向治疗', en: 'Targeted Therapy' } as Record<Language, string>,
     color: 'red',
-    features: ['針對癌細胞特定基因進行精準治療', '「無基因證據，不輕易用藥」', '避免無效治療和不必要副作用'],
-    desc: '基於基因檢測結果選擇最適合的靶向藥物，真正做到精準醫療。'
+    features: [
+      { ja: 'がん細胞の特定遺伝子に対する精密治療', 'zh-TW': '針對癌細胞特定基因進行精準治療', 'zh-CN': '针对癌细胞特定基因进行精准治疗', en: 'Precision treatment targeting specific cancer genes' } as Record<Language, string>,
+      { ja: '「遺伝子エビデンスなければ安易に投薬せず」', 'zh-TW': '「無基因證據，不輕易用藥」', 'zh-CN': '"无基因证据，不轻易用药"', en: '"No genetic evidence, no hasty medication"' } as Record<Language, string>,
+      { ja: '無効な治療と不必要な副作用を回避', 'zh-TW': '避免無效治療和不必要副作用', 'zh-CN': '避免无效治疗和不必要副作用', en: 'Avoid ineffective treatment and unnecessary side effects' } as Record<Language, string>,
+    ],
+    desc: { ja: '遺伝子検査結果に基づき最適な標的薬を選択し、真のプレシジョン・メディシンを実現します。', 'zh-TW': '基於基因檢測結果選擇最適合的靶向藥物，真正做到精準醫療。', 'zh-CN': '基于基因检测结果选择最适合的靶向药物，真正做到精准医疗。', en: 'Selecting optimal targeted drugs based on genetic testing for true precision medicine.' } as Record<Language, string>,
   },
 ];
 
@@ -96,38 +187,50 @@ const REGENERATIVE_TREATMENTS = [
   {
     id: 'msc',
     icon: Dna,
-    title: '間充質幹細胞',
+    title: { ja: '間葉系幹細胞', 'zh-TW': '間充質幹細胞', 'zh-CN': '间充质干细胞', en: 'Mesenchymal Stem Cells' } as Record<Language, string>,
     subtitle: 'MSC Therapy',
-    purpose: '身體恢復',
+    purpose: { ja: '身体回復', 'zh-TW': '身體恢復', 'zh-CN': '身体恢复', en: 'Body Recovery' } as Record<Language, string>,
     color: 'blue',
-    features: ['抗炎與免疫調節', '化療、放療後的身體恢復', '促進組織再生'],
+    features: [
+      { ja: '抗炎症・免疫調節', 'zh-TW': '抗炎與免疫調節', 'zh-CN': '抗炎与免疫调节', en: 'Anti-inflammation & immune regulation' } as Record<Language, string>,
+      { ja: '化学療法・放射線治療後の身体回復', 'zh-TW': '化療、放療後的身體恢復', 'zh-CN': '化疗、放疗后的身体恢复', en: 'Post-chemo/radiation body recovery' } as Record<Language, string>,
+      { ja: '組織再生を促進', 'zh-TW': '促進組織再生', 'zh-CN': '促进组织再生', en: 'Promotes tissue regeneration' } as Record<Language, string>,
+    ],
   },
   {
     id: 'exosome',
     icon: Atom,
-    title: '外泌體',
+    title: { ja: 'エクソソーム', 'zh-TW': '外泌體', 'zh-CN': '外泌体', en: 'Exosomes' } as Record<Language, string>,
     subtitle: 'Exosome Therapy',
-    purpose: '長期健康管理',
+    purpose: { ja: '長期健康管理', 'zh-TW': '長期健康管理', 'zh-CN': '长期健康管理', en: 'Long-term Health' } as Record<Language, string>,
     color: 'purple',
-    features: ['促進細胞修復', '治療後的長期健康管理', '抗衰老調理'],
+    features: [
+      { ja: '細胞修復を促進', 'zh-TW': '促進細胞修復', 'zh-CN': '促进细胞修复', en: 'Promotes cell repair' } as Record<Language, string>,
+      { ja: '治療後の長期健康管理', 'zh-TW': '治療後的長期健康管理', 'zh-CN': '治疗后的长期健康管理', en: 'Long-term post-treatment health management' } as Record<Language, string>,
+      { ja: 'アンチエイジングケア', 'zh-TW': '抗衰老調理', 'zh-CN': '抗衰老调理', en: 'Anti-aging care' } as Record<Language, string>,
+    ],
   },
   {
     id: 'nk',
     icon: Shield,
-    title: 'NK等免疫細胞',
+    title: { ja: 'NK等免疫細胞', 'zh-TW': 'NK等免疫細胞', 'zh-CN': 'NK等免疫细胞', en: 'NK Immune Cells' } as Record<Language, string>,
     subtitle: 'NK Cell Therapy',
-    purpose: '預防復發',
+    purpose: { ja: '再発予防', 'zh-TW': '預防復發', 'zh-CN': '预防复发', en: 'Recurrence Prevention' } as Record<Language, string>,
     color: 'green',
-    features: ['增強機體免疫功能', '提高抗腫瘤防禦能力', '預防癌症復發'],
+    features: [
+      { ja: '体の免疫機能を強化', 'zh-TW': '增強機體免疫功能', 'zh-CN': '增强机体免疫功能', en: 'Enhances immune function' } as Record<Language, string>,
+      { ja: '抗腫瘍防御力を向上', 'zh-TW': '提高抗腫瘤防禦能力', 'zh-CN': '提高抗肿瘤防御能力', en: 'Improves anti-tumor defense' } as Record<Language, string>,
+      { ja: 'がん再発を予防', 'zh-TW': '預防癌症復發', 'zh-CN': '预防癌症复发', en: 'Prevents cancer recurrence' } as Record<Language, string>,
+    ],
   },
 ];
 
 // 合作醫療機構類型
 const PARTNER_INSTITUTIONS = [
-  { icon: Building, label: '大學醫院、綜合醫院' },
-  { icon: Atom, label: '重粒子線、陽子線治療設施' },
-  { icon: Stethoscope, label: '專門診所' },
-  { icon: FlaskConical, label: '再生醫療診所' },
+  { icon: Building, label: { ja: '大学病院・総合病院', 'zh-TW': '大學醫院、綜合醫院', 'zh-CN': '大学医院、综合医院', en: 'University & General Hospitals' } as Record<Language, string> },
+  { icon: Atom, label: { ja: '重粒子線・陽子線治療施設', 'zh-TW': '重粒子線、陽子線治療設施', 'zh-CN': '重粒子线、质子线治疗设施', en: 'Heavy Ion & Proton Therapy Facilities' } as Record<Language, string> },
+  { icon: Stethoscope, label: { ja: '専門クリニック', 'zh-TW': '專門診所', 'zh-CN': '专门诊所', en: 'Specialized Clinics' } as Record<Language, string> },
+  { icon: FlaskConical, label: { ja: '再生医療クリニック', 'zh-TW': '再生醫療診所', 'zh-CN': '再生医疗诊所', en: 'Regenerative Medicine Clinics' } as Record<Language, string> },
 ];
 
 // 日本知名癌症治療醫療機構介紹（純信息展示，非合作聲明）
@@ -412,6 +515,25 @@ const JAPAN_MEDICAL_INSTITUTIONS = [
 export default function CancerTreatmentPage() {
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
   const [showWechatQR, setShowWechatQR] = useState(false);
+  const [currentLang, setCurrentLang] = useState<Language>('ja');
+
+  useEffect(() => {
+    const cookies = document.cookie.split(';');
+    for (const cookie of cookies) {
+      const [name, value] = cookie.trim().split('=');
+      if (name === 'NEXT_LOCALE' && ['ja', 'zh-TW', 'zh-CN', 'en'].includes(value)) {
+        setCurrentLang(value as Language);
+        return;
+      }
+    }
+    const browserLang = navigator.language;
+    if (browserLang.startsWith('ja')) setCurrentLang('ja');
+    else if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') setCurrentLang('zh-TW');
+    else if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) setCurrentLang('zh-CN');
+    else if (browserLang.startsWith('en')) setCurrentLang('en');
+  }, []);
+
+  const t = (key: keyof typeof pageTranslations) => pageTranslations[key][currentLang];
 
   return (
     <PublicLayout showFooter={true} activeNav="cancer">
@@ -439,19 +561,19 @@ export default function CancerTreatmentPage() {
             {/* Badge */}
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full mb-8">
               <HeartPulse size={16} className="text-red-400" />
-              <span className="text-xs font-bold text-white/90 uppercase tracking-wider">日本癌症治療</span>
+              <span className="text-xs font-bold text-white/90 uppercase tracking-wider">{t('heroBadge')}</span>
             </div>
 
             <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
-              日本癌症治療<br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">五年存活率領先全球</span>
+              {t('heroTitle1')}<br/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">{t('heroTitle2')}</span>
             </h1>
 
             <p className="text-xl text-gray-300 mb-4 leading-relaxed max-w-2xl">
-              柳葉刀研究顯示日本癌症五年存活率達 <span className="text-white font-bold">57.4%</span>
+              {t('heroStat')} <span className="text-white font-bold">57.4%</span>
             </p>
             <p className="text-lg text-gray-400 mb-8 leading-relaxed max-w-2xl">
-              質子重離子、光免疫療法、BNCT 硼中子俘獲——世界前沿療法匯聚日本
+              {t('heroDesc')}
             </p>
 
             <div className="flex flex-wrap gap-4 mb-8">
@@ -460,14 +582,14 @@ export default function CancerTreatmentPage() {
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-full font-bold hover:from-blue-600 hover:to-purple-700 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
               >
                 <MessageSquare size={20} />
-                諮詢治療方案
+                {t('heroCTA')}
                 <ArrowRight size={18} />
               </a>
               <a
                 href="#treatment-flow"
                 className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-full font-bold hover:bg-white/20 transition-all"
               >
-                了解治療流程
+                {t('heroFlow')}
               </a>
             </div>
 
@@ -477,42 +599,42 @@ export default function CancerTreatmentPage() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
               </span>
-              <span className="text-amber-200 text-sm font-medium">為保證治療品質，每月僅限 <span className="text-amber-100 font-bold">10</span> 位患者接診</span>
+              <span className="text-amber-200 text-sm font-medium">{t('heroLimit')}</span>
             </div>
 
             {/* Key Stats - Data Driven */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
                 <div className="text-3xl font-bold text-white mb-1">74.9%</div>
-                <div className="text-sm text-gray-300">胃癌五年存活率</div>
+                <div className="text-sm text-gray-300">{t('statGastric')}</div>
                 <div className="text-xs text-gray-400 mt-1">Lancet 2018*</div>
               </div>
               <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
                 <div className="text-3xl font-bold text-white mb-1">95%+</div>
-                <div className="text-sm text-gray-300">前列腺癌質子治療</div>
-                <div className="text-xs text-gray-400 mt-1">五年存活率*</div>
+                <div className="text-sm text-gray-300">{t('statProstate')}</div>
+                <div className="text-xs text-gray-400 mt-1">{t('statProstateSub')}</div>
               </div>
               <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
                 <div className="text-3xl font-bold text-white mb-1">1/3</div>
-                <div className="text-sm text-gray-300">費用僅為美國</div>
-                <div className="text-xs text-gray-400 mt-1">參考估算</div>
+                <div className="text-sm text-gray-300">{t('statCost')}</div>
+                <div className="text-xs text-gray-400 mt-1">{t('statCostSub')}</div>
               </div>
             </div>
-            <p className="text-xs text-gray-500 mb-4">*數據來源：Lancet Oncology 2018; 各醫療機構公開資料。個人療效因病情而異，僅供參考。</p>
+            <p className="text-xs text-gray-500 mb-4">{t('dataSource')}</p>
 
             {/* Trust Points */}
             <div className="flex flex-wrap gap-6 text-white/80">
               <div className="flex items-center gap-2">
                 <CheckCircle size={18} className="text-green-400" />
-                <span className="text-sm">超早期精密篩查，5mm 腫瘤可檢出</span>
+                <span className="text-sm">{t('trustEarly')}</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle size={18} className="text-green-400" />
-                <span className="text-sm">專業醫療翻譯全程陪同</span>
+                <span className="text-sm">{t('trustTranslator')}</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle size={18} className="text-green-400" />
-                <span className="text-sm">遠程會診確認後再赴日</span>
+                <span className="text-sm">{t('trustRemote')}</span>
               </div>
             </div>
           </div>
@@ -525,15 +647,15 @@ export default function CancerTreatmentPage() {
           <div className="text-center mb-16">
             <span className="text-blue-600 text-xs tracking-widest uppercase font-bold">Japan Medical Institutions</span>
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mt-3 mb-4">
-              日本知名癌症治療醫療機構
+              {t('instTitle')}
             </h2>
             <p className="text-gray-500 max-w-3xl mx-auto mb-6">
-              以下資訊旨在幫助您了解日本各大醫療機構的特色與先進治療技術，供您參考選擇
+              {t('instDesc')}
             </p>
             {/* 免責聲明 */}
             <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 px-4 py-2 rounded-lg text-sm text-amber-700">
               <Info size={16} />
-              <span>以下信息僅供參考，實際治療需以醫院診斷為準</span>
+              <span>{t('instDisclaimer')}</span>
             </div>
           </div>
 
@@ -618,7 +740,7 @@ export default function CancerTreatmentPage() {
 
                           {/* Specialty Tags */}
                           <div className="mb-4">
-                            <p className="text-xs text-gray-500 mb-2">擅長領域</p>
+                            <p className="text-xs text-gray-500 mb-2">{t('instSpecialty')}</p>
                             <div className="flex flex-wrap gap-1">
                               {inst.specialty.map((spec, i) => (
                                 <span key={i} className={`${colors.badge} text-xs px-2 py-1 rounded-full`}>
@@ -630,7 +752,7 @@ export default function CancerTreatmentPage() {
 
                           {/* Features */}
                           <div className="mb-4">
-                            <p className="text-xs text-gray-500 mb-2">機構特色</p>
+                            <p className="text-xs text-gray-500 mb-2">{t('instFeatures')}</p>
                             <ul className="space-y-1">
                               {inst.features.map((feature, i) => (
                                 <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
@@ -643,7 +765,7 @@ export default function CancerTreatmentPage() {
 
                           {/* Treatments */}
                           <div className="mb-4">
-                            <p className="text-xs text-gray-500 mb-2">特色治療</p>
+                            <p className="text-xs text-gray-500 mb-2">{t('instTreatments')}</p>
                             <div className="flex flex-wrap gap-1">
                               {inst.treatments.map((treatment, i) => (
                                 <span key={i} className={`${colors.tagBg} ${colors.tagText} text-xs px-2 py-1 rounded border border-current/20`}>
@@ -662,7 +784,7 @@ export default function CancerTreatmentPage() {
                               className={`inline-flex items-center gap-1.5 text-xs ${colors.tagText} hover:underline mt-2 pt-3 border-t border-gray-200`}
                             >
                               <ExternalLink size={12} />
-                              <span>醫院官網（外部連結）</span>
+                              <span>{t('instWebsite')}</span>
                             </a>
                           )}
                         </div>
@@ -677,8 +799,7 @@ export default function CancerTreatmentPage() {
           {/* Bottom Note */}
           <div className="mt-12 text-center">
             <p className="text-sm text-gray-500 max-w-2xl mx-auto">
-              以上資訊來源於各醫療機構公開資料，僅供患者了解日本癌症治療資源。
-              如需就診，我們將根據您的病情為您推薦最適合的醫療機構。
+              {t('instBottomNote')}
             </p>
           </div>
         </div>
@@ -690,10 +811,10 @@ export default function CancerTreatmentPage() {
           <div className="text-center mb-16">
             <span className="text-blue-600 text-xs tracking-widest uppercase font-bold">Treatment Process</span>
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mt-3 mb-4">
-              癌症患者赴日治療流程
+              {t('flowTitle')}
             </h2>
             <p className="text-gray-500 max-w-2xl mx-auto">
-              從前期諮詢到治療完成，全程專業支援，讓您安心治療
+              {t('flowDesc')}
             </p>
           </div>
 
@@ -722,28 +843,28 @@ export default function CancerTreatmentPage() {
                       <div className="flex flex-wrap items-start justify-between gap-4">
                         <div className="flex-grow">
                           <div className="flex items-center gap-3 mb-2">
-                            <h3 className="text-lg font-bold text-gray-900">{item.title}</h3>
+                            <h3 className="text-lg font-bold text-gray-900">{item.title[currentLang]}</h3>
                             {item.fee && (
                               <span className="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">
                                 ¥{item.fee}
                               </span>
                             )}
                           </div>
-                          <p className="text-gray-500 text-sm">{item.subtitle}</p>
+                          <p className="text-gray-500 text-sm">{item.subtitle[currentLang]}</p>
 
                           {/* Expanded Content */}
                           {expandedStep === item.step && item.desc && (
                             <div className="mt-4 pt-4 border-t border-gray-200 animate-fade-in">
-                              <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
+                              <p className="text-gray-600 text-sm leading-relaxed">{item.desc[currentLang]}</p>
                             </div>
                           )}
                         </div>
 
                         {/* Flow Direction */}
                         <div className="flex items-center gap-2 text-xs text-gray-400">
-                          <span className="bg-gray-200 px-2 py-1 rounded">{item.from}</span>
+                          <span className="bg-gray-200 px-2 py-1 rounded">{item.from[currentLang]}</span>
                           <ArrowRight size={12} />
-                          <span className="bg-gray-200 px-2 py-1 rounded">{item.to}</span>
+                          <span className="bg-gray-200 px-2 py-1 rounded">{item.to[currentLang]}</span>
                         </div>
                       </div>
                     </div>
@@ -761,10 +882,10 @@ export default function CancerTreatmentPage() {
           <div className="text-center mb-16">
             <span className="text-purple-600 text-xs tracking-widest uppercase font-bold">Standard Treatment</span>
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mt-3 mb-4">
-              癌症標準治療
+              {t('stdTitle')}
             </h2>
             <p className="text-gray-500 max-w-2xl mx-auto">
-              安全性高、治療精準、重視生活質量（QOL）、強調循證醫學與多學科協作
+              {t('stdDesc')}
             </p>
           </div>
 
@@ -788,17 +909,17 @@ export default function CancerTreatmentPage() {
                   <div className={`w-14 h-14 ${colors.bg} ${colors.text} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
                     <Icon size={28} />
                   </div>
-                  <h3 className="text-xl font-serif font-bold text-gray-900 mb-4">{treatment.title}</h3>
+                  <h3 className="text-xl font-serif font-bold text-gray-900 mb-4">{treatment.title[currentLang]}</h3>
                   <ul className="space-y-2 mb-4">
                     {treatment.features.map((feature, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
                         <CheckCircle size={14} className={`${colors.text} mt-0.5 flex-shrink-0`} />
-                        <span>{feature}</span>
+                        <span>{feature[currentLang]}</span>
                       </li>
                     ))}
                   </ul>
                   <p className="text-gray-500 text-sm leading-relaxed border-t border-gray-100 pt-4">
-                    {treatment.desc}
+                    {treatment.desc[currentLang]}
                   </p>
                 </div>
               );
@@ -813,10 +934,10 @@ export default function CancerTreatmentPage() {
           <div className="text-center mb-16">
             <span className="text-green-600 text-xs tracking-widest uppercase font-bold">Regenerative Medicine</span>
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mt-3 mb-4">
-              再生醫療等輔助治療
+              {t('regenTitle')}
             </h2>
             <p className="text-gray-500 max-w-2xl mx-auto">
-              結合最新再生醫療技術，幫助患者身體恢復並預防癌症復發
+              {t('regenDesc')}
             </p>
           </div>
 
@@ -824,15 +945,15 @@ export default function CancerTreatmentPage() {
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             <div className="flex items-center gap-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-bold">
               <HeartPulse size={16} />
-              身體恢復
+              {t('regenRecovery')}
             </div>
             <div className="flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-bold">
               <Leaf size={16} />
-              長期健康管理
+              {t('regenHealth')}
             </div>
             <div className="flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-bold">
               <Shield size={16} />
-              預防復發
+              {t('regenPrevention')}
             </div>
           </div>
 
@@ -852,15 +973,15 @@ export default function CancerTreatmentPage() {
                     <Icon size={32} />
                   </div>
                   <div className={`inline-block ${colors.bg} ${colors.text} text-xs font-bold px-3 py-1 rounded-full mb-4`}>
-                    {treatment.purpose}
+                    {treatment.purpose[currentLang]}
                   </div>
-                  <h3 className="text-xl font-serif font-bold text-gray-900 mb-1">{treatment.title}</h3>
+                  <h3 className="text-xl font-serif font-bold text-gray-900 mb-1">{treatment.title[currentLang]}</h3>
                   <p className="text-gray-400 text-sm mb-4">{treatment.subtitle}</p>
                   <ul className="space-y-2">
                     {treatment.features.map((feature, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
                         <CheckCircle size={14} className={`${colors.text} mt-0.5 flex-shrink-0`} />
-                        <span>{feature}</span>
+                        <span>{feature[currentLang]}</span>
                       </li>
                     ))}
                   </ul>
@@ -875,8 +996,8 @@ export default function CancerTreatmentPage() {
       <section className="py-20 bg-gradient-to-br from-slate-900 to-blue-900 text-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-serif font-bold mb-4">可協助諮詢的醫療機構類型</h2>
-            <p className="text-gray-300">涵蓋日本各類頂尖癌症治療設施</p>
+            <h2 className="text-2xl md:text-3xl font-serif font-bold mb-4">{t('partnerTitle')}</h2>
+            <p className="text-gray-300">{t('partnerDesc')}</p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
@@ -887,7 +1008,7 @@ export default function CancerTreatmentPage() {
                   <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Icon size={24} className="text-white" />
                   </div>
-                  <p className="text-sm text-white/90">{inst.label}</p>
+                  <p className="text-sm text-white/90">{inst.label[currentLang]}</p>
                 </div>
               );
             })}
@@ -902,10 +1023,10 @@ export default function CancerTreatmentPage() {
             <div className="text-center mb-12">
               <span className="text-blue-600 text-xs tracking-widest uppercase font-bold">Book Service</span>
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mt-3 mb-4">
-                諮詢服務預約
+                {t('svcTitle')}
               </h2>
               <p className="text-gray-500 mb-4">
-                選擇您需要的服務，在線支付後我們將在 24 小時內與您聯繫
+                {t('svcDesc')}
               </p>
               {/* 限量提示 */}
               <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 px-4 py-2 rounded-full">
@@ -913,7 +1034,7 @@ export default function CancerTreatmentPage() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
                 </span>
-                <span className="text-amber-700 text-sm">每月僅限 <span className="font-bold">10</span> 位 · 名額有限</span>
+                <span className="text-amber-700 text-sm">{t('svcLimit')}</span>
               </div>
             </div>
 
@@ -923,40 +1044,40 @@ export default function CancerTreatmentPage() {
                 <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 text-white">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-xl font-bold">{CONSULTATION_SERVICES.initial.name}</h3>
+                      <h3 className="text-xl font-bold">{CONSULTATION_SERVICES.initial.name[currentLang]}</h3>
                       <p className="text-blue-200 text-sm">{CONSULTATION_SERVICES.initial.nameEn}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-3xl font-bold">¥{CONSULTATION_SERVICES.initial.price.toLocaleString()}</p>
-                      <p className="text-xs text-blue-200">日円（税込）</p>
+                      <p className="text-xs text-blue-200">{t('svcTaxIncl')}</p>
                     </div>
                   </div>
                 </div>
                 <div className="p-6">
-                  <p className="text-gray-600 text-sm mb-6">{CONSULTATION_SERVICES.initial.description}</p>
+                  <p className="text-gray-600 text-sm mb-6">{CONSULTATION_SERVICES.initial.description[currentLang]}</p>
                   <ul className="space-y-2 mb-6 text-sm text-gray-600">
                     <li className="flex items-start gap-2">
                       <CheckCircle size={14} className="text-blue-500 mt-0.5 flex-shrink-0" />
-                      <span>病歷資料翻譯（中→日）</span>
+                      <span>{t('svcInitial1')}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle size={14} className="text-blue-500 mt-0.5 flex-shrink-0" />
-                      <span>日本醫院初步諮詢</span>
+                      <span>{t('svcInitial2')}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle size={14} className="text-blue-500 mt-0.5 flex-shrink-0" />
-                      <span>治療可行性評估報告</span>
+                      <span>{t('svcInitial3')}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle size={14} className="text-blue-500 mt-0.5 flex-shrink-0" />
-                      <span>費用概算說明</span>
+                      <span>{t('svcInitial4')}</span>
                     </li>
                   </ul>
                   <Link
                     href="/cancer-treatment/initial-consultation"
                     className="block w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-700 text-white text-center font-bold rounded-xl hover:from-blue-700 hover:to-indigo-800 transition shadow-lg"
                   >
-                    立即預約
+                    {t('svcBookNow')}
                   </Link>
                 </div>
               </div>
@@ -966,40 +1087,40 @@ export default function CancerTreatmentPage() {
                 <div className="bg-gradient-to-r from-purple-600 to-pink-700 p-6 text-white">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-xl font-bold">{CONSULTATION_SERVICES.remote.name}</h3>
+                      <h3 className="text-xl font-bold">{CONSULTATION_SERVICES.remote.name[currentLang]}</h3>
                       <p className="text-purple-200 text-sm">{CONSULTATION_SERVICES.remote.nameEn}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-3xl font-bold">¥{CONSULTATION_SERVICES.remote.price.toLocaleString()}</p>
-                      <p className="text-xs text-purple-200">日円（税込）</p>
+                      <p className="text-xs text-purple-200">{t('svcTaxIncl')}</p>
                     </div>
                   </div>
                 </div>
                 <div className="p-6">
-                  <p className="text-gray-600 text-sm mb-6">{CONSULTATION_SERVICES.remote.description}</p>
+                  <p className="text-gray-600 text-sm mb-6">{CONSULTATION_SERVICES.remote.description[currentLang]}</p>
                   <ul className="space-y-2 mb-6 text-sm text-gray-600">
                     <li className="flex items-start gap-2">
                       <CheckCircle size={14} className="text-purple-500 mt-0.5 flex-shrink-0" />
-                      <span>日本專科醫生視頻會診</span>
+                      <span>{t('svcRemote1')}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle size={14} className="text-purple-500 mt-0.5 flex-shrink-0" />
-                      <span>專業醫療翻譯全程陪同</span>
+                      <span>{t('svcRemote2')}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle size={14} className="text-purple-500 mt-0.5 flex-shrink-0" />
-                      <span>詳細治療方案說明</span>
+                      <span>{t('svcRemote3')}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle size={14} className="text-purple-500 mt-0.5 flex-shrink-0" />
-                      <span>治療費用明細報價</span>
+                      <span>{t('svcRemote4')}</span>
                     </li>
                   </ul>
                   <Link
                     href="/cancer-treatment/remote-consultation"
                     className="block w-full py-3 bg-gradient-to-r from-purple-600 to-pink-700 text-white text-center font-bold rounded-xl hover:from-purple-700 hover:to-pink-800 transition shadow-lg"
                   >
-                    立即預約
+                    {t('svcBookNow')}
                   </Link>
                 </div>
               </div>
@@ -1012,10 +1133,9 @@ export default function CancerTreatmentPage() {
                   <Users size={24} className="text-blue-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-2">會員體系說明</h4>
+                  <h4 className="font-bold text-gray-900 mb-2">{t('memberTitle')}</h4>
                   <p className="text-sm text-gray-600 leading-relaxed">
-                    癌症治療諮詢服務與 TIMC 體檢服務共用同一會員體系。購買任一服務後，您將自動成為 NIIJIMA 會員，
-                    可在「我的訂單」中查看所有預約記錄，並享受會員專屬服務。
+                    {t('memberDesc')}
                   </p>
                 </div>
               </div>
@@ -1025,7 +1145,7 @@ export default function CancerTreatmentPage() {
             <div className="bg-gray-50 rounded-2xl p-6 border border-gray-200">
               <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
                 <MessageSquare size={18} className="text-gray-600" />
-                付款前有疑問？歡迎諮詢
+                {t('contactTitle')}
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <a
@@ -1035,14 +1155,14 @@ export default function CancerTreatmentPage() {
                   className="flex items-center gap-3 bg-[#06C755] text-white p-3 rounded-xl hover:bg-[#05b04c] transition text-sm"
                 >
                   <MessageSquare size={18} />
-                  <span className="font-bold">LINE 諮詢</span>
+                  <span className="font-bold">{t('contactLine')}</span>
                 </a>
                 <a
                   href="mailto:info@niijima-koutsu.jp"
                   className="flex items-center gap-3 bg-gray-800 text-white p-3 rounded-xl hover:bg-gray-700 transition text-sm"
                 >
                   <Mail size={18} />
-                  <span className="font-bold">郵件諮詢</span>
+                  <span className="font-bold">{t('contactEmail')}</span>
                 </a>
                 <button
                   onClick={() => setShowWechatQR(true)}
@@ -1051,7 +1171,7 @@ export default function CancerTreatmentPage() {
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178A1.17 1.17 0 014.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178 1.17 1.17 0 01-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 01.598.082l1.584.926a.272.272 0 00.139.045c.133 0 .241-.108.241-.243 0-.06-.024-.118-.04-.177l-.327-1.233a.49.49 0 01-.009-.102c0-.142.062-.28.177-.375C23.116 17.715 24 16.046 24 14.194c0-2.942-2.696-5.336-7.062-5.336zm-2.745 3.086c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.97-.983zm5.49 0c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.969-.983z"/>
                   </svg>
-                  <span className="font-bold">微信諮詢</span>
+                  <span className="font-bold">{t('contactWechat')}</span>
                 </button>
               </div>
             </div>
@@ -1066,7 +1186,7 @@ export default function CancerTreatmentPage() {
           className="inline-flex items-center gap-2 text-gray-500 hover:text-blue-600 transition"
         >
           <ArrowLeft size={16} />
-          返回首頁
+          {t('backHome')}
         </Link>
       </div>
 
@@ -1093,8 +1213,8 @@ export default function CancerTreatmentPage() {
                 <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178A1.17 1.17 0 014.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178 1.17 1.17 0 01-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 01.598.082l1.584.926a.272.272 0 00.139.045c.133 0 .241-.108.241-.243 0-.06-.024-.118-.04-.177l-.327-1.233a.49.49 0 01-.009-.102c0-.142.062-.28.177-.375C23.116 17.715 24 16.046 24 14.194c0-2.942-2.696-5.336-7.062-5.336zm-2.745 3.086c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.97-.983zm5.49 0c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.969-.983z"/>
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">微信諮詢</h3>
-            <p className="text-gray-500 text-sm mb-6">掃描二維碼添加客服微信</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">{t('wechatTitle')}</h3>
+            <p className="text-gray-500 text-sm mb-6">{t('wechatScan')}</p>
             <div className="bg-gray-50 rounded-xl p-4 mb-4">
               <img
                 src="https://i.ibb.co/3yBrDKW5/wechat-qr.jpg"
@@ -1103,7 +1223,7 @@ export default function CancerTreatmentPage() {
               />
             </div>
             <p className="text-xs text-gray-400">
-              添加後請注明：癌症治療諮詢
+              {t('wechatNote')}
             </p>
           </div>
         </div>

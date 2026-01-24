@@ -10,7 +10,7 @@ type Language = 'zh-TW' | 'zh-CN' | 'ja' | 'en';
 interface PublicLayoutProps {
   children: React.ReactNode;
   showFooter?: boolean;
-  activeNav?: 'medical' | 'cancer' | 'golf' | 'business' | 'vehicles' | 'partner';
+  activeNav?: 'medical' | 'cancer' | 'golf' | 'business' | 'vehicles' | 'partner' | 'news';
   transparentNav?: boolean; // 是否使用透明导航栏（融入 Hero）
   onLogoClick?: () => void; // 点击 Logo 时的回调（用于 SPA 内部导航）
 }
@@ -30,6 +30,20 @@ const navLabels = {
     guideLogin: '導遊登入',
     memberLoginDesc: '醫療・健檢客戶',
     guideLoginDesc: '導遊合夥人',
+    footerServices: '服務項目',
+    footerPartners: '合作夥伴',
+    footerCompanyInfo: '公司資訊',
+    footerAbout: '關於我們',
+    footerNews: '最新消息',
+    footerFaq: '常見問題',
+    footerTokushoho: '特定商取引法',
+    footerPrivacy: '隱私政策',
+    footerTerms: '使用條款',
+    footerHealthScreening: 'AI 健康評估',
+    footerTagline: '專注日本高端定制旅行',
+    footerTagline2: '精密健檢 · 名門高爾夫 · 商務考察',
+    footerTaglineAlt: '為各國訪日遊客提供精密健檢、名門高爾夫、商務考察等定制服務。',
+    footerCopyright: '新島交通株式會社',
   },
   'ja': {
     brand_sub: '新島交通株式会社',
@@ -45,6 +59,20 @@ const navLabels = {
     guideLogin: 'ガイドログイン',
     memberLoginDesc: '医療・健診のお客様',
     guideLoginDesc: 'ガイドパートナー',
+    footerServices: 'サービス',
+    footerPartners: 'パートナー',
+    footerCompanyInfo: '会社情報',
+    footerAbout: '会社概要',
+    footerNews: 'お知らせ',
+    footerFaq: 'よくある質問',
+    footerTokushoho: '特定商取引法',
+    footerPrivacy: 'プライバシーポリシー',
+    footerTerms: '利用規約',
+    footerHealthScreening: 'AI健康診断',
+    footerTagline: '日本高級カスタム旅行専門',
+    footerTagline2: '精密健診 · 名門ゴルフ · 商務視察',
+    footerTaglineAlt: '各国からの訪日旅行者に精密健診、名門ゴルフ、商務視察などのカスタムサービスを提供。',
+    footerCopyright: '新島交通株式会社',
   },
   'zh-CN': {
     brand_sub: '新岛交通株式会社',
@@ -60,6 +88,20 @@ const navLabels = {
     guideLogin: '导游登录',
     memberLoginDesc: '医疗・健检客户',
     guideLoginDesc: '导游合伙人',
+    footerServices: '服务项目',
+    footerPartners: '合作伙伴',
+    footerCompanyInfo: '公司资讯',
+    footerAbout: '关于我们',
+    footerNews: '最新消息',
+    footerFaq: '常见问题',
+    footerTokushoho: '特定商取引法',
+    footerPrivacy: '隐私政策',
+    footerTerms: '使用条款',
+    footerHealthScreening: 'AI 健康评估',
+    footerTagline: '专注日本高端定制旅行',
+    footerTagline2: '精密健检 · 名门高尔夫 · 商务考察',
+    footerTaglineAlt: '为各国访日游客提供精密健检、名门高尔夫、商务考察等定制服务。',
+    footerCopyright: '新岛交通株式会社',
   },
   'en': {
     brand_sub: 'Niijima Kotsu Co., Ltd.',
@@ -75,6 +117,20 @@ const navLabels = {
     guideLogin: 'Guide Login',
     memberLoginDesc: 'Medical & Checkup',
     guideLoginDesc: 'Guide Partner',
+    footerServices: 'Services',
+    footerPartners: 'Partners',
+    footerCompanyInfo: 'Company Info',
+    footerAbout: 'About Us',
+    footerNews: 'News',
+    footerFaq: 'FAQ',
+    footerTokushoho: 'Tokushoho',
+    footerPrivacy: 'Privacy Policy',
+    footerTerms: 'Terms of Use',
+    footerHealthScreening: 'AI Health Screening',
+    footerTagline: 'Premium custom travel in Japan',
+    footerTagline2: 'Medical Checkup · Premium Golf · Business Tour',
+    footerTaglineAlt: 'Premium medical, golf, and business tour services for international visitors to Japan.',
+    footerCopyright: 'Niijima Kotsu Co., Ltd.',
   },
 };
 
@@ -225,7 +281,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
       <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isTransparent ? 'bg-transparent' : 'bg-white shadow-sm'
       }`}>
-        <div className="container mx-auto px-6 h-20 flex items-center justify-between">
+        <div className="max-w-[1400px] mx-auto px-4 h-20 flex items-center justify-between">
           {/* Logo */}
           {onLogoClick ? (
             <button onClick={onLogoClick} className="flex items-center gap-3 group">
@@ -252,7 +308,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
           )}
 
           {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-5 font-sans">
             <Link href="/?page=medical" className={getNavLinkClass('medical', isActive('medical'))}>{t.timc}</Link>
             <Link href="/cancer-treatment" className={getNavLinkClass('cancer', isActive('cancer'), 'red')}>{t.cancer}</Link>
             <Link href="/?page=golf" className={getNavLinkClass('golf', isActive('golf'))}>{t.golf}</Link>
@@ -405,15 +461,15 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                   ) : (
                     <>
                       <h3 className="text-xl font-serif tracking-[0.2em] mb-1 text-gray-800">NIIJIMA</h3>
-                      <p className="text-xs tracking-[0.1em] text-gray-500">新島交通株式會社</p>
+                      <p className="text-xs tracking-[0.1em] text-gray-500">{t.brand_sub}</p>
                     </>
                   )}
                 </div>
                 <p className="text-gray-600 text-sm leading-relaxed mb-4 max-w-[280px]">
                   {hideOfficialBranding ? (
-                    <>專注日本高端定制旅行<br/>精密健檢 · 名門高爾夫 · 商務考察</>
+                    <>{t.footerTagline}<br/>{t.footerTagline2}</>
                   ) : (
-                    <>為各國訪日遊客提供精密健檢、名門高爾夫、商務考察等定制服務。</>
+                    <>{t.footerTaglineAlt}</>
                   )}
                 </p>
                 {/* 联系方式 */}
@@ -451,7 +507,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
 
               {/* 服务项目 */}
               <div>
-                <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">服務項目</h4>
+                <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">{t.footerServices}</h4>
                 <ul className="space-y-2.5">
                   <li>
                     <Link href="/?page=medical" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
@@ -475,7 +531,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                   </li>
                   <li>
                     <Link href="/vehicles" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                      車輛介紹
+                      {t.vehicles}
                     </Link>
                   </li>
                 </ul>
@@ -483,21 +539,21 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
 
               {/* 合作伙伴 */}
               <div>
-                <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">合作夥伴</h4>
+                <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">{t.footerPartners}</h4>
                 <ul className="space-y-2.5">
                   <li>
                     <Link href="/guide-partner" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                      導遊合夥人
+                      {t.guidePartner}
                     </Link>
                   </li>
                   <li>
                     <Link href="/business/partner" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                      同業合作
+                      {t.partner}
                     </Link>
                   </li>
                   <li>
                     <Link href="/health-screening" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                      AI 健康評估
+                      {t.footerHealthScreening}
                     </Link>
                   </li>
                 </ul>
@@ -505,36 +561,36 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
 
               {/* 公司信息 */}
               <div>
-                <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">公司資訊</h4>
+                <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">{t.footerCompanyInfo}</h4>
                 <ul className="space-y-2.5">
                   <li>
                     <Link href="/company/about" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                      關於我們
+                      {t.footerAbout}
                     </Link>
                   </li>
                   <li>
                     <Link href="/news" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                      最新消息
+                      {t.footerNews}
                     </Link>
                   </li>
                   <li>
                     <Link href="/faq" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                      常見問題
+                      {t.footerFaq}
                     </Link>
                   </li>
                   <li>
                     <Link href="/legal/tokushoho" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                      特定商取引法
+                      {t.footerTokushoho}
                     </Link>
                   </li>
                   <li>
                     <Link href="/legal/privacy" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                      隱私政策
+                      {t.footerPrivacy}
                     </Link>
                   </li>
                   <li>
                     <Link href="/legal/terms" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                      使用條款
+                      {t.footerTerms}
                     </Link>
                   </li>
                 </ul>
@@ -557,7 +613,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                     {hideOfficialBranding ? (
                       <>© {new Date().getFullYear()} {displayBrandName}. All rights reserved.</>
                     ) : (
-                      <>© {new Date().getFullYear()} 新島交通株式會社. All rights reserved.</>
+                      <>© {new Date().getFullYear()} {t.footerCopyright}. All rights reserved.</>
                     )}
                   </p>
                 </div>
