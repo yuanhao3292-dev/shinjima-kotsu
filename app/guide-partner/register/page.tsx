@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import PublicLayout from '@/components/PublicLayout';
 import Logo from '@/components/Logo';
-import { User, Phone, Mail, Lock, Loader2, AlertCircle, Eye, EyeOff, Gift, MessageCircle } from 'lucide-react';
+import { User, Phone, Mail, Lock, Loader2, AlertCircle, Eye, EyeOff, MessageCircle } from 'lucide-react';
 
 function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -16,21 +16,11 @@ function RegisterForm() {
     wechatId: '',
     password: '',
     confirmPassword: '',
-    referralCode: '',
   });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-  const searchParams = useSearchParams();
-  const urlReferralCode = searchParams.get('ref') || '';
-
-  // 如果 URL 有推薦碼，自動填入
-  useEffect(() => {
-    if (urlReferralCode) {
-      setFormData(prev => ({ ...prev, referralCode: urlReferralCode }));
-    }
-  }, [urlReferralCode]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,12 +28,6 @@ function RegisterForm() {
     setLoading(true);
 
     // 驗證
-    if (!formData.referralCode) {
-      setError('推薦碼為必填項，請聯繫推薦人獲取');
-      setLoading(false);
-      return;
-    }
-
     if (formData.password !== formData.confirmPassword) {
       setError('兩次輸入的密碼不一致');
       setLoading(false);
@@ -59,21 +43,7 @@ function RegisterForm() {
     try {
       const supabase = createClient();
 
-      // 1. 驗證推薦碼是否有效
-      const { data: referrer, error: referrerError } = await supabase
-        .from('guides')
-        .select('id, name')
-        .eq('referral_code', formData.referralCode.toUpperCase())
-        .eq('status', 'approved')
-        .single();
-
-      if (referrerError || !referrer) {
-        setError('推薦碼無效或推薦人尚未通過審核');
-        setLoading(false);
-        return;
-      }
-
-      // 2. 檢查手機號是否已註冊
+      // 1. 檢查手機號是否已註冊
       const { data: existingGuide } = await supabase
         .from('guides')
         .select('id')
@@ -86,7 +56,7 @@ function RegisterForm() {
         return;
       }
 
-      // 3. 創建 Supabase Auth 用戶
+      // 2. 創建 Supabase Auth 用戶
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: formData.email.trim().toLowerCase(),
         password: formData.password,
@@ -108,20 +78,62 @@ function RegisterForm() {
         return;
       }
 
-      // 4. 創建導遊記錄
+      if (!authData.user) {
+        setError('註冊失敗，請稍後重試');
+        setLoading(false);
+        return;
+      }
+
+      // 3. 生成唯一推荐码（6位大写字母+数字）
+      const generateReferralCode = () => {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let code = '';
+        for (let i = 0; i < 6; i++) {
+          code += chars[Math.floor(Math.random() * chars.length)];
+        }
+        return code;
+      };
+
+      let referralCode = generateReferralCode();
+      let attempts = 0;
+      let codeExists = true;
+
+      // 确保推荐码唯一
+      while (codeExists && attempts < 10) {
+        const { data } = await supabase
+          .from('guides')
+          .select('referral_code')
+          .eq('referral_code', referralCode)
+          .single();
+
+        if (!data) {
+          codeExists = false;
+        } else {
+          referralCode = generateReferralCode();
+          attempts++;
+        }
+      }
+
+      // 4. 創建導遊記錄（直接批准，无需审核）
       const { error: guideError } = await supabase
         .from('guides')
         .insert({
+          id: authData.user.id,
           name: formData.name,
           phone: formData.phone,
           email: formData.email.trim().toLowerCase(),
           wechat_id: formData.wechatId || null,
-          referrer_id: referrer.id,
-          auth_user_id: authData.user?.id,
-          status: 'pending', // 等待審核
+          referral_code: referralCode,
+          status: 'approved', // 直接批准
+          level: 'bronze',
+          kyc_status: 'pending',
+          total_commission: 0,
+          total_bookings: 0,
         });
 
       if (guideError) {
+        // 如果创建导游记录失败，删除刚创建的 auth 账户
+        await supabase.auth.admin.deleteUser(authData.user.id);
         setError('註冊失敗: ' + guideError.message);
         setLoading(false);
         return;
@@ -144,16 +156,16 @@ function RegisterForm() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">註冊申請已提交</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">註冊成功！</h2>
           <p className="text-gray-600 mb-6">
-            我們會在 1-3 個工作日內審核您的申請。<br />
-            審核通過後會通過郵件和微信通知您。
+            您的導遊帳號已創建成功。<br />
+            現在可以登錄並開始使用了。
           </p>
           <Link
-            href="/guide-partner"
+            href="/guide-partner/login"
             className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-xl transition"
           >
-            返回首頁
+            前往登入
           </Link>
         </div>
       </div>
@@ -187,13 +199,13 @@ function RegisterForm() {
               <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
                 <span className="text-amber-200 font-bold">1</span>
               </div>
-              <span>填寫資訊，提交申請</span>
+              <span>填寫資訊，註冊帳號</span>
             </div>
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
                 <span className="text-amber-200 font-bold">2</span>
               </div>
-              <span>審核通過，獲得專屬推薦碼</span>
+              <span>登錄後台，獲得專屬推薦碼</span>
             </div>
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
@@ -232,23 +244,6 @@ function RegisterForm() {
             )}
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* 推薦碼 - 放在最前面強調 */}
-              <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 mb-4">
-                <label className="block text-sm font-bold text-orange-700 mb-2">
-                  <Gift className="inline mr-1" size={16} />
-                  推薦碼 *（必填）
-                </label>
-                <input
-                  type="text"
-                  value={formData.referralCode}
-                  onChange={(e) => setFormData({ ...formData, referralCode: e.target.value.toUpperCase() })}
-                  required
-                  className="w-full px-4 py-3 border border-orange-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition uppercase font-mono text-lg tracking-widest"
-                  placeholder="GP123ABC"
-                />
-                <p className="text-xs text-orange-600 mt-2">請向推薦人索取推薦碼</p>
-              </div>
-
               {/* 姓名 */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">姓名 *</label>
