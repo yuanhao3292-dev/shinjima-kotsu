@@ -303,18 +303,29 @@ export const translations = {
       std_3_d: 'ありきたりな団体食は排除。ミシュラン懐石、老舗すき焼き、神戸牛鉄板焼きを手配。'
     },
     golf: {
-      tag: 'Exclusive B2B Golf Tours',
       title_1: '東洋の精緻、',
       title_2: '日本の名門コースへ',
       desc: '会員制ゴルフ場への特別アクセス。\n精緻なゴルフと「おもてなし」の融合。',
       btn_tour: 'チャンピオンシップツアーを見る',
-      std_title: '新島ゴルフ・スタンダード',
+      std_title: '私たちのサービス基準',
       // 统计数据
       stat_courses: '提携名門コース',
       stat_booking: '予約成功率',
       stat_guests: '年間VIPゲスト',
       stat_experience: '業界経験',
       partners_title: '提携名門コース',
+      partners_subtitle: '',
+      partnerCourses: [
+        { id: 'rokko', name: '六甲国際ゴルフ倶楽部', region: '兵庫', rank: 'Top 30', url: 'http://rokkokokusai-kobe.jp/' },
+        { id: 'abc', name: 'ABCゴルフ倶楽部', region: '兵庫', rank: 'Top 50', url: 'https://abc-golf.co.jp/' },
+        { id: 'taiheiyo', name: '太平洋クラブ御殿場コース', region: '静岡', rank: 'Top 10', url: 'https://www.taiheiyoclub.co.jp/course/gotenba/' },
+        { id: 'arima', name: '有馬ロイヤルゴルフクラブ', region: '兵庫', rank: 'Top 100', url: 'https://arima-royal.com/' },
+        { id: 'golden', name: 'ゴールデンバレーゴルフ倶楽部', region: '兵庫', rank: 'Top 100', url: 'https://www.gvgc.jp/' },
+        { id: 'fujizakura', name: '富士桜カントリー倶楽部', region: '山梨', rank: 'Top 50', url: 'https://www.fujizakura-cc.jp/' },
+      ],
+      plans_section_label: 'シグネチャーツアー',
+      plans_section_title: 'おすすめコース',
+      plans_section_subtitle: '厳選されたゴルフ体験',
       // 特色服务
       f1_t: '会員制へのアクセス',
       f1_d: '兵庫・大阪のTop 100コースを含む、通常ビジター不可の名門クラブの予約枠を確保。',
@@ -326,7 +337,6 @@ export const translations = {
       f4_d: '19番ホールの後は、有馬温泉などの高級旅館で懐石料理と温泉を堪能。',
       cta_title: '次の親善試合を企画する',
       cta_desc: '企業視察の合間のリフレッシュも、ガチンコ対決も。\n面倒な手配はすべてお任せください。',
-      cta_btn: 'AIシステムでゴルフ行程をカスタマイズ',
       plans: [
         // ===== 北海道エリア (3プラン) =====
         {
@@ -753,7 +763,7 @@ export const translations = {
       hero_subtitle: '日本最大醫療集團「德洲會」旗艦設施：大阪德州會國際體檢中心 TIMC OSAKA',
       hero_text: '在這裡，頂尖醫療技術與五星級酒店服務完美融合。\n新島交通作為官方授權合作夥伴，為您開啟 VIP 綠色預約通道。',
       auth_tag: '權威與信賴',
-      auth_title: 'Why TIMC?',
+      auth_title: '為什麼選擇TIMC？',
       auth_1_t: '德洲會集團',
       auth_1_d: '日本最大的私立醫療集團，擁有約 400 家醫療設施。代表了日本預防醫學的最高水準。',
       auth_2_t: '頂尖醫師資源',
@@ -1178,18 +1188,29 @@ export const translations = {
       std_3_d: '拒絕普通團餐。安排米其林星級懷石料理、百年老店壽喜燒及神戶牛鐵板燒。'
     },
     golf: {
-      tag: 'Exclusive B2B Golf Tours',
       title_1: '揮桿東瀛，',
       title_2: '以此為名',
       desc: '解鎖日本「會員制」球場的專屬通道。\n體驗極致的高爾夫與日式款待。',
       btn_tour: '查看冠軍巡迴行程',
-      std_title: '新島高爾夫 · 服務標準',
+      std_title: '我們的服務標準',
       // 统计数据
       stat_courses: '合作名門球場',
       stat_booking: '預約成功率',
       stat_guests: '年度VIP賓客',
       stat_experience: '業界經驗',
       partners_title: '合作名門球場',
+      partners_subtitle: '',
+      partnerCourses: [
+        { id: 'rokko', name: '六甲國際高爾夫俱樂部', region: '兵庫', rank: 'Top 30', url: 'http://rokkokokusai-kobe.jp/' },
+        { id: 'abc', name: 'ABC高爾夫俱樂部', region: '兵庫', rank: 'Top 50', url: 'https://abc-golf.co.jp/' },
+        { id: 'taiheiyo', name: '太平洋俱樂部御殿場球場', region: '靜岡', rank: 'Top 10', url: 'https://www.taiheiyoclub.co.jp/course/gotenba/' },
+        { id: 'arima', name: '有馬皇家高爾夫俱樂部', region: '兵庫', rank: 'Top 100', url: 'https://arima-royal.com/' },
+        { id: 'golden', name: '金谷高爾夫俱樂部', region: '兵庫', rank: 'Top 100', url: 'https://www.gvgc.jp/' },
+        { id: 'fujizakura', name: '富士櫻鄉村俱樂部', region: '山梨', rank: 'Top 50', url: 'https://www.fujizakura-cc.jp/' },
+      ],
+      plans_section_label: '經典行程',
+      plans_section_title: '推薦行程',
+      plans_section_subtitle: '為資深高爾夫愛好者精心策劃',
       // 特色服务
       f1_t: '會員制球場預約',
       f1_d: '包含兵庫、大阪 Top 100 球場在內，我們擁有通常不對外開放的名門俱樂部預約權。',
@@ -1201,7 +1222,6 @@ export const translations = {
       f4_d: '第 19 洞之後，安排有馬溫泉等高級旅館，享受懷石料理與溫泉，消除疲勞。',
       cta_title: '策劃您的下一場友誼賽',
       cta_desc: '無論是企業考察間隙的休閒，還是好友間的巔峰對決。\n將繁瑣的預訂工作交給我們，您只需專注揮桿。',
-      cta_btn: '使用 AI 系統定制高爾夫行程',
       plans: [
         { id: 'hokkaido-summer', title: '【北海道夏季高爾夫】5天・涼風名門3球場', subtitle: '夏日涼爽的北國大地尊榮揮桿', tags: ['5 Days', '北海道', '避暑高爾夫', '小樽', '札幌'], desc: '盛夏平均氣溫22℃的北海道舒適高爾夫。ANA公開賽舉辦地「札幌GC輪厚」、以及可眺望日本海的絕景球場。搭配新鮮海鮮與溫泉的完美假期。', hotel: 'JR Tower Hotel Nikko Sapporo (Premium 5 Star)', schedule: [{ day: 'Day 1', text: '抵達新千歲機場。專車前往札幌。薄野海鮮晚宴。' }, { day: 'Day 2', text: '【札幌高爾夫俱樂部・輪厚球場】ANA公開賽舉辦地。井上誠一設計的戰略性林間球場。' }, { day: 'Day 3', text: '【小樽鄉村俱樂部】眺望日本海的絕景球場。午後小樽運河漫步與海鮮晚餐。' }, { day: 'Day 4', text: '【北海道經典高爾夫俱樂部】廣闊雄偉的北海道風格設計。定山溪溫泉療癒身心。' }, { day: 'Day 5', text: '新千歲機場免稅店購物後返程。' }] },
         { id: 'hokkaido-niseko', title: '【二世古度假高爾夫】5天・世界級度假村2球場', subtitle: '世界頂級度假勝地的夏季高爾夫', tags: ['5 Days', '二世古', '度假村', '羊蹄山', '溫泉'], desc: '冬季的滑雪天堂・二世古，夏季化身最高峰高爾夫度假地。眺望羊蹄山的世界級球場，搭配頂級度假酒店與溫泉的奢華之旅。', hotel: 'Higashiyama Niseko Village Ritz-Carlton Reserve', schedule: [{ day: 'Day 1', text: '抵達新千歲機場。專車前往二世古（約2.5小時）。麗思卡爾頓儲備酒店Check-in。' }, { day: 'Day 2', text: '【二世古Village高爾夫球場】羊蹄山全景的壯觀球場。午後在酒店溫泉放鬆。' }, { day: 'Day 3', text: '【二世古高爾夫球場】Arnold Palmer設計的經典之作。晚餐享用當地食材的精緻法式料理。' }, { day: 'Day 4', text: '自由日。戶外活動或洞爺湖觀光。在湖畔餐廳享用晚餐。' }, { day: 'Day 5', text: '專車前往新千歲機場。' }] },
@@ -1333,7 +1353,7 @@ export const translations = {
       hero_subtitle: '日本最大医疗集团「德洲会」旗舰设施：大阪德州会国际体检中心 TIMC OSAKA',
       hero_text: '在这里，顶尖医疗技术与五星级酒店服务完美融合。\n新岛交通作为官方授权合作伙伴，为您开启 VIP 绿色预约通道。',
       auth_tag: '权威与信赖',
-      auth_title: 'Why TIMC?',
+      auth_title: '为什么选择TIMC？',
       auth_1_t: '德洲会集团',
       auth_1_d: '日本最大的私立医疗集团，拥有约 400 家医疗设施。代表了日本预防医学的最高水准。',
       auth_2_t: '顶尖医师资源',
@@ -1758,18 +1778,29 @@ export const translations = {
       std_3_d: '拒绝普通团餐。安排米其林星级怀石料理、百年老店寿喜烧及神户牛铁板烧。'
     },
     golf: {
-      tag: 'Exclusive B2B Golf Tours',
       title_1: '揮桿东瀛，',
       title_2: '以此为名',
       desc: '解锁日本「会员制」球场的专属通道。\n体验极致的高尔夫与日式款待。',
       btn_tour: '查看冠军巡回行程',
-      std_title: '新岛高尔夫 · 服务标准',
+      std_title: '我们的服务标准',
       // 统计数据
       stat_courses: '合作名门球场',
       stat_booking: '预约成功率',
       stat_guests: '年度VIP宾客',
       stat_experience: '业界经验',
       partners_title: '合作名门球场',
+      partners_subtitle: '',
+      partnerCourses: [
+        { id: 'rokko', name: '六甲国际高尔夫俱乐部', region: '兵库', rank: 'Top 30', url: 'http://rokkokokusai-kobe.jp/' },
+        { id: 'abc', name: 'ABC高尔夫俱乐部', region: '兵库', rank: 'Top 50', url: 'https://abc-golf.co.jp/' },
+        { id: 'taiheiyo', name: '太平洋俱乐部御殿场球场', region: '静冈', rank: 'Top 10', url: 'https://www.taiheiyoclub.co.jp/course/gotenba/' },
+        { id: 'arima', name: '有马皇家高尔夫俱乐部', region: '兵库', rank: 'Top 100', url: 'https://arima-royal.com/' },
+        { id: 'golden', name: '金谷高尔夫俱乐部', region: '兵库', rank: 'Top 100', url: 'https://www.gvgc.jp/' },
+        { id: 'fujizakura', name: '富士樱乡村俱乐部', region: '山梨', rank: 'Top 50', url: 'https://www.fujizakura-cc.jp/' },
+      ],
+      plans_section_label: '经典行程',
+      plans_section_title: '推荐行程',
+      plans_section_subtitle: '为资深高尔夫爱好者精心策划',
       // 特色服务
       f1_t: '会员制球场预约',
       f1_d: '包含兵库、大阪 Top 100 球场在内，我们拥有通常不对外开放的名门俱乐部预约权。',
@@ -1781,7 +1812,6 @@ export const translations = {
       f4_d: '第 19 洞之后，安排有马温泉等高级旅馆，享受怀石料理与温泉，消除疲劳。',
       cta_title: '策划您的下一场友誼赛',
       cta_desc: '无论是企业考察间隙的休闲，还是好友间的巔峰对决。\n将繁琐的预订工作交给我们，您只需专注揮桿。',
-      cta_btn: '使用 AI 系统定制高尔夫行程',
       plans: [
         { id: 'hokkaido-summer', title: '【北海道夏季高尔夫】5天・凉风名门3球场', subtitle: '夏日凉爽的北国大地尊荣揮桿', tags: ['5 Days', '北海道', '避暑高尔夫', '小樽', '札幌'], desc: '盛夏平均气温22℃的北海道舒适高尔夫。ANA公开赛舉办地「札幌GC轮厚」、以及可眺望日本海的绝景球场。搭配新鲜海鲜与温泉的完美假期。', hotel: 'JR Tower Hotel Nikko Sapporo (Premium 5 Star)', schedule: [{ day: 'Day 1', text: '抵达新千岁机场。专车前往札幌。薄野海鲜晚宴。' }, { day: 'Day 2', text: '【札幌高尔夫俱乐部・轮厚球场】ANA公开赛舉办地。井上诚一设计的战略性林间球场。' }, { day: 'Day 3', text: '【小樽乡村俱乐部】眺望日本海的绝景球场。午后小樽运河漫步与海鲜晚餐。' }, { day: 'Day 4', text: '【北海道经典高尔夫俱乐部】广闊雄偉的北海道风格设计。定山溪温泉疗愈身心。' }, { day: 'Day 5', text: '新千岁机场免税店购物后返程。' }] },
         { id: 'hokkaido-niseko', title: '【二世古度假高尔夫】5天・世界级度假村2球场', subtitle: '世界顶级度假胜地的夏季高尔夫', tags: ['5 Days', '二世古', '度假村', '羊蹄山', '温泉'], desc: '冬季的滑雪天堂・二世古，夏季化身最高峰高尔夫度假地。眺望羊蹄山的世界级球场，搭配顶级度假酒店与温泉的奢华之旅。', hotel: 'Higashiyama Niseko Village Ritz-Carlton Reserve', schedule: [{ day: 'Day 1', text: '抵达新千岁机场。专车前往二世古（约2.5小时）。丽思卡尔顿储备酒店Check-in。' }, { day: 'Day 2', text: '【二世古Village高尔夫球场】羊蹄山全景的壯观球场。午后在酒店温泉放松。' }, { day: 'Day 3', text: '【二世古高尔夫球场】Arnold Palmer设计的经典之作。晚餐享用当地食材的精致法式料理。' }, { day: 'Day 4', text: '自由日。户外活动或洞爷湖观光。在湖畔餐厅享用晚餐。' }, { day: 'Day 5', text: '专车前往新千岁机场。' }] },
@@ -2183,18 +2213,29 @@ export const translations = {
       std_3_d: 'No ordinary group meals. Michelin Kaiseki, Century-old Sukiyaki, Kobe-Rind Teppanyaki.'
     },
     golf: {
-      tag: 'Exclusive B2B Golf Tours',
       title_1: 'Swing East,',
       title_2: 'Tour Japan\'s Elite',
       desc: 'Unlock exclusive access to Japan\'s members-only courses.\nWhere precision golf meets Omotenashi hospitality.',
       btn_tour: 'View Championship Tour',
-      std_title: 'The Niijima Standard',
+      std_title: 'Our Service Standards',
       // Statistics
       stat_courses: 'Partner Courses',
       stat_booking: 'Booking Success',
       stat_guests: 'Annual VIP Guests',
       stat_experience: 'Years Experience',
       partners_title: 'Partner Courses',
+      partners_subtitle: '',
+      partnerCourses: [
+        { id: 'rokko', name: 'Rokko International Golf Club', region: 'Hyogo', rank: 'Top 30', url: 'http://rokkokokusai-kobe.jp/' },
+        { id: 'abc', name: 'ABC Golf Club', region: 'Hyogo', rank: 'Top 50', url: 'https://abc-golf.co.jp/' },
+        { id: 'taiheiyo', name: 'Taiheiyo Club Gotemba Course', region: 'Shizuoka', rank: 'Top 10', url: 'https://www.taiheiyoclub.co.jp/course/gotenba/' },
+        { id: 'arima', name: 'Arima Royal Golf Club', region: 'Hyogo', rank: 'Top 100', url: 'https://arima-royal.com/' },
+        { id: 'golden', name: 'Golden Valley Golf Club', region: 'Hyogo', rank: 'Top 100', url: 'https://www.gvgc.jp/' },
+        { id: 'fujizakura', name: 'Fujizakura Country Club', region: 'Yamanashi', rank: 'Top 50', url: 'https://www.fujizakura-cc.jp/' },
+      ],
+      plans_section_label: 'Signature Itineraries',
+      plans_section_title: 'Recommended Itineraries',
+      plans_section_subtitle: 'Curated experiences for discerning golfers',
       // Features
       f1_t: 'Exclusive Access',
       f1_d: 'We hold reservation rights for prestigious "members-only" clubs typically inaccessible to visitors, including Top 100 courses in Hyogo and Osaka.',
@@ -2206,7 +2247,6 @@ export const translations = {
       f4_d: 'The 19th hole is just the beginning. We arrange authentic Kaiseki dinners and stays at top-tier Onsen Ryokans like Arima Onsen.',
       cta_title: 'Design Your Next Friendly Match',
       cta_desc: 'Whether it\'s a corporate retreat or a challenge among friends,\nwe handle the details so you can focus on your swing.',
-      cta_btn: 'Customize Golf Itinerary with AI',
       plans: [
         { id: 'hokkaido-summer', title: 'Hokkaido Summer Golf: 5 Days, 3 Cool-Climate Gems', subtitle: 'Premium Golf in Japan\'s Northern Paradise', tags: ['5 Days', 'Hokkaido', 'Summer Golf', 'Otaru', 'Sapporo'], desc: 'Enjoy comfortable golf at an average 22°C even in midsummer. Play the ANA Open venue "Sapporo GC Wattsu" and stunning Sea of Japan view courses. Paired with fresh seafood and onsen for a perfect getaway.', hotel: 'JR Tower Hotel Nikko Sapporo (Premium 5 Star)', schedule: [{ day: 'Day 1', text: 'Arrive New Chitose Airport. Private transfer to Sapporo. Seafood dinner in Susukino.' }, { day: 'Day 2', text: '【Sapporo Golf Club Wattsu】 Home of ANA Open. Seiichi Inoue\'s strategic woodland design.' }, { day: 'Day 3', text: '【Otaru Country Club】 Stunning Sea of Japan views. Afternoon stroll along Otaru Canal.' }, { day: 'Day 4', text: '【Hokkaido Classic Golf Club】 Grand Hokkaido-style design. Jozankei Onsen relaxation.' }, { day: 'Day 5', text: 'Duty-free shopping at New Chitose before departure.' }] },
         { id: 'hokkaido-niseko', title: 'Niseko Resort Golf: 5 Days, 2 World-Class Courses', subtitle: 'Summer Golf at Asia\'s Premier Ski Resort', tags: ['5 Days', 'Niseko', 'Resort', 'Mt. Yotei', 'Onsen'], desc: 'Niseko—winter ski paradise—transforms into an elite golf destination in summer. World-class courses with Mt. Yotei panoramas, paired with luxury resort stays and natural hot springs.', hotel: 'Higashiyama Niseko Village Ritz-Carlton Reserve', schedule: [{ day: 'Day 1', text: 'Arrive New Chitose. Private transfer to Niseko (~2.5 hrs). Check-in at Ritz-Carlton Reserve.' }, { day: 'Day 2', text: '【Niseko Village Golf Course】 Spectacular Mt. Yotei panorama. Afternoon onsen at resort.' }, { day: 'Day 3', text: '【Niseko Golf Course】 Arnold Palmer\'s classic design. Fine French dinner with local ingredients.' }, { day: 'Day 4', text: 'Free day. Outdoor activities or Lake Toya excursion. Lakeside dinner.' }, { day: 'Day 5', text: 'Private transfer to New Chitose Airport.' }] },
