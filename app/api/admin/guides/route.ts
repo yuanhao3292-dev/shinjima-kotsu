@@ -5,12 +5,54 @@ import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from
 import { validateBody } from '@/lib/validations/validate';
 import { GuideActionSchema, sanitizeSearchInput } from '@/lib/validations/api-schemas';
 import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
+import { z } from 'zod';
+
+// 创建导游的 Schema
+const CreateGuideSchema = z.object({
+  email: z.string().email('無效的郵箱地址'),
+  name: z.string().min(1, '請輸入導遊姓名'),
+});
+
+// 生成随机密码（12位，包含大小写字母、数字和特殊字符）
+function generateRandomPassword(): string {
+  const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+  const numbers = '0123456789';
+  const special = '!@#$%^&*';
+  const allChars = uppercase + lowercase + numbers + special;
+
+  let password = '';
+  // 确保至少包含每种类型的字符
+  password += uppercase[Math.floor(Math.random() * uppercase.length)];
+  password += lowercase[Math.floor(Math.random() * lowercase.length)];
+  password += numbers[Math.floor(Math.random() * numbers.length)];
+  password += special[Math.floor(Math.random() * special.length)];
+
+  // 填充到12位
+  for (let i = password.length; i < 12; i++) {
+    password += allChars[Math.floor(Math.random() * allChars.length)];
+  }
+
+  // 打乱顺序
+  return password.split('').sort(() => Math.random() - 0.5).join('');
+}
+
+// 生成推荐码（6位大写字母+数字）
+function generateReferralCode(): string {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let code = '';
+  for (let i = 0; i < 6; i++) {
+    code += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return code;
+}
 
 /**
  * 管理员导游管理 API
  *
  * GET /api/admin/guides - 获取导游列表
  * GET /api/admin/guides?id=xxx - 获取单个导游详情
+ * PUT /api/admin/guides - 创建新导游账户
  */
 export async function GET(request: NextRequest) {
   // GET 端点速率限制（防数据枚举攻击）
@@ -228,6 +270,136 @@ export async function POST(request: NextRequest) {
   } catch (error: unknown) {
     const apiError = normalizeError(error);
     logError(apiError, { path: '/api/admin/guides', method: 'POST' });
+    return createErrorResponse(apiError);
+  }
+}
+
+/**
+ * PUT /api/admin/guides - 创建新导游账户
+ */
+export async function PUT(request: NextRequest) {
+  try {
+    // 速率限制检查（管理员敏感操作）
+    const clientIp = getClientIp(request);
+    const rateLimitResult = checkRateLimit(
+      `${clientIp}:/api/admin/guides:PUT`,
+      RATE_LIMITS.sensitive
+    );
+    if (!rateLimitResult.success) {
+      return createErrorResponse(
+        Errors.rateLimit(rateLimitResult.retryAfter),
+        createRateLimitHeaders(rateLimitResult)
+      );
+    }
+
+    const authResult = await verifyAdminAuth(request.headers.get('authorization'));
+    if (!authResult.isValid) {
+      return createErrorResponse(Errors.auth(authResult.error));
+    }
+
+    // 验证输入
+    const validation = await validateBody(request, CreateGuideSchema);
+    if (!validation.success) return validation.error;
+    const { email, name } = validation.data;
+
+    const supabase = getSupabaseAdmin();
+
+    // 检查邮箱是否已存在
+    const { data: existingGuide } = await supabase
+      .from('guides')
+      .select('email')
+      .eq('email', email)
+      .single();
+
+    if (existingGuide) {
+      return createErrorResponse(Errors.validation('該郵箱已被使用'));
+    }
+
+    // 生成随机密码
+    const password = generateRandomPassword();
+
+    // 生成唯一的推荐码
+    let referralCode = generateReferralCode();
+    let codeExists = true;
+    let attempts = 0;
+
+    while (codeExists && attempts < 10) {
+      const { data } = await supabase
+        .from('guides')
+        .select('referral_code')
+        .eq('referral_code', referralCode)
+        .single();
+
+      if (!data) {
+        codeExists = false;
+      } else {
+        referralCode = generateReferralCode();
+        attempts++;
+      }
+    }
+
+    if (codeExists) {
+      return createErrorResponse(Errors.internal('無法生成唯一推薦碼，請重試'));
+    }
+
+    // 创建 Supabase Auth 账户
+    const { data: authData, error: authError } = await supabase.auth.admin.createUser({
+      email,
+      password,
+      email_confirm: true, // 自动确认邮箱
+      user_metadata: {
+        name,
+        role: 'guide',
+      },
+    });
+
+    if (authError || !authData.user) {
+      logError(normalizeError(authError), { path: '/api/admin/guides', method: 'PUT' });
+      return createErrorResponse(Errors.internal('創建認證帳號失敗'));
+    }
+
+    // 在 guides 表中创建记录
+    const { error: guideError } = await supabase
+      .from('guides')
+      .insert({
+        id: authData.user.id,
+        email,
+        name,
+        referral_code: referralCode,
+        status: 'approved', // 管理员添加的导游直接设为已认证
+        level: 'bronze',
+        kyc_status: 'pending',
+        total_commission: 0,
+        total_bookings: 0,
+      });
+
+    if (guideError) {
+      // 如果创建 guides 记录失败，删除刚创建的 auth 账户
+      await supabase.auth.admin.deleteUser(authData.user.id);
+      logError(normalizeError(guideError), { path: '/api/admin/guides', method: 'PUT' });
+      return createErrorResponse(Errors.internal('創建導遊記錄失敗'));
+    }
+
+    // 记录审计日志
+    await supabase.from('audit_logs').insert({
+      action: 'guide_created',
+      entity_type: 'guide',
+      entity_id: authData.user.id,
+      admin_id: authResult.userId,
+      admin_email: authResult.email,
+      details: { email, name, referral_code: referralCode },
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: '導遊帳號創建成功',
+      password, // 返回密码给管理员
+      guideId: authData.user.id,
+      referralCode,
+    });
+  } catch (error: unknown) {
+    const apiError = normalizeError(error);
+    logError(apiError, { path: '/api/admin/guides', method: 'PUT' });
     return createErrorResponse(apiError);
   }
 }

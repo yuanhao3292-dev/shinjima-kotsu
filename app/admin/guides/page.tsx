@@ -16,6 +16,9 @@ import {
   Mail,
   Phone,
   Calendar,
+  UserPlus,
+  Copy,
+  X,
 } from 'lucide-react';
 
 interface Guide {
@@ -67,6 +70,13 @@ export default function GuidesPage() {
   const [detailLoading, setDetailLoading] = useState(false);
   const [actionLoading, setActionLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+  // 添加导游相关状态
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [newGuideEmail, setNewGuideEmail] = useState('');
+  const [newGuideName, setNewGuideName] = useState('');
+  const [addLoading, setAddLoading] = useState(false);
+  const [generatedPassword, setGeneratedPassword] = useState<string | null>(null);
 
   const supabase = createClient();
 
@@ -157,6 +167,65 @@ export default function GuidesPage() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     loadGuides();
+  };
+
+  const handleAddGuide = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newGuideEmail || !newGuideName) {
+      setMessage({ type: 'error', text: '請填寫所有必填項' });
+      return;
+    }
+
+    setAddLoading(true);
+    setMessage(null);
+
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
+      const response = await fetch('/api/admin/guides', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({
+          email: newGuideEmail,
+          name: newGuideName,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setGeneratedPassword(data.password);
+        setMessage({ type: 'success', text: '導遊帳號創建成功！請將密碼提供給導遊。' });
+        await loadGuides();
+        setNewGuideEmail('');
+        setNewGuideName('');
+      } else {
+        const result = await response.json();
+        setMessage({ type: 'error', text: result.error || '創建失敗' });
+      }
+    } catch (error) {
+      setMessage({ type: 'error', text: '網絡錯誤' });
+    } finally {
+      setAddLoading(false);
+    }
+  };
+
+  const copyPassword = () => {
+    if (generatedPassword) {
+      navigator.clipboard.writeText(generatedPassword);
+      setMessage({ type: 'success', text: '密碼已複製到剪貼板' });
+    }
+  };
+
+  const closeAddModal = () => {
+    setShowAddModal(false);
+    setNewGuideEmail('');
+    setNewGuideName('');
+    setGeneratedPassword(null);
+    setMessage(null);
   };
 
   const formatDate = (dateStr: string) => {
@@ -331,14 +400,23 @@ export default function GuidesPage() {
   return (
     <div className="p-6 lg:p-8">
       {/* Header */}
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
-          <Users className="text-white" size={24} />
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
+            <Users className="text-white" size={24} />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">導遊管理</h1>
+            <p className="text-gray-500">管理合夥人帳號</p>
+          </div>
         </div>
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">導遊管理</h1>
-          <p className="text-gray-500">管理合夥人帳號</p>
-        </div>
+        <button
+          onClick={() => setShowAddModal(true)}
+          className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+        >
+          <UserPlus size={18} />
+          添加導遊
+        </button>
       </div>
 
       {/* Stats */}
@@ -458,6 +536,151 @@ export default function GuidesPage() {
           </div>
         )}
       </div>
+
+      {/* 添加导游模态框 */}
+      {showAddModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl max-w-md w-full p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-bold text-gray-900">添加新導遊</h2>
+              <button
+                onClick={closeAddModal}
+                className="text-gray-400 hover:text-gray-600 transition"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {!generatedPassword ? (
+              <form onSubmit={handleAddGuide} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    導遊姓名 *
+                  </label>
+                  <input
+                    type="text"
+                    value={newGuideName}
+                    onChange={(e) => setNewGuideName(e.target.value)}
+                    placeholder="請輸入導遊姓名"
+                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    導遊郵箱 *
+                  </label>
+                  <input
+                    type="email"
+                    value={newGuideEmail}
+                    onChange={(e) => setNewGuideEmail(e.target.value)}
+                    placeholder="請輸入導遊郵箱地址"
+                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    required
+                  />
+                  <p className="text-xs text-gray-500 mt-1">
+                    此郵箱將作為導遊的登錄帳號
+                  </p>
+                </div>
+
+                {message && (
+                  <div className={`p-3 rounded-lg flex items-center gap-2 text-sm ${
+                    message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
+                  }`}>
+                    {message.type === 'success' ? <CheckCircle size={16} /> : <XCircle size={16} />}
+                    {message.text}
+                  </div>
+                )}
+
+                <div className="flex gap-3 pt-2">
+                  <button
+                    type="button"
+                    onClick={closeAddModal}
+                    className="flex-1 px-4 py-2 border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+                  >
+                    取消
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={addLoading}
+                    className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 transition flex items-center justify-center gap-2"
+                  >
+                    {addLoading ? (
+                      <>
+                        <Loader2 className="animate-spin" size={16} />
+                        創建中...
+                      </>
+                    ) : (
+                      <>
+                        <UserPlus size={16} />
+                        創建帳號
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <div className="space-y-4">
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                  <div className="flex items-center gap-2 text-green-700 mb-2">
+                    <CheckCircle size={18} />
+                    <span className="font-medium">帳號創建成功！</span>
+                  </div>
+                  <p className="text-sm text-green-600">
+                    導遊帳號已創建，請將以下信息提供給導遊。
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      登錄郵箱
+                    </label>
+                    <div className="p-3 bg-gray-50 rounded-lg font-mono text-sm">
+                      {newGuideEmail}
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      初始密碼
+                    </label>
+                    <div className="flex gap-2">
+                      <div className="flex-1 p-3 bg-gray-50 rounded-lg font-mono text-sm">
+                        {generatedPassword}
+                      </div>
+                      <button
+                        onClick={copyPassword}
+                        className="px-3 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+                        title="複製密碼"
+                      >
+                        <Copy size={16} />
+                      </button>
+                    </div>
+                    <p className="text-xs text-gray-500 mt-1">
+                      導遊登錄後可在設置頁面修改密碼
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
+                  <p className="text-sm text-amber-700">
+                    <strong>注意：</strong>請務必將密碼安全地提供給導遊，關閉此窗口後將無法再次查看。
+                  </p>
+                </div>
+
+                <button
+                  onClick={closeAddModal}
+                  className="w-full px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+                >
+                  完成
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
