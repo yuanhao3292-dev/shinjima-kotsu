@@ -1379,7 +1379,7 @@ export const translations = {
       detail_echo_title: '超声波: Aplio i-700 / ARIETTA850',
       detail_echo_desc: '引进各厂商的高阶超声波设备，可针对甲状腺、乳腺、心脏、腹部、骨盆妇科领域、大动脉等目标检查部位呈现高精细影像。ARIETTA850 DeepInsight 搭载乳腺领域 AI 功能，可即时分析影像辅助诊断。此外，透过连接超声波内视镜可进一步扩展诊断范围。',
       detail_mammo_title: '乳房摄影: AMULET SOPHINITY (FUJIFILM)',
-      detail_mammo_desc: '这是一款结合低辐射、高画质与 AI 技术优化工作流程的最新 3D 数位乳房摄影设备。除传统 2D 摄影外，还搭载可建立乳房断层影像、实现三维观察的断层合成摄影功能（Tomosynthesis）。此外，摄影台下方采用贴合身体曲线的设计以减轻检查时的不适感，并配备可减轻乳房压迫疼痛的自动减压控制功能「和胸（なごむね）」，为受检者提供更舒适的乳房摄影体验。',
+      detail_mammo_desc: '这是一款结合低辐射、高画质与 AI 技术优化工作流程的最新 3D 数位乳房摄影设备。除传统 2D 摄影外，还搭载可建立乳房断层影像、实现三维观察的断层合成摄影功能。此外，摄影台下方采用贴合身体曲线的设计以减轻检查时的不适感，并配备可减轻乳房压迫疼痛的自动减压控制功能，为受检者提供更舒适的乳房摄影体验。',
       // Facility & Rooms 区块
       facility_tag: 'Facility & Rooms',
       facility_title: '舒适宜人的空间',
