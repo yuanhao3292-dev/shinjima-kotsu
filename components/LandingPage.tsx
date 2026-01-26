@@ -3231,11 +3231,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
        {showPaymentModal && (
          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
            <div className="bg-white rounded-2xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
-             <h3 className="text-2xl font-bold mb-4">{t.medical.payment_modal_title || '预约信息'}</h3>
+             <h3 className="text-2xl font-bold mb-4">{'预约信息'}</h3>
              <form onSubmit={handlePaymentSubmit}>
                <div className="space-y-4">
                  <div>
-                   <label className="block text-sm font-medium mb-1">{t.medical.payment_name || '姓名'} *</label>
+                   <label className="block text-sm font-medium mb-1">{'姓名'} *</label>
                    <input
                      type="text"
                      required
@@ -3245,7 +3245,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                    />
                  </div>
                  <div>
-                   <label className="block text-sm font-medium mb-1">{t.medical.payment_email || '邮箱'} *</label>
+                   <label className="block text-sm font-medium mb-1">{'邮箱'} *</label>
                    <input
                      type="email"
                      required
@@ -3255,7 +3255,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                    />
                  </div>
                  <div>
-                   <label className="block text-sm font-medium mb-1">{t.medical.payment_phone || '电话'}</label>
+                   <label className="block text-sm font-medium mb-1">{'电话'}</label>
                    <input
                      type="tel"
                      value={paymentCustomerInfo.phone}
@@ -3264,7 +3264,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                    />
                  </div>
                  <div>
-                   <label className="block text-sm font-medium mb-1">{t.medical.payment_date || '希望日期'}</label>
+                   <label className="block text-sm font-medium mb-1">{'希望日期'}</label>
                    <input
                      type="date"
                      value={paymentCustomerInfo.preferredDate}
@@ -3273,18 +3273,18 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                    />
                  </div>
                  <div>
-                   <label className="block text-sm font-medium mb-1">{t.medical.payment_time || '希望时段'}</label>
+                   <label className="block text-sm font-medium mb-1">{'希望时段'}</label>
                    <select
                      value={paymentCustomerInfo.preferredTime}
                      onChange={(e) => setPaymentCustomerInfo({ ...paymentCustomerInfo, preferredTime: e.target.value })}
                      className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                    >
-                     <option value="morning">{t.medical.payment_time_morning || '上午 (9:00-12:00)'}</option>
-                     <option value="afternoon">{t.medical.payment_time_afternoon || '下午 (13:00-16:00)'}</option>
+                     <option value="morning">{'上午 (9:00-12:00)'}</option>
+                     <option value="afternoon">{'下午 (13:00-16:00)'}</option>
                    </select>
                  </div>
                  <div>
-                   <label className="block text-sm font-medium mb-1">{t.medical.payment_notes || '备注'}</label>
+                   <label className="block text-sm font-medium mb-1">{'备注'}</label>
                    <textarea
                      value={paymentCustomerInfo.notes}
                      onChange={(e) => setPaymentCustomerInfo({ ...paymentCustomerInfo, notes: e.target.value })}
@@ -3300,14 +3300,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
                    disabled={isProcessingPayment}
                  >
-                   {t.medical.payment_cancel || '取消'}
+                   {'取消'}
                  </button>
                  <button
                    type="submit"
                    className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
                    disabled={isProcessingPayment}
                  >
-                   {isProcessingPayment ? (t.medical.payment_processing || '处理中...') : (t.medical.payment_submit || '确认支付')}
+                   {isProcessingPayment ? '处理中...' : '确认支付'}
                  </button>
                </div>
              </form>
