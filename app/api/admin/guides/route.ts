@@ -5,6 +5,7 @@ import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from
 import { validateBody } from '@/lib/validations/validate';
 import { GuideActionSchema, sanitizeSearchInput } from '@/lib/validations/api-schemas';
 import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
+import { generateUniqueReferralCode, generateRandomPassword } from '@/lib/utils/referral-code';
 import { z } from 'zod';
 
 // 创建导游的 Schema
@@ -12,40 +13,6 @@ const CreateGuideSchema = z.object({
   email: z.string().email('無效的郵箱地址'),
   name: z.string().min(1, '請輸入導遊姓名'),
 });
-
-// 生成随机密码（12位，包含大小写字母、数字和特殊字符）
-function generateRandomPassword(): string {
-  const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const lowercase = 'abcdefghijklmnopqrstuvwxyz';
-  const numbers = '0123456789';
-  const special = '!@#$%^&*';
-  const allChars = uppercase + lowercase + numbers + special;
-
-  let password = '';
-  // 确保至少包含每种类型的字符
-  password += uppercase[Math.floor(Math.random() * uppercase.length)];
-  password += lowercase[Math.floor(Math.random() * lowercase.length)];
-  password += numbers[Math.floor(Math.random() * numbers.length)];
-  password += special[Math.floor(Math.random() * special.length)];
-
-  // 填充到12位
-  for (let i = password.length; i < 12; i++) {
-    password += allChars[Math.floor(Math.random() * allChars.length)];
-  }
-
-  // 打乱顺序
-  return password.split('').sort(() => Math.random() - 0.5).join('');
-}
-
-// 生成推荐码（6位大写字母+数字）
-function generateReferralCode(): string {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  let code = '';
-  for (let i = 0; i < 6; i++) {
-    code += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return code;
-}
 
 /**
  * 管理员导游管理 API
@@ -318,27 +285,12 @@ export async function PUT(request: NextRequest) {
     // 生成随机密码
     const password = generateRandomPassword();
 
-    // 生成唯一的推荐码
-    let referralCode = generateReferralCode();
-    let codeExists = true;
-    let attempts = 0;
-
-    while (codeExists && attempts < 10) {
-      const { data } = await supabase
-        .from('guides')
-        .select('referral_code')
-        .eq('referral_code', referralCode)
-        .single();
-
-      if (!data) {
-        codeExists = false;
-      } else {
-        referralCode = generateReferralCode();
-        attempts++;
-      }
-    }
-
-    if (codeExists) {
+    // 生成唯一的推荐码（带重试机制）
+    let referralCode: string;
+    try {
+      referralCode = await generateUniqueReferralCode(supabase, 10);
+    } catch (error) {
+      logError(normalizeError(error), { path: '/api/admin/guides', method: 'PUT' });
       return createErrorResponse(Errors.internal('無法生成唯一推薦碼，請重試'));
     }
 

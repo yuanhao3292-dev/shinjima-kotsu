@@ -27,120 +27,48 @@ function RegisterForm() {
     setError('');
     setLoading(true);
 
-    // 驗證
+    // 前端驗證
     if (formData.password !== formData.confirmPassword) {
       setError('兩次輸入的密碼不一致');
       setLoading(false);
       return;
     }
 
-    if (formData.password.length < 6) {
-      setError('密碼至少需要6位');
+    if (formData.password.length < 8) {
+      setError('密碼至少需要 8 位字符');
       setLoading(false);
       return;
     }
 
     try {
-      const supabase = createClient();
-
-      // 1. 檢查手機號是否已註冊
-      const { data: existingGuide } = await supabase
-        .from('guides')
-        .select('id')
-        .eq('phone', formData.phone)
-        .single();
-
-      if (existingGuide) {
-        setError('該手機號已註冊');
-        setLoading(false);
-        return;
-      }
-
-      // 2. 創建 Supabase Auth 用戶
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email: formData.email.trim().toLowerCase(),
-        password: formData.password,
-        options: {
-          data: {
-            name: formData.name,
-            role: 'guide',
-          },
+      // 調用服務端 API 完成註冊
+      const response = await fetch('/api/guide/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email.trim().toLowerCase(),
+          phone: formData.phone,
+          wechat_id: formData.wechatId || undefined,
+          password: formData.password,
+        }),
       });
 
-      if (authError) {
-        if (authError.message.includes('already registered')) {
-          setError('該郵箱已被註冊');
-        } else {
-          setError(authError.message);
-        }
+      const data = await response.json();
+
+      if (!response.ok) {
+        // 處理 API 錯誤
+        setError(data.error?.message || '註冊失敗，請稍後重試');
         setLoading(false);
         return;
       }
 
-      if (!authData.user) {
-        setError('註冊失敗，請稍後重試');
-        setLoading(false);
-        return;
-      }
-
-      // 3. 生成唯一推荐码（6位大写字母+数字）
-      const generateReferralCode = () => {
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        let code = '';
-        for (let i = 0; i < 6; i++) {
-          code += chars[Math.floor(Math.random() * chars.length)];
-        }
-        return code;
-      };
-
-      let referralCode = generateReferralCode();
-      let attempts = 0;
-      let codeExists = true;
-
-      // 确保推荐码唯一
-      while (codeExists && attempts < 10) {
-        const { data } = await supabase
-          .from('guides')
-          .select('referral_code')
-          .eq('referral_code', referralCode)
-          .single();
-
-        if (!data) {
-          codeExists = false;
-        } else {
-          referralCode = generateReferralCode();
-          attempts++;
-        }
-      }
-
-      // 4. 創建導遊記錄（直接批准，无需审核）
-      const { error: guideError } = await supabase
-        .from('guides')
-        .insert({
-          id: authData.user.id,
-          name: formData.name,
-          phone: formData.phone,
-          email: formData.email.trim().toLowerCase(),
-          wechat_id: formData.wechatId || null,
-          referral_code: referralCode,
-          status: 'approved', // 直接批准
-          level: 'bronze',
-          kyc_status: 'pending',
-          total_commission: 0,
-          total_bookings: 0,
-        });
-
-      if (guideError) {
-        // 如果创建导游记录失败，删除刚创建的 auth 账户
-        await supabase.auth.admin.deleteUser(authData.user.id);
-        setError('註冊失敗: ' + guideError.message);
-        setLoading(false);
-        return;
-      }
-
+      // 註冊成功
       setSuccess(true);
     } catch (err) {
+      console.error('註冊錯誤:', err);
       setError('註冊失敗，請稍後重試');
     } finally {
       setLoading(false);
@@ -317,9 +245,9 @@ function RegisterForm() {
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     required
-                    minLength={6}
+                    minLength={8}
                     className="w-full pl-10 pr-12 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
-                    placeholder="至少6位"
+                    placeholder="至少 8 位字符"
                   />
                   <button
                     type="button"
