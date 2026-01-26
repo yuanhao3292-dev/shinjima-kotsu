@@ -1,37 +1,15 @@
 /**
- * 简单的内存速率限制器
- * 适用于 Serverless 环境的轻量级实现
+ * 生产级速率限制器
+ * 支持 Redis（分布式）和内存（本地开发）两种模式
  *
- * 注意：此实现适合单实例部署或低流量场景
- * 高流量生产环境建议使用 Redis 等分布式方案
+ * 环境变量配置：
+ * - UPSTASH_REDIS_REST_URL: Redis REST API URL
+ * - UPSTASH_REDIS_REST_TOKEN: Redis REST API Token
+ *
+ * 如果未配置环境变量，自动降级到内存模式（仅适合本地开发）
  */
 
-interface RateLimitEntry {
-  count: number;
-  resetTime: number;
-}
-
-// 内存存储（按端点分组）
-const rateLimitStore: Map<string, RateLimitEntry> = new Map();
-
-// 清理过期条目的间隔（5分钟）
-const CLEANUP_INTERVAL = 5 * 60 * 1000;
-let lastCleanup = Date.now();
-
-/**
- * 清理过期的速率限制条目
- */
-function cleanup() {
-  const now = Date.now();
-  if (now - lastCleanup < CLEANUP_INTERVAL) return;
-
-  lastCleanup = now;
-  for (const [key, entry] of rateLimitStore.entries()) {
-    if (entry.resetTime < now) {
-      rateLimitStore.delete(key);
-    }
-  }
-}
+import { Redis } from '@upstash/redis';
 
 /**
  * 速率限制配置
@@ -41,6 +19,16 @@ export interface RateLimitConfig {
   windowMs: number;
   /** 窗口内最大请求数 */
   maxRequests: number;
+}
+
+/**
+ * 速率限制结果
+ */
+export interface RateLimitResult {
+  success: boolean;
+  remaining: number;
+  resetTime: number;
+  retryAfter?: number;
 }
 
 /**
@@ -60,31 +48,134 @@ export const RATE_LIMITS = {
   auth: { windowMs: 15 * 60 * 1000, maxRequests: 5 } as RateLimitConfig,
 } as const;
 
+// ============================================================================
+// Redis 实现（生产环境）
+// ============================================================================
+
+let redisClient: Redis | null = null;
+let redisInitialized = false;
+
 /**
- * 速率限制结果
+ * 初始化 Redis 客户端（懒加载）
  */
-export interface RateLimitResult {
-  success: boolean;
-  remaining: number;
-  resetTime: number;
-  retryAfter?: number;
+function getRedisClient(): Redis | null {
+  if (redisInitialized) return redisClient;
+
+  redisInitialized = true;
+
+  try {
+    const url = process.env.UPSTASH_REDIS_REST_URL;
+    const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+
+    if (!url || !token) {
+      console.warn('[RateLimit] Redis not configured, falling back to memory mode');
+      return null;
+    }
+
+    redisClient = new Redis({
+      url,
+      token,
+      // 性能优化：自动管道化请求
+      automaticDeserialization: true,
+    });
+
+    console.info('[RateLimit] Redis initialized successfully');
+    return redisClient;
+  } catch (error) {
+    console.error('[RateLimit] Failed to initialize Redis:', error);
+    return null;
+  }
 }
 
 /**
- * 检查速率限制
- *
- * @param identifier 唯一标识符（通常是 IP 或 userId + endpoint）
- * @param config 速率限制配置
- * @returns 速率限制结果
- *
- * @example
- * const clientIp = request.headers.get('x-forwarded-for') || 'unknown';
- * const result = checkRateLimit(`${clientIp}:/api/search`, RATE_LIMITS.search);
- * if (!result.success) {
- *   return NextResponse.json({ error: '请求过于频繁' }, { status: 429 });
- * }
+ * Redis 速率限制实现（分布式，适合 Serverless）
  */
-export function checkRateLimit(
+async function checkRateLimitRedis(
+  identifier: string,
+  config: RateLimitConfig
+): Promise<RateLimitResult> {
+  const redis = getRedisClient();
+  if (!redis) {
+    throw new Error('Redis client not available');
+  }
+
+  const now = Date.now();
+  const windowSeconds = Math.floor(config.windowMs / 1000);
+  const windowKey = `ratelimit:${identifier}:${Math.floor(now / (windowSeconds * 1000))}`;
+
+  try {
+    // 使用 Redis 原子操作：INCR + EXPIRE
+    const count = await redis.incr(windowKey);
+
+    // 第一次请求时设置过期时间
+    if (count === 1) {
+      await redis.expire(windowKey, windowSeconds);
+    }
+
+    const resetTime = now + config.windowMs;
+    const remaining = Math.max(0, config.maxRequests - count);
+
+    if (count > config.maxRequests) {
+      const retryAfter = Math.ceil(config.windowMs / 1000);
+      return {
+        success: false,
+        remaining: 0,
+        resetTime,
+        retryAfter,
+      };
+    }
+
+    return {
+      success: true,
+      remaining,
+      resetTime,
+    };
+  } catch (error) {
+    // Redis 错误时记录日志并降级到通过（避免服务中断）
+    console.error('[RateLimit] Redis error, allowing request:', error);
+    return {
+      success: true,
+      remaining: config.maxRequests - 1,
+      resetTime: now + config.windowMs,
+    };
+  }
+}
+
+// ============================================================================
+// 内存实现（本地开发 Fallback）
+// ============================================================================
+
+interface RateLimitEntry {
+  count: number;
+  resetTime: number;
+}
+
+const rateLimitStore: Map<string, RateLimitEntry> = new Map();
+const CLEANUP_INTERVAL = 5 * 60 * 1000;
+let lastCleanup = Date.now();
+
+/**
+ * 清理过期的速率限制条目
+ */
+function cleanup() {
+  const now = Date.now();
+  if (now - lastCleanup < CLEANUP_INTERVAL) return;
+
+  lastCleanup = now;
+  for (const [key, entry] of rateLimitStore.entries()) {
+    if (entry.resetTime < now) {
+      rateLimitStore.delete(key);
+    }
+  }
+}
+
+/**
+ * 内存速率限制实现（非分布式，仅适合单实例或本地开发）
+ *
+ * ⚠️ 警告：在 Vercel Serverless 环境中，每个 Lambda 实例有独立内存，
+ * 无法实现真正的速率限制。建议生产环境配置 Redis。
+ */
+function checkRateLimitMemory(
   identifier: string,
   config: RateLimitConfig
 ): RateLimitResult {
@@ -124,6 +215,41 @@ export function checkRateLimit(
     remaining: config.maxRequests - entry.count,
     resetTime: entry.resetTime,
   };
+}
+
+// ============================================================================
+// 公共 API
+// ============================================================================
+
+/**
+ * 检查速率限制（自动选择 Redis 或内存实现）
+ *
+ * @param identifier 唯一标识符（通常是 IP + endpoint）
+ * @param config 速率限制配置
+ * @returns 速率限制结果
+ *
+ * @example
+ * const clientIp = getClientIp(request);
+ * const result = await checkRateLimit(`${clientIp}:/api/search`, RATE_LIMITS.search);
+ * if (!result.success) {
+ *   return NextResponse.json(
+ *     { error: '请求过于频繁，请稍后再试' },
+ *     { status: 429, headers: createRateLimitHeaders(result) }
+ *   );
+ * }
+ */
+export async function checkRateLimit(
+  identifier: string,
+  config: RateLimitConfig
+): Promise<RateLimitResult> {
+  const redis = getRedisClient();
+
+  if (redis) {
+    return checkRateLimitRedis(identifier, config);
+  } else {
+    // 降级到内存模式
+    return checkRateLimitMemory(identifier, config);
+  }
 }
 
 /**

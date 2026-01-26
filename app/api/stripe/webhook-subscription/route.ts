@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
             console.error('[Webhook] 更新导游订阅状态失败:', updateError);
             logError(normalizeError(updateError), {
               path: '/api/stripe/webhook-subscription',
-              context: { event: event.type, guideId },
+              context: `event: ${event.type}, guideId: ${guideId}`,
             });
           } else {
             console.log(`[Webhook] 导游 ${guideId} 订阅状态已更新为 active`);
@@ -97,7 +97,11 @@ export async function POST(request: NextRequest) {
         if (subscription.metadata?.type === 'whitelabel_subscription') {
           const guideId = subscription.metadata.guide_id;
           const status = subscription.status; // active, past_due, canceled, etc.
-          const currentPeriodEnd = new Date(subscription.current_period_end * 1000).toISOString();
+          // TypeScript 类型问题：使用 any 断言访问 current_period_end
+          const periodEnd = (subscription as any).current_period_end as number | undefined;
+          const currentPeriodEnd = periodEnd
+            ? new Date(periodEnd * 1000).toISOString()
+            : new Date().toISOString();
 
           console.log(`[Webhook] 订阅更新 - 导游: ${guideId}, 状态: ${status}`);
 
@@ -161,7 +165,7 @@ export async function POST(request: NextRequest) {
             console.error('[Webhook] 更新导游订阅状态失败:', updateError);
             logError(normalizeError(updateError), {
               path: '/api/stripe/webhook-subscription',
-              context: { event: event.type, guideId },
+              context: `event: ${event.type}, guideId: ${guideId}`,
             });
           } else {
             console.log(`[Webhook] 导游 ${guideId} 订阅已取消`);

@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
   try {
     // 速率限制检查（支付敏感端点）
     const clientIp = getClientIp(request);
-    const rateLimitResult = checkRateLimit(
+    const rateLimitResult = await checkRateLimit(
       `${clientIp}:/api/whitelabel/create-subscription`,
       RATE_LIMITS.sensitive
     );

@@ -19,7 +19,7 @@ const MIN_WITHDRAWAL_AMOUNT = 5000; // 5,000 日元
 export async function GET(request: NextRequest) {
   // GET 端点速率限制
   const clientIp = getClientIp(request);
-  const rateLimitResult = checkRateLimit(
+  const rateLimitResult = await checkRateLimit(
     `${clientIp}:/api/withdrawal:GET`,
     RATE_LIMITS.standard
   );
@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
   try {
     // 速率限制检查（敏感端点）
     const clientIp = getClientIp(request);
-    const rateLimitResult = checkRateLimit(
+    const rateLimitResult = await checkRateLimit(
       `${clientIp}:/api/withdrawal`,
       RATE_LIMITS.sensitive
     );
@@ -214,7 +214,7 @@ export async function DELETE(request: NextRequest) {
   try {
     // DELETE 端点速率限制
     const clientIp = getClientIp(request);
-    const rateLimitResult = checkRateLimit(
+    const rateLimitResult = await checkRateLimit(
       `${clientIp}:/api/withdrawal:DELETE`,
       RATE_LIMITS.sensitive
     );

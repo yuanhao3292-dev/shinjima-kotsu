@@ -49,7 +49,7 @@ function localizeNews(news: Record<string, unknown>, lang: SupportedLang): Recor
 export async function GET(request: NextRequest) {
   // 速率限制（稍宽松，因为是公开 API）
   const clientIp = getClientIp(request);
-  const rateLimitResult = checkRateLimit(
+  const rateLimitResult = await checkRateLimit(
     `${clientIp}:/api/news:GET`,
     { windowMs: 60_000, maxRequests: 60 } // 每分钟 60 次
   );

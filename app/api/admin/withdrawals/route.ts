@@ -19,7 +19,7 @@ const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KE
 export async function GET(request: NextRequest) {
   // GET 端点速率限制（防数据枚举攻击）
   const clientIp = getClientIp(request);
-  const rateLimitResult = checkRateLimit(
+  const rateLimitResult = await checkRateLimit(
     `${clientIp}:/api/admin/withdrawals:GET`,
     RATE_LIMITS.standard
   );
@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
   try {
     // 速率限制检查
     const clientIp = getClientIp(request);
-    const rateLimitResult = checkRateLimit(
+    const rateLimitResult = await checkRateLimit(
       `${clientIp}:/api/admin/withdrawals`,
       RATE_LIMITS.sensitive
     );

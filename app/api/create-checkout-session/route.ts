@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
   try {
     // 速率限制检查（敏感端点：每分钟 10 次）
     const clientIp = getClientIp(request);
-    const rateLimitResult = checkRateLimit(
+    const rateLimitResult = await checkRateLimit(
       `${clientIp}:/api/create-checkout-session`,
       RATE_LIMITS.sensitive
     );

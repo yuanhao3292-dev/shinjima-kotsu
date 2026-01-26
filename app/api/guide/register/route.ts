@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
   try {
     // 速率限制检查（注册为敏感操作）
     const clientIp = getClientIp(request);
-    const rateLimitResult = checkRateLimit(
+    const rateLimitResult = await checkRateLimit(
       `${clientIp}:/api/guide/register`,
       RATE_LIMITS.sensitive
     );

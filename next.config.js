@@ -28,9 +28,9 @@ const nextConfig = {
     ],
   },
 
-  // TypeScript 配置 - 临时忽略 cancer-treatment 页面的遗留错误
+  // TypeScript 配置
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
 }
 

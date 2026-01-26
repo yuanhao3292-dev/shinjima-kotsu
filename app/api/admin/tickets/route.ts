@@ -15,7 +15,7 @@ import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/uti
 export async function GET(request: NextRequest) {
   // 速率限制
   const clientIp = getClientIp(request);
-  const rateLimitResult = checkRateLimit(
+  const rateLimitResult = await checkRateLimit(
     `${clientIp}:/api/admin/tickets:GET`,
     RATE_LIMITS.standard
   );
@@ -134,7 +134,7 @@ export async function POST(request: NextRequest) {
   try {
     // 速率限制
     const clientIp = getClientIp(request);
-    const rateLimitResult = checkRateLimit(
+    const rateLimitResult = await checkRateLimit(
       `${clientIp}:/api/admin/tickets`,
       RATE_LIMITS.sensitive
     );

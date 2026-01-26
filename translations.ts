@@ -98,6 +98,16 @@ export const translations = {
       // Package shared
       pkg_price_note: '医療通訳・報告書翻訳・消費税10%込み',
       pkg_consult_btn: '今すぐ予約',
+      // Payment Form Validation
+      validation_name_required: 'お名前を入力してください',
+      validation_name_too_short: 'お名前は2文字以上で入力してください',
+      validation_name_too_long: 'お名前は100文字以内で入力してください',
+      validation_email_required: 'メールアドレスを入力してください',
+      validation_email_invalid: '有効なメールアドレスを入力してください',
+      validation_phone_invalid: '有効な電話番号を入力してください',
+      validation_date_past: '予約日は今日以降の日付を選択してください',
+      validation_notes_too_long: '備考は500文字以内で入力してください',
+      payment_error_generic: '決済処理中にエラーが発生しました。しばらくしてからもう一度お試しください。',
       // VIP Package
       pkg_vip_title: 'VIP 最上級フルコース',
       pkg_vip_desc: '企業トップのための究極プラン。脳・心臓・全身がん検査、内視鏡を網羅する「オールインワン」検査。',
@@ -833,6 +843,16 @@ export const translations = {
       // Package shared
       pkg_price_note: '含醫療翻譯・報告翻譯・消費稅10%',
       pkg_consult_btn: '立即下單',
+      // Payment Form Validation
+      validation_name_required: '請輸入姓名',
+      validation_name_too_short: '姓名至少需要2個字元',
+      validation_name_too_long: '姓名不能超過100個字元',
+      validation_email_required: '請輸入電子郵件',
+      validation_email_invalid: '請輸入有效的電子郵件地址',
+      validation_phone_invalid: '請輸入有效的電話號碼',
+      validation_date_past: '預約日期必須是今天或之後',
+      validation_notes_too_long: '備註不能超過500個字元',
+      payment_error_generic: '處理付款時發生錯誤，請稍後再試。',
       // VIP Package
       pkg_vip_title: 'VIP 頂級全能套裝',
       pkg_vip_desc: '針對企業領袖的終極方案。包含腦、心、全身癌篩及消化道內視鏡的「全包式」檢查。',
@@ -1423,6 +1443,16 @@ export const translations = {
       // Package shared
       pkg_price_note: '含医疗翻译・报告翻译・消费税10%',
       pkg_consult_btn: '立即下单',
+      // Payment Form Validation
+      validation_name_required: '请输入姓名',
+      validation_name_too_short: '姓名至少需要2个字符',
+      validation_name_too_long: '姓名不能超过100个字符',
+      validation_email_required: '请输入电子邮件',
+      validation_email_invalid: '请输入有效的电子邮件地址',
+      validation_phone_invalid: '请输入有效的电话号码',
+      validation_date_past: '预约日期必须是今天或之后',
+      validation_notes_too_long: '备注不能超过500个字符',
+      payment_error_generic: '处理付款时发生错误，请稍后再试。',
       // VIP Package
       pkg_vip_title: 'VIP 顶级全能套装',
       pkg_vip_desc: '针对企业领袖的终极方案。包含脑、心、全身癌筛及消化道内视镜的「全包式」检查。',
@@ -2019,6 +2049,16 @@ export const translations = {
       // Package shared
       pkg_price_note: 'Incl. medical interpreter, report translation & 10% tax',
       pkg_consult_btn: 'Book Now',
+      // Payment Form Validation
+      validation_name_required: 'Please enter your name',
+      validation_name_too_short: 'Name must be at least 2 characters',
+      validation_name_too_long: 'Name cannot exceed 100 characters',
+      validation_email_required: 'Please enter your email',
+      validation_email_invalid: 'Please enter a valid email address',
+      validation_phone_invalid: 'Please enter a valid phone number',
+      validation_date_past: 'Appointment date must be today or later',
+      validation_notes_too_long: 'Notes cannot exceed 500 characters',
+      payment_error_generic: 'An error occurred while processing payment. Please try again later.',
       // VIP Package
       pkg_vip_title: 'VIP Ultimate Package',
       pkg_vip_desc: 'The ultimate plan for business leaders. All-inclusive: brain, cardiac, full-body cancer screening & endoscopy.',

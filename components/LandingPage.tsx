@@ -16,6 +16,7 @@ import { useWhiteLabel, useWhiteLabelVisibility } from '@/lib/contexts/WhiteLabe
 import { useCommissionTiers } from '@/lib/hooks/useCommissionTiers';
 import { useSiteImages } from '@/lib/hooks/useSiteImages';
 import { localizeText } from '@/lib/utils/text-converter';
+import { validatePaymentForm } from '@/lib/validation';
 
 // --- IMAGE ASSETS CONFIGURATION ---
 // 硬编码的默认图片（作为数据库未配置时的 fallback）
@@ -2719,6 +2720,19 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
     notes: ''
   });
 
+  // Toast notification state
+  const [toast, setToast] = useState<{
+    show: boolean;
+    message: string;
+    type: 'error' | 'success' | 'info';
+  }>({ show: false, message: '', type: 'info' });
+
+  // Toast helper function
+  const showToast = (message: string, type: 'error' | 'success' | 'info' = 'info') => {
+    setToast({ show: true, message, type });
+    setTimeout(() => setToast({ show: false, message: '', type: 'info' }), 5000);
+  };
+
   // State for Partner Inquiry Modal
   const [showPartnerInquiryModal, setShowPartnerInquiryModal] = useState(false);
   const [partnerInquiryForm, setPartnerInquiryForm] = useState({
@@ -2807,8 +2821,39 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
   const handlePaymentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!paymentCustomerInfo.name.trim() || !paymentCustomerInfo.email.trim()) {
-      alert(t.medical.payment_error_required || 'Please fill in all required fields');
+    // 使用统一的验证函数
+    const validationResult = validatePaymentForm({
+      name: paymentCustomerInfo.name,
+      email: paymentCustomerInfo.email,
+      phone: paymentCustomerInfo.phone,
+      preferredDate: paymentCustomerInfo.preferredDate,
+      notes: paymentCustomerInfo.notes,
+    });
+
+    if (!validationResult.isValid) {
+      // 根据错误类型显示国际化的错误消息
+      const errorKey = validationResult.error || '';
+      let errorMessage = t.medical.payment_error_generic || 'Validation failed';
+
+      if (errorKey.includes('Name is required')) {
+        errorMessage = t.medical.validation_name_required || errorKey;
+      } else if (errorKey.includes('too short')) {
+        errorMessage = t.medical.validation_name_too_short || errorKey;
+      } else if (errorKey.includes('too long') && errorKey.includes('Name')) {
+        errorMessage = t.medical.validation_name_too_long || errorKey;
+      } else if (errorKey.includes('Email is required')) {
+        errorMessage = t.medical.validation_email_required || errorKey;
+      } else if (errorKey.includes('Invalid email')) {
+        errorMessage = t.medical.validation_email_invalid || errorKey;
+      } else if (errorKey.includes('Invalid phone')) {
+        errorMessage = t.medical.validation_phone_invalid || errorKey;
+      } else if (errorKey.includes('future')) {
+        errorMessage = t.medical.validation_date_past || errorKey;
+      } else if (errorKey.includes('too long') && errorKey.includes('Notes')) {
+        errorMessage = t.medical.validation_notes_too_long || errorKey;
+      }
+
+      showToast(errorMessage, 'error');
       return;
     }
 
@@ -2821,13 +2866,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
         body: JSON.stringify({
           packageSlug: selectedPackageSlug,
           customerInfo: {
-            name: paymentCustomerInfo.name,
-            email: paymentCustomerInfo.email,
-            phone: paymentCustomerInfo.phone,
+            name: paymentCustomerInfo.name.trim(),
+            email: paymentCustomerInfo.email.trim(),
+            phone: paymentCustomerInfo.phone?.trim() || undefined,
           },
           preferredDate: paymentCustomerInfo.preferredDate || undefined,
           preferredTime: paymentCustomerInfo.preferredTime || undefined,
-          notes: paymentCustomerInfo.notes || undefined,
+          notes: paymentCustomerInfo.notes?.trim() || undefined,
         }),
       });
 
@@ -2841,7 +2886,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
       window.location.href = data.url;
     } catch (error: any) {
       console.error('Payment error:', error);
-      alert(error.message || 'Payment processing failed. Please try again.');
+      // 不显示具体的错误消息，避免泄露系统信息
+      showToast(t.medical.payment_error_generic || 'Payment processing failed. Please try again later.', 'error');
     } finally {
       setIsProcessingPayment(false);
     }
@@ -3274,6 +3320,50 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
          isOpen={showTIMCQuoteModal}
          onClose={() => setShowTIMCQuoteModal(false)}
        />
+
+       {/* Toast Notification */}
+       {toast.show && (
+         <div className="fixed top-4 right-4 z-[9999] animate-slide-in">
+           <div
+             className={`
+               rounded-lg shadow-2xl p-4 min-w-[300px] max-w-md
+               flex items-start gap-3
+               ${toast.type === 'error' ? 'bg-red-50 border-l-4 border-red-500' : ''}
+               ${toast.type === 'success' ? 'bg-green-50 border-l-4 border-green-500' : ''}
+               ${toast.type === 'info' ? 'bg-blue-50 border-l-4 border-blue-500' : ''}
+             `}
+           >
+             <div className="flex-shrink-0 mt-0.5">
+               {toast.type === 'error' && (
+                 <X className="h-5 w-5 text-red-500" />
+               )}
+               {toast.type === 'success' && (
+                 <CheckCircle className="h-5 w-5 text-green-500" />
+               )}
+               {toast.type === 'info' && (
+                 <Activity className="h-5 w-5 text-blue-500" />
+               )}
+             </div>
+             <div className="flex-1">
+               <p
+                 className={`text-sm font-medium ${
+                   toast.type === 'error' ? 'text-red-800' :
+                   toast.type === 'success' ? 'text-green-800' :
+                   'text-blue-800'
+                 }`}
+               >
+                 {toast.message}
+               </p>
+             </div>
+             <button
+               onClick={() => setToast({ show: false, message: '', type: 'info' })}
+               className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
+             >
+               <X className="h-4 w-4" />
+             </button>
+           </div>
+         </div>
+       )}
     </PublicLayout>
   );
 };

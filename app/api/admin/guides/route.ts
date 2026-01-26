@@ -24,7 +24,7 @@ const CreateGuideSchema = z.object({
 export async function GET(request: NextRequest) {
   // GET 端点速率限制（防数据枚举攻击）
   const clientIp = getClientIp(request);
-  const rateLimitResult = checkRateLimit(
+  const rateLimitResult = await checkRateLimit(
     `${clientIp}:/api/admin/guides:GET`,
     RATE_LIMITS.standard
   );
@@ -164,7 +164,7 @@ export async function POST(request: NextRequest) {
   try {
     // 速率限制检查（管理员敏感操作）
     const clientIp = getClientIp(request);
-    const rateLimitResult = checkRateLimit(
+    const rateLimitResult = await checkRateLimit(
       `${clientIp}:/api/admin/guides`,
       RATE_LIMITS.sensitive
     );
@@ -248,7 +248,7 @@ export async function PUT(request: NextRequest) {
   try {
     // 速率限制检查（管理员敏感操作）
     const clientIp = getClientIp(request);
-    const rateLimitResult = checkRateLimit(
+    const rateLimitResult = await checkRateLimit(
       `${clientIp}:/api/admin/guides:PUT`,
       RATE_LIMITS.sensitive
     );
