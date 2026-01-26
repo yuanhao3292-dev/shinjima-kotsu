@@ -314,7 +314,7 @@ export async function PUT(request: NextRequest) {
     const { error: guideError } = await supabase
       .from('guides')
       .insert({
-        id: authData.user.id,
+        auth_user_id: authData.user.id, // ✅ 修复：使用 auth_user_id 字段（与用户注册保持一致）
         email,
         name,
         referral_code: referralCode,
