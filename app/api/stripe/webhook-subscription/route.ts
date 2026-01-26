@@ -136,7 +136,11 @@ export async function POST(request: NextRequest) {
             console.error('[Webhook] 更新导游订阅状态失败:', updateError);
             logError(normalizeError(updateError), {
               path: '/api/stripe/webhook-subscription',
-              context: { event: event.type, guideId, status },
+              method: 'POST',
+              context: 'subscription_update',
+              event_type: event.type,
+              guide_id: guideId,
+              subscription_status: status,
             });
           } else {
             console.log(`[Webhook] 导游 ${guideId} 订阅状态已更新为 ${dbStatus}`);
