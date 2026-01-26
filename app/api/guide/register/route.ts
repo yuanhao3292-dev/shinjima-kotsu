@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
     const { error: guideError } = await supabase
       .from('guides')
       .insert({
-        id: authData.user.id,
+        auth_user_id: authData.user.id, // ✅ 修复：使用 auth_user_id 字段
         email,
         name,
         phone,
