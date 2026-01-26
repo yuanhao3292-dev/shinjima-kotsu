@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Check, Circle, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { localizeText } from '@/lib/utils/text-converter';
+import type { Language } from '@/translations';
 
 // 套餐定义 - 按PDF顺序：DWIBS → 基础 → 甄选(胃镜) → 甄选(胃肠镜) → 尊享(心脏) → VIP
 const PACKAGES = [
@@ -376,7 +377,7 @@ const formatPrice = (price: number) => {
 
 interface PackageComparisonTableProps {
   onBookNow?: (packageSlug: string) => void;
-  currentLang?: string;
+  currentLang?: Language;
 }
 
 export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW' }: PackageComparisonTableProps) {
