@@ -34,3 +34,8 @@ out/
 *.sw?
 .vercel
 .env*.local
+
+# Backup files
+*.backup
+*.bak
+*~
