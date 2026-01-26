@@ -363,7 +363,7 @@ const StatusIcon = ({ status, partialNote, currentLang = 'zh-TW' }: { status: It
     case 'partial':
       return (
         <span className="text-[10px] text-blue-500 font-medium leading-tight text-center">
-          {localizeText('部分', currentLang || 'ja')}
+          {localizeText('部分', (currentLang || 'ja') as Language)}
         </span>
       );
     case 'none':
