@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import PublicLayout from '@/components/PublicLayout';
@@ -11,7 +12,9 @@ import {
   Atom, Pill, Radio, FlaskConical, HeartPulse, Leaf, CreditCard, Loader2,
   MapPin, Award, Info, ExternalLink
 } from 'lucide-react';
+
 type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
+
 const pageTranslations = {
   // Hero
   heroBadge: { ja: '日本がん治療', 'zh-TW': '日本癌症治療', 'zh-CN': '日本癌症治疗', en: 'Japan Cancer Treatment' } as Record<Language, string>,
@@ -80,6 +83,7 @@ const pageTranslations = {
   wechatScan: { ja: 'QRコードをスキャンして追加', 'zh-TW': '掃描二維碼添加客服微信', 'zh-CN': '扫描二维码添加客服微信', en: 'Scan QR code to add us' } as Record<Language, string>,
   wechatNote: { ja: '追加後「がん治療相談」とお伝えください', 'zh-TW': '添加後請注明：癌症治療諮詢', 'zh-CN': '添加后请注明：癌症治疗咨询', en: 'Please note: Cancer treatment consultation' } as Record<Language, string>,
 };
+
 // 咨询服务产品定义
 const CONSULTATION_SERVICES = {
   initial: {
@@ -99,6 +103,7 @@ const CONSULTATION_SERVICES = {
     description: { ja: '日本の医師とのビデオ診察・治療方針相談・費用概算', 'zh-TW': '與日本醫生遠程視頻會診、討論治療方案、費用概算', 'zh-CN': '与日本医生远程视频会诊、讨论治疗方案、费用概算', en: 'Video consultation with Japanese doctors, treatment planning, cost estimation' } as Record<Language, string>,
   },
 };
+
 // 治疗流程步骤数据
 const TREATMENT_FLOW = [
   { step: 1, title: { ja: '初期相談', 'zh-TW': '前期咨詢', 'zh-CN': '前期咨询', en: 'Initial Consultation' } as Record<Language, string>, subtitle: { ja: '申請提出・資料提供', 'zh-TW': '提交申請・提供資料', 'zh-CN': '提交申请・提供资料', en: 'Submit Application & Documents' } as Record<Language, string>, fee: '221,000', feeLabel: { ja: '円', 'zh-TW': '日元', 'zh-CN': '日元', en: 'JPY' } as Record<Language, string>, from: { ja: '患者', 'zh-TW': '患者', 'zh-CN': '患者', en: 'Patient' } as Record<Language, string>, to: { ja: '仲介', 'zh-TW': '中介', 'zh-CN': '中介', en: 'Agent' } as Record<Language, string>, desc: { ja: '治療情報提供書、血液/病理レポート、CT/MRI/PETデータ、手術記録等', 'zh-TW': '治療信息提供書、血液/病理報告、CT/MRI/PET數據、手術記錄等', 'zh-CN': '治疗信息提供书、血液/病理报告、CT/MRI/PET数据、手术记录等', en: 'Treatment info, blood/pathology reports, CT/MRI/PET data, surgical records' } as Record<Language, string>, serviceKey: 'initial' as const },
@@ -112,6 +117,7 @@ const TREATMENT_FLOW = [
   { step: 9, title: { ja: '治療完了', 'zh-TW': '治療結束', 'zh-CN': '治疗结束', en: 'Treatment Completed' } as Record<Language, string>, subtitle: { ja: '費用精算', 'zh-TW': '費用結算', 'zh-CN': '费用结算', en: 'Final Settlement' } as Record<Language, string>, fee: null, feeLabel: null, from: { ja: '仲介/病院', 'zh-TW': '中介/醫院', 'zh-CN': '中介/医院', en: 'Agent/Hospital' } as Record<Language, string>, to: { ja: '患者', 'zh-TW': '患者', 'zh-CN': '患者', en: 'Patient' } as Record<Language, string>, desc: null, serviceKey: null },
   { step: 10, title: { ja: 'アフターサポート', 'zh-TW': '後續支持', 'zh-CN': '后续支持', en: 'Follow-up Support' } as Record<Language, string>, subtitle: { ja: '遠隔フォローアップ', 'zh-TW': '遠程隨訪', 'zh-CN': '远程随访', en: 'Remote Follow-up' } as Record<Language, string>, fee: null, feeLabel: null, from: { ja: '病院', 'zh-TW': '醫院', 'zh-CN': '医院', en: 'Hospital' } as Record<Language, string>, to: { ja: '患者', 'zh-TW': '患者', 'zh-CN': '患者', en: 'Patient' } as Record<Language, string>, desc: { ja: '病歴および中国の医師への治療まとめと提案を提供。必要に応じてオンライン経過観察や遠隔相談を実施', 'zh-TW': '提供病歷以及給中國醫生的治療總結與建議，必要時做線上隨訪或遠程諮詢', 'zh-CN': '提供病历以及给中国医生的治疗总结与建议，必要时做线上随访或远程咨询', en: 'Provide medical records and treatment summary for home doctors, with online follow-up if needed' } as Record<Language, string>, serviceKey: null },
 ];
+
 // 標準治療方式
 const STANDARD_TREATMENTS = [
   {
@@ -175,6 +181,7 @@ const STANDARD_TREATMENTS = [
     desc: { ja: '遺伝子検査結果に基づき最適な標的薬を選択し、真のプレシジョン・メディシンを実現します。', 'zh-TW': '基於基因檢測結果選擇最適合的靶向藥物，真正做到精準醫療。', 'zh-CN': '基于基因检测结果选择最适合的靶向药物，真正做到精准医疗。', en: 'Selecting optimal targeted drugs based on genetic testing for true precision medicine.' } as Record<Language, string>,
   },
 ];
+
 // 再生醫療輔助治療
 const REGENERATIVE_TREATMENTS = [
   {
@@ -217,6 +224,7 @@ const REGENERATIVE_TREATMENTS = [
     ],
   },
 ];
+
 // 合作醫療機構類型
 const PARTNER_INSTITUTIONS = [
   { icon: Building, label: { ja: '大学病院・総合病院', 'zh-TW': '大學醫院、綜合醫院', 'zh-CN': '大学医院、综合医院', en: 'University & General Hospitals' } as Record<Language, string> },
@@ -224,6 +232,7 @@ const PARTNER_INSTITUTIONS = [
   { icon: Stethoscope, label: { ja: '専門クリニック', 'zh-TW': '專門診所', 'zh-CN': '专门诊所', en: 'Specialized Clinics' } as Record<Language, string> },
   { icon: FlaskConical, label: { ja: '再生医療クリニック', 'zh-TW': '再生醫療診所', 'zh-CN': '再生医疗诊所', en: 'Regenerative Medicine Clinics' } as Record<Language, string> },
 ];
+
 // 日本知名癌症治療醫療機構介紹（純信息展示，非合作聲明）
 // 關西地區優先置頂
 const JAPAN_MEDICAL_INSTITUTIONS = [
@@ -502,10 +511,12 @@ const JAPAN_MEDICAL_INSTITUTIONS = [
     ],
   },
 ];
+
 export default function CancerTreatmentPage() {
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
   const [showWechatQR, setShowWechatQR] = useState(false);
   const [currentLang, setCurrentLang] = useState<Language>('ja');
+
   // 繁简转换映射表（扩充版）
   const tradToSimpMap: Record<string, string> = {
     '癌症': '癌症', '專門': '专门', '醫院': '医院', '醫療': '医疗', '機構': '机构',
@@ -531,6 +542,7 @@ export default function CancerTreatmentPage() {
     '膽': '胆', '臨': '临', '膜': '膜', '脈': '脉', '腦': '脑', '腸': '肠',
     '膀': '膀', '腎': '肾', '腺': '腺', '臓': '脏', '臟': '脏', '膚': '肤',
   };
+
   // 繁简转换函数
   const convertToSimplified = (text: string): string => {
     if (!text) return text;
@@ -540,6 +552,7 @@ export default function CancerTreatmentPage() {
     }
     return result;
   };
+
   // 根据语言获取本地化文本
   const getLocalizedText = (text: string | string[]): string | string[] => {
     if (currentLang !== 'zh-CN') return text;
@@ -548,6 +561,7 @@ export default function CancerTreatmentPage() {
     }
     return convertToSimplified(text);
   };
+
   useEffect(() => {
     // 安全的 Cookie 解析函数
     const getCookie = (name: string): string | null => {
@@ -569,18 +583,22 @@ export default function CancerTreatmentPage() {
       }
       return null;
     };
+
     const localeCookie = getCookie('NEXT_LOCALE');
     if (localeCookie && ['ja', 'zh-TW', 'zh-CN', 'en'].includes(localeCookie)) {
       setCurrentLang(localeCookie as Language);
       return;
     }
+
     const browserLang = navigator.language;
     if (browserLang.startsWith('ja')) setCurrentLang('ja');
     else if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') setCurrentLang('zh-TW');
     else if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) setCurrentLang('zh-CN');
     else if (browserLang.startsWith('en')) setCurrentLang('en');
   }, []);
+
   const t = (key: keyof typeof pageTranslations) => pageTranslations[key][currentLang];
+
   return (
     <PublicLayout showFooter={true} activeNav="cancer">
       {/* Hero Section */}
@@ -595,11 +613,13 @@ export default function CancerTreatmentPage() {
           {/* Dark Overlay with Gradient */}
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-blue-900/85 to-slate-900/70"></div>
         </div>
+
         {/* Decorative Elements */}
         <div className="absolute inset-0">
           <div className="absolute w-96 h-96 bg-blue-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
           <div className="absolute w-72 h-72 bg-purple-500/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
         </div>
+
         <div className="container mx-auto px-6 relative z-10 py-32">
           <div className="max-w-4xl">
             {/* Badge */}
@@ -607,16 +627,19 @@ export default function CancerTreatmentPage() {
               <HeartPulse size={16} className="text-red-400" />
               <span className="text-xs font-bold text-white/90 uppercase tracking-wider">{t('heroBadge')}</span>
             </div>
+
             <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
               {t('heroTitle1')}<br/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">{t('heroTitle2')}</span>
             </h1>
+
             <p className="text-xl text-gray-300 mb-4 leading-relaxed max-w-2xl">
               {t('heroStat')} <span className="text-white font-bold">57.4%</span>
             </p>
             <p className="text-lg text-gray-400 mb-8 leading-relaxed max-w-2xl">
               {t('heroDesc')}
             </p>
+
             <div className="flex flex-wrap gap-4 mb-8">
               <a
                 href="#contact-form"
@@ -633,6 +656,7 @@ export default function CancerTreatmentPage() {
                 {t('heroFlow')}
               </a>
             </div>
+
             {/* 限量營銷文案 */}
             <div className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-400/40 px-5 py-3 rounded-full backdrop-blur-md mb-12">
               <span className="relative flex h-3 w-3">
@@ -641,6 +665,7 @@ export default function CancerTreatmentPage() {
               </span>
               <span className="text-amber-200 text-sm font-medium">{t('heroLimit')}</span>
             </div>
+
             {/* Key Stats - Data Driven */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
@@ -660,6 +685,7 @@ export default function CancerTreatmentPage() {
               </div>
             </div>
             <p className="text-xs text-gray-500 mb-4">{t('dataSource')}</p>
+
             {/* Trust Points */}
             <div className="flex flex-wrap gap-6 text-white/80">
               <div className="flex items-center gap-2">
@@ -678,6 +704,7 @@ export default function CancerTreatmentPage() {
           </div>
         </div>
       </div>
+
       {/* Japan Medical Institutions Introduction - 關西優先置頂 */}
       <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="container mx-auto px-6">
@@ -695,6 +722,7 @@ export default function CancerTreatmentPage() {
               <span>{t('instDisclaimer')}</span>
             </div>
           </div>
+
           <div className="space-y-12 max-w-6xl mx-auto">
             {JAPAN_MEDICAL_INSTITUTIONS.map((category, catIndex) => {
               const colorClasses: Record<string, {
@@ -747,6 +775,7 @@ export default function CancerTreatmentPage() {
                 },
               };
               const colors = colorClasses[category.color];
+
               return (
                 <div key={catIndex}>
                   {/* Category Header */}
@@ -754,6 +783,7 @@ export default function CancerTreatmentPage() {
                     <Award size={24} />
                     <h3 className="text-xl font-bold">{category.category}</h3>
                   </div>
+
                   {/* Institutions Grid */}
                   <div className={`bg-white border-2 ${colors.cardBorder} border-t-0 rounded-b-2xl p-6`}>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -771,6 +801,7 @@ export default function CancerTreatmentPage() {
                               {getLocalizedText(inst.location)}
                             </div>
                           </div>
+
                           {/* Specialty Tags */}
                           <div className="mb-4">
                             <p className="text-xs text-gray-500 mb-2">{t('instSpecialty')}</p>
@@ -782,6 +813,7 @@ export default function CancerTreatmentPage() {
                               ))}
                             </div>
                           </div>
+
                           {/* Features */}
                           <div className="mb-4">
                             <p className="text-xs text-gray-500 mb-2">{t('instFeatures')}</p>
@@ -794,6 +826,7 @@ export default function CancerTreatmentPage() {
                               ))}
                             </ul>
                           </div>
+
                           {/* Treatments */}
                           <div className="mb-4">
                             <p className="text-xs text-gray-500 mb-2">{t('instTreatments')}</p>
@@ -805,6 +838,7 @@ export default function CancerTreatmentPage() {
                               ))}
                             </div>
                           </div>
+
                           {/* Website Link */}
                           {inst.website && (
                             <a
@@ -825,6 +859,7 @@ export default function CancerTreatmentPage() {
               );
             })}
           </div>
+
           {/* Bottom Note */}
           <div className="mt-12 text-center">
             <p className="text-sm text-gray-500 max-w-2xl mx-auto">
@@ -833,6 +868,7 @@ export default function CancerTreatmentPage() {
           </div>
         </div>
       </section>
+
       {/* Treatment Flow Section */}
       <section id="treatment-flow" className="py-24 bg-white">
         <div className="container mx-auto px-6">
@@ -845,11 +881,13 @@ export default function CancerTreatmentPage() {
               {t('flowDesc')}
             </p>
           </div>
+
           {/* Timeline */}
           <div className="max-w-5xl mx-auto">
             <div className="relative">
               {/* Connecting Line */}
               <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 via-purple-500 to-green-500 hidden md:block"></div>
+
               <div className="space-y-6">
                 {TREATMENT_FLOW.map((item, index) => (
                   <div
@@ -860,6 +898,7 @@ export default function CancerTreatmentPage() {
                     <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform">
                       {item.step}
                     </div>
+
                     {/* Content Card */}
                     <div
                       className={`flex-grow bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-all cursor-pointer ${expandedStep === item.step ? 'ring-2 ring-blue-500 shadow-lg' : ''}`}
@@ -876,6 +915,7 @@ export default function CancerTreatmentPage() {
                             )}
                           </div>
                           <p className="text-gray-500 text-sm">{item.subtitle[currentLang]}</p>
+
                           {/* Expanded Content */}
                           {expandedStep === item.step && item.desc && (
                             <div className="mt-4 pt-4 border-t border-gray-200 animate-fade-in">
@@ -883,6 +923,7 @@ export default function CancerTreatmentPage() {
                             </div>
                           )}
                         </div>
+
                         {/* Flow Direction */}
                         <div className="flex items-center gap-2 text-xs text-gray-400">
                           <span className="bg-gray-200 px-2 py-1 rounded">{item.from[currentLang]}</span>
@@ -898,6 +939,7 @@ export default function CancerTreatmentPage() {
           </div>
         </div>
       </section>
+
       {/* Standard Treatments Section */}
       <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="container mx-auto px-6">
@@ -910,6 +952,7 @@ export default function CancerTreatmentPage() {
               {t('stdDesc')}
             </p>
           </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {STANDARD_TREATMENTS.map((treatment) => {
               const Icon = treatment.icon;
@@ -921,6 +964,7 @@ export default function CancerTreatmentPage() {
                 red: { bg: 'bg-red-50', text: 'text-red-600', border: 'border-red-200' },
               };
               const colors = colorClasses[treatment.color];
+
               return (
                 <div
                   key={treatment.id}
@@ -947,6 +991,7 @@ export default function CancerTreatmentPage() {
           </div>
         </div>
       </section>
+
       {/* Regenerative Medicine Section */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
@@ -959,6 +1004,7 @@ export default function CancerTreatmentPage() {
               {t('regenDesc')}
             </p>
           </div>
+
           {/* Purpose Tags */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             <div className="flex items-center gap-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-bold">
@@ -974,6 +1020,7 @@ export default function CancerTreatmentPage() {
               {t('regenPrevention')}
             </div>
           </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {REGENERATIVE_TREATMENTS.map((treatment) => {
               const Icon = treatment.icon;
@@ -983,6 +1030,7 @@ export default function CancerTreatmentPage() {
                 green: { gradient: 'from-green-500 to-emerald-600', bg: 'bg-green-50', text: 'text-green-600' },
               };
               const colors = colorClasses[treatment.color];
+
               return (
                 <div key={treatment.id} className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 border border-gray-100 hover:shadow-xl transition-all duration-300 group">
                   <div className={`w-16 h-16 bg-gradient-to-br ${colors.gradient} rounded-2xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-lg`}>
@@ -1007,6 +1055,7 @@ export default function CancerTreatmentPage() {
           </div>
         </div>
       </section>
+
       {/* Partner Institutions */}
       <section className="py-20 bg-gradient-to-br from-slate-900 to-blue-900 text-white">
         <div className="container mx-auto px-6">
@@ -1014,6 +1063,7 @@ export default function CancerTreatmentPage() {
             <h2 className="text-2xl md:text-3xl font-serif font-bold mb-4">{t('partnerTitle')}</h2>
             <p className="text-gray-300">{t('partnerDesc')}</p>
           </div>
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
             {PARTNER_INSTITUTIONS.map((inst, i) => {
               const Icon = inst.icon;
@@ -1029,6 +1079,7 @@ export default function CancerTreatmentPage() {
           </div>
         </div>
       </section>
+
       {/* Service Purchase Section */}
       <section id="contact-form" className="py-24 bg-gradient-to-br from-blue-50 to-purple-50">
         <div className="container mx-auto px-6">
@@ -1050,6 +1101,7 @@ export default function CancerTreatmentPage() {
                 <span className="text-amber-700 text-sm">{t('svcLimit')}</span>
               </div>
             </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
               {/* Service Card 1: Initial Consultation */}
               <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 hover:shadow-2xl transition-all group">
@@ -1093,6 +1145,7 @@ export default function CancerTreatmentPage() {
                   </Link>
                 </div>
               </div>
+
               {/* Service Card 2: Remote Consultation */}
               <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 hover:shadow-2xl transition-all group">
                 <div className="bg-gradient-to-r from-purple-600 to-pink-700 p-6 text-white">
@@ -1136,6 +1189,7 @@ export default function CancerTreatmentPage() {
                 </div>
               </div>
             </div>
+
             {/* Member System Notice */}
             <div className="bg-white rounded-2xl p-6 border border-gray-200 mb-8">
               <div className="flex items-start gap-4">
@@ -1150,6 +1204,7 @@ export default function CancerTreatmentPage() {
                 </div>
               </div>
             </div>
+
             {/* Contact Methods - For inquiries only */}
             <div className="bg-gray-50 rounded-2xl p-6 border border-gray-200">
               <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -1187,6 +1242,7 @@ export default function CancerTreatmentPage() {
           </div>
         </div>
       </section>
+
       {/* Back to Home */}
       <div className="py-8 bg-white text-center">
         <Link
@@ -1197,6 +1253,7 @@ export default function CancerTreatmentPage() {
           {t('backHome')}
         </Link>
       </div>
+
       {/* WeChat QR Modal */}
       {showWechatQR && (
         <div

@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect, memo, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Logo from './Logo';
 import { translations, Language } from '../translations';
@@ -129,6 +129,7 @@ interface SubViewProps {
   setCurrentPage: (page: PageView) => void;
   onLoginTrigger?: () => void;
   onOpenTIMCQuote?: () => void;
+  onDirectPayment?: (packageSlug: string) => void;
   onOpenPartnerInquiry?: () => void;
   currentLang: Language;
   landingInputText?: string;
@@ -209,7 +210,7 @@ const MedicalTechCard = memo(function MedicalTechCard({
 });
 
 // 使用 React.memo 优化 MedicalView 渲染性能
-const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuote, currentLang, getImage }) => (
+const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuote, onDirectPayment, currentLang, getImage }) => (
   <div className="animate-fade-in-up min-h-screen bg-white">
     {/* 1. Hero Section - Full height with transparent nav overlap */}
     <div className="relative min-h-[85vh] flex items-center overflow-hidden text-white bg-slate-900">
@@ -584,7 +585,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> {t.medical.pkg_vip_item_5}</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> {t.medical.pkg_vip_item_6}</div>
                   </div>
-                  <button onClick={onOpenTIMCQuote} className="w-full py-2 bg-yellow-500 text-black text-xs font-bold rounded hover:bg-yellow-400 transition text-center block">{t.medical.pkg_consult_btn}</button>
+                  <button onClick={() => onDirectPayment?.('vip')} className="w-full py-2 bg-yellow-500 text-black text-xs font-bold rounded hover:bg-yellow-400 transition text-center block">{t.medical.pkg_consult_btn}</button>
               </div>
 
               {/* 2. PREMIUM (Cardiac) */}
@@ -605,7 +606,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> {t.medical.pkg_premium_item_4}</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> {t.medical.pkg_premium_item_5}</div>
                    </div>
-                   <button onClick={onOpenTIMCQuote} className="w-full py-2 border border-blue-200 text-blue-600 text-xs font-bold rounded hover:bg-blue-50 transition text-center block">{t.medical.pkg_consult_btn}</button>
+                   <button onClick={() => onDirectPayment?.('premium-cardiac')} className="w-full py-2 border border-blue-200 text-blue-600 text-xs font-bold rounded hover:bg-blue-50 transition text-center block">{t.medical.pkg_consult_btn}</button>
               </div>
 
               {/* 3. SELECT (Gastro + Colon) */}
@@ -626,7 +627,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> {t.medical.pkg_select_gc_item_4}</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> {t.medical.pkg_select_gc_item_5}</div>
                    </div>
-                   <button onClick={onOpenTIMCQuote} className="w-full py-2 border border-green-200 text-green-600 text-xs font-bold rounded hover:bg-green-50 transition text-center block">{t.medical.pkg_consult_btn}</button>
+                   <button onClick={() => onDirectPayment?.('select-gastro-colon')} className="w-full py-2 border border-green-200 text-green-600 text-xs font-bold rounded hover:bg-green-50 transition text-center block">{t.medical.pkg_consult_btn}</button>
               </div>
 
               {/* 4. SELECT (Stomach only) */}
@@ -647,7 +648,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> {t.medical.pkg_select_g_item_4}</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> {t.medical.pkg_select_g_item_5}</div>
                    </div>
-                   <button onClick={onOpenTIMCQuote} className="w-full py-2 border border-teal-200 text-teal-600 text-xs font-bold rounded hover:bg-teal-50 transition text-center block">{t.medical.pkg_consult_btn}</button>
+                   <button onClick={() => onDirectPayment?.('select-gastro')} className="w-full py-2 border border-teal-200 text-teal-600 text-xs font-bold rounded hover:bg-teal-50 transition text-center block">{t.medical.pkg_consult_btn}</button>
               </div>
 
               {/* 5. DWIBS */}
@@ -668,7 +669,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> {t.medical.pkg_dwibs_item_4}</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> {t.medical.pkg_dwibs_item_5}</div>
                    </div>
-                   <button onClick={onOpenTIMCQuote} className="w-full py-2 border border-purple-200 text-purple-600 text-xs font-bold rounded hover:bg-purple-50 transition text-center block">{t.medical.pkg_consult_btn}</button>
+                   <button onClick={() => onDirectPayment?.('dwibs')} className="w-full py-2 border border-purple-200 text-purple-600 text-xs font-bold rounded hover:bg-purple-50 transition text-center block">{t.medical.pkg_consult_btn}</button>
               </div>
 
               {/* 6. BASIC */}
@@ -689,7 +690,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> {t.medical.pkg_basic_item_4}</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> {t.medical.pkg_basic_item_5}</div>
                    </div>
-                   <button onClick={onOpenTIMCQuote} className="w-full py-2 border border-gray-300 text-gray-600 text-xs font-bold rounded hover:bg-gray-100 transition text-center block">{t.medical.pkg_consult_btn}</button>
+                   <button onClick={() => onDirectPayment?.('basic')} className="w-full py-2 border border-gray-300 text-gray-600 text-xs font-bold rounded hover:bg-gray-100 transition text-center block">{t.medical.pkg_consult_btn}</button>
               </div>
 
           </div>
@@ -703,7 +704,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           </div>
           <div className="max-w-7xl mx-auto px-4">
               <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-                  <PackageComparisonTable onBookNow={onOpenTIMCQuote} currentLang={currentLang} />
+                  <PackageComparisonTable onBookNow={onDirectPayment} currentLang={currentLang} />
               </div>
           </div>
       </div>
@@ -871,7 +872,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               <span className="text-blue-100 text-sm">{t.medical.cta_limit}</span>
           </div>
           <div>
-              <button onClick={onOpenTIMCQuote} className="bg-white text-blue-800 font-bold px-10 py-4 rounded-full hover:bg-gray-100 transition shadow-lg inline-flex items-center gap-2">
+              <button onClick={() => { const element = document.getElementById('timc-packages'); element?.scrollIntoView({ behavior: 'smooth' }); }} className="bg-white text-blue-800 font-bold px-10 py-4 rounded-full hover:bg-gray-100 transition shadow-lg inline-flex items-center gap-2">
                   <Zap size={18} /> {t.medical.cta_btn}
               </button>
           </div>
@@ -1285,7 +1286,35 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
   );
 };
 
-const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, getImage }) => {
+const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, currentLang, getImage }) => {
+   // ⚡ 性能优化：缓存所有通用文本的翻译结果（减少 400+ 次重复调用）
+   const localizedTexts = useMemo(() => ({
+      // 类别标题
+      automotive: localizeText('汽車製造業', currentLang),
+      electronics: localizeText('電子與半導體產業', currentLang),
+      precision: localizeText('精密機械與自動化', currentLang),
+      medical: localizeText('醫療與健康照護', currentLang),
+      appliances: localizeText('家電與消費電子', currentLang),
+      retail: localizeText('零售與服務業', currentLang),
+      hospitality: localizeText('飯店與款待業', currentLang),
+      food: localizeText('食品與飲料產業', currentLang),
+      logistics: localizeText('物流與運輸', currentLang),
+      tech: localizeText('科技與通訊', currentLang),
+
+      // 通用文案
+      officialWebsite: localizeText('官方網站', currentLang),
+      topCompanies: localizeText('可預約考察的日本頂級企業', currentLang),
+      companyIntro: localizeText('以下企業均開放企業考察預約，我們負責全程協調、專業翻譯及行程安排', currentLang),
+      bookableCompanies: localizeText('可預約企業', currentLang),
+      industryCategories: localizeText('產業類別', currentLang),
+      prefecturesCovered: localizeText('覆蓋都道府縣', currentLang),
+      successRate: localizeText('預約成功率', currentLang),
+      notice: localizeText('※ 注意事項', currentLang),
+      noticeText: localizeText('以上企業均開放一般企業見學與商務考察預約。我們負責考察的預約協調、專業翻譯安排、交通接送及住宿統籌。各企業可參訪的時段與內容不盡相同，詳情請洽詢。', currentLang),
+      ctaTitle: localizeText('開始您的商務考察', currentLang),
+      ctaSubtitle: localizeText('專業行程定制・企業參訪安排・全程翻譯陪同', currentLang),
+   }), [currentLang]);
+
    // CONFIGURATION: Map Plan IDs to Image URLs
    // 所有图片均可通过数据库 site_images 表进行更换
    const planImages: Record<string, string> = {
@@ -1328,9 +1357,11 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
            <div className="absolute w-72 h-72 bg-indigo-500/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
          </div>
          <div className="relative z-10 text-center px-6">
-            <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full mb-8">
-              <span className="text-xs font-bold text-white/90 uppercase tracking-wider">{t.business.hero_tag}</span>
-            </span>
+            {t.business.hero_tag && (
+              <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full mb-8">
+                <span className="text-xs font-bold text-white/90 uppercase tracking-wider">{t.business.hero_tag}</span>
+              </span>
+            )}
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif font-bold text-white mb-4 md:mb-6 leading-tight">
                 {t.business.hero_title}
             </h1>
@@ -1402,11 +1433,8 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
           {/* Bookable Japanese Top Companies Section - 100 Companies */}
           <div className="mb-24">
              <div className="text-center mb-12">
-                <span className="inline-block bg-blue-50 text-blue-700 text-xs font-bold px-4 py-2 rounded-full mb-4 uppercase tracking-wider">
-                   100+ 頂級企業開放預約
-                </span>
-                <h3 className="text-3xl font-serif text-gray-900 mb-3">可預約考察的日本頂級企業</h3>
-                <p className="text-gray-500 text-sm max-w-2xl mx-auto">以下企業均開放企業考察預約，我們負責全程協調、專業通譯及行程安排</p>
+                <h3 className="text-3xl font-serif text-gray-900 mb-3">{localizedTexts.topCompanies}</h3>
+                <p className="text-gray-500 text-sm max-w-2xl mx-auto">{localizedTexts.companyIntro}</p>
              </div>
 
              {/* Company Categories */}
@@ -1418,7 +1446,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          <Factory size={20} className="text-white" />
                       </div>
                       <div>
-                         <h4 className="font-bold text-gray-900">汽車製造業</h4>
+                         <h4 className="font-bold text-gray-900">{localizedTexts.automotive}</h4>
                          <p className="text-xs text-gray-500">Automotive Manufacturing</p>
                       </div>
                    </div>
@@ -1438,13 +1466,13 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
+                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{localizeText(company.name, currentLang)}</h5>
                                   <p className="text-xs text-gray-400">{company.nameEn}</p>
                                </div>
-                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{localizeText(company.location, currentLang)}</span>
                             </div>
-                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>官方網站</span><ExternalLink size={12} /></div>
+                            <p className="text-xs text-gray-600 mb-3">{localizeText(company.desc, currentLang)}</p>
+                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1457,7 +1485,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          <Cpu size={20} className="text-white" />
                       </div>
                       <div>
-                         <h4 className="font-bold text-gray-900">電子與半導體產業</h4>
+                         <h4 className="font-bold text-gray-900">{localizedTexts.electronics}</h4>
                          <p className="text-xs text-gray-500">Electronics & Semiconductor</p>
                       </div>
                    </div>
@@ -1477,13 +1505,13 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
+                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{localizeText(company.name, currentLang)}</h5>
                                   <p className="text-xs text-gray-400">{company.nameEn}</p>
                                </div>
-                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{localizeText(company.location, currentLang)}</span>
                             </div>
-                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>官方網站</span><ExternalLink size={12} /></div>
+                            <p className="text-xs text-gray-600 mb-3">{localizeText(company.desc, currentLang)}</p>
+                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1496,7 +1524,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          <Factory size={20} className="text-white" />
                       </div>
                       <div>
-                         <h4 className="font-bold text-gray-900">精密機械與自動化</h4>
+                         <h4 className="font-bold text-gray-900">{localizedTexts.precision}</h4>
                          <p className="text-xs text-gray-500">Precision Machinery & Automation</p>
                       </div>
                    </div>
@@ -1516,13 +1544,13 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
+                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{localizeText(company.name, currentLang)}</h5>
                                   <p className="text-xs text-gray-400">{company.nameEn}</p>
                                </div>
-                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{localizeText(company.location, currentLang)}</span>
                             </div>
-                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>官方網站</span><ExternalLink size={12} /></div>
+                            <p className="text-xs text-gray-600 mb-3">{localizeText(company.desc, currentLang)}</p>
+                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1535,7 +1563,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          <Stethoscope size={20} className="text-white" />
                       </div>
                       <div>
-                         <h4 className="font-bold text-gray-900">醫療與健康照護</h4>
+                         <h4 className="font-bold text-gray-900">{localizedTexts.medical}</h4>
                          <p className="text-xs text-gray-500">Healthcare & Medical</p>
                       </div>
                    </div>
@@ -1555,13 +1583,13 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
+                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{localizeText(company.name, currentLang)}</h5>
                                   <p className="text-xs text-gray-400">{company.nameEn}</p>
                                </div>
-                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{localizeText(company.location, currentLang)}</span>
                             </div>
-                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>官方網站</span><ExternalLink size={12} /></div>
+                            <p className="text-xs text-gray-600 mb-3">{localizeText(company.desc, currentLang)}</p>
+                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1574,7 +1602,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          <Monitor size={20} className="text-white" />
                       </div>
                       <div>
-                         <h4 className="font-bold text-gray-900">家電與消費電子</h4>
+                         <h4 className="font-bold text-gray-900">{localizedTexts.appliances}</h4>
                          <p className="text-xs text-gray-500">Consumer Electronics</p>
                       </div>
                    </div>
@@ -1594,13 +1622,13 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
+                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{localizeText(company.name, currentLang)}</h5>
                                   <p className="text-xs text-gray-400">{company.nameEn}</p>
                                </div>
-                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{localizeText(company.location, currentLang)}</span>
                             </div>
-                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>官方網站</span><ExternalLink size={12} /></div>
+                            <p className="text-xs text-gray-600 mb-3">{localizeText(company.desc, currentLang)}</p>
+                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1613,7 +1641,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          <Building size={20} className="text-white" />
                       </div>
                       <div>
-                         <h4 className="font-bold text-gray-900">零售與服務業</h4>
+                         <h4 className="font-bold text-gray-900">{localizedTexts.retail}</h4>
                          <p className="text-xs text-gray-500">Retail & Service</p>
                       </div>
                    </div>
@@ -1633,13 +1661,13 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
+                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{localizeText(company.name, currentLang)}</h5>
                                   <p className="text-xs text-gray-400">{company.nameEn}</p>
                                </div>
-                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{localizeText(company.location, currentLang)}</span>
                             </div>
-                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>官方網站</span><ExternalLink size={12} /></div>
+                            <p className="text-xs text-gray-600 mb-3">{localizeText(company.desc, currentLang)}</p>
+                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1652,7 +1680,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          <Heart size={20} className="text-white" />
                       </div>
                       <div>
-                         <h4 className="font-bold text-gray-900">飯店與款待業</h4>
+                         <h4 className="font-bold text-gray-900">{localizedTexts.hospitality}</h4>
                          <p className="text-xs text-gray-500">Hotel & Hospitality</p>
                       </div>
                    </div>
@@ -1672,13 +1700,13 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
+                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{localizeText(company.name, currentLang)}</h5>
                                   <p className="text-xs text-gray-400">{company.nameEn}</p>
                                </div>
-                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{localizeText(company.location, currentLang)}</span>
                             </div>
-                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>官方網站</span><ExternalLink size={12} /></div>
+                            <p className="text-xs text-gray-600 mb-3">{localizeText(company.desc, currentLang)}</p>
+                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1691,7 +1719,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          <Utensils size={20} className="text-white" />
                       </div>
                       <div>
-                         <h4 className="font-bold text-gray-900">食品與飲料產業</h4>
+                         <h4 className="font-bold text-gray-900">{localizedTexts.food}</h4>
                          <p className="text-xs text-gray-500">Food & Beverage</p>
                       </div>
                    </div>
@@ -1711,13 +1739,13 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
+                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{localizeText(company.name, currentLang)}</h5>
                                   <p className="text-xs text-gray-400">{company.nameEn}</p>
                                </div>
-                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{localizeText(company.location, currentLang)}</span>
                             </div>
-                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>官方網站</span><ExternalLink size={12} /></div>
+                            <p className="text-xs text-gray-600 mb-3">{localizeText(company.desc, currentLang)}</p>
+                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1730,7 +1758,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          <Bus size={20} className="text-white" />
                       </div>
                       <div>
-                         <h4 className="font-bold text-gray-900">物流與運輸</h4>
+                         <h4 className="font-bold text-gray-900">{localizedTexts.logistics}</h4>
                          <p className="text-xs text-gray-500">Logistics & Transportation</p>
                       </div>
                    </div>
@@ -1750,13 +1778,13 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
+                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{localizeText(company.name, currentLang)}</h5>
                                   <p className="text-xs text-gray-400">{company.nameEn}</p>
                                </div>
-                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{localizeText(company.location, currentLang)}</span>
                             </div>
-                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>官方網站</span><ExternalLink size={12} /></div>
+                            <p className="text-xs text-gray-600 mb-3">{localizeText(company.desc, currentLang)}</p>
+                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1769,7 +1797,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          <Globe size={20} className="text-white" />
                       </div>
                       <div>
-                         <h4 className="font-bold text-gray-900">科技與通訊</h4>
+                         <h4 className="font-bold text-gray-900">{localizedTexts.tech}</h4>
                          <p className="text-xs text-gray-500">Technology & Telecommunications</p>
                       </div>
                    </div>
@@ -1789,13 +1817,13 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
+                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{localizeText(company.name, currentLang)}</h5>
                                   <p className="text-xs text-gray-400">{company.nameEn}</p>
                                </div>
-                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{localizeText(company.location, currentLang)}</span>
                             </div>
-                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>官方網站</span><ExternalLink size={12} /></div>
+                            <p className="text-xs text-gray-600 mb-3">{localizeText(company.desc, currentLang)}</p>
+                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1806,28 +1834,28 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
              <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="bg-blue-600 text-white p-6 rounded-xl text-center">
                    <div className="text-3xl font-bold">100+</div>
-                   <div className="text-sm opacity-80">可預約企業</div>
+                   <div className="text-sm opacity-80">{localizedTexts.bookableCompanies}</div>
                 </div>
                 <div className="bg-slate-800 text-white p-6 rounded-xl text-center">
                    <div className="text-3xl font-bold">10</div>
-                   <div className="text-sm opacity-80">產業類別</div>
+                   <div className="text-sm opacity-80">{localizedTexts.industryCategories}</div>
                 </div>
                 <div className="bg-purple-600 text-white p-6 rounded-xl text-center">
                    <div className="text-3xl font-bold">47</div>
-                   <div className="text-sm opacity-80">覆蓋都道府縣</div>
+                   <div className="text-sm opacity-80">{localizedTexts.prefecturesCovered}</div>
                 </div>
                 <div className="bg-green-600 text-white p-6 rounded-xl text-center">
                    <div className="text-3xl font-bold">95%</div>
-                   <div className="text-sm opacity-80">預約成功率</div>
+                   <div className="text-sm opacity-80">{localizedTexts.successRate}</div>
                 </div>
              </div>
 
              {/* Note */}
              <div className="mt-8 p-6 bg-blue-50 rounded-xl border border-blue-100">
                 <p className="text-sm text-blue-800">
-                   <span className="font-bold">※ 注意事項</span>
+                   <span className="font-bold">{localizedTexts.notice}</span>
                    <br />
-                   以上企業均開放一般企業見學與商務考察預約。我們負責考察的預約協調、專業通譯安排、交通接送及住宿統籌。各企業可參訪的時段與內容不盡相同，詳情請洽詢。
+                   {localizedTexts.noticeText}
                 </p>
              </div>
           </div>
@@ -1887,8 +1915,8 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
           {/* Contact Buttons */}
           <div className="py-16 bg-gray-50 -mx-6 px-6 mt-16">
             <div className="max-w-2xl mx-auto text-center">
-              <h3 className="text-2xl font-serif font-bold text-gray-900 mb-2">開始您的商務考察</h3>
-              <p className="text-gray-500 mb-8">專業行程定制・企業參訪安排・全程翻譯陪同</p>
+              <h3 className="text-2xl font-serif font-bold text-gray-900 mb-2">{localizedTexts.ctaTitle}</h3>
+              <p className="text-gray-500 mb-8">{localizedTexts.ctaSubtitle}</p>
               <ContactButtons />
             </div>
           </div>
@@ -2678,6 +2706,19 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
   // State for TIMC Quote Modal
   const [showTIMCQuoteModal, setShowTIMCQuoteModal] = useState(false);
 
+  // State for Medical Payment Flow
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [selectedPackageSlug, setSelectedPackageSlug] = useState('');
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [paymentCustomerInfo, setPaymentCustomerInfo] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    preferredDate: '',
+    preferredTime: 'morning',
+    notes: ''
+  });
+
   // State for Partner Inquiry Modal
   const [showPartnerInquiryModal, setShowPartnerInquiryModal] = useState(false);
   const [partnerInquiryForm, setPartnerInquiryForm] = useState({
@@ -2756,6 +2797,55 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
       }, 500);
     }
   }, [searchParams]);
+
+  // 处理医疗套餐支付流程
+  const handleDirectPayment = (packageSlug: string) => {
+    setSelectedPackageSlug(packageSlug);
+    setShowPaymentModal(true);
+  };
+
+  const handlePaymentSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!paymentCustomerInfo.name.trim() || !paymentCustomerInfo.email.trim()) {
+      alert(t.medical.payment_error_required || 'Please fill in all required fields');
+      return;
+    }
+
+    setIsProcessingPayment(true);
+
+    try {
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          packageSlug: selectedPackageSlug,
+          customerInfo: {
+            name: paymentCustomerInfo.name,
+            email: paymentCustomerInfo.email,
+            phone: paymentCustomerInfo.phone,
+          },
+          preferredDate: paymentCustomerInfo.preferredDate || undefined,
+          preferredTime: paymentCustomerInfo.preferredTime || undefined,
+          notes: paymentCustomerInfo.notes || undefined,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Payment failed');
+      }
+
+      // 跳转到 Stripe 支付页面
+      window.location.href = data.url;
+    } catch (error: any) {
+      console.error('Payment error:', error);
+      alert(error.message || 'Payment processing failed. Please try again.');
+    } finally {
+      setIsProcessingPayment(false);
+    }
+  };
 
   const handleAuthSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -2845,7 +2935,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
               imagesLoading={imagesLoading}
             />
           )}
-          {currentPage === 'medical' && <MedicalView t={t} setCurrentPage={setCurrentPage} onOpenTIMCQuote={() => setShowTIMCQuoteModal(true)} currentLang={lang} getImage={getImage} />}
+          {currentPage === 'medical' && <MedicalView t={t} setCurrentPage={setCurrentPage} onOpenTIMCQuote={() => setShowTIMCQuoteModal(true)} onDirectPayment={handleDirectPayment} currentLang={lang} getImage={getImage} />}
           {currentPage === 'business' && <BusinessView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={() => router.push('/login')} currentLang={lang} getImage={getImage} />}
           {currentPage === 'golf' && <GolfView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={() => router.push('/login')} currentLang={lang} getImage={getImage} />}
           {/* 白标模式下隐藏 Partner 页面（B2B 同业合作） */}
@@ -3088,6 +3178,94 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                  </>
                )}
             </div>
+         </div>
+       )}
+
+       {/* Medical Payment Modal */}
+       {showPaymentModal && (
+         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+           <div className="bg-white rounded-2xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
+             <h3 className="text-2xl font-bold mb-4">{t.medical.payment_modal_title || '预约信息'}</h3>
+             <form onSubmit={handlePaymentSubmit}>
+               <div className="space-y-4">
+                 <div>
+                   <label className="block text-sm font-medium mb-1">{t.medical.payment_name || '姓名'} *</label>
+                   <input
+                     type="text"
+                     required
+                     value={paymentCustomerInfo.name}
+                     onChange={(e) => setPaymentCustomerInfo({ ...paymentCustomerInfo, name: e.target.value })}
+                     className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                   />
+                 </div>
+                 <div>
+                   <label className="block text-sm font-medium mb-1">{t.medical.payment_email || '邮箱'} *</label>
+                   <input
+                     type="email"
+                     required
+                     value={paymentCustomerInfo.email}
+                     onChange={(e) => setPaymentCustomerInfo({ ...paymentCustomerInfo, email: e.target.value })}
+                     className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                   />
+                 </div>
+                 <div>
+                   <label className="block text-sm font-medium mb-1">{t.medical.payment_phone || '电话'}</label>
+                   <input
+                     type="tel"
+                     value={paymentCustomerInfo.phone}
+                     onChange={(e) => setPaymentCustomerInfo({ ...paymentCustomerInfo, phone: e.target.value })}
+                     className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                   />
+                 </div>
+                 <div>
+                   <label className="block text-sm font-medium mb-1">{t.medical.payment_date || '希望日期'}</label>
+                   <input
+                     type="date"
+                     value={paymentCustomerInfo.preferredDate}
+                     onChange={(e) => setPaymentCustomerInfo({ ...paymentCustomerInfo, preferredDate: e.target.value })}
+                     className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                   />
+                 </div>
+                 <div>
+                   <label className="block text-sm font-medium mb-1">{t.medical.payment_time || '希望时段'}</label>
+                   <select
+                     value={paymentCustomerInfo.preferredTime}
+                     onChange={(e) => setPaymentCustomerInfo({ ...paymentCustomerInfo, preferredTime: e.target.value })}
+                     className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                   >
+                     <option value="morning">{t.medical.payment_time_morning || '上午 (9:00-12:00)'}</option>
+                     <option value="afternoon">{t.medical.payment_time_afternoon || '下午 (13:00-16:00)'}</option>
+                   </select>
+                 </div>
+                 <div>
+                   <label className="block text-sm font-medium mb-1">{t.medical.payment_notes || '备注'}</label>
+                   <textarea
+                     value={paymentCustomerInfo.notes}
+                     onChange={(e) => setPaymentCustomerInfo({ ...paymentCustomerInfo, notes: e.target.value })}
+                     rows={3}
+                     className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                   />
+                 </div>
+               </div>
+               <div className="flex gap-3 mt-6">
+                 <button
+                   type="button"
+                   onClick={() => setShowPaymentModal(false)}
+                   className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                   disabled={isProcessingPayment}
+                 >
+                   {t.medical.payment_cancel || '取消'}
+                 </button>
+                 <button
+                   type="submit"
+                   className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                   disabled={isProcessingPayment}
+                 >
+                   {isProcessingPayment ? (t.medical.payment_processing || '处理中...') : (t.medical.payment_submit || '确认支付')}
+                 </button>
+               </div>
+             </form>
+           </div>
          </div>
        )}
 

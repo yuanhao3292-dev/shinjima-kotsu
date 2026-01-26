@@ -97,7 +97,7 @@ export const translations = {
       pkg_recommend_btn: 'どれを選べばいい？AIが最適なコースを推薦',
       // Package shared
       pkg_price_note: '医療通訳・報告書翻訳・消費税10%込み',
-      pkg_consult_btn: '今すぐ相談',
+      pkg_consult_btn: '今すぐ予約',
       // VIP Package
       pkg_vip_title: 'VIP 最上級フルコース',
       pkg_vip_desc: '企業トップのための究極プラン。脳・心臓・全身がん検査、内視鏡を網羅する「オールインワン」検査。',
@@ -832,7 +832,7 @@ export const translations = {
       pkg_recommend_btn: '不知道選哪個？智能推薦適合您的套餐',
       // Package shared
       pkg_price_note: '含醫療翻譯・報告翻譯・消費稅10%',
-      pkg_consult_btn: '立即諮詢',
+      pkg_consult_btn: '立即下單',
       // VIP Package
       pkg_vip_title: 'VIP 頂級全能套裝',
       pkg_vip_desc: '針對企業領袖的終極方案。包含腦、心、全身癌篩及消化道內視鏡的「全包式」檢查。',
@@ -1422,7 +1422,7 @@ export const translations = {
       pkg_recommend_btn: '不知道选哪个？智能推荐适合您的套餐',
       // Package shared
       pkg_price_note: '含医疗翻译・报告翻译・消费税10%',
-      pkg_consult_btn: '立即咨询',
+      pkg_consult_btn: '立即下单',
       // VIP Package
       pkg_vip_title: 'VIP 顶级全能套装',
       pkg_vip_desc: '针对企业领袖的终极方案。包含脑、心、全身癌筛及消化道内视镜的「全包式」检查。',
@@ -2018,7 +2018,7 @@ export const translations = {
       pkg_recommend_btn: 'Not sure which to choose? Let AI recommend',
       // Package shared
       pkg_price_note: 'Incl. medical interpreter, report translation & 10% tax',
-      pkg_consult_btn: 'Inquire Now',
+      pkg_consult_btn: 'Book Now',
       // VIP Package
       pkg_vip_title: 'VIP Ultimate Package',
       pkg_vip_desc: 'The ultimate plan for business leaders. All-inclusive: brain, cardiac, full-body cancer screening & endoscopy.',

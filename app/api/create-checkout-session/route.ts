@@ -49,13 +49,13 @@ export async function POST(request: NextRequest) {
     const { packageSlug, customerInfo, preferredDate, preferredTime, notes } = validation.data;
 
     // 获取白标导游归属（从 Cookie）
-    const guideSlug = request.cookies.get(WHITELABEL_COOKIE_NAME)?.value || null;
+    let guideSlug = request.cookies.get(WHITELABEL_COOKIE_NAME)?.value || null;
     let guideId: string | null = null;
     let guideCommissionRate: number | null = null;
 
     if (guideSlug) {
       // 查询导游信息和佣金率
-      const { data: guideData } = await supabase
+      const { data: guideData, error: guideError } = await supabase
         .from('guides')
         .select(`
           id,
@@ -74,6 +74,10 @@ export async function POST(request: NextRequest) {
           ? guideData.commission_tiers[0]
           : guideData.commission_tiers;
         guideCommissionRate = tierData?.commission_rate || 10;
+      } else {
+        // 无效的 guide_slug，清空以防止记录到订单中
+        console.warn(`[Security] Invalid guide_slug in cookie: ${guideSlug}`, guideError);
+        guideSlug = null;
       }
     }
 
@@ -90,6 +94,25 @@ export async function POST(request: NextRequest) {
 
     if (!packageData.stripe_price_id) {
       return createErrorResponse(Errors.business('套餐尚未配置 Stripe 价格', 'PACKAGE_NOT_CONFIGURED'));
+    }
+
+    // 价格验证：防止前端价格篡改
+    const EXPECTED_PRICES: Record<string, number> = {
+      'cancer-initial-consultation': 221000,
+      'cancer-remote-consultation': 243000,
+    };
+
+    if (EXPECTED_PRICES[packageSlug] && packageData.price_jpy !== EXPECTED_PRICES[packageSlug]) {
+      console.error(`[Security] Price mismatch for package ${packageSlug}: expected ${EXPECTED_PRICES[packageSlug]}, got ${packageData.price_jpy}`);
+      logError(normalizeError(new Error('Price mismatch')), {
+        path: '/api/create-checkout-session',
+        method: 'POST',
+        context: 'price_verification',
+        packageSlug,
+        expected: String(EXPECTED_PRICES[packageSlug]),
+        actual: String(packageData.price_jpy)
+      });
+      return createErrorResponse(Errors.internal('套餐价格异常，请联系管理员'));
     }
 
     // 2. 创建或获取客户记录

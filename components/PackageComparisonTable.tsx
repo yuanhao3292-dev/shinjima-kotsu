@@ -375,7 +375,7 @@ const formatPrice = (price: number) => {
 };
 
 interface PackageComparisonTableProps {
-  onBookNow?: () => void;
+  onBookNow?: (packageSlug: string) => void;
   currentLang?: string;
 }
 
@@ -521,14 +521,14 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
         {/* 底部下单按钮 */}
         <div className="sticky bottom-0 p-4 bg-white border-t shadow-lg">
           <button
-            onClick={onBookNow}
+            onClick={() => onBookNow?.(selectedPackage.id)}
             className={`block w-full text-center py-3 rounded-xl font-bold text-lg transition ${
               selectedPackage.id === 'vip'
                 ? 'bg-gradient-to-r from-yellow-500 to-yellow-600 text-black'
                 : 'bg-blue-600 text-white hover:bg-blue-700'
             }`}
           >
-            {lt('立即諮詢')} {selectedPackage.name}
+            {lt('立即預約')} {selectedPackage.name}
           </button>
           <div className="text-center text-xs text-gray-400 mt-2">
             {lt('含醫療翻譯・報告翻譯・消費稅10%')}
@@ -599,14 +599,14 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                   {formatPrice(pkg.price)}
                 </div>
                 <button
-                  onClick={onBookNow}
+                  onClick={() => onBookNow?.(pkg.id)}
                   className={`inline-block mt-2 text-xs px-3 py-1 rounded ${
                     pkg.id === 'vip'
                       ? 'bg-yellow-500 text-black hover:bg-yellow-400'
                       : 'bg-blue-500 text-white hover:bg-blue-600'
                   } transition`}
                 >
-                  {lt('諮詢')}
+                  {lt('預約')}
                 </button>
               </div>
             ))}
