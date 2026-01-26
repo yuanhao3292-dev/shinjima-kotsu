@@ -24,6 +24,7 @@ const RegisterGuideSchema = z.object({
   phone: z.string().min(1, '请输入电话号码'),
   wechat_id: z.string().optional(),
   password: z.string().min(8, '密码至少需要 8 位字符'),
+  referrer_code: z.string().max(20).optional(), // 推荐人的推荐码
 });
 
 export async function POST(request: NextRequest) {
@@ -44,11 +45,30 @@ export async function POST(request: NextRequest) {
     // 验证输入
     const validation = await validateBody(request, RegisterGuideSchema);
     if (!validation.success) return validation.error;
-    const { name, email, phone, wechat_id, password } = validation.data;
+    const { name, email, phone, wechat_id, password, referrer_code } = validation.data;
 
     const supabase = getSupabaseAdmin();
 
-    // 1. 检查邮箱是否已存在
+    // 1. 如果有推荐码，查找推荐人
+    let referrerId: string | null = null;
+    if (referrer_code) {
+      const { data: referrer } = await supabase
+        .from('guides')
+        .select('id, name')
+        .eq('referral_code', referrer_code.toUpperCase())
+        .eq('status', 'approved')
+        .single();
+
+      if (referrer) {
+        referrerId = referrer.id;
+        console.log(`[register] 找到推荐人: ${referrer.name} (${referrer.id})`);
+      } else {
+        console.log(`[register] 推荐码 ${referrer_code} 无效或推荐人未通过审核`);
+        // 不阻止注册，只是不设置推荐关系
+      }
+    }
+
+    // 2. 检查邮箱是否已存在
     const { data: existingGuide } = await supabase
       .from('guides')
       .select('email')
@@ -59,7 +79,7 @@ export async function POST(request: NextRequest) {
       return createErrorResponse(Errors.validation('该邮箱已被注册'));
     }
 
-    // 2. 生成唯一的推荐码（带重试机制）
+    // 3. 生成唯一的推荐码（带重试机制）
     let referralCode: string;
     try {
       referralCode = await generateUniqueReferralCode(supabase, 10);
@@ -68,7 +88,7 @@ export async function POST(request: NextRequest) {
       return createErrorResponse(Errors.internal('无法生成唯一推荐码，请稍后重试'));
     }
 
-    // 3. 创建 Supabase Auth 账户
+    // 4. 创建 Supabase Auth 账户
     const { data: authData, error: authError } = await supabase.auth.admin.createUser({
       email,
       password,
@@ -84,17 +104,18 @@ export async function POST(request: NextRequest) {
       return createErrorResponse(Errors.internal('创建账户失败，请稍后重试'));
     }
 
-    // 4. 在 guides 表中创建记录
+    // 5. 在 guides 表中创建记录
     const { error: guideError } = await supabase
       .from('guides')
       .insert({
-        auth_user_id: authData.user.id, // ✅ 修复：使用 auth_user_id 字段
+        auth_user_id: authData.user.id,
         email,
         name,
         phone,
         wechat_id: wechat_id || null,
         referral_code: referralCode,
-        status: 'approved', // 新注册导游自动通过审核
+        referrer_id: referrerId, // ✅ 设置推荐人 ID
+        status: 'approved',
         level: 'bronze',
         kyc_status: 'pending',
         total_commission: 0,
@@ -110,7 +131,7 @@ export async function POST(request: NextRequest) {
       return createErrorResponse(Errors.internal('注册失败，请稍后重试'));
     }
 
-    // 5. 注册成功
+    // 6. 注册成功
     return NextResponse.json({
       success: true,
       message: '注册成功！',

@@ -9,6 +9,9 @@ import Logo from '@/components/Logo';
 import { User, Phone, Mail, Lock, Loader2, AlertCircle, Eye, EyeOff, MessageCircle } from 'lucide-react';
 
 function RegisterForm() {
+  const searchParams = useSearchParams();
+  const referrerCode = searchParams.get('ref') || '';
+
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -21,6 +24,26 @@ function RegisterForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [referrerName, setReferrerName] = useState<string | null>(null);
+
+  // 如果有推荐码，查询推荐人信息
+  useEffect(() => {
+    if (referrerCode) {
+      const supabase = createClient();
+      supabase
+        .from('guides')
+        .select('name')
+        .eq('referral_code', referrerCode.toUpperCase())
+        .eq('status', 'approved')
+        .single()
+        .then(({ data, error }) => {
+          if (data && !error) {
+            setReferrerName(data.name);
+          }
+          // 无效推荐码静默处理，不影响注册流程
+        });
+    }
+  }, [referrerCode]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,6 +76,7 @@ function RegisterForm() {
           phone: formData.phone,
           wechat_id: formData.wechatId || undefined,
           password: formData.password,
+          referrer_code: referrerCode || undefined,
         }),
       });
 
@@ -163,6 +187,13 @@ function RegisterForm() {
               <h1 className="text-2xl font-serif font-bold text-gray-900">導遊註冊</h1>
               <p className="text-gray-500 mt-2 text-sm">填寫資訊申請成為合夥人</p>
             </div>
+
+            {/* 推荐人提示 */}
+            {referrerName && (
+              <div className="mb-6 bg-purple-50 border border-purple-200 text-purple-700 px-4 py-3 rounded-xl text-sm">
+                <span className="font-medium">{referrerName}</span> 邀請您加入
+              </div>
+            )}
 
             {error && (
               <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl flex items-center gap-2 text-sm">
