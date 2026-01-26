@@ -92,27 +92,29 @@ export async function POST(request: NextRequest) {
       return createErrorResponse(Errors.notFound('套餐不存在'));
     }
 
+    // 验证套餐配置完整性
     if (!packageData.stripe_price_id) {
       return createErrorResponse(Errors.business('套餐尚未配置 Stripe 价格', 'PACKAGE_NOT_CONFIGURED'));
     }
 
-    // 价格验证：防止前端价格篡改
-    const EXPECTED_PRICES: Record<string, number> = {
-      'cancer-initial-consultation': 221000,
-      'cancer-remote-consultation': 243000,
-    };
-
-    if (EXPECTED_PRICES[packageSlug] && packageData.price_jpy !== EXPECTED_PRICES[packageSlug]) {
-      console.error(`[Security] Price mismatch for package ${packageSlug}: expected ${EXPECTED_PRICES[packageSlug]}, got ${packageData.price_jpy}`);
-      logError(normalizeError(new Error('Price mismatch')), {
+    // 价格验证：使用数据库作为唯一权威源
+    // 任何价格不一致都视为数据库配置问题或攻击
+    if (!packageData.price_jpy || packageData.price_jpy <= 0) {
+      console.error(`[Security] Invalid package price in database: ${packageSlug}, price: ${packageData.price_jpy}`);
+      logError(normalizeError(new Error('Invalid package price')), {
         path: '/api/create-checkout-session',
         method: 'POST',
-        context: 'price_verification',
+        context: 'price_validation',
         packageSlug,
-        expected: String(EXPECTED_PRICES[packageSlug]),
-        actual: String(packageData.price_jpy)
+        price: String(packageData.price_jpy || 0)
       });
-      return createErrorResponse(Errors.internal('套餐价格异常，请联系管理员'));
+      return createErrorResponse(Errors.internal('套餐价格配置异常，请联系管理员'));
+    }
+
+    // 验证套餐是否启用
+    if (!packageData.is_active) {
+      console.warn(`[Security] Attempt to purchase inactive package: ${packageSlug}`);
+      return createErrorResponse(Errors.business('该套餐暂时不可用', 'PACKAGE_INACTIVE'));
     }
 
     // 2. 创建或获取客户记录

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import PublicLayout from '@/components/PublicLayout';
+import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 import {
   ArrowLeft, CheckCircle, FileText, Shield, Clock,
   Loader2, CreditCard, Users, Phone, Video, MessageSquare
@@ -114,9 +115,9 @@ const pageTranslations = {
 };
 
 const SERVICE_INFO = {
-  id: 'cancer-remote-consultation',
-  slug: 'cancer-remote-consultation',
-  price: 243000,
+  id: MEDICAL_PACKAGES['cancer-remote-consultation'].slug,
+  slug: MEDICAL_PACKAGES['cancer-remote-consultation'].slug,
+  price: MEDICAL_PACKAGES['cancer-remote-consultation'].priceJpy,
 };
 
 export default function RemoteConsultationPage() {

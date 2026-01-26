@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import PublicLayout from '@/components/PublicLayout';
+import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 import {
   ArrowLeft, CheckCircle, FileText, Shield, Clock,
   Loader2, CreditCard, Users, Phone, Mail, MessageSquare
@@ -101,9 +102,9 @@ const pageTranslations = {
 };
 
 const SERVICE_INFO = {
-  id: 'cancer-initial-consultation',
-  slug: 'cancer-initial-consultation',
-  price: 221000,
+  id: MEDICAL_PACKAGES['cancer-initial-consultation'].slug,
+  slug: MEDICAL_PACKAGES['cancer-initial-consultation'].slug,
+  price: MEDICAL_PACKAGES['cancer-initial-consultation'].priceJpy,
 };
 
 export default function InitialConsultationPage() {

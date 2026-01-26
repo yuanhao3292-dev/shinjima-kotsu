@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import PublicLayout from '@/components/PublicLayout';
 import Logo from '@/components/Logo';
+import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 import {
   ArrowLeft, ArrowRight, CheckCircle, Shield, Heart, Activity,
   Zap, Brain, Target, Microscope, Dna, Syringe, Stethoscope,
@@ -80,23 +81,43 @@ const pageTranslations = {
   wechatScan: { ja: 'QRコードをスキャンして追加', 'zh-TW': '掃描二維碼添加客服微信', 'zh-CN': '扫描二维码添加客服微信', en: 'Scan QR code to add us' } as Record<Language, string>,
   wechatNote: { ja: '追加後「がん治療相談」とお伝えください', 'zh-TW': '添加後請注明：癌症治療諮詢', 'zh-CN': '添加后请注明：癌症治疗咨询', en: 'Please note: Cancer treatment consultation' } as Record<Language, string>,
 };
-// 咨询服务产品定义
+// 咨询服务产品定义（使用统一配置）
 const CONSULTATION_SERVICES = {
   initial: {
-    id: 'cancer-initial-consultation',
-    slug: 'cancer-initial-consultation',
-    name: { ja: '初期相談サービス', 'zh-TW': '前期諮詢服務', 'zh-CN': '前期咨询服务', en: 'Initial Consultation' } as Record<Language, string>,
-    nameEn: 'Initial Consultation',
-    price: 221000,
-    description: { ja: '資料翻訳・病院相談・治療プラン初期評価', 'zh-TW': '資料翻譯、醫院諮詢、治療方案初步評估', 'zh-CN': '资料翻译、医院咨询、治疗方案初步评估', en: 'Document translation, hospital consultation, initial treatment assessment' } as Record<Language, string>,
+    id: MEDICAL_PACKAGES['cancer-initial-consultation'].slug,
+    slug: MEDICAL_PACKAGES['cancer-initial-consultation'].slug,
+    name: {
+      ja: MEDICAL_PACKAGES['cancer-initial-consultation'].nameJa,
+      'zh-TW': MEDICAL_PACKAGES['cancer-initial-consultation'].nameZhTw,
+      'zh-CN': MEDICAL_PACKAGES['cancer-initial-consultation'].nameZhTw,
+      en: MEDICAL_PACKAGES['cancer-initial-consultation'].nameEn
+    } as Record<Language, string>,
+    nameEn: MEDICAL_PACKAGES['cancer-initial-consultation'].nameEn,
+    price: MEDICAL_PACKAGES['cancer-initial-consultation'].priceJpy,
+    description: {
+      ja: '資料翻訳・病院相談・治療プラン初期評価',
+      'zh-TW': MEDICAL_PACKAGES['cancer-initial-consultation'].descriptionZhTw,
+      'zh-CN': MEDICAL_PACKAGES['cancer-initial-consultation'].descriptionZhTw,
+      en: 'Document translation, hospital consultation, initial treatment assessment'
+    } as Record<Language, string>,
   },
   remote: {
-    id: 'cancer-remote-consultation',
-    slug: 'cancer-remote-consultation',
-    name: { ja: '遠隔診療サービス', 'zh-TW': '遠程會診服務', 'zh-CN': '远程会诊服务', en: 'Remote Consultation' } as Record<Language, string>,
-    nameEn: 'Remote Consultation',
-    price: 243000,
-    description: { ja: '日本の医師とのビデオ診察・治療方針相談・費用概算', 'zh-TW': '與日本醫生遠程視頻會診、討論治療方案、費用概算', 'zh-CN': '与日本医生远程视频会诊、讨论治疗方案、费用概算', en: 'Video consultation with Japanese doctors, treatment planning, cost estimation' } as Record<Language, string>,
+    id: MEDICAL_PACKAGES['cancer-remote-consultation'].slug,
+    slug: MEDICAL_PACKAGES['cancer-remote-consultation'].slug,
+    name: {
+      ja: MEDICAL_PACKAGES['cancer-remote-consultation'].nameJa,
+      'zh-TW': MEDICAL_PACKAGES['cancer-remote-consultation'].nameZhTw,
+      'zh-CN': MEDICAL_PACKAGES['cancer-remote-consultation'].nameZhTw,
+      en: MEDICAL_PACKAGES['cancer-remote-consultation'].nameEn
+    } as Record<Language, string>,
+    nameEn: MEDICAL_PACKAGES['cancer-remote-consultation'].nameEn,
+    price: MEDICAL_PACKAGES['cancer-remote-consultation'].priceJpy,
+    description: {
+      ja: '日本の医師とのビデオ診察・治療方針相談・費用概算',
+      'zh-TW': MEDICAL_PACKAGES['cancer-remote-consultation'].descriptionZhTw,
+      'zh-CN': MEDICAL_PACKAGES['cancer-remote-consultation'].descriptionZhTw,
+      en: 'Video consultation with Japanese doctors, treatment planning, cost estimation'
+    } as Record<Language, string>,
   },
 };
 // 治疗流程步骤数据

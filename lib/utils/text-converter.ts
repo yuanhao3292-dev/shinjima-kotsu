@@ -226,11 +226,9 @@ class LRUCache {
 // 创建全局缓存实例
 const conversionCache = new LRUCache(1000);
 
-// 性能优化：使用正则表达式一次性替换所有字符
-const traditionalCharsRegex = new RegExp(
-  Object.keys(t2sMap).join('|'),
-  'g'
-);
+// 性能优化：使用字符映射替换（比 171 个 alternations 的正则更快）
+// 原方法：regex with 171 alternations - O(n × 171) worst case
+// 新方法：direct character mapping - O(n) with constant-time map lookup
 
 /**
  * 将繁体中文文本转换为简体中文（带缓存）
@@ -249,8 +247,8 @@ export function traditionalToSimplified(text: string | null | undefined): string
   const cached = conversionCache.get(text);
   if (cached !== undefined) return cached;
 
-  // 使用正则表达式一次性替换所有字符
-  const result = text.replace(traditionalCharsRegex, (match) => t2sMap[match] || match);
+  // 使用字符映射进行转换（O(n) 复杂度，每个字符 O(1) 查找）
+  const result = text.split('').map(char => t2sMap[char] || char).join('');
 
   // 存入缓存
   conversionCache.set(text, result);
