@@ -354,7 +354,7 @@ const CHECK_ITEMS: CheckCategory[] = [
   },
 ];
 
-const StatusIcon = ({ status, partialNote, currentLang = 'zh-TW' }: { status: ItemStatus; partialNote?: string; currentLang?: string }) => {
+const StatusIcon = ({ status, partialNote, currentLang = 'zh-TW' }: { status: ItemStatus; partialNote?: string; currentLang?: Language }) => {
   switch (status) {
     case 'included':
       return <Check className="w-5 h-5 text-green-600" />;
@@ -363,7 +363,7 @@ const StatusIcon = ({ status, partialNote, currentLang = 'zh-TW' }: { status: It
     case 'partial':
       return (
         <span className="text-[10px] text-blue-500 font-medium leading-tight text-center">
-          {localizeText('部分', (currentLang || 'ja') as Language)}
+          {localizeText('部分', currentLang)}
         </span>
       );
     case 'none':
