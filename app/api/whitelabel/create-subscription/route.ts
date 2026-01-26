@@ -53,17 +53,30 @@ export async function POST(request: NextRequest) {
     if (!validation.success) return validation.error;
     const { guideId, successUrl, cancelUrl } = validation.data;
 
-    // 获取导游信息
+    // 获取导游信息（包含订阅状态）
+    console.log(`[create-subscription] 查询导游 ID: ${guideId}`);
     const { data: guide, error: guideError } = await supabase
       .from("guides")
-      .select("id, name, email, phone, stripe_customer_id")
+      .select("id, name, email, phone, stripe_customer_id, subscription_status, subscription_id")
       .eq("id", guideId)
       .single();
 
+    console.log(`[create-subscription] 查询结果:`, { guide, guideError });
+
     if (guideError || !guide) {
+      console.error(`[create-subscription] 导游未找到 - ID: ${guideId}, 错误:`, guideError);
       return NextResponse.json(
-        { error: "Guide not found" },
+        { error: "Guide not found", guideId, dbError: guideError?.message },
         { status: 404 }
+      );
+    }
+
+    // ⚠️ 重复付款防护：检查是否已有活跃订阅
+    if (guide.subscription_status === 'active') {
+      console.log(`[create-subscription] 导游 ${guideId} 已有活跃订阅，拒绝创建新订阅`);
+      return NextResponse.json(
+        { error: "您已有活跃的订阅，无需重复订阅。如需管理订阅，请使用「管理订阅」功能。" },
+        { status: 400 }
       );
     }
 

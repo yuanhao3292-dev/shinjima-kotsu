@@ -1,4 +1,14 @@
 {
+  "crons": [
+    {
+      "path": "/api/cron/subscription-reminder",
+      "schedule": "0 9 * * *"
+    },
+    {
+      "path": "/api/cron/reset-quarterly-tiers",
+      "schedule": "0 0 1 1,4,7,10 *"
+    }
+  ],
   "headers": [
     {
       "source": "/api/(.*)",

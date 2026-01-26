@@ -146,3 +146,51 @@ useEffect(() => {
 - ❌ 不要依赖 Google Fonts 为中国用户加载简体中文字体
 - ❌ 不要在 locale-specific CSS 中省略 `!important`（会被 Tailwind 覆盖）
 - ❌ 不要让 zh-CN 回退到日文字体 Noto Sans JP（会导致字形混排）
+
+---
+
+## 🔒 支付模块冻结规范 (Payment Module - LOCKED)
+
+**状态**: 🔒 **永久冻结** (Permanently Locked)
+**生效日期**: 2026-01-26
+**解锁条件**: 仅限用户明确指令
+
+### ⛔ 绝对禁止修改的文件
+
+以下文件未经用户**明确书面指令**，**严禁任何修改**：
+
+| 文件 | 用途 | 冻结级别 |
+|------|------|----------|
+| `app/api/create-checkout-session/route.ts` | Stripe 支付会话创建 | 🔒 LOCKED |
+| `app/api/stripe/webhook-subscription/route.ts` | Stripe 订阅 Webhook | 🔒 LOCKED |
+| `app/api/webhooks/stripe/route.ts` | Stripe 支付 Webhook | 🔒 LOCKED |
+| `app/medical-packages/[slug]/page.tsx` | 医疗套餐详情页（含支付表单） | 🔒 LOCKED |
+| `app/payment/success/page.tsx` | 支付成功页 | 🔒 LOCKED |
+| `app/payment/cancel/page.tsx` | 支付取消页 | 🔒 LOCKED |
+
+### ⛔ 禁止修改的功能
+
+1. **支付流程**: 从「立即下單」按钮到 Stripe Checkout 的完整流程
+2. **价格验证**: `create-checkout-session` 中的价格校验逻辑
+3. **Webhook 处理**: 订单状态更新、幂等性检查
+4. **表单验证**: 支付表单的验证规则
+
+### 解锁流程
+
+如需修改支付相关代码，用户必须明确说明：
+1. "我要修改支付功能"
+2. "解锁支付模块"
+3. "修改 create-checkout-session"
+
+**模糊指令不算**，例如：
+- ❌ "优化一下代码" - 不能触碰支付模块
+- ❌ "修复 bug" - 除非明确指出是支付相关 bug
+- ❌ "重构 API" - 不能包含支付 API
+
+### 冻结原因
+
+支付功能涉及真实金钱交易，任何未经授权的修改可能导致：
+- 订单丢失
+- 重复扣款
+- 价格错误
+- 法律风险

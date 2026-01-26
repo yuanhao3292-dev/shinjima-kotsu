@@ -39,3 +39,8 @@ out/
 *.backup
 *.bak
 *~
+
+# Env check files (may contain secrets)
+.env.check
+.env.production.check
+.env*.check

@@ -75,11 +75,12 @@ export default function GuidePartnerTermsPage() {
 
               <div className="bg-gray-50 rounded-lg p-4">
                 <h4 className="font-bold text-gray-800 mb-2">介紹報酬等級</h4>
+                <p className="text-sm text-gray-500 mb-3">※ 每季度重新計算等級（1-3月、4-6月、7-9月、10-12月）</p>
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b">
                       <th className="text-left py-2">等級</th>
-                      <th className="text-left py-2">累計介紹業績</th>
+                      <th className="text-left py-2">季度累計業績</th>
                       <th className="text-left py-2">報酬率</th>
                     </tr>
                   </thead>
@@ -91,17 +92,17 @@ export default function GuidePartnerTermsPage() {
                     </tr>
                     <tr className="border-b">
                       <td className="py-2">銀牌夥伴</td>
-                      <td className="py-2">100萬 - 500萬日元</td>
+                      <td className="py-2">100萬 - 300萬日元</td>
                       <td className="py-2 font-medium text-gray-500">12%</td>
                     </tr>
                     <tr className="border-b">
                       <td className="py-2">金牌夥伴</td>
-                      <td className="py-2">500萬 - 2000萬日元</td>
+                      <td className="py-2">300萬 - 500萬日元</td>
                       <td className="py-2 font-medium text-yellow-600">15%</td>
                     </tr>
                     <tr>
                       <td className="py-2">鑽石夥伴</td>
-                      <td className="py-2">2000萬日元以上</td>
+                      <td className="py-2">500萬日元以上</td>
                       <td className="py-2 font-medium text-blue-600">20%</td>
                     </tr>
                   </tbody>

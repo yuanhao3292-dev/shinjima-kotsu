@@ -240,6 +240,165 @@ export async function sendNewOrderNotificationToMerchant(data: OrderConfirmation
 }
 
 // ============================================
+// 白标订阅成功通知
+// ============================================
+
+interface WhitelabelSubscriptionData {
+  guideEmail: string;
+  guideName: string;
+  subscriptionPlan: string;
+  monthlyPrice: number;
+  whitelabelUrl?: string;
+}
+
+/**
+ * 发送白标订阅成功邮件
+ */
+export async function sendWhitelabelSubscriptionEmail(data: WhitelabelSubscriptionData) {
+  const resend = getResend();
+  if (!resend) {
+    console.log('Email skipped: Resend not configured');
+    return { success: false, error: 'Resend not configured' };
+  }
+
+  const whitelabelSection = data.whitelabelUrl ? `
+    <tr>
+      <td style="padding: 0 30px 30px;">
+        <div style="background-color: #f0fdf4; border-radius: 12px; padding: 20px; border: 1px solid #bbf7d0; text-align: center;">
+          <p style="color: #166534; margin: 0 0 12px; font-size: 14px; font-weight: 600;">🔗 您的专属白标页面</p>
+          <a href="${data.whitelabelUrl}" style="color: #2563eb; font-size: 16px; word-break: break-all;">${data.whitelabelUrl}</a>
+        </div>
+      </td>
+    </tr>
+  ` : '';
+
+  try {
+    const result = await resend.emails.send({
+      from: 'NIIJIMA Partner <partner@niijima-koutsu.jp>',
+      to: data.guideEmail,
+      bcc: BCC_EMAIL,
+      subject: `🎉 白标页面订阅成功 - NIIJIMA 导游合伙人`,
+      html: `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; background-color: #f0f9ff; font-family: 'Helvetica Neue', Arial, sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f0f9ff; padding: 40px 20px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+
+          <!-- Header -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%); padding: 40px 30px; text-align: center;">
+              <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 600;">NIIJIMA</h1>
+              <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0; font-size: 16px;">Guide Partner Program</p>
+            </td>
+          </tr>
+
+          <!-- Success Icon -->
+          <tr>
+            <td style="padding: 40px 30px 20px; text-align: center;">
+              <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border-radius: 50%; display: inline-block; line-height: 80px;">
+                <span style="font-size: 40px;">🎉</span>
+              </div>
+              <h2 style="color: #166534; margin: 20px 0 10px; font-size: 28px;">订阅成功！</h2>
+              <p style="color: #6b7280; margin: 0; font-size: 16px;">${data.guideName}，您好</p>
+            </td>
+          </tr>
+
+          <!-- Message -->
+          <tr>
+            <td style="padding: 0 30px 30px; text-align: center;">
+              <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0;">
+                恭喜您成功订阅白标页面服务！<br />
+                现在可以开始设置您的专属品牌页面，向客户展示您的服务了。
+              </p>
+            </td>
+          </tr>
+
+          <!-- Subscription Details -->
+          <tr>
+            <td style="padding: 0 30px 30px;">
+              <div style="background-color: #f8fafc; border-radius: 12px; padding: 24px; border: 1px solid #e2e8f0;">
+                <h3 style="color: #1e293b; margin: 0 0 16px; font-size: 16px; font-weight: 600;">📋 订阅详情</h3>
+
+                <table width="100%" style="font-size: 14px;">
+                  <tr>
+                    <td style="color: #64748b; padding: 8px 0;">订阅套餐</td>
+                    <td style="color: #1e293b; text-align: right; font-weight: 600;">${data.subscriptionPlan}</td>
+                  </tr>
+                  <tr>
+                    <td style="color: #64748b; padding: 8px 0;">订阅费用</td>
+                    <td style="color: #2563eb; text-align: right; font-weight: 600; font-size: 18px;">¥${data.monthlyPrice.toLocaleString()}/月</td>
+                  </tr>
+                  <tr>
+                    <td style="color: #64748b; padding: 8px 0;">订阅状态</td>
+                    <td style="text-align: right;"><span style="background-color: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">已激活</span></td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+
+          ${whitelabelSection}
+
+          <!-- Next Steps -->
+          <tr>
+            <td style="padding: 0 30px 30px;">
+              <div style="background-color: #eff6ff; border-radius: 12px; padding: 24px; border: 1px solid #bfdbfe;">
+                <h3 style="color: #1e40af; margin: 0 0 16px; font-size: 16px; font-weight: 600;">🚀 接下来的步骤</h3>
+                <ol style="color: #475569; margin: 0; padding-left: 20px; line-height: 2; font-size: 14px;">
+                  <li>设置您的 <strong>URL 标识</strong>（例如：bespoketrip.jp/p/your-name）</li>
+                  <li>自定义 <strong>品牌名称</strong> 和 <strong>品牌颜色</strong></li>
+                  <li>添加您的 <strong>联系方式</strong>（微信、LINE、电话）</li>
+                  <li>将白标链接分享给您的客户</li>
+                </ol>
+              </div>
+            </td>
+          </tr>
+
+          <!-- CTA -->
+          <tr>
+            <td style="padding: 0 30px 30px; text-align: center;">
+              <a href="https://niijima-koutsu.jp/guide-partner/whitelabel" style="display: inline-block; background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%); color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
+                设置我的白标页面
+              </a>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #1e293b; padding: 30px; text-align: center;">
+              <p style="color: #94a3b8; margin: 0 0 8px; font-size: 14px; font-weight: 600;">新島交通株式会社</p>
+              <p style="color: #64748b; margin: 0; font-size: 12px;">Guide Partner Program</p>
+              <p style="color: #475569; margin: 16px 0 0; font-size: 11px;">
+                此邮件由系统自动发送，请勿直接回复
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+      `,
+    });
+
+    console.log('Whitelabel subscription email sent:', result);
+    return { success: true, data: result };
+  } catch (error: any) {
+    console.error('Failed to send whitelabel subscription email:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+// ============================================
 // 導遊合夥人佣金通知
 // ============================================
 

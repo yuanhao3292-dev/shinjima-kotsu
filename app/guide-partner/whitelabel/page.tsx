@@ -45,8 +45,10 @@ export default function WhiteLabelSettingsPage() {
   const [guide, setGuide] = useState<GuideWhiteLabelData | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [subscribing, setSubscribing] = useState(false);  // 订阅按钮 loading 状态
   const [copied, setCopied] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   // 表单状态
   const [formData, setFormData] = useState({
@@ -74,15 +76,77 @@ export default function WhiteLabelSettingsPage() {
     // 检查订阅状态参数
     const subscriptionStatus = searchParams.get('subscription');
     if (subscriptionStatus === 'success') {
-      setMessage({ type: 'success', text: '订阅成功！您的白标页面已激活。' });
+      // 付款成功后，主动同步订阅状态（Webhook 可能延迟）
+      syncSubscriptionStatus();
+      setShowSuccessModal(true);
+      // 清除 URL 参数，避免刷新时重复显示
+      window.history.replaceState({}, '', '/guide-partner/whitelabel');
     } else if (subscriptionStatus === 'cancelled') {
       setMessage({ type: 'error', text: '订阅已取消。' });
     }
   }, [searchParams]);
 
+  // 从 Stripe 同步订阅状态（Webhook 备用机制）
+  const syncSubscriptionStatus = async () => {
+    if (!guide?.id) {
+      // 如果 guide 还没加载，等待加载后再同步
+      const checkAndSync = async () => {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
+
+        const { data: guideData } = await supabase
+          .from('guides')
+          .select('id')
+          .eq('auth_user_id', user.id)
+          .single();
+
+        if (guideData?.id) {
+          try {
+            await fetch('/api/whitelabel/sync-subscription', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ guideId: guideData.id }),
+            });
+            // 同步后重新加载数据
+            loadGuideData();
+          } catch (error) {
+            console.error('订阅状态同步失败:', error);
+          }
+        }
+      };
+      checkAndSync();
+      return;
+    }
+
+    try {
+      await fetch('/api/whitelabel/sync-subscription', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ guideId: guide.id }),
+      });
+      // 同步后重新加载数据
+      loadGuideData();
+    } catch (error) {
+      console.error('订阅状态同步失败:', error);
+    }
+  };
+
+  // ESC 键关闭弹窗
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && showSuccessModal) {
+        setShowSuccessModal(false);
+        loadGuideData();
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [showSuccessModal]);
+
   const loadGuideData = async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
+      console.log('[loadGuideData] 当前用户:', user?.id, user?.email);
       if (!user) {
         router.push('/guide-partner/login');
         return;
@@ -99,7 +163,12 @@ export default function WhiteLabelSettingsPage() {
         .eq('auth_user_id', user.id)
         .single();
 
+      console.log('[loadGuideData] 导游数据:', guideData);
+      console.log('[loadGuideData] subscription_status:', guideData?.subscription_status);
+      console.log('[loadGuideData] 查询错误:', error);
+
       if (error || !guideData) {
+        console.error('[loadGuideData] 未找到导游，跳转登录');
         router.push('/guide-partner/login');
         return;
       }
@@ -169,16 +238,28 @@ export default function WhiteLabelSettingsPage() {
   const handleSubscribe = async () => {
     if (!guide) return;
 
+    // 防止重复点击
+    if (subscribing) return;
+    setSubscribing(true);
+    setMessage(null);
+
+    console.log('[handleSubscribe] 开始订阅，导游信息:', { id: guide.id, name: guide.name });
+
     try {
+      const requestBody = {
+        guideId: guide.id,
+        successUrl: `${window.location.origin}/guide-partner/whitelabel?subscription=success`,
+        cancelUrl: `${window.location.origin}/guide-partner/whitelabel?subscription=cancelled`,
+      };
+      console.log('[handleSubscribe] 发送请求:', requestBody);
+
       const response = await fetch('/api/whitelabel/create-subscription', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          guideId: guide.id,
-          successUrl: `${window.location.origin}/guide-partner/whitelabel?subscription=success`,
-          cancelUrl: `${window.location.origin}/guide-partner/whitelabel?subscription=cancelled`,
-        }),
+        body: JSON.stringify(requestBody),
       });
+
+      console.log('[handleSubscribe] 响应状态:', response.status);
 
       const data = await response.json();
 
@@ -186,9 +267,11 @@ export default function WhiteLabelSettingsPage() {
         window.location.href = data.url;
       } else {
         setMessage({ type: 'error', text: data.error || '创建订阅失败' });
+        setSubscribing(false);
       }
     } catch (error) {
       setMessage({ type: 'error', text: '创建订阅失败，请稍后重试' });
+      setSubscribing(false);
     }
   };
 
@@ -241,6 +324,69 @@ export default function WhiteLabelSettingsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* 订阅成功弹窗 */}
+      {showSuccessModal && (
+        <div
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+          onClick={() => {
+            setShowSuccessModal(false);
+            loadGuideData();
+          }}
+        >
+          <div
+            className="bg-white rounded-2xl max-w-md w-full p-8 text-center animate-in fade-in zoom-in duration-300"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* 成功图标 */}
+            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <CheckCircle2 size={48} className="text-green-600" />
+            </div>
+
+            {/* 标题 */}
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              🎉 订阅成功！
+            </h2>
+
+            {/* 描述 */}
+            <p className="text-gray-600 mb-6">
+              恭喜您！白标页面订阅已激活。<br />
+              现在可以开始设置您的专属品牌页面了。
+            </p>
+
+            {/* 订阅信息 */}
+            <div className="bg-gray-50 rounded-xl p-4 mb-6">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-gray-500">订阅套餐</span>
+                <span className="font-medium">白标页面 - 月度</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-gray-500">订阅费用</span>
+                <span className="font-bold text-blue-600">¥1,980/月</span>
+              </div>
+            </div>
+
+            {/* 提示 */}
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-6 text-left">
+              <p className="text-blue-800 text-sm">
+                <strong>📧 确认邮件已发送</strong><br />
+                我们已向您的注册邮箱发送了订阅确认邮件，请注意查收。
+              </p>
+            </div>
+
+            {/* 按钮 */}
+            <button
+              onClick={() => {
+                setShowSuccessModal(false);
+                loadGuideData(); // 重新加载数据以显示激活状态
+              }}
+              className="w-full py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition"
+            >
+              开始设置白标页面
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <header className="bg-white border-b">
         <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -314,9 +460,11 @@ export default function WhiteLabelSettingsPage() {
               ) : (
                 <button
                   onClick={handleSubscribe}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+                  disabled={subscribing}
+                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                 >
-                  立即订阅
+                  {subscribing && <Loader2 size={16} className="animate-spin" />}
+                  {subscribing ? '处理中...' : '立即订阅'}
                 </button>
               )}
             </div>
@@ -557,9 +705,11 @@ export default function WhiteLabelSettingsPage() {
             </p>
             <button
               onClick={handleSubscribe}
-              className="px-6 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition font-medium"
+              disabled={subscribing}
+              className="px-6 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 mx-auto"
             >
-              立即订阅
+              {subscribing && <Loader2 size={16} className="animate-spin" />}
+              {subscribing ? '处理中...' : '立即订阅'}
             </button>
           </div>
         )}

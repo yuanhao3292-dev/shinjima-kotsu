@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect, memo, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import Logo from './Logo';
 import { translations, Language } from '../translations';
 import { UserProfile } from '../types';
@@ -13,6 +14,7 @@ import TIMCQuoteModal from './TIMCQuoteModal';
 import PublicLayout from './PublicLayout';
 import ContactButtons from './ContactButtons';
 import { useWhiteLabel, useWhiteLabelVisibility } from '@/lib/contexts/WhiteLabelContext';
+import { COMPANY_DATA, type Company } from '@/data/companies';
 import { useCommissionTiers } from '@/lib/hooks/useCommissionTiers';
 import { useSiteImages } from '@/lib/hooks/useSiteImages';
 import { localizeText } from '@/lib/utils/text-converter';
@@ -130,7 +132,6 @@ interface SubViewProps {
   setCurrentPage: (page: PageView) => void;
   onLoginTrigger?: () => void;
   onOpenTIMCQuote?: () => void;
-  onDirectPayment?: (packageSlug: string) => void;
   onOpenPartnerInquiry?: () => void;
   currentLang: Language;
   landingInputText?: string;
@@ -211,7 +212,7 @@ const MedicalTechCard = memo(function MedicalTechCard({
 });
 
 // 使用 React.memo 优化 MedicalView 渲染性能
-const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuote, onDirectPayment, currentLang, getImage }) => (
+const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuote, currentLang, getImage }) => (
   <div className="animate-fade-in-up min-h-screen bg-white">
     {/* 1. Hero Section - Full height with transparent nav overlap */}
     <div className="relative min-h-[85vh] flex items-center overflow-hidden text-white bg-slate-900">
@@ -586,7 +587,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> {t.medical.pkg_vip_item_5}</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> {t.medical.pkg_vip_item_6}</div>
                   </div>
-                  <button onClick={() => onDirectPayment?.('vip')} className="w-full py-2 bg-yellow-500 text-black text-xs font-bold rounded hover:bg-yellow-400 transition text-center block">{t.medical.pkg_consult_btn}</button>
+                  <a href="/medical-packages/vip-member-course" className="w-full py-2 bg-yellow-500 text-black text-xs font-bold rounded hover:bg-yellow-400 transition text-center block">{t.medical.pkg_consult_btn}</a>
               </div>
 
               {/* 2. PREMIUM (Cardiac) */}
@@ -607,7 +608,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> {t.medical.pkg_premium_item_4}</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> {t.medical.pkg_premium_item_5}</div>
                    </div>
-                   <button onClick={() => onDirectPayment?.('premium-cardiac')} className="w-full py-2 border border-blue-200 text-blue-600 text-xs font-bold rounded hover:bg-blue-50 transition text-center block">{t.medical.pkg_consult_btn}</button>
+                   <a href="/medical-packages/premium-cardiac-course" className="w-full py-2 border border-blue-200 text-blue-600 text-xs font-bold rounded hover:bg-blue-50 transition text-center block">{t.medical.pkg_consult_btn}</a>
               </div>
 
               {/* 3. SELECT (Gastro + Colon) */}
@@ -628,7 +629,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> {t.medical.pkg_select_gc_item_4}</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> {t.medical.pkg_select_gc_item_5}</div>
                    </div>
-                   <button onClick={() => onDirectPayment?.('select-gastro-colon')} className="w-full py-2 border border-green-200 text-green-600 text-xs font-bold rounded hover:bg-green-50 transition text-center block">{t.medical.pkg_consult_btn}</button>
+                   <a href="/medical-packages/select-gastro-colonoscopy" className="w-full py-2 border border-green-200 text-green-600 text-xs font-bold rounded hover:bg-green-50 transition text-center block">{t.medical.pkg_consult_btn}</a>
               </div>
 
               {/* 4. SELECT (Stomach only) */}
@@ -649,7 +650,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> {t.medical.pkg_select_g_item_4}</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> {t.medical.pkg_select_g_item_5}</div>
                    </div>
-                   <button onClick={() => onDirectPayment?.('select-gastro')} className="w-full py-2 border border-teal-200 text-teal-600 text-xs font-bold rounded hover:bg-teal-50 transition text-center block">{t.medical.pkg_consult_btn}</button>
+                   <Link href="/medical-packages/select-gastroscopy" className="w-full py-2 border border-teal-200 text-teal-600 text-xs font-bold rounded hover:bg-teal-50 transition text-center block">{t.medical.pkg_consult_btn}</Link>
               </div>
 
               {/* 5. DWIBS */}
@@ -670,7 +671,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> {t.medical.pkg_dwibs_item_4}</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> {t.medical.pkg_dwibs_item_5}</div>
                    </div>
-                   <button onClick={() => onDirectPayment?.('dwibs')} className="w-full py-2 border border-purple-200 text-purple-600 text-xs font-bold rounded hover:bg-purple-50 transition text-center block">{t.medical.pkg_consult_btn}</button>
+                   <Link href="/medical-packages/dwibs-cancer-screening" className="w-full py-2 border border-purple-200 text-purple-600 text-xs font-bold rounded hover:bg-purple-50 transition text-center block">{t.medical.pkg_consult_btn}</Link>
               </div>
 
               {/* 6. BASIC */}
@@ -691,7 +692,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> {t.medical.pkg_basic_item_4}</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> {t.medical.pkg_basic_item_5}</div>
                    </div>
-                   <button onClick={() => onDirectPayment?.('basic')} className="w-full py-2 border border-gray-300 text-gray-600 text-xs font-bold rounded hover:bg-gray-100 transition text-center block">{t.medical.pkg_consult_btn}</button>
+                   <Link href="/medical-packages/basic-checkup" className="w-full py-2 border border-gray-300 text-gray-600 text-xs font-bold rounded hover:bg-gray-100 transition text-center block">{t.medical.pkg_consult_btn}</Link>
               </div>
 
           </div>
@@ -705,7 +706,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           </div>
           <div className="max-w-7xl mx-auto px-4">
               <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-                  <PackageComparisonTable onBookNow={onDirectPayment} currentLang={currentLang} />
+                  <PackageComparisonTable currentLang={currentLang} />
               </div>
           </div>
       </div>
@@ -1316,111 +1317,29 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
       ctaSubtitle: localizeText('專業行程定制・企業參訪安排・全程翻譯陪同', currentLang),
    }), [currentLang]);
 
-   // ⚡ 性能优化：缓存所有企业数据的翻译结果（避免在 map 循环中重复调用 localizeText）
-   // 将 300+ 次循环内调用改为预先缓存，性能提升显著
+   // ⚡ 性能优化：缓存所有企业数据的翻译结果
+   // 数据源：@/data/companies.ts（数据与视图分离）
    const localizedCompanies = useMemo(() => {
-      // 辅助函数：批量本地化公司数据
-      const localizeCompanies = (companies: Array<{name: string; nameEn: string; desc: string; url: string; location: string}>) =>
+      const localizeCompanies = (companies: Company[]) =>
          companies.map(c => ({
             name: localizeText(c.name, currentLang),
-            nameEn: c.nameEn, // 英文名不需要翻译
+            nameEn: c.nameEn,
             desc: localizeText(c.desc, currentLang),
             url: c.url,
             location: localizeText(c.location, currentLang),
          }));
 
       return {
-         automotive: localizeCompanies([
-            { name: '豐田產業技術紀念館', nameEn: 'Toyota Commemorative Museum', desc: '豐田生產方式(TPS)與改善哲學的聖地', url: 'https://www.tcmit.org/', location: '名古屋' },
-            { name: '豐田汽車', nameEn: 'Toyota Motor Corporation', desc: '全球最大汽車製造商・混合動力先驅', url: 'https://www.toyota.co.jp/', location: '愛知' },
-            { name: '本田技研工業', nameEn: 'Honda Motor', desc: '摩托車世界第一・ASIMO機器人', url: 'https://www.honda.co.jp/', location: '東京' },
-            { name: '日產汽車', nameEn: 'Nissan Motor', desc: '電動車先驅・ProPILOT自動駕駛', url: 'https://www.nissan.co.jp/', location: '橫濱' },
-            { name: '馬自達', nameEn: 'Mazda Motor', desc: '創馳藍天技術・轉子引擎傳奇', url: 'https://www.mazda.co.jp/', location: '廣島' },
-            { name: '斯巴魯', nameEn: 'Subaru Corporation', desc: '水平對臥引擎・EyeSight安全系統', url: 'https://www.subaru.co.jp/', location: '群馬' },
-            { name: '三菱汽車', nameEn: 'Mitsubishi Motors', desc: '四輪驅動技術・電動車戰略', url: 'https://www.mitsubishi-motors.co.jp/', location: '東京' },
-            { name: '鈴木汽車', nameEn: 'Suzuki Motor', desc: '輕型車世界領導者・印度市場霸主', url: 'https://www.suzuki.co.jp/', location: '靜岡' },
-            { name: '電裝', nameEn: 'DENSO', desc: '汽車零件世界第二・ADAS先進駕駛', url: 'https://www.denso.com/jp/ja/', location: '愛知' },
-            { name: '愛信精機', nameEn: 'Aisin Corporation', desc: '變速箱世界頂級・豐田集團核心', url: 'https://www.aisin.com/', location: '愛知' },
-         ]),
-         electronics: localizeCompanies([
-            { name: '索尼', nameEn: 'SONY', desc: '影像感測器世界第一・娛樂帝國', url: 'https://www.sony.com/ja/', location: '東京' },
-            { name: '東京威力科創', nameEn: 'Tokyo Electron', desc: '半導體製造設備世界前三', url: 'https://www.tel.co.jp/', location: '東京' },
-            { name: '村田製作所', nameEn: 'Murata Manufacturing', desc: '電子元件世界龍頭・MLCC霸主', url: 'https://www.murata.com/ja-jp', location: '京都' },
-            { name: '京瓷', nameEn: 'KYOCERA', desc: '精密陶瓷・太陽能・稻盛哲學', url: 'https://www.kyocera.co.jp/', location: '京都' },
-            { name: '日本電產', nameEn: 'Nidec Corporation', desc: '精密馬達世界第一・永守經營學', url: 'https://www.nidec.com/ja-JP/', location: '京都' },
-            { name: '羅姆半導體', nameEn: 'ROHM Semiconductor', desc: 'SiC功率半導體領導者', url: 'https://www.rohm.co.jp/', location: '京都' },
-            { name: 'TDK', nameEn: 'TDK Corporation', desc: '電子材料・感測器・電池技術', url: 'https://www.tdk.com/ja/', location: '東京' },
-            { name: '瑞薩電子', nameEn: 'Renesas Electronics', desc: '車用MCU世界第一・IoT解決方案', url: 'https://www.renesas.com/jp/ja', location: '東京' },
-            { name: '迪思科', nameEn: 'DISCO Corporation', desc: '半導體切割研磨設備世界第一', url: 'https://www.disco.co.jp/', location: '東京' },
-            { name: '愛德萬測試', nameEn: 'Advantest', desc: '半導體測試設備世界領導者', url: 'https://www.advantest.com/ja/', location: '東京' },
-         ]),
-         precision: localizeCompanies([
-            { name: '發那科', nameEn: 'FANUC', desc: '工業機器人世界第一・CNC控制器', url: 'https://www.fanuc.co.jp/', location: '山梨' },
-            { name: '安川電機', nameEn: 'Yaskawa Electric', desc: '伺服馬達・變頻器・機器人', url: 'https://www.yaskawa.co.jp/', location: '福岡' },
-            { name: 'DMG森精機', nameEn: 'DMG MORI', desc: '工具機世界頂尖・5軸加工技術', url: 'https://www.dmgmori.co.jp/', location: '名古屋' },
-            { name: '基恩斯', nameEn: 'KEYENCE', desc: 'FA感測器・營業利益率50%傳奇', url: 'https://www.keyence.co.jp/', location: '大阪' },
-            { name: '不二越', nameEn: 'Nachi-Fujikoshi', desc: '工業機器人・軸承・工具機', url: 'https://www.nachi-fujikoshi.co.jp/', location: '富山' },
-            { name: '歐姆龍', nameEn: 'OMRON', desc: 'FA控制器・感測器・自動化解決方案', url: 'https://www.omron.co.jp/', location: '京都' },
-            { name: '三菱電機', nameEn: 'Mitsubishi Electric', desc: 'FA系統・電梯・空調・衛星', url: 'https://www.mitsubishielectric.co.jp/', location: '東京' },
-            { name: '日立製作所', nameEn: 'Hitachi', desc: '社會基礎設施・IT・能源系統', url: 'https://www.hitachi.co.jp/', location: '東京' },
-            { name: '三菱重工業', nameEn: 'Mitsubishi Heavy Industries', desc: '航空航天・能源・造船重工', url: 'https://www.mhi.com/jp/', location: '東京' },
-         ]),
-         medical: localizeCompanies([
-            { name: '奧林巴斯', nameEn: 'Olympus', desc: '內視鏡世界市佔率70%', url: 'https://www.olympus.co.jp/', location: '東京' },
-            { name: '泰爾茂', nameEn: 'Terumo', desc: '醫療器材・血液製品・心血管', url: 'https://www.terumo.co.jp/', location: '東京' },
-            { name: '朝日英達', nameEn: 'Asahi Intecc', desc: '導管導絲・微創醫療器材', url: 'https://www.asahi-intecc.co.jp/', location: '愛知' },
-            { name: '日本光電', nameEn: 'Nihon Kohden', desc: '生理機能檢查設備・AED', url: 'https://www.nihonkohden.co.jp/', location: '東京' },
-            { name: '島津製作所', nameEn: 'Shimadzu Corporation', desc: '分析儀器・醫療診斷設備', url: 'https://www.shimadzu.co.jp/', location: '京都' },
-         ]),
-         appliances: localizeCompanies([
-            { name: '大金工業', nameEn: 'Daikin Industries', desc: '空調世界第一・熱泵技術', url: 'https://www.daikin.co.jp/', location: '大阪' },
-            { name: '夏普', nameEn: 'Sharp', desc: '液晶技術・鴻海集團旗下', url: 'https://jp.sharp/', location: '大阪' },
-            { name: '百樂', nameEn: 'PILOT', desc: '書寫工具世界品牌・摩擦筆', url: 'https://www.pilot.co.jp/', location: '東京' },
-            { name: '卡西歐', nameEn: 'CASIO', desc: '電子計算機・手錶・電子樂器', url: 'https://www.casio.co.jp/', location: '東京' },
-            { name: '佳能', nameEn: 'Canon', desc: '相機・影印機・醫療設備', url: 'https://global.canon/', location: '東京' },
-            { name: '尼康', nameEn: 'Nikon', desc: '光學・精密設備・半導體曝光機', url: 'https://www.nikon.co.jp/', location: '東京' },
-            { name: '精工愛普生', nameEn: 'Seiko Epson', desc: '印表機・投影機・機器人', url: 'https://www.epson.jp/', location: '長野' },
-         ]),
-         retail: localizeCompanies([
-            { name: '高島屋', nameEn: 'Takashimaya', desc: '百貨公司・日本款待服務', url: 'https://www.takashimaya.co.jp/', location: '大阪' },
-            { name: '三越伊勢丹', nameEn: 'Isetan Mitsukoshi', desc: '百貨龍頭・顧客服務標竿', url: 'https://www.mistore.jp/', location: '東京' },
-            { name: '唐吉訶德', nameEn: 'Don Quijote', desc: '折扣店・24小時・觀光客人氣', url: 'https://www.donki.com/', location: '全國' },
-            { name: '宜得利', nameEn: 'NITORI', desc: '家居用品・製造零售一體化', url: 'https://www.nitori.co.jp/', location: '北海道' },
-            { name: '無印良品', nameEn: 'MUJI / Ryohin Keikaku', desc: '簡約生活・永續發展・全球展店', url: 'https://www.ryohin-keikaku.jp/', location: '東京' },
-         ]),
-         hospitality: localizeCompanies([
-            { name: '星野集團', nameEn: 'Hoshino Resorts', desc: '日本頂級度假村・虹夕諾雅品牌', url: 'https://www.hoshinoresorts.com/', location: '長野' },
-            { name: '東急飯店', nameEn: 'Tokyu Hotels', desc: '都市型飯店・商務服務', url: 'https://www.tokyuhotels.co.jp/', location: '全國' },
-            { name: 'APA飯店', nameEn: 'APA Hotels', desc: '商務飯店連鎖・效率經營', url: 'https://www.apahotel.com/', location: '全國' },
-            { name: '東橫INN', nameEn: 'Toyoko Inn', desc: '經濟型商務飯店・標準化經營', url: 'https://www.toyoko-inn.com/', location: '全國' },
-            { name: '加賀屋', nameEn: 'Kagaya', desc: '日本第一溫泉旅館・極致款待', url: 'https://www.kagaya.co.jp/', location: '石川' },
-            { name: '界', nameEn: 'Kai (Hoshino)', desc: '星野旗下・地域特色溫泉旅館', url: 'https://kai-ryokan.jp/', location: '全國' },
-         ]),
-         food: localizeCompanies([
-            { name: '養樂多', nameEn: 'Yakult', desc: '乳酸菌飲料・腸道健康科學', url: 'https://www.yakult.co.jp/', location: '東京' },
-            { name: '可果美', nameEn: 'Kagome', desc: '番茄加工・蔬菜飲料領導者', url: 'https://www.kagome.co.jp/', location: '愛知' },
-            { name: '龜甲萬', nameEn: 'Kikkoman', desc: '醬油世界品牌・發酵技術', url: 'https://www.kikkoman.com/', location: '千葉' },
-            { name: '明治控股', nameEn: 'Meiji Holdings', desc: '乳製品・巧克力・製藥', url: 'https://www.meiji.com/', location: '東京' },
-            { name: '森永製菓', nameEn: 'Morinaga', desc: '糖果・巧克力・健康食品', url: 'https://www.morinaga.co.jp/', location: '東京' },
-         ]),
-         logistics: localizeCompanies([
-            { name: 'JR東日本', nameEn: 'JR East', desc: '新幹線・站前開發・Suica', url: 'https://www.jreast.co.jp/', location: '東京' },
-            { name: 'JR西日本', nameEn: 'JR West', desc: '關西鐵道網・觀光列車', url: 'https://www.westjr.co.jp/', location: '大阪' },
-            { name: '全日空', nameEn: 'ANA', desc: '日本最大航空・星空聯盟', url: 'https://www.ana.co.jp/', location: '東京' },
-            { name: '日本航空', nameEn: 'JAL', desc: '日本航空・寰宇一家', url: 'https://www.jal.co.jp/', location: '東京' },
-            { name: '日本郵船', nameEn: 'NYK Line', desc: '海運・物流・郵輪', url: 'https://www.nyk.com/', location: '東京' },
-            { name: '商船三井', nameEn: 'MOL', desc: '國際海運・LNG運輸', url: 'https://www.mol.co.jp/', location: '東京' },
-         ]),
-         tech: localizeCompanies([
-            { name: '軟銀集團', nameEn: 'SoftBank Group', desc: 'ARM收購・願景基金・AI投資', url: 'https://www.softbank.jp/', location: '東京' },
-            { name: '樂天', nameEn: 'Rakuten', desc: '電商・金融・通訊一體化生態系', url: 'https://www.rakuten.co.jp/', location: '東京' },
-            { name: 'LINE', nameEn: 'LINE Corporation', desc: '日本第一通訊APP・韓國Naver旗下', url: 'https://linecorp.com/ja/', location: '東京' },
-            { name: 'DeNA', nameEn: 'DeNA', desc: '手遊・AI・橫濱棒球隊', url: 'https://dena.com/', location: '東京' },
-            { name: 'CyberAgent', nameEn: 'CyberAgent', desc: 'ABEMA・廣告・遊戲', url: 'https://www.cyberagent.co.jp/', location: '東京' },
-            { name: '富士通', nameEn: 'Fujitsu', desc: 'IT服務・超級電腦・量子計算', url: 'https://www.fujitsu.com/jp/', location: '東京' },
-            { name: 'NEC', nameEn: 'NEC Corporation', desc: '5G・AI・生物識別', url: 'https://jpn.nec.com/', location: '東京' },
-            { name: 'GMO網路', nameEn: 'GMO Internet', desc: '網域・雲端・金融科技', url: 'https://www.gmo.jp/', location: '東京' },
-         ]),
+         automotive: localizeCompanies(COMPANY_DATA.automotive),
+         electronics: localizeCompanies(COMPANY_DATA.electronics),
+         precision: localizeCompanies(COMPANY_DATA.precision),
+         medical: localizeCompanies(COMPANY_DATA.medical),
+         appliances: localizeCompanies(COMPANY_DATA.appliances),
+         retail: localizeCompanies(COMPANY_DATA.retail),
+         hospitality: localizeCompanies(COMPANY_DATA.hospitality),
+         food: localizeCompanies(COMPANY_DATA.food),
+         logistics: localizeCompanies(COMPANY_DATA.logistics),
+         tech: localizeCompanies(COMPANY_DATA.tech),
       };
    }, [currentLang]);
 
@@ -2705,19 +2624,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
   // State for TIMC Quote Modal
   const [showTIMCQuoteModal, setShowTIMCQuoteModal] = useState(false);
 
-  // State for Medical Payment Flow
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const [selectedPackageSlug, setSelectedPackageSlug] = useState('');
-  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
-  const [paymentCustomerInfo, setPaymentCustomerInfo] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    preferredDate: '',
-    preferredTime: 'morning',
-    notes: ''
-  });
-
   // Toast notification state
   const [toast, setToast] = useState<{
     show: boolean;
@@ -2810,87 +2716,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
     }
   }, [searchParams]);
 
-  // 处理医疗套餐支付流程
-  const handleDirectPayment = (packageSlug: string) => {
-    setSelectedPackageSlug(packageSlug);
-    setShowPaymentModal(true);
-  };
-
-  const handlePaymentSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // 使用统一的验证函数
-    const validationResult = validatePaymentForm({
-      name: paymentCustomerInfo.name,
-      email: paymentCustomerInfo.email,
-      phone: paymentCustomerInfo.phone,
-      preferredDate: paymentCustomerInfo.preferredDate,
-      notes: paymentCustomerInfo.notes,
-    });
-
-    if (!validationResult.isValid) {
-      // 根据错误类型显示国际化的错误消息
-      const errorKey = validationResult.error || '';
-      let errorMessage = t.medical.payment_error_generic || 'Validation failed';
-
-      if (errorKey.includes('Name is required')) {
-        errorMessage = t.medical.validation_name_required || errorKey;
-      } else if (errorKey.includes('too short')) {
-        errorMessage = t.medical.validation_name_too_short || errorKey;
-      } else if (errorKey.includes('too long') && errorKey.includes('Name')) {
-        errorMessage = t.medical.validation_name_too_long || errorKey;
-      } else if (errorKey.includes('Email is required')) {
-        errorMessage = t.medical.validation_email_required || errorKey;
-      } else if (errorKey.includes('Invalid email')) {
-        errorMessage = t.medical.validation_email_invalid || errorKey;
-      } else if (errorKey.includes('Invalid phone')) {
-        errorMessage = t.medical.validation_phone_invalid || errorKey;
-      } else if (errorKey.includes('future')) {
-        errorMessage = t.medical.validation_date_past || errorKey;
-      } else if (errorKey.includes('too long') && errorKey.includes('Notes')) {
-        errorMessage = t.medical.validation_notes_too_long || errorKey;
-      }
-
-      showToast(errorMessage, 'error');
-      return;
-    }
-
-    setIsProcessingPayment(true);
-
-    try {
-      const response = await fetch('/api/create-checkout-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          packageSlug: selectedPackageSlug,
-          customerInfo: {
-            name: paymentCustomerInfo.name.trim(),
-            email: paymentCustomerInfo.email.trim(),
-            phone: paymentCustomerInfo.phone?.trim() || undefined,
-          },
-          preferredDate: paymentCustomerInfo.preferredDate || undefined,
-          preferredTime: paymentCustomerInfo.preferredTime || undefined,
-          notes: paymentCustomerInfo.notes?.trim() || undefined,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Payment failed');
-      }
-
-      // 跳转到 Stripe 支付页面
-      window.location.href = data.url;
-    } catch (error: any) {
-      console.error('Payment error:', error);
-      // 不显示具体的错误消息，避免泄露系统信息
-      showToast(t.medical.payment_error_generic || 'Payment processing failed. Please try again later.', 'error');
-    } finally {
-      setIsProcessingPayment(false);
-    }
-  };
-
   const handleAuthSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!authFormData.companyName.trim() || !authFormData.email.trim() || !authFormData.contactPerson.trim()) {
@@ -2979,7 +2804,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
               imagesLoading={imagesLoading}
             />
           )}
-          {currentPage === 'medical' && <MedicalView t={t} setCurrentPage={setCurrentPage} onOpenTIMCQuote={() => setShowTIMCQuoteModal(true)} onDirectPayment={handleDirectPayment} currentLang={lang} getImage={getImage} />}
+          {currentPage === 'medical' && <MedicalView t={t} setCurrentPage={setCurrentPage} onOpenTIMCQuote={() => setShowTIMCQuoteModal(true)} currentLang={lang} getImage={getImage} />}
           {currentPage === 'business' && <BusinessView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={() => router.push('/login')} currentLang={lang} getImage={getImage} />}
           {currentPage === 'golf' && <GolfView t={t} setCurrentPage={setCurrentPage} onLoginTrigger={() => router.push('/login')} currentLang={lang} getImage={getImage} />}
           {/* 白标模式下隐藏 Partner 页面（B2B 同业合作） */}
@@ -3222,94 +3047,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                  </>
                )}
             </div>
-         </div>
-       )}
-
-       {/* Medical Payment Modal */}
-       {showPaymentModal && (
-         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-           <div className="bg-white rounded-2xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
-             <h3 className="text-2xl font-bold mb-4">{t.medical.payment_modal_title || '预约信息'}</h3>
-             <form onSubmit={handlePaymentSubmit}>
-               <div className="space-y-4">
-                 <div>
-                   <label className="block text-sm font-medium mb-1">{t.medical.payment_name || '姓名'} *</label>
-                   <input
-                     type="text"
-                     required
-                     value={paymentCustomerInfo.name}
-                     onChange={(e) => setPaymentCustomerInfo({ ...paymentCustomerInfo, name: e.target.value })}
-                     className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                   />
-                 </div>
-                 <div>
-                   <label className="block text-sm font-medium mb-1">{t.medical.payment_email || '邮箱'} *</label>
-                   <input
-                     type="email"
-                     required
-                     value={paymentCustomerInfo.email}
-                     onChange={(e) => setPaymentCustomerInfo({ ...paymentCustomerInfo, email: e.target.value })}
-                     className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                   />
-                 </div>
-                 <div>
-                   <label className="block text-sm font-medium mb-1">{t.medical.payment_phone || '电话'}</label>
-                   <input
-                     type="tel"
-                     value={paymentCustomerInfo.phone}
-                     onChange={(e) => setPaymentCustomerInfo({ ...paymentCustomerInfo, phone: e.target.value })}
-                     className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                   />
-                 </div>
-                 <div>
-                   <label className="block text-sm font-medium mb-1">{t.medical.payment_date || '希望日期'}</label>
-                   <input
-                     type="date"
-                     value={paymentCustomerInfo.preferredDate}
-                     onChange={(e) => setPaymentCustomerInfo({ ...paymentCustomerInfo, preferredDate: e.target.value })}
-                     className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                   />
-                 </div>
-                 <div>
-                   <label className="block text-sm font-medium mb-1">{t.medical.payment_time || '希望时段'}</label>
-                   <select
-                     value={paymentCustomerInfo.preferredTime}
-                     onChange={(e) => setPaymentCustomerInfo({ ...paymentCustomerInfo, preferredTime: e.target.value })}
-                     className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                   >
-                     <option value="morning">{t.medical.payment_time_morning || '上午 (9:00-12:00)'}</option>
-                     <option value="afternoon">{t.medical.payment_time_afternoon || '下午 (13:00-16:00)'}</option>
-                   </select>
-                 </div>
-                 <div>
-                   <label className="block text-sm font-medium mb-1">{t.medical.payment_notes || '备注'}</label>
-                   <textarea
-                     value={paymentCustomerInfo.notes}
-                     onChange={(e) => setPaymentCustomerInfo({ ...paymentCustomerInfo, notes: e.target.value })}
-                     rows={3}
-                     className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                   />
-                 </div>
-               </div>
-               <div className="flex gap-3 mt-6">
-                 <button
-                   type="button"
-                   onClick={() => setShowPaymentModal(false)}
-                   className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
-                   disabled={isProcessingPayment}
-                 >
-                   {t.medical.payment_cancel || '取消'}
-                 </button>
-                 <button
-                   type="submit"
-                   className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
-                   disabled={isProcessingPayment}
-                 >
-                   {isProcessingPayment ? (t.medical.payment_processing || '处理中...') : (t.medical.payment_submit || '确认支付')}
-                 </button>
-               </div>
-             </form>
-           </div>
          </div>
        )}
 

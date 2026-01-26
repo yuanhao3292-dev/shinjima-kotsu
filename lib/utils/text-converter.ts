@@ -247,8 +247,9 @@ export function traditionalToSimplified(text: string | null | undefined): string
   const cached = conversionCache.get(text);
   if (cached !== undefined) return cached;
 
-  // 使用字符映射进行转换（O(n) 复杂度，每个字符 O(1) 查找）
-  const result = text.split('').map(char => t2sMap[char] || char).join('');
+  // 使用 Array.from 进行转换（避免 split+map 的双重数组创建）
+  // 性能：O(n) 复杂度，每个字符 O(1) Map 查找，单次数组分配
+  const result = Array.from(text, char => t2sMap[char] || char).join('');
 
   // 存入缓存
   conversionCache.set(text, result);

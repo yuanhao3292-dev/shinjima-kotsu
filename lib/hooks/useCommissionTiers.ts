@@ -8,7 +8,8 @@ export interface CommissionTier {
   tier_name_ja: string;
   tier_name_zh: string;
   tier_name_en: string;
-  min_monthly_sales: number;
+  min_monthly_sales: number;      // 保持兼容（实际存储季度销售额）
+  min_quarterly_sales?: number;   // 季度销售额阈值
   commission_rate: number;
   badge_color: string;
   sort_order: number;
@@ -34,11 +35,13 @@ const DEFAULT_SUMMARY: CommissionTiersSummary = {
   tierCount: 4,
 };
 
+// 季度销售额阈值（每季度重新计算）
+// 铜牌: 0, 银牌: 100万, 金牌: 300万, 钻石: 500万
 const DEFAULT_TIERS: CommissionTier[] = [
-  { id: '1', tier_code: 'bronze', tier_name_ja: '銅牌合夥人', tier_name_zh: '铜牌合伙人', tier_name_en: 'Bronze', min_monthly_sales: 0, commission_rate: 10, badge_color: '#CD7F32', sort_order: 1 },
-  { id: '2', tier_code: 'silver', tier_name_ja: '銀牌合夥人', tier_name_zh: '银牌合伙人', tier_name_en: 'Silver', min_monthly_sales: 500000, commission_rate: 12, badge_color: '#C0C0C0', sort_order: 2 },
-  { id: '3', tier_code: 'gold', tier_name_ja: '金牌合夥人', tier_name_zh: '金牌合伙人', tier_name_en: 'Gold', min_monthly_sales: 1500000, commission_rate: 15, badge_color: '#FFD700', sort_order: 3 },
-  { id: '4', tier_code: 'diamond', tier_name_ja: '鑽石合夥人', tier_name_zh: '钻石合伙人', tier_name_en: 'Diamond', min_monthly_sales: 5000000, commission_rate: 20, badge_color: '#B9F2FF', sort_order: 4 },
+  { id: '1', tier_code: 'bronze', tier_name_ja: '銅牌合夥人', tier_name_zh: '铜牌合伙人', tier_name_en: 'Bronze', min_monthly_sales: 0, min_quarterly_sales: 0, commission_rate: 10, badge_color: '#CD7F32', sort_order: 1 },
+  { id: '2', tier_code: 'silver', tier_name_ja: '銀牌合夥人', tier_name_zh: '银牌合伙人', tier_name_en: 'Silver', min_monthly_sales: 1000000, min_quarterly_sales: 1000000, commission_rate: 12, badge_color: '#C0C0C0', sort_order: 2 },
+  { id: '3', tier_code: 'gold', tier_name_ja: '金牌合夥人', tier_name_zh: '金牌合伙人', tier_name_en: 'Gold', min_monthly_sales: 3000000, min_quarterly_sales: 3000000, commission_rate: 15, badge_color: '#FFD700', sort_order: 3 },
+  { id: '4', tier_code: 'diamond', tier_name_ja: '鑽石合夥人', tier_name_zh: '钻石合伙人', tier_name_en: 'Diamond', min_monthly_sales: 5000000, min_quarterly_sales: 5000000, commission_rate: 20, badge_color: '#B9F2FF', sort_order: 4 },
 ];
 
 /**
@@ -86,11 +89,35 @@ export function formatCommissionRate(rate: number): string {
 }
 
 /**
- * 格式化月销售额门槛
+ * 格式化季度销售额门槛
  */
-export function formatSalesThreshold(amount: number): string {
+export function formatSalesThreshold(amount: number, includeUnit: boolean = true): string {
   if (amount >= 10000) {
-    return `¥${(amount / 10000).toFixed(0)}万`;
+    return includeUnit ? `¥${(amount / 10000).toFixed(0)}万/季度` : `¥${(amount / 10000).toFixed(0)}万`;
   }
-  return `¥${amount.toLocaleString()}`;
+  return includeUnit ? `¥${amount.toLocaleString()}/季度` : `¥${amount.toLocaleString()}`;
+}
+
+/**
+ * 获取当前季度信息
+ */
+export function getCurrentQuarterInfo(): { quarter: number; year: number; startMonth: number; endMonth: number } {
+  const now = new Date();
+  const month = now.getMonth() + 1;
+  const quarter = Math.ceil(month / 3);
+  const startMonth = (quarter - 1) * 3 + 1;
+  const endMonth = quarter * 3;
+  return {
+    quarter,
+    year: now.getFullYear(),
+    startMonth,
+    endMonth,
+  };
+}
+
+/**
+ * 格式化季度显示
+ */
+export function formatQuarter(quarter: number, year: number): string {
+  return `${year}年第${quarter}季度`;
 }
