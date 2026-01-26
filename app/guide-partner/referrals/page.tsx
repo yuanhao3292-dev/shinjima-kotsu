@@ -44,11 +44,18 @@ interface Referral {
 interface ReferralReward {
   id: string;
   reward_amount: number;
+  reward_rate: number;
   reward_type: string;
   status: string;
   created_at: string;
   referee: {
     name: string;
+  } | null;
+  booking: {
+    customer_name: string;
+    venue: {
+      name: string;
+    } | null;
   } | null;
 }
 
@@ -103,20 +110,29 @@ export default function ReferralsPage() {
         .select(`
           id,
           reward_amount,
+          reward_rate,
           reward_type,
           status,
           created_at,
-          referee:guides!referral_rewards_referee_id_fkey(name)
+          referee:guides!referral_rewards_referee_id_fkey(name),
+          booking:bookings(customer_name, venue:venues(name))
         `)
         .eq('referrer_id', guideData.id)
         .order('created_at', { ascending: false })
-        .limit(20);
+        .limit(50);
 
-      // Transform referee from array to object
-      const transformedRewards = (rewardsData || []).map(r => ({
-        ...r,
-        referee: Array.isArray(r.referee) ? r.referee[0] : r.referee
-      })) as ReferralReward[];
+      // Transform referee and booking from array to object (including nested venue)
+      const transformedRewards = (rewardsData || []).map(r => {
+        const booking = Array.isArray(r.booking) ? r.booking[0] : r.booking;
+        return {
+          ...r,
+          referee: Array.isArray(r.referee) ? r.referee[0] : r.referee,
+          booking: booking ? {
+            ...booking,
+            venue: Array.isArray(booking.venue) ? booking.venue[0] : booking.venue
+          } : null
+        };
+      }) as ReferralReward[];
       setRewards(transformedRewards);
     } catch (error) {
       console.error('Error:', error);
@@ -400,6 +416,74 @@ export default function ReferralsPage() {
                 <UserPlus className="w-12 h-12 mx-auto mb-4 text-gray-300" />
                 <p>您還沒有推薦過導遊</p>
                 <p className="text-sm mt-2">分享您的推薦碼開始邀請吧</p>
+              </div>
+            )}
+          </div>
+
+          {/* Rewards History */}
+          <div className="bg-white rounded-xl border mb-8">
+            <div className="p-4 border-b">
+              <div className="flex items-center justify-between">
+                <h2 className="font-bold text-gray-900">獎勵明細</h2>
+                {pendingRewards > 0 && (
+                  <span className="text-sm text-yellow-600 font-medium">
+                    待結算 ¥{pendingRewards.toLocaleString()}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {rewards.length > 0 ? (
+              <div className="divide-y">
+                {rewards.map((reward) => (
+                  <div key={reward.id} className="p-4 flex items-center justify-between hover:bg-gray-50">
+                    <div className="flex items-center gap-4">
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                        reward.status === 'paid' ? 'bg-green-100' : 'bg-yellow-100'
+                      }`}>
+                        <Gift size={20} className={
+                          reward.status === 'paid' ? 'text-green-600' : 'text-yellow-600'
+                        } />
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">
+                          {reward.referee?.name || '未知導遊'} 的業績獎勵
+                        </p>
+                        {reward.booking && (
+                          <p className="text-sm text-gray-500">
+                            客戶: {reward.booking.customer_name}
+                            {reward.booking.venue && ` · ${reward.booking.venue.name}`}
+                          </p>
+                        )}
+                        <p className="text-xs text-gray-400">
+                          {new Date(reward.created_at).toLocaleDateString('zh-TW')}
+                          {reward.reward_rate && ` · 獎勵率 ${(reward.reward_rate * 100).toFixed(0)}%`}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="text-right">
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        reward.status === 'paid'
+                          ? 'bg-green-100 text-green-700'
+                          : 'bg-yellow-100 text-yellow-700'
+                      }`}>
+                        {reward.status === 'paid' ? '已結算' : '待結算'}
+                      </span>
+                      <p className={`font-bold mt-1 ${
+                        reward.status === 'paid' ? 'text-green-600' : 'text-yellow-600'
+                      }`}>
+                        +¥{reward.reward_amount?.toLocaleString()}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="p-12 text-center text-gray-500">
+                <Gift className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                <p>暫無獎勵記錄</p>
+                <p className="text-sm mt-2">當您推薦的導遊完成訂單後，獎勵將自動生成</p>
               </div>
             )}
           </div>

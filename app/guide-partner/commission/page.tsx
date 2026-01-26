@@ -69,11 +69,34 @@ interface WhitelabelCommission {
   } | null;
 }
 
+// 推薦獎勵記錄
+interface ReferralReward {
+  id: string;
+  referee_id: string;
+  booking_id: string | null;
+  reward_type: string;
+  reward_rate: number;
+  reward_amount: number;
+  status: string;
+  created_at: string;
+  referee: {
+    name: string;
+  } | null;
+  booking: {
+    customer_name: string;
+    venue: {
+      name: string;
+    } | null;
+  } | null;
+}
+
 interface Stats {
   totalEarned: number;
   pendingAmount: number;
   thisMonthAmount: number;
   lastMonthAmount: number;
+  referralPending: number; // 新增：待結算的推薦獎勵
+  referralTotal: number;   // 新增：累計推薦獎勵
 }
 
 export default function CommissionPage() {
@@ -81,9 +104,10 @@ export default function CommissionPage() {
   const [settlements, setSettlements] = useState<Settlement[]>([]);
   const [recentCommissions, setRecentCommissions] = useState<CommissionRecord[]>([]);
   const [whitelabelCommissions, setWhitelabelCommissions] = useState<WhitelabelCommission[]>([]);
+  const [referralRewards, setReferralRewards] = useState<ReferralReward[]>([]);
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<'overview' | 'whitelabel' | 'history'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'whitelabel' | 'referrals' | 'history'>('overview');
   const [commissionRate, setCommissionRate] = useState<number>(10);
   const [tierName, setTierName] = useState<string>('銅牌合夥人');
   const router = useRouter();
@@ -170,6 +194,39 @@ export default function CommissionPage() {
 
       setWhitelabelCommissions((wlCommissions || []) as WhitelabelCommission[]);
 
+      // 載入推薦獎勵記錄
+      const { data: rewards } = await supabase
+        .from('referral_rewards')
+        .select(`
+          id,
+          referee_id,
+          booking_id,
+          reward_type,
+          reward_rate,
+          reward_amount,
+          status,
+          created_at,
+          referee:guides!referral_rewards_referee_id_fkey(name),
+          booking:bookings(customer_name, venue:venues(name))
+        `)
+        .eq('referrer_id', guide.id)
+        .order('created_at', { ascending: false })
+        .limit(50);
+
+      // Transform referee and booking from array to object (including nested venue)
+      const transformedRewards = (rewards || []).map(r => {
+        const booking = Array.isArray(r.booking) ? r.booking[0] : r.booking;
+        return {
+          ...r,
+          referee: Array.isArray(r.referee) ? r.referee[0] : r.referee,
+          booking: booking ? {
+            ...booking,
+            venue: Array.isArray(booking.venue) ? booking.venue[0] : booking.venue
+          } : null
+        };
+      }) as ReferralReward[];
+      setReferralRewards(transformedRewards);
+
       // 計算統計數據
       const now = new Date();
       const thisMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
@@ -188,11 +245,20 @@ export default function CommissionPage() {
 
       const pendingAmount = pendingBookings?.reduce((sum, b) => sum + (b.commission_amount || 0), 0) || 0;
 
+      // 計算推薦獎勵統計
+      const referralPending = transformedRewards
+        .filter(r => r.status === 'pending')
+        .reduce((sum, r) => sum + (r.reward_amount || 0), 0);
+      const referralTotal = transformedRewards
+        .reduce((sum, r) => sum + (r.reward_amount || 0), 0);
+
       setStats({
         totalEarned: guide.total_commission || 0,
-        pendingAmount,
+        pendingAmount: pendingAmount + referralPending, // 包含推薦獎勵
         thisMonthAmount: thisMonthSettlement?.total_commission || 0,
         lastMonthAmount: lastMonthSettlement?.total_commission || 0,
+        referralPending,
+        referralTotal,
       });
     } catch (error) {
       console.error('Error:', error);
@@ -474,6 +540,16 @@ export default function CommissionPage() {
               白標訂單
             </button>
             <button
+              onClick={() => setActiveTab('referrals')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+                activeTab === 'referrals'
+                  ? 'bg-orange-500 text-white'
+                  : 'bg-white text-gray-600 hover:bg-gray-50 border'
+              }`}
+            >
+              推薦獎勵
+            </button>
+            <button
               onClick={() => setActiveTab('history')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                 activeTab === 'history'
@@ -607,6 +683,77 @@ export default function CommissionPage() {
                     className="inline-block mt-4 text-orange-600 font-medium hover:underline"
                   >
                     設置白標網站開始推廣
+                  </Link>
+                </div>
+              )}
+            </div>
+          ) : activeTab === 'referrals' ? (
+            <div className="bg-white rounded-xl border">
+              <div className="p-4 border-b">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h2 className="font-bold text-gray-900">推薦獎勵記錄</h2>
+                    <p className="text-sm text-gray-500 mt-1">您推薦的導遊業績帶來的 2% 額外獎勵</p>
+                  </div>
+                  {stats && stats.referralPending > 0 && (
+                    <div className="text-right">
+                      <p className="text-xs text-gray-500">待結算獎勵</p>
+                      <p className="text-lg font-bold text-yellow-600">
+                        ¥{stats.referralPending.toLocaleString()}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {referralRewards.length > 0 ? (
+                <div className="divide-y">
+                  {referralRewards.map((reward) => (
+                    <div key={reward.id} className="p-4 flex items-center justify-between hover:bg-gray-50">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <p className="font-medium text-gray-900">
+                            {reward.referee?.name || '未知導遊'} 的業績
+                          </p>
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-purple-100 text-purple-700 text-xs rounded-full">
+                            <Users size={12} />
+                            下線獎勵
+                          </span>
+                        </div>
+                        {reward.booking && (
+                          <p className="text-sm text-gray-500">
+                            客戶: {reward.booking.customer_name}
+                            {reward.booking.venue && ` · ${reward.booking.venue.name}`}
+                          </p>
+                        )}
+                        <p className="text-xs text-gray-400 mt-1">
+                          {new Date(reward.created_at).toLocaleDateString('zh-TW')}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        {getCommissionStatusBadge(reward.status)}
+                        <p className="font-bold text-green-600 mt-1">
+                          +¥{reward.reward_amount?.toLocaleString()}
+                        </p>
+                        <p className="text-xs text-gray-400">
+                          獎勵率 {(reward.reward_rate * 100).toFixed(0)}%
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="p-12 text-center text-gray-500">
+                  <Users className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                  <p>暫無推薦獎勵</p>
+                  <p className="text-sm mt-2 text-gray-400">
+                    當您推薦的導遊完成訂單後，您將獲得其業績 2% 的額外獎勵
+                  </p>
+                  <Link
+                    href="/guide-partner/referrals"
+                    className="inline-block mt-4 text-orange-600 font-medium hover:underline"
+                  >
+                    查看我的推薦碼
                   </Link>
                 </div>
               )}
