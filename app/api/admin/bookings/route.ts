@@ -196,8 +196,8 @@ export async function GET(request: NextRequest) {
       .from('bookings')
       .select(`
         *,
-        venues:venue_id ( name ),
-        guides:guide_id ( name )
+        venues:venue_id ( id, name ),
+        guides:guide_id ( id, name, email )
       `)
       .order('created_at', { ascending: false });
 
@@ -224,17 +224,35 @@ export async function GET(request: NextRequest) {
       return createErrorResponse(Errors.internal('Failed to fetch bookings'));
     }
 
-    // Enrich each booking with venue_name and guide_name at the top level
-    const enriched = (bookings as BookingRow[] | null)?.map((b) => ({
-      ...b,
-      venue_name: b.venues?.name ?? null,
-      guide_name: b.guides?.name ?? null,
-      // Remove nested relation objects to keep the response flat
-      venues: undefined,
-      guides: undefined,
-    })) ?? [];
+    // Transform to match frontend expected structure
+    const transformed = (bookings as BookingRow[] | null)?.map((b) => {
+      const venueData = b.venues as { id: string; name: string } | null;
+      const guideData = b.guides as { id: string; name: string; email: string } | null;
 
-    return NextResponse.json(enriched);
+      return {
+        id: b.id,
+        venue: venueData ? { id: venueData.id, name: venueData.name } : { id: '', name: '未知店鋪' },
+        guide: guideData ? { id: guideData.id, name: guideData.name, email: guideData.email || '' } : { id: '', name: '未知導遊', email: '' },
+        customer: {
+          name: b.customer_name,
+          phone: b.customer_phone || '',
+          email: '',
+        },
+        party_size: b.party_size,
+        booking_date: b.booking_date,
+        booking_time: b.booking_time || '',
+        status: b.status,
+        deposit_status: b.deposit_status,
+        deposit_amount: b.deposit_amount,
+        actual_spend: b.actual_spend,
+        admin_notes: null,
+        cancel_reason: null,
+        created_at: b.created_at,
+        updated_at: b.updated_at,
+      };
+    }) ?? [];
+
+    return NextResponse.json(transformed);
   } catch (error: unknown) {
     const apiError = normalizeError(error);
     logError(apiError, { path: '/api/admin/bookings', method: 'GET' });
