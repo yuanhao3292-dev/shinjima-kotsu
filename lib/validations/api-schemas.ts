@@ -234,9 +234,9 @@ export const BookingActionSchema = z.object({
     error: '操作必须是 confirm、complete、no_show 或 cancel',
   }),
   bookingId: UUIDSchema,
-  adminNotes: z.string().max(1000, '管理员备注最多1000个字符').optional(),
-  cancelReason: z.string().max(500, '取消原因最多500个字符').optional(),
-  actualSpend: z.number().min(0, '实际消费金额不能为负数').optional(),
+  adminNotes: z.string().max(1000, '管理员备注最多1000个字符').nullable().optional(),
+  cancelReason: z.string().max(500, '取消原因最多500个字符').nullable().optional(),
+  actualSpend: z.number().min(0, '实际消费金额不能为负数').nullable().optional(),
 }).refine(
   (data) => !(data.action === 'complete' && (data.actualSpend === undefined || data.actualSpend === null)),
   { message: '完成预约时必须提供实际消费金额 (actualSpend)', path: ['actualSpend'] }
