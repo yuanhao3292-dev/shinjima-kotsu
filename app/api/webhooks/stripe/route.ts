@@ -76,7 +76,8 @@ async function recordEventProcessed(
 export async function POST(request: NextRequest) {
   const stripe = getStripe();
   const supabase = getSupabase();
-  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  // 主 Webhook 使用独立的密钥，与订阅 Webhook 分开
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET_MAIN || process.env.STRIPE_WEBHOOK_SECRET;
 
   const body = await request.text();
   const signature = request.headers.get('stripe-signature');
