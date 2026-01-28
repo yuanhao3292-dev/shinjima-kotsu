@@ -40,6 +40,7 @@ interface Venue {
 interface Guide {
   id: string;
   name: string;
+  commission_rate: number; // 佣金率（小数格式，如 0.10 = 10%）
 }
 
 function NewBookingForm() {
@@ -90,10 +91,10 @@ function NewBookingForm() {
         return;
       }
 
-      // 獲取導遊資訊
+      // 獲取導遊資訊（含佣金等級）
       const { data: guideData } = await supabase
         .from('guides')
-        .select('id, name, status')
+        .select('id, name, status, commission_tier_id, commission_tiers(commission_rate)')
         .eq('auth_user_id', user.id)
         .single();
 
@@ -102,7 +103,19 @@ function NewBookingForm() {
         return;
       }
 
-      setGuide(guideData);
+      // 從 commission_tiers 獲取動態佣金率
+      const tierData = Array.isArray(guideData.commission_tiers)
+        ? guideData.commission_tiers[0]
+        : guideData.commission_tiers;
+      const commissionRate = tierData?.commission_rate
+        ? Number(tierData.commission_rate) / 100  // 10.00 → 0.10
+        : 0.10; // 默認 10%
+
+      setGuide({
+        id: guideData.id,
+        name: guideData.name,
+        commission_rate: commissionRate,
+      });
 
       // 獲取店舖列表
       const { data: venuesData } = await supabase
@@ -168,11 +181,29 @@ function NewBookingForm() {
           special_requests: formData.specialRequests || null,
           status: 'pending',
           deposit_status: 'pending',
+          commission_rate: guide.commission_rate, // 記錄創建時的阶梯佣金率
         });
 
       if (bookingError) {
         throw bookingError;
       }
+
+      // 發送管理員通知（非阻塞，不影響預約提交結果）
+      const selectedVenue = venues.find(v => v.id === formData.venueId);
+      fetch('/api/guide-bookings/notify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          guideName: guide.name,
+          venueName: selectedVenue?.name || '未知店舖',
+          customerName: formData.customerName,
+          customerPhone: formData.customerPhone || null,
+          partySize: formData.partySize,
+          bookingDate: formData.bookingDate,
+          bookingTime: formData.bookingTime || null,
+          specialRequests: formData.specialRequests || null,
+        }),
+      }).catch(err => console.error('Failed to send notification:', err));
 
       setSuccess(true);
     } catch (err: any) {
@@ -207,15 +238,15 @@ function NewBookingForm() {
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-4">預約已提交</h2>
           <p className="text-gray-600 mb-6">
-            我們會盡快確認預約，並通知您結果。<br />
-            請提醒客戶支付 500 元定金。
+            請前往「我的預約」頁面支付 ¥500 定金。<br />
+            定金支付後管理員將確認預約。
           </p>
           <div className="space-y-3">
             <Link
               href="/guide-partner/bookings"
               className="block w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition"
             >
-              查看我的預約
+              前往支付定金
             </Link>
             <Link
               href="/guide-partner/venues"

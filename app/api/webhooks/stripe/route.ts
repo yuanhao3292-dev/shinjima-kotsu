@@ -123,9 +123,11 @@ export async function POST(request: NextRequest) {
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session;
-        // 区分白标订阅和普通支付
+        // 区分不同类型的支付
         if (session.mode === 'subscription' && session.metadata?.type === 'whitelabel_subscription') {
           await handleWhiteLabelSubscriptionCreated(supabase, session);
+        } else if (session.metadata?.type === 'nightclub_deposit') {
+          await handleNightclubDepositPaid(supabase, session);
         } else {
           await handleCheckoutSessionCompleted(supabase, session);
         }
@@ -592,7 +594,30 @@ async function calculateAndRecordCommission(
     })
     .eq('id', orderId);
 
-  // 2. 创建 whitelabel_orders 记录（包含新客奖励信息）
+  // 2. 计算佣金可提现时间（服务完成日 + 14天等待期）
+  // 获取订单的预约日期，作为服务完成日的近似值
+  const { data: orderForDate } = await supabase
+    .from('orders')
+    .select('preferred_date, paid_at')
+    .eq('id', orderId)
+    .single();
+
+  let commissionAvailableAt: string;
+  if (orderForDate?.preferred_date) {
+    // 使用预约日期 + 14天
+    const serviceDate = new Date(orderForDate.preferred_date);
+    serviceDate.setDate(serviceDate.getDate() + 14);
+    commissionAvailableAt = serviceDate.toISOString();
+    console.log(`⏰ 佣金可提现时间: 预约日期=${orderForDate.preferred_date} + 14天 = ${commissionAvailableAt}`);
+  } else {
+    // 无预约日期，使用付款日期 + 14天
+    const paidDate = orderForDate?.paid_at ? new Date(orderForDate.paid_at) : new Date();
+    paidDate.setDate(paidDate.getDate() + 14);
+    commissionAvailableAt = paidDate.toISOString();
+    console.log(`⏰ 佣金可提现时间: 付款日期 + 14天 = ${commissionAvailableAt}（无预约日期）`);
+  }
+
+  // 3. 创建 whitelabel_orders 记录（包含新客奖励信息 + 等待期）
   const { error: wlOrderError } = await supabase
     .from('whitelabel_orders')
     .insert({
@@ -607,6 +632,7 @@ async function calculateAndRecordCommission(
       applied_commission_rate: finalCommissionRate,
       commission_amount: commissionAmount,
       commission_status: 'calculated',
+      commission_available_at: commissionAvailableAt,
       // 新客首单奖励信息（存储在 metadata 中）
       metadata: isNewCustomerFirstOrder ? {
         new_customer_bonus: true,
@@ -623,7 +649,7 @@ async function calculateAndRecordCommission(
     console.log(`✅ 白标订单记录已创建: 导游=${guideSlug}, 佣金=${commissionAmount}円${bonusInfo}`);
   }
 
-  // 3. 更新导游的累计佣金
+  // 4. 更新导游的累计佣金（注意：不更新 available_balance，等待 2 周后由 RPC 释放）
   const { data: guideData } = await supabase
     .from('guides')
     .select('total_commission, name, email')
@@ -642,7 +668,7 @@ async function calculateAndRecordCommission(
 
     console.log(`✅ 导游累计佣金已更新: ${newTotal}円`);
 
-    // 4. 发送佣金通知邮件给导游
+    // 5. 发送佣金通知邮件给导游
     if (guideData.email) {
       await sendGuideCommissionNotification({
         guideEmail: guideData.email,
@@ -656,5 +682,97 @@ async function calculateAndRecordCommission(
         orderId,
       });
     }
+  }
+}
+
+// ============================================
+// 夜总会预约定金支付处理
+// ============================================
+async function handleNightclubDepositPaid(supabase: SupabaseClient, session: Stripe.Checkout.Session) {
+  const bookingId = session.metadata?.booking_id;
+  const guideId = session.metadata?.guide_id;
+
+  if (!bookingId) {
+    console.error('[Nightclub Deposit] Missing booking_id in metadata');
+    return;
+  }
+
+  // 更新预约状态：定金已支付
+  const { data: booking, error: updateError } = await supabase
+    .from('bookings')
+    .update({
+      deposit_status: 'paid',
+      deposit_paid_at: new Date().toISOString(),
+    })
+    .eq('id', bookingId)
+    .eq('deposit_status', 'pending') // 幂等：只处理未支付的
+    .select('*, venues(name)')
+    .single();
+
+  if (updateError) {
+    console.error('[Nightclub Deposit] Failed to update booking:', updateError);
+    return;
+  }
+
+  if (!booking) {
+    // 已处理过（幂等）
+    console.log(`[Nightclub Deposit] Booking ${bookingId} already processed`);
+    return;
+  }
+
+  console.log(`✅ [Nightclub Deposit] Booking ${bookingId} deposit paid`);
+
+  // 发送管理员邮件通知 (fire-and-forget)
+  const venueData = booking.venues as Record<string, unknown> | Record<string, unknown>[] | null;
+  const venueName = String(
+    (Array.isArray(venueData) ? venueData[0]?.name : venueData?.name) || ''
+  );
+
+  const resendApiKey = process.env.RESEND_API_KEY;
+  const adminEmail = process.env.NOTIFICATION_EMAIL || process.env.ADMIN_EMAIL;
+
+  if (resendApiKey && adminEmail) {
+    fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${resendApiKey}`,
+      },
+      body: JSON.stringify({
+        from: 'NIIJIMA Partner <partner@niijima-koutsu.jp>',
+        to: adminEmail,
+        subject: `【新預約待確認】${venueName} - ${booking.booking_date}`,
+        html: `
+          <!DOCTYPE html>
+          <html>
+          <head><meta charset="utf-8"></head>
+          <body style="font-family: -apple-system, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+            <div style="background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); padding: 24px; border-radius: 10px 10px 0 0; text-align: center;">
+              <h1 style="color: white; margin: 0; font-size: 20px;">新預約定金已支付</h1>
+            </div>
+            <div style="background: #f9fafb; padding: 24px; border-radius: 0 0 10px 10px; border: 1px solid #e5e7eb; border-top: none;">
+              <table style="width: 100%; border-collapse: collapse;">
+                <tr><td style="padding: 8px 12px; font-weight: 600; color: #6b7280;">店鋪</td><td style="padding: 8px 12px;">${venueName}</td></tr>
+                <tr style="background: #fff;"><td style="padding: 8px 12px; font-weight: 600; color: #6b7280;">預約日期</td><td style="padding: 8px 12px;">${booking.booking_date}</td></tr>
+                <tr><td style="padding: 8px 12px; font-weight: 600; color: #6b7280;">客人數</td><td style="padding: 8px 12px;">${booking.party_size}人</td></tr>
+                <tr style="background: #fff;"><td style="padding: 8px 12px; font-weight: 600; color: #6b7280;">客戶</td><td style="padding: 8px 12px;">${booking.customer_name}</td></tr>
+                <tr><td style="padding: 8px 12px; font-weight: 600; color: #6b7280;">定金</td><td style="padding: 8px 12px; color: #4f46e5; font-weight: 700;">¥${booking.deposit_amount}</td></tr>
+              </table>
+              <div style="text-align: center; margin-top: 20px;">
+                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.niijima-koutsu.jp'}/admin/bookings"
+                   style="display: inline-block; background: #4f46e5; color: white; padding: 10px 24px; text-decoration: none; border-radius: 6px;">
+                  前往管理預約
+                </a>
+              </div>
+            </div>
+          </body>
+          </html>
+        `,
+      }),
+    }).then((res) => {
+      if (!res.ok) console.error(`[Nightclub Deposit] Email notification failed: ${res.status}`);
+    }).catch((err) => {
+      console.error('[Nightclub Deposit] Failed to send email:', err);
+    });
   }
 }

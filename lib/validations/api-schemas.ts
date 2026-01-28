@@ -227,6 +227,24 @@ export const CalculateQuoteSchema = z.object({
   agency_name: z.string().min(1, '旅行社名称不能为空').max(200, '旅行社名称最多200个字符'),
 });
 
+// ==================== Admin Booking Action ====================
+
+export const BookingActionSchema = z.object({
+  action: z.enum(['confirm', 'complete', 'no_show', 'cancel'], {
+    error: '操作必须是 confirm、complete、no_show 或 cancel',
+  }),
+  bookingId: UUIDSchema,
+  adminNotes: z.string().max(1000, '管理员备注最多1000个字符').optional(),
+  cancelReason: z.string().max(500, '取消原因最多500个字符').optional(),
+  actualSpend: z.number().min(0, '实际消费金额不能为负数').optional(),
+}).refine(
+  (data) => !(data.action === 'complete' && (data.actualSpend === undefined || data.actualSpend === null)),
+  { message: '完成预约时必须提供实际消费金额 (actualSpend)', path: ['actualSpend'] }
+).refine(
+  (data) => !(data.action === 'cancel' && !data.cancelReason),
+  { message: '取消预约时建议提供取消原因', path: ['cancelReason'] }
+);
+
 // ==================== Admin Image Upload ====================
 
 export const AdminImageUploadSchema = z.object({
@@ -249,4 +267,5 @@ export type AuditLogCreateInput = z.infer<typeof AuditLogCreateSchema>;
 export type HealthScreeningAnalyzeInput = z.infer<typeof HealthScreeningAnalyzeSchema>;
 export type WhitelabelSubscriptionInput = z.infer<typeof WhitelabelSubscriptionSchema>;
 export type CalculateQuoteInput = z.infer<typeof CalculateQuoteSchema>;
+export type BookingActionInput = z.infer<typeof BookingActionSchema>;
 export type AdminImageUploadInput = z.infer<typeof AdminImageUploadSchema>;

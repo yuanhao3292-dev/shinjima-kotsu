@@ -23,10 +23,7 @@ import {
   MessageSquare,
   Loader2,
   AlertCircle,
-  CheckCircle2,
-  XCircle,
-  DollarSign,
-  Edit3
+  CreditCard,
 } from 'lucide-react';
 
 interface Booking {
@@ -61,10 +58,9 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
   const [booking, setBooking] = useState<Booking | null>(null);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
+  const [payingDeposit, setPayingDeposit] = useState(false);
   const [error, setError] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [showSpendInput, setShowSpendInput] = useState(false);
-  const [actualSpend, setActualSpend] = useState('');
   const router = useRouter();
   const supabase = createClient();
 
@@ -113,9 +109,6 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
       } as Booking;
 
       setBooking(transformedBooking);
-      if (transformedBooking.actual_spend) {
-        setActualSpend(transformedBooking.actual_spend.toString());
-      }
     } catch (err) {
       console.error('Error:', err);
       setError('載入失敗');
@@ -124,63 +117,44 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
     }
   };
 
-  const updateStatus = async (newStatus: string) => {
+  const handlePayDeposit = async () => {
     if (!booking) return;
-    setUpdating(true);
+    setPayingDeposit(true);
     setError('');
 
     try {
-      const updateData: Record<string, unknown> = { status: newStatus };
-
-      if (newStatus === 'completed') {
-        updateData.completed_at = new Date().toISOString();
-      }
-
-      const { error: updateError } = await supabase
-        .from('bookings')
-        .update(updateData)
-        .eq('id', booking.id);
-
-      if (updateError) throw updateError;
-
-      await loadBookingDetail();
-    } catch (err) {
-      setError('更新失敗');
-    } finally {
-      setUpdating(false);
-    }
-  };
-
-  const updateActualSpend = async () => {
-    if (!booking || !actualSpend) return;
-    setUpdating(true);
-    setError('');
-
-    try {
-      const spend = parseFloat(actualSpend);
-      if (isNaN(spend) || spend <= 0) {
-        setError('請輸入有效的消費金額');
-        setUpdating(false);
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        setError('請重新登入');
+        setPayingDeposit(false);
         return;
       }
 
-      const { error: updateError } = await supabase
-        .from('bookings')
-        .update({
-          actual_spend: spend,
-          status: 'completed',
-          completed_at: new Date().toISOString()
-        })
-        .eq('id', booking.id);
+      const res = await fetch('/api/booking/deposit-checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({ bookingId: booking.id }),
+      });
 
-      if (updateError) throw updateError;
+      const data = await res.json();
 
-      setShowSpendInput(false);
-      await loadBookingDetail();
+      if (!res.ok) {
+        setError(data.error || '無法創建支付頁面');
+        setPayingDeposit(false);
+        return;
+      }
+
+      // 跳轉到 Stripe Checkout
+      if (data.checkoutUrl) {
+        window.location.href = data.checkoutUrl;
+      }
     } catch (err) {
-      setError('更新失敗');
-    } finally {
-      setUpdating(false);
+      console.error('Payment error:', err);
+      setError('支付請求失敗，請稍後重試');
+      setPayingDeposit(false);
     }
   };
 
@@ -378,11 +352,32 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
                   {getStatusBadge(booking.status)}
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 mb-4">
                   <span className="text-gray-500">定金:</span>
                   {getDepositBadge(booking.deposit_status)}
                   <span className="text-gray-400">¥{booking.deposit_amount}</span>
                 </div>
+
+                {/* Pay Deposit Button */}
+                {booking.status === 'pending' && booking.deposit_status === 'pending' && (
+                  <button
+                    onClick={handlePayDeposit}
+                    disabled={payingDeposit}
+                    className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 disabled:bg-gray-400 text-white font-bold py-3 rounded-xl transition"
+                  >
+                    {payingDeposit ? (
+                      <>
+                        <Loader2 className="animate-spin" size={20} />
+                        處理中...
+                      </>
+                    ) : (
+                      <>
+                        <CreditCard size={20} />
+                        支付定金 ¥{booking.deposit_amount}
+                      </>
+                    )}
+                  </button>
+                )}
               </div>
 
               {/* Customer Info */}
@@ -464,88 +459,23 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
                 </div>
               )}
 
-              {/* Spend Input */}
-              {showSpendInput && (
-                <div className="bg-white rounded-xl border p-6">
-                  <h2 className="font-bold text-gray-900 mb-4">錄入實際消費</h2>
-                  <div className="flex gap-3">
-                    <div className="flex-grow relative">
-                      <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-                      <input
-                        type="number"
-                        value={actualSpend}
-                        onChange={(e) => setActualSpend(e.target.value)}
-                        placeholder="輸入消費金額（日元）"
-                        className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                      />
-                    </div>
-                    <button
-                      onClick={updateActualSpend}
-                      disabled={updating}
-                      className="bg-green-500 hover:bg-green-600 disabled:bg-gray-400 text-white font-medium px-6 py-3 rounded-xl transition flex items-center gap-2"
-                    >
-                      {updating ? <Loader2 className="animate-spin" size={18} /> : <CheckCircle2 size={18} />}
-                      確認
-                    </button>
-                    <button
-                      onClick={() => setShowSpendInput(false)}
-                      className="text-gray-500 hover:text-gray-700 px-4"
-                    >
-                      取消
-                    </button>
-                  </div>
-                  <p className="text-sm text-gray-500 mt-2">
-                    錄入後系統將自動計算報酬（稅前金額 × 10%）
-                  </p>
-                </div>
-              )}
-
               {/* Actions */}
-              {booking.status !== 'completed' && booking.status !== 'cancelled' && (
+              {(booking.status === 'pending' || booking.status === 'confirmed') && (
                 <div className="bg-white rounded-xl border p-6">
                   <h2 className="font-bold text-gray-900 mb-4">操作</h2>
                   <div className="flex flex-wrap gap-3">
-                    {booking.status === 'pending' && (
-                      <button
-                        onClick={() => updateStatus('confirmed')}
-                        disabled={updating}
-                        className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white font-medium px-4 py-2 rounded-xl transition"
-                      >
-                        <CheckCircle2 size={18} />
-                        確認預約
-                      </button>
-                    )}
-
-                    {(booking.status === 'pending' || booking.status === 'confirmed') && !showSpendInput && (
-                      <button
-                        onClick={() => setShowSpendInput(true)}
-                        className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-medium px-4 py-2 rounded-xl transition"
-                      >
-                        <Edit3 size={18} />
-                        錄入消費完成
-                      </button>
-                    )}
-
-                    {(booking.status === 'pending' || booking.status === 'confirmed') && (
-                      <button
-                        onClick={() => updateStatus('no_show')}
-                        disabled={updating}
-                        className="flex items-center gap-2 bg-red-100 hover:bg-red-200 text-red-700 font-medium px-4 py-2 rounded-xl transition"
-                      >
-                        <XCircle size={18} />
-                        標記未到店
-                      </button>
-                    )}
-
                     <button
                       onClick={cancelBooking}
                       disabled={updating}
-                      className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium px-4 py-2 rounded-xl transition"
+                      className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 disabled:bg-gray-50 text-gray-700 font-medium px-4 py-2 rounded-xl transition"
                     >
-                      <X size={18} />
+                      {updating ? <Loader2 className="animate-spin" size={18} /> : <X size={18} />}
                       取消預約
                     </button>
                   </div>
+                  <p className="text-xs text-gray-400 mt-3">
+                    預約確認、完成等操作由管理員處理
+                  </p>
                 </div>
               )}
 

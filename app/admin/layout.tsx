@@ -13,6 +13,7 @@ import {
   Store,
   Headphones,
   Newspaper,
+  CalendarCheck,
   LogOut,
   Menu,
   X,
@@ -27,6 +28,7 @@ const navItems = [
   { icon: Wallet, label: '結算審核', href: '/admin/settlements' },
   { icon: Headphones, label: '客服工單', href: '/admin/support' },
   { icon: Store, label: '店鋪管理', href: '/admin/venues' },
+  { icon: CalendarCheck, label: '預約管理', href: '/admin/bookings' },
   { icon: Newspaper, label: '新聞管理', href: '/admin/news' },
 ];
 

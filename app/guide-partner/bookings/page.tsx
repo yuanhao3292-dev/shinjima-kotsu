@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import Logo from '@/components/Logo';
@@ -19,9 +19,10 @@ import {
   Filter,
   Loader2,
   MapPin,
-  Clock,
   Users2,
-  ChevronRight
+  ChevronRight,
+  CreditCard,
+  CheckCircle2,
 } from 'lucide-react';
 
 interface Booking {
@@ -53,18 +54,80 @@ const STATUS_FILTERS = [
   { value: 'cancelled', label: '已取消' },
 ];
 
-export default function BookingsPage() {
+function BookingsContent() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [filteredBookings, setFilteredBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [statusFilter, setStatusFilter] = useState('all');
+  const [payingBookingId, setPayingBookingId] = useState<string | null>(null);
+  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const router = useRouter();
+  const searchParams = useSearchParams();
   const supabase = createClient();
 
   useEffect(() => {
     loadBookings();
   }, []);
+
+  // Handle payment callback query params
+  useEffect(() => {
+    const payment = searchParams.get('payment');
+    if (payment === 'success') {
+      setMessage({ type: 'success', text: '定金支付成功！管理員將盡快確認您的預約。' });
+      // Reload bookings to reflect updated deposit status
+      loadBookings();
+    } else if (payment === 'cancelled') {
+      setMessage({ type: 'error', text: '支付已取消。您可以稍後再支付定金。' });
+    }
+  }, [searchParams]);
+
+  // Auto-clear message
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => setMessage(null), 6000);
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
+
+  const handlePayDeposit = async (bookingId: string) => {
+    setPayingBookingId(bookingId);
+    setMessage(null);
+
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        setMessage({ type: 'error', text: '請重新登入' });
+        setPayingBookingId(null);
+        return;
+      }
+
+      const res = await fetch('/api/booking/deposit-checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({ bookingId }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setMessage({ type: 'error', text: data.error || '無法創建支付頁面' });
+        setPayingBookingId(null);
+        return;
+      }
+
+      if (data.checkoutUrl) {
+        window.location.href = data.checkoutUrl;
+      }
+    } catch (err) {
+      console.error('Payment error:', err);
+      setMessage({ type: 'error', text: '支付請求失敗，請稍後重試' });
+      setPayingBookingId(null);
+    }
+  };
 
   useEffect(() => {
     if (statusFilter === 'all') {
@@ -273,6 +336,18 @@ export default function BookingsPage() {
             </div>
           </div>
 
+          {/* Payment Message */}
+          {message && (
+            <div className={`mb-4 p-4 rounded-xl flex items-center gap-2 ${
+              message.type === 'success'
+                ? 'bg-green-50 border border-green-200 text-green-700'
+                : 'bg-red-50 border border-red-200 text-red-700'
+            }`}>
+              {message.type === 'success' ? <CheckCircle2 size={18} /> : <X size={18} />}
+              {message.text}
+            </div>
+          )}
+
           {/* Results Count */}
           <p className="text-sm text-gray-500 mb-4">
             共 {filteredBookings.length} 條預約記錄
@@ -334,6 +409,29 @@ export default function BookingsPage() {
                   </div>
                 </div>
 
+                {/* Pay Deposit Button */}
+                {booking.status === 'pending' && booking.deposit_status === 'pending' && (
+                  <div className="px-4 sm:px-6 py-3 border-t">
+                    <button
+                      onClick={() => handlePayDeposit(booking.id)}
+                      disabled={payingBookingId === booking.id}
+                      className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 disabled:bg-gray-400 text-white font-bold py-3 rounded-xl transition"
+                    >
+                      {payingBookingId === booking.id ? (
+                        <>
+                          <Loader2 className="animate-spin" size={18} />
+                          處理中...
+                        </>
+                      ) : (
+                        <>
+                          <CreditCard size={18} />
+                          支付定金 ¥500
+                        </>
+                      )}
+                    </button>
+                  </div>
+                )}
+
                 <div className="px-4 sm:px-6 py-3 bg-gray-50 border-t flex items-center justify-between">
                   <span className="text-xs text-gray-400">
                     創建於 {new Date(booking.created_at).toLocaleDateString()}
@@ -374,5 +472,17 @@ export default function BookingsPage() {
         />
       )}
     </div>
+  );
+}
+
+export default function BookingsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <Loader2 className="w-12 h-12 text-orange-500 animate-spin" />
+      </div>
+    }>
+      <BookingsContent />
+    </Suspense>
   );
 }
