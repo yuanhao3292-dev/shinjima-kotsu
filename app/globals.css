@@ -27,14 +27,14 @@ h1, h2, h3, .serif {
 
 [data-locale="zh-CN"] body,
 [data-locale="zh-CN"] .font-sans {
-  font-family: 'PingFang SC', 'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans SC', sans-serif !important;
+  font-family: 'HarmonyOS Sans SC', 'MiSans', 'OPPOSans', 'Alibaba PuHuiTi', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif !important;
 }
 [data-locale="zh-CN"] h1,
 [data-locale="zh-CN"] h2,
 [data-locale="zh-CN"] h3,
 [data-locale="zh-CN"] .serif,
 [data-locale="zh-CN"] .font-serif {
-  font-family: 'LXGW WenKai', 'Songti SC', 'STSong', 'Source Han Serif SC', serif !important;
+  font-family: 'FZSongti-S06', 'STZhongsong', 'Source Han Serif SC', 'Noto Serif SC', 'LXGW WenKai', serif !important;
 }
 
 [data-locale="en"] body,
@@ -61,27 +61,6 @@ h1, h2, h3, .serif {
   background-clip: text;
 }
 
-/* 图片交互与动画 */
-.image-card {
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  overflow: hidden;
-  border-radius: 4px;
-  position: relative;
-}
-
-.image-card:hover img {
-  transform: scale(1.05);
-}
-
-.image-card img {
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.nav-blur {
-  background: rgba(250, 250, 250, 0.9);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-}
 
 /* 流程图专用样式 */
 .process-step {

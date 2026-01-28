@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
       /* --- 基础设置 --- */
@@ -24,6 +25,19 @@
       
       h1, h2, h3, .serif {
         font-family: 'Shippori Mincho', serif;
+      }
+
+      /* Chinese Simplified font overrides */
+      [data-locale="zh-CN"] body,
+      [data-locale="zh-CN"] .font-sans {
+        font-family: 'HarmonyOS Sans SC', 'MiSans', 'OPPOSans', 'Alibaba PuHuiTi', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif !important;
+      }
+      [data-locale="zh-CN"] h1,
+      [data-locale="zh-CN"] h2,
+      [data-locale="zh-CN"] h3,
+      [data-locale="zh-CN"] .serif,
+      [data-locale="zh-CN"] .font-serif {
+        font-family: 'FZSongti-S06', 'STZhongsong', 'Source Han Serif SC', 'Noto Serif SC', 'LXGW WenKai', serif !important;
       }
 
       /* --- Gemini 科技色调 --- */
@@ -115,7 +129,7 @@
 }
 </script>
 </head>
-  <body>
+  <body data-locale="ja">
     <!-- 
       HYBRID ROOT: 
       Contains static content for immediate preview (GitHub Pages/No-Build).
@@ -142,7 +156,13 @@
                     </a>
                     <a href="#about" class="hover:text-black transition">会社概要</a>
                 </div>
-                <a href="#" class="text-xs font-bold border border-gray-300 px-6 py-2.5 rounded hover:bg-black hover:text-white hover:border-black transition duration-300">PARTNER LOGIN</a>
+                <div class="flex items-center gap-3">
+                  <div class="flex items-center gap-1 border-r border-gray-200 pr-3">
+                    <button id="lang-ja" class="text-xs px-2 py-1 rounded border border-gray-300 bg-white text-gray-700 font-medium transition hover:bg-gray-50" onclick="setLocale('ja')">JA</button>
+                    <button id="lang-zh" class="text-xs px-2 py-1 rounded border border-gray-300 bg-gray-100 text-gray-500 font-medium transition hover:bg-gray-50" onclick="setLocale('zh-CN')">中文</button>
+                  </div>
+                  <a href="#" class="text-xs font-bold border border-gray-300 px-6 py-2.5 rounded hover:bg-black hover:text-white hover:border-black transition duration-300">PARTNER LOGIN</a>
+                </div>
             </div>
         </nav>
     
@@ -169,6 +189,50 @@
         
     </div>
     
+    <!-- Language Detection and Switching Script -->
+    <script>
+        // Function to set locale
+        function setLocale(locale) {
+            document.body.setAttribute('data-locale', locale);
+            
+            // Update button styles
+            const jaBtn = document.getElementById('lang-ja');
+            const zhBtn = document.getElementById('lang-zh');
+            
+            if (jaBtn && zhBtn) {
+                jaBtn.className = 
+                    locale === 'ja' ? 'text-xs px-2 py-1 rounded border border-gray-300 bg-white text-gray-700 font-medium transition hover:bg-gray-50' 
+                                   : 'text-xs px-2 py-1 rounded border border-gray-300 bg-gray-100 text-gray-500 font-medium transition hover:bg-gray-50';
+                
+                zhBtn.className = 
+                    locale === 'zh-CN' ? 'text-xs px-2 py-1 rounded border border-gray-300 bg-white text-gray-700 font-medium transition hover:bg-gray-50' 
+                                     : 'text-xs px-2 py-1 rounded border border-gray-300 bg-gray-100 text-gray-500 font-medium transition hover:bg-gray-50';
+            }
+            
+            // Save preference to localStorage
+            localStorage.setItem('preferred-locale', locale);
+        }
+        
+        // Auto-detect user language on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check for saved preference first
+            const savedLocale = localStorage.getItem('preferred-locale');
+            if (savedLocale) {
+                setLocale(savedLocale);
+                return;
+            }
+            
+            // Auto-detect browser language
+            const userLang = navigator.language || navigator.userLanguage;
+            
+            // If user's language is Chinese (simplified or traditional), set to zh-CN
+            if (userLang.startsWith('zh')) {
+                setLocale('zh-CN');
+            }
+            // Otherwise, keep Japanese as default
+        });
+    </script>
+
     <!-- CRITICAL FIX: Entry point for the React Application -->
     <script type="module" src="./index.tsx"></script>
   </body>

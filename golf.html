@@ -9,10 +9,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Shippori+Mincho:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
         body { font-family: 'Noto Sans JP', sans-serif; background-color: #FAFAFA; color: #2D2D2D; }
         h1, h2, h3, .serif { font-family: 'Shippori Mincho', serif; }
+        
+        /* Chinese Simplified font overrides */
+        [data-locale="zh-CN"] body,
+        [data-locale="zh-CN"] .font-sans {
+          font-family: 'HarmonyOS Sans SC', 'MiSans', 'OPPOSans', 'Alibaba PuHuiTi', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif !important;
+        }
+        [data-locale="zh-CN"] h1,
+        [data-locale="zh-CN"] h2,
+        [data-locale="zh-CN"] h3,
+        [data-locale="zh-CN"] .serif,
+        [data-locale="zh-CN"] .font-serif {
+          font-family: 'FZSongti-S06', 'STZhongsong', 'Source Han Serif SC', 'Noto Serif SC', 'LXGW WenKai', serif !important;
+        }
         .gemini-text {
             background: linear-gradient(90deg, #4E8cFF 0%, #9B8cFF 100%);
             -webkit-background-clip: text;
@@ -42,7 +56,7 @@
         .hover-scale:hover { transform: scale(1.02); }
     </style>
 </head>
-<body class="antialiased selection:bg-green-100 selection:text-green-900">
+<body class="antialiased selection:bg-green-100 selection:text-green-900" data-locale="ja">
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 nav-blur transition-all duration-300">
@@ -52,4 +66,89 @@
                 <span class="text-sm font-medium tracking-wide font-serif">Back to Home</span>
             </a>
             <div class="flex items-center gap-3">
-                <span class="text-xs uppercase tracking-widest text-gray-40
+                <span class="text-xs uppercase tracking-widest text-gray-400">Premium Golf</span>
+                <div class="flex items-center gap-2">
+                    <button id="lang-ja" class="text-xs px-2 py-1 rounded border border-gray-300 bg-white text-gray-700 font-medium transition hover:bg-gray-50" onclick="setLocale('ja')">JA</button>
+                    <button id="lang-zh" class="text-xs px-2 py-1 rounded border border-gray-300 bg-gray-100 text-gray-500 font-medium transition hover:bg-gray-50" onclick="setLocale('zh-CN')">中文</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 px-6 bg-gradient-to-br from-green-50 to-emerald-100">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center mb-12 fade-in-up" style="animation-delay: 0.1s">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-800">Premium Golf Division</h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Experience luxury golf transportation with our premium services. Tailored for golf enthusiasts who demand excellence.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-scale fade-in-up" style="animation-delay: 0.2s">
+                    <div class="text-green-600 text-3xl mb-4">
+                        <i class="fas fa-golf-ball-tee"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">Course Transportation</h3>
+                    <p class="text-gray-600 mb-4">Direct transportation to and from the finest golf courses in the region with luxury vehicles.</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-scale fade-in-up" style="animation-delay: 0.3s">
+                    <div class="text-green-600 text-3xl mb-4">
+                        <i class="fas fa-suitcase-rolling"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">Equipment Handling</h3>
+                    <p class="text-gray-600 mb-4">Professional handling and secure transport of your golf equipment with specialized vehicles.</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-scale fade-in-up" style="animation-delay: 0.4s">
+                    <div class="text-green-600 text-3xl mb-4">
+                        <i class="fas fa-concierge-bell"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">VIP Services</h3>
+                    <p class="text-gray-600 mb-4">Personalized concierge services including tee time arrangements and course recommendations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Language Detection and Switching Script -->
+    <script>
+        // Function to set locale
+        function setLocale(locale) {
+            document.body.setAttribute('data-locale', locale);
+            
+            // Update button styles
+            document.getElementById('lang-ja').className = 
+                locale === 'ja' ? 'text-xs px-2 py-1 rounded border border-gray-300 bg-white text-gray-700 font-medium transition hover:bg-gray-50' 
+                               : 'text-xs px-2 py-1 rounded border border-gray-300 bg-gray-100 text-gray-500 font-medium transition hover:bg-gray-50';
+            
+            document.getElementById('lang-zh').className = 
+                locale === 'zh-CN' ? 'text-xs px-2 py-1 rounded border border-gray-300 bg-white text-gray-700 font-medium transition hover:bg-gray-50' 
+                                 : 'text-xs px-2 py-1 rounded border border-gray-300 bg-gray-100 text-gray-500 font-medium transition hover:bg-gray-50';
+            
+            // Save preference to localStorage
+            localStorage.setItem('preferred-locale', locale);
+        }
+        
+        // Auto-detect user language on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check for saved preference first
+            const savedLocale = localStorage.getItem('preferred-locale');
+            if (savedLocale) {
+                setLocale(savedLocale);
+                return;
+            }
+            
+            // Auto-detect browser language
+            const userLang = navigator.language || navigator.userLanguage;
+            
+            // If user's language is Chinese (simplified or traditional), set to zh-CN
+            if (userLang.startsWith('zh')) {
+                setLocale('zh-CN');
+            }
+            // Otherwise, keep Japanese as default
+        });
+    </script>
+
+</body>
+</html>

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Logo from './Logo';
 import { translations, Language } from '../translations';
 import { UserProfile } from '../types';
-import { ArrowLeft, ArrowRight, CheckCircle, MapPin, Building, Activity, Shield, Armchair, FileText, Check, Brain, Eye, Zap, Coffee, Globe, ChevronDown, Smile, Heart, HeartPulse, Bus, Utensils, Quote, Lock, Trophy, Car, Bath, Handshake, Users, Briefcase, Mail, X, Menu, LogIn, Phone, Loader2, User, Sparkles, Scan, Cpu, Microscope, Dna, Monitor, Fingerprint, Printer, Map, Star, Award, MessageSquare, Bot, Factory, Stethoscope, ExternalLink, Radio } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle, MapPin, Building, Activity, Shield, Armchair, FileText, Check, Zap, Coffee, Globe, ChevronDown, Heart, Bus, Utensils, Quote, Lock, Trophy, Car, Bath, Handshake, Mail, X, Phone, Loader2, User, Scan, Cpu, Microscope, Monitor, Map, Award, MessageSquare, Factory, Stethoscope, ExternalLink } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import HeroCarousel, { CarouselSlide } from './HeroCarousel';
 import TestimonialWall from './TestimonialWall';
@@ -227,7 +227,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       <div className="absolute inset-0 opacity-30 pointer-events-none">
          <div className="absolute w-full h-full bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
       </div>
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 py-12 md:py-24 relative z-10">
           <div className="max-w-3xl animate-fade-in-up">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif mb-4 md:mb-6 leading-[1.2]">
                  {t.medical.hero_title_1}<br/>
@@ -253,7 +253,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
 
     {/* Hospital Introduction Video Section */}
     <div className="bg-gradient-to-b from-slate-900 to-slate-800 py-20">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 py-12 md:py-24">
         <div className="text-center mb-12">
           <span className="text-blue-400 text-xs tracking-[0.3em] uppercase font-bold">Hospital Tour</span>
           <h3 className="text-3xl font-serif text-white mt-3">{t.medical.video_title}</h3>
@@ -276,7 +276,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       </div>
     </div>
 
-    <div className="container mx-auto px-6 py-24">
+    <div className="container mx-auto px-6 py-12 md:py-24 py-24">
       {/* 2. Authority Section */}
       <div className="mb-24">
           <div className="text-center mb-16">
@@ -416,7 +416,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       {/* 3.5. Facility & Rooms Section */}
       <div className="mb-24">
           <div className="text-center py-20 bg-white">
-              <h3 className="text-3xl md:text-4xl font-serif text-gray-900 mb-3">{t.medical.facility_title}</h3>
+              <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif text-gray-900 mb-3">{t.medical.facility_title}</h3>
               <p className="text-gray-500 text-sm tracking-widest uppercase mb-6">Facility & Rooms</p>
               <p className="text-gray-600 text-sm max-w-2xl mx-auto px-4">{t.medical.facility_subtitle}</p>
           </div>
@@ -430,13 +430,13 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       alt="Center Interior"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-transparent"></div>
-                  <div className="relative container mx-auto px-6 py-16">
+                  <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl">
                           <div className="flex items-center gap-3 mb-4">
                               <div className="h-[1px] w-12 bg-amber-400"></div>
                               <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">01</span>
                           </div>
-                          <h4 className="text-3xl md:text-4xl text-white mb-6 font-serif">{t.medical.facility_1_title}</h4>
+                          <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_1_title}</h4>
                           <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_1_desc}</p>
                           <div className="mt-6 flex gap-3">
                               <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">4,000㎡</span>
@@ -454,13 +454,13 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       alt="Reception"
                   />
                   <div className="absolute inset-0 bg-gradient-to-l from-slate-900/90 via-slate-900/70 to-transparent"></div>
-                  <div className="relative container mx-auto px-6 py-16">
+                  <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl ml-auto text-right">
                           <div className="flex items-center justify-end gap-3 mb-4">
                               <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">02</span>
                               <div className="h-[1px] w-12 bg-amber-400"></div>
                           </div>
-                          <h4 className="text-3xl md:text-4xl text-white mb-6 font-serif">{t.medical.facility_2_title}</h4>
+                          <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_2_title}</h4>
                           <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_2_desc}</p>
                           <div className="mt-6 flex justify-end gap-3">
                               <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">Concierge</span>
@@ -478,13 +478,13 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       alt="Private Suite"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-transparent"></div>
-                  <div className="relative container mx-auto px-6 py-16">
+                  <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl">
                           <div className="flex items-center gap-3 mb-4">
                               <div className="h-[1px] w-12 bg-amber-400"></div>
                               <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">03</span>
                           </div>
-                          <h4 className="text-3xl md:text-4xl text-white mb-6 font-serif">{t.medical.facility_3_title}</h4>
+                          <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_3_title}</h4>
                           <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_3_desc}</p>
                           <div className="mt-6 flex gap-3 flex-wrap">
                               <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">20 Rooms</span>
@@ -503,13 +503,13 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       alt="Bathroom"
                   />
                   <div className="absolute inset-0 bg-gradient-to-l from-slate-900/90 via-slate-900/70 to-transparent"></div>
-                  <div className="relative container mx-auto px-6 py-16">
+                  <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl ml-auto text-right">
                           <div className="flex items-center justify-end gap-3 mb-4">
                               <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">04</span>
                               <div className="h-[1px] w-12 bg-amber-400"></div>
                           </div>
-                          <h4 className="text-3xl md:text-4xl text-white mb-6 font-serif">{t.medical.facility_4_title}</h4>
+                          <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_4_title}</h4>
                           <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_4_desc}</p>
                           <div className="mt-6 flex justify-end gap-3">
                               <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">Luxury</span>
@@ -833,7 +833,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                           <span className="font-semibold text-gray-900 pr-4">{faq.q}</span>
                           <ChevronDown size={20} className="text-gray-400 flex-shrink-0 group-open:rotate-180 transition-transform" />
                       </summary>
-                      <div className="px-6 pb-6 text-gray-600 text-sm leading-relaxed">
+                      <div className="px-6 py-12 md:py-24 pb-6 text-gray-600 text-sm leading-relaxed">
                           {faq.a}
                       </div>
                   </details>
@@ -861,7 +861,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
 
       {/* CTA */}
       <div className="bg-blue-600 rounded-3xl p-12 text-center text-white shadow-2xl shadow-blue-200">
-          <h3 className="text-3xl md:text-4xl font-serif mb-6">{t.medical.cta_title}</h3>
+          <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif mb-6">{t.medical.cta_title}</h3>
           <p className="text-blue-100 max-w-2xl mx-auto mb-6 leading-relaxed whitespace-pre-line">
               {t.medical.cta_text}
           </p>
@@ -882,7 +882,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
 
       {/* Contact Buttons */}
       <div className="py-12 bg-gray-50">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-6 py-12 md:py-24">
           <div className="max-w-2xl mx-auto text-center">
             <h3 className="text-lg font-bold text-gray-900 mb-4">{t.medical.contact_other}</h3>
             <ContactButtons />
@@ -984,10 +984,10 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
         <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent"></div>
 
         {/* Content */}
-        <div className="relative z-10 text-center text-white px-6 max-w-5xl mx-auto">
+        <div className="relative z-10 text-center text-white px-6 py-12 md:py-24 max-w-5xl mx-auto">
            {/* Premium Badge */}
            <div className="animate-fade-in-up-delay-1">
-             <span className="inline-flex items-center gap-3 border border-amber-400/40 bg-black/30 backdrop-blur-md px-6 py-2 rounded-full mb-8">
+             <span className="inline-flex items-center gap-3 border border-amber-400/40 bg-black/30 backdrop-blur-md px-6 py-12 md:py-24 py-2 rounded-full mb-8">
                 <span className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></span>
                 <span className="text-amber-200 text-xs font-medium tracking-[0.25em] uppercase">{t.golf.tag}</span>
                 <span className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></span>
@@ -1038,7 +1038,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
      </div>
 
      {/* ===== STATS BAR - Floating ===== */}
-     <div className="relative -mt-20 z-20 container mx-auto px-6">
+     <div className="relative -mt-20 z-20 container mx-auto px-6 py-12 md:py-24">
        <div className="golf-glass rounded-2xl p-8 shadow-2xl">
          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
            {stats.map((stat, i) => (
@@ -1054,7 +1054,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
 
      {/* ===== BRAND STANDARD SECTION ===== */}
      <div className="py-24 bg-gradient-to-b from-[#FAFAF8] to-white">
-       <div className="container mx-auto px-6">
+       <div className="container mx-auto px-6 py-12 md:py-24">
          {/* Section Header */}
          <div className="text-center mb-16">
            <div className="inline-flex items-center gap-4 mb-4">
@@ -1062,7 +1062,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
              <span className="text-amber-600 text-xs tracking-[0.3em] uppercase font-bold">{t.golf.std_title}</span>
              <div className="w-12 h-px bg-gradient-to-l from-transparent to-amber-400"></div>
            </div>
-           <h2 className="text-3xl md:text-4xl font-serif text-gray-900 golf-title-decorated">
+           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-gray-900 golf-title-decorated">
              Why Choose Niijima Golf?
            </h2>
          </div>
@@ -1107,14 +1107,14 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
          }}></div>
        </div>
 
-       <div className="container mx-auto px-6 relative z-10">
+       <div className="container mx-auto px-6 py-12 md:py-24 relative z-10">
          <div className="text-center mb-12">
            <div className="inline-flex items-center gap-4 mb-4">
              <div className="w-12 h-px bg-gradient-to-r from-transparent to-amber-400"></div>
              <span className="text-amber-400 text-xs tracking-[0.3em] uppercase font-bold">Partner Courses</span>
              <div className="w-12 h-px bg-gradient-to-l from-transparent to-amber-400"></div>
            </div>
-           <h2 className="text-3xl md:text-4xl font-serif text-white">{t.golf.partners_title || '提携名門コース'}</h2>
+           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-white">{t.golf.partners_title || '提携名門コース'}</h2>
          </div>
 
          {/* Course Grid */}
@@ -1152,7 +1152,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
 
      {/* ===== RECOMMENDED ITINERARIES ===== */}
      <div id="golf-plans" className="py-24 bg-white">
-       <div className="container mx-auto px-6">
+       <div className="container mx-auto px-6 py-12 md:py-24">
          {/* Section Header */}
          <div className="text-center mb-20">
            <div className="inline-flex items-center gap-4 mb-4">
@@ -1160,7 +1160,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
              <span className="text-amber-600 text-xs tracking-[0.3em] uppercase font-bold">Signature Itineraries</span>
              <div className="w-12 h-px bg-gradient-to-l from-transparent to-amber-400"></div>
            </div>
-           <h2 className="text-3xl md:text-4xl font-serif text-gray-900 mb-4">Recommended Itineraries</h2>
+           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-gray-900 mb-4">Recommended Itineraries</h2>
            <p className="text-gray-500 max-w-xl mx-auto">Curated experiences for discerning golfers</p>
          </div>
 
@@ -1219,7 +1219,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
                         <div className="flex-grow h-px bg-gradient-to-r from-amber-400/50 to-transparent"></div>
                      </div>
 
-                     <h3 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-3 leading-tight">{plan.title}</h3>
+                     <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-gray-900 mb-3 leading-tight">{plan.title}</h3>
                      <h4 className="text-lg text-amber-600 mb-6 font-medium">{plan.subtitle}</h4>
                      <p className="text-gray-600 leading-relaxed mb-10 text-lg">{plan.desc}</p>
 
@@ -1265,7 +1265,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
 
      {/* Contact Buttons */}
      <div className="py-16 bg-white">
-       <div className="container mx-auto px-6">
+       <div className="container mx-auto px-6 py-12 md:py-24">
          <div className="max-w-2xl mx-auto text-center">
            <h3 className="text-2xl font-serif font-bold text-gray-900 mb-2">開始您的高爾夫之旅</h3>
            <p className="text-gray-500 mb-8">專業球場預約・VIP禮遇・全程陪同</p>
@@ -1384,7 +1384,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
            <div className="absolute w-96 h-96 bg-blue-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
            <div className="absolute w-72 h-72 bg-indigo-500/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
          </div>
-         <div className="relative z-10 text-center px-6">
+         <div className="relative z-10 text-center px-6 py-12 md:py-24">
             {t.business.hero_tag && (
               <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full mb-8">
                 <span className="text-xs font-bold text-white/90 uppercase tracking-wider">{t.business.hero_tag}</span>
@@ -1399,7 +1399,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
          </div>
       </div>
 
-      <div className="container mx-auto px-6 py-24">
+      <div className="container mx-auto px-6 py-12 md:py-24 py-24">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center mb-12 md:mb-24">
              <div>
                 <h3 className="text-3xl font-serif text-gray-900 mb-6">{t.business.tag}</h3>
@@ -1831,7 +1831,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
           </div>
           
           {/* Contact Buttons */}
-          <div className="py-16 bg-gray-50 -mx-6 px-6 mt-16">
+          <div className="py-16 bg-gray-50 -mx-6 px-6 py-12 md:py-24 mt-16">
             <div className="max-w-2xl mx-auto text-center">
               <h3 className="text-2xl font-serif font-bold text-gray-900 mb-2">{localizedTexts.ctaTitle}</h3>
               <p className="text-gray-500 mb-8">{localizedTexts.ctaSubtitle}</p>
@@ -1867,11 +1867,11 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
            <div className="absolute w-96 h-96 bg-indigo-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
            <div className="absolute w-72 h-72 bg-blue-500/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
          </div>
-         <div className="relative z-10 text-center px-6">
+         <div className="relative z-10 text-center px-6 py-12 md:py-24">
              <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full mb-8">
                <span className="text-xs font-bold text-white/90 uppercase tracking-wider">{t.partner.hero_tag}</span>
              </span>
-             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-serif font-bold text-white mb-4 md:mb-6 leading-tight">
+             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl font-serif font-bold text-white mb-4 md:mb-6 leading-tight">
                 {t.partner.hero_title}
              </h1>
              <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed whitespace-pre-line text-sm md:text-base">
@@ -1880,7 +1880,7 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
          </div>
      </div>
 
-     <div className="container mx-auto px-6 py-24">
+     <div className="container mx-auto px-6 py-12 md:py-24 py-24">
          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
              {[
                { icon: <Handshake size={32} />, title: t.partner.trust_1_t, desc: t.partner.trust_1_d },
@@ -2023,7 +2023,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
       {/* 2. ニュースルーム - JTB风格列表式设计 */}
       <section className="py-20 bg-[#fafafa]">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-6 py-12 md:py-24">
           <div className="max-w-4xl mx-auto">
             {/* 标题 - 居中 */}
             <div className="text-center mb-12">
@@ -2073,7 +2073,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="text-center mt-10">
               <a
                 href="/news"
-                className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 border border-gray-300 px-6 py-3 rounded hover:border-gray-400 transition-colors"
+                className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 border border-gray-300 px-8 py-4 rounded hover:border-gray-400 transition-colors"
               >
                 {currentLang === 'zh-TW' ? '查看全部消息' : currentLang === 'zh-CN' ? '查看全部消息' : currentLang === 'en' ? 'View All News' : 'すべてのお知らせ'}
                 <ArrowRight size={14} className="ml-2" />
@@ -2096,7 +2096,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           <div className="absolute inset-0 bg-gradient-to-r from-teal-900/90 via-teal-900/70 to-transparent"></div>
         </div>
 
-        <div className="relative container mx-auto px-6 py-24">
+        <div className="relative container mx-auto px-6 py-12 md:py-24 py-24">
           <div className="max-w-2xl">
             {/* 标签 */}
             <div className="flex items-center gap-3 mb-8">
@@ -2105,7 +2105,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             </div>
 
             {/* 核心标题 - 温暖、给人希望 */}
-            <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
+            <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
               {currentLang === 'zh-TW' ? '把健康交給' : currentLang === 'zh-CN' ? '把健康交给' : '健康を託す'}
               <br />
               <span className="text-teal-300">{currentLang === 'zh-TW' ? '值得信賴的人' : currentLang === 'zh-CN' ? '值得信赖的人' : '信頼できる人へ'}</span>
@@ -2121,7 +2121,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">12<span className="text-teal-300">年</span></div>
                 <div className="text-[10px] md:text-xs text-teal-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '醫療服務經驗' : currentLang === 'zh-CN' ? '医疗服务经验' : '医療サービス実績'}</div>
               </div>
-              <div className="border-x border-white/20 px-2 md:px-6 text-center">
+              <div className="border-x border-white/20 px-2 md:px-6 py-12 md:py-24 text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">3000<span className="text-teal-300">+</span></div>
                 <div className="text-[10px] md:text-xs text-teal-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : currentLang === 'zh-CN' ? '服务客户' : 'ご利用者様'}</div>
               </div>
@@ -2152,7 +2152,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-teal-900 text-sm font-medium rounded-lg hover:bg-teal-50 transition-colors cursor-pointer"
               >
                 {currentLang === 'zh-TW' ? '了解體檢方案' : currentLang === 'zh-CN' ? '了解体检方案' : '健診プランを見る'}
-                <ArrowRight size={16} className="ml-2" />
+                <ArrowRight size={18} className="ml-3" />
               </a>
               <a
                 href="/health-screening"
@@ -2200,7 +2200,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 via-blue-950/70 to-transparent"></div>
         </div>
 
-        <div className="relative container mx-auto px-6 py-24">
+        <div className="relative container mx-auto px-6 py-12 md:py-24 py-24">
           <div className="max-w-2xl">
             {/* 标签 */}
             <div className="flex items-center gap-3 mb-8">
@@ -2209,7 +2209,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             </div>
 
             {/* 核心标题 */}
-            <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
+            <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
               {currentLang === 'zh-TW' ? '面對重疾' : currentLang === 'zh-CN' ? '面对重疾' : '重病と向き合う時'}
               <br />
               <span className="text-sky-300">{currentLang === 'zh-TW' ? '日本醫療給您更多希望' : currentLang === 'zh-CN' ? '日本医疗给您更多希望' : '日本医療がもう一つの希望に'}</span>
@@ -2225,7 +2225,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">68<span className="text-sky-300">%</span></div>
                 <div className="text-[10px] md:text-xs text-blue-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '癌症5年生存率' : currentLang === 'zh-CN' ? '癌症5年生存率' : 'がん5年生存率'}</div>
               </div>
-              <div className="border-x border-white/20 px-2 md:px-6 text-center">
+              <div className="border-x border-white/20 px-2 md:px-6 py-12 md:py-24 text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">98<span className="text-sky-300">%</span></div>
                 <div className="text-[10px] md:text-xs text-blue-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '心臟手術成功率' : currentLang === 'zh-CN' ? '心脏手术成功率' : '心臓手術成功率'}</div>
               </div>
@@ -2256,7 +2256,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-blue-950 text-sm font-medium rounded-lg hover:bg-sky-50 transition-colors"
               >
                 {currentLang === 'zh-TW' ? '了解治療服務' : currentLang === 'zh-CN' ? '了解治疗服务' : '治療サービス詳細'}
-                <ArrowRight size={16} className="ml-2" />
+                <ArrowRight size={18} className="ml-3" />
               </a>
               <a
                 href="/cancer-treatment/remote-consultation"
@@ -2301,7 +2301,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
         </div>
 
-        <div className="relative container mx-auto px-6 py-24">
+        <div className="relative container mx-auto px-6 py-12 md:py-24 py-24">
           <div className="max-w-2xl">
             {/* 权威认证标签 */}
             <div className="flex items-center gap-3 mb-8">
@@ -2309,7 +2309,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">Exclusive Access</span>
             </div>
 
-            <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
+            <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
               {currentLang === 'zh-TW' ? '踏入' : currentLang === 'zh-CN' ? '踏入' : '足を踏み入れる'}
               <br />
               <span className="text-amber-400">{currentLang === 'zh-TW' ? '傳說中的名門' : currentLang === 'zh-CN' ? '传说中的名门' : '伝説の名門へ'}</span>
@@ -2325,7 +2325,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">25<span className="text-amber-400">+</span></div>
                 <div className="text-[10px] md:text-xs text-gray-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '名門球場' : currentLang === 'zh-CN' ? '名门球场' : '名門コース'}</div>
               </div>
-              <div className="border-x border-white/20 px-2 md:px-6 text-center">
+              <div className="border-x border-white/20 px-2 md:px-6 py-12 md:py-24 text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">0</div>
                 <div className="text-[10px] md:text-xs text-gray-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '會員介紹' : currentLang === 'zh-CN' ? '会员介绍' : '会員紹介不要'}</div>
               </div>
@@ -2380,12 +2380,12 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             className="w-full h-full object-cover opacity-30"
           />
         </div>
-        <div className="relative container mx-auto px-6">
+        <div className="relative container mx-auto px-6 py-12 md:py-24">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <div>
-                <p className="text-xs tracking-[0.3em] text-amber-400 uppercase mb-4">Business Inspection</p>
-                <h2 className="serif text-3xl md:text-4xl text-white mb-6 leading-tight">
+                <p className="text-xs tracking-[0.3em] text-amber-400 uppercase mb-8 md:mb-10">Business Inspection</p>
+                <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-white mb-8 md:mb-10 leading-tight">
                   {currentLang === 'zh-TW' ? '對話日本頂尖企業' : currentLang === 'zh-CN' ? '对话日本顶尖企业' : '日本トップ企業との対話'}
                 </h2>
                 <p className="text-gray-300 leading-relaxed mb-8">
@@ -2422,10 +2422,10 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
                 <a
                   onClick={() => setCurrentPage('business')}
-                  className="inline-flex items-center px-6 py-3 bg-amber-500 text-slate-900 text-sm font-medium hover:bg-amber-400 transition-colors cursor-pointer"
+                  className="inline-flex items-center px-8 py-4 bg-amber-500 text-slate-900 text-sm font-medium hover:bg-amber-400 transition-colors cursor-pointer"
                 >
                   {currentLang === 'zh-TW' ? '定制考察方案' : currentLang === 'zh-CN' ? '定制考察方案' : '視察プランを相談'}
-                  <ArrowRight size={16} className="ml-2" />
+                  <ArrowRight size={18} className="ml-3" />
                 </a>
               </div>
 
@@ -2449,7 +2449,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
       {/* 8. 主要取引先 - Partners */}
       <section className="py-20 bg-[#f8f8f8] border-t border-gray-200">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-6 py-12 md:py-24">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <p className="text-xs tracking-[0.3em] text-gray-400 uppercase mb-3">Partners</p>
@@ -2479,20 +2479,20 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
       {/* 8. 企業理念 - Corporate Philosophy */}
       <section className="py-24 bg-slate-900 text-white">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-6 py-12 md:py-24">
           <div className="max-w-4xl mx-auto text-center">
             <p className="text-xs tracking-[0.3em] text-gray-500 uppercase mb-6">Corporate Philosophy</p>
-            <h2 className="serif text-3xl md:text-4xl text-white mb-8 leading-relaxed">
+            <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-white mb-8 leading-relaxed">
               {currentLang === 'zh-TW' ? '用心連結世界與日本' : currentLang === 'zh-CN' ? '用心连结世界与日本' : '心をつなぐ、世界と日本'}
             </h2>
             <p className="text-gray-400 leading-relaxed mb-10 max-w-2xl mx-auto">
-              {currentLang === 'zh-TW' ? '新島交通成立於2020年，致力於為華人旅客提供最高品質的日本旅遊體驗。我們相信，真正的服務不僅是滿足需求，更是創造感動。' : currentLang === 'zh-CN' ? '新岛交通成立于2020年，致力于为华人旅客提供最高品质的日本旅游体验。我们相信，真正的服务不仅是满足需求，更是创造感动。' : '2020年設立以来、新島交通は華人旅行者の皆様に最高品質の日本旅行体験を提供してまいりました。真のサービスとは、ニーズを満たすだけでなく、感動を創造することだと信じています。'}
+              {currentLang === 'zh-TW' ? '我們致力於為華人旅客提供最高品質的日本旅遊體驗。我們相信，真正的服務不僅是滿足需求，更是創造感動。' : currentLang === 'zh-CN' ? '我们致力于为华人旅客提供最高品质的日本旅游体验。我们相信，真正的服务不仅是满足需求，更是创造感动。' : '2020年設立以来、新島交通は華人旅行者の皆様に最高品質の日本旅行体験を提供してまいりました。真のサービスとは、ニーズを満たすだけでなく、感動を創造することだと信じています。'}
             </p>
             <a
-              href="/company/message"
+              href="/company/about"
               className="inline-flex items-center text-xs text-white border border-white/30 px-8 py-3 hover:bg-white hover:text-slate-900 transition-all tracking-wider"
             >
-              {currentLang === 'zh-TW' ? '社長致詞' : currentLang === 'zh-CN' ? '社长致詞' : '社長メッセージ'}
+              {currentLang === 'zh-TW' ? '了解更多' : currentLang === 'zh-CN' ? '了解更多' : '詳しく見る'}
               <ArrowRight size={14} className="ml-2" />
             </a>
           </div>
@@ -2513,7 +2513,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           <div className="absolute inset-0 bg-gradient-to-r from-violet-950/90 via-violet-950/70 to-transparent"></div>
         </div>
 
-        <div className="relative container mx-auto px-6 py-24">
+        <div className="relative container mx-auto px-6 py-12 md:py-24 py-24">
           <div className="max-w-2xl">
             {/* 标签 */}
             <div className="flex items-center gap-3 mb-8">
@@ -2522,7 +2522,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             </div>
 
             {/* 核心标题 */}
-            <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
+            <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
               {currentLang === 'zh-TW' ? '導遊提攜夥伴' : currentLang === 'zh-CN' ? '导游提攜伙伴' : 'ガイドパートナー'}
               <br />
               <span className="text-violet-300">{currentLang === 'zh-TW' ? '客戶介紹計劃' : currentLang === 'zh-CN' ? '客户介绍计划' : '顧客紹介プログラム'}</span>
@@ -2565,7 +2565,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-violet-900 text-sm font-medium rounded-lg hover:bg-violet-50 transition-colors"
               >
                 {currentLang === 'zh-TW' ? '了解詳情' : currentLang === 'zh-CN' ? '了解详情' : '詳細を見る'}
-                <ArrowRight size={16} className="ml-2" />
+                <ArrowRight size={18} className="ml-3" />
               </a>
               <a
                 href="/guide-partner/login"

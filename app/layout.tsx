@@ -51,7 +51,7 @@ export default async function RootLayout({
         {/* 使用 loli.net 镜像，中国大陆可访问 */}
         <link rel="preconnect" href="https://fonts.loli.net" />
         <link rel="preconnect" href="https://gstatic.loli.net" crossOrigin="anonymous" />
-        <link href="https://fonts.loli.net/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Shippori+Mincho:wght@400;600;700&family=Noto+Serif+TC:wght@400;600;700&family=Inter:wght@300;400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.loli.net/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Shippori+Mincho:wght@400;600;700&family=Noto+Serif+TC:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@300;400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
         {/* 霞鹜文楷 - jsDelivr 中国有节点，用于简体中文标题 */}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@latest/style.min.css" />
         {/* Font Awesome - cdnjs 在中国可访问 */}
