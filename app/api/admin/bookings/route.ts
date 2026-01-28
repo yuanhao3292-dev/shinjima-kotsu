@@ -252,7 +252,17 @@ export async function GET(request: NextRequest) {
       };
     }) ?? [];
 
-    return NextResponse.json(transformed);
+    // Calculate stats
+    const stats = {
+      total: transformed.length,
+      pending: transformed.filter(b => b.status === 'pending').length,
+      confirmed: transformed.filter(b => b.status === 'confirmed').length,
+      completed: transformed.filter(b => b.status === 'completed').length,
+      no_show: transformed.filter(b => b.status === 'no_show').length,
+      cancelled: transformed.filter(b => b.status === 'cancelled').length,
+    };
+
+    return NextResponse.json({ bookings: transformed, stats });
   } catch (error: unknown) {
     const apiError = normalizeError(error);
     logError(apiError, { path: '/api/admin/bookings', method: 'GET' });
