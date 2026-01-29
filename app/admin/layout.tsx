@@ -19,6 +19,7 @@ import {
   X,
   Shield,
   Loader2,
+  Puzzle,
 } from 'lucide-react';
 
 const navItems = [
@@ -29,6 +30,7 @@ const navItems = [
   { icon: Headphones, label: '客服工單', href: '/admin/support' },
   { icon: Store, label: '店鋪管理', href: '/admin/venues' },
   { icon: CalendarCheck, label: '預約管理', href: '/admin/bookings' },
+  { icon: Puzzle, label: '頁面模塊', href: '/admin/page-modules' },
   { icon: Newspaper, label: '新聞管理', href: '/admin/news' },
 ];
 

@@ -20,7 +20,11 @@ import {
   AlertCircle,
   CheckCircle2,
   Image as ImageIcon,
-  Save
+  Save,
+  Package,
+  ChevronRight,
+  Car,
+  User,
 } from 'lucide-react';
 
 interface GuideWhiteLabelData {
@@ -529,6 +533,57 @@ export default function WhiteLabelSettingsPage() {
                   {guide.whitelabel_conversions.toLocaleString()}
                 </div>
                 <div className="text-sm text-green-600">订单转化</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 选品中心入口 */}
+        {isSubscribed && (
+          <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-6 text-white">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center">
+                  <Package size={28} />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold">选品中心</h2>
+                  <p className="text-white/80 text-sm mt-1">
+                    选择要在您页面展示的医疗服务、车辆等产品模块
+                  </p>
+                </div>
+              </div>
+              <Link
+                href="/guide-partner/product-center"
+                className="flex items-center gap-2 bg-white text-indigo-600 px-5 py-3 rounded-xl font-medium hover:bg-white/90 transition"
+              >
+                进入选品
+                <ChevronRight size={18} />
+              </Link>
+            </div>
+
+            {/* 快速信息 */}
+            <div className="mt-6 grid grid-cols-3 gap-4">
+              <div className="bg-white/10 rounded-lg p-3">
+                <div className="flex items-center gap-2 text-white/70 text-sm mb-1">
+                  <Package size={14} />
+                  服务模块
+                </div>
+                <div className="text-lg font-bold">自由选择</div>
+              </div>
+              <div className="bg-white/10 rounded-lg p-3">
+                <div className="flex items-center gap-2 text-white/70 text-sm mb-1">
+                  <User size={14} />
+                  自我介绍
+                </div>
+                <div className="text-lg font-bold">多种模板</div>
+              </div>
+              <div className="bg-white/10 rounded-lg p-3">
+                <div className="flex items-center gap-2 text-white/70 text-sm mb-1">
+                  <Car size={14} />
+                  车辆展示
+                </div>
+                <div className="text-lg font-bold">丰富车型</div>
               </div>
             </div>
           </div>

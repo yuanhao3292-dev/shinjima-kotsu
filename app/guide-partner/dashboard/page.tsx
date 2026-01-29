@@ -256,6 +256,7 @@ export default function GuideDashboard() {
     { icon: Users, label: '我的推薦', href: '/guide-partner/referrals' },
     { icon: Trophy, label: '排行榜', href: '/guide-partner/leaderboard' },
     { icon: Globe, label: '白標頁面', href: '/guide-partner/whitelabel', highlight: true },
+    { icon: TrendingUp, label: '选品中心', href: '/guide-partner/product-center', highlight: true },
     { icon: Headphones, label: '客服支援', href: '/guide-partner/support' },
     { icon: Settings, label: '帳戶設置', href: '/guide-partner/settings' },
   ];

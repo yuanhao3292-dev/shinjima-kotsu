@@ -70,6 +70,59 @@ export async function POST(request: NextRequest) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session;
 
+        // 处理合伙人入场费支付
+        if (session.mode === 'payment' && session.metadata?.type === 'partner_entry_fee') {
+          const guideId = session.metadata.guide_id;
+          const paymentIntentId = session.payment_intent as string;
+
+          console.log(`[Webhook] 合伙人入场费支付完成 - 导游: ${guideId}`);
+
+          if (!guideId) {
+            console.error('[Webhook] ⚠️ guide_id 为空！无法处理合伙人升级');
+            break;
+          }
+
+          // 1. 更新入场费记录状态
+          const { error: entryFeeError } = await supabase
+            .from('partner_entry_fees')
+            .update({
+              status: 'completed',
+              stripe_payment_intent_id: paymentIntentId,
+              completed_at: new Date().toISOString(),
+            })
+            .eq('guide_id', guideId)
+            .eq('status', 'pending');
+
+          if (entryFeeError) {
+            console.error('[Webhook] 更新入场费记录失败:', entryFeeError);
+          }
+
+          // 2. 升级导游为合伙人
+          const { data: updatedGuide, error: updateError } = await supabase
+            .from('guides')
+            .update({
+              subscription_tier: 'partner',
+              updated_at: new Date().toISOString(),
+            })
+            .eq('id', guideId)
+            .select('id, name, email, subscription_tier')
+            .single();
+
+          if (updateError) {
+            console.error('[Webhook] 升级导游为合伙人失败:', updateError);
+            logError(normalizeError(updateError), {
+              path: '/api/stripe/webhook-subscription',
+              context: `event: ${event.type}, guideId: ${guideId}`,
+            });
+          } else if (updatedGuide) {
+            console.log(`[Webhook] ✅ 导游 ${updatedGuide.name} (${guideId}) 已升级为导游合伙人`);
+
+            // 发送合伙人欢迎邮件（如果有邮件功能）
+            // TODO: 实现 sendPartnerWelcomeEmail
+          }
+          break;
+        }
+
         // 只处理订阅类型的 checkout
         if (session.mode === 'subscription' && session.metadata?.type === 'whitelabel_subscription') {
           const guideId = session.metadata.guide_id;

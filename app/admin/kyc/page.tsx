@@ -23,6 +23,7 @@ interface KYCItem {
   phone: string;
   kyc_status: 'pending' | 'submitted' | 'approved' | 'rejected';
   id_document_type: string | null;
+  id_document_number_masked: string | null;
   legal_name: string | null;
   nationality: string | null;
   id_document_front_url: string | null;
@@ -52,6 +53,7 @@ const NATIONALITY_LABELS: Record<string, string> = {
 export default function KYCReviewPage() {
   const [items, setItems] = useState<KYCItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [detailLoading, setDetailLoading] = useState(false);
   const [statusFilter, setStatusFilter] = useState<string>('submitted');
   const [selectedItem, setSelectedItem] = useState<KYCItem | null>(null);
   const [reviewNote, setReviewNote] = useState('');
@@ -84,6 +86,29 @@ export default function KYCReviewPage() {
       console.error('Load KYC error:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const loadKYCDetail = async (guideId: string) => {
+    setDetailLoading(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
+      const response = await fetch(`/api/admin/kyc?id=${guideId}`, {
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setSelectedItem(data);
+      }
+    } catch (error) {
+      console.error('Load KYC detail error:', error);
+    } finally {
+      setDetailLoading(false);
     }
   };
 
@@ -183,6 +208,10 @@ export default function KYCReviewPage() {
               <div>
                 <p className="text-sm text-gray-500 mb-1">證件姓名</p>
                 <p className="font-medium">{selectedItem.legal_name || '-'}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-500 mb-1">證件號碼</p>
+                <p className="font-medium font-mono">{selectedItem.id_document_number_masked || '-'}</p>
               </div>
               <div>
                 <p className="text-sm text-gray-500 mb-1">國籍</p>
@@ -391,10 +420,11 @@ export default function KYCReviewPage() {
                   </p>
                 </div>
                 <button
-                  onClick={() => setSelectedItem(item)}
-                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-medium transition flex items-center gap-2"
+                  onClick={() => loadKYCDetail(item.id)}
+                  disabled={detailLoading}
+                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 text-white rounded-lg text-sm font-medium transition flex items-center gap-2"
                 >
-                  <Eye size={16} />
+                  {detailLoading ? <Loader2 className="animate-spin" size={16} /> : <Eye size={16} />}
                   查看詳情
                 </button>
               </div>

@@ -109,6 +109,7 @@ export default function SettingsPage() {
   const [frontPreview, setFrontPreview] = useState<string | null>(null);
   const [backPreview, setBackPreview] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [showKycSuccessModal, setShowKycSuccessModal] = useState(false);
   const frontInputRef = useRef<HTMLInputElement>(null);
   const backInputRef = useRef<HTMLInputElement>(null);
 
@@ -353,8 +354,8 @@ export default function SettingsPage() {
         throw new Error(result.error || 'KYC 提交失败');
       }
 
-      setMessage({ type: 'success', text: 'KYC 資料已提交，請等待審核' });
       await loadGuideData();
+      setShowKycSuccessModal(true);
     } catch (err: any) {
       setMessage({ type: 'error', text: err.message || 'KYC 提交失敗' });
     } finally {
@@ -899,6 +900,27 @@ export default function SettingsPage() {
           className="fixed inset-0 bg-black/50 z-30 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
+      )}
+
+      {/* KYC Success Modal */}
+      {showKycSuccessModal && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full p-6 text-center animate-in fade-in zoom-in duration-200">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <CheckCircle2 className="w-10 h-10 text-green-600" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">提交成功</h3>
+            <p className="text-gray-600 mb-6">
+              您的 KYC 資料已成功提交，我們會在 1-3 個工作日內完成審核。審核結果將通過郵件通知您。
+            </p>
+            <button
+              onClick={() => setShowKycSuccessModal(false)}
+              className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition"
+            >
+              我知道了
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );
