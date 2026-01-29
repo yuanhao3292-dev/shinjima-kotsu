@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
+import { formatDateSimple } from '@/lib/utils/format-date';
 import {
   Users,
   Search,
@@ -228,9 +229,6 @@ export default function GuidesPage() {
     setMessage(null);
   };
 
-  const formatDate = (dateStr: string) => {
-    return new Date(dateStr).toLocaleDateString('zh-TW');
-  };
 
   // Detail View
   if (selectedGuide) {
@@ -311,7 +309,7 @@ export default function GuidesPage() {
                 </div>
                 <div className="flex items-center gap-3">
                   <Calendar className="text-gray-400" size={18} />
-                  <span>註冊於 {formatDate(selectedGuide.created_at)}</span>
+                  <span>註冊於 {formatDateSimple(selectedGuide.created_at)}</span>
                 </div>
                 {selectedGuide.referrer && (
                   <div className="flex items-center gap-3">
@@ -515,7 +513,7 @@ export default function GuidesPage() {
                       <p className="font-medium text-green-600">¥{guide.total_commission?.toLocaleString() || 0}</p>
                     </td>
                     <td className="px-5 py-4 text-right text-gray-900">{guide.total_bookings || 0}</td>
-                    <td className="px-5 py-4 text-sm text-gray-500">{formatDate(guide.created_at)}</td>
+                    <td className="px-5 py-4 text-sm text-gray-500">{formatDateSimple(guide.created_at)}</td>
                     <td className="px-5 py-4">
                       <button
                         onClick={() => loadGuideDetail(guide.id)}

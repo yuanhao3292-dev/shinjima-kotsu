@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase-client';
+import { formatDateTime } from '@/lib/utils/format-date';
 import Link from 'next/link';
 import {
   AlertTriangle,
@@ -130,15 +131,6 @@ export default function AdminScreeningsPage() {
     setDisplayScreenings(filtered);
   }
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleString('zh-TW', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
 
   // 搜索过滤（在已筛选数据基础上）
   const filteredScreenings = displayScreenings.filter(s =>
@@ -347,7 +339,7 @@ export default function AdminScreeningsPage() {
 
                       {/* Date */}
                       <div className="col-span-3 flex items-center text-slate-600 text-sm">
-                        {formatDate(screening.created_at)}
+                        {formatDateTime(screening.created_at)}
                       </div>
 
                       {/* Status */}
@@ -406,7 +398,7 @@ export default function AdminScreeningsPage() {
                           </span>
                         )}
                         <span className="text-slate-400 text-xs">
-                          {formatDate(screening.created_at)}
+                          {formatDateTime(screening.created_at)}
                         </span>
                       </div>
                     </div>
@@ -708,7 +700,7 @@ export default function AdminScreeningsPage() {
                   </span>
                   {selectedRecord.completed_at && (
                     <span>
-                      <span className="font-medium">完成时间:</span> {formatDate(selectedRecord.completed_at)}
+                      <span className="font-medium">完成时间:</span> {formatDateTime(selectedRecord.completed_at)}
                     </span>
                   )}
                 </div>

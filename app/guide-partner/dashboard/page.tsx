@@ -36,6 +36,7 @@ interface Guide {
   referral_code: string;
   status: string;
   level: string;
+  commission_tier_code: string;
   total_bookings: number;
   total_commission: number;
   created_at: string;
@@ -218,20 +219,20 @@ export default function GuideDashboard() {
 
   const getLevelBadge = (level: string) => {
     const styles: Record<string, string> = {
-      standard: 'bg-gray-100 text-gray-700 border-gray-300',
+      bronze: 'bg-gray-100 text-gray-700 border-gray-300',
       silver: 'bg-blue-100 text-blue-700 border-blue-300',
       gold: 'bg-yellow-100 text-yellow-700 border-yellow-400',
       diamond: 'bg-purple-100 text-purple-700 border-purple-400',
     };
     const labels: Record<string, string> = {
-      standard: '🥉 標準',
+      bronze: '🥉 銅牌',
       silver: '🥈 銀牌',
       gold: '🥇 金牌',
       diamond: '💎 鑽石',
     };
     return (
-      <span className={`px-3 py-1 rounded-full text-xs font-bold border ${styles[level] || styles.standard}`}>
-        {labels[level] || labels.standard}
+      <span className={`px-3 py-1 rounded-full text-xs font-bold border ${styles[level] || styles.bronze}`}>
+        {labels[level] || labels.bronze}
       </span>
     );
   };
@@ -335,7 +336,7 @@ export default function GuideDashboard() {
               <div>
                 <div className="flex items-center gap-3 mb-2">
                   <span className="text-2xl font-bold">{guide?.name}</span>
-                  {guide && getLevelBadge(guide.level)}
+                  {guide && getLevelBadge(guide.commission_tier_code || 'bronze')}
                 </div>
                 <p className="text-orange-100">手機: {guide?.phone}</p>
               </div>
@@ -408,17 +409,17 @@ export default function GuideDashboard() {
               </div>
               <div className="text-right">
                 <p className="text-xs text-gray-500">您當前等級</p>
-                <p className="text-lg font-bold text-orange-600">{guide?.level === 'diamond' ? '💎 鑽石' : guide?.level === 'gold' ? '🥇 金牌' : guide?.level === 'silver' ? '🥈 銀牌' : '🥉 標準'}</p>
+                <p className="text-lg font-bold text-orange-600">{(guide?.commission_tier_code || 'bronze') === 'diamond' ? '💎 鑽石' : (guide?.commission_tier_code || 'bronze') === 'gold' ? '🥇 金牌' : (guide?.commission_tier_code || 'bronze') === 'silver' ? '🥈 銀牌' : '🥉 銅牌'}</p>
               </div>
             </div>
 
             {/* Progress to Next Tier */}
             {(() => {
-              const currentLevel = guide?.level || 'standard';
+              const currentLevel = guide?.commission_tier_code || 'bronze';
               // 使用真实的季度销售额数据
               const quarterlySpend = stats?.quarterlySpend || 0;
               const tiers = [
-                { level: 'standard', min: 0, max: 1000000, next: '銀牌', color: 'gray' },
+                { level: 'bronze', min: 0, max: 1000000, next: '銀牌', color: 'gray' },
                 { level: 'silver', min: 1000000, max: 3000000, next: '金牌', color: 'blue' },
                 { level: 'gold', min: 3000000, max: 5000000, next: '鑽石', color: 'yellow' },
                 { level: 'diamond', min: 5000000, max: 10000000, next: null, color: 'purple' },
@@ -464,11 +465,11 @@ export default function GuideDashboard() {
 
             {/* Tier Cards */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {/* Tier 1: Standard */}
-              <div className={`bg-white rounded-xl p-4 border-2 transition-all ${!guide?.level || guide?.level === 'standard' ? 'border-orange-400 ring-2 ring-orange-100 scale-[1.02]' : 'border-gray-200 opacity-70'}`}>
+              {/* Tier 1: Bronze */}
+              <div className={`bg-white rounded-xl p-4 border-2 transition-all ${!guide?.commission_tier_code || guide?.commission_tier_code === 'bronze' ? 'border-orange-400 ring-2 ring-orange-100 scale-[1.02]' : 'border-gray-200 opacity-70'}`}>
                 <div className="text-center mb-2">
                   <span className="text-2xl">🥉</span>
-                  <h4 className="font-bold text-gray-700 text-sm">標準</h4>
+                  <h4 className="font-bold text-gray-700 text-sm">銅牌</h4>
                   <p className="text-[10px] text-gray-400">入門級別</p>
                 </div>
                 <div className="text-center py-2 bg-gray-50 rounded-lg mb-2">
@@ -481,7 +482,7 @@ export default function GuideDashboard() {
               </div>
 
               {/* Tier 2: Silver */}
-              <div className={`bg-white rounded-xl p-4 border-2 transition-all ${guide?.level === 'silver' ? 'border-blue-400 ring-2 ring-blue-100 scale-[1.02]' : 'border-gray-200 opacity-70'}`}>
+              <div className={`bg-white rounded-xl p-4 border-2 transition-all ${guide?.commission_tier_code === 'silver' ? 'border-blue-400 ring-2 ring-blue-100 scale-[1.02]' : 'border-gray-200 opacity-70'}`}>
                 <div className="text-center mb-2">
                   <span className="text-2xl">🥈</span>
                   <h4 className="font-bold text-blue-700 text-sm">銀牌</h4>
@@ -497,7 +498,7 @@ export default function GuideDashboard() {
               </div>
 
               {/* Tier 3: Gold */}
-              <div className={`bg-white rounded-xl p-4 border-2 transition-all ${guide?.level === 'gold' ? 'border-yellow-400 ring-2 ring-yellow-100 scale-[1.02]' : 'border-gray-200 opacity-70'}`}>
+              <div className={`bg-white rounded-xl p-4 border-2 transition-all ${guide?.commission_tier_code === 'gold' ? 'border-yellow-400 ring-2 ring-yellow-100 scale-[1.02]' : 'border-gray-200 opacity-70'}`}>
                 <div className="text-center mb-2">
                   <span className="text-2xl">🥇</span>
                   <h4 className="font-bold text-yellow-700 text-sm">金牌</h4>
@@ -513,7 +514,7 @@ export default function GuideDashboard() {
               </div>
 
               {/* Tier 4: Diamond */}
-              <div className={`bg-white rounded-xl p-4 border-2 transition-all ${guide?.level === 'diamond' ? 'border-purple-400 ring-2 ring-purple-100 scale-[1.02]' : 'border-gray-200 opacity-70'}`}>
+              <div className={`bg-white rounded-xl p-4 border-2 transition-all ${guide?.commission_tier_code === 'diamond' ? 'border-purple-400 ring-2 ring-purple-100 scale-[1.02]' : 'border-gray-200 opacity-70'}`}>
                 <div className="text-center mb-2">
                   <span className="text-2xl">💎</span>
                   <h4 className="font-bold text-purple-700 text-sm">鑽石</h4>
@@ -537,7 +538,7 @@ export default function GuideDashboard() {
                 </div>
                 <div className="flex-1">
                   <h4 className="font-bold text-green-800 text-sm">🎁 推薦獎勵</h4>
-                  <p className="text-xs text-green-600">成功推薦新導遊加入，您將獲得其首月報酬的 <span className="font-bold">10%</span> 作為額外獎勵</p>
+                  <p className="text-xs text-green-600">成功推薦新導遊加入，您將獲得其每筆訂單報酬的 <span className="font-bold">2%</span> 作為額外獎勵</p>
                 </div>
               </div>
             </div>

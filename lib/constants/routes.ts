@@ -15,11 +15,7 @@ export const ROUTES = {
 
   // 企业信息
   COMPANY: '/company',
-  COMPANY_MESSAGE: '/company/message',
-  COMPANY_PROFILE: '/company/profile',
-  COMPANY_HISTORY: '/company/history',
-  COMPANY_ORGANIZATION: '/company/organization',
-  COMPANY_ACCESS: '/company/access',
+  COMPANY_ABOUT: '/company/about',
 
   // 可持续发展
   SUSTAINABILITY: '/sustainability',

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { formatDateJPKanji, formatDateShort } from '@/lib/utils/format-date';
 import {
   Document,
   Page,
@@ -532,15 +533,6 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
     high: { badge: styles.riskBadgeHigh, text: styles.riskTextHigh, label: '高風險' },
   };
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
-  };
-
-  const formatDateShort = (dateString: string) => {
-    const date = new Date(dateString);
-    return `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}`;
-  };
 
   const getBodyPartNames = () => {
     if (!bodyMapData?.selectedBodyParts) return [];
@@ -575,7 +567,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
             </View>
             <View style={styles.coverInfoRow}>
               <Text style={styles.coverLabel}>評估日期</Text>
-              <Text style={styles.coverValue}>{formatDate(createdAt)}</Text>
+              <Text style={styles.coverValue}>{formatDateJPKanji(createdAt)}</Text>
             </View>
             <View style={[styles.coverInfoRow, { marginBottom: 0 }]}>
               <Text style={styles.coverLabel}>合作醫療機構</Text>

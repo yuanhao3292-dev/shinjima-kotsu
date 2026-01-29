@@ -1,18 +1,17 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import PublicLayout from '@/components/PublicLayout';
-import Logo from '@/components/Logo';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 import {
-  ArrowLeft, ArrowRight, CheckCircle, Shield, Heart, Activity,
-  Zap, Brain, Target, Microscope, Dna, Syringe, Stethoscope,
-  FileText, Phone, Mail, Clock, Users, Building, Globe,
-  ChevronDown, MessageSquare, Sparkles, Scan, Bot, CircleDot,
-  Atom, Pill, Radio, FlaskConical, HeartPulse, Leaf, CreditCard, Loader2,
+  ArrowLeft, ArrowRight, CheckCircle, Shield, Activity,
+  Target, Dna, Stethoscope,
+  FileText, Mail, Clock, Users, Building, Globe,
+  MessageSquare,
+  Atom, Pill, Radio, FlaskConical, HeartPulse, Leaf, CreditCard,
   MapPin, Award, Info, ExternalLink
 } from 'lucide-react';
-type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
+import { useLanguage, type Language } from '@/hooks/useLanguage';
 const pageTranslations = {
   // Hero
   heroBadge: { ja: '日本がん治療', 'zh-TW': '日本癌症治療', 'zh-CN': '日本癌症治疗', en: 'Japan Cancer Treatment' } as Record<Language, string>,
@@ -44,6 +43,11 @@ const pageTranslations = {
   // Treatment Flow Section
   flowTitle: { ja: 'がん患者の来日治療フロー', 'zh-TW': '癌症患者赴日治療流程', 'zh-CN': '癌症患者赴日治疗流程', en: 'Cancer Patient Treatment Process in Japan' } as Record<Language, string>,
   flowDesc: { ja: '初回相談から治療完了まで、全行程プロフェッショナルサポート', 'zh-TW': '從前期諮詢到治療完成，全程專業支援，讓您安心治療', 'zh-CN': '从前期咨询到治疗完成，全程专业支援，让您安心治疗', en: 'Professional support from initial consultation to treatment completion' } as Record<Language, string>,
+  flowDuration: { ja: '目安期間', 'zh-TW': '預估時間', 'zh-CN': '预估时间', en: 'Est. Duration' } as Record<Language, string>,
+  flowYouDo: { ja: 'お客様にしていただくこと', 'zh-TW': '您需要做的', 'zh-CN': '您需要做的', en: 'What You Do' } as Record<Language, string>,
+  flowWeHandle: { ja: '私たちが担当すること', 'zh-TW': '我們為您處理', 'zh-CN': '我们为您处理', en: 'What We Handle' } as Record<Language, string>,
+  flowStepDetail: { ja: '詳細ステップ', 'zh-TW': '詳細步驟', 'zh-CN': '详细步骤', en: 'Detailed Steps' } as Record<Language, string>,
+  flowClickPhase: { ja: 'フェーズをクリックして詳細を確認', 'zh-TW': '點擊階段查看詳情', 'zh-CN': '点击阶段查看详情', en: 'Click a phase to see details' } as Record<Language, string>,
   // Standard Treatment Section
   stdTitle: { ja: 'がん標準治療', 'zh-TW': '癌症標準治療', 'zh-CN': '癌症标准治疗', en: 'Standard Cancer Treatments' } as Record<Language, string>,
   stdDesc: { ja: '高い安全性、精密な治療、QOL重視、EBMと多職種連携を強調', 'zh-TW': '安全性高、治療精準、重視生活質量（QOL）、強調循證醫學與多學科協作', 'zh-CN': '安全性高、治疗精准、重视生活质量（QOL）、强调循证医学与多学科协作', en: 'High safety, precision treatment, QOL-focused, evidence-based multidisciplinary approach' } as Record<Language, string>,
@@ -60,7 +64,7 @@ const pageTranslations = {
   svcTitle: { ja: 'サービスご予約', 'zh-TW': '諮詢服務預約', 'zh-CN': '咨询服务预约', en: 'Book Consultation Service' } as Record<Language, string>,
   svcDesc: { ja: 'ご希望のサービスを選択し、お支払い後24時間以内にご連絡いたします', 'zh-TW': '選擇您需要的服務，在線支付後我們將在 24 小時內與您聯繫', 'zh-CN': '选择您需要的服务，在线支付后我们将在 24 小时内与您联系', en: 'Select your service, we will contact you within 24 hours after payment' } as Record<Language, string>,
   svcLimit: { ja: '月10名様限定・残りわずか', 'zh-TW': '每月僅限 10 位 · 名額有限', 'zh-CN': '每月仅限 10 位 · 名额有限', en: 'Limited to 10/month · Spots available' } as Record<Language, string>,
-  svcTaxIncl: { ja: '日円（税込）', 'zh-TW': '日円（税込）', 'zh-CN': '日元（含税）', en: 'JPY (tax incl.)' } as Record<Language, string>,
+  svcTaxIncl: { ja: '日円（税込）', 'zh-TW': '日圓（含稅）', 'zh-CN': '日元（含税）', en: 'JPY (tax incl.)' } as Record<Language, string>,
   svcBookNow: { ja: '今すぐ予約', 'zh-TW': '立即預約', 'zh-CN': '立即预约', en: 'Book Now' } as Record<Language, string>,
   svcInitial1: { ja: '診療情報の翻訳（中→日）', 'zh-TW': '病歷資料翻譯（中→日）', 'zh-CN': '病历资料翻译（中→日）', en: 'Medical record translation (CN→JP)' } as Record<Language, string>,
   svcInitial2: { ja: '日本の病院への初期相談', 'zh-TW': '日本醫院初步諮詢', 'zh-CN': '日本医院初步咨询', en: 'Initial hospital consultation' } as Record<Language, string>,
@@ -126,13 +130,115 @@ const TREATMENT_FLOW = [
   { step: 2, title: { ja: '初期相談料お支払い', 'zh-TW': '支付前期諮詢費', 'zh-CN': '支付前期咨询费', en: 'Pay Initial Consultation Fee' } as Record<Language, string>, subtitle: { ja: '最適な病院・医師の選定', 'zh-TW': '選擇合適的醫院與醫生', 'zh-CN': '选择合适的医院与医生', en: 'Select Suitable Hospital & Doctor' } as Record<Language, string>, fee: null, feeLabel: null, from: { ja: '患者', 'zh-TW': '患者', 'zh-CN': '患者', en: 'Patient' } as Record<Language, string>, to: { ja: '仲介', 'zh-TW': '中介', 'zh-CN': '中介', en: 'Agent' } as Record<Language, string>, desc: null, serviceKey: null },
   { step: 3, title: { ja: '資料翻訳', 'zh-TW': '資料翻譯', 'zh-CN': '资料翻译', en: 'Document Translation' } as Record<Language, string>, subtitle: { ja: '病院への相談', 'zh-TW': '諮詢醫院', 'zh-CN': '咨询医院', en: 'Hospital Consultation' } as Record<Language, string>, fee: null, feeLabel: null, from: { ja: '仲介', 'zh-TW': '中介', 'zh-CN': '中介', en: 'Agent' } as Record<Language, string>, to: { ja: '病院/患者', 'zh-TW': '醫院/患者', 'zh-CN': '医院/患者', en: 'Hospital/Patient' } as Record<Language, string>, desc: null, serviceKey: null },
   { step: 4, title: { ja: '来日前遠隔診療', 'zh-TW': '赴日前遠程會診', 'zh-CN': '赴日前远程会诊', en: 'Pre-visit Remote Consultation' } as Record<Language, string>, subtitle: { ja: '治療方針の相談', 'zh-TW': '討論治療方案', 'zh-CN': '讨论治疗方案', en: 'Discuss Treatment Plan' } as Record<Language, string>, fee: '243,000', feeLabel: { ja: '円', 'zh-TW': '日元', 'zh-CN': '日元', en: 'JPY' } as Record<Language, string>, from: { ja: '病院', 'zh-TW': '醫院', 'zh-CN': '医院', en: 'Hospital' } as Record<Language, string>, to: { ja: '患者', 'zh-TW': '患者', 'zh-CN': '患者', en: 'Patient' } as Record<Language, string>, desc: { ja: '治療方針の相談、治療計画の提供、治療費概算の提示', 'zh-TW': '討論治療方案，提供治療計劃，提示治療費概算金額', 'zh-CN': '讨论治疗方案，提供治疗计划，提示治疗费概算金额', en: 'Discuss treatment plan, provide cost estimation' } as Record<Language, string>, serviceKey: 'remote' as const },
-  { step: 5, title: { ja: '来日治療の決定', 'zh-TW': '決定來日治療', 'zh-CN': '决定来日治疗', en: 'Decide to Visit Japan' } as Record<Language, string>, subtitle: { ja: '前払金のお支払い', 'zh-TW': '支付預付金', 'zh-CN': '支付预付金', en: 'Pay Deposit' } as Record<Language, string>, fee: null, feeLabel: null, from: { ja: '患者', 'zh-TW': '患者', 'zh-CN': '患者', en: 'Patient' } as Record<Language, string>, to: { ja: '仲介', 'zh-TW': '中介', 'zh-CN': '中介', en: 'Agent' } as Record<Language, string>, desc: null, serviceKey: null },
+  { step: 5, title: { ja: '来日治療の決定', 'zh-TW': '決定來日治療', 'zh-CN': '决定来日治疗', en: 'Decide to Visit Japan' } as Record<Language, string>, subtitle: { ja: '治療保証金のお支払い', 'zh-TW': '支付治療保證金', 'zh-CN': '支付治疗保证金', en: 'Pay Treatment Deposit' } as Record<Language, string>, fee: null, feeLabel: null, from: { ja: '患者', 'zh-TW': '患者', 'zh-CN': '患者', en: 'Patient' } as Record<Language, string>, to: { ja: '仲介', 'zh-TW': '中介', 'zh-CN': '中介', en: 'Agent' } as Record<Language, string>, desc: null, serviceKey: null },
   { step: 6, title: { ja: '来日日程の確定', 'zh-TW': '確定來日日期', 'zh-CN': '确定来日日期', en: 'Confirm Visit Date' } as Record<Language, string>, subtitle: { ja: '必要に応じて医療ビザ申請', 'zh-TW': '如需要申請醫療簽證', 'zh-CN': '如需要申请医疗签证', en: 'Apply for Medical Visa if Needed' } as Record<Language, string>, fee: null, feeLabel: null, from: { ja: '患者', 'zh-TW': '患者', 'zh-CN': '患者', en: 'Patient' } as Record<Language, string>, to: { ja: '仲介', 'zh-TW': '中介', 'zh-CN': '中介', en: 'Agent' } as Record<Language, string>, desc: null, serviceKey: null },
   { step: 7, title: { ja: '受診予約', 'zh-TW': '預約就診', 'zh-CN': '预约就诊', en: 'Book Appointment' } as Record<Language, string>, subtitle: { ja: '通訳の手配', 'zh-TW': '安排翻譯', 'zh-CN': '安排翻译', en: 'Arrange Interpreter' } as Record<Language, string>, fee: null, feeLabel: null, from: { ja: '仲介', 'zh-TW': '中介', 'zh-CN': '中介', en: 'Agent' } as Record<Language, string>, to: { ja: '病院/患者', 'zh-TW': '醫院/患者', 'zh-CN': '医院/患者', en: 'Hospital/Patient' } as Record<Language, string>, desc: { ja: '経験と資格を有する専門医療通訳を手配', 'zh-TW': '安排有經驗及資格的專業醫療翻譯', 'zh-CN': '安排有经验及资格的专业医疗翻译', en: 'Arrange experienced professional medical interpreter' } as Record<Language, string>, serviceKey: null },
   { step: 8, title: { ja: '来日治療', 'zh-TW': '來日治療', 'zh-CN': '来日治疗', en: 'Treatment in Japan' } as Record<Language, string>, subtitle: { ja: '受診サポート', 'zh-TW': '就診支援', 'zh-CN': '就诊支援', en: 'Visit Support' } as Record<Language, string>, fee: null, feeLabel: null, from: { ja: '仲介/病院', 'zh-TW': '中介/醫院', 'zh-CN': '中介/医院', en: 'Agent/Hospital' } as Record<Language, string>, to: { ja: '患者', 'zh-TW': '患者', 'zh-CN': '患者', en: 'Patient' } as Record<Language, string>, desc: null, serviceKey: null },
   { step: 9, title: { ja: '治療完了', 'zh-TW': '治療結束', 'zh-CN': '治疗结束', en: 'Treatment Completed' } as Record<Language, string>, subtitle: { ja: '費用精算', 'zh-TW': '費用結算', 'zh-CN': '费用结算', en: 'Final Settlement' } as Record<Language, string>, fee: null, feeLabel: null, from: { ja: '仲介/病院', 'zh-TW': '中介/醫院', 'zh-CN': '中介/医院', en: 'Agent/Hospital' } as Record<Language, string>, to: { ja: '患者', 'zh-TW': '患者', 'zh-CN': '患者', en: 'Patient' } as Record<Language, string>, desc: null, serviceKey: null },
   { step: 10, title: { ja: 'アフターサポート', 'zh-TW': '後續支持', 'zh-CN': '后续支持', en: 'Follow-up Support' } as Record<Language, string>, subtitle: { ja: '遠隔フォローアップ', 'zh-TW': '遠程隨訪', 'zh-CN': '远程随访', en: 'Remote Follow-up' } as Record<Language, string>, fee: null, feeLabel: null, from: { ja: '病院', 'zh-TW': '醫院', 'zh-CN': '医院', en: 'Hospital' } as Record<Language, string>, to: { ja: '患者', 'zh-TW': '患者', 'zh-CN': '患者', en: 'Patient' } as Record<Language, string>, desc: { ja: '病歴および中国の医師への治療まとめと提案を提供。必要に応じてオンライン経過観察や遠隔相談を実施', 'zh-TW': '提供病歷以及給中國醫生的治療總結與建議，必要時做線上隨訪或遠程諮詢', 'zh-CN': '提供病历以及给中国医生的治疗总结与建议，必要时做线上随访或远程咨询', en: 'Provide medical records and treatment summary for home doctors, with online follow-up if needed' } as Record<Language, string>, serviceKey: null },
 ];
+
+// 治疗阶段分组（将 10 步归纳为 4 大阶段，便于患者理解）
+const TREATMENT_PHASES = [
+  {
+    id: 'pre-assessment', phaseNumber: 1, icon: FileText, color: 'blue' as const,
+    title: { ja: '前期評価', 'zh-TW': '前期評估', 'zh-CN': '前期评估', en: 'Pre-Assessment' } as Record<Language, string>,
+    subtitle: { ja: '資料提出から病院相談まで', 'zh-TW': '從提交資料到醫院諮詢', 'zh-CN': '从提交资料到医院咨询', en: 'From document submission to hospital consultation' } as Record<Language, string>,
+    duration: { ja: '約1〜2週間', 'zh-TW': '約 1-2 週', 'zh-CN': '约 1-2 周', en: '~1-2 weeks' } as Record<Language, string>,
+    stepRange: [1, 3] as [number, number],
+    patientActions: [
+      { ja: '診療情報の提出', 'zh-TW': '提交診療資料', 'zh-CN': '提交诊疗资料', en: 'Submit medical records' } as Record<Language, string>,
+      { ja: '初期相談料のお支払い', 'zh-TW': '支付前期諮詢費', 'zh-CN': '支付前期咨询费', en: 'Pay consultation fee' } as Record<Language, string>,
+    ],
+    weHandle: [
+      { ja: '資料翻訳（中→日）', 'zh-TW': '資料翻譯（中→日）', 'zh-CN': '资料翻译（中→日）', en: 'Document translation (CN→JP)' } as Record<Language, string>,
+      { ja: '最適な病院・医師の選定', 'zh-TW': '選擇合適的醫院與醫生', 'zh-CN': '选择合适的医院与医生', en: 'Select suitable hospital & doctor' } as Record<Language, string>,
+      { ja: '病院への初期相談', 'zh-TW': '向醫院初步諮詢', 'zh-CN': '向医院初步咨询', en: 'Initial hospital consultation' } as Record<Language, string>,
+    ],
+    feeSummary: { ja: '¥221,000（税込）', 'zh-TW': '¥221,000（含稅）', 'zh-CN': '¥221,000（含税）', en: '¥221,000 (tax incl.)' } as Record<Language, string>,
+  },
+  {
+    id: 'remote-consultation', phaseNumber: 2, icon: Globe, color: 'purple' as const,
+    title: { ja: '遠隔会診', 'zh-TW': '遠程會診', 'zh-CN': '远程会诊', en: 'Remote Consultation' } as Record<Language, string>,
+    subtitle: { ja: '日本専門医とのビデオ診察', 'zh-TW': '與日本專科醫生視頻會診', 'zh-CN': '与日本专科医生视频会诊', en: 'Video consultation with Japanese specialist' } as Record<Language, string>,
+    duration: { ja: '約1〜2週間', 'zh-TW': '約 1-2 週', 'zh-CN': '约 1-2 周', en: '~1-2 weeks' } as Record<Language, string>,
+    stepRange: [4, 5] as [number, number],
+    patientActions: [
+      { ja: '遠隔診療に参加', 'zh-TW': '參加遠程會診', 'zh-CN': '参加远程会诊', en: 'Attend remote consultation' } as Record<Language, string>,
+      { ja: '来日治療の最終判断', 'zh-TW': '最終決定是否赴日', 'zh-CN': '最终决定是否赴日', en: 'Final decision to visit Japan' } as Record<Language, string>,
+    ],
+    weHandle: [
+      { ja: '専門医のスケジュール調整', 'zh-TW': '協調專科醫生時間', 'zh-CN': '协调专科医生时间', en: 'Coordinate specialist schedule' } as Record<Language, string>,
+      { ja: '医療通訳の手配', 'zh-TW': '安排醫療翻譯', 'zh-CN': '安排医疗翻译', en: 'Arrange medical interpreter' } as Record<Language, string>,
+      { ja: '治療計画・費用概算の提示', 'zh-TW': '提供治療計劃與費用概算', 'zh-CN': '提供治疗计划与费用概算', en: 'Provide treatment plan & cost estimate' } as Record<Language, string>,
+      { ja: '治療保証金額のご案内', 'zh-TW': '告知治療保證金金額', 'zh-CN': '告知治疗保证金金额', en: 'Advise deposit amount for treatment' } as Record<Language, string>,
+    ],
+    feeSummary: { ja: '¥243,000（税込）', 'zh-TW': '¥243,000（含稅）', 'zh-CN': '¥243,000（含税）', en: '¥243,000 (tax incl.)' } as Record<Language, string>,
+  },
+  {
+    id: 'treatment-japan', phaseNumber: 3, icon: Activity, color: 'amber' as const,
+    title: { ja: '赴日治療', 'zh-TW': '赴日治療', 'zh-CN': '赴日治疗', en: 'Treatment in Japan' } as Record<Language, string>,
+    subtitle: { ja: '保証金お支払い後、日程確定から治療完了まで', 'zh-TW': '支付保證金後，從確定日程到完成治療', 'zh-CN': '支付保证金后，从确定日程到完成治疗', en: 'After deposit payment, from schedule confirmation to treatment completion' } as Record<Language, string>,
+    duration: { ja: '症状により異なる', 'zh-TW': '依病情而定', 'zh-CN': '依病情而定', en: 'Varies by condition' } as Record<Language, string>,
+    stepRange: [6, 8] as [number, number],
+    patientActions: [
+      { ja: '治療保証金のお支払い', 'zh-TW': '支付治療保證金', 'zh-CN': '支付治疗保证金', en: 'Pay treatment deposit' } as Record<Language, string>,
+      { ja: '来日スケジュールの確認', 'zh-TW': '確認赴日行程', 'zh-CN': '确认赴日行程', en: 'Confirm travel schedule' } as Record<Language, string>,
+      { ja: '医療ビザの申請（必要な場合）', 'zh-TW': '申請醫療簽證（如需要）', 'zh-CN': '申请医疗签证（如需要）', en: 'Apply for medical visa (if needed)' } as Record<Language, string>,
+    ],
+    weHandle: [
+      { ja: '病院予約・通訳手配', 'zh-TW': '醫院預約、翻譯安排', 'zh-CN': '医院预约、翻译安排', en: 'Hospital booking & interpreter arrangement' } as Record<Language, string>,
+      { ja: '全行程の受診サポート', 'zh-TW': '全程就診支援', 'zh-CN': '全程就诊支援', en: 'Full visit support' } as Record<Language, string>,
+      { ja: '追加費用発生時の即時ご連絡', 'zh-TW': '如有追加費用即時通知', 'zh-CN': '如有追加费用即时通知', en: 'Immediate notification of any additional costs' } as Record<Language, string>,
+      { ja: 'ビザ申請サポート', 'zh-TW': '簽證申請協助', 'zh-CN': '签证申请协助', en: 'Visa application support' } as Record<Language, string>,
+    ],
+    feeSummary: null,
+  },
+  {
+    id: 'followup', phaseNumber: 4, icon: HeartPulse, color: 'green' as const,
+    title: { ja: '治療完了・随訪', 'zh-TW': '治療完成與隨訪', 'zh-CN': '治疗完成与随访', en: 'Completion & Follow-up' } as Record<Language, string>,
+    subtitle: { ja: '保証金による精算からアフターサポートまで', 'zh-TW': '保證金結算至後續支持', 'zh-CN': '保证金结算至后续支持', en: 'From deposit settlement to ongoing support' } as Record<Language, string>,
+    duration: { ja: '継続的サポート', 'zh-TW': '持續支援', 'zh-CN': '持续支援', en: 'Ongoing support' } as Record<Language, string>,
+    stepRange: [9, 10] as [number, number],
+    patientActions: [
+      { ja: '帰国後の報告', 'zh-TW': '歸國後告知狀況', 'zh-CN': '归国后告知状况', en: 'Report status after returning home' } as Record<Language, string>,
+    ],
+    weHandle: [
+      { ja: '保証金から全治療費をお支払い・差額精算', 'zh-TW': '以保證金支付全部醫療費、多退少補', 'zh-CN': '以保证金支付全部医疗费、多退少补', en: 'Settle all medical costs from deposit, refund or charge difference' } as Record<Language, string>,
+      { ja: '治療まとめの提供', 'zh-TW': '提供治療總結', 'zh-CN': '提供治疗总结', en: 'Provide treatment summary' } as Record<Language, string>,
+      { ja: '遠隔フォローアップの手配', 'zh-TW': '安排遠程隨訪', 'zh-CN': '安排远程随访', en: 'Arrange remote follow-up' } as Record<Language, string>,
+    ],
+    feeSummary: null,
+  },
+];
+
+// 阶段颜色映射（提取为静态常量，避免每次渲染重建）
+type PhaseColor = 'blue' | 'purple' | 'amber' | 'green';
+const PHASE_COLOR_MAP: Record<PhaseColor, { bg: string; light: string; border: string; text: string; ring: string }> = {
+  blue:   { bg: 'bg-blue-600',   light: 'bg-blue-50',   border: 'border-blue-600',   text: 'text-blue-600',   ring: 'ring-blue-200' },
+  purple: { bg: 'bg-purple-600', light: 'bg-purple-50', border: 'border-purple-600', text: 'text-purple-600', ring: 'ring-purple-200' },
+  amber:  { bg: 'bg-amber-500',  light: 'bg-amber-50',  border: 'border-amber-500',  text: 'text-amber-600',  ring: 'ring-amber-200' },
+  green:  { bg: 'bg-green-600',  light: 'bg-green-50',  border: 'border-green-600',  text: 'text-green-600',  ring: 'ring-green-200' },
+};
+const PHASE_GRADIENT_MAP: Record<PhaseColor, string> = {
+  blue:   'from-blue-600 to-blue-700',
+  purple: 'from-purple-600 to-purple-700',
+  amber:  'from-amber-500 to-amber-600',
+  green:  'from-green-600 to-green-700',
+};
+const PHASE_LIGHT_BG_MAP: Record<PhaseColor, string> = {
+  blue:   'bg-blue-50 border-blue-100',
+  purple: 'bg-purple-50 border-purple-100',
+  amber:  'bg-amber-50 border-amber-100',
+  green:  'bg-green-50 border-green-100',
+};
+const PHASE_DOT_MAP: Record<PhaseColor, string> = {
+  blue: 'bg-blue-500',
+  purple: 'bg-purple-500',
+  amber: 'bg-amber-500',
+  green: 'bg-green-500',
+};
+
 // 標準治療方式
 const STANDARD_TREATMENTS = [
   {
@@ -574,8 +680,9 @@ function convertToSimplified(text: string): string {
 
 export default function CancerTreatmentPage() {
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
+  const [activePhase, setActivePhase] = useState<number>(1);
   const [showWechatQR, setShowWechatQR] = useState(false);
-  const [currentLang, setCurrentLang] = useState<Language>('ja');
+  const currentLang = useLanguage();
 
   // 使用 useMemo 缓存本地化文本函数，避免每次渲染重新创建
   const getLocalizedText = React.useMemo(() => {
@@ -587,38 +694,6 @@ export default function CancerTreatmentPage() {
       return convertToSimplified(text);
     };
   }, [currentLang]);
-  useEffect(() => {
-    // 安全的 Cookie 解析函数
-    const getCookie = (name: string): string | null => {
-      if (typeof document === 'undefined') return null;
-      const cookies = document.cookie.split(';');
-      for (const cookie of cookies) {
-        const trimmed = cookie.trim();
-        const equalsIndex = trimmed.indexOf('=');
-        if (equalsIndex === -1) continue;
-        const cookieName = trimmed.substring(0, equalsIndex);
-        const cookieValue = trimmed.substring(equalsIndex + 1);
-        if (cookieName === name) {
-          try {
-            return decodeURIComponent(cookieValue);
-          } catch {
-            return cookieValue;
-          }
-        }
-      }
-      return null;
-    };
-    const localeCookie = getCookie('NEXT_LOCALE');
-    if (localeCookie && ['ja', 'zh-TW', 'zh-CN', 'en'].includes(localeCookie)) {
-      setCurrentLang(localeCookie as Language);
-      return;
-    }
-    const browserLang = navigator.language;
-    if (browserLang.startsWith('ja')) setCurrentLang('ja');
-    else if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') setCurrentLang('zh-TW');
-    else if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) setCurrentLang('zh-CN');
-    else if (browserLang.startsWith('en')) setCurrentLang('en');
-  }, []);
   const t = (key: keyof typeof pageTranslations) => pageTranslations[key][currentLang];
   return (
     <PublicLayout showFooter={true} activeNav="cancer">
@@ -875,6 +950,7 @@ export default function CancerTreatmentPage() {
       {/* Treatment Flow Section */}
       <section id="treatment-flow" className="py-24 bg-white">
         <div className="container mx-auto px-6">
+          {/* Section Header */}
           <div className="text-center mb-16">
             <span className="text-blue-600 text-xs tracking-widest uppercase font-bold">Treatment Process</span>
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mt-3 mb-4">
@@ -884,57 +960,173 @@ export default function CancerTreatmentPage() {
               {t('flowDesc')}
             </p>
           </div>
-          {/* Timeline */}
-          <div className="max-w-5xl mx-auto">
-            <div className="relative">
-              {/* Connecting Line */}
-              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 via-purple-500 to-green-500 hidden md:block"></div>
-              <div className="space-y-6">
-                {TREATMENT_FLOW.map((item, index) => (
-                  <div
-                    key={item.step}
-                    className="relative flex gap-6 group"
+
+          {/* Phase Navigation */}
+          <div className="max-w-5xl mx-auto mb-10">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {TREATMENT_PHASES.map((phase) => {
+                const PhaseIcon = phase.icon;
+                const isActive = activePhase === phase.phaseNumber;
+                const c = PHASE_COLOR_MAP[phase.color];
+                return (
+                  <button
+                    key={phase.id}
+                    onClick={() => setActivePhase(phase.phaseNumber)}
+                    className={`relative rounded-2xl p-4 text-left transition-all ${
+                      isActive
+                        ? `${c.light} ${c.border} border-2 shadow-md ring-4 ${c.ring}`
+                        : 'bg-gray-50 border border-gray-200 hover:shadow-sm hover:border-gray-300'
+                    }`}
                   >
-                    {/* Step Number */}
-                    <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg z-10 group-hover:scale-110 transition-transform">
-                      {item.step}
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isActive ? c.bg : 'bg-gray-200'}`}>
+                        <PhaseIcon size={16} className={isActive ? 'text-white' : 'text-gray-500'} />
+                      </div>
+                      <span className={`text-xs font-bold ${isActive ? c.text : 'text-gray-400'}`}>
+                        PHASE {phase.phaseNumber}
+                      </span>
                     </div>
-                    {/* Content Card */}
-                    <div
-                      className={`flex-grow bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-all cursor-pointer ${expandedStep === item.step ? 'ring-2 ring-blue-500 shadow-lg' : ''}`}
-                      onClick={() => setExpandedStep(expandedStep === item.step ? null : item.step)}
-                    >
-                      <div className="flex flex-wrap items-start justify-between gap-4">
-                        <div className="flex-grow">
-                          <div className="flex items-center gap-3 mb-2">
-                            <h3 className="text-lg font-bold text-gray-900">{item.title[currentLang]}</h3>
-                            {item.fee && (
-                              <span className="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">
-                                ¥{item.fee}
-                              </span>
-                            )}
-                          </div>
-                          <p className="text-gray-500 text-sm">{item.subtitle[currentLang]}</p>
-                          {/* Expanded Content */}
-                          {expandedStep === item.step && item.desc && (
-                            <div className="mt-4 pt-4 border-t border-gray-200 animate-fade-in">
-                              <p className="text-gray-600 text-sm leading-relaxed">{item.desc[currentLang]}</p>
-                            </div>
-                          )}
+                    <h3 className={`text-sm font-bold ${isActive ? 'text-gray-900' : 'text-gray-600'}`}>
+                      {phase.title[currentLang]}
+                    </h3>
+                    <p className="text-xs text-gray-400 mt-1 flex items-center gap-1">
+                      <Clock size={10} />
+                      {phase.duration[currentLang]}
+                    </p>
+                  </button>
+                );
+              })}
+            </div>
+            <p className="text-center text-xs text-gray-400 mt-4">{t('flowClickPhase')}</p>
+          </div>
+
+          {/* Active Phase Detail */}
+          {(() => {
+            const phase = TREATMENT_PHASES.find(p => p.phaseNumber === activePhase)!;
+            const PhaseIcon = phase.icon;
+            const phaseSteps = TREATMENT_FLOW.filter(
+              s => s.step >= phase.stepRange[0] && s.step <= phase.stepRange[1]
+            );
+
+            return (
+              <div className="max-w-5xl mx-auto">
+                <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                  {/* Phase Header */}
+                  <div className={`bg-gradient-to-r ${PHASE_GRADIENT_MAP[phase.color]} p-6 md:p-8 text-white`}>
+                    <div className="flex flex-wrap items-center justify-between gap-4">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                          <PhaseIcon size={24} />
                         </div>
-                        {/* Flow Direction */}
-                        <div className="flex items-center gap-2 text-xs text-gray-400">
-                          <span className="bg-gray-200 px-2 py-1 rounded">{item.from[currentLang]}</span>
-                          <ArrowRight size={12} />
-                          <span className="bg-gray-200 px-2 py-1 rounded">{item.to[currentLang]}</span>
+                        <div>
+                          <div className="text-white/70 text-xs font-bold tracking-wider">PHASE {phase.phaseNumber}</div>
+                          <h3 className="text-xl md:text-2xl font-bold">{phase.title[currentLang]}</h3>
+                          <p className="text-white/80 text-sm mt-1">{phase.subtitle[currentLang]}</p>
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-3">
+                        <span className="bg-white/20 backdrop-blur px-3 py-1.5 rounded-full text-sm flex items-center gap-1.5">
+                          <Clock size={14} /> {phase.duration[currentLang]}
+                        </span>
+                        {phase.feeSummary && (
+                          <span className="bg-white/20 backdrop-blur px-3 py-1.5 rounded-full text-sm flex items-center gap-1.5">
+                            <CreditCard size={14} /> {phase.feeSummary[currentLang]}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Two-column: You Do vs We Handle */}
+                  <div className="p-6 md:p-8 bg-white">
+                    <div className="grid md:grid-cols-2 gap-6 mb-8">
+                      {/* Patient Actions */}
+                      <div className={`rounded-xl p-5 border ${PHASE_LIGHT_BG_MAP[phase.color]}`}>
+                        <div className="flex items-center gap-2 mb-4">
+                          <Users size={18} className="text-gray-600" />
+                          <h4 className="font-bold text-gray-900 text-sm">{t('flowYouDo')}</h4>
+                        </div>
+                        <ul className="space-y-2.5">
+                          {phase.patientActions.map((action, i) => (
+                            <li key={i} className="flex items-start gap-2.5 text-sm text-gray-700">
+                              <CheckCircle size={16} className="text-green-500 flex-shrink-0 mt-0.5" />
+                              <span>{action[currentLang]}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      {/* We Handle */}
+                      <div className="rounded-xl p-5 border bg-gray-50 border-gray-100">
+                        <div className="flex items-center gap-2 mb-4">
+                          <Shield size={18} className="text-gray-600" />
+                          <h4 className="font-bold text-gray-900 text-sm">{t('flowWeHandle')}</h4>
+                        </div>
+                        <ul className="space-y-2.5">
+                          {phase.weHandle.map((item, i) => (
+                            <li key={i} className="flex items-start gap-2.5 text-sm text-gray-700">
+                              <CheckCircle size={16} className="text-blue-500 flex-shrink-0 mt-0.5" />
+                              <span>{item[currentLang]}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Sub-step Timeline */}
+                    <div>
+                      <h4 className="font-bold text-gray-900 text-sm mb-4 flex items-center gap-2">
+                        <FileText size={16} className="text-gray-400" />
+                        {t('flowStepDetail')}
+                      </h4>
+                      <div className="relative">
+                        <div className={`absolute left-4 top-0 bottom-0 w-0.5 ${PHASE_DOT_MAP[phase.color]} opacity-20`}></div>
+                        <div className="space-y-3">
+                          {phaseSteps.map((step) => (
+                            <div
+                              key={step.step}
+                              className="relative flex gap-4 group cursor-pointer"
+                              onClick={() => setExpandedStep(expandedStep === step.step ? null : step.step)}
+                            >
+                              <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold z-10 ${PHASE_DOT_MAP[phase.color]}`}>
+                                {step.step}
+                              </div>
+                              <div className={`flex-grow rounded-xl p-4 border transition-all ${
+                                expandedStep === step.step ? 'bg-white shadow-md border-gray-200' : 'bg-gray-50 border-gray-100 hover:bg-white hover:shadow-sm'
+                              }`}>
+                                <div className="flex flex-wrap items-start justify-between gap-3">
+                                  <div className="flex-grow">
+                                    <div className="flex items-center gap-2 mb-1">
+                                      <h5 className="text-sm font-bold text-gray-900">{step.title[currentLang]}</h5>
+                                      {step.fee && (
+                                        <span className="bg-blue-100 text-blue-700 text-xs font-bold px-2 py-0.5 rounded-full">
+                                          ¥{step.fee}
+                                        </span>
+                                      )}
+                                    </div>
+                                    <p className="text-xs text-gray-500">{step.subtitle[currentLang]}</p>
+                                    {expandedStep === step.step && step.desc && (
+                                      <div className="mt-3 pt-3 border-t border-gray-200">
+                                        <p className="text-xs text-gray-600 leading-relaxed">{step.desc[currentLang]}</p>
+                                      </div>
+                                    )}
+                                  </div>
+                                  <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                                    <span className="bg-gray-200 px-1.5 py-0.5 rounded text-xs">{step.from[currentLang]}</span>
+                                    <ArrowRight size={10} />
+                                    <span className="bg-gray-200 px-1.5 py-0.5 rounded text-xs">{step.to[currentLang]}</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     </div>
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
-          </div>
+            );
+          })()}
         </div>
       </section>
       {/* Standard Treatments Section */}

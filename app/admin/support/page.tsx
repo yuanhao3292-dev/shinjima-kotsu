@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
+import { formatDateTimeSimple } from '@/lib/utils/format-date';
 import {
   Headphones,
   CheckCircle,
@@ -209,9 +210,6 @@ export default function SupportPage() {
     }
   };
 
-  const formatDate = (dateStr: string) => {
-    return new Date(dateStr).toLocaleString('zh-TW');
-  };
 
   // Detail View
   if (selectedTicket) {
@@ -255,7 +253,7 @@ export default function SupportPage() {
               </span>
               <span className="flex items-center gap-1">
                 <Clock size={14} />
-                {formatDate(selectedTicket.created_at)}
+                {formatDateTimeSimple(selectedTicket.created_at)}
               </span>
             </div>
           </div>
@@ -278,7 +276,7 @@ export default function SupportPage() {
                       <span className={`text-sm font-medium ${reply.is_staff ? 'text-indigo-600' : 'text-gray-600'}`}>
                         {reply.is_staff ? '客服' : selectedTicket.guide?.name}
                       </span>
-                      <span className="text-xs text-gray-400">{formatDate(reply.created_at)}</span>
+                      <span className="text-xs text-gray-400">{formatDateTimeSimple(reply.created_at)}</span>
                     </div>
                     <p className="text-gray-700 whitespace-pre-wrap">{reply.content}</p>
                   </div>
@@ -458,7 +456,7 @@ export default function SupportPage() {
                     <p className="text-sm text-gray-500">
                       {TYPE_LABELS[ticket.ticket_type] || ticket.ticket_type} · {ticket.guide?.name}
                     </p>
-                    <p className="text-xs text-gray-400 mt-1">{formatDate(ticket.created_at)}</p>
+                    <p className="text-xs text-gray-400 mt-1">{formatDateTimeSimple(ticket.created_at)}</p>
                   </div>
                   <ChevronLeft className="rotate-180 text-gray-400 mt-1" size={20} />
                 </div>

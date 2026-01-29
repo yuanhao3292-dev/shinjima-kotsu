@@ -59,7 +59,7 @@ export async function GET(request: NextRequest) {
         .from('guides')
         .select(`
           *,
-          referrer:referred_by(id, name, referral_code)
+          referrer:referrer_id(id, name, referral_code)
         `)
         .eq('id', guideId)
         .single();
@@ -70,7 +70,7 @@ export async function GET(request: NextRequest) {
 
       // 获取导游的订单统计
       const { count: bookingCount } = await supabase
-        .from('guide_bookings')
+        .from('bookings')
         .select('*', { count: 'exact', head: true })
         .eq('guide_id', guideId);
 
@@ -78,7 +78,7 @@ export async function GET(request: NextRequest) {
       const { count: referralCount } = await supabase
         .from('guides')
         .select('*', { count: 'exact', head: true })
-        .eq('referred_by', guideId);
+        .eq('referrer_id', guideId);
 
       return NextResponse.json({
         ...guide,
@@ -95,7 +95,7 @@ export async function GET(request: NextRequest) {
           id, name, email, phone, wechat_id,
           status, level, kyc_status,
           total_commission, total_bookings,
-          referral_code, referred_by,
+          referral_code, referrer_id,
           created_at, updated_at
         `, { count: 'exact' })
         .order('created_at', { ascending: false })

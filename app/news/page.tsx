@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import PublicLayout from '@/components/PublicLayout';
 import { localizeText } from '@/lib/utils/text-converter';
+import { formatDateJP } from '@/lib/utils/format-date';
 import {
   Calendar,
   ChevronRight,
@@ -174,15 +175,6 @@ export default function NewsPage() {
     setCurrentPage(1);
   };
 
-  // 格式化日期
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('ja-JP', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    }).replace(/\//g, '.');
-  };
 
   // 判断是否为新消息（7天内）
   const isNewNews = (dateString: string) => {
@@ -299,7 +291,7 @@ export default function NewsPage() {
                       </h3>
                       <div className="flex items-center gap-2 text-gray-300 text-sm">
                         <Calendar size={14} />
-                        <span>{formatDate(news.published_at)}</span>
+                        <span>{formatDateJP(news.published_at)}</span>
                       </div>
                     </div>
 
@@ -388,10 +380,10 @@ export default function NewsPage() {
                             </div>
                             <div>
                               <div className="text-sm font-bold text-gray-900">
-                                {formatDate(news.published_at).split('.').slice(1).join('/')}
+                                {formatDateJP(news.published_at).split('.').slice(1).join('/')}
                               </div>
                               <div className="text-xs text-gray-400">
-                                {formatDate(news.published_at).split('.')[0]}
+                                {formatDateJP(news.published_at).split('.')[0]}
                               </div>
                             </div>
                           </div>
@@ -504,7 +496,7 @@ export default function NewsPage() {
                 <ArrowRight size={18} />
               </Link>
               <Link
-                href="/about"
+                href="/company/about"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-full hover:bg-white/10 transition-colors"
               >
                 {t('ctaAbout')}

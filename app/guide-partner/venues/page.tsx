@@ -355,7 +355,14 @@ export default function VenuesPage() {
                 </div>
 
                 {/* Action */}
-                <div className="p-4 border-t bg-gray-50">
+                <div className="p-4 border-t bg-gray-50 space-y-2">
+                  <Link
+                    href={`/guide-partner/venues/${venue.id}`}
+                    className="w-full flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white font-medium py-3 rounded-xl transition"
+                  >
+                    <ChevronRight size={18} />
+                    查看價格詳情
+                  </Link>
                   <Link
                     href={`/guide-partner/bookings/new?venue=${venue.id}`}
                     className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 rounded-xl transition"

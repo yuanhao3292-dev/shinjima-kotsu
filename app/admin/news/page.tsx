@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { createClient } from '@/lib/supabase/client';
+import { formatDateJP } from '@/lib/utils/format-date';
 import {
   Newspaper,
   Plus,
@@ -330,15 +331,6 @@ export default function AdminNewsPage() {
     n.summary?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const formatDate = (dateString: string | null) => {
-    if (!dateString) return '-';
-    const date = new Date(dateString);
-    return date.toLocaleDateString('ja-JP', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    }).replace(/\//g, '.');
-  };
 
   // Edit/Create Form
   if (editingNews) {
@@ -703,7 +695,7 @@ export default function AdminNewsPage() {
                       <td className="px-5 py-4 text-center">
                         <div className="flex items-center justify-center gap-1 text-sm text-gray-600">
                           <Calendar size={14} />
-                          {formatDate(news.published_at)}
+                          {formatDateJP(news.published_at)}
                         </div>
                       </td>
                       <td className="px-5 py-4">

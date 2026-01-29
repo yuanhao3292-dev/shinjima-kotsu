@@ -693,3 +693,143 @@ export async function sendKYCNotification(data: KYCNotificationData) {
     return { success: false, error: error.message };
   }
 }
+
+// ============================================
+// 導遊預約通知（管理員）
+// ============================================
+
+interface GuideBookingNotificationData {
+  guideName: string;
+  venueName: string;
+  customerName: string;
+  customerPhone?: string;
+  partySize: number;
+  bookingDate: string;
+  bookingTime?: string;
+  specialRequests?: string;
+}
+
+/**
+ * 發送導遊預約通知郵件給管理員
+ */
+export async function sendGuideBookingNotificationToAdmin(data: GuideBookingNotificationData) {
+  const resend = getResend();
+  if (!resend) {
+    console.log('Email skipped: Resend not configured');
+    return { success: false, error: 'Resend not configured' };
+  }
+
+  if (!BCC_EMAIL) {
+    console.log('Email skipped: NOTIFICATION_EMAIL/ADMIN_EMAIL not configured');
+    return { success: false, error: 'Admin email not configured' };
+  }
+
+  try {
+    const result = await resend.emails.send({
+      from: 'NIIJIMA Partner <partner@niijima-koutsu.jp>',
+      to: BCC_EMAIL,
+      subject: `【新預約】${data.venueName} - ${data.customerName}（${data.partySize}人）by ${data.guideName}`,
+      html: `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; background-color: #fff7ed; font-family: 'Helvetica Neue', Arial, sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #fff7ed; padding: 40px 20px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+
+          <!-- Header -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); padding: 30px; text-align: center;">
+              <h1 style="color: #ffffff; margin: 0; font-size: 22px; font-weight: 600;">新導遊預約通知</h1>
+              <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0; font-size: 14px;">Guide Partner Booking</p>
+            </td>
+          </tr>
+
+          <!-- Booking Details -->
+          <tr>
+            <td style="padding: 30px;">
+              <div style="background-color: #f8fafc; border-radius: 12px; padding: 24px; border: 1px solid #e2e8f0;">
+                <h3 style="color: #1e293b; margin: 0 0 16px; font-size: 16px; font-weight: 600;">預約詳情</h3>
+                <table width="100%" style="font-size: 14px;">
+                  <tr>
+                    <td style="color: #64748b; padding: 8px 0;">導遊</td>
+                    <td style="color: #1e293b; text-align: right; font-weight: 600;">${data.guideName}</td>
+                  </tr>
+                  <tr>
+                    <td style="color: #64748b; padding: 8px 0;">店舖</td>
+                    <td style="color: #ea580c; text-align: right; font-weight: 600;">${data.venueName}</td>
+                  </tr>
+                  <tr>
+                    <td style="color: #64748b; padding: 8px 0;">客戶姓名</td>
+                    <td style="color: #1e293b; text-align: right;">${data.customerName}</td>
+                  </tr>
+                  ${data.customerPhone ? `
+                  <tr>
+                    <td style="color: #64748b; padding: 8px 0;">客戶電話</td>
+                    <td style="color: #1e293b; text-align: right;">${data.customerPhone}</td>
+                  </tr>
+                  ` : ''}
+                  <tr>
+                    <td style="color: #64748b; padding: 8px 0;">人數</td>
+                    <td style="color: #1e293b; text-align: right; font-weight: 600;">${data.partySize} 人</td>
+                  </tr>
+                  <tr>
+                    <td style="color: #64748b; padding: 8px 0;">預約日期</td>
+                    <td style="color: #1e293b; text-align: right; font-weight: 600;">${data.bookingDate}</td>
+                  </tr>
+                  ${data.bookingTime ? `
+                  <tr>
+                    <td style="color: #64748b; padding: 8px 0;">預約時間</td>
+                    <td style="color: #1e293b; text-align: right;">${data.bookingTime}</td>
+                  </tr>
+                  ` : ''}
+                  ${data.specialRequests ? `
+                  <tr>
+                    <td colspan="2" style="padding-top: 12px; border-top: 1px solid #e2e8f0;">
+                      <p style="color: #64748b; margin: 0 0 4px; font-size: 12px;">特殊要求</p>
+                      <p style="color: #1e293b; margin: 0;">${data.specialRequests}</p>
+                    </td>
+                  </tr>
+                  ` : ''}
+                </table>
+              </div>
+            </td>
+          </tr>
+
+          <!-- CTA -->
+          <tr>
+            <td style="padding: 0 30px 30px; text-align: center;">
+              <a href="https://niijima-koutsu.jp/admin/orders" style="display: inline-block; background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
+                查看預約管理
+              </a>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #1e293b; padding: 20px; text-align: center;">
+              <p style="color: #94a3b8; margin: 0; font-size: 12px;">此郵件由系統自動發送</p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+      `,
+    });
+
+    console.log('Guide booking admin notification sent:', result);
+    return { success: true, data: result };
+  } catch (error: any) {
+    console.error('Failed to send guide booking notification:', error);
+    return { success: false, error: error.message };
+  }
+}

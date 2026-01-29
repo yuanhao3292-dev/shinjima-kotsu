@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
+import { formatDateTime } from '@/lib/utils/format-date';
 import {
   UserCheck,
   Eye,
@@ -129,16 +130,6 @@ export default function KYCReviewPage() {
     }
   };
 
-  const formatDate = (dateStr: string | null) => {
-    if (!dateStr) return '-';
-    return new Date(dateStr).toLocaleString('zh-TW', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
 
   const getStatusBadge = (status: string) => {
     const config: Record<string, { bg: string; text: string; label: string }> = {
@@ -201,7 +192,7 @@ export default function KYCReviewPage() {
               </div>
               <div>
                 <p className="text-sm text-gray-500 mb-1">提交時間</p>
-                <p className="font-medium">{formatDate(selectedItem.kyc_submitted_at)}</p>
+                <p className="font-medium">{formatDateTime(selectedItem.kyc_submitted_at)}</p>
               </div>
             </div>
 
@@ -396,7 +387,7 @@ export default function KYCReviewPage() {
                     </span>
                   </div>
                   <p className="text-xs text-gray-400 mt-1">
-                    提交時間: {formatDate(item.kyc_submitted_at)}
+                    提交時間: {formatDateTime(item.kyc_submitted_at)}
                   </p>
                 </div>
                 <button

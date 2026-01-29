@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { formatDateTimeLong } from '@/lib/utils/format-date';
 import {
   ArrowLeft,
   Loader2,
@@ -62,17 +63,6 @@ export default function ScreeningHistoryPage() {
     fetchHistory();
   }, [router]);
 
-  // 格式化日期
-  const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString('zh-TW', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
 
   // 风险等级配置
   const riskConfig = {
@@ -234,8 +224,8 @@ export default function ScreeningHistoryPage() {
                         </div>
                         <p className="text-sm text-gray-500 mt-1">
                           {isCompleted && screening.completedAt
-                            ? `完成於 ${formatDate(screening.completedAt)}`
-                            : `開始於 ${formatDate(screening.createdAt)}`}
+                            ? `完成於 ${formatDateTimeLong(screening.completedAt)}`
+                            : `開始於 ${formatDateTimeLong(screening.createdAt)}`}
                         </p>
                       </div>
                     </div>

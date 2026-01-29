@@ -56,6 +56,39 @@ export async function GET(request: NextRequest) {
       return createErrorResponse(Errors.notFound('导游不存在'));
     }
 
+    // 释放到期佣金（2周等待期已过的佣金自动进入可提现余额）
+    const { data: releaseResult } = await supabase.rpc('release_matured_commissions', {
+      p_guide_id: guide.id,
+    });
+    if (releaseResult && releaseResult.released_amount > 0) {
+      // 重新获取更新后的余额
+      const { data: updatedGuide } = await supabase
+        .from('guides')
+        .select('available_balance')
+        .eq('id', guide.id)
+        .single();
+      if (updatedGuide) {
+        guide.available_balance = updatedGuide.available_balance;
+      }
+      console.log(`[Withdrawal] 释放到期佣金: ¥${releaseResult.released_amount} (${releaseResult.released_count}笔)`);
+    }
+
+    // 查询锁定中的佣金（等待期未到的佣金）
+    const { data: lockedCommissions } = await supabase
+      .from('whitelabel_orders')
+      .select('commission_amount, commission_available_at')
+      .eq('guide_id', guide.id)
+      .eq('commission_status', 'calculated')
+      .not('commission_available_at', 'is', null)
+      .gt('commission_available_at', new Date().toISOString());
+
+    const lockedAmount = lockedCommissions?.reduce((sum, c) => sum + Number(c.commission_amount || 0), 0) || 0;
+    const nearestUnlockDate = lockedCommissions?.length
+      ? lockedCommissions
+          .map(c => c.commission_available_at)
+          .sort()[0]
+      : null;
+
     // 获取提现历史
     const { data: withdrawals, error: withdrawalError } = await supabase
       .from('withdrawal_requests')
@@ -80,6 +113,8 @@ export async function GET(request: NextRequest) {
         totalEarned: guide.total_commission || 0,
         totalWithdrawn: guide.total_withdrawn || 0,
         pending: pendingAmount,
+        locked: lockedAmount,
+        nearestUnlockDate: nearestUnlockDate,
       },
       bankInfo: {
         bankName: guide.bank_name,
@@ -143,6 +178,23 @@ export async function POST(request: NextRequest) {
 
     if (guideError || !guide) {
       return createErrorResponse(Errors.notFound('导游不存在'));
+    }
+
+    // 释放到期佣金（2周等待期已过的佣金自动进入可提现余额）
+    const { data: releaseResult } = await supabase.rpc('release_matured_commissions', {
+      p_guide_id: guide.id,
+    });
+    if (releaseResult && releaseResult.released_amount > 0) {
+      // 重新获取更新后的余额
+      const { data: updatedGuide } = await supabase
+        .from('guides')
+        .select('available_balance')
+        .eq('id', guide.id)
+        .single();
+      if (updatedGuide) {
+        guide.available_balance = updatedGuide.available_balance;
+      }
+      console.log(`[Withdrawal POST] 释放到期佣金: ¥${releaseResult.released_amount}`);
     }
 
     // 检查 KYC 状态

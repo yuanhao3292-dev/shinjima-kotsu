@@ -59,6 +59,7 @@ export default function WhiteLabelSettingsPage() {
     contactWechat: '',
     contactLine: '',
     contactDisplayPhone: '',
+    contactEmail: '',
   });
 
   const router = useRouter();
@@ -182,6 +183,7 @@ export default function WhiteLabelSettingsPage() {
         contactWechat: guideData.contact_wechat || '',
         contactLine: guideData.contact_line || '',
         contactDisplayPhone: guideData.contact_display_phone || '',
+        contactEmail: guideData.email || '',
       });
     } catch (error) {
       console.error('Error loading guide data:', error);
@@ -214,6 +216,7 @@ export default function WhiteLabelSettingsPage() {
           contact_wechat: formData.contactWechat || null,
           contact_line: formData.contactLine || null,
           contact_display_phone: formData.contactDisplayPhone || null,
+          email: formData.contactEmail || null,
           updated_at: new Date().toISOString(),
         })
         .eq('id', guide.id);
@@ -673,6 +676,22 @@ export default function WhiteLabelSettingsPage() {
                 placeholder="+86 138-xxxx-xxxx"
                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
+            </div>
+
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                邮箱
+              </label>
+              <input
+                type="email"
+                value={formData.contactEmail}
+                onChange={(e) => setFormData({ ...formData, contactEmail: e.target.value })}
+                placeholder="your@email.com"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+              <p className="mt-1 text-xs text-gray-500">
+                此邮箱将显示在白标页面的联系方式中
+              </p>
             </div>
           </div>
         </div>

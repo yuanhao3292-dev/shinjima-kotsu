@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import MemberLayout from '@/components/MemberLayout';
+import { formatDateLong } from '@/lib/utils/format-date';
 import Logo from '@/components/Logo';
 import { ArrowLeft, Search, Package, Calendar, CreditCard, Clock, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 
@@ -68,13 +69,6 @@ export default function OrderLookupPage() {
     }
   };
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('zh-TW', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-  };
 
   return (
     <MemberLayout showFooter={false}>
@@ -257,7 +251,7 @@ export default function OrderLookupPage() {
                       <div>
                         <p className="text-xs text-gray-400 mb-1">預約日期</p>
                         <p className="font-semibold text-gray-900 text-sm">
-                          {order.preferredDate ? formatDate(order.preferredDate) : '待確認'}
+                          {order.preferredDate ? formatDateLong(order.preferredDate) : '待確認'}
                         </p>
                       </div>
                     </div>
@@ -277,7 +271,7 @@ export default function OrderLookupPage() {
 
                   {/* Order Date */}
                   <div className="pt-4 border-t border-gray-100 text-sm text-gray-400">
-                    訂單建立時間：{formatDate(order.createdAt)}
+                    訂單建立時間：{formatDateLong(order.createdAt)}
                   </div>
                 </div>
 

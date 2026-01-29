@@ -29,11 +29,7 @@ const navigationStructure = [
     titleEn: 'Company',
     basePath: '/company',
     items: [
-      { label: { ja: 'トップメッセージ', 'zh-TW': '社長致辭', 'zh-CN': '社长致辞', en: 'CEO Message' } as Record<Language, string>, path: '/company/message', icon: MessageSquare },
-      { label: { ja: '会社概要', 'zh-TW': '公司概況', 'zh-CN': '公司概况', en: 'Company Profile' } as Record<Language, string>, path: '/company/profile', icon: FileText },
-      { label: { ja: '沿革', 'zh-TW': '發展歷程', 'zh-CN': '发展历程', en: 'History' } as Record<Language, string>, path: '/company/history', icon: History },
-      { label: { ja: '組織体制', 'zh-TW': '組織架構', 'zh-CN': '组织架构', en: 'Organization' } as Record<Language, string>, path: '/company/organization', icon: Users },
-      { label: { ja: '所在地', 'zh-TW': '辦公據點', 'zh-CN': '办公地点', en: 'Access' } as Record<Language, string>, path: '/company/access', icon: MapPin },
+      { label: { ja: '会社紹介', 'zh-TW': '公司介紹', 'zh-CN': '公司介绍', en: 'About Us' } as Record<Language, string>, path: '/company/about', icon: FileText },
     ]
   },
   {

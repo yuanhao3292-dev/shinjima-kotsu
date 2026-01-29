@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
+import { formatDateTime } from '@/lib/utils/format-date';
 import Logo from '@/components/Logo';
 import {
   Shield,
@@ -246,15 +247,6 @@ export default function AdminDashboard() {
     router.push('/login');
   };
 
-  const formatDate = (dateStr: string) => {
-    return new Date(dateStr).toLocaleString('zh-TW', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
 
   const getTicketTypeLabel = (type: string) => {
     const labels: Record<string, string> = {
@@ -443,7 +435,7 @@ export default function AdminDashboard() {
                           <span>国籍: {item.nationality}</span>
                         </div>
                         <p className="text-xs text-gray-400 mt-1">
-                          提交时间: {formatDate(item.kyc_submitted_at)}
+                          提交时间: {formatDateTime(item.kyc_submitted_at)}
                         </p>
                       </div>
                       <div className="flex items-center gap-3">
@@ -529,7 +521,7 @@ export default function AdminDashboard() {
                           {getTicketTypeLabel(ticket.ticket_type)} · {ticket.guide?.name} ({ticket.guide?.email})
                         </p>
                         <p className="text-xs text-gray-400 mt-1">
-                          创建时间: {formatDate(ticket.created_at)}
+                          创建时间: {formatDateTime(ticket.created_at)}
                         </p>
                       </div>
                       <button className="flex items-center gap-2 px-4 py-2 border rounded-lg text-sm text-gray-600 hover:border-blue-300 hover:text-blue-600">

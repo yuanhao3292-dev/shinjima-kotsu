@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
+import { formatDateTimeSimple } from '@/lib/utils/format-date';
 import {
   Wallet,
   CheckCircle,
@@ -133,10 +134,6 @@ export default function SettlementsPage() {
     }
   };
 
-  const formatDate = (dateStr: string | null) => {
-    if (!dateStr) return '-';
-    return new Date(dateStr).toLocaleString('zh-TW');
-  };
 
   const formatAmount = (amount: number) => {
     return `¥${amount.toLocaleString()}`;
@@ -218,7 +215,7 @@ export default function SettlementsPage() {
               </div>
               <div>
                 <p className="text-sm text-gray-500 mb-1">申請時間</p>
-                <p className="font-medium">{formatDate(selectedItem.created_at)}</p>
+                <p className="font-medium">{formatDateTimeSimple(selectedItem.created_at)}</p>
               </div>
             </div>
           </div>
@@ -233,13 +230,13 @@ export default function SettlementsPage() {
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-                  <span className="text-sm text-gray-600">提交申請 - {formatDate(selectedItem.created_at)}</span>
+                  <span className="text-sm text-gray-600">提交申請 - {formatDateTimeSimple(selectedItem.created_at)}</span>
                 </div>
                 {selectedItem.reviewed_at && (
                   <div className="flex items-center gap-3">
                     <div className={`w-2 h-2 rounded-full ${selectedItem.status === 'rejected' ? 'bg-red-500' : 'bg-blue-500'}`}></div>
                     <span className="text-sm text-gray-600">
-                      {selectedItem.status === 'rejected' ? '已拒絕' : '審核通過'} - {formatDate(selectedItem.reviewed_at)}
+                      {selectedItem.status === 'rejected' ? '已拒絕' : '審核通過'} - {formatDateTimeSimple(selectedItem.reviewed_at)}
                       {selectedItem.review_note && <span className="text-gray-400 ml-2">({selectedItem.review_note})</span>}
                     </span>
                   </div>
@@ -248,7 +245,7 @@ export default function SettlementsPage() {
                   <div className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                     <span className="text-sm text-gray-600">
-                      已打款 - {formatDate(selectedItem.paid_at)}
+                      已打款 - {formatDateTimeSimple(selectedItem.paid_at)}
                       {selectedItem.payment_reference && <span className="text-gray-400 ml-2">(憑證: {selectedItem.payment_reference})</span>}
                     </span>
                   </div>
@@ -459,7 +456,7 @@ export default function SettlementsPage() {
                         <CreditCard size={12} />
                         {item.bank_name} {item.account_number.slice(-4)}
                       </span>
-                      <span>申請時間: {formatDate(item.created_at)}</span>
+                      <span>申請時間: {formatDateTimeSimple(item.created_at)}</span>
                     </div>
                   </div>
                   <ChevronLeft className="rotate-180 text-gray-400" size={20} />

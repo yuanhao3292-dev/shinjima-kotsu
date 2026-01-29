@@ -60,6 +60,7 @@ interface WhitelabelCommission {
   applied_commission_rate: number;
   commission_amount: number;
   commission_status: string;
+  commission_available_at: string | null;
   created_at: string;
   metadata: {
     new_customer_bonus?: boolean;
@@ -290,17 +291,39 @@ export default function CommissionPage() {
     );
   };
 
-  const getCommissionStatusBadge = (status: string) => {
+  const getCommissionStatusBadge = (status: string, availableAt?: string | null) => {
     const styles: Record<string, string> = {
       pending: 'bg-gray-100 text-gray-600',
       calculated: 'bg-yellow-100 text-yellow-700',
+      available: 'bg-blue-100 text-blue-700',
       paid: 'bg-green-100 text-green-700',
     };
     const labels: Record<string, string> = {
       pending: '待計算',
-      calculated: '待結算',
+      calculated: '鎖定中',
+      available: '可提現',
       paid: '已結算',
     };
+
+    // 对于 calculated 状态，显示解锁日期
+    if (status === 'calculated' && availableAt) {
+      const unlockDate = new Date(availableAt);
+      const now = new Date();
+      const daysLeft = Math.max(0, Math.ceil((unlockDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)));
+      return (
+        <div className="text-right">
+          <span className={`px-2 py-1 rounded-full text-xs font-medium ${styles.calculated}`}>
+            {labels.calculated}
+          </span>
+          {daysLeft > 0 && (
+            <p className="text-xs text-yellow-600 mt-1">
+              {daysLeft}天後可提現
+            </p>
+          )}
+        </div>
+      );
+    }
+
     return (
       <span className={`px-2 py-1 rounded-full text-xs font-medium ${styles[status] || styles.pending}`}>
         {labels[status] || status}
@@ -653,7 +676,7 @@ export default function CommissionPage() {
                           </p>
                         </div>
                         <div className="text-right">
-                          {getCommissionStatusBadge(record.commission_status)}
+                          {getCommissionStatusBadge(record.commission_status, record.commission_available_at)}
                           <p className="font-bold text-green-600 mt-1">
                             +¥{record.commission_amount?.toLocaleString()}
                           </p>
@@ -802,8 +825,9 @@ export default function CommissionPage() {
           <div className="mt-8 bg-gray-100 rounded-xl p-4">
             <h3 className="font-medium text-gray-700 mb-2">結算說明</h3>
             <ul className="text-sm text-gray-600 space-y-1">
-              <li>• 每月 1-5 日統計上月已完成訂單的報酬</li>
-              <li>• 確認後通過微信/支付寶/銀行轉帳支付</li>
+              <li>• 白標訂單佣金在客人完成服務後 <strong>2 週</strong>即可申請提現</li>
+              <li>• 店舖報酬每月 1-5 日統計上月已完成訂單</li>
+              <li>• 提現通過銀行轉帳支付，1-3 個工作日到帳</li>
               <li>• 如有疑問請聯繫客服核實</li>
             </ul>
           </div>
