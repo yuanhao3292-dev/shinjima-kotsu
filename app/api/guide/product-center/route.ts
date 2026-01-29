@@ -71,21 +71,22 @@ export async function GET(request: NextRequest) {
       supabase
         .from('page_modules')
         .select('*')
-        .eq('status', 'active')
-        .order('display_order', { ascending: true }),
+        .eq('is_active', true)
+        .order('sort_order', { ascending: true }),
 
       // 获取所有模板
       supabase
         .from('page_templates')
         .select('*')
-        .order('display_order', { ascending: true }),
+        .eq('is_active', true)
+        .order('sort_order', { ascending: true }),
 
       // 获取所有活跃车辆
       supabase
         .from('vehicle_library')
         .select('*')
         .eq('is_active', true)
-        .order('display_order', { ascending: true }),
+        .order('sort_order', { ascending: true }),
 
       // 获取导游的白标配置
       supabase
