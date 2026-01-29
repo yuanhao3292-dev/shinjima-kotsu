@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect, use, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
@@ -61,18 +61,16 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
   const { id } = use(params);
   const [venue, setVenue] = useState<Venue | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedLocale, setSelectedLocale] = useState<PricingLocale>('zh-TW');
   const [copied, setCopied] = useState(false);
   const router = useRouter();
   const supabase = createClient();
 
-  useEffect(() => {
-    checkAuthAndLoadVenue();
-  }, [id]);
-
-  const checkAuthAndLoadVenue = async () => {
+  const checkAuthAndLoadVenue = useCallback(async () => {
     try {
+      setError(null);
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
         router.push('/guide-partner/login');
@@ -90,24 +88,29 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
         return;
       }
 
-      const { data: venueData, error } = await supabase
+      const { data: venueData, error: venueError } = await supabase
         .from('venues')
         .select('*')
         .eq('id', id)
         .single();
 
-      if (error || !venueData) {
-        router.push('/guide-partner/venues');
+      if (venueError || !venueData) {
+        setError('店舖不存在或已下架');
         return;
       }
 
-      setVenue(venueData);
-    } catch (error) {
-      console.error('Error:', error);
+      setVenue(venueData as Venue);
+    } catch (err) {
+      console.error('Error:', err);
+      setError('載入失敗，請稍後重試');
     } finally {
       setLoading(false);
     }
-  };
+  }, [id, router, supabase]);
+
+  useEffect(() => {
+    checkAuthAndLoadVenue();
+  }, [checkAuthAndLoadVenue]);
 
   const handleCopy = async () => {
     if (!venue) return;
@@ -156,6 +159,25 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
     );
   }
 
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <Store className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+          <h2 className="text-xl font-bold text-gray-900 mb-2">無法載入</h2>
+          <p className="text-gray-500 mb-4">{error}</p>
+          <Link
+            href="/guide-partner/venues"
+            className="inline-flex items-center gap-2 text-orange-600 hover:underline"
+          >
+            <ArrowLeft size={18} />
+            返回店舖列表
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   if (!venue) {
     return null;
   }
@@ -169,7 +191,10 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
     { icon: Settings, label: '帳戶設置', href: '/guide-partner/settings' },
   ];
 
-  const pricingText = generatePricingText(venue, selectedLocale);
+  const pricingText = useMemo(
+    () => generatePricingText(venue, selectedLocale),
+    [venue, selectedLocale]
+  );
 
   return (
     <div className="min-h-screen bg-gray-50">

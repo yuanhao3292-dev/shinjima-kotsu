@@ -369,8 +369,10 @@ export function generatePricingText(
               lines.push(`  ${translateTerm(period, locale)}: ${formatCurrency(price, locale)}`);
             } else if (typeof price === 'object' && price !== null) {
               // Nested object (e.g., { '1名様': 6050, '2名様以上': 5500 })
-              const priceStr = Object.entries(price as Record<string, number>)
-                .map(([k, v]) => `${translateTerm(k, locale)} ${formatCurrency(v, locale)}`)
+              const priceObj = price as Record<string, unknown>;
+              const priceStr = Object.entries(priceObj)
+                .filter(([, v]) => typeof v === 'number' || typeof v === 'string')
+                .map(([k, v]) => `${translateTerm(k, locale)} ${formatCurrency(v as number | string, locale)}`)
                 .join(' / ');
               lines.push(`  ${translateTerm(period, locale)}: ${priceStr}`);
             }
@@ -389,8 +391,11 @@ export function generatePricingText(
           lines.push(`  ${translateTerm(time, locale)}: ${formatCurrency(price, locale)}`);
         } else if (typeof price === 'object' && price !== null) {
           // Nested by time period
-          for (const [period, p] of Object.entries(price as Record<string, number>)) {
-            lines.push(`  ${translateTerm(time, locale)} (${translateTerm(period, locale)}): ${formatCurrency(p, locale)}`);
+          const priceObj = price as Record<string, unknown>;
+          for (const [period, p] of Object.entries(priceObj)) {
+            if (typeof p === 'number' || typeof p === 'string') {
+              lines.push(`  ${translateTerm(time, locale)} (${translateTerm(period, locale)}): ${formatCurrency(p as number | string, locale)}`);
+            }
           }
         }
       }
@@ -441,14 +446,17 @@ export function generatePricingText(
                        key.includes('single') ? t('single_use_charge') : '';
           lines.push(`  ${label ? label + ': ' : ''}${formatCurrency(value, locale)}`);
         } else if (typeof value === 'object' && value !== null) {
-          for (const [room, price] of Object.entries(value as Record<string, number>)) {
-            lines.push(`  ${room}: ${formatCurrency(price, locale)}`);
+          const valueObj = value as Record<string, unknown>;
+          for (const [room, price] of Object.entries(valueObj)) {
+            if (typeof price === 'number') {
+              lines.push(`  ${room}: ${formatCurrency(price, locale)}`);
+            }
           }
         }
       }
 
       // VIP notes
-      if (info.vip_note) {
+      if (typeof info.vip_note === 'string') {
         lines.push(`  ※ ${info.vip_note}`);
       }
     }
@@ -471,7 +479,7 @@ export function generatePricingText(
     }
 
     // Remarks
-    if (info.remarks) {
+    if (typeof info.remarks === 'string') {
       lines.push('');
       lines.push(`【${t('remarks')}】`);
       lines.push(`${info.remarks}`);
