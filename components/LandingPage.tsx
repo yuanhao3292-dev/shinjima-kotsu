@@ -987,10 +987,8 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
         <div className="relative z-10 text-center text-white px-6 py-12 md:py-24 max-w-5xl mx-auto">
            {/* Premium Badge */}
            <div className="animate-fade-in-up-delay-1">
-             <span className="inline-flex items-center gap-3 border border-amber-400/40 bg-black/30 backdrop-blur-md px-6 py-12 md:py-24 py-2 rounded-full mb-8">
-                <span className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></span>
+             <span className="inline-flex items-center border border-amber-400/40 bg-black/30 backdrop-blur-md px-6 py-2 rounded-full mb-8">
                 <span className="text-amber-200 text-xs font-medium tracking-[0.25em] uppercase">{t.golf.tag}</span>
-                <span className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></span>
              </span>
            </div>
 
@@ -1009,18 +1007,8 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
              </p>
            </div>
 
-           {/* CTA Buttons */}
-           <div className="animate-fade-in-up-delay-4 flex flex-col sm:flex-row gap-4 justify-center">
-             <button
-               onClick={onLoginTrigger}
-               className="group relative px-10 py-4 bg-gradient-to-r from-amber-600 to-amber-500 text-white font-bold rounded-full overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(212,175,55,0.4)]"
-             >
-               <span className="relative z-10 flex items-center justify-center gap-2">
-                 <Award size={20} />
-                 {t.golf.cta_btn}
-               </span>
-               <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-amber-400 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-             </button>
+           {/* CTA Button */}
+           <div className="animate-fade-in-up-delay-4 flex justify-center">
              <button
                onClick={() => document.getElementById('golf-plans')?.scrollIntoView({ behavior: 'smooth' })}
                className="px-10 py-4 border border-white/30 text-white font-medium rounded-full hover:bg-white/10 transition-all duration-300 backdrop-blur-sm"
@@ -1028,12 +1016,6 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
                {t.golf.btn_tour || 'View Itineraries'}
              </button>
            </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50">
-          <span className="text-xs tracking-widest uppercase">Scroll</span>
-          <div className="w-px h-12 bg-gradient-to-b from-white/50 to-transparent"></div>
         </div>
      </div>
 
