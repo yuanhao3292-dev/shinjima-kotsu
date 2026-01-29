@@ -1,17 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
 import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
-import { validateBody } from '@/lib/validations/validate';
-import { GuideSelectedVehicleActionSchema } from '@/lib/validations/api-schemas';
 import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
+import { z } from 'zod';
 
 /**
  * 导游已选车辆管理 API
  *
- * POST /api/guide/selected-vehicles - 添加/更新/移除车辆
+ * POST /api/guide/selected-vehicles - 添加/移除车辆
  */
 
-async function verifyGuideAndGetConfig(request: NextRequest) {
+const ActionSchema = z.object({
+  action: z.enum(['add', 'remove']),
+  vehicleId: z.string().uuid(),
+});
+
+async function verifyGuideAndGetId(request: NextRequest) {
   const authHeader = request.headers.get('authorization');
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return { error: Errors.auth('未授权') };
@@ -39,7 +43,7 @@ async function verifyGuideAndGetConfig(request: NextRequest) {
     return { error: Errors.business('导游账户未通过审核', 'GUIDE_NOT_APPROVED') };
   }
 
-  // 获取白标配置
+  // 检查是否有白标配置
   const { data: config } = await supabase
     .from('guide_white_label')
     .select('id')
@@ -50,7 +54,7 @@ async function verifyGuideAndGetConfig(request: NextRequest) {
     return { error: Errors.business('请先创建白标页面配置', 'CONFIG_NOT_FOUND') };
   }
 
-  return { guide, config, supabase };
+  return { guideId: guide.id, supabase };
 }
 
 export async function POST(request: NextRequest) {
@@ -66,22 +70,32 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const authResult = await verifyGuideAndGetConfig(request);
+  const authResult = await verifyGuideAndGetId(request);
   if ('error' in authResult) {
     return createErrorResponse(authResult.error);
   }
 
-  const { config, supabase } = authResult;
+  const { guideId, supabase } = authResult;
 
-  const validation = await validateBody(request, GuideSelectedVehicleActionSchema);
-  if (!validation.success) return validation.error;
-  const { action, vehicleId, customName, customDescription, customImageUrl, isActive, displayOrder } = validation.data;
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return createErrorResponse(Errors.validation('无效的请求体'));
+  }
+
+  const parseResult = ActionSchema.safeParse(body);
+  if (!parseResult.success) {
+    return createErrorResponse(Errors.validation('参数错误'));
+  }
+
+  const { action, vehicleId } = parseResult.data;
 
   try {
     // 验证车辆存在且可用
     const { data: vehicle } = await supabase
       .from('vehicle_library')
-      .select('id, brand, model, is_active')
+      .select('id, name, is_active')
       .eq('id', vehicleId)
       .single();
 
@@ -93,103 +107,65 @@ export async function POST(request: NextRequest) {
       return createErrorResponse(Errors.business('该车辆当前不可用', 'VEHICLE_INACTIVE'));
     }
 
-    const vehicleName = `${vehicle.brand} ${vehicle.model}`;
+    if (action === 'add') {
+      // 检查是否已添加
+      const { data: existing } = await supabase
+        .from('guide_selected_vehicles')
+        .select('id')
+        .eq('guide_id', guideId)
+        .eq('vehicle_id', vehicleId)
+        .maybeSingle();
 
-    switch (action) {
-      case 'add': {
-        // 检查是否已添加
-        const { data: existing } = await supabase
-          .from('guide_selected_vehicles')
-          .select('id')
-          .eq('guide_white_label_id', config.id)
-          .eq('vehicle_id', vehicleId)
-          .maybeSingle();
-
-        if (existing) {
-          return createErrorResponse(Errors.validation('该车辆已添加'));
-        }
-
-        // 获取当前最大 display_order
-        const { data: maxOrder } = await supabase
-          .from('guide_selected_vehicles')
-          .select('display_order')
-          .eq('guide_white_label_id', config.id)
-          .order('display_order', { ascending: false })
-          .limit(1)
-          .maybeSingle();
-
-        const newOrder = displayOrder ?? ((maxOrder?.display_order ?? -1) + 1);
-
-        const { error: insertError } = await supabase
-          .from('guide_selected_vehicles')
-          .insert({
-            guide_white_label_id: config.id,
-            vehicle_id: vehicleId,
-            custom_name: customName || null,
-            custom_description: customDescription || null,
-            custom_image_url: customImageUrl || null,
-            is_active: isActive !== false,
-            display_order: newOrder,
-            created_at: new Date().toISOString(),
-          });
-
-        if (insertError) {
-          logError(normalizeError(insertError), { path: '/api/guide/selected-vehicles', method: 'POST' });
-          return createErrorResponse(Errors.internal('添加车辆失败'));
-        }
-
-        return NextResponse.json({
-          success: true,
-          message: `已添加车辆：${vehicleName}`,
-        });
+      if (existing) {
+        return createErrorResponse(Errors.validation('该车辆已添加'));
       }
 
-      case 'update': {
-        const updateData: Record<string, unknown> = {};
+      // 获取当前最大 sort_order
+      const { data: maxOrder } = await supabase
+        .from('guide_selected_vehicles')
+        .select('sort_order')
+        .eq('guide_id', guideId)
+        .order('sort_order', { ascending: false })
+        .limit(1)
+        .maybeSingle();
 
-        if (customName !== undefined) updateData.custom_name = customName;
-        if (customDescription !== undefined) updateData.custom_description = customDescription;
-        if (customImageUrl !== undefined) updateData.custom_image_url = customImageUrl;
-        if (isActive !== undefined) updateData.is_active = isActive;
-        if (displayOrder !== undefined) updateData.display_order = displayOrder;
+      const newOrder = (maxOrder?.sort_order ?? -1) + 1;
 
-        const { error: updateError } = await supabase
-          .from('guide_selected_vehicles')
-          .update(updateData)
-          .eq('guide_white_label_id', config.id)
-          .eq('vehicle_id', vehicleId);
-
-        if (updateError) {
-          logError(normalizeError(updateError), { path: '/api/guide/selected-vehicles', method: 'POST' });
-          return createErrorResponse(Errors.internal('更新车辆配置失败'));
-        }
-
-        return NextResponse.json({
-          success: true,
-          message: '车辆配置已更新',
+      const { error: insertError } = await supabase
+        .from('guide_selected_vehicles')
+        .insert({
+          guide_id: guideId,
+          vehicle_id: vehicleId,
+          sort_order: newOrder,
+          is_enabled: true,
         });
+
+      if (insertError) {
+        logError(normalizeError(insertError), { path: '/api/guide/selected-vehicles', method: 'POST' });
+        return createErrorResponse(Errors.internal('添加车辆失败'));
       }
 
-      case 'remove': {
-        const { error: deleteError } = await supabase
-          .from('guide_selected_vehicles')
-          .delete()
-          .eq('guide_white_label_id', config.id)
-          .eq('vehicle_id', vehicleId);
+      return NextResponse.json({
+        success: true,
+        message: `已添加车辆：${vehicle.name}`,
+      });
+    } else {
+      // remove
+      const { error: deleteError } = await supabase
+        .from('guide_selected_vehicles')
+        .delete()
+        .eq('guide_id', guideId)
+        .eq('vehicle_id', vehicleId);
 
-        if (deleteError) {
-          logError(normalizeError(deleteError), { path: '/api/guide/selected-vehicles', method: 'POST' });
-          return createErrorResponse(Errors.internal('移除车辆失败'));
-        }
-
-        return NextResponse.json({
-          success: true,
-          message: `已移除车辆：${vehicleName}`,
-        });
+      if (deleteError) {
+        logError(normalizeError(deleteError), { path: '/api/guide/selected-vehicles', method: 'POST' });
+        return createErrorResponse(Errors.internal('移除车辆失败'));
       }
 
-      default:
-        return createErrorResponse(Errors.validation('无效的操作'));
+      return NextResponse.json({
+        success: true,
+        message: `已移除车辆：${vehicle.name}`,
+      });
     }
   } catch (error: unknown) {
     const apiError = normalizeError(error);

@@ -15,6 +15,41 @@ import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/uti
  * - guideConfig: 导游当前的白标配置（如果有）
  */
 
+interface DBModule {
+  id: string;
+  category: string;
+  name: string;
+  name_ja: string | null;
+  description: string | null;
+  description_ja: string | null;
+  thumbnail_url: string | null;
+  commission_rate: number;
+  is_required: boolean;
+  is_active: boolean;
+}
+
+interface DBVehicle {
+  id: string;
+  name: string;
+  name_ja: string | null;
+  vehicle_type: string;
+  seats: number;
+  description: string | null;
+  images: string[] | null;
+  features: string[] | null;
+  is_active: boolean;
+}
+
+interface DBTemplate {
+  id: string;
+  category: string;
+  name: string;
+  name_ja: string | null;
+  preview_image: string | null;
+  is_default: boolean;
+  is_active: boolean;
+}
+
 export async function GET(request: NextRequest) {
   const clientIp = getClientIp(request);
   const rateLimitResult = await checkRateLimit(
@@ -74,7 +109,7 @@ export async function GET(request: NextRequest) {
         .eq('is_active', true)
         .order('sort_order', { ascending: true }),
 
-      // 获取所有模板
+      // 获取所有活跃模板
       supabase
         .from('page_templates')
         .select('*')
@@ -95,17 +130,17 @@ export async function GET(request: NextRequest) {
         .eq('guide_id', guide.id)
         .maybeSingle(),
 
-      // 获取导游已选择的模块
+      // 获取导游已选择的模块 (使用 guide_id)
       supabase
         .from('guide_selected_modules')
-        .select('*, page_modules(*)')
-        .eq('guide_white_label_id', guide.id), // 临时：之后需要根据实际的 guide_white_label_id 查询
+        .select('module_id')
+        .eq('guide_id', guide.id),
 
-      // 获取导游已选择的车辆
+      // 获取导游已选择的车辆 (使用 guide_id)
       supabase
         .from('guide_selected_vehicles')
-        .select('*, vehicle_library(*)')
-        .eq('guide_white_label_id', guide.id), // 临时
+        .select('vehicle_id')
+        .eq('guide_id', guide.id),
     ]);
 
     if (modulesResult.error) {
@@ -113,66 +148,77 @@ export async function GET(request: NextRequest) {
       return createErrorResponse(Errors.internal('获取模块列表失败'));
     }
 
-    // 如果导游有白标配置，重新查询已选择的模块和车辆
-    let selectedModules: unknown[] = [];
-    let selectedVehicles: unknown[] = [];
-
-    if (guideConfigResult.data) {
-      const [selModules, selVehicles] = await Promise.all([
-        supabase
-          .from('guide_selected_modules')
-          .select('*, module:page_modules(*)')
-          .eq('guide_white_label_id', guideConfigResult.data.id),
-        supabase
-          .from('guide_selected_vehicles')
-          .select('*, vehicle:vehicle_library(*)')
-          .eq('guide_white_label_id', guideConfigResult.data.id),
-      ]);
-
-      selectedModules = selModules.data || [];
-      selectedVehicles = selVehicles.data || [];
-    }
-
-    // 构建模块列表（标记导游已选择的）
+    // 构建已选择的ID集合
     const selectedModuleIds = new Set(
-      (selectedModules as Array<{ module_id: string }>).map(m => m.module_id)
+      (selectedModulesResult.data || []).map((m: { module_id: string }) => m.module_id)
+    );
+    const selectedVehicleIds = new Set(
+      (selectedVehiclesResult.data || []).map((v: { vehicle_id: string }) => v.vehicle_id)
     );
 
-    const modulesWithSelection = (modulesResult.data || []).map(module => ({
-      ...module,
+    // 转换模块数据格式以匹配前端期望
+    const modules = ((modulesResult.data || []) as DBModule[]).map(module => ({
+      id: module.id,
+      module_type: module.category, // category -> module_type
+      name: module.name,
+      name_ja: module.name_ja,
+      name_zh: module.name, // 中文名就是 name
+      description: module.description,
+      description_zh: module.description,
+      icon_url: module.thumbnail_url,
+      is_required: module.is_required,
+      commission_rate_min: module.commission_rate,
+      commission_rate_max: module.commission_rate,
       selectedByGuide: selectedModuleIds.has(module.id),
-      guideModuleConfig: (selectedModules as Array<{ module_id: string }>).find(
-        m => m.module_id === module.id
-      ) || null,
     }));
 
     // 按类型分组模板
-    const templates = templatesResult.data || [];
+    const templates = (templatesResult.data || []) as DBTemplate[];
     const templatesByType = {
-      bio: templates.filter(t => t.module_type === 'bio'),
-      vehicle: templates.filter(t => t.module_type === 'vehicle'),
+      bio: templates
+        .filter(t => t.category === 'bio')
+        .map(t => ({
+          id: t.id,
+          module_type: t.category,
+          template_key: t.name.toLowerCase().replace(/\s+/g, '_'),
+          name: t.name,
+          name_zh: t.name,
+          preview_image_url: t.preview_image,
+          is_default: t.is_default,
+        })),
+      vehicle: templates
+        .filter(t => t.category === 'vehicle')
+        .map(t => ({
+          id: t.id,
+          module_type: t.category,
+          template_key: t.name.toLowerCase().replace(/\s+/g, '_'),
+          name: t.name,
+          name_zh: t.name,
+          preview_image_url: t.preview_image,
+          is_default: t.is_default,
+        })),
     };
 
-    // 构建车辆列表（标记导游已选择的）
-    const selectedVehicleIds = new Set(
-      (selectedVehicles as Array<{ vehicle_id: string }>).map(v => v.vehicle_id)
-    );
-
-    const vehiclesWithSelection = (vehiclesResult.data || []).map(vehicle => ({
-      ...vehicle,
+    // 转换车辆数据格式
+    const vehicles = ((vehiclesResult.data || []) as DBVehicle[]).map(vehicle => ({
+      id: vehicle.id,
+      vehicle_type: vehicle.vehicle_type,
+      brand: vehicle.name.split(' ')[0] || vehicle.name, // 从 name 提取品牌
+      model: vehicle.name.split(' ').slice(1).join(' ') || '', // 从 name 提取型号
+      year: null,
+      seat_capacity: vehicle.seats,
+      luggage_capacity: Math.floor(vehicle.seats / 2), // 估算行李容量
+      image_url: vehicle.images?.[0] || null,
+      features: vehicle.features || [],
+      description_zh: vehicle.description,
       selectedByGuide: selectedVehicleIds.has(vehicle.id),
-      guideVehicleConfig: (selectedVehicles as Array<{ vehicle_id: string }>).find(
-        v => v.vehicle_id === vehicle.id
-      ) || null,
     }));
 
     return NextResponse.json({
-      modules: modulesWithSelection,
+      modules,
       templates: templatesByType,
-      vehicles: vehiclesWithSelection,
+      vehicles,
       guideConfig: guideConfigResult.data || null,
-      selectedModules,
-      selectedVehicles,
       guide: {
         id: guide.id,
         name: guide.name,

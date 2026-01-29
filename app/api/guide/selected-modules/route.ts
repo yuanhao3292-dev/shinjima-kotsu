@@ -1,17 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
 import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
-import { validateBody } from '@/lib/validations/validate';
-import { GuideSelectedModuleActionSchema } from '@/lib/validations/api-schemas';
 import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
+import { z } from 'zod';
 
 /**
  * 导游已选模块管理 API
  *
- * POST /api/guide/selected-modules - 添加/更新/移除模块
+ * POST /api/guide/selected-modules - 添加/移除模块
  */
 
-async function verifyGuideAndGetConfig(request: NextRequest) {
+const ActionSchema = z.object({
+  action: z.enum(['add', 'remove']),
+  moduleId: z.string().uuid(),
+});
+
+async function verifyGuideAndGetId(request: NextRequest) {
   const authHeader = request.headers.get('authorization');
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return { error: Errors.auth('未授权') };
@@ -39,7 +43,7 @@ async function verifyGuideAndGetConfig(request: NextRequest) {
     return { error: Errors.business('导游账户未通过审核', 'GUIDE_NOT_APPROVED') };
   }
 
-  // 获取白标配置
+  // 检查是否有白标配置
   const { data: config } = await supabase
     .from('guide_white_label')
     .select('id')
@@ -50,7 +54,7 @@ async function verifyGuideAndGetConfig(request: NextRequest) {
     return { error: Errors.business('请先创建白标页面配置', 'CONFIG_NOT_FOUND') };
   }
 
-  return { guide, config, supabase };
+  return { guideId: guide.id, supabase };
 }
 
 export async function POST(request: NextRequest) {
@@ -66,22 +70,32 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const authResult = await verifyGuideAndGetConfig(request);
+  const authResult = await verifyGuideAndGetId(request);
   if ('error' in authResult) {
     return createErrorResponse(authResult.error);
   }
 
-  const { config, supabase } = authResult;
+  const { guideId, supabase } = authResult;
 
-  const validation = await validateBody(request, GuideSelectedModuleActionSchema);
-  if (!validation.success) return validation.error;
-  const { action, moduleId, isEnabled, customConfig, displayOrder } = validation.data;
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return createErrorResponse(Errors.validation('无效的请求体'));
+  }
+
+  const parseResult = ActionSchema.safeParse(body);
+  if (!parseResult.success) {
+    return createErrorResponse(Errors.validation('参数错误'));
+  }
+
+  const { action, moduleId } = parseResult.data;
 
   try {
     // 验证模块存在且可用
     const { data: module } = await supabase
       .from('page_modules')
-      .select('id, name, is_required, status')
+      .select('id, name, is_required, is_active')
       .eq('id', moduleId)
       .single();
 
@@ -89,109 +103,73 @@ export async function POST(request: NextRequest) {
       return createErrorResponse(Errors.notFound('模块不存在'));
     }
 
-    if (module.status !== 'active') {
+    if (!module.is_active) {
       return createErrorResponse(Errors.business('该模块当前不可用', 'MODULE_INACTIVE'));
     }
 
-    switch (action) {
-      case 'add': {
-        // 检查是否已添加
-        const { data: existing } = await supabase
-          .from('guide_selected_modules')
-          .select('id')
-          .eq('guide_white_label_id', config.id)
-          .eq('module_id', moduleId)
-          .maybeSingle();
+    if (action === 'add') {
+      // 检查是否已添加
+      const { data: existing } = await supabase
+        .from('guide_selected_modules')
+        .select('id')
+        .eq('guide_id', guideId)
+        .eq('module_id', moduleId)
+        .maybeSingle();
 
-        if (existing) {
-          return createErrorResponse(Errors.validation('该模块已添加'));
-        }
-
-        // 获取当前最大 display_order
-        const { data: maxOrder } = await supabase
-          .from('guide_selected_modules')
-          .select('display_order')
-          .eq('guide_white_label_id', config.id)
-          .order('display_order', { ascending: false })
-          .limit(1)
-          .maybeSingle();
-
-        const newOrder = displayOrder ?? ((maxOrder?.display_order ?? -1) + 1);
-
-        const { error: insertError } = await supabase
-          .from('guide_selected_modules')
-          .insert({
-            guide_white_label_id: config.id,
-            module_id: moduleId,
-            is_enabled: isEnabled !== false,
-            custom_config: customConfig || null,
-            display_order: newOrder,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-          });
-
-        if (insertError) {
-          logError(normalizeError(insertError), { path: '/api/guide/selected-modules', method: 'POST' });
-          return createErrorResponse(Errors.internal('添加模块失败'));
-        }
-
-        return NextResponse.json({
-          success: true,
-          message: `已添加模块：${module.name}`,
-        });
+      if (existing) {
+        return createErrorResponse(Errors.validation('该模块已添加'));
       }
 
-      case 'update': {
-        const updateData: Record<string, unknown> = {
-          updated_at: new Date().toISOString(),
-        };
+      // 获取当前最大 sort_order
+      const { data: maxOrder } = await supabase
+        .from('guide_selected_modules')
+        .select('sort_order')
+        .eq('guide_id', guideId)
+        .order('sort_order', { ascending: false })
+        .limit(1)
+        .maybeSingle();
 
-        if (isEnabled !== undefined) updateData.is_enabled = isEnabled;
-        if (customConfig !== undefined) updateData.custom_config = customConfig;
-        if (displayOrder !== undefined) updateData.display_order = displayOrder;
+      const newOrder = (maxOrder?.sort_order ?? -1) + 1;
 
-        const { error: updateError } = await supabase
-          .from('guide_selected_modules')
-          .update(updateData)
-          .eq('guide_white_label_id', config.id)
-          .eq('module_id', moduleId);
-
-        if (updateError) {
-          logError(normalizeError(updateError), { path: '/api/guide/selected-modules', method: 'POST' });
-          return createErrorResponse(Errors.internal('更新模块配置失败'));
-        }
-
-        return NextResponse.json({
-          success: true,
-          message: '模块配置已更新',
+      const { error: insertError } = await supabase
+        .from('guide_selected_modules')
+        .insert({
+          guide_id: guideId,
+          module_id: moduleId,
+          sort_order: newOrder,
+          is_enabled: true,
         });
+
+      if (insertError) {
+        logError(normalizeError(insertError), { path: '/api/guide/selected-modules', method: 'POST' });
+        return createErrorResponse(Errors.internal('添加模块失败'));
       }
 
-      case 'remove': {
-        // 检查是否为必选模块
-        if (module.is_required) {
-          return createErrorResponse(Errors.business('必选模块无法移除', 'MODULE_REQUIRED'));
-        }
-
-        const { error: deleteError } = await supabase
-          .from('guide_selected_modules')
-          .delete()
-          .eq('guide_white_label_id', config.id)
-          .eq('module_id', moduleId);
-
-        if (deleteError) {
-          logError(normalizeError(deleteError), { path: '/api/guide/selected-modules', method: 'POST' });
-          return createErrorResponse(Errors.internal('移除模块失败'));
-        }
-
-        return NextResponse.json({
-          success: true,
-          message: `已移除模块：${module.name}`,
-        });
+      return NextResponse.json({
+        success: true,
+        message: `已添加模块：${module.name}`,
+      });
+    } else {
+      // remove
+      if (module.is_required) {
+        return createErrorResponse(Errors.business('必选模块无法移除', 'MODULE_REQUIRED'));
       }
 
-      default:
-        return createErrorResponse(Errors.validation('无效的操作'));
+      const { error: deleteError } = await supabase
+        .from('guide_selected_modules')
+        .delete()
+        .eq('guide_id', guideId)
+        .eq('module_id', moduleId);
+
+      if (deleteError) {
+        logError(normalizeError(deleteError), { path: '/api/guide/selected-modules', method: 'POST' });
+        return createErrorResponse(Errors.internal('移除模块失败'));
+      }
+
+      return NextResponse.json({
+        success: true,
+        message: `已移除模块：${module.name}`,
+      });
     }
   } catch (error: unknown) {
     const apiError = normalizeError(error);
