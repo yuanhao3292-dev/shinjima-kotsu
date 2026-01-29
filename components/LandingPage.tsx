@@ -985,13 +985,6 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
 
         {/* Content */}
         <div className="relative z-10 text-center text-white px-6 py-12 md:py-24 max-w-5xl mx-auto">
-           {/* Premium Badge */}
-           <div className="animate-fade-in-up-delay-1">
-             <span className="inline-flex items-center border border-amber-400/40 bg-black/30 backdrop-blur-md px-6 py-2 rounded-full mb-8">
-                <span className="text-amber-200 text-xs font-medium tracking-[0.25em] uppercase">{t.golf.tag}</span>
-             </span>
-           </div>
-
            {/* Main Title with Gold Accent */}
            <div className="animate-fade-in-up-delay-2">
              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-serif font-bold mb-4 tracking-tight">
