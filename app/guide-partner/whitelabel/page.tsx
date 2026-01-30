@@ -210,6 +210,13 @@ export default function WhiteLabelSettingsPage() {
         return;
       }
 
+      if (!formData.slug) {
+        setMessage({ type: 'error', text: '请填写 URL 标识' });
+        setSaving(false);
+        return;
+      }
+
+      // 1. 更新 guides 表
       const { error } = await supabase
         .from('guides')
         .update({
@@ -231,10 +238,43 @@ export default function WhiteLabelSettingsPage() {
         } else {
           setMessage({ type: 'error', text: '保存失败：' + error.message });
         }
-      } else {
-        setMessage({ type: 'success', text: '设置已保存' });
-        loadGuideData(); // 重新加载数据
+        setSaving(false);
+        return;
       }
+
+      // 2. 同步创建/更新 guide_white_label 记录（选品中心依赖此表）
+      const { error: wlError } = await supabase
+        .from('guide_white_label')
+        .upsert({
+          guide_id: guide.id,
+          slug: formData.slug,
+          display_name: formData.brandName || guide.name,
+          avatar_url: formData.brandLogoUrl || null,
+          theme_color: formData.brandColor,
+          contact_wechat: formData.contactWechat || null,
+          contact_line: formData.contactLine || null,
+          contact_phone: formData.contactDisplayPhone || null,
+          contact_email: formData.contactEmail || null,
+          is_published: true,
+          published_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        }, {
+          onConflict: 'guide_id',
+        });
+
+      if (wlError) {
+        console.error('[handleSave] guide_white_label upsert error:', wlError);
+        // 不阻止保存成功提示，guides 表已更新
+        if (wlError.code === '23505') {
+          // slug 冲突
+          setMessage({ type: 'error', text: '此 URL 标识已被其他导游使用' });
+          setSaving(false);
+          return;
+        }
+      }
+
+      setMessage({ type: 'success', text: '设置已保存' });
+      loadGuideData();
     } catch (error) {
       setMessage({ type: 'error', text: '保存失败，请稍后重试' });
     } finally {
