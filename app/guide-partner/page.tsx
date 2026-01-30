@@ -1057,6 +1057,14 @@ export default function GuidePartnerPage() {
                     <p className="text-gray-500 text-xs">{t('previewTagline')}</p>
                   </div>
                 </div>
+                <Link
+                  href="/guide-partner/demo"
+                  target="_blank"
+                  className="block text-center text-amber-400 text-sm mt-4 hover:underline"
+                  aria-label={t('ariaViewDemo')}
+                >
+                  {t('viewDemo')}
+                </Link>
               </div>
             </div>
           </div>
