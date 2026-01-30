@@ -1049,7 +1049,7 @@ export default function GuidePartnerPage() {
                     <div className="w-3 h-3 rounded-full bg-red-500"></div>
                     <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                     <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                    <span className="text-gray-500 text-xs ml-2">demo.niijima-koutsu.jp</span>
+                    <span className="text-gray-500 text-xs ml-2">bespoketrip.jp/g/demo</span>
                   </div>
                   <div className="text-center py-8">
                     <p className="text-gray-400 text-sm">{t('previewLogoText')}</p>
@@ -1057,14 +1057,15 @@ export default function GuidePartnerPage() {
                     <p className="text-gray-500 text-xs">{t('previewTagline')}</p>
                   </div>
                 </div>
-                <Link
-                  href="/guide-partner/demo"
+                <a
+                  href="https://bespoketrip.jp/g/demo"
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="block text-center text-amber-400 text-sm mt-4 hover:underline"
                   aria-label={t('ariaViewDemo')}
                 >
                   {t('viewDemo')}
-                </Link>
+                </a>
               </div>
             </div>
           </div>
