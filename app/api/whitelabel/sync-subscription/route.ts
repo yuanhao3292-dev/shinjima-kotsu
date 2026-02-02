@@ -63,10 +63,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Guide ID is required" }, { status: 400 });
     }
 
-    // 获取导游信息（包含 auth_user_id 用于权限验证）
+    // 获取导游信息（包含 auth_user_id 用于权限验证，以及白标所需字段）
     const { data: guide, error: guideError } = await supabase
       .from("guides")
-      .select("id, auth_user_id, stripe_customer_id, subscription_id, subscription_status")
+      .select("id, auth_user_id, stripe_customer_id, subscription_id, subscription_status, slug, name, brand_name, brand_logo_url, brand_color, contact_wechat, contact_line, contact_display_phone, email")
       .eq("id", guideId)
       .single();
 
@@ -186,6 +186,41 @@ export async function POST(request: NextRequest) {
     }
 
     console.log(`[sync-subscription] ✅ 导游 ${updatedGuide.name} (${guideId}) 订阅状态同步成功: ${dbStatus}`);
+
+    // 订阅激活时，自动创建 guide_white_label 记录（如果不存在）
+    // 确保公开白标页面 /g/[slug] 能正常渲染
+    if (dbStatus === 'active' && guide.slug) {
+      const { data: existingWl } = await supabase
+        .from("guide_white_label")
+        .select("id")
+        .eq("guide_id", guideId)
+        .single();
+
+      if (!existingWl) {
+        const { error: wlError } = await supabase
+          .from("guide_white_label")
+          .insert({
+            guide_id: guideId,
+            slug: guide.slug,
+            display_name: guide.brand_name || guide.name,
+            avatar_url: guide.brand_logo_url || null,
+            theme_color: guide.brand_color || '#2563eb',
+            contact_wechat: guide.contact_wechat || null,
+            contact_line: guide.contact_line || null,
+            contact_phone: guide.contact_display_phone || null,
+            contact_email: guide.email || null,
+            is_published: true,
+            published_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          });
+
+        if (wlError) {
+          console.error(`[sync-subscription] guide_white_label 自动创建失败:`, wlError);
+        } else {
+          console.log(`[sync-subscription] ✅ 自动创建 guide_white_label 记录: slug=${guide.slug}`);
+        }
+      }
+    }
 
     return NextResponse.json({
       synced: true,

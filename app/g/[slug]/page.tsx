@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getGuideDistributionPage, recordPageView } from '@/lib/services/whitelabel';
 import { headers } from 'next/headers';
-import Link from 'next/link';
 import {
   Car,
   User,
@@ -9,10 +8,8 @@ import {
   Phone,
   Mail,
   MessageCircle,
-  ExternalLink,
   ChevronRight,
   Users,
-  Briefcase,
 } from 'lucide-react';
 
 interface PageProps {
@@ -29,7 +26,7 @@ export default async function GuideDistributionPage({ params }: PageProps) {
     notFound();
   }
 
-  const { guide, config, bioTemplate, vehicleTemplate, selectedModules, selectedVehicles } = pageData;
+  const { guide, config, selectedModules, selectedVehicles } = pageData;
 
   // 记录页面访问
   const headersList = await headers();
@@ -134,9 +131,7 @@ export default async function GuideDistributionPage({ params }: PageProps) {
               <div className="flex-1 text-center md:text-left">
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">{guide.name}</h3>
                 <p className="text-gray-600 mb-4">
-                  {config.bioContent
-                    ? (config.bioContent as Record<string, unknown>).description as string || '专业导游，为您提供最贴心的服务。'
-                    : '专业导游，为您提供最贴心的服务。'}
+                  专业导游，为您提供最贴心的服务。
                 </p>
                 <div className="flex flex-wrap justify-center md:justify-start gap-3">
                   <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
@@ -173,10 +168,10 @@ export default async function GuideDistributionPage({ params }: PageProps) {
                   className="bg-gray-50 rounded-xl overflow-hidden border hover:shadow-lg transition"
                 >
                   <div className="aspect-video bg-gray-200 flex items-center justify-center">
-                    {sv.customImageUrl || sv.vehicle.imageUrl ? (
+                    {sv.vehicle.images?.[0] ? (
                       <img
-                        src={sv.customImageUrl || sv.vehicle.imageUrl || ''}
-                        alt={sv.customName || `${sv.vehicle.brand} ${sv.vehicle.model}`}
+                        src={sv.vehicle.images[0]}
+                        alt={sv.vehicle.name}
                         className="w-full h-full object-cover"
                       />
                     ) : (
@@ -185,22 +180,18 @@ export default async function GuideDistributionPage({ params }: PageProps) {
                   </div>
                   <div className="p-5">
                     <h3 className="text-lg font-bold text-gray-900 mb-2">
-                      {sv.customName || `${sv.vehicle.brand} ${sv.vehicle.model}`}
+                      {sv.vehicle.name}
                     </h3>
                     <p className="text-sm text-gray-600 mb-3">
-                      {sv.customDescription || sv.vehicle.descriptionZh || `${sv.vehicle.vehicleType}`}
+                      {sv.vehicle.description || sv.vehicle.vehicleType}
                     </p>
                     <div className="flex items-center gap-4 text-sm text-gray-500">
                       <span className="flex items-center gap-1">
                         <Users size={14} />
-                        {sv.vehicle.seatCapacity} 座
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Briefcase size={14} />
-                        {sv.vehicle.luggageCapacity} 件行李
+                        {sv.vehicle.seats} 座
                       </span>
                     </div>
-                    {sv.vehicle.features.length > 0 && (
+                    {sv.vehicle.features && sv.vehicle.features.length > 0 && (
                       <div className="flex flex-wrap gap-1 mt-3">
                         {sv.vehicle.features.slice(0, 3).map((feature, idx) => (
                           <span
@@ -243,9 +234,9 @@ export default async function GuideDistributionPage({ params }: PageProps) {
                         className="w-14 h-14 rounded-xl flex items-center justify-center"
                         style={{ backgroundColor: `${brandColor}15` }}
                       >
-                        {sm.module.iconUrl ? (
+                        {sm.module.thumbnailUrl ? (
                           <img
-                            src={sm.module.iconUrl}
+                            src={sm.module.thumbnailUrl}
                             alt={sm.module.name}
                             className="w-8 h-8"
                           />
@@ -255,12 +246,12 @@ export default async function GuideDistributionPage({ params }: PageProps) {
                       </div>
                       <div>
                         <h3 className="text-lg font-bold text-gray-900">
-                          {sm.module.nameZh || sm.module.name}
+                          {sm.module.name}
                         </h3>
                       </div>
                     </div>
                     <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                      {sm.module.descriptionZh || sm.module.description || '优质服务项目'}
+                      {sm.module.description || '优质服务项目'}
                     </p>
                     <button
                       className="w-full py-2 rounded-lg font-medium transition flex items-center justify-center gap-2 text-white"

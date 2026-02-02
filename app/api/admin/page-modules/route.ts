@@ -55,14 +55,14 @@ export async function GET(request: NextRequest) {
       let query = supabase
         .from('page_modules')
         .select('*')
-        .order('display_order', { ascending: true })
+        .order('sort_order', { ascending: true })
         .order('created_at', { ascending: false });
 
       if (moduleType) {
-        query = query.eq('module_type', moduleType);
+        query = query.eq('category', moduleType);
       }
       if (status) {
-        query = query.eq('status', status);
+        query = query.eq('is_active', status === 'active');
       }
 
       const { data: modules, error } = await query;
@@ -80,7 +80,7 @@ export async function GET(request: NextRequest) {
       const { count: activeCount } = await supabase
         .from('page_modules')
         .select('*', { count: 'exact', head: true })
-        .eq('status', 'active');
+        .eq('is_active', true);
 
       return NextResponse.json({
         modules: modules || [],
@@ -126,20 +126,16 @@ export async function POST(request: NextRequest) {
     switch (action) {
       case 'create': {
         const insertData = {
-          module_type: moduleData!.moduleType,
+          category: moduleData!.category,
           name: moduleData!.name,
           name_ja: moduleData!.nameJa || null,
-          name_zh: moduleData!.nameZh || null,
+          slug: moduleData!.slug || null,
           description: moduleData!.description || null,
-          description_ja: moduleData!.descriptionJa || null,
-          description_zh: moduleData!.descriptionZh || null,
-          icon_url: moduleData!.iconUrl || null,
+          thumbnail_url: moduleData!.thumbnailUrl || null,
+          commission_rate: moduleData!.commissionRate || 0,
           is_required: moduleData!.isRequired || false,
-          commission_rate_min: moduleData!.commissionRateMin || 0,
-          commission_rate_max: moduleData!.commissionRateMax || 25,
-          status: moduleData!.status || 'active',
-          display_order: moduleData!.displayOrder || 0,
-          config: moduleData!.config || null,
+          sort_order: moduleData!.sortOrder || 0,
+          is_active: moduleData!.isActive !== false,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
         };
@@ -161,19 +157,16 @@ export async function POST(request: NextRequest) {
           updated_at: new Date().toISOString(),
         };
 
+        if (moduleData!.category !== undefined) updateData.category = moduleData!.category;
         if (moduleData!.name !== undefined) updateData.name = moduleData!.name;
         if (moduleData!.nameJa !== undefined) updateData.name_ja = moduleData!.nameJa;
-        if (moduleData!.nameZh !== undefined) updateData.name_zh = moduleData!.nameZh;
+        if (moduleData!.slug !== undefined) updateData.slug = moduleData!.slug;
         if (moduleData!.description !== undefined) updateData.description = moduleData!.description;
-        if (moduleData!.descriptionJa !== undefined) updateData.description_ja = moduleData!.descriptionJa;
-        if (moduleData!.descriptionZh !== undefined) updateData.description_zh = moduleData!.descriptionZh;
-        if (moduleData!.iconUrl !== undefined) updateData.icon_url = moduleData!.iconUrl;
+        if (moduleData!.thumbnailUrl !== undefined) updateData.thumbnail_url = moduleData!.thumbnailUrl;
+        if (moduleData!.commissionRate !== undefined) updateData.commission_rate = moduleData!.commissionRate;
         if (moduleData!.isRequired !== undefined) updateData.is_required = moduleData!.isRequired;
-        if (moduleData!.commissionRateMin !== undefined) updateData.commission_rate_min = moduleData!.commissionRateMin;
-        if (moduleData!.commissionRateMax !== undefined) updateData.commission_rate_max = moduleData!.commissionRateMax;
-        if (moduleData!.status !== undefined) updateData.status = moduleData!.status;
-        if (moduleData!.displayOrder !== undefined) updateData.display_order = moduleData!.displayOrder;
-        if (moduleData!.config !== undefined) updateData.config = moduleData!.config;
+        if (moduleData!.sortOrder !== undefined) updateData.sort_order = moduleData!.sortOrder;
+        if (moduleData!.isActive !== undefined) updateData.is_active = moduleData!.isActive;
 
         const { error } = await supabase
           .from('page_modules')
@@ -193,7 +186,7 @@ export async function POST(request: NextRequest) {
       case 'toggle_status': {
         const { data: module } = await supabase
           .from('page_modules')
-          .select('status')
+          .select('is_active')
           .eq('id', moduleId)
           .single();
 
@@ -201,12 +194,12 @@ export async function POST(request: NextRequest) {
           return createErrorResponse(Errors.notFound('模块不存在'));
         }
 
-        const newStatus = module.status === 'active' ? 'inactive' : 'active';
+        const newIsActive = !module.is_active;
 
         const { error } = await supabase
           .from('page_modules')
           .update({
-            status: newStatus,
+            is_active: newIsActive,
             updated_at: new Date().toISOString(),
           })
           .eq('id', moduleId);
@@ -217,13 +210,13 @@ export async function POST(request: NextRequest) {
         }
 
         await logAuditAction(supabase, 'module_toggle_status', 'page_module', moduleId!, authResult, {
-          previousStatus: module.status,
-          newStatus,
+          previousState: module.is_active,
+          newState: newIsActive,
         });
 
         return NextResponse.json({
           success: true,
-          message: newStatus === 'active' ? '模块已启用' : '模块已禁用',
+          message: newIsActive ? '模块已启用' : '模块已禁用',
         });
       }
 

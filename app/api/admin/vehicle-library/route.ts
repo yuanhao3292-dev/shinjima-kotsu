@@ -55,7 +55,7 @@ export async function GET(request: NextRequest) {
       let query = supabase
         .from('vehicle_library')
         .select('*')
-        .order('display_order', { ascending: true })
+        .order('sort_order', { ascending: true })
         .order('created_at', { ascending: false });
 
       if (vehicleType) {
@@ -125,20 +125,18 @@ export async function POST(request: NextRequest) {
     switch (action) {
       case 'create': {
         const insertData = {
+          name: vehicleData!.name,
+          name_ja: vehicleData!.nameJa || null,
+          slug: vehicleData!.slug || null,
           vehicle_type: vehicleData!.vehicleType,
-          brand: vehicleData!.brand,
-          model: vehicleData!.model,
-          year: vehicleData!.year || null,
-          seat_capacity: vehicleData!.seatCapacity,
-          luggage_capacity: vehicleData!.luggageCapacity || 0,
-          image_url: vehicleData!.imageUrl || null,
-          features: vehicleData!.features || [],
+          seats: vehicleData!.seats,
           description: vehicleData!.description || null,
-          description_ja: vehicleData!.descriptionJa || null,
-          description_zh: vehicleData!.descriptionZh || null,
+          images: vehicleData!.images || [],
+          features: vehicleData!.features || [],
           is_active: vehicleData!.isActive !== false,
-          display_order: vehicleData!.displayOrder || 0,
+          sort_order: vehicleData!.sortOrder || 0,
           created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
         };
 
         const { error } = await supabase.from('vehicle_library').insert(insertData);
@@ -154,21 +152,20 @@ export async function POST(request: NextRequest) {
       }
 
       case 'update': {
-        const updateData: Record<string, unknown> = {};
+        const updateData: Record<string, unknown> = {
+          updated_at: new Date().toISOString(),
+        };
 
+        if (vehicleData!.name !== undefined) updateData.name = vehicleData!.name;
+        if (vehicleData!.nameJa !== undefined) updateData.name_ja = vehicleData!.nameJa;
+        if (vehicleData!.slug !== undefined) updateData.slug = vehicleData!.slug;
         if (vehicleData!.vehicleType !== undefined) updateData.vehicle_type = vehicleData!.vehicleType;
-        if (vehicleData!.brand !== undefined) updateData.brand = vehicleData!.brand;
-        if (vehicleData!.model !== undefined) updateData.model = vehicleData!.model;
-        if (vehicleData!.year !== undefined) updateData.year = vehicleData!.year;
-        if (vehicleData!.seatCapacity !== undefined) updateData.seat_capacity = vehicleData!.seatCapacity;
-        if (vehicleData!.luggageCapacity !== undefined) updateData.luggage_capacity = vehicleData!.luggageCapacity;
-        if (vehicleData!.imageUrl !== undefined) updateData.image_url = vehicleData!.imageUrl;
-        if (vehicleData!.features !== undefined) updateData.features = vehicleData!.features;
+        if (vehicleData!.seats !== undefined) updateData.seats = vehicleData!.seats;
         if (vehicleData!.description !== undefined) updateData.description = vehicleData!.description;
-        if (vehicleData!.descriptionJa !== undefined) updateData.description_ja = vehicleData!.descriptionJa;
-        if (vehicleData!.descriptionZh !== undefined) updateData.description_zh = vehicleData!.descriptionZh;
+        if (vehicleData!.images !== undefined) updateData.images = vehicleData!.images;
+        if (vehicleData!.features !== undefined) updateData.features = vehicleData!.features;
         if (vehicleData!.isActive !== undefined) updateData.is_active = vehicleData!.isActive;
-        if (vehicleData!.displayOrder !== undefined) updateData.display_order = vehicleData!.displayOrder;
+        if (vehicleData!.sortOrder !== undefined) updateData.sort_order = vehicleData!.sortOrder;
 
         const { error } = await supabase
           .from('vehicle_library')

@@ -53,6 +53,7 @@ export default function WhiteLabelSettingsPage() {
   const [copied, setCopied] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [hasWhiteLabelConfig, setHasWhiteLabelConfig] = useState(true); // guide_white_label 记录是否存在
 
   // 表单状态
   const [formData, setFormData] = useState({
@@ -72,13 +73,17 @@ export default function WhiteLabelSettingsPage() {
 
   // 白标页面 URL
   const whiteLabelUrl = guide?.slug
-    ? `https://bespoketrip.jp/p/${guide.slug}`
+    ? `https://bespoketrip.jp/g/${guide.slug}`
     : null;
 
+  // 初始加载导游数据（仅执行一次）
   useEffect(() => {
     loadGuideData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    // 检查订阅状态参数
+  // 检查订阅回调参数（仅在 URL 参数变化时执行）
+  useEffect(() => {
     const subscriptionStatus = searchParams.get('subscription');
     if (subscriptionStatus === 'success') {
       // 付款成功后，主动同步订阅状态（Webhook 可能延迟）
@@ -89,6 +94,7 @@ export default function WhiteLabelSettingsPage() {
     } else if (subscriptionStatus === 'cancelled') {
       setMessage({ type: 'error', text: '订阅已取消。' });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   // 从 Stripe 同步订阅状态（Webhook 备用机制）
@@ -189,6 +195,16 @@ export default function WhiteLabelSettingsPage() {
         contactDisplayPhone: guideData.contact_display_phone || '',
         contactEmail: guideData.email || '',
       });
+
+      // 检查 guide_white_label 记录是否存在（公开白标页面依赖此记录）
+      if (guideData.subscription_status === 'active') {
+        const { data: wlConfig } = await supabase
+          .from('guide_white_label')
+          .select('id')
+          .eq('guide_id', guideData.id)
+          .single();
+        setHasWhiteLabelConfig(!!wlConfig);
+      }
     } catch (error) {
       console.error('Error loading guide data:', error);
     } finally {
@@ -274,6 +290,7 @@ export default function WhiteLabelSettingsPage() {
       }
 
       setMessage({ type: 'success', text: '设置已保存' });
+      setHasWhiteLabelConfig(true);
       loadGuideData();
     } catch (error) {
       setMessage({ type: 'error', text: '保存失败，请稍后重试' });
@@ -558,6 +575,19 @@ export default function WhiteLabelSettingsPage() {
               <p className="text-gray-500 text-sm">
                 请先设置 URL 标识以生成您的专属链接
               </p>
+            )}
+
+            {/* 白标配置缺失提示 */}
+            {!hasWhiteLabelConfig && (
+              <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3">
+                <AlertCircle size={20} className="text-amber-500 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-amber-800 font-medium text-sm">白标页面尚未生成</p>
+                  <p className="text-amber-700 text-sm mt-1">
+                    请先完善下方的品牌设置和联系方式，然后点击「保存设置」按钮以生成您的专属白标页面。
+                  </p>
+                </div>
+              </div>
             )}
 
             {/* 统计数据 */}

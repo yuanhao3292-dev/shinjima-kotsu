@@ -112,145 +112,146 @@ export const DEFAULT_OFFICIAL_BRANDING = {
 
 // ============================================
 // 白标分销系统类型 (White-Label Distribution System)
+// 匹配 058_white_label_system.sql 实际 DB 列
 // ============================================
 
-/** 模块类型 */
-export type ModuleType = "bio" | "vehicle" | "medical";
+/** 模板模块类型（page_templates.module_type CHECK 约束） */
+export type TemplateModuleType = "bio" | "vehicle";
 
-/** 模块状态 */
-export type ModuleStatus = "active" | "inactive";
-
-/** 页面模块（产品中心的可选模块） */
+/** 页面模块（产品中心的可选模块）— page_modules 表 */
 export interface PageModule {
   id: string;
-  moduleType: ModuleType;
+  category: string;
   name: string;
   nameJa: string | null;
-  nameZh: string | null;
+  slug: string | null;
   description: string | null;
-  descriptionJa: string | null;
-  descriptionZh: string | null;
-  iconUrl: string | null;
+  thumbnailUrl: string | null;
+  commissionRate: number;
   isRequired: boolean;
-  commissionRateMin: number;
-  commissionRateMax: number;
-  status: ModuleStatus;
-  displayOrder: number;
-  config: Record<string, unknown> | null;
+  sortOrder: number;
+  isActive: boolean;
   createdAt: string;
   updatedAt: string;
 }
 
-/** 页面模板（自我介绍和车辆介绍的风格模板） */
+/** 页面模板（自我介绍和车辆介绍的风格模板）— page_templates 表 */
 export interface PageTemplate {
   id: string;
-  moduleType: ModuleType;
+  moduleType: TemplateModuleType;
   templateKey: string;
   name: string;
   nameJa: string | null;
-  nameZh: string | null;
   previewImageUrl: string | null;
   templateConfig: Record<string, unknown>;
   isDefault: boolean;
-  displayOrder: number;
+  sortOrder: number;
   createdAt: string;
 }
 
-/** 车辆库（系统提供的车辆数据） */
+/** 车辆库（系统提供的车辆数据）— vehicle_library 表 */
 export interface VehicleLibrary {
   id: string;
+  name: string;
+  nameJa: string | null;
+  slug: string | null;
   vehicleType: string;
-  brand: string;
-  model: string;
-  year: number | null;
-  seatCapacity: number;
-  luggageCapacity: number;
-  imageUrl: string | null;
-  features: string[];
+  seats: number;
   description: string | null;
-  descriptionJa: string | null;
-  descriptionZh: string | null;
+  images: string[];
+  features: string[];
+  sortOrder: number;
   isActive: boolean;
-  displayOrder: number;
   createdAt: string;
+  updatedAt: string;
 }
 
-/** 导游白标页面配置 */
+/** 导游白标页面配置 — guide_white_label 表 */
 export interface GuideWhiteLabelPage {
   id: string;
   guideId: string;
   slug: string;
-  isPublished: boolean;
+  displayName: string | null;
+  avatarUrl: string | null;
+  bio: string | null;
+  contactWechat: string | null;
+  contactLine: string | null;
+  contactPhone: string | null;
+  contactEmail: string | null;
   bioTemplateId: string | null;
   vehicleTemplateId: string | null;
-  bioContent: Record<string, unknown> | null;
-  vehicleContent: Record<string, unknown> | null;
-  customCss: string | null;
-  seoTitle: string | null;
-  seoDescription: string | null;
+  themeColor: string;
+  siteTitle: string | null;
+  siteDescription: string | null;
+  isPublished: boolean;
+  publishedAt: string | null;
   createdAt: string;
   updatedAt: string;
-  publishedAt: string | null;
 }
 
-/** 导游选择的模块 */
+/** 导游选择的模块 — guide_selected_modules 表 */
 export interface GuideSelectedModule {
   id: string;
-  guideWhiteLabelId: string;
+  guideId: string;
   moduleId: string;
+  sortOrder: number;
   isEnabled: boolean;
-  customConfig: Record<string, unknown> | null;
-  displayOrder: number;
+  customTitle: string | null;
+  customDescription: string | null;
   createdAt: string;
   updatedAt: string;
 }
 
-/** 导游选择的车辆 */
+/** 导游选择的车辆 — guide_selected_vehicles 表 */
 export interface GuideSelectedVehicle {
   id: string;
-  guideWhiteLabelId: string;
+  guideId: string;
   vehicleId: string;
-  customName: string | null;
-  customDescription: string | null;
-  customImageUrl: string | null;
-  isActive: boolean;
-  displayOrder: number;
+  sortOrder: number;
+  isEnabled: boolean;
+  customPriceNote: string | null;
   createdAt: string;
 }
 
-/** 白标订单状态 */
+/** 白标订单状态 — white_label_orders.status CHECK 约束 */
 export type WhiteLabelOrderStatus =
-  | "pending_payment"
-  | "paid"
+  | "pending"
   | "confirmed"
   | "completed"
-  | "cancelled"
-  | "refunded";
+  | "cancelled";
 
-/** 佣金状态 */
-export type CommissionStatus = "pending" | "calculated" | "paid";
+/** 白标订单支付状态 */
+export type WhiteLabelPaymentStatus = "pending" | "paid" | "refunded";
 
-/** 白标订单（通过导游页面产生的订单） */
+/** 白标订单（通过导游页面产生的订单）— white_label_orders 表 */
 export interface WhiteLabelDistributionOrder {
   id: string;
-  guideWhiteLabelId: string;
-  moduleId: string;
+  guideId: string;
+  moduleId: string | null;
   customerName: string;
-  customerEmail: string | null;
   customerPhone: string | null;
-  orderDetails: Record<string, unknown> | null;
+  customerEmail: string | null;
+  customerWechat: string | null;
+  customerLine: string | null;
+  customerNotes: string | null;
+  serviceType: string | null;
+  serviceName: string | null;
+  serviceDate: string | null;
+  serviceTime: string | null;
   totalAmount: number;
-  currency: string;
-  status: WhiteLabelOrderStatus;
-  stripePaymentIntentId: string | null;
-  stripePaymentStatus: string | null;
   commissionRate: number;
-  commissionAmount: number;
-  commissionStatus: CommissionStatus;
+  commissionAmount: number | null;
+  paymentStatus: WhiteLabelPaymentStatus;
+  stripePaymentIntentId: string | null;
+  status: WhiteLabelOrderStatus;
+  paidAt: string | null;
+  confirmedAt: string | null;
+  completedAt: string | null;
+  cancelledAt: string | null;
+  cancelReason: string | null;
+  adminNotes: string | null;
   createdAt: string;
   updatedAt: string;
-  paidAt: string | null;
-  completedAt: string | null;
 }
 
 /** 模块带关联数据（用于产品中心展示） */
@@ -270,7 +271,7 @@ export interface GuideWhiteLabelPageFull extends GuideWhiteLabelPage {
 
 /** 产品中心筛选参数 */
 export interface ProductCenterFilters {
-  moduleType?: ModuleType;
+  category?: string;
   search?: string;
 }
 

@@ -1,16 +1,38 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
 import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
-import { validateBody } from '@/lib/validations/validate';
-import { GuideWhiteLabelPageSchema } from '@/lib/validations/api-schemas';
 import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
+import { z } from 'zod';
 
 /**
  * 导游白标页面配置 API
  *
  * GET /api/guide/whitelabel-page - 获取当前导游的白标页面配置
  * POST /api/guide/whitelabel-page - 创建或更新白标页面配置
+ *
+ * DB 表: guide_white_label (058_white_label_system.sql)
+ * 列: slug, display_name, avatar_url, bio, contact_wechat, contact_line,
+ *     contact_phone, contact_email, bio_template_id, vehicle_template_id,
+ *     theme_color, site_title, site_description, is_published, ...
  */
+
+// 内联 Zod schema，匹配实际 DB 列
+const WhiteLabelPageUpdateSchema = z.object({
+  slug: z.string().min(3).max(50).regex(/^[a-z][a-z0-9-]*$/).optional(),
+  isPublished: z.boolean().optional(),
+  displayName: z.string().max(100).optional(),
+  avatarUrl: z.string().url().nullable().optional(),
+  bio: z.string().max(2000).nullable().optional(),
+  contactWechat: z.string().max(100).nullable().optional(),
+  contactLine: z.string().max(100).nullable().optional(),
+  contactPhone: z.string().max(30).nullable().optional(),
+  contactEmail: z.string().email().nullable().optional(),
+  bioTemplateId: z.string().uuid().nullable().optional(),
+  vehicleTemplateId: z.string().uuid().nullable().optional(),
+  themeColor: z.string().max(20).optional(),
+  siteTitle: z.string().max(100).nullable().optional(),
+  siteDescription: z.string().max(300).nullable().optional(),
+}).partial();
 
 async function verifyGuide(request: NextRequest) {
   const authHeader = request.headers.get('authorization');
@@ -64,14 +86,10 @@ export async function GET(request: NextRequest) {
   const { guide, supabase } = authResult;
 
   try {
-    // 获取白标配置及关联数据
+    // 获取白标配置
     const { data: config, error } = await supabase
       .from('guide_white_label')
-      .select(`
-        *,
-        bio_template:page_templates!guide_white_label_bio_template_id_fkey(*),
-        vehicle_template:page_templates!guide_white_label_vehicle_template_id_fkey(*)
-      `)
+      .select('*')
       .eq('guide_id', guide.id)
       .maybeSingle();
 
@@ -88,19 +106,19 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    // 获取已选择的模块
+    // 获取已选择的模块（通过 guide_id 关联）
     const { data: selectedModules } = await supabase
       .from('guide_selected_modules')
       .select('*, module:page_modules(*)')
-      .eq('guide_white_label_id', config.id)
-      .order('display_order', { ascending: true });
+      .eq('guide_id', guide.id)
+      .order('sort_order', { ascending: true });
 
-    // 获取已选择的车辆
+    // 获取已选择的车辆（通过 guide_id 关联）
     const { data: selectedVehicles } = await supabase
       .from('guide_selected_vehicles')
       .select('*, vehicle:vehicle_library(*)')
-      .eq('guide_white_label_id', config.id)
-      .order('display_order', { ascending: true });
+      .eq('guide_id', guide.id)
+      .order('sort_order', { ascending: true });
 
     return NextResponse.json({
       exists: true,
@@ -137,9 +155,18 @@ export async function POST(request: NextRequest) {
 
   const { guide, supabase } = authResult;
 
-  const validation = await validateBody(request, GuideWhiteLabelPageSchema);
-  if (!validation.success) return validation.error;
-  const data = validation.data;
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return createErrorResponse(Errors.validation('无效的请求体'));
+  }
+
+  const parseResult = WhiteLabelPageUpdateSchema.safeParse(body);
+  if (!parseResult.success) {
+    return createErrorResponse(Errors.validation('参数错误'));
+  }
+  const data = parseResult.data;
 
   try {
     // 检查 slug 是否已被其他导游使用
@@ -175,13 +202,18 @@ export async function POST(request: NextRequest) {
           updateData.published_at = new Date().toISOString();
         }
       }
+      if (data.displayName !== undefined) updateData.display_name = data.displayName;
+      if (data.avatarUrl !== undefined) updateData.avatar_url = data.avatarUrl;
+      if (data.bio !== undefined) updateData.bio = data.bio;
+      if (data.contactWechat !== undefined) updateData.contact_wechat = data.contactWechat;
+      if (data.contactLine !== undefined) updateData.contact_line = data.contactLine;
+      if (data.contactPhone !== undefined) updateData.contact_phone = data.contactPhone;
+      if (data.contactEmail !== undefined) updateData.contact_email = data.contactEmail;
       if (data.bioTemplateId !== undefined) updateData.bio_template_id = data.bioTemplateId;
       if (data.vehicleTemplateId !== undefined) updateData.vehicle_template_id = data.vehicleTemplateId;
-      if (data.bioContent !== undefined) updateData.bio_content = data.bioContent;
-      if (data.vehicleContent !== undefined) updateData.vehicle_content = data.vehicleContent;
-      if (data.customCss !== undefined) updateData.custom_css = data.customCss;
-      if (data.seoTitle !== undefined) updateData.seo_title = data.seoTitle;
-      if (data.seoDescription !== undefined) updateData.seo_description = data.seoDescription;
+      if (data.themeColor !== undefined) updateData.theme_color = data.themeColor;
+      if (data.siteTitle !== undefined) updateData.site_title = data.siteTitle;
+      if (data.siteDescription !== undefined) updateData.site_description = data.siteDescription;
 
       const { error: updateError } = await supabase
         .from('guide_white_label')
@@ -209,16 +241,19 @@ export async function POST(request: NextRequest) {
         .insert({
           guide_id: guide.id,
           slug: data.slug,
-          is_published: data.isPublished || false,
+          display_name: data.displayName || guide.name,
+          avatar_url: data.avatarUrl || null,
+          bio: data.bio || null,
+          contact_wechat: data.contactWechat || null,
+          contact_line: data.contactLine || null,
+          contact_phone: data.contactPhone || null,
+          contact_email: data.contactEmail || null,
           bio_template_id: data.bioTemplateId || null,
           vehicle_template_id: data.vehicleTemplateId || null,
-          bio_content: data.bioContent || null,
-          vehicle_content: data.vehicleContent || null,
-          custom_css: data.customCss || null,
-          seo_title: data.seoTitle || null,
-          seo_description: data.seoDescription || null,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
+          theme_color: data.themeColor || '#f97316',
+          site_title: data.siteTitle || null,
+          site_description: data.siteDescription || null,
+          is_published: data.isPublished || false,
         })
         .select('id')
         .single();
@@ -228,21 +263,19 @@ export async function POST(request: NextRequest) {
         return createErrorResponse(Errors.internal('创建配置失败'));
       }
 
-      // 自动添加必选模块（bio 和 vehicle）
+      // 自动添加必选模块
       const { data: requiredModules } = await supabase
         .from('page_modules')
         .select('id')
         .eq('is_required', true)
-        .eq('status', 'active');
+        .eq('is_active', true);
 
       if (requiredModules && requiredModules.length > 0) {
         const moduleInserts = requiredModules.map((m, index) => ({
-          guide_white_label_id: newConfig.id,
+          guide_id: guide.id,
           module_id: m.id,
           is_enabled: true,
-          display_order: index,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
+          sort_order: index,
         }));
 
         await supabase.from('guide_selected_modules').insert(moduleInserts);
