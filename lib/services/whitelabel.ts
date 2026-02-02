@@ -338,6 +338,7 @@ export interface GuideDistributionPage {
       description: string | null;
       thumbnailUrl: string | null;
       commissionRate: number;
+      componentKey: string | null;
     };
   }>;
   selectedVehicles: Array<{
@@ -445,7 +446,8 @@ export async function getGuideDistributionPage(
           name,
           description,
           thumbnail_url,
-          commission_rate
+          commission_rate,
+          component_key
         )
       `
       )
@@ -492,6 +494,7 @@ export async function getGuideDistributionPage(
           description: mod.description as string | null,
           thumbnailUrl: mod.thumbnail_url as string | null,
           commissionRate: mod.commission_rate as number,
+          componentKey: (mod.component_key as string | null) || null,
         },
       };
     });

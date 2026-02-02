@@ -265,6 +265,7 @@ export const ModuleDataSchema = z.object({
   isRequired: z.boolean().default(false),
   sortOrder: z.number().int().min(0).default(0),
   isActive: z.boolean().default(true),
+  componentKey: z.string().max(50, '组件标识最多50个字符').regex(/^[a-z][a-z0-9_]*$/, '组件标识格式无效').nullable().optional(),
 }).partial();
 
 export const ModuleActionSchema = z.object({

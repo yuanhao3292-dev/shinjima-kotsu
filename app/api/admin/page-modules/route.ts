@@ -135,6 +135,7 @@ export async function POST(request: NextRequest) {
           commission_rate: moduleData!.commissionRate || 0,
           is_required: moduleData!.isRequired || false,
           sort_order: moduleData!.sortOrder || 0,
+          component_key: moduleData!.componentKey || null,
           is_active: moduleData!.isActive !== false,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
@@ -166,6 +167,7 @@ export async function POST(request: NextRequest) {
         if (moduleData!.commissionRate !== undefined) updateData.commission_rate = moduleData!.commissionRate;
         if (moduleData!.isRequired !== undefined) updateData.is_required = moduleData!.isRequired;
         if (moduleData!.sortOrder !== undefined) updateData.sort_order = moduleData!.sortOrder;
+        if (moduleData!.componentKey !== undefined) updateData.component_key = moduleData!.componentKey;
         if (moduleData!.isActive !== undefined) updateData.is_active = moduleData!.isActive;
 
         const { error } = await supabase

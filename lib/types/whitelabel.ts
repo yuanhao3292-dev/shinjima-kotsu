@@ -131,6 +131,7 @@ export interface PageModule {
   isRequired: boolean;
   sortOrder: number;
   isActive: boolean;
+  componentKey: string | null; // 映射到 whitelabel-modules/registry.ts 中的组件
   createdAt: string;
   updatedAt: string;
 }

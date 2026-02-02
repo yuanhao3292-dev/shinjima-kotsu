@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getGuideDistributionPage, recordPageView } from '@/lib/services/whitelabel';
+import { getModuleComponent } from '@/components/whitelabel-modules/registry';
 import { headers } from 'next/headers';
 import {
   Car,
@@ -42,8 +43,38 @@ export default async function GuideDistributionPage({ params }: PageProps) {
   const brandName = guide.brandName || guide.name;
   const brandColor = guide.brandColor || '#2563eb';
 
-  // 获取医疗服务模块
-  const medicalModules = selectedModules.filter(m => m.module.moduleType === 'medical');
+  // 分离有 componentKey 的完整页面模块 和 普通模块
+  const fullPageModules = selectedModules.filter(m => m.module.componentKey);
+  const genericModules = selectedModules.filter(m => !m.module.componentKey);
+
+  // 构建联系信息
+  const contactInfo = {
+    wechat: guide.contactWechat,
+    line: guide.contactLine,
+    phone: guide.contactDisplayPhone,
+    email: guide.email,
+  };
+
+  // 构建动态导航
+  const navItems: Array<{ id: string; label: string }> = [
+    { id: 'about', label: '关于我们' },
+  ];
+
+  // 为每个完整页面模块添加导航项
+  fullPageModules.forEach((m) => {
+    navItems.push({
+      id: `module-${m.module.componentKey}`,
+      label: m.module.name,
+    });
+  });
+
+  if (selectedVehicles.length > 0) {
+    navItems.push({ id: 'vehicles', label: '车辆介绍' });
+  }
+  if (genericModules.length > 0) {
+    navItems.push({ id: 'services', label: '服务项目' });
+  }
+  navItems.push({ id: 'contact', label: '联系我们' });
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -70,19 +101,16 @@ export default async function GuideDistributionPage({ params }: PageProps) {
             )}
             <span className="text-xl font-bold text-gray-900">{brandName}</span>
           </div>
-          <nav className="hidden md:flex items-center gap-6 text-sm">
-            <a href="#about" className="text-gray-600 hover:text-gray-900">
-              关于我们
-            </a>
-            <a href="#vehicles" className="text-gray-600 hover:text-gray-900">
-              车辆介绍
-            </a>
-            <a href="#services" className="text-gray-600 hover:text-gray-900">
-              服务项目
-            </a>
-            <a href="#contact" className="text-gray-600 hover:text-gray-900">
-              联系我们
-            </a>
+          <nav className="hidden md:flex items-center gap-6 text-sm overflow-x-auto">
+            {navItems.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className="text-gray-600 hover:text-gray-900 whitespace-nowrap"
+              >
+                {item.label}
+              </a>
+            ))}
           </nav>
         </div>
       </header>
@@ -150,6 +178,23 @@ export default async function GuideDistributionPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* Full-Page Module Components */}
+      {fullPageModules.map((sm) => {
+        const ModuleComponent = getModuleComponent(sm.module.componentKey!);
+        if (!ModuleComponent) return null;
+        return (
+          <section key={sm.id} id={`module-${sm.module.componentKey}`}>
+            <ModuleComponent
+              brandColor={brandColor}
+              brandName={brandName}
+              contactInfo={contactInfo}
+              moduleId={sm.moduleId}
+              moduleName={sm.module.name}
+            />
+          </section>
+        );
+      })}
+
       {/* Vehicles Section */}
       {selectedVehicles.length > 0 && (
         <section id="vehicles" className="py-16 bg-white">
@@ -211,8 +256,8 @@ export default async function GuideDistributionPage({ params }: PageProps) {
         </section>
       )}
 
-      {/* Services Section */}
-      {medicalModules.length > 0 && (
+      {/* Generic Services Section (modules without componentKey) */}
+      {genericModules.length > 0 && (
         <section id="services" className="py-16">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-12">
@@ -223,7 +268,7 @@ export default async function GuideDistributionPage({ params }: PageProps) {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {medicalModules.map((sm) => (
+              {genericModules.map((sm) => (
                 <div
                   key={sm.id}
                   className="bg-white rounded-xl border overflow-hidden hover:shadow-lg transition group"

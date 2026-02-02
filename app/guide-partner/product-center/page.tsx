@@ -31,6 +31,7 @@ interface PageModule {
   is_required: boolean;
   commission_rate_min: number;
   commission_rate_max: number;
+  component_key: string | null;
   selectedByGuide: boolean;
 }
 
@@ -371,11 +372,18 @@ export default function ProductCenterPage() {
                         </span>
                       </div>
                     </div>
-                    {module.is_required && (
-                      <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
-                        必选
-                      </span>
-                    )}
+                    <div className="flex items-center gap-1.5">
+                      {module.component_key && (
+                        <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">
+                          完整页面
+                        </span>
+                      )}
+                      {module.is_required && (
+                        <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
+                          必选
+                        </span>
+                      )}
+                    </div>
                   </div>
 
                   <p className="text-sm text-gray-600 mb-4 line-clamp-2">

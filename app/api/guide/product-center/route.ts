@@ -26,6 +26,7 @@ interface DBModule {
   commission_rate: number;
   is_required: boolean;
   is_active: boolean;
+  component_key: string | null;
 }
 
 interface DBVehicle {
@@ -169,6 +170,7 @@ export async function GET(request: NextRequest) {
       is_required: module.is_required,
       commission_rate_min: module.commission_rate,
       commission_rate_max: module.commission_rate,
+      component_key: module.component_key,
       selectedByGuide: selectedModuleIds.has(module.id),
     }));
 
