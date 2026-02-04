@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
 import { getGuideDistributionPage, recordPageView } from '@/lib/services/whitelabel';
-import { getSiteImagesServer } from '@/lib/hooks/useSiteImages';
 import { headers } from 'next/headers';
 import {
   Car,
@@ -29,8 +28,26 @@ export default async function GuideDistributionPage({ params }: PageProps) {
 
   const { guide, config, selectedModules, selectedVehicles } = pageData;
 
-  // 从数据库获取图片，保持与主页视觉一致
-  const siteImages = await getSiteImagesServer();
+  // 从数据库获取图片，保持与主页视觉一致（直接 fetch，避免导入 'use client' 模块）
+  let siteImages: Record<string, string> = {};
+  try {
+    const imgRes = await fetch(
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/site_images?is_active=eq.true&select=image_key,image_url`,
+      {
+        headers: {
+          apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
+        },
+        next: { revalidate: 300 },
+      }
+    );
+    if (imgRes.ok) {
+      const imgData: Array<{ image_key: string; image_url: string }> = await imgRes.json();
+      imgData.forEach((img) => { siteImages[img.image_key] = img.image_url; });
+    }
+  } catch {
+    // 静默失败，使用 fallback 图片
+  }
   const getImage = (key: string, fallback: string) => siteImages[key] || fallback;
 
   // 记录页面访问
