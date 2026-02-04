@@ -173,20 +173,22 @@ function formatPrice(price: number): string {
 export default function MedicalPackagesModule({ brandColor, brandName, contactInfo, showContact }: WhitelabelModuleProps) {
   return (
     <div>
-      {/* Hero */}
-      <section
-        className="py-20 text-white"
-        style={{
-          background: `linear-gradient(135deg, ${brandColor} 0%, ${adjustColor(brandColor, -40)} 100%)`,
-        }}
-      >
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">TIMC 健检套餐</h2>
-          <p className="text-xl text-white/80 max-w-2xl mx-auto">
-            德洲会国际医疗中心 6 大健检套餐，从基础到 VIP 全覆盖
-          </p>
-        </div>
-      </section>
+      {/* Hero - hide when embedded in /g/[slug] */}
+      {showContact !== false && (
+        <section
+          className="py-20 text-white"
+          style={{
+            background: `linear-gradient(135deg, ${brandColor} 0%, ${adjustColor(brandColor, -40)} 100%)`,
+          }}
+        >
+          <div className="max-w-6xl mx-auto px-6 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">TIMC 健检套餐</h2>
+            <p className="text-xl text-white/80 max-w-2xl mx-auto">
+              德洲会国际医疗中心 6 大健检套餐，从基础到 VIP 全覆盖
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* Intro */}
       <section className="py-16">

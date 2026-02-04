@@ -14,41 +14,43 @@ import WhitelabelContactSection from './WhitelabelContactSection';
 export default function HealthScreeningModule({ brandColor, brandName, contactInfo, showContact }: WhitelabelModuleProps) {
   return (
     <div>
-      {/* Hero */}
-      <section
-        className="py-20"
-        style={{
-          background: `linear-gradient(135deg, ${brandColor}15 0%, white 100%)`,
-        }}
-      >
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <div
-            className="inline-flex items-center justify-center w-24 h-24 rounded-full mb-6 shadow-lg"
-            style={{
-              background: `linear-gradient(135deg, ${brandColor}, ${adjustColor(brandColor, -20)})`,
-            }}
-          >
-            <Heart className="w-12 h-12 text-white" />
+      {/* Hero - hide when embedded in /g/[slug] */}
+      {showContact !== false && (
+        <section
+          className="py-20"
+          style={{
+            background: `linear-gradient(135deg, ${brandColor}15 0%, white 100%)`,
+          }}
+        >
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            <div
+              className="inline-flex items-center justify-center w-24 h-24 rounded-full mb-6 shadow-lg"
+              style={{
+                background: `linear-gradient(135deg, ${brandColor}, ${adjustColor(brandColor, -20)})`,
+              }}
+            >
+              <Heart className="w-12 h-12 text-white" />
+            </div>
+
+            <h2 className="text-3xl md:text-4xl font-serif text-gray-900 mb-4">
+              AI 智能健康筛查
+            </h2>
+
+            <p className="text-gray-500 text-lg mb-8 leading-relaxed max-w-2xl mx-auto">
+              全新升级！通过人体图交互选择不适部位，AI
+              根据您的症状智能推荐检查科室，并生成专业健康评估报告
+            </p>
+
+            <div
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm shadow-sm"
+              style={{ backgroundColor: `${brandColor}15`, color: brandColor }}
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>每周免费使用，AI 驱动精准健康评估</span>
+            </div>
           </div>
-
-          <h2 className="text-3xl md:text-4xl font-serif text-gray-900 mb-4">
-            AI 智能健康筛查
-          </h2>
-
-          <p className="text-gray-500 text-lg mb-8 leading-relaxed max-w-2xl mx-auto">
-            全新升级！通过人体图交互选择不适部位，AI
-            根据您的症状智能推荐检查科室，并生成专业健康评估报告
-          </p>
-
-          <div
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm shadow-sm"
-            style={{ backgroundColor: `${brandColor}15`, color: brandColor }}
-          >
-            <Sparkles className="w-4 h-4" />
-            <span>每周免费使用，AI 驱动精准健康评估</span>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* New Features */}
       <section className="py-16">

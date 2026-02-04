@@ -702,7 +702,8 @@ export default function CancerTreatmentContent({ whitelabel }: CancerTreatmentCo
   const t = (key: keyof typeof pageTranslations) => pageTranslations[key][currentLang];
   return (
     <>
-      {/* Hero Section */}
+      {/* Hero Section - hide in whitelabel mode */}
+      {!whitelabel && (
       <div className="relative min-h-[85vh] flex items-center overflow-hidden">
         {/* Background Image */}
         <div
@@ -797,6 +798,7 @@ export default function CancerTreatmentContent({ whitelabel }: CancerTreatmentCo
           </div>
         </div>
       </div>
+      )}
       {/* Japan Medical Institutions Introduction - 關西優先置頂 */}
       <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="container mx-auto px-6">

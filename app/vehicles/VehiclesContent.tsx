@@ -94,7 +94,8 @@ export default function VehiclesContent({ whitelabel }: VehiclesContentProps) {
 
   return (
     <>
-      {/* Hero Section */}
+      {/* Hero Section - hide in whitelabel mode */}
+      {!whitelabel && (
       <section className="relative min-h-[70vh] flex items-center overflow-hidden" aria-labelledby="hero-title">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -158,6 +159,7 @@ export default function VehiclesContent({ whitelabel }: VehiclesContentProps) {
           </div>
         </div>
       </section>
+      )}
 
       {/* Filter Tabs */}
       <div className="sticky top-20 z-30 bg-white border-b shadow-sm">
