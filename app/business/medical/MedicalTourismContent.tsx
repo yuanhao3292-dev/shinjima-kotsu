@@ -256,13 +256,13 @@ export default function MedicalTourismContent({ whitelabel }: MedicalTourismCont
       </section>
 
       {/* CTA */}
-      {whitelabel ? (
+      {whitelabel && whitelabel.showContact !== false ? (
         <WhitelabelContactSection
           brandColor={whitelabel.brandColor}
           brandName={whitelabel.brandName}
           contactInfo={whitelabel.contactInfo}
         />
-      ) : (
+      ) : !whitelabel ? (
         <section className="text-center py-8 bg-blue-50 rounded-2xl">
           <h3 className="text-xl font-bold text-gray-900 mb-4">{t('ctaTitle')}</h3>
           <p className="text-gray-600 mb-6">{t('ctaSubtitle')}</p>
@@ -273,7 +273,7 @@ export default function MedicalTourismContent({ whitelabel }: MedicalTourismCont
             {t('ctaButton')} <ArrowRight size={18} />
           </Link>
         </section>
-      )}
+      ) : null}
     </div>
   );
 }

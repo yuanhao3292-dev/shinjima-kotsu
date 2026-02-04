@@ -18,4 +18,6 @@ export interface WhitelabelModuleProps {
   moduleId: string;
   /** 模块名称 */
   moduleName: string;
+  /** 是否在模块底部显示联系区块（默认 true，在 /g/[slug] 页面中设为 false 以避免重复） */
+  showContact?: boolean;
 }

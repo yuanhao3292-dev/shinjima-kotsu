@@ -296,13 +296,13 @@ export default function VehiclesContent({ whitelabel }: VehiclesContentProps) {
       </section>
 
       {/* CTA */}
-      {whitelabel ? (
+      {whitelabel && whitelabel.showContact !== false ? (
         <WhitelabelContactSection
           brandColor={whitelabel.brandColor}
           brandName={whitelabel.brandName}
           contactInfo={whitelabel.contactInfo}
         />
-      ) : (
+      ) : !whitelabel ? (
         <section className="py-16 bg-white" aria-labelledby="cta-title">
           <div className="container mx-auto px-6">
             <div className="max-w-4xl mx-auto text-center">
@@ -316,7 +316,7 @@ export default function VehiclesContent({ whitelabel }: VehiclesContentProps) {
             </div>
           </div>
         </section>
-      )}
+      ) : null}
 
       <style jsx global>{`
         .hide-scrollbar::-webkit-scrollbar {

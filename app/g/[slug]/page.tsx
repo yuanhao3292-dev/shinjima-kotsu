@@ -6,12 +6,10 @@ import {
   Car,
   User,
   Package,
-  Phone,
-  Mail,
-  MessageCircle,
   ChevronRight,
   Users,
 } from 'lucide-react';
+import WhitelabelContactSection from '@/components/whitelabel-modules/WhitelabelContactSection';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -46,6 +44,7 @@ export default async function GuideDistributionPage({ params }: PageProps) {
   // 分离有 componentKey 的完整页面模块 和 普通模块
   const fullPageModules = selectedModules.filter(m => m.module.componentKey);
   const genericModules = selectedModules.filter(m => !m.module.componentKey);
+  const hasVehiclesModule = fullPageModules.some(m => m.module.componentKey === 'vehicles');
 
   // 构建联系信息
   const contactInfo = {
@@ -68,7 +67,7 @@ export default async function GuideDistributionPage({ params }: PageProps) {
     });
   });
 
-  if (selectedVehicles.length > 0) {
+  if (selectedVehicles.length > 0 && !hasVehiclesModule) {
     navItems.push({ id: 'vehicles', label: '车辆介绍' });
   }
   if (genericModules.length > 0) {
@@ -190,13 +189,14 @@ export default async function GuideDistributionPage({ params }: PageProps) {
               contactInfo={contactInfo}
               moduleId={sm.moduleId}
               moduleName={sm.module.name}
+              showContact={false}
             />
           </section>
         );
       })}
 
-      {/* Vehicles Section */}
-      {selectedVehicles.length > 0 && (
+      {/* Vehicles Section (only if VehiclesModule is not enabled) */}
+      {selectedVehicles.length > 0 && !hasVehiclesModule && (
         <section id="vehicles" className="py-16 bg-white">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-12">
@@ -314,79 +314,13 @@ export default async function GuideDistributionPage({ params }: PageProps) {
       )}
 
       {/* Contact Section */}
-      <section id="contact" className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">联系我们</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              随时为您提供咨询和服务
-            </p>
-          </div>
-
-          <div className="max-w-2xl mx-auto">
-            <div className="bg-gray-50 rounded-2xl p-8">
-              <div className="grid md:grid-cols-2 gap-6">
-                {guide.contactWechat && (
-                  <div className="flex items-center gap-4">
-                    <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center"
-                      style={{ backgroundColor: `${brandColor}15` }}
-                    >
-                      <MessageCircle size={24} style={{ color: brandColor }} />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-500">微信号</p>
-                      <p className="font-medium text-gray-900">{guide.contactWechat}</p>
-                    </div>
-                  </div>
-                )}
-                {guide.contactLine && (
-                  <div className="flex items-center gap-4">
-                    <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center"
-                      style={{ backgroundColor: `${brandColor}15` }}
-                    >
-                      <MessageCircle size={24} style={{ color: brandColor }} />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-500">LINE</p>
-                      <p className="font-medium text-gray-900">{guide.contactLine}</p>
-                    </div>
-                  </div>
-                )}
-                {guide.contactDisplayPhone && (
-                  <div className="flex items-center gap-4">
-                    <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center"
-                      style={{ backgroundColor: `${brandColor}15` }}
-                    >
-                      <Phone size={24} style={{ color: brandColor }} />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-500">电话</p>
-                      <p className="font-medium text-gray-900">{guide.contactDisplayPhone}</p>
-                    </div>
-                  </div>
-                )}
-                {guide.email && (
-                  <div className="flex items-center gap-4">
-                    <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center"
-                      style={{ backgroundColor: `${brandColor}15` }}
-                    >
-                      <Mail size={24} style={{ color: brandColor }} />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-500">邮箱</p>
-                      <p className="font-medium text-gray-900">{guide.email}</p>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <div id="contact">
+        <WhitelabelContactSection
+          brandColor={brandColor}
+          brandName={brandName}
+          contactInfo={contactInfo}
+        />
+      </div>
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">

@@ -112,13 +112,13 @@ export default function GolfContent({ whitelabel }: GolfContentProps) {
       </section>
 
       {/* CTA */}
-      {whitelabel ? (
+      {whitelabel && whitelabel.showContact !== false ? (
         <WhitelabelContactSection
           brandColor={whitelabel.brandColor}
           brandName={whitelabel.brandName}
           contactInfo={whitelabel.contactInfo}
         />
-      ) : (
+      ) : !whitelabel ? (
         <section
           aria-labelledby="cta-heading"
           className="text-center py-8 bg-green-50 rounded-2xl"
@@ -135,7 +135,7 @@ export default function GolfContent({ whitelabel }: GolfContentProps) {
             <ArrowRight size={18} aria-hidden="true" />
           </Link>
         </section>
-      )}
+      ) : null}
     </div>
   );
 }

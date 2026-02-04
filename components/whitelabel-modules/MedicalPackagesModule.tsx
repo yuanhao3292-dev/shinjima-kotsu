@@ -170,7 +170,7 @@ function formatPrice(price: number): string {
   return `¥${price.toLocaleString()}`;
 }
 
-export default function MedicalPackagesModule({ brandColor, brandName, contactInfo }: WhitelabelModuleProps) {
+export default function MedicalPackagesModule({ brandColor, brandName, contactInfo, showContact }: WhitelabelModuleProps) {
   return (
     <div>
       {/* Hero */}
@@ -259,13 +259,15 @@ export default function MedicalPackagesModule({ brandColor, brandName, contactIn
       </section>
 
       {/* Contact CTA */}
-      <div id="whitelabel-contact">
-        <WhitelabelContactSection
-          brandColor={brandColor}
-          brandName={brandName}
-          contactInfo={contactInfo}
-        />
-      </div>
+      {showContact !== false && (
+        <div id="whitelabel-contact">
+          <WhitelabelContactSection
+            brandColor={brandColor}
+            brandName={brandName}
+            contactInfo={contactInfo}
+          />
+        </div>
+      )}
     </div>
   );
 }

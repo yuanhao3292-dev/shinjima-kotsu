@@ -11,7 +11,7 @@ import {
 import type { WhitelabelModuleProps } from './types';
 import WhitelabelContactSection from './WhitelabelContactSection';
 
-export default function HealthScreeningModule({ brandColor, brandName, contactInfo }: WhitelabelModuleProps) {
+export default function HealthScreeningModule({ brandColor, brandName, contactInfo, showContact }: WhitelabelModuleProps) {
   return (
     <div>
       {/* Hero */}
@@ -139,11 +139,13 @@ export default function HealthScreeningModule({ brandColor, brandName, contactIn
       </section>
 
       {/* Contact CTA */}
-      <WhitelabelContactSection
-        brandColor={brandColor}
-        brandName={brandName}
-        contactInfo={contactInfo}
-      />
+      {showContact !== false && (
+        <WhitelabelContactSection
+          brandColor={brandColor}
+          brandName={brandName}
+          contactInfo={contactInfo}
+        />
+      )}
     </div>
   );
 }

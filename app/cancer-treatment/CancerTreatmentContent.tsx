@@ -1266,13 +1266,13 @@ export default function CancerTreatmentContent({ whitelabel }: CancerTreatmentCo
         </div>
       </section>
       {/* Service / Contact Section */}
-      {whitelabel ? (
+      {whitelabel && whitelabel.showContact !== false ? (
         <WhitelabelContactSection
           brandColor={whitelabel.brandColor}
           brandName={whitelabel.brandName}
           contactInfo={whitelabel.contactInfo}
         />
-      ) : (<>
+      ) : !whitelabel ? (<>
       <section id="contact-form" className="py-24 bg-gradient-to-br from-blue-50 to-purple-50">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
@@ -1478,7 +1478,7 @@ export default function CancerTreatmentContent({ whitelabel }: CancerTreatmentCo
           </div>
         </div>
       )}
-      </>)}
+      </>) : null}
     </>
   );
 }
