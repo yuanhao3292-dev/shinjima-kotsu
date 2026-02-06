@@ -3,6 +3,14 @@
  * White-Label System Type Definitions
  */
 
+// 从配置文件重新导出常量，避免重复定义
+export {
+  WHITELABEL_COOKIE_NAME,
+  WHITELABEL_COOKIE_MAX_AGE,
+  DOMAINS,
+  DEFAULT_CONTACT,
+} from "@/lib/whitelabel-config";
+
 export interface GuideWhiteLabelConfig {
   // 基本信息
   id: string;
@@ -33,6 +41,9 @@ export interface GuideWhiteLabelConfig {
   // 统计
   whiteLabelViews: number;
   whiteLabelConversions: number;
+
+  // 导游选择的商城页面
+  selectedPages: string[];
 }
 
 export interface WhiteLabelContextValue {
@@ -64,6 +75,9 @@ export interface WhiteLabelContextValue {
     phone: string | null;
     email: string | null;
   };
+
+  // 导游选择的商城页面（用于过滤导航链接）
+  selectedPages: string[];
 }
 
 export interface WhiteLabelOrder {
@@ -92,17 +106,7 @@ export interface WhiteLabelPageView {
   viewedAt: string;
 }
 
-// Cookie 名称常量
-export const WHITELABEL_COOKIE_NAME = "wl_guide";
-export const WHITELABEL_COOKIE_MAX_AGE = 30 * 24 * 60 * 60; // 30天
-
-// 域名配置
-export const DOMAINS = {
-  official: "niijima-koutsu.jp",
-  whitelabel: "bespoketrip.jp",
-} as const;
-
-// 默认品牌信息
+// 默认品牌信息（这个是类型文件特有的，保留）
 export const DEFAULT_OFFICIAL_BRANDING = {
   name: "NIIJIMA",
   subName: "新島交通株式会社",

@@ -210,6 +210,28 @@ export const WhitelabelSubscriptionSchema = z.object({
   cancelUrl: z.string().url('无效的取消回调 URL').optional(),
 });
 
+// ==================== Whitelabel Settings ====================
+
+// 有效的页面 ID 列表
+const VALID_PAGE_IDS = ['timc-medical', 'premium-golf', 'business-inspection', 'vehicles'] as const;
+
+export const WhitelabelSettingsSchema = z.object({
+  slug: z.string()
+    .min(3, 'URL 标识至少3个字符')
+    .max(50, 'URL 标识最多50个字符')
+    .regex(/^[a-z0-9-]+$/, 'URL 标识只能包含小写字母、数字和连字符')
+    .optional()
+    .nullable(),
+  brandName: z.string().max(100, '品牌名称最多100个字符').optional().nullable(),
+  brandLogoUrl: z.string().url('无效的 Logo URL').optional().nullable().or(z.literal('')),
+  brandColor: z.string().regex(/^#[0-9A-Fa-f]{6}$/, '颜色格式无效，请使用 #RRGGBB 格式').optional(),
+  contactWechat: z.string().max(50, '微信号最多50个字符').optional().nullable(),
+  contactLine: z.string().max(50, 'LINE ID最多50个字符').optional().nullable(),
+  contactDisplayPhone: z.string().max(30, '电话号码最多30个字符').optional().nullable(),
+  // 导游选择的商城页面
+  selectedPages: z.array(z.enum(VALID_PAGE_IDS)).optional(),
+});
+
 // ==================== Calculate Quote ====================
 
 export const CalculateQuoteSchema = z.object({
@@ -468,6 +490,7 @@ export type TicketActionInput = z.infer<typeof TicketActionSchema>;
 export type AuditLogCreateInput = z.infer<typeof AuditLogCreateSchema>;
 export type HealthScreeningAnalyzeInput = z.infer<typeof HealthScreeningAnalyzeSchema>;
 export type WhitelabelSubscriptionInput = z.infer<typeof WhitelabelSubscriptionSchema>;
+export type WhitelabelSettingsInput = z.infer<typeof WhitelabelSettingsSchema>;
 export type CalculateQuoteInput = z.infer<typeof CalculateQuoteSchema>;
 export type BookingActionInput = z.infer<typeof BookingActionSchema>;
 export type AdminImageUploadInput = z.infer<typeof AdminImageUploadSchema>;

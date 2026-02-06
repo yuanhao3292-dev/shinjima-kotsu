@@ -1,60 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
 import { WHITELABEL_COOKIE_NAME, isValidSlug } from "@/lib/whitelabel-config";
-
-// 速率限制配置
-const RATE_LIMIT = {
-  WINDOW_MS: 60 * 1000, // 1分钟窗口
-  MAX_REQUESTS: 30, // 每分钟最多30次请求
-};
-
-// 简单的内存速率限制（生产环境应使用 Redis）
-const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
-
-function checkRateLimit(sessionId: string): boolean {
-  const now = Date.now();
-  const record = rateLimitStore.get(sessionId);
-
-  if (!record || now > record.resetAt) {
-    rateLimitStore.set(sessionId, { count: 1, resetAt: now + RATE_LIMIT.WINDOW_MS });
-    return true;
-  }
-
-  if (record.count >= RATE_LIMIT.MAX_REQUESTS) {
-    return false;
-  }
-
-  record.count++;
-  return true;
-}
-
-// 定期清理过期记录（每5分钟）
-setInterval(() => {
-  const now = Date.now();
-  for (const [key, value] of rateLimitStore.entries()) {
-    if (now > value.resetAt) {
-      rateLimitStore.delete(key);
-    }
-  }
-}, 5 * 60 * 1000);
-
-const getSupabase = () => {
-  if (
-    !process.env.NEXT_PUBLIC_SUPABASE_URL ||
-    !process.env.SUPABASE_SERVICE_ROLE_KEY
-  ) {
-    throw new Error("Supabase configuration is missing");
-  }
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-  );
-};
+import { getSupabaseAdmin } from "@/lib/supabase/api";
+import { createClient as createServerClient } from "@/lib/supabase/server";
+import {
+  checkRateLimit,
+  getClientIp,
+  RATE_LIMITS,
+  createRateLimitHeaders,
+} from "@/lib/utils/rate-limiter";
 
 // 记录页面访问
 export async function POST(request: NextRequest) {
   try {
-    const supabase = getSupabase();
+    const supabase = getSupabaseAdmin();
 
     // 从 Cookie 获取导游 slug
     const guideSlug = request.cookies.get(WHITELABEL_COOKIE_NAME)?.value;
@@ -97,11 +55,18 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { pagePath, sessionId } = body;
 
-    // 速率限制检查
-    if (sessionId && !checkRateLimit(sessionId)) {
+    // 速率限制检查（使用 sessionId 或 IP 地址）
+    const rateLimitKey = sessionId
+      ? `session:${sessionId}:/api/whitelabel/track`
+      : `${getClientIp(request)}:/api/whitelabel/track`;
+    const rateLimitResult = checkRateLimit(rateLimitKey, RATE_LIMITS.standard);
+    if (!rateLimitResult.success) {
       return NextResponse.json(
         { error: "Rate limit exceeded" },
-        { status: 429 }
+        {
+          status: 429,
+          headers: createRateLimitHeaders(rateLimitResult),
+        }
       );
     }
 
@@ -143,10 +108,21 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// 获取导游统计数据
+// 获取导游统计数据（需要身份验证）
 export async function GET(request: NextRequest) {
   try {
-    const supabase = getSupabase();
+    // 1. 验证用户身份
+    const serverSupabase = await createServerClient();
+    const { data: { user }, error: authError } = await serverSupabase.auth.getUser();
+
+    if (authError || !user) {
+      return NextResponse.json(
+        { error: "未登录或登录已过期" },
+        { status: 401 }
+      );
+    }
+
+    const supabase = getSupabaseAdmin();
 
     const { searchParams } = new URL(request.url);
     const guideId = searchParams.get("guideId");
@@ -155,6 +131,28 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(
         { error: "Missing guideId" },
         { status: 400 }
+      );
+    }
+
+    // 2. 验证请求的 guideId 属于当前登录用户
+    const { data: guide, error: guideError } = await supabase
+      .from("guides")
+      .select("id, auth_user_id")
+      .eq("id", guideId)
+      .single();
+
+    if (guideError || !guide) {
+      return NextResponse.json(
+        { error: "导游不存在" },
+        { status: 404 }
+      );
+    }
+
+    // 确保只能查询自己的数据
+    if (guide.auth_user_id !== user.id) {
+      return NextResponse.json(
+        { error: "无权访问该数据" },
+        { status: 403 }
       );
     }
 
@@ -189,7 +187,7 @@ export async function GET(request: NextRequest) {
       .gte("created_at", monthAgo.toISOString());
 
     // 获取累计数据
-    const { data: guide } = await supabase
+    const { data: guideStats } = await supabase
       .from("guides")
       .select("whitelabel_views, whitelabel_conversions")
       .eq("id", guideId)
@@ -199,8 +197,8 @@ export async function GET(request: NextRequest) {
       todayViews: todayViews || 0,
       weekViews: weekViews || 0,
       monthOrders: monthOrders || 0,
-      totalViews: guide?.whitelabel_views || 0,
-      totalConversions: guide?.whitelabel_conversions || 0,
+      totalViews: guideStats?.whitelabel_views || 0,
+      totalConversions: guideStats?.whitelabel_conversions || 0,
     });
   } catch (error: unknown) {
     console.error("Stats error:", error);

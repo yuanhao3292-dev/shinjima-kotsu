@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { createClient } from '@/lib/supabase/client';
 import Logo from '@/components/Logo';
+import { STOREFRONT_PAGES, DEFAULT_SELECTED_PAGES } from '@/lib/whitelabel-pages';
+import { SUBSCRIPTION_PLANS, getPlanPageLimit, isWithinPlanLimit } from '@/lib/whitelabel-config';
 import {
   ArrowLeft,
   Globe,
@@ -25,6 +26,7 @@ import {
   ChevronRight,
   Car,
   User,
+  LayoutGrid,
 } from 'lucide-react';
 
 interface GuideWhiteLabelData {
@@ -65,15 +67,15 @@ export default function WhiteLabelSettingsPage() {
     contactLine: '',
     contactDisplayPhone: '',
     contactEmail: '',
+    selectedPages: DEFAULT_SELECTED_PAGES as string[],
   });
 
   const router = useRouter();
   const searchParams = useSearchParams();
-  const supabase = createClient();
 
-  // 白标页面 URL
+  // 白标页面 URL（子域名模式）
   const whiteLabelUrl = guide?.slug
-    ? `https://bespoketrip.jp/g/${guide.slug}`
+    ? `https://${guide.slug}.bespoketrip.jp`
     : null;
 
   // 初始加载导游数据（仅执行一次）
@@ -156,44 +158,47 @@ export default function WhiteLabelSettingsPage() {
 
   const loadGuideData = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      console.log('[loadGuideData] 当前用户:', user?.id, user?.email);
-      if (!user) {
+      // 使用 API 获取数据，避免直接调用客户端 Supabase
+      const response = await fetch('/api/whitelabel/settings');
+
+      if (response.status === 401) {
         router.push('/guide-partner/login');
         return;
       }
 
-      const { data: guideData, error } = await supabase
-        .from('guides')
-        .select(`
-          id, name, slug, brand_name, brand_logo_url, brand_color,
-          contact_wechat, contact_line, contact_display_phone, email,
-          subscription_status, subscription_plan, subscription_end_date,
-          whitelabel_views, whitelabel_conversions
-        `)
-        .eq('auth_user_id', user.id)
-        .single();
-
-      console.log('[loadGuideData] 导游数据:', guideData);
-      console.log('[loadGuideData] subscription_status:', guideData?.subscription_status);
-      console.log('[loadGuideData] 查询错误:', error);
-
-      if (error || !guideData) {
-        console.error('[loadGuideData] 未找到导游，跳转登录');
-        router.push('/guide-partner/login');
-        return;
+      if (!response.ok) {
+        throw new Error('Failed to load guide data');
       }
 
-      setGuide(guideData);
+      const guideData = await response.json();
+
+      setGuide({
+        id: guideData.id,
+        name: guideData.name,
+        slug: guideData.slug,
+        brand_name: guideData.brandName,
+        brand_logo_url: guideData.brandLogoUrl,
+        brand_color: guideData.brandColor,
+        contact_wechat: guideData.contactWechat,
+        contact_line: guideData.contactLine,
+        contact_display_phone: guideData.contactDisplayPhone,
+        email: guideData.email,
+        subscription_status: guideData.subscriptionStatus,
+        subscription_plan: guideData.subscriptionPlan,
+        subscription_end_date: guideData.subscriptionEndDate,
+        whitelabel_views: guideData.whiteLabelViews,
+        whitelabel_conversions: guideData.whiteLabelConversions,
+      });
       setFormData({
         slug: guideData.slug || '',
-        brandName: guideData.brand_name || '',
-        brandLogoUrl: guideData.brand_logo_url || '',
-        brandColor: guideData.brand_color || '#2563eb',
-        contactWechat: guideData.contact_wechat || '',
-        contactLine: guideData.contact_line || '',
-        contactDisplayPhone: guideData.contact_display_phone || '',
+        brandName: guideData.brandName || '',
+        brandLogoUrl: guideData.brandLogoUrl || '',
+        brandColor: guideData.brandColor || '#2563eb',
+        contactWechat: guideData.contactWechat || '',
+        contactLine: guideData.contactLine || '',
+        contactDisplayPhone: guideData.contactDisplayPhone || '',
         contactEmail: guideData.email || '',
+        selectedPages: guideData.selectedPages || DEFAULT_SELECTED_PAGES,
       });
 
       // 检查 guide_white_label 记录是否存在（公开白标页面依赖此记录）
@@ -207,6 +212,7 @@ export default function WhiteLabelSettingsPage() {
       }
     } catch (error) {
       console.error('Error loading guide data:', error);
+      router.push('/guide-partner/login');
     } finally {
       setLoading(false);
     }
@@ -219,40 +225,36 @@ export default function WhiteLabelSettingsPage() {
     setMessage(null);
 
     try {
-      // 验证 slug 格式
-      if (formData.slug && !/^[a-z0-9-]+$/.test(formData.slug)) {
-        setMessage({ type: 'error', text: 'URL 标识只能包含小写字母、数字和连字符' });
-        setSaving(false);
-        return;
-      }
-
-      if (!formData.slug) {
-        setMessage({ type: 'error', text: '请填写 URL 标识' });
-        setSaving(false);
-        return;
-      }
-
-      // 1. 更新 guides 表
-      const { error } = await supabase
-        .from('guides')
-        .update({
+      // 使用 API 更新数据
+      const response = await fetch('/api/whitelabel/settings', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           slug: formData.slug || null,
-          brand_name: formData.brandName || null,
-          brand_logo_url: formData.brandLogoUrl || null,
-          brand_color: formData.brandColor,
-          contact_wechat: formData.contactWechat || null,
-          contact_line: formData.contactLine || null,
-          contact_display_phone: formData.contactDisplayPhone || null,
-          email: formData.contactEmail || null,
-          updated_at: new Date().toISOString(),
-        })
-        .eq('id', guide.id);
+          brandName: formData.brandName || null,
+          brandLogoUrl: formData.brandLogoUrl || null,
+          brandColor: formData.brandColor,
+          contactWechat: formData.contactWechat || null,
+          contactLine: formData.contactLine || null,
+          contactDisplayPhone: formData.contactDisplayPhone || null,
+          contactEmail: formData.contactEmail || null,
+          selectedPages: formData.selectedPages,
+        }),
+      });
 
-      if (error) {
-        if (error.code === '23505') {
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (response.status === 409) {
           setMessage({ type: 'error', text: '此 URL 标识已被使用，请选择其他名称' });
+        } else if (response.status === 403) {
+          setMessage({ type: 'error', text: '请先订阅白标服务' });
+        } else if (data.details) {
+          // 验证错误
+          const firstError = data.details[0];
+          setMessage({ type: 'error', text: firstError?.message || '保存失败' });
         } else {
-          setMessage({ type: 'error', text: '保存失败：' + error.message });
+          setMessage({ type: 'error', text: data.error || '保存失败' });
         }
         setSaving(false);
         return;
@@ -299,7 +301,7 @@ export default function WhiteLabelSettingsPage() {
     }
   };
 
-  const handleSubscribe = async () => {
+  const handleSubscribe = async (plan: 'basic' | 'professional' = 'professional') => {
     if (!guide) return;
 
     // 防止重复点击
@@ -320,7 +322,12 @@ export default function WhiteLabelSettingsPage() {
       const response = await fetch('/api/whitelabel/create-subscription', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody),
+        body: JSON.stringify({
+          guideId: guide.id,
+          plan,
+          successUrl: `${window.location.origin}/guide-partner/whitelabel?subscription=success`,
+          cancelUrl: `${window.location.origin}/guide-partner/whitelabel?subscription=cancelled`,
+        }),
       });
 
       console.log('[handleSubscribe] 响应状态:', response.status);
@@ -487,16 +494,16 @@ export default function WhiteLabelSettingsPage() {
           </div>
         )}
 
-        {/* 订阅状态卡片 */}
+        {/* 订阅方案选择 */}
         <div className="bg-white rounded-xl border p-6">
-          <div className="flex items-start justify-between">
+          <div className="flex items-start justify-between mb-6">
             <div>
               <h2 className="text-lg font-bold flex items-center gap-2">
                 <CreditCard size={20} />
-                订阅状态
+                订阅方案
               </h2>
               <p className="text-gray-500 text-sm mt-1">
-                订阅后即可使用白标页面功能
+                选择适合您的订阅方案
               </p>
             </div>
             <div className={`px-3 py-1 rounded-full text-sm font-medium ${
@@ -504,40 +511,85 @@ export default function WhiteLabelSettingsPage() {
                 ? 'bg-green-100 text-green-700'
                 : 'bg-gray-100 text-gray-600'
             }`}>
-              {isSubscribed ? '已激活' : '未订阅'}
+              {isSubscribed ? (guide.subscription_plan === 'professional' ? '专业版' : '基础版') : '未订阅'}
             </div>
           </div>
 
-          <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="font-bold text-lg">¥1,980 / 月</div>
-                <div className="text-sm text-gray-500">白标页面订阅</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* 基础版 */}
+            <div className={`p-5 rounded-xl border-2 transition ${
+              guide?.subscription_plan === 'basic'
+                ? 'border-blue-500 bg-blue-50'
+                : 'border-gray-200 hover:border-gray-300'
+            }`}>
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="font-bold text-lg">{SUBSCRIPTION_PLANS.basic.name}</h3>
+                <span className="text-2xl font-bold">¥{SUBSCRIPTION_PLANS.basic.priceJpy}<span className="text-sm font-normal text-gray-500">/月</span></span>
               </div>
-              {isSubscribed ? (
+              <ul className="space-y-2 text-sm text-gray-600 mb-4">
+                {SUBSCRIPTION_PLANS.basic.features.map((feature, i) => (
+                  <li key={i} className="flex items-center gap-2">
+                    <Check size={14} className="text-green-500" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              {!isSubscribed && (
                 <button
-                  onClick={handleManageSubscription}
-                  className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition text-sm"
+                  onClick={() => handleSubscribe('basic')}
+                  className="w-full py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition font-medium text-sm"
                 >
-                  管理订阅
+                  选择基础版
                 </button>
-              ) : (
+              )}
+            </div>
+
+            {/* 专业版 */}
+            <div className={`p-5 rounded-xl border-2 transition relative ${
+              guide?.subscription_plan === 'professional' || guide?.subscription_plan === 'monthly'
+                ? 'border-blue-500 bg-blue-50'
+                : 'border-gray-200 hover:border-gray-300'
+            }`}>
+              <div className="absolute -top-3 left-4 px-2 py-0.5 bg-blue-600 text-white text-xs font-medium rounded">
+                推荐
+              </div>
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="font-bold text-lg">{SUBSCRIPTION_PLANS.professional.name}</h3>
+                <span className="text-2xl font-bold">¥{SUBSCRIPTION_PLANS.professional.priceJpy}<span className="text-sm font-normal text-gray-500">/月</span></span>
+              </div>
+              <ul className="space-y-2 text-sm text-gray-600 mb-4">
+                {SUBSCRIPTION_PLANS.professional.features.map((feature, i) => (
+                  <li key={i} className="flex items-center gap-2">
+                    <Check size={14} className="text-green-500" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              {!isSubscribed && (
                 <button
-                  onClick={handleSubscribe}
+                  onClick={() => handleSubscribe('professional')}
                   disabled={subscribing}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                  className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {subscribing && <Loader2 size={16} className="animate-spin" />}
-                  {subscribing ? '处理中...' : '立即订阅'}
+                  {subscribing ? '处理中...' : '选择专业版'}
                 </button>
               )}
             </div>
           </div>
 
-          {isSubscribed && guide.subscription_end_date && (
-            <p className="mt-4 text-sm text-gray-500">
-              下次续费日期：{new Date(guide.subscription_end_date).toLocaleDateString('zh-CN')}
-            </p>
+          {isSubscribed && (
+            <div className="mt-4 flex items-center justify-between pt-4 border-t">
+              <p className="text-sm text-gray-500">
+                下次续费日期：{guide.subscription_end_date ? new Date(guide.subscription_end_date).toLocaleDateString('zh-CN') : '-'}
+              </p>
+              <button
+                onClick={handleManageSubscription}
+                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition text-sm"
+              >
+                管理订阅
+              </button>
+            </div>
           )}
         </div>
 
@@ -667,23 +719,23 @@ export default function WhiteLabelSettingsPage() {
           </h2>
 
           <div className="space-y-6">
-            {/* URL 标识 */}
+            {/* URL 标识（子域名） */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                URL 标识
+                专属子域名
               </label>
               <div className="flex items-center gap-2">
-                <span className="text-gray-400 text-sm">bespoketrip.jp/p/</span>
                 <input
                   type="text"
                   value={formData.slug}
                   onChange={(e) => setFormData({ ...formData, slug: e.target.value.toLowerCase() })}
                   placeholder="your-name"
-                  className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-40 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
+                <span className="text-gray-400 text-sm">.bespoketrip.jp</span>
               </div>
               <p className="mt-1 text-xs text-gray-500">
-                只能使用小写字母、数字和连字符
+                只能使用小写字母、数字和连字符（3-50个字符）
               </p>
             </div>
 
@@ -751,6 +803,94 @@ export default function WhiteLabelSettingsPage() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* 商城页面选择 */}
+        <div className={`bg-white rounded-xl border p-6 ${!isSubscribed ? 'opacity-50 pointer-events-none' : ''}`}>
+          <div className="flex items-start justify-between mb-2">
+            <h2 className="text-lg font-bold flex items-center gap-2">
+              <LayoutGrid size={20} />
+              商城页面选择
+            </h2>
+            {guide?.subscription_plan === 'basic' && (
+              <span className="px-2 py-1 bg-amber-100 text-amber-700 text-xs font-medium rounded">
+                基础版：最多 {getPlanPageLimit(guide.subscription_plan)} 个页面
+              </span>
+            )}
+          </div>
+          <p className="text-sm text-gray-500 mb-6">
+            选择您想要在白标商城中展示的页面，客户将只能看到您选择的服务
+          </p>
+
+          <div className="space-y-3">
+            {STOREFRONT_PAGES.map((page) => {
+              const isSelected = formData.selectedPages.includes(page.id);
+              const pageLimit = getPlanPageLimit(guide?.subscription_plan || null);
+              const isAtLimit = pageLimit > 0 && formData.selectedPages.length >= pageLimit && !isSelected;
+
+              return (
+                <label
+                  key={page.id}
+                  className={`flex items-center justify-between p-4 rounded-lg border transition ${
+                    isAtLimit
+                      ? 'border-gray-200 bg-gray-50 cursor-not-allowed opacity-60'
+                      : isSelected
+                        ? 'border-blue-300 bg-blue-50 cursor-pointer'
+                        : 'border-gray-200 hover:border-gray-300 cursor-pointer'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">{page.icon}</span>
+                    <div>
+                      <div className="font-medium text-gray-900">{page.name}</div>
+                      <div className="text-sm text-gray-500">{page.description}</div>
+                    </div>
+                  </div>
+                  <div className="relative">
+                    <input
+                      type="checkbox"
+                      checked={isSelected}
+                      disabled={isAtLimit}
+                      onChange={(e) => {
+                        if (isAtLimit && e.target.checked) return;
+                        const newSelected = e.target.checked
+                          ? [...formData.selectedPages, page.id]
+                          : formData.selectedPages.filter((id) => id !== page.id);
+                        setFormData({ ...formData, selectedPages: newSelected });
+                      }}
+                      className="sr-only"
+                    />
+                    <div
+                      className={`w-11 h-6 rounded-full transition ${
+                        isSelected ? 'bg-blue-600' : 'bg-gray-300'
+                      }`}
+                    >
+                      <div
+                        className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${
+                          isSelected ? 'translate-x-5' : 'translate-x-0'
+                        }`}
+                      />
+                    </div>
+                  </div>
+                </label>
+              );
+            })}
+          </div>
+
+          {formData.selectedPages.length === 0 && (
+            <p className="mt-4 text-sm text-amber-600 flex items-center gap-2">
+              <AlertCircle size={16} />
+              请至少选择一个页面
+            </p>
+          )}
+
+          {guide?.subscription_plan === 'basic' && formData.selectedPages.length >= getPlanPageLimit('basic') && (
+            <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <p className="text-sm text-blue-700">
+                升级到<strong>专业版</strong>可解锁全部页面和专属子域名
+              </p>
+            </div>
+          )}
         </div>
 
         {/* 联系方式 */}

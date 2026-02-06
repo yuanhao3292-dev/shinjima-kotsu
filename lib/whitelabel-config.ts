@@ -23,6 +23,46 @@ export const DEV_WHITELABEL_PORT = 3001;
 // ============================================
 // 订阅配置
 // ============================================
+export const SUBSCRIPTION_PLANS = {
+  basic: {
+    id: 'basic',
+    name: '基础版',
+    nameEn: 'Basic',
+    priceJpy: 980,
+    maxPages: 2,
+    hasSubdomain: false,
+    features: ['最多选择 2 个页面', '品牌名称替换', '联系方式展示'],
+  },
+  professional: {
+    id: 'professional',
+    name: '专业版',
+    nameEn: 'Professional',
+    priceJpy: 1980,
+    maxPages: -1, // -1 表示无限制
+    hasSubdomain: true,
+    features: ['全部页面', '专属子域名', '品牌名称替换', '联系方式展示', '访问统计'],
+  },
+} as const;
+
+export type SubscriptionPlanId = keyof typeof SUBSCRIPTION_PLANS;
+
+// 获取订阅计划的页面限制
+export function getPlanPageLimit(plan: string | null): number {
+  if (plan === 'professional') return -1;
+  if (plan === 'basic') return 2;
+  // 默认专业版（兼容旧数据 'monthly'）
+  if (plan === 'monthly') return -1;
+  return 2;
+}
+
+// 检查页面数量是否在计划限制内
+export function isWithinPlanLimit(plan: string | null, pageCount: number): boolean {
+  const limit = getPlanPageLimit(plan);
+  if (limit === -1) return true;
+  return pageCount <= limit;
+}
+
+// 旧配置（保留向后兼容）
 export const SUBSCRIPTION = {
   MONTHLY_PRICE_JPY: 1980,
   PLAN_NAME: 'monthly',

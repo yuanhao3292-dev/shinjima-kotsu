@@ -7,6 +7,7 @@ import {
   DEFAULT_OFFICIAL_BRANDING,
 } from "@/lib/types/whitelabel";
 import { DEFAULT_CONTACT } from "@/lib/whitelabel-config";
+import { DEFAULT_SELECTED_PAGES } from "@/lib/whitelabel-pages";
 
 // 创建 Context
 const WhiteLabelContext = createContext<WhiteLabelContextValue | null>(null);
@@ -70,6 +71,9 @@ export function WhiteLabelProvider({
           email: DEFAULT_CONTACT.EMAIL,
         };
 
+  // 获取导游选择的页面
+  const selectedPages = guideConfig?.selectedPages ?? DEFAULT_SELECTED_PAGES;
+
   const value: WhiteLabelContextValue = {
     isWhiteLabelMode,
     domain: isWhiteLabelMode ? "whitelabel" : "official",
@@ -78,6 +82,7 @@ export function WhiteLabelProvider({
     isSubscriptionActive,
     branding,
     contact,
+    selectedPages,
   };
 
   return (
@@ -119,6 +124,7 @@ export function useWhiteLabel(): WhiteLabelContextValue {
         phone: DEFAULT_CONTACT.PHONE,
         email: DEFAULT_CONTACT.EMAIL,
       },
+      selectedPages: DEFAULT_SELECTED_PAGES,
     };
   }
 
