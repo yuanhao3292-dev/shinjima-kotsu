@@ -1,6 +1,13 @@
+const path = require('path');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+
+  // Webpack 配置 (禁用 Turbopack)
+  webpack: (config) => {
+    return config;
+  },
 
   // 注意：不要在 env 中暴露敏感 API 密钥到客户端
   // GEMINI_API_KEY 应该只在服务端使用（API routes）

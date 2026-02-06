@@ -1,6 +1,14 @@
 import { createClient } from "@supabase/supabase-js";
-import { GuideWhiteLabelConfig } from "@/lib/types/whitelabel";
+import {
+  GuideWhiteLabelConfig,
+  GuideDistributionPage,
+  SelectedModuleWithDetails,
+  SelectedVehicleWithDetails,
+} from "@/lib/types/whitelabel";
 import { DEFAULT_SELECTED_PAGES } from "@/lib/whitelabel-pages";
+
+// Re-export types for consumers
+export type { GuideDistributionPage } from "@/lib/types/whitelabel";
 
 // 服务端 Supabase 客户端
 function getServiceClient() {
@@ -235,6 +243,157 @@ export async function updateGuideWhiteLabelSettings(
 }
 
 /**
+ * 获取导游分销页面完整数据
+ * 包含导游信息、配置、选中的模块和车辆
+ */
+export async function getGuideDistributionPage(
+  slug: string
+): Promise<GuideDistributionPage | null> {
+  const supabase = getServiceClient();
+
+  // 1. 获取导游基本配置
+  const guideConfig = await getGuideBySlug(slug);
+  if (!guideConfig) {
+    return null;
+  }
+
+  // 2. 获取导游白标页面配置（SEO等）
+  const { data: pageConfig } = await supabase
+    .from("guide_white_label")
+    .select("site_title, site_description")
+    .eq("guide_id", guideConfig.id)
+    .single();
+
+  // 3. 获取导游选择的模块（带模块详情）
+  const { data: selectedModulesData } = await supabase
+    .from("guide_selected_modules")
+    .select(`
+      id,
+      sort_order,
+      is_enabled,
+      custom_title,
+      custom_description,
+      page_modules (
+        id,
+        category,
+        name,
+        name_ja,
+        slug,
+        description,
+        thumbnail_url,
+        commission_rate,
+        is_required,
+        sort_order,
+        is_active,
+        component_key,
+        created_at,
+        updated_at
+      )
+    `)
+    .eq("guide_id", guideConfig.id)
+    .eq("is_enabled", true)
+    .order("sort_order", { ascending: true });
+
+  // 4. 获取导游选择的车辆（带车辆详情）
+  const { data: selectedVehiclesData } = await supabase
+    .from("guide_selected_vehicles")
+    .select(`
+      id,
+      sort_order,
+      is_enabled,
+      custom_price_note,
+      vehicle_library (
+        id,
+        name,
+        name_ja,
+        slug,
+        vehicle_type,
+        seats,
+        description,
+        images,
+        features,
+        sort_order,
+        is_active,
+        created_at,
+        updated_at
+      )
+    `)
+    .eq("guide_id", guideConfig.id)
+    .eq("is_enabled", true)
+    .order("sort_order", { ascending: true });
+
+  // 5. 转换模块数据格式
+  const selectedModules: SelectedModuleWithDetails[] = (selectedModulesData || [])
+    .filter((sm) => sm.page_modules)
+    .map((sm) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const mod = sm.page_modules as any;
+      return {
+        id: sm.id,
+        sortOrder: sm.sort_order,
+        isEnabled: sm.is_enabled,
+        customTitle: sm.custom_title,
+        customDescription: sm.custom_description,
+        module: {
+          id: mod.id,
+          category: mod.category,
+          name: mod.name,
+          nameJa: mod.name_ja,
+          slug: mod.slug,
+          description: mod.description,
+          thumbnailUrl: mod.thumbnail_url,
+          commissionRate: mod.commission_rate,
+          isRequired: mod.is_required,
+          sortOrder: mod.sort_order,
+          isActive: mod.is_active,
+          componentKey: mod.component_key,
+          createdAt: mod.created_at,
+          updatedAt: mod.updated_at,
+        },
+      };
+    });
+
+  // 6. 转换车辆数据格式
+  const selectedVehicles: SelectedVehicleWithDetails[] = (selectedVehiclesData || [])
+    .filter((sv) => sv.vehicle_library)
+    .map((sv) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const veh = sv.vehicle_library as any;
+      return {
+        id: sv.id,
+        sortOrder: sv.sort_order,
+        isEnabled: sv.is_enabled,
+        customPriceNote: sv.custom_price_note,
+        vehicle: {
+          id: veh.id,
+          name: veh.name,
+          nameJa: veh.name_ja,
+          slug: veh.slug,
+          vehicleType: veh.vehicle_type,
+          seats: veh.seats,
+          description: veh.description,
+          images: veh.images || [],
+          features: veh.features || [],
+          sortOrder: veh.sort_order,
+          isActive: veh.is_active,
+          createdAt: veh.created_at,
+          updatedAt: veh.updated_at,
+        },
+      };
+    });
+
+  return {
+    guide: guideConfig,
+    config: {
+      seoTitle: pageConfig?.site_title || null,
+      seoDescription: pageConfig?.site_description || null,
+    },
+    selectedModules,
+    selectedVehicles,
+  };
+}
+
+/**
  * 记录白标页面访问
  */
 export async function trackPageView(
@@ -260,3 +419,8 @@ export async function trackPageView(
     city: pageData.city,
   });
 }
+
+/**
+ * 记录页面访问（别名 trackPageView）
+ */
+export const recordPageView = trackPageView;

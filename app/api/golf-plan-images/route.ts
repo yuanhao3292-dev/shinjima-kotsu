@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase-client';
 
+// Prevent static generation - this route requires runtime env vars
+export const dynamic = 'force-dynamic';
+
 // Default images as fallback (all verified working URLs)
 const DEFAULT_IMAGES: Record<string, string> = {
   'hokkaido-summer': 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=1200&auto=format&fit=crop',

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Logo from '@/components/Logo';
+import { createClient } from '@/lib/supabase/client';
 import { STOREFRONT_PAGES, DEFAULT_SELECTED_PAGES } from '@/lib/whitelabel-pages';
 import { SUBSCRIPTION_PLANS, getPlanPageLimit, isWithinPlanLimit } from '@/lib/whitelabel-config';
 import {
@@ -72,6 +73,7 @@ export default function WhiteLabelSettingsPage() {
 
   const router = useRouter();
   const searchParams = useSearchParams();
+  const supabase = createClient();
 
   // 白标页面 URL（子域名模式）
   const whiteLabelUrl = guide?.slug
@@ -988,7 +990,7 @@ export default function WhiteLabelSettingsPage() {
               每月仅需 ¥1,980，即可获得专属品牌展示页面，所有客户通过您的链接访问都将自动归属于您。
             </p>
             <button
-              onClick={handleSubscribe}
+              onClick={() => handleSubscribe('professional')}
               disabled={subscribing}
               className="px-6 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 mx-auto"
             >

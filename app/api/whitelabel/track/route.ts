@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
     const rateLimitKey = sessionId
       ? `session:${sessionId}:/api/whitelabel/track`
       : `${getClientIp(request)}:/api/whitelabel/track`;
-    const rateLimitResult = checkRateLimit(rateLimitKey, RATE_LIMITS.standard);
+    const rateLimitResult = await checkRateLimit(rateLimitKey, RATE_LIMITS.standard);
     if (!rateLimitResult.success) {
       return NextResponse.json(
         { error: "Rate limit exceeded" },

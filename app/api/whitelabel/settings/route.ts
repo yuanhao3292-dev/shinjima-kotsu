@@ -103,7 +103,7 @@ export async function PUT(request: NextRequest) {
   try {
     // 1. 速率限制检查
     const clientIp = getClientIp(request);
-    const rateLimitResult = checkRateLimit(
+    const rateLimitResult = await checkRateLimit(
       `${clientIp}:/api/whitelabel/settings`,
       RATE_LIMITS.standard
     );

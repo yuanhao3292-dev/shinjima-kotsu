@@ -13,7 +13,8 @@ import {
   Loader2,
   Wine,
   Stethoscope,
-  Heart
+  Heart,
+  ChevronRight
 } from 'lucide-react';
 
 interface Venue {

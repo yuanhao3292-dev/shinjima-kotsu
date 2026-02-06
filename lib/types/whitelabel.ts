@@ -400,3 +400,40 @@ export interface UpgradeToPartnerResponse {
   checkoutUrl?: string;
   error?: string;
 }
+
+// ============================================
+// 分销页面类型 (Distribution Page)
+// ============================================
+
+/** 分销页面配置（SEO等） */
+export interface DistributionPageConfig {
+  seoTitle: string | null;
+  seoDescription: string | null;
+}
+
+/** 分销页面选中的模块（带模块详情） */
+export interface SelectedModuleWithDetails {
+  id: string;
+  sortOrder: number;
+  isEnabled: boolean;
+  customTitle: string | null;
+  customDescription: string | null;
+  module: PageModule;
+}
+
+/** 分销页面选中的车辆（带车辆详情） */
+export interface SelectedVehicleWithDetails {
+  id: string;
+  sortOrder: number;
+  isEnabled: boolean;
+  customPriceNote: string | null;
+  vehicle: VehicleLibrary;
+}
+
+/** 完整的分销页面数据 */
+export interface GuideDistributionPage {
+  guide: GuideWhiteLabelConfig;
+  config: DistributionPageConfig;
+  selectedModules: SelectedModuleWithDetails[];
+  selectedVehicles: SelectedVehicleWithDetails[];
+}
