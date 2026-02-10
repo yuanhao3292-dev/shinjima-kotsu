@@ -41,7 +41,11 @@ export async function GET(request: NextRequest) {
     // 2. 获取导游白标设置
     console.log("[whitelabel/settings] 查询导游信息, auth_user_id:", user.id, "email:", user.email);
 
-    const { data: guide, error: guideError } = await supabase
+    // 先尝试查询包含 selected_pages 的完整字段
+    let guide;
+    let guideError;
+
+    const { data: guideData, error: queryError } = await supabase
       .from("guides")
       .select(
         `
@@ -53,6 +57,28 @@ export async function GET(request: NextRequest) {
       )
       .eq("auth_user_id", user.id)
       .single();
+
+    // 如果查询失败且是列不存在错误（42703），尝试不带 selected_pages 查询
+    if (queryError?.code === "42703") {
+      console.log("[whitelabel/settings] selected_pages 列不存在，使用备用查询");
+      const { data: fallbackData, error: fallbackError } = await supabase
+        .from("guides")
+        .select(
+          `
+          id, name, slug, brand_name, brand_logo_url, brand_color,
+          contact_wechat, contact_line, contact_display_phone, email,
+          subscription_status, subscription_plan, subscription_end_date,
+          whitelabel_views, whitelabel_conversions
+        `
+        )
+        .eq("auth_user_id", user.id)
+        .single();
+      guide = fallbackData;
+      guideError = fallbackError;
+    } else {
+      guide = guideData;
+      guideError = queryError;
+    }
 
     if (guideError || !guide) {
       console.log("[whitelabel/settings] 导游信息不存在, guideError:", guideError?.message);
