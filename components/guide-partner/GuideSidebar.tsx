@@ -35,7 +35,7 @@ const NAV_ITEMS: NavItem[] = [
   { icon: Wallet, label: '返金结算', href: '/guide-partner/commission' },
   { icon: Users, label: '我的推荐', href: '/guide-partner/referrals' },
   { icon: Trophy, label: '排行榜', href: '/guide-partner/leaderboard' },
-  { icon: Globe, label: '白标页面', href: '/guide-partner/whitelabel', highlight: true },
+  { icon: Globe, label: '分销页面', href: '/guide-partner/whitelabel', highlight: true },
   { icon: Headphones, label: '客服支持', href: '/guide-partner/support' },
   { icon: Settings, label: '账户设置', href: '/guide-partner/settings' },
 ];

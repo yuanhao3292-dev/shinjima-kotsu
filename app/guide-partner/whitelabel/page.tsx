@@ -75,7 +75,7 @@ export default function WhiteLabelSettingsPage() {
   const searchParams = useSearchParams();
   const supabase = createClient();
 
-  // 白标页面 URL（子域名模式）
+  // 分销页面 URL（子域名模式）
   const whiteLabelUrl = guide?.slug
     ? `https://${guide.slug}.bespoketrip.jp`
     : null;
@@ -215,7 +215,7 @@ export default function WhiteLabelSettingsPage() {
         selectedPages: guideData.selectedPages || DEFAULT_SELECTED_PAGES,
       });
 
-      // 检查 guide_white_label 记录是否存在（公开白标页面依赖此记录）
+      // 检查 guide_white_label 记录是否存在（公开分销页面依赖此记录）
       if (guideData.subscription_status === 'active') {
         const { data: wlConfig } = await supabase
           .from('guide_white_label')
@@ -262,7 +262,7 @@ export default function WhiteLabelSettingsPage() {
         if (response.status === 409) {
           setMessage({ type: 'error', text: '此 URL 标识已被使用，请选择其他名称' });
         } else if (response.status === 403) {
-          setMessage({ type: 'error', text: '请先订阅白标服务' });
+          setMessage({ type: 'error', text: '请先订阅分销服务' });
         } else if (data.details) {
           // 验证错误
           const firstError = data.details[0];
@@ -415,7 +415,7 @@ export default function WhiteLabelSettingsPage() {
                 <ArrowLeft size={20} />
               </Link>
               <div>
-                <h1 className="text-xl font-bold">白标页面设置</h1>
+                <h1 className="text-xl font-bold">分销页面设置</h1>
                 <p className="text-sm text-gray-500">自定义您的专属品牌页面</p>
               </div>
             </div>
@@ -433,7 +433,7 @@ export default function WhiteLabelSettingsPage() {
             <AlertCircle size={48} className="mx-auto text-amber-500 mb-4" />
             <h2 className="text-xl font-bold text-gray-900 mb-2">未找到导游资料</h2>
             <p className="text-gray-600 mb-6">
-              您的账户尚未关联导游身份，无法使用白标页面功能。<br />
+              您的账户尚未关联导游身份，无法使用分销页面功能。<br />
               请联系管理员完成账户关联。
             </p>
             <Link
@@ -478,7 +478,7 @@ export default function WhiteLabelSettingsPage() {
 
             {/* 描述 */}
             <p className="text-gray-600 mb-6">
-              恭喜您！白标页面订阅已激活。<br />
+              恭喜您！分销页面订阅已激活。<br />
               现在可以开始设置您的专属品牌页面了。
             </p>
 
@@ -486,7 +486,7 @@ export default function WhiteLabelSettingsPage() {
             <div className="bg-gray-50 rounded-xl p-4 mb-6">
               <div className="flex justify-between items-center mb-2">
                 <span className="text-gray-500">订阅套餐</span>
-                <span className="font-medium">白标页面 - 月度</span>
+                <span className="font-medium">分销页面 - 月度</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-500">订阅费用</span>
@@ -510,7 +510,7 @@ export default function WhiteLabelSettingsPage() {
               }}
               className="w-full py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition"
             >
-              开始设置白标页面
+              开始设置分销页面
             </button>
           </div>
         </div>
@@ -527,7 +527,7 @@ export default function WhiteLabelSettingsPage() {
               <ArrowLeft size={20} />
             </Link>
             <div>
-              <h1 className="text-xl font-bold">白标页面设置</h1>
+              <h1 className="text-xl font-bold">分销页面设置</h1>
               <p className="text-sm text-gray-500">自定义您的专属品牌页面</p>
             </div>
           </div>
@@ -651,7 +651,7 @@ export default function WhiteLabelSettingsPage() {
           )}
         </div>
 
-        {/* 白标 URL */}
+        {/* 分销页面 URL */}
         {isSubscribed && (
           <div className="bg-white rounded-xl border p-6">
             <h2 className="text-lg font-bold flex items-center gap-2 mb-4">
@@ -687,14 +687,14 @@ export default function WhiteLabelSettingsPage() {
               </p>
             )}
 
-            {/* 白标配置缺失提示 */}
+            {/* 分销页面配置缺失提示 */}
             {!hasWhiteLabelConfig && (
               <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3">
                 <AlertCircle size={20} className="text-amber-500 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-amber-800 font-medium text-sm">白标页面尚未生成</p>
+                  <p className="text-amber-800 font-medium text-sm">分销页面尚未生成</p>
                   <p className="text-amber-700 text-sm mt-1">
-                    请先完善下方的品牌设置和联系方式，然后点击「保存设置」按钮以生成您的专属白标页面。
+                    请先完善下方的品牌设置和联系方式，然后点击「保存设置」按钮以生成您的专属分销页面。
                   </p>
                 </div>
               </div>
@@ -877,7 +877,7 @@ export default function WhiteLabelSettingsPage() {
             )}
           </div>
           <p className="text-sm text-gray-500 mb-6">
-            选择您想要在白标商城中展示的页面，客户将只能看到您选择的服务
+            选择您想要在分销商城中展示的页面，客户将只能看到您选择的服务
           </p>
 
           <div className="space-y-3">
@@ -958,7 +958,7 @@ export default function WhiteLabelSettingsPage() {
             联系方式
           </h2>
           <p className="text-sm text-gray-500 mb-6">
-            这些信息将显示在白标页面的页脚，方便客户联系您
+            这些信息将显示在分销页面的页脚，方便客户联系您
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1013,7 +1013,7 @@ export default function WhiteLabelSettingsPage() {
                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
               <p className="mt-1 text-xs text-gray-500">
-                此邮箱将显示在白标页面的联系方式中
+                此邮箱将显示在分销页面的联系方式中
               </p>
             </div>
           </div>
