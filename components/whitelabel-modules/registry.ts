@@ -13,6 +13,7 @@ const MODULE_REGISTRY: Record<string, ComponentType<WhitelabelModuleProps>> = {
   golf: dynamic(() => import('./GolfModule')),
   medical_tourism: dynamic(() => import('./MedicalTourismModule')),
   medical_packages: dynamic(() => import('./MedicalPackagesModule')),
+  hyogo_medical: dynamic(() => import('./HyogoMedicalModule')),
 };
 
 export function getModuleComponent(componentKey: string): ComponentType<WhitelabelModuleProps> | null {

@@ -62,6 +62,17 @@ export const STOREFRONT_PAGES: StorefrontPage[] = [
     category: 'service',
     isDefault: false,
   },
+  {
+    id: 'hyogo-medical',
+    name: '兵库医科大学病院',
+    nameJa: '兵庫医科大学病院',
+    nameEn: 'Hyogo Medical University Hospital',
+    description: '兵库县最大规模特定功能医院，963床41诊疗科',
+    icon: 'Building2',
+    href: '/hyogo-medical',
+    category: 'medical',
+    isDefault: false,
+  },
 ];
 
 // 获取页面 ID 列表
