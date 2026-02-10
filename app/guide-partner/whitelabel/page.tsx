@@ -315,7 +315,7 @@ export default function WhiteLabelSettingsPage() {
     }
   };
 
-  const handleSubscribe = async (plan: 'basic' | 'professional' = 'professional') => {
+  const handleSubscribe = async (plan: 'professional' = 'professional') => {
     if (!guide) return;
 
     // 防止重复点击
@@ -569,71 +569,38 @@ export default function WhiteLabelSettingsPage() {
                 ? 'bg-green-100 text-green-700'
                 : 'bg-gray-100 text-gray-600'
             }`}>
-              {isSubscribed ? (guide.subscription_plan === 'professional' ? '专业版' : '基础版') : '未订阅'}
+              {isSubscribed ? '已订阅' : '未订阅'}
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* 基础版 */}
-            <div className={`p-5 rounded-xl border-2 transition ${
-              guide?.subscription_plan === 'basic'
-                ? 'border-blue-500 bg-blue-50'
-                : 'border-gray-200 hover:border-gray-300'
-            }`}>
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="font-bold text-lg">{SUBSCRIPTION_PLANS.basic.name}</h3>
-                <span className="text-2xl font-bold">¥{SUBSCRIPTION_PLANS.basic.priceJpy}<span className="text-sm font-normal text-gray-500">/月</span></span>
-              </div>
-              <ul className="space-y-2 text-sm text-gray-600 mb-4">
-                {SUBSCRIPTION_PLANS.basic.features.map((feature, i) => (
-                  <li key={i} className="flex items-center gap-2">
-                    <Check size={14} className="text-green-500" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              {!isSubscribed && (
-                <button
-                  onClick={() => handleSubscribe('basic')}
-                  className="w-full py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition font-medium text-sm"
-                >
-                  选择基础版
-                </button>
-              )}
+          {/* 专业版 */}
+          <div className={`p-5 rounded-xl border-2 transition ${
+            isSubscribed
+              ? 'border-blue-500 bg-blue-50'
+              : 'border-gray-200'
+          }`}>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="font-bold text-lg">{SUBSCRIPTION_PLANS.professional.name}</h3>
+              <span className="text-2xl font-bold">¥{SUBSCRIPTION_PLANS.professional.priceJpy}<span className="text-sm font-normal text-gray-500">/月</span></span>
             </div>
-
-            {/* 专业版 */}
-            <div className={`p-5 rounded-xl border-2 transition relative ${
-              guide?.subscription_plan === 'professional' || guide?.subscription_plan === 'monthly'
-                ? 'border-blue-500 bg-blue-50'
-                : 'border-gray-200 hover:border-gray-300'
-            }`}>
-              <div className="absolute -top-3 left-4 px-2 py-0.5 bg-blue-600 text-white text-xs font-medium rounded">
-                推荐
-              </div>
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="font-bold text-lg">{SUBSCRIPTION_PLANS.professional.name}</h3>
-                <span className="text-2xl font-bold">¥{SUBSCRIPTION_PLANS.professional.priceJpy}<span className="text-sm font-normal text-gray-500">/月</span></span>
-              </div>
-              <ul className="space-y-2 text-sm text-gray-600 mb-4">
-                {SUBSCRIPTION_PLANS.professional.features.map((feature, i) => (
-                  <li key={i} className="flex items-center gap-2">
-                    <Check size={14} className="text-green-500" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              {!isSubscribed && (
-                <button
-                  onClick={() => handleSubscribe('professional')}
-                  disabled={subscribing}
-                  className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                >
-                  {subscribing && <Loader2 size={16} className="animate-spin" />}
-                  {subscribing ? '处理中...' : '选择专业版'}
-                </button>
-              )}
-            </div>
+            <ul className="space-y-2 text-sm text-gray-600 mb-4">
+              {SUBSCRIPTION_PLANS.professional.features.map((feature, i) => (
+                <li key={i} className="flex items-center gap-2">
+                  <Check size={14} className="text-green-500" />
+                  {feature}
+                </li>
+              ))}
+            </ul>
+            {!isSubscribed && (
+              <button
+                onClick={() => handleSubscribe('professional')}
+                disabled={subscribing}
+                className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {subscribing && <Loader2 size={16} className="animate-spin" />}
+                {subscribing ? '处理中...' : '立即订阅'}
+              </button>
+            )}
           </div>
 
           {isSubscribed && (
@@ -870,11 +837,6 @@ export default function WhiteLabelSettingsPage() {
               <LayoutGrid size={20} />
               商城页面选择
             </h2>
-            {guide?.subscription_plan === 'basic' && (
-              <span className="px-2 py-1 bg-amber-100 text-amber-700 text-xs font-medium rounded">
-                基础版：最多 {getPlanPageLimit(guide.subscription_plan)} 个页面
-              </span>
-            )}
           </div>
           <p className="text-sm text-gray-500 mb-6">
             选择您想要在分销商城中展示的页面，客户将只能看到您选择的服务
@@ -942,13 +904,6 @@ export default function WhiteLabelSettingsPage() {
             </p>
           )}
 
-          {guide?.subscription_plan === 'basic' && formData.selectedPages.length >= getPlanPageLimit('basic') && (
-            <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-              <p className="text-sm text-blue-700">
-                升级到<strong>专业版</strong>可解锁全部页面和专属子域名
-              </p>
-            </div>
-          )}
         </div>
 
         {/* 联系方式 */}
