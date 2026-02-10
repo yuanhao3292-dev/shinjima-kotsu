@@ -39,6 +39,8 @@ export async function GET(request: NextRequest) {
     const supabase = getSupabaseAdmin();
 
     // 2. 获取导游白标设置
+    console.log("[whitelabel/settings] 查询导游信息, auth_user_id:", user.id, "email:", user.email);
+
     const { data: guide, error: guideError } = await supabase
       .from("guides")
       .select(
@@ -53,7 +55,17 @@ export async function GET(request: NextRequest) {
       .single();
 
     if (guideError || !guide) {
-      return NextResponse.json({ error: "导游信息不存在" }, { status: 404 });
+      console.log("[whitelabel/settings] 导游信息不存在, guideError:", guideError?.message);
+      // 返回更详细的错误信息以便调试
+      return NextResponse.json({
+        error: "导游信息不存在",
+        debug: {
+          authUserId: user.id,
+          userEmail: user.email,
+          errorCode: guideError?.code,
+          errorMessage: guideError?.message,
+        }
+      }, { status: 404 });
     }
 
     // 解析 selected_pages，如果为空则使用默认值
