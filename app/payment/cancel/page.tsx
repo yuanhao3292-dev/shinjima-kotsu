@@ -1,10 +1,65 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useEffect, useState, Suspense } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { isValidSlug } from '@/lib/whitelabel-config';
 
-export default function PaymentCancelPage() {
+function PaymentCancelContent() {
+  const searchParams = useSearchParams();
   const router = useRouter();
+  const orderId = searchParams.get('order_id');
+  // URL guide 仅作为兜底（DB 查询失败时），且必须通过格式校验
+  const guideSlugParam = (() => {
+    const raw = searchParams.get('guide');
+    if (raw && !isValidSlug(raw)) {
+      console.warn('[SECURITY] Invalid guide slug in cancel URL:', raw);
+      return null;
+    }
+    return raw;
+  })();
+
+  const [guideSlug, setGuideSlug] = useState<string | null>(null);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    // 如果有 order_id，从 DB 查询真实的导游归属（防篡改）
+    if (!orderId) {
+      // 无 order_id：降级使用校验过的 URL 参数
+      setGuideSlug(guideSlugParam);
+      setLoaded(true);
+      return;
+    }
+
+    async function fetchGuideSlug() {
+      try {
+        const response = await fetch(`/api/order-lookup?order_id=${encodeURIComponent(orderId)}`);
+        if (response.ok) {
+          const data = await response.json();
+          const dbGuideSlug = typeof data.guideSlug === 'string' ? data.guideSlug : null;
+          setGuideSlug(dbGuideSlug && isValidSlug(dbGuideSlug) ? dbGuideSlug : null);
+        } else {
+          // API 失败：Fail-Safe，降级使用校验过的 URL 参数
+          setGuideSlug(guideSlugParam);
+        }
+      } catch {
+        // 网络错误：降级使用校验过的 URL 参数
+        setGuideSlug(guideSlugParam);
+      } finally {
+        setLoaded(true);
+      }
+    }
+
+    fetchGuideSlug();
+  }, [orderId, guideSlugParam]);
+
+  // 根据导游归属生成返回链接
+  const backToPackagesHref = guideSlug
+    ? `/g/${guideSlug}/medical-packages`
+    : '/?page=medical';
+  const backToHomeHref = guideSlug
+    ? `/g/${guideSlug}`
+    : '/';
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-red-100 flex items-center justify-center px-4">
@@ -56,20 +111,32 @@ export default function PaymentCancelPage() {
           </button>
 
           <Link
-            href="/?page=medical"
-            className="block w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
+            href={backToPackagesHref}
+            className={`block w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 ${!loaded ? 'opacity-50 pointer-events-none' : ''}`}
           >
             返回精密體檢
           </Link>
 
           <Link
-            href="/"
-            className="block w-full text-gray-600 hover:text-gray-800 font-semibold py-3 px-6 transition-colors duration-200"
+            href={backToHomeHref}
+            className={`block w-full text-gray-600 hover:text-gray-800 font-semibold py-3 px-6 transition-colors duration-200 ${!loaded ? 'opacity-50 pointer-events-none' : ''}`}
           >
-            返回首页
+            {guideSlug ? '返回導遊主頁' : '返回首页'}
           </Link>
         </div>
       </div>
     </div>
+  );
+}
+
+export default function PaymentCancelPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-xl">載入中...</div>
+      </div>
+    }>
+      <PaymentCancelContent />
+    </Suspense>
   );
 }

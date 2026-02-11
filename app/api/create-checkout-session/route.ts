@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 import { WHITELABEL_COOKIE_NAME } from '@/lib/types/whitelabel';
+import { isValidSlug } from '@/lib/whitelabel-config';
 import { validateBody } from '@/lib/validations/validate';
 import { CreateCheckoutSessionSchema } from '@/lib/validations/api-schemas';
 import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
@@ -46,10 +47,13 @@ export async function POST(request: NextRequest) {
     // 使用 Zod 验证输入
     const validation = await validateBody(request, CreateCheckoutSessionSchema);
     if (!validation.success) return validation.error;
-    const { packageSlug, customerInfo, preferredDate, preferredTime, notes } = validation.data;
+    const { packageSlug, customerInfo, preferredDate, preferredTime, notes, guideSlug: bodyGuideSlug, provider } = validation.data;
 
-    // 获取白标导游归属（从 Cookie）
-    let guideSlug = request.cookies.get(WHITELABEL_COOKIE_NAME)?.value || null;
+    // 获取白标导游归属（优先 body 显式传入，fallback Cookie）
+    // body 优先：防止跨浏览器/跨设备场景下 Cookie 丢失
+    // Cookie 值也需要通过 isValidSlug 校验（与 Zod schema 规则保持一致）
+    const cookieGuideSlug = request.cookies.get(WHITELABEL_COOKIE_NAME)?.value || null;
+    let guideSlug = bodyGuideSlug || (cookieGuideSlug && isValidSlug(cookieGuideSlug) ? cookieGuideSlug : null);
     let guideId: string | null = null;
     let guideCommissionRate: number | null = null;
 
@@ -208,6 +212,16 @@ export async function POST(request: NextRequest) {
       sessionMetadata.commission_rate = String(guideCommissionRate);
     }
 
+    // 如果有来源提供方，记录到 metadata（用于后台按机构统计转化）
+    if (provider) {
+      sessionMetadata.provider = provider;
+    }
+
+    // 构建 success/cancel URL（如有导游归属则带上 guide 参数）
+    const guideParam = guideSlug ? `&guide=${encodeURIComponent(guideSlug)}` : '';
+    const successUrl = `${request.nextUrl.origin}/payment/success?session_id={CHECKOUT_SESSION_ID}${guideParam}`;
+    const cancelUrl = `${request.nextUrl.origin}/payment/cancel?order_id=${order.id}${guideParam}`;
+
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       payment_method_types: ['card'],
@@ -220,8 +234,8 @@ export async function POST(request: NextRequest) {
       // email 现在是可选的，如果没有填写则让 Stripe checkout 页面收集
       ...(customerInfo.email && { customer_email: customerInfo.email }),
       metadata: sessionMetadata,
-      success_url: `${request.nextUrl.origin}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${request.nextUrl.origin}/payment/cancel?order_id=${order.id}`,
+      success_url: successUrl,
+      cancel_url: cancelUrl,
     });
 
     // 5. 更新订单的 checkout_session_id

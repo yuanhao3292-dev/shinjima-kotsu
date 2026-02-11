@@ -73,6 +73,10 @@ export const CreateCheckoutSessionSchema = z.object({
   preferredDate: DateSchema.optional().nullable(),
   preferredTime: TimeSchema.nullable(),
   notes: z.string().max(1000, '备注最多1000个字符').optional().nullable(),
+  // 分销归因：从 URL 显式传入，优先于 Cookie（防跨浏览器/设备丢失）
+  guideSlug: z.string().min(3).max(50).regex(/^[a-z0-9-]+$/).optional().nullable(),
+  // 来源提供方：标识用户从哪个医院/机构页面跳转过来
+  provider: z.string().max(50).regex(/^[a-z0-9_]+$/).optional().nullable(),
 });
 
 // ==================== Withdrawal ====================

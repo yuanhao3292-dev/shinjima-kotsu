@@ -53,25 +53,53 @@ const isValidEmail = (email: string): boolean => {
   return emailRegex.test(email);
 };
 
-// GET: 通过 session_id 查询订单 ID
+// GET: 通过 session_id 或 order_id 查询订单归属信息
 export async function GET(request: NextRequest) {
   try {
+    // GET 端点也需要速率限制（防枚举）
+    const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+      || request.headers.get('x-real-ip')
+      || 'unknown';
+    if (!checkRateLimit(`${clientIp}:order-lookup-get`)) {
+      return NextResponse.json(
+        { error: '請求過於頻繁，請稍後再試' },
+        { status: 429 }
+      );
+    }
+
     const supabase = getSupabase();
     const sessionId = request.nextUrl.searchParams.get('session_id');
+    const orderId = request.nextUrl.searchParams.get('order_id');
 
-    if (!sessionId) {
+    if (!sessionId && !orderId) {
       return NextResponse.json(
-        { error: '缺少 session_id 参数' },
+        { error: '缺少 session_id 或 order_id 参数' },
         { status: 400 }
       );
     }
 
-    // 通过 checkout_session_id 查询订单
-    const { data: order, error } = await supabase
+    // 参数格式预校验：不符合直接 400，不进 DB（减少 DB 压力 + 降低枚举价值）
+    // Stripe session ID 格式: cs_test_xxx 或 cs_live_xxx（至少 20 字符）
+    // Order ID 格式: UUID（36 字符含连字符）
+    if (sessionId && (sessionId.length < 20 || !sessionId.startsWith('cs_'))) {
+      return NextResponse.json({ error: '无效的 session_id 格式' }, { status: 400 });
+    }
+    if (orderId && !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(orderId)) {
+      return NextResponse.json({ error: '无效的 order_id 格式' }, { status: 400 });
+    }
+
+    // 构建查询：支持 session_id 或 order_id
+    let query = supabase
       .from('orders')
-      .select('id')
-      .eq('checkout_session_id', sessionId)
-      .single();
+      .select('id, referred_by_guide_slug');
+
+    if (sessionId) {
+      query = query.eq('checkout_session_id', sessionId);
+    } else {
+      query = query.eq('id', orderId!);
+    }
+
+    const { data: order, error } = await query.single();
 
     if (error || !order) {
       return NextResponse.json(
@@ -80,9 +108,11 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({
-      orderId: order.id,
-    });
+    // Cache-Control: no-store 防止共享设备/代理缓存导游归属信息
+    return NextResponse.json(
+      { orderId: order.id, guideSlug: order.referred_by_guide_slug || null },
+      { headers: { 'Cache-Control': 'no-store' } }
+    );
 
   } catch (error: unknown) {
     console.error('Order lookup by session error:', error);

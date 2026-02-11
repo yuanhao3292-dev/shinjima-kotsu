@@ -3,40 +3,62 @@
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { isValidSlug } from '@/lib/whitelabel-config';
 
 function PaymentSuccessContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const sessionId = searchParams.get('session_id');
+  // URL guide 仅用于无 session_id 时的重定向兜底，且必须通过格式校验
+  const guideSlugParam = (() => {
+    const raw = searchParams.get('guide');
+    if (raw && !isValidSlug(raw)) {
+      console.warn('[SECURITY] Invalid guide slug in success URL:', raw);
+      return null;
+    }
+    return raw;
+  })();
 
   const [loading, setLoading] = useState(true);
   const [orderId, setOrderId] = useState<string | null>(null);
+  // 初始化为 null，不信任 URL 参数
+  // 只有 API 返回的订单数据才能设置此值（防篡改）
+  const [guideSlug, setGuideSlug] = useState<string | null>(null);
 
   useEffect(() => {
     if (!sessionId) {
-      router.push('/?page=medical');
+      // 无 session_id 时，使用校验过的 URL 参数做兜底重定向
+      router.push(guideSlugParam ? `/g/${guideSlugParam}` : '/?page=medical');
       return;
     }
 
-    // 取得訂單 ID
     async function fetchOrderId() {
       try {
-        const response = await fetch(`/api/order-lookup?session_id=${sessionId}`);
+        const response = await fetch(`/api/order-lookup?session_id=${encodeURIComponent(sessionId)}`);
         if (response.ok) {
           const data = await response.json();
           if (data.orderId) {
             setOrderId(data.orderId);
           }
+          // 订单数据优先于 URL 参数（防篡改）
+          // 同时校验 DB 返回值的格式
+          const dbGuideSlug = typeof data.guideSlug === 'string' ? data.guideSlug : null;
+          setGuideSlug(dbGuideSlug && isValidSlug(dbGuideSlug) ? dbGuideSlug : null);
+        } else {
+          // API 返回非 200：Fail-Safe，不回退到 URL 参数
+          setGuideSlug(null);
         }
       } catch (error) {
         console.error('取得訂單資訊失敗:', error);
+        // 网络错误/超时：Fail-Safe，不回退到 URL 参数
+        setGuideSlug(null);
       } finally {
         setLoading(false);
       }
     }
 
     fetchOrderId();
-  }, [sessionId, router]);
+  }, [sessionId, router, guideSlugParam]);
 
   if (loading) {
     return (
@@ -46,12 +68,20 @@ function PaymentSuccessContent() {
     );
   }
 
-  // 顯示訂單編號：優先使用資料庫訂單ID，否則使用session ID
+  // 顯示訂單編號
   const displayOrderId = orderId
     ? `#${orderId.slice(-8).toUpperCase()}`
     : sessionId
       ? `#${sessionId.slice(-8).toUpperCase()}`
       : '';
+
+  // 根据订单中的导游归属生成返回链接
+  const backToPackagesHref = guideSlug
+    ? `/g/${guideSlug}/medical-packages`
+    : '/?page=medical';
+  const backToHomeHref = guideSlug
+    ? `/g/${guideSlug}`
+    : '/';
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-100 flex items-center justify-center px-4">
@@ -106,17 +136,17 @@ function PaymentSuccessContent() {
         {/* 操作按鈕 */}
         <div className="space-y-3">
           <Link
-            href="/?page=medical"
+            href={backToPackagesHref}
             className="block w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
           >
             返回套餐列表
           </Link>
 
           <Link
-            href="/"
+            href={backToHomeHref}
             className="block w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
           >
-            返回首頁
+            {guideSlug ? '返回導遊主頁' : '返回首頁'}
           </Link>
         </div>
       </div>
