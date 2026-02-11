@@ -5,8 +5,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Logo from '@/components/Logo';
 import { createClient } from '@/lib/supabase/client';
-import { STOREFRONT_PAGES, DEFAULT_SELECTED_PAGES } from '@/lib/whitelabel-pages';
-import { SUBSCRIPTION_PLANS, getPlanPageLimit, isWithinPlanLimit } from '@/lib/whitelabel-config';
+import { DEFAULT_SELECTED_PAGES } from '@/lib/whitelabel-pages';
+import { SUBSCRIPTION_PLANS } from '@/lib/whitelabel-config';
 import {
   ArrowLeft,
   Globe,
@@ -27,7 +27,6 @@ import {
   ChevronRight,
   Car,
   User,
-  LayoutGrid,
 } from 'lucide-react';
 
 interface GuideWhiteLabelData {
@@ -828,82 +827,6 @@ export default function WhiteLabelSettingsPage() {
               </div>
             </div>
           </div>
-        </div>
-
-        {/* 商城页面选择 */}
-        <div className={`bg-white rounded-xl border p-6 ${!isSubscribed ? 'opacity-50 pointer-events-none' : ''}`}>
-          <div className="flex items-start justify-between mb-2">
-            <h2 className="text-lg font-bold flex items-center gap-2">
-              <LayoutGrid size={20} />
-              商城页面选择
-            </h2>
-          </div>
-          <p className="text-sm text-gray-500 mb-6">
-            选择您想要在分销商城中展示的页面，客户将只能看到您选择的服务
-          </p>
-
-          <div className="space-y-3">
-            {STOREFRONT_PAGES.map((page) => {
-              const isSelected = formData.selectedPages.includes(page.id);
-              const pageLimit = getPlanPageLimit(guide?.subscription_plan || null);
-              const isAtLimit = pageLimit > 0 && formData.selectedPages.length >= pageLimit && !isSelected;
-
-              return (
-                <label
-                  key={page.id}
-                  className={`flex items-center justify-between p-4 rounded-lg border transition ${
-                    isAtLimit
-                      ? 'border-gray-200 bg-gray-50 cursor-not-allowed opacity-60'
-                      : isSelected
-                        ? 'border-blue-300 bg-blue-50 cursor-pointer'
-                        : 'border-gray-200 hover:border-gray-300 cursor-pointer'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">{page.icon}</span>
-                    <div>
-                      <div className="font-medium text-gray-900">{page.name}</div>
-                      <div className="text-sm text-gray-500">{page.description}</div>
-                    </div>
-                  </div>
-                  <div className="relative">
-                    <input
-                      type="checkbox"
-                      checked={isSelected}
-                      disabled={isAtLimit}
-                      onChange={(e) => {
-                        if (isAtLimit && e.target.checked) return;
-                        const newSelected = e.target.checked
-                          ? [...formData.selectedPages, page.id]
-                          : formData.selectedPages.filter((id) => id !== page.id);
-                        setFormData({ ...formData, selectedPages: newSelected });
-                      }}
-                      className="sr-only"
-                    />
-                    <div
-                      className={`w-11 h-6 rounded-full transition ${
-                        isSelected ? 'bg-blue-600' : 'bg-gray-300'
-                      }`}
-                    >
-                      <div
-                        className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${
-                          isSelected ? 'translate-x-5' : 'translate-x-0'
-                        }`}
-                      />
-                    </div>
-                  </div>
-                </label>
-              );
-            })}
-          </div>
-
-          {formData.selectedPages.length === 0 && (
-            <p className="mt-4 text-sm text-amber-600 flex items-center gap-2">
-              <AlertCircle size={16} />
-              请至少选择一个页面
-            </p>
-          )}
-
         </div>
 
         {/* 联系方式 */}
