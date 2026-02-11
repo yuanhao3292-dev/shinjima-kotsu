@@ -32,28 +32,7 @@ export async function getGuideBySlug(
 
   const { data, error } = await supabase
     .from("guides")
-    .select(
-      `
-      id,
-      slug,
-      name,
-      brand_name,
-      brand_logo_url,
-      brand_color,
-      contact_wechat,
-      contact_line,
-      contact_display_phone,
-      email,
-      subscription_status,
-      subscription_plan,
-      subscription_tier,
-      subscription_end_date,
-      whitelabel_views,
-      whitelabel_conversions,
-      commission_tier_code,
-      selected_pages
-    `
-    )
+    .select("*")
     .eq("slug", slug)
     .eq("status", "approved")
     .single();
@@ -112,30 +91,10 @@ export async function getGuideById(
 ): Promise<GuideWhiteLabelConfig | null> {
   const supabase = getServiceClient();
 
+  // 使用 select("*") 获取所有字段
   const { data, error } = await supabase
     .from("guides")
-    .select(
-      `
-      id,
-      slug,
-      name,
-      brand_name,
-      brand_logo_url,
-      brand_color,
-      contact_wechat,
-      contact_line,
-      contact_display_phone,
-      email,
-      subscription_status,
-      subscription_plan,
-      subscription_tier,
-      subscription_end_date,
-      whitelabel_views,
-      whitelabel_conversions,
-      commission_tier_code,
-      selected_pages
-    `
-    )
+    .select("*")
     .eq("id", guideId)
     .single();
 
@@ -265,7 +224,7 @@ export async function getGuideDistributionPage(
     .single();
 
   // 3. 获取导游选择的模块（带模块详情）
-  const { data: selectedModulesData } = await supabase
+  const { data: selectedModulesData, error: modulesError } = await supabase
     .from("guide_selected_modules")
     .select(`
       id,
@@ -286,6 +245,7 @@ export async function getGuideDistributionPage(
         sort_order,
         is_active,
         component_key,
+        display_config,
         created_at,
         updated_at
       )
@@ -295,7 +255,7 @@ export async function getGuideDistributionPage(
     .order("sort_order", { ascending: true });
 
   // 4. 获取导游选择的车辆（带车辆详情）
-  const { data: selectedVehiclesData } = await supabase
+  const { data: selectedVehiclesData, error: vehiclesError } = await supabase
     .from("guide_selected_vehicles")
     .select(`
       id,
@@ -347,6 +307,7 @@ export async function getGuideDistributionPage(
           sortOrder: mod.sort_order,
           isActive: mod.is_active,
           componentKey: mod.component_key,
+          displayConfig: mod.display_config || null,
           createdAt: mod.created_at,
           updatedAt: mod.updated_at,
         },
@@ -390,6 +351,29 @@ export async function getGuideDistributionPage(
     },
     selectedModules,
     selectedVehicles,
+  };
+}
+
+/**
+ * 根据导游 slug 和模块 component_key 获取模块详情
+ * 用于 /g/[slug]/[moduleSlug] 子路由
+ */
+export async function getGuideModuleByComponentKey(
+  guideSlug: string,
+  componentKey: string
+): Promise<{ guide: GuideWhiteLabelConfig; module: SelectedModuleWithDetails } | null> {
+  const pageData = await getGuideDistributionPage(guideSlug);
+  if (!pageData) return null;
+
+  const matchingModule = pageData.selectedModules.find(
+    (m) => m.module.componentKey === componentKey
+  );
+
+  if (!matchingModule) return null;
+
+  return {
+    guide: pageData.guide,
+    module: matchingModule,
   };
 }
 

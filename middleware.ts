@@ -64,7 +64,17 @@ export async function middleware(request: NextRequest) {
     return response;
   }
 
-  // 4. 处理 /p/[slug] 路由 - 重定向到子域名
+  // 4. 处理 /g/[slug] 路由 - 设置导游 Cookie（分销页面及子页面）
+  if (pathname.startsWith('/g/')) {
+    const slug = pathname.split('/')[2];
+    if (slug && isValidSlug(slug)) {
+      const response = await updateSession(request);
+      response.cookies.set(WHITELABEL_COOKIE_NAME, slug, COOKIE_OPTIONS);
+      return response;
+    }
+  }
+
+  // 5. 处理 /p/[slug] 路由 - 重定向到子域名
   if (pathname.startsWith('/p/')) {
     const slug = pathname.split('/')[2];
 
@@ -90,13 +100,13 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // 5. 白标主域名（无子域名）- 仍然隐藏导游合伙人页面
+  // 6. 白标主域名（无子域名）- 仍然隐藏导游合伙人页面
   if (isWhiteLabelDomain && pathname.startsWith('/guide-partner')) {
     const url = new URL('/', request.url);
     return NextResponse.redirect(url);
   }
 
-  // 6. 添加白标模式标识到请求头
+  // 7. 添加白标模式标识到请求头
   const response = await updateSession(request);
 
   if (isWhiteLabelDomain) {

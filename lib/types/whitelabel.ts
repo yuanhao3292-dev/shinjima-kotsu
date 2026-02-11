@@ -135,7 +135,8 @@ export interface PageModule {
   isRequired: boolean;
   sortOrder: number;
   isActive: boolean;
-  componentKey: string | null; // 映射到 whitelabel-modules/registry.ts 中的组件
+  componentKey: string | null;
+  displayConfig: import('@/lib/types/display-config').ModuleDisplayConfig | null;
   createdAt: string;
   updatedAt: string;
 }
