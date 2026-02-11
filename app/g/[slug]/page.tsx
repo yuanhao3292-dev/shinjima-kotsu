@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import WhitelabelContactSection from '@/components/whitelabel-modules/WhitelabelContactSection';
 import MedicalPackagesModule from '@/components/whitelabel-modules/MedicalPackagesModule';
+import HyogoMedicalContent from '@/app/hyogo-medical/HyogoMedicalContent';
 import ImmersiveSection from '@/components/distribution/ImmersiveSection';
 import DistributionNav from '@/components/distribution/DistributionNav';
 import type { ImmersiveDisplayConfig } from '@/lib/types/display-config';
@@ -99,6 +100,19 @@ export default async function GuideDistributionPage({ params }: PageProps) {
               moduleId="medical-packages-inline"
               moduleName="TIMC 体检套餐"
               showContact={false}
+            />
+          )}
+          {/* hyogo_medical: ImmersiveSection 后面紧跟完整兵庫医大页面 */}
+          {componentKey === 'hyogo_medical' && (
+            <HyogoMedicalContent
+              whitelabel={{
+                brandName,
+                brandColor,
+                contactInfo,
+                moduleId: 'hyogo-medical-inline',
+                moduleName: '兵庫医科大学病院',
+                showContact: false,
+              }}
             />
           )}
         </div>
