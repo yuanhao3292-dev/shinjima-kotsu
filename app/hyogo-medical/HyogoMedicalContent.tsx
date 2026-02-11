@@ -568,7 +568,7 @@ const CONSULTATION_SERVICES = [
     gradient: 'from-blue-600 to-indigo-700',
     hoverGradient: 'hover:from-blue-700 hover:to-indigo-800',
     checkColor: 'text-blue-500',
-    href: '/cancer-treatment/initial-consultation',
+    href: '/cancer-treatment/initial-consultation?provider=hyogo_medical',
   },
   {
     slug: MEDICAL_PACKAGES['cancer-remote-consultation'].slug,
@@ -595,7 +595,7 @@ const CONSULTATION_SERVICES = [
     gradient: 'from-purple-600 to-pink-700',
     hoverGradient: 'hover:from-purple-700 hover:to-pink-800',
     checkColor: 'text-purple-500',
-    href: '/cancer-treatment/remote-consultation',
+    href: '/cancer-treatment/remote-consultation?provider=hyogo_medical',
   },
 ];
 
@@ -1380,7 +1380,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
                     </div>
                   ))}
                 </div>
-                <Link href={`/medical-packages/${pkg.slug}`} className={`w-full py-2 text-xs font-bold rounded transition text-center block ${pkg.buttonClass}`}>
+                <Link href={`/medical-packages/${pkg.slug}?provider=hyogo_medical`} className={`w-full py-2 text-xs font-bold rounded transition text-center block ${pkg.buttonClass}`}>
                   {bookingT.pkgDetailBtn[lang]}
                 </Link>
               </div>
