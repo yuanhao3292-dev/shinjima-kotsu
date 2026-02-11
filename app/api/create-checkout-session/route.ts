@@ -251,6 +251,8 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error: unknown) {
+    // 详细日志：记录原始错误以便诊断 Stripe / Supabase 问题
+    console.error('[create-checkout-session] Raw error:', JSON.stringify(error, Object.getOwnPropertyNames(error as object), 2));
     const apiError = normalizeError(error);
     logError(apiError, { path: '/api/create-checkout-session', method: 'POST' });
     return createErrorResponse(apiError);
