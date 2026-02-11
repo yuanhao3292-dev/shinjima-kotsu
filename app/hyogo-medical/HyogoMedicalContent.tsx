@@ -1220,7 +1220,6 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
       {/* ========================================
           13. 咨询服务预约（Stripe 支付）
           ======================================== */}
-      {!isWhitelabel && (
       <section id="contact-form" className="py-24 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
@@ -1289,7 +1288,6 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
           </div>
         </div>
       </section>
-      )}
 
       {/* ========================================
           15. Contact Methods (非白标模式)
