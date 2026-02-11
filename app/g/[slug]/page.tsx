@@ -87,10 +87,13 @@ export default async function GuideDistributionPage({ params }: PageProps) {
       {/* ======== 数据驱动：动态渲染所有沉浸式板块 ======== */}
       {immersiveModules.map(({ config: dc, componentKey }) => (
         <div key={dc.sectionId}>
-          <ImmersiveSection
-            config={dc}
-            ctaHref={DETAIL_MODULES.has(componentKey) ? `/g/${slug}/${componentKey.replace(/_/g, '-')}` : undefined}
-          />
+          {/* hyogo_medical 自带完整 hero，跳过 ImmersiveSection */}
+          {componentKey !== 'hyogo_medical' && (
+            <ImmersiveSection
+              config={dc}
+              ctaHref={DETAIL_MODULES.has(componentKey) ? `/g/${slug}/${componentKey.replace(/_/g, '-')}` : undefined}
+            />
+          )}
           {/* medical_packages: ImmersiveSection 后面紧跟完整套餐卡片 */}
           {componentKey === 'medical_packages' && (
             <MedicalPackagesModule
@@ -102,7 +105,7 @@ export default async function GuideDistributionPage({ params }: PageProps) {
               showContact={false}
             />
           )}
-          {/* hyogo_medical: ImmersiveSection 后面紧跟完整兵庫医大页面 */}
+          {/* hyogo_medical: 直接渲染完整兵庫医大页面（含自带 hero） */}
           {componentKey === 'hyogo_medical' && (
             <HyogoMedicalContent
               whitelabel={{
