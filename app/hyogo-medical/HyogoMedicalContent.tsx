@@ -618,10 +618,10 @@ const PHASE_COLORS: Record<string, { bg: string; light: string; border: string; 
   green: { bg: 'bg-green-600', light: 'bg-green-50', border: 'border-green-600', text: 'text-green-600' },
 };
 
-// 咨询服务（复用现有 medical packages）
+// 咨询服务（使用兵庫医大专属 packages）
 const CONSULTATION_SERVICES = [
   {
-    slug: MEDICAL_PACKAGES['cancer-initial-consultation'].slug,
+    slug: MEDICAL_PACKAGES['hyogo-initial-consultation'].slug,
     name: {
       ja: '前期相談サービス',
       'zh-TW': '前期諮詢服務',
@@ -629,7 +629,7 @@ const CONSULTATION_SERVICES = [
       en: 'Initial Consultation',
     } as Record<Language, string>,
     nameEn: 'Initial Consultation Service',
-    price: MEDICAL_PACKAGES['cancer-initial-consultation'].priceJpy,
+    price: MEDICAL_PACKAGES['hyogo-initial-consultation'].priceJpy,
     desc: {
       ja: '診療情報を翻訳し、兵庫医大病院への初期相談を実施。治療可能性評価レポートと費用概算をご提供します。',
       'zh-TW': '翻譯診療資料，與兵庫醫大進行初步諮詢。提供治療可行性評估報告與費用概算。',
@@ -645,10 +645,10 @@ const CONSULTATION_SERVICES = [
     gradient: 'from-blue-600 to-indigo-700',
     hoverGradient: 'hover:from-blue-700 hover:to-indigo-800',
     checkColor: 'text-blue-500',
-    href: '/cancer-treatment/initial-consultation?provider=hyogo_medical',
+    href: '/hyogo-medical/initial-consultation',
   },
   {
-    slug: MEDICAL_PACKAGES['cancer-remote-consultation'].slug,
+    slug: MEDICAL_PACKAGES['hyogo-remote-consultation'].slug,
     name: {
       ja: '遠隔会診サービス',
       'zh-TW': '遠程會診服務',
@@ -656,7 +656,7 @@ const CONSULTATION_SERVICES = [
       en: 'Remote Consultation',
     } as Record<Language, string>,
     nameEn: 'Remote Consultation Service',
-    price: MEDICAL_PACKAGES['cancer-remote-consultation'].priceJpy,
+    price: MEDICAL_PACKAGES['hyogo-remote-consultation'].priceJpy,
     desc: {
       ja: '兵庫医大の専門医とビデオ診察。治療方針の相談、治療計画の提供、治療費概算の提示。',
       'zh-TW': '與兵庫醫大專科醫生視頻會診。討論治療方案、提供治療計劃、提示治療費概算。',
@@ -672,7 +672,7 @@ const CONSULTATION_SERVICES = [
     gradient: 'from-purple-600 to-pink-700',
     hoverGradient: 'hover:from-purple-700 hover:to-pink-800',
     checkColor: 'text-purple-500',
-    href: '/cancer-treatment/remote-consultation?provider=hyogo_medical',
+    href: '/hyogo-medical/remote-consultation',
   },
 ];
 

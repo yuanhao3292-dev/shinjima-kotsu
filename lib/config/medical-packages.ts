@@ -45,6 +45,28 @@ export const MEDICAL_PACKAGES: Record<string, MedicalPackageConfig> = {
     sortOrder: 101,
   },
 
+  // ─── 兵庫医大 咨询服务 ───
+  'hyogo-initial-consultation': {
+    slug: 'hyogo-initial-consultation',
+    nameZhTw: '兵庫醫大 - 前期諮詢服務',
+    nameJa: '兵庫医大 - 初期相談サービス',
+    nameEn: 'Hyogo Medical - Initial Consultation',
+    descriptionZhTw: '資料翻譯、兵庫醫大諮詢、治療方案初步評估',
+    priceJpy: 221000,
+    category: 'cancer_treatment',
+    sortOrder: 110,
+  },
+  'hyogo-remote-consultation': {
+    slug: 'hyogo-remote-consultation',
+    nameZhTw: '兵庫醫大 - 遠程會診服務',
+    nameJa: '兵庫医大 - 遠隔診療サービス',
+    nameEn: 'Hyogo Medical - Remote Consultation',
+    descriptionZhTw: '與兵庫醫大專科醫生遠程視頻會診、討論治療方案、費用概算',
+    priceJpy: 243000,
+    category: 'cancer_treatment',
+    sortOrder: 111,
+  },
+
   // ─── TIMC 健康体检套餐 ───
   'vip-member-course': {
     slug: 'vip-member-course',
