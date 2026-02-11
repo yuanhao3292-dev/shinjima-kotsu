@@ -94,7 +94,7 @@ const CONSULTATION_SERVICES = {
     name: {
       ja: MEDICAL_PACKAGES['cancer-initial-consultation'].nameJa,
       'zh-TW': MEDICAL_PACKAGES['cancer-initial-consultation'].nameZhTw,
-      'zh-CN': MEDICAL_PACKAGES['cancer-initial-consultation'].nameZhTw,
+      'zh-CN': '癌症治疗 - 前期咨询服务',
       en: MEDICAL_PACKAGES['cancer-initial-consultation'].nameEn
     } as Record<Language, string>,
     nameEn: MEDICAL_PACKAGES['cancer-initial-consultation'].nameEn,
@@ -102,7 +102,7 @@ const CONSULTATION_SERVICES = {
     description: {
       ja: '資料翻訳・病院相談・治療プラン初期評価',
       'zh-TW': MEDICAL_PACKAGES['cancer-initial-consultation'].descriptionZhTw,
-      'zh-CN': MEDICAL_PACKAGES['cancer-initial-consultation'].descriptionZhTw,
+      'zh-CN': '资料翻译、医院咨询、治疗方案初步评估',
       en: 'Document translation, hospital consultation, initial treatment assessment'
     } as Record<Language, string>,
   },
@@ -112,7 +112,7 @@ const CONSULTATION_SERVICES = {
     name: {
       ja: MEDICAL_PACKAGES['cancer-remote-consultation'].nameJa,
       'zh-TW': MEDICAL_PACKAGES['cancer-remote-consultation'].nameZhTw,
-      'zh-CN': MEDICAL_PACKAGES['cancer-remote-consultation'].nameZhTw,
+      'zh-CN': '癌症治疗 - 远程会诊服务',
       en: MEDICAL_PACKAGES['cancer-remote-consultation'].nameEn
     } as Record<Language, string>,
     nameEn: MEDICAL_PACKAGES['cancer-remote-consultation'].nameEn,
@@ -120,7 +120,7 @@ const CONSULTATION_SERVICES = {
     description: {
       ja: '日本の医師とのビデオ診察・治療方針相談・費用概算',
       'zh-TW': MEDICAL_PACKAGES['cancer-remote-consultation'].descriptionZhTw,
-      'zh-CN': MEDICAL_PACKAGES['cancer-remote-consultation'].descriptionZhTw,
+      'zh-CN': '与日本医生远程视频会诊、讨论治疗方案、费用概算',
       en: 'Video consultation with Japanese doctors, treatment planning, cost estimation'
     } as Record<Language, string>,
   },
