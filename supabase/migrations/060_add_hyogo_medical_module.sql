@@ -72,7 +72,17 @@ INSERT INTO page_modules (
   }'::jsonb
 )
 ON CONFLICT (slug) DO UPDATE SET
-  display_config = EXCLUDED.display_config,
+  name = EXCLUDED.name,
+  name_ja = EXCLUDED.name_ja,
+  name_en = EXCLUDED.name_en,
+  category = EXCLUDED.category,
   description = EXCLUDED.description,
   description_ja = EXCLUDED.description_ja,
+  commission_rate = EXCLUDED.commission_rate,
+  tags = EXCLUDED.tags,
+  is_active = EXCLUDED.is_active,
+  component_key = EXCLUDED.component_key,
+  display_config = EXCLUDED.display_config,
+  page_content = EXCLUDED.page_content,
+  sort_order = EXCLUDED.sort_order,
   updated_at = now();
