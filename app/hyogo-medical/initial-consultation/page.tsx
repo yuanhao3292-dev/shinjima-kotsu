@@ -169,7 +169,7 @@ export default function HyogoInitialConsultationPage() {
           packageSlug: SERVICE_INFO.slug,
           customerInfo: {
             name: customerInfo.name,
-            email: customerInfo.email || `${customerInfo.name.replace(/\s/g, '')}@placeholder.niijima.jp`,
+            email: customerInfo.email || '',
             phone: customerInfo.phone,
             line: customerInfo.line,
             wechat: customerInfo.wechat,
