@@ -14,9 +14,13 @@ import {
   HeartHandshake,
 } from 'lucide-react';
 import WhitelabelContactSection from '@/components/whitelabel-modules/WhitelabelContactSection';
+import MedicalPackagesModule from '@/components/whitelabel-modules/MedicalPackagesModule';
 import ImmersiveSection from '@/components/distribution/ImmersiveSection';
 import DistributionNav from '@/components/distribution/DistributionNav';
 import type { ImmersiveDisplayConfig } from '@/lib/types/display-config';
+
+/** 有内联内容的模块 — ImmersiveSection 后面紧跟完整内容 */
+const INLINE_MODULES = new Set(['medical_packages']);
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -276,11 +280,23 @@ export default async function GuideDistributionPage({ params }: PageProps) {
 
       {/* ======== 数据驱动：动态渲染所有沉浸式板块 ======== */}
       {immersiveModules.map(({ config: dc, componentKey }) => (
-        <ImmersiveSection
-          key={dc.sectionId}
-          config={dc}
-          ctaHref={DETAIL_MODULES.has(componentKey) ? `/g/${slug}/${componentKey.replace(/_/g, '-')}` : undefined}
-        />
+        <div key={dc.sectionId}>
+          <ImmersiveSection
+            config={dc}
+            ctaHref={DETAIL_MODULES.has(componentKey) ? `/g/${slug}/${componentKey.replace(/_/g, '-')}` : undefined}
+          />
+          {/* medical_packages: ImmersiveSection 后面紧跟完整套餐卡片 */}
+          {componentKey === 'medical_packages' && (
+            <MedicalPackagesModule
+              brandColor={brandColor}
+              brandName={brandName}
+              contactInfo={contactInfo}
+              moduleId="medical-packages-inline"
+              moduleName="TIMC 体检套餐"
+              showContact={false}
+            />
+          )}
+        </div>
       ))}
 
       {/* ========= 车辆介绍 ========= */}
