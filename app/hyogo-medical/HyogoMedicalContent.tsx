@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
+import Link from 'next/link';
 import {
   Building, MapPin, Phone, Clock, Train,
   Award, Stethoscope, Activity, Users, Shield,
@@ -8,9 +9,11 @@ import {
   Syringe, Microscope, Sparkles, CheckCircle,
   ExternalLink, FileText, Armchair, Flame,
   CircleDot, Zap, Bot, Cross, Gem, Star,
-  TrendingUp, Hospital, HeartPulse, Scan
+  TrendingUp, Hospital, HeartPulse, Scan,
+  ArrowRight, Globe, Mail, MessageSquare, CreditCard, Lock
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
+import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 import type { WhitelabelModuleProps } from '@/components/whitelabel-modules/types';
 import WhitelabelContactSection from '@/components/whitelabel-modules/WhitelabelContactSection';
 
@@ -477,12 +480,273 @@ const DEPARTMENTS = {
   ] as Record<Language, string>[],
 };
 
+// ======================================
+// 就诊流程 (4 phases)
+// ======================================
+const TREATMENT_PHASES = [
+  {
+    phase: 1, icon: FileText, color: 'blue',
+    title: { ja: '前期評価', 'zh-TW': '前期評估', 'zh-CN': '前期评估', en: 'Pre-Assessment' } as Record<Language, string>,
+    desc: {
+      ja: '診療情報の提出 → 資料翻訳（中→日）→ 兵庫医大病院への初期相談 → 治療可能性評価レポート',
+      'zh-TW': '提交診療資料 → 資料翻譯（中→日）→ 兵庫醫大初步諮詢 → 治療可行性評估報告',
+      'zh-CN': '提交诊疗资料 → 资料翻译（中→日）→ 兵库医大初步咨询 → 治疗可行性评估报告',
+      en: 'Submit records → Translation (CN→JP) → Initial consultation with Hyogo Medical → Feasibility report',
+    } as Record<Language, string>,
+    duration: { ja: '約1〜2週間', 'zh-TW': '約 1-2 週', 'zh-CN': '约 1-2 周', en: '~1-2 weeks' } as Record<Language, string>,
+    fee: '¥221,000',
+  },
+  {
+    phase: 2, icon: Globe, color: 'purple',
+    title: { ja: '遠隔会診', 'zh-TW': '遠程會診', 'zh-CN': '远程会诊', en: 'Remote Consultation' } as Record<Language, string>,
+    desc: {
+      ja: '兵庫医大専門医とのビデオ診察 → 治療方針の相談 → 治療計画・費用概算の提示 → 来日決定',
+      'zh-TW': '兵庫醫大專科醫生視頻會診 → 討論治療方案 → 治療計劃與費用概算 → 決定赴日',
+      'zh-CN': '兵库医大专科医生视频会诊 → 讨论治疗方案 → 治疗计划与费用概算 → 决定赴日',
+      en: 'Video consultation with specialist → Treatment planning → Cost estimate → Decision to visit',
+    } as Record<Language, string>,
+    duration: { ja: '約1〜2週間', 'zh-TW': '約 1-2 週', 'zh-CN': '约 1-2 周', en: '~1-2 weeks' } as Record<Language, string>,
+    fee: '¥243,000',
+  },
+  {
+    phase: 3, icon: Activity, color: 'amber',
+    title: { ja: '来日治療', 'zh-TW': '赴日治療', 'zh-CN': '赴日治疗', en: 'Treatment in Japan' } as Record<Language, string>,
+    desc: {
+      ja: '来日日程の確定 → 受診予約 → 専門医療通訳の手配 → 兵庫医大病院で治療開始',
+      'zh-TW': '確定赴日日期 → 預約就診 → 安排專業醫療翻譯 → 兵庫醫大病院開始治療',
+      'zh-CN': '确定赴日日期 → 预约就诊 → 安排专业医疗翻译 → 兵库医大病院开始治疗',
+      en: 'Confirm dates → Book appointment → Arrange interpreter → Treatment at Hyogo Medical',
+    } as Record<Language, string>,
+    duration: { ja: '症状により異なる', 'zh-TW': '依病情而定', 'zh-CN': '依病情而定', en: 'Varies by condition' } as Record<Language, string>,
+    fee: null,
+  },
+  {
+    phase: 4, icon: HeartPulse, color: 'green',
+    title: { ja: '治療完了・随訪', 'zh-TW': '治療完成與隨訪', 'zh-CN': '治疗完成与随访', en: 'Completion & Follow-up' } as Record<Language, string>,
+    desc: {
+      ja: '治療完了 → 費用精算 → 治療まとめの提供 → 帰国後の遠隔フォローアップ',
+      'zh-TW': '治療結束 → 費用結算 → 提供治療總結 → 歸國後遠程隨訪',
+      'zh-CN': '治疗结束 → 费用结算 → 提供治疗总结 → 归国后远程随访',
+      en: 'Treatment complete → Final settlement → Treatment summary → Remote follow-up',
+    } as Record<Language, string>,
+    duration: { ja: '継続的サポート', 'zh-TW': '持續支援', 'zh-CN': '持续支援', en: 'Ongoing support' } as Record<Language, string>,
+    fee: null,
+  },
+];
+
+const PHASE_COLORS: Record<string, { bg: string; light: string; border: string; text: string }> = {
+  blue: { bg: 'bg-blue-600', light: 'bg-blue-50', border: 'border-blue-600', text: 'text-blue-600' },
+  purple: { bg: 'bg-purple-600', light: 'bg-purple-50', border: 'border-purple-600', text: 'text-purple-600' },
+  amber: { bg: 'bg-amber-500', light: 'bg-amber-50', border: 'border-amber-500', text: 'text-amber-600' },
+  green: { bg: 'bg-green-600', light: 'bg-green-50', border: 'border-green-600', text: 'text-green-600' },
+};
+
+// 咨询服务（复用现有 medical packages）
+const CONSULTATION_SERVICES = [
+  {
+    slug: MEDICAL_PACKAGES['cancer-initial-consultation'].slug,
+    name: {
+      ja: '前期相談サービス',
+      'zh-TW': '前期諮詢服務',
+      'zh-CN': '前期咨询服务',
+      en: 'Initial Consultation',
+    } as Record<Language, string>,
+    nameEn: 'Initial Consultation Service',
+    price: MEDICAL_PACKAGES['cancer-initial-consultation'].priceJpy,
+    desc: {
+      ja: '診療情報を翻訳し、兵庫医大病院への初期相談を実施。治療可能性評価レポートと費用概算をご提供します。',
+      'zh-TW': '翻譯診療資料，與兵庫醫大進行初步諮詢。提供治療可行性評估報告與費用概算。',
+      'zh-CN': '翻译诊疗资料，与兵库医大进行初步咨询。提供治疗可行性评估报告与费用概算。',
+      en: 'Translate medical records, initial consultation with Hyogo Medical. Provides feasibility report and cost estimate.',
+    } as Record<Language, string>,
+    features: {
+      ja: ['診療情報の翻訳（中→日）', '兵庫医大病院への初期相談', '治療可能性評価レポート', '費用概算のご説明', '次のステップのご案内'],
+      'zh-TW': ['病歷資料翻譯（中→日）', '兵庫醫大初步諮詢', '治療可行性評估報告', '費用概算說明', '後續流程指導'],
+      'zh-CN': ['病历资料翻译（中→日）', '兵库医大初步咨询', '治疗可行性评估报告', '费用概算说明', '后续流程指导'],
+      en: ['Medical record translation (CN→JP)', 'Initial consultation with Hyogo Medical', 'Treatment feasibility report', 'Cost estimation', 'Next steps guidance'],
+    } as Record<Language, string[]>,
+    gradient: 'from-blue-600 to-indigo-700',
+    hoverGradient: 'hover:from-blue-700 hover:to-indigo-800',
+    checkColor: 'text-blue-500',
+    href: '/cancer-treatment/initial-consultation',
+  },
+  {
+    slug: MEDICAL_PACKAGES['cancer-remote-consultation'].slug,
+    name: {
+      ja: '遠隔会診サービス',
+      'zh-TW': '遠程會診服務',
+      'zh-CN': '远程会诊服务',
+      en: 'Remote Consultation',
+    } as Record<Language, string>,
+    nameEn: 'Remote Consultation Service',
+    price: MEDICAL_PACKAGES['cancer-remote-consultation'].priceJpy,
+    desc: {
+      ja: '兵庫医大の専門医とビデオ診察。治療方針の相談、治療計画の提供、治療費概算の提示。',
+      'zh-TW': '與兵庫醫大專科醫生視頻會診。討論治療方案、提供治療計劃、提示治療費概算。',
+      'zh-CN': '与兵库医大专科医生视频会诊。讨论治疗方案、提供治疗计划、提示治疗费概算。',
+      en: 'Video consultation with Hyogo Medical specialist. Treatment planning, cost estimation, and next steps.',
+    } as Record<Language, string>,
+    features: {
+      ja: ['兵庫医大専門医とのビデオ診察', '専門医療通訳が全行程同行', '詳細な治療計画のご説明', '治療費用の明細見積', '来日治療の最終判断サポート'],
+      'zh-TW': ['兵庫醫大專科醫生視頻會診', '專業醫療翻譯全程陪同', '詳細治療方案說明', '治療費用明細報價', '赴日治療最終判斷支援'],
+      'zh-CN': ['兵库医大专科医生视频会诊', '专业医疗翻译全程陪同', '详细治疗方案说明', '治疗费用明细报价', '赴日治疗最终判断支援'],
+      en: ['Video consultation with specialist', 'Professional medical interpreter', 'Detailed treatment plan', 'Itemized cost quotation', 'Decision support for visiting Japan'],
+    } as Record<Language, string[]>,
+    gradient: 'from-purple-600 to-pink-700',
+    hoverGradient: 'hover:from-purple-700 hover:to-pink-800',
+    checkColor: 'text-purple-500',
+    href: '/cancer-treatment/remote-consultation',
+  },
+];
+
+// TIMC 健诊套餐（6 款，链接到各自详情/支付页）
+const TIMC_PACKAGES = [
+  {
+    slug: 'vip-member-course',
+    name: { ja: 'VIP会員コース', 'zh-TW': 'VIP 會員套餐', 'zh-CN': 'VIP 会员套餐', en: 'VIP Member Course' } as Record<Language, string>,
+    nameEn: 'VIP Member Course',
+    price: 1512500,
+    badge: 'Flagship',
+    isVIP: true,
+    features: {
+      ja: ['全身PET-CT', '脳MRI/MRA', '上下部内視鏡', '心臓エコー', 'DWIBS', 'VIP専用ラウンジ'],
+      'zh-TW': ['全身PET-CT', '腦MRI/MRA', '上下消化道內視鏡', '心臟超聲波', 'DWIBS', 'VIP專屬休息室'],
+      'zh-CN': ['全身PET-CT', '脑MRI/MRA', '上下消化道内镜', '心脏超声波', 'DWIBS', 'VIP专属休息室'],
+      en: ['Full-body PET-CT', 'Brain MRI/MRA', 'Upper & Lower Endoscopy', 'Cardiac Echo', 'DWIBS', 'VIP Lounge'],
+    } as Record<Language, string[]>,
+    cardBg: 'bg-gray-900', cardText: 'text-white', titleColor: 'text-yellow-400', priceColor: 'text-yellow-400',
+    checkColor: 'text-yellow-500', buttonClass: 'bg-yellow-500 text-black hover:bg-yellow-400',
+    badgeClass: 'bg-yellow-500 text-black',
+  },
+  {
+    slug: 'premium-cardiac-course',
+    name: { ja: 'プレミアム心臓コース', 'zh-TW': '尊享心臟套餐', 'zh-CN': '尊享心脏套餐', en: 'Premium Cardiac' } as Record<Language, string>,
+    nameEn: 'Premium Cardiac Course', price: 825000,
+    features: {
+      ja: ['PET-CT', '心臓CT/MRI', '心臓エコー', '上部内視鏡', '血液検査'],
+      'zh-TW': ['PET-CT', '心臟CT/MRI', '心臟超聲波', '胃鏡', '血液檢查'],
+      'zh-CN': ['PET-CT', '心脏CT/MRI', '心脏超声波', '胃镜', '血液检查'],
+      en: ['PET-CT', 'Cardiac CT/MRI', 'Cardiac Echo', 'Gastroscopy', 'Blood Tests'],
+    } as Record<Language, string[]>,
+    cardBg: 'bg-gradient-to-br from-blue-50 to-white', cardText: '', titleColor: 'text-blue-900', priceColor: 'text-blue-900',
+    checkColor: 'text-blue-500', buttonClass: 'border border-blue-200 text-blue-600 hover:bg-blue-50',
+  },
+  {
+    slug: 'select-gastro-colonoscopy',
+    name: { ja: '胃腸セレクトコース', 'zh-TW': '甄選胃腸套餐', 'zh-CN': '甄选胃肠套餐', en: 'Gastro + Colon' } as Record<Language, string>,
+    nameEn: 'Gastro + Colonoscopy', price: 825000,
+    features: {
+      ja: ['PET-CT', '上下部内視鏡', '腹部エコー', '大腸CT', '血液検査'],
+      'zh-TW': ['PET-CT', '上下消化道內視鏡', '腹部超聲波', '大腸CT', '血液檢查'],
+      'zh-CN': ['PET-CT', '上下消化道内镜', '腹部超声波', '大肠CT', '血液检查'],
+      en: ['PET-CT', 'Upper & Lower Endoscopy', 'Abdominal Echo', 'Colon CT', 'Blood Tests'],
+    } as Record<Language, string[]>,
+    cardBg: 'bg-white', cardText: '', titleColor: 'text-green-900', priceColor: 'text-green-900',
+    checkColor: 'text-green-500', buttonClass: 'border border-green-200 text-green-600 hover:bg-green-50',
+  },
+  {
+    slug: 'select-gastroscopy',
+    name: { ja: '胃カメラセレクト', 'zh-TW': '甄選胃鏡套餐', 'zh-CN': '甄选胃镜套餐', en: 'Gastroscopy' } as Record<Language, string>,
+    nameEn: 'Gastroscopy Course', price: 687500,
+    features: {
+      ja: ['PET-CT', '上部内視鏡', '腹部エコー', 'ピロリ菌検査', '血液検査'],
+      'zh-TW': ['PET-CT', '胃鏡', '腹部超聲波', '幽門螺旋桿菌', '血液檢查'],
+      'zh-CN': ['PET-CT', '胃镜', '腹部超声波', '幽门螺旋杆菌', '血液检查'],
+      en: ['PET-CT', 'Gastroscopy', 'Abdominal Echo', 'H.pylori Test', 'Blood Tests'],
+    } as Record<Language, string[]>,
+    cardBg: 'bg-white', cardText: '', titleColor: 'text-teal-800', priceColor: 'text-teal-800',
+    checkColor: 'text-teal-500', buttonClass: 'border border-teal-200 text-teal-600 hover:bg-teal-50',
+  },
+  {
+    slug: 'dwibs-cancer-screening',
+    name: { ja: 'DWIBSがんスクリーニング', 'zh-TW': 'DWIBS 癌症篩查', 'zh-CN': 'DWIBS 癌症筛查', en: 'DWIBS Screening' } as Record<Language, string>,
+    nameEn: 'DWIBS Cancer Screening', price: 275000,
+    features: {
+      ja: ['DWIBS全身MRI', '腫瘍マーカー', '血液検査', '結果説明', '無痛・被ばくなし'],
+      'zh-TW': ['DWIBS全身MRI', '腫瘤標記物', '血液檢查', '結果說明', '無痛・無輻射'],
+      'zh-CN': ['DWIBS全身MRI', '肿瘤标记物', '血液检查', '结果说明', '无痛・无辐射'],
+      en: ['DWIBS Full-body MRI', 'Tumor Markers', 'Blood Tests', 'Results Explanation', 'Painless & No Radiation'],
+    } as Record<Language, string[]>,
+    cardBg: 'bg-white', cardText: '', titleColor: 'text-purple-900', priceColor: 'text-purple-900',
+    checkColor: 'text-purple-500', buttonClass: 'border border-purple-200 text-purple-600 hover:bg-purple-50',
+  },
+  {
+    slug: 'basic-checkup',
+    name: { ja: 'スタンダード健診', 'zh-TW': '標準健診套餐', 'zh-CN': '标准健诊套餐', en: 'Standard Checkup' } as Record<Language, string>,
+    nameEn: 'Standard Checkup Course', price: 550000,
+    features: {
+      ja: ['PET-CT', '腹部エコー', '血液検査', '尿検査', '結果説明'],
+      'zh-TW': ['PET-CT', '腹部超聲波', '血液檢查', '尿液檢查', '結果說明'],
+      'zh-CN': ['PET-CT', '腹部超声波', '血液检查', '尿液检查', '结果说明'],
+      en: ['PET-CT', 'Abdominal Echo', 'Blood Tests', 'Urinalysis', 'Results Explanation'],
+    } as Record<Language, string[]>,
+    cardBg: 'bg-gray-50', cardText: '', titleColor: 'text-gray-800', priceColor: 'text-gray-800',
+    checkColor: 'text-gray-500', buttonClass: 'border border-gray-300 text-gray-600 hover:bg-gray-100',
+  },
+];
+
+// 就诊/支付 Section 翻译
+const bookingT = {
+  flowTag: { ja: '受診の流れ', 'zh-TW': '就診流程', 'zh-CN': '就诊流程', en: 'Treatment Process' } as Record<Language, string>,
+  flowTitle: { ja: '兵庫医大での治療の流れ', 'zh-TW': '在兵庫醫大的治療流程', 'zh-CN': '在兵库医大的治疗流程', en: 'Treatment Process at Hyogo Medical' } as Record<Language, string>,
+  flowDesc: {
+    ja: '初回ご相談から治療完了まで、全行程プロフェッショナルサポート',
+    'zh-TW': '從首次諮詢到治療完成，全程專業支援',
+    'zh-CN': '从首次咨询到治疗完成，全程专业支援',
+    en: 'Professional support from initial consultation to treatment completion',
+  } as Record<Language, string>,
+  phaseLabel: { ja: 'PHASE', 'zh-TW': 'PHASE', 'zh-CN': 'PHASE', en: 'PHASE' } as Record<Language, string>,
+  durationLabel: { ja: '目安期間', 'zh-TW': '預估時間', 'zh-CN': '预估时间', en: 'Est. Duration' } as Record<Language, string>,
+
+  svcTag: { ja: 'サービスご予約', 'zh-TW': '服務預約', 'zh-CN': '服务预约', en: 'Book Service' } as Record<Language, string>,
+  svcTitle: { ja: '相談サービスのご予約', 'zh-TW': '諮詢服務預約', 'zh-CN': '咨询服务预约', en: 'Book Consultation Service' } as Record<Language, string>,
+  svcDesc: {
+    ja: 'ご希望のサービスを選択し、お支払い後24時間以内にご連絡いたします',
+    'zh-TW': '選擇您需要的服務，在線支付後我們將在 24 小時內與您聯繫',
+    'zh-CN': '选择您需要的服务，在线支付后我们将在24小时内与您联系',
+    en: 'Select your service — we will contact you within 24 hours after payment',
+  } as Record<Language, string>,
+  svcLimit: { ja: '月10名様限定・残りわずか', 'zh-TW': '每月僅限 10 位 · 名額有限', 'zh-CN': '每月仅限 10 位 · 名额有限', en: 'Limited to 10/month' } as Record<Language, string>,
+  taxIncl: { ja: '日円（税込）', 'zh-TW': '日圓（含稅）', 'zh-CN': '日元（含税）', en: 'JPY (tax incl.)' } as Record<Language, string>,
+  bookNow: { ja: '今すぐ予約', 'zh-TW': '立即預約', 'zh-CN': '立即预约', en: 'Book Now' } as Record<Language, string>,
+
+  pkgTag: { ja: '健康診断コース', 'zh-TW': '健診套餐', 'zh-CN': '健诊套餐', en: 'Health Checkup Packages' } as Record<Language, string>,
+  pkgTitle: { ja: 'TIMC 大阪 精密健康診断', 'zh-TW': 'TIMC 大阪 精密健康檢查', 'zh-CN': 'TIMC 大阪 精密健康检查', en: 'TIMC Osaka Premium Health Screening' } as Record<Language, string>,
+  pkgDesc: {
+    ja: '兵庫医大と同じ関西エリアのTIMC大阪クリニックで、最先端の精密健康診断を受けられます',
+    'zh-TW': '在與兵庫醫大同屬關西地區的 TIMC 大阪診所，接受最先進的精密健康檢查',
+    'zh-CN': '在与兵库医大同属关西地区的 TIMC 大阪诊所，接受最先进的精密健康检查',
+    en: 'Premium health screening at TIMC Osaka Clinic, in the same Kansai region as Hyogo Medical',
+  } as Record<Language, string>,
+  pkgPriceNote: { ja: '日円（税込）', 'zh-TW': '日圓（含稅）', 'zh-CN': '日元（含税）', en: 'JPY (tax incl.)' } as Record<Language, string>,
+  pkgDetailBtn: { ja: '詳細・ご予約', 'zh-TW': '詳情・預約', 'zh-CN': '详情・预约', en: 'Details & Book' } as Record<Language, string>,
+
+  contactTag: { ja: 'お問い合わせ', 'zh-TW': '聯繫我們', 'zh-CN': '联系我们', en: 'Contact Us' } as Record<Language, string>,
+  contactTitle: { ja: 'お支払い前のご質問はお気軽に', 'zh-TW': '付款前有疑問？歡迎諮詢', 'zh-CN': '付款前有疑问？欢迎咨询', en: 'Questions before payment? Contact us' } as Record<Language, string>,
+  contactLine: { ja: 'LINEで相談', 'zh-TW': 'LINE 諮詢', 'zh-CN': 'LINE 咨询', en: 'LINE Chat' } as Record<Language, string>,
+  contactEmail: { ja: 'メールで相談', 'zh-TW': '郵件諮詢', 'zh-CN': '邮件咨询', en: 'Email Us' } as Record<Language, string>,
+  contactWechat: { ja: 'WeChatで相談', 'zh-TW': '微信諮詢', 'zh-CN': '微信咨询', en: 'WeChat' } as Record<Language, string>,
+
+  memberTitle: { ja: '会員制度', 'zh-TW': '會員體系', 'zh-CN': '会员体系', en: 'Membership' } as Record<Language, string>,
+  memberDesc: {
+    ja: 'いずれかのサービスご購入後、NIIJIMA会員となります。「マイオーダー」から全予約をご確認いただけます。',
+    'zh-TW': '購買任一服務後，您將成為 NIIJIMA 會員，可在「我的訂單」查看所有預約。',
+    'zh-CN': '购买任一服务后，您将成为 NIIJIMA 会员，可在「我的订单」查看所有预约。',
+    en: 'After purchasing any service, you become a NIIJIMA member with access to all booking records.',
+  } as Record<Language, string>,
+
+  wechatTitle: { ja: 'WeChat相談', 'zh-TW': '微信諮詢', 'zh-CN': '微信咨询', en: 'WeChat' } as Record<Language, string>,
+  wechatScan: { ja: 'QRコードをスキャンして追加', 'zh-TW': '掃描二維碼添加客服微信', 'zh-CN': '扫描二维码添加客服微信', en: 'Scan QR code to add us' } as Record<Language, string>,
+  wechatNote: { ja: '追加後「兵庫医大相談」とお伝えください', 'zh-TW': '添加後請注明：兵庫醫大諮詢', 'zh-CN': '添加后请注明：兵库医大咨询', en: 'Please note: Hyogo Medical consultation' } as Record<Language, string>,
+};
+
 interface HyogoMedicalContentProps {
   whitelabel?: WhitelabelModuleProps;
 }
 
 export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentProps) {
   const lang = useLanguage();
+  const [showWechatQR, setShowWechatQR] = useState(false);
 
   return (
     <div className="animate-fade-in-up min-h-screen bg-white">
@@ -966,21 +1230,269 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
           </div>
         </div>
 
-        {/* ========================================
-            12. CTA Section
-            ======================================== */}
-        <div className="mb-12 text-center">
+      </div>
+
+      {/* ========================================
+          12. 就诊流程 (Treatment Flow)
+          ======================================== */}
+      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <span className="text-blue-600 text-xs tracking-widest uppercase font-bold">{bookingT.flowTag[lang]}</span>
+            <h3 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mt-3 mb-4">{bookingT.flowTitle[lang]}</h3>
+            <p className="text-gray-500 max-w-2xl mx-auto">{bookingT.flowDesc[lang]}</p>
+          </div>
+          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+            {TREATMENT_PHASES.map((phase) => {
+              const PhaseIcon = phase.icon;
+              const c = PHASE_COLORS[phase.color];
+              return (
+                <div key={phase.phase} className={`relative rounded-2xl border-2 ${c.border} ${c.light} p-6 transition-all hover:shadow-lg`}>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className={`w-10 h-10 ${c.bg} text-white rounded-xl flex items-center justify-center`}>
+                      <PhaseIcon size={20} />
+                    </div>
+                    <div>
+                      <span className={`text-xs font-bold ${c.text}`}>{bookingT.phaseLabel[lang]} {phase.phase}</span>
+                      <h4 className="text-lg font-bold text-gray-900">{phase.title[lang]}</h4>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 leading-relaxed mb-4">{phase.desc[lang]}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-gray-400 flex items-center gap-1">
+                      <Clock size={12} /> {bookingT.durationLabel[lang]}: {phase.duration[lang]}
+                    </span>
+                    {phase.fee && (
+                      <span className={`text-sm font-bold ${c.text}`}>{phase.fee}</span>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================
+          13. 咨询服务预约（Stripe 支付）
+          ======================================== */}
+      {!whitelabel && (
+      <section id="contact-form" className="py-24 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <span className="text-blue-600 text-xs tracking-widest uppercase font-bold">{bookingT.svcTag[lang]}</span>
+              <h3 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mt-3 mb-4">{bookingT.svcTitle[lang]}</h3>
+              <p className="text-gray-500 mb-4">{bookingT.svcDesc[lang]}</p>
+              <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 px-4 py-2 rounded-full">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
+                </span>
+                <span className="text-amber-700 text-sm">{bookingT.svcLimit[lang]}</span>
+              </div>
+            </div>
+
+            {/* 2 Service Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+              {CONSULTATION_SERVICES.map((svc) => (
+                <div key={svc.slug} className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 hover:shadow-2xl transition-all">
+                  <div className={`bg-gradient-to-r ${svc.gradient} p-6 text-white`}>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="text-xl font-bold">{svc.name[lang]}</h4>
+                        <p className="text-white/70 text-sm">{svc.nameEn}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-3xl font-bold">¥{svc.price.toLocaleString()}</p>
+                        <p className="text-xs text-white/60">{bookingT.taxIncl[lang]}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <p className="text-gray-600 text-sm mb-6">{svc.desc[lang]}</p>
+                    <ul className="space-y-2 mb-6 text-sm text-gray-600">
+                      {svc.features[lang].map((feat, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <CheckCircle size={14} className={`${svc.checkColor} mt-0.5 shrink-0`} />
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href={svc.href}
+                      className={`block w-full py-3 bg-gradient-to-r ${svc.gradient} ${svc.hoverGradient} text-white text-center font-bold rounded-xl transition shadow-lg`}
+                    >
+                      {bookingT.bookNow[lang]}
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Member System Notice */}
+            <div className="bg-white rounded-2xl p-6 border border-gray-200 mb-8">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center shrink-0">
+                  <Users size={24} className="text-blue-600" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-2">{bookingT.memberTitle[lang]}</h4>
+                  <p className="text-sm text-gray-600 leading-relaxed">{bookingT.memberDesc[lang]}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      )}
+
+      {/* ========================================
+          14. TIMC 健诊套餐 (非白标模式)
+          ======================================== */}
+      {!whitelabel && (
+      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <span className="text-blue-600 text-xs tracking-widest uppercase font-bold">{bookingT.pkgTag[lang]}</span>
+            <h3 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mt-3 mb-4">{bookingT.pkgTitle[lang]}</h3>
+            <p className="text-gray-500 max-w-3xl mx-auto">{bookingT.pkgDesc[lang]}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+            {TIMC_PACKAGES.map((pkg) => (
+              <div key={pkg.slug} className={`${pkg.cardBg} ${pkg.cardText} border ${pkg.isVIP ? 'border-gray-800' : 'border-gray-200'} rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 flex flex-col relative overflow-hidden`}>
+                {pkg.badge && (
+                  <div className={`absolute top-0 right-0 ${pkg.badgeClass} text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider`}>
+                    {pkg.badge}
+                  </div>
+                )}
+                <div className="mb-4">
+                  <h4 className={`text-lg font-serif font-bold ${pkg.titleColor}`}>{pkg.name[lang]}</h4>
+                  <p className={`text-xs ${pkg.isVIP ? 'text-gray-400' : 'text-gray-500'} mt-1`}>{pkg.nameEn}</p>
+                  <p className={`text-xl font-bold ${pkg.priceColor} mt-2`}>¥{pkg.price.toLocaleString()}</p>
+                  <p className={`text-[10px] ${pkg.isVIP ? 'text-gray-500' : 'text-gray-400'}`}>{bookingT.pkgPriceNote[lang]}</p>
+                </div>
+                <div className={`space-y-1.5 mb-4 text-xs ${pkg.isVIP ? '' : 'text-gray-700'} flex-grow`}>
+                  {pkg.features[lang].map((feat, i) => (
+                    <div key={i} className="flex gap-2">
+                      <CheckCircle size={14} className={`${pkg.checkColor} shrink-0`} />
+                      <span>{feat}</span>
+                    </div>
+                  ))}
+                </div>
+                <Link href={`/medical-packages/${pkg.slug}`} className={`w-full py-2 text-xs font-bold rounded transition text-center block ${pkg.buttonClass}`}>
+                  {bookingT.pkgDetailBtn[lang]}
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      )}
+
+      {/* ========================================
+          15. Contact Methods (非白标模式)
+          ======================================== */}
+      {!whitelabel && (
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200">
+              <h3 className="font-bold text-gray-900 mb-6 text-center text-lg flex items-center justify-center gap-2">
+                <MessageSquare size={20} className="text-gray-600" />
+                {bookingT.contactTitle[lang]}
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <a
+                  href="https://line.me/ti/p/j3XxBP50j9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-3 bg-[#06C755] text-white p-4 rounded-xl hover:bg-[#05b04c] transition font-bold"
+                >
+                  <MessageSquare size={20} />
+                  {bookingT.contactLine[lang]}
+                </a>
+                <a
+                  href="mailto:info@niijima-koutsu.jp"
+                  className="flex items-center justify-center gap-3 bg-gray-800 text-white p-4 rounded-xl hover:bg-gray-700 transition font-bold"
+                >
+                  <Mail size={20} />
+                  {bookingT.contactEmail[lang]}
+                </a>
+                <button
+                  onClick={() => setShowWechatQR(true)}
+                  className="flex items-center justify-center gap-3 bg-[#07C160] text-white p-4 rounded-xl hover:bg-[#06ad56] transition font-bold"
+                >
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178A1.17 1.17 0 014.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178 1.17 1.17 0 01-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 01.598.082l1.584.926a.272.272 0 00.139.045c.133 0 .241-.108.241-.243 0-.06-.024-.118-.04-.177l-.327-1.233a.49.49 0 01-.009-.102c0-.142.062-.28.177-.375C23.116 17.715 24 16.046 24 14.194c0-2.942-2.696-5.336-7.062-5.336zm-2.745 3.086c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.97-.983zm5.49 0c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.969-.983z"/>
+                  </svg>
+                  {bookingT.contactWechat[lang]}
+                </button>
+              </div>
+              <div className="mt-6 flex items-center justify-center gap-6 text-xs text-gray-400">
+                <div className="flex items-center gap-1.5"><Lock size={14} /><span>SSL</span></div>
+                <div className="flex items-center gap-1.5"><CreditCard size={14} /><span>Stripe</span></div>
+                <div className="flex items-center gap-1.5"><Shield size={14} /><span>{lang === 'ja' ? 'プライバシー保護' : lang === 'en' ? 'Privacy Protected' : '隐私保护'}</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      )}
+
+      {/* ========================================
+          16. CTA Section
+          ======================================== */}
+      <div className="container mx-auto px-6 py-16">
+        <div className="text-center">
           <h3 className="text-3xl font-serif text-gray-900 mb-4">{t.ctaTitle[lang]}</h3>
-          <p className="text-gray-500 text-sm max-w-2xl mx-auto whitespace-pre-line">{t.ctaDesc[lang]}</p>
+          <p className="text-gray-500 text-sm max-w-2xl mx-auto whitespace-pre-line mb-8">{t.ctaDesc[lang]}</p>
+          {!whitelabel && (
+            <a
+              href="#contact-form"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-8 py-4 rounded-full font-bold hover:from-blue-700 hover:to-indigo-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+            >
+              <Stethoscope size={20} />
+              {bookingT.bookNow[lang]}
+              <ArrowRight size={18} />
+            </a>
+          )}
         </div>
       </div>
 
+      {/* WhitelabelContactSection */}
       {whitelabel && whitelabel.showContact !== false && (
         <WhitelabelContactSection
           brandColor={whitelabel.brandColor}
           brandName={whitelabel.brandName}
           contactInfo={whitelabel.contactInfo}
         />
+      )}
+
+      {/* WeChat QR Modal */}
+      {showWechatQR && (
+        <div className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4" onClick={() => setShowWechatQR(false)}>
+          <div className="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl relative" onClick={(e) => e.stopPropagation()}>
+            <button onClick={() => setShowWechatQR(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <div className="w-16 h-16 bg-[#07C160] rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-10 h-10 text-white" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178A1.17 1.17 0 014.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178 1.17 1.17 0 01-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 01.598.082l1.584.926a.272.272 0 00.139.045c.133 0 .241-.108.241-.243 0-.06-.024-.118-.04-.177l-.327-1.233a.49.49 0 01-.009-.102c0-.142.062-.28.177-.375C23.116 17.715 24 16.046 24 14.194c0-2.942-2.696-5.336-7.062-5.336zm-2.745 3.086c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.97-.983zm5.49 0c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.969-.983z"/>
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">{bookingT.wechatTitle[lang]}</h3>
+            <p className="text-gray-500 text-sm mb-4">{bookingT.wechatScan[lang]}</p>
+            <div className="bg-gray-100 rounded-xl p-4 mb-4">
+              <div className="w-48 h-48 mx-auto bg-white rounded-lg flex items-center justify-center text-gray-400 text-sm">
+                WeChat QR Code
+              </div>
+            </div>
+            <p className="text-xs text-gray-400">{bookingT.wechatNote[lang]}</p>
+          </div>
+        </div>
       )}
     </div>
   );
