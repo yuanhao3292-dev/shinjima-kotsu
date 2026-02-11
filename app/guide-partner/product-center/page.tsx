@@ -232,7 +232,7 @@ export default function ProductCenterPage() {
                 <p className="text-gray-500">选择要在您白标页面展示的模块和产品</p>
               </div>
             </div>
-            {guideConfig ? (
+            {guideConfig?.slug ? (
               <a
                 href={`/g/${guideConfig.slug}`}
                 target="_blank"
@@ -242,6 +242,14 @@ export default function ProductCenterPage() {
                 <span>预览我的页面</span>
                 <ExternalLink size={16} />
               </a>
+            ) : guideConfig ? (
+              <button
+                onClick={() => router.push('/guide-partner/whitelabel')}
+                className="flex items-center gap-2 text-amber-600 hover:text-amber-700"
+              >
+                <AlertCircle size={16} />
+                <span>请先设置页面链接</span>
+              </button>
             ) : (
               <button
                 onClick={() => router.push('/guide-partner/whitelabel')}

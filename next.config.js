@@ -4,7 +4,10 @@ const path = require('path');
 const nextConfig = {
   reactStrictMode: true,
 
-  // Webpack 配置 (禁用 Turbopack)
+  // Turbopack 配置 (Next.js 16+ 默认启用)
+  turbopack: {},
+
+  // Webpack 配置 (备用)
   webpack: (config) => {
     return config;
   },

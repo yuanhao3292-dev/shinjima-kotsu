@@ -79,10 +79,10 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // 获取导游信息
+    // 获取导游信息（包含 slug）
     const { data: guide, error: guideError } = await supabase
       .from('guides')
-      .select('id, name, email, status')
+      .select('id, name, email, status, slug')
       .eq('auth_user_id', user.id)
       .single();
 
@@ -216,15 +216,26 @@ export async function GET(request: NextRequest) {
       selectedByGuide: selectedVehicleIds.has(vehicle.id),
     }));
 
+    // 合并 guide_white_label 配置和 guides 表的 slug
+    const guideConfig = guideConfigResult.data
+      ? {
+          ...guideConfigResult.data,
+          slug: guide.slug, // 从 guides 表获取 slug
+        }
+      : guide.slug
+        ? { slug: guide.slug } // 如果没有 white_label 配置但有 slug
+        : null;
+
     return NextResponse.json({
       modules,
       templates: templatesByType,
       vehicles,
-      guideConfig: guideConfigResult.data || null,
+      guideConfig,
       guide: {
         id: guide.id,
         name: guide.name,
         email: guide.email,
+        slug: guide.slug, // 也在 guide 对象中返回
       },
     });
   } catch (error: unknown) {
