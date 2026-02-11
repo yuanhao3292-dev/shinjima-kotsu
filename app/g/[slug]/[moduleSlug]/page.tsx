@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { getGuideModuleByComponentKey, recordPageView } from '@/lib/services/whitelabel';
 import { headers } from 'next/headers';
 import MedicalPackagesFullPage from '@/components/modules/MedicalPackagesFullPage';
+import HyogoMedicalContent from '@/app/hyogo-medical/HyogoMedicalContent';
 
 interface PageProps {
   params: Promise<{ slug: string; moduleSlug: string }>;
@@ -41,6 +42,24 @@ export default async function ModuleDetailPage({ params }: PageProps) {
           guideSlug={slug}
           brandColor={brandColor}
           brandName={brandName}
+        />
+      );
+
+    case 'hyogo_medical':
+      return (
+        <HyogoMedicalContent
+          whitelabel={{
+            brandName,
+            brandColor,
+            contactInfo: {
+              wechat: guide.contactWechat || null,
+              line: guide.contactLine || null,
+              phone: guide.contactDisplayPhone || null,
+              email: guide.email || null,
+            },
+            moduleId: selectedModule.module.id,
+            moduleName: selectedModule.customTitle || selectedModule.module.name,
+          }}
         />
       );
 

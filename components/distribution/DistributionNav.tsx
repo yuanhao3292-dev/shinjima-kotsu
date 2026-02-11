@@ -13,17 +13,20 @@ interface DistributionNavProps {
   brandColor: string;
   brandLogoUrl: string | null;
   navItems: NavItem[];
+  /** 没有沉浸式 Hero 时，Nav 默认使用白色背景 */
+  startScrolled?: boolean;
 }
 
-export default function DistributionNav({ brandName, brandColor, brandLogoUrl, navItems }: DistributionNavProps) {
+export default function DistributionNav({ brandName, brandColor, brandLogoUrl, navItems, startScrolled = false }: DistributionNavProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(startScrolled);
 
   useEffect(() => {
+    if (startScrolled) return; // 始终保持白色背景
     const handleScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [startScrolled]);
 
   const scrollTo = (id: string) => {
     setIsOpen(false);

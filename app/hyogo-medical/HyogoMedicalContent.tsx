@@ -676,92 +676,6 @@ const CONSULTATION_SERVICES = [
   },
 ];
 
-// TIMC 健诊套餐（6 款，链接到各自详情/支付页）
-const TIMC_PACKAGES = [
-  {
-    slug: 'vip-member-course',
-    name: { ja: 'VIP会員コース', 'zh-TW': 'VIP 會員套餐', 'zh-CN': 'VIP 会员套餐', en: 'VIP Member Course' } as Record<Language, string>,
-    nameEn: 'VIP Member Course',
-    price: MEDICAL_PACKAGES['vip-member-course'].priceJpy,
-    badge: 'Flagship',
-    isVIP: true,
-    features: {
-      ja: ['全身PET-CT', '脳MRI/MRA', '上下部内視鏡', '心臓エコー', 'DWIBS', 'VIP専用ラウンジ'],
-      'zh-TW': ['全身PET-CT', '腦MRI/MRA', '上下消化道內視鏡', '心臟超聲波', 'DWIBS', 'VIP專屬休息室'],
-      'zh-CN': ['全身PET-CT', '脑MRI/MRA', '上下消化道内镜', '心脏超声波', 'DWIBS', 'VIP专属休息室'],
-      en: ['Full-body PET-CT', 'Brain MRI/MRA', 'Upper & Lower Endoscopy', 'Cardiac Echo', 'DWIBS', 'VIP Lounge'],
-    } as Record<Language, string[]>,
-    cardBg: 'bg-gray-900', cardText: 'text-white', titleColor: 'text-yellow-400', priceColor: 'text-yellow-400',
-    checkColor: 'text-yellow-500', buttonClass: 'bg-yellow-500 text-black hover:bg-yellow-400',
-    badgeClass: 'bg-yellow-500 text-black',
-  },
-  {
-    slug: 'premium-cardiac-course',
-    name: { ja: 'プレミアム心臓コース', 'zh-TW': '尊享心臟套餐', 'zh-CN': '尊享心脏套餐', en: 'Premium Cardiac' } as Record<Language, string>,
-    nameEn: 'Premium Cardiac Course', price: MEDICAL_PACKAGES['premium-cardiac-course'].priceJpy,
-    features: {
-      ja: ['PET-CT', '心臓CT/MRI', '心臓エコー', '上部内視鏡', '血液検査'],
-      'zh-TW': ['PET-CT', '心臟CT/MRI', '心臟超聲波', '胃鏡', '血液檢查'],
-      'zh-CN': ['PET-CT', '心脏CT/MRI', '心脏超声波', '胃镜', '血液检查'],
-      en: ['PET-CT', 'Cardiac CT/MRI', 'Cardiac Echo', 'Gastroscopy', 'Blood Tests'],
-    } as Record<Language, string[]>,
-    cardBg: 'bg-gradient-to-br from-blue-50 to-white', cardText: '', titleColor: 'text-blue-900', priceColor: 'text-blue-900',
-    checkColor: 'text-blue-500', buttonClass: 'border border-blue-200 text-blue-600 hover:bg-blue-50',
-  },
-  {
-    slug: 'select-gastro-colonoscopy',
-    name: { ja: '胃腸セレクトコース', 'zh-TW': '甄選胃腸套餐', 'zh-CN': '甄选胃肠套餐', en: 'Gastro + Colon' } as Record<Language, string>,
-    nameEn: 'Gastro + Colonoscopy', price: MEDICAL_PACKAGES['select-gastro-colonoscopy'].priceJpy,
-    features: {
-      ja: ['PET-CT', '上下部内視鏡', '腹部エコー', '大腸CT', '血液検査'],
-      'zh-TW': ['PET-CT', '上下消化道內視鏡', '腹部超聲波', '大腸CT', '血液檢查'],
-      'zh-CN': ['PET-CT', '上下消化道内镜', '腹部超声波', '大肠CT', '血液检查'],
-      en: ['PET-CT', 'Upper & Lower Endoscopy', 'Abdominal Echo', 'Colon CT', 'Blood Tests'],
-    } as Record<Language, string[]>,
-    cardBg: 'bg-white', cardText: '', titleColor: 'text-green-900', priceColor: 'text-green-900',
-    checkColor: 'text-green-500', buttonClass: 'border border-green-200 text-green-600 hover:bg-green-50',
-  },
-  {
-    slug: 'select-gastroscopy',
-    name: { ja: '胃カメラセレクト', 'zh-TW': '甄選胃鏡套餐', 'zh-CN': '甄选胃镜套餐', en: 'Gastroscopy' } as Record<Language, string>,
-    nameEn: 'Gastroscopy Course', price: MEDICAL_PACKAGES['select-gastroscopy'].priceJpy,
-    features: {
-      ja: ['PET-CT', '上部内視鏡', '腹部エコー', 'ピロリ菌検査', '血液検査'],
-      'zh-TW': ['PET-CT', '胃鏡', '腹部超聲波', '幽門螺旋桿菌', '血液檢查'],
-      'zh-CN': ['PET-CT', '胃镜', '腹部超声波', '幽门螺旋杆菌', '血液检查'],
-      en: ['PET-CT', 'Gastroscopy', 'Abdominal Echo', 'H.pylori Test', 'Blood Tests'],
-    } as Record<Language, string[]>,
-    cardBg: 'bg-white', cardText: '', titleColor: 'text-teal-800', priceColor: 'text-teal-800',
-    checkColor: 'text-teal-500', buttonClass: 'border border-teal-200 text-teal-600 hover:bg-teal-50',
-  },
-  {
-    slug: 'dwibs-cancer-screening',
-    name: { ja: 'DWIBSがんスクリーニング', 'zh-TW': 'DWIBS 癌症篩查', 'zh-CN': 'DWIBS 癌症筛查', en: 'DWIBS Screening' } as Record<Language, string>,
-    nameEn: 'DWIBS Cancer Screening', price: MEDICAL_PACKAGES['dwibs-cancer-screening'].priceJpy,
-    features: {
-      ja: ['DWIBS全身MRI', '腫瘍マーカー', '血液検査', '結果説明', '無痛・被ばくなし'],
-      'zh-TW': ['DWIBS全身MRI', '腫瘤標記物', '血液檢查', '結果說明', '無痛・無輻射'],
-      'zh-CN': ['DWIBS全身MRI', '肿瘤标记物', '血液检查', '结果说明', '无痛・无辐射'],
-      en: ['DWIBS Full-body MRI', 'Tumor Markers', 'Blood Tests', 'Results Explanation', 'Painless & No Radiation'],
-    } as Record<Language, string[]>,
-    cardBg: 'bg-white', cardText: '', titleColor: 'text-purple-900', priceColor: 'text-purple-900',
-    checkColor: 'text-purple-500', buttonClass: 'border border-purple-200 text-purple-600 hover:bg-purple-50',
-  },
-  {
-    slug: 'basic-checkup',
-    name: { ja: 'スタンダード健診', 'zh-TW': '標準健診套餐', 'zh-CN': '标准健诊套餐', en: 'Standard Checkup' } as Record<Language, string>,
-    nameEn: 'Standard Checkup Course', price: MEDICAL_PACKAGES['basic-checkup'].priceJpy,
-    features: {
-      ja: ['PET-CT', '腹部エコー', '血液検査', '尿検査', '結果説明'],
-      'zh-TW': ['PET-CT', '腹部超聲波', '血液檢查', '尿液檢查', '結果說明'],
-      'zh-CN': ['PET-CT', '腹部超声波', '血液检查', '尿液检查', '结果说明'],
-      en: ['PET-CT', 'Abdominal Echo', 'Blood Tests', 'Urinalysis', 'Results Explanation'],
-    } as Record<Language, string[]>,
-    cardBg: 'bg-gray-50', cardText: '', titleColor: 'text-gray-800', priceColor: 'text-gray-800',
-    checkColor: 'text-gray-500', buttonClass: 'border border-gray-300 text-gray-600 hover:bg-gray-100',
-  },
-];
-
 // 就诊/支付 Section 翻译
 const bookingT = {
   flowTag: { ja: '受診の流れ', 'zh-TW': '就診流程', 'zh-CN': '就诊流程', en: 'Treatment Process' } as Record<Language, string>,
@@ -786,17 +700,6 @@ const bookingT = {
   svcLimit: { ja: '月10名様限定・残りわずか', 'zh-TW': '每月僅限 10 位 · 名額有限', 'zh-CN': '每月仅限 10 位 · 名额有限', en: 'Limited to 10/month' } as Record<Language, string>,
   taxIncl: { ja: '日円（税込）', 'zh-TW': '日圓（含稅）', 'zh-CN': '日元（含税）', en: 'JPY (tax incl.)' } as Record<Language, string>,
   bookNow: { ja: '今すぐ予約', 'zh-TW': '立即預約', 'zh-CN': '立即预约', en: 'Book Now' } as Record<Language, string>,
-
-  pkgTag: { ja: '健康診断コース', 'zh-TW': '健診套餐', 'zh-CN': '健诊套餐', en: 'Health Checkup Packages' } as Record<Language, string>,
-  pkgTitle: { ja: 'TIMC 大阪 精密健康診断', 'zh-TW': 'TIMC 大阪 精密健康檢查', 'zh-CN': 'TIMC 大阪 精密健康检查', en: 'TIMC Osaka Premium Health Screening' } as Record<Language, string>,
-  pkgDesc: {
-    ja: '兵庫医大と同じ関西エリアのTIMC大阪クリニックで、最先端の精密健康診断を受けられます',
-    'zh-TW': '在與兵庫醫大同屬關西地區的 TIMC 大阪診所，接受最先進的精密健康檢查',
-    'zh-CN': '在与兵库医大同属关西地区的 TIMC 大阪诊所，接受最先进的精密健康检查',
-    en: 'Premium health screening at TIMC Osaka Clinic, in the same Kansai region as Hyogo Medical',
-  } as Record<Language, string>,
-  pkgPriceNote: { ja: '日円（税込）', 'zh-TW': '日圓（含稅）', 'zh-CN': '日元（含税）', en: 'JPY (tax incl.)' } as Record<Language, string>,
-  pkgDetailBtn: { ja: '詳細・ご予約', 'zh-TW': '詳情・預約', 'zh-CN': '详情・预约', en: 'Details & Book' } as Record<Language, string>,
 
   contactTag: { ja: 'お問い合わせ', 'zh-TW': '聯繫我們', 'zh-CN': '联系我们', en: 'Contact Us' } as Record<Language, string>,
   contactTitle: { ja: 'お支払い前のご質問はお気軽に', 'zh-TW': '付款前有疑問？歡迎諮詢', 'zh-CN': '付款前有疑问？欢迎咨询', en: 'Questions before payment? Contact us' } as Record<Language, string>,
@@ -845,7 +748,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
           ======================================== */}
       <div className="relative min-h-[85vh] flex items-center overflow-hidden text-white bg-slate-900">
         <img
-          src="https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?q=80&w=2000"
+          src="https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img01.jpg"
           className="absolute inset-0 w-full h-full object-cover opacity-80"
           alt="Hyogo Medical University Hospital"
         />
@@ -942,8 +845,8 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
             {/* Da Vinci Xi */}
             <div className="bg-gray-900 text-white rounded-2xl overflow-hidden group">
               <div className="relative h-64 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1551190822-a9ce113ac100?q=80&w=1200" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Da Vinci Xi" />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent" />
+                <img src="https://www.hosp.hyo-med.ac.jp/upload/news/content/davinci_ope.jpg" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Da Vinci Xi" />
+                <div className="absolute inset-0 bg-black/20" />
                 <div className="absolute top-4 right-4 bg-blue-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                   {t.robotDaVinciBadge[lang]}
                 </div>
@@ -963,8 +866,8 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
             {/* hinotori */}
             <div className="bg-gray-900 text-white rounded-2xl overflow-hidden group">
               <div className="relative h-64 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="hinotori" />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent" />
+                <img src="https://www.hosp.hyo-med.ac.jp/upload/news/content/hinotori2.png" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="hinotori" />
+                <div className="absolute inset-0 bg-black/20" />
                 <div className="absolute top-4 right-4 bg-rose-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                   {t.robotHinotoriBadge[lang]}
                 </div>
@@ -1046,7 +949,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
       {/* Row 1: PET-CT + MRI */}
       <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=1200" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="PET-CT" />
+          <img src="https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img13.jpg" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="PET-CT" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipPetCtTitle[lang]}</h4>
@@ -1056,7 +959,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
           </div>
         </div>
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=1200" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="MRI" />
+          <img src="https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img05.jpg" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="MRI" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">3.0T MRI × 3 + 1.5T × 1</h4>
@@ -1069,7 +972,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
       {/* Row 2: CT + Radiation Therapy */}
       <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <img src="https://images.unsplash.com/photo-1530497610245-b489b3085e3b?q=80&w=1200" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="CT Scanner" />
+          <img src="https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img04.jpg" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="CT Scanner" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipCtTitle[lang]}</h4>
@@ -1079,7 +982,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
           </div>
         </div>
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1200" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Radiation Therapy" />
+          <img src="https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img18.jpg" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Radiation Therapy" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipRadTitle[lang]}</h4>
@@ -1092,7 +995,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
       {/* Row 3: IVR + Endoscopy */}
       <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <img src="https://images.unsplash.com/photo-1551190822-a9ce113ac100?q=80&w=1200" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="IVR Center" />
+          <img src="https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img12.jpg" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="IVR Center" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipIvrTitle[lang]}</h4>
@@ -1102,7 +1005,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
           </div>
         </div>
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?q=80&w=1200" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Endoscopy" />
+          <img src="https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img02.jpg" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Endoscopy" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipEndoTitle[lang]}</h4>
@@ -1117,7 +1020,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
           8. 新病院大楼 2026 (全屏展示)
           ======================================== */}
       <div className="relative min-h-[70vh] flex items-center overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=2000" className="absolute inset-0 w-full h-full object-cover" alt="New Hospital Building 2026" />
+        <img src="https://www.hosp.hyo-med.ac.jp/new-building/common/img/newbuilding.png" className="absolute inset-0 w-full h-full object-cover" alt="New Hospital Building 2026" />
         <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-transparent" />
         <div className="relative container mx-auto px-6 py-16">
           <div className="max-w-2xl">
@@ -1143,7 +1046,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
           9. 救急・災害 (右对齐全屏)
           ======================================== */}
       <div className="relative min-h-[60vh] flex items-center overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2000" className="absolute inset-0 w-full h-full object-cover" alt="Emergency Center" />
+        <img src="https://www.hosp.hyo-med.ac.jp/upload/news/content/kouji1.jpg" className="absolute inset-0 w-full h-full object-cover" alt="Emergency Center" />
         <div className="absolute inset-0 bg-gradient-to-l from-slate-900/90 via-slate-900/70 to-transparent" />
         <div className="relative container mx-auto px-6 py-16">
           <div className="max-w-2xl ml-auto text-right">
@@ -1383,49 +1286,6 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-      )}
-
-      {/* ========================================
-          14. TIMC 健诊套餐 (非白标模式)
-          ======================================== */}
-      {!isWhitelabel && (
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <span className="text-blue-600 text-xs tracking-widest uppercase font-bold">{bookingT.pkgTag[lang]}</span>
-            <h3 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mt-3 mb-4">{bookingT.pkgTitle[lang]}</h3>
-            <p className="text-gray-500 max-w-3xl mx-auto">{bookingT.pkgDesc[lang]}</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-            {TIMC_PACKAGES.map((pkg) => (
-              <div key={pkg.slug} className={`${pkg.cardBg} ${pkg.cardText} border ${pkg.isVIP ? 'border-gray-800' : 'border-gray-200'} rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 flex flex-col relative overflow-hidden`}>
-                {pkg.badge && (
-                  <div className={`absolute top-0 right-0 ${pkg.badgeClass} text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider`}>
-                    {pkg.badge}
-                  </div>
-                )}
-                <div className="mb-4">
-                  <h4 className={`text-lg font-serif font-bold ${pkg.titleColor}`}>{pkg.name[lang]}</h4>
-                  <p className={`text-xs ${pkg.isVIP ? 'text-gray-400' : 'text-gray-500'} mt-1`}>{pkg.nameEn}</p>
-                  <p className={`text-xl font-bold ${pkg.priceColor} mt-2`}>¥{pkg.price.toLocaleString()}</p>
-                  <p className={`text-[10px] ${pkg.isVIP ? 'text-gray-500' : 'text-gray-400'}`}>{bookingT.pkgPriceNote[lang]}</p>
-                </div>
-                <div className={`space-y-1.5 mb-4 text-xs ${pkg.isVIP ? '' : 'text-gray-700'} flex-grow`}>
-                  {pkg.features[lang].map((feat, i) => (
-                    <div key={i} className="flex gap-2">
-                      <CheckCircle size={14} className={`${pkg.checkColor} shrink-0`} />
-                      <span>{feat}</span>
-                    </div>
-                  ))}
-                </div>
-                <Link href={`/medical-packages/${pkg.slug}?provider=hyogo_medical`} className={`w-full py-2 text-xs font-bold rounded transition text-center block ${pkg.buttonClass}`}>
-                  {bookingT.pkgDetailBtn[lang]}
-                </Link>
-              </div>
-            ))}
           </div>
         </div>
       </section>
