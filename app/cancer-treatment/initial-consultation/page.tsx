@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import PublicLayout from '@/components/PublicLayout';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
+import ProviderBanner, { useProviderKey } from '@/components/ProviderBanner';
 import {
   ArrowLeft, CheckCircle, FileText, Shield, Clock,
   Loader2, CreditCard, Users, Phone, Mail, MessageSquare
@@ -108,6 +109,7 @@ const SERVICE_INFO = {
 };
 
 export default function InitialConsultationPage() {
+  const providerKey = useProviderKey();
   const [currentLang, setCurrentLang] = useState<Language>('zh-TW');
   const [processing, setProcessing] = useState(false);
   const [customerInfo, setCustomerInfo] = useState({
@@ -213,6 +215,7 @@ export default function InitialConsultationPage() {
           preferredDate: null,
           preferredTime: null,
           notes: fullNotes,
+          provider: providerKey,
         }),
       });
 
@@ -229,6 +232,9 @@ export default function InitialConsultationPage() {
 
   return (
     <PublicLayout showFooter={true} transparentNav={false}>
+      <Suspense fallback={null}>
+        <ProviderBanner lang={currentLang} />
+      </Suspense>
       {/* Header */}
       <div className="pt-20 bg-white border-b border-gray-100">
         <div className="max-w-4xl mx-auto px-4 py-4">

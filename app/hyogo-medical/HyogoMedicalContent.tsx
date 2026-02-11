@@ -3,13 +3,13 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import {
-  Building, MapPin, Phone, Clock, Train,
+  MapPin, Phone, Clock, Train,
   Award, Stethoscope, Activity, Users, Shield,
   Heart, Brain, Baby, Pill, Eye, Ear,
   Syringe, Microscope, Sparkles, CheckCircle,
-  ExternalLink, FileText, Armchair, Flame,
-  CircleDot, Zap, Bot, Cross, Gem, Star,
-  TrendingUp, Hospital, HeartPulse, Scan,
+  ExternalLink, FileText, Flame,
+  CircleDot, Zap, Cross, Gem,
+  HeartPulse, Scan,
   ArrowRight, Globe, Mail, MessageSquare, CreditCard, Lock
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
@@ -197,6 +197,83 @@ const t = {
     'zh-CN': '中文服务人员为您提供全程支援。\n从预约安排到翻译陪同一站式服务，欢迎随时咨询。',
     en: 'Chinese-speaking staff provide full support.\nFrom appointment arrangement to interpreter accompaniment. Feel free to consult us.',
   } as Record<Language, string>,
+
+  // Robot badges & descriptions
+  robotDaVinciBadge: { ja: '2017年導入', 'zh-TW': '2017年引進', 'zh-CN': '2017年引进', en: 'Since 2017' } as Record<Language, string>,
+  robotDaVinciDesc: {
+    ja: '手ぶれ補正機能・多関節鉗子・立体3D映像を備えた最先端ロボット支援手術システム。泌尿器科、上部消化管外科、下部消化管外科、産科婦人科、呼吸器外科、耳鼻咽喉科の6科で活用。年間250件以上のロボット支援手術を実施。',
+    'zh-TW': '配備防手震功能、多關節鉗子、立體3D影像的最先進機器人輔助手術系統。在泌尿科、上消化道外科、下消化道外科、婦產科、呼吸器外科、耳鼻喉科6個科別使用。年間250件以上機器人輔助手術。',
+    'zh-CN': '配备防手抖功能、多关节钳子、立体3D影像的最先进机器人辅助手术系统。在泌尿科、上消化道外科、下消化道外科、妇产科、呼吸器外科、耳鼻喉科6个科室使用。年间250件以上机器人辅助手术。',
+    en: 'Advanced robotic surgical system with anti-tremor, multi-jointed forceps, and stereoscopic 3D imaging. Used across 6 departments. 250+ robotic surgeries annually.',
+  } as Record<Language, string>,
+  robotHinotoriBadge: { ja: '2024年導入・日本製', 'zh-TW': '2024年引進・日本製造', 'zh-CN': '2024年引进・日本制造', en: '2024 / Made in Japan' } as Record<Language, string>,
+  robotHinotoriDesc: {
+    ja: '日本初の国産手術支援ロボット。2024年8月導入。泌尿器科で前立腺全摘術、産婦人科でロボット支援手術を実施。今後、肝胆膵外科・呼吸器外科へ拡大予定。',
+    'zh-TW': '日本首台國產手術支援機器人。2024年8月引進。在泌尿科進行前列腺根治術、婦產科進行機器人輔助手術。計劃擴展至肝膽胰外科・呼吸器外科。',
+    'zh-CN': '日本首台国产手术支援机器人。2024年8月引进。在泌尿科进行前列腺根治术、妇产科进行机器人辅助手术。计划扩展至肝胆胰外科・呼吸器外科。',
+    en: "Japan's first domestically produced surgical robot. Introduced August 2024. Used in Urology and Ob/Gyn. Expanding to HPB and Thoracic Surgery.",
+  } as Record<Language, string>,
+
+  // Equipment titles & descriptions
+  equipPetCtTitle: { ja: 'PET-CT × 3台', 'zh-TW': 'PET-CT × 3台', 'zh-CN': 'PET-CT × 3台', en: 'PET-CT × 3 Units' } as Record<Language, string>,
+  equipPetCtDesc: {
+    ja: '専用サイクロトロン（加速器）を院内に設置し、PET用放射性薬剤を自家製造。年間4,719件のPET検査を実施する専門PETセンター（2006年開設）。全身のがん・病変を一度にスクリーニング。',
+    'zh-TW': '院內設置專用迴旋加速器，自行製造PET放射性藥劑。年間4,719件PET檢查的專門PET中心（2006年開設）。一次性全身癌症・病變篩查。',
+    'zh-CN': '院内设置专用回旋加速器，自行制造PET放射性药剂。年间4,719件PET检查的专门PET中心（2006年开设）。一次性全身癌症・病变筛查。',
+    en: 'On-site cyclotron for in-house radiopharmaceutical production. PET Center (est. 2006) performing 4,719 PET scans/yr. Full-body cancer screening.',
+  } as Record<Language, string>,
+  equipMriDesc: {
+    ja: '4台のMRI（3.0テスラ3台＋1.5テスラ1台）を配備。年間16,289件のMRI検査を実施。超高磁場による高精細画像で脳・脊髄・関節等の微細病変を検出。',
+    'zh-TW': '配備4台MRI（3.0T×3＋1.5T×1）。年間16,289件MRI檢查。超高磁場高精細影像檢測腦・脊髓・關節等微細病變。',
+    'zh-CN': '配备4台MRI（3.0T×3＋1.5T×1）。年间16,289件MRI检查。超高磁场高精细影像检测脑・脊髓・关节等微细病变。',
+    en: '4 MRI systems (3×3.0T + 1×1.5T). 16,289 annual exams. Ultra-high field imaging for minute lesions in brain, spine, joints.',
+  } as Record<Language, string>,
+  equipCtTitle: { ja: '128列マルチスライスCT × 3台', 'zh-TW': '128列多層CT × 3台', 'zh-CN': '128列多层CT × 3台', en: '128-Slice CT × 3 Units' } as Record<Language, string>,
+  equipCtDesc: {
+    ja: '年間37,470件のCT検査を実施。高速撮影で心臓を1回転で撮影可能。低被ばくかつ高精細な画像診断を実現。',
+    'zh-TW': '年間37,470件CT檢查。高速拍攝可一次旋轉完成心臟掃描。低輻射高精度影像診斷。',
+    'zh-CN': '年间37,470件CT检查。高速拍摄可一次旋转完成心脏扫描。低辐射高精度影像诊断。',
+    en: '37,470 annual CT scans. Single-rotation cardiac imaging. Low-radiation, high-resolution diagnostics.',
+  } as Record<Language, string>,
+  equipRadTitle: { ja: '高精度放射線治療装置', 'zh-TW': '高精度放射治療裝置', 'zh-CN': '高精度放射治疗装置', en: 'Precision Radiation Therapy' } as Record<Language, string>,
+  equipRadDesc: {
+    ja: 'Elekta Synergy高精度リニアック2台。IMRT・IGRT・定位放射線治療に対応。年間572名・12,322回照射。小線源治療（HDR/LDR）も完備。',
+    'zh-TW': 'Elekta Synergy高精度直線加速器2台。支援IMRT・IGRT・立體定位放射治療。年間572名・12,322次照射。近接治療（HDR/LDR）完備。',
+    'zh-CN': 'Elekta Synergy高精度直线加速器2台。支持IMRT・IGRT・立体定向放射治疗。年间572名・12,322次照射。近距离放疗（HDR/LDR）完备。',
+    en: '2 Elekta Synergy linacs. IMRT, IGRT, stereotactic radiotherapy. 572 patients, 12,322 sessions/yr. HDR/LDR brachytherapy.',
+  } as Record<Language, string>,
+  equipIvrTitle: { ja: 'IVRセンター（10室）', 'zh-TW': 'IVR中心（10間）', 'zh-CN': 'IVR中心（10间）', en: 'IVR Center (10 Suites)' } as Record<Language, string>,
+  equipIvrDesc: {
+    ja: '血管造影装置10室（循環器4台・脳神経3台・腹部IVR-CT 1台・コーンビームCT 2台）。年間1,081件のインターベンション手術。ハイブリッド手術室完備。',
+    'zh-TW': '血管造影裝置10間（心臟4台・腦神經3台・腹部IVR-CT 1台・錐形束CT 2台）。年間1,081件介入手術。配備混合手術室。',
+    'zh-CN': '血管造影装置10间（心脏4台・脑神经3台・腹部IVR-CT 1台・锥形束CT 2台）。年间1,081件介入手术。配备混合手术室。',
+    en: '10 angiography suites (4 cardiac, 3 neuro, 1 abdominal IVR-CT, 2 cone-beam CT). 1,081 interventions/yr. Hybrid OR.',
+  } as Record<Language, string>,
+  equipEndoTitle: { ja: '内視鏡センター（7室）', 'zh-TW': '內視鏡中心（7間）', 'zh-CN': '内镜中心（7间）', en: 'Endoscopy Center (7 Rooms)' } as Record<Language, string>,
+  equipEndoDesc: {
+    ja: '年間13,734件（上部6,869件・下部5,357件・ESD 248件）。NBI拡大内視鏡・カプセル内視鏡・ダブルバルーン内視鏡・EUS完備。早期がん内視鏡治療は全国屈指。',
+    'zh-TW': '年間13,734件（上部6,869件・下部5,357件・ESD 248件）。配備NBI放大內視鏡・膠囊內視鏡・雙氣囊內視鏡・EUS。早期癌內視鏡治療全國頂級。',
+    'zh-CN': '年间13,734件（上部6,869件・下部5,357件・ESD 248件）。配备NBI放大内镜・胶囊内镜・双气囊内镜・EUS。早期癌内镜治疗全国顶级。',
+    en: '13,734/yr (6,869 upper, 5,357 lower, 248 ESD). NBI, capsule, double-balloon, EUS. Nationally top early cancer endoscopic treatment.',
+  } as Record<Language, string>,
+
+  // New building badges
+  newBuildSeismic: { ja: '免震構造', 'zh-TW': '免震結構', 'zh-CN': '免震结构', en: 'Seismic Isolation' } as Record<Language, string>,
+  newBuildHelipad: { ja: '屋上ヘリポート', 'zh-TW': '屋頂直升機坪', 'zh-CN': '屋顶直升机坪', en: 'Rooftop Helipad' } as Record<Language, string>,
+
+  // Emergency badge
+  emergPopulation: { ja: '190万人圏域', 'zh-TW': '190萬人口', 'zh-CN': '190万人口', en: '1.9M Pop.' } as Record<Language, string>,
+
+  // Access labels
+  accessLabelAddress: { ja: '所在地', 'zh-TW': '地址', 'zh-CN': '地址', en: 'Address' } as Record<Language, string>,
+  accessLabelTrain: { ja: '電車でお越しの方', 'zh-TW': '電車交通', 'zh-CN': '电车交通', en: 'By Train' } as Record<Language, string>,
+  accessLabelHours: { ja: '外来受付時間', 'zh-TW': '門診時間', 'zh-CN': '门诊时间', en: 'Outpatient Hours' } as Record<Language, string>,
+  accessLabelPhone: { ja: '代表電話', 'zh-TW': '電話', 'zh-CN': '电话', en: 'Phone' } as Record<Language, string>,
+
+  // Footer / form
+  privacyLabel: { ja: 'プライバシー保護', 'zh-TW': '隱私保護', 'zh-CN': '隐私保护', en: 'Privacy Protected' } as Record<Language, string>,
+  wechatAddPrompt: { ja: '下記の微信IDを追加してください', 'zh-TW': '請添加以下微信號', 'zh-CN': '请添加以下微信号', en: 'Add the WeChat ID below' } as Record<Language, string>,
+  copyLabel: { ja: 'コピー', 'zh-TW': '複製', 'zh-CN': '复制', en: 'Copy' } as Record<Language, string>,
 };
 
 // ======================================
@@ -605,7 +682,7 @@ const TIMC_PACKAGES = [
     slug: 'vip-member-course',
     name: { ja: 'VIP会員コース', 'zh-TW': 'VIP 會員套餐', 'zh-CN': 'VIP 会员套餐', en: 'VIP Member Course' } as Record<Language, string>,
     nameEn: 'VIP Member Course',
-    price: 1512500,
+    price: MEDICAL_PACKAGES['vip-member-course'].priceJpy,
     badge: 'Flagship',
     isVIP: true,
     features: {
@@ -621,7 +698,7 @@ const TIMC_PACKAGES = [
   {
     slug: 'premium-cardiac-course',
     name: { ja: 'プレミアム心臓コース', 'zh-TW': '尊享心臟套餐', 'zh-CN': '尊享心脏套餐', en: 'Premium Cardiac' } as Record<Language, string>,
-    nameEn: 'Premium Cardiac Course', price: 825000,
+    nameEn: 'Premium Cardiac Course', price: MEDICAL_PACKAGES['premium-cardiac-course'].priceJpy,
     features: {
       ja: ['PET-CT', '心臓CT/MRI', '心臓エコー', '上部内視鏡', '血液検査'],
       'zh-TW': ['PET-CT', '心臟CT/MRI', '心臟超聲波', '胃鏡', '血液檢查'],
@@ -634,7 +711,7 @@ const TIMC_PACKAGES = [
   {
     slug: 'select-gastro-colonoscopy',
     name: { ja: '胃腸セレクトコース', 'zh-TW': '甄選胃腸套餐', 'zh-CN': '甄选胃肠套餐', en: 'Gastro + Colon' } as Record<Language, string>,
-    nameEn: 'Gastro + Colonoscopy', price: 825000,
+    nameEn: 'Gastro + Colonoscopy', price: MEDICAL_PACKAGES['select-gastro-colonoscopy'].priceJpy,
     features: {
       ja: ['PET-CT', '上下部内視鏡', '腹部エコー', '大腸CT', '血液検査'],
       'zh-TW': ['PET-CT', '上下消化道內視鏡', '腹部超聲波', '大腸CT', '血液檢查'],
@@ -647,7 +724,7 @@ const TIMC_PACKAGES = [
   {
     slug: 'select-gastroscopy',
     name: { ja: '胃カメラセレクト', 'zh-TW': '甄選胃鏡套餐', 'zh-CN': '甄选胃镜套餐', en: 'Gastroscopy' } as Record<Language, string>,
-    nameEn: 'Gastroscopy Course', price: 687500,
+    nameEn: 'Gastroscopy Course', price: MEDICAL_PACKAGES['select-gastroscopy'].priceJpy,
     features: {
       ja: ['PET-CT', '上部内視鏡', '腹部エコー', 'ピロリ菌検査', '血液検査'],
       'zh-TW': ['PET-CT', '胃鏡', '腹部超聲波', '幽門螺旋桿菌', '血液檢查'],
@@ -660,7 +737,7 @@ const TIMC_PACKAGES = [
   {
     slug: 'dwibs-cancer-screening',
     name: { ja: 'DWIBSがんスクリーニング', 'zh-TW': 'DWIBS 癌症篩查', 'zh-CN': 'DWIBS 癌症筛查', en: 'DWIBS Screening' } as Record<Language, string>,
-    nameEn: 'DWIBS Cancer Screening', price: 275000,
+    nameEn: 'DWIBS Cancer Screening', price: MEDICAL_PACKAGES['dwibs-cancer-screening'].priceJpy,
     features: {
       ja: ['DWIBS全身MRI', '腫瘍マーカー', '血液検査', '結果説明', '無痛・被ばくなし'],
       'zh-TW': ['DWIBS全身MRI', '腫瘤標記物', '血液檢查', '結果說明', '無痛・無輻射'],
@@ -673,7 +750,7 @@ const TIMC_PACKAGES = [
   {
     slug: 'basic-checkup',
     name: { ja: 'スタンダード健診', 'zh-TW': '標準健診套餐', 'zh-CN': '标准健诊套餐', en: 'Standard Checkup' } as Record<Language, string>,
-    nameEn: 'Standard Checkup Course', price: 550000,
+    nameEn: 'Standard Checkup Course', price: MEDICAL_PACKAGES['basic-checkup'].priceJpy,
     features: {
       ja: ['PET-CT', '腹部エコー', '血液検査', '尿検査', '結果説明'],
       'zh-TW': ['PET-CT', '腹部超聲波', '血液檢查', '尿液檢查', '結果說明'],
@@ -740,6 +817,17 @@ const bookingT = {
   wechatNote: { ja: '追加後「兵庫医大相談」とお伝えください', 'zh-TW': '添加後請注明：兵庫醫大諮詢', 'zh-CN': '添加后请注明：兵库医大咨询', en: 'Please note: Hyogo Medical consultation' } as Record<Language, string>,
 };
 
+// WeChat 图标 SVG path（消除重复）
+const WECHAT_SVG_PATH = 'M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178A1.17 1.17 0 014.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178 1.17 1.17 0 01-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 01.598.082l1.584.926a.272.272 0 00.139.045c.133 0 .241-.108.241-.243 0-.06-.024-.118-.04-.177l-.327-1.233a.49.49 0 01-.009-.102c0-.142.062-.28.177-.375C23.116 17.715 24 16.046 24 14.194c0-2.942-2.696-5.336-7.062-5.336zm-2.745 3.086c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.97-.983zm5.49 0c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.969-.983z';
+
+function WeChatIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className || 'w-5 h-5'} viewBox="0 0 24 24" fill="currentColor">
+      <path d={WECHAT_SVG_PATH} />
+    </svg>
+  );
+}
+
 interface HyogoMedicalContentProps {
   whitelabel?: WhitelabelModuleProps;
 }
@@ -747,6 +835,7 @@ interface HyogoMedicalContentProps {
 export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentProps) {
   const lang = useLanguage();
   const [showWechatQR, setShowWechatQR] = useState(false);
+  const isWhitelabel = Boolean(whitelabel && whitelabel.brandName);
 
   return (
     <div className="animate-fade-in-up min-h-screen bg-white">
@@ -856,19 +945,13 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
                 <img src="https://images.unsplash.com/photo-1551190822-a9ce113ac100?q=80&w=1200" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Da Vinci Xi" />
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent" />
                 <div className="absolute top-4 right-4 bg-blue-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                  {lang === 'ja' ? '2017年導入' : lang === 'en' ? 'Since 2017' : '2017年引进'}
+                  {t.robotDaVinciBadge[lang]}
                 </div>
               </div>
               <div className="p-8">
                 <h4 className="text-2xl font-serif font-bold mb-3">Da Vinci Xi</h4>
                 <p className="text-sm text-gray-400 leading-relaxed mb-4">
-                  {lang === 'ja'
-                    ? '手ぶれ補正機能・多関節鉗子・立体3D映像を備えた最先端ロボット支援手術システム。泌尿器科、上部消化管外科、下部消化管外科、産科婦人科、呼吸器外科、耳鼻咽喉科の6科で活用。年間250件以上のロボット支援手術を実施。'
-                    : lang === 'zh-TW'
-                    ? '配備防手震功能、多關節鉗子、立體3D影像的最先進機器人輔助手術系統。在泌尿科、上消化道外科、下消化道外科、婦產科、呼吸器外科、耳鼻喉科6個科別使用。年間250件以上機器人輔助手術。'
-                    : lang === 'zh-CN'
-                    ? '配备防手抖功能、多关节钳子、立体3D影像的最先进机器人辅助手术系统。在泌尿科、上消化道外科、下消化道外科、妇产科、呼吸器外科、耳鼻喉科6个科室使用。年间250件以上机器人辅助手术。'
-                    : 'Advanced robotic surgical system with anti-tremor, multi-jointed forceps, and stereoscopic 3D imaging. Used across 6 departments. 250+ robotic surgeries annually.'}
+                  {t.robotDaVinciDesc[lang]}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   <span className="px-3 py-1 bg-white/10 rounded-full text-xs border border-white/20">6 Departments</span>
@@ -883,19 +966,13 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
                 <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="hinotori" />
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent" />
                 <div className="absolute top-4 right-4 bg-rose-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                  {lang === 'ja' ? '2024年導入・日本製' : lang === 'en' ? '2024 / Made in Japan' : '2024年引进・日本制造'}
+                  {t.robotHinotoriBadge[lang]}
                 </div>
               </div>
               <div className="p-8">
                 <h4 className="text-2xl font-serif font-bold mb-3">hinotori™</h4>
                 <p className="text-sm text-gray-400 leading-relaxed mb-4">
-                  {lang === 'ja'
-                    ? '日本初の国産手術支援ロボット。2024年8月導入。泌尿器科で前立腺全摘術、産婦人科でロボット支援手術を実施。今後、肝胆膵外科・呼吸器外科へ拡大予定。'
-                    : lang === 'zh-TW'
-                    ? '日本首台國產手術支援機器人。2024年8月引進。在泌尿科進行前列腺根治術、婦產科進行機器人輔助手術。計劃擴展至肝膽胰外科・呼吸器外科。'
-                    : lang === 'zh-CN'
-                    ? '日本首台国产手术支援机器人。2024年8月引进。在泌尿科进行前列腺根治术、妇产科进行机器人辅助手术。计划扩展至肝胆胰外科・呼吸器外科。'
-                    : "Japan's first domestically produced surgical robot. Introduced August 2024. Used in Urology and Ob/Gyn. Expanding to HPB and Thoracic Surgery."}
+                  {t.robotHinotoriDesc[lang]}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   <span className="px-3 py-1 bg-white/10 rounded-full text-xs border border-white/20">Made in Japan</span>
@@ -972,15 +1049,9 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
           <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=1200" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="PET-CT" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">PET-CT × 3{lang === 'ja' ? '台' : lang === 'en' ? ' Units' : '台'}</h4>
+            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipPetCtTitle[lang]}</h4>
             <p className="text-sm text-white/80 leading-relaxed">
-              {lang === 'ja'
-                ? '専用サイクロトロン（加速器）を院内に設置し、PET用放射性薬剤を自家製造。年間4,719件のPET検査を実施する専門PETセンター（2006年開設）。全身のがん・病変を一度にスクリーニング。'
-                : lang === 'zh-TW'
-                ? '院內設置專用迴旋加速器，自行製造PET放射性藥劑。年間4,719件PET檢查的專門PET中心（2006年開設）。一次性全身癌症・病變篩查。'
-                : lang === 'zh-CN'
-                ? '院内设置专用回旋加速器，自行制造PET放射性药剂。年间4,719件PET检查的专门PET中心（2006年开设）。一次性全身癌症・病变筛查。'
-                : 'On-site cyclotron for in-house radiopharmaceutical production. PET Center (est. 2006) performing 4,719 PET scans/yr. Full-body cancer screening.'}
+              {t.equipPetCtDesc[lang]}
             </p>
           </div>
         </div>
@@ -990,13 +1061,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">3.0T MRI × 3 + 1.5T × 1</h4>
             <p className="text-sm text-white/80 leading-relaxed">
-              {lang === 'ja'
-                ? '4台のMRI（3.0テスラ3台＋1.5テスラ1台）を配備。年間16,289件のMRI検査を実施。超高磁場による高精細画像で脳・脊髄・関節等の微細病変を検出。'
-                : lang === 'zh-TW'
-                ? '配備4台MRI（3.0T×3＋1.5T×1）。年間16,289件MRI檢查。超高磁場高精細影像檢測腦・脊髓・關節等微細病變。'
-                : lang === 'zh-CN'
-                ? '配备4台MRI（3.0T×3＋1.5T×1）。年间16,289件MRI检查。超高磁场高精细影像检测脑・脊髓・关节等微细病变。'
-                : '4 MRI systems (3×3.0T + 1×1.5T). 16,289 annual exams. Ultra-high field imaging for minute lesions in brain, spine, joints.'}
+              {t.equipMriDesc[lang]}
             </p>
           </div>
         </div>
@@ -1007,15 +1072,9 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
           <img src="https://images.unsplash.com/photo-1530497610245-b489b3085e3b?q=80&w=1200" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="CT Scanner" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">128{lang === 'ja' ? '列マルチスライスCT × 3台' : lang === 'en' ? '-Slice CT × 3 Units' : '列多层CT × 3台'}</h4>
+            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipCtTitle[lang]}</h4>
             <p className="text-sm text-white/80 leading-relaxed">
-              {lang === 'ja'
-                ? '年間37,470件のCT検査を実施。高速撮影で心臓を1回転で撮影可能。低被ばくかつ高精細な画像診断を実現。'
-                : lang === 'zh-TW'
-                ? '年間37,470件CT檢查。高速拍攝可一次旋轉完成心臟掃描。低輻射高精度影像診斷。'
-                : lang === 'zh-CN'
-                ? '年间37,470件CT检查。高速拍摄可一次旋转完成心脏扫描。低辐射高精度影像诊断。'
-                : '37,470 annual CT scans. Single-rotation cardiac imaging. Low-radiation, high-resolution diagnostics.'}
+              {t.equipCtDesc[lang]}
             </p>
           </div>
         </div>
@@ -1023,15 +1082,9 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
           <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1200" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Radiation Therapy" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{lang === 'ja' ? '高精度放射線治療装置' : lang === 'zh-TW' ? '高精度放射治療裝置' : lang === 'zh-CN' ? '高精度放射治疗装置' : 'Precision Radiation Therapy'}</h4>
+            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipRadTitle[lang]}</h4>
             <p className="text-sm text-white/80 leading-relaxed">
-              {lang === 'ja'
-                ? 'Elekta Synergy高精度リニアック2台。IMRT・IGRT・定位放射線治療に対応。年間572名・12,322回照射。小線源治療（HDR/LDR）も完備。'
-                : lang === 'zh-TW'
-                ? 'Elekta Synergy高精度直線加速器2台。支援IMRT・IGRT・立體定位放射治療。年間572名・12,322次照射。近接治療（HDR/LDR）完備。'
-                : lang === 'zh-CN'
-                ? 'Elekta Synergy高精度直线加速器2台。支持IMRT・IGRT・立体定向放射治疗。年间572名・12,322次照射。近距离放疗（HDR/LDR）完备。'
-                : '2 Elekta Synergy linacs. IMRT, IGRT, stereotactic radiotherapy. 572 patients, 12,322 sessions/yr. HDR/LDR brachytherapy.'}
+              {t.equipRadDesc[lang]}
             </p>
           </div>
         </div>
@@ -1042,15 +1095,9 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
           <img src="https://images.unsplash.com/photo-1551190822-a9ce113ac100?q=80&w=1200" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="IVR Center" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{lang === 'ja' ? 'IVRセンター（10室）' : lang === 'zh-TW' ? 'IVR中心（10間）' : lang === 'zh-CN' ? 'IVR中心（10间）' : 'IVR Center (10 Suites)'}</h4>
+            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipIvrTitle[lang]}</h4>
             <p className="text-sm text-white/80 leading-relaxed">
-              {lang === 'ja'
-                ? '血管造影装置10室（循環器4台・脳神経3台・腹部IVR-CT 1台・コーンビームCT 2台）。年間1,081件のインターベンション手術。ハイブリッド手術室完備。'
-                : lang === 'zh-TW'
-                ? '血管造影裝置10間（心臟4台・腦神經3台・腹部IVR-CT 1台・錐形束CT 2台）。年間1,081件介入手術。配備混合手術室。'
-                : lang === 'zh-CN'
-                ? '血管造影装置10间（心脏4台・脑神经3台・腹部IVR-CT 1台・锥形束CT 2台）。年间1,081件介入手术。配备混合手术室。'
-                : '10 angiography suites (4 cardiac, 3 neuro, 1 abdominal IVR-CT, 2 cone-beam CT). 1,081 interventions/yr. Hybrid OR.'}
+              {t.equipIvrDesc[lang]}
             </p>
           </div>
         </div>
@@ -1058,15 +1105,9 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
           <img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?q=80&w=1200" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Endoscopy" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{lang === 'ja' ? '内視鏡センター（7室）' : lang === 'zh-TW' ? '內視鏡中心（7間）' : lang === 'zh-CN' ? '内镜中心（7间）' : 'Endoscopy Center (7 Rooms)'}</h4>
+            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipEndoTitle[lang]}</h4>
             <p className="text-sm text-white/80 leading-relaxed">
-              {lang === 'ja'
-                ? '年間13,734件（上部6,869件・下部5,357件・ESD 248件）。NBI拡大内視鏡・カプセル内視鏡・ダブルバルーン内視鏡・EUS完備。早期がん内視鏡治療は全国屈指。'
-                : lang === 'zh-TW'
-                ? '年間13,734件（上部6,869件・下部5,357件・ESD 248件）。配備NBI放大內視鏡・膠囊內視鏡・雙氣囊內視鏡・EUS。早期癌內視鏡治療全國頂級。'
-                : lang === 'zh-CN'
-                ? '年间13,734件（上部6,869件・下部5,357件・ESD 248件）。配备NBI放大内镜・胶囊内镜・双气囊内镜・EUS。早期癌内镜治疗全国顶级。'
-                : '13,734/yr (6,869 upper, 5,357 lower, 248 ESD). NBI, capsule, double-balloon, EUS. Nationally top early cancer endoscopic treatment.'}
+              {t.equipEndoDesc[lang]}
             </p>
           </div>
         </div>
@@ -1090,8 +1131,8 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
               <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">15F / ~73m</span>
               <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">801 Beds</span>
               <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">71,000㎡</span>
-              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">{lang === 'ja' ? '免震構造' : lang === 'en' ? 'Seismic Isolation' : '免震结构'}</span>
-              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">{lang === 'ja' ? '屋上ヘリポート' : lang === 'en' ? 'Rooftop Helipad' : '屋顶直升机坪'}</span>
+              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">{t.newBuildSeismic[lang]}</span>
+              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">{t.newBuildHelipad[lang]}</span>
               <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">Smart Hospital</span>
             </div>
           </div>
@@ -1115,7 +1156,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
             <div className="mt-6 flex justify-end flex-wrap gap-3">
               <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">20-bed EICU</span>
               <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">24/7/365</span>
-              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">{lang === 'ja' ? '190万人圏域' : lang === 'en' ? '1.9M Pop.' : '190万人口'}</span>
+              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">{t.emergPopulation[lang]}</span>
             </div>
           </div>
         </div>
@@ -1179,7 +1220,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <div className="bg-gray-100 rounded-2xl h-80 md:h-[450px] overflow-hidden">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3279.9!2d135.3802!3d34.7238!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000f1a0d3e6f8e1%3A0x3b6b3b3b3b3b3b3b!2z5YW15bqr5Yy756eR5aSn5a2m55eF6Zmi!5e0!3m2!1sja!2sjp!4v1"
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=%E5%85%B5%E5%BA%AB%E5%8C%BB%E7%A7%91%E5%A4%A7%E5%AD%A6%E7%97%85%E9%99%A2&zoom=15"
                 width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade" className="rounded-2xl"
               />
@@ -1189,7 +1230,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center shrink-0"><MapPin size={20} /></div>
                   <div>
-                    <h4 className="font-bold text-gray-800 mb-1 font-serif">{lang === 'ja' ? '所在地' : lang === 'en' ? 'Address' : '地址'}</h4>
+                    <h4 className="font-bold text-gray-800 mb-1 font-serif">{t.accessLabelAddress[lang]}</h4>
                     <p className="text-sm text-gray-500">{t.accessAddress[lang]}</p>
                   </div>
                 </div>
@@ -1198,7 +1239,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 bg-green-100 text-green-700 rounded-full flex items-center justify-center shrink-0"><Train size={20} /></div>
                   <div>
-                    <h4 className="font-bold text-gray-800 mb-1 font-serif">{lang === 'ja' ? '電車でお越しの方' : lang === 'en' ? 'By Train' : '电车交通'}</h4>
+                    <h4 className="font-bold text-gray-800 mb-1 font-serif">{t.accessLabelTrain[lang]}</h4>
                     <p className="text-sm text-gray-500">{t.accessTrain[lang]}</p>
                   </div>
                 </div>
@@ -1207,7 +1248,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center shrink-0"><Clock size={20} /></div>
                   <div>
-                    <h4 className="font-bold text-gray-800 mb-1 font-serif">{lang === 'ja' ? '外来受付時間' : lang === 'en' ? 'Outpatient Hours' : '门诊时间'}</h4>
+                    <h4 className="font-bold text-gray-800 mb-1 font-serif">{t.accessLabelHours[lang]}</h4>
                     <p className="text-sm text-gray-500">{t.hoursWeekday[lang]}</p>
                     <p className="text-xs text-gray-400 mt-1">{t.hoursClosed[lang]}</p>
                   </div>
@@ -1217,7 +1258,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center shrink-0"><Phone size={20} /></div>
                   <div>
-                    <h4 className="font-bold text-gray-800 mb-1 font-serif">{lang === 'ja' ? '代表電話' : lang === 'en' ? 'Phone' : '电话'}</h4>
+                    <h4 className="font-bold text-gray-800 mb-1 font-serif">{t.accessLabelPhone[lang]}</h4>
                     <p className="text-sm text-gray-500">0798-45-6111</p>
                   </div>
                 </div>
@@ -1276,7 +1317,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
       {/* ========================================
           13. 咨询服务预约（Stripe 支付）
           ======================================== */}
-      {!whitelabel && (
+      {!isWhitelabel && (
       <section id="contact-form" className="py-24 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
@@ -1350,7 +1391,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
       {/* ========================================
           14. TIMC 健诊套餐 (非白标模式)
           ======================================== */}
-      {!whitelabel && (
+      {!isWhitelabel && (
       <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
@@ -1393,7 +1434,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
       {/* ========================================
           15. Contact Methods (非白标模式)
           ======================================== */}
-      {!whitelabel && (
+      {!isWhitelabel && (
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mx-auto">
@@ -1423,16 +1464,14 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
                   onClick={() => setShowWechatQR(true)}
                   className="flex items-center justify-center gap-3 bg-[#07C160] text-white p-4 rounded-xl hover:bg-[#06ad56] transition font-bold"
                 >
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178A1.17 1.17 0 014.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178 1.17 1.17 0 01-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 01.598.082l1.584.926a.272.272 0 00.139.045c.133 0 .241-.108.241-.243 0-.06-.024-.118-.04-.177l-.327-1.233a.49.49 0 01-.009-.102c0-.142.062-.28.177-.375C23.116 17.715 24 16.046 24 14.194c0-2.942-2.696-5.336-7.062-5.336zm-2.745 3.086c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.97-.983zm5.49 0c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.969-.983z"/>
-                  </svg>
+                  <WeChatIcon />
                   {bookingT.contactWechat[lang]}
                 </button>
               </div>
               <div className="mt-6 flex items-center justify-center gap-6 text-xs text-gray-400">
                 <div className="flex items-center gap-1.5"><Lock size={14} /><span>SSL</span></div>
                 <div className="flex items-center gap-1.5"><CreditCard size={14} /><span>Stripe</span></div>
-                <div className="flex items-center gap-1.5"><Shield size={14} /><span>{lang === 'ja' ? 'プライバシー保護' : lang === 'en' ? 'Privacy Protected' : '隐私保护'}</span></div>
+                <div className="flex items-center gap-1.5"><Shield size={14} /><span>{t.privacyLabel[lang]}</span></div>
               </div>
             </div>
           </div>
@@ -1447,7 +1486,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
         <div className="text-center">
           <h3 className="text-3xl font-serif text-gray-900 mb-4">{t.ctaTitle[lang]}</h3>
           <p className="text-gray-500 text-sm max-w-2xl mx-auto whitespace-pre-line mb-8">{t.ctaDesc[lang]}</p>
-          {!whitelabel && (
+          {!isWhitelabel && (
             <a
               href="#contact-form"
               className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-8 py-4 rounded-full font-bold hover:from-blue-700 hover:to-indigo-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
@@ -1479,15 +1518,21 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
               </svg>
             </button>
             <div className="w-16 h-16 bg-[#07C160] rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-10 h-10 text-white" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178A1.17 1.17 0 014.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178 1.17 1.17 0 01-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 01.598.082l1.584.926a.272.272 0 00.139.045c.133 0 .241-.108.241-.243 0-.06-.024-.118-.04-.177l-.327-1.233a.49.49 0 01-.009-.102c0-.142.062-.28.177-.375C23.116 17.715 24 16.046 24 14.194c0-2.942-2.696-5.336-7.062-5.336zm-2.745 3.086c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.97-.983zm5.49 0c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.969-.983z"/>
-              </svg>
+              <WeChatIcon className="w-10 h-10 text-white" />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">{bookingT.wechatTitle[lang]}</h3>
-            <p className="text-gray-500 text-sm mb-4">{bookingT.wechatScan[lang]}</p>
+            <p className="text-gray-500 text-sm mb-4">
+              {t.wechatAddPrompt[lang]}
+            </p>
             <div className="bg-gray-100 rounded-xl p-4 mb-4">
-              <div className="w-48 h-48 mx-auto bg-white rounded-lg flex items-center justify-center text-gray-400 text-sm">
-                WeChat QR Code
+              <div className="flex items-center justify-center gap-3">
+                <span className="text-lg font-mono font-bold text-gray-800 select-all">niijima-medical</span>
+                <button
+                  onClick={() => { navigator.clipboard.writeText('niijima-medical'); }}
+                  className="px-3 py-1 bg-[#07C160] text-white text-xs rounded-lg hover:bg-[#06ad56] transition"
+                >
+                  {t.copyLabel[lang]}
+                </button>
               </div>
             </div>
             <p className="text-xs text-gray-400">{bookingT.wechatNote[lang]}</p>

@@ -1,11 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CheckCircle, Car, Building, Check, Shield, Lock, CreditCard } from 'lucide-react';
 import SmartBackLink from '@/components/SmartBackLink';
+import ProviderBanner, { useProviderKey } from '@/components/ProviderBanner';
+import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 import { translations, Language } from '@/translations';
 
 // 套餐基础数据（不含翻译文本）
@@ -67,14 +69,12 @@ const packageColors = {
   },
 };
 
-const packagePrices: Record<string, number> = {
-  'vip-member-course': 1512500,
-  'premium-cardiac-course': 825000,
-  'select-gastro-colonoscopy': 825000,
-  'select-gastroscopy': 687500,
-  'dwibs-cancer-screening': 275000,
-  'basic-checkup': 550000,
-};
+// 价格统一从 MEDICAL_PACKAGES 配置读取（SSOT）
+const packagePrices: Record<string, number> = Object.fromEntries(
+  Object.entries(MEDICAL_PACKAGES)
+    .filter(([, pkg]) => pkg.category === 'health_checkup')
+    .map(([slug, pkg]) => [slug, pkg.priceJpy])
+);
 
 // 根据语言获取套餐数据
 function getPackagesData(lang: Language) {
@@ -164,6 +164,7 @@ function getAddOnServices(lang: Language) {
 export default function PackageDetailPage() {
   const params = useParams();
   const slug = params.slug as string;
+  const providerKey = useProviderKey();
 
   // 读取当前语言
   const [currentLang, setCurrentLang] = useState<Language>('zh-TW');
@@ -269,7 +270,7 @@ export default function PackageDetailPage() {
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ packageSlug: slug, customerInfo, preferredDate: preferredDate || null, notes: notesWithTime || null }),
+        body: JSON.stringify({ packageSlug: slug, customerInfo, preferredDate: preferredDate || null, notes: notesWithTime || null, provider: providerKey }),
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || '創建支付會話失敗');
@@ -284,6 +285,9 @@ export default function PackageDetailPage() {
 
   return (
     <div className="min-h-screen bg-[#faf9f7]">
+      <Suspense fallback={null}>
+        <ProviderBanner lang={currentLang as 'ja' | 'zh-TW' | 'zh-CN' | 'en'} />
+      </Suspense>
       {/* Header */}
       <div className="bg-white border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 py-4">
