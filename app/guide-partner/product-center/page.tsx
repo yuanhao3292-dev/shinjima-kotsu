@@ -24,7 +24,7 @@ import {
 
 interface PageModule {
   id: string;
-  module_type: 'bio' | 'vehicle' | 'medical';
+  module_type: 'bio' | 'vehicle' | 'medical' | 'beauty' | 'travel' | 'other';
   name: string;
   name_ja: string | null;
   name_zh: string | null;
@@ -40,7 +40,7 @@ interface PageModule {
 
 interface PageTemplate {
   id: string;
-  module_type: 'bio' | 'vehicle';
+  module_type: 'bio' | 'vehicle' | 'contact';
   template_key: string;
   name: string;
   name_zh: string | null;
@@ -198,7 +198,9 @@ export default function ProductCenterPage() {
     switch (type) {
       case 'bio': return <User className="text-blue-500" size={24} />;
       case 'vehicle': return <Car className="text-green-500" size={24} />;
-      case 'medical': return <Package className="text-purple-500" size={24} />;
+      case 'medical': return <Stethoscope className="text-purple-500" size={24} />;
+      case 'beauty': return <Package className="text-pink-500" size={24} />;
+      case 'travel': return <Package className="text-orange-500" size={24} />;
       default: return <Package className="text-gray-500" size={24} />;
     }
   };
@@ -208,6 +210,9 @@ export default function ProductCenterPage() {
       case 'bio': return '自我介绍';
       case 'vehicle': return '车辆介绍';
       case 'medical': return '医疗服务';
+      case 'beauty': return '美容服务';
+      case 'travel': return '旅行服务';
+      case 'other': return '其他服务';
       default: return type;
     }
   };
@@ -362,55 +367,131 @@ export default function ProductCenterPage() {
         {activeTab === 'modules' && (
           <div className="space-y-6">
             {/* TIMC 体检中心服务模块入口 */}
-            <div
-              onClick={() => router.push('/guide-partner/product-center/timc')}
-              className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-6 text-white cursor-pointer hover:shadow-xl hover:-translate-y-0.5 transition-all group"
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
-                    <Stethoscope className="text-white" size={28} />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-lg font-bold">TIMC 体检中心 — 完整服务模块</h3>
-                      <span className="px-2 py-0.5 bg-white/20 text-xs rounded-full">完整页面</span>
+            {(() => {
+              const timcModule = modules.find(m => m.component_key === 'medical_packages');
+              return (
+                <div className={`bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl overflow-hidden text-white transition-all ${
+                  timcModule?.selectedByGuide ? 'ring-3 ring-white/50 shadow-xl' : ''
+                }`}>
+                  <div
+                    onClick={() => router.push('/guide-partner/product-center/timc')}
+                    className="p-6 cursor-pointer hover:bg-white/5 transition-all group"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <div className="w-14 h-14 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                          <Stethoscope className="text-white" size={28} />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <h3 className="text-lg font-bold">TIMC 体检中心 — 完整服务模块</h3>
+                            <span className="px-2 py-0.5 bg-white/20 text-xs rounded-full">完整页面</span>
+                            {timcModule?.selectedByGuide && (
+                              <span className="px-2 py-0.5 bg-green-400/30 text-xs rounded-full flex items-center gap-1">
+                                <Check size={10} /> 已选择
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-blue-100 text-sm">
+                            查看 TIMC 大阪精密体检中心全部内容：设备介绍、设施环境、6大体检套餐、套餐对比表、客户评价、FAQ等
+                          </p>
+                        </div>
+                      </div>
+                      <ArrowRight size={24} className="text-white/60 group-hover:text-white group-hover:translate-x-1 transition-all flex-shrink-0" />
                     </div>
-                    <p className="text-blue-100 text-sm">
-                      查看 TIMC 大阪精密体检中心全部内容：设备介绍、设施环境、6大体检套餐、套餐对比表、客户评价、FAQ等
-                    </p>
                   </div>
+                  {timcModule && (
+                    <div className="px-6 py-3 bg-black/10 border-t border-white/10 flex items-center justify-between">
+                      <span className="text-xs text-white/60">
+                        佣金 {timcModule.commission_rate_min}%
+                      </span>
+                      <button
+                        onClick={() => handleToggleModule(timcModule.id, timcModule.selectedByGuide)}
+                        disabled={actionLoading === timcModule.id || !guideConfig}
+                        className={`px-4 py-1.5 rounded-lg text-sm font-medium transition flex items-center gap-1.5 ${
+                          timcModule.selectedByGuide
+                            ? 'bg-white/20 text-white hover:bg-white/30'
+                            : 'bg-white text-blue-700 hover:bg-white/90'
+                        } disabled:opacity-50`}
+                      >
+                        {actionLoading === timcModule.id ? (
+                          <Loader2 className="animate-spin" size={14} />
+                        ) : timcModule.selectedByGuide ? (
+                          <>取消选择</>
+                        ) : (
+                          <><Plus size={14} /> 添加到我的页面</>
+                        )}
+                      </button>
+                    </div>
+                  )}
                 </div>
-                <ArrowRight size={24} className="text-white/60 group-hover:text-white group-hover:translate-x-1 transition-all flex-shrink-0" />
-              </div>
-            </div>
+              );
+            })()}
 
             {/* 兵库医科大学病院服务模块入口 */}
-            <div
-              onClick={() => router.push('/hyogo-medical')}
-              className="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-2xl p-6 text-white cursor-pointer hover:shadow-xl hover:-translate-y-0.5 transition-all group"
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
-                    <Hospital className="text-white" size={28} />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-lg font-bold">兵库医科大学病院 — 高度医疗</h3>
-                      <span className="px-2 py-0.5 bg-white/20 text-xs rounded-full">完整页面</span>
+            {(() => {
+              const hyogoModule = modules.find(m => m.component_key === 'hyogo_medical');
+              return (
+                <div className={`bg-gradient-to-r from-emerald-600 to-teal-700 rounded-2xl overflow-hidden text-white transition-all ${
+                  hyogoModule?.selectedByGuide ? 'ring-3 ring-white/50 shadow-xl' : ''
+                }`}>
+                  <div
+                    onClick={() => router.push('/hyogo-medical')}
+                    className="p-6 cursor-pointer hover:bg-white/5 transition-all group"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <div className="w-14 h-14 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                          <Hospital className="text-white" size={28} />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <h3 className="text-lg font-bold">兵库医科大学病院 — 高度医疗</h3>
+                            <span className="px-2 py-0.5 bg-white/20 text-xs rounded-full">完整页面</span>
+                            {hyogoModule?.selectedByGuide && (
+                              <span className="px-2 py-0.5 bg-green-400/30 text-xs rounded-full flex items-center gap-1">
+                                <Check size={10} /> 已选择
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-emerald-100 text-sm">
+                            兵庫県最大規模の特定機能病院：963床・41診療科、ダヴィンチ手術支援ロボット、PET-CT、2026年新病棟計画等
+                          </p>
+                        </div>
+                      </div>
+                      <ArrowRight size={24} className="text-white/60 group-hover:text-white group-hover:translate-x-1 transition-all flex-shrink-0" />
                     </div>
-                    <p className="text-emerald-100 text-sm">
-                      兵庫県最大規模の特定機能病院：963床・41診療科、ダヴィンチ手術支援ロボット、PET-CT、2026年新病棟計画等
-                    </p>
                   </div>
+                  {hyogoModule && (
+                    <div className="px-6 py-3 bg-black/10 border-t border-white/10 flex items-center justify-between">
+                      <span className="text-xs text-white/60">
+                        佣金 {hyogoModule.commission_rate_min}%
+                      </span>
+                      <button
+                        onClick={() => handleToggleModule(hyogoModule.id, hyogoModule.selectedByGuide)}
+                        disabled={actionLoading === hyogoModule.id || !guideConfig}
+                        className={`px-4 py-1.5 rounded-lg text-sm font-medium transition flex items-center gap-1.5 ${
+                          hyogoModule.selectedByGuide
+                            ? 'bg-white/20 text-white hover:bg-white/30'
+                            : 'bg-white text-emerald-700 hover:bg-white/90'
+                        } disabled:opacity-50`}
+                      >
+                        {actionLoading === hyogoModule.id ? (
+                          <Loader2 className="animate-spin" size={14} />
+                        ) : hyogoModule.selectedByGuide ? (
+                          <>取消选择</>
+                        ) : (
+                          <><Plus size={14} /> 添加到我的页面</>
+                        )}
+                      </button>
+                    </div>
+                  )}
                 </div>
-                <ArrowRight size={24} className="text-white/60 group-hover:text-white group-hover:translate-x-1 transition-all flex-shrink-0" />
-              </div>
-            </div>
+              );
+            })()}
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {modules.map((module) => (
+            {modules.filter(m => !['medical_packages', 'hyogo_medical'].includes(m.component_key || '')).map((module) => (
               <div
                 key={module.id}
                 className={`bg-white rounded-xl border-2 overflow-hidden transition ${
