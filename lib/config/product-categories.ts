@@ -13,7 +13,7 @@ export interface ProductCategory {
   name: string;
   nameJa: string;
   description: string;
-  iconName: 'Hospital' | 'Stethoscope' | 'Microscope' | 'Sparkles';
+  iconName: 'Hospital' | 'Stethoscope' | 'Sparkles';
   gradient: string;
   textColor: string;
   moduleKeys: string[];
@@ -24,6 +24,7 @@ export interface ProductCategory {
 export const MODULE_DETAIL_ROUTES: Record<string, string> = {
   medical_packages: '/guide-partner/product-center/timc',
   hyogo_medical: '/hyogo-medical',
+  sai_clinic: '/guide-partner/product-center/sai-clinic',
 };
 
 export const PRODUCT_CATEGORIES: ProductCategory[] = [
@@ -49,29 +50,17 @@ export const PRODUCT_CATEGORIES: ProductCategory[] = [
     moduleKeys: ['medical_packages'],
     sortOrder: 2,
   },
-  // 未来分类（有合作机构后取消注释即可启用）：
-  // {
-  //   id: 'stem_cell',
-  //   name: '干细胞中心合作',
-  //   nameJa: '幹細胞センター提携',
-  //   description: '日本先进干细胞治疗与再生医疗中心',
-  //   iconName: 'Microscope',
-  //   gradient: 'from-purple-600 to-violet-700',
-  //   textColor: 'text-purple-100',
-  //   moduleKeys: [],
-  //   sortOrder: 3,
-  // },
-  // {
-  //   id: 'aesthetics',
-  //   name: '医美整容中心合作',
-  //   nameJa: '美容医療センター提携',
-  //   description: '日本顶级医美整容机构，安全高品质的美容医疗',
-  //   iconName: 'Sparkles',
-  //   gradient: 'from-pink-500 to-rose-600',
-  //   textColor: 'text-pink-100',
-  //   moduleKeys: [],
-  //   sortOrder: 4,
-  // },
+  {
+    id: 'aesthetics',
+    name: '医美整形合作',
+    nameJa: '美容医療センター提携',
+    description: '日本顶级医美整形诊所，糸リフト·注射美容·眼鼻整形',
+    iconName: 'Sparkles',
+    gradient: 'from-pink-500 to-rose-600',
+    textColor: 'text-pink-100',
+    moduleKeys: ['sai_clinic'],
+    sortOrder: 3,
+  },
 ];
 
 /**

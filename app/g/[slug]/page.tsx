@@ -8,6 +8,7 @@ import {
 import WhitelabelContactSection from '@/components/whitelabel-modules/WhitelabelContactSection';
 import TIMCContent from '@/app/guide-partner/product-center/timc/TIMCContent';
 import HyogoMedicalContent from '@/app/hyogo-medical/HyogoMedicalContent';
+import SaiClinicContent from '@/app/sai-clinic/SaiClinicContent';
 import ImmersiveSection from '@/components/distribution/ImmersiveSection';
 import DistributionNav from '@/components/distribution/DistributionNav';
 import type { ImmersiveDisplayConfig } from '@/lib/types/display-config';
@@ -41,7 +42,7 @@ export default async function GuideDistributionPage({ params }: PageProps) {
   // ======== 数据驱动渲染：按 display_config 分类模块 ========
   const DETAIL_MODULES = new Set([
     'medical_packages', 'hyogo_medical', 'cancer_treatment',
-    'golf', 'medical_tourism', 'health_screening',
+    'golf', 'medical_tourism', 'health_screening', 'sai_clinic',
   ]);
 
   const immersiveModules: Array<{ config: ImmersiveDisplayConfig; componentKey: string }> = [];
@@ -87,8 +88,8 @@ export default async function GuideDistributionPage({ params }: PageProps) {
       {/* ======== 数据驱动：动态渲染所有沉浸式板块 ======== */}
       {immersiveModules.map(({ config: dc, componentKey }) => (
         <div key={dc.sectionId}>
-          {/* medical_packages / hyogo_medical 自带完整 hero，跳过 ImmersiveSection */}
-          {componentKey !== 'hyogo_medical' && componentKey !== 'medical_packages' && (
+          {/* medical_packages / hyogo_medical / sai_clinic 自带完整 hero，跳过 ImmersiveSection */}
+          {componentKey !== 'hyogo_medical' && componentKey !== 'medical_packages' && componentKey !== 'sai_clinic' && (
             <ImmersiveSection
               config={dc}
               ctaHref={DETAIL_MODULES.has(componentKey) ? `/g/${slug}/${componentKey.replace(/_/g, '-')}` : undefined}
@@ -103,6 +104,19 @@ export default async function GuideDistributionPage({ params }: PageProps) {
                 contactInfo,
                 moduleId: 'medical-packages-inline',
                 moduleName: 'TIMC 体检套餐',
+                showContact: false,
+              }}
+            />
+          )}
+          {/* sai_clinic: 渲染完整 SAI CLINIC 医美内容（含自带 hero） */}
+          {componentKey === 'sai_clinic' && (
+            <SaiClinicContent
+              whitelabel={{
+                brandName,
+                brandColor,
+                contactInfo,
+                moduleId: 'sai-clinic-inline',
+                moduleName: 'SAI CLINIC 医美整形',
                 showContact: false,
               }}
             />

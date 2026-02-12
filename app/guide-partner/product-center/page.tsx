@@ -14,6 +14,7 @@ import {
   Hospital,
   ExternalLink,
   Settings,
+  Sparkles,
 } from 'lucide-react';
 import {
   PRODUCT_CATEGORIES,
@@ -47,6 +48,7 @@ interface GuideConfig {
 const CATEGORY_ICONS: Record<string, typeof Hospital> = {
   Hospital,
   Stethoscope,
+  Sparkles,
 };
 
 export default function ProductCenterPage() {
