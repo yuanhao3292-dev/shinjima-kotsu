@@ -35,7 +35,7 @@ const getSupabase = () => {
 };
 
 // 合伙人入场费
-const PARTNER_ENTRY_FEE = 100000; // 日元
+const PARTNER_ENTRY_FEE = 200000; // 日元（20万）
 // 合伙人月费
 const PARTNER_MONTHLY_FEE = 4980; // 日元
 // 合伙人月费 Stripe Price ID（需要在 Stripe Dashboard 创建）
@@ -205,8 +205,8 @@ export async function GET(request: NextRequest) {
         name: "成长版",
         monthlyFee: 1980,
         entryFee: 0,
-        commission: "累计制（10-17%）",
-        commissionDescription: "根据季度销售额累计，分成比例逐级提升",
+        commission: "10% 固定",
+        commissionDescription: "每月1,980日币会员费，固定10%分成",
         features: [
           "白标页面基础功能",
           "3 套模板可选",
@@ -217,9 +217,9 @@ export async function GET(request: NextRequest) {
       partner: {
         name: "导游合伙人",
         monthlyFee: 4980,
-        entryFee: 100000,
+        entryFee: 200000,
         commission: "20% 固定",
-        commissionDescription: "无论销售额多少，固定享受 20% 分成",
+        commissionDescription: "一次支付20万日币入场费，固定享受 20% 分成",
         features: [
           "白标页面完整功能",
           "10 套高级模板可选",
@@ -234,19 +234,19 @@ export async function GET(request: NextRequest) {
             name: "医疗体检",
             avgAmount: 1000000,
             commissionAt20Percent: 200000,
-            dealsToRecoverEntryFee: 0.5,
+            dealsToRecoverEntryFee: 1,
           },
           treatment: {
             name: "治疗业务",
             avgAmount: 10000000,
             commissionAt20Percent: 2000000,
-            dealsToRecoverEntryFee: 0.05,
+            dealsToRecoverEntryFee: 0.1,
           },
           nightclub: {
             name: "夜总会",
             avgAmount: 1000000,
             commissionAt20Percent: 200000,
-            dealsToRecoverEntryFee: 0.5,
+            dealsToRecoverEntryFee: 1,
           },
         },
       },

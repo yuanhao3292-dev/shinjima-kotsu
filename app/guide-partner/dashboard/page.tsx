@@ -203,20 +203,16 @@ export default function GuideDashboard() {
 
   const getLevelBadge = (level: string) => {
     const styles: Record<string, string> = {
-      bronze: 'bg-gray-100 text-gray-700 border-gray-300',
-      silver: 'bg-blue-100 text-blue-700 border-blue-300',
+      growth: 'bg-orange-100 text-orange-700 border-orange-300',
       gold: 'bg-yellow-100 text-yellow-700 border-yellow-400',
-      diamond: 'bg-purple-100 text-purple-700 border-purple-400',
     };
     const labels: Record<string, string> = {
-      bronze: '🥉 銅牌',
-      silver: '🥈 銀牌',
-      gold: '🥇 金牌',
-      diamond: '💎 鑽石',
+      growth: '初期合夥人',
+      gold: '🥇 金牌合夥人',
     };
     return (
-      <span className={`px-3 py-1 rounded-full text-xs font-bold border ${styles[level] || styles.bronze}`}>
-        {labels[level] || labels.bronze}
+      <span className={`px-3 py-1 rounded-full text-xs font-bold border ${styles[level] || styles.growth}`}>
+        {labels[level] || labels.growth}
       </span>
     );
   };
@@ -251,7 +247,7 @@ export default function GuideDashboard() {
               <div>
                 <div className="flex items-center gap-3 mb-2">
                   <span className="text-2xl font-bold">{guide?.name}</span>
-                  {guide && getLevelBadge(guide.commission_tier_code || 'bronze')}
+                  {guide && getLevelBadge(guide.commission_tier_code || 'growth')}
                 </div>
                 <p className="text-orange-100">手機: {guide?.phone}</p>
               </div>
@@ -314,133 +310,89 @@ export default function GuideDashboard() {
             </div>
           </div>
 
-          {/* Commission Tier System - Enhanced with Progress Bar */}
+          {/* Commission Tier System - Two Tiers */}
           <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-6 border border-orange-100 mb-8">
             {/* Header with Current Level */}
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="text-lg font-bold text-gray-900">階梯報酬制度</h2>
-                <p className="text-sm text-gray-500">季度銷售額越高，報酬比例越高</p>
+                <h2 className="text-lg font-bold text-gray-900">報酬制度</h2>
+                <p className="text-sm text-gray-500">升級金牌合夥人，享受更高報酬</p>
               </div>
               <div className="text-right">
                 <p className="text-xs text-gray-500">您當前等級</p>
-                <p className="text-lg font-bold text-orange-600">{(guide?.commission_tier_code || 'bronze') === 'diamond' ? '💎 鑽石' : (guide?.commission_tier_code || 'bronze') === 'gold' ? '🥇 金牌' : (guide?.commission_tier_code || 'bronze') === 'silver' ? '🥈 銀牌' : '🥉 銅牌'}</p>
+                <p className="text-lg font-bold text-orange-600">{(guide?.commission_tier_code || 'growth') === 'gold' ? '🥇 金牌合夥人' : '初期合夥人'}</p>
               </div>
             </div>
 
-            {/* Progress to Next Tier */}
-            {(() => {
-              const currentLevel = guide?.commission_tier_code || 'bronze';
-              // 使用真实的季度销售额数据
-              const quarterlySpend = stats?.quarterlySpend || 0;
-              const tiers = [
-                { level: 'bronze', min: 0, max: 1000000, next: '銀牌', color: 'gray' },
-                { level: 'silver', min: 1000000, max: 3000000, next: '金牌', color: 'blue' },
-                { level: 'gold', min: 3000000, max: 5000000, next: '鑽石', color: 'yellow' },
-                { level: 'diamond', min: 5000000, max: 10000000, next: null, color: 'purple' },
-              ];
-              const currentTier = tiers.find(t => t.level === currentLevel) || tiers[0];
-              const progress = currentTier.next
-                ? Math.min(100, ((quarterlySpend - currentTier.min) / (currentTier.max - currentTier.min)) * 100)
-                : 100;
-              const remaining = Math.max(0, currentTier.max - quarterlySpend);
-
-              return currentTier.next ? (
-                <div className="mb-6 p-4 bg-white rounded-xl border border-orange-200">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-700">升級進度</span>
-                    <span className="text-sm text-orange-600 font-bold">
-                      距離 {currentTier.next} 還差 ¥{remaining.toLocaleString()}
-                    </span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                    <div
-                      className="h-full bg-gradient-to-r from-orange-400 to-orange-600 rounded-full transition-all duration-500"
-                      style={{ width: `${Math.max(5, progress)}%` }}
-                    />
-                  </div>
-                  <div className="flex justify-between mt-1 text-xs text-gray-400">
-                    <span>¥{currentTier.min.toLocaleString()}</span>
-                    <span>本季度: ¥{quarterlySpend.toLocaleString()}</span>
-                    <span>¥{currentTier.max.toLocaleString()}</span>
+            {/* Gold Partner Highlight */}
+            {(guide?.commission_tier_code || 'growth') === 'gold' ? (
+              <div className="mb-6 p-4 bg-gradient-to-r from-yellow-100 to-amber-100 rounded-xl border border-yellow-200">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">🥇</span>
+                  <div>
+                    <p className="font-bold text-yellow-700">恭喜！您已是金牌合夥人</p>
+                    <p className="text-sm text-yellow-600">享受 20% 固定報酬比例</p>
                   </div>
                 </div>
-              ) : (
-                <div className="mb-6 p-4 bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl border border-purple-200">
-                  <div className="flex items-center gap-2">
-                    <span className="text-2xl">🎉</span>
-                    <div>
-                      <p className="font-bold text-purple-700">恭喜！您已達到最高等級</p>
-                      <p className="text-sm text-purple-600">享受 20% 最高報酬比例</p>
-                    </div>
+              </div>
+            ) : (
+              <div className="mb-6 p-4 bg-white rounded-xl border border-orange-200">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-700">升級金牌合夥人</p>
+                    <p className="text-xs text-gray-500">一次支付 ¥200,000 入場費，報酬從 10% 提升至 20%</p>
                   </div>
+                  <Link href="/guide-partner/subscription" className="px-4 py-2 bg-yellow-500 text-white rounded-lg text-sm font-medium hover:bg-yellow-600 transition">
+                    了解更多
+                  </Link>
                 </div>
-              );
-            })()}
+              </div>
+            )}
 
             {/* Tier Cards */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {/* Tier 1: Bronze */}
-              <div className={`bg-white rounded-xl p-4 border-2 transition-all ${!guide?.commission_tier_code || guide?.commission_tier_code === 'bronze' ? 'border-orange-400 ring-2 ring-orange-100 scale-[1.02]' : 'border-gray-200 opacity-70'}`}>
-                <div className="text-center mb-2">
-                  <span className="text-2xl">🥉</span>
-                  <h4 className="font-bold text-gray-700 text-sm">銅牌</h4>
-                  <p className="text-[10px] text-gray-400">入門級別</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Tier 1: Growth */}
+              <div className={`bg-white rounded-xl p-5 border-2 transition-all ${!guide?.commission_tier_code || guide?.commission_tier_code === 'growth' ? 'border-orange-400 ring-2 ring-orange-100' : 'border-gray-200 opacity-70'}`}>
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                    <span className="text-lg">🔰</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-700">初期合夥人</h4>
+                    <p className="text-xs text-gray-400">¥1,980/月</p>
+                  </div>
                 </div>
-                <div className="text-center py-2 bg-gray-50 rounded-lg mb-2">
-                  <p className="text-xl font-bold text-gray-900">10%</p>
+                <div className="text-center py-3 bg-orange-50 rounded-lg mb-3">
+                  <p className="text-2xl font-bold text-orange-600">10%</p>
+                  <p className="text-xs text-gray-500">固定報酬比例</p>
                 </div>
-                <div className="text-[10px] text-gray-500 space-y-0.5">
-                  <p>夜總會 · 體檢 · 醫療</p>
-                  <p className="font-medium">統一 10% 報酬</p>
-                </div>
-              </div>
-
-              {/* Tier 2: Silver */}
-              <div className={`bg-white rounded-xl p-4 border-2 transition-all ${guide?.commission_tier_code === 'silver' ? 'border-blue-400 ring-2 ring-blue-100 scale-[1.02]' : 'border-gray-200 opacity-70'}`}>
-                <div className="text-center mb-2">
-                  <span className="text-2xl">🥈</span>
-                  <h4 className="font-bold text-blue-700 text-sm">銀牌</h4>
-                  <p className="text-[10px] text-gray-400">季度 ≥100萬</p>
-                </div>
-                <div className="text-center py-2 bg-blue-50 rounded-lg mb-2">
-                  <p className="text-xl font-bold text-blue-600">12%</p>
-                </div>
-                <div className="text-[10px] text-gray-500 space-y-0.5">
-                  <p>夜總會 · 體檢 · 醫療</p>
-                  <p className="font-medium">統一 12% 報酬</p>
+                <div className="text-xs text-gray-500 space-y-1">
+                  <p>夜總會 · 體檢 · 醫療 · 高爾夫</p>
+                  <p>白標頁面基礎功能</p>
+                  <p>標準客服支持</p>
                 </div>
               </div>
 
-              {/* Tier 3: Gold */}
-              <div className={`bg-white rounded-xl p-4 border-2 transition-all ${guide?.commission_tier_code === 'gold' ? 'border-yellow-400 ring-2 ring-yellow-100 scale-[1.02]' : 'border-gray-200 opacity-70'}`}>
-                <div className="text-center mb-2">
-                  <span className="text-2xl">🥇</span>
-                  <h4 className="font-bold text-yellow-700 text-sm">金牌</h4>
-                  <p className="text-[10px] text-gray-400">季度 ≥300萬</p>
+              {/* Tier 2: Gold */}
+              <div className={`bg-white rounded-xl p-5 border-2 transition-all ${guide?.commission_tier_code === 'gold' ? 'border-yellow-400 ring-2 ring-yellow-100' : 'border-gray-200 opacity-70'}`}>
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
+                    <span className="text-lg">🥇</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-yellow-700">金牌合夥人</h4>
+                    <p className="text-xs text-gray-400">¥4,980/月 + ¥200,000 入場費</p>
+                  </div>
                 </div>
-                <div className="text-center py-2 bg-yellow-50 rounded-lg mb-2">
-                  <p className="text-xl font-bold text-yellow-600">15%</p>
+                <div className="text-center py-3 bg-yellow-50 rounded-lg mb-3">
+                  <p className="text-2xl font-bold text-yellow-600">20%</p>
+                  <p className="text-xs text-gray-500">固定報酬比例</p>
                 </div>
-                <div className="text-[10px] text-gray-500 space-y-0.5">
-                  <p>夜總會 · 體檢 · 醫療</p>
-                  <p className="font-medium">統一 15% 報酬</p>
-                </div>
-              </div>
-
-              {/* Tier 4: Diamond */}
-              <div className={`bg-white rounded-xl p-4 border-2 transition-all ${guide?.commission_tier_code === 'diamond' ? 'border-purple-400 ring-2 ring-purple-100 scale-[1.02]' : 'border-gray-200 opacity-70'}`}>
-                <div className="text-center mb-2">
-                  <span className="text-2xl">💎</span>
-                  <h4 className="font-bold text-purple-700 text-sm">鑽石</h4>
-                  <p className="text-[10px] text-gray-400">季度 ≥500萬</p>
-                </div>
-                <div className="text-center py-2 bg-purple-50 rounded-lg mb-2">
-                  <p className="text-xl font-bold text-purple-600">20%</p>
-                </div>
-                <div className="text-[10px] text-gray-500 space-y-0.5">
-                  <p>夜總會 · 體檢 · 醫療</p>
-                  <p className="font-medium">統一 20% 報酬</p>
+                <div className="text-xs text-gray-500 space-y-1">
+                  <p>夜總會 · 體檢 · 醫療 · 高爾夫</p>
+                  <p>白標頁面完整功能 · 高級模板</p>
+                  <p>專屬客服 · 優先資源對接</p>
+                  <p>合夥人專屬群 · 合夥人證書</p>
                 </div>
               </div>
             </div>

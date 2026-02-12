@@ -27,8 +27,6 @@ export const ROUTES = {
   // 其他页面
   FAQ: '/faq',
   ABOUT: '/about',
-  VEHICLES: '/vehicles',
-
   // 健康旅游
   HEALTH_SCREENING: '/health-screening',
   CANCER_TREATMENT: '/cancer-treatment',

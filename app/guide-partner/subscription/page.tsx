@@ -23,7 +23,7 @@ interface SubscriptionDetails {
   subscriptionTier: 'growth' | 'partner';
   subscriptionStatus: 'inactive' | 'active' | 'cancelled' | 'past_due';
   commissionRate: number;
-  commissionType: 'tiered' | 'fixed';
+  commissionType: 'fixed';
   monthlyFee: number;
   entryFeePaid: boolean;
   entryFeeAmount: number;
@@ -36,9 +36,6 @@ interface SubscriptionDetails {
     partnerGroup?: boolean;
     description?: string;
   };
-  quarterlySales?: number;
-  nextTierThreshold?: number;
-  progressPercent?: number;
 }
 
 interface PlanComparison {
@@ -221,7 +218,7 @@ export default function SubscriptionPage() {
                   {((subscription?.commissionRate || 0) * 100).toFixed(0)}%
                 </p>
                 <p className={`text-xs ${isPartner ? 'text-white/60' : 'text-gray-400'}`}>
-                  {subscription?.commissionType === 'fixed' ? '固定分成' : '累计制'}
+                  固定分成
                 </p>
               </div>
               <div className={`rounded-xl p-4 ${isPartner ? 'bg-white/10' : 'bg-gray-50'}`}>
@@ -240,29 +237,6 @@ export default function SubscriptionPage() {
               </div>
             </div>
 
-            {/* 成长版：显示季度销售进度 */}
-            {!isPartner && subscription?.quarterlySales !== undefined && (
-              <div className="mt-4 pt-4 border-t border-gray-200">
-                <div className="flex justify-between text-sm mb-2">
-                  <span className="text-gray-600">本季度销售额</span>
-                  <span className="font-medium">
-                    ¥{subscription.quarterlySales.toLocaleString()}
-                    {subscription.nextTierThreshold ? ` / ¥${subscription.nextTierThreshold.toLocaleString()}` : ''}
-                  </span>
-                </div>
-                <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-indigo-500 rounded-full transition-all"
-                    style={{ width: `${subscription.progressPercent || 0}%` }}
-                  />
-                </div>
-                <p className="text-xs text-gray-500 mt-1">
-                  {subscription.nextTierThreshold
-                    ? `距离下一等级还需 ¥${(subscription.nextTierThreshold - subscription.quarterlySales).toLocaleString()}`
-                    : '已达到最高等级'}
-                </p>
-              </div>
-            )}
           </div>
         </div>
 

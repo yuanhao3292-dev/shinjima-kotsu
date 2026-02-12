@@ -143,14 +143,10 @@ export default function CommissionPage() {
         return;
       }
 
-      // 設置導遊的佣金等級信息
-      const tierData = Array.isArray(guide.commission_tiers)
-        ? guide.commission_tiers[0]
-        : guide.commission_tiers;
-      if (tierData) {
-        setCommissionRate(tierData.commission_rate || 10);
-        setTierName(tierData.tier_name_zh || '銅牌合夥人');
-      }
+      // 設置佣金信息：金牌 20%，初期 10%
+      const isGold = guide.commission_tier_code === 'gold';
+      setCommissionRate(isGold ? 20 : 10);
+      setTierName(isGold ? '金牌合夥人' : '初期合夥人');
 
       // 載入結算記錄
       const { data: settlementsData } = await supabase

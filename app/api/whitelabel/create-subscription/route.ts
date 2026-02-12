@@ -26,9 +26,15 @@ const getSupabase = () => {
   );
 };
 
-// 白标订阅价格 ID（需要在 Stripe Dashboard 创建）
-const WHITELABEL_PRICE_ID = process.env.STRIPE_WHITELABEL_PRICE_ID;
-const WHITELABEL_MONTHLY_PRICE = 1980; // 日元
+// Stripe Price IDs（需要在 Stripe Dashboard 创建）
+const GROWTH_PRICE_ID = process.env.STRIPE_WHITELABEL_PRICE_ID; // 初期合伙人 ¥1,980/月
+const PARTNER_PRICE_ID = process.env.STRIPE_PARTNER_MONTHLY_PRICE_ID; // 金牌合伙人 ¥4,980/月
+
+// 按订阅等级的月费
+const TIER_PRICING: Record<string, { amount: number; name: string; description: string }> = {
+  growth: { amount: 1980, name: '初期合伙人 - 月度订阅', description: '每月 ¥1,980，享受10%固定分成' },
+  partner: { amount: 4980, name: '金牌合伙人 - 月度订阅', description: '每月 ¥4,980，享受20%固定分成' },
+};
 
 export async function POST(request: NextRequest) {
   try {
@@ -53,11 +59,11 @@ export async function POST(request: NextRequest) {
     if (!validation.success) return validation.error;
     const { guideId, successUrl, cancelUrl } = validation.data;
 
-    // 获取导游信息（包含订阅状态）
+    // 获取导游信息（包含订阅状态和当前等级）
     console.log(`[create-subscription] 查询导游 ID: ${guideId}`);
     const { data: guide, error: guideError } = await supabase
       .from("guides")
-      .select("id, name, email, phone, stripe_customer_id, subscription_status, subscription_id")
+      .select("id, name, email, phone, stripe_customer_id, subscription_status, subscription_id, subscription_tier")
       .eq("id", guideId)
       .single();
 
@@ -103,15 +109,20 @@ export async function POST(request: NextRequest) {
         .eq("id", guideId);
     }
 
+    // 根据导游当前等级选择价格
+    const tier = (guide.subscription_tier === 'partner') ? 'partner' : 'growth';
+    const pricing = TIER_PRICING[tier];
+    const stripePriceId = tier === 'partner' ? PARTNER_PRICE_ID : GROWTH_PRICE_ID;
+
     // 创建 Checkout Session
     const sessionParams: Stripe.Checkout.SessionCreateParams = {
       customer: stripeCustomerId,
       mode: "subscription",
       payment_method_types: ["card"],
-      line_items: WHITELABEL_PRICE_ID
+      line_items: stripePriceId
         ? [
             {
-              price: WHITELABEL_PRICE_ID,
+              price: stripePriceId,
               quantity: 1,
             },
           ]
@@ -120,10 +131,10 @@ export async function POST(request: NextRequest) {
               price_data: {
                 currency: "jpy",
                 product_data: {
-                  name: "白标页面订阅 - 月度",
-                  description: "每月 ¥1,980，享受专属白标页面服务",
+                  name: pricing.name,
+                  description: pricing.description,
                 },
-                unit_amount: WHITELABEL_MONTHLY_PRICE,
+                unit_amount: pricing.amount,
                 recurring: {
                   interval: "month",
                 },

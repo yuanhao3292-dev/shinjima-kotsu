@@ -5,25 +5,26 @@ import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import {
   Package,
-  User,
   Plus,
   Check,
   Loader2,
   AlertCircle,
-  ChevronRight,
-  Percent,
-  ImageIcon,
-  Palette,
-  Settings,
-  ExternalLink,
   Stethoscope,
   ArrowRight,
   Hospital,
+  ExternalLink,
+  Settings,
 } from 'lucide-react';
+import {
+  PRODUCT_CATEGORIES,
+  getActiveCategories,
+  MODULE_DETAIL_ROUTES,
+} from '@/lib/config/product-categories';
+import type { ProductCategory } from '@/lib/config/product-categories';
 
 interface PageModule {
   id: string;
-  module_type: 'bio' | 'vehicle' | 'medical' | 'beauty' | 'travel' | 'other';
+  module_type: string;
   name: string;
   name_ja: string | null;
   name_zh: string | null;
@@ -37,31 +38,23 @@ interface PageModule {
   selectedByGuide: boolean;
 }
 
-interface PageTemplate {
-  id: string;
-  module_type: 'bio' | 'vehicle' | 'contact';
-  template_key: string;
-  name: string;
-  name_zh: string | null;
-  preview_image_url: string | null;
-  is_default: boolean;
-}
-
 interface GuideConfig {
   id: string;
   slug: string;
   is_published: boolean;
-  bio_template_id: string | null;
 }
+
+const CATEGORY_ICONS: Record<string, typeof Hospital> = {
+  Hospital,
+  Stethoscope,
+};
 
 export default function ProductCenterPage() {
   const [modules, setModules] = useState<PageModule[]>([]);
-  const [templates, setTemplates] = useState<{ bio: PageTemplate[] }>({ bio: [] });
   const [guideConfig, setGuideConfig] = useState<GuideConfig | null>(null);
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
-  const [activeTab, setActiveTab] = useState<'modules' | 'templates'>('modules');
 
   const router = useRouter();
   const supabase = createClient();
@@ -86,7 +79,6 @@ export default function ProductCenterPage() {
       if (response.ok) {
         const data = await response.json();
         setModules(data.modules || []);
-        setTemplates(data.templates || { bio: [] });
         setGuideConfig(data.guideConfig);
       } else {
         const error = await response.json();
@@ -131,33 +123,31 @@ export default function ProductCenterPage() {
       } else {
         setMessage({ type: 'error', text: result.error || '操作失败' });
       }
-    } catch (error) {
+    } catch {
       setMessage({ type: 'error', text: '网络错误' });
     } finally {
       setActionLoading(null);
     }
   };
 
-  const getModuleIcon = (type: string) => {
-    switch (type) {
-      case 'bio': return <User className="text-blue-500" size={24} />;
-      case 'medical': return <Stethoscope className="text-purple-500" size={24} />;
-      case 'beauty': return <Package className="text-pink-500" size={24} />;
-      case 'travel': return <Package className="text-orange-500" size={24} />;
-      default: return <Package className="text-gray-500" size={24} />;
-    }
-  };
+  // 按分类配置对模块分组
+  const moduleComponentKeys = modules
+    .map((m) => m.component_key)
+    .filter(Boolean) as string[];
+  const activeCategories = getActiveCategories(moduleComponentKeys);
 
-  const getModuleTypeName = (type: string) => {
-    switch (type) {
-      case 'bio': return '自我介绍';
-      case 'medical': return '医疗服务';
-      case 'beauty': return '美容服务';
-      case 'travel': return '旅行服务';
-      case 'other': return '其他服务';
-      default: return type;
-    }
-  };
+  const categorizedModules = activeCategories.map((category) => ({
+    category,
+    modules: modules.filter(
+      (m) => m.component_key && category.moduleKeys.includes(m.component_key)
+    ),
+  }));
+
+  // 不属于任何分类的模块
+  const allCategorizedKeys = PRODUCT_CATEGORIES.flatMap((c) => c.moduleKeys);
+  const uncategorizedModules = modules.filter(
+    (m) => !m.component_key || !allCategorizedKeys.includes(m.component_key)
+  );
 
   if (loading) {
     return (
@@ -179,7 +169,7 @@ export default function ProductCenterPage() {
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">选品中心</h1>
-                <p className="text-gray-500">选择要在您白标页面展示的模块和产品</p>
+                <p className="text-gray-500">选择要在您白标页面展示的合作机构</p>
               </div>
             </div>
             {guideConfig?.slug ? (
@@ -239,7 +229,7 @@ export default function ProductCenterPage() {
             <div>
               <p className="font-medium text-amber-800">尚未创建白标页面</p>
               <p className="text-sm text-amber-600 mt-1">
-                在选择产品之前，您需要先创建您的白标页面配置。
+                在选择合作机构之前，您需要先创建您的白标页面配置。
               </p>
               <button
                 onClick={() => router.push('/guide-partner/whitelabel')}
@@ -252,229 +242,42 @@ export default function ProductCenterPage() {
         </div>
       )}
 
-      {/* Tabs */}
-      <div className="max-w-6xl mx-auto px-6 mt-6">
-        <div className="flex gap-2 border-b">
-          <button
-            onClick={() => setActiveTab('modules')}
-            className={`px-4 py-3 font-medium transition border-b-2 -mb-px ${
-              activeTab === 'modules'
-                ? 'text-indigo-600 border-indigo-600'
-                : 'text-gray-500 border-transparent hover:text-gray-700'
-            }`}
-          >
-            <span className="flex items-center gap-2">
-              <Package size={18} />
-              服务模块
-              <span className="bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full text-xs">
-                {modules.length}
-              </span>
-            </span>
-          </button>
-          <button
-            onClick={() => setActiveTab('templates')}
-            className={`px-4 py-3 font-medium transition border-b-2 -mb-px ${
-              activeTab === 'templates'
-                ? 'text-indigo-600 border-indigo-600'
-                : 'text-gray-500 border-transparent hover:text-gray-700'
-            }`}
-          >
-            <span className="flex items-center gap-2">
-              <Palette size={18} />
-              页面模板
-            </span>
-          </button>
-        </div>
-      </div>
+      {/* Category Sections */}
+      <div className="max-w-6xl mx-auto px-6 py-6 space-y-8">
+        {categorizedModules.map(({ category, modules: catModules }) => (
+          <CategorySection
+            key={category.id}
+            category={category}
+            modules={catModules}
+            guideConfig={guideConfig}
+            actionLoading={actionLoading}
+            onToggleModule={handleToggleModule}
+            onNavigate={(path) => router.push(path)}
+          />
+        ))}
 
-      {/* Content */}
-      <div className="max-w-6xl mx-auto px-6 py-6">
-        {/* Modules Tab */}
-        {activeTab === 'modules' && (
-          <div className="space-y-6">
-            {/* TIMC 体检中心服务模块入口 */}
-            {(() => {
-              const timcModule = modules.find(m => m.component_key === 'medical_packages');
-              return (
-                <div className={`bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl overflow-hidden text-white transition-all ${
-                  timcModule?.selectedByGuide ? 'ring-3 ring-white/50 shadow-xl' : ''
-                }`}>
-                  <div
-                    onClick={() => router.push('/guide-partner/product-center/timc')}
-                    className="p-6 cursor-pointer hover:bg-white/5 transition-all group"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className="w-14 h-14 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
-                          <Stethoscope className="text-white" size={28} />
-                        </div>
-                        <div>
-                          <div className="flex items-center gap-2 mb-1">
-                            <h3 className="text-lg font-bold">TIMC 体检中心 — 完整服务模块</h3>
-                            <span className="px-2 py-0.5 bg-white/20 text-xs rounded-full">完整页面</span>
-                            {timcModule?.selectedByGuide && (
-                              <span className="px-2 py-0.5 bg-green-400/30 text-xs rounded-full flex items-center gap-1">
-                                <Check size={10} /> 已选择
-                              </span>
-                            )}
-                          </div>
-                          <p className="text-blue-100 text-sm">
-                            查看 TIMC 大阪精密体检中心全部内容：设备介绍、设施环境、6大体检套餐、套餐对比表、客户评价、FAQ等
-                          </p>
-                        </div>
-                      </div>
-                      <ArrowRight size={24} className="text-white/60 group-hover:text-white group-hover:translate-x-1 transition-all flex-shrink-0" />
-                    </div>
-                  </div>
-                  {timcModule && (
-                    <div className="px-6 py-3 bg-black/10 border-t border-white/10 flex items-center justify-between">
-                      <span className="text-xs text-white/60">
-                        佣金 {timcModule.commission_rate_min}%
-                      </span>
-                      <button
-                        onClick={() => handleToggleModule(timcModule.id, timcModule.selectedByGuide)}
-                        disabled={actionLoading === timcModule.id || !guideConfig}
-                        className={`px-4 py-1.5 rounded-lg text-sm font-medium transition flex items-center gap-1.5 ${
-                          timcModule.selectedByGuide
-                            ? 'bg-white/20 text-white hover:bg-white/30'
-                            : 'bg-white text-blue-700 hover:bg-white/90'
-                        } disabled:opacity-50`}
-                      >
-                        {actionLoading === timcModule.id ? (
-                          <Loader2 className="animate-spin" size={14} />
-                        ) : timcModule.selectedByGuide ? (
-                          <>取消选择</>
-                        ) : (
-                          <><Plus size={14} /> 添加到我的页面</>
-                        )}
-                      </button>
-                    </div>
-                  )}
-                </div>
-              );
-            })()}
-
-            {/* 兵库医科大学病院服务模块入口 */}
-            {(() => {
-              const hyogoModule = modules.find(m => m.component_key === 'hyogo_medical');
-              return (
-                <div className={`bg-gradient-to-r from-emerald-600 to-teal-700 rounded-2xl overflow-hidden text-white transition-all ${
-                  hyogoModule?.selectedByGuide ? 'ring-3 ring-white/50 shadow-xl' : ''
-                }`}>
-                  <div
-                    onClick={() => router.push('/hyogo-medical')}
-                    className="p-6 cursor-pointer hover:bg-white/5 transition-all group"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className="w-14 h-14 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
-                          <Hospital className="text-white" size={28} />
-                        </div>
-                        <div>
-                          <div className="flex items-center gap-2 mb-1">
-                            <h3 className="text-lg font-bold">兵库医科大学病院 — 高度医疗</h3>
-                            <span className="px-2 py-0.5 bg-white/20 text-xs rounded-full">完整页面</span>
-                            {hyogoModule?.selectedByGuide && (
-                              <span className="px-2 py-0.5 bg-green-400/30 text-xs rounded-full flex items-center gap-1">
-                                <Check size={10} /> 已选择
-                              </span>
-                            )}
-                          </div>
-                          <p className="text-emerald-100 text-sm">
-                            兵庫県最大規模の特定機能病院：963床・41診療科、ダヴィンチ手術支援ロボット、PET-CT、2026年新病棟計画等
-                          </p>
-                        </div>
-                      </div>
-                      <ArrowRight size={24} className="text-white/60 group-hover:text-white group-hover:translate-x-1 transition-all flex-shrink-0" />
-                    </div>
-                  </div>
-                  {hyogoModule && (
-                    <div className="px-6 py-3 bg-black/10 border-t border-white/10 flex items-center justify-between">
-                      <span className="text-xs text-white/60">
-                        佣金 {hyogoModule.commission_rate_min}%
-                      </span>
-                      <button
-                        onClick={() => handleToggleModule(hyogoModule.id, hyogoModule.selectedByGuide)}
-                        disabled={actionLoading === hyogoModule.id || !guideConfig}
-                        className={`px-4 py-1.5 rounded-lg text-sm font-medium transition flex items-center gap-1.5 ${
-                          hyogoModule.selectedByGuide
-                            ? 'bg-white/20 text-white hover:bg-white/30'
-                            : 'bg-white text-emerald-700 hover:bg-white/90'
-                        } disabled:opacity-50`}
-                      >
-                        {actionLoading === hyogoModule.id ? (
-                          <Loader2 className="animate-spin" size={14} />
-                        ) : hyogoModule.selectedByGuide ? (
-                          <>取消选择</>
-                        ) : (
-                          <><Plus size={14} /> 添加到我的页面</>
-                        )}
-                      </button>
-                    </div>
-                  )}
-                </div>
-              );
-            })()}
-
+        {/* 未分类模块（当前不应出现，但作为兜底） */}
+        {uncategorizedModules.length > 0 && (
+          <div>
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">其他服务模块</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {modules.filter(m => !['medical_packages', 'hyogo_medical'].includes(m.component_key || '')).map((module) => (
-              <div
-                key={module.id}
-                className={`bg-white rounded-xl border-2 overflow-hidden transition ${
-                  module.selectedByGuide
-                    ? 'border-indigo-500 shadow-md'
-                    : 'border-gray-200 hover:border-gray-300'
-                }`}
-              >
-                <div className="p-5">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
-                        {getModuleIcon(module.module_type)}
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-900">{module.name_zh || module.name}</h3>
-                        <span className="text-xs text-gray-500">
-                          {getModuleTypeName(module.module_type)}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      {module.component_key && (
-                        <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">
-                          完整页面
-                        </span>
-                      )}
-                      {module.is_required && (
-                        <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
-                          必选
-                        </span>
-                      )}
-                    </div>
+              {uncategorizedModules.map((module) => (
+                <div
+                  key={module.id}
+                  className={`bg-white rounded-xl border-2 overflow-hidden transition ${
+                    module.selectedByGuide
+                      ? 'border-indigo-500 shadow-md'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <div className="p-5">
+                    <h3 className="font-semibold text-gray-900 mb-2">{module.name_zh || module.name}</h3>
+                    <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                      {module.description_zh || module.description || '暂无描述'}
+                    </p>
+                    <span className="text-xs text-gray-500">佣金 {module.commission_rate_min}%</span>
                   </div>
-
-                  <p className="text-sm text-gray-600 mb-4 line-clamp-2">
-                    {module.description_zh || module.description || '暂无描述'}
-                  </p>
-
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="flex items-center gap-1 text-gray-500">
-                      <Percent size={14} />
-                      佣金 {module.commission_rate_min}-{module.commission_rate_max}%
-                    </span>
-                    {module.selectedByGuide && (
-                      <span className="flex items-center gap-1 text-green-600">
-                        <Check size={14} />
-                        已选择
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                <div className="border-t px-5 py-3 bg-gray-50">
-                  {module.is_required ? (
-                    <span className="text-sm text-gray-500">必选模块，无法取消</span>
-                  ) : (
+                  <div className="border-t px-5 py-3 bg-gray-50">
                     <button
                       onClick={() => handleToggleModule(module.id, module.selectedByGuide)}
                       disabled={actionLoading === module.id || !guideConfig}
@@ -489,92 +292,133 @@ export default function ProductCenterPage() {
                       ) : module.selectedByGuide ? (
                         <>取消选择</>
                       ) : (
-                        <>
-                          <Plus size={18} />
-                          添加到我的页面
-                        </>
+                        <><Plus size={18} /> 添加到我的页面</>
                       )}
                     </button>
-                  )}
+                  </div>
                 </div>
-              </div>
-            ))}
-
-            {modules.length === 0 && (
-              <div className="col-span-full text-center py-12 text-gray-500">
-                <Package className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                <p>暂无可用模块</p>
-              </div>
-            )}
+              ))}
             </div>
           </div>
         )}
 
-        {/* Templates Tab */}
-        {activeTab === 'templates' && (
-          <div className="space-y-8">
-            {/* Bio Templates */}
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <User size={20} className="text-blue-500" />
-                自我介绍模板
-              </h3>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {templates.bio.map((template) => (
-                  <div
-                    key={template.id}
-                    className={`bg-white rounded-xl border-2 overflow-hidden transition ${
-                      guideConfig?.bio_template_id === template.id
-                        ? 'border-indigo-500 shadow-md'
-                        : 'border-gray-200 hover:border-gray-300'
-                    }`}
-                  >
-                    <div className="aspect-video bg-gray-100 flex items-center justify-center">
-                      {template.preview_image_url ? (
-                        <img
-                          src={template.preview_image_url}
-                          alt={template.name}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <ImageIcon size={32} className="text-gray-300" />
-                      )}
+        {modules.length === 0 && (
+          <div className="text-center py-16 text-gray-500">
+            <Package className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+            <p>暂无可用合作机构</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/** 分类区块组件 */
+function CategorySection({
+  category,
+  modules,
+  guideConfig,
+  actionLoading,
+  onToggleModule,
+  onNavigate,
+}: {
+  category: ProductCategory;
+  modules: PageModule[];
+  guideConfig: GuideConfig | null;
+  actionLoading: string | null;
+  onToggleModule: (moduleId: string, isSelected: boolean) => void;
+  onNavigate: (path: string) => void;
+}) {
+  const Icon = CATEGORY_ICONS[category.iconName] || Package;
+
+  return (
+    <section>
+      {/* 分类标题 */}
+      <div className="flex items-center gap-3 mb-4">
+        <div className={`w-10 h-10 bg-gradient-to-br ${category.gradient} rounded-xl flex items-center justify-center`}>
+          <Icon className="text-white" size={20} />
+        </div>
+        <div>
+          <h2 className="text-lg font-bold text-gray-900">{category.name}</h2>
+          <p className="text-sm text-gray-500">{category.description}</p>
+        </div>
+      </div>
+
+      {/* 模块卡片 */}
+      <div className="space-y-4">
+        {modules.map((module) => {
+          const detailRoute = module.component_key
+            ? MODULE_DETAIL_ROUTES[module.component_key]
+            : undefined;
+
+          return (
+            <div
+              key={module.id}
+              className={`bg-gradient-to-r ${category.gradient} rounded-2xl overflow-hidden text-white transition-all ${
+                module.selectedByGuide ? 'ring-3 ring-white/50 shadow-xl' : ''
+              }`}
+            >
+              <div
+                onClick={() => detailRoute && onNavigate(detailRoute)}
+                className={`p-6 ${detailRoute ? 'cursor-pointer hover:bg-white/5' : ''} transition-all group`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                      <Icon className="text-white" size={28} />
                     </div>
-                    <div className="p-4">
-                      <div className="flex items-center justify-between">
-                        <h4 className="font-medium text-gray-900">{template.name_zh || template.name}</h4>
-                        {template.is_default && (
-                          <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full">
-                            推荐
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="text-lg font-bold">{module.name_zh || module.name}</h3>
+                        {detailRoute && (
+                          <span className="px-2 py-0.5 bg-white/20 text-xs rounded-full">完整页面</span>
+                        )}
+                        {module.selectedByGuide && (
+                          <span className="px-2 py-0.5 bg-green-400/30 text-xs rounded-full flex items-center gap-1">
+                            <Check size={10} /> 已选择
                           </span>
                         )}
                       </div>
-                      {guideConfig?.bio_template_id === template.id && (
-                        <span className="text-sm text-indigo-600 flex items-center gap-1 mt-2">
-                          <Check size={14} />
-                          当前使用
-                        </span>
-                      )}
+                      <p className={`${category.textColor} text-sm`}>
+                        {module.description_zh || module.description || ''}
+                      </p>
                     </div>
                   </div>
-                ))}
+                  {detailRoute && (
+                    <ArrowRight size={24} className="text-white/60 group-hover:text-white group-hover:translate-x-1 transition-all flex-shrink-0" />
+                  )}
+                </div>
+              </div>
+              <div className="px-6 py-3 bg-black/10 border-t border-white/10 flex items-center justify-between">
+                <span className="text-xs text-white/60">
+                  佣金 {module.commission_rate_min}%
+                </span>
+                {module.is_required ? (
+                  <span className="text-xs text-white/60">必选模块</span>
+                ) : (
+                  <button
+                    onClick={() => onToggleModule(module.id, module.selectedByGuide)}
+                    disabled={actionLoading === module.id || !guideConfig}
+                    className={`px-4 py-1.5 rounded-lg text-sm font-medium transition flex items-center gap-1.5 ${
+                      module.selectedByGuide
+                        ? 'bg-white/20 text-white hover:bg-white/30'
+                        : 'bg-white text-gray-700 hover:bg-white/90'
+                    } disabled:opacity-50`}
+                  >
+                    {actionLoading === module.id ? (
+                      <Loader2 className="animate-spin" size={14} />
+                    ) : module.selectedByGuide ? (
+                      <>取消选择</>
+                    ) : (
+                      <><Plus size={14} /> 添加到我的页面</>
+                    )}
+                  </button>
+                )}
               </div>
             </div>
-
-            <p className="text-sm text-gray-500 text-center">
-              模板选择功能请前往
-              <button
-                onClick={() => router.push('/guide-partner/whitelabel')}
-                className="text-indigo-600 underline hover:no-underline mx-1"
-              >
-                白标页面设置
-              </button>
-              进行配置
-            </p>
-          </div>
-        )}
-
+          );
+        })}
       </div>
-    </div>
+    </section>
   );
 }

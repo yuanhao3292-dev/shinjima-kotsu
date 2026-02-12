@@ -3,6 +3,10 @@ import { getGuideModuleByComponentKey, recordPageView } from '@/lib/services/whi
 import { headers } from 'next/headers';
 import MedicalPackagesFullPage from '@/components/modules/MedicalPackagesFullPage';
 import HyogoMedicalContent from '@/app/hyogo-medical/HyogoMedicalContent';
+import CancerTreatmentContent from '@/app/cancer-treatment/CancerTreatmentContent';
+import GolfContent from '@/app/business/golf/GolfContent';
+import MedicalTourismContent from '@/app/business/medical/MedicalTourismContent';
+import type { WhitelabelModuleProps } from '@/components/whitelabel-modules/types';
 
 interface PageProps {
   params: Promise<{ slug: string; moduleSlug: string }>;
@@ -13,9 +17,24 @@ function toComponentKey(urlSlug: string): string {
   return urlSlug.replace(/-/g, '_');
 }
 
+/** 所有支持详情页的 component_key */
+const SUPPORTED_KEYS = new Set([
+  'medical_packages',
+  'hyogo_medical',
+  'cancer_treatment',
+  'golf',
+  'medical_tourism',
+  'health_screening',
+]);
+
 export default async function ModuleDetailPage({ params }: PageProps) {
   const { slug, moduleSlug } = await params;
   const componentKey = toComponentKey(moduleSlug);
+
+  // 不支持的 key 直接 404，避免无意义的 DB 查询
+  if (!SUPPORTED_KEYS.has(componentKey)) {
+    notFound();
+  }
 
   const result = await getGuideModuleByComponentKey(slug, componentKey);
   if (!result) {
@@ -34,6 +53,20 @@ export default async function ModuleDetailPage({ params }: PageProps) {
     referrer: referer,
   }).catch(() => {});
 
+  // 构建通用白标 props
+  const whitelabelProps: WhitelabelModuleProps = {
+    brandName,
+    brandColor,
+    contactInfo: {
+      wechat: guide.contactWechat || null,
+      line: guide.contactLine || null,
+      phone: guide.contactDisplayPhone || null,
+      email: guide.email || null,
+    },
+    moduleId: selectedModule.module.id,
+    moduleName: selectedModule.customTitle || selectedModule.module.name,
+  };
+
   // 根据 component_key 渲染对应的详情页组件
   switch (componentKey) {
     case 'medical_packages':
@@ -46,25 +79,28 @@ export default async function ModuleDetailPage({ params }: PageProps) {
       );
 
     case 'hyogo_medical':
+      return <HyogoMedicalContent whitelabel={whitelabelProps} />;
+
+    case 'cancer_treatment':
+      return <CancerTreatmentContent whitelabel={whitelabelProps} />;
+
+    case 'golf':
+      return <GolfContent whitelabel={whitelabelProps} />;
+
+    case 'medical_tourism':
+      return <MedicalTourismContent whitelabel={whitelabelProps} />;
+
+    case 'health_screening':
+      // health_screening 复用 medical_packages 的完整页面
       return (
-        <HyogoMedicalContent
-          whitelabel={{
-            brandName,
-            brandColor,
-            contactInfo: {
-              wechat: guide.contactWechat || null,
-              line: guide.contactLine || null,
-              phone: guide.contactDisplayPhone || null,
-              email: guide.email || null,
-            },
-            moduleId: selectedModule.module.id,
-            moduleName: selectedModule.customTitle || selectedModule.module.name,
-          }}
+        <MedicalPackagesFullPage
+          guideSlug={slug}
+          brandColor={brandColor}
+          brandName={brandName}
         />
       );
 
     default:
-      // 未实现详情页的模块 → 404
       notFound();
   }
 }

@@ -217,7 +217,7 @@ export const WhitelabelSubscriptionSchema = z.object({
 // ==================== Whitelabel Settings ====================
 
 // 有效的页面 ID 列表
-const VALID_PAGE_IDS = ['timc-medical', 'premium-golf', 'business-inspection', 'vehicles'] as const;
+const VALID_PAGE_IDS = ['timc-medical', 'premium-golf', 'business-inspection'] as const;
 
 export const WhitelabelSettingsSchema = z.object({
   slug: z.string()
@@ -311,8 +311,8 @@ export const ModuleActionSchema = z.object({
 // ==================== Admin Page Template ====================
 
 export const TemplateDataSchema = z.object({
-  moduleType: z.enum(['bio', 'vehicle'], {
-    error: '模板类型必须是 bio 或 vehicle',
+  moduleType: z.enum(['bio'], {
+    error: '模板类型必须是 bio',
   }),
   templateKey: z.string().min(1, '模板标识不能为空').max(50, '模板标识最多50个字符')
     .regex(/^[a-z][a-z0-9_]*$/, '模板标识只能包含小写字母、数字和下划线，且必须以字母开头'),
@@ -339,35 +339,6 @@ export const TemplateActionSchema = z.object({
   { message: '此操作需要提供模板 ID', path: ['templateId'] }
 );
 
-// ==================== Admin Vehicle Library ====================
-
-export const VehicleLibraryDataSchema = z.object({
-  name: z.string().min(1, '车辆名称不能为空').max(200, '车辆名称最多200个字符'),
-  nameJa: z.string().max(200, '日文名称最多200个字符').nullable().optional(),
-  slug: z.string().max(100, '标识最多100个字符').nullable().optional(),
-  vehicleType: z.string().min(1, '车型类型不能为空').max(50, '车型类型最多50个字符'),
-  seats: z.number().int().min(1, '座位数至少为1').max(60, '座位数不能超过60'),
-  description: z.string().max(2000, '描述最多2000个字符').nullable().optional(),
-  images: z.array(z.string().url('图片URL无效')).default([]),
-  features: z.array(z.string().max(100)).default([]),
-  isActive: z.boolean().default(true),
-  sortOrder: z.number().int().min(0).default(0),
-}).partial();
-
-export const VehicleLibraryActionSchema = z.object({
-  action: z.enum(['create', 'update', 'toggle_active', 'delete'], {
-    error: '无效的操作类型',
-  }),
-  vehicleId: UUIDSchema.optional(),
-  vehicleData: VehicleLibraryDataSchema.optional(),
-}).refine(
-  (data) => !(data.action === 'create' && !data.vehicleData),
-  { message: '创建车辆时必须提供车辆数据', path: ['vehicleData'] }
-).refine(
-  (data) => !((['update', 'toggle_active', 'delete'].includes(data.action)) && !data.vehicleId),
-  { message: '此操作需要提供车辆 ID', path: ['vehicleId'] }
-);
-
 // ==================== Guide White-Label Page ====================
 
 export const GuideWhiteLabelPageSchema = z.object({
@@ -382,7 +353,6 @@ export const GuideWhiteLabelPageSchema = z.object({
   contactPhone: z.string().max(30, '电话号码最多30位').nullable().optional(),
   contactEmail: z.string().email('邮箱格式无效').nullable().optional(),
   bioTemplateId: UUIDSchema.nullable().optional(),
-  vehicleTemplateId: UUIDSchema.nullable().optional(),
   themeColor: z.string().max(20, '主题色最多20个字符').optional(),
   siteTitle: z.string().max(100, '站点标题最多100个字符').nullable().optional(),
   siteDescription: z.string().max(300, '站点描述最多300个字符').nullable().optional(),
@@ -407,25 +377,6 @@ export const GuideSelectedModuleActionSchema = z.object({
   sortOrder: z.number().int().min(0).optional(),
   customTitle: z.string().max(200).nullable().optional(),
   customDescription: z.string().max(2000).nullable().optional(),
-});
-
-// ==================== Guide Selected Vehicle ====================
-
-export const GuideSelectedVehicleSchema = z.object({
-  vehicleId: UUIDSchema,
-  isEnabled: z.boolean().default(true),
-  sortOrder: z.number().int().min(0).default(0),
-  customPriceNote: z.string().max(500, '自定义价格备注最多500个字符').nullable().optional(),
-});
-
-export const GuideSelectedVehicleActionSchema = z.object({
-  action: z.enum(['add', 'update', 'remove'], {
-    error: '操作必须是 add、update 或 remove',
-  }),
-  vehicleId: UUIDSchema,
-  isEnabled: z.boolean().optional(),
-  sortOrder: z.number().int().min(0).optional(),
-  customPriceNote: z.string().max(500).nullable().optional(),
 });
 
 // ==================== Distribution Order (分销订单) ====================
@@ -500,10 +451,8 @@ export type BookingActionInput = z.infer<typeof BookingActionSchema>;
 export type AdminImageUploadInput = z.infer<typeof AdminImageUploadSchema>;
 export type ModuleActionInput = z.infer<typeof ModuleActionSchema>;
 export type TemplateActionInput = z.infer<typeof TemplateActionSchema>;
-export type VehicleLibraryActionInput = z.infer<typeof VehicleLibraryActionSchema>;
 export type GuideWhiteLabelPageInput = z.infer<typeof GuideWhiteLabelPageSchema>;
 export type GuideSelectedModuleActionInput = z.infer<typeof GuideSelectedModuleActionSchema>;
-export type GuideSelectedVehicleActionInput = z.infer<typeof GuideSelectedVehicleActionSchema>;
 export type CreateDistributionOrderInput = z.infer<typeof CreateDistributionOrderSchema>;
 export type UpdateDistributionOrderInput = z.infer<typeof UpdateDistributionOrderSchema>;
 export type DistributionOrderCustomerInput = z.infer<typeof DistributionOrderCustomerSchema>;

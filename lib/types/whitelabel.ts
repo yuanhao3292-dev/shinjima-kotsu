@@ -119,8 +119,11 @@ export const DEFAULT_OFFICIAL_BRANDING = {
 // 匹配 058_white_label_system.sql 实际 DB 列
 // ============================================
 
-/** 模板模块类型（page_templates.module_type CHECK 约束） */
-export type TemplateModuleType = "bio" | "vehicle";
+/** 模板模块类型（page_templates.category CHECK 约束） */
+export type TemplateModuleType = "bio" | "contact";
+
+/** 页面模块分类（page_modules.category CHECK 约束） */
+export type PageModuleCategory = "medical" | "beauty" | "travel" | "other";
 
 /** 页面模块（产品中心的可选模块）— page_modules 表 */
 export interface PageModule {
@@ -141,7 +144,7 @@ export interface PageModule {
   updatedAt: string;
 }
 
-/** 页面模板（自我介绍和车辆介绍的风格模板）— page_templates 表 */
+/** 页面模板（自我介绍的风格模板）— page_templates 表 */
 export interface PageTemplate {
   id: string;
   moduleType: TemplateModuleType;
@@ -153,23 +156,6 @@ export interface PageTemplate {
   isDefault: boolean;
   sortOrder: number;
   createdAt: string;
-}
-
-/** 车辆库（系统提供的车辆数据）— vehicle_library 表 */
-export interface VehicleLibrary {
-  id: string;
-  name: string;
-  nameJa: string | null;
-  slug: string | null;
-  vehicleType: string;
-  seats: number;
-  description: string | null;
-  images: string[];
-  features: string[];
-  sortOrder: number;
-  isActive: boolean;
-  createdAt: string;
-  updatedAt: string;
 }
 
 /** 导游白标页面配置 — guide_white_label 表 */
@@ -185,7 +171,6 @@ export interface GuideWhiteLabelPage {
   contactPhone: string | null;
   contactEmail: string | null;
   bioTemplateId: string | null;
-  vehicleTemplateId: string | null;
   themeColor: string;
   siteTitle: string | null;
   siteDescription: string | null;
@@ -206,17 +191,6 @@ export interface GuideSelectedModule {
   customDescription: string | null;
   createdAt: string;
   updatedAt: string;
-}
-
-/** 导游选择的车辆 — guide_selected_vehicles 表 */
-export interface GuideSelectedVehicle {
-  id: string;
-  guideId: string;
-  vehicleId: string;
-  sortOrder: number;
-  isEnabled: boolean;
-  customPriceNote: string | null;
-  createdAt: string;
 }
 
 /** 白标订单状态 — white_label_orders.status CHECK 约束 */
@@ -270,9 +244,7 @@ export interface PageModuleWithRelations extends PageModule {
 /** 导游白标页面完整配置（含所有关联数据） */
 export interface GuideWhiteLabelPageFull extends GuideWhiteLabelPage {
   bioTemplate?: PageTemplate | null;
-  vehicleTemplate?: PageTemplate | null;
   selectedModules?: (GuideSelectedModule & { module: PageModule })[];
-  selectedVehicles?: (GuideSelectedVehicle & { vehicle: VehicleLibrary })[];
 }
 
 /** 产品中心筛选参数 */
@@ -284,11 +256,6 @@ export interface ProductCenterFilters {
 /** 产品中心响应数据 */
 export interface ProductCenterResponse {
   modules: PageModuleWithRelations[];
-  templates: {
-    bio: PageTemplate[];
-    vehicle: PageTemplate[];
-  };
-  vehicles: VehicleLibrary[];
 }
 
 // ============================================
@@ -422,19 +389,9 @@ export interface SelectedModuleWithDetails {
   module: PageModule;
 }
 
-/** 分销页面选中的车辆（带车辆详情） */
-export interface SelectedVehicleWithDetails {
-  id: string;
-  sortOrder: number;
-  isEnabled: boolean;
-  customPriceNote: string | null;
-  vehicle: VehicleLibrary;
-}
-
 /** 完整的分销页面数据 */
 export interface GuideDistributionPage {
   guide: GuideWhiteLabelConfig;
   config: DistributionPageConfig;
   selectedModules: SelectedModuleWithDetails[];
-  selectedVehicles: SelectedVehicleWithDetails[];
 }

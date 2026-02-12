@@ -110,33 +110,15 @@ function getSupabase(): SupabaseClient {
 // ============================================
 
 /**
- * 根据订阅等级和佣金等级代码获取当前佣金比例
+ * 根据订阅等级获取当前佣金比例
+ * 金牌合伙人 = 20%，初期合伙人 = 10%
  */
 async function getCommissionRate(
-  supabase: SupabaseClient,
+  _supabase: SupabaseClient,
   subscriptionTier: GuideSubscriptionTier,
-  commissionTierCode: string | null
+  _commissionTierCode: string | null
 ): Promise<number> {
-  // 合伙人固定 20%
-  if (subscriptionTier === 'partner') {
-    return 0.20;
-  }
-
-  // 成长版查询佣金等级
-  if (commissionTierCode) {
-    const { data: tier } = await supabase
-      .from('commission_tiers')
-      .select('commission_rate')
-      .eq('tier_code', commissionTierCode)
-      .single();
-
-    if (tier?.commission_rate) {
-      return tier.commission_rate;
-    }
-  }
-
-  // 默认 10%
-  return 0.10;
+  return subscriptionTier === 'partner' ? 0.20 : 0.10;
 }
 
 // ============================================

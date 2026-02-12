@@ -1,6 +1,8 @@
 /**
- * 白标商城可选页面配置
- * Guide Storefront Page Configuration
+ * @deprecated 此文件已废弃。
+ * DEFAULT_SELECTED_PAGES 已迁移至 lib/whitelabel-config.ts。
+ * 页面/模块选择已由 DB 驱动（page_modules + guide_selected_modules）。
+ * 此文件保留仅供参考，将在后续版本中删除。
  */
 
 // 可选页面的定义
@@ -50,17 +52,6 @@ export const STOREFRONT_PAGES: StorefrontPage[] = [
     href: '/?page=business',
     category: 'business',
     isDefault: true,
-  },
-  {
-    id: 'vehicles',
-    name: '车辆介绍',
-    nameJa: '車両紹介',
-    nameEn: 'Our Fleet',
-    description: '豪华商务车队展示',
-    icon: 'Car',
-    href: '/vehicles',
-    category: 'service',
-    isDefault: false,
   },
   {
     id: 'hyogo-medical',

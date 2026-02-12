@@ -5,7 +5,6 @@
  *
  * 支持模板类型：
  * - bio: 导游简介模板
- * - vehicle: 车辆展示模板
  * - service: 服务模块模板
  * - contact: 联系方式模板
  *
@@ -26,7 +25,7 @@ import type { GuideDistributionPage } from '@/lib/services/whitelabel';
 /**
  * 模板类型
  */
-export type TemplateType = 'bio' | 'vehicle' | 'service' | 'contact' | 'hero' | 'footer';
+export type TemplateType = 'bio' | 'service' | 'contact' | 'hero' | 'footer';
 
 /**
  * 模板主题
@@ -234,7 +233,7 @@ export function parseTemplateKey(
     const [first, second] = parts;
 
     // 检查哪个是类型
-    const types: TemplateType[] = ['bio', 'vehicle', 'service', 'contact', 'hero', 'footer'];
+    const types: TemplateType[] = ['bio', 'service', 'contact', 'hero', 'footer'];
     const themes: TemplateTheme[] = ['modern', 'classic', 'minimal', 'elegant', 'corporate'];
 
     if (types.includes(first as TemplateType)) {

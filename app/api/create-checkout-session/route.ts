@@ -61,11 +61,7 @@ export async function POST(request: NextRequest) {
       // 查询导游信息和佣金率
       const { data: guideData, error: guideError } = await supabase
         .from('guides')
-        .select(`
-          id,
-          commission_tier_id,
-          commission_tiers!inner(commission_rate)
-        `)
+        .select('id, subscription_tier')
         .eq('slug', guideSlug)
         .eq('status', 'approved')
         .eq('subscription_status', 'active')
@@ -73,11 +69,8 @@ export async function POST(request: NextRequest) {
 
       if (guideData) {
         guideId = guideData.id;
-        // commission_tiers 可能是数组或对象
-        const tierData = Array.isArray(guideData.commission_tiers)
-          ? guideData.commission_tiers[0]
-          : guideData.commission_tiers;
-        guideCommissionRate = tierData?.commission_rate || 10;
+        // 金牌合伙人 20%，初期合伙人 10%
+        guideCommissionRate = guideData.subscription_tier === 'partner' ? 20 : 10;
       } else {
         // 无效的 guide_slug，清空以防止记录到订单中
         console.warn(`[Security] Invalid guide_slug in cookie: ${guideSlug}`, guideError);

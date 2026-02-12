@@ -73,7 +73,6 @@ export async function GET(request: NextRequest) {
         stats: {
           total: templates?.length || 0,
           bio: templates?.filter(t => t.module_type === 'bio').length || 0,
-          vehicle: templates?.filter(t => t.module_type === 'vehicle').length || 0,
         },
       });
     }
@@ -178,7 +177,7 @@ export async function POST(request: NextRequest) {
         const { count: usageCount } = await supabase
           .from('guide_white_label')
           .select('*', { count: 'exact', head: true })
-          .or(`bio_template_id.eq.${templateId},vehicle_template_id.eq.${templateId}`);
+          .or(`bio_template_id.eq.${templateId}`);
 
         if (usageCount && usageCount > 0) {
           return createErrorResponse(Errors.business(`该模板正被 ${usageCount} 个导游使用，无法删除`, 'TEMPLATE_IN_USE'));

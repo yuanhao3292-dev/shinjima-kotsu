@@ -96,6 +96,11 @@ export function sanitizeSlug(input: string): string {
 }
 
 // ============================================
+// 默认选中页面（导游商城导航）
+// ============================================
+export const DEFAULT_SELECTED_PAGES = ['timc-medical', 'premium-golf', 'business-inspection'];
+
+// ============================================
 // Cookie 安全配置
 // ============================================
 export const COOKIE_OPTIONS = {

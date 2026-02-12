@@ -16,13 +16,12 @@ import {
   AlertCircle,
   Save,
   Package,
-  Car,
   User,
 } from 'lucide-react';
 
 interface PageModule {
   id: string;
-  module_type: 'bio' | 'vehicle' | 'medical';
+  module_type: 'bio' | 'medical';
   name: string;
   name_ja: string | null;
   name_zh: string | null;
@@ -49,13 +48,11 @@ interface Stats {
 const MODULE_TYPES = [
   { value: 'all', label: '全部', icon: Puzzle },
   { value: 'bio', label: '自我介绍', icon: User },
-  { value: 'vehicle', label: '车辆介绍', icon: Car },
   { value: 'medical', label: '医疗服务', icon: Package },
 ];
 
 const MODULE_TYPE_LABELS: Record<string, string> = {
   bio: '自我介绍',
-  vehicle: '车辆介绍',
   medical: '医疗服务',
 };
 
@@ -240,7 +237,6 @@ export default function PageModulesPage() {
   const getModuleTypeIcon = (type: string) => {
     switch (type) {
       case 'bio': return <User size={18} className="text-blue-500" />;
-      case 'vehicle': return <Car size={18} className="text-green-500" />;
       case 'medical': return <Package size={18} className="text-purple-500" />;
       default: return <Puzzle size={18} className="text-gray-500" />;
     }
@@ -277,7 +273,6 @@ export default function PageModulesPage() {
                   disabled={!isCreating}
                 >
                   <option value="bio">自我介绍</option>
-                  <option value="vehicle">车辆介绍</option>
                   <option value="medical">医疗服务</option>
                 </select>
               </div>

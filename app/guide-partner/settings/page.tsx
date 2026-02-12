@@ -365,10 +365,8 @@ export default function SettingsPage() {
 
   const getLevelLabel = (level: string) => {
     const labels: Record<string, string> = {
-      bronze: '青銅會員',
-      silver: '白銀會員',
-      gold: '黃金會員',
-      black: '黑金會員',
+      growth: '初期合夥人',
+      gold: '金牌合夥人',
     };
     return labels[level] || level;
   };

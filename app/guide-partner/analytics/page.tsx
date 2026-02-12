@@ -86,17 +86,13 @@ interface Stats {
 }
 
 const LEVEL_TARGETS: Record<string, { bookings: number; spend: number }> = {
-  bronze: { bookings: 10, spend: 500000 },
-  silver: { bookings: 30, spend: 2000000 },
+  growth: { bookings: 10, spend: 500000 },
   gold: { bookings: 60, spend: 5000000 },
-  diamond: { bookings: 100, spend: 10000000 },
 };
 
 const LEVEL_CONFIG: Record<string, { label: string; color: string; next: string | null }> = {
-  bronze: { label: '銅牌', color: 'text-amber-700', next: 'silver' },
-  silver: { label: '銀牌', color: 'text-gray-500', next: 'gold' },
-  gold: { label: '金牌', color: 'text-yellow-600', next: 'diamond' },
-  diamond: { label: '鑽石', color: 'text-blue-600', next: null },
+  growth: { label: '初期合夥人', color: 'text-orange-700', next: 'gold' },
+  gold: { label: '金牌合夥人', color: 'text-yellow-600', next: null },
 };
 
 export default function AnalyticsPage() {

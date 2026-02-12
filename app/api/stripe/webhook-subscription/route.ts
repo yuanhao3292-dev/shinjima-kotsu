@@ -97,11 +97,12 @@ export async function POST(request: NextRequest) {
             console.error('[Webhook] 更新入场费记录失败:', entryFeeError);
           }
 
-          // 2. 升级导游为合伙人
+          // 2. 升级导游为金牌合伙人
           const { data: updatedGuide, error: updateError } = await supabase
             .from('guides')
             .update({
               subscription_tier: 'partner',
+              commission_tier_code: 'gold',
               updated_at: new Date().toISOString(),
             })
             .eq('id', guideId)
@@ -198,12 +199,21 @@ export async function POST(request: NextRequest) {
                 ? `https://bespoketrip.jp/p/${guideData.slug}`
                 : undefined;
 
+              // 根据等级确定月费
+              const { data: guideInfo } = await supabase
+                .from('guides')
+                .select('subscription_tier')
+                .eq('id', guideId)
+                .single();
+              const monthlyPrice = guideInfo?.subscription_tier === 'partner' ? 4980 : 1980;
+              const planName = guideInfo?.subscription_tier === 'partner' ? '金牌合伙人 - 月度' : '初期合伙人 - 月度';
+
               // 异步发送邮件，不阻塞 Webhook 响应（避免超时）
               sendWhitelabelSubscriptionEmail({
                 guideEmail: guideData.email,
                 guideName: guideData.name || '导游',
-                subscriptionPlan: '白标页面 - 月度',
-                monthlyPrice: 1980,
+                subscriptionPlan: planName,
+                monthlyPrice,
                 whitelabelUrl,
               })
                 .then(() => console.log(`[Webhook] 已发送订阅成功邮件给 ${guideData.email}`))

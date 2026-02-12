@@ -319,7 +319,7 @@ export async function PUT(request: NextRequest) {
         name,
         referral_code: referralCode,
         status: 'approved', // 管理员添加的导游直接设为已认证
-        level: 'bronze',
+        level: 'growth',
         kyc_status: 'pending',
         total_commission: 0,
         total_bookings: 0,

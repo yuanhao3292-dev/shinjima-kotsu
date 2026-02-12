@@ -12,7 +12,6 @@ export * from '../engine';
 // 导出各类型模板
 export * from './hero';
 export * from './bio';
-export * from './vehicles';
 export * from './services';
 export * from './contact';
 export * from './footer';
@@ -20,7 +19,6 @@ export * from './footer';
 // 初始化函数（在应用启动时调用）
 import { initHeroTemplates } from './hero';
 import { initBioTemplates } from './bio';
-import { initVehicleTemplates } from './vehicles';
 import { initServiceTemplates } from './services';
 import { initContactTemplates } from './contact';
 import { initFooterTemplates } from './footer';
@@ -36,7 +34,6 @@ export function initAllTemplates(): void {
 
   initHeroTemplates();
   initBioTemplates();
-  initVehicleTemplates();
   initServiceTemplates();
   initContactTemplates();
   initFooterTemplates();

@@ -7,7 +7,7 @@ import {
   DEFAULT_OFFICIAL_BRANDING,
 } from "@/lib/types/whitelabel";
 import { DEFAULT_CONTACT } from "@/lib/whitelabel-config";
-import { DEFAULT_SELECTED_PAGES } from "@/lib/whitelabel-pages";
+import { DEFAULT_SELECTED_PAGES } from "@/lib/whitelabel-config";
 
 // 创建 Context
 const WhiteLabelContext = createContext<WhiteLabelContextValue | null>(null);

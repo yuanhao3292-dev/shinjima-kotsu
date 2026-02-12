@@ -15,7 +15,7 @@ import {
   createErrorResponse,
   Errors,
 } from "@/lib/utils/api-errors";
-import { DEFAULT_SELECTED_PAGES } from "@/lib/whitelabel-pages";
+import { DEFAULT_SELECTED_PAGES } from "@/lib/whitelabel-config";
 
 /**
  * GET - 获取当前导游的白标设置

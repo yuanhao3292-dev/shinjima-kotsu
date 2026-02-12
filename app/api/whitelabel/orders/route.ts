@@ -108,7 +108,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: '该页面暂时无法接受咨询' }, { status: 400 });
     }
 
-    // 验证模块存在（如果提供了 moduleId）
+    // 验证模块存在且导游已选择该模块
     let moduleName = serviceName || '咨询服务';
     let moduleCategory = serviceType || 'medical';
     if (moduleId) {
@@ -118,26 +118,29 @@ export async function POST(request: NextRequest) {
         .eq('id', moduleId)
         .single();
 
-      if (pageModule) {
-        moduleName = pageModule.name;
-        moduleCategory = pageModule.category;
+      if (!pageModule || !pageModule.is_active) {
+        return NextResponse.json({ error: '该服务模块不存在或已下架' }, { status: 404 });
       }
+
+      // 验证导游已选择该模块
+      const { data: guideModule } = await supabase
+        .from('guide_selected_modules')
+        .select('id')
+        .eq('guide_id', guideId)
+        .eq('module_id', moduleId)
+        .eq('is_enabled', true)
+        .maybeSingle();
+
+      if (!guideModule) {
+        return NextResponse.json({ error: '该导游未提供此服务' }, { status: 403 });
+      }
+
+      moduleName = pageModule.name;
+      moduleCategory = pageModule.category;
     }
 
-    // 获取佣金比例
-    let commissionRate = 0.10;
-    if (guide.subscription_tier === 'partner') {
-      commissionRate = 0.20;
-    } else if (guide.commission_tier_code) {
-      const { data: tier } = await supabase
-        .from('commission_tiers')
-        .select('commission_rate')
-        .eq('tier_code', guide.commission_tier_code)
-        .single();
-      if (tier) {
-        commissionRate = tier.commission_rate;
-      }
-    }
+    // 获取佣金比例：金牌合伙人 20%，初期合伙人 10%
+    const commissionRate = guide.subscription_tier === 'partner' ? 0.20 : 0.10;
 
     // 插入订单（匹配 white_label_orders 实际列）
     const { data: newOrder, error: insertError } = await supabase

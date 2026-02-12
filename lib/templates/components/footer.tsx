@@ -82,9 +82,6 @@ export function ModernFooterTemplate({ context, data }: TemplateProps<FooterData
               <a href="#services" className="block hover:text-white transition">
                 服务项目
               </a>
-              <a href="#vehicles" className="block hover:text-white transition">
-                车辆展示
-              </a>
               <a href="#contact" className="block hover:text-white transition">
                 联系我们
               </a>

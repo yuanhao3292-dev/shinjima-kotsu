@@ -2,10 +2,8 @@ import { notFound } from 'next/navigation';
 import { getGuideDistributionPage, recordPageView } from '@/lib/services/whitelabel';
 import { headers } from 'next/headers';
 import {
-  Car,
   Package,
   ChevronRight,
-  Users,
 } from 'lucide-react';
 import WhitelabelContactSection from '@/components/whitelabel-modules/WhitelabelContactSection';
 import TIMCContent from '@/app/guide-partner/product-center/timc/TIMCContent';
@@ -27,7 +25,7 @@ export default async function GuideDistributionPage({ params }: PageProps) {
     notFound();
   }
 
-  const { guide, config, selectedModules, selectedVehicles } = pageData;
+  const { guide, config, selectedModules } = pageData;
 
   // 记录页面访问
   const headersList = await headers();
@@ -43,7 +41,7 @@ export default async function GuideDistributionPage({ params }: PageProps) {
   // ======== 数据驱动渲染：按 display_config 分类模块 ========
   const DETAIL_MODULES = new Set([
     'medical_packages', 'hyogo_medical', 'cancer_treatment',
-    'golf', 'medical_tourism', 'health_screening', 'vehicles',
+    'golf', 'medical_tourism', 'health_screening',
   ]);
 
   const immersiveModules: Array<{ config: ImmersiveDisplayConfig; componentKey: string }> = [];
@@ -61,7 +59,6 @@ export default async function GuideDistributionPage({ params }: PageProps) {
   immersiveModules.forEach(({ config: dc }) => {
     navItems.push({ id: dc.sectionId, label: dc.navLabel });
   });
-  if (selectedVehicles.length > 0) navItems.push({ id: 'vehicles', label: '车辆介绍' });
   if (genericModules.length > 0) navItems.push({ id: 'services', label: '服务项目' });
   navItems.push({ id: 'contact', label: '联系我们' });
 
@@ -125,57 +122,6 @@ export default async function GuideDistributionPage({ params }: PageProps) {
           )}
         </div>
       ))}
-
-      {/* ========= 车辆介绍 ========= */}
-      {selectedVehicles.length > 0 && (
-        <section id="vehicles" className="py-24 bg-white">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <span className="text-sm font-medium tracking-widest uppercase" style={{ color: brandColor }}>
-                Fleet
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-3">车辆介绍</h2>
-              <p className="text-gray-500 mt-3">为您提供舒适、安全的高端座驾</p>
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {selectedVehicles.map((sv) => (
-                <div key={sv.id} className="group bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                  <div className="aspect-[4/3] bg-gray-200 flex items-center justify-center overflow-hidden">
-                    {sv.vehicle.images?.[0] ? (
-                      <img src={sv.vehicle.images[0]} alt={sv.vehicle.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                    ) : (
-                      <Car size={48} className="text-gray-300" />
-                    )}
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-lg font-bold text-gray-900 mb-2">{sv.vehicle.name}</h3>
-                    <p className="text-sm text-gray-500 mb-4 line-clamp-2">{sv.vehicle.description || sv.vehicle.vehicleType}</p>
-                    <div className="flex items-center gap-4 text-sm text-gray-400">
-                      <span className="flex items-center gap-1.5">
-                        <Users size={14} />
-                        {sv.vehicle.seats} 座
-                      </span>
-                    </div>
-                    {sv.vehicle.features && sv.vehicle.features.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 mt-4 pt-4 border-t border-gray-100">
-                        {sv.vehicle.features.slice(0, 4).map((feature, idx) => (
-                          <span
-                            key={idx}
-                            className="px-2.5 py-1 text-xs rounded-md font-medium"
-                            style={{ backgroundColor: `${brandColor}08`, color: `${brandColor}cc` }}
-                          >
-                            {feature}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* ========= 通用服务卡片 ========= */}
       {genericModules.length > 0 && (

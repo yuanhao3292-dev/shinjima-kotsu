@@ -49,10 +49,8 @@ interface Stats {
 }
 
 const LEVEL_CONFIG: Record<string, { label: string; color: string; bgColor: string }> = {
-  bronze: { label: '銅牌', color: 'text-amber-700', bgColor: 'bg-amber-100' },
-  silver: { label: '銀牌', color: 'text-gray-500', bgColor: 'bg-gray-100' },
+  growth: { label: '初期', color: 'text-orange-700', bgColor: 'bg-orange-100' },
   gold: { label: '金牌', color: 'text-yellow-600', bgColor: 'bg-yellow-100' },
-  diamond: { label: '鑽石', color: 'text-blue-600', bgColor: 'bg-blue-100' },
 };
 
 const STATUS_CONFIG: Record<string, { label: string; color: string; bgColor: string }> = {

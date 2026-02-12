@@ -32,16 +32,13 @@ interface UseCommissionTiersResult {
 const DEFAULT_SUMMARY: CommissionTiersSummary = {
   minRate: 10,
   maxRate: 20,
-  tierCount: 4,
+  tierCount: 2,
 };
 
-// 季度销售额阈值（每季度重新计算）
-// 铜牌: 0, 银牌: 100万, 金牌: 300万, 钻石: 500万
+// 两级合伙人：初期 10% / 金牌 20%
 const DEFAULT_TIERS: CommissionTier[] = [
-  { id: '1', tier_code: 'bronze', tier_name_ja: '銅牌合夥人', tier_name_zh: '铜牌合伙人', tier_name_en: 'Bronze', min_monthly_sales: 0, min_quarterly_sales: 0, commission_rate: 10, badge_color: '#CD7F32', sort_order: 1 },
-  { id: '2', tier_code: 'silver', tier_name_ja: '銀牌合夥人', tier_name_zh: '银牌合伙人', tier_name_en: 'Silver', min_monthly_sales: 1000000, min_quarterly_sales: 1000000, commission_rate: 12, badge_color: '#C0C0C0', sort_order: 2 },
-  { id: '3', tier_code: 'gold', tier_name_ja: '金牌合夥人', tier_name_zh: '金牌合伙人', tier_name_en: 'Gold', min_monthly_sales: 3000000, min_quarterly_sales: 3000000, commission_rate: 15, badge_color: '#FFD700', sort_order: 3 },
-  { id: '4', tier_code: 'diamond', tier_name_ja: '鑽石合夥人', tier_name_zh: '钻石合伙人', tier_name_en: 'Diamond', min_monthly_sales: 5000000, min_quarterly_sales: 5000000, commission_rate: 20, badge_color: '#B9F2FF', sort_order: 4 },
+  { id: '1', tier_code: 'growth', tier_name_ja: '初期合夥人', tier_name_zh: '初期合伙人', tier_name_en: 'Growth Partner', min_monthly_sales: 0, min_quarterly_sales: 0, commission_rate: 10, badge_color: '#F97316', sort_order: 1 },
+  { id: '2', tier_code: 'gold', tier_name_ja: '金牌合夥人', tier_name_zh: '金牌合伙人', tier_name_en: 'Gold Partner', min_monthly_sales: 0, min_quarterly_sales: 0, commission_rate: 20, badge_color: '#FFD700', sort_order: 2 },
 ];
 
 /**

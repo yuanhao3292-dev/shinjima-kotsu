@@ -91,10 +91,10 @@ function NewBookingForm() {
         return;
       }
 
-      // 獲取導遊資訊（含佣金等級）
+      // 獲取導遊資訊
       const { data: guideData } = await supabase
         .from('guides')
-        .select('id, name, status, commission_tier_id, commission_tiers(commission_rate)')
+        .select('id, name, status, subscription_tier')
         .eq('auth_user_id', user.id)
         .single();
 
@@ -103,13 +103,8 @@ function NewBookingForm() {
         return;
       }
 
-      // 從 commission_tiers 獲取動態佣金率
-      const tierData = Array.isArray(guideData.commission_tiers)
-        ? guideData.commission_tiers[0]
-        : guideData.commission_tiers;
-      const commissionRate = tierData?.commission_rate
-        ? Number(tierData.commission_rate) / 100  // 10.00 → 0.10
-        : 0.10; // 默認 10%
+      // 金牌合伙人 20%，初期合伙人 10%
+      const commissionRate = guideData.subscription_tier === 'partner' ? 0.20 : 0.10;
 
       setGuide({
         id: guideData.id,

@@ -71,20 +71,8 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Guide not found" }, { status: 404 });
     }
 
-    // 获取分成等级信息（成长版需要）
-    let commissionRate = 0.10; // 默认 10%
-    if (guide.subscription_tier === "partner") {
-      commissionRate = 0.20; // 合伙人固定 20%
-    } else if (guide.commission_tier_code) {
-      const { data: tier } = await supabase
-        .from("commission_tiers")
-        .select("commission_rate")
-        .eq("tier_code", guide.commission_tier_code)
-        .single();
-      if (tier) {
-        commissionRate = tier.commission_rate;
-      }
-    }
+    // 获取分成比例：金牌合伙人 20%，初期合伙人 10%
+    const commissionRate = guide.subscription_tier === "partner" ? 0.20 : 0.10;
 
     // 检查入场费是否已支付
     const { data: entryFees } = await supabase
@@ -94,44 +82,6 @@ export async function GET(request: NextRequest) {
       .eq("status", "completed");
 
     const entryFeePaid = (entryFees && entryFees.length > 0) || false;
-
-    // 获取季度销售额（成长版需要）
-    let quarterlySales = 0;
-    let nextTierThreshold = 0;
-    let progressPercent = 0;
-
-    if (guide.subscription_tier === "growth") {
-      // 计算当前季度销售额
-      const quarterStart = new Date();
-      quarterStart.setMonth(Math.floor(quarterStart.getMonth() / 3) * 3);
-      quarterStart.setDate(1);
-      quarterStart.setHours(0, 0, 0, 0);
-
-      const { data: orders } = await supabase
-        .from("whitelabel_orders")
-        .select("order_amount")
-        .eq("guide_id", guideId)
-        .eq("status", "completed")
-        .gte("created_at", quarterStart.toISOString());
-
-      quarterlySales = orders?.reduce((sum, o) => sum + (o.order_amount || 0), 0) || 0;
-
-      // 获取下一等级阈值
-      const { data: nextTier } = await supabase
-        .from("commission_tiers")
-        .select("min_quarterly_sales")
-        .gt("min_quarterly_sales", quarterlySales)
-        .order("min_quarterly_sales", { ascending: true })
-        .limit(1)
-        .single();
-
-      if (nextTier) {
-        nextTierThreshold = nextTier.min_quarterly_sales;
-        progressPercent = Math.min(100, (quarterlySales / nextTierThreshold) * 100);
-      } else {
-        progressPercent = 100; // 已达到最高等级
-      }
-    }
 
     // 构建权益信息
     const benefits: SubscriptionBenefits = guide.subscription_tier === "partner"
@@ -155,14 +105,11 @@ export async function GET(request: NextRequest) {
       subscriptionTier: guide.subscription_tier || "growth",
       subscriptionStatus: guide.subscription_status || "inactive",
       commissionRate,
-      commissionType: guide.subscription_tier === "partner" ? "fixed" : "tiered",
+      commissionType: "fixed",
       monthlyFee: guide.subscription_tier === "partner" ? 4980 : 1980,
       entryFeePaid,
-      entryFeeAmount: entryFeePaid ? 100000 : 0,
+      entryFeeAmount: entryFeePaid ? 200000 : 0,
       benefits,
-      quarterlySales: guide.subscription_tier === "growth" ? quarterlySales : undefined,
-      nextTierThreshold: guide.subscription_tier === "growth" ? nextTierThreshold : undefined,
-      progressPercent: guide.subscription_tier === "growth" ? progressPercent : undefined,
     };
 
     return NextResponse.json(details);

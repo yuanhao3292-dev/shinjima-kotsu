@@ -3,9 +3,8 @@ import {
   GuideWhiteLabelConfig,
   GuideDistributionPage,
   SelectedModuleWithDetails,
-  SelectedVehicleWithDetails,
 } from "@/lib/types/whitelabel";
-import { DEFAULT_SELECTED_PAGES } from "@/lib/whitelabel-pages";
+import { DEFAULT_SELECTED_PAGES } from "@/lib/whitelabel-config";
 
 // Re-export types for consumers
 export type { GuideDistributionPage } from "@/lib/types/whitelabel";
@@ -254,35 +253,7 @@ export async function getGuideDistributionPage(
     .eq("is_enabled", true)
     .order("sort_order", { ascending: true });
 
-  // 4. 获取导游选择的车辆（带车辆详情）
-  const { data: selectedVehiclesData, error: vehiclesError } = await supabase
-    .from("guide_selected_vehicles")
-    .select(`
-      id,
-      sort_order,
-      is_enabled,
-      custom_price_note,
-      vehicle_library (
-        id,
-        name,
-        name_ja,
-        slug,
-        vehicle_type,
-        seats,
-        description,
-        images,
-        features,
-        sort_order,
-        is_active,
-        created_at,
-        updated_at
-      )
-    `)
-    .eq("guide_id", guideConfig.id)
-    .eq("is_enabled", true)
-    .order("sort_order", { ascending: true });
-
-  // 5. 转换模块数据格式
+  // 4. 转换模块数据格式
   const selectedModules: SelectedModuleWithDetails[] = (selectedModulesData || [])
     .filter((sm) => sm.page_modules)
     .map((sm) => {
@@ -314,35 +285,6 @@ export async function getGuideDistributionPage(
       };
     });
 
-  // 6. 转换车辆数据格式
-  const selectedVehicles: SelectedVehicleWithDetails[] = (selectedVehiclesData || [])
-    .filter((sv) => sv.vehicle_library)
-    .map((sv) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const veh = sv.vehicle_library as any;
-      return {
-        id: sv.id,
-        sortOrder: sv.sort_order,
-        isEnabled: sv.is_enabled,
-        customPriceNote: sv.custom_price_note,
-        vehicle: {
-          id: veh.id,
-          name: veh.name,
-          nameJa: veh.name_ja,
-          slug: veh.slug,
-          vehicleType: veh.vehicle_type,
-          seats: veh.seats,
-          description: veh.description,
-          images: veh.images || [],
-          features: veh.features || [],
-          sortOrder: veh.sort_order,
-          isActive: veh.is_active,
-          createdAt: veh.created_at,
-          updatedAt: veh.updated_at,
-        },
-      };
-    });
-
   return {
     guide: guideConfig,
     config: {
@@ -350,7 +292,6 @@ export async function getGuideDistributionPage(
       seoDescription: pageConfig?.site_description || null,
     },
     selectedModules,
-    selectedVehicles,
   };
 }
 

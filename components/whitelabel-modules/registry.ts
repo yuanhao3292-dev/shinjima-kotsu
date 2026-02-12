@@ -9,7 +9,6 @@ import type { WhitelabelModuleProps } from './types';
 const MODULE_REGISTRY: Record<string, ComponentType<WhitelabelModuleProps>> = {
   health_screening: dynamic(() => import('./HealthScreeningModule')),
   cancer_treatment: dynamic(() => import('./CancerTreatmentModule')),
-  vehicles: dynamic(() => import('./VehiclesModule')),
   golf: dynamic(() => import('./GolfModule')),
   medical_tourism: dynamic(() => import('./MedicalTourismModule')),
   medical_packages: dynamic(() => import('./MedicalPackagesModule')),

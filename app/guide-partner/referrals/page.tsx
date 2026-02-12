@@ -185,19 +185,15 @@ export default function ReferralsPage() {
 
   const getLevelBadge = (level: string) => {
     const styles: Record<string, string> = {
-      bronze: 'text-amber-600',
-      silver: 'text-gray-500',
+      growth: 'text-orange-600',
       gold: 'text-yellow-500',
-      black: 'text-black',
     };
     const labels: Record<string, string> = {
-      bronze: '青銅',
-      silver: '白銀',
-      gold: '黃金',
-      black: '黑金',
+      growth: '初期',
+      gold: '金牌',
     };
     return (
-      <span className={`text-xs font-medium ${styles[level] || styles.bronze}`}>
+      <span className={`text-xs font-medium ${styles[level] || styles.growth}`}>
         {labels[level] || level}
       </span>
     );

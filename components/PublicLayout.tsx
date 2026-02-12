@@ -10,7 +10,7 @@ type Language = 'zh-TW' | 'zh-CN' | 'ja' | 'en';
 interface PublicLayoutProps {
   children: React.ReactNode;
   showFooter?: boolean;
-  activeNav?: 'medical' | 'cancer' | 'golf' | 'business' | 'vehicles' | 'partner' | 'news';
+  activeNav?: 'medical' | 'cancer' | 'golf' | 'business' | 'partner' | 'news';
   transparentNav?: boolean; // 是否使用透明导航栏（融入 Hero）
   onLogoClick?: () => void; // 点击 Logo 时的回调（用于 SPA 内部导航）
 }
@@ -22,7 +22,6 @@ const navLabels = {
     cancer: '日本綜合治療',
     golf: '名門高爾夫',
     business: '商務考察',
-    vehicles: '車輛介紹',
     partner: '同業合作',
     guidePartner: '導遊合夥人',
     login: '會員登入',
@@ -51,7 +50,6 @@ const navLabels = {
     cancer: '日本総合治療',
     golf: '名門ゴルフ',
     business: '商務視察',
-    vehicles: '車両紹介',
     partner: '業務提携',
     guidePartner: 'ガイドパートナー',
     login: 'ログイン',
@@ -80,7 +78,6 @@ const navLabels = {
     cancer: '日本综合治疗',
     golf: '名门高尔夫',
     business: '商务考察',
-    vehicles: '车辆介绍',
     partner: '同业合作',
     guidePartner: '导游合伙人',
     login: '会员登录',
@@ -109,7 +106,6 @@ const navLabels = {
     cancer: 'Cancer Treatment',
     golf: 'Premium Golf',
     business: 'Business Tour',
-    vehicles: 'Our Fleet',
     partner: 'Partnership',
     guidePartner: 'Guide Partner',
     login: 'Login',
@@ -313,7 +309,6 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
             <Link href="/cancer-treatment" className={getNavLinkClass('cancer', isActive('cancer'), 'red')}>{t.cancer}</Link>
             <Link href="/?page=golf" className={getNavLinkClass('golf', isActive('golf'))}>{t.golf}</Link>
             <Link href="/?page=business" className={getNavLinkClass('business', isActive('business'))}>{t.business}</Link>
-            <Link href="/vehicles" className={getNavLinkClass('vehicles', isActive('vehicles'))}>{t.vehicles}</Link>
             {/* 白标模式下隐藏同业合作链接 */}
             {!hideGuidePartnerContent && (
               <Link href="/business/partner" className={getNavLinkClass('partner', isActive('partner'))}>{t.partner}</Link>
@@ -393,7 +388,6 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
           <Link href="/cancer-treatment" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2 text-red-600">{t.cancer}</Link>
           <Link href="/?page=golf" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2">{t.golf}</Link>
           <Link href="/?page=business" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2">{t.business}</Link>
-          <Link href="/vehicles" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2">{t.vehicles}</Link>
           {/* 白标模式下隐藏同业合作链接 */}
           {!hideGuidePartnerContent && (
             <Link href="/business/partner" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2">{t.partner}</Link>
@@ -527,11 +521,6 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                   <li>
                     <Link href="/?page=business" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                       {t.business}
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/vehicles" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                      {t.vehicles}
                     </Link>
                   </li>
                 </ul>

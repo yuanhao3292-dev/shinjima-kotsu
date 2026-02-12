@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Logo from '@/components/Logo';
 import { createClient } from '@/lib/supabase/client';
-import { DEFAULT_SELECTED_PAGES } from '@/lib/whitelabel-pages';
+import { DEFAULT_SELECTED_PAGES } from '@/lib/whitelabel-config';
 import { SUBSCRIPTION_PLANS } from '@/lib/whitelabel-config';
 import {
   ArrowLeft,

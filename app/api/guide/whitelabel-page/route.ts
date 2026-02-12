@@ -12,7 +12,7 @@ import { z } from 'zod';
  *
  * DB 表: guide_white_label (058_white_label_system.sql)
  * 列: slug, display_name, avatar_url, bio, contact_wechat, contact_line,
- *     contact_phone, contact_email, bio_template_id, vehicle_template_id,
+ *     contact_phone, contact_email, bio_template_id,
  *     theme_color, site_title, site_description, is_published, ...
  */
 
@@ -28,7 +28,6 @@ const WhiteLabelPageUpdateSchema = z.object({
   contactPhone: z.string().max(30).nullable().optional(),
   contactEmail: z.string().email().nullable().optional(),
   bioTemplateId: z.string().uuid().nullable().optional(),
-  vehicleTemplateId: z.string().uuid().nullable().optional(),
   themeColor: z.string().max(20).optional(),
   siteTitle: z.string().max(100).nullable().optional(),
   siteDescription: z.string().max(300).nullable().optional(),
@@ -113,19 +112,11 @@ export async function GET(request: NextRequest) {
       .eq('guide_id', guide.id)
       .order('sort_order', { ascending: true });
 
-    // 获取已选择的车辆（通过 guide_id 关联）
-    const { data: selectedVehicles } = await supabase
-      .from('guide_selected_vehicles')
-      .select('*, vehicle:vehicle_library(*)')
-      .eq('guide_id', guide.id)
-      .order('sort_order', { ascending: true });
-
     return NextResponse.json({
       exists: true,
       config: {
         ...config,
         selectedModules: selectedModules || [],
-        selectedVehicles: selectedVehicles || [],
       },
     });
   } catch (error: unknown) {
@@ -210,7 +201,6 @@ export async function POST(request: NextRequest) {
       if (data.contactPhone !== undefined) updateData.contact_phone = data.contactPhone;
       if (data.contactEmail !== undefined) updateData.contact_email = data.contactEmail;
       if (data.bioTemplateId !== undefined) updateData.bio_template_id = data.bioTemplateId;
-      if (data.vehicleTemplateId !== undefined) updateData.vehicle_template_id = data.vehicleTemplateId;
       if (data.themeColor !== undefined) updateData.theme_color = data.themeColor;
       if (data.siteTitle !== undefined) updateData.site_title = data.siteTitle;
       if (data.siteDescription !== undefined) updateData.site_description = data.siteDescription;
@@ -249,7 +239,6 @@ export async function POST(request: NextRequest) {
           contact_phone: data.contactPhone || null,
           contact_email: data.contactEmail || null,
           bio_template_id: data.bioTemplateId || null,
-          vehicle_template_id: data.vehicleTemplateId || null,
           theme_color: data.themeColor || '#f97316',
           site_title: data.siteTitle || null,
           site_description: data.siteDescription || null,

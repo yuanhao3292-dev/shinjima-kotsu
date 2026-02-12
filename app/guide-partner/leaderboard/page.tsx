@@ -36,10 +36,8 @@ interface LeaderboardEntry {
 
 // 等级配置
 const LEVEL_CONFIG: Record<string, { label: string; color: string; bgColor: string; borderColor: string }> = {
-  bronze: { label: '銅牌', color: 'text-amber-700', bgColor: 'bg-amber-100', borderColor: 'border-amber-300' },
-  silver: { label: '銀牌', color: 'text-gray-500', bgColor: 'bg-gray-100', borderColor: 'border-gray-300' },
+  growth: { label: '初期', color: 'text-orange-700', bgColor: 'bg-orange-100', borderColor: 'border-orange-300' },
   gold: { label: '金牌', color: 'text-yellow-600', bgColor: 'bg-yellow-100', borderColor: 'border-yellow-300' },
-  diamond: { label: '鑽石', color: 'text-blue-600', bgColor: 'bg-blue-100', borderColor: 'border-blue-300' },
 };
 
 export default function LeaderboardPage() {
