@@ -41,9 +41,10 @@ const REVIEWS = [
 
 interface TIMCContentProps {
   isGuideEmbed?: boolean;
+  guideSlug?: string;
 }
 
-export default function TIMCContent({ isGuideEmbed }: TIMCContentProps) {
+export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProps) {
   const [lang, setLang] = useState<Language>('zh-TW');
 
   useEffect(() => {
@@ -62,6 +63,7 @@ export default function TIMCContent({ isGuideEmbed }: TIMCContentProps) {
   }, []);
 
   const t = translations[lang];
+  const pkgBase = isGuideEmbed && guideSlug ? `/g/${guideSlug}/medical-packages` : '/medical-packages';
 
   return (
     <div className="animate-fade-in-up">
@@ -385,7 +387,7 @@ export default function TIMCContent({ isGuideEmbed }: TIMCContentProps) {
                 <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> {t.medical.pkg_vip_item_5}</div>
                 <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> {t.medical.pkg_vip_item_6}</div>
               </div>
-              <a href="/medical-packages/vip-member-course" className="w-full py-2 bg-yellow-500 text-black text-xs font-bold rounded hover:bg-yellow-400 transition text-center block">{t.medical.pkg_consult_btn}</a>
+              <a href={`${pkgBase}/vip-member-course`} className="w-full py-2 bg-yellow-500 text-black text-xs font-bold rounded hover:bg-yellow-400 transition text-center block">{t.medical.pkg_consult_btn}</a>
             </div>
 
             {/* PREMIUM (Cardiac) */}
@@ -404,7 +406,7 @@ export default function TIMCContent({ isGuideEmbed }: TIMCContentProps) {
                 <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> {t.medical.pkg_premium_item_4}</div>
                 <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> {t.medical.pkg_premium_item_5}</div>
               </div>
-              <a href="/medical-packages/premium-cardiac-course" className="w-full py-2 border border-blue-200 text-blue-600 text-xs font-bold rounded hover:bg-blue-50 transition text-center block">{t.medical.pkg_consult_btn}</a>
+              <a href={`${pkgBase}/premium-cardiac-course`} className="w-full py-2 border border-blue-200 text-blue-600 text-xs font-bold rounded hover:bg-blue-50 transition text-center block">{t.medical.pkg_consult_btn}</a>
             </div>
 
             {/* SELECT (Gastro + Colon) */}
@@ -423,7 +425,7 @@ export default function TIMCContent({ isGuideEmbed }: TIMCContentProps) {
                 <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> {t.medical.pkg_select_gc_item_4}</div>
                 <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> {t.medical.pkg_select_gc_item_5}</div>
               </div>
-              <a href="/medical-packages/select-gastro-colonoscopy" className="w-full py-2 border border-green-200 text-green-600 text-xs font-bold rounded hover:bg-green-50 transition text-center block">{t.medical.pkg_consult_btn}</a>
+              <a href={`${pkgBase}/select-gastro-colonoscopy`} className="w-full py-2 border border-green-200 text-green-600 text-xs font-bold rounded hover:bg-green-50 transition text-center block">{t.medical.pkg_consult_btn}</a>
             </div>
 
             {/* SELECT (Stomach only) */}
@@ -442,7 +444,7 @@ export default function TIMCContent({ isGuideEmbed }: TIMCContentProps) {
                 <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> {t.medical.pkg_select_g_item_4}</div>
                 <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> {t.medical.pkg_select_g_item_5}</div>
               </div>
-              <Link href="/medical-packages/select-gastroscopy" className="w-full py-2 border border-teal-200 text-teal-600 text-xs font-bold rounded hover:bg-teal-50 transition text-center block">{t.medical.pkg_consult_btn}</Link>
+              <Link href={`${pkgBase}/select-gastroscopy`} className="w-full py-2 border border-teal-200 text-teal-600 text-xs font-bold rounded hover:bg-teal-50 transition text-center block">{t.medical.pkg_consult_btn}</Link>
             </div>
 
             {/* DWIBS */}
@@ -461,7 +463,7 @@ export default function TIMCContent({ isGuideEmbed }: TIMCContentProps) {
                 <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> {t.medical.pkg_dwibs_item_4}</div>
                 <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> {t.medical.pkg_dwibs_item_5}</div>
               </div>
-              <Link href="/medical-packages/dwibs-cancer-screening" className="w-full py-2 border border-purple-200 text-purple-600 text-xs font-bold rounded hover:bg-purple-50 transition text-center block">{t.medical.pkg_consult_btn}</Link>
+              <Link href={`${pkgBase}/dwibs-cancer-screening`} className="w-full py-2 border border-purple-200 text-purple-600 text-xs font-bold rounded hover:bg-purple-50 transition text-center block">{t.medical.pkg_consult_btn}</Link>
             </div>
 
             {/* BASIC */}
@@ -480,7 +482,7 @@ export default function TIMCContent({ isGuideEmbed }: TIMCContentProps) {
                 <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> {t.medical.pkg_basic_item_4}</div>
                 <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> {t.medical.pkg_basic_item_5}</div>
               </div>
-              <Link href="/medical-packages/basic-checkup" className="w-full py-2 border border-gray-300 text-gray-600 text-xs font-bold rounded hover:bg-gray-100 transition text-center block">{t.medical.pkg_consult_btn}</Link>
+              <Link href={`${pkgBase}/basic-checkup`} className="w-full py-2 border border-gray-300 text-gray-600 text-xs font-bold rounded hover:bg-gray-100 transition text-center block">{t.medical.pkg_consult_btn}</Link>
             </div>
           </div>
         </div>

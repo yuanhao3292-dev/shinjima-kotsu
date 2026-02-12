@@ -46,7 +46,7 @@ export default async function ModuleDetailPage({ params }: PageProps) {
   // 导游品牌仅通过 layout 的 DistributionNav + FloatingContact 展示
   switch (componentKey) {
     case 'medical_packages':
-      return <TIMCContent isGuideEmbed />;
+      return <TIMCContent isGuideEmbed guideSlug={slug} />;
 
     case 'hyogo_medical':
       return <HyogoMedicalContent isGuideEmbed />;
@@ -66,7 +66,7 @@ export default async function ModuleDetailPage({ params }: PageProps) {
       return <MedicalTourismContent isGuideEmbed />;
 
     case 'health_screening':
-      return <TIMCContent isGuideEmbed />;
+      return <TIMCContent isGuideEmbed guideSlug={slug} />;
 
     default:
       notFound();
