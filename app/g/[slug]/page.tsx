@@ -81,7 +81,7 @@ export default async function GuideHomePage({ params }: PageProps) {
                 </div>
 
                 {/* 标题 */}
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-6">
                   {heroCard.customTitle || heroCard.config.title}
                 </h1>
 
