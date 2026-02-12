@@ -1,11 +1,14 @@
-'use client';
-
+import { getSaiClinicImages } from '@/lib/services/sai-clinic-images';
 import SaiClinicContent from './SaiClinicContent';
 
-export default function SaiClinicPage() {
+export const dynamic = 'force-dynamic';
+
+export default async function SaiClinicPage() {
+  const images = await getSaiClinicImages();
+
   return (
     <div className="min-h-screen bg-white">
-      <SaiClinicContent />
+      <SaiClinicContent images={images} />
     </div>
   );
 }

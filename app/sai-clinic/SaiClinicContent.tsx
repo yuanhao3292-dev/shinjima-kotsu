@@ -12,6 +12,40 @@ import {
 import ContactButtons from '@/components/ContactButtons';
 import type { WhitelabelModuleProps } from '@/components/whitelabel-modules/types';
 import WhitelabelContactSection from '@/components/whitelabel-modules/WhitelabelContactSection';
+import type { SaiClinicImage } from '@/lib/services/sai-clinic-images';
+
+// ━━━━━━━━ 静态 fallback 图片（数据库不可用时使用） ━━━━━━━━
+
+const FALLBACK_IMAGES: SaiClinicImage[] = [
+  { id: 'f-h1', category: 'hero', src: '/images/sai-clinic/hero-01.jpg', alt: 'SAI CLINIC 大阪梅田 - 院内環境', label: '院内大厅', display_order: 1, metadata: { usage: 'hero_background' } },
+  { id: 'f-h2', category: 'hero', src: '/images/sai-clinic/hero-02.jpg', alt: '崔煌植医生施术中', label: '施术中', display_order: 2, metadata: { usage: 'hero_grid' } },
+  { id: 'f-h3', category: 'hero', src: '/images/sai-clinic/hero-03.jpg', alt: 'SAI CLINIC 院内', label: '院内', display_order: 3, metadata: { usage: 'hero_grid' } },
+  { id: 'f-h4', category: 'hero', src: '/images/sai-clinic/hero-04.jpg', alt: 'SAI CLINIC', label: 'CTA背景', display_order: 4, metadata: { usage: 'cta_background' } },
+  { id: 'f-h5', category: 'hero', src: '/images/sai-clinic/hero-05.jpg', alt: 'SAI CLINIC', label: '流程背景', display_order: 5, metadata: { usage: 'flow_background' } },
+  { id: 'f-g1', category: 'gallery', src: '/images/sai-clinic/gallery-1.jpg', alt: 'SAI CLINIC 接待大厅', label: '接待大厅', display_order: 1, metadata: null },
+  { id: 'f-g2', category: 'gallery', src: '/images/sai-clinic/gallery-2.jpg', alt: 'SAI CLINIC 候诊区域', label: '候诊区域', display_order: 2, metadata: null },
+  { id: 'f-g3', category: 'gallery', src: '/images/sai-clinic/gallery-3.jpg', alt: 'SAI CLINIC 咨询室', label: '咨询室', display_order: 3, metadata: null },
+  { id: 'f-g4', category: 'gallery', src: '/images/sai-clinic/gallery-4.jpg', alt: 'SAI CLINIC 治疗室', label: '治疗室', display_order: 4, metadata: null },
+  { id: 'f-g5', category: 'gallery', src: '/images/sai-clinic/gallery-5.jpg', alt: 'SAI CLINIC 化妆间', label: '化妆间', display_order: 5, metadata: null },
+  { id: 'f-g6', category: 'gallery', src: '/images/sai-clinic/gallery-6.jpg', alt: 'SAI CLINIC 手术室', label: '手术室', display_order: 6, metadata: null },
+  { id: 'f-g7', category: 'gallery', src: '/images/sai-clinic/gallery-7.jpg', alt: 'SAI CLINIC 恢复室', label: '恢复室', display_order: 7, metadata: null },
+  { id: 'f-g8', category: 'gallery', src: '/images/sai-clinic/gallery-8.jpg', alt: 'SAI CLINIC 入口', label: '诊所入口', display_order: 8, metadata: null },
+  { id: 'f-g9', category: 'gallery', src: '/images/sai-clinic/gallery-9.jpg', alt: 'SAI CLINIC 走廊', label: '诊所走廊', display_order: 9, metadata: null },
+  { id: 'f-c1', category: 'case', src: '/images/sai-clinic/case-40s-01.jpg', alt: '40代女性 糸リフト+ヒアルロン酸', label: '40代女性', display_order: 1, metadata: { title: '40代女性 · 糸リフト+ヒアルロン酸', desc: 'SAI LIFT STANDARD + 法令纹玻尿酸注射。自然的提升效果，法令纹明显改善。' } },
+  { id: 'f-c2', category: 'case', src: '/images/sai-clinic/case-50s-01.jpg', alt: '50代女性 糸リフト', label: '50代女性', display_order: 2, metadata: { title: '50代女性 · 糸リフト', desc: 'SAI LIFT PERFECT 全脸线雕提升。显著改善面部松弛，恢复年轻轮廓。' } },
+  { id: 'f-c3', category: 'case', src: '/images/sai-clinic/case-50s-02.jpg', alt: '50代女性 糸リフト+脂肪溶解', label: '50代女性', display_order: 3, metadata: { title: '50代女性 · 糸リフト+脂肪溶解', desc: '线雕提升 + 面部吸脂。V脸效果明显，下颚线条更加紧致。' } },
+  { id: 'f-d1', category: 'doctor', src: '/images/sai-clinic/doctor.jpg', alt: '崔煌植 院長', label: '院長头像', display_order: 1, metadata: { usage: 'avatar' } },
+  { id: 'f-d2', category: 'doctor', src: '/images/sai-clinic/sign.png', alt: '崔煌植 签名', label: '签名', display_order: 2, metadata: { usage: 'signature' } },
+  { id: 'f-d3', category: 'doctor', src: '/images/sai-clinic/recommend.jpg', alt: '推薦', label: '推薦头像', display_order: 3, metadata: { usage: 'recommend' } },
+  { id: 'f-f1', category: 'feature', src: '/images/sai-clinic/feature-01.jpg', alt: '糸リフト专门诊所', label: '糸リフト专门', display_order: 1, metadata: { title: '糸リフト专门诊所' } },
+  { id: 'f-f2', category: 'feature', src: '/images/sai-clinic/about-feature-1.jpg', alt: '韩式美学·日本品质', label: '韩式美学', display_order: 2, metadata: { title: '韩式美学·日本品质' } },
+  { id: 'f-f3', category: 'feature', src: '/images/sai-clinic/about-feature-2.jpg', alt: '内外兼修·个性定制', label: '内外兼修', display_order: 3, metadata: { title: '内外兼修·个性定制' } },
+  { id: 'f-cp1', category: 'concept', src: '/images/sai-clinic/concept-1.jpg', alt: 'SAI CLINIC 施術風景', label: '施术风景', display_order: 1, metadata: null },
+  { id: 'f-cp2', category: 'concept', src: '/images/sai-clinic/concept-2.jpg', alt: '抗衰老专门', label: '抗衰老专门', display_order: 2, metadata: null },
+  { id: 'f-cp3', category: 'concept', src: '/images/sai-clinic/concept-3.jpg', alt: '韩式美学', label: '韩式美学', display_order: 3, metadata: null },
+  { id: 'f-cp4', category: 'concept', src: '/images/sai-clinic/concept-4.jpg', alt: '个性化方案', label: '个性化方案', display_order: 4, metadata: null },
+  { id: 'f-t1', category: 'threadlift', src: '/images/sai-clinic/threadlift-hero.jpg', alt: 'SAI LIFT 糸リフト', label: '糸リフト hero', display_order: 1, metadata: null },
+];
 
 // ━━━━━━━━ 套餐数据 ━━━━━━━━
 
@@ -229,9 +263,10 @@ const FAQ = [
 
 interface SaiClinicContentProps {
   whitelabel?: WhitelabelModuleProps;
+  images?: SaiClinicImage[] | null;
 }
 
-export default function SaiClinicContent({ whitelabel }: SaiClinicContentProps) {
+export default function SaiClinicContent({ whitelabel, images }: SaiClinicContentProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [menuTab, setMenuTab] = useState<string>('surgery');
   const isWhitelabel = Boolean(whitelabel && whitelabel.brandName);
@@ -244,13 +279,39 @@ export default function SaiClinicContent({ whitelabel }: SaiClinicContentProps) 
   // Determine base checkout path - whitelabel pages use /sai-clinic/[slug]
   const checkoutBase = '/sai-clinic';
 
+  // ━━━━━━━━ 图片查询工具（从 DB 或 fallback） ━━━━━━━━
+  const allImages = images && images.length > 0 ? images : FALLBACK_IMAGES;
+
+  const imgsByCategory = (cat: string) =>
+    allImages.filter((i) => i.category === cat).sort((a, b) => a.display_order - b.display_order);
+
+  const imgByUsage = (usage: string) =>
+    allImages.find((i) => i.metadata?.usage === usage);
+
+  const heroImages = imgsByCategory('hero');
+  const galleryImages = imgsByCategory('gallery');
+  const caseImages = imgsByCategory('case');
+  const doctorImages = imgsByCategory('doctor');
+  const featureImages = imgsByCategory('feature');
+  const conceptImages = imgsByCategory('concept');
+  const threadliftImages = imgsByCategory('threadlift');
+
+  const heroBg = imgByUsage('hero_background') || heroImages[0];
+  const ctaBg = imgByUsage('cta_background') || heroImages[3];
+  const flowBg = imgByUsage('flow_background') || heroImages[4];
+  const doctorAvatar = imgByUsage('avatar') || doctorImages[0];
+  const doctorSign = imgByUsage('signature') || doctorImages[1];
+  const recommendImg = imgByUsage('recommend') || doctorImages[2];
+  const heroGridImages = heroImages.filter((i) => i.metadata?.usage === 'hero_grid');
+  const galleryEntrance = galleryImages.find((i) => i.label === '诊所入口') || galleryImages[7];
+
   return (
     <div className="animate-fade-in-up">
       {/* ━━━━━━━━ 1. HERO ━━━━━━━━ */}
       <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-gray-950">
         <Image
-          src="/images/sai-clinic/hero-01.jpg"
-          alt="SAI CLINIC 大阪梅田 - 院内環境"
+          src={heroBg?.src || '/images/sai-clinic/hero-01.jpg'}
+          alt={heroBg?.alt || 'SAI CLINIC'}
           fill
           className="object-cover"
           priority
@@ -286,7 +347,7 @@ export default function SaiClinicContent({ whitelabel }: SaiClinicContentProps) 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
                   <div className="relative rounded-2xl overflow-hidden h-48 border border-white/10">
-                    <Image src="/images/sai-clinic/hero-02.jpg" alt="崔煌植医生施术中" fill className="object-cover" />
+                    <Image src={heroGridImages[0]?.src || '/images/sai-clinic/hero-02.jpg'} alt={heroGridImages[0]?.alt || ''} fill className="object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 text-white">
                       <div className="text-lg font-bold">15+</div>
@@ -294,7 +355,7 @@ export default function SaiClinicContent({ whitelabel }: SaiClinicContentProps) 
                     </div>
                   </div>
                   <div className="relative rounded-2xl overflow-hidden h-36 border border-white/10">
-                    <Image src="/images/sai-clinic/gallery-3.jpg" alt="SAI CLINIC 诊疗室" fill className="object-cover" />
+                    <Image src={galleryImages[2]?.src || '/images/sai-clinic/gallery-3.jpg'} alt={galleryImages[2]?.alt || ''} fill className="object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 text-white">
                       <div className="text-lg font-bold">JSAS</div>
@@ -304,7 +365,7 @@ export default function SaiClinicContent({ whitelabel }: SaiClinicContentProps) 
                 </div>
                 <div className="space-y-4 mt-8">
                   <div className="relative rounded-2xl overflow-hidden h-36 border border-white/10">
-                    <Image src="/images/sai-clinic/concept-1.jpg" alt="SAI CLINIC 施術風景" fill className="object-cover" />
+                    <Image src={conceptImages[0]?.src || '/images/sai-clinic/concept-1.jpg'} alt={conceptImages[0]?.alt || ''} fill className="object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 text-white">
                       <div className="text-lg font-bold">KAAS</div>
@@ -312,7 +373,7 @@ export default function SaiClinicContent({ whitelabel }: SaiClinicContentProps) 
                     </div>
                   </div>
                   <div className="relative rounded-2xl overflow-hidden h-48 border border-white/10">
-                    <Image src="/images/sai-clinic/hero-03.jpg" alt="SAI CLINIC 院内" fill className="object-cover" />
+                    <Image src={heroGridImages[1]?.src || '/images/sai-clinic/hero-03.jpg'} alt={heroGridImages[1]?.alt || ''} fill className="object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 text-white">
                       <div className="text-lg font-bold">梅田</div>
@@ -382,12 +443,12 @@ export default function SaiClinicContent({ whitelabel }: SaiClinicContentProps) 
             <div className="bg-gradient-to-br from-rose-50 to-gray-50 rounded-3xl p-8 border border-rose-100">
               <div className="flex items-center gap-5 mb-6">
                 <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-rose-200 shrink-0">
-                  <Image src="/images/sai-clinic/doctor.jpg" alt="崔煌植 院長" width={96} height={96} className="object-cover w-full h-full" />
+                  <Image src={doctorAvatar?.src || '/images/sai-clinic/doctor.jpg'} alt={doctorAvatar?.alt || '崔煌植 院長'} width={96} height={96} className="object-cover w-full h-full" />
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-gray-900">崔 煌植</h3>
                   <p className="text-sm text-gray-500">Sai Koshoku｜SAI CLINIC 院长</p>
-                  <Image src="/images/sai-clinic/sign.png" alt="崔煌植 签名" width={100} height={32} className="mt-1 opacity-60" />
+                  <Image src={doctorSign?.src || '/images/sai-clinic/sign.png'} alt={doctorSign?.alt || '崔煌植 签名'} width={100} height={32} className="mt-1 opacity-60" />
                 </div>
               </div>
               <p className="text-gray-600 leading-relaxed mb-6">
@@ -420,11 +481,7 @@ export default function SaiClinicContent({ whitelabel }: SaiClinicContentProps) 
                 </p>
               </div>
               <div className="grid grid-cols-3 gap-3">
-                {[
-                  { src: '/images/sai-clinic/concept-2.jpg', label: '抗衰老专门' },
-                  { src: '/images/sai-clinic/concept-3.jpg', label: '韩式美学' },
-                  { src: '/images/sai-clinic/concept-4.jpg', label: '个性化方案' },
-                ].map((item, i) => (
+                {conceptImages.slice(1, 4).map((item, i) => (
                   <div key={i} className="relative rounded-xl overflow-hidden h-28">
                     <Image src={item.src} alt={item.label} fill className="object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
@@ -447,19 +504,22 @@ export default function SaiClinicContent({ whitelabel }: SaiClinicContentProps) 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                img: '/images/sai-clinic/feature-01.jpg',
+                img: featureImages[0]?.src || '/images/sai-clinic/feature-01.jpg',
+                imgAlt: featureImages[0]?.alt || '',
                 title: '糸リフト专门诊所',
                 desc: '以线雕提升为核心技术，崔医生在该领域拥有超过15年经验和数千例成功案例。独创SAI LIFT系列，从体验到完美，满足不同需求。',
                 tags: ['SAI LIFT TRY', 'STANDARD', 'PERFECT'],
               },
               {
-                img: '/images/sai-clinic/about-feature-1.jpg',
+                img: featureImages[1]?.src || '/images/sai-clinic/about-feature-1.jpg',
+                imgAlt: featureImages[1]?.alt || '',
                 title: '韩式美学·日本品质',
                 desc: '积极引进最新韩国美容趋势与技术，同时保持日本医疗的精准与安全标准。兼具韩式审美的时尚感与日式品控的可靠性。',
                 tags: ['JSAS会员', 'KAAS会员', 'Allergan认证'],
               },
               {
-                img: '/images/sai-clinic/about-feature-2.jpg',
+                img: featureImages[2]?.src || '/images/sai-clinic/about-feature-2.jpg',
+                imgAlt: featureImages[2]?.alt || '',
                 title: '内外兼修·个性定制',
                 desc: '不仅提供外在美容手术，还通过分子营养学分析（82项血液检测），从内部调理健康。为每位客人制定全方位的美丽健康计划。',
                 tags: ['营养分析', '内服治疗', '点滴疗法'],
@@ -467,7 +527,7 @@ export default function SaiClinicContent({ whitelabel }: SaiClinicContentProps) 
             ].map((item, i) => (
               <div key={i} className="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all hover:-translate-y-1">
                 <div className="relative h-48">
-                  <Image src={item.img} alt={item.title} fill className="object-cover" />
+                  <Image src={item.img} alt={item.imgAlt} fill className="object-cover" />
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-bold text-gray-900 mb-3">{item.title}</h3>
@@ -524,19 +584,10 @@ export default function SaiClinicContent({ whitelabel }: SaiClinicContentProps) 
             <p className="text-gray-500 text-sm mt-2">位于大阪梅田 YANMAR 大楼 B2F，高端私密的诊疗空间</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {[
-              { src: '/images/sai-clinic/gallery-1.jpg', label: '接待大厅' },
-              { src: '/images/sai-clinic/gallery-2.jpg', label: '候诊区域' },
-              { src: '/images/sai-clinic/gallery-3.jpg', label: '咨询室' },
-              { src: '/images/sai-clinic/gallery-4.jpg', label: '治疗室' },
-              { src: '/images/sai-clinic/gallery-6.jpg', label: '手术室' },
-              { src: '/images/sai-clinic/gallery-7.jpg', label: '恢复室' },
-              { src: '/images/sai-clinic/gallery-5.jpg', label: '化妆间' },
-              { src: '/images/sai-clinic/gallery-9.jpg', label: '诊所走廊' },
-            ].map((item, i) => (
-              <div key={i} className={`relative overflow-hidden rounded-xl group ${i === 0 ? 'col-span-2 row-span-2' : ''}`}>
+            {galleryImages.filter((g) => g.label !== '诊所入口').slice(0, 8).map((item, i) => (
+              <div key={item.id} className={`relative overflow-hidden rounded-xl group ${i === 0 ? 'col-span-2 row-span-2' : ''}`}>
                 <div className={`relative ${i === 0 ? 'h-full min-h-[300px]' : 'h-48'}`}>
-                  <Image src={item.src} alt={item.label} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <Image src={item.src} alt={item.alt} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   <div className="absolute bottom-3 left-3 text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">{item.label}</div>
                 </div>
@@ -555,30 +606,14 @@ export default function SaiClinicContent({ whitelabel }: SaiClinicContentProps) 
             <p className="text-gray-500 text-sm mt-2">糸リフト施術の実際の効果（写真掲載は患者様のご同意済み）</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                img: '/images/sai-clinic/case-40s-01.jpg',
-                title: '40代女性 · 糸リフト+ヒアルロン酸',
-                desc: 'SAI LIFT STANDARD + 法令纹玻尿酸注射。自然的提升效果，法令纹明显改善。',
-              },
-              {
-                img: '/images/sai-clinic/case-50s-01.jpg',
-                title: '50代女性 · 糸リフト',
-                desc: 'SAI LIFT PERFECT 全脸线雕提升。显著改善面部松弛，恢复年轻轮廓。',
-              },
-              {
-                img: '/images/sai-clinic/case-50s-02.jpg',
-                title: '50代女性 · 糸リフト+脂肪溶解',
-                desc: '线雕提升 + 面部吸脂。V脸效果明显，下颚线条更加紧致。',
-              },
-            ].map((item, i) => (
-              <div key={i} className="rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition">
+            {caseImages.map((item) => (
+              <div key={item.id} className="rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition">
                 <div className="relative h-80">
-                  <Image src={item.img} alt={item.title} fill className="object-cover object-top" />
+                  <Image src={item.src} alt={item.alt} fill className="object-cover object-top" />
                 </div>
                 <div className="p-5">
-                  <h4 className="font-bold text-gray-900 text-sm mb-2">{item.title}</h4>
-                  <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
+                  <h4 className="font-bold text-gray-900 text-sm mb-2">{item.metadata?.title || item.alt}</h4>
+                  <p className="text-xs text-gray-500 leading-relaxed">{item.metadata?.desc || ''}</p>
                 </div>
               </div>
             ))}
@@ -592,7 +627,7 @@ export default function SaiClinicContent({ whitelabel }: SaiClinicContentProps) 
         <div className="max-w-6xl mx-auto px-6">
           {/* Thread Lift Hero Banner */}
           <div className="relative rounded-2xl overflow-hidden mb-16 h-64 md:h-80">
-            <Image src="/images/sai-clinic/threadlift-hero.jpg" alt="SAI LIFT 糸リフト" fill className="object-cover" />
+            <Image src={threadliftImages[0]?.src || '/images/sai-clinic/threadlift-hero.jpg'} alt={threadliftImages[0]?.alt || 'SAI LIFT'} fill className="object-cover" />
             <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 to-transparent"></div>
             <div className="absolute inset-0 flex items-center px-8 md:px-12">
               <div>
@@ -815,7 +850,7 @@ export default function SaiClinicContent({ whitelabel }: SaiClinicContentProps) 
 
       {/* ━━━━━━━━ 9. 治疗流程 ━━━━━━━━ */}
       <section className="py-24 text-white relative overflow-hidden">
-        <Image src="/images/sai-clinic/hero-05.jpg" alt="SAI CLINIC" fill className="object-cover" />
+        <Image src={flowBg?.src || '/images/sai-clinic/hero-05.jpg'} alt={flowBg?.alt || 'SAI CLINIC'} fill className="object-cover" />
         <div className="absolute inset-0 bg-gray-900/85"></div>
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
@@ -852,7 +887,7 @@ export default function SaiClinicContent({ whitelabel }: SaiClinicContentProps) 
           <div className="grid lg:grid-cols-2 gap-12">
             <div className="bg-gray-50 rounded-2xl overflow-hidden border border-gray-100">
               <div className="relative h-48">
-                <Image src="/images/sai-clinic/gallery-8.jpg" alt="SAI CLINIC 入口" fill className="object-cover" />
+                <Image src={galleryEntrance?.src || '/images/sai-clinic/gallery-8.jpg'} alt={galleryEntrance?.alt || 'SAI CLINIC 入口'} fill className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 flex items-center gap-2 bg-white/90 backdrop-blur px-3 py-1.5 rounded-full">
                   <MapPin size={14} className="text-rose-500" />
@@ -943,7 +978,7 @@ export default function SaiClinicContent({ whitelabel }: SaiClinicContentProps) 
       <section className="py-20 bg-rose-50/50">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <div className="relative w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden border-2 border-rose-200">
-            <Image src="/images/sai-clinic/recommend.jpg" alt="推薦" fill className="object-cover" />
+            <Image src={recommendImg?.src || '/images/sai-clinic/recommend.jpg'} alt={recommendImg?.alt || '推薦'} fill className="object-cover" />
           </div>
           <span className="text-sm tracking-widest text-rose-500 uppercase">Transformation</span>
           <h2 className="text-3xl font-bold text-gray-900 mt-3 mb-12">从犹豫到自信的蜕变</h2>
@@ -1011,7 +1046,7 @@ export default function SaiClinicContent({ whitelabel }: SaiClinicContentProps) 
 
       {/* ━━━━━━━━ 13. CTA ━━━━━━━━ */}
       <section className="py-24 text-white text-center relative overflow-hidden">
-        <Image src="/images/sai-clinic/hero-04.jpg" alt="SAI CLINIC" fill className="object-cover" />
+        <Image src={ctaBg?.src || '/images/sai-clinic/hero-04.jpg'} alt={ctaBg?.alt || 'SAI CLINIC'} fill className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-rose-600/90 to-pink-600/90"></div>
         <div className="max-w-3xl mx-auto px-6 relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">不要再等了，美丽不应该被推迟</h2>
