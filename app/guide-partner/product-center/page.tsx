@@ -162,9 +162,18 @@ export default function ProductCenterPage() {
       <div className="bg-white border-b px-6 py-4">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">选品中心</h1>
-              <p className="text-gray-500">选择要在您白标页面展示的合作机构</p>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => router.push('/guide-partner')}
+                className="text-gray-400 hover:text-gray-600 transition"
+                title="返回导游中心"
+              >
+                <ArrowRight size={20} className="rotate-180" />
+              </button>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">选品中心</h1>
+                <p className="text-gray-500">选择要在您白标页面展示的合作机构</p>
+              </div>
             </div>
             {guideConfig?.slug ? (
               <a
