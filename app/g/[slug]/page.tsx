@@ -92,69 +92,74 @@ export default async function GuideHomePage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* ━━━━━━━━ 合作机构 ━━━━━━━━ */}
-      {productCards.length > 0 && (
-        <section className="py-20 bg-white" id="services">
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="text-center mb-14">
-              <span className="text-sm tracking-widest text-gray-400 uppercase">Partner Institutions</span>
-              <h2 className="text-3xl font-bold text-gray-900 mt-3">合作医疗机构</h2>
-              <p className="text-gray-500 text-sm mt-2">每一家都经过严格筛选，确保为您提供最优质的服务</p>
-            </div>
+      {/* ━━━━━━━━ 合作机构（全屏沉浸式展示）━━━━━━━━ */}
+      {productCards.slice(1).map(({ config: dc, componentKey, customTitle }, index) => {
+        const theme = COLOR_THEMES[dc.colorTheme as ColorTheme] || COLOR_THEMES.teal;
+        const detailHref = `/g/${slug}/${toUrlSlug(componentKey)}`;
 
-            <div className="grid md:grid-cols-2 gap-6">
-              {productCards.map(({ config: dc, componentKey, customTitle }) => {
-                const theme = COLOR_THEMES[dc.colorTheme as ColorTheme] || COLOR_THEMES.teal;
-                const detailHref = `/g/${slug}/${toUrlSlug(componentKey)}`;
+        return (
+          <section
+            key={dc.sectionId}
+            className="relative min-h-screen flex items-center overflow-hidden"
+            id={`service-${index + 1}`}
+          >
+            {/* 背景图片 */}
+            <img
+              src={dc.heroImage}
+              alt={dc.title}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
 
-                return (
-                  <Link
-                    key={dc.sectionId}
-                    href={detailHref}
-                    className="group block relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
-                  >
-                    <div className="relative h-72">
-                      <img
-                        src={dc.heroImage}
-                        alt={dc.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+            {/* 渐变蒙层 */}
+            <div className={`absolute inset-0 bg-gradient-to-r ${theme.gradientFrom} ${theme.gradientVia} to-transparent`} />
 
-                      <div className="absolute inset-0 flex flex-col justify-end p-6">
-                        <p className="text-[10px] tracking-[0.25em] text-white/60 uppercase mb-1">
-                          {dc.tagline}
-                        </p>
-                        <h3 className="text-xl font-bold text-white mb-1">
-                          {customTitle || dc.title}
-                        </h3>
-                        <p className="text-sm text-white/70 mb-3 line-clamp-2">{dc.description}</p>
+            {/* 内容区 */}
+            <div className="relative z-10 max-w-6xl mx-auto px-6 py-32 w-full">
+              <div className="max-w-2xl">
+                {/* 标签 */}
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="h-[1px] w-12 bg-white/40" />
+                  <span className="text-xs tracking-[0.3em] text-white/70 uppercase">
+                    {dc.tagline}
+                  </span>
+                </div>
 
-                        {dc.stats.length > 0 && (
-                          <div className="flex gap-5 mb-3">
-                            {dc.stats.slice(0, 3).map((stat, idx) => (
-                              <div key={idx}>
-                                <div className="text-base font-light text-white">
-                                  {stat.value}<span className="text-white/60">{stat.unit}</span>
-                                </div>
-                                <div className="text-[9px] text-white/40 uppercase">{stat.label}</div>
-                              </div>
-                            ))}
-                          </div>
-                        )}
+                {/* 标题 */}
+                <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-6">
+                  {customTitle || dc.title}
+                </h2>
 
-                        <span className="inline-flex items-center gap-2 text-sm font-medium text-white group-hover:translate-x-1 transition-transform">
-                          {dc.ctaText} <ArrowRight size={14} />
-                        </span>
+                {/* 描述 */}
+                <p className="text-lg text-white/80 leading-relaxed mb-8 max-w-xl">
+                  {dc.description}
+                </p>
+
+                {/* 数据统计 */}
+                {dc.stats.length > 0 && (
+                  <div className="flex gap-8 mb-10">
+                    {dc.stats.slice(0, 3).map((stat, idx) => (
+                      <div key={idx}>
+                        <div className="text-3xl font-bold text-white mb-1">
+                          {stat.value}<span className="text-white/60 text-xl ml-1">{stat.unit}</span>
+                        </div>
+                        <div className="text-xs text-white/50 uppercase tracking-wider">{stat.label}</div>
                       </div>
-                    </div>
-                  </Link>
-                );
-              })}
+                    ))}
+                  </div>
+                )}
+
+                {/* CTA 按钮 */}
+                <Link
+                  href={detailHref}
+                  className="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition-all shadow-lg hover:shadow-xl"
+                >
+                  {dc.ctaText} <ArrowRight size={18} />
+                </Link>
+              </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        );
+      })}
 
       {/* ━━━━━━━━ 信赖保障 ━━━━━━━━ */}
       <section className="py-16 bg-gray-50">
