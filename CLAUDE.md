@@ -404,6 +404,48 @@ zh-CN 正文使用系统字体，标题使用 LXGW WenKai via jsDelivr
 
 ---
 
+## 🔒 支付/结账页面布局规范 (CheckoutLayout - MANDATORY)
+
+**状态**: 🔒 **强制执行** (Mandatory)
+**生效日期**: 2026-02-12
+
+### 规则
+
+所有支付页面、咨询预约页面、结账页面**必须**使用 `CheckoutLayout` 组件，**禁止**使用 `PublicLayout`。
+
+### 原因
+
+客户从医疗/健检等服务页面进入支付页时，若显示完整的 NIIJIMA 导航栏，会造成品牌断裂感（"进入了陌生网站"）。CheckoutLayout 提供 Stripe Checkout 风格的极简体验。
+
+### CheckoutLayout 特性
+
+| 特性 | 说明 |
+|------|------|
+| 顶部品牌 | 从 WhiteLabelContext 读取，与分销页面品牌设置同步 |
+| 导航 | 无完整导航栏，仅品牌名 + 安全结账标识 + 语言切换 |
+| 底部 | **必须**显示新岛交通株式会社 + 旅行业登录号（法律要求，不可替换为白标品牌） |
+| 返回按钮 | 由各页面自行在 CheckoutLayout 内部实现 |
+
+### 必须使用 CheckoutLayout 的页面
+
+| 页面 | 文件 |
+|------|------|
+| TIMC 健检套餐详情 | `app/medical-packages/[slug]/page.tsx` |
+| 兵库医大初期咨询 | `app/hyogo-medical/initial-consultation/page.tsx` |
+| 兵库医大远程会诊 | `app/hyogo-medical/remote-consultation/page.tsx` |
+| 癌症治疗初期咨询 | `app/cancer-treatment/initial-consultation/page.tsx` |
+| 癌症治疗远程会诊 | `app/cancer-treatment/remote-consultation/page.tsx` |
+
+### 新增支付页面时的检查清单
+
+1. ✅ 使用 `<CheckoutLayout>` 包裹，**不要**用 `<PublicLayout>`
+2. ✅ 顶部品牌自动与白标设置同步（无需额外代码）
+3. ✅ 底部法律信息保持新岛交通株式会社（**禁止**替换）
+4. ✅ 移除 `pt-20` padding（CheckoutLayout 的 header 高度仅 56px）
+5. ✅ 页面内自行添加返回按钮（`<ArrowLeft>` + `<Link>`）
+
+---
+
 ## 关键文件索引
 
 | 功能 | 文件 |
@@ -418,6 +460,7 @@ zh-CN 正文使用系统字体，标题使用 LXGW WenKai via jsDelivr
 | 语言切换 | `components/LanguageSwitcher.tsx` |
 | 字体设置 | `components/LocaleFontSetter.tsx` |
 | 公共布局 | `components/PublicLayout.tsx` |
+| 结账页布局 | `components/CheckoutLayout.tsx` (支付页面必须使用) |
 | 白标配置 | `lib/whitelabel-config.ts` |
 | 白标模块注册 | `components/whitelabel-modules/registry.ts` |
 | 白标类型 | `components/whitelabel-modules/types.ts` |

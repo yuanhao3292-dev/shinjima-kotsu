@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CheckCircle, Car, Building, Check, Shield, Lock, CreditCard } from 'lucide-react';
+import CheckoutLayout from '@/components/CheckoutLayout';
 import SmartBackLink from '@/components/SmartBackLink';
 import ProviderBanner, { useProviderKey } from '@/components/ProviderBanner';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
@@ -210,12 +211,14 @@ export default function PackageDetailPage() {
 
   if (!pkg) {
     return (
-      <div className="min-h-screen bg-[#faf9f7] flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-xl text-gray-600 mb-4">{t.notFound}</p>
-          <Link href="/?page=medical" className="text-blue-600 hover:underline">{t.backToList}</Link>
+      <CheckoutLayout>
+        <div className="flex-grow flex items-center justify-center py-20">
+          <div className="text-center">
+            <p className="text-xl text-gray-600 mb-4">{t.notFound}</p>
+            <Link href="/?page=medical" className="text-blue-600 hover:underline">{t.backToList}</Link>
+          </div>
         </div>
-      </div>
+      </CheckoutLayout>
     );
   }
 
@@ -284,13 +287,13 @@ export default function PackageDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#faf9f7]">
+    <CheckoutLayout>
       <Suspense fallback={null}>
         <ProviderBanner lang={currentLang as 'ja' | 'zh-TW' | 'zh-CN' | 'en'} />
       </Suspense>
       {/* Header */}
       <div className="bg-white border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 py-4">
+        <div className="max-w-6xl mx-auto px-4 py-3">
           <SmartBackLink
             defaultHref="/?page=medical"
             defaultLabel={t.backToList}
@@ -480,6 +483,6 @@ export default function PackageDetailPage() {
           </div>
         </div>
       </div>
-    </div>
+    </CheckoutLayout>
   );
 }
