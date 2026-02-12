@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
-import PublicLayout from '@/components/PublicLayout';
+import CheckoutLayout from '@/components/CheckoutLayout';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 import ProviderBanner, { useProviderKey } from '@/components/ProviderBanner';
 import {
@@ -195,11 +195,11 @@ export default function HyogoRemoteConsultationPage() {
   }
 
   return (
-    <PublicLayout showFooter={true} transparentNav={false}>
+    <CheckoutLayout>
       <Suspense fallback={null}><ProviderBanner lang={currentLang} /></Suspense>
-      <div className="pt-20 bg-white border-b border-gray-100">
-        <div className="max-w-4xl mx-auto px-4 py-4">
-          <Link href="/hyogo-medical" className="inline-flex items-center gap-2 text-gray-500 hover:text-purple-600 transition">
+      <div className="bg-white border-b border-gray-100">
+        <div className="max-w-4xl mx-auto px-4 py-3">
+          <Link href="/hyogo-medical" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-purple-600 transition">
             <ArrowLeft size={16} />{t('backToMain')}
           </Link>
         </div>
@@ -375,6 +375,6 @@ export default function HyogoRemoteConsultationPage() {
           </div>
         </div>
       </div>
-    </PublicLayout>
+    </CheckoutLayout>
   );
 }
