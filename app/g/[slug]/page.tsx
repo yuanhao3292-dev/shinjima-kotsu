@@ -68,7 +68,7 @@ export default async function GuideHomePage({ params }: PageProps) {
           <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" />
         )}
 
-        <div className="relative z-10 max-w-5xl mx-auto px-6 py-24">
+        <div className="relative z-10 max-w-6xl mx-auto px-6 py-32 w-full">
           <div className="max-w-2xl">
             <div className="flex items-center gap-3 mb-6">
               <div className="h-[1px] w-12 bg-white/40" />
@@ -77,7 +77,7 @@ export default async function GuideHomePage({ params }: PageProps) {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
               {brandName}
             </h1>
-            <p className="text-lg text-white/70 leading-relaxed mb-8 max-w-lg">
+            <p className="text-lg text-white/70 leading-relaxed mb-8 max-w-xl">
               为您甄选日本顶级医疗与美容机构，提供专业中文服务、全程陪同、安心无忧的高端定制体验。
             </p>
             {productCards.length > 0 && (
