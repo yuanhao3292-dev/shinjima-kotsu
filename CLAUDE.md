@@ -446,6 +446,70 @@ zh-CN 正文使用系统字体，标题使用 LXGW WenKai via jsDelivr
 
 ---
 
+## 🔒 导游独立站首页首图规范 (Guide Homepage Hero Images - MANDATORY)
+
+**状态**: 🔒 **强制执行** (Mandatory)
+**生效日期**: 2026-02-13
+
+### 规则
+
+导游独立站首页 (`app/g/[slug]/page.tsx`) 的背景图片**必须**直接复用对应详情页的首图，**禁止**单独配置首页背景图。
+
+### 实现方式
+
+使用 `DETAIL_PAGE_HERO_IMAGES` 硬编码映射（位于 `app/g/[slug]/page.tsx` 第 23-30 行）：
+
+```typescript
+/** 详情页首图映射（确保首页背景图严格复用详情页首图） */
+const DETAIL_PAGE_HERO_IMAGES: Record<string, string> = {
+  medical_packages: 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg',
+  health_screening: 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg', // 和 medical_packages 共用
+  sai_clinic: '/images/sai-clinic/hero-01.jpg',
+  hyogo_medical: 'https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img01.jpg',
+  // 新增模块时在此处补充
+};
+```
+
+### 原因
+
+首页和详情页的视觉必须保持一致性。如果首页使用 `ImmersiveDisplayConfig.heroImage`（存储在数据库），而详情页使用组件内硬编码的图片，会导致用户从首页跳转到详情页时看到不同的背景图，造成品牌断裂感。
+
+### 如何添加新模块
+
+当添加新的医院/模块详情页时：
+
+1. 从详情页组件中找到首图 URL（例如 `TIMCContent.tsx` line 17, `SaiClinicContent.tsx` line 18, `HyogoMedicalContent.tsx` line 809）
+2. 添加到 `DETAIL_PAGE_HERO_IMAGES` 映射中
+3. **禁止**在 `display_config.heroImage` 中单独设置不同的图片
+
+### 使用示例
+
+```typescript
+// Hero Section (首页第一个产品)
+<img
+  src={DETAIL_PAGE_HERO_IMAGES[heroCard.componentKey] || heroCard.config.heroImage}
+  alt={heroCard.config.title}
+  className="absolute inset-0 w-full h-full object-cover"
+/>
+
+// Partner Sections (后续产品)
+<img
+  src={DETAIL_PAGE_HERO_IMAGES[componentKey] || dc.heroImage}
+  alt={dc.title}
+  className="absolute inset-0 w-full h-full object-cover"
+/>
+```
+
+**优先级**: `DETAIL_PAGE_HERO_IMAGES` 映射 > `displayConfig.heroImage` (fallback)
+
+### ⛔ 禁止操作
+
+- ❌ 不要绕过 `DETAIL_PAGE_HERO_IMAGES` 直接使用 `dc.heroImage`
+- ❌ 不要在数据库 `display_config.heroImage` 中设置与详情页首图不同的图片
+- ❌ 不要删除或注释 `DETAIL_PAGE_HERO_IMAGES` 映射
+
+---
+
 ## 关键文件索引
 
 | 功能 | 文件 |
