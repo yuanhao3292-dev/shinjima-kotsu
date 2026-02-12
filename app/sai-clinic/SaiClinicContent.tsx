@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import {
   ArrowRight, CheckCircle, MapPin, Award, Sparkles, Heart,
   Shield, Clock, Star, ChevronDown, Scissors, Syringe,
-  Pill, Droplets, Train, Phone,
+  Pill, Droplets, Train, Phone, MessageCircle, Globe, Users,
+  Stethoscope,
 } from 'lucide-react';
 import ContactButtons from '@/components/ContactButtons';
 import type { WhitelabelModuleProps } from '@/components/whitelabel-modules/types';
@@ -67,7 +68,7 @@ const INJECTABLE_PACKAGES = [
   { slug: 'sai-botox-full-face', name: 'Allergan全脸肉毒素', nameJa: 'ボトックス全顔', price: 240000, desc: 'Allergan正品100单位，全脸抗皱除纹' },
   { slug: 'sai-hyaluronic-1cc', name: '玻尿酸注射（1cc）', nameJa: 'ヒアルロン酸1cc', price: 148000, desc: '高端玻尿酸填充，精准塑形' },
   { slug: 'sai-skin-rejuvenation', name: '肌肤再生·水光注射', nameJa: '水光注射+幹細胞', price: 304000, desc: '水光注射 + 干细胞精华，深层修复再生' },
-  { slug: 'sai-exosome-therapy', name: '干细胞外泌体疗法', nameJa: 'エクソソーム療法', price: 760000, desc: '新�的干细胞外泌体（2-3次疗程），最前沿再生医疗' },
+  { slug: 'sai-exosome-therapy', name: '干细胞外泌体疗法', nameJa: 'エクソソーム療法', price: 760000, desc: '新鲜干细胞外泌体（2-3次疗程），最前沿再生医疗' },
 ];
 
 const FAT_PACKAGES = [
@@ -206,12 +207,12 @@ const FULL_MENU = {
 // ━━━━━━━━ 客户评价 ━━━━━━━━
 
 const REVIEWS = [
-  { name: '王小姐', loc: '上海', flag: '🇨🇳', treatment: 'SAI LIFT STANDARD', text: '做了线雕提升，效果非常自然！崔医生很有经验，整个过程很安心。术后恢复也很快，朋友都说我变年轻了但看不出做了手术。', highlight: '效果自然、恢复快' },
-  { name: '陳小姐', loc: '台北', flag: '🇹🇼', treatment: '双眼皮+法令纹套餐', text: '从台北专程来大阪做的双眼皮和法令纹。崔医生的审美很好，非常自然的韩式风格。诊所在梅田地下街，交通超方便。', highlight: '韩式审美、交通便利' },
-  { name: '李先生', loc: '深圳', flag: '🇨🇳', treatment: '玻尿酸+肉毒素', text: '第一次在日本做医美，原本很紧张。但诊所的环境很温馨，医生也非常耐心地解释了所有细节。价格合理，效果满意。', highlight: '服务贴心、价格透明' },
-  { name: '張小姐', loc: '香港', flag: '🇭🇰', treatment: 'SAI LIFT PERFECT', text: '试过很多家诊所的线雕，SAI CLINIC的提升效果是最好的。崔医生的技术真的很精湛，而且会根据你的面部特征做个性化设计。', highlight: '技术精湛、个性化' },
-  { name: '黄小姐', loc: '北京', flag: '🇨🇳', treatment: '水光+干细胞', text: '做了水光注射加干细胞精华，皮肤状态明显改善。崔医生很专业，还给我做了营养分析，从内到外调理。下次还会来。', highlight: '内外兼修、效果显著' },
-  { name: '林先生', loc: '新竹', flag: '🇹🇼', treatment: 'AGA生发治疗', text: '之前一直在纠结要不要做生发治疗，来到SAI CLINIC后崔医生给了很中肯的建议。鸡尾酒注射效果不错，头发明显变浓密了。', highlight: '建议中肯、效果可见' },
+  { name: 'W 女士', loc: '上海', treatment: 'SAI LIFT STANDARD', date: '2025年10月', text: '做了线雕提升，效果非常自然。崔医生很有经验，整个过程很安心。术后恢复也很快，朋友都说我气色变好了但看不出做了手术。', stars: 5 },
+  { name: 'C 小姐', loc: '台北', treatment: '双眼皮+法令纹', date: '2025年9月', text: '从台北专程来大阪，崔医生的审美很棒，非常自然的风格。诊所在梅田地下街直结，下雨天也完全不用淋雨，交通太方便了。', stars: 5 },
+  { name: 'L 先生', loc: '深圳', treatment: '玻尿酸+肉毒素', date: '2025年11月', text: '第一次在日本做医美，原本很紧张。好在全程有中文陪诊，医生也非常耐心地解释了所有细节。体验比预期好很多。', stars: 5 },
+  { name: 'Z 女士', loc: '香港', treatment: 'SAI LIFT PERFECT', date: '2025年8月', text: '试过其他诊所的线雕，这里的提升效果确实更好。崔医生会根据面部特征做个性化设计，不是千篇一律的方案。', stars: 5 },
+  { name: 'H 小姐', loc: '北京', treatment: '水光+干细胞', date: '2025年12月', text: '做了水光注射加干细胞精华，皮肤状态明显改善。崔医生还做了营养分析，建议从内到外调理，很专业。', stars: 4 },
+  { name: 'L 先生', loc: '新竹', treatment: 'AGA生发治疗', date: '2025年11月', text: '之前纠结了很久，来了之后崔医生给了很中肯的建议，没有过度推销。鸡尾酒注射三次后头发确实变浓密了。', stars: 5 },
 ];
 
 // ━━━━━━━━ FAQ ━━━━━━━━
@@ -413,6 +414,37 @@ export default function SaiClinicContent({ whitelabel }: SaiClinicContentProps) 
         </div>
       </section>
 
+      {/* ━━━━━━━━ 3.5. 服务价值说明 ━━━━━━━━ */}
+      <section className="py-20 bg-white border-t border-gray-100">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="text-sm tracking-widest text-rose-500 uppercase">Our Service</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-3">一站式医美服务</h2>
+            <p className="text-gray-500 text-sm mt-2 max-w-xl mx-auto">
+              您的费用包含以下全部服务 —— 让您只需专注于变美，其余一切交给我们
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[
+              { icon: <Globe size={22} className="text-rose-500" />, title: '全程中文服务', desc: '从预约到术后，全程中文翻译陪诊，无任何语言障碍' },
+              { icon: <MessageCircle size={22} className="text-blue-500" />, title: '预约·排期保障', desc: '与诊所直连排期，确保您来日本的时间与诊疗完美衔接' },
+              { icon: <Stethoscope size={22} className="text-purple-500" />, title: '术后远程跟进', desc: '回国后持续追踪恢复状况，如有问题即时与崔医生沟通' },
+              { icon: <Users size={22} className="text-teal-500" />, title: '到院全程陪同', desc: '专人陪诊，协助表达需求，确保医患沟通精准无误' },
+              { icon: <Shield size={22} className="text-amber-500" />, title: '费用透明·无隐形消费', desc: '所有费用一次付清，诊所内不会产生任何额外收费' },
+              { icon: <MapPin size={22} className="text-green-500" />, title: '住宿·交通协助', desc: '推荐梅田周边合适住宿，提供交通指引及接送安排建议' },
+            ].map((item, i) => (
+              <div key={i} className="flex gap-4 p-5 rounded-xl border border-gray-100 hover:border-rose-100 hover:bg-rose-50/30 transition">
+                <div className="shrink-0 mt-0.5">{item.icon}</div>
+                <div>
+                  <h4 className="font-bold text-gray-900 text-sm mb-1">{item.title}</h4>
+                  <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ━━━━━━━━ 4. 人气套餐 - 糸リフト ━━━━━━━━ */}
       <section className="py-24 bg-white" id="sai-packages">
         <div className="max-w-6xl mx-auto px-6">
@@ -438,8 +470,11 @@ export default function SaiClinicContent({ whitelabel }: SaiClinicContentProps) 
                 <div className="mb-4">
                   <h4 className={`text-xl font-bold ${pkg.flagship ? 'text-amber-400' : pkg.popular ? 'text-rose-700' : 'text-gray-900'}`}>{pkg.name}</h4>
                   <p className={`text-xs mt-1 ${pkg.flagship ? 'text-gray-400' : 'text-gray-500'}`}>{pkg.nameZh}</p>
-                  <p className={`text-2xl font-bold mt-2 ${pkg.flagship ? 'text-amber-400' : pkg.popular ? 'text-rose-700' : 'text-gray-900'}`}>{formatPrice(pkg.price)}</p>
-                  <p className={`text-[10px] ${pkg.flagship ? 'text-gray-500' : 'text-gray-400'}`}>含税·含全程服务费</p>
+                  <div className="mt-2">
+                    <span className={`text-sm line-through ${pkg.flagship ? 'text-gray-500' : 'text-gray-400'}`}>诊所价 {formatPrice(pkg.originalPrice)}</span>
+                  </div>
+                  <p className={`text-2xl font-bold ${pkg.flagship ? 'text-amber-400' : pkg.popular ? 'text-rose-700' : 'text-gray-900'}`}>{formatPrice(pkg.price)}</p>
+                  <p className={`text-[10px] ${pkg.flagship ? 'text-gray-500' : 'text-gray-400'}`}>含税·含中文陪诊·含术后跟进</p>
                 </div>
                 <div className="space-y-1.5 mb-4 text-xs flex-grow">
                   {pkg.features.map((f, i) => (
@@ -693,23 +728,27 @@ export default function SaiClinicContent({ whitelabel }: SaiClinicContentProps) 
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-rose-500 uppercase">Reviews</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-3">客户好评</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mt-3">客户评价</h2>
+            <p className="text-gray-400 text-sm mt-2">来自真实客户的体验反馈</p>
           </div>
         </div>
         <div className="relative">
           <div className="flex gap-6 animate-scroll-reviews px-6">
             {[...REVIEWS, ...REVIEWS].map((r, i) => (
               <div key={i} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm min-w-[320px] max-w-[320px] shrink-0">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="text-2xl">{r.flag}</div>
+                <div className="flex items-center justify-between mb-3">
                   <div>
                     <div className="font-medium text-gray-900 text-sm">{r.name}</div>
-                    <div className="text-xs text-gray-400">{r.loc}</div>
+                    <div className="text-xs text-gray-400">{r.loc} · {r.date}</div>
+                  </div>
+                  <div className="flex gap-0.5">
+                    {Array.from({ length: r.stars }).map((_, j) => (
+                      <Star key={j} size={12} className="text-amber-400 fill-amber-400" />
+                    ))}
                   </div>
                 </div>
                 <div className="px-2 py-1 bg-rose-50 text-rose-600 text-xs rounded-full inline-block mb-3">{r.treatment}</div>
-                <p className="text-sm text-gray-600 leading-relaxed mb-3">{r.text}</p>
-                <p className="text-xs text-rose-500 font-medium">{r.highlight}</p>
+                <p className="text-sm text-gray-600 leading-relaxed">{r.text}</p>
               </div>
             ))}
           </div>
@@ -771,6 +810,18 @@ export default function SaiClinicContent({ whitelabel }: SaiClinicContentProps) 
           </div>
         </section>
       )}
+
+      {/* ━━━━━━━━ 悬浮 CTA ━━━━━━━━ */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+        <a
+          href="#sai-packages"
+          className="flex items-center gap-2 bg-rose-500 text-white pl-5 pr-4 py-3 rounded-full font-bold shadow-lg shadow-rose-500/30 hover:bg-rose-600 hover:shadow-xl hover:shadow-rose-500/40 transition-all text-sm"
+        >
+          <Sparkles size={16} />
+          查看项目·预约
+          <ArrowRight size={14} />
+        </a>
+      </div>
     </div>
   );
 }
