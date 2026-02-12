@@ -11,8 +11,6 @@ import { translations, type Language } from '@/translations';
 import PackageComparisonTable from '@/components/PackageComparisonTable';
 import ContactButtons from '@/components/ContactButtons';
 import { localizeText } from '@/lib/utils/text-converter';
-import type { WhitelabelModuleProps } from '@/components/whitelabel-modules/types';
-import WhitelabelContactSection from '@/components/whitelabel-modules/WhitelabelContactSection';
 
 // 图片资源
 const IMAGES: Record<string, string> = {
@@ -42,12 +40,11 @@ const REVIEWS = [
 ];
 
 interface TIMCContentProps {
-  whitelabel?: WhitelabelModuleProps;
+  isGuideEmbed?: boolean;
 }
 
-export default function TIMCContent({ whitelabel }: TIMCContentProps) {
+export default function TIMCContent({ isGuideEmbed }: TIMCContentProps) {
   const [lang, setLang] = useState<Language>('zh-TW');
-  const isWhitelabel = Boolean(whitelabel && whitelabel.brandName);
 
   useEffect(() => {
     const cookies = document.cookie.split(';');
@@ -355,7 +352,7 @@ export default function TIMCContent({ whitelabel }: TIMCContentProps) {
             <h3 className="text-3xl font-serif text-gray-900">{t.medical.pkg_title}</h3>
             <p className="text-gray-500 text-sm mt-2">TIMC × NIIJIMA Exclusive B2B Lineup</p>
 
-            {!isWhitelabel && (
+            {!isGuideEmbed && (
               <div className="mt-8">
                 <a
                   href="/package-recommender"
@@ -586,7 +583,7 @@ export default function TIMCContent({ whitelabel }: TIMCContentProps) {
         </div>
 
         {/* 11. Order Lookup - only in non-whitelabel mode */}
-        {!isWhitelabel && (
+        {!isGuideEmbed && (
           <div className="mb-24">
             <div className="max-w-2xl mx-auto bg-gradient-to-br from-gray-50 to-white rounded-2xl border border-gray-200 p-8 text-center">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -625,16 +622,8 @@ export default function TIMCContent({ whitelabel }: TIMCContentProps) {
           </div>
         </div>
 
-        {/* 13. Contact - whitelabel uses WhitelabelContactSection, standalone uses ContactButtons */}
-        {isWhitelabel && whitelabel ? (
-          <div className="mt-24">
-            <WhitelabelContactSection
-              brandColor={whitelabel.brandColor}
-              brandName={whitelabel.brandName}
-              contactInfo={whitelabel.contactInfo}
-            />
-          </div>
-        ) : (
+        {/* 13. Contact */}
+        {!isGuideEmbed && (
           <div className="py-12 bg-gray-50 mt-24 rounded-2xl">
             <div className="max-w-2xl mx-auto text-center px-6">
               <h3 className="text-lg font-bold text-gray-900 mb-4">{t.medical.contact_other}</h3>

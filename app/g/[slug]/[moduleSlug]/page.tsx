@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getGuideModuleByComponentKey } from '@/lib/services/whitelabel';
-import MedicalPackagesFullPage from '@/components/modules/MedicalPackagesFullPage';
+import TIMCContent from '@/app/guide-partner/product-center/timc/TIMCContent';
 import HyogoMedicalContent from '@/app/hyogo-medical/HyogoMedicalContent';
 import SaiClinicContent from '@/app/sai-clinic/SaiClinicContent';
 import CancerTreatmentContent from '@/app/cancer-treatment/CancerTreatmentContent';
@@ -46,7 +46,7 @@ export default async function ModuleDetailPage({ params }: PageProps) {
   // 导游品牌仅通过 layout 的 DistributionNav + FloatingContact 展示
   switch (componentKey) {
     case 'medical_packages':
-      return <MedicalPackagesFullPage isGuideEmbed />;
+      return <TIMCContent isGuideEmbed />;
 
     case 'hyogo_medical':
       return <HyogoMedicalContent isGuideEmbed />;
@@ -66,7 +66,7 @@ export default async function ModuleDetailPage({ params }: PageProps) {
       return <MedicalTourismContent isGuideEmbed />;
 
     case 'health_screening':
-      return <MedicalPackagesFullPage isGuideEmbed />;
+      return <TIMCContent isGuideEmbed />;
 
     default:
       notFound();
