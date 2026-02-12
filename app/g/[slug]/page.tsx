@@ -132,7 +132,7 @@ export default async function GuideHomePage({ params }: PageProps) {
                   {brandName}
                 </h1>
                 <p className="text-lg text-white/70 leading-relaxed mb-8 max-w-xl">
-                  为您甄选日本顶级医疗与美容机构，提供专业中文服务、全程陪同、安心无忧的高端定制体验。
+                  专业医疗旅行服务平台，提供预约安排、中文翻译、全程陪同等一站式服务，让您安心就医。
                 </p>
               </>
             )}
@@ -217,15 +217,15 @@ export default async function GuideHomePage({ params }: PageProps) {
               <div className="w-14 h-14 mx-auto mb-4 bg-white rounded-2xl shadow-sm flex items-center justify-center">
                 <Shield size={24} className="text-blue-600" />
               </div>
-              <h4 className="font-bold text-gray-900 mb-2">正规旅行社资质</h4>
+              <h4 className="font-bold text-gray-900 mb-2">持牌旅行社保障</h4>
               <p className="text-sm text-gray-500">新岛交通株式会社<br />大阪府知事登録旅行業 第2-3115号</p>
             </div>
             <div className="text-center">
               <div className="w-14 h-14 mx-auto mb-4 bg-white rounded-2xl shadow-sm flex items-center justify-center">
                 <Award size={24} className="text-amber-600" />
               </div>
-              <h4 className="font-bold text-gray-900 mb-2">严选合作机构</h4>
-              <p className="text-sm text-gray-500">每家机构经过严格审核<br />确保医疗品质与服务水准</p>
+              <h4 className="font-bold text-gray-900 mb-2">认证医疗机构</h4>
+              <p className="text-sm text-gray-500">合作医院均为JCI/厚生省认证<br />确保医疗品质与服务水准</p>
             </div>
             <div className="text-center">
               <div className="w-14 h-14 mx-auto mb-4 bg-white rounded-2xl shadow-sm flex items-center justify-center">
