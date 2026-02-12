@@ -33,7 +33,7 @@ export default async function ModuleDetailPage({ params }: PageProps) {
   const { slug, moduleSlug } = await params;
   const componentKey = toComponentKey(moduleSlug);
 
-  // 不支持的 key 直接 404，避免无意义的 DB 查询
+  // 不支持的 key 直接 404
   if (!SUPPORTED_KEYS.has(componentKey)) {
     notFound();
   }
@@ -55,7 +55,7 @@ export default async function ModuleDetailPage({ params }: PageProps) {
     referrer: referer,
   }).catch(() => {});
 
-  // 构建通用白标 props
+  // 构建通用白标 props（注入导游的品牌和联系方式）
   const whitelabelProps: WhitelabelModuleProps = {
     brandName,
     brandColor,
@@ -69,7 +69,7 @@ export default async function ModuleDetailPage({ params }: PageProps) {
     moduleName: selectedModule.customTitle || selectedModule.module.name,
   };
 
-  // 根据 component_key 渲染对应的详情页组件
+  // 根据 component_key 渲染对应的后台详情页组件（内容不变，只注入品牌信息）
   switch (componentKey) {
     case 'medical_packages':
       return (
@@ -96,7 +96,7 @@ export default async function ModuleDetailPage({ params }: PageProps) {
       return <MedicalTourismContent whitelabel={whitelabelProps} />;
 
     case 'health_screening':
-      // health_screening 复用 medical_packages 的完整页面
+      // health_screening 复用 medical_packages
       return (
         <MedicalPackagesFullPage
           guideSlug={slug}
