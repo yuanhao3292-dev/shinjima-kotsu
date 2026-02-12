@@ -32,6 +32,7 @@ export default async function GuideItemDetailPage({ params }: PageProps) {
       packageSlug={itemSlug}
       isGuideEmbed
       backHref={backHref}
+      guideSlug={slug}
     />
   );
 }

@@ -180,12 +180,15 @@ interface PackageDetailContentProps {
   isGuideEmbed?: boolean;
   /** 导游站返回路径 */
   backHref?: string;
+  /** 导游 slug，用于订单归因 */
+  guideSlug?: string;
 }
 
 export default function PackageDetailContent({
   packageSlug,
   isGuideEmbed,
   backHref,
+  guideSlug,
 }: PackageDetailContentProps) {
   const rawProviderKey = useProviderKey();
   const providerKey = isGuideEmbed ? null : rawProviderKey;
@@ -288,10 +291,24 @@ export default function PackageDetailContent({
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ packageSlug, customerInfo, preferredDate: preferredDate || null, notes: notesWithTime || null, provider: providerKey }),
+        body: JSON.stringify({
+          packageSlug,
+          customerInfo,
+          preferredDate: preferredDate || null,
+          notes: notesWithTime || null,
+          provider: providerKey,
+          ...(isGuideEmbed && guideSlug ? { guideSlug } : {}),
+        }),
       });
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || '創建支付會話失敗');
+      if (!response.ok) {
+        // 显示详细验证错误
+        if (data.details && Array.isArray(data.details)) {
+          const fieldErrors = data.details.map((d: { field: string; message: string }) => `${d.field}: ${d.message}`).join('\n');
+          throw new Error(`${data.error}\n${fieldErrors}`);
+        }
+        throw new Error(data.error || '創建支付會話失敗');
+      }
       if (data.checkoutUrl) window.location.href = data.checkoutUrl;
       else throw new Error(t.paymentLinkError);
     } catch (error: unknown) {
