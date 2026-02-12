@@ -173,7 +173,7 @@ export default function CheckoutLayout({ children }: CheckoutLayoutProps) {
             {labels.legal}
           </p>
           <p className="text-xs text-gray-300 mt-1">
-            © {new Date().getFullYear()} {hideOfficialBranding && branding.name ? branding.name : labels.copyright}. All rights reserved.
+            © {new Date().getFullYear()} {labels.copyright}. All rights reserved.
           </p>
         </div>
       </footer>
