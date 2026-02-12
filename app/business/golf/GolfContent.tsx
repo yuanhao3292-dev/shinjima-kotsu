@@ -5,8 +5,6 @@ import Link from 'next/link';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { useTranslations } from '@/lib/hooks/useTranslations';
 import { ROUTES } from '@/lib/constants/routes';
-import type { WhitelabelModuleProps } from '@/components/whitelabel-modules/types';
-import WhitelabelContactSection from '@/components/whitelabel-modules/WhitelabelContactSection';
 
 interface StatItem {
   value: string;
@@ -21,12 +19,11 @@ interface ServiceItem {
 }
 
 interface GolfContentProps {
-  whitelabel?: WhitelabelModuleProps;
+  isGuideEmbed?: boolean;
 }
 
-export default function GolfContent({ whitelabel }: GolfContentProps) {
+export default function GolfContent({ isGuideEmbed }: GolfContentProps) {
   const { t } = useTranslations('business.golf');
-  const bc = whitelabel?.brandColor;
 
   const stats: StatItem[] = useMemo(() => [
     { value: '20+', label: t('stats.courses'), ariaLabel: `${t('stats.courses')}: 20以上` },
@@ -60,12 +57,10 @@ export default function GolfContent({ whitelabel }: GolfContentProps) {
             key={stat.value}
             role="figure"
             aria-label={stat.ariaLabel}
-            className={`p-4 rounded-xl text-center ${!bc ? 'bg-green-50' : ''}`}
-            style={bc ? { backgroundColor: `${bc}15` } : undefined}
+            className="p-4 rounded-xl text-center bg-green-50"
           >
             <div
-              className={`text-2xl font-bold ${!bc ? 'text-green-600' : ''}`}
-              style={bc ? { color: bc } : undefined}
+              className="text-2xl font-bold text-green-600"
               aria-hidden="true"
             >
               {stat.value}
@@ -81,8 +76,7 @@ export default function GolfContent({ whitelabel }: GolfContentProps) {
       <section aria-labelledby="features-heading">
         <h2
           id="features-heading"
-          className={`text-xl font-bold text-gray-900 mb-6 pb-3 border-b-2 ${!bc ? 'border-green-600' : ''}`}
-          style={bc ? { borderColor: bc } : undefined}
+          className="text-xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-green-600"
         >
           {t('features.title')}
         </h2>
@@ -98,8 +92,7 @@ export default function GolfContent({ whitelabel }: GolfContentProps) {
                   >
                     <CheckCircle2
                       size={14}
-                      className={`flex-shrink-0 ${!bc ? 'text-green-600' : ''}`}
-                      style={bc ? { color: bc } : undefined}
+                      className="flex-shrink-0 text-green-600"
                       aria-hidden="true"
                     />
                     <span>{feature}</span>
@@ -112,13 +105,7 @@ export default function GolfContent({ whitelabel }: GolfContentProps) {
       </section>
 
       {/* CTA */}
-      {whitelabel && whitelabel.showContact !== false ? (
-        <WhitelabelContactSection
-          brandColor={whitelabel.brandColor}
-          brandName={whitelabel.brandName}
-          contactInfo={whitelabel.contactInfo}
-        />
-      ) : !whitelabel ? (
+      {!isGuideEmbed && (
         <section
           aria-labelledby="cta-heading"
           className="text-center py-8 bg-green-50 rounded-2xl"
@@ -135,7 +122,7 @@ export default function GolfContent({ whitelabel }: GolfContentProps) {
             <ArrowRight size={18} aria-hidden="true" />
           </Link>
         </section>
-      ) : null}
+      )}
     </div>
   );
 }

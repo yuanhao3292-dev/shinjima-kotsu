@@ -4,8 +4,6 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
-import type { WhitelabelModuleProps } from '@/components/whitelabel-modules/types';
-import WhitelabelContactSection from '@/components/whitelabel-modules/WhitelabelContactSection';
 
 type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
 
@@ -124,12 +122,11 @@ const pageTranslations = {
 };
 
 interface MedicalTourismContentProps {
-  whitelabel?: WhitelabelModuleProps;
+  isGuideEmbed?: boolean;
 }
 
-export default function MedicalTourismContent({ whitelabel }: MedicalTourismContentProps) {
+export default function MedicalTourismContent({ isGuideEmbed }: MedicalTourismContentProps) {
   const [currentLang, setCurrentLang] = useState<Language>('ja');
-  const bc = whitelabel?.brandColor;
 
   useEffect(() => {
     const cookies = document.cookie.split(';');
@@ -177,12 +174,10 @@ export default function MedicalTourismContent({ whitelabel }: MedicalTourismCont
         {stats.map((stat, index) => (
           <div
             key={index}
-            className={`p-4 rounded-xl text-center ${!bc ? 'bg-blue-50' : ''}`}
-            style={bc ? { backgroundColor: `${bc}15` } : undefined}
+            className="p-4 rounded-xl text-center bg-blue-50"
           >
             <div
-              className={`text-2xl font-bold ${!bc ? 'text-blue-600' : ''}`}
-              style={bc ? { color: bc } : undefined}
+              className="text-2xl font-bold text-blue-600"
             >
               {stat.value}
             </div>
@@ -194,8 +189,7 @@ export default function MedicalTourismContent({ whitelabel }: MedicalTourismCont
       {/* サービス内容 */}
       <section>
         <h2
-          className={`text-xl font-bold text-gray-900 mb-6 pb-3 border-b-2 ${!bc ? 'border-blue-600' : ''}`}
-          style={bc ? { borderColor: bc } : undefined}
+          className="text-xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-blue-600"
         >
           {t('sectionServices')}
         </h2>
@@ -210,8 +204,7 @@ export default function MedicalTourismContent({ whitelabel }: MedicalTourismCont
                   <li key={fIndex} className="flex items-center gap-2 text-sm text-gray-600">
                     <CheckCircle2
                       size={14}
-                      className={`flex-shrink-0 ${!bc ? 'text-blue-600' : ''}`}
-                      style={bc ? { color: bc } : undefined}
+                      className="flex-shrink-0 text-blue-600"
                     />
                     {feature}
                   </li>
@@ -225,8 +218,7 @@ export default function MedicalTourismContent({ whitelabel }: MedicalTourismCont
       {/* 提携医療機関 */}
       <section>
         <h2
-          className={`text-xl font-bold text-gray-900 mb-6 pb-3 border-b-2 ${!bc ? 'border-blue-600' : ''}`}
-          style={bc ? { borderColor: bc } : undefined}
+          className="text-xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-blue-600"
         >
           {t('sectionPartnerHospitals')}
         </h2>
@@ -261,13 +253,7 @@ export default function MedicalTourismContent({ whitelabel }: MedicalTourismCont
       </section>
 
       {/* CTA */}
-      {whitelabel && whitelabel.showContact !== false ? (
-        <WhitelabelContactSection
-          brandColor={whitelabel.brandColor}
-          brandName={whitelabel.brandName}
-          contactInfo={whitelabel.contactInfo}
-        />
-      ) : !whitelabel ? (
+      {!isGuideEmbed && (
         <section className="text-center py-8 bg-blue-50 rounded-2xl">
           <h3 className="text-xl font-bold text-gray-900 mb-4">{t('ctaTitle')}</h3>
           <p className="text-gray-600 mb-6">{t('ctaSubtitle')}</p>
@@ -278,7 +264,7 @@ export default function MedicalTourismContent({ whitelabel }: MedicalTourismCont
             {t('ctaButton')} <ArrowRight size={18} />
           </Link>
         </section>
-      ) : null}
+      )}
     </div>
   );
 }

@@ -20,11 +20,14 @@ export interface ProductCategory {
   sortOrder: number;
 }
 
-/** 模块详情页路由映射 */
+/** 模块详情页路由映射（选品中心内预览用） */
 export const MODULE_DETAIL_ROUTES: Record<string, string> = {
   medical_packages: '/guide-partner/product-center/timc',
   hyogo_medical: '/hyogo-medical',
   sai_clinic: '/guide-partner/product-center/sai-clinic',
+  cancer_treatment: '/cancer-treatment',
+  golf: '/business/golf',
+  medical_tourism: '/business/medical',
 };
 
 export const PRODUCT_CATEGORIES: ProductCategory[] = [

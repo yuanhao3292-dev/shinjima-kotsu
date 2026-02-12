@@ -10,8 +10,6 @@ import {
   Stethoscope,
 } from 'lucide-react';
 import ContactButtons from '@/components/ContactButtons';
-import type { WhitelabelModuleProps } from '@/components/whitelabel-modules/types';
-import WhitelabelContactSection from '@/components/whitelabel-modules/WhitelabelContactSection';
 import type { SaiClinicImage } from '@/lib/services/sai-clinic-images';
 
 // ━━━━━━━━ 静态 fallback 图片（数据库不可用时使用） ━━━━━━━━
@@ -262,21 +260,17 @@ const FAQ = [
 // ━━━━━━━━ 组件 ━━━━━━━━
 
 interface SaiClinicContentProps {
-  whitelabel?: WhitelabelModuleProps;
+  isGuideEmbed?: boolean;
   images?: SaiClinicImage[] | null;
 }
 
-export default function SaiClinicContent({ whitelabel, images }: SaiClinicContentProps) {
+export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicContentProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [menuTab, setMenuTab] = useState<string>('surgery');
-  const isWhitelabel = Boolean(whitelabel && whitelabel.brandName);
-
-  const brandColor = whitelabel?.brandColor || '#e11d48'; // rose-600
 
   const formatPrice = (price: number) => `¥${price.toLocaleString()}`;
   const getRefPrice = (price: number) => Math.ceil(price * 1.3 / 10000) * 10000;
 
-  // Determine base checkout path - whitelabel pages use /sai-clinic/[slug]
   const checkoutBase = '/sai-clinic';
 
   // ━━━━━━━━ 图片查询工具（从 DB 或 fallback） ━━━━━━━━
@@ -1065,13 +1059,7 @@ export default function SaiClinicContent({ whitelabel, images }: SaiClinicConten
       </section>
 
       {/* ━━━━━━━━ 14. Contact ━━━━━━━━ */}
-      {isWhitelabel ? (
-        <WhitelabelContactSection
-          brandColor={whitelabel!.brandColor}
-          brandName={whitelabel!.brandName}
-          contactInfo={whitelabel!.contactInfo}
-        />
-      ) : (
+      {!isGuideEmbed && (
         <section className="py-20 bg-gray-50">
           <div className="max-w-4xl mx-auto px-6 text-center">
             <h3 className="text-2xl font-bold text-gray-900 mb-8">联系我们</h3>
@@ -1081,19 +1069,21 @@ export default function SaiClinicContent({ whitelabel, images }: SaiClinicConten
       )}
 
       {/* ━━━━━━━━ 悬浮 CTA ━━━━━━━━ */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
-        <div className="bg-gray-900 text-white text-[10px] px-3 py-1 rounded-full shadow-lg opacity-90">
-          <span className="text-rose-400 font-bold">春季优惠</span> · 余剩7名额
+      {!isGuideEmbed && (
+        <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
+          <div className="bg-gray-900 text-white text-[10px] px-3 py-1 rounded-full shadow-lg opacity-90">
+            <span className="text-rose-400 font-bold">春季优惠</span> · 余剩7名额
+          </div>
+          <a
+            href="#sai-packages"
+            className="flex items-center gap-2 bg-rose-500 text-white pl-5 pr-4 py-3 rounded-full font-bold shadow-lg shadow-rose-500/30 hover:bg-rose-600 hover:shadow-xl hover:shadow-rose-500/40 transition-all text-sm"
+          >
+            <Sparkles size={16} />
+            立即预约
+            <ArrowRight size={14} />
+          </a>
         </div>
-        <a
-          href="#sai-packages"
-          className="flex items-center gap-2 bg-rose-500 text-white pl-5 pr-4 py-3 rounded-full font-bold shadow-lg shadow-rose-500/30 hover:bg-rose-600 hover:shadow-xl hover:shadow-rose-500/40 transition-all text-sm"
-        >
-          <Sparkles size={16} />
-          立即预约
-          <ArrowRight size={14} />
-        </a>
-      </div>
+      )}
     </div>
   );
 }

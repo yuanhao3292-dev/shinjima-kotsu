@@ -15,8 +15,6 @@ import {
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
-import type { WhitelabelModuleProps } from '@/components/whitelabel-modules/types';
-import WhitelabelContactSection from '@/components/whitelabel-modules/WhitelabelContactSection';
 
 // ======================================
 // 多语言翻译
@@ -791,15 +789,14 @@ function WeChatIcon({ className }: { className?: string }) {
 }
 
 interface HyogoMedicalContentProps {
-  whitelabel?: WhitelabelModuleProps;
+  isGuideEmbed?: boolean;
 }
 
-export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentProps) {
+export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalContentProps) {
   const lang = useLanguage();
   const [showWechatQR, setShowWechatQR] = useState(false);
   const [activePhase, setActivePhase] = useState<number>(1);
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
-  const isWhitelabel = Boolean(whitelabel && whitelabel.brandName);
 
   return (
     <div className="animate-fade-in-up min-h-screen bg-white">
@@ -1497,7 +1494,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
       {/* ========================================
           15. Contact Methods (非白标模式)
           ======================================== */}
-      {!isWhitelabel && (
+      {!isGuideEmbed && (
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mx-auto">
@@ -1549,7 +1546,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
         <div className="text-center">
           <h3 className="text-3xl font-serif text-gray-900 mb-4">{t.ctaTitle[lang]}</h3>
           <p className="text-gray-500 text-sm max-w-2xl mx-auto whitespace-pre-line mb-8">{t.ctaDesc[lang]}</p>
-          {!isWhitelabel && (
+          {!isGuideEmbed && (
             <a
               href="#contact-form"
               className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-8 py-4 rounded-full font-bold hover:from-blue-700 hover:to-indigo-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
@@ -1562,14 +1559,7 @@ export default function HyogoMedicalContent({ whitelabel }: HyogoMedicalContentP
         </div>
       </div>
 
-      {/* WhitelabelContactSection */}
-      {whitelabel && whitelabel.showContact !== false && (
-        <WhitelabelContactSection
-          brandColor={whitelabel.brandColor}
-          brandName={whitelabel.brandName}
-          contactInfo={whitelabel.contactInfo}
-        />
-      )}
+      {/* Contact section is hidden in guide embed mode */}
 
       {/* WeChat QR Modal */}
       {showWechatQR && (

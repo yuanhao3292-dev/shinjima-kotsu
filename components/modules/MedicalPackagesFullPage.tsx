@@ -1,14 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { CheckCircle, ArrowLeft, ArrowRight, Building2, Globe, Stethoscope } from 'lucide-react';
 import { translations, Language } from '@/translations';
 
 interface MedicalPackagesFullPageProps {
-  guideSlug: string;
-  brandColor: string;
-  brandName: string;
+  isGuideEmbed?: boolean;
 }
 
 // 套餐颜色方案
@@ -144,7 +143,8 @@ function getPackagesData(lang: Language) {
   ];
 }
 
-export default function MedicalPackagesFullPage({ guideSlug, brandColor, brandName }: MedicalPackagesFullPageProps) {
+export default function MedicalPackagesFullPage({ isGuideEmbed }: MedicalPackagesFullPageProps) {
+  const router = useRouter();
   const [currentLang, setCurrentLang] = useState<Language>('zh-TW');
 
   useEffect(() => {
@@ -170,13 +170,13 @@ export default function MedicalPackagesFullPage({ guideSlug, brandColor, brandNa
       {/* Header */}
       <div className="bg-white border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 py-4">
-          <Link
-            href={`/g/${guideSlug}`}
+          <button
+            onClick={() => router.back()}
             className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
           >
             <ArrowLeft size={18} />
-            <span className="text-sm">返回 {brandName}</span>
-          </Link>
+            <span className="text-sm">返回</span>
+          </button>
         </div>
       </div>
 
@@ -283,7 +283,7 @@ export default function MedicalPackagesFullPage({ guideSlug, brandColor, brandNa
                   {/* CTA Button */}
                   <div className="px-6 pb-6 pt-4">
                     <Link
-                      href={`/g/${guideSlug}/medical-packages/${pkg.slug}`}
+                      href={`/medical-packages/${pkg.slug}`}
                       className={`w-full py-3 rounded-xl font-bold transition flex items-center justify-center gap-2 ${colors.buttonBg} ${colors.buttonText}`}
                     >
                       查看详情 & 预约
@@ -303,7 +303,7 @@ export default function MedicalPackagesFullPage({ guideSlug, brandColor, brandNa
           <h3 className="text-xl font-bold text-gray-900 mb-3">不确定选哪个套餐？</h3>
           <p className="text-gray-600 mb-6">我们的健康顾问可以根据您的需求和健康状况，为您推荐最合适的体检方案。</p>
           <Link
-            href={`/g/${guideSlug}#contact`}
+            href="#contact"
             className="inline-flex items-center justify-center px-8 py-3 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 transition-colors"
           >
             咨询健康顾问

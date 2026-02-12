@@ -12,8 +12,6 @@ import {
   MapPin, Award, Info, ExternalLink
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
-import type { WhitelabelModuleProps } from '@/components/whitelabel-modules/types';
-import WhitelabelContactSection from '@/components/whitelabel-modules/WhitelabelContactSection';
 const pageTranslations = {
   // Hero
   heroBadge: { ja: '日本がん治療', 'zh-TW': '日本癌症治療', 'zh-CN': '日本癌症治疗', en: 'Japan Cancer Treatment' } as Record<Language, string>,
@@ -681,10 +679,10 @@ function convertToSimplified(text: string): string {
 }
 
 interface CancerTreatmentContentProps {
-  whitelabel?: WhitelabelModuleProps;
+  isGuideEmbed?: boolean;
 }
 
-export default function CancerTreatmentContent({ whitelabel }: CancerTreatmentContentProps) {
+export default function CancerTreatmentContent({ isGuideEmbed }: CancerTreatmentContentProps) {
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
   const [activePhase, setActivePhase] = useState<number>(1);
   const [showWechatQR, setShowWechatQR] = useState(false);
@@ -703,8 +701,8 @@ export default function CancerTreatmentContent({ whitelabel }: CancerTreatmentCo
   const t = (key: keyof typeof pageTranslations) => pageTranslations[key][currentLang];
   return (
     <>
-      {/* Hero Section - hide in whitelabel mode */}
-      {!whitelabel && (
+      {/* Hero Section - hide in guide embed mode */}
+      {!isGuideEmbed && (
       <div className="relative min-h-[85vh] flex items-center overflow-hidden">
         {/* Background Image */}
         <div
@@ -1268,14 +1266,8 @@ export default function CancerTreatmentContent({ whitelabel }: CancerTreatmentCo
           </div>
         </div>
       </section>
-      {/* Service / Contact Section */}
-      {whitelabel && whitelabel.showContact !== false ? (
-        <WhitelabelContactSection
-          brandColor={whitelabel.brandColor}
-          brandName={whitelabel.brandName}
-          contactInfo={whitelabel.contactInfo}
-        />
-      ) : !whitelabel ? (<>
+      {/* Service / Contact Section - hidden in guide embed mode */}
+      {!isGuideEmbed && (<>
       <section id="contact-form" className="py-24 bg-gradient-to-br from-blue-50 to-purple-50">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
@@ -1484,7 +1476,7 @@ export default function CancerTreatmentContent({ whitelabel }: CancerTreatmentCo
           </div>
         </div>
       )}
-      </>) : null}
+      </>)}
     </>
   );
 }
