@@ -59,14 +59,16 @@ export default function ProductCenterPage() {
   const loadProductCenter = async () => {
     setLoading(true);
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
         router.push('/guide-partner/login');
         return;
       }
 
+      const { data: { session } } = await supabase.auth.getSession();
+
       const response = await fetch('/api/guide/product-center', {
-        headers: { 'Authorization': `Bearer ${session.access_token}` },
+        headers: session ? { 'Authorization': `Bearer ${session.access_token}` } : {},
       });
 
       if (response.ok) {
@@ -94,13 +96,12 @@ export default function ProductCenterPage() {
     setActionLoading(moduleId);
     try {
       const { data: { session } } = await supabase.auth.getSession();
-      if (!session) return;
 
       const response = await fetch('/api/guide/selected-modules', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.access_token}`,
+          ...(session ? { 'Authorization': `Bearer ${session.access_token}` } : {}),
         },
         body: JSON.stringify({
           action: isSelected ? 'remove' : 'add',
