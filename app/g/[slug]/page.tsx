@@ -20,6 +20,15 @@ const DETAIL_MODULES = new Set([
   'golf', 'medical_tourism', 'health_screening', 'sai_clinic',
 ]);
 
+/** 详情页首图映射（确保首页背景图严格复用详情页首图） */
+const DETAIL_PAGE_HERO_IMAGES: Record<string, string> = {
+  medical_packages: 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg',
+  health_screening: 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg', // 和 medical_packages 共用
+  sai_clinic: '/images/sai-clinic/hero-01.jpg',
+  hyogo_medical: 'https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img01.jpg',
+  // 其他模块待补充
+};
+
 export default async function GuideHomePage({ params }: PageProps) {
   const { slug } = await params;
   const pageData = await getGuideDistributionPage(slug);
@@ -57,7 +66,7 @@ export default async function GuideHomePage({ params }: PageProps) {
         {heroCard && (
           <>
             <img
-              src={heroCard.config.heroImage}
+              src={DETAIL_PAGE_HERO_IMAGES[heroCard.componentKey] || heroCard.config.heroImage}
               alt={heroCard.config.title}
               className="absolute inset-0 w-full h-full object-cover"
             />
@@ -142,9 +151,9 @@ export default async function GuideHomePage({ params }: PageProps) {
             className="relative min-h-screen flex items-center overflow-hidden"
             id={`service-${index + 1}`}
           >
-            {/* 背景图片 */}
+            {/* 背景图片（直接复用详情页首图） */}
             <img
-              src={dc.heroImage}
+              src={DETAIL_PAGE_HERO_IMAGES[componentKey] || dc.heroImage}
               alt={dc.title}
               className="absolute inset-0 w-full h-full object-cover"
             />
