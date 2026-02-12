@@ -17,6 +17,8 @@ import {
   Palette,
   Settings,
   ExternalLink,
+  Stethoscope,
+  ArrowRight,
 } from 'lucide-react';
 
 interface PageModule {
@@ -357,7 +359,32 @@ export default function ProductCenterPage() {
       <div className="max-w-6xl mx-auto px-6 py-6">
         {/* Modules Tab */}
         {activeTab === 'modules' && (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="space-y-6">
+            {/* TIMC 体检中心服务模块入口 */}
+            <div
+              onClick={() => router.push('/guide-partner/product-center/timc')}
+              className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-6 text-white cursor-pointer hover:shadow-xl hover:-translate-y-0.5 transition-all group"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                    <Stethoscope className="text-white" size={28} />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="text-lg font-bold">TIMC 体检中心 — 完整服务模块</h3>
+                      <span className="px-2 py-0.5 bg-white/20 text-xs rounded-full">完整页面</span>
+                    </div>
+                    <p className="text-blue-100 text-sm">
+                      查看 TIMC 大阪精密体检中心全部内容：设备介绍、设施环境、6大体检套餐、套餐对比表、客户评价、FAQ等
+                    </p>
+                  </div>
+                </div>
+                <ArrowRight size={24} className="text-white/60 group-hover:text-white group-hover:translate-x-1 transition-all flex-shrink-0" />
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {modules.map((module) => (
               <div
                 key={module.id}
@@ -447,6 +474,7 @@ export default function ProductCenterPage() {
                 <p>暂无可用模块</p>
               </div>
             )}
+            </div>
           </div>
         )}
 
