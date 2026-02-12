@@ -231,6 +231,7 @@ export default function PackageDetailContent({
   const [notes, setNotes] = useState('');
   const [selectedAddOns, setSelectedAddOns] = useState<string[]>([]);
   const [contactError, setContactError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   if (!pkg) {
     return (
@@ -251,22 +252,41 @@ export default function PackageDetailContent({
            customerInfo.whatsapp.trim() !== '';
   };
 
+  /** 客户端表单验证，返回 true 表示通过 */
+  function validateForm(): boolean {
+    const errors: Record<string, string> = {};
+
+    if (!customerInfo.name.trim()) {
+      errors.name = t.nameRequired;
+    }
+    if (customerInfo.phone.trim() && customerInfo.phone.trim().length < 8) {
+      errors.phone = t.phoneTooShort;
+    }
+    if (customerInfo.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerInfo.email.trim())) {
+      errors.email = t.emailInvalid;
+    }
+
+    setFieldErrors(errors);
+
+    if (!hasValidContact()) {
+      setContactError(t.contactError);
+      return false;
+    }
+
+    return Object.keys(errors).length === 0;
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setContactError('');
+    setFieldErrors({});
+
+    if (!validateForm()) {
+      return;
+    }
+
     setProcessing(true);
     try {
-      if (!customerInfo.name) {
-        alert(t.nameRequired);
-        setProcessing(false);
-        return;
-      }
-      if (!hasValidContact()) {
-        setContactError(t.contactError);
-        setProcessing(false);
-        return;
-      }
-
       const contactMethods: string[] = [];
       if (customerInfo.phone) contactMethods.push(`電話: ${customerInfo.phone}`);
       if (customerInfo.email) contactMethods.push(`郵箱: ${customerInfo.email}`);
@@ -302,11 +322,6 @@ export default function PackageDetailContent({
       });
       const data = await response.json();
       if (!response.ok) {
-        // 显示详细验证错误
-        if (data.details && Array.isArray(data.details)) {
-          const fieldErrors = data.details.map((d: { field: string; message: string }) => `${d.field}: ${d.message}`).join('\n');
-          throw new Error(`${data.error}\n${fieldErrors}`);
-        }
         throw new Error(data.error || '創建支付會話失敗');
       }
       if (data.checkoutUrl) window.location.href = data.checkoutUrl;
@@ -402,7 +417,8 @@ export default function PackageDetailContent({
                 <div className="grid md:grid-cols-2 gap-5 mb-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">{t.formName} <span className="text-red-500">*</span></label>
-                    <input type="text" required value={customerInfo.name} onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })} className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-sm" placeholder={t.formNamePlaceholder} />
+                    <input type="text" required value={customerInfo.name} onChange={(e) => { setCustomerInfo({ ...customerInfo, name: e.target.value }); setFieldErrors(prev => { const { name: _, ...rest } = prev; return rest; }); }} className={`w-full px-4 py-2.5 border rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-sm ${fieldErrors.name ? 'border-red-300 bg-red-50' : 'border-gray-200'}`} placeholder={t.formNamePlaceholder} />
+                    {fieldErrors.name && <p className="mt-1 text-xs text-red-500">{fieldErrors.name}</p>}
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">{t.formCompany}</label>
@@ -423,12 +439,13 @@ export default function PackageDetailContent({
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs text-gray-500 mb-1.5">{t.formPhone}</label>
-                      <input type="tel" value={customerInfo.phone} onChange={(e) => { setCustomerInfo({ ...customerInfo, phone: e.target.value }); setContactError(''); }} className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-sm" placeholder={t.formPhonePlaceholder} />
+                      <input type="tel" value={customerInfo.phone} onChange={(e) => { setCustomerInfo({ ...customerInfo, phone: e.target.value }); setContactError(''); setFieldErrors(prev => { const { phone: _, ...rest } = prev; return rest; }); }} className={`w-full px-4 py-2.5 border rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-sm ${fieldErrors.phone ? 'border-red-300 bg-red-50' : 'border-gray-200'}`} placeholder={t.formPhonePlaceholder} />
+                      {fieldErrors.phone && <p className="mt-1 text-xs text-red-500">{fieldErrors.phone}</p>}
                     </div>
                     <div>
                       <label className="block text-xs text-gray-500 mb-1.5">{t.formEmail}</label>
-                      <input type="email" value={customerInfo.email} onChange={(e) => { setCustomerInfo({ ...customerInfo, email: e.target.value }); setContactError(''); }} className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-sm" placeholder={t.formEmailPlaceholder} />
-                      <p className="mt-1 text-xs text-gray-400">{t.formEmailNote}</p>
+                      <input type="email" value={customerInfo.email} onChange={(e) => { setCustomerInfo({ ...customerInfo, email: e.target.value }); setContactError(''); setFieldErrors(prev => { const { email: _, ...rest } = prev; return rest; }); }} className={`w-full px-4 py-2.5 border rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-sm ${fieldErrors.email ? 'border-red-300 bg-red-50' : 'border-gray-200'}`} placeholder={t.formEmailPlaceholder} />
+                      {fieldErrors.email ? <p className="mt-1 text-xs text-red-500">{fieldErrors.email}</p> : <p className="mt-1 text-xs text-gray-400">{t.formEmailNote}</p>}
                     </div>
                     <div>
                       <label className="block text-xs text-gray-500 mb-1.5">{t.formLine}</label>

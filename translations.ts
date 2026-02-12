@@ -256,6 +256,8 @@ export const translations = {
         securityPrivacy: 'プライバシー保護',
         contactError: '少なくとも1つの連絡先（電話、メール、LINE、WeChat、WhatsApp）をご記入ください',
         nameRequired: 'お名前を入力してください',
+        phoneTooShort: '電話番号は8桁以上で入力してください',
+        emailInvalid: '正しいメールアドレスを入力してください',
         paymentError: '決済処理中にエラーが発生しました。しばらくしてからもう一度お試しください。',
         paymentLinkError: '決済リンクを取得できませんでした'
       },
@@ -1071,6 +1073,8 @@ export const translations = {
         securityPrivacy: '隱私保護',
         contactError: '請至少填寫一種聯繫方式（手機、郵箱、LINE、微信或 WhatsApp）',
         nameRequired: '請填寫姓名',
+        phoneTooShort: '電話號碼請輸入至少8位',
+        emailInvalid: '請輸入正確的郵箱地址',
         paymentError: '支付流程出現錯誤，請稍後重試',
         paymentLinkError: '未獲取到支付鏈接'
       },
@@ -1741,6 +1745,8 @@ export const translations = {
         securityPrivacy: '隐私保护',
         contactError: '请至少填写一种联系方式（手机、邮箱、LINE、微信或 WhatsApp）',
         nameRequired: '请填写姓名',
+        phoneTooShort: '电话号码请输入至少8位',
+        emailInvalid: '请输入正确的邮箱地址',
         paymentError: '支付流程出现错误，请稍后重试',
         paymentLinkError: '未获取到支付链接'
       },
@@ -2417,6 +2423,8 @@ export const translations = {
         securityPrivacy: 'Privacy Protected',
         contactError: 'Please provide at least one contact method (phone, email, LINE, WeChat, or WhatsApp)',
         nameRequired: 'Please enter your name',
+        phoneTooShort: 'Phone number must be at least 8 digits',
+        emailInvalid: 'Please enter a valid email address',
         paymentError: 'An error occurred during payment. Please try again later.',
         paymentLinkError: 'Could not retrieve payment link'
       },
