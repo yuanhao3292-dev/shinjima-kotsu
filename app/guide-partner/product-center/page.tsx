@@ -164,7 +164,7 @@ export default function ProductCenterPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <button
-                onClick={() => router.push('/guide-partner')}
+                onClick={() => router.push('/guide-partner/dashboard')}
                 className="text-gray-400 hover:text-gray-600 transition"
                 title="返回导游中心"
               >
