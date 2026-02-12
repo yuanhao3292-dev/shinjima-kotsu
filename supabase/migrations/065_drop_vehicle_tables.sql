@@ -13,4 +13,4 @@ DROP TABLE IF EXISTS vehicle_library CASCADE;
 ALTER TABLE guide_white_label DROP COLUMN IF EXISTS vehicle_template_id;
 
 -- 4. 清理 page_templates 中的 vehicle 类型模板
-DELETE FROM page_templates WHERE module_type = 'vehicle';
+DELETE FROM page_templates WHERE category = 'vehicle';
