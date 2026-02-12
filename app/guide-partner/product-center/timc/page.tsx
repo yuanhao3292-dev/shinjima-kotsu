@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import {
   ArrowLeft, ArrowRight, CheckCircle, MapPin, Building, Activity, Shield,
@@ -84,10 +85,13 @@ export default function TIMCProductPage() {
 
         {/* 1. Hero Section */}
         <div className="relative min-h-[85vh] flex items-center overflow-hidden text-white bg-slate-900">
-          <img
+          <Image
             src={IMAGES.medical_hero}
-            className="absolute inset-0 w-full h-full object-cover opacity-80"
+            fill
+            className="object-cover opacity-80"
             alt="TIMC Lobby Luxury Environment"
+            priority
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/60 to-transparent"></div>
           <div className="absolute inset-0 opacity-30 pointer-events-none">
@@ -184,7 +188,7 @@ export default function TIMCProductPage() {
             {/* Row 1: CT + MRI */}
             <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
               <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-                <img src={IMAGES.tech_ct} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="CT Scanner" />
+                <Image src={IMAGES.tech_ct} fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="CT Scanner" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
                 <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                   <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_ct_t}</h4>
@@ -192,7 +196,7 @@ export default function TIMCProductPage() {
                 </div>
               </div>
               <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-                <img src={IMAGES.tech_mri} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="MRI Scanner" />
+                <Image src={IMAGES.tech_mri} fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="MRI Scanner" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
                 <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                   <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_mri_t}</h4>
@@ -204,7 +208,7 @@ export default function TIMCProductPage() {
             {/* Row 2: Endoscopy + Dental */}
             <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
               <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-                <img src={IMAGES.tech_endo} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Endoscopy" />
+                <Image src={IMAGES.tech_endo} fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Endoscopy" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
                 <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                   <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_endo_t}</h4>
@@ -212,7 +216,7 @@ export default function TIMCProductPage() {
                 </div>
               </div>
               <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-                <img src={IMAGES.tech_dental} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Dental" />
+                <Image src={IMAGES.tech_dental} fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Dental" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
                 <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                   <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_dental_t}</h4>
@@ -224,7 +228,7 @@ export default function TIMCProductPage() {
             {/* Row 3: Ultrasound + Mammography */}
             <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
               <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-                <img src={IMAGES.detail_echo} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Ultrasound" />
+                <Image src={IMAGES.detail_echo} fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Ultrasound" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
                 <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                   <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.detail_echo_title}</h4>
@@ -232,7 +236,7 @@ export default function TIMCProductPage() {
                 </div>
               </div>
               <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-                <img src={IMAGES.detail_mammo} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Mammography" />
+                <Image src={IMAGES.detail_mammo} fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Mammography" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
                 <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                   <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.detail_mammo_title}</h4>
@@ -253,7 +257,7 @@ export default function TIMCProductPage() {
             <div className="space-y-0">
               {/* Facility 1 */}
               <div className="relative min-h-[60vh] flex items-center overflow-hidden">
-                <img src={IMAGES.facility_center} className="absolute inset-0 w-full h-full object-cover" alt="Center Interior" />
+                <Image src={IMAGES.facility_center} fill className="object-cover" alt="Center Interior" sizes="100vw" quality={75} />
                 <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-transparent"></div>
                 <div className="relative container mx-auto px-6 py-16">
                   <div className="max-w-xl">
@@ -273,7 +277,7 @@ export default function TIMCProductPage() {
 
               {/* Facility 2 */}
               <div className="relative min-h-[60vh] flex items-center overflow-hidden">
-                <img src={IMAGES.facility_reception} className="absolute inset-0 w-full h-full object-cover" alt="Reception" />
+                <Image src={IMAGES.facility_reception} fill className="object-cover" alt="Reception" sizes="100vw" quality={75} />
                 <div className="absolute inset-0 bg-gradient-to-l from-slate-900/90 via-slate-900/70 to-transparent"></div>
                 <div className="relative container mx-auto px-6 py-16">
                   <div className="max-w-xl ml-auto text-right">
@@ -293,7 +297,7 @@ export default function TIMCProductPage() {
 
               {/* Facility 3 */}
               <div className="relative min-h-[60vh] flex items-center overflow-hidden">
-                <img src={IMAGES.facility_room} className="absolute inset-0 w-full h-full object-cover" alt="Private Suite" />
+                <Image src={IMAGES.facility_room} fill className="object-cover" alt="Private Suite" sizes="100vw" quality={75} />
                 <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-transparent"></div>
                 <div className="relative container mx-auto px-6 py-16">
                   <div className="max-w-xl">
@@ -314,7 +318,7 @@ export default function TIMCProductPage() {
 
               {/* Facility 4 */}
               <div className="relative min-h-[60vh] flex items-center overflow-hidden">
-                <img src={IMAGES.facility_bathroom} className="absolute inset-0 w-full h-full object-cover" alt="Bathroom" />
+                <Image src={IMAGES.facility_bathroom} fill className="object-cover" alt="Bathroom" sizes="100vw" quality={75} />
                 <div className="absolute inset-0 bg-gradient-to-l from-slate-900/90 via-slate-900/70 to-transparent"></div>
                 <div className="relative container mx-auto px-6 py-16">
                   <div className="max-w-xl ml-auto text-right">
