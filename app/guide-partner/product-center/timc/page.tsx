@@ -15,16 +15,16 @@ import { localizeText } from '@/lib/utils/text-converter';
 // 图片资源
 const IMAGES: Record<string, string> = {
   medical_hero: 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg',
-  tech_ct: 'https://i.ibb.co/mFbDmCvg/tech-ct.jpg',
+  tech_ct: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/CT.JPG',
   tech_mri: 'https://i.ibb.co/XxZdfCML/tech-mri.jpg',
   tech_endo: 'https://i.ibb.co/MkkrywCZ/tech-endo.jpg',
   tech_dental: 'https://i.ibb.co/tM1LBQJW/tech-dental.jpg',
-  detail_echo: 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg',
-  detail_mammo: 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg',
-  facility_center: 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg',
-  facility_reception: 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg',
-  facility_room: 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg',
-  facility_bathroom: 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg',
+  detail_echo: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/4.JPG',
+  detail_mammo: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/5.JPG',
+  facility_center: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/dating.JPG',
+  facility_reception: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/qiantai.JPG',
+  facility_room: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/wuzi.JPG',
+  facility_bathroom: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/cesuo.JPG',
 };
 
 // 评价数据
