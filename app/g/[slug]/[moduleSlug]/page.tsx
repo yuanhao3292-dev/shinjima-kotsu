@@ -3,6 +3,7 @@ import { getGuideModuleByComponentKey, recordPageView } from '@/lib/services/whi
 import { headers } from 'next/headers';
 import MedicalPackagesFullPage from '@/components/modules/MedicalPackagesFullPage';
 import HyogoMedicalContent from '@/app/hyogo-medical/HyogoMedicalContent';
+import SaiClinicContent from '@/app/sai-clinic/SaiClinicContent';
 import CancerTreatmentContent from '@/app/cancer-treatment/CancerTreatmentContent';
 import GolfContent from '@/app/business/golf/GolfContent';
 import MedicalTourismContent from '@/app/business/medical/MedicalTourismContent';
@@ -21,6 +22,7 @@ function toComponentKey(urlSlug: string): string {
 const SUPPORTED_KEYS = new Set([
   'medical_packages',
   'hyogo_medical',
+  'sai_clinic',
   'cancer_treatment',
   'golf',
   'medical_tourism',
@@ -80,6 +82,9 @@ export default async function ModuleDetailPage({ params }: PageProps) {
 
     case 'hyogo_medical':
       return <HyogoMedicalContent whitelabel={whitelabelProps} />;
+
+    case 'sai_clinic':
+      return <SaiClinicContent whitelabel={whitelabelProps} />;
 
     case 'cancer_treatment':
       return <CancerTreatmentContent whitelabel={whitelabelProps} />;
