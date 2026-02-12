@@ -70,23 +70,62 @@ export default async function GuideHomePage({ params }: PageProps) {
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-32 w-full">
           <div className="max-w-2xl">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="h-[1px] w-12 bg-white/40" />
-              <span className="text-xs tracking-[0.3em] text-white/60 uppercase">Japan Premium Medical & Beauty</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-              {brandName}
-            </h1>
-            <p className="text-lg text-white/70 leading-relaxed mb-8 max-w-xl">
-              为您甄选日本顶级医疗与美容机构，提供专业中文服务、全程陪同、安心无忧的高端定制体验。
-            </p>
-            {productCards.length > 0 && (
-              <Link
-                href={`/g/${slug}/${toUrlSlug(productCards[0].componentKey)}`}
-                className="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition-all shadow-lg"
-              >
-                查看服务项目 <ArrowRight size={18} />
-              </Link>
+            {heroCard && (
+              <>
+                {/* 标签 */}
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="h-[1px] w-12 bg-white/40" />
+                  <span className="text-xs tracking-[0.3em] text-white/70 uppercase">
+                    {heroCard.config.tagline}
+                  </span>
+                </div>
+
+                {/* 标题 */}
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                  {heroCard.customTitle || heroCard.config.title}
+                </h1>
+
+                {/* 描述 */}
+                <p className="text-lg text-white/80 leading-relaxed mb-8 max-w-xl">
+                  {heroCard.config.description}
+                </p>
+
+                {/* 数据统计 */}
+                {heroCard.config.stats.length > 0 && (
+                  <div className="flex gap-8 mb-10">
+                    {heroCard.config.stats.slice(0, 3).map((stat, idx) => (
+                      <div key={idx}>
+                        <div className="text-3xl font-bold text-white mb-1">
+                          {stat.value}<span className="text-white/60 text-xl ml-1">{stat.unit}</span>
+                        </div>
+                        <div className="text-xs text-white/50 uppercase tracking-wider">{stat.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* CTA 按钮 */}
+                <Link
+                  href={`/g/${slug}/${toUrlSlug(heroCard.componentKey)}`}
+                  className="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition-all shadow-lg hover:shadow-xl"
+                >
+                  {heroCard.config.ctaText} <ArrowRight size={18} />
+                </Link>
+              </>
+            )}
+            {!heroCard && (
+              <>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="h-[1px] w-12 bg-white/40" />
+                  <span className="text-xs tracking-[0.3em] text-white/60 uppercase">Japan Premium Medical & Beauty</span>
+                </div>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                  {brandName}
+                </h1>
+                <p className="text-lg text-white/70 leading-relaxed mb-8 max-w-xl">
+                  为您甄选日本顶级医疗与美容机构，提供专业中文服务、全程陪同、安心无忧的高端定制体验。
+                </p>
+              </>
             )}
           </div>
         </div>
