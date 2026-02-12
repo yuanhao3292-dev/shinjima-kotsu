@@ -19,6 +19,7 @@ import {
   ExternalLink,
   Stethoscope,
   ArrowRight,
+  Hospital,
 } from 'lucide-react';
 
 interface PageModule {
@@ -377,6 +378,30 @@ export default function ProductCenterPage() {
                     </div>
                     <p className="text-blue-100 text-sm">
                       查看 TIMC 大阪精密体检中心全部内容：设备介绍、设施环境、6大体检套餐、套餐对比表、客户评价、FAQ等
+                    </p>
+                  </div>
+                </div>
+                <ArrowRight size={24} className="text-white/60 group-hover:text-white group-hover:translate-x-1 transition-all flex-shrink-0" />
+              </div>
+            </div>
+
+            {/* 兵库医科大学病院服务模块入口 */}
+            <div
+              onClick={() => router.push('/hyogo-medical')}
+              className="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-2xl p-6 text-white cursor-pointer hover:shadow-xl hover:-translate-y-0.5 transition-all group"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                    <Hospital className="text-white" size={28} />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="text-lg font-bold">兵库医科大学病院 — 高度医疗</h3>
+                      <span className="px-2 py-0.5 bg-white/20 text-xs rounded-full">完整页面</span>
+                    </div>
+                    <p className="text-emerald-100 text-sm">
+                      兵庫県最大規模の特定機能病院：963床・41診療科、ダヴィンチ手術支援ロボット、PET-CT、2026年新病棟計画等
                     </p>
                   </div>
                 </div>
