@@ -8,7 +8,7 @@ import {
   Users,
 } from 'lucide-react';
 import WhitelabelContactSection from '@/components/whitelabel-modules/WhitelabelContactSection';
-import MedicalPackagesModule from '@/components/whitelabel-modules/MedicalPackagesModule';
+import TIMCContent from '@/app/guide-partner/product-center/timc/TIMCContent';
 import HyogoMedicalContent from '@/app/hyogo-medical/HyogoMedicalContent';
 import ImmersiveSection from '@/components/distribution/ImmersiveSection';
 import DistributionNav from '@/components/distribution/DistributionNav';
@@ -41,7 +41,10 @@ export default async function GuideDistributionPage({ params }: PageProps) {
   const brandColor = guide.brandColor || '#2563eb';
 
   // ======== 数据驱动渲染：按 display_config 分类模块 ========
-  const DETAIL_MODULES = new Set(['medical_packages', 'hyogo_medical']);
+  const DETAIL_MODULES = new Set([
+    'medical_packages', 'hyogo_medical', 'cancer_treatment',
+    'golf', 'medical_tourism', 'health_screening', 'vehicles',
+  ]);
 
   const immersiveModules: Array<{ config: ImmersiveDisplayConfig; componentKey: string }> = [];
   const genericModules = selectedModules.filter((m) => {
@@ -87,22 +90,24 @@ export default async function GuideDistributionPage({ params }: PageProps) {
       {/* ======== 数据驱动：动态渲染所有沉浸式板块 ======== */}
       {immersiveModules.map(({ config: dc, componentKey }) => (
         <div key={dc.sectionId}>
-          {/* hyogo_medical 自带完整 hero，跳过 ImmersiveSection */}
-          {componentKey !== 'hyogo_medical' && (
+          {/* medical_packages / hyogo_medical 自带完整 hero，跳过 ImmersiveSection */}
+          {componentKey !== 'hyogo_medical' && componentKey !== 'medical_packages' && (
             <ImmersiveSection
               config={dc}
               ctaHref={DETAIL_MODULES.has(componentKey) ? `/g/${slug}/${componentKey.replace(/_/g, '-')}` : undefined}
             />
           )}
-          {/* medical_packages: ImmersiveSection 后面紧跟完整套餐卡片 */}
+          {/* medical_packages: 渲染完整版 TIMC 内容（含自带 hero） */}
           {componentKey === 'medical_packages' && (
-            <MedicalPackagesModule
-              brandColor={brandColor}
-              brandName={brandName}
-              contactInfo={contactInfo}
-              moduleId="medical-packages-inline"
-              moduleName="TIMC 体检套餐"
-              showContact={false}
+            <TIMCContent
+              whitelabel={{
+                brandName,
+                brandColor,
+                contactInfo,
+                moduleId: 'medical-packages-inline',
+                moduleName: 'TIMC 体检套餐',
+                showContact: false,
+              }}
             />
           )}
           {/* hyogo_medical: 直接渲染完整兵庫医大页面（含自带 hero） */}

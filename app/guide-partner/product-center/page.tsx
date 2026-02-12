@@ -6,7 +6,6 @@ import { createClient } from '@/lib/supabase/client';
 import {
   Package,
   User,
-  Car,
   Plus,
   Check,
   Loader2,
@@ -48,37 +47,21 @@ interface PageTemplate {
   is_default: boolean;
 }
 
-interface VehicleLibrary {
-  id: string;
-  vehicle_type: string;
-  brand: string;
-  model: string;
-  year: number | null;
-  seat_capacity: number;
-  luggage_capacity: number;
-  image_url: string | null;
-  features: string[];
-  description_zh: string | null;
-  selectedByGuide: boolean;
-}
-
 interface GuideConfig {
   id: string;
   slug: string;
   is_published: boolean;
   bio_template_id: string | null;
-  vehicle_template_id: string | null;
 }
 
 export default function ProductCenterPage() {
   const [modules, setModules] = useState<PageModule[]>([]);
-  const [templates, setTemplates] = useState<{ bio: PageTemplate[]; vehicle: PageTemplate[] }>({ bio: [], vehicle: [] });
-  const [vehicles, setVehicles] = useState<VehicleLibrary[]>([]);
+  const [templates, setTemplates] = useState<{ bio: PageTemplate[] }>({ bio: [] });
   const [guideConfig, setGuideConfig] = useState<GuideConfig | null>(null);
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
-  const [activeTab, setActiveTab] = useState<'modules' | 'templates' | 'vehicles'>('modules');
+  const [activeTab, setActiveTab] = useState<'modules' | 'templates'>('modules');
 
   const router = useRouter();
   const supabase = createClient();
@@ -103,8 +86,7 @@ export default function ProductCenterPage() {
       if (response.ok) {
         const data = await response.json();
         setModules(data.modules || []);
-        setTemplates(data.templates || { bio: [], vehicle: [] });
-        setVehicles(data.vehicles || []);
+        setTemplates(data.templates || { bio: [] });
         setGuideConfig(data.guideConfig);
       } else {
         const error = await response.json();
@@ -156,48 +138,9 @@ export default function ProductCenterPage() {
     }
   };
 
-  const handleToggleVehicle = async (vehicleId: string, isSelected: boolean) => {
-    if (!guideConfig) {
-      setMessage({ type: 'error', text: '请先设置您的白标页面' });
-      return;
-    }
-
-    setActionLoading(vehicleId);
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) return;
-
-      const response = await fetch('/api/guide/selected-vehicles', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.access_token}`,
-        },
-        body: JSON.stringify({
-          action: isSelected ? 'remove' : 'add',
-          vehicleId,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        setMessage({ type: 'success', text: result.message });
-        await loadProductCenter();
-      } else {
-        setMessage({ type: 'error', text: result.error || '操作失败' });
-      }
-    } catch (error) {
-      setMessage({ type: 'error', text: '网络错误' });
-    } finally {
-      setActionLoading(null);
-    }
-  };
-
   const getModuleIcon = (type: string) => {
     switch (type) {
       case 'bio': return <User className="text-blue-500" size={24} />;
-      case 'vehicle': return <Car className="text-green-500" size={24} />;
       case 'medical': return <Stethoscope className="text-purple-500" size={24} />;
       case 'beauty': return <Package className="text-pink-500" size={24} />;
       case 'travel': return <Package className="text-orange-500" size={24} />;
@@ -208,7 +151,6 @@ export default function ProductCenterPage() {
   const getModuleTypeName = (type: string) => {
     switch (type) {
       case 'bio': return '自我介绍';
-      case 'vehicle': return '车辆介绍';
       case 'medical': return '医疗服务';
       case 'beauty': return '美容服务';
       case 'travel': return '旅行服务';
@@ -340,22 +282,6 @@ export default function ProductCenterPage() {
             <span className="flex items-center gap-2">
               <Palette size={18} />
               页面模板
-            </span>
-          </button>
-          <button
-            onClick={() => setActiveTab('vehicles')}
-            className={`px-4 py-3 font-medium transition border-b-2 -mb-px ${
-              activeTab === 'vehicles'
-                ? 'text-indigo-600 border-indigo-600'
-                : 'text-gray-500 border-transparent hover:text-gray-700'
-            }`}
-          >
-            <span className="flex items-center gap-2">
-              <Car size={18} />
-              车辆库
-              <span className="bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full text-xs">
-                {vehicles.length}
-              </span>
             </span>
           </button>
         </div>
@@ -635,54 +561,6 @@ export default function ProductCenterPage() {
               </div>
             </div>
 
-            {/* Vehicle Templates */}
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <Car size={20} className="text-green-500" />
-                车辆介绍模板
-              </h3>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {templates.vehicle.map((template) => (
-                  <div
-                    key={template.id}
-                    className={`bg-white rounded-xl border-2 overflow-hidden transition ${
-                      guideConfig?.vehicle_template_id === template.id
-                        ? 'border-indigo-500 shadow-md'
-                        : 'border-gray-200 hover:border-gray-300'
-                    }`}
-                  >
-                    <div className="aspect-video bg-gray-100 flex items-center justify-center">
-                      {template.preview_image_url ? (
-                        <img
-                          src={template.preview_image_url}
-                          alt={template.name}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <ImageIcon size={32} className="text-gray-300" />
-                      )}
-                    </div>
-                    <div className="p-4">
-                      <div className="flex items-center justify-between">
-                        <h4 className="font-medium text-gray-900">{template.name_zh || template.name}</h4>
-                        {template.is_default && (
-                          <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full">
-                            推荐
-                          </span>
-                        )}
-                      </div>
-                      {guideConfig?.vehicle_template_id === template.id && (
-                        <span className="text-sm text-indigo-600 flex items-center gap-1 mt-2">
-                          <Check size={14} />
-                          当前使用
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
             <p className="text-sm text-gray-500 text-center">
               模板选择功能请前往
               <button
@@ -696,96 +574,6 @@ export default function ProductCenterPage() {
           </div>
         )}
 
-        {/* Vehicles Tab */}
-        {activeTab === 'vehicles' && (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {vehicles.map((vehicle) => (
-              <div
-                key={vehicle.id}
-                className={`bg-white rounded-xl border-2 overflow-hidden transition ${
-                  vehicle.selectedByGuide
-                    ? 'border-indigo-500 shadow-md'
-                    : 'border-gray-200 hover:border-gray-300'
-                }`}
-              >
-                <div className="aspect-video bg-gray-100 flex items-center justify-center">
-                  {vehicle.image_url ? (
-                    <img
-                      src={vehicle.image_url}
-                      alt={`${vehicle.brand} ${vehicle.model}`}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <Car size={48} className="text-gray-300" />
-                  )}
-                </div>
-                <div className="p-4">
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <h4 className="font-semibold text-gray-900">
-                        {vehicle.brand} {vehicle.model}
-                      </h4>
-                      <span className="text-sm text-gray-500">{vehicle.vehicle_type}</span>
-                    </div>
-                    {vehicle.selectedByGuide && (
-                      <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full flex items-center gap-1">
-                        <Check size={12} />
-                        已选
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
-                    <span>{vehicle.seat_capacity} 座</span>
-                    <span>{vehicle.luggage_capacity} 件行李</span>
-                    {vehicle.year && <span>{vehicle.year}年款</span>}
-                  </div>
-
-                  {vehicle.features.length > 0 && (
-                    <div className="flex flex-wrap gap-1 mb-3">
-                      {vehicle.features.slice(0, 3).map((feature, idx) => (
-                        <span key={idx} className="px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded">
-                          {feature}
-                        </span>
-                      ))}
-                      {vehicle.features.length > 3 && (
-                        <span className="text-xs text-gray-400">+{vehicle.features.length - 3}</span>
-                      )}
-                    </div>
-                  )}
-
-                  <button
-                    onClick={() => handleToggleVehicle(vehicle.id, vehicle.selectedByGuide)}
-                    disabled={actionLoading === vehicle.id || !guideConfig}
-                    className={`w-full py-2 rounded-lg font-medium transition flex items-center justify-center gap-2 ${
-                      vehicle.selectedByGuide
-                        ? 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                        : 'bg-indigo-600 text-white hover:bg-indigo-700'
-                    } disabled:opacity-50`}
-                  >
-                    {actionLoading === vehicle.id ? (
-                      <Loader2 className="animate-spin" size={18} />
-                    ) : vehicle.selectedByGuide ? (
-                      <>取消选择</>
-                    ) : (
-                      <>
-                        <Plus size={18} />
-                        添加到我的页面
-                      </>
-                    )}
-                  </button>
-                </div>
-              </div>
-            ))}
-
-            {vehicles.length === 0 && (
-              <div className="col-span-full text-center py-12 text-gray-500">
-                <Car className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                <p>暂无可用车辆</p>
-              </div>
-            )}
-          </div>
-        )}
       </div>
     </div>
   );
