@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { ChevronDown, Mail, MessageCircle, X } from 'lucide-react';
 import SmartBackLink from '@/components/SmartBackLink';
 
@@ -529,9 +530,12 @@ export default function FAQPage() {
               </div>
 
               <div className="bg-gray-50 rounded-xl p-4 flex justify-center">
-                <img
+                <Image
                   src={WECHAT_QR_URL}
                   alt="WeChat QR Code"
+                  width={256}
+                  height={256}
+                  quality={75}
                   className="w-64 h-64 object-contain"
                 />
               </div>

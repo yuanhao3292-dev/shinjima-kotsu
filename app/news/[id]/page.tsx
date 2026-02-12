@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import PublicLayout from '@/components/PublicLayout';
 import { localizeText } from '@/lib/utils/text-converter';
 import { ArrowLeft, Calendar, Tag, Loader2 } from 'lucide-react';
@@ -142,9 +143,13 @@ export default function NewsDetailPage() {
           {/* Featured Image */}
           {news.image_url && (
             <div className="mb-10 rounded-xl overflow-hidden">
-              <img
+              <Image
                 src={news.image_url}
                 alt={news.title}
+                width={800}
+                height={450}
+                quality={75}
+                sizes="(max-width: 768px) 100vw, 800px"
                 className="w-full h-auto object-cover"
               />
             </div>

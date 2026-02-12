@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { MessageCircle, X, Phone, Mail } from 'lucide-react';
 import { useWhiteLabel } from '@/lib/contexts/WhiteLabelContext';
 import { DEFAULT_CONTACT } from '@/lib/whitelabel-config';
@@ -133,9 +134,12 @@ export default function FloatingContact() {
                   <p className="text-2xl font-bold text-gray-800 select-all">{displayWechat}</p>
                 </div>
               ) : (
-                <img
+                <Image
                   src={DEFAULT_CONTACT.WECHAT_QR_URL}
                   alt={ct('wechatQrAlt')}
+                  width={256}
+                  height={256}
+                  quality={75}
                   className="w-64 h-64 object-contain"
                 />
               )}

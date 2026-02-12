@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import PublicLayout from '@/components/PublicLayout';
 import {
   ArrowRight,
@@ -1174,10 +1175,13 @@ export default function PartnerBusinessPage() {
       {/* Hero Section */}
       <section className="relative min-h-[85vh] flex items-center">
         <div className="absolute inset-0">
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2000&auto=format&fit=crop"
             alt={t('heroImageAlt')}
-            className="w-full h-full object-cover"
+            fill
+            quality={75}
+            sizes="100vw"
+            className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/80 to-slate-900/40"></div>
         </div>

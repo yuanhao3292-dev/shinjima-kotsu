@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 import {
   ArrowLeft, ArrowRight, CheckCircle, Shield, Activity,
@@ -1468,9 +1469,12 @@ export default function CancerTreatmentContent({ whitelabel }: CancerTreatmentCo
             <h3 className="text-xl font-bold text-gray-900 mb-2">{t('wechatTitle')}</h3>
             <p className="text-gray-500 text-sm mb-6">{t('wechatScan')}</p>
             <div className="bg-gray-50 rounded-xl p-4 mb-4">
-              <img
+              <Image
                 src="https://i.ibb.co/3yBrDKW5/wechat-qr.jpg"
                 alt="WeChat QR Code"
+                width={192}
+                height={192}
+                quality={75}
                 className="w-48 h-48 mx-auto"
               />
             </div>

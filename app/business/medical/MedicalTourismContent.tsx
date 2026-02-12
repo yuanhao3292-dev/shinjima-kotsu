@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import type { WhitelabelModuleProps } from '@/components/whitelabel-modules/types';
 import WhitelabelContactSection from '@/components/whitelabel-modules/WhitelabelContactSection';
@@ -233,9 +234,13 @@ export default function MedicalTourismContent({ whitelabel }: MedicalTourismCont
         <div className="p-6 bg-slate-900 text-white rounded-2xl">
           <div className="flex flex-col md:flex-row gap-6 items-center">
             <div className="w-full md:w-1/3">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=400"
                 alt="TIMC OSAKA"
+                width={400}
+                height={192}
+                quality={75}
+                sizes="(max-width: 768px) 100vw, 33vw"
                 className="w-full h-48 object-cover rounded-xl"
               />
             </div>

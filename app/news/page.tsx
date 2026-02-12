@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import PublicLayout from '@/components/PublicLayout';
 import { localizeText } from '@/lib/utils/text-converter';
 import { formatDateJP } from '@/lib/utils/format-date';
@@ -262,10 +263,13 @@ export default function NewsPage() {
                   >
                     {/* 背景图片 */}
                     <div className={`relative overflow-hidden ${index === 0 ? 'h-[400px]' : 'h-[200px]'}`}>
-                      <img
+                      <Image
                         src={news.image_url!}
                         alt={news.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        fill
+                        quality={75}
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                     </div>

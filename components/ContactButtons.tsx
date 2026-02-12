@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { MessageSquare, Mail, X } from 'lucide-react';
 import { DEFAULT_CONTACT } from '@/lib/whitelabel-config';
 
@@ -102,9 +103,12 @@ export default function ContactButtons({ className = '' }: ContactButtonsProps) 
             <h3 className="text-xl font-bold text-gray-900 mb-2">{t('wechatTitle')}</h3>
             <p className="text-gray-500 text-sm mb-6">{t('wechatScanQR')}</p>
             <div className="bg-gray-50 rounded-xl p-4 mb-4">
-              <img
+              <Image
                 src={DEFAULT_CONTACT.WECHAT_QR_URL}
                 alt="WeChat QR Code"
+                width={192}
+                height={192}
+                quality={75}
                 className="w-48 h-48 mx-auto object-contain"
               />
             </div>

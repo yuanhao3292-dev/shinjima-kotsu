@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import PublicLayout from '@/components/PublicLayout';
 import {
   Award, Shield, Building2, MapPin, Phone, Mail,
@@ -409,9 +410,13 @@ export default function AboutPage() {
                 <div className="lg:w-1/3 flex-shrink-0">
                   <div className="relative">
                     <div className="absolute inset-0 bg-blue-100 transform translate-x-4 translate-y-4 rounded-2xl"></div>
-                    <img
+                    <Image
                       src="https://i.ibb.co/B2mJDvq7/founder.jpg"
                       alt="Yuan Hao"
+                      width={400}
+                      height={533}
+                      quality={75}
+                      sizes="(max-width: 1024px) 100vw, 33vw"
                       className="relative rounded-2xl shadow-lg w-full aspect-[3/4] object-cover object-top"
                     />
                   </div>

@@ -2,6 +2,7 @@
 import React, { useState, useEffect, memo, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import Logo from './Logo';
 import { translations, Language } from '../translations';
 import { UserProfile } from '../types';
@@ -169,11 +170,13 @@ const MedicalTechCard = memo(function MedicalTechCard({
     <div className="group relative bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
       {/* Image Container with Tech Overlay */}
       <div className="relative h-64 overflow-hidden bg-gray-900">
-        <img 
-          src={img} 
-          className="w-full h-full object-cover transition-all duration-700"
+        <Image
+          src={img}
+          fill
+          className="object-cover transition-all duration-700"
           alt={title}
-          onError={(e) => handleSmartImageError(e, fallbackKey)}
+          sizes="(max-width: 768px) 100vw, 50vw"
+          quality={75}
         />
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/graphy.png')] opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
@@ -216,12 +219,15 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
   <div className="animate-fade-in-up min-h-screen bg-white">
     {/* 1. Hero Section - Full height with transparent nav overlap */}
     <div className="relative min-h-[85vh] flex items-center overflow-hidden text-white bg-slate-900">
-      <img
+      <Image
           src={getImage('medical_hero')}
-          className="absolute inset-0 w-full h-full object-cover opacity-80"
+          fill
+          className="object-cover opacity-80"
           alt="TIMC Lobby Luxury Environment"
           key="medical_hero"
-          onError={(e) => handleSmartImageError(e, 'medical_hero')}
+          sizes="100vw"
+          quality={75}
+          priority
       />
       <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/60 to-transparent"></div>
       <div className="absolute inset-0 opacity-30 pointer-events-none">
@@ -320,11 +326,13 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
               {/* CT - Left */}
               <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-                  <img
+                  <Image
                       src={getImage('tech_ct')}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                       alt="CT Scanner"
-                      onError={(e) => handleSmartImageError(e, 'tech_ct')}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      quality={75}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
@@ -334,11 +342,13 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               </div>
               {/* MRI - Right */}
               <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-                  <img
+                  <Image
                       src={getImage('tech_mri')}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                       alt="MRI Scanner"
-                      onError={(e) => handleSmartImageError(e, 'tech_mri')}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      quality={75}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
@@ -352,11 +362,13 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
               {/* Endoscopy - Left */}
               <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-                  <img
+                  <Image
                       src={getImage('tech_endo')}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                       alt="Endoscopy"
-                      onError={(e) => handleSmartImageError(e, 'tech_endo')}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      quality={75}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
@@ -366,11 +378,13 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               </div>
               {/* Dental - Right */}
               <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-                  <img
+                  <Image
                       src={getImage('tech_dental')}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                       alt="Dental"
-                      onError={(e) => handleSmartImageError(e, 'tech_dental')}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      quality={75}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
@@ -384,11 +398,13 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
               {/* Ultrasound - Left */}
               <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-                  <img
+                  <Image
                       src={getImage('detail_echo')}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                       alt="Ultrasound"
-                      onError={(e) => handleSmartImageError(e, 'detail_echo')}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      quality={75}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
@@ -398,11 +414,13 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               </div>
               {/* Mammography - Right */}
               <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-                  <img
+                  <Image
                       src={getImage('detail_mammo')}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                       alt="Mammography"
-                      onError={(e) => handleSmartImageError(e, 'detail_mammo')}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      quality={75}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
@@ -424,10 +442,13 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           <div className="space-y-0">
               {/* Facility 1 - Center Interior */}
               <div className="relative min-h-[60vh] flex items-center overflow-hidden">
-                  <img
+                  <Image
                       src={getImage('facility_center')}
-                      className="absolute inset-0 w-full h-full object-cover"
+                      fill
+                      className="object-cover"
                       alt="Center Interior"
+                      sizes="100vw"
+                      quality={75}
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-transparent"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
@@ -448,10 +469,13 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
 
               {/* Facility 2 - Reception */}
               <div className="relative min-h-[60vh] flex items-center overflow-hidden">
-                  <img
+                  <Image
                       src={getImage('facility_reception')}
-                      className="absolute inset-0 w-full h-full object-cover"
+                      fill
+                      className="object-cover"
                       alt="Reception"
+                      sizes="100vw"
+                      quality={75}
                   />
                   <div className="absolute inset-0 bg-gradient-to-l from-slate-900/90 via-slate-900/70 to-transparent"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
@@ -472,10 +496,13 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
 
               {/* Facility 3 - Private Suites */}
               <div className="relative min-h-[60vh] flex items-center overflow-hidden">
-                  <img
+                  <Image
                       src={getImage('facility_room')}
-                      className="absolute inset-0 w-full h-full object-cover"
+                      fill
+                      className="object-cover"
                       alt="Private Suite"
+                      sizes="100vw"
+                      quality={75}
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-transparent"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
@@ -497,10 +524,13 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
 
               {/* Facility 4 - Bathroom */}
               <div className="relative min-h-[60vh] flex items-center overflow-hidden">
-                  <img
+                  <Image
                       src={getImage('facility_bathroom')}
-                      className="absolute inset-0 w-full h-full object-cover"
+                      fill
+                      className="object-cover"
                       alt="Bathroom"
+                      sizes="100vw"
+                      quality={75}
                   />
                   <div className="absolute inset-0 bg-gradient-to-l from-slate-900/90 via-slate-900/70 to-transparent"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
@@ -967,12 +997,14 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
      <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background with Ken Burns effect */}
         <div className="absolute inset-0">
-          <img
+          <Image
               src={getImage('golf_hero')}
-              className="absolute inset-0 w-full h-full object-cover animate-kenburns-slow"
+              fill
+              className="object-cover animate-kenburns-slow"
               alt="Golf Course"
               key="golf_hero"
-              onError={(e) => handleSmartImageError(e, 'golf_hero')}
+              sizes="100vw"
+              quality={75}
           />
           {/* Multi-layer gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/70"></div>
@@ -1155,11 +1187,13 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
 
                         {/* Image */}
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[450px] lg:h-[500px]">
-                           <img
+                           <Image
                               src={getPlanImage(plan.id)}
-                              className="w-full h-full object-cover transform group-hover:scale-105 transition duration-1000"
+                              fill
+                              className="object-cover transform group-hover:scale-105 transition duration-1000"
                               alt={plan.title}
-                              onError={(e) => handleSmartImageError(e, `plan_${plan.id.split('-')[0]}`)}
+                              sizes="(max-width: 768px) 100vw, 50vw"
+                              quality={75}
                            />
                            {/* Gradient overlay */}
                            <div className="absolute inset-0 golf-image-overlay"></div>
@@ -1766,11 +1800,13 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                       {/* Image - Smaller aspect than Golf */}
                       <div className="md:w-1/3 w-full">
                          <div className="relative rounded-xl overflow-hidden shadow-lg h-[250px] md:h-[320px] group">
-                            <img 
+                            <Image
                                src={getBizImage(plan.id)}
-                               className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700"
+                               fill
+                               className="object-cover transform group-hover:scale-105 transition duration-700"
                                alt={plan.title}
-                               onError={(e) => handleSmartImageError(e, `biz_${plan.id}`)}
+                               sizes="(max-width: 768px) 100vw, 33vw"
+                               quality={75}
                             />
                             <div className="absolute inset-0 bg-blue-900/10 group-hover:bg-transparent transition"></div>
                          </div>
@@ -2062,10 +2098,13 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       <section className="relative min-h-[90vh] flex items-center">
         {/* 全屏背景图 - 温暖的医疗场景 */}
         <div className="absolute inset-0">
-          <img
+          <Image
             src={getImage('homepage_medical_bg', 'https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=2000&auto=format&fit=crop')}
             alt="Healthcare"
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            quality={75}
           />
           {/* 温暖的渐变，类似高尔夫板块但用蓝绿色调 */}
           <div className="absolute inset-0 bg-gradient-to-r from-teal-900/90 via-teal-900/70 to-transparent"></div>
@@ -2166,10 +2205,13 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       <section className="relative min-h-[90vh] flex items-center">
         {/* 全屏背景图 */}
         <div className="absolute inset-0">
-          <img
+          <Image
             src={getImage('homepage_treatment_bg', 'https://images.unsplash.com/photo-1551190822-a9333d879b1f?q=80&w=2000&auto=format&fit=crop')}
             alt="Advanced Medical Treatment"
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            quality={75}
           />
           {/* 深蓝色渐变，传达专业、希望 */}
           <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 via-blue-950/70 to-transparent"></div>
@@ -2268,10 +2310,13 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       <section className="relative min-h-[90vh] flex items-center">
         {/* 全屏背景图 */}
         <div className="absolute inset-0">
-          <img
+          <Image
             src={getImage('homepage_golf_bg', 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2000&auto=format&fit=crop')}
             alt="Premium Golf Course"
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            quality={75}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
         </div>
@@ -2349,10 +2394,13 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       {/* 7. ビジネス視察 - Business Inspection 顶尖企业对接 */}
       <section className="relative min-h-[90vh] flex items-center bg-slate-900 text-white">
         <div className="absolute inset-0">
-          <img
+          <Image
             src={getImage('homepage_business_bg', 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format&fit=crop')}
             alt="Business District"
-            className="w-full h-full object-cover opacity-30"
+            fill
+            className="object-cover opacity-30"
+            sizes="100vw"
+            quality={75}
           />
         </div>
         <div className="relative container mx-auto px-6 py-12 md:py-24">
@@ -2479,10 +2527,13 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       <section id="guide-partner" className="relative min-h-[90vh] flex items-center">
         {/* 全屏背景图 */}
         <div className="absolute inset-0">
-          <img
+          <Image
             src={getImage('homepage_partner_bg', 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=2000&auto=format&fit=crop')}
             alt="Partnership"
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            quality={75}
           />
           {/* 深紫色渐变，传达高端、信任 */}
           <div className="absolute inset-0 bg-gradient-to-r from-violet-950/90 via-violet-950/70 to-transparent"></div>

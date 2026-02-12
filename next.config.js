@@ -35,6 +35,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'fcpcjfqxxtxlbtvbjduk.supabase.co',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.hosp.hyo-med.ac.jp',
+      },
     ],
   },
 
