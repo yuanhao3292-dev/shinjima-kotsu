@@ -127,6 +127,10 @@ export async function POST(request: NextRequest) {
         // 区分不同类型的支付
         if (session.mode === 'subscription' && session.metadata?.type === 'whitelabel_subscription') {
           await handleWhiteLabelSubscriptionCreated(supabase, session);
+        } else if (session.metadata?.type === 'partner_entry_fee') {
+          await handlePartnerEntryFeePaid(stripe, supabase, session);
+        } else if (session.metadata?.type === 'partner_subscription') {
+          await handlePartnerSubscriptionCreated(supabase, session);
         } else if (session.metadata?.type === 'nightclub_deposit') {
           await handleNightclubDepositPaid(supabase, session);
         } else {
@@ -421,12 +425,154 @@ async function handleWhiteLabelSubscriptionCreated(supabase: SupabaseClient, ses
   console.log(`✅ 导游 ${guideId} 白标订阅已激活`);
 }
 
+// ============================================
+// 合伙人订阅相关处理函数
+// ============================================
+
+/**
+ * 处理合伙人入场费支付成功
+ * 入场费支付后，立即创建月费订阅
+ */
+async function handlePartnerEntryFeePaid(
+  stripe: Stripe,
+  supabase: SupabaseClient,
+  session: Stripe.Checkout.Session
+) {
+  console.log('💎 Partner entry fee paid:', session.id);
+
+  const guideId = session.metadata?.guide_id;
+  const planCode = session.metadata?.plan_code as 'growth' | 'partner';
+
+  if (!guideId || !planCode) {
+    console.error('导游 ID 或套餐代码缺失, metadata:', JSON.stringify(session.metadata));
+    return;
+  }
+
+  // 1. 更新入场费记录状态
+  const { error: entryFeeError } = await supabase
+    .from('partner_entry_fees')
+    .update({
+      status: 'completed',
+      completed_at: new Date().toISOString(),
+      stripe_payment_intent_id: session.payment_intent as string,
+    })
+    .eq('guide_id', guideId)
+    .eq('status', 'pending');
+
+  if (entryFeeError) {
+    console.error('更新入场费记录失败:', entryFeeError);
+    return;
+  }
+
+  // 2. 创建 Stripe Price（如果不存在）
+  const PLANS = {
+    growth: { monthlyFee: 1980, commission: 10 },
+    partner: { monthlyFee: 4980, commission: 20 },
+  };
+
+  const plan = PLANS[planCode];
+  const prices = await stripe.prices.list({ active: true, limit: 100 });
+  let priceId = prices.data.find(
+    (p) =>
+      p.unit_amount === plan.monthlyFee &&
+      p.currency === 'jpy' &&
+      p.recurring?.interval === 'month' &&
+      p.metadata?.plan_code === planCode
+  )?.id;
+
+  if (!priceId) {
+    const product = await stripe.products.create({
+      name: `导游合伙人 - ${planCode === 'partner' ? '金牌合伙人' : '初期合伙人'}`,
+      metadata: { plan_code: planCode },
+    });
+    const price = await stripe.prices.create({
+      product: product.id,
+      unit_amount: plan.monthlyFee,
+      currency: 'jpy',
+      recurring: { interval: 'month' },
+      metadata: { plan_code: planCode },
+    });
+    priceId = price.id;
+  }
+
+  // 3. 立即创建月费订阅
+  const customerId = session.customer as string;
+  const subscription = await stripe.subscriptions.create({
+    customer: customerId,
+    items: [{ price: priceId }],
+    metadata: {
+      guide_id: guideId,
+      type: 'partner_subscription',
+      plan_code: planCode,
+    },
+  });
+
+  // 4. 更新导游的订阅信息（同时更新 subscription_tier 和 commission_tier_code）
+  const { error: updateError } = await supabase
+    .from('guides')
+    .update({
+      subscription_tier: planCode,
+      commission_tier_code: planCode === 'partner' ? 'gold' : 'growth',
+      subscription_status: 'active',
+      stripe_subscription_id: subscription.id,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('id', guideId);
+
+  if (updateError) {
+    console.error('更新导游订阅信息失败:', updateError);
+    return;
+  }
+
+  console.log(`✅ 导游 ${guideId} 已升级为 ${planCode}，月费订阅已创建`);
+}
+
+/**
+ * 处理合伙人订阅创建成功（初期合伙人直接订阅）
+ */
+async function handlePartnerSubscriptionCreated(
+  supabase: SupabaseClient,
+  session: Stripe.Checkout.Session
+) {
+  console.log('📦 Partner subscription created:', session.id);
+
+  const guideId = session.metadata?.guide_id;
+  const planCode = session.metadata?.plan_code as 'growth' | 'partner';
+
+  if (!guideId || !planCode) {
+    console.error('导游 ID 或套餐代码缺失, metadata:', JSON.stringify(session.metadata));
+    return;
+  }
+
+  // 更新导游订阅状态（同时更新 subscription_tier 和 commission_tier_code）
+  const { error } = await supabase
+    .from('guides')
+    .update({
+      subscription_tier: planCode,
+      commission_tier_code: planCode === 'partner' ? 'gold' : 'growth',
+      subscription_status: 'active',
+      stripe_subscription_id: session.subscription as string,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('id', guideId);
+
+  if (error) {
+    console.error('更新导游订阅状态失败:', error);
+    return;
+  }
+
+  console.log(`✅ 导游 ${guideId} 订阅已激活为 ${planCode}`);
+}
+
 // 处理订阅更新（续费成功、计划变更等）
 async function handleSubscriptionUpdated(supabase: SupabaseClient, subscription: Stripe.Subscription) {
   console.log('📝 Subscription updated:', subscription.id, 'Status:', subscription.status);
 
-  // 只处理白标订阅
-  if (subscription.metadata?.type !== 'whitelabel_subscription') {
+  // 只处理白标订阅和合伙人订阅
+  if (
+    subscription.metadata?.type !== 'whitelabel_subscription' &&
+    subscription.metadata?.type !== 'partner_subscription'
+  ) {
     return;
   }
 
@@ -485,15 +631,43 @@ async function handleSubscriptionUpdated(supabase: SupabaseClient, subscription:
 async function handleSubscriptionDeleted(supabase: SupabaseClient, subscription: Stripe.Subscription) {
   console.log('🚫 Subscription deleted:', subscription.id);
 
-  // 更新导游订阅状态
-  await supabase
-    .from('guides')
-    .update({
+  // 如果是合伙人订阅取消，需要降级处理
+  if (subscription.metadata?.type === 'partner_subscription') {
+    const planCode = subscription.metadata?.plan_code;
+
+    // 金牌合伙人取消月费 → 降级为 growth（失去 20% 分成，需重新支付入场费才能再次升级）
+    // 初期合伙人取消月费 → 订阅失效
+    const updateData: Record<string, any> = {
       subscription_status: 'cancelled',
-      subscription_plan: 'none',
       updated_at: new Date().toISOString(),
-    })
-    .eq('stripe_subscription_id', subscription.id);
+    };
+
+    if (planCode === 'partner') {
+      updateData.subscription_tier = 'growth'; // 降级为初期合伙人
+      updateData.commission_tier_code = 'growth'; // 同时更新 commission_tier_code
+      console.log(`⚠️ 金牌合伙人降级为初期合伙人（需重新支付入场费才能再升级）`);
+    } else {
+      updateData.subscription_tier = 'growth'; // 保持 growth，但 status 为 cancelled
+      updateData.commission_tier_code = 'growth';
+      console.log(`⚠️ 初期合伙人订阅已取消`);
+    }
+
+    await supabase
+      .from('guides')
+      .update(updateData)
+      .eq('stripe_subscription_id', subscription.id);
+
+  } else {
+    // 其他订阅（白标等）
+    await supabase
+      .from('guides')
+      .update({
+        subscription_status: 'cancelled',
+        subscription_plan: 'none',
+        updated_at: new Date().toISOString(),
+      })
+      .eq('stripe_subscription_id', subscription.id);
+  }
 
   console.log(`✅ 订阅 ${subscription.id} 已标记为取消`);
 }

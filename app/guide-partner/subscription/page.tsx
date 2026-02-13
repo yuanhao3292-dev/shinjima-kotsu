@@ -2,381 +2,334 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
-import {
-  Crown,
-  Sparkles,
-  Check,
-  ArrowRight,
-  Loader2,
-  TrendingUp,
-  Users,
-  Headphones,
-  Award,
-  Zap,
-  ChevronLeft,
-  AlertCircle,
-} from 'lucide-react';
+import { Check, Loader2, AlertCircle, Crown, Sparkles } from 'lucide-react';
 
-interface SubscriptionDetails {
-  subscriptionTier: 'growth' | 'partner';
-  subscriptionStatus: 'inactive' | 'active' | 'cancelled' | 'past_due';
-  commissionRate: number;
-  commissionType: 'fixed';
+interface SubscriptionPlan {
+  code: 'growth' | 'partner';
+  name: string;
   monthlyFee: number;
-  entryFeePaid: boolean;
-  entryFeeAmount: number;
-  benefits: {
-    whitelabel: boolean;
-    templates: number;
-    support: 'standard' | 'priority';
-    priorityResources?: boolean;
-    partnerCertificate?: boolean;
-    partnerGroup?: boolean;
-    description?: string;
-  };
-}
-
-interface PlanComparison {
-  growth: {
-    name: string;
-    monthlyFee: number;
-    commission: string;
-    commissionDescription: string;
-    features: string[];
-  };
-  partner: {
-    name: string;
-    monthlyFee: number;
-    entryFee: number;
-    commission: string;
-    commissionDescription: string;
-    features: string[];
-    breakEvenAnalysis: {
-      medicalCheckup: { name: string; avgAmount: number; commissionAt20Percent: number; dealsToRecoverEntryFee: number };
-      treatment: { name: string; avgAmount: number; commissionAt20Percent: number; dealsToRecoverEntryFee: number };
-      nightclub: { name: string; avgAmount: number; commissionAt20Percent: number; dealsToRecoverEntryFee: number };
-    };
-  };
+  entryFee: number;
+  commission: string;
+  features: string[];
+  description: string;
 }
 
 export default function SubscriptionPage() {
-  const [loading, setLoading] = useState(true);
-  const [upgrading, setUpgrading] = useState(false);
-  const [guideId, setGuideId] = useState<string | null>(null);
-  const [subscription, setSubscription] = useState<SubscriptionDetails | null>(null);
-  const [plans, setPlans] = useState<PlanComparison | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const supabase = createClient();
 
+  const [loading, setLoading] = useState(true);
+  const [upgrading, setUpgrading] = useState(false);
+  const [currentTier, setCurrentTier] = useState<'growth' | 'partner' | null>(null);
+  const [guideId, setGuideId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [showContract, setShowContract] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<'growth' | 'partner' | null>(null);
+
+  const plans: SubscriptionPlan[] = [
+    {
+      code: 'growth',
+      name: '初期合伙人',
+      monthlyFee: 1980,
+      entryFee: 0,
+      commission: '10%',
+      description: '每月1,980日币会员费，固定10%分成',
+      features: [
+        '夜总会・赌场・医疗・高尔夫',
+        '白标页面基础功能',
+        '标准客服支持',
+      ],
+    },
+    {
+      code: 'partner',
+      name: '金牌合伙人',
+      monthlyFee: 4980,
+      entryFee: 200000,
+      commission: '20%',
+      description: '一次支付20万日币入场费，固定享受 20% 分成',
+      features: [
+        '夜总会・赌场・医疗・高尔夫',
+        '白标页面完整功能',
+        '专属客服通道・优先资源对接',
+        '合伙人专属群・合伙人证书',
+        '年度合伙人大会邀请',
+      ],
+    },
+  ];
+
   useEffect(() => {
-    loadData();
+    loadGuideInfo();
   }, []);
 
-  const loadData = async () => {
+  const loadGuideInfo = async () => {
     try {
-      // 获取当前用户
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
         router.push('/guide-partner/login');
         return;
       }
 
-      // 获取导游信息
-      const { data: guide, error: guideError } = await supabase
+      const { data: guide } = await supabase
         .from('guides')
-        .select('id')
+        .select('id, subscription_tier')
         .eq('auth_user_id', user.id)
         .single();
 
-      if (guideError || !guide) {
-        router.push('/guide-partner/login');
-        return;
-      }
-
-      setGuideId(guide.id);
-
-      // 并行获取订阅详情和套餐对比
-      const [subRes, plansRes] = await Promise.all([
-        fetch(`/api/guide/subscription?guideId=${guide.id}`),
-        fetch('/api/guide/upgrade-to-partner'),
-      ]);
-
-      if (subRes.ok) {
-        const subData = await subRes.json();
-        setSubscription(subData);
-      }
-
-      if (plansRes.ok) {
-        const plansData = await plansRes.json();
-        setPlans(plansData);
+      if (guide) {
+        setGuideId(guide.id);
+        setCurrentTier(guide.subscription_tier || 'growth');
       }
     } catch (err) {
-      console.error('加载数据失败:', err);
-      setError('加载数据失败，请刷新页面重试');
+      console.error('加载导游信息失败:', err);
+      setError('加载失败，请刷新页面');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleUpgrade = async () => {
+  const handleUpgrade = async (planCode: 'growth' | 'partner') => {
     if (!guideId) return;
 
+    setSelectedPlan(planCode);
+
+    // 如果是金牌合伙人，显示合约
+    if (planCode === 'partner') {
+      setShowContract(true);
+      return;
+    }
+
+    // 初期合伙人直接创建订阅
+    await createSubscription(planCode);
+  };
+
+  const confirmUpgrade = async () => {
+    if (!selectedPlan) return;
+    setShowContract(false);
+    await createSubscription(selectedPlan);
+  };
+
+  const createSubscription = async (planCode: 'growth' | 'partner') => {
     setUpgrading(true);
     setError(null);
 
     try {
-      const res = await fetch('/api/guide/upgrade-to-partner', {
+      const response = await fetch('/api/guide/upgrade-to-partner', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           guideId,
-          paymentMethod: 'full',
+          planCode,
+          successUrl: `${window.location.origin}/guide-partner/dashboard?upgrade=success`,
+          cancelUrl: `${window.location.origin}/guide-partner/subscription?upgrade=cancelled`,
         }),
       });
 
-      const data = await res.json();
+      const data = await response.json();
 
-      if (!res.ok) {
-        setError(data.error || '升级失败，请重试');
-        return;
+      if (!response.ok) {
+        throw new Error(data.error || '创建支付失败');
       }
 
-      // 跳转到 Stripe 支付页面
+      // 跳转到 Stripe Checkout
       if (data.checkoutUrl) {
         window.location.href = data.checkoutUrl;
       }
-    } catch (err) {
-      console.error('升级失败:', err);
-      setError('升级失败，请重试');
-    } finally {
+    } catch (err: any) {
+      setError(err.message || '升级失败，请重试');
       setUpgrading(false);
     }
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-indigo-600 animate-spin" />
       </div>
     );
   }
 
-  const isPartner = subscription?.subscriptionTier === 'partner';
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white border-b sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link href="/guide-partner/dashboard" className="text-gray-500 hover:text-gray-700">
-              <ChevronLeft size={24} />
-            </Link>
-            <h1 className="text-xl font-bold">订阅管理</h1>
-          </div>
+    <div className="min-h-screen bg-gray-50 py-12">
+      <div className="max-w-6xl mx-auto px-6">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">报酬制度</h1>
+          <p className="text-gray-600">升级金牌合伙人，享受更高报酬</p>
         </div>
-      </header>
 
-      <main className="max-w-6xl mx-auto px-4 py-8">
+        {/* Error Message */}
         {error && (
-          <div className="mb-6 bg-red-50 border border-red-200 rounded-xl p-4 flex items-center gap-3">
-            <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
-            <p className="text-red-700">{error}</p>
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2 text-red-700">
+            <AlertCircle size={20} />
+            <span>{error}</span>
+            <button onClick={() => setError(null)} className="ml-auto">×</button>
           </div>
         )}
 
-        {/* 当前套餐状态 */}
-        <div className="mb-8">
-          <div className={`rounded-2xl p-6 ${isPartner ? 'bg-gradient-to-br from-amber-500 to-orange-600 text-white' : 'bg-white border'}`}>
-            <div className="flex items-center gap-4 mb-4">
-              {isPartner ? (
-                <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center">
-                  <Crown className="w-8 h-8 text-white" />
-                </div>
-              ) : (
-                <div className="w-14 h-14 rounded-xl bg-indigo-100 flex items-center justify-center">
-                  <Sparkles className="w-8 h-8 text-indigo-600" />
-                </div>
-              )}
-              <div>
-                <h2 className={`text-2xl font-bold ${isPartner ? 'text-white' : 'text-gray-900'}`}>
-                  {isPartner ? '导游合伙人' : '成长版'}
-                </h2>
-                <p className={`text-sm ${isPartner ? 'text-white/80' : 'text-gray-500'}`}>
-                  {subscription?.subscriptionStatus === 'active' ? '订阅生效中' : '未激活'}
-                </p>
-              </div>
-            </div>
+        {/* Plans Comparison */}
+        <div className="grid md:grid-cols-2 gap-6 mb-12">
+          {plans.map((plan) => {
+            const isCurrent = currentTier === plan.code;
+            const isUpgrade = currentTier === 'growth' && plan.code === 'partner';
 
-            <div className="grid md:grid-cols-3 gap-4">
-              <div className={`rounded-xl p-4 ${isPartner ? 'bg-white/10' : 'bg-gray-50'}`}>
-                <p className={`text-sm ${isPartner ? 'text-white/70' : 'text-gray-500'}`}>分成比例</p>
-                <p className={`text-2xl font-bold ${isPartner ? 'text-white' : 'text-gray-900'}`}>
-                  {((subscription?.commissionRate || 0) * 100).toFixed(0)}%
-                </p>
-                <p className={`text-xs ${isPartner ? 'text-white/60' : 'text-gray-400'}`}>
-                  固定分成
-                </p>
-              </div>
-              <div className={`rounded-xl p-4 ${isPartner ? 'bg-white/10' : 'bg-gray-50'}`}>
-                <p className={`text-sm ${isPartner ? 'text-white/70' : 'text-gray-500'}`}>月费</p>
-                <p className={`text-2xl font-bold ${isPartner ? 'text-white' : 'text-gray-900'}`}>
-                  ¥{subscription?.monthlyFee?.toLocaleString()}
-                </p>
-                <p className={`text-xs ${isPartner ? 'text-white/60' : 'text-gray-400'}`}>每月</p>
-              </div>
-              <div className={`rounded-xl p-4 ${isPartner ? 'bg-white/10' : 'bg-gray-50'}`}>
-                <p className={`text-sm ${isPartner ? 'text-white/70' : 'text-gray-500'}`}>模板数量</p>
-                <p className={`text-2xl font-bold ${isPartner ? 'text-white' : 'text-gray-900'}`}>
-                  {subscription?.benefits?.templates || 3}
-                </p>
-                <p className={`text-xs ${isPartner ? 'text-white/60' : 'text-gray-400'}`}>套可选</p>
-              </div>
-            </div>
+            return (
+              <div
+                key={plan.code}
+                className={`relative bg-white rounded-2xl border-2 p-8 transition-all ${
+                  plan.code === 'partner'
+                    ? 'border-amber-400 shadow-lg scale-105'
+                    : 'border-gray-200 hover:border-gray-300'
+                }`}
+              >
+                {/* Badge */}
+                {plan.code === 'partner' && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                    <span className="inline-flex items-center gap-1 bg-gradient-to-r from-amber-400 to-amber-500 text-white px-4 py-1 rounded-full text-sm font-bold">
+                      <Crown size={14} /> 推荐
+                    </span>
+                  </div>
+                )}
 
-          </div>
-        </div>
+                {isCurrent && (
+                  <div className="absolute top-4 right-4">
+                    <span className="inline-flex items-center gap-1 bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-medium">
+                      <Check size={12} /> 当前套餐
+                    </span>
+                  </div>
+                )}
 
-        {/* 套餐对比 */}
-        {!isPartner && plans && (
-          <div className="mb-8">
-            <h3 className="text-lg font-bold text-gray-900 mb-4">升级到导游合伙人</h3>
-            <div className="grid md:grid-cols-2 gap-6">
-              {/* 成长版 */}
-              <div className="bg-white rounded-2xl border p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <Sparkles className="w-6 h-6 text-indigo-600" />
-                  <h4 className="text-lg font-bold text-gray-900">{plans.growth.name}</h4>
-                  <span className="px-2 py-0.5 bg-indigo-100 text-indigo-700 text-xs rounded-full">当前</span>
+                {/* Icon */}
+                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-4 ${
+                  plan.code === 'partner' ? 'bg-amber-100' : 'bg-green-100'
+                }`}>
+                  {plan.code === 'partner' ? (
+                    <Crown size={28} className="text-amber-600" />
+                  ) : (
+                    <Sparkles size={28} className="text-green-600" />
+                  )}
                 </div>
-                <p className="text-3xl font-bold text-gray-900 mb-1">
-                  ¥{plans.growth.monthlyFee.toLocaleString()}
-                  <span className="text-sm font-normal text-gray-500">/月</span>
-                </p>
-                <p className="text-sm text-gray-500 mb-4">{plans.growth.commission}</p>
-                <ul className="space-y-2">
-                  {plans.growth.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center gap-2 text-sm text-gray-600">
-                      <Check className="w-4 h-4 text-green-500 flex-shrink-0" />
-                      {feature}
+
+                {/* Name */}
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
+
+                {/* Price */}
+                <div className="mb-4">
+                  <div className="flex items-baseline gap-1 mb-1">
+                    <span className="text-4xl font-bold text-gray-900">¥{plan.monthlyFee.toLocaleString()}</span>
+                    <span className="text-gray-500">/月</span>
+                  </div>
+                  {plan.entryFee > 0 && (
+                    <div className="text-sm text-gray-600">
+                      + ¥{plan.entryFee.toLocaleString()} 入场费 (一次性)
+                    </div>
+                  )}
+                </div>
+
+                {/* Commission */}
+                <div className="bg-gray-50 rounded-lg p-4 mb-6">
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-amber-600 mb-1">{plan.commission}</div>
+                    <div className="text-xs text-gray-500">固定分成比例</div>
+                  </div>
+                </div>
+
+                {/* Features */}
+                <ul className="space-y-3 mb-6">
+                  {plan.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-start gap-2 text-sm text-gray-600">
+                      <Check size={16} className="text-green-600 flex-shrink-0 mt-0.5" />
+                      <span>{feature}</span>
                     </li>
                   ))}
                 </ul>
-              </div>
 
-              {/* 合伙人 */}
-              <div className="bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl p-6 text-white relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
-                <div className="relative">
-                  <div className="flex items-center gap-3 mb-4">
-                    <Crown className="w-6 h-6" />
-                    <h4 className="text-lg font-bold">{plans.partner.name}</h4>
-                    <span className="px-2 py-0.5 bg-white/20 text-white text-xs rounded-full">推荐</span>
-                  </div>
-                  <div className="mb-1">
-                    <span className="text-3xl font-bold">¥{plans.partner.monthlyFee.toLocaleString()}</span>
-                    <span className="text-sm">/月</span>
-                  </div>
-                  <p className="text-sm text-white/80 mb-1">+ ¥{plans.partner.entryFee.toLocaleString()} 入场费（一次性）</p>
-                  <p className="text-sm text-white/80 mb-4">{plans.partner.commission}</p>
-                  <ul className="space-y-2 mb-6">
-                    {plans.partner.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center gap-2 text-sm">
-                        <Check className="w-4 h-4 flex-shrink-0" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-
+                {/* CTA */}
+                {isCurrent ? (
+                  <div className="text-center text-sm text-gray-500 py-3">当前使用中</div>
+                ) : isUpgrade ? (
                   <button
-                    onClick={handleUpgrade}
+                    onClick={() => handleUpgrade(plan.code)}
                     disabled={upgrading}
-                    className="w-full py-3 bg-white text-orange-600 font-bold rounded-xl hover:bg-orange-50 transition flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg font-bold hover:from-amber-600 hover:to-amber-700 transition disabled:opacity-50"
                   >
-                    {upgrading ? (
-                      <>
-                        <Loader2 className="w-5 h-5 animate-spin" />
-                        处理中...
-                      </>
-                    ) : (
-                      <>
-                        升级为合伙人
-                        <ArrowRight className="w-5 h-5" />
-                      </>
-                    )}
+                    {upgrading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : '立即升级'}
                   </button>
-                </div>
+                ) : (
+                  <button
+                    onClick={() => handleUpgrade(plan.code)}
+                    disabled={upgrading}
+                    className="w-full py-3 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition disabled:opacity-50"
+                  >
+                    选择此套餐
+                  </button>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* 合约弹窗 */}
+        {showContract && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">金牌合伙人入会合约</h2>
+
+              <div className="prose prose-sm mb-6 text-gray-600 space-y-3">
+                <h3 className="font-bold text-gray-900">一、会员费用</h3>
+                <p>1. 入场费：¥200,000（一次性支付，终身有效）</p>
+                <p>2. 月会费：¥4,980/月（自动续订）</p>
+
+                <h3 className="font-bold text-gray-900">二、分成比例</h3>
+                <p>金牌合伙人享受固定 20% 分成比例（所有业务线）</p>
+
+                <h3 className="font-bold text-gray-900">三、降级与重新入会</h3>
+                <p className="text-red-600 font-medium">
+                  ⚠️ 重要提示：若您停止续费月会费（¥4,980/月），您的金牌合伙人资格将自动失效，降级为初期合伙人（10%分成）。
+                </p>
+                <p className="text-red-600 font-medium">
+                  若之后需要重新升级为金牌合伙人，需要重新支付 ¥200,000 入场费。
+                </p>
+
+                <h3 className="font-bold text-gray-900">四、权益说明</h3>
+                <ul className="list-disc pl-5">
+                  <li>优先资源对接</li>
+                  <li>专属客服通道</li>
+                  <li>合伙人专属群</li>
+                  <li>合伙人证书</li>
+                  <li>年度合伙人大会邀请</li>
+                </ul>
+              </div>
+
+              <div className="flex gap-3">
+                <button
+                  onClick={() => { setShowContract(false); setSelectedPlan(null); }}
+                  className="flex-1 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50"
+                >
+                  取消
+                </button>
+                <button
+                  onClick={confirmUpgrade}
+                  disabled={upgrading}
+                  className="flex-1 py-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg font-bold hover:from-amber-600 hover:to-amber-700 disabled:opacity-50"
+                >
+                  {upgrading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : '同意并支付'}
+                </button>
               </div>
             </div>
           </div>
         )}
 
-        {/* 盈亏分析 */}
-        {!isPartner && plans && (
-          <div className="bg-white rounded-2xl border p-6">
-            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-indigo-600" />
-              回本分析
-            </h3>
-            <p className="text-sm text-gray-600 mb-4">
-              入场费 ¥{plans.partner.entryFee.toLocaleString()} 看起来很多？看看多快能回本：
-            </p>
-            <div className="grid md:grid-cols-3 gap-4">
-              {Object.entries(plans.partner.breakEvenAnalysis).map(([key, analysis]) => (
-                <div key={key} className="bg-gray-50 rounded-xl p-4">
-                  <h4 className="font-medium text-gray-900 mb-2">{analysis.name}</h4>
-                  <p className="text-sm text-gray-500 mb-1">
-                    平均客单价：¥{analysis.avgAmount.toLocaleString()}
-                  </p>
-                  <p className="text-sm text-gray-500 mb-2">
-                    20%分成：¥{analysis.commissionAt20Percent.toLocaleString()}
-                  </p>
-                  <p className="text-lg font-bold text-indigo-600">
-                    {analysis.dealsToRecoverEntryFee < 1
-                      ? '不到1单回本'
-                      : `${Math.ceil(analysis.dealsToRecoverEntryFee)}单回本`}
-                  </p>
-                </div>
-              ))}
-            </div>
+        {/* 说明 */}
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+          <h4 className="font-bold text-blue-900 mb-2">💡 常见问题</h4>
+          <div className="text-sm text-blue-800 space-y-2">
+            <p>• 每笔订单的分成比例根据您当前的会员等级计算</p>
+            <p>• 月会费通过 Stripe 自动续订，可随时取消</p>
+            <p>• 金牌合伙人的入场费一次支付，终身有效（需保持月会费续订）</p>
           </div>
-        )}
-
-        {/* 合伙人专属权益 */}
-        {isPartner && (
-          <div className="bg-white rounded-2xl border p-6">
-            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-              <Award className="w-5 h-5 text-amber-500" />
-              合伙人专属权益
-            </h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="bg-amber-50 rounded-xl p-4 text-center">
-                <Zap className="w-8 h-8 text-amber-500 mx-auto mb-2" />
-                <h4 className="font-medium text-gray-900">20% 固定分成</h4>
-                <p className="text-sm text-gray-500">无论销售额多少</p>
-              </div>
-              <div className="bg-amber-50 rounded-xl p-4 text-center">
-                <Users className="w-8 h-8 text-amber-500 mx-auto mb-2" />
-                <h4 className="font-medium text-gray-900">优先资源对接</h4>
-                <p className="text-sm text-gray-500">新医院资源优先获得</p>
-              </div>
-              <div className="bg-amber-50 rounded-xl p-4 text-center">
-                <Headphones className="w-8 h-8 text-amber-500 mx-auto mb-2" />
-                <h4 className="font-medium text-gray-900">专属客服</h4>
-                <p className="text-sm text-gray-500">直接对接负责人</p>
-              </div>
-              <div className="bg-amber-50 rounded-xl p-4 text-center">
-                <Award className="w-8 h-8 text-amber-500 mx-auto mb-2" />
-                <h4 className="font-medium text-gray-900">合伙人证书</h4>
-                <p className="text-sm text-gray-500">可展示在白标页面</p>
-              </div>
-            </div>
-          </div>
-        )}
-      </main>
+        </div>
+      </div>
     </div>
   );
 }
