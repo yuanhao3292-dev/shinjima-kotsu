@@ -61,6 +61,8 @@ export default function GuideDashboard() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [upgrading, setUpgrading] = useState(false);
+  const [showContract, setShowContract] = useState(false);
   const router = useRouter();
   const supabase = createClient();
 
@@ -176,6 +178,56 @@ export default function GuideDashboard() {
       navigator.clipboard.writeText(guide.referral_code);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const handleUpgrade = async (planCode: 'growth' | 'partner') => {
+    if (!guide?.id) return;
+
+    // 金牌合伙人显示合约
+    if (planCode === 'partner') {
+      setShowContract(true);
+      return;
+    }
+
+    // 初期合伙人直接创建订阅
+    await createSubscription(planCode);
+  };
+
+  const confirmUpgrade = async () => {
+    setShowContract(false);
+    await createSubscription('partner');
+  };
+
+  const createSubscription = async (planCode: 'growth' | 'partner') => {
+    if (!guide?.id) return;
+
+    setUpgrading(true);
+    try {
+      const response = await fetch('/api/guide/upgrade-to-partner', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          guideId: guide.id,
+          planCode,
+          successUrl: `${window.location.origin}/guide-partner/dashboard?upgrade=success`,
+          cancelUrl: `${window.location.origin}/guide-partner/dashboard?upgrade=cancelled`,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || '创建支付失败');
+      }
+
+      // 跳转到 Stripe Checkout
+      if (data.checkoutUrl) {
+        window.location.href = data.checkoutUrl;
+      }
+    } catch (err: any) {
+      alert(err.message || '升级失败，请重试');
+      setUpgrading(false);
     }
   };
 
@@ -325,7 +377,7 @@ export default function GuideDashboard() {
             </div>
 
             {/* Gold Partner Highlight */}
-            {(guide?.commission_tier_code || 'growth') === 'gold' ? (
+            {(guide?.commission_tier_code || 'growth') === 'gold' && (
               <div className="mb-6 p-4 bg-gradient-to-r from-yellow-100 to-amber-100 rounded-xl border border-yellow-200">
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">🥇</span>
@@ -333,18 +385,6 @@ export default function GuideDashboard() {
                     <p className="font-bold text-yellow-700">恭喜！您已是金牌合夥人</p>
                     <p className="text-sm text-yellow-600">享受 20% 固定報酬比例</p>
                   </div>
-                </div>
-              </div>
-            ) : (
-              <div className="mb-6 p-4 bg-white rounded-xl border border-orange-200">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-gray-700">升級金牌合夥人</p>
-                    <p className="text-xs text-gray-500">一次支付 ¥200,000 入場費，報酬從 10% 提升至 20%</p>
-                  </div>
-                  <Link href="/guide-partner/subscription" className="px-4 py-2 bg-yellow-500 text-white rounded-lg text-sm font-medium hover:bg-yellow-600 transition">
-                    了解更多
-                  </Link>
                 </div>
               </div>
             )}
@@ -366,15 +406,18 @@ export default function GuideDashboard() {
                   <p className="text-2xl font-bold text-orange-600">10%</p>
                   <p className="text-xs text-gray-500">固定報酬比例</p>
                 </div>
-                <div className="text-xs text-gray-500 space-y-1">
+                <div className="text-xs text-gray-500 space-y-1 mb-4">
                   <p>夜總會 · 體檢 · 醫療 · 高爾夫</p>
                   <p>白標頁面基礎功能</p>
                   <p>標準客服支持</p>
                 </div>
+                {(!guide?.commission_tier_code || guide?.commission_tier_code === 'growth') && (
+                  <div className="text-center text-xs text-gray-500 py-2">當前使用中</div>
+                )}
               </div>
 
               {/* Tier 2: Gold */}
-              <div className={`bg-white rounded-xl p-5 border-2 transition-all ${guide?.commission_tier_code === 'gold' ? 'border-yellow-400 ring-2 ring-yellow-100' : 'border-gray-200 opacity-70'}`}>
+              <div className={`bg-white rounded-xl p-5 border-2 transition-all ${guide?.commission_tier_code === 'gold' ? 'border-yellow-400 ring-2 ring-yellow-100' : 'border-gray-200'}`}>
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
                     <span className="text-lg">🥇</span>
@@ -388,12 +431,23 @@ export default function GuideDashboard() {
                   <p className="text-2xl font-bold text-yellow-600">20%</p>
                   <p className="text-xs text-gray-500">固定報酬比例</p>
                 </div>
-                <div className="text-xs text-gray-500 space-y-1">
+                <div className="text-xs text-gray-500 space-y-1 mb-4">
                   <p>夜總會 · 體檢 · 醫療 · 高爾夫</p>
                   <p>白標頁面完整功能 · 高級模板</p>
                   <p>專屬客服 · 優先資源對接</p>
                   <p>合夥人專屬群 · 合夥人證書</p>
                 </div>
+                {guide?.commission_tier_code === 'gold' ? (
+                  <div className="text-center text-xs text-gray-500 py-2">當前使用中</div>
+                ) : (
+                  <button
+                    onClick={() => handleUpgrade('partner')}
+                    disabled={upgrading}
+                    className="w-full py-2.5 bg-gradient-to-r from-yellow-500 to-amber-600 text-white rounded-lg text-sm font-bold hover:from-yellow-600 hover:to-amber-700 transition disabled:opacity-50"
+                  >
+                    {upgrading ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : '立即升級'}
+                  </button>
+                )}
               </div>
             </div>
 
@@ -503,6 +557,57 @@ export default function GuideDashboard() {
             )}
           </div>
         </div>
+
+        {/* 合约弹窗 */}
+        {showContract && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">金牌合夥人入會合約</h2>
+
+              <div className="prose prose-sm mb-6 text-gray-600 space-y-3">
+                <h3 className="font-bold text-gray-900">一、會員費用</h3>
+                <p>1. 入場費：¥200,000（一次性支付，終身有效）</p>
+                <p>2. 月會費：¥4,980/月（自動續訂）</p>
+
+                <h3 className="font-bold text-gray-900">二、分成比例</h3>
+                <p>金牌合夥人享受固定 20% 分成比例（所有業務線）</p>
+
+                <h3 className="font-bold text-gray-900">三、降級與重新入會</h3>
+                <p className="text-red-600 font-medium">
+                  ⚠️ 重要提示：若您停止續費月會費（¥4,980/月），您的金牌合夥人資格將自動失效，降級為初期合夥人（10%分成）。
+                </p>
+                <p className="text-red-600 font-medium">
+                  若之後需要重新升級為金牌合夥人，需要重新支付 ¥200,000 入場費。
+                </p>
+
+                <h3 className="font-bold text-gray-900">四、權益說明</h3>
+                <ul className="list-disc pl-5">
+                  <li>優先資源對接</li>
+                  <li>專屬客服通道</li>
+                  <li>合夥人專屬群</li>
+                  <li>合夥人證書</li>
+                  <li>年度合夥人大會邀請</li>
+                </ul>
+              </div>
+
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowContract(false)}
+                  className="flex-1 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50"
+                >
+                  取消
+                </button>
+                <button
+                  onClick={confirmUpgrade}
+                  disabled={upgrading}
+                  className="flex-1 py-3 bg-gradient-to-r from-yellow-500 to-amber-600 text-white rounded-lg font-bold hover:from-yellow-600 hover:to-amber-700 disabled:opacity-50"
+                >
+                  {upgrading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : '同意並支付'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
