@@ -56,9 +56,9 @@ CREATE TABLE IF NOT EXISTS medical_institution_contracts (
 );
 
 -- 索引
-CREATE INDEX idx_medical_contracts_status ON medical_institution_contracts(status);
-CREATE INDEX idx_medical_contracts_institution ON medical_institution_contracts(institution_name);
-CREATE INDEX idx_medical_contracts_expiry ON medical_institution_contracts(expiry_date);
+CREATE INDEX IF NOT EXISTS idx_medical_contracts_status ON medical_institution_contracts(status);
+CREATE INDEX IF NOT EXISTS idx_medical_contracts_institution ON medical_institution_contracts(institution_name);
+CREATE INDEX IF NOT EXISTS idx_medical_contracts_expiry ON medical_institution_contracts(expiry_date);
 
 -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 -- 2. 导游佣金协议表
@@ -110,9 +110,9 @@ CREATE TABLE IF NOT EXISTS guide_commission_contracts (
 );
 
 -- 索引
-CREATE INDEX idx_guide_contracts_guide_id ON guide_commission_contracts(guide_id);
-CREATE INDEX idx_guide_contracts_status ON guide_commission_contracts(status);
-CREATE INDEX idx_guide_contracts_expiry ON guide_commission_contracts(expiry_date);
+CREATE INDEX IF NOT EXISTS idx_guide_contracts_guide_id ON guide_commission_contracts(guide_id);
+CREATE INDEX IF NOT EXISTS idx_guide_contracts_status ON guide_commission_contracts(status);
+CREATE INDEX IF NOT EXISTS idx_guide_contracts_expiry ON guide_commission_contracts(expiry_date);
 
 -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 -- 3. 客户服务合同表
@@ -174,10 +174,10 @@ CREATE TABLE IF NOT EXISTS customer_service_contracts (
 );
 
 -- 索引
-CREATE INDEX idx_customer_contracts_customer ON customer_service_contracts(customer_name);
-CREATE INDEX idx_customer_contracts_status ON customer_service_contracts(status);
-CREATE INDEX idx_customer_contracts_guide ON customer_service_contracts(assigned_guide_id);
-CREATE INDEX idx_customer_contracts_date ON customer_service_contracts(arrival_date);
+CREATE INDEX IF NOT EXISTS idx_customer_contracts_customer ON customer_service_contracts(customer_name);
+CREATE INDEX IF NOT EXISTS idx_customer_contracts_status ON customer_service_contracts(status);
+CREATE INDEX IF NOT EXISTS idx_customer_contracts_guide ON customer_service_contracts(assigned_guide_id);
+CREATE INDEX IF NOT EXISTS idx_customer_contracts_date ON customer_service_contracts(arrival_date);
 
 -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 -- 4. 合规审查记录表
@@ -209,9 +209,9 @@ CREATE TABLE IF NOT EXISTS compliance_review_records (
 );
 
 -- 索引
-CREATE INDEX idx_compliance_review_quarter ON compliance_review_records(review_quarter);
-CREATE INDEX idx_compliance_review_status ON compliance_review_records(status);
-CREATE INDEX idx_compliance_review_due ON compliance_review_records(review_due_date);
+CREATE INDEX IF NOT EXISTS idx_compliance_review_quarter ON compliance_review_records(review_quarter);
+CREATE INDEX IF NOT EXISTS idx_compliance_review_status ON compliance_review_records(status);
+CREATE INDEX IF NOT EXISTS idx_compliance_review_due ON compliance_review_records(review_due_date);
 
 -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 -- 5. 自动更新时间戳触发器
@@ -225,29 +225,41 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+DROP TRIGGER IF EXISTS update_medical_contracts_updated_at ON medical_institution_contracts;
 CREATE TRIGGER update_medical_contracts_updated_at
   BEFORE UPDATE ON medical_institution_contracts
   FOR EACH ROW
   EXECUTE FUNCTION update_updated_at_column();
 
+DROP TRIGGER IF EXISTS update_guide_contracts_updated_at ON guide_commission_contracts;
 CREATE TRIGGER update_guide_contracts_updated_at
   BEFORE UPDATE ON guide_commission_contracts
   FOR EACH ROW
   EXECUTE FUNCTION update_updated_at_column();
 
+DROP TRIGGER IF EXISTS update_customer_contracts_updated_at ON customer_service_contracts;
 CREATE TRIGGER update_customer_contracts_updated_at
   BEFORE UPDATE ON customer_service_contracts
   FOR EACH ROW
   EXECUTE FUNCTION update_updated_at_column();
 
+DROP TRIGGER IF EXISTS update_compliance_review_updated_at ON compliance_review_records;
 CREATE TRIGGER update_compliance_review_updated_at
   BEFORE UPDATE ON compliance_review_records
   FOR EACH ROW
   EXECUTE FUNCTION update_updated_at_column();
 
 -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
--- 6. RLS 策略
+-- 6. RLS 策略（✅ 修正：使用 auth_user_id）
 -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+-- 先删除可能已存在的策略
+DROP POLICY IF EXISTS "Admin can manage medical contracts" ON medical_institution_contracts;
+DROP POLICY IF EXISTS "Guide can view own contract" ON guide_commission_contracts;
+DROP POLICY IF EXISTS "Admin can manage guide contracts" ON guide_commission_contracts;
+DROP POLICY IF EXISTS "Public can view own contract by ID" ON customer_service_contracts;
+DROP POLICY IF EXISTS "Admin can manage customer contracts" ON customer_service_contracts;
+DROP POLICY IF EXISTS "Admin can manage compliance reviews" ON compliance_review_records;
 
 ALTER TABLE medical_institution_contracts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE guide_commission_contracts ENABLE ROW LEVEL SECURITY;
@@ -261,12 +273,13 @@ CREATE POLICY "Admin can manage medical contracts"
   USING (auth.jwt() ->> 'role' = 'admin');
 
 -- 导游佣金协议：导游可查看自己的，管理员可查看所有
+-- ✅ 修正：使用 auth_user_id 而不是 user_id
 CREATE POLICY "Guide can view own contract"
   ON guide_commission_contracts
   FOR SELECT
   USING (
     guide_id IN (
-      SELECT id FROM guides WHERE user_id = auth.uid()
+      SELECT id FROM guides WHERE auth_user_id = auth.uid()
     )
     OR auth.jwt() ->> 'role' = 'admin'
   );
@@ -308,7 +321,8 @@ VALUES (
     {"task": "培训导游合规要求", "status": "pending", "completed_at": null, "description": "组织导游合规培训，强调禁止行为和合规话术"}
   ]'::jsonb,
   'pending'
-);
+)
+ON CONFLICT DO NOTHING;
 
 -- 注释
 COMMENT ON TABLE medical_institution_contracts IS '医疗机构合作协议表';
