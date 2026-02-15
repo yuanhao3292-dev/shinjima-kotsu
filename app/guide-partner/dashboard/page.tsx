@@ -68,6 +68,39 @@ export default function GuideDashboard() {
 
   useEffect(() => {
     loadDashboardData();
+
+    // 检测支付成功参数，轮询刷新直到状态更新
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('upgrade') === 'success') {
+      // 移除 URL 参数，避免刷新时重复检测
+      window.history.replaceState({}, '', '/guide-partner/dashboard');
+
+      // 每 2 秒刷新一次，最多 15 秒
+      let attempts = 0;
+      const maxAttempts = 8;
+      const pollInterval = setInterval(async () => {
+        attempts++;
+        await loadDashboardData();
+
+        // 检查是否已升级为金牌合伙人
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          const { data: guide } = await supabase
+            .from('guides')
+            .select('commission_tier_code')
+            .eq('auth_user_id', user.id)
+            .single();
+
+          if (guide?.commission_tier_code === 'gold' || attempts >= maxAttempts) {
+            clearInterval(pollInterval);
+            if (guide?.commission_tier_code === 'gold') {
+              // 显示成功消息
+              alert('🎉 恭喜！您已成功升级为金牌合夥人！');
+            }
+          }
+        }
+      }, 2000);
+    }
   }, []);
 
   const loadDashboardData = async () => {
