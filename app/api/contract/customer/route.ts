@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { getSupabaseAdmin } from '@/lib/supabase/api';
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,7 +14,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const supabase = await createClient();
+    // 使用 service role 绕过 RLS（客户签约无需登录）
+    const supabase = getSupabaseAdmin();
 
     // 获取现有合同
     const { data: contract, error: fetchError } = await supabase
@@ -100,7 +101,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const supabase = await createClient();
+    const supabase = getSupabaseAdmin();
 
     const { data: contract, error } = await supabase
       .from('customer_service_contracts')

@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { createClient } from '@/lib/supabase/server';
+import { getSupabaseAdmin } from '@/lib/supabase/api';
 import CustomerContractSigningPage from './CustomerContractSigningPage';
 
 interface ContractSignPageProps {
@@ -10,7 +10,8 @@ interface ContractSignPageProps {
 
 export default async function ContractSignPage({ params }: ContractSignPageProps) {
   const { id } = await params;
-  const supabase = await createClient();
+  // 使用 service role（客户无需登录即可查看签约页面）
+  const supabase = getSupabaseAdmin();
 
   // 获取合同信息
   const { data: contract, error } = await supabase
@@ -62,7 +63,7 @@ export default async function ContractSignPage({ params }: ContractSignPageProps
 
 export async function generateMetadata({ params }: ContractSignPageProps) {
   const { id } = await params;
-  const supabase = await createClient();
+  const supabase = getSupabaseAdmin();
 
   const { data: contract } = await supabase
     .from('customer_service_contracts')
