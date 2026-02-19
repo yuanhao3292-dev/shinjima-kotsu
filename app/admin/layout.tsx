@@ -20,6 +20,8 @@ import {
   Shield,
   Loader2,
   Puzzle,
+  FileText,
+  ClipboardCheck,
 } from 'lucide-react';
 
 const navItems = [
@@ -32,6 +34,8 @@ const navItems = [
   { icon: CalendarCheck, label: '預約管理', href: '/admin/bookings' },
   { icon: Puzzle, label: '頁面模塊', href: '/admin/page-modules' },
   { icon: Newspaper, label: '新聞管理', href: '/admin/news' },
+  { icon: FileText, label: '合同管理', href: '/admin/contracts' },
+  { icon: ClipboardCheck, label: '合規審查', href: '/admin/compliance' },
 ];
 
 export default function AdminLayout({
