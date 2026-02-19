@@ -216,6 +216,9 @@ export async function POST(request: NextRequest) {
             quantity: 1,
           },
         ],
+        payment_intent_data: {
+          setup_future_usage: 'off_session', // 保存支付方法供将来订阅使用
+        },
         success_url:
           successUrl ||
           `${process.env.NEXT_PUBLIC_BASE_URL || "https://niijima-koutsu.jp"}/guide-partner/dashboard?upgrade=success`,

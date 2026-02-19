@@ -495,8 +495,43 @@ async function handlePartnerEntryFeePaid(
     priceId = price.id;
   }
 
-  // 3. 立即创建月费订阅
+  // 3. 获取并附加支付方法
   const customerId = session.customer as string;
+
+  // 从 session 中获取 payment_intent 和 payment_method
+  const paymentIntentId = session.payment_intent as string;
+  if (paymentIntentId) {
+    try {
+      const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+      const paymentMethodId = paymentIntent.payment_method as string;
+
+      if (paymentMethodId) {
+        // 将支付方法附加到客户（如果尚未附加）
+        await stripe.paymentMethods.attach(paymentMethodId, {
+          customer: customerId,
+        }).catch((err) => {
+          // 如果已经附加，忽略错误
+          if (err.code !== 'resource_already_exists') {
+            throw err;
+          }
+        });
+
+        // 设置为默认支付方法
+        await stripe.customers.update(customerId, {
+          invoice_settings: {
+            default_payment_method: paymentMethodId,
+          },
+        });
+
+        console.log('✅ 支付方法已设置为默认:', paymentMethodId);
+      }
+    } catch (error) {
+      console.error('设置支付方法失败:', error);
+      // 继续执行，让订阅创建失败并抛出更明确的错误
+    }
+  }
+
+  // 4. 立即创建月费订阅
   const subscription = await stripe.subscriptions.create({
     customer: customerId,
     items: [{ price: priceId }],
@@ -507,7 +542,7 @@ async function handlePartnerEntryFeePaid(
     },
   });
 
-  // 4. 更新导游的订阅信息（同时更新 subscription_tier 和 commission_tier_code）
+  // 5. 更新导游的订阅信息（同时更新 subscription_tier 和 commission_tier_code）
   const { error: updateError } = await supabase
     .from('guides')
     .update({
