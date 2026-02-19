@@ -270,7 +270,7 @@ ALTER TABLE compliance_review_records ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Admin can manage medical contracts"
   ON medical_institution_contracts
   FOR ALL
-  USING (auth.jwt() ->> 'role' = 'admin');
+  USING (auth.jwt() -> 'app_metadata' ->> 'role' = 'admin');
 
 -- 导游佣金协议：导游可查看自己的，管理员可查看所有
 -- ✅ 修正：使用 auth_user_id 而不是 user_id
@@ -281,13 +281,13 @@ CREATE POLICY "Guide can view own contract"
     guide_id IN (
       SELECT id FROM guides WHERE auth_user_id = auth.uid()
     )
-    OR auth.jwt() ->> 'role' = 'admin'
+    OR auth.jwt() -> 'app_metadata' ->> 'role' = 'admin'
   );
 
 CREATE POLICY "Admin can manage guide contracts"
   ON guide_commission_contracts
   FOR ALL
-  USING (auth.jwt() ->> 'role' = 'admin');
+  USING (auth.jwt() -> 'app_metadata' ->> 'role' = 'admin');
 
 -- 客户服务合同：客户可查看自己的（通过UUID），管理员可查看所有
 CREATE POLICY "Public can view own contract by ID"
@@ -298,13 +298,13 @@ CREATE POLICY "Public can view own contract by ID"
 CREATE POLICY "Admin can manage customer contracts"
   ON customer_service_contracts
   FOR ALL
-  USING (auth.jwt() ->> 'role' = 'admin');
+  USING (auth.jwt() -> 'app_metadata' ->> 'role' = 'admin');
 
 -- 合规审查：仅管理员可访问
 CREATE POLICY "Admin can manage compliance reviews"
   ON compliance_review_records
   FOR ALL
-  USING (auth.jwt() ->> 'role' = 'admin');
+  USING (auth.jwt() -> 'app_metadata' ->> 'role' = 'admin');
 
 -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 -- 7. 初始化合规审查任务（每季度）
