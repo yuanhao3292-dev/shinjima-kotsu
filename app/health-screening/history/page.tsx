@@ -45,7 +45,7 @@ export default function ScreeningHistoryPage() {
 
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.error || '載入失敗');
+          throw new Error(errorData.error || '载入失败');
         }
 
         const data = await response.json();
@@ -70,19 +70,19 @@ export default function ScreeningHistoryPage() {
       color: 'text-green-600',
       bg: 'bg-green-50',
       icon: CheckCircle,
-      label: '低風險',
+      label: '低风险',
     },
     medium: {
       color: 'text-yellow-600',
       bg: 'bg-yellow-50',
       icon: AlertCircle,
-      label: '中等風險',
+      label: '中等风险',
     },
     high: {
       color: 'text-red-600',
       bg: 'bg-red-50',
       icon: AlertTriangle,
-      label: '高風險',
+      label: '高风险',
     },
   };
 
@@ -92,7 +92,7 @@ export default function ScreeningHistoryPage() {
       <div className="min-h-screen bg-[#faf9f7] flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-10 h-10 animate-spin text-blue-500 mx-auto mb-4" />
-          <p className="text-gray-500">載入歷史記錄...</p>
+          <p className="text-gray-500">载入历史记录...</p>
         </div>
       </div>
     );
@@ -108,7 +108,7 @@ export default function ScreeningHistoryPage() {
             className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
           >
             <ArrowLeft size={18} />
-            <span className="text-sm">返回我的帳戶</span>
+            <span className="text-sm">返回我的账户</span>
           </Link>
         </div>
       </div>
@@ -119,10 +119,10 @@ export default function ScreeningHistoryPage() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <h1 className="text-2xl md:text-3xl font-serif text-gray-900">
-                筛查歷史記錄
+                筛查历史记录
               </h1>
               <p className="text-gray-500 mt-1">
-                已使用 {totalUsed} 次 · 免費剩餘 {freeRemaining} 次
+                已使用 {totalUsed} 次 · 免费剩余 {freeRemaining} 次
               </p>
             </div>
 
@@ -156,17 +156,17 @@ export default function ScreeningHistoryPage() {
               <Clock className="w-8 h-8 text-gray-400" />
             </div>
             <h3 className="text-lg font-medium text-gray-900 mb-2">
-              還沒有筛查記錄
+              还没有筛查记录
             </h3>
             <p className="text-gray-500 mb-6">
-              開始您的第一次 AI 健康筛查，了解您的健康狀況
+              开始您的第一次 AI 健康筛查，了解您的健康状况
             </p>
             <Link
               href="/health-screening"
               className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
               <Plus className="w-5 h-5" />
-              開始免費筛查
+              开始免费筛查
             </Link>
           </div>
         )}
@@ -207,7 +207,7 @@ export default function ScreeningHistoryPage() {
                       <div>
                         <div className="flex items-center gap-2">
                           <h3 className="font-medium text-gray-900">
-                            {isCompleted ? '健康筛查報告' : '未完成的筛查'}
+                            {isCompleted ? '健康筛查报告' : '未完成的筛查'}
                           </h3>
                           {isCompleted && risk && (
                             <span
@@ -218,14 +218,14 @@ export default function ScreeningHistoryPage() {
                           )}
                           {!isCompleted && (
                             <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-50 text-yellow-600">
-                              進行中
+                              进行中
                             </span>
                           )}
                         </div>
                         <p className="text-sm text-gray-500 mt-1">
                           {isCompleted && screening.completedAt
-                            ? `完成於 ${formatDateTimeLong(screening.completedAt)}`
-                            : `開始於 ${formatDateTimeLong(screening.createdAt)}`}
+                            ? `完成于 ${formatDateTimeLong(screening.completedAt)}`
+                            : `开始于 ${formatDateTimeLong(screening.createdAt)}`}
                         </p>
                       </div>
                     </div>

@@ -1,20 +1,20 @@
 /**
- * DeepSeek API 服務
- * 用於 AI 健康篩查分析
+ * DeepSeek API 服务
+ * 用于 AI 健康筛查分析
  *
- * 此文件現在從模組化的 deepseek/ 目錄重新導出
- * 保持向後兼容性
+ * 此文件现在从模组化的 deepseek/ 目录重新导出
+ * 保持向后兼容性
  *
  * 安全特性：
- * - Prompt 注入防護（多語言：中/英/日）
- * - AI 故障降級策略（規則引擎）
- * - 輸出結構驗證
- * - 請求超時處理（30秒）
- * - 請求追蹤 ID
- * - 性能監控
+ * - Prompt 注入防护（多语言：中/英/日）
+ * - AI 故障降级策略（规则引擎）
+ * - 输出结构验證
+ * - 请求超时处理（30秒）
+ * - 请求追蹤 ID
+ * - 性能监控
  */
 
-// 重新導出所有類型
+// 重新导出所有类型
 export type {
   AnalysisResult,
   RecommendedHospital,
@@ -22,7 +22,7 @@ export type {
   ValidationResult,
 } from './deepseek/types';
 
-// 重新導出常量
+// 重新导出常量
 export {
   DEEPSEEK_API_URL,
   API_TIMEOUT_MS,
@@ -34,30 +34,30 @@ export {
   INJECTION_PATTERNS,
 } from './deepseek/constants';
 
-// 重新導出工具函數
+// 重新导出工具函数
 export {
   generateRequestId,
   sanitizeUserInput,
   validateAnswers,
 } from './deepseek/sanitize';
 
-// 重新導出降級分析
+// 重新导出降级分析
 export { generateFallbackAnalysis } from './deepseek/fallback';
 
-// 重新導出解析器
+// 重新导出解析器
 export {
   parseAnalysisResult,
   validateAnalysisResult,
 } from './deepseek/parser';
 
-// 重新導出主函數和哈希生成
+// 重新导出主函数和哈希生成
 export {
   analyzeHealthScreening,
   generateAnswersHash,
   buildAnalysisPrompt,
 } from './deepseek/index';
 
-// 重新導出性能監控
+// 重新导出性能监控
 export type { PerformanceMetrics } from './deepseek/performance';
 export {
   recordMetrics,

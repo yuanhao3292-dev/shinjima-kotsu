@@ -27,7 +27,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 
     if (authError || !user) {
       return NextResponse.json(
-        { error: '請先登入後再使用此功能' },
+        { error: '请先登入后再使用此功能' },
         { status: 401 }
       );
     }
@@ -42,10 +42,10 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 
     if (fetchError) {
       if (fetchError.code === 'PGRST116') {
-        return NextResponse.json({ error: '找不到該筛查記錄' }, { status: 404 });
+        return NextResponse.json({ error: '找不到该筛查记录' }, { status: 404 });
       }
       console.error('Error fetching screening:', fetchError);
-      return NextResponse.json({ error: '獲取筛查記錄失敗' }, { status: 500 });
+      return NextResponse.json({ error: '获取筛查记录失败' }, { status: 500 });
     }
 
     return NextResponse.json({
@@ -62,7 +62,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     });
   } catch (error: unknown) {
     console.error('Health screening GET [id] error:', error);
-    return NextResponse.json({ error: '系統錯誤，請稍後重試' }, { status: 500 });
+    return NextResponse.json({ error: '系统錯误，请稍后重試' }, { status: 500 });
   }
 }
 
@@ -80,7 +80,7 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
 
     if (authError || !user) {
       return NextResponse.json(
-        { error: '請先登入後再使用此功能' },
+        { error: '请先登入后再使用此功能' },
         { status: 401 }
       );
     }
@@ -90,7 +90,7 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
 
     if (!answers || !Array.isArray(answers)) {
       return NextResponse.json(
-        { error: '請提供有效的答案數據' },
+        { error: '请提供有效的答案数据' },
         { status: 400 }
       );
     }
@@ -104,12 +104,12 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
       .single();
 
     if (checkError || !existing) {
-      return NextResponse.json({ error: '找不到該筛查記錄' }, { status: 404 });
+      return NextResponse.json({ error: '找不到该筛查记录' }, { status: 404 });
     }
 
     if (existing.status === 'completed') {
       return NextResponse.json(
-        { error: '此筛查已完成，無法修改' },
+        { error: '此筛查已完成，无法修改' },
         { status: 400 }
       );
     }
@@ -132,7 +132,7 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
 
     if (updateError) {
       console.error('Error updating screening:', updateError);
-      return NextResponse.json({ error: '保存答案失敗' }, { status: 500 });
+      return NextResponse.json({ error: '保存答案失败' }, { status: 500 });
     }
 
     return NextResponse.json({
@@ -141,6 +141,6 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
     });
   } catch (error: unknown) {
     console.error('Health screening PATCH error:', error);
-    return NextResponse.json({ error: '系統錯誤，請稍後重試' }, { status: 500 });
+    return NextResponse.json({ error: '系统錯误，请稍后重試' }, { status: 500 });
   }
 }

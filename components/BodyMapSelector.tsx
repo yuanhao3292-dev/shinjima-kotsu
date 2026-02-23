@@ -767,7 +767,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
         <p className="text-gray-500 mt-2">
           {step === 'body-select' && '请点击人体图上您感到不适的部位（可多选）'}
           {step === 'symptom-select' && '请选择您正在经历的症状'}
-          {step === 'followup' && '请回答几个简单的追问，帮助我们更好地了解您的情況'}
+          {step === 'followup' && '请回答几个简单的追问，帮助我们更好地了解您的情况'}
           {step === 'summary' && '以下是您的问诊总结'}
         </p>
       </div>

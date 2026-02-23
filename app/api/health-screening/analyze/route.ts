@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
 
     if (authError || !user) {
       return NextResponse.json(
-        { error: '請先登入後再使用此功能' },
+        { error: '请先登入后再使用此功能' },
         { status: 401 }
       );
     }
@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (fetchError || !screening) {
-      return NextResponse.json({ error: '找不到該筛查記錄' }, { status: 404 });
+      return NextResponse.json({ error: '找不到该筛查记录' }, { status: 404 });
     }
 
     if (screening.status === 'completed') {
@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
     if (answers.length < requiredQuestionCount) {
       return NextResponse.json(
         {
-          error: `請完成所有問題後再提交分析（已回答 ${answers.length}/${requiredQuestionCount} 題）`,
+          error: `请完成所有问题后再提交分析（已回答 ${answers.length}/${requiredQuestionCount} 题）`,
         },
         { status: 400 }
       );
@@ -107,7 +107,7 @@ export async function POST(request: NextRequest) {
 
     if (usage && usage.free_remaining <= 0) {
       return NextResponse.json(
-        { error: '您的免費筛查次數已用完' },
+        { error: '您的免费筛查次数已用完' },
         { status: 403 }
       );
     }
@@ -155,7 +155,7 @@ export async function POST(request: NextRequest) {
 
     if (updateError) {
       console.warn('Screening update failed');
-      return NextResponse.json({ error: '保存分析結果失敗' }, { status: 500 });
+      return NextResponse.json({ error: '保存分析结果失败' }, { status: 500 });
     }
 
     // 更新用户的使用量
@@ -184,11 +184,11 @@ export async function POST(request: NextRequest) {
       phase,
       isCached: !!cachedResult?.analysis_result,
       isFallback: analysisResult.isFallback || false,
-      message: phase === 1 ? '快速篩查分析完成' : '完整分析完成',
+      message: phase === 1 ? '快速筛查分析完成' : '完整分析完成',
     });
   } catch (error: unknown) {
     // 安全日志：不记录详细错误信息
     console.warn('Health screening analysis request failed');
-    return NextResponse.json({ error: '系統錯誤，請稍後重試' }, { status: 500 });
+    return NextResponse.json({ error: '系统錯误，请稍后重試' }, { status: 500 });
   }
 }

@@ -46,7 +46,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
 
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.error || '載入失敗');
+          throw new Error(errorData.error || '载入失败');
         }
 
         const data = await response.json();
@@ -58,7 +58,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
         }
 
         if (!data.screening.analysisResult) {
-          throw new Error('分析結果不存在');
+          throw new Error('分析结果不存在');
         }
 
         setScreeningData(data.screening);
@@ -88,7 +88,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
       });
     } catch (err) {
       console.error('PDF download error:', err);
-      alert('PDF 下載失敗，請稍後重試');
+      alert('PDF 下载失败，请稍后重試');
     } finally {
       setIsDownloading(false);
     }
@@ -100,7 +100,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-10 h-10 animate-spin text-blue-500 mx-auto mb-4" />
-          <p className="text-gray-500">載入分析結果...</p>
+          <p className="text-gray-500">载入分析结果...</p>
         </div>
       </div>
     );
@@ -149,7 +149,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
             className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
           >
             <ArrowLeft size={18} />
-            <span className="text-sm">筛查歷史</span>
+            <span className="text-sm">筛查历史</span>
           </Link>
 
           {/* PDF 下载按钮 */}
@@ -166,7 +166,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
             ) : (
               <>
                 <Download className="w-4 h-4" />
-                下載 PDF 報告
+                下载 PDF 报告
               </>
             )}
           </button>
@@ -181,10 +181,10 @@ export default function ScreeningResultPage({ params }: PageProps) {
             分析完成
           </div>
           <h1 className="text-2xl md:text-3xl font-serif text-gray-900">
-            AI 健康評估報告
+            AI 健康评估报告
           </h1>
           <p className="text-gray-500 mt-2">
-            根據您的回答，AI 為您生成了以下健康分析報告
+            根据您的回答，AI 为您生成了以下健康分析报告
           </p>
         </div>
       </div>
@@ -203,9 +203,9 @@ export default function ScreeningResultPage({ params }: PageProps) {
         <div className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-center md:text-left">
-              <h3 className="font-bold text-gray-900 mb-1">保存您的健康報告</h3>
+              <h3 className="font-bold text-gray-900 mb-1">保存您的健康报告</h3>
               <p className="text-sm text-gray-500">
-                下載 PDF 格式的精美報告，方便保存和分享給醫生
+                下载 PDF 格式的精美报告，方便保存和分享给医生
               </p>
             </div>
             <button
@@ -221,7 +221,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
               ) : (
                 <>
                   <Download className="w-5 h-5" />
-                  下載 PDF 報告
+                  下载 PDF 报告
                 </>
               )}
             </button>

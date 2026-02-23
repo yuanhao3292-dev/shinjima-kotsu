@@ -121,7 +121,7 @@ export async function POST(request: NextRequest) {
 
     if (authError || !user) {
       return NextResponse.json(
-        { error: '請先登入後再使用此功能' },
+        { error: '请先登入后再使用此功能' },
         { status: 401 }
       );
     }
@@ -139,7 +139,7 @@ export async function POST(request: NextRequest) {
     if (usageInfo.freeRemaining <= 0) {
       return NextResponse.json(
         {
-          error: '本週免費筛查次數已用完，下週一將自動重置',
+          error: '本周免费筛查次数已用完，下周一将自动重置',
           freeRemaining: 0,
         },
         { status: 403 }
@@ -160,17 +160,17 @@ export async function POST(request: NextRequest) {
 
     if (createError) {
       console.error('Error creating screening:', createError);
-      return NextResponse.json({ error: '創建筛查記錄失敗' }, { status: 500 });
+      return NextResponse.json({ error: '创建筛查记录失败' }, { status: 500 });
     }
 
     return NextResponse.json({
       screeningId: screening.id,
       freeRemaining: usageInfo.freeRemaining,
-      message: '筛查記錄已創建',
+      message: '筛查记录已创建',
     });
   } catch (error: unknown) {
     console.error('Health screening POST error:', error);
-    return NextResponse.json({ error: '系統錯誤，請稍後重試' }, { status: 500 });
+    return NextResponse.json({ error: '系统錯误，请稍后重試' }, { status: 500 });
   }
 }
 
@@ -187,7 +187,7 @@ export async function GET(request: NextRequest) {
 
     if (authError || !user) {
       return NextResponse.json(
-        { error: '請先登入後再使用此功能' },
+        { error: '请先登入后再使用此功能' },
         { status: 401 }
       );
     }
@@ -215,7 +215,7 @@ export async function GET(request: NextRequest) {
     if (screeningsError) {
       console.error('Error fetching screenings:', screeningsError);
       return NextResponse.json(
-        { error: '獲取筛查歷史失敗' },
+        { error: '获取筛查历史失败' },
         { status: 500 }
       );
     }
@@ -237,6 +237,6 @@ export async function GET(request: NextRequest) {
     });
   } catch (error: unknown) {
     console.error('Health screening GET error:', error);
-    return NextResponse.json({ error: '系統錯誤，請稍後重試' }, { status: 500 });
+    return NextResponse.json({ error: '系统錯误，请稍后重試' }, { status: 500 });
   }
 }

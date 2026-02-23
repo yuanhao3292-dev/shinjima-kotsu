@@ -57,7 +57,7 @@ export default function ScreeningResult({
       border: 'border-green-200',
       icon: CheckCircle,
       label: '低风险',
-      description: '您的健康状況良好，建议定期进行健康检查。',
+      description: '您的健康状况良好，建议定期进行健康检查。',
     },
     medium: {
       color: 'text-yellow-600',
@@ -73,7 +73,7 @@ export default function ScreeningResult({
       border: 'border-red-200',
       icon: AlertTriangle,
       label: '高风险',
-      description: '强烈建议您尽快进行专业医疗检查，及时发現潜在问题。',
+      description: '强烈建议您尽快进行专业医疗检查，及时发现潜在问题。',
     },
   };
 
@@ -341,9 +341,9 @@ export default function ScreeningResult({
               <li>本 AI 健康评估系统仅供健康参考，不构成任何形式的医学诊断、治疗建议或处方。</li>
               <li>AI 分析结果不能替代专业医疗人员的诊查、诊断和治疗建议。</li>
               <li>如您被评估为中度或高度健康风险，请尽速咨询专业医疗机构。</li>
-              <li>任何健康決策请务必咨询持有执照的医疗专业人员。</li>
-              <li>新岛交通株式会社对因使用本系统所做決策产生的任何后果不承担法律责任。</li>
-              <li>紧急情況请立即拨打急救电话或前往最近医疗机构。</li>
+              <li>任何健康决策请务必咨询持有执照的医疗专业人员。</li>
+              <li>新岛交通株式会社对因使用本系统所做决策产生的任何后果不承担法律责任。</li>
+              <li>紧急情况请立即拨打急救电话或前往最近医疗机构。</li>
             </ul>
             <p className="text-amber-600 text-xs mt-3">© 新岛交通株式会社 | 日本精密健检服务</p>
           </div>

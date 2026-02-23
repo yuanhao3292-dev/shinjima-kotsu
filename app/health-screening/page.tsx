@@ -53,7 +53,7 @@ export default function HealthScreeningPage() {
 
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.error || '載入失敗');
+          throw new Error(errorData.error || '载入失败');
         }
 
         const result = await response.json();
@@ -117,7 +117,7 @@ export default function HealthScreeningPage() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || '創建筛查失敗');
+        throw new Error(errorData.error || '创建筛查失败');
       }
 
       const result = await response.json();
@@ -152,7 +152,7 @@ export default function HealthScreeningPage() {
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-10 h-10 animate-spin text-blue-500 mx-auto mb-4" />
-          <p className="text-gray-500">載入中...</p>
+          <p className="text-gray-500">载入中...</p>
         </div>
       </div>
     );
@@ -173,7 +173,7 @@ export default function HealthScreeningPage() {
               className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
             >
               <ArrowLeft size={18} />
-              <span className="text-sm">返回症狀選擇</span>
+              <span className="text-sm">返回症状选择</span>
             </button>
           </div>
         </div>
@@ -183,13 +183,13 @@ export default function HealthScreeningPage() {
           <div className="max-w-4xl mx-auto px-4 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm mb-4">
               <Shield className="w-4 h-4" />
-              <span>本週免費筛查剩餘 {data.freeRemaining} 次</span>
+              <span>本周免费筛查剩余 {data.freeRemaining} 次</span>
             </div>
             <h1 className="text-2xl md:text-3xl font-serif text-gray-900">
-              AI 智能健康問診
+              AI 智能健康问诊
             </h1>
             <p className="text-gray-500 mt-2">
-              根據您選擇的症狀，AI 為您定制專屬問診流程
+              根据您选择的症状，AI 为您定制专属问诊流程
             </p>
           </div>
         </div>
@@ -218,7 +218,7 @@ export default function HealthScreeningPage() {
               className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
             >
               <ArrowLeft size={18} />
-              <span className="text-sm">返回我的帳戶</span>
+              <span className="text-sm">返回我的账户</span>
             </Link>
           </div>
         </div>
@@ -228,13 +228,13 @@ export default function HealthScreeningPage() {
           <div className="max-w-4xl mx-auto px-4 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm mb-4">
               <Activity className="w-4 h-4" />
-              <span>第一步：選擇不適部位</span>
+              <span>第一步：选择不适部位</span>
             </div>
             <h1 className="text-2xl md:text-3xl font-serif text-gray-900">
-              點擊人體圖選擇症狀部位
+              点击人体图选择症状部位
             </h1>
             <p className="text-gray-500 mt-2">
-              這將幫助 AI 更精準地為您定制問診流程
+              这将帮助 AI 更精准地为您定制问诊流程
             </p>
           </div>
         </div>
@@ -261,7 +261,7 @@ export default function HealthScreeningPage() {
             className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
           >
             <ArrowLeft size={18} />
-            <span className="text-sm">返回我的帳戶</span>
+            <span className="text-sm">返回我的账户</span>
           </Link>
         </div>
       </div>
@@ -278,15 +278,15 @@ export default function HealthScreeningPage() {
           </h1>
 
           <p className="text-gray-500 text-lg mb-8 leading-relaxed">
-            全新升級！通過人體圖交互選擇不適部位，AI
-            根據您的症狀智能推薦檢查科室，並生成專業健康評估報告
+            全新升级！通过人体图交互选择不适部位，AI
+            根据您的症状智能推荐检查科室，并生成专业健康评估报告
           </p>
 
           {/* 免费次数提示 */}
           <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-green-100 text-green-700 rounded-full text-sm mb-8 shadow-sm">
             <Sparkles className="w-4 h-4" />
             <span>
-              本週免費筛查剩餘 {data?.freeRemaining ?? FREE_SCREENING_LIMIT} 次
+              本周免费筛查剩余 {data?.freeRemaining ?? FREE_SCREENING_LIMIT} 次
             </span>
           </div>
 
@@ -308,23 +308,23 @@ export default function HealthScreeningPage() {
               {isCreating ? (
                 <span className="flex items-center gap-2">
                   <Loader2 className="w-5 h-5 animate-spin" />
-                  正在創建...
+                  正在创建...
                 </span>
               ) : (
                 <span className="flex items-center gap-2">
                   <Activity className="w-5 h-5" />
-                  開始智能筛查
+                  开始智能筛查
                 </span>
               )}
             </button>
           ) : (
             <div className="text-center">
-              <p className="text-gray-500 mb-4">本週免費筛查次數已用完，下週一將自動重置</p>
+              <p className="text-gray-500 mb-4">本周免费筛查次数已用完，下周一将自动重置</p>
               <Link
                 href="/health-screening/history"
                 className="text-blue-600 hover:underline"
               >
-                查看歷史記錄
+                查看历史记录
               </Link>
             </div>
           )}
@@ -335,7 +335,7 @@ export default function HealthScreeningPage() {
               href="/health-screening/history"
               className="text-sm text-gray-500 hover:text-blue-600 transition-colors"
             >
-              查看歷史記錄 →
+              查看历史记录 →
             </Link>
           </div>
         </div>
@@ -346,7 +346,7 @@ export default function HealthScreeningPage() {
         <div className="text-center mb-10">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
             <Sparkles className="w-4 h-4" />
-            全新升級功能
+            全新升级功能
           </span>
         </div>
 
@@ -355,9 +355,9 @@ export default function HealthScreeningPage() {
             <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
               <Activity className="w-6 h-6 text-blue-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">人體圖交互</h3>
+            <h3 className="font-bold text-gray-900 mb-2">人体图交互</h3>
             <p className="text-gray-500 text-sm">
-              直觀點擊選擇不適部位，無需文字描述
+              直观点击选择不适部位，无需文字描述
             </p>
           </div>
 
@@ -365,9 +365,9 @@ export default function HealthScreeningPage() {
             <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
               <Users className="w-6 h-6 text-green-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">智能科室推薦</h3>
+            <h3 className="font-bold text-gray-900 mb-2">智能科室推荐</h3>
             <p className="text-gray-500 text-sm">
-              AI 自動關聯症狀對應的醫療科室
+              AI 自动关聯症状对應的医疗科室
             </p>
           </div>
 
@@ -375,9 +375,9 @@ export default function HealthScreeningPage() {
             <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
               <Sparkles className="w-6 h-6 text-purple-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">動態問診</h3>
+            <h3 className="font-bold text-gray-900 mb-2">动态问诊</h3>
             <p className="text-gray-500 text-sm">
-              根據症狀智能調整問診問題
+              根据症状智能调整问诊问题
             </p>
           </div>
 
@@ -385,9 +385,9 @@ export default function HealthScreeningPage() {
             <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
               <FileText className="w-6 h-6 text-orange-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">PDF 報告</h3>
+            <h3 className="font-bold text-gray-900 mb-2">PDF 报告</h3>
             <p className="text-gray-500 text-sm">
-              生成精美健康評估報告可下載
+              生成精美健康评估报告可下载
             </p>
           </div>
         </div>
@@ -400,9 +400,9 @@ export default function HealthScreeningPage() {
             <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
               <Shield className="w-6 h-6 text-blue-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">隱私保護</h3>
+            <h3 className="font-bold text-gray-900 mb-2">隐私保护</h3>
             <p className="text-gray-500 text-sm">
-              您的健康數據安全加密存儲，僅供您個人查看
+              您的健康数据安全加密存储，仅供您个人查看
             </p>
           </div>
 
@@ -412,7 +412,7 @@ export default function HealthScreeningPage() {
             </div>
             <h3 className="font-bold text-gray-900 mb-2">AI 智能分析</h3>
             <p className="text-gray-500 text-sm">
-              基於先進 AI 模型，為您提供專業的健康評估
+              基于先进 AI 模型，为您提供专业的健康评估
             </p>
           </div>
 
@@ -420,9 +420,9 @@ export default function HealthScreeningPage() {
             <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
               <Heart className="w-6 h-6 text-green-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">日本醫療推薦</h3>
+            <h3 className="font-bold text-gray-900 mb-2">日本医疗推荐</h3>
             <p className="text-gray-500 text-sm">
-              根據您的情況推薦日本頂尖醫療機構
+              根据您的情况推荐日本顶尖医疗机构
             </p>
           </div>
         </div>
