@@ -431,7 +431,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                 <span className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
                   {part.name.charAt(0)}
                 </span>
-                {part.name}症狀
+                {part.name}症状
               </h3>
               <div className="grid grid-cols-2 gap-2">
                 {symptoms.map((symptom) => {
@@ -471,7 +471,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
             <span className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center text-purple-600">
               全
             </span>
-            全身症狀
+            全身症状
           </h3>
           <div className="grid grid-cols-2 gap-2">
             {GENERAL_SYMPTOMS.map((symptom) => {
@@ -521,10 +521,10 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
         {/* 进度 */}
         <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
           <span>
-            症狀 {currentSymptomIndex + 1} / {selectedSymptoms.length}
+            症状 {currentSymptomIndex + 1} / {selectedSymptoms.length}
           </span>
           <span>
-            問題 {currentFollowUpIndex + 1} / {followUpQuestions.length}
+            问题 {currentFollowUpIndex + 1} / {followUpQuestions.length}
           </span>
         </div>
 
@@ -605,7 +605,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
             onClick={skipFollowUp}
             className="px-4 py-2 text-gray-500 hover:text-gray-700"
           >
-            我不確定
+            我不确定
           </button>
           <button
             onClick={saveFollowUpAndNext}
@@ -629,9 +629,9 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
     const riskLevel = calculateRiskLevel();
 
     const riskConfig = {
-      low: { color: 'text-green-600', bg: 'bg-green-100', label: '低風險' },
-      medium: { color: 'text-yellow-600', bg: 'bg-yellow-100', label: '中風險' },
-      high: { color: 'text-red-600', bg: 'bg-red-100', label: '高風險' },
+      low: { color: 'text-green-600', bg: 'bg-green-100', label: '低风险' },
+      medium: { color: 'text-yellow-600', bg: 'bg-yellow-100', label: '中风险' },
+      high: { color: 'text-red-600', bg: 'bg-red-100', label: '高风险' },
     };
 
     return (
@@ -645,13 +645,13 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
             <Info className={`w-5 h-5 ${riskConfig[riskLevel].color}`} />
           </div>
           <p className="text-sm text-gray-600 mt-2">
-            基於您選擇的症狀，系統初步評估您的健康風險等級
+            基于您选择的症状，系统初步评估您的健康风险等级
           </p>
         </div>
 
         {/* 选中的部位 */}
         <div className="bg-white rounded-xl p-4 shadow-sm">
-          <h3 className="font-bold text-gray-900 mb-3">已選擇的部位</h3>
+          <h3 className="font-bold text-gray-900 mb-3">已选择的部位</h3>
           <div className="flex flex-wrap gap-2">
             {selectedBodyParts.map((partId) => {
               const part = BODY_PARTS.find((p) => p.id === partId);
@@ -670,7 +670,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
         {/* 选中的症状 */}
         {selectedSymptoms.length > 0 && (
           <div className="bg-white rounded-xl p-4 shadow-sm">
-            <h3 className="font-bold text-gray-900 mb-3">已選擇的症狀</h3>
+            <h3 className="font-bold text-gray-900 mb-3">已选择的症状</h3>
             <div className="space-y-2">
               {selectedSymptoms.map((symptom) => (
                 <div
@@ -698,7 +698,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
         {/* 推荐科室 */}
         {departments.length > 0 && (
           <div className="bg-white rounded-xl p-4 shadow-sm">
-            <h3 className="font-bold text-gray-900 mb-3">推薦就診科室</h3>
+            <h3 className="font-bold text-gray-900 mb-3">推荐就诊科室</h3>
             <div className="grid grid-cols-2 gap-2">
               {departments.map((dept) => (
                 <div
@@ -719,7 +719,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
         {/* 提示 */}
         <div className="bg-blue-50 rounded-xl p-4">
           <p className="text-sm text-blue-700">
-            接下來，AI 將根據您的選擇進行更詳細的健康問診，並為您生成專業的健康評估報告。
+            接下来，AI 将根据您的选择进行更详细的健康问诊，并为您生成专业的健康评估报告。
           </p>
         </div>
       </div>
@@ -759,16 +759,16 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
       {/* 标题 */}
       <div className="text-center mb-8">
         <h2 className="text-2xl font-bold text-gray-900">
-          {step === 'body-select' && '選擇不適部位'}
-          {step === 'symptom-select' && '選擇具體症狀'}
-          {step === 'followup' && '詳細問診'}
-          {step === 'summary' && '問診總結'}
+          {step === 'body-select' && '选择不适部位'}
+          {step === 'symptom-select' && '选择具体症状'}
+          {step === 'followup' && '详细问诊'}
+          {step === 'summary' && '问诊总结'}
         </h2>
         <p className="text-gray-500 mt-2">
-          {step === 'body-select' && '請點擊人體圖上您感到不適的部位（可多選）'}
-          {step === 'symptom-select' && '請選擇您正在經歷的症狀'}
-          {step === 'followup' && '請回答幾個簡單的追問，幫助我們更好地了解您的情況'}
-          {step === 'summary' && '以下是您的問診總結'}
+          {step === 'body-select' && '请点击人体图上您感到不适的部位（可多选）'}
+          {step === 'symptom-select' && '请选择您正在经历的症状'}
+          {step === 'followup' && '请回答几个简单的追问，帮助我们更好地了解您的情況'}
+          {step === 'summary' && '以下是您的问诊总结'}
         </p>
       </div>
 
@@ -783,7 +783,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
       {/* 已选部位显示 (body-select 步骤) */}
       {step === 'body-select' && selectedBodyParts.length > 0 && (
         <div className="bg-white rounded-xl p-4 shadow-sm mb-6">
-          <h4 className="text-sm font-medium text-gray-700 mb-2">已選擇的部位：</h4>
+          <h4 className="text-sm font-medium text-gray-700 mb-2">已选择的部位：</h4>
           <div className="flex flex-wrap gap-2">
             {selectedBodyParts.map((partId) => {
               const part = BODY_PARTS.find((p) => p.id === partId);
@@ -831,7 +831,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
             disabled={selectedBodyParts.length === 0}
             className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
-            下一步：選擇症狀
+            下一步：选择症状
             <ChevronRight className="w-5 h-5" />
           </button>
         )}
@@ -841,7 +841,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
             onClick={proceedToFollowUp}
             className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"
           >
-            {selectedSymptoms.length > 0 ? '下一步：詳細問診' : '跳過症狀選擇'}
+            {selectedSymptoms.length > 0 ? '下一步：详细问诊' : '跳过症状选择'}
             <ChevronRight className="w-5 h-5" />
           </button>
         )}
@@ -851,7 +851,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
             onClick={handleComplete}
             className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"
           >
-            開始 AI 健康分析
+            开始 AI 健康分析
             <ChevronRight className="w-5 h-5" />
           </button>
         )}

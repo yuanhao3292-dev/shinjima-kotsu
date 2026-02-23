@@ -53,21 +53,21 @@ export interface FollowUpQuestion {
 export const BODY_PARTS: BodyPart[] = [
   {
     id: 'head',
-    name: '頭部',
+    name: '头部',
     nameEn: 'Head',
     path: 'M150,20 C180,20 200,45 200,80 C200,115 180,140 150,140 C120,140 100,115 100,80 C100,45 120,20 150,20',
     departments: ['neurology', 'ophthalmology', 'ent'],
     symptomQuestionIds: [12],
-    commonSymptoms: ['頭痛', '頭暈', '視力變化', '記憶力下降', '耳鳴'],
+    commonSymptoms: ['头痛', '头暈', '视力变化', '記忆力下降', '耳鸣'],
   },
   {
     id: 'neck',
-    name: '頸部',
+    name: '颈部',
     nameEn: 'Neck',
     path: 'M130,140 L170,140 L175,180 L125,180 Z',
     departments: ['ent', 'endocrine'],
     symptomQuestionIds: [],
-    commonSymptoms: ['頸部腫塊', '吞嚥困難', '甲狀腺腫大'],
+    commonSymptoms: ['颈部肿塊', '吞咽困难', '甲状腺肿大'],
   },
   {
     id: 'chest',
@@ -76,7 +76,7 @@ export const BODY_PARTS: BodyPart[] = [
     path: 'M90,180 L210,180 L220,300 L80,300 Z',
     departments: ['cardiology', 'pulmonology'],
     symptomQuestionIds: [11],
-    commonSymptoms: ['胸悶', '心悸', '呼吸困難', '長期咳嗽'],
+    commonSymptoms: ['胸闷', '心悸', '呼吸困难', '长期咳嗽'],
   },
   {
     id: 'abdomen',
@@ -85,7 +85,7 @@ export const BODY_PARTS: BodyPart[] = [
     path: 'M80,300 L220,300 L225,420 L75,420 Z',
     departments: ['gastroenterology', 'hepatology'],
     symptomQuestionIds: [10],
-    commonSymptoms: ['胃痛', '胃脹', '反酸', '便秘', '腹瀉', '便血'],
+    commonSymptoms: ['胃痛', '胃胀', '反酸', '便秘', '腹泻', '便血'],
   },
   {
     id: 'pelvis',
@@ -94,7 +94,7 @@ export const BODY_PARTS: BodyPart[] = [
     path: 'M75,420 L225,420 L230,480 L70,480 Z',
     departments: ['urology', 'gynecology'],
     symptomQuestionIds: [13],
-    commonSymptoms: ['頻尿', '尿痛', '血尿', '下腹痛'],
+    commonSymptoms: ['频尿', '尿痛', '血尿', '下腹痛'],
   },
   {
     id: 'left-arm',
@@ -103,7 +103,7 @@ export const BODY_PARTS: BodyPart[] = [
     path: 'M50,180 L90,180 L85,200 L70,350 L40,350 L55,200 Z',
     departments: ['orthopedics', 'dermatology'],
     symptomQuestionIds: [],
-    commonSymptoms: ['手臂疼痛', '麻木', '無力'],
+    commonSymptoms: ['手臂疼痛', '麻木', '无力'],
   },
   {
     id: 'right-arm',
@@ -112,7 +112,7 @@ export const BODY_PARTS: BodyPart[] = [
     path: 'M210,180 L250,180 L245,200 L260,350 L230,350 L215,200 Z',
     departments: ['orthopedics', 'dermatology'],
     symptomQuestionIds: [],
-    commonSymptoms: ['手臂疼痛', '麻木', '無力'],
+    commonSymptoms: ['手臂疼痛', '麻木', '无力'],
   },
   {
     id: 'left-leg',
@@ -121,7 +121,7 @@ export const BODY_PARTS: BodyPart[] = [
     path: 'M70,480 L140,480 L135,700 L65,700 Z',
     departments: ['orthopedics', 'vascular'],
     symptomQuestionIds: [],
-    commonSymptoms: ['腿痛', '腫脹', '靜脈曲張', '行走困難'],
+    commonSymptoms: ['腿痛', '肿胀', '静脉曲張', '行走困难'],
   },
   {
     id: 'right-leg',
@@ -130,7 +130,7 @@ export const BODY_PARTS: BodyPart[] = [
     path: 'M160,480 L230,480 L235,700 L165,700 Z',
     departments: ['orthopedics', 'vascular'],
     symptomQuestionIds: [],
-    commonSymptoms: ['腿痛', '腫脹', '靜脈曲張', '行走困難'],
+    commonSymptoms: ['腿痛', '肿胀', '静脉曲張', '行走困难'],
   },
   {
     id: 'back',
@@ -139,7 +139,7 @@ export const BODY_PARTS: BodyPart[] = [
     path: '', // 背面图单独处理
     departments: ['orthopedics', 'neurology'],
     symptomQuestionIds: [],
-    commonSymptoms: ['腰痛', '背痛', '脊椎問題'],
+    commonSymptoms: ['腰痛', '背痛', '脊椎问题'],
   },
 ];
 
@@ -147,20 +147,20 @@ export const BODY_PARTS: BodyPart[] = [
 export const MEDICAL_DEPARTMENTS: MedicalDepartment[] = [
   {
     id: 'neurology',
-    name: '神經內科',
+    name: '神经內科',
     nameEn: 'Neurology',
     icon: '🧠',
-    description: '腦部、神經系統相關疾病',
-    recommendedTests: ['腦部 MRI', '腦部 MRA', '腦電圖 EEG'],
+    description: '脑部、神经系统相关疾病',
+    recommendedTests: ['脑部 MRI', '脑部 MRA', '脑电图 EEG'],
     bodyParts: ['head'],
   },
   {
     id: 'cardiology',
-    name: '心臟內科',
+    name: '心脏內科',
     nameEn: 'Cardiology',
     icon: '❤️',
-    description: '心臟、血管循環系統',
-    recommendedTests: ['心臟超音波', '心電圖', '冠脈鈣化 CT', '心臟 MRI'],
+    description: '心脏、血管循环系统',
+    recommendedTests: ['心脏超音波', '心电图', '冠脉钙化 CT', '心脏 MRI'],
     bodyParts: ['chest'],
   },
   {
@@ -169,7 +169,7 @@ export const MEDICAL_DEPARTMENTS: MedicalDepartment[] = [
     nameEn: 'Pulmonology',
     icon: '🫁',
     description: '肺部、呼吸道疾病',
-    recommendedTests: ['胸部 CT', '肺功能檢查', '支氣管鏡'],
+    recommendedTests: ['胸部 CT', '肺功能检查', '支气管镜'],
     bodyParts: ['chest'],
   },
   {
@@ -177,17 +177,17 @@ export const MEDICAL_DEPARTMENTS: MedicalDepartment[] = [
     name: '消化內科',
     nameEn: 'Gastroenterology',
     icon: '🍽️',
-    description: '胃腸道消化系統',
-    recommendedTests: ['胃鏡', '大腸鏡', '腹部超音波', '幽門螺旋桿菌檢測'],
+    description: '胃肠道消化系统',
+    recommendedTests: ['胃镜', '大肠镜', '腹部超音波', '幽门螺旋杆菌检测'],
     bodyParts: ['abdomen'],
   },
   {
     id: 'hepatology',
-    name: '肝膽科',
+    name: '肝胆科',
     nameEn: 'Hepatology',
     icon: '🫀',
-    description: '肝臟、膽囊、胰臟',
-    recommendedTests: ['腹部超音波', '肝功能檢查', 'B/C 型肝炎篩查', 'MRI'],
+    description: '肝脏、胆囊、胰脏',
+    recommendedTests: ['腹部超音波', '肝功能检查', 'B/C 型肝炎筛查', 'MRI'],
     bodyParts: ['abdomen'],
   },
   {
@@ -195,8 +195,8 @@ export const MEDICAL_DEPARTMENTS: MedicalDepartment[] = [
     name: '泌尿科',
     nameEn: 'Urology',
     icon: '💧',
-    description: '泌尿系統、腎臟',
-    recommendedTests: ['尿液分析', '腎臟超音波', 'PSA 檢測', '膀胱鏡'],
+    description: '泌尿系统、肾脏',
+    recommendedTests: ['尿液分析', '肾脏超音波', 'PSA 检测', '膀胱镜'],
     bodyParts: ['pelvis'],
   },
   {
@@ -204,8 +204,8 @@ export const MEDICAL_DEPARTMENTS: MedicalDepartment[] = [
     name: '婦科',
     nameEn: 'Gynecology',
     icon: '🌸',
-    description: '女性生殖系統',
-    recommendedTests: ['子宮頸抹片', '婦科超音波', '乳房超音波', 'HPV 檢測'],
+    description: '女性生殖系统',
+    recommendedTests: ['子宮颈抹片', '婦科超音波', '乳房超音波', 'HPV 检测'],
     bodyParts: ['pelvis', 'chest'],
   },
   {
@@ -213,8 +213,8 @@ export const MEDICAL_DEPARTMENTS: MedicalDepartment[] = [
     name: '骨科',
     nameEn: 'Orthopedics',
     icon: '🦴',
-    description: '骨骼、關節、肌肉',
-    recommendedTests: ['X 光檢查', '骨密度檢測', 'MRI', '關節超音波'],
+    description: '骨骼、关节、肌肉',
+    recommendedTests: ['X 光检查', '骨密度检测', 'MRI', '关节超音波'],
     bodyParts: ['back', 'left-arm', 'right-arm', 'left-leg', 'right-leg'],
   },
   {
@@ -222,8 +222,8 @@ export const MEDICAL_DEPARTMENTS: MedicalDepartment[] = [
     name: '內分泌科',
     nameEn: 'Endocrinology',
     icon: '⚗️',
-    description: '荷爾蒙、甲狀腺、糖尿病',
-    recommendedTests: ['甲狀腺超音波', '甲狀腺功能檢查', '血糖檢測', 'HbA1c'],
+    description: '荷尔蒙、甲状腺、糖尿病',
+    recommendedTests: ['甲状腺超音波', '甲状腺功能检查', '血糖检测', 'HbA1c'],
     bodyParts: ['neck'],
   },
   {
@@ -231,8 +231,8 @@ export const MEDICAL_DEPARTMENTS: MedicalDepartment[] = [
     name: '眼科',
     nameEn: 'Ophthalmology',
     icon: '👁️',
-    description: '眼睛視力相關',
-    recommendedTests: ['視力檢查', '眼壓檢測', '眼底攝影', 'OCT 檢查'],
+    description: '眼睛视力相关',
+    recommendedTests: ['视力检查', '眼压检测', '眼底摄影', 'OCT 检查'],
     bodyParts: ['head'],
   },
   {
@@ -240,17 +240,17 @@ export const MEDICAL_DEPARTMENTS: MedicalDepartment[] = [
     name: '耳鼻喉科',
     nameEn: 'ENT',
     icon: '👂',
-    description: '耳朵、鼻子、喉嚨',
-    recommendedTests: ['聽力檢查', '鼻內視鏡', '喉部內視鏡'],
+    description: '耳朵、鼻子、喉咙',
+    recommendedTests: ['听力检查', '鼻內视镜', '喉部內视镜'],
     bodyParts: ['head', 'neck'],
   },
   {
     id: 'dermatology',
-    name: '皮膚科',
+    name: '皮肤科',
     nameEn: 'Dermatology',
     icon: '🧴',
-    description: '皮膚、毛髮、指甲',
-    recommendedTests: ['皮膚鏡檢查', '皮膚切片', '過敏原檢測'],
+    description: '皮肤、毛发、指甲',
+    recommendedTests: ['皮肤镜检查', '皮肤切片', '过敏原检测'],
     bodyParts: ['left-arm', 'right-arm'],
   },
   {
@@ -258,8 +258,8 @@ export const MEDICAL_DEPARTMENTS: MedicalDepartment[] = [
     name: '血管外科',
     nameEn: 'Vascular Surgery',
     icon: '🩸',
-    description: '動靜脈血管疾病',
-    recommendedTests: ['下肢血管超音波', 'ABI/CAVI 檢測', '血管攝影'],
+    description: '动静脉血管疾病',
+    recommendedTests: ['下肢血管超音波', 'ABI/CAVI 检测', '血管摄影'],
     bodyParts: ['left-leg', 'right-leg'],
   },
   {
@@ -267,8 +267,8 @@ export const MEDICAL_DEPARTMENTS: MedicalDepartment[] = [
     name: '身心科',
     nameEn: 'Psychiatry',
     icon: '🧘',
-    description: '心理健康、壓力、睡眠',
-    recommendedTests: ['心理評估', '睡眠檢測', '壓力指數評估'],
+    description: '心理健康、压力、睡眠',
+    recommendedTests: ['心理评估', '睡眠检测', '压力指数评估'],
     bodyParts: ['head'],
   },
 ];
@@ -279,28 +279,28 @@ export const BODY_PART_SYMPTOMS: Record<string, Symptom[]> = {
     {
       id: 'headache',
       bodyPartId: 'head',
-      name: '經常頭痛',
+      name: '经常头痛',
       severity: 'medium',
       followUpQuestions: [
         {
           id: 'headache-type',
-          question: '您的頭痛類型？',
+          question: '您的头痛类型？',
           type: 'single',
           options: [
-            { value: 'tension', label: '緊繃型（兩側壓迫感）' },
-            { value: 'migraine', label: '偏頭痛（單側搏動性）' },
-            { value: 'cluster', label: '叢發性（眼眶周圍劇痛）' },
-            { value: 'other', label: '其他類型' },
+            { value: 'tension', label: '紧繃型（两侧压迫感）' },
+            { value: 'migraine', label: '偏头痛（单侧搏动性）' },
+            { value: 'cluster', label: '丛发性（眼眶周围剧痛）' },
+            { value: 'other', label: '其他类型' },
           ],
         },
         {
           id: 'headache-freq',
-          question: '頭痛發作頻率？',
+          question: '头痛发作频率？',
           type: 'single',
           options: [
-            { value: 'rare', label: '偶爾（每月1-2次）' },
-            { value: 'weekly', label: '每週數次' },
-            { value: 'daily', label: '幾乎每天' },
+            { value: 'rare', label: '偶尔（每月1-2次）' },
+            { value: 'weekly', label: '每周数次' },
+            { value: 'daily', label: '几乎每天' },
           ],
         },
       ],
@@ -308,17 +308,17 @@ export const BODY_PART_SYMPTOMS: Record<string, Symptom[]> = {
     {
       id: 'dizziness',
       bodyPartId: 'head',
-      name: '頭暈',
+      name: '头暈',
       severity: 'medium',
       followUpQuestions: [
         {
           id: 'dizziness-type',
-          question: '頭暈的感覺？',
+          question: '头暈的感覺？',
           type: 'single',
           options: [
-            { value: 'spinning', label: '天旋地轉' },
-            { value: 'lightheaded', label: '頭重腳輕' },
-            { value: 'unsteady', label: '站不穩' },
+            { value: 'spinning', label: '天旋地转' },
+            { value: 'lightheaded', label: '头重脚轻' },
+            { value: 'unsteady', label: '站不稳' },
           ],
         },
       ],
@@ -326,19 +326,19 @@ export const BODY_PART_SYMPTOMS: Record<string, Symptom[]> = {
     {
       id: 'vision-change',
       bodyPartId: 'head',
-      name: '視力變化',
+      name: '视力变化',
       severity: 'high',
       followUpQuestions: [
         {
           id: 'vision-type',
-          question: '視力變化情況？',
+          question: '视力变化情況？',
           type: 'multi',
           options: [
-            { value: 'blurry', label: '視力模糊' },
-            { value: 'double', label: '看東西重影' },
-            { value: 'floaters', label: '飛蚊症' },
-            { value: 'flash', label: '閃光感' },
-            { value: 'blind-spot', label: '視野缺損' },
+            { value: 'blurry', label: '视力模糊' },
+            { value: 'double', label: '看东西重影' },
+            { value: 'floaters', label: '飞蚊症' },
+            { value: 'flash', label: '闪光感' },
+            { value: 'blind-spot', label: '视野缺損' },
           ],
         },
       ],
@@ -346,16 +346,16 @@ export const BODY_PART_SYMPTOMS: Record<string, Symptom[]> = {
     {
       id: 'memory-decline',
       bodyPartId: 'head',
-      name: '記憶力下降',
+      name: '記忆力下降',
       severity: 'medium',
       followUpQuestions: [
         {
           id: 'memory-duration',
-          question: '記憶力下降持續多久？',
+          question: '記忆力下降持续多久？',
           type: 'single',
           options: [
-            { value: 'recent', label: '最近幾週' },
-            { value: 'months', label: '幾個月' },
+            { value: 'recent', label: '最近几周' },
+            { value: 'months', label: '几个月' },
             { value: 'year', label: '一年以上' },
           ],
         },
@@ -366,28 +366,28 @@ export const BODY_PART_SYMPTOMS: Record<string, Symptom[]> = {
     {
       id: 'chest-tightness',
       bodyPartId: 'chest',
-      name: '胸悶',
+      name: '胸闷',
       severity: 'high',
       followUpQuestions: [
         {
           id: 'chest-trigger',
-          question: '胸悶發作時機？',
+          question: '胸闷发作时机？',
           type: 'multi',
           options: [
-            { value: 'rest', label: '休息時' },
-            { value: 'exercise', label: '運動時' },
-            { value: 'stress', label: '緊張時' },
-            { value: 'eating', label: '飯後' },
+            { value: 'rest', label: '休息时' },
+            { value: 'exercise', label: '运动时' },
+            { value: 'stress', label: '紧張时' },
+            { value: 'eating', label: '飯后' },
           ],
         },
         {
           id: 'chest-duration',
-          question: '每次持續多久？',
+          question: '每次持续多久？',
           type: 'single',
           options: [
-            { value: 'seconds', label: '幾秒鐘' },
-            { value: 'minutes', label: '幾分鐘' },
-            { value: 'hours', label: '數小時' },
+            { value: 'seconds', label: '几秒钟' },
+            { value: 'minutes', label: '几分钟' },
+            { value: 'hours', label: '数小时' },
           ],
         },
       ],
@@ -405,8 +405,8 @@ export const BODY_PART_SYMPTOMS: Record<string, Symptom[]> = {
           options: [
             { value: 'fast', label: '心跳加速' },
             { value: 'skip', label: '心跳漏拍' },
-            { value: 'pound', label: '心臟狂跳' },
-            { value: 'irregular', label: '心跳不規則' },
+            { value: 'pound', label: '心脏狂跳' },
+            { value: 'irregular', label: '心跳不规则' },
           ],
         },
       ],
@@ -414,18 +414,18 @@ export const BODY_PART_SYMPTOMS: Record<string, Symptom[]> = {
     {
       id: 'breathing-difficulty',
       bodyPartId: 'chest',
-      name: '呼吸困難',
+      name: '呼吸困难',
       severity: 'high',
       followUpQuestions: [
         {
           id: 'breathing-when',
-          question: '什麼情況下呼吸困難？',
+          question: '什么情況下呼吸困难？',
           type: 'multi',
           options: [
-            { value: 'climbing', label: '爬樓梯時' },
-            { value: 'lying', label: '平躺時' },
-            { value: 'rest', label: '靜息時' },
-            { value: 'night', label: '夜間睡眠中' },
+            { value: 'climbing', label: '爬楼梯时' },
+            { value: 'lying', label: '平躺时' },
+            { value: 'rest', label: '静息时' },
+            { value: 'night', label: '夜间睡眠中' },
           ],
         },
       ],
@@ -433,28 +433,28 @@ export const BODY_PART_SYMPTOMS: Record<string, Symptom[]> = {
     {
       id: 'chronic-cough',
       bodyPartId: 'chest',
-      name: '長期咳嗽',
+      name: '长期咳嗽',
       severity: 'medium',
       followUpQuestions: [
         {
           id: 'cough-duration',
-          question: '咳嗽持續多久？',
+          question: '咳嗽持续多久？',
           type: 'single',
           options: [
-            { value: 'weeks', label: '2-4週' },
-            { value: 'months', label: '1-3個月' },
-            { value: 'long', label: '3個月以上' },
+            { value: 'weeks', label: '2-4周' },
+            { value: 'months', label: '1-3个月' },
+            { value: 'long', label: '3个月以上' },
           ],
         },
         {
           id: 'cough-type',
-          question: '咳嗽特徵？',
+          question: '咳嗽特征？',
           type: 'multi',
           options: [
-            { value: 'dry', label: '乾咳' },
+            { value: 'dry', label: '干咳' },
             { value: 'phlegm', label: '有痰' },
-            { value: 'blood', label: '帶血絲' },
-            { value: 'night', label: '夜間加重' },
+            { value: 'blood', label: '带血絲' },
+            { value: 'night', label: '夜间加重' },
           ],
         },
       ],
@@ -475,18 +475,18 @@ export const BODY_PART_SYMPTOMS: Record<string, Symptom[]> = {
             { value: 'upper', label: '上腹部' },
             { value: 'middle', label: '中腹部' },
             { value: 'lower', label: '下腹部' },
-            { value: 'all', label: '整個腹部' },
+            { value: 'all', label: '整个腹部' },
           ],
         },
         {
           id: 'stomach-timing',
-          question: '疼痛發作時機？',
+          question: '疼痛发作时机？',
           type: 'multi',
           options: [
-            { value: 'empty', label: '空腹時' },
-            { value: 'after-meal', label: '飯後' },
-            { value: 'night', label: '夜間' },
-            { value: 'random', label: '無規律' },
+            { value: 'empty', label: '空腹时' },
+            { value: 'after-meal', label: '飯后' },
+            { value: 'night', label: '夜间' },
+            { value: 'random', label: '无规律' },
           ],
         },
       ],
@@ -494,17 +494,17 @@ export const BODY_PART_SYMPTOMS: Record<string, Symptom[]> = {
     {
       id: 'bloating',
       bodyPartId: 'abdomen',
-      name: '胃脹',
+      name: '胃胀',
       severity: 'low',
       followUpQuestions: [
         {
           id: 'bloating-freq',
-          question: '脹氣頻率？',
+          question: '胀气频率？',
           type: 'single',
           options: [
-            { value: 'occasional', label: '偶爾' },
-            { value: 'often', label: '經常' },
-            { value: 'always', label: '幾乎每餐後' },
+            { value: 'occasional', label: '偶尔' },
+            { value: 'often', label: '经常' },
+            { value: 'always', label: '几乎每餐后' },
           ],
         },
       ],
@@ -517,11 +517,11 @@ export const BODY_PART_SYMPTOMS: Record<string, Symptom[]> = {
       followUpQuestions: [
         {
           id: 'reflux-freq',
-          question: '反酸頻率？',
+          question: '反酸频率？',
           type: 'single',
           options: [
-            { value: 'rare', label: '每月幾次' },
-            { value: 'weekly', label: '每週幾次' },
+            { value: 'rare', label: '每月几次' },
+            { value: 'weekly', label: '每周几次' },
             { value: 'daily', label: '每天' },
           ],
         },
@@ -530,17 +530,17 @@ export const BODY_PART_SYMPTOMS: Record<string, Symptom[]> = {
     {
       id: 'bowel-changes',
       bodyPartId: 'abdomen',
-      name: '排便異常',
+      name: '排便异常',
       severity: 'medium',
       followUpQuestions: [
         {
           id: 'bowel-type',
-          question: '排便問題類型？',
+          question: '排便问题类型？',
           type: 'multi',
           options: [
             { value: 'constipation', label: '便秘' },
-            { value: 'diarrhea', label: '腹瀉' },
-            { value: 'alternate', label: '便秘腹瀉交替' },
+            { value: 'diarrhea', label: '腹泻' },
+            { value: 'alternate', label: '便秘腹泻交替' },
             { value: 'blood', label: '便血' },
             { value: 'mucus', label: '黏液便' },
           ],
@@ -552,12 +552,12 @@ export const BODY_PART_SYMPTOMS: Record<string, Symptom[]> = {
     {
       id: 'frequent-urination',
       bodyPartId: 'pelvis',
-      name: '頻尿',
+      name: '频尿',
       severity: 'medium',
       followUpQuestions: [
         {
           id: 'urination-freq',
-          question: '每天排尿次數？',
+          question: '每天排尿次数？',
           type: 'single',
           options: [
             { value: 'normal', label: '4-8次' },
@@ -567,7 +567,7 @@ export const BODY_PART_SYMPTOMS: Record<string, Symptom[]> = {
         },
         {
           id: 'nocturia',
-          question: '夜間起床排尿次數？',
+          question: '夜间起床排尿次数？',
           type: 'single',
           options: [
             { value: '0', label: '0次' },
@@ -585,13 +585,13 @@ export const BODY_PART_SYMPTOMS: Record<string, Symptom[]> = {
       followUpQuestions: [
         {
           id: 'pain-timing',
-          question: '疼痛時機？',
+          question: '疼痛时机？',
           type: 'single',
           options: [
-            { value: 'start', label: '排尿開始時' },
-            { value: 'during', label: '排尿過程中' },
-            { value: 'end', label: '排尿結束時' },
-            { value: 'always', label: '整個過程' },
+            { value: 'start', label: '排尿开始时' },
+            { value: 'during', label: '排尿过程中' },
+            { value: 'end', label: '排尿结束时' },
+            { value: 'always', label: '整个过程' },
           ],
         },
       ],
@@ -608,7 +608,7 @@ export const BODY_PART_SYMPTOMS: Record<string, Symptom[]> = {
           type: 'single',
           options: [
             { value: 'visible', label: '肉眼可見' },
-            { value: 'microscopic', label: '體檢發現（潛血）' },
+            { value: 'microscopic', label: '体检发現（潜血）' },
           ],
         },
       ],
@@ -624,10 +624,10 @@ export const BODY_PART_SYMPTOMS: Record<string, Symptom[]> = {
           question: '疼痛位置？',
           type: 'single',
           options: [
-            { value: 'center', label: '正中間' },
-            { value: 'left', label: '左側' },
-            { value: 'right', label: '右側' },
-            { value: 'both', label: '兩側' },
+            { value: 'center', label: '正中间' },
+            { value: 'left', label: '左侧' },
+            { value: 'right', label: '右侧' },
+            { value: 'both', label: '两侧' },
           ],
         },
       ],
@@ -637,26 +637,26 @@ export const BODY_PART_SYMPTOMS: Record<string, Symptom[]> = {
     {
       id: 'neck-lump',
       bodyPartId: 'neck',
-      name: '頸部腫塊',
+      name: '颈部肿塊',
       severity: 'high',
       followUpQuestions: [
         {
           id: 'lump-duration',
-          question: '發現多久了？',
+          question: '发現多久了？',
           type: 'single',
           options: [
-            { value: 'recent', label: '最近發現' },
-            { value: 'weeks', label: '幾週' },
-            { value: 'months', label: '幾個月' },
+            { value: 'recent', label: '最近发現' },
+            { value: 'weeks', label: '几周' },
+            { value: 'months', label: '几个月' },
           ],
         },
         {
           id: 'lump-growing',
-          question: '腫塊有變大嗎？',
+          question: '肿塊有变大嗎？',
           type: 'single',
           options: [
-            { value: 'no', label: '沒有變化' },
-            { value: 'slow', label: '緩慢增大' },
+            { value: 'no', label: '没有变化' },
+            { value: 'slow', label: '缓慢增大' },
             { value: 'fast', label: '快速增大' },
           ],
         },
@@ -665,18 +665,18 @@ export const BODY_PART_SYMPTOMS: Record<string, Symptom[]> = {
     {
       id: 'swallowing-difficulty',
       bodyPartId: 'neck',
-      name: '吞嚥困難',
+      name: '吞咽困难',
       severity: 'high',
       followUpQuestions: [
         {
           id: 'swallow-type',
-          question: '吞嚥困難類型？',
+          question: '吞咽困难类型？',
           type: 'multi',
           options: [
-            { value: 'solid', label: '固體食物' },
-            { value: 'liquid', label: '液體' },
-            { value: 'both', label: '都有困難' },
-            { value: 'pain', label: '伴隨疼痛' },
+            { value: 'solid', label: '固体食物' },
+            { value: 'liquid', label: '液体' },
+            { value: 'both', label: '都有困难' },
+            { value: 'pain', label: '伴随疼痛' },
           ],
         },
       ],
@@ -689,12 +689,12 @@ export const GENERAL_SYMPTOMS: Symptom[] = [
   {
     id: 'weight-loss',
     bodyPartId: 'general',
-    name: '不明原因體重下降',
+    name: '不明原因体重下降',
     severity: 'high',
     followUpQuestions: [
       {
         id: 'weight-amount',
-        question: '體重下降幅度？',
+        question: '体重下降幅度？',
         type: 'single',
         options: [
           { value: '3-5kg', label: '3-5公斤' },
@@ -704,12 +704,12 @@ export const GENERAL_SYMPTOMS: Symptom[] = [
       },
       {
         id: 'weight-duration',
-        question: '多長時間內下降的？',
+        question: '多长时间內下降的？',
         type: 'single',
         options: [
-          { value: '1month', label: '1個月內' },
-          { value: '3months', label: '3個月內' },
-          { value: '6months', label: '6個月內' },
+          { value: '1month', label: '1个月內' },
+          { value: '3months', label: '3个月內' },
+          { value: '6months', label: '6个月內' },
         ],
       },
     ],
@@ -717,26 +717,26 @@ export const GENERAL_SYMPTOMS: Symptom[] = [
   {
     id: 'fatigue',
     bodyPartId: 'general',
-    name: '持續疲勞',
+    name: '持续疲劳',
     severity: 'medium',
     followUpQuestions: [
       {
         id: 'fatigue-level',
-        question: '疲勞程度？',
+        question: '疲劳程度？',
         type: 'single',
         options: [
-          { value: 'mild', label: '輕度（可正常工作）' },
-          { value: 'moderate', label: '中度（影響工作效率）' },
-          { value: 'severe', label: '重度（無法正常工作）' },
+          { value: 'mild', label: '轻度（可正常工作）' },
+          { value: 'moderate', label: '中度（影响工作效率）' },
+          { value: 'severe', label: '重度（无法正常工作）' },
         ],
       },
       {
         id: 'fatigue-duration',
-        question: '持續多久？',
+        question: '持续多久？',
         type: 'single',
         options: [
-          { value: 'weeks', label: '幾週' },
-          { value: 'months', label: '幾個月' },
+          { value: 'weeks', label: '几周' },
+          { value: 'months', label: '几个月' },
           { value: 'long', label: '半年以上' },
         ],
       },
@@ -745,17 +745,17 @@ export const GENERAL_SYMPTOMS: Symptom[] = [
   {
     id: 'night-sweats',
     bodyPartId: 'general',
-    name: '夜間盜汗',
+    name: '夜间盗汗',
     severity: 'medium',
     followUpQuestions: [
       {
         id: 'sweats-freq',
-        question: '盜汗頻率？',
+        question: '盗汗频率？',
         type: 'single',
         options: [
-          { value: 'occasional', label: '偶爾' },
-          { value: 'weekly', label: '每週幾次' },
-          { value: 'nightly', label: '幾乎每晚' },
+          { value: 'occasional', label: '偶尔' },
+          { value: 'weekly', label: '每周几次' },
+          { value: 'nightly', label: '几乎每晚' },
         ],
       },
     ],
@@ -763,17 +763,17 @@ export const GENERAL_SYMPTOMS: Symptom[] = [
   {
     id: 'fever',
     bodyPartId: 'general',
-    name: '反覆發燒',
+    name: '反复发燒',
     severity: 'high',
     followUpQuestions: [
       {
         id: 'fever-pattern',
-        question: '發燒規律？',
+        question: '发燒规律？',
         type: 'single',
         options: [
-          { value: 'continuous', label: '持續發燒' },
-          { value: 'intermittent', label: '間歇性發燒' },
-          { value: 'periodic', label: '週期性發燒' },
+          { value: 'continuous', label: '持续发燒' },
+          { value: 'intermittent', label: '间歇性发燒' },
+          { value: 'periodic', label: '周期性发燒' },
         ],
       },
     ],

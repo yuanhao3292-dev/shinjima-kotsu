@@ -14,16 +14,16 @@ import {
 import { type BodyMapSelectionData } from './BodyMapSelector';
 import { MEDICAL_DEPARTMENTS, BODY_PARTS } from '@/lib/body-map-config';
 
-// 注册中文字体 - 使用繁体中文字体 Noto Sans TC
+// 注册中文字体 - 使用简体中文字体 Noto Sans SC
 Font.register({
-  family: 'NotoSansTC',
+  family: 'NotoSansSC',
   fonts: [
     {
-      src: 'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-tc@latest/chinese-traditional-400-normal.ttf',
+      src: 'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-sc@latest/chinese-simplified-400-normal.ttf',
       fontWeight: 400,
     },
     {
-      src: 'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-tc@latest/chinese-traditional-700-normal.ttf',
+      src: 'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-sc@latest/chinese-simplified-700-normal.ttf',
       fontWeight: 700,
     },
   ],
@@ -109,7 +109,7 @@ const colors = {
 // 样式定义
 const styles = StyleSheet.create({
   page: {
-    fontFamily: 'NotoSansTC',
+    fontFamily: 'NotoSansSC',
     fontSize: 10,
     backgroundColor: colors.bgCream,
     paddingLeft: 50,
@@ -528,9 +528,9 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
   const { analysisResult, bodyMapData, createdAt, id } = reportData;
 
   const riskConfig = {
-    low: { badge: styles.riskBadgeLow, text: styles.riskTextLow, label: '低風險' },
-    medium: { badge: styles.riskBadgeMedium, text: styles.riskTextMedium, label: '中風險' },
-    high: { badge: styles.riskBadgeHigh, text: styles.riskTextHigh, label: '高風險' },
+    low: { badge: styles.riskBadgeLow, text: styles.riskTextLow, label: '低风险' },
+    medium: { badge: styles.riskBadgeMedium, text: styles.riskTextMedium, label: '中风险' },
+    high: { badge: styles.riskBadgeHigh, text: styles.riskTextHigh, label: '高风险' },
   };
 
 
@@ -553,8 +553,8 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
       {/* 封面 */}
       <Page size="A4" style={[styles.page, styles.coverPage]}>
         <View style={styles.coverHeader}>
-          <Text style={styles.coverBrand}>新島交通株式会社</Text>
-          <Text style={styles.coverTitle}>AI 健康評估報告</Text>
+          <Text style={styles.coverBrand}>新岛交通株式会社</Text>
+          <Text style={styles.coverTitle}>AI 健康评估报告</Text>
           <Text style={styles.coverSubtitle}>PERSONALIZED HEALTH ASSESSMENT REPORT</Text>
         </View>
         <View style={styles.coverGoldBar} />
@@ -562,21 +562,21 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
         <View style={styles.coverBody}>
           <View style={styles.coverInfoBox}>
             <View style={styles.coverInfoRow}>
-              <Text style={styles.coverLabel}>報告編號</Text>
+              <Text style={styles.coverLabel}>报告编号</Text>
               <Text style={styles.coverValue}>{id.substring(0, 8).toUpperCase()}</Text>
             </View>
             <View style={styles.coverInfoRow}>
-              <Text style={styles.coverLabel}>評估日期</Text>
+              <Text style={styles.coverLabel}>评估日期</Text>
               <Text style={styles.coverValue}>{formatDateJPKanji(createdAt)}</Text>
             </View>
             <View style={[styles.coverInfoRow, { marginBottom: 0 }]}>
-              <Text style={styles.coverLabel}>合作醫療機構</Text>
-              <Text style={styles.coverValue}>日本精密健檢中心</Text>
+              <Text style={styles.coverLabel}>合作医疗机构</Text>
+              <Text style={styles.coverValue}>日本精密健检中心</Text>
             </View>
           </View>
 
           <View style={styles.coverRiskBox}>
-            <Text style={styles.coverRiskLabel}>健康風險評估</Text>
+            <Text style={styles.coverRiskLabel}>健康风险评估</Text>
             <View style={[styles.riskBadge, riskConfig[analysisResult.riskLevel].badge]}>
               <Text style={[styles.riskText, riskConfig[analysisResult.riskLevel].text]}>
                 {riskConfig[analysisResult.riskLevel].label}
@@ -587,22 +587,22 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
 
         <View style={styles.coverFooter}>
           <Text style={styles.coverFooterText}>
-            本報告由 AI 智能分析系統生成，僅供健康參考，不構成醫療診斷依據
+            本报告由 AI 智能分析系统生成，仅供健康参考，不构成医疗诊断依据
           </Text>
         </View>
       </Page>
 
-      {/* 第2頁：風險分析 */}
+      {/* 第2页：风险分析 */}
       <Page size="A4" style={styles.page}>
         <View style={styles.pageHeader}>
-          <Text style={styles.headerBrand}>新島交通</Text>
+          <Text style={styles.headerBrand}>新岛交通</Text>
           <Text style={styles.headerTitle}>AI Health Assessment</Text>
         </View>
 
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionNum}>01</Text>
-            <Text style={styles.sectionTitle}>健康風險評估</Text>
+            <Text style={styles.sectionTitle}>健康风险评估</Text>
           </View>
           <View style={styles.sectionBar} />
           <View style={[styles.card, { marginTop: 12 }]}>
@@ -614,7 +614,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
               <Text style={styles.sectionNum}>02</Text>
-              <Text style={styles.sectionTitle}>症狀部位</Text>
+              <Text style={styles.sectionTitle}>症状部位</Text>
             </View>
             <View style={styles.sectionBar} />
             <View style={[styles.symptomBox, { marginTop: 12 }]}>
@@ -628,7 +628,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
               </View>
               {bodyMapData.selectedSymptoms.length > 0 && (
                 <View style={{ marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderTopColor: colors.divider }}>
-                  <Text style={{ fontSize: 10, fontWeight: 700, marginBottom: 8 }}>具體症狀</Text>
+                  <Text style={{ fontSize: 10, fontWeight: 700, marginBottom: 8 }}>具体症状</Text>
                   <View style={styles.symptomGrid}>
                     {bodyMapData.selectedSymptoms.map((symptom, idx) => (
                       <View key={idx} style={styles.symptomItem}>
@@ -646,7 +646,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionNum}>03</Text>
-            <Text style={styles.sectionTitle}>推薦就診科室</Text>
+            <Text style={styles.sectionTitle}>推荐就诊科室</Text>
           </View>
           <View style={styles.sectionBar} />
           <View style={{ marginTop: 12 }}>
@@ -666,22 +666,22 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
 
         <View style={styles.footer}>
           <Text style={styles.footerText}>{formatDateShort(createdAt)}</Text>
-          <Text style={styles.footerBrand}>新島交通株式会社</Text>
-          <Text style={styles.footerText}>第 2 頁</Text>
+          <Text style={styles.footerBrand}>新岛交通株式会社</Text>
+          <Text style={styles.footerText}>第 2 页</Text>
         </View>
       </Page>
 
-      {/* 第3頁：檢查建議 */}
+      {/* 第3页：检查建议 */}
       <Page size="A4" style={styles.page}>
         <View style={styles.pageHeader}>
-          <Text style={styles.headerBrand}>新島交通</Text>
+          <Text style={styles.headerBrand}>新岛交通</Text>
           <Text style={styles.headerTitle}>AI Health Assessment</Text>
         </View>
 
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionNum}>04</Text>
-            <Text style={styles.sectionTitle}>建議檢查項目</Text>
+            <Text style={styles.sectionTitle}>建议检查项目</Text>
           </View>
           <View style={styles.sectionBar} />
           <View style={[styles.card, { marginTop: 12 }]}>
@@ -697,7 +697,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionNum}>05</Text>
-            <Text style={styles.sectionTitle}>日本先端治療建議</Text>
+            <Text style={styles.sectionTitle}>日本先端治疗建议</Text>
           </View>
           <View style={styles.sectionBar} />
           <View style={[styles.cardAlt, { marginTop: 12 }]}>
@@ -713,7 +713,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionNum}>06</Text>
-            <Text style={styles.sectionTitle}>下一步建議</Text>
+            <Text style={styles.sectionTitle}>下一步建议</Text>
           </View>
           <View style={styles.sectionBar} />
           <View style={[styles.card, { marginTop: 12 }]}>
@@ -728,22 +728,22 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
 
         <View style={styles.footer}>
           <Text style={styles.footerText}>{formatDateShort(createdAt)}</Text>
-          <Text style={styles.footerBrand}>新島交通株式会社</Text>
-          <Text style={styles.footerText}>第 3 頁</Text>
+          <Text style={styles.footerBrand}>新岛交通株式会社</Text>
+          <Text style={styles.footerText}>第 3 页</Text>
         </View>
       </Page>
 
-      {/* 第4頁：推薦醫院 */}
+      {/* 第4页：推荐医院 */}
       <Page size="A4" style={styles.page}>
         <View style={styles.pageHeader}>
-          <Text style={styles.headerBrand}>新島交通</Text>
+          <Text style={styles.headerBrand}>新岛交通</Text>
           <Text style={styles.headerTitle}>AI Health Assessment</Text>
         </View>
 
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionNum}>07</Text>
-            <Text style={styles.sectionTitle}>推薦醫療機構</Text>
+            <Text style={styles.sectionTitle}>推荐医疗机构</Text>
           </View>
           <View style={styles.sectionBar} />
           <View style={{ marginTop: 12 }}>
@@ -759,7 +759,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
                   ))}
                 </View>
                 {hospital.suitableFor && (
-                  <Text style={styles.hospitalFit}>適合：{hospital.suitableFor}</Text>
+                  <Text style={styles.hospitalFit}>适合：{hospital.suitableFor}</Text>
                 )}
               </View>
             ))}
@@ -767,22 +767,22 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
         </View>
 
         <View style={styles.disclaimer}>
-          <Text style={styles.disclaimerTitle}>重要聲明</Text>
+          <Text style={styles.disclaimerTitle}>重要声明</Text>
           <Text style={styles.disclaimerText}>
             {wrapChinese(analysisResult.disclaimer) ||
-              wrapChinese('本報告基於 AI 分析技術生成，旨在提供健康風險參考，不能替代專業醫療診斷。如有任何健康疑慮，請務必諮詢專業醫療人員。')}
+              wrapChinese('本报告基于 AI 分析技术生成，旨在提供健康风险参考，不能替代专业医疗诊断。如有任何健康疑虑，请务必咨询专业医疗人员。')}
           </Text>
         </View>
 
         <View style={styles.cta}>
-          <Text style={styles.ctaTitle}>預約日本精密健檢</Text>
+          <Text style={styles.ctaTitle}>预约日本精密健检</Text>
           <Text style={styles.ctaText}>www.niijima-koutsu.jp/?page=medical</Text>
         </View>
 
         <View style={styles.footer}>
-          <Text style={styles.footerText}>2025 新島交通株式会社</Text>
-          <Text style={styles.footerBrand}>新島交通株式会社</Text>
-          <Text style={styles.footerText}>第 4 頁</Text>
+          <Text style={styles.footerText}>2025 新岛交通株式会社</Text>
+          <Text style={styles.footerBrand}>新岛交通株式会社</Text>
+          <Text style={styles.footerText}>第 4 页</Text>
         </View>
       </Page>
     </Document>

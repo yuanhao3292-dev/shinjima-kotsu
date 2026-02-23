@@ -56,24 +56,24 @@ export default function ScreeningResult({
       bg: 'bg-green-50',
       border: 'border-green-200',
       icon: CheckCircle,
-      label: '低風險',
-      description: '您的健康狀況良好，建議定期進行健康檢查。',
+      label: '低风险',
+      description: '您的健康状況良好，建议定期进行健康检查。',
     },
     medium: {
       color: 'text-yellow-600',
       bg: 'bg-yellow-50',
       border: 'border-yellow-200',
       icon: AlertCircle,
-      label: '中等風險',
-      description: '建議您關注以下健康問題，並考慮進行進一步檢查。',
+      label: '中等风险',
+      description: '建议您关注以下健康问题，并考虑进行进一步检查。',
     },
     high: {
       color: 'text-red-600',
       bg: 'bg-red-50',
       border: 'border-red-200',
       icon: AlertTriangle,
-      label: '高風險',
-      description: '強烈建議您儘快進行專業醫療檢查，及時發現潛在問題。',
+      label: '高风险',
+      description: '强烈建议您尽快进行专业医疗检查，及时发現潜在问题。',
     },
   };
 
@@ -85,8 +85,8 @@ export default function ScreeningResult({
     if (navigator.share) {
       try {
         await navigator.share({
-          title: 'AI 健康筛查結果',
-          text: `我完成了AI健康筛查，風險等級：${risk.label}`,
+          title: 'AI 健康筛查结果',
+          text: `我完成了AI健康筛查，风险等级：${risk.label}`,
           url: window.location.href,
         });
       } catch (err) {
@@ -95,7 +95,7 @@ export default function ScreeningResult({
     } else {
       // 复制链接
       await navigator.clipboard.writeText(window.location.href);
-      alert('鏈接已複製到剪貼板');
+      alert('链接已复制到剪贴板');
     }
   };
 
@@ -119,7 +119,7 @@ export default function ScreeningResult({
 
         {/* 风险摘要 */}
         <div className="mt-6 p-4 bg-white/60 rounded-xl">
-          <h3 className="font-semibold text-gray-800 mb-2">詳細評估</h3>
+          <h3 className="font-semibold text-gray-800 mb-2">详细评估</h3>
           <div className="text-gray-700 whitespace-pre-wrap text-sm leading-relaxed">
             {result.riskSummary}
           </div>
@@ -133,7 +133,7 @@ export default function ScreeningResult({
             <div className="p-2 bg-indigo-100 rounded-lg">
               <Activity className="w-6 h-6 text-indigo-600" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900">症狀部位</h3>
+            <h3 className="text-xl font-bold text-gray-900">症状部位</h3>
           </div>
 
           <div className="flex flex-wrap gap-2 mb-4">
@@ -149,7 +149,7 @@ export default function ScreeningResult({
 
           {bodyMapData.selectedSymptoms.length > 0 && (
             <div className="mt-4 pt-4 border-t border-gray-100">
-              <h4 className="text-sm font-medium text-gray-700 mb-3">具體症狀</h4>
+              <h4 className="text-sm font-medium text-gray-700 mb-3">具体症状</h4>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                 {bodyMapData.selectedSymptoms.map((symptom, idx) => (
                   <div
@@ -187,7 +187,7 @@ export default function ScreeningResult({
             <div className="p-2 bg-teal-100 rounded-lg">
               <Users className="w-6 h-6 text-teal-600" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900">推薦就診科室</h3>
+            <h3 className="text-xl font-bold text-gray-900">推荐就诊科室</h3>
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
@@ -224,7 +224,7 @@ export default function ScreeningResult({
             <div className="p-2 bg-blue-100 rounded-lg">
               <Stethoscope className="w-6 h-6 text-blue-600" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900">建議檢查項目</h3>
+            <h3 className="text-xl font-bold text-gray-900">建议检查项目</h3>
           </div>
 
           <div className="space-y-3">
@@ -251,7 +251,7 @@ export default function ScreeningResult({
               <Pill className="w-6 h-6 text-purple-600" />
             </div>
             <h3 className="text-xl font-bold text-gray-900">
-              日本先端治療建議
+              日本先端治疗建议
             </h3>
           </div>
 
@@ -276,7 +276,7 @@ export default function ScreeningResult({
             <div className="p-2 bg-green-100 rounded-lg">
               <Building2 className="w-6 h-6 text-green-600" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900">推薦醫療機構</h3>
+            <h3 className="text-xl font-bold text-gray-900">推荐医疗机构</h3>
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
@@ -307,7 +307,7 @@ export default function ScreeningResult({
                 )}
 
                 <p className="text-sm text-gray-600">
-                  <span className="font-medium">適合：</span>
+                  <span className="font-medium">适合：</span>
                   {hospital.suitableFor}
                 </p>
               </div>
@@ -319,7 +319,7 @@ export default function ScreeningResult({
       {/* 下一步建议 */}
       {result.nextSteps.length > 0 && (
         <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 md:p-8">
-          <h3 className="text-xl font-bold text-gray-900 mb-4">下一步建議</h3>
+          <h3 className="text-xl font-bold text-gray-900 mb-4">下一步建议</h3>
           <div className="space-y-3">
             {result.nextSteps.map((step, index) => (
               <div key={index} className="flex items-start gap-3">
@@ -336,16 +336,16 @@ export default function ScreeningResult({
         <div className="flex items-start gap-3">
           <AlertCircle className="w-6 h-6 text-amber-600 flex-shrink-0 mt-0.5" />
           <div className="space-y-2">
-            <h4 className="font-bold text-amber-800">⚠️ 重要醫療免責聲明</h4>
+            <h4 className="font-bold text-amber-800">⚠️ 重要医疗免责声明</h4>
             <ul className="text-amber-700 space-y-1 list-disc list-inside">
-              <li>本 AI 健康評估系統僅供健康參考，不構成任何形式的醫學診斷、治療建議或處方。</li>
-              <li>AI 分析結果不能替代專業醫療人員的診查、診斷和治療建議。</li>
-              <li>如您被評估為中度或高度健康風險，請儘速諮詢專業醫療機構。</li>
-              <li>任何健康決策請務必諮詢持有執照的醫療專業人員。</li>
-              <li>新島交通株式會社對因使用本系統所做決策產生的任何後果不承擔法律責任。</li>
-              <li>緊急情況請立即撥打急救電話或前往最近醫療機構。</li>
+              <li>本 AI 健康评估系统仅供健康参考，不构成任何形式的医学诊断、治疗建议或处方。</li>
+              <li>AI 分析结果不能替代专业医疗人员的诊查、诊断和治疗建议。</li>
+              <li>如您被评估为中度或高度健康风险，请尽速咨询专业医疗机构。</li>
+              <li>任何健康決策请务必咨询持有执照的医疗专业人员。</li>
+              <li>新岛交通株式会社对因使用本系统所做決策产生的任何后果不承担法律责任。</li>
+              <li>紧急情況请立即拨打急救电话或前往最近医疗机构。</li>
             </ul>
-            <p className="text-amber-600 text-xs mt-3">© 新島交通株式會社 | 日本精密健檢服務</p>
+            <p className="text-amber-600 text-xs mt-3">© 新岛交通株式会社 | 日本精密健检服务</p>
           </div>
         </div>
       </div>
@@ -358,7 +358,7 @@ export default function ScreeningResult({
             className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium"
           >
             <Stethoscope className="w-5 h-5" />
-            預約日本精密健檢
+            预约日本精密健检
           </Link>
 
           <button
@@ -366,7 +366,7 @@ export default function ScreeningResult({
             className="flex items-center justify-center gap-2 px-6 py-4 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors"
           >
             <Share2 className="w-5 h-5" />
-            分享結果
+            分享结果
           </button>
 
           <Link
@@ -374,7 +374,7 @@ export default function ScreeningResult({
             className="flex items-center justify-center gap-2 px-6 py-4 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors"
           >
             <FileText className="w-5 h-5" />
-            查看歷史
+            查看历史
           </Link>
         </div>
       )}
@@ -384,9 +384,9 @@ export default function ScreeningResult({
         <div className="bg-gray-900 text-white rounded-2xl p-6 md:p-8">
           <div className="flex flex-col md:flex-row items-center gap-6">
             <div className="flex-1">
-              <h3 className="text-xl font-bold mb-2">需要專業諮詢？</h3>
+              <h3 className="text-xl font-bold mb-2">需要专业咨询？</h3>
               <p className="text-gray-400">
-                我們的醫療顧問可以根據您的筛查結果，為您推薦最適合的日本醫療服務。
+                我们的医疗顾问可以根据您的筛查结果，为您推荐最适合的日本医疗服务。
               </p>
             </div>
             <a
@@ -396,7 +396,7 @@ export default function ScreeningResult({
               className="flex items-center gap-2 px-6 py-3 bg-green-500 text-white rounded-xl hover:bg-green-600 transition-colors whitespace-nowrap"
             >
               <MessageCircle className="w-5 h-5" />
-              LINE 諮詢
+              LINE 咨询
             </a>
           </div>
         </div>
