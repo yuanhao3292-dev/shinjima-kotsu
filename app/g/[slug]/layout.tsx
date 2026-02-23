@@ -64,6 +64,13 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
     }
   });
 
+  // 强制添加 AI 健康筛查入口（所有白标页面必须包含）
+  navItems.push({
+    id: 'ai-screening',
+    label: 'AI 健康筛查',
+    href: `/g/${slug}/health-screening`,
+  });
+
   // 联系信息
   const contactInfo = {
     wechat: guide.contactWechat || null,

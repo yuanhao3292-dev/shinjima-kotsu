@@ -25,7 +25,7 @@ const SUPPORTED_KEYS = new Set([
   'cancer_treatment',
   'golf',
   'medical_tourism',
-  'health_screening',
+  // health_screening 已迁移到 /g/[slug]/health-screening/ 独立路由
 ]);
 
 export default async function ModuleDetailPage({ params }: PageProps) {
@@ -64,9 +64,6 @@ export default async function ModuleDetailPage({ params }: PageProps) {
 
     case 'medical_tourism':
       return <MedicalTourismContent isGuideEmbed />;
-
-    case 'health_screening':
-      return <TIMCContent isGuideEmbed guideSlug={slug} />;
 
     default:
       notFound();

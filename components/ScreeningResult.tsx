@@ -24,12 +24,14 @@ interface ScreeningResultProps {
   result: AnalysisResult;
   screeningId: string;
   bodyMapData?: BodyMapSelectionData;
+  isGuideEmbed?: boolean;
 }
 
 export default function ScreeningResult({
   result,
   screeningId: _screeningId,
   bodyMapData,
+  isGuideEmbed,
 }: ScreeningResultProps) {
   // 获取选中的身体部位名称
   const getSelectedBodyPartNames = () => {
@@ -348,53 +350,57 @@ export default function ScreeningResult({
         </div>
       </div>
 
-      {/* 操作按钮 */}
-      <div className="flex flex-col sm:flex-row gap-4 pt-4">
-        <Link
-          href="/?page=medical"
-          className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium"
-        >
-          <Stethoscope className="w-5 h-5" />
-          預約日本精密健檢
-        </Link>
-
-        <button
-          onClick={handleShare}
-          className="flex items-center justify-center gap-2 px-6 py-4 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors"
-        >
-          <Share2 className="w-5 h-5" />
-          分享結果
-        </button>
-
-        <Link
-          href="/health-screening/history"
-          className="flex items-center justify-center gap-2 px-6 py-4 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors"
-        >
-          <FileText className="w-5 h-5" />
-          查看歷史
-        </Link>
-      </div>
-
-      {/* 咨询入口 */}
-      <div className="bg-gray-900 text-white rounded-2xl p-6 md:p-8">
-        <div className="flex flex-col md:flex-row items-center gap-6">
-          <div className="flex-1">
-            <h3 className="text-xl font-bold mb-2">需要專業諮詢？</h3>
-            <p className="text-gray-400">
-              我們的醫療顧問可以根據您的筛查結果，為您推薦最適合的日本醫療服務。
-            </p>
-          </div>
-          <a
-            href="https://line.me/R/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-6 py-3 bg-green-500 text-white rounded-xl hover:bg-green-600 transition-colors whitespace-nowrap"
+      {/* 操作按钮（白标模式下隐藏，由白标结果页自行渲染导游联系 CTA） */}
+      {!isGuideEmbed && (
+        <div className="flex flex-col sm:flex-row gap-4 pt-4">
+          <Link
+            href="/?page=medical"
+            className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium"
           >
-            <MessageCircle className="w-5 h-5" />
-            LINE 諮詢
-          </a>
+            <Stethoscope className="w-5 h-5" />
+            預約日本精密健檢
+          </Link>
+
+          <button
+            onClick={handleShare}
+            className="flex items-center justify-center gap-2 px-6 py-4 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors"
+          >
+            <Share2 className="w-5 h-5" />
+            分享結果
+          </button>
+
+          <Link
+            href="/health-screening/history"
+            className="flex items-center justify-center gap-2 px-6 py-4 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors"
+          >
+            <FileText className="w-5 h-5" />
+            查看歷史
+          </Link>
         </div>
-      </div>
+      )}
+
+      {/* 咨询入口（白标模式下隐藏，由白标结果页渲染导游联系方式） */}
+      {!isGuideEmbed && (
+        <div className="bg-gray-900 text-white rounded-2xl p-6 md:p-8">
+          <div className="flex flex-col md:flex-row items-center gap-6">
+            <div className="flex-1">
+              <h3 className="text-xl font-bold mb-2">需要專業諮詢？</h3>
+              <p className="text-gray-400">
+                我們的醫療顧問可以根據您的筛查結果，為您推薦最適合的日本醫療服務。
+              </p>
+            </div>
+            <a
+              href="https://line.me/R/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-6 py-3 bg-green-500 text-white rounded-xl hover:bg-green-600 transition-colors whitespace-nowrap"
+            >
+              <MessageCircle className="w-5 h-5" />
+              LINE 諮詢
+            </a>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
