@@ -6,6 +6,11 @@ import SaiClinicContent from '@/app/sai-clinic/SaiClinicContent';
 import CancerTreatmentContent from '@/app/cancer-treatment/CancerTreatmentContent';
 import GolfContent from '@/app/business/golf/GolfContent';
 import MedicalTourismContent from '@/app/business/medical/MedicalTourismContent';
+import HeleneClinicContent from '@/app/helene-clinic/HeleneClinicContent';
+import GinzaPhoenixContent from '@/app/ginza-phoenix/GinzaPhoenixContent';
+import WClinicMensContent from '@/app/wclinic-mens/WClinicMensContent';
+import CellMedicineContent from '@/app/cell-medicine/CellMedicineContent';
+import ACPlusContent from '@/app/ac-plus/ACPlusContent';
 import { getSaiClinicImages } from '@/lib/services/sai-clinic-images';
 
 interface PageProps {
@@ -25,6 +30,11 @@ const SUPPORTED_KEYS = new Set([
   'cancer_treatment',
   'golf',
   'medical_tourism',
+  'helene_clinic',
+  'ginza_phoenix',
+  'wclinic_mens',
+  'cell_medicine',
+  'ac_plus',
   // health_screening 已迁移到 /g/[slug]/health-screening/ 独立路由
 ]);
 
@@ -64,6 +74,21 @@ export default async function ModuleDetailPage({ params }: PageProps) {
 
     case 'medical_tourism':
       return <MedicalTourismContent isGuideEmbed />;
+
+    case 'helene_clinic':
+      return <HeleneClinicContent isGuideEmbed />;
+
+    case 'ginza_phoenix':
+      return <GinzaPhoenixContent isGuideEmbed />;
+
+    case 'wclinic_mens':
+      return <WClinicMensContent isGuideEmbed />;
+
+    case 'cell_medicine':
+      return <CellMedicineContent isGuideEmbed />;
+
+    case 'ac_plus':
+      return <ACPlusContent isGuideEmbed />;
 
     default:
       notFound();

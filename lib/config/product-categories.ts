@@ -13,7 +13,7 @@ export interface ProductCategory {
   name: string;
   nameJa: string;
   description: string;
-  iconName: 'Hospital' | 'Stethoscope' | 'Sparkles';
+  iconName: 'Hospital' | 'Stethoscope' | 'Sparkles' | 'Dna';
   gradient: string;
   textColor: string;
   moduleKeys: string[];
@@ -26,6 +26,11 @@ export const MODULE_DETAIL_ROUTES: Record<string, string> = {
   hyogo_medical: '/hyogo-medical',
   sai_clinic: '/guide-partner/product-center/sai-clinic',
   cancer_treatment: '/cancer-treatment',
+  helene_clinic: '/helene-clinic',
+  ginza_phoenix: '/ginza-phoenix',
+  wclinic_mens: '/wclinic-mens',
+  cell_medicine: '/cancer-treatment',
+  ac_plus: '/helene-clinic',
   golf: '/business/golf',
   medical_tourism: '/business/medical',
 };
@@ -39,7 +44,7 @@ export const PRODUCT_CATEGORIES: ProductCategory[] = [
     iconName: 'Hospital',
     gradient: 'from-emerald-600 to-teal-700',
     textColor: 'text-emerald-100',
-    moduleKeys: ['hyogo_medical'],
+    moduleKeys: ['hyogo_medical', 'cancer_treatment'],
     sortOrder: 1,
   },
   {
@@ -61,8 +66,19 @@ export const PRODUCT_CATEGORIES: ProductCategory[] = [
     iconName: 'Sparkles',
     gradient: 'from-pink-500 to-rose-600',
     textColor: 'text-pink-100',
-    moduleKeys: ['sai_clinic'],
+    moduleKeys: ['sai_clinic', 'wclinic_mens'],
     sortOrder: 3,
+  },
+  {
+    id: 'stem_cell',
+    name: '干细胞中心合作',
+    nameJa: '幹細胞センター提携',
+    description: '干细胞·再生医疗·癌症免疫细胞治疗，日本先端细胞医疗合作机构',
+    iconName: 'Dna',
+    gradient: 'from-green-600 to-emerald-700',
+    textColor: 'text-green-100',
+    moduleKeys: ['helene_clinic', 'ac_plus', 'cell_medicine', 'ginza_phoenix'],
+    sortOrder: 4,
   },
 ];
 

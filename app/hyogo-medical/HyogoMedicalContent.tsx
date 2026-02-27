@@ -495,6 +495,253 @@ const CENTERS = [
   },
 ];
 
+// ======================================
+// 合作专家医疗团队 (按疾病分类)
+// ======================================
+type DoctorCategory = 'cancer_surgery' | 'cancer_medical' | 'heart_brain' | 'digestive' | 'eye_ortho';
+
+const DOCTOR_CATEGORIES: { id: DoctorCategory; label: Record<Language, string>; icon: typeof Activity }[] = [
+  { id: 'cancer_surgery', label: { ja: '外科系がん治療', 'zh-TW': '癌症外科治療', 'zh-CN': '癌症外科治疗', en: 'Cancer Surgery' }, icon: Syringe },
+  { id: 'cancer_medical', label: { ja: '内科系がん・IVR', 'zh-TW': '癌症內科・IVR', 'zh-CN': '癌症内科・IVR', en: 'Cancer Medical/IVR' }, icon: Microscope },
+  { id: 'heart_brain', label: { ja: '心臓・脳神経', 'zh-TW': '心臟・腦神經', 'zh-CN': '心脏・脑神经', en: 'Heart & Brain' }, icon: Heart },
+  { id: 'digestive', label: { ja: '消化器・IBD', 'zh-TW': '消化道・IBD', 'zh-CN': '消化道・IBD', en: 'Digestive & IBD' }, icon: Activity },
+  { id: 'eye_ortho', label: { ja: '眼科・軟骨再生', 'zh-TW': '眼科・軟骨再生', 'zh-CN': '眼科・软骨再生', en: 'Eye & Cartilage' }, icon: Eye },
+];
+
+interface DoctorInfo {
+  name: Record<Language, string>;
+  title: Record<Language, string>;
+  dept: Record<Language, string>;
+  specialty: Record<Language, string>;
+  highlights: Record<Language, string>[];
+  category: DoctorCategory;
+  diseases: Record<Language, string>;
+  /** Headline achievement badge shown prominently */
+  badge: Record<Language, string>;
+  /** Gradient for avatar background */
+  gradient: string;
+  /** Optional photo URL — replace initials avatar when available */
+  photoUrl?: string;
+}
+
+const EXPERT_DOCTORS: DoctorInfo[] = [
+  // ===== 癌症外科 =====
+  {
+    name: { ja: '篠原 尚', 'zh-TW': '篠原 尚', 'zh-CN': '篠原尚', en: 'Takashi Shinohara' },
+    title: { ja: '主任教授 / 副院長', 'zh-TW': '主任教授 / 副院長', 'zh-CN': '主任教授 / 副院长', en: 'Chief Professor / Vice Director' },
+    dept: { ja: '上部消化管外科', 'zh-TW': '上消化道外科', 'zh-CN': '上消化道外科', en: 'Upper GI Surgery' },
+    specialty: { ja: '胃がん・食道がんの腹腔鏡・ロボット手術', 'zh-TW': '胃癌・食道癌的腹腔鏡・機器人手術', 'zh-CN': '胃癌・食道癌的腹腔镜・机器人手术', en: 'Gastric & esophageal cancer laparoscopic/robotic surgery' },
+    highlights: [
+      { ja: '30年以上消化器がん手術の経験', 'zh-TW': '30多年消化道癌手術經驗', 'zh-CN': '30多年消化道癌手术经验', en: '30+ years in GI cancer surgery' },
+      { ja: '腹腔鏡手術・ダヴィンチ手術の先駆者', 'zh-TW': '腹腔鏡・達芬奇手術的先驅者', 'zh-CN': '腹腔镜・达芬奇手术的先驱者', en: 'Pioneer in laparoscopic & Da Vinci surgery' },
+      { ja: 'AI支援手術・臨床解剖学の融合', 'zh-TW': 'AI輔助手術與臨床解剖學的融合', 'zh-CN': 'AI辅助手术与临床解剖学的融合', en: 'AI-assisted surgery & clinical anatomy integration' },
+    ],
+    category: 'cancer_surgery',
+    diseases: { ja: '胃がん、食道がん', 'zh-TW': '胃癌、食道癌', 'zh-CN': '胃癌、食道癌', en: 'Gastric cancer, Esophageal cancer' },
+    badge: { ja: 'ロボット手術の先駆者', 'zh-TW': '機器人手術先驅者', 'zh-CN': '机器人手术先驱者', en: 'Robotic Surgery Pioneer' },
+    gradient: 'from-blue-600 to-cyan-600',
+  },
+  {
+    name: { ja: '池田 正孝', 'zh-TW': '池田 正孝', 'zh-CN': '池田正孝', en: 'Masataka Ikeda' },
+    title: { ja: '主任教授 / 診療部長', 'zh-TW': '主任教授 / 診療部長', 'zh-CN': '主任教授 / 诊疗部长', en: 'Chief Professor / Clinical Director' },
+    dept: { ja: '下部消化管外科', 'zh-TW': '下消化道外科', 'zh-CN': '下消化道外科', en: 'Lower GI Surgery' },
+    specialty: { ja: '直腸がんのロボット支援手術・重粒子治療', 'zh-TW': '直腸癌的機器人手術・重粒子治療', 'zh-CN': '直肠癌的机器人手术・重粒子治疗', en: 'Rectal cancer robotic surgery & particle therapy' },
+    highlights: [
+      { ja: '直腸癌拡大手術で国際的評価', 'zh-TW': '直腸癌擴大手術享有國際聲譽', 'zh-CN': '直肠癌扩大手术享有国际声誉', en: 'Internationally renowned for advanced rectal cancer surgery' },
+      { ja: 'ダヴィンチロボット＋重粒子線治療', 'zh-TW': '達芬奇機器人＋重粒子線治療', 'zh-CN': '达芬奇机器人＋重粒子线治疗', en: 'Da Vinci robot + particle beam therapy' },
+      { ja: '進行期・再発直腸癌の個別化治療', 'zh-TW': '進展期・復發直腸癌的個體化治療', 'zh-CN': '进展期・复发直肠癌的个体化治疗', en: 'Personalized treatment for advanced/recurrent rectal cancer' },
+    ],
+    category: 'cancer_surgery',
+    diseases: { ja: '直腸がん、大腸がん', 'zh-TW': '直腸癌、大腸癌', 'zh-CN': '直肠癌、大肠癌', en: 'Rectal cancer, Colorectal cancer' },
+    badge: { ja: '国際的評価の直腸がん権威', 'zh-TW': '國際聲譽的直腸癌權威', 'zh-CN': '国际声誉的直肠癌权威', en: 'Internationally Renowned' },
+    gradient: 'from-indigo-600 to-purple-600',
+  },
+  {
+    name: { ja: '馬淵 誠士', 'zh-TW': '馬淵 誠士', 'zh-CN': '马渊诚士', en: 'Seishi Mabuchi' },
+    title: { ja: '主任教授 / 診療部長 / 生殖医療中心主任', 'zh-TW': '主任教授 / 診療部長 / 生殖醫療中心主任', 'zh-CN': '主任教授 / 诊疗部长 / 生殖医疗中心主任', en: 'Chief Professor / Reproductive Center Director' },
+    dept: { ja: '産科婦人科（婦人科腫瘍）', 'zh-TW': '婦產科（婦科腫瘤）', 'zh-CN': '妇产科（妇科肿瘤）', en: 'OB/GYN (Gynecologic Oncology)' },
+    specialty: { ja: '子宮がん・卵巣がんのロボット・腹腔鏡手術', 'zh-TW': '子宮癌・卵巢癌的機器人・腹腔鏡手術', 'zh-CN': '子宫癌・卵巢癌的机器人・腹腔镜手术', en: 'Uterine/ovarian cancer robotic & laparoscopic surgery' },
+    highlights: [
+      { ja: 'ダヴィンチ・腹腔鏡・vNOTES手術', 'zh-TW': '達芬奇・腹腔鏡・vNOTES手術', 'zh-CN': '达芬奇・腹腔镜・vNOTES手术', en: 'Da Vinci, laparoscopic & vNOTES surgery' },
+      { ja: '再発子宮頸がんの根治的救済手術', 'zh-TW': '復發子宮頸癌的根治性挽救手術', 'zh-CN': '复发子宫颈癌的根治性挽救手术', en: 'Radical salvage surgery for recurrent cervical cancer' },
+      { ja: '妊孕性温存 — 卵巣凍結保存・保留手術', 'zh-TW': '保留生育力 — 卵巢冷凍保存・保留手術', 'zh-CN': '保留生育力 — 卵巢冷冻保存・保留手术', en: 'Fertility preservation — ovarian cryopreservation' },
+    ],
+    category: 'cancer_surgery',
+    diseases: { ja: '子宮がん、卵巣がん、外陰がん', 'zh-TW': '子宮癌、卵巢癌、外陰癌', 'zh-CN': '子宫癌、卵巢癌、外阴癌', en: 'Uterine, Ovarian, Vulvar cancer' },
+    badge: { ja: '妊孕性温存の希望', 'zh-TW': '保留生育力的希望', 'zh-CN': '保留生育力的希望', en: 'Fertility Preservation' },
+    gradient: 'from-pink-500 to-rose-500',
+  },
+  // ===== 癌症内科・IVR =====
+  {
+    name: { ja: '木島 貴志', 'zh-TW': '木島 貴志', 'zh-CN': '木岛贵志', en: 'Takashi Kijima' },
+    title: { ja: '副院長 / がんセンター主任', 'zh-TW': '副院長 / 癌症中心主任', 'zh-CN': '副院长 / 癌症中心主任', en: 'Vice Director / Cancer Center Chief' },
+    dept: { ja: '呼吸器・血液内科学', 'zh-TW': '呼吸・血液內科學', 'zh-CN': '呼吸・血液内科学', en: 'Respiratory & Hematology' },
+    specialty: { ja: '肺がん・中皮腫の化学免疫療法・ゲノム医療', 'zh-TW': '肺癌・間皮瘤的化學免疫療法・基因組醫療', 'zh-CN': '肺癌・间皮瘤的化学免疫疗法・基因组医疗', en: 'Lung cancer & mesothelioma chemo-immunotherapy & genomics' },
+    highlights: [
+      { ja: 'CHEMO-IMMUNO（化学＋免疫）療法を主導', 'zh-TW': '主導CHEMO-IMMUNO（化學＋免疫）療法', 'zh-CN': '主导CHEMO-IMMUNO（化学＋免疫）疗法', en: 'Leading CHEMO-IMMUNO (chemo + immune) therapy' },
+      { ja: 'がんゲノム解析＋AI診断研究', 'zh-TW': '癌症基因組分析＋AI診斷研究', 'zh-CN': '癌症基因组分析＋AI诊断研究', en: 'Cancer genomic analysis + AI diagnostic research' },
+      { ja: '早期診断から緩和医療まで一体化', 'zh-TW': '從早期診斷到緩和醫療一體化', 'zh-CN': '从早期诊断到缓和医疗一体化', en: 'Integrated care from early diagnosis to palliative' },
+    ],
+    category: 'cancer_medical',
+    diseases: { ja: '肺がん、中皮腫', 'zh-TW': '肺癌、間皮瘤', 'zh-CN': '肺癌、间皮瘤', en: 'Lung cancer, Mesothelioma' },
+    badge: { ja: '副院長 / がんセンター長', 'zh-TW': '副院長 / 癌症中心主任', 'zh-CN': '副院长 / 癌症中心主任', en: 'Vice Director / Cancer Center' },
+    gradient: 'from-amber-600 to-orange-600',
+  },
+  {
+    name: { ja: '栗林 康造 / 舟木 壮一郎', 'zh-TW': '栗林 康造 / 舟木 壯一郎', 'zh-CN': '栗林康造 / 舟木壮一郎', en: 'Kuribayashi / Funaki' },
+    title: { ja: '教授（内科）/ 主任教授（外科）', 'zh-TW': '教授（內科）/ 主任教授（外科）', 'zh-CN': '教授（内科）/ 主任教授（外科）', en: 'Professor (Med) / Chief Prof (Surg)' },
+    dept: { ja: '中皮腫センター', 'zh-TW': '間皮瘤中心', 'zh-CN': '间皮瘤中心', en: 'Mesothelioma Center' },
+    specialty: { ja: '悪性中皮腫の内科・外科一体診療', 'zh-TW': '惡性間皮瘤的內外科一體診療', 'zh-CN': '恶性间皮瘤的内外科一体诊疗', en: 'Integrated medical-surgical mesothelioma care' },
+    highlights: [
+      { ja: '日本最多の年間800件以上の症例', 'zh-TW': '日本最多的年間800件以上病例', 'zh-CN': '日本最多的年间800件以上病例', en: 'Japan\'s highest volume: 800+ cases/year' },
+      { ja: '栗林教授：日本石綿・中皮腫学会理事', 'zh-TW': '栗林教授：日本石棉・間皮瘤學會理事', 'zh-CN': '栗林教授：日本石棉・间皮瘤学会理事', en: 'Prof. Kuribayashi: Director, Japan Asbestos-Mesothelioma Society' },
+      { ja: '舟木教授：胸腔鏡手術のエキスパート', 'zh-TW': '舟木教授：胸腔鏡手術專家', 'zh-CN': '舟木教授：胸腔镜手术专家', en: 'Prof. Funaki: Thoracoscopic surgery expert' },
+    ],
+    category: 'cancer_medical',
+    diseases: { ja: '悪性中皮腫、肺がん', 'zh-TW': '惡性間皮瘤、肺癌', 'zh-CN': '恶性间皮瘤、肺癌', en: 'Mesothelioma, Lung cancer' },
+    badge: { ja: '年間800件+ 日本最多', 'zh-TW': '年間800件+ 日本最多', 'zh-CN': '年间800件+ 日本最多', en: '800+ Cases/yr #1 Japan' },
+    gradient: 'from-purple-600 to-indigo-600',
+  },
+  {
+    name: { ja: '吉原 哲', 'zh-TW': '吉原 哲', 'zh-CN': '吉原哲', en: 'Satoshi Yoshihara' },
+    title: { ja: '教授 / 診療部部長 / 輸血・細胞治療センター副主任', 'zh-TW': '教授 / 診療部部長 / 輸血・細胞治療中心副主任', 'zh-CN': '教授 / 诊疗部部长 / 输血・细胞治疗中心副主任', en: 'Professor / Cell Therapy Center Vice Director' },
+    dept: { ja: '血液内科', 'zh-TW': '血液內科', 'zh-CN': '血液内科', en: 'Hematology' },
+    specialty: { ja: 'CAR-T細胞療法・造血幹細胞移植', 'zh-TW': 'CAR-T細胞療法・造血幹細胞移植', 'zh-CN': 'CAR-T细胞疗法・造血干细胞移植', en: 'CAR-T cell therapy & stem cell transplant' },
+    highlights: [
+      { ja: 'CAR-T細胞療法の日本導入を先導', 'zh-TW': '領先推動CAR-T細胞療法在日本的引進', 'zh-CN': '领先推动CAR-T细胞疗法在日本的引进', en: 'Leading CAR-T cell therapy introduction in Japan' },
+      { ja: '厚生労働省認定CAR-T療法機関', 'zh-TW': '厚生勞動省認定CAR-T療法機構', 'zh-CN': '厚生劳动省认定CAR-T疗法机构', en: 'MHLW-certified CAR-T therapy institution' },
+      { ja: 'CRS副作用対策の研究で成果', 'zh-TW': 'CRS副作用對策研究的成果', 'zh-CN': 'CRS副作用对策研究的成果', en: 'Research achievements in CRS side-effect management' },
+    ],
+    category: 'cancer_medical',
+    diseases: { ja: 'ALL、DLBCL、多発性骨髄腫', 'zh-TW': 'ALL、DLBCL、多發性骨髓瘤', 'zh-CN': 'ALL、DLBCL、多发性骨髓瘤', en: 'ALL, DLBCL, Multiple Myeloma' },
+    badge: { ja: 'CAR-T細胞療法 認定機関', 'zh-TW': 'CAR-T細胞療法 認定機構', 'zh-CN': 'CAR-T细胞疗法 认定机构', en: 'CAR-T Certified Center' },
+    gradient: 'from-emerald-600 to-teal-600',
+  },
+  {
+    name: { ja: '山門 亨一郎 / 高木 治行', 'zh-TW': '山門 亨一郎 / 高木 治行', 'zh-CN': '山门亨一郎 / 高木治行', en: 'Yamakado / Takaki' },
+    title: { ja: '主任教授 / 教授', 'zh-TW': '主任教授 / 教授', 'zh-CN': '主任教授 / 教授', en: 'Chief Professor / Professor' },
+    dept: { ja: 'IVRセンター（放射線科）', 'zh-TW': 'IVR中心（放射科）', 'zh-CN': 'IVR中心（放射科）', en: 'IVR Center (Radiology)' },
+    specialty: { ja: '肝がん・肺がん・腎がんの微創介入治療', 'zh-TW': '肝癌・肺癌・腎癌的微創介入治療', 'zh-CN': '肝癌・肺癌・肾癌的微创介入治疗', en: 'Minimally invasive interventional radiology for liver/lung/kidney cancer' },
+    highlights: [
+      { ja: '山門教授：日本IVR医学会理事長', 'zh-TW': '山門教授：日本IVR醫學會理事長', 'zh-CN': '山门教授：日本IVR医学会理事长', en: 'Prof. Yamakado: President, Japan IVR Society' },
+      { ja: '高木教授：国際腫瘍介入治療専家', 'zh-TW': '高木教授：國際腫瘤介入治療專家', 'zh-CN': '高木教授：国际肿瘤介入治疗专家', en: 'Prof. Takaki: International interventional oncology expert' },
+      { ja: '切らない手術 — 消融・栓塞・導管治療', 'zh-TW': '不開刀手術 — 消融・栓塞・導管治療', 'zh-CN': '不开刀手术 — 消融・栓塞・导管治疗', en: 'Non-surgical: ablation, embolization, catheter therapy' },
+    ],
+    category: 'cancer_medical',
+    diseases: { ja: '肝がん、肺がん、腎がん、子宮筋腫', 'zh-TW': '肝癌、肺癌、腎癌、子宮肌瘤', 'zh-CN': '肝癌、肺癌、肾癌、子宫肌瘤', en: 'Liver, Lung, Kidney cancer, Uterine fibroids' },
+    badge: { ja: 'IVR学会理事長', 'zh-TW': 'IVR學會理事長', 'zh-CN': 'IVR学会理事长', en: 'IVR Society President' },
+    gradient: 'from-slate-600 to-gray-700',
+  },
+  // ===== 心脏・脑神经 =====
+  {
+    name: { ja: '坂口 太一', 'zh-TW': '坂口 太一', 'zh-CN': '坂口太一', en: 'Taichi Sakaguchi' },
+    title: { ja: '主任教授', 'zh-TW': '主任教授', 'zh-CN': '主任教授', en: 'Chief Professor' },
+    dept: { ja: '心臓血管外科', 'zh-TW': '心臟血管外科', 'zh-CN': '心脏血管外科', en: 'Cardiovascular Surgery' },
+    specialty: { ja: 'MICS（低侵襲心臓手術）', 'zh-TW': 'MICS（低侵襲心臟手術）', 'zh-CN': 'MICS（低侵袭心脏手术）', en: 'MICS (Minimally Invasive Cardiac Surgery)' },
+    highlights: [
+      { ja: '累計1,000例以上のMICS手術', 'zh-TW': '累計1,000例以上的MICS手術', 'zh-CN': '累计1,000例以上的MICS手术', en: '1,000+ MICS procedures performed' },
+      { ja: '日本低侵襲心臓手術学会（JMICS）理事長', 'zh-TW': '日本低侵襲心臟手術學會（JMICS）理事長', 'zh-CN': '日本低侵袭心脏手术学会（JMICS）理事长', en: 'President, Japan MICS Society (JMICS)' },
+      { ja: '全日本60以上の医院で手術指導', 'zh-TW': '在全日本60多家醫院進行手術指導', 'zh-CN': '在全日本60多家医院进行手术指导', en: 'Surgical training at 60+ hospitals across Japan' },
+    ],
+    category: 'heart_brain',
+    diseases: { ja: '弁膜症、冠動脈疾患、大動脈疾患', 'zh-TW': '瓣膜病、冠狀動脈疾病、大動脈疾病', 'zh-CN': '瓣膜病、冠状动脉疾病、大动脉疾病', en: 'Valvular disease, Coronary artery disease, Aortic disease' },
+    badge: { ja: 'MICS 1,000例+', 'zh-TW': 'MICS 1,000例+', 'zh-CN': 'MICS 1,000例+', en: 'MICS 1,000+ Cases' },
+    gradient: 'from-red-600 to-rose-600',
+  },
+  {
+    name: { ja: '吉村 紳一', 'zh-TW': '吉村 紳一', 'zh-CN': '吉村绅一', en: 'Shinichi Yoshimura' },
+    title: { ja: '主任教授', 'zh-TW': '主任教授', 'zh-CN': '主任教授', en: 'Chief Professor' },
+    dept: { ja: '脳神経外科', 'zh-TW': '腦神經外科', 'zh-CN': '脑神经外科', en: 'Neurosurgery' },
+    specialty: { ja: '脊髄損傷・脳血管疾患・神経再生', 'zh-TW': '脊髓損傷・腦血管疾病・神經再生', 'zh-CN': '脊髓损伤・脑血管疾病・神经再生', en: 'Spinal cord injury, Cerebrovascular disease, Neural regeneration' },
+    highlights: [
+      { ja: '累計約4,000件の脳神経手術', 'zh-TW': '累計約4,000件腦神經手術', 'zh-CN': '累计约4,000件脑神经手术', en: '~4,000 neurosurgical procedures' },
+      { ja: 'NHK・朝日テレビ等メディア出演', 'zh-TW': 'NHK・朝日電視台等媒體出演', 'zh-CN': 'NHK・朝日电视台等媒体出演', en: 'Featured on NHK, Asahi TV and major media' },
+      { ja: 'フローダイバーター治療（全国数施設のみ）', 'zh-TW': 'Flow Diverter治療（全國僅數家）', 'zh-CN': 'Flow Diverter治疗（全国仅数家）', en: 'Flow Diverter therapy (available at only a few hospitals in Japan)' },
+    ],
+    category: 'heart_brain',
+    diseases: { ja: '脳卒中、脊髄損傷、脳動脈瘤、脳腫瘍', 'zh-TW': '腦中風、脊髓損傷、腦動脈瘤、腦腫瘤', 'zh-CN': '脑中风、脊髓损伤、脑动脉瘤、脑肿瘤', en: 'Stroke, Spinal cord injury, Brain aneurysm, Brain tumor' },
+    badge: { ja: '累計4,000例 / NHK出演', 'zh-TW': '累計4,000例 / NHK出演', 'zh-CN': '累计4,000例 / NHK出演', en: '4,000 Cases / NHK Featured' },
+    gradient: 'from-blue-700 to-indigo-700',
+  },
+  // ===== 消化道・IBD =====
+  {
+    name: { ja: '池内 浩基', 'zh-TW': '池内 浩基', 'zh-CN': '池内浩基', en: 'Hiroki Ikeuchi' },
+    title: { ja: '病院長 / 主任教授', 'zh-TW': '院長 / 主任教授', 'zh-CN': '院长 / 主任教授', en: 'Hospital Director / Chief Professor' },
+    dept: { ja: '炎症性腸疾患外科', 'zh-TW': '炎症性腸病外科', 'zh-CN': '炎症性肠病外科', en: 'IBD Surgery' },
+    specialty: { ja: 'IBD外科治療の日本トップ権威', 'zh-TW': 'IBD外科治療的日本頂級權威', 'zh-CN': 'IBD外科治疗的日本顶级权威', en: 'Japan\'s top authority on IBD surgical treatment' },
+    highlights: [
+      { ja: 'UC・CD住院患者数 全国DPC第1位', 'zh-TW': 'UC・CD住院患者數 全國DPC第1', 'zh-CN': 'UC・CD住院患者数 全国DPC第1', en: '#1 nationally in UC & CD hospitalization (DPC)' },
+      { ja: '累計手術4,140件以上', 'zh-TW': '累計手術4,140件以上', 'zh-CN': '累计手术4,140件以上', en: '4,140+ cumulative surgeries' },
+      { ja: '微創手術＋多学科協作チーム', 'zh-TW': '微創手術＋多學科協作團隊', 'zh-CN': '微创手术＋多学科协作团队', en: 'Minimally invasive surgery + multidisciplinary team' },
+    ],
+    category: 'digestive',
+    diseases: { ja: '潰瘍性大腸炎、クローン病', 'zh-TW': '潰瘍性大腸炎、克羅恩病', 'zh-CN': '溃疡性大肠炎、克罗恩病', en: 'Ulcerative Colitis, Crohn\'s Disease' },
+    badge: { ja: '病院長 / IBD全国DPC 1位', 'zh-TW': '院長 / IBD全國DPC第1', 'zh-CN': '院长 / IBD全国DPC第1', en: 'Director / IBD #1 DPC' },
+    gradient: 'from-rose-500 to-orange-500',
+  },
+  {
+    name: { ja: '新崎 信一郎', 'zh-TW': '新崎 信一郎', 'zh-CN': '新崎信一郎', en: 'Shinichiro Shinzaki' },
+    title: { ja: '消化管内科 主任教授 / IBDセンター主任', 'zh-TW': '消化道內科 主任教授 / IBD中心主任', 'zh-CN': '消化道内科 主任教授 / IBD中心主任', en: 'Chief Professor, GI Medicine / IBD Center Director' },
+    dept: { ja: '消化管内科 / IBDセンター', 'zh-TW': '消化道內科 / IBD中心', 'zh-CN': '消化道内科 / IBD中心', en: 'GI Medicine / IBD Center' },
+    specialty: { ja: 'IBDの薬物治療・生物学的製剤・総合管理', 'zh-TW': 'IBD的藥物治療・生物製劑・綜合管理', 'zh-CN': 'IBD的药物治疗・生物制剂・综合管理', en: 'IBD medication, biologics & comprehensive management' },
+    highlights: [
+      { ja: '年間2,000件以上の生物学的製剤治療', 'zh-TW': '年間2,000件以上生物製劑治療', 'zh-CN': '年间2,000件以上生物制剂治疗', en: '2,000+ biologic treatments annually' },
+      { ja: 'アジアIBD領域の権威', 'zh-TW': '亞洲IBD領域的權威', 'zh-CN': '亚洲IBD领域的权威', en: 'Renowned authority in Asia\'s IBD field' },
+      { ja: '個体化薬物モニタリング・精密治療', 'zh-TW': '個體化藥物監測・精準治療', 'zh-CN': '个体化药物监测・精准治疗', en: 'Personalized drug monitoring & precision treatment' },
+    ],
+    category: 'digestive',
+    diseases: { ja: '潰瘍性大腸炎、クローン病', 'zh-TW': '潰瘍性大腸炎、克羅恩病', 'zh-CN': '溃疡性大肠炎、克罗恩病', en: 'Ulcerative Colitis, Crohn\'s Disease' },
+    badge: { ja: 'IBDセンター主任', 'zh-TW': 'IBD中心主任', 'zh-CN': 'IBD中心主任', en: 'IBD Center Director' },
+    gradient: 'from-orange-500 to-amber-500',
+  },
+  {
+    name: { ja: '富田 寿彦', 'zh-TW': '富田 壽彥', 'zh-CN': '富田寿彦', en: 'Toshihiko Tomita' },
+    title: { ja: '主任教授 / 内視鏡センター主任 / 梅田健康医学センター院長', 'zh-TW': '主任教授 / 內視鏡中心主任 / 梅田健康醫學中心院長', 'zh-CN': '主任教授 / 内窥镜中心主任 / 梅田健康医学中心院长', en: 'Chief Prof / Endoscopy Center Director / Umeda Health Center Director' },
+    dept: { ja: '健康医療学 / 内視鏡センター', 'zh-TW': '健康醫療學 / 內視鏡中心', 'zh-CN': '健康医疗学 / 内窥镜中心', en: 'Health Medicine / Endoscopy Center' },
+    specialty: { ja: '消化器早期がんの内視鏡精密診断・微創治療', 'zh-TW': '消化道早期癌的內視鏡精密診斷・微創治療', 'zh-CN': '消化道早期癌的内窥镜精密诊断・微创治疗', en: 'Early GI cancer endoscopic precision diagnosis & treatment' },
+    highlights: [
+      { ja: '累計数千例のEMR/ESD実績', 'zh-TW': '累計數千例EMR/ESD實績', 'zh-CN': '累计数千例EMR/ESD实绩', en: 'Thousands of EMR/ESD procedures' },
+      { ja: 'NBI拡大内視鏡・超音波内視鏡の国際的先駆者', 'zh-TW': 'NBI放大內視鏡・超音波內視鏡的國際先驅者', 'zh-CN': 'NBI放大内镜・超声内镜的国际先驱者', en: 'International pioneer in NBI magnification & EUS' },
+      { ja: 'AI内視鏡診断システム導入', 'zh-TW': '引進AI內視鏡診斷系統', 'zh-CN': '引进AI内窥镜诊断系统', en: 'Introduced AI-assisted endoscopic diagnosis' },
+    ],
+    category: 'digestive',
+    diseases: { ja: '胃がん、大腸がん、食道がん（早期）', 'zh-TW': '胃癌、大腸癌、食道癌（早期）', 'zh-CN': '胃癌、大肠癌、食道癌（早期）', en: 'Gastric, Colorectal, Esophageal cancer (early stage)' },
+    badge: { ja: 'AI内視鏡 / 数千例EMR/ESD', 'zh-TW': 'AI內視鏡 / 數千例EMR/ESD', 'zh-CN': 'AI内镜 / 数千例EMR/ESD', en: 'AI Endoscopy / 1000s EMR/ESD' },
+    gradient: 'from-teal-600 to-emerald-600',
+  },
+  // ===== 眼科・软骨再生 =====
+  {
+    name: { ja: '五味 文', 'zh-TW': '五味 文', 'zh-CN': '五味文', en: 'Aya Gomi' },
+    title: { ja: '主任教授 / 診療部長', 'zh-TW': '主任教授 / 診療部長', 'zh-CN': '主任教授 / 诊疗部长', en: 'Chief Professor / Clinical Director' },
+    dept: { ja: '眼科', 'zh-TW': '眼科', 'zh-CN': '眼科', en: 'Ophthalmology' },
+    specialty: { ja: '黄斑疾患・糖尿病網膜症・ぶどう膜炎', 'zh-TW': '黃斑疾病・糖尿病視網膜病變・葡萄膜炎', 'zh-CN': '黄斑疾病・糖尿病视网膜病变・葡萄膜炎', en: 'Macular disease, Diabetic retinopathy, Uveitis' },
+    highlights: [
+      { ja: '抗VEGF・PDT・硝子体注射の前沿応用', 'zh-TW': '抗VEGF・PDT・玻璃體注射的前沿應用', 'zh-CN': '抗VEGF・PDT・玻璃体注射的前沿应用', en: 'Cutting-edge anti-VEGF, PDT & intravitreal injection' },
+      { ja: 'AMD・CSC・糖尿病網膜症の権威', 'zh-TW': 'AMD・CSC・糖尿病視網膜病變的權威', 'zh-CN': 'AMD・CSC・糖尿病视网膜病变的权威', en: 'Authority on AMD, CSC & diabetic retinopathy' },
+      { ja: '多数の臨床研究をリードする核心人物', 'zh-TW': '領導多項臨床研究的核心人物', 'zh-CN': '领导多项临床研究的核心人物', en: 'Core leader of multiple clinical research programs' },
+    ],
+    category: 'eye_ortho',
+    diseases: { ja: '加齢黄斑変性、糖尿病網膜症、ぶどう膜炎', 'zh-TW': '老年性黃斑變性、糖尿病視網膜病變、葡萄膜炎', 'zh-CN': '老年性黄斑变性、糖尿病视网膜病变、葡萄膜炎', en: 'AMD, Diabetic retinopathy, Uveitis' },
+    badge: { ja: '眼科の臨床研究リーダー', 'zh-TW': '眼科臨床研究領導者', 'zh-CN': '眼科临床研究领导者', en: 'Ophthalmology Research Leader' },
+    gradient: 'from-cyan-600 to-blue-600',
+  },
+  {
+    name: { ja: 'JACC®軟骨再生チーム', 'zh-TW': 'JACC®軟骨再生團隊', 'zh-CN': 'JACC®软骨再生团队', en: 'JACC® Cartilage Regen Team' },
+    title: { ja: '整形外科 専門チーム', 'zh-TW': '骨科 專門團隊', 'zh-CN': '骨科 专门团队', en: 'Orthopedics Specialist Team' },
+    dept: { ja: '整形外科', 'zh-TW': '骨科', 'zh-CN': '骨科', en: 'Orthopedics' },
+    specialty: { ja: '自家培養軟骨JACC®移植による膝関節再生', 'zh-TW': '自體培養軟骨JACC®移植膝關節再生', 'zh-CN': '自体培养软骨JACC®移植膝关节再生', en: 'JACC® autologous cultured cartilage knee regeneration' },
+    highlights: [
+      { ja: '日本政府唯一承認の軟骨再生治療', 'zh-TW': '日本政府唯一批准的軟骨再生治療', 'zh-CN': '日本政府唯一批准的软骨再生治疗', en: 'Japan\'s only government-approved cartilage regeneration' },
+      { ja: '実績1,900例以上（7年間225例の臨床研究）', 'zh-TW': '實績1,900例以上（7年225例臨床研究）', 'zh-CN': '实绩1,900例以上（7年225例临床研究）', en: '1,900+ cases (225 in 7-year clinical study)' },
+      { ja: 'GCTP・GMP基準の細胞培養', 'zh-TW': '符合GCTP・GMP標準的細胞培養', 'zh-CN': '符合GCTP・GMP标准的细胞培养', en: 'GCTP & GMP-standard cell cultivation' },
+    ],
+    category: 'eye_ortho',
+    diseases: { ja: '膝軟骨損傷、離断性骨軟骨炎、変形性膝関節症', 'zh-TW': '膝軟骨損傷、離斷性骨軟骨炎、退化性膝關節炎', 'zh-CN': '膝软骨损伤、离断性骨软骨炎、变形性膝关节症', en: 'Knee cartilage injury, Osteochondritis, Knee osteoarthritis' },
+    badge: { ja: '政府唯一承認 / 1,900例+', 'zh-TW': '政府唯一批准 / 1,900例+', 'zh-CN': '政府唯一批准 / 1,900例+', en: 'Only Govt-Approved / 1,900+' },
+    gradient: 'from-amber-500 to-yellow-600',
+  },
+];
+
 // 色彩映射
 const ICON_COLORS: Record<string, { bg: string; text: string; hoverBg: string }> = {
   blue: { bg: 'bg-blue-100', text: 'text-blue-700', hoverBg: 'group-hover:bg-blue-600' },
@@ -797,6 +1044,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
   const [showWechatQR, setShowWechatQR] = useState(false);
   const [activePhase, setActivePhase] = useState<number>(1);
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
+  const [doctorCategory, setDoctorCategory] = useState<DoctorCategory | null>(null);
 
   return (
     <div className="animate-fade-in-up min-h-screen bg-white">
@@ -892,6 +1140,126 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
                 </div>
               );
             })}
+          </div>
+        </div>
+
+        {/* ========================================
+            NEW: 合作专家医疗团队 — 按疾病快速找到医生
+            ======================================== */}
+        <div id="expert-team" className="mb-24">
+          <div className="text-center mb-12">
+            <span className="text-emerald-600 text-xs tracking-widest uppercase font-bold">
+              {({ ja: '合作専門医チーム', 'zh-TW': '合作專科醫療團隊', 'zh-CN': '合作专科医疗团队', en: 'Partner Specialist Team' } as Record<Language, string>)[lang]}
+            </span>
+            <h3 className="text-3xl font-serif text-gray-900 mt-2">
+              {({ ja: '疾患別 — あなたの名医を見つける', 'zh-TW': '按疾病分類 — 找到您的名醫', 'zh-CN': '按疾病分类 — 找到您的名医', en: 'Find Your Specialist by Condition' } as Record<Language, string>)[lang]}
+            </h3>
+            <p className="text-gray-500 mt-3 max-w-2xl mx-auto text-sm">
+              {({ ja: '各分野のトップ教授陣が、高度な専門治療をご提供します', 'zh-TW': '各領域頂尖教授團隊，為您提供高端專業治療', 'zh-CN': '各领域顶尖教授团队，为您提供高端专业治疗', en: 'Top professors in each field provide advanced specialized treatment' } as Record<Language, string>)[lang]}
+            </p>
+          </div>
+
+          {/* Category Tabs */}
+          <div className="flex flex-wrap justify-center gap-2 mb-10">
+            <button
+              onClick={() => setDoctorCategory(null)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                doctorCategory === null
+                  ? 'bg-emerald-600 text-white shadow-lg'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              {({ ja: '全て表示', 'zh-TW': '全部顯示', 'zh-CN': '全部显示', en: 'Show All' } as Record<Language, string>)[lang]}
+            </button>
+            {DOCTOR_CATEGORIES.map((cat) => {
+              const Icon = cat.icon;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setDoctorCategory(cat.id)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-1.5 ${
+                    doctorCategory === cat.id
+                      ? 'bg-emerald-600 text-white shadow-lg'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                >
+                  <Icon size={14} />
+                  {cat.label[lang]}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Doctor Cards Grid — Premium Trust Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {EXPERT_DOCTORS
+              .filter((d) => doctorCategory === null || d.category === doctorCategory)
+              .map((doc, i) => {
+                const initials = doc.name.ja.replace(/\s/g, '').slice(0, 2);
+                return (
+                  <div
+                    key={i}
+                    className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group"
+                  >
+                    {/* Top Badge Banner */}
+                    <div className={`bg-gradient-to-r ${doc.gradient} px-5 py-2.5 flex items-center justify-between`}>
+                      <span className="text-white text-xs font-bold tracking-wide">{doc.badge[lang]}</span>
+                      <span className="text-white/70 text-[10px] font-medium">
+                        {DOCTOR_CATEGORIES.find((c) => c.id === doc.category)?.label[lang]}
+                      </span>
+                    </div>
+
+                    <div className="p-5">
+                      {/* Avatar + Name Row */}
+                      <div className="flex items-center gap-4 mb-4">
+                        {/* Photo or Initials Avatar */}
+                        {doc.photoUrl ? (
+                          <Image
+                            src={doc.photoUrl}
+                            alt={doc.name[lang]}
+                            width={64}
+                            height={64}
+                            className="rounded-full object-cover border-2 border-white shadow-md"
+                          />
+                        ) : (
+                          <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${doc.gradient} flex items-center justify-center shadow-md flex-shrink-0`}>
+                            <span className="text-white text-lg font-bold">{initials}</span>
+                          </div>
+                        )}
+                        <div className="min-w-0">
+                          <h4 className="text-lg font-bold text-gray-900 font-serif truncate">{doc.name[lang]}</h4>
+                          <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">{doc.title[lang]}</p>
+                          <p className="text-xs text-emerald-600 font-medium mt-0.5">{doc.dept[lang]}</p>
+                        </div>
+                      </div>
+
+                      {/* Specialty highlight */}
+                      <p className="text-sm text-gray-800 font-medium mb-3 pl-3 border-l-2 border-emerald-400">
+                        {doc.specialty[lang]}
+                      </p>
+
+                      {/* Key Highlights */}
+                      <ul className="space-y-1.5 mb-4">
+                        {doc.highlights.map((h, j) => (
+                          <li key={j} className="flex items-start gap-2 text-[13px] text-gray-600">
+                            <CheckCircle size={13} className="text-emerald-500 mt-0.5 flex-shrink-0" />
+                            <span>{h[lang]}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      {/* Disease Tags */}
+                      <div className="flex flex-wrap gap-1.5 pt-3 border-t border-gray-100">
+                        {doc.diseases[lang].split(/[、,]/).map((d, j) => (
+                          <span key={j} className="inline-block bg-gray-100 text-gray-700 text-[11px] font-medium px-2.5 py-1 rounded-full">
+                            {d.trim()}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
           </div>
         </div>
 
