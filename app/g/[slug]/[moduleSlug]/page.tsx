@@ -3,7 +3,7 @@ import { getGuideModuleByComponentKey } from '@/lib/services/whitelabel';
 import TIMCContent from '@/app/guide-partner/product-center/timc/TIMCContent';
 import HyogoMedicalContent from '@/app/hyogo-medical/HyogoMedicalContent';
 import SaiClinicContent from '@/app/sai-clinic/SaiClinicContent';
-import CancerTreatmentContent from '@/app/cancer-treatment/CancerTreatmentContent';
+import OICIContent from '@/app/oici/OICIContent';
 import GolfContent from '@/app/business/golf/GolfContent';
 import MedicalTourismContent from '@/app/business/medical/MedicalTourismContent';
 import HeleneClinicContent from '@/app/helene-clinic/HeleneClinicContent';
@@ -67,7 +67,7 @@ export default async function ModuleDetailPage({ params }: PageProps) {
     }
 
     case 'cancer_treatment':
-      return <CancerTreatmentContent isGuideEmbed />;
+      return <OICIContent isGuideEmbed />;
 
     case 'golf':
       return <GolfContent isGuideEmbed />;
