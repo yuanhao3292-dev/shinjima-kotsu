@@ -18,7 +18,7 @@ function toUrlSlug(componentKey: string): string {
 const DETAIL_MODULES = new Set([
   'medical_packages', 'hyogo_medical', 'cancer_treatment',
   'sai_clinic', 'wclinic_mens',
-  'helene_clinic', 'ginza_phoenix', 'cell_medicine', 'ac_plus',
+  'helene_clinic', 'ginza_phoenix', 'cell_medicine', 'ac_plus', 'igtc',
 ]);
 
 /** 详情页首图映射（确保首页背景图严格复用详情页首图） */
@@ -32,7 +32,7 @@ const DETAIL_PAGE_HERO_IMAGES: Record<string, string> = {
   wclinic_mens: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=2000&auto=format&fit=crop',
   cell_medicine: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?q=80&w=2000&auto=format&fit=crop',
   ac_plus: 'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?q=80&w=2000&auto=format&fit=crop',
-  // 其他模块待补充
+  igtc: 'https://igtc.jp/wp-content/themes/igtclinic/images/top/mainVisual_img01.jpg',
 };
 
 export default async function GuideHomePage({ params }: PageProps) {

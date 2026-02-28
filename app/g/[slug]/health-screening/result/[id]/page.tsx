@@ -16,7 +16,7 @@ function toUrlSlug(componentKey: string): string {
 const DETAIL_MODULES = new Set([
   'medical_packages', 'hyogo_medical', 'cancer_treatment',
   'sai_clinic', 'wclinic_mens',
-  'helene_clinic', 'ginza_phoenix', 'cell_medicine', 'ac_plus',
+  'helene_clinic', 'ginza_phoenix', 'cell_medicine', 'ac_plus', 'igtc',
 ]);
 
 export default async function WhitelabelResultPage({ params }: PageProps) {
