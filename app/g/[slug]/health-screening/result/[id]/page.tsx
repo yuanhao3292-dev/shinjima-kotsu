@@ -15,7 +15,8 @@ function toUrlSlug(componentKey: string): string {
 /** 有详情页的模块 */
 const DETAIL_MODULES = new Set([
   'medical_packages', 'hyogo_medical', 'cancer_treatment',
-  'golf', 'medical_tourism', 'sai_clinic',
+  'sai_clinic', 'wclinic_mens',
+  'helene_clinic', 'ginza_phoenix', 'cell_medicine', 'ac_plus',
 ]);
 
 export default async function WhitelabelResultPage({ params }: PageProps) {
