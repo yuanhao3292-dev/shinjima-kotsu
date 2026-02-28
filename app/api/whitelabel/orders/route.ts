@@ -143,14 +143,14 @@ export async function POST(request: NextRequest) {
       moduleCommissionRateB = pageModule.commission_rate_b;
     }
 
-    // 获取佣金比例：优先使用模块级 per-module dual-rate，fallback 默认
+    // 获取佣金比例（百分比整数，与 webhook 路径保持一致：20 = 20%）
     let commissionRate: number;
     if (moduleCommissionRateA !== null || moduleCommissionRateB !== null) {
       commissionRate = guide.subscription_tier === 'partner'
-        ? ((moduleCommissionRateB ?? 20) / 100)
-        : ((moduleCommissionRateA ?? 10) / 100);
+        ? (moduleCommissionRateB ?? 20)
+        : (moduleCommissionRateA ?? 10);
     } else {
-      commissionRate = guide.subscription_tier === 'partner' ? 0.20 : 0.10;
+      commissionRate = guide.subscription_tier === 'partner' ? 20 : 10;
     }
 
     // 插入订单（匹配 white_label_orders 实际列）

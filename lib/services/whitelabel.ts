@@ -241,7 +241,7 @@ export async function getGuideDistributionPage(
         slug,
         description,
         thumbnail_url,
-        commission_rate,
+        commission_rate_a,
         is_required,
         sort_order,
         is_active,
@@ -326,7 +326,7 @@ export async function getGuideModuleByComponentKey(
       custom_description,
       page_modules!inner (
         id, category, name, name_ja, slug, description,
-        thumbnail_url, commission_rate, is_required, sort_order,
+        thumbnail_url, commission_rate_a, is_required, sort_order,
         is_active, component_key, display_config, created_at, updated_at
       )
     `)

@@ -238,7 +238,7 @@ async function handleCheckoutSessionCompleted(supabase: SupabaseClient, session:
   }
 
   // 如果有导游归属，计算并记录佣金
-  if (guideId && commissionRate) {
+  if (guideId && commissionRate !== null && commissionRate !== undefined) {
     // 获取订单的客户 ID
     const { data: orderData } = await supabase
       .from('orders')

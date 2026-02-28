@@ -181,7 +181,7 @@ export async function GET(request: NextRequest) {
     monthAgo.setMonth(monthAgo.getMonth() - 1);
 
     const { count: monthOrders } = await supabase
-      .from("whitelabel_orders")
+      .from("white_label_orders")
       .select("id", { count: "exact" })
       .eq("guide_id", guideId)
       .gte("created_at", monthAgo.toISOString());
