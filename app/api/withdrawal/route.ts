@@ -75,7 +75,7 @@ export async function GET(request: NextRequest) {
 
     // 查询锁定中的佣金（等待期未到的佣金）
     const { data: lockedCommissions } = await supabase
-      .from('whitelabel_orders')
+      .from('white_label_orders')
       .select('commission_amount, commission_available_at')
       .eq('guide_id', guide.id)
       .eq('commission_status', 'calculated')

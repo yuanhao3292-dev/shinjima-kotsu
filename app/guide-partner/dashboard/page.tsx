@@ -173,7 +173,7 @@ export default function GuideDashboard() {
 
       // 從 whitelabel_orders 獲取本季度已完成訂單金額
       const { data: wlOrders } = await supabase
-        .from('whitelabel_orders')
+        .from('white_label_orders')
         .select('order_amount')
         .eq('guide_id', guideData.id)
         .eq('status', 'completed')

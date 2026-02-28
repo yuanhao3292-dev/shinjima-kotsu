@@ -788,7 +788,7 @@ async function calculateAndRecordCommission(
       .from('orders')
       .select('id')
       .eq('customer_id', customerId)
-      .eq('guide_id', guideId)
+      .eq('referred_by_guide_id', guideId)
       .eq('status', 'paid')
       .neq('id', orderId) // 排除当前订单
       .limit(1);
@@ -844,7 +844,7 @@ async function calculateAndRecordCommission(
 
   // 3. 创建 whitelabel_orders 记录（包含新客奖励信息 + 等待期）
   const { error: wlOrderError } = await supabase
-    .from('whitelabel_orders')
+    .from('white_label_orders')
     .insert({
       guide_id: guideId,
       module_id: moduleId,

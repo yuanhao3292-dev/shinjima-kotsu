@@ -41,6 +41,7 @@ export async function getGuideBySlug(
   }
 
   const isPartner = data.subscription_tier === "partner";
+  // 基础佣金率（展示用），实际费率由 page_modules.commission_rate_a/b 决定
   const commissionRate = isPartner ? 0.20 : 0.10;
 
   // 解析 selected_pages
@@ -102,6 +103,7 @@ export async function getGuideById(
   }
 
   const isPartner = data.subscription_tier === "partner";
+  // 基础佣金率（展示用），实际费率由 page_modules.commission_rate_a/b 决定
   const commissionRate = isPartner ? 0.20 : 0.10;
 
   // 解析 selected_pages
@@ -357,7 +359,7 @@ export async function getGuideModuleByComponentKey(
       slug: mod.slug,
       description: mod.description,
       thumbnailUrl: mod.thumbnail_url,
-      commissionRate: mod.commission_rate,
+      commissionRate: mod.commission_rate_a,
       isRequired: mod.is_required,
       sortOrder: mod.sort_order,
       isActive: mod.is_active,

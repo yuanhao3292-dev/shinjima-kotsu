@@ -110,8 +110,9 @@ function getSupabase(): SupabaseClient {
 // ============================================
 
 /**
- * 根据订阅等级获取当前佣金比例
- * 金牌合伙人 = 20%，初期合伙人 = 10%
+ * 获取导游基础佣金比例（用于展示/认证上下文）
+ * 实际佣金由 page_modules.commission_rate_a/b 在下单时决定
+ * Partner = 20% 基础, Growth = 10% 基础
  */
 async function getCommissionRate(
   _supabase: SupabaseClient,

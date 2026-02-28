@@ -183,7 +183,7 @@ export default function CommissionPage() {
 
       // 載入白標訂單佣金記錄（包含新客獎勵）
       const { data: wlCommissions } = await supabase
-        .from('whitelabel_orders')
+        .from('white_label_orders')
         .select('*')
         .eq('guide_id', guide.id)
         .order('created_at', { ascending: false })

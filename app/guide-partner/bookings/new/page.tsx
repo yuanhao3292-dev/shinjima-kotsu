@@ -103,7 +103,7 @@ function NewBookingForm() {
         return;
       }
 
-      // 金牌合伙人 20%，初期合伙人 10%
+      // 基础佣金率（展示用），实际费率由 page_modules.commission_rate_a/b 在下单时决定
       const commissionRate = guideData.subscription_tier === 'partner' ? 0.20 : 0.10;
 
       setGuide({

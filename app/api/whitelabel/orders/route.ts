@@ -111,10 +111,12 @@ export async function POST(request: NextRequest) {
     // 验证模块存在且导游已选择该模块
     let moduleName = serviceName || '咨询服务';
     let moduleCategory = serviceType || 'medical';
+    let moduleCommissionRateA: number | null = null;
+    let moduleCommissionRateB: number | null = null;
     if (moduleId) {
       const { data: pageModule } = await supabase
         .from('page_modules')
-        .select('id, name, category, is_active')
+        .select('id, name, category, is_active, commission_rate_a, commission_rate_b')
         .eq('id', moduleId)
         .single();
 
@@ -137,10 +139,19 @@ export async function POST(request: NextRequest) {
 
       moduleName = pageModule.name;
       moduleCategory = pageModule.category;
+      moduleCommissionRateA = pageModule.commission_rate_a;
+      moduleCommissionRateB = pageModule.commission_rate_b;
     }
 
-    // 获取佣金比例：金牌合伙人 20%，初期合伙人 10%
-    const commissionRate = guide.subscription_tier === 'partner' ? 0.20 : 0.10;
+    // 获取佣金比例：优先使用模块级 per-module dual-rate，fallback 默认
+    let commissionRate: number;
+    if (moduleCommissionRateA !== null || moduleCommissionRateB !== null) {
+      commissionRate = guide.subscription_tier === 'partner'
+        ? ((moduleCommissionRateB ?? 20) / 100)
+        : ((moduleCommissionRateA ?? 10) / 100);
+    } else {
+      commissionRate = guide.subscription_tier === 'partner' ? 0.20 : 0.10;
+    }
 
     // 插入订单（匹配 white_label_orders 实际列）
     const { data: newOrder, error: insertError } = await supabase
