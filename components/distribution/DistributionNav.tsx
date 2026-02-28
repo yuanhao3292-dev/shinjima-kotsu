@@ -144,10 +144,10 @@ export default function DistributionNav({
       {/* Mobile menu */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-300 ${
-          isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          isOpen ? 'max-h-[80vh] opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
-        <div className="bg-white border-t shadow-lg px-6 py-4 space-y-1">
+        <div className="bg-white border-t shadow-lg px-6 py-4 space-y-1 overflow-y-auto max-h-[75vh]">
           {navItems.map((item) => {
             const active = isActive(item);
             const cls = `block w-full text-left px-4 py-3 rounded-lg transition-colors font-medium ${

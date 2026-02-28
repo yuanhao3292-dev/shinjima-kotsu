@@ -14,15 +14,11 @@ function toUrlSlug(componentKey: string): string {
   return componentKey.replace(/_/g, '-');
 }
 
-/** 支持详情页的 component_key */
+/** 支持详情页的 component_key（必须与 page_modules 表一致） */
 const DETAIL_MODULES = new Set([
   'medical_packages', 'hyogo_medical', 'cancer_treatment',
-  'golf', 'medical_tourism', 'health_screening', 'sai_clinic',
-  'helene_clinic',
-  'ginza_phoenix',
-  'wclinic_mens',
-  'cell_medicine',
-  'ac_plus',
+  'sai_clinic', 'wclinic_mens',
+  'helene_clinic', 'ginza_phoenix', 'cell_medicine', 'ac_plus',
 ]);
 
 /** 详情页首图映射（确保首页背景图严格复用详情页首图） */

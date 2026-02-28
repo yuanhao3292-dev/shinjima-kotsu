@@ -253,6 +253,10 @@ export async function getGuideDistributionPage(
     .eq("is_enabled", true)
     .order("sort_order", { ascending: true });
 
+  if (modulesError) {
+    console.error(`[whitelabel] Failed to fetch modules for guide ${slug}:`, modulesError);
+  }
+
   // 4. 转换模块数据格式
   const selectedModules: SelectedModuleWithDetails[] = (selectedModulesData || [])
     .filter((sm) => sm.page_modules)
@@ -298,22 +302,74 @@ export async function getGuideDistributionPage(
 /**
  * 根据导游 slug 和模块 component_key 获取模块详情
  * 用于 /g/[slug]/[moduleSlug] 子路由
+ * 优化：只查询匹配的单个模块，不加载全部模块
  */
 export async function getGuideModuleByComponentKey(
   guideSlug: string,
   componentKey: string
 ): Promise<{ guide: GuideWhiteLabelConfig; module: SelectedModuleWithDetails } | null> {
-  const pageData = await getGuideDistributionPage(guideSlug);
-  if (!pageData) return null;
+  const supabase = getServiceClient();
 
-  const matchingModule = pageData.selectedModules.find(
-    (m) => m.module.componentKey === componentKey
-  );
+  const guideConfig = await getGuideBySlug(guideSlug);
+  if (!guideConfig) return null;
 
-  if (!matchingModule) return null;
+  // 只查询匹配 component_key 的单个模块
+  const { data, error } = await supabase
+    .from("guide_selected_modules")
+    .select(`
+      id,
+      sort_order,
+      is_enabled,
+      custom_title,
+      custom_description,
+      page_modules!inner (
+        id, category, name, name_ja, slug, description,
+        thumbnail_url, commission_rate, is_required, sort_order,
+        is_active, component_key, display_config, created_at, updated_at
+      )
+    `)
+    .eq("guide_id", guideConfig.id)
+    .eq("is_enabled", true)
+    .eq("page_modules.component_key", componentKey)
+    .limit(1)
+    .maybeSingle();
+
+  if (error) {
+    console.error(`[whitelabel] Failed to fetch module ${componentKey} for guide ${guideSlug}:`, error);
+    return null;
+  }
+
+  if (!data || !data.page_modules) return null;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const mod = data.page_modules as any;
+  const matchingModule: SelectedModuleWithDetails = {
+    id: data.id,
+    sortOrder: data.sort_order,
+    isEnabled: data.is_enabled,
+    customTitle: data.custom_title,
+    customDescription: data.custom_description,
+    module: {
+      id: mod.id,
+      category: mod.category,
+      name: mod.name,
+      nameJa: mod.name_ja,
+      slug: mod.slug,
+      description: mod.description,
+      thumbnailUrl: mod.thumbnail_url,
+      commissionRate: mod.commission_rate,
+      isRequired: mod.is_required,
+      sortOrder: mod.sort_order,
+      isActive: mod.is_active,
+      componentKey: mod.component_key,
+      displayConfig: mod.display_config || null,
+      createdAt: mod.created_at,
+      updatedAt: mod.updated_at,
+    },
+  };
 
   return {
-    guide: pageData.guide,
+    guide: guideConfig,
     module: matchingModule,
   };
 }

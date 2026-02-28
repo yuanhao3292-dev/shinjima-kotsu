@@ -97,17 +97,42 @@ shinjima-kotsu/
 - **配置**: `lib/whitelabel-config.ts` (slug 校验) + `lib/whitelabel-pages.ts`
 - **服务端**: `lib/services/whitelabel.ts` + `lib/utils/whitelabel-server.ts`
 
-#### 白标可用模块
+#### 白标可用模块（数据库 page_modules 表，共 9 个）
 
-| 模块 | 文件 | 说明 |
-|------|------|------|
-| 医疗健检 | `HealthScreeningModule.tsx` | TIMC 健检套餐 |
-| 医疗套餐 | `MedicalPackagesModule.tsx` | 全部医疗套餐 |
-| 医疗旅游 | `MedicalTourismModule.tsx` | 医疗旅游介绍 |
-| 癌症治疗 | `CancerTreatmentModule.tsx` | 癌症患者赴日 |
-| 兵库医大 | `HyogoMedicalModule.tsx` | 兵库医大病院 |
-| 高尔夫 | `GolfModule.tsx` | 高尔夫预约 |
-| 车辆租赁 | `VehiclesModule.tsx` | 包车服务 |
+| component_key | 名称 | Content 组件 | 分类 |
+|---------------|------|-------------|------|
+| medical_packages | TIMC 健检套餐 | TIMCContent | 体检中心 |
+| hyogo_medical | 兵庫医科大学病院 | HyogoMedicalContent | 综合医院 |
+| cancer_treatment | 大阪国際がんセンター | OICIContent | 综合医院 |
+| sai_clinic | SAI CLINIC 医美整形 | SaiClinicContent | 医美整形 |
+| wclinic_mens | W CLINIC men's 梅田院 | WClinicMensContent | 医美整形 |
+| helene_clinic | 表参道HELENE诊所 | HeleneClinicContent | 干细胞中心 |
+| ginza_phoenix | 銀座鳳凰クリニック | GinzaPhoenixContent | 干细胞中心 |
+| cell_medicine | 先端細胞医療 | CellMedicineContent | 干细胞中心 |
+| ac_plus | ACセルクリニック | ACPlusContent | 干细胞中心 |
+
+> **注意**: `golf`、`medical_tourism`、`health_screening` 在代码中曾有残留引用，但数据库中不存在这些模块。`health_screening` 是独立硬编码路由（AI 健康筛查），不属于 page_modules。
+
+#### ⚠️ 白标导航栏模块过滤机制（重要踩坑记录）
+
+**问题**: 导游在选品中心选择了全部 9 个模块，但白标预览页导航栏只显示 4 个（SAI CLINIC、兵庫医科、がんセンター、TIMC体検）。
+
+**根因**: 白标系统有 **三层过滤**，必须全部对齐才能正常显示：
+
+```
+layer 1: layout.tsx  → DETAIL_MODULES (导航栏白名单)
+layer 2: page.tsx    → DETAIL_MODULES (首页卡片白名单)
+layer 3: [moduleSlug]/page.tsx → SUPPORTED_KEYS + switch (详情页路由)
+```
+
+当时 `layout.tsx` 的 `DETAIL_MODULES` 只有 7 个 key（其中 golf/medical_tourism/health_screening 在数据库不存在），实际有效匹配只有 4 个。新增的 5 家诊所（helene_clinic、ginza_phoenix、wclinic_mens、cell_medicine、ac_plus）被白名单过滤掉了。
+
+**修复**: 在 `layout.tsx` 的 `DETAIL_MODULES` 和 `MODULE_LABELS` 中补齐所有 9 个真实存在的模块。
+
+**教训**:
+1. 新增医院/模块时，必须同步更新三个文件的白名单（layout.tsx、page.tsx、[moduleSlug]/page.tsx）
+2. 不要在代码中保留数据库已不存在的模块 key，会造成混淆
+3. 排查问题时先查数据库实际数据，不要只看代码推测
 
 ### 6. 导游合伙人系统
 - **后台**: `app/guide-partner/` (dashboard, bookings, commission, analytics等)
@@ -859,6 +884,83 @@ const DETAIL_PAGE_HERO_IMAGES: Record<string, string> = {
 | 日期 | 变更内容 | 原因 |
 |------|---------|------|
 | 2026-02-13 | 初始版本 | 建立医疗旅游业务合规框架 |
+
+---
+
+## 白标分销系统商务逻辑
+
+### 完整业务闭环
+
+```
+1. 导游注册 → /guide-partner/register
+   │  填写信息、KYC认证、管理员审核
+   ↓
+2. 订阅付费 → Stripe Subscription
+   │  Growth ¥1,980/月 (佣金10%) 或 Partner ¥4,980/月 (佣金20%)
+   │  Partner 另需入门费 ¥200,000
+   ↓
+3. 选品中心 → /guide-partner/product-center
+   │  导游从 9 家合作机构中选择想推广的项目
+   │  选择保存到 guide_selected_modules 表
+   ↓
+4. 白标页面生成 → /g/[slug]
+   │  系统根据导游选品自动生成品牌页面
+   │  导游品牌logo + 联系方式 + 选中的医院模块
+   │  导航栏 = 选中模块 + AI健康筛查（强制）
+   ↓
+5. 客户下单 → /api/create-checkout-session
+   │  客户通过导游白标页进入，cookie记录 guide_slug
+   │  Stripe Checkout 支付（Live模式）
+   │  订单绑定 referred_by_guide_slug
+   ↓
+6. 佣金结算 → Webhook → guide commission
+   │  Stripe webhook 确认支付成功
+   │  根据导游订阅等级计算佣金（10% 或 20%）
+   │  佣金记录到 guide_commissions 表
+   ↓
+7. 合规底线
+   ├─ 合同主体：新岛交通（持牌旅行社 第2-3115号）
+   ├─ 诊疗类型：自由诊疗（非保险诊疗）
+   ├─ 导游角色：医疗旅行顾问（非医疗中介）
+   ├─ 资金流向：客户→新岛交通→导游（不得直接收费）
+   └─ Footer 强制保留旅行社资质信息
+```
+
+### 三方关系
+
+```
+客户 ──(医疗旅行服务合同)──→ 新岛交通（持牌旅行社）
+                                    │
+                           (安排预约+旅行服务)
+                                    │
+                    ┌───────────────┼───────────────┐
+                    ↓               ↓               ↓
+               9家医疗机构     导游（佣金合作）    Stripe（支付）
+               (自由诊疗)      10%/20% 佣金      Live模式
+```
+
+### 白标页面数据流（导航栏渲染链路）
+
+```
+DB: page_modules (9个模块，含 component_key + display_config)
+  ↓
+DB: guide_selected_modules (导游选中的模块，is_enabled=true)
+  ↓
+Service: getGuideDistributionPage() → 查询并映射为 SelectedModuleWithDetails[]
+  ↓
+Layout: forEach + DETAIL_MODULES 白名单过滤 → push 进 navItems[]
+  ↓
+Component: DistributionNav 渲染导航（无额外过滤）
+```
+
+### 订阅等级对比
+
+| 项目 | Growth | Partner |
+|------|--------|---------|
+| 月费 | ¥1,980 | ¥4,980 |
+| 入门费 | 无 | ¥200,000 |
+| 佣金比例 | 10% | 20% |
+| Price ID (env) | STRIPE_WHITELABEL_PRICE_ID | STRIPE_PARTNER_MONTHLY_PRICE_ID |
 
 ---
 

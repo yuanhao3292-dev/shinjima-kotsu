@@ -17,14 +17,17 @@ function toUrlSlug(componentKey: string): string {
 }
 
 /** 模块名显示映射 */
+/** 模块名 fallback 映射（优先使用 customTitle > navLabel > MODULE_LABELS > module.name） */
 const MODULE_LABELS: Record<string, string> = {
-  sai_clinic: 'SAI CLINIC',
-  hyogo_medical: '兵庫医大病院',
   medical_packages: '精密体检',
+  hyogo_medical: '兵庫医大病院',
   cancer_treatment: '癌症治疗',
-  golf: '高尔夫',
-  medical_tourism: '医疗观光',
-  health_screening: '健康检查',
+  sai_clinic: 'SAI CLINIC',
+  wclinic_mens: 'W CLINIC men\'s',
+  helene_clinic: 'HELENE クリニック',
+  ginza_phoenix: '銀座鳳凰クリニック',
+  cell_medicine: '先端細胞医療',
+  ac_plus: 'ACセルクリニック',
 };
 
 export default async function GuideLayout({ children, params }: LayoutProps) {
@@ -46,10 +49,11 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
     { id: 'home', label: '首页', href: homeHref },
   ];
 
-  // 支持详情页的模块
+  // 支持详情页的模块（必须与 page_modules 表的 component_key 一致）
   const DETAIL_MODULES = new Set([
     'medical_packages', 'hyogo_medical', 'cancer_treatment',
-    'golf', 'medical_tourism', 'health_screening', 'sai_clinic',
+    'sai_clinic', 'wclinic_mens',
+    'helene_clinic', 'ginza_phoenix', 'cell_medicine', 'ac_plus',
   ]);
 
   selectedModules.forEach((m) => {

@@ -4,8 +4,6 @@ import TIMCContent from '@/app/guide-partner/product-center/timc/TIMCContent';
 import HyogoMedicalContent from '@/app/hyogo-medical/HyogoMedicalContent';
 import SaiClinicContent from '@/app/sai-clinic/SaiClinicContent';
 import OICIContent from '@/app/oici/OICIContent';
-import GolfContent from '@/app/business/golf/GolfContent';
-import MedicalTourismContent from '@/app/business/medical/MedicalTourismContent';
 import HeleneClinicContent from '@/app/helene-clinic/HeleneClinicContent';
 import GinzaPhoenixContent from '@/app/ginza-phoenix/GinzaPhoenixContent';
 import WClinicMensContent from '@/app/wclinic-mens/WClinicMensContent';
@@ -22,20 +20,17 @@ function toComponentKey(urlSlug: string): string {
   return urlSlug.replace(/-/g, '_');
 }
 
-/** 所有支持详情页的 component_key */
+/** 所有支持详情页的 component_key（必须与 page_modules 表一致） */
 const SUPPORTED_KEYS = new Set([
   'medical_packages',
   'hyogo_medical',
-  'sai_clinic',
   'cancer_treatment',
-  'golf',
-  'medical_tourism',
+  'sai_clinic',
+  'wclinic_mens',
   'helene_clinic',
   'ginza_phoenix',
-  'wclinic_mens',
   'cell_medicine',
   'ac_plus',
-  // health_screening 已迁移到 /g/[slug]/health-screening/ 独立路由
 ]);
 
 export default async function ModuleDetailPage({ params }: PageProps) {
@@ -68,12 +63,6 @@ export default async function ModuleDetailPage({ params }: PageProps) {
 
     case 'cancer_treatment':
       return <OICIContent isGuideEmbed />;
-
-    case 'golf':
-      return <GolfContent isGuideEmbed />;
-
-    case 'medical_tourism':
-      return <MedicalTourismContent isGuideEmbed />;
 
     case 'helene_clinic':
       return <HeleneClinicContent isGuideEmbed />;
