@@ -249,7 +249,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: '提现申请已提交，我们将在 1-3 个工作日内处理',
+      message: '提现申请已提交，财务将在 7 个工作日内汇款',
       withdrawal,
     });
   } catch (error: unknown) {

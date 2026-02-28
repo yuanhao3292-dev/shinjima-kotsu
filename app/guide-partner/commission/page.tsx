@@ -500,6 +500,17 @@ export default function CommissionPage() {
             </div>
           </div>
 
+          {/* Withdrawal CTA */}
+          <div className="mb-8">
+            <Link
+              href="/guide-partner/withdrawal"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700 transition text-sm"
+            >
+              <Wallet size={18} />
+              申請提現
+            </Link>
+          </div>
+
           {/* Commission Rate Info */}
           <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 mb-8">
             <div className="flex items-start gap-3">
