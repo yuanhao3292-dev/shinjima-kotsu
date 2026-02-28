@@ -55,10 +55,12 @@ export async function POST(request: NextRequest) {
     const cookieGuideSlug = request.cookies.get(WHITELABEL_COOKIE_NAME)?.value || null;
     let guideSlug = bodyGuideSlug || (cookieGuideSlug && isValidSlug(cookieGuideSlug) ? cookieGuideSlug : null);
     let guideId: string | null = null;
+    let guideSubscriptionTier: string | null = null;
     let guideCommissionRate: number | null = null;
+    let moduleId: string | null = null;
 
     if (guideSlug) {
-      // 查询导游信息和佣金率
+      // 查询导游信息
       const { data: guideData, error: guideError } = await supabase
         .from('guides')
         .select('id, subscription_tier')
@@ -69,8 +71,7 @@ export async function POST(request: NextRequest) {
 
       if (guideData) {
         guideId = guideData.id;
-        // 金牌合伙人 20%，初期合伙人 10%
-        guideCommissionRate = guideData.subscription_tier === 'partner' ? 20 : 10;
+        guideSubscriptionTier = guideData.subscription_tier;
       } else {
         // 无效的 guide_slug，清空以防止记录到订单中
         console.warn(`[Security] Invalid guide_slug in cookie: ${guideSlug}`, guideError);
@@ -112,6 +113,27 @@ export async function POST(request: NextRequest) {
     if (!packageData.is_active) {
       console.warn(`[Security] Attempt to purchase inactive package: ${packageSlug}`);
       return createErrorResponse(Errors.business('该套餐暂时不可用', 'PACKAGE_INACTIVE'));
+    }
+
+    // 查询套餐关联的模块佣金率（per-module dual-rate commission）
+    if (guideId && packageData.module_id) {
+      moduleId = packageData.module_id;
+      const { data: moduleData } = await supabase
+        .from('page_modules')
+        .select('commission_rate_a, commission_rate_b')
+        .eq('id', moduleId)
+        .single();
+
+      if (moduleData) {
+        // Partner(B) 使用 commission_rate_b，Growth(A) 使用 commission_rate_a
+        guideCommissionRate = guideSubscriptionTier === 'partner'
+          ? (moduleData.commission_rate_b ?? 20)
+          : (moduleData.commission_rate_a ?? 10);
+      }
+    }
+    // Fallback: 无 module_id 或查询失败时使用默认值
+    if (guideId && guideCommissionRate === null) {
+      guideCommissionRate = guideSubscriptionTier === 'partner' ? 20 : 10;
     }
 
     // 2. 创建或获取客户记录
@@ -203,6 +225,7 @@ export async function POST(request: NextRequest) {
       sessionMetadata.guide_id = guideId;
       sessionMetadata.guide_slug = guideSlug!;
       sessionMetadata.commission_rate = String(guideCommissionRate);
+      if (moduleId) sessionMetadata.module_id = moduleId;
     }
 
     // 如果有来源提供方，记录到 metadata（用于后台按机构统计转化）

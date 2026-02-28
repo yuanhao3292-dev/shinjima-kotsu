@@ -277,7 +277,7 @@ export async function getGuideDistributionPage(
           slug: mod.slug,
           description: mod.description,
           thumbnailUrl: mod.thumbnail_url,
-          commissionRate: mod.commission_rate,
+          commissionRate: mod.commission_rate_a,
           isRequired: mod.is_required,
           sortOrder: mod.sort_order,
           isActive: mod.is_active,

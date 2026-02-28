@@ -21,7 +21,8 @@ interface DBModule {
   description: string | null;
   description_ja: string | null;
   thumbnail_url: string | null;
-  commission_rate: number;
+  commission_rate_a: number;
+  commission_rate_b: number;
   is_required: boolean;
   is_active: boolean;
   component_key: string | null;
@@ -119,8 +120,8 @@ export async function GET(request: NextRequest) {
       description_zh: module.description,
       icon_url: module.thumbnail_url,
       is_required: module.is_required,
-      commission_rate_min: module.commission_rate,
-      commission_rate_max: module.commission_rate,
+      commission_rate_min: module.commission_rate_a,
+      commission_rate_max: module.commission_rate_b,
       component_key: module.component_key,
       selectedByGuide: selectedModuleIds.has(module.id),
     }));

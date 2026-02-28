@@ -201,6 +201,18 @@ async function handleCheckoutSessionCompleted(supabase: SupabaseClient, session:
   }
   console.log('Order ID found:', orderId);
 
+  // 订单级幂等性检查：避免重复处理
+  const { data: existingOrder } = await supabase
+    .from('orders')
+    .select('status')
+    .eq('id', orderId)
+    .single();
+
+  if (existingOrder?.status === 'paid' || existingOrder?.status === 'confirmed') {
+    console.log(`订单已处理 (status=${existingOrder.status})，跳过: ${orderId}`);
+    return;
+  }
+
   // 提取白标归属信息
   const guideId = session.metadata?.guide_id || null;
   const guideSlug = session.metadata?.guide_slug || null;
@@ -208,6 +220,7 @@ async function handleCheckoutSessionCompleted(supabase: SupabaseClient, session:
     ? parseFloat(session.metadata.commission_rate)
     : null;
   const orderType = session.metadata?.order_type || 'medical';
+  const moduleId = session.metadata?.module_id || null;
 
   // 更新订单状态为 paid
   const { error: orderError } = await supabase
@@ -239,6 +252,7 @@ async function handleCheckoutSessionCompleted(supabase: SupabaseClient, session:
       guideSlug,
       orderType,
       commissionRate,
+      moduleId,
       sessionAmountTotal: session.amount_total || 0,
       customerId: orderData?.customer_id,
     });
@@ -738,6 +752,7 @@ interface CommissionParams {
   guideSlug: string | null;
   orderType: string;
   commissionRate: number;
+  moduleId: string | null;
   sessionAmountTotal: number; // Stripe 金额（日元，单位为分）
   customerId?: string; // 客户 ID，用于判断是否新客首单
 }
@@ -755,7 +770,7 @@ async function calculateAndRecordCommission(
   supabase: SupabaseClient,
   params: CommissionParams
 ) {
-  const { orderId, guideId, guideSlug, orderType, commissionRate, sessionAmountTotal, customerId } = params;
+  const { orderId, guideId, guideSlug, orderType, commissionRate, moduleId, sessionAmountTotal, customerId } = params;
 
   // Stripe 日元金额不需要除以 100（日元是零小数货币）
   const orderAmount = sessionAmountTotal;
@@ -832,6 +847,7 @@ async function calculateAndRecordCommission(
     .from('whitelabel_orders')
     .insert({
       guide_id: guideId,
+      module_id: moduleId,
       order_type: orderType,
       order_amount: orderAmount,
       order_currency: 'JPY',

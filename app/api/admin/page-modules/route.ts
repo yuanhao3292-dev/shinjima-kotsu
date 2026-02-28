@@ -132,7 +132,8 @@ export async function POST(request: NextRequest) {
           slug: moduleData!.slug || null,
           description: moduleData!.description || null,
           thumbnail_url: moduleData!.thumbnailUrl || null,
-          commission_rate: moduleData!.commissionRate || 0,
+          commission_rate_a: moduleData!.commissionRateA ?? 10,
+          commission_rate_b: moduleData!.commissionRateB ?? 20,
           is_required: moduleData!.isRequired || false,
           sort_order: moduleData!.sortOrder || 0,
           component_key: moduleData!.componentKey || null,
@@ -164,7 +165,8 @@ export async function POST(request: NextRequest) {
         if (moduleData!.slug !== undefined) updateData.slug = moduleData!.slug;
         if (moduleData!.description !== undefined) updateData.description = moduleData!.description;
         if (moduleData!.thumbnailUrl !== undefined) updateData.thumbnail_url = moduleData!.thumbnailUrl;
-        if (moduleData!.commissionRate !== undefined) updateData.commission_rate = moduleData!.commissionRate;
+        if (moduleData!.commissionRateA !== undefined) updateData.commission_rate_a = moduleData!.commissionRateA;
+        if (moduleData!.commissionRateB !== undefined) updateData.commission_rate_b = moduleData!.commissionRateB;
         if (moduleData!.isRequired !== undefined) updateData.is_required = moduleData!.isRequired;
         if (moduleData!.sortOrder !== undefined) updateData.sort_order = moduleData!.sortOrder;
         if (moduleData!.componentKey !== undefined) updateData.component_key = moduleData!.componentKey;

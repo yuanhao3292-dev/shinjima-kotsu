@@ -30,8 +30,8 @@ interface PageModule {
   description_zh: string | null;
   icon_url: string | null;
   is_required: boolean;
-  commission_rate_min: number;
-  commission_rate_max: number;
+  commission_rate_a: number;
+  commission_rate_b: number;
   status: 'active' | 'inactive';
   display_order: number;
   config: Record<string, unknown> | null;
@@ -66,8 +66,8 @@ const emptyModule: Partial<PageModule> = {
   description_zh: '',
   icon_url: '',
   is_required: false,
-  commission_rate_min: 0,
-  commission_rate_max: 25,
+  commission_rate_a: 10,
+  commission_rate_b: 20,
   status: 'active',
   display_order: 0,
 };
@@ -135,8 +135,8 @@ export default function PageModulesPage() {
         descriptionZh: editingModule.description_zh || null,
         iconUrl: editingModule.icon_url || null,
         isRequired: editingModule.is_required,
-        commissionRateMin: editingModule.commission_rate_min,
-        commissionRateMax: editingModule.commission_rate_max,
+        commissionRateA: editingModule.commission_rate_a,
+        commissionRateB: editingModule.commission_rate_b,
         status: editingModule.status,
         displayOrder: editingModule.display_order,
       };
@@ -354,31 +354,33 @@ export default function PageModulesPage() {
               </div>
             </div>
 
-            {/* 佣金设置 */}
+            {/* 佣金设置 (A/B 双费率) */}
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">最低佣金比例 (%)</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Growth 佣金 Plan A (%)</label>
                 <input
                   type="number"
-                  value={editingModule.commission_rate_min || 0}
-                  onChange={(e) => setEditingModule({ ...editingModule, commission_rate_min: parseFloat(e.target.value) || 0 })}
+                  value={editingModule.commission_rate_a ?? 10}
+                  onChange={(e) => setEditingModule({ ...editingModule, commission_rate_a: parseFloat(e.target.value) || 0 })}
                   min="0"
                   max="100"
                   step="0.5"
                   className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500"
                 />
+                <p className="mt-1 text-xs text-gray-400">Gold Partner (¥1,980/月)</p>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">最高佣金比例 (%)</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Partner 佣金 Plan B (%)</label>
                 <input
                   type="number"
-                  value={editingModule.commission_rate_max || 25}
-                  onChange={(e) => setEditingModule({ ...editingModule, commission_rate_max: parseFloat(e.target.value) || 25 })}
+                  value={editingModule.commission_rate_b ?? 20}
+                  onChange={(e) => setEditingModule({ ...editingModule, commission_rate_b: parseFloat(e.target.value) || 0 })}
                   min="0"
                   max="100"
                   step="0.5"
                   className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500"
                 />
+                <p className="mt-1 text-xs text-gray-400">Partner (¥200,000 + ¥4,980/月)</p>
               </div>
             </div>
 
@@ -578,7 +580,7 @@ export default function PageModulesPage() {
                         </span>
                         <span className="flex items-center gap-1">
                           <Percent size={12} />
-                          {module.commission_rate_min}-{module.commission_rate_max}%
+                          A:{module.commission_rate_a}% / B:{module.commission_rate_b}%
                         </span>
                         <span>排序: {module.display_order}</span>
                       </div>
