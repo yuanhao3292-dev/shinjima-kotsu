@@ -25,7 +25,7 @@ INSERT INTO page_modules (
   display_config,
   page_content
 ) VALUES (
-  'hospital',
+  'medical',
   'IGTクリニック（血管内治療・温熱療法）',
   'IGTクリニック（血管内治療・温熱療法）',
   'IGT Clinic (Endovascular Intervention & Hyperthermia)',
