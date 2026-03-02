@@ -42,6 +42,7 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
   const { guide, selectedModules } = pageData;
 
   const brandName = guide.brandName || guide.name;
+  const brandTagline = guide.brandTagline || null;
   const brandColor = guide.brandColor || '#2563eb';
   const homeHref = `/g/${slug}`;
 
@@ -97,6 +98,7 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
       {/* 导航栏 — 仅展示导游品牌 */}
       <DistributionNav
         brandName={brandName}
+        brandTagline={brandTagline}
         navItems={navItems}
         homeHref={homeHref}
       />

@@ -61,6 +61,7 @@ export default function WhiteLabelSettingsPage() {
   const [formData, setFormData] = useState({
     slug: '',
     brandName: '',
+    brandTagline: '',
     brandLogoUrl: '',
     brandColor: '#2563eb',
     contactWechat: '',
@@ -205,6 +206,7 @@ export default function WhiteLabelSettingsPage() {
       setFormData({
         slug: guideData.slug || '',
         brandName: guideData.brandName || '',
+        brandTagline: guideData.brandTagline || '',
         brandLogoUrl: guideData.brandLogoUrl || '',
         brandColor: guideData.brandColor || '#2563eb',
         contactWechat: guideData.contactWechat || '',
@@ -245,6 +247,7 @@ export default function WhiteLabelSettingsPage() {
         body: JSON.stringify({
           slug: formData.slug || null,
           brandName: formData.brandName || null,
+          brandTagline: formData.brandTagline || null,
           brandLogoUrl: formData.brandLogoUrl || null,
           brandColor: formData.brandColor,
           contactWechat: formData.contactWechat || null,
@@ -743,12 +746,13 @@ export default function WhiteLabelSettingsPage() {
           </h2>
 
           <div className="space-y-6">
-            {/* URL 标识（子域名） */}
+            {/* URL 标识 */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                专属子域名
+                专属页面标识
               </label>
               <div className="flex items-center gap-2">
+                <span className="text-gray-400 text-sm">bespoketrip.jp/g/</span>
                 <input
                   type="text"
                   value={formData.slug}
@@ -756,7 +760,6 @@ export default function WhiteLabelSettingsPage() {
                   placeholder="your-name"
                   className="w-40 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
-                <span className="text-gray-400 text-sm">.bespoketrip.jp</span>
               </div>
               <p className="mt-1 text-xs text-gray-500">
                 只能使用小写字母、数字和连字符（3-50个字符）
@@ -777,6 +780,23 @@ export default function WhiteLabelSettingsPage() {
               />
               <p className="mt-1 text-xs text-gray-500">
                 将替换导航栏和页脚的品牌名称
+              </p>
+            </div>
+
+            {/* 品牌英文名 (导航栏副标题) */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                品牌英文名
+              </label>
+              <input
+                type="text"
+                value={formData.brandTagline}
+                onChange={(e) => setFormData({ ...formData, brandTagline: e.target.value })}
+                placeholder="例：Bespoke Japan Travel"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+              <p className="mt-1 text-xs text-gray-500">
+                显示在导航栏品牌名称下方的英文副标题
               </p>
             </div>
 

@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
       .from("guides")
       .select(
         `
-        id, name, slug, brand_name, brand_logo_url, brand_color,
+        id, name, slug, brand_name, brand_tagline, brand_logo_url, brand_color,
         contact_wechat, contact_line, contact_display_phone, email,
         subscription_status, subscription_plan, subscription_end_date,
         whitelabel_views, whitelabel_conversions, selected_pages
@@ -65,7 +65,7 @@ export async function GET(request: NextRequest) {
         .from("guides")
         .select(
           `
-          id, name, slug, brand_name, brand_logo_url, brand_color,
+          id, name, slug, brand_name, brand_tagline, brand_logo_url, brand_color,
           contact_wechat, contact_line, contact_display_phone, email,
           subscription_status, subscription_plan, subscription_end_date,
           whitelabel_views, whitelabel_conversions
@@ -114,6 +114,7 @@ export async function GET(request: NextRequest) {
       name: guide.name,
       slug: guide.slug,
       brandName: guide.brand_name,
+      brandTagline: guide.brand_tagline || null,
       brandLogoUrl: guide.brand_logo_url,
       brandColor: guide.brand_color || "#2563eb",
       contactWechat: guide.contact_wechat,
@@ -219,6 +220,9 @@ export async function PUT(request: NextRequest) {
     }
     if (settings.brandName !== undefined) {
       updateData.brand_name = settings.brandName || null;
+    }
+    if (settings.brandTagline !== undefined) {
+      updateData.brand_tagline = settings.brandTagline || null;
     }
     if (settings.brandLogoUrl !== undefined) {
       updateData.brand_logo_url = settings.brandLogoUrl || null;

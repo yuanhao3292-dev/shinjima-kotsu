@@ -19,6 +19,7 @@ export interface GuideWhiteLabelConfig {
 
   // 品牌定制
   brandName: string | null;
+  brandTagline: string | null;
   brandLogoUrl: string | null;
   brandColor: string;
 

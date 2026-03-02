@@ -227,6 +227,7 @@ export const WhitelabelSettingsSchema = z.object({
     .optional()
     .nullable(),
   brandName: z.string().max(100, '品牌名称最多100个字符').optional().nullable(),
+  brandTagline: z.string().max(100, '品牌英文名最多100个字符').optional().nullable(),
   brandLogoUrl: z.string().url('无效的 Logo URL').optional().nullable().or(z.literal('')),
   brandColor: z.string().regex(/^#[0-9A-Fa-f]{6}$/, '颜色格式无效，请使用 #RRGGBB 格式').optional(),
   contactWechat: z.string().max(50, '微信号最多50个字符').optional().nullable(),

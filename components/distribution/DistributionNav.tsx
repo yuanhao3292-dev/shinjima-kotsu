@@ -14,6 +14,7 @@ export interface NavItem {
 
 interface DistributionNavProps {
   brandName: string;
+  brandTagline?: string | null;
   navItems: NavItem[];
   /** 品牌 logo/名称 点击后的链接 */
   homeHref?: string;
@@ -23,6 +24,7 @@ interface DistributionNavProps {
 
 export default function DistributionNav({
   brandName,
+  brandTagline,
   navItems,
   homeHref,
   startScrolled = false,
@@ -69,7 +71,7 @@ export default function DistributionNav({
           scrolled ? 'text-gray-400' : 'text-white/60'
         }`}
       >
-        日本高端定制旅行
+        {brandTagline || 'BESPOKE JAPAN TRAVEL'}
       </span>
     </div>
   );
