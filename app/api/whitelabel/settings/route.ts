@@ -60,12 +60,12 @@ export async function GET(request: NextRequest) {
 
     // 如果查询失败且是列不存在错误（42703），尝试不带 selected_pages 查询
     if (queryError?.code === "42703") {
-      console.log("[whitelabel/settings] selected_pages 列不存在，使用备用查询");
+      console.log("[whitelabel/settings] 列不存在，使用备用查询");
       const { data: fallbackData, error: fallbackError } = await supabase
         .from("guides")
         .select(
           `
-          id, name, slug, brand_name, brand_tagline, brand_logo_url, brand_color,
+          id, name, slug, brand_name, brand_logo_url, brand_color,
           contact_wechat, contact_line, contact_display_phone, email,
           subscription_status, subscription_plan, subscription_end_date,
           whitelabel_views, whitelabel_conversions
