@@ -20,7 +20,7 @@ export interface ProductCategory {
   sortOrder: number;
 }
 
-/** 模块详情页路由映射（选品中心内预览用） */
+/** 模块详情页路由映射（无白标 slug 时的 fallback，独立页面预览用） */
 export const MODULE_DETAIL_ROUTES: Record<string, string> = {
   medical_packages: '/guide-partner/product-center/timc',
   hyogo_medical: '/hyogo-medical',
@@ -29,8 +29,9 @@ export const MODULE_DETAIL_ROUTES: Record<string, string> = {
   helene_clinic: '/helene-clinic',
   ginza_phoenix: '/ginza-phoenix',
   wclinic_mens: '/wclinic-mens',
-  cell_medicine: '/cancer-treatment',
-  ac_plus: '/helene-clinic',
+  cell_medicine: '/cell-medicine',
+  ac_plus: '/ac-plus',
+  igtc: '/igtc',
   golf: '/business/golf',
   medical_tourism: '/business/medical',
 };
@@ -44,7 +45,7 @@ export const PRODUCT_CATEGORIES: ProductCategory[] = [
     iconName: 'Hospital',
     gradient: 'from-emerald-600 to-teal-700',
     textColor: 'text-emerald-100',
-    moduleKeys: ['hyogo_medical', 'cancer_treatment'],
+    moduleKeys: ['hyogo_medical', 'cancer_treatment', 'igtc'],
     sortOrder: 1,
   },
   {

@@ -303,7 +303,6 @@ export default function ProductCenterPage() {
                   guideConfig={guideConfig}
                   actionLoading={actionLoading}
                   onToggleModule={handleToggleModule}
-                  onNavigate={(path) => router.push(path)}
                 />
               ))}
             </div>
@@ -373,17 +372,18 @@ function ModuleCard({
   guideConfig,
   actionLoading,
   onToggleModule,
-  onNavigate,
 }: {
   module: PageModule;
   category: ProductCategory;
   guideConfig: GuideConfig | null;
   actionLoading: string | null;
   onToggleModule: (moduleId: string, isSelected: boolean) => void;
-  onNavigate: (path: string) => void;
 }) {
+  // 优先使用白标路由（保留 DistributionNav），无 slug 时 fallback 到独立页面
   const detailRoute = module.component_key
-    ? MODULE_DETAIL_ROUTES[module.component_key]
+    ? guideConfig?.slug
+      ? `/g/${guideConfig.slug}/${module.component_key.replace(/_/g, '-')}`
+      : MODULE_DETAIL_ROUTES[module.component_key]
     : undefined;
 
   return (
@@ -419,12 +419,14 @@ function ModuleCard({
       {/* 操作区 */}
       <div className="px-5 py-3 border-t bg-gray-50/50 flex items-center gap-2">
         {detailRoute && (
-          <button
-            onClick={() => onNavigate(detailRoute)}
+          <a
+            href={detailRoute}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex-1 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition flex items-center justify-center gap-1"
           >
             查看详情 <ArrowRight size={14} />
-          </button>
+          </a>
         )}
         {module.is_required ? (
           <span className="flex-1 py-2 text-center text-xs text-gray-400">必选模块</span>
