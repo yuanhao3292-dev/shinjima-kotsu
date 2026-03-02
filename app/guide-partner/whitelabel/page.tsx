@@ -799,7 +799,7 @@ export default function WhiteLabelSettingsPage() {
             联系方式
           </h2>
           <p className="text-sm text-gray-500 mb-6">
-            这些信息将显示在分销页面的页脚，方便客户联系您
+            这些信息将显示在分销页面右下角的悬浮联系按钮中，方便客户联系您
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
