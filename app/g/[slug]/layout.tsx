@@ -97,15 +97,12 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
       {/* 导航栏 — 仅展示导游品牌 */}
       <DistributionNav
         brandName={brandName}
-        brandColor={brandColor}
-        brandLogoUrl={guide.brandLogoUrl}
         navItems={navItems}
         homeHref={homeHref}
-        startScrolled
       />
 
-      {/* 页面内容 */}
-      <main className="flex-1 pt-[72px]">
+      {/* 页面内容（导航栏透明覆盖在首图上，与官网一致） */}
+      <main className="flex-1">
         {children}
       </main>
 

@@ -14,8 +14,6 @@ export interface NavItem {
 
 interface DistributionNavProps {
   brandName: string;
-  brandColor: string;
-  brandLogoUrl: string | null;
   navItems: NavItem[];
   /** 品牌 logo/名称 点击后的链接 */
   homeHref?: string;
@@ -25,8 +23,6 @@ interface DistributionNavProps {
 
 export default function DistributionNav({
   brandName,
-  brandColor,
-  brandLogoUrl,
   navItems,
   homeHref,
   startScrolled = false,
@@ -60,23 +56,20 @@ export default function DistributionNav({
   };
 
   const brandEl = (
-    <div className="flex items-center gap-3">
-      {brandLogoUrl ? (
-        <img src={brandLogoUrl} alt={brandName} className="h-10 w-auto" />
-      ) : (
-        <div
-          className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-lg"
-          style={{ backgroundColor: brandColor }}
-        >
-          {brandName.charAt(0)}
-        </div>
-      )}
+    <div className="flex flex-col">
       <span
-        className={`text-xl font-bold transition-colors duration-300 ${
+        className={`font-serif font-bold text-lg tracking-wide leading-none transition-colors duration-300 ${
           scrolled ? 'text-gray-900' : 'text-white'
         }`}
       >
         {brandName}
+      </span>
+      <span
+        className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors duration-300 ${
+          scrolled ? 'text-gray-400' : 'text-white/60'
+        }`}
+      >
+        日本高端定制旅行
       </span>
     </div>
   );
