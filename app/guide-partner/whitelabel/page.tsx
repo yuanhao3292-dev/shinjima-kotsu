@@ -12,8 +12,6 @@ import {
   Globe,
   Palette,
   MessageCircle,
-  Phone,
-  Mail,
   Copy,
   Check,
   ExternalLink,
@@ -21,7 +19,6 @@ import {
   Loader2,
   AlertCircle,
   CheckCircle2,
-  Image as ImageIcon,
   Save,
   Package,
   ChevronRight,
@@ -62,8 +59,6 @@ export default function WhiteLabelSettingsPage() {
     slug: '',
     brandName: '',
     brandTagline: '',
-    brandLogoUrl: '',
-    brandColor: '#2563eb',
     contactWechat: '',
     contactLine: '',
     contactDisplayPhone: '',
@@ -207,8 +202,6 @@ export default function WhiteLabelSettingsPage() {
         slug: guideData.slug || '',
         brandName: guideData.brandName || '',
         brandTagline: guideData.brandTagline || '',
-        brandLogoUrl: guideData.brandLogoUrl || '',
-        brandColor: guideData.brandColor || '#2563eb',
         contactWechat: guideData.contactWechat || '',
         contactLine: guideData.contactLine || '',
         contactDisplayPhone: guideData.contactDisplayPhone || '',
@@ -248,8 +241,6 @@ export default function WhiteLabelSettingsPage() {
           slug: formData.slug || null,
           brandName: formData.brandName || null,
           brandTagline: formData.brandTagline || null,
-          brandLogoUrl: formData.brandLogoUrl || null,
-          brandColor: formData.brandColor,
           contactWechat: formData.contactWechat || null,
           contactLine: formData.contactLine || null,
           contactDisplayPhone: formData.contactDisplayPhone || null,
@@ -283,8 +274,6 @@ export default function WhiteLabelSettingsPage() {
           guide_id: guide.id,
           slug: formData.slug,
           display_name: formData.brandName || guide.name,
-          avatar_url: formData.brandLogoUrl || null,
-          theme_color: formData.brandColor,
           contact_wechat: formData.contactWechat || null,
           contact_line: formData.contactLine || null,
           contact_phone: formData.contactDisplayPhone || null,
@@ -800,52 +789,6 @@ export default function WhiteLabelSettingsPage() {
               </p>
             </div>
 
-            {/* 品牌 Logo */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                品牌 Logo URL
-              </label>
-              <div className="flex items-center gap-4">
-                <input
-                  type="url"
-                  value={formData.brandLogoUrl}
-                  onChange={(e) => setFormData({ ...formData, brandLogoUrl: e.target.value })}
-                  placeholder="https://example.com/logo.png"
-                  className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-                {formData.brandLogoUrl && (
-                  <img
-                    src={formData.brandLogoUrl}
-                    alt="Logo Preview"
-                    className="w-10 h-10 object-contain border rounded"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).style.display = 'none';
-                    }}
-                  />
-                )}
-              </div>
-            </div>
-
-            {/* 品牌颜色 */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                品牌主色
-              </label>
-              <div className="flex items-center gap-3">
-                <input
-                  type="color"
-                  value={formData.brandColor}
-                  onChange={(e) => setFormData({ ...formData, brandColor: e.target.value })}
-                  className="w-12 h-10 border rounded cursor-pointer"
-                />
-                <input
-                  type="text"
-                  value={formData.brandColor}
-                  onChange={(e) => setFormData({ ...formData, brandColor: e.target.value })}
-                  className="w-32 px-4 py-2 border rounded-lg font-mono text-sm"
-                />
-              </div>
-            </div>
           </div>
         </div>
 
