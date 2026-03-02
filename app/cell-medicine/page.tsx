@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import CellMedicineContent from './CellMedicineContent';
-import PublicLayout from '@/components/PublicLayout';
 
 export const metadata: Metadata = {
   title: '先端細胞医療 | Cell-Medicine 自己がんワクチン × iPeace iPS細胞バンキング',
@@ -14,9 +13,5 @@ export const metadata: Metadata = {
 };
 
 export default function CellMedicinePage() {
-  return (
-    <PublicLayout activeNav="cancer">
-      <CellMedicineContent />
-    </PublicLayout>
-  );
+  return <CellMedicineContent />;
 }

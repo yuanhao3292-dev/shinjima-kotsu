@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import GinzaPhoenixContent from './GinzaPhoenixContent';
-import PublicLayout from '@/components/PublicLayout';
 
 export const metadata: Metadata = {
   title: '銀座鳳凰クリニック | がん免疫療法専門 - WT1樹状細胞ワクチン・NK細胞療法',
@@ -14,9 +13,5 @@ export const metadata: Metadata = {
 };
 
 export default function GinzaPhoenixPage() {
-  return (
-    <PublicLayout activeNav="cancer">
-      <GinzaPhoenixContent />
-    </PublicLayout>
-  );
+  return <GinzaPhoenixContent />;
 }

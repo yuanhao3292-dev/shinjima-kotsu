@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import HeleneClinicContent from './HeleneClinicContent';
-import PublicLayout from '@/components/PublicLayout';
 
 export const metadata: Metadata = {
   title: '表参道ヘレネクリニック | 日本初の合法幹細胞治療専門機関',
@@ -14,9 +13,5 @@ export const metadata: Metadata = {
 };
 
 export default function HeleneClinicPage() {
-  return (
-    <PublicLayout activeNav="cancer">
-      <HeleneClinicContent />
-    </PublicLayout>
-  );
+  return <HeleneClinicContent />;
 }

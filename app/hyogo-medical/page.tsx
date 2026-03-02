@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import HyogoMedicalContent from './HyogoMedicalContent';
-import PublicLayout from '@/components/PublicLayout';
 
 export const metadata: Metadata = {
   title: '兵庫医科大学病院 | 兵庫県最大規模の特定機能病院',
@@ -14,9 +13,5 @@ export const metadata: Metadata = {
 };
 
 export default function HyogoMedicalPage() {
-  return (
-    <PublicLayout activeNav="cancer">
-      <HyogoMedicalContent />
-    </PublicLayout>
-  );
+  return <HyogoMedicalContent />;
 }

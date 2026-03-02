@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import WClinicMensContent from './WClinicMensContent';
-import PublicLayout from '@/components/PublicLayout';
 
 export const metadata: Metadata = {
   title: 'W CLINIC men\'s 梅田院 | ED·男性更年期·AGA·男性美容',
@@ -14,9 +13,5 @@ export const metadata: Metadata = {
 };
 
 export default function WClinicMensPage() {
-  return (
-    <PublicLayout>
-      <WClinicMensContent />
-    </PublicLayout>
-  );
+  return <WClinicMensContent />;
 }

@@ -1,5 +1,4 @@
 import IGTCContent from './IGTCContent';
-import PublicLayout from '@/components/PublicLayout';
 
 export const metadata = {
   title: 'IGTクリニック - 血管内治療・温熱療法 | 新島交通',
@@ -7,9 +6,5 @@ export const metadata = {
 };
 
 export default function IGTCPage() {
-  return (
-    <PublicLayout activeNav="cancer">
-      <IGTCContent />
-    </PublicLayout>
-  );
+  return <IGTCContent />;
 }
