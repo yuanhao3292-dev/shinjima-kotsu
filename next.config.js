@@ -39,6 +39,26 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'www.hosp.hyo-med.ac.jp',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.hyo-med.ac.jp',
+      },
+      {
+        protocol: 'https',
+        hostname: 'hyo-med-gastro.jp',
+      },
+      {
+        protocol: 'https',
+        hostname: 'hyo-med-ganka.jp',
+      },
+      {
+        protocol: 'https',
+        hostname: 'hcm-radiology.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'hyogo-deptobgyn.jp',
+      },
     ],
   },
 

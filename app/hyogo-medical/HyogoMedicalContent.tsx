@@ -256,6 +256,22 @@ const t = {
     en: '13,734/yr (6,869 upper, 5,357 lower, 248 ESD). NBI, capsule, double-balloon, EUS. Nationally top early cancer endoscopic treatment.',
   } as Record<Language, string>,
 
+  // Additional equipment
+  equipNucTitle: { ja: '核医学検査装置', 'zh-TW': '核醫學檢查裝置', 'zh-CN': '核医学检查装置', en: 'Nuclear Medicine Imaging' } as Record<Language, string>,
+  equipNucDesc: {
+    ja: 'SPECT-CT装置2台を配備。心筋・骨・脳血流のアイソトープ検査に対応。甲状腺・副甲状腺シンチグラフィーにも使用。',
+    'zh-TW': '配備2台SPECT-CT裝置。可進行心肌・骨・腦血流的同位素檢查。也用於甲狀腺・副甲狀腺閃爍攝影。',
+    'zh-CN': '配备2台SPECT-CT装置。可进行心肌・骨・脑血流的同位素检查。也用于甲状腺・副甲状腺闪烁摄影。',
+    en: '2 SPECT-CT systems. Cardiac, bone & cerebral blood flow isotope studies. Thyroid/parathyroid scintigraphy.',
+  } as Record<Language, string>,
+  equipOpTitle: { ja: '手術室 17室', 'zh-TW': '手術室 17間', 'zh-CN': '手术室 17间', en: '17 Operating Rooms' } as Record<Language, string>,
+  equipOpDesc: {
+    ja: 'ハイブリッド手術室含む17室。ダヴィンチXi・hinotori対応のロボット手術室を完備。年間9,672件の手術を支える最先端設備。',
+    'zh-TW': '含混合手術室共17間。配備Da Vinci Xi・hinotori對應的機器人手術室。支撐每年9,672件手術的最先進設備。',
+    'zh-CN': '含混合手术室共17间。配备Da Vinci Xi・hinotori对应的机器人手术室。支撑每年9,672件手术的最先进设备。',
+    en: '17 ORs including hybrid suites. Da Vinci Xi & hinotori-ready robotic ORs. Supporting 9,672 surgeries annually.',
+  } as Record<Language, string>,
+
   // New building badges
   newBuildSeismic: { ja: '免震構造', 'zh-TW': '免震結構', 'zh-CN': '免震结构', en: 'Seismic Isolation' } as Record<Language, string>,
   newBuildHelipad: { ja: '屋上ヘリポート', 'zh-TW': '屋頂直升機坪', 'zh-CN': '屋顶直升机坪', en: 'Rooftop Helipad' } as Record<Language, string>,
@@ -540,6 +556,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     diseases: { ja: '胃がん、食道がん', 'zh-TW': '胃癌、食道癌', 'zh-CN': '胃癌、食道癌', en: 'Gastric cancer, Esophageal cancer' },
     badge: { ja: 'ロボット手術の先駆者', 'zh-TW': '機器人手術先驅者', 'zh-CN': '机器人手术先驱者', en: 'Robotic Surgery Pioneer' },
     gradient: 'from-blue-600 to-cyan-600',
+    photoUrl: 'https://www.hyo-med.ac.jp/department/gi-surgery/images/shinohara2024-2.png',
   },
   {
     name: { ja: '池田 正孝', 'zh-TW': '池田 正孝', 'zh-CN': '池田正孝', en: 'Masataka Ikeda' },
@@ -570,6 +587,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     diseases: { ja: '子宮がん、卵巣がん、外陰がん', 'zh-TW': '子宮癌、卵巢癌、外陰癌', 'zh-CN': '子宫癌、卵巢癌、外阴癌', en: 'Uterine, Ovarian, Vulvar cancer' },
     badge: { ja: '妊孕性温存の希望', 'zh-TW': '保留生育力的希望', 'zh-CN': '保留生育力的希望', en: 'Fertility Preservation' },
     gradient: 'from-pink-500 to-rose-500',
+    photoUrl: 'https://hyogo-deptobgyn.jp/wp-content/themes/hyogo-obgyn/images/kyoshitu/staff_mabuchi.jpg',
   },
   // ===== 癌症内科・IVR =====
   {
@@ -586,6 +604,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     diseases: { ja: '肺がん、中皮腫', 'zh-TW': '肺癌、間皮瘤', 'zh-CN': '肺癌、间皮瘤', en: 'Lung cancer, Mesothelioma' },
     badge: { ja: '副院長 / がんセンター長', 'zh-TW': '副院長 / 癌症中心主任', 'zh-CN': '副院长 / 癌症中心主任', en: 'Vice Director / Cancer Center' },
     gradient: 'from-amber-600 to-orange-600',
+    photoUrl: 'https://www.hyo-med.ac.jp/department/rspr/images/pht_prof01.jpg',
   },
   {
     name: { ja: '栗林 康造 / 舟木 壮一郎', 'zh-TW': '栗林 康造 / 舟木 壯一郎', 'zh-CN': '栗林康造 / 舟木壮一郎', en: 'Kuribayashi / Funaki' },
@@ -601,6 +620,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     diseases: { ja: '悪性中皮腫、肺がん', 'zh-TW': '惡性間皮瘤、肺癌', 'zh-CN': '恶性间皮瘤、肺癌', en: 'Mesothelioma, Lung cancer' },
     badge: { ja: '年間800件+ 日本最多', 'zh-TW': '年間800件+ 日本最多', 'zh-CN': '年间800件+ 日本最多', en: '800+ Cases/yr #1 Japan' },
     gradient: 'from-purple-600 to-indigo-600',
+    photoUrl: 'https://www.hyo-med.ac.jp/department/rspr/images/pht_kuribayashi.png',
   },
   {
     name: { ja: '吉原 哲', 'zh-TW': '吉原 哲', 'zh-CN': '吉原哲', en: 'Satoshi Yoshihara' },
@@ -616,6 +636,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     diseases: { ja: 'ALL、DLBCL、多発性骨髄腫', 'zh-TW': 'ALL、DLBCL、多發性骨髓瘤', 'zh-CN': 'ALL、DLBCL、多发性骨髓瘤', en: 'ALL, DLBCL, Multiple Myeloma' },
     badge: { ja: 'CAR-T細胞療法 認定機関', 'zh-TW': 'CAR-T細胞療法 認定機構', 'zh-CN': 'CAR-T细胞疗法 认定机构', en: 'CAR-T Certified Center' },
     gradient: 'from-emerald-600 to-teal-600',
+    photoUrl: 'https://www.hyo-med.ac.jp/department/hmt/images/staff/yoshihara_satoshi.jpg',
   },
   {
     name: { ja: '山門 亨一郎 / 高木 治行', 'zh-TW': '山門 亨一郎 / 高木 治行', 'zh-CN': '山门亨一郎 / 高木治行', en: 'Yamakado / Takaki' },
@@ -631,6 +652,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     diseases: { ja: '肝がん、肺がん、腎がん、子宮筋腫', 'zh-TW': '肝癌、肺癌、腎癌、子宮肌瘤', 'zh-CN': '肝癌、肺癌、肾癌、子宫肌瘤', en: 'Liver, Lung, Kidney cancer, Uterine fibroids' },
     badge: { ja: 'IVR学会理事長', 'zh-TW': 'IVR學會理事長', 'zh-CN': 'IVR学会理事长', en: 'IVR Society President' },
     gradient: 'from-slate-600 to-gray-700',
+    photoUrl: 'https://hcm-radiology.com/images/staff/yamakado.jpg',
   },
   // ===== 心脏・脑神经 =====
   {
@@ -678,6 +700,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     diseases: { ja: '潰瘍性大腸炎、クローン病', 'zh-TW': '潰瘍性大腸炎、克羅恩病', 'zh-CN': '溃疡性大肠炎、克罗恩病', en: 'Ulcerative Colitis, Crohn\'s Disease' },
     badge: { ja: '病院長 / IBD全国DPC 1位', 'zh-TW': '院長 / IBD全國DPC第1', 'zh-CN': '院长 / IBD全国DPC第1', en: 'Director / IBD #1 DPC' },
     gradient: 'from-rose-500 to-orange-500',
+    photoUrl: 'https://www.hosp.hyo-med.ac.jp/new-building/common/img/ikeuchi.jpg',
   },
   {
     name: { ja: '新崎 信一郎', 'zh-TW': '新崎 信一郎', 'zh-CN': '新崎信一郎', en: 'Shinichiro Shinzaki' },
@@ -693,6 +716,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     diseases: { ja: '潰瘍性大腸炎、クローン病', 'zh-TW': '潰瘍性大腸炎、克羅恩病', 'zh-CN': '溃疡性大肠炎、克罗恩病', en: 'Ulcerative Colitis, Crohn\'s Disease' },
     badge: { ja: 'IBDセンター主任', 'zh-TW': 'IBD中心主任', 'zh-CN': 'IBD中心主任', en: 'IBD Center Director' },
     gradient: 'from-orange-500 to-amber-500',
+    photoUrl: 'https://hyo-med-gastro.jp/img/staff/staff_SHINZAKI.jpg',
   },
   {
     name: { ja: '富田 寿彦', 'zh-TW': '富田 壽彥', 'zh-CN': '富田寿彦', en: 'Toshihiko Tomita' },
@@ -708,6 +732,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     diseases: { ja: '胃がん、大腸がん、食道がん（早期）', 'zh-TW': '胃癌、大腸癌、食道癌（早期）', 'zh-CN': '胃癌、大肠癌、食道癌（早期）', en: 'Gastric, Colorectal, Esophageal cancer (early stage)' },
     badge: { ja: 'AI内視鏡 / 数千例EMR/ESD', 'zh-TW': 'AI內視鏡 / 數千例EMR/ESD', 'zh-CN': 'AI内镜 / 数千例EMR/ESD', en: 'AI Endoscopy / 1000s EMR/ESD' },
     gradient: 'from-teal-600 to-emerald-600',
+    photoUrl: 'https://hyo-med-gastro.jp/img/staff/staff_TOMITA_2024.png',
   },
   // ===== 眼科・软骨再生 =====
   {
@@ -724,6 +749,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     diseases: { ja: '加齢黄斑変性、糖尿病網膜症、ぶどう膜炎', 'zh-TW': '老年性黃斑變性、糖尿病視網膜病變、葡萄膜炎', 'zh-CN': '老年性黄斑变性、糖尿病视网膜病变、葡萄膜炎', en: 'AMD, Diabetic retinopathy, Uveitis' },
     badge: { ja: '眼科の臨床研究リーダー', 'zh-TW': '眼科臨床研究領導者', 'zh-CN': '眼科临床研究领导者', en: 'Ophthalmology Research Leader' },
     gradient: 'from-cyan-600 to-blue-600',
+    photoUrl: 'https://hyo-med-ganka.jp/webcms/wp-content/uploads/2022/02/staff_img01.jpg',
   },
   {
     name: { ja: 'JACC®軟骨再生チーム', 'zh-TW': 'JACC®軟骨再生團隊', 'zh-CN': 'JACC®软骨再生团队', en: 'JACC® Cartilage Regen Team' },
@@ -1445,6 +1471,29 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
           </div>
         </div>
       </div>
+      {/* Row 4: Nuclear Medicine + Operating Rooms */}
+      <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
+        <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
+          <Image src="https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img03.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Nuclear Medicine" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
+          <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
+            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipNucTitle[lang]}</h4>
+            <p className="text-sm text-white/80 leading-relaxed">
+              {t.equipNucDesc[lang]}
+            </p>
+          </div>
+        </div>
+        <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
+          <Image src="https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img06.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Operating Rooms" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
+          <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
+            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipOpTitle[lang]}</h4>
+            <p className="text-sm text-white/80 leading-relaxed">
+              {t.equipOpDesc[lang]}
+            </p>
+          </div>
+        </div>
+      </div>
 
       {/* ========================================
           8. 新病院大楼 2026 (全屏展示)
@@ -1468,6 +1517,71 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
               <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">{t.newBuildHelipad[lang]}</span>
               <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">Smart Hospital</span>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ========================================
+          8b. 新病院大楼 Gallery — 内装イメージ
+          ======================================== */}
+      <div className="bg-slate-900 py-16 md:py-24">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="text-amber-400 text-xs tracking-[0.3em] uppercase font-bold">
+              {({ ja: '新病院棟イメージ', 'zh-TW': '新院區內部設計', 'zh-CN': '新院区内部设计', en: 'New Building Interior Design' } as Record<Language, string>)[lang]}
+            </span>
+            <h3 className="text-2xl md:text-3xl font-serif text-white mt-3">
+              {({ ja: '未来型スマートホスピタルの全貌', 'zh-TW': '未來型智慧醫院全貌', 'zh-CN': '未来型智慧医院全貌', en: 'The Future Smart Hospital Unveiled' } as Record<Language, string>)[lang]}
+            </h3>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { src: 'https://www.hosp.hyo-med.ac.jp/new-building/common/img/nb_img01.jpg', label: { ja: '正面エントランス', 'zh-TW': '正面入口', 'zh-CN': '正面入口', en: 'Main Entrance' } as Record<Language, string> },
+              { src: 'https://www.hosp.hyo-med.ac.jp/new-building/common/img/nb_img02.jpg', label: { ja: 'メインロビー', 'zh-TW': '大廳', 'zh-CN': '大厅', en: 'Main Lobby' } as Record<Language, string> },
+              { src: 'https://www.hosp.hyo-med.ac.jp/new-building/common/img/nb_img03.jpg', label: { ja: '外来フロア', 'zh-TW': '門診樓層', 'zh-CN': '门诊楼层', en: 'Outpatient Floor' } as Record<Language, string> },
+              { src: 'https://www.hosp.hyo-med.ac.jp/new-building/common/img/nb_img04.jpg', label: { ja: '待合エリア', 'zh-TW': '候診區', 'zh-CN': '候诊区', en: 'Waiting Area' } as Record<Language, string> },
+              { src: 'https://www.hosp.hyo-med.ac.jp/new-building/common/img/nb_img05.jpg', label: { ja: '病棟フロア', 'zh-TW': '病房樓層', 'zh-CN': '病房楼层', en: 'Ward Floor' } as Record<Language, string> },
+              { src: 'https://www.hosp.hyo-med.ac.jp/new-building/common/img/nb_img06.jpg', label: { ja: '屋上庭園', 'zh-TW': '屋頂花園', 'zh-CN': '屋顶花园', en: 'Rooftop Garden' } as Record<Language, string> },
+            ].map((img, i) => (
+              <div key={i} className="relative aspect-[4/3] rounded-xl overflow-hidden group">
+                <Image src={img.src} fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt={img.label.en} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" quality={75} />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                  <span className="text-white text-sm font-medium">{img.label[lang]}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ========================================
+          8c. 建設進捗 — Construction Progress
+          ======================================== */}
+      <div className="bg-gray-100 py-16 md:py-20">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-10">
+            <span className="text-gray-500 text-xs tracking-[0.2em] uppercase font-bold">
+              {({ ja: '建設進捗', 'zh-TW': '建設進度', 'zh-CN': '建设进度', en: 'Construction Progress' } as Record<Language, string>)[lang]}
+            </span>
+            <h3 className="text-xl md:text-2xl font-serif text-gray-900 mt-2">
+              {({ ja: '2025年12月時点 — 完成率91.7%', 'zh-TW': '2025年12月 — 完成率91.7%', 'zh-CN': '2025年12月 — 完成率91.7%', en: 'As of December 2025 — 91.7% Complete' } as Record<Language, string>)[lang]}
+            </h3>
+            <p className="text-sm text-gray-500 mt-2">
+              {({ ja: '地上躯体工事完了、各階仕上工事を施工中', 'zh-TW': '地上結構工程完成，各樓層裝修施工中', 'zh-CN': '地上结构工程完成，各楼层装修施工中', en: 'Structural work complete, finishing work in progress on all floors' } as Record<Language, string>)[lang]}
+            </p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              'https://www.hosp.hyo-med.ac.jp/upload/news/content/202601_01.jpg',
+              'https://www.hosp.hyo-med.ac.jp/upload/news/content/202601_2.jpg',
+              'https://www.hosp.hyo-med.ac.jp/upload/news/content/202601_03.jpg',
+              'https://www.hosp.hyo-med.ac.jp/upload/news/content/202601_04.jpg',
+            ].map((src, i) => (
+              <div key={i} className="relative aspect-[4/3] rounded-lg overflow-hidden group">
+                <Image src={src} fill className="object-cover transition-transform duration-500 group-hover:scale-105" alt={`Construction progress ${i + 1}`} sizes="(max-width: 768px) 50vw, 25vw" quality={75} />
+              </div>
+            ))}
           </div>
         </div>
       </div>
