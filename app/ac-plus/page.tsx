@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import ACPlusContent from './ACPlusContent';
+import PublicLayout from '@/components/PublicLayout';
 
 export const metadata: Metadata = {
   title: 'ACセルクリニック - 再生医療・幹細胞治療 | 大阪',
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function ACPlusPage() {
-  return <ACPlusContent />;
+  return (
+    <PublicLayout activeNav="cancer">
+      <ACPlusContent />
+    </PublicLayout>
+  );
 }
