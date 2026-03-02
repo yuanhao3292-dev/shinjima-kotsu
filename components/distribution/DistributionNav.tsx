@@ -82,7 +82,7 @@ export default function DistributionNav({
           : 'bg-transparent'
       }`}
     >
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-[1400px] mx-auto px-4 h-20 flex items-center justify-between">
         {homeHref ? (
           <Link href={homeHref} className="hover:opacity-80 transition-opacity">
             {brandEl}
