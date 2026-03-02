@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { WHITELABEL_COOKIE_NAME, isValidSlug as isValidGuideSlug } from '@/lib/whitelabel-config';
 
 // ============================================
 // 简单的内存速率限制器（防止暴力枚举）
@@ -108,9 +109,18 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    // 优先使用订单中的导游归属，fallback 到 cookie（确保白标用户跳转正确）
+    let guideSlug = order.referred_by_guide_slug || null;
+    if (!guideSlug) {
+      const cookieSlug = request.cookies.get(WHITELABEL_COOKIE_NAME)?.value;
+      if (cookieSlug && isValidGuideSlug(cookieSlug)) {
+        guideSlug = cookieSlug;
+      }
+    }
+
     // Cache-Control: no-store 防止共享设备/代理缓存导游归属信息
     return NextResponse.json(
-      { orderId: order.id, guideSlug: order.referred_by_guide_slug || null },
+      { orderId: order.id, guideSlug },
       { headers: { 'Cache-Control': 'no-store' } }
     );
 
