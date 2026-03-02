@@ -92,17 +92,17 @@ export default function DistributionNav({
         )}
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden lg:flex items-center gap-5">
           {navItems.map((item) => {
             const active = isActive(item);
-            const cls = `px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
+            const cls = `py-2 text-sm font-medium transition-colors whitespace-nowrap ${
               scrolled
                 ? active
-                  ? 'text-gray-900 bg-gray-100'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                  ? 'text-gray-900'
+                  : 'text-gray-500 hover:text-gray-900'
                 : active
-                  ? 'text-white bg-white/15'
-                  : 'text-white/80 hover:text-white hover:bg-white/10'
+                  ? 'text-white'
+                  : 'text-white/70 hover:text-white'
             }`;
 
             if (item.href) {
@@ -122,7 +122,7 @@ export default function DistributionNav({
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden p-2 rounded-lg transition-colors"
+          className="lg:hidden p-2 rounded-lg transition-colors"
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? '关闭菜单' : '打开菜单'}
         >
@@ -136,7 +136,7 @@ export default function DistributionNav({
 
       {/* Mobile menu */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ${
+        className={`lg:hidden overflow-hidden transition-all duration-300 ${
           isOpen ? 'max-h-[80vh] opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
