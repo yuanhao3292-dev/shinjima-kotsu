@@ -74,9 +74,9 @@ export default function WhiteLabelSettingsPage() {
   const searchParams = useSearchParams();
   const supabase = createClient();
 
-  // 分销页面 URL（子域名模式）
+  // 分销页面 URL（路径模式）
   const whiteLabelUrl = guide?.slug
-    ? `https://${guide.slug}.bespoketrip.jp`
+    ? `https://bespoketrip.jp/g/${guide.slug}`
     : null;
 
   // 初始加载导游数据（仅执行一次）
