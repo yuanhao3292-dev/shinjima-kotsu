@@ -341,7 +341,7 @@ const NATIONAL_FIRSTS = [
       en: '#1 nationally in UC & Crohn\'s disease by DPC volume. ~3,150 cumulative patients, 4,140+ surgeries. Blood cell apheresis invented here. 2,000+ biologic treatments annually.',
     } as Record<Language, string>,
     icon: Activity,
-    color: 'from-rose-500 to-orange-500',
+    color: 'from-[#0f7459] to-[#1766b0]',
   },
   {
     rank: { ja: '日本一', 'zh-TW': '日本第一', 'zh-CN': '日本第一', en: '#1 in Japan' } as Record<Language, string>,
@@ -353,7 +353,7 @@ const NATIONAL_FIRSTS = [
       en: 'Japan\'s highest mesothelioma caseload. 800+ cases/year. 50+ radical surgeries annually. 403 total thoracic surgeries per year.',
     } as Record<Language, string>,
     icon: Shield,
-    color: 'from-purple-500 to-indigo-500',
+    color: 'from-[#0f7459] to-[#1766b0]',
   },
   {
     rank: { ja: '兵庫県1位 / 全国トップクラス', 'zh-TW': '兵庫縣第1 / 全國頂級', 'zh-CN': '兵库县第1 / 全国顶级', en: '#1 in Hyogo / National Top' } as Record<Language, string>,
@@ -365,7 +365,7 @@ const NATIONAL_FIRSTS = [
       en: '#1 in Hyogo for cerebrovascular endovascular. 810 surgeries, 315 endovascular/yr. Flow Diverter at only a few hospitals. Prof. Yoshimura: ~4,000 cases. 24/7 specialist coverage.',
     } as Record<Language, string>,
     icon: Brain,
-    color: 'from-blue-500 to-cyan-500',
+    color: 'from-[#0f7459] to-[#1766b0]',
   },
   {
     rank: { ja: '全国1～2位', 'zh-TW': '全國第1～2名', 'zh-CN': '全国第1～2名', en: '#1-2 Nationally' } as Record<Language, string>,
@@ -377,7 +377,7 @@ const NATIONAL_FIRSTS = [
       en: '~350 ear surgeries/yr — #1-2 among university hospitals. 190+ cochlear implants. Top success rates. 208 sinus surgeries, 91 head-neck cancer surgeries.',
     } as Record<Language, string>,
     icon: Ear,
-    color: 'from-emerald-500 to-teal-500',
+    color: 'from-[#0f7459] to-[#1766b0]',
   },
   {
     rank: { ja: '全国トップクラス', 'zh-TW': '全國頂級', 'zh-CN': '全国顶级', en: 'National Top-Tier' } as Record<Language, string>,
@@ -389,7 +389,7 @@ const NATIONAL_FIRSTS = [
       en: '411+ transplants since 1983. 10-year graft survival 85%, patient survival 96%. ABO-incompatible and pre-emptive transplants. 200+ laparoscopic donor surgeries.',
     } as Record<Language, string>,
     icon: HeartPulse,
-    color: 'from-amber-500 to-yellow-500',
+    color: 'from-[#0f7459] to-[#1766b0]',
   },
 ];
 
@@ -555,7 +555,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     category: 'cancer_surgery',
     diseases: { ja: '胃がん、食道がん', 'zh-TW': '胃癌、食道癌', 'zh-CN': '胃癌、食道癌', en: 'Gastric cancer, Esophageal cancer' },
     badge: { ja: 'ロボット手術の先駆者', 'zh-TW': '機器人手術先驅者', 'zh-CN': '机器人手术先驱者', en: 'Robotic Surgery Pioneer' },
-    gradient: 'from-blue-600 to-cyan-600',
+    gradient: 'from-[#0f7459] to-[#1766b0]',
     photoUrl: 'https://www.hyo-med.ac.jp/department/gi-surgery/images/shinohara2024-2.png',
   },
   {
@@ -571,7 +571,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     category: 'cancer_surgery',
     diseases: { ja: '直腸がん、大腸がん', 'zh-TW': '直腸癌、大腸癌', 'zh-CN': '直肠癌、大肠癌', en: 'Rectal cancer, Colorectal cancer' },
     badge: { ja: '国際的評価の直腸がん権威', 'zh-TW': '國際聲譽的直腸癌權威', 'zh-CN': '国际声誉的直肠癌权威', en: 'Internationally Renowned' },
-    gradient: 'from-indigo-600 to-purple-600',
+    gradient: 'from-[#0f7459] to-[#1766b0]',
   },
   {
     name: { ja: '馬淵 誠士', 'zh-TW': '馬淵 誠士', 'zh-CN': '马渊诚士', en: 'Seishi Mabuchi' },
@@ -586,7 +586,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     category: 'cancer_surgery',
     diseases: { ja: '子宮がん、卵巣がん、外陰がん', 'zh-TW': '子宮癌、卵巢癌、外陰癌', 'zh-CN': '子宫癌、卵巢癌、外阴癌', en: 'Uterine, Ovarian, Vulvar cancer' },
     badge: { ja: '妊孕性温存の希望', 'zh-TW': '保留生育力的希望', 'zh-CN': '保留生育力的希望', en: 'Fertility Preservation' },
-    gradient: 'from-pink-500 to-rose-500',
+    gradient: 'from-[#0f7459] to-[#1766b0]',
     photoUrl: 'https://hyogo-deptobgyn.jp/wp-content/themes/hyogo-obgyn/images/kyoshitu/staff_mabuchi.jpg',
   },
   // ===== 癌症内科・IVR =====
@@ -603,7 +603,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     category: 'cancer_medical',
     diseases: { ja: '肺がん、中皮腫', 'zh-TW': '肺癌、間皮瘤', 'zh-CN': '肺癌、间皮瘤', en: 'Lung cancer, Mesothelioma' },
     badge: { ja: '副院長 / がんセンター長', 'zh-TW': '副院長 / 癌症中心主任', 'zh-CN': '副院长 / 癌症中心主任', en: 'Vice Director / Cancer Center' },
-    gradient: 'from-amber-600 to-orange-600',
+    gradient: 'from-[#0f7459] to-[#1766b0]',
     photoUrl: 'https://www.hyo-med.ac.jp/department/rspr/images/pht_prof01.jpg',
   },
   {
@@ -619,7 +619,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     category: 'cancer_medical',
     diseases: { ja: '悪性中皮腫、肺がん', 'zh-TW': '惡性間皮瘤、肺癌', 'zh-CN': '恶性间皮瘤、肺癌', en: 'Mesothelioma, Lung cancer' },
     badge: { ja: '年間800件+ 日本最多', 'zh-TW': '年間800件+ 日本最多', 'zh-CN': '年间800件+ 日本最多', en: '800+ Cases/yr #1 Japan' },
-    gradient: 'from-purple-600 to-indigo-600',
+    gradient: 'from-[#0f7459] to-[#1766b0]',
     photoUrl: 'https://www.hyo-med.ac.jp/department/rspr/images/pht_kuribayashi.png',
   },
   {
@@ -635,7 +635,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     category: 'cancer_medical',
     diseases: { ja: 'ALL、DLBCL、多発性骨髄腫', 'zh-TW': 'ALL、DLBCL、多發性骨髓瘤', 'zh-CN': 'ALL、DLBCL、多发性骨髓瘤', en: 'ALL, DLBCL, Multiple Myeloma' },
     badge: { ja: 'CAR-T細胞療法 認定機関', 'zh-TW': 'CAR-T細胞療法 認定機構', 'zh-CN': 'CAR-T细胞疗法 认定机构', en: 'CAR-T Certified Center' },
-    gradient: 'from-emerald-600 to-teal-600',
+    gradient: 'from-[#0f7459] to-[#1766b0]',
     photoUrl: 'https://www.hyo-med.ac.jp/department/hmt/images/staff/yoshihara_satoshi.jpg',
   },
   {
@@ -651,7 +651,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     category: 'cancer_medical',
     diseases: { ja: '肝がん、肺がん、腎がん、子宮筋腫', 'zh-TW': '肝癌、肺癌、腎癌、子宮肌瘤', 'zh-CN': '肝癌、肺癌、肾癌、子宫肌瘤', en: 'Liver, Lung, Kidney cancer, Uterine fibroids' },
     badge: { ja: 'IVR学会理事長', 'zh-TW': 'IVR學會理事長', 'zh-CN': 'IVR学会理事长', en: 'IVR Society President' },
-    gradient: 'from-slate-600 to-gray-700',
+    gradient: 'from-[#0f7459] to-[#1766b0]',
     photoUrl: 'https://hcm-radiology.com/images/staff/yamakado.jpg',
   },
   // ===== 心脏・脑神经 =====
@@ -668,7 +668,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     category: 'heart_brain',
     diseases: { ja: '弁膜症、冠動脈疾患、大動脈疾患', 'zh-TW': '瓣膜病、冠狀動脈疾病、大動脈疾病', 'zh-CN': '瓣膜病、冠状动脉疾病、大动脉疾病', en: 'Valvular disease, Coronary artery disease, Aortic disease' },
     badge: { ja: 'MICS 1,000例+', 'zh-TW': 'MICS 1,000例+', 'zh-CN': 'MICS 1,000例+', en: 'MICS 1,000+ Cases' },
-    gradient: 'from-red-600 to-rose-600',
+    gradient: 'from-[#0f7459] to-[#1766b0]',
   },
   {
     name: { ja: '吉村 紳一', 'zh-TW': '吉村 紳一', 'zh-CN': '吉村绅一', en: 'Shinichi Yoshimura' },
@@ -683,7 +683,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     category: 'heart_brain',
     diseases: { ja: '脳卒中、脊髄損傷、脳動脈瘤、脳腫瘍', 'zh-TW': '腦中風、脊髓損傷、腦動脈瘤、腦腫瘤', 'zh-CN': '脑中风、脊髓损伤、脑动脉瘤、脑肿瘤', en: 'Stroke, Spinal cord injury, Brain aneurysm, Brain tumor' },
     badge: { ja: '累計4,000例 / NHK出演', 'zh-TW': '累計4,000例 / NHK出演', 'zh-CN': '累计4,000例 / NHK出演', en: '4,000 Cases / NHK Featured' },
-    gradient: 'from-blue-700 to-indigo-700',
+    gradient: 'from-[#0f7459] to-[#1766b0]',
   },
   // ===== 消化道・IBD =====
   {
@@ -699,7 +699,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     category: 'digestive',
     diseases: { ja: '潰瘍性大腸炎、クローン病', 'zh-TW': '潰瘍性大腸炎、克羅恩病', 'zh-CN': '溃疡性大肠炎、克罗恩病', en: 'Ulcerative Colitis, Crohn\'s Disease' },
     badge: { ja: '病院長 / IBD全国DPC 1位', 'zh-TW': '院長 / IBD全國DPC第1', 'zh-CN': '院长 / IBD全国DPC第1', en: 'Director / IBD #1 DPC' },
-    gradient: 'from-rose-500 to-orange-500',
+    gradient: 'from-[#0f7459] to-[#1766b0]',
     photoUrl: 'https://www.hosp.hyo-med.ac.jp/new-building/common/img/ikeuchi.jpg',
   },
   {
@@ -715,7 +715,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     category: 'digestive',
     diseases: { ja: '潰瘍性大腸炎、クローン病', 'zh-TW': '潰瘍性大腸炎、克羅恩病', 'zh-CN': '溃疡性大肠炎、克罗恩病', en: 'Ulcerative Colitis, Crohn\'s Disease' },
     badge: { ja: 'IBDセンター主任', 'zh-TW': 'IBD中心主任', 'zh-CN': 'IBD中心主任', en: 'IBD Center Director' },
-    gradient: 'from-orange-500 to-amber-500',
+    gradient: 'from-[#0f7459] to-[#1766b0]',
     photoUrl: 'https://hyo-med-gastro.jp/img/staff/staff_SHINZAKI.jpg',
   },
   {
@@ -731,7 +731,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     category: 'digestive',
     diseases: { ja: '胃がん、大腸がん、食道がん（早期）', 'zh-TW': '胃癌、大腸癌、食道癌（早期）', 'zh-CN': '胃癌、大肠癌、食道癌（早期）', en: 'Gastric, Colorectal, Esophageal cancer (early stage)' },
     badge: { ja: 'AI内視鏡 / 数千例EMR/ESD', 'zh-TW': 'AI內視鏡 / 數千例EMR/ESD', 'zh-CN': 'AI内镜 / 数千例EMR/ESD', en: 'AI Endoscopy / 1000s EMR/ESD' },
-    gradient: 'from-teal-600 to-emerald-600',
+    gradient: 'from-[#0f7459] to-[#1766b0]',
     photoUrl: 'https://hyo-med-gastro.jp/img/staff/staff_TOMITA_2024.png',
   },
   // ===== 眼科・软骨再生 =====
@@ -748,7 +748,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     category: 'eye_ortho',
     diseases: { ja: '加齢黄斑変性、糖尿病網膜症、ぶどう膜炎', 'zh-TW': '老年性黃斑變性、糖尿病視網膜病變、葡萄膜炎', 'zh-CN': '老年性黄斑变性、糖尿病视网膜病变、葡萄膜炎', en: 'AMD, Diabetic retinopathy, Uveitis' },
     badge: { ja: '眼科の臨床研究リーダー', 'zh-TW': '眼科臨床研究領導者', 'zh-CN': '眼科临床研究领导者', en: 'Ophthalmology Research Leader' },
-    gradient: 'from-cyan-600 to-blue-600',
+    gradient: 'from-[#0f7459] to-[#1766b0]',
     photoUrl: 'https://hyo-med-ganka.jp/webcms/wp-content/uploads/2022/02/staff_img01.jpg',
   },
   {
@@ -764,24 +764,24 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     category: 'eye_ortho',
     diseases: { ja: '膝軟骨損傷、離断性骨軟骨炎、変形性膝関節症', 'zh-TW': '膝軟骨損傷、離斷性骨軟骨炎、退化性膝關節炎', 'zh-CN': '膝软骨损伤、离断性骨软骨炎、变形性膝关节症', en: 'Knee cartilage injury, Osteochondritis, Knee osteoarthritis' },
     badge: { ja: '政府唯一承認 / 1,900例+', 'zh-TW': '政府唯一批准 / 1,900例+', 'zh-CN': '政府唯一批准 / 1,900例+', en: 'Only Govt-Approved / 1,900+' },
-    gradient: 'from-amber-500 to-yellow-600',
+    gradient: 'from-[#0f7459] to-[#1766b0]',
   },
 ];
 
 // 色彩映射
 const ICON_COLORS: Record<string, { bg: string; text: string; hoverBg: string }> = {
-  blue: { bg: 'bg-blue-100', text: 'text-blue-700', hoverBg: 'group-hover:bg-blue-600' },
-  purple: { bg: 'bg-purple-100', text: 'text-purple-700', hoverBg: 'group-hover:bg-purple-600' },
-  indigo: { bg: 'bg-indigo-100', text: 'text-indigo-700', hoverBg: 'group-hover:bg-indigo-600' },
-  pink: { bg: 'bg-pink-100', text: 'text-pink-700', hoverBg: 'group-hover:bg-pink-600' },
-  orange: { bg: 'bg-orange-100', text: 'text-orange-700', hoverBg: 'group-hover:bg-orange-600' },
-  teal: { bg: 'bg-teal-100', text: 'text-teal-700', hoverBg: 'group-hover:bg-teal-600' },
-  green: { bg: 'bg-green-100', text: 'text-green-700', hoverBg: 'group-hover:bg-green-600' },
-  red: { bg: 'bg-red-100', text: 'text-red-700', hoverBg: 'group-hover:bg-red-600' },
-  amber: { bg: 'bg-amber-100', text: 'text-amber-700', hoverBg: 'group-hover:bg-amber-600' },
-  violet: { bg: 'bg-violet-100', text: 'text-violet-700', hoverBg: 'group-hover:bg-violet-600' },
-  rose: { bg: 'bg-rose-100', text: 'text-rose-700', hoverBg: 'group-hover:bg-rose-600' },
-  sky: { bg: 'bg-sky-100', text: 'text-sky-700', hoverBg: 'group-hover:bg-sky-600' },
+  blue: { bg: 'bg-[#ecf3f1]', text: 'text-[#0f7459]', hoverBg: 'group-hover:bg-[#0f7459]' },
+  purple: { bg: 'bg-[#ecf3f1]', text: 'text-[#0f7459]', hoverBg: 'group-hover:bg-[#0f7459]' },
+  indigo: { bg: 'bg-[#ecf3f1]', text: 'text-[#0f7459]', hoverBg: 'group-hover:bg-[#0f7459]' },
+  pink: { bg: 'bg-[#ecf3f1]', text: 'text-[#0f7459]', hoverBg: 'group-hover:bg-[#0f7459]' },
+  orange: { bg: 'bg-[#ecf3f1]', text: 'text-[#0f7459]', hoverBg: 'group-hover:bg-[#0f7459]' },
+  teal: { bg: 'bg-[#ecf3f1]', text: 'text-[#0f7459]', hoverBg: 'group-hover:bg-[#0f7459]' },
+  green: { bg: 'bg-[#ecf3f1]', text: 'text-[#0f7459]', hoverBg: 'group-hover:bg-[#0f7459]' },
+  red: { bg: 'bg-[#ecf3f1]', text: 'text-[#0f7459]', hoverBg: 'group-hover:bg-[#0f7459]' },
+  amber: { bg: 'bg-[#ecf3f1]', text: 'text-[#0f7459]', hoverBg: 'group-hover:bg-[#0f7459]' },
+  violet: { bg: 'bg-[#ecf3f1]', text: 'text-[#0f7459]', hoverBg: 'group-hover:bg-[#0f7459]' },
+  rose: { bg: 'bg-[#ecf3f1]', text: 'text-[#0f7459]', hoverBg: 'group-hover:bg-[#0f7459]' },
+  sky: { bg: 'bg-[#ecf3f1]', text: 'text-[#0f7459]', hoverBg: 'group-hover:bg-[#0f7459]' },
 };
 
 // 诊疗科室
@@ -920,28 +920,28 @@ const TREATMENT_PHASES = [
 
 type PhaseColor = 'blue' | 'purple' | 'amber' | 'green';
 const PHASE_COLORS: Record<PhaseColor, { bg: string; light: string; border: string; text: string; ring: string }> = {
-  blue:   { bg: 'bg-blue-600',   light: 'bg-blue-50',   border: 'border-blue-600',   text: 'text-blue-600',   ring: 'ring-blue-200' },
-  purple: { bg: 'bg-purple-600', light: 'bg-purple-50', border: 'border-purple-600', text: 'text-purple-600', ring: 'ring-purple-200' },
-  amber:  { bg: 'bg-amber-500',  light: 'bg-amber-50',  border: 'border-amber-500',  text: 'text-amber-600',  ring: 'ring-amber-200' },
-  green:  { bg: 'bg-green-600',  light: 'bg-green-50',  border: 'border-green-600',  text: 'text-green-600',  ring: 'ring-green-200' },
+  blue:   { bg: 'bg-[#0f7459]',   light: 'bg-[#ecf3f1]',   border: 'border-[#0f7459]',   text: 'text-[#0f7459]',   ring: 'ring-[#ecf3f1]' },
+  purple: { bg: 'bg-[#0f7459]', light: 'bg-[#ecf3f1]', border: 'border-[#0f7459]', text: 'text-[#0f7459]', ring: 'ring-[#ecf3f1]' },
+  amber:  { bg: 'bg-[#0f7459]',  light: 'bg-[#ecf3f1]',  border: 'border-[#0f7459]',  text: 'text-[#0f7459]',  ring: 'ring-[#ecf3f1]' },
+  green:  { bg: 'bg-[#0f7459]',  light: 'bg-[#ecf3f1]',  border: 'border-[#0f7459]',  text: 'text-[#0f7459]',  ring: 'ring-[#ecf3f1]' },
 };
 const PHASE_GRADIENT_MAP: Record<PhaseColor, string> = {
-  blue:   'from-blue-600 to-blue-700',
-  purple: 'from-purple-600 to-purple-700',
-  amber:  'from-amber-500 to-amber-600',
-  green:  'from-green-600 to-green-700',
+  blue:   'from-[#0f7459] to-[#1766b0]',
+  purple: 'from-[#0f7459] to-[#1766b0]',
+  amber:  'from-[#0f7459] to-[#1766b0]',
+  green:  'from-[#0f7459] to-[#1766b0]',
 };
 const PHASE_LIGHT_BG_MAP: Record<PhaseColor, string> = {
-  blue:   'bg-blue-50 border-blue-100',
-  purple: 'bg-purple-50 border-purple-100',
-  amber:  'bg-amber-50 border-amber-100',
-  green:  'bg-green-50 border-green-100',
+  blue:   'bg-[#ecf3f1] border-[#dae9e5]',
+  purple: 'bg-[#ecf3f1] border-[#dae9e5]',
+  amber:  'bg-[#ecf3f1] border-[#dae9e5]',
+  green:  'bg-[#ecf3f1] border-[#dae9e5]',
 };
 const PHASE_DOT_MAP: Record<PhaseColor, string> = {
-  blue: 'bg-blue-500',
-  purple: 'bg-purple-500',
-  amber: 'bg-amber-500',
-  green: 'bg-green-500',
+  blue: 'bg-[#0f7459]',
+  purple: 'bg-[#0f7459]',
+  amber: 'bg-[#0f7459]',
+  green: 'bg-[#0f7459]',
 };
 
 // 咨询服务（使用兵庫医大专属 packages）
@@ -968,9 +968,9 @@ const CONSULTATION_SERVICES = [
       'zh-CN': ['病历资料翻译（中→日）', '兵库医大初步咨询', '治疗可行性评估报告', '费用概算说明', '后续流程指导'],
       en: ['Medical record translation (CN→JP)', 'Initial consultation with Hyogo Medical', 'Treatment feasibility report', 'Cost estimation', 'Next steps guidance'],
     } as Record<Language, string[]>,
-    gradient: 'from-blue-600 to-indigo-700',
-    hoverGradient: 'hover:from-blue-700 hover:to-indigo-800',
-    checkColor: 'text-blue-500',
+    gradient: 'from-[#0f7459] to-[#1766b0]',
+    hoverGradient: 'hover:from-[#0d634c] hover:to-[#135a96]',
+    checkColor: 'text-[#0f7459]',
     href: '/hyogo-medical/initial-consultation',
   },
   {
@@ -995,9 +995,9 @@ const CONSULTATION_SERVICES = [
       'zh-CN': ['兵库医大专科医生视频会诊', '专业医疗翻译全程陪同', '详细治疗方案说明', '治疗费用明细报价', '赴日治疗最终判断支援'],
       en: ['Video consultation with specialist', 'Professional medical interpreter', 'Detailed treatment plan', 'Itemized cost quotation', 'Decision support for visiting Japan'],
     } as Record<Language, string[]>,
-    gradient: 'from-purple-600 to-pink-700',
-    hoverGradient: 'hover:from-purple-700 hover:to-pink-800',
-    checkColor: 'text-purple-500',
+    gradient: 'from-[#0f7459] to-[#1766b0]',
+    hoverGradient: 'hover:from-[#0d634c] hover:to-[#135a96]',
+    checkColor: 'text-[#0f7459]',
     href: '/hyogo-medical/remote-consultation',
   },
 ];
@@ -1088,7 +1088,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
           quality={75}
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0f7459]/90 via-[#0f7459]/50 to-transparent" />
         <div className="absolute inset-0 opacity-30 pointer-events-none">
           <div className="absolute w-full h-full bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]" />
         </div>
@@ -1096,20 +1096,20 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
           <div className="max-w-3xl animate-fade-in-up">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif mb-4 md:mb-6 leading-[1.2]">
               {t.heroTitle1[lang]}<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white">{t.heroTitle2[lang]}</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ecf3f1] to-white">{t.heroTitle2[lang]}</span>
             </h1>
             <h2 className="text-base sm:text-lg md:text-2xl text-gray-300 font-light mb-6 md:mb-8 font-serif">
               {t.heroSubtitle[lang]}
             </h2>
-            <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base border-l-2 border-blue-500 pl-4 md:pl-6 max-w-2xl whitespace-pre-line">
+            <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base border-l-2 border-[#ecf3f1] pl-4 md:pl-6 max-w-2xl whitespace-pre-line">
               {t.heroText[lang]}
             </p>
-            <div className="mt-8 inline-flex items-center gap-3 bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-400/40 px-5 py-3 rounded-full backdrop-blur-md">
+            <div className="mt-8 inline-flex items-center gap-3 bg-[#0f7459]/20 border border-[#ecf3f1]/60 px-5 py-3 rounded-full backdrop-blur-md">
               <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ecf3f1] opacity-75" />
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#0f7459]" />
               </span>
-              <span className="text-amber-200 text-sm font-medium">{t.limitBadge[lang]}</span>
+              <span className="text-[#ecf3f1] text-sm font-medium">{t.limitBadge[lang]}</span>
             </div>
           </div>
         </div>
@@ -1118,10 +1118,10 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
       {/* ========================================
           2. Headline Stats - 核心数字 (暗色背景过渡区)
           ======================================== */}
-      <div className="bg-gradient-to-b from-slate-900 to-slate-800 py-16 md:py-24">
+      <div className="bg-gradient-to-r from-[#0f7459] to-[#1766b0] py-16 md:py-24">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-400 text-xs tracking-[0.3em] uppercase font-bold">{t.statsTag[lang]}</span>
+            <span className="text-[#ecf3f1] text-xs tracking-[0.3em] uppercase font-bold">{t.statsTag[lang]}</span>
             <h3 className="text-3xl font-serif text-white mt-3">{t.statsTitle[lang]}</h3>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
@@ -1143,7 +1143,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
             ======================================== */}
         <div className="mb-24">
           <div className="text-center mb-16">
-            <span className="text-red-500 text-xs tracking-widest uppercase font-bold">{t.nationalTag[lang]}</span>
+            <span className="text-[#0f7459] text-xs tracking-widest uppercase font-bold">{t.nationalTag[lang]}</span>
             <h3 className="text-3xl font-serif text-gray-900 mt-2">{t.nationalTitle[lang]}</h3>
           </div>
           <div className="space-y-6">
@@ -1174,7 +1174,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
             ======================================== */}
         <div id="expert-team" className="mb-24">
           <div className="text-center mb-12">
-            <span className="text-emerald-600 text-xs tracking-widest uppercase font-bold">
+            <span className="text-[#0f7459] text-xs tracking-widest uppercase font-bold">
               {({ ja: '合作専門医チーム', 'zh-TW': '合作專科醫療團隊', 'zh-CN': '合作专科医疗团队', en: 'Partner Specialist Team' } as Record<Language, string>)[lang]}
             </span>
             <h3 className="text-3xl font-serif text-gray-900 mt-2">
@@ -1191,7 +1191,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
               onClick={() => setDoctorCategory(null)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 doctorCategory === null
-                  ? 'bg-emerald-600 text-white shadow-lg'
+                  ? 'bg-[#0f7459] text-white shadow-lg'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >
@@ -1205,7 +1205,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
                   onClick={() => setDoctorCategory(cat.id)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-1.5 ${
                     doctorCategory === cat.id
-                      ? 'bg-emerald-600 text-white shadow-lg'
+                      ? 'bg-[#0f7459] text-white shadow-lg'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                 >
@@ -1255,12 +1255,12 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
                         <div className="min-w-0">
                           <h4 className="text-lg font-bold text-gray-900 font-serif truncate">{doc.name[lang]}</h4>
                           <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">{doc.title[lang]}</p>
-                          <p className="text-xs text-emerald-600 font-medium mt-0.5">{doc.dept[lang]}</p>
+                          <p className="text-xs text-[#0f7459] font-medium mt-0.5">{doc.dept[lang]}</p>
                         </div>
                       </div>
 
                       {/* Specialty highlight */}
-                      <p className="text-sm text-gray-800 font-medium mb-3 pl-3 border-l-2 border-emerald-400">
+                      <p className="text-sm text-gray-800 font-medium mb-3 pl-3 border-l-2 border-[#0f7459]">
                         {doc.specialty[lang]}
                       </p>
 
@@ -1268,7 +1268,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
                       <ul className="space-y-1.5 mb-4">
                         {doc.highlights.map((h, j) => (
                           <li key={j} className="flex items-start gap-2 text-[13px] text-gray-600">
-                            <CheckCircle size={13} className="text-emerald-500 mt-0.5 flex-shrink-0" />
+                            <CheckCircle size={13} className="text-[#0f7459] mt-0.5 flex-shrink-0" />
                             <span>{h[lang]}</span>
                           </li>
                         ))}
@@ -1294,7 +1294,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
             ======================================== */}
         <div className="mb-24">
           <div className="text-center mb-16">
-            <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">{t.robotTag[lang]}</span>
+            <span className="text-[#0f7459] text-xs tracking-widest uppercase font-bold">{t.robotTag[lang]}</span>
             <h3 className="text-3xl font-serif text-gray-900 mt-2">{t.robotTitle[lang]}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -1303,7 +1303,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
               <div className="relative h-64 overflow-hidden">
                 <Image src="https://www.hosp.hyo-med.ac.jp/upload/news/content/davinci_ope.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Da Vinci Xi" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
                 <div className="absolute inset-0 bg-black/20" />
-                <div className="absolute top-4 right-4 bg-blue-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                <div className="absolute top-4 right-4 bg-[#0f7459] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                   {t.robotDaVinciBadge[lang]}
                 </div>
               </div>
@@ -1324,7 +1324,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
               <div className="relative h-64 overflow-hidden">
                 <Image src="https://www.hosp.hyo-med.ac.jp/upload/news/content/hinotori2.png" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="hinotori" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
                 <div className="absolute inset-0 bg-black/20" />
-                <div className="absolute top-4 right-4 bg-rose-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                <div className="absolute top-4 right-4 bg-[#0f7459] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                   {t.robotHinotoriBadge[lang]}
                 </div>
               </div>
@@ -1348,7 +1348,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
             ======================================== */}
         <div className="mb-24">
           <div className="text-center mb-16">
-            <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">{t.certTag[lang]}</span>
+            <span className="text-[#0f7459] text-xs tracking-widest uppercase font-bold">{t.certTag[lang]}</span>
             <h3 className="text-3xl font-serif text-gray-900 mt-2">{t.certTitle[lang]}</h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1371,10 +1371,10 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
         {/* ========================================
             6. 10+ 专门中心 (TIMC 深色圆角风格)
             ======================================== */}
-        <div className="mb-24 bg-gray-900 text-white rounded-3xl p-10 md:p-16 relative overflow-hidden">
+        <div className="mb-24 bg-[#0f7459] text-white rounded-3xl p-10 md:p-16 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png')" }} />
           <div className="relative z-10 text-center mb-12">
-            <span className="text-blue-400 text-xs tracking-[0.3em] uppercase font-bold">{t.centersTag[lang]}</span>
+            <span className="text-[#ecf3f1] text-xs tracking-[0.3em] uppercase font-bold">{t.centersTag[lang]}</span>
             <h3 className="text-3xl font-serif mt-3">{t.centersTitle[lang]}</h3>
           </div>
           <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -1382,7 +1382,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
               const Icon = center.icon;
               return (
                 <div key={i} className="bg-white/5 p-5 rounded-xl border border-white/10 hover:bg-white/10 transition group text-center">
-                  <div className="flex justify-center mb-3 text-blue-400 group-hover:scale-110 transition"><Icon size={28} /></div>
+                  <div className="flex justify-center mb-3 text-[#ecf3f1] group-hover:scale-110 transition"><Icon size={28} /></div>
                   <h4 className="font-bold text-sm mb-1">{center.name[lang]}</h4>
                   <p className="text-[11px] text-gray-400 leading-relaxed">{center.stat[lang]}</p>
                 </div>
@@ -1504,8 +1504,8 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
         <div className="relative container mx-auto px-6 py-16">
           <div className="max-w-2xl">
             <div className="flex items-center gap-3 mb-4">
-              <div className="h-[1px] w-12 bg-amber-400" />
-              <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">NEW BUILDING 2026</span>
+              <div className="h-[1px] w-12 bg-[#ecf3f1]" />
+              <span className="text-xs tracking-[0.3em] text-[#ecf3f1] uppercase">NEW BUILDING 2026</span>
             </div>
             <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.newBuildTitle[lang]}</h4>
             <p className="text-base text-white/80 leading-relaxed whitespace-pre-line">{t.newBuildDesc[lang]}</p>
@@ -1527,7 +1527,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
       <div className="bg-slate-900 py-16 md:py-24">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-amber-400 text-xs tracking-[0.3em] uppercase font-bold">
+            <span className="text-[#ecf3f1] text-xs tracking-[0.3em] uppercase font-bold">
               {({ ja: '新病院棟イメージ', 'zh-TW': '新院區內部設計', 'zh-CN': '新院区内部设计', en: 'New Building Interior Design' } as Record<Language, string>)[lang]}
             </span>
             <h3 className="text-2xl md:text-3xl font-serif text-white mt-3">
@@ -1558,7 +1558,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
       {/* ========================================
           8c. 建設進捗 — Construction Progress
           ======================================== */}
-      <div className="bg-gray-100 py-16 md:py-20">
+      <div className="bg-[#f7f6f0] py-16 md:py-20">
         <div className="container mx-auto px-6">
           <div className="text-center mb-10">
             <span className="text-gray-500 text-xs tracking-[0.2em] uppercase font-bold">
@@ -1595,8 +1595,8 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
         <div className="relative container mx-auto px-6 py-16">
           <div className="max-w-2xl ml-auto text-right">
             <div className="flex items-center justify-end gap-3 mb-4">
-              <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">Emergency & Disaster</span>
-              <div className="h-[1px] w-12 bg-amber-400" />
+              <span className="text-xs tracking-[0.3em] text-[#ecf3f1] uppercase">Emergency & Disaster</span>
+              <div className="h-[1px] w-12 bg-[#ecf3f1]" />
             </div>
             <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.emergTitle[lang]}</h4>
             <p className="text-base text-white/80 leading-relaxed whitespace-pre-line">{t.emergDesc[lang]}</p>
@@ -1616,29 +1616,29 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
             ======================================== */}
         <div className="mb-24">
           <div className="text-center mb-16">
-            <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">41 Clinical Departments</span>
+            <span className="text-[#0f7459] text-xs tracking-widest uppercase font-bold">41 Clinical Departments</span>
             <h3 className="text-3xl font-serif text-gray-900 mt-2">{t.deptTitle[lang]}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-gray-50 p-8 rounded-xl border border-gray-100">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center"><Heart size={20} /></div>
+                <div className="w-10 h-10 bg-[#ecf3f1] text-[#0f7459] rounded-full flex items-center justify-center"><Heart size={20} /></div>
                 <h4 className="text-lg font-bold text-gray-800 font-serif">{t.deptInternal[lang]}</h4>
               </div>
               <div className="space-y-2">
                 {DEPARTMENTS.internal.map((dept, i) => (
-                  <div key={i} className="flex gap-2 text-sm text-gray-600"><CheckCircle size={14} className="text-blue-500 shrink-0 mt-0.5" />{dept[lang]}</div>
+                  <div key={i} className="flex gap-2 text-sm text-gray-600"><CheckCircle size={14} className="text-[#0f7459] shrink-0 mt-0.5" />{dept[lang]}</div>
                 ))}
               </div>
             </div>
             <div className="bg-gray-50 p-8 rounded-xl border border-gray-100">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-purple-100 text-purple-700 rounded-full flex items-center justify-center"><Syringe size={20} /></div>
+                <div className="w-10 h-10 bg-[#ecf3f1] text-[#0f7459] rounded-full flex items-center justify-center"><Syringe size={20} /></div>
                 <h4 className="text-lg font-bold text-gray-800 font-serif">{t.deptSurgical[lang]}</h4>
               </div>
               <div className="space-y-2">
                 {DEPARTMENTS.surgical.map((dept, i) => (
-                  <div key={i} className="flex gap-2 text-sm text-gray-600"><CheckCircle size={14} className="text-purple-500 shrink-0 mt-0.5" />{dept[lang]}</div>
+                  <div key={i} className="flex gap-2 text-sm text-gray-600"><CheckCircle size={14} className="text-[#0f7459] shrink-0 mt-0.5" />{dept[lang]}</div>
                 ))}
               </div>
             </div>
@@ -1661,7 +1661,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
             ======================================== */}
         <div className="mb-24">
           <div className="text-center mb-16">
-            <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">Hospital Information</span>
+            <span className="text-[#0f7459] text-xs tracking-widest uppercase font-bold">Hospital Information</span>
             <h3 className="text-3xl font-serif text-gray-900 mt-2">{t.accessTitle[lang]}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -1675,7 +1675,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
             <div className="space-y-4">
               <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center shrink-0"><MapPin size={20} /></div>
+                  <div className="w-10 h-10 bg-[#ecf3f1] text-[#0f7459] rounded-full flex items-center justify-center shrink-0"><MapPin size={20} /></div>
                   <div>
                     <h4 className="font-bold text-gray-800 mb-1 font-serif">{t.accessLabelAddress[lang]}</h4>
                     <p className="text-sm text-gray-500">{t.accessAddress[lang]}</p>
@@ -1684,7 +1684,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
               </div>
               <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-green-100 text-green-700 rounded-full flex items-center justify-center shrink-0"><Train size={20} /></div>
+                  <div className="w-10 h-10 bg-[#ecf3f1] text-[#0f7459] rounded-full flex items-center justify-center shrink-0"><Train size={20} /></div>
                   <div>
                     <h4 className="font-bold text-gray-800 mb-1 font-serif">{t.accessLabelTrain[lang]}</h4>
                     <p className="text-sm text-gray-500">{t.accessTrain[lang]}</p>
@@ -1693,7 +1693,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
               </div>
               <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center shrink-0"><Clock size={20} /></div>
+                  <div className="w-10 h-10 bg-[#ecf3f1] text-[#0f7459] rounded-full flex items-center justify-center shrink-0"><Clock size={20} /></div>
                   <div>
                     <h4 className="font-bold text-gray-800 mb-1 font-serif">{t.accessLabelHours[lang]}</h4>
                     <p className="text-sm text-gray-500">{t.hoursWeekday[lang]}</p>
@@ -1703,7 +1703,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
               </div>
               <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center shrink-0"><Phone size={20} /></div>
+                  <div className="w-10 h-10 bg-[#ecf3f1] text-[#0f7459] rounded-full flex items-center justify-center shrink-0"><Phone size={20} /></div>
                   <div>
                     <h4 className="font-bold text-gray-800 mb-1 font-serif">{t.accessLabelPhone[lang]}</h4>
                     <p className="text-sm text-gray-500">0798-45-6111</p>
@@ -1727,7 +1727,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
         <div className="container mx-auto px-6">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <span className="text-blue-600 text-xs tracking-widest uppercase font-bold">{bookingT.flowTag[lang]}</span>
+            <span className="text-[#0f7459] text-xs tracking-widest uppercase font-bold">{bookingT.flowTag[lang]}</span>
             <h3 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mt-3 mb-4">{bookingT.flowTitle[lang]}</h3>
             <p className="text-gray-500 max-w-2xl mx-auto">{bookingT.flowDesc[lang]}</p>
           </div>
@@ -1820,7 +1820,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
                         <ul className="space-y-2.5">
                           {phase.patientActions.map((action, i) => (
                             <li key={i} className="flex items-start gap-2.5 text-sm text-gray-700">
-                              <CheckCircle size={16} className="text-green-500 flex-shrink-0 mt-0.5" />
+                              <CheckCircle size={16} className="text-[#0f7459] flex-shrink-0 mt-0.5" />
                               <span>{action[lang]}</span>
                             </li>
                           ))}
@@ -1835,7 +1835,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
                         <ul className="space-y-2.5">
                           {phase.weHandle.map((item, i) => (
                             <li key={i} className="flex items-start gap-2.5 text-sm text-gray-700">
-                              <CheckCircle size={16} className="text-blue-500 flex-shrink-0 mt-0.5" />
+                              <CheckCircle size={16} className="text-[#0f7459] flex-shrink-0 mt-0.5" />
                               <span>{item[lang]}</span>
                             </li>
                           ))}
@@ -1869,7 +1869,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
                                     <div className="flex items-center gap-2 mb-1">
                                       <h6 className="text-sm font-bold text-gray-900">{step.title[lang]}</h6>
                                       {step.fee && (
-                                        <span className="bg-blue-100 text-blue-700 text-xs font-bold px-2 py-0.5 rounded-full">
+                                        <span className="bg-[#ecf3f1] text-[#0f7459] text-xs font-bold px-2 py-0.5 rounded-full">
                                           ¥{step.fee}
                                         </span>
                                       )}
@@ -1908,15 +1908,15 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
-              <span className="text-blue-600 text-xs tracking-widest uppercase font-bold">{bookingT.svcTag[lang]}</span>
+              <span className="text-[#0f7459] text-xs tracking-widest uppercase font-bold">{bookingT.svcTag[lang]}</span>
               <h3 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mt-3 mb-4">{bookingT.svcTitle[lang]}</h3>
               <p className="text-gray-500 mb-4">{bookingT.svcDesc[lang]}</p>
-              <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 px-4 py-2 rounded-full">
+              <div className="inline-flex items-center gap-2 bg-[#ecf3f1] border border-[#dae9e5] px-4 py-2 rounded-full">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ecf3f1] opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0f7459]" />
                 </span>
-                <span className="text-amber-700 text-sm">{bookingT.svcLimit[lang]}</span>
+                <span className="text-[#0f7459] text-sm">{bookingT.svcLimit[lang]}</span>
               </div>
             </div>
 
@@ -1960,8 +1960,8 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
             {/* Member System Notice */}
             <div className="bg-white rounded-2xl p-6 border border-gray-200 mb-8">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center shrink-0">
-                  <Users size={24} className="text-blue-600" />
+                <div className="w-12 h-12 bg-[#ecf3f1] rounded-xl flex items-center justify-center shrink-0">
+                  <Users size={24} className="text-[#0f7459]" />
                 </div>
                 <div>
                   <h4 className="font-bold text-gray-900 mb-2">{bookingT.memberTitle[lang]}</h4>
@@ -2031,7 +2031,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
           {!isGuideEmbed && (
             <a
               href="#contact-form"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-8 py-4 rounded-full font-bold hover:from-blue-700 hover:to-indigo-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-[#0f7459] to-[#1766b0] text-white px-8 py-4 rounded-full font-bold hover:from-[#0d634c] hover:to-[#135a96] transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
             >
               <Stethoscope size={20} />
               {bookingT.bookNow[lang]}
