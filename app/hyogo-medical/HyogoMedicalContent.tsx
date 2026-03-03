@@ -1451,7 +1451,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
       {/* Row 3: IVR + Endoscopy */}
       <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://www.hosp.hyo-med.ac.jp/new-building/common/img/nb_img01.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="IVR Center" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
+          <Image src="https://www.hosp.hyo-med.ac.jp/upload/department/highlevel/1.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="IVR Center" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipIvrTitle[lang]}</h4>
@@ -1461,7 +1461,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
           </div>
         </div>
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://www.hosp.hyo-med.ac.jp/upload/department/facility/ug_surgery_03_02.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Endoscopy" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
+          <Image src="https://www.hosp.hyo-med.ac.jp/img/image03_02.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Endoscopy" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipEndoTitle[lang]}</h4>
@@ -1474,7 +1474,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
       {/* Row 4: Nuclear Medicine + Operating Rooms */}
       <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://www.hosp.hyo-med.ac.jp/new-building/common/img/nb_img02.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Nuclear Medicine" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
+          <Image src="https://www.hosp.hyo-med.ac.jp/about/3min/img/latest_medical_equipment01.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Nuclear Medicine" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipNucTitle[lang]}</h4>
@@ -1484,7 +1484,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
           </div>
         </div>
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://www.hosp.hyo-med.ac.jp/new-building/common/img/content_01.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Operating Rooms" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
+          <Image src="https://www.hosp.hyo-med.ac.jp/upload/department/highlevel/neurosurgery_02.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Operating Rooms" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipOpTitle[lang]}</h4>
