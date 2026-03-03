@@ -1245,7 +1245,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
                             alt={doc.name[lang]}
                             width={64}
                             height={64}
-                            className="rounded-full object-cover border-2 border-white shadow-md"
+                            className="w-16 h-16 rounded-full object-cover object-top border-2 border-white shadow-md flex-shrink-0"
                           />
                         ) : (
                           <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${doc.gradient} flex items-center justify-center shadow-md flex-shrink-0`}>
