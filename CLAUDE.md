@@ -1011,12 +1011,59 @@ Cookie 仅供 API 路由（`create-checkout-session`、`order-lookup`、`whitela
 - **用途**: 仅用于 API 层的订单归属，不影响 UI 层白标模式判断
 - **设置时机**: 白标域名访问时由 middleware 设置
 
+### 白标域名上的裸模块页面重定向（middleware 步骤 2.5）
+
+白标域名（bespoketrip.jp）上的所有模块页面必须通过 `/g/{slug}/` 路由访问，以获得白标 layout（导航栏、悬浮联系、页脚）。
+
+**middleware 自动处理：**
+
+| 白标域名上的请求 | 自动行为 |
+|----------------|---------|
+| `/hyogo-medical` | 重定向到 `/g/{slug}/hyogo-medical` |
+| `/hyogo-medical/initial-consultation` | 补充 `?guide={slug}` 参数 |
+| `/cancer-treatment` | 重定向到 `/g/{slug}/cancer-treatment` |
+| 其他模块页面 | 同上规则 |
+
+slug 来源优先级：子域名 > `wl_guide` Cookie
+
+**受影响的模块路径** (`WHITELABEL_MODULE_PATHS`)：
+`hyogo-medical`, `cancer-treatment`, `medical-packages`, `sai-clinic`, `wclinic-mens`, `helene-clinic`, `ginza-phoenix`, `cell-medicine`, `ac-plus`, `igtc`
+
+### Checkout 子页面返回链接规范
+
+所有 checkout 子页面（如 `initial-consultation`、`remote-consultation`、`treatment`）的返回链接必须是白标感知的：
+
+```typescript
+// 读取 middleware 补充的 ?guide= 参数
+const searchParams = useSearchParams();
+const guideSlugParam = searchParams.get('guide');
+const guideSlug = guideSlugParam && isValidSlug(guideSlugParam) ? guideSlugParam : null;
+const backHref = guideSlug ? `/g/${guideSlug}/hyogo-medical` : '/hyogo-medical';
+
+// 使用 backHref 而非硬编码路径
+<Link href={backHref}>返回</Link>
+```
+
+**内容组件的 CTA 链接：**
+- `HyogoMedicalContent`、`OICIContent`：接收 `guideSlug` prop，CTA 链接附加 `?guide={slug}`
+- 其他诊所组件（helene、wclinic-mens 等）：白标模式下 CTA 使用页内锚点 `#consultation`，不跳转到 checkout 子页面
+
+### 新增模块时的检查清单
+
+1. ✅ 将模块 URL slug 添加到 middleware 的 `WHITELABEL_MODULE_PATHS`
+2. ✅ 内容组件接收 `guideSlug` prop（如果 CTA 链接跳转到独立 checkout 页面）
+3. ✅ `app/g/[slug]/[moduleSlug]/page.tsx` 传入 `guideSlug={slug}`
+4. ✅ Checkout 子页面读取 `?guide=` 构建白标感知的返回链接
+5. ✅ 三层白名单对齐（layout.tsx, page.tsx, [moduleSlug]/page.tsx）
+
 ### ⛔ 禁止操作
 
 - ❌ 不要在 `getWhiteLabelConfig()` 中读取 Cookie 判断白标模式
 - ❌ 不要在官方域名上渲染 `/g/[slug]` 白标页面（必须重定向）
 - ❌ 不要在支付页面显示"返回导游主页"等暴露白标概念的文案
 - ❌ 不要让 Cookie 残留影响官方域名的 UI 显示
+- ❌ 不要在 checkout 子页面硬编码返回链接（必须使用 `?guide=` 参数构建）
+- ❌ 不要在白标域名上直接渲染裸模块页面（必须通过 `/g/{slug}/` 路由）
 
 ---
 

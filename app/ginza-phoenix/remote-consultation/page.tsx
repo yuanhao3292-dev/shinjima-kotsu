@@ -2,9 +2,11 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import CheckoutLayout from '@/components/CheckoutLayout';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 import ProviderBanner, { useProviderKey } from '@/components/ProviderBanner';
+import { isValidSlug } from '@/lib/whitelabel-config';
 import {
   ArrowLeft, CheckCircle, FileText, Shield, Clock,
   Loader2, CreditCard, Users, Phone, Video
@@ -100,6 +102,10 @@ const SERVICE_INFO = {
 
 export default function GinzaPhoenixRemoteConsultationPage() {
   const providerKey = useProviderKey();
+  const searchParams = useSearchParams();
+  const guideSlugParam = searchParams.get('guide');
+  const guideSlug = guideSlugParam && isValidSlug(guideSlugParam) ? guideSlugParam : null;
+  const backHref = guideSlug ? `/g/${guideSlug}/ginza-phoenix` : '/ginza-phoenix';
   const [currentLang, setCurrentLang] = useState<Language>('zh-CN');
   const [processing, setProcessing] = useState(false);
   const [customerInfo, setCustomerInfo] = useState({ name: '', email: '', phone: '', line: '', wechat: '', country: 'CN' });
@@ -200,7 +206,7 @@ export default function GinzaPhoenixRemoteConsultationPage() {
       <Suspense fallback={null}><ProviderBanner lang={currentLang} /></Suspense>
       <div className="bg-white border-b border-gray-100">
         <div className="max-w-4xl mx-auto px-4 py-3">
-          <Link href="/ginza-phoenix" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-blue-600 transition">
+          <Link href={backHref} className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-blue-600 transition">
             <ArrowLeft size={16} />{t('backToMain')}
           </Link>
         </div>
