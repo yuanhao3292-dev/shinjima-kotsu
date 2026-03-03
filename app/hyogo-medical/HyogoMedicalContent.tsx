@@ -1300,8 +1300,8 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Da Vinci Xi */}
             <div className="bg-gray-900 text-white rounded-2xl overflow-hidden group">
-              <div className="relative h-64 overflow-hidden">
-                <Image src="https://www.hosp.hyo-med.ac.jp/upload/department/facility/2(4).jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Da Vinci Xi" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <Image src="https://www.hosp.hyo-med.ac.jp/upload/department/facility/davinchi.jpg" fill className="object-cover object-center transition-transform duration-700 group-hover:scale-105" alt="Da Vinci Xi" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
                 <div className="absolute inset-0 bg-black/20" />
                 <div className="absolute top-4 right-4 bg-[#0f7459] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                   {t.robotDaVinciBadge[lang]}
@@ -1321,8 +1321,8 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
             </div>
             {/* hinotori */}
             <div className="bg-gray-900 text-white rounded-2xl overflow-hidden group">
-              <div className="relative h-64 overflow-hidden">
-                <Image src="https://www.hosp.hyo-med.ac.jp/upload/news/content/hinotori2.png" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="hinotori" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <Image src="https://www.hosp.hyo-med.ac.jp/upload/news/content/hinotori2.png" fill className="object-cover object-center transition-transform duration-700 group-hover:scale-105" alt="hinotori" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
                 <div className="absolute inset-0 bg-black/20" />
                 <div className="absolute top-4 right-4 bg-[#0f7459] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                   {t.robotHinotoriBadge[lang]}
