@@ -964,6 +964,62 @@ Component: DistributionNav 渲染导航（无额外过滤）
 
 ---
 
+## 🔒 官方域名与白标域名隔离规范 (Domain Isolation - MANDATORY)
+
+**状态**: 🔒 **强制执行** (Mandatory)
+**生效日期**: 2026-03-03
+
+### 核心原则
+
+**niijima-koutsu.jp（官方域名）绝不承载白标内容，bespoketrip.jp（白标域名）专用于导游白标页面。**
+
+### 双域名架构
+
+| 域名 | 用途 | 白标模式 |
+|------|------|---------|
+| `niijima-koutsu.jp` | 新岛交通旅行社官方销售页面 | ❌ 永远不进入 |
+| `bespoketrip.jp` | 导游白标分销页面（含子域名） | ✅ 始终进入 |
+
+### 白标模式判断机制
+
+白标模式**仅通过 middleware 设置的 HTTP 请求头判断**，不读取 Cookie：
+
+```
+middleware.ts 设置 x-whitelabel-mode + x-whitelabel-slug 头
+  → getWhiteLabelConfig() 只读请求头（不读 Cookie）
+  → WhiteLabelProvider 注入 isWhiteLabelMode
+  → 所有组件通过 useWhiteLabel() 获取状态
+```
+
+**⚠️ `getWhiteLabelConfig()` 禁止直接读取 `wl_guide` Cookie**
+Cookie 仅供 API 路由（`create-checkout-session`、`order-lookup`、`whitelabel/track`）用于导游佣金归属追踪。
+
+### middleware 路由规则（生产环境）
+
+| 请求 | 处理 |
+|------|------|
+| `yuan.bespoketrip.jp/*` | 设置 Cookie + 请求头 → 白标模式 |
+| `bespoketrip.jp/*`（有 Cookie） | 设置请求头 → 白标模式 |
+| `niijima-koutsu.jp/g/[slug]/*` | **重定向到 `[slug].bespoketrip.jp/g/[slug]/*`** |
+| `niijima-koutsu.jp/p/[slug]` | **重定向到 `[slug].bespoketrip.jp`** |
+| `niijima-koutsu.jp/*`（其他） | 不设置请求头 → 官方模式 |
+
+### Cookie 归因窗口
+
+- **Cookie 名**: `wl_guide`
+- **有效期**: 7 天（导游引流归因窗口）
+- **用途**: 仅用于 API 层的订单归属，不影响 UI 层白标模式判断
+- **设置时机**: 白标域名访问时由 middleware 设置
+
+### ⛔ 禁止操作
+
+- ❌ 不要在 `getWhiteLabelConfig()` 中读取 Cookie 判断白标模式
+- ❌ 不要在官方域名上渲染 `/g/[slug]` 白标页面（必须重定向）
+- ❌ 不要在支付页面显示"返回导游主页"等暴露白标概念的文案
+- ❌ 不要让 Cookie 残留影响官方域名的 UI 显示
+
+---
+
 ## 关键文件索引
 
 | 功能 | 文件 |
