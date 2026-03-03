@@ -7,7 +7,7 @@
 // Cookie 配置
 // ============================================
 export const WHITELABEL_COOKIE_NAME = 'wl_guide';
-export const WHITELABEL_COOKIE_MAX_AGE = 30 * 24 * 60 * 60; // 30天
+export const WHITELABEL_COOKIE_MAX_AGE = 7 * 24 * 60 * 60; // 7天（导游引流归因窗口）
 
 // ============================================
 // 域名配置
