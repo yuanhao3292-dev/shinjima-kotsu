@@ -587,7 +587,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     diseases: { ja: '子宮がん、卵巣がん、外陰がん', 'zh-TW': '子宮癌、卵巢癌、外陰癌', 'zh-CN': '子宫癌、卵巢癌、外阴癌', en: 'Uterine, Ovarian, Vulvar cancer' },
     badge: { ja: '妊孕性温存の希望', 'zh-TW': '保留生育力的希望', 'zh-CN': '保留生育力的希望', en: 'Fertility Preservation' },
     gradient: 'from-[#0f7459] to-[#1766b0]',
-    photoUrl: 'https://hyogo-deptobgyn.jp/wp-content/themes/hyogo-obgyn/images/kyoshitu/staff_mabuchi.jpg',
+    photoUrl: 'https://hyogo-deptobgyn.jp/wp-content/themes/hyogo-obgyn/images/kyoshitu/professor.jpg',
   },
   // ===== 癌症内科・IVR =====
   {
@@ -604,7 +604,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     diseases: { ja: '肺がん、中皮腫', 'zh-TW': '肺癌、間皮瘤', 'zh-CN': '肺癌、间皮瘤', en: 'Lung cancer, Mesothelioma' },
     badge: { ja: '副院長 / がんセンター長', 'zh-TW': '副院長 / 癌症中心主任', 'zh-CN': '副院长 / 癌症中心主任', en: 'Vice Director / Cancer Center' },
     gradient: 'from-[#0f7459] to-[#1766b0]',
-    photoUrl: 'https://www.hyo-med.ac.jp/department/rspr/images/pht_prof01.jpg',
+    photoUrl: 'https://www.hyo-med.ac.jp/department/rspr/images/pht_kijima.png',
   },
   {
     name: { ja: '栗林 康造 / 舟木 壮一郎', 'zh-TW': '栗林 康造 / 舟木 壯一郎', 'zh-CN': '栗林康造 / 舟木壮一郎', en: 'Kuribayashi / Funaki' },
@@ -636,7 +636,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     diseases: { ja: 'ALL、DLBCL、多発性骨髄腫', 'zh-TW': 'ALL、DLBCL、多發性骨髓瘤', 'zh-CN': 'ALL、DLBCL、多发性骨髓瘤', en: 'ALL, DLBCL, Multiple Myeloma' },
     badge: { ja: 'CAR-T細胞療法 認定機関', 'zh-TW': 'CAR-T細胞療法 認定機構', 'zh-CN': 'CAR-T细胞疗法 认定机构', en: 'CAR-T Certified Center' },
     gradient: 'from-[#0f7459] to-[#1766b0]',
-    photoUrl: 'https://www.hyo-med.ac.jp/department/hmt/images/staff/yoshihara_satoshi.jpg',
+    photoUrl: 'https://www.hyo-med.ac.jp/department/hmt/images/mainimg_face_pc.jpg',
   },
   {
     name: { ja: '山門 亨一郎 / 高木 治行', 'zh-TW': '山門 亨一郎 / 高木 治行', 'zh-CN': '山门亨一郎 / 高木治行', en: 'Yamakado / Takaki' },
@@ -652,7 +652,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     diseases: { ja: '肝がん、肺がん、腎がん、子宮筋腫', 'zh-TW': '肝癌、肺癌、腎癌、子宮肌瘤', 'zh-CN': '肝癌、肺癌、肾癌、子宫肌瘤', en: 'Liver, Lung, Kidney cancer, Uterine fibroids' },
     badge: { ja: 'IVR学会理事長', 'zh-TW': 'IVR學會理事長', 'zh-CN': 'IVR学会理事长', en: 'IVR Society President' },
     gradient: 'from-[#0f7459] to-[#1766b0]',
-    photoUrl: 'https://hcm-radiology.com/images/staff/yamakado.jpg',
+    photoUrl: 'https://hcm-radiology.com/images/guide_yamakado.jpg',
   },
   // ===== 心脏・脑神经 =====
   {
@@ -749,7 +749,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     diseases: { ja: '加齢黄斑変性、糖尿病網膜症、ぶどう膜炎', 'zh-TW': '老年性黃斑變性、糖尿病視網膜病變、葡萄膜炎', 'zh-CN': '老年性黄斑变性、糖尿病视网膜病变、葡萄膜炎', en: 'AMD, Diabetic retinopathy, Uveitis' },
     badge: { ja: '眼科の臨床研究リーダー', 'zh-TW': '眼科臨床研究領導者', 'zh-CN': '眼科临床研究领导者', en: 'Ophthalmology Research Leader' },
     gradient: 'from-[#0f7459] to-[#1766b0]',
-    photoUrl: 'https://hyo-med-ganka.jp/webcms/wp-content/uploads/2022/02/staff_img01.jpg',
+    photoUrl: 'https://hyo-med-ganka.jp/webcms/wp-content/themes/hyo-med-ganka/assets/img/top/top_img01.jpg',
   },
   {
     name: { ja: 'JACC®軟骨再生チーム', 'zh-TW': 'JACC®軟骨再生團隊', 'zh-CN': 'JACC®软骨再生团队', en: 'JACC® Cartilage Regen Team' },
@@ -1301,7 +1301,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
             {/* Da Vinci Xi */}
             <div className="bg-gray-900 text-white rounded-2xl overflow-hidden group">
               <div className="relative h-64 overflow-hidden">
-                <Image src="https://www.hosp.hyo-med.ac.jp/upload/news/content/davinci_ope.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Da Vinci Xi" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
+                <Image src="https://www.hosp.hyo-med.ac.jp/upload/department/facility/davinchi.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Da Vinci Xi" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
                 <div className="absolute inset-0 bg-black/20" />
                 <div className="absolute top-4 right-4 bg-[#0f7459] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                   {t.robotDaVinciBadge[lang]}
@@ -1415,7 +1415,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
           </div>
         </div>
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img05.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="MRI" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
+          <Image src="https://hcm-radiology.com/images/mri_skyra.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="MRI" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">3.0T MRI × 3 + 1.5T × 1</h4>
@@ -1428,7 +1428,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
       {/* Row 2: CT + Radiation Therapy */}
       <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img04.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="CT Scanner" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
+          <Image src="https://hcm-radiology.com/images/imaging_ct.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="CT Scanner" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipCtTitle[lang]}</h4>
@@ -1438,7 +1438,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
           </div>
         </div>
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img18.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Radiation Therapy" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
+          <Image src="https://hcm-radiology.com/images/treatment-machine.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Radiation Therapy" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipRadTitle[lang]}</h4>
@@ -1451,7 +1451,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
       {/* Row 3: IVR + Endoscopy */}
       <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img12.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="IVR Center" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
+          <Image src="https://hcm-radiology.com/images/ivrimage.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="IVR Center" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipIvrTitle[lang]}</h4>
@@ -1577,6 +1577,10 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
               'https://www.hosp.hyo-med.ac.jp/upload/news/content/202601_2.jpg',
               'https://www.hosp.hyo-med.ac.jp/upload/news/content/202601_03.jpg',
               'https://www.hosp.hyo-med.ac.jp/upload/news/content/202601_04.jpg',
+              'https://www.hosp.hyo-med.ac.jp/upload/news/content/202601_05.jpg',
+              'https://www.hosp.hyo-med.ac.jp/upload/news/content/202601_06.jpg',
+              'https://www.hosp.hyo-med.ac.jp/upload/news/content/202601_07.jpg',
+              'https://www.hosp.hyo-med.ac.jp/upload/news/content/20250919_sinbyouin_01.jpg',
             ].map((src, i) => (
               <div key={i} className="relative aspect-[4/3] rounded-lg overflow-hidden group">
                 <Image src={src} fill className="object-cover transition-transform duration-500 group-hover:scale-105" alt={`Construction progress ${i + 1}`} sizes="(max-width: 768px) 50vw, 25vw" quality={75} />
