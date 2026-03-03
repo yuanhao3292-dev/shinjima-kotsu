@@ -64,12 +64,15 @@ export async function middleware(request: NextRequest) {
     return response;
   }
 
-  // 4. 处理 /g/[slug] 路由 - 设置导游 Cookie（分销页面及子页面）
+  // 4. 处理 /g/[slug] 路由 - 设置导游 Cookie + 白标请求头（分销页面及子页面）
   if (pathname.startsWith('/g/')) {
     const slug = pathname.split('/')[2];
     if (slug && isValidSlug(slug)) {
       const response = await updateSession(request);
       response.cookies.set(WHITELABEL_COOKIE_NAME, slug, COOKIE_OPTIONS);
+      // 设置白标请求头，让 getWhiteLabelConfig() 识别为白标模式
+      response.headers.set('x-whitelabel-mode', 'true');
+      response.headers.set('x-whitelabel-slug', slug);
       return response;
     }
   }

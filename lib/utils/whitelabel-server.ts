@@ -1,8 +1,7 @@
-import { cookies, headers } from "next/headers";
+import { headers } from "next/headers";
 import { getGuideBySlug } from "@/lib/services/whitelabel";
 import {
   GuideWhiteLabelConfig,
-  WHITELABEL_COOKIE_NAME,
   DOMAINS,
 } from "@/lib/types/whitelabel";
 
@@ -10,10 +9,13 @@ import {
  * 服务端获取白标配置
  * 用于 Server Components 和 Server Actions
  *
- * 白标模式判断逻辑：
- * 1. 白标域名（bespoketrip.jp）访问 → 白标模式
- * 2. 官方域名但有有效的导游 Cookie → 白标模式
- * 3. 其他情况 → 官方模式
+ * 白标模式判断逻辑（仅通过 middleware 设置的请求头判断）：
+ * 1. 白标域名（bespoketrip.jp）访问 → middleware 设置 x-whitelabel-mode 头 → 白标模式
+ * 2. 分销路径（/g/[slug]）访问 → middleware 设置 x-whitelabel-mode 头 → 白标模式
+ * 3. 其他情况 → 官方模式（即使有残留 Cookie 也不进入白标）
+ *
+ * ⚠️ 不直接读取 Cookie，避免官方域名被 Cookie 污染
+ *    Cookie 仅供 API 路由（checkout、order-lookup、track）用于导游归属追踪
  */
 export async function getWhiteLabelConfig(): Promise<{
   isWhiteLabelMode: boolean;
@@ -21,15 +23,14 @@ export async function getWhiteLabelConfig(): Promise<{
   currentSlug: string | null;
 }> {
   const headersList = await headers();
-  const cookieStore = await cookies();
 
-  // 从 header 或 Cookie 获取导游 slug
-  const currentSlug =
-    headersList.get("x-whitelabel-slug") ||
-    cookieStore.get(WHITELABEL_COOKIE_NAME)?.value ||
-    null;
+  // 仅通过 middleware 设置的请求头判断白标模式
+  // middleware 只在以下情况设置这些头：
+  // - bespoketrip.jp 域名访问（含子域名）
+  // - /g/[slug] 路由访问
+  const currentSlug = headersList.get("x-whitelabel-slug") || null;
 
-  // 如果没有 slug，直接返回官方模式
+  // 如果没有 slug header，直接返回官方模式
   if (!currentSlug) {
     return {
       isWhiteLabelMode: false,
