@@ -177,6 +177,28 @@ export const MEDICAL_PACKAGES: Record<string, MedicalPackageConfig> = {
     sortOrder: 156,
   },
 
+  // ─── IGTクリニック 咨询服务 ───
+  'igtc-initial-consultation': {
+    slug: 'igtc-initial-consultation',
+    nameZhTw: 'IGT診所 - 前期諮詢服務',
+    nameJa: 'IGTクリニック - 初期相談サービス',
+    nameEn: 'IGT Clinic - Initial Consultation',
+    descriptionZhTw: '病歷翻譯、IGT診所諮詢、血管內治療可行性評估、費用概算',
+    priceJpy: 221000,
+    category: 'cancer_treatment',
+    sortOrder: 115,
+  },
+  'igtc-remote-consultation': {
+    slug: 'igtc-remote-consultation',
+    nameZhTw: 'IGT診所 - 遠程會診服務',
+    nameJa: 'IGTクリニック - 遠隔診療サービス',
+    nameEn: 'IGT Clinic - Remote Consultation',
+    descriptionZhTw: '與IGT診所專科醫生遠程視頻會診、血管內治療方案制定、費用概算',
+    priceJpy: 243000,
+    category: 'cancer_treatment',
+    sortOrder: 116,
+  },
+
   // ─── HELENE 干细胞诊所 治疗套餐 ───
   // 注意：以下价格均为含税价格（税別价格 × 1.1）
   'helene-msc-iv-grade-b-minus': {

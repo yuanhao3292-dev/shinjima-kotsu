@@ -13,6 +13,7 @@ import { useLanguage, type Language } from '@/hooks/useLanguage';
 
 interface Props {
   isGuideEmbed?: boolean;
+  guideSlug?: string;
 }
 
 // ======================================
@@ -150,7 +151,7 @@ const FLOW_STEPS = [
 // ======================================
 // 组件
 // ======================================
-export default function IGTCContent({ isGuideEmbed }: Props) {
+export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
   const lang = useLanguage();
 
   return (
@@ -359,7 +360,7 @@ export default function IGTCContent({ isGuideEmbed }: Props) {
           <p className="text-blue-100 mb-10 max-w-2xl mx-auto">{t(tr.ctaDesc, lang)}</p>
           <div className="grid md:grid-cols-2 gap-6">
             <Link
-              href="/igtc/initial-consultation"
+              href={guideSlug ? `/igtc/initial-consultation?guide=${guideSlug}` : '/igtc/initial-consultation'}
               className="bg-white rounded-2xl p-6 text-left hover:shadow-xl transition group"
             >
               <p className="text-sm text-blue-600 font-medium mb-1">{t(tr.ctaInitial, lang)}</p>
@@ -371,7 +372,7 @@ export default function IGTCContent({ isGuideEmbed }: Props) {
               </div>
             </Link>
             <Link
-              href="/igtc/remote-consultation"
+              href={guideSlug ? `/igtc/remote-consultation?guide=${guideSlug}` : '/igtc/remote-consultation'}
               className="bg-white rounded-2xl p-6 text-left hover:shadow-xl transition group"
             >
               <p className="text-sm text-blue-600 font-medium mb-1">{t(tr.ctaRemote, lang)}</p>

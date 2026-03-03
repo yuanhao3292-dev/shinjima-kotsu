@@ -82,7 +82,7 @@ export default async function ModuleDetailPage({ params }: PageProps) {
       return <ACPlusContent isGuideEmbed />;
 
     case 'igtc':
-      return <IGTCContent isGuideEmbed />;
+      return <IGTCContent isGuideEmbed guideSlug={slug} />;
 
     default:
       notFound();
