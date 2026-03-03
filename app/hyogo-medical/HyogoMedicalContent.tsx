@@ -1301,7 +1301,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
             {/* Da Vinci Xi */}
             <div className="bg-gray-900 text-white rounded-2xl overflow-hidden group">
               <div className="relative aspect-[16/10] overflow-hidden">
-                <Image src="https://www.hosp.hyo-med.ac.jp/upload/department/facility/davinchi.jpg" fill className="object-cover object-center transition-transform duration-700 group-hover:scale-105" alt="Da Vinci Xi" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
+                <Image src="https://www.hosp.hyo-med.ac.jp/upload/department/highlevel/urology_02.jpg" fill className="object-cover object-center transition-transform duration-700 group-hover:scale-105" alt="Da Vinci Xi" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
                 <div className="absolute inset-0 bg-black/20" />
                 <div className="absolute top-4 right-4 bg-[#0f7459] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                   {t.robotDaVinciBadge[lang]}
