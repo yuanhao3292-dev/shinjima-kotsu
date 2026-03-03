@@ -604,7 +604,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     diseases: { ja: '肺がん、中皮腫', 'zh-TW': '肺癌、間皮瘤', 'zh-CN': '肺癌、间皮瘤', en: 'Lung cancer, Mesothelioma' },
     badge: { ja: '副院長 / がんセンター長', 'zh-TW': '副院長 / 癌症中心主任', 'zh-CN': '副院长 / 癌症中心主任', en: 'Vice Director / Cancer Center' },
     gradient: 'from-[#0f7459] to-[#1766b0]',
-    photoUrl: 'https://www.hyo-med.ac.jp/department/rspr/images/pht_kijima.png',
+    photoUrl: 'https://www.hyo-med.ac.jp/department/rspr/images/pht_prof01.jpg',
   },
   {
     name: { ja: '栗林 康造 / 舟木 壮一郎', 'zh-TW': '栗林 康造 / 舟木 壯一郎', 'zh-CN': '栗林康造 / 舟木壮一郎', en: 'Kuribayashi / Funaki' },
@@ -1080,12 +1080,12 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
           ======================================== */}
       <div className="relative min-h-[85vh] flex items-center overflow-hidden text-white bg-slate-900">
         <Image
-          src="https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img01.jpg"
+          src="https://www.hosp.hyo-med.ac.jp/new-building/common/img/newbuilding.png"
           fill
           className="object-cover opacity-80"
           alt="Hyogo Medical University Hospital"
           sizes="100vw"
-          quality={75}
+          quality={90}
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0f7459]/90 via-[#0f7459]/50 to-transparent" />
@@ -1301,7 +1301,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
             {/* Da Vinci Xi */}
             <div className="bg-gray-900 text-white rounded-2xl overflow-hidden group">
               <div className="relative h-64 overflow-hidden">
-                <Image src="https://www.hosp.hyo-med.ac.jp/upload/department/facility/davinchi.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Da Vinci Xi" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
+                <Image src="https://www.hosp.hyo-med.ac.jp/upload/department/facility/2(4).jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Da Vinci Xi" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
                 <div className="absolute inset-0 bg-black/20" />
                 <div className="absolute top-4 right-4 bg-[#0f7459] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                   {t.robotDaVinciBadge[lang]}
@@ -1322,7 +1322,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
             {/* hinotori */}
             <div className="bg-gray-900 text-white rounded-2xl overflow-hidden group">
               <div className="relative h-64 overflow-hidden">
-                <Image src="https://www.hosp.hyo-med.ac.jp/upload/news/content/hinotori2.png" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="hinotori" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
+                <Image src="https://www.hosp.hyo-med.ac.jp/upload/news/content/hinotori2.png" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="hinotori" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
                 <div className="absolute inset-0 bg-black/20" />
                 <div className="absolute top-4 right-4 bg-[#0f7459] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                   {t.robotHinotoriBadge[lang]}
@@ -1405,7 +1405,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
       {/* Row 1: PET-CT + MRI */}
       <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img13.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="PET-CT" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
+          <Image src="https://hcm-radiology.com/images/mainimg01.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="PET-CT" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipPetCtTitle[lang]}</h4>
@@ -1415,7 +1415,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
           </div>
         </div>
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://hcm-radiology.com/images/mri_skyra.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="MRI" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
+          <Image src="https://hcm-radiology.com/images/mainimg02.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="MRI" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">3.0T MRI × 3 + 1.5T × 1</h4>
@@ -1428,7 +1428,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
       {/* Row 2: CT + Radiation Therapy */}
       <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://hcm-radiology.com/images/imaging_ct.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="CT Scanner" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
+          <Image src="https://hcm-radiology.com/images/mainimg04.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="CT Scanner" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipCtTitle[lang]}</h4>
@@ -1438,7 +1438,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
           </div>
         </div>
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://hcm-radiology.com/images/treatment-machine.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Radiation Therapy" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
+          <Image src="https://hcm-radiology.com/images/mainimg05.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Radiation Therapy" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipRadTitle[lang]}</h4>
@@ -1451,7 +1451,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
       {/* Row 3: IVR + Endoscopy */}
       <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://hcm-radiology.com/images/ivrimage.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="IVR Center" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
+          <Image src="https://www.hosp.hyo-med.ac.jp/new-building/common/img/nb_img01.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="IVR Center" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipIvrTitle[lang]}</h4>
@@ -1461,7 +1461,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
           </div>
         </div>
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img02.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Endoscopy" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
+          <Image src="https://www.hosp.hyo-med.ac.jp/upload/department/facility/ug_surgery_03_02.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Endoscopy" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipEndoTitle[lang]}</h4>
@@ -1474,7 +1474,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
       {/* Row 4: Nuclear Medicine + Operating Rooms */}
       <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img03.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Nuclear Medicine" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
+          <Image src="https://www.hosp.hyo-med.ac.jp/new-building/common/img/nb_img02.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Nuclear Medicine" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipNucTitle[lang]}</h4>
@@ -1484,7 +1484,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
           </div>
         </div>
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img06.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Operating Rooms" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
+          <Image src="https://www.hosp.hyo-med.ac.jp/new-building/common/img/content_01.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Operating Rooms" sizes="(max-width: 768px) 100vw, 50vw" quality={90} />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipOpTitle[lang]}</h4>
@@ -1499,7 +1499,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
           8. 新病院大楼 2026 (全屏展示)
           ======================================== */}
       <div className="relative min-h-[70vh] flex items-center overflow-hidden">
-        <Image src="https://www.hosp.hyo-med.ac.jp/new-building/common/img/newbuilding.png" fill className="object-cover" alt="New Hospital Building 2026" sizes="100vw" quality={75} />
+        <Image src="https://www.hosp.hyo-med.ac.jp/new-building/common/img/newbuilding.png" fill className="object-cover" alt="New Hospital Building 2026" sizes="100vw" quality={90} />
         <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-transparent" />
         <div className="relative container mx-auto px-6 py-16">
           <div className="max-w-2xl">
@@ -1594,7 +1594,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
           9. 救急・災害 (右对齐全屏)
           ======================================== */}
       <div className="relative min-h-[60vh] flex items-center overflow-hidden">
-        <Image src="https://www.hosp.hyo-med.ac.jp/upload/news/content/kouji1.jpg" fill className="object-cover" alt="Emergency Center" sizes="100vw" quality={75} />
+        <Image src="https://www.hosp.hyo-med.ac.jp/upload/news/content/kouji1.jpg" fill className="object-cover" alt="Emergency Center" sizes="100vw" quality={90} />
         <div className="absolute inset-0 bg-gradient-to-l from-slate-900/90 via-slate-900/70 to-transparent" />
         <div className="relative container mx-auto px-6 py-16">
           <div className="max-w-2xl ml-auto text-right">
