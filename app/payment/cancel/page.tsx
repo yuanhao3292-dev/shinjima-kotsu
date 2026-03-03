@@ -15,7 +15,6 @@ const i18n = {
   retryPayment: { ja: 'お支払いをやり直す', 'zh-TW': '重新嘗試支付', 'zh-CN': '重新尝试支付', en: 'Retry Payment' } as Record<Language, string>,
   backToPackages: { ja: 'パッケージ一覧に戻る', 'zh-TW': '返回精密體檢', 'zh-CN': '返回精密健检', en: 'Back to Packages' } as Record<Language, string>,
   backToHome: { ja: 'トップページに戻る', 'zh-TW': '返回首頁', 'zh-CN': '返回首页', en: 'Back to Home' } as Record<Language, string>,
-  backToGuide: { ja: 'ガイドページに戻る', 'zh-TW': '返回導遊主頁', 'zh-CN': '返回导游主页', en: 'Back to Guide Page' } as Record<Language, string>,
 };
 
 function detectLanguage(): Language {
@@ -124,7 +123,7 @@ function PaymentCancelContent() {
             href={backToHomeHref}
             className={`block w-full text-gray-600 hover:text-gray-800 font-semibold py-3 px-6 transition-colors duration-200 ${!loaded ? 'opacity-50 pointer-events-none' : ''}`}
           >
-            {guideSlug ? t('backToGuide') : t('backToHome')}
+            {t('backToHome')}
           </Link>
         </div>
       </div>

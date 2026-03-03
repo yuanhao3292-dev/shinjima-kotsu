@@ -17,7 +17,6 @@ const i18n = {
   orderNumber: { ja: '注文番号', 'zh-TW': '訂單編號', 'zh-CN': '订单编号', en: 'Order ID' } as Record<Language, string>,
   backToPackages: { ja: 'パッケージ一覧に戻る', 'zh-TW': '返回套餐列表', 'zh-CN': '返回套餐列表', en: 'Back to Packages' } as Record<Language, string>,
   backToHome: { ja: 'トップページに戻る', 'zh-TW': '返回首頁', 'zh-CN': '返回首页', en: 'Back to Home' } as Record<Language, string>,
-  backToGuide: { ja: 'ガイドページに戻る', 'zh-TW': '返回導遊主頁', 'zh-CN': '返回导游主页', en: 'Back to Guide Page' } as Record<Language, string>,
 };
 
 function detectLanguage(): Language {
@@ -143,7 +142,7 @@ function PaymentSuccessContent() {
             href={backToHomeHref}
             className="block w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
           >
-            {guideSlug ? t('backToGuide') : t('backToHome')}
+            {t('backToHome')}
           </Link>
         </div>
       </div>
