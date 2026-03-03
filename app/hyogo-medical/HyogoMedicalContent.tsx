@@ -1063,9 +1063,10 @@ function WeChatIcon({ className }: { className?: string }) {
 
 interface HyogoMedicalContentProps {
   isGuideEmbed?: boolean;
+  guideSlug?: string;
 }
 
-export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalContentProps) {
+export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMedicalContentProps) {
   const lang = useLanguage();
   const [showWechatQR, setShowWechatQR] = useState(false);
   const [activePhase, setActivePhase] = useState<number>(1);
@@ -1951,7 +1952,7 @@ export default function HyogoMedicalContent({ isGuideEmbed }: HyogoMedicalConten
                       ))}
                     </ul>
                     <Link
-                      href={svc.href}
+                      href={guideSlug ? `${svc.href}?guide=${guideSlug}` : svc.href}
                       className={`block w-full py-3 bg-gradient-to-r ${svc.gradient} ${svc.hoverGradient} text-white text-center font-bold rounded-xl transition shadow-lg`}
                     >
                       {bookingT.bookNow[lang]}

@@ -2,9 +2,11 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import CheckoutLayout from '@/components/CheckoutLayout';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 import ProviderBanner, { useProviderKey } from '@/components/ProviderBanner';
+import { isValidSlug } from '@/lib/whitelabel-config';
 import {
   ArrowLeft, CheckCircle, FileText, Shield, Clock,
   Loader2, CreditCard, Users, Phone, Video, MessageSquare
@@ -123,6 +125,10 @@ const SERVICE_INFO = {
 
 export default function RemoteConsultationPage() {
   const providerKey = useProviderKey();
+  const searchParams = useSearchParams();
+  const guideSlugParam = searchParams.get('guide');
+  const guideSlug = guideSlugParam && isValidSlug(guideSlugParam) ? guideSlugParam : null;
+  const backHref = guideSlug ? `/g/${guideSlug}/cancer-treatment` : '/cancer-treatment';
   const [currentLang, setCurrentLang] = useState<Language>('zh-TW');
   const [processing, setProcessing] = useState(false);
   const [customerInfo, setCustomerInfo] = useState({
@@ -263,7 +269,7 @@ export default function RemoteConsultationPage() {
       <div className="bg-white border-b border-gray-100">
         <div className="max-w-4xl mx-auto px-4 py-3">
           <Link
-            href="/cancer-treatment"
+            href={backHref}
             className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-purple-600 transition"
           >
             <ArrowLeft size={16} />

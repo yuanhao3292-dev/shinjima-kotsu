@@ -56,7 +56,7 @@ export default async function ModuleDetailPage({ params }: PageProps) {
       return <TIMCContent isGuideEmbed guideSlug={slug} />;
 
     case 'hyogo_medical':
-      return <HyogoMedicalContent isGuideEmbed />;
+      return <HyogoMedicalContent isGuideEmbed guideSlug={slug} />;
 
     case 'sai_clinic': {
       const images = await getSaiClinicImages();
@@ -64,7 +64,7 @@ export default async function ModuleDetailPage({ params }: PageProps) {
     }
 
     case 'cancer_treatment':
-      return <OICIContent isGuideEmbed />;
+      return <OICIContent isGuideEmbed guideSlug={slug} />;
 
     case 'helene_clinic':
       return <HeleneClinicContent isGuideEmbed />;

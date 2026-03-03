@@ -680,9 +680,10 @@ function convertToSimplified(text: string): string {
 
 interface CancerTreatmentContentProps {
   isGuideEmbed?: boolean;
+  guideSlug?: string;
 }
 
-export default function CancerTreatmentContent({ isGuideEmbed }: CancerTreatmentContentProps) {
+export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: CancerTreatmentContentProps) {
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
   const [activePhase, setActivePhase] = useState<number>(1);
   const [showWechatQR, setShowWechatQR] = useState(false);
@@ -1324,7 +1325,7 @@ export default function CancerTreatmentContent({ isGuideEmbed }: CancerTreatment
                     </li>
                   </ul>
                   <Link
-                    href="/cancer-treatment/initial-consultation"
+                    href={guideSlug ? `/cancer-treatment/initial-consultation?guide=${guideSlug}` : '/cancer-treatment/initial-consultation'}
                     className="block w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-700 text-white text-center font-bold rounded-xl hover:from-blue-700 hover:to-indigo-800 transition shadow-lg"
                   >
                     {t('svcBookNow')}
@@ -1366,7 +1367,7 @@ export default function CancerTreatmentContent({ isGuideEmbed }: CancerTreatment
                     </li>
                   </ul>
                   <Link
-                    href="/cancer-treatment/remote-consultation"
+                    href={guideSlug ? `/cancer-treatment/remote-consultation?guide=${guideSlug}` : '/cancer-treatment/remote-consultation'}
                     className="block w-full py-3 bg-gradient-to-r from-purple-600 to-pink-700 text-white text-center font-bold rounded-xl hover:from-purple-700 hover:to-pink-800 transition shadow-lg"
                   >
                     {t('svcBookNow')}
