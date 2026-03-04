@@ -213,7 +213,7 @@ const STATS = [
 const CORE_SERVICES = [
   {
     icon: Syringe,
-    image: 'https://mens.wclinic-osaka.jp/wp-content/themes/mens_pc/img/treatment/ed_tmb01.jpg',
+    image: 'https://mens.wclinic-osaka.jp/wp-content/themes/mens_pc/material02/img/top/mens_menu_ed02.png',
     gradient: 'from-[#293f58] to-[#1a2a3e]',
     badge: { ja: 'ED治療', 'zh-TW': 'ED治療', 'zh-CN': 'ED治疗', en: 'ED Treatment' } as Record<Language, string>,
     title: { ja: 'ED治療', 'zh-TW': 'ED治療', 'zh-CN': 'ED治疗', en: 'ED Treatment' } as Record<Language, string>,
@@ -226,7 +226,7 @@ const CORE_SERVICES = [
   },
   {
     icon: Activity,
-    image: 'https://mens.wclinic-osaka.jp/wp-content/themes/mens_pc/img/treatment/kounenki_tmb01.png',
+    image: 'https://mens.wclinic-osaka.jp/wp-content/themes/mens_pc/material02/img/top/mens_menu_loh02.png',
     gradient: 'from-[#1a4a6e] to-[#293f58]',
     badge: { ja: 'LOH症候群', 'zh-TW': 'LOH綜合徵', 'zh-CN': 'LOH综合征', en: 'LOH Syndrome' } as Record<Language, string>,
     title: { ja: '男性更年期(LOH)', 'zh-TW': '男性更年期(LOH)', 'zh-CN': '男性更年期(LOH)', en: 'Male Menopause (LOH)' } as Record<Language, string>,
@@ -239,7 +239,7 @@ const CORE_SERVICES = [
   },
   {
     icon: Users,
-    image: 'https://mens.wclinic-osaka.jp/wp-content/themes/mens_pc/img/treatment/aga_tmb01.jpg',
+    image: 'https://mens.wclinic-osaka.jp/wp-content/themes/mens_pc/material02/img/top/mens_menu_aga02.png',
     gradient: 'from-[#293f58] to-[#3a5a7c]',
     badge: { ja: 'AGA治療', 'zh-TW': 'AGA治療', 'zh-CN': 'AGA治疗', en: 'AGA Treatment' } as Record<Language, string>,
     title: { ja: 'AGA脱毛治療', 'zh-TW': 'AGA脫髮治療', 'zh-CN': 'AGA脱发治疗', en: 'AGA Hair Loss Treatment' } as Record<Language, string>,
@@ -252,7 +252,7 @@ const CORE_SERVICES = [
   },
   {
     icon: Sparkles,
-    image: 'https://mens.wclinic-osaka.jp/wp-content/themes/mens_pc/img/treatment/hifu_tmb01.jpg',
+    image: 'https://mens.wclinic-osaka.jp/wp-content/themes/mens_pc/img/treatment/hifu01.jpg',
     gradient: 'from-[#3a5a7c] to-[#293f58]',
     badge: { ja: 'アンチエイジング', 'zh-TW': '抗衰美容', 'zh-CN': '抗衰美容', en: 'Anti-Aging' } as Record<Language, string>,
     title: { ja: '男性アンチエイジング', 'zh-TW': '男性抗衰美容', 'zh-CN': '男性抗衰美容', en: 'Men\'s Anti-Aging Aesthetics' } as Record<Language, string>,
@@ -484,7 +484,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
             <div className="bg-gray-900 text-white rounded-2xl overflow-hidden group">
               <div className="relative aspect-[16/10] overflow-hidden">
                 <Image
-                  src="https://mens.wclinic-osaka.jp/wp-content/themes/mens_pc/img/homme01/about-ed_img00a.png"
+                  src="https://mens.wclinic-osaka.jp/wp-content/themes/mens_pc/morenova/img/reason.jpg"
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   alt="Morenova"
@@ -911,7 +911,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
               <div className="relative aspect-[16/9] overflow-hidden">
                 <Image
-                  src="https://mens.wclinic-osaka.jp/wp-content/themes/mens_pc/img/access_map02.jpg"
+                  src="https://mens.wclinic-osaka.jp/wp-content/themes/mens_pc/img/access_map01.jpg"
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   alt="W CLINIC men's 北新地院"
