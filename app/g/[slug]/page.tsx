@@ -32,7 +32,7 @@ const DETAIL_PAGE_HERO_IMAGES: Record<string, string> = {
   ginza_phoenix: 'https://static.wixstatic.com/media/1778a7_4417743f0826481297af97cd36d5a362~mv2.jpg',
   wclinic_mens: 'https://mens.wclinic-osaka.jp/wp-content/themes/mens_pc/new/img/top/image03.png',
   cell_medicine: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?q=80&w=2000&auto=format&fit=crop',
-  ac_plus: 'https://www.acell-clinic.com/img/img_main_01.jpg',
+  ac_plus: 'https://cdn.yun.sooce.cn/6/60567/png/1751617672017b7325ee433cf0da1346880da57c866f4.png?version=0',
   igtc: 'https://igtc.jp/wp-content/themes/igtclinic/images/top/mainVisual_img01.jpg',
 };
 
