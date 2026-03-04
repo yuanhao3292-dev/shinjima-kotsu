@@ -726,20 +726,20 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
       </section>
 
       {/* ===== 13. CONSULTATION CTA ===== */}
-      <section id="consultation" className="py-20 bg-gradient-to-br from-[#4874cb] via-[#3a63b8] to-[#2d4f9e] text-white">
+      <section id="consultation" className="py-20 bg-[#f6f6f6]">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <img src={IMG.logo} alt="AC Cell Clinic" className="h-12 mx-auto mb-6 object-contain" />
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t.ctaTitle[lang]}</h2>
-          <p className="text-lg text-white/80 mb-3">{t.ctaSub[lang]}</p>
-          <div className="inline-flex items-center gap-2 bg-white/15 rounded-full px-4 py-1.5 text-sm mb-4 backdrop-blur-sm">
+          <img src={IMG.logo} alt="AC Cell Clinic" className="h-14 mx-auto mb-6 object-contain" />
+          <h2 className="text-3xl md:text-4xl font-bold text-[#333] mb-4">{t.ctaTitle[lang]}</h2>
+          <p className="text-lg text-[#555] mb-3">{t.ctaSub[lang]}</p>
+          <div className="inline-flex items-center gap-2 bg-[#4874cb]/10 text-[#4874cb] rounded-full px-4 py-1.5 text-sm mb-4">
             <Globe size={14} />
             {t.ctaChinese[lang]}
           </div>
-          <p className="text-xs text-white/60 mb-8">{t.ctaBooking[lang]}</p>
+          <p className="text-xs text-[#666] mb-8">{t.ctaBooking[lang]}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href={checkoutHref('/ac-plus/initial-consultation')}
-              className="inline-flex items-center justify-center gap-3 bg-white text-[#4874cb] px-8 py-4 rounded-full font-bold hover:bg-gray-50 transition-all shadow-lg"
+              className="inline-flex items-center justify-center gap-3 bg-[#4874cb] text-white px-8 py-4 rounded-full font-bold hover:bg-[#3a63b8] transition-all shadow-lg"
             >
               {t.ctaConsult[lang]} <ArrowRight size={18} />
             </Link>
