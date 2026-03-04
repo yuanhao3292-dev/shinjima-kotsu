@@ -38,9 +38,9 @@ const t = {
     en: 'W CLINIC men\'s',
   } as Record<Language, string>,
   heroSubtitle: {
-    ja: '大阪梅田 · 男性専科クリニック',
-    'zh-TW': '大阪梅田 · 男性專科診所',
-    'zh-CN': '大阪梅田 · 男性专科诊所',
+    ja: '大阪梅田 · 男性専門クリニック',
+    'zh-TW': '大阪梅田 · 男性專門診所',
+    'zh-CN': '大阪梅田 · 男性专门诊所',
     en: 'Osaka Umeda · Men\'s Specialty Clinic',
   } as Record<Language, string>,
   heroText: {
@@ -513,11 +513,12 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   </li>
                   <li className="flex items-start gap-2 text-sm text-gray-400">
                     <CheckCircle size={14} className="text-[#00c300] mt-0.5 shrink-0" />
-                    <span>{lang === 'ja' ? '4回で1サイクル' : lang === 'en' ? '4 sessions per cycle' : lang === 'zh-TW' ? '4次為1個週期' : '4次为1个周期'}</span>
+                    <span>{lang === 'ja' ? '週1回×6回で1サイクル' : lang === 'en' ? 'Once weekly × 6 sessions per cycle' : lang === 'zh-TW' ? '每週1次×6次為1個週期' : '每周1次×6次为1个周期'}</span>
                   </li>
                 </ul>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1 bg-white/10 rounded-full text-xs border border-white/20">{lang === 'ja' ? '初診 ¥33,000' : lang === 'en' ? 'First ¥33,000' : '初诊 ¥33,000'}</span>
+                  <span className="px-3 py-1 bg-white/10 rounded-full text-xs border border-white/20">{lang === 'ja' ? '初回 ¥33,000' : lang === 'en' ? 'First ¥33,000' : '初次 ¥33,000'}</span>
+                  <span className="px-3 py-1 bg-white/10 rounded-full text-xs border border-white/20">{lang === 'ja' ? '1回 ¥38,000' : lang === 'en' ? '1x ¥38,000' : '单次 ¥38,000'}</span>
                   <span className="px-3 py-1 bg-white/10 rounded-full text-xs border border-white/20">{lang === 'ja' ? '4回 ¥126,000' : lang === 'en' ? '4x ¥126,000' : '4次 ¥126,000'}</span>
                   <span className="px-3 py-1 bg-white/10 rounded-full text-xs border border-white/20">{lang === 'ja' ? '+幹細胞 ¥258,000' : lang === 'en' ? '+Stem ¥258,000' : '+干细胞 ¥258,000'}</span>
                 </div>
@@ -737,7 +738,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   <span className="inline-block bg-gray-100 text-gray-700 text-[11px] font-medium px-2.5 py-1 rounded-full">40{lang === 'en' ? 'yr+' : '年+'}</span>
                   <span className="inline-block bg-gray-100 text-gray-700 text-[11px] font-medium px-2.5 py-1 rounded-full">PhD Nijmegen</span>
                   <span className="inline-block bg-gray-100 text-gray-700 text-[11px] font-medium px-2.5 py-1 rounded-full">
-                    {lang === 'ja' ? '元理事' : lang === 'en' ? 'Fmr Director' : '前理事'}
+                    {lang === 'ja' ? '元理事' : lang === 'en' ? 'Fmr Director' : '元理事'}
                   </span>
                 </div>
               </div>
@@ -802,7 +803,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 </p>
                 <div className="space-y-2 text-sm text-gray-600">
                   {[
-                    { ja: '日本泌尿器科学会 専門医・指導医/元理事', en: 'Japanese Urological Association Board-Certified Specialist / Former Director', 'zh-TW': '日本泌尿器科學會 專門醫生·指導醫生/前理事', 'zh-CN': '日本泌尿科学会 专门医生·指导医生/前理事' },
+                    { ja: '日本泌尿器科学会 専門医・指導医/元理事', en: 'Japanese Urological Association Board-Certified Specialist / Former Director', 'zh-TW': '日本泌尿器科學會 專門醫生·指導醫生/元理事', 'zh-CN': '日本泌尿科学会 专门医生·指导医生/元理事' },
                     { ja: '日本腎臓学会 専門医・指導医', en: 'Japanese Society of Nephrology Board-Certified Specialist', 'zh-TW': '日本腎臟學會 專門醫生·指導醫生', 'zh-CN': '日本肾脏学会 专门医生·指导医生' },
                     { ja: '日本透析医学会 専門医・指導医', en: 'Japanese Society for Dialysis Therapy Board-Certified Specialist', 'zh-TW': '日本透析醫學會 專門醫生·指導醫生', 'zh-CN': '日本透析医学会 专门医生·指导医生' },
                     { ja: '近畿大学医学部泌尿器科 元主任教授/元副院長', en: 'Kindai University Urology Former Chief Professor / Former Vice President', 'zh-TW': '近畿大學醫學部泌尿器科 前主任教授/前副院長', 'zh-CN': '近畿大学医学部泌尿科 前主任教授/前副院长' },
@@ -919,7 +920,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 <div className="absolute bottom-4 left-4">
                   <span className="bg-[#293f58] text-white text-xs font-bold px-3 py-1.5 rounded-full">
-                    {lang === 'ja' ? '北新地院' : lang === 'en' ? 'Kitashinchi Clinic' : '北新地院'}
+                    {lang === 'ja' ? '北新地院（メンズヘルスケア外来）' : lang === 'en' ? 'Kitashinchi (Men\'s Healthcare)' : '北新地院（男性健康外来）'}
                   </span>
                 </div>
               </div>
