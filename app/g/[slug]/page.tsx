@@ -29,7 +29,7 @@ const DETAIL_PAGE_HERO_IMAGES: Record<string, string> = {
   hyogo_medical: 'https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img01.jpg',
   cancer_treatment: 'https://www.nihonsekkei.co.jp/wp-content/uploads/2017/07/3c692a8b8911831af2d1fd6bfcd4e0e7.jpg',
   helene_clinic: 'https://stemcells.jp/en/wp-content/themes/flavor_flavor_flavor/images/top/top-firstview-bg.webp',
-  ginza_phoenix: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?q=80&w=2000&auto=format&fit=crop',
+  ginza_phoenix: 'https://static.wixstatic.com/media/1778a7_4417743f0826481297af97cd36d5a362~mv2.jpg',
   wclinic_mens: 'https://mens.wclinic-osaka.jp/wp-content/themes/mens_pc/new/img/top/image03.png',
   cell_medicine: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?q=80&w=2000&auto=format&fit=crop',
   ac_plus: 'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?q=80&w=2000&auto=format&fit=crop',

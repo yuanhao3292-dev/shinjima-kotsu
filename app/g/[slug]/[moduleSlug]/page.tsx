@@ -70,7 +70,7 @@ export default async function ModuleDetailPage({ params }: PageProps) {
       return <HeleneClinicContent isGuideEmbed guideSlug={slug} />;
 
     case 'ginza_phoenix':
-      return <GinzaPhoenixContent isGuideEmbed />;
+      return <GinzaPhoenixContent isGuideEmbed guideSlug={slug} />;
 
     case 'wclinic_mens':
       return <WClinicMensContent isGuideEmbed guideSlug={slug} />;
