@@ -59,6 +59,26 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'hyogo-deptobgyn.jp',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.nihonsekkei.co.jp',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.takenaka.co.jp',
+      },
+      {
+        protocol: 'https',
+        hostname: 'oici.jp',
+      },
+      {
+        protocol: 'https',
+        hostname: 'stemcells.jp',
+      },
+      {
+        protocol: 'https',
+        hostname: 'mens.wclinic-osaka.jp',
+      },
     ],
   },
 
