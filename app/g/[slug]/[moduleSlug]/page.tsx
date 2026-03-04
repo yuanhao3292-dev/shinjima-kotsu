@@ -10,6 +10,7 @@ import WClinicMensContent from '@/app/wclinic-mens/WClinicMensContent';
 import CellMedicineContent from '@/app/cell-medicine/CellMedicineContent';
 import ACPlusContent from '@/app/ac-plus/ACPlusContent';
 import IGTCContent from '@/app/igtc/IGTCContent';
+import OsakaHimakContent from '@/app/osaka-himak/OsakaHimakContent';
 import { getSaiClinicImages } from '@/lib/services/sai-clinic-images';
 
 interface PageProps {
@@ -33,6 +34,7 @@ const SUPPORTED_KEYS = new Set([
   'cell_medicine',
   'ac_plus',
   'igtc',
+  'osaka_himak',
 ]);
 
 export default async function ModuleDetailPage({ params }: PageProps) {
@@ -83,6 +85,9 @@ export default async function ModuleDetailPage({ params }: PageProps) {
 
     case 'igtc':
       return <IGTCContent isGuideEmbed guideSlug={slug} />;
+
+    case 'osaka_himak':
+      return <OsakaHimakContent isGuideEmbed guideSlug={slug} />;
 
     default:
       notFound();

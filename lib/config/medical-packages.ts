@@ -577,6 +577,28 @@ export const MEDICAL_PACKAGES: Record<string, MedicalPackageConfig> = {
     sortOrder: 156,
   },
 
+  // ─── 大阪重粒子線中心 咨询服务 ───
+  'osaka-himak-initial-consultation': {
+    slug: 'osaka-himak-initial-consultation',
+    nameZhTw: '大阪重粒子線中心 - 前期諮詢服務',
+    nameJa: '大阪重粒子線センター - 初期相談サービス',
+    nameEn: 'Osaka HIMAK - Initial Consultation',
+    descriptionZhTw: '病歷資料翻譯、重粒子線治療適應性評估、治療計劃初步討論、費用概算',
+    priceJpy: 221000,
+    category: 'cancer_treatment',
+    sortOrder: 157,
+  },
+  'osaka-himak-remote-consultation': {
+    slug: 'osaka-himak-remote-consultation',
+    nameZhTw: '大阪重粒子線中心 - 遠程會診服務',
+    nameJa: '大阪重粒子線センター - 遠隔診療サービス',
+    nameEn: 'Osaka HIMAK - Remote Consultation',
+    descriptionZhTw: '與重粒子線治療專家遠程視頻會診、討論治療適應性與方案、費用詳細說明',
+    priceJpy: 243000,
+    category: 'cancer_treatment',
+    sortOrder: 158,
+  },
+
   // ─── IGTクリニック 咨询服务 ───
   'igtc-initial-consultation': {
     slug: 'igtc-initial-consultation',

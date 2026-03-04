@@ -19,6 +19,7 @@ const DETAIL_MODULES = new Set([
   'medical_packages', 'hyogo_medical', 'cancer_treatment',
   'sai_clinic', 'wclinic_mens',
   'helene_clinic', 'ginza_phoenix', 'cell_medicine', 'ac_plus', 'igtc',
+  'osaka_himak',
 ]);
 
 /** 详情页首图映射（确保首页背景图严格复用详情页首图） */
@@ -34,6 +35,7 @@ const DETAIL_PAGE_HERO_IMAGES: Record<string, string> = {
   cell_medicine: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?q=80&w=2000&auto=format&fit=crop',
   ac_plus: 'https://cdn.yun.sooce.cn/6/60567/png/1751617672017b7325ee433cf0da1346880da57c866f4.png?version=0',
   igtc: 'https://igtc.jp/wp-content/themes/igtclinic/images/top/mainVisual_img01.jpg',
+  osaka_himak: 'https://www.osaka-himak.or.jp/cn/images/top/sec_slide01_mv_img01_pc.jpg',
 };
 
 export default async function GuideHomePage({ params }: PageProps) {
