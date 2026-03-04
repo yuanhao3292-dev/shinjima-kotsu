@@ -681,13 +681,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
                 <p className="text-sm text-[#666]">{t.ctaChinese[lang]}</p>
               </div>
             </div>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3281.3!2d135.5027!3d34.6823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000e7224f7e1b8d%3A0x0!2z5pel5pys57Sw6IOe44OT44Or!5e0!3m2!1sja!2sjp!4v1700000000000"
-              className="rounded-2xl shadow-lg w-full h-64 border-0"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="AC Cell Clinic Map"
-            />
+            <img src={IMG.exterior} alt="Japan Cell Building" className="rounded-2xl shadow-lg w-full h-64 object-cover" />
           </div>
         </div>
       </section>
