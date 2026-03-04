@@ -51,7 +51,7 @@ const IMG = {
   statsYears: 'https://cdn.yun.sooce.cn/6/60567/png/1752638303594c81e728d9d4c2f636f067f89cc14862c.png?version=1752638305',
   statsSatisfaction: 'https://cdn.yun.sooce.cn/6/60567/png/1752638303599eccbc87e4b5ce2fe28308fd9f2a7baf3.png?version=1752638305',
   upgrade2024: 'https://cdn.yun.sooce.cn/6/60567/png/175162054921078f0ba62ca3785bd28f341874b98b60d.png?version=1751620550',
-  mapSnapshot: 'https://staticmap.openstreetmap.de/staticmap.php?center=34.6823,135.5027&zoom=16&size=600x400&markers=34.6823,135.5027,red-pushpin',
+  mapLocation: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ac-plus/map-location.png',
 };
 
 // ======================================
@@ -682,7 +682,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
                 <p className="text-sm text-[#666]">{t.ctaChinese[lang]}</p>
               </div>
             </div>
-            <img src={IMG.exterior} alt="Japan Cell Building" className="rounded-2xl shadow-lg w-full h-64 object-cover" />
+            <img src={IMG.mapLocation} alt="Map to AC Cell Clinic" className="rounded-2xl shadow-lg w-full h-64 object-cover" />
           </div>
         </div>
       </section>
