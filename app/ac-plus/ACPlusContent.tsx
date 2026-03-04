@@ -248,11 +248,11 @@ const clinicalAreas: { icon: React.ReactNode; label: Record<Language, string> }[
 
 // Treatment cards
 const treatments = [
-  { key: 'sc', img: IMG.stemCard, name: t.sc_name, desc: t.sc_desc, color: '#4874cb', icon: <Dna size={22} /> },
-  { key: 'nk', img: IMG.nkCard, name: t.nk_name, desc: t.nk_desc, color: '#2ea043', icon: <ShieldCheck size={22} /> },
-  { key: 'sn', img: IMG.supernatantCard, name: t.sn_name, desc: t.sn_desc, color: '#9b59b6', icon: <Droplets size={22} /> },
-  { key: 'acrs', img: IMG.acrsCard, name: t.acrs_name, desc: t.acrs_desc, color: '#e67e22', icon: <FlaskConical size={22} /> },
-  { key: 'bp', img: IMG.bloodPurify, name: t.bp_name, desc: t.bp_desc, color: '#e74c3c', icon: <Beaker size={22} /> },
+  { key: 'sc', img: IMG.stemCard, name: t.sc_name, desc: t.sc_desc, icon: <Dna size={22} /> },
+  { key: 'nk', img: IMG.nkCard, name: t.nk_name, desc: t.nk_desc, icon: <ShieldCheck size={22} /> },
+  { key: 'sn', img: IMG.supernatantCard, name: t.sn_name, desc: t.sn_desc, icon: <Droplets size={22} /> },
+  { key: 'acrs', img: IMG.acrsCard, name: t.acrs_name, desc: t.acrs_desc, icon: <FlaskConical size={22} /> },
+  { key: 'bp', img: IMG.bloodPurify, name: t.bp_name, desc: t.bp_desc, icon: <Beaker size={22} /> },
 ];
 
 // ======================================
@@ -410,11 +410,11 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
                 <div
                   key={tr.key}
                   className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col"
-                  style={{ borderTopColor: tr.color, borderTopWidth: 3 }}
+                  style={{ borderTopColor: '#4874cb', borderTopWidth: 3 }}
                 >
                   <div className="relative h-48 overflow-hidden">
                     <img src={tr.img} alt={tr.name[lang]} className="w-full h-full object-cover" />
-                    <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-full p-2" style={{ color: tr.color }}>
+                    <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-full p-2 text-[#4874cb]">
                       {tr.icon}
                     </div>
                   </div>
@@ -426,8 +426,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
                         {isOpen && <div className="mb-4 pt-3 border-t border-gray-100">{treatDetail(tr.key)}</div>}
                         <button
                           onClick={() => setExpandedTreat(isOpen ? null : tr.key)}
-                          className="inline-flex items-center gap-1 text-sm font-medium transition-colors"
-                          style={{ color: tr.color }}
+                          className="inline-flex items-center gap-1 text-sm font-medium text-[#4874cb] transition-colors"
                         >
                           {isOpen ? t.hideDetail[lang] : t.viewDetail[lang]}
                           {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
@@ -455,11 +454,11 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
           {/* 3 Properties */}
           <div className="grid md:grid-cols-3 gap-6 mb-14">
             {[
-              { title: t.prop1, desc: t.prop1d, icon: <Dna size={28} className="text-[#4874cb]" />, color: 'bg-blue-50' },
-              { title: t.prop2, desc: t.prop2d, icon: <Sparkles size={28} className="text-[#9b59b6]" />, color: 'bg-purple-50' },
-              { title: t.prop3, desc: t.prop3d, icon: <Zap size={28} className="text-[#e67e22]" />, color: 'bg-orange-50' },
+              { title: t.prop1, desc: t.prop1d, icon: <Dna size={28} className="text-[#4874cb]" /> },
+              { title: t.prop2, desc: t.prop2d, icon: <Sparkles size={28} className="text-[#4874cb]" /> },
+              { title: t.prop3, desc: t.prop3d, icon: <Zap size={28} className="text-[#4874cb]" /> },
             ].map((p, i) => (
-              <div key={i} className={`${p.color} rounded-2xl p-6 text-center`}>
+              <div key={i} className="bg-[#4874cb]/5 rounded-2xl p-6 text-center">
                 <div className="flex justify-center mb-4">{p.icon}</div>
                 <h3 className="text-lg font-bold text-[#333] mb-2">{p.title[lang]}</h3>
                 <p className="text-sm text-[#666]">{p.desc[lang]}</p>
@@ -549,7 +548,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
                     f.floor === '7F'
                       ? 'border-l-[#4874cb] bg-[#4874cb]/5'
                       : f.floor === '3F'
-                      ? 'border-l-amber-400 bg-amber-50/50'
+                      ? 'border-l-[#4874cb]/50 bg-[#4874cb]/5'
                       : 'border-l-gray-200 hover:bg-[#f6f6f6]'
                   }`}
                 >
@@ -562,7 +561,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
                     </span>
                   )}
                   {f.floor === '3F' && (
-                    <span className="ml-auto text-xs bg-amber-400 text-white px-2 py-0.5 rounded-full">VIP</span>
+                    <span className="ml-auto text-xs bg-[#4874cb]/70 text-white px-2 py-0.5 rounded-full">VIP</span>
                   )}
                 </div>
               ))}
@@ -738,7 +737,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href={checkoutHref('/ac-plus/initial-consultation')}
-              className="inline-flex items-center justify-center gap-3 bg-white text-[#4874cb] px-8 py-4 rounded-full font-bold hover:bg-blue-50 transition-all shadow-lg"
+              className="inline-flex items-center justify-center gap-3 bg-white text-[#4874cb] px-8 py-4 rounded-full font-bold hover:bg-gray-50 transition-all shadow-lg"
             >
               {t.ctaConsult[lang]} <ArrowRight size={18} />
             </Link>
