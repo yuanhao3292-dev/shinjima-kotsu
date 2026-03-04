@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -12,7 +12,7 @@ import {
   Zap, Eye,
   Building2, Scissors,
   Star, ShieldCheck,
-  Stethoscope, Droplets,
+  Stethoscope, Droplets, ChevronDown,
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 
@@ -115,17 +115,29 @@ const t = {
     'zh-CN': '男性更年期综合征(LOH) · 找回活力',
     en: 'Male Menopause (LOH) · Regain Your Vitality',
   } as Record<Language, string>,
-  additionalTag: {
-    ja: 'その他の診療',
-    'zh-TW': '其他診療',
-    'zh-CN': '其他诊疗',
-    en: 'Additional Services',
+  menuTag: {
+    ja: '診療メニュー・料金',
+    'zh-TW': '診療項目·費用',
+    'zh-CN': '诊疗项目·费用',
+    en: 'Treatment Menu & Pricing',
   } as Record<Language, string>,
-  additionalTitle: {
-    ja: 'その他の専門診療',
-    'zh-TW': '其他專業診療',
-    'zh-CN': '其他专业诊疗',
-    en: 'Additional Specialty Services',
+  menuTitle: {
+    ja: '全診療メニューと料金一覧',
+    'zh-TW': '全部診療項目與費用',
+    'zh-CN': '全部诊疗项目与费用',
+    en: 'Complete Treatment Menu & Pricing',
+  } as Record<Language, string>,
+  menuSubtitle: {
+    ja: 'ED・LOH以外の診療メニュー（税込表示）',
+    'zh-TW': 'ED·LOH以外的診療項目（含稅）',
+    'zh-CN': 'ED·LOH以外的诊疗项目（含税）',
+    en: 'All services beyond ED & LOH (tax included)',
+  } as Record<Language, string>,
+  menuNote: {
+    ja: '※表示価格は全て税込です。コース割引・詳細プランは診察時にご確認ください',
+    'zh-TW': '※以上價格均含稅。療程優惠及詳細方案請於就診時確認',
+    'zh-CN': '※以上价格均含税。疗程优惠及详细方案请于就诊时确认',
+    en: '※All prices include tax. Course discounts & detailed plans confirmed during consultation',
   } as Record<Language, string>,
   doctorTag: {
     ja: '医師紹介',
@@ -299,36 +311,80 @@ const LOH_TREATMENTS = [
   { name: { ja: 'Sustanon 250', 'zh-TW': 'Sustanon 250', 'zh-CN': 'Sustanon 250', en: 'Sustanon 250' } as Record<Language, string>, price: '¥3,300' },
 ];
 
-const ADDITIONAL_SERVICES = [
+const TREATMENT_MENU = [
   {
+    id: 'aga',
     icon: Scissors,
-    title: { ja: 'AGA脱毛治療', 'zh-TW': 'AGA脫髮治療', 'zh-CN': 'AGA脱发治疗', en: 'AGA Hair Loss' } as Record<Language, string>,
-    price: { ja: 'W Original AGA Set ¥14,500/月〜', 'zh-TW': 'W Original AGA Set ¥14,500/月起', 'zh-CN': 'W Original AGA Set ¥14,500/月起', en: 'W Original AGA Set from ¥14,500/mo' } as Record<Language, string>,
+    category: { ja: 'AGA・育毛治療', 'zh-TW': 'AGA·生髮治療', 'zh-CN': 'AGA·生发治疗', en: 'AGA Hair Loss Treatment' } as Record<Language, string>,
+    items: [
+      { name: { ja: 'Wオリジナル AGA内服セット', 'zh-TW': 'W Original AGA口服套裝', 'zh-CN': 'W Original AGA口服套装', en: 'W Original AGA Oral Set' } as Record<Language, string>, price: '¥14,500/30日' },
+      { name: { ja: 'プロペシア', 'zh-TW': 'Propecia', 'zh-CN': 'Propecia', en: 'Propecia' } as Record<Language, string>, price: '¥9,350/30日' },
+      { name: { ja: 'フィナステリド (1.3mg)', 'zh-TW': 'Finasteride (1.3mg)', 'zh-CN': 'Finasteride (1.3mg)', en: 'Finasteride (1.3mg)' } as Record<Language, string>, price: '¥3,500/30日' },
+      { name: { ja: 'デュタステリド (0.5mg)', 'zh-TW': 'Dutasteride (0.5mg)', 'zh-CN': 'Dutasteride (0.5mg)', en: 'Dutasteride (0.5mg)' } as Record<Language, string>, price: '¥6,800/30日' },
+      { name: { ja: 'ミノキシジル (5mg)', 'zh-TW': 'Minoxidil (5mg)', 'zh-CN': 'Minoxidil (5mg)', en: 'Minoxidil (5mg)' } as Record<Language, string>, price: '¥7,700/30日' },
+      { name: { ja: 'ハイドラジェントル 頭皮', 'zh-TW': 'Hydra Gentle 頭皮', 'zh-CN': 'Hydra Gentle 头皮', en: 'Hydra Gentle Scalp' } as Record<Language, string>, price: '初回 ¥11,000' },
+      { name: { ja: 'U-225メソガン 幹細胞上清液', 'zh-TW': 'U-225 Meso Gun 幹細胞', 'zh-CN': 'U-225 Meso Gun 干细胞', en: 'U-225 Meso Gun (Stem Cell)' } as Record<Language, string>, price: '¥33,000/回' },
+      { name: { ja: 'ヘアタトゥー トライアル', 'zh-TW': '頭皮微色素 體驗', 'zh-CN': '头皮微色素 体验', en: 'Scalp Micropigmentation Trial' } as Record<Language, string>, price: '¥9,900' },
+    ],
   },
   {
+    id: 'antiaging',
+    icon: Sparkles,
+    category: { ja: 'アンチエイジング・美容', 'zh-TW': '抗衰·美容', 'zh-CN': '抗衰·美容', en: 'Anti-Aging & Aesthetics' } as Record<Language, string>,
+    items: [
+      { name: { ja: 'HIFU ライト (200shot)', 'zh-TW': 'HIFU Light (200shot)', 'zh-CN': 'HIFU Light (200shot)', en: 'HIFU Light (200 shots)' } as Record<Language, string>, price: '¥27,500' },
+      { name: { ja: 'HIFU スタンダード (600shot)', 'zh-TW': 'HIFU Standard (600shot)', 'zh-CN': 'HIFU Standard (600shot)', en: 'HIFU Standard (600 shots)' } as Record<Language, string>, price: '¥88,000' },
+      { name: { ja: 'HIFU オーダーメイド (無制限)', 'zh-TW': 'HIFU 訂製 (無限shot)', 'zh-CN': 'HIFU 定制 (无限shot)', en: 'HIFU Custom (Unlimited)' } as Record<Language, string>, price: '¥165,000' },
+      { name: { ja: 'ボトックスビスタ (Allergan)', 'zh-TW': 'Botox Vista (Allergan)', 'zh-CN': 'Botox Vista (Allergan)', en: 'Botox Vista (Allergan)' } as Record<Language, string>, price: '¥22,000〜' },
+      { name: { ja: 'ヒアルロン酸注射', 'zh-TW': '玻尿酸注射', 'zh-CN': '玻尿酸注射', en: 'Hyaluronic Acid Injection' } as Record<Language, string>, price: '¥88,000/本' },
+      { name: { ja: 'プロファイロ PROFHILO', 'zh-TW': 'Profhilo', 'zh-CN': 'Profhilo', en: 'Profhilo' } as Record<Language, string>, price: '¥132,000/回' },
+      { name: { ja: 'テスリフト (糸リフト)', 'zh-TW': 'Tesslift (線雕)', 'zh-CN': 'Tesslift (线雕)', en: 'Tesslift (Thread Lift)' } as Record<Language, string>, price: '¥66,000/本' },
+      { name: { ja: 'コラーゲンリフト', 'zh-TW': '膠原蛋白提升', 'zh-CN': '胶原蛋白提升', en: 'Collagen Lift' } as Record<Language, string>, price: '¥19,800/本' },
+      { name: { ja: 'スネコス注射', 'zh-TW': 'Sunekos注射', 'zh-CN': 'Sunekos注射', en: 'Sunekos Injection' } as Record<Language, string>, price: '¥55,000/回' },
+      { name: { ja: 'リジュラン (高濃度サーモンDNA)', 'zh-TW': 'Rejuran (高濃度鮭魚DNA)', 'zh-CN': 'Rejuran (高浓度三文鱼DNA)', en: 'Rejuran (Salmon DNA)' } as Record<Language, string>, price: '¥88,000/2cc' },
+    ],
+  },
+  {
+    id: 'iv',
     icon: Droplets,
-    title: { ja: 'NMN点滴', 'zh-TW': 'NMN點滴', 'zh-CN': 'NMN点滴', en: 'NMN Drip' } as Record<Language, string>,
-    price: { ja: '¥32,780〜', 'zh-TW': '從¥32,780起', 'zh-CN': '从¥32,780起', en: 'From ¥32,780' } as Record<Language, string>,
+    category: { ja: '点滴・注射', 'zh-TW': '點滴·注射', 'zh-CN': '点滴·注射', en: 'IV Drips & Injections' } as Record<Language, string>,
+    items: [
+      { name: { ja: 'エクソソーム 1,000億個', 'zh-TW': '外泌體 1,000億', 'zh-CN': '外泌体 1,000亿', en: 'Exosome 100B' } as Record<Language, string>, price: '¥123,200' },
+      { name: { ja: 'エクソソーム 2,000億個', 'zh-TW': '外泌體 2,000億', 'zh-CN': '外泌体 2,000亿', en: 'Exosome 200B' } as Record<Language, string>, price: '¥220,000' },
+      { name: { ja: 'NMN点滴 100mg', 'zh-TW': 'NMN點滴 100mg', 'zh-CN': 'NMN点滴 100mg', en: 'NMN IV 100mg' } as Record<Language, string>, price: '初回 ¥32,780' },
+      { name: { ja: 'NMN点滴 300mg', 'zh-TW': 'NMN點滴 300mg', 'zh-CN': 'NMN点滴 300mg', en: 'NMN IV 300mg' } as Record<Language, string>, price: '¥66,000/回' },
+      { name: { ja: '幹細胞培養上清液', 'zh-TW': '幹細胞培養上清液', 'zh-CN': '干细胞培养上清液', en: 'Stem Cell Supernatant' } as Record<Language, string>, price: '初回 ¥33,000' },
+      { name: { ja: '高濃度ビタミンC (12.5g)', 'zh-TW': '高濃度維生素C (12.5g)', 'zh-CN': '高浓度维生素C (12.5g)', en: 'High-Dose Vitamin C (12.5g)' } as Record<Language, string>, price: '初回 ¥8,800' },
+      { name: { ja: '血液オゾンクレンジング', 'zh-TW': '血液臭氧淨化', 'zh-CN': '血液臭氧净化', en: 'Blood Ozone Cleansing' } as Record<Language, string>, price: '初回 ¥16,500' },
+      { name: { ja: 'プラセンタ注射', 'zh-TW': '胎盤素注射', 'zh-CN': '胎盘素注射', en: 'Placenta Injection' } as Record<Language, string>, price: '¥1,320/amp' },
+    ],
   },
   {
+    id: 'laser',
     icon: Zap,
-    title: { ja: 'エクソソーム療法', 'zh-TW': '外泌體療法', 'zh-CN': '外泌体疗法', en: 'Exosome Therapy' } as Record<Language, string>,
-    price: { ja: '¥123,200〜', 'zh-TW': '從¥123,200起', 'zh-CN': '从¥123,200起', en: 'From ¥123,200' } as Record<Language, string>,
+    category: { ja: 'レーザー・美肌', 'zh-TW': '雷射·美膚', 'zh-CN': '激光·美肤', en: 'Laser & Skin Care' } as Record<Language, string>,
+    items: [
+      { name: { ja: 'レーザー脱毛 全身 (顔VIO除)', 'zh-TW': '雷射脫毛 全身', 'zh-CN': '激光脱毛 全身', en: 'Laser Hair Removal (Full Body)' } as Record<Language, string>, price: '¥55,000' },
+      { name: { ja: 'レーザー脱毛 ひげセット', 'zh-TW': '雷射脫毛 鬍鬚', 'zh-CN': '激光脱毛 胡须', en: 'Laser Beard Set' } as Record<Language, string>, price: '¥9,900' },
+      { name: { ja: 'ピコスポット シミ取り (1cm²)', 'zh-TW': 'Pico Spot 除斑 (1cm²)', 'zh-CN': 'Pico Spot 祛斑 (1cm²)', en: 'Pico Spot (1cm²)' } as Record<Language, string>, price: '¥5,500〜' },
+      { name: { ja: 'ダーマペン4 (毛穴・ニキビ跡)', 'zh-TW': 'Dermapen 4 (毛孔·痘疤)', 'zh-CN': 'Dermapen 4 (毛孔·痘疤)', en: 'Dermapen 4 (Pores/Acne Scars)' } as Record<Language, string>, price: '初回 ¥17,600' },
+      { name: { ja: 'イントラジェン RF', 'zh-TW': 'Intragen RF', 'zh-CN': 'Intragen RF', en: 'Intragen RF' } as Record<Language, string>, price: '初回 ¥33,000' },
+      { name: { ja: 'CO2レーザー (ほくろ)', 'zh-TW': 'CO2雷射 (痣)', 'zh-CN': 'CO2激光 (痣)', en: 'CO2 Laser (Moles)' } as Record<Language, string>, price: '¥3,300〜' },
+      { name: { ja: 'PTPトーニング 全顔', 'zh-TW': 'PTP Toning 全臉', 'zh-CN': 'PTP Toning 全脸', en: 'PTP Toning (Full Face)' } as Record<Language, string>, price: '初回 ¥13,200' },
+    ],
   },
   {
-    icon: Eye,
-    title: { ja: 'HIFU超音波', 'zh-TW': 'HIFU超音刀', 'zh-CN': 'HIFU超声刀', en: 'HIFU Ultrasound' } as Record<Language, string>,
-    price: { ja: '¥27,500〜', 'zh-TW': '從¥27,500起', 'zh-CN': '从¥27,500起', en: 'From ¥27,500' } as Record<Language, string>,
-  },
-  {
-    icon: Star,
-    title: { ja: '糸リフト', 'zh-TW': '線雕提升', 'zh-CN': '线雕提升', en: 'Thread Lift' } as Record<Language, string>,
-    price: { ja: '¥19,800/本〜', 'zh-TW': '從¥19,800/根起', 'zh-CN': '从¥19,800/根起', en: 'From ¥19,800/thread' } as Record<Language, string>,
-  },
-  {
-    icon: Heart,
-    title: { ja: 'W Night Laser いびき治療', 'zh-TW': 'W Night Laser 鼾症治療', 'zh-CN': 'W Night Laser 鼾症治疗', en: 'W Night Laser Snoring Treatment' } as Record<Language, string>,
-    price: { ja: '初診¥33,000 / 施術¥88,000〜', 'zh-TW': '初診¥33,000 / 治療¥88,000起', 'zh-CN': '初诊¥33,000 / 治疗¥88,000起', en: 'First ¥33,000 / Session ¥88,000+' } as Record<Language, string>,
+    id: 'other',
+    icon: Stethoscope,
+    category: { ja: 'その他の診療', 'zh-TW': '其他診療', 'zh-CN': '其他诊疗', en: 'Other Services' } as Record<Language, string>,
+    items: [
+      { name: { ja: 'Wナイトレーザー (いびき治療)', 'zh-TW': 'W Night Laser (鼾症)', 'zh-CN': 'W Night Laser (鼾症)', en: 'W Night Laser (Snoring)' } as Record<Language, string>, price: '初回 ¥33,000' },
+      { name: { ja: 'リベルサス GLP-1 ダイエット (3mg)', 'zh-TW': 'Rybelsus GLP-1 減重 (3mg)', 'zh-CN': 'Rybelsus GLP-1 减重 (3mg)', en: 'Rybelsus GLP-1 Diet (3mg)' } as Record<Language, string>, price: '¥11,880/30錠' },
+      { name: { ja: '多汗症ボトックス 両ワキ (保険適用)', 'zh-TW': '多汗症肉毒 雙腋 (保險)', 'zh-CN': '多汗症肉毒 双腋 (保险)', en: 'Hyperhidrosis Botox (Insurance)' } as Record<Language, string>, price: '≈¥23,000' },
+      { name: { ja: '男性ホルモン検査 (テストステロン)', 'zh-TW': '男性荷爾蒙檢測 (睾酮)', 'zh-CN': '男性荷尔蒙检测 (睾酮)', en: 'Testosterone Test' } as Record<Language, string>, price: '¥11,000' },
+      { name: { ja: 'フードアレルギー検査 (120項目)', 'zh-TW': '食物過敏檢測 (120項)', 'zh-CN': '食物过敏检测 (120项)', en: 'Food Allergy Test (120 items)' } as Record<Language, string>, price: '¥41,800' },
+      { name: { ja: 'カウンセリング', 'zh-TW': '諮詢', 'zh-CN': '咨询', en: 'Consultation' } as Record<Language, string>, price: '¥1,100' },
+    ],
   },
 ];
 
@@ -361,6 +417,7 @@ interface WClinicMensContentProps {
 
 export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicMensContentProps) {
   const lang = useLanguage();
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
 
   return (
     <div className="animate-fade-in-up min-h-screen bg-white">
@@ -641,25 +698,54 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
         </div>
 
         {/* ========================================
-            6. Additional Services — 深色品牌圆角区块 (Hyogo Centers 风格)
+            6. Treatment Menu & Pricing — 全诊疗菜单+价格手风琴
             ======================================== */}
-        <div className="mb-24 bg-[#293f58] text-white rounded-3xl p-10 md:p-16 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png')" }} />
-          <div className="relative z-10 text-center mb-12">
-            <span className="text-[#00c300] text-xs tracking-[0.3em] uppercase font-bold">{t.additionalTag[lang]}</span>
-            <h3 className="text-3xl font-serif mt-3">{t.additionalTitle[lang]}</h3>
+        <div className="mb-24">
+          {/* Dark header */}
+          <div className="bg-[#293f58] text-white rounded-t-3xl px-8 py-10 md:px-16 md:py-12 relative overflow-hidden">
+            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png')" }} />
+            <div className="relative z-10 text-center">
+              <span className="text-[#00c300] text-xs tracking-[0.3em] uppercase font-bold">{t.menuTag[lang]}</span>
+              <h3 className="text-3xl font-serif mt-3">{t.menuTitle[lang]}</h3>
+              <p className="text-white/50 mt-3 text-sm">{t.menuSubtitle[lang]}</p>
+            </div>
           </div>
-          <div className="relative z-10 grid grid-cols-2 md:grid-cols-3 gap-4">
-            {ADDITIONAL_SERVICES.map((service, i) => {
-              const Icon = service.icon;
+          {/* Accordion body */}
+          <div className="bg-gray-50 rounded-b-3xl px-4 py-6 md:px-8 md:py-8 border border-t-0 border-gray-200 space-y-3">
+            {TREATMENT_MENU.map((cat) => {
+              const CatIcon = cat.icon;
+              const isOpen = openMenu === cat.id;
               return (
-                <div key={i} className="bg-white/5 p-5 rounded-xl border border-white/10 hover:bg-white/10 transition group text-center">
-                  <div className="flex justify-center mb-3 text-[#00c300] group-hover:scale-110 transition"><Icon size={28} /></div>
-                  <h4 className="font-bold text-sm mb-1">{service.title[lang]}</h4>
-                  <p className="text-[11px] text-gray-400 leading-relaxed">{service.price[lang]}</p>
+                <div key={cat.id} className="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm">
+                  <button
+                    onClick={() => setOpenMenu(isOpen ? null : cat.id)}
+                    className="w-full flex items-center justify-between px-5 py-4 md:px-6 md:py-5 hover:bg-gray-50 transition text-left"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-[#293f58] text-[#00c300] rounded-full flex items-center justify-center shrink-0">
+                        <CatIcon size={18} />
+                      </div>
+                      <div>
+                        <span className="font-bold text-gray-900 font-serif text-sm md:text-base">{cat.category[lang]}</span>
+                        <span className="text-xs text-gray-400 ml-2">({cat.items.length})</span>
+                      </div>
+                    </div>
+                    <ChevronDown size={20} className={`text-gray-400 transition-transform duration-300 shrink-0 ${isOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  {isOpen && (
+                    <div className="border-t border-gray-100 divide-y divide-gray-50">
+                      {cat.items.map((item, i) => (
+                        <div key={i} className="flex justify-between items-center px-5 py-3 md:px-6 hover:bg-gray-50 transition">
+                          <span className="text-sm text-gray-700">{item.name[lang]}</span>
+                          <span className="text-sm font-bold text-[#00c300] whitespace-nowrap ml-4">{item.price}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               );
             })}
+            <p className="text-center text-xs text-gray-400 pt-4">{t.menuNote[lang]}</p>
           </div>
         </div>
       </div>
