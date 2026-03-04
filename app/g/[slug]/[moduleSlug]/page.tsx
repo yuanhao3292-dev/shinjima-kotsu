@@ -67,13 +67,13 @@ export default async function ModuleDetailPage({ params }: PageProps) {
       return <OICIContent isGuideEmbed guideSlug={slug} />;
 
     case 'helene_clinic':
-      return <HeleneClinicContent isGuideEmbed />;
+      return <HeleneClinicContent isGuideEmbed guideSlug={slug} />;
 
     case 'ginza_phoenix':
       return <GinzaPhoenixContent isGuideEmbed />;
 
     case 'wclinic_mens':
-      return <WClinicMensContent isGuideEmbed />;
+      return <WClinicMensContent isGuideEmbed guideSlug={slug} />;
 
     case 'cell_medicine':
       return <CellMedicineContent isGuideEmbed />;

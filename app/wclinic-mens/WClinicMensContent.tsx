@@ -356,9 +356,10 @@ const PRIVACY_FEATURES = [
 
 interface WClinicMensContentProps {
   isGuideEmbed?: boolean;
+  guideSlug?: string;
 }
 
-export default function WClinicMensContent({ isGuideEmbed }: WClinicMensContentProps) {
+export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicMensContentProps) {
   const lang = useLanguage();
 
   return (
@@ -972,13 +973,13 @@ export default function WClinicMensContent({ isGuideEmbed }: WClinicMensContentP
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href={isGuideEmbed ? '#consultation' : '/wclinic-mens/initial-consultation'}
+              href={guideSlug ? `/wclinic-mens/initial-consultation?guide=${guideSlug}` : '/wclinic-mens/initial-consultation'}
               className="inline-flex items-center justify-center gap-3 bg-[#00c300] text-white px-8 py-4 rounded-full font-bold hover:bg-[#009a00] transition-all shadow-lg"
             >
               {t.ctaButtonInitial[lang]} <ArrowRight size={18} />
             </Link>
             <Link
-              href={isGuideEmbed ? '#consultation' : '/wclinic-mens/remote-consultation'}
+              href={guideSlug ? `/wclinic-mens/remote-consultation?guide=${guideSlug}` : '/wclinic-mens/remote-consultation'}
               className="inline-flex items-center justify-center gap-3 bg-white/10 text-white px-8 py-4 rounded-full font-bold hover:bg-white/20 transition-all border border-white/20"
             >
               {t.ctaButtonRemote[lang]} <ArrowRight size={18} />
