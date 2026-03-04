@@ -79,7 +79,7 @@ export default async function ModuleDetailPage({ params }: PageProps) {
       return <CellMedicineContent isGuideEmbed />;
 
     case 'ac_plus':
-      return <ACPlusContent isGuideEmbed />;
+      return <ACPlusContent isGuideEmbed guideSlug={slug} />;
 
     case 'igtc':
       return <IGTCContent isGuideEmbed guideSlug={slug} />;
