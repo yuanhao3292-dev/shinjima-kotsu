@@ -682,7 +682,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
                 <p className="text-sm text-[#666]">{t.ctaChinese[lang]}</p>
               </div>
             </div>
-            <img src={IMG.mapSnapshot} alt="Map to Japan Cell Building" className="rounded-2xl shadow-lg w-full h-64 object-cover" />
+            <img src={IMG.exterior} alt="Japan Cell Building" className="rounded-2xl shadow-lg w-full h-64 object-cover" />
           </div>
         </div>
       </section>
