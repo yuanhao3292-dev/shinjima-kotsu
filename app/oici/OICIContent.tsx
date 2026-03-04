@@ -9,7 +9,7 @@ import {
   ExternalLink, FileText,
   HeartPulse, Scan,
   ArrowRight, Globe, Mail, MessageSquare,
-  Dna, Target, Radio, FlaskConical, Bot
+  Dna, Target, Radio, FlaskConical, Bot, Clock
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
@@ -36,6 +36,10 @@ const OICI_IMAGES = {
   interior1: 'https://www.takenaka.co.jp/majorworks/images/41404192016_03_l.jpg',
   interior2: 'https://www.takenaka.co.jp/majorworks/images/41404192016_04_l.jpg',
   interior3: 'https://www.takenaka.co.jp/majorworks/images/41404192016_05_l.jpg',
+  // OICI 官网 da Vinci 机器人手术相关图片
+  daVinciSystem: 'https://oici.jp/file/202011/img_davinci_intro01.png',
+  robotCenter:   'https://oici.jp/file/202509/img_ganrobotcenter01.jpg',
+  daVinciConsole: 'https://oici.jp/file/202011/img_davinci02.png',
 } as const;
 
 // ======================================
@@ -192,6 +196,36 @@ const tr = {
     ja: 'お支払い前のご質問はお気軽に', 'zh-TW': '付款前有疑問？歡迎諮詢', 'zh-CN': '付款前有疑问？欢迎咨询', en: 'Questions? Contact us before payment',
   } as Record<Language, string>,
 
+  // Research & Innovation
+  researchTag: {
+    ja: '研究・イノベーション', 'zh-TW': '研究·創新', 'zh-CN': '研究·创新', en: 'Research & Innovation',
+  } as Record<Language, string>,
+  researchTitle: {
+    ja: 'がん研究所 — 次世代がん医療の開発拠点', 'zh-TW': '癌症研究所 — 新一代癌症醫療研發中心', 'zh-CN': '癌症研究所 — 新一代癌症医疗研发中心', en: 'Cancer Research Institute — Next-Gen Cancer Medicine Hub',
+  } as Record<Language, string>,
+  researchDesc: {
+    ja: '研究所併設型がん専門病院として、基礎研究から臨床応用まで一貫した体制を構築', 'zh-TW': '作為設有研究所的癌症專科醫院，從基礎研究到臨床應用一體化', 'zh-CN': '作为设有研究所的癌症专科医院，从基础研究到临床应用一体化', en: 'As a research institute-integrated cancer hospital, seamless from basic research to clinical application',
+  } as Record<Language, string>,
+
+  // Patient Support
+  supportTag: {
+    ja: '患者サポート', 'zh-TW': '患者支援', 'zh-CN': '患者支持', en: 'Patient Support',
+  } as Record<Language, string>,
+  supportTitle: {
+    ja: '総合的な患者支援体制', 'zh-TW': '全方位患者支援體系', 'zh-CN': '全方位患者支持体系', en: 'Comprehensive Patient Support System',
+  } as Record<Language, string>,
+  supportDesc: {
+    ja: '治療だけでなく、患者の心身両面をトータルにサポート', 'zh-TW': '不僅治療，全面支援患者身心', 'zh-CN': '不仅治疗，全面支持患者身心', en: 'Supporting patients holistically — mind and body, beyond just treatment',
+  } as Record<Language, string>,
+
+  // History
+  historyTag: {
+    ja: '沿革', 'zh-TW': '歷史沿革', 'zh-CN': '历史沿革', en: 'History',
+  } as Record<Language, string>,
+  historyTitle: {
+    ja: '65年以上の歴史 — 日本のがん医療を牽引', 'zh-TW': '65年以上歷史 — 引領日本癌症醫療', 'zh-CN': '65年以上历史 — 引领日本癌症医疗', en: '65+ Years of History — Leading Cancer Medicine in Japan',
+  } as Record<Language, string>,
+
   // Common
   bookNow: { ja: '今すぐ予約', 'zh-TW': '立即預約', 'zh-CN': '立即预约', en: 'Book Now' } as Record<Language, string>,
   taxIncl: { ja: '日円（税込）', 'zh-TW': '日圓（含稅）', 'zh-CN': '日元（含税）', en: 'JPY (tax incl.)' } as Record<Language, string>,
@@ -214,14 +248,24 @@ const KEY_STATS = [
     sub: { ja: '主に悪性腫瘍', 'zh-TW': '主要為惡性腫瘤', 'zh-CN': '主要为恶性肿瘤', en: 'Primarily malignant tumors' } as Record<Language, string>,
   },
   {
+    value: '37',
+    label: { ja: '診療科', 'zh-TW': '診療科', 'zh-CN': '诊疗科', en: 'Departments' } as Record<Language, string>,
+    sub: { ja: 'がん専門科を網羅', 'zh-TW': '涵蓋癌症專科', 'zh-CN': '涵盖癌症专科', en: 'Comprehensive cancer specialties' } as Record<Language, string>,
+  },
+  {
     value: '500',
     label: { ja: '病床数', 'zh-TW': '病床數', 'zh-CN': '病床数', en: 'Hospital Beds' } as Record<Language, string>,
     sub: { ja: 'がん専門施設', 'zh-TW': '癌症專科設施', 'zh-CN': '癌症专科设施', en: 'Cancer-specialized facility' } as Record<Language, string>,
   },
   {
-    value: '1,100+',
-    label: { ja: 'セカンドオピニオン件数/年', 'zh-TW': '年第二意見件數', 'zh-CN': '年第二意见件数', en: 'Second Opinions / Year' } as Record<Language, string>,
-    sub: { ja: '全国5位', 'zh-TW': '全國第5', 'zh-CN': '全国第5', en: 'Ranked #5 in Japan' } as Record<Language, string>,
+    value: '1,255',
+    label: { ja: '1日外来患者数', 'zh-TW': '每日門診患者數', 'zh-CN': '每日门诊患者数', en: 'Daily Outpatients' } as Record<Language, string>,
+    sub: { ja: '平均 1,254.5人/日', 'zh-TW': '平均 1,254.5人/日', 'zh-CN': '平均 1,254.5人/日', en: 'Average 1,254.5/day' } as Record<Language, string>,
+  },
+  {
+    value: '148+',
+    label: { ja: '専門医師数', 'zh-TW': '專科醫師數', 'zh-CN': '专科医师数', en: 'Physicians' } as Record<Language, string>,
+    sub: { ja: '医師148名・歯科医2名・レジデント55名', 'zh-TW': '醫師148名·牙醫2名·住院醫55名', 'zh-CN': '医师148名·牙医2名·住院医55名', en: '148 doctors, 2 dentists, 55 residents' } as Record<Language, string>,
   },
   {
     value: '500+',
@@ -229,9 +273,9 @@ const KEY_STATS = [
     sub: { ja: '関西最多', 'zh-TW': '關西最多', 'zh-CN': '关西最多', en: 'Most in Kansai' } as Record<Language, string>,
   },
   {
-    value: '65+',
-    label: { ja: '年の歴史', 'zh-TW': '年歷史', 'zh-CN': '年历史', en: 'Years of History' } as Record<Language, string>,
-    sub: { ja: '1959年設立', 'zh-TW': '1959年設立', 'zh-CN': '1959年设立', en: 'Est. 1959' } as Record<Language, string>,
+    value: '1,100+',
+    label: { ja: 'セカンドオピニオン件数/年', 'zh-TW': '年第二意見件數', 'zh-CN': '年第二意见件数', en: 'Second Opinions / Year' } as Record<Language, string>,
+    sub: { ja: '全国5位', 'zh-TW': '全國第5', 'zh-CN': '全国第5', en: 'Ranked #5 in Japan' } as Record<Language, string>,
   },
 ];
 
@@ -242,8 +286,8 @@ const SPECIALTY_CENTERS = [
   {
     icon: 'stomach',
     name: { ja: '胃がんセンター', 'zh-TW': '胃癌中心', 'zh-CN': '胃癌中心', en: 'Gastric Cancer Center' } as Record<Language, string>,
-    desc: { ja: '消化管内科・消化器外科が連携し、早期内視鏡治療から腹腔鏡・ロボット手術まで対応', 'zh-TW': '消化內科·外科聯合，從早期內鏡治療到腹腔鏡·機器人手術全面對應', 'zh-CN': '消化内科·外科联合，从早期内镜治疗到腹腔镜·机器人手术全面对应', en: 'GI medicine & surgery collaborate, from early endoscopic treatment to laparoscopic/robotic surgery' } as Record<Language, string>,
-    stats: { ja: '内視鏡検査 年間数千件', 'zh-TW': '年內鏡檢查數千件', 'zh-CN': '年内镜检查数千件', en: 'Thousands of endoscopies/year' } as Record<Language, string>,
+    desc: { ja: '2024年実績：手術の100%を低侵襲化（うち92%がロボット支援手術）。山本主任医長を中心に消化管内科・消化器外科が一体診療。早期ESD内視鏡から先進ロボット手術まで全段階対応', 'zh-TW': '2024年：100%微創手術（92%機器人手術）。山本主任主導消化內科·外科一體診療。從早期ESD內鏡到先進機器人手術全階段對應', 'zh-CN': '2024年：100%微创手术（92%机器人手术）。山本主任主导消化内科·外科一体诊疗。从早期ESD内镜到先进机器人手术全阶段对应', en: '2024: 100% minimally invasive (92% robotic). Director Yamamoto leads integrated GI medicine & surgery. Full-spectrum from early ESD to advanced robotic surgery' } as Record<Language, string>,
+    stats: { ja: '2024年 ロボット手術率 92%', 'zh-TW': '2024年 機器人手術率 92%', 'zh-CN': '2024年 机器人手术率 92%', en: '2024: 92% Robotic Surgery Rate' } as Record<Language, string>,
   },
   {
     icon: 'lung',
@@ -254,8 +298,8 @@ const SPECIALTY_CENTERS = [
   {
     icon: 'rectum',
     name: { ja: '直腸がんセンター', 'zh-TW': '直腸癌中心', 'zh-CN': '直肠癌中心', en: 'Rectal Cancer Center' } as Record<Language, string>,
-    desc: { ja: '機能温存を重視した低侵襲手術。肛門温存・排尿機能温存で患者QOLを最大化', 'zh-TW': '重視功能保留的低侵入手術。保肛·保排尿功能，最大化患者QOL', 'zh-CN': '重视功能保留的低侵入手术。保肛·保排尿功能，最大化患者QOL', en: 'Function-preserving minimally invasive surgery. Maximizing patient QOL' } as Record<Language, string>,
-    stats: { ja: 'ロボット支援手術対応', 'zh-TW': '機器人輔助手術', 'zh-CN': '机器人辅助手术', en: 'Robot-assisted surgery' } as Record<Language, string>,
+    desc: { ja: '2024年：大腸がん手術の97.6%を低侵襲化、うち70%がロボット支援。肛門温存・排尿機能温存で患者QOLを最大化', 'zh-TW': '2024年：大腸癌手術97.6%微創化，70%機器人輔助。保肛·保排尿功能最大化QOL', 'zh-CN': '2024年：大肠癌手术97.6%微创化，70%机器人辅助。保肛·保排尿功能最大化QOL', en: '2024: 97.6% minimally invasive for colorectal, 70% robotic. Function-preserving for maximum QOL' } as Record<Language, string>,
+    stats: { ja: '2024年 低侵襲率 97.6%', 'zh-TW': '2024年 微創率 97.6%', 'zh-CN': '2024年 微创率 97.6%', en: '2024: 97.6% Minimally Invasive' } as Record<Language, string>,
   },
   {
     icon: 'pancreas',
@@ -266,8 +310,8 @@ const SPECIALTY_CENTERS = [
   {
     icon: 'breast',
     name: { ja: '乳腺センター', 'zh-TW': '乳腺中心', 'zh-CN': '乳腺中心', en: 'Breast Center' } as Record<Language, string>,
-    desc: { ja: 'ロボット支援乳頭温存乳房切除術を導入。3-4cmの小切開で美容面にも配慮', 'zh-TW': '引入機器人輔助保乳頭切除術。3-4cm小切口兼顧美觀', 'zh-CN': '引入机器人辅助保乳头切除术。3-4cm小切口兼顾美观', en: 'Robot-assisted nipple-sparing mastectomy. 3-4cm incision for cosmetic outcomes' } as Record<Language, string>,
-    stats: { ja: 'ロボット乳頭温存手術', 'zh-TW': '機器人保乳頭手術', 'zh-CN': '机器人保乳头手术', en: 'Robotic nipple-sparing surgery' } as Record<Language, string>,
+    desc: { ja: 'ロボット支援乳頭温存乳房切除術（NSM）を導入。腋窩部から3-4cmの小切開のみで手術完了。乳がん手術におけるロボット導入は全国でも先駆的な取り組み', 'zh-TW': '引入機器人輔助保乳頭乳房切除術（NSM）。僅腋下3-4cm小切口即可完成手術。乳癌機器人手術的全國先驅', 'zh-CN': '引入机器人辅助保乳头乳房切除术（NSM）。仅腋下3-4cm小切口即可完成手术。乳癌机器人手术的全国先驱', en: 'Pioneer in robot-assisted nipple-sparing mastectomy (NSM). Only 3-4cm axillary incision. Leading nationwide in robotic breast surgery' } as Record<Language, string>,
+    stats: { ja: '全国先駆的 ロボット乳腺手術', 'zh-TW': '全國先驅 機器人乳腺手術', 'zh-CN': '全国先驱 机器人乳腺手术', en: 'Pioneering Robotic Breast Surgery' } as Record<Language, string>,
   },
   {
     icon: 'rare',
@@ -338,32 +382,32 @@ const TREATMENTS = [
   {
     icon: Target,
     title: { ja: '精密手術', 'zh-TW': '精密手術', 'zh-CN': '精密手术', en: 'Precision Surgery' } as Record<Language, string>,
-    desc: { ja: 'da Vinci Xi ロボット3台。腹腔鏡・胸腔鏡を含む低侵襲手術で入院期間を短縮', 'zh-TW': 'da Vinci Xi 機器人3台。腹腔鏡·胸腔鏡低侵入手術縮短住院', 'zh-CN': 'da Vinci Xi 机器人3台。腹腔镜·胸腔镜低侵入手术缩短住院', en: '3 da Vinci Xi robots. Minimally invasive surgery shortens hospital stay' } as Record<Language, string>,
+    desc: { ja: 'da Vinci Xi ロボット3台体制。2024年度：胃がん手術 100%低侵襲化（92%ロボット支援）、大腸がん 97.6%低侵襲化（70%ロボット支援）。最小3-4cmの切開で入院期間を大幅短縮', 'zh-TW': 'da Vinci Xi 3台體制。2024年：胃癌手術100%微創化（92%機器人）、大腸癌97.6%微創化（70%機器人）。最小3-4cm切口大幅縮短住院', 'zh-CN': 'da Vinci Xi 3台体制。2024年：胃癌手术100%微创化（92%机器人）、大肠癌97.6%微创化（70%机器人）。最小3-4cm切口大幅缩短住院', en: '3 da Vinci Xi robots. 2024: gastric 100% minimally invasive (92% robotic), colorectal 97.6% minimally invasive (70% robotic). As small as 3-4cm incisions' } as Record<Language, string>,
   },
   {
     icon: Radio,
     title: { ja: '高度放射線治療', 'zh-TW': '高度放射線治療', 'zh-CN': '高度放射线治疗', en: 'Advanced Radiation Therapy' } as Record<Language, string>,
-    desc: { ja: 'リニアック4台。IMRT・VMAT・SRS・SRT・SBRT・小線源治療に対応', 'zh-TW': '直線加速器4台。IMRT·VMAT·SRS·SRT·SBRT·近距離放療', 'zh-CN': '直线加速器4台。IMRT·VMAT·SRS·SRT·SBRT·近距离放疗', en: '4 linacs. IMRT, VMAT, SRS, SRT, SBRT, brachytherapy' } as Record<Language, string>,
+    desc: { ja: 'リニアック4台。2024年実績：外照射2,051件、IMRT/VMAT 1,032件、定位照射303件、新規患者1,479名（12がん種）。HyperArc™で脳転移の高精度照射に対応', 'zh-TW': '直線加速器4台。2024年：外照射2,051件、IMRT/VMAT 1,032件、定位照射303件、新患者1,479名（12癌種）。HyperArc™精準治療腦轉移', 'zh-CN': '直线加速器4台。2024年：外照射2,051件、IMRT/VMAT 1,032件、定位照射303件、新患者1,479名（12癌种）。HyperArc™精准治疗脑转移', en: '4 linacs. 2024: 2,051 external beam, 1,032 IMRT/VMAT, 303 stereotactic, 1,479 new patients (12 cancer types). HyperArc™ for brain metastases' } as Record<Language, string>,
   },
   {
     icon: FlaskConical,
     title: { ja: '化学療法', 'zh-TW': '化學療法', 'zh-CN': '化学疗法', en: 'Chemotherapy' } as Record<Language, string>,
-    desc: { ja: '外来化学療法科の充実した体制。個別化投薬と副作用管理で患者QOLを重視', 'zh-TW': '門診化療科完善體制。個體化用藥與副作用管理重視QOL', 'zh-CN': '门诊化疗科完善体制。个体化用药与副作用管理重视QOL', en: 'Outpatient chemo division with personalized dosing and side effect management' } as Record<Language, string>,
+    desc: { ja: '外来化学療法センター46床、1日平均108名。薬剤師による100%無菌調製体制。造血幹細胞移植用の無菌個室29室を完備。個別化投薬と副作用管理で患者QOLを重視', 'zh-TW': '門診化療中心46床、日均108名。藥劑師100%無菌配製。備有造血幹細胞移植用無菌個室29間。個體化用藥與副作用管理重視QOL', 'zh-CN': '门诊化疗中心46床、日均108名。药剂师100%无菌配制。备有造血干细胞移植用无菌个室29间。个体化用药与副作用管理重视QOL', en: '46-bed outpatient chemo center, 108 daily patients. 100% pharmacist-prepared sterile compounding. 29 isolation rooms for stem cell transplant. Personalized dosing & QOL focus' } as Record<Language, string>,
   },
   {
     icon: Dna,
     title: { ja: 'がんゲノム医療', 'zh-TW': '癌症基因組醫療', 'zh-CN': '癌症基因组医疗', en: 'Cancer Genomic Medicine' } as Record<Language, string>,
-    desc: { ja: '2019年がんゲノム医療拠点病院に指定。がん遺伝子パネル検査による個別化治療', 'zh-TW': '2019年獲指定癌症基因組醫療中心。基因面板檢測實現個體化治療', 'zh-CN': '2019年获指定癌症基因组医疗中心。基因面板检测实现个体化治疗', en: 'Designated Cancer Genome Medicine Hub since 2019. Gene panel testing for personalized treatment' } as Record<Language, string>,
+    desc: { ja: '2019年がんゲノム医療拠点病院に指定。がん遺伝子パネル検査による個別化治療。Cancer Cell Portバイオバンクでシングルセル解析・オルガノイド研究を推進', 'zh-TW': '2019年獲指定癌症基因組醫療中心。基因面板檢測實現個體化治療。Cancer Cell Port生物樣本庫推進單細胞分析·類器官研究', 'zh-CN': '2019年获指定癌症基因组医疗中心。基因面板检测实现个体化治疗。Cancer Cell Port生物样本库推进单细胞分析·类器官研究', en: 'Designated Cancer Genome Medicine Hub since 2019. Gene panel testing for personalized treatment. Cancer Cell Port biobank advancing single-cell & organoid research' } as Record<Language, string>,
   },
   {
     icon: Shield,
     title: { ja: '免疫療法', 'zh-TW': '免疫療法', 'zh-CN': '免疫疗法', en: 'Immunotherapy' } as Record<Language, string>,
-    desc: { ja: '免疫チェックポイント阻害剤を中心に、エビデンスに基づく免疫治療を実施', 'zh-TW': '以免疫檢查點抑制劑為核心，基於循證的免疫治療', 'zh-CN': '以免疫检查点抑制剂为核心，基于循证的免疫治疗', en: 'Evidence-based immunotherapy centered on immune checkpoint inhibitors' } as Record<Language, string>,
+    desc: { ja: '免疫チェックポイント阻害剤を中心に、エビデンスに基づく免疫治療を実施。治療後の免疫関連有害事象にも腫瘍循環器科と連携して対応', 'zh-TW': '以免疫檢查點抑制劑為核心，基於循證的免疫治療。與腫瘤心血管科聯合管理免疫相關不良反應', 'zh-CN': '以免疫检查点抑制剂为核心，基于循证的免疫治疗。与肿瘤心血管科联合管理免疫相关不良反应', en: 'Evidence-based immunotherapy centered on immune checkpoint inhibitors. Cardio-oncology collaboration for immune-related adverse events' } as Record<Language, string>,
   },
   {
     icon: HeartPulse,
     title: { ja: '腫瘍循環器科（Cardio-Oncology）', 'zh-TW': '腫瘤心血管科', 'zh-CN': '肿瘤心血管科', en: 'Cardio-Oncology' } as Record<Language, string>,
-    desc: { ja: 'がん治療に伴う心血管系合併症の予防・治療。がん患者の心臓を守る専門チーム', 'zh-TW': '預防·治療癌症治療相關心血管併發症。專業團隊守護患者心臟', 'zh-CN': '预防·治疗癌症治疗相关心血管并发症。专业团队守护患者心脏', en: 'Preventing & treating cardiovascular complications of cancer treatment' } as Record<Language, string>,
+    desc: { ja: 'がん治療に伴う心血管系合併症の予防・治療。免疫チェックポイント阻害剤や分子標的薬による心筋障害・血管障害を早期発見・対応する専門チーム', 'zh-TW': '預防·治療癌症治療相關心血管併發症。免疫檢查點抑制劑·分子標靶藥物引發的心肌·血管損傷早期發現·應對', 'zh-CN': '预防·治疗癌症治疗相关心血管并发症。免疫检查点抑制剂·分子靶向药物引发的心肌·血管损伤早期发现·应对', en: 'Preventing & treating cardiovascular complications. Early detection of myocardial/vascular damage from checkpoint inhibitors & targeted drugs' } as Record<Language, string>,
   },
 ];
 
@@ -457,14 +501,132 @@ const FACILITY_STRIP = [
 ];
 
 // ======================================
+// Data: Research & Innovation
+// ======================================
+const RESEARCH_ITEMS = [
+  {
+    icon: Dna,
+    title: { ja: 'Cancer Cell Port バイオバンク', 'zh-TW': 'Cancer Cell Port 生物樣本庫', 'zh-CN': 'Cancer Cell Port 生物样本库', en: 'Cancer Cell Port Biobank' } as Record<Language, string>,
+    desc: { ja: '患者由来のがん組織・血液サンプルを体系的に収集・保管。シングルセル解析やオルガノイド研究に活用し、個別化医療を推進', 'zh-TW': '系統性收集保管患者癌組織·血液樣本。用於單細胞分析·類器官研究，推進個體化醫療', 'zh-CN': '系统性收集保管患者癌组织·血液样本。用于单细胞分析·类器官研究，推进个体化医疗', en: 'Systematic collection of patient-derived cancer tissue & blood samples. Used for single-cell analysis & organoid research to advance personalized medicine' } as Record<Language, string>,
+  },
+  {
+    icon: Bot,
+    title: { ja: 'AI創薬・データサイエンス', 'zh-TW': 'AI藥物研發·數據科學', 'zh-CN': 'AI药物研发·数据科学', en: 'AI Drug Discovery & Data Science' } as Record<Language, string>,
+    desc: { ja: '人工知能を活用した新規治療薬候補の探索。ゲノムデータと臨床データの統合解析で新たな治療標的を同定', 'zh-TW': '運用人工智能探索新治療藥物候選。整合基因組與臨床數據分析發現新治療靶點', 'zh-CN': '运用人工智能探索新治疗药物候选。整合基因组与临床数据分析发现新治疗靶点', en: 'AI-powered exploration of drug candidates. Integrating genomic & clinical data to identify novel therapeutic targets' } as Record<Language, string>,
+  },
+  {
+    icon: Globe,
+    title: { ja: '国際共同研究', 'zh-TW': '國際合作研究', 'zh-CN': '国际合作研究', en: 'International Collaborations' } as Record<Language, string>,
+    desc: { ja: 'ドイツ・シンガポール・タイ・米国・中国の研究機関と連携。世界最先端のがん治療知見を共有・還元', 'zh-TW': '與德國·新加坡·泰國·美國·中國研究機構合作。共享世界最前沿癌症治療知識', 'zh-CN': '与德国·新加坡·泰国·美国·中国研究机构合作。共享世界最前沿癌症治疗知识', en: 'Partnerships with institutions in Germany, Singapore, Thailand, USA & China. Sharing cutting-edge cancer research globally' } as Record<Language, string>,
+  },
+];
+
+// ======================================
+// Data: Patient Support
+// ======================================
+const SUPPORT_ITEMS = [
+  {
+    icon: Heart,
+    title: { ja: 'HOPE LifeMark コンシェルジュ', 'zh-TW': 'HOPE LifeMark 管家服務', 'zh-CN': 'HOPE LifeMark 管家服务', en: 'HOPE LifeMark Concierge' } as Record<Language, string>,
+    desc: { ja: '入院から退院後まで、患者・ご家族を一貫してサポート。情報提供・療養環境整備・福祉連携を行う専任チーム', 'zh-TW': '從入院到出院後全程支援患者·家屬。提供資訊·療養環境整備·福利銜接的專屬團隊', 'zh-CN': '从入院到出院后全程支持患者·家属。提供信息·疗养环境整备·福利衔接的专属团队', en: 'Dedicated team supporting patients & families from admission to post-discharge. Information, environment, and welfare coordination' } as Record<Language, string>,
+  },
+  {
+    icon: Users,
+    title: { ja: '2人主治医体制', 'zh-TW': '雙主治醫師制度', 'zh-CN': '双主治医师制度', en: 'Dual Attending Physician System' } as Record<Language, string>,
+    desc: { ja: '主治医2名が担当することで、24時間365日の対応体制を実現。夜間・休日も安心の継続的医療提供', 'zh-TW': '由2名主治醫師負責，實現24/7全天候對應。夜間·假日也能安心接受持續醫療', 'zh-CN': '由2名主治医师负责，实现24/7全天候对应。夜间·假日也能安心接受持续医疗', en: 'Two attending physicians per patient ensure 24/7 coverage. Continuous care including nights and holidays' } as Record<Language, string>,
+  },
+  {
+    icon: Shield,
+    title: { ja: 'がん相談支援センター', 'zh-TW': '癌症諮詢支援中心', 'zh-CN': '癌症咨询支持中心', en: 'Cancer Counseling Support Center' } as Record<Language, string>,
+    desc: { ja: '治療法・費用・生活・就労など、がんに関するあらゆる相談に看護師・MSWが無料で対応。セカンドオピニオンの相談窓口', 'zh-TW': '治療方案·費用·生活·就業等癌症相關問題，由護理師·MSW免費諮詢。第二意見諮詢窗口', 'zh-CN': '治疗方案·费用·生活·就业等癌症相关问题，由护理师·MSW免费咨询。第二意见咨询窗口', en: 'Free counseling on treatment, costs, lifestyle, employment by nurses & MSWs. Second opinion consultation desk' } as Record<Language, string>,
+  },
+  {
+    icon: HeartPulse,
+    title: { ja: '緩和ケアセンター・ACP', 'zh-TW': '安寧緩和照護中心·ACP', 'zh-CN': '姑息治疗中心·ACP', en: 'Palliative Care Center & ACP' } as Record<Language, string>,
+    desc: { ja: '治療初期から緩和ケアを統合。ACP（アドバンス・ケア・プランニング）で患者の意思を尊重した治療方針を策定', 'zh-TW': '從治療初期即整合安寧緩和照護。ACP（預立醫療照護諮商）尊重患者意願制定治療方針', 'zh-CN': '从治疗初期即整合姑息治疗。ACP（预立医疗照护计划）尊重患者意愿制定治疗方针', en: 'Palliative care integrated from treatment onset. ACP (Advance Care Planning) respects patient wishes in care decisions' } as Record<Language, string>,
+  },
+];
+
+// ======================================
+// Data: History Milestones
+// ======================================
+const HISTORY_MILESTONES = [
+  {
+    year: '1959',
+    title: { ja: '大阪府立成人病センター設立', 'zh-TW': '大阪府立成人病中心設立', 'zh-CN': '大阪府立成人病中心设立', en: 'Osaka Prefectural Adult Disease Center Founded' } as Record<Language, string>,
+    desc: { ja: '日本初のがん・循環器疾患専門施設として開院', 'zh-TW': '作為日本首家癌症·心血管疾病專門機構開院', 'zh-CN': '作为日本首家癌症·心血管疾病专门机构开院', en: "Opened as Japan's first specialized cancer & cardiovascular facility" } as Record<Language, string>,
+  },
+  {
+    year: '1977',
+    title: { ja: 'がん専門病院化', 'zh-TW': '轉型癌症專科醫院', 'zh-CN': '转型癌症专科医院', en: 'Became Cancer Specialty Hospital' } as Record<Language, string>,
+    desc: { ja: 'がん診療に特化した専門病院として再編', 'zh-TW': '重組為癌症診療專門醫院', 'zh-CN': '重组为癌症诊疗专门医院', en: 'Reorganized as a cancer-specialized hospital' } as Record<Language, string>,
+  },
+  {
+    year: '2006',
+    title: { ja: '特定機能病院に認定', 'zh-TW': '獲認定為特定功能醫院', 'zh-CN': '获认定为特定功能医院', en: 'Designated Special Function Hospital' } as Record<Language, string>,
+    desc: { ja: '市立病院として全国初の特定機能病院認定を取得', 'zh-TW': '作為市立醫院全國首個獲得特定功能醫院認定', 'zh-CN': '作为市立医院全国首个获得特定功能医院认定', en: 'First municipal hospital nationwide to receive Special Function designation' } as Record<Language, string>,
+  },
+  {
+    year: '2017',
+    title: { ja: '新棟移転・名称変更', 'zh-TW': '遷入新樓·更名', 'zh-CN': '迁入新楼·更名', en: 'New Building & Renamed' } as Record<Language, string>,
+    desc: { ja: '地上13階建・68,329㎡の最新施設に移転。「大阪国際がんセンター」に名称変更', 'zh-TW': '遷入地上13層·68,329㎡最新設施。更名為「大阪國際癌症中心」', 'zh-CN': '迁入地上13层·68,329㎡最新设施。更名为「大阪国际癌症中心」', en: 'Moved to 13-story, 68,329㎡ state-of-the-art facility. Renamed to "Osaka International Cancer Center"' } as Record<Language, string>,
+  },
+  {
+    year: '2019',
+    title: { ja: 'がんゲノム医療拠点病院', 'zh-TW': '癌症基因組醫療中心', 'zh-CN': '癌症基因组医疗中心', en: 'Cancer Genome Medicine Hub' } as Record<Language, string>,
+    desc: { ja: '厚生労働省よりがんゲノム医療拠点病院に指定', 'zh-TW': '獲厚生勞動省指定為癌症基因組醫療中心', 'zh-CN': '获厚生劳动省指定为癌症基因组医疗中心', en: 'Designated Cancer Genome Medicine Hub by Ministry of Health' } as Record<Language, string>,
+  },
+  {
+    year: '2023',
+    title: { ja: 'がんロボット手術センター開設', 'zh-TW': '癌症機器人手術中心開設', 'zh-CN': '癌症机器人手术中心开设', en: 'Robotic Surgery Center Opened' } as Record<Language, string>,
+    desc: { ja: 'da Vinci Xi 3台体制で8診療科のロボット手術を集約。年間500件以上', 'zh-TW': 'da Vinci Xi 3台集結8科機器人手術。年500+件', 'zh-CN': 'da Vinci Xi 3台集结8科机器人手术。年500+件', en: '3 da Vinci Xi systems across 8 departments. 500+ cases/year' } as Record<Language, string>,
+  },
+];
+
+// ======================================
 // Component
 // ======================================
-export default function OICIContent({ isGuideEmbed }: Props) {
+export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
   const lang = useLanguage();
   const [expandedPhase, setExpandedPhase] = useState<number>(0);
 
   const t = (key: keyof typeof tr) => tr[key][lang] || tr[key]['ja'];
-  const packages = Object.values(MEDICAL_PACKAGES).filter((p) => p.category === 'cancer_treatment');
+
+  // 只显示 OICI 癌症治疗的两个套餐（不混入兵库医大等其他 cancer_treatment 分类的套餐）
+  const oiciPackages = [
+    {
+      ...MEDICAL_PACKAGES['cancer-initial-consultation'],
+      name: {
+        ja: MEDICAL_PACKAGES['cancer-initial-consultation'].nameJa,
+        'zh-TW': MEDICAL_PACKAGES['cancer-initial-consultation'].nameZhTw,
+        'zh-CN': '癌症治疗 - 前期咨询服务',
+        en: MEDICAL_PACKAGES['cancer-initial-consultation'].nameEn,
+      } as Record<Language, string>,
+      desc: {
+        ja: '資料翻訳、病院照会、治療プラン初期評価',
+        'zh-TW': '資料翻譯、醫院諮詢、治療方案初步評估',
+        'zh-CN': '资料翻译、医院咨询、治疗方案初步评估',
+        en: 'Document translation, hospital consultation, preliminary treatment assessment',
+      } as Record<Language, string>,
+      ctaPath: 'initial-consultation',
+    },
+    {
+      ...MEDICAL_PACKAGES['cancer-remote-consultation'],
+      name: {
+        ja: MEDICAL_PACKAGES['cancer-remote-consultation'].nameJa,
+        'zh-TW': MEDICAL_PACKAGES['cancer-remote-consultation'].nameZhTw,
+        'zh-CN': '癌症治疗 - 远程会诊服务',
+        en: MEDICAL_PACKAGES['cancer-remote-consultation'].nameEn,
+      } as Record<Language, string>,
+      desc: {
+        ja: '日本の専門医とのビデオ相談、治療プラン説明、費用概算',
+        'zh-TW': '與日本醫生遠程視頻會診、討論治療方案、費用概算',
+        'zh-CN': '与日本医生远程视频会诊、讨论治疗方案、费用概算',
+        en: 'Video consultation with Japanese specialists, treatment plan discussion, cost estimate',
+      } as Record<Language, string>,
+      ctaPath: 'remote-consultation',
+    },
+  ];
 
   return (
     <div className={`min-h-screen bg-white ${isGuideEmbed ? '' : ''}`}>
@@ -531,7 +693,7 @@ export default function OICIContent({ isGuideEmbed }: Props) {
             <span className="text-[#005BAC] text-xs tracking-widest uppercase font-bold">{t('statsTag')}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t('statsTitle')}</h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {KEY_STATS.map((stat, i) => (
               <div key={i} className="bg-gray-50 rounded-xl p-5 border border-gray-100 hover:shadow-md transition text-center">
                 <div className="text-3xl font-black text-[#005BAC]">
@@ -639,13 +801,61 @@ export default function OICIContent({ isGuideEmbed }: Props) {
                 ))}
               </div>
             </div>
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg bg-gray-100">
               <img
-                src={OICI_IMAGES.interior1}
-                alt="OICI Hospital Interior"
-                className="absolute inset-0 w-full h-full object-cover"
+                src={OICI_IMAGES.daVinciSystem}
+                alt="da Vinci Xi Surgical Robot System"
+                className="absolute inset-0 w-full h-full object-contain"
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============ Research & Innovation ============ */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-14">
+            <span className="text-[#005BAC] text-xs tracking-widest uppercase font-bold">{t('researchTag')}</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-3">{t('researchTitle')}</h2>
+            <p className="text-gray-500 max-w-2xl mx-auto">{t('researchDesc')}</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {RESEARCH_ITEMS.map((item, i) => (
+              <div key={i} className="bg-gray-50 rounded-xl border border-gray-100 p-6 hover:shadow-md transition-all">
+                <div className="w-12 h-12 rounded-xl bg-[#005BAC] flex items-center justify-center mb-4">
+                  <item.icon size={22} className="text-white" />
+                </div>
+                <h3 className="font-bold text-gray-900 mb-2">{item.title[lang]}</h3>
+                <p className="text-sm text-gray-600 leading-relaxed">{item.desc[lang]}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ Patient Support ============ */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-14">
+            <span className="text-[#005BAC] text-xs tracking-widest uppercase font-bold">{t('supportTag')}</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-3">{t('supportTitle')}</h2>
+            <p className="text-gray-500 max-w-2xl mx-auto">{t('supportDesc')}</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-5">
+            {SUPPORT_ITEMS.map((item, i) => (
+              <div key={i} className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-all">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+                    <item.icon size={20} className="text-[#005BAC]" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900 mb-2">{item.title[lang]}</h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">{item.desc[lang]}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -676,6 +886,35 @@ export default function OICIContent({ isGuideEmbed }: Props) {
                     </li>
                   ))}
                 </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ History Timeline ============ */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-14">
+            <span className="text-[#005BAC] text-xs tracking-widest uppercase font-bold">{t('historyTag')}</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t('historyTitle')}</h2>
+          </div>
+          <div className="max-w-3xl mx-auto">
+            {HISTORY_MILESTONES.map((milestone, i) => (
+              <div key={i} className="flex gap-4 mb-6 last:mb-0">
+                <div className="flex flex-col items-center">
+                  <div className="w-10 h-10 rounded-full bg-[#005BAC] text-white flex items-center justify-center flex-shrink-0">
+                    <Clock size={16} />
+                  </div>
+                  {i < HISTORY_MILESTONES.length - 1 && (
+                    <div className="w-px flex-1 bg-[#005BAC]/20 mt-2" />
+                  )}
+                </div>
+                <div className="pb-6">
+                  <span className="text-[#005BAC] font-black text-lg">{milestone.year}</span>
+                  <h4 className="font-bold text-gray-900 mt-1">{milestone.title[lang]}</h4>
+                  <p className="text-sm text-gray-600 mt-1">{milestone.desc[lang]}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -754,25 +993,22 @@ export default function OICIContent({ isGuideEmbed }: Props) {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {packages.map((pkg) => {
-              const name = lang === 'ja' ? pkg.nameJa : lang === 'en' ? pkg.nameEn : pkg.nameZhTw;
-              return (
-                <div key={pkg.slug} className="bg-white rounded-xl border-2 border-gray-200 hover:border-[#005BAC] p-8 transition shadow-sm hover:shadow-lg">
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">{name}</h3>
-                  <div className="flex items-baseline gap-1 mb-4">
-                    <span className="text-3xl font-black text-[#005BAC]">¥{pkg.priceJpy.toLocaleString()}</span>
-                    <span className="text-xs text-gray-400">{t('taxIncl')}</span>
-                  </div>
-                  <p className="text-sm text-gray-600 mb-6">{pkg.descriptionZhTw}</p>
-                  <Link
-                    href={`/cancer-treatment/${pkg.slug.includes('remote') ? 'remote-consultation' : 'initial-consultation'}`}
-                    className="block w-full text-center bg-[#005BAC] text-white font-bold py-3 rounded-xl hover:bg-[#004a8a] transition"
-                  >
-                    {t('bookNow')}
-                  </Link>
+            {oiciPackages.map((pkg) => (
+              <div key={pkg.slug} className="bg-white rounded-xl border-2 border-gray-200 hover:border-[#005BAC] p-8 transition shadow-sm hover:shadow-lg">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{pkg.name[lang]}</h3>
+                <div className="flex items-baseline gap-1 mb-4">
+                  <span className="text-3xl font-black text-[#005BAC]">¥{pkg.priceJpy.toLocaleString()}</span>
+                  <span className="text-xs text-gray-400">{t('taxIncl')}</span>
                 </div>
-              );
-            })}
+                <p className="text-sm text-gray-600 mb-6">{pkg.desc[lang]}</p>
+                <Link
+                  href={guideSlug ? `/cancer-treatment/${pkg.ctaPath}?guide=${guideSlug}` : `/cancer-treatment/${pkg.ctaPath}`}
+                  className="block w-full text-center bg-[#005BAC] text-white font-bold py-3 rounded-xl hover:bg-[#004a8a] transition"
+                >
+                  {t('bookNow')}
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </section>

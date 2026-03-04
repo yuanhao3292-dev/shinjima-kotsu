@@ -24,6 +24,7 @@ const pageTranslations = {
 
   // Navigation
   backToMain: { ja: '日本がん総合治療に戻る', 'zh-TW': '返回日本綜合治療', 'zh-CN': '返回日本综合治疗', en: 'Back to Japan Cancer Treatment' } as Record<Language, string>,
+  backToOICI: { ja: '大阪国際がんセンターに戻る', 'zh-TW': '返回大阪國際癌症中心', 'zh-CN': '返回大阪国际癌症中心', en: 'Back to Osaka International Cancer Center' } as Record<Language, string>,
 
   // Service Features
   featuresTitle: { ja: 'サービス内容', 'zh-TW': '服務包含', 'zh-CN': '服务包含', en: 'Service Includes' } as Record<Language, string>,
@@ -249,7 +250,7 @@ export default function InitialConsultationPage() {
             className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-blue-600 transition"
           >
             <ArrowLeft size={16} />
-            {t('backToMain')}
+            {guideSlug ? t('backToOICI') : t('backToMain')}
           </Link>
         </div>
       </div>
