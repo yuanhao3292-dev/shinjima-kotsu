@@ -317,14 +317,14 @@ const TREATMENT_MENU = [
     icon: Scissors,
     category: { ja: 'AGA・育毛治療', 'zh-TW': 'AGA·生髮治療', 'zh-CN': 'AGA·生发治疗', en: 'AGA Hair Loss Treatment' } as Record<Language, string>,
     items: [
-      { name: { ja: 'Wオリジナル AGA内服セット', 'zh-TW': 'W Original AGA口服套裝', 'zh-CN': 'W Original AGA口服套装', en: 'W Original AGA Oral Set' } as Record<Language, string>, price: '¥14,500/30日' },
-      { name: { ja: 'プロペシア', 'zh-TW': 'Propecia', 'zh-CN': 'Propecia', en: 'Propecia' } as Record<Language, string>, price: '¥9,350/30日' },
-      { name: { ja: 'フィナステリド (1.3mg)', 'zh-TW': 'Finasteride (1.3mg)', 'zh-CN': 'Finasteride (1.3mg)', en: 'Finasteride (1.3mg)' } as Record<Language, string>, price: '¥3,500/30日' },
-      { name: { ja: 'デュタステリド (0.5mg)', 'zh-TW': 'Dutasteride (0.5mg)', 'zh-CN': 'Dutasteride (0.5mg)', en: 'Dutasteride (0.5mg)' } as Record<Language, string>, price: '¥6,800/30日' },
-      { name: { ja: 'ミノキシジル (5mg)', 'zh-TW': 'Minoxidil (5mg)', 'zh-CN': 'Minoxidil (5mg)', en: 'Minoxidil (5mg)' } as Record<Language, string>, price: '¥7,700/30日' },
-      { name: { ja: 'ハイドラジェントル 頭皮', 'zh-TW': 'Hydra Gentle 頭皮', 'zh-CN': 'Hydra Gentle 头皮', en: 'Hydra Gentle Scalp' } as Record<Language, string>, price: '初回 ¥11,000' },
-      { name: { ja: 'U-225メソガン 幹細胞上清液', 'zh-TW': 'U-225 Meso Gun 幹細胞', 'zh-CN': 'U-225 Meso Gun 干细胞', en: 'U-225 Meso Gun (Stem Cell)' } as Record<Language, string>, price: '¥33,000/回' },
-      { name: { ja: 'ヘアタトゥー トライアル', 'zh-TW': '頭皮微色素 體驗', 'zh-CN': '头皮微色素 体验', en: 'Scalp Micropigmentation Trial' } as Record<Language, string>, price: '¥9,900' },
+      { slug: 'wclinic-aga-original-set', name: { ja: 'Wオリジナル AGA内服セット', 'zh-TW': 'W Original AGA口服套裝', 'zh-CN': 'W Original AGA口服套装', en: 'W Original AGA Oral Set' } as Record<Language, string>, price: '¥14,500/30日' },
+      { slug: 'wclinic-propecia', name: { ja: 'プロペシア', 'zh-TW': 'Propecia', 'zh-CN': 'Propecia', en: 'Propecia' } as Record<Language, string>, price: '¥9,350/30日' },
+      { slug: 'wclinic-finasteride', name: { ja: 'フィナステリド (1.3mg)', 'zh-TW': 'Finasteride (1.3mg)', 'zh-CN': 'Finasteride (1.3mg)', en: 'Finasteride (1.3mg)' } as Record<Language, string>, price: '¥3,500/30日' },
+      { slug: 'wclinic-dutasteride', name: { ja: 'デュタステリド (0.5mg)', 'zh-TW': 'Dutasteride (0.5mg)', 'zh-CN': 'Dutasteride (0.5mg)', en: 'Dutasteride (0.5mg)' } as Record<Language, string>, price: '¥6,800/30日' },
+      { slug: 'wclinic-minoxidil', name: { ja: 'ミノキシジル (5mg)', 'zh-TW': 'Minoxidil (5mg)', 'zh-CN': 'Minoxidil (5mg)', en: 'Minoxidil (5mg)' } as Record<Language, string>, price: '¥7,700/30日' },
+      { slug: 'wclinic-hydra-gentle-scalp', name: { ja: 'ハイドラジェントル 頭皮', 'zh-TW': 'Hydra Gentle 頭皮', 'zh-CN': 'Hydra Gentle 头皮', en: 'Hydra Gentle Scalp' } as Record<Language, string>, price: '初回 ¥11,000' },
+      { slug: 'wclinic-meso-gun-stem-cell', name: { ja: 'U-225メソガン 幹細胞上清液', 'zh-TW': 'U-225 Meso Gun 幹細胞', 'zh-CN': 'U-225 Meso Gun 干细胞', en: 'U-225 Meso Gun (Stem Cell)' } as Record<Language, string>, price: '¥33,000/回' },
+      { slug: 'wclinic-hair-tattoo-trial', name: { ja: 'ヘアタトゥー トライアル', 'zh-TW': '頭皮微色素 體驗', 'zh-CN': '头皮微色素 体验', en: 'Scalp Micropigmentation Trial' } as Record<Language, string>, price: '¥9,900' },
     ],
   },
   {
@@ -332,16 +332,16 @@ const TREATMENT_MENU = [
     icon: Sparkles,
     category: { ja: 'アンチエイジング・美容', 'zh-TW': '抗衰·美容', 'zh-CN': '抗衰·美容', en: 'Anti-Aging & Aesthetics' } as Record<Language, string>,
     items: [
-      { name: { ja: 'HIFU ライト (200shot)', 'zh-TW': 'HIFU Light (200shot)', 'zh-CN': 'HIFU Light (200shot)', en: 'HIFU Light (200 shots)' } as Record<Language, string>, price: '¥27,500' },
-      { name: { ja: 'HIFU スタンダード (600shot)', 'zh-TW': 'HIFU Standard (600shot)', 'zh-CN': 'HIFU Standard (600shot)', en: 'HIFU Standard (600 shots)' } as Record<Language, string>, price: '¥88,000' },
-      { name: { ja: 'HIFU オーダーメイド (無制限)', 'zh-TW': 'HIFU 訂製 (無限shot)', 'zh-CN': 'HIFU 定制 (无限shot)', en: 'HIFU Custom (Unlimited)' } as Record<Language, string>, price: '¥165,000' },
-      { name: { ja: 'ボトックスビスタ (Allergan)', 'zh-TW': 'Botox Vista (Allergan)', 'zh-CN': 'Botox Vista (Allergan)', en: 'Botox Vista (Allergan)' } as Record<Language, string>, price: '¥22,000〜' },
-      { name: { ja: 'ヒアルロン酸注射', 'zh-TW': '玻尿酸注射', 'zh-CN': '玻尿酸注射', en: 'Hyaluronic Acid Injection' } as Record<Language, string>, price: '¥88,000/本' },
-      { name: { ja: 'プロファイロ PROFHILO', 'zh-TW': 'Profhilo', 'zh-CN': 'Profhilo', en: 'Profhilo' } as Record<Language, string>, price: '¥132,000/回' },
-      { name: { ja: 'テスリフト (糸リフト)', 'zh-TW': 'Tesslift (線雕)', 'zh-CN': 'Tesslift (线雕)', en: 'Tesslift (Thread Lift)' } as Record<Language, string>, price: '¥66,000/本' },
-      { name: { ja: 'コラーゲンリフト', 'zh-TW': '膠原蛋白提升', 'zh-CN': '胶原蛋白提升', en: 'Collagen Lift' } as Record<Language, string>, price: '¥19,800/本' },
-      { name: { ja: 'スネコス注射', 'zh-TW': 'Sunekos注射', 'zh-CN': 'Sunekos注射', en: 'Sunekos Injection' } as Record<Language, string>, price: '¥55,000/回' },
-      { name: { ja: 'リジュラン (高濃度サーモンDNA)', 'zh-TW': 'Rejuran (高濃度鮭魚DNA)', 'zh-CN': 'Rejuran (高浓度三文鱼DNA)', en: 'Rejuran (Salmon DNA)' } as Record<Language, string>, price: '¥88,000/2cc' },
+      { slug: 'wclinic-hifu-light', name: { ja: 'HIFU ライト (200shot)', 'zh-TW': 'HIFU Light (200shot)', 'zh-CN': 'HIFU Light (200shot)', en: 'HIFU Light (200 shots)' } as Record<Language, string>, price: '¥27,500' },
+      { slug: 'wclinic-hifu-standard', name: { ja: 'HIFU スタンダード (600shot)', 'zh-TW': 'HIFU Standard (600shot)', 'zh-CN': 'HIFU Standard (600shot)', en: 'HIFU Standard (600 shots)' } as Record<Language, string>, price: '¥88,000' },
+      { slug: 'wclinic-hifu-custom', name: { ja: 'HIFU オーダーメイド (無制限)', 'zh-TW': 'HIFU 訂製 (無限shot)', 'zh-CN': 'HIFU 定制 (无限shot)', en: 'HIFU Custom (Unlimited)' } as Record<Language, string>, price: '¥165,000' },
+      { slug: 'wclinic-botox-vista', name: { ja: 'ボトックスビスタ (Allergan)', 'zh-TW': 'Botox Vista (Allergan)', 'zh-CN': 'Botox Vista (Allergan)', en: 'Botox Vista (Allergan)' } as Record<Language, string>, price: '¥22,000〜' },
+      { slug: 'wclinic-hyaluronic-acid', name: { ja: 'ヒアルロン酸注射', 'zh-TW': '玻尿酸注射', 'zh-CN': '玻尿酸注射', en: 'Hyaluronic Acid Injection' } as Record<Language, string>, price: '¥88,000/本' },
+      { slug: 'wclinic-profhilo', name: { ja: 'プロファイロ PROFHILO', 'zh-TW': 'Profhilo', 'zh-CN': 'Profhilo', en: 'Profhilo' } as Record<Language, string>, price: '¥132,000/回' },
+      { slug: 'wclinic-tesslift', name: { ja: 'テスリフト (糸リフト)', 'zh-TW': 'Tesslift (線雕)', 'zh-CN': 'Tesslift (线雕)', en: 'Tesslift (Thread Lift)' } as Record<Language, string>, price: '¥66,000/本' },
+      { slug: 'wclinic-collagen-lift', name: { ja: 'コラーゲンリフト', 'zh-TW': '膠原蛋白提升', 'zh-CN': '胶原蛋白提升', en: 'Collagen Lift' } as Record<Language, string>, price: '¥19,800/本' },
+      { slug: 'wclinic-sunekos', name: { ja: 'スネコス注射', 'zh-TW': 'Sunekos注射', 'zh-CN': 'Sunekos注射', en: 'Sunekos Injection' } as Record<Language, string>, price: '¥55,000/回' },
+      { slug: 'wclinic-rejuran', name: { ja: 'リジュラン (高濃度サーモンDNA)', 'zh-TW': 'Rejuran (高濃度鮭魚DNA)', 'zh-CN': 'Rejuran (高浓度三文鱼DNA)', en: 'Rejuran (Salmon DNA)' } as Record<Language, string>, price: '¥88,000/2cc' },
     ],
   },
   {
@@ -349,14 +349,14 @@ const TREATMENT_MENU = [
     icon: Droplets,
     category: { ja: '点滴・注射', 'zh-TW': '點滴·注射', 'zh-CN': '点滴·注射', en: 'IV Drips & Injections' } as Record<Language, string>,
     items: [
-      { name: { ja: 'エクソソーム 1,000億個', 'zh-TW': '外泌體 1,000億', 'zh-CN': '外泌体 1,000亿', en: 'Exosome 100B' } as Record<Language, string>, price: '¥123,200' },
-      { name: { ja: 'エクソソーム 2,000億個', 'zh-TW': '外泌體 2,000億', 'zh-CN': '外泌体 2,000亿', en: 'Exosome 200B' } as Record<Language, string>, price: '¥220,000' },
-      { name: { ja: 'NMN点滴 100mg', 'zh-TW': 'NMN點滴 100mg', 'zh-CN': 'NMN点滴 100mg', en: 'NMN IV 100mg' } as Record<Language, string>, price: '初回 ¥32,780' },
-      { name: { ja: 'NMN点滴 300mg', 'zh-TW': 'NMN點滴 300mg', 'zh-CN': 'NMN点滴 300mg', en: 'NMN IV 300mg' } as Record<Language, string>, price: '¥66,000/回' },
-      { name: { ja: '幹細胞培養上清液', 'zh-TW': '幹細胞培養上清液', 'zh-CN': '干细胞培养上清液', en: 'Stem Cell Supernatant' } as Record<Language, string>, price: '初回 ¥33,000' },
-      { name: { ja: '高濃度ビタミンC (12.5g)', 'zh-TW': '高濃度維生素C (12.5g)', 'zh-CN': '高浓度维生素C (12.5g)', en: 'High-Dose Vitamin C (12.5g)' } as Record<Language, string>, price: '初回 ¥8,800' },
-      { name: { ja: '血液オゾンクレンジング', 'zh-TW': '血液臭氧淨化', 'zh-CN': '血液臭氧净化', en: 'Blood Ozone Cleansing' } as Record<Language, string>, price: '初回 ¥16,500' },
-      { name: { ja: 'プラセンタ注射', 'zh-TW': '胎盤素注射', 'zh-CN': '胎盘素注射', en: 'Placenta Injection' } as Record<Language, string>, price: '¥1,320/amp' },
+      { slug: 'wclinic-exosome-100b', name: { ja: 'エクソソーム 1,000億個', 'zh-TW': '外泌體 1,000億', 'zh-CN': '外泌体 1,000亿', en: 'Exosome 100B' } as Record<Language, string>, price: '¥123,200' },
+      { slug: 'wclinic-exosome-200b', name: { ja: 'エクソソーム 2,000億個', 'zh-TW': '外泌體 2,000億', 'zh-CN': '外泌体 2,000亿', en: 'Exosome 200B' } as Record<Language, string>, price: '¥220,000' },
+      { slug: 'wclinic-nmn-100mg', name: { ja: 'NMN点滴 100mg', 'zh-TW': 'NMN點滴 100mg', 'zh-CN': 'NMN点滴 100mg', en: 'NMN IV 100mg' } as Record<Language, string>, price: '初回 ¥32,780' },
+      { slug: 'wclinic-nmn-300mg', name: { ja: 'NMN点滴 300mg', 'zh-TW': 'NMN點滴 300mg', 'zh-CN': 'NMN点滴 300mg', en: 'NMN IV 300mg' } as Record<Language, string>, price: '¥66,000/回' },
+      { slug: 'wclinic-stem-cell-supernatant', name: { ja: '幹細胞培養上清液', 'zh-TW': '幹細胞培養上清液', 'zh-CN': '干细胞培养上清液', en: 'Stem Cell Supernatant' } as Record<Language, string>, price: '初回 ¥33,000' },
+      { slug: 'wclinic-vitamin-c-iv', name: { ja: '高濃度ビタミンC (12.5g)', 'zh-TW': '高濃度維生素C (12.5g)', 'zh-CN': '高浓度维生素C (12.5g)', en: 'High-Dose Vitamin C (12.5g)' } as Record<Language, string>, price: '初回 ¥8,800' },
+      { slug: 'wclinic-ozone-cleansing', name: { ja: '血液オゾンクレンジング', 'zh-TW': '血液臭氧淨化', 'zh-CN': '血液臭氧净化', en: 'Blood Ozone Cleansing' } as Record<Language, string>, price: '初回 ¥16,500' },
+      { slug: 'wclinic-placenta-injection', name: { ja: 'プラセンタ注射', 'zh-TW': '胎盤素注射', 'zh-CN': '胎盘素注射', en: 'Placenta Injection' } as Record<Language, string>, price: '¥1,320/amp' },
     ],
   },
   {
@@ -364,13 +364,13 @@ const TREATMENT_MENU = [
     icon: Zap,
     category: { ja: 'レーザー・美肌', 'zh-TW': '雷射·美膚', 'zh-CN': '激光·美肤', en: 'Laser & Skin Care' } as Record<Language, string>,
     items: [
-      { name: { ja: 'レーザー脱毛 全身 (顔VIO除)', 'zh-TW': '雷射脫毛 全身', 'zh-CN': '激光脱毛 全身', en: 'Laser Hair Removal (Full Body)' } as Record<Language, string>, price: '¥55,000' },
-      { name: { ja: 'レーザー脱毛 ひげセット', 'zh-TW': '雷射脫毛 鬍鬚', 'zh-CN': '激光脱毛 胡须', en: 'Laser Beard Set' } as Record<Language, string>, price: '¥9,900' },
-      { name: { ja: 'ピコスポット シミ取り (1cm²)', 'zh-TW': 'Pico Spot 除斑 (1cm²)', 'zh-CN': 'Pico Spot 祛斑 (1cm²)', en: 'Pico Spot (1cm²)' } as Record<Language, string>, price: '¥5,500〜' },
-      { name: { ja: 'ダーマペン4 (毛穴・ニキビ跡)', 'zh-TW': 'Dermapen 4 (毛孔·痘疤)', 'zh-CN': 'Dermapen 4 (毛孔·痘疤)', en: 'Dermapen 4 (Pores/Acne Scars)' } as Record<Language, string>, price: '初回 ¥17,600' },
-      { name: { ja: 'イントラジェン RF', 'zh-TW': 'Intragen RF', 'zh-CN': 'Intragen RF', en: 'Intragen RF' } as Record<Language, string>, price: '初回 ¥33,000' },
-      { name: { ja: 'CO2レーザー (ほくろ)', 'zh-TW': 'CO2雷射 (痣)', 'zh-CN': 'CO2激光 (痣)', en: 'CO2 Laser (Moles)' } as Record<Language, string>, price: '¥3,300〜' },
-      { name: { ja: 'PTPトーニング 全顔', 'zh-TW': 'PTP Toning 全臉', 'zh-CN': 'PTP Toning 全脸', en: 'PTP Toning (Full Face)' } as Record<Language, string>, price: '初回 ¥13,200' },
+      { slug: 'wclinic-laser-full-body', name: { ja: 'レーザー脱毛 全身 (顔VIO除)', 'zh-TW': '雷射脫毛 全身', 'zh-CN': '激光脱毛 全身', en: 'Laser Hair Removal (Full Body)' } as Record<Language, string>, price: '¥55,000' },
+      { slug: 'wclinic-laser-beard', name: { ja: 'レーザー脱毛 ひげセット', 'zh-TW': '雷射脫毛 鬍鬚', 'zh-CN': '激光脱毛 胡须', en: 'Laser Beard Set' } as Record<Language, string>, price: '¥9,900' },
+      { slug: 'wclinic-pico-spot', name: { ja: 'ピコスポット シミ取り (1cm²)', 'zh-TW': 'Pico Spot 除斑 (1cm²)', 'zh-CN': 'Pico Spot 祛斑 (1cm²)', en: 'Pico Spot (1cm²)' } as Record<Language, string>, price: '¥5,500〜' },
+      { slug: 'wclinic-dermapen4', name: { ja: 'ダーマペン4 (毛穴・ニキビ跡)', 'zh-TW': 'Dermapen 4 (毛孔·痘疤)', 'zh-CN': 'Dermapen 4 (毛孔·痘疤)', en: 'Dermapen 4 (Pores/Acne Scars)' } as Record<Language, string>, price: '初回 ¥17,600' },
+      { slug: 'wclinic-intragen-rf', name: { ja: 'イントラジェン RF', 'zh-TW': 'Intragen RF', 'zh-CN': 'Intragen RF', en: 'Intragen RF' } as Record<Language, string>, price: '初回 ¥33,000' },
+      { slug: 'wclinic-co2-laser', name: { ja: 'CO2レーザー (ほくろ)', 'zh-TW': 'CO2雷射 (痣)', 'zh-CN': 'CO2激光 (痣)', en: 'CO2 Laser (Moles)' } as Record<Language, string>, price: '¥3,300〜' },
+      { slug: 'wclinic-ptp-toning', name: { ja: 'PTPトーニング 全顔', 'zh-TW': 'PTP Toning 全臉', 'zh-CN': 'PTP Toning 全脸', en: 'PTP Toning (Full Face)' } as Record<Language, string>, price: '初回 ¥13,200' },
     ],
   },
   {
@@ -378,12 +378,12 @@ const TREATMENT_MENU = [
     icon: Stethoscope,
     category: { ja: 'その他の診療', 'zh-TW': '其他診療', 'zh-CN': '其他诊疗', en: 'Other Services' } as Record<Language, string>,
     items: [
-      { name: { ja: 'Wナイトレーザー (いびき治療)', 'zh-TW': 'W Night Laser (鼾症)', 'zh-CN': 'W Night Laser (鼾症)', en: 'W Night Laser (Snoring)' } as Record<Language, string>, price: '初回 ¥33,000' },
-      { name: { ja: 'リベルサス GLP-1 ダイエット (3mg)', 'zh-TW': 'Rybelsus GLP-1 減重 (3mg)', 'zh-CN': 'Rybelsus GLP-1 减重 (3mg)', en: 'Rybelsus GLP-1 Diet (3mg)' } as Record<Language, string>, price: '¥11,880/30錠' },
-      { name: { ja: '多汗症ボトックス 両ワキ (保険適用)', 'zh-TW': '多汗症肉毒 雙腋 (保險)', 'zh-CN': '多汗症肉毒 双腋 (保险)', en: 'Hyperhidrosis Botox (Insurance)' } as Record<Language, string>, price: '≈¥23,000' },
-      { name: { ja: '男性ホルモン検査 (テストステロン)', 'zh-TW': '男性荷爾蒙檢測 (睾酮)', 'zh-CN': '男性荷尔蒙检测 (睾酮)', en: 'Testosterone Test' } as Record<Language, string>, price: '¥11,000' },
-      { name: { ja: 'フードアレルギー検査 (120項目)', 'zh-TW': '食物過敏檢測 (120項)', 'zh-CN': '食物过敏检测 (120项)', en: 'Food Allergy Test (120 items)' } as Record<Language, string>, price: '¥41,800' },
-      { name: { ja: 'カウンセリング', 'zh-TW': '諮詢', 'zh-CN': '咨询', en: 'Consultation' } as Record<Language, string>, price: '¥1,100' },
+      { slug: 'wclinic-night-laser', name: { ja: 'Wナイトレーザー (いびき治療)', 'zh-TW': 'W Night Laser (鼾症)', 'zh-CN': 'W Night Laser (鼾症)', en: 'W Night Laser (Snoring)' } as Record<Language, string>, price: '初回 ¥33,000' },
+      { slug: 'wclinic-rybelsus-3mg', name: { ja: 'リベルサス GLP-1 ダイエット (3mg)', 'zh-TW': 'Rybelsus GLP-1 減重 (3mg)', 'zh-CN': 'Rybelsus GLP-1 减重 (3mg)', en: 'Rybelsus GLP-1 Diet (3mg)' } as Record<Language, string>, price: '¥11,880/30錠' },
+      { slug: 'wclinic-hyperhidrosis-botox', name: { ja: '多汗症ボトックス 両ワキ (保険適用)', 'zh-TW': '多汗症肉毒 雙腋 (保險)', 'zh-CN': '多汗症肉毒 双腋 (保险)', en: 'Hyperhidrosis Botox (Insurance)' } as Record<Language, string>, price: '≈¥23,000' },
+      { slug: 'wclinic-testosterone-test', name: { ja: '男性ホルモン検査 (テストステロン)', 'zh-TW': '男性荷爾蒙檢測 (睾酮)', 'zh-CN': '男性荷尔蒙检测 (睾酮)', en: 'Testosterone Test' } as Record<Language, string>, price: '¥11,000' },
+      { slug: 'wclinic-food-allergy-test', name: { ja: 'フードアレルギー検査 (120項目)', 'zh-TW': '食物過敏檢測 (120項)', 'zh-CN': '食物过敏检测 (120项)', en: 'Food Allergy Test (120 items)' } as Record<Language, string>, price: '¥41,800' },
+      { slug: 'wclinic-counseling', name: { ja: 'カウンセリング', 'zh-TW': '諮詢', 'zh-CN': '咨询', en: 'Consultation' } as Record<Language, string>, price: '¥1,100' },
     ],
   },
 ];
@@ -735,9 +735,15 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   {isOpen && (
                     <div className="border-t border-gray-100 divide-y divide-gray-50">
                       {cat.items.map((item, i) => (
-                        <div key={i} className="flex justify-between items-center px-5 py-3 md:px-6 hover:bg-gray-50 transition">
-                          <span className="text-sm text-gray-700">{item.name[lang]}</span>
-                          <span className="text-sm font-bold text-[#00c300] whitespace-nowrap ml-4">{item.price}</span>
+                        <div key={i} className="flex items-center justify-between px-5 py-3 md:px-6 hover:bg-gray-50 transition gap-3">
+                          <span className="text-sm text-gray-700 flex-1 min-w-0">{item.name[lang]}</span>
+                          <span className="text-sm font-bold text-[#00c300] whitespace-nowrap">{item.price}</span>
+                          <Link
+                            href={guideSlug ? `/wclinic-mens/checkout/${item.slug}?guide=${guideSlug}` : `/wclinic-mens/checkout/${item.slug}`}
+                            className="shrink-0 text-xs font-bold bg-[#293f58] text-white px-3 py-1.5 rounded-full hover:bg-[#1a2a3e] transition whitespace-nowrap"
+                          >
+                            {lang === 'ja' ? '予約' : lang === 'en' ? 'Book' : '預約'}
+                          </Link>
                         </div>
                       ))}
                     </div>
