@@ -144,6 +144,11 @@ const tr = {
   // Access
   accessTag: { ja: 'アクセス', 'zh-TW': '交通', 'zh-CN': '交通', en: 'Access' } as Record<Language, string>,
   accessTitle: { ja: '関西空港から最も近いがん治療クリニック', 'zh-TW': '距關西機場最近的癌症治療診所', 'zh-CN': '距关西机场最近的癌症治疗诊所', en: 'Closest Cancer Clinic to Kansai Airport' } as Record<Language, string>,
+  accessRouteTag: { ja: '駅からのルート', 'zh-TW': '車站路線', 'zh-CN': '车站路线', en: 'Route from Station' } as Record<Language, string>,
+  accessRouteTitle: { ja: 'りんくうタウン駅からクリニックまで', 'zh-TW': '從臨空城站到診所', 'zh-CN': '从临空城站到诊所', en: 'Rinku Town Station to Clinic' } as Record<Language, string>,
+  accessRouteDesc: { ja: '駅から徒歩10分。実際の道のりを写真でご案内します。', 'zh-TW': '車站步行10分鐘。實拍路線照片指引。', 'zh-CN': '车站步行10分钟。实拍路线照片指引。', en: '10-minute walk from station. Photo guide of the actual route.' } as Record<Language, string>,
+  staffTag: { ja: 'スタッフ', 'zh-TW': '專業人員', 'zh-CN': '专业人员', en: 'Staff' } as Record<Language, string>,
+  staffTitle: { ja: 'プロフェッショナルスタッフ', 'zh-TW': '專業團隊', 'zh-CN': '专业团队', en: 'Professional Staff' } as Record<Language, string>,
 
   // Insurance & Payment
   insuranceTag: { ja: '健康保険・費用', 'zh-TW': '健康保險·費用', 'zh-CN': '健康保险·费用', en: 'Insurance & Costs' } as Record<Language, string>,
@@ -232,6 +237,50 @@ const DOCTORS = [
     specialty: { ja: '救急医学・IVR', 'zh-TW': '急診醫學·IVR', 'zh-CN': '急诊医学·IVR', en: 'Emergency Medicine, IVR' } as Record<Language, string>,
     photo: 'https://igtc.jp/images/staff/dr_takeuchi.jpg',
   },
+  {
+    name: { ja: '出嶋 育朗', 'zh-TW': '出嶋 育朗', 'zh-CN': '出岛 育朗', en: 'Ikuo Dejima' } as Record<Language, string>,
+    title: { ja: '非常勤医師', 'zh-TW': '兼職醫師', 'zh-CN': '兼职医师', en: 'Part-time Physician' } as Record<Language, string>,
+    specialty: { ja: '放射線診断・IVR', 'zh-TW': '放射診斷·IVR', 'zh-CN': '放射诊断·IVR', en: 'Radiology, IVR' } as Record<Language, string>,
+    photo: 'https://igtc.jp/images/staff/desaki.jpg',
+  },
+  {
+    name: { ja: '熊本 亮彦', 'zh-TW': '熊本 亮彥', 'zh-CN': '熊本 亮彦', en: 'Akihiko Kumamoto' } as Record<Language, string>,
+    title: { ja: '非常勤医師', 'zh-TW': '兼職醫師', 'zh-CN': '兼职医师', en: 'Part-time Physician' } as Record<Language, string>,
+    specialty: { ja: '放射線診断・IVR', 'zh-TW': '放射診斷·IVR', 'zh-CN': '放射诊断·IVR', en: 'Radiology, IVR' } as Record<Language, string>,
+    photo: 'https://igtc.jp/images/staff/st_dc_kumamoto2.jpg',
+  },
+];
+
+const STAFF = [
+  {
+    name: { ja: '雑賀 美和', 'zh-TW': '雜賀 美和', 'zh-CN': '杂贺 美和', en: 'Miwa Zaiga' } as Record<Language, string>,
+    title: { ja: '看護部長', 'zh-TW': '護理部長', 'zh-CN': '护理部长', en: 'Nursing Director' } as Record<Language, string>,
+    specialty: { ja: 'インターベンションエキスパートナース', 'zh-TW': 'IVR專家護士', 'zh-CN': 'IVR专家护士', en: 'Intervention Expert Nurse' } as Record<Language, string>,
+    photo: 'https://igtc.jp/images/staff/zatsuga.jpg',
+  },
+  {
+    name: { ja: '鳥井 将弘', 'zh-TW': '鳥井 將弘', 'zh-CN': '鸟井 将弘', en: 'Masahiro Torii' } as Record<Language, string>,
+    title: { ja: '国内事業部長', 'zh-TW': '國內事業部長', 'zh-CN': '国内事业部长', en: 'Domestic Director' } as Record<Language, string>,
+    specialty: { ja: '診療放射線技師', 'zh-TW': '放射技師', 'zh-CN': '放射技师', en: 'Radiological Technologist' } as Record<Language, string>,
+    photo: 'https://igtc.jp/images/staff/torii.jpg',
+  },
+  {
+    name: { ja: '陳 碧雯', 'zh-TW': '陳 碧雯', 'zh-CN': '陈 碧雯', en: 'Chen Biwen' } as Record<Language, string>,
+    title: { ja: '海外事業部長', 'zh-TW': '海外事業部長', 'zh-CN': '海外事业部长', en: 'International Director' } as Record<Language, string>,
+    specialty: { ja: '看護師・医療通訳', 'zh-TW': '護士·醫療翻譯', 'zh-CN': '护士·医疗翻译', en: 'Nurse, Medical Interpreter' } as Record<Language, string>,
+    photo: 'https://igtc.jp/images/staff/st_kaigai_chin2.jpg',
+  },
+];
+
+const ACCESS_ROUTE_PHOTOS = [
+  { src: 'https://igtc.jp/images/access/ac_eki_01.jpg', caption: { ja: 'りんくうタウン駅 改札口', 'zh-TW': '臨空城站 檢票口', 'zh-CN': '临空城站 检票口', en: 'Rinku Town Station Gate' } as Record<Language, string> },
+  { src: 'https://igtc.jp/images/access/ac_eki_02.jpg', caption: { ja: '駅出口から歩道橋へ', 'zh-TW': '車站出口往人行天橋', 'zh-CN': '车站出口往人行天桥', en: 'Exit to Pedestrian Bridge' } as Record<Language, string> },
+  { src: 'https://igtc.jp/images/access/ac_eki_03.jpg', caption: { ja: '歩道橋上の分岐点', 'zh-TW': '人行天橋分岔路口', 'zh-CN': '人行天桥分岔路口', en: 'Bridge Junction' } as Record<Language, string> },
+  { src: 'https://igtc.jp/images/access/ac_eki_04.jpg', caption: { ja: 'エレベーターを降りて', 'zh-TW': '電梯下來後', 'zh-CN': '电梯下来后', en: 'After Elevator' } as Record<Language, string> },
+  { src: 'https://igtc.jp/images/access/ac_eki_05.jpg', caption: { ja: '航空保安大学校の建物', 'zh-TW': '航空保安大學建築', 'zh-CN': '航空保安大学建筑', en: 'Aviation College Building' } as Record<Language, string> },
+  { src: 'https://igtc.jp/images/access/ac_eki_06.jpg', caption: { ja: 'メディカルりんくうポート入口', 'zh-TW': '醫療臨空港入口', 'zh-CN': '医疗临空港入口', en: 'Medical Rinku Port Entrance' } as Record<Language, string> },
+  { src: 'https://igtc.jp/images/access/ac_eki_07.jpg', caption: { ja: '1階エントランス', 'zh-TW': '1樓大廳', 'zh-CN': '1楼大厅', en: '1F Entrance Hall' } as Record<Language, string> },
+  { src: 'https://igtc.jp/images/access/ac_eki_08.jpg', caption: { ja: 'IGTクリニック4階受付', 'zh-TW': 'IGT診所4樓接待處', 'zh-CN': 'IGT诊所4楼接待处', en: 'IGT Clinic 4F Reception' } as Record<Language, string> },
 ];
 
 const CANCERS = [
@@ -589,7 +638,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.teamTitle, lang)}</h2>
             <p className="text-gray-600 mt-4 max-w-3xl mx-auto">{t(tr.teamDesc, lang)}</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
             {DOCTORS.map((doctor, i) => (
               <div key={i} className="bg-white rounded-2xl overflow-hidden border hover:shadow-xl transition">
                 <div className="aspect-[3/4] bg-gray-100">
@@ -599,12 +648,42 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="p-6">
-                  <div className="inline-block bg-blue-800 text-white px-3 py-1 rounded-full text-xs font-medium mb-3">
+                <div className="p-5">
+                  <div className="inline-block bg-blue-800 text-white px-2.5 py-1 rounded-full text-xs font-medium mb-2">
                     {t(doctor.title, lang)}
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{t(doctor.name, lang)}</h3>
-                  <p className="text-gray-600 text-sm">{t(doctor.specialty, lang)}</p>
+                  <h3 className="text-lg font-bold text-gray-900 mb-1.5">{t(doctor.name, lang)}</h3>
+                  <p className="text-gray-600 text-xs leading-relaxed">{t(doctor.specialty, lang)}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ========== PROFESSIONAL STAFF ========== */}
+      <section className="py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="text-blue-800 font-medium text-sm">{t(tr.staffTag, lang)}</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.staffTitle, lang)}</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {STAFF.map((staff, i) => (
+              <div key={i} className="bg-gradient-to-br from-blue-50 to-white rounded-2xl overflow-hidden border border-blue-100 hover:shadow-xl transition">
+                <div className="aspect-[4/3] bg-gray-100">
+                  <img
+                    src={staff.photo}
+                    alt={t(staff.name, lang)}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <div className="inline-block bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-medium mb-3">
+                    {t(staff.title, lang)}
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">{t(staff.name, lang)}</h3>
+                  <p className="text-gray-600 text-sm">{t(staff.specialty, lang)}</p>
                 </div>
               </div>
             ))}
@@ -872,6 +951,36 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                 title="IGT Clinic Location"
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========== ROUTE PHOTO GALLERY ========== */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="text-blue-800 font-medium text-sm">{t(tr.accessRouteTag, lang)}</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.accessRouteTitle, lang)}</h2>
+            <p className="text-gray-600 mt-4">{t(tr.accessRouteDesc, lang)}</p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {ACCESS_ROUTE_PHOTOS.map((photo, i) => (
+              <div key={i} className="bg-white rounded-xl overflow-hidden border hover:shadow-lg transition group">
+                <div className="aspect-[4/3] bg-gray-100 relative overflow-hidden">
+                  <img
+                    src={photo.src}
+                    alt={t(photo.caption, lang)}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute top-2 left-2 bg-blue-800 text-white px-2 py-1 rounded text-xs font-bold">
+                    {i + 1}
+                  </div>
+                </div>
+                <div className="p-3">
+                  <p className="text-xs text-gray-600 font-medium leading-tight">{t(photo.caption, lang)}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
