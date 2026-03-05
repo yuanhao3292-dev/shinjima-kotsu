@@ -897,9 +897,6 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
                 <div className="flex items-center gap-2 text-sm text-gray-700">
                   <Clock size={14} className="text-gray-400" /> 营业时间：9:00 - 18:00
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-700">
-                  <Phone size={14} className="text-gray-400" /> 电话：06-6147-5763
-                </div>
               </div>
               </div>
             </div>

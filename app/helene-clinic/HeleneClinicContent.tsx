@@ -109,6 +109,17 @@ const HELENE_IMAGES = {
   license6: 'https://stemcells.jp/wp-content/themes/helene/assets/images/img-license6.png?2307',
   license7: 'https://stemcells.jp/wp-content/themes/helene/assets/images/img-license7.png?2307',
   license8: 'https://stemcells.jp/wp-content/themes/helene/assets/images/img-license8.png?2307',
+  license9: 'https://stemcells.jp/wp-content/themes/helene/assets/images/img-license9.png',
+  license10: 'https://stemcells.jp/wp-content/themes/helene/assets/images/img-license10.png',
+  license11: 'https://stemcells.jp/wp-content/themes/helene/assets/images/img-license11.png',
+  license12: 'https://stemcells.jp/wp-content/themes/helene/assets/images/img-license12.png',
+  license13: 'https://stemcells.jp/wp-content/themes/helene/assets/images/img-license13.png',
+  license14: 'https://stemcells.jp/wp-content/themes/helene/assets/images/img-license14.png',
+  license15: 'https://stemcells.jp/wp-content/themes/helene/assets/images/img-license15.png',
+  license16: 'https://stemcells.jp/wp-content/themes/helene/assets/images/img-license16.png',
+  license17: 'https://stemcells.jp/wp-content/themes/helene/assets/images/img-license17.png',
+  license18: 'https://stemcells.jp/wp-content/themes/helene/assets/images/img-license18.png',
+  license19: 'https://stemcells.jp/wp-content/themes/helene/assets/images/img-license19.png',
 
   // Disease treatment banners
   diseaseBnr1: 'https://stemcells.jp/wp-content/themes/helene/assets/images/disease_bnr01.png',
@@ -297,11 +308,46 @@ const INDICATIONS = [
 // ======================================
 // Data: Technology
 // ======================================
-const TECH_ITEMS = [
-  { icon: Dna, title: { ja: '独自3D多層培養法', 'zh-TW': '獨有3D多層培養法', 'zh-CN': '独有3D多层培养法', en: 'Proprietary 3D Multi-Layer Culture' } as Record<Language, string>, desc: { ja: '一般的な2D培養の限界を超え、3D環境で効率的に大量培養。細胞サイズは競合培養より約20%小さく、血管閉塞リスクを低減', 'zh-TW': '突破一般2D培養限制，3D環境高效大量培養。細胞比競品培養小約20%，降低血管堵塞風險', 'zh-CN': '突破一般2D培养限制，3D环境高效大量培养。细胞比竞品培养小约20%，降低血管堵塞风险', en: 'Beyond standard 2D culture limits. 3D environment for efficient mass culture. Cells ~20% smaller, reducing embolism risk' } as Record<Language, string> },
-  { icon: Leaf, title: { ja: 'HELENE培地 — 動物由来成分フリー', 'zh-TW': 'HELENE培養基 — 無動物成分', 'zh-CN': 'HELENE培养基 — 无动物成分', en: 'HELENE Medium — Animal-Free' } as Record<Language, string>, desc: { ja: '独自開発の無血清・無異種（ゼノフリー）GMP品質培地。動物由来の感染リスクを排除し、より安全な細胞培養を実現', 'zh-TW': '自主研發的無血清·無異種（Xeno-Free）GMP品質培養基。排除動物源感染風險，實現更安全的細胞培養', 'zh-CN': '自主研发的无血清·无异种（Xeno-Free）GMP品质培养基。排除动物源感染风险，实现更安全的细胞培养', en: 'Proprietary serum-free, xeno-free GMP-grade medium. Eliminates animal-derived infection risks for safer cell culture' } as Record<Language, string> },
-  { icon: Beaker, title: { ja: '院内CPC — ISO 9001認証', 'zh-TW': '院內CPC — ISO 9001認證', 'zh-CN': '院内CPC — ISO 9001认证', en: 'In-House CPC — ISO 9001 Certified' } as Record<Language, string>, desc: { ja: 'ISO Class 5クリーンルームを院内に完備。外部委託なく、採取から培養・保管・投与まで全工程を院内で一貫管理', 'zh-TW': '院內配備ISO Class 5無塵室。無需外包，從採集到培養·保管·投與全程院內一貫管理', 'zh-CN': '院内配备ISO Class 5无尘室。无需外包，从采集到培养·保管·投与全程院内一贯管理', en: 'In-house ISO Class 5 clean room. No outsourcing — from harvest to culture, storage, and administration, all managed on-site' } as Record<Language, string> },
-  { icon: ShieldCheck, title: { ja: '第三者検証 — タカラバイオ', 'zh-TW': '第三方驗證 — Takara Bio', 'zh-CN': '第三方验证 — Takara Bio', en: 'Third-Party Verification by Takara Bio' } as Record<Language, string>, desc: { ja: 'GMP・GLP基準に準拠した第三者検査で品質を二重保証。エンドトキシン、マイコプラズマ、無菌性、細胞同一性を検証', 'zh-TW': '符合GMP·GLP標準的第三方檢測雙重保證品質。驗證內毒素、支原體、無菌性、細胞同一性', 'zh-CN': '符合GMP·GLP标准的第三方检测双重保证品质。验证内毒素、支原体、无菌性、细胞同一性', en: 'GMP/GLP-compliant third-party testing for dual quality assurance. Endotoxin, mycoplasma, sterility, cell identity verified' } as Record<Language, string> },
+// Each tech section matches stemcells.jp/technique/ official page structure
+const TECH_SECTIONS = [
+  {
+    icon: Leaf,
+    title: { ja: 'HELENE培地（無血清培地）', 'zh-TW': 'HELENE培養基（無血清培養基）', 'zh-CN': 'HELENE培养基（无血清培养基）', en: 'HELENE Medium (Serum-Free)' } as Record<Language, string>,
+    desc: { ja: '2018年ケンブリッジ国際幹細胞シンポジウムで研究成果を発表。独自開発の無血清・ゼノフリーGMP品質培地により、動物由来の感染リスクを排除。同期間でより多くの細胞を培養でき、1ヶ月最大22.5億個のMSCを培養可能。培養されたMSCのサイズは他社より約20%小さく、血管閉塞リスクを低減', 'zh-TW': '2018年在劍橋國際幹細胞研討會發表研究成果。自主研發的無血清·Xeno-Free GMP品質培養基，排除動物源感染風險。同期間可培養更多細胞，每月最多可培養22.5億個MSC。培養的MSC體積比其他機構小約20%，降低血管堵塞風險', 'zh-CN': '2018年在剑桥国际干细胞研讨会发表研究成果。自主研发的无血清·Xeno-Free GMP品质培养基，排除动物源感染风险。同期间可培养更多细胞，每月最多可培养22.5亿个MSC。培养的MSC体积比其他机构小约20%，降低血管堵塞风险', en: 'Research presented at 2018 Cambridge International Stem Cell Symposium. Proprietary serum-free, xeno-free GMP-grade medium eliminates animal-derived infection risks. Cultures more cells in the same period — up to 2.25 billion MSCs per month. Cultured MSCs are ~20% smaller than competitors, reducing embolism risk' } as Record<Language, string>,
+    // techAbout1/2: 530×720 each
+    images: [
+      { src: HELENE_IMAGES.techAbout1, w: 640, caption: { ja: 'ケンブリッジ大学シンポジウム 研究発表資料', 'zh-TW': '劍橋大學研討會 研究發表資料', 'zh-CN': '剑桥大学研讨会 研究发表资料', en: 'Cambridge Symposium Research Presentation' } as Record<Language, string> },
+      { src: HELENE_IMAGES.techAbout2, w: 640, caption: { ja: 'HELENE培地による培養データ', 'zh-TW': 'HELENE培養基培養數據', 'zh-CN': 'HELENE培养基培养数据', en: 'HELENE Medium Culture Data' } as Record<Language, string> },
+    ],
+  },
+  {
+    icon: ShieldCheck,
+    title: { ja: '幹細胞品質保証', 'zh-TW': '幹細胞品質保證', 'zh-CN': '干细胞品质保证', en: 'Stem Cell Quality Assurance' } as Record<Language, string>,
+    desc: { ja: 'GMP・GLP基準に準拠した第三者検査（タカラバイオ）で品質を二重保証。無菌試験（陰性）、マイコプラズマ否定試験（陰性）、エンドトキシン試験（検出限界以下）、コロニー形成試験（陰性）、FCM試験（CD45- 92.1%、CD105+ 100%）— すべての検査で基準を上回る結果', 'zh-TW': '符合GMP·GLP標準的第三方檢測（Takara Bio）雙重品質保證。無菌試驗（陰性）、支原體否定試驗（陰性）、內毒素試驗（低於檢測限）、菌落形成試驗（陰性）、FCM試驗（CD45- 92.1%、CD105+ 100%）— 所有檢測均超過標準', 'zh-CN': '符合GMP·GLP标准的第三方检测（Takara Bio）双重品质保证。无菌试验（阴性）、支原体否定试验（阴性）、内毒素试验（低于检测限）、菌落形成试验（阴性）、FCM试验（CD45- 92.1%、CD105+ 100%）— 所有检测均超过标准', en: 'GMP/GLP-compliant third-party testing (Takara Bio) for dual quality assurance. Sterility test (negative), mycoplasma test (negative), endotoxin test (below detection limit), colony-forming test (negative), FCM test (CD45- 92.1%, CD105+ 100%) — all tests exceed standards' } as Record<Language, string>,
+    // techGuarantee: 360×480 — small source, must constrain display
+    images: [
+      { src: HELENE_IMAGES.techGuarantee, w: 384, caption: { ja: '品質検査報告書一覧', 'zh-TW': '品質檢測報告書一覽', 'zh-CN': '品质检测报告书一览', en: 'Quality Test Report Summary' } as Record<Language, string> },
+    ],
+  },
+  {
+    icon: Dna,
+    title: { ja: '採取部位の脂肪の違い — 耳裏 vs 腹部', 'zh-TW': '採取部位脂肪差異 — 耳後 vs 腹部', 'zh-CN': '采取部位脂肪差异 — 耳后 vs 腹部', en: 'Fat Collection Site — Behind Ear vs Abdomen' } as Record<Language, string>,
+    desc: { ja: '耳裏脂肪を採用：痛みが少なく（麻酔後は無痛）、内出血がほぼなく、絆創膏圧迫のみで処置完了。腹部脂肪は痛みが強く（打撲のような痛み）、内出血が多く、ガーゼ圧迫が必要。耳裏からわずか5mmの皮膚片を採取し、院内CPCで最大22.5億個まで培養', 'zh-TW': '採用耳後脂肪：疼痛少（麻醉後無痛）、幾乎無內出血、僅需繃帶壓迫即可完成。腹部脂肪疼痛強（瘀傷樣疼痛）、內出血多、需紗布壓迫。從耳後僅採取5mm皮膚片，院內CPC培養最多22.5億個', 'zh-CN': '采用耳后脂肪：疼痛少（麻醉后无痛）、几乎无内出血、仅需创可贴压迫即可完成。腹部脂肪疼痛强（淤伤样疼痛）、内出血多、需纱布压迫。从耳后仅采取5mm皮肤片，院内CPC培养最多22.5亿个', en: 'Uses behind-ear fat: minimal pain (painless after anesthesia), virtually no bruising, only bandage needed. Abdominal fat causes stronger pain (bruise-like), more bruising, requires gauze compression. Only 5mm skin sample from behind ear, cultured up to 2.25B cells in-house' } as Record<Language, string>,
+    // techDiff: 1100×363 (wide comparison image — high-res)
+    images: [
+      { src: HELENE_IMAGES.techDiff, w: 1080, caption: { ja: '耳裏脂肪 vs 腹部脂肪 — 採取部位の違い', 'zh-TW': '耳後脂肪 vs 腹部脂肪 — 採取部位差異', 'zh-CN': '耳后脂肪 vs 腹部脂肪 — 采取部位差异', en: 'Behind-Ear vs Abdominal Fat — Collection Site Comparison' } as Record<Language, string> },
+    ],
+  },
+  {
+    icon: Microscope,
+    title: { ja: '幹細胞数量の精密確認方法', 'zh-TW': '幹細胞數量精密確認方法', 'zh-CN': '干细胞数量精密确认方法', en: 'Precise Cell Count Verification' } as Record<Language, string>,
+    desc: { ja: '2段階検証：STEP1 — Thermo Fisher Countess II FL セルカウンターでトリパンブルー染色により生細胞と死細胞を識別、自動照明・焦点調整。STEP2 — ZEISS Axio Vert.A1顕微鏡と独自開発AI画像認識プログラムで細胞骨格を分析し、計算精度はほぼ100%を実現', 'zh-TW': '兩步驟驗證：STEP1 — Thermo Fisher Countess II FL 細胞計數器，以台盤藍染料區分活細胞與死細胞，自動照明·焦點調整。STEP2 — ZEISS Axio Vert.A1顯微鏡搭配自主開發AI影像辨識程式分析細胞骨架，計算精度接近100%', 'zh-CN': '两步骤验证：STEP1 — Thermo Fisher Countess II FL 细胞计数器，以台盼蓝染料区分活细胞与死细胞，自动照明·焦点调整。STEP2 — ZEISS Axio Vert.A1显微镜搭配自主开发AI图像识别程序分析细胞骨架，计算精度接近100%', en: 'Two-step verification: STEP 1 — Thermo Fisher Countess II FL cell counter with trypan blue staining to distinguish live/dead cells, auto illumination & focus. STEP 2 — ZEISS Axio Vert.A1 microscope with proprietary AI image recognition analyzing cell cytoskeleton, achieving near 100% counting accuracy' } as Record<Language, string>,
+    // equipment6: Countess 3 FL (600×600), equipment3: Leica DMi1 microscope (600×600)
+    images: [
+      { src: HELENE_IMAGES.equipment6, w: 640, caption: { ja: 'STEP1: Countess II FL セルカウンター', 'zh-TW': 'STEP1: Countess II FL 細胞計數器', 'zh-CN': 'STEP1: Countess II FL 细胞计数器', en: 'STEP 1: Countess II FL Cell Counter' } as Record<Language, string> },
+      { src: HELENE_IMAGES.equipment3, w: 640, caption: { ja: 'STEP2: 倒立型位相差顕微鏡 + AI画像認識', 'zh-TW': 'STEP2: 倒立式相差顯微鏡 + AI影像辨識', 'zh-CN': 'STEP2: 倒立式相差显微镜 + AI图像识别', en: 'STEP 2: Inverted Phase-Contrast Microscope + AI Recognition' } as Record<Language, string> },
+    ],
+  },
 ];
 
 // ======================================
@@ -349,29 +395,40 @@ const MHLW_LICENSES = [
   HELENE_IMAGES.license6,
   HELENE_IMAGES.license7,
   HELENE_IMAGES.license8,
+  HELENE_IMAGES.license9,
+  HELENE_IMAGES.license10,
+  HELENE_IMAGES.license11,
+  HELENE_IMAGES.license12,
+  HELENE_IMAGES.license13,
+  HELENE_IMAGES.license14,
+  HELENE_IMAGES.license15,
+  HELENE_IMAGES.license16,
+  HELENE_IMAGES.license17,
+  HELENE_IMAGES.license18,
+  HELENE_IMAGES.license19,
 ];
 
 // ======================================
 // Facility gallery
 // ======================================
 const FACILITY_GALLERY = [
-  { src: HELENE_IMAGES.facility1, label: { ja: '受付・ロビー', 'zh-TW': '接待·大廳', 'zh-CN': '接待·大厅', en: 'Reception & Lobby' } as Record<Language, string> },
-  { src: HELENE_IMAGES.facility3, label: { ja: '診察室', 'zh-TW': '診察室', 'zh-CN': '诊察室', en: 'Consultation Room' } as Record<Language, string> },
-  { src: HELENE_IMAGES.facility5, label: { ja: '処置室', 'zh-TW': '處置室', 'zh-CN': '处置室', en: 'Treatment Room' } as Record<Language, string> },
-  { src: HELENE_IMAGES.facility7, label: { ja: '培養室（CPC）', 'zh-TW': '培養室（CPC）', 'zh-CN': '培养室（CPC）', en: 'Cell Culture Room (CPC)' } as Record<Language, string> },
-  { src: HELENE_IMAGES.facility4, label: { ja: '点滴ルーム', 'zh-TW': '點滴室', 'zh-CN': '点滴室', en: 'IV Infusion Room' } as Record<Language, string> },
-  { src: HELENE_IMAGES.facility8, label: { ja: 'ラウンジ', 'zh-TW': '貴賓休息室', 'zh-CN': '贵宾休息室', en: 'Lounge' } as Record<Language, string> },
+  { src: HELENE_IMAGES.aoClinic, label: { ja: 'ヘレネAOビルクリニック', 'zh-TW': 'HELENE AO大樓診所', 'zh-CN': 'HELENE AO大楼诊所', en: 'HELENE AO Building Clinic' } as Record<Language, string> },
+  { src: HELENE_IMAGES.aoGallery1, label: { ja: '院内施設', 'zh-TW': '院內設施', 'zh-CN': '院内设施', en: 'Clinic Interior' } as Record<Language, string> },
+  { src: HELENE_IMAGES.aoGallery2, label: { ja: '診察・処置エリア', 'zh-TW': '診察·處置區', 'zh-CN': '诊察·处置区', en: 'Consultation & Treatment Area' } as Record<Language, string> },
+  { src: HELENE_IMAGES.aoGallery3, label: { ja: 'カウンセリングルーム', 'zh-TW': '諮詢室', 'zh-CN': '咨询室', en: 'Counseling Room' } as Record<Language, string> },
+  { src: HELENE_IMAGES.aoLabo, label: { ja: '培養室（CPC）', 'zh-TW': '培養室（CPC）', 'zh-CN': '培养室（CPC）', en: 'Cell Processing Center (CPC)' } as Record<Language, string> },
+  { src: HELENE_IMAGES.techClinic, label: { ja: '表参道本院', 'zh-TW': '表參道本院', 'zh-CN': '表参道本院', en: 'Omotesando Main Clinic' } as Record<Language, string> },
 ];
 
 // ======================================
 // Facility strip
 // ======================================
 const FACILITY_STRIP = [
+  HELENE_IMAGES.facility1,
+  HELENE_IMAGES.facility3,
+  HELENE_IMAGES.facility5,
+  HELENE_IMAGES.facility7,
   HELENE_IMAGES.facility9,
-  HELENE_IMAGES.techClinic,
-  HELENE_IMAGES.aoClinic,
-  HELENE_IMAGES.aoGallery1,
-  HELENE_IMAGES.aoGallery2,
 ];
 
 // ======================================
@@ -608,57 +665,48 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
         </div>
       </section>
 
-      {/* ============ Technology (Left text + Right images) ============ */}
+      {/* ============ Technology — 4 sections from stemcells.jp/technique/ ============ */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
             <span className="text-[#007130] text-xs tracking-widest uppercase font-bold">{t('techTag')}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t('techTitle')}</h2>
           </div>
-          <div className="grid md:grid-cols-2 gap-10 items-start">
-            <div className="space-y-5">
-              {TECH_ITEMS.map((item, i) => (
-                <div key={i} className="bg-white rounded-xl border border-gray-200 p-5">
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
-                      <item.icon size={20} className="text-[#007130]" />
+          <div className="space-y-16">
+            {TECH_SECTIONS.map((sec, si) => (
+              <div key={si} className="grid md:grid-cols-2 gap-10 items-start">
+                {/* Text side */}
+                <div className={si % 2 === 1 ? 'md:order-2' : ''}>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-11 h-11 rounded-xl bg-[#007130] flex items-center justify-center flex-shrink-0">
+                      <sec.icon size={22} className="text-white" />
                     </div>
-                    <div>
-                      <h4 className="font-bold text-gray-900 text-sm mb-1">{item.title[lang]}</h4>
-                      <p className="text-xs text-gray-600 leading-relaxed">{item.desc[lang]}</p>
-                    </div>
+                    <h3 className="text-lg font-bold text-gray-900">{sec.title[lang]}</h3>
                   </div>
+                  <p className="text-sm text-gray-600 leading-relaxed">{sec.desc[lang]}</p>
                 </div>
-              ))}
-            </div>
-            {/* Right side: technique comparison images from official site */}
-            <div className="space-y-4">
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
-                <img src={img(HELENE_IMAGES.techAbout1, 1080)} alt="HELENE 3D Culture Technology" className="absolute inset-0 w-full h-full object-contain bg-white" />
+                {/* Images side — constrained to native resolution to avoid pixel stretch */}
+                <div className={`flex flex-col items-center gap-3 ${si % 2 === 1 ? 'md:order-1' : ''}`}>
+                  {sec.images.length === 1 ? (
+                    <div className="bg-white rounded-xl border border-gray-200 p-4 inline-block w-full max-w-md">
+                      <img src={img(sec.images[0].src, sec.images[0].w)} alt={sec.images[0].caption[lang]} className="w-full h-auto object-contain rounded-lg" />
+                      <p className="text-xs text-gray-500 text-center mt-3 font-medium">{sec.images[0].caption[lang]}</p>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-2 gap-3 w-full max-w-lg">
+                      {sec.images.map((image, ii) => (
+                        <div key={ii} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                          <div className="p-2 flex items-center justify-center">
+                            <img src={img(image.src, image.w)} alt={image.caption[lang]} className="max-w-full h-auto object-contain" />
+                          </div>
+                          <p className="text-xs text-gray-500 text-center py-2 px-2 font-medium border-t border-gray-100">{image.caption[lang]}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="relative aspect-square rounded-xl overflow-hidden shadow">
-                  <img src={img(HELENE_IMAGES.techDiff1, 828)} alt="Cell comparison 1" className="absolute inset-0 w-full h-full object-cover" />
-                </div>
-                <div className="relative aspect-square rounded-xl overflow-hidden shadow">
-                  <img src={img(HELENE_IMAGES.techDiff2, 828)} alt="Cell comparison 2" className="absolute inset-0 w-full h-full object-cover" />
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow">
-                  <img src={img(HELENE_IMAGES.techConfirm1, 828)} alt="Quality verification 1" className="absolute inset-0 w-full h-full object-cover" />
-                </div>
-                <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow">
-                  <img src={img(HELENE_IMAGES.techConfirm2, 828)} alt="Quality verification 2" className="absolute inset-0 w-full h-full object-cover" />
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* Guarantee badge */}
-          <div className="mt-10 flex justify-center">
-            <div className="bg-white rounded-xl border border-gray-200 p-4 max-w-md">
-              <img src={img(HELENE_IMAGES.techGuarantee, 828)} alt="Quality Guarantee" className="w-full object-contain" />
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -674,7 +722,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
             {DOCTORS.map((doc, i) => (
               <div key={i} className="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-all">
                 <div className="relative aspect-[3/4] bg-gray-100 overflow-hidden">
-                  <img src={img(doc.photo, 828)} alt={doc.name[lang]} className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" />
+                  <img src={img(doc.photo, 1080)} alt={doc.name[lang]} className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" />
                 </div>
                 <div className="p-4">
                   <h3 className="font-bold text-gray-900">{doc.name[lang]}</h3>
@@ -691,7 +739,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
       <section className="relative">
         <div className="grid md:grid-cols-2">
           <div className="relative min-h-[40vh] overflow-hidden">
-            <img src={img(HELENE_IMAGES.guptaLab, 1080)} alt="Prof. Gupta Research" className="absolute inset-0 w-full h-full object-cover" />
+            <img src={img(HELENE_IMAGES.guptaLab, 1200)} alt="Prof. Gupta Research" className="absolute inset-0 w-full h-full object-cover" />
           </div>
           <div className="bg-[#007130] text-white flex items-center p-10 md:p-14">
             <div>
@@ -721,7 +769,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
           {/* Lab intro with main photo */}
           <div className="grid md:grid-cols-2 gap-10 items-center mb-12">
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
-              <img src={img(HELENE_IMAGES.labClinic, 1080)} alt="HELENE CPC" className="absolute inset-0 w-full h-full object-cover" />
+              <img src={img(HELENE_IMAGES.aoLabo, 1080)} alt="HELENE CPC" className="absolute inset-0 w-full h-full object-cover" />
             </div>
             <div>
               <span className="text-[#007130] text-xs tracking-widest uppercase font-bold">{t('labTag')}</span>
@@ -820,14 +868,14 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t('certsTitle')}</h2>
           </div>
           {/* Main certification badges with real images */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8">
             {CERTIFICATIONS.map((cert, i) => (
-              <div key={i} className="bg-white rounded-xl border border-gray-200 p-5 text-center hover:shadow-md transition">
-                <div className="h-20 flex items-center justify-center mb-3">
-                  <img src={img(cert.image, 384)} alt={cert.title} className="max-h-full max-w-full object-contain" />
+              <div key={i} className="bg-white rounded-xl border border-gray-200 p-6 text-center hover:shadow-md transition">
+                <div className="h-40 flex items-center justify-center mb-4">
+                  <img src={img(cert.image, 828)} alt={cert.title} className="max-h-full max-w-full object-contain" />
                 </div>
-                <p className="font-bold text-gray-900 text-sm">{cert.title}</p>
-                <p className="text-xs text-gray-500 mt-1">{cert.desc[lang]}</p>
+                <p className="font-bold text-gray-900">{cert.title}</p>
+                <p className="text-sm text-gray-500 mt-1">{cert.desc[lang]}</p>
               </div>
             ))}
           </div>
@@ -836,24 +884,15 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
             <p className="text-center text-sm font-bold text-gray-700 mb-4">
               {lang === 'ja' ? '厚生労働省 再生医療等提供計画 認可証' : lang === 'en' ? 'MHLW Regenerative Medicine Plan Licenses' : lang === 'zh-TW' ? '厚生勞動省 再生醫療等提供計畫 認可證' : '厚生劳动省 再生医疗等提供计划 认可证'}
             </p>
-            <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {MHLW_LICENSES.map((src, i) => (
-                <div key={i} className="bg-gray-50 rounded-lg p-2 flex items-center justify-center">
-                  <img src={img(src, 384)} alt={`MHLW License ${i + 1}`} className="max-h-24 object-contain" />
+                <div key={i} className="bg-gray-50 rounded-lg p-3 flex items-center justify-center">
+                  <img src={img(src, 828)} alt={`MHLW License ${i + 1}`} className="max-h-48 object-contain" />
                 </div>
               ))}
             </div>
           </div>
         </div>
-      </section>
-
-      {/* ============ Facility Strip ============ */}
-      <section className="grid grid-cols-2 md:grid-cols-5">
-        {FACILITY_STRIP.map((src, i) => (
-          <div key={i} className="relative aspect-[3/2] overflow-hidden group">
-            <img src={img(src, 828)} alt={`HELENE Facility ${i + 1}`} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-          </div>
-        ))}
       </section>
 
       {/* ============ Treatment Pricing ============ */}
@@ -965,13 +1004,6 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Phone size={16} className="text-[#007130] mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="font-medium text-gray-800">{lang === 'ja' ? '電話' : lang === 'en' ? 'Phone' : lang === 'zh-TW' ? '電話' : '电话'}</p>
-                    <p>+81-3-3400-2277</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
                   <Clock size={16} className="text-[#007130] mt-0.5 flex-shrink-0" />
                   <div>
                     <p className="font-medium text-gray-800">{lang === 'ja' ? '診療時間' : lang === 'en' ? 'Hours' : lang === 'zh-TW' ? '診療時間' : '诊疗时间'}</p>
@@ -990,7 +1022,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
             </div>
             <div className="space-y-4">
               <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg">
-                <img src={img(HELENE_IMAGES.facility2, 1080)} alt="HELENE Clinic Exterior" className="absolute inset-0 w-full h-full object-cover" />
+                <img src={img(HELENE_IMAGES.aoClinic, 1080)} alt="HELENE Clinic Exterior" className="absolute inset-0 w-full h-full object-cover" />
               </div>
               <div className="relative rounded-xl overflow-hidden shadow-lg">
                 <img src={img(HELENE_IMAGES.multilingualStaff, 1080)} alt="Multilingual Staff" className="w-full object-contain" />
@@ -1003,31 +1035,18 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
         </div>
       </section>
 
-      {/* ============ Contact ============ */}
-      <section className="py-16 bg-white border-t border-gray-100">
-        <div className="container mx-auto px-6 text-center">
-          <h3 className="text-xl font-bold text-gray-900 mb-6">{t('contactTitle')}</h3>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a href="https://line.me/R/ti/p/@shinjima" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[#06C755] text-white font-bold px-6 py-3 rounded-xl hover:opacity-90 transition">
-              <MessageSquare size={18} />
-              LINE
-            </a>
-            <a href="mailto:info@niijima-koutsu.jp" className="inline-flex items-center gap-2 bg-[#007130] text-white font-bold px-6 py-3 rounded-xl hover:bg-[#005a26] transition">
-              <Mail size={18} />
-              Email
-            </a>
-          </div>
-          <p className="text-xs text-gray-400 mt-4">
-            {lang === 'ja'
-              ? '※ 当サイトは表参道ヘレネクリニックの公式サイトではありません。医療ツーリズムの仲介サービスです。'
-              : lang === 'en'
-              ? '* This is not the official HELENE Clinic website. We provide medical tourism coordination services.'
-              : lang === 'zh-TW'
-              ? '※ 本站非表參道HELENE診所官網。我們提供醫療旅遊協調服務。'
-              : '※ 本站非表参道HELENE诊所官网。我们提供医疗旅游协调服务。'}
-          </p>
-        </div>
-      </section>
+      {/* ============ Disclaimer ============ */}
+      <div className="py-6 bg-white border-t border-gray-100">
+        <p className="text-xs text-gray-400 text-center px-6">
+          {lang === 'ja'
+            ? '※ 当サイトは表参道ヘレネクリニックの公式サイトではありません。医療ツーリズムの仲介サービスです。'
+            : lang === 'en'
+            ? '* This is not the official HELENE Clinic website. We provide medical tourism coordination services.'
+            : lang === 'zh-TW'
+            ? '※ 本站非表參道HELENE診所官網。我們提供醫療旅遊協調服務。'
+            : '※ 本站非表参道HELENE诊所官网。我们提供医疗旅游协调服务。'}
+        </p>
+      </div>
     </div>
   );
 }

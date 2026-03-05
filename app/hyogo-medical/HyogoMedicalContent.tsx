@@ -283,7 +283,6 @@ const t = {
   accessLabelAddress: { ja: '所在地', 'zh-TW': '地址', 'zh-CN': '地址', en: 'Address' } as Record<Language, string>,
   accessLabelTrain: { ja: '電車でお越しの方', 'zh-TW': '電車交通', 'zh-CN': '电车交通', en: 'By Train' } as Record<Language, string>,
   accessLabelHours: { ja: '外来受付時間', 'zh-TW': '門診時間', 'zh-CN': '门诊时间', en: 'Outpatient Hours' } as Record<Language, string>,
-  accessLabelPhone: { ja: '代表電話', 'zh-TW': '電話', 'zh-CN': '电话', en: 'Phone' } as Record<Language, string>,
 
   // Footer / form
   privacyLabel: { ja: 'プライバシー保護', 'zh-TW': '隱私保護', 'zh-CN': '隐私保护', en: 'Privacy Protected' } as Record<Language, string>,
@@ -1703,15 +1702,6 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                     <h4 className="font-bold text-gray-800 mb-1 font-serif">{t.accessLabelHours[lang]}</h4>
                     <p className="text-sm text-gray-500">{t.hoursWeekday[lang]}</p>
                     <p className="text-xs text-gray-400 mt-1">{t.hoursClosed[lang]}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-[#ecf3f1] text-[#0f7459] rounded-full flex items-center justify-center shrink-0"><Phone size={20} /></div>
-                  <div>
-                    <h4 className="font-bold text-gray-800 mb-1 font-serif">{t.accessLabelPhone[lang]}</h4>
-                    <p className="text-sm text-gray-500">0798-45-6111</p>
                   </div>
                 </div>
               </div>
