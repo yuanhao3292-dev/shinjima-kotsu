@@ -82,6 +82,29 @@ const tr = {
   techHyperPoint2: { ja: '細胞死誘導：熱によりがん細胞のアポトーシスを促進', 'zh-TW': '誘導細胞死亡：熱促進癌細胞凋亡', 'zh-CN': '诱导细胞死亡：热促进癌细胞凋亡', en: 'Induce cell death: Heat promotes cancer cell apoptosis' } as Record<Language, string>,
   techHyperPoint3: { ja: '相乗効果：他治療との併用で効果増強', 'zh-TW': '協同效應：與其他治療併用增強效果', 'zh-CN': '协同效应：与其他治疗并用增强效果', en: 'Synergy: Enhanced effect when combined with other treatments' } as Record<Language, string>,
 
+  // Medical Team
+  teamTag: { ja: '医療チーム', 'zh-TW': '醫療團隊', 'zh-CN': '医疗团队', en: 'Medical Team' } as Record<Language, string>,
+  teamTitle: { ja: '専門医による高度な治療', 'zh-TW': '專科醫生提供高水準治療', 'zh-CN': '专科医生提供高水准治疗', en: 'Expert Medical Care' } as Record<Language, string>,
+  teamDesc: { ja: '放射線診断とIVRの専門医が、患者様一人ひとりに最適な治療を提供します', 'zh-TW': '放射診斷與IVR專科醫生為每位患者提供最適合的治療', 'zh-CN': '放射诊断与IVR专科医生为每位患者提供最适合的治疗', en: 'Radiology and IVR specialists provide personalized treatment for each patient' } as Record<Language, string>,
+
+  doctorDirector: { ja: '院長', 'zh-TW': '院長', 'zh-CN': '院长', en: 'Director' } as Record<Language, string>,
+  doctorChairman: { ja: '理事長', 'zh-TW': '理事長', 'zh-CN': '理事长', en: 'Chairman' } as Record<Language, string>,
+  doctorPhysician: { ja: '医師', 'zh-TW': '醫師', 'zh-CN': '医师', en: 'Physician' } as Record<Language, string>,
+  doctorPartTime: { ja: '非常勤医師', 'zh-TW': '兼職醫師', 'zh-CN': '兼职医师', en: 'Part-time Physician' } as Record<Language, string>,
+
+  // Patient Support
+  supportTag: { ja: '患者サポート', 'zh-TW': '患者支援', 'zh-CN': '患者支持', en: 'Patient Support' } as Record<Language, string>,
+  supportTitle: { ja: '充実した相談体制', 'zh-TW': '完善的諮詢體制', 'zh-CN': '完善的咨询体制', en: 'Comprehensive Support System' } as Record<Language, string>,
+
+  supportSecond: { ja: 'セカンドオピニオン', 'zh-TW': '第二意見諮詢', 'zh-CN': '第二意见咨询', en: 'Second Opinion' } as Record<Language, string>,
+  supportSecondDesc: { ja: '標準治療で効果が得られなかった方、副作用で治療継続が困難な方のご相談に対応', 'zh-TW': '為標準治療效果不佳、因副作用難以繼續治療的患者提供諮詢', 'zh-CN': '为标准治疗效果不佳、因副作用难以继续治疗的患者提供咨询', en: 'For patients with limited standard treatment response or unable to continue due to side effects' } as Record<Language, string>,
+
+  supportOnline: { ja: 'オンライン診療', 'zh-TW': '線上診療', 'zh-CN': '在线诊疗', en: 'Online Consultation' } as Record<Language, string>,
+  supportOnlineDesc: { ja: '遠方の方でも専門医との診療が可能。治療計画の相談や経過観察に対応', 'zh-TW': '遠方患者也可與專科醫生會診。提供治療計劃諮詢與追蹤觀察', 'zh-CN': '远方患者也可与专科医生会诊。提供治疗计划咨询与追踪观察', en: 'Remote consultations available for treatment planning and follow-up' } as Record<Language, string>,
+
+  supportEmail: { ja: '無料メール相談', 'zh-TW': '免費郵件諮詢', 'zh-CN': '免费邮件咨询', en: 'Free Email Consultation' } as Record<Language, string>,
+  supportEmailDesc: { ja: '来院が難しい方向けに、1回まで無料でメール相談を受け付けています', 'zh-TW': '無法來院者可免費進行一次郵件諮詢', 'zh-CN': '无法来院者可免费进行一次邮件咨询', en: 'One complimentary email consultation available for those unable to visit' } as Record<Language, string>,
+
   // Treatments
   treatTag: { ja: '治療方法', 'zh-TW': '治療方法', 'zh-CN': '治疗方法', en: 'Treatment Methods' } as Record<Language, string>,
   treatTitle: { ja: '2つの専門治療', 'zh-TW': '兩大專業治療', 'zh-CN': '两大专业治疗', en: 'Two Specialized Treatments' } as Record<Language, string>,
@@ -151,9 +174,30 @@ const tr = {
 // ======================================
 const STATS = [
   { icon: Activity, value: '20+', label: { ja: '年の治療経験', 'zh-TW': '年治療經驗', 'zh-CN': '年治疗经验', en: 'Years Experience' } as Record<Language, string> },
-  { icon: Stethoscope, value: '10+', label: { ja: '種類以上のがん', 'zh-TW': '種癌症以上', 'zh-CN': '种癌症以上', en: 'Cancer Types' } as Record<Language, string> },
+  { icon: Stethoscope, value: '12+', label: { ja: '対応がん種', 'zh-TW': '適應癌種', 'zh-CN': '适应癌种', en: 'Cancer Types' } as Record<Language, string> },
   { icon: Shield, value: '月次', label: { ja: '実績公開', 'zh-TW': '每月公開實績', 'zh-CN': '每月公开实绩', en: 'Monthly Reports' } as Record<Language, string> },
   { icon: Award, value: '国際', label: { ja: '学会発表', 'zh-TW': '國際學會發表', 'zh-CN': '国际学会发表', en: 'Intl. Conference' } as Record<Language, string> },
+];
+
+const DOCTORS = [
+  {
+    name: { ja: '堀 篤史', 'zh-TW': '堀 篤史', 'zh-CN': '堀 笃史', en: 'Atsushi Hori' } as Record<Language, string>,
+    title: { ja: '院長', 'zh-TW': '院長', 'zh-CN': '院长', en: 'Director' } as Record<Language, string>,
+    specialty: { ja: '放射線診断・IVR・温熱治療', 'zh-TW': '放射診斷·IVR·溫熱療法', 'zh-CN': '放射诊断·IVR·温热疗法', en: 'Radiology, IVR, Hyperthermia' } as Record<Language, string>,
+    photo: 'https://igtc.jp/images/staff/atsushi-hori.jpg',
+  },
+  {
+    name: { ja: '堀 信一', 'zh-TW': '堀 信一', 'zh-CN': '堀 信一', en: 'Shinichi Hori' } as Record<Language, string>,
+    title: { ja: '理事長', 'zh-TW': '理事長', 'zh-CN': '理事长', en: 'Chairman' } as Record<Language, string>,
+    specialty: { ja: '放射線診断・IVR', 'zh-TW': '放射診斷·IVR', 'zh-CN': '放射诊断·IVR', en: 'Radiology, IVR' } as Record<Language, string>,
+    photo: 'https://igtc.jp/images/staff/shinichi-hori.jpg',
+  },
+  {
+    name: { ja: '竹内 誠人', 'zh-TW': '竹內 誠人', 'zh-CN': '竹内 诚人', en: 'Masato Takeuchi' } as Record<Language, string>,
+    title: { ja: '医師', 'zh-TW': '醫師', 'zh-CN': '医师', en: 'Physician' } as Record<Language, string>,
+    specialty: { ja: '救急医学・IVR', 'zh-TW': '急診醫學·IVR', 'zh-CN': '急诊医学·IVR', en: 'Emergency Medicine, IVR' } as Record<Language, string>,
+    photo: 'https://igtc.jp/images/staff/dr_takeuchi.jpg',
+  },
 ];
 
 const CANCERS = [
@@ -468,6 +512,75 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                 <p className="text-gray-600 text-sm leading-relaxed">{t(a.desc, lang)}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ========== MEDICAL TEAM ========== */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="text-blue-800 font-medium text-sm">{t(tr.teamTag, lang)}</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.teamTitle, lang)}</h2>
+            <p className="text-gray-600 mt-4 max-w-3xl mx-auto">{t(tr.teamDesc, lang)}</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {DOCTORS.map((doctor, i) => (
+              <div key={i} className="bg-white rounded-2xl overflow-hidden border hover:shadow-xl transition">
+                <div className="aspect-[3/4] bg-gray-100">
+                  <img
+                    src={doctor.photo}
+                    alt={t(doctor.name, lang)}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <div className="inline-block bg-blue-800 text-white px-3 py-1 rounded-full text-xs font-medium mb-3">
+                    {t(doctor.title, lang)}
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">{t(doctor.name, lang)}</h3>
+                  <p className="text-gray-600 text-sm">{t(doctor.specialty, lang)}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ========== PATIENT SUPPORT ========== */}
+      <section className="py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="text-blue-800 font-medium text-sm">{t(tr.supportTag, lang)}</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.supportTitle, lang)}</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Second Opinion */}
+            <div className="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 border border-blue-100 hover:shadow-lg transition">
+              <div className="w-14 h-14 bg-blue-800 rounded-2xl flex items-center justify-center mb-4">
+                <Stethoscope size={28} className="text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.supportSecond, lang)}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">{t(tr.supportSecondDesc, lang)}</p>
+            </div>
+
+            {/* Online Consultation */}
+            <div className="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 border border-blue-100 hover:shadow-lg transition">
+              <div className="w-14 h-14 bg-blue-800 rounded-2xl flex items-center justify-center mb-4">
+                <Globe size={28} className="text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.supportOnline, lang)}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">{t(tr.supportOnlineDesc, lang)}</p>
+            </div>
+
+            {/* Email Consultation */}
+            <div className="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 border border-blue-100 hover:shadow-lg transition">
+              <div className="w-14 h-14 bg-blue-800 rounded-2xl flex items-center justify-center mb-4">
+                <Mail size={28} className="text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.supportEmail, lang)}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">{t(tr.supportEmailDesc, lang)}</p>
+            </div>
           </div>
         </div>
       </section>
