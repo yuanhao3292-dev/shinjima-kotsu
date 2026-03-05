@@ -97,7 +97,7 @@ shinjima-kotsu/
 - **配置**: `lib/whitelabel-config.ts` (slug 校验) + `lib/whitelabel-pages.ts`
 - **服务端**: `lib/services/whitelabel.ts` + `lib/utils/whitelabel-server.ts`
 
-#### 白标可用模块（数据库 page_modules 表，共 9 个）
+#### 白标可用模块（数据库 page_modules 表，共 10 个）
 
 | component_key | 名称 | Content 组件 | 分类 |
 |---------------|------|-------------|------|
@@ -110,6 +110,7 @@ shinjima-kotsu/
 | ginza_phoenix | 銀座鳳凰クリニック | GinzaPhoenixContent | 干细胞中心 |
 | cell_medicine | 先端細胞医療 | CellMedicineContent | 干细胞中心 |
 | ac_plus | ACセルクリニック | ACPlusContent | 干细胞中心 |
+| igtc | IGTクリニック | IGTCContent | 综合医院 |
 
 > **注意**: `golf`、`medical_tourism`、`health_screening` 在代码中曾有残留引用，但数据库中不存在这些模块。`health_screening` 是独立硬编码路由（AI 健康筛查），不属于 page_modules。
 
@@ -460,6 +461,8 @@ zh-CN 正文使用系统字体，标题使用 LXGW WenKai via jsDelivr
 | 兵库医大远程会诊 | `app/hyogo-medical/remote-consultation/page.tsx` |
 | 癌症治疗初期咨询 | `app/cancer-treatment/initial-consultation/page.tsx` |
 | 癌症治疗远程会诊 | `app/cancer-treatment/remote-consultation/page.tsx` |
+| IGTC初期咨询 | `app/igtc/initial-consultation/page.tsx` |
+| IGTC远程会诊 | `app/igtc/remote-consultation/page.tsx` |
 
 ### 新增支付页面时的检查清单
 
@@ -900,7 +903,7 @@ const DETAIL_PAGE_HERO_IMAGES: Record<string, string> = {
    │  Partner 另需入门费 ¥200,000
    ↓
 3. 选品中心 → /guide-partner/product-center
-   │  导游从 9 家合作机构中选择想推广的项目
+   │  导游从 10 家合作机构中选择想推广的项目
    │  选择保存到 guide_selected_modules 表
    ↓
 4. 白标页面生成 → /g/[slug]
@@ -935,14 +938,14 @@ const DETAIL_PAGE_HERO_IMAGES: Record<string, string> = {
                                     │
                     ┌───────────────┼───────────────┐
                     ↓               ↓               ↓
-               9家医疗机构     导游（佣金合作）    Stripe（支付）
+              10家医疗机构     导游（佣金合作）    Stripe（支付）
                (自由诊疗)      10%/20% 佣金      Live模式
 ```
 
 ### 白标页面数据流（导航栏渲染链路）
 
 ```
-DB: page_modules (9个模块，含 component_key + display_config)
+DB: page_modules (10个模块，含 component_key + display_config)
   ↓
 DB: guide_selected_modules (导游选中的模块，is_enabled=true)
   ↓
@@ -1044,9 +1047,21 @@ const backHref = guideSlug ? `/g/${guideSlug}/hyogo-medical` : '/hyogo-medical';
 <Link href={backHref}>返回</Link>
 ```
 
-**内容组件的 CTA 链接：**
-- `HyogoMedicalContent`、`OICIContent`：接收 `guideSlug` prop，CTA 链接附加 `?guide={slug}`
-- 其他诊所组件（helene、wclinic-mens 等）：白标模式下 CTA 使用页内锚点 `#consultation`，不跳转到 checkout 子页面
+**内容组件的 CTA 链接（两种模式）：**
+
+模式 A — **guideSlug 跳转**（有独立 checkout 子页面的模块）：
+- `HyogoMedicalContent`、`OICIContent`、`IGTCContent`、`TIMCContent`：接收 `guideSlug` prop，CTA 链接附加 `?guide={slug}`
+- 这些模块有独立的 `initial-consultation`/`remote-consultation`/`treatment` 子页面
+
+模式 B — **锚点滚动**（页内内联表单的模块）：
+- `HeleneClinicContent`、`WClinicMensContent`、`GinzaPhoenixContent`、`CellMedicineContent`、`ACPlusContent`、`SaiClinicContent`
+- 白标模式下 CTA 使用页内锚点 `#consultation`，不跳转到 checkout 子页面
+
+**⚠️ 新增模块时的关键检查：** 如果 CTA 链接指向独立 checkout 子页面，必须：
+1. 内容组件接收 `guideSlug` prop 并在 CTA 链接中附加 `?guide={guideSlug}`
+2. checkout 子页面实际存在（不要写死链接到不存在的页面）
+3. checkout 子页面的返回链接使用 `?guide=` 参数构建白标感知路径
+4. `lib/config/medical-packages.ts` 中注册对应的 packageSlug
 
 ### 新增模块时的检查清单
 
@@ -1115,6 +1130,37 @@ const backHref = guideSlug ? `/g/${guideSlug}/hyogo-medical` : '/hyogo-medical';
 - Price ID 必须与当前 `STRIPE_SECRET_KEY` 对应的 Stripe 账户匹配
 - 切换 Stripe 账户后需重新创建 Product + Price 并更新数据库
 - 验证命令: `node scripts/check-all-prices.js`
+
+### 环境变量要求
+
+#### 本地开发 (.env.local)
+开发环境**必须**包含以下环境变量，否则白标页面会返回 500 错误：
+```bash
+# Supabase (必需 - 白标系统依赖)
+NEXT_PUBLIC_SUPABASE_URL="https://fcpcjfqxxtxlbtvbjduk.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJ..."
+SUPABASE_SERVICE_ROLE_KEY="eyJ..."  # ⚠️ 关键：缺少此项会导致 /g/[slug] 路由 500 错误
+```
+
+**常见错误**：
+```
+⨯ Error: Missing Supabase environment variables
+    at getServiceClient (lib\services\whitelabel.ts:18:11)
+```
+**原因**：`.env.local` 缺少 `SUPABASE_SERVICE_ROLE_KEY`
+**解决**：从 `.env.production.local` 复制该变量到 `.env.local`
+
+#### Vercel 生产环境
+在 Vercel 项目 Settings → Environment Variables 中必须配置：
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY` (Production, Preview, Development 全选)
+- `STRIPE_SECRET_KEY`
+- `STRIPE_WEBHOOK_SECRET`
+- 其他变量见 `.env.production.local`
+
+**症状**：子域名 `{slug}.bespoketrip.jp` 返回 `ERR_CONNECTION_CLOSED` 或 500 错误
+**排查**：检查 Vercel 环境变量是否完整
 
 ### 预提交钩子 (Husky + lint-staged)
 - lint-staged 对整个暂存文件运行 `eslint --fix` + `prettier --write`
