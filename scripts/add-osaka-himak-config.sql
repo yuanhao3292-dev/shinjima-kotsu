@@ -96,7 +96,7 @@ INSERT INTO medical_packages (
   'cancer_treatment',
   true,
   200,
-  NULL  -- 需要替换为实际的 Stripe Price ID
+  'price_1T7UOzIUenITqtJxYC8Wj81R'  -- Stripe Price ID (已通过脚本创建)
 ) ON CONFLICT (slug) DO UPDATE SET
   price_jpy = EXCLUDED.price_jpy,
   name_zh_tw = EXCLUDED.name_zh_tw,
@@ -124,7 +124,7 @@ INSERT INTO medical_packages (
   'cancer_treatment',
   true,
   201,
-  NULL  -- 需要替换为实际的 Stripe Price ID
+  'price_1T7UP1IUenITqtJxkLTLP2tK'  -- Stripe Price ID (已通过脚本创建)
 ) ON CONFLICT (slug) DO UPDATE SET
   price_jpy = EXCLUDED.price_jpy,
   name_zh_tw = EXCLUDED.name_zh_tw,
@@ -153,14 +153,15 @@ ORDER BY sort_order;
 -- ================================================
 -- 执行完成后的 TODO:
 -- ================================================
--- [ ] 在 Stripe 创建 2 个 Product + Price
--- [ ] 更新上方 stripe_price_id 字段为实际值
--- [ ] 创建咨询路由页面:
+-- [✓] 在 Stripe 创建 2 个 Product + Price (2026-03-05 已完成)
+--     - 前期咨询: prod_U5fkbiYBX7yOFW / price_1T7UOzIUenITqtJxYC8Wj81R
+--     - 远程会诊: prod_U5fkYzifOScCGe / price_1T7UP1IUenITqtJxkLTLP2tK
+-- [✓] 更新上方 stripe_price_id 字段为实际值
+-- [✓] 创建咨询路由页面:
 --     - app/osaka-himak/initial-consultation/page.tsx
 --     - app/osaka-himak/remote-consultation/page.tsx
--- [ ] 在 app/g/[slug]/[moduleSlug]/page.tsx 添加路由:
---     case 'osaka_himak':
---       return <OsakaHimakContent isGuideEmbed={true} guideSlug={slug} />
--- [ ] 更新 DETAIL_PAGE_HERO_IMAGES 映射
--- [ ] 更新 lib/config/medical-packages.ts 添加配置
+-- [✓] 在 app/g/[slug]/[moduleSlug]/page.tsx 添加路由
+-- [✓] 更新 DETAIL_PAGE_HERO_IMAGES 映射
+-- [✓] 更新 lib/config/medical-packages.ts 添加配置
+-- [✓] 主页面添加咨询服务展示区域 (2026-03-05 已完成)
 -- ================================================
