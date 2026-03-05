@@ -49,6 +49,17 @@ const tr = {
   statsTag: { ja: '治療実績', 'zh-TW': '治療實績', 'zh-CN': '治疗实绩', en: 'Treatment Results' } as Record<Language, string>,
   statsTitle: { ja: 'IGTクリニックの実力', 'zh-TW': 'IGT 診所的實力', 'zh-CN': 'IGT 诊所的实力', en: 'IGT Clinic Strengths' } as Record<Language, string>,
 
+  // Performance Graph
+  perfTag: { ja: '月間治療実績', 'zh-TW': '每月治療實績', 'zh-CN': '每月治疗实绩', en: 'Monthly Performance' } as Record<Language, string>,
+  perfTitle: { ja: '治療実績の推移', 'zh-TW': '治療實績趨勢', 'zh-CN': '治疗实绩趋势', en: 'Treatment Performance Trends' } as Record<Language, string>,
+  perfDesc: { ja: '毎月の治療実績を公開しています', 'zh-TW': '每月公開治療實績', 'zh-CN': '每月公开治疗实绩', en: 'Monthly results published transparently' } as Record<Language, string>,
+
+  // Banners
+  bannerOnline: { ja: 'オンライン診療', 'zh-TW': '線上診療', 'zh-CN': '在线诊疗', en: 'Online Consultation' } as Record<Language, string>,
+  bannerConsult: { ja: '無料メール相談', 'zh-TW': '免費郵件諮詢', 'zh-CN': '免费邮件咨询', en: 'Free Email Consultation' } as Record<Language, string>,
+  bannerPress: { ja: 'プレスリリース', 'zh-TW': '媒體報導', 'zh-CN': '媒体报道', en: 'Press Release' } as Record<Language, string>,
+  bannerLecture: { ja: '講演会のご案内', 'zh-TW': '講座資訊', 'zh-CN': '讲座信息', en: 'Lecture Information' } as Record<Language, string>,
+
   // Treatments
   treatTag: { ja: '治療方法', 'zh-TW': '治療方法', 'zh-CN': '治疗方法', en: 'Treatment Methods' } as Record<Language, string>,
   treatTitle: { ja: '2つの専門治療', 'zh-TW': '兩大專業治療', 'zh-CN': '两大专业治疗', en: 'Two Specialized Treatments' } as Record<Language, string>,
@@ -170,7 +181,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
             alt="IGT Clinic"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-950/90 via-gray-900/70 to-blue-950/60" />
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-950/90 via-gray-900/80 to-blue-950/70" />
         </div>
         <div className="relative max-w-6xl mx-auto px-6 py-20">
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6">
@@ -191,7 +202,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
           </p>
           <div className="flex flex-wrap gap-3 mt-8">
             {['保険適用', '血管内治療', '温熱療法', '月間実績公開'].map((tag) => (
-              <span key={tag} className="bg-blue-600/80 text-white px-4 py-1.5 rounded-full text-sm font-medium">
+              <span key={tag} className="bg-blue-800/80 text-white px-4 py-1.5 rounded-full text-sm font-medium">
                 {tag}
               </span>
             ))}
@@ -209,13 +220,13 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-600 font-medium text-sm">{t(tr.statsTag, lang)}</span>
+            <span className="text-blue-800 font-medium text-sm">{t(tr.statsTag, lang)}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.statsTitle, lang)}</h2>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {STATS.map((s, i) => (
               <div key={i} className="bg-white rounded-2xl p-6 text-center border hover:shadow-lg transition">
-                <s.icon size={32} className="text-blue-600 mx-auto mb-3" />
+                <s.icon size={32} className="text-blue-800 mx-auto mb-3" />
                 <p className="text-3xl font-bold text-gray-900">{s.value}</p>
                 <p className="text-gray-500 text-sm mt-1">{t(s.label, lang)}</p>
               </div>
@@ -224,17 +235,83 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
         </div>
       </section>
 
+      {/* ========== TREATMENT PERFORMANCE GRAPH ========== */}
+      <section className="py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-8">
+            <span className="text-blue-800 font-medium text-sm">{t(tr.perfTag, lang)}</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.perfTitle, lang)}</h2>
+            <p className="text-gray-600 mt-2">{t(tr.perfDesc, lang)}</p>
+          </div>
+          <div className="bg-white rounded-2xl p-8 border shadow-sm">
+            <img
+              src="https://igtc.jp/images/top_temp/top_jisekigraf-pc.png"
+              alt="Treatment Performance Graph"
+              className="w-full h-auto"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ========== BANNERS ========== */}
+      <section className="py-12 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <a
+              href="#cta"
+              className="group block bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition"
+            >
+              <img
+                src="https://igtc.jp/images/top_temp/top_online_bana.png"
+                alt={t(tr.bannerOnline, lang)}
+                className="w-full h-auto"
+              />
+            </a>
+            <a
+              href="#cta"
+              className="group block bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition"
+            >
+              <img
+                src="https://igtc.jp/images/top_temp/top_soudan_bana.png"
+                alt={t(tr.bannerConsult, lang)}
+                className="w-full h-auto"
+              />
+            </a>
+            <a
+              href="#"
+              className="group block bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition"
+            >
+              <img
+                src="https://igtc.jp/images/top_temp/top_press_bana.png"
+                alt={t(tr.bannerPress, lang)}
+                className="w-full h-auto"
+              />
+            </a>
+            <a
+              href="#"
+              className="group block bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition"
+            >
+              <img
+                src="https://igtc.jp/images/top_temp/top_koen_bana.png"
+                alt={t(tr.bannerLecture, lang)}
+                className="w-full h-auto"
+              />
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* ========== TREATMENTS ========== */}
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-600 font-medium text-sm">{t(tr.treatTag, lang)}</span>
+            <span className="text-blue-800 font-medium text-sm">{t(tr.treatTag, lang)}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.treatTitle, lang)}</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
             {/* IGT */}
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border border-blue-200">
-              <div className="w-14 h-14 bg-blue-600 rounded-xl flex items-center justify-center mb-4">
+              <div className="w-14 h-14 bg-blue-800 rounded-xl flex items-center justify-center mb-4">
                 <Syringe size={28} className="text-white" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.igtTitle, lang)}</h3>
@@ -256,13 +333,13 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-600 font-medium text-sm">{t(tr.cancerTag, lang)}</span>
+            <span className="text-blue-800 font-medium text-sm">{t(tr.cancerTag, lang)}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.cancerTitle, lang)}</h2>
           </div>
           <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {CANCERS.map((c, i) => (
               <div key={i} className="bg-white rounded-xl p-4 text-center border hover:border-blue-300 transition">
-                <c.icon size={24} className="text-blue-600 mx-auto mb-2" />
+                <c.icon size={24} className="text-blue-800 mx-auto mb-2" />
                 <p className="text-sm font-medium text-gray-700">{t(c.name, lang)}</p>
               </div>
             ))}
@@ -274,14 +351,14 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-600 font-medium text-sm">{t(tr.advTag, lang)}</span>
+            <span className="text-blue-800 font-medium text-sm">{t(tr.advTag, lang)}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.advTitle, lang)}</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {ADVANTAGES.map((a, i) => (
               <div key={i} className="bg-white rounded-2xl p-6 border hover:shadow-lg transition">
                 <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4">
-                  <a.icon size={24} className="text-blue-600" />
+                  <a.icon size={24} className="text-blue-800" />
                 </div>
                 <h3 className="font-bold text-gray-900 mb-2">{t(a.title, lang)}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">{t(a.desc, lang)}</p>
@@ -295,14 +372,14 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-600 font-medium text-sm">{t(tr.flowTag, lang)}</span>
+            <span className="text-blue-800 font-medium text-sm">{t(tr.flowTag, lang)}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.flowTitle, lang)}</h2>
           </div>
           <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4">
             {FLOW_STEPS.map((s, i) => (
               <div key={i} className="relative bg-white rounded-xl p-5 border text-center">
-                <div className="text-xs font-bold text-blue-600 mb-2">STEP {s.step}</div>
-                <s.icon size={28} className="text-blue-600 mx-auto mb-2" />
+                <div className="text-xs font-bold text-blue-800 mb-2">STEP {s.step}</div>
+                <s.icon size={28} className="text-blue-800 mx-auto mb-2" />
                 <h4 className="font-bold text-gray-900 text-sm mb-1">{t(s.title, lang)}</h4>
                 <p className="text-xs text-gray-500">{t(s.desc, lang)}</p>
                 {i < FLOW_STEPS.length - 1 && (
@@ -318,14 +395,14 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-600 font-medium text-sm">{t(tr.accessTag, lang)}</span>
+            <span className="text-blue-800 font-medium text-sm">{t(tr.accessTag, lang)}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.accessTitle, lang)}</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-gray-50 rounded-2xl p-6 border">
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <MapPin size={20} className="text-blue-600 mt-1 shrink-0" />
+                  <MapPin size={20} className="text-blue-800 mt-1 shrink-0" />
                   <div>
                     <p className="font-medium text-gray-900">〒598-0047</p>
                     <p className="text-gray-600 text-sm">大阪府泉佐野市りんくう往来南3-41</p>
@@ -333,15 +410,15 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Train size={20} className="text-blue-600 shrink-0" />
+                  <Train size={20} className="text-blue-800 shrink-0" />
                   <p className="text-gray-600 text-sm">りんくうタウン駅より徒歩10分 / 関西空港から1駅</p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Phone size={20} className="text-blue-600 shrink-0" />
+                  <Phone size={20} className="text-blue-800 shrink-0" />
                   <p className="text-gray-600 text-sm">072-463-3811</p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Clock size={20} className="text-blue-600 shrink-0" />
+                  <Clock size={20} className="text-blue-800 shrink-0" />
                   <div>
                     <p className="text-gray-600 text-sm">月・火・水・金・土 9:00〜17:00</p>
                     <p className="text-gray-500 text-xs">休診：木・日・祝日</p>
@@ -375,10 +452,10 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               href={guideSlug ? `/igtc/initial-consultation?guide=${guideSlug}` : '/igtc/initial-consultation'}
               className="bg-white rounded-2xl p-6 text-left hover:shadow-xl transition group"
             >
-              <p className="text-sm text-blue-600 font-medium mb-1">{t(tr.ctaInitial, lang)}</p>
+              <p className="text-sm text-blue-800 font-medium mb-1">{t(tr.ctaInitial, lang)}</p>
               <p className="text-2xl font-bold text-gray-900 mb-2">¥221,000</p>
               <p className="text-gray-500 text-sm">{t(tr.ctaInitialDesc, lang)}</p>
-              <div className="mt-4 inline-flex items-center gap-1 text-blue-600 font-medium text-sm group-hover:gap-2 transition-all">
+              <div className="mt-4 inline-flex items-center gap-1 text-blue-800 font-medium text-sm group-hover:gap-2 transition-all">
                 {lang === 'ja' ? '詳細を見る' : lang === 'en' ? 'Learn More' : '了解詳情'}
                 <ArrowRight size={16} />
               </div>
@@ -387,10 +464,10 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               href={guideSlug ? `/igtc/remote-consultation?guide=${guideSlug}` : '/igtc/remote-consultation'}
               className="bg-white rounded-2xl p-6 text-left hover:shadow-xl transition group"
             >
-              <p className="text-sm text-blue-600 font-medium mb-1">{t(tr.ctaRemote, lang)}</p>
+              <p className="text-sm text-blue-800 font-medium mb-1">{t(tr.ctaRemote, lang)}</p>
               <p className="text-2xl font-bold text-gray-900 mb-2">¥243,000</p>
               <p className="text-gray-500 text-sm">{t(tr.ctaRemoteDesc, lang)}</p>
-              <div className="mt-4 inline-flex items-center gap-1 text-blue-600 font-medium text-sm group-hover:gap-2 transition-all">
+              <div className="mt-4 inline-flex items-center gap-1 text-blue-800 font-medium text-sm group-hover:gap-2 transition-all">
                 {lang === 'ja' ? '詳細を見る' : lang === 'en' ? 'Learn More' : '了解詳情'}
                 <ArrowRight size={16} />
               </div>
