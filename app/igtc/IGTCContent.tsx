@@ -145,6 +145,40 @@ const tr = {
   accessTag: { ja: 'アクセス', 'zh-TW': '交通', 'zh-CN': '交通', en: 'Access' } as Record<Language, string>,
   accessTitle: { ja: '関西空港から最も近いがん治療クリニック', 'zh-TW': '距關西機場最近的癌症治療診所', 'zh-CN': '距关西机场最近的癌症治疗诊所', en: 'Closest Cancer Clinic to Kansai Airport' } as Record<Language, string>,
 
+  // Insurance & Payment
+  insuranceTag: { ja: '健康保険・費用', 'zh-TW': '健康保險·費用', 'zh-CN': '健康保险·费用', en: 'Insurance & Costs' } as Record<Language, string>,
+  insuranceTitle: { ja: '健康保険適用について', 'zh-TW': '關於健康保險適用', 'zh-CN': '关于健康保险适用', en: 'About Insurance Coverage' } as Record<Language, string>,
+  insuranceCovered: { ja: '保険適用治療', 'zh-TW': '保險適用治療', 'zh-CN': '保险适用治疗', en: 'Insurance Covered' } as Record<Language, string>,
+  insuranceCoveredDesc: { ja: '血管内治療（IVR）は健康保険適用です。3割負担の場合、1回の治療で概ね30〜50万円程度となります。', 'zh-TW': '血管內治療（IVR）適用健康保險。自付30%的情況下，一次治療約30-50萬日元。', 'zh-CN': '血管内治疗（IVR）适用健康保险。自付30%的情况下，一次治疗约30-50万日元。', en: 'Endovascular treatment (IVR) is covered by Japanese health insurance. With 30% co-pay, one treatment costs approximately ¥300,000-500,000.' } as Record<Language, string>,
+  insuranceAdvanced: { ja: '先進医療', 'zh-TW': '先進醫療', 'zh-CN': '先进医疗', en: 'Advanced Medicine' } as Record<Language, string>,
+  insuranceAdvancedDesc: { ja: '温熱療法との併用は先進医療として、別途費用がかかる場合があります。詳細はご相談ください。', 'zh-TW': '與溫熱療法併用屬先進醫療，可能需額外費用。詳情請諮詢。', 'zh-CN': '与温热疗法并用属先进医疗，可能需额外费用。详情请咨询。', en: 'Combination with hyperthermia may require additional fees as advanced medical care. Please inquire for details.' } as Record<Language, string>,
+  insuranceLimit: { ja: '高額療養費制度', 'zh-TW': '高額醫療費制度', 'zh-CN': '高额医疗费制度', en: 'Medical Expense Cap' } as Record<Language, string>,
+  insuranceLimitDesc: { ja: '高額療養費制度により、月の医療費が一定額を超えた場合、超過分が払い戻されます。', 'zh-TW': '根據高額醫療費制度，每月醫療費超過一定金額時，可退還超出部分。', 'zh-CN': '根据高额医疗费制度，每月医疗费超过一定金额时，可退还超出部分。', en: 'Under the high-cost medical care system, excess expenses beyond a monthly cap can be reimbursed.' } as Record<Language, string>,
+
+  // FAQ
+  faqTag: { ja: 'よくある質問', 'zh-TW': '常見問題', 'zh-CN': '常见问题', en: 'FAQ' } as Record<Language, string>,
+  faqTitle: { ja: '患者様からよくいただく質問', 'zh-TW': '患者常見問題', 'zh-CN': '患者常见问题', en: 'Frequently Asked Questions' } as Record<Language, string>,
+
+  // International Support
+  intlTag: { ja: '海外患者対応', 'zh-TW': '國際患者支援', 'zh-CN': '国际患者支持', en: 'International Patients' } as Record<Language, string>,
+  intlTitle: { ja: '海外からの患者様へ', 'zh-TW': '致海外患者', 'zh-CN': '致海外患者', en: 'For International Patients' } as Record<Language, string>,
+  intlDesc: { ja: '関西空港から1駅の立地を活かし、海外からの患者様も多数受け入れています。', 'zh-TW': '利用鄰近關西機場的地理優勢，接待眾多海外患者。', 'zh-CN': '利用邻近关西机场的地理优势，接待众多海外患者。', en: 'Located just 1 station from Kansai Airport, we welcome many international patients.' } as Record<Language, string>,
+  intlLocation: { ja: '抜群のアクセス', 'zh-TW': '絕佳交通', 'zh-CN': '绝佳交通', en: 'Excellent Access' } as Record<Language, string>,
+  intlLocationDesc: { ja: '関西国際空港から電車で5分。世界中からアクセス可能。', 'zh-TW': '距關西國際機場僅5分鐘車程，全球可達。', 'zh-CN': '距关西国际机场仅5分钟车程，全球可达。', en: '5 minutes by train from Kansai International Airport. Accessible worldwide.' } as Record<Language, string>,
+  intlTranslation: { ja: '通訳サポート', 'zh-TW': '翻譯支援', 'zh-CN': '翻译支持', en: 'Translation Support' } as Record<Language, string>,
+  intlTranslationDesc: { ja: '医療通訳サービスを通じて、英語・中国語での診療が可能です。', 'zh-TW': '透過醫療翻譯服務，可提供英語、中文診療。', 'zh-CN': '通过医疗翻译服务，可提供英语、中文诊疗。', en: 'Medical interpretation available in English and Chinese.' } as Record<Language, string>,
+  intlVisa: { ja: '医療滞在ビザ', 'zh-TW': '醫療簽證', 'zh-CN': '医疗签证', en: 'Medical Visa' } as Record<Language, string>,
+  intlVisaDesc: { ja: '医療滞在ビザ取得のための診断書発行をサポートします。', 'zh-TW': '協助開立醫療簽證所需診斷書。', 'zh-CN': '协助开立医疗签证所需诊断书。', en: 'Support for issuing medical certificates required for medical stay visas.' } as Record<Language, string>,
+
+  // Results
+  resultsTag: { ja: '治療成績', 'zh-TW': '治療成果', 'zh-CN': '治疗成果', en: 'Treatment Outcomes' } as Record<Language, string>,
+  resultsTitle: { ja: '治療実績と成果', 'zh-TW': '治療實績與成果', 'zh-CN': '治疗实绩与成果', en: 'Treatment Results & Outcomes' } as Record<Language, string>,
+  resultsDesc: { ja: 'IGTクリニックでは、透明性の高い医療を目指し、毎月の治療実績を公開しています。', 'zh-TW': 'IGT診所秉持透明醫療理念，每月公開治療實績。', 'zh-CN': 'IGT诊所秉持透明医疗理念，每月公开治疗实绩。', en: 'IGT Clinic publishes monthly treatment results to ensure transparent medical care.' } as Record<Language, string>,
+  resultsMonthly: { ja: '月間治療件数', 'zh-TW': '每月治療件數', 'zh-CN': '每月治疗件数', en: 'Monthly Treatments' } as Record<Language, string>,
+  resultsMonthlyDesc: { ja: '毎月平均50〜80件の血管内治療を実施。治療件数はウェブサイトで公開中。', 'zh-TW': '每月平均實施50-80次血管內治療。治療件數於網站公開。', 'zh-CN': '每月平均实施50-80次血管内治疗。治疗件数于网站公开。', en: 'Average 50-80 endovascular treatments per month. Case numbers published on website.' } as Record<Language, string>,
+  resultsConference: { ja: '学会発表', 'zh-TW': '學會發表', 'zh-CN': '学会发表', en: 'Conference Presentations' } as Record<Language, string>,
+  resultsConferenceDesc: { ja: '国際学会・国内学会での治療成果発表を継続的に実施。', 'zh-TW': '持續於國際及國內學會發表治療成果。', 'zh-CN': '持续于国际及国内学会发表治疗成果。', en: 'Ongoing presentations of treatment outcomes at international and domestic conferences.' } as Record<Language, string>,
+
   // CTA
   ctaTitle: { ja: 'まずはご相談ください', 'zh-TW': '歡迎諮詢', 'zh-CN': '欢迎咨询', en: 'Contact Us' } as Record<Language, string>,
   ctaDesc: {
@@ -229,6 +263,37 @@ const FLOW_STEPS = [
   { step: '04', icon: Syringe, title: { ja: '血管内治療', 'zh-TW': '血管內治療', 'zh-CN': '血管内治疗', en: 'Endovascular Therapy' } as Record<Language, string>, desc: { ja: 'カテーテルによる動脈化学塞栓療法', 'zh-TW': '導管動脈化學栓塞治療', 'zh-CN': '导管动脉化学栓塞治疗', en: 'Catheter-based chemoembolization' } as Record<Language, string> },
   { step: '05', icon: Thermometer, title: { ja: '温熱療法', 'zh-TW': '溫熱療法', 'zh-CN': '温热疗法', en: 'Hyperthermia' } as Record<Language, string>, desc: { ja: '併用により治療効果を向上', 'zh-TW': '併用增強治療效果', 'zh-CN': '并用增强治疗效果', en: 'Combined to enhance efficacy' } as Record<Language, string> },
   { step: '06', icon: CheckCircle, title: { ja: '退院', 'zh-TW': '出院', 'zh-CN': '出院', en: 'Discharge' } as Record<Language, string>, desc: { ja: '治療後2〜3日で退院', 'zh-TW': '治療後2-3天出院', 'zh-CN': '治疗后2-3天出院', en: 'Discharge 2-3 days after treatment' } as Record<Language, string> },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: { ja: '血管内治療（TACE）は痛いですか？', 'zh-TW': '血管內治療（TACE）會痛嗎？', 'zh-CN': '血管内治疗（TACE）会痛吗？', en: 'Is endovascular treatment (TACE) painful?' } as Record<Language, string>,
+    a: { ja: '局所麻酔下で行うため、カテーテル挿入時の痛みはほとんどありません。治療後に軽い発熱や痛みを感じることがありますが、鎮痛剤で対応可能です。', 'zh-TW': '在局部麻醉下進行，導管插入時幾乎無痛。治療後可能有輕微發燒或疼痛，可用止痛藥緩解。', 'zh-CN': '在局部麻醉下进行，导管插入时几乎无痛。治疗后可能有轻微发烧或疼痛，可用止痛药缓解。', en: 'Performed under local anesthesia, catheter insertion causes minimal pain. Mild fever or pain after treatment can be managed with pain medication.' } as Record<Language, string>,
+  },
+  {
+    q: { ja: '入院期間はどのくらいですか？', 'zh-TW': '住院期間多長？', 'zh-CN': '住院期间多长？', en: 'How long is the hospital stay?' } as Record<Language, string>,
+    a: { ja: '治療前日に入院し、治療後2〜3日で退院が可能です。合計3〜4日程度の入院となります。', 'zh-TW': '治療前一天入院，治療後2-3天可出院。總計約3-4天住院。', 'zh-CN': '治疗前一天入院，治疗后2-3天可出院。总计约3-4天住院。', en: 'Admission is the day before treatment, with discharge possible 2-3 days after. Total hospital stay is approximately 3-4 days.' } as Record<Language, string>,
+  },
+  {
+    q: { ja: '副作用はありますか？', 'zh-TW': '有副作用嗎？', 'zh-CN': '有副作用吗？', en: 'Are there side effects?' } as Record<Language, string>,
+    a: { ja: '腫瘍に直接薬剤を投与するため、全身化学療法に比べて副作用は大幅に少なくなります。治療後の発熱や倦怠感は数日で改善します。', 'zh-TW': '因藥物直接注入腫瘤，副作用比全身化療少得多。治療後的發燒或倦怠感數日內會改善。', 'zh-CN': '因药物直接注入肿瘤，副作用比全身化疗少得多。治疗后的发烧或倦怠感数日内会改善。', en: 'Direct drug delivery to tumors significantly reduces side effects compared to systemic chemotherapy. Post-treatment fever or fatigue improves within days.' } as Record<Language, string>,
+  },
+  {
+    q: { ja: '治療は何回受けられますか？', 'zh-TW': '可接受幾次治療？', 'zh-CN': '可接受几次治疗？', en: 'How many treatments can I receive?' } as Record<Language, string>,
+    a: { ja: '身体への負担が少ないため、必要に応じて複数回の治療が可能です。腫瘍の状態を見ながら、1〜2ヶ月間隔で治療を繰り返すことが一般的です。', 'zh-TW': '因身體負擔小，可根據需要進行多次治療。通常根據腫瘤狀況，每1-2個月重複治療。', 'zh-CN': '因身体负担小，可根据需要进行多次治疗。通常根据肿瘤状况，每1-2个月重复治疗。', en: 'Multiple treatments possible due to low physical burden. Typically repeated at 1-2 month intervals based on tumor response.' } as Record<Language, string>,
+  },
+  {
+    q: { ja: '健康保険は使えますか？', 'zh-TW': '可使用健康保險嗎？', 'zh-CN': '可使用健康保险吗？', en: 'Can I use health insurance?' } as Record<Language, string>,
+    a: { ja: '血管内治療（IVR）は健康保険適用です。高額療養費制度も利用可能ですので、実際の負担額は月の上限額までとなります。', 'zh-TW': '血管內治療（IVR）適用健康保險。也可使用高額醫療費制度，實際負擔額以每月上限為準。', 'zh-CN': '血管内治疗（IVR）适用健康保险。也可使用高额医疗费制度，实际负担额以每月上限为准。', en: 'Endovascular treatment (IVR) is covered by health insurance. High-cost medical care system available, capping actual monthly expenses.' } as Record<Language, string>,
+  },
+  {
+    q: { ja: '他の病院で治療中ですが、セカンドオピニオンを受けられますか？', 'zh-TW': '正在其他醫院治療，可接受第二意見嗎？', 'zh-CN': '正在其他医院治疗，可接受第二意见吗？', en: 'Can I get a second opinion while being treated elsewhere?' } as Record<Language, string>,
+    a: { ja: 'はい、可能です。現在の治療状況を踏まえて、血管内治療の適応可能性を評価いたします。診療情報提供書や画像データをご持参ください。', 'zh-TW': '是的，可以。我們會根據目前治療狀況，評估血管內治療的適用性。請攜帶診療資料及影像數據。', 'zh-CN': '是的，可以。我们会根据目前治疗状况，评估血管内治疗的适用性。请携带诊疗资料及影像数据。', en: 'Yes, we can evaluate suitability for endovascular treatment based on your current treatment. Please bring medical records and imaging data.' } as Record<Language, string>,
+  },
+  {
+    q: { ja: '海外からでも治療を受けられますか？', 'zh-TW': '從海外也能接受治療嗎？', 'zh-CN': '从海外也能接受治疗吗？', en: 'Can international patients receive treatment?' } as Record<Language, string>,
+    a: { ja: '関西空港から1駅の好立地を活かし、海外からの患者様を多数受け入れています。医療通訳サービスや医療滞在ビザ取得のサポートも行っています。', 'zh-TW': '利用鄰近關西機場的優勢，接待眾多海外患者。提供醫療翻譯服務及醫療簽證申請支援。', 'zh-CN': '利用邻近关西机场的优势，接待众多海外患者。提供医疗翻译服务及医疗签证申请支援。', en: 'Located 1 station from Kansai Airport, we welcome many international patients. Medical interpretation and visa support available.' } as Record<Language, string>,
+  },
 ];
 
 // ======================================
@@ -580,6 +645,162 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.supportEmail, lang)}</h3>
               <p className="text-gray-600 text-sm leading-relaxed">{t(tr.supportEmailDesc, lang)}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========== INSURANCE & PAYMENT ========== */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="text-blue-800 font-medium text-sm">{t(tr.insuranceTag, lang)}</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.insuranceTitle, lang)}</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Insurance Covered */}
+            <div className="bg-white rounded-2xl p-8 border hover:shadow-lg transition">
+              <div className="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center mb-4">
+                <CheckCircle size={28} className="text-green-600" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.insuranceCovered, lang)}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">{t(tr.insuranceCoveredDesc, lang)}</p>
+            </div>
+
+            {/* Advanced Medicine */}
+            <div className="bg-white rounded-2xl p-8 border hover:shadow-lg transition">
+              <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-4">
+                <Award size={28} className="text-blue-800" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.insuranceAdvanced, lang)}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">{t(tr.insuranceAdvancedDesc, lang)}</p>
+            </div>
+
+            {/* Medical Expense Cap */}
+            <div className="bg-white rounded-2xl p-8 border hover:shadow-lg transition">
+              <div className="w-14 h-14 bg-purple-50 rounded-2xl flex items-center justify-center mb-4">
+                <Shield size={28} className="text-purple-600" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.insuranceLimit, lang)}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">{t(tr.insuranceLimitDesc, lang)}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========== TREATMENT RESULTS ========== */}
+      <section className="py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="text-blue-800 font-medium text-sm">{t(tr.resultsTag, lang)}</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.resultsTitle, lang)}</h2>
+            <p className="text-gray-600 mt-4 max-w-3xl mx-auto">{t(tr.resultsDesc, lang)}</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Monthly Treatments */}
+            <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-8 text-white">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                  <Activity size={24} className="text-white" />
+                </div>
+                <h3 className="text-2xl font-bold">{t(tr.resultsMonthly, lang)}</h3>
+              </div>
+              <p className="text-blue-50 leading-relaxed">{t(tr.resultsMonthlyDesc, lang)}</p>
+              <div className="mt-6 pt-6 border-t border-white/20">
+                <div className="flex items-center gap-3">
+                  <div className="flex-1">
+                    <p className="text-4xl font-bold">50-80</p>
+                    <p className="text-sm text-blue-200 mt-1">{lang === 'ja' ? '件/月' : lang === 'en' ? 'cases/month' : '件/月'}</p>
+                  </div>
+                  <CheckCircle size={40} className="text-blue-200" />
+                </div>
+              </div>
+            </div>
+
+            {/* Conference Presentations */}
+            <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-8 text-white">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                  <Award size={24} className="text-white" />
+                </div>
+                <h3 className="text-2xl font-bold">{t(tr.resultsConference, lang)}</h3>
+              </div>
+              <p className="text-orange-50 leading-relaxed">{t(tr.resultsConferenceDesc, lang)}</p>
+              <div className="mt-6 pt-6 border-t border-white/20">
+                <div className="flex items-center gap-3">
+                  <div className="flex-1">
+                    <p className="text-4xl font-bold">{lang === 'ja' ? '継続中' : lang === 'en' ? 'Ongoing' : '持續中'}</p>
+                    <p className="text-sm text-orange-200 mt-1">{lang === 'ja' ? '国際学会・国内学会' : lang === 'en' ? 'International & Domestic' : '國際及國內學會'}</p>
+                  </div>
+                  <Globe size={40} className="text-orange-200" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========== FAQ ========== */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="text-blue-800 font-medium text-sm">{t(tr.faqTag, lang)}</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.faqTitle, lang)}</h2>
+          </div>
+          <div className="space-y-4">
+            {FAQ_ITEMS.map((faq, i) => (
+              <details key={i} className="bg-white rounded-2xl border overflow-hidden group">
+                <summary className="px-8 py-6 cursor-pointer font-bold text-gray-900 hover:bg-gray-50 transition flex items-start gap-3">
+                  <span className="text-blue-800 text-lg shrink-0">Q{i + 1}</span>
+                  <span className="flex-1">{t(faq.q, lang)}</span>
+                  <ArrowRight size={20} className="text-gray-400 group-open:rotate-90 transition-transform shrink-0 mt-1" />
+                </summary>
+                <div className="px-8 py-6 bg-blue-50/50 border-t">
+                  <div className="flex items-start gap-3">
+                    <span className="text-blue-800 font-bold text-lg shrink-0">A</span>
+                    <p className="text-gray-700 leading-relaxed flex-1">{t(faq.a, lang)}</p>
+                  </div>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ========== INTERNATIONAL PATIENTS ========== */}
+      <section className="py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="text-blue-800 font-medium text-sm">{t(tr.intlTag, lang)}</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.intlTitle, lang)}</h2>
+            <p className="text-gray-600 mt-4 max-w-3xl mx-auto">{t(tr.intlDesc, lang)}</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Excellent Access */}
+            <div className="bg-gradient-to-br from-green-50 to-white rounded-2xl p-8 border border-green-100 hover:shadow-lg transition">
+              <div className="w-14 h-14 bg-green-600 rounded-2xl flex items-center justify-center mb-4">
+                <MapPin size={28} className="text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.intlLocation, lang)}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">{t(tr.intlLocationDesc, lang)}</p>
+            </div>
+
+            {/* Translation Support */}
+            <div className="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 border border-blue-100 hover:shadow-lg transition">
+              <div className="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center mb-4">
+                <Globe size={28} className="text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.intlTranslation, lang)}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">{t(tr.intlTranslationDesc, lang)}</p>
+            </div>
+
+            {/* Medical Visa */}
+            <div className="bg-gradient-to-br from-purple-50 to-white rounded-2xl p-8 border border-purple-100 hover:shadow-lg transition">
+              <div className="w-14 h-14 bg-purple-600 rounded-2xl flex items-center justify-center mb-4">
+                <CheckCircle size={28} className="text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.intlVisa, lang)}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">{t(tr.intlVisaDesc, lang)}</p>
             </div>
           </div>
         </div>
