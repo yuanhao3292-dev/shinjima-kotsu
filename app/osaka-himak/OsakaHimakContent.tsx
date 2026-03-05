@@ -67,6 +67,29 @@ const t = {
   adv3Title: { ja: '短期集中治療', 'zh-TW': '短期集中治療', 'zh-CN': '短期集中治疗', en: 'Short Treatment Course' } as Record<Language, string>,
   adv3Desc: { ja: '従来の放射線治療と比べて、治療回数・日数が大幅に短縮。病状により1日～5週間程度で治療完了。日常生活への影響を最小限に抑え、通院での治療も可能です。', 'zh-TW': '與傳統放射線治療相比,治療次數和天數大幅縮短。根據病情1日～5週左右即可完成治療。將對日常生活的影響降至最低,也可以門診治療。', 'zh-CN': '与传统放射线治疗相比,治疗次数和天数大幅缩短。根据病情1日～5周左右即可完成治疗。将对日常生活的影响降至最低,也可以门诊治疗。', en: 'Significantly fewer sessions and shorter duration compared to conventional radiotherapy. Treatment completes in 1 day to 5 weeks depending on condition. Minimal impact on daily life, outpatient treatment possible.' } as Record<Language, string>,
 
+  // Consultation Services
+  consultTag: { ja: '相談サービス', 'zh-TW': '諮詢服務', 'zh-CN': '咨询服务', en: 'Consultation Services' } as Record<Language, string>,
+  consultTitle: { ja: '治療開始までのサポート', 'zh-TW': '治療前支援服務', 'zh-CN': '治疗前支援服务', en: 'Pre-Treatment Support Services' } as Record<Language, string>,
+  consultSubtitle: { ja: '専門スタッフが治療の可能性を一緒に探ります', 'zh-TW': '專業團隊與您共同探討治療可行性', 'zh-CN': '专业团队与您共同探讨治疗可行性', en: 'Our specialists work with you to explore treatment possibilities' } as Record<Language, string>,
+
+  // Service 1: Initial Consultation
+  service1Name: { ja: '前期相談サービス', 'zh-TW': '前期諮詢服務', 'zh-CN': '前期咨询服务', en: 'Initial Consultation' } as Record<Language, string>,
+  service1Desc: { ja: '病歴資料翻訳、重粒子線治療適応性評価、治療計劃初步討論、費用概算', 'zh-TW': '病歷資料翻譯、重粒子線治療適應性評估、治療計劃初步討論、費用概算', 'zh-CN': '病历资料翻译、重粒子线治疗适应性评估、治疗计划初步讨论、费用概算', en: 'Medical record translation, suitability assessment, initial treatment planning, cost estimation' } as Record<Language, string>,
+  service1Feature1: { ja: '診療情報の翻訳（中→日）', 'zh-TW': '病歷資料翻譯（中→日）', 'zh-CN': '病历资料翻译（中→日）', en: 'Medical record translation (CN→JP)' } as Record<Language, string>,
+  service1Feature2: { ja: '重粒子線治療適応性評価', 'zh-TW': '重粒子線治療適應性評估', 'zh-CN': '重粒子线治疗适应性评估', en: 'Heavy ion therapy suitability assessment' } as Record<Language, string>,
+  service1Feature3: { ja: '治療可能性評価レポート', 'zh-TW': '治療可行性評估報告', 'zh-CN': '治疗可行性评估报告', en: 'Treatment feasibility report' } as Record<Language, string>,
+  service1Feature4: { ja: '費用概算のご説明', 'zh-TW': '費用概算說明', 'zh-CN': '费用概算说明', en: 'Cost estimation' } as Record<Language, string>,
+
+  // Service 2: Remote Consultation
+  service2Name: { ja: '遠隔会診サービス', 'zh-TW': '遠程會診服務', 'zh-CN': '远程会诊服务', en: 'Remote Consultation' } as Record<Language, string>,
+  service2Desc: { ja: '重粒子線治療専門医とのビデオ診察、治療適応性と方案の討論、費用詳細說明', 'zh-TW': '與重粒子線治療專家遠程視頻會診、討論治療適應性與方案、費用詳細說明', 'zh-CN': '与重粒子线治疗专家远程视频会诊、讨论治疗适应性与方案、费用详细说明', en: 'Video consultation with specialists, treatment plan discussion, detailed cost breakdown' } as Record<Language, string>,
+  service2Feature1: { ja: '専門医とのビデオ診察（30-60分）', 'zh-TW': '專科醫生視頻會診（30-60分鐘）', 'zh-CN': '专科医生视频会诊（30-60分钟）', en: 'Video consultation with specialist (30-60 mins)' } as Record<Language, string>,
+  service2Feature2: { ja: '専門医療通訳が全行程同行', 'zh-TW': '專業醫療翻譯全程陪同', 'zh-CN': '专业医疗翻译全程陪同', en: 'Professional medical interpreter throughout' } as Record<Language, string>,
+  service2Feature3: { ja: '詳細な治療計画のご説明', 'zh-TW': '詳細治療方案說明', 'zh-CN': '详细治疗方案说明', en: 'Detailed treatment plan explanation' } as Record<Language, string>,
+  service2Feature4: { ja: '治療費用の明細見積', 'zh-TW': '治療費用明細報價', 'zh-CN': '治疗费用明细报价', en: 'Detailed cost quotation' } as Record<Language, string>,
+
+  serviceLearnMore: { ja: '詳細を見る', 'zh-TW': '查看詳情', 'zh-CN': '查看详情', en: 'Learn More' } as Record<Language, string>,
+
   // Applicable Cancers
   cancerTag: { ja: '適応がん種', 'zh-TW': '適應癌症', 'zh-CN': '适应癌症', en: 'Applicable Cancers' } as Record<Language, string>,
   cancerTitle: { ja: '重粒子線治療の対象となる主ながん', 'zh-TW': '重粒子線治療的主要適應癌症', 'zh-CN': '重粒子线治疗的主要适应癌症', en: 'Main Cancer Types Treatable with Heavy Ion Therapy' } as Record<Language, string>,
@@ -306,6 +329,91 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
                 </span>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== 5.5 CONSULTATION SERVICES ===== */}
+      <section className="py-20 bg-gradient-to-b from-white to-[#f6f6f6]">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="inline-block bg-[#0056b3]/10 text-[#0056b3] text-sm font-semibold px-4 py-1 rounded-full mb-3">
+              {t.consultTag[lang]}
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#333] mb-4">{t.consultTitle[lang]}</h2>
+            <p className="text-[#666]">{t.consultSubtitle[lang]}</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Service 1: Initial Consultation */}
+            <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all p-8 border-t-4 border-[#0056b3]">
+              <div className="flex items-start justify-between mb-6">
+                <div>
+                  <h3 className="text-2xl font-bold text-[#333] mb-2">{t.service1Name[lang]}</h3>
+                  <p className="text-sm text-[#666]">{t.service1Desc[lang]}</p>
+                </div>
+                <div className="text-[#0056b3] flex-shrink-0 ml-4">
+                  <FileText size={40} />
+                </div>
+              </div>
+
+              <div className="space-y-3 mb-6">
+                {[t.service1Feature1[lang], t.service1Feature2[lang], t.service1Feature3[lang], t.service1Feature4[lang]].map((feature, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <CheckCircle size={18} className="text-[#0056b3] flex-shrink-0 mt-0.5" />
+                    <span className="text-sm text-[#555]">{feature}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-6 border-t border-gray-200 flex items-center justify-between">
+                <div>
+                  <p className="text-3xl font-bold text-[#0056b3]">¥221,000</p>
+                  <p className="text-xs text-gray-500 mt-1">{lang === 'ja' ? '税込' : lang === 'zh-CN' ? '含税' : lang === 'zh-TW' ? '税込' : 'tax incl.'}</p>
+                </div>
+                <Link
+                  href={checkoutHref('/osaka-himak/initial-consultation')}
+                  className="inline-flex items-center gap-2 bg-[#0056b3] text-white px-6 py-3 rounded-full font-bold hover:bg-[#004494] transition-all"
+                >
+                  {t.serviceLearnMore[lang]} <ArrowRight size={16} />
+                </Link>
+              </div>
+            </div>
+
+            {/* Service 2: Remote Consultation */}
+            <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all p-8 border-t-4 border-[#00A6E0]">
+              <div className="flex items-start justify-between mb-6">
+                <div>
+                  <h3 className="text-2xl font-bold text-[#333] mb-2">{t.service2Name[lang]}</h3>
+                  <p className="text-sm text-[#666]">{t.service2Desc[lang]}</p>
+                </div>
+                <div className="text-[#00A6E0] flex-shrink-0 ml-4">
+                  <Globe size={40} />
+                </div>
+              </div>
+
+              <div className="space-y-3 mb-6">
+                {[t.service2Feature1[lang], t.service2Feature2[lang], t.service2Feature3[lang], t.service2Feature4[lang]].map((feature, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <CheckCircle size={18} className="text-[#00A6E0] flex-shrink-0 mt-0.5" />
+                    <span className="text-sm text-[#555]">{feature}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-6 border-t border-gray-200 flex items-center justify-between">
+                <div>
+                  <p className="text-3xl font-bold text-[#00A6E0]">¥243,000</p>
+                  <p className="text-xs text-gray-500 mt-1">{lang === 'ja' ? '税込' : lang === 'zh-CN' ? '含税' : lang === 'zh-TW' ? '税込' : 'tax incl.'}</p>
+                </div>
+                <Link
+                  href={checkoutHref('/osaka-himak/remote-consultation')}
+                  className="inline-flex items-center gap-2 bg-[#00A6E0] text-white px-6 py-3 rounded-full font-bold hover:bg-[#0095C8] transition-all"
+                >
+                  {t.serviceLearnMore[lang]} <ArrowRight size={16} />
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
