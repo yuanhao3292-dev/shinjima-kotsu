@@ -51,6 +51,7 @@ export async function middleware(request: NextRequest) {
       'hyogo-medical', 'cancer-treatment', 'medical-packages',
       'sai-clinic', 'wclinic-mens', 'helene-clinic',
       'ginza-phoenix', 'cell-medicine', 'ac-plus', 'igtc',
+      'osaka-himak',
     ]);
 
     const firstSegment = pathname.split('/')[1];
