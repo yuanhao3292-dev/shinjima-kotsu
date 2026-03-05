@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import {
-  MapPin, Phone, Clock, ChevronDown, ChevronUp,
+  MapPin, Clock, ChevronDown, ChevronUp,
   Shield, Zap, Target, CheckCircle, ArrowRight,
   Activity, Users, Award, Building2, Globe,
   Heart, Brain, Microscope, HelpCircle, Mail,
@@ -155,7 +155,6 @@ const t = {
   accessTag: { ja: 'アクセス', 'zh-TW': '交通指南', 'zh-CN': '交通指南', en: 'Access' } as Record<Language, string>,
   accessTitle: { ja: '大阪重粒子線センター', 'zh-TW': '大阪重粒子線中心', 'zh-CN': '大阪重粒子线中心', en: 'Osaka Heavy Ion Therapy Center' } as Record<Language, string>,
   address: { ja: '〒540-0008 大阪府大阪市中央区大手前3丁目1番10号', 'zh-TW': '〒540-0008 大阪府大阪市中央區大手前3丁目1番10號', 'zh-CN': '〒540-0008 大阪府大阪市中央区大手前3丁目1番10号', en: '3-1-10 Otemae, Chuo-ku, Osaka 540-0008, Japan' } as Record<Language, string>,
-  tel: { ja: '医療に関するお問い合わせ: +81-6-6947-3210', 'zh-TW': '醫療諮詢: +81-6-6947-3210', 'zh-CN': '医疗咨询: +81-6-6947-3210', en: 'Medical Inquiries: +81-6-6947-3210' } as Record<Language, string>,
   accessInfo: { ja: '地下鉄谷町線・京阪本線「天満橋」駅より徒歩約15分\n地下鉄谷町線・中央線「谷町四丁目」駅より徒歩約10分', 'zh-TW': '地鐵谷町線・京阪本線「天滿橋」站步行約15分鐘\n地鐵谷町線・中央線「谷町四丁目」站步行約10分鐘', 'zh-CN': '地铁谷町线·京阪本线「天满桥」站步行约15分钟\n地铁谷町线·中央线「谷町四丁目」站步行约10分钟', en: 'Approx. 15 min walk from Temmabashi Station (Subway Tanimachi Line / Keihan Main Line)\nApprox. 10 min walk from Tanimachi Yonchome Station (Subway Tanimachi Line / Chuo Line)' } as Record<Language, string>,
 
   // FAQ
@@ -665,13 +664,6 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
               <div>
                 <p className="font-semibold text-[#333] mb-1">Address</p>
                 <p className="text-[#555]">{t.address[lang]}</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <Phone size={20} className="text-[#0056b3] mt-1 flex-shrink-0" />
-              <div>
-                <p className="font-semibold text-[#333] mb-1">Contact</p>
-                <p className="text-[#555]">{t.tel[lang]}</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
