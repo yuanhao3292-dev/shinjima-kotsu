@@ -29,6 +29,7 @@ const MODULE_LABELS: Record<string, string> = {
   cell_medicine: '先端細胞医療',
   ac_plus: 'ACセルクリニック',
   igtc: 'IGTクリニック',
+  osaka_himak: '大阪重粒子線センター',
 };
 
 export default async function GuideLayout({ children, params }: LayoutProps) {
@@ -56,6 +57,7 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
     'medical_packages', 'hyogo_medical', 'cancer_treatment',
     'sai_clinic', 'wclinic_mens',
     'helene_clinic', 'ginza_phoenix', 'cell_medicine', 'ac_plus', 'igtc',
+    'osaka_himak',
   ]);
 
   selectedModules.forEach((m) => {

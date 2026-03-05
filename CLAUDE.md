@@ -97,7 +97,7 @@ shinjima-kotsu/
 - **配置**: `lib/whitelabel-config.ts` (slug 校验) + `lib/whitelabel-pages.ts`
 - **服务端**: `lib/services/whitelabel.ts` + `lib/utils/whitelabel-server.ts`
 
-#### 白标可用模块（数据库 page_modules 表，共 10 个）
+#### 白标可用模块（数据库 page_modules 表，共 11 个）
 
 | component_key | 名称 | Content 组件 | 分类 |
 |---------------|------|-------------|------|
@@ -111,6 +111,7 @@ shinjima-kotsu/
 | cell_medicine | 先端細胞医療 | CellMedicineContent | 干细胞中心 |
 | ac_plus | ACセルクリニック | ACPlusContent | 干细胞中心 |
 | igtc | IGTクリニック | IGTCContent | 综合医院 |
+| osaka_himak | 大阪重粒子線センター | OsakaHimakContent | 综合医院 |
 
 > **注意**: `golf`、`medical_tourism`、`health_screening` 在代码中曾有残留引用，但数据库中不存在这些模块。`health_screening` 是独立硬编码路由（AI 健康筛查），不属于 page_modules。
 
@@ -134,6 +135,13 @@ layer 3: [moduleSlug]/page.tsx → SUPPORTED_KEYS + switch (详情页路由)
 1. 新增医院/模块时，必须同步更新三个文件的白名单（layout.tsx、page.tsx、[moduleSlug]/page.tsx）
 2. 不要在代码中保留数据库已不存在的模块 key，会造成混淆
 3. 排查问题时先查数据库实际数据，不要只看代码推测
+4. **新增模块完整检查清单**（以 osaka_himak 为例，2026-03-05 添加）：
+   - ✅ `app/g/[slug]/layout.tsx` → `DETAIL_MODULES` + `MODULE_LABELS`
+   - ✅ `app/g/[slug]/page.tsx` → `DETAIL_MODULES` + `DETAIL_PAGE_HERO_IMAGES`
+   - ✅ `app/g/[slug]/[moduleSlug]/page.tsx` → `SUPPORTED_KEYS` + import + case switch
+   - ✅ `middleware.ts` → `WHITELABEL_MODULE_PATHS` (白标域名重定向)
+   - ✅ `lib/config/medical-packages.ts` → 添加咨询服务配置
+   - ✅ `CLAUDE.md` → 更新白标可用模块表
 
 ### 6. 导游合伙人系统
 - **后台**: `app/guide-partner/` (dashboard, bookings, commission, analytics等)
