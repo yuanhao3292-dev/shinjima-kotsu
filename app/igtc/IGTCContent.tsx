@@ -54,11 +54,33 @@ const tr = {
   perfTitle: { ja: '治療実績の推移', 'zh-TW': '治療實績趨勢', 'zh-CN': '治疗实绩趋势', en: 'Treatment Performance Trends' } as Record<Language, string>,
   perfDesc: { ja: '毎月の治療実績を公開しています', 'zh-TW': '每月公開治療實績', 'zh-CN': '每月公开治疗实绩', en: 'Monthly results published transparently' } as Record<Language, string>,
 
-  // Banners
-  bannerOnline: { ja: 'オンライン診療', 'zh-TW': '線上診療', 'zh-CN': '在线诊疗', en: 'Online Consultation' } as Record<Language, string>,
-  bannerConsult: { ja: '無料メール相談', 'zh-TW': '免費郵件諮詢', 'zh-CN': '免费邮件咨询', en: 'Free Email Consultation' } as Record<Language, string>,
-  bannerPress: { ja: 'プレスリリース', 'zh-TW': '媒體報導', 'zh-CN': '媒体报道', en: 'Press Release' } as Record<Language, string>,
-  bannerLecture: { ja: '講演会のご案内', 'zh-TW': '講座資訊', 'zh-CN': '讲座信息', en: 'Lecture Information' } as Record<Language, string>,
+  // Facility
+  facilityTag: { ja: '診療環境', 'zh-TW': '診療環境', 'zh-CN': '诊疗环境', en: 'Facility' } as Record<Language, string>,
+  facilityTitle: { ja: '関西空港至近の医療施設', 'zh-TW': '鄰近關西機場的醫療設施', 'zh-CN': '邻近关西机场的医疗设施', en: 'Medical Facility Near Kansai Airport' } as Record<Language, string>,
+  facilityDesc: { ja: 'メディカルりんくうポートに位置し、最新の医療設備を完備。患者様に安心して治療を受けていただける環境を整えています。', 'zh-TW': '位於醫療臨空港，配備最新醫療設備。為患者提供安心接受治療的環境。', 'zh-CN': '位于医疗临空港，配备最新医疗设备。为患者提供安心接受治疗的环境。', en: 'Located in Medical Rinku Port with state-of-the-art medical equipment, providing a comfortable environment for treatment.' } as Record<Language, string>,
+
+  facilityLocation: { ja: '立地とアクセス', 'zh-TW': '地理位置與交通', 'zh-CN': '地理位置与交通', en: 'Location & Access' } as Record<Language, string>,
+  facilityLocationDesc: { ja: '関西空港から1駅、りんくうタウン駅より徒歩10分の好立地', 'zh-TW': '距關西機場1站，臨空城站步行10分鐘', 'zh-CN': '距关西机场1站，临空城站步行10分钟', en: '1 station from Kansai Airport, 10 min walk from Rinku Town Station' } as Record<Language, string>,
+
+  facilityEquipment: { ja: '医療設備', 'zh-TW': '醫療設備', 'zh-CN': '医疗设备', en: 'Medical Equipment' } as Record<Language, string>,
+  facilityEquipmentDesc: { ja: '最新の血管造影装置と温熱治療機器を完備', 'zh-TW': '配備最新血管造影設備與溫熱治療儀器', 'zh-CN': '配备最新血管造影设备与温热治疗仪器', en: 'Equipped with latest angiography and hyperthermia systems' } as Record<Language, string>,
+
+  facilityEnvironment: { ja: '診療環境', 'zh-TW': '診療環境', 'zh-CN': '诊疗环境', en: 'Treatment Environment' } as Record<Language, string>,
+  facilityEnvironmentDesc: { ja: '清潔で快適な治療室、患者様のプライバシーに配慮', 'zh-TW': '清潔舒適的治療室，注重患者隱私', 'zh-CN': '清洁舒适的治疗室，注重患者隐私', en: 'Clean, comfortable treatment rooms with privacy consideration' } as Record<Language, string>,
+
+  // Technical Details
+  techTag: { ja: '技術詳細', 'zh-TW': '技術詳解', 'zh-CN': '技术详解', en: 'Technical Details' } as Record<Language, string>,
+  techTitle: { ja: '先進的ながん治療技術', 'zh-TW': '先進的癌症治療技術', 'zh-CN': '先进的癌症治疗技术', en: 'Advanced Cancer Treatment Technology' } as Record<Language, string>,
+
+  techIGTDetail: { ja: '動脈化学塞栓療法（TACE）の詳細', 'zh-TW': '動脈化學栓塞療法（TACE）詳解', 'zh-CN': '动脉化学栓塞疗法（TACE）详解', en: 'Transarterial Chemoembolization (TACE) Details' } as Record<Language, string>,
+  techIGTPoint1: { ja: '局所集中投与：抗がん剤を腫瘍に直接届ける', 'zh-TW': '局部集中投藥：直接將抗癌藥物送達腫瘤', 'zh-CN': '局部集中投药：直接将抗癌药物送达肿瘤', en: 'Localized delivery: Direct anti-cancer drug to tumor' } as Record<Language, string>,
+  techIGTPoint2: { ja: '血管塞栓：腫瘍への栄養供給を遮断', 'zh-TW': '血管栓塞：阻斷腫瘤營養供應', 'zh-CN': '血管栓塞：阻断肿瘤营养供应', en: 'Embolization: Cut off tumor nutrition supply' } as Record<Language, string>,
+  techIGTPoint3: { ja: '副作用軽減：全身化学療法より負担が少ない', 'zh-TW': '減少副作用：比全身化療負擔更少', 'zh-CN': '减少副作用：比全身化疗负担更少', en: 'Reduced side effects: Less burden than systemic chemo' } as Record<Language, string>,
+
+  techHyperDetail: { ja: '温熱療法の原理', 'zh-TW': '溫熱療法原理', 'zh-CN': '温热疗法原理', en: 'Hyperthermia Principles' } as Record<Language, string>,
+  techHyperPoint1: { ja: '選択的加温：がん細胞のみを42-44℃に加温', 'zh-TW': '選擇性加溫：僅將癌細胞加熱至42-44°C', 'zh-CN': '选择性加温：仅将癌细胞加热至42-44°C', en: 'Selective heating: Heat cancer cells to 42-44°C only' } as Record<Language, string>,
+  techHyperPoint2: { ja: '細胞死誘導：熱によりがん細胞のアポトーシスを促進', 'zh-TW': '誘導細胞死亡：熱促進癌細胞凋亡', 'zh-CN': '诱导细胞死亡：热促进癌细胞凋亡', en: 'Induce cell death: Heat promotes cancer cell apoptosis' } as Record<Language, string>,
+  techHyperPoint3: { ja: '相乗効果：他治療との併用で効果増強', 'zh-TW': '協同效應：與其他治療併用增強效果', 'zh-CN': '协同效应：与其他治疗并用增强效果', en: 'Synergy: Enhanced effect when combined with other treatments' } as Record<Language, string>,
 
   // Treatments
   treatTag: { ja: '治療方法', 'zh-TW': '治療方法', 'zh-CN': '治疗方法', en: 'Treatment Methods' } as Record<Language, string>,
@@ -253,50 +275,132 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
         </div>
       </section>
 
-      {/* ========== BANNERS ========== */}
-      <section className="py-12 bg-gray-50">
+      {/* ========== FACILITY & ENVIRONMENT ========== */}
+      <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <a
-              href="#cta"
-              className="group block bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition"
-            >
-              <img
-                src="https://igtc.jp/images/top_temp/top_online_bana.png"
-                alt={t(tr.bannerOnline, lang)}
-                className="w-full h-auto"
-              />
-            </a>
-            <a
-              href="#cta"
-              className="group block bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition"
-            >
-              <img
-                src="https://igtc.jp/images/top_temp/top_soudan_bana.png"
-                alt={t(tr.bannerConsult, lang)}
-                className="w-full h-auto"
-              />
-            </a>
-            <a
-              href="#"
-              className="group block bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition"
-            >
-              <img
-                src="https://igtc.jp/images/top_temp/top_press_bana.png"
-                alt={t(tr.bannerPress, lang)}
-                className="w-full h-auto"
-              />
-            </a>
-            <a
-              href="#"
-              className="group block bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition"
-            >
-              <img
-                src="https://igtc.jp/images/top_temp/top_koen_bana.png"
-                alt={t(tr.bannerLecture, lang)}
-                className="w-full h-auto"
-              />
-            </a>
+          <div className="text-center mb-12">
+            <span className="text-blue-800 font-medium text-sm">{t(tr.facilityTag, lang)}</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.facilityTitle, lang)}</h2>
+            <p className="text-gray-600 mt-4 max-w-3xl mx-auto">{t(tr.facilityDesc, lang)}</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Location */}
+            <div className="bg-white rounded-2xl p-8 border hover:shadow-lg transition">
+              <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                <MapPin size={32} className="text-blue-800" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">{t(tr.facilityLocation, lang)}</h3>
+              <p className="text-gray-600 text-center leading-relaxed">{t(tr.facilityLocationDesc, lang)}</p>
+              <div className="mt-6 text-center">
+                <span className="inline-block bg-gray-50 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium">
+                  {lang === 'ja' ? 'りんくうタウン駅 徒歩10分' : lang === 'en' ? '10 min from station' : '车站步行10分钟'}
+                </span>
+              </div>
+            </div>
+
+            {/* Equipment */}
+            <div className="bg-white rounded-2xl p-8 border hover:shadow-lg transition">
+              <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                <Microscope size={32} className="text-blue-800" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">{t(tr.facilityEquipment, lang)}</h3>
+              <p className="text-gray-600 text-center leading-relaxed">{t(tr.facilityEquipmentDesc, lang)}</p>
+              <div className="mt-6 space-y-2">
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <CheckCircle size={16} className="text-blue-800 shrink-0" />
+                  <span>{lang === 'ja' ? '血管造影装置' : lang === 'en' ? 'Angiography System' : '血管造影设备'}</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <CheckCircle size={16} className="text-blue-800 shrink-0" />
+                  <span>{lang === 'ja' ? '温熱治療機器' : lang === 'en' ? 'Hyperthermia System' : '温热治疗仪器'}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Environment */}
+            <div className="bg-white rounded-2xl p-8 border hover:shadow-lg transition">
+              <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                <BedDouble size={32} className="text-blue-800" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">{t(tr.facilityEnvironment, lang)}</h3>
+              <p className="text-gray-600 text-center leading-relaxed">{t(tr.facilityEnvironmentDesc, lang)}</p>
+              <div className="mt-6 text-center">
+                <span className="inline-block bg-blue-50 text-blue-800 px-4 py-2 rounded-lg text-sm font-medium">
+                  {lang === 'ja' ? '3F〜5F 完全個室対応' : lang === 'en' ? 'Private Rooms 3F-5F' : '3F-5F 独立诊室'}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========== TECHNICAL DETAILS ========== */}
+      <section className="py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="text-blue-800 font-medium text-sm">{t(tr.techTag, lang)}</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.techTitle, lang)}</h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* IGT Technical Details */}
+            <div className="bg-gradient-to-br from-blue-900 to-blue-800 rounded-2xl p-8 text-white">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                  <Syringe size={24} className="text-white" />
+                </div>
+                <h3 className="text-2xl font-bold">{t(tr.techIGTDetail, lang)}</h3>
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <CheckCircle size={20} className="shrink-0 mt-1 text-blue-200" />
+                  <p className="leading-relaxed">{t(tr.techIGTPoint1, lang)}</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle size={20} className="shrink-0 mt-1 text-blue-200" />
+                  <p className="leading-relaxed">{t(tr.techIGTPoint2, lang)}</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle size={20} className="shrink-0 mt-1 text-blue-200" />
+                  <p className="leading-relaxed">{t(tr.techIGTPoint3, lang)}</p>
+                </div>
+              </div>
+              <div className="mt-6 pt-6 border-t border-white/20">
+                <p className="text-sm text-blue-100">
+                  {lang === 'ja' ? 'カテーテル技術により、がんの栄養血管に選択的に薬剤を投与し、腫瘍を縮小させます。' : lang === 'en' ? 'Catheter technology selectively delivers drugs to tumor feeding vessels to shrink tumors.' : '导管技术选择性地将药物输送到肿瘤供血血管以缩小肿瘤。'}
+                </p>
+              </div>
+            </div>
+
+            {/* Hyperthermia Technical Details */}
+            <div className="bg-gradient-to-br from-orange-600 to-orange-500 rounded-2xl p-8 text-white">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                  <Thermometer size={24} className="text-white" />
+                </div>
+                <h3 className="text-2xl font-bold">{t(tr.techHyperDetail, lang)}</h3>
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <CheckCircle size={20} className="shrink-0 mt-1 text-orange-100" />
+                  <p className="leading-relaxed">{t(tr.techHyperPoint1, lang)}</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle size={20} className="shrink-0 mt-1 text-orange-100" />
+                  <p className="leading-relaxed">{t(tr.techHyperPoint2, lang)}</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle size={20} className="shrink-0 mt-1 text-orange-100" />
+                  <p className="leading-relaxed">{t(tr.techHyperPoint3, lang)}</p>
+                </div>
+              </div>
+              <div className="mt-6 pt-6 border-t border-white/20">
+                <p className="text-sm text-orange-50">
+                  {lang === 'ja' ? '温熱により、がん細胞を選択的に破壊し、他の治療法の効果を高めます。' : lang === 'en' ? 'Hyperthermia selectively destroys cancer cells and enhances other treatment effects.' : '温热选择性地破坏癌细胞并增强其他治疗效果。'}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
