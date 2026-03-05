@@ -97,10 +97,11 @@ export async function middleware(request: NextRequest) {
     const slug = pathname.split('/')[2];
     if (slug && isValidSlug(slug)) {
       // 生产环境 + 官方域名：重定向到白标子域名（官方域名不承载白标页面）
-      if (process.env.NODE_ENV === 'production' && !isWhiteLabelDomain) {
-        const subdomainUrl = `https://${slug}.${DOMAINS.whitelabel}${pathname}`;
-        return NextResponse.redirect(subdomainUrl);
-      }
+      // 临时禁用：等待配置 Vercel nameservers 后再启用
+      // if (process.env.NODE_ENV === 'production' && !isWhiteLabelDomain) {
+      //   const subdomainUrl = `https://${slug}.${DOMAINS.whitelabel}${pathname}`;
+      //   return NextResponse.redirect(subdomainUrl);
+      // }
 
       // 白标域名或开发环境：正常处理
       const response = await updateSession(request);
