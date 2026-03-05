@@ -992,10 +992,6 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   <div className="w-8 h-8 bg-[#293f58]/10 text-[#293f58] rounded-full flex items-center justify-center shrink-0"><Clock size={16} /></div>
                   <p className="text-sm text-gray-600">10:00 - 19:00</p>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-[#293f58]/10 text-[#293f58] rounded-full flex items-center justify-center shrink-0"><Phone size={16} /></div>
-                  <p className="text-sm text-gray-600">06-4708-3666</p>
-                </div>
               </div>
             </div>
 
@@ -1038,10 +1034,6 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-[#293f58]/10 text-[#293f58] rounded-full flex items-center justify-center shrink-0"><Clock size={16} /></div>
                   <p className="text-sm text-gray-600">10:00 - 19:00</p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-[#293f58]/10 text-[#293f58] rounded-full flex items-center justify-center shrink-0"><Phone size={16} /></div>
-                  <p className="text-sm text-gray-600">06-4708-3666</p>
                 </div>
               </div>
             </div>

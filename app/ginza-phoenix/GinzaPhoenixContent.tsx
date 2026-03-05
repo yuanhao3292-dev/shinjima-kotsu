@@ -1040,10 +1040,6 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Phone size={20} className="text-[#466777] mt-0.5 shrink-0" />
-                <p className="text-sm text-[#333333]/70">03-6263-8163</p>
-              </div>
-              <div className="flex items-start gap-3">
                 <Building2 size={20} className="text-[#466777] mt-0.5 shrink-0" />
                 <div>
                   <p className="text-sm text-[#333333]/70">

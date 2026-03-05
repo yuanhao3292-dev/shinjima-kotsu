@@ -518,10 +518,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                   <p className="text-gray-600 text-sm">りんくうタウン駅より徒歩10分 / 関西空港から1駅</p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Phone size={20} className="text-blue-800 shrink-0" />
-                  <p className="text-gray-600 text-sm">072-463-3811</p>
-                </div>
-                <div className="flex items-center gap-3">
                   <Clock size={20} className="text-blue-800 shrink-0" />
                   <div>
                     <p className="text-gray-600 text-sm">月・火・水・金・土 9:00〜17:00</p>

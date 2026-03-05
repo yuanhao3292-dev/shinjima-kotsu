@@ -1124,17 +1124,17 @@ const accessT = {
 
 | 文件 | 状态 | 备注 |
 |------|------|------|
-| `app/hyogo-medical/HyogoMedicalContent.tsx` | ⏳ 待检查 | 兵库医大 |
-| `app/cancer-treatment/CancerTreatmentContent.tsx` | ⏳ 待检查 | 大阪国际癌症中心 |
-| `app/osaka-himak/OsakaHimakContent.tsx` | ⏳ 待检查 | 大阪重粒子线中心 |
-| `app/igtc/IGTCContent.tsx` | ⏳ 待检查 | IGT クリニック |
-| `app/sai-clinic/SaiClinicContent.tsx` | ⏳ 待检查 | SAI CLINIC |
-| `app/wclinic-mens/WClinicMensContent.tsx` | ⏳ 待检查 | W CLINIC men's |
-| `app/helene-clinic/HeleneClinicContent.tsx` | ⏳ 待检查 | 表参道 HELENE |
-| `app/ginza-phoenix/GinzaPhoenixContent.tsx` | ⏳ 待检查 | 銀座鳳凰 |
-| `app/cell-medicine/CellMedicineContent.tsx` | ⏳ 待检查 | 先端細胞医療 |
-| `app/ac-plus/ACPlusContent.tsx` | ⏳ 待检查 | AC セルクリニック |
-| `components/whitelabel-modules/TIMCContent.tsx` | ⏳ 待检查 | TIMC 健检 |
+| `app/hyogo-medical/HyogoMedicalContent.tsx` | ✅ **已修复** | 兵库医大 - 删除交通指南电话 (Commit 79f39ad) |
+| `app/cancer-treatment/CancerTreatmentContent.tsx` | ✅ **已修复** | 大阪国际癌症中心 - 删除联系按钮组 (Commit 79f39ad) |
+| `app/osaka-himak/OsakaHimakContent.tsx` | ✅ **已修复** | 大阪重粒子线中心 - 删除交通指南电话 (Commit f49a2cb) |
+| `app/igtc/IGTCContent.tsx` | 🔍 检查中 | IGT クリニック |
+| `app/sai-clinic/SaiClinicContent.tsx` | ✅ **已修复** | SAI CLINIC - 删除交通指南电话 (Commit 79f39ad) |
+| `app/wclinic-mens/WClinicMensContent.tsx` | 🔍 检查中 | W CLINIC men's |
+| `app/helene-clinic/HeleneClinicContent.tsx` | ✅ **已修复** | 表参道 HELENE - 删除交通指南电话 (Commit 79f39ad) |
+| `app/ginza-phoenix/GinzaPhoenixContent.tsx` | 🔍 检查中 | 銀座鳳凰 |
+| `app/cell-medicine/CellMedicineContent.tsx` | 🔍 检查中 | 先端細胞医療 |
+| `app/ac-plus/ACPlusContent.tsx` | 🔍 检查中 | AC セルクリニック |
+| `components/whitelabel-modules/TIMCContent.tsx` | 🔍 检查中 | TIMC 健检 |
 
 ---
 
