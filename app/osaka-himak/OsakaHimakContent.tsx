@@ -54,6 +54,41 @@ const t = {
   introP1: { ja: '大阪重粒子線センターは、公益財団法人大阪国際がん治療財団が運営する関西初の重粒子線がん治療施設です。大阪市中央区大手前に位置し、世界最先端の小型化重粒子線治療装置を導入しています。', 'zh-TW': '大阪重粒子線中心是由公益財團法人大阪國際癌症治療財團營運的關西首家重粒子線癌症治療設施。位於大阪市中央區大手前,導入了世界最先進的小型化重粒子線治療裝置。', 'zh-CN': '大阪重粒子线中心是由公益财团法人大阪国际癌症治疗财团运营的关西首家重粒子线癌症治疗设施。位于大阪市中央区大手前,导入了世界最先进的小型化重粒子线治疗装置。', en: 'Osaka Heavy Ion Therapy Center is Kansai\'s first heavy ion cancer treatment facility, operated by the Public Interest Incorporated Foundation Osaka International Cancer Treatment Foundation. Located in Otemae, Chuo-ku, Osaka, featuring the world\'s most advanced miniaturized heavy ion therapy system.' } as Record<Language, string>,
   introP2: { ja: '全ての治療室で最新のスキャン照射治療を実施。体への負担が少なく、高齢者の方でも安心して治療を受けていただけます。通常の放射線治療では効果が限定的ながんや、手術が困難な腫瘍に対しても高い治療効果を発揮します。', 'zh-TW': '所有治療室均採用最新的掃描照射治療。對身體負擔小,高齡者也可以放心接受治療。對普通放射線治療效果有限的癌症,以及手術困難的腫瘤也能發揮高治療效果。', 'zh-CN': '所有治疗室均采用最新的扫描照射治疗。对身体负担小,高龄者也可以放心接受治疗。对普通放射线治疗效果有限的癌症,以及手术困难的肿瘤也能发挥高治疗效果。', en: 'All treatment rooms are equipped with the latest scanning irradiation technology. Gentle on the body, safe for elderly patients. Highly effective even for cancers with limited response to conventional radiation or tumors difficult to operate on.' } as Record<Language, string>,
 
+  // Science Behind Heavy Ion Therapy
+  scienceTag: { ja: '重粒子線治療の科学', 'zh-TW': '重粒子線治療的科學原理', 'zh-CN': '重粒子线治疗的科学原理', en: 'Science of Heavy Ion Therapy' } as Record<Language, string>,
+  scienceTitle: { ja: '炭素イオンが実現する精密ながん治療', 'zh-TW': '碳離子實現的精準癌症治療', 'zh-CN': '碳离子实现的精准癌症治疗', en: 'Precision Cancer Treatment with Carbon Ions' } as Record<Language, string>,
+  scienceIntro: { ja: '重粒子線治療は、炭素イオン（C12）を光速の約70%まで加速し、がん細胞をピンポイントで破壊する最先端の放射線治療です。通常のX線治療と比べて、約3倍の生物学的効果を持ちながら、正常組織への影響を大幅に低減します。', 'zh-TW': '重粒子線治療是將碳離子（C12）加速至光速約70%，精準破壞癌細胞的最先進放射線治療。與普通X射線治療相比，具有約3倍的生物學效果，同時大幅降低對正常組織的影響。', 'zh-CN': '重粒子线治疗是将碳离子（C12）加速至光速约70%，精准破坏癌细胞的最先进放射线治疗。与普通X射线治疗相比，具有约3倍的生物学效果，同时大幅降低对正常组织的影响。', en: 'Heavy ion therapy accelerates carbon ions (C12) to approximately 70% of light speed, precisely destroying cancer cells with cutting-edge radiation treatment. Compared to conventional X-ray therapy, it delivers about 3 times the biological effect while significantly reducing impact on normal tissue.' } as Record<Language, string>,
+
+  braggPeakTitle: { ja: 'ブラッグピーク効果', 'zh-TW': '布拉格峰效應', 'zh-CN': '布拉格峰效应', en: 'Bragg Peak Effect' } as Record<Language, string>,
+  braggPeakDesc: { ja: '重粒子線は体内を進む際、表面付近ではエネルギーをほとんど放出せず、設定した深さ（腫瘍位置）で最大エネルギーを集中放出します。この特性により、腫瘍の手前と奥の正常組織を保護しながら、がん細胞のみを強力に攻撃できます。', 'zh-TW': '重粒子線在體內行進時，表面附近幾乎不釋放能量，在設定深度（腫瘤位置）集中釋放最大能量。這一特性使得在保護腫瘤前後正常組織的同時，能夠強力攻擊癌細胞。', 'zh-CN': '重粒子线在体内行进时，表面附近几乎不释放能量，在设定深度（肿瘤位置）集中释放最大能量。这一特性使得在保护肿瘤前后正常组织的同时，能够强力攻击癌细胞。', en: 'Heavy ions deposit minimal energy near the body surface, concentrating maximum energy at the preset depth (tumor location). This property enables powerful attack on cancer cells while protecting normal tissue before and after the tumor.' } as Record<Language, string>,
+
+  carbonIonTitle: { ja: '炭素イオンの高い生物学的効果', 'zh-TW': '碳離子的高生物學效應', 'zh-CN': '碳离子的高生物学效应', en: 'High Biological Effectiveness of Carbon Ions' } as Record<Language, string>,
+  carbonIonDesc: { ja: '炭素イオンは質量が重いため、がん細胞のDNA二重鎖を直接切断します。X線治療では抵抗性を示す低酸素がんや放射線抵抗性腫瘍に対しても、高い治療効果を発揮。相対生物学的効果（RBE）は通常の放射線の2～3倍に達します。', 'zh-TW': '碳離子質量較重，能直接切斷癌細胞的DNA雙鏈。對X射線治療具有抵抗性的低氧癌症和放射抗性腫瘤，也能發揮高治療效果。相對生物學效應（RBE）達到普通放射線的2～3倍。', 'zh-CN': '碳离子质量较重，能直接切断癌细胞的DNA双链。对X射线治疗具有抵抗性的低氧癌症和放射抗性肿瘤，也能发挥高治疗效果。相对生物学效应（RBE）达到普通放射线的2～3倍。', en: 'Carbon ions, due to their heavy mass, directly sever cancer cell DNA double strands. Highly effective even against hypoxic cancers and radioresistant tumors that show resistance to X-ray therapy. Relative Biological Effectiveness (RBE) reaches 2-3 times that of conventional radiation.' } as Record<Language, string>,
+
+  // Clinical Comparison Data
+  comparisonTag: { ja: '治療比較', 'zh-TW': '治療對比', 'zh-CN': '治疗对比', en: 'Treatment Comparison' } as Record<Language, string>,
+  comparisonTitle: { ja: '従来の治療法との比較', 'zh-TW': '與傳統治療方法的對比', 'zh-CN': '与传统治疗方法的对比', en: 'Comparison with Conventional Treatments' } as Record<Language, string>,
+
+  comp1Metric: { ja: '生物学的効果', 'zh-TW': '生物學效應', 'zh-CN': '生物学效应', en: 'Biological Effect' } as Record<Language, string>,
+  comp1XRay: { ja: 'X線：1.0倍', 'zh-TW': 'X射線：1.0倍', 'zh-CN': 'X射线：1.0倍', en: 'X-ray: 1.0x' } as Record<Language, string>,
+  comp1Proton: { ja: '陽子線：1.1倍', 'zh-TW': '質子線：1.1倍', 'zh-CN': '质子线：1.1倍', en: 'Proton: 1.1x' } as Record<Language, string>,
+  comp1Carbon: { ja: '重粒子線：2～3倍', 'zh-TW': '重粒子線：2～3倍', 'zh-CN': '重粒子线：2～3倍', en: 'Carbon Ion: 2-3x' } as Record<Language, string>,
+
+  comp2Metric: { ja: '治療期間', 'zh-TW': '治療期間', 'zh-CN': '治疗期间', en: 'Treatment Duration' } as Record<Language, string>,
+  comp2XRay: { ja: 'X線：6～8週間', 'zh-TW': 'X射線：6～8週', 'zh-CN': 'X射线：6～8周', en: 'X-ray: 6-8 weeks' } as Record<Language, string>,
+  comp2Proton: { ja: '陽子線：4～6週間', 'zh-TW': '質子線：4～6週', 'zh-CN': '质子线：4～6周', en: 'Proton: 4-6 weeks' } as Record<Language, string>,
+  comp2Carbon: { ja: '重粒子線：1日～5週間', 'zh-TW': '重粒子線：1日～5週', 'zh-CN': '重粒子线：1日～5周', en: 'Carbon Ion: 1 day-5 weeks' } as Record<Language, string>,
+
+  comp3Metric: { ja: '副作用', 'zh-TW': '副作用', 'zh-CN': '副作用', en: 'Side Effects' } as Record<Language, string>,
+  comp3XRay: { ja: 'X線：中程度', 'zh-TW': 'X射線：中度', 'zh-CN': 'X射线：中度', en: 'X-ray: Moderate' } as Record<Language, string>,
+  comp3Proton: { ja: '陽子線：軽度', 'zh-TW': '質子線：輕度', 'zh-CN': '质子线：轻度', en: 'Proton: Mild' } as Record<Language, string>,
+  comp3Carbon: { ja: '重粒子線：最小限', 'zh-TW': '重粒子線：最小', 'zh-CN': '重粒子线：最小', en: 'Carbon Ion: Minimal' } as Record<Language, string>,
+
+  comp4Metric: { ja: '低酸素腫瘍効果', 'zh-TW': '低氧腫瘤效果', 'zh-CN': '低氧肿瘤效果', en: 'Hypoxic Tumor Effect' } as Record<Language, string>,
+  comp4XRay: { ja: 'X線：限定的', 'zh-TW': 'X射線：有限', 'zh-CN': 'X射线：有限', en: 'X-ray: Limited' } as Record<Language, string>,
+  comp4Proton: { ja: '陽子線：限定的', 'zh-TW': '質子線：有限', 'zh-CN': '质子线：有限', en: 'Proton: Limited' } as Record<Language, string>,
+  comp4Carbon: { ja: '重粒子線：効果的', 'zh-TW': '重粒子線：有效', 'zh-CN': '重粒子线：有效', en: 'Carbon Ion: Effective' } as Record<Language, string>,
+
   // Heavy Ion Therapy Advantages
   advTag: { ja: '重粒子線治療の特徴', 'zh-TW': '重粒子線治療的特色', 'zh-CN': '重粒子线治疗的特色', en: 'Heavy Ion Therapy Features' } as Record<Language, string>,
   advTitle: { ja: '3つの大きなメリット', 'zh-TW': '三大優勢', 'zh-CN': '三大优势', en: 'Three Major Advantages' } as Record<Language, string>,
@@ -278,6 +313,145 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
               <img src={IMG.hero2} alt="Treatment room" className="rounded-xl shadow-md w-full h-48 object-cover" />
               <img src={IMG.hero3} alt="Equipment" className="rounded-xl shadow-md w-full h-48 object-cover" />
               <img src={IMG.hero4} alt="Facility" className="rounded-xl shadow-md w-full h-48 object-cover col-span-2" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== 3.5 SCIENCE BEHIND HEAVY ION THERAPY ===== */}
+      <section className="py-20 bg-gradient-to-b from-[#f6f6f6] to-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="inline-block bg-[#0056b3]/10 text-[#0056b3] text-sm font-semibold px-4 py-1 rounded-full mb-3">
+              {t.scienceTag[lang]}
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#333] mb-4">{t.scienceTitle[lang]}</h2>
+            <p className="text-[#555] max-w-4xl mx-auto leading-relaxed">{t.scienceIntro[lang]}</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Bragg Peak Effect */}
+            <div className="bg-white rounded-2xl shadow-lg p-8 border-l-4 border-[#0056b3]">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="bg-[#0056b3]/10 p-3 rounded-lg">
+                  <Target size={28} className="text-[#0056b3]" />
+                </div>
+                <h3 className="text-xl font-bold text-[#333]">{t.braggPeakTitle[lang]}</h3>
+              </div>
+              <p className="text-[#555] leading-relaxed">{t.braggPeakDesc[lang]}</p>
+            </div>
+
+            {/* Carbon Ion Biological Effectiveness */}
+            <div className="bg-white rounded-2xl shadow-lg p-8 border-l-4 border-[#00A6E0]">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="bg-[#00A6E0]/10 p-3 rounded-lg">
+                  <Microscope size={28} className="text-[#00A6E0]" />
+                </div>
+                <h3 className="text-xl font-bold text-[#333]">{t.carbonIonTitle[lang]}</h3>
+              </div>
+              <p className="text-[#555] leading-relaxed">{t.carbonIonDesc[lang]}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== 3.6 CLINICAL COMPARISON DATA ===== */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="inline-block bg-[#0056b3]/10 text-[#0056b3] text-sm font-semibold px-4 py-1 rounded-full mb-3">
+              {t.comparisonTag[lang]}
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#333] mb-2">{t.comparisonTitle[lang]}</h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Biological Effect */}
+            <div className="bg-gradient-to-br from-[#f6f6f6] to-white rounded-xl shadow-md p-6 border-t-4 border-[#0056b3]">
+              <h3 className="text-lg font-bold text-[#333] mb-4 flex items-center gap-2">
+                <Activity size={20} className="text-[#0056b3]" />
+                {t.comp1Metric[lang]}
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-gray-400"></div>
+                  <span className="text-sm text-[#555]">{t.comp1XRay[lang]}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-blue-400"></div>
+                  <span className="text-sm text-[#555]">{t.comp1Proton[lang]}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-[#0056b3]"></div>
+                  <span className="text-sm font-bold text-[#0056b3]">{t.comp1Carbon[lang]}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Treatment Duration */}
+            <div className="bg-gradient-to-br from-[#f6f6f6] to-white rounded-xl shadow-md p-6 border-t-4 border-[#00A6E0]">
+              <h3 className="text-lg font-bold text-[#333] mb-4 flex items-center gap-2">
+                <Clock size={20} className="text-[#00A6E0]" />
+                {t.comp2Metric[lang]}
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-gray-400"></div>
+                  <span className="text-sm text-[#555]">{t.comp2XRay[lang]}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-blue-400"></div>
+                  <span className="text-sm text-[#555]">{t.comp2Proton[lang]}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-[#00A6E0]"></div>
+                  <span className="text-sm font-bold text-[#00A6E0]">{t.comp2Carbon[lang]}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Side Effects */}
+            <div className="bg-gradient-to-br from-[#f6f6f6] to-white rounded-xl shadow-md p-6 border-t-4 border-[#28a745]">
+              <h3 className="text-lg font-bold text-[#333] mb-4 flex items-center gap-2">
+                <Shield size={20} className="text-[#28a745]" />
+                {t.comp3Metric[lang]}
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-gray-400"></div>
+                  <span className="text-sm text-[#555]">{t.comp3XRay[lang]}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-blue-400"></div>
+                  <span className="text-sm text-[#555]">{t.comp3Proton[lang]}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-[#28a745]"></div>
+                  <span className="text-sm font-bold text-[#28a745]">{t.comp3Carbon[lang]}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Hypoxic Tumor Effect */}
+            <div className="bg-gradient-to-br from-[#f6f6f6] to-white rounded-xl shadow-md p-6 border-t-4 border-[#ff6b6b]">
+              <h3 className="text-lg font-bold text-[#333] mb-4 flex items-center gap-2">
+                <Heart size={20} className="text-[#ff6b6b]" />
+                {t.comp4Metric[lang]}
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-gray-400"></div>
+                  <span className="text-sm text-[#555]">{t.comp4XRay[lang]}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-blue-400"></div>
+                  <span className="text-sm text-[#555]">{t.comp4Proton[lang]}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-[#ff6b6b]"></div>
+                  <span className="text-sm font-bold text-[#ff6b6b]">{t.comp4Carbon[lang]}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
