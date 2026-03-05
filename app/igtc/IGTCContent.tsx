@@ -27,13 +27,19 @@ const tr = {
     ja: 'IGTクリニック', 'zh-TW': 'IGT 診所', 'zh-CN': 'IGT 诊所', en: 'IGT Clinic',
   } as Record<Language, string>,
   heroSubtitle: {
-    ja: '血管内治療の専門クリニック', 'zh-TW': '血管內治療專門診所', 'zh-CN': '血管内治疗专门诊所', en: 'Specialized Endovascular Treatment Clinic',
+    ja: 'がん治療専門クリニック', 'zh-TW': '癌症治療專門診所', 'zh-CN': '癌症治疗专门诊所', en: 'Cancer Treatment Specialized Clinic',
+  } as Record<Language, string>,
+  heroMission: {
+    ja: '『受けて良かった』と思っていただける治療を目指しています',
+    'zh-TW': '我們致力於提供讓患者感到「很高興接受」的治療',
+    'zh-CN': '我们致力于提供让患者感到"很高兴接受"的治疗',
+    en: 'Striving to provide treatment you\'ll be glad to receive',
   } as Record<Language, string>,
   heroText: {
-    ja: '医療法人 龍志会 IGTクリニック。カテーテルによる血管内治療と\nハイパーサーミア（温熱療法）を組み合わせた癌治療を提供。\n標準治療で効果が得られなかった患者様に新たな選択肢をご提案します。',
-    'zh-TW': '醫療法人 龍志會 IGT診所。結合導管血管內治療與\n溫熱療法（Hyperthermia）的癌症治療。\n為標準治療效果不佳的患者提供新的治療選擇。',
-    'zh-CN': '医疗法人 龙志会 IGT诊所。结合导管血管内治疗与\n温热疗法（Hyperthermia）的癌症治疗。\n为标准治疗效果不佳的患者提供新的治疗选择。',
-    en: 'IGT Clinic by Medical Corporation Ryushikai.\nCombining catheter-based endovascular therapy with\nhyperthermia for cancer treatment.\nOffering new options for patients with limited standard treatment response.',
+    ja: '医療法人 龍志会 IGTクリニック。動脈塞栓術を主にした血管内治療を軸に、\n温熱治療などを組み合わせて、がんに苦しむ人たちが困っている病巣を\n少しでも小さくして症状を和らげ、臓器の働きを良くすることを目標としています。\n命を繋げてゆくための治療を実践する専門クリニックです。',
+    'zh-TW': '醫療法人 龍志會 IGT診所。以動脈栓塞術為主的血管內治療為核心，\n結合溫熱療法等，目標是縮小病灶、緩解症狀、改善臟器功能，\n幫助癌症患者減輕痛苦。我們是實踐「維持生命治療」的專門診所。',
+    'zh-CN': '医疗法人 龙志会 IGT诊所。以动脉栓塞术为主的血管内治疗为核心，\n结合温热疗法等，目标是缩小病灶、缓解症状、改善脏器功能，\n帮助癌症患者减轻痛苦。我们是实践「维持生命治疗」的专门诊所。',
+    en: 'IGT Clinic by Medical Corporation Ryushikai. Centered on transarterial embolization\nand vascular treatment, combined with hyperthermia, we aim to shrink lesions,\nalleviate symptoms, and improve organ function for cancer patients.\nA specialized clinic practicing treatment to sustain life.',
   } as Record<Language, string>,
   limitBadge: {
     ja: '健康保険適用・セカンドオピニオン対応可', 'zh-TW': '日本健保適用·可提供第二意見', 'zh-CN': '日本健保适用·可提供第二意见', en: 'Insurance Covered · Second Opinion Available',
@@ -111,10 +117,10 @@ const tr = {
 // 数据
 // ======================================
 const STATS = [
-  { icon: Activity, value: '20+', label: { ja: '年間治療実績', 'zh-TW': '年治療經驗', 'zh-CN': '年治疗经验', en: 'Years Experience' } as Record<Language, string> },
-  { icon: Stethoscope, value: '10+', label: { ja: '対応がん種', 'zh-TW': '適應癌種', 'zh-CN': '适应癌种', en: 'Cancer Types' } as Record<Language, string> },
-  { icon: Shield, value: '80%', label: { ja: '症状改善率', 'zh-TW': '症狀改善率', 'zh-CN': '症状改善率', en: 'Improvement Rate' } as Record<Language, string> },
-  { icon: Award, value: 'CIRSE', label: { ja: '国際学会受賞', 'zh-TW': '國際學會獲獎', 'zh-CN': '国际学会获奖', en: 'Intl. Award' } as Record<Language, string> },
+  { icon: Activity, value: '20+', label: { ja: '年の治療経験', 'zh-TW': '年治療經驗', 'zh-CN': '年治疗经验', en: 'Years Experience' } as Record<Language, string> },
+  { icon: Stethoscope, value: '10+', label: { ja: '種類以上のがん', 'zh-TW': '種癌症以上', 'zh-CN': '种癌症以上', en: 'Cancer Types' } as Record<Language, string> },
+  { icon: Shield, value: '月次', label: { ja: '実績公開', 'zh-TW': '每月公開實績', 'zh-CN': '每月公开实绩', en: 'Monthly Reports' } as Record<Language, string> },
+  { icon: Award, value: '国際', label: { ja: '学会発表', 'zh-TW': '國際學會發表', 'zh-CN': '国际学会发表', en: 'Intl. Conference' } as Record<Language, string> },
 ];
 
 const CANCERS = [
@@ -174,10 +180,13 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-2">
             {t(tr.heroTitle, lang)}
           </h1>
-          <p className="text-xl md:text-2xl text-blue-200 mb-6">
+          <p className="text-xl md:text-2xl text-blue-200 mb-2">
             {t(tr.heroSubtitle, lang)}
           </p>
-          <p className="text-white/80 text-lg max-w-2xl whitespace-pre-line leading-relaxed">
+          <p className="text-lg md:text-xl text-white/95 font-medium mb-6 italic">
+            {t(tr.heroMission, lang)}
+          </p>
+          <p className="text-white/80 text-base max-w-2xl whitespace-pre-line leading-relaxed">
             {t(tr.heroText, lang)}
           </p>
           <div className="flex flex-wrap gap-3 mt-8">
@@ -333,7 +342,10 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                 </div>
                 <div className="flex items-center gap-3">
                   <Clock size={20} className="text-blue-600 shrink-0" />
-                  <p className="text-gray-600 text-sm">月〜土 9:00〜17:00</p>
+                  <div>
+                    <p className="text-gray-600 text-sm">月・火・水・金・土 9:00〜17:00</p>
+                    <p className="text-gray-500 text-xs">休診：木・日・祝日</p>
+                  </div>
                 </div>
               </div>
             </div>
