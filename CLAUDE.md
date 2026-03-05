@@ -1120,21 +1120,23 @@ const accessT = {
 - [ ] ✅ 交通指南区域仅显示地址、车站、营业时间等地理信息
 - [ ] ✅ 交通指南区域支持多语言
 
-#### 3.2 需要检查的白标页面文件
+#### 3.2 白标页面文件合规状态
 
 | 文件 | 状态 | 备注 |
 |------|------|------|
 | `app/hyogo-medical/HyogoMedicalContent.tsx` | ✅ **已修复** | 兵库医大 - 删除交通指南电话 (Commit 79f39ad) |
 | `app/cancer-treatment/CancerTreatmentContent.tsx` | ✅ **已修复** | 大阪国际癌症中心 - 删除联系按钮组 (Commit 79f39ad) |
 | `app/osaka-himak/OsakaHimakContent.tsx` | ✅ **已修复** | 大阪重粒子线中心 - 删除交通指南电话 (Commit f49a2cb) |
-| `app/igtc/IGTCContent.tsx` | 🔍 检查中 | IGT クリニック |
+| `app/igtc/IGTCContent.tsx` | ✅ **已修复** | IGT クリニック - 删除交通指南电话 (Commit 4798629) |
 | `app/sai-clinic/SaiClinicContent.tsx` | ✅ **已修复** | SAI CLINIC - 删除交通指南电话 (Commit 79f39ad) |
-| `app/wclinic-mens/WClinicMensContent.tsx` | 🔍 检查中 | W CLINIC men's |
+| `app/wclinic-mens/WClinicMensContent.tsx` | ✅ **已修复** | W CLINIC men's - 删除 2 处交通指南电话 (Commit 4798629) |
 | `app/helene-clinic/HeleneClinicContent.tsx` | ✅ **已修复** | 表参道 HELENE - 删除交通指南电话 (Commit 79f39ad) |
-| `app/ginza-phoenix/GinzaPhoenixContent.tsx` | 🔍 检查中 | 銀座鳳凰 |
-| `app/cell-medicine/CellMedicineContent.tsx` | 🔍 检查中 | 先端細胞医療 |
-| `app/ac-plus/ACPlusContent.tsx` | 🔍 检查中 | AC セルクリニック |
-| `components/whitelabel-modules/TIMCContent.tsx` | 🔍 检查中 | TIMC 健检 |
+| `app/ginza-phoenix/GinzaPhoenixContent.tsx` | ✅ **已修复** | 銀座鳳凰 - 删除交通指南电话 (Commit 4798629) |
+| `app/cell-medicine/CellMedicineContent.tsx` | ✅ **合规** | 先端細胞医療 - 初始即合规，无需修复 ✓ |
+| `app/ac-plus/ACPlusContent.tsx` | ✅ **合规** | AC セルクリニック - 初始即合规，无需修复 ✓ |
+| `components/whitelabel-modules/TIMCContent.tsx` | ✅ **合规** | TIMC 健检 - 初始即合规，无需修复 ✓ |
+
+**合规率：11 / 11（100%）** 🎉
 
 ---
 
