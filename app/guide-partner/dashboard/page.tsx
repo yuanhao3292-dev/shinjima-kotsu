@@ -327,22 +327,22 @@ export default function GuideDashboard() {
           </div>
 
           {/* Profile Card */}
-          <div className="bg-gray-900 rounded-2xl p-6 text-white mb-8 border border-gray-800">
+          <div className="bg-white rounded-2xl p-6 mb-8 border border-gray-200">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div>
                 <div className="flex items-center gap-3 mb-2">
-                  <span className="text-2xl font-bold">{guide?.name}</span>
+                  <span className="text-2xl font-bold text-gray-900">{guide?.name}</span>
                   {guide && getLevelBadge(guide.commission_tier_code || 'growth')}
                 </div>
-                <p className="text-gray-400">手機: {guide?.phone}</p>
+                <p className="text-gray-500">手機: {guide?.phone}</p>
               </div>
-              <div className="bg-white/10 rounded-xl p-4 border border-white/20">
-                <p className="text-xs text-gray-400 mb-1">您的推薦碼</p>
+              <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                <p className="text-xs text-gray-500 mb-1">您的推薦碼</p>
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-xl font-bold tracking-wider">{guide?.referral_code}</span>
+                  <span className="font-mono text-xl font-bold tracking-wider text-gray-900">{guide?.referral_code}</span>
                   <button
                     onClick={copyReferralCode}
-                    className="p-1 hover:bg-white/10 rounded transition"
+                    className="p-1 hover:bg-gray-200 rounded transition text-gray-900"
                     title="複製"
                   >
                     {copied ? <CheckCircle2 size={18} /> : <Copy size={18} />}
