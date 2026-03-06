@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
+import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 import {
   MapPin, Phone, Clock, Train,
   Award, Stethoscope, Activity, Shield,
@@ -252,6 +253,12 @@ const tr = {
     'zh-CN': '与IGT诊所专科医生远程视频会诊·治疗方案制定·费用概算',
     en: 'Online consultation with IGT specialist · Treatment plan · Cost estimation',
   } as Record<Language, string>,
+  // Treatment Pricing
+  pricingTag: { ja: '治療料金', 'zh-TW': '治療價格', 'zh-CN': '治疗价格', en: 'Treatment Pricing' } as Record<Language, string>,
+  pricingTitle: { ja: 'IGT治療メニュー・料金表', 'zh-TW': 'IGT治療項目·價格表', 'zh-CN': 'IGT治疗项目·价格表', en: 'IGT Treatment Menu & Pricing' } as Record<Language, string>,
+  pricingDesc: { ja: '治療内容に応じて最適なプランをお選びください（すべて税込価格）', 'zh-TW': '根據治療內容選擇最佳方案（價格均含稅）', 'zh-CN': '根据治疗内容选择最佳方案（价格均含税）', en: 'Choose the optimal plan based on treatment type (all prices tax-included)' } as Record<Language, string>,
+  pricingCta: { ja: '治療を予約する', 'zh-TW': '預約治療', 'zh-CN': '预约治疗', en: 'Book Treatment' } as Record<Language, string>,
+  pricingNote: { ja: '※ 料金は参考価格です。最終的な治療費用は医師の診察後に確定いたします', 'zh-TW': '※ 以上為參考價格，最終治療費用於醫師診察後確定', 'zh-CN': '※ 以上为参考价格，最终治疗费用于医师诊察后确定', en: '* Prices are for reference. Final costs are confirmed after physician consultation' } as Record<Language, string>,
 };
 
 // ======================================
@@ -379,6 +386,68 @@ const FAQ_ITEMS = [
   {
     q: { ja: '海外からでも治療を受けられますか？', 'zh-TW': '從海外也能接受治療嗎？', 'zh-CN': '从海外也能接受治疗吗？', en: 'Can international patients receive treatment?' } as Record<Language, string>,
     a: { ja: '関西空港から1駅の好立地を活かし、海外からの患者様を多数受け入れています。医療通訳サービスや医療滞在ビザ取得のサポートも行っています。', 'zh-TW': '利用鄰近關西機場的優勢，接待眾多海外患者。提供醫療翻譯服務及醫療簽證申請支援。', 'zh-CN': '利用邻近关西机场的优势，接待众多海外患者。提供医疗翻译服务及医疗签证申请支援。', en: 'Located 1 station from Kansai Airport, we welcome many international patients. Medical interpretation and visa support available.' } as Record<Language, string>,
+  },
+];
+
+//======================================
+// Data: Treatment Pricing Categories
+// ======================================
+interface PricingItem {
+  slug: string;
+  label: Record<Language, string>;
+}
+
+interface PricingCategory {
+  name: Record<Language, string>;
+  items: PricingItem[];
+}
+
+const PRICING_CATEGORIES: PricingCategory[] = [
+  {
+    name: { ja: '血管内治療 標準コース', 'zh-TW': '血管內治療 標準套餐', 'zh-CN': '血管内治疗 标准套餐', en: 'Endovascular Treatment - Standard Courses' } as Record<Language, string>,
+    items: [
+      { slug: 'igtc-standard-initial', label: { ja: '初回（1泊2日）', 'zh-TW': '初回（1晚2天）', 'zh-CN': '初回（1晚2天）', en: 'Initial (2D/1N)' } as Record<Language, string> },
+      { slug: 'igtc-standard-subsequent', label: { ja: '2回目以降（1泊2日）', 'zh-TW': '第2次及之後（1晚2天）', 'zh-CN': '第2次及之后（1晚2天）', en: 'Follow-up (2D/1N)' } as Record<Language, string> },
+      { slug: 'igtc-standard-outpatient', label: { ja: '外来済（1泊2日）', 'zh-TW': '已完成外來診察（1晚2天）', 'zh-CN': '已完成外来诊察（1晚2天）', en: 'Post-Outpatient (2D/1N)' } as Record<Language, string> },
+      { slug: 'igtc-hyperthermia-hydrogen', label: { ja: '温熱治療（水素併用）', 'zh-TW': '溫熱治療（併用水素）', 'zh-CN': '温热治疗（并用水素）', en: 'Hyperthermia with Hydrogen' } as Record<Language, string> },
+    ],
+  },
+  {
+    name: { ja: '自家がんワクチン', 'zh-TW': '自家癌症疫苗', 'zh-CN': '自家癌症疫苗', en: 'Autologous Cancer Vaccine' } as Record<Language, string>,
+    items: [
+      { slug: 'igtc-cancer-vaccine-1', label: { ja: '1回コース', 'zh-TW': '1次療程', 'zh-CN': '1次疗程', en: '1 Dose' } as Record<Language, string> },
+      { slug: 'igtc-cancer-vaccine-2', label: { ja: '2回コース', 'zh-TW': '2次療程', 'zh-CN': '2次疗程', en: '2 Doses' } as Record<Language, string> },
+      { slug: 'igtc-cancer-vaccine-3', label: { ja: '3回コース', 'zh-TW': '3次療程', 'zh-CN': '3次疗程', en: '3 Doses' } as Record<Language, string> },
+    ],
+  },
+  {
+    name: { ja: '免疫細胞療法（静注）', 'zh-TW': '免疫細胞療法（靜注）', 'zh-CN': '免疫细胞疗法（静注）', en: 'Immune Cell Therapy (IV)' } as Record<Language, string>,
+    items: [
+      { slug: 'igtc-immune-iv-1', label: { ja: '1回', 'zh-TW': '1次', 'zh-CN': '1次', en: '1 Session' } as Record<Language, string> },
+      { slug: 'igtc-immune-iv-6', label: { ja: '6回コース', 'zh-TW': '6次療程', 'zh-CN': '6次疗程', en: '6 Sessions' } as Record<Language, string> },
+    ],
+  },
+  {
+    name: { ja: '幹細胞治療', 'zh-TW': '幹細胞治療', 'zh-CN': '干细胞治疗', en: 'Stem Cell Therapy' } as Record<Language, string>,
+    items: [
+      { slug: 'igtc-stem-cell-4', label: { ja: '4回コース', 'zh-TW': '4次療程', 'zh-CN': '4次疗程', en: '4 Sessions' } as Record<Language, string> },
+    ],
+  },
+  {
+    name: { ja: 'CTC検査', 'zh-TW': 'CTC檢查', 'zh-CN': 'CTC检查', en: 'CTC Tests' } as Record<Language, string>,
+    items: [
+      { slug: 'igtc-ctc-oncocount', label: { ja: 'Oncocount', 'zh-TW': 'Oncocount', 'zh-CN': 'Oncocount', en: 'Oncocount' } as Record<Language, string> },
+      { slug: 'igtc-ctc-oncotrace', label: { ja: 'Oncotrace', 'zh-TW': 'Oncotrace', 'zh-CN': 'Oncotrace', en: 'Oncotrace' } as Record<Language, string> },
+      { slug: 'igtc-ctc-onconomics', label: { ja: 'Onconomics', 'zh-TW': 'Onconomics', 'zh-CN': 'Onconomics', en: 'Onconomics' } as Record<Language, string> },
+      { slug: 'igtc-ctc-onconomics-plus', label: { ja: 'Onconomics Plus', 'zh-TW': 'Onconomics Plus', 'zh-CN': 'Onconomics Plus', en: 'Onconomics Plus' } as Record<Language, string> },
+    ],
+  },
+  {
+    name: { ja: '特殊がん検診', 'zh-TW': '特殊癌症檢診', 'zh-CN': '特殊癌症检诊', en: 'Special Cancer Screening' } as Record<Language, string>,
+    items: [
+      { slug: 'igtc-cancer-screening', label: { ja: 'CTCなし', 'zh-TW': '不含CTC', 'zh-CN': '不含CTC', en: 'Without CTC' } as Record<Language, string> },
+      { slug: 'igtc-cancer-screening-ctc', label: { ja: 'CTC付き', 'zh-TW': '含CTC', 'zh-CN': '含CTC', en: 'With CTC' } as Record<Language, string> },
+    ],
   },
 ];
 
@@ -1285,6 +1354,54 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
         </div>
       </section>
 
+
+      {/* ========== TREATMENT PRICING ========== */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-14">
+            <span className="text-cyan-600 text-xs tracking-widest uppercase font-bold">{t(tr.pricingTag, lang)}</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-3">{t(tr.pricingTitle, lang)}</h2>
+            <p className="text-gray-500 max-w-xl mx-auto">{t(tr.pricingDesc, lang)}</p>
+          </div>
+          <div className="max-w-4xl mx-auto space-y-4">
+            {PRICING_CATEGORIES.map((cat, ci) => (
+              <div key={ci} className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-cyan-200 transition">
+                <div className="bg-gradient-to-r from-cyan-50 to-sky-50 px-6 py-4 border-b border-gray-200">
+                  <h3 className="font-bold text-gray-900">{cat.name[lang]}</h3>
+                </div>
+                <div className="divide-y divide-gray-100">
+                  {cat.items.map((item) => {
+                    const pkg = MEDICAL_PACKAGES[item.slug];
+                    if (!pkg) return null;
+                    return (
+                      <div key={item.slug} className="flex items-center justify-between px-6 py-4 hover:bg-cyan-50/30 transition">
+                        <div className="flex-1">
+                          <p className="text-sm font-medium text-gray-800">{item.label[lang]}</p>
+                        </div>
+                        <div className="flex items-center gap-4">
+                          <span className="text-lg font-black text-cyan-600">¥{pkg.priceJpy.toLocaleString()}</span>
+                          <Link
+                            href={`/medical-packages/${item.slug}`}
+                            className="hidden sm:inline-flex items-center gap-1 bg-cyan-600 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-cyan-700 transition"
+                          >
+                            <ArrowRight size={14} />
+                            {t(tr.pricingCta, lang)}
+                          </Link>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+          {/* Mobile full-width CTA */}
+          <div className="sm:hidden mt-6 text-center">
+            <p className="text-cyan-600 font-bold text-sm mb-2">{lang === 'ja' ? '料金詳細をご覧ください' : lang === 'en' ? 'View Pricing Details' : lang === 'zh-TW' ? '查看價格詳情' : '查看价格详情'}</p>
+          </div>
+          <p className="text-center text-xs text-gray-400 mt-6">{t(tr.pricingNote, lang)}</p>
+        </div>
+      </section>
       {/* ========== CTA ========== */}
       <section id="cta" className="py-16 bg-gradient-to-br from-cyan-500 to-cyan-600">
         <div className="max-w-4xl mx-auto px-6 text-center">
