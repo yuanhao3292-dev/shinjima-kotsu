@@ -541,35 +541,35 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-gray-950/75 via-gray-900/55 to-cyan-950/30" />
         </div>
-        <div className="container mx-auto px-6 py-12 md:py-24 relative z-10">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6">
-              <span className="text-white/90 text-sm">{t(tr.limitBadge, lang)}</span>
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-2">
-              {t(tr.heroTitle, lang)}
-            </h1>
-            <p className="text-xl md:text-2xl text-cyan-200 mb-2">
-              {t(tr.heroSubtitle, lang)}
-            </p>
-            <p className="text-lg md:text-xl text-white/95 font-medium mb-6 italic">
-              {t(tr.heroMission, lang)}
-            </p>
-            <p className="text-white/80 text-base whitespace-pre-line leading-relaxed">
-              {t(tr.heroText, lang)}
-            </p>
-            <div className="flex flex-wrap gap-3 mt-8">
-              {['保険適用', '血管内治療', '温熱療法', '月間実績公開'].map((tag) => (
-                <span key={tag} className="bg-cyan-600/80 text-white px-4 py-1.5 rounded-full text-sm font-medium">
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <div className="mt-10">
-              <a href="#cta" className="inline-flex items-center gap-2 bg-white text-gray-900 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition">
+        <div className="relative z-10 max-w-6xl mx-auto px-6 py-24">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
+                {t(tr.heroTitle, lang)}
+              </h1>
+              <p className="text-xl md:text-2xl text-cyan-200 mb-4">
+                {t(tr.heroSubtitle, lang)}
+              </p>
+              <p className="text-lg text-white/95 font-medium mb-6 italic">
+                {t(tr.heroMission, lang)}
+              </p>
+              <p className="text-base text-gray-300/90 leading-relaxed mb-8 max-w-lg whitespace-pre-line">
+                {t(tr.heroText, lang)}
+              </p>
+              <div className="flex flex-wrap gap-3 mb-10">
+                {['保険適用', '血管内治療', '温熱療法', '月間実績公開'].map((tag) => (
+                  <span key={tag} className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <a href="#cta" className="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition-all shadow-lg">
                 {t(tr.ctaTitle, lang)}
                 <ArrowRight size={20} />
               </a>
+            </div>
+            <div className="hidden lg:block">
+              {/* Right side space - can add stats or images later */}
             </div>
           </div>
         </div>
