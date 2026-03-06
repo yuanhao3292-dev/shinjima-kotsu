@@ -55,9 +55,9 @@ const tr = {
   perfDesc: { ja: '毎月の治療実績を公開しています', 'zh-TW': '每月公開治療實績', 'zh-CN': '每月公开治疗实绩', en: 'Monthly results published transparently' } as Record<Language, string>,
 
   // Facility
-  facilityTag: { ja: '診療環境', 'zh-TW': '診療環境', 'zh-CN': '诊疗环境', en: 'Facility' } as Record<Language, string>,
-  facilityTitle: { ja: '関西空港至近の医療施設', 'zh-TW': '鄰近關西機場的醫療設施', 'zh-CN': '邻近关西机场的医疗设施', en: 'Medical Facility Near Kansai Airport' } as Record<Language, string>,
-  facilityDesc: { ja: 'メディカルりんくうポートに位置し、最新の医療設備を完備。患者様に安心して治療を受けていただける環境を整えています。', 'zh-TW': '位於醫療臨空港，配備最新醫療設備。為患者提供安心接受治療的環境。', 'zh-CN': '位于医疗临空港，配备最新医疗设备。为患者提供安心接受治疗的环境。', en: 'Located in Medical Rinku Port with state-of-the-art medical equipment, providing a comfortable environment for treatment.' } as Record<Language, string>,
+  facilityTag: { ja: '施設紹介', 'zh-TW': '設施簡介', 'zh-CN': '设施简介', en: 'Facilities' } as Record<Language, string>,
+  facilityTitle: { ja: 'メディカルりんくうポートの充実した医療環境', 'zh-TW': '醫療臨空港的完善醫療環境', 'zh-CN': '医疗临空港的完善医疗环境', en: 'Comprehensive Medical Environment at Medical Rinku Port' } as Record<Language, string>,
+  facilityDesc: { ja: '3階・4階・5階に広がる診療空間。最新の医療設備と快適な療養環境を完備し、患者様に安心して治療を受けていただけます。', 'zh-TW': '橫跨3樓·4樓·5樓的診療空間。配備最新醫療設備與舒適療養環境，為患者提供安心的治療。', 'zh-CN': '横跨3楼·4楼·5楼的诊疗空间。配备最新医疗设备与舒适疗养环境，为患者提供安心的治疗。', en: 'Medical space across 3F, 4F, and 5F. Equipped with state-of-the-art medical equipment and comfortable recovery environment.' } as Record<Language, string>,
 
   facilityLocation: { ja: '立地とアクセス', 'zh-TW': '地理位置與交通', 'zh-CN': '地理位置与交通', en: 'Location & Access' } as Record<Language, string>,
   facilityLocationDesc: { ja: '関西空港から1駅、りんくうタウン駅より徒歩10分の好立地', 'zh-TW': '距關西機場1站，臨空城站步行10分鐘', 'zh-CN': '距关西机场1站，临空城站步行10分钟', en: '1 station from Kansai Airport, 10 min walk from Rinku Town Station' } as Record<Language, string>,
@@ -147,8 +147,6 @@ const tr = {
   accessRouteTag: { ja: '駅からのルート', 'zh-TW': '車站路線', 'zh-CN': '车站路线', en: 'Route from Station' } as Record<Language, string>,
   accessRouteTitle: { ja: 'りんくうタウン駅からクリニックまで', 'zh-TW': '從臨空城站到診所', 'zh-CN': '从临空城站到诊所', en: 'Rinku Town Station to Clinic' } as Record<Language, string>,
   accessRouteDesc: { ja: '駅から徒歩10分。実際の道のりを写真でご案内します。', 'zh-TW': '車站步行10分鐘。實拍路線照片指引。', 'zh-CN': '车站步行10分钟。实拍路线照片指引。', en: '10-minute walk from station. Photo guide of the actual route.' } as Record<Language, string>,
-  staffTag: { ja: 'スタッフ', 'zh-TW': '專業人員', 'zh-CN': '专业人员', en: 'Staff' } as Record<Language, string>,
-  staffTitle: { ja: 'プロフェッショナルスタッフ', 'zh-TW': '專業團隊', 'zh-CN': '专业团队', en: 'Professional Staff' } as Record<Language, string>,
 
   // Insurance & Payment
   insuranceTag: { ja: '健康保険・費用', 'zh-TW': '健康保險·費用', 'zh-CN': '健康保险·费用', en: 'Insurance & Costs' } as Record<Language, string>,
@@ -251,25 +249,16 @@ const DOCTORS = [
   },
 ];
 
-const STAFF = [
-  {
-    name: { ja: '雑賀 美和', 'zh-TW': '雜賀 美和', 'zh-CN': '杂贺 美和', en: 'Miwa Zaiga' } as Record<Language, string>,
-    title: { ja: '看護部長', 'zh-TW': '護理部長', 'zh-CN': '护理部长', en: 'Nursing Director' } as Record<Language, string>,
-    specialty: { ja: 'インターベンションエキスパートナース', 'zh-TW': 'IVR專家護士', 'zh-CN': 'IVR专家护士', en: 'Intervention Expert Nurse' } as Record<Language, string>,
-    photo: 'https://igtc.jp/images/staff/zatsuga.jpg',
-  },
-  {
-    name: { ja: '鳥井 将弘', 'zh-TW': '鳥井 將弘', 'zh-CN': '鸟井 将弘', en: 'Masahiro Torii' } as Record<Language, string>,
-    title: { ja: '国内事業部長', 'zh-TW': '國內事業部長', 'zh-CN': '国内事业部长', en: 'Domestic Director' } as Record<Language, string>,
-    specialty: { ja: '診療放射線技師', 'zh-TW': '放射技師', 'zh-CN': '放射技师', en: 'Radiological Technologist' } as Record<Language, string>,
-    photo: 'https://igtc.jp/images/staff/torii.jpg',
-  },
-  {
-    name: { ja: '陳 碧雯', 'zh-TW': '陳 碧雯', 'zh-CN': '陈 碧雯', en: 'Chen Biwen' } as Record<Language, string>,
-    title: { ja: '海外事業部長', 'zh-TW': '海外事業部長', 'zh-CN': '海外事业部长', en: 'International Director' } as Record<Language, string>,
-    specialty: { ja: '看護師・医療通訳', 'zh-TW': '護士·醫療翻譯', 'zh-CN': '护士·医疗翻译', en: 'Nurse, Medical Interpreter' } as Record<Language, string>,
-    photo: 'https://igtc.jp/images/staff/st_kaigai_chin2.jpg',
-  },
+const FACILITY_PHOTOS = [
+  { src: 'https://igtc.jp/images/shisetsu/gaikan.jpg', title: { ja: '外観', 'zh-TW': '外觀', 'zh-CN': '外观', en: 'Exterior' } as Record<Language, string>, desc: { ja: 'メディカルりんくうポート', 'zh-TW': '醫療臨空港大樓', 'zh-CN': '医疗临空港大楼', en: 'Medical Rinku Port Building' } as Record<Language, string> },
+  { src: 'https://igtc.jp/images/shisetsu/uketsuke.jpg', title: { ja: '受付', 'zh-TW': '接待處', 'zh-CN': '接待处', en: 'Reception' } as Record<Language, string>, desc: { ja: '4階受付カウンター', 'zh-TW': '4樓接待櫃台', 'zh-CN': '4楼接待柜台', en: '4F Reception Counter' } as Record<Language, string> },
+  { src: 'https://igtc.jp/images/shisetsu/01nars-station.jpg', title: { ja: 'ナースステーション', 'zh-TW': '護士站', 'zh-CN': '护士站', en: 'Nurse Station' } as Record<Language, string>, desc: { ja: '24時間対応可能', 'zh-TW': '24小時值班', 'zh-CN': '24小时值班', en: '24-Hour Availability' } as Record<Language, string> },
+  { src: 'https://igtc.jp/images/shisetsu/shinsatsu.jpg', title: { ja: '診察室', 'zh-TW': '診療室', 'zh-CN': '诊疗室', en: 'Examination Room' } as Record<Language, string>, desc: { ja: '個室診療室', 'zh-TW': '獨立診療室', 'zh-CN': '独立诊疗室', en: 'Private Consultation Room' } as Record<Language, string> },
+  { src: 'https://igtc.jp/images/shisetsu/36ct.jpg', title: { ja: '64列CT', 'zh-TW': '64排CT', 'zh-CN': '64排CT', en: '64-Slice CT' } as Record<Language, string>, desc: { ja: '最新鋭CT装置', 'zh-TW': '最新CT設備', 'zh-CN': '最新CT设备', en: 'State-of-the-art CT Scanner' } as Record<Language, string> },
+  { src: 'https://igtc.jp/images/shisetsu/onnetsu.jpg', title: { ja: '温熱療法室', 'zh-TW': '溫熱療法室', 'zh-CN': '温热疗法室', en: 'Hyperthermia Room' } as Record<Language, string>, desc: { ja: 'ハイパーサーミア装置', 'zh-TW': '溫熱治療設備', 'zh-CN': '温热治疗设备', en: 'Hyperthermia Equipment' } as Record<Language, string> },
+  { src: 'https://igtc.jp/images/shisetsu/05-1room.jpg', title: { ja: '個室病室', 'zh-TW': '單人病房', 'zh-CN': '单人病房', en: 'Private Room' } as Record<Language, string>, desc: { ja: 'プライバシー重視の個室', 'zh-TW': '注重隱私的獨立病房', 'zh-CN': '注重隐私的独立病房', en: 'Privacy-Focused Private Room' } as Record<Language, string> },
+  { src: 'https://igtc.jp/images/shisetsu/06-tokubetsu.jpg', title: { ja: '特別室', 'zh-TW': '特別病房', 'zh-CN': '特别病房', en: 'Special Room' } as Record<Language, string>, desc: { ja: '快適な療養環境', 'zh-TW': '舒適的療養環境', 'zh-CN': '舒适的疗养环境', en: 'Comfortable Recovery Environment' } as Record<Language, string> },
+  { src: 'https://igtc.jp/images/shisetsu/03-4room.jpg', title: { ja: '4人部屋', 'zh-TW': '4人病房', 'zh-CN': '4人病房', en: '4-Bed Room' } as Record<Language, string>, desc: { ja: 'スタンダード病室', 'zh-TW': '標準病房', 'zh-CN': '标准病房', en: 'Standard Ward' } as Record<Language, string> },
 ];
 
 const ACCESS_ROUTE_PHOTOS = [
@@ -490,6 +479,30 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               </div>
             </div>
           </div>
+
+          {/* Facility Photos Gallery */}
+          <div className="mt-16">
+            <h3 className="text-2xl font-bold text-center text-gray-900 mb-8">
+              {lang === 'ja' ? '施設ギャラリー' : lang === 'en' ? 'Facility Gallery' : lang === 'zh-TW' ? '設施畫廊' : '设施画廊'}
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {FACILITY_PHOTOS.map((photo, i) => (
+                <div key={i} className="bg-white rounded-xl overflow-hidden border hover:shadow-lg transition group">
+                  <div className="aspect-[4/3] bg-gray-100 relative overflow-hidden">
+                    <img
+                      src={photo.src}
+                      alt={t(photo.title, lang)}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <h4 className="font-bold text-gray-900 text-sm mb-1">{t(photo.title, lang)}</h4>
+                    <p className="text-xs text-gray-600">{t(photo.desc, lang)}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -654,36 +667,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                   </div>
                   <h3 className="text-lg font-bold text-gray-900 mb-1.5">{t(doctor.name, lang)}</h3>
                   <p className="text-gray-600 text-xs leading-relaxed">{t(doctor.specialty, lang)}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ========== PROFESSIONAL STAFF ========== */}
-      <section className="py-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <span className="text-blue-800 font-medium text-sm">{t(tr.staffTag, lang)}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.staffTitle, lang)}</h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {STAFF.map((staff, i) => (
-              <div key={i} className="bg-gradient-to-br from-blue-50 to-white rounded-2xl overflow-hidden border border-blue-100 hover:shadow-xl transition">
-                <div className="aspect-[4/3] bg-gray-100">
-                  <img
-                    src={staff.photo}
-                    alt={t(staff.name, lang)}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-6">
-                  <div className="inline-block bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-medium mb-3">
-                    {t(staff.title, lang)}
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{t(staff.name, lang)}</h3>
-                  <p className="text-gray-600 text-sm">{t(staff.specialty, lang)}</p>
                 </div>
               </div>
             ))}
