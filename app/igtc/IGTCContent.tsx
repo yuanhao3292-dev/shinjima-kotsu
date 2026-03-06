@@ -544,7 +544,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
         <div className="container mx-auto px-6 py-12 md:py-24 relative z-10">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6">
-              <Globe size={16} className="text-cyan-300" />
               <span className="text-white/90 text-sm">{t(tr.limitBadge, lang)}</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-2">
