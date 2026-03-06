@@ -145,6 +145,11 @@ const tr = {
   // Access
   accessTag: { ja: 'アクセス', 'zh-TW': '交通', 'zh-CN': '交通', en: 'Access' } as Record<Language, string>,
   accessTitle: { ja: '関西空港から最も近いがん治療クリニック', 'zh-TW': '距關西機場最近的癌症治療診所', 'zh-CN': '距关西机场最近的癌症治疗诊所', en: 'Closest Cancer Clinic to Kansai Airport' } as Record<Language, string>,
+  accessAddress1: { ja: '大阪府泉佐野市りんくう往来南3-41', 'zh-TW': '大阪府泉佐野市臨空往來南3-41', 'zh-CN': '大阪府泉佐野市临空往来南3-41', en: '3-41 Rinku Orai Minami, Izumisano, Osaka' } as Record<Language, string>,
+  accessAddress2: { ja: 'メディカルりんくうポート 3F〜5F', 'zh-TW': 'Medical Rinku Port 3F〜5F', 'zh-CN': 'Medical Rinku Port 3F〜5F', en: 'Medical Rinku Port 3F-5F' } as Record<Language, string>,
+  accessStation: { ja: 'りんくうタウン駅より徒歩10分 / 関西空港から1駅', 'zh-TW': '臨空城站步行10分鐘 / 距關西機場1站', 'zh-CN': '临空城站步行10分钟 / 距关西机场1站', en: '10-min walk from Rinku Town Station / 1 stop from Kansai Airport' } as Record<Language, string>,
+  accessHours: { ja: '月・火・水・金・土 9:00〜17:00', 'zh-TW': '週一·二·三·五·六 9:00〜17:00', 'zh-CN': '周一·二·三·五·六 9:00〜17:00', en: 'Mon, Tue, Wed, Fri, Sat 9:00-17:00' } as Record<Language, string>,
+  accessClosed: { ja: '休診：木・日・祝日', 'zh-TW': '休診：週四·週日·假日', 'zh-CN': '休诊：周四·周日·假日', en: 'Closed: Thu, Sun, Public Holidays' } as Record<Language, string>,
   accessRouteTag: { ja: '駅からのルート', 'zh-TW': '車站路線', 'zh-CN': '车站路线', en: 'Route from Station' } as Record<Language, string>,
   accessRouteTitle: { ja: 'りんくうタウン駅からクリニックまで', 'zh-TW': '從臨空城站到診所', 'zh-CN': '从临空城站到诊所', en: 'Rinku Town Station to Clinic' } as Record<Language, string>,
   accessRouteDesc: { ja: '駅から徒歩10分。実際の道のりを写真でご案内します。', 'zh-TW': '車站步行10分鐘。實拍路線照片指引。', 'zh-CN': '车站步行10分钟。实拍路线照片指引。', en: '10-minute walk from station. Photo guide of the actual route.' } as Record<Language, string>,
@@ -530,41 +535,43 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="relative min-h-[85vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://igtc.jp/images/shisetsu/gaikan.jpg"
+            src="https://igtc.jp/images/shisetsu/ct02.jpg"
             alt="IGT Clinic"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-950/90 via-gray-900/80 to-cyan-950/70" />
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-950/75 via-gray-900/55 to-cyan-950/30" />
         </div>
         <div className="relative max-w-6xl mx-auto px-6 py-20">
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6">
-            <Globe size={16} className="text-cyan-300" />
-            <span className="text-white/90 text-sm">{t(tr.limitBadge, lang)}</span>
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-2">
-            {t(tr.heroTitle, lang)}
-          </h1>
-          <p className="text-xl md:text-2xl text-cyan-200 mb-2">
-            {t(tr.heroSubtitle, lang)}
-          </p>
-          <p className="text-lg md:text-xl text-white/95 font-medium mb-6 italic">
-            {t(tr.heroMission, lang)}
-          </p>
-          <p className="text-white/80 text-base max-w-2xl whitespace-pre-line leading-relaxed">
-            {t(tr.heroText, lang)}
-          </p>
-          <div className="flex flex-wrap gap-3 mt-8">
-            {['保険適用', '血管内治療', '温熱療法', '月間実績公開'].map((tag) => (
-              <span key={tag} className="bg-cyan-600/80 text-white px-4 py-1.5 rounded-full text-sm font-medium">
-                {tag}
-              </span>
-            ))}
-          </div>
-          <div className="mt-10">
-            <a href="#cta" className="inline-flex items-center gap-2 bg-white text-gray-900 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition">
-              {t(tr.ctaTitle, lang)}
-              <ArrowRight size={20} />
-            </a>
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6">
+              <Globe size={16} className="text-cyan-300" />
+              <span className="text-white/90 text-sm">{t(tr.limitBadge, lang)}</span>
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-2">
+              {t(tr.heroTitle, lang)}
+            </h1>
+            <p className="text-xl md:text-2xl text-cyan-200 mb-2">
+              {t(tr.heroSubtitle, lang)}
+            </p>
+            <p className="text-lg md:text-xl text-white/95 font-medium mb-6 italic">
+              {t(tr.heroMission, lang)}
+            </p>
+            <p className="text-white/80 text-base whitespace-pre-line leading-relaxed">
+              {t(tr.heroText, lang)}
+            </p>
+            <div className="flex flex-wrap gap-3 mt-8">
+              {['保険適用', '血管内治療', '温熱療法', '月間実績公開'].map((tag) => (
+                <span key={tag} className="bg-cyan-600/80 text-white px-4 py-1.5 rounded-full text-sm font-medium">
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <div className="mt-10">
+              <a href="#cta" className="inline-flex items-center gap-2 bg-white text-gray-900 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition">
+                {t(tr.ctaTitle, lang)}
+                <ArrowRight size={20} />
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -1071,8 +1078,8 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               <div className="mt-4 pt-4 border-t border-white/20">
                 <div className="flex items-center gap-3">
                   <div className="flex-1">
-                    <p className="text-4xl font-bold">{lang === 'ja' ? '継続中' : lang === 'en' ? 'Ongoing' : '持續中'}</p>
-                    <p className="text-sm text-sky-200 mt-1">{lang === 'ja' ? '国際学会・国内学会' : lang === 'en' ? 'International & Domestic' : '國際及國內學會'}</p>
+                    <p className="text-4xl font-bold">{lang === 'ja' ? '継続中' : lang === 'en' ? 'Ongoing' : lang === 'zh-TW' ? '持續中' : '持续中'}</p>
+                    <p className="text-sm text-sky-200 mt-1">{lang === 'ja' ? '国際学会・国内学会' : lang === 'en' ? 'International & Domestic' : lang === 'zh-TW' ? '國際及國內學會' : '国际及国内学会'}</p>
                   </div>
                   <Globe size={40} className="text-sky-200" />
                 </div>
@@ -1291,33 +1298,28 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                   <MapPin size={20} className="text-cyan-600 mt-1 shrink-0" />
                   <div>
                     <p className="font-medium text-gray-900">〒598-0047</p>
-                    <p className="text-gray-600 text-sm">大阪府泉佐野市りんくう往来南3-41</p>
-                    <p className="text-gray-600 text-sm">メディカルりんくうポート 3F〜5F</p>
+                    <p className="text-gray-600 text-sm">{t(tr.accessAddress1, lang)}</p>
+                    <p className="text-gray-600 text-sm">{t(tr.accessAddress2, lang)}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <Train size={20} className="text-cyan-600 shrink-0" />
-                  <p className="text-gray-600 text-sm">りんくうタウン駅より徒歩10分 / 関西空港から1駅</p>
+                  <p className="text-gray-600 text-sm">{t(tr.accessStation, lang)}</p>
                 </div>
                 <div className="flex items-center gap-3">
                   <Clock size={20} className="text-cyan-600 shrink-0" />
                   <div>
-                    <p className="text-gray-600 text-sm">月・火・水・金・土 9:00〜17:00</p>
-                    <p className="text-gray-500 text-xs">休診：木・日・祝日</p>
+                    <p className="text-gray-600 text-sm">{t(tr.accessHours, lang)}</p>
+                    <p className="text-gray-500 text-xs">{t(tr.accessClosed, lang)}</p>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="rounded-2xl overflow-hidden border h-64 md:h-auto">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3289.8!2d135.298!3d34.4!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDI0JzAwLjAiTiAxMzXCsDE3JzUyLjgiRQ!5e0!3m2!1sja!2sjp!4v1"
-                width="100%"
-                height="100%"
-                style={{ border: 0, minHeight: 256 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="IGT Clinic Location"
+            <div className="rounded-2xl overflow-hidden border">
+              <img
+                src="/images/igtc/access-map.png"
+                alt="IGT Clinic Access Map"
+                className="w-full h-full object-cover"
               />
             </div>
           </div>
