@@ -535,7 +535,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="relative min-h-[85vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://igtc.jp/images/shisetsu/ct02.jpg"
+            src="/images/igtc/gaikan.jpg"
             alt="IGT Clinic"
             className="w-full h-full object-cover"
           />
