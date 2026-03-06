@@ -42,7 +42,7 @@ const tr = {
     en: 'IGT Clinic by Medical Corporation Ryushikai. Centered on transarterial embolization\nand vascular treatment, combined with hyperthermia, we aim to shrink lesions,\nalleviate symptoms, and improve organ function for cancer patients.\nA specialized clinic practicing treatment to sustain life.',
   } as Record<Language, string>,
   limitBadge: {
-    ja: '健康保険適用・セカンドオピニオン対応可', 'zh-TW': '日本健保適用·可提供第二意見', 'zh-CN': '日本健保适用·可提供第二意见', en: 'Insurance Covered · Second Opinion Available',
+    ja: '関西空港近く・海外患者も多数受入', 'zh-TW': '鄰近關西機場·接待眾多海外患者', 'zh-CN': '邻近关西机场·接待众多海外患者', en: 'Near Kansai Airport · Welcoming International Patients',
   } as Record<Language, string>,
 
   // Stats
@@ -178,9 +178,57 @@ const tr = {
   resultsTitle: { ja: '治療実績と成果', 'zh-TW': '治療實績與成果', 'zh-CN': '治疗实绩与成果', en: 'Treatment Results & Outcomes' } as Record<Language, string>,
   resultsDesc: { ja: 'IGTクリニックでは、透明性の高い医療を目指し、毎月の治療実績を公開しています。', 'zh-TW': 'IGT診所秉持透明醫療理念，每月公開治療實績。', 'zh-CN': 'IGT诊所秉持透明医疗理念，每月公开治疗实绩。', en: 'IGT Clinic publishes monthly treatment results to ensure transparent medical care.' } as Record<Language, string>,
   resultsMonthly: { ja: '月間治療件数', 'zh-TW': '每月治療件數', 'zh-CN': '每月治疗件数', en: 'Monthly Treatments' } as Record<Language, string>,
-  resultsMonthlyDesc: { ja: '毎月平均50〜80件の血管内治療を実施。治療件数はウェブサイトで公開中。', 'zh-TW': '每月平均實施50-80次血管內治療。治療件數於網站公開。', 'zh-CN': '每月平均实施50-80次血管内治疗。治疗件数于网站公开。', en: 'Average 50-80 endovascular treatments per month. Case numbers published on website.' } as Record<Language, string>,
+  resultsMonthlyDesc: { ja: '毎月平均60〜70件の血管内治療を実施。2026年1-2月実績：130例（原発腫瘍106例含む）。治療件数はウェブサイトで公開中。', 'zh-TW': '每月平均實施60-70次血管內治療。2026年1-2月實績：130例（含原發腫瘤106例）。治療件數於網站公開。', 'zh-CN': '每月平均实施60-70次血管内治疗。2026年1-2月实绩：130例（含原发肿瘤106例）。治疗件数于网站公开。', en: 'Average 60-70 endovascular treatments per month. 2026 Jan-Feb: 130 cases (106 primary tumors). Case numbers published on website.' } as Record<Language, string>,
   resultsConference: { ja: '学会発表', 'zh-TW': '學會發表', 'zh-CN': '学会发表', en: 'Conference Presentations' } as Record<Language, string>,
   resultsConferenceDesc: { ja: '国際学会・国内学会での治療成果発表を継続的に実施。', 'zh-TW': '持續於國際及國內學會發表治療成果。', 'zh-CN': '持续于国际及国内学会发表治疗成果。', en: 'Ongoing presentations of treatment outcomes at international and domestic conferences.' } as Record<Language, string>,
+  resultsAward: { ja: '2024年CIRSE最高賞「Magna Cum Laude」受賞', 'zh-TW': '2024年CIRSE最高獎「Magna Cum Laude」', 'zh-CN': '2024年CIRSE最高奖「Magna Cum Laude」', en: '2024 CIRSE "Magna Cum Laude" Award' } as Record<Language, string>,
+  results2026: { ja: '2026年1-2月治療実績：130例', 'zh-TW': '2026年1-2月治療實績：130例', 'zh-CN': '2026年1-2月治疗实绩：130例', en: '2026 Jan-Feb: 130 cases' } as Record<Language, string>,
+
+  // Hospitalization
+  hospTag: { ja: '入院のご案内', 'zh-TW': '住院指南', 'zh-CN': '住院指南', en: 'Hospitalization Guide' } as Record<Language, string>,
+  hospTitle: { ja: '快適な入院環境', 'zh-TW': '舒適的住院環境', 'zh-CN': '舒适的住院环境', en: 'Comfortable Hospitalization' } as Record<Language, string>,
+  hospDesc: { ja: '基本入院期間は3泊4日。患者様のニーズに応じた3つの病室タイプをご用意しています。', 'zh-TW': '基本住院期間為3晚4天。我們備有3種病房類型以滿足患者需求。', 'zh-CN': '基本住院期间为3晚4天。我们备有3种病房类型以满足患者需求。', en: 'Standard stay: 3 nights 4 days. Three room types available to meet patient needs.' } as Record<Language, string>,
+  hospStandard: { ja: '4人部屋', 'zh-TW': '4人病房', 'zh-CN': '4人病房', en: '4-Bed Room' } as Record<Language, string>,
+  hospStandardDesc: { ja: 'スタンダード病室。共用デイルーム利用可能。', 'zh-TW': '標準病房。可使用共用日間活動室。', 'zh-CN': '标准病房。可使用共用日间活动室。', en: 'Standard ward. Shared day room available.' } as Record<Language, string>,
+  hospPrivate: { ja: '個室', 'zh-TW': '單人病房', 'zh-CN': '单人病房', en: 'Private Room' } as Record<Language, string>,
+  hospPrivateDesc: { ja: 'シャワー・トイレ完備。テレビ、冷蔵庫、アメニティセット付き。', 'zh-TW': '配備淋浴·廁所。附電視、冰箱、盥洗用品。', 'zh-CN': '配备淋浴·厕所。附电视、冰箱、盥洗用品。', en: 'En-suite shower & toilet. TV, fridge, amenities included.' } as Record<Language, string>,
+  hospPrivatePrice: { ja: '¥38,500/日（税込）', 'zh-TW': '¥38,500/日（含稅）', 'zh-CN': '¥38,500/日（含税）', en: '¥38,500/day (tax incl.)' } as Record<Language, string>,
+  hospSpecial: { ja: '特別室', 'zh-TW': '特別病房', 'zh-CN': '特别病房', en: 'Special Room' } as Record<Language, string>,
+  hospSpecialDesc: { ja: 'セミダブルベッド、ソファーベッド（2名宿泊対応）。バスルーム・応接セット完備。', 'zh-TW': '半雙人床、沙發床（可住2人）。配備浴室、會客設施。', 'zh-CN': '半双人床、沙发床（可住2人）。配备浴室、会客设施。', en: 'Semi-double bed, sofa bed (2 guests). Bathroom & lounge set included.' } as Record<Language, string>,
+  hospSpecialPrice: { ja: '¥55,000/日（税込）', 'zh-TW': '¥55,000/日（含稅）', 'zh-CN': '¥55,000/日（含税）', en: '¥55,000/day (tax incl.)' } as Record<Language, string>,
+
+  // Hyperthermia Details
+  hyperDetailTag: { ja: '温熱療法詳細', 'zh-TW': '溫熱療法詳解', 'zh-CN': '温热疗法详解', en: 'Hyperthermia Details' } as Record<Language, string>,
+  hyperDevice: { ja: '装置：サーモトロンRF8（8MHz高周波）', 'zh-TW': '設備：Thermotron RF8（8MHz高頻）', 'zh-CN': '设备：Thermotron RF8（8MHz高频）', en: 'Device: Thermotron RF8 (8MHz RF)' } as Record<Language, string>,
+  hyperFreq: { ja: '週1回、約40分/回', 'zh-TW': '每週1次，約40分鐘/次', 'zh-CN': '每周1次，约40分钟/次', en: 'Once weekly, ~40min/session' } as Record<Language, string>,
+  hyperTemp: { ja: '腫瘍を42°C以上に加温してがん細胞を壊死', 'zh-TW': '將腫瘤加熱至42°C以上使癌細胞壞死', 'zh-CN': '将肿瘤加热至42°C以上使癌细胞坏死', en: 'Heat tumor to 42°C+ to necrotize cancer cells' } as Record<Language, string>,
+  hyperQOL: { ja: 'QOL改善：食欲増進、体力回復、睡眠改善', 'zh-TW': 'QOL改善：增進食慾、恢復體力、改善睡眠', 'zh-CN': 'QOL改善：增进食欲、恢复体力、改善睡眠', en: 'QOL improvement: Appetite, vitality, sleep' } as Record<Language, string>,
+  hyperInsurance: { ja: '健康保険適用', 'zh-TW': '適用健康保險', 'zh-CN': '适用健康保险', en: 'Insurance Covered' } as Record<Language, string>,
+
+  // Other Services
+  otherServicesTag: { ja: 'その他の診療', 'zh-TW': '其他診療服務', 'zh-CN': '其他诊疗服务', en: 'Other Services' } as Record<Language, string>,
+  otherServicesTitle: { ja: 'がん治療をトータルサポート', 'zh-TW': '全方位癌症治療支援', 'zh-CN': '全方位癌症治疗支援', en: 'Comprehensive Cancer Care' } as Record<Language, string>,
+  lymphedemaTitle: { ja: 'リンパ浮腫外来', 'zh-TW': '淋巴水腫門診', 'zh-CN': '淋巴水肿门诊', en: 'Lymphedema Clinic' } as Record<Language, string>,
+  lymphedemaDesc: { ja: 'がん治療後のむくみケア。早期発見・早期治療を重視。', 'zh-TW': '癌症治療後水腫護理。重視早期發現與治療。', 'zh-CN': '癌症治疗后水肿护理。重视早期发现与治疗。', en: 'Post-cancer treatment edema care. Focus on early detection & treatment.' } as Record<Language, string>,
+  lymphedemaPrice: { ja: '初診¥4,000 + 施術料¥6,500～', 'zh-TW': '初診¥4,000 + 施術費¥6,500起', 'zh-CN': '初诊¥4,000 + 施术费¥6,500起', en: 'Initial ¥4,000 + Treatment from ¥6,500' } as Record<Language, string>,
+  cancerScreeningTitle: { ja: '特殊がん検診', 'zh-TW': '特殊癌症檢查', 'zh-CN': '特殊癌症检查', en: 'Special Cancer Screening' } as Record<Language, string>,
+  cancerScreeningDesc: { ja: 'CT検査と血液検査を組み合わせた精密スクリーニング。当日に放射線診断専門医が結果説明。', 'zh-TW': 'CT檢查與血液檢查結合的精密篩檢。當天由放射診斷專科醫師說明結果。', 'zh-CN': 'CT检查与血液检查结合的精密筛检。当天由放射诊断专科医师说明结果。', en: 'Precise screening combining CT & blood tests. Same-day results explained by radiology specialist.' } as Record<Language, string>,
+  cancerScreeningPrice: { ja: '¥47,520～（造影CT：¥69,520）', 'zh-TW': '¥47,520起（顯影CT：¥69,520）', 'zh-CN': '¥47,520起（显影CT：¥69,520）', en: 'From ¥47,520 (Contrast CT: ¥69,520)' } as Record<Language, string>,
+
+  // Media Coverage
+  mediaTag: { ja: 'メディア掲載', 'zh-TW': '媒體報導', 'zh-CN': '媒体报道', en: 'Media Coverage' } as Record<Language, string>,
+  mediaTitle: { ja: '国内外メディアで紹介されています', 'zh-TW': '獲國內外媒體報導', 'zh-CN': '获国内外媒体报道', en: 'Featured in Media' } as Record<Language, string>,
+  mediaDesc: { ja: 'IGTクリニックの先進的な治療技術は、国内外の主要メディアで紹介されています。', 'zh-TW': 'IGT診所的先進治療技術獲得國內外主流媒體報導。', 'zh-CN': 'IGT诊所的先进治疗技术获得国内外主流媒体报道。', en: 'IGT Clinic\'s advanced treatment technology has been featured in major domestic and international media.' } as Record<Language, string>,
+
+  // Academic Achievements
+  academicTag: { ja: '学術実績', 'zh-TW': '學術成就', 'zh-CN': '学术成就', en: 'Academic Achievements' } as Record<Language, string>,
+  academicTitle: { ja: '国際的な学術活動', 'zh-TW': '國際學術活動', 'zh-CN': '国际学术活动', en: 'International Academic Activities' } as Record<Language, string>,
+  academicDesc: { ja: '世界トップレベルの学術交流と研究発表を継続的に実施。', 'zh-TW': '持續進行世界頂尖水準的學術交流與研究發表。', 'zh-CN': '持续进行世界顶尖水准的学术交流与研究发表。', en: 'Continuous world-class academic exchange and research presentations.' } as Record<Language, string>,
+
+  // Patient Testimonials
+  testimonialTag: { ja: '患者の声', 'zh-TW': '患者見證', 'zh-CN': '患者见证', en: 'Patient Testimonials' } as Record<Language, string>,
+  testimonialTitle: { ja: '治療を受けられた患者様の声', 'zh-TW': '接受治療患者的心聲', 'zh-CN': '接受治疗患者的心声', en: 'Voices from Our Patients' } as Record<Language, string>,
+  testimonialDesc: { ja: '実際に治療を受けられた患者様のインタビュー動画をご覧いただけます。', 'zh-TW': '您可以觀看接受治療患者的訪談影片。', 'zh-CN': '您可以观看接受治疗患者的访谈视频。', en: 'Watch interview videos from patients who received treatment.' } as Record<Language, string>,
 
   // CTA
   ctaTitle: { ja: 'まずはご相談ください', 'zh-TW': '歡迎諮詢', 'zh-CN': '欢迎咨询', en: 'Contact Us' } as Record<Language, string>,
@@ -334,6 +382,73 @@ const FAQ_ITEMS = [
   },
 ];
 
+const MEDIA_COVERAGE = [
+  {
+    title: { ja: 'NHK WORLD 取材', 'zh-TW': 'NHK WORLD 採訪', 'zh-CN': 'NHK WORLD 采访', en: 'NHK WORLD Interview' } as Record<Language, string>,
+    desc: { ja: '国際放送NHK WORLDによる取材', 'zh-TW': '國際廣播NHK WORLD採訪報導', 'zh-CN': '国际广播NHK WORLD采访报道', en: 'Featured on NHK WORLD international broadcast' } as Record<Language, string>,
+    url: 'https://video.weibo.com/show?fid=1034:4575173697798161',
+    type: 'video' as const,
+  },
+  {
+    title: { ja: '超級医生インタビュー', 'zh-TW': '超級醫生訪談', 'zh-CN': '超级医生访谈', en: 'Super Doctor Interview' } as Record<Language, string>,
+    desc: { ja: '堀院長のインタビュー特集', 'zh-TW': '堀院長專訪特輯', 'zh-CN': '堀院长专访特辑', en: 'Special interview with Dr. Hori' } as Record<Language, string>,
+    url: 'https://video.weibo.com/show?fid=1034:4700096064061480',
+    type: 'video' as const,
+  },
+  {
+    title: { ja: 'ラジオ取材', 'zh-TW': '電台採訪', 'zh-CN': '电台采访', en: 'Radio Interview' } as Record<Language, string>,
+    desc: { ja: '血管内治療についてのラジオ取材', 'zh-TW': '血管內治療電台專訪', 'zh-CN': '血管内治疗电台专访', en: 'Radio interview on endovascular treatment' } as Record<Language, string>,
+    url: 'https://video.weibo.com/show?fid=1034:4763243483431033',
+    type: 'video' as const,
+  },
+  {
+    title: { ja: 'IGTクリニック紹介', 'zh-TW': 'IGT診所簡介', 'zh-CN': 'IGT诊所简介', en: 'IGT Clinic Introduction' } as Record<Language, string>,
+    desc: { ja: 'クリニックの施設・治療紹介', 'zh-TW': '診所設施與治療介紹', 'zh-CN': '诊所设施与治疗介绍', en: 'Clinic facilities and treatment overview' } as Record<Language, string>,
+    url: 'https://video.weibo.com/show?fid=1034:4573386341548061',
+    type: 'video' as const,
+  },
+];
+
+const ACADEMIC_ACHIEVEMENTS = [
+  {
+    year: '2024',
+    title: { ja: 'CIRSE最高賞「Magna Cum Laude」受賞', 'zh-TW': 'CIRSE最高獎「Magna Cum Laude」', 'zh-CN': 'CIRSE最高奖「Magna Cum Laude」', en: 'CIRSE "Magna Cum Laude" Award' } as Record<Language, string>,
+    desc: { ja: 'ポルトガル・リスボンで開催された国際学会CIRSEにて、乳がん治療の研究発表5件を実施し、最高賞を受賞', 'zh-TW': '於葡萄牙里斯本舉行的國際學會CIRSE發表5項乳腺癌治療研究，榮獲最高獎', 'zh-CN': '于葡萄牙里斯本举行的国际学会CIRSE发表5项乳腺癌治疗研究，荣获最高奖', en: 'Presented 5 breast cancer treatment studies at CIRSE in Lisbon, Portugal, receiving the highest honor' } as Record<Language, string>,
+    icon: Award,
+  },
+  {
+    year: '2021',
+    title: { ja: 'アジア太平洋腫瘍介入会議（APCIO）講演', 'zh-TW': '亞太腫瘤介入會議（APCIO）演講', 'zh-CN': '亚太肿瘤介入会议（APCIO）演讲', en: 'APCIO Conference Speaker' } as Record<Language, string>,
+    desc: { ja: '北京大学主催のアジア太平洋腫瘤介入会議にて、堀信一理事長が講演。国際的な学術交流を実施', 'zh-TW': '堀信一理事長於北京大學主辦的亞太腫瘤介入會議演講，進行國際學術交流', 'zh-CN': '堀信一理事长于北京大学主办的亚太肿瘤介入会议演讲，进行国际学术交流', en: 'Dr. Shinichi Hori presented at the Asia-Pacific Conference on Interventional Oncology hosted by Peking University' } as Record<Language, string>,
+    icon: Globe,
+  },
+  {
+    year: '2010',
+    title: { ja: '広州復旦大学附属腫瘍医院 特別顧問就任', 'zh-TW': '廣州復旦大學附屬腫瘤醫院 特別顧問', 'zh-CN': '广州复旦大学附属肿瘤医院 特别顾问', en: 'Special Advisor, Fuda Cancer Hospital' } as Record<Language, string>,
+    desc: { ja: '堀信一理事長が広州復旦大学附属腫瘍医院の特別顧問に就任。中国との学術交流を強化', 'zh-TW': '堀信一理事長獲聘為廣州復旦大學附屬腫瘤醫院特別顧問，加強與中國的學術交流', 'zh-CN': '堀信一理事长获聘为广州复旦大学附属肿瘤医院特别顾问，加强与中国的学术交流', en: 'Dr. Shinichi Hori appointed as Special Advisor to Fuda Cancer Hospital, strengthening academic exchange with China' } as Record<Language, string>,
+    icon: Shield,
+  },
+];
+
+const PATIENT_TESTIMONIALS = [
+  {
+    title: { ja: '患者インタビュー 1', 'zh-TW': '患者訪談 1', 'zh-CN': '患者访谈 1', en: 'Patient Interview 1' } as Record<Language, string>,
+    url: 'https://video.weibo.com/show?fid=1034:4704200555429975',
+  },
+  {
+    title: { ja: '患者インタビュー 2', 'zh-TW': '患者訪談 2', 'zh-CN': '患者访谈 2', en: 'Patient Interview 2' } as Record<Language, string>,
+    url: 'https://video.weibo.com/show?fid=1034:4716742619103301',
+  },
+  {
+    title: { ja: '患者インタビュー 3', 'zh-TW': '患者訪談 3', 'zh-CN': '患者访谈 3', en: 'Patient Interview 3' } as Record<Language, string>,
+    url: 'https://video.weibo.com/show?fid=1034:4716467506315358',
+  },
+  {
+    title: { ja: '患者インタビュー 4', 'zh-TW': '患者訪談 4', 'zh-CN': '患者访谈 4', en: 'Patient Interview 4' } as Record<Language, string>,
+    url: 'https://video.weibo.com/show?fid=1034:4715310583054402',
+  },
+];
+
 // ======================================
 // 组件
 // ======================================
@@ -346,21 +461,21 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="relative min-h-[85vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://igtc.jp/images/top_temp/top_main_copy-pc.png"
+            src="https://igtc.jp/images/shisetsu/gaikan.jpg"
             alt="IGT Clinic"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-950/90 via-gray-900/80 to-blue-950/70" />
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-950/90 via-gray-900/80 to-cyan-950/70" />
         </div>
         <div className="relative max-w-6xl mx-auto px-6 py-20">
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6">
-            <Globe size={16} className="text-blue-300" />
+            <Globe size={16} className="text-cyan-300" />
             <span className="text-white/90 text-sm">{t(tr.limitBadge, lang)}</span>
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-2">
             {t(tr.heroTitle, lang)}
           </h1>
-          <p className="text-xl md:text-2xl text-blue-200 mb-2">
+          <p className="text-xl md:text-2xl text-cyan-200 mb-2">
             {t(tr.heroSubtitle, lang)}
           </p>
           <p className="text-lg md:text-xl text-white/95 font-medium mb-6 italic">
@@ -371,7 +486,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
           </p>
           <div className="flex flex-wrap gap-3 mt-8">
             {['保険適用', '血管内治療', '温熱療法', '月間実績公開'].map((tag) => (
-              <span key={tag} className="bg-blue-800/80 text-white px-4 py-1.5 rounded-full text-sm font-medium">
+              <span key={tag} className="bg-cyan-600/80 text-white px-4 py-1.5 rounded-full text-sm font-medium">
                 {tag}
               </span>
             ))}
@@ -389,13 +504,13 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-800 font-medium text-sm">{t(tr.statsTag, lang)}</span>
+            <span className="text-cyan-600 font-medium text-sm">{t(tr.statsTag, lang)}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.statsTitle, lang)}</h2>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {STATS.map((s, i) => (
               <div key={i} className="bg-white rounded-2xl p-6 text-center border hover:shadow-lg transition">
-                <s.icon size={32} className="text-blue-800 mx-auto mb-3" />
+                <s.icon size={32} className="text-cyan-600 mx-auto mb-3" />
                 <p className="text-3xl font-bold text-gray-900">{s.value}</p>
                 <p className="text-gray-500 text-sm mt-1">{t(s.label, lang)}</p>
               </div>
@@ -408,7 +523,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-8">
-            <span className="text-blue-800 font-medium text-sm">{t(tr.perfTag, lang)}</span>
+            <span className="text-cyan-600 font-medium text-sm">{t(tr.perfTag, lang)}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.perfTitle, lang)}</h2>
             <p className="text-gray-600 mt-2">{t(tr.perfDesc, lang)}</p>
           </div>
@@ -426,7 +541,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-800 font-medium text-sm">{t(tr.facilityTag, lang)}</span>
+            <span className="text-cyan-600 font-medium text-sm">{t(tr.facilityTag, lang)}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.facilityTitle, lang)}</h2>
             <p className="text-gray-600 mt-4 max-w-3xl mx-auto">{t(tr.facilityDesc, lang)}</p>
           </div>
@@ -434,8 +549,8 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
           <div className="grid md:grid-cols-3 gap-6">
             {/* Location */}
             <div className="bg-white rounded-2xl p-8 border hover:shadow-lg transition">
-              <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                <MapPin size={32} className="text-blue-800" />
+              <div className="w-16 h-16 bg-cyan-50 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                <MapPin size={32} className="text-cyan-600" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">{t(tr.facilityLocation, lang)}</h3>
               <p className="text-gray-600 text-center leading-relaxed">{t(tr.facilityLocationDesc, lang)}</p>
@@ -448,18 +563,18 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
 
             {/* Equipment */}
             <div className="bg-white rounded-2xl p-8 border hover:shadow-lg transition">
-              <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                <Microscope size={32} className="text-blue-800" />
+              <div className="w-16 h-16 bg-cyan-50 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                <Microscope size={32} className="text-cyan-600" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">{t(tr.facilityEquipment, lang)}</h3>
               <p className="text-gray-600 text-center leading-relaxed">{t(tr.facilityEquipmentDesc, lang)}</p>
               <div className="mt-6 space-y-2">
                 <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <CheckCircle size={16} className="text-blue-800 shrink-0" />
+                  <CheckCircle size={16} className="text-cyan-600 shrink-0" />
                   <span>{lang === 'ja' ? '血管造影装置' : lang === 'en' ? 'Angiography System' : '血管造影设备'}</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <CheckCircle size={16} className="text-blue-800 shrink-0" />
+                  <CheckCircle size={16} className="text-cyan-600 shrink-0" />
                   <span>{lang === 'ja' ? '温熱治療機器' : lang === 'en' ? 'Hyperthermia System' : '温热治疗仪器'}</span>
                 </div>
               </div>
@@ -467,13 +582,13 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
 
             {/* Environment */}
             <div className="bg-white rounded-2xl p-8 border hover:shadow-lg transition">
-              <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                <BedDouble size={32} className="text-blue-800" />
+              <div className="w-16 h-16 bg-cyan-50 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                <BedDouble size={32} className="text-cyan-600" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3 text-center">{t(tr.facilityEnvironment, lang)}</h3>
               <p className="text-gray-600 text-center leading-relaxed">{t(tr.facilityEnvironmentDesc, lang)}</p>
               <div className="mt-6 text-center">
-                <span className="inline-block bg-blue-50 text-blue-800 px-4 py-2 rounded-lg text-sm font-medium">
+                <span className="inline-block bg-cyan-50 text-cyan-600 px-4 py-2 rounded-lg text-sm font-medium">
                   {lang === 'ja' ? '3F〜5F 完全個室対応' : lang === 'en' ? 'Private Rooms 3F-5F' : '3F-5F 独立诊室'}
                 </span>
               </div>
@@ -506,17 +621,98 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
         </div>
       </section>
 
+      {/* ========== HOSPITALIZATION ========== */}
+      <section className="py-16 bg-gradient-to-br from-cyan-50 via-white to-cyan-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="text-cyan-600 font-medium text-sm">{t(tr.hospTag, lang)}</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.hospTitle, lang)}</h2>
+            <p className="text-gray-600 mt-4 max-w-2xl mx-auto">{t(tr.hospDesc, lang)}</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* 4-Bed Room */}
+            <div className="bg-white rounded-2xl p-6 border-2 border-gray-200 hover:border-cyan-400 transition">
+              <div className="aspect-[4/3] bg-gray-100 rounded-xl overflow-hidden mb-4">
+                <img
+                  src="https://igtc.jp/images/hospitalization/hos_room4.jpg"
+                  alt={t(tr.hospStandard, lang)}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{t(tr.hospStandard, lang)}</h3>
+              <p className="text-gray-600 text-sm mb-4">{t(tr.hospStandardDesc, lang)}</p>
+              <div className="bg-cyan-50 rounded-lg p-3 text-center">
+                <p className="text-cyan-800 font-bold">{lang === 'ja' ? '基本料金' : lang === 'en' ? 'Standard Rate' : '基本費用'}</p>
+              </div>
+            </div>
+
+            {/* Private Room */}
+            <div className="bg-white rounded-2xl p-6 border-2 border-cyan-400 hover:border-cyan-500 transition relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-cyan-600 text-white px-4 py-1 rounded-full text-xs font-bold">
+                {lang === 'ja' ? '人気' : lang === 'en' ? 'Popular' : '熱門'}
+              </div>
+              <div className="aspect-[4/3] bg-gray-100 rounded-xl overflow-hidden mb-4">
+                <img
+                  src="https://igtc.jp/images/hospitalization/hos_koshitu_01.jpg"
+                  alt={t(tr.hospPrivate, lang)}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{t(tr.hospPrivate, lang)}</h3>
+              <p className="text-gray-600 text-sm mb-4">{t(tr.hospPrivateDesc, lang)}</p>
+              <div className="bg-cyan-600 rounded-lg p-3 text-center">
+                <p className="text-white font-bold">{t(tr.hospPrivatePrice, lang)}</p>
+              </div>
+            </div>
+
+            {/* Special Room */}
+            <div className="bg-white rounded-2xl p-6 border-2 border-sky-400 hover:border-sky-500 transition">
+              <div className="aspect-[4/3] bg-gray-100 rounded-xl overflow-hidden mb-4">
+                <img
+                  src="https://igtc.jp/images/hospitalization/hos_tokubetu_01.jpg"
+                  alt={t(tr.hospSpecial, lang)}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{t(tr.hospSpecial, lang)}</h3>
+              <p className="text-gray-600 text-sm mb-4">{t(tr.hospSpecialDesc, lang)}</p>
+              <div className="bg-sky-500 rounded-lg p-3 text-center">
+                <p className="text-white font-bold">{t(tr.hospSpecialPrice, lang)}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Day Room Info */}
+          <div className="mt-8 bg-white rounded-2xl p-6 border">
+            <div className="flex items-start gap-4">
+              <div className="w-16 h-16 bg-cyan-50 rounded-xl flex items-center justify-center shrink-0">
+                <BedDouble size={28} className="text-cyan-600" />
+              </div>
+              <div className="flex-1">
+                <h4 className="font-bold text-gray-900 mb-2">
+                  {lang === 'ja' ? '共用デイルーム' : lang === 'en' ? 'Shared Day Room' : lang === 'zh-TW' ? '共用日間活動室' : '共用日间活动室'}
+                </h4>
+                <p className="text-gray-600 text-sm">
+                  {lang === 'ja' ? '自動販売機、トースター、ポット、電子レンジ、新聞などを完備。患者様および付き添いの方がくつろげる空間を提供しています。' : lang === 'en' ? 'Equipped with vending machines, toaster, kettle, microwave, newspapers. Relaxing space for patients and companions.' : lang === 'zh-TW' ? '配備自動販賣機、烤麵包機、熱水壺、微波爐、報紙等。為患者及陪同者提供休憩空間。' : '配备自动售货机、烤面包机、热水壶、微波炉、报纸等。为患者及陪同者提供休憩空间。'}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ========== TECHNICAL DETAILS ========== */}
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-800 font-medium text-sm">{t(tr.techTag, lang)}</span>
+            <span className="text-cyan-600 font-medium text-sm">{t(tr.techTag, lang)}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.techTitle, lang)}</h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
             {/* IGT Technical Details */}
-            <div className="bg-gradient-to-br from-blue-900 to-blue-800 rounded-2xl p-8 text-white">
+            <div className="bg-gradient-to-br from-cyan-700 to-cyan-600 rounded-2xl p-8 text-white">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
                   <Syringe size={24} className="text-white" />
@@ -525,27 +721,27 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               </div>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <CheckCircle size={20} className="shrink-0 mt-1 text-blue-200" />
+                  <CheckCircle size={20} className="shrink-0 mt-1 text-cyan-200" />
                   <p className="leading-relaxed">{t(tr.techIGTPoint1, lang)}</p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle size={20} className="shrink-0 mt-1 text-blue-200" />
+                  <CheckCircle size={20} className="shrink-0 mt-1 text-cyan-200" />
                   <p className="leading-relaxed">{t(tr.techIGTPoint2, lang)}</p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle size={20} className="shrink-0 mt-1 text-blue-200" />
+                  <CheckCircle size={20} className="shrink-0 mt-1 text-cyan-200" />
                   <p className="leading-relaxed">{t(tr.techIGTPoint3, lang)}</p>
                 </div>
               </div>
               <div className="mt-6 pt-6 border-t border-white/20">
-                <p className="text-sm text-blue-100">
+                <p className="text-sm text-cyan-100">
                   {lang === 'ja' ? 'カテーテル技術により、がんの栄養血管に選択的に薬剤を投与し、腫瘍を縮小させます。' : lang === 'en' ? 'Catheter technology selectively delivers drugs to tumor feeding vessels to shrink tumors.' : '导管技术选择性地将药物输送到肿瘤供血血管以缩小肿瘤。'}
                 </p>
               </div>
             </div>
 
             {/* Hyperthermia Technical Details */}
-            <div className="bg-gradient-to-br from-orange-600 to-orange-500 rounded-2xl p-8 text-white">
+            <div className="bg-gradient-to-br from-sky-600 to-sky-500 rounded-2xl p-8 text-white">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
                   <Thermometer size={24} className="text-white" />
@@ -554,22 +750,36 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               </div>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <CheckCircle size={20} className="shrink-0 mt-1 text-orange-100" />
+                  <CheckCircle size={20} className="shrink-0 mt-1 text-sky-100" />
                   <p className="leading-relaxed">{t(tr.techHyperPoint1, lang)}</p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle size={20} className="shrink-0 mt-1 text-orange-100" />
+                  <CheckCircle size={20} className="shrink-0 mt-1 text-sky-100" />
                   <p className="leading-relaxed">{t(tr.techHyperPoint2, lang)}</p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle size={20} className="shrink-0 mt-1 text-orange-100" />
+                  <CheckCircle size={20} className="shrink-0 mt-1 text-sky-100" />
                   <p className="leading-relaxed">{t(tr.techHyperPoint3, lang)}</p>
                 </div>
               </div>
               <div className="mt-6 pt-6 border-t border-white/20">
-                <p className="text-sm text-orange-50">
+                <p className="text-sm text-sky-50 mb-4">
                   {lang === 'ja' ? '温熱により、がん細胞を選択的に破壊し、他の治療法の効果を高めます。' : lang === 'en' ? 'Hyperthermia selectively destroys cancer cells and enhances other treatment effects.' : '温热选择性地破坏癌细胞并增强其他治疗效果。'}
                 </p>
+                <div className="grid grid-cols-2 gap-3 text-sm">
+                  <div className="bg-white/10 rounded-lg p-3">
+                    <p className="font-bold">{t(tr.hyperDevice, lang)}</p>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-3">
+                    <p className="font-bold">{t(tr.hyperFreq, lang)}</p>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-3 col-span-2">
+                    <p className="font-bold">{t(tr.hyperTemp, lang)}</p>
+                  </div>
+                </div>
+                <div className="mt-3 bg-white/10 rounded-lg p-3">
+                  <p className="text-sm"><strong>{lang === 'ja' ? 'QOL改善効果' : lang === 'en' ? 'QOL Improvement' : 'QOL改善效果'}:</strong> {t(tr.hyperQOL, lang)}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -580,21 +790,21 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-800 font-medium text-sm">{t(tr.treatTag, lang)}</span>
+            <span className="text-cyan-600 font-medium text-sm">{t(tr.treatTag, lang)}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.treatTitle, lang)}</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
             {/* IGT */}
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border border-blue-200">
-              <div className="w-14 h-14 bg-blue-800 rounded-xl flex items-center justify-center mb-4">
+            <div className="bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-2xl p-8 border border-cyan-200">
+              <div className="w-14 h-14 bg-cyan-600 rounded-xl flex items-center justify-center mb-4">
                 <Syringe size={28} className="text-white" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.igtTitle, lang)}</h3>
               <p className="text-gray-700 leading-relaxed">{t(tr.igtDesc, lang)}</p>
             </div>
             {/* Hyperthermia */}
-            <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-8 border border-orange-200">
-              <div className="w-14 h-14 bg-orange-500 rounded-xl flex items-center justify-center mb-4">
+            <div className="bg-gradient-to-br from-sky-50 to-sky-100 rounded-2xl p-8 border border-sky-200">
+              <div className="w-14 h-14 bg-sky-500 rounded-xl flex items-center justify-center mb-4">
                 <Thermometer size={28} className="text-white" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.hyperTitle, lang)}</h3>
@@ -608,13 +818,13 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-800 font-medium text-sm">{t(tr.cancerTag, lang)}</span>
+            <span className="text-cyan-600 font-medium text-sm">{t(tr.cancerTag, lang)}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.cancerTitle, lang)}</h2>
           </div>
           <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {CANCERS.map((c, i) => (
-              <div key={i} className="bg-white rounded-xl p-4 text-center border hover:border-blue-300 transition">
-                <c.icon size={24} className="text-blue-800 mx-auto mb-2" />
+              <div key={i} className="bg-white rounded-xl p-4 text-center border hover:border-cyan-300 transition">
+                <c.icon size={24} className="text-cyan-600 mx-auto mb-2" />
                 <p className="text-sm font-medium text-gray-700">{t(c.name, lang)}</p>
               </div>
             ))}
@@ -626,14 +836,14 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-800 font-medium text-sm">{t(tr.advTag, lang)}</span>
+            <span className="text-cyan-600 font-medium text-sm">{t(tr.advTag, lang)}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.advTitle, lang)}</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {ADVANTAGES.map((a, i) => (
               <div key={i} className="bg-white rounded-2xl p-6 border hover:shadow-lg transition">
-                <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4">
-                  <a.icon size={24} className="text-blue-800" />
+                <div className="w-12 h-12 bg-cyan-50 rounded-xl flex items-center justify-center mb-4">
+                  <a.icon size={24} className="text-cyan-600" />
                 </div>
                 <h3 className="font-bold text-gray-900 mb-2">{t(a.title, lang)}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">{t(a.desc, lang)}</p>
@@ -647,7 +857,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-800 font-medium text-sm">{t(tr.teamTag, lang)}</span>
+            <span className="text-cyan-600 font-medium text-sm">{t(tr.teamTag, lang)}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.teamTitle, lang)}</h2>
             <p className="text-gray-600 mt-4 max-w-3xl mx-auto">{t(tr.teamDesc, lang)}</p>
           </div>
@@ -662,7 +872,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                   />
                 </div>
                 <div className="p-5">
-                  <div className="inline-block bg-blue-800 text-white px-2.5 py-1 rounded-full text-xs font-medium mb-2">
+                  <div className="inline-block bg-cyan-600 text-white px-2.5 py-1 rounded-full text-xs font-medium mb-2">
                     {t(doctor.title, lang)}
                   </div>
                   <h3 className="text-lg font-bold text-gray-900 mb-1.5">{t(doctor.name, lang)}</h3>
@@ -675,76 +885,73 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       </section>
 
       {/* ========== PATIENT SUPPORT ========== */}
+
+
+      {/* ========== OTHER SERVICES ========== */}
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-800 font-medium text-sm">{t(tr.supportTag, lang)}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.supportTitle, lang)}</h2>
+            <span className="text-cyan-600 font-medium text-sm">{t(tr.otherServicesTag, lang)}</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.otherServicesTitle, lang)}</h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Second Opinion */}
-            <div className="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 border border-blue-100 hover:shadow-lg transition">
-              <div className="w-14 h-14 bg-blue-800 rounded-2xl flex items-center justify-center mb-4">
-                <Stethoscope size={28} className="text-white" />
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Lymphedema Clinic */}
+            <div className="bg-gradient-to-br from-cyan-50 to-white rounded-2xl p-8 border border-cyan-200 hover:shadow-lg transition">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-14 h-14 bg-cyan-600 rounded-2xl flex items-center justify-center">
+                  <Heart size={28} className="text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900">{t(tr.lymphedemaTitle, lang)}</h3>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.supportSecond, lang)}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{t(tr.supportSecondDesc, lang)}</p>
+              <p className="text-gray-600 mb-4 leading-relaxed">{t(tr.lymphedemaDesc, lang)}</p>
+              <div className="bg-cyan-100 rounded-lg p-4 mb-4">
+                <p className="text-cyan-900 font-bold text-sm">{t(tr.lymphedemaPrice, lang)}</p>
+                <p className="text-cyan-700 text-xs mt-1">
+                  {lang === 'ja' ? '第1・第3土曜日 9:00～17:00（予約制）' : lang === 'en' ? '1st & 3rd Sat 9:00-17:00 (By appointment)' : lang === 'zh-TW' ? '每月第1、3週六 9:00-17:00（預約制）' : '每月第1、3周六 9:00-17:00（预约制）'}
+                </p>
+              </div>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li className="flex items-start gap-2">
+                  <CheckCircle size={16} className="text-cyan-600 shrink-0 mt-0.5" />
+                  <span>{lang === 'ja' ? '手術・放射線治療後のむくみに対応' : lang === 'en' ? 'Post-surgery & radiation edema care' : lang === 'zh-TW' ? '手術·放射治療後水腫護理' : '手术·放射治疗后水肿护理'}</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle size={16} className="text-cyan-600 shrink-0 mt-0.5" />
+                  <span>{lang === 'ja' ? 'セラピスト（看護師）による専門ケア' : lang === 'en' ? 'Specialized care by therapist (RN)' : lang === 'zh-TW' ? '治療師（護士）專業護理' : '治疗师（护士）专业护理'}</span>
+                </li>
+              </ul>
             </div>
 
-            {/* Online Consultation */}
-            <div className="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 border border-blue-100 hover:shadow-lg transition">
-              <div className="w-14 h-14 bg-blue-800 rounded-2xl flex items-center justify-center mb-4">
-                <Globe size={28} className="text-white" />
+            {/* Cancer Screening */}
+            <div className="bg-gradient-to-br from-sky-50 to-white rounded-2xl p-8 border border-sky-200 hover:shadow-lg transition">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-14 h-14 bg-sky-600 rounded-2xl flex items-center justify-center">
+                  <Microscope size={28} className="text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900">{t(tr.cancerScreeningTitle, lang)}</h3>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.supportOnline, lang)}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{t(tr.supportOnlineDesc, lang)}</p>
-            </div>
-
-            {/* Email Consultation */}
-            <div className="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 border border-blue-100 hover:shadow-lg transition">
-              <div className="w-14 h-14 bg-blue-800 rounded-2xl flex items-center justify-center mb-4">
-                <Mail size={28} className="text-white" />
+              <p className="text-gray-600 mb-4 leading-relaxed">{t(tr.cancerScreeningDesc, lang)}</p>
+              <div className="bg-sky-100 rounded-lg p-4 mb-4">
+                <p className="text-sky-900 font-bold text-sm">{t(tr.cancerScreeningPrice, lang)}</p>
+                <p className="text-sky-700 text-xs mt-1">
+                  {lang === 'ja' ? 'マイクロアレイ血液検査オプション：¥99,000' : lang === 'en' ? 'Microarray blood test option: ¥99,000' : lang === 'zh-TW' ? '微陣列血液檢測選項：¥99,000' : '微阵列血液检测选项：¥99,000'}
+                </p>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.supportEmail, lang)}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{t(tr.supportEmailDesc, lang)}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ========== INSURANCE & PAYMENT ========== */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <span className="text-blue-800 font-medium text-sm">{t(tr.insuranceTag, lang)}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.insuranceTitle, lang)}</h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Insurance Covered */}
-            <div className="bg-white rounded-2xl p-8 border hover:shadow-lg transition">
-              <div className="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center mb-4">
-                <CheckCircle size={28} className="text-green-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.insuranceCovered, lang)}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{t(tr.insuranceCoveredDesc, lang)}</p>
-            </div>
-
-            {/* Advanced Medicine */}
-            <div className="bg-white rounded-2xl p-8 border hover:shadow-lg transition">
-              <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-4">
-                <Award size={28} className="text-blue-800" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.insuranceAdvanced, lang)}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{t(tr.insuranceAdvancedDesc, lang)}</p>
-            </div>
-
-            {/* Medical Expense Cap */}
-            <div className="bg-white rounded-2xl p-8 border hover:shadow-lg transition">
-              <div className="w-14 h-14 bg-purple-50 rounded-2xl flex items-center justify-center mb-4">
-                <Shield size={28} className="text-purple-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.insuranceLimit, lang)}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{t(tr.insuranceLimitDesc, lang)}</p>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li className="flex items-start gap-2">
+                  <CheckCircle size={16} className="text-sky-600 shrink-0 mt-0.5" />
+                  <span>{lang === 'ja' ? 'CT検査と血液検査の組み合わせ' : lang === 'en' ? 'Combined CT & blood tests' : lang === 'zh-TW' ? 'CT檢查與血液檢查結合' : 'CT检查与血液检查结合'}</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle size={16} className="text-sky-600 shrink-0 mt-0.5" />
+                  <span>{lang === 'ja' ? '当日に放射線診断専門医が結果説明' : lang === 'en' ? 'Same-day results by radiologist' : lang === 'zh-TW' ? '當天由放射診斷專科醫師說明' : '当天由放射诊断专科医师说明'}</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle size={16} className="text-sky-600 shrink-0 mt-0.5" />
+                  <span>{lang === 'ja' ? 'スマホアプリ『MeDaCa』で結果確認' : lang === 'en' ? 'Results via MeDaCa app' : lang === 'zh-TW' ? '透過MeDaCa應用程式確認結果' : '通过MeDaCa应用程序确认结果'}</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -754,50 +961,160 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-800 font-medium text-sm">{t(tr.resultsTag, lang)}</span>
+            <span className="text-cyan-600 font-medium text-sm">{t(tr.resultsTag, lang)}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.resultsTitle, lang)}</h2>
             <p className="text-gray-600 mt-4 max-w-3xl mx-auto">{t(tr.resultsDesc, lang)}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
             {/* Monthly Treatments */}
-            <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-8 text-white">
+            <div className="bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-2xl p-8 text-white">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
                   <Activity size={24} className="text-white" />
                 </div>
                 <h3 className="text-2xl font-bold">{t(tr.resultsMonthly, lang)}</h3>
               </div>
-              <p className="text-blue-50 leading-relaxed">{t(tr.resultsMonthlyDesc, lang)}</p>
+              <p className="text-cyan-50 leading-relaxed">{t(tr.resultsMonthlyDesc, lang)}</p>
               <div className="mt-6 pt-6 border-t border-white/20">
                 <div className="flex items-center gap-3">
                   <div className="flex-1">
-                    <p className="text-4xl font-bold">50-80</p>
-                    <p className="text-sm text-blue-200 mt-1">{lang === 'ja' ? '件/月' : lang === 'en' ? 'cases/month' : '件/月'}</p>
+                    <p className="text-4xl font-bold">60-70</p>
+                    <p className="text-sm text-cyan-200 mt-1">{lang === 'ja' ? '件/月' : lang === 'en' ? 'cases/month' : '件/月'}</p>
                   </div>
-                  <CheckCircle size={40} className="text-blue-200" />
+                  <CheckCircle size={40} className="text-cyan-200" />
                 </div>
               </div>
             </div>
 
             {/* Conference Presentations */}
-            <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-8 text-white">
+            <div className="bg-gradient-to-br from-sky-500 to-sky-600 rounded-2xl p-8 text-white">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
                   <Award size={24} className="text-white" />
                 </div>
                 <h3 className="text-2xl font-bold">{t(tr.resultsConference, lang)}</h3>
               </div>
-              <p className="text-orange-50 leading-relaxed">{t(tr.resultsConferenceDesc, lang)}</p>
-              <div className="mt-6 pt-6 border-t border-white/20">
+              <p className="text-sky-50 leading-relaxed">{t(tr.resultsConferenceDesc, lang)}</p>
+              <div className="mt-4 bg-white/10 rounded-lg p-4 border border-white/20">
+                <p className="font-bold text-lg mb-1">🏆 {t(tr.resultsAward, lang)}</p>
+                <p className="text-sm text-sky-100">{lang === 'ja' ? 'ポルトガル・リスボンで開催された国際学会CIRSEにて、乳がん治療の研究発表5件を実施し、最高賞を受賞。' : lang === 'en' ? 'Presented 5 breast cancer treatment studies at CIRSE in Lisbon, Portugal. Received highest award.' : lang === 'zh-TW' ? '於葡萄牙里斯本舉行的國際學會CIRSE發表5項乳腺癌治療研究，獲最高獎。' : '于葡萄牙里斯本举行的国际学会CIRSE发表5项乳腺癌治疗研究，获最高奖。'}</p>
+              </div>
+              <div className="mt-4 pt-4 border-t border-white/20">
                 <div className="flex items-center gap-3">
                   <div className="flex-1">
                     <p className="text-4xl font-bold">{lang === 'ja' ? '継続中' : lang === 'en' ? 'Ongoing' : '持續中'}</p>
-                    <p className="text-sm text-orange-200 mt-1">{lang === 'ja' ? '国際学会・国内学会' : lang === 'en' ? 'International & Domestic' : '國際及國內學會'}</p>
+                    <p className="text-sm text-sky-200 mt-1">{lang === 'ja' ? '国際学会・国内学会' : lang === 'en' ? 'International & Domestic' : '國際及國內學會'}</p>
                   </div>
-                  <Globe size={40} className="text-orange-200" />
+                  <Globe size={40} className="text-sky-200" />
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========== MEDIA COVERAGE ========== */}
+      <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="text-cyan-600 font-medium text-sm">{t(tr.mediaTag, lang)}</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.mediaTitle, lang)}</h2>
+            <p className="text-gray-600 mt-4 max-w-2xl mx-auto">{t(tr.mediaDesc, lang)}</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {MEDIA_COVERAGE.map((media, i) => (
+              <a
+                key={i}
+                href={media.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-gradient-to-br from-cyan-50 to-white rounded-2xl p-6 border border-cyan-200 hover:border-cyan-400 hover:shadow-lg transition"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-cyan-600 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                    <Activity size={24} className="text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-cyan-600 transition">
+                      {t(media.title, lang)}
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-3">{t(media.desc, lang)}</p>
+                    <div className="inline-flex items-center gap-1 text-cyan-600 text-sm font-medium group-hover:gap-2 transition-all">
+                      <span>{lang === 'ja' ? '動画を見る' : lang === 'en' ? 'Watch Video' : lang === 'zh-TW' ? '觀看影片' : '观看视频'}</span>
+                      <ArrowRight size={16} />
+                    </div>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ========== ACADEMIC ACHIEVEMENTS ========== */}
+      <section className="py-16 bg-gradient-to-br from-cyan-50 via-white to-sky-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="text-cyan-600 font-medium text-sm">{t(tr.academicTag, lang)}</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.academicTitle, lang)}</h2>
+            <p className="text-gray-600 mt-4 max-w-2xl mx-auto">{t(tr.academicDesc, lang)}</p>
+          </div>
+
+          <div className="space-y-6">
+            {ACADEMIC_ACHIEVEMENTS.map((achievement, i) => (
+              <div key={i} className="bg-white rounded-2xl p-8 border border-cyan-200 hover:border-cyan-400 hover:shadow-lg transition">
+                <div className="flex items-start gap-6">
+                  <div className="flex flex-col items-center shrink-0">
+                    <div className="w-16 h-16 bg-gradient-to-br from-cyan-600 to-sky-600 rounded-2xl flex items-center justify-center mb-2">
+                      <achievement.icon size={32} className="text-white" />
+                    </div>
+                    <div className="text-cyan-600 font-bold text-lg">{achievement.year}</div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">{t(achievement.title, lang)}</h3>
+                    <p className="text-gray-600 leading-relaxed">{t(achievement.desc, lang)}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ========== PATIENT TESTIMONIALS ========== */}
+      <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <span className="text-cyan-600 font-medium text-sm">{t(tr.testimonialTag, lang)}</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.testimonialTitle, lang)}</h2>
+            <p className="text-gray-600 mt-4 max-w-2xl mx-auto">{t(tr.testimonialDesc, lang)}</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {PATIENT_TESTIMONIALS.map((testimonial, i) => (
+              <a
+                key={i}
+                href={testimonial.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-gradient-to-br from-sky-50 to-white rounded-2xl p-8 border border-sky-200 hover:border-sky-400 hover:shadow-lg transition"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-14 h-14 bg-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Heart size={28} className="text-white" />
+                  </div>
+                  <div className="text-sky-600 font-bold text-sm">
+                    {lang === 'ja' ? `患者様 ${i + 1}` : lang === 'en' ? `Patient ${i + 1}` : `患者 ${i + 1}`}
+                  </div>
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-4">{t(testimonial.title, lang)}</h3>
+                <div className="inline-flex items-center gap-2 text-sky-600 text-sm font-medium group-hover:gap-3 transition-all">
+                  <span>{lang === 'ja' ? '動画を見る' : lang === 'en' ? 'Watch Video' : lang === 'zh-TW' ? '觀看影片' : '观看视频'}</span>
+                  <ArrowRight size={16} />
+                </div>
+              </a>
+            ))}
           </div>
         </div>
       </section>
@@ -806,20 +1123,20 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-800 font-medium text-sm">{t(tr.faqTag, lang)}</span>
+            <span className="text-cyan-600 font-medium text-sm">{t(tr.faqTag, lang)}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.faqTitle, lang)}</h2>
           </div>
           <div className="space-y-4">
             {FAQ_ITEMS.map((faq, i) => (
               <details key={i} className="bg-white rounded-2xl border overflow-hidden group">
                 <summary className="px-8 py-6 cursor-pointer font-bold text-gray-900 hover:bg-gray-50 transition flex items-start gap-3">
-                  <span className="text-blue-800 text-lg shrink-0">Q{i + 1}</span>
+                  <span className="text-cyan-600 text-lg shrink-0">Q{i + 1}</span>
                   <span className="flex-1">{t(faq.q, lang)}</span>
                   <ArrowRight size={20} className="text-gray-400 group-open:rotate-90 transition-transform shrink-0 mt-1" />
                 </summary>
-                <div className="px-8 py-6 bg-blue-50/50 border-t">
+                <div className="px-8 py-6 bg-cyan-50/50 border-t">
                   <div className="flex items-start gap-3">
-                    <span className="text-blue-800 font-bold text-lg shrink-0">A</span>
+                    <span className="text-cyan-600 font-bold text-lg shrink-0">A</span>
                     <p className="text-gray-700 leading-relaxed flex-1">{t(faq.a, lang)}</p>
                   </div>
                 </div>
@@ -833,14 +1150,14 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-800 font-medium text-sm">{t(tr.intlTag, lang)}</span>
+            <span className="text-cyan-600 font-medium text-sm">{t(tr.intlTag, lang)}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.intlTitle, lang)}</h2>
             <p className="text-gray-600 mt-4 max-w-3xl mx-auto">{t(tr.intlDesc, lang)}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {/* Excellent Access */}
-            <div className="bg-gradient-to-br from-green-50 to-white rounded-2xl p-8 border border-green-100 hover:shadow-lg transition">
-              <div className="w-14 h-14 bg-green-600 rounded-2xl flex items-center justify-center mb-4">
+            <div className="bg-gradient-to-br from-cyan-50 to-white rounded-2xl p-8 border border-cyan-100 hover:shadow-lg transition">
+              <div className="w-14 h-14 bg-cyan-600 rounded-2xl flex items-center justify-center mb-4">
                 <MapPin size={28} className="text-white" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.intlLocation, lang)}</h3>
@@ -848,8 +1165,8 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
             </div>
 
             {/* Translation Support */}
-            <div className="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 border border-blue-100 hover:shadow-lg transition">
-              <div className="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center mb-4">
+            <div className="bg-gradient-to-br from-cyan-50 to-white rounded-2xl p-8 border border-cyan-100 hover:shadow-lg transition">
+              <div className="w-14 h-14 bg-cyan-500 rounded-2xl flex items-center justify-center mb-4">
                 <Globe size={28} className="text-white" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.intlTranslation, lang)}</h3>
@@ -857,8 +1174,8 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
             </div>
 
             {/* Medical Visa */}
-            <div className="bg-gradient-to-br from-purple-50 to-white rounded-2xl p-8 border border-purple-100 hover:shadow-lg transition">
-              <div className="w-14 h-14 bg-purple-600 rounded-2xl flex items-center justify-center mb-4">
+            <div className="bg-gradient-to-br from-cyan-50 to-white rounded-2xl p-8 border border-cyan-100 hover:shadow-lg transition">
+              <div className="w-14 h-14 bg-cyan-600 rounded-2xl flex items-center justify-center mb-4">
                 <CheckCircle size={28} className="text-white" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">{t(tr.intlVisa, lang)}</h3>
@@ -872,14 +1189,14 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-800 font-medium text-sm">{t(tr.flowTag, lang)}</span>
+            <span className="text-cyan-600 font-medium text-sm">{t(tr.flowTag, lang)}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.flowTitle, lang)}</h2>
           </div>
           <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4">
             {FLOW_STEPS.map((s, i) => (
               <div key={i} className="relative bg-white rounded-xl p-5 border text-center">
-                <div className="text-xs font-bold text-blue-800 mb-2">STEP {s.step}</div>
-                <s.icon size={28} className="text-blue-800 mx-auto mb-2" />
+                <div className="text-xs font-bold text-cyan-600 mb-2">STEP {s.step}</div>
+                <s.icon size={28} className="text-cyan-600 mx-auto mb-2" />
                 <h4 className="font-bold text-gray-900 text-sm mb-1">{t(s.title, lang)}</h4>
                 <p className="text-xs text-gray-500">{t(s.desc, lang)}</p>
                 {i < FLOW_STEPS.length - 1 && (
@@ -895,14 +1212,14 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-800 font-medium text-sm">{t(tr.accessTag, lang)}</span>
+            <span className="text-cyan-600 font-medium text-sm">{t(tr.accessTag, lang)}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.accessTitle, lang)}</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-gray-50 rounded-2xl p-6 border">
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <MapPin size={20} className="text-blue-800 mt-1 shrink-0" />
+                  <MapPin size={20} className="text-cyan-600 mt-1 shrink-0" />
                   <div>
                     <p className="font-medium text-gray-900">〒598-0047</p>
                     <p className="text-gray-600 text-sm">大阪府泉佐野市りんくう往来南3-41</p>
@@ -910,11 +1227,11 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Train size={20} className="text-blue-800 shrink-0" />
+                  <Train size={20} className="text-cyan-600 shrink-0" />
                   <p className="text-gray-600 text-sm">りんくうタウン駅より徒歩10分 / 関西空港から1駅</p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Clock size={20} className="text-blue-800 shrink-0" />
+                  <Clock size={20} className="text-cyan-600 shrink-0" />
                   <div>
                     <p className="text-gray-600 text-sm">月・火・水・金・土 9:00〜17:00</p>
                     <p className="text-gray-500 text-xs">休診：木・日・祝日</p>
@@ -942,7 +1259,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-blue-800 font-medium text-sm">{t(tr.accessRouteTag, lang)}</span>
+            <span className="text-cyan-600 font-medium text-sm">{t(tr.accessRouteTag, lang)}</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.accessRouteTitle, lang)}</h2>
             <p className="text-gray-600 mt-4">{t(tr.accessRouteDesc, lang)}</p>
           </div>
@@ -955,7 +1272,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                     alt={t(photo.caption, lang)}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute top-2 left-2 bg-blue-800 text-white px-2 py-1 rounded text-xs font-bold">
+                  <div className="absolute top-2 left-2 bg-cyan-600 text-white px-2 py-1 rounded text-xs font-bold">
                     {i + 1}
                   </div>
                 </div>
@@ -969,19 +1286,19 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       </section>
 
       {/* ========== CTA ========== */}
-      <section id="cta" className="py-16 bg-gradient-to-br from-blue-600 to-blue-800">
+      <section id="cta" className="py-16 bg-gradient-to-br from-cyan-500 to-cyan-600">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">{t(tr.ctaTitle, lang)}</h2>
-          <p className="text-blue-100 mb-10 max-w-2xl mx-auto">{t(tr.ctaDesc, lang)}</p>
+          <p className="text-cyan-100 mb-10 max-w-2xl mx-auto">{t(tr.ctaDesc, lang)}</p>
           <div className="grid md:grid-cols-2 gap-6">
             <Link
               href={guideSlug ? `/igtc/initial-consultation?guide=${guideSlug}` : '/igtc/initial-consultation'}
               className="bg-white rounded-2xl p-6 text-left hover:shadow-xl transition group"
             >
-              <p className="text-sm text-blue-800 font-medium mb-1">{t(tr.ctaInitial, lang)}</p>
+              <p className="text-sm text-cyan-600 font-medium mb-1">{t(tr.ctaInitial, lang)}</p>
               <p className="text-2xl font-bold text-gray-900 mb-2">¥221,000</p>
               <p className="text-gray-500 text-sm">{t(tr.ctaInitialDesc, lang)}</p>
-              <div className="mt-4 inline-flex items-center gap-1 text-blue-800 font-medium text-sm group-hover:gap-2 transition-all">
+              <div className="mt-4 inline-flex items-center gap-1 text-cyan-600 font-medium text-sm group-hover:gap-2 transition-all">
                 {lang === 'ja' ? '詳細を見る' : lang === 'en' ? 'Learn More' : '了解詳情'}
                 <ArrowRight size={16} />
               </div>
@@ -990,10 +1307,10 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               href={guideSlug ? `/igtc/remote-consultation?guide=${guideSlug}` : '/igtc/remote-consultation'}
               className="bg-white rounded-2xl p-6 text-left hover:shadow-xl transition group"
             >
-              <p className="text-sm text-blue-800 font-medium mb-1">{t(tr.ctaRemote, lang)}</p>
+              <p className="text-sm text-cyan-600 font-medium mb-1">{t(tr.ctaRemote, lang)}</p>
               <p className="text-2xl font-bold text-gray-900 mb-2">¥243,000</p>
               <p className="text-gray-500 text-sm">{t(tr.ctaRemoteDesc, lang)}</p>
-              <div className="mt-4 inline-flex items-center gap-1 text-blue-800 font-medium text-sm group-hover:gap-2 transition-all">
+              <div className="mt-4 inline-flex items-center gap-1 text-cyan-600 font-medium text-sm group-hover:gap-2 transition-all">
                 {lang === 'ja' ? '詳細を見る' : lang === 'en' ? 'Learn More' : '了解詳情'}
                 <ArrowRight size={16} />
               </div>
@@ -1008,7 +1325,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
           <p className="text-gray-400 text-sm">
             © {new Date().getFullYear()} IGTクリニック（医療法人 龍志会）
           </p>
-          <a href="https://igtc.jp" target="_blank" rel="noopener noreferrer" className="text-blue-400 text-sm hover:underline mt-1 inline-block">
+          <a href="https://igtc.jp" target="_blank" rel="noopener noreferrer" className="text-cyan-400 text-sm hover:underline mt-1 inline-block">
             igtc.jp
           </a>
         </footer>
