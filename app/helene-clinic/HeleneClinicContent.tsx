@@ -244,7 +244,7 @@ const KEY_STATS = [
   { value: '0', label: { ja: '重篤な有害事象', 'zh-TW': '重大不良事件', 'zh-CN': '重大不良事件', en: 'Severe Adverse Events' } as Record<Language, string>, sub: { ja: '安全性実証済み', 'zh-TW': '安全性已驗證', 'zh-CN': '安全性已验证', en: 'Safety proven' } as Record<Language, string> },
   { value: '13+', label: { ja: '年の臨床経験', 'zh-TW': '年臨床經驗', 'zh-CN': '年临床经验', en: 'Years of Clinical Experience' } as Record<Language, string>, sub: { ja: '2013年設立', 'zh-TW': '2013年設立', 'zh-CN': '2013年设立', en: 'Est. 2013' } as Record<Language, string> },
   { value: '≥92%', label: { ja: '細胞生存率基準', 'zh-TW': '細胞存活率標準', 'zh-CN': '细胞存活率标准', en: 'Cell Viability Standard' } as Record<Language, string>, sub: { ja: '品質証明書発行', 'zh-TW': '發行品質證明書', 'zh-CN': '发行品质证明书', en: 'Quality certificate issued' } as Record<Language, string> },
-  { value: '105+', label: { ja: '多言語スタッフ', 'zh-TW': '多語言員工', 'zh-CN': '多语言员工', en: 'Multilingual Staff' } as Record<Language, string>, sub: { ja: '15言語以上対応', 'zh-TW': '15+語言對應', 'zh-CN': '15+语言对应', en: '15+ languages supported' } as Record<Language, string> },
+  { value: '50+', label: { ja: '多言語スタッフ', 'zh-TW': '多語言員工', 'zh-CN': '多语言员工', en: 'Multilingual Staff' } as Record<Language, string>, sub: { ja: '14言語以上対応', 'zh-TW': '14+語言對應', 'zh-CN': '14+语言对应', en: '14+ languages supported' } as Record<Language, string> },
   { value: '-196°C', label: { ja: '液体窒素長期保存', 'zh-TW': '液氮長期保存', 'zh-CN': '液氮长期保存', en: 'Liquid Nitrogen Storage' } as Record<Language, string>, sub: { ja: 'セルバンク管理', 'zh-TW': '細胞庫管理', 'zh-CN': '细胞库管理', en: 'Cell bank management' } as Record<Language, string> },
 ];
 
@@ -316,8 +316,8 @@ const TECH_SECTIONS = [
     desc: { ja: '2018年ケンブリッジ国際幹細胞シンポジウムで研究成果を発表。独自開発の無血清・ゼノフリーGMP品質培地により、動物由来の感染リスクを排除。同期間でより多くの細胞を培養でき、1ヶ月最大22.5億個のMSCを培養可能。培養されたMSCのサイズは他社より約20%小さく、血管閉塞リスクを低減', 'zh-TW': '2018年在劍橋國際幹細胞研討會發表研究成果。自主研發的無血清·Xeno-Free GMP品質培養基，排除動物源感染風險。同期間可培養更多細胞，每月最多可培養22.5億個MSC。培養的MSC體積比其他機構小約20%，降低血管堵塞風險', 'zh-CN': '2018年在剑桥国际干细胞研讨会发表研究成果。自主研发的无血清·Xeno-Free GMP品质培养基，排除动物源感染风险。同期间可培养更多细胞，每月最多可培养22.5亿个MSC。培养的MSC体积比其他机构小约20%，降低血管堵塞风险', en: 'Research presented at 2018 Cambridge International Stem Cell Symposium. Proprietary serum-free, xeno-free GMP-grade medium eliminates animal-derived infection risks. Cultures more cells in the same period — up to 2.25 billion MSCs per month. Cultured MSCs are ~20% smaller than competitors, reducing embolism risk' } as Record<Language, string>,
     // techAbout1/2: 530×720 each
     images: [
-      { src: HELENE_IMAGES.techAbout1, w: 640, caption: { ja: 'ケンブリッジ大学シンポジウム 研究発表資料', 'zh-TW': '劍橋大學研討會 研究發表資料', 'zh-CN': '剑桥大学研讨会 研究发表资料', en: 'Cambridge Symposium Research Presentation' } as Record<Language, string> },
-      { src: HELENE_IMAGES.techAbout2, w: 640, caption: { ja: 'HELENE培地による培養データ', 'zh-TW': 'HELENE培養基培養數據', 'zh-CN': 'HELENE培养基培养数据', en: 'HELENE Medium Culture Data' } as Record<Language, string> },
+      { src: HELENE_IMAGES.techAbout1, w: 828, caption: { ja: 'ケンブリッジ大学シンポジウム 研究発表資料', 'zh-TW': '劍橋大學研討會 研究發表資料', 'zh-CN': '剑桥大学研讨会 研究发表资料', en: 'Cambridge Symposium Research Presentation' } as Record<Language, string> },
+      { src: HELENE_IMAGES.techAbout2, w: 828, caption: { ja: 'HELENE培地による培養データ', 'zh-TW': 'HELENE培養基培養數據', 'zh-CN': 'HELENE培养基培养数据', en: 'HELENE Medium Culture Data' } as Record<Language, string> },
     ],
   },
   {
@@ -344,8 +344,8 @@ const TECH_SECTIONS = [
     desc: { ja: '2段階検証：STEP1 — Thermo Fisher Countess II FL セルカウンターでトリパンブルー染色により生細胞と死細胞を識別、自動照明・焦点調整。STEP2 — ZEISS Axio Vert.A1顕微鏡と独自開発AI画像認識プログラムで細胞骨格を分析し、計算精度はほぼ100%を実現', 'zh-TW': '兩步驟驗證：STEP1 — Thermo Fisher Countess II FL 細胞計數器，以台盤藍染料區分活細胞與死細胞，自動照明·焦點調整。STEP2 — ZEISS Axio Vert.A1顯微鏡搭配自主開發AI影像辨識程式分析細胞骨架，計算精度接近100%', 'zh-CN': '两步骤验证：STEP1 — Thermo Fisher Countess II FL 细胞计数器，以台盼蓝染料区分活细胞与死细胞，自动照明·焦点调整。STEP2 — ZEISS Axio Vert.A1显微镜搭配自主开发AI图像识别程序分析细胞骨架，计算精度接近100%', en: 'Two-step verification: STEP 1 — Thermo Fisher Countess II FL cell counter with trypan blue staining to distinguish live/dead cells, auto illumination & focus. STEP 2 — ZEISS Axio Vert.A1 microscope with proprietary AI image recognition analyzing cell cytoskeleton, achieving near 100% counting accuracy' } as Record<Language, string>,
     // equipment6: Countess 3 FL (600×600), equipment3: Leica DMi1 microscope (600×600)
     images: [
-      { src: HELENE_IMAGES.equipment6, w: 640, caption: { ja: 'STEP1: Countess II FL セルカウンター', 'zh-TW': 'STEP1: Countess II FL 細胞計數器', 'zh-CN': 'STEP1: Countess II FL 细胞计数器', en: 'STEP 1: Countess II FL Cell Counter' } as Record<Language, string> },
-      { src: HELENE_IMAGES.equipment3, w: 640, caption: { ja: 'STEP2: 倒立型位相差顕微鏡 + AI画像認識', 'zh-TW': 'STEP2: 倒立式相差顯微鏡 + AI影像辨識', 'zh-CN': 'STEP2: 倒立式相差显微镜 + AI图像识别', en: 'STEP 2: Inverted Phase-Contrast Microscope + AI Recognition' } as Record<Language, string> },
+      { src: HELENE_IMAGES.equipment6, w: 828, caption: { ja: 'STEP1: Countess II FL セルカウンター', 'zh-TW': 'STEP1: Countess II FL 細胞計數器', 'zh-CN': 'STEP1: Countess II FL 细胞计数器', en: 'STEP 1: Countess II FL Cell Counter' } as Record<Language, string> },
+      { src: HELENE_IMAGES.equipment3, w: 828, caption: { ja: 'STEP2: 倒立型位相差顕微鏡 + AI画像認識', 'zh-TW': 'STEP2: 倒立式相差顯微鏡 + AI影像辨識', 'zh-CN': 'STEP2: 倒立式相差显微镜 + AI图像识别', en: 'STEP 2: Inverted Phase-Contrast Microscope + AI Recognition' } as Record<Language, string> },
     ],
   },
 ];
@@ -872,7 +872,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
             {CERTIFICATIONS.map((cert, i) => (
               <div key={i} className="bg-white rounded-xl border border-gray-200 p-6 text-center hover:shadow-md transition">
                 <div className="h-40 flex items-center justify-center mb-4">
-                  <img src={img(cert.image, 828)} alt={cert.title} className="max-h-full max-w-full object-contain" />
+                  <img src={img(cert.image, 384)} alt={cert.title} className="max-h-full max-w-full object-contain" />
                 </div>
                 <p className="font-bold text-gray-900">{cert.title}</p>
                 <p className="text-sm text-gray-500 mt-1">{cert.desc[lang]}</p>
@@ -887,7 +887,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {MHLW_LICENSES.map((src, i) => (
                 <div key={i} className="bg-gray-50 rounded-lg p-3 flex items-center justify-center">
-                  <img src={img(src, 828)} alt={`MHLW License ${i + 1}`} className="max-h-48 object-contain" />
+                  <img src={img(src, 384)} alt={`MHLW License ${i + 1}`} className="max-h-48 object-contain" />
                 </div>
               ))}
             </div>
