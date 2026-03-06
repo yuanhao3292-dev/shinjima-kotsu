@@ -1191,6 +1191,322 @@ const accessT = {
 
 ---
 
+### 七、Hero 区域统一设计规范
+
+#### 7.1 Hero容器结构标准
+
+**规则**：所有白标页面的Hero区域必须遵循统一的容器布局，参考兵库医科大学（Hyogo Medical）的实现。
+
+**标准结构**：
+```tsx
+<section className="relative min-h-[85vh] flex items-center overflow-hidden">
+  {/* 背景图片 */}
+  <div className="absolute inset-0">
+    <img src="..." alt="..." className="w-full h-full object-cover" />
+    <div className="absolute inset-0 bg-gradient-to-r from-[主色]/75 via-[主色]/55 to-[主色]/30" />
+  </div>
+
+  {/* 文字内容容器 - 关键！*/}
+  <div className="container mx-auto px-6 py-12 md:py-24 relative z-10">
+    <div className="max-w-3xl">
+      {/* hero内容：badge, 标题, 副标题, 描述, CTA等 */}
+    </div>
+  </div>
+</section>
+```
+
+**关键设计要点**：
+
+| 元素 | 规范 | 说明 |
+|------|------|------|
+| 外层容器 | `container mx-auto px-6 py-12 md:py-24` | container确保响应式宽度，相对定位以容纳z-index |
+| 内层包裹 | `max-w-3xl` | **核心**：限制最大宽度实现左对齐，文字不占满全宽 |
+| z-index | `relative z-10` | 确保文字在遮罩层之上 |
+| 遮罩透明度 | `from-75 via-55 to-30` | 从左到右逐渐变透明，图片右侧更清晰 |
+| 最小高度 | `min-h-[85vh]` | 确保hero区域足够高 |
+
+#### 7.2 ❌ 错误示例（禁止）
+
+```tsx
+{/* ❌ 错误1：使用 max-w-6xl mx-auto 导致内容居中 */}
+<div className="relative max-w-6xl mx-auto px-6 py-20">
+  <div className="max-w-3xl">
+    {/* 内容 */}
+  </div>
+</div>
+
+{/* ❌ 错误2：没有 max-w-3xl 限制，文字占满全宽 */}
+<div className="container mx-auto px-6 py-20">
+  <h1>...</h1>  {/* 文字会占据整个容器宽度 */}
+</div>
+
+{/* ❌ 错误3：使用 text-center 导致文字居中 */}
+<div className="container mx-auto px-6 text-center">
+  {/* 破坏了左对齐原则 */}
+</div>
+```
+
+#### 7.3 ✅ 正确示例（推荐）
+
+```tsx
+{/* ✅ 正确：兵库医科大学标准 */}
+<div className="container mx-auto px-6 py-12 md:py-24 relative z-10">
+  <div className="max-w-3xl">
+    <h1 className="text-4xl md:text-6xl font-bold text-white">
+      {t(tr.heroTitle, lang)}
+    </h1>
+    <p className="text-xl text-gray-300">{t(tr.heroSubtitle, lang)}</p>
+    {/* 其他内容 */}
+  </div>
+</div>
+```
+
+#### 7.4 文字对齐原则
+
+**核心原则**：Hero文字靠左对齐，不居中，不占满全宽。
+
+**实现方式**：
+- ✅ 外层容器：`container mx-auto`（响应式，自动左右margin）
+- ✅ 内层包裹：`max-w-3xl`（限制最大宽度，实现左对齐效果）
+- ❌ 禁止使用：`text-center`、`items-center`、`justify-center`（会破坏左对齐）
+
+**响应式行为**：
+- 大屏幕（≥1280px）：`container` 宽度固定，`max-w-3xl` 内容靠左
+- 中屏幕（768-1279px）：`container` 宽度自适应，`max-w-3xl` 内容靠左
+- 小屏幕（<768px）：`px-6` 提供左右间距，内容自然左对齐
+
+#### 7.5 遮罩层透明度标准
+
+**推荐渐变**：`bg-gradient-to-r from-[主色]/75 via-[主色]/55 to-[主色]/30`
+
+**设计理由**：
+- 左侧75%遮罩：确保文字清晰可读
+- 中间55%遮罩：过渡区域
+- 右侧30%遮罩：让背景图片更清晰可见，提升视觉冲击力
+
+**禁止过重遮罩**：
+- ❌ `from-90 via-80 to-70`：遮罩太重，图片完全看不清
+- ❌ 纯色遮罩 `bg-black/80`：无渐变效果，缺乏层次感
+
+#### 7.6 新增白标页面时的Hero检查清单
+
+当创建新的医院/诊所白标页面时，Hero区域必须确认：
+
+1. ✅ 外层容器使用 `container mx-auto px-6 py-12 md:py-24 relative z-10`
+2. ✅ 内层包裹使用 `max-w-3xl`
+3. ❌ 没有使用 `text-center` 或 `items-center`
+4. ✅ 遮罩渐变从左到右逐渐变透明（75→55→30）
+5. ✅ 文字清晰可读（遮罩不能太轻）
+6. ✅ 背景图片右侧清晰可见（遮罩不能太重）
+
+#### 7.7 现有白标页面Hero合规状态
+
+| 文件 | 状态 | 备注 |
+|------|------|------|
+| `app/hyogo-medical/HyogoMedicalContent.tsx` | ✅ **标准模板** | 参考实现（Line 1095-1116） |
+| `app/igtc/IGTCContent.tsx` | ✅ **已修复** | 2026-03-06 统一为标准结构 |
+| `app/cancer-treatment/CancerTreatmentContent.tsx` | 🔍 待检查 | |
+| `app/helene-clinic/HeleneClinicContent.tsx` | ✅ **合规** | 已使用 max-w-2xl + container |
+| `app/sai-clinic/SaiClinicContent.tsx` | 🔍 待检查 | |
+| `app/wclinic-mens/WClinicMensContent.tsx` | 🔍 待检查 | |
+| `app/ginza-phoenix/GinzaPhoenixContent.tsx` | 🔍 待检查 | |
+| `app/cell-medicine/CellMedicineContent.tsx` | 🔍 待检查 | |
+| `app/ac-plus/ACPlusContent.tsx` | 🔍 待检查 | |
+| `app/osaka-himak/OsakaHimakContent.tsx` | 🔍 待检查 | |
+
+---
+
+## 🕷️ 白标页面官网爬取与内容提取规范
+
+**文档版本**: v1.0
+**最后更新**: 2026-03-06
+
+### 背景
+
+白标页面开发需要从合作医院官网提取信息（医院介绍、治疗项目、医师团队、价格、交通等），并转化为符合白标设计标准的页面。为确保信息完整、准确、合规，需要标准化的提取流程。
+
+---
+
+### 核心原则
+
+1. **结构化抽取 > 自由总结**
+   - 不让 AI 自由总结网站，而是使用强约束 Schema 逐项填空
+   - 未提及的字段显示"未提及"，禁止 AI 编造内容
+
+2. **分层处理 > 整站爬取**
+   - 按页面类型（首页/治疗/医师/价格/交通）分别提取
+   - 每个治疗项目单独提取（最容易遗漏）
+
+3. **术语标准化**
+   - 使用 `lib/config/medical-glossary.ts` 术语对照表
+   - 确保四种语言（ja/zh-CN/zh-TW/en）专业术语一致
+
+4. **合规性优先**
+   - 提取阶段即删除所有联系方式（电话/邮箱/Line）
+   - 交通指南仅保留地理信息
+
+---
+
+### 标准化提取流程
+
+#### 📋 完整流程概览
+
+```
+Step 1: 官网结构扫描
+  → 识别关键页面 URL（首页/治疗/医师/价格/交通/设施）
+
+Step 2: 分层内容提取
+  → 使用 WebFetch + 强约束 Prompt 逐页面提取
+  → 治疗项目逐个提取（防止遗漏）
+
+Step 3: 图片资源收集
+  → 开发者工具手动提取高清图片 URL
+  → 检查分辨率和 CORS
+
+Step 4: 内容审核
+  → 完整性检查（治疗项目 ≥ 3 个）
+  → 合规性检查（删除所有联系方式）
+  → 术语一致性检查
+
+Step 5: 多语言翻译
+  → 使用术语对照表进行 AI 翻译
+
+Step 6: 生成白标组件
+  → 创建 [HospitalName]Content.tsx
+  → 遵守白标设计标准
+```
+
+---
+
+### 技术实现
+
+#### 1. WebFetch 工具（文字内容提取）
+
+**典型用法**（以 cell-medicine 为例）：
+
+```typescript
+// 基础信息
+WebFetch("https://cell-medicine.com/",
+  "Company information, treatment details, certifications")
+
+// 治疗详情
+WebFetch("https://cell-medicine.com/about/",
+  "Autologous cancer vaccine details, how it works, treatment process")
+
+// 价格信息
+WebFetch("https://cell-medicine.com/howto/price.php",
+  "Treatment pricing, cost breakdown")
+
+// 医院列表
+WebFetch("https://cell-medicine.com/hospitals",
+  "List of hospitals offering treatment")
+```
+
+**关键点**：
+- 分页面提取，不要一次性抓取整站
+- Prompt 要具体明确要提取的字段
+- 附带术语对照表确保翻译准确
+
+#### 2. 手动图片提取（静态资源）
+
+**方法**：浏览器开发者工具（F12）→ Network 面板 → 筛选 Img
+
+**示例**（W CLINIC men's）：
+```
+Hero: https://mens.wclinic-osaka.jp/wp-content/themes/mens_pc/material02/img/top/mv01b_pc.png
+医师: https://mens.wclinic-osaka.jp/wp-content/themes/mens_pc/img/concept/dr_uemura01.png
+地图: https://mens.wclinic-osaka.jp/wp-content/themes/mens_pc/img/access_map02.jpg
+```
+
+**质量要求**：
+- 分辨率 ≥ 1200px（Retina 屏幕适配）
+- 检查 CORS 策略（测试 `/_next/image` 代理）
+- 准备备用图片方案
+
+#### 3. 强约束型 Prompt 模板
+
+**不推荐**（容易遗漏）：
+```
+"总结这个医院网站的治疗项目"
+```
+
+**推荐**（结构化填空）：
+```
+请严格按以下 JSON 结构提取信息，未提及的字段填 null：
+
+{
+  "treatment_name_ja": "",
+  "indications": "",
+  "mechanism": "",
+  "treatment_process": ["Step 1", "Step 2", ...],
+  "expected_results": "",
+  "side_effects": "",
+  "contraindications": "",
+  "duration": "",
+  "price_range": ""
+}
+
+【医疗术语对照表】
+- 幹細胞 → 简中:干细胞 | 繁中:幹細胞 | EN:Stem Cell
+- 自家がんワクチン → 简中:自体癌症疫苗 | ...
+
+⚠️ 删除所有电话、邮箱、Line ID
+```
+
+---
+
+### 标准化文件资源
+
+| 文件 | 路径 | 用途 |
+|------|------|------|
+| 提取模板 | `templates/hospital-extraction-template.md` | 完整提取流程指南 |
+| 术语对照表 | `lib/config/medical-glossary.ts` | 医疗术语标准翻译 |
+
+**使用方法**：
+1. 开发新白标页面前，阅读 `hospital-extraction-template.md`
+2. WebFetch 时附带 `generateGlossaryPrompt()` 输出的术语表
+3. 翻译时使用 `MEDICAL_GLOSSARY` 确保术语一致
+
+---
+
+### 质量标准
+
+一个合格的白标页面应达到：
+
+- ✅ 内容完整性 ≥ 90%（相比官网）
+- ✅ 医疗术语准确率 = 100%
+- ✅ 合规性（无联系方式）= 100%
+- ✅ 图片加载成功率 ≥ 95%
+- ✅ 多语言一致性 ≥ 98%
+
+---
+
+### 当前限制与未来改进
+
+**当前限制**：
+1. 无自动化爬虫脚本 - 每个白标页面手动开发
+2. 图片直接引用官网 URL - 未下载到本地
+3. 无定期更新机制 - 官网内容更新需手动同步
+
+**未来改进方向**（按优先级）：
+
+#### 阶段 2：半自动化提取（中期）
+- [ ] 创建 `scripts/extract-hospital.ts` 脚本
+- [ ] 自动扫描 sitemap 识别页面类型
+- [ ] 批量调用 WebFetch 生成结构化 JSON
+- [ ] 人工审核后生成组件代码
+
+#### 阶段 3：数据与代码分离（长期）
+- [ ] 白标内容存储为 `data/hospitals/[slug].json`
+- [ ] 组件仅负责渲染 `render(json)`
+- [ ] 支持 CMS 管理和内容更新
+- [ ] 医院官网变更时可快速同步
+
+**不建议大规模重构**：
+当前 11 个白标页面运行稳定，大规模重构（如全部改为 JSON 驱动）成本高、风险大。建议新增页面时采用新流程，旧页面保持现状。
+
+---
+
 ## 🔒 官方域名与白标域名隔离规范 (Domain Isolation - MANDATORY)
 
 **状态**: 🔒 **强制执行** (Mandatory)

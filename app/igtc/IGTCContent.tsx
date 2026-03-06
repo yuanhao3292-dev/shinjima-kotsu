@@ -541,7 +541,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-gray-950/75 via-gray-900/55 to-cyan-950/30" />
         </div>
-        <div className="relative max-w-6xl mx-auto px-6 py-20">
+        <div className="container mx-auto px-6 py-12 md:py-24 relative z-10">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6">
               <Globe size={16} className="text-cyan-300" />
