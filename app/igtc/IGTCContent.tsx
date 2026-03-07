@@ -12,6 +12,7 @@ import {
   ChevronDown, ChevronUp, FileText, Droplets, Dna, Beaker,
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 interface Props {
   isGuideEmbed?: boolean;
@@ -538,6 +539,11 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
 
   return (
     <div className="bg-white">
+      {/* Language Switcher - Fixed top right */}
+      <div className="fixed top-4 right-4 z-50">
+        <LanguageSwitcher variant="compact" />
+      </div>
+
       {/* ========== HERO ========== */}
       <section className="relative min-h-[85vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">

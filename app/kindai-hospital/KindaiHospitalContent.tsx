@@ -32,6 +32,7 @@ import {
   CheckCircle,
 } from 'lucide-react'
 import { useLanguage, type Language } from '@/hooks/useLanguage'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 interface KindaiHospitalContentProps {
   isGuideEmbed?: boolean
@@ -585,7 +586,7 @@ export default function KindaiHospitalContent({
         'zh-TW': '專門用於早期癌症檢測和認知症診斷的高精度檢查',
         en: 'High-precision detection for early cancer and dementia diagnosis',
       },
-      imageUrl: 'https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_2020_05_pet_03.jpg',
+      imageUrl: 'https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_2020_05_pet_01.jpg',
       applications: {
         ja: 'PET分子イメージングセンター',
         'zh-CN': 'PET分子影像中心',
@@ -1415,6 +1416,11 @@ export default function KindaiHospitalContent({
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      {/* Language Switcher - Fixed top right */}
+      <div className="fixed top-4 right-4 z-50">
+        <LanguageSwitcher variant="compact" />
+      </div>
+
       {/* Hero Section */}
       <section className="relative h-[70vh] min-h-[600px] overflow-hidden">
         <Image
@@ -1654,123 +1660,6 @@ export default function KindaiHospitalContent({
             </div>
         </div>
       </section>
-
-      {/* ========================================
-          设备展示画廊 (全宽图片布局)
-          ======================================== */}
-      <div className="mb-0">
-        <div className="text-center py-16 bg-white">
-          <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif text-slate-900 mb-3">
-            {locale === 'ja' && '最先端医療機器ギャラリー'}
-            {locale === 'zh-CN' && '尖端医疗设备画廊'}
-            {locale === 'zh-TW' && '尖端醫療設備畫廊'}
-            {locale === 'en' && 'Advanced Medical Equipment Gallery'}
-          </h3>
-          <p className="text-slate-500 text-sm tracking-widest uppercase mb-4">Medical Equipment Lineup</p>
-        </div>
-      </div>
-      {/* Row 1: da Vinci + Hybrid OR */}
-      <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
-        <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_2020_03_davinci_01.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="da Vinci Xi" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
-          <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">da Vinci Xi</h4>
-            <p className="text-sm text-white/80 leading-relaxed">
-              {locale === 'ja' && '第4世代手術支援ロボット。泌尿器科・外科・婦人科で年間250件以上の低侵襲手術を実施。'}
-              {locale === 'zh-CN' && '第4代手术辅助机器人。泌尿外科、外科、妇科年间250例以上微创手术。'}
-              {locale === 'zh-TW' && '第4代手術輔助機器人。泌尿外科、外科、婦科年間250例以上微創手術。'}
-              {locale === 'en' && '4th generation surgical robot. 250+ minimally invasive surgeries annually across Urology, Surgery, Gynecology.'}
-            </p>
-          </div>
-        </div>
-        <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_2020_02_hybrid_operating_room_01.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Hybrid OR" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
-          <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">
-              {locale === 'ja' && 'ハイブリッド手術室'}
-              {locale === 'zh-CN' && '复合手术室'}
-              {locale === 'zh-TW' && '複合手術室'}
-              {locale === 'en' && 'Hybrid Operating Room'}
-            </h4>
-            <p className="text-sm text-white/80 leading-relaxed">
-              {locale === 'ja' && '71.8m²の広さに最新血管造影システムを搭載。術中3D画像融合で手術時間短縮・低侵襲化を実現。'}
-              {locale === 'zh-CN' && '71.8m²配备最新血管造影系统。术中3D图像融合实现手术时间缩短、微创化。'}
-              {locale === 'zh-TW' && '71.8m²配備最新血管造影系統。術中3D圖像融合實現手術時間縮短、微創化。'}
-              {locale === 'en' && '71.8m² with latest angiography system. Intraoperative 3D image fusion for shorter, less invasive surgery.'}
-            </p>
-          </div>
-        </div>
-      </div>
-      {/* Row 2: Halcyon + NAVIO */}
-      <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
-        <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_2020_04_halcyon_01.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Halcyon" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
-          <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">Halcyon</h4>
-            <p className="text-sm text-white/80 leading-relaxed">
-              {locale === 'ja' && '西日本初導入の次世代放射線治療装置。治療時間を約半分に短縮（約15分→約3分）。'}
-              {locale === 'zh-CN' && '西日本首台引进的新一代放射治疗设备。治疗时间缩短约一半（约15分→约3分）。'}
-              {locale === 'zh-TW' && '西日本首台引進的新一代放射治療設備。治療時間縮短約一半（約15分→約3分）。'}
-              {locale === 'en' && 'First in Western Japan. Next-gen radiation therapy reducing treatment time by half (15min→3min).'}
-            </p>
-          </div>
-        </div>
-        <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_2020_01_navio_01.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="NAVIO" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
-          <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">NAVIO</h4>
-            <p className="text-sm text-white/80 leading-relaxed">
-              {locale === 'ja' && '日本初導入の膝関節手術支援ロボット。赤外線技術で骨削除を精密制御、前十字靭帯を温存。'}
-              {locale === 'zh-CN' && '日本首台引进的膝关节手术辅助机器人。红外线技术精确控制骨削除，保留前交叉韧带。'}
-              {locale === 'zh-TW' && '日本首台引進的膝關節手術輔助機器人。紅外線技術精確控制骨削除，保留前交叉韌帶。'}
-              {locale === 'en' && 'First in Japan. Knee surgery robot with infrared tech for precise bone removal, ACL preservation.'}
-            </p>
-          </div>
-        </div>
-      </div>
-      {/* Row 3: PET + Alluminox */}
-      <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
-        <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_2020_05_pet_01.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="PET Center" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
-          <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">
-              {locale === 'ja' && 'PET分子イメージングセンター'}
-              {locale === 'zh-CN' && 'PET分子影像中心'}
-              {locale === 'zh-TW' && 'PET分子影像中心'}
-              {locale === 'en' && 'PET Molecular Imaging Center'}
-            </h4>
-            <p className="text-sm text-white/80 leading-relaxed">
-              {locale === 'ja' && '南大阪初導入。サイクロトロン完備で当日FDG製剤製造。約1cm前後のがんも発見可能。'}
-              {locale === 'zh-CN' && '南大阪首台引进。配备回旋加速器当日制造FDG药剂。可发现约1cm左右的癌症。'}
-              {locale === 'zh-TW' && '南大阪首台引進。配備迴旋加速器當日製造FDG藥劑。可發現約1cm左右的癌症。'}
-              {locale === 'en' && 'First in South Osaka. On-site cyclotron for same-day FDG production. Detects tumors ~1cm.'}
-            </p>
-          </div>
-        </div>
-        <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_2022_amc01_alluminox_01.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Alluminox" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
-          <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">
-              {locale === 'ja' && '光免疫療法（アルミノックス）'}
-              {locale === 'zh-CN' && '光免疫疗法（Alluminox）'}
-              {locale === 'zh-TW' && '光免疫療法（Alluminox）'}
-              {locale === 'en' && 'Photoimmunotherapy (Alluminox)'}
-            </h4>
-            <p className="text-sm text-white/80 leading-relaxed">
-              {locale === 'ja' && '第5のがん治療法。楽天メディカル開発、入院わずか2日間。切除不能な頭頸部がんに保険適用。'}
-              {locale === 'zh-CN' && '第5代癌症治疗法。乐天医疗开发，住院仅需2天。不可切除头颈部癌已纳入保险。'}
-              {locale === 'zh-TW' && '第5代癌症治療法。樂天醫療開發，住院僅需2天。不可切除頭頸部癌已納入保險。'}
-              {locale === 'en' && '5th cancer treatment modality. By Rakuten Medical, 2-day hospitalization. Covered for unresectable head & neck cancer.'}
-            </p>
-          </div>
-        </div>
-      </div>
 
       {/* 大学医院优势 */}
       <section className="bg-white py-20">

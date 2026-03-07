@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 // ======================================
 // Props
@@ -523,6 +524,11 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
 
   return (
     <div className={`min-h-screen bg-white ${isGuideEmbed ? '' : ''}`}>
+      {/* Language Switcher - Fixed top right */}
+      <div className="fixed top-4 right-4 z-50">
+        <LanguageSwitcher variant="compact" />
+      </div>
+
       {/* ============ Hero ============ */}
       <section className="relative min-h-[70vh] flex items-center overflow-hidden text-white">
         <img src={img(HELENE_IMAGES.professor, 1920)} alt="HELENE Clinic" className="absolute inset-0 w-full h-full object-cover" />

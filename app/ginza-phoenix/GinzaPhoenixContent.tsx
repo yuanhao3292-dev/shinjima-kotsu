@@ -15,6 +15,7 @@ import {
   Beaker,
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 // Hero Image (白标首图映射用)
 export const GINZA_PHOENIX_HERO_IMAGE =
@@ -501,6 +502,10 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Language Switcher - Fixed top right */}
+      <div className="fixed top-4 right-4 z-50">
+        <LanguageSwitcher variant="compact" />
+      </div>
 
       {/* 1. HERO */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
