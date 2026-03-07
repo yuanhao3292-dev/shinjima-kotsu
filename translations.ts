@@ -91,8 +91,6 @@ export const translations = {
       video_subtitle: '徳洲会国際メディカルセンターの世界をご体験ください',
       video_fallback: 'お使いのブラウザは動画再生に対応していません',
       video_caption: '徳洲会国際メディカルセンター TIMC - 公式紹介動画',
-      // Hero limit badge
-      limit_badge: 'サービス品質の確保のため、毎月20名様限定でご予約を承ります',
       // Package recommender
       pkg_recommend_btn: 'どれを選べばいい？AIが最適なコースを推薦',
       // Package shared
@@ -198,8 +196,6 @@ export const translations = {
       order_title: 'ご予約済みですか？注文状況を確認',
       order_sub: 'メールアドレスと注文番号を入力して、予約状況をご確認ください',
       order_btn: '注文を確認する',
-      // CTA limit
-      cta_limit: '毎月20名様限定・残枠わずか',
       // Contact
       contact_other: 'その他のお問い合わせ方法',
       // Package Detail Page
@@ -908,8 +904,6 @@ export const translations = {
       video_subtitle: '走進德洲會國際醫療中心，感受日本頂級醫療服務',
       video_fallback: '您的瀏覽器不支援影片播放',
       video_caption: '德洲會國際醫療中心 TIMC - 官方介紹影片',
-      // Hero limit badge
-      limit_badge: '為保證服務品質，每月僅限 20 位客戶預約',
       // Package recommender
       pkg_recommend_btn: '不知道選哪個？智能推薦適合您的套餐',
       // Package shared
@@ -1015,8 +1009,6 @@ export const translations = {
       order_title: '已預約？查詢訂單狀態',
       order_sub: '輸入您的電子郵箱和訂單編號，即可查看預約進度',
       order_btn: '查詢我的訂單',
-      // CTA limit
-      cta_limit: '每月僅限 20 位 · 名額有限',
       // Contact
       contact_other: '其他諮詢方式',
       // Package Detail Page
@@ -1580,8 +1572,6 @@ export const translations = {
       video_subtitle: '走进德洲会国际医疗中心，感受日本顶级医疗服务',
       video_fallback: '您的浏览器不支持视频播放',
       video_caption: '德洲会国际医疗中心 TIMC - 官方介绍影片',
-      // Hero limit badge
-      limit_badge: '为保证服务品质，每月仅限 20 位客户预约',
       // Package recommender
       pkg_recommend_btn: '不知道选哪个？智能推荐适合您的套餐',
       // Package shared
@@ -1687,8 +1677,6 @@ export const translations = {
       order_title: '已预约？查询订单状态',
       order_sub: '输入您的电子邮箱和订单编号，即可查看预约进度',
       order_btn: '查询我的订单',
-      // CTA limit
-      cta_limit: '每月仅限 20 位 · 名额有限',
       // Contact
       contact_other: '其他咨询方式',
       // Package Detail Page
@@ -2258,8 +2246,6 @@ export const translations = {
       video_subtitle: 'Step inside Tokushukai International Medical Center and experience world-class healthcare',
       video_fallback: 'Your browser does not support video playback',
       video_caption: 'Tokushukai International Medical Center TIMC - Official Introduction',
-      // Hero limit badge
-      limit_badge: 'To ensure quality, only 20 clients accepted per month',
       // Package recommender
       pkg_recommend_btn: 'Not sure which to choose? Let AI recommend',
       // Package shared
@@ -2365,8 +2351,6 @@ export const translations = {
       order_title: 'Already Booked? Check Order Status',
       order_sub: 'Enter your email and order number to check your booking progress',
       order_btn: 'Check My Order',
-      // CTA limit
-      cta_limit: 'Only 20 spots per month · Limited availability',
       // Contact
       contact_other: 'Other Contact Methods',
       // Package Detail Page
