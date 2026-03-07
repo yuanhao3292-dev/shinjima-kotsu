@@ -1669,11 +1669,12 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
             <h3 className="text-3xl font-serif text-gray-900 mt-2">{t.accessTitle[lang]}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div className="bg-gray-100 rounded-2xl h-80 md:h-[450px] overflow-hidden">
-              <iframe
-                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=%E5%85%B5%E5%BA%AB%E5%8C%BB%E7%A7%91%E5%A4%A7%E5%AD%A6%E7%97%85%E9%99%A2&zoom=15"
-                width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade" className="rounded-2xl"
+            <div className="bg-gray-100 rounded-2xl h-80 md:h-[450px] overflow-hidden relative">
+              <Image
+                src="/images/hyogo-medical/access-map.png"
+                alt={t.accessAddress[lang]}
+                fill
+                className="object-cover rounded-2xl"
               />
             </div>
             <div className="space-y-4">
