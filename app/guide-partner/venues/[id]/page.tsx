@@ -4,7 +4,7 @@ import { useState, useEffect, use, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
-import Logo from '@/components/Logo';
+import GuideSidebar from '@/components/guide-partner/GuideSidebar';
 import {
   generatePricingText,
   localeDisplayNames,
@@ -12,15 +12,8 @@ import {
   type PricingLocale
 } from '@/lib/utils/venue-pricing-i18n';
 import {
-  LayoutDashboard,
   Store,
   Calendar,
-  Wallet,
-  Users,
-  Settings,
-  LogOut,
-  Menu,
-  X,
   ArrowLeft,
   MapPin,
   Clock,
@@ -32,7 +25,8 @@ import {
   Phone,
   Wine,
   Stethoscope,
-  Heart
+  Heart,
+  X,
 } from 'lucide-react';
 
 interface Venue {
@@ -62,7 +56,6 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
   const [venue, setVenue] = useState<Venue | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedLocale, setSelectedLocale] = useState<PricingLocale>('zh-TW');
   const [copied, setCopied] = useState(false);
   const router = useRouter();
@@ -125,11 +118,6 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
     }
   };
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.push('/guide-partner');
-  };
-
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case 'nightclub': return <Wine className="w-5 h-5" />;
@@ -182,15 +170,6 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
     return null;
   }
 
-  const navItems = [
-    { icon: LayoutDashboard, label: '控制台', href: '/guide-partner/dashboard' },
-    { icon: Store, label: '店舖列表', href: '/guide-partner/venues', active: true },
-    { icon: Calendar, label: '我的預約', href: '/guide-partner/bookings' },
-    { icon: Wallet, label: '報酬結算', href: '/guide-partner/commission' },
-    { icon: Users, label: '我的推薦', href: '/guide-partner/referrals' },
-    { icon: Settings, label: '帳戶設置', href: '/guide-partner/settings' },
-  ];
-
   const pricingText = useMemo(
     () => generatePricingText(venue, selectedLocale),
     [venue, selectedLocale]
@@ -198,61 +177,7 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Mobile Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b z-50 flex items-center justify-between px-4">
-        <div className="flex items-center gap-2">
-          <Link href="/guide-partner/venues" className="p-2 -ml-2">
-            <ArrowLeft size={20} />
-          </Link>
-          <span className="font-bold truncate">{venue.name}</span>
-        </div>
-        <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2">
-          {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
-
-      {/* Sidebar */}
-      <aside className={`
-        fixed top-0 left-0 h-full w-64 bg-white border-r z-40 transform transition-transform duration-300
-        lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-      `}>
-        <div className="h-16 flex items-center gap-3 px-6 border-b">
-          <Logo className="w-8 h-8 text-orange-600" />
-          <div>
-            <span className="font-bold text-gray-900">NIIJIMA</span>
-            <p className="text-xs text-gray-500">Guide Partner</p>
-          </div>
-        </div>
-
-        <nav className="p-4 space-y-1">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`
-                flex items-center gap-3 px-4 py-3 rounded-xl transition
-                ${item.active
-                  ? 'bg-orange-50 text-orange-600 font-medium'
-                  : 'text-gray-600 hover:bg-gray-50'
-                }
-              `}
-            >
-              <item.icon size={20} />
-              <span>{item.label}</span>
-            </Link>
-          ))}
-        </nav>
-
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t">
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3 w-full text-gray-600 hover:bg-gray-50 rounded-xl transition"
-          >
-            <LogOut size={20} />
-            <span>退出登入</span>
-          </button>
-        </div>
-      </aside>
+      <GuideSidebar pageTitle="店铺详情" />
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
@@ -460,13 +385,6 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
         </div>
       </main>
 
-      {/* Mobile Sidebar Overlay */}
-      {sidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-30 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
     </div>
   );
 }

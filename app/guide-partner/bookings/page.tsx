@@ -4,16 +4,10 @@ import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
-import Logo from '@/components/Logo';
+import GuideSidebar from '@/components/guide-partner/GuideSidebar';
 import {
-  LayoutDashboard,
   Store,
   Calendar,
-  Wallet,
-  Users,
-  Settings,
-  LogOut,
-  Menu,
   X,
   Plus,
   Filter,
@@ -58,7 +52,6 @@ function BookingsContent() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [filteredBookings, setFilteredBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [statusFilter, setStatusFilter] = useState('all');
   const [payingBookingId, setPayingBookingId] = useState<string | null>(null);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
@@ -173,11 +166,6 @@ function BookingsContent() {
     }
   };
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.push('/guide-partner');
-  };
-
   const getStatusBadge = (status: string) => {
     const styles: Record<string, string> = {
       pending: 'bg-yellow-100 text-yellow-700',
@@ -231,70 +219,9 @@ function BookingsContent() {
     );
   }
 
-  const navItems = [
-    { icon: LayoutDashboard, label: '控制台', href: '/guide-partner/dashboard' },
-    { icon: Store, label: '店舖列表', href: '/guide-partner/venues' },
-    { icon: Calendar, label: '我的預約', href: '/guide-partner/bookings', active: true },
-    { icon: Wallet, label: '報酬結算', href: '/guide-partner/commission' },
-    { icon: Users, label: '我的推薦', href: '/guide-partner/referrals' },
-    { icon: Settings, label: '帳戶設置', href: '/guide-partner/settings' },
-  ];
-
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Mobile Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b z-50 flex items-center justify-between px-4">
-        <div className="flex items-center gap-2">
-          <Logo className="w-8 h-8 text-orange-600" />
-          <span className="font-bold">我的預約</span>
-        </div>
-        <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2">
-          {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
-
-      {/* Sidebar */}
-      <aside className={`
-        fixed top-0 left-0 h-full w-64 bg-white border-r z-40 transform transition-transform duration-300
-        lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-      `}>
-        <div className="h-16 flex items-center gap-3 px-6 border-b">
-          <Logo className="w-8 h-8 text-orange-600" />
-          <div>
-            <span className="font-bold text-gray-900">NIIJIMA</span>
-            <p className="text-xs text-gray-500">Guide Partner</p>
-          </div>
-        </div>
-
-        <nav className="p-4 space-y-1">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`
-                flex items-center gap-3 px-4 py-3 rounded-xl transition
-                ${item.active
-                  ? 'bg-orange-50 text-orange-600 font-medium'
-                  : 'text-gray-600 hover:bg-gray-50'
-                }
-              `}
-            >
-              <item.icon size={20} />
-              <span>{item.label}</span>
-            </Link>
-          ))}
-        </nav>
-
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t">
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3 w-full text-gray-600 hover:bg-gray-50 rounded-xl transition"
-          >
-            <LogOut size={20} />
-            <span>退出登入</span>
-          </button>
-        </div>
-      </aside>
+      <GuideSidebar pageTitle="我的预约" />
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
@@ -464,13 +391,6 @@ function BookingsContent() {
         </div>
       </main>
 
-      {/* Mobile Sidebar Overlay */}
-      {sidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-30 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
     </div>
   );
 }

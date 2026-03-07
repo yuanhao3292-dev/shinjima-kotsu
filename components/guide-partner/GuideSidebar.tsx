@@ -56,10 +56,7 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
   };
 
   const isActive = (href: string) => {
-    if (href === '/guide-partner/dashboard') {
-      return pathname === href;
-    }
-    return pathname.startsWith(href);
+    return pathname === href || pathname.startsWith(href + '/');
   };
 
   return (
