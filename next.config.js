@@ -79,6 +79,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'mens.wclinic-osaka.jp',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.med.kindai.ac.jp',
+      },
     ],
   },
 
