@@ -727,7 +727,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
             {COMBO_PACKAGES.map((pkg) => (
               <div key={pkg.slug} className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition hover:-translate-y-1 flex flex-col">
                 <h4 className="font-bold text-gray-900 mb-1">{t(pkg.name, lang)}</h4>
-                <p className="text-xs text-gray-400 mb-3">{pkg.nameJa}</p>
+                <p className="text-xs text-gray-400 mb-3">{pkg.name.ja}</p>
                 <p className="text-sm text-gray-500 leading-relaxed mb-4 flex-grow">{t(pkg.desc, lang)}</p>
                 <div className="mb-3">
                   <span className="text-xs line-through text-gray-400">分别预约 {formatPrice(getRefPrice(pkg.price))}</span>
@@ -756,7 +756,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
                   <div key={pkg.slug} className="bg-purple-50/50 rounded-xl p-5 border border-purple-100 hover:shadow-lg transition flex flex-col sm:flex-row sm:items-center gap-4">
                     <div className="flex-grow">
                       <h4 className="font-bold text-gray-900">{t(pkg.name, lang)}</h4>
-                      <p className="text-xs text-gray-400 mb-1">{pkg.nameJa}</p>
+                      <p className="text-xs text-gray-400 mb-1">{pkg.name.ja}</p>
                       <p className="text-sm text-gray-500">{t(pkg.desc, lang)}</p>
                     </div>
                     <div className="text-right shrink-0">
@@ -780,7 +780,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
                   <div key={pkg.slug} className="bg-blue-50/50 rounded-xl p-5 border border-blue-100 hover:shadow-lg transition flex flex-col sm:flex-row sm:items-center gap-4">
                     <div className="flex-grow">
                       <h4 className="font-bold text-gray-900">{t(pkg.name, lang)}</h4>
-                      <p className="text-xs text-gray-400 mb-1">{pkg.nameJa}</p>
+                      <p className="text-xs text-gray-400 mb-1">{pkg.name.ja}</p>
                       <p className="text-sm text-gray-500">{t(pkg.desc, lang)}</p>
                     </div>
                     <div className="text-right shrink-0">
@@ -808,7 +808,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
             {[...INJECTABLE_PACKAGES, ...FAT_PACKAGES, ...WELLNESS_PACKAGES].map((pkg) => (
               <div key={pkg.slug} className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition hover:-translate-y-1 flex flex-col">
                 <h4 className="font-bold text-gray-900 mb-1">{t(pkg.name, lang)}</h4>
-                <p className="text-xs text-gray-400 mb-3">{pkg.nameJa}</p>
+                <p className="text-xs text-gray-400 mb-3">{pkg.name.ja}</p>
                 <p className="text-sm text-gray-500 leading-relaxed mb-4 flex-grow">{t(pkg.desc, lang)}</p>
                 <div>
                   <span className="text-xs line-through text-gray-400">分别预约 {formatPrice(getRefPrice(pkg.price))}</span>
@@ -845,7 +845,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
                   menuTab === key ? 'bg-rose-500 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
-                {cat.icon} {cat.title}
+                {cat.icon} {t(cat.title, lang)}
               </button>
             ))}
           </div>
