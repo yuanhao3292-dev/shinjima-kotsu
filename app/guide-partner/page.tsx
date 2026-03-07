@@ -1073,17 +1073,17 @@ export default function GuidePartnerPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-gold-400 py-16">
+      <section className="bg-white py-16">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-black mb-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-brand-900 mb-4">
             {t('ctaTitle')}
           </h2>
-          <p className="text-black/70 mb-8">
+          <p className="text-neutral-600 mb-8">
             {t('ctaDesc')}
           </p>
           <button
             onClick={() => setShowWechatQR(true)}
-            className="bg-black hover:bg-brand-900 text-white font-bold px-10 py-4 rounded transition-colors inline-flex items-center gap-3"
+            className="bg-gold-400 hover:bg-gold-500 text-brand-900 font-bold px-10 py-4 rounded transition-colors inline-flex items-center gap-3"
             aria-label={t('ariaWechatPartner')}
           >
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
@@ -1091,7 +1091,7 @@ export default function GuidePartnerPage() {
             </svg>
             {t('btnWechatQR')}
           </button>
-          <p className="text-black/60 text-sm mt-4">
+          <p className="text-neutral-500 text-sm mt-4">
             {t('ctaEmailLabel')} <a href="mailto:haoyuan@niijima-koutsu.jp" className="underline">haoyuan@niijima-koutsu.jp</a>
           </p>
         </div>
