@@ -136,12 +136,14 @@ layer 3: [moduleSlug]/page.tsx → SUPPORTED_KEYS + switch (详情页路由)
 1. 新增医院/模块时，必须同步更新三个文件的白名单（layout.tsx、page.tsx、[moduleSlug]/page.tsx）
 2. 不要在代码中保留数据库已不存在的模块 key，会造成混淆
 3. 排查问题时先查数据库实际数据，不要只看代码推测
-4. **新增模块完整检查清单**（以 osaka_himak 为例，2026-03-05 添加）：
+4. **新增模块完整检查清单（6个文件 10个注册点）**（2026-03-07 更新）：
    - ✅ `app/g/[slug]/layout.tsx` → `DETAIL_MODULES` + `MODULE_LABELS`
    - ✅ `app/g/[slug]/page.tsx` → `DETAIL_MODULES` + `DETAIL_PAGE_HERO_IMAGES`
    - ✅ `app/g/[slug]/[moduleSlug]/page.tsx` → `SUPPORTED_KEYS` + import + case switch
    - ✅ `middleware.ts` → `WHITELABEL_MODULE_PATHS` (白标域名重定向)
+   - ✅ `lib/config/product-categories.ts` → `MODULE_DETAIL_ROUTES` + 分类 `moduleKeys` ← 🚨 **必须！否则选品中心不可见**
    - ✅ `lib/config/medical-packages.ts` → 添加咨询服务配置
+   - ✅ `Content组件` → props 接口添加 `guideSlug?: string`
    - ✅ `CLAUDE.md` → 更新白标可用模块表
 
 #### 🔑 选品中心集成流程（2026-03-07 近畿大学病院案例）
