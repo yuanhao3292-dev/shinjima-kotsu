@@ -278,7 +278,7 @@ interface SaiClinicContentProps {
 }
 
 export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicContentProps) {
-  const { currentLang: lang } = useLanguage();
+  const lang = useLanguage();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [menuTab, setMenuTab] = useState<string>('surgery');
 
