@@ -722,13 +722,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
         </div>
         <div className="container mx-auto px-6 relative z-10 py-32">
           <div className="max-w-4xl">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full mb-8">
-              <HeartPulse size={16} className="text-red-400" />
-              <span className="text-xs font-bold text-white/90 uppercase tracking-wider">{t('heroBadge')}</span>
-            </div>
             <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
-              {t('heroTitle1')}<br/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">{t('heroTitle2')}</span>
             </h1>
             <p className="text-xl text-gray-300 mb-4 leading-relaxed max-w-2xl">
