@@ -1685,7 +1685,7 @@ export default function KindaiHospitalContent({
           </div>
         </div>
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_2020_02_or_01.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Hybrid OR" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
+          <Image src="https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_2020_02_hybrid_operating_room_01.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Hybrid OR" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">
@@ -1753,7 +1753,7 @@ export default function KindaiHospitalContent({
           </div>
         </div>
         <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-          <Image src="https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_2022_01_alluminox_01.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Alluminox" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
+          <Image src="https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_2022_amc01_alluminox_01.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Alluminox" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
             <h4 className="text-xl md:text-2xl text-white font-serif mb-3">
