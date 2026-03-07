@@ -167,9 +167,9 @@ const MedicalTechCard = memo(function MedicalTechCard({
   spec2: string
 }) {
   return (
-    <div className="group relative bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+    <div className="group relative bg-white rounded-2xl border border-neutral-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
       {/* Image Container with Tech Overlay */}
-      <div className="relative h-64 overflow-hidden bg-gray-900">
+      <div className="relative h-64 overflow-hidden bg-brand-900">
         <Image
           src={img}
           fill
@@ -180,7 +180,7 @@ const MedicalTechCard = memo(function MedicalTechCard({
         />
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/graphy.png')] opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-           <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-blue-400 to-transparent shadow-[0_0_15px_rgba(59,130,246,0.8)] animate-[scan_2.5s_linear_infinite]"></div>
+           <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-brand-400 to-transparent shadow-[0_0_15px_rgba(59,130,246,0.8)] animate-[scan_2.5s_linear_infinite]"></div>
         </div>
         <div className="absolute top-4 left-4">
            <div className={`w-8 h-8 rounded backdrop-blur-md bg-white/10 border border-white/20 flex items-center justify-center text-white ${colorClass}`}>
@@ -189,24 +189,24 @@ const MedicalTechCard = memo(function MedicalTechCard({
         </div>
         <div className="absolute bottom-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
            <span className="text-[10px] text-white bg-black/50 backdrop-blur px-2 py-1 rounded border border-white/10 uppercase tracking-wider font-mono">AI Analysis</span>
-           <span className="text-[10px] text-green-400 bg-black/50 backdrop-blur px-2 py-1 rounded border border-white/10 font-mono">Active</span>
+           <span className="text-[10px] text-brand-400 bg-black/50 backdrop-blur px-2 py-1 rounded border border-white/10 font-mono">Active</span>
         </div>
       </div>
       <div className="p-8">
         <div className="flex items-center gap-2 mb-3">
            <div className={`h-1 w-6 rounded-full ${colorClass.replace('text-', 'bg-')}`}></div>
-           <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Advanced Tech</span>
+           <span className="text-xs font-bold text-neutral-400 uppercase tracking-wider">Advanced Tech</span>
         </div>
-        <h4 className="text-xl font-bold text-gray-900 mb-3 font-serif group-hover:text-blue-700 transition-colors">{title}</h4>
+        <h4 className="text-xl font-bold text-brand-900 mb-3 font-serif group-hover:text-brand-700 transition-colors">{title}</h4>
         <div className="flex flex-wrap gap-2 mb-4">
-           <span className="text-[10px] font-bold text-gray-500 bg-gray-50 px-2 py-1 rounded border border-gray-100 flex items-center gap-1">
+           <span className="text-[10px] font-bold text-neutral-500 bg-neutral-50 px-2 py-1 rounded border border-neutral-100 flex items-center gap-1">
               <Cpu size={10} /> {spec1}
            </span>
-           <span className="text-[10px] font-bold text-gray-500 bg-gray-50 px-2 py-1 rounded border border-gray-100 flex items-center gap-1">
+           <span className="text-[10px] font-bold text-neutral-500 bg-neutral-50 px-2 py-1 rounded border border-neutral-100 flex items-center gap-1">
               <Scan size={10} /> {spec2}
            </span>
         </div>
-        <p className="text-gray-500 text-sm leading-relaxed text-justify line-clamp-4 group-hover:line-clamp-none transition-all">
+        <p className="text-neutral-500 text-sm leading-relaxed text-justify line-clamp-4 group-hover:line-clamp-none transition-all">
            {desc}
         </p>
       </div>
@@ -237,22 +237,14 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           <div className="max-w-3xl animate-fade-in-up">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif mb-4 md:mb-6 leading-[1.2]">
                  {t.medical.hero_title_1}<br/>
-                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-medical-200 to-white">{t.medical.hero_title_2}</span>
+                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-200 to-white">{t.medical.hero_title_2}</span>
               </h1>
               <h2 className="text-base sm:text-lg md:text-2xl text-neutral-300 font-light mb-6 md:mb-8 font-serif">
                  {t.medical.hero_subtitle}
               </h2>
-              <p className="text-neutral-400 font-light leading-relaxed text-sm md:text-base border-l-2 border-medical-500 pl-4 md:pl-6 max-w-2xl whitespace-pre-line">
+              <p className="text-neutral-400 font-light leading-relaxed text-sm md:text-base border-l-2 border-brand-500 pl-4 md:pl-6 max-w-2xl whitespace-pre-line">
                  {t.medical.hero_text}
               </p>
-              {/* 限量營銷文案 */}
-              <div className="mt-8 inline-flex items-center gap-3 bg-gradient-to-r from-gold-500/20 to-gold-400/20 border border-gold-400/40 px-5 py-3 rounded-full backdrop-blur-md">
-                  <span className="relative flex h-3 w-3">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-gold-500"></span>
-                  </span>
-                  <span className="text-gold-200 text-sm font-medium">{t.medical.limit_badge}</span>
-              </div>
           </div>
       </div>
     </div>
@@ -261,7 +253,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
     <div className="bg-gradient-to-b from-brand-900 to-brand-800 py-20">
       <div className="container mx-auto px-6 py-12 md:py-24">
         <div className="text-center mb-12">
-          <span className="text-medical-400 text-xs tracking-[0.3em] uppercase font-bold">Hospital Tour</span>
+          <span className="text-brand-400 text-xs tracking-[0.3em] uppercase font-bold">Hospital Tour</span>
           <h3 className="text-3xl font-serif text-white mt-3">{t.medical.video_title}</h3>
           <p className="text-neutral-400 text-sm mt-2 max-w-2xl mx-auto">{t.medical.video_subtitle}</p>
         </div>
@@ -286,26 +278,26 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       {/* 2. Authority Section */}
       <div className="mb-24">
           <div className="text-center mb-16">
-              <span className="text-medical-500 text-xs tracking-widest uppercase font-bold">{t.medical.auth_tag}</span>
+              <span className="text-brand-500 text-xs tracking-widest uppercase font-bold">{t.medical.auth_tag}</span>
               <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.medical.auth_title}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
               <div className="bg-neutral-50 p-8 rounded-xl border border-neutral-200 hover:shadow-lg transition duration-300 group">
-                  <div className="w-12 h-12 bg-medical-50 text-medical-700 rounded-full flex items-center justify-center mb-6 group-hover:bg-medical-600 group-hover:text-white transition">
+                  <div className="w-12 h-12 bg-brand-50 text-brand-700 rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-600 group-hover:text-white transition">
                       <Building size={24} />
                   </div>
                   <h4 className="text-xl font-bold text-neutral-800 mb-3 font-serif">{t.medical.auth_1_t}</h4>
                   <p className="text-sm text-neutral-500 leading-relaxed">{t.medical.auth_1_d}</p>
               </div>
               <div className="bg-neutral-50 p-8 rounded-xl border border-neutral-200 hover:shadow-lg transition duration-300 group">
-                  <div className="w-12 h-12 bg-medical-50 text-medical-700 rounded-full flex items-center justify-center mb-6 group-hover:bg-medical-600 group-hover:text-white transition">
+                  <div className="w-12 h-12 bg-brand-50 text-brand-700 rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-600 group-hover:text-white transition">
                       <MapPin size={24} />
                   </div>
                   <h4 className="text-xl font-bold text-neutral-800 mb-3 font-serif">{t.medical.auth_2_t}</h4>
                   <p className="text-sm text-neutral-500 leading-relaxed">{t.medical.auth_2_d}</p>
               </div>
               <div className="bg-neutral-50 p-8 rounded-xl border border-neutral-200 hover:shadow-lg transition duration-300 group">
-                  <div className="w-12 h-12 bg-medical-50 text-medical-700 rounded-full flex items-center justify-center mb-6 group-hover:bg-medical-600 group-hover:text-white transition">
+                  <div className="w-12 h-12 bg-brand-50 text-brand-700 rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-600 group-hover:text-white transition">
                       <Shield size={24} />
                   </div>
                   <h4 className="text-xl font-bold text-neutral-800 mb-3 font-serif">{t.medical.auth_3_t}</h4>
@@ -567,7 +559,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   { id: '05', icon: <Coffee size={24} />, title: t.medical.flow_5, desc: t.medical.flow_5_d },
               ].map((step, i) => (
                <div key={i} className="bg-white/5 p-6 rounded-xl border border-white/10 hover:bg-white/10 transition group">
-                  <div className="text-medical-400 font-mono text-xl mb-4 opacity-50">{step.id}</div>
+                  <div className="text-brand-400 font-mono text-xl mb-4 opacity-50">{step.id}</div>
                   <div className="flex justify-center mb-4 text-white opacity-80 group-hover:scale-110 transition">{step.icon}</div>
                   <h4 className="font-bold text-lg mb-2">{step.title}</h4>
                   <p className="text-xs text-neutral-400 leading-relaxed">{step.desc}</p>
@@ -799,7 +791,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                           </div>
                           <div className="text-xs text-brand-700 font-medium mb-3">{localizeText(review.pkg, currentLang || 'zh-TW')}</div>
                           <p className="text-sm text-neutral-600 leading-relaxed mb-4 line-clamp-3">{localizeText(review.text, currentLang || 'zh-TW')}</p>
-                          <div className="flex items-center gap-2 text-medical-600 text-xs">
+                          <div className="flex items-center gap-2 text-brand-600 text-xs">
                               <CheckCircle size={12} />
                               <span className="font-medium">{localizeText(review.highlight, currentLang || 'zh-TW')}</span>
                           </div>
@@ -831,7 +823,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                           </div>
                           <div className="text-xs text-brand-700 font-medium mb-3">{localizeText(review.pkg, currentLang || 'zh-TW')}</div>
                           <p className="text-sm text-neutral-600 leading-relaxed mb-4 line-clamp-3">{localizeText(review.text, currentLang || 'zh-TW')}</p>
-                          <div className="flex items-center gap-2 text-medical-600 text-xs">
+                          <div className="flex items-center gap-2 text-brand-600 text-xs">
                               <CheckCircle size={12} />
                               <span className="font-medium">{localizeText(review.highlight, currentLang || 'zh-TW')}</span>
                           </div>
@@ -895,14 +887,6 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           <p className="text-brand-100 max-w-2xl mx-auto mb-6 leading-relaxed whitespace-pre-line">
               {t.medical.cta_text}
           </p>
-          {/* 限量提示 */}
-          <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-4 py-2 rounded-full mb-8">
-              <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-300 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
-              </span>
-              <span className="text-brand-100 text-sm">{t.medical.cta_limit}</span>
-          </div>
           <div>
               <button onClick={() => { const element = document.getElementById('timc-packages'); element?.scrollIntoView({ behavior: 'smooth' }); }} className="bg-white text-brand-900 font-bold px-10 py-4 rounded-full hover:bg-neutral-100 transition shadow-lg inline-flex items-center gap-2">
                   <Zap size={18} /> {t.medical.cta_btn}
@@ -1008,7 +992,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
           />
           {/* Multi-layer gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/70"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/40 via-transparent to-emerald-950/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/40 via-transparent to-brand-900/40"></div>
         </div>
 
         {/* Decorative gold lines */}
@@ -1049,7 +1033,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
        <div className="golf-glass rounded-2xl p-8 shadow-2xl">
          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
            {stats.map((stat, i) => (
-             <div key={i} className="golf-stat-card text-center p-4 rounded-xl hover:bg-emerald-50/50 transition-all duration-500">
+             <div key={i} className="golf-stat-card text-center p-4 rounded-xl hover:bg-brand-50/50 transition-all duration-500">
                <div className="text-2xl md:text-4xl lg:text-5xl font-bold golf-gold-text mb-2">{stat.value}</div>
                <div className="text-sm font-bold text-neutral-800">{stat.label}</div>
                <div className="text-xs text-neutral-400 mt-1">{stat.sublabel}</div>
@@ -1088,9 +1072,9 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
                >
                   {/* Icon with gradient background */}
                   <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500
-                    ${item.accent === 'emerald' ? 'bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white' : ''}
+                    ${item.accent === 'emerald' ? 'bg-brand-50 text-brand-600 group-hover:bg-brand-600 group-hover:text-white' : ''}
                     ${item.accent === 'amber' ? 'bg-gold-50 text-gold-600 group-hover:bg-gold-600 group-hover:text-white' : ''}
-                    ${item.accent === 'slate' ? 'bg-slate-100 text-slate-600 group-hover:bg-slate-700 group-hover:text-white' : ''}
+                    ${item.accent === 'slate' ? 'bg-neutral-100 text-neutral-600 group-hover:bg-brand-700 group-hover:text-white' : ''}
                     ${item.accent === 'orange' ? 'bg-gold-50 text-gold-500 group-hover:bg-gold-500 group-hover:text-white' : ''}
                   `}>
                     {item.icon}
@@ -1106,7 +1090,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
      </div>
 
      {/* ===== PARTNER COURSES SHOWCASE ===== */}
-     <div className="py-20 bg-emerald-950 relative overflow-hidden">
+     <div className="py-20 bg-brand-900 relative overflow-hidden">
        {/* Background Pattern */}
        <div className="absolute inset-0 opacity-5">
          <div className="absolute inset-0" style={{
@@ -1236,8 +1220,8 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
                      <div className="golf-luxury-card rounded-2xl p-8 mb-10">
                         {/* Hotel Info */}
                         <div className="flex items-center gap-3 mb-6 pb-6 border-b border-neutral-200">
-                           <div className="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center">
-                             <Building size={18} className="text-emerald-600" />
+                           <div className="w-10 h-10 rounded-full bg-brand-50 flex items-center justify-center">
+                             <Building size={18} className="text-brand-600" />
                            </div>
                            <div>
                              <span className="text-xs text-neutral-400 uppercase tracking-wider">Accommodation</span>
@@ -1250,11 +1234,11 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
                            {plan.schedule.map((day: any, dIndex: number) => (
                               <div key={dIndex} className="flex gap-4 group">
                                  <div className="flex flex-col items-center">
-                                   <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                                   <span className="w-8 h-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-xs font-bold group-hover:bg-brand-600 group-hover:text-white transition-colors">
                                      {dIndex + 1}
                                    </span>
                                    {dIndex < plan.schedule.length - 1 && (
-                                     <div className="w-px h-full bg-gradient-to-b from-emerald-200 to-transparent mt-2"></div>
+                                     <div className="w-px h-full bg-gradient-to-b from-brand-200 to-transparent mt-2"></div>
                                    )}
                                  </div>
                                  <div className="flex-1 pb-4">
@@ -1287,7 +1271,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
      <div className="py-8 bg-neutral-50">
        <button
          onClick={() => setCurrentPage('home')}
-         className="w-full text-center text-neutral-400 hover:text-emerald-600 transition-colors flex justify-center items-center gap-2 group"
+         className="w-full text-center text-neutral-400 hover:text-brand-600 transition-colors flex justify-center items-center gap-2 group"
        >
          <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
          {t.about.back}
@@ -1390,8 +1374,8 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
          </div>
          {/* Decorative Elements */}
          <div className="absolute inset-0">
-           <div className="absolute w-96 h-96 bg-biz-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
-           <div className="absolute w-72 h-72 bg-biz-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+           <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
+           <div className="absolute w-72 h-72 bg-brand-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
          </div>
          <div className="relative z-10 text-center px-6 py-12 md:py-24">
             {t.business.hero_tag && (
@@ -1422,7 +1406,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                       }
                    }}
-                   className="bg-biz-600 text-white px-8 py-3 rounded-full font-bold hover:bg-biz-700 transition shadow-lg"
+                   className="bg-brand-600 text-white px-8 py-3 rounded-full font-bold hover:bg-brand-700 transition shadow-lg"
                 >
                    {t.business.btn_case}
                 </button>
@@ -1434,7 +1418,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                   { t: t.business.theme_3_t, d: t.business.theme_3_d, i: <Building size={20}/> },
                 ].map((item, i) => (
                   <div key={i} className="bg-white p-6 rounded-xl border border-neutral-200 shadow-sm hover:shadow-md transition flex gap-4 items-start">
-                     <div className="bg-biz-50 text-biz-600 p-3 rounded-lg">{item.i}</div>
+                     <div className="bg-brand-50 text-brand-600 p-3 rounded-lg">{item.i}</div>
                      <div>
                         <h4 className="font-bold text-neutral-900">{item.t}</h4>
                         <p className="text-xs text-neutral-500 mt-1">{item.d}</p>
@@ -1459,7 +1443,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                    { t: t.business.step_5_t, d: t.business.step_5_d },
                  ].map((step, i) => (
                     <div key={i} className="relative group">
-                       <div className="text-4xl font-mono font-bold text-brand-800 mb-4 group-hover:text-biz-500 transition">0{i+1}</div>
+                       <div className="text-4xl font-mono font-bold text-brand-800 mb-4 group-hover:text-brand-500 transition">0{i+1}</div>
                        <h4 className="font-bold text-lg mb-2">{step.t}</h4>
                        <p className="text-xs text-neutral-400 leading-relaxed">{step.d}</p>
                     </div>
@@ -1489,16 +1473,16 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                    </div>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {localizedCompanies.automotive.map((company, i) => (
-                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-biz-200 hover:shadow-lg transition-all">
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-brand-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-neutral-900 group-hover:text-biz-600 transition">{company.name}</h5>
+                                  <h5 className="font-bold text-neutral-900 group-hover:text-brand-600 transition">{company.name}</h5>
                                   <p className="text-xs text-neutral-400">{company.nameEn}</p>
                                </div>
                                <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                             </div>
                             <p className="text-xs text-neutral-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-biz-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
+                            <div className="flex items-center gap-1 text-brand-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1517,16 +1501,16 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                    </div>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {localizedCompanies.electronics.map((company, i) => (
-                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-biz-200 hover:shadow-lg transition-all">
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-brand-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-neutral-900 group-hover:text-biz-600 transition">{company.name}</h5>
+                                  <h5 className="font-bold text-neutral-900 group-hover:text-brand-600 transition">{company.name}</h5>
                                   <p className="text-xs text-neutral-400">{company.nameEn}</p>
                                </div>
                                <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                             </div>
                             <p className="text-xs text-neutral-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-biz-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
+                            <div className="flex items-center gap-1 text-brand-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1545,16 +1529,16 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                    </div>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {localizedCompanies.precision.map((company, i) => (
-                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-biz-200 hover:shadow-lg transition-all">
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-brand-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-neutral-900 group-hover:text-biz-600 transition">{company.name}</h5>
+                                  <h5 className="font-bold text-neutral-900 group-hover:text-brand-600 transition">{company.name}</h5>
                                   <p className="text-xs text-neutral-400">{company.nameEn}</p>
                                </div>
                                <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                             </div>
                             <p className="text-xs text-neutral-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-biz-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
+                            <div className="flex items-center gap-1 text-brand-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1573,16 +1557,16 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                    </div>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {localizedCompanies.medical.map((company, i) => (
-                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-biz-200 hover:shadow-lg transition-all">
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-brand-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-neutral-900 group-hover:text-biz-600 transition">{company.name}</h5>
+                                  <h5 className="font-bold text-neutral-900 group-hover:text-brand-600 transition">{company.name}</h5>
                                   <p className="text-xs text-neutral-400">{company.nameEn}</p>
                                </div>
                                <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                             </div>
                             <p className="text-xs text-neutral-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-biz-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
+                            <div className="flex items-center gap-1 text-brand-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1601,16 +1585,16 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                    </div>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {localizedCompanies.appliances.map((company, i) => (
-                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-biz-200 hover:shadow-lg transition-all">
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-brand-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-neutral-900 group-hover:text-biz-600 transition">{company.name}</h5>
+                                  <h5 className="font-bold text-neutral-900 group-hover:text-brand-600 transition">{company.name}</h5>
                                   <p className="text-xs text-neutral-400">{company.nameEn}</p>
                                </div>
                                <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                             </div>
                             <p className="text-xs text-neutral-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-biz-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
+                            <div className="flex items-center gap-1 text-brand-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1629,16 +1613,16 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                    </div>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {localizedCompanies.retail.map((company, i) => (
-                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-biz-200 hover:shadow-lg transition-all">
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-brand-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-neutral-900 group-hover:text-biz-600 transition">{company.name}</h5>
+                                  <h5 className="font-bold text-neutral-900 group-hover:text-brand-600 transition">{company.name}</h5>
                                   <p className="text-xs text-neutral-400">{company.nameEn}</p>
                                </div>
                                <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                             </div>
                             <p className="text-xs text-neutral-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-biz-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
+                            <div className="flex items-center gap-1 text-brand-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1657,16 +1641,16 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                    </div>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {localizedCompanies.hospitality.map((company, i) => (
-                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-biz-200 hover:shadow-lg transition-all">
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-brand-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-neutral-900 group-hover:text-biz-600 transition">{company.name}</h5>
+                                  <h5 className="font-bold text-neutral-900 group-hover:text-brand-600 transition">{company.name}</h5>
                                   <p className="text-xs text-neutral-400">{company.nameEn}</p>
                                </div>
                                <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                             </div>
                             <p className="text-xs text-neutral-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-biz-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
+                            <div className="flex items-center gap-1 text-brand-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1685,16 +1669,16 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                    </div>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {localizedCompanies.food.map((company, i) => (
-                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-biz-200 hover:shadow-lg transition-all">
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-brand-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-neutral-900 group-hover:text-biz-600 transition">{company.name}</h5>
+                                  <h5 className="font-bold text-neutral-900 group-hover:text-brand-600 transition">{company.name}</h5>
                                   <p className="text-xs text-neutral-400">{company.nameEn}</p>
                                </div>
                                <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                             </div>
                             <p className="text-xs text-neutral-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-biz-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
+                            <div className="flex items-center gap-1 text-brand-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1713,16 +1697,16 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                    </div>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {localizedCompanies.logistics.map((company, i) => (
-                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-biz-200 hover:shadow-lg transition-all">
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-brand-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-neutral-900 group-hover:text-biz-600 transition">{company.name}</h5>
+                                  <h5 className="font-bold text-neutral-900 group-hover:text-brand-600 transition">{company.name}</h5>
                                   <p className="text-xs text-neutral-400">{company.nameEn}</p>
                                </div>
                                <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                             </div>
                             <p className="text-xs text-neutral-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-biz-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
+                            <div className="flex items-center gap-1 text-brand-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1741,16 +1725,16 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                    </div>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {localizedCompanies.tech.map((company, i) => (
-                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-biz-200 hover:shadow-lg transition-all">
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-brand-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-neutral-900 group-hover:text-biz-600 transition">{company.name}</h5>
+                                  <h5 className="font-bold text-neutral-900 group-hover:text-brand-600 transition">{company.name}</h5>
                                   <p className="text-xs text-neutral-400">{company.nameEn}</p>
                                </div>
                                <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                             </div>
                             <p className="text-xs text-neutral-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-biz-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
+                            <div className="flex items-center gap-1 text-brand-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1778,8 +1762,8 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
              </div>
 
              {/* Note */}
-             <div className="mt-8 p-6 bg-biz-50 rounded-xl border border-biz-100">
-                <p className="text-sm text-biz-800">
+             <div className="mt-8 p-6 bg-brand-50 rounded-xl border border-brand-100">
+                <p className="text-sm text-brand-800">
                    <span className="font-bold">{localizedTexts.notice}</span>
                    <br />
                    {localizedTexts.noticeText}
@@ -1816,7 +1800,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                       <div className="md:w-2/3 w-full">
                          <div className="flex flex-wrap gap-2 mb-4">
                             {plan.tags.map((tag: string, i: number) => (
-                               <span key={i} className="bg-biz-50 text-biz-700 text-[10px] font-bold px-2 py-1 rounded border border-biz-100">
+                               <span key={i} className="bg-brand-50 text-brand-700 text-[10px] font-bold px-2 py-1 rounded border border-brand-100">
                                   {tag}
                                </span>
                             ))}
@@ -1875,8 +1859,8 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
          </div>
          {/* Decorative Elements */}
          <div className="absolute inset-0">
-           <div className="absolute w-96 h-96 bg-biz-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
-           <div className="absolute w-72 h-72 bg-biz-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+           <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
+           <div className="absolute w-72 h-72 bg-brand-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
          </div>
          <div className="relative z-10 text-center px-6 py-12 md:py-24">
              <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full mb-8">
@@ -1899,7 +1883,7 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
                { icon: <Phone size={32} />, title: t.partner.trust_3_t, desc: t.partner.trust_3_d },
              ].map((item, i) => (
                <div key={i} className="p-8 border border-neutral-200 rounded-xl hover:shadow-lg transition">
-                  <div className="text-biz-600 mb-4">{item.icon}</div>
+                  <div className="text-brand-600 mb-4">{item.icon}</div>
                   <h3 className="text-xl font-bold text-neutral-800 mb-3">{item.title}</h3>
                   <p className="text-neutral-500 text-sm leading-relaxed">{item.desc}</p>
                </div>
@@ -1921,7 +1905,7 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
                  { step: '04', title: t.partner.flow_4, desc: t.partner.flow_4_d },
                ].map((item, i) => (
                  <div key={i} className="text-center">
-                    <div className="text-3xl font-bold text-biz-500 mb-2 font-mono">{item.step}</div>
+                    <div className="text-3xl font-bold text-brand-500 mb-2 font-mono">{item.step}</div>
                     <h4 className="font-bold text-lg mb-2">{item.title}</h4>
                     <p className="text-xs text-neutral-400">{item.desc}</p>
                  </div>
@@ -1930,7 +1914,7 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
             <div className="mt-16 text-center border-t border-brand-800 pt-12">
                <h4 className="text-xl font-serif mb-4">{t.partner.cta_title}</h4>
                <p className="text-neutral-400 mb-8 whitespace-pre-line">{t.partner.cta_desc}</p>
-               <button onClick={onOpenPartnerInquiry} className="bg-biz-600 text-white px-10 py-4 rounded-full font-bold hover:bg-biz-500 transition shadow-lg">
+               <button onClick={onOpenPartnerInquiry} className="bg-brand-600 text-white px-10 py-4 rounded-full font-bold hover:bg-brand-500 transition shadow-lg">
                   {t.partner.cta_btn}
                </button>
             </div>
@@ -2016,7 +2000,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       {/* 1. Hero Carousel - 竞拍展位轮播图 */}
       {/* 图片从数据库加载，加载中显示骨架屏 */}
       {imagesLoading ? (
-        <div className="relative h-[85vh] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
+        <div className="relative h-[85vh] bg-gradient-to-br from-brand-900 via-brand-800 to-brand-900 flex items-center justify-center">
           <div className="text-center">
             <div className="w-16 h-16 border-4 border-white/20 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
             <p className="text-white/60 text-sm">Loading...</p>
@@ -2045,7 +2029,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             </div>
 
             {/* 新闻列表 - 动态从API获取 */}
-            <div className="space-y-0 border-t border-gray-200">
+            <div className="space-y-0 border-t border-neutral-200">
               {newsItems.map((news) => {
                 const date = new Date(news.published_at);
                 const dateStr = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
@@ -2056,10 +2040,10 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                   : (currentLang === 'zh-TW' ? '公告' : currentLang === 'zh-CN' ? '公告' : currentLang === 'en' ? 'Notice' : 'お知らせ');
 
                 return (
-                  <a key={news.id} href={`/news/${news.id}`} className="group block py-6 border-b border-gray-200 hover:bg-white transition-colors">
+                  <a key={news.id} href={`/news/${news.id}`} className="group block py-6 border-b border-neutral-200 hover:bg-white transition-colors">
                     <div className="flex flex-col md:flex-row md:items-start gap-4">
                       {/* 日期 */}
-                      <div className="text-sm text-gray-500 md:w-32 flex-shrink-0">
+                      <div className="text-sm text-neutral-500 md:w-32 flex-shrink-0">
                         {dateStr}
                       </div>
                       {/* 标签 */}
@@ -2084,7 +2068,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="text-center mt-10">
               <a
                 href="/news"
-                className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 border border-gray-300 px-8 py-4 rounded hover:border-gray-400 transition-colors"
+                className="inline-flex items-center text-sm text-neutral-600 hover:text-brand-900 border border-neutral-300 px-8 py-4 rounded hover:border-neutral-400 transition-colors"
               >
                 {currentLang === 'zh-TW' ? '查看全部消息' : currentLang === 'zh-CN' ? '查看全部消息' : currentLang === 'en' ? 'View All News' : 'すべてのお知らせ'}
                 <ArrowRight size={14} className="ml-2" />
@@ -2114,34 +2098,34 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           <div className="max-w-2xl">
             {/* 标签 */}
             <div className="flex items-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-medical-400"></div>
-              <span className="text-xs tracking-[0.3em] text-medical-400 uppercase">Medical Tourism</span>
+              <div className="h-[1px] w-12 bg-brand-400"></div>
+              <span className="text-xs tracking-[0.3em] text-brand-400 uppercase">Medical Tourism</span>
             </div>
 
             {/* 核心标题 - 温暖、给人希望 */}
             <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
               {currentLang === 'zh-TW' ? '把健康交給' : currentLang === 'zh-CN' ? '把健康交给' : '健康を託す'}
               <br />
-              <span className="text-medical-300">{currentLang === 'zh-TW' ? '值得信賴的人' : currentLang === 'zh-CN' ? '值得信赖的人' : '信頼できる人へ'}</span>
+              <span className="text-brand-300">{currentLang === 'zh-TW' ? '值得信賴的人' : currentLang === 'zh-CN' ? '值得信赖的人' : '信頼できる人へ'}</span>
             </h2>
 
-            <p className="text-sm sm:text-base md:text-xl text-medical-100/80 mb-6 md:mb-8 leading-relaxed font-light">
+            <p className="text-sm sm:text-base md:text-xl text-brand-100/80 mb-6 md:mb-8 leading-relaxed font-light">
               {currentLang === 'zh-TW' ? '日本醫療技術全球領先，PET-CT可發現5mm早期病變。我們提供專車接送、全程陪診翻譯、報告解讀——讓您專心照顧健康，其他的交給我們。' : currentLang === 'zh-CN' ? '日本医疗技术全球领先，PET-CT可发现5mm早期病变。我们提供专车接送、全程陪诊翻译、报告解读——让您专心照顾健康，其他的交给我们。' : '日本の医療技術は世界トップクラス。PET-CTは5mmの早期病変を発見可能。専用車送迎、全行程通訳同行、レポート解説——健康に専念していただき、他はお任せください。'}
             </p>
 
             {/* 核心数据 */}
             <div className="grid grid-cols-3 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-white/20">
               <div className="text-center">
-                <div className="text-2xl md:text-4xl font-light text-white mb-1">12<span className="text-medical-300">年</span></div>
-                <div className="text-[10px] md:text-xs text-medical-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '醫療服務經驗' : currentLang === 'zh-CN' ? '医疗服务经验' : '医療サービス実績'}</div>
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">12<span className="text-brand-300">年</span></div>
+                <div className="text-[10px] md:text-xs text-brand-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '醫療服務經驗' : currentLang === 'zh-CN' ? '医疗服务经验' : '医療サービス実績'}</div>
               </div>
               <div className="border-x border-white/20 px-2 md:px-6 py-12 md:py-24 text-center">
-                <div className="text-2xl md:text-4xl font-light text-white mb-1">3000<span className="text-medical-300">+</span></div>
-                <div className="text-[10px] md:text-xs text-medical-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : currentLang === 'zh-CN' ? '服务客户' : 'ご利用者様'}</div>
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">3000<span className="text-brand-300">+</span></div>
+                <div className="text-[10px] md:text-xs text-brand-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : currentLang === 'zh-CN' ? '服务客户' : 'ご利用者様'}</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl md:text-4xl font-light text-white mb-1">100<span className="text-medical-300">%</span></div>
-                <div className="text-[10px] md:text-xs text-medical-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '全程陪同' : currentLang === 'zh-CN' ? '全程陪同' : '全行程同行'}</div>
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">100<span className="text-brand-300">%</span></div>
+                <div className="text-[10px] md:text-xs text-brand-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '全程陪同' : currentLang === 'zh-CN' ? '全程陪同' : '全行程同行'}</div>
               </div>
             </div>
 
@@ -2189,10 +2173,10 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 { name: currentLang === 'zh-TW' ? '無痛胃腸鏡' : currentLang === 'zh-CN' ? '无痛胃肠镜' : '無痛内視鏡', desc: currentLang === 'zh-TW' ? '消化道全面檢查' : currentLang === 'zh-CN' ? '消化道全面检查' : '消化器系総合検査' },
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-3 text-sm">
-                  <CheckCircle size={16} className="text-medical-300 flex-shrink-0" />
+                  <CheckCircle size={16} className="text-brand-300 flex-shrink-0" />
                   <div>
                     <span className="text-white">{item.name}</span>
-                    <span className="text-medical-200/60 ml-2">{item.desc}</span>
+                    <span className="text-brand-200/60 ml-2">{item.desc}</span>
                   </div>
                 </div>
               ))}
@@ -2221,15 +2205,15 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           <div className="max-w-2xl">
             {/* 标签 */}
             <div className="flex items-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-medical-300"></div>
-              <span className="text-xs tracking-[0.3em] text-medical-300 uppercase">Advanced Treatment</span>
+              <div className="h-[1px] w-12 bg-brand-300"></div>
+              <span className="text-xs tracking-[0.3em] text-brand-300 uppercase">Advanced Treatment</span>
             </div>
 
             {/* 核心标题 */}
             <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
               {currentLang === 'zh-TW' ? '面對重疾' : currentLang === 'zh-CN' ? '面对重疾' : '重病と向き合う時'}
               <br />
-              <span className="text-medical-300">{currentLang === 'zh-TW' ? '日本醫療給您更多希望' : currentLang === 'zh-CN' ? '日本医疗给您更多希望' : '日本医療がもう一つの希望に'}</span>
+              <span className="text-brand-300">{currentLang === 'zh-TW' ? '日本醫療給您更多希望' : currentLang === 'zh-CN' ? '日本医疗给您更多希望' : '日本医療がもう一つの希望に'}</span>
             </h2>
 
             <p className="text-sm sm:text-base md:text-xl text-neutral-200/80 mb-6 md:mb-8 leading-relaxed font-light">
@@ -2239,15 +2223,15 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             {/* 核心数据 */}
             <div className="grid grid-cols-3 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-white/20">
               <div className="text-center">
-                <div className="text-2xl md:text-4xl font-light text-white mb-1">68<span className="text-medical-300">%</span></div>
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">68<span className="text-brand-300">%</span></div>
                 <div className="text-[10px] md:text-xs text-neutral-300/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '癌症5年生存率' : currentLang === 'zh-CN' ? '癌症5年生存率' : 'がん5年生存率'}</div>
               </div>
               <div className="border-x border-white/20 px-2 md:px-6 py-12 md:py-24 text-center">
-                <div className="text-2xl md:text-4xl font-light text-white mb-1">98<span className="text-medical-300">%</span></div>
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">98<span className="text-brand-300">%</span></div>
                 <div className="text-[10px] md:text-xs text-neutral-300/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '心臟手術成功率' : currentLang === 'zh-CN' ? '心脏手术成功率' : '心臓手術成功率'}</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl md:text-4xl font-light text-white mb-1">24<span className="text-medical-300">h</span></div>
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">24<span className="text-brand-300">h</span></div>
                 <div className="text-[10px] md:text-xs text-neutral-300/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '病歷評估響應' : currentLang === 'zh-CN' ? '病历评估响应' : '診療情報評価'}</div>
               </div>
             </div>
@@ -2297,7 +2281,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 { step: '04', text: currentLang === 'zh-TW' ? '回國後持續跟進' : currentLang === 'zh-CN' ? '回国后持续跟进' : '帰国後継続フォロー' },
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-3 text-sm">
-                  <span className="w-6 h-6 bg-sky-400/30 rounded-full flex items-center justify-center text-xs text-sky-200 flex-shrink-0">{item.step}</span>
+                  <span className="w-6 h-6 bg-brand-400/30 rounded-full flex items-center justify-center text-xs text-brand-200 flex-shrink-0">{item.step}</span>
                   <span className="text-white/80">{item.text}</span>
                 </div>
               ))}
@@ -2335,7 +2319,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               <span className="text-gold-400">{currentLang === 'zh-TW' ? '傳說中的名門' : currentLang === 'zh-CN' ? '传说中的名门' : '伝説の名門へ'}</span>
             </h2>
 
-            <p className="text-sm sm:text-base md:text-xl text-gray-300 mb-6 md:mb-8 leading-relaxed font-light">
+            <p className="text-sm sm:text-base md:text-xl text-neutral-300 mb-6 md:mb-8 leading-relaxed font-light">
               {currentLang === 'zh-TW' ? '廣野、霞ヶ関、小野——這些球場的名字，在高爾夫愛好者心中如雷貫耳。平時需要會員介紹才能踏入的聖地，現在向您敞開大門。' : currentLang === 'zh-CN' ? '广野、霞ヶ関、小野——这些球场的名字，在高尔夫爱好者心中如雷貫耳。平时需要会员介绍才能踏入的圣地，现在向您敞开大门。' : '廣野、霞ヶ関、小野——ゴルフ愛好家なら誰もが憧れる名門。通常は会員紹介が必要な聖地が、今あなたに開かれます。'}
             </p>
 
@@ -2343,21 +2327,21 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="grid grid-cols-3 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-white/20">
               <div className="text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">25<span className="text-gold-400">+</span></div>
-                <div className="text-[10px] md:text-xs text-gray-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '名門球場' : currentLang === 'zh-CN' ? '名门球场' : '名門コース'}</div>
+                <div className="text-[10px] md:text-xs text-neutral-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '名門球場' : currentLang === 'zh-CN' ? '名门球场' : '名門コース'}</div>
               </div>
               <div className="border-x border-white/20 px-2 md:px-6 py-12 md:py-24 text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">0</div>
-                <div className="text-[10px] md:text-xs text-gray-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '會員介紹' : currentLang === 'zh-CN' ? '会员介绍' : '会員紹介不要'}</div>
+                <div className="text-[10px] md:text-xs text-neutral-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '會員介紹' : currentLang === 'zh-CN' ? '会员介绍' : '会員紹介不要'}</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">VIP</div>
-                <div className="text-[10px] md:text-xs text-gray-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '專屬待遇' : currentLang === 'zh-CN' ? '专属待遇' : '専用待遇'}</div>
+                <div className="text-[10px] md:text-xs text-neutral-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '專屬待遇' : currentLang === 'zh-CN' ? '专属待遇' : '専用待遇'}</div>
               </div>
             </div>
 
             {/* 球场列表 */}
             <div className="mb-10">
-              <div className="text-xs text-gray-500 mb-3 uppercase tracking-wider">{currentLang === 'zh-TW' ? '合作名門' : currentLang === 'zh-CN' ? '合作名门' : '提携名門コース'}</div>
+              <div className="text-xs text-neutral-500 mb-3 uppercase tracking-wider">{currentLang === 'zh-TW' ? '合作名門' : currentLang === 'zh-CN' ? '合作名门' : '提携名門コース'}</div>
               <div className="flex flex-wrap gap-2">
                 {['廣野ゴルフ倶楽部', '霞ヶ関カンツリー倶楽部', '小野ゴルフ倶楽部', '茨木カンツリー倶楽部', '古賀ゴルフ・クラブ'].map((course, idx) => (
                   <span key={idx} className="text-sm text-white/80 after:content-['·'] after:mx-2 after:text-gold-400 last:after:content-none">
@@ -2411,7 +2395,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-white mb-8 md:mb-10 leading-tight">
                   {currentLang === 'zh-TW' ? '對話日本頂尖企業' : currentLang === 'zh-CN' ? '对话日本顶尖企业' : '日本トップ企業との対話'}
                 </h2>
-                <p className="text-gray-300 leading-relaxed mb-8">
+                <p className="text-neutral-300 leading-relaxed mb-8">
                   {currentLang === 'zh-TW' ? '12年深耕日本商務市場，我們與豐田、松下、資生堂等500強企業建立深度合作。從工廠參觀到高管對談，為您打造真正有價值的商務考察之旅。' : currentLang === 'zh-CN' ? '12年深耕日本商务市场，我们与丰田、松下、资生堂等500强企业建立深度合作。从工厂参观到高管对谈，为您打造真正有价值的商务考察之旅。' : '12年間日本ビジネス市場を深耕。トヨタ、パナソニック、資生堂など500社以上と深い協力関係を構築。工場見学から経営層との対談まで、真に価値ある視察をご提供。'}
                 </p>
 
@@ -2424,7 +2408,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                   ].map((stat, idx) => (
                     <div key={idx} className="border-l-2 border-gold-400/50 pl-4">
                       <div className="text-2xl font-light text-white">{stat.num}</div>
-                      <div className="text-xs text-gray-400">{stat.label}</div>
+                      <div className="text-xs text-neutral-400">{stat.label}</div>
                     </div>
                   ))}
                 </div>
@@ -2437,7 +2421,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                     currentLang === 'zh-TW' ? '科技創新' : currentLang === 'zh-CN' ? '科技创新' : 'テクノロジー',
                     currentLang === 'zh-TW' ? '農業食品' : currentLang === 'zh-CN' ? '农业食品' : '農業・食品',
                   ].map((tag, idx) => (
-                    <span key={idx} className="px-3 py-1 text-xs border border-white/20 text-gray-300">
+                    <span key={idx} className="px-3 py-1 text-xs border border-white/20 text-neutral-300">
                       {tag}
                     </span>
                   ))}
@@ -2461,7 +2445,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 ].map((company, idx) => (
                   <div key={idx} className="bg-white/10 backdrop-blur p-6 border border-white/10 hover:border-white/30 transition-colors">
                     <div className="text-white font-medium mb-1">{company.name}</div>
-                    <div className="text-xs text-gray-400">{company.type}</div>
+                    <div className="text-xs text-neutral-400">{company.type}</div>
                   </div>
                 ))}
               </div>
@@ -2508,7 +2492,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-white mb-8 leading-relaxed">
               {currentLang === 'zh-TW' ? '用心連結世界與日本' : currentLang === 'zh-CN' ? '用心连结世界与日本' : '心をつなぐ、世界と日本'}
             </h2>
-            <p className="text-gray-400 leading-relaxed mb-10 max-w-2xl mx-auto">
+            <p className="text-neutral-400 leading-relaxed mb-10 max-w-2xl mx-auto">
               {currentLang === 'zh-TW' ? '我們致力於為華人旅客提供最高品質的日本旅遊體驗。我們相信，真正的服務不僅是滿足需求，更是創造感動。' : currentLang === 'zh-CN' ? '我们致力于为华人旅客提供最高品质的日本旅游体验。我们相信，真正的服务不仅是满足需求，更是创造感动。' : '2020年設立以来、新島交通は華人旅行者の皆様に最高品質の日本旅行体験を提供してまいりました。真のサービスとは、ニーズを満たすだけでなく、感動を創造することだと信じています。'}
             </p>
             <a
@@ -2843,62 +2827,62 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 relative overflow-hidden">
                <button
                  onClick={() => setShowAuthModal(false)}
-                 className="absolute top-4 right-4 text-gray-400 hover:text-black transition"
+                 className="absolute top-4 right-4 text-neutral-400 hover:text-black transition"
                >
                  <X size={20} />
                </button>
 
                <div className="mb-8 text-center">
-                  <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="w-12 h-12 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center mx-auto mb-4">
                      <User size={24} />
                   </div>
-                  <h3 className="text-2xl font-serif font-bold text-gray-900">
+                  <h3 className="text-2xl font-serif font-bold text-brand-900">
                     {lang === 'ja' ? 'B2B パートナー登録' : 'Partner Application'}
                   </h3>
-                  <p className="text-sm text-gray-500 mt-2">
+                  <p className="text-sm text-neutral-500 mt-2">
                     Access exclusive B2B rates and AI quoting system.
                   </p>
                </div>
 
                <form onSubmit={handleAuthSubmit} className="space-y-4">
                   <div>
-                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Company Name</label>
+                    <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">Company Name</label>
                     <input
                       type="text"
                       required
                       value={authFormData.companyName}
                       onChange={(e) => setAuthFormData({...authFormData, companyName: e.target.value})}
-                      className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                      className="w-full p-3 border border-neutral-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none"
                       placeholder="Travel Agency Co., Ltd."
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Contact Person</label>
+                    <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">Contact Person</label>
                     <input
                       type="text"
                       required
                       value={authFormData.contactPerson}
                       onChange={(e) => setAuthFormData({...authFormData, contactPerson: e.target.value})}
-                      className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                      className="w-full p-3 border border-neutral-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none"
                       placeholder="Name"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Email Address</label>
+                    <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">Email Address</label>
                     <input
                       type="email"
                       required
                       value={authFormData.email}
                       onChange={(e) => setAuthFormData({...authFormData, email: e.target.value})}
-                      className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                      className="w-full p-3 border border-neutral-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none"
                       placeholder="agent@example.com"
                     />
                   </div>
-                  {authError && <p className="text-xs text-red-500">{authError}</p>}
+                  {authError && <p className="text-xs text-gold-500">{authError}</p>}
                   <button
                     type="submit"
                     disabled={isSendingAuth}
-                    className="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition shadow-lg mt-2 flex items-center justify-center gap-2"
+                    className="w-full bg-brand-600 text-white font-bold py-3 rounded-lg hover:bg-brand-700 transition shadow-lg mt-2 flex items-center justify-center gap-2"
                   >
                     {isSendingAuth ? <Loader2 className="animate-spin" size={16} /> : <ArrowRight size={16} />}
                     {isSendingAuth ? 'Processing...' : 'Apply for Access'}
@@ -2914,7 +2898,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto relative">
                <button
                  onClick={() => setShowPartnerInquiryModal(false)}
-                 className="absolute top-4 right-4 text-gray-400 hover:text-black transition z-10"
+                 className="absolute top-4 right-4 text-neutral-400 hover:text-black transition z-10"
                >
                  <X size={20} />
                </button>
@@ -2922,17 +2906,17 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                {inquirySubmitStatus === 'success' ? (
                  // Success State
                  <div className="p-8 text-center">
-                   <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                     <CheckCircle className="text-green-600" size={32} />
+                   <div className="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                     <CheckCircle className="text-brand-700" size={32} />
                    </div>
-                   <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">申請已提交</h3>
-                   <p className="text-gray-600 mb-6">
+                   <h3 className="text-2xl font-serif font-bold text-brand-900 mb-4">申請已提交</h3>
+                   <p className="text-neutral-600 mb-6">
                      感謝您的合作申請！我們已收到您的信息，<br />
                      將在 1-2 個工作日內與您聯繫。
                    </p>
                    <button
                      onClick={() => setShowPartnerInquiryModal(false)}
-                     className="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-500 transition"
+                     className="bg-brand-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-brand-500 transition"
                    >
                      關閉
                    </button>
@@ -2940,16 +2924,16 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                ) : (
                  // Form State
                  <>
-                   <div className="p-6 border-b border-gray-100">
+                   <div className="p-6 border-b border-neutral-100">
                      <div className="flex items-center gap-3">
-                       <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
+                       <div className="w-10 h-10 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center">
                          <Handshake size={20} />
                        </div>
                        <div>
-                         <h3 className="text-xl font-serif font-bold text-gray-900">
+                         <h3 className="text-xl font-serif font-bold text-brand-900">
                            同業合作申請
                          </h3>
-                         <p className="text-sm text-gray-500">填寫以下資料，我們將盡快與您聯繫</p>
+                         <p className="text-sm text-neutral-500">填寫以下資料，我們將盡快與您聯繫</p>
                        </div>
                      </div>
                    </div>
@@ -2957,28 +2941,28 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                    <form onSubmit={handlePartnerInquirySubmit} className="p-6 space-y-4">
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                        <div>
-                         <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
-                           公司名稱 <span className="text-red-500">*</span>
+                         <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">
+                           公司名稱 <span className="text-gold-500">*</span>
                          </label>
                          <input
                            type="text"
                            required
                            value={partnerInquiryForm.companyName}
                            onChange={(e) => setPartnerInquiryForm({...partnerInquiryForm, companyName: e.target.value})}
-                           className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                           className="w-full p-3 border border-neutral-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none"
                            placeholder="旅行社名稱"
                          />
                        </div>
                        <div>
-                         <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
-                           聯絡人 <span className="text-red-500">*</span>
+                         <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">
+                           聯絡人 <span className="text-gold-500">*</span>
                          </label>
                          <input
                            type="text"
                            required
                            value={partnerInquiryForm.contactName}
                            onChange={(e) => setPartnerInquiryForm({...partnerInquiryForm, contactName: e.target.value})}
-                           className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                           className="w-full p-3 border border-neutral-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none"
                            placeholder="您的姓名"
                          />
                        </div>
@@ -2986,40 +2970,40 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
 
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                        <div>
-                         <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
-                           電子郵件 <span className="text-red-500">*</span>
+                         <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">
+                           電子郵件 <span className="text-gold-500">*</span>
                          </label>
                          <input
                            type="email"
                            required
                            value={partnerInquiryForm.email}
                            onChange={(e) => setPartnerInquiryForm({...partnerInquiryForm, email: e.target.value})}
-                           className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                           className="w-full p-3 border border-neutral-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none"
                            placeholder="email@company.com"
                          />
                        </div>
                        <div>
-                         <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                         <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">
                            聯絡電話
                          </label>
                          <input
                            type="tel"
                            value={partnerInquiryForm.phone}
                            onChange={(e) => setPartnerInquiryForm({...partnerInquiryForm, phone: e.target.value})}
-                           className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                           className="w-full p-3 border border-neutral-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none"
                            placeholder="+886 912 345 678"
                          />
                        </div>
                      </div>
 
                      <div>
-                       <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                       <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">
                          業務類型
                        </label>
                        <select
                          value={partnerInquiryForm.businessType}
                          onChange={(e) => setPartnerInquiryForm({...partnerInquiryForm, businessType: e.target.value})}
-                         className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none bg-white"
+                         className="w-full p-3 border border-neutral-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none bg-white"
                        >
                          <option value="">請選擇</option>
                          <option value="旅行社">旅行社</option>
@@ -3031,27 +3015,27 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                      </div>
 
                      <div>
-                       <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
-                         合作意向說明 <span className="text-red-500">*</span>
+                       <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">
+                         合作意向說明 <span className="text-gold-500">*</span>
                        </label>
                        <textarea
                          required
                          rows={4}
                          value={partnerInquiryForm.message}
                          onChange={(e) => setPartnerInquiryForm({...partnerInquiryForm, message: e.target.value})}
-                         className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none resize-none"
+                         className="w-full p-3 border border-neutral-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none resize-none"
                          placeholder="請簡述您的合作需求，例如：主要客群、預計業務量、希望合作的產品類型等..."
                        />
                      </div>
 
                      {inquiryErrorMessage && (
-                       <p className="text-sm text-red-500 bg-red-50 p-3 rounded-lg">{inquiryErrorMessage}</p>
+                       <p className="text-sm text-gold-500 bg-gold-50 p-3 rounded-lg">{inquiryErrorMessage}</p>
                      )}
 
                      <button
                        type="submit"
                        disabled={isSubmittingInquiry}
-                       className="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                       className="w-full bg-brand-600 text-white font-bold py-3 rounded-lg hover:bg-brand-700 transition shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                      >
                        {isSubmittingInquiry ? (
                          <>
@@ -3066,7 +3050,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                        )}
                      </button>
 
-                     <p className="text-xs text-gray-400 text-center">
+                     <p className="text-xs text-neutral-400 text-center">
                        提交後我們會將確認信發送至您的郵箱
                      </p>
                    </form>
@@ -3089,28 +3073,28 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
              className={`
                rounded-lg shadow-2xl p-4 min-w-[300px] max-w-md
                flex items-start gap-3
-               ${toast.type === 'error' ? 'bg-red-50 border-l-4 border-red-500' : ''}
-               ${toast.type === 'success' ? 'bg-green-50 border-l-4 border-green-500' : ''}
-               ${toast.type === 'info' ? 'bg-blue-50 border-l-4 border-blue-500' : ''}
+               ${toast.type === 'error' ? 'bg-gold-50 border-l-4 border-gold-500' : ''}
+               ${toast.type === 'success' ? 'bg-brand-50 border-l-4 border-brand-600' : ''}
+               ${toast.type === 'info' ? 'bg-brand-50 border-l-4 border-brand-500' : ''}
              `}
            >
              <div className="flex-shrink-0 mt-0.5">
                {toast.type === 'error' && (
-                 <X className="h-5 w-5 text-red-500" />
+                 <X className="h-5 w-5 text-gold-500" />
                )}
                {toast.type === 'success' && (
-                 <CheckCircle className="h-5 w-5 text-green-500" />
+                 <CheckCircle className="h-5 w-5 text-brand-600" />
                )}
                {toast.type === 'info' && (
-                 <Activity className="h-5 w-5 text-blue-500" />
+                 <Activity className="h-5 w-5 text-brand-500" />
                )}
              </div>
              <div className="flex-1">
                <p
                  className={`text-sm font-medium ${
-                   toast.type === 'error' ? 'text-red-800' :
-                   toast.type === 'success' ? 'text-green-800' :
-                   'text-blue-800'
+                   toast.type === 'error' ? 'text-gold-800' :
+                   toast.type === 'success' ? 'text-brand-800' :
+                   'text-brand-800'
                  }`}
                >
                  {toast.message}
@@ -3118,7 +3102,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
              </div>
              <button
                onClick={() => setToast({ show: false, message: '', type: 'info' })}
-               className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
+               className="flex-shrink-0 text-neutral-400 hover:text-neutral-600 transition-colors"
              >
                <X className="h-4 w-4" />
              </button>

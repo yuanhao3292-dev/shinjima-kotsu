@@ -21,7 +21,6 @@ const pageTranslations = {
   heroDesc: { ja: '陽子線・重粒子線、光免疫療法、BNCT——世界最先端の治療法が日本に集結', 'zh-TW': '質子重離子、光免疫療法、BNCT 硼中子俘獲——世界前沿療法匯聚日本', 'zh-CN': '质子重离子、光免疫疗法、BNCT 硼中子俘获——世界前沿疗法汇聚日本', en: 'Proton/Heavy Ion, Photoimmunotherapy, BNCT — Cutting-edge treatments converge in Japan' } as Record<Language, string>,
   heroCTA: { ja: '治療プランを相談', 'zh-TW': '諮詢治療方案', 'zh-CN': '咨询治疗方案', en: 'Consult Treatment Plan' } as Record<Language, string>,
   heroFlow: { ja: '治療の流れを見る', 'zh-TW': '了解治療流程', 'zh-CN': '了解治疗流程', en: 'View Treatment Process' } as Record<Language, string>,
-  heroLimit: { ja: '治療品質確保のため、月10名様限定', 'zh-TW': '為保證治療品質，每月僅限 10 位患者接診', 'zh-CN': '为保证治疗品质，每月仅限 10 位患者接诊', en: 'Limited to 10 patients per month to ensure quality' } as Record<Language, string>,
   statGastric: { ja: '胃がん5年生存率', 'zh-TW': '胃癌五年存活率', 'zh-CN': '胃癌五年存活率', en: 'Gastric Cancer 5-Year Survival' } as Record<Language, string>,
   statProstate: { ja: '前立腺がん陽子線治療', 'zh-TW': '前列腺癌質子治療', 'zh-CN': '前列腺癌质子治疗', en: 'Prostate Cancer Proton Therapy' } as Record<Language, string>,
   statProstateSub: { ja: '5年生存率*', 'zh-TW': '五年存活率*', 'zh-CN': '五年存活率*', en: '5-Year Survival*' } as Record<Language, string>,
@@ -63,7 +62,6 @@ const pageTranslations = {
   // Service Section
   svcTitle: { ja: 'サービスご予約', 'zh-TW': '諮詢服務預約', 'zh-CN': '咨询服务预约', en: 'Book Consultation Service' } as Record<Language, string>,
   svcDesc: { ja: 'ご希望のサービスを選択し、お支払い後24時間以内にご連絡いたします', 'zh-TW': '選擇您需要的服務，在線支付後我們將在 24 小時內與您聯繫', 'zh-CN': '选择您需要的服务，在线支付后我们将在 24 小时内与您联系', en: 'Select your service, we will contact you within 24 hours after payment' } as Record<Language, string>,
-  svcLimit: { ja: '月10名様限定・残りわずか', 'zh-TW': '每月僅限 10 位 · 名額有限', 'zh-CN': '每月仅限 10 位 · 名额有限', en: 'Limited to 10/month · Spots available' } as Record<Language, string>,
   svcTaxIncl: { ja: '日円（税込）', 'zh-TW': '日圓（含稅）', 'zh-CN': '日元（含税）', en: 'JPY (tax incl.)' } as Record<Language, string>,
   svcBookNow: { ja: '今すぐ予約', 'zh-TW': '立即預約', 'zh-CN': '立即预约', en: 'Book Now' } as Record<Language, string>,
   svcInitial1: { ja: '診療情報の翻訳（中→日）', 'zh-TW': '病歷資料翻譯（中→日）', 'zh-CN': '病历资料翻译（中→日）', en: 'Medical record translation (CN→JP)' } as Record<Language, string>,
@@ -215,28 +213,28 @@ const TREATMENT_PHASES = [
 // 阶段颜色映射（提取为静态常量，避免每次渲染重建）
 type PhaseColor = 'blue' | 'purple' | 'amber' | 'green';
 const PHASE_COLOR_MAP: Record<PhaseColor, { bg: string; light: string; border: string; text: string; ring: string }> = {
-  blue:   { bg: 'bg-blue-600',   light: 'bg-blue-50',   border: 'border-blue-600',   text: 'text-blue-600',   ring: 'ring-blue-200' },
-  purple: { bg: 'bg-purple-600', light: 'bg-purple-50', border: 'border-purple-600', text: 'text-purple-600', ring: 'ring-purple-200' },
-  amber:  { bg: 'bg-amber-500',  light: 'bg-amber-50',  border: 'border-amber-500',  text: 'text-amber-600',  ring: 'ring-amber-200' },
-  green:  { bg: 'bg-green-600',  light: 'bg-green-50',  border: 'border-green-600',  text: 'text-green-600',  ring: 'ring-green-200' },
+  blue:   { bg: 'bg-brand-700',   light: 'bg-brand-50',   border: 'border-brand-700',   text: 'text-brand-700',   ring: 'ring-brand-200' },
+  purple: { bg: 'bg-brand-600', light: 'bg-brand-50', border: 'border-brand-600', text: 'text-brand-600', ring: 'ring-brand-200' },
+  amber:  { bg: 'bg-gold-500',  light: 'bg-gold-50',  border: 'border-gold-500',  text: 'text-gold-600',  ring: 'ring-gold-200' },
+  green:  { bg: 'bg-brand-600',  light: 'bg-brand-50',  border: 'border-brand-600',  text: 'text-brand-600',  ring: 'ring-brand-200' },
 };
 const PHASE_GRADIENT_MAP: Record<PhaseColor, string> = {
-  blue:   'from-blue-600 to-blue-700',
-  purple: 'from-purple-600 to-purple-700',
-  amber:  'from-amber-500 to-amber-600',
-  green:  'from-green-600 to-green-700',
+  blue:   'from-brand-700 to-brand-800',
+  purple: 'from-brand-600 to-brand-700',
+  amber:  'from-gold-500 to-gold-600',
+  green:  'from-brand-600 to-brand-700',
 };
 const PHASE_LIGHT_BG_MAP: Record<PhaseColor, string> = {
-  blue:   'bg-blue-50 border-blue-100',
-  purple: 'bg-purple-50 border-purple-100',
-  amber:  'bg-amber-50 border-amber-100',
-  green:  'bg-green-50 border-green-100',
+  blue:   'bg-brand-50 border-brand-100',
+  purple: 'bg-brand-50 border-brand-100',
+  amber:  'bg-gold-50 border-gold-100',
+  green:  'bg-brand-50 border-brand-100',
 };
 const PHASE_DOT_MAP: Record<PhaseColor, string> = {
-  blue: 'bg-blue-500',
-  purple: 'bg-purple-500',
-  amber: 'bg-amber-500',
-  green: 'bg-green-500',
+  blue: 'bg-brand-500',
+  purple: 'bg-brand-500',
+  amber: 'bg-gold-500',
+  green: 'bg-brand-500',
 };
 
 // 標準治療方式
@@ -713,28 +711,28 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
           }}
         >
           {/* Dark Overlay with Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-blue-900/85 to-slate-900/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70"></div>
         </div>
         {/* Decorative Elements */}
         <div className="absolute inset-0">
-          <div className="absolute w-96 h-96 bg-blue-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
-          <div className="absolute w-72 h-72 bg-purple-500/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+          <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
+          <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
         </div>
         <div className="container mx-auto px-6 relative z-10 py-32">
           <div className="max-w-4xl">
             <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">{t('heroTitle2')}</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-gold-400">{t('heroTitle2')}</span>
             </h1>
-            <p className="text-xl text-gray-300 mb-4 leading-relaxed max-w-2xl">
+            <p className="text-xl text-neutral-300 mb-4 leading-relaxed max-w-2xl">
               {t('heroStat')} <span className="text-white font-bold">57.4%</span>
             </p>
-            <p className="text-lg text-gray-400 mb-8 leading-relaxed max-w-2xl">
+            <p className="text-lg text-neutral-400 mb-8 leading-relaxed max-w-2xl">
               {t('heroDesc')}
             </p>
             <div className="flex flex-wrap gap-4 mb-8">
               <a
                 href="#contact-form"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-full font-bold hover:from-blue-600 hover:to-purple-700 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-brand-600 to-brand-400 text-white px-8 py-4 rounded-full font-bold hover:from-brand-700 hover:to-brand-500 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
               >
                 <MessageSquare size={20} />
                 {t('heroCTA')}
@@ -747,45 +745,37 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                 {t('heroFlow')}
               </a>
             </div>
-            {/* 限量營銷文案 */}
-            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-400/40 px-5 py-3 rounded-full backdrop-blur-md mb-12">
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
-              </span>
-              <span className="text-amber-200 text-sm font-medium">{t('heroLimit')}</span>
-            </div>
             {/* Key Stats - Data Driven */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
                 <div className="text-3xl font-bold text-white mb-1">74.9%</div>
-                <div className="text-sm text-gray-300">{t('statGastric')}</div>
-                <div className="text-xs text-gray-400 mt-1">Lancet 2018*</div>
+                <div className="text-sm text-neutral-300">{t('statGastric')}</div>
+                <div className="text-xs text-neutral-400 mt-1">Lancet 2018*</div>
               </div>
               <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
                 <div className="text-3xl font-bold text-white mb-1">95%+</div>
-                <div className="text-sm text-gray-300">{t('statProstate')}</div>
-                <div className="text-xs text-gray-400 mt-1">{t('statProstateSub')}</div>
+                <div className="text-sm text-neutral-300">{t('statProstate')}</div>
+                <div className="text-xs text-neutral-400 mt-1">{t('statProstateSub')}</div>
               </div>
               <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
                 <div className="text-3xl font-bold text-white mb-1">1/3</div>
-                <div className="text-sm text-gray-300">{t('statCost')}</div>
-                <div className="text-xs text-gray-400 mt-1">{t('statCostSub')}</div>
+                <div className="text-sm text-neutral-300">{t('statCost')}</div>
+                <div className="text-xs text-neutral-400 mt-1">{t('statCostSub')}</div>
               </div>
             </div>
-            <p className="text-xs text-gray-500 mb-4">{t('dataSource')}</p>
+            <p className="text-xs text-neutral-500 mb-4">{t('dataSource')}</p>
             {/* Trust Points */}
             <div className="flex flex-wrap gap-6 text-white/80">
               <div className="flex items-center gap-2">
-                <CheckCircle size={18} className="text-green-400" />
+                <CheckCircle size={18} className="text-gold-400" />
                 <span className="text-sm">{t('trustEarly')}</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle size={18} className="text-green-400" />
+                <CheckCircle size={18} className="text-gold-400" />
                 <span className="text-sm">{t('trustTranslator')}</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle size={18} className="text-green-400" />
+                <CheckCircle size={18} className="text-gold-400" />
                 <span className="text-sm">{t('trustRemote')}</span>
               </div>
             </div>
@@ -794,18 +784,18 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
       </div>
       )}
       {/* Japan Medical Institutions Introduction - 關西優先置頂 */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+      <section className="py-24 bg-gradient-to-br from-neutral-50 to-brand-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-blue-600 text-xs tracking-widest uppercase font-bold">Japan Medical Institutions</span>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mt-3 mb-4">
+            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">Japan Medical Institutions</span>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-900 mt-3 mb-4">
               {t('instTitle')}
             </h2>
-            <p className="text-gray-500 max-w-3xl mx-auto mb-6">
+            <p className="text-neutral-500 max-w-3xl mx-auto mb-6">
               {t('instDesc')}
             </p>
             {/* 免責聲明 */}
-            <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 px-4 py-2 rounded-lg text-sm text-amber-700">
+            <div className="inline-flex items-center gap-2 bg-gold-50 border border-gold-200 px-4 py-2 rounded-lg text-sm text-gold-700">
               <Info size={16} />
               <span>{t('instDisclaimer')}</span>
             </div>
@@ -821,44 +811,44 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                 tagText: string;
               }> = {
                 blue: {
-                  headerBg: 'bg-blue-600',
+                  headerBg: 'bg-brand-700',
                   headerText: 'text-white',
-                  cardBorder: 'border-blue-200',
-                  badge: 'bg-blue-100 text-blue-700',
-                  tagBg: 'bg-blue-50',
-                  tagText: 'text-blue-600',
+                  cardBorder: 'border-brand-200',
+                  badge: 'bg-brand-100 text-brand-700',
+                  tagBg: 'bg-brand-50',
+                  tagText: 'text-brand-700',
                 },
                 purple: {
-                  headerBg: 'bg-purple-600',
+                  headerBg: 'bg-brand-600',
                   headerText: 'text-white',
-                  cardBorder: 'border-purple-200',
-                  badge: 'bg-purple-100 text-purple-700',
-                  tagBg: 'bg-purple-50',
-                  tagText: 'text-purple-600',
+                  cardBorder: 'border-brand-200',
+                  badge: 'bg-brand-100 text-brand-700',
+                  tagBg: 'bg-brand-50',
+                  tagText: 'text-brand-600',
                 },
                 green: {
-                  headerBg: 'bg-green-600',
+                  headerBg: 'bg-brand-600',
                   headerText: 'text-white',
-                  cardBorder: 'border-green-200',
-                  badge: 'bg-green-100 text-green-700',
-                  tagBg: 'bg-green-50',
-                  tagText: 'text-green-600',
+                  cardBorder: 'border-brand-200',
+                  badge: 'bg-brand-100 text-brand-700',
+                  tagBg: 'bg-brand-50',
+                  tagText: 'text-brand-600',
                 },
                 orange: {
-                  headerBg: 'bg-orange-600',
+                  headerBg: 'bg-gold-500',
                   headerText: 'text-white',
-                  cardBorder: 'border-orange-200',
-                  badge: 'bg-orange-100 text-orange-700',
-                  tagBg: 'bg-orange-50',
-                  tagText: 'text-orange-600',
+                  cardBorder: 'border-gold-200',
+                  badge: 'bg-gold-100 text-gold-700',
+                  tagBg: 'bg-gold-50',
+                  tagText: 'text-gold-600',
                 },
                 red: {
-                  headerBg: 'bg-red-600',
+                  headerBg: 'bg-brand-800',
                   headerText: 'text-white',
-                  cardBorder: 'border-red-200',
-                  badge: 'bg-red-100 text-red-700',
-                  tagBg: 'bg-red-50',
-                  tagText: 'text-red-600',
+                  cardBorder: 'border-brand-200',
+                  badge: 'bg-brand-100 text-brand-700',
+                  tagBg: 'bg-brand-50',
+                  tagText: 'text-brand-700',
                 },
               };
               const colors = colorClasses[category.color];
@@ -875,20 +865,20 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                       {category.institutions.map((inst, instIndex) => (
                         <div
                           key={instIndex}
-                          className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-all duration-300"
+                          className="bg-neutral-50 rounded-xl p-6 hover:shadow-lg transition-all duration-300"
                         >
                           {/* Hospital Name */}
                           <div className="mb-4">
-                            <h4 className="text-lg font-bold text-gray-900 mb-1">{inst.name}</h4>
-                            <p className="text-sm text-gray-500">{getLocalizedText(inst.nameZh)}</p>
-                            <div className="flex items-center gap-1 text-xs text-gray-400 mt-1">
+                            <h4 className="text-lg font-bold text-brand-900 mb-1">{inst.name}</h4>
+                            <p className="text-sm text-neutral-500">{getLocalizedText(inst.nameZh)}</p>
+                            <div className="flex items-center gap-1 text-xs text-neutral-400 mt-1">
                               <MapPin size={12} />
                               {getLocalizedText(inst.location)}
                             </div>
                           </div>
                           {/* Specialty Tags */}
                           <div className="mb-4">
-                            <p className="text-xs text-gray-500 mb-2">{t('instSpecialty')}</p>
+                            <p className="text-xs text-neutral-500 mb-2">{t('instSpecialty')}</p>
                             <div className="flex flex-wrap gap-1">
                               {(getLocalizedText(inst.specialty) as string[]).map((spec, i) => (
                                 <span key={i} className={`${colors.badge} text-xs px-2 py-1 rounded-full`}>
@@ -899,10 +889,10 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                           </div>
                           {/* Features */}
                           <div className="mb-4">
-                            <p className="text-xs text-gray-500 mb-2">{t('instFeatures')}</p>
+                            <p className="text-xs text-neutral-500 mb-2">{t('instFeatures')}</p>
                             <ul className="space-y-1">
                               {(getLocalizedText(inst.features) as string[]).map((feature, i) => (
-                                <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+                                <li key={i} className="flex items-start gap-2 text-sm text-neutral-600">
                                   <CheckCircle size={14} className={`${colors.tagText} mt-0.5 flex-shrink-0`} />
                                   <span>{feature}</span>
                                 </li>
@@ -911,7 +901,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                           </div>
                           {/* Treatments */}
                           <div className="mb-4">
-                            <p className="text-xs text-gray-500 mb-2">{t('instTreatments')}</p>
+                            <p className="text-xs text-neutral-500 mb-2">{t('instTreatments')}</p>
                             <div className="flex flex-wrap gap-1">
                               {(getLocalizedText(inst.treatments) as string[]).map((treatment, i) => (
                                 <span key={i} className={`${colors.tagBg} ${colors.tagText} text-xs px-2 py-1 rounded border border-current/20`}>
@@ -926,7 +916,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                               href={inst.website}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className={`inline-flex items-center gap-1.5 text-xs ${colors.tagText} hover:underline mt-2 pt-3 border-t border-gray-200`}
+                              className={`inline-flex items-center gap-1.5 text-xs ${colors.tagText} hover:underline mt-2 pt-3 border-t border-neutral-200`}
                             >
                               <ExternalLink size={12} />
                               <span>{t('instWebsite')}</span>
@@ -942,7 +932,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
           </div>
           {/* Bottom Note */}
           <div className="mt-12 text-center">
-            <p className="text-sm text-gray-500 max-w-2xl mx-auto">
+            <p className="text-sm text-neutral-500 max-w-2xl mx-auto">
               {t('instBottomNote')}
             </p>
           </div>
@@ -953,11 +943,11 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
         <div className="container mx-auto px-6">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <span className="text-blue-600 text-xs tracking-widest uppercase font-bold">Treatment Process</span>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mt-3 mb-4">
+            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">Treatment Process</span>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-900 mt-3 mb-4">
               {t('flowTitle')}
             </h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">
+            <p className="text-neutral-500 max-w-2xl mx-auto">
               {t('flowDesc')}
             </p>
           </div>
@@ -976,21 +966,21 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                     className={`relative rounded-2xl p-4 text-left transition-all ${
                       isActive
                         ? `${c.light} ${c.border} border-2 shadow-md ring-4 ${c.ring}`
-                        : 'bg-gray-50 border border-gray-200 hover:shadow-sm hover:border-gray-300'
+                        : 'bg-neutral-50 border border-neutral-200 hover:shadow-sm hover:border-neutral-300'
                     }`}
                   >
                     <div className="flex items-center gap-2 mb-2">
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isActive ? c.bg : 'bg-gray-200'}`}>
-                        <PhaseIcon size={16} className={isActive ? 'text-white' : 'text-gray-500'} />
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isActive ? c.bg : 'bg-neutral-200'}`}>
+                        <PhaseIcon size={16} className={isActive ? 'text-white' : 'text-neutral-500'} />
                       </div>
-                      <span className={`text-xs font-bold ${isActive ? c.text : 'text-gray-400'}`}>
+                      <span className={`text-xs font-bold ${isActive ? c.text : 'text-neutral-400'}`}>
                         PHASE {phase.phaseNumber}
                       </span>
                     </div>
-                    <h3 className={`text-sm font-bold ${isActive ? 'text-gray-900' : 'text-gray-600'}`}>
+                    <h3 className={`text-sm font-bold ${isActive ? 'text-brand-900' : 'text-neutral-600'}`}>
                       {phase.title[currentLang]}
                     </h3>
-                    <p className="text-xs text-gray-400 mt-1 flex items-center gap-1">
+                    <p className="text-xs text-neutral-400 mt-1 flex items-center gap-1">
                       <Clock size={10} />
                       {phase.duration[currentLang]}
                     </p>
@@ -998,7 +988,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                 );
               })}
             </div>
-            <p className="text-center text-xs text-gray-400 mt-4">{t('flowClickPhase')}</p>
+            <p className="text-center text-xs text-neutral-400 mt-4">{t('flowClickPhase')}</p>
           </div>
 
           {/* Active Phase Detail */}
@@ -1011,7 +1001,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
 
             return (
               <div className="max-w-5xl mx-auto">
-                <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                <div className="rounded-2xl overflow-hidden shadow-lg border border-neutral-100">
                   {/* Phase Header */}
                   <div className={`bg-gradient-to-r ${PHASE_GRADIENT_MAP[phase.color]} p-6 md:p-8 text-white`}>
                     <div className="flex flex-wrap items-center justify-between gap-4">
@@ -1044,28 +1034,28 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                       {/* Patient Actions */}
                       <div className={`rounded-xl p-5 border ${PHASE_LIGHT_BG_MAP[phase.color]}`}>
                         <div className="flex items-center gap-2 mb-4">
-                          <Users size={18} className="text-gray-600" />
-                          <h4 className="font-bold text-gray-900 text-sm">{t('flowYouDo')}</h4>
+                          <Users size={18} className="text-neutral-600" />
+                          <h4 className="font-bold text-brand-900 text-sm">{t('flowYouDo')}</h4>
                         </div>
                         <ul className="space-y-2.5">
                           {phase.patientActions.map((action, i) => (
-                            <li key={i} className="flex items-start gap-2.5 text-sm text-gray-700">
-                              <CheckCircle size={16} className="text-green-500 flex-shrink-0 mt-0.5" />
+                            <li key={i} className="flex items-start gap-2.5 text-sm text-neutral-700">
+                              <CheckCircle size={16} className="text-gold-500 flex-shrink-0 mt-0.5" />
                               <span>{action[currentLang]}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
                       {/* We Handle */}
-                      <div className="rounded-xl p-5 border bg-gray-50 border-gray-100">
+                      <div className="rounded-xl p-5 border bg-neutral-50 border-neutral-100">
                         <div className="flex items-center gap-2 mb-4">
-                          <Shield size={18} className="text-gray-600" />
-                          <h4 className="font-bold text-gray-900 text-sm">{t('flowWeHandle')}</h4>
+                          <Shield size={18} className="text-neutral-600" />
+                          <h4 className="font-bold text-brand-900 text-sm">{t('flowWeHandle')}</h4>
                         </div>
                         <ul className="space-y-2.5">
                           {phase.weHandle.map((item, i) => (
-                            <li key={i} className="flex items-start gap-2.5 text-sm text-gray-700">
-                              <CheckCircle size={16} className="text-blue-500 flex-shrink-0 mt-0.5" />
+                            <li key={i} className="flex items-start gap-2.5 text-sm text-neutral-700">
+                              <CheckCircle size={16} className="text-brand-500 flex-shrink-0 mt-0.5" />
                               <span>{item[currentLang]}</span>
                             </li>
                           ))}
@@ -1075,8 +1065,8 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
 
                     {/* Sub-step Timeline */}
                     <div>
-                      <h4 className="font-bold text-gray-900 text-sm mb-4 flex items-center gap-2">
-                        <FileText size={16} className="text-gray-400" />
+                      <h4 className="font-bold text-brand-900 text-sm mb-4 flex items-center gap-2">
+                        <FileText size={16} className="text-neutral-400" />
                         {t('flowStepDetail')}
                       </h4>
                       <div className="relative">
@@ -1092,29 +1082,29 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                                 {step.step}
                               </div>
                               <div className={`flex-grow rounded-xl p-4 border transition-all ${
-                                expandedStep === step.step ? 'bg-white shadow-md border-gray-200' : 'bg-gray-50 border-gray-100 hover:bg-white hover:shadow-sm'
+                                expandedStep === step.step ? 'bg-white shadow-md border-neutral-200' : 'bg-neutral-50 border-neutral-100 hover:bg-white hover:shadow-sm'
                               }`}>
                                 <div className="flex flex-wrap items-start justify-between gap-3">
                                   <div className="flex-grow">
                                     <div className="flex items-center gap-2 mb-1">
-                                      <h5 className="text-sm font-bold text-gray-900">{step.title[currentLang]}</h5>
+                                      <h5 className="text-sm font-bold text-brand-900">{step.title[currentLang]}</h5>
                                       {step.fee && (
-                                        <span className="bg-blue-100 text-blue-700 text-xs font-bold px-2 py-0.5 rounded-full">
+                                        <span className="bg-gold-100 text-gold-700 text-xs font-bold px-2 py-0.5 rounded-full">
                                           ¥{step.fee}
                                         </span>
                                       )}
                                     </div>
-                                    <p className="text-xs text-gray-500">{step.subtitle[currentLang]}</p>
+                                    <p className="text-xs text-neutral-500">{step.subtitle[currentLang]}</p>
                                     {expandedStep === step.step && step.desc && (
-                                      <div className="mt-3 pt-3 border-t border-gray-200">
-                                        <p className="text-xs text-gray-600 leading-relaxed">{step.desc[currentLang]}</p>
+                                      <div className="mt-3 pt-3 border-t border-neutral-200">
+                                        <p className="text-xs text-neutral-600 leading-relaxed">{step.desc[currentLang]}</p>
                                       </div>
                                     )}
                                   </div>
-                                  <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                                    <span className="bg-gray-200 px-1.5 py-0.5 rounded text-xs">{step.from[currentLang]}</span>
+                                  <div className="flex items-center gap-1.5 text-xs text-neutral-400">
+                                    <span className="bg-neutral-200 px-1.5 py-0.5 rounded text-xs">{step.from[currentLang]}</span>
                                     <ArrowRight size={10} />
-                                    <span className="bg-gray-200 px-1.5 py-0.5 rounded text-xs">{step.to[currentLang]}</span>
+                                    <span className="bg-neutral-200 px-1.5 py-0.5 rounded text-xs">{step.to[currentLang]}</span>
                                   </div>
                                 </div>
                               </div>
@@ -1131,14 +1121,14 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
         </div>
       </section>
       {/* Standard Treatments Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+      <section className="py-24 bg-gradient-to-br from-neutral-50 to-brand-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-purple-600 text-xs tracking-widest uppercase font-bold">Standard Treatment</span>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mt-3 mb-4">
+            <span className="text-brand-600 text-xs tracking-widest uppercase font-bold">Standard Treatment</span>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-900 mt-3 mb-4">
               {t('stdTitle')}
             </h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">
+            <p className="text-neutral-500 max-w-2xl mx-auto">
               {t('stdDesc')}
             </p>
           </div>
@@ -1146,11 +1136,11 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
             {STANDARD_TREATMENTS.map((treatment) => {
               const Icon = treatment.icon;
               const colorClasses: Record<string, { bg: string; text: string; border: string }> = {
-                blue: { bg: 'bg-blue-50', text: 'text-blue-600', border: 'border-blue-200' },
-                green: { bg: 'bg-green-50', text: 'text-green-600', border: 'border-green-200' },
-                purple: { bg: 'bg-purple-50', text: 'text-purple-600', border: 'border-purple-200' },
-                orange: { bg: 'bg-orange-50', text: 'text-orange-600', border: 'border-orange-200' },
-                red: { bg: 'bg-red-50', text: 'text-red-600', border: 'border-red-200' },
+                blue: { bg: 'bg-brand-50', text: 'text-brand-700', border: 'border-brand-200' },
+                green: { bg: 'bg-brand-50', text: 'text-brand-600', border: 'border-brand-200' },
+                purple: { bg: 'bg-brand-50', text: 'text-brand-600', border: 'border-brand-200' },
+                orange: { bg: 'bg-gold-50', text: 'text-gold-600', border: 'border-gold-200' },
+                red: { bg: 'bg-gold-50', text: 'text-gold-600', border: 'border-gold-200' },
               };
               const colors = colorClasses[treatment.color];
               return (
@@ -1161,16 +1151,16 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   <div className={`w-14 h-14 ${colors.bg} ${colors.text} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
                     <Icon size={28} />
                   </div>
-                  <h3 className="text-xl font-serif font-bold text-gray-900 mb-4">{treatment.title[currentLang]}</h3>
+                  <h3 className="text-xl font-serif font-bold text-brand-900 mb-4">{treatment.title[currentLang]}</h3>
                   <ul className="space-y-2 mb-4">
                     {treatment.features.map((feature, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+                      <li key={i} className="flex items-start gap-2 text-sm text-neutral-600">
                         <CheckCircle size={14} className={`${colors.text} mt-0.5 flex-shrink-0`} />
                         <span>{feature[currentLang]}</span>
                       </li>
                     ))}
                   </ul>
-                  <p className="text-gray-500 text-sm leading-relaxed border-t border-gray-100 pt-4">
+                  <p className="text-neutral-500 text-sm leading-relaxed border-t border-neutral-100 pt-4">
                     {treatment.desc[currentLang]}
                   </p>
                 </div>
@@ -1183,25 +1173,25 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-green-600 text-xs tracking-widest uppercase font-bold">Regenerative Medicine</span>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mt-3 mb-4">
+            <span className="text-brand-600 text-xs tracking-widest uppercase font-bold">Regenerative Medicine</span>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-900 mt-3 mb-4">
               {t('regenTitle')}
             </h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">
+            <p className="text-neutral-500 max-w-2xl mx-auto">
               {t('regenDesc')}
             </p>
           </div>
           {/* Purpose Tags */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
-            <div className="flex items-center gap-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-bold">
+            <div className="flex items-center gap-2 bg-brand-100 text-brand-700 px-4 py-2 rounded-full text-sm font-bold">
               <HeartPulse size={16} />
               {t('regenRecovery')}
             </div>
-            <div className="flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-bold">
+            <div className="flex items-center gap-2 bg-brand-100 text-brand-700 px-4 py-2 rounded-full text-sm font-bold">
               <Leaf size={16} />
               {t('regenHealth')}
             </div>
-            <div className="flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-bold">
+            <div className="flex items-center gap-2 bg-gold-100 text-gold-700 px-4 py-2 rounded-full text-sm font-bold">
               <Shield size={16} />
               {t('regenPrevention')}
             </div>
@@ -1210,24 +1200,24 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
             {REGENERATIVE_TREATMENTS.map((treatment) => {
               const Icon = treatment.icon;
               const colorClasses: Record<string, { gradient: string; bg: string; text: string }> = {
-                blue: { gradient: 'from-blue-500 to-indigo-600', bg: 'bg-blue-50', text: 'text-blue-600' },
-                purple: { gradient: 'from-purple-500 to-pink-600', bg: 'bg-purple-50', text: 'text-purple-600' },
-                green: { gradient: 'from-green-500 to-emerald-600', bg: 'bg-green-50', text: 'text-green-600' },
+                blue: { gradient: 'from-brand-600 to-brand-400', bg: 'bg-brand-50', text: 'text-brand-700' },
+                purple: { gradient: 'from-brand-700 to-brand-500', bg: 'bg-brand-50', text: 'text-brand-600' },
+                green: { gradient: 'from-brand-500 to-brand-400', bg: 'bg-brand-50', text: 'text-brand-600' },
               };
               const colors = colorClasses[treatment.color];
               return (
-                <div key={treatment.id} className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 border border-gray-100 hover:shadow-xl transition-all duration-300 group">
+                <div key={treatment.id} className="bg-gradient-to-br from-neutral-50 to-white rounded-2xl p-8 border border-neutral-100 hover:shadow-xl transition-all duration-300 group">
                   <div className={`w-16 h-16 bg-gradient-to-br ${colors.gradient} rounded-2xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-lg`}>
                     <Icon size={32} />
                   </div>
                   <div className={`inline-block ${colors.bg} ${colors.text} text-xs font-bold px-3 py-1 rounded-full mb-4`}>
                     {treatment.purpose[currentLang]}
                   </div>
-                  <h3 className="text-xl font-serif font-bold text-gray-900 mb-1">{treatment.title[currentLang]}</h3>
-                  <p className="text-gray-400 text-sm mb-4">{treatment.subtitle}</p>
+                  <h3 className="text-xl font-serif font-bold text-brand-900 mb-1">{treatment.title[currentLang]}</h3>
+                  <p className="text-neutral-400 text-sm mb-4">{treatment.subtitle}</p>
                   <ul className="space-y-2">
                     {treatment.features.map((feature, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+                      <li key={i} className="flex items-start gap-2 text-sm text-neutral-600">
                         <CheckCircle size={14} className={`${colors.text} mt-0.5 flex-shrink-0`} />
                         <span>{feature[currentLang]}</span>
                       </li>
@@ -1240,11 +1230,11 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
         </div>
       </section>
       {/* Partner Institutions */}
-      <section className="py-20 bg-gradient-to-br from-slate-900 to-blue-900 text-white">
+      <section className="py-20 bg-gradient-to-br from-brand-900 to-brand-800 text-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-serif font-bold mb-4">{t('partnerTitle')}</h2>
-            <p className="text-gray-300">{t('partnerDesc')}</p>
+            <p className="text-neutral-300">{t('partnerDesc')}</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
             {PARTNER_INSTITUTIONS.map((inst, i) => {
@@ -1263,106 +1253,98 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
       </section>
       {/* Service / Contact Section - hidden in guide embed mode */}
       {!isGuideEmbed && (<>
-      <section id="contact-form" className="py-24 bg-gradient-to-br from-blue-50 to-purple-50">
+      <section id="contact-form" className="py-24 bg-gradient-to-br from-brand-50 to-gold-50">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
-              <span className="text-blue-600 text-xs tracking-widest uppercase font-bold">Book Service</span>
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mt-3 mb-4">
+              <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">Book Service</span>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-900 mt-3 mb-4">
                 {t('svcTitle')}
               </h2>
-              <p className="text-gray-500 mb-4">
+              <p className="text-neutral-500 mb-4">
                 {t('svcDesc')}
               </p>
-              {/* 限量提示 */}
-              <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 px-4 py-2 rounded-full">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
-                </span>
-                <span className="text-amber-700 text-sm">{t('svcLimit')}</span>
-              </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
               {/* Service Card 1: Initial Consultation */}
-              <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 hover:shadow-2xl transition-all group">
-                <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 text-white">
+              <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-neutral-100 hover:shadow-2xl transition-all group">
+                <div className="bg-gradient-to-r from-brand-700 to-brand-800 p-6 text-white">
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="text-xl font-bold">{CONSULTATION_SERVICES.initial.name[currentLang]}</h3>
-                      <p className="text-blue-200 text-sm">{CONSULTATION_SERVICES.initial.nameEn}</p>
+                      <p className="text-brand-200 text-sm">{CONSULTATION_SERVICES.initial.nameEn}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-3xl font-bold">¥{CONSULTATION_SERVICES.initial.price.toLocaleString()}</p>
-                      <p className="text-xs text-blue-200">{t('svcTaxIncl')}</p>
+                      <p className="text-xs text-brand-200">{t('svcTaxIncl')}</p>
                     </div>
                   </div>
                 </div>
                 <div className="p-6">
-                  <p className="text-gray-600 text-sm mb-6">{CONSULTATION_SERVICES.initial.description[currentLang]}</p>
-                  <ul className="space-y-2 mb-6 text-sm text-gray-600">
+                  <p className="text-neutral-600 text-sm mb-6">{CONSULTATION_SERVICES.initial.description[currentLang]}</p>
+                  <ul className="space-y-2 mb-6 text-sm text-neutral-600">
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-blue-500 mt-0.5 flex-shrink-0" />
+                      <CheckCircle size={14} className="text-brand-500 mt-0.5 flex-shrink-0" />
                       <span>{t('svcInitial1')}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-blue-500 mt-0.5 flex-shrink-0" />
+                      <CheckCircle size={14} className="text-brand-500 mt-0.5 flex-shrink-0" />
                       <span>{t('svcInitial2')}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-blue-500 mt-0.5 flex-shrink-0" />
+                      <CheckCircle size={14} className="text-brand-500 mt-0.5 flex-shrink-0" />
                       <span>{t('svcInitial3')}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-blue-500 mt-0.5 flex-shrink-0" />
+                      <CheckCircle size={14} className="text-brand-500 mt-0.5 flex-shrink-0" />
                       <span>{t('svcInitial4')}</span>
                     </li>
                   </ul>
                   <Link
                     href={guideSlug ? `/cancer-treatment/initial-consultation?guide=${guideSlug}` : '/cancer-treatment/initial-consultation'}
-                    className="block w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-700 text-white text-center font-bold rounded-xl hover:from-blue-700 hover:to-indigo-800 transition shadow-lg"
+                    className="block w-full py-3 bg-gradient-to-r from-brand-700 to-brand-800 text-white text-center font-bold rounded-xl hover:from-brand-800 hover:to-brand-900 transition shadow-lg"
                   >
                     {t('svcBookNow')}
                   </Link>
                 </div>
               </div>
               {/* Service Card 2: Remote Consultation */}
-              <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 hover:shadow-2xl transition-all group">
-                <div className="bg-gradient-to-r from-purple-600 to-pink-700 p-6 text-white">
+              <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-neutral-100 hover:shadow-2xl transition-all group">
+                <div className="bg-gradient-to-r from-brand-600 to-brand-700 p-6 text-white">
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="text-xl font-bold">{CONSULTATION_SERVICES.remote.name[currentLang]}</h3>
-                      <p className="text-purple-200 text-sm">{CONSULTATION_SERVICES.remote.nameEn}</p>
+                      <p className="text-brand-200 text-sm">{CONSULTATION_SERVICES.remote.nameEn}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-3xl font-bold">¥{CONSULTATION_SERVICES.remote.price.toLocaleString()}</p>
-                      <p className="text-xs text-purple-200">{t('svcTaxIncl')}</p>
+                      <p className="text-xs text-brand-200">{t('svcTaxIncl')}</p>
                     </div>
                   </div>
                 </div>
                 <div className="p-6">
-                  <p className="text-gray-600 text-sm mb-6">{CONSULTATION_SERVICES.remote.description[currentLang]}</p>
-                  <ul className="space-y-2 mb-6 text-sm text-gray-600">
+                  <p className="text-neutral-600 text-sm mb-6">{CONSULTATION_SERVICES.remote.description[currentLang]}</p>
+                  <ul className="space-y-2 mb-6 text-sm text-neutral-600">
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-purple-500 mt-0.5 flex-shrink-0" />
+                      <CheckCircle size={14} className="text-brand-500 mt-0.5 flex-shrink-0" />
                       <span>{t('svcRemote1')}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-purple-500 mt-0.5 flex-shrink-0" />
+                      <CheckCircle size={14} className="text-brand-500 mt-0.5 flex-shrink-0" />
                       <span>{t('svcRemote2')}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-purple-500 mt-0.5 flex-shrink-0" />
+                      <CheckCircle size={14} className="text-brand-500 mt-0.5 flex-shrink-0" />
                       <span>{t('svcRemote3')}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-purple-500 mt-0.5 flex-shrink-0" />
+                      <CheckCircle size={14} className="text-brand-500 mt-0.5 flex-shrink-0" />
                       <span>{t('svcRemote4')}</span>
                     </li>
                   </ul>
                   <Link
                     href={guideSlug ? `/cancer-treatment/remote-consultation?guide=${guideSlug}` : '/cancer-treatment/remote-consultation'}
-                    className="block w-full py-3 bg-gradient-to-r from-purple-600 to-pink-700 text-white text-center font-bold rounded-xl hover:from-purple-700 hover:to-pink-800 transition shadow-lg"
+                    className="block w-full py-3 bg-gradient-to-r from-brand-600 to-brand-700 text-white text-center font-bold rounded-xl hover:from-brand-700 hover:to-brand-800 transition shadow-lg"
                   >
                     {t('svcBookNow')}
                   </Link>
@@ -1370,14 +1352,14 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
               </div>
             </div>
             {/* Member System Notice */}
-            <div className="bg-white rounded-2xl p-6 border border-gray-200 mb-8">
+            <div className="bg-white rounded-2xl p-6 border border-neutral-200 mb-8">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Users size={24} className="text-blue-600" />
+                <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Users size={24} className="text-brand-700" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-2">{t('memberTitle')}</h4>
-                  <p className="text-sm text-gray-600 leading-relaxed">
+                  <h4 className="font-bold text-brand-900 mb-2">{t('memberTitle')}</h4>
+                  <p className="text-sm text-neutral-600 leading-relaxed">
                     {t('memberDesc')}
                   </p>
                 </div>
@@ -1390,7 +1372,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
       <div className="py-8 bg-white text-center">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-gray-500 hover:text-blue-600 transition"
+          className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-700 transition"
         >
           <ArrowLeft size={16} />
           {t('backHome')}
@@ -1408,7 +1390,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
           >
             <button
               onClick={() => setShowWechatQR(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+              className="absolute top-4 right-4 text-neutral-400 hover:text-neutral-600"
             >
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -1419,9 +1401,9 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                 <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178A1.17 1.17 0 014.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178 1.17 1.17 0 01-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 01.598.082l1.584.926a.272.272 0 00.139.045c.133 0 .241-.108.241-.243 0-.06-.024-.118-.04-.177l-.327-1.233a.49.49 0 01-.009-.102c0-.142.062-.28.177-.375C23.116 17.715 24 16.046 24 14.194c0-2.942-2.696-5.336-7.062-5.336zm-2.745 3.086c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.97-.983zm5.49 0c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.969-.983z"/>
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">{t('wechatTitle')}</h3>
-            <p className="text-gray-500 text-sm mb-6">{t('wechatScan')}</p>
-            <div className="bg-gray-50 rounded-xl p-4 mb-4">
+            <h3 className="text-xl font-bold text-brand-900 mb-2">{t('wechatTitle')}</h3>
+            <p className="text-neutral-500 text-sm mb-6">{t('wechatScan')}</p>
+            <div className="bg-neutral-50 rounded-xl p-4 mb-4">
               <Image
                 src="https://i.ibb.co/3yBrDKW5/wechat-qr.jpg"
                 alt="WeChat QR Code"
@@ -1431,7 +1413,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                 className="w-48 h-48 mx-auto"
               />
             </div>
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-neutral-400">
               {t('wechatNote')}
             </p>
           </div>
