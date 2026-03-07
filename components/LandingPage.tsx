@@ -2792,8 +2792,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
     return undefined;
   };
 
+  const handleLogoClick = () => {
+    setCurrentPage('home');
+    router.push('/'); // 清理 URL 参数，确保首页 URL 是纯粹的 /
+  };
+
   return (
-    <PublicLayout activeNav={getActiveNav()} transparentNav={true} onLogoClick={() => setCurrentPage('home')}>
+    <PublicLayout activeNav={getActiveNav()} transparentNav={true} onLogoClick={handleLogoClick}>
        {/* Content */}
        <main className="min-h-screen">
           {currentPage === 'home' && (
