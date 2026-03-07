@@ -1109,22 +1109,22 @@ export default function PartnerBusinessPage() {
       icon: HeartPulse,
       title: t('advantage1Title'),
       desc: t('advantage1Desc'),
-      color: 'text-teal-600',
-      bg: 'bg-teal-50'
+      color: 'text-brand-700',
+      bg: 'bg-brand-50'
     },
     {
       icon: Trophy,
       title: t('advantage2Title'),
       desc: t('advantage2Desc'),
-      color: 'text-amber-600',
-      bg: 'bg-amber-50'
+      color: 'text-gold-600',
+      bg: 'bg-gold-50'
     },
     {
       icon: Factory,
       title: t('advantage3Title'),
       desc: t('advantage3Desc'),
-      color: 'text-blue-600',
-      bg: 'bg-blue-50'
+      color: 'text-brand-600',
+      bg: 'bg-brand-50'
     }
   ];
 
@@ -1183,23 +1183,23 @@ export default function PartnerBusinessPage() {
             sizes="100vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/80 to-slate-900/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-900/80 to-brand-900/40"></div>
         </div>
 
         <div className="relative container mx-auto px-6 py-24">
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-amber-400"></div>
-              <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">{t('heroTagline')}</span>
+              <div className="h-[1px] w-12 bg-gold-400"></div>
+              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">{t('heroTagline')}</span>
             </div>
 
             <h1 className="font-serif text-4xl md:text-6xl text-white mb-6 leading-tight">
               {t('heroTitle1')}
               <br />
-              <span className="text-amber-400">{t('heroTitle2')}</span>
+              <span className="text-gold-400">{t('heroTitle2')}</span>
             </h1>
 
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed font-light max-w-2xl">
+            <p className="text-xl text-neutral-300 mb-8 leading-relaxed font-light max-w-2xl">
               {t('heroDesc')}
             </p>
 
@@ -1213,7 +1213,7 @@ export default function PartnerBusinessPage() {
 
             <a
               href="#contact-form"
-              className="inline-flex items-center px-8 py-4 bg-amber-400 text-slate-900 text-sm font-medium tracking-wider hover:bg-amber-300 transition-colors"
+              className="inline-flex items-center px-8 py-4 bg-gold-400 text-brand-900 text-sm font-medium tracking-wider hover:bg-gold-300 transition-colors"
             >
               {t('heroCta')}
               <ArrowRight size={18} className="ml-3" />
@@ -1223,14 +1223,14 @@ export default function PartnerBusinessPage() {
 
         <div className="absolute bottom-12 right-12 hidden lg:block">
           <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-6 max-w-xs">
-            <div className="text-xs text-amber-400 mb-3 uppercase tracking-wider">{t('heroCredentialLabel')}</div>
+            <div className="text-xs text-gold-400 mb-3 uppercase tracking-wider">{t('heroCredentialLabel')}</div>
             <div className="space-y-2 text-sm text-white/80">
               <div className="flex items-center gap-2">
-                <Shield size={14} className="text-amber-400" />
+                <Shield size={14} className="text-gold-400" />
                 {t('heroCredential1')}
               </div>
               <div className="flex items-center gap-2">
-                <Award size={14} className="text-amber-400" />
+                <Award size={14} className="text-gold-400" />
                 {t('heroCredential2')}
               </div>
             </div>
@@ -1243,19 +1243,19 @@ export default function PartnerBusinessPage() {
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <p className="text-xs tracking-[0.3em] text-gray-400 uppercase mb-3">{t('whyPartnerSubtitle')}</p>
-              <h2 className="font-serif text-3xl md:text-4xl text-gray-900">
+              <p className="text-xs tracking-[0.3em] text-neutral-400 uppercase mb-3">{t('whyPartnerSubtitle')}</p>
+              <h2 className="font-serif text-3xl md:text-4xl text-brand-900">
                 {t('whyPartnerTitle')}
               </h2>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
               {stats.map((stat, idx) => (
-                <div key={idx} className="text-center p-6 bg-gray-50 rounded-2xl">
-                  <div className="text-4xl font-light text-gray-900 mb-2">
-                    {stat.value}<span className="text-amber-500">{stat.suffix}</span>
+                <div key={idx} className="text-center p-6 bg-neutral-50 rounded-2xl">
+                  <div className="text-4xl font-light text-brand-900 mb-2">
+                    {stat.value}<span className="text-gold-500">{stat.suffix}</span>
                   </div>
-                  <div className="text-sm text-gray-500">{stat.label}</div>
+                  <div className="text-sm text-neutral-500">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -1269,8 +1269,8 @@ export default function PartnerBusinessPage() {
                     <div className={`w-12 h-12 rounded-xl bg-white flex items-center justify-center mb-6 ${item.color}`}>
                       <Icon size={24} />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{item.desc}</p>
+                    <h3 className="text-xl font-bold text-brand-900 mb-3">{item.title}</h3>
+                    <p className="text-neutral-600 leading-relaxed">{item.desc}</p>
                   </div>
                 );
               })}
@@ -1280,27 +1280,27 @@ export default function PartnerBusinessPage() {
       </section>
 
       {/* Partnership Models */}
-      <section className="py-20 bg-slate-900 text-white">
+      <section className="py-20 bg-brand-900 text-white">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <div>
-                <p className="text-xs tracking-[0.3em] text-amber-400 uppercase mb-4">{t('partnershipModelSubtitle')}</p>
+                <p className="text-xs tracking-[0.3em] text-gold-400 uppercase mb-4">{t('partnershipModelSubtitle')}</p>
                 <h2 className="font-serif text-3xl md:text-4xl text-white mb-6">
                   {t('partnershipModelTitle')}
                 </h2>
-                <p className="text-gray-300 leading-relaxed mb-8">
+                <p className="text-neutral-300 leading-relaxed mb-8">
                   {t('partnershipModelDesc')}
                 </p>
 
                 <div className="space-y-6">
                   {partnershipModels.map((model, idx) => (
-                    <div key={idx} className="border-l-2 border-amber-400/50 pl-6">
+                    <div key={idx} className="border-l-2 border-gold-400/50 pl-6">
                       <h4 className="text-lg font-medium text-white mb-2">{model.title}</h4>
-                      <p className="text-gray-400 text-sm mb-3">{model.desc}</p>
+                      <p className="text-neutral-400 text-sm mb-3">{model.desc}</p>
                       <div className="flex flex-wrap gap-2">
                         {model.items.map((item, i) => (
-                          <span key={i} className="text-xs px-2 py-1 bg-white/10 rounded text-gray-300">
+                          <span key={i} className="text-xs px-2 py-1 bg-white/10 rounded text-neutral-300">
                             {item}
                           </span>
                         ))}
@@ -1315,8 +1315,8 @@ export default function PartnerBusinessPage() {
                 <div className="space-y-4">
                   {benefits.map((benefit, idx) => (
                     <div key={idx} className="flex items-center gap-3">
-                      <CheckCircle2 size={18} className="text-amber-400 flex-shrink-0" />
-                      <span className="text-gray-300">{benefit}</span>
+                      <CheckCircle2 size={18} className="text-gold-400 flex-shrink-0" />
+                      <span className="text-neutral-300">{benefit}</span>
                     </div>
                   ))}
                 </div>
@@ -1327,18 +1327,18 @@ export default function PartnerBusinessPage() {
       </section>
 
       {/* Voice of Partners */}
-      <section className="py-20 bg-gradient-to-b from-slate-50 to-white overflow-hidden">
+      <section className="py-20 bg-gradient-to-b from-neutral-50 to-white overflow-hidden">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <p className="text-xs tracking-[0.3em] text-amber-500 uppercase mb-3">{t('voiceSubtitle')}</p>
-              <h2 className="font-serif text-3xl md:text-4xl text-gray-900 mb-4">
+              <p className="text-xs tracking-[0.3em] text-gold-500 uppercase mb-3">{t('voiceSubtitle')}</p>
+              <h2 className="font-serif text-3xl md:text-4xl text-brand-900 mb-4">
                 {t('voiceTitle')}
               </h2>
-              <p className="text-lg text-gray-500">
+              <p className="text-lg text-neutral-500">
                 {t('voiceSubtitleText')}
               </p>
-              <p className="text-sm text-gray-400 mt-2">
+              <p className="text-sm text-neutral-400 mt-2">
                 {t('voiceSubtitleDesc')}
               </p>
             </div>
@@ -1346,17 +1346,17 @@ export default function PartnerBusinessPage() {
             {/* Rating Overview */}
             <div className="flex items-center justify-center gap-8 mb-12">
               <div className="text-center">
-                <div className="text-5xl font-light text-amber-500 mb-1">4.9</div>
+                <div className="text-5xl font-light text-gold-500 mb-1">4.9</div>
                 <div className="flex items-center justify-center gap-0.5 mb-2">
                   {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                    <svg key={i} className="w-5 h-5 text-gold-400" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
                   ))}
                 </div>
-                <div className="text-sm text-gray-500">{t('voiceBasedOn')}</div>
+                <div className="text-sm text-neutral-500">{t('voiceBasedOn')}</div>
               </div>
-              <div className="h-16 w-px bg-gray-200"></div>
+              <div className="h-16 w-px bg-neutral-200"></div>
               <div className="flex gap-4">
                 {[
                   { region: t('voiceRegionTW'), count: '180+' },
@@ -1365,8 +1365,8 @@ export default function PartnerBusinessPage() {
                   { region: t('voiceRegionSG'), count: '80+' },
                 ].map((item, idx) => (
                   <div key={idx} className="text-center px-4">
-                    <div className="text-lg font-medium text-gray-900">{item.count}</div>
-                    <div className="text-xs text-gray-500">{item.region}</div>
+                    <div className="text-lg font-medium text-brand-900">{item.count}</div>
+                    <div className="text-xs text-neutral-500">{item.region}</div>
                   </div>
                 ))}
               </div>
@@ -1374,24 +1374,24 @@ export default function PartnerBusinessPage() {
 
             {/* Review Wall - Scrolling */}
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none"></div>
-              <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none"></div>
+              <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-neutral-50 to-transparent z-10 pointer-events-none"></div>
+              <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-neutral-50 to-transparent z-10 pointer-events-none"></div>
 
               {/* Row 1 - scroll left */}
               <div className="flex gap-4 mb-4 animate-scroll-left">
                 {[...reviewWallRow1, ...reviewWallRow1.slice(0, 4)].map((item, idx) => (
-                  <div key={idx} className="flex-shrink-0 w-72 bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                  <div key={idx} className="flex-shrink-0 w-72 bg-white p-5 rounded-xl shadow-sm border border-neutral-100">
                     <div className="flex items-center gap-0.5 mb-2">
                       {[...Array(item.rating)].map((_, i) => (
-                        <svg key={i} className="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                        <svg key={i} className="w-3.5 h-3.5 text-gold-400" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                       ))}
                     </div>
-                    <p className="text-sm text-gray-600 mb-3">&ldquo;{item.quote[currentLang]}&rdquo;</p>
+                    <p className="text-sm text-neutral-600 mb-3">&ldquo;{item.quote[currentLang]}&rdquo;</p>
                     <div className="flex items-center justify-between text-xs">
-                      <span className="font-medium text-gray-900">{item.name[currentLang]}</span>
-                      <span className="text-amber-600">{item.region[currentLang]}</span>
+                      <span className="font-medium text-brand-900">{item.name[currentLang]}</span>
+                      <span className="text-gold-600">{item.region[currentLang]}</span>
                     </div>
                   </div>
                 ))}
@@ -1400,18 +1400,18 @@ export default function PartnerBusinessPage() {
               {/* Row 2 - scroll right */}
               <div className="flex gap-4 mb-4 animate-scroll-right">
                 {[...reviewWallRow2, ...reviewWallRow2.slice(0, 4)].map((item, idx) => (
-                  <div key={idx} className="flex-shrink-0 w-72 bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                  <div key={idx} className="flex-shrink-0 w-72 bg-white p-5 rounded-xl shadow-sm border border-neutral-100">
                     <div className="flex items-center gap-0.5 mb-2">
                       {[...Array(item.rating)].map((_, i) => (
-                        <svg key={i} className="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                        <svg key={i} className="w-3.5 h-3.5 text-gold-400" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                       ))}
                     </div>
-                    <p className="text-sm text-gray-600 mb-3">&ldquo;{item.quote[currentLang]}&rdquo;</p>
+                    <p className="text-sm text-neutral-600 mb-3">&ldquo;{item.quote[currentLang]}&rdquo;</p>
                     <div className="flex items-center justify-between text-xs">
-                      <span className="font-medium text-gray-900">{item.name[currentLang]}</span>
-                      <span className="text-amber-600">{item.region[currentLang]}</span>
+                      <span className="font-medium text-brand-900">{item.name[currentLang]}</span>
+                      <span className="text-gold-600">{item.region[currentLang]}</span>
                     </div>
                   </div>
                 ))}
@@ -1420,18 +1420,18 @@ export default function PartnerBusinessPage() {
               {/* Row 3 - scroll left slow */}
               <div className="flex gap-4 animate-scroll-left-slow">
                 {[...reviewWallRow3, ...reviewWallRow3.slice(0, 4)].map((item, idx) => (
-                  <div key={idx} className="flex-shrink-0 w-72 bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                  <div key={idx} className="flex-shrink-0 w-72 bg-white p-5 rounded-xl shadow-sm border border-neutral-100">
                     <div className="flex items-center gap-0.5 mb-2">
                       {[...Array(item.rating)].map((_, i) => (
-                        <svg key={i} className="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                        <svg key={i} className="w-3.5 h-3.5 text-gold-400" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                       ))}
                     </div>
-                    <p className="text-sm text-gray-600 mb-3">&ldquo;{item.quote[currentLang]}&rdquo;</p>
+                    <p className="text-sm text-neutral-600 mb-3">&ldquo;{item.quote[currentLang]}&rdquo;</p>
                     <div className="flex items-center justify-between text-xs">
-                      <span className="font-medium text-gray-900">{item.name[currentLang]}</span>
-                      <span className="text-amber-600">{item.region[currentLang]}</span>
+                      <span className="font-medium text-brand-900">{item.name[currentLang]}</span>
+                      <span className="text-gold-600">{item.region[currentLang]}</span>
                     </div>
                   </div>
                 ))}
@@ -1441,23 +1441,23 @@ export default function PartnerBusinessPage() {
             {/* Featured Reviews */}
             <div className="grid md:grid-cols-3 gap-6 mt-12">
               {featuredReviews.map((testimonial, idx) => (
-                <div key={idx} className="bg-gradient-to-br from-amber-50 to-white p-8 rounded-2xl border border-amber-100">
+                <div key={idx} className="bg-gradient-to-br from-gold-50 to-white p-8 rounded-2xl border border-gold-100">
                   <div className="flex items-center gap-0.5 mb-4">
                     {[...Array(5)].map((_, i) => (
-                      <svg key={i} className="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                      <svg key={i} className="w-4 h-4 text-gold-400" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                       </svg>
                     ))}
                   </div>
-                  <p className="text-gray-700 leading-relaxed mb-6">&ldquo;{testimonial.quote[currentLang]}&rdquo;</p>
+                  <p className="text-neutral-700 leading-relaxed mb-6">&ldquo;{testimonial.quote[currentLang]}&rdquo;</p>
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-amber-400 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                    <div className="w-12 h-12 bg-gold-400 rounded-full flex items-center justify-center text-white font-bold text-lg">
                       {testimonial.avatar}
                     </div>
                     <div>
-                      <div className="font-medium text-gray-900">{testimonial.name[currentLang]}</div>
-                      <div className="text-sm text-gray-500">{testimonial.company[currentLang]}</div>
-                      <div className="text-xs text-amber-600 mt-0.5">{testimonial.region[currentLang]}</div>
+                      <div className="font-medium text-brand-900">{testimonial.name[currentLang]}</div>
+                      <div className="text-sm text-neutral-500">{testimonial.company[currentLang]}</div>
+                      <div className="text-xs text-gold-600 mt-0.5">{testimonial.region[currentLang]}</div>
                     </div>
                   </div>
                 </div>
@@ -1489,62 +1489,62 @@ export default function PartnerBusinessPage() {
       `}</style>
 
       {/* Industry Transformation */}
-      <section className="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+      <section className="py-20 bg-gradient-to-br from-brand-900 via-brand-800 to-brand-900 text-white">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-16 items-center">
               {/* Left: Pain Points */}
               <div>
-                <p className="text-xs tracking-[0.3em] text-amber-400 uppercase mb-4">{t('industrySubtitle')}</p>
+                <p className="text-xs tracking-[0.3em] text-gold-400 uppercase mb-4">{t('industrySubtitle')}</p>
                 <h2 className="font-serif text-3xl md:text-4xl text-white mb-6 leading-tight">
                   {t('industryTitle1')}
-                  <span className="text-amber-400">{t('industryTitle2')}</span>
+                  <span className="text-gold-400">{t('industryTitle2')}</span>
                 </h2>
 
                 <div className="space-y-6 mb-8">
                   {painPoints.map((point, idx) => (
-                    <div key={idx} className="border-l-2 border-amber-400/50 pl-5">
+                    <div key={idx} className="border-l-2 border-gold-400/50 pl-5">
                       <h4 className="font-medium text-white mb-1">{point.title}</h4>
-                      <p className="text-gray-400 text-sm">{point.desc}</p>
+                      <p className="text-neutral-400 text-sm">{point.desc}</p>
                     </div>
                   ))}
                 </div>
 
                 <div className="bg-white/5 border border-white/10 rounded-xl p-6">
-                  <div className="text-3xl font-light text-amber-400 mb-2">{t('industryStatValue')}</div>
-                  <div className="text-sm text-gray-300">{t('industryStatLabel')}</div>
+                  <div className="text-3xl font-light text-gold-400 mb-2">{t('industryStatValue')}</div>
+                  <div className="text-sm text-neutral-300">{t('industryStatLabel')}</div>
                 </div>
               </div>
 
               {/* Right: Solution */}
-              <div className="bg-gradient-to-br from-amber-500 to-amber-600 rounded-2xl p-8 md:p-10">
-                <h3 className="text-2xl font-bold text-slate-900 mb-6 whitespace-pre-line">
+              <div className="bg-gradient-to-br from-gold-500 to-gold-600 rounded-2xl p-8 md:p-10">
+                <h3 className="text-2xl font-bold text-brand-900 mb-6 whitespace-pre-line">
                   {t('solutionTitle')}
                 </h3>
 
-                <p className="text-slate-800 mb-8 leading-relaxed">
+                <p className="text-brand-800 mb-8 leading-relaxed">
                   {t('solutionDesc')}
                 </p>
 
                 <div className="space-y-4 mb-8">
                   {solutionItems.map((item, idx) => (
                     <div key={idx} className="flex items-center gap-3">
-                      <CheckCircle2 size={20} className="text-slate-900 flex-shrink-0" />
-                      <span className="text-slate-900 font-medium">{item}</span>
+                      <CheckCircle2 size={20} className="text-brand-900 flex-shrink-0" />
+                      <span className="text-brand-900 font-medium">{item}</span>
                     </div>
                   ))}
                 </div>
 
-                <div className="bg-slate-900/20 rounded-xl p-6">
-                  <div className="text-sm text-slate-800 mb-3 font-medium">{t('solutionReadyLabel')}</div>
-                  <p className="text-slate-700 text-sm leading-relaxed">
+                <div className="bg-brand-900/20 rounded-xl p-6">
+                  <div className="text-sm text-brand-800 mb-3 font-medium">{t('solutionReadyLabel')}</div>
+                  <p className="text-brand-700 text-sm leading-relaxed">
                     {t('solutionReadyDesc')}
                   </p>
                 </div>
 
-                <div className="mt-8 pt-6 border-t border-slate-900/20">
-                  <div className="text-slate-900 font-bold text-lg mb-2">{t('solutionFooterTitle')}</div>
-                  <p className="text-slate-700 text-sm">{t('solutionFooterDesc')}</p>
+                <div className="mt-8 pt-6 border-t border-brand-900/20">
+                  <div className="text-brand-900 font-bold text-lg mb-2">{t('solutionFooterTitle')}</div>
+                  <p className="text-brand-700 text-sm">{t('solutionFooterDesc')}</p>
                 </div>
               </div>
             </div>
@@ -1553,8 +1553,8 @@ export default function PartnerBusinessPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-16 border-t border-white/10">
               {bottomStats.map((stat, idx) => (
                 <div key={idx} className="text-center">
-                  <div className="text-3xl font-light text-amber-400 mb-2">{stat.value}</div>
-                  <div className="text-sm text-gray-400">{stat.label}</div>
+                  <div className="text-3xl font-light text-gold-400 mb-2">{stat.value}</div>
+                  <div className="text-sm text-neutral-400">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -1567,76 +1567,76 @@ export default function PartnerBusinessPage() {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <p className="text-xs tracking-[0.3em] text-gray-400 uppercase mb-3">{t('contactSubtitle')}</p>
-              <h2 className="font-serif text-3xl md:text-4xl text-gray-900 mb-4">
+              <p className="text-xs tracking-[0.3em] text-neutral-400 uppercase mb-3">{t('contactSubtitle')}</p>
+              <h2 className="font-serif text-3xl md:text-4xl text-brand-900 mb-4">
                 {t('contactTitle')}
               </h2>
-              <p className="text-gray-500">
+              <p className="text-neutral-500">
                 {t('contactDesc')}
               </p>
             </div>
 
             {isSubmitted ? (
-              <div className="text-center py-16 bg-green-50 rounded-2xl">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Check size={32} className="text-green-600" />
+              <div className="text-center py-16 bg-brand-50 rounded-2xl">
+                <div className="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Check size={32} className="text-brand-600" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">{t('formSubmitSuccess')}</h3>
-                <p className="text-gray-600">{t('formSubmitSuccessDesc')}</p>
+                <h3 className="text-2xl font-bold text-brand-900 mb-2">{t('formSubmitSuccess')}</h3>
+                <p className="text-neutral-600">{t('formSubmitSuccessDesc')}</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('formCompanyName')}</label>
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">{t('formCompanyName')}</label>
                   <input
                     type="text"
                     required
                     value={formData.companyName}
                     onChange={(e) => setFormData({...formData, companyName: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent transition-all"
                     placeholder={t('formCompanyPlaceholder')}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('formContactPerson')}</label>
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">{t('formContactPerson')}</label>
                   <input
                     type="text"
                     required
                     value={formData.contactPerson}
                     onChange={(e) => setFormData({...formData, contactPerson: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent transition-all"
                     placeholder={t('formContactPlaceholder')}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('formEmail')}</label>
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">{t('formEmail')}</label>
                   <input
                     type="email"
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent transition-all"
                     placeholder="email@company.com"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('formPhone')}</label>
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">{t('formPhone')}</label>
                   <input
                     type="tel"
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent transition-all"
                     placeholder={t('formPhonePlaceholder')}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('formCountry')}</label>
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">{t('formCountry')}</label>
                   <select
                     required
                     value={formData.country}
                     onChange={(e) => setFormData({...formData, country: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent transition-all"
                   >
                     <option value="">{t('formCountryPlaceholder')}</option>
                     <option value="中國大陸">{t('formCountryChina')}</option>
@@ -1653,12 +1653,12 @@ export default function PartnerBusinessPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('formBusinessType')}</label>
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">{t('formBusinessType')}</label>
                   <select
                     required
                     value={formData.businessType}
                     onChange={(e) => setFormData({...formData, businessType: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent transition-all"
                   >
                     <option value="">{t('formCountryPlaceholder')}</option>
                     <option value="旅行社">{t('formBusinessTravel')}</option>
@@ -1670,12 +1670,12 @@ export default function PartnerBusinessPage() {
                   </select>
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('formMessage')}</label>
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">{t('formMessage')}</label>
                   <textarea
                     rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData({...formData, message: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all resize-none"
+                    className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-gold-400 focus:border-transparent transition-all resize-none"
                     placeholder={t('formMessagePlaceholder')}
                   />
                 </div>
@@ -1683,7 +1683,7 @@ export default function PartnerBusinessPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-4 bg-amber-500 text-white font-medium rounded-lg hover:bg-amber-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full py-4 bg-gold-500 text-white font-medium rounded-lg hover:bg-gold-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {isSubmitting ? (
                       <>
@@ -1705,33 +1705,33 @@ export default function PartnerBusinessPage() {
       </section>
 
       {/* Contact Info */}
-      <section className="py-16 bg-slate-900 text-white">
+      <section className="py-16 bg-brand-900 text-white">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-3 gap-8 text-center">
               <div>
-                <div className="w-12 h-12 bg-amber-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Mail size={24} className="text-amber-400" />
+                <div className="w-12 h-12 bg-gold-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Mail size={24} className="text-gold-400" />
                 </div>
-                <div className="text-sm text-gray-400 mb-1">{t('contactEmailLabel')}</div>
-                <a href="mailto:haoyuan@niijima-koutsu.jp" className="text-white hover:text-amber-400 transition-colors">
+                <div className="text-sm text-neutral-400 mb-1">{t('contactEmailLabel')}</div>
+                <a href="mailto:haoyuan@niijima-koutsu.jp" className="text-white hover:text-gold-400 transition-colors">
                   haoyuan@niijima-koutsu.jp
                 </a>
               </div>
               <div>
-                <div className="w-12 h-12 bg-amber-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Phone size={24} className="text-amber-400" />
+                <div className="w-12 h-12 bg-gold-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Phone size={24} className="text-gold-400" />
                 </div>
-                <div className="text-sm text-gray-400 mb-1">{t('contactPhoneLabel')}</div>
-                <a href="tel:+81-6-6632-8807" className="text-white hover:text-amber-400 transition-colors">
+                <div className="text-sm text-neutral-400 mb-1">{t('contactPhoneLabel')}</div>
+                <a href="tel:+81-6-6632-8807" className="text-white hover:text-gold-400 transition-colors">
                   +81-6-6632-8807
                 </a>
               </div>
               <div>
-                <div className="w-12 h-12 bg-amber-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <MapPin size={24} className="text-amber-400" />
+                <div className="w-12 h-12 bg-gold-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <MapPin size={24} className="text-gold-400" />
                 </div>
-                <div className="text-sm text-gray-400 mb-1">{t('contactAddressLabel')}</div>
+                <div className="text-sm text-neutral-400 mb-1">{t('contactAddressLabel')}</div>
                 <div className="text-white">
                   大阪府大阪市浪速区大国1-2-21-602
                 </div>

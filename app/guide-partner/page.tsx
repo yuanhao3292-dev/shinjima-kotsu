@@ -765,31 +765,31 @@ export default function GuidePartnerPage() {
             backgroundImage: `url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=2094&auto=format&fit=crop')`,
           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a2e]/95 via-[#1a1a2e]/85 to-[#1a1a2e]/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-900/85 to-brand-900/70"></div>
         </div>
         <div className="relative z-10 max-w-5xl mx-auto px-6 py-24 md:py-32">
-          <p className="text-amber-400 text-sm font-medium mb-4 tracking-wide">
+          <p className="text-gold-400 text-sm font-medium mb-4 tracking-wide">
             {t('heroTagline')}
           </p>
           <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-6">
             {t('heroTitle1')}<br />
-            <span className="text-amber-400">{t('heroTitle2')}</span>
+            <span className="text-gold-400">{t('heroTitle2')}</span>
           </h1>
-          <p className="text-gray-400 text-lg leading-relaxed max-w-xl mb-10">
+          <p className="text-neutral-400 text-lg leading-relaxed max-w-xl mb-10">
             {t('heroDesc')}<br />
             {t('heroDesc2')}
           </p>
           <div className="flex flex-wrap gap-4">
             <button
               onClick={() => setShowWechatQR(true)}
-              className="bg-amber-500 hover:bg-amber-600 text-black font-bold px-8 py-4 rounded transition-colors"
+              className="bg-gold-400 hover:bg-gold-500 text-black font-bold px-8 py-4 rounded transition-colors"
               aria-label={t('ariaWechatApply')}
             >
               {t('btnWechatApply')}
             </button>
             <a
               href="#how-it-works"
-              className="border border-gray-600 hover:border-gray-400 text-white px-8 py-4 rounded transition-colors"
+              className="border border-brand-600 hover:border-neutral-400 text-white px-8 py-4 rounded transition-colors"
               aria-label={t('ariaLearnHow')}
             >
               {t('btnLearnHow')}
@@ -799,112 +799,112 @@ export default function GuidePartnerPage() {
       </section>
 
       {/* 3 Steps */}
-      <section className="bg-white py-16 border-b border-gray-100">
+      <section className="bg-white py-16 border-b border-neutral-100">
         <div className="max-w-5xl mx-auto px-6">
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div>
-              <div className="text-4xl font-bold text-amber-500 mb-2">01</div>
-              <h3 className="font-bold text-gray-900 mb-2">{t('step1Title')}</h3>
-              <p className="text-gray-500 text-sm">{t('step1Desc')}</p>
+              <div className="text-4xl font-bold text-gold-400 mb-2">01</div>
+              <h3 className="font-bold text-brand-900 mb-2">{t('step1Title')}</h3>
+              <p className="text-neutral-500 text-sm">{t('step1Desc')}</p>
             </div>
             <div>
-              <div className="text-4xl font-bold text-amber-500 mb-2">02</div>
-              <h3 className="font-bold text-gray-900 mb-2">{t('step2Title')}</h3>
-              <p className="text-gray-500 text-sm">{t('step2Desc')}</p>
+              <div className="text-4xl font-bold text-gold-400 mb-2">02</div>
+              <h3 className="font-bold text-brand-900 mb-2">{t('step2Title')}</h3>
+              <p className="text-neutral-500 text-sm">{t('step2Desc')}</p>
             </div>
             <div>
-              <div className="text-4xl font-bold text-amber-500 mb-2">03</div>
-              <h3 className="font-bold text-gray-900 mb-2">{t('step3Title')}</h3>
-              <p className="text-gray-500 text-sm">{t('step3Desc')}</p>
+              <div className="text-4xl font-bold text-gold-400 mb-2">03</div>
+              <h3 className="font-bold text-brand-900 mb-2">{t('step3Title')}</h3>
+              <p className="text-neutral-500 text-sm">{t('step3Desc')}</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Resources */}
-      <section id="how-it-works" className="bg-gray-50 py-20">
+      <section id="how-it-works" className="bg-neutral-50 py-20">
         <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">{t('resourcesTitle')}</h2>
-          <p className="text-gray-500 mb-12">{t('resourcesDesc')}</p>
+          <h2 className="text-2xl font-bold text-brand-900 mb-2">{t('resourcesTitle')}</h2>
+          <p className="text-neutral-500 mb-12">{t('resourcesDesc')}</p>
 
           <div className="space-y-6">
             {/* Nightclub */}
-            <div className="bg-white rounded-lg p-6 md:p-8 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-lg p-6 md:p-8 shadow-sm border border-neutral-100">
               <div className="flex flex-col md:flex-row md:items-center gap-6">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="bg-purple-100 text-purple-700 text-xs font-bold px-3 py-1 rounded">{t('resource1Badge')}</span>
-                    <span className="text-gray-400 text-sm">{t('resource1Subtitle')}</span>
+                    <span className="bg-brand-100 text-brand-700 text-xs font-bold px-3 py-1 rounded">{t('resource1Badge')}</span>
+                    <span className="text-neutral-400 text-sm">{t('resource1Subtitle')}</span>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{t('resource1Title')}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                  <h3 className="text-xl font-bold text-brand-900 mb-2">{t('resource1Title')}</h3>
+                  <p className="text-neutral-600 text-sm leading-relaxed mb-4">
                     {t('resource1Desc1')}<br />
                     {t('resource1Desc2')}
                   </p>
                   <div className="flex flex-wrap gap-2 text-xs">
-                    <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded">{t('city1')}</span>
-                    <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded">{t('city2')}</span>
-                    <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded">{t('city3')}</span>
-                    <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded">{t('city4')}</span>
-                    <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded">{t('citiesMore')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{t('city1')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{t('city2')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{t('city3')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{t('city4')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{t('citiesMore')}</span>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-gray-400 text-sm">{t('priceLabel')}</p>
-                  <p className="text-2xl font-bold text-gray-900">{t('price1')}<span className="text-sm font-normal text-gray-500">{t('priceUnit')}</span></p>
+                  <p className="text-neutral-400 text-sm">{t('priceLabel')}</p>
+                  <p className="text-2xl font-bold text-brand-900">{t('price1')}<span className="text-sm font-normal text-neutral-500">{t('priceUnit')}</span></p>
                 </div>
               </div>
             </div>
 
             {/* Health Checkup */}
-            <div className="bg-white rounded-lg p-6 md:p-8 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-lg p-6 md:p-8 shadow-sm border border-neutral-100">
               <div className="flex flex-col md:flex-row md:items-center gap-6">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded">{t('resource2Badge')}</span>
-                    <span className="text-gray-400 text-sm">{t('resource2Subtitle')}</span>
+                    <span className="bg-brand-100 text-brand-700 text-xs font-bold px-3 py-1 rounded">{t('resource2Badge')}</span>
+                    <span className="text-neutral-400 text-sm">{t('resource2Subtitle')}</span>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{t('resource2Title')}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                  <h3 className="text-xl font-bold text-brand-900 mb-2">{t('resource2Title')}</h3>
+                  <p className="text-neutral-600 text-sm leading-relaxed mb-4">
                     {t('resource2Desc1')}<br />
                     {t('resource2Desc2')}
                   </p>
                   <div className="flex flex-wrap gap-2 text-xs">
-                    <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded">{t('tag1')}</span>
-                    <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded">{t('tag2')}</span>
-                    <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded">{t('tag3')}</span>
-                    <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded">{t('tag4')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{t('tag1')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{t('tag2')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{t('tag3')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{t('tag4')}</span>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-gray-400 text-sm">{t('packagePriceLabel')}</p>
-                  <p className="text-2xl font-bold text-gray-900">{t('price2')}<span className="text-sm font-normal text-gray-500">{t('priceUnit')}</span></p>
+                  <p className="text-neutral-400 text-sm">{t('packagePriceLabel')}</p>
+                  <p className="text-2xl font-bold text-brand-900">{t('price2')}<span className="text-sm font-normal text-neutral-500">{t('priceUnit')}</span></p>
                 </div>
               </div>
             </div>
 
             {/* Medical Services */}
-            <div className="bg-white rounded-lg p-6 md:p-8 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-lg p-6 md:p-8 shadow-sm border border-neutral-100">
               <div className="flex flex-col md:flex-row md:items-center gap-6">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded">{t('resource3Badge')}</span>
-                    <span className="text-gray-400 text-sm">{t('resource3Subtitle')}</span>
+                    <span className="bg-brand-100 text-brand-700 text-xs font-bold px-3 py-1 rounded">{t('resource3Badge')}</span>
+                    <span className="text-neutral-400 text-sm">{t('resource3Subtitle')}</span>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{t('resource3Title')}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                  <h3 className="text-xl font-bold text-brand-900 mb-2">{t('resource3Title')}</h3>
+                  <p className="text-neutral-600 text-sm leading-relaxed mb-4">
                     {t('resource3Desc1')}<br />
                     {t('resource3Desc2')}
                   </p>
                   <div className="flex flex-wrap gap-2 text-xs">
-                    <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded">{t('tag5')}</span>
-                    <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded">{t('tag6')}</span>
-                    <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded">{t('tag7')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{t('tag5')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{t('tag6')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{t('tag7')}</span>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-gray-400 text-sm">{t('treatmentPriceLabel')}</p>
-                  <p className="text-2xl font-bold text-gray-900">{t('price3')}<span className="text-sm font-normal text-gray-500">{t('priceUnit')}</span></p>
+                  <p className="text-neutral-400 text-sm">{t('treatmentPriceLabel')}</p>
+                  <p className="text-2xl font-bold text-brand-900">{t('price3')}<span className="text-sm font-normal text-neutral-500">{t('priceUnit')}</span></p>
                 </div>
               </div>
             </div>
@@ -913,79 +913,79 @@ export default function GuidePartnerPage() {
       </section>
 
       {/* Partnership Rules */}
-      <section className="bg-white py-20 border-t border-gray-100">
+      <section className="bg-white py-20 border-t border-neutral-100">
         <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">{t('rulesTitle')}</h2>
-          <p className="text-gray-500 mb-12">{t('rulesDesc')}</p>
+          <h2 className="text-2xl font-bold text-brand-900 mb-2">{t('rulesTitle')}</h2>
+          <p className="text-neutral-500 mb-12">{t('rulesDesc')}</p>
 
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="border border-gray-200 rounded-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-3">{t('rule1Title')}</h3>
-              <ul className="space-y-2 text-gray-600 text-sm">
+            <div className="border border-neutral-200 rounded-lg p-6">
+              <h3 className="font-bold text-brand-900 mb-3">{t('rule1Title')}</h3>
+              <ul className="space-y-2 text-neutral-600 text-sm">
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-amber-500 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-gold-400 mt-0.5 flex-shrink-0" />
                   <span>{t('rule1Item1')}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-amber-500 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-gold-400 mt-0.5 flex-shrink-0" />
                   <span>{t('rule1Item2')}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-amber-500 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-gold-400 mt-0.5 flex-shrink-0" />
                   <span>{t('rule1Item3')}</span>
                 </li>
               </ul>
             </div>
 
-            <div className="border border-gray-200 rounded-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-3">{t('rule2Title')}</h3>
-              <ul className="space-y-2 text-gray-600 text-sm">
+            <div className="border border-neutral-200 rounded-lg p-6">
+              <h3 className="font-bold text-brand-900 mb-3">{t('rule2Title')}</h3>
+              <ul className="space-y-2 text-neutral-600 text-sm">
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-amber-500 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-gold-400 mt-0.5 flex-shrink-0" />
                   <span>{t('rule2Item1')}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-amber-500 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-gold-400 mt-0.5 flex-shrink-0" />
                   <span>{t('rule2Item2')}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-amber-500 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-gold-400 mt-0.5 flex-shrink-0" />
                   <span>{t('rule2Item3')}</span>
                 </li>
               </ul>
             </div>
 
-            <div className="border border-gray-200 rounded-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-3">{t('rule3Title')}</h3>
-              <ul className="space-y-2 text-gray-600 text-sm">
+            <div className="border border-neutral-200 rounded-lg p-6">
+              <h3 className="font-bold text-brand-900 mb-3">{t('rule3Title')}</h3>
+              <ul className="space-y-2 text-neutral-600 text-sm">
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-amber-500 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-gold-400 mt-0.5 flex-shrink-0" />
                   <span>{t('rule3Item1')}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-amber-500 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-gold-400 mt-0.5 flex-shrink-0" />
                   <span>{t('rule3Item2')}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-amber-500 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-gold-400 mt-0.5 flex-shrink-0" />
                   <span>{t('rule3Item3')}</span>
                 </li>
               </ul>
             </div>
 
-            <div className="border border-gray-200 rounded-lg p-6">
-              <h3 className="font-bold text-gray-900 mb-3">{t('rule4Title')}</h3>
-              <ul className="space-y-2 text-gray-600 text-sm">
+            <div className="border border-neutral-200 rounded-lg p-6">
+              <h3 className="font-bold text-brand-900 mb-3">{t('rule4Title')}</h3>
+              <ul className="space-y-2 text-neutral-600 text-sm">
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-amber-500 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-gold-400 mt-0.5 flex-shrink-0" />
                   <span>{t('rule4Item1')}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-amber-500 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-gold-400 mt-0.5 flex-shrink-0" />
                   <span>{t('rule4Item2')}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-amber-500 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-gold-400 mt-0.5 flex-shrink-0" />
                   <span>{t('rule4Item3')}</span>
                 </li>
               </ul>
@@ -995,73 +995,73 @@ export default function GuidePartnerPage() {
       </section>
 
       {/* Brand Website */}
-      <section className="bg-[#1a1a2e] text-white py-20">
+      <section className="bg-brand-900 text-white py-20">
         <div className="max-w-5xl mx-auto px-6">
           <div className="md:flex md:items-center md:gap-12">
             <div className="flex-1 mb-10 md:mb-0">
-              <p className="text-amber-400 text-sm font-medium mb-4">{t('brandSectionBadge')}</p>
+              <p className="text-gold-400 text-sm font-medium mb-4">{t('brandSectionBadge')}</p>
               <h2 className="text-2xl md:text-3xl font-bold mb-4">
                 {t('brandSectionTitle')}
               </h2>
-              <p className="text-gray-400 leading-relaxed mb-6">
+              <p className="text-neutral-400 leading-relaxed mb-6">
                 {t('brandSectionDesc1')}<br />
                 {t('brandSectionDesc2')}
               </p>
-              <ul className="space-y-3 text-gray-300 text-sm mb-8">
+              <ul className="space-y-3 text-neutral-300 text-sm mb-8">
                 <li className="flex items-center gap-2">
-                  <span className="text-amber-400">✓</span>
+                  <span className="text-gold-400">✓</span>
                   {t('brandFeature1')}
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-amber-400">✓</span>
+                  <span className="text-gold-400">✓</span>
                   {t('brandFeature2')}
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-amber-400">✓</span>
+                  <span className="text-gold-400">✓</span>
                   {t('brandFeature3')}
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-amber-400">✓</span>
+                  <span className="text-gold-400">✓</span>
                   {t('brandFeature4')}
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-amber-400">✓</span>
+                  <span className="text-gold-400">✓</span>
                   {t('brandFeature5')}
                 </li>
               </ul>
               <div className="flex items-baseline gap-2 mb-6">
-                <span className="text-3xl font-bold text-amber-400">{t('brandPrice')}</span>
-                <span className="text-gray-500">{t('brandPriceUnit')}</span>
+                <span className="text-3xl font-bold text-gold-400">{t('brandPrice')}</span>
+                <span className="text-neutral-500">{t('brandPriceUnit')}</span>
               </div>
               <button
                 onClick={() => setShowWechatQR(true)}
-                className="bg-amber-500 hover:bg-amber-600 text-black font-bold px-6 py-3 rounded transition-colors"
+                className="bg-gold-400 hover:bg-gold-500 text-black font-bold px-6 py-3 rounded transition-colors"
                 aria-label={t('ariaWechatConsult')}
               >
                 {t('btnConsult')}
               </button>
             </div>
             <div className="flex-1">
-              <div className="bg-gray-800/50 rounded-lg p-6 border border-gray-700">
-                <p className="text-gray-400 text-sm mb-4">{t('previewLabel')}</p>
-                <div className="bg-gray-900 rounded p-4">
+              <div className="bg-brand-800/50 rounded-lg p-6 border border-brand-700">
+                <p className="text-neutral-400 text-sm mb-4">{t('previewLabel')}</p>
+                <div className="bg-brand-900 rounded p-4">
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                    <span className="text-gray-500 text-xs ml-2">bespoketrip.jp/g/demo</span>
+                    <div className="w-3 h-3 rounded-full bg-gold-400"></div>
+                    <div className="w-3 h-3 rounded-full bg-gold-300"></div>
+                    <div className="w-3 h-3 rounded-full bg-brand-400"></div>
+                    <span className="text-neutral-500 text-xs ml-2">bespoketrip.jp/g/demo</span>
                   </div>
                   <div className="text-center py-8">
-                    <p className="text-gray-400 text-sm">{t('previewLogoText')}</p>
+                    <p className="text-neutral-400 text-sm">{t('previewLogoText')}</p>
                     <p className="text-white font-bold text-xl my-4">{t('previewBrandName')}</p>
-                    <p className="text-gray-500 text-xs">{t('previewTagline')}</p>
+                    <p className="text-neutral-500 text-xs">{t('previewTagline')}</p>
                   </div>
                 </div>
                 <a
                   href="https://bespoketrip.jp/g/demo"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-center text-amber-400 text-sm mt-4 hover:underline"
+                  className="block text-center text-gold-400 text-sm mt-4 hover:underline"
                   aria-label={t('ariaViewDemo')}
                 >
                   {t('viewDemo')}
@@ -1073,7 +1073,7 @@ export default function GuidePartnerPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-amber-500 py-16">
+      <section className="bg-gold-400 py-16">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-black mb-4">
             {t('ctaTitle')}
@@ -1083,7 +1083,7 @@ export default function GuidePartnerPage() {
           </p>
           <button
             onClick={() => setShowWechatQR(true)}
-            className="bg-black hover:bg-gray-900 text-white font-bold px-10 py-4 rounded transition-colors inline-flex items-center gap-3"
+            className="bg-black hover:bg-brand-900 text-white font-bold px-10 py-4 rounded transition-colors inline-flex items-center gap-3"
             aria-label={t('ariaWechatPartner')}
           >
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
@@ -1098,19 +1098,19 @@ export default function GuidePartnerPage() {
       </section>
 
       {/* Legal Notice */}
-      <section className="bg-gray-100 py-12">
+      <section className="bg-neutral-100 py-12">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="bg-white rounded-lg p-6 border border-gray-200">
+          <div className="bg-white rounded-lg p-6 border border-neutral-200">
             <div className="flex items-center gap-2 mb-4">
-              <Shield className="w-5 h-5 text-gray-600" />
-              <h3 className="font-bold text-gray-900">{t('legalTitle')}</h3>
+              <Shield className="w-5 h-5 text-neutral-600" />
+              <h3 className="font-bold text-brand-900">{t('legalTitle')}</h3>
             </div>
-            <div className="text-sm text-gray-600 leading-relaxed space-y-2">
+            <div className="text-sm text-neutral-600 leading-relaxed space-y-2">
               <p>
                 {t('legalText')}
               </p>
             </div>
-            <div className="mt-4 pt-4 border-t border-gray-100 text-xs text-gray-500">
+            <div className="mt-4 pt-4 border-t border-neutral-100 text-xs text-neutral-500">
               {t('legalFooter')}
             </div>
           </div>
@@ -1118,12 +1118,12 @@ export default function GuidePartnerPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#111] text-white py-12">
+      <footer className="bg-brand-900 text-white py-12">
         <div className="max-w-5xl mx-auto px-6">
           <div className="md:flex md:justify-between md:items-start">
             <div className="mb-8 md:mb-0">
               <h4 className="font-bold text-lg mb-4">{t('footerCompany')}</h4>
-              <div className="space-y-2 text-gray-400 text-sm">
+              <div className="space-y-2 text-neutral-400 text-sm">
                 <p className="flex items-center gap-2">
                   <MapPin size={14} />
                   {t('footerAddress')}
@@ -1138,7 +1138,7 @@ export default function GuidePartnerPage() {
                 </p>
               </div>
             </div>
-            <div className="text-gray-400 text-sm">
+            <div className="text-neutral-400 text-sm">
               <p>{t('footerLicense')}</p>
               <p>{t('footerJATA')}</p>
               <div className="mt-4 flex gap-4">
@@ -1148,7 +1148,7 @@ export default function GuidePartnerPage() {
               </div>
             </div>
           </div>
-          <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-500 text-xs">
+          <div className="mt-8 pt-8 border-t border-brand-800 text-center text-neutral-500 text-xs">
             <p>© {new Date().getFullYear()} {t('footerCopyright')}. All rights reserved.</p>
           </div>
         </div>
@@ -1168,17 +1168,17 @@ export default function GuidePartnerPage() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-4">
-              <h3 id="wechat-modal-title" className="font-bold text-lg text-gray-900">{t('modalTitle')}</h3>
+              <h3 id="wechat-modal-title" className="font-bold text-lg text-brand-900">{t('modalTitle')}</h3>
               <button
                 onClick={() => setShowWechatQR(false)}
-                className="text-gray-400 hover:text-gray-600 p-1"
+                className="text-neutral-400 hover:text-neutral-600 p-1"
                 aria-label={t('ariaCloseModal')}
               >
                 <X size={20} />
               </button>
             </div>
 
-            <div className="bg-gray-50 rounded-lg p-4 flex justify-center">
+            <div className="bg-neutral-50 rounded-lg p-4 flex justify-center">
               <img
                 src={WECHAT_QR_URL}
                 alt="WeChat QR Code"
@@ -1186,11 +1186,11 @@ export default function GuidePartnerPage() {
               />
             </div>
 
-            <p className="text-center text-gray-600 mt-4 text-sm">
+            <p className="text-center text-neutral-600 mt-4 text-sm">
               {t('modalDesc')}
             </p>
 
-            <div className="mt-4 bg-amber-50 rounded-lg p-4 text-sm text-amber-800">
+            <div className="mt-4 bg-gold-50 rounded-lg p-4 text-sm text-gold-700">
               <p className="font-medium mb-1">{t('modalNoteTitle')}</p>
               <p>{t('modalNoteText')}</p>
             </div>
