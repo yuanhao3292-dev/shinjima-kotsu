@@ -1042,26 +1042,27 @@ export default function GuidePartnerPage() {
               </button>
             </div>
             <div className="flex-1">
-              <div className="bg-brand-800/50 rounded-lg p-6 border border-brand-700">
-                <p className="text-neutral-400 text-sm mb-4">{t('previewLabel')}</p>
-                <div className="bg-brand-900 rounded p-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-3 h-3 rounded-full bg-gold-400"></div>
-                    <div className="w-3 h-3 rounded-full bg-gold-300"></div>
-                    <div className="w-3 h-3 rounded-full bg-brand-400"></div>
+              <div className="bg-brand-800/50 rounded-lg p-4 border border-brand-700">
+                <p className="text-neutral-400 text-sm mb-3">{t('previewLabel')}</p>
+                <div className="bg-brand-900 rounded overflow-hidden">
+                  <div className="flex items-center gap-2 px-3 py-2 border-b border-brand-700">
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/70"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/70"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/70"></div>
                     <span className="text-neutral-500 text-xs ml-2">bespoketrip.jp/g/demo</span>
                   </div>
-                  <div className="text-center py-8">
-                    <p className="text-neutral-400 text-sm">{t('previewLogoText')}</p>
-                    <p className="text-white font-bold text-xl my-4">{t('previewBrandName')}</p>
-                    <p className="text-neutral-500 text-xs">{t('previewTagline')}</p>
-                  </div>
+                  <iframe
+                    src="https://bespoketrip.jp/g/demo"
+                    className="w-full h-[400px] md:h-[480px] border-0"
+                    title="White-label demo"
+                    loading="lazy"
+                  />
                 </div>
                 <a
                   href="https://bespoketrip.jp/g/demo"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-center text-gold-400 text-sm mt-4 hover:underline"
+                  className="block text-center text-gold-400 text-sm mt-3 hover:underline"
                   aria-label={t('ariaViewDemo')}
                 >
                   {t('viewDemo')}
