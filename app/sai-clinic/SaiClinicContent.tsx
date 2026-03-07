@@ -679,8 +679,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
                 {pkg.flagship && <div className="absolute top-0 right-0 bg-amber-500 text-black text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Flagship</div>}
                 {pkg.popular && <div className="absolute top-0 right-0 bg-rose-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">人气</div>}
                 <div className="mb-4">
-                  <h4 className={`text-xl font-bold ${pkg.flagship ? 'text-amber-400' : pkg.popular ? 'text-rose-700' : 'text-gray-900'}`}>{pkg.name}</h4>
-                  <p className={`text-xs mt-1 ${pkg.flagship ? 'text-gray-400' : 'text-gray-500'}`}>{pkg.nameZh}</p>
+                  <h4 className={`text-xl font-bold ${pkg.flagship ? 'text-amber-400' : pkg.popular ? 'text-rose-700' : 'text-gray-900'}`}>{t(pkg.name, lang)}</h4>
                   <div className="mt-2">
                     <span className={`text-xs line-through ${pkg.flagship ? 'text-gray-500' : 'text-gray-400'}`}>分别预约 {formatPrice(getRefPrice(pkg.price))}</span>
                   </div>
@@ -694,7 +693,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
                   {pkg.features.map((f, i) => (
                     <div key={i} className="flex gap-2">
                       <CheckCircle size={14} className={`shrink-0 ${pkg.flagship ? 'text-amber-500' : pkg.popular ? 'text-rose-500' : 'text-gray-400'}`} />
-                      <span className={pkg.flagship ? 'text-gray-300' : 'text-gray-700'}>{f}</span>
+                      <span className={pkg.flagship ? 'text-gray-300' : 'text-gray-700'}>{t(f, lang)}</span>
                     </div>
                   ))}
                 </div>
@@ -727,9 +726,9 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {COMBO_PACKAGES.map((pkg) => (
               <div key={pkg.slug} className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition hover:-translate-y-1 flex flex-col">
-                <h4 className="font-bold text-gray-900 mb-1">{pkg.name}</h4>
+                <h4 className="font-bold text-gray-900 mb-1">{t(pkg.name, lang)}</h4>
                 <p className="text-xs text-gray-400 mb-3">{pkg.nameJa}</p>
-                <p className="text-sm text-gray-500 leading-relaxed mb-4 flex-grow">{pkg.desc}</p>
+                <p className="text-sm text-gray-500 leading-relaxed mb-4 flex-grow">{t(pkg.desc, lang)}</p>
                 <div className="mb-3">
                   <span className="text-xs line-through text-gray-400">分别预约 {formatPrice(getRefPrice(pkg.price))}</span>
                   <p className="text-xl font-bold text-gray-900">{formatPrice(pkg.price)}</p>
@@ -756,9 +755,9 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
                 {EYE_PACKAGES.map((pkg) => (
                   <div key={pkg.slug} className="bg-purple-50/50 rounded-xl p-5 border border-purple-100 hover:shadow-lg transition flex flex-col sm:flex-row sm:items-center gap-4">
                     <div className="flex-grow">
-                      <h4 className="font-bold text-gray-900">{pkg.name}</h4>
+                      <h4 className="font-bold text-gray-900">{t(pkg.name, lang)}</h4>
                       <p className="text-xs text-gray-400 mb-1">{pkg.nameJa}</p>
-                      <p className="text-sm text-gray-500">{pkg.desc}</p>
+                      <p className="text-sm text-gray-500">{t(pkg.desc, lang)}</p>
                     </div>
                     <div className="text-right shrink-0">
                       <span className="text-xs line-through text-gray-400 block">参考价 {formatPrice(getRefPrice(pkg.price))}</span>
@@ -780,9 +779,9 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
                 {NOSE_PACKAGES.map((pkg) => (
                   <div key={pkg.slug} className="bg-blue-50/50 rounded-xl p-5 border border-blue-100 hover:shadow-lg transition flex flex-col sm:flex-row sm:items-center gap-4">
                     <div className="flex-grow">
-                      <h4 className="font-bold text-gray-900">{pkg.name}</h4>
+                      <h4 className="font-bold text-gray-900">{t(pkg.name, lang)}</h4>
                       <p className="text-xs text-gray-400 mb-1">{pkg.nameJa}</p>
-                      <p className="text-sm text-gray-500">{pkg.desc}</p>
+                      <p className="text-sm text-gray-500">{t(pkg.desc, lang)}</p>
                     </div>
                     <div className="text-right shrink-0">
                       <span className="text-xs line-through text-gray-400 block">参考价 {formatPrice(getRefPrice(pkg.price))}</span>
@@ -808,9 +807,9 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...INJECTABLE_PACKAGES, ...FAT_PACKAGES, ...WELLNESS_PACKAGES].map((pkg) => (
               <div key={pkg.slug} className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition hover:-translate-y-1 flex flex-col">
-                <h4 className="font-bold text-gray-900 mb-1">{pkg.name}</h4>
+                <h4 className="font-bold text-gray-900 mb-1">{t(pkg.name, lang)}</h4>
                 <p className="text-xs text-gray-400 mb-3">{pkg.nameJa}</p>
-                <p className="text-sm text-gray-500 leading-relaxed mb-4 flex-grow">{pkg.desc}</p>
+                <p className="text-sm text-gray-500 leading-relaxed mb-4 flex-grow">{t(pkg.desc, lang)}</p>
                 <div>
                   <span className="text-xs line-through text-gray-400">分别预约 {formatPrice(getRefPrice(pkg.price))}</span>
                   <div className="flex items-end justify-between mt-1">
@@ -855,8 +854,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
           <div className="bg-gray-50 rounded-2xl border border-gray-200 overflow-hidden">
             <div className="px-6 py-4 bg-gray-100 border-b border-gray-200 flex items-center justify-between">
               <h3 className="font-bold text-gray-900">
-                {FULL_MENU[menuTab as keyof typeof FULL_MENU].title}
-                <span className="text-xs text-gray-400 ml-2">{FULL_MENU[menuTab as keyof typeof FULL_MENU].titleJa}</span>
+                {t(FULL_MENU[menuTab as keyof typeof FULL_MENU].title, lang)}
               </h3>
               <span className="text-xs text-gray-400">{FULL_MENU[menuTab as keyof typeof FULL_MENU].items.length} 项目</span>
             </div>
