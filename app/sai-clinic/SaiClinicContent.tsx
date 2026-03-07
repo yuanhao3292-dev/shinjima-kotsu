@@ -11,6 +11,10 @@ import {
 } from 'lucide-react';
 import ContactButtons from '@/components/ContactButtons';
 import type { SaiClinicImage } from '@/lib/services/sai-clinic-images';
+import { useLanguage, type Language } from '@/hooks/useLanguage';
+
+// Translation helper function
+const t = (translations: Record<Language, string>, lang: Language): string => translations[lang];
 
 // ━━━━━━━━ 静态 fallback 图片（数据库不可用时使用） ━━━━━━━━
 
@@ -50,73 +54,86 @@ const FALLBACK_IMAGES: SaiClinicImage[] = [
 const THREAD_LIFT_PACKAGES = [
   {
     slug: 'sai-lift-try',
-    name: 'SAI LIFT TRY',
-    nameZh: '体验版糸リフト',
+    name: { ja: 'SAI LIFT TRY', 'zh-CN': '体验版糸リフト', 'zh-TW': '體驗版糸リフト', en: 'SAI LIFT TRY' } as Record<Language, string>,
     price: 380000,
-    features: ['初次体验推荐', '自然提升效果', '术后恢复快', '含术后回诊'],
+    features: [
+      { ja: '初回体験推奨', 'zh-CN': '初次体验推荐', 'zh-TW': '初次體驗推薦', en: 'First-time recommended' } as Record<Language, string>,
+      { ja: '自然な引き上げ効果', 'zh-CN': '自然提升效果', 'zh-TW': '自然提升效果', en: 'Natural lifting' } as Record<Language, string>,
+      { ja: '術後回復が早い', 'zh-CN': '术后恢复快', 'zh-TW': '術後恢復快', en: 'Quick recovery' } as Record<Language, string>,
+      { ja: '術後診察含む', 'zh-CN': '含术后回诊', 'zh-TW': '含術後回診', en: 'Includes follow-up' } as Record<Language, string>,
+    ],
     color: 'rose',
   },
   {
     slug: 'sai-lift-standard',
-    name: 'SAI LIFT STANDARD',
-    nameZh: '标准版糸リフト',
+    name: { ja: 'SAI LIFT STANDARD', 'zh-CN': '标准版糸リフト', 'zh-TW': '標準版糸リフト', en: 'SAI LIFT STANDARD' } as Record<Language, string>,
     price: 680000,
-    features: ['高人气选择', '明显提升效果', '刺激胶原再生', '效果持续12-18个月', '含术后回诊'],
+    features: [
+      { ja: '人気No.1', 'zh-CN': '高人气选择', 'zh-TW': '高人氣選擇', en: 'Most popular' } as Record<Language, string>,
+      { ja: '明らかな引き上げ効果', 'zh-CN': '明显提升效果', 'zh-TW': '明顯提升效果', en: 'Noticeable lifting' } as Record<Language, string>,
+      { ja: 'コラーゲン再生促進', 'zh-CN': '刺激胶原再生', 'zh-TW': '刺激膠原再生', en: 'Stimulates collagen' } as Record<Language, string>,
+      { ja: '効果12-18ヶ月持続', 'zh-CN': '效果持续12-18个月', 'zh-TW': '效果持續12-18個月', en: 'Lasts 12-18 months' } as Record<Language, string>,
+      { ja: '術後診察含む', 'zh-CN': '含术后回诊', 'zh-TW': '含術後回診', en: 'Includes follow-up' } as Record<Language, string>,
+    ],
     color: 'purple',
     popular: true,
   },
   {
     slug: 'sai-lift-perfect',
-    name: 'SAI LIFT PERFECT',
-    nameZh: '完美版糸リフト',
+    name: { ja: 'SAI LIFT PERFECT', 'zh-CN': '完美版糸リフト', 'zh-TW': '完美版糸リフト', en: 'SAI LIFT PERFECT' } as Record<Language, string>,
     price: 980000,
-    features: ['最强提升效果', '全脸全方位改善', '最长持效期', '术后1年内复诊优惠', 'VIP专属服务'],
+    features: [
+      { ja: '最強引き上げ効果', 'zh-CN': '最强提升效果', 'zh-TW': '最強提升效果', en: 'Maximum lifting' } as Record<Language, string>,
+      { ja: '全顔総合改善', 'zh-CN': '全脸全方位改善', 'zh-TW': '全臉全方位改善', en: 'Full-face enhancement' } as Record<Language, string>,
+      { ja: '最長持続期間', 'zh-CN': '最长持效期', 'zh-TW': '最長持效期', en: 'Longest duration' } as Record<Language, string>,
+      { ja: '術後1年以内再診割引', 'zh-CN': '术后1年内复诊优惠', 'zh-TW': '術後1年內復診優惠', en: '1-year follow-up discount' } as Record<Language, string>,
+      { ja: 'VIP専属サービス', 'zh-CN': 'VIP专属服务', 'zh-TW': 'VIP專屬服務', en: 'VIP exclusive service' } as Record<Language, string>,
+    ],
     color: 'amber',
     flagship: true,
   },
 ];
 
 const COMBO_PACKAGES = [
-  { slug: 'sai-nasolabial-set', name: '法令纹改善套餐', nameJa: 'ほうれい線セット', price: 378000, desc: '糸リフト + 玻尿酸注射，针对法令纹的综合解决方案' },
-  { slug: 'sai-vline-set', name: 'V脸线条套餐', nameJa: 'V-Lineセット', price: 496000, desc: '精准脂肪溶解 + 线雕提升，打造理想V脸线条' },
-  { slug: 'sai-neck-set', name: '颈纹改善套餐', nameJa: '首シワセット', price: 378000, desc: '糸リフト + 玻尿酸，有效改善颈部细纹和松弛' },
-  { slug: 'sai-eye-fatigue-set', name: '眼周疲劳改善套餐', nameJa: '目元セット', price: 378000, desc: '针对眼周暗沉、细纹的综合年轻化方案' },
+  { slug: 'sai-nasolabial-set', name: { ja: 'ほうれい線セット', 'zh-CN': '法令纹改善套餐', 'zh-TW': '法令紋改善套餐', en: 'Nasolabial Fold Set' } as Record<Language, string>, price: 378000, desc: { ja: '糸リフト + ヒアルロン酸注射', 'zh-CN': '糸リフト + 玻尿酸注射，针对法令纹的综合解决方案', 'zh-TW': '糸リフト + 玻尿酸注射，針對法令紋的綜合解決方案', en: 'Thread lift + hyaluronic acid injection for nasolabial folds' } as Record<Language, string> },
+  { slug: 'sai-vline-set', name: { ja: 'V-Lineセット', 'zh-CN': 'V脸线条套餐', 'zh-TW': 'V臉線條套餐', en: 'V-Line Set' } as Record<Language, string>, price: 496000, desc: { ja: '脂肪溶解 + 糸リフト', 'zh-CN': '精准脂肪溶解 + 线雕提升，打造理想V脸线条', 'zh-TW': '精準脂肪溶解 + 線雕提升，打造理想V臉線條', en: 'Fat dissolving + thread lift for ideal V-line' } as Record<Language, string> },
+  { slug: 'sai-neck-set', name: { ja: '首シワセット', 'zh-CN': '颈纹改善套餐', 'zh-TW': '頸紋改善套餐', en: 'Neck Wrinkle Set' } as Record<Language, string>, price: 378000, desc: { ja: '糸リフト + ヒアルロン酸', 'zh-CN': '糸リフト + 玻尿酸，有效改善颈部细纹和松弛', 'zh-TW': '糸リフト + 玻尿酸，有效改善頸部細紋和鬆弛', en: 'Thread lift + hyaluronic acid for neck wrinkles' } as Record<Language, string> },
+  { slug: 'sai-eye-fatigue-set', name: { ja: '目元セット', 'zh-CN': '眼周疲劳改善套餐', 'zh-TW': '眼周疲勞改善套餐', en: 'Eye Rejuvenation Set' } as Record<Language, string>, price: 378000, desc: { ja: '目元総合若返り', 'zh-CN': '针对眼周暗沉、细纹的综合年轻化方案', 'zh-TW': '針對眼周暗沉、細紋的綜合年輕化方案', en: 'Comprehensive eye rejuvenation for dark circles and fine lines' } as Record<Language, string> },
 ];
 
 const EYE_PACKAGES = [
-  { slug: 'sai-double-eyelid', name: '自然双眼皮', nameJa: '二重埋没法', price: 300000, desc: '微创埋线法，自然双眼皮效果，1年保障' },
-  { slug: 'sai-double-eyelid-premium', name: '精致双眼皮（6点连续法）', nameJa: '6点連続法', price: 580000, desc: '6点连续缝合法，精致持久，5年保障' },
-  { slug: 'sai-under-eye-reversehamra', name: '黑眼圈·眼袋去除', nameJa: '裏ハムラ法', price: 880000, desc: 'Reverse Hamra法，去除眼袋+脂肪重新分配，根本解决黑眼圈' },
+  { slug: 'sai-double-eyelid', name: { ja: '二重埋没法', 'zh-CN': '自然双眼皮', 'zh-TW': '自然雙眼皮', en: 'Natural Double Eyelid' } as Record<Language, string>, price: 300000, desc: { ja: '埋没法・1年保証', 'zh-CN': '微创埋线法，自然双眼皮效果，1年保障', 'zh-TW': '微創埋線法，自然雙眼皮效果，1年保障', en: 'Minimally invasive suture method, 1-year guarantee' } as Record<Language, string> },
+  { slug: 'sai-double-eyelid-premium', name: { ja: '6点連続法', 'zh-CN': '精致双眼皮（6点连续法）', 'zh-TW': '精緻雙眼皮（6點連續法）', en: 'Premium Double Eyelid (6-point)' } as Record<Language, string>, price: 580000, desc: { ja: '6点連続縫合・5年保証', 'zh-CN': '6点连续缝合法，精致持久，5年保障', 'zh-TW': '6點連續縫合法，精緻持久，5年保障', en: '6-point continuous suture, delicate & lasting, 5-year guarantee' } as Record<Language, string> },
+  { slug: 'sai-under-eye-reversehamra', name: { ja: '裏ハムラ法', 'zh-CN': '黑眼圈·眼袋去除', 'zh-TW': '黑眼圈·眼袋去除', en: 'Under-Eye Bags Removal' } as Record<Language, string>, price: 880000, desc: { ja: '裏ハムラ法・眼袋除去', 'zh-CN': 'Reverse Hamra法，去除眼袋+脂肪重新分配，根本解决黑眼圈', 'zh-TW': 'Reverse Hamra法，去除眼袋+脂肪重新分配，根本解決黑眼圈', en: 'Reverse Hamra method: bag removal + fat redistribution' } as Record<Language, string> },
 ];
 
 const NOSE_PACKAGES = [
-  { slug: 'sai-nose-thread', name: '线雕隆鼻（8线）', nameJa: 'SAI LIFT NOSE 8本', price: 560000, desc: '8根专用隆鼻线，自然挺拔鼻型，无需开刀' },
-  { slug: 'sai-nose-implant', name: '硅胶隆鼻', nameJa: 'プロテーゼ隆鼻', price: 480000, desc: '硅胶假体隆鼻，永久效果，自然手感' },
+  { slug: 'sai-nose-thread', name: { ja: 'SAI LIFT NOSE 8本', 'zh-CN': '线雕隆鼻（8线）', 'zh-TW': '線雕隆鼻（8線）', en: 'Nose Thread Lift (8 threads)' } as Record<Language, string>, price: 560000, desc: { ja: '8本専用鼻糸', 'zh-CN': '8根专用隆鼻线，自然挺拔鼻型，无需开刀', 'zh-TW': '8根專用隆鼻線，自然挺拔鼻型，無需開刀', en: '8 specialized nose threads, natural & defined, no surgery' } as Record<Language, string> },
+  { slug: 'sai-nose-implant', name: { ja: 'プロテーゼ隆鼻', 'zh-CN': '硅胶隆鼻', 'zh-TW': '矽膠隆鼻', en: 'Silicone Rhinoplasty' } as Record<Language, string>, price: 480000, desc: { ja: 'シリコンプロテーゼ', 'zh-CN': '硅胶假体隆鼻，永久效果，自然手感', 'zh-TW': '矽膠假體隆鼻，永久效果，自然手感', en: 'Silicone implant rhinoplasty, permanent result, natural feel' } as Record<Language, string> },
 ];
 
 const INJECTABLE_PACKAGES = [
-  { slug: 'sai-botox-full-face', name: 'Allergan全脸肉毒素', nameJa: 'ボトックス全顔', price: 240000, desc: 'Allergan正品100单位，全脸抗皱除纹' },
-  { slug: 'sai-hyaluronic-1cc', name: '玻尿酸注射（1cc）', nameJa: 'ヒアルロン酸1cc', price: 148000, desc: '高端玻尿酸填充，精准塑形' },
-  { slug: 'sai-skin-rejuvenation', name: '肌肤再生·水光注射', nameJa: '水光注射+幹細胞', price: 304000, desc: '水光注射 + 干细胞精华，深层修复再生' },
-  { slug: 'sai-exosome-therapy', name: '干细胞外泌体疗法', nameJa: 'エクソソーム療法', price: 760000, desc: '新鲜干细胞外泌体（2-3次疗程），最前沿再生医疗' },
+  { slug: 'sai-botox-full-face', name: { ja: 'ボトックス全顔', 'zh-CN': 'Allergan全脸肉毒素', 'zh-TW': 'Allergan全臉肉毒素', en: 'Allergan Full Face Botox' } as Record<Language, string>, price: 240000, desc: { ja: 'Allergan 100単位', 'zh-CN': 'Allergan正品100单位，全脸抗皱除纹', 'zh-TW': 'Allergan正品100單位，全臉抗皺除紋', en: 'Allergan 100 units, full-face anti-wrinkle' } as Record<Language, string> },
+  { slug: 'sai-hyaluronic-1cc', name: { ja: 'ヒアルロン酸1cc', 'zh-CN': '玻尿酸注射（1cc）', 'zh-TW': '玻尿酸注射（1cc）', en: 'Hyaluronic Acid Injection (1cc)' } as Record<Language, string>, price: 148000, desc: { ja: 'プレミアムヒアルロン酸', 'zh-CN': '高端玻尿酸填充，精准塑形', 'zh-TW': '高端玻尿酸填充，精準塑形', en: 'Premium hyaluronic acid filler, precise contouring' } as Record<Language, string> },
+  { slug: 'sai-skin-rejuvenation', name: { ja: '水光注射+幹細胞', 'zh-CN': '肌肤再生·水光注射', 'zh-TW': '肌膚再生·水光注射', en: 'Skin Rejuvenation · Aqua Glow' } as Record<Language, string>, price: 304000, desc: { ja: '水光注射 + 幹細胞エッセンス', 'zh-CN': '水光注射 + 干细胞精华，深层修复再生', 'zh-TW': '水光注射 + 幹細胞精華，深層修復再生', en: 'Aqua glow injection + stem cell essence, deep repair & regeneration' } as Record<Language, string> },
+  { slug: 'sai-exosome-therapy', name: { ja: 'エクソソーム療法', 'zh-CN': '干细胞外泌体疗法', 'zh-TW': '幹細胞外泌體療法', en: 'Exosome Therapy' } as Record<Language, string>, price: 760000, desc: { ja: '新鮮幹細胞エクソソーム（2-3回）', 'zh-CN': '新鲜干细胞外泌体（2-3次疗程），最前沿再生医疗', 'zh-TW': '新鮮幹細胞外泌體（2-3次療程），最前沿再生醫療', en: 'Fresh stem cell exosomes (2-3 sessions), cutting-edge regenerative medicine' } as Record<Language, string> },
 ];
 
 const FAT_PACKAGES = [
-  { slug: 'sai-fat-grafting-face', name: '全脸脂肪填充', nameJa: '全顔脂肪注入', price: 1760000, desc: '自体脂肪提取+全脸无限注入，永久自然的面部年轻化' },
-  { slug: 'sai-liposuction-face', name: '面部吸脂（双区）', nameJa: '脂肪吸引（2部位）', price: 480000, desc: '精准面部吸脂（颊部+下颚），永久减脂不反弹' },
+  { slug: 'sai-fat-grafting-face', name: { ja: '全顔脂肪注入', 'zh-CN': '全脸脂肪填充', 'zh-TW': '全臉脂肪填充', en: 'Full Face Fat Grafting' } as Record<Language, string>, price: 1760000, desc: { ja: '自己脂肪採取+全顔無制限注入', 'zh-CN': '自体脂肪提取+全脸无限注入，永久自然的面部年轻化', 'zh-TW': '自體脂肪提取+全臉無限注入，永久自然的面部年輕化', en: 'Autologous fat extraction + unlimited full-face injection, permanent natural rejuvenation' } as Record<Language, string> },
+  { slug: 'sai-liposuction-face', name: { ja: '脂肪吸引（2部位）', 'zh-CN': '面部吸脂（双区）', 'zh-TW': '面部吸脂（雙區）', en: 'Facial Liposuction (2 areas)' } as Record<Language, string>, price: 480000, desc: { ja: '頬+顎下 脂肪吸引', 'zh-CN': '精准面部吸脂（颊部+下颚），永久减脂不反弹', 'zh-TW': '精準面部吸脂（頰部+下顎），永久減脂不反彈', en: 'Precise facial liposuction (cheeks + jawline), permanent fat reduction' } as Record<Language, string> },
 ];
 
 const WELLNESS_PACKAGES = [
-  { slug: 'sai-nutrition-perfect', name: '精密营养分析套餐', nameJa: 'パーフェクト栄養解析', price: 118000, desc: '82项血液检测+专业营养分析，定制个人健康方案' },
-  { slug: 'sai-vitamin-c-drip', name: '高浓度维C点滴（20g）', nameJa: '高濃度ビタミンC点滴', price: 26000, desc: '超高浓度维生素C静脉注射，美白·抗氧化·免疫力提升' },
+  { slug: 'sai-nutrition-perfect', name: { ja: 'パーフェクト栄養解析', 'zh-CN': '精密营养分析套餐', 'zh-TW': '精密營養分析套餐', en: 'Perfect Nutrition Analysis' } as Record<Language, string>, price: 118000, desc: { ja: '82項目血液検査+栄養解析', 'zh-CN': '82项血液检测+专业营养分析，定制个人健康方案', 'zh-TW': '82項血液檢測+專業營養分析，定制個人健康方案', en: '82-item blood test + professional nutrition analysis, personalized health plan' } as Record<Language, string> },
+  { slug: 'sai-vitamin-c-drip', name: { ja: '高濃度ビタミンC点滴', 'zh-CN': '高浓度维C点滴（20g）', 'zh-TW': '高濃度維C點滴（20g）', en: 'High-Dose Vitamin C Drip (20g)' } as Record<Language, string>, price: 26000, desc: { ja: '高濃度ビタミンC 20g', 'zh-CN': '超高浓度维生素C静脉注射，美白·抗氧化·免疫力提升', 'zh-TW': '超高濃度維生素C靜脈注射，美白·抗氧化·免疫力提升', en: 'Ultra-high dose vitamin C IV, whitening · antioxidant · immune boost' } as Record<Language, string> },
 ];
 
 // ━━━━━━━━ 全部菜单价格表（展示用，非套餐）━━━━━━━━
 
 const FULL_MENU = {
   surgery: {
-    title: '美容外科',
-    titleJa: '美容外科',
+    title: { ja: '美容外科', 'zh-CN': '美容外科', 'zh-TW': '美容外科', en: 'Aesthetic Surgery' } as Record<Language, string>,
     icon: <Scissors size={20} />,
     items: [
       { name: 'SAI LIFT TRY（糸リフト体验）', price: 380000 },
@@ -155,8 +172,7 @@ const FULL_MENU = {
     ],
   },
   injection: {
-    title: '注射美容',
-    titleJa: '美容皮膚科（注射）',
+    title: { ja: '美容皮膚科（注射）', 'zh-CN': '注射美容', 'zh-TW': '注射美容', en: 'Injectable Treatments' } as Record<Language, string>,
     icon: <Syringe size={20} />,
     items: [
       { name: 'Allergan肉毒素·单部位', price: 36000 },
@@ -183,8 +199,7 @@ const FULL_MENU = {
     ],
   },
   skincare: {
-    title: '皮肤管理',
-    titleJa: '美容皮膚科（施術）',
+    title: { ja: '美容皮膚科（施術）', 'zh-CN': '皮肤管理', 'zh-TW': '皮膚管理', en: 'Skincare Treatments' } as Record<Language, string>,
     icon: <Droplets size={20} />,
     items: [
       { name: 'LDM 水玉提升·面部', price: 42000 },
@@ -200,8 +215,7 @@ const FULL_MENU = {
     ],
   },
   wellness: {
-    title: '美容内科',
-    titleJa: '美容内科',
+    title: { ja: '美容内科', 'zh-CN': '美容内科', 'zh-TW': '美容內科', en: 'Wellness & IV Therapy' } as Record<Language, string>,
     icon: <Pill size={20} />,
     items: [
       { name: '营养分析·简易版（34项）', price: 44000 },
@@ -220,8 +234,7 @@ const FULL_MENU = {
     ],
   },
   hairloss: {
-    title: '生发治疗',
-    titleJa: '薄毛治療・AGA',
+    title: { ja: '薄毛治療・AGA', 'zh-CN': '生发治疗', 'zh-TW': '生髮治療', en: 'Hair Loss Treatment' } as Record<Language, string>,
     icon: <Sparkles size={20} />,
     items: [
       { name: '生发鸡尾酒注射（前/中/顶）', price: 116000 },
@@ -299,6 +312,23 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
   const heroGridImages = heroImages.filter((i) => i.metadata?.usage === 'hero_grid');
   const galleryEntrance = galleryImages.find((i) => i.label === '诊所入口') || galleryImages[7];
 
+  // ━━━━━━━━ UI翻译 ━━━━━━━━
+  const TR = {
+    heroSlogan: { ja: '大阪で、より美しい自分に出会う', 'zh-CN': '在大阪，遇见更美的自己', 'zh-TW': '在大阪，遇見更美的自己', en: 'Meet a more beautiful you in Osaka' } as Record<Language, string>,
+    heroDesc: { ja: '糸リフトを中心に、韓国最先端美学と日本精密医療を融合。崔煌植医師が直接診察、15年以上の経験、2,800名以上の華僑客様から信頼。全て中文サービス、安心の美容旅。', 'zh-CN': '以糸リフト（线雕提升）为核心，融合韩国前沿美学与日本精密医疗。崔煌植医生亲诊，15年经验、2,800+华人客户信赖。全程中文服务，让变美之旅安心无忧。', 'zh-TW': '以糸リフト（線雕提升）為核心，融合韓國前沿美學與日本精密醫療。崔煌植醫生親診，15年經驗、2,800+華人客戶信賴。全程中文服務，讓變美之旅安心無憂。', en: 'Centered on thread lift, combining Korean cutting-edge aesthetics with Japanese precision medicine. Dr. Sai Koshoku personally diagnoses, 15+ years experience, trusted by 2,800+ Chinese clients. Full Chinese service for a worry-free beauty journey.' } as Record<Language, string>,
+    tag1: { ja: '糸リフト専門', 'zh-CN': '糸リフト专门', 'zh-TW': '糸リフト專門', en: 'Thread Lift Specialist' } as Record<Language, string>,
+    tag2: { ja: '韓国美学', 'zh-CN': '韩式美学', 'zh-TW': '韓式美學', en: 'Korean Aesthetics' } as Record<Language, string>,
+    tag3: { ja: '完全予約制', 'zh-CN': '完全预约制', 'zh-TW': '完全預約制', en: 'By Appointment Only' } as Record<Language, string>,
+    tag4: { ja: '梅田直結', 'zh-CN': '梅田直结', 'zh-TW': '梅田直結', en: 'Umeda Direct Access' } as Record<Language, string>,
+    viewAll: { ja: '全プロジェクトを見る', 'zh-CN': '查看全部项目', 'zh-TW': '查看全部項目', en: 'View All Treatments' } as Record<Language, string>,
+    stats1: { ja: '累計華僑客様', 'zh-CN': '累计服务华人客户', 'zh-TW': '累計服務華人客戶', en: 'Chinese clients served' } as Record<Language, string>,
+    stats2: { ja: '客満足度', 'zh-CN': '客户满意度', 'zh-TW': '客戶滿意度', en: 'Customer satisfaction' } as Record<Language, string>,
+    stats3: { ja: '美容外科臨床経験', 'zh-CN': '美容外科临床经验', 'zh-TW': '美容外科臨床經驗', en: 'Clinical experience' } as Record<Language, string>,
+    whyTitle: { ja: 'SAI CLINICを選ぶ理由', 'zh-CN': '选择 SAI CLINIC 的理由', 'zh-TW': '選擇 SAI CLINIC 的理由', en: 'Why Choose SAI CLINIC' } as Record<Language, string>,
+    bookNow: { ja: '今すぐ予約', 'zh-CN': '立即预约', 'zh-TW': '立即預約', en: 'Book Now' } as Record<Language, string>,
+    location: { ja: '大阪梅田', 'zh-CN': '大阪梅田', 'zh-TW': '大阪梅田', en: 'Osaka Umeda' } as Record<Language, string>,
+  };
+
   return (
     <div className="animate-fade-in-up">
       {/* ━━━━━━━━ 1. HERO ━━━━━━━━ */}
@@ -321,20 +351,19 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
                 SAI CLINIC
                 <br />
-                <span className="text-rose-300">大阪梅田</span>
+                <span className="text-rose-300">{t(TR.location, lang)}</span>
               </h1>
-              <p className="text-xl text-rose-200/80 mb-4 font-light">在大阪，遇见更美的自己</p>
+              <p className="text-xl text-rose-200/80 mb-4 font-light">{t(TR.heroSlogan, lang)}</p>
               <p className="text-base text-gray-300/80 leading-relaxed mb-8 max-w-lg">
-                以糸リフト（线雕提升）为核心，融合韩国前沿美学与日本精密医疗。
-                崔煌植医生亲诊，15年经验、2,800+华人客户信赖。全程中文服务，让变美之旅安心无忧。
+                {t(TR.heroDesc, lang)}
               </p>
               <div className="flex flex-wrap gap-3 mb-10">
-                {['糸リフト专门', '韩式美学', '完全预约制', '梅田直结'].map((tag, i) => (
-                  <span key={i} className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">{tag}</span>
+                {[TR.tag1, TR.tag2, TR.tag3, TR.tag4].map((tag, i) => (
+                  <span key={i} className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">{t(tag, lang)}</span>
                 ))}
               </div>
               <a href="#sai-packages" className="inline-flex items-center gap-3 bg-rose-500 text-white px-8 py-4 rounded-full font-bold hover:bg-rose-600 transition-all shadow-lg shadow-rose-500/20">
-                查看全部项目 <ArrowRight size={18} />
+                {t(TR.viewAll, lang)} <ArrowRight size={18} />
               </a>
             </div>
             <div className="hidden lg:block">
@@ -387,15 +416,15 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div>
               <div className="text-2xl md:text-3xl font-bold text-rose-600">2,800<span className="text-base">+</span></div>
-              <div className="text-[11px] text-gray-500 mt-1">累计服务华人客户</div>
+              <div className="text-[11px] text-gray-500 mt-1">{t(TR.stats1, lang)}</div>
             </div>
             <div>
               <div className="text-2xl md:text-3xl font-bold text-rose-600">98.5<span className="text-base">%</span></div>
-              <div className="text-[11px] text-gray-500 mt-1">客户满意度</div>
+              <div className="text-[11px] text-gray-500 mt-1">{t(TR.stats2, lang)}</div>
             </div>
             <div>
               <div className="text-2xl md:text-3xl font-bold text-rose-600">15<span className="text-base">年+</span></div>
-              <div className="text-[11px] text-gray-500 mt-1">美容外科临床经验</div>
+              <div className="text-[11px] text-gray-500 mt-1">{t(TR.stats3, lang)}</div>
             </div>
             <div>
               <div className="text-2xl md:text-3xl font-bold text-rose-600">0</div>
