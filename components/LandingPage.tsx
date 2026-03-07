@@ -978,7 +978,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
   return (
   <div className="animate-fade-in-up min-h-screen bg-neutral-50">
      {/* ===== HERO SECTION - Full Screen Cinematic ===== */}
-     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+     <div className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
         {/* Background with Ken Burns effect */}
         <div className="absolute inset-0">
           <Image
@@ -2503,7 +2503,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
       {/* 9. 導遊合作 - 沉浸式全屏背景，与其他板块风格统一 */}
       {!hideOfficialBranding && (
-      <section id="guide-partner" className="relative min-h-[90vh] flex items-center">
+      <section id="guide-partner" className="relative min-h-[85vh] flex items-center">
         {/* 全屏背景图 */}
         <div className="absolute inset-0">
           <Image
