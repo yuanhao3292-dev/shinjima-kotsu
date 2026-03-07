@@ -357,17 +357,17 @@ const CHECK_ITEMS: CheckCategory[] = [
 const StatusIcon = ({ status, partialNote, currentLang = 'zh-TW' }: { status: ItemStatus; partialNote?: string; currentLang?: Language }) => {
   switch (status) {
     case 'included':
-      return <Check className="w-5 h-5 text-green-600" />;
+      return <Check className="w-5 h-5 text-medical-600" />;
     case 'optional':
-      return <Circle className="w-4 h-4 text-orange-400" />;
+      return <Circle className="w-4 h-4 text-gold-500" />;
     case 'partial':
       return (
-        <span className="text-[10px] text-blue-500 font-medium leading-tight text-center">
+        <span className="text-[10px] text-biz-500 font-medium leading-tight text-center">
           {localizeText('部分', currentLang)}
         </span>
       );
     case 'none':
-      return <X className="w-4 h-4 text-gray-300" />;
+      return <X className="w-4 h-4 text-neutral-300" />;
   }
 };
 
@@ -414,24 +414,24 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
           <div className="flex items-center justify-between p-3">
             <button
               onClick={() => setSelectedPackageIndex(prev => prev > 0 ? prev - 1 : PACKAGES.length - 1)}
-              className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
+              className="p-2 rounded-full bg-neutral-200 hover:bg-neutral-200"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
 
             <div className="text-center flex-1">
-              <div className={`text-lg font-bold ${selectedPackage.id === 'vip' ? 'text-yellow-600' : 'text-gray-900'}`}>
+              <div className={`text-lg font-bold ${selectedPackage.id === 'vip' ? 'text-gold-600' : 'text-neutral-900'}`}>
                 {selectedPackage.name}
               </div>
-              <div className="text-sm text-gray-500">{lt(selectedPackage.nameZh)}</div>
-              <div className={`text-xl font-bold mt-1 ${selectedPackage.id === 'vip' ? 'text-yellow-600' : 'text-blue-600'}`}>
+              <div className="text-sm text-neutral-500">{lt(selectedPackage.nameZh)}</div>
+              <div className={`text-xl font-bold mt-1 ${selectedPackage.id === 'vip' ? 'text-gold-600' : 'text-brand-700'}`}>
                 {formatPrice(selectedPackage.price)}
               </div>
             </div>
 
             <button
               onClick={() => setSelectedPackageIndex(prev => prev < PACKAGES.length - 1 ? prev + 1 : 0)}
-              className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
+              className="p-2 rounded-full bg-neutral-200 hover:bg-neutral-200"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -445,8 +445,8 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                 onClick={() => setSelectedPackageIndex(idx)}
                 className={`w-2 h-2 rounded-full transition-all ${
                   idx === selectedPackageIndex
-                    ? 'bg-blue-600 w-4'
-                    : 'bg-gray-300'
+                    ? 'bg-brand-700 w-4'
+                    : 'bg-neutral-300'
                 }`}
               />
             ))}
@@ -454,26 +454,26 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
         </div>
 
         {/* 检查项目列表 */}
-        <div className="divide-y divide-gray-100">
+        <div className="divide-y divide-neutral-200">
           {CHECK_ITEMS.map(category => (
             <div key={category.category}>
               {/* 分类标题 */}
               <div
-                className="bg-gray-100 p-3 flex items-center gap-2 cursor-pointer active:bg-gray-200"
+                className="bg-neutral-200 p-3 flex items-center gap-2 cursor-pointer active:bg-neutral-200"
                 onClick={() => toggleCategory(category.category)}
               >
-                <span className={`transform transition-transform text-gray-500 ${
+                <span className={`transform transition-transform text-neutral-500 ${
                   expandedCategories.includes(category.category) ? 'rotate-90' : ''
                 }`}>
                   ▶
                 </span>
-                <span className="font-bold text-gray-700">{lt(category.category)}</span>
-                <span className="text-xs text-gray-400 ml-auto">{category.items.length}{lt('項')}</span>
+                <span className="font-bold text-neutral-700">{lt(category.category)}</span>
+                <span className="text-xs text-neutral-400 ml-auto">{category.items.length}{lt('項')}</span>
               </div>
 
               {/* 项目列表 */}
               {expandedCategories.includes(category.category) && (
-                <div className="divide-y divide-gray-50">
+                <div className="divide-y divide-neutral-50">
                   {category.items.map((item) => {
                     const status = item.packages[selectedPackage.id];
                     return (
@@ -486,25 +486,25 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className={`text-sm font-medium ${
-                            status === 'included' ? 'text-gray-900' :
+                            status === 'included' ? 'text-neutral-900' :
                             status === 'optional' ? 'text-orange-600' :
-                            status === 'partial' ? 'text-blue-600' :
-                            'text-gray-400'
+                            status === 'partial' ? 'text-brand-700' :
+                            'text-neutral-400'
                           }`}>
                             {lt(item.name)}
                           </div>
                           {item.detail && (
-                            <div className="text-xs text-gray-400 mt-0.5 leading-tight">
+                            <div className="text-xs text-neutral-400 mt-0.5 leading-tight">
                               {lt(item.detail)}
                             </div>
                           )}
                           {status === 'partial' && item.partialNote && (
-                            <div className="text-xs text-blue-500 mt-1">
+                            <div className="text-xs text-biz-500 mt-1">
                               {lt(item.partialNote)}
                             </div>
                           )}
                         </div>
-                        <div className="flex-shrink-0 text-xs text-gray-400">
+                        <div className="flex-shrink-0 text-xs text-neutral-400">
                           {status === 'included' && lt('包含')}
                           {status === 'optional' && lt('可選')}
                           {status === 'partial' && lt('部分')}
@@ -525,34 +525,34 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
             onClick={() => onBookNow?.(selectedPackage.id)}
             className={`block w-full text-center py-3 rounded-xl font-bold text-lg transition ${
               selectedPackage.id === 'vip'
-                ? 'bg-gradient-to-r from-yellow-500 to-yellow-600 text-black'
-                : 'bg-blue-600 text-white hover:bg-blue-700'
+                ? 'bg-gradient-to-r from-gold-500 to-gold-600 text-black'
+                : 'bg-brand-700 text-white hover:bg-brand-800'
             }`}
           >
             {lt('立即預約')} {selectedPackage.name}
           </button>
-          <div className="text-center text-xs text-gray-400 mt-2">
+          <div className="text-center text-xs text-neutral-400 mt-2">
             {lt('含醫療翻譯・報告翻譯・消費稅10%')}
           </div>
         </div>
 
         {/* 图例 */}
-        <div className="p-4 bg-gray-50 border-t">
+        <div className="p-4 bg-neutral-50 border-t">
           <div className="flex gap-4 justify-center text-xs flex-wrap">
             <div className="flex items-center gap-1">
-              <Check className="w-4 h-4 text-green-600" />
+              <Check className="w-4 h-4 text-medical-600" />
               <span>{lt('包含')}</span>
             </div>
             <div className="flex items-center gap-1">
-              <Circle className="w-3 h-3 text-orange-400" />
+              <Circle className="w-3 h-3 text-gold-500" />
               <span>{lt('可選')}</span>
             </div>
             <div className="flex items-center gap-1">
-              <span className="text-[10px] text-blue-500 font-medium">{lt('部分')}</span>
+              <span className="text-[10px] text-biz-500 font-medium">{lt('部分')}</span>
               <span>{lt('部分含')}</span>
             </div>
             <div className="flex items-center gap-1">
-              <X className="w-3 h-3 text-gray-300" />
+              <X className="w-3 h-3 text-neutral-300" />
               <span>{lt('不含')}</span>
             </div>
           </div>
@@ -566,12 +566,12 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
     <div className="w-full overflow-x-auto">
       <div className="min-w-[900px]">
         {/* 表头：套餐名称和价格 */}
-        <div className="sticky top-0 z-10 bg-white border-b-2 border-gray-200">
+        <div className="sticky top-0 z-10 bg-white border-b-2 border-neutral-200">
           <div className="grid grid-cols-7 gap-1">
             {/* 项目列 */}
-            <div className="p-4 bg-gray-50">
-              <div className="text-sm font-bold text-gray-700">{lt('檢查項目')}</div>
-              <div className="text-xs text-gray-400 mt-1">● {lt('包含')} ○ {lt('可選')}</div>
+            <div className="p-4 bg-neutral-50">
+              <div className="text-sm font-bold text-neutral-700">{lt('檢查項目')}</div>
+              <div className="text-xs text-neutral-400 mt-1">● {lt('包含')} ○ {lt('可選')}</div>
             </div>
 
             {/* 套餐列 */}
@@ -580,22 +580,22 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                 key={pkg.id}
                 className={`p-3 text-center ${
                   pkg.id === 'vip'
-                    ? 'bg-gray-900 text-white'
-                    : 'bg-gray-50'
+                    ? 'bg-brand-900 text-white'
+                    : 'bg-neutral-50'
                 }`}
               >
                 <div className={`text-sm font-bold ${
-                  pkg.id === 'vip' ? 'text-yellow-400' : 'text-gray-800'
+                  pkg.id === 'vip' ? 'text-gold-400' : 'text-neutral-800'
                 }`}>
                   {pkg.name}
                 </div>
                 <div className={`text-xs ${
-                  pkg.id === 'vip' ? 'text-gray-400' : 'text-gray-500'
+                  pkg.id === 'vip' ? 'text-neutral-400' : 'text-neutral-500'
                 }`}>
                   {lt(pkg.nameZh)}
                 </div>
                 <div className={`text-base font-bold mt-1 ${
-                  pkg.id === 'vip' ? 'text-yellow-400' : 'text-gray-900'
+                  pkg.id === 'vip' ? 'text-gold-400' : 'text-neutral-900'
                 }`}>
                   {formatPrice(pkg.price)}
                 </div>
@@ -603,8 +603,8 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                   onClick={() => onBookNow?.(pkg.id)}
                   className={`inline-block mt-2 text-xs px-3 py-1 rounded ${
                     pkg.id === 'vip'
-                      ? 'bg-yellow-500 text-black hover:bg-yellow-400'
-                      : 'bg-blue-500 text-white hover:bg-blue-600'
+                      ? 'bg-gold-500 text-black hover:bg-gold-400'
+                      : 'bg-brand-700 text-white hover:bg-brand-800'
                   } transition`}
                 >
                   {lt('預約')}
@@ -615,12 +615,12 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
         </div>
 
         {/* 表格内容 */}
-        <div className="divide-y divide-gray-100">
+        <div className="divide-y divide-neutral-200">
           {CHECK_ITEMS.map(category => (
             <div key={category.category}>
               {/* 分类标题行 */}
               <div
-                className="grid grid-cols-7 gap-1 bg-gray-100 cursor-pointer hover:bg-gray-200 transition"
+                className="grid grid-cols-7 gap-1 bg-neutral-200 cursor-pointer hover:bg-neutral-200 transition"
                 onClick={() => toggleCategory(category.category)}
               >
                 <div className="col-span-7 p-3 flex items-center gap-2">
@@ -629,8 +629,8 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                   }`}>
                     ▶
                   </span>
-                  <span className="font-bold text-gray-700">{lt(category.category)}</span>
-                  <span className="text-xs text-gray-400">({category.items.length}{lt('項')})</span>
+                  <span className="font-bold text-neutral-700">{lt(category.category)}</span>
+                  <span className="text-xs text-neutral-400">({category.items.length}{lt('項')})</span>
                 </div>
               </div>
 
@@ -640,14 +640,14 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                   <div
                     key={item.name}
                     className={`grid grid-cols-7 gap-1 ${
-                      idx % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'
-                    } hover:bg-blue-50 transition`}
+                      idx % 2 === 0 ? 'bg-white' : 'bg-neutral-50/50'
+                    } hover:bg-brand-50 transition`}
                   >
                     {/* 项目名称 */}
-                    <div className="p-3 border-r border-gray-100">
-                      <div className="text-sm text-gray-800">{lt(item.name)}</div>
+                    <div className="p-3 border-r border-neutral-200">
+                      <div className="text-sm text-neutral-800">{lt(item.name)}</div>
                       {item.detail && (
-                        <div className="text-xs text-gray-400 mt-0.5 leading-tight">{lt(item.detail)}</div>
+                        <div className="text-xs text-neutral-400 mt-0.5 leading-tight">{lt(item.detail)}</div>
                       )}
                     </div>
 
@@ -672,29 +672,29 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
         </div>
 
         {/* 底部说明 */}
-        <div className="p-4 bg-gray-50 border-t-2 border-gray-200">
+        <div className="p-4 bg-neutral-50 border-t-2 border-neutral-200">
           <div className="flex gap-6 justify-center text-sm flex-wrap">
             <div className="flex items-center gap-2">
-              <Check className="w-4 h-4 text-green-600" />
-              <span className="text-gray-600">{lt('套餐包含')}</span>
+              <Check className="w-4 h-4 text-medical-600" />
+              <span className="text-neutral-600">{lt('套餐包含')}</span>
             </div>
             <div className="flex items-center gap-2">
-              <Circle className="w-4 h-4 text-orange-400" />
-              <span className="text-gray-600">{lt('可選加購')}</span>
+              <Circle className="w-4 h-4 text-gold-500" />
+              <span className="text-neutral-600">{lt('可選加購')}</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] text-blue-500 font-medium">{lt('部分')}</span>
-              <span className="text-gray-600">{lt('部分包含')}</span>
+              <span className="text-[10px] text-biz-500 font-medium">{lt('部分')}</span>
+              <span className="text-neutral-600">{lt('部分包含')}</span>
             </div>
             <div className="flex items-center gap-2">
-              <X className="w-4 h-4 text-gray-300" />
-              <span className="text-gray-600">{lt('不包含')}</span>
+              <X className="w-4 h-4 text-neutral-300" />
+              <span className="text-neutral-600">{lt('不包含')}</span>
             </div>
           </div>
-          <div className="text-center text-xs text-gray-400 mt-3">
+          <div className="text-center text-xs text-neutral-400 mt-3">
             {lt('所有價格均含醫療翻譯・報告翻譯・消費稅10%')}
           </div>
-          <div className="text-center text-xs text-gray-400 mt-1">
+          <div className="text-center text-xs text-neutral-400 mt-1">
             {lt('資料來源')}：TOKUSHUKAI INTERNATIONAL Medical Check-up OSAKA (TIMC) Ver.9.5
           </div>
         </div>

@@ -218,7 +218,7 @@ const MedicalTechCard = memo(function MedicalTechCard({
 const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuote, currentLang, getImage }) => (
   <div className="animate-fade-in-up min-h-screen bg-white">
     {/* 1. Hero Section - Full height with transparent nav overlap */}
-    <div className="relative min-h-[85vh] flex items-center overflow-hidden text-white bg-slate-900">
+    <div className="relative min-h-[85vh] flex items-center overflow-hidden text-white bg-brand-900">
       <Image
           src={getImage('medical_hero')}
           fill
@@ -229,7 +229,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           quality={75}
           priority
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/60 to-transparent"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-900/60 to-transparent"></div>
       <div className="absolute inset-0 opacity-30 pointer-events-none">
          <div className="absolute w-full h-full bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
       </div>
@@ -237,33 +237,33 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           <div className="max-w-3xl animate-fade-in-up">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif mb-4 md:mb-6 leading-[1.2]">
                  {t.medical.hero_title_1}<br/>
-                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white">{t.medical.hero_title_2}</span>
+                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-medical-200 to-white">{t.medical.hero_title_2}</span>
               </h1>
-              <h2 className="text-base sm:text-lg md:text-2xl text-gray-300 font-light mb-6 md:mb-8 font-serif">
+              <h2 className="text-base sm:text-lg md:text-2xl text-neutral-300 font-light mb-6 md:mb-8 font-serif">
                  {t.medical.hero_subtitle}
               </h2>
-              <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base border-l-2 border-blue-500 pl-4 md:pl-6 max-w-2xl whitespace-pre-line">
+              <p className="text-neutral-400 font-light leading-relaxed text-sm md:text-base border-l-2 border-medical-500 pl-4 md:pl-6 max-w-2xl whitespace-pre-line">
                  {t.medical.hero_text}
               </p>
               {/* 限量營銷文案 */}
-              <div className="mt-8 inline-flex items-center gap-3 bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-400/40 px-5 py-3 rounded-full backdrop-blur-md">
+              <div className="mt-8 inline-flex items-center gap-3 bg-gradient-to-r from-gold-500/20 to-gold-400/20 border border-gold-400/40 px-5 py-3 rounded-full backdrop-blur-md">
                   <span className="relative flex h-3 w-3">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-gold-500"></span>
                   </span>
-                  <span className="text-amber-200 text-sm font-medium">{t.medical.limit_badge}</span>
+                  <span className="text-gold-200 text-sm font-medium">{t.medical.limit_badge}</span>
               </div>
           </div>
       </div>
     </div>
 
     {/* Hospital Introduction Video Section */}
-    <div className="bg-gradient-to-b from-slate-900 to-slate-800 py-20">
+    <div className="bg-gradient-to-b from-brand-900 to-brand-800 py-20">
       <div className="container mx-auto px-6 py-12 md:py-24">
         <div className="text-center mb-12">
-          <span className="text-blue-400 text-xs tracking-[0.3em] uppercase font-bold">Hospital Tour</span>
+          <span className="text-medical-400 text-xs tracking-[0.3em] uppercase font-bold">Hospital Tour</span>
           <h3 className="text-3xl font-serif text-white mt-3">{t.medical.video_title}</h3>
-          <p className="text-gray-400 text-sm mt-2 max-w-2xl mx-auto">{t.medical.video_subtitle}</p>
+          <p className="text-neutral-400 text-sm mt-2 max-w-2xl mx-auto">{t.medical.video_subtitle}</p>
         </div>
         <div className="max-w-4xl mx-auto">
           <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-white/10">
@@ -277,7 +277,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               {t.medical.video_fallback}
             </video>
           </div>
-          <p className="text-center text-gray-500 text-xs mt-4">{t.medical.video_caption}</p>
+          <p className="text-center text-neutral-500 text-xs mt-4">{t.medical.video_caption}</p>
         </div>
       </div>
     </div>
@@ -286,30 +286,30 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       {/* 2. Authority Section */}
       <div className="mb-24">
           <div className="text-center mb-16">
-              <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">{t.medical.auth_tag}</span>
-              <h3 className="text-3xl font-serif text-gray-900 mt-2">{t.medical.auth_title}</h3>
+              <span className="text-medical-500 text-xs tracking-widest uppercase font-bold">{t.medical.auth_tag}</span>
+              <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.medical.auth_title}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-              <div className="bg-gray-50 p-8 rounded-xl border border-gray-100 hover:shadow-lg transition duration-300 group">
-                  <div className="w-12 h-12 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition">
+              <div className="bg-neutral-50 p-8 rounded-xl border border-neutral-200 hover:shadow-lg transition duration-300 group">
+                  <div className="w-12 h-12 bg-medical-50 text-medical-700 rounded-full flex items-center justify-center mb-6 group-hover:bg-medical-600 group-hover:text-white transition">
                       <Building size={24} />
                   </div>
-                  <h4 className="text-xl font-bold text-gray-800 mb-3 font-serif">{t.medical.auth_1_t}</h4>
-                  <p className="text-sm text-gray-500 leading-relaxed">{t.medical.auth_1_d}</p>
+                  <h4 className="text-xl font-bold text-neutral-800 mb-3 font-serif">{t.medical.auth_1_t}</h4>
+                  <p className="text-sm text-neutral-500 leading-relaxed">{t.medical.auth_1_d}</p>
               </div>
-              <div className="bg-gray-50 p-8 rounded-xl border border-gray-100 hover:shadow-lg transition duration-300 group">
-                  <div className="w-12 h-12 bg-purple-100 text-purple-700 rounded-full flex items-center justify-center mb-6 group-hover:bg-purple-600 group-hover:text-white transition">
+              <div className="bg-neutral-50 p-8 rounded-xl border border-neutral-200 hover:shadow-lg transition duration-300 group">
+                  <div className="w-12 h-12 bg-medical-50 text-medical-700 rounded-full flex items-center justify-center mb-6 group-hover:bg-medical-600 group-hover:text-white transition">
                       <MapPin size={24} />
                   </div>
-                  <h4 className="text-xl font-bold text-gray-800 mb-3 font-serif">{t.medical.auth_2_t}</h4>
-                  <p className="text-sm text-gray-500 leading-relaxed">{t.medical.auth_2_d}</p>
+                  <h4 className="text-xl font-bold text-neutral-800 mb-3 font-serif">{t.medical.auth_2_t}</h4>
+                  <p className="text-sm text-neutral-500 leading-relaxed">{t.medical.auth_2_d}</p>
               </div>
-              <div className="bg-gray-50 p-8 rounded-xl border border-gray-100 hover:shadow-lg transition duration-300 group">
-                  <div className="w-12 h-12 bg-gray-200 text-gray-700 rounded-full flex items-center justify-center mb-6 group-hover:bg-gray-800 group-hover:text-white transition">
+              <div className="bg-neutral-50 p-8 rounded-xl border border-neutral-200 hover:shadow-lg transition duration-300 group">
+                  <div className="w-12 h-12 bg-medical-50 text-medical-700 rounded-full flex items-center justify-center mb-6 group-hover:bg-medical-600 group-hover:text-white transition">
                       <Shield size={24} />
                   </div>
-                  <h4 className="text-xl font-bold text-gray-800 mb-3 font-serif">{t.medical.auth_3_t}</h4>
-                  <p className="text-sm text-gray-500 leading-relaxed">{t.medical.auth_3_d}</p>
+                  <h4 className="text-xl font-bold text-neutral-800 mb-3 font-serif">{t.medical.auth_3_t}</h4>
+                  <p className="text-sm text-neutral-500 leading-relaxed">{t.medical.auth_3_d}</p>
               </div>
           </div>
       </div>
@@ -317,9 +317,9 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       {/* 3. Tech Section - 双列全屏背景图设计 */}
       <div className="mb-0">
           <div className="text-center py-20 bg-white">
-              <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif text-gray-900 mb-3">{t.medical.tech_title}</h3>
-              <p className="text-gray-500 text-sm tracking-widest uppercase mb-6">Medical Equipment Lineup</p>
-              <p className="text-gray-600 text-sm max-w-2xl mx-auto px-4">{t.medical.tech_sub}</p>
+              <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif text-neutral-900 mb-3">{t.medical.tech_title}</h3>
+              <p className="text-neutral-500 text-sm tracking-widest uppercase mb-6">Medical Equipment Lineup</p>
+              <p className="text-neutral-600 text-sm max-w-2xl mx-auto px-4">{t.medical.tech_sub}</p>
           </div>
 
           {/* Row 1: CT + MRI */}
@@ -334,7 +334,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       sizes="(max-width: 768px) 100vw, 50vw"
                       quality={75}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/95 via-brand-900/50 to-brand-900/20"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                       <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_ct_t}</h4>
                       <p className="text-base text-white/80 leading-relaxed">{t.medical.tech_ct_d}</p>
@@ -350,7 +350,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       sizes="(max-width: 768px) 100vw, 50vw"
                       quality={75}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/95 via-brand-900/50 to-brand-900/20"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                       <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_mri_t}</h4>
                       <p className="text-base text-white/80 leading-relaxed">{t.medical.tech_mri_d}</p>
@@ -370,7 +370,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       sizes="(max-width: 768px) 100vw, 50vw"
                       quality={75}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/95 via-brand-900/50 to-brand-900/20"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                       <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_endo_t}</h4>
                       <p className="text-base text-white/80 leading-relaxed">{t.medical.tech_endo_d}</p>
@@ -386,7 +386,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       sizes="(max-width: 768px) 100vw, 50vw"
                       quality={75}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/95 via-brand-900/50 to-brand-900/20"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                       <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_dental_t}</h4>
                       <p className="text-base text-white/80 leading-relaxed">{t.medical.tech_dental_d}</p>
@@ -406,7 +406,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       sizes="(max-width: 768px) 100vw, 50vw"
                       quality={75}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/95 via-brand-900/50 to-brand-900/20"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                       <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.detail_echo_title}</h4>
                       <p className="text-base text-white/80 leading-relaxed">{t.medical.detail_echo_desc}</p>
@@ -422,7 +422,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       sizes="(max-width: 768px) 100vw, 50vw"
                       quality={75}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/95 via-brand-900/50 to-brand-900/20"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                       <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.detail_mammo_title}</h4>
                       <p className="text-base text-white/80 leading-relaxed">{t.medical.detail_mammo_desc}</p>
@@ -434,9 +434,9 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       {/* 3.5. Facility & Rooms Section */}
       <div className="mb-24">
           <div className="text-center py-20 bg-white">
-              <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif text-gray-900 mb-3">{t.medical.facility_title}</h3>
-              <p className="text-gray-500 text-sm tracking-widest uppercase mb-6">Facility & Rooms</p>
-              <p className="text-gray-600 text-sm max-w-2xl mx-auto px-4">{t.medical.facility_subtitle}</p>
+              <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif text-neutral-900 mb-3">{t.medical.facility_title}</h3>
+              <p className="text-neutral-500 text-sm tracking-widest uppercase mb-6">Facility & Rooms</p>
+              <p className="text-neutral-600 text-sm max-w-2xl mx-auto px-4">{t.medical.facility_subtitle}</p>
           </div>
 
           <div className="space-y-0">
@@ -450,12 +450,12 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       sizes="100vw"
                       quality={75}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-brand-900/90 via-brand-900/70 to-transparent"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl">
                           <div className="flex items-center gap-3 mb-4">
-                              <div className="h-[1px] w-12 bg-amber-400"></div>
-                              <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">01</span>
+                              <div className="h-[1px] w-12 bg-gold-400"></div>
+                              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">01</span>
                           </div>
                           <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_1_title}</h4>
                           <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_1_desc}</p>
@@ -477,12 +477,12 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       sizes="100vw"
                       quality={75}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-l from-slate-900/90 via-slate-900/70 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-l from-brand-900/90 via-brand-900/70 to-transparent"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl ml-auto text-right">
                           <div className="flex items-center justify-end gap-3 mb-4">
-                              <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">02</span>
-                              <div className="h-[1px] w-12 bg-amber-400"></div>
+                              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">02</span>
+                              <div className="h-[1px] w-12 bg-gold-400"></div>
                           </div>
                           <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_2_title}</h4>
                           <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_2_desc}</p>
@@ -504,12 +504,12 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       sizes="100vw"
                       quality={75}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-brand-900/90 via-brand-900/70 to-transparent"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl">
                           <div className="flex items-center gap-3 mb-4">
-                              <div className="h-[1px] w-12 bg-amber-400"></div>
-                              <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">03</span>
+                              <div className="h-[1px] w-12 bg-gold-400"></div>
+                              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">03</span>
                           </div>
                           <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_3_title}</h4>
                           <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_3_desc}</p>
@@ -532,12 +532,12 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       sizes="100vw"
                       quality={75}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-l from-slate-900/90 via-slate-900/70 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-l from-brand-900/90 via-brand-900/70 to-transparent"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl ml-auto text-right">
                           <div className="flex items-center justify-end gap-3 mb-4">
-                              <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">04</span>
-                              <div className="h-[1px] w-12 bg-amber-400"></div>
+                              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">04</span>
+                              <div className="h-[1px] w-12 bg-gold-400"></div>
                           </div>
                           <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_4_title}</h4>
                           <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_4_desc}</p>
@@ -552,11 +552,11 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       </div>
 
       {/* 4. Flow Experience */}
-      <div className="mb-24 bg-gray-900 text-white rounded-3xl p-10 md:p-16 relative overflow-hidden">
+      <div className="mb-24 bg-brand-900 text-white rounded-3xl p-10 md:p-16 relative overflow-hidden">
            <div className="absolute inset-0 opacity-10" style={{backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png')"}}></div>
            <div className="relative z-10 text-center mb-12">
                <h3 className="text-3xl font-serif">{t.medical.flow_title}</h3>
-               <p className="text-gray-400 mt-2 text-sm">Experience the Flow</p>
+               <p className="text-neutral-400 mt-2 text-sm">Experience the Flow</p>
            </div>
            <div className="relative z-10 grid grid-cols-1 md:grid-cols-5 gap-6 text-center">
               {[
@@ -567,10 +567,10 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   { id: '05', icon: <Coffee size={24} />, title: t.medical.flow_5, desc: t.medical.flow_5_d },
               ].map((step, i) => (
                <div key={i} className="bg-white/5 p-6 rounded-xl border border-white/10 hover:bg-white/10 transition group">
-                  <div className="text-blue-400 font-mono text-xl mb-4 opacity-50">{step.id}</div>
+                  <div className="text-medical-400 font-mono text-xl mb-4 opacity-50">{step.id}</div>
                   <div className="flex justify-center mb-4 text-white opacity-80 group-hover:scale-110 transition">{step.icon}</div>
                   <h4 className="font-bold text-lg mb-2">{step.title}</h4>
-                  <p className="text-xs text-gray-400 leading-relaxed">{step.desc}</p>
+                  <p className="text-xs text-neutral-400 leading-relaxed">{step.desc}</p>
                </div>
               ))}
            </div>
@@ -579,14 +579,14 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       {/* 5. Packages - UPDATED 6 COURSES */}
       <div className="mb-24" id="timc-packages">
           <div className="text-center mb-16">
-              <h3 className="text-3xl font-serif text-gray-900">{t.medical.pkg_title}</h3>
-              <p className="text-gray-500 text-sm mt-2">TIMC × NIIJIMA Exclusive B2B Lineup</p>
+              <h3 className="text-3xl font-serif text-neutral-900">{t.medical.pkg_title}</h3>
+              <p className="text-neutral-500 text-sm mt-2">TIMC × NIIJIMA Exclusive B2B Lineup</p>
 
               {/* 套餐推荐按钮 */}
               <div className="mt-8">
                   <a
                       href="/package-recommender"
-                      className="inline-flex items-center gap-3 bg-gradient-to-r from-indigo-600 to-blue-600 text-white px-8 py-4 rounded-full font-bold hover:from-indigo-700 hover:to-blue-700 transition-all shadow-lg shadow-indigo-200 hover:shadow-xl hover:-translate-y-0.5"
+                      className="inline-flex items-center gap-3 bg-gradient-to-r from-brand-700 to-brand-900 text-white px-8 py-4 rounded-full font-bold hover:from-brand-800 hover:to-brand-900 transition-all shadow-lg shadow-brand-200 hover:shadow-xl hover:-translate-y-0.5"
                   >
                       <MessageSquare size={20} />
                       <span>{t.medical.pkg_recommend_btn}</span>
@@ -598,131 +598,131 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto px-4">
               
               {/* 1. VIP Member */}
-              <div className="col-span-1 md:col-span-2 lg:col-span-1 border border-gray-900 rounded-2xl p-6 hover:shadow-2xl transition hover:-translate-y-1 relative overflow-hidden bg-gray-900 text-white flex flex-col">
-                  <div className="absolute top-0 right-0 bg-yellow-500 text-black text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Flagship</div>
+              <div className="col-span-1 md:col-span-2 lg:col-span-1 border border-gold-400 rounded-2xl p-6 hover:shadow-2xl transition hover:-translate-y-1 relative overflow-hidden bg-brand-900 text-white flex flex-col">
+                  <div className="absolute top-0 right-0 bg-gold-400 text-brand-900 text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Flagship</div>
                   <div className="mb-4">
-                      <h4 className="text-xl font-serif font-bold text-yellow-400">{t.medical.pkg_vip_title}</h4>
-                      <p className="text-xs text-gray-400 mt-1">VIP Member Course</p>
-                      <p className="text-2xl font-bold text-yellow-400 mt-2">¥1,512,500</p>
-                      <p className="text-[10px] text-gray-500">{t.medical.pkg_price_note}</p>
+                      <h4 className="text-xl font-serif font-bold text-gold-400">{t.medical.pkg_vip_title}</h4>
+                      <p className="text-xs text-neutral-400 mt-1">VIP Member Course</p>
+                      <p className="text-2xl font-bold text-gold-400 mt-2">¥1,512,500</p>
+                      <p className="text-[10px] text-neutral-500">{t.medical.pkg_price_note}</p>
                   </div>
-                  <p className="text-xs text-gray-300 mb-4 leading-relaxed flex-grow">
+                  <p className="text-xs text-neutral-300 mb-4 leading-relaxed flex-grow">
                       {t.medical.pkg_vip_desc}
                   </p>
                   <div className="space-y-1.5 mb-4 text-xs">
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> {t.medical.pkg_vip_item_1}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> {t.medical.pkg_vip_item_2}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> {t.medical.pkg_vip_item_3}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> {t.medical.pkg_vip_item_4}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> {t.medical.pkg_vip_item_5}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-yellow-500 shrink-0" /> {t.medical.pkg_vip_item_6}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-gold-400 shrink-0" /> {t.medical.pkg_vip_item_1}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-gold-400 shrink-0" /> {t.medical.pkg_vip_item_2}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-gold-400 shrink-0" /> {t.medical.pkg_vip_item_3}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-gold-400 shrink-0" /> {t.medical.pkg_vip_item_4}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-gold-400 shrink-0" /> {t.medical.pkg_vip_item_5}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-gold-400 shrink-0" /> {t.medical.pkg_vip_item_6}</div>
                   </div>
-                  <a href="/medical-packages/vip-member-course" className="w-full py-2 bg-yellow-500 text-black text-xs font-bold rounded hover:bg-yellow-400 transition text-center block">{t.medical.pkg_consult_btn}</a>
+                  <a href="/medical-packages/vip-member-course" className="w-full py-2 bg-gold-400 text-brand-900 text-xs font-bold rounded hover:bg-gold-300 transition text-center block">{t.medical.pkg_consult_btn}</a>
               </div>
 
               {/* 2. PREMIUM (Cardiac) */}
-              <div className="border border-blue-100 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-gradient-to-br from-blue-50 to-white flex flex-col">
+              <div className="border border-brand-200 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-white flex flex-col">
                    <div className="mb-4">
-                       <h4 className="text-lg font-serif font-bold text-blue-900">{t.medical.pkg_premium_title}</h4>
-                       <p className="text-xs text-blue-400 mt-1">Premium Cardiac Course</p>
-                       <p className="text-xl font-bold text-blue-900 mt-2">¥825,000</p>
-                       <p className="text-[10px] text-gray-400">{t.medical.pkg_price_note}</p>
+                       <h4 className="text-lg font-serif font-bold text-brand-900">{t.medical.pkg_premium_title}</h4>
+                       <p className="text-xs text-brand-400 mt-1">Premium Cardiac Course</p>
+                       <p className="text-xl font-bold text-brand-900 mt-2">¥825,000</p>
+                       <p className="text-[10px] text-neutral-400">{t.medical.pkg_price_note}</p>
                    </div>
-                   <p className="text-xs text-gray-500 mb-4 leading-relaxed flex-grow">
+                   <p className="text-xs text-neutral-500 mb-4 leading-relaxed flex-grow">
                        {t.medical.pkg_premium_desc}
                    </p>
-                   <div className="space-y-1.5 mb-4 text-xs text-gray-700">
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> {t.medical.pkg_premium_item_1}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> {t.medical.pkg_premium_item_2}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> {t.medical.pkg_premium_item_3}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> {t.medical.pkg_premium_item_4}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-blue-500 shrink-0" /> {t.medical.pkg_premium_item_5}</div>
+                   <div className="space-y-1.5 mb-4 text-xs text-neutral-700">
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_premium_item_1}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_premium_item_2}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_premium_item_3}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_premium_item_4}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_premium_item_5}</div>
                    </div>
-                   <a href="/medical-packages/premium-cardiac-course" className="w-full py-2 border border-blue-200 text-blue-600 text-xs font-bold rounded hover:bg-blue-50 transition text-center block">{t.medical.pkg_consult_btn}</a>
+                   <a href="/medical-packages/premium-cardiac-course" className="w-full py-2 border border-brand-300 text-brand-700 text-xs font-bold rounded hover:bg-brand-50 transition text-center block">{t.medical.pkg_consult_btn}</a>
               </div>
 
               {/* 3. SELECT (Gastro + Colon) */}
-              <div className="border border-green-100 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-white flex flex-col">
+              <div className="border border-brand-200 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-white flex flex-col">
                    <div className="mb-4">
-                       <h4 className="text-lg font-serif font-bold text-green-900">{t.medical.pkg_select_gc_title}</h4>
-                       <p className="text-xs text-green-500 mt-1">Gastro + Colonoscopy Course</p>
-                       <p className="text-xl font-bold text-green-900 mt-2">¥825,000</p>
-                       <p className="text-[10px] text-gray-400">{t.medical.pkg_price_note}</p>
+                       <h4 className="text-lg font-serif font-bold text-brand-900">{t.medical.pkg_select_gc_title}</h4>
+                       <p className="text-xs text-brand-400 mt-1">Gastro + Colonoscopy Course</p>
+                       <p className="text-xl font-bold text-brand-900 mt-2">¥825,000</p>
+                       <p className="text-[10px] text-neutral-400">{t.medical.pkg_price_note}</p>
                    </div>
-                   <p className="text-xs text-gray-500 mb-4 leading-relaxed flex-grow">
+                   <p className="text-xs text-neutral-500 mb-4 leading-relaxed flex-grow">
                        {t.medical.pkg_select_gc_desc}
                    </p>
-                   <div className="space-y-1.5 mb-4 text-xs text-gray-700">
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> {t.medical.pkg_select_gc_item_1}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> {t.medical.pkg_select_gc_item_2}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> {t.medical.pkg_select_gc_item_3}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> {t.medical.pkg_select_gc_item_4}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-green-500 shrink-0" /> {t.medical.pkg_select_gc_item_5}</div>
+                   <div className="space-y-1.5 mb-4 text-xs text-neutral-700">
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_select_gc_item_1}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_select_gc_item_2}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_select_gc_item_3}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_select_gc_item_4}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_select_gc_item_5}</div>
                    </div>
-                   <a href="/medical-packages/select-gastro-colonoscopy" className="w-full py-2 border border-green-200 text-green-600 text-xs font-bold rounded hover:bg-green-50 transition text-center block">{t.medical.pkg_consult_btn}</a>
+                   <a href="/medical-packages/select-gastro-colonoscopy" className="w-full py-2 border border-brand-300 text-brand-700 text-xs font-bold rounded hover:bg-brand-50 transition text-center block">{t.medical.pkg_consult_btn}</a>
               </div>
 
               {/* 4. SELECT (Stomach only) */}
-              <div className="border border-teal-100 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-white flex flex-col">
+              <div className="border border-brand-200 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-white flex flex-col">
                    <div className="mb-4">
-                       <h4 className="text-lg font-serif font-bold text-teal-800">{t.medical.pkg_select_g_title}</h4>
-                       <p className="text-xs text-teal-500 mt-1">Gastroscopy Course</p>
-                       <p className="text-xl font-bold text-teal-800 mt-2">¥687,500</p>
-                       <p className="text-[10px] text-gray-400">{t.medical.pkg_price_note}</p>
+                       <h4 className="text-lg font-serif font-bold text-brand-900">{t.medical.pkg_select_g_title}</h4>
+                       <p className="text-xs text-brand-400 mt-1">Gastroscopy Course</p>
+                       <p className="text-xl font-bold text-brand-900 mt-2">¥687,500</p>
+                       <p className="text-[10px] text-neutral-400">{t.medical.pkg_price_note}</p>
                    </div>
-                   <p className="text-xs text-gray-500 mb-4 leading-relaxed flex-grow">
+                   <p className="text-xs text-neutral-500 mb-4 leading-relaxed flex-grow">
                        {t.medical.pkg_select_g_desc}
                    </p>
-                   <div className="space-y-1.5 mb-4 text-xs text-gray-700">
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> {t.medical.pkg_select_g_item_1}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> {t.medical.pkg_select_g_item_2}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> {t.medical.pkg_select_g_item_3}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> {t.medical.pkg_select_g_item_4}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-teal-500 shrink-0" /> {t.medical.pkg_select_g_item_5}</div>
+                   <div className="space-y-1.5 mb-4 text-xs text-neutral-700">
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_select_g_item_1}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_select_g_item_2}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_select_g_item_3}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_select_g_item_4}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_select_g_item_5}</div>
                    </div>
-                   <Link href="/medical-packages/select-gastroscopy" className="w-full py-2 border border-teal-200 text-teal-600 text-xs font-bold rounded hover:bg-teal-50 transition text-center block">{t.medical.pkg_consult_btn}</Link>
+                   <Link href="/medical-packages/select-gastroscopy" className="w-full py-2 border border-brand-300 text-brand-700 text-xs font-bold rounded hover:bg-brand-50 transition text-center block">{t.medical.pkg_consult_btn}</Link>
               </div>
 
               {/* 5. DWIBS */}
-              <div className="border border-purple-100 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-white flex flex-col">
+              <div className="border border-brand-200 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-white flex flex-col">
                    <div className="mb-4">
-                       <h4 className="text-lg font-serif font-bold text-purple-900">{t.medical.pkg_dwibs_title}</h4>
-                       <p className="text-xs text-purple-500 mt-1">DWIBS Cancer Screening</p>
-                       <p className="text-xl font-bold text-purple-900 mt-2">¥275,000</p>
-                       <p className="text-[10px] text-gray-400">{t.medical.pkg_price_note}</p>
+                       <h4 className="text-lg font-serif font-bold text-brand-900">{t.medical.pkg_dwibs_title}</h4>
+                       <p className="text-xs text-brand-400 mt-1">DWIBS Cancer Screening</p>
+                       <p className="text-xl font-bold text-brand-900 mt-2">¥275,000</p>
+                       <p className="text-[10px] text-neutral-400">{t.medical.pkg_price_note}</p>
                    </div>
-                   <p className="text-xs text-gray-500 mb-4 leading-relaxed flex-grow">
+                   <p className="text-xs text-neutral-500 mb-4 leading-relaxed flex-grow">
                        {t.medical.pkg_dwibs_desc}
                    </p>
-                   <div className="space-y-1.5 mb-4 text-xs text-gray-700">
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> {t.medical.pkg_dwibs_item_1}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> {t.medical.pkg_dwibs_item_2}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> {t.medical.pkg_dwibs_item_3}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> {t.medical.pkg_dwibs_item_4}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-purple-500 shrink-0" /> {t.medical.pkg_dwibs_item_5}</div>
+                   <div className="space-y-1.5 mb-4 text-xs text-neutral-700">
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_dwibs_item_1}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_dwibs_item_2}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_dwibs_item_3}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_dwibs_item_4}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_dwibs_item_5}</div>
                    </div>
-                   <Link href="/medical-packages/dwibs-cancer-screening" className="w-full py-2 border border-purple-200 text-purple-600 text-xs font-bold rounded hover:bg-purple-50 transition text-center block">{t.medical.pkg_consult_btn}</Link>
+                   <Link href="/medical-packages/dwibs-cancer-screening" className="w-full py-2 border border-brand-300 text-brand-700 text-xs font-bold rounded hover:bg-brand-50 transition text-center block">{t.medical.pkg_consult_btn}</Link>
               </div>
 
               {/* 6. BASIC */}
-              <div className="border border-gray-200 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-gray-50 flex flex-col">
+              <div className="border border-neutral-200 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-neutral-50 flex flex-col">
                    <div className="mb-4">
-                       <h4 className="text-lg font-serif font-bold text-gray-800">{t.medical.pkg_basic_title}</h4>
-                       <p className="text-xs text-gray-500 mt-1">Standard Checkup Course</p>
-                       <p className="text-xl font-bold text-gray-800 mt-2">¥550,000</p>
-                       <p className="text-[10px] text-gray-400">{t.medical.pkg_price_note}</p>
+                       <h4 className="text-lg font-serif font-bold text-neutral-800">{t.medical.pkg_basic_title}</h4>
+                       <p className="text-xs text-neutral-500 mt-1">Standard Checkup Course</p>
+                       <p className="text-xl font-bold text-neutral-800 mt-2">¥550,000</p>
+                       <p className="text-[10px] text-neutral-400">{t.medical.pkg_price_note}</p>
                    </div>
-                   <p className="text-xs text-gray-500 mb-4 leading-relaxed flex-grow">
+                   <p className="text-xs text-neutral-500 mb-4 leading-relaxed flex-grow">
                        {t.medical.pkg_basic_desc}
                    </p>
-                   <div className="space-y-1.5 mb-4 text-xs text-gray-700">
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> {t.medical.pkg_basic_item_1}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> {t.medical.pkg_basic_item_2}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> {t.medical.pkg_basic_item_3}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> {t.medical.pkg_basic_item_4}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-gray-500 shrink-0" /> {t.medical.pkg_basic_item_5}</div>
+                   <div className="space-y-1.5 mb-4 text-xs text-neutral-700">
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-neutral-500 shrink-0" /> {t.medical.pkg_basic_item_1}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-neutral-500 shrink-0" /> {t.medical.pkg_basic_item_2}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-neutral-500 shrink-0" /> {t.medical.pkg_basic_item_3}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-neutral-500 shrink-0" /> {t.medical.pkg_basic_item_4}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-neutral-500 shrink-0" /> {t.medical.pkg_basic_item_5}</div>
                    </div>
-                   <Link href="/medical-packages/basic-checkup" className="w-full py-2 border border-gray-300 text-gray-600 text-xs font-bold rounded hover:bg-gray-100 transition text-center block">{t.medical.pkg_consult_btn}</Link>
+                   <Link href="/medical-packages/basic-checkup" className="w-full py-2 border border-neutral-300 text-neutral-600 text-xs font-bold rounded hover:bg-neutral-100 transition text-center block">{t.medical.pkg_consult_btn}</Link>
               </div>
 
           </div>
@@ -731,11 +731,11 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       {/* 套餐對比表格 */}
       <div className="mb-24" id="timc-comparison">
           <div className="text-center mb-12">
-              <h3 className="text-3xl font-serif text-gray-900">{t.medical.pkg_compare_title}</h3>
-              <p className="text-gray-500 text-sm mt-2">{t.medical.pkg_compare_sub}</p>
+              <h3 className="text-3xl font-serif text-neutral-900">{t.medical.pkg_compare_title}</h3>
+              <p className="text-neutral-500 text-sm mt-2">{t.medical.pkg_compare_sub}</p>
           </div>
           <div className="max-w-7xl mx-auto px-4">
-              <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+              <div className="bg-white rounded-2xl shadow-xl border border-neutral-200 overflow-hidden">
                   <PackageComparisonTable currentLang={currentLang} />
               </div>
           </div>
@@ -744,24 +744,24 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       {/* 客戶評價區塊 - 自動滾動輪播 */}
       <div className="mb-24" id="timc-testimonials">
           <div className="text-center mb-16">
-              <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">Customer Reviews</span>
-              <h3 className="text-3xl font-serif text-gray-900 mt-2">{t.medical.testimonials_title}</h3>
-              <p className="text-gray-500 text-sm mt-2">{t.medical.testimonials_sub}</p>
+              <span className="text-brand-600 text-xs tracking-widest uppercase font-bold">Customer Reviews</span>
+              <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.medical.testimonials_title}</h3>
+              <p className="text-neutral-500 text-sm mt-2">{t.medical.testimonials_sub}</p>
           </div>
 
           {/* 統計數據 */}
           <div className="flex flex-wrap justify-center gap-12 mb-12">
               <div className="text-center">
-                  <div className="text-4xl font-bold text-blue-600">98%</div>
-                  <div className="text-sm text-gray-500 mt-1">{t.medical.stat_satisfaction}</div>
+                  <div className="text-4xl font-bold text-brand-700">98%</div>
+                  <div className="text-sm text-neutral-500 mt-1">{t.medical.stat_satisfaction}</div>
               </div>
               <div className="text-center">
-                  <div className="text-4xl font-bold text-blue-600">500+</div>
-                  <div className="text-sm text-gray-500 mt-1">{t.medical.stat_served}</div>
+                  <div className="text-4xl font-bold text-brand-700">500+</div>
+                  <div className="text-sm text-neutral-500 mt-1">{t.medical.stat_served}</div>
               </div>
               <div className="text-center">
-                  <div className="text-4xl font-bold text-blue-600">4.9</div>
-                  <div className="text-sm text-gray-500 mt-1">{t.medical.stat_rating}</div>
+                  <div className="text-4xl font-bold text-brand-700">4.9</div>
+                  <div className="text-sm text-neutral-500 mt-1">{t.medical.stat_rating}</div>
               </div>
           </div>
 
@@ -784,22 +784,22 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       { name: '吳小姐', loc: '台中', flag: '🇹🇼', pkg: 'PREMIUM 尊享套餐', text: '朋友推薦來的，做了全身MRI和腫瘤標記物檢測。醫生說我的健康狀況很好，讓我安心不少。', highlight: '全身MRI精準' },
                       { name: '許先生', loc: '北京', flag: '🇨🇳', pkg: 'SELECT 甄選套餐', text: '日本醫療服務果然名不虛傳，從接機開始就感受到專業。已經推薦給好幾個朋友了。', highlight: '接機服務周到' },
                   ].map((review, i) => (
-                      <div key={`first-${i}`} className="flex-shrink-0 w-80 mx-3 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                      <div key={`first-${i}`} className="flex-shrink-0 w-80 mx-3 bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
                           <div className="flex items-center gap-3 mb-4">
-                              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold">
+                              <div className="w-10 h-10 bg-gradient-to-br from-brand-700 to-brand-900 rounded-full flex items-center justify-center text-white font-bold">
                                   {localizeText(review.name, currentLang || 'zh-TW').charAt(0)}
                               </div>
                               <div>
                                   <div className="flex items-center gap-2">
-                                      <span className="font-semibold text-gray-900 text-sm">{localizeText(review.name, currentLang || 'zh-TW')}</span>
+                                      <span className="font-semibold text-neutral-900 text-sm">{localizeText(review.name, currentLang || 'zh-TW')}</span>
                                       <span>{review.flag}</span>
                                   </div>
-                                  <div className="text-xs text-gray-400">{review.loc}</div>
+                                  <div className="text-xs text-neutral-400">{review.loc}</div>
                               </div>
                           </div>
-                          <div className="text-xs text-blue-600 font-medium mb-3">{localizeText(review.pkg, currentLang || 'zh-TW')}</div>
-                          <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3">{localizeText(review.text, currentLang || 'zh-TW')}</p>
-                          <div className="flex items-center gap-2 text-green-600 text-xs">
+                          <div className="text-xs text-brand-700 font-medium mb-3">{localizeText(review.pkg, currentLang || 'zh-TW')}</div>
+                          <p className="text-sm text-neutral-600 leading-relaxed mb-4 line-clamp-3">{localizeText(review.text, currentLang || 'zh-TW')}</p>
+                          <div className="flex items-center gap-2 text-medical-600 text-xs">
                               <CheckCircle size={12} />
                               <span className="font-medium">{localizeText(review.highlight, currentLang || 'zh-TW')}</span>
                           </div>
@@ -816,22 +816,22 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       { name: '吳小姐', loc: '台中', flag: '🇹🇼', pkg: 'PREMIUM 尊享套餐', text: '朋友推薦來的，做了全身MRI和腫瘤標記物檢測。醫生說我的健康狀況很好，讓我安心不少。', highlight: '全身MRI精準' },
                       { name: '許先生', loc: '北京', flag: '🇨🇳', pkg: 'SELECT 甄選套餐', text: '日本醫療服務果然名不虛傳，從接機開始就感受到專業。已經推薦給好幾個朋友了。', highlight: '接機服務周到' },
                   ].map((review, i) => (
-                      <div key={`second-${i}`} className="flex-shrink-0 w-80 mx-3 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                      <div key={`second-${i}`} className="flex-shrink-0 w-80 mx-3 bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
                           <div className="flex items-center gap-3 mb-4">
-                              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold">
+                              <div className="w-10 h-10 bg-gradient-to-br from-brand-700 to-brand-900 rounded-full flex items-center justify-center text-white font-bold">
                                   {localizeText(review.name, currentLang || 'zh-TW').charAt(0)}
                               </div>
                               <div>
                                   <div className="flex items-center gap-2">
-                                      <span className="font-semibold text-gray-900 text-sm">{localizeText(review.name, currentLang || 'zh-TW')}</span>
+                                      <span className="font-semibold text-neutral-900 text-sm">{localizeText(review.name, currentLang || 'zh-TW')}</span>
                                       <span>{review.flag}</span>
                                   </div>
-                                  <div className="text-xs text-gray-400">{review.loc}</div>
+                                  <div className="text-xs text-neutral-400">{review.loc}</div>
                               </div>
                           </div>
-                          <div className="text-xs text-blue-600 font-medium mb-3">{localizeText(review.pkg, currentLang || 'zh-TW')}</div>
-                          <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3">{localizeText(review.text, currentLang || 'zh-TW')}</p>
-                          <div className="flex items-center gap-2 text-green-600 text-xs">
+                          <div className="text-xs text-brand-700 font-medium mb-3">{localizeText(review.pkg, currentLang || 'zh-TW')}</div>
+                          <p className="text-sm text-neutral-600 leading-relaxed mb-4 line-clamp-3">{localizeText(review.text, currentLang || 'zh-TW')}</p>
+                          <div className="flex items-center gap-2 text-medical-600 text-xs">
                               <CheckCircle size={12} />
                               <span className="font-medium">{localizeText(review.highlight, currentLang || 'zh-TW')}</span>
                           </div>
@@ -844,9 +844,9 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       {/* FAQ 常見問題 */}
       <div className="mb-24" id="timc-faq">
           <div className="text-center mb-16">
-              <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">FAQ</span>
-              <h3 className="text-3xl font-serif text-gray-900 mt-2">{t.medical.faq_title}</h3>
-              <p className="text-gray-500 text-sm mt-2">{t.medical.faq_sub}</p>
+              <span className="text-brand-600 text-xs tracking-widest uppercase font-bold">FAQ</span>
+              <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.medical.faq_title}</h3>
+              <p className="text-neutral-500 text-sm mt-2">{t.medical.faq_sub}</p>
           </div>
 
           <div className="max-w-3xl mx-auto space-y-4">
@@ -858,12 +858,12 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   { q: t.medical.faq_5_q, a: t.medical.faq_5_a },
                   { q: t.medical.faq_6_q, a: t.medical.faq_6_a },
               ].map((faq, i) => (
-                  <details key={i} className="group bg-white rounded-xl border border-gray-100 overflow-hidden">
-                      <summary className="flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition">
-                          <span className="font-semibold text-gray-900 pr-4">{faq.q}</span>
-                          <ChevronDown size={20} className="text-gray-400 flex-shrink-0 group-open:rotate-180 transition-transform" />
+                  <details key={i} className="group bg-white rounded-xl border border-neutral-200 overflow-hidden">
+                      <summary className="flex items-center justify-between p-6 cursor-pointer hover:bg-neutral-50 transition">
+                          <span className="font-semibold text-neutral-900 pr-4">{faq.q}</span>
+                          <ChevronDown size={20} className="text-neutral-400 flex-shrink-0 group-open:rotate-180 transition-transform" />
                       </summary>
-                      <div className="px-6 py-12 md:py-24 pb-6 text-gray-600 text-sm leading-relaxed">
+                      <div className="px-6 py-12 md:py-24 pb-6 text-neutral-600 text-sm leading-relaxed">
                           {faq.a}
                       </div>
                   </details>
@@ -873,15 +873,15 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
 
       {/* 訂單查詢入口 */}
       <div className="mb-24" id="timc-order-lookup">
-          <div className="max-w-2xl mx-auto bg-gradient-to-br from-gray-50 to-white rounded-2xl border border-gray-200 p-8 text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <FileText size={28} className="text-blue-600" />
+          <div className="max-w-2xl mx-auto bg-gradient-to-br from-neutral-50 to-white rounded-2xl border border-neutral-200 p-8 text-center">
+              <div className="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <FileText size={28} className="text-brand-700" />
               </div>
-              <h3 className="text-2xl font-serif font-bold text-gray-900 mb-3">{t.medical.order_title}</h3>
-              <p className="text-gray-500 mb-6">{t.medical.order_sub}</p>
+              <h3 className="text-2xl font-serif font-bold text-neutral-900 mb-3">{t.medical.order_title}</h3>
+              <p className="text-neutral-500 mb-6">{t.medical.order_sub}</p>
               <a
                   href="/order-lookup"
-                  className="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-3 rounded-full font-bold hover:bg-gray-800 transition"
+                  className="inline-flex items-center gap-2 bg-brand-900 text-white px-8 py-3 rounded-full font-bold hover:bg-brand-800 transition"
               >
                   <FileText size={18} />
                   {t.medical.order_btn}
@@ -890,9 +890,9 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       </div>
 
       {/* CTA */}
-      <div className="bg-blue-600 rounded-3xl p-12 text-center text-white shadow-2xl shadow-blue-200">
+      <div className="bg-brand-700 rounded-3xl p-12 text-center text-white shadow-2xl shadow-brand-200">
           <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif mb-6">{t.medical.cta_title}</h3>
-          <p className="text-blue-100 max-w-2xl mx-auto mb-6 leading-relaxed whitespace-pre-line">
+          <p className="text-brand-100 max-w-2xl mx-auto mb-6 leading-relaxed whitespace-pre-line">
               {t.medical.cta_text}
           </p>
           {/* 限量提示 */}
@@ -901,27 +901,27 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-300 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
               </span>
-              <span className="text-blue-100 text-sm">{t.medical.cta_limit}</span>
+              <span className="text-brand-100 text-sm">{t.medical.cta_limit}</span>
           </div>
           <div>
-              <button onClick={() => { const element = document.getElementById('timc-packages'); element?.scrollIntoView({ behavior: 'smooth' }); }} className="bg-white text-blue-800 font-bold px-10 py-4 rounded-full hover:bg-gray-100 transition shadow-lg inline-flex items-center gap-2">
+              <button onClick={() => { const element = document.getElementById('timc-packages'); element?.scrollIntoView({ behavior: 'smooth' }); }} className="bg-white text-brand-900 font-bold px-10 py-4 rounded-full hover:bg-neutral-100 transition shadow-lg inline-flex items-center gap-2">
                   <Zap size={18} /> {t.medical.cta_btn}
               </button>
           </div>
       </div>
 
       {/* Contact Buttons */}
-      <div className="py-12 bg-gray-50">
+      <div className="py-12 bg-neutral-50">
         <div className="container mx-auto px-6 py-12 md:py-24">
           <div className="max-w-2xl mx-auto text-center">
-            <h3 className="text-lg font-bold text-gray-900 mb-4">{t.medical.contact_other}</h3>
+            <h3 className="text-lg font-bold text-neutral-900 mb-4">{t.medical.contact_other}</h3>
             <ContactButtons />
           </div>
         </div>
       </div>
 
       <div className="text-center py-12">
-         <button onClick={() => setCurrentPage('home')} className="inline-flex items-center gap-2 text-gray-500 hover:text-black transition">
+         <button onClick={() => setCurrentPage('home')} className="inline-flex items-center gap-2 text-neutral-500 hover:text-neutral-900 transition">
             <ArrowLeft size={16} /> {t.about.back}
          </button>
       </div>
@@ -992,7 +992,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
   ];
 
   return (
-  <div className="animate-fade-in-up min-h-screen bg-[#FAFAF8]">
+  <div className="animate-fade-in-up min-h-screen bg-neutral-50">
      {/* ===== HERO SECTION - Full Screen Cinematic ===== */}
      <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background with Ken Burns effect */}
@@ -1012,8 +1012,8 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
         </div>
 
         {/* Decorative gold lines */}
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent"></div>
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold-400/50 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold-400/50 to-transparent"></div>
 
         {/* Content */}
         <div className="relative z-10 text-center text-white px-6 py-12 md:py-24 max-w-5xl mx-auto">
@@ -1051,8 +1051,8 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
            {stats.map((stat, i) => (
              <div key={i} className="golf-stat-card text-center p-4 rounded-xl hover:bg-emerald-50/50 transition-all duration-500">
                <div className="text-2xl md:text-4xl lg:text-5xl font-bold golf-gold-text mb-2">{stat.value}</div>
-               <div className="text-sm font-bold text-gray-800">{stat.label}</div>
-               <div className="text-xs text-gray-400 mt-1">{stat.sublabel}</div>
+               <div className="text-sm font-bold text-neutral-800">{stat.label}</div>
+               <div className="text-xs text-neutral-400 mt-1">{stat.sublabel}</div>
              </div>
            ))}
          </div>
@@ -1060,16 +1060,16 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
      </div>
 
      {/* ===== BRAND STANDARD SECTION ===== */}
-     <div className="py-24 bg-gradient-to-b from-[#FAFAF8] to-white">
+     <div className="py-24 bg-gradient-to-b from-neutral-50 to-white">
        <div className="container mx-auto px-6 py-12 md:py-24">
          {/* Section Header */}
          <div className="text-center mb-16">
            <div className="inline-flex items-center gap-4 mb-4">
-             <div className="w-12 h-px bg-gradient-to-r from-transparent to-amber-400"></div>
-             <span className="text-amber-600 text-xs tracking-[0.3em] uppercase font-bold">{t.golf.std_title}</span>
-             <div className="w-12 h-px bg-gradient-to-l from-transparent to-amber-400"></div>
+             <div className="w-12 h-px bg-gradient-to-r from-transparent to-gold-400"></div>
+             <span className="text-gold-600 text-xs tracking-[0.3em] uppercase font-bold">{t.golf.std_title}</span>
+             <div className="w-12 h-px bg-gradient-to-l from-transparent to-gold-400"></div>
            </div>
-           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-gray-900 golf-title-decorated">
+           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-neutral-900 golf-title-decorated">
              Why Choose Niijima Golf?
            </h2>
          </div>
@@ -1089,16 +1089,16 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
                   {/* Icon with gradient background */}
                   <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500
                     ${item.accent === 'emerald' ? 'bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white' : ''}
-                    ${item.accent === 'amber' ? 'bg-amber-50 text-amber-600 group-hover:bg-amber-600 group-hover:text-white' : ''}
+                    ${item.accent === 'amber' ? 'bg-gold-50 text-gold-600 group-hover:bg-gold-600 group-hover:text-white' : ''}
                     ${item.accent === 'slate' ? 'bg-slate-100 text-slate-600 group-hover:bg-slate-700 group-hover:text-white' : ''}
-                    ${item.accent === 'orange' ? 'bg-orange-50 text-orange-600 group-hover:bg-orange-500 group-hover:text-white' : ''}
+                    ${item.accent === 'orange' ? 'bg-gold-50 text-gold-500 group-hover:bg-gold-500 group-hover:text-white' : ''}
                   `}>
                     {item.icon}
                   </div>
                   {/* Gold top border on hover */}
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-t-2xl"></div>
-                  <h3 className="font-bold text-xl mb-4 font-serif text-gray-900">{item.title}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gold-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-t-2xl"></div>
+                  <h3 className="font-bold text-xl mb-4 font-serif text-neutral-900">{item.title}</h3>
+                  <p className="text-sm text-neutral-500 leading-relaxed">{item.desc}</p>
                </div>
              ))}
          </div>
@@ -1117,9 +1117,9 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
        <div className="container mx-auto px-6 py-12 md:py-24 relative z-10">
          <div className="text-center mb-12">
            <div className="inline-flex items-center gap-4 mb-4">
-             <div className="w-12 h-px bg-gradient-to-r from-transparent to-amber-400"></div>
-             <span className="text-amber-400 text-xs tracking-[0.3em] uppercase font-bold">Partner Courses</span>
-             <div className="w-12 h-px bg-gradient-to-l from-transparent to-amber-400"></div>
+             <div className="w-12 h-px bg-gradient-to-r from-transparent to-gold-400"></div>
+             <span className="text-gold-400 text-xs tracking-[0.3em] uppercase font-bold">Partner Courses</span>
+             <div className="w-12 h-px bg-gradient-to-l from-transparent to-gold-400"></div>
            </div>
            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-white">{t.golf.partners_title || '提携名門コース'}</h2>
          </div>
@@ -1132,17 +1132,17 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
                href={course.url}
                target="_blank"
                rel="noopener noreferrer"
-               className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 hover:border-amber-400/30 transition-all duration-500 cursor-pointer block"
+               className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 hover:border-gold-400/30 transition-all duration-500 cursor-pointer block"
              >
-               <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-to-br from-amber-400/20 to-amber-600/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                 <MapPin size={20} className="text-amber-400" />
+               <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-to-br from-gold-400/20 to-gold-600/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                 <MapPin size={20} className="text-gold-400" />
                </div>
-               <h4 className="text-white font-bold text-sm mb-1 group-hover:text-amber-300 transition-colors">{course.name}</h4>
+               <h4 className="text-white font-bold text-sm mb-1 group-hover:text-gold-300 transition-colors">{course.name}</h4>
                <p className="text-white/50 text-xs mb-2">{course.region}</p>
-               <span className="inline-block text-[10px] px-2 py-1 bg-amber-400/20 text-amber-300 rounded-full">{course.rank}</span>
+               <span className="inline-block text-[10px] px-2 py-1 bg-gold-400/20 text-gold-300 rounded-full">{course.rank}</span>
                {/* External link indicator */}
                <div className="mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                 <span className="text-[10px] text-amber-400/70 flex items-center justify-center gap-1">
+                 <span className="text-[10px] text-gold-400/70 flex items-center justify-center gap-1">
                    Official Site <ArrowRight size={10} />
                  </span>
                </div>
@@ -1163,12 +1163,12 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
          {/* Section Header */}
          <div className="text-center mb-20">
            <div className="inline-flex items-center gap-4 mb-4">
-             <div className="w-12 h-px bg-gradient-to-r from-transparent to-amber-400"></div>
-             <span className="text-amber-600 text-xs tracking-[0.3em] uppercase font-bold">Signature Itineraries</span>
-             <div className="w-12 h-px bg-gradient-to-l from-transparent to-amber-400"></div>
+             <div className="w-12 h-px bg-gradient-to-r from-transparent to-gold-400"></div>
+             <span className="text-gold-600 text-xs tracking-[0.3em] uppercase font-bold">Signature Itineraries</span>
+             <div className="w-12 h-px bg-gradient-to-l from-transparent to-gold-400"></div>
            </div>
-           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-gray-900 mb-4">Recommended Itineraries</h2>
-           <p className="text-gray-500 max-w-xl mx-auto">Curated experiences for discerning golfers</p>
+           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-neutral-900 mb-4">Recommended Itineraries</h2>
+           <p className="text-neutral-500 max-w-xl mx-auto">Curated experiences for discerning golfers</p>
          </div>
 
          {/* Plan Cards - Premium Design */}
@@ -1182,8 +1182,8 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
                   <div className="lg:w-1/2 w-full">
                      <div className="relative group">
                         {/* Gold corner decorations */}
-                        <div className="absolute -top-3 -left-3 w-16 h-16 border-t-2 border-l-2 border-amber-400/60 rounded-tl-lg z-10"></div>
-                        <div className="absolute -bottom-3 -right-3 w-16 h-16 border-b-2 border-r-2 border-amber-400/60 rounded-br-lg z-10"></div>
+                        <div className="absolute -top-3 -left-3 w-16 h-16 border-t-2 border-l-2 border-gold-400/60 rounded-tl-lg z-10"></div>
+                        <div className="absolute -bottom-3 -right-3 w-16 h-16 border-b-2 border-r-2 border-gold-400/60 rounded-br-lg z-10"></div>
 
                         {/* Image */}
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[450px] lg:h-[500px]">
@@ -1212,7 +1212,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
 
                            {/* Plan number badge */}
                            <div className="absolute bottom-6 right-6">
-                             <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg">
+                             <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center shadow-lg">
                                <span className="text-white font-bold text-lg">0{index + 1}</span>
                              </div>
                            </div>
@@ -1225,23 +1225,23 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
                      {/* Plan indicator */}
                      <div className="flex items-center gap-4 mb-4">
                         <span className="golf-gold-text font-bold text-sm tracking-[0.2em] uppercase">Plan 0{index + 1}</span>
-                        <div className="flex-grow h-px bg-gradient-to-r from-amber-400/50 to-transparent"></div>
+                        <div className="flex-grow h-px bg-gradient-to-r from-gold-400/50 to-transparent"></div>
                      </div>
 
-                     <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-gray-900 mb-3 leading-tight">{plan.title}</h3>
-                     <h4 className="text-lg text-amber-600 mb-6 font-medium">{plan.subtitle}</h4>
-                     <p className="text-gray-600 leading-relaxed mb-10 text-lg">{plan.desc}</p>
+                     <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-neutral-900 mb-3 leading-tight">{plan.title}</h3>
+                     <h4 className="text-lg text-gold-600 mb-6 font-medium">{plan.subtitle}</h4>
+                     <p className="text-neutral-600 leading-relaxed mb-10 text-lg">{plan.desc}</p>
 
                      {/* Schedule Card - Premium Style */}
                      <div className="golf-luxury-card rounded-2xl p-8 mb-10">
                         {/* Hotel Info */}
-                        <div className="flex items-center gap-3 mb-6 pb-6 border-b border-gray-100">
+                        <div className="flex items-center gap-3 mb-6 pb-6 border-b border-neutral-200">
                            <div className="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center">
                              <Building size={18} className="text-emerald-600" />
                            </div>
                            <div>
-                             <span className="text-xs text-gray-400 uppercase tracking-wider">Accommodation</span>
-                             <p className="text-gray-900 font-bold">{plan.hotel}</p>
+                             <span className="text-xs text-neutral-400 uppercase tracking-wider">Accommodation</span>
+                             <p className="text-neutral-900 font-bold">{plan.hotel}</p>
                            </div>
                         </div>
 
@@ -1258,8 +1258,8 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
                                    )}
                                  </div>
                                  <div className="flex-1 pb-4">
-                                   <span className="text-xs font-bold text-amber-600 uppercase tracking-wider">{day.day}</span>
-                                   <p className="text-gray-700 leading-relaxed mt-1">{day.text}</p>
+                                   <span className="text-xs font-bold text-gold-600 uppercase tracking-wider">{day.day}</span>
+                                   <p className="text-neutral-700 leading-relaxed mt-1">{day.text}</p>
                                  </div>
                               </div>
                            ))}
@@ -1276,18 +1276,18 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
      <div className="py-16 bg-white">
        <div className="container mx-auto px-6 py-12 md:py-24">
          <div className="max-w-2xl mx-auto text-center">
-           <h3 className="text-2xl font-serif font-bold text-gray-900 mb-2">開始您的高爾夫之旅</h3>
-           <p className="text-gray-500 mb-8">專業球場預約・VIP禮遇・全程陪同</p>
+           <h3 className="text-2xl font-serif font-bold text-neutral-900 mb-2">開始您的高爾夫之旅</h3>
+           <p className="text-neutral-500 mb-8">專業球場預約・VIP禮遇・全程陪同</p>
            <ContactButtons />
          </div>
        </div>
      </div>
 
      {/* Back to Home */}
-     <div className="py-8 bg-[#FAFAF8]">
+     <div className="py-8 bg-neutral-50">
        <button
          onClick={() => setCurrentPage('home')}
-         className="w-full text-center text-gray-400 hover:text-emerald-600 transition-colors flex justify-center items-center gap-2 group"
+         className="w-full text-center text-neutral-400 hover:text-emerald-600 transition-colors flex justify-center items-center gap-2 group"
        >
          <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
          {t.about.back}
@@ -1386,12 +1386,12 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
              backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')`,
            }}
          >
-           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-blue-900/80 to-slate-900/70"></div>
+           <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-900/80 to-brand-900/70"></div>
          </div>
          {/* Decorative Elements */}
          <div className="absolute inset-0">
-           <div className="absolute w-96 h-96 bg-blue-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
-           <div className="absolute w-72 h-72 bg-indigo-500/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+           <div className="absolute w-96 h-96 bg-biz-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
+           <div className="absolute w-72 h-72 bg-biz-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
          </div>
          <div className="relative z-10 text-center px-6 py-12 md:py-24">
             {t.business.hero_tag && (
@@ -1402,7 +1402,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif font-bold text-white mb-4 md:mb-6 leading-tight">
                 {t.business.hero_title}
             </h1>
-            <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed whitespace-pre-line">
+            <p className="text-neutral-300 max-w-2xl mx-auto leading-relaxed whitespace-pre-line">
                 {t.business.hero_text}
             </p>
          </div>
@@ -1411,8 +1411,8 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
       <div className="container mx-auto px-6 py-12 md:py-24 py-24">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center mb-12 md:mb-24">
              <div>
-                <h3 className="text-3xl font-serif text-gray-900 mb-6">{t.business.tag}</h3>
-                <p className="text-gray-500 leading-relaxed whitespace-pre-line mb-8">
+                <h3 className="text-3xl font-serif text-neutral-900 mb-6">{t.business.tag}</h3>
+                <p className="text-neutral-500 leading-relaxed whitespace-pre-line mb-8">
                    {t.business.desc}
                 </p>
                 <button
@@ -1422,7 +1422,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                       }
                    }}
-                   className="bg-blue-600 text-white px-8 py-3 rounded-full font-bold hover:bg-blue-700 transition shadow-lg"
+                   className="bg-biz-600 text-white px-8 py-3 rounded-full font-bold hover:bg-biz-700 transition shadow-lg"
                 >
                    {t.business.btn_case}
                 </button>
@@ -1433,11 +1433,11 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                   { t: t.business.theme_2_t, d: t.business.theme_2_d, i: <Heart size={20}/> },
                   { t: t.business.theme_3_t, d: t.business.theme_3_d, i: <Building size={20}/> },
                 ].map((item, i) => (
-                  <div key={i} className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition flex gap-4 items-start">
-                     <div className="bg-blue-50 text-blue-600 p-3 rounded-lg">{item.i}</div>
+                  <div key={i} className="bg-white p-6 rounded-xl border border-neutral-200 shadow-sm hover:shadow-md transition flex gap-4 items-start">
+                     <div className="bg-biz-50 text-biz-600 p-3 rounded-lg">{item.i}</div>
                      <div>
-                        <h4 className="font-bold text-gray-900">{item.t}</h4>
-                        <p className="text-xs text-gray-500 mt-1">{item.d}</p>
+                        <h4 className="font-bold text-neutral-900">{item.t}</h4>
+                        <p className="text-xs text-neutral-500 mt-1">{item.d}</p>
                      </div>
                   </div>
                 ))}
@@ -1445,10 +1445,10 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
           </div>
 
           {/* Process Steps */}
-          <div className="mb-24 bg-gray-900 rounded-3xl p-10 md:p-16 text-white overflow-hidden relative">
+          <div className="mb-24 bg-brand-900 rounded-3xl p-10 md:p-16 text-white overflow-hidden relative">
              <div className="relative z-10 text-center mb-16">
                  <h3 className="text-3xl font-serif">{t.business.process_title}</h3>
-                 <p className="text-gray-400 mt-2 text-sm">{t.business.process_sub}</p>
+                 <p className="text-neutral-400 mt-2 text-sm">{t.business.process_sub}</p>
              </div>
              <div className="relative z-10 grid grid-cols-1 md:grid-cols-5 gap-4">
                  {[
@@ -1459,9 +1459,9 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                    { t: t.business.step_5_t, d: t.business.step_5_d },
                  ].map((step, i) => (
                     <div key={i} className="relative group">
-                       <div className="text-4xl font-mono font-bold text-gray-800 mb-4 group-hover:text-blue-500 transition">0{i+1}</div>
+                       <div className="text-4xl font-mono font-bold text-brand-800 mb-4 group-hover:text-biz-500 transition">0{i+1}</div>
                        <h4 className="font-bold text-lg mb-2">{step.t}</h4>
-                       <p className="text-xs text-gray-400 leading-relaxed">{step.d}</p>
+                       <p className="text-xs text-neutral-400 leading-relaxed">{step.d}</p>
                     </div>
                  ))}
              </div>
@@ -1470,8 +1470,8 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
           {/* Bookable Japanese Top Companies Section - 100 Companies */}
           <div className="mb-24">
              <div className="text-center mb-12">
-                <h3 className="text-3xl font-serif text-gray-900 mb-3">{localizedTexts.topCompanies}</h3>
-                <p className="text-gray-500 text-sm max-w-2xl mx-auto">{localizedTexts.companyIntro}</p>
+                <h3 className="text-3xl font-serif text-neutral-900 mb-3">{localizedTexts.topCompanies}</h3>
+                <p className="text-neutral-500 text-sm max-w-2xl mx-auto">{localizedTexts.companyIntro}</p>
              </div>
 
              {/* Company Categories */}
@@ -1479,26 +1479,26 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                 {/* 1. 汽車製造業 */}
                 <div>
                    <div className="flex items-center gap-3 mb-6">
-                      <div className="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center">
+                      <div className="w-10 h-10 bg-brand-900 rounded-lg flex items-center justify-center">
                          <Factory size={20} className="text-white" />
                       </div>
                       <div>
-                         <h4 className="font-bold text-gray-900">{localizedTexts.automotive}</h4>
-                         <p className="text-xs text-gray-500">Automotive Manufacturing</p>
+                         <h4 className="font-bold text-neutral-900">{localizedTexts.automotive}</h4>
+                         <p className="text-xs text-neutral-500">Automotive Manufacturing</p>
                       </div>
                    </div>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {localizedCompanies.automotive.map((company, i) => (
-                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-biz-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
-                                  <p className="text-xs text-gray-400">{company.nameEn}</p>
+                                  <h5 className="font-bold text-neutral-900 group-hover:text-biz-600 transition">{company.name}</h5>
+                                  <p className="text-xs text-neutral-400">{company.nameEn}</p>
                                </div>
-                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                               <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                             </div>
-                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
+                            <p className="text-xs text-neutral-600 mb-3">{company.desc}</p>
+                            <div className="flex items-center gap-1 text-biz-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1507,26 +1507,26 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                 {/* 2. 電子與半導體 */}
                 <div>
                    <div className="flex items-center gap-3 mb-6">
-                      <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
+                      <div className="w-10 h-10 bg-brand-900 rounded-lg flex items-center justify-center">
                          <Cpu size={20} className="text-white" />
                       </div>
                       <div>
-                         <h4 className="font-bold text-gray-900">{localizedTexts.electronics}</h4>
-                         <p className="text-xs text-gray-500">Electronics & Semiconductor</p>
+                         <h4 className="font-bold text-neutral-900">{localizedTexts.electronics}</h4>
+                         <p className="text-xs text-neutral-500">Electronics & Semiconductor</p>
                       </div>
                    </div>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {localizedCompanies.electronics.map((company, i) => (
-                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-biz-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
-                                  <p className="text-xs text-gray-400">{company.nameEn}</p>
+                                  <h5 className="font-bold text-neutral-900 group-hover:text-biz-600 transition">{company.name}</h5>
+                                  <p className="text-xs text-neutral-400">{company.nameEn}</p>
                                </div>
-                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                               <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                             </div>
-                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
+                            <p className="text-xs text-neutral-600 mb-3">{company.desc}</p>
+                            <div className="flex items-center gap-1 text-biz-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1535,26 +1535,26 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                 {/* 3. 精密機械與自動化 */}
                 <div>
                    <div className="flex items-center gap-3 mb-6">
-                      <div className="w-10 h-10 bg-slate-700 rounded-lg flex items-center justify-center">
+                      <div className="w-10 h-10 bg-brand-900 rounded-lg flex items-center justify-center">
                          <Factory size={20} className="text-white" />
                       </div>
                       <div>
-                         <h4 className="font-bold text-gray-900">{localizedTexts.precision}</h4>
-                         <p className="text-xs text-gray-500">Precision Machinery & Automation</p>
+                         <h4 className="font-bold text-neutral-900">{localizedTexts.precision}</h4>
+                         <p className="text-xs text-neutral-500">Precision Machinery & Automation</p>
                       </div>
                    </div>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {localizedCompanies.precision.map((company, i) => (
-                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-biz-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
-                                  <p className="text-xs text-gray-400">{company.nameEn}</p>
+                                  <h5 className="font-bold text-neutral-900 group-hover:text-biz-600 transition">{company.name}</h5>
+                                  <p className="text-xs text-neutral-400">{company.nameEn}</p>
                                </div>
-                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                               <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                             </div>
-                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
+                            <p className="text-xs text-neutral-600 mb-3">{company.desc}</p>
+                            <div className="flex items-center gap-1 text-biz-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1563,26 +1563,26 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                 {/* 4. 醫療與健康照護 */}
                 <div>
                    <div className="flex items-center gap-3 mb-6">
-                      <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                      <div className="w-10 h-10 bg-brand-900 rounded-lg flex items-center justify-center">
                          <Stethoscope size={20} className="text-white" />
                       </div>
                       <div>
-                         <h4 className="font-bold text-gray-900">{localizedTexts.medical}</h4>
-                         <p className="text-xs text-gray-500">Healthcare & Medical</p>
+                         <h4 className="font-bold text-neutral-900">{localizedTexts.medical}</h4>
+                         <p className="text-xs text-neutral-500">Healthcare & Medical</p>
                       </div>
                    </div>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {localizedCompanies.medical.map((company, i) => (
-                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-biz-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
-                                  <p className="text-xs text-gray-400">{company.nameEn}</p>
+                                  <h5 className="font-bold text-neutral-900 group-hover:text-biz-600 transition">{company.name}</h5>
+                                  <p className="text-xs text-neutral-400">{company.nameEn}</p>
                                </div>
-                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                               <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                             </div>
-                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
+                            <p className="text-xs text-neutral-600 mb-3">{company.desc}</p>
+                            <div className="flex items-center gap-1 text-biz-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1591,26 +1591,26 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                 {/* 5. 家電與消費電子 */}
                 <div>
                    <div className="flex items-center gap-3 mb-6">
-                      <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
+                      <div className="w-10 h-10 bg-brand-900 rounded-lg flex items-center justify-center">
                          <Monitor size={20} className="text-white" />
                       </div>
                       <div>
-                         <h4 className="font-bold text-gray-900">{localizedTexts.appliances}</h4>
-                         <p className="text-xs text-gray-500">Consumer Electronics</p>
+                         <h4 className="font-bold text-neutral-900">{localizedTexts.appliances}</h4>
+                         <p className="text-xs text-neutral-500">Consumer Electronics</p>
                       </div>
                    </div>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {localizedCompanies.appliances.map((company, i) => (
-                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-biz-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
-                                  <p className="text-xs text-gray-400">{company.nameEn}</p>
+                                  <h5 className="font-bold text-neutral-900 group-hover:text-biz-600 transition">{company.name}</h5>
+                                  <p className="text-xs text-neutral-400">{company.nameEn}</p>
                                </div>
-                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                               <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                             </div>
-                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
+                            <p className="text-xs text-neutral-600 mb-3">{company.desc}</p>
+                            <div className="flex items-center gap-1 text-biz-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1619,26 +1619,26 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                 {/* 6. 零售與服務業 */}
                 <div>
                    <div className="flex items-center gap-3 mb-6">
-                      <div className="w-10 h-10 bg-amber-600 rounded-lg flex items-center justify-center">
+                      <div className="w-10 h-10 bg-brand-900 rounded-lg flex items-center justify-center">
                          <Building size={20} className="text-white" />
                       </div>
                       <div>
-                         <h4 className="font-bold text-gray-900">{localizedTexts.retail}</h4>
-                         <p className="text-xs text-gray-500">Retail & Service</p>
+                         <h4 className="font-bold text-neutral-900">{localizedTexts.retail}</h4>
+                         <p className="text-xs text-neutral-500">Retail & Service</p>
                       </div>
                    </div>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {localizedCompanies.retail.map((company, i) => (
-                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-biz-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
-                                  <p className="text-xs text-gray-400">{company.nameEn}</p>
+                                  <h5 className="font-bold text-neutral-900 group-hover:text-biz-600 transition">{company.name}</h5>
+                                  <p className="text-xs text-neutral-400">{company.nameEn}</p>
                                </div>
-                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                               <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                             </div>
-                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
+                            <p className="text-xs text-neutral-600 mb-3">{company.desc}</p>
+                            <div className="flex items-center gap-1 text-biz-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1647,26 +1647,26 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                 {/* 7. 飯店與款待業 */}
                 <div>
                    <div className="flex items-center gap-3 mb-6">
-                      <div className="w-10 h-10 bg-rose-600 rounded-lg flex items-center justify-center">
+                      <div className="w-10 h-10 bg-brand-900 rounded-lg flex items-center justify-center">
                          <Heart size={20} className="text-white" />
                       </div>
                       <div>
-                         <h4 className="font-bold text-gray-900">{localizedTexts.hospitality}</h4>
-                         <p className="text-xs text-gray-500">Hotel & Hospitality</p>
+                         <h4 className="font-bold text-neutral-900">{localizedTexts.hospitality}</h4>
+                         <p className="text-xs text-neutral-500">Hotel & Hospitality</p>
                       </div>
                    </div>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {localizedCompanies.hospitality.map((company, i) => (
-                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-biz-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
-                                  <p className="text-xs text-gray-400">{company.nameEn}</p>
+                                  <h5 className="font-bold text-neutral-900 group-hover:text-biz-600 transition">{company.name}</h5>
+                                  <p className="text-xs text-neutral-400">{company.nameEn}</p>
                                </div>
-                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                               <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                             </div>
-                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
+                            <p className="text-xs text-neutral-600 mb-3">{company.desc}</p>
+                            <div className="flex items-center gap-1 text-biz-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1675,26 +1675,26 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                 {/* 8. 食品與飲料 */}
                 <div>
                    <div className="flex items-center gap-3 mb-6">
-                      <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
+                      <div className="w-10 h-10 bg-brand-900 rounded-lg flex items-center justify-center">
                          <Utensils size={20} className="text-white" />
                       </div>
                       <div>
-                         <h4 className="font-bold text-gray-900">{localizedTexts.food}</h4>
-                         <p className="text-xs text-gray-500">Food & Beverage</p>
+                         <h4 className="font-bold text-neutral-900">{localizedTexts.food}</h4>
+                         <p className="text-xs text-neutral-500">Food & Beverage</p>
                       </div>
                    </div>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {localizedCompanies.food.map((company, i) => (
-                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-biz-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
-                                  <p className="text-xs text-gray-400">{company.nameEn}</p>
+                                  <h5 className="font-bold text-neutral-900 group-hover:text-biz-600 transition">{company.name}</h5>
+                                  <p className="text-xs text-neutral-400">{company.nameEn}</p>
                                </div>
-                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                               <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                             </div>
-                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
+                            <p className="text-xs text-neutral-600 mb-3">{company.desc}</p>
+                            <div className="flex items-center gap-1 text-biz-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1703,26 +1703,26 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                 {/* 9. 物流與運輸 */}
                 <div>
                    <div className="flex items-center gap-3 mb-6">
-                      <div className="w-10 h-10 bg-cyan-600 rounded-lg flex items-center justify-center">
+                      <div className="w-10 h-10 bg-brand-900 rounded-lg flex items-center justify-center">
                          <Bus size={20} className="text-white" />
                       </div>
                       <div>
-                         <h4 className="font-bold text-gray-900">{localizedTexts.logistics}</h4>
-                         <p className="text-xs text-gray-500">Logistics & Transportation</p>
+                         <h4 className="font-bold text-neutral-900">{localizedTexts.logistics}</h4>
+                         <p className="text-xs text-neutral-500">Logistics & Transportation</p>
                       </div>
                    </div>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {localizedCompanies.logistics.map((company, i) => (
-                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-biz-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
-                                  <p className="text-xs text-gray-400">{company.nameEn}</p>
+                                  <h5 className="font-bold text-neutral-900 group-hover:text-biz-600 transition">{company.name}</h5>
+                                  <p className="text-xs text-neutral-400">{company.nameEn}</p>
                                </div>
-                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                               <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                             </div>
-                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
+                            <p className="text-xs text-neutral-600 mb-3">{company.desc}</p>
+                            <div className="flex items-center gap-1 text-biz-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1731,26 +1731,26 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                 {/* 10. 科技與通訊 */}
                 <div>
                    <div className="flex items-center gap-3 mb-6">
-                      <div className="w-10 h-10 bg-violet-600 rounded-lg flex items-center justify-center">
+                      <div className="w-10 h-10 bg-brand-900 rounded-lg flex items-center justify-center">
                          <Globe size={20} className="text-white" />
                       </div>
                       <div>
-                         <h4 className="font-bold text-gray-900">{localizedTexts.tech}</h4>
-                         <p className="text-xs text-gray-500">Technology & Telecommunications</p>
+                         <h4 className="font-bold text-neutral-900">{localizedTexts.tech}</h4>
+                         <p className="text-xs text-neutral-500">Technology & Telecommunications</p>
                       </div>
                    </div>
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {localizedCompanies.tech.map((company, i) => (
-                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-gray-100 rounded-xl hover:border-blue-200 hover:shadow-lg transition-all">
+                         <a key={i} href={company.url} target="_blank" rel="noopener noreferrer" className="group p-5 bg-white border border-neutral-200 rounded-xl hover:border-biz-200 hover:shadow-lg transition-all">
                             <div className="flex justify-between items-start mb-3">
                                <div>
-                                  <h5 className="font-bold text-gray-900 group-hover:text-blue-600 transition">{company.name}</h5>
-                                  <p className="text-xs text-gray-400">{company.nameEn}</p>
+                                  <h5 className="font-bold text-neutral-900 group-hover:text-biz-600 transition">{company.name}</h5>
+                                  <p className="text-xs text-neutral-400">{company.nameEn}</p>
                                </div>
-                               <span className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">{company.location}</span>
+                               <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                             </div>
-                            <p className="text-xs text-gray-600 mb-3">{company.desc}</p>
-                            <div className="flex items-center gap-1 text-blue-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
+                            <p className="text-xs text-neutral-600 mb-3">{company.desc}</p>
+                            <div className="flex items-center gap-1 text-biz-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                          </a>
                       ))}
                    </div>
@@ -1759,27 +1759,27 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
 
              {/* Stats Bar */}
              <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-blue-600 text-white p-6 rounded-xl text-center">
+                <div className="bg-brand-900 text-white p-6 rounded-xl text-center">
                    <div className="text-3xl font-bold">100+</div>
                    <div className="text-sm opacity-80">{localizedTexts.bookableCompanies}</div>
                 </div>
-                <div className="bg-slate-800 text-white p-6 rounded-xl text-center">
+                <div className="bg-brand-800 text-white p-6 rounded-xl text-center">
                    <div className="text-3xl font-bold">10</div>
                    <div className="text-sm opacity-80">{localizedTexts.industryCategories}</div>
                 </div>
-                <div className="bg-purple-600 text-white p-6 rounded-xl text-center">
+                <div className="bg-brand-700 text-white p-6 rounded-xl text-center">
                    <div className="text-3xl font-bold">47</div>
                    <div className="text-sm opacity-80">{localizedTexts.prefecturesCovered}</div>
                 </div>
-                <div className="bg-green-600 text-white p-6 rounded-xl text-center">
+                <div className="bg-brand-600 text-white p-6 rounded-xl text-center">
                    <div className="text-3xl font-bold">95%</div>
                    <div className="text-sm opacity-80">{localizedTexts.successRate}</div>
                 </div>
              </div>
 
              {/* Note */}
-             <div className="mt-8 p-6 bg-blue-50 rounded-xl border border-blue-100">
-                <p className="text-sm text-blue-800">
+             <div className="mt-8 p-6 bg-biz-50 rounded-xl border border-biz-100">
+                <p className="text-sm text-biz-800">
                    <span className="font-bold">{localizedTexts.notice}</span>
                    <br />
                    {localizedTexts.noticeText}
@@ -1790,13 +1790,13 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
           {/* New Business Plans Section */}
           <div id="business-plans-section" className="mb-24 scroll-mt-24">
              <div className="text-center mb-16">
-                <h3 className="text-3xl font-serif text-gray-900">{t.business.itin_title}</h3>
-                <p className="text-gray-500 text-sm mt-2">Curated for Executives</p>
+                <h3 className="text-3xl font-serif text-neutral-900">{t.business.itin_title}</h3>
+                <p className="text-neutral-500 text-sm mt-2">Curated for Executives</p>
              </div>
              
              <div className="space-y-20">
                 {t.business.plans?.map((plan: any, index: number) => (
-                   <div key={plan.id} className="flex flex-col md:flex-row gap-10 items-start border-b border-gray-100 pb-20 last:border-0 last:pb-0">
+                   <div key={plan.id} className="flex flex-col md:flex-row gap-10 items-start border-b border-neutral-200 pb-20 last:border-0 last:pb-0">
                       {/* Image - Smaller aspect than Golf */}
                       <div className="md:w-1/3 w-full">
                          <div className="relative rounded-xl overflow-hidden shadow-lg h-[250px] md:h-[320px] group">
@@ -1808,7 +1808,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                                sizes="(max-width: 768px) 100vw, 33vw"
                                quality={75}
                             />
-                            <div className="absolute inset-0 bg-blue-900/10 group-hover:bg-transparent transition"></div>
+                            <div className="absolute inset-0 bg-brand-900/10 group-hover:bg-transparent transition"></div>
                          </div>
                       </div>
                       
@@ -1816,21 +1816,21 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                       <div className="md:w-2/3 w-full">
                          <div className="flex flex-wrap gap-2 mb-4">
                             {plan.tags.map((tag: string, i: number) => (
-                               <span key={i} className="bg-blue-50 text-blue-700 text-[10px] font-bold px-2 py-1 rounded border border-blue-100">
+                               <span key={i} className="bg-biz-50 text-biz-700 text-[10px] font-bold px-2 py-1 rounded border border-biz-100">
                                   {tag}
                                </span>
                             ))}
                          </div>
-                         <h3 className="text-2xl font-serif font-bold text-gray-900 mb-2">{plan.title}</h3>
-                         <h4 className="text-sm font-bold text-gray-500 mb-4">{plan.subtitle}</h4>
-                         <p className="text-gray-600 text-sm leading-relaxed mb-6 border-l-2 border-gray-200 pl-4">{plan.desc}</p>
+                         <h3 className="text-2xl font-serif font-bold text-neutral-900 mb-2">{plan.title}</h3>
+                         <h4 className="text-sm font-bold text-neutral-500 mb-4">{plan.subtitle}</h4>
+                         <p className="text-neutral-600 text-sm leading-relaxed mb-6 border-l-2 border-neutral-200 pl-4">{plan.desc}</p>
                          
-                         <div className="bg-gray-50 rounded-lg p-5 border border-gray-100">
+                         <div className="bg-neutral-50 rounded-lg p-5 border border-neutral-200">
                             <div className="space-y-3">
                                {plan.schedule.map((day: any, dIndex: number) => (
                                   <div key={dIndex} className="flex gap-4 text-xs md:text-sm">
-                                     <span className="font-bold text-gray-400 w-12 flex-shrink-0">{day.day}</span>
-                                     <span className="text-gray-700 leading-relaxed">{day.text}</span>
+                                     <span className="font-bold text-neutral-400 w-12 flex-shrink-0">{day.day}</span>
+                                     <span className="text-neutral-700 leading-relaxed">{day.text}</span>
                                   </div>
                                ))}
                             </div>
@@ -1842,16 +1842,16 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
           </div>
           
           {/* Contact Buttons */}
-          <div className="py-16 bg-gray-50 -mx-6 px-6 py-12 md:py-24 mt-16">
+          <div className="py-16 bg-neutral-50 -mx-6 px-6 py-12 md:py-24 mt-16">
             <div className="max-w-2xl mx-auto text-center">
-              <h3 className="text-2xl font-serif font-bold text-gray-900 mb-2">{localizedTexts.ctaTitle}</h3>
-              <p className="text-gray-500 mb-8">{localizedTexts.ctaSubtitle}</p>
+              <h3 className="text-2xl font-serif font-bold text-neutral-900 mb-2">{localizedTexts.ctaTitle}</h3>
+              <p className="text-neutral-500 mb-8">{localizedTexts.ctaSubtitle}</p>
               <ContactButtons />
             </div>
           </div>
 
           <div className="text-center mt-12">
-             <button onClick={() => setCurrentPage('home')} className="flex items-center gap-2 mx-auto text-gray-500 hover:text-black transition">
+             <button onClick={() => setCurrentPage('home')} className="flex items-center gap-2 mx-auto text-neutral-500 hover:text-neutral-900 transition">
                 <ArrowLeft size={16} /> {t.about.back}
              </button>
           </div>
@@ -1871,12 +1871,12 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
              backgroundImage: `url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070&auto=format&fit=crop')`,
            }}
          >
-           <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/95 via-blue-900/80 to-indigo-900/70"></div>
+           <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-900/80 to-brand-900/70"></div>
          </div>
          {/* Decorative Elements */}
          <div className="absolute inset-0">
-           <div className="absolute w-96 h-96 bg-indigo-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
-           <div className="absolute w-72 h-72 bg-blue-500/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+           <div className="absolute w-96 h-96 bg-biz-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
+           <div className="absolute w-72 h-72 bg-biz-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
          </div>
          <div className="relative z-10 text-center px-6 py-12 md:py-24">
              <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full mb-8">
@@ -1885,7 +1885,7 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl font-serif font-bold text-white mb-4 md:mb-6 leading-tight">
                 {t.partner.hero_title}
              </h1>
-             <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed whitespace-pre-line text-sm md:text-base">
+             <p className="text-neutral-300 max-w-2xl mx-auto leading-relaxed whitespace-pre-line text-sm md:text-base">
                 {t.partner.hero_text}
              </p>
          </div>
@@ -1898,10 +1898,10 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
                { icon: <Shield size={32} />, title: t.partner.trust_2_t, desc: t.partner.trust_2_d },
                { icon: <Phone size={32} />, title: t.partner.trust_3_t, desc: t.partner.trust_3_d },
              ].map((item, i) => (
-               <div key={i} className="p-8 border border-gray-100 rounded-xl hover:shadow-lg transition">
-                  <div className="text-blue-600 mb-4">{item.icon}</div>
-                  <h3 className="text-xl font-bold text-gray-800 mb-3">{item.title}</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+               <div key={i} className="p-8 border border-neutral-200 rounded-xl hover:shadow-lg transition">
+                  <div className="text-biz-600 mb-4">{item.icon}</div>
+                  <h3 className="text-xl font-bold text-neutral-800 mb-3">{item.title}</h3>
+                  <p className="text-neutral-500 text-sm leading-relaxed">{item.desc}</p>
                </div>
              ))}
          </div>
@@ -1911,7 +1911,7 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
             <TestimonialWall />
          </div>
 
-         <div className="bg-gray-900 text-white rounded-3xl p-12">
+         <div className="bg-brand-900 text-white rounded-3xl p-12">
             <h3 className="text-2xl font-serif mb-12 text-center">{t.partner.flow_title}</h3>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                {[
@@ -1921,21 +1921,21 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
                  { step: '04', title: t.partner.flow_4, desc: t.partner.flow_4_d },
                ].map((item, i) => (
                  <div key={i} className="text-center">
-                    <div className="text-3xl font-bold text-blue-500 mb-2 font-mono">{item.step}</div>
+                    <div className="text-3xl font-bold text-biz-500 mb-2 font-mono">{item.step}</div>
                     <h4 className="font-bold text-lg mb-2">{item.title}</h4>
-                    <p className="text-xs text-gray-400">{item.desc}</p>
+                    <p className="text-xs text-neutral-400">{item.desc}</p>
                  </div>
                ))}
             </div>
-            <div className="mt-16 text-center border-t border-gray-800 pt-12">
+            <div className="mt-16 text-center border-t border-brand-800 pt-12">
                <h4 className="text-xl font-serif mb-4">{t.partner.cta_title}</h4>
-               <p className="text-gray-400 mb-8 whitespace-pre-line">{t.partner.cta_desc}</p>
-               <button onClick={onOpenPartnerInquiry} className="bg-blue-600 text-white px-10 py-4 rounded-full font-bold hover:bg-blue-500 transition shadow-lg">
+               <p className="text-neutral-400 mb-8 whitespace-pre-line">{t.partner.cta_desc}</p>
+               <button onClick={onOpenPartnerInquiry} className="bg-biz-600 text-white px-10 py-4 rounded-full font-bold hover:bg-biz-500 transition shadow-lg">
                   {t.partner.cta_btn}
                </button>
             </div>
          </div>
-         <button onClick={() => setCurrentPage('home')} className="mt-16 w-full text-center text-gray-400 hover:text-black transition flex justify-center items-center gap-2">
+         <button onClick={() => setCurrentPage('home')} className="mt-16 w-full text-center text-neutral-400 hover:text-neutral-900 transition flex justify-center items-center gap-2">
             <ArrowLeft size={16} /> {t.about.back}
          </button>
      </div>
@@ -2033,15 +2033,15 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       )}
 
       {/* 2. ニュースルーム - JTB风格列表式设计 */}
-      <section className="py-20 bg-[#fafafa]">
+      <section className="py-20 bg-neutral-50">
         <div className="container mx-auto px-6 py-12 md:py-24">
           <div className="max-w-4xl mx-auto">
             {/* 标题 - 居中 */}
             <div className="text-center mb-12">
-              <h2 className="serif text-2xl md:text-3xl text-gray-900 tracking-wide mb-2">
+              <h2 className="serif text-2xl md:text-3xl text-neutral-900 tracking-wide mb-2">
                 {currentLang === 'zh-TW' ? '最新消息' : currentLang === 'zh-CN' ? '最新消息' : currentLang === 'en' ? 'News' : 'お知らせ'}
               </h2>
-              <p className="text-xs tracking-[0.2em] text-gray-400 uppercase">News Room</p>
+              <p className="text-xs tracking-[0.2em] text-neutral-400 uppercase">News Room</p>
             </div>
 
             {/* 新闻列表 - 动态从API获取 */}
@@ -2064,13 +2064,13 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                       </div>
                       {/* 标签 */}
                       <div className="flex flex-wrap gap-2 md:w-40 flex-shrink-0">
-                        <span className="text-xs px-3 py-1 rounded-full border border-teal-500 text-teal-600">
+                        <span className="text-xs px-3 py-1 rounded-full border border-brand-500 text-brand-600">
                           {categoryLabel}
                         </span>
                       </div>
                       {/* 标题 */}
                       <div className="flex-1">
-                        <h3 className="text-gray-900 leading-relaxed group-hover:text-teal-600 transition-colors">
+                        <h3 className="text-neutral-900 leading-relaxed group-hover:text-brand-700 transition-colors">
                           {localizeText(news.title, currentLang)}
                         </h3>
                       </div>
@@ -2107,41 +2107,41 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             quality={75}
           />
           {/* 温暖的渐变，类似高尔夫板块但用蓝绿色调 */}
-          <div className="absolute inset-0 bg-gradient-to-r from-teal-900/90 via-teal-900/70 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/90 via-brand-900/70 to-transparent"></div>
         </div>
 
         <div className="relative container mx-auto px-6 py-12 md:py-24 py-24">
           <div className="max-w-2xl">
             {/* 标签 */}
             <div className="flex items-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-teal-300"></div>
-              <span className="text-xs tracking-[0.3em] text-teal-300 uppercase">Medical Tourism</span>
+              <div className="h-[1px] w-12 bg-medical-400"></div>
+              <span className="text-xs tracking-[0.3em] text-medical-400 uppercase">Medical Tourism</span>
             </div>
 
             {/* 核心标题 - 温暖、给人希望 */}
             <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
               {currentLang === 'zh-TW' ? '把健康交給' : currentLang === 'zh-CN' ? '把健康交给' : '健康を託す'}
               <br />
-              <span className="text-teal-300">{currentLang === 'zh-TW' ? '值得信賴的人' : currentLang === 'zh-CN' ? '值得信赖的人' : '信頼できる人へ'}</span>
+              <span className="text-medical-300">{currentLang === 'zh-TW' ? '值得信賴的人' : currentLang === 'zh-CN' ? '值得信赖的人' : '信頼できる人へ'}</span>
             </h2>
 
-            <p className="text-sm sm:text-base md:text-xl text-teal-100/80 mb-6 md:mb-8 leading-relaxed font-light">
+            <p className="text-sm sm:text-base md:text-xl text-medical-100/80 mb-6 md:mb-8 leading-relaxed font-light">
               {currentLang === 'zh-TW' ? '日本醫療技術全球領先，PET-CT可發現5mm早期病變。我們提供專車接送、全程陪診翻譯、報告解讀——讓您專心照顧健康，其他的交給我們。' : currentLang === 'zh-CN' ? '日本医疗技术全球领先，PET-CT可发现5mm早期病变。我们提供专车接送、全程陪诊翻译、报告解读——让您专心照顾健康，其他的交给我们。' : '日本の医療技術は世界トップクラス。PET-CTは5mmの早期病変を発見可能。専用車送迎、全行程通訳同行、レポート解説——健康に専念していただき、他はお任せください。'}
             </p>
 
             {/* 核心数据 */}
             <div className="grid grid-cols-3 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-white/20">
               <div className="text-center">
-                <div className="text-2xl md:text-4xl font-light text-white mb-1">12<span className="text-teal-300">年</span></div>
-                <div className="text-[10px] md:text-xs text-teal-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '醫療服務經驗' : currentLang === 'zh-CN' ? '医疗服务经验' : '医療サービス実績'}</div>
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">12<span className="text-medical-300">年</span></div>
+                <div className="text-[10px] md:text-xs text-medical-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '醫療服務經驗' : currentLang === 'zh-CN' ? '医疗服务经验' : '医療サービス実績'}</div>
               </div>
               <div className="border-x border-white/20 px-2 md:px-6 py-12 md:py-24 text-center">
-                <div className="text-2xl md:text-4xl font-light text-white mb-1">3000<span className="text-teal-300">+</span></div>
-                <div className="text-[10px] md:text-xs text-teal-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : currentLang === 'zh-CN' ? '服务客户' : 'ご利用者様'}</div>
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">3000<span className="text-medical-300">+</span></div>
+                <div className="text-[10px] md:text-xs text-medical-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : currentLang === 'zh-CN' ? '服务客户' : 'ご利用者様'}</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl md:text-4xl font-light text-white mb-1">100<span className="text-teal-300">%</span></div>
-                <div className="text-[10px] md:text-xs text-teal-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '全程陪同' : currentLang === 'zh-CN' ? '全程陪同' : '全行程同行'}</div>
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">100<span className="text-medical-300">%</span></div>
+                <div className="text-[10px] md:text-xs text-medical-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '全程陪同' : currentLang === 'zh-CN' ? '全程陪同' : '全行程同行'}</div>
               </div>
             </div>
 
@@ -2163,7 +2163,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="flex flex-col sm:flex-row gap-4">
               <a
                 onClick={() => setCurrentPage('medical')}
-                className="inline-flex items-center justify-center px-8 py-4 bg-white text-teal-900 text-sm font-medium rounded-lg hover:bg-teal-50 transition-colors cursor-pointer"
+                className="inline-flex items-center justify-center px-8 py-4 bg-white text-brand-900 text-sm font-medium rounded-lg hover:bg-brand-50 transition-colors cursor-pointer"
               >
                 {currentLang === 'zh-TW' ? '了解體檢方案' : currentLang === 'zh-CN' ? '了解体检方案' : '健診プランを見る'}
                 <ArrowRight size={18} className="ml-3" />
@@ -2189,10 +2189,10 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 { name: currentLang === 'zh-TW' ? '無痛胃腸鏡' : currentLang === 'zh-CN' ? '无痛胃肠镜' : '無痛内視鏡', desc: currentLang === 'zh-TW' ? '消化道全面檢查' : currentLang === 'zh-CN' ? '消化道全面检查' : '消化器系総合検査' },
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-3 text-sm">
-                  <CheckCircle size={16} className="text-teal-300 flex-shrink-0" />
+                  <CheckCircle size={16} className="text-medical-300 flex-shrink-0" />
                   <div>
                     <span className="text-white">{item.name}</span>
-                    <span className="text-teal-200/60 ml-2">{item.desc}</span>
+                    <span className="text-medical-200/60 ml-2">{item.desc}</span>
                   </div>
                 </div>
               ))}
@@ -2214,41 +2214,41 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             quality={75}
           />
           {/* 深蓝色渐变，传达专业、希望 */}
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 via-blue-950/70 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/90 via-brand-900/70 to-transparent"></div>
         </div>
 
         <div className="relative container mx-auto px-6 py-12 md:py-24 py-24">
           <div className="max-w-2xl">
             {/* 标签 */}
             <div className="flex items-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-sky-300"></div>
-              <span className="text-xs tracking-[0.3em] text-sky-300 uppercase">Advanced Treatment</span>
+              <div className="h-[1px] w-12 bg-medical-300"></div>
+              <span className="text-xs tracking-[0.3em] text-medical-300 uppercase">Advanced Treatment</span>
             </div>
 
             {/* 核心标题 */}
             <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
               {currentLang === 'zh-TW' ? '面對重疾' : currentLang === 'zh-CN' ? '面对重疾' : '重病と向き合う時'}
               <br />
-              <span className="text-sky-300">{currentLang === 'zh-TW' ? '日本醫療給您更多希望' : currentLang === 'zh-CN' ? '日本医疗给您更多希望' : '日本医療がもう一つの希望に'}</span>
+              <span className="text-medical-300">{currentLang === 'zh-TW' ? '日本醫療給您更多希望' : currentLang === 'zh-CN' ? '日本医疗给您更多希望' : '日本医療がもう一つの希望に'}</span>
             </h2>
 
-            <p className="text-sm sm:text-base md:text-xl text-blue-100/80 mb-6 md:mb-8 leading-relaxed font-light">
+            <p className="text-sm sm:text-base md:text-xl text-neutral-200/80 mb-6 md:mb-8 leading-relaxed font-light">
               {currentLang === 'zh-TW' ? '質子重離子治療、免疫細胞療法、達文西微創手術——日本癌症5年生存率全球領先。我們協助您獲得日本頂尖醫院的治療機會，全程陪同，讓您專注康復。' : currentLang === 'zh-CN' ? '质子重离子治疗、免疫细胞疗法、达文西微创手术——日本癌症5年生存率全球领先。我们协助您获得日本顶尖医院的治疗机会，全程陪同，让您专注康復。' : '陽子線・重粒子線治療、免疫細胞療法、ダヴィンチ手術——日本のがん5年生存率は世界トップ。日本トップ病院での治療機会をサポート、全行程同行で治療に専念いただけます。'}
             </p>
 
             {/* 核心数据 */}
             <div className="grid grid-cols-3 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-white/20">
               <div className="text-center">
-                <div className="text-2xl md:text-4xl font-light text-white mb-1">68<span className="text-sky-300">%</span></div>
-                <div className="text-[10px] md:text-xs text-blue-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '癌症5年生存率' : currentLang === 'zh-CN' ? '癌症5年生存率' : 'がん5年生存率'}</div>
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">68<span className="text-medical-300">%</span></div>
+                <div className="text-[10px] md:text-xs text-neutral-300/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '癌症5年生存率' : currentLang === 'zh-CN' ? '癌症5年生存率' : 'がん5年生存率'}</div>
               </div>
               <div className="border-x border-white/20 px-2 md:px-6 py-12 md:py-24 text-center">
-                <div className="text-2xl md:text-4xl font-light text-white mb-1">98<span className="text-sky-300">%</span></div>
-                <div className="text-[10px] md:text-xs text-blue-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '心臟手術成功率' : currentLang === 'zh-CN' ? '心脏手术成功率' : '心臓手術成功率'}</div>
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">98<span className="text-medical-300">%</span></div>
+                <div className="text-[10px] md:text-xs text-neutral-300/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '心臟手術成功率' : currentLang === 'zh-CN' ? '心脏手术成功率' : '心臓手術成功率'}</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl md:text-4xl font-light text-white mb-1">24<span className="text-sky-300">h</span></div>
-                <div className="text-[10px] md:text-xs text-blue-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '病歷評估響應' : currentLang === 'zh-CN' ? '病历评估响应' : '診療情報評価'}</div>
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">24<span className="text-medical-300">h</span></div>
+                <div className="text-[10px] md:text-xs text-neutral-300/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '病歷評估響應' : currentLang === 'zh-CN' ? '病历评估响应' : '診療情報評価'}</div>
               </div>
             </div>
 
@@ -2270,7 +2270,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="flex flex-col sm:flex-row gap-4">
               <a
                 href="/cancer-treatment"
-                className="inline-flex items-center justify-center px-8 py-4 bg-white text-blue-950 text-sm font-medium rounded-lg hover:bg-sky-50 transition-colors"
+                className="inline-flex items-center justify-center px-8 py-4 bg-white text-brand-900 text-sm font-medium rounded-lg hover:bg-brand-50 transition-colors"
               >
                 {currentLang === 'zh-TW' ? '了解治療服務' : currentLang === 'zh-CN' ? '了解治疗服务' : '治療サービス詳細'}
                 <ArrowRight size={18} className="ml-3" />
@@ -2325,14 +2325,14 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           <div className="max-w-2xl">
             {/* 权威认证标签 */}
             <div className="flex items-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-amber-400"></div>
-              <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">Exclusive Access</span>
+              <div className="h-[1px] w-12 bg-gold-400"></div>
+              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">Exclusive Access</span>
             </div>
 
             <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
               {currentLang === 'zh-TW' ? '踏入' : currentLang === 'zh-CN' ? '踏入' : '足を踏み入れる'}
               <br />
-              <span className="text-amber-400">{currentLang === 'zh-TW' ? '傳說中的名門' : currentLang === 'zh-CN' ? '传说中的名门' : '伝説の名門へ'}</span>
+              <span className="text-gold-400">{currentLang === 'zh-TW' ? '傳說中的名門' : currentLang === 'zh-CN' ? '传说中的名门' : '伝説の名門へ'}</span>
             </h2>
 
             <p className="text-sm sm:text-base md:text-xl text-gray-300 mb-6 md:mb-8 leading-relaxed font-light">
@@ -2342,7 +2342,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             {/* 核心数据 - 金色边框 */}
             <div className="grid grid-cols-3 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-white/20">
               <div className="text-center">
-                <div className="text-2xl md:text-4xl font-light text-white mb-1">25<span className="text-amber-400">+</span></div>
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">25<span className="text-gold-400">+</span></div>
                 <div className="text-[10px] md:text-xs text-gray-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '名門球場' : currentLang === 'zh-CN' ? '名门球场' : '名門コース'}</div>
               </div>
               <div className="border-x border-white/20 px-2 md:px-6 py-12 md:py-24 text-center">
@@ -2360,7 +2360,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               <div className="text-xs text-gray-500 mb-3 uppercase tracking-wider">{currentLang === 'zh-TW' ? '合作名門' : currentLang === 'zh-CN' ? '合作名门' : '提携名門コース'}</div>
               <div className="flex flex-wrap gap-2">
                 {['廣野ゴルフ倶楽部', '霞ヶ関カンツリー倶楽部', '小野ゴルフ倶楽部', '茨木カンツリー倶楽部', '古賀ゴルフ・クラブ'].map((course, idx) => (
-                  <span key={idx} className="text-sm text-white/80 after:content-['·'] after:mx-2 after:text-amber-400 last:after:content-none">
+                  <span key={idx} className="text-sm text-white/80 after:content-['·'] after:mx-2 after:text-gold-400 last:after:content-none">
                     {course}
                   </span>
                 ))}
@@ -2369,7 +2369,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
             <a
               onClick={() => setCurrentPage('golf')}
-              className="inline-flex items-center px-8 py-4 bg-amber-400 text-black text-sm font-medium tracking-wider hover:bg-amber-300 transition-colors cursor-pointer"
+              className="inline-flex items-center px-8 py-4 bg-gold-400 text-brand-900 text-sm font-medium tracking-wider hover:bg-gold-300 transition-colors cursor-pointer"
             >
               {currentLang === 'zh-TW' ? '探索名門球場' : currentLang === 'zh-CN' ? '探索名门球场' : '名門コースを見る'}
               <ArrowRight size={18} className="ml-3" />
@@ -2380,7 +2380,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
         {/* 右下角服务标签 */}
         <div className="absolute bottom-12 right-12 hidden lg:block">
           <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-6 max-w-xs">
-            <div className="text-xs text-amber-400 mb-2 uppercase tracking-wider">{currentLang === 'zh-TW' ? '尊享服務' : currentLang === 'zh-CN' ? '尊享服务' : 'プレミアムサービス'}</div>
+            <div className="text-xs text-gold-400 mb-2 uppercase tracking-wider">{currentLang === 'zh-TW' ? '尊享服務' : currentLang === 'zh-CN' ? '尊享服务' : 'プレミアムサービス'}</div>
             <div className="space-y-2 text-sm text-white/80">
               <div>✓ {currentLang === 'zh-TW' ? '專屬開球時段' : currentLang === 'zh-CN' ? '专属开球时段' : '専用スタート枠'}</div>
               <div>✓ {currentLang === 'zh-TW' ? '雙語球童服務' : currentLang === 'zh-CN' ? '双语球童服务' : 'バイリンガルキャディ'}</div>
@@ -2392,7 +2392,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       </section>
 
       {/* 7. ビジネス視察 - Business Inspection 顶尖企业对接 */}
-      <section className="relative min-h-[90vh] flex items-center bg-slate-900 text-white">
+      <section className="relative min-h-[90vh] flex items-center bg-brand-900 text-white">
         <div className="absolute inset-0">
           <Image
             src={getImage('homepage_business_bg', 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format&fit=crop')}
@@ -2407,7 +2407,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <div>
-                <p className="text-xs tracking-[0.3em] text-amber-400 uppercase mb-8 md:mb-10">Business Inspection</p>
+                <p className="text-xs tracking-[0.3em] text-gold-400 uppercase mb-8 md:mb-10">Business Inspection</p>
                 <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-white mb-8 md:mb-10 leading-tight">
                   {currentLang === 'zh-TW' ? '對話日本頂尖企業' : currentLang === 'zh-CN' ? '对话日本顶尖企业' : '日本トップ企業との対話'}
                 </h2>
@@ -2422,7 +2422,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                     { num: '98%', label: currentLang === 'zh-TW' ? '客戶滿意度' : currentLang === 'zh-CN' ? '客户满意度' : '顧客満足度' },
                     { num: '1000+', label: currentLang === 'zh-TW' ? '成功案例' : currentLang === 'zh-CN' ? '成功案例' : '成功実績' },
                   ].map((stat, idx) => (
-                    <div key={idx} className="border-l-2 border-amber-400/50 pl-4">
+                    <div key={idx} className="border-l-2 border-gold-400/50 pl-4">
                       <div className="text-2xl font-light text-white">{stat.num}</div>
                       <div className="text-xs text-gray-400">{stat.label}</div>
                     </div>
@@ -2445,7 +2445,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
                 <a
                   onClick={() => setCurrentPage('business')}
-                  className="inline-flex items-center px-8 py-4 bg-amber-500 text-slate-900 text-sm font-medium hover:bg-amber-400 transition-colors cursor-pointer"
+                  className="inline-flex items-center px-8 py-4 bg-gold-400 text-brand-900 text-sm font-medium hover:bg-gold-300 transition-colors cursor-pointer"
                 >
                   {currentLang === 'zh-TW' ? '定制考察方案' : currentLang === 'zh-CN' ? '定制考察方案' : '視察プランを相談'}
                   <ArrowRight size={18} className="ml-3" />
@@ -2471,12 +2471,12 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       </section>
 
       {/* 8. 主要取引先 - Partners */}
-      <section className="py-20 bg-[#f8f8f8] border-t border-gray-200">
+      <section className="py-20 bg-neutral-50 border-t border-neutral-200">
         <div className="container mx-auto px-6 py-12 md:py-24">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <p className="text-xs tracking-[0.3em] text-gray-400 uppercase mb-3">Partners</p>
-              <h2 className="serif text-2xl md:text-3xl text-gray-900 tracking-wide">
+              <p className="text-xs tracking-[0.3em] text-neutral-400 uppercase mb-3">Partners</p>
+              <h2 className="serif text-2xl md:text-3xl text-neutral-900 tracking-wide">
                 {currentLang === 'zh-TW' ? '合作夥伴' : currentLang === 'zh-CN' ? '合作伙伴' : '主要取引先'}
               </h2>
             </div>
@@ -2490,9 +2490,9 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 { name: 'ANA', sub: 'All Nippon Airways' },
                 { name: 'JR西日本', sub: 'JR West' },
               ].map((partner, index) => (
-                <div key={index} className="bg-white p-6 text-center border border-gray-100 hover:border-gray-300 transition-colors">
-                  <div className="text-sm font-medium text-gray-900 mb-1">{partner.name}</div>
-                  <div className="text-[10px] text-gray-400">{partner.sub}</div>
+                <div key={index} className="bg-white p-6 text-center border border-neutral-200 hover:border-neutral-300 transition-colors">
+                  <div className="text-sm font-medium text-neutral-900 mb-1">{partner.name}</div>
+                  <div className="text-[10px] text-neutral-400">{partner.sub}</div>
                 </div>
               ))}
             </div>
@@ -2501,10 +2501,10 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       </section>
 
       {/* 8. 企業理念 - Corporate Philosophy */}
-      <section className="py-24 bg-slate-900 text-white">
+      <section className="py-24 bg-brand-900 text-white">
         <div className="container mx-auto px-6 py-12 md:py-24">
           <div className="max-w-4xl mx-auto text-center">
-            <p className="text-xs tracking-[0.3em] text-gray-500 uppercase mb-6">Corporate Philosophy</p>
+            <p className="text-xs tracking-[0.3em] text-neutral-400 uppercase mb-6">Corporate Philosophy</p>
             <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-white mb-8 leading-relaxed">
               {currentLang === 'zh-TW' ? '用心連結世界與日本' : currentLang === 'zh-CN' ? '用心连结世界与日本' : '心をつなぐ、世界と日本'}
             </h2>
@@ -2513,7 +2513,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             </p>
             <a
               href="/company/about"
-              className="inline-flex items-center text-xs text-white border border-white/30 px-8 py-3 hover:bg-white hover:text-slate-900 transition-all tracking-wider"
+              className="inline-flex items-center text-xs text-white border border-white/30 px-8 py-3 hover:bg-white hover:text-brand-900 transition-all tracking-wider"
             >
               {currentLang === 'zh-TW' ? '了解更多' : currentLang === 'zh-CN' ? '了解更多' : '詳しく見る'}
               <ArrowRight size={14} className="ml-2" />
@@ -2536,37 +2536,37 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             quality={75}
           />
           {/* 深紫色渐变，传达高端、信任 */}
-          <div className="absolute inset-0 bg-gradient-to-r from-violet-950/90 via-violet-950/70 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/90 via-brand-900/70 to-transparent"></div>
         </div>
 
         <div className="relative container mx-auto px-6 py-12 md:py-24 py-24">
           <div className="max-w-2xl">
             {/* 标签 */}
             <div className="flex items-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-violet-300"></div>
-              <span className="text-xs tracking-[0.3em] text-violet-300 uppercase">Partnership</span>
+              <div className="h-[1px] w-12 bg-gold-400"></div>
+              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">Partnership</span>
             </div>
 
             {/* 核心标题 */}
             <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
               {currentLang === 'zh-TW' ? '導遊提攜夥伴' : currentLang === 'zh-CN' ? '导游提攜伙伴' : 'ガイドパートナー'}
               <br />
-              <span className="text-violet-300">{currentLang === 'zh-TW' ? '客戶介紹計劃' : currentLang === 'zh-CN' ? '客户介绍计划' : '顧客紹介プログラム'}</span>
+              <span className="text-gold-400">{currentLang === 'zh-TW' ? '客戶介紹計劃' : currentLang === 'zh-CN' ? '客户介绍计划' : '顧客紹介プログラム'}</span>
             </h2>
 
-            <p className="text-sm sm:text-base md:text-xl text-violet-100/80 mb-6 md:mb-8 leading-relaxed font-light">
+            <p className="text-sm sm:text-base md:text-xl text-gold-100/80 mb-6 md:mb-8 leading-relaxed font-light">
               {currentLang === 'zh-TW' ? '新島交通提供高端夜總會、精密體檢、綜合醫療等服務資源。您介紹客戶，我們提供服務，成功即有介紹報酬。' : currentLang === 'zh-CN' ? '新岛交通提供高端夜总会、精密体检、综合医疗等服务资源。您介绍客户，我们提供服务，成功即有介绍报酬。' : '新島交通は高級クラブ、精密健診、総合医療などのサービスを提供。お客様をご紹介いただき、成約時に紹介報酬をお支払いします。'}
             </p>
 
             {/* 核心数据 */}
             <div className="grid grid-cols-2 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-white/20">
               <div className="text-center">
-                <div className="text-2xl md:text-4xl font-light text-white mb-1">160<span className="text-violet-300">+</span></div>
-                <div className="text-xs text-violet-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '合作店舖' : currentLang === 'zh-CN' ? '合作店舖' : '提携店舗'}</div>
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">160<span className="text-gold-400">+</span></div>
+                <div className="text-xs text-gold-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '合作店舖' : currentLang === 'zh-CN' ? '合作店舖' : '提携店舗'}</div>
               </div>
               <div className="border-l border-white/20 pl-3 md:pl-6 text-center">
-                <div className="text-2xl md:text-4xl font-light text-white mb-1">3000<span className="text-violet-300">+</span></div>
-                <div className="text-[10px] md:text-xs text-violet-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : currentLang === 'zh-CN' ? '服务客户' : 'ご利用者様'}</div>
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">3000<span className="text-gold-400">+</span></div>
+                <div className="text-[10px] md:text-xs text-gold-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : currentLang === 'zh-CN' ? '服务客户' : 'ご利用者様'}</div>
               </div>
             </div>
 
@@ -2588,7 +2588,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="flex flex-col sm:flex-row gap-4">
               <a
                 href="/guide-partner"
-                className="inline-flex items-center justify-center px-8 py-4 bg-white text-violet-900 text-sm font-medium rounded-lg hover:bg-violet-50 transition-colors"
+                className="inline-flex items-center justify-center px-8 py-4 bg-white text-brand-900 text-sm font-medium rounded-lg hover:bg-brand-50 transition-colors"
               >
                 {currentLang === 'zh-TW' ? '了解詳情' : currentLang === 'zh-CN' ? '了解详情' : '詳細を見る'}
                 <ArrowRight size={18} className="ml-3" />
@@ -2614,16 +2614,16 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 { name: currentLang === 'zh-TW' ? '成功獲得報酬' : currentLang === 'zh-CN' ? '成功获得报酬' : '成約で報酬', desc: currentLang === 'zh-TW' ? '每月結算介紹報酬' : currentLang === 'zh-CN' ? '每月结算介绍报酬' : '毎月紹介報酬を精算' },
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-3 text-sm">
-                  <CheckCircle size={16} className="text-violet-300 flex-shrink-0" />
+                  <CheckCircle size={16} className="text-gold-400 flex-shrink-0" />
                   <div>
                     <span className="text-white">{item.name}</span>
-                    <span className="text-violet-200/60 ml-2">{item.desc}</span>
+                    <span className="text-gold-200/60 ml-2">{item.desc}</span>
                   </div>
                 </div>
               ))}
             </div>
             {/* 法律声明 */}
-            <p className="text-[10px] text-violet-200/40 mt-4 pt-3 border-t border-white/10 leading-relaxed">
+            <p className="text-[10px] text-gold-200/40 mt-4 pt-3 border-t border-white/10 leading-relaxed">
               {currentLang === 'zh-TW' ? '所有旅行服務由新島交通株式會社提供' : currentLang === 'zh-CN' ? '所有旅行服务由新岛交通株式会社提供' : '全ての旅行サービスは新島交通株式会社が提供'}
             </p>
           </div>

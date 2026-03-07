@@ -223,7 +223,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
       <button
         onClick={() => setLangMenuOpen(!langMenuOpen)}
         className={`flex items-center gap-1 text-xs font-bold transition uppercase tracking-wider ${
-          isTransparent ? 'text-white/80 hover:text-white' : 'text-gray-600 hover:text-black'
+          isTransparent ? 'text-white/80 hover:text-white' : 'text-neutral-600 hover:text-neutral-900'
         }`}
       >
         <Globe size={14} />
@@ -233,7 +233,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
       {langMenuOpen && (
         <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50 animate-fade-in-down">
           {[{ code: 'ja', label: '日本語' }, { code: 'zh-TW', label: '繁體中文' }, { code: 'zh-CN', label: '简体中文' }, { code: 'en', label: 'English' }].map((lang) => (
-            <button key={lang.code} onClick={() => handleLangChange(lang.code as Language)} className={`w-full text-left px-4 py-2 text-xs font-medium hover:bg-gray-50 transition ${currentLang === lang.code ? 'text-blue-600 bg-blue-50' : 'text-gray-600'}`}>
+            <button key={lang.code} onClick={() => handleLangChange(lang.code as Language)} className={`w-full text-left px-4 py-2 text-xs font-medium hover:bg-neutral-50 transition ${currentLang === lang.code ? 'text-brand-700 bg-brand-50' : 'text-neutral-600'}`}>
               {lang.label}
             </button>
           ))}
@@ -252,27 +252,27 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
         return `text-sm font-bold text-white`;
       }
       if (specialColor === 'orange') {
-        return `text-sm font-bold text-orange-400 hover:text-orange-300 transition`;
+        return `text-sm font-bold text-gold-400 hover:text-gold-300 transition`;
       }
       return `text-sm font-medium text-white/80 hover:text-white transition`;
     } else {
       // 白色背景模式：深色文字
       if (isCurrentActive) {
         if (specialColor === 'red') return `text-sm font-bold text-red-600`;
-        return `text-sm font-bold text-blue-600`;
+        return `text-sm font-bold text-brand-700`;
       }
       if (specialColor === 'orange') {
-        return `text-sm font-bold text-orange-600 hover:text-orange-500 transition`;
+        return `text-sm font-bold text-gold-600 hover:text-gold-500 transition`;
       }
       if (specialColor === 'red') {
-        return `text-sm font-medium text-gray-600 hover:text-red-600 transition`;
+        return `text-sm font-medium text-neutral-600 hover:text-red-600 transition`;
       }
-      return `text-sm font-medium text-gray-600 hover:text-blue-600 transition`;
+      return `text-sm font-medium text-neutral-600 hover:text-brand-700 transition`;
     }
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-800 font-sans selection:bg-blue-100 flex flex-col">
+    <div className="min-h-screen bg-white text-neutral-800 font-sans selection:bg-brand-100 flex flex-col">
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isTransparent ? 'bg-transparent' : 'bg-white shadow-sm'
@@ -286,8 +286,8 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                 <img src={branding.logoUrl} alt={displayBrandName} className="w-10 h-10 object-contain" />
               )}
               <div className="flex flex-col">
-                <span className={`font-serif font-bold text-lg tracking-wide leading-none ${isTransparent ? 'text-white' : 'text-gray-900'}`}>{displayBrandName}</span>
-                <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-white/60' : 'text-gray-400 group-hover:text-blue-500'}`}>{displayBrandSub}</span>
+                <span className={`font-serif font-bold text-lg tracking-wide leading-none ${isTransparent ? 'text-white' : 'text-neutral-900'}`}>{displayBrandName}</span>
+                <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-white/60' : 'text-neutral-400 group-hover:text-brand-500'}`}>{displayBrandSub}</span>
               </div>
             </button>
           ) : (
@@ -297,8 +297,8 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                 <img src={branding.logoUrl} alt={displayBrandName} className="w-10 h-10 object-contain" />
               )}
               <div className="flex flex-col">
-                <span className={`font-serif font-bold text-lg tracking-wide leading-none ${isTransparent ? 'text-white' : 'text-gray-900'}`}>{displayBrandName}</span>
-                <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-white/60' : 'text-gray-400 group-hover:text-blue-500'}`}>{displayBrandSub}</span>
+                <span className={`font-serif font-bold text-lg tracking-wide leading-none ${isTransparent ? 'text-white' : 'text-neutral-900'}`}>{displayBrandName}</span>
+                <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-white/60' : 'text-neutral-400 group-hover:text-brand-500'}`}>{displayBrandSub}</span>
               </div>
             </Link>
           )}
@@ -341,10 +341,10 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                   <Link
                     href="/login"
                     onClick={() => setLoginMenuOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-neutral-700 hover:bg-brand-50 hover:text-brand-700 transition"
                   >
-                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                      <LogIn size={14} className="text-blue-600" />
+                    <div className="w-8 h-8 rounded-full bg-brand-100 flex items-center justify-center">
+                      <LogIn size={14} className="text-brand-700" />
                     </div>
                     <div>
                       <p className="font-medium">{t.memberLogin}</p>
@@ -355,10 +355,10 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                     <Link
                       href="/guide-partner/login"
                       onClick={() => setLoginMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition"
+                      className="flex items-center gap-3 px-4 py-3 text-sm text-neutral-700 hover:bg-gold-50 hover:text-gold-600 transition"
                     >
-                      <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center">
-                        <LogIn size={14} className="text-orange-600" />
+                      <div className="w-8 h-8 rounded-full bg-gold-100 flex items-center justify-center">
+                        <LogIn size={14} className="text-gold-600" />
                       </div>
                       <div>
                         <p className="font-medium">{t.guideLogin}</p>
@@ -372,7 +372,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
 
             {/* Mobile Menu Button */}
             <button
-              className={`lg:hidden p-2 ${isTransparent ? 'text-white' : 'text-gray-600'}`}
+              className={`lg:hidden p-2 ${isTransparent ? 'text-white' : 'text-neutral-600'}`}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -385,7 +385,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
       {mobileMenuOpen && (
         <div className="fixed top-20 left-0 w-full h-[calc(100vh-80px)] bg-white z-40 p-6 flex flex-col gap-6 overflow-y-auto animate-fade-in-down">
           <Link href="/?page=medical" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2">{t.timc}</Link>
-          <Link href="/cancer-treatment" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2 text-red-600">{t.cancer}</Link>
+          <Link href="/cancer-treatment" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2 text-medical-700">{t.cancer}</Link>
           <Link href="/?page=golf" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2">{t.golf}</Link>
           <Link href="/?page=business" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2">{t.business}</Link>
           {/* 白标模式下隐藏同业合作链接 */}
@@ -394,7 +394,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
           )}
           {/* 白标模式下隐藏导游合伙人链接 */}
           {!hideGuidePartnerContent && (
-            <Link href="/guide-partner" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2 text-orange-600 font-bold">{t.guidePartner}</Link>
+            <Link href="/guide-partner" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2 text-gold-600 font-bold">{t.guidePartner}</Link>
           )}
 
           {/* 登入入口区域 */}
@@ -403,7 +403,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
             <Link
               href="/login"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 bg-blue-600 text-white py-4 px-5 rounded-xl font-bold"
+              className="flex items-center gap-3 bg-brand-900 text-white py-4 px-5 rounded-xl font-bold"
             >
               <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                 <LogIn size={18} />
@@ -417,7 +417,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
               <Link
                 href="/guide-partner/login"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-3 bg-orange-500 text-white py-4 px-5 rounded-xl font-bold"
+                className="flex items-center gap-3 bg-gold-500 text-white py-4 px-5 rounded-xl font-bold"
               >
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                   <LogIn size={18} />

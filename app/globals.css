@@ -1,5 +1,70 @@
 @import "tailwindcss";
 
+/* ============================================
+   统一品牌色彩系统 (Unified Brand Color System)
+   ============================================ */
+@theme {
+  /* Brand Navy — 所有深色背景、Hero 遮罩的统一底色 */
+  --color-brand-50: #f0f4f8;
+  --color-brand-100: #d9e2ec;
+  --color-brand-200: #bcccdc;
+  --color-brand-300: #9fb3c8;
+  --color-brand-400: #829ab1;
+  --color-brand-500: #627d98;
+  --color-brand-600: #486581;
+  --color-brand-700: #334e68;
+  --color-brand-800: #243b53;
+  --color-brand-900: #102a43;
+
+  /* Gold Accent — 品牌强调色，与高尔夫 #D4AF37 统一 */
+  --color-gold-50: #fdf8ec;
+  --color-gold-100: #faefc9;
+  --color-gold-200: #f5dfa0;
+  --color-gold-300: #ecc968;
+  --color-gold-400: #d4af37;
+  --color-gold-500: #b8960b;
+  --color-gold-600: #9a7b09;
+  --color-gold-700: #7c6207;
+  --color-gold-800: #5e4a06;
+  --color-gold-900: #403204;
+
+  /* Medical Teal — 医疗板块标识色 */
+  --color-medical-50: #f0fdfa;
+  --color-medical-100: #ccfbf1;
+  --color-medical-200: #99f6e4;
+  --color-medical-300: #5eead4;
+  --color-medical-400: #2dd4bf;
+  --color-medical-500: #14b8a6;
+  --color-medical-600: #0d9488;
+  --color-medical-700: #0f766e;
+  --color-medical-800: #115e59;
+  --color-medical-900: #134e4a;
+
+  /* Business Steel Blue — 商务板块标识色 */
+  --color-biz-50: #eff6ff;
+  --color-biz-100: #dbeafe;
+  --color-biz-200: #bfdbfe;
+  --color-biz-300: #93c5fd;
+  --color-biz-400: #60a5fa;
+  --color-biz-500: #3b82f6;
+  --color-biz-600: #2563eb;
+  --color-biz-700: #1d4ed8;
+  --color-biz-800: #1e40af;
+  --color-biz-900: #1e3a5f;
+
+  /* Warm Neutral — 暖灰中性色 */
+  --color-neutral-50: #fafaf8;
+  --color-neutral-100: #f5f5f0;
+  --color-neutral-200: #e8e6e1;
+  --color-neutral-300: #d5d1c8;
+  --color-neutral-400: #a8a29e;
+  --color-neutral-500: #78716c;
+  --color-neutral-600: #57534e;
+  --color-neutral-700: #44403c;
+  --color-neutral-800: #292524;
+  --color-neutral-900: #1c1917;
+}
+
 /* 基础样式 */
 body {
   font-family: 'Noto Sans JP', sans-serif;

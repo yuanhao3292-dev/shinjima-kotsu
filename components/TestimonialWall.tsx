@@ -145,19 +145,19 @@ const chunkArray = (array: Review[], numChunks: number) => {
 // --- Components ---
 
 const ReviewCard: React.FC<{ review: Review }> = ({ review }) => (
-  <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm min-w-[320px] max-w-[320px] flex-shrink-0 mx-3 hover:shadow-md transition-shadow duration-300">
+  <div className="bg-white p-5 rounded-xl border border-neutral-200 shadow-sm min-w-[320px] max-w-[320px] flex-shrink-0 mx-3 hover:shadow-md transition-shadow duration-300">
     <div className="flex items-center gap-2 mb-3">
         <span className="text-xl">{review.flag}</span>
         <div>
-            <p className="text-xs font-bold text-gray-800">{review.loc}</p>
-            <div className="flex text-yellow-400 gap-0.5 mt-0.5">
+            <p className="text-xs font-bold text-neutral-800">{review.loc}</p>
+            <div className="flex text-gold-400 gap-0.5 mt-0.5">
                 {[...Array(5)].map((_, i) => <Star key={i} size={10} fill="currentColor" />)}
             </div>
         </div>
     </div>
     <div className="relative">
-        <Quote size={16} className="absolute -top-1 -left-1 text-gray-100 transform -scale-x-100" />
-        <p className="text-sm text-gray-600 leading-relaxed pl-2 relative z-10 line-clamp-3">
+        <Quote size={16} className="absolute -top-1 -left-1 text-neutral-200 transform -scale-x-100" />
+        <p className="text-sm text-neutral-600 leading-relaxed pl-2 relative z-10 line-clamp-3">
             {review.text}
         </p>
     </div>
@@ -184,11 +184,11 @@ const TestimonialWall: React.FC = () => {
   const rows = chunkArray(REVIEWS, 3);
 
   return (
-    <div className="w-full bg-[#F5F5F7] py-20 border-y border-gray-200 overflow-hidden relative">
+    <div className="w-full bg-neutral-50 py-20 border-y border-neutral-200 overflow-hidden relative">
       <div className="container mx-auto px-6 mb-12 text-center">
-         <span className="text-blue-600 font-bold tracking-widest text-xs uppercase bg-blue-50 px-3 py-1 rounded-full">Voice of Partners</span>
-         <h2 className="text-3xl font-serif text-gray-900 mt-4">100+ 旅行社のリアルな評価</h2>
-         <p className="text-gray-500 text-sm mt-2">台湾・中国・香港・シンガポールのプロフェッショナルたちから選ばれています</p>
+         <span className="text-brand-700 font-bold tracking-widest text-xs uppercase bg-brand-50 px-3 py-1 rounded-full">Voice of Partners</span>
+         <h2 className="text-3xl font-serif text-neutral-900 mt-4">100+ 旅行社のリアルな評価</h2>
+         <p className="text-neutral-500 text-sm mt-2">台湾・中国・香港・シンガポールのプロフェッショナルたちから選ばれています</p>
       </div>
 
       <div className="flex flex-col gap-8">
@@ -216,8 +216,8 @@ const TestimonialWall: React.FC = () => {
       </div>
       
       {/* Gradients for fade effect */}
-      <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-[#F5F5F7] to-transparent z-10 pointer-events-none"></div>
-      <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-[#F5F5F7] to-transparent z-10 pointer-events-none"></div>
+      <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-neutral-50 to-transparent z-10 pointer-events-none"></div>
+      <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-neutral-50 to-transparent z-10 pointer-events-none"></div>
     </div>
   );
 };
