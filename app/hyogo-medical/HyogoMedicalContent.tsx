@@ -1096,7 +1096,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
           <div className="max-w-3xl animate-fade-in-up">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif mb-4 md:mb-6 leading-[1.2]">
               {t.heroTitle1[lang]}<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ecf3f1] to-white">{t.heroTitle2[lang]}</span>
+              <span className="text-[1.5rem] sm:text-[2rem] md:text-[2.5rem] lg:text-[3.5rem] text-transparent bg-clip-text bg-gradient-to-r from-[#ecf3f1] to-white">{t.heroTitle2[lang]}</span>
             </h1>
             <h2 className="text-base sm:text-lg md:text-2xl text-gray-300 font-light mb-6 md:mb-8 font-serif">
               {t.heroSubtitle[lang]}
