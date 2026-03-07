@@ -1018,8 +1018,289 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               )}
             </div>
 
-            {/* Additional treatments would be added here following the same pattern */}
-            {/* For brevity, showing 2 of 6 total treatments */}
+            {/* 3. AFTVac治疗 - 活化自体肿瘤反应T细胞 */}
+            <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition">
+              <button
+                onClick={() => setExpandedProtocol(expandedProtocol === 2 ? null : 2)}
+                className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 transition"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Shield className="text-purple-600" size={24} />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900">
+                      {lang === 'ja' ? 'AFTVac治療' : lang === 'en' ? 'AFTVac Therapy' : lang === 'zh-TW' ? 'AFTVac治療' : 'AFTVac治疗'}
+                    </h3>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {lang === 'ja' ? '活化自己腫瘍反応性T細胞療法' : lang === 'en' ? 'Activated Autologous Tumor-Reactive T Cell Therapy' : lang === 'zh-TW' ? '活化自體腫瘤反應性T細胞療法' : '活化自体肿瘤反应性T细胞疗法'}
+                    </p>
+                  </div>
+                </div>
+                {expandedProtocol === 2 ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+              </button>
+              {expandedProtocol === 2 && (
+                <div className="px-6 pb-6 border-t border-gray-100">
+                  <div className="pt-5 space-y-4">
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">
+                        {lang === 'ja' ? '治療概要' : lang === 'en' ? 'Overview' : lang === 'zh-TW' ? '治療概要' : '治疗概要'}
+                      </h4>
+                      <p className="text-gray-700 leading-relaxed text-sm">
+                        {lang === 'ja' ? 'AFTVacは患者自身のがん細胞を用いて作製したワクチンで免疫細胞を刺激し、体外で培養増殖させた後に体内に戻す治療法です。がん細胞特有の抗原に反応するT細胞を選択的に増やすことで、がん細胞を狙い撃ちする高い特異性を持ちます。副作用が少なく、QOL（生活の質）を維持しながらがん治療を進められます。' : lang === 'en' ? 'AFTVac stimulates immune cells using a vaccine created from the patient\'s own cancer cells, then returns cultured T cells to the body. By selectively increasing T cells that respond to cancer-specific antigens, it achieves high specificity in targeting cancer cells with minimal side effects while maintaining quality of life.' : lang === 'zh-TW' ? 'AFTVac是使用患者自身癌細胞製作的疫苗刺激免疫細胞，在體外培養增殖後重新注入體內的治療方法。透過選擇性增加對癌細胞特有抗原產生反應的T細胞，具有高度針對性地攻擊癌細胞的特性。副作用少，可在維持生活品質（QOL）的同時進行癌症治療。' : 'AFTVac是使用患者自身癌细胞制作的疫苗刺激免疫细胞，在体外培养增殖后重新注入体内的治疗方法。通过选择性增加对癌细胞特有抗原产生反应的T细胞，具有高度针对性地攻击癌细胞的特性。副作用少，可在维持生活质量（QOL）的同时进行癌症治疗。'}
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">
+                        {lang === 'ja' ? '治療フロー' : lang === 'en' ? 'Treatment Flow' : lang === 'zh-TW' ? '治療流程' : '治疗流程'}
+                      </h4>
+                      <ul className="space-y-2 text-sm text-gray-700">
+                        <li className="flex items-start gap-2">
+                          <span className="text-purple-600 font-bold mt-0.5">第1步：</span>
+                          <span>{lang === 'ja' ? '腫瘍組織採取（手術時または生検）' : lang === 'en' ? 'Tumor tissue collection (during surgery or biopsy)' : lang === 'zh-TW' ? '採取腫瘤組織（手術時或活檢）' : '采取肿瘤组织（手术时或活检）'}</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-purple-600 font-bold mt-0.5">第2步：</span>
+                          <span>{lang === 'ja' ? '採血（50ml）、腫瘤細胞からワクチン作製' : lang === 'en' ? 'Blood collection (50ml), vaccine creation from tumor cells' : lang === 'zh-TW' ? '抽血（50ml），從腫瘤細胞製作疫苗' : '抽血（50ml），从肿瘤细胞制作疫苗'}</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-purple-600 font-bold mt-0.5">第3步：</span>
+                          <span>{lang === 'ja' ? 'ワクチン投与（皮下注射、週1回×4週）' : lang === 'en' ? 'Vaccine administration (subcutaneous injection, once weekly × 4 weeks)' : lang === 'zh-TW' ? '疫苗施打（皮下注射，每週1次×4週）' : '疫苗施打（皮下注射，每周1次×4周）'}</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-purple-600 font-bold mt-0.5">第4步：</span>
+                          <span>{lang === 'ja' ? '採血、T細胞培養（約2週間）' : lang === 'en' ? 'Blood collection, T cell culture (approx. 2 weeks)' : lang === 'zh-TW' ? '抽血，T細胞培養（約2週）' : '抽血，T细胞培养（约2周）'}</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-purple-600 font-bold mt-0.5">第5步：</span>
+                          <span>{lang === 'ja' ? 'T細胞投与（点滴、1日入院）' : lang === 'en' ? 'T cell infusion (IV drip, 1-day hospitalization)' : lang === 'zh-TW' ? 'T細胞輸注（點滴，住院1天）' : 'T细胞输注（点滴，住院1天）'}</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="bg-purple-50 rounded-lg p-4 border border-purple-100">
+                      <h4 className="font-semibold text-purple-900 mb-2 text-sm">
+                        {lang === 'ja' ? '注意事項' : lang === 'en' ? 'Important Notes' : lang === 'zh-TW' ? '注意事項' : '注意事项'}
+                      </h4>
+                      <ul className="space-y-1.5 text-sm text-purple-800">
+                        <li>• {lang === 'ja' ? '総治療期間：約2-3ヶ月' : lang === 'en' ? 'Total duration: approx. 2-3 months' : lang === 'zh-TW' ? '總治療期間：約2-3個月' : '总治疗期间：约2-3个月'}</li>
+                        <li>• {lang === 'ja' ? '適応：切除可能な固形がん（組織採取が必要）' : lang === 'en' ? 'Indication: Resectable solid tumors (tissue collection required)' : lang === 'zh-TW' ? '適應症：可切除的實體腫瘤（需採集組織）' : '适应症：可切除的实体肿瘤（需采集组织）'}</li>
+                        <li>• {lang === 'ja' ? 'ワクチン投与時は通院、T細胞投与時は1日入院' : lang === 'en' ? 'Vaccine: outpatient; T cell infusion: 1-day hospitalization' : lang === 'zh-TW' ? '疫苗施打為門診，T細胞輸注需住院1天' : '疫苗施打为门诊，T细胞输注需住院1天'}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* 4. 免疫细胞治疗 */}
+            <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition">
+              <button
+                onClick={() => setExpandedProtocol(expandedProtocol === 3 ? null : 3)}
+                className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 transition"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Beaker className="text-blue-600" size={24} />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900">
+                      {lang === 'ja' ? '免疫細胞治療' : lang === 'en' ? 'Immune Cell Therapy' : lang === 'zh-TW' ? '免疫細胞治療' : '免疫细胞治疗'}
+                    </h3>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {lang === 'ja' ? 'NK細胞・γδT細胞療法' : lang === 'en' ? 'NK Cell & γδT Cell Therapy' : lang === 'zh-TW' ? 'NK細胞・γδT細胞療法' : 'NK细胞·γδT细胞疗法'}
+                    </p>
+                  </div>
+                </div>
+                {expandedProtocol === 3 ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+              </button>
+              {expandedProtocol === 3 && (
+                <div className="px-6 pb-6 border-t border-gray-100">
+                  <div className="pt-5 space-y-4">
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">
+                        {lang === 'ja' ? '治療概要' : lang === 'en' ? 'Overview' : lang === 'zh-TW' ? '治療概要' : '治疗概要'}
+                      </h4>
+                      <p className="text-gray-700 leading-relaxed text-sm">
+                        {lang === 'ja' ? '患者自身の血液から採取した免疫細胞を体外で大量培養し、活性化させた後に体内に戻す治療法です。NK細胞はがん細胞を直接攻撃し、γδT細胞は幅広いがん細胞を認識して攻撃します。抗がん剤や放射線療法と併用でき、副作用が少なく、免疫力を高めながらがんと闘えます。再発予防にも効果が期待されます。' : lang === 'en' ? 'Immune cells collected from the patient\'s blood are cultured in large quantities, activated, and returned to the body. NK cells directly attack cancer cells, while γδT cells recognize and attack a wide range of cancer cells. Can be combined with chemotherapy or radiation with minimal side effects, boosting immunity while fighting cancer. Also expected to prevent recurrence.' : lang === 'zh-TW' ? '從患者自身血液中採集的免疫細胞在體外大量培養並活化後重新注入體內的治療方法。NK細胞直接攻擊癌細胞，γδT細胞能識別並攻擊廣泛的癌細胞。可與化療或放療併用，副作用少，可在提升免疫力的同時對抗癌症。也被期待具有預防復發的效果。' : '从患者自身血液中采集的免疫细胞在体外大量培养并活化后重新注入体内的治疗方法。NK细胞直接攻击癌细胞，γδT细胞能识别并攻击广泛的癌细胞。可与化疗或放疗并用，副作用少，可在提升免疫力的同时对抗癌症。也被期待具有预防复发的效果。'}
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">
+                        {lang === 'ja' ? '治療フロー' : lang === 'en' ? 'Treatment Flow' : lang === 'zh-TW' ? '治療流程' : '治疗流程'}
+                      </h4>
+                      <ul className="space-y-2 text-sm text-gray-700">
+                        <li className="flex items-start gap-2">
+                          <span className="text-blue-600 font-bold mt-0.5">第1步：</span>
+                          <span>{lang === 'ja' ? '医師診察、治療計画決定' : lang === 'en' ? 'Medical consultation, treatment plan determination' : lang === 'zh-TW' ? '醫生診察，確定治療計劃' : '医生诊察，确定治疗计划'}</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-blue-600 font-bold mt-0.5">第2步：</span>
+                          <span>{lang === 'ja' ? '採血（40-50ml）、細胞培養開始（約2週間）' : lang === 'en' ? 'Blood collection (40-50ml), cell culture starts (approx. 2 weeks)' : lang === 'zh-TW' ? '抽血（40-50ml），開始細胞培養（約2週）' : '抽血（40-50ml），开始细胞培养（约2周）'}</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-blue-600 font-bold mt-0.5">第3步：</span>
+                          <span>{lang === 'ja' ? '免疫細胞投与（点滴、約1時間、通院）' : lang === 'en' ? 'Immune cell infusion (IV drip, approx. 1 hour, outpatient)' : lang === 'zh-TW' ? '免疫細胞輸注（點滴，約1小時，門診）' : '免疫细胞输注（点滴，约1小时，门诊）'}</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-blue-600 font-bold mt-0.5">第4步：</span>
+                          <span>{lang === 'ja' ? '定期的に投与（週1回または2週に1回、6-12回）' : lang === 'en' ? 'Regular infusions (weekly or biweekly, 6-12 sessions)' : lang === 'zh-TW' ? '定期輸注（每週1次或每2週1次，6-12次）' : '定期输注（每周1次或每2周1次，6-12次）'}</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="bg-blue-50 rounded-lg p-4 border border-blue-100">
+                      <h4 className="font-semibold text-blue-900 mb-2 text-sm">
+                        {lang === 'ja' ? '注意事項' : lang === 'en' ? 'Important Notes' : lang === 'zh-TW' ? '注意事項' : '注意事项'}
+                      </h4>
+                      <ul className="space-y-1.5 text-sm text-blue-800">
+                        <li>• {lang === 'ja' ? '完全通院治療、入院不要' : lang === 'en' ? 'Fully outpatient treatment, no hospitalization required' : lang === 'zh-TW' ? '完全門診治療，無需住院' : '完全门诊治疗，无需住院'}</li>
+                        <li>• {lang === 'ja' ? '投与後は通常の生活に戻れる、副作用極少' : lang === 'en' ? 'Can resume normal life after infusion, minimal side effects' : lang === 'zh-TW' ? '輸注後可恢復正常生活，副作用極少' : '输注后可恢复正常生活，副作用极少'}</li>
+                        <li>• {lang === 'ja' ? '他の治療（化学療法、放射線）との併用可能' : lang === 'en' ? 'Can be combined with other treatments (chemotherapy, radiation)' : lang === 'zh-TW' ? '可與其他治療（化療、放療）併用' : '可与其他治疗（化疗、放疗）并用'}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* 5. 干细胞治疗 */}
+            <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition">
+              <button
+                onClick={() => setExpandedProtocol(expandedProtocol === 4 ? null : 4)}
+                className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 transition"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Dna className="text-green-600" size={24} />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900">
+                      {lang === 'ja' ? '幹細胞治療' : lang === 'en' ? 'Stem Cell Therapy' : lang === 'zh-TW' ? '幹細胞治療' : '干细胞治疗'}
+                    </h3>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {lang === 'ja' ? '自己脂肪由来間葉系幹細胞療法' : lang === 'en' ? 'Autologous Adipose-Derived MSC Therapy' : lang === 'zh-TW' ? '自體脂肪來源間質幹細胞療法' : '自体脂肪来源间充质干细胞疗法'}
+                    </p>
+                  </div>
+                </div>
+                {expandedProtocol === 4 ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+              </button>
+              {expandedProtocol === 4 && (
+                <div className="px-6 pb-6 border-t border-gray-100">
+                  <div className="pt-5 space-y-4">
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">
+                        {lang === 'ja' ? '治療概要' : lang === 'en' ? 'Overview' : lang === 'zh-TW' ? '治療概要' : '治疗概要'}
+                      </h4>
+                      <p className="text-gray-700 leading-relaxed text-sm">
+                        {lang === 'ja' ? '患者自身の脂肪組織から採取した間葉系幹細胞（MSC）を培養増殖させ、体内に投与する再生医療です。MSCは抗炎症作用、組織修復促進、免疫調整などの機能を持ち、がん治療による副作用の軽減、体力回復、免疫力向上に役立ちます。また、MSCから分泌されるサイトカインが腫瘍微小環境を改善し、がん治療の効果を高める可能性があります。' : lang === 'en' ? 'Regenerative medicine using mesenchymal stem cells (MSC) harvested from the patient\'s adipose tissue, cultured, and administered. MSCs have anti-inflammatory, tissue repair, and immune-modulating functions, helping reduce cancer treatment side effects, restore vitality, and boost immunity. Cytokines secreted by MSCs may improve the tumor microenvironment and enhance cancer treatment efficacy.' : lang === 'zh-TW' ? '從患者自身脂肪組織中採集的間質幹細胞（MSC）經培養增殖後注入體內的再生醫療。MSC具有抗發炎、促進組織修復、免疫調節等功能，有助於減輕癌症治療的副作用、恢復體力、提升免疫力。此外，MSC分泌的細胞因子可改善腫瘤微環境，有可能提高癌症治療效果。' : '从患者自身脂肪组织中采集的间充质干细胞（MSC）经培养增殖后注入体内的再生医疗。MSC具有抗炎、促进组织修复、免疫调节等功能，有助于减轻癌症治疗的副作用、恢复体力、提升免疫力。此外，MSC分泌的细胞因子可改善肿瘤微环境，有可能提高癌症治疗效果。'}
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">
+                        {lang === 'ja' ? '治療フロー' : lang === 'en' ? 'Treatment Flow' : lang === 'zh-TW' ? '治療流程' : '治疗流程'}
+                      </h4>
+                      <ul className="space-y-2 text-sm text-gray-700">
+                        <li className="flex items-start gap-2">
+                          <span className="text-green-600 font-bold mt-0.5">第1步：</span>
+                          <span>{lang === 'ja' ? '医師診察、適応判定、治療計画策定' : lang === 'en' ? 'Medical consultation, eligibility assessment, treatment planning' : lang === 'zh-TW' ? '醫生診察，適應症判定，制定治療計劃' : '医生诊察，适应症判定，制定治疗计划'}</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-green-600 font-bold mt-0.5">第2步：</span>
+                          <span>{lang === 'ja' ? '脂肪採取（局所麻酔下、腹部から約10-20g、日帰り）' : lang === 'en' ? 'Fat harvesting (local anesthesia, 10-20g from abdomen, outpatient)' : lang === 'zh-TW' ? '採集脂肪（局部麻醉，從腹部採10-20g，當日往返）' : '采集脂肪（局部麻醉，从腹部采10-20g，当日往返）'}</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-green-600 font-bold mt-0.5">第3步：</span>
+                          <span>{lang === 'ja' ? '幹細胞培養（約4-6週間）' : lang === 'en' ? 'Stem cell culture (approx. 4-6 weeks)' : lang === 'zh-TW' ? '幹細胞培養（約4-6週）' : '干细胞培养（约4-6周）'}</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-green-600 font-bold mt-0.5">第4步：</span>
+                          <span>{lang === 'ja' ? 'MSC投与（点滴、約1時間、通院）' : lang === 'en' ? 'MSC infusion (IV drip, approx. 1 hour, outpatient)' : lang === 'zh-TW' ? 'MSC輸注（點滴，約1小時，門診）' : 'MSC输注（点滴，约1小时，门诊）'}</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-green-600 font-bold mt-0.5">第5步：</span>
+                          <span>{lang === 'ja' ? '追加投与（必要に応じて2-4週間隔で複数回）' : lang === 'en' ? 'Additional infusions (as needed, 2-4 week intervals, multiple sessions)' : lang === 'zh-TW' ? '追加輸注（視需要每2-4週1次，多次治療）' : '追加输注（视需要每2-4周1次，多次治疗）'}</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="bg-green-50 rounded-lg p-4 border border-green-100">
+                      <h4 className="font-semibold text-green-900 mb-2 text-sm">
+                        {lang === 'ja' ? '注意事項' : lang === 'en' ? 'Important Notes' : lang === 'zh-TW' ? '注意事項' : '注意事项'}
+                      </h4>
+                      <ul className="space-y-1.5 text-sm text-green-800">
+                        <li>• {lang === 'ja' ? '脂肪採取は日帰り手術、投与は通院' : lang === 'en' ? 'Fat harvesting: outpatient surgery; infusion: outpatient' : lang === 'zh-TW' ? '脂肪採集為當日手術，輸注為門診' : '脂肪采集为当日手术，输注为门诊'}</li>
+                        <li>• {lang === 'ja' ? '自己細胞使用のため拒絶反応リスク極めて低い' : lang === 'en' ? 'Autologous cells: extremely low rejection risk' : lang === 'zh-TW' ? '使用自體細胞，排斥反應風險極低' : '使用自体细胞，排斥反应风险极低'}</li>
+                        <li>• {lang === 'ja' ? '培養期間中は他の治療継続可能' : lang === 'en' ? 'Other treatments can continue during culture period' : lang === 'zh-TW' ? '培養期間可繼續其他治療' : '培养期间可继续其他治疗'}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* 6. 干细胞上清液治疗 */}
+            <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition">
+              <button
+                onClick={() => setExpandedProtocol(expandedProtocol === 5 ? null : 5)}
+                className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 transition"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Droplets className="text-teal-600" size={24} />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900">
+                      {lang === 'ja' ? '幹細胞上清液治療' : lang === 'en' ? 'Stem Cell Supernatant Therapy' : lang === 'zh-TW' ? '幹細胞上清液治療' : '干细胞上清液治疗'}
+                    </h3>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {lang === 'ja' ? 'エクソソーム・成長因子療法' : lang === 'en' ? 'Exosome & Growth Factor Therapy' : lang === 'zh-TW' ? '外泌體·生長因子療法' : '外泌体·生长因子疗法'}
+                    </p>
+                  </div>
+                </div>
+                {expandedProtocol === 5 ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+              </button>
+              {expandedProtocol === 5 && (
+                <div className="px-6 pb-6 border-t border-gray-100">
+                  <div className="pt-5 space-y-4">
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">
+                        {lang === 'ja' ? '治療概要' : lang === 'en' ? 'Overview' : lang === 'zh-TW' ? '治療概要' : '治疗概要'}
+                      </h4>
+                      <p className="text-gray-700 leading-relaxed text-sm">
+                        {lang === 'ja' ? '幹細胞培養液から幹細胞を取り除いた上清液には、エクソソーム（細胞外小胞）や数百種類の成長因子、サイトカインが豊富に含まれています。これらの生理活性物質が抗炎症、組織修復、血管新生促進、免疫調整などの作用を発揮します。幹細胞そのものを投与するより安全性が高く、繰り返し投与が容易で、がん治療による体力低下や副作用の軽減、QOL向上に貢献します。' : lang === 'en' ? 'The supernatant from stem cell culture (with cells removed) is rich in exosomes, hundreds of growth factors, and cytokines. These bioactive substances provide anti-inflammatory, tissue repair, angiogenesis promotion, and immune-modulating effects. Safer than administering stem cells themselves, easier to administer repeatedly, helping reduce fatigue and side effects from cancer treatment while improving quality of life.' : lang === 'zh-TW' ? '從幹細胞培養液中去除幹細胞後的上清液，富含外泌體（細胞外囊泡）及數百種生長因子、細胞因子。這些生理活性物質發揮抗發炎、組織修復、促進血管新生、免疫調節等作用。比直接投予幹細胞更安全，易於重複施打，有助於減輕癌症治療導致的體力下降和副作用，提升生活品質。' : '从干细胞培养液中去除干细胞后的上清液，富含外泌体（细胞外囊泡）及数百种生长因子、细胞因子。这些生理活性物质发挥抗炎、组织修复、促进血管新生、免疫调节等作用。比直接投予干细胞更安全，易于重复施打，有助于减轻癌症治疗导致的体力下降和副作用，提升生活质量。'}
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">
+                        {lang === 'ja' ? '治療フロー' : lang === 'en' ? 'Treatment Flow' : lang === 'zh-TW' ? '治療流程' : '治疗流程'}
+                      </h4>
+                      <ul className="space-y-2 text-sm text-gray-700">
+                        <li className="flex items-start gap-2">
+                          <span className="text-teal-600 font-bold mt-0.5">第1步：</span>
+                          <span>{lang === 'ja' ? '医師診察、治療計画決定' : lang === 'en' ? 'Medical consultation, treatment plan determination' : lang === 'zh-TW' ? '醫生診察，確定治療計劃' : '医生诊察，确定治疗计划'}</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-teal-600 font-bold mt-0.5">第2步：</span>
+                          <span>{lang === 'ja' ? '上清液投与（点滴、約30-60分、通院）' : lang === 'en' ? 'Supernatant infusion (IV drip, 30-60 min, outpatient)' : lang === 'zh-TW' ? '上清液輸注（點滴，約30-60分鐘，門診）' : '上清液输注（点滴，约30-60分钟，门诊）'}</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-teal-600 font-bold mt-0.5">第3步：</span>
+                          <span>{lang === 'ja' ? '定期投与（週1回または2週に1回、医師指示に従う）' : lang === 'en' ? 'Regular infusions (weekly or biweekly, as directed by physician)' : lang === 'zh-TW' ? '定期輸注（每週1次或每2週1次，遵醫囑）' : '定期输注（每周1次或每2周1次，遵医嘱）'}</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="bg-teal-50 rounded-lg p-4 border border-teal-100">
+                      <h4 className="font-semibold text-teal-900 mb-2 text-sm">
+                        {lang === 'ja' ? '注意事項' : lang === 'en' ? 'Important Notes' : lang === 'zh-TW' ? '注意事項' : '注意事项'}
+                      </h4>
+                      <ul className="space-y-1.5 text-sm text-teal-800">
+                        <li>• {lang === 'ja' ? '完全通院治療、入院不要、侵襲的処置なし' : lang === 'en' ? 'Fully outpatient, no hospitalization, non-invasive' : lang === 'zh-TW' ? '完全門診治療，無需住院，無侵入性處置' : '完全门诊治疗，无需住院，无侵入性处置'}</li>
+                        <li>• {lang === 'ja' ? '投与後すぐ帰宅可能、日常生活制限なし' : lang === 'en' ? 'Can go home immediately after infusion, no daily life restrictions' : lang === 'zh-TW' ? '輸注後可立即返家，無日常生活限制' : '输注后可立即返家，无日常生活限制'}</li>
+                        <li>• {lang === 'ja' ? '他の治療との併用に最適、副作用極めて少ない' : lang === 'en' ? 'Ideal for combination with other treatments, minimal side effects' : lang === 'zh-TW' ? '最適合與其他治療併用，副作用極少' : '最适合与其他治疗并用，副作用极少'}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
 
           </div>
         </div>
