@@ -21,6 +21,7 @@ function toUrlSlug(componentKey: string): string {
 const MODULE_LABELS: Record<string, string> = {
   medical_packages: '精密体检',
   hyogo_medical: '兵庫医大病院',
+  kindai_hospital: '近畿大学病院',
   cancer_treatment: '癌症治疗',
   sai_clinic: 'SAI CLINIC',
   wclinic_mens: 'W CLINIC men\'s',
@@ -54,7 +55,7 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
 
   // 支持详情页的模块（必须与 page_modules 表的 component_key 一致）
   const DETAIL_MODULES = new Set([
-    'medical_packages', 'hyogo_medical', 'cancer_treatment',
+    'medical_packages', 'hyogo_medical', 'kindai_hospital', 'cancer_treatment',
     'sai_clinic', 'wclinic_mens',
     'helene_clinic', 'ginza_phoenix', 'cell_medicine', 'ac_plus', 'igtc',
     'osaka_himak',

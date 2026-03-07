@@ -35,10 +35,12 @@ import { useLanguage, type Language } from '@/hooks/useLanguage'
 
 interface KindaiHospitalContentProps {
   isGuideEmbed?: boolean
+  guideSlug?: string
 }
 
 export default function KindaiHospitalContent({
   isGuideEmbed = false,
+  guideSlug,
 }: KindaiHospitalContentProps) {
   const locale = useLanguage()
   const [activePhase, setActivePhase] = useState<number>(1)

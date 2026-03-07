@@ -16,7 +16,7 @@ function toUrlSlug(componentKey: string): string {
 
 /** 支持详情页的 component_key（必须与 page_modules 表一致） */
 const DETAIL_MODULES = new Set([
-  'medical_packages', 'hyogo_medical', 'cancer_treatment',
+  'medical_packages', 'hyogo_medical', 'kindai_hospital', 'cancer_treatment',
   'sai_clinic', 'wclinic_mens',
   'helene_clinic', 'ginza_phoenix', 'cell_medicine', 'ac_plus', 'igtc',
   'osaka_himak',
@@ -28,6 +28,7 @@ const DETAIL_PAGE_HERO_IMAGES: Record<string, string> = {
   health_screening: 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg', // 和 medical_packages 共用
   sai_clinic: '/images/sai-clinic/hero-01.jpg',
   hyogo_medical: 'https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img01.jpg',
+  kindai_hospital: 'https://www.med.kindai.ac.jp/img/about/relocation/mv.webp',
   cancer_treatment: 'https://www.nihonsekkei.co.jp/wp-content/uploads/2017/07/3c692a8b8911831af2d1fd6bfcd4e0e7.jpg',
   helene_clinic: 'https://stemcells.jp/en/wp-content/themes/flavor_flavor_flavor/images/top/top-firstview-bg.webp',
   ginza_phoenix: 'https://static.wixstatic.com/media/1778a7_4417743f0826481297af97cd36d5a362~mv2.jpg',

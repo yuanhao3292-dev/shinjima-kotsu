@@ -48,7 +48,7 @@ export async function middleware(request: NextRequest) {
   //     checkout 子页面 → 补充 ?guide= 参数（用于返回链接）
   if (isWhiteLabelDomain) {
     const WHITELABEL_MODULE_PATHS = new Set([
-      'hyogo-medical', 'cancer-treatment', 'medical-packages',
+      'hyogo-medical', 'kindai-hospital', 'cancer-treatment', 'medical-packages',
       'sai-clinic', 'wclinic-mens', 'helene-clinic',
       'ginza-phoenix', 'cell-medicine', 'ac-plus', 'igtc',
       'osaka-himak',

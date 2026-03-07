@@ -11,6 +11,7 @@ import CellMedicineContent from '@/app/cell-medicine/CellMedicineContent';
 import ACPlusContent from '@/app/ac-plus/ACPlusContent';
 import IGTCContent from '@/app/igtc/IGTCContent';
 import OsakaHimakContent from '@/app/osaka-himak/OsakaHimakContent';
+import KindaiHospitalContent from '@/app/kindai-hospital/KindaiHospitalContent';
 import { getSaiClinicImages } from '@/lib/services/sai-clinic-images';
 
 interface PageProps {
@@ -26,6 +27,7 @@ function toComponentKey(urlSlug: string): string {
 const SUPPORTED_KEYS = new Set([
   'medical_packages',
   'hyogo_medical',
+  'kindai_hospital',
   'cancer_treatment',
   'sai_clinic',
   'wclinic_mens',
@@ -59,6 +61,9 @@ export default async function ModuleDetailPage({ params }: PageProps) {
 
     case 'hyogo_medical':
       return <HyogoMedicalContent isGuideEmbed guideSlug={slug} />;
+
+    case 'kindai_hospital':
+      return <KindaiHospitalContent isGuideEmbed guideSlug={slug} />;
 
     case 'sai_clinic': {
       const images = await getSaiClinicImages();

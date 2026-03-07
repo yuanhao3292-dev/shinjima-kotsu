@@ -97,12 +97,13 @@ shinjima-kotsu/
 - **配置**: `lib/whitelabel-config.ts` (slug 校验) + `lib/whitelabel-pages.ts`
 - **服务端**: `lib/services/whitelabel.ts` + `lib/utils/whitelabel-server.ts`
 
-#### 白标可用模块（数据库 page_modules 表，共 11 个）
+#### 白标可用模块（数据库 page_modules 表，共 12 个）
 
 | component_key | 名称 | Content 组件 | 分类 |
 |---------------|------|-------------|------|
 | medical_packages | TIMC 健检套餐 | TIMCContent | 体检中心 |
 | hyogo_medical | 兵庫医科大学病院 | HyogoMedicalContent | 综合医院 |
+| kindai_hospital | 近畿大学病院 | KindaiHospitalContent | 综合医院 |
 | cancer_treatment | 大阪国際がんセンター | OICIContent | 综合医院 |
 | sai_clinic | SAI CLINIC 医美整形 | SaiClinicContent | 医美整形 |
 | wclinic_mens | W CLINIC men's 梅田院 | WClinicMensContent | 医美整形 |
@@ -142,6 +143,69 @@ layer 3: [moduleSlug]/page.tsx → SUPPORTED_KEYS + switch (详情页路由)
    - ✅ `middleware.ts` → `WHITELABEL_MODULE_PATHS` (白标域名重定向)
    - ✅ `lib/config/medical-packages.ts` → 添加咨询服务配置
    - ✅ `CLAUDE.md` → 更新白标可用模块表
+
+#### 🔑 选品中心集成流程（2026-03-07 近畿大学病院案例）
+
+**问题**: 近畿大学病院在数据库中配置完成，路由也注册了，但选品中心看不到，导游无法选择。
+
+**根因**: 缺少 `lib/config/product-categories.ts` 配置，导致模块不在任何分类中显示。
+
+**白标页面显示的完整链路**（7 个检查点）：
+
+```
+1. 数据库配置 (page_modules)
+   ↓ is_active=true, display_config.template='immersive'
+2. 前端分类配置 (product-categories.ts)  ← 🚨 容易遗漏！
+   ↓ 加入 PRODUCT_CATEGORIES.moduleKeys
+3. 选品中心 API (/api/guide/product-center)
+   ↓ 返回所有 is_active=true 的模块
+4. 选品中心前端 (product-center/page.tsx)
+   ↓ 按分类过滤和显示
+5. 导游选择 (guide_selected_modules 表)
+   ↓ is_enabled=true
+6. 白标页面服务 (lib/services/whitelabel.ts)
+   ↓ getGuideDistributionPage() 查询选中模块
+7. 白标页面前端 (app/g/[slug]/page.tsx)
+   ↓ 过滤 immersive 模板 + DETAIL_MODULES 白名单
+```
+
+**修复步骤** (以 kindai_hospital 为例)：
+
+1. **添加到路由映射** (`lib/config/product-categories.ts` 第 24-37 行)：
+```typescript
+export const MODULE_DETAIL_ROUTES: Record<string, string> = {
+  // ...
+  kindai_hospital: '/kindai-hospital',  // ← 新增
+  osaka_himak: '/osaka-himak',          // ← 新增
+  // ...
+};
+```
+
+2. **添加到分类配置** (`lib/config/product-categories.ts` 第 40-50 行)：
+```typescript
+{
+  id: 'general_hospital',
+  name: '综合医院合作',
+  moduleKeys: [
+    'hyogo_medical',
+    'kindai_hospital',   // ← 新增
+    'osaka_himak',       // ← 新增
+    'cancer_treatment',
+    'igtc'
+  ],
+}
+```
+
+**验证方法**:
+```bash
+node scripts/test-complete-integration.js
+```
+
+**教训**:
+- 数据库配置 + 路由注册 **≠** 完整集成
+- **必须同时配置 `product-categories.ts`**，否则选品中心不可见
+- 任何导游都无法选择未分类的模块（即使数据库中存在）
+- 新增模块时使用完整检查清单，避免遗漏配置步骤
 
 ### 6. 导游合伙人系统
 - **后台**: `app/guide-partner/` (dashboard, bookings, commission, analytics等)
@@ -1706,3 +1770,107 @@ SUPABASE_SERVICE_ROLE_KEY="eyJ..."  # ⚠️ 关键：缺少此项会导致 /g/[
 - lint-staged 对整个暂存文件运行 `eslint --fix` + `prettier --write`
 - 即使只改一行，也会检查文件中所有预存 lint 错误
 - 如果产生"empty commit"，说明处理后文件与 HEAD 完全一致
+
+---
+
+## 调试与测试脚本
+
+### 白标系统集成测试
+
+#### 完整集成测试
+```bash
+node scripts/test-complete-integration.js
+```
+**用途**: 测试模块从数据库 → 选品中心 → 白标页面的完整链路（7个检查点）  
+**输出**: 每个步骤的通过/失败状态，定位问题所在层级  
+**适用场景**: 新增模块后验证是否完全打通
+
+#### 检查导游选中的模块
+```bash
+node scripts/check-yuan-modules.js
+```
+**用途**: 查看特定导游（yuan）选中了哪些模块  
+**输出**: 模块列表（slug, component_key, is_enabled, sort_order）  
+**适用场景**: 验证导游在选品中心的选择是否正确保存
+
+#### 检查模块分类
+```bash
+node scripts/check-categories.js
+```
+**用途**: 查看所有活跃模块按分类（category）分组的情况  
+**输出**: 按 BEAUTY/MEDICAL 等分类分组的模块表  
+**适用场景**: 了解数据库中模块的分类结构
+
+#### 调试产品卡片过滤
+```bash
+node scripts/debug-product-cards.js
+```
+**用途**: 模拟白标首页的 productCards 过滤逻辑  
+**输出**: 每个模块是否通过过滤条件（immersive 模板、DETAIL_MODULES 白名单等）  
+**适用场景**: 排查为什么某个模块在白标页面不显示
+
+#### 验证近畿大学病院集成
+```bash
+node scripts/verify-kindai-integration.js
+# 或使用最终检查脚本
+node scripts/final-check.js
+```
+**用途**: 专门验证 kindai-hospital 模块的完整配置  
+**输出**: 数据库、分类、路由、导游选择等各项检查结果  
+**适用场景**: kindai-hospital 特定问题排查
+
+### Stripe 产品创建
+
+#### 创建近畿大学病院 Stripe 产品
+```bash
+node scripts/create-kindai-hospital-stripe-prices.js
+```
+**用途**: 为近畿大学病院创建 Stripe Products & Prices  
+**输出**: 生成的 product_id 和 price_id，自动更新数据库  
+**配置**: 2个咨询服务包（前期咨询 ¥221,000、远程会诊 ¥243,000）
+
+#### 创建大阪重粒子线中心 Stripe 产品
+```bash
+node scripts/create-osaka-himak-stripe-prices.js
+```
+**用途**: 为大阪重粒子线中心创建 Stripe Products & Prices  
+**输出**: 同上  
+**配置**: 2个咨询服务包（前期咨询 ¥221,000、远程会诊 ¥243,000）
+
+### 配置检查
+
+#### 检查近畿大学病院配置
+```bash
+node scripts/check-kindai-config.js
+```
+**用途**: 查看 kindai-hospital 模块在 page_modules 表的完整配置  
+**输出**: display_config 详细内容（template, colorTheme, stats, sidebar 等）  
+**适用场景**: 验证数据库配置是否正确
+
+#### 检查数据库表结构
+```bash
+node scripts/check-table-schema.js
+```
+**用途**: 查看 page_modules 表的所有字段  
+**输出**: 字段列表 + 示例记录（kindai-hospital）的完整数据  
+**适用场景**: 了解表结构，排查字段缺失问题
+
+### 脚本创建历史记录
+
+| 脚本文件 | 创建日期 | 用途 | 状态 |
+|---------|---------|------|------|
+| check-kindai-config.js | 2026-03-07 | 检查近畿配置 | ✅ 活跃 |
+| check-yuan-modules.js | 2026-03-07 | 检查导游选择 | ✅ 活跃 |
+| create-kindai-hospital-stripe-prices.js | 2026-03-07 | 创建 Stripe 产品 | ✅ 活跃 |
+| create-osaka-himak-stripe-prices.js | 2026-03-07 | 创建 Stripe 产品 | ✅ 活跃 |
+| check-categories.js | 2026-03-07 | 检查模块分类 | ✅ 活跃 |
+| check-table-schema.js | 2026-03-07 | 查看表结构 | ✅ 活跃 |
+| debug-product-cards.js | 2026-03-07 | 调试过滤逻辑 | ✅ 活跃 |
+| verify-kindai-integration.js | 2026-03-07 | 验证集成（旧版） | 📦 归档 |
+| final-check.js | 2026-03-07 | 最终检查 | ✅ 活跃 |
+| test-complete-integration.js | 2026-03-07 | 完整集成测试 | ✅ 推荐使用 |
+
+**推荐工作流**:
+1. 新增模块后，先运行 `test-complete-integration.js` 验证完整链路
+2. 如有问题，根据失败的步骤运行对应的专项脚本深入排查
+3. Stripe 产品创建在数据库配置完成后执行

@@ -24,6 +24,8 @@ export interface ProductCategory {
 export const MODULE_DETAIL_ROUTES: Record<string, string> = {
   medical_packages: '/guide-partner/product-center/timc',
   hyogo_medical: '/hyogo-medical',
+  kindai_hospital: '/kindai-hospital',
+  osaka_himak: '/osaka-himak',
   sai_clinic: '/guide-partner/product-center/sai-clinic',
   cancer_treatment: '/cancer-treatment',
   helene_clinic: '/helene-clinic',
@@ -45,7 +47,7 @@ export const PRODUCT_CATEGORIES: ProductCategory[] = [
     iconName: 'Hospital',
     gradient: 'from-emerald-600 to-teal-700',
     textColor: 'text-emerald-100',
-    moduleKeys: ['hyogo_medical', 'cancer_treatment', 'igtc'],
+    moduleKeys: ['hyogo_medical', 'kindai_hospital', 'osaka_himak', 'cancer_treatment', 'igtc'],
     sortOrder: 1,
   },
   {
