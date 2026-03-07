@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Check, Loader2, AlertCircle, Crown, Sparkles } from 'lucide-react';
+import GuideSidebar from '@/components/guide-partner/GuideSidebar';
 
 interface SubscriptionPlan {
   code: 'growth' | 'partner';
@@ -150,8 +151,9 @@ export default function SubscriptionPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-6xl mx-auto px-6">
+    <div className="min-h-screen bg-gray-50">
+      <GuideSidebar pageTitle="报酬制度" />
+      <main className="lg:ml-64 pt-16 lg:pt-0"><div className="max-w-6xl mx-auto p-6 lg:p-8">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">报酬制度</h1>
@@ -329,7 +331,7 @@ export default function SubscriptionPage() {
             <p>• 金牌合伙人的入场费一次支付，终身有效（需保持月会费续订）</p>
           </div>
         </div>
-      </div>
+      </div></main>
     </div>
   );
 }

@@ -3,12 +3,11 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import Logo from '@/components/Logo';
+import GuideSidebar from '@/components/guide-partner/GuideSidebar';
 import { createClient } from '@/lib/supabase/client';
 import { DEFAULT_SELECTED_PAGES } from '@/lib/whitelabel-config';
 import { SUBSCRIPTION_PLANS } from '@/lib/whitelabel-config';
 import {
-  ArrowLeft,
   Globe,
   Palette,
   MessageCircle,
@@ -396,44 +395,23 @@ export default function WhiteLabelSettingsPage() {
     // 导游资料不存在时显示错误信息
     return (
       <div className="min-h-screen bg-gray-50">
-        <header className="bg-white border-b">
-          <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Link
-                href="/guide-partner/dashboard"
-                className="p-2 hover:bg-gray-100 rounded-lg transition"
-              >
-                <ArrowLeft size={20} />
-              </Link>
-              <div>
-                <h1 className="text-xl font-bold">分销页面设置</h1>
-                <p className="text-sm text-gray-500">自定义您的专属品牌页面</p>
+        <GuideSidebar pageTitle="分销页面" />
+        <main className="lg:ml-64 pt-16 lg:pt-0">
+          <div className="max-w-4xl mx-auto p-6 lg:p-8">
+            {message && (
+              <div className="p-4 rounded-lg flex items-center gap-3 bg-red-50 text-red-800 border border-red-200">
+                <AlertCircle size={20} />
+                <span>{message.text}</span>
               </div>
+            )}
+            <div className="mt-6 bg-white rounded-xl border p-6 text-center">
+              <AlertCircle size={48} className="mx-auto text-amber-500 mb-4" />
+              <h2 className="text-xl font-bold text-gray-900 mb-2">未找到导游资料</h2>
+              <p className="text-gray-600 mb-6">
+                您的账户尚未关联导游身份，无法使用分销页面功能。<br />
+                请联系管理员完成账户关联。
+              </p>
             </div>
-            <Logo className="w-8 h-8" />
-          </div>
-        </header>
-        <main className="max-w-4xl mx-auto px-6 py-8">
-          {message && (
-            <div className="p-4 rounded-lg flex items-center gap-3 bg-red-50 text-red-800 border border-red-200">
-              <AlertCircle size={20} />
-              <span>{message.text}</span>
-            </div>
-          )}
-          <div className="mt-6 bg-white rounded-xl border p-6 text-center">
-            <AlertCircle size={48} className="mx-auto text-amber-500 mb-4" />
-            <h2 className="text-xl font-bold text-gray-900 mb-2">未找到导游资料</h2>
-            <p className="text-gray-600 mb-6">
-              您的账户尚未关联导游身份，无法使用分销页面功能。<br />
-              请联系管理员完成账户关联。
-            </p>
-            <Link
-              href="/guide-partner/dashboard"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-            >
-              <ArrowLeft size={18} />
-              返回仪表盘
-            </Link>
           </div>
         </main>
       </div>
@@ -444,6 +422,8 @@ export default function WhiteLabelSettingsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <GuideSidebar pageTitle="分销页面" />
+
       {/* 订阅成功弹窗 */}
       {showSuccessModal && (
         <div
@@ -507,26 +487,8 @@ export default function WhiteLabelSettingsPage() {
         </div>
       )}
 
-      {/* Header */}
-      <header className="bg-white border-b">
-        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link
-              href="/guide-partner/dashboard"
-              className="p-2 hover:bg-gray-100 rounded-lg transition"
-            >
-              <ArrowLeft size={20} />
-            </Link>
-            <div>
-              <h1 className="text-xl font-bold">分销页面设置</h1>
-              <p className="text-sm text-gray-500">自定义您的专属品牌页面</p>
-            </div>
-          </div>
-          <Logo className="w-8 h-8" />
-        </div>
-      </header>
-
-      <main className="max-w-4xl mx-auto px-6 py-8 space-y-8">
+      <main className="lg:ml-64 pt-16 lg:pt-0">
+        <div className="max-w-4xl mx-auto p-6 lg:p-8 space-y-8">
         {/* 消息提示 */}
         {message && (
           <div className={`p-4 rounded-lg flex items-center gap-3 ${
@@ -910,6 +872,7 @@ export default function WhiteLabelSettingsPage() {
             <li>• 所有旅行服务合同均在新岛交通与客户之间签订</li>
             <li>• 网站底部将自动显示服务提供者信息及旅行业登录号</li>
           </ul>
+        </div>
         </div>
       </main>
     </div>
