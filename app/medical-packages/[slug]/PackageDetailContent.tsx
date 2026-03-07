@@ -238,7 +238,7 @@ export default function PackageDetailContent({
       <div className="flex-grow flex items-center justify-center py-20">
         <div className="text-center">
           <p className="text-xl text-gray-600 mb-4">{t.notFound}</p>
-          <Link href={backHref || '/?page=medical'} className="text-blue-600 hover:underline">{t.backToList}</Link>
+          <Link href={backHref || '/medical'} className="text-blue-600 hover:underline">{t.backToList}</Link>
         </div>
       </div>
     );
@@ -355,9 +355,9 @@ export default function PackageDetailContent({
             </Link>
           ) : (
             <SmartBackLink
-              defaultHref="/?page=medical"
+              defaultHref="/medical"
               defaultLabel={t.backToList}
-              memberHref="/?page=medical"
+              memberHref="/medical"
               memberLabel={t.backToList}
             />
           )}

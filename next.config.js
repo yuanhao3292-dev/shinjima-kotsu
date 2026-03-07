@@ -90,6 +90,24 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
+
+  // URL 重写 - 把干净的路径重写为查询参数（内部实现）
+  async rewrites() {
+    return [
+      {
+        source: '/medical',
+        destination: '/?page=medical',
+      },
+      {
+        source: '/golf',
+        destination: '/?page=golf',
+      },
+      {
+        source: '/business',
+        destination: '/?page=business',
+      },
+    ];
+  },
 }
 
 module.exports = nextConfig

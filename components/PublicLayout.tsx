@@ -305,10 +305,10 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center gap-5 font-sans">
-            <Link href="/?page=medical" className={getNavLinkClass('medical', isActive('medical'))}>{t.timc}</Link>
+            <Link href="/medical" className={getNavLinkClass('medical', isActive('medical'))}>{t.timc}</Link>
             <Link href="/cancer-treatment" className={getNavLinkClass('cancer', isActive('cancer'), 'red')}>{t.cancer}</Link>
-            <Link href="/?page=golf" className={getNavLinkClass('golf', isActive('golf'))}>{t.golf}</Link>
-            <Link href="/?page=business" className={getNavLinkClass('business', isActive('business'))}>{t.business}</Link>
+            <Link href="/golf" className={getNavLinkClass('golf', isActive('golf'))}>{t.golf}</Link>
+            <Link href="/business" className={getNavLinkClass('business', isActive('business'))}>{t.business}</Link>
             {/* 白标模式下隐藏同业合作链接 */}
             {!hideGuidePartnerContent && (
               <Link href="/business/partner" className={getNavLinkClass('partner', isActive('partner'))}>{t.partner}</Link>
@@ -384,10 +384,10 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
       {/* Mobile Menu Content */}
       {mobileMenuOpen && (
         <div className="fixed top-20 left-0 w-full h-[calc(100vh-80px)] bg-white z-40 p-6 flex flex-col gap-6 overflow-y-auto animate-fade-in-down">
-          <Link href="/?page=medical" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2">{t.timc}</Link>
+          <Link href="/medical" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2">{t.timc}</Link>
           <Link href="/cancer-treatment" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2 text-medical-700">{t.cancer}</Link>
-          <Link href="/?page=golf" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2">{t.golf}</Link>
-          <Link href="/?page=business" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2">{t.business}</Link>
+          <Link href="/golf" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2">{t.golf}</Link>
+          <Link href="/business" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2">{t.business}</Link>
           {/* 白标模式下隐藏同业合作链接 */}
           {!hideGuidePartnerContent && (
             <Link href="/business/partner" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2">{t.partner}</Link>
@@ -504,7 +504,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                 <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">{t.footerServices}</h4>
                 <ul className="space-y-2.5">
                   <li>
-                    <Link href="/?page=medical" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                    <Link href="/medical" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                       {t.timc}
                     </Link>
                   </li>
@@ -514,12 +514,12 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                     </Link>
                   </li>
                   <li>
-                    <Link href="/?page=golf" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                    <Link href="/golf" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                       {t.golf}
                     </Link>
                   </li>
                   <li>
-                    <Link href="/?page=business" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                    <Link href="/business" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                       {t.business}
                     </Link>
                   </li>

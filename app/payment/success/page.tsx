@@ -60,7 +60,7 @@ function PaymentSuccessContent() {
 
   useEffect(() => {
     if (!sessionId) {
-      router.push(guideSlugParam ? `/g/${guideSlugParam}` : '/?page=medical');
+      router.push(guideSlugParam ? `/g/${guideSlugParam}` : '/medical');
       return;
     }
 
@@ -102,7 +102,7 @@ function PaymentSuccessContent() {
       ? `#${sessionId.slice(-8).toUpperCase()}`
       : '';
 
-  const backToPackagesHref = guideSlug ? `/g/${guideSlug}/medical-packages` : '/?page=medical';
+  const backToPackagesHref = guideSlug ? `/g/${guideSlug}/medical-packages` : '/medical';
   const backToHomeHref = guideSlug ? `/g/${guideSlug}` : '/';
 
   return (

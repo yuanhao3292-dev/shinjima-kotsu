@@ -84,7 +84,7 @@ function PaymentCancelContent() {
 
   const t = (key: keyof typeof i18n) => i18n[key][lang];
 
-  const backToPackagesHref = guideSlug ? `/g/${guideSlug}/medical-packages` : '/?page=medical';
+  const backToPackagesHref = guideSlug ? `/g/${guideSlug}/medical-packages` : '/medical';
   const backToHomeHref = guideSlug ? `/g/${guideSlug}` : '/';
 
   return (

@@ -320,7 +320,7 @@ export default function PackageRecommender({ onClose, onSelectPackage }: Package
                   if (onSelectPackage) {
                     onSelectPackage(recommendation.packageSlug);
                   } else {
-                    window.location.href = '/?page=medical';
+                    window.location.href = '/medical';
                   }
                 }}
                 className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 px-6 rounded-xl transition-colors"

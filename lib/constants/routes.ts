@@ -32,8 +32,8 @@ export const ROUTES = {
   CANCER_TREATMENT: '/cancer-treatment',
 
   // 特殊功能
-  GOLF_INQUIRY: '/?page=golf',
-  MEDICAL_INQUIRY: '/?page=medical',
+  GOLF_INQUIRY: '/golf',
+  MEDICAL_INQUIRY: '/medical',
   PACKAGE_RECOMMENDER: '/package-recommender',
 
   // 用户相关

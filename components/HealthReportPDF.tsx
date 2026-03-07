@@ -776,7 +776,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
 
         <View style={styles.cta}>
           <Text style={styles.ctaTitle}>预约日本精密健检</Text>
-          <Text style={styles.ctaText}>www.niijima-koutsu.jp/?page=medical</Text>
+          <Text style={styles.ctaText}>www.niijima-koutsu.jp/medical</Text>
         </View>
 
         <View style={styles.footer}>

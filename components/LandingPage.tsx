@@ -1971,7 +1971,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       imageUrl: getImage('hero_slide_2', 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg'),
       mobileImageUrl: getImage('hero_slide_2_mobile', 'https://i.ibb.co/TDYnsXBb/013-2.jpg'),
       ctaText: currentLang === 'zh-TW' ? '了解詳情' : currentLang === 'zh-CN' ? '了解详情' : currentLang === 'ja' ? '詳細を見る' : 'Learn More',
-      ctaLink: '/?page=medical',
+      ctaLink: '/medical',
       overlayColor: 'rgba(0, 50, 100, 0.5)',
       textPosition: 'center',
       advertiser: 'TIMC',
