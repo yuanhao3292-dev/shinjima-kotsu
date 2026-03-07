@@ -1378,11 +1378,6 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
            <div className="absolute w-72 h-72 bg-brand-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
          </div>
          <div className="relative z-10 text-center px-6 py-12 md:py-24">
-            {t.business.hero_tag && (
-              <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full mb-8">
-                <span className="text-xs font-bold text-white/90 uppercase tracking-wider">{t.business.hero_tag}</span>
-              </span>
-            )}
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif font-bold text-white mb-4 md:mb-6 leading-tight">
                 {t.business.hero_title}
             </h1>
