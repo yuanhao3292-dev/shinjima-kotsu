@@ -81,7 +81,7 @@ export async function middleware(request: NextRequest) {
       const nofpKey = `nofp:${clientIpForFp}`;
       const nofpResult = await checkRateLimit(nofpKey, {
         windowMs: 300_000, // 5 分钟窗口
-        maxRequests: 5,    // 超过 5 次无 cookie → 可疑
+        maxRequests: 15,   // 超过 15 次无 cookie → 可疑
       });
       if (!nofpResult.success) {
         botClass = 'suspicious_tool';
@@ -100,10 +100,10 @@ export async function middleware(request: NextRequest) {
 
     if (botClass === 'suspicious_tool') {
       config = PAGE_RATE_LIMITS.suspicious_tool;
-      key = `page:${clientIp}`;
+      key = `page:sus:${clientIp}`;
     } else if (botClass === 'no_ua') {
       config = PAGE_RATE_LIMITS.no_ua;
-      key = `page:${clientIp}`;
+      key = `page:noua:${clientIp}`;
     } else if (isSensitivePath) {
       config = PAGE_RATE_LIMITS.sensitive;
       key = `page-sensitive:${clientIp}`;
