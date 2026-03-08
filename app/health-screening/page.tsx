@@ -17,6 +17,207 @@ import {
   Users,
 } from 'lucide-react';
 import { FREE_SCREENING_LIMIT } from '@/lib/screening-questions';
+import { useLanguage, type Language } from '@/hooks/useLanguage';
+
+// 翻译对象
+const translations = {
+  loadError: {
+    ja: '読み込みに失敗しました',
+    'zh-CN': '载入失败',
+    'zh-TW': '載入失敗',
+    en: 'Failed to load',
+  },
+  createError: {
+    ja: 'スクリーニング作成に失敗しました',
+    'zh-CN': '创建筛查失败',
+    'zh-TW': '創建篩查失敗',
+    en: 'Failed to create screening',
+  },
+  loading: {
+    ja: '読み込み中...',
+    'zh-CN': '载入中...',
+    'zh-TW': '載入中...',
+    en: 'Loading...',
+  },
+  backToSymptoms: {
+    ja: '症状選択に戻る',
+    'zh-CN': '返回症状选择',
+    'zh-TW': '返回症狀選擇',
+    en: 'Back to Symptoms',
+  },
+  freeRemaining: {
+    ja: '今週の無料スクリーニング残数',
+    'zh-CN': '本周免费筛查剩余',
+    'zh-TW': '本週免費篩查剩餘',
+    en: 'Free screenings remaining this week',
+  },
+  aiQuestionnaire: {
+    ja: 'AI スマート健康問診',
+    'zh-CN': 'AI 智能健康问诊',
+    'zh-TW': 'AI 智能健康問診',
+    en: 'AI Smart Health Questionnaire',
+  },
+  customizedFlow: {
+    ja: '選択された症状に基づき、AIがカスタマイズされた問診フローを作成します',
+    'zh-CN': '根据您选择的症状，AI 为您定制专属问诊流程',
+    'zh-TW': '根據您選擇的症狀，AI 為您定制專屬問診流程',
+    en: 'AI customizes questionnaire flow based on your symptoms',
+  },
+  backToAccount: {
+    ja: 'マイアカウントに戻る',
+    'zh-CN': '返回我的账户',
+    'zh-TW': '返回我的帳戶',
+    en: 'Back to My Account',
+  },
+  step1: {
+    ja: '第一歩：不調部位を選択',
+    'zh-CN': '第一步：选择不适部位',
+    'zh-TW': '第一步：選擇不適部位',
+    en: 'Step 1: Select Affected Areas',
+  },
+  clickBodyMap: {
+    ja: '人体図をクリックして症状部位を選択',
+    'zh-CN': '点击人体图选择症状部位',
+    'zh-TW': '點擊人體圖選擇症狀部位',
+    en: 'Click body map to select symptom areas',
+  },
+  preciseDiagnosis: {
+    ja: 'これにより、AIがより正確に問診フローをカスタマイズします',
+    'zh-CN': '这将帮助 AI 更精准地为您定制问诊流程',
+    'zh-TW': '這將幫助 AI 更精準地為您定制問診流程',
+    en: 'This helps AI customize questionnaire more precisely',
+  },
+  aiScreeningTitle: {
+    ja: 'AI スマート健康スクリーニング',
+    'zh-CN': 'AI 智能健康筛查',
+    'zh-TW': 'AI 智能健康篩查',
+    en: 'AI Smart Health Screening',
+  },
+  upgradeDesc: {
+    ja: '全面刷新！人体図インタラクションで不調部位を選択。AIが症状に基づき医療科を推奨し、プロフェッショナルな健康評価レポートを生成します',
+    'zh-CN': '全新升级！通过人体图交互选择不适部位，AI 根据您的症状智能推荐检查科室，并生成专业健康评估报告',
+    'zh-TW': '全新升級！通過人體圖交互選擇不適部位，AI 根據您的症狀智能推薦檢查科室，並生成專業健康評估報告',
+    en: 'Brand new upgrade! Select affected areas via body map interaction, AI recommends medical departments and generates professional health assessment report',
+  },
+  creating: {
+    ja: '作成中...',
+    'zh-CN': '正在创建...',
+    'zh-TW': '正在創建...',
+    en: 'Creating...',
+  },
+  startScreening: {
+    ja: 'スマートスクリーニング開始',
+    'zh-CN': '开始智能筛查',
+    'zh-TW': '開始智能篩查',
+    en: 'Start Smart Screening',
+  },
+  limitReached: {
+    ja: '今週の無料スクリーニング回数を使い切りました。来週月曜日に自動的にリセットされます',
+    'zh-CN': '本周免费筛查次数已用完，下周一将自动重置',
+    'zh-TW': '本週免費篩查次數已用完，下週一將自動重置',
+    en: 'Weekly free screenings used up. Will reset next Monday',
+  },
+  viewHistory: {
+    ja: '履歴を見る',
+    'zh-CN': '查看历史记录',
+    'zh-TW': '查看歷史記錄',
+    en: 'View History',
+  },
+  newFeatures: {
+    ja: '全面刷新機能',
+    'zh-CN': '全新升级功能',
+    'zh-TW': '全新升級功能',
+    en: 'New Upgraded Features',
+  },
+  bodyMapInteraction: {
+    ja: '人体図インタラクション',
+    'zh-CN': '人体图交互',
+    'zh-TW': '人體圖交互',
+    en: 'Body Map Interaction',
+  },
+  bodyMapDesc: {
+    ja: '直感的にクリックして不調部位を選択、文字で説明する必要がありません',
+    'zh-CN': '直观点击选择不适部位，无需文字描述',
+    'zh-TW': '直觀點擊選擇不適部位，無需文字描述',
+    en: 'Intuitively select affected areas, no text description needed',
+  },
+  smartDeptRecommend: {
+    ja: 'スマート診療科推奨',
+    'zh-CN': '智能科室推荐',
+    'zh-TW': '智能科室推薦',
+    en: 'Smart Department Recommendation',
+  },
+  smartDeptDesc: {
+    ja: 'AIが症状に対応する医療科を自動的に関連付けます',
+    'zh-CN': 'AI 自动关聯症状对應的医疗科室',
+    'zh-TW': 'AI 自動關聯症狀對應的醫療科室',
+    en: 'AI automatically associates symptoms with medical departments',
+  },
+  dynamicQuestionnaire: {
+    ja: 'ダイナミック問診',
+    'zh-CN': '动态问诊',
+    'zh-TW': '動態問診',
+    en: 'Dynamic Questionnaire',
+  },
+  dynamicDesc: {
+    ja: '症状に基づき問診内容を自動調整',
+    'zh-CN': '根据症状智能调整问诊问题',
+    'zh-TW': '根據症狀智能調整問診問題',
+    en: 'Intelligently adjust questions based on symptoms',
+  },
+  pdfReport: {
+    ja: 'PDFレポート',
+    'zh-CN': 'PDF 报告',
+    'zh-TW': 'PDF 報告',
+    en: 'PDF Report',
+  },
+  pdfDesc: {
+    ja: '精美な健康評価レポートを生成してダウンロード可能',
+    'zh-CN': '生成精美健康评估报告可下载',
+    'zh-TW': '生成精美健康評估報告可下載',
+    en: 'Generate downloadable health assessment report',
+  },
+  privacyProtection: {
+    ja: 'プライバシー保護',
+    'zh-CN': '隐私保护',
+    'zh-TW': '隱私保護',
+    en: 'Privacy Protection',
+  },
+  privacyDesc: {
+    ja: 'あなたの健康データは安全に暗号化され、個人のみ閲覧可能です',
+    'zh-CN': '您的健康数据安全加密存储，仅供您个人查看',
+    'zh-TW': '您的健康數據安全加密存儲，僅供您個人查看',
+    en: 'Your health data is securely encrypted and viewable only by you',
+  },
+  aiAnalysis: {
+    ja: 'AI スマート分析',
+    'zh-CN': 'AI 智能分析',
+    'zh-TW': 'AI 智能分析',
+    en: 'AI Smart Analysis',
+  },
+  aiAnalysisDesc: {
+    ja: '先進的なAIモデルに基づき、プロフェッショナルな健康評価を提供',
+    'zh-CN': '基于先进 AI 模型，为您提供专业的健康评估',
+    'zh-TW': '基於先進 AI 模型，為您提供專業的健康評估',
+    en: 'Professional health assessment based on advanced AI models',
+  },
+  japanMedicalRecommend: {
+    ja: '日本医療推奨',
+    'zh-CN': '日本医疗推荐',
+    'zh-TW': '日本醫療推薦',
+    en: 'Japan Medical Recommendation',
+  },
+  japanMedicalDesc: {
+    ja: 'あなたの状況に基づき、日本のトップクラスの医療機関を推奨',
+    'zh-CN': '根据您的情况推荐日本顶尖医疗机构',
+    'zh-TW': '根據您的情況推薦日本頂尖醫療機構',
+    en: 'Recommend top Japanese medical institutions based on your condition',
+  },
+} as const;
+
+const t = (key: keyof typeof translations, lang: Language): string => {
+  return translations[key][lang];
+};
 
 interface ScreeningData {
   screeningId?: string;
@@ -32,6 +233,7 @@ interface ScreeningData {
 type ScreeningStep = 'welcome' | 'body-map' | 'questionnaire';
 
 export default function HealthScreeningPage() {
+  const lang = useLanguage();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -53,7 +255,7 @@ export default function HealthScreeningPage() {
 
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.error || '载入失败');
+          throw new Error(errorData.error || t('loadError', lang));
         }
 
         const result = await response.json();
@@ -117,7 +319,7 @@ export default function HealthScreeningPage() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || '创建筛查失败');
+        throw new Error(errorData.error || t('createError', lang));
       }
 
       const result = await response.json();
@@ -152,7 +354,7 @@ export default function HealthScreeningPage() {
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-10 h-10 animate-spin text-blue-500 mx-auto mb-4" />
-          <p className="text-gray-500">载入中...</p>
+          <p className="text-gray-500">{t('loading', lang)}</p>
         </div>
       </div>
     );
@@ -173,7 +375,7 @@ export default function HealthScreeningPage() {
               className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
             >
               <ArrowLeft size={18} />
-              <span className="text-sm">返回症状选择</span>
+              <span className="text-sm">{t('backToSymptoms', lang)}</span>
             </button>
           </div>
         </div>
@@ -183,13 +385,13 @@ export default function HealthScreeningPage() {
           <div className="max-w-4xl mx-auto px-4 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm mb-4">
               <Shield className="w-4 h-4" />
-              <span>本周免费筛查剩余 {data.freeRemaining} 次</span>
+              <span>{t('freeRemaining', lang)} {data.freeRemaining} {lang === 'ja' ? '回' : lang === 'en' ? '' : '次'}</span>
             </div>
             <h1 className="text-2xl md:text-3xl font-serif text-gray-900">
-              AI 智能健康问诊
+              {t('aiQuestionnaire', lang)}
             </h1>
             <p className="text-gray-500 mt-2">
-              根据您选择的症状，AI 为您定制专属问诊流程
+              {t('customizedFlow', lang)}
             </p>
           </div>
         </div>
@@ -218,7 +420,7 @@ export default function HealthScreeningPage() {
               className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
             >
               <ArrowLeft size={18} />
-              <span className="text-sm">返回我的账户</span>
+              <span className="text-sm">{t('backToAccount', lang)}</span>
             </Link>
           </div>
         </div>
@@ -228,13 +430,13 @@ export default function HealthScreeningPage() {
           <div className="max-w-4xl mx-auto px-4 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm mb-4">
               <Activity className="w-4 h-4" />
-              <span>第一步：选择不适部位</span>
+              <span>{t('step1', lang)}</span>
             </div>
             <h1 className="text-2xl md:text-3xl font-serif text-gray-900">
-              点击人体图选择症状部位
+              {t('clickBodyMap', lang)}
             </h1>
             <p className="text-gray-500 mt-2">
-              这将帮助 AI 更精准地为您定制问诊流程
+              {t('preciseDiagnosis', lang)}
             </p>
           </div>
         </div>
@@ -261,7 +463,7 @@ export default function HealthScreeningPage() {
             className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
           >
             <ArrowLeft size={18} />
-            <span className="text-sm">返回我的账户</span>
+            <span className="text-sm">{t('backToAccount', lang)}</span>
           </Link>
         </div>
       </div>
@@ -274,19 +476,18 @@ export default function HealthScreeningPage() {
           </div>
 
           <h1 className="text-3xl md:text-4xl font-serif text-gray-900 mb-4">
-            AI 智能健康筛查
+            {t('aiScreeningTitle', lang)}
           </h1>
 
           <p className="text-gray-500 text-lg mb-8 leading-relaxed">
-            全新升级！通过人体图交互选择不适部位，AI
-            根据您的症状智能推荐检查科室，并生成专业健康评估报告
+            {t('upgradeDesc', lang)}
           </p>
 
           {/* 免费次数提示 */}
           <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-green-100 text-green-700 rounded-full text-sm mb-8 shadow-sm">
             <Sparkles className="w-4 h-4" />
             <span>
-              本周免费筛查剩余 {data?.freeRemaining ?? FREE_SCREENING_LIMIT} 次
+              {t('freeRemaining', lang)} {data?.freeRemaining ?? FREE_SCREENING_LIMIT} {lang === 'ja' ? '回' : lang === 'en' ? '' : '次'}
             </span>
           </div>
 
@@ -308,23 +509,23 @@ export default function HealthScreeningPage() {
               {isCreating ? (
                 <span className="flex items-center gap-2">
                   <Loader2 className="w-5 h-5 animate-spin" />
-                  正在创建...
+                  {t('creating', lang)}
                 </span>
               ) : (
                 <span className="flex items-center gap-2">
                   <Activity className="w-5 h-5" />
-                  开始智能筛查
+                  {t('startScreening', lang)}
                 </span>
               )}
             </button>
           ) : (
             <div className="text-center">
-              <p className="text-gray-500 mb-4">本周免费筛查次数已用完，下周一将自动重置</p>
+              <p className="text-gray-500 mb-4">{t('limitReached', lang)}</p>
               <Link
                 href="/health-screening/history"
                 className="text-blue-600 hover:underline"
               >
-                查看历史记录
+                {t('viewHistory', lang)}
               </Link>
             </div>
           )}
@@ -335,7 +536,7 @@ export default function HealthScreeningPage() {
               href="/health-screening/history"
               className="text-sm text-neutral-500 hover:text-brand-900 transition-colors"
             >
-              查看历史记录 →
+              {t('viewHistory', lang)} →
             </Link>
           </div>
         </div>
@@ -346,7 +547,7 @@ export default function HealthScreeningPage() {
         <div className="text-center mb-10">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
             <Sparkles className="w-4 h-4" />
-            全新升级功能
+            {t('newFeatures', lang)}
           </span>
         </div>
 
@@ -355,9 +556,9 @@ export default function HealthScreeningPage() {
             <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
               <Activity className="w-6 h-6 text-blue-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">人体图交互</h3>
+            <h3 className="font-bold text-gray-900 mb-2">{t('bodyMapInteraction', lang)}</h3>
             <p className="text-gray-500 text-sm">
-              直观点击选择不适部位，无需文字描述
+              {t('bodyMapDesc', lang)}
             </p>
           </div>
 
@@ -365,9 +566,9 @@ export default function HealthScreeningPage() {
             <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
               <Users className="w-6 h-6 text-green-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">智能科室推荐</h3>
+            <h3 className="font-bold text-gray-900 mb-2">{t('smartDeptRecommend', lang)}</h3>
             <p className="text-gray-500 text-sm">
-              AI 自动关聯症状对應的医疗科室
+              {t('smartDeptDesc', lang)}
             </p>
           </div>
 
@@ -375,9 +576,9 @@ export default function HealthScreeningPage() {
             <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
               <Sparkles className="w-6 h-6 text-purple-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">动态问诊</h3>
+            <h3 className="font-bold text-gray-900 mb-2">{t('dynamicQuestionnaire', lang)}</h3>
             <p className="text-gray-500 text-sm">
-              根据症状智能调整问诊问题
+              {t('dynamicDesc', lang)}
             </p>
           </div>
 
@@ -385,9 +586,9 @@ export default function HealthScreeningPage() {
             <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
               <FileText className="w-6 h-6 text-orange-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">PDF 报告</h3>
+            <h3 className="font-bold text-gray-900 mb-2">{t('pdfReport', lang)}</h3>
             <p className="text-gray-500 text-sm">
-              生成精美健康评估报告可下载
+              {t('pdfDesc', lang)}
             </p>
           </div>
         </div>
@@ -400,9 +601,9 @@ export default function HealthScreeningPage() {
             <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
               <Shield className="w-6 h-6 text-blue-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">隐私保护</h3>
+            <h3 className="font-bold text-gray-900 mb-2">{t('privacyProtection', lang)}</h3>
             <p className="text-gray-500 text-sm">
-              您的健康数据安全加密存储，仅供您个人查看
+              {t('privacyDesc', lang)}
             </p>
           </div>
 
@@ -410,9 +611,9 @@ export default function HealthScreeningPage() {
             <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
               <Sparkles className="w-6 h-6 text-purple-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">AI 智能分析</h3>
+            <h3 className="font-bold text-gray-900 mb-2">{t('aiAnalysis', lang)}</h3>
             <p className="text-gray-500 text-sm">
-              基于先进 AI 模型，为您提供专业的健康评估
+              {t('aiAnalysisDesc', lang)}
             </p>
           </div>
 
@@ -420,9 +621,9 @@ export default function HealthScreeningPage() {
             <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
               <Heart className="w-6 h-6 text-green-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">日本医疗推荐</h3>
+            <h3 className="font-bold text-gray-900 mb-2">{t('japanMedicalRecommend', lang)}</h3>
             <p className="text-gray-500 text-sm">
-              根据您的情况推荐日本顶尖医疗机构
+              {t('japanMedicalDesc', lang)}
             </p>
           </div>
         </div>
