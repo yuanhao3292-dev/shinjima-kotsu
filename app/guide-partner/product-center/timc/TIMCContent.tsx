@@ -77,6 +77,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
           alt="TIMC Lobby Luxury Environment"
           priority
           sizes="100vw"
+          quality={75}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/60 to-transparent"></div>
         <div className="absolute inset-0 opacity-30 pointer-events-none">

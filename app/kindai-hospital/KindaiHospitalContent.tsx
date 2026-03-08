@@ -1429,6 +1429,7 @@ export default function KindaiHospitalContent({
           fill
           className="object-cover brightness-50"
           priority
+          quality={75}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-slate-900/80 to-slate-900/40" />
 
@@ -1581,6 +1582,7 @@ export default function KindaiHospitalContent({
                           alt={equip.name[locale]}
                           fill
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          quality={75}
                         />
                       </div>
                     )}
@@ -1715,6 +1717,7 @@ export default function KindaiHospitalContent({
                       alt={doctor.name[locale]}
                       fill
                       className="object-cover object-top"
+                      quality={75}
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#003e7e] to-[#0052a3]">

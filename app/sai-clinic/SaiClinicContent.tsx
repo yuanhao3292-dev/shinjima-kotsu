@@ -346,6 +346,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
           fill
           className="object-cover"
           priority
+          quality={75}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-gray-950/85 via-gray-950/70 to-rose-950/60"></div>
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-24">
@@ -377,7 +378,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
                   <div className="relative rounded-2xl overflow-hidden h-48 border border-white/10">
-                    <Image src={heroGridImages[0]?.src || '/images/sai-clinic/hero-02.jpg'} alt={heroGridImages[0]?.alt || ''} fill className="object-cover" />
+                    <Image src={heroGridImages[0]?.src || '/images/sai-clinic/hero-02.jpg'} alt={heroGridImages[0]?.alt || ''} fill className="object-cover" quality={75} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 text-white">
                       <div className="text-lg font-bold">15+</div>
@@ -385,7 +386,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
                     </div>
                   </div>
                   <div className="relative rounded-2xl overflow-hidden h-36 border border-white/10">
-                    <Image src={galleryImages[2]?.src || '/images/sai-clinic/gallery-3.jpg'} alt={galleryImages[2]?.alt || ''} fill className="object-cover" />
+                    <Image src={galleryImages[2]?.src || '/images/sai-clinic/gallery-3.jpg'} alt={galleryImages[2]?.alt || ''} fill className="object-cover" quality={75} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 text-white">
                       <div className="text-lg font-bold">JSAS</div>
@@ -395,7 +396,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
                 </div>
                 <div className="space-y-4 mt-8">
                   <div className="relative rounded-2xl overflow-hidden h-36 border border-white/10">
-                    <Image src={conceptImages[0]?.src || '/images/sai-clinic/concept-1.jpg'} alt={conceptImages[0]?.alt || ''} fill className="object-cover" />
+                    <Image src={conceptImages[0]?.src || '/images/sai-clinic/concept-1.jpg'} alt={conceptImages[0]?.alt || ''} fill className="object-cover" quality={75} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 text-white">
                       <div className="text-lg font-bold">KAAS</div>
@@ -403,7 +404,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
                     </div>
                   </div>
                   <div className="relative rounded-2xl overflow-hidden h-48 border border-white/10">
-                    <Image src={heroGridImages[1]?.src || '/images/sai-clinic/hero-03.jpg'} alt={heroGridImages[1]?.alt || ''} fill className="object-cover" />
+                    <Image src={heroGridImages[1]?.src || '/images/sai-clinic/hero-03.jpg'} alt={heroGridImages[1]?.alt || ''} fill className="object-cover" quality={75} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 text-white">
                       <div className="text-lg font-bold">梅田</div>
@@ -473,12 +474,12 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
             <div className="bg-gradient-to-br from-rose-50 to-gray-50 rounded-3xl p-8 border border-rose-100">
               <div className="flex items-center gap-5 mb-6">
                 <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-rose-200 shrink-0">
-                  <Image src={doctorAvatar?.src || '/images/sai-clinic/doctor.jpg'} alt={doctorAvatar?.alt || '崔煌植 院長'} width={96} height={96} className="object-cover w-full h-full" />
+                  <Image src={doctorAvatar?.src || '/images/sai-clinic/doctor.jpg'} alt={doctorAvatar?.alt || '崔煌植 院長'} width={96} height={96} className="object-cover w-full h-full" quality={75} />
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-gray-900">崔 煌植</h3>
                   <p className="text-sm text-gray-500">Sai Koshoku｜SAI CLINIC 院长</p>
-                  <Image src={doctorSign?.src || '/images/sai-clinic/sign.png'} alt={doctorSign?.alt || '崔煌植 签名'} width={100} height={32} className="mt-1 opacity-60" />
+                  <Image src={doctorSign?.src || '/images/sai-clinic/sign.png'} alt={doctorSign?.alt || '崔煌植 签名'} width={100} height={32} className="mt-1 opacity-60" quality={75} />
                 </div>
               </div>
               <p className="text-gray-600 leading-relaxed mb-6">
@@ -513,7 +514,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
               <div className="grid grid-cols-3 gap-3">
                 {conceptImages.slice(1, 4).map((item, i) => (
                   <div key={i} className="relative rounded-xl overflow-hidden h-28">
-                    <Image src={item.src} alt={item.label} fill className="object-cover" />
+                    <Image src={item.src} alt={item.label} fill className="object-cover" quality={75} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div className="absolute bottom-2 left-0 right-0 text-center text-xs font-medium text-white">{item.label}</div>
                   </div>
@@ -557,7 +558,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
             ].map((item, i) => (
               <div key={i} className="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all hover:-translate-y-1">
                 <div className="relative h-48">
-                  <Image src={item.img} alt={item.imgAlt} fill className="object-cover" />
+                  <Image src={item.img} alt={item.imgAlt} fill className="object-cover" quality={75} />
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-bold text-gray-900 mb-3">{item.title}</h3>
@@ -617,7 +618,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
             {galleryImages.filter((g) => g.label !== '诊所入口').slice(0, 8).map((item, i) => (
               <div key={item.id} className={`relative overflow-hidden rounded-xl group ${i === 0 ? 'col-span-2 row-span-2' : ''}`}>
                 <div className={`relative ${i === 0 ? 'h-full min-h-[300px]' : 'h-48'}`}>
-                  <Image src={item.src} alt={item.alt} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <Image src={item.src} alt={item.alt} fill className="object-cover group-hover:scale-105 transition-transform duration-500" quality={75} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   <div className="absolute bottom-3 left-3 text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">{item.label}</div>
                 </div>
@@ -639,7 +640,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
             {caseImages.map((item) => (
               <div key={item.id} className="rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition">
                 <div className="relative h-80">
-                  <Image src={item.src} alt={item.alt} fill className="object-cover object-top" />
+                  <Image src={item.src} alt={item.alt} fill className="object-cover object-top" quality={75} />
                 </div>
                 <div className="p-5">
                   <h4 className="font-bold text-gray-900 text-sm mb-2">{item.metadata?.title || item.alt}</h4>
@@ -657,7 +658,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
         <div className="max-w-6xl mx-auto px-6">
           {/* Thread Lift Hero Banner */}
           <div className="relative rounded-2xl overflow-hidden mb-16 h-64 md:h-80">
-            <Image src={threadliftImages[0]?.src || '/images/sai-clinic/threadlift-hero.jpg'} alt={threadliftImages[0]?.alt || 'SAI LIFT'} fill className="object-cover" />
+            <Image src={threadliftImages[0]?.src || '/images/sai-clinic/threadlift-hero.jpg'} alt={threadliftImages[0]?.alt || 'SAI LIFT'} fill className="object-cover" quality={75} />
             <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 to-transparent"></div>
             <div className="absolute inset-0 flex items-center px-8 md:px-12">
               <div>
@@ -878,7 +879,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
 
       {/* ━━━━━━━━ 9. 治疗流程 ━━━━━━━━ */}
       <section className="py-24 text-white relative overflow-hidden">
-        <Image src={flowBg?.src || '/images/sai-clinic/hero-05.jpg'} alt={flowBg?.alt || 'SAI CLINIC'} fill className="object-cover" />
+        <Image src={flowBg?.src || '/images/sai-clinic/hero-05.jpg'} alt={flowBg?.alt || 'SAI CLINIC'} fill className="object-cover" quality={75} />
         <div className="absolute inset-0 bg-gray-900/85"></div>
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
@@ -915,7 +916,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
           <div className="grid lg:grid-cols-2 gap-12">
             <div className="bg-gray-50 rounded-2xl overflow-hidden border border-gray-100">
               <div className="relative h-48">
-                <Image src={galleryEntrance?.src || '/images/sai-clinic/gallery-8.jpg'} alt={galleryEntrance?.alt || 'SAI CLINIC 入口'} fill className="object-cover" />
+                <Image src={galleryEntrance?.src || '/images/sai-clinic/gallery-8.jpg'} alt={galleryEntrance?.alt || 'SAI CLINIC 入口'} fill className="object-cover" quality={75} />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 flex items-center gap-2 bg-white/90 backdrop-blur px-3 py-1.5 rounded-full">
                   <MapPin size={14} className="text-rose-500" />
@@ -1003,7 +1004,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
       <section className="py-20 bg-rose-50/50">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <div className="relative w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden border-2 border-rose-200">
-            <Image src={recommendImg?.src || '/images/sai-clinic/recommend.jpg'} alt={recommendImg?.alt || '推薦'} fill className="object-cover" />
+            <Image src={recommendImg?.src || '/images/sai-clinic/recommend.jpg'} alt={recommendImg?.alt || '推薦'} fill className="object-cover" quality={75} />
           </div>
           <span className="text-sm tracking-widest text-rose-500 uppercase">Transformation</span>
           <h2 className="text-3xl font-bold text-gray-900 mt-3 mb-12">从犹豫到自信的蜕变</h2>
@@ -1071,7 +1072,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
 
       {/* ━━━━━━━━ 13. CTA ━━━━━━━━ */}
       <section className="py-24 text-white text-center relative overflow-hidden">
-        <Image src={ctaBg?.src || '/images/sai-clinic/hero-04.jpg'} alt={ctaBg?.alt || 'SAI CLINIC'} fill className="object-cover" />
+        <Image src={ctaBg?.src || '/images/sai-clinic/hero-04.jpg'} alt={ctaBg?.alt || 'SAI CLINIC'} fill className="object-cover" quality={75} />
         <div className="absolute inset-0 bg-gradient-to-r from-rose-600/90 to-pink-600/90"></div>
         <div className="max-w-3xl mx-auto px-6 relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">不要再等了，美丽不应该被推迟</h2>

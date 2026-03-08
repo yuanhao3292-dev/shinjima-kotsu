@@ -437,7 +437,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
           className="object-cover opacity-80"
           alt="W CLINIC men's"
           sizes="100vw"
-          quality={90}
+          quality={75}
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#293f58]/95 via-[#293f58]/60 to-transparent" />
@@ -518,6 +518,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                       alt={service.title[lang]}
                       sizes="(max-width: 768px) 100vw, 50vw"
+                      quality={75}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                   </div>
@@ -551,6 +552,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   alt="Morenova"
                   sizes="(max-width: 768px) 100vw, 33vw"
+                  quality={75}
                 />
                 <div className="absolute inset-0 bg-black/20" />
                 <div className="absolute top-4 right-4 bg-[#00c300] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
@@ -787,6 +789,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                   alt="中木 義浩"
                   sizes="(max-width: 768px) 100vw, 33vw"
+                  quality={75}
                 />
               </div>
               <div className="p-5">
@@ -822,6 +825,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                   alt="植村 天受"
                   sizes="(max-width: 768px) 100vw, 33vw"
+                  quality={75}
                 />
               </div>
               <div className="p-5">
@@ -855,6 +859,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                   alt="足立 真由美"
                   sizes="(max-width: 768px) 100vw, 33vw"
+                  quality={75}
                 />
               </div>
               <div className="p-5">
@@ -889,6 +894,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   className="object-cover"
                   alt="植村天受 教授"
                   sizes="128px"
+                  quality={75}
                 />
               </div>
               <div className="flex-1">
@@ -966,6 +972,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   alt="W CLINIC men's 梅田院"
                   sizes="(max-width: 768px) 100vw, 50vw"
+                  quality={75}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 <div className="absolute bottom-4 left-4">
@@ -1009,6 +1016,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   alt="W CLINIC men's 北新地院"
                   sizes="(max-width: 768px) 100vw, 50vw"
+                  quality={75}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 <div className="absolute bottom-4 left-4">
