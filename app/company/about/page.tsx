@@ -168,11 +168,11 @@ const pageTranslations = {
     'zh-CN': '代表人',
     en: 'Representative'
   },
-  labelEmployees: {
-    ja: '従業員数',
-    'zh-TW': '員工人數',
-    'zh-CN': '员工人数',
-    en: 'Employees'
+  labelFax: {
+    ja: 'FAX',
+    'zh-TW': 'FAX',
+    'zh-CN': 'FAX',
+    en: 'FAX'
   },
   labelAddress: {
     ja: '本社所在地',
@@ -222,11 +222,11 @@ const pageTranslations = {
     'zh-CN': '代表取缔役 员 昊',
     en: 'CEO Yuan Hao'
   },
-  valueEmployees: {
-    ja: '25名（2024年12月現在）',
-    'zh-TW': '25名（截至2024年12月）',
-    'zh-CN': '25名（截至2024年12月）',
-    en: '25 (as of December 2024)'
+  valueFax: {
+    ja: '06-6632-8826',
+    'zh-TW': '06-6632-8826',
+    'zh-CN': '06-6632-8826',
+    en: '06-6632-8826'
   },
   valueAddress: {
     ja: '〒556-0014\n大阪府大阪市浪速区大国1-2-21\nNICビル602号',
@@ -364,12 +364,12 @@ export default function AboutPage() {
   const partners = [
     { ja: '徳洲会グループ', 'zh-TW': '德洲會集團', 'zh-CN': '德洲会集团', en: 'Tokushukai Group' },
     { ja: 'TIMC OSAKA', 'zh-TW': 'TIMC OSAKA', 'zh-CN': 'TIMC OSAKA', en: 'TIMC OSAKA' },
-    { ja: '関西名門ゴルフ倶楽部', 'zh-TW': '關西名門高爾夫俱樂部', 'zh-CN': '关西名门高尔夫俱乐部', en: 'Kansai Premium Golf Clubs' },
+    { ja: '株式会社南海国際旅行', 'zh-TW': '株式會社南海國際旅行', 'zh-CN': '株式会社南海国际旅行', en: 'Nankai International Travel Co., Ltd.' },
     { ja: '帝国ホテル大阪', 'zh-TW': '大阪帝國飯店', 'zh-CN': '大阪帝国酒店', en: 'Imperial Hotel Osaka' },
     { ja: 'ザ・リッツ・カールトン', 'zh-TW': '麗思卡爾頓', 'zh-CN': '丽思卡尔顿', en: 'The Ritz-Carlton' },
-    { ja: 'ANA', 'zh-TW': 'ANA', 'zh-CN': 'ANA', en: 'ANA' },
-    { ja: 'JAL', 'zh-TW': 'JAL', 'zh-CN': 'JAL', en: 'JAL' },
-    { ja: 'JR西日本', 'zh-TW': 'JR西日本', 'zh-CN': 'JR西日本', en: 'JR West' },
+    { ja: '海南航空', 'zh-TW': '海南航空', 'zh-CN': '海南航空', en: 'Hainan Airlines' },
+    { ja: 'INSOUホールディングス株式会社', 'zh-TW': 'INSOU控股株式會社', 'zh-CN': 'INSOU控股株式会社', en: 'INSOU Holdings Co., Ltd.' },
+    { ja: 'アリババ日本', 'zh-TW': '阿里巴巴日本', 'zh-CN': '阿里巴巴日本', en: 'Alibaba Japan' },
   ];
 
   return (
@@ -532,7 +532,7 @@ export default function AboutPage() {
                       { label: t('labelEstablished'), value: t('valueEstablished') },
                       { label: t('labelCapital'), value: t('valueCapital') },
                       { label: t('labelCEO'), value: t('valueCEO') },
-                      { label: t('labelEmployees'), value: t('valueEmployees') },
+                      { label: t('labelFax'), value: t('valueFax') },
                       { label: t('labelAddress'), value: t('valueAddress') },
                       { label: t('labelPhone'), value: '06-6632-8807' },
                       { label: t('labelEmail'), value: 'info@niijima-koutsu.jp' },
