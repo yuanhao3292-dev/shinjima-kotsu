@@ -1876,3 +1876,348 @@ node scripts/check-table-schema.js
 1. 新增模块后，先运行 `test-complete-integration.js` 验证完整链路
 2. 如有问题，根据失败的步骤运行对应的专项脚本深入排查
 3. Stripe 产品创建在数据库配置完成后执行
+
+---
+
+# 4 AI 联合会诊系统架构 (AEMC - AI Expert Medical Consultation)
+
+> **警告：此系统涉及医疗健康，所有修改必须经过严格审计。**
+> **红线：绝不直接给药、绝不替代医生下最终诊断、绝不给出确定性治疗结论。**
+> **定位：AI 病情整理 + 风险分诊 + 日本医院转诊推荐引擎。**
+
+## AEMC 系统定位
+
+本系统做的是「筛查与导流」，不是替代医生诊断：
+- 病情信息结构化整理
+- 风险分层（低/中/高/急）
+- 建议就诊科室
+- 建议检查方向
+- 推荐匹配的日本医院（基于 160 家合作医院数据库）
+- 判断是否需要紧急人工介入
+
+对外措辞：「建议检查路径」「建议就诊路径」「可能的治疗方向供医生确认」，
+绝不使用「治疗方案」「处方」「确诊」等字眼。
+
+## 旗舰模型分工
+
+| 角色 | 模型 | 职责 | 核心原则 |
+|------|------|------|---------|
+| **AI-1 病历抽取官** | GPT-4o | 将问卷/自述/OCR 转为结构化 JSON | 宁可漏，不可编。不给诊断结论 |
+| **AI-2 分诊判断官** | Gemini 1.5 Pro | 风险分层 + 科室推荐 + 检查建议 | Rule out worst first |
+| **AI-3 反方挑战官** | Grok-3 | 找漏诊风险、质疑过于乐观的判断 | 只挑错，不做主结论 |
+| **AI-4 质控仲裁官** | Claude Sonnet | 全链路一致性审查 + 最终裁决 | 有疑问就升级人工 |
+| **医院匹配** | DeepSeek V3 + RAG | 标签匹配 + 向量检索 | 不做医学判断 |
+
+## Pipeline 流程
+
+```
+用户输入（问卷答案 + Body Map + 自述文字）
+        ↓
+[Layer 0] Input Normalizer（输入标准化）
+  - 语言识别（中/英/日）
+  - 医学术语归一化
+  - 生成统一 case_packet
+        ↓
+[AI-1] GPT-4o = 病历抽取
+  - 输出 structured_case.json
+  - 标记红旗症状、unknown、inferred
+        ↓
+[AI-2] Gemini + [AI-3] Grok（并行执行）
+  - AI-2: triage_assessment.json（分诊）
+  - AI-3: challenge_review.json（挑战）
+        ↓
+[AI-4] Claude = 质控仲裁
+  - 输入: structured_case + triage + challenge
+  - 输出: adjudicated_assessment.json
+        ↓
+[Hospital Matching] DeepSeek V3 + RAG
+  - 规则过滤 → 向量召回 → 模型重排
+  - 输出: hospital_recommendation.json
+        ↓
+[Deterministic Safety Gate] 硬规则闸门（纯代码，不是 AI）
+  - 急症关键词强制升级
+  - 高危人群强制升级
+  - 模型冲突强制升级
+  - 低置信度强制升级
+        ↓
+结果输出
+  - A类：低风险 → 自动展示
+  - B类：中风险 → 展示 + 补问提示
+  - C类：高风险 → 不展示，进人工池
+  - D类：疑似急症 → 紧急提示立即就医
+```
+
+## 5 个核心数据对象
+
+### 1. case_packet（原始输入标准包）
+所有 AI 的唯一入口，避免各模型各看各的文本。
+```typescript
+interface CasePacket {
+  case_id: string;                    // UUID
+  source_type: ('questionnaire' | 'free_text' | 'medical_report' | 'ocr')[];
+  user_type: 'authenticated' | 'whitelabel';
+  language: string;                   // zh-CN / en / ja
+  demographics: {
+    age?: number;
+    sex?: 'male' | 'female';
+    country?: string;
+  };
+  body_regions: string[];             // from BodyMapSelector
+  selected_symptoms: SelectedSymptom[];
+  questionnaire_answers: Record<string, string | string[]>;
+  uploaded_report_text?: string;
+  timeline: { time: string; event: string }[];
+  raw_text_bundle: { source: string; text: string }[];
+  metadata: {
+    session_id?: string;
+    screening_id: string;
+    created_at: string;
+  };
+}
+```
+
+### 2. structured_case（AI-1 输出）
+后续所有模型基于此对象工作，不允许随意改病史。
+```typescript
+interface StructuredCase {
+  case_id: string;
+  chief_complaint: string;
+  present_illness: {
+    symptoms: {
+      name: string;
+      duration: string;
+      severity: string;
+      certainty: 'explicit' | 'inferred' | 'unknown';
+      evidence: string;             // 原文证据片段
+    }[];
+    aggravating_factors: string[];
+    relieving_factors: string[];
+    associated_symptoms: string[];
+  };
+  past_history: string[];
+  medication_history: string[];
+  allergy_history: string[];
+  known_diagnoses: string[];
+  exam_findings: string[];
+  red_flags: string[];              // 红旗症状列表
+  missing_critical_info: string[];  // 缺失的关键信息
+  inferred_items: { item: string; reason: string }[];
+  unknown_items: string[];
+}
+```
+
+### 3. triage_assessment（AI-2 输出）
+```typescript
+interface TriageAssessment {
+  case_id: string;
+  urgency_level: 'low' | 'medium' | 'high' | 'emergency';
+  recommended_departments: string[];
+  differential_directions: {
+    name: string;
+    likelihood: string;
+    reason: string;
+  }[];
+  suggested_tests: string[];
+  needs_emergency_evaluation: boolean;
+  doctor_review_required: boolean;
+  confidence: number;               // 0-1
+  reasoning_summary: string;
+  do_not_miss_conditions: string[]; // 必须排除的危险情况
+  missing_information_impact: string[];
+}
+```
+
+### 4. challenge_review（AI-3 输出）
+```typescript
+interface ChallengeReview {
+  case_id: string;
+  main_concerns: string[];
+  alternative_risks: {
+    name: string;
+    reason: string;
+  }[];
+  under_triage_risk: boolean;       // 是否存在分诊不足风险
+  over_triage_risk: boolean;
+  recommended_escalation: boolean;
+  missing_high_impact_data: string[];
+  confidence: number;               // 0-1
+}
+```
+
+### 5. adjudicated_assessment（AI-4 输出）
+```typescript
+interface AdjudicatedAssessment {
+  case_id: string;
+  final_risk_level: 'low' | 'medium' | 'high' | 'emergency';
+  final_departments: string[];
+  final_summary: string;            // 中文
+  critical_reasons: string[];
+  must_ask_followups: string[];     // 应追问的问题
+  safe_to_auto_display: boolean;
+  escalate_to_human: boolean;
+  escalation_reason: string;
+  confidence: number;               // 0-1
+  conflict_notes: string[];         // AI-2 与 AI-3 之间的分歧记录
+}
+```
+
+## 硬规则安全闸门（Deterministic Safety Gate）
+
+**此闸门是纯代码逻辑，不依赖任何 AI 模型。命中任一条件必须人工介入。**
+
+### 急症类红旗
+- 胸痛/胸闷 + 出汗/放射痛/呼吸困难
+- 突发单侧无力/言语障碍/视力异常
+- 呕血/黑便/大量便血
+- 持续高热 + 意识异常
+- 严重腹痛 + 呕吐/便血/冷汗
+- 呼吸困难/紫绀/血氧异常
+- 癫痫样发作/意识模糊/昏厥
+
+### 肿瘤类红旗
+- 不明原因体重明显下降
+- 持续出血
+- 明确肿块增大
+- 影像提示肿瘤/占位/转移
+- 病理提示恶性可能
+
+### 高危人群
+- 儿童（<14岁）
+- 孕妇
+- 高龄（>75岁）
+- 肿瘤术后/化疗中
+- 器官移植后
+- 免疫抑制状态
+- 严重心脑血管病史
+
+### 模型层触发条件
+- AI-2 与 AI-3 关键结论冲突（科室/风险等级不一致）
+- AI-4 confidence < 0.7
+- 缺失关键病史过多（missing_critical_info > 3 项）
+- adjudicated_assessment.escalate_to_human === true
+
+### 输出分类
+- **A类（自动展示）**：低风险 + 无红旗 + 模型一致 + 信息完整
+- **B类（展示+补问）**：中风险 + 无强制升级项 + 存在缺失信息
+- **C类（人工审核）**：高风险/有红旗/模型冲突/低置信度
+- **D类（紧急提示）**：疑似急症，直接提示立即就医
+
+## 数据库新增表
+
+### screening_ai_runs（每次 AI 调用记录）
+```sql
+CREATE TABLE screening_ai_runs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  screening_id UUID NOT NULL REFERENCES health_screenings(id),
+  model_vendor TEXT NOT NULL,       -- 'openai' | 'google' | 'xai' | 'anthropic' | 'deepseek'
+  model_name TEXT NOT NULL,         -- 'gpt-4o' | 'gemini-1.5-pro' | 'grok-3' | 'claude-sonnet'
+  role TEXT NOT NULL,               -- 'extractor' | 'triage' | 'challenger' | 'adjudicator' | 'hospital_matcher'
+  prompt_version TEXT NOT NULL,     -- 语义版本号
+  input_hash TEXT,                  -- SHA256
+  output_json JSONB NOT NULL,
+  latency_ms INTEGER,
+  input_tokens INTEGER,
+  output_tokens INTEGER,
+  error TEXT,                       -- 失败时记录错误信息
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+CREATE INDEX idx_ai_runs_screening ON screening_ai_runs(screening_id);
+CREATE INDEX idx_ai_runs_role ON screening_ai_runs(role);
+```
+
+### screening_adjudications（最终仲裁结果）
+```sql
+CREATE TABLE screening_adjudications (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  screening_id UUID NOT NULL REFERENCES health_screenings(id),
+  final_risk_level TEXT NOT NULL,
+  final_departments TEXT[] NOT NULL,
+  safe_to_auto_display BOOLEAN NOT NULL DEFAULT false,
+  escalate_to_human BOOLEAN NOT NULL DEFAULT true,
+  escalation_reason TEXT,
+  confidence DECIMAL(3,2),
+  safety_gate_result TEXT NOT NULL,  -- 'A' | 'B' | 'C' | 'D'
+  safety_gate_triggers TEXT[],       -- 触发的具体规则
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+CREATE INDEX idx_adjudications_screening ON screening_adjudications(screening_id);
+CREATE INDEX idx_adjudications_risk ON screening_adjudications(final_risk_level);
+```
+
+### screening_hospital_matches（医院推荐记录）
+```sql
+CREATE TABLE screening_hospital_matches (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  screening_id UUID NOT NULL REFERENCES health_screenings(id),
+  hospital_id TEXT NOT NULL,
+  department TEXT NOT NULL,
+  match_score DECIMAL(3,2),
+  reasons_json JSONB,
+  ranked_order INTEGER,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+CREATE INDEX idx_hospital_matches_screening ON screening_hospital_matches(screening_id);
+```
+
+### screening_outcomes（真实就诊结果回流 — 未来核心壁垒）
+```sql
+CREATE TABLE screening_outcomes (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  screening_id UUID NOT NULL REFERENCES health_screenings(id),
+  contacted_hospital_id TEXT,
+  actual_department TEXT,
+  doctor_feedback TEXT,
+  final_clinical_direction TEXT,
+  was_admitted BOOLEAN,
+  surgery_performed BOOLEAN,
+  urgency_confirmed BOOLEAN,
+  outcome_label TEXT,               -- 'accurate' | 'under_triage' | 'over_triage' | 'missed'
+  notes TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+CREATE INDEX idx_outcomes_screening ON screening_outcomes(screening_id);
+CREATE INDEX idx_outcomes_label ON screening_outcomes(outcome_label);
+```
+
+## 实施阶段
+
+| 阶段 | 内容 | 状态 |
+|------|------|------|
+| Phase 0 | 硬规则安全闸门 + 红旗词典（纯代码） | ✅ 已完成 (26条规则, 三轮审计) |
+| Phase 1 | 重构 analyze API 为 pipeline + 4 AI 调用 | ✅ 已完成 (AEMC_ENABLED 开关) |
+| Phase 2 | 新增数据库表 (screening_ai_runs 等) | 待实施 |
+| Phase 3 | 补问系统（信息不足时自动追问） | 待实施 |
+| Phase 4 | 医院能力知识库结构化 + RAG | 待实施 |
+| Phase 5 | 加入 Grok 挑战官 (V2) | 待实施 |
+| Phase 6 | screening_outcomes 闭环 + 人工工作台 | 待实施 |
+
+## 成本预算（全旗舰方案）
+
+单次会诊 API 成本：~$0.174
+500 会员 × 4 次/月 = 2,000 次/月
+- 100% 利用率：$348/月 (~¥52,200)
+- 50% 利用率：$174/月 (~¥26,100)
+- 30% 利用率：$104/月 (~¥15,600)
+
+## 文件结构规划
+
+```
+services/
+├── aemc/                           # AI Expert Medical Consultation
+│   ├── index.ts                    # Pipeline 主入口
+│   ├── types.ts                    # 所有 TypeScript 接口定义
+│   ├── safety-gate.ts              # 硬规则安全闸门（Phase 0）
+│   ├── red-flags.ts                # 红旗词典（Phase 0）
+│   ├── input-normalizer.ts         # 输入标准化
+│   ├── extractor.ts                # AI-1 GPT-4o 病历抽取
+│   ├── triage.ts                   # AI-2 Gemini 分诊判断
+│   ├── challenger.ts               # AI-3 Grok 反方挑战
+│   ├── adjudicator.ts              # AI-4 Claude 质控仲裁
+│   ├── hospital-matcher.ts         # DeepSeek + RAG 医院匹配
+│   └── prompts/                    # System Prompt 版本管理
+│       ├── extractor-v1.ts
+│       ├── triage-v1.ts
+│       ├── challenger-v1.ts
+│       ├── adjudicator-v1.ts
+│       └── hospital-matcher-v1.ts
+```

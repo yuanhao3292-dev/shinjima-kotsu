@@ -36,6 +36,7 @@ const navItems = [
   { icon: Newspaper, label: '新聞管理', href: '/admin/news' },
   { icon: FileText, label: '合同管理', href: '/admin/contracts' },
   { icon: ClipboardCheck, label: '合規審查', href: '/admin/compliance' },
+  { icon: Shield, label: 'AI 審核台', href: '/admin/reviews' },
 ];
 
 export default function AdminLayout({

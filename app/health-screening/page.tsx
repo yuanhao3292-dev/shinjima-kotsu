@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import BodyMapSelector, { type BodyMapSelectionData } from '@/components/BodyMapSelector';
 import DynamicScreeningForm from '@/components/DynamicScreeningForm';
+import FollowUpQuestionnaire from '@/components/FollowUpQuestionnaire';
 import {
   ArrowLeft,
   Loader2,
@@ -230,7 +231,7 @@ interface ScreeningData {
   };
 }
 
-type ScreeningStep = 'welcome' | 'body-map' | 'questionnaire';
+type ScreeningStep = 'welcome' | 'body-map' | 'questionnaire' | 'followup';
 
 export default function HealthScreeningPage() {
   const lang = useLanguage();
@@ -241,6 +242,8 @@ export default function HealthScreeningPage() {
   const [isCreating, setIsCreating] = useState(false);
   const [currentStep, setCurrentStep] = useState<ScreeningStep>('welcome');
   const [bodyMapData, setBodyMapData] = useState<BodyMapSelectionData | null>(null);
+  // [Phase 3] 补问系统状态
+  const [followupQuestions, setFollowupQuestions] = useState<string[]>([]);
 
   // 加载用户状态和未完成的筛查
   useEffect(() => {
@@ -260,29 +263,34 @@ export default function HealthScreeningPage() {
 
         const result = await response.json();
 
-        // 检查是否有未完成的筛查
-        const inProgressScreening = result.screenings?.find(
-          (s: any) => s.status === 'in_progress'
+        // 检查是否有未完成的筛查（in_progress 或 needs_followup）
+        const pendingScreening = result.screenings?.find(
+          (s: any) => s.status === 'in_progress' || s.status === 'needs_followup'
         );
 
-        if (inProgressScreening) {
+        if (pendingScreening) {
           // 获取详细答案
           const detailResponse = await fetch(
-            `/api/health-screening/${inProgressScreening.id}`
+            `/api/health-screening/${pendingScreening.id}`
           );
           if (detailResponse.ok) {
             const detailData = await detailResponse.json();
             setData({
               freeRemaining: result.freeRemaining,
               existingScreening: {
-                id: inProgressScreening.id,
-                status: inProgressScreening.status,
+                id: pendingScreening.id,
+                status: pendingScreening.status,
                 answers: detailData.screening.answers || [],
                 bodyMapData: detailData.screening.bodyMapData,
               },
             });
-            // 如果有已保存的 bodyMapData，恢复到问卷步骤
-            if (detailData.screening.bodyMapData) {
+            // [Phase 3] 如果状态是 needs_followup，直接显示补问界面
+            if (pendingScreening.status === 'needs_followup' && detailData.screening.followupQuestions) {
+              setBodyMapData(detailData.screening.bodyMapData || null);
+              setFollowupQuestions(detailData.screening.followupQuestions);
+              setCurrentStep('followup');
+            } else if (detailData.screening.bodyMapData) {
+              // 如果有已保存的 bodyMapData，恢复到问卷步骤
               setBodyMapData(detailData.screening.bodyMapData);
               setCurrentStep('questionnaire');
             }
@@ -348,6 +356,12 @@ export default function HealthScreeningPage() {
     setCurrentStep('body-map');
   };
 
+  // [Phase 3] AEMC 安全闸门 Class B → 显示补问界面
+  const handleFollowupRequired = (_screeningId: string, questions: string[]) => {
+    setFollowupQuestions(questions);
+    setCurrentStep('followup');
+  };
+
   // 加载中
   if (loading) {
     return (
@@ -355,6 +369,52 @@ export default function HealthScreeningPage() {
         <div className="text-center">
           <Loader2 className="w-10 h-10 animate-spin text-blue-500 mx-auto mb-4" />
           <p className="text-gray-500">{t('loading', lang)}</p>
+        </div>
+      </div>
+    );
+  }
+
+  // [Phase 3] 补问界面
+  if (currentStep === 'followup' && (data?.screeningId || data?.existingScreening)) {
+    const screeningId = data.screeningId || data.existingScreening?.id!;
+
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-amber-50/30 to-white">
+        {/* Header */}
+        <div className="bg-white border-b border-neutral-100 shadow-sm">
+          <div className="max-w-4xl mx-auto px-4 py-4">
+            <button
+              onClick={() => setCurrentStep('questionnaire')}
+              className="inline-flex items-center gap-2 text-neutral-500 hover:text-neutral-700 transition-colors"
+            >
+              <ArrowLeft size={18} />
+              <span className="text-sm">{t('backToSymptoms', lang)}</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Title */}
+        <div className="bg-gradient-to-b from-white to-amber-50/30 py-8">
+          <div className="max-w-4xl mx-auto px-4 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-100 text-amber-700 rounded-full text-sm mb-4">
+              <Sparkles className="w-4 h-4" />
+              <span>AI 补充问诊</span>
+            </div>
+            <h1 className="text-2xl md:text-3xl font-serif text-neutral-900">
+              请回答以下补充问题
+            </h1>
+            <p className="text-neutral-500 mt-2">
+              AI 需要更多信息以提供更准确的健康分析
+            </p>
+          </div>
+        </div>
+
+        {/* Follow-up Form */}
+        <div className="max-w-4xl mx-auto px-4 pb-16">
+          <FollowUpQuestionnaire
+            screeningId={screeningId}
+            questions={followupQuestions}
+          />
         </div>
       </div>
     );
@@ -402,6 +462,7 @@ export default function HealthScreeningPage() {
             screeningId={screeningId}
             initialAnswers={initialAnswers}
             bodyMapData={bodyMapData || undefined}
+            onFollowupRequired={handleFollowupRequired}
           />
         </div>
       </div>

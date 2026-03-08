@@ -58,6 +58,10 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         createdAt: screening.created_at,
         completedAt: screening.completed_at,
         userEmail: screening.user_email,
+        // [Phase 3] 补问系统字段
+        followupQuestions: screening.followup_questions,
+        followupAnswers: screening.followup_answers,
+        followupCount: screening.followup_count,
       },
     });
   } catch (error: unknown) {

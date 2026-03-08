@@ -28,12 +28,15 @@ interface DynamicScreeningFormProps {
   screeningId: string;
   initialAnswers?: ScreeningAnswer[];
   bodyMapData?: BodyMapSelectionData;
+  /** [Phase 3] 当 AEMC 需要补问时触发 */
+  onFollowupRequired?: (screeningId: string, questions: string[]) => void;
 }
 
 export default function DynamicScreeningForm({
   screeningId,
   initialAnswers = [],
   bodyMapData,
+  onFollowupRequired,
 }: DynamicScreeningFormProps) {
   const router = useRouter();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -224,6 +227,12 @@ export default function DynamicScreeningForm({
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || '分析失敗');
 
+      // [Phase 3] 检查是否需要补问
+      if (data.needsFollowup && data.followupQuestions?.length > 0 && onFollowupRequired) {
+        onFollowupRequired(screeningId, data.followupQuestions);
+        return;
+      }
+
       router.push(`/health-screening/result/${screeningId}`);
     } catch (err: unknown) {
       console.warn('Quick analysis submission failed');
@@ -261,6 +270,12 @@ export default function DynamicScreeningForm({
 
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || '分析失敗');
+
+      // [Phase 3] 检查是否需要补问
+      if (data.needsFollowup && data.followupQuestions?.length > 0 && onFollowupRequired) {
+        onFollowupRequired(screeningId, data.followupQuestions);
+        return;
+      }
 
       router.push(`/health-screening/result/${screeningId}`);
     } catch (err: unknown) {

@@ -1,10 +1,11 @@
 /**
- * Health Screening Analysis API v4.0
+ * Health Screening Analysis API v5.0 (AEMC Pipeline)
  * POST: 触发 AI 分析并保存结果
  *
  * 安全特性：
+ * - AEMC 4 AI 联合会诊（环境变量 AEMC_ENABLED=true 开启）
  * - 答案哈希缓存（避免重复分析）
- * - AI 故障降级
+ * - AI 故障降级（AEMC 失败 → DeepSeek 单模型降级）
  * - 安全日志（不记录敏感信息）
  *
  * 支持两阶段问诊系统：
@@ -15,6 +16,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { analyzeHealthScreening, generateAnswersHash } from '@/services/deepseekService';
+import { runAEMCPipeline, PipelineError } from '@/services/aemc';
+import type { AEMCOutput } from '@/services/aemc';
+import { persistPipelineResults, persistFailedRuns } from '@/services/aemc/persistence';
 import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/lib/utils/rate-limiter';
 import {
   PHASE_1_QUESTIONS,
@@ -22,6 +26,9 @@ import {
 } from '@/lib/screening-questions';
 import { validateBody } from '@/lib/validations/validate';
 import { HealthScreeningAnalyzeSchema } from '@/lib/validations/api-schemas';
+
+// [Phase 3] 最多允许追问轮次（防止无限循环）
+const MAX_FOLLOWUP_ROUNDS = 2;
 
 // 计算所需问题数量
 function calculateRequiredQuestionCount(phase: 1 | 2, bodyMapData: any): number {
@@ -90,6 +97,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // [Phase 3] needs_followup 状态由 /followup 端点处理
+    if (screening.status === 'needs_followup') {
+      return NextResponse.json(
+        {
+          error: '此筛查正在等待补充信息',
+          needsFollowup: true,
+          followupQuestions: screening.followup_questions,
+        },
+        { status: 400 }
+      );
+    }
+
     // 检查答案数量
     const answers = screening.answers || [];
     const bodyMapData = screening.body_map_data;
@@ -137,22 +156,105 @@ export async function POST(request: NextRequest) {
       .single();
 
     let analysisResult;
+    let aemcOutputRef: AEMCOutput | null = null; // [Phase 3] 保存 AEMC 输出用于 Class B 判断
 
     if (cachedResult?.analysis_result) {
       // 使用缓存的分析结果
       console.info('Using cached analysis result');
       analysisResult = cachedResult.analysis_result;
+    } else if (process.env.AEMC_ENABLED === 'true') {
+      // AEMC 4 AI 联合会诊 Pipeline
+      try {
+        const aemcOutput = await runAEMCPipeline({
+          screeningId,
+          answers,
+          bodyMapData,
+          userType: 'authenticated',
+          userId: user.id,
+          phase,
+        });
+        analysisResult = aemcOutput.legacyResult;
+        aemcOutputRef = aemcOutput; // [Phase 3] 保存引用
+
+        // [AUDIT-FIX] 将安全闸门元数据附加到 analysisResult，供前端结构化使用
+        (analysisResult as Record<string, unknown>).safetyGateClass = aemcOutput.safetyGate.gate_class;
+        (analysisResult as Record<string, unknown>).requiresHumanReview = aemcOutput.safetyGate.require_human_review;
+        (analysisResult as Record<string, unknown>).requiresEmergencyNotice = aemcOutput.safetyGate.require_emergency_notice;
+
+        // [Phase 2] 审计持久化（fire-and-forget，不阻断主流程）
+        persistPipelineResults(aemcOutput.pipelineResult, 'authenticated').catch((e) => {
+          console.warn('[AEMC] Persistence fire-and-forget error:', e instanceof Error ? e.message : e);
+        });
+
+        if (!aemcOutput.safetyGate.allow_auto_display) {
+          console.warn(
+            `[AEMC] Safety gate: ${aemcOutput.safetyGate.gate_class} for ${screeningId}`
+          );
+        }
+      } catch (pipelineError) {
+        // AEMC 失败 → 降级到 DeepSeek 单模型
+        console.error('[AEMC] Pipeline failed, falling back to DeepSeek');
+        if (pipelineError instanceof PipelineError) {
+          console.warn(`[AEMC] Failed AI runs: ${pipelineError.aiRuns.length}`);
+          // [Phase 2] 持久化失败的 AI runs（用于故障分析）
+          persistFailedRuns(pipelineError.aiRuns, 'authenticated').catch((e) => {
+            console.warn('[AEMC] Failed runs persistence error:', e instanceof Error ? e.message : e);
+          });
+        } else {
+          console.warn('[AEMC] Non-PipelineError, AI runs may be lost from audit trail');
+        }
+        analysisResult = await analyzeHealthScreening(answers, phase);
+      }
     } else {
-      // 调用 AI 分析（内置降级策略）
-      // analyzeHealthScreening 已包含：
-      // - Prompt 注入防护
-      // - 请求超时处理
-      // - AI 故障降级（规则引擎）
-      // - 输出验证
+      // 旧版 DeepSeek 单模型分析
       analysisResult = await analyzeHealthScreening(answers, phase);
     }
 
-    // 更新筛查记录
+    // [Phase 3] 检查是否需要追问（Class B + 未达追问上限）
+    const followupCount = screening.followup_count || 0;
+    const needsFollowup =
+      aemcOutputRef &&
+      aemcOutputRef.safetyGate.gate_class === 'B' &&
+      aemcOutputRef.safetyGate.require_followup_questions &&
+      followupCount < MAX_FOLLOWUP_ROUNDS;
+
+    const followupQuestions = needsFollowup
+      ? aemcOutputRef.pipelineResult.adjudicated_assessment.must_ask_followups
+      : null;
+
+    if (needsFollowup && followupQuestions && followupQuestions.length > 0) {
+      // Class B: 保存初步结果但标记为需要追问
+      const { error: updateError } = await supabase
+        .from('health_screenings')
+        .update({
+          status: 'needs_followup',
+          analysis_result: analysisResult,
+          answers_hash: answersHash,
+          followup_questions: followupQuestions,
+        })
+        .eq('id', screeningId)
+        .eq('user_id', user.id);
+
+      if (updateError) {
+        console.warn('Screening followup update failed');
+        return NextResponse.json({ error: '保存分析结果失败' }, { status: 500 });
+      }
+
+      console.info(`[AEMC] Class B: ${followupQuestions.length} follow-up questions for ${screeningId}`);
+
+      return NextResponse.json({
+        success: true,
+        needsFollowup: true,
+        followupQuestions,
+        analysisResult,
+        phase,
+        isCached: false,
+        isFallback: false,
+        message: 'AI 需要一些补充信息以提供更准确的分析',
+      });
+    }
+
+    // 正常完成（Class A/C/D 或无 AEMC）
     const { error: updateError } = await supabase
       .from('health_screenings')
       .update({
@@ -191,6 +293,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
+      needsFollowup: false,
       analysisResult,
       phase,
       isCached: !!cachedResult?.analysis_result,
