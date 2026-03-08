@@ -20,7 +20,7 @@ export default function GuidePartnerTermsPage() {
           </Link>
           <Link
             href="/guide-partner"
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition"
+            className="flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition"
           >
             <ArrowLeft size={18} />
             <span>返回</span>

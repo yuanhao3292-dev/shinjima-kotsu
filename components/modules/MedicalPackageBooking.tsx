@@ -222,7 +222,7 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
       <div className="min-h-screen bg-[#faf9f7] flex items-center justify-center">
         <div className="text-center">
           <p className="text-xl text-gray-600 mb-4">{t.notFound}</p>
-          <Link href={`/g/${guideSlug}/medical-packages`} className="text-blue-600 hover:underline">{t.backToList}</Link>
+          <Link href={`/g/${guideSlug}/medical-packages`} className="text-neutral-500 hover:text-brand-900 inline-flex items-center gap-2">{t.backToList}</Link>
         </div>
       </div>
     );
@@ -299,7 +299,7 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link
             href={backUrl}
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+            className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
           >
             <ArrowLeft size={18} />
             <span className="text-sm">{t.backToList}</span>

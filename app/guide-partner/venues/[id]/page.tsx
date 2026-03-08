@@ -185,7 +185,7 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
           {/* Back Button (Desktop) */}
           <Link
             href="/guide-partner/venues"
-            className="hidden lg:inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6"
+            className="hidden lg:inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 mb-6"
           >
             <ArrowLeft size={18} />
             返回店舖列表

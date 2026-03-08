@@ -177,7 +177,7 @@ export default function WClinicMensCheckoutPage() {
       {/* Back link */}
       <div className="bg-white border-b border-gray-100">
         <div className="max-w-4xl mx-auto px-4 py-3">
-          <Link href={backHref} className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-amber-600 transition">
+          <Link href={backHref} className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-900 transition">
             <ArrowLeft size={16} />
             {t('backToMain')}
           </Link>

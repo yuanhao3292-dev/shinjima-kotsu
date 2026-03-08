@@ -484,7 +484,7 @@ export default function HeleneTreatmentPage() {
         <div className="max-w-6xl mx-auto px-4 py-3">
           <Link
             href={backHref}
-            className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-indigo-600 transition"
+            className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-900 transition"
           >
             <ArrowLeft size={16} />
             {t('backToMain')}

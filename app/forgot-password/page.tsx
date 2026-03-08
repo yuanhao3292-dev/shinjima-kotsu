@@ -97,7 +97,7 @@ export default function ForgotPasswordPage() {
             </div>
 
             {/* Back Link */}
-            <Link href="/login" className="inline-flex items-center gap-2 text-gray-500 hover:text-blue-600 mb-6 text-sm font-medium transition">
+            <Link href="/login" className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 mb-6 text-sm font-medium transition">
               <ArrowLeft size={16} />
               返回登入
             </Link>

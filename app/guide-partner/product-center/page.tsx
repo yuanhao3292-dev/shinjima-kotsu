@@ -381,7 +381,7 @@ function ModuleCard({
             href={detailRoute}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition flex items-center justify-center gap-1"
+            className="flex-1 py-2 rounded-lg text-sm font-medium text-neutral-500 hover:text-brand-900 hover:bg-gray-100 transition flex items-center justify-center gap-1"
           >
             查看详情 <ArrowRight size={14} />
           </a>

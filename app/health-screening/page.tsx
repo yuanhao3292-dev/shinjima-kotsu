@@ -333,7 +333,7 @@ export default function HealthScreeningPage() {
           <div className="flex justify-center gap-4 mt-6">
             <Link
               href="/health-screening/history"
-              className="text-sm text-gray-500 hover:text-blue-600 transition-colors"
+              className="text-sm text-neutral-500 hover:text-brand-900 transition-colors"
             >
               查看历史记录 →
             </Link>

@@ -205,7 +205,7 @@ export default function WithdrawalPage() {
         <div className="p-6 lg:p-8 max-w-4xl">
           {/* Header */}
           <div className="mb-6">
-            <Link href="/guide-partner/commission" className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 mb-2">
+            <Link href="/guide-partner/commission" className="inline-flex items-center gap-1 text-sm text-neutral-500 hover:text-brand-900 mb-2">
               <ArrowLeft size={16} />
               返回報酬結算
             </Link>

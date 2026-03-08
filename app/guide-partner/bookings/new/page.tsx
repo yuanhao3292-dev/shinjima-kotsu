@@ -252,7 +252,7 @@ function NewBookingForm() {
           <div className="mb-6">
             <Link
               href="/guide-partner/venues"
-              className="inline-flex items-center gap-1 text-gray-500 hover:text-gray-700 text-sm mb-4"
+              className="inline-flex items-center gap-1 text-neutral-500 hover:text-brand-900 text-sm mb-4"
             >
               <ArrowLeft size={16} />
               返回店舖列表

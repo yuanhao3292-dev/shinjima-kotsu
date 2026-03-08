@@ -348,7 +348,7 @@ export default function PackageDetailContent({
           {isGuideEmbed && backHref ? (
             <Link
               href={backHref}
-              className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors text-sm"
+              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors text-sm"
             >
               <ArrowLeft size={16} />
               {t.backToList}

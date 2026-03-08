@@ -14,7 +14,7 @@ export default function TIMCProductPage() {
         <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
           <button
             onClick={() => router.push('/guide-partner/product-center')}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition text-sm"
+            className="flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition text-sm"
           >
             <ArrowLeft size={16} />
             返回选品中心
@@ -30,7 +30,7 @@ export default function TIMCProductPage() {
 
       {/* Back to Product Center */}
       <div className="text-center py-12">
-        <button onClick={() => router.push('/guide-partner/product-center')} className="inline-flex items-center gap-2 text-gray-500 hover:text-black transition">
+        <button onClick={() => router.push('/guide-partner/product-center')} className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition">
           <ArrowLeft size={16} /> 返回选品中心
         </button>
       </div>

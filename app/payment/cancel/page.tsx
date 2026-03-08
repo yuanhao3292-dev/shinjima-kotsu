@@ -121,7 +121,7 @@ function PaymentCancelContent() {
           </Link>
           <Link
             href={backToHomeHref}
-            className={`block w-full text-gray-600 hover:text-gray-800 font-semibold py-3 px-6 transition-colors duration-200 ${!loaded ? 'opacity-50 pointer-events-none' : ''}`}
+            className={`block w-full text-neutral-500 hover:text-brand-900 font-semibold py-3 px-6 transition-colors duration-200 ${!loaded ? 'opacity-50 pointer-events-none' : ''}`}
           >
             {t('backToHome')}
           </Link>
