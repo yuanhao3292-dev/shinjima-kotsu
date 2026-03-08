@@ -7,6 +7,7 @@ import { WhiteLabelProvider } from '@/lib/contexts/WhiteLabelContext'
 import { getWhiteLabelConfig } from '@/lib/utils/whitelabel-server'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import BrowserFingerprint from '@/components/BrowserFingerprint'
 
 export const metadata: Metadata = {
   title: 'TIMC OSAKA 體檢預約 | 日本大阪德洲會國際醫療中心 - 新島交通',
@@ -62,6 +63,7 @@ export default async function RootLayout({
           <FloatingContact />
           <WhiteLabelTracker />
         </WhiteLabelProvider>
+        <BrowserFingerprint />
         <Analytics />
         <SpeedInsights />
       </body>

@@ -7,12 +7,13 @@ import {
   COOKIE_OPTIONS,
   isValidSlug,
 } from '@/lib/whitelabel-config';
-import { classifyUserAgent } from '@/lib/utils/bot-detection';
+import { classifyUserAgent, type BotClassification } from '@/lib/utils/bot-detection';
 import {
   checkRateLimit,
   getClientIp,
   type RateLimitConfig,
 } from '@/lib/utils/rate-limiter';
+import { verifyFingerprintToken } from '@/lib/utils/fingerprint-token';
 
 /**
  * 页面请求速率限制配置
@@ -55,11 +56,37 @@ export async function middleware(request: NextRequest) {
 
   // ========== Bot Detection & Page Rate Limiting ==========
   const ua = request.headers.get('user-agent');
-  const botClass = classifyUserAgent(ua);
+  let botClass: BotClassification = classifyUserAgent(ua);
 
   // 直接拦截恶意爬虫
   if (botClass === 'blocked_bot') {
     return new NextResponse('Forbidden', { status: 403 });
+  }
+
+  // ========== Browser Fingerprint Check ==========
+  // UA 显示为 human 时，验证浏览器指纹 cookie 进一步确认
+  if (botClass === 'human') {
+    const fpCookie = request.cookies.get('__bfp');
+    const fpSecret = process.env.ENCRYPTION_KEY || process.env.NEXT_PUBLIC_FP_SECRET || 'fp-default-key';
+
+    if (fpCookie?.value) {
+      const fpResult = await verifyFingerprintToken(fpCookie.value, fpSecret);
+      if (!fpResult.valid || fpResult.score > 70) {
+        // 指纹无效或 bot 评分高 → 降级限速
+        botClass = 'suspicious_tool';
+      }
+    } else {
+      // 无指纹 cookie：检查该 IP 是否已请求多次仍无 cookie
+      const clientIpForFp = getClientIp(request);
+      const nofpKey = `nofp:${clientIpForFp}`;
+      const nofpResult = await checkRateLimit(nofpKey, {
+        windowMs: 300_000, // 5 分钟窗口
+        maxRequests: 5,    // 超过 5 次无 cookie → 可疑
+      });
+      if (!nofpResult.success) {
+        botClass = 'suspicious_tool';
+      }
+    }
   }
 
   // 合法搜索引擎跳过限速，其他分类按级限速
@@ -93,6 +120,38 @@ export async function middleware(request: NextRequest) {
           'Retry-After': String(rateLimitResult.retryAfter || 60),
         },
       });
+    }
+  }
+
+  // ========== Application-Level WAF ==========
+  // 合法搜索引擎跳过 WAF 检查
+  if (botClass !== 'legitimate_bot') {
+    // 路径遍历 & 攻击模式检测
+    const ATTACK_PATH_PATTERNS = [
+      /\.\.\//,                      // 路径遍历 ../
+      /etc\/passwd/i,                // Linux 文件读取
+      /\.(env|git|svn|htaccess)/i,   // 敏感文件探测
+      /\.(php|asp|jsp|cgi)/i,        // 非 Next.js 文件探测
+      /wp-admin|wp-login|xmlrpc/i,   // WordPress 攻击
+      /phpmyadmin|adminer/i,         // 数据库管理工具探测
+    ];
+
+    const fullPath = pathname + request.nextUrl.search;
+    if (ATTACK_PATH_PATTERNS.some((p) => p.test(fullPath))) {
+      return new NextResponse('Forbidden', { status: 403 });
+    }
+
+    // 查询参数 SQL 注入检测
+    const searchQuery = request.nextUrl.search;
+    if (searchQuery) {
+      const SQLI_PATTERNS = [
+        /(\bunion\b.*\bselect\b)/i,
+        /(\bor\b|\band\b)\s+\d+=\d+/i,
+        /(\bdrop\b|\bdelete\b|\binsert\b|\bupdate\b)\s+(table|from|into)/i,
+      ];
+      if (SQLI_PATTERNS.some((p) => p.test(decodeURIComponent(searchQuery)))) {
+        return new NextResponse('Forbidden', { status: 403 });
+      }
     }
   }
 
