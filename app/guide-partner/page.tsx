@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import PublicLayout from '@/components/PublicLayout';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Phone,
   Mail,
@@ -759,12 +760,15 @@ export default function GuidePartnerPage() {
       {/* Hero */}
       <section className="relative min-h-[70vh] flex items-center text-white overflow-hidden">
         {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=2094&auto=format&fit=crop')`,
-          }}
-        >
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=2094&auto=format&fit=crop"
+            alt="Guide Partner"
+            fill
+            className="object-cover object-center"
+            sizes="100vw"
+            quality={75}
+          />
           <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-900/85 to-brand-900/70"></div>
         </div>
         <div className="relative z-10 max-w-5xl mx-auto px-6 py-24 md:py-32">

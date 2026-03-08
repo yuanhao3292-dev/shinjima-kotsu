@@ -704,12 +704,15 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
       {!isGuideEmbed && (
       <div className="relative min-h-[85vh] flex items-center overflow-hidden">
         {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1587010580103-fd86b8ea14ca?q=80&w=2080&auto=format&fit=crop')`,
-          }}
-        >
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1587010580103-fd86b8ea14ca?q=80&w=2080&auto=format&fit=crop"
+            alt="Cancer Treatment"
+            fill
+            className="object-cover object-center"
+            sizes="100vw"
+            quality={75}
+          />
           {/* Dark Overlay with Gradient */}
           <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70"></div>
         </div>

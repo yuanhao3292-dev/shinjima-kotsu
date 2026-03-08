@@ -192,12 +192,15 @@ export default function NewsPage() {
         {/* Hero Section - 与网站风格统一的大气设计 */}
         <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden">
           {/* 背景图片 */}
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: `url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=2000&auto=format&fit=crop')`,
-            }}
-          >
+          <div className="absolute inset-0">
+            <Image
+              src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=2000&auto=format&fit=crop"
+              alt="News"
+              fill
+              className="object-cover object-center"
+              sizes="100vw"
+              quality={75}
+            />
             <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/85 to-slate-900/70" />
           </div>
 
