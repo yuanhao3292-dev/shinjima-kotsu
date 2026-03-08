@@ -13,10 +13,10 @@ import { useLanguage, type Language } from '@/hooks/useLanguage';
 const pageTranslations = {
   // Hero Section
   heroSubtitle: {
-    ja: '華人世界と日本の高品質な資源をつなぐ架け橋',
-    'zh-TW': '連結華人世界與日本高品質資源的橋樑',
-    'zh-CN': '连结华人世界与日本高品质资源的桥梁',
-    en: 'Bridging the Chinese World with Japan\'s Premium Resources'
+    ja: '',
+    'zh-TW': '',
+    'zh-CN': '',
+    en: ''
   },
 
   // CEO Message Section
@@ -389,12 +389,9 @@ export default function AboutPage() {
                 <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">NIIJIMA KOTSU Co., Ltd.</span>
                 <div className="h-[1px] w-12 bg-gold-400"></div>
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-white leading-tight">
                 {t('valueCompanyName')}
               </h1>
-              <p className="text-lg md:text-xl text-neutral-300 leading-relaxed font-light">
-                {t('heroSubtitle')}
-              </p>
             </div>
           </div>
         </section>
