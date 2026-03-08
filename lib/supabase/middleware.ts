@@ -42,7 +42,30 @@ export async function updateSession(request: NextRequest) {
     request.nextUrl.pathname.startsWith(path)
   );
 
+  // Guide Partner 受保护路径（排除公开页面：登录、注册、条款、首页）
+  const guidePartnerPublicPaths = ['/guide-partner/login', '/guide-partner/register', '/guide-partner/terms'];
+  const isGuidePartnerProtected =
+    request.nextUrl.pathname.startsWith('/guide-partner/') &&
+    !guidePartnerPublicPaths.some((path) => request.nextUrl.pathname.startsWith(path));
+
+  // Admin 受保护路径
+  const isAdminProtected = request.nextUrl.pathname.startsWith('/admin');
+
   if (isProtectedPath && !user) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/login';
+    url.searchParams.set('redirect', request.nextUrl.pathname);
+    return NextResponse.redirect(url);
+  }
+
+  if (isGuidePartnerProtected && !user) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/guide-partner/login';
+    url.searchParams.set('redirect', request.nextUrl.pathname);
+    return NextResponse.redirect(url);
+  }
+
+  if (isAdminProtected && !user) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
     url.searchParams.set('redirect', request.nextUrl.pathname);

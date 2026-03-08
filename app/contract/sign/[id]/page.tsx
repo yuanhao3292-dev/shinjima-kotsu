@@ -1,15 +1,24 @@
 import { notFound } from 'next/navigation';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
+import { generateSigningToken } from '@/app/api/contract/customer/route';
 import CustomerContractSigningPage from './CustomerContractSigningPage';
 
 interface ContractSignPageProps {
   params: Promise<{
     id: string;
   }>;
+  searchParams: Promise<{ token?: string }>;
 }
 
-export default async function ContractSignPage({ params }: ContractSignPageProps) {
+export default async function ContractSignPage({ params, searchParams }: ContractSignPageProps) {
   const { id } = await params;
+  const { token } = await searchParams;
+
+  // 验证签约令牌
+  if (!token || token !== generateSigningToken(id)) {
+    notFound();
+  }
+
   // 使用 service role（客户无需登录即可查看签约页面）
   const supabase = getSupabaseAdmin();
 
@@ -58,7 +67,7 @@ export default async function ContractSignPage({ params }: ContractSignPageProps
   }
 
   // 渲染签署页面（客户端组件）
-  return <CustomerContractSigningPage contract={contract} />;
+  return <CustomerContractSigningPage contract={contract} signingToken={token} />;
 }
 
 export async function generateMetadata({ params }: ContractSignPageProps) {

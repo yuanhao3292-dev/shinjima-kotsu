@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenAI, Type } from "@google/genai";
 import type { ItineraryRequest } from "../../../types";
+import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/lib/utils/rate-limiter';
 
 // 清理 JSON 字符串
 const cleanJsonString = (str: string) => {
@@ -15,6 +16,16 @@ const cleanJsonString = (str: string) => {
 
 // Next.js App Router API Handler
 export async function POST(request: NextRequest) {
+  // 限速 — 防止 AI API 配额滥用
+  const clientIp = getClientIp(request);
+  const rateLimitResult = await checkRateLimit(
+    `${clientIp}:/api/parse-itinerary`,
+    RATE_LIMITS.sensitive
+  );
+  if (!rateLimitResult.success) {
+    return NextResponse.json({ error: '请求过于频繁，请稍后再试' }, { status: 429 });
+  }
+
   // 检查 API 密钥
   if (!process.env.GEMINI_API_KEY) {
     return NextResponse.json(

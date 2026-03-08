@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@/lib/supabase/server';
 import { sendGuideBookingNotificationToAdmin } from '@/lib/email';
+import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/lib/utils/rate-limiter';
 
 /**
  * POST /api/guide-bookings/notify
@@ -9,6 +11,23 @@ import { sendGuideBookingNotificationToAdmin } from '@/lib/email';
  */
 export async function POST(request: NextRequest) {
   try {
+    // 认证检查
+    const supabase = await createClient();
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if (authError || !user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // 限速
+    const clientIp = getClientIp(request);
+    const rateLimitResult = await checkRateLimit(
+      `${clientIp}:/api/guide-bookings/notify`,
+      RATE_LIMITS.standard
+    );
+    if (!rateLimitResult.success) {
+      return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    }
+
     const body = await request.json();
     const { guideName, venueName, customerName, customerPhone, partySize, bookingDate, bookingTime, specialRequests } = body;
 

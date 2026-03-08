@@ -107,28 +107,23 @@ export default function AdminDashboard() {
 
   const checkAdminAndLoad = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user || !user.email) {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) {
         router.push('/login');
         return;
       }
 
-      // 检查是否是管理员（通过环境变量配置的邮箱）
-      const adminEmails = process.env.NEXT_PUBLIC_ADMIN_EMAILS?.split(',').map(e => e.trim().toLowerCase()) || [];
-      if (!adminEmails.includes(user.email.toLowerCase())) {
+      // 通过服务端 API 验证管理员身份（不暴露管理员邮箱到客户端）
+      const verifyResponse = await fetch('/api/admin/verify', {
+        headers: { 'Authorization': `Bearer ${session.access_token}` },
+      });
+      if (!verifyResponse.ok) {
         setIsAdmin(false);
         setLoading(false);
         return;
       }
 
       setIsAdmin(true);
-
-      // 加载数据
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session?.access_token) {
-        router.push('/login');
-        return;
-      }
 
       // 获取待审核 KYC
       const kycResponse = await fetch('/api/admin/kyc?status=submitted', {

@@ -15,6 +15,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { analyzeHealthScreening, generateAnswersHash } from '@/services/deepseekService';
+import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/lib/utils/rate-limiter';
 import {
   PHASE_1_QUESTIONS,
   getPhase2QuestionsByBodyParts,
@@ -37,6 +38,16 @@ function calculateRequiredQuestionCount(phase: 1 | 2, bodyMapData: any): number 
 // POST: 触发 AI 分析
 export async function POST(request: NextRequest) {
   try {
+    // 限速 — 防止 AI API 配额滥用
+    const clientIp = getClientIp(request);
+    const rateLimitResult = await checkRateLimit(
+      `${clientIp}:/api/health-screening/analyze`,
+      RATE_LIMITS.sensitive
+    );
+    if (!rateLimitResult.success) {
+      return NextResponse.json({ error: '请求过于频繁，请稍后再试' }, { status: 429 });
+    }
+
     const supabase = await createClient();
 
     // 获取当前用户

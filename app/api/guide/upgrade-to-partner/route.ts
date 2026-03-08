@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createClient } from "@supabase/supabase-js";
+import { createClient as createServerClient } from "@/lib/supabase/server";
 import {
   checkRateLimit,
   getClientIp,
@@ -102,6 +103,13 @@ async function getOrCreateStripePriceId(
  */
 export async function POST(request: NextRequest) {
   try {
+    // 认证检查 — 验证调用者身份
+    const serverSupabase = await createServerClient();
+    const { data: { user }, error: authError } = await serverSupabase.auth.getUser();
+    if (authError || !user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     // 速率限制（支付敏感端点）
     const clientIp = getClientIp(request);
     const rateLimitResult = await checkRateLimit(
@@ -123,6 +131,18 @@ export async function POST(request: NextRequest) {
 
     if (!guideId) {
       return NextResponse.json({ error: "guideId is required" }, { status: 400 });
+    }
+
+    // 所有权验证 — 确认调用者是该 guide 的所有者
+    const { data: ownerCheck } = await supabase
+      .from("guides")
+      .select("id")
+      .eq("id", guideId)
+      .eq("user_id", user.id)
+      .single();
+
+    if (!ownerCheck) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     if (!['growth', 'partner'].includes(planCode)) {
@@ -275,10 +295,17 @@ export async function POST(request: NextRequest) {
       session = await stripe.checkout.sessions.create(sessionParams);
     }
 
+    // 验证 Stripe checkout URL 安全性
+    const checkoutUrl = session.url;
+    if (checkoutUrl && !checkoutUrl.startsWith('https://checkout.stripe.com/')) {
+      console.warn('Unexpected Stripe checkout URL format');
+      return NextResponse.json({ error: 'Checkout URL 验证失败' }, { status: 500 });
+    }
+
     return NextResponse.json({
       success: true,
       sessionId: session.id,
-      checkoutUrl: session.url,
+      checkoutUrl,
     });
   } catch (error: unknown) {
     const apiError = normalizeError(error);

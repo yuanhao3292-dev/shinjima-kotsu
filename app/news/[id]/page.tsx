@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import PublicLayout from '@/components/PublicLayout';
 import { localizeText } from '@/lib/utils/text-converter';
+import DOMPurify from 'dompurify';
 import { ArrowLeft, Calendar, Tag, Loader2 } from 'lucide-react';
 
 type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
@@ -160,7 +161,7 @@ export default function NewsDetailPage() {
             {news.content ? (
               <div
                 className="text-gray-700 leading-[2] text-base whitespace-pre-wrap"
-                dangerouslySetInnerHTML={{ __html: localizeText(news.content, lang).replace(/\n/g, '<br/>') }}
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(localizeText(news.content, lang).replace(/\n/g, '<br/>')) }}
               />
             ) : news.summary ? (
               <p className="text-gray-700 leading-relaxed">{localizeText(news.summary, lang)}</p>

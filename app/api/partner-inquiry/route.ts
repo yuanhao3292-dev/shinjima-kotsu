@@ -1,5 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/lib/utils/rate-limiter';
+
+/** HTML 实体转义 — 防止邮件模板注入 */
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
 
 // 延迟初始化
 const getResend = () => {
@@ -24,6 +35,19 @@ interface PartnerInquiryData {
 
 export async function POST(request: NextRequest) {
   try {
+    // 限速 — 防止邮件轰炸
+    const clientIp = getClientIp(request);
+    const rateLimitResult = await checkRateLimit(
+      `${clientIp}:/api/partner-inquiry`,
+      RATE_LIMITS.sensitive
+    );
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { error: '請求過於頻繁，請稍後再試' },
+        { status: 429 }
+      );
+    }
+
     const data: PartnerInquiryData = await request.json();
 
     // 验证必填字段
@@ -52,12 +76,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // HTML 转义所有用户输入
+    const safe = {
+      companyName: escapeHtml(data.companyName),
+      contactName: escapeHtml(data.contactName),
+      email: escapeHtml(data.email),
+      phone: data.phone ? escapeHtml(data.phone) : '',
+      message: escapeHtml(data.message),
+      businessType: data.businessType ? escapeHtml(data.businessType) : '',
+    };
+
     // 发送邮件给管理员
     const result = await resend.emails.send({
       from: '同業合作申請 <partner@niijima-koutsu.jp>',
       to: PARTNER_INQUIRY_EMAIL,
       replyTo: data.email,
-      subject: `【同業合作申請】${data.companyName} - ${data.contactName}`,
+      subject: `【同業合作申請】${safe.companyName} - ${safe.contactName}`,
       html: `
 <!DOCTYPE html>
 <html>
@@ -88,35 +122,35 @@ export async function POST(request: NextRequest) {
                 <table width="100%" style="font-size: 14px;">
                   <tr>
                     <td style="color: #64748b; padding: 12px 0; border-bottom: 1px solid #e2e8f0; width: 30%;">公司名稱</td>
-                    <td style="color: #1e293b; padding: 12px 0; border-bottom: 1px solid #e2e8f0; font-weight: 600;">${data.companyName}</td>
+                    <td style="color: #1e293b; padding: 12px 0; border-bottom: 1px solid #e2e8f0; font-weight: 600;">${safe.companyName}</td>
                   </tr>
                   <tr>
                     <td style="color: #64748b; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">聯絡人</td>
-                    <td style="color: #1e293b; padding: 12px 0; border-bottom: 1px solid #e2e8f0; font-weight: 600;">${data.contactName}</td>
+                    <td style="color: #1e293b; padding: 12px 0; border-bottom: 1px solid #e2e8f0; font-weight: 600;">${safe.contactName}</td>
                   </tr>
                   <tr>
                     <td style="color: #64748b; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">電子郵件</td>
                     <td style="color: #1e293b; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">
-                      <a href="mailto:${data.email}" style="color: #2563eb; text-decoration: none;">${data.email}</a>
+                      <a href="mailto:${safe.email}" style="color: #2563eb; text-decoration: none;">${safe.email}</a>
                     </td>
                   </tr>
                   ${data.phone ? `
                   <tr>
                     <td style="color: #64748b; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">聯絡電話</td>
-                    <td style="color: #1e293b; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">${data.phone}</td>
+                    <td style="color: #1e293b; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">${safe.phone}</td>
                   </tr>
                   ` : ''}
                   ${data.businessType ? `
                   <tr>
                     <td style="color: #64748b; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">業務類型</td>
-                    <td style="color: #1e293b; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">${data.businessType}</td>
+                    <td style="color: #1e293b; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">${safe.businessType}</td>
                   </tr>
                   ` : ''}
                 </table>
 
                 <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
                   <p style="color: #64748b; margin: 0 0 8px; font-size: 12px; font-weight: 600;">合作意向說明</p>
-                  <p style="color: #1e293b; margin: 0; font-size: 14px; line-height: 1.8; white-space: pre-wrap;">${data.message}</p>
+                  <p style="color: #1e293b; margin: 0; font-size: 14px; line-height: 1.8; white-space: pre-wrap;">${safe.message}</p>
                 </div>
               </div>
             </td>
@@ -125,7 +159,7 @@ export async function POST(request: NextRequest) {
           <!-- Action -->
           <tr>
             <td style="padding: 0 30px 30px; text-align: center;">
-              <a href="mailto:${data.email}?subject=Re: 同業合作申請" style="display: inline-block; background-color: #2563eb; color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
+              <a href="mailto:${safe.email}?subject=Re: 同業合作申請" style="display: inline-block; background-color: #2563eb; color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
                 回覆此申請
               </a>
             </td>
@@ -187,7 +221,7 @@ export async function POST(request: NextRequest) {
               </div>
               <h2 style="color: #166534; margin: 0 0 16px; font-size: 24px;">申請已收到</h2>
               <p style="color: #6b7280; margin: 0; font-size: 16px; line-height: 1.8;">
-                ${data.contactName} 您好，<br><br>
+                ${safe.contactName} 您好，<br><br>
                 感謝您對新島交通同業合作的興趣！<br>
                 我們已收到您的申請，將在 1-2 個工作日內與您聯繫。
               </p>
@@ -199,7 +233,7 @@ export async function POST(request: NextRequest) {
             <td style="padding: 0 30px 30px;">
               <div style="background-color: #f8fafc; border-radius: 12px; padding: 20px; border: 1px solid #e2e8f0;">
                 <p style="color: #64748b; margin: 0 0 8px; font-size: 12px;">您的申請摘要</p>
-                <p style="color: #1e293b; margin: 0; font-size: 14px;"><strong>公司名稱：</strong>${data.companyName}</p>
+                <p style="color: #1e293b; margin: 0; font-size: 14px;"><strong>公司名稱：</strong>${safe.companyName}</p>
               </div>
             </td>
           </tr>

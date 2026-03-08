@@ -3,6 +3,7 @@ import type { QuoteResponse } from '../../../types';
 import { calculateQuote } from '../../../services/pricingEngine';
 import { validateBody } from '@/lib/validations/validate';
 import { CalculateQuoteSchema } from '@/lib/validations/api-schemas';
+import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/lib/utils/rate-limiter';
 
 // 防止 XSS：检查是否包含 HTML 标签
 function containsHtmlTags(str: string): boolean {
@@ -12,6 +13,15 @@ function containsHtmlTags(str: string): boolean {
 // Next.js App Router API Handler
 export async function POST(request: NextRequest) {
   try {
+    // 限速
+    const clientIp = getClientIp(request);
+    const rateLimitResult = await checkRateLimit(
+      `${clientIp}:/api/calculate-quote`,
+      RATE_LIMITS.standard
+    );
+    if (!rateLimitResult.success) {
+      return NextResponse.json({ error: '请求过于频繁' }, { status: 429 });
+    }
     // 使用 Zod Schema 验证输入
     const validation = await validateBody(request, CalculateQuoteSchema);
     if (!validation.success) return validation.error;
@@ -49,7 +59,7 @@ export async function OPTIONS(request: NextRequest) {
   const allowedOrigins = [
     'https://www.niijima-koutsu.jp',
     'https://niijima-koutsu.jp',
-    'http://localhost:3000'
+    ...(process.env.NODE_ENV === 'development' ? ['http://localhost:3000'] : []),
   ];
 
   const origin = request.headers.get('origin') || '';

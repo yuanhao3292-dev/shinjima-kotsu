@@ -1,10 +1,41 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
+import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/lib/utils/rate-limiter';
+import { createHmac } from 'crypto';
+
+/**
+ * 生成合同签约令牌（HMAC-based, 无需数据库额外字段）
+ * 管理员发送签约链接时使用: /contract/sign/{id}?token={generateSigningToken(id)}
+ */
+export function generateSigningToken(contractId: string): string {
+  const secret = process.env.ENCRYPTION_KEY;
+  if (!secret) throw new Error('ENCRYPTION_KEY not configured');
+  return createHmac('sha256', secret).update(contractId).digest('hex').substring(0, 32);
+}
+
+/** 验证签约令牌 */
+function verifySigningToken(contractId: string, token: string): boolean {
+  try {
+    return generateSigningToken(contractId) === token;
+  } catch {
+    return false;
+  }
+}
 
 export async function POST(request: NextRequest) {
   try {
+    // 限速
+    const clientIp = getClientIp(request);
+    const rateLimitResult = await checkRateLimit(
+      `${clientIp}:/api/contract/customer`,
+      RATE_LIMITS.sensitive
+    );
+    if (!rateLimitResult.success) {
+      return NextResponse.json({ error: '请求过于频繁' }, { status: 429 });
+    }
+
     const body = await request.json();
-    const { contractId, customerData, signature } = body;
+    const { contractId, customerData, signature, token } = body;
 
     // 验证必填字段
     if (!contractId || !customerData || !signature) {
@@ -14,13 +45,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // 验证签约令牌
+    if (!token || !verifySigningToken(contractId, token)) {
+      return NextResponse.json(
+        { error: '无效的签约链接' },
+        { status: 403 }
+      );
+    }
+
     // 使用 service role 绕过 RLS（客户签约无需登录）
     const supabase = getSupabaseAdmin();
 
-    // 获取现有合同
+    // 获取现有合同（只查必要字段）
     const { data: contract, error: fetchError } = await supabase
       .from('customer_service_contracts')
-      .select('*')
+      .select('id, status')
       .eq('id', contractId)
       .single();
 
@@ -66,15 +105,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // TODO: 发送邮件通知
-    // - 发送合同PDF到客户邮箱
-    // - 通知管理员有新合同签署
-
-    // TODO: 生成合同PDF
-    // - 使用 pdf-lib 或其他库生成带签名的合同PDF
-    // - 上传到 Supabase Storage
-    // - 更新 pdf_url 字段
-
     return NextResponse.json({
       success: true,
       contract: updatedContract,
@@ -93,11 +123,20 @@ export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const contractId = searchParams.get('id');
+    const token = searchParams.get('token');
 
     if (!contractId) {
       return NextResponse.json(
         { error: '缺少合同ID' },
         { status: 400 }
+      );
+    }
+
+    // 验证签约令牌
+    if (!token || !verifySigningToken(contractId, token)) {
+      return NextResponse.json(
+        { error: '无效的签约链接' },
+        { status: 403 }
       );
     }
 

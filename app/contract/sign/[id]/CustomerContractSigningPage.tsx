@@ -8,9 +8,10 @@ import { FileText, CheckCircle, AlertCircle, Loader2, Calendar, MapPin, DollarSi
 
 interface CustomerContractSigningPageProps {
   contract: any;
+  signingToken: string;
 }
 
-export default function CustomerContractSigningPage({ contract }: CustomerContractSigningPageProps) {
+export default function CustomerContractSigningPage({ contract, signingToken }: CustomerContractSigningPageProps) {
   const router = useRouter();
   const [step, setStep] = useState(1); // 1: 信息填写, 2: 合同预览, 3: 签名
   const [customerData, setCustomerData] = useState<any>({
@@ -75,6 +76,7 @@ export default function CustomerContractSigningPage({ contract }: CustomerContra
           contractId: contract.id,
           customerData,
           signature,
+          token: signingToken,
         }),
       });
 
