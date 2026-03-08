@@ -15,6 +15,7 @@ import {
   Plus,
 } from 'lucide-react';
 import { FREE_SCREENING_LIMIT } from '@/lib/screening-questions';
+import { useLanguage, type Language } from '@/hooks/useLanguage';
 
 interface ScreeningRecord {
   id: string;
@@ -25,8 +26,35 @@ interface ScreeningRecord {
   riskLevel: 'low' | 'medium' | 'high' | null;
 }
 
+const translations = {
+  loadError: { ja: '読み込みに失敗しました', 'zh-CN': '载入失败', 'zh-TW': '載入失敗', en: 'Failed to load' },
+  loadingHistory: { ja: '履歴を読み込み中...', 'zh-CN': '载入历史记录...', 'zh-TW': '載入歷史記錄...', en: 'Loading history...' },
+  backToAccount: { ja: 'マイアカウントに戻る', 'zh-CN': '返回我的账户', 'zh-TW': '返回我的帳戶', en: 'Back to My Account' },
+  historyTitle: { ja: 'スクリーニング履歴', 'zh-CN': '筛查历史记录', 'zh-TW': '篩查歷史記錄', en: 'Screening History' },
+  usedCount: { ja: '使用済み', 'zh-CN': '已使用', 'zh-TW': '已使用', en: 'Used' },
+  freeRemaining: { ja: '残り無料回数', 'zh-CN': '免费剩余', 'zh-TW': '免費剩餘', en: 'Free Remaining' },
+  times: { ja: '回', 'zh-CN': '次', 'zh-TW': '次', en: 'times' },
+  newScreening: { ja: '新しいスクリーニング', 'zh-CN': '新的筛查', 'zh-TW': '新的篩查', en: 'New Screening' },
+  noRecordsTitle: { ja: 'スクリーニング記録がありません', 'zh-CN': '还没有筛查记录', 'zh-TW': '還沒有篩查記錄', en: 'No screening records yet' },
+  noRecordsDesc: { ja: '初めての AI 健康スクリーニングを開始し、健康状態を把握しましょう', 'zh-CN': '开始您的第一次 AI 健康筛查，了解您的健康状况', 'zh-TW': '開始您的第一次 AI 健康篩查，了解您的健康狀況', en: 'Start your first AI health screening to understand your health status' },
+  startFreeScreening: { ja: '無料スクリーニングを開始', 'zh-CN': '开始免费筛查', 'zh-TW': '開始免費篩查', en: 'Start Free Screening' },
+  riskLow: { ja: '低リスク', 'zh-CN': '低风险', 'zh-TW': '低風險', en: 'Low Risk' },
+  riskMedium: { ja: '中等リスク', 'zh-CN': '中等风险', 'zh-TW': '中等風險', en: 'Medium Risk' },
+  riskHigh: { ja: '高リスク', 'zh-CN': '高风险', 'zh-TW': '高風險', en: 'High Risk' },
+  reportCompleted: { ja: '健康スクリーニングレポート', 'zh-CN': '健康筛查报告', 'zh-TW': '健康篩查報告', en: 'Health Screening Report' },
+  incompleteScreening: { ja: '未完了のスクリーニング', 'zh-CN': '未完成的筛查', 'zh-TW': '未完成的篩查', en: 'Incomplete Screening' },
+  inProgress: { ja: '進行中', 'zh-CN': '进行中', 'zh-TW': '進行中', en: 'In Progress' },
+  completedAt: { ja: '完了日時', 'zh-CN': '完成于', 'zh-TW': '完成於', en: 'Completed at' },
+  startedAt: { ja: '開始日時', 'zh-CN': '开始于', 'zh-TW': '開始於', en: 'Started at' },
+} as const;
+
+const t = (key: keyof typeof translations, lang: Language): string => {
+  return translations[key][lang];
+};
+
 export default function ScreeningHistoryPage() {
   const router = useRouter();
+  const lang = useLanguage();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [screenings, setScreenings] = useState<ScreeningRecord[]>([]);
@@ -45,7 +73,7 @@ export default function ScreeningHistoryPage() {
 
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.error || '载入失败');
+          throw new Error(errorData.error || t('loadError', lang));
         }
 
         const data = await response.json();
@@ -61,38 +89,35 @@ export default function ScreeningHistoryPage() {
     }
 
     fetchHistory();
-  }, [router]);
+  }, [router, lang]);
 
-
-  // 风险等级配置
   const riskConfig = {
     low: {
       color: 'text-green-600',
       bg: 'bg-green-50',
       icon: CheckCircle,
-      label: '低风险',
+      label: t('riskLow', lang),
     },
     medium: {
       color: 'text-yellow-600',
       bg: 'bg-yellow-50',
       icon: AlertCircle,
-      label: '中等风险',
+      label: t('riskMedium', lang),
     },
     high: {
       color: 'text-red-600',
       bg: 'bg-red-50',
       icon: AlertTriangle,
-      label: '高风险',
+      label: t('riskHigh', lang),
     },
   };
 
-  // 加载中
   if (loading) {
     return (
       <div className="min-h-screen bg-[#faf9f7] flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-10 h-10 animate-spin text-blue-500 mx-auto mb-4" />
-          <p className="text-gray-500">载入历史记录...</p>
+          <p className="text-gray-500">{t('loadingHistory', lang)}</p>
         </div>
       </div>
     );
@@ -108,7 +133,7 @@ export default function ScreeningHistoryPage() {
             className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
           >
             <ArrowLeft size={18} />
-            <span className="text-sm">返回我的账户</span>
+            <span className="text-sm">{t('backToAccount', lang)}</span>
           </Link>
         </div>
       </div>
@@ -119,10 +144,10 @@ export default function ScreeningHistoryPage() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <h1 className="text-2xl md:text-3xl font-serif text-gray-900">
-                筛查历史记录
+                {t('historyTitle', lang)}
               </h1>
               <p className="text-gray-500 mt-1">
-                已使用 {totalUsed} 次 · 免费剩余 {freeRemaining} 次
+                {t('usedCount', lang)} {totalUsed} {t('times', lang)} · {t('freeRemaining', lang)} {freeRemaining} {t('times', lang)}
               </p>
             </div>
 
@@ -132,7 +157,7 @@ export default function ScreeningHistoryPage() {
                 className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
               >
                 <Plus className="w-5 h-5" />
-                新的筛查
+                {t('newScreening', lang)}
               </Link>
             )}
           </div>
@@ -156,17 +181,17 @@ export default function ScreeningHistoryPage() {
               <Clock className="w-8 h-8 text-gray-400" />
             </div>
             <h3 className="text-lg font-medium text-gray-900 mb-2">
-              还没有筛查记录
+              {t('noRecordsTitle', lang)}
             </h3>
             <p className="text-gray-500 mb-6">
-              开始您的第一次 AI 健康筛查，了解您的健康状况
+              {t('noRecordsDesc', lang)}
             </p>
             <Link
               href="/health-screening"
               className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
               <Plus className="w-5 h-5" />
-              开始免费筛查
+              {t('startFreeScreening', lang)}
             </Link>
           </div>
         )}
@@ -207,7 +232,7 @@ export default function ScreeningHistoryPage() {
                       <div>
                         <div className="flex items-center gap-2">
                           <h3 className="font-medium text-gray-900">
-                            {isCompleted ? '健康筛查报告' : '未完成的筛查'}
+                            {isCompleted ? t('reportCompleted', lang) : t('incompleteScreening', lang)}
                           </h3>
                           {isCompleted && risk && (
                             <span
@@ -218,14 +243,14 @@ export default function ScreeningHistoryPage() {
                           )}
                           {!isCompleted && (
                             <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-50 text-yellow-600">
-                              进行中
+                              {t('inProgress', lang)}
                             </span>
                           )}
                         </div>
                         <p className="text-sm text-gray-500 mt-1">
                           {isCompleted && screening.completedAt
-                            ? `完成于 ${formatDateTimeLong(screening.completedAt)}`
-                            : `开始于 ${formatDateTimeLong(screening.createdAt)}`}
+                            ? `${t('completedAt', lang)} ${formatDateTimeLong(screening.completedAt)}`
+                            : `${t('startedAt', lang)} ${formatDateTimeLong(screening.createdAt)}`}
                         </p>
                       </div>
                     </div>
