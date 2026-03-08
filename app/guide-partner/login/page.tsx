@@ -166,6 +166,18 @@ const translations = {
     'zh-TW': '← 返回導遊合夥人首頁',
     en: '← Back to Guide Partner Home',
   },
+  legalNotice: {
+    ja: '本サービスは新島交通株式会社が提供しています',
+    'zh-CN': '本服务由新岛交通株式会社提供',
+    'zh-TW': '本服務由新島交通株式會社提供',
+    en: 'This service is provided by NIIJIMA KOTSU Co., Ltd.',
+  },
+  legalLicense: {
+    ja: '大阪府知事登録旅行業 第2-3115号 ｜ JATA正会員',
+    'zh-CN': '大阪府知事登录旅行业 第2-3115号 ｜ JATA正式会员',
+    'zh-TW': '大阪府知事登錄旅行業 第2-3115號 ｜ JATA正式會員',
+    en: 'Osaka Prefecture Travel Agency No. 2-3115 | JATA Member',
+  },
 } as const;
 
 const t = (key: keyof typeof translations, lang: Language): string => {
@@ -447,8 +459,8 @@ function LoginForm() {
             {/* 法律声明 */}
             <div className="mt-8 pt-6 border-t border-gray-100 text-center">
               <p className="text-[10px] text-gray-400 leading-relaxed">
-                本サービスは新島交通株式会社が提供しています<br />
-                大阪府知事登録旅行業 第2-3115号 ｜ JATA正会員
+                {t('legalNotice', lang)}<br />
+                {t('legalLicense', lang)}
               </p>
             </div>
           </div>
