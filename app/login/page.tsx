@@ -13,22 +13,22 @@ import { useLanguage, type Language } from '@/hooks/useLanguage';
 const translations = {
   // Hero 区域
   heroTitle: {
-    ja: 'プロフェッショナル日本医療ツアー',
-    'zh-CN': '专业日本医疗旅游',
-    'zh-TW': '專業日本醫療旅遊',
-    en: 'Professional Japan Medical Tourism',
+    ja: 'NIIJIMA スマート医療サービスプラットフォーム',
+    'zh-CN': 'NIIJIMA 智能医疗服务平台',
+    'zh-TW': 'NIIJIMA 智能醫療服務平台',
+    en: 'NIIJIMA Smart Medical Service Platform',
   },
   heroSubtitle: {
-    ja: 'TIMC 健診予約',
-    'zh-CN': 'TIMC 健检预约',
-    'zh-TW': 'TIMC 健檢預約',
-    en: 'TIMC Health Checkup',
+    ja: 'AI健康スクリーニング · 会員予約管理 · 日本医療リソース連携',
+    'zh-CN': 'AI 健康筛查 · 会员预约管理 · 日本医疗资源对接',
+    'zh-TW': 'AI 健康篩查 · 會員預約管理 · 日本醫療資源對接',
+    en: 'AI Health Screening · Appointment Management · Japan Medical Coordination',
   },
   heroDescription: {
-    ja: '徳洲会国際医療センター（TIMC）は日本最大の医療グループ徳洲会傘下の国際医療機関で、世界トップクラスの健康診断サービスを提供しています。',
-    'zh-CN': '德洲会国际医疗中心（TIMC）是日本最大医疗集团德洲会旗下的国际医疗机构，为您提供世界顶级的健康检查服务。',
-    'zh-TW': '德洲會國際醫療中心（TIMC）是日本最大醫療集團德洲會旗下的國際醫療機構，為您提供世界頂級的健康檢查服務。',
-    en: 'Tokushukai International Medical Center (TIMC) is an international medical institution under Tokushukai, Japan\'s largest medical group, providing world-class health screening services.',
+    ja: 'NIIJIMAは、専門的な訪日医療コーディネートサービスを提供します。AIスマートスクリーニングシステムにより、最適な医療プランをマッチングし、徳洲会国際医療センター(TIMC)、日本トップクラスのがん専門病院、幹細胞クリニックなどの優良医療リソースの予約管理サービスを提供します。',
+    'zh-CN': 'NIIJIMA 为您提供专业的访日医疗对接服务。通过 AI 智能筛查系统，为您匹配最适合的医疗方案，并提供德洲会国际医疗中心(TIMC)、日本顶级癌症专科医院、干细胞诊所等优质医疗资源的预约管理服务。',
+    'zh-TW': 'NIIJIMA 為您提供專業的訪日醫療對接服務。透過 AI 智能篩查系統，為您配對最適合的醫療方案，並提供德洲會國際醫療中心(TIMC)、日本頂級癌症專科醫院、幹細胞診所等優質醫療資源的預約管理服務。',
+    en: 'NIIJIMA provides professional Japan medical coordination services. Through our AI smart screening system, we match you with the most suitable medical plans and provide appointment management for premium resources including TIMC, top cancer specialty hospitals, and stem cell clinics.',
   },
   support24h: {
     ja: '24時間カスタマーサポート',
@@ -51,10 +51,10 @@ const translations = {
     en: 'Member Login',
   },
   pageSubtitle: {
-    ja: 'ログインして健診予約を管理',
-    'zh-CN': '登录以管理您的健检预约',
-    'zh-TW': '登入以管理您的健檢預約',
-    en: 'Login to manage your checkup appointments',
+    ja: 'ログインしてAI健康スクリーニングと予約を管理',
+    'zh-CN': '登录管理 AI 筛查和预约服务',
+    'zh-TW': '登入管理 AI 篩查和預約服務',
+    en: 'Login to manage AI screening and appointments',
   },
 
   // 表单字段
@@ -224,55 +224,55 @@ function LoginForm() {
   return (
     <div className="min-h-[calc(100vh-80px)] flex">
       {/* Left Side - Hero Image */}
-      <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+      <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-brand-900 via-brand-700 to-brand-900">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=2000')] bg-cover bg-center opacity-30"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-slate-900/50"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-900/90 via-transparent to-brand-900/50"></div>
         <div className="relative z-10 flex flex-col justify-center px-16 text-white">
           <div className="flex items-center gap-3 mb-8">
             <Logo className="w-12 h-12 text-white" />
             <div>
               <span className="font-serif font-bold text-2xl tracking-wide">NIIJIMA</span>
-              <p className="text-xs text-blue-200 uppercase tracking-widest">Medical Tourism</p>
+              <p className="text-xs text-brand-200 uppercase tracking-widest">Medical Tourism</p>
             </div>
           </div>
           <h1 className="text-4xl font-serif font-bold mb-6 leading-tight">
             {t('heroTitle', lang)}<br/>
-            <span className="text-blue-400">{t('heroSubtitle', lang)}</span>
+            <span className="text-brand-300">{t('heroSubtitle', lang)}</span>
           </h1>
-          <p className="text-gray-300 leading-relaxed mb-8 max-w-md">
+          <p className="text-neutral-300 leading-relaxed mb-8 max-w-md">
             {t('heroDescription', lang)}
           </p>
           <div className="flex items-center gap-6 text-sm">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-gray-300">{t('support24h', lang)}</span>
+              <span className="text-neutral-300">{t('support24h', lang)}</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-              <span className="text-gray-300">{t('chineseService', lang)}</span>
+              <div className="w-2 h-2 bg-gold-400 rounded-full"></div>
+              <span className="text-neutral-300">{t('chineseService', lang)}</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Right Side - Login Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gray-50">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-neutral-50">
         <div className="w-full max-w-md">
           {/* Mobile Logo */}
           <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
-            <Logo className="w-10 h-10 text-blue-600" />
+            <Logo className="w-10 h-10 text-brand-600" />
             <span className="font-serif font-bold text-xl">NIIJIMA</span>
           </div>
 
           {/* Login Card */}
-          <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <div className="bg-white rounded-2xl shadow-xl p-8 border border-neutral-100">
             {/* Header */}
             <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-50 rounded-full mb-4">
-                <User className="w-8 h-8 text-blue-600" />
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-50 rounded-full mb-4">
+                <User className="w-8 h-8 text-brand-600" />
               </div>
-              <h1 className="text-2xl font-serif font-bold text-gray-900">{t('pageTitle', lang)}</h1>
-              <p className="text-gray-500 mt-2 text-sm">{t('pageSubtitle', lang)}</p>
+              <h1 className="text-2xl font-serif font-bold text-neutral-900">{t('pageTitle', lang)}</h1>
+              <p className="text-neutral-500 mt-2 text-sm">{t('pageSubtitle', lang)}</p>
             </div>
 
             {/* Error Messages */}
@@ -288,40 +288,40 @@ function LoginForm() {
             {/* Login Form */}
             <form onSubmit={handleLogin} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   {t('emailLabel', lang)}
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400" size={20} />
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    className="w-full pl-10 pr-4 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
                     placeholder={t('emailPlaceholder', lang)}
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   {t('passwordLabel', lang)}
                 </label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400" size={20} />
                   <input
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="w-full pl-10 pr-12 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    className="w-full pl-10 pr-12 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
                     placeholder={t('passwordPlaceholder', lang)}
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
                   >
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
@@ -329,7 +329,7 @@ function LoginForm() {
                 <div className="mt-2 text-right">
                   <Link
                     href="/forgot-password"
-                    className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                    className="text-sm text-brand-600 hover:text-brand-700 font-medium"
                   >
                     {t('forgotPassword', lang)}
                   </Link>
@@ -339,7 +339,7 @@ function LoginForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-black hover:bg-gray-800 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                className="w-full bg-brand-900 hover:bg-brand-800 disabled:bg-neutral-400 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
               >
                 {loading ? (
                   <>
@@ -354,18 +354,18 @@ function LoginForm() {
 
             {/* Divider */}
             <div className="my-6 flex items-center">
-              <div className="flex-grow border-t border-gray-200"></div>
-              <span className="px-4 text-sm text-gray-400">{t('or', lang)}</span>
-              <div className="flex-grow border-t border-gray-200"></div>
+              <div className="flex-grow border-t border-neutral-200"></div>
+              <span className="px-4 text-sm text-neutral-400">{t('or', lang)}</span>
+              <div className="flex-grow border-t border-neutral-200"></div>
             </div>
 
             {/* Register Link */}
             <div className="text-center">
-              <p className="text-gray-600 text-sm">
+              <p className="text-neutral-600 text-sm">
                 {t('noAccount', lang)}
                 <Link
                   href="/register"
-                  className="text-blue-600 hover:text-blue-700 font-bold ml-1"
+                  className="text-brand-600 hover:text-brand-700 font-bold ml-1"
                 >
                   {t('registerNow', lang)}
                 </Link>
@@ -373,11 +373,11 @@ function LoginForm() {
             </div>
 
             {/* Guest Order Lookup */}
-            <div className="mt-6 pt-6 border-t border-gray-100 text-center">
-              <p className="text-xs text-gray-400 mb-2">{t('guestLookup', lang)}</p>
+            <div className="mt-6 pt-6 border-t border-neutral-100 text-center">
+              <p className="text-xs text-neutral-400 mb-2">{t('guestLookup', lang)}</p>
               <Link
                 href="/order-lookup"
-                className="text-blue-600 hover:text-blue-700 text-sm font-medium inline-flex items-center gap-1"
+                className="text-brand-600 hover:text-brand-700 text-sm font-medium inline-flex items-center gap-1"
               >
                 {t('useOrderNumber', lang)}
               </Link>
@@ -391,18 +391,18 @@ function LoginForm() {
 
 function LoadingFallback() {
   return (
-    <div className="min-h-[calc(100vh-80px)] flex items-center justify-center bg-gray-50">
+    <div className="min-h-[calc(100vh-80px)] flex items-center justify-center bg-neutral-50">
       <div className="w-full max-w-md p-8">
         <div className="bg-white rounded-2xl shadow-xl p-8 animate-pulse">
           <div className="flex justify-center mb-8">
-            <div className="w-16 h-16 bg-gray-200 rounded-full"></div>
+            <div className="w-16 h-16 bg-neutral-200 rounded-full"></div>
           </div>
-          <div className="h-8 bg-gray-200 rounded w-1/2 mx-auto mb-4"></div>
-          <div className="h-4 bg-gray-200 rounded w-2/3 mx-auto mb-8"></div>
+          <div className="h-8 bg-neutral-200 rounded w-1/2 mx-auto mb-4"></div>
+          <div className="h-4 bg-neutral-200 rounded w-2/3 mx-auto mb-8"></div>
           <div className="space-y-4">
-            <div className="h-12 bg-gray-200 rounded-xl"></div>
-            <div className="h-12 bg-gray-200 rounded-xl"></div>
-            <div className="h-12 bg-gray-200 rounded-xl"></div>
+            <div className="h-12 bg-neutral-200 rounded-xl"></div>
+            <div className="h-12 bg-neutral-200 rounded-xl"></div>
+            <div className="h-12 bg-neutral-200 rounded-xl"></div>
           </div>
         </div>
       </div>
