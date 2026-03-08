@@ -905,7 +905,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       </div>
 
       <div className="text-center py-12">
-         <button onClick={() => setCurrentPage('home')} className="inline-flex items-center gap-2 text-neutral-500 hover:text-neutral-900 transition">
+         <button onClick={() => setCurrentPage('home')} className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition">
             <ArrowLeft size={16} /> {t.about.back}
          </button>
       </div>
@@ -1271,7 +1271,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
      <div className="py-8 bg-neutral-50">
        <button
          onClick={() => setCurrentPage('home')}
-         className="w-full text-center text-neutral-400 hover:text-brand-600 transition-colors flex justify-center items-center gap-2 group"
+         className="w-full text-center text-neutral-500 hover:text-brand-900 transition-colors flex justify-center items-center gap-2 group"
        >
          <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
          {t.about.back}
@@ -1830,7 +1830,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
           </div>
 
           <div className="text-center mt-12">
-             <button onClick={() => setCurrentPage('home')} className="flex items-center gap-2 mx-auto text-neutral-500 hover:text-neutral-900 transition">
+             <button onClick={() => setCurrentPage('home')} className="flex items-center gap-2 mx-auto text-neutral-500 hover:text-brand-900 transition">
                 <ArrowLeft size={16} /> {t.about.back}
              </button>
           </div>
@@ -1914,7 +1914,7 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
                </button>
             </div>
          </div>
-         <button onClick={() => setCurrentPage('home')} className="mt-16 w-full text-center text-neutral-400 hover:text-neutral-900 transition flex justify-center items-center gap-2">
+         <button onClick={() => setCurrentPage('home')} className="mt-16 w-full text-center text-neutral-500 hover:text-brand-900 transition flex justify-center items-center gap-2">
             <ArrowLeft size={16} /> {t.about.back}
          </button>
      </div>

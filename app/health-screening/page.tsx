@@ -170,7 +170,7 @@ export default function HealthScreeningPage() {
           <div className="max-w-4xl mx-auto px-4 py-4">
             <button
               onClick={handleBackToBodyMap}
-              className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
             >
               <ArrowLeft size={18} />
               <span className="text-sm">返回症状选择</span>
@@ -215,7 +215,7 @@ export default function HealthScreeningPage() {
           <div className="max-w-4xl mx-auto px-4 py-4">
             <Link
               href="/my-account"
-              className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
             >
               <ArrowLeft size={18} />
               <span className="text-sm">返回我的账户</span>
@@ -258,7 +258,7 @@ export default function HealthScreeningPage() {
         <div className="max-w-4xl mx-auto px-4 py-4">
           <Link
             href="/my-account"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+            className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
           >
             <ArrowLeft size={18} />
             <span className="text-sm">返回我的账户</span>

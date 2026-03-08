@@ -1372,7 +1372,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
       <div className="py-8 bg-white text-center">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-700 transition"
+          className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition"
         >
           <ArrowLeft size={16} />
           {t('backHome')}

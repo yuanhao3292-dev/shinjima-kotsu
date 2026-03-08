@@ -89,9 +89,9 @@ export default function MedicalContractDetailPage({ params }: PageProps) {
       <div className="max-w-5xl mx-auto">
         <Link
           href="/admin/contracts/medical"
-          className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6"
+          className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 mb-6"
         >
-          <ArrowLeft size={20} />
+          <ArrowLeft size={16} />
           返回列表
         </Link>
 

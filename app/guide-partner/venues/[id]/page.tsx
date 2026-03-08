@@ -156,7 +156,7 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
           <p className="text-gray-500 mb-4">{error}</p>
           <Link
             href="/guide-partner/venues"
-            className="inline-flex items-center gap-2 text-orange-600 hover:underline"
+            className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900"
           >
             <ArrowLeft size={18} />
             返回店舖列表
@@ -242,7 +242,7 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
                         href={venue.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-orange-600 hover:underline flex items-center gap-1"
+                        className="text-neutral-500 hover:text-brand-900 flex items-center gap-1"
                       >
                         官網 <ExternalLink size={12} />
                       </a>
