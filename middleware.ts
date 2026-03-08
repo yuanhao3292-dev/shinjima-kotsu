@@ -7,6 +7,23 @@ import {
   COOKIE_OPTIONS,
   isValidSlug,
 } from '@/lib/whitelabel-config';
+import { classifyUserAgent } from '@/lib/utils/bot-detection';
+import {
+  checkRateLimit,
+  getClientIp,
+  type RateLimitConfig,
+} from '@/lib/utils/rate-limiter';
+
+/**
+ * 页面请求速率限制配置
+ * (API 路由有独立的 per-route 限速，不经过此 middleware)
+ */
+const PAGE_RATE_LIMITS: Record<string, RateLimitConfig> = {
+  human: { windowMs: 60_000, maxRequests: 60 },
+  sensitive: { windowMs: 60_000, maxRequests: 20 },
+  suspicious_tool: { windowMs: 60_000, maxRequests: 10 },
+  no_ua: { windowMs: 60_000, maxRequests: 15 },
+};
 
 /**
  * 从主机名中提取子域名（导游 slug）
@@ -35,6 +52,49 @@ function extractSubdomain(hostname: string): string | null {
 export async function middleware(request: NextRequest) {
   const hostname = request.headers.get('host') || '';
   const pathname = request.nextUrl.pathname;
+
+  // ========== Bot Detection & Page Rate Limiting ==========
+  const ua = request.headers.get('user-agent');
+  const botClass = classifyUserAgent(ua);
+
+  // 直接拦截恶意爬虫
+  if (botClass === 'blocked_bot') {
+    return new NextResponse('Forbidden', { status: 403 });
+  }
+
+  // 合法搜索引擎跳过限速，其他分类按级限速
+  if (botClass !== 'legitimate_bot') {
+    const clientIp = getClientIp(request);
+    const isSensitivePath =
+      pathname.startsWith('/admin') || pathname.startsWith('/guide-partner');
+
+    let config: RateLimitConfig;
+    let key: string;
+
+    if (botClass === 'suspicious_tool') {
+      config = PAGE_RATE_LIMITS.suspicious_tool;
+      key = `page:${clientIp}`;
+    } else if (botClass === 'no_ua') {
+      config = PAGE_RATE_LIMITS.no_ua;
+      key = `page:${clientIp}`;
+    } else if (isSensitivePath) {
+      config = PAGE_RATE_LIMITS.sensitive;
+      key = `page-sensitive:${clientIp}`;
+    } else {
+      config = PAGE_RATE_LIMITS.human;
+      key = `page:${clientIp}`;
+    }
+
+    const rateLimitResult = await checkRateLimit(key, config);
+    if (!rateLimitResult.success) {
+      return new NextResponse('Too Many Requests', {
+        status: 429,
+        headers: {
+          'Retry-After': String(rateLimitResult.retryAfter || 60),
+        },
+      });
+    }
+  }
 
   // 1. 检测是否为白标域名（主域名或子域名）
   const isWhiteLabelDomain =
