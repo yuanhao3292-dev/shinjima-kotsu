@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
-import { generateSigningToken } from '@/app/api/contract/customer/route';
+import { generateSigningToken } from '@/lib/utils/signing-token';
 import CustomerContractSigningPage from './CustomerContractSigningPage';
 
 interface ContractSignPageProps {
