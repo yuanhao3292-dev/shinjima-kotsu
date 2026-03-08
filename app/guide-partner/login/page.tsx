@@ -298,45 +298,45 @@ function LoginForm() {
   return (
     <div className="min-h-[calc(100vh-80px)] flex">
       {/* Left Side - Hero */}
-      <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-orange-600 via-orange-500 to-amber-500">
+      <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-brand-900 via-brand-700 to-brand-900">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=2000')] bg-cover bg-center opacity-20"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-orange-900/50 via-transparent to-orange-900/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-900/50 via-transparent to-brand-900/30"></div>
         <div className="relative z-10 flex flex-col justify-center px-16 text-white">
           <div className="flex items-center gap-3 mb-8">
             <Logo className="w-12 h-12 text-white" />
             <div>
               <span className="font-serif font-bold text-2xl tracking-wide">NIIJIMA</span>
-              <p className="text-xs text-orange-200 uppercase tracking-widest">Guide Partner</p>
+              <p className="text-xs text-brand-200 uppercase tracking-widest">Guide Partner</p>
             </div>
           </div>
           <h1 className="text-4xl font-serif font-bold mb-6 leading-tight">
             {t('heroTitle', lang)}<br />
-            <span className="text-amber-200">{t('heroSubtitle', lang)}</span>
+            <span className="text-brand-300">{t('heroSubtitle', lang)}</span>
           </h1>
-          <p className="text-orange-100 leading-relaxed mb-8 max-w-md">
+          <p className="text-neutral-300 leading-relaxed mb-8 max-w-md">
             {t('heroLoginText', lang)}
           </p>
           <ul className="space-y-3 text-sm">
             <li className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-amber-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
               {t('feature1', lang)}
             </li>
             <li className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-amber-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
               {t('feature2', lang)}
             </li>
             <li className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-amber-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
               {t('feature3', lang)}
             </li>
             <li className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-amber-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
               {t('feature4', lang)}
@@ -346,22 +346,22 @@ function LoginForm() {
       </div>
 
       {/* Right Side - Login Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gray-50">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-neutral-50">
         <div className="w-full max-w-md">
           {/* Mobile Logo */}
           <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
-            <Logo className="w-10 h-10 text-orange-600" />
+            <Logo className="w-10 h-10 text-brand-600" />
             <span className="font-serif font-bold text-xl">NIIJIMA</span>
           </div>
 
           {/* Login Card */}
-          <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <div className="bg-white rounded-2xl shadow-xl p-8 border border-neutral-100">
             <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-50 rounded-full mb-4">
-                <User className="w-8 h-8 text-orange-600" />
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-50 rounded-full mb-4">
+                <User className="w-8 h-8 text-brand-600" />
               </div>
-              <h1 className="text-2xl font-serif font-bold text-gray-900">{t('loginTitle', lang)}</h1>
-              <p className="text-gray-500 mt-2 text-sm">{t('loginDesc', lang)}</p>
+              <h1 className="text-2xl font-serif font-bold text-neutral-900">{t('loginTitle', lang)}</h1>
+              <p className="text-neutral-500 mt-2 text-sm">{t('loginDesc', lang)}</p>
             </div>
 
             {error && (
@@ -373,7 +373,7 @@ function LoginForm() {
                 {error.includes(t('isAdmin', lang).slice(0, 10)) && (
                   <Link
                     href="/admin/login"
-                    className="mt-2 inline-block text-indigo-600 hover:text-indigo-700 font-medium"
+                    className="mt-2 inline-block text-brand-600 hover:text-brand-700 font-medium"
                   >
                     {t('goToAdminLogin', lang)}
                   </Link>
@@ -383,36 +383,36 @@ function LoginForm() {
 
             <form onSubmit={handleLogin} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">{t('emailLabel', lang)}</label>
+                <label className="block text-sm font-medium text-neutral-700 mb-2">{t('emailLabel', lang)}</label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400" size={20} />
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                    className="w-full pl-10 pr-4 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
                     placeholder="your@email.com"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">{t('passwordLabel', lang)}</label>
+                <label className="block text-sm font-medium text-neutral-700 mb-2">{t('passwordLabel', lang)}</label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400" size={20} />
                   <input
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="w-full pl-10 pr-12 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                    className="w-full pl-10 pr-12 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
                     placeholder="••••••••"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
                   >
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
@@ -422,7 +422,7 @@ function LoginForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                className="w-full bg-brand-900 hover:bg-brand-800 disabled:bg-neutral-400 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
               >
                 {loading ? (
                   <>
@@ -436,29 +436,29 @@ function LoginForm() {
             </form>
 
             <div className="my-6 flex items-center">
-              <div className="flex-grow border-t border-gray-200"></div>
-              <span className="px-4 text-sm text-gray-400">{t('orDivider', lang)}</span>
-              <div className="flex-grow border-t border-gray-200"></div>
+              <div className="flex-grow border-t border-neutral-200"></div>
+              <span className="px-4 text-sm text-neutral-400">{t('orDivider', lang)}</span>
+              <div className="flex-grow border-t border-neutral-200"></div>
             </div>
 
             <div className="text-center">
-              <p className="text-gray-600 text-sm">
+              <p className="text-neutral-600 text-sm">
                 {t('noAccount', lang)}
-                <Link href="/guide-partner/register" className="text-orange-600 hover:text-orange-700 font-bold ml-1">
+                <Link href="/guide-partner/register" className="text-brand-600 hover:text-brand-700 font-bold ml-1">
                   {t('registerLink', lang)}
                 </Link>
               </p>
             </div>
 
-            <div className="mt-6 pt-6 border-t border-gray-100 text-center">
+            <div className="mt-6 pt-6 border-t border-neutral-100 text-center">
               <Link href="/guide-partner" className="text-neutral-500 hover:text-brand-900 text-sm">
                 {t('backToHome', lang)}
               </Link>
             </div>
 
             {/* 法律声明 */}
-            <div className="mt-8 pt-6 border-t border-gray-100 text-center">
-              <p className="text-[10px] text-gray-400 leading-relaxed">
+            <div className="mt-8 pt-6 border-t border-neutral-100 text-center">
+              <p className="text-[10px] text-neutral-400 leading-relaxed">
                 {t('legalNotice', lang)}<br />
                 {t('legalLicense', lang)}
               </p>
@@ -472,17 +472,17 @@ function LoginForm() {
 
 function LoadingFallback() {
   return (
-    <div className="min-h-[calc(100vh-80px)] flex items-center justify-center bg-gray-50">
+    <div className="min-h-[calc(100vh-80px)] flex items-center justify-center bg-neutral-50">
       <div className="w-full max-w-md p-8">
         <div className="bg-white rounded-2xl shadow-xl p-8 animate-pulse">
           <div className="flex justify-center mb-8">
-            <div className="w-16 h-16 bg-gray-200 rounded-full"></div>
+            <div className="w-16 h-16 bg-neutral-200 rounded-full"></div>
           </div>
-          <div className="h-8 bg-gray-200 rounded w-1/2 mx-auto mb-4"></div>
+          <div className="h-8 bg-neutral-200 rounded w-1/2 mx-auto mb-4"></div>
           <div className="space-y-4">
-            <div className="h-12 bg-gray-200 rounded-xl"></div>
-            <div className="h-12 bg-gray-200 rounded-xl"></div>
-            <div className="h-12 bg-gray-200 rounded-xl"></div>
+            <div className="h-12 bg-neutral-200 rounded-xl"></div>
+            <div className="h-12 bg-neutral-200 rounded-xl"></div>
+            <div className="h-12 bg-neutral-200 rounded-xl"></div>
           </div>
         </div>
       </div>
