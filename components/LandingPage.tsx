@@ -141,8 +141,6 @@ interface SubViewProps {
   hideOfficialBranding?: boolean;
   // 从数据库获取图片的函数（支持可选的 fallback 参数）
   getImage: (key: string, fallback?: string) => string;
-  // 图片是否正在加载
-  imagesLoading?: boolean;
 }
 
 // --- NEW COMPONENT: AI Tech Card (Used in Sub-views) ---
@@ -1928,7 +1926,7 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
 );
 
 // ... (HomeView remains largely the same but ensure no breaking changes) ...
-const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, currentLang, landingInputText, setLandingInputText, hideOfficialBranding, getImage, imagesLoading }) => {
+const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, currentLang, landingInputText, setLandingInputText, hideOfficialBranding, getImage }) => {
   // 获取佣金等级配置（用于动态显示分成比例）
   const { summary: commissionSummary } = useCommissionTiers();
 
@@ -2000,22 +1998,13 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
   <div className="animate-fade-in-up pt-0 bg-white">
       {/* 1. Hero Carousel - 竞拍展位轮播图 */}
       {/* 图片从数据库加载，加载中显示骨架屏 */}
-      {imagesLoading ? (
-        <div className="relative h-[85vh] bg-gradient-to-br from-brand-900 via-brand-800 to-brand-900 flex items-center justify-center">
-          <div className="text-center">
-            <div className="w-16 h-16 border-4 border-white/20 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-white/60 text-sm">Loading...</p>
-          </div>
-        </div>
-      ) : (
-        <HeroCarousel
-          slides={heroSlides}
-          autoPlayInterval={6000}
-          showIndicators={true}
-          showArrows={true}
-          height="85vh"
-        />
-      )}
+      <HeroCarousel
+        slides={heroSlides}
+        autoPlayInterval={6000}
+        showIndicators={true}
+        showArrows={true}
+        height="85vh"
+      />
 
       {/* 2. ニュースルーム - JTB风格列表式设计 */}
       <section className="py-20 bg-neutral-50">
@@ -2667,7 +2656,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
   const { hideOfficialBranding, hideGuidePartnerContent } = useWhiteLabelVisibility();
 
   // 从数据库获取网站图片配置（支持后台管理更换图片）
-  const { getImage: getDbImage, loading: imagesLoading } = useSiteImages();
+  const { getImage: getDbImage } = useSiteImages();
 
   // 获取图片：优先从数据库获取，如果数据库没有则使用硬编码的默认值
   // @param key - 图片标识符
@@ -2817,7 +2806,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
               setLandingInputText={setLandingInputText}
               hideOfficialBranding={hideOfficialBranding}
               getImage={getImage}
-              imagesLoading={imagesLoading}
             />
           )}
           {currentPage === 'medical' && <MedicalView t={t} setCurrentPage={setCurrentPage} onOpenTIMCQuote={() => setShowTIMCQuoteModal(true)} currentLang={lang} getImage={getImage} />}
