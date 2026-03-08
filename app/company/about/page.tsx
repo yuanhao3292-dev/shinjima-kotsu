@@ -57,10 +57,10 @@ const pageTranslations = {
     en: 'Having lived in Japan for many years, I have deeply experienced Japan\'s unique "Omotenashi" spirit—heartfelt and meticulous service. At the same time, I have witnessed many Chinese travelers unable to fully enjoy Japan\'s highest quality services due to language barriers and information asymmetry.'
   },
   ceoMessage3: {
-    ja: 'これこそが新島交通を創業した原点です。「華人世界と日本の高品質な資源をつなぐ架け橋となる」——世界トップクラスの精密健診、会員制の名門ゴルフ場、充実したビジネス視察など、お客様一人ひとりに「日本にはこんな楽しみ方があったのか」という驚きと感動をお届けしたいと考えております。',
-    'zh-TW': '這正是創立新島交通的初心。「成為連結華人世界與日本高品質資源的橋樑」——世界頂級的精密健診、會員制名門高爾夫球場、充實的商務考察等，我們希望為每一位客戶帶來「原來日本還有這樣的體驗」的驚喜與感動。',
-    'zh-CN': '这正是创立新岛交通的初心。「成为连结华人世界与日本高品质资源的桥梁」——世界顶级的精密健诊、会员制名门高尔夫球场、充实的商务考察等，我们希望为每一位客户带来「原来日本还有这样的体验」的惊喜与感动。',
-    en: 'This is the founding principle of NIIJIMA KOTSU. "To become the bridge connecting the Chinese world with Japan\'s premium resources"—world-class precision health screenings, exclusive member-only golf courses, comprehensive business inspections, and more. We aim to bring each customer the surprise and emotion of discovering "Japan has experiences like this!"'
+    ja: 'これこそが新島交通を創業した原点です。世界トップクラスの精密健診、会員制の名門ゴルフ場、充実したビジネス視察など、お客様一人ひとりに「日本にはこんな楽しみ方があったのか」という驚きと感動をお届けしたいと考えております。',
+    'zh-TW': '這正是創立新島交通的初心。世界頂級的精密健診、會員制名門高爾夫球場、充實的商務考察等，我們希望為每一位客戶帶來「原來日本還有這樣的體驗」的驚喜與感動。',
+    'zh-CN': '这正是创立新岛交通的初心。世界顶级的精密健诊、会员制名门高尔夫球场、充实的商务考察等，我们希望为每一位客户带来「原来日本还有这样的体验」的惊喜与感动。',
+    en: 'This is the founding principle of NIIJIMA KOTSU. World-class precision health screenings, exclusive member-only golf courses, comprehensive business inspections, and more. We aim to bring each customer the surprise and emotion of discovering "Japan has experiences like this!"'
   },
   ceoMessage4: {
     ja: '今後も医療ツーリズム、ハイエンドカスタマイズ、ビジネス視察の三大領域を深耕し、テクノロジーでサービスを進化させ、真心でお客様の心を動かしてまいります。',
