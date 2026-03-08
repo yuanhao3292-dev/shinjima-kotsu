@@ -79,7 +79,7 @@ interface OrderInfo {
 
 const getStatusConfig = (lang: Language) => ({
   pending: { label: t('statusPending', lang), color: 'text-yellow-700', bgColor: 'bg-yellow-50 border-yellow-200', icon: Clock },
-  confirmed: { label: t('statusConfirmed', lang), color: 'text-blue-700', bgColor: 'bg-blue-50 border-blue-200', icon: CheckCircle },
+  confirmed: { label: t('statusConfirmed', lang), color: 'text-brand-700', bgColor: 'bg-brand-50 border-brand-200', icon: CheckCircle },
   completed: { label: t('statusCompleted', lang), color: 'text-green-700', bgColor: 'bg-green-50 border-green-200', icon: CheckCircle },
   cancelled: { label: t('statusCancelled', lang), color: 'text-red-700', bgColor: 'bg-red-50 border-red-200', icon: AlertCircle },
 });
@@ -134,9 +134,9 @@ export default function OrderLookupPage() {
     <MemberLayout showFooter={false}>
       <div className="min-h-[calc(100vh-80px)] flex">
         {/* Left Side - Hero Image */}
-        <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+        <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-brand-900 via-brand-700 to-brand-900">
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2000')] bg-cover bg-center opacity-30"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-slate-900/50"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-900/90 via-transparent to-brand-900/50"></div>
 
           {/* Language Switcher - Top Right */}
           <div className="absolute top-8 right-8 z-20">
@@ -148,31 +148,31 @@ export default function OrderLookupPage() {
               <Logo className="w-12 h-12 text-white" />
               <div>
                 <span className="font-serif font-bold text-2xl tracking-wide">NIIJIMA</span>
-                <p className="text-xs text-blue-200 uppercase tracking-widest">Medical Tourism</p>
+                <p className="text-xs text-brand-200 uppercase tracking-widest">Medical Tourism</p>
               </div>
             </div>
             <h1 className="text-4xl font-serif font-bold mb-6 leading-tight">
               {t('orderLookupHero', lang)}<br />
-              <span className="text-blue-400">{t('noLoginRequired', lang)}</span>
+              <span className="text-brand-300">{t('noLoginRequired', lang)}</span>
             </h1>
-            <p className="text-gray-300 leading-relaxed mb-8 max-w-md">
+            <p className="text-neutral-300 leading-relaxed mb-8 max-w-md">
               {t('heroDesc', lang)}
             </p>
             <div className="flex items-center gap-6 text-sm">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-gray-300">{t('support24h', lang)}</span>
+                <span className="text-neutral-300">{t('support24h', lang)}</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                <span className="text-gray-300">{t('chineseService', lang)}</span>
+                <div className="w-2 h-2 bg-brand-400 rounded-full"></div>
+                <span className="text-neutral-300">{t('chineseService', lang)}</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Right Side - Search Form */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gray-50 overflow-y-auto relative">
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-neutral-50 overflow-y-auto relative">
           {/* Language Switcher for mobile - Top Right */}
           <div className="absolute top-4 right-4 lg:hidden z-20">
             <LanguageSwitcher />
@@ -181,7 +181,7 @@ export default function OrderLookupPage() {
           <div className="w-full max-w-md">
             {/* Mobile Logo */}
             <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
-              <Logo className="w-10 h-10 text-blue-600" />
+              <Logo className="w-10 h-10 text-brand-600" />
               <span className="font-serif font-bold text-xl">NIIJIMA</span>
             </div>
 
@@ -195,41 +195,41 @@ export default function OrderLookupPage() {
             </Link>
 
             {/* Search Form Card */}
-            <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 mb-6">
+            <div className="bg-white rounded-2xl shadow-xl p-8 border border-neutral-100 mb-6">
               <div className="text-center mb-8">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-50 rounded-full mb-4">
-                  <Search className="w-8 h-8 text-blue-600" />
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-50 rounded-full mb-4">
+                  <Search className="w-8 h-8 text-brand-600" />
                 </div>
-                <h1 className="text-2xl font-serif font-bold text-gray-900">{t('orderLookupTitle', lang)}</h1>
-                <p className="text-gray-500 mt-2 text-sm">{t('orderLookupSubtitle', lang)}</p>
+                <h1 className="text-2xl font-serif font-bold text-neutral-900">{t('orderLookupTitle', lang)}</h1>
+                <p className="text-neutral-500 mt-2 text-sm">{t('orderLookupSubtitle', lang)}</p>
               </div>
 
               <form onSubmit={handleSearch} className="space-y-5">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
                     {t('emailLabel', lang)}
                   </label>
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    className="w-full px-4 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
                     placeholder={t('emailPlaceholder', lang)}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
                     {t('orderIdLabel', lang)}
                   </label>
                   <input
                     type="text"
                     value={orderId}
                     onChange={(e) => setOrderId(e.target.value.toUpperCase())}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono transition"
+                    className="w-full px-4 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent font-mono transition"
                     placeholder={t('orderIdPlaceholder', lang)}
                   />
-                  <p className="mt-2 text-xs text-gray-400">
+                  <p className="mt-2 text-xs text-neutral-400">
                     {t('orderIdHint', lang)}
                   </p>
                 </div>
@@ -244,7 +244,7 @@ export default function OrderLookupPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-black hover:bg-gray-800 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                  className="w-full bg-brand-900 hover:bg-brand-800 disabled:bg-neutral-400 text-white font-bold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
                 >
                   {loading ? (
                     <>
@@ -261,9 +261,9 @@ export default function OrderLookupPage() {
               </form>
 
               <div className="mt-6 text-center">
-                <p className="text-gray-600 text-sm">
+                <p className="text-neutral-600 text-sm">
                   {t('haveAccount', lang)}
-                  <Link href="/login" className="text-blue-600 hover:text-blue-700 font-bold ml-1">
+                  <Link href="/login" className="text-brand-600 hover:text-brand-700 font-bold ml-1">
                     {t('loginViewAll', lang)}
                   </Link>
                 </p>
@@ -272,7 +272,7 @@ export default function OrderLookupPage() {
 
             {/* Order Result */}
             {order && (
-              <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 animate-fade-in">
+              <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-neutral-100 animate-fade-in">
                 {/* Status Header */}
                 <div className={`px-6 py-5 ${STATUS_MAP[order.status].bgColor.split(' ')[0]}`}>
                   <div className="flex items-center justify-between">
@@ -290,7 +290,7 @@ export default function OrderLookupPage() {
                     </div>
                     <div className="text-right">
                       <p className="text-xs opacity-75 mb-1">{t('orderNumber', lang)}</p>
-                      <p className="text-lg font-mono font-bold text-gray-900">
+                      <p className="text-lg font-mono font-bold text-neutral-900">
                         #{order.orderId.slice(-8).toUpperCase()}
                       </p>
                     </div>
@@ -300,14 +300,14 @@ export default function OrderLookupPage() {
                 {/* Order Details */}
                 <div className="p-6 space-y-5">
                   {/* Package Info */}
-                  <div className="flex items-start gap-4 pb-5 border-b border-gray-100">
-                    <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <Package className="w-6 h-6 text-blue-600" />
+                  <div className="flex items-start gap-4 pb-5 border-b border-neutral-100">
+                    <div className="w-12 h-12 bg-brand-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <Package className="w-6 h-6 text-brand-600" />
                     </div>
                     <div className="flex-grow">
-                      <p className="text-xs text-gray-400 mb-1">{t('package', lang)}</p>
-                      <p className="font-semibold text-gray-900">{order.packageName}</p>
-                      <p className="text-xl font-bold text-blue-600 mt-1">
+                      <p className="text-xs text-neutral-400 mb-1">{t('package', lang)}</p>
+                      <p className="font-semibold text-neutral-900">{order.packageName}</p>
+                      <p className="text-xl font-bold text-brand-600 mt-1">
                         ¥{order.packagePrice.toLocaleString()}
                       </p>
                     </div>
@@ -320,8 +320,8 @@ export default function OrderLookupPage() {
                         <Calendar className="w-5 h-5 text-green-600" />
                       </div>
                       <div>
-                        <p className="text-xs text-gray-400 mb-1">{t('appointmentDate', lang)}</p>
-                        <p className="font-semibold text-gray-900 text-sm">
+                        <p className="text-xs text-neutral-400 mb-1">{t('appointmentDate', lang)}</p>
+                        <p className="font-semibold text-neutral-900 text-sm">
                           {order.preferredDate ? formatDateLong(order.preferredDate) : t('toBeConfirmed', lang)}
                         </p>
                       </div>
@@ -332,8 +332,8 @@ export default function OrderLookupPage() {
                         <CreditCard className="w-5 h-5 text-purple-600" />
                       </div>
                       <div>
-                        <p className="text-xs text-gray-400 mb-1">{t('paymentStatus', lang)}</p>
-                        <p className="font-semibold text-gray-900 text-sm">
+                        <p className="text-xs text-neutral-400 mb-1">{t('paymentStatus', lang)}</p>
+                        <p className="font-semibold text-neutral-900 text-sm">
                           {order.paymentStatus === 'paid' ? t('paid', lang) : t('unpaid', lang)}
                         </p>
                       </div>
@@ -341,15 +341,15 @@ export default function OrderLookupPage() {
                   </div>
 
                   {/* Order Date */}
-                  <div className="pt-4 border-t border-gray-100 text-sm text-gray-400">
+                  <div className="pt-4 border-t border-neutral-100 text-sm text-neutral-400">
                     {t('orderCreated', lang)}{formatDateLong(order.createdAt)}
                   </div>
                 </div>
 
                 {/* Actions */}
                 <div className="px-6 pb-6">
-                  <div className="bg-gray-50 rounded-xl p-4 text-center">
-                    <p className="text-sm text-gray-600 mb-2">{t('contactUs', lang)}</p>
+                  <div className="bg-neutral-50 rounded-xl p-4 text-center">
+                    <p className="text-sm text-neutral-600 mb-2">{t('contactUs', lang)}</p>
                     <a
                       href="https://line.me/ti/p/j3XxBP50j9"
                       target="_blank"
@@ -365,19 +365,19 @@ export default function OrderLookupPage() {
 
             {/* No Result */}
             {searched && !order && !loading && !error && (
-              <div className="bg-white rounded-2xl shadow-xl p-8 text-center border border-gray-100">
-                <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <AlertCircle className="w-8 h-8 text-gray-300" />
+              <div className="bg-white rounded-2xl shadow-xl p-8 text-center border border-neutral-100">
+                <div className="w-16 h-16 bg-neutral-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <AlertCircle className="w-8 h-8 text-neutral-300" />
                 </div>
-                <h3 className="text-lg font-serif font-bold text-gray-900 mb-2">{t('orderNotFound', lang)}</h3>
-                <p className="text-gray-500 text-sm">
+                <h3 className="text-lg font-serif font-bold text-neutral-900 mb-2">{t('orderNotFound', lang)}</h3>
+                <p className="text-neutral-500 text-sm">
                   {t('checkInput', lang)}
                 </p>
               </div>
             )}
 
             {/* Help Text */}
-            <p className="mt-6 text-center text-xs text-gray-400">
+            <p className="mt-6 text-center text-xs text-neutral-400">
               {t('helpText', lang)}
             </p>
           </div>

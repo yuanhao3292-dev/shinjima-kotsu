@@ -74,22 +74,22 @@ export default function ForgotPasswordPage() {
   if (success) {
     return (
       <MemberLayout showFooter={false}>
-        <div className="min-h-[calc(100vh-80px)] flex items-center justify-center p-8 bg-gray-50">
-          <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 text-center border border-gray-100">
+        <div className="min-h-[calc(100vh-80px)] flex items-center justify-center p-8 bg-neutral-50">
+          <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 text-center border border-neutral-100">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-green-50 rounded-full mb-6">
               <CheckCircle className="w-10 h-10 text-green-600" />
             </div>
-            <h1 className="text-2xl font-serif font-bold text-gray-900 mb-3">{t('emailSent', lang)}</h1>
-            <p className="text-gray-600 mb-8 leading-relaxed">
-              {t('resetEmailSentPrefix', lang)} <span className="font-bold text-gray-900">{email}</span>{t('resetEmailSent', lang)}
+            <h1 className="text-2xl font-serif font-bold text-neutral-900 mb-3">{t('emailSent', lang)}</h1>
+            <p className="text-neutral-600 mb-8 leading-relaxed">
+              {t('resetEmailSentPrefix', lang)} <span className="font-bold text-neutral-900">{email}</span>{t('resetEmailSent', lang)}
             </p>
             <Link
               href="/login"
-              className="block w-full bg-black hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg"
+              className="block w-full bg-brand-900 hover:bg-brand-800 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg"
             >
               {t('backToLogin', lang)}
             </Link>
-            <p className="text-sm text-gray-400 mt-6">{t('noEmail', lang)}</p>
+            <p className="text-sm text-neutral-400 mt-6">{t('noEmail', lang)}</p>
           </div>
         </div>
       </MemberLayout>
@@ -100,9 +100,9 @@ export default function ForgotPasswordPage() {
     <MemberLayout showFooter={false}>
       <div className="min-h-[calc(100vh-80px)] flex">
         {/* Left Side - Hero Image */}
-        <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+        <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-brand-900 via-brand-700 to-brand-900">
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?q=80&w=2000')] bg-cover bg-center opacity-30"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-slate-900/50"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-900/90 via-transparent to-brand-900/50"></div>
 
           {/* Language Switcher - Top Right */}
           <div className="absolute top-8 right-8 z-20">
@@ -114,21 +114,21 @@ export default function ForgotPasswordPage() {
               <Logo className="w-12 h-12 text-white" />
               <div>
                 <span className="font-serif font-bold text-2xl tracking-wide">NIIJIMA</span>
-                <p className="text-xs text-blue-200 uppercase tracking-widest">Medical Tourism</p>
+                <p className="text-xs text-brand-200 uppercase tracking-widest">Medical Tourism</p>
               </div>
             </div>
             <h1 className="text-4xl font-serif font-bold mb-6 leading-tight">
               {t('forgotPasswordHero', lang)}<br />
-              <span className="text-blue-400">{t('dontWorry', lang)}</span>
+              <span className="text-brand-300">{t('dontWorry', lang)}</span>
             </h1>
-            <p className="text-gray-300 leading-relaxed mb-8 max-w-md">
+            <p className="text-neutral-300 leading-relaxed mb-8 max-w-md">
               {t('heroDesc', lang)}
             </p>
           </div>
         </div>
 
         {/* Right Side - Form */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gray-50 relative">
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-neutral-50 relative">
           {/* Language Switcher for mobile - Top Right */}
           <div className="absolute top-4 right-4 lg:hidden z-20">
             <LanguageSwitcher />
@@ -137,7 +137,7 @@ export default function ForgotPasswordPage() {
           <div className="w-full max-w-md">
             {/* Mobile Logo */}
             <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
-              <Logo className="w-10 h-10 text-blue-600" />
+              <Logo className="w-10 h-10 text-brand-600" />
               <span className="font-serif font-bold text-xl">NIIJIMA</span>
             </div>
 
@@ -147,13 +147,13 @@ export default function ForgotPasswordPage() {
               {t('backToLogin', lang)}
             </Link>
 
-            <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+            <div className="bg-white rounded-2xl shadow-xl p-8 border border-neutral-100">
               <div className="text-center mb-8">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-50 rounded-full mb-4">
-                  <KeyRound className="w-8 h-8 text-blue-600" />
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-50 rounded-full mb-4">
+                  <KeyRound className="w-8 h-8 text-brand-600" />
                 </div>
-                <h1 className="text-2xl font-serif font-bold text-gray-900">{t('forgotPasswordTitle', lang)}</h1>
-                <p className="text-gray-500 mt-2 text-sm">{t('forgotPasswordSubtitle', lang)}</p>
+                <h1 className="text-2xl font-serif font-bold text-neutral-900">{t('forgotPasswordTitle', lang)}</h1>
+                <p className="text-neutral-500 mt-2 text-sm">{t('forgotPasswordSubtitle', lang)}</p>
               </div>
 
               {error && (
@@ -165,17 +165,17 @@ export default function ForgotPasswordPage() {
 
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
                     {t('emailLabel', lang)}
                   </label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400" size={20} />
                     <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                      className="w-full pl-10 pr-4 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
                       placeholder={t('emailPlaceholder', lang)}
                     />
                   </div>
@@ -184,7 +184,7 @@ export default function ForgotPasswordPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-black hover:bg-gray-800 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                  className="w-full bg-brand-900 hover:bg-brand-800 disabled:bg-neutral-400 text-white font-bold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
                 >
                   {loading ? (
                     <>
@@ -198,9 +198,9 @@ export default function ForgotPasswordPage() {
               </form>
 
               <div className="mt-6 text-center">
-                <p className="text-gray-600 text-sm">
+                <p className="text-neutral-600 text-sm">
                   {t('rememberPassword', lang)}
-                  <Link href="/login" className="text-blue-600 hover:text-blue-700 font-bold ml-1">
+                  <Link href="/login" className="text-brand-600 hover:text-brand-700 font-bold ml-1">
                     {t('loginNow', lang)}
                   </Link>
                 </p>

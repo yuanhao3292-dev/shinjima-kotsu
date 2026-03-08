@@ -110,22 +110,22 @@ export default function RegisterPage() {
   if (success) {
     return (
       <MemberLayout showFooter={false}>
-        <div className="min-h-[calc(100vh-80px)] flex items-center justify-center p-8 bg-gray-50">
-          <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 text-center border border-gray-100">
+        <div className="min-h-[calc(100vh-80px)] flex items-center justify-center p-8 bg-neutral-50">
+          <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 text-center border border-neutral-100">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-green-50 rounded-full mb-6">
               <CheckCircle className="w-10 h-10 text-green-600" />
             </div>
-            <h1 className="text-2xl font-serif font-bold text-gray-900 mb-3">{t('registerSuccess', lang)}</h1>
-            <p className="text-gray-600 mb-8 leading-relaxed">
-              {t('verificationEmailSentPrefix', lang)} <span className="font-bold text-gray-900">{email}</span>{t('verificationEmailSent', lang)}
+            <h1 className="text-2xl font-serif font-bold text-neutral-900 mb-3">{t('registerSuccess', lang)}</h1>
+            <p className="text-neutral-600 mb-8 leading-relaxed">
+              {t('verificationEmailSentPrefix', lang)} <span className="font-bold text-neutral-900">{email}</span>{t('verificationEmailSent', lang)}
             </p>
             <Link
               href="/login"
-              className="block w-full bg-black hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg"
+              className="block w-full bg-brand-900 hover:bg-brand-800 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg"
             >
               {t('goToLogin', lang)}
             </Link>
-            <p className="text-sm text-gray-400 mt-6">{t('noEmail', lang)}</p>
+            <p className="text-sm text-neutral-400 mt-6">{t('noEmail', lang)}</p>
           </div>
         </div>
       </MemberLayout>
@@ -136,9 +136,9 @@ export default function RegisterPage() {
     <MemberLayout showFooter={false}>
       <div className="min-h-[calc(100vh-80px)] flex">
         {/* Left Side - Hero Image */}
-        <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+        <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-brand-900 via-brand-700 to-brand-900">
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2000')] bg-cover bg-center opacity-30"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-slate-900/50"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-900/90 via-transparent to-brand-900/50"></div>
 
           {/* Language Switcher - Top Right */}
           <div className="absolute top-8 right-8 z-20">
@@ -150,35 +150,35 @@ export default function RegisterPage() {
               <Logo className="w-12 h-12 text-white" />
               <div>
                 <span className="font-serif font-bold text-2xl tracking-wide">NIIJIMA</span>
-                <p className="text-xs text-blue-200 uppercase tracking-widest">Medical Tourism</p>
+                <p className="text-xs text-brand-200 uppercase tracking-widest">Medical Tourism</p>
               </div>
             </div>
             <h1 className="text-4xl font-serif font-bold mb-6 leading-tight">
               {t('joinUs', lang)}<br />
-              <span className="text-blue-400">{t('startHealthJourney', lang)}</span>
+              <span className="text-brand-300">{t('startHealthJourney', lang)}</span>
             </h1>
-            <p className="text-gray-300 leading-relaxed mb-8 max-w-md">
+            <p className="text-neutral-300 leading-relaxed mb-8 max-w-md">
               {t('heroDesc', lang)}
             </p>
             <div className="space-y-4">
               <div className="flex items-center gap-3 text-sm">
                 <CheckCircle className="w-5 h-5 text-green-400" />
-                <span className="text-gray-300">{t('benefit1', lang)}</span>
+                <span className="text-neutral-300">{t('benefit1', lang)}</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <CheckCircle className="w-5 h-5 text-green-400" />
-                <span className="text-gray-300">{t('benefit2', lang)}</span>
+                <span className="text-neutral-300">{t('benefit2', lang)}</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <CheckCircle className="w-5 h-5 text-green-400" />
-                <span className="text-gray-300">{t('benefit3', lang)}</span>
+                <span className="text-neutral-300">{t('benefit3', lang)}</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Right Side - Register Form */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gray-50 relative">
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-neutral-50 relative">
           {/* Language Switcher for mobile - Top Right */}
           <div className="absolute top-4 right-4 lg:hidden z-20">
             <LanguageSwitcher />
@@ -187,17 +187,17 @@ export default function RegisterPage() {
           <div className="w-full max-w-md">
             {/* Mobile Logo */}
             <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
-              <Logo className="w-10 h-10 text-blue-600" />
+              <Logo className="w-10 h-10 text-brand-600" />
               <span className="font-serif font-bold text-xl">NIIJIMA</span>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+            <div className="bg-white rounded-2xl shadow-xl p-8 border border-neutral-100">
               <div className="text-center mb-8">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-50 rounded-full mb-4">
-                  <UserPlus className="w-8 h-8 text-blue-600" />
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-50 rounded-full mb-4">
+                  <UserPlus className="w-8 h-8 text-brand-600" />
                 </div>
-                <h1 className="text-2xl font-serif font-bold text-gray-900">{t('registerTitle', lang)}</h1>
-                <p className="text-gray-500 mt-2 text-sm">{t('registerSubtitle', lang)}</p>
+                <h1 className="text-2xl font-serif font-bold text-neutral-900">{t('registerTitle', lang)}</h1>
+                <p className="text-neutral-500 mt-2 text-sm">{t('registerSubtitle', lang)}</p>
               </div>
 
               {error && (
@@ -209,56 +209,56 @@ export default function RegisterPage() {
 
               <form onSubmit={handleRegister} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('nameLabel', lang)}</label>
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">{t('nameLabel', lang)}</label>
                   <div className="relative">
-                    <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+                    <User className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={20} />
                     <input type="text" value={name} onChange={(e) => setName(e.target.value)} required
-                      className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                      className="w-full pl-10 pr-4 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
                       placeholder={t('namePlaceholder', lang)} />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('emailLabel', lang)}</label>
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">{t('emailLabel', lang)}</label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={20} />
                     <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required
-                      className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                      className="w-full pl-10 pr-4 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
                       placeholder={t('emailPlaceholder', lang)} />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('passwordLabel', lang)}</label>
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">{t('passwordLabel', lang)}</label>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={20} />
                     <input type={showPassword ? 'text' : 'password'} value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6}
-                      className="w-full pl-10 pr-12 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                      className="w-full pl-10 pr-12 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
                       placeholder={t('passwordPlaceholder', lang)} />
-                    <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                    <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600">
                       {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                     </button>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('confirmPasswordLabel', lang)}</label>
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">{t('confirmPasswordLabel', lang)}</label>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={20} />
                     <input type={showPassword ? 'text' : 'password'} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required
-                      className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                      className="w-full pl-10 pr-4 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
                       placeholder={t('confirmPasswordPlaceholder', lang)} />
                   </div>
                 </div>
 
                 <button type="submit" disabled={loading}
-                  className="w-full bg-black hover:bg-gray-800 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl mt-6">
+                  className="w-full bg-brand-900 hover:bg-brand-800 disabled:bg-neutral-400 text-white font-bold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl mt-6">
                   {loading ? <><Loader2 className="animate-spin" size={20} />{t('registering', lang)}</> : t('registerButton', lang)}
                 </button>
               </form>
 
               <div className="mt-6 text-center">
-                <p className="text-gray-600 text-sm">{t('haveAccount', lang)}<Link href="/login" className="text-blue-600 hover:text-blue-700 font-bold ml-1">{t('loginNow', lang)}</Link></p>
+                <p className="text-neutral-600 text-sm">{t('haveAccount', lang)}<Link href="/login" className="text-brand-600 hover:text-brand-700 font-bold ml-1">{t('loginNow', lang)}</Link></p>
               </div>
             </div>
           </div>
