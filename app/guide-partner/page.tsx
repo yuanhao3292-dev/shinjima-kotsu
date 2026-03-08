@@ -1049,17 +1049,17 @@ export default function GuidePartnerPage() {
                     <div className="w-2.5 h-2.5 rounded-full bg-red-500/70"></div>
                     <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/70"></div>
                     <div className="w-2.5 h-2.5 rounded-full bg-green-500/70"></div>
-                    <span className="text-neutral-500 text-xs ml-2">niijima-koutsu.jp/g/yuan</span>
+                    <span className="text-neutral-500 text-xs ml-2">niijima-koutsu.jp/g/demo</span>
                   </div>
                   <iframe
-                    src="https://niijima-koutsu.jp/g/yuan"
+                    src="https://niijima-koutsu.jp/g/demo"
                     className="w-full h-[400px] md:h-[480px] border-0"
                     title="White-label demo"
                     loading="lazy"
                   />
                 </div>
                 <a
-                  href="https://niijima-koutsu.jp/g/yuan"
+                  href="https://niijima-koutsu.jp/g/demo"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block text-center text-gold-400 text-sm mt-3 hover:underline"
