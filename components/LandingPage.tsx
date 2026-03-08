@@ -179,7 +179,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       title: currentLang === 'zh-TW' ? '日本尖端癌症治療' : currentLang === 'zh-CN' ? '日本尖端癌症治疗' : currentLang === 'ja' ? '日本最先端がん治療' : 'Japan Advanced Cancer Treatment',
       subtitle: currentLang === 'zh-TW' ? '質子重離子 / 光免疫 / BNCT' : currentLang === 'zh-CN' ? '质子重离子 / 光免疫 / BNCT' : currentLang === 'ja' ? '陽子線・光免疫・BNCT' : 'Proton / Photoimmunotherapy / BNCT',
       description: currentLang === 'zh-TW' ? '全球領先的癌症治療技術，精準打擊癌細胞' : currentLang === 'zh-CN' ? '全球领先的癌症治疗技术，精准打击癌细胞' : currentLang === 'ja' ? '世界最先端の治療技術でがん細胞を狙い撃ち' : 'World-leading technology for precise cancer treatment',
-      imageUrl: getImage('hero_slide_1', 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2000&auto=format&fit=crop'),
+      imageUrl: getImage('hero_slide_1', 'https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=2000&auto=format&fit=crop'),
       ctaText: currentLang === 'zh-TW' ? '諮詢治療方案' : currentLang === 'zh-CN' ? '咨询治疗方案' : currentLang === 'ja' ? '治療相談' : 'Consult Now',
       ctaLink: '/cancer-treatment',
       overlayColor: 'rgba(30, 60, 114, 0.5)',

@@ -78,9 +78,14 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
   if (!slides || slides.length === 0 || !isMounted) {
     return (
       <div
-        className="relative w-full overflow-hidden bg-gray-900"
+        className="relative w-full overflow-hidden bg-gray-900 flex items-center justify-center"
         style={{ height }}
-      />
+      >
+        <div className="text-center">
+          <div className="w-10 h-10 border-2 border-white/20 border-t-white rounded-full animate-spin mx-auto mb-3" />
+          <p className="text-white/40 text-sm">Loading...</p>
+        </div>
+      </div>
     );
   }
 
