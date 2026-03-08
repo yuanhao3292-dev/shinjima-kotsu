@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import PublicLayout from '@/components/PublicLayout';
 import {
-  Award, Shield, Building2, MapPin, Phone, Mail,
+  Award, Shield, Building2,
   Quote, Globe, Heart, Target
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
@@ -323,37 +323,6 @@ const pageTranslations = {
     en: 'Key Partners'
   },
 
-  // Contact Section
-  contactTitle: {
-    ja: 'お問い合わせ',
-    'zh-TW': '聯繫我們',
-    'zh-CN': '联系我们',
-    en: 'Contact Us'
-  },
-  contactPhone: {
-    ja: '電話番号',
-    'zh-TW': '電話',
-    'zh-CN': '电话',
-    en: 'Phone'
-  },
-  contactEmail: {
-    ja: 'メール',
-    'zh-TW': '電子郵件',
-    'zh-CN': '电子邮件',
-    en: 'Email'
-  },
-  contactAddress: {
-    ja: '所在地',
-    'zh-TW': '地址',
-    'zh-CN': '地址',
-    en: 'Address'
-  },
-  contactAddressValue: {
-    ja: '大阪市浪速区大国1-2-21',
-    'zh-TW': '大阪市浪速區大國1-2-21',
-    'zh-CN': '大阪市浪速区大国1-2-21',
-    en: 'Naniwa-ku, Osaka'
-  },
 };
 
 export default function AboutPage() {
@@ -629,48 +598,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Contact Info */}
-        <section className="py-16 bg-brand-900">
-          <div className="container mx-auto px-6">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-10">
-                <h2 className="text-2xl font-serif text-white">{t('contactTitle')}</h2>
-              </div>
-
-              <div className="grid md:grid-cols-3 gap-6">
-                <a href="tel:06-6632-8807" className="flex items-center gap-4 bg-white/10 backdrop-blur rounded-xl p-5 hover:bg-white/20 transition group">
-                  <div className="w-12 h-12 bg-gold-400 rounded-full flex items-center justify-center">
-                    <Phone className="w-5 h-5 text-brand-900" />
-                  </div>
-                  <div>
-                    <p className="text-white/60 text-sm">{t('contactPhone')}</p>
-                    <p className="text-white font-bold group-hover:text-gold-300 transition">06-6632-8807</p>
-                  </div>
-                </a>
-
-                <a href="mailto:info@niijima-koutsu.jp" className="flex items-center gap-4 bg-white/10 backdrop-blur rounded-xl p-5 hover:bg-white/20 transition group">
-                  <div className="w-12 h-12 bg-gold-400 rounded-full flex items-center justify-center">
-                    <Mail className="w-5 h-5 text-brand-900" />
-                  </div>
-                  <div>
-                    <p className="text-white/60 text-sm">{t('contactEmail')}</p>
-                    <p className="text-white font-bold group-hover:text-gold-300 transition">info@niijima-koutsu.jp</p>
-                  </div>
-                </a>
-
-                <div className="flex items-center gap-4 bg-white/10 backdrop-blur rounded-xl p-5">
-                  <div className="w-12 h-12 bg-gold-400 rounded-full flex items-center justify-center">
-                    <MapPin className="w-5 h-5 text-brand-900" />
-                  </div>
-                  <div>
-                    <p className="text-white/60 text-sm">{t('contactAddress')}</p>
-                    <p className="text-white font-bold text-sm">{t('contactAddressValue')}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
       </div>
     </PublicLayout>
   );
