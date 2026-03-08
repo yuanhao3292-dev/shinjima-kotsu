@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import MemberLayout from '@/components/MemberLayout';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { useLanguage, type Language } from '@/hooks/useLanguage';
 import { User } from '@supabase/supabase-js';
 import {
   User as UserIcon,
@@ -20,11 +22,39 @@ import {
   Sparkles,
 } from 'lucide-react';
 
+const translations = {
+  loading: { ja: '読み込み中...', 'zh-CN': '载入中...', 'zh-TW': '載入中...', en: 'Loading...' },
+  member: { ja: '会員', 'zh-CN': '会员', 'zh-TW': '會員', en: 'Member' },
+  welcomeBack: { ja: 'お帰りなさい', 'zh-CN': '欢迎回来', 'zh-TW': '歡迎回來', en: 'Welcome back' },
+  accountDesc: { ja: 'ここで健診予約を管理し、注文記録を確認し、会員専用サービスをお楽しみください。', 'zh-CN': '在这里管理您的体检预约、查看订单记录，享受专属会员服务。', 'zh-TW': '在這裡管理您的健檢預約、查看訂單記錄，享受專屬會員服務。', en: 'Manage your health checkup appointments, view order history, and enjoy exclusive member services.' },
+  support24h: { ja: '24時間サポート', 'zh-CN': '24小时客服支持', 'zh-TW': '24小時客服支援', en: '24/7 Support' },
+  chineseService: { ja: '中国語サービス', 'zh-CN': '中文服务', 'zh-TW': '中文服務', en: 'Chinese Service' },
+  welcomeBackShort: { ja: 'お帰りなさい！', 'zh-CN': '欢迎回来！', 'zh-TW': '歡迎回來！', en: 'Welcome back!' },
+  verified: { ja: '確認済み', 'zh-CN': '已验证', 'zh-TW': '已驗證', en: 'Verified' },
+  memberSince: { ja: '登録日', 'zh-CN': '加入于', 'zh-TW': '加入於', en: 'Member since' },
+  myOrders: { ja: 'マイオーダー', 'zh-CN': '我的订单', 'zh-TW': '我的訂單', en: 'My Orders' },
+  viewAllOrders: { ja: 'すべての予約記録を表示', 'zh-CN': '查看所有预约记录', 'zh-TW': '查看所有預約記錄', en: 'View all booking records' },
+  bookCheckup: { ja: '健診予約', 'zh-CN': '预约体检', 'zh-TW': '預約體檢', en: 'Book Checkup' },
+  browsePackages: { ja: '健診パッケージを閲覧', 'zh-CN': '浏览体检套餐', 'zh-TW': '瀏覽健檢套餐', en: 'Browse checkup packages' },
+  aiHealthScreening: { ja: 'AI 健康スクリーニング', 'zh-CN': 'AI 健康筛查', 'zh-TW': 'AI 健康篩查', en: 'AI Health Screening' },
+  free: { ja: '無料', 'zh-CN': '免费', 'zh-TW': '免費', en: 'Free' },
+  aiScreeningDesc: { ja: 'AIが健康リスクを分析し、日本の先端治療を推奨', 'zh-CN': 'AI 分析健康风险，推荐日本先进治疗', 'zh-TW': 'AI 分析健康風險，推薦日本先端治療', en: 'AI analyzes health risks and recommends advanced Japanese treatments' },
+  comprehensiveTreatment: { ja: '日本総合治療', 'zh-CN': '日本综合治疗', 'zh-TW': '日本綜合治療', en: 'Japan Comprehensive Treatment' },
+  treatmentTypes: { ja: '陽子線・重粒子線、光免疫療法、BNCT', 'zh-CN': '质子重离子、光免疫疗法、BNCT', 'zh-TW': '質子重離子、光免疫療法、BNCT', en: 'Proton/Heavy Ion, Photoimmunotherapy, BNCT' },
+  loggingOut: { ja: 'ログアウト中...', 'zh-CN': '登出中...', 'zh-TW': '登出中...', en: 'Logging out...' },
+  logout: { ja: 'ログアウト', 'zh-CN': '登出', 'zh-TW': '登出', en: 'Logout' },
+} as const;
+
+const t = (key: keyof typeof translations, lang: Language): string => {
+  return translations[key][lang];
+};
+
 export default function MyAccountPage() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [loggingOut, setLoggingOut] = useState(false);
   const router = useRouter();
+  const lang = useLanguage();
   const supabase = createClient();
 
   useEffect(() => {
@@ -49,7 +79,7 @@ export default function MyAccountPage() {
         <div className="min-h-[calc(100vh-80px)] flex items-center justify-center bg-gray-50">
           <div className="text-center">
             <Loader2 className="w-8 h-8 animate-spin text-blue-600 mx-auto mb-4" />
-            <p className="text-gray-500">載入中...</p>
+            <p className="text-gray-500">{t('loading', lang)}</p>
           </div>
         </div>
       </MemberLayout>
@@ -61,8 +91,14 @@ export default function MyAccountPage() {
     return null;
   }
 
-  const userName = user.user_metadata?.full_name || user.email?.split('@')[0] || '會員';
-  const memberSince = new Date(user.created_at).toLocaleDateString('zh-TW', {
+  const userName = user.user_metadata?.full_name || user.email?.split('@')[0] || t('member', lang);
+  const localeMap: Record<Language, string> = {
+    ja: 'ja-JP',
+    'zh-CN': 'zh-CN',
+    'zh-TW': 'zh-TW',
+    en: 'en-US',
+  };
+  const memberSince = new Date(user.created_at).toLocaleDateString(localeMap[lang], {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
@@ -75,29 +111,40 @@ export default function MyAccountPage() {
         <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?q=80&w=2000')] bg-cover bg-center opacity-30"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-slate-900/50"></div>
+
+          {/* Language Switcher - Top Right */}
+          <div className="absolute top-8 right-8 z-20">
+            <LanguageSwitcher />
+          </div>
+
           <div className="relative z-10 flex flex-col justify-center px-16 text-white">
             <h1 className="text-4xl font-serif font-bold mb-6 leading-tight">
-              歡迎回來<br />
+              {t('welcomeBack', lang)}<br />
               <span className="text-blue-400">{userName}</span>
             </h1>
             <p className="text-gray-300 leading-relaxed mb-8 max-w-md">
-              在這裡管理您的健檢預約、查看訂單記錄，享受專屬會員服務。
+              {t('accountDesc', lang)}
             </p>
             <div className="flex items-center gap-6 text-sm">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-gray-300">24小時客服支援</span>
+                <span className="text-gray-300">{t('support24h', lang)}</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                <span className="text-gray-300">中文服務</span>
+                <span className="text-gray-300">{t('chineseService', lang)}</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Right Side - Account Info */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gray-50">
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gray-50 relative">
+          {/* Language Switcher for mobile - Top Right */}
+          <div className="absolute top-4 right-4 lg:hidden z-20">
+            <LanguageSwitcher />
+          </div>
+
           <div className="w-full max-w-md">
 
             {/* Profile Card */}
@@ -108,7 +155,7 @@ export default function MyAccountPage() {
                 </div>
                 <div>
                   <h1 className="text-2xl font-serif font-bold text-gray-900">{userName}</h1>
-                  <p className="text-gray-500 text-sm">歡迎回來！</p>
+                  <p className="text-gray-500 text-sm">{t('welcomeBackShort', lang)}</p>
                 </div>
               </div>
 
@@ -119,13 +166,13 @@ export default function MyAccountPage() {
                   {user.email_confirmed_at && (
                     <span className="inline-flex items-center gap-1 text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded-full border border-green-200">
                       <Shield className="w-3 h-3" />
-                      已驗證
+                      {t('verified', lang)}
                     </span>
                   )}
                 </div>
                 <div className="flex items-center gap-3 text-gray-600">
                   <Calendar className="w-5 h-5 text-gray-400" />
-                  <span className="text-sm">加入於 {memberSince}</span>
+                  <span className="text-sm">{t('memberSince', lang)} {memberSince}</span>
                 </div>
               </div>
             </div>
@@ -141,8 +188,8 @@ export default function MyAccountPage() {
                     <ClipboardList className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900">我的訂單</h3>
-                    <p className="text-sm text-gray-500">查看所有預約記錄</p>
+                    <h3 className="font-semibold text-gray-900">{t('myOrders', lang)}</h3>
+                    <p className="text-sm text-gray-500">{t('viewAllOrders', lang)}</p>
                   </div>
                 </div>
                 <ChevronRight className="w-5 h-5 text-gray-400" />
@@ -157,8 +204,8 @@ export default function MyAccountPage() {
                     <Calendar className="w-6 h-6 text-green-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900">預約體檢</h3>
-                    <p className="text-sm text-gray-500">瀏覽健檢套餐</p>
+                    <h3 className="font-semibold text-gray-900">{t('bookCheckup', lang)}</h3>
+                    <p className="text-sm text-gray-500">{t('browsePackages', lang)}</p>
                   </div>
                 </div>
                 <ChevronRight className="w-5 h-5 text-gray-400" />
@@ -174,13 +221,13 @@ export default function MyAccountPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-                      AI 健康篩查
+                      {t('aiHealthScreening', lang)}
                       <span className="inline-flex items-center gap-1 text-xs bg-purple-50 text-purple-700 px-2 py-0.5 rounded-full border border-purple-200">
                         <Sparkles className="w-3 h-3" />
-                        免費
+                        {t('free', lang)}
                       </span>
                     </h3>
-                    <p className="text-sm text-gray-500">AI 分析健康風險，推薦日本先端治療</p>
+                    <p className="text-sm text-gray-500">{t('aiScreeningDesc', lang)}</p>
                   </div>
                 </div>
                 <ChevronRight className="w-5 h-5 text-gray-400" />
@@ -195,8 +242,8 @@ export default function MyAccountPage() {
                     <HeartPulse className="w-6 h-6 text-rose-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900">日本綜合治療</h3>
-                    <p className="text-sm text-gray-500">質子重離子、光免疫療法、BNCT</p>
+                    <h3 className="font-semibold text-gray-900">{t('comprehensiveTreatment', lang)}</h3>
+                    <p className="text-sm text-gray-500">{t('treatmentTypes', lang)}</p>
                   </div>
                 </div>
                 <ChevronRight className="w-5 h-5 text-gray-400" />
@@ -212,12 +259,12 @@ export default function MyAccountPage() {
               {loggingOut ? (
                 <>
                   <Loader2 className="w-5 h-5 animate-spin" />
-                  登出中...
+                  {t('loggingOut', lang)}
                 </>
               ) : (
                 <>
                   <LogOut className="w-5 h-5" />
-                  登出
+                  {t('logout', lang)}
                 </>
               )}
             </button>
