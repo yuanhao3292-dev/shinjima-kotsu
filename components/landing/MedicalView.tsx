@@ -129,7 +129,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               poster="https://i.ibb.co/xS1h4rTM/hero-medical.jpg"
               preload="metadata"
             >
-              <source src="https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/videos/copy_A7D2D113-F200-464B-8DC8-AA15F3D66488.MOV" type="video/mp4" />
+              <source src="https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/videos/timc_intro.mp4" type="video/mp4" />
               {t.medical.video_fallback}
             </video>
           </div>
