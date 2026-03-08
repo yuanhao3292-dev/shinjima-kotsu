@@ -376,20 +376,23 @@ export default function AboutPage() {
     <PublicLayout>
       <div className="min-h-screen bg-white">
         {/* Hero Section */}
-        <section className="relative py-24 bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 overflow-hidden">
-          <div className="absolute inset-0 opacity-20">
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.1%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E')]"></div>
+        <section className="relative min-h-[60vh] flex items-center bg-brand-900 overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
+            <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
           </div>
 
-          <div className="container mx-auto px-6 relative z-10">
-            <div className="max-w-4xl mx-auto text-center">
-              <span className="inline-block px-4 py-1.5 bg-blue-500/20 border border-blue-400/30 rounded-full text-blue-300 text-sm font-medium mb-6">
-                NIIJIMA KOTSU Co., Ltd.
-              </span>
-              <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
+          <div className="relative container mx-auto px-6 py-24">
+            <div className="max-w-3xl mx-auto text-center">
+              <div className="flex items-center justify-center gap-3 mb-8">
+                <div className="h-[1px] w-12 bg-gold-400"></div>
+                <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">NIIJIMA KOTSU Co., Ltd.</span>
+                <div className="h-[1px] w-12 bg-gold-400"></div>
+              </div>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight">
                 {t('valueCompanyName')}
               </h1>
-              <p className="text-xl text-blue-100 leading-relaxed">
+              <p className="text-lg md:text-xl text-neutral-300 leading-relaxed font-light">
                 {t('heroSubtitle')}
               </p>
             </div>
@@ -401,15 +404,19 @@ export default function AboutPage() {
           <div className="container mx-auto px-6">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
-                <span className="text-blue-600 font-bold text-sm tracking-widest uppercase">{t('ceoSectionLabel')}</span>
-                <h2 className="text-3xl font-serif text-gray-900 mt-3">{t('ceoSectionTitle')}</h2>
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <div className="h-[1px] w-12 bg-gold-400"></div>
+                  <span className="text-xs tracking-[0.3em] text-gold-500 uppercase">{t('ceoSectionLabel')}</span>
+                  <div className="h-[1px] w-12 bg-gold-400"></div>
+                </div>
+                <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('ceoSectionTitle')}</h2>
               </div>
 
               <div className="flex flex-col lg:flex-row gap-12 items-start">
                 {/* CEO Photo */}
                 <div className="lg:w-1/3 flex-shrink-0">
                   <div className="relative">
-                    <div className="absolute inset-0 bg-blue-100 transform translate-x-4 translate-y-4 rounded-2xl"></div>
+                    <div className="absolute inset-0 bg-gold-400/20 transform translate-x-4 translate-y-4 rounded-2xl"></div>
                     <Image
                       src="https://i.ibb.co/B2mJDvq7/founder.jpg"
                       alt="Yuan Hao"
@@ -421,36 +428,36 @@ export default function AboutPage() {
                     />
                   </div>
                   <div className="mt-6 text-center">
-                    <p className="text-sm text-gray-500">{t('ceoTitle')}</p>
-                    <p className="text-2xl font-bold text-gray-900 mt-1">員 昊</p>
-                    <p className="text-sm text-gray-400">Yuan Hao</p>
+                    <p className="text-sm text-neutral-500">{t('ceoTitle')}</p>
+                    <p className="text-2xl font-bold text-brand-900 mt-1">員 昊</p>
+                    <p className="text-sm text-neutral-400">Yuan Hao</p>
                   </div>
                 </div>
 
                 {/* Message Content */}
                 <div className="lg:w-2/3">
                   <div className="relative mb-8">
-                    <Quote className="absolute -top-4 -left-6 text-gray-100 w-20 h-20 transform -scale-x-100" />
-                    <p className="text-2xl text-gray-800 relative z-10 italic font-serif pl-4 border-l-4 border-blue-500 leading-relaxed">
+                    <Quote className="absolute -top-4 -left-6 text-neutral-100 w-20 h-20 transform -scale-x-100" />
+                    <p className="text-2xl text-brand-900 relative z-10 italic font-serif pl-4 border-l-4 border-gold-400 leading-relaxed">
                       {t('ceoSlogan')}
                     </p>
                   </div>
 
-                  <div className="space-y-5 text-gray-600 leading-relaxed">
+                  <div className="space-y-5 text-neutral-600 leading-relaxed">
                     <p>{t('ceoMessage1')}</p>
                     <p>{t('ceoMessage2')}</p>
                     <p>
                       {t('ceoMessage3')}
                     </p>
                     <p>{t('ceoMessage4')}</p>
-                    <p className="text-lg font-medium text-gray-900 pt-4">
+                    <p className="text-lg font-medium text-brand-900 pt-4">
                       {t('ceoMessage5')}
                     </p>
                   </div>
 
-                  <div className="mt-8 pt-6 border-t border-gray-200">
-                    <p className="text-gray-900 font-bold">{t('valueCompanyName')}</p>
-                    <p className="text-gray-600">{t('valueCEO')}</p>
+                  <div className="mt-8 pt-6 border-t border-neutral-200">
+                    <p className="text-brand-900 font-bold">{t('valueCompanyName')}</p>
+                    <p className="text-neutral-600">{t('valueCEO')}</p>
                   </div>
                 </div>
               </div>
@@ -459,41 +466,45 @@ export default function AboutPage() {
         </section>
 
         {/* Company Philosophy */}
-        <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
+        <section className="py-16 bg-neutral-50">
           <div className="container mx-auto px-6">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
-                <span className="text-blue-600 font-bold text-sm tracking-widest uppercase">{t('philosophyLabel')}</span>
-                <h2 className="text-3xl font-serif text-gray-900 mt-3">{t('philosophyTitle')}</h2>
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <div className="h-[1px] w-12 bg-gold-400"></div>
+                  <span className="text-xs tracking-[0.3em] text-gold-500 uppercase">{t('philosophyLabel')}</span>
+                  <div className="h-[1px] w-12 bg-gold-400"></div>
+                </div>
+                <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('philosophyTitle')}</h2>
               </div>
 
               <div className="grid md:grid-cols-3 gap-8">
-                <div className="bg-white rounded-2xl p-8 shadow-lg border border-blue-100 text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <Heart className="w-8 h-8 text-white" />
+                <div className="bg-white rounded-2xl p-8 border border-neutral-200 text-center hover:shadow-lg transition">
+                  <div className="w-16 h-16 bg-brand-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <Heart className="w-8 h-8 text-gold-400" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">{t('philosophy1Title')}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <h3 className="text-xl font-bold text-brand-900 mb-3">{t('philosophy1Title')}</h3>
+                  <p className="text-neutral-600 text-sm leading-relaxed">
                     {t('philosophy1Desc')}
                   </p>
                 </div>
 
-                <div className="bg-white rounded-2xl p-8 shadow-lg border border-blue-100 text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <Globe className="w-8 h-8 text-white" />
+                <div className="bg-white rounded-2xl p-8 border border-neutral-200 text-center hover:shadow-lg transition">
+                  <div className="w-16 h-16 bg-brand-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <Globe className="w-8 h-8 text-gold-400" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">{t('philosophy2Title')}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <h3 className="text-xl font-bold text-brand-900 mb-3">{t('philosophy2Title')}</h3>
+                  <p className="text-neutral-600 text-sm leading-relaxed">
                     {t('philosophy2Desc')}
                   </p>
                 </div>
 
-                <div className="bg-white rounded-2xl p-8 shadow-lg border border-blue-100 text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <Target className="w-8 h-8 text-white" />
+                <div className="bg-white rounded-2xl p-8 border border-neutral-200 text-center hover:shadow-lg transition">
+                  <div className="w-16 h-16 bg-brand-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <Target className="w-8 h-8 text-gold-400" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">{t('philosophy3Title')}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <h3 className="text-xl font-bold text-brand-900 mb-3">{t('philosophy3Title')}</h3>
+                  <p className="text-neutral-600 text-sm leading-relaxed">
                     {t('philosophy3Desc')}
                   </p>
                 </div>
@@ -507,13 +518,17 @@ export default function AboutPage() {
           <div className="container mx-auto px-6">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-12">
-                <span className="text-blue-600 font-bold text-sm tracking-widest uppercase">{t('profileLabel')}</span>
-                <h2 className="text-3xl font-serif text-gray-900 mt-3">{t('profileTitle')}</h2>
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <div className="h-[1px] w-12 bg-gold-400"></div>
+                  <span className="text-xs tracking-[0.3em] text-gold-500 uppercase">{t('profileLabel')}</span>
+                  <div className="h-[1px] w-12 bg-gold-400"></div>
+                </div>
+                <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('profileTitle')}</h2>
               </div>
 
-              <div className="bg-gray-50 rounded-2xl overflow-hidden shadow-sm">
+              <div className="bg-neutral-50 rounded-2xl overflow-hidden">
                 <table className="w-full">
-                  <tbody className="divide-y divide-gray-200">
+                  <tbody className="divide-y divide-neutral-200">
                     {[
                       { label: t('labelCompanyName'), value: t('valueCompanyName') },
                       { label: t('labelCompanyNameEn'), value: 'NIIJIMA KOTSU Co., Ltd.' },
@@ -527,10 +542,10 @@ export default function AboutPage() {
                       { label: t('labelBusiness'), value: t('valueBusiness') },
                     ].map((row, index) => (
                       <tr key={index} className="flex flex-col md:table-row hover:bg-white transition">
-                        <th className="py-5 px-6 text-left font-bold text-gray-900 bg-gray-100 md:bg-transparent md:w-44">
+                        <th className="py-5 px-6 text-left font-bold text-brand-900 bg-neutral-100 md:bg-transparent md:w-44">
                           {row.label}
                         </th>
-                        <td className="py-5 px-6 text-gray-600 whitespace-pre-line">
+                        <td className="py-5 px-6 text-neutral-600 whitespace-pre-line">
                           {row.value}
                         </td>
                       </tr>
@@ -543,12 +558,16 @@ export default function AboutPage() {
         </section>
 
         {/* Licenses & Certifications */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 bg-neutral-50">
           <div className="container mx-auto px-6">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
-                <span className="text-blue-600 font-bold text-sm tracking-widest uppercase">{t('licensesLabel')}</span>
-                <h2 className="text-3xl font-serif text-gray-900 mt-3">{t('licensesTitle')}</h2>
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <div className="h-[1px] w-12 bg-gold-400"></div>
+                  <span className="text-xs tracking-[0.3em] text-gold-500 uppercase">{t('licensesLabel')}</span>
+                  <div className="h-[1px] w-12 bg-gold-400"></div>
+                </div>
+                <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('licensesTitle')}</h2>
               </div>
 
               <div className="grid md:grid-cols-3 gap-6">
@@ -558,37 +577,29 @@ export default function AboutPage() {
                     title: t('license1Title'),
                     number: t('license1Number'),
                     desc: t('license1Desc'),
-                    color: 'blue'
                   },
                   {
                     icon: Shield,
                     title: t('license2Title'),
                     number: t('license2Number'),
                     desc: t('license2Desc'),
-                    color: 'green'
                   },
                   {
                     icon: Building2,
                     title: t('license3Title'),
                     number: t('license3Number'),
                     desc: t('license3Desc'),
-                    color: 'purple'
                   },
                 ].map((item, index) => {
                   const Icon = item.icon;
-                  const colorClasses = {
-                    blue: 'from-blue-500 to-blue-600',
-                    green: 'from-green-500 to-green-600',
-                    purple: 'from-purple-500 to-purple-600'
-                  };
                   return (
-                    <div key={index} className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition">
-                      <div className={`w-14 h-14 bg-gradient-to-br ${colorClasses[item.color as keyof typeof colorClasses]} rounded-xl flex items-center justify-center mb-4`}>
-                        <Icon size={24} className="text-white" />
+                    <div key={index} className="bg-white p-6 rounded-xl border border-neutral-200 hover:shadow-md transition">
+                      <div className="w-14 h-14 bg-brand-900 rounded-xl flex items-center justify-center mb-4">
+                        <Icon size={24} className="text-gold-400" />
                       </div>
-                      <h3 className="font-bold text-gray-900 text-lg mb-1">{item.title}</h3>
-                      <p className="text-sm text-gray-500 mb-2">{item.number}</p>
-                      <p className="text-sm text-gray-600">{item.desc}</p>
+                      <h3 className="font-bold text-brand-900 text-lg mb-1">{item.title}</h3>
+                      <p className="text-sm text-neutral-500 mb-2">{item.number}</p>
+                      <p className="text-sm text-neutral-600">{item.desc}</p>
                     </div>
                   );
                 })}
@@ -602,13 +613,17 @@ export default function AboutPage() {
           <div className="container mx-auto px-6">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
-                <span className="text-blue-600 font-bold text-sm tracking-widest uppercase">{t('partnersLabel')}</span>
-                <h2 className="text-3xl font-serif text-gray-900 mt-3">{t('partnersTitle')}</h2>
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <div className="h-[1px] w-12 bg-gold-400"></div>
+                  <span className="text-xs tracking-[0.3em] text-gold-500 uppercase">{t('partnersLabel')}</span>
+                  <div className="h-[1px] w-12 bg-gold-400"></div>
+                </div>
+                <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('partnersTitle')}</h2>
               </div>
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {partners.map((partner, index) => (
-                  <div key={index} className="p-5 bg-gray-50 rounded-xl text-center font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition cursor-default">
+                  <div key={index} className="p-5 bg-neutral-50 rounded-xl text-center font-medium text-neutral-700 hover:bg-brand-900 hover:text-white transition cursor-default">
                     {partner[currentLang]}
                   </div>
                 ))}
@@ -618,7 +633,7 @@ export default function AboutPage() {
         </section>
 
         {/* Contact Info */}
-        <section className="py-16 bg-gradient-to-br from-slate-900 to-slate-800">
+        <section className="py-16 bg-brand-900">
           <div className="container mx-auto px-6">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-10">
@@ -627,28 +642,28 @@ export default function AboutPage() {
 
               <div className="grid md:grid-cols-3 gap-6">
                 <a href="tel:06-6632-8807" className="flex items-center gap-4 bg-white/10 backdrop-blur rounded-xl p-5 hover:bg-white/20 transition group">
-                  <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
-                    <Phone className="w-5 h-5 text-white" />
+                  <div className="w-12 h-12 bg-gold-400 rounded-full flex items-center justify-center">
+                    <Phone className="w-5 h-5 text-brand-900" />
                   </div>
                   <div>
                     <p className="text-white/60 text-sm">{t('contactPhone')}</p>
-                    <p className="text-white font-bold group-hover:text-blue-300 transition">06-6632-8807</p>
+                    <p className="text-white font-bold group-hover:text-gold-300 transition">06-6632-8807</p>
                   </div>
                 </a>
 
                 <a href="mailto:info@niijima-koutsu.jp" className="flex items-center gap-4 bg-white/10 backdrop-blur rounded-xl p-5 hover:bg-white/20 transition group">
-                  <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
-                    <Mail className="w-5 h-5 text-white" />
+                  <div className="w-12 h-12 bg-gold-400 rounded-full flex items-center justify-center">
+                    <Mail className="w-5 h-5 text-brand-900" />
                   </div>
                   <div>
                     <p className="text-white/60 text-sm">{t('contactEmail')}</p>
-                    <p className="text-white font-bold group-hover:text-green-300 transition">info@niijima-koutsu.jp</p>
+                    <p className="text-white font-bold group-hover:text-gold-300 transition">info@niijima-koutsu.jp</p>
                   </div>
                 </a>
 
                 <div className="flex items-center gap-4 bg-white/10 backdrop-blur rounded-xl p-5">
-                  <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center">
-                    <MapPin className="w-5 h-5 text-white" />
+                  <div className="w-12 h-12 bg-gold-400 rounded-full flex items-center justify-center">
+                    <MapPin className="w-5 h-5 text-brand-900" />
                   </div>
                   <div>
                     <p className="text-white/60 text-sm">{t('contactAddress')}</p>
