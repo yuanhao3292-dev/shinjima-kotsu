@@ -83,6 +83,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'www.med.kindai.ac.jp',
       },
+      {
+        protocol: 'https',
+        hostname: 'saicli.jp',
+      },
     ],
   },
 

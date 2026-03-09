@@ -42,7 +42,7 @@ const DEMO_PRODUCTS = [
   },
   {
     componentKey: 'sai_clinic',
-    heroImage: '/images/sai-clinic/hero-01.jpg',
+    heroImage: 'https://saicli.jp/wp-content/themes/initializr/img/topFvImg01.jpg',
     colorTheme: 'rose' as const,
     tagline: 'Aesthetic Medicine',
     title: 'SAI 美容外科诊所',

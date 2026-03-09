@@ -26,7 +26,7 @@ const DETAIL_MODULES = new Set([
 const DETAIL_PAGE_HERO_IMAGES: Record<string, string> = {
   medical_packages: 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg',
   health_screening: 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg', // 和 medical_packages 共用
-  sai_clinic: '/images/sai-clinic/hero-01.jpg',
+  sai_clinic: 'https://saicli.jp/wp-content/themes/initializr/img/topFvImg01.jpg',
   hyogo_medical: 'https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img01.jpg',
   kindai_hospital: 'https://www.med.kindai.ac.jp/img/about/relocation/mv.webp',
   cancer_treatment: 'https://www.nihonsekkei.co.jp/wp-content/uploads/2017/07/3c692a8b8911831af2d1fd6bfcd4e0e7.jpg',
