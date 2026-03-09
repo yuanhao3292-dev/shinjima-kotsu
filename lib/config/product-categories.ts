@@ -22,7 +22,7 @@ export interface ProductCategory {
 
 /** 模块详情页路由映射（无白标 slug 时的 fallback，独立页面预览用） */
 export const MODULE_DETAIL_ROUTES: Record<string, string> = {
-  medical_packages: '/guide-partner/product-center/timc',
+  medical_packages: '/medical',
   hyogo_medical: '/hyogo-medical',
   kindai_hospital: '/kindai-hospital',
   osaka_himak: '/osaka-himak',
