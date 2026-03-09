@@ -16,12 +16,17 @@ import {
 import { verifyFingerprintToken } from '@/lib/utils/fingerprint-token';
 
 /**
+ * 429 友好页面（避免白屏）
+ */
+const RATE_LIMIT_HTML = `<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>请求过于频繁</title><style>body{font-family:-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#f9fafb;color:#374151}div{text-align:center;max-width:400px;padding:2rem}h1{font-size:1.5rem;margin-bottom:.5rem}p{color:#6b7280;margin-bottom:1.5rem}button{background:#2563eb;color:#fff;border:none;padding:.6rem 1.5rem;border-radius:.375rem;cursor:pointer;font-size:.95rem}button:hover{background:#1d4ed8}</style></head><body><div><h1>请求过于频繁</h1><p>您的操作过快，请稍等片刻后重试。</p><button onclick="location.reload()">刷新页面</button></div></body></html>`;
+
+/**
  * 页面请求速率限制配置
  * (API 路由有独立的 per-route 限速，不经过此 middleware)
  */
 const PAGE_RATE_LIMITS: Record<string, RateLimitConfig> = {
-  human: { windowMs: 60_000, maxRequests: 60 },
-  sensitive: { windowMs: 60_000, maxRequests: 20 },
+  human: { windowMs: 60_000, maxRequests: 180 },
+  sensitive: { windowMs: 60_000, maxRequests: 40 },
   suspicious_tool: { windowMs: 60_000, maxRequests: 30 },
   no_ua: { windowMs: 60_000, maxRequests: 15 },
 };
@@ -53,6 +58,12 @@ function extractSubdomain(hostname: string): string | null {
 export async function middleware(request: NextRequest) {
   const hostname = request.headers.get('host') || '';
   const pathname = request.nextUrl.pathname;
+
+  // ========== 跳过 Next.js 内部请求的限速 ==========
+  // prefetch 和 RSC 客户端导航是框架自动发起的，不应消耗限速配额
+  const isPrefetch = request.headers.get('next-router-prefetch') === '1'
+    || request.headers.get('purpose') === 'prefetch';
+  const isRSC = request.headers.get('rsc') === '1';
 
   // ========== Bot Detection & Page Rate Limiting ==========
   const ua = request.headers.get('user-agent');
@@ -93,8 +104,8 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // 合法搜索引擎跳过限速，其他分类按级限速
-  if (botClass !== 'legitimate_bot') {
+  // 合法搜索引擎和 Next.js 内部请求跳过限速
+  if (botClass !== 'legitimate_bot' && !isPrefetch && !isRSC) {
     const clientIp = getClientIp(request);
     const isSensitivePath =
       pathname.startsWith('/admin') || pathname.startsWith('/guide-partner');
@@ -118,9 +129,10 @@ export async function middleware(request: NextRequest) {
 
     const rateLimitResult = await checkRateLimit(key, config);
     if (!rateLimitResult.success) {
-      return new NextResponse('Too Many Requests', {
+      return new NextResponse(RATE_LIMIT_HTML, {
         status: 429,
         headers: {
+          'Content-Type': 'text/html; charset=utf-8',
           'Retry-After': String(rateLimitResult.retryAfter || 60),
         },
       });
