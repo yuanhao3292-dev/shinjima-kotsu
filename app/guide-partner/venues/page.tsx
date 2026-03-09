@@ -13,29 +13,27 @@ import {
   MapPin,
   Loader2,
   Wine,
-  Stethoscope,
-  Heart,
   ChevronRight
 } from 'lucide-react';
 
 const translations = {
   pageTitle: {
-    ja: '店舗一覧',
-    'zh-CN': '店铺列表',
-    'zh-TW': '店舖列表',
-    en: 'Venue List',
+    ja: 'ナイトクラブ一覧',
+    'zh-CN': '夜总会列表',
+    'zh-TW': '夜總會列表',
+    en: 'Nightclub List',
   },
   heading: {
-    ja: '店舗一覧',
-    'zh-CN': '店铺列表',
-    'zh-TW': '店舖列表',
-    en: 'Venue List',
+    ja: 'ナイトクラブ一覧',
+    'zh-CN': '夜总会列表',
+    'zh-TW': '夜總會列表',
+    en: 'Nightclub List',
   },
   subtitle: {
-    ja: 'お客様のためにサービスを閲覧・予約',
-    'zh-CN': '浏览并为客户预约服务',
-    'zh-TW': '瀏覽並為客戶預約服務',
-    en: 'Browse and book services for your clients',
+    ja: 'お客様のためにナイトクラブを閲覧・予約',
+    'zh-CN': '浏览并为客户预约夜总会',
+    'zh-TW': '瀏覽並為客戶預約夜總會',
+    en: 'Browse and book nightclubs for your clients',
   },
   loading: {
     ja: '読み込み中...',
@@ -54,24 +52,6 @@ const translations = {
     'zh-CN': '全部',
     'zh-TW': '全部',
     en: 'All',
-  },
-  nightclub: {
-    ja: 'ナイトクラブ',
-    'zh-CN': '夜总会',
-    'zh-TW': '夜總會',
-    en: 'Nightclub',
-  },
-  medical: {
-    ja: 'メディカル検査',
-    'zh-CN': '医疗检查',
-    'zh-TW': '醫療檢查',
-    en: 'Medical Checkup',
-  },
-  treatment: {
-    ja: '総合治療',
-    'zh-CN': '综合治疗',
-    'zh-TW': '綜合治療',
-    en: 'Treatment',
   },
   minSpend: {
     ja: '最低消費',
@@ -92,16 +72,16 @@ const translations = {
     en: 'View Price Details',
   },
   bookVenue: {
-    ja: 'この店舗を予約',
-    'zh-CN': '预约此店铺',
-    'zh-TW': '預約此店舖',
-    en: 'Book This Venue',
+    ja: 'このクラブを予約',
+    'zh-CN': '预约此夜总会',
+    'zh-TW': '預約此夜總會',
+    en: 'Book This Nightclub',
   },
   noVenuesFound: {
-    ja: '店舗が見つかりません',
-    'zh-CN': '没有找到店铺',
-    'zh-TW': '沒有找到店舖',
-    en: 'No Venues Found',
+    ja: 'ナイトクラブが見つかりません',
+    'zh-CN': '没有找到夜总会',
+    'zh-TW': '沒有找到夜總會',
+    en: 'No Nightclubs Found',
   },
   tryOtherSearch: {
     ja: '他の検索条件をお試しください',
@@ -110,10 +90,10 @@ const translations = {
     en: 'Please try other search criteria',
   },
   venuesFound: {
-    ja: '件の店舗が見つかりました',
-    'zh-CN': '家店铺',
-    'zh-TW': '家店舖',
-    en: 'venues found',
+    ja: '件のナイトクラブ',
+    'zh-CN': '家夜总会',
+    'zh-TW': '家夜總會',
+    en: 'nightclubs found',
   },
 } as const;
 
@@ -137,12 +117,6 @@ interface Venue {
 
 const ALL_CITY = '__all__';
 const CITIES = [ALL_CITY, '東京', '大阪', '名古屋', '福岡', '京都', '神戶'];
-const CATEGORIES = [
-  { value: 'all', labelKey: 'allFilter' as const, icon: Store },
-  { value: 'nightclub', labelKey: 'nightclub' as const, icon: Wine },
-  { value: 'medical', labelKey: 'medical' as const, icon: Stethoscope },
-  { value: 'treatment', labelKey: 'treatment' as const, icon: Heart },
-];
 
 export default function VenuesPage() {
   const [venues, setVenues] = useState<Venue[]>([]);
@@ -150,7 +124,6 @@ export default function VenuesPage() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCity, setSelectedCity] = useState(ALL_CITY);
-  const [selectedCategory, setSelectedCategory] = useState('all');
   const router = useRouter();
   const supabase = createClient();
   const lang = useLanguage();
@@ -161,7 +134,7 @@ export default function VenuesPage() {
 
   useEffect(() => {
     filterVenues();
-  }, [venues, searchTerm, selectedCity, selectedCategory]);
+  }, [venues, searchTerm, selectedCity]);
 
   const checkAuthAndLoadVenues = async () => {
     try {
@@ -188,6 +161,7 @@ export default function VenuesPage() {
         .from('venues')
         .select('*')
         .eq('is_active', true)
+        .eq('category', 'nightclub')
         .order('city', { ascending: true });
 
       setVenues(venuesData || []);
@@ -215,18 +189,12 @@ export default function VenuesPage() {
       filtered = filtered.filter(v => v.city === selectedCity);
     }
 
-    if (selectedCategory !== 'all') {
-      filtered = filtered.filter(v => v.category === selectedCategory);
-    }
-
     setFilteredVenues(filtered);
   };
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case 'nightclub': return <Wine className="w-5 h-5" />;
-      case 'medical': return <Stethoscope className="w-5 h-5" />;
-      case 'treatment': return <Heart className="w-5 h-5" />;
       default: return <Store className="w-5 h-5" />;
     }
   };
@@ -234,8 +202,6 @@ export default function VenuesPage() {
   const getCategoryColor = (category: string) => {
     switch (category) {
       case 'nightclub': return 'bg-purple-100 text-purple-600';
-      case 'medical': return 'bg-blue-100 text-blue-600';
-      case 'treatment': return 'bg-pink-100 text-pink-600';
       default: return 'bg-gray-100 text-gray-600';
     }
   };
@@ -276,26 +242,6 @@ export default function VenuesPage() {
                 placeholder={t('searchPlaceholder', lang)}
                 className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
               />
-            </div>
-
-            {/* Category Filter */}
-            <div className="flex flex-wrap gap-2 mb-4">
-              {CATEGORIES.map((cat) => (
-                <button
-                  key={cat.value}
-                  onClick={() => setSelectedCategory(cat.value)}
-                  className={`
-                    flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition
-                    ${selectedCategory === cat.value
-                      ? 'bg-brand-600 text-white'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                    }
-                  `}
-                >
-                  <cat.icon size={16} />
-                  {t(cat.labelKey, lang)}
-                </button>
-              ))}
             </div>
 
             {/* City Filter */}

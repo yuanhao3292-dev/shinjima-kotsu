@@ -32,7 +32,7 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { icon: LayoutDashboard, label: { ja: 'ダッシュボード', 'zh-CN': '控制台', 'zh-TW': '控制台', en: 'Dashboard' }, href: '/guide-partner/dashboard' },
-  { icon: Store, label: { ja: '店舗一覧', 'zh-CN': '店铺列表', 'zh-TW': '店舖列表', en: 'Venues' }, href: '/guide-partner/venues' },
+  { icon: Store, label: { ja: 'ナイトクラブ', 'zh-CN': '夜总会', 'zh-TW': '夜總會', en: 'Nightclubs' }, href: '/guide-partner/venues' },
   { icon: Calendar, label: { ja: '予約管理', 'zh-CN': '我的预约', 'zh-TW': '我的預約', en: 'My Bookings' }, href: '/guide-partner/bookings' },
   { icon: Wallet, label: { ja: '報酬精算', 'zh-CN': '返金结算', 'zh-TW': '報酬結算', en: 'Commission' }, href: '/guide-partner/commission' },
   { icon: Users, label: { ja: '紹介管理', 'zh-CN': '我的推荐', 'zh-TW': '我的推薦', en: 'Referrals' }, href: '/guide-partner/referrals' },
