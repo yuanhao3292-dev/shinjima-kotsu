@@ -27,19 +27,28 @@ const getSupabase = () => {
 
 /**
  * 检查事件是否已被处理
- * @returns true 如果事件已处理，false 如果是新事件
+ * @returns true 如果事件已成功处理，false 如果是新事件或之前处理失败（允许重试）
  */
 async function checkEventProcessed(supabase: SupabaseClient, eventId: string): Promise<boolean> {
   try {
     const { data, error } = await supabase
       .from('webhook_events')
-      .select('id')
+      .select('id, result')
       .eq('event_id', eventId)
       .single();
 
-    // 如果找到记录，说明已处理
     if (data && !error) {
-      return true;
+      // 只有成功处理的事件才跳过，失败的事件允许 Stripe 重试
+      if (data.result === 'success') {
+        return true;
+      }
+      // 删除失败记录，允许重新处理
+      await supabase
+        .from('webhook_events')
+        .delete()
+        .eq('event_id', eventId)
+        .eq('result', 'failed');
+      return false;
     }
     return false;
   } catch {
