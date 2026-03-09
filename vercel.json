@@ -1,5 +1,45 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "next build --webpack",
+  "routes": [
+    {
+      "src": "/(.*)",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*(sqlmap|nikto|nmap|masscan|zgrab|nuclei|httpx|dirsearch|gobuster|ffuf|wfuzz).*"
+        }
+      ],
+      "mitigate": {
+        "action": "deny"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "has": [
+        {
+          "type": "header",
+          "key": "x-react-router-prerender-data"
+        }
+      ],
+      "mitigate": {
+        "action": "deny"
+      }
+    },
+    {
+      "src": "/admin/(.*)",
+      "missing": [
+        {
+          "type": "cookie",
+          "key": "sb-fcpcjfqxxtxlbtvbjduk-auth-token.0"
+        }
+      ],
+      "mitigate": {
+        "action": "challenge"
+      }
+    }
+  ],
   "crons": [
     {
       "path": "/api/cron/subscription-reminder",
