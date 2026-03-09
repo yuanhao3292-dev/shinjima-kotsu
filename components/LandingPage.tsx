@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, memo, useMemo } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -830,6 +830,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const [currentLang, setCurrentLang] = useState<Language | null>(null);
   const [currentPage, setCurrentPage] = useState<PageView>('home');
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -913,12 +914,23 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
   // 处理 URL 参数和 hash，支持从其他页面跳转回来时切换到指定页面
   // 使用 searchParams 监听 URL 变化，解决点击 Logo 无法返回首页的问题
   useEffect(() => {
-    // 处理 ?page=xxx 参数
-    const page = searchParams.get('page');
-    if (page && ['medical', 'golf', 'business', 'partner'].includes(page)) {
-      setCurrentPage(page as PageView);
+    // 优先从路径检测页面（支持 next.config.js rewrites: /medical → /?page=medical）
+    const PATH_PAGE_MAP: Record<string, PageView> = {
+      '/medical': 'medical',
+      '/golf': 'golf',
+      '/business': 'business',
+      '/partner': 'partner',
+    };
+    const pageFromPath = PATH_PAGE_MAP[pathname];
+
+    // 其次从查询参数检测（兼容旧链接 /?page=medical）
+    const pageFromParam = searchParams.get('page');
+
+    if (pageFromPath) {
+      setCurrentPage(pageFromPath);
+    } else if (pageFromParam && ['medical', 'golf', 'business', 'partner'].includes(pageFromParam)) {
+      setCurrentPage(pageFromParam as PageView);
     } else {
-      // 如果没有 page 参数，返回首页
       setCurrentPage('home');
     }
 
@@ -933,7 +945,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
         }
       }, 500);
     }
-  }, [searchParams]);
+  }, [pathname, searchParams]);
 
   const handleAuthSubmit = (e: React.FormEvent) => {
     e.preventDefault();
