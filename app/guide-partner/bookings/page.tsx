@@ -212,7 +212,7 @@ function BookingsContent() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 text-orange-500 animate-spin mx-auto mb-4" />
+          <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
           <p className="text-gray-600">載入中...</p>
         </div>
       </div>
@@ -234,7 +234,7 @@ function BookingsContent() {
             </div>
             <Link
               href="/guide-partner/venues"
-              className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-medium px-4 py-2 rounded-xl transition"
+              className="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-medium px-4 py-2 rounded-xl transition"
             >
               <Plus size={18} />
               新建預約
@@ -252,7 +252,7 @@ function BookingsContent() {
                   className={`
                     px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition
                     ${statusFilter === filter.value
-                      ? 'bg-orange-500 text-white'
+                      ? 'bg-brand-600 text-white'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                     }
                   `}
@@ -285,7 +285,7 @@ function BookingsContent() {
             {filteredBookings.map((booking) => (
               <div
                 key={booking.id}
-                className="bg-white rounded-xl border hover:border-orange-300 hover:shadow-md transition overflow-hidden"
+                className="bg-white rounded-xl border hover:border-brand-300 hover:shadow-md transition overflow-hidden"
               >
                 <div className="p-4 sm:p-6">
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
@@ -342,7 +342,7 @@ function BookingsContent() {
                     <button
                       onClick={() => handlePayDeposit(booking.id)}
                       disabled={payingBookingId === booking.id}
-                      className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 disabled:bg-gray-400 text-white font-bold py-3 rounded-xl transition"
+                      className="w-full flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 disabled:bg-gray-400 text-white font-bold py-3 rounded-xl transition"
                     >
                       {payingBookingId === booking.id ? (
                         <>
@@ -365,7 +365,7 @@ function BookingsContent() {
                   </span>
                   <Link
                     href={`/guide-partner/bookings/${booking.id}`}
-                    className="text-orange-600 text-sm font-medium flex items-center gap-1 hover:underline"
+                    className="text-brand-600 text-sm font-medium flex items-center gap-1 hover:underline"
                   >
                     查看詳情 <ChevronRight size={14} />
                   </Link>
@@ -381,7 +381,7 @@ function BookingsContent() {
               <p className="text-gray-500 mb-4">開始為您的客戶預約服務吧</p>
               <Link
                 href="/guide-partner/venues"
-                className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-medium px-6 py-3 rounded-xl transition"
+                className="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-medium px-6 py-3 rounded-xl transition"
               >
                 <Store size={18} />
                 瀏覽店舖
@@ -399,7 +399,7 @@ export default function BookingsPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <Loader2 className="w-12 h-12 text-orange-500 animate-spin" />
+        <Loader2 className="w-12 h-12 text-brand-500 animate-spin" />
       </div>
     }>
       <BookingsContent />

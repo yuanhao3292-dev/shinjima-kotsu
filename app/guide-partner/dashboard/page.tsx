@@ -268,7 +268,7 @@ export default function GuideDashboard() {
     const styles: Record<string, string> = {
       pending: 'bg-gray-100 text-gray-900',
       confirmed: 'bg-gray-100 text-gray-900',
-      completed: 'bg-black text-white',
+      completed: 'bg-brand-900 text-white',
       cancelled: 'bg-gray-50 text-gray-400',
       no_show: 'bg-gray-50 text-gray-400',
     };
@@ -289,7 +289,7 @@ export default function GuideDashboard() {
   const getLevelBadge = (level: string) => {
     const styles: Record<string, string> = {
       growth: 'bg-white text-gray-900 border-gray-200',
-      gold: 'bg-black text-white border-black',
+      gold: 'bg-brand-900 text-white border-brand-900',
     };
     const labels: Record<string, string> = {
       growth: '初期合夥人',
@@ -413,7 +413,7 @@ export default function GuideDashboard() {
             {(guide?.commission_tier_code || 'growth') === 'gold' && (
               <div className="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-200">
                 <div className="flex items-center gap-2">
-                  <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center text-white text-sm font-bold">
+                  <div className="w-10 h-10 bg-brand-900 rounded-full flex items-center justify-center text-white text-sm font-bold">
                     ✓
                   </div>
                   <div>
@@ -452,9 +452,9 @@ export default function GuideDashboard() {
               </div>
 
               {/* Tier 2: Gold */}
-              <div className={`bg-white rounded-xl p-5 border-2 transition-all ${guide?.commission_tier_code === 'gold' ? 'border-black' : 'border-gray-200'}`}>
+              <div className={`bg-white rounded-xl p-5 border-2 transition-all ${guide?.commission_tier_code === 'gold' ? 'border-brand-900' : 'border-gray-200'}`}>
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center">
+                  <div className="w-10 h-10 bg-brand-900 rounded-full flex items-center justify-center">
                     <span className="text-lg text-white">★</span>
                   </div>
                   <div>
@@ -478,7 +478,7 @@ export default function GuideDashboard() {
                   <button
                     onClick={() => handleUpgrade('partner')}
                     disabled={upgrading}
-                    className="w-full py-2.5 bg-black text-white rounded-lg text-sm font-bold hover:bg-gray-800 transition disabled:opacity-50"
+                    className="w-full py-2.5 bg-brand-900 text-white rounded-lg text-sm font-bold hover:bg-brand-800 transition disabled:opacity-50"
                   >
                     {upgrading ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : '立即升級'}
                   </button>
@@ -635,7 +635,7 @@ export default function GuideDashboard() {
                 <button
                   onClick={confirmUpgrade}
                   disabled={upgrading}
-                  className="flex-1 py-3 bg-black text-white rounded-lg font-bold hover:bg-gray-800 disabled:opacity-50"
+                  className="flex-1 py-3 bg-brand-900 text-white rounded-lg font-bold hover:bg-gray-800 disabled:opacity-50"
                 >
                   {upgrading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : '同意並支付'}
                 </button>

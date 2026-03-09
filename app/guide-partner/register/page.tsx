@@ -101,7 +101,7 @@ function RegisterForm() {
 
   if (success) {
     return (
-      <div className="min-h-[calc(100vh-80px)] flex items-center justify-center p-8 bg-gradient-to-b from-orange-50 to-white">
+      <div className="min-h-[calc(100vh-80px)] flex items-center justify-center p-8 bg-gradient-to-b from-brand-50 to-white">
         <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 text-center">
           <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <svg className="w-10 h-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -115,7 +115,7 @@ function RegisterForm() {
           </p>
           <Link
             href="/guide-partner/login"
-            className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-xl transition"
+            className="inline-block bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 px-8 rounded-xl transition"
           >
             前往登入
           </Link>
@@ -127,22 +127,22 @@ function RegisterForm() {
   return (
     <div className="min-h-[calc(100vh-80px)] flex">
       {/* Left Side - Hero */}
-      <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-orange-600 via-orange-500 to-amber-500">
+      <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-brand-600 via-brand-500 to-amber-500">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1492571350019-22de08371fd3?q=80&w=2000')] bg-cover bg-center opacity-20"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-orange-900/50 via-transparent to-orange-900/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-900/50 via-transparent to-brand-900/30"></div>
         <div className="relative z-10 flex flex-col justify-center px-16 text-white">
           <div className="flex items-center gap-3 mb-8">
             <Logo className="w-12 h-12 text-white" />
             <div>
               <span className="font-serif font-bold text-2xl tracking-wide">NIIJIMA</span>
-              <p className="text-xs text-orange-200 uppercase tracking-widest">Guide Partner</p>
+              <p className="text-xs text-brand-200 uppercase tracking-widest">Guide Partner</p>
             </div>
           </div>
           <h1 className="text-4xl font-serif font-bold mb-6 leading-tight">
             加入導遊提攜夥伴<br />
             <span className="text-amber-200">客戶介紹計劃</span>
           </h1>
-          <p className="text-orange-100 leading-relaxed mb-8 max-w-md">
+          <p className="text-brand-100 leading-relaxed mb-8 max-w-md">
             介紹客戶給新島交通，成功即獲介紹報酬。
             夜總會、健檢、醫療——豐富服務資源等您推薦。
           </p>
@@ -174,15 +174,15 @@ function RegisterForm() {
         <div className="w-full max-w-md">
           {/* Mobile Logo */}
           <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
-            <Logo className="w-10 h-10 text-orange-600" />
+            <Logo className="w-10 h-10 text-brand-600" />
             <span className="font-serif font-bold text-xl">NIIJIMA</span>
           </div>
 
           {/* Register Card */}
           <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
             <div className="text-center mb-6">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-50 rounded-full mb-4">
-                <User className="w-8 h-8 text-orange-600" />
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-50 rounded-full mb-4">
+                <User className="w-8 h-8 text-brand-600" />
               </div>
               <h1 className="text-2xl font-serif font-bold text-gray-900">導遊註冊</h1>
               <p className="text-gray-500 mt-2 text-sm">填寫資訊申請成為合夥人</p>
@@ -213,7 +213,7 @@ function RegisterForm() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
-                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
                     placeholder="您的姓名"
                   />
                 </div>
@@ -229,7 +229,7 @@ function RegisterForm() {
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     required
-                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
                     placeholder="日本或中國手機號"
                   />
                 </div>
@@ -245,7 +245,7 @@ function RegisterForm() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
-                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
                     placeholder="your@email.com"
                   />
                 </div>
@@ -260,7 +260,7 @@ function RegisterForm() {
                     type="text"
                     value={formData.wechatId}
                     onChange={(e) => setFormData({ ...formData, wechatId: e.target.value })}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
                     placeholder="您的微信號"
                   />
                 </div>
@@ -277,7 +277,7 @@ function RegisterForm() {
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     required
                     minLength={8}
-                    className="w-full pl-10 pr-12 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                    className="w-full pl-10 pr-12 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
                     placeholder="至少 8 位字符"
                   />
                   <button
@@ -300,7 +300,7 @@ function RegisterForm() {
                     value={formData.confirmPassword}
                     onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                     required
-                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
                     placeholder="再次輸入密碼"
                   />
                 </div>
@@ -309,7 +309,7 @@ function RegisterForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl mt-6"
+                className="w-full bg-brand-600 hover:bg-brand-700 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl mt-6"
               >
                 {loading ? (
                   <>
@@ -326,7 +326,7 @@ function RegisterForm() {
             <div className="mt-6 text-center">
               <p className="text-gray-600 text-sm">
                 已有帳號？
-                <Link href="/guide-partner/login" className="text-orange-600 hover:text-orange-700 font-bold ml-1">
+                <Link href="/guide-partner/login" className="text-brand-600 hover:text-brand-700 font-bold ml-1">
                   立即登入
                 </Link>
               </p>

@@ -372,7 +372,7 @@ export default function CommissionPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 text-orange-500 animate-spin mx-auto mb-4" />
+          <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
           <p className="text-gray-600">載入中...</p>
         </div>
       </div>
@@ -431,7 +431,7 @@ export default function CommissionPage() {
           <div className="mb-8">
             <Link
               href="/guide-partner/withdrawal"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700 transition text-sm"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-700 text-white rounded-lg font-medium hover:bg-brand-800 transition text-sm"
             >
               <Wallet size={18} />
               申請提現
@@ -439,17 +439,17 @@ export default function CommissionPage() {
           </div>
 
           {/* Commission Rate Info */}
-          <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 mb-8">
+          <div className="bg-brand-50 border border-brand-200 rounded-xl p-4 mb-8">
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 bg-brand-600 rounded-lg flex items-center justify-center flex-shrink-0">
                 <span className="text-white font-bold text-lg">{commissionRate}%</span>
               </div>
               <div>
-                <h3 className="font-bold text-orange-800">報酬計算方式 · {tierName}</h3>
-                <p className="text-sm text-orange-700 mt-1">
+                <h3 className="font-bold text-brand-800">報酬計算方式 · {tierName}</h3>
+                <p className="text-sm text-brand-700 mt-1">
                   報酬 = 客戶消費金額 ÷ 1.1（扣除10%消費稅）× {commissionRate}%
                 </p>
-                <p className="text-xs text-orange-600 mt-2">
+                <p className="text-xs text-brand-600 mt-2">
                   例：客戶消費 100 萬日元 → 報酬約 ¥{Math.round(1000000 / 1.1 * commissionRate / 100).toLocaleString()}
                 </p>
               </div>
@@ -480,7 +480,7 @@ export default function CommissionPage() {
               onClick={() => setActiveTab('overview')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                 activeTab === 'overview'
-                  ? 'bg-orange-500 text-white'
+                  ? 'bg-brand-600 text-white'
                   : 'bg-white text-gray-600 hover:bg-gray-50 border'
               }`}
             >
@@ -490,7 +490,7 @@ export default function CommissionPage() {
               onClick={() => setActiveTab('whitelabel')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                 activeTab === 'whitelabel'
-                  ? 'bg-orange-500 text-white'
+                  ? 'bg-brand-600 text-white'
                   : 'bg-white text-gray-600 hover:bg-gray-50 border'
               }`}
             >
@@ -500,7 +500,7 @@ export default function CommissionPage() {
               onClick={() => setActiveTab('referrals')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                 activeTab === 'referrals'
-                  ? 'bg-orange-500 text-white'
+                  ? 'bg-brand-600 text-white'
                   : 'bg-white text-gray-600 hover:bg-gray-50 border'
               }`}
             >
@@ -510,7 +510,7 @@ export default function CommissionPage() {
               onClick={() => setActiveTab('history')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                 activeTab === 'history'
-                  ? 'bg-orange-500 text-white'
+                  ? 'bg-brand-600 text-white'
                   : 'bg-white text-gray-600 hover:bg-gray-50 border'
               }`}
             >
@@ -554,7 +554,7 @@ export default function CommissionPage() {
                   <p>暫無報酬記錄</p>
                   <Link
                     href="/guide-partner/venues"
-                    className="inline-block mt-4 text-orange-600 font-medium hover:underline"
+                    className="inline-block mt-4 text-brand-600 font-medium hover:underline"
                   >
                     開始預約賺取報酬
                   </Link>
@@ -571,7 +571,7 @@ export default function CommissionPage() {
                 {whitelabelCommissions.length > 0 && (
                   <button
                     onClick={exportToCSV}
-                    className="flex items-center gap-2 px-3 py-1.5 text-sm text-orange-600 hover:bg-orange-50 rounded-lg transition"
+                    className="flex items-center gap-2 px-3 py-1.5 text-sm text-brand-600 hover:bg-brand-50 rounded-lg transition"
                   >
                     <Download size={16} />
                     導出CSV
@@ -637,7 +637,7 @@ export default function CommissionPage() {
                   <p>暫無白標訂單</p>
                   <Link
                     href="/guide-partner/whitelabel"
-                    className="inline-block mt-4 text-orange-600 font-medium hover:underline"
+                    className="inline-block mt-4 text-brand-600 font-medium hover:underline"
                   >
                     設置白標網站開始推廣
                   </Link>
@@ -708,7 +708,7 @@ export default function CommissionPage() {
                   </p>
                   <Link
                     href="/guide-partner/referrals"
-                    className="inline-block mt-4 text-orange-600 font-medium hover:underline"
+                    className="inline-block mt-4 text-brand-600 font-medium hover:underline"
                   >
                     查看我的推薦碼
                   </Link>

@@ -15,7 +15,7 @@ export default function GuidePartnerTermsPage() {
       <header className="bg-white border-b sticky top-0 z-50">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/guide-partner" className="flex items-center gap-2">
-            <Logo className="w-8 h-8 text-orange-600" />
+            <Logo className="w-8 h-8 text-brand-600" />
             <span className="font-bold text-gray-900">NIIJIMA</span>
           </Link>
           <Link
@@ -63,12 +63,12 @@ export default function GuidePartnerTermsPage() {
 
           <Section title="第三條 介紹報酬計算與支付">
             <div className="space-y-4">
-              <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
-                <h4 className="font-bold text-orange-800 mb-2">介紹報酬計算公式</h4>
-                <p className="text-orange-700">
+              <div className="bg-brand-50 border border-brand-200 rounded-lg p-4">
+                <h4 className="font-bold text-brand-800 mb-2">介紹報酬計算公式</h4>
+                <p className="text-brand-700">
                   介紹報酬 = (訂單金額 ÷ 1.1) × 報酬率
                 </p>
-                <p className="text-sm text-orange-600 mt-1">
+                <p className="text-sm text-brand-600 mt-1">
                   其中 ÷1.1 為扣除日本10%消費稅
                 </p>
               </div>
@@ -88,7 +88,7 @@ export default function GuidePartnerTermsPage() {
                     <tr className="border-b">
                       <td className="py-2">銅牌夥伴</td>
                       <td className="py-2">0 - 100萬日元</td>
-                      <td className="py-2 font-medium text-orange-600">10%</td>
+                      <td className="py-2 font-medium text-brand-600">10%</td>
                     </tr>
                     <tr className="border-b">
                       <td className="py-2">銀牌夥伴</td>
@@ -265,19 +265,19 @@ export default function GuidePartnerTermsPage() {
         <div className="mt-8 flex flex-wrap gap-4">
           <Link
             href="/legal/privacy"
-            className="text-orange-600 hover:underline text-sm"
+            className="text-brand-600 hover:underline text-sm"
           >
             隱私政策 →
           </Link>
           <Link
             href="/legal/terms"
-            className="text-orange-600 hover:underline text-sm"
+            className="text-brand-600 hover:underline text-sm"
           >
             一般利用規約 →
           </Link>
           <Link
             href="/guide-partner/register"
-            className="text-orange-600 hover:underline text-sm"
+            className="text-brand-600 hover:underline text-sm"
           >
             立即申請 →
           </Link>

@@ -236,7 +236,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 text-orange-500 animate-spin mx-auto mb-4" />
+          <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
           <p className="text-gray-600">載入中...</p>
         </div>
       </div>
@@ -289,7 +289,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
                   <button
                     onClick={handlePayDeposit}
                     disabled={payingDeposit}
-                    className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 disabled:bg-gray-400 text-white font-bold py-3 rounded-xl transition"
+                    className="w-full flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 disabled:bg-gray-400 text-white font-bold py-3 rounded-xl transition"
                   >
                     {payingDeposit ? (
                       <>

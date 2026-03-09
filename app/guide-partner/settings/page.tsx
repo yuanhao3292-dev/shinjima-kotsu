@@ -360,7 +360,7 @@ export default function SettingsPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 text-orange-500 animate-spin mx-auto mb-4" />
+          <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
           <p className="text-gray-600">載入中...</p>
         </div>
       </div>
@@ -383,15 +383,15 @@ export default function SettingsPage() {
           {/* Account Info */}
           <div className="bg-white rounded-xl border p-6 mb-6">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center">
-                <span className="text-2xl font-bold text-orange-600">
+              <div className="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center">
+                <span className="text-2xl font-bold text-brand-600">
                   {guide?.name?.charAt(0).toUpperCase()}
                 </span>
               </div>
               <div>
                 <h2 className="text-xl font-bold text-gray-900">{guide?.name}</h2>
                 <p className="text-gray-500">{guide?.email}</p>
-                <p className="text-sm text-orange-600 font-medium mt-1">
+                <p className="text-sm text-brand-600 font-medium mt-1">
                   {getLevelLabel(guide?.level || 'bronze')}
                 </p>
               </div>
@@ -408,7 +408,7 @@ export default function SettingsPage() {
               onClick={() => { setActiveTab('profile'); setMessage(null); }}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                 activeTab === 'profile'
-                  ? 'bg-orange-500 text-white'
+                  ? 'bg-brand-600 text-white'
                   : 'bg-white text-gray-600 hover:bg-gray-50 border'
               }`}
             >
@@ -419,7 +419,7 @@ export default function SettingsPage() {
               onClick={() => { setActiveTab('password'); setMessage(null); }}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                 activeTab === 'password'
-                  ? 'bg-orange-500 text-white'
+                  ? 'bg-brand-600 text-white'
                   : 'bg-white text-gray-600 hover:bg-gray-50 border'
               }`}
             >
@@ -430,7 +430,7 @@ export default function SettingsPage() {
               onClick={() => { setActiveTab('kyc'); setMessage(null); }}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                 activeTab === 'kyc'
-                  ? 'bg-orange-500 text-white'
+                  ? 'bg-brand-600 text-white'
                   : 'bg-white text-gray-600 hover:bg-gray-50 border'
               }`}
             >
@@ -471,7 +471,7 @@ export default function SettingsPage() {
                     value={profileForm.name}
                     onChange={(e) => setProfileForm({ ...profileForm, name: e.target.value })}
                     required
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                   />
                 </div>
 
@@ -485,7 +485,7 @@ export default function SettingsPage() {
                     value={profileForm.phone}
                     onChange={(e) => setProfileForm({ ...profileForm, phone: e.target.value })}
                     required
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                   />
                 </div>
 
@@ -512,7 +512,7 @@ export default function SettingsPage() {
                     type="text"
                     value={profileForm.wechatId}
                     onChange={(e) => setProfileForm({ ...profileForm, wechatId: e.target.value })}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                     placeholder="選填"
                   />
                 </div>
@@ -520,7 +520,7 @@ export default function SettingsPage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-gray-400 text-white font-bold py-3 rounded-xl transition flex items-center justify-center gap-2"
+                  className="w-full bg-brand-600 hover:bg-brand-700 disabled:bg-gray-400 text-white font-bold py-3 rounded-xl transition flex items-center justify-center gap-2"
                 >
                   {saving ? <Loader2 className="animate-spin" size={20} /> : <CheckCircle2 size={20} />}
                   儲存修改
@@ -545,7 +545,7 @@ export default function SettingsPage() {
                       onChange={(e) => setPasswordForm({ ...passwordForm, newPassword: e.target.value })}
                       required
                       minLength={6}
-                      className="w-full pl-10 pr-12 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                      className="w-full pl-10 pr-12 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                       placeholder="至少6位"
                     />
                     <button
@@ -569,7 +569,7 @@ export default function SettingsPage() {
                       value={passwordForm.confirmPassword}
                       onChange={(e) => setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })}
                       required
-                      className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                       placeholder="再次輸入新密碼"
                     />
                   </div>
@@ -578,7 +578,7 @@ export default function SettingsPage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-gray-400 text-white font-bold py-3 rounded-xl transition flex items-center justify-center gap-2"
+                  className="w-full bg-brand-600 hover:bg-brand-700 disabled:bg-gray-400 text-white font-bold py-3 rounded-xl transition flex items-center justify-center gap-2"
                 >
                   {saving ? <Loader2 className="animate-spin" size={20} /> : <Lock size={20} />}
                   更新密碼
@@ -653,7 +653,7 @@ export default function SettingsPage() {
                         value={kycForm.documentType}
                         onChange={(e) => setKycForm({ ...kycForm, documentType: e.target.value })}
                         required
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                       >
                         <option value="">請選擇證件類型</option>
                         {DOCUMENT_TYPES.map((type) => (
@@ -674,7 +674,7 @@ export default function SettingsPage() {
                         value={kycForm.legalName}
                         onChange={(e) => setKycForm({ ...kycForm, legalName: e.target.value })}
                         required
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                         placeholder="請輸入與證件一致的姓名"
                       />
                     </div>
@@ -689,7 +689,7 @@ export default function SettingsPage() {
                         value={kycForm.documentNumber}
                         onChange={(e) => setKycForm({ ...kycForm, documentNumber: e.target.value })}
                         required
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                         placeholder="請輸入證件號碼"
                       />
                     </div>
@@ -703,7 +703,7 @@ export default function SettingsPage() {
                         value={kycForm.nationality}
                         onChange={(e) => setKycForm({ ...kycForm, nationality: e.target.value })}
                         required
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                       >
                         <option value="">請選擇國籍</option>
                         {NATIONALITIES.map((nat) => (
@@ -723,7 +723,7 @@ export default function SettingsPage() {
                         </label>
                         <div
                           onClick={() => frontInputRef.current?.click()}
-                          className="border-2 border-dashed border-gray-300 rounded-xl p-4 text-center cursor-pointer hover:border-orange-400 transition"
+                          className="border-2 border-dashed border-gray-300 rounded-xl p-4 text-center cursor-pointer hover:border-brand-400 transition"
                         >
                           {frontPreview || guide?.id_document_front_url ? (
                             <img
@@ -755,7 +755,7 @@ export default function SettingsPage() {
                         </label>
                         <div
                           onClick={() => backInputRef.current?.click()}
-                          className="border-2 border-dashed border-gray-300 rounded-xl p-4 text-center cursor-pointer hover:border-orange-400 transition"
+                          className="border-2 border-dashed border-gray-300 rounded-xl p-4 text-center cursor-pointer hover:border-brand-400 transition"
                         >
                           {backPreview || guide?.id_document_back_url ? (
                             <img
@@ -785,7 +785,7 @@ export default function SettingsPage() {
                     <button
                       type="submit"
                       disabled={uploading}
-                      className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-gray-400 text-white font-bold py-3 rounded-xl transition flex items-center justify-center gap-2"
+                      className="w-full bg-brand-600 hover:bg-brand-700 disabled:bg-gray-400 text-white font-bold py-3 rounded-xl transition flex items-center justify-center gap-2"
                     >
                       {uploading ? (
                         <>
@@ -829,7 +829,7 @@ export default function SettingsPage() {
             </p>
             <button
               onClick={() => setShowKycSuccessModal(false)}
-              className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition"
+              className="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition"
             >
               我知道了
             </button>

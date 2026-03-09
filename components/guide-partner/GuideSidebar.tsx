@@ -64,7 +64,7 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
       {/* Mobile Header */}
       <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b z-50 flex items-center justify-between px-4">
         <div className="flex items-center gap-2">
-          <Logo className="w-8 h-8 text-orange-600" />
+          <Logo className="w-8 h-8 text-brand-600" />
           <span className="font-bold">{pageTitle || '导游后台'}</span>
         </div>
         <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2">
@@ -80,9 +80,9 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
       `}
       >
         <div className="h-16 flex items-center gap-3 px-6 border-b">
-          <Logo className="w-8 h-8 text-orange-600" />
+          <Logo className="w-8 h-8 text-brand-600" />
           <div>
-            <span className="font-bold text-gray-900">NIIJIMA</span>
+            <span className="font-serif font-bold text-gray-900 tracking-wider">NIIJIMA</span>
             <p className="text-xs text-gray-500">Guide Partner</p>
           </div>
         </div>
@@ -99,7 +99,7 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
                   flex items-center gap-3 px-4 py-3 rounded-xl transition
                   ${
                     active
-                      ? 'bg-orange-50 text-orange-600 font-medium'
+                      ? 'bg-brand-50 text-brand-600 font-medium'
                       : item.highlight
                         ? 'text-blue-600 hover:bg-blue-50 font-medium'
                         : 'text-gray-600 hover:bg-gray-50'

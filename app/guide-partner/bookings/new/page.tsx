@@ -203,7 +203,7 @@ function NewBookingForm() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 text-orange-500 animate-spin mx-auto mb-4" />
+          <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
           <p className="text-gray-600">載入中...</p>
         </div>
       </div>
@@ -225,7 +225,7 @@ function NewBookingForm() {
           <div className="space-y-3">
             <Link
               href="/guide-partner/bookings"
-              className="block w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition"
+              className="block w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition"
             >
               前往支付定金
             </Link>
@@ -262,12 +262,12 @@ function NewBookingForm() {
           </div>
 
           {/* Notice */}
-          <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 mb-6">
+          <div className="bg-brand-50 border border-brand-200 rounded-xl p-4 mb-6">
             <div className="flex gap-3">
-              <Info className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
-              <div className="text-sm text-orange-800">
+              <Info className="w-5 h-5 text-brand-600 flex-shrink-0 mt-0.5" />
+              <div className="text-sm text-brand-800">
                 <p className="font-medium mb-1">預約須知</p>
-                <ul className="list-disc list-inside space-y-1 text-orange-700">
+                <ul className="list-disc list-inside space-y-1 text-brand-700">
                   <li>預約提交後，請提醒客戶支付 500 元人民幣定金</li>
                   <li>定金支付後預約方可生效</li>
                   <li>當天取消定金不退</li>
@@ -296,7 +296,7 @@ function NewBookingForm() {
                   value={formData.venueId}
                   onChange={handleVenueChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                 >
                   <option value="">請選擇店舖</option>
                   {venues.map((v) => (
@@ -323,7 +323,7 @@ function NewBookingForm() {
                   value={formData.customerName}
                   onChange={(e) => setFormData({ ...formData, customerName: e.target.value })}
                   required
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                   placeholder="客戶姓名"
                 />
               </div>
@@ -338,7 +338,7 @@ function NewBookingForm() {
                   type="tel"
                   value={formData.customerPhone}
                   onChange={(e) => setFormData({ ...formData, customerPhone: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                   placeholder="客戶聯繫電話"
                 />
               </div>
@@ -353,7 +353,7 @@ function NewBookingForm() {
                   value={formData.partySize}
                   onChange={(e) => setFormData({ ...formData, partySize: parseInt(e.target.value) })}
                   required
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                 >
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
                     <option key={n} value={n}>{n} 人</option>
@@ -375,7 +375,7 @@ function NewBookingForm() {
                     onChange={(e) => setFormData({ ...formData, bookingDate: e.target.value })}
                     required
                     min={new Date().toISOString().split('T')[0]}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                   />
                 </div>
                 <div>
@@ -387,7 +387,7 @@ function NewBookingForm() {
                     type="time"
                     value={formData.bookingTime}
                     onChange={(e) => setFormData({ ...formData, bookingTime: e.target.value })}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                   />
                 </div>
               </div>
@@ -402,7 +402,7 @@ function NewBookingForm() {
                   value={formData.specialRequests}
                   onChange={(e) => setFormData({ ...formData, specialRequests: e.target.value })}
                   rows={3}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent resize-none"
                   placeholder="如有特殊要求請在此說明..."
                 />
               </div>
@@ -418,7 +418,7 @@ function NewBookingForm() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-gray-400 text-white font-bold py-4 rounded-xl transition flex items-center justify-center gap-2"
+                className="w-full bg-brand-600 hover:bg-brand-700 disabled:bg-gray-400 text-white font-bold py-4 rounded-xl transition flex items-center justify-center gap-2"
               >
                 {submitting ? (
                   <>
@@ -444,7 +444,7 @@ function NewBookingForm() {
 function LoadingFallback() {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <Loader2 className="w-12 h-12 text-orange-500 animate-spin" />
+      <Loader2 className="w-12 h-12 text-brand-500 animate-spin" />
     </div>
   );
 }

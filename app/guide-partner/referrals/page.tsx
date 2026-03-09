@@ -170,7 +170,7 @@ export default function ReferralsPage() {
 
   const getLevelBadge = (level: string) => {
     const styles: Record<string, string> = {
-      growth: 'text-orange-600',
+      growth: 'text-brand-600',
       gold: 'text-yellow-500',
     };
     const labels: Record<string, string> = {
@@ -196,7 +196,7 @@ export default function ReferralsPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 text-orange-500 animate-spin mx-auto mb-4" />
+          <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
           <p className="text-gray-600">載入中...</p>
         </div>
       </div>
@@ -274,7 +274,7 @@ export default function ReferralsPage() {
 
             <div className="bg-white rounded-xl p-6 border">
               <div className="flex items-center gap-2 mb-2">
-                <Gift size={20} className="text-orange-500" />
+                <Gift size={20} className="text-brand-500" />
                 <span className="text-sm text-gray-500">累計獎勵</span>
               </div>
               <p className="text-2xl font-bold text-gray-900">¥{totalRewards.toLocaleString()}</p>

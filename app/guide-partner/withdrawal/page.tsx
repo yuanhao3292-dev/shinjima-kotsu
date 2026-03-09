@@ -189,7 +189,7 @@ export default function WithdrawalPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 text-orange-500 animate-spin mx-auto mb-4" />
+          <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
           <p className="text-gray-600">載入中...</p>
         </div>
       </div>
@@ -285,7 +285,7 @@ export default function WithdrawalPage() {
                   <div>
                     <p className="text-yellow-800 font-medium">銀行帳戶資訊不完整</p>
                     <p className="text-yellow-700 text-sm mt-1">請先前往帳戶設置完善銀行資訊後再申請提現</p>
-                    <Link href="/guide-partner/settings" className="inline-block mt-2 text-sm text-orange-600 hover:text-orange-700 font-medium">
+                    <Link href="/guide-partner/settings" className="inline-block mt-2 text-sm text-brand-600 hover:text-brand-700 font-medium">
                       前往設置 →
                     </Link>
                   </div>
@@ -324,7 +324,7 @@ export default function WithdrawalPage() {
                       <span className="text-gray-700">{bankInfo?.accountHolder}</span>
                     </div>
                   </div>
-                  <Link href="/guide-partner/settings" className="text-xs text-orange-600 hover:text-orange-700 mt-2 inline-block">
+                  <Link href="/guide-partner/settings" className="text-xs text-brand-600 hover:text-brand-700 mt-2 inline-block">
                     修改銀行資訊
                   </Link>
                 </div>
@@ -341,14 +341,14 @@ export default function WithdrawalPage() {
                       placeholder={`最低 ${minAmount.toLocaleString()}`}
                       min={minAmount}
                       max={balance?.available || 0}
-                      className="w-full pl-10 pr-4 py-3 border rounded-lg text-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none"
+                      className="w-full pl-10 pr-4 py-3 border rounded-lg text-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
                     />
                   </div>
                   <div className="flex justify-between mt-2">
                     <p className="text-xs text-gray-400">最低提現 ¥{minAmount.toLocaleString()}</p>
                     <button
                       onClick={() => setAmount(String(balance?.available || 0))}
-                      className="text-xs text-orange-600 hover:text-orange-700"
+                      className="text-xs text-brand-600 hover:text-brand-700"
                     >
                       全部提現
                     </button>
@@ -358,7 +358,7 @@ export default function WithdrawalPage() {
                 <button
                   onClick={handleSubmit}
                   disabled={submitting || !amount}
-                  className="w-full py-3 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center justify-center gap-2"
+                  className="w-full py-3 bg-brand-700 text-white rounded-lg font-medium hover:bg-brand-800 disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center justify-center gap-2"
                 >
                   {submitting ? (
                     <>

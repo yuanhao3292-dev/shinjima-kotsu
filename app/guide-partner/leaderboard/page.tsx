@@ -137,7 +137,7 @@ export default function LeaderboardPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 text-orange-500 animate-spin mx-auto mb-4" />
+          <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
           <p className="text-gray-600">載入中...</p>
         </div>
       </div>
@@ -154,7 +154,7 @@ export default function LeaderboardPage() {
           {/* Header */}
           <div className="mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-brand-500 rounded-xl flex items-center justify-center">
                 <Trophy className="text-white" size={24} />
               </div>
               <div>
@@ -166,14 +166,14 @@ export default function LeaderboardPage() {
 
           {/* Current User Rank Card */}
           {currentUserRank && (
-            <div className="bg-gradient-to-r from-orange-500 to-amber-500 rounded-2xl p-6 text-white mb-8 shadow-lg">
+            <div className="bg-gradient-to-r from-brand-600 to-brand-400 rounded-2xl p-6 text-white mb-8 shadow-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-orange-100 text-sm">您的當前排名</p>
+                  <p className="text-brand-100 text-sm">您的當前排名</p>
                   <div className="flex items-center gap-3 mt-2">
                     <span className="text-5xl font-bold">#{currentUserRank.rank}</span>
                     <div className="text-left">
-                      <p className="text-orange-100 text-sm">累計佣金</p>
+                      <p className="text-brand-100 text-sm">累計佣金</p>
                       <p className="text-2xl font-bold">¥{currentUserRank.total_commission.toLocaleString()}</p>
                     </div>
                   </div>
@@ -185,14 +185,14 @@ export default function LeaderboardPage() {
                       {LEVEL_CONFIG[currentUserRank.level]?.label || currentUserRank.level}
                     </span>
                   </div>
-                  <p className="text-orange-100 text-sm mt-2">
+                  <p className="text-brand-100 text-sm mt-2">
                     {currentUserRank.total_bookings} 筆訂單
                   </p>
                 </div>
               </div>
               {currentUserRank.rank > 1 && (
                 <div className="mt-4 pt-4 border-t border-orange-400/30">
-                  <p className="text-orange-100 text-sm flex items-center gap-2">
+                  <p className="text-brand-100 text-sm flex items-center gap-2">
                     <TrendingUp size={16} />
                     距離上一名還差 ¥{(leaderboard[currentUserRank.rank - 2]?.total_commission - currentUserRank.total_commission).toLocaleString()}
                   </p>

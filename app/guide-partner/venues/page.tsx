@@ -138,7 +138,7 @@ export default function VenuesPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 text-orange-500 animate-spin mx-auto mb-4" />
+          <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
           <p className="text-gray-600">載入中...</p>
         </div>
       </div>
@@ -168,7 +168,7 @@ export default function VenuesPage() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="搜尋店舖名稱、品牌、地區..."
-                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
               />
             </div>
 
@@ -181,7 +181,7 @@ export default function VenuesPage() {
                   className={`
                     flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition
                     ${selectedCategory === cat.value
-                      ? 'bg-orange-500 text-white'
+                      ? 'bg-brand-600 text-white'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                     }
                   `}
@@ -222,7 +222,7 @@ export default function VenuesPage() {
             {filteredVenues.map((venue) => (
               <div
                 key={venue.id}
-                className="bg-white rounded-xl border hover:border-orange-300 hover:shadow-lg transition overflow-hidden"
+                className="bg-white rounded-xl border hover:border-brand-300 hover:shadow-lg transition overflow-hidden"
               >
                 {/* Header */}
                 <div className="p-4 border-b">
@@ -259,7 +259,7 @@ export default function VenuesPage() {
                   {venue.features && venue.features.length > 0 && (
                     <div className="flex flex-wrap gap-1 mb-3">
                       {venue.features.slice(0, 3).map((feature, idx) => (
-                        <span key={idx} className="px-2 py-1 bg-orange-50 text-orange-600 text-xs rounded">
+                        <span key={idx} className="px-2 py-1 bg-brand-50 text-brand-600 text-xs rounded">
                           {feature}
                         </span>
                       ))}
@@ -289,7 +289,7 @@ export default function VenuesPage() {
                   </Link>
                   <Link
                     href={`/guide-partner/bookings/new?venue=${venue.id}`}
-                    className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 rounded-xl transition"
+                    className="w-full flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-medium py-3 rounded-xl transition"
                   >
                     <Calendar size={18} />
                     預約此店舖

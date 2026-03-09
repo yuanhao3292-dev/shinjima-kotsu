@@ -192,7 +192,7 @@ export default function SupportPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <Loader2 className="w-12 h-12 text-orange-500 animate-spin" />
+        <Loader2 className="w-12 h-12 text-brand-500 animate-spin" />
       </div>
     );
   }
@@ -212,7 +212,7 @@ export default function SupportPage() {
             </div>
             <button
               onClick={() => setShowNewTicket(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition"
+              className="flex items-center gap-2 px-4 py-2 bg-brand-600 text-white rounded-xl hover:bg-brand-700 transition"
             >
               <Plus size={20} />
               <span>新建工單</span>
@@ -258,7 +258,7 @@ export default function SupportPage() {
                         key={ticket.id}
                         onClick={() => handleSelectTicket(ticket)}
                         className={`w-full p-4 text-left hover:bg-gray-50 transition ${
-                          selectedTicket?.id === ticket.id ? 'bg-orange-50' : ''
+                          selectedTicket?.id === ticket.id ? 'bg-brand-50' : ''
                         }`}
                       >
                         <div className="flex items-start justify-between gap-3">
@@ -316,7 +316,7 @@ export default function SupportPage() {
                   <div className="p-4 max-h-[400px] overflow-y-auto space-y-4">
                     {/* 原始问题 */}
                     <div className="flex gap-3">
-                      <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 rounded-full bg-brand-100 flex items-center justify-center flex-shrink-0">
                         <span className="text-sm">我</span>
                       </div>
                       <div className="flex-1">
@@ -333,7 +333,7 @@ export default function SupportPage() {
                     {ticketReplies.map((reply) => (
                       <div key={reply.id} className={`flex gap-3 ${reply.is_staff ? '' : 'flex-row-reverse'}`}>
                         <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                          reply.is_staff ? 'bg-blue-100' : 'bg-orange-100'
+                          reply.is_staff ? 'bg-blue-100' : 'bg-brand-100'
                         }`}>
                           <span className="text-sm">{reply.is_staff ? '客' : '我'}</span>
                         </div>
@@ -368,7 +368,7 @@ export default function SupportPage() {
                           value={replyContent}
                           onChange={(e) => setReplyContent(e.target.value)}
                           placeholder="輸入回覆內容..."
-                          className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                          className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
                           onKeyDown={(e) => {
                             if (e.key === 'Enter' && !e.shiftKey) {
                               e.preventDefault();
@@ -379,7 +379,7 @@ export default function SupportPage() {
                         <button
                           onClick={handleSendReply}
                           disabled={sendingReply || !replyContent.trim()}
-                          className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           {sendingReply ? (
                             <Loader2 className="w-5 h-5 animate-spin" />
@@ -425,7 +425,7 @@ export default function SupportPage() {
                       onClick={() => setNewTicket({ ...newTicket, ticket_type: type.value })}
                       className={`p-3 rounded-lg border text-left transition ${
                         newTicket.ticket_type === type.value
-                          ? 'border-orange-500 bg-orange-50'
+                          ? 'border-brand-500 bg-brand-50'
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
@@ -442,7 +442,7 @@ export default function SupportPage() {
                 <select
                   value={newTicket.priority}
                   onChange={(e) => setNewTicket({ ...newTicket, priority: e.target.value })}
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
                 >
                   <option value="low">低 - 一般諮詢</option>
                   <option value="normal">普通 - 需要幫助</option>
@@ -459,7 +459,7 @@ export default function SupportPage() {
                   value={newTicket.subject}
                   onChange={(e) => setNewTicket({ ...newTicket, subject: e.target.value })}
                   placeholder="簡要描述您的問題"
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
                   required
                   maxLength={200}
                 />
@@ -472,7 +472,7 @@ export default function SupportPage() {
                   value={newTicket.description}
                   onChange={(e) => setNewTicket({ ...newTicket, description: e.target.value })}
                   placeholder="請詳細描述您遇到的問題，包括：&#10;- 發生時間&#10;- 相關訂單號（如有）&#10;- 期望的解決方案"
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 h-32 resize-none"
+                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500 h-32 resize-none"
                   required
                 />
               </div>
@@ -489,7 +489,7 @@ export default function SupportPage() {
                 <button
                   type="submit"
                   disabled={submitting || !newTicket.subject.trim() || !newTicket.description.trim()}
-                  className="flex-1 px-4 py-3 bg-orange-500 text-white rounded-xl hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-3 bg-brand-600 text-white rounded-xl hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center justify-center gap-2"
                 >
                   {submitting ? (
                     <>

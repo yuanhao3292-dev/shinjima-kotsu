@@ -80,7 +80,7 @@ const LEVEL_TARGETS: Record<string, { bookings: number; spend: number }> = {
 };
 
 const LEVEL_CONFIG: Record<string, { label: string; color: string; next: string | null }> = {
-  growth: { label: '初期合夥人', color: 'text-orange-700', next: 'gold' },
+  growth: { label: '初期合夥人', color: 'text-brand-700', next: 'gold' },
   gold: { label: '金牌合夥人', color: 'text-yellow-600', next: null },
 };
 
@@ -252,7 +252,7 @@ export default function AnalyticsPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 text-orange-500 animate-spin mx-auto mb-4" />
+          <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
           <p className="text-gray-600">載入中...</p>
         </div>
       </div>
@@ -277,7 +277,7 @@ export default function AnalyticsPage() {
           {/* Header */}
           <div className="mb-6">
             <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
-              <BarChart3 className="text-orange-500" size={28} />
+              <BarChart3 className="text-brand-500" size={28} />
               數據分析
             </h1>
             <p className="text-gray-500 mt-1">查看您的業績表現和趨勢</p>
@@ -352,11 +352,11 @@ export default function AnalyticsPage() {
 
           {/* Level Progress */}
           {nextTarget && progress && (
-            <div className="bg-gradient-to-r from-orange-500 to-amber-500 rounded-2xl p-6 text-white mb-8">
+            <div className="bg-gradient-to-r from-brand-600 to-brand-400 rounded-2xl p-6 text-white mb-8">
               <div className="flex items-center gap-3 mb-4">
                 <Target className="text-white/80" size={24} />
                 <div>
-                  <p className="text-orange-100 text-sm">升級目標</p>
+                  <p className="text-brand-100 text-sm">升級目標</p>
                   <p className="font-bold text-lg">
                     {LEVEL_CONFIG[currentLevel]?.label} → {LEVEL_CONFIG[nextLevel]?.label}
                   </p>
@@ -365,7 +365,7 @@ export default function AnalyticsPage() {
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <div className="flex justify-between text-sm mb-1">
-                    <span className="text-orange-100">訂單數</span>
+                    <span className="text-brand-100">訂單數</span>
                     <span>{guide?.total_bookings || 0} / {nextTarget.bookings}</span>
                   </div>
                   <div className="h-3 bg-white/20 rounded-full overflow-hidden">
@@ -377,7 +377,7 @@ export default function AnalyticsPage() {
                 </div>
                 <div>
                   <div className="flex justify-between text-sm mb-1">
-                    <span className="text-orange-100">銷售額</span>
+                    <span className="text-brand-100">銷售額</span>
                     <span>{formatCurrency(stats?.total.spend || 0)} / {formatCurrency(nextTarget.spend)}</span>
                   </div>
                   <div className="h-3 bg-white/20 rounded-full overflow-hidden">
@@ -406,7 +406,7 @@ export default function AnalyticsPage() {
                       <div className="flex-1">
                         <div className="h-6 bg-gray-100 rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-r from-orange-400 to-amber-400 rounded-full"
+                            className="h-full bg-gradient-to-r from-brand-400 to-brand-300 rounded-full"
                             style={{
                               width: `${Math.min(100, (month.commission / Math.max(...stats.monthlyTrend.map(m => m.commission || 1))) * 100)}%`
                             }}

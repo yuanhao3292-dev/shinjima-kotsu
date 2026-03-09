@@ -140,7 +140,7 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 text-orange-500 animate-spin mx-auto mb-4" />
+          <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
           <p className="text-gray-600">Loading...</p>
         </div>
       </div>
@@ -263,7 +263,7 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
                     <p className="text-xs text-gray-500 mb-2">特色</p>
                     <div className="flex flex-wrap gap-1">
                       {venue.features.map((feature, idx) => (
-                        <span key={idx} className="px-2 py-1 bg-orange-50 text-orange-600 text-xs rounded">
+                        <span key={idx} className="px-2 py-1 bg-brand-50 text-brand-600 text-xs rounded">
                           {feature}
                         </span>
                       ))}
@@ -302,7 +302,7 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
               {/* Action Button */}
               <Link
                 href={`/guide-partner/bookings/new?venue=${venue.id}`}
-                className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-xl transition"
+                className="w-full flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-bold py-4 rounded-xl transition"
               >
                 <Calendar size={20} />
                 預約此店舖
@@ -324,7 +324,7 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
                           className={`
                             px-3 py-1.5 rounded-lg text-sm font-medium transition
                             ${selectedLocale === locale
-                              ? 'bg-orange-500 text-white'
+                              ? 'bg-brand-600 text-white'
                               : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                             }
                           `}
