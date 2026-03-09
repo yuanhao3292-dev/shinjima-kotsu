@@ -14,14 +14,10 @@ import {
   User as UserIcon,
   Mail,
   Calendar,
-  ClipboardList,
   LogOut,
   Loader2,
   ChevronRight,
   Shield,
-  Heart,
-  HeartPulse,
-  Sparkles,
 } from 'lucide-react';
 
 const translations = {
@@ -194,14 +190,9 @@ export default function MyAccountPage() {
                 href="/my-orders"
                 className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors border-b border-neutral-100"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-brand-50 rounded-xl flex items-center justify-center">
-                    <ClipboardList className="w-6 h-6 text-brand-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-neutral-900">{t('myOrders', lang)}</h3>
-                    <p className="text-sm text-neutral-500">{t('viewAllOrders', lang)}</p>
-                  </div>
+                <div>
+                  <h3 className="font-semibold text-neutral-900">{t('myOrders', lang)}</h3>
+                  <p className="text-sm text-neutral-500">{t('viewAllOrders', lang)}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-neutral-400" />
               </Link>
@@ -210,14 +201,9 @@ export default function MyAccountPage() {
                 href="/medical"
                 className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors border-b border-neutral-100"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center">
-                    <Calendar className="w-6 h-6 text-green-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-neutral-900">{t('bookCheckup', lang)}</h3>
-                    <p className="text-sm text-neutral-500">{t('browsePackages', lang)}</p>
-                  </div>
+                <div>
+                  <h3 className="font-semibold text-neutral-900">{t('bookCheckup', lang)}</h3>
+                  <p className="text-sm text-neutral-500">{t('browsePackages', lang)}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-neutral-400" />
               </Link>
@@ -226,20 +212,14 @@ export default function MyAccountPage() {
                 href="/health-screening"
                 className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors border-b border-neutral-100"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center">
-                    <Heart className="w-6 h-6 text-purple-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-neutral-900 flex items-center gap-2">
-                      {t('aiHealthScreening', lang)}
-                      <span className="inline-flex items-center gap-1 text-xs bg-purple-50 text-purple-700 px-2 py-0.5 rounded-full border border-purple-200">
-                        <Sparkles className="w-3 h-3" />
-                        {t('free', lang)}
-                      </span>
-                    </h3>
-                    <p className="text-sm text-neutral-500">{t('aiScreeningDesc', lang)}</p>
-                  </div>
+                <div>
+                  <h3 className="font-semibold text-neutral-900 flex items-center gap-2">
+                    {t('aiHealthScreening', lang)}
+                    <span className="inline-flex items-center gap-1 text-xs bg-purple-50 text-purple-700 px-2 py-0.5 rounded-full border border-purple-200">
+                      {t('free', lang)}
+                    </span>
+                  </h3>
+                  <p className="text-sm text-neutral-500">{t('aiScreeningDesc', lang)}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-neutral-400" />
               </Link>
@@ -248,14 +228,9 @@ export default function MyAccountPage() {
                 href="/cancer-treatment"
                 className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-rose-50 rounded-xl flex items-center justify-center">
-                    <HeartPulse className="w-6 h-6 text-rose-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-neutral-900">{t('comprehensiveTreatment', lang)}</h3>
-                    <p className="text-sm text-neutral-500">{t('treatmentTypes', lang)}</p>
-                  </div>
+                <div>
+                  <h3 className="font-semibold text-neutral-900">{t('comprehensiveTreatment', lang)}</h3>
+                  <p className="text-sm text-neutral-500">{t('treatmentTypes', lang)}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-neutral-400" />
               </Link>
