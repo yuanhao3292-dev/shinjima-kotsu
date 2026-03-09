@@ -124,7 +124,7 @@ export default function MyAccountPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-brand-900/80 via-brand-900/30 to-brand-900/50"></div>
 
           {/* Language Switcher - Top Right */}
-          <div className="absolute top-8 right-8 z-20">
+          <div className="absolute top-8 right-8 z-20 bg-white/90 backdrop-blur-sm rounded-lg shadow-md">
             <LanguageSwitcher />
           </div>
 
