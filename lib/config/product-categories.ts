@@ -26,7 +26,7 @@ export const MODULE_DETAIL_ROUTES: Record<string, string> = {
   hyogo_medical: '/hyogo-medical',
   kindai_hospital: '/kindai-hospital',
   osaka_himak: '/osaka-himak',
-  sai_clinic: '/guide-partner/product-center/sai-clinic',
+  sai_clinic: '/sai-clinic',
   cancer_treatment: '/cancer-treatment',
   helene_clinic: '/helene-clinic',
   ginza_phoenix: '/ginza-phoenix',
