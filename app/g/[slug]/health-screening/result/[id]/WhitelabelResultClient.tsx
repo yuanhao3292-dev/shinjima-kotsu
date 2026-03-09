@@ -6,6 +6,7 @@ import ScreeningResult from '@/components/ScreeningResult';
 import { downloadHealthReportPDF } from '@/components/HealthReportPDF';
 import { type BodyMapSelectionData } from '@/components/BodyMapSelector';
 import { type AnalysisResult } from '@/services/deepseekService';
+import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
   ArrowLeft,
   Loader2,
@@ -17,6 +18,164 @@ import {
   Phone,
   Mail,
 } from 'lucide-react';
+
+// ---------------------------------------------------------------------------
+// i18n translations
+// ---------------------------------------------------------------------------
+
+const translations = {
+  sessionExpired: {
+    'zh-CN': '会话已过期，请重新进行筛查',
+    'zh-TW': '會話已過期，請重新進行篩查',
+    ja: 'セッションの有効期限が切れました。再度スクリーニングを行ってください',
+    en: 'Session expired. Please redo the screening.',
+  },
+  loadFailed: {
+    'zh-CN': '加载失败',
+    'zh-TW': '載入失敗',
+    ja: '読み込みに失敗しました',
+    en: 'Failed to load',
+  },
+  screeningIncomplete: {
+    'zh-CN': '筛查尚未完成',
+    'zh-TW': '篩查尚未完成',
+    ja: 'スクリーニングはまだ完了していません',
+    en: 'Screening is not yet complete',
+  },
+  analysisNotFound: {
+    'zh-CN': '分析结果不存在',
+    'zh-TW': '分析結果不存在',
+    ja: '分析結果が見つかりません',
+    en: 'Analysis result not found',
+  },
+  pdfFailed: {
+    'zh-CN': 'PDF 下载失败，请稍后重试',
+    'zh-TW': 'PDF 下載失敗，請稍後重試',
+    ja: 'PDFのダウンロードに失敗しました。後ほど再度お試しください',
+    en: 'PDF download failed. Please try again later.',
+  },
+  loadingResults: {
+    'zh-CN': '加载分析结果...',
+    'zh-TW': '載入分析結果...',
+    ja: '分析結果を読み込んでいます...',
+    en: 'Loading analysis results...',
+  },
+  goBack: {
+    'zh-CN': '返回',
+    'zh-TW': '返回',
+    ja: '戻る',
+    en: 'Back',
+  },
+  goHome: {
+    'zh-CN': '返回首页',
+    'zh-TW': '返回首頁',
+    ja: 'トップページへ',
+    en: 'Back to Home',
+  },
+  generating: {
+    'zh-CN': '生成中...',
+    'zh-TW': '生成中...',
+    ja: '生成中...',
+    en: 'Generating...',
+  },
+  downloadPdf: {
+    'zh-CN': '下载 PDF 报告',
+    'zh-TW': '下載 PDF 報告',
+    ja: 'PDFレポートをダウンロード',
+    en: 'Download PDF Report',
+  },
+  analysisComplete: {
+    'zh-CN': '分析完成',
+    'zh-TW': '分析完成',
+    ja: '分析完了',
+    en: 'Analysis Complete',
+  },
+  aiHealthReport: {
+    'zh-CN': 'AI 健康评估报告',
+    'zh-TW': 'AI 健康評估報告',
+    ja: 'AI 健康評価レポート',
+    en: 'AI Health Assessment Report',
+  },
+  reportDesc: {
+    'zh-CN': '根据您的回答，AI 为您生成了以下健康分析报告',
+    'zh-TW': '根據您的回答，AI 為您生成了以下健康分析報告',
+    ja: 'ご回答に基づき、AIが以下の健康分析レポートを作成しました',
+    en: 'Based on your responses, AI has generated the following health analysis report',
+  },
+  recommendedServicesTitle: {
+    'zh-CN': '根据您的筛查结果，推荐以下服务',
+    'zh-TW': '根據您的篩查結果，推薦以下服務',
+    ja: 'スクリーニング結果に基づき、以下のサービスをおすすめします',
+    en: 'Based on your screening results, we recommend the following services',
+  },
+  recommendedServicesDesc: {
+    'zh-CN': '日本顶级医疗机构，提供专业诊断与治疗服务',
+    'zh-TW': '日本頂級醫療機構，提供專業診斷與治療服務',
+    ja: '日本トップクラスの医療機関による専門的な診断・治療サービスです',
+    en: 'Top-tier Japanese medical institutions providing professional diagnosis and treatment services',
+  },
+  learnMore: {
+    'zh-CN': '了解详情',
+    'zh-TW': '了解詳情',
+    ja: '詳しく見る',
+    en: 'Learn More',
+  },
+  needConsultation: {
+    'zh-CN': '需要专业咨询？联系 {brandName}',
+    'zh-TW': '需要專業諮詢？聯繫 {brandName}',
+    ja: '専門的なご相談が必要ですか？{brandName} にお問い合わせください',
+    en: 'Need professional consultation? Contact {brandName}',
+  },
+  consultationDesc: {
+    'zh-CN': '我们的医疗顾问可以根据您的筛查结果，为您推荐最适合的日本医疗服务',
+    'zh-TW': '我們的醫療顧問可以根據您的篩查結果，為您推薦最適合的日本醫療服務',
+    ja: '当社の医療コンサルタントが、スクリーニング結果に基づき最適な日本の医療サービスをご提案いたします',
+    en: 'Our medical consultants can recommend the most suitable Japanese medical services based on your screening results',
+  },
+  wechatLabel: {
+    'zh-CN': '微信:',
+    'zh-TW': '微信:',
+    ja: 'WeChat:',
+    en: 'WeChat:',
+  },
+  lineConsult: {
+    'zh-CN': 'LINE 咨询',
+    'zh-TW': 'LINE 諮詢',
+    ja: 'LINE で相談',
+    en: 'LINE Consultation',
+  },
+  emailConsult: {
+    'zh-CN': '邮件咨询',
+    'zh-TW': '郵件諮詢',
+    ja: 'メールで相談',
+    en: 'Email Consultation',
+  },
+  saveReport: {
+    'zh-CN': '保存您的健康报告',
+    'zh-TW': '保存您的健康報告',
+    ja: '健康レポートを保存する',
+    en: 'Save Your Health Report',
+  },
+  saveReportDesc: {
+    'zh-CN': '下载 PDF 格式的精美报告，方便保存和分享给医生',
+    'zh-TW': '下載 PDF 格式的精美報告，方便保存和分享給醫生',
+    ja: 'PDF形式のレポートをダウンロードして、保存や医師との共有にご利用ください',
+    en: 'Download a beautifully formatted PDF report for easy saving and sharing with your doctor',
+  },
+  retakeScreening: {
+    'zh-CN': '再次进行筛查 →',
+    'zh-TW': '再次進行篩查 →',
+    ja: 'スクリーニングをやり直す →',
+    en: 'Retake Screening →',
+  },
+} as const;
+
+const t = (key: keyof typeof translations, lang: Language): string =>
+  translations[key][lang];
+
+// ---------------------------------------------------------------------------
+// Interfaces
+// ---------------------------------------------------------------------------
 
 interface RecommendedService {
   name: string;
@@ -50,10 +209,18 @@ interface WhitelabelResultClientProps {
   contactInfo: ContactInfo;
 }
 
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
 function getSessionId(): string {
   if (typeof window === 'undefined') return '';
   return localStorage.getItem('wl_screening_session') || '';
 }
+
+// ---------------------------------------------------------------------------
+// Component
+// ---------------------------------------------------------------------------
 
 export default function WhitelabelResultClient({
   slug,
@@ -61,6 +228,7 @@ export default function WhitelabelResultClient({
   recommendedServices,
   contactInfo,
 }: WhitelabelResultClientProps) {
+  const lang = useLanguage();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [screeningData, setScreeningData] = useState<ScreeningData | null>(null);
@@ -71,7 +239,7 @@ export default function WhitelabelResultClient({
       try {
         const sessionId = getSessionId();
         if (!sessionId) {
-          setError('会话已过期，请重新进行筛查');
+          setError(t('sessionExpired', lang));
           setLoading(false);
           return;
         }
@@ -82,19 +250,19 @@ export default function WhitelabelResultClient({
 
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.error || '加载失败');
+          throw new Error(errorData.error || t('loadFailed', lang));
         }
 
         const data = await response.json();
 
         if (data.screening.status !== 'completed') {
-          setError('筛查尚未完成');
+          setError(t('screeningIncomplete', lang));
           setLoading(false);
           return;
         }
 
         if (!data.screening.analysisResult) {
-          throw new Error('分析结果不存在');
+          throw new Error(t('analysisNotFound', lang));
         }
 
         setScreeningData(data.screening);
@@ -107,7 +275,7 @@ export default function WhitelabelResultClient({
     }
 
     fetchResult();
-  }, [screeningId]);
+  }, [screeningId, lang]);
 
   const handleDownloadPDF = async () => {
     if (!screeningData) return;
@@ -123,7 +291,7 @@ export default function WhitelabelResultClient({
       });
     } catch (err) {
       console.error('PDF download error:', err);
-      alert('PDF 下载失败，请稍后重试');
+      alert(t('pdfFailed', lang));
     } finally {
       setIsDownloading(false);
     }
@@ -134,7 +302,7 @@ export default function WhitelabelResultClient({
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-10 h-10 animate-spin text-blue-500 mx-auto mb-4" />
-          <p className="text-gray-500">加载分析结果...</p>
+          <p className="text-gray-500">{t('loadingResults', lang)}</p>
         </div>
       </div>
     );
@@ -150,7 +318,7 @@ export default function WhitelabelResultClient({
               className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
             >
               <ArrowLeft size={18} />
-              <span className="text-sm">返回</span>
+              <span className="text-sm">{t('goBack', lang)}</span>
             </Link>
           </div>
         </div>
@@ -164,7 +332,7 @@ export default function WhitelabelResultClient({
             href={`/g/${slug}/health-screening`}
             className="inline-block mt-6 text-blue-600 hover:underline"
           >
-            重新进行筛查
+            {t('retakeScreening', lang)}
           </Link>
         </div>
       </div>
@@ -181,7 +349,7 @@ export default function WhitelabelResultClient({
             className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
           >
             <ArrowLeft size={18} />
-            <span className="text-sm">返回首页</span>
+            <span className="text-sm">{t('goHome', lang)}</span>
           </Link>
 
           <button
@@ -192,12 +360,12 @@ export default function WhitelabelResultClient({
             {isDownloading ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin" />
-                生成中...
+                {t('generating', lang)}
               </>
             ) : (
               <>
                 <Download className="w-4 h-4" />
-                下载 PDF 报告
+                {t('downloadPdf', lang)}
               </>
             )}
           </button>
@@ -209,13 +377,13 @@ export default function WhitelabelResultClient({
         <div className="max-w-4xl mx-auto px-4 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm mb-4">
             <FileText className="w-4 h-4" />
-            分析完成
+            {t('analysisComplete', lang)}
           </div>
           <h1 className="text-2xl md:text-3xl font-serif text-gray-900">
-            AI 健康评估报告
+            {t('aiHealthReport', lang)}
           </h1>
           <p className="text-gray-500 mt-2">
-            根据您的回答，AI 为您生成了以下健康分析报告
+            {t('reportDesc', lang)}
           </p>
         </div>
       </div>
@@ -237,10 +405,10 @@ export default function WhitelabelResultClient({
         <div className="max-w-4xl mx-auto px-4 pb-8">
           <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
             <h3 className="text-xl font-bold text-gray-900 mb-2">
-              根据您的筛查结果，推荐以下服务
+              {t('recommendedServicesTitle', lang)}
             </h3>
             <p className="text-gray-500 text-sm mb-6">
-              日本顶级医疗机构，提供专业诊断与治疗服务
+              {t('recommendedServicesDesc', lang)}
             </p>
 
             <div className="grid md:grid-cols-2 gap-4">
@@ -265,7 +433,7 @@ export default function WhitelabelResultClient({
                       {service.description}
                     </p>
                     <span className="inline-flex items-center gap-1 text-sm text-blue-600 mt-2">
-                      了解详情 <ArrowRight size={14} />
+                      {t('learnMore', lang)} <ArrowRight size={14} />
                     </span>
                   </div>
                 </Link>
@@ -280,10 +448,10 @@ export default function WhitelabelResultClient({
         <div className="bg-gradient-to-r from-gray-900 to-gray-800 text-white rounded-2xl p-6 md:p-8">
           <div className="text-center mb-6">
             <h3 className="text-xl font-bold mb-2">
-              需要专业咨询？联系 {contactInfo.brandName}
+              {t('needConsultation', lang).replace('{brandName}', contactInfo.brandName)}
             </h3>
             <p className="text-gray-400">
-              我们的医疗顾问可以根据您的筛查结果，为您推荐最适合的日本医疗服务
+              {t('consultationDesc', lang)}
             </p>
           </div>
 
@@ -291,7 +459,7 @@ export default function WhitelabelResultClient({
             {contactInfo.wechat && (
               <div className="flex items-center gap-2 px-5 py-3 bg-green-500 text-white rounded-xl">
                 <MessageCircle className="w-5 h-5" />
-                <span>微信: {contactInfo.wechat}</span>
+                <span>{t('wechatLabel', lang)} {contactInfo.wechat}</span>
               </div>
             )}
             {contactInfo.line && (
@@ -302,7 +470,7 @@ export default function WhitelabelResultClient({
                 className="flex items-center gap-2 px-5 py-3 bg-[#06C755] text-white rounded-xl hover:bg-[#05b54e] transition-colors"
               >
                 <MessageCircle className="w-5 h-5" />
-                <span>LINE 咨询</span>
+                <span>{t('lineConsult', lang)}</span>
               </a>
             )}
             {contactInfo.phone && (
@@ -320,7 +488,7 @@ export default function WhitelabelResultClient({
                 className="flex items-center gap-2 px-5 py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-colors"
               >
                 <Mail className="w-5 h-5" />
-                <span>邮件咨询</span>
+                <span>{t('emailConsult', lang)}</span>
               </a>
             )}
           </div>
@@ -332,9 +500,9 @@ export default function WhitelabelResultClient({
         <div className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-center md:text-left">
-              <h3 className="font-bold text-gray-900 mb-1">保存您的健康报告</h3>
+              <h3 className="font-bold text-gray-900 mb-1">{t('saveReport', lang)}</h3>
               <p className="text-sm text-gray-500">
-                下载 PDF 格式的精美报告，方便保存和分享给医生
+                {t('saveReportDesc', lang)}
               </p>
             </div>
             <button
@@ -345,12 +513,12 @@ export default function WhitelabelResultClient({
               {isDownloading ? (
                 <>
                   <Loader2 className="w-5 h-5 animate-spin" />
-                  生成中...
+                  {t('generating', lang)}
                 </>
               ) : (
                 <>
                   <Download className="w-5 h-5" />
-                  下载 PDF 报告
+                  {t('downloadPdf', lang)}
                 </>
               )}
             </button>
@@ -365,7 +533,7 @@ export default function WhitelabelResultClient({
             href={`/g/${slug}/health-screening`}
             className="text-blue-600 hover:underline text-sm"
           >
-            再次进行筛查 →
+            {t('retakeScreening', lang)}
           </Link>
         </div>
       </div>

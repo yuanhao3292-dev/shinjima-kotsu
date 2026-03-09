@@ -214,6 +214,24 @@ const translations = {
     'zh-TW': '根據您的情況推薦日本頂尖醫療機構',
     en: 'Recommend top Japanese medical institutions based on your condition',
   },
+  aiFollowup: {
+    ja: 'AI 補充問診',
+    'zh-CN': 'AI 补充问诊',
+    'zh-TW': 'AI 補充問診',
+    en: 'AI Follow-up Questions',
+  },
+  followupTitle: {
+    ja: '以下の補足質問にお答えください',
+    'zh-CN': '请回答以下补充问题',
+    'zh-TW': '請回答以下補充問題',
+    en: 'Please answer the following questions',
+  },
+  followupDesc: {
+    ja: 'より正確な健康分析のため、AIが追加情報を必要としています',
+    'zh-CN': 'AI 需要更多信息以提供更准确的健康分析',
+    'zh-TW': 'AI 需要更多資訊以提供更準確的健康分析',
+    en: 'AI needs more information to provide a more accurate health analysis',
+  },
 } as const;
 
 const t = (key: keyof typeof translations, lang: Language): string => {
@@ -398,13 +416,13 @@ export default function HealthScreeningPage() {
           <div className="max-w-4xl mx-auto px-4 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-100 text-amber-700 rounded-full text-sm mb-4">
               <Sparkles className="w-4 h-4" />
-              <span>AI 补充问诊</span>
+              <span>{t('aiFollowup', lang)}</span>
             </div>
             <h1 className="text-2xl md:text-3xl font-serif text-neutral-900">
-              请回答以下补充问题
+              {t('followupTitle', lang)}
             </h1>
             <p className="text-neutral-500 mt-2">
-              AI 需要更多信息以提供更准确的健康分析
+              {t('followupDesc', lang)}
             </p>
           </div>
         </div>
