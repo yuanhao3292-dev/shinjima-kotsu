@@ -247,3 +247,47 @@ export interface AEMCPipelineResult {
   total_latency_ms: number;
   pipeline_version: string;
 }
+
+// ============================================================
+// 10. Legacy 兼容类型（原 deepseek/types.ts，前端渲染用）
+// ============================================================
+
+export interface AnalysisResult {
+  riskLevel: 'low' | 'medium' | 'high';
+  riskSummary: string;
+  riskFactors?: string[];
+  recommendedTests: string[];
+  treatmentSuggestions: string[];
+  recommendedHospitals: LegacyRecommendedHospital[];
+  nextSteps: string[];
+  rawContent: string;
+  disclaimer: string;
+  isFallback?: boolean;
+  analysisSource?: 'ai' | 'rule-based';
+  requestId?: string;
+}
+
+export interface LegacyRecommendedHospital {
+  name: string;
+  nameJa?: string;
+  location: string;
+  features: string[];
+  suitableFor: string;
+}
+
+export type RiskLevel = 'low' | 'medium' | 'high';
+
+// ============================================================
+// 11. 医疗免责声明
+// ============================================================
+
+export const MEDICAL_DISCLAIMER = `⚠️ 重要醫療免責聲明
+
+1. 本 AI 健康評估系統僅供健康參考，不構成任何形式的醫學診斷、治療建議或處方。
+2. AI 分析結果不能替代專業醫療人員的診查、診斷和治療建議。
+3. 如您被評估為中度或高度健康風險，請儘速諮詢專業醫療機構。
+4. 任何健康決策請務必諮詢持有執照的醫療專業人員。
+5. 新島交通株式會社對因使用本系統所做決策產生的任何後果不承擔法律責任。
+6. 緊急情況請立即撥打急救電話或前往最近醫療機構。
+
+© 新島交通株式會社 | 日本精密健檢服務`;

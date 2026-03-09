@@ -5,7 +5,7 @@ import Link from 'next/link';
 import ScreeningResult from '@/components/ScreeningResult';
 import { downloadHealthReportPDF } from '@/components/HealthReportPDF';
 import { type BodyMapSelectionData } from '@/components/BodyMapSelector';
-import { type AnalysisResult } from '@/services/deepseekService';
+import { type AnalysisResult } from '@/services/aemc/types';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
   ArrowLeft,

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { AnalysisResult } from '@/services/deepseekService';
+import { type AnalysisResult } from '@/services/aemc/types';
 import {
   AlertTriangle,
   AlertCircle,

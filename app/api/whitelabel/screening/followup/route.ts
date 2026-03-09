@@ -5,7 +5,8 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
-import { analyzeHealthScreening, generateAnswersHash } from '@/services/deepseekService';
+import { generateAnswersHash } from '@/lib/utils/answers-hash';
+import { sendScreeningErrorNotification } from '@/lib/email';
 import { runAEMCPipeline, PipelineError } from '@/services/aemc';
 import type { AEMCOutput } from '@/services/aemc';
 import { persistPipelineResults, persistFailedRuns } from '@/services/aemc/persistence';
@@ -99,37 +100,48 @@ export async function POST(request: NextRequest) {
     let analysisResult;
     let aemcOutputRef: AEMCOutput | null = null;
 
-    if (process.env.AEMC_ENABLED === 'true') {
-      try {
-        const aemcOutput = await runAEMCPipeline({
-          screeningId,
-          answers: enrichedAnswers,
-          bodyMapData,
-          userType: 'whitelabel',
-          sessionId,
-          phase: 2,
-        });
-        analysisResult = aemcOutput.legacyResult;
-        aemcOutputRef = aemcOutput;
+    // AEMC 4 AI 联合会诊 Pipeline（唯一分析路径）
+    try {
+      const aemcOutput = await runAEMCPipeline({
+        screeningId,
+        answers: enrichedAnswers,
+        bodyMapData,
+        userType: 'whitelabel',
+        sessionId,
+        phase: 2,
+      });
+      analysisResult = aemcOutput.legacyResult;
+      aemcOutputRef = aemcOutput;
 
-        (analysisResult as Record<string, unknown>).safetyGateClass = aemcOutput.safetyGate.gate_class;
-        (analysisResult as Record<string, unknown>).requiresHumanReview = aemcOutput.safetyGate.require_human_review;
-        (analysisResult as Record<string, unknown>).requiresEmergencyNotice = aemcOutput.safetyGate.require_emergency_notice;
+      (analysisResult as Record<string, unknown>).safetyGateClass = aemcOutput.safetyGate.gate_class;
+      (analysisResult as Record<string, unknown>).requiresHumanReview = aemcOutput.safetyGate.require_human_review;
+      (analysisResult as Record<string, unknown>).requiresEmergencyNotice = aemcOutput.safetyGate.require_emergency_notice;
 
-        persistPipelineResults(aemcOutput.pipelineResult, 'whitelabel').catch((e) => {
-          console.warn('[AEMC] Followup persistence error:', e instanceof Error ? e.message : e);
+      persistPipelineResults(aemcOutput.pipelineResult, 'whitelabel').catch((e) => {
+        console.warn('[AEMC] Followup persistence error:', e instanceof Error ? e.message : e);
+      });
+    } catch (pipelineError) {
+      console.error('[AEMC] Followup pipeline failed for whitelabel screening:', screeningId);
+      if (pipelineError instanceof PipelineError) {
+        persistFailedRuns(pipelineError.aiRuns, 'whitelabel').catch((e) => {
+          console.warn('[AEMC] Failed runs persistence error:', e instanceof Error ? e.message : e);
         });
-      } catch (pipelineError) {
-        console.error('[AEMC] Followup pipeline failed, falling back to DeepSeek');
-        if (pipelineError instanceof PipelineError) {
-          persistFailedRuns(pipelineError.aiRuns, 'whitelabel').catch((e) => {
-            console.warn('[AEMC] Failed runs persistence error:', e instanceof Error ? e.message : e);
-          });
-        }
-        analysisResult = await analyzeHealthScreening(enrichedAnswers, 2);
       }
-    } else {
-      analysisResult = await analyzeHealthScreening(enrichedAnswers, 2);
+
+      sendScreeningErrorNotification({
+        errorMessage: pipelineError instanceof Error ? pipelineError.message : String(pipelineError),
+        screeningId,
+        userType: 'whitelabel',
+        sessionId,
+        endpoint: '/api/whitelabel/screening/followup',
+        failedAiRuns: pipelineError instanceof PipelineError ? pipelineError.aiRuns.length : undefined,
+        timestamp: new Date().toISOString(),
+      }).catch((e) => console.warn('[AEMC] Error notification failed:', e));
+
+      return NextResponse.json(
+        { error: 'AI 分析服务暂时不可用，请稍后重试。我们已通知技术团队处理。' },
+        { status: 503 }
+      );
     }
 
     // 检查是否还需追问

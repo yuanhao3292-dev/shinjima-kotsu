@@ -5,7 +5,7 @@
  * 安全特性：
  * - AEMC 4 AI 联合会诊（环境变量 AEMC_ENABLED=true 开启）
  * - 答案哈希缓存（避免重复分析）
- * - AI 故障降级（AEMC 失败 → DeepSeek 单模型降级）
+ * - AI 故障通知（AEMC 失败 → 管理员邮件通知 + 用户友好错误）
  * - 安全日志（不记录敏感信息）
  *
  * 支持两阶段问诊系统：
@@ -15,7 +15,8 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { analyzeHealthScreening, generateAnswersHash } from '@/services/deepseekService';
+import { generateAnswersHash } from '@/lib/utils/answers-hash';
+import { sendScreeningErrorNotification } from '@/lib/email';
 import { runAEMCPipeline, PipelineError } from '@/services/aemc';
 import type { AEMCOutput } from '@/services/aemc';
 import { persistPipelineResults, persistFailedRuns } from '@/services/aemc/persistence';
@@ -162,8 +163,8 @@ export async function POST(request: NextRequest) {
       // 使用缓存的分析结果
       console.info('Using cached analysis result');
       analysisResult = cachedResult.analysis_result;
-    } else if (process.env.AEMC_ENABLED === 'true') {
-      // AEMC 4 AI 联合会诊 Pipeline
+    } else {
+      // AEMC 4 AI 联合会诊 Pipeline（唯一分析路径）
       try {
         const aemcOutput = await runAEMCPipeline({
           screeningId,
@@ -192,22 +193,31 @@ export async function POST(request: NextRequest) {
           );
         }
       } catch (pipelineError) {
-        // AEMC 失败 → 降级到 DeepSeek 单模型
-        console.error('[AEMC] Pipeline failed, falling back to DeepSeek');
+        // AEMC 失败 → 通知管理员 + 返回用户友好错误
+        console.error('[AEMC] Pipeline failed for screening:', screeningId);
         if (pipelineError instanceof PipelineError) {
           console.warn(`[AEMC] Failed AI runs: ${pipelineError.aiRuns.length}`);
-          // [Phase 2] 持久化失败的 AI runs（用于故障分析）
           persistFailedRuns(pipelineError.aiRuns, 'authenticated').catch((e) => {
             console.warn('[AEMC] Failed runs persistence error:', e instanceof Error ? e.message : e);
           });
-        } else {
-          console.warn('[AEMC] Non-PipelineError, AI runs may be lost from audit trail');
         }
-        analysisResult = await analyzeHealthScreening(answers, phase);
+
+        // 发送管理员通知（fire-and-forget）
+        sendScreeningErrorNotification({
+          errorMessage: pipelineError instanceof Error ? pipelineError.message : String(pipelineError),
+          screeningId,
+          userType: 'authenticated',
+          userId: user.id,
+          endpoint: '/api/health-screening/analyze',
+          failedAiRuns: pipelineError instanceof PipelineError ? pipelineError.aiRuns.length : undefined,
+          timestamp: new Date().toISOString(),
+        }).catch((e) => console.warn('[AEMC] Error notification failed:', e));
+
+        return NextResponse.json(
+          { error: 'AI 分析服务暂时不可用，请稍后重试。我们已通知技术团队处理。' },
+          { status: 503 }
+        );
       }
-    } else {
-      // 旧版 DeepSeek 单模型分析
-      analysisResult = await analyzeHealthScreening(answers, phase);
     }
 
     // [Phase 3] 检查是否需要追问（Class B + 未达追问上限）

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
-import { analyzeHealthScreening, generateAnswersHash } from '@/services/deepseekService';
+import { generateAnswersHash } from '@/lib/utils/answers-hash';
+import { sendScreeningErrorNotification } from '@/lib/email';
 import { runAEMCPipeline, PipelineError } from '@/services/aemc';
 import type { AEMCOutput } from '@/services/aemc';
 import { persistPipelineResults, persistFailedRuns } from '@/services/aemc/persistence';
@@ -112,8 +113,8 @@ export async function POST(request: NextRequest) {
     if (cachedResult?.analysis_result) {
       console.info('Using cached whitelabel analysis result');
       analysisResult = cachedResult.analysis_result;
-    } else if (process.env.AEMC_ENABLED === 'true') {
-      // AEMC 4 AI 联合会诊 Pipeline
+    } else {
+      // AEMC 4 AI 联合会诊 Pipeline（唯一分析路径）
       try {
         const aemcOutput = await runAEMCPipeline({
           screeningId,
@@ -126,12 +127,10 @@ export async function POST(request: NextRequest) {
         analysisResult = aemcOutput.legacyResult;
         aemcOutputRef = aemcOutput;
 
-        // [AUDIT-FIX] 将安全闸门元数据附加到 analysisResult
         (analysisResult as Record<string, unknown>).safetyGateClass = aemcOutput.safetyGate.gate_class;
         (analysisResult as Record<string, unknown>).requiresHumanReview = aemcOutput.safetyGate.require_human_review;
         (analysisResult as Record<string, unknown>).requiresEmergencyNotice = aemcOutput.safetyGate.require_emergency_notice;
 
-        // [Phase 2] 审计持久化（fire-and-forget，不阻断主流程）
         persistPipelineResults(aemcOutput.pipelineResult, 'whitelabel').catch((e) => {
           console.warn('[AEMC] Persistence fire-and-forget error:', e instanceof Error ? e.message : e);
         });
@@ -142,21 +141,29 @@ export async function POST(request: NextRequest) {
           );
         }
       } catch (pipelineError) {
-        console.error('[AEMC] Pipeline failed, falling back to DeepSeek');
+        console.error('[AEMC] Pipeline failed for whitelabel screening:', screeningId);
         if (pipelineError instanceof PipelineError) {
           console.warn(`[AEMC] Failed AI runs: ${pipelineError.aiRuns.length}`);
-          // [Phase 2] 持久化失败的 AI runs
           persistFailedRuns(pipelineError.aiRuns, 'whitelabel').catch((e) => {
             console.warn('[AEMC] Failed runs persistence error:', e instanceof Error ? e.message : e);
           });
-        } else {
-          console.warn('[AEMC] Non-PipelineError, AI runs may be lost from audit trail');
         }
-        analysisResult = await analyzeHealthScreening(answers, phase);
+
+        sendScreeningErrorNotification({
+          errorMessage: pipelineError instanceof Error ? pipelineError.message : String(pipelineError),
+          screeningId,
+          userType: 'whitelabel',
+          sessionId,
+          endpoint: '/api/whitelabel/screening/analyze',
+          failedAiRuns: pipelineError instanceof PipelineError ? pipelineError.aiRuns.length : undefined,
+          timestamp: new Date().toISOString(),
+        }).catch((e) => console.warn('[AEMC] Error notification failed:', e));
+
+        return NextResponse.json(
+          { error: 'AI 分析服务暂时不可用，请稍后重试。我们已通知技术团队处理。' },
+          { status: 503 }
+        );
       }
-    } else {
-      // 旧版 DeepSeek 单模型分析
-      analysisResult = await analyzeHealthScreening(answers, phase);
     }
 
     // [Phase 3] 检查是否需要追问

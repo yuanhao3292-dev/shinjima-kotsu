@@ -10,7 +10,7 @@
  * CasePacket → AI-1 GPT-4o → AI-2 Gemini → AI-4 Claude → Safety Gate → Hospital Match
  *
  * 设计原则：
- * - 任何 AI 失败都不能导致系统崩溃（降级到 DeepSeek 单模型）
+ * - 任何 AI 失败都会触发错误通知并向用户返回友好错误
  * - 所有 AI 调用记录都保存为 AIRunRecord
  * - 安全闸门是最后一道防线，永远执行
  *
@@ -25,8 +25,8 @@ import type {
   HospitalRecommendation,
   SafetyGateResult,
 } from './types';
-import type { AnalysisResult, RecommendedHospital } from '@/services/deepseek/types';
-import { MEDICAL_DISCLAIMER } from '@/services/deepseek/constants';
+import type { AnalysisResult, LegacyRecommendedHospital } from './types';
+import { MEDICAL_DISCLAIMER } from './types';
 
 import { normalizeToCasePacket, type NormalizerInput } from './input-normalizer';
 import { extractCase, ExtractorError } from './extractor';
@@ -283,7 +283,7 @@ function convertToLegacyResult(pipeline: AEMCPipelineResult): AnalysisResult {
   }
 
   // 推荐医院（从 hospital matcher 结果转换）
-  const recommendedHospitals: RecommendedHospital[] =
+  const recommendedHospitals: LegacyRecommendedHospital[] =
     pipeline.hospital_recommendation
       ? pipeline.hospital_recommendation.recommended_hospitals.map((h) => {
           const kb = HOSPITAL_KNOWLEDGE_BASE.find((k) => k.id === h.hospital_id);

@@ -11,7 +11,8 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { analyzeHealthScreening, generateAnswersHash } from '@/services/deepseekService';
+import { generateAnswersHash } from '@/lib/utils/answers-hash';
+import { sendScreeningErrorNotification } from '@/lib/email';
 import { runAEMCPipeline, PipelineError } from '@/services/aemc';
 import type { AEMCOutput } from '@/services/aemc';
 import { persistPipelineResults, persistFailedRuns } from '@/services/aemc/persistence';
@@ -123,39 +124,51 @@ export async function POST(request: NextRequest) {
     let analysisResult;
     let aemcOutputRef: AEMCOutput | null = null;
 
-    if (process.env.AEMC_ENABLED === 'true') {
-      try {
-        const aemcOutput = await runAEMCPipeline({
-          screeningId,
-          answers: enrichedAnswers,
-          bodyMapData,
-          userType: 'authenticated',
-          userId: user.id,
-          phase: 2, // 补问总是完整分析
-        });
-        analysisResult = aemcOutput.legacyResult;
-        aemcOutputRef = aemcOutput;
+    // AEMC 4 AI 联合会诊 Pipeline（唯一分析路径）
+    try {
+      const aemcOutput = await runAEMCPipeline({
+        screeningId,
+        answers: enrichedAnswers,
+        bodyMapData,
+        userType: 'authenticated',
+        userId: user.id,
+        phase: 2, // 补问总是完整分析
+      });
+      analysisResult = aemcOutput.legacyResult;
+      aemcOutputRef = aemcOutput;
 
-        // 安全闸门元数据
-        (analysisResult as Record<string, unknown>).safetyGateClass = aemcOutput.safetyGate.gate_class;
-        (analysisResult as Record<string, unknown>).requiresHumanReview = aemcOutput.safetyGate.require_human_review;
-        (analysisResult as Record<string, unknown>).requiresEmergencyNotice = aemcOutput.safetyGate.require_emergency_notice;
+      // 安全闸门元数据
+      (analysisResult as Record<string, unknown>).safetyGateClass = aemcOutput.safetyGate.gate_class;
+      (analysisResult as Record<string, unknown>).requiresHumanReview = aemcOutput.safetyGate.require_human_review;
+      (analysisResult as Record<string, unknown>).requiresEmergencyNotice = aemcOutput.safetyGate.require_emergency_notice;
 
-        // 审计持久化
-        persistPipelineResults(aemcOutput.pipelineResult, 'authenticated').catch((e) => {
-          console.warn('[AEMC] Followup persistence error:', e instanceof Error ? e.message : e);
+      // 审计持久化
+      persistPipelineResults(aemcOutput.pipelineResult, 'authenticated').catch((e) => {
+        console.warn('[AEMC] Followup persistence error:', e instanceof Error ? e.message : e);
+      });
+    } catch (pipelineError) {
+      console.error('[AEMC] Followup pipeline failed for screening:', screeningId);
+      if (pipelineError instanceof PipelineError) {
+        persistFailedRuns(pipelineError.aiRuns, 'authenticated').catch((e) => {
+          console.warn('[AEMC] Failed runs persistence error:', e instanceof Error ? e.message : e);
         });
-      } catch (pipelineError) {
-        console.error('[AEMC] Followup pipeline failed, falling back to DeepSeek');
-        if (pipelineError instanceof PipelineError) {
-          persistFailedRuns(pipelineError.aiRuns, 'authenticated').catch((e) => {
-            console.warn('[AEMC] Failed runs persistence error:', e instanceof Error ? e.message : e);
-          });
-        }
-        analysisResult = await analyzeHealthScreening(enrichedAnswers, 2);
       }
-    } else {
-      analysisResult = await analyzeHealthScreening(enrichedAnswers, 2);
+
+      // 发送管理员通知（fire-and-forget）
+      sendScreeningErrorNotification({
+        errorMessage: pipelineError instanceof Error ? pipelineError.message : String(pipelineError),
+        screeningId,
+        userType: 'authenticated',
+        userId: user.id,
+        endpoint: '/api/health-screening/followup',
+        failedAiRuns: pipelineError instanceof PipelineError ? pipelineError.aiRuns.length : undefined,
+        timestamp: new Date().toISOString(),
+      }).catch((e) => console.warn('[AEMC] Error notification failed:', e));
+
+      return NextResponse.json(
+        { error: 'AI 分析服务暂时不可用，请稍后重试。我们已通知技术团队处理。' },
+        { status: 503 }
+      );
     }
 
     // 检查新的安全闸门结果：是否还需要追问

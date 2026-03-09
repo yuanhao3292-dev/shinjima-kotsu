@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import ScreeningResult from '@/components/ScreeningResult';
 import { ArrowLeft, Loader2, AlertCircle, Download, FileText } from 'lucide-react';
-import { AnalysisResult } from '@/services/deepseekService';
+import { type AnalysisResult } from '@/services/aemc/types';
 import { downloadHealthReportPDF } from '@/components/HealthReportPDF';
 import { type BodyMapSelectionData } from '@/components/BodyMapSelector';
 import { useLanguage, type Language } from '@/hooks/useLanguage';

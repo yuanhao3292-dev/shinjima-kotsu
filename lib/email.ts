@@ -833,3 +833,71 @@ export async function sendGuideBookingNotificationToAdmin(data: GuideBookingNoti
     return { success: false, error: error.message };
   }
 }
+
+// ============================================
+// AI 筛查 Pipeline 错误通知（发送给管理员）
+// ============================================
+
+interface ScreeningErrorNotificationData {
+  errorMessage: string;
+  screeningId: string;
+  userType: 'authenticated' | 'whitelabel';
+  userId?: string;
+  sessionId?: string;
+  endpoint: string;
+  failedAiRuns?: number;
+  timestamp: string;
+}
+
+/**
+ * 当 AEMC Pipeline 失败时，发送错误通知邮件给管理员
+ * Fire-and-forget 模式，不阻断主流程
+ */
+export async function sendScreeningErrorNotification(data: ScreeningErrorNotificationData) {
+  const resend = getResend();
+  if (!resend || !BCC_EMAIL) {
+    console.warn('[ScreeningError] Resend not configured or no admin email, skipping notification');
+    return { success: false, error: 'Not configured' };
+  }
+
+  try {
+    const result = await resend.emails.send({
+      from: 'NIIJIMA System <noreply@niijima-koutsu.jp>',
+      to: BCC_EMAIL,
+      subject: `[AEMC ERROR] AI 筛查 Pipeline 故障 - ${data.screeningId.slice(0, 8)}`,
+      html: `
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"></head>
+<body style="font-family: -apple-system, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+  <div style="background: #DC2626; color: white; padding: 16px 20px; border-radius: 8px 8px 0 0;">
+    <h2 style="margin: 0; font-size: 18px;">⚠️ AEMC Pipeline 故障报告</h2>
+  </div>
+  <div style="border: 1px solid #E5E7EB; border-top: none; padding: 20px; border-radius: 0 0 8px 8px;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+      <tr><td style="padding: 8px 0; color: #6B7280; width: 120px;">时间</td><td style="padding: 8px 0;">${data.timestamp}</td></tr>
+      <tr><td style="padding: 8px 0; color: #6B7280;">筛查 ID</td><td style="padding: 8px 0; font-family: monospace;">${data.screeningId}</td></tr>
+      <tr><td style="padding: 8px 0; color: #6B7280;">用户类型</td><td style="padding: 8px 0;">${data.userType === 'authenticated' ? '注册用户' : '白标访客'}</td></tr>
+      ${data.userId ? `<tr><td style="padding: 8px 0; color: #6B7280;">用户 ID</td><td style="padding: 8px 0; font-family: monospace;">${data.userId}</td></tr>` : ''}
+      ${data.sessionId ? `<tr><td style="padding: 8px 0; color: #6B7280;">Session ID</td><td style="padding: 8px 0; font-family: monospace;">${data.sessionId}</td></tr>` : ''}
+      <tr><td style="padding: 8px 0; color: #6B7280;">端点</td><td style="padding: 8px 0; font-family: monospace;">${data.endpoint}</td></tr>
+      ${data.failedAiRuns !== undefined ? `<tr><td style="padding: 8px 0; color: #6B7280;">已完成 AI</td><td style="padding: 8px 0;">${data.failedAiRuns} 个 AI 模型完成后失败</td></tr>` : ''}
+    </table>
+    <div style="margin-top: 16px; padding: 12px; background: #FEF2F2; border-radius: 6px; border-left: 4px solid #DC2626;">
+      <p style="margin: 0; font-size: 13px; color: #991B1B; font-weight: 600;">错误信息</p>
+      <p style="margin: 8px 0 0; font-size: 13px; color: #7F1D1D; font-family: monospace; word-break: break-all;">${data.errorMessage}</p>
+    </div>
+    <p style="margin-top: 16px; font-size: 12px; color: #9CA3AF;">
+      该用户已收到友好的错误提示，建议稍后重试。如果此错误持续出现，请检查 OpenRouter API 状态和额度。
+    </p>
+  </div>
+</body></html>
+      `,
+    });
+
+    console.log('[ScreeningError] Admin notification sent:', result);
+    return { success: true, data: result };
+  } catch (error: any) {
+    console.error('[ScreeningError] Failed to send notification:', error);
+    return { success: false, error: error.message };
+  }
+}
