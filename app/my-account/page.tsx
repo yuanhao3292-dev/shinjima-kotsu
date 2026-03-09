@@ -3,10 +3,12 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 import MemberLayout from '@/components/MemberLayout';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
+import { useSiteImages } from '@/lib/hooks/useSiteImages';
 import { User } from '@supabase/supabase-js';
 import {
   User as UserIcon,
@@ -56,6 +58,7 @@ export default function MyAccountPage() {
   const router = useRouter();
   const lang = useLanguage();
   const supabase = createClient();
+  const { getImage } = useSiteImages();
 
   useEffect(() => {
     const getUser = async () => {
@@ -108,9 +111,17 @@ export default function MyAccountPage() {
     <MemberLayout showFooter={false}>
       <div className="min-h-[calc(100vh-80px)] flex">
         {/* Left Side - Hero Image */}
-        <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-brand-900 via-brand-700 to-brand-900">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?q=80&w=2000')] bg-cover bg-center opacity-30"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-900/90 via-transparent to-brand-900/50"></div>
+        <div className="hidden lg:flex lg:w-1/2 relative bg-brand-900">
+          <Image
+            src={getImage('medical_hero', 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg')}
+            alt="Medical"
+            fill
+            className="object-cover"
+            quality={75}
+            sizes="50vw"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-900/80 via-brand-900/30 to-brand-900/50"></div>
 
           {/* Language Switcher - Top Right */}
           <div className="absolute top-8 right-8 z-20">
