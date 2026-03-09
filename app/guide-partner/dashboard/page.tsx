@@ -200,6 +200,14 @@ export default function GuideDashboard() {
         return;
       }
 
+      // 未订阅（无活跃 Stripe 订阅）→ 跳转订阅页
+      // 跳过 ?upgrade=success 回调（等待 webhook 更新状态）
+      const urlParams = new URLSearchParams(window.location.search);
+      if (guideData.subscription_status !== 'active' && urlParams.get('upgrade') !== 'success') {
+        router.push('/guide-partner/subscription');
+        return;
+      }
+
       setGuide(guideData);
 
       const { data: bookings } = await supabase

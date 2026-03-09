@@ -122,6 +122,12 @@ const translations = {
     'zh-TW': '立即升級',
     en: 'Upgrade Now',
   },
+  subscribeNow: {
+    ja: '今すぐ登録',
+    'zh-CN': '立即订阅',
+    'zh-TW': '立即訂閱',
+    en: 'Subscribe Now',
+  },
   selectPlan: {
     ja: 'このプランを選択',
     'zh-CN': '选择此套餐',
@@ -321,6 +327,7 @@ export default function SubscriptionPage() {
   const [loading, setLoading] = useState(true);
   const [upgrading, setUpgrading] = useState(false);
   const [currentTier, setCurrentTier] = useState<'growth' | 'partner' | null>(null);
+  const [subscriptionActive, setSubscriptionActive] = useState(false);
   const [guideId, setGuideId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showContract, setShowContract] = useState(false);
@@ -371,13 +378,14 @@ export default function SubscriptionPage() {
 
       const { data: guide } = await supabase
         .from('guides')
-        .select('id, subscription_tier')
+        .select('id, subscription_tier, subscription_status')
         .eq('auth_user_id', user.id)
         .single();
 
       if (guide) {
         setGuideId(guide.id);
         setCurrentTier(guide.subscription_tier || 'growth');
+        setSubscriptionActive(guide.subscription_status === 'active');
       }
     } catch (err) {
       console.error(t('errorLoadFailed', lang), err);
@@ -545,8 +553,16 @@ export default function SubscriptionPage() {
                 </ul>
 
                 {/* CTA */}
-                {isCurrent ? (
+                {isCurrent && subscriptionActive ? (
                   <div className="text-center text-sm text-gray-500 py-3">{t('currentlyUsing', lang)}</div>
+                ) : !subscriptionActive && plan.code === 'growth' ? (
+                  <button
+                    onClick={() => handleUpgrade(plan.code)}
+                    disabled={upgrading}
+                    className="w-full py-3 bg-brand-900 text-white rounded-lg font-bold hover:bg-brand-800 transition disabled:opacity-50"
+                  >
+                    {upgrading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : t('subscribeNow', lang)}
+                  </button>
                 ) : isUpgrade ? (
                   <button
                     onClick={() => handleUpgrade(plan.code)}
