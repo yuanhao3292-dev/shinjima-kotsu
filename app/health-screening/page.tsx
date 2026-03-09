@@ -505,7 +505,7 @@ export default function HealthScreeningPage() {
         <div className="bg-white border-b border-neutral-100 shadow-sm">
           <div className="max-w-4xl mx-auto px-4 py-4">
             <button
-              onClick={() => setCurrentStep('questionnaire')}
+              onClick={() => setCurrentStep('body-map')}
               className="inline-flex items-center gap-2 text-neutral-500 hover:text-neutral-700 transition-colors"
             >
               <ArrowLeft size={18} />
