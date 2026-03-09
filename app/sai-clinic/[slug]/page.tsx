@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { CheckCircle, Shield, Lock, CreditCard } from 'lucide-react';
 import CheckoutLayout from '@/components/CheckoutLayout';
 import SmartBackLink from '@/components/SmartBackLink';
@@ -421,10 +422,11 @@ export default function SaiClinicCheckoutPage() {
               </div>
 
               {/* Payment method icons */}
-              <div className="mt-4 flex items-center justify-center gap-3">
-                {['Visa', 'Mastercard', 'Amex', 'JCB'].map((card) => (
-                  <span key={card} className="px-2 py-1 bg-gray-100 text-[10px] text-gray-500 rounded font-medium">{card}</span>
-                ))}
+              <div className="mt-4 flex items-center justify-center gap-2">
+                <Image src="/icons/payment/visa.svg" alt="Visa" width={40} height={25} className="h-6 w-auto" />
+                <Image src="/icons/payment/mastercard.svg" alt="Mastercard" width={40} height={25} className="h-6 w-auto" />
+                <Image src="/icons/payment/amex.svg" alt="American Express" width={40} height={25} className="h-6 w-auto" />
+                <Image src="/icons/payment/jcb.svg" alt="JCB" width={40} height={25} className="h-6 w-auto" />
               </div>
             </form>
           </div>

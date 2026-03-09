@@ -545,6 +545,38 @@ zh-CN 正文使用系统字体，标题使用 LXGW WenKai via jsDelivr
 3. ✅ 底部法律信息保持新岛交通株式会社（**禁止**替换）
 4. ✅ 移除 `pt-20` padding（CheckoutLayout 的 header 高度仅 56px）
 5. ✅ 页面内自行添加返回按钮（`<ArrowLeft>` + `<Link>`）
+6. ✅ **必须**使用标准支付卡品牌 SVG 图标（见下方规范）
+
+### 🔒 支付卡品牌图标规范 (Payment Card Icons - MANDATORY)
+
+**状态**: 🔒 **强制执行** (Mandatory)
+
+所有支付页面**必须**使用 `public/icons/payment/` 下的标准品牌矢量 SVG 图标，**禁止**：
+- ❌ 使用 AI 生成的 SVG 图标
+- ❌ 使用文字标签代替品牌 logo（如 `<span>Visa</span>`）
+- ❌ 使用 `<text>` 元素的 SVG（字体渲染不一致）
+- ❌ 自行编码 path 数据模拟品牌文字
+
+**标准用法：**
+
+```tsx
+import Image from 'next/image';
+
+<div className="flex items-center justify-center gap-2">
+  <Image src="/icons/payment/visa.svg" alt="Visa" width={40} height={25} className="h-6 w-auto" />
+  <Image src="/icons/payment/mastercard.svg" alt="Mastercard" width={40} height={25} className="h-6 w-auto" />
+  <Image src="/icons/payment/amex.svg" alt="American Express" width={40} height={25} className="h-6 w-auto" />
+  <Image src="/icons/payment/jcb.svg" alt="JCB" width={40} height={25} className="h-6 w-auto" />
+</div>
+```
+
+**图标来源**: [aaronfagan/svg-credit-card-payment-icons](https://github.com/aaronfagan/svg-credit-card-payment-icons)（flat-rounded 样式，纯 path 矢量，无 `<text>` 元素）
+
+**已应用的页面** (12处):
+- `components/modules/MedicalPackageBooking.tsx`
+- `app/medical-packages/[slug]/PackageDetailContent.tsx`
+- `app/sai-clinic/[slug]/page.tsx`
+- `app/*/initial-consultation/page.tsx`（9个：ac-plus, cancer-treatment, cell-medicine, ginza-phoenix, helene-clinic, hyogo-medical, igtc, osaka-himak, wclinic-mens）
 
 ---
 

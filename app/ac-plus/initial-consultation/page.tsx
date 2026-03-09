@@ -2,6 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import CheckoutLayout from '@/components/CheckoutLayout';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
@@ -358,6 +359,12 @@ export default function ACPlusInitialConsultationPage() {
                 <div className="flex flex-wrap justify-center gap-6 text-xs text-gray-500">
                   <div className="flex items-center gap-1"><Shield size={14} className="text-green-500" /><span>{t('securePayment')}</span></div>
                   <div className="flex items-center gap-1"><Clock size={14} className="text-teal-500" /><span>{t('contact24h')}</span></div>
+                </div>
+                <div className="flex items-center justify-center gap-2 mt-4">
+                  <Image src="/icons/payment/visa.svg" alt="Visa" width={40} height={25} className="h-6 w-auto" />
+                  <Image src="/icons/payment/mastercard.svg" alt="Mastercard" width={40} height={25} className="h-6 w-auto" />
+                  <Image src="/icons/payment/amex.svg" alt="American Express" width={40} height={25} className="h-6 w-auto" />
+                  <Image src="/icons/payment/jcb.svg" alt="JCB" width={40} height={25} className="h-6 w-auto" />
                 </div>
               </form>
             </div>
