@@ -7,7 +7,7 @@ import ContactButtons from '../ContactButtons';
 import type { SubViewProps } from './types';
 
 const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, getImage }) => {
-  // Default images as fallback - All URLs verified working
+  // Default images as fallback - All URLs verified working (Unsplash)
   const defaultPlanImages: Record<string, string> = {
     'hokkaido-summer': 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=1200&auto=format&fit=crop',
     'hokkaido-niseko': 'https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=1200&auto=format&fit=crop',
@@ -31,8 +31,10 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
     'chubu-nagoya': 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=1200&auto=format&fit=crop',
   };
 
-  // State for dynamic images from database
-  const [planImages, setPlanImages] = useState<Record<string, string>>(defaultPlanImages);
+  // State for database images (starts empty, merged after API fetch)
+  const [dbImages, setDbImages] = useState<Record<string, string>>({});
+  // Track failed image IDs to use fallback
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
 
   // Fetch images from API (database) on mount
   useEffect(() => {
@@ -40,7 +42,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
       .then(res => res.json())
       .then(data => {
         if (data && typeof data === 'object') {
-          setPlanImages(prev => ({ ...prev, ...data }));
+          setDbImages(data);
         }
       })
       .catch(err => {
@@ -48,7 +50,37 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
       });
   }, []);
 
-  const getPlanImage = (id: string) => planImages[id] || defaultPlanImages[id] || getImage('golf_hero');
+  // Image resolution: DB image > default Unsplash > golf_hero fallback
+  // If an image has failed loading, skip the failed source
+  const getPlanImage = (id: string): string => {
+    const dbUrl = dbImages[id];
+    const defaultUrl = defaultPlanImages[id];
+    const heroFallback = getImage('golf_hero');
+
+    if (failedImages.has(id)) {
+      // Primary source failed, try default Unsplash
+      if (failedImages.has(`${id}-default`)) {
+        // Both failed, use hero fallback
+        return heroFallback;
+      }
+      return defaultUrl || heroFallback;
+    }
+    return dbUrl || defaultUrl || heroFallback;
+  };
+
+  const handlePlanImageError = (planId: string) => {
+    setFailedImages(prev => {
+      const next = new Set(prev);
+      if (!next.has(planId)) {
+        // First failure: mark primary as failed (will try default Unsplash)
+        next.add(planId);
+      } else if (!next.has(`${planId}-default`)) {
+        // Second failure: mark default as also failed (will use hero)
+        next.add(`${planId}-default`);
+      }
+      return next;
+    });
+  };
 
   // 合作球场数据（含官网链接）
   const partnerCourses = [
@@ -263,7 +295,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
                         <div className="absolute -bottom-3 -right-3 w-16 h-16 border-b-2 border-r-2 border-gold-400/60 rounded-br-lg z-10"></div>
 
                         {/* Image */}
-                        <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[450px] lg:h-[500px]">
+                        <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[450px] lg:h-[500px] bg-gradient-to-br from-neutral-200 via-neutral-100 to-neutral-200">
                            <Image
                               src={getPlanImage(plan.id)}
                               fill
@@ -271,6 +303,8 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
                               alt={plan.title}
                               sizes="(max-width: 768px) 100vw, 50vw"
                               quality={75}
+                              priority={index < 2}
+                              onError={() => handlePlanImageError(plan.id)}
                            />
                            {/* Gradient overlay */}
                            <div className="absolute inset-0 golf-image-overlay"></div>
