@@ -14,6 +14,7 @@ import {
 import {
   PRODUCT_CATEGORIES,
   getActiveCategories,
+  MODULE_DETAIL_ROUTES,
 } from '@/lib/config/product-categories';
 import type { ProductCategory } from '@/lib/config/product-categories';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
@@ -115,6 +116,12 @@ const translations = {
     'zh-CN': '添加到我的页面',
     'zh-TW': '添加到我的頁面',
     en: 'Add to My Page',
+  },
+  preview: {
+    ja: 'プレビュー',
+    'zh-CN': '预览',
+    'zh-TW': '預覽',
+    en: 'Preview',
   },
   previewSite: {
     ja: 'サイトをプレビュー',
@@ -457,11 +464,21 @@ export default function ProductCenterPage() {
                       </p>
                       <span className="text-xs text-gray-500">{t('commission', lang)} {module.commission_rate_min}%</span>
                     </div>
-                    <div className="border-t px-5 py-3 bg-gray-50">
+                    <div className="border-t px-5 py-3 bg-gray-50 flex items-center gap-2">
+                      {module.component_key && MODULE_DETAIL_ROUTES[module.component_key] && (
+                        <a
+                          href={MODULE_DETAIL_ROUTES[module.component_key]}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 py-2 rounded-lg text-sm font-medium border border-brand-200 text-brand-700 hover:bg-brand-50 transition flex items-center justify-center gap-1.5"
+                        >
+                          <Eye size={16} /> {t('preview', lang)}
+                        </a>
+                      )}
                       <button
                         onClick={() => handleToggleModule(module.id, module.selectedByGuide)}
                         disabled={actionLoading === module.id || !guideConfig}
-                        className={`w-full py-2 rounded-lg font-medium transition flex items-center justify-center gap-2 ${
+                        className={`flex-1 py-2 rounded-lg font-medium transition flex items-center justify-center gap-2 ${
                           module.selectedByGuide
                             ? 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                             : 'bg-brand-600 text-white hover:bg-brand-700'
@@ -540,14 +557,24 @@ function ModuleCard({
       </div>
 
       {/* 操作区 */}
-      <div className="px-5 py-3 border-t bg-gray-50/50 flex items-center justify-center">
+      <div className="px-5 py-3 border-t bg-gray-50/50 flex items-center gap-2">
+        {module.component_key && MODULE_DETAIL_ROUTES[module.component_key] && (
+          <a
+            href={MODULE_DETAIL_ROUTES[module.component_key]}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 py-2 rounded-lg text-sm font-medium border border-brand-200 text-brand-700 hover:bg-brand-50 transition flex items-center justify-center gap-1.5"
+          >
+            <Eye size={14} /> {t('preview', lang)}
+          </a>
+        )}
         {module.is_required ? (
-          <span className="py-2 text-center text-xs text-gray-400">{t('requiredModuleLabel', lang)}</span>
+          <span className="flex-1 py-2 text-center text-xs text-gray-400">{t('requiredModuleLabel', lang)}</span>
         ) : (
           <button
             onClick={() => onToggleModule(module.id, module.selectedByGuide)}
             disabled={actionLoading === module.id || !guideConfig}
-            className={`w-full py-2 rounded-lg text-sm font-medium transition flex items-center justify-center gap-1.5 ${
+            className={`flex-1 py-2 rounded-lg text-sm font-medium transition flex items-center justify-center gap-1.5 ${
               module.selectedByGuide
                 ? 'text-gray-600 hover:bg-gray-100'
                 : 'bg-brand-600 text-white hover:bg-brand-700'
