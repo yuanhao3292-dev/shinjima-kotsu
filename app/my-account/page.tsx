@@ -198,7 +198,7 @@ export default function MyAccountPage() {
               </Link>
 
               <Link
-                href="/guide-partner/product-center/timc"
+                href="/health-checkup"
                 className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors border-b border-neutral-100"
               >
                 <div>
