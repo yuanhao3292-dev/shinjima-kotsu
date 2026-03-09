@@ -37,7 +37,6 @@ function detectLanguage(): Language {
 function PaymentCancelContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const orderId = searchParams.get('order_id');
   const guideSlugParam = (() => {
     const raw = searchParams.get('guide');
     if (raw && !isValidSlug(raw)) {
@@ -47,45 +46,18 @@ function PaymentCancelContent() {
     return raw;
   })();
 
-  const [guideSlug, setGuideSlug] = useState<string | null>(null);
-  const [loaded, setLoaded] = useState(false);
   const [lang, setLang] = useState<Language>('zh-TW');
 
   useEffect(() => {
     setLang(detectLanguage());
   }, []);
 
-  useEffect(() => {
-    if (!orderId) {
-      setGuideSlug(guideSlugParam);
-      setLoaded(true);
-      return;
-    }
-
-    async function fetchGuideSlug() {
-      try {
-        const response = await fetch(`/api/order-lookup?order_id=${encodeURIComponent(orderId)}`);
-        if (response.ok) {
-          const data = await response.json();
-          const dbGuideSlug = typeof data.guideSlug === 'string' ? data.guideSlug : null;
-          setGuideSlug(dbGuideSlug && isValidSlug(dbGuideSlug) ? dbGuideSlug : null);
-        } else {
-          setGuideSlug(guideSlugParam);
-        }
-      } catch {
-        setGuideSlug(guideSlugParam);
-      } finally {
-        setLoaded(true);
-      }
-    }
-
-    fetchGuideSlug();
-  }, [orderId, guideSlugParam]);
-
   const t = (key: keyof typeof i18n) => i18n[key][lang];
 
-  const backToPackagesHref = guideSlug ? `/g/${guideSlug}/medical-packages` : '/medical';
-  const backToHomeHref = guideSlug ? `/g/${guideSlug}` : '/';
+  // 导航目标仅由 URL 中的 guide 参数决定（表示用户来自白标页面）
+  // 不从数据库查询——订单归因用于佣金计算，不应影响用户导航
+  const backToPackagesHref = guideSlugParam ? `/g/${guideSlugParam}/medical-packages` : '/medical';
+  const backToHomeHref = guideSlugParam ? `/g/${guideSlugParam}` : '/';
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-red-100 flex items-center justify-center px-4">
@@ -115,13 +87,13 @@ function PaymentCancelContent() {
           </button>
           <Link
             href={backToPackagesHref}
-            className={`block w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 ${!loaded ? 'opacity-50 pointer-events-none' : ''}`}
+            className="block w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
           >
             {t('backToPackages')}
           </Link>
           <Link
             href={backToHomeHref}
-            className={`block w-full text-neutral-500 hover:text-brand-900 font-semibold py-3 px-6 transition-colors duration-200 ${!loaded ? 'opacity-50 pointer-events-none' : ''}`}
+            className="block w-full text-neutral-500 hover:text-brand-900 font-semibold py-3 px-6 transition-colors duration-200"
           >
             {t('backToHome')}
           </Link>

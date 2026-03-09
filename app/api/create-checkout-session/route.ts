@@ -233,10 +233,12 @@ export async function POST(request: NextRequest) {
       sessionMetadata.provider = provider;
     }
 
-    // 构建 success/cancel URL（如有导游归属则带上 guide 参数）
-    const guideParam = guideSlug ? `&guide=${encodeURIComponent(guideSlug)}` : '';
-    const successUrl = `${request.nextUrl.origin}/payment/success?session_id={CHECKOUT_SESSION_ID}${guideParam}`;
-    const cancelUrl = `${request.nextUrl.origin}/payment/cancel?order_id=${order.id}${guideParam}`;
+    // 构建 success/cancel URL
+    // 仅当前端显式传入 guideSlug 时才在 URL 中带上 guide 参数（表示用户来自白标页面）
+    // Cookie 归因仅用于佣金计算，不影响支付后导航目标
+    const navGuideParam = bodyGuideSlug ? `&guide=${encodeURIComponent(bodyGuideSlug)}` : '';
+    const successUrl = `${request.nextUrl.origin}/payment/success?session_id={CHECKOUT_SESSION_ID}${navGuideParam}`;
+    const cancelUrl = `${request.nextUrl.origin}/payment/cancel?order_id=${order.id}${navGuideParam}`;
 
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',

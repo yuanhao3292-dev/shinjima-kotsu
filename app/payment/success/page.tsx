@@ -51,7 +51,6 @@ function PaymentSuccessContent() {
 
   const [loading, setLoading] = useState(true);
   const [orderId, setOrderId] = useState<string | null>(null);
-  const [guideSlug, setGuideSlug] = useState<string | null>(null);
   const [lang, setLang] = useState<Language>('zh-TW');
 
   useEffect(() => {
@@ -70,14 +69,9 @@ function PaymentSuccessContent() {
         if (response.ok) {
           const data = await response.json();
           if (data.orderId) setOrderId(data.orderId);
-          const dbGuideSlug = typeof data.guideSlug === 'string' ? data.guideSlug : null;
-          setGuideSlug(dbGuideSlug && isValidSlug(dbGuideSlug) ? dbGuideSlug : null);
-        } else {
-          setGuideSlug(null);
         }
       } catch (error) {
         console.error('Failed to fetch order info:', error);
-        setGuideSlug(null);
       } finally {
         setLoading(false);
       }
@@ -102,8 +96,9 @@ function PaymentSuccessContent() {
       ? `#${sessionId.slice(-8).toUpperCase()}`
       : '';
 
-  const backToPackagesHref = guideSlug ? `/g/${guideSlug}/medical-packages` : '/medical';
-  const backToHomeHref = guideSlug ? `/g/${guideSlug}` : '/';
+  // 导航目标仅由 URL 中的 guide 参数决定（表示用户来自白标页面）
+  const backToPackagesHref = guideSlugParam ? `/g/${guideSlugParam}/medical-packages` : '/medical';
+  const backToHomeHref = guideSlugParam ? `/g/${guideSlugParam}` : '/';
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-100 flex items-center justify-center px-4">
