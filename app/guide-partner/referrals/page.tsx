@@ -245,6 +245,7 @@ const translations = {
 const t = (key: keyof typeof translations, lang: Language): string => {
   return translations[key][lang];
 };
+const dateLocaleMap: Record<Language, string> = { ja: 'ja-JP', 'zh-CN': 'zh-CN', 'zh-TW': 'zh-TW', en: 'en-US' };
 
 interface Guide {
   id: string;
@@ -541,7 +542,7 @@ export default function ReferralsPage() {
                           {getStatusBadge(referral.status)}
                         </div>
                         <p className="text-xs text-gray-400">
-                          {t('joinedOn', lang)}{new Date(referral.created_at).toLocaleDateString()}
+                          {t('joinedOn', lang)}{new Date(referral.created_at).toLocaleDateString(dateLocaleMap[lang])}
                         </p>
                       </div>
                     </div>
@@ -606,7 +607,7 @@ export default function ReferralsPage() {
                           </p>
                         )}
                         <p className="text-xs text-gray-400">
-                          {new Date(reward.created_at).toLocaleDateString()}
+                          {new Date(reward.created_at).toLocaleDateString(dateLocaleMap[lang])}
                           {reward.reward_rate && ` · ${t('rewardRate', lang)} ${(reward.reward_rate * 100).toFixed(0)}%`}
                         </p>
                       </div>

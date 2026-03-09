@@ -23,7 +23,7 @@ const translations = {
   pageTitle: {
     ja: '出金申請',
     'zh-CN': '提现申请',
-    'zh-TW': '提现申请',
+    'zh-TW': '提現申請',
     en: 'Withdrawal',
   },
   loading: {
@@ -374,6 +374,8 @@ interface WithdrawalRecord {
   paid_at: string | null;
 }
 
+const dateLocaleMap: Record<Language, string> = { ja: 'ja-JP', 'zh-CN': 'zh-CN', 'zh-TW': 'zh-TW', en: 'en-US' };
+
 export default function WithdrawalPage() {
   const [balance, setBalance] = useState<BalanceInfo | null>(null);
   const [bankInfo, setBankInfo] = useState<BankInfo | null>(null);
@@ -560,7 +562,7 @@ export default function WithdrawalPage() {
               <p className="text-2xl font-bold text-gray-900">¥{(balance?.locked || 0).toLocaleString()}</p>
               {balance?.nearestUnlockDate && (
                 <p className="text-xs text-gray-400 mt-1">
-                  {t('nearestUnlock', lang)}: {new Date(balance.nearestUnlockDate).toLocaleDateString('zh-TW')}
+                  {t('nearestUnlock', lang)}: {new Date(balance.nearestUnlockDate).toLocaleDateString(dateLocaleMap[lang])}
                 </p>
               )}
             </div>
@@ -731,12 +733,12 @@ export default function WithdrawalPage() {
                       </div>
 
                       <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-400">
-                        <span>{t('applicationDate', lang)}: {new Date(w.created_at).toLocaleDateString('zh-TW')}</span>
+                        <span>{t('applicationDate', lang)}: {new Date(w.created_at).toLocaleDateString(dateLocaleMap[lang])}</span>
                         {w.reviewed_at && (
-                          <span>{t('reviewDate', lang)}: {new Date(w.reviewed_at).toLocaleDateString('zh-TW')}</span>
+                          <span>{t('reviewDate', lang)}: {new Date(w.reviewed_at).toLocaleDateString(dateLocaleMap[lang])}</span>
                         )}
                         {w.paid_at && (
-                          <span>{t('paidDate', lang)}: {new Date(w.paid_at).toLocaleDateString('zh-TW')}</span>
+                          <span>{t('paidDate', lang)}: {new Date(w.paid_at).toLocaleDateString(dateLocaleMap[lang])}</span>
                         )}
                         {w.payment_reference && (
                           <span>{t('referenceLabel', lang)}: {w.payment_reference}</span>

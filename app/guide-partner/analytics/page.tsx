@@ -21,7 +21,7 @@ const translations = {
   pageTitle: {
     ja: 'データ分析',
     'zh-CN': '数据分析',
-    'zh-TW': '数据分析',
+    'zh-TW': '數據分析',
     en: 'Analytics',
   },
   heading: {

@@ -30,7 +30,7 @@ const translations = {
   pageTitleSidebar: {
     ja: '予約詳細',
     'zh-CN': '预约详情',
-    'zh-TW': '预约详情',
+    'zh-TW': '預約詳情',
     en: 'Booking Details',
   },
   backToList: {
@@ -254,6 +254,7 @@ const translations = {
 const t = (key: keyof typeof translations, lang: Language): string => {
   return translations[key][lang];
 };
+const dateLocaleMap: Record<Language, string> = { ja: 'ja-JP', 'zh-CN': 'zh-CN', 'zh-TW': 'zh-TW', en: 'en-US' };
 
 interface Booking {
   id: string;
@@ -608,15 +609,15 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
                   <div className="grid gap-3">
                     <div className="flex justify-between">
                       <span className="text-green-700">{t('actualSpend', lang)}</span>
-                      <span className="font-bold text-green-800">¥{booking.actual_spend?.toLocaleString()}</span>
+                      <span className="font-bold text-green-800">¥{booking.actual_spend?.toLocaleString(dateLocaleMap[lang])}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-green-700">{t('preTaxAmount', lang)}</span>
-                      <span className="text-green-800">¥{booking.spend_before_tax?.toLocaleString()}</span>
+                      <span className="text-green-800">¥{booking.spend_before_tax?.toLocaleString(dateLocaleMap[lang])}</span>
                     </div>
                     <div className="flex justify-between pt-3 border-t border-green-200">
                       <span className="text-green-700 font-medium">{t('commissionRate', lang)}</span>
-                      <span className="font-bold text-green-800 text-lg">¥{booking.commission_amount?.toLocaleString()}</span>
+                      <span className="font-bold text-green-800 text-lg">¥{booking.commission_amount?.toLocaleString(dateLocaleMap[lang])}</span>
                     </div>
                   </div>
                 </div>
@@ -644,9 +645,9 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
 
               {/* Meta Info */}
               <div className="text-sm text-gray-400 text-center">
-                {t('createdAt', lang)} {new Date(booking.created_at).toLocaleString()}
+                {t('createdAt', lang)} {new Date(booking.created_at).toLocaleString(dateLocaleMap[lang])}
                 {booking.completed_at && (
-                  <> · {t('completedAt', lang)} {new Date(booking.completed_at).toLocaleString()}</>
+                  <> · {t('completedAt', lang)} {new Date(booking.completed_at).toLocaleString(dateLocaleMap[lang])}</>
                 )}
               </div>
             </div>

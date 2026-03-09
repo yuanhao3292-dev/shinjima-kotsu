@@ -383,22 +383,22 @@ export default function GuidePartnerTermsPage() {
                   <tbody className="text-gray-600">
                     <tr className="border-b">
                       <td className="py-2">{t('tierBronze', lang)}</td>
-                      <td className="py-2">0 - 100{lang === 'en' ? '0K JPY' : '萬日元'}</td>
+                      <td className="py-2">0 - 100{lang === 'en' ? '0K JPY' : lang === 'ja' ? '万円' : lang === 'zh-TW' ? '萬日元' : '万日元'}</td>
                       <td className="py-2 font-medium text-brand-600">10%</td>
                     </tr>
                     <tr className="border-b">
                       <td className="py-2">{t('tierSilver', lang)}</td>
-                      <td className="py-2">100{lang === 'en' ? '0K' : '萬'} - 300{lang === 'en' ? '0K JPY' : '萬日元'}</td>
+                      <td className="py-2">100{lang === 'en' ? '0K' : lang === 'ja' ? '万' : lang === 'zh-TW' ? '萬' : '万'} - 300{lang === 'en' ? '0K JPY' : lang === 'ja' ? '万円' : lang === 'zh-TW' ? '萬日元' : '万日元'}</td>
                       <td className="py-2 font-medium text-gray-500">12%</td>
                     </tr>
                     <tr className="border-b">
                       <td className="py-2">{t('tierGold', lang)}</td>
-                      <td className="py-2">300{lang === 'en' ? '0K' : '萬'} - 500{lang === 'en' ? '0K JPY' : '萬日元'}</td>
+                      <td className="py-2">300{lang === 'en' ? '0K' : lang === 'ja' ? '万' : lang === 'zh-TW' ? '萬' : '万'} - 500{lang === 'en' ? '0K JPY' : lang === 'ja' ? '万円' : lang === 'zh-TW' ? '萬日元' : '万日元'}</td>
                       <td className="py-2 font-medium text-yellow-600">15%</td>
                     </tr>
                     <tr>
                       <td className="py-2">{t('tierDiamond', lang)}</td>
-                      <td className="py-2">500{lang === 'en' ? '0K+ JPY' : '萬日元以上'}</td>
+                      <td className="py-2">500{lang === 'en' ? '0K+ JPY' : lang === 'ja' ? '万円以上' : lang === 'zh-TW' ? '萬日元以上' : '万日元以上'}</td>
                       <td className="py-2 font-medium text-blue-600">20%</td>
                     </tr>
                   </tbody>

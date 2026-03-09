@@ -28,7 +28,7 @@ const translations = {
   pageTitle: {
     ja: '報酬精算',
     'zh-CN': '返金结算',
-    'zh-TW': '返金结算',
+    'zh-TW': '返金結算',
     en: 'Commission Settlement',
   },
   headerTitle: {

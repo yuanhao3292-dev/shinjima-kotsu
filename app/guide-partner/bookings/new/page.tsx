@@ -31,7 +31,7 @@ const translations = {
   pageTitleSidebar: {
     ja: '新規予約',
     'zh-CN': '新建预约',
-    'zh-TW': '新建预约',
+    'zh-TW': '新建預約',
     en: 'New Booking',
   },
   backToVenues: {
@@ -213,6 +213,18 @@ const translations = {
     'zh-CN': '继续预约其他店铺',
     'zh-TW': '繼續預約其他店舖',
     en: 'Book Another Venue',
+  },
+  contractNoticeTitle: {
+    ja: 'ご契約について：',
+    'zh-CN': '关于合同：',
+    'zh-TW': '關於合約：',
+    en: 'Contract Notice: ',
+  },
+  contractNoticeBody: {
+    ja: '本サービスのご契約は、新島交通株式会社（大阪府知事登録旅行業 第2-3115号）との間で締結されます。お客様との契約主体は新島交通株式会社となります。',
+    'zh-CN': '本服务的合同由新岛交通株式会社（大阪府知事登录旅行业 第2-3115号）签订。与客户的合同主体为新岛交通株式会社。',
+    'zh-TW': '本服務的合約由新島交通株式會社（大阪府知事登錄旅行業 第2-3115號）簽訂。與客戶的合約主體為新島交通株式會社。',
+    en: 'The contract for this service is concluded with Niijima Kotsu Co., Ltd. (Osaka Governor Registered Travel Agency No. 2-3115). The contracting party with the customer is Niijima Kotsu Co., Ltd.',
   },
 } as const;
 
@@ -610,7 +622,7 @@ function NewBookingForm() {
               {/* 合同主体声明 */}
               <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
                 <p className="text-sm text-blue-800">
-                  <strong>ご契約について：</strong>本サービスのご契約は、新島交通株式会社（大阪府知事登録旅行業 第2-3115号）との間で締結されます。お客様との契約主体は新島交通株式会社となります。
+                  <strong>{t('contractNoticeTitle', lang)}</strong>{t('contractNoticeBody', lang)}
                 </p>
               </div>
 

@@ -11,13 +11,13 @@ const translations = {
   pageTitle: {
     ja: 'コミッション契約',
     'zh-CN': '佣金协议',
-    'zh-TW': '佣金协议',
+    'zh-TW': '佣金協議',
     en: 'Commission Contract',
   },
   loading: {
     ja: '読み込み中...',
     'zh-CN': '加载中...',
-    'zh-TW': '加载中...',
+    'zh-TW': '載入中...',
     en: 'Loading...',
   },
   noContract: {
@@ -181,6 +181,7 @@ const translations = {
 const t = (key: keyof typeof translations, lang: Language): string => {
   return translations[key][lang];
 };
+const dateLocaleMap: Record<Language, string> = { ja: 'ja-JP', 'zh-CN': 'zh-CN', 'zh-TW': 'zh-TW', en: 'en-US' };
 
 export default function GuideContractPage() {
   const [contract, setContract] = useState<any>(null);
@@ -278,7 +279,7 @@ export default function GuideContractPage() {
                 </h3>
                 <p className={`text-sm ${hasSigned ? 'text-green-700' : 'text-yellow-700'}`}>
                   {hasSigned
-                    ? `${t('signedDate', lang)} ${new Date(contract.signed_by_guide_at).toLocaleDateString()} ${t('signedSuffix', lang)}`
+                    ? `${t('signedDate', lang)} ${new Date(contract.signed_by_guide_at).toLocaleDateString(dateLocaleMap[lang])} ${t('signedSuffix', lang)}`
                     : t('pendingDesc', lang)}
                 </p>
               </div>
@@ -290,7 +291,7 @@ export default function GuideContractPage() {
             <h3 className="text-lg font-bold text-gray-900 mb-4">{t('contractInfo', lang)}</h3>
             <div className="grid md:grid-cols-2 gap-4 text-sm">
               <div><span className="text-gray-500">{t('contractNumber', lang)}</span>{contract.contract_number}</div>
-              <div><span className="text-gray-500">{t('signDate', lang)}</span>{contract.signed_by_guide_at ? new Date(contract.signed_by_guide_at).toLocaleDateString() : t('notSigned', lang)}</div>
+              <div><span className="text-gray-500">{t('signDate', lang)}</span>{contract.signed_by_guide_at ? new Date(contract.signed_by_guide_at).toLocaleDateString(dateLocaleMap[lang]) : t('notSigned', lang)}</div>
               <div><span className="text-gray-500">{t('effectiveDate', lang)}</span>{contract.effective_date || t('notSet', lang)}</div>
               <div><span className="text-gray-500">{t('expiryDate', lang)}</span>{contract.expiry_date || t('notSet', lang)}</div>
             </div>

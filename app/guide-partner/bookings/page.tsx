@@ -30,7 +30,7 @@ const translations = {
   pageTitleSidebar: {
     ja: '予約管理',
     'zh-CN': '我的预约',
-    'zh-TW': '我的预约',
+    'zh-TW': '我的預約',
     en: 'My Bookings',
   },
   subtitle: {
@@ -236,6 +236,7 @@ const translations = {
 const t = (key: keyof typeof translations, lang: Language): string => {
   return translations[key][lang];
 };
+const dateLocaleMap: Record<Language, string> = { ja: 'ja-JP', 'zh-CN': 'zh-CN', 'zh-TW': 'zh-TW', en: 'en-US' };
 
 interface Booking {
   id: string;
@@ -580,7 +581,7 @@ function BookingsContent() {
 
                 <div className="px-4 sm:px-6 py-3 bg-gray-50 border-t flex items-center justify-between">
                   <span className="text-xs text-gray-400">
-                    {t('createdAt', lang)} {new Date(booking.created_at).toLocaleDateString()}
+                    {t('createdAt', lang)} {new Date(booking.created_at).toLocaleDateString(dateLocaleMap[lang])}
                   </span>
                   <Link
                     href={`/guide-partner/bookings/${booking.id}`}

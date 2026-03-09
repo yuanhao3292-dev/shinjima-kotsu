@@ -23,7 +23,7 @@ const translations = {
   pageTitle: {
     ja: 'セレクションセンター',
     'zh-CN': '选品中心',
-    'zh-TW': '选品中心',
+    'zh-TW': '選品中心',
     en: 'Product Center',
   },
   errorLoadFailed: {

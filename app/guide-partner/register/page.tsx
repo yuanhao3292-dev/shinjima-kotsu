@@ -204,13 +204,13 @@ const translations = {
   footerLegal: {
     ja: '本サービスは新島交通株式会社が提供しています',
     'zh-CN': '本服务由新岛交通株式会社提供',
-    'zh-TW': '本サービスは新島交通株式会社が提供しています',
+    'zh-TW': '本服務由新島交通株式會社提供',
     en: 'This service is provided by Niijima Kotsu Co., Ltd.',
   },
   footerLicense: {
     ja: '大阪府知事登録旅行業 第2-3115号 ｜ JATA正会員',
     'zh-CN': '大阪府知事登录旅行业 第2-3115号 ｜ JATA正会员',
-    'zh-TW': '大阪府知事登録旅行業 第2-3115号 ｜ JATA正会員',
+    'zh-TW': '大阪府知事登錄旅行業 第2-3115號 ｜ JATA正會員',
     en: 'Osaka Governor Registered Travel Agency No. 2-3115 | JATA Member',
   },
 } as const;

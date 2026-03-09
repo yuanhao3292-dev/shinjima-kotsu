@@ -30,7 +30,7 @@ const translations = {
   pageTitle: {
     ja: '販売ページ',
     'zh-CN': '分销页面',
-    'zh-TW': '分销頁面',
+    'zh-TW': '分銷頁面',
     en: 'Distribution Page',
   },
   guideNotFoundTitle: {

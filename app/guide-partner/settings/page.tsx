@@ -577,6 +577,7 @@ const translations = {
 const t = (key: keyof typeof translations, lang: Language): string => {
   return translations[key][lang];
 };
+const dateLocaleMap: Record<Language, string> = { ja: 'ja-JP', 'zh-CN': 'zh-CN', 'zh-TW': 'zh-TW', en: 'en-US' };
 
 // ============================================================
 // Interfaces
@@ -1161,7 +1162,7 @@ export default function SettingsPage() {
                   <div>
                     <p className="font-bold text-green-800">{t('kycApprovedTitle', lang)}</p>
                     <p className="text-sm text-green-600">
-                      {t('kycApprovedTime', lang)} {guide.kyc_reviewed_at ? new Date(guide.kyc_reviewed_at).toLocaleDateString() : '-'}
+                      {t('kycApprovedTime', lang)} {guide.kyc_reviewed_at ? new Date(guide.kyc_reviewed_at).toLocaleDateString(dateLocaleMap[lang]) : '-'}
                     </p>
                   </div>
                 </div>
@@ -1173,7 +1174,7 @@ export default function SettingsPage() {
                   <div>
                     <p className="font-bold text-yellow-800">{t('kycSubmittedTitle', lang)}</p>
                     <p className="text-sm text-yellow-600">
-                      {t('kycSubmittedTime', lang)} {guide.kyc_submitted_at ? new Date(guide.kyc_submitted_at).toLocaleDateString() : '-'}
+                      {t('kycSubmittedTime', lang)} {guide.kyc_submitted_at ? new Date(guide.kyc_submitted_at).toLocaleDateString(dateLocaleMap[lang]) : '-'}
                       <br />{t('kycReviewPeriod', lang)}
                     </p>
                   </div>
@@ -1375,7 +1376,7 @@ export default function SettingsPage() {
 
           {/* Account Created */}
           <div className="mt-6 text-center text-sm text-gray-400">
-            {t('accountCreatedOn', lang)} {guide?.created_at ? new Date(guide.created_at).toLocaleDateString() : ''}
+            {t('accountCreatedOn', lang)} {guide?.created_at ? new Date(guide.created_at).toLocaleDateString(dateLocaleMap[lang]) : ''}
           </div>
         </div>
       </main>

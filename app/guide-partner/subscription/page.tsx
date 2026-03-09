@@ -11,7 +11,7 @@ const translations = {
   pageTitle: {
     ja: '報酬制度',
     'zh-CN': '报酬制度',
-    'zh-TW': '报酬制度',
+    'zh-TW': '報酬制度',
     en: 'Reward System',
   },
   heading: {
