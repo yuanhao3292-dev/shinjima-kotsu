@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import Logo from '@/components/Logo';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
   LayoutDashboard,
@@ -88,9 +89,12 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
           <Logo className="w-8 h-8 text-brand-600" />
           <span className="font-bold">{pageTitle || ts('guideBackend', lang)}</span>
         </div>
-        <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2">
-          {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="flex items-center gap-2">
+          <LanguageSwitcher variant="compact" />
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2">
+            {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Sidebar */}
@@ -139,7 +143,10 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
           })}
         </nav>
 
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t">
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t space-y-1">
+          <div className="px-4 py-2">
+            <LanguageSwitcher variant="compact" />
+          </div>
           <button
             onClick={handleLogout}
             className="flex items-center gap-3 px-4 py-3 w-full text-gray-600 hover:bg-gray-50 rounded-xl transition"
