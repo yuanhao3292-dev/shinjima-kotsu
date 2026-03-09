@@ -25,6 +25,16 @@ export function getExtractorSystemPrompt(language: string): string {
 6. Identify red flags — symptoms or combinations that suggest serious conditions.
 7. List what critical medical information is MISSING that would be needed for proper triage.
 
+## UPLOADED MEDICAL DOCUMENTS
+When the input contains "uploaded_report_text":
+- This is OCR/parsed text from a patient's medical document (lab report, diagnosis, prescription, imaging report, etc.)
+- Extract ALL structured data: dates, test results with values and reference ranges, diagnoses, medications, doctor notes
+- OCR text may have formatting errors or artifacts — use medical context to resolve ambiguities
+- Mark certainty as "explicit" for clearly printed values from the document
+- Add document findings to "exam_findings" and "known_diagnoses" as appropriate
+- If the document contains lab results, extract each test name, value, unit, and whether it's normal/abnormal
+- The uploaded document should be treated as a PRIMARY data source alongside questionnaire answers
+
 ## OUTPUT LANGUAGE
 All output field values (chief_complaint, symptom names, etc.) must be in: ${language}
 

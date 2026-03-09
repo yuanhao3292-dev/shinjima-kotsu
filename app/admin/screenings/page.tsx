@@ -23,6 +23,9 @@ import {
   Users,
   Tag,
   Download,
+  Upload,
+  Image,
+  ExternalLink,
 } from 'lucide-react';
 import { BODY_PARTS, MEDICAL_DEPARTMENTS } from '@/lib/body-map-config';
 
@@ -36,6 +39,11 @@ interface ScreeningRecord {
   analysis_result: any;
   created_at: string;
   completed_at: string | null;
+  document_url: string | null;
+  document_name: string | null;
+  document_type: string | null;
+  document_extracted_text: string | null;
+  input_mode: string;
 }
 
 const RISK_CONFIG = {
@@ -61,6 +69,12 @@ const RISK_CONFIG = {
     badgeClass: 'bg-red-100 text-red-800',
   },
 };
+
+const INPUT_MODE_CONFIG = {
+  questionnaire: { label: '问卷', badgeClass: 'bg-blue-100 text-blue-700', icon: ClipboardList },
+  document: { label: '文档', badgeClass: 'bg-purple-100 text-purple-700', icon: Upload },
+  hybrid: { label: '混合', badgeClass: 'bg-teal-100 text-teal-700', icon: FileText },
+} as const;
 
 // Skeleton Loading Component
 function TableSkeleton() {
@@ -280,7 +294,10 @@ export default function AdminScreeningsPage() {
               <div className="col-span-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
                 风险等级 (Risk)
               </div>
-              <div className="col-span-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+              <div className="col-span-1 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                来源
+              </div>
+              <div className="col-span-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
                 提交时间 (Date)
               </div>
               <div className="col-span-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
@@ -337,8 +354,24 @@ export default function AdminScreeningsPage() {
                         )}
                       </div>
 
+                      {/* Input Mode */}
+                      <div className="col-span-1 flex items-center">
+                        {(() => {
+                          const mode = screening.input_mode || 'questionnaire';
+                          const modeConfig = INPUT_MODE_CONFIG[mode as keyof typeof INPUT_MODE_CONFIG];
+                          if (!modeConfig) return null;
+                          const ModeIcon = modeConfig.icon;
+                          return (
+                            <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${modeConfig.badgeClass}`}>
+                              <ModeIcon size={12} />
+                              {modeConfig.label}
+                            </span>
+                          );
+                        })()}
+                      </div>
+
                       {/* Date */}
-                      <div className="col-span-3 flex items-center text-slate-600 text-sm">
+                      <div className="col-span-2 flex items-center text-slate-600 text-sm">
                         {formatDateTime(screening.created_at)}
                       </div>
 
@@ -386,6 +419,18 @@ export default function AdminScreeningsPage() {
                             待分析
                           </span>
                         )}
+                        {(() => {
+                          const mode = screening.input_mode || 'questionnaire';
+                          const modeConfig = INPUT_MODE_CONFIG[mode as keyof typeof INPUT_MODE_CONFIG];
+                          if (!modeConfig) return null;
+                          const ModeIcon = modeConfig.icon;
+                          return (
+                            <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${modeConfig.badgeClass}`}>
+                              <ModeIcon size={10} />
+                              {modeConfig.label}
+                            </span>
+                          );
+                        })()}
                         {screening.status === 'completed' ? (
                           <span className="inline-flex items-center gap-1 text-emerald-600 text-xs">
                             <CheckCircle size={12} />
@@ -524,6 +569,67 @@ export default function AdminScreeningsPage() {
                 </div>
               )}
 
+              {/* Uploaded Document Section */}
+              {selectedRecord.document_url && (
+                <div className="px-6 py-5 bg-gradient-to-r from-cyan-50 to-sky-50 border-b border-slate-200">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Upload className="text-cyan-600" size={18} />
+                    <h3 className="font-semibold text-slate-800">上传文档</h3>
+                    {(() => {
+                      const mode = selectedRecord.input_mode || 'questionnaire';
+                      const modeConfig = INPUT_MODE_CONFIG[mode as keyof typeof INPUT_MODE_CONFIG];
+                      if (!modeConfig) return null;
+                      return (
+                        <span className={`ml-auto px-2 py-0.5 rounded-full text-xs font-medium ${modeConfig.badgeClass}`}>
+                          输入模式: {modeConfig.label}
+                        </span>
+                      );
+                    })()}
+                  </div>
+
+                  {/* File Info */}
+                  <div className="flex items-center gap-3 bg-white/80 rounded-lg p-3 border border-slate-100">
+                    <div className="p-2 bg-slate-100 rounded-lg">
+                      {selectedRecord.document_type === 'pdf' ? (
+                        <FileText className="text-red-500" size={20} />
+                      ) : (
+                        <Image className="text-blue-500" size={20} />
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-slate-800 truncate">
+                        {selectedRecord.document_name}
+                      </p>
+                      <p className="text-xs text-slate-400">
+                        类型: {selectedRecord.document_type === 'pdf' ? 'PDF 文档' : '图片'}
+                      </p>
+                    </div>
+                    <a
+                      href={selectedRecord.document_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1 px-3 py-1.5 bg-cyan-600 text-white text-xs rounded-lg hover:bg-cyan-700 transition-colors"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <ExternalLink size={12} />
+                      查看原件
+                    </a>
+                  </div>
+
+                  {/* Extracted Text */}
+                  {selectedRecord.document_extracted_text && (
+                    <div className="mt-3">
+                      <p className="text-xs font-semibold text-slate-500 uppercase mb-2">
+                        AI 提取文本内容
+                      </p>
+                      <div className="max-h-48 overflow-y-auto bg-white/80 rounded-lg p-3 text-sm text-slate-700 leading-relaxed whitespace-pre-wrap border border-slate-100">
+                        {selectedRecord.document_extracted_text}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
               {/* Marketing Tags Section */}
               {selectedRecord.status === 'completed' && (
                 <div className="px-6 py-4 bg-gradient-to-r from-amber-50 to-orange-50 border-b border-slate-200">
@@ -643,7 +749,8 @@ export default function AdminScreeningsPage() {
                   <ClipboardList className="text-slate-600" size={18} />
                   <h3 className="font-semibold text-slate-800">问卷答案</h3>
                   <span className="text-xs text-slate-400 ml-auto">
-                    {selectedRecord.answers?.length || 0} / 20 题
+                    {selectedRecord.answers?.length || 0} 题
+                    {selectedRecord.input_mode === 'document' && ' (文档模式，问卷可选)'}
                   </span>
                 </div>
 

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import BodyMapSelector, { type BodyMapSelectionData } from '@/components/BodyMapSelector';
 import DynamicScreeningForm from '@/components/DynamicScreeningForm';
 import FollowUpQuestionnaire from '@/components/FollowUpQuestionnaire';
+import DocumentUpload, { type UploadResult } from '@/components/DocumentUpload';
 import {
   ArrowLeft,
   Loader2,
@@ -16,6 +17,7 @@ import {
   Activity,
   FileText,
   Users,
+  Upload,
 } from 'lucide-react';
 import { FREE_SCREENING_LIMIT } from '@/lib/screening-questions';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
@@ -232,6 +234,42 @@ const translations = {
     'zh-TW': 'AI 需要更多資訊以提供更準確的健康分析',
     en: 'AI needs more information to provide a more accurate health analysis',
   },
+  orUploadDoc: {
+    ja: 'または診断書をアップロード',
+    'zh-CN': '或上传诊断书',
+    'zh-TW': '或上傳診斷書',
+    en: 'Or upload medical document',
+  },
+  uploadDocTitle: {
+    ja: '診断書・検査報告書アップロード',
+    'zh-CN': '上传诊断书/检查报告',
+    'zh-TW': '上傳診斷書/檢查報告',
+    en: 'Upload Medical Document',
+  },
+  uploadDocDesc: {
+    ja: 'お手持ちの診断書や検査報告書をアップロードすると、AIが自動的に情報を抽出して分析します',
+    'zh-CN': '上传您的诊断书或检查报告，AI 将自动提取信息并进行分析',
+    'zh-TW': '上傳您的診斷書或檢查報告，AI 將自動提取資訊並進行分析',
+    en: 'Upload your medical report or test results, AI will automatically extract and analyze',
+  },
+  analyzeDoc: {
+    ja: 'アップロード済み文書で分析開始',
+    'zh-CN': '使用已上传文档开始分析',
+    'zh-TW': '使用已上傳文檔開始分析',
+    en: 'Start analysis with uploaded document',
+  },
+  orContinueQuestionnaire: {
+    ja: 'さらに問診を受ける（推奨）',
+    'zh-CN': '继续填写问卷补充信息（推荐）',
+    'zh-TW': '繼續填寫問卷補充資訊（推薦）',
+    en: 'Continue with questionnaire for more info (recommended)',
+  },
+  analyzing: {
+    ja: '分析中...',
+    'zh-CN': '分析中...',
+    'zh-TW': '分析中...',
+    en: 'Analyzing...',
+  },
 } as const;
 
 const t = (key: keyof typeof translations, lang: Language): string => {
@@ -249,7 +287,7 @@ interface ScreeningData {
   };
 }
 
-type ScreeningStep = 'welcome' | 'body-map' | 'questionnaire' | 'followup';
+type ScreeningStep = 'welcome' | 'body-map' | 'questionnaire' | 'followup' | 'upload-document';
 
 export default function HealthScreeningPage() {
   const lang = useLanguage();
@@ -262,6 +300,9 @@ export default function HealthScreeningPage() {
   const [bodyMapData, setBodyMapData] = useState<BodyMapSelectionData | null>(null);
   // [Phase 3] 补问系统状态
   const [followupQuestions, setFollowupQuestions] = useState<string[]>([]);
+  // [Phase 4] 文档上传状态
+  const [documentUploaded, setDocumentUploaded] = useState(false);
+  const [isAnalyzingDoc, setIsAnalyzingDoc] = useState(false);
 
   // 加载用户状态和未完成的筛查
   useEffect(() => {
@@ -380,6 +421,68 @@ export default function HealthScreeningPage() {
     setCurrentStep('followup');
   };
 
+  // [Phase 4] 开始文档上传流程
+  const startWithDocumentUpload = async () => {
+    if (data?.existingScreening) {
+      setCurrentStep('upload-document');
+      return;
+    }
+    // 先创建筛查记录
+    setIsCreating(true);
+    setError(null);
+    try {
+      const response = await fetch('/api/health-screening', { method: 'POST' });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || t('createError', lang));
+      }
+      const result = await response.json();
+      setData({
+        screeningId: result.screeningId,
+        freeRemaining: result.freeRemaining,
+      });
+      setCurrentStep('upload-document');
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsCreating(false);
+    }
+  };
+
+  // [Phase 4] 文档上传成功
+  const handleDocumentUploadSuccess = (_result: UploadResult) => {
+    setDocumentUploaded(true);
+  };
+
+  // [Phase 4] 仅用文档触发分析
+  const handleAnalyzeWithDocument = async () => {
+    const screeningId = data?.screeningId || data?.existingScreening?.id;
+    if (!screeningId) return;
+
+    setIsAnalyzingDoc(true);
+    setError(null);
+    try {
+      const response = await fetch('/api/health-screening/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ screeningId, phase: 2 }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || '分析失败');
+
+      if (result.needsFollowup && result.followupQuestions) {
+        setFollowupQuestions(result.followupQuestions);
+        setCurrentStep('followup');
+      } else {
+        router.push(`/health-screening/result/${screeningId}`);
+      }
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsAnalyzingDoc(false);
+    }
+  };
+
   // 加载中
   if (loading) {
     return (
@@ -487,6 +590,86 @@ export default function HealthScreeningPage() {
     );
   }
 
+  // [Phase 4] 文档上传步骤
+  if (currentStep === 'upload-document' && (data?.screeningId || data?.existingScreening)) {
+    const screeningId = data.screeningId || data.existingScreening?.id!;
+
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+        <div className="bg-white border-b border-gray-100 shadow-sm">
+          <div className="max-w-4xl mx-auto px-4 py-4">
+            <button
+              onClick={() => setCurrentStep('welcome')}
+              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
+            >
+              <ArrowLeft size={18} />
+              <span className="text-sm">{t('backToAccount', lang)}</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-b from-white to-blue-50/30 py-8">
+          <div className="max-w-4xl mx-auto px-4 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-medical-100 text-medical-700 rounded-full text-sm mb-4">
+              <Upload className="w-4 h-4" />
+              <span>{t('uploadDocTitle', lang)}</span>
+            </div>
+            <h1 className="text-2xl md:text-3xl font-serif text-gray-900">
+              {t('uploadDocTitle', lang)}
+            </h1>
+            <p className="text-gray-500 mt-2">
+              {t('uploadDocDesc', lang)}
+            </p>
+          </div>
+        </div>
+
+        <div className="max-w-2xl mx-auto px-4 py-8">
+          <DocumentUpload
+            screeningId={screeningId}
+            language={lang}
+            onUploadSuccess={handleDocumentUploadSuccess}
+            onRemove={() => setDocumentUploaded(false)}
+          />
+
+          {documentUploaded && (
+            <div className="mt-8 space-y-3">
+              <button
+                onClick={handleAnalyzeWithDocument}
+                disabled={isAnalyzingDoc}
+                className="w-full px-6 py-4 bg-gradient-to-r from-medical-600 to-medical-700 text-white text-lg font-medium rounded-xl hover:from-medical-700 hover:to-medical-800 transition-all disabled:opacity-50 shadow-lg"
+              >
+                {isAnalyzingDoc ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    {t('analyzing', lang)}
+                  </span>
+                ) : (
+                  <span className="flex items-center justify-center gap-2">
+                    <Sparkles className="w-5 h-5" />
+                    {t('analyzeDoc', lang)}
+                  </span>
+                )}
+              </button>
+              <button
+                onClick={() => setCurrentStep('body-map')}
+                className="w-full px-6 py-3 border-2 border-brand-200 text-brand-700 rounded-xl hover:bg-brand-50 transition-colors text-sm"
+              >
+                {t('orContinueQuestionnaire', lang)}
+              </button>
+            </div>
+          )}
+
+          {error && (
+            <div className="mt-4 p-4 bg-red-50 text-red-700 rounded-xl flex items-center gap-3">
+              <AlertCircle className="w-5 h-5 flex-shrink-0" />
+              <span>{error}</span>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   // 人体图选择步骤
   if (currentStep === 'body-map' && (data?.screeningId || data?.existingScreening)) {
     return (
@@ -580,23 +763,33 @@ export default function HealthScreeningPage() {
 
           {/* 开始按钮 */}
           {(data?.freeRemaining ?? FREE_SCREENING_LIMIT) > 0 ? (
-            <button
-              onClick={startNewScreening}
-              disabled={isCreating}
-              className="px-10 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-lg font-medium rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-200 hover:shadow-xl hover:shadow-blue-300 transform hover:-translate-y-0.5"
-            >
-              {isCreating ? (
-                <span className="flex items-center gap-2">
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  {t('creating', lang)}
-                </span>
-              ) : (
-                <span className="flex items-center gap-2">
-                  <Activity className="w-5 h-5" />
-                  {t('startScreening', lang)}
-                </span>
-              )}
-            </button>
+            <div className="flex flex-col items-center gap-3">
+              <button
+                onClick={startNewScreening}
+                disabled={isCreating}
+                className="px-10 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-lg font-medium rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-200 hover:shadow-xl hover:shadow-blue-300 transform hover:-translate-y-0.5"
+              >
+                {isCreating ? (
+                  <span className="flex items-center gap-2">
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    {t('creating', lang)}
+                  </span>
+                ) : (
+                  <span className="flex items-center gap-2">
+                    <Activity className="w-5 h-5" />
+                    {t('startScreening', lang)}
+                  </span>
+                )}
+              </button>
+              <button
+                onClick={startWithDocumentUpload}
+                disabled={isCreating}
+                className="px-8 py-3 border-2 border-medical-300 text-medical-700 rounded-xl hover:bg-medical-50 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+              >
+                <Upload className="w-4 h-4" />
+                {t('orUploadDoc', lang)}
+              </button>
+            </div>
           ) : (
             <div className="text-center">
               <p className="text-gray-500 mb-4">{t('limitReached', lang)}</p>

@@ -84,6 +84,61 @@ export async function GET(request: NextRequest) {
       return createErrorResponse(Errors.internal('获取审核列表失败'));
     }
 
+    // 批量获取关联筛查记录的文档字段
+    const docFields = 'id, document_url, document_name, document_type, document_extracted_text, input_mode';
+    const authIds = (adjudications || [])
+      .filter((a) => a.screening_type === 'authenticated')
+      .map((a) => a.screening_id);
+    const wlIds = (adjudications || [])
+      .filter((a) => a.screening_type === 'whitelabel')
+      .map((a) => a.screening_id);
+
+    const docMap = new Map<string, {
+      document_url: string | null;
+      document_name: string | null;
+      document_type: string | null;
+      document_extracted_text: string | null;
+      input_mode: string;
+    }>();
+
+    const docFetches: Promise<void>[] = [];
+    if (authIds.length > 0) {
+      docFetches.push(
+        (async () => {
+          const { data } = await supabase
+            .from('health_screenings')
+            .select(docFields)
+            .in('id', authIds);
+          (data || []).forEach((s: any) => docMap.set(s.id, s));
+        })()
+      );
+    }
+    if (wlIds.length > 0) {
+      docFetches.push(
+        (async () => {
+          const { data } = await supabase
+            .from('whitelabel_screenings')
+            .select(docFields)
+            .in('id', wlIds);
+          (data || []).forEach((s: any) => docMap.set(s.id, s));
+        })()
+      );
+    }
+    await Promise.all(docFetches);
+
+    // 将文档字段合并到仲裁记录
+    const enrichedAdjudications = (adjudications || []).map((adj) => {
+      const doc = docMap.get(adj.screening_id);
+      return {
+        ...adj,
+        document_url: doc?.document_url || null,
+        document_name: doc?.document_name || null,
+        document_type: doc?.document_type || null,
+        document_extracted_text: doc?.document_extracted_text || null,
+        input_mode: doc?.input_mode || 'questionnaire',
+      };
+    });
+
     // 获取统计数据（并行查询）
     const [pendingRes, classCRes, classDRes] = await Promise.all([
       supabase
@@ -103,7 +158,7 @@ export async function GET(request: NextRequest) {
     ]);
 
     return NextResponse.json({
-      adjudications: adjudications || [],
+      adjudications: enrichedAdjudications,
       stats: {
         pendingReview: pendingRes.count ?? 0,
         classC: classCRes.count ?? 0,

@@ -2,8 +2,10 @@
 
 import { useState, useEffect, use } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import BodyMapSelector, { type BodyMapSelectionData } from '@/components/BodyMapSelector';
 import WhitelabelScreeningForm from '@/components/whitelabel/WhitelabelScreeningForm';
+import DocumentUpload, { type UploadResult } from '@/components/DocumentUpload';
 import {
   ArrowLeft,
   Loader2,
@@ -14,13 +16,14 @@ import {
   Shield,
   FileText,
   Users,
+  Upload,
 } from 'lucide-react';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-type ScreeningStep = 'welcome' | 'body-map' | 'questionnaire';
+type ScreeningStep = 'welcome' | 'body-map' | 'questionnaire' | 'upload-document';
 
 function getOrCreateSessionId(): string {
   if (typeof window === 'undefined') return '';
@@ -35,12 +38,15 @@ function getOrCreateSessionId(): string {
 
 export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
   const { slug } = use(params);
+  const router = useRouter();
   const [sessionId, setSessionId] = useState('');
   const [screeningId, setScreeningId] = useState<string | null>(null);
   const [currentStep, setCurrentStep] = useState<ScreeningStep>('welcome');
   const [bodyMapData, setBodyMapData] = useState<BodyMapSelectionData | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [documentUploaded, setDocumentUploaded] = useState(false);
+  const [isAnalyzingDoc, setIsAnalyzingDoc] = useState(false);
 
   useEffect(() => {
     setSessionId(getOrCreateSessionId());
@@ -79,6 +85,140 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
     setBodyMapData(selectionData);
     setCurrentStep('questionnaire');
   };
+
+  // 文档上传流程
+  const startWithDocumentUpload = async () => {
+    if (screeningId) {
+      setCurrentStep('upload-document');
+      return;
+    }
+    if (!sessionId) return;
+    setIsCreating(true);
+    setError(null);
+    try {
+      const response = await fetch('/api/whitelabel/screening', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId, guideSlug: slug }),
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || '创建筛查失败');
+      }
+      const result = await response.json();
+      setScreeningId(result.screeningId);
+      setCurrentStep('upload-document');
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsCreating(false);
+    }
+  };
+
+  const handleDocumentUploadSuccess = (_result: UploadResult) => {
+    setDocumentUploaded(true);
+  };
+
+  const handleAnalyzeWithDocument = async () => {
+    if (!screeningId) return;
+    setIsAnalyzingDoc(true);
+    setError(null);
+    try {
+      const response = await fetch('/api/whitelabel/screening/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ screeningId, sessionId, phase: 2 }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || '分析失败');
+
+      router.push(`/g/${slug}/health-screening/result/${screeningId}`);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsAnalyzingDoc(false);
+    }
+  };
+
+  // 文档上传步骤
+  if (currentStep === 'upload-document' && screeningId) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+        <div className="bg-white border-b border-gray-100 shadow-sm">
+          <div className="max-w-4xl mx-auto px-4 py-4">
+            <button
+              onClick={() => setCurrentStep('welcome')}
+              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
+            >
+              <ArrowLeft size={18} />
+              <span className="text-sm">返回</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-b from-white to-blue-50/30 py-8">
+          <div className="max-w-4xl mx-auto px-4 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-medical-100 text-medical-700 rounded-full text-sm mb-4">
+              <Upload className="w-4 h-4" />
+              <span>上传诊断书/检查报告</span>
+            </div>
+            <h1 className="text-2xl md:text-3xl font-serif text-gray-900">
+              上传诊断书/检查报告
+            </h1>
+            <p className="text-gray-500 mt-2">
+              上传您的诊断书或检查报告，AI 将自动提取信息并进行分析
+            </p>
+          </div>
+        </div>
+
+        <div className="max-w-2xl mx-auto px-4 py-8">
+          <DocumentUpload
+            screeningId={screeningId}
+            sessionId={sessionId}
+            isWhitelabel={true}
+            language="zh-CN"
+            onUploadSuccess={handleDocumentUploadSuccess}
+            onRemove={() => setDocumentUploaded(false)}
+          />
+
+          {documentUploaded && (
+            <div className="mt-8 space-y-3">
+              <button
+                onClick={handleAnalyzeWithDocument}
+                disabled={isAnalyzingDoc}
+                className="w-full px-6 py-4 bg-gradient-to-r from-medical-600 to-medical-700 text-white text-lg font-medium rounded-xl hover:from-medical-700 hover:to-medical-800 transition-all disabled:opacity-50 shadow-lg"
+              >
+                {isAnalyzingDoc ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    分析中...
+                  </span>
+                ) : (
+                  <span className="flex items-center justify-center gap-2">
+                    <Sparkles className="w-5 h-5" />
+                    使用已上传文档开始分析
+                  </span>
+                )}
+              </button>
+              <button
+                onClick={() => setCurrentStep('body-map')}
+                className="w-full px-6 py-3 border-2 border-brand-200 text-brand-700 rounded-xl hover:bg-brand-50 transition-colors text-sm"
+              >
+                继续填写问卷补充信息（推荐）
+              </button>
+            </div>
+          )}
+
+          {error && (
+            <div className="mt-4 p-4 bg-red-50 text-red-700 rounded-xl flex items-center gap-3">
+              <AlertCircle className="w-5 h-5 flex-shrink-0" />
+              <span>{error}</span>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   // 问卷步骤
   if (currentStep === 'questionnaire' && screeningId) {
@@ -208,23 +348,33 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
             </div>
           )}
 
-          <button
-            onClick={startNewScreening}
-            disabled={isCreating || !sessionId}
-            className="px-10 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-lg font-medium rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-200 hover:shadow-xl hover:shadow-blue-300 transform hover:-translate-y-0.5"
-          >
-            {isCreating ? (
-              <span className="flex items-center gap-2">
-                <Loader2 className="w-5 h-5 animate-spin" />
-                正在创建...
-              </span>
-            ) : (
-              <span className="flex items-center gap-2">
-                <Activity className="w-5 h-5" />
-                开始智能筛查
-              </span>
-            )}
-          </button>
+          <div className="flex flex-col items-center gap-3">
+            <button
+              onClick={startNewScreening}
+              disabled={isCreating || !sessionId}
+              className="px-10 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-lg font-medium rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-200 hover:shadow-xl hover:shadow-blue-300 transform hover:-translate-y-0.5"
+            >
+              {isCreating ? (
+                <span className="flex items-center gap-2">
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  正在创建...
+                </span>
+              ) : (
+                <span className="flex items-center gap-2">
+                  <Activity className="w-5 h-5" />
+                  开始智能筛查
+                </span>
+              )}
+            </button>
+            <button
+              onClick={startWithDocumentUpload}
+              disabled={isCreating || !sessionId}
+              className="px-8 py-3 border-2 border-medical-300 text-medical-700 rounded-xl hover:bg-medical-50 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            >
+              <Upload className="w-4 h-4" />
+              或上传诊断书
+            </button>
+          </div>
         </div>
       </div>
 

@@ -23,6 +23,10 @@ import {
   Loader2,
   RefreshCw,
   MessageCircleQuestion,
+  Upload,
+  FileText,
+  Image,
+  ExternalLink,
 } from 'lucide-react';
 
 /* ------------------------------------------------------------------ */
@@ -240,6 +244,48 @@ const translations = {
     ja: 'エスカレーション',
     en: 'Escalate',
   },
+  uploadedDocument: {
+    'zh-CN': '上传文档',
+    'zh-TW': '上傳文檔',
+    ja: 'アップロード文書',
+    en: 'Uploaded Document',
+  },
+  viewOriginal: {
+    'zh-CN': '查看原件',
+    'zh-TW': '查看原件',
+    ja: '原本を表示',
+    en: 'View Original',
+  },
+  extractedText: {
+    'zh-CN': 'AI 提取文本',
+    'zh-TW': 'AI 提取文字',
+    ja: 'AI 抽出テキスト',
+    en: 'AI Extracted Text',
+  },
+  inputMode: {
+    'zh-CN': '输入模式:',
+    'zh-TW': '輸入模式:',
+    ja: '入力モード:',
+    en: 'Input mode:',
+  },
+  modeQuestionnaire: {
+    'zh-CN': '问卷',
+    'zh-TW': '問卷',
+    ja: '問診',
+    en: 'Questionnaire',
+  },
+  modeDocument: {
+    'zh-CN': '文档',
+    'zh-TW': '文檔',
+    ja: '文書',
+    en: 'Document',
+  },
+  modeHybrid: {
+    'zh-CN': '混合',
+    'zh-TW': '混合',
+    ja: '混合',
+    en: 'Hybrid',
+  },
 } as const;
 
 const t = (key: keyof typeof translations, lang: Language): string =>
@@ -280,6 +326,11 @@ interface AdjudicationRecord {
   safety_gate_explanation: string | null;
   total_latency_ms: number | null;
   created_at: string;
+  document_url: string | null;
+  document_name: string | null;
+  document_type: string | null;
+  document_extracted_text: string | null;
+  input_mode: string;
 }
 
 interface ReviewStats {
@@ -541,6 +592,15 @@ export default function ReviewsPage() {
                   <span className="text-xs text-gray-400">
                     {adj.pipeline_version}
                   </span>
+                  {adj.input_mode && adj.input_mode !== 'questionnaire' && (
+                    <span className={`px-1.5 py-0.5 rounded text-xs font-medium ${
+                      adj.input_mode === 'document'
+                        ? 'bg-purple-100 text-purple-700'
+                        : 'bg-teal-100 text-teal-700'
+                    }`}>
+                      {adj.input_mode === 'document' ? '文档' : '混合'}
+                    </span>
+                  )}
                   <span className="text-xs text-gray-400">
                     {new Date(adj.created_at).toLocaleString(dateLocaleMap[lang])}
                   </span>
@@ -565,6 +625,52 @@ export default function ReviewsPage() {
                     <div>
                       <h4 className="text-sm font-medium text-gray-700 mb-1">{t('adjudicationSummary', lang)}</h4>
                       <p className="text-sm text-gray-600 whitespace-pre-wrap">{adj.final_summary}</p>
+                    </div>
+                  )}
+
+                  {/* 上传文档 */}
+                  {adj.document_url && (
+                    <div className="bg-cyan-50 p-3 rounded border border-cyan-100">
+                      <h4 className="text-sm font-medium text-cyan-800 mb-2 flex items-center gap-1">
+                        <Upload className="w-4 h-4" />
+                        {t('uploadedDocument', lang)}
+                        <span className="ml-auto text-xs font-normal text-cyan-600">
+                          {t('inputMode', lang)}{' '}
+                          {adj.input_mode === 'document'
+                            ? t('modeDocument', lang)
+                            : adj.input_mode === 'hybrid'
+                            ? t('modeHybrid', lang)
+                            : t('modeQuestionnaire', lang)}
+                        </span>
+                      </h4>
+                      <div className="flex items-center gap-2 bg-white rounded p-2 border border-cyan-100">
+                        {adj.document_type === 'pdf' ? (
+                          <FileText className="w-4 h-4 text-red-500 shrink-0" />
+                        ) : (
+                          <Image className="w-4 h-4 text-blue-500 shrink-0" />
+                        )}
+                        <span className="text-sm text-gray-700 truncate flex-1">{adj.document_name}</span>
+                        <a
+                          href={adj.document_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 px-2 py-1 bg-cyan-600 text-white text-xs rounded hover:bg-cyan-700 transition-colors shrink-0"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                          {t('viewOriginal', lang)}
+                        </a>
+                      </div>
+                      {adj.document_extracted_text && (
+                        <div className="mt-2">
+                          <p className="text-xs font-medium text-cyan-700 mb-1">{t('extractedText', lang)}</p>
+                          <div className="max-h-32 overflow-y-auto bg-white rounded p-2 text-xs text-gray-600 leading-relaxed whitespace-pre-wrap border border-cyan-100">
+                            {adj.document_extracted_text.length > 500
+                              ? adj.document_extracted_text.substring(0, 500) + '...'
+                              : adj.document_extracted_text}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )}
 

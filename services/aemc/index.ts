@@ -57,6 +57,7 @@ export interface AEMCInput {
   sessionId?: string;
   language?: string;
   phase: 1 | 2;
+  uploadedReportText?: string;
 }
 
 export interface AEMCOutput {
@@ -94,6 +95,7 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
     userId: input.userId,
     sessionId: input.sessionId,
     language: input.language,
+    uploadedReportText: input.uploadedReportText,
   });
 
   console.info(`[AEMC] Pipeline started for case ${casePacket.case_id}`);

@@ -80,16 +80,27 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 检查答案数量
+    // 检查答案数量（纯文档模式下跳过问卷数量验证）
     const answers = screening.answers || [];
     const bodyMapData = screening.body_map_data;
-    const requiredQuestionCount = calculateRequiredQuestionCount(phase, bodyMapData);
+    const documentText = screening.document_extracted_text as string | null;
+    const inputMode = (screening.input_mode as string) || 'questionnaire';
 
-    if (answers.length < requiredQuestionCount) {
+    if (inputMode === 'questionnaire' || inputMode === 'hybrid') {
+      const requiredQuestionCount = calculateRequiredQuestionCount(phase, bodyMapData);
+      if (answers.length < requiredQuestionCount) {
+        return NextResponse.json(
+          {
+            error: `请完成所有问题后再提交分析（已回答 ${answers.length}/${requiredQuestionCount} 题）`,
+          },
+          { status: 400 }
+        );
+      }
+    }
+
+    if (inputMode === 'document' && !documentText) {
       return NextResponse.json(
-        {
-          error: `请完成所有问题后再提交分析（已回答 ${answers.length}/${requiredQuestionCount} 题）`,
-        },
+        { error: '请先上传诊断书/检查报告' },
         { status: 400 }
       );
     }
@@ -123,6 +134,7 @@ export async function POST(request: NextRequest) {
           userType: 'whitelabel',
           sessionId,
           phase,
+          uploadedReportText: documentText || undefined,
         });
         analysisResult = aemcOutput.legacyResult;
         aemcOutputRef = aemcOutput;

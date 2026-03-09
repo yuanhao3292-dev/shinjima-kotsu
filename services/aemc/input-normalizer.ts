@@ -46,6 +46,7 @@ export interface NormalizerInput {
   userId?: string;
   sessionId?: string;
   language?: string;
+  uploadedReportText?: string;
 }
 
 /**
@@ -59,15 +60,33 @@ export function normalizeToCasePacket(input: NormalizerInput): CasePacket {
   const rawTextBundle = buildRawTextBundle(input.answers);
   const language = input.language || detectLanguage(input.answers);
 
+  // 确定输入来源类型
+  const sourceTypes: CasePacket['source_type'] = [];
+  if (input.answers.length > 0) {
+    sourceTypes.push('questionnaire');
+  }
+  if (input.uploadedReportText) {
+    sourceTypes.push('medical_report');
+    rawTextBundle.push({
+      source: 'uploaded_document',
+      text: input.uploadedReportText,
+    });
+  }
+  // 至少标记一个来源
+  if (sourceTypes.length === 0) {
+    sourceTypes.push('questionnaire');
+  }
+
   return {
     case_id: input.screeningId,
-    source_type: ['questionnaire'],
+    source_type: sourceTypes,
     user_type: input.userType,
     language: language as CasePacket['language'],
     demographics,
     body_regions: bodyRegions,
     selected_symptoms: selectedSymptoms,
     questionnaire_answers: questionnaireAnswers,
+    uploaded_report_text: input.uploadedReportText,
     timeline: [],
     raw_text_bundle: rawTextBundle,
     metadata: {
