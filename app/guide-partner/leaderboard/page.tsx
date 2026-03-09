@@ -129,7 +129,7 @@ interface LeaderboardEntry {
 
 // Level style configuration (colors only, labels handled by translations)
 const LEVEL_STYLES: Record<string, { color: string; bgColor: string; borderColor: string }> = {
-  growth: { color: 'text-orange-700', bgColor: 'bg-orange-100', borderColor: 'border-orange-300' },
+  growth: { color: 'text-amber-700', bgColor: 'bg-amber-100', borderColor: 'border-amber-300' },
   gold: { color: 'text-yellow-600', bgColor: 'bg-yellow-100', borderColor: 'border-yellow-300' },
 };
 
@@ -237,7 +237,7 @@ export default function LeaderboardPage() {
       case 2:
         return 'bg-gradient-to-r from-gray-50 to-slate-50 border-gray-300';
       case 3:
-        return 'bg-gradient-to-r from-amber-50 to-orange-50 border-amber-300';
+        return 'bg-gradient-to-r from-amber-50 to-amber-100 border-amber-300';
       default:
         return 'bg-white border-gray-200';
     }
@@ -301,7 +301,7 @@ export default function LeaderboardPage() {
                 </div>
               </div>
               {currentUserRank.rank > 1 && (
-                <div className="mt-4 pt-4 border-t border-orange-400/30">
+                <div className="mt-4 pt-4 border-t border-amber-400/30">
                   <p className="text-brand-100 text-sm flex items-center gap-2">
                     <TrendingUp size={16} />
                     {t('gapToNext', lang)} ¥{(leaderboard[currentUserRank.rank - 2]?.total_commission - currentUserRank.total_commission).toLocaleString()}
@@ -326,7 +326,7 @@ export default function LeaderboardPage() {
                   <div
                     key={entry.id}
                     className={`p-4 flex items-center gap-4 transition ${getRankStyle(entry.rank)} ${
-                      entry.isCurrentUser ? 'ring-2 ring-orange-500 ring-inset' : ''
+                      entry.isCurrentUser ? 'ring-2 ring-amber-500 ring-inset' : ''
                     }`}
                   >
                     {/* Rank */}
@@ -337,9 +337,9 @@ export default function LeaderboardPage() {
                     {/* Name & Level */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <p className={`font-medium truncate ${entry.isCurrentUser ? 'text-orange-600' : 'text-gray-900'}`}>
+                        <p className={`font-medium truncate ${entry.isCurrentUser ? 'text-amber-600' : 'text-gray-900'}`}>
                           {entry.name}
-                          {entry.isCurrentUser && <span className="ml-2 text-xs text-orange-500">{t('youIndicator', lang)}</span>}
+                          {entry.isCurrentUser && <span className="ml-2 text-xs text-amber-500">{t('youIndicator', lang)}</span>}
                         </p>
                         <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs ${
                           LEVEL_STYLES[entry.level]?.bgColor || 'bg-gray-100'

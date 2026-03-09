@@ -392,9 +392,9 @@ export default function WithdrawalPage() {
   const lang = useLanguage();
 
   const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string }> = {
-    pending: { label: t('statusPending', lang), color: 'text-yellow-700', bg: 'bg-yellow-100' },
-    approved: { label: t('statusApproved', lang), color: 'text-blue-700', bg: 'bg-blue-100' },
-    processing: { label: t('statusProcessing', lang), color: 'text-indigo-700', bg: 'bg-indigo-100' },
+    pending: { label: t('statusPending', lang), color: 'text-gray-600', bg: 'bg-gray-100' },
+    approved: { label: t('statusApproved', lang), color: 'text-brand-700', bg: 'bg-brand-100' },
+    processing: { label: t('statusProcessing', lang), color: 'text-brand-700', bg: 'bg-brand-100' },
     completed: { label: t('statusCompleted', lang), color: 'text-green-700', bg: 'bg-green-100' },
     rejected: { label: t('statusRejected', lang), color: 'text-red-700', bg: 'bg-red-100' },
     cancelled: { label: t('statusCancelled', lang), color: 'text-gray-700', bg: 'bg-gray-100' },
@@ -546,7 +546,7 @@ export default function WithdrawalPage() {
 
           {/* Balance Cards */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-xl p-5 text-white">
+            <div className="bg-gradient-to-br from-brand-800 to-brand-900 rounded-xl p-5 text-white">
               <div className="flex items-center gap-2 mb-2">
                 <Wallet size={18} />
                 <span className="text-sm opacity-90">{t('available', lang)}</span>
@@ -577,7 +577,7 @@ export default function WithdrawalPage() {
 
             <div className="bg-white rounded-xl p-5 border">
               <div className="flex items-center gap-2 mb-2">
-                <Banknote size={18} className="text-blue-500" />
+                <Banknote size={18} className="text-brand-500" />
                 <span className="text-sm text-gray-500">{t('totalWithdrawn', lang)}</span>
               </div>
               <p className="text-2xl font-bold text-gray-900">¥{(balance?.totalWithdrawn || 0).toLocaleString()}</p>
@@ -623,12 +623,12 @@ export default function WithdrawalPage() {
                 </div>
               </div>
             ) : hasPendingWithdrawal ? (
-              <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <div className="p-4 bg-brand-50 border border-brand-200 rounded-lg">
                 <div className="flex items-start gap-3">
-                  <Clock size={20} className="text-blue-600 mt-0.5 shrink-0" />
+                  <Clock size={20} className="text-brand-600 mt-0.5 shrink-0" />
                   <div>
-                    <p className="text-blue-800 font-medium">{t('pendingWithdrawal', lang)}</p>
-                    <p className="text-blue-700 text-sm mt-1">{t('pendingWithdrawalDesc', lang)}</p>
+                    <p className="text-brand-800 font-medium">{t('pendingWithdrawal', lang)}</p>
+                    <p className="text-brand-700 text-sm mt-1">{t('pendingWithdrawalDesc', lang)}</p>
                   </div>
                 </div>
               </div>

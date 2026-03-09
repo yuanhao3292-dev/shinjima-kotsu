@@ -201,7 +201,7 @@ export default function VenuesPage() {
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'nightclub': return 'bg-purple-100 text-purple-600';
+      case 'nightclub': return 'bg-brand-100 text-brand-600';
       default: return 'bg-gray-100 text-gray-600';
     }
   };

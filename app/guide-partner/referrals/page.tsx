@@ -382,7 +382,7 @@ export default function ReferralsPage() {
 
   const getStatusBadge = (status: string) => {
     const styles: Record<string, string> = {
-      pending: 'bg-yellow-100 text-yellow-700',
+      pending: 'bg-gray-100 text-gray-600',
       approved: 'bg-green-100 text-green-700',
       rejected: 'bg-red-100 text-red-700',
       suspended: 'bg-gray-100 text-gray-700',
@@ -449,7 +449,7 @@ export default function ReferralsPage() {
           </div>
 
           {/* Referral Code Card */}
-          <div className="bg-gradient-to-r from-purple-500 to-indigo-600 rounded-2xl p-6 text-white mb-8">
+          <div className="bg-gradient-to-r from-brand-700 to-brand-900 rounded-2xl p-6 text-white mb-8">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
               <div>
                 <h2 className="text-lg font-medium opacity-90 mb-2">{t('yourReferralCode', lang)}</h2>
@@ -487,7 +487,7 @@ export default function ReferralsPage() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             <div className="bg-white rounded-xl p-6 border">
               <div className="flex items-center gap-2 mb-2">
-                <Users size={20} className="text-purple-500" />
+                <Users size={20} className="text-brand-500" />
                 <span className="text-sm text-gray-500">{t('referralCount', lang)}</span>
               </div>
               <p className="text-2xl font-bold text-gray-900">{referrals.length}</p>
@@ -531,8 +531,8 @@ export default function ReferralsPage() {
                 {referrals.map((referral) => (
                   <div key={referral.id} className="p-4 flex items-center justify-between hover:bg-gray-50">
                     <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                        <span className="text-purple-600 font-bold">
+                      <div className="w-10 h-10 bg-brand-100 rounded-full flex items-center justify-center">
+                        <span className="text-brand-600 font-bold">
                           {referral.name.charAt(0).toUpperCase()}
                         </span>
                       </div>
@@ -590,10 +590,10 @@ export default function ReferralsPage() {
                   <div key={reward.id} className="p-4 flex items-center justify-between hover:bg-gray-50">
                     <div className="flex items-center gap-4">
                       <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                        reward.status === 'paid' ? 'bg-green-100' : 'bg-yellow-100'
+                        reward.status === 'paid' ? 'bg-green-100' : 'bg-gray-100'
                       }`}>
                         <Gift size={20} className={
-                          reward.status === 'paid' ? 'text-green-600' : 'text-yellow-600'
+                          reward.status === 'paid' ? 'text-green-600' : 'text-gray-600'
                         } />
                       </div>
                       <div>
@@ -617,12 +617,12 @@ export default function ReferralsPage() {
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                         reward.status === 'paid'
                           ? 'bg-green-100 text-green-700'
-                          : 'bg-yellow-100 text-yellow-700'
+                          : 'bg-gray-100 text-gray-600'
                       }`}>
                         {reward.status === 'paid' ? t('settled', lang) : t('pendingLabel', lang)}
                       </span>
                       <p className={`font-bold mt-1 ${
-                        reward.status === 'paid' ? 'text-green-600' : 'text-yellow-600'
+                        reward.status === 'paid' ? 'text-green-600' : 'text-gray-600'
                       }`}>
                         +¥{reward.reward_amount?.toLocaleString()}
                       </p>
@@ -640,19 +640,19 @@ export default function ReferralsPage() {
           </div>
 
           {/* Reward Rules */}
-          <div className="bg-purple-50 border border-purple-200 rounded-xl p-6">
-            <h3 className="font-bold text-purple-800 mb-4">{t('rewardRulesTitle', lang)}</h3>
-            <div className="space-y-3 text-sm text-purple-700">
+          <div className="bg-brand-50 border border-brand-200 rounded-xl p-6">
+            <h3 className="font-bold text-brand-800 mb-4">{t('rewardRulesTitle', lang)}</h3>
+            <div className="space-y-3 text-sm text-brand-700">
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold">1</div>
+                <div className="w-6 h-6 bg-brand-500 text-white rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold">1</div>
                 <p>{t('rule1', lang)}</p>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold">2</div>
+                <div className="w-6 h-6 bg-brand-500 text-white rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold">2</div>
                 <p>{t('rule2', lang)}</p>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold">3</div>
+                <div className="w-6 h-6 bg-brand-500 text-white rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold">3</div>
                 <p>{t('rule3', lang)}</p>
               </div>
             </div>

@@ -388,8 +388,8 @@ function BookingsContent() {
 
   const getStatusBadge = (status: string) => {
     const styles: Record<string, string> = {
-      pending: 'bg-yellow-100 text-yellow-700',
-      confirmed: 'bg-blue-100 text-blue-700',
+      pending: 'bg-gray-100 text-gray-600',
+      confirmed: 'bg-brand-100 text-brand-700',
       completed: 'bg-green-100 text-green-700',
       cancelled: 'bg-gray-100 text-gray-700',
       no_show: 'bg-red-100 text-red-700',
@@ -410,7 +410,7 @@ function BookingsContent() {
 
   const getDepositBadge = (status: string) => {
     const styles: Record<string, string> = {
-      pending: 'bg-yellow-50 text-yellow-600 border-yellow-200',
+      pending: 'bg-gray-50 text-gray-600 border-gray-200',
       paid: 'bg-green-50 text-green-600 border-green-200',
       refunded: 'bg-gray-50 text-gray-600 border-gray-200',
       forfeited: 'bg-red-50 text-red-600 border-red-200',

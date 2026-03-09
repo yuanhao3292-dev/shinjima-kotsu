@@ -843,7 +843,7 @@ export default function WhiteLabelSettingsPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+        <Loader2 className="w-8 h-8 animate-spin text-brand-600" />
       </div>
     );
   }
@@ -915,13 +915,13 @@ export default function WhiteLabelSettingsPage() {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-500">{t('successFeeLabel', lang)}</span>
-                <span className="font-bold text-blue-600">¥1,980{t('perMonth', lang)}</span>
+                <span className="font-bold text-brand-600">¥1,980{t('perMonth', lang)}</span>
               </div>
             </div>
 
             {/* 提示 */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-6 text-left">
-              <p className="text-blue-800 text-sm whitespace-pre-line">
+            <div className="bg-brand-50 border border-brand-200 rounded-lg p-3 mb-6 text-left">
+              <p className="text-brand-800 text-sm whitespace-pre-line">
                 {t('successEmailNotice', lang)}
               </p>
             </div>
@@ -932,7 +932,7 @@ export default function WhiteLabelSettingsPage() {
                 setShowSuccessModal(false);
                 loadGuideData();
               }}
-              className="w-full py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition"
+              className="w-full py-3 bg-brand-600 text-white rounded-xl font-medium hover:bg-brand-700 transition"
             >
               {t('startSetup', lang)}
             </button>
@@ -988,7 +988,7 @@ export default function WhiteLabelSettingsPage() {
           {/* 专业版 */}
           <div className={`p-5 rounded-xl border-2 transition ${
             isSubscribed
-              ? 'border-blue-500 bg-blue-50'
+              ? 'border-brand-500 bg-brand-50'
               : 'border-gray-200'
           }`}>
             <div className="flex items-center justify-between mb-3">
@@ -1007,7 +1007,7 @@ export default function WhiteLabelSettingsPage() {
               <button
                 onClick={() => handleSubscribe('professional')}
                 disabled={subscribing}
-                className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {subscribing && <Loader2 size={16} className="animate-spin" />}
                 {subscribing ? t('processing', lang) : t('subscribeNow', lang)}
@@ -1081,11 +1081,11 @@ export default function WhiteLabelSettingsPage() {
 
             {/* 统计数据 */}
             <div className="mt-6 grid grid-cols-2 gap-4">
-              <div className="p-4 bg-blue-50 rounded-lg">
-                <div className="text-2xl font-bold text-blue-700">
+              <div className="p-4 bg-brand-50 rounded-lg">
+                <div className="text-2xl font-bold text-brand-700">
                   {guide.whitelabel_views.toLocaleString()}
                 </div>
-                <div className="text-sm text-blue-600">{t('pageViews', lang)}</div>
+                <div className="text-sm text-brand-600">{t('pageViews', lang)}</div>
               </div>
               <div className="p-4 bg-green-50 rounded-lg">
                 <div className="text-2xl font-bold text-green-700">
@@ -1099,7 +1099,7 @@ export default function WhiteLabelSettingsPage() {
 
         {/* 选品中心入口 */}
         {isSubscribed && (
-          <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-6 text-white">
+          <div className="bg-gradient-to-r from-brand-700 to-brand-900 rounded-xl p-6 text-white">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center">
@@ -1114,7 +1114,7 @@ export default function WhiteLabelSettingsPage() {
               </div>
               <Link
                 href="/guide-partner/product-center"
-                className="flex items-center gap-2 bg-white text-indigo-600 px-5 py-3 rounded-xl font-medium hover:bg-white/90 transition"
+                className="flex items-center gap-2 bg-white text-brand-600 px-5 py-3 rounded-xl font-medium hover:bg-white/90 transition"
               >
                 {t('enterProductCenter', lang)}
                 <ChevronRight size={18} />
@@ -1168,7 +1168,7 @@ export default function WhiteLabelSettingsPage() {
                   value={formData.slug}
                   onChange={(e) => setFormData({ ...formData, slug: e.target.value.toLowerCase() })}
                   placeholder="your-name"
-                  className="w-40 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-40 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
                 />
               </div>
               <p className="mt-1 text-xs text-gray-500">
@@ -1186,7 +1186,7 @@ export default function WhiteLabelSettingsPage() {
                 value={formData.brandName}
                 onChange={(e) => setFormData({ ...formData, brandName: e.target.value })}
                 placeholder={t('brandNamePlaceholder', lang)}
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
               />
               <p className="mt-1 text-xs text-gray-500">
                 {t('brandNameHint', lang)}
@@ -1203,7 +1203,7 @@ export default function WhiteLabelSettingsPage() {
                 value={formData.brandTagline}
                 onChange={(e) => setFormData({ ...formData, brandTagline: e.target.value })}
                 placeholder={t('brandEnglishPlaceholder', lang)}
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
               />
               <p className="mt-1 text-xs text-gray-500">
                 {t('brandEnglishHint', lang)}
@@ -1233,7 +1233,7 @@ export default function WhiteLabelSettingsPage() {
                 value={formData.contactWechat}
                 onChange={(e) => setFormData({ ...formData, contactWechat: e.target.value })}
                 placeholder="your_wechat_id"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
               />
             </div>
 
@@ -1246,7 +1246,7 @@ export default function WhiteLabelSettingsPage() {
                 value={formData.contactLine}
                 onChange={(e) => setFormData({ ...formData, contactLine: e.target.value })}
                 placeholder="your_line_id"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
               />
             </div>
 
@@ -1259,7 +1259,7 @@ export default function WhiteLabelSettingsPage() {
                 value={formData.contactDisplayPhone}
                 onChange={(e) => setFormData({ ...formData, contactDisplayPhone: e.target.value })}
                 placeholder="+86 138-xxxx-xxxx"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
               />
             </div>
 
@@ -1272,7 +1272,7 @@ export default function WhiteLabelSettingsPage() {
                 value={formData.contactEmail}
                 onChange={(e) => setFormData({ ...formData, contactEmail: e.target.value })}
                 placeholder="your@email.com"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
               />
               <p className="mt-1 text-xs text-gray-500">
                 {t('emailHint', lang)}
@@ -1287,7 +1287,7 @@ export default function WhiteLabelSettingsPage() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium disabled:opacity-50"
+              className="flex items-center gap-2 px-6 py-3 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition font-medium disabled:opacity-50"
             >
               {saving ? (
                 <Loader2 size={18} className="animate-spin" />
@@ -1319,12 +1319,12 @@ export default function WhiteLabelSettingsPage() {
         )}
 
         {/* 法律声明 */}
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
-          <h3 className="font-bold text-blue-800 mb-3 flex items-center gap-2">
+        <div className="bg-brand-50 border border-brand-200 rounded-xl p-6">
+          <h3 className="font-bold text-brand-800 mb-3 flex items-center gap-2">
             <AlertCircle size={18} />
             {t('legalNotice', lang)}
           </h3>
-          <ul className="space-y-2 text-sm text-blue-700">
+          <ul className="space-y-2 text-sm text-brand-700">
             <li>• {t('legalLine1', lang)}</li>
             <li>• {t('legalLine2', lang)}</li>
             <li>• {t('legalLine3', lang)}</li>

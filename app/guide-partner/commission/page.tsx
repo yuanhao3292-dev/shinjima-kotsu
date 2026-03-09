@@ -758,8 +758,8 @@ export default function CommissionPage() {
 
   const getSettlementStatusBadge = (status: string) => {
     const styles: Record<string, string> = {
-      pending: 'bg-yellow-100 text-yellow-700',
-      confirmed: 'bg-blue-100 text-blue-700',
+      pending: 'bg-gray-100 text-gray-600',
+      confirmed: 'bg-brand-100 text-brand-700',
       paid: 'bg-green-100 text-green-700',
     };
     const labels: Record<string, string> = {
@@ -777,8 +777,8 @@ export default function CommissionPage() {
   const getCommissionStatusBadge = (status: string, availableAt?: string | null) => {
     const styles: Record<string, string> = {
       pending: 'bg-gray-100 text-gray-600',
-      calculated: 'bg-yellow-100 text-yellow-700',
-      available: 'bg-blue-100 text-blue-700',
+      calculated: 'bg-gray-100 text-gray-600',
+      available: 'bg-brand-100 text-brand-700',
       paid: 'bg-green-100 text-green-700',
     };
     const labels: Record<string, string> = {
@@ -897,7 +897,7 @@ export default function CommissionPage() {
 
           {/* Stats Cards */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-xl p-6 text-white">
+            <div className="bg-gradient-to-br from-brand-800 to-brand-900 rounded-xl p-6 text-white">
               <div className="flex items-center gap-2 mb-2">
                 <Wallet size={20} />
                 <span className="text-sm opacity-90">{t('totalEarned', lang)}</span>
@@ -915,7 +915,7 @@ export default function CommissionPage() {
 
             <div className="bg-white rounded-xl p-6 border">
               <div className="flex items-center gap-2 mb-2">
-                <TrendingUp size={20} className="text-blue-500" />
+                <TrendingUp size={20} className="text-brand-500" />
                 <span className="text-sm text-gray-500">{t('thisMonth', lang)}</span>
               </div>
               <p className="text-2xl font-bold text-gray-900">¥{(stats?.thisMonthAmount || 0).toLocaleString()}</p>
@@ -960,17 +960,17 @@ export default function CommissionPage() {
           </div>
 
           {/* New Customer First Order Bonus */}
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-xl p-4 mb-8">
+          <div className="bg-gradient-to-r from-brand-50 to-brand-100 border border-brand-200 rounded-xl p-4 mb-8">
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 bg-gradient-to-br from-brand-700 to-brand-900 rounded-lg flex items-center justify-center flex-shrink-0">
                 <Gift size={20} className="text-white" />
               </div>
               <div>
-                <h3 className="font-bold text-purple-800">{t('newCustomerBonusTitle', lang)}</h3>
-                <p className="text-sm text-purple-700 mt-1">
+                <h3 className="font-bold text-brand-800">{t('newCustomerBonusTitle', lang)}</h3>
+                <p className="text-sm text-brand-700 mt-1">
                   {t('newCustomerBonusDesc', lang)}
                 </p>
-                <p className="text-xs text-purple-600 mt-2">
+                <p className="text-xs text-brand-600 mt-2">
                   {t('newCustomerBonusExample', lang)}{t(tierName, lang)} ({commissionRate}%) {t('newCustomerBonusLabel', lang)} (5%) {t('totalCommissionRateLabel', lang)} {commissionRate + 5}%
                 </p>
               </div>
@@ -1099,7 +1099,7 @@ export default function CommissionPage() {
                               {orderTypeLabels[record.order_type] || record.order_type}
                             </p>
                             {hasBonus && (
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 text-xs rounded-full">
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-gradient-to-r from-brand-100 to-brand-200 text-brand-700 text-xs rounded-full">
                                 <Gift size={12} />
                                 {t('newCustomerReward', lang)}
                               </span>
@@ -1120,7 +1120,7 @@ export default function CommissionPage() {
                           {hasBonus && record.metadata ? (
                             <div className="text-xs text-gray-500 mt-1">
                               <span>{t('baseCommission', lang)} ¥{record.metadata.base_commission?.toLocaleString()}</span>
-                              <span className="text-purple-600 ml-1">
+                              <span className="text-brand-600 ml-1">
                                 {t('bonusReward', lang)} ¥{record.metadata.bonus_amount?.toLocaleString()}
                               </span>
                             </div>
@@ -1175,7 +1175,7 @@ export default function CommissionPage() {
                           <p className="font-medium text-gray-900">
                             {reward.referee?.name || t('unknownGuide', lang)}{t('performanceOf', lang)}
                           </p>
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-purple-100 text-purple-700 text-xs rounded-full">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-brand-100 text-brand-700 text-xs rounded-full">
                             <Users size={12} />
                             {t('downlineReward', lang)}
                           </span>

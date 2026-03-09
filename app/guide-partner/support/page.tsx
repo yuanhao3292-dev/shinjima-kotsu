@@ -308,7 +308,7 @@ const getTicketTypes = (lang: Language) => [
 
 const getStatusConfig = (lang: Language): Record<string, { label: string; color: string; icon: any }> => ({
   open: { label: t('statusOpen', lang), color: 'bg-yellow-100 text-yellow-700', icon: Clock },
-  in_progress: { label: t('statusInProgress', lang), color: 'bg-blue-100 text-blue-700', icon: MessageSquare },
+  in_progress: { label: t('statusInProgress', lang), color: 'bg-brand-100 text-brand-700', icon: MessageSquare },
   resolved: { label: t('statusResolved', lang), color: 'bg-green-100 text-green-700', icon: CheckCircle2 },
   closed: { label: t('statusClosed', lang), color: 'bg-gray-100 text-gray-700', icon: CheckCircle2 },
 });
@@ -494,12 +494,12 @@ export default function SupportPage() {
           </div>
 
           {/* SLA 提示 */}
-          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
+          <div className="bg-brand-50 border border-brand-200 rounded-xl p-4 mb-6">
             <div className="flex items-start gap-3">
-              <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+              <AlertCircle className="w-5 h-5 text-brand-600 flex-shrink-0 mt-0.5" />
               <div>
-                <h3 className="font-medium text-blue-900">{t('slaTitle', lang)}</h3>
-                <ul className="text-sm text-blue-700 mt-1 space-y-1">
+                <h3 className="font-medium text-brand-900">{t('slaTitle', lang)}</h3>
+                <ul className="text-sm text-brand-700 mt-1 space-y-1">
                   <li>• {t('slaNormal', lang)}</li>
                   <li>• {t('slaUrgent', lang)}</li>
                   <li>• {t('slaDispute', lang)}</li>
@@ -607,7 +607,7 @@ export default function SupportPage() {
                     {ticketReplies.map((reply) => (
                       <div key={reply.id} className={`flex gap-3 ${reply.is_staff ? '' : 'flex-row-reverse'}`}>
                         <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                          reply.is_staff ? 'bg-blue-100' : 'bg-brand-100'
+                          reply.is_staff ? 'bg-brand-100' : 'bg-brand-100'
                         }`}>
                           <span className="text-sm">{reply.is_staff ? t('staffLabel', lang) : t('meLabel', lang)}</span>
                         </div>
@@ -616,7 +616,7 @@ export default function SupportPage() {
                             {reply.is_staff ? t('staffName', lang) : guideName} · {new Date(reply.created_at).toLocaleString(getDateLocale(lang))}
                           </p>
                           <div className={`rounded-lg p-3 ${
-                            reply.is_staff ? 'bg-blue-50' : 'bg-gray-100'
+                            reply.is_staff ? 'bg-brand-50' : 'bg-gray-100'
                           }`}>
                             <p className="text-gray-700 whitespace-pre-wrap">{reply.content}</p>
                           </div>
