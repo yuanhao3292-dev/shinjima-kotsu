@@ -22,7 +22,7 @@ import { verifyFingerprintToken } from '@/lib/utils/fingerprint-token';
 const PAGE_RATE_LIMITS: Record<string, RateLimitConfig> = {
   human: { windowMs: 60_000, maxRequests: 60 },
   sensitive: { windowMs: 60_000, maxRequests: 20 },
-  suspicious_tool: { windowMs: 60_000, maxRequests: 10 },
+  suspicious_tool: { windowMs: 60_000, maxRequests: 30 },
   no_ua: { windowMs: 60_000, maxRequests: 15 },
 };
 
@@ -65,7 +65,11 @@ export async function middleware(request: NextRequest) {
 
   // ========== Browser Fingerprint Check ==========
   // UA 显示为 human 时，验证浏览器指纹 cookie 进一步确认
-  if (botClass === 'human') {
+  // 公开入口页面跳过指纹检查：用户首次访问这些页面必然没有 cookie
+  const PUBLIC_ENTRY_PATHS = ['/login', '/register', '/forgot-password'];
+  const isPublicEntry = PUBLIC_ENTRY_PATHS.some((p) => pathname === p || pathname.startsWith(p + '/'));
+
+  if (botClass === 'human' && !isPublicEntry) {
     const fpCookie = request.cookies.get('__bfp');
     const fpSecret = process.env.ENCRYPTION_KEY || process.env.NEXT_PUBLIC_FP_SECRET || 'fp-default-key';
 
