@@ -9,11 +9,11 @@ import {
   Loader2,
   AlertCircle,
   Eye,
+  ExternalLink,
 } from 'lucide-react';
 import {
   PRODUCT_CATEGORIES,
   getActiveCategories,
-  MODULE_DETAIL_ROUTES,
 } from '@/lib/config/product-categories';
 import type { ProductCategory } from '@/lib/config/product-categories';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
@@ -116,11 +116,17 @@ const translations = {
     'zh-TW': '添加到我的頁面',
     en: 'Add to My Page',
   },
-  preview: {
-    ja: 'プレビュー',
-    'zh-CN': '预览',
-    'zh-TW': '預覽',
-    en: 'Preview',
+  previewSite: {
+    ja: 'サイトをプレビュー',
+    'zh-CN': '预览我的网站',
+    'zh-TW': '預覽我的網站',
+    en: 'Preview My Site',
+  },
+  previewSiteDesc: {
+    ja: '選択した機関が反映されたあなたの専用サイトを確認',
+    'zh-CN': '查看已选机构组成的您的专属网站',
+    'zh-TW': '查看已選機構組成的您的專屬網站',
+    en: 'View your branded site with selected modules',
   },
   requiredModule: {
     ja: '必須',
@@ -324,6 +330,28 @@ export default function ProductCenterPage() {
             </div>
           )}
 
+          {/* 预览我的网站 — 统一预览按钮 */}
+          {guideConfig?.slug && (
+            <div className="mb-6 bg-white rounded-xl border p-4 flex items-center justify-between">
+              <div>
+                <h2 className="font-bold text-gray-900 flex items-center gap-2">
+                  <Eye size={18} className="text-brand-600" />
+                  {t('previewSite', lang)}
+                </h2>
+                <p className="text-sm text-gray-500 mt-0.5">{t('previewSiteDesc', lang)}</p>
+              </div>
+              <a
+                href={`/g/${guideConfig.slug}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-2.5 bg-brand-600 text-white rounded-lg font-medium hover:bg-brand-700 transition flex items-center gap-2 shrink-0"
+              >
+                <ExternalLink size={16} />
+                {t('previewSite', lang)}
+              </a>
+            </div>
+          )}
+
           {/* No Config Warning */}
           {!guideConfig && (
             <div className="mb-4">
@@ -413,58 +441,43 @@ export default function ProductCenterPage() {
             <div className="mt-8">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">{t('otherModules', lang)}</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {uncategorizedModules.map((module) => {
-                  const uncatPreviewUrl = module.component_key
-                    ? MODULE_DETAIL_ROUTES[module.component_key]
-                    : undefined;
-                  return (
-                    <div
-                      key={module.id}
-                      className={`bg-white rounded-xl border-2 overflow-hidden transition ${
-                        module.selectedByGuide
-                          ? 'border-brand-500 shadow-md'
-                          : 'border-gray-200 hover:border-gray-300'
-                      }`}
-                    >
-                      <div className="p-5">
-                        <h3 className="font-semibold text-gray-900 mb-2">{module.name_zh || module.name}</h3>
-                        <p className="text-sm text-gray-600 mb-3 line-clamp-2">
-                          {module.description_zh || module.description || t('noDescription', lang)}
-                        </p>
-                        <span className="text-xs text-gray-500">{t('commission', lang)} {module.commission_rate_min}%</span>
-                      </div>
-                      <div className="border-t px-5 py-3 bg-gray-50 flex items-center gap-2">
-                        {uncatPreviewUrl && (
-                          <a
-                            href={uncatPreviewUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex-1 py-2 rounded-lg text-sm font-medium border border-brand-200 text-brand-700 hover:bg-brand-50 transition flex items-center justify-center gap-1.5"
-                          >
-                            <Eye size={16} /> {t('preview', lang)}
-                          </a>
-                        )}
-                        <button
-                          onClick={() => handleToggleModule(module.id, module.selectedByGuide)}
-                          disabled={actionLoading === module.id || !guideConfig}
-                          className={`flex-1 py-2 rounded-lg font-medium transition flex items-center justify-center gap-2 ${
-                            module.selectedByGuide
-                              ? 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                              : 'bg-brand-600 text-white hover:bg-brand-700'
-                          } disabled:opacity-50`}
-                        >
-                          {actionLoading === module.id ? (
-                            <Loader2 className="animate-spin" size={18} />
-                          ) : module.selectedByGuide ? (
-                            <>{t('deselect', lang)}</>
-                          ) : (
-                            <><Plus size={18} /> {t('addToPage', lang)}</>
-                          )}
-                        </button>
-                      </div>
+                {uncategorizedModules.map((module) => (
+                  <div
+                    key={module.id}
+                    className={`bg-white rounded-xl border-2 overflow-hidden transition ${
+                      module.selectedByGuide
+                        ? 'border-brand-500 shadow-md'
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    <div className="p-5">
+                      <h3 className="font-semibold text-gray-900 mb-2">{module.name_zh || module.name}</h3>
+                      <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                        {module.description_zh || module.description || t('noDescription', lang)}
+                      </p>
+                      <span className="text-xs text-gray-500">{t('commission', lang)} {module.commission_rate_min}%</span>
                     </div>
-                  );
-                })}
+                    <div className="border-t px-5 py-3 bg-gray-50">
+                      <button
+                        onClick={() => handleToggleModule(module.id, module.selectedByGuide)}
+                        disabled={actionLoading === module.id || !guideConfig}
+                        className={`w-full py-2 rounded-lg font-medium transition flex items-center justify-center gap-2 ${
+                          module.selectedByGuide
+                            ? 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                            : 'bg-brand-600 text-white hover:bg-brand-700'
+                        } disabled:opacity-50`}
+                      >
+                        {actionLoading === module.id ? (
+                          <Loader2 className="animate-spin" size={18} />
+                        ) : module.selectedByGuide ? (
+                          <>{t('deselect', lang)}</>
+                        ) : (
+                          <><Plus size={18} /> {t('addToPage', lang)}</>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           )}
@@ -496,13 +509,6 @@ function ModuleCard({
   onToggleModule: (moduleId: string, isSelected: boolean) => void;
   lang: Language;
 }) {
-  // 预览链接：优先用白标路由，fallback 到独立页面
-  const previewUrl = module.component_key
-    ? guideConfig?.slug
-      ? `/g/${guideConfig.slug}/${module.component_key.replace(/_/g, '-')}`
-      : MODULE_DETAIL_ROUTES[module.component_key]
-    : undefined;
-
   return (
     <div
       className={`bg-white rounded-xl border-2 overflow-hidden transition-all ${
@@ -534,24 +540,14 @@ function ModuleCard({
       </div>
 
       {/* 操作区 */}
-      <div className="px-5 py-3 border-t bg-gray-50/50 flex items-center gap-2">
-        {previewUrl && (
-          <a
-            href={previewUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 py-2 rounded-lg text-sm font-medium border border-brand-200 text-brand-700 hover:bg-brand-50 transition flex items-center justify-center gap-1.5"
-          >
-            <Eye size={14} /> {t('preview', lang)}
-          </a>
-        )}
+      <div className="px-5 py-3 border-t bg-gray-50/50 flex items-center justify-center">
         {module.is_required ? (
-          <span className="flex-1 py-2 text-center text-xs text-gray-400">{t('requiredModuleLabel', lang)}</span>
+          <span className="py-2 text-center text-xs text-gray-400">{t('requiredModuleLabel', lang)}</span>
         ) : (
           <button
             onClick={() => onToggleModule(module.id, module.selectedByGuide)}
             disabled={actionLoading === module.id || !guideConfig}
-            className={`flex-1 py-2 rounded-lg text-sm font-medium transition flex items-center justify-center gap-1.5 ${
+            className={`w-full py-2 rounded-lg text-sm font-medium transition flex items-center justify-center gap-1.5 ${
               module.selectedByGuide
                 ? 'text-gray-600 hover:bg-gray-100'
                 : 'bg-brand-600 text-white hover:bg-brand-700'
