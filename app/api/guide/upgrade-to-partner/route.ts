@@ -176,7 +176,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 如果是升级到 partner，检查是否已支付入场费
+    // 如果是升级到 partner，检查入场费状态
     if (planCode === 'partner') {
       const { data: existingEntryFee } = await supabase
         .from("partner_entry_fees")
@@ -186,10 +186,20 @@ export async function POST(request: NextRequest) {
         .single();
 
       if (existingEntryFee) {
-        return NextResponse.json(
-          { error: "您已支付入场费，请联系客服处理" },
-          { status: 400 }
-        );
+        // 入场费已支付但导游未升级 → 历史异常数据，清理并允许重新支付
+        if (guide.subscription_tier !== 'partner') {
+          console.warn(`导游 ${guideId} 入场费已完成但未升级，清理残留记录`);
+          await supabase
+            .from("partner_entry_fees")
+            .delete()
+            .eq("guide_id", guideId)
+            .eq("status", "completed");
+        } else {
+          return NextResponse.json(
+            { error: "您已支付入场费，无需重复支付" },
+            { status: 400 }
+          );
+        }
       }
     }
 
