@@ -26,8 +26,8 @@ const RATE_LIMIT_HTML = `<!DOCTYPE html><html lang="zh"><head><meta charset="utf
  */
 const PAGE_RATE_LIMITS: Record<string, RateLimitConfig> = {
   human: { windowMs: 60_000, maxRequests: 180 },
-  sensitive: { windowMs: 60_000, maxRequests: 40 },
-  suspicious_tool: { windowMs: 60_000, maxRequests: 30 },
+  sensitive: { windowMs: 60_000, maxRequests: 120 },
+  suspicious_tool: { windowMs: 60_000, maxRequests: 60 },
   no_ua: { windowMs: 60_000, maxRequests: 15 },
 };
 
@@ -82,7 +82,7 @@ export async function middleware(request: NextRequest) {
 
   if (botClass === 'human' && !isPublicEntry) {
     const fpCookie = request.cookies.get('__bfp');
-    const fpSecret = process.env.ENCRYPTION_KEY || process.env.NEXT_PUBLIC_FP_SECRET || 'fp-default-key';
+    const fpSecret = process.env.NEXT_PUBLIC_FP_SECRET || 'fp-default-key';
 
     if (fpCookie?.value) {
       const fpResult = await verifyFingerprintToken(fpCookie.value, fpSecret);
@@ -96,7 +96,7 @@ export async function middleware(request: NextRequest) {
       const nofpKey = `nofp:${clientIpForFp}`;
       const nofpResult = await checkRateLimit(nofpKey, {
         windowMs: 300_000, // 5 分钟窗口
-        maxRequests: 15,   // 超过 15 次无 cookie → 可疑
+        maxRequests: 50,   // 超过 50 次无 cookie → 可疑
       });
       if (!nofpResult.success) {
         botClass = 'suspicious_tool';
