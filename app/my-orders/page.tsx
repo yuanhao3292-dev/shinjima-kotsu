@@ -272,7 +272,7 @@ export default function MyOrdersPage() {
                 <h3 className="text-xl font-serif font-bold text-gray-900 mb-3">{t('noOrders', lang)}</h3>
                 <p className="text-gray-500 mb-8">{t('noOrdersDesc', lang)}</p>
                 <Link
-                  href="/medical"
+                  href="/guide-partner/product-center/timc"
                   className="inline-flex items-center gap-2 bg-black hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg"
                 >
                   <Package className="w-5 h-5" />

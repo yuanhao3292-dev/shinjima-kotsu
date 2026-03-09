@@ -1029,7 +1029,7 @@ export default function PackageRecommenderPage() {
                 </div>
               </div>
               <div className="space-y-4">
-                <a href="/medical" className="block w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-xl transition-colors text-center">{ut('resultViewMedical')}</a>
+                <a href="/guide-partner/product-center/timc" className="block w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-xl transition-colors text-center">{ut('resultViewMedical')}</a>
                 <button onClick={() => { setShowResult(false); setCurrentStep(0); setAnswers({}); }} className="block w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3 px-6 rounded-xl transition-colors text-center">{ut('resultRetry')}</button>
                 <Link href="/" className="block w-full text-center text-neutral-500 hover:text-brand-900 py-2 transition-colors">{ut('resultAllPackages')}</Link>
               </div>

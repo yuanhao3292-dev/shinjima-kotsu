@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
-import { Mail, Phone, Printer, MapPin, User, LogOut } from 'lucide-react';
+import { User, LogOut } from 'lucide-react';
 
 interface MemberLayoutProps {
   children: React.ReactNode;
@@ -104,7 +104,7 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center gap-8">
             <Link href="/" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">{t('home', lang)}</Link>
-            <Link href="/medical" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">{t('medicalCheckup', lang)}</Link>
+            <Link href="/guide-partner/product-center/timc" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">{t('medicalCheckup', lang)}</Link>
             <Link href="/cancer-treatment" className="text-sm font-medium text-gray-600 hover:text-rose-600 transition">{t('cancerTreatment', lang)}</Link>
             <Link href="/health-screening" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">{t('aiScreening', lang)}</Link>
             <Link href="/faq" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">{t('faq', lang)}</Link>
@@ -148,58 +148,63 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
 
       {/* Footer */}
       {showFooter && (
-        <footer className="bg-[#111] text-white py-16 border-t border-gray-800">
-          <div className="container mx-auto px-6">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        <footer className="bg-gradient-to-b from-[#f8f6f3] to-[#f0ece6] text-gray-800">
+          <div className="container mx-auto px-6 py-16">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
               {/* Column 1: Brand */}
               <div>
-                <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                  {t('brandDesc', lang)}<br/>
+                <h3 className="text-xl font-serif tracking-[0.2em] mb-1 text-gray-800">NIIJIMA</h3>
+                <p className="text-xs tracking-[0.1em] text-gray-500 mb-4">{t('brandDesc', lang)}</p>
+                <p className="text-gray-600 text-sm leading-relaxed mb-4">
                   {t('hospitalName', lang)}
                 </p>
-                <p className="text-gray-500 text-xs">
-                  &copy; 2025 Niijima Kotsu Co., Ltd.<br/>{t('allRightsReserved', lang)}
-                </p>
+                <div className="space-y-1.5 text-sm text-gray-600">
+                  <div>〒556-0014 大阪府大阪市浪速区大国1-2-21-602</div>
+                  <div className="flex items-center gap-3">
+                    <a href="tel:06-6632-8807" className="hover:text-gray-900 transition-colors">TEL: 06-6632-8807</a>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <a href="mailto:info@niijima-koutsu.jp" className="hover:text-gray-900 transition-colors">info@niijima-koutsu.jp</a>
+                  </div>
+                </div>
               </div>
 
               {/* Column 2: Quick Links */}
               <div>
-                <h4 className="text-sm font-bold text-gray-300 uppercase tracking-wider mb-6">{t('quickLinks', lang)}</h4>
-                <div className="space-y-3 text-sm text-gray-400">
-                  <Link href="/medical" className="block hover:text-white transition">{t('medicalCheckup', lang)}</Link>
-                  <Link href="/health-screening" className="block hover:text-white transition">{t('aiScreening', lang)}</Link>
-                  <Link href="/order-lookup" className="block hover:text-white transition">{t('orderLookup', lang)}</Link>
-                  <Link href="/faq" className="block hover:text-white transition">{t('faq', lang)}</Link>
+                <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">{t('quickLinks', lang)}</h4>
+                <ul className="space-y-2.5">
+                  <li><Link href="/guide-partner/product-center/timc" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('medicalCheckup', lang)}</Link></li>
+                  <li><Link href="/health-screening" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('aiScreening', lang)}</Link></li>
+                  <li><Link href="/cancer-treatment" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('cancerTreatment', lang)}</Link></li>
+                  <li><Link href="/order-lookup" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('orderLookup', lang)}</Link></li>
+                  <li><Link href="/faq" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('faq', lang)}</Link></li>
                   {isLoggedIn && (
                     <>
-                      <Link href="/my-account" className="block hover:text-white transition">{t('memberCenter', lang)}</Link>
-                      <Link href="/my-orders" className="block hover:text-white transition">{t('myOrders', lang)}</Link>
+                      <li><Link href="/my-account" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('memberCenter', lang)}</Link></li>
+                      <li><Link href="/my-orders" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('myOrders', lang)}</Link></li>
                     </>
                   )}
-                </div>
+                </ul>
               </div>
 
-              {/* Column 3: Contact */}
+              {/* Column 3: Legal */}
               <div>
-                <h4 className="text-sm font-bold text-gray-300 uppercase tracking-wider mb-6">{t('contactUs', lang)}</h4>
-                <div className="space-y-3 text-sm text-gray-400">
-                  <p className="flex items-center gap-3"><Mail size={16} /> info@niijima-koutsu.jp</p>
-                  <p className="flex items-center gap-3"><Phone size={16} /> 06-6632-8807</p>
-                  <p className="flex items-center gap-3"><Printer size={16} /> 06-6632-8826 (FAX)</p>
-                  <p className="flex items-start gap-3 mt-4">
-                    <MapPin size={16} className="mt-1 min-w-[16px]" />
-                    <span>〒556-0014<br/>大阪府大阪市浪速区大国1-2-21-602</span>
-                  </p>
-                </div>
+                <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">{t('contactUs', lang)}</h4>
+                <ul className="space-y-2.5">
+                  <li><Link href="/company/about" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('legalNotice', lang)}</Link></li>
+                  <li><Link href="/legal/tokushoho" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('tokushoho', lang)}</Link></li>
+                  <li><Link href="/legal/privacy" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('privacy', lang)}</Link></li>
+                  <li><Link href="/legal/terms" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('terms', lang)}</Link></li>
+                </ul>
               </div>
 
               {/* Column 4: LINE Support */}
               <div>
-                <h4 className="text-sm font-bold text-green-400 uppercase tracking-wider mb-6 flex items-center gap-2">
+                <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4 flex items-center gap-2">
                   <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                   {t('lineSupport', lang)}
                 </h4>
-                <div className="bg-gray-900 p-6 rounded-xl border border-gray-800">
+                <div className="bg-white/60 p-5 rounded-xl border border-gray-200">
                   <p className="text-xs text-gray-500 mb-2">{t('scanQR', lang)}</p>
                   <a
                     href="https://line.me/ti/p/j3XxBP50j9"
@@ -213,27 +218,15 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
                 </div>
               </div>
             </div>
+          </div>
 
-            <div className="border-t border-gray-800 pt-8 text-center text-gray-500 text-xs">
-              {/* 法律必须显示的信息 */}
-              <div className="mb-4 text-gray-400">
-                <p>{t('legalNotice', lang)}</p>
-                <p className="mt-1">{t('legalLicense', lang)}</p>
+          {/* Bottom Bar */}
+          <div className="border-t border-gray-300/50">
+            <div className="container mx-auto px-6 py-6">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <p className="text-xs text-gray-500 text-center md:text-left">{t('legalLicense', lang)}</p>
+                <p className="text-xs text-gray-500 text-center md:text-right">© {new Date().getFullYear()} 新島交通株式會社. {t('allRightsReserved', lang)}</p>
               </div>
-              <div className="flex flex-wrap justify-center gap-4 mb-4">
-                <Link href="/legal/tokushoho" className="hover:text-white transition">
-                  {t('tokushoho', lang)}
-                </Link>
-                <span className="text-gray-700">|</span>
-                <Link href="/legal/privacy" className="hover:text-white transition">
-                  {t('privacy', lang)}
-                </Link>
-                <span className="text-gray-700">|</span>
-                <Link href="/legal/terms" className="hover:text-white transition">
-                  {t('terms', lang)}
-                </Link>
-              </div>
-              <p>© {new Date().getFullYear()} 新島交通株式會社. {t('allRightsReserved', lang)}</p>
             </div>
           </div>
         </footer>
