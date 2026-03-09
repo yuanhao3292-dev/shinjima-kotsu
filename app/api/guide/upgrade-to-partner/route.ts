@@ -138,7 +138,7 @@ export async function POST(request: NextRequest) {
       .from("guides")
       .select("id")
       .eq("id", guideId)
-      .eq("user_id", user.id)
+      .eq("auth_user_id", user.id)
       .single();
 
     if (!ownerCheck) {
