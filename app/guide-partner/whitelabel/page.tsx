@@ -33,6 +33,18 @@ const translations = {
     'zh-TW': '分銷頁面',
     en: 'Distribution Page',
   },
+  headerTitle: {
+    ja: '販売ページ',
+    'zh-CN': '分销页面',
+    'zh-TW': '分銷頁面',
+    en: 'Distribution Page',
+  },
+  headerDesc: {
+    ja: 'あなた専用のブランドサイトを構築',
+    'zh-CN': '创建你的专属网站',
+    'zh-TW': '建立你的專屬網站',
+    en: 'Build your own branded website',
+  },
   guideNotFoundTitle: {
     ja: 'ガイド情報が見つかりません',
     'zh-CN': '未找到导游资料',
@@ -930,6 +942,12 @@ export default function WhiteLabelSettingsPage() {
 
       <main className="lg:ml-64 pt-16 lg:pt-0">
         <div className="max-w-4xl mx-auto p-6 lg:p-8 space-y-8">
+        {/* Header */}
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">{t('headerTitle', lang)}</h1>
+          <p className="text-gray-500 mt-1">{t('headerDesc', lang)}</p>
+        </div>
+
         {/* 消息提示 */}
         {message && (
           <div className={`p-4 rounded-lg flex items-center gap-3 ${
