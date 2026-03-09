@@ -3,11 +3,13 @@
 import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 import MemberLayout from '@/components/MemberLayout';
 import Logo from '@/components/Logo';
 import { Mail, Lock, Loader2, AlertCircle, Eye, EyeOff, User } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
+import { useSiteImages } from '@/lib/hooks/useSiteImages';
 
 // ==================== 翻译对象 ====================
 const translations = {
@@ -179,6 +181,7 @@ const t = (key: keyof typeof translations, lang: Language): string => {
 
 function LoginForm() {
   const lang = useLanguage();
+  const { getImage } = useSiteImages();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -224,9 +227,17 @@ function LoginForm() {
   return (
     <div className="min-h-[calc(100vh-80px)] flex">
       {/* Left Side - Hero Image */}
-      <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-brand-900 via-brand-700 to-brand-900">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=2000')] bg-cover bg-center opacity-30"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-900/90 via-transparent to-brand-900/50"></div>
+      <div className="hidden lg:flex lg:w-1/2 relative bg-brand-900">
+        <Image
+          src={getImage('medical_hero', 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg')}
+          alt="Medical"
+          fill
+          className="object-cover"
+          quality={75}
+          sizes="50vw"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-900/80 via-brand-900/30 to-brand-900/50"></div>
         <div className="relative z-10 flex flex-col justify-center px-16 text-white">
           <div className="flex items-center gap-3 mb-8">
             <Logo className="w-12 h-12 text-white" />
