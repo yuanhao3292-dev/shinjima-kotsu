@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
+import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
   Store,
   Calendar,
@@ -17,6 +18,82 @@ import {
   ChevronRight,
   Loader2,
 } from 'lucide-react';
+
+const translations = {
+  loading: { ja: '読み込み中...', 'zh-CN': '载入中...', 'zh-TW': '載入中...', en: 'Loading...' },
+  pageTitle: { ja: 'ダッシュボード', 'zh-CN': '控制台', 'zh-TW': '控制台', en: 'Dashboard' },
+  welcomeBack: { ja: 'おかえりなさい、', 'zh-CN': '欢迎回来，', 'zh-TW': '歡迎回來，', en: 'Welcome back, ' },
+  businessOverview: { ja: 'ビジネスの概要を確認', 'zh-CN': '查看您的业务概况', 'zh-TW': '查看您的業務概況', en: 'View your business overview' },
+  phone: { ja: '電話: ', 'zh-CN': '手机: ', 'zh-TW': '手機: ', en: 'Phone: ' },
+  yourReferralCode: { ja: 'あなたの紹介コード', 'zh-CN': '您的推荐码', 'zh-TW': '您的推薦碼', en: 'Your Referral Code' },
+  copy: { ja: 'コピー', 'zh-CN': '复制', 'zh-TW': '複製', en: 'Copy' },
+  totalBookings: { ja: '総予約数', 'zh-CN': '总预约数', 'zh-TW': '總預約數', en: 'Total Bookings' },
+  pending: { ja: '処理中', 'zh-CN': '待完成', 'zh-TW': '待完成', en: 'Pending' },
+  totalCommission: { ja: '累計報酬', 'zh-CN': '累计报酬', 'zh-TW': '累計報酬', en: 'Total Commission' },
+  referredGuides: { ja: '紹介ガイド', 'zh-CN': '推荐导游', 'zh-TW': '推薦導遊', en: 'Referred Guides' },
+  commissionSystem: { ja: '報酬制度', 'zh-CN': '报酬制度', 'zh-TW': '報酬制度', en: 'Commission System' },
+  upgradeForMore: { ja: 'ゴールドパートナーにアップグレードして報酬アップ', 'zh-CN': '升级金牌合伙人，享受更高报酬', 'zh-TW': '升級金牌合夥人，享受更高報酬', en: 'Upgrade to Gold Partner for higher commission' },
+  yourCurrentLevel: { ja: '現在のランク', 'zh-CN': '您当前等级', 'zh-TW': '您當前等級', en: 'Your Current Level' },
+  goldPartner: { ja: 'ゴールドパートナー', 'zh-CN': '金牌合伙人', 'zh-TW': '金牌合夥人', en: 'Gold Partner' },
+  growthPartner: { ja: '初期パートナー', 'zh-CN': '初期合伙人', 'zh-TW': '初期合夥人', en: 'Growth Partner' },
+  congratsGold: { ja: 'おめでとうございます！ゴールドパートナーです', 'zh-CN': '恭喜！您已是金牌合伙人', 'zh-TW': '恭喜！您已是金牌合夥人', en: 'Congratulations! You are a Gold Partner' },
+  enjoy20: { ja: '固定報酬率 20% をお楽しみください', 'zh-CN': '享受 20% 固定报酬比例', 'zh-TW': '享受 20% 固定報酬比例', en: 'Enjoy a fixed 20% commission rate' },
+  fixedRate: { ja: '固定報酬率', 'zh-CN': '固定报酬比例', 'zh-TW': '固定報酬比例', en: 'Fixed Commission Rate' },
+  growthServices: { ja: 'ナイトクラブ · 健診 · 医療 · ゴルフ', 'zh-CN': '夜总会 · 体检 · 医疗 · 高尔夫', 'zh-TW': '夜總會 · 體檢 · 醫療 · 高爾夫', en: 'Nightclub · Checkup · Medical · Golf' },
+  growthWhitelabel: { ja: 'ホワイトラベル基本機能', 'zh-CN': '白标页面基础功能', 'zh-TW': '白標頁面基礎功能', en: 'Basic white-label features' },
+  growthSupport: { ja: '標準カスタマーサポート', 'zh-CN': '标准客服支持', 'zh-TW': '標準客服支持', en: 'Standard customer support' },
+  currentlyUsing: { ja: '現在ご利用中', 'zh-CN': '当前使用中', 'zh-TW': '當前使用中', en: 'Currently Active' },
+  goldWhitelabel: { ja: 'ホワイトラベル全機能 · プレミアムテンプレート', 'zh-CN': '白标页面完整功能 · 高级模板', 'zh-TW': '白標頁面完整功能 · 高級模板', en: 'Full white-label features · Premium templates' },
+  goldSupport: { ja: '専属サポート · 優先リソースマッチング', 'zh-CN': '专属客服 · 优先资源对接', 'zh-TW': '專屬客服 · 優先資源對接', en: 'Dedicated support · Priority resources' },
+  goldPerks: { ja: 'パートナー専用グループ · パートナー証明書', 'zh-CN': '合伙人专属群 · 合伙人证书', 'zh-TW': '合夥人專屬群 · 合夥人證書', en: 'Partner exclusive group · Partner certificate' },
+  upgradeNow: { ja: '今すぐアップグレード', 'zh-CN': '立即升级', 'zh-TW': '立即升級', en: 'Upgrade Now' },
+  referralBonus: { ja: '紹介ボーナス', 'zh-CN': '推荐奖励', 'zh-TW': '推薦獎勵', en: 'Referral Bonus' },
+  referralBonusDesc: { ja: '新しいガイドを紹介すると、その注文報酬の <bold>2%</bold> が追加報酬として付与されます', 'zh-CN': '成功推荐新导游加入，您将获得其每笔订单报酬的 <bold>2%</bold> 作为额外奖励', 'zh-TW': '成功推薦新導遊加入，您將獲得其每筆訂單報酬的 <bold>2%</bold> 作為額外獎勵', en: 'Refer a new guide and earn <bold>2%</bold> of their order commission as bonus' },
+  tierNote: { ja: '💡 ランクは四半期ごとに前期の売上に基づいて自動調整 · 新四半期は初回注文まで前期ランクを維持', 'zh-CN': '💡 等级每季度初根据上季度销售额自动调整 · 新季度保留上季度等级至首笔订单', 'zh-TW': '💡 等級每季度初根據上季度銷售額自動調整 · 新季度保留上季度等級至首筆訂單', en: '💡 Tier adjusts quarterly based on last quarter sales · New quarter retains previous tier until first order' },
+  browseVenues: { ja: '店舗を閲覧', 'zh-CN': '浏览店铺', 'zh-TW': '瀏覽店舖', en: 'Browse Venues' },
+  browse160: { ja: '160以上の高級ナイトクラブを閲覧', 'zh-CN': '查看 160+ 高端夜总会', 'zh-TW': '查看 160+ 高端夜總會', en: 'View 160+ premium nightclubs' },
+  viewNow: { ja: '今すぐ見る', 'zh-CN': '立即查看', 'zh-TW': '立即查看', en: 'View Now' },
+  newBooking: { ja: '新規予約', 'zh-CN': '新建预约', 'zh-TW': '新建預約', en: 'New Booking' },
+  bookForCustomer: { ja: 'お客様のためにナイトクラブを予約', 'zh-CN': '为客户预约夜总会', 'zh-TW': '為客戶預約夜總會', en: 'Book a nightclub for your customer' },
+  bookNow: { ja: '今すぐ予約', 'zh-CN': '立即预约', 'zh-TW': '立即預約', en: 'Book Now' },
+  commissionSettlement: { ja: '報酬精算', 'zh-CN': '报酬结算', 'zh-TW': '報酬結算', en: 'Commission' },
+  pendingSettlement: { ja: '未精算', 'zh-CN': '待结算', 'zh-TW': '待結算', en: 'pending' },
+  viewSettlement: { ja: '精算記録を確認', 'zh-CN': '查看结算记录', 'zh-TW': '查看結算記錄', en: 'View settlement records' },
+  viewDetails: { ja: '詳細を見る', 'zh-CN': '查看详情', 'zh-TW': '查看詳情', en: 'View Details' },
+  recentBookings: { ja: '最近の予約', 'zh-CN': '最近预约', 'zh-TW': '最近預約', en: 'Recent Bookings' },
+  viewAll: { ja: 'すべて見る', 'zh-CN': '查看全部', 'zh-TW': '查看全部', en: 'View All' },
+  noBookings: { ja: '予約記録はありません', 'zh-CN': '暂无预约记录', 'zh-TW': '暫無預約記錄', en: 'No booking records' },
+  browseAndBook: { ja: '店舗を閲覧して予約を作成', 'zh-CN': '浏览店铺并创建预约', 'zh-TW': '瀏覽店舖並創建預約', en: 'Browse venues and create a booking' },
+  statusPending: { ja: '確認待ち', 'zh-CN': '待确认', 'zh-TW': '待確認', en: 'Pending' },
+  statusConfirmed: { ja: '確認済み', 'zh-CN': '已确认', 'zh-TW': '已確認', en: 'Confirmed' },
+  statusCompleted: { ja: '完了', 'zh-CN': '已完成', 'zh-TW': '已完成', en: 'Completed' },
+  statusCancelled: { ja: 'キャンセル', 'zh-CN': '已取消', 'zh-TW': '已取消', en: 'Cancelled' },
+  statusNoShow: { ja: '未来店', 'zh-CN': '未到店', 'zh-TW': '未到店', en: 'No Show' },
+  contractTitle: { ja: 'ゴールドパートナー入会契約', 'zh-CN': '金牌合伙人入会合约', 'zh-TW': '金牌合夥人入會合約', en: 'Gold Partner Membership Agreement' },
+  contractFeeTitle: { ja: '一、会費', 'zh-CN': '一、会员费用', 'zh-TW': '一、會員費用', en: '1. Membership Fees' },
+  contractFee1: { ja: '1. 入会費：¥200,000（一回払い、永久有効）', 'zh-CN': '1. 入场费：¥200,000（一次性支付，终身有效）', 'zh-TW': '1. 入場費：¥200,000（一次性支付，終身有效）', en: '1. Entry fee: ¥200,000 (one-time, lifetime validity)' },
+  contractFee2: { ja: '2. 月会費：¥4,980/月（自動更新）', 'zh-CN': '2. 月会费：¥4,980/月（自动续订）', 'zh-TW': '2. 月會費：¥4,980/月（自動續訂）', en: '2. Monthly fee: ¥4,980/month (auto-renewal)' },
+  contractRateTitle: { ja: '二、分配率', 'zh-CN': '二、分成比例', 'zh-TW': '二、分成比例', en: '2. Commission Rate' },
+  contractRateDesc: { ja: 'ゴールドパートナーは全業務において固定 20% の分配率', 'zh-CN': '金牌合伙人享受固定 20% 分成比例（所有业务线）', 'zh-TW': '金牌合夥人享受固定 20% 分成比例（所有業務線）', en: 'Gold Partner enjoys a fixed 20% commission rate (all business lines)' },
+  contractDowngradeTitle: { ja: '三、降格と再入会', 'zh-CN': '三、降级与重新入会', 'zh-TW': '三、降級與重新入會', en: '3. Downgrade & Rejoining' },
+  contractDowngradeWarn: { ja: '⚠️ 重要：月会費（¥4,980/月）の支払いを停止すると、ゴールドパートナー資格は自動的に失効し、初期パートナー（10%分配）に降格されます。', 'zh-CN': '⚠️ 重要提示：若您停止续费月会费（¥4,980/月），您的金牌合伙人资格将自动失效，降级为初期合伙人（10%分成）。', 'zh-TW': '⚠️ 重要提示：若您停止續費月會費（¥4,980/月），您的金牌合夥人資格將自動失效，降級為初期合夥人（10%分成）。', en: '⚠️ Important: If you stop paying the monthly fee (¥4,980/month), your Gold Partner status will be automatically revoked and downgraded to Growth Partner (10% commission).' },
+  contractDowngradeRejoin: { ja: '再度ゴールドパートナーにアップグレードする場合は、¥200,000 の入会費を再度お支払いいただく必要があります。', 'zh-CN': '若之后需要重新升级为金牌合伙人，需要重新支付 ¥200,000 入场费。', 'zh-TW': '若之後需要重新升級為金牌合夥人，需要重新支付 ¥200,000 入場費。', en: 'To re-upgrade to Gold Partner, you will need to pay the ¥200,000 entry fee again.' },
+  contractBenefitsTitle: { ja: '四、特典', 'zh-CN': '四、权益说明', 'zh-TW': '四、權益說明', en: '4. Benefits' },
+  contractBenefit1: { ja: '優先リソースマッチング', 'zh-CN': '优先资源对接', 'zh-TW': '優先資源對接', en: 'Priority resource matching' },
+  contractBenefit2: { ja: '専属カスタマーサポート', 'zh-CN': '专属客服通道', 'zh-TW': '專屬客服通道', en: 'Dedicated customer support' },
+  contractBenefit3: { ja: 'パートナー専用グループ', 'zh-CN': '合伙人专属群', 'zh-TW': '合夥人專屬群', en: 'Partner exclusive group' },
+  contractBenefit4: { ja: 'パートナー証明書', 'zh-CN': '合伙人证书', 'zh-TW': '合夥人證書', en: 'Partner certificate' },
+  contractBenefit5: { ja: '年次パートナー大会招待', 'zh-CN': '年度合伙人大会邀请', 'zh-TW': '年度合夥人大會邀請', en: 'Annual partner conference invitation' },
+  cancel: { ja: 'キャンセル', 'zh-CN': '取消', 'zh-TW': '取消', en: 'Cancel' },
+  agreeAndPay: { ja: '同意して支払う', 'zh-CN': '同意并支付', 'zh-TW': '同意並支付', en: 'Agree & Pay' },
+  upgradeSuccess: { ja: '🎉 おめでとうございます！ゴールドパートナーへのアップグレードが完了しました！', 'zh-CN': '🎉 恭喜！您已成功升级为金牌合伙人！', 'zh-TW': '🎉 恭喜！您已成功升級為金牌合夥人！', en: '🎉 Congratulations! You have been upgraded to Gold Partner!' },
+  paymentFailed: { ja: '支払いの作成に失敗しました', 'zh-CN': '创建支付失败', 'zh-TW': '建立支付失敗', en: 'Failed to create payment' },
+  upgradeFailed: { ja: 'アップグレードに失敗しました。もう一度お試しください', 'zh-CN': '升级失败，请重试', 'zh-TW': '升級失敗，請重試', en: 'Upgrade failed. Please try again' },
+} as const;
+
+const t = (key: keyof typeof translations, lang: Language): string => {
+  return translations[key][lang];
+};
 
 interface Guide {
   id: string;
@@ -52,7 +129,7 @@ interface Stats {
   totalCommission: number;
   pendingCommission: number;
   referralCount: number;
-  quarterlySpend: number; // 本季度实际销售额
+  quarterlySpend: number;
 }
 
 export default function GuideDashboard() {
@@ -65,24 +142,21 @@ export default function GuideDashboard() {
   const [showContract, setShowContract] = useState(false);
   const router = useRouter();
   const supabase = createClient();
+  const lang = useLanguage();
 
   useEffect(() => {
     loadDashboardData();
 
-    // 检测支付成功参数，轮询刷新直到状态更新
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('upgrade') === 'success') {
-      // 移除 URL 参数，避免刷新时重复检测
       window.history.replaceState({}, '', '/guide-partner/dashboard');
 
-      // 每 2 秒刷新一次，最多 15 秒
       let attempts = 0;
       const maxAttempts = 8;
       const pollInterval = setInterval(async () => {
         attempts++;
         await loadDashboardData();
 
-        // 检查是否已升级为金牌合伙人
         const { data: { user } } = await supabase.auth.getUser();
         if (user) {
           const { data: guide } = await supabase
@@ -94,8 +168,7 @@ export default function GuideDashboard() {
           if (guide?.commission_tier_code === 'gold' || attempts >= maxAttempts) {
             clearInterval(pollInterval);
             if (guide?.commission_tier_code === 'gold') {
-              // 显示成功消息
-              alert('🎉 恭喜！您已成功升级为金牌合夥人！');
+              alert(t('upgradeSuccess', lang));
             }
           }
         }
@@ -105,14 +178,12 @@ export default function GuideDashboard() {
 
   const loadDashboardData = async () => {
     try {
-      // 獲取當前用戶
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
         router.push('/guide-partner/login');
         return;
       }
 
-      // 獲取導遊資訊
       const { data: guideData, error: guideError } = await supabase
         .from('guides')
         .select('*')
@@ -131,7 +202,6 @@ export default function GuideDashboard() {
 
       setGuide(guideData);
 
-      // 獲取最近預約
       const { data: bookings } = await supabase
         .from('bookings')
         .select(`
@@ -147,14 +217,12 @@ export default function GuideDashboard() {
         .order('created_at', { ascending: false })
         .limit(5);
 
-      // Transform venue from array to object (Supabase returns array for single relations)
       const transformedBookings = (bookings || []).map(b => ({
         ...b,
         venue: Array.isArray(b.venue) ? b.venue[0] : b.venue
       })) as Booking[];
       setRecentBookings(transformedBookings);
 
-      // 計算統計數據
       const { data: allBookings } = await supabase
         .from('bookings')
         .select('status, commission_amount, commission_status, actual_spend, created_at')
@@ -165,13 +233,11 @@ export default function GuideDashboard() {
         .select('id', { count: 'exact' })
         .eq('referrer_id', guideData.id);
 
-      // 計算本季度銷售額（從 whitelabel_orders 和 bookings 表）
       const now = new Date();
       const currentQuarter = Math.floor(now.getMonth() / 3);
       const quarterStart = new Date(now.getFullYear(), currentQuarter * 3, 1);
       const quarterStartISO = quarterStart.toISOString();
 
-      // 從 whitelabel_orders 獲取本季度已完成訂單金額
       const { data: wlOrders } = await supabase
         .from('white_label_orders')
         .select('order_amount')
@@ -179,12 +245,10 @@ export default function GuideDashboard() {
         .eq('status', 'completed')
         .gte('created_at', quarterStartISO);
 
-      // 從 bookings 獲取本季度已完成預約的實際消費
       const quarterlyBookingsSpend = (allBookings || [])
         .filter(b => b.status === 'completed' && b.created_at && new Date(b.created_at) >= quarterStart)
         .reduce((sum, b) => sum + (b.actual_spend || 0), 0);
 
-      // 計算總季度銷售額
       const quarterlyWLSpend = (wlOrders || []).reduce((sum, o) => sum + (Number(o.order_amount) || 0), 0);
       const quarterlySpend = quarterlyWLSpend + quarterlyBookingsSpend;
 
@@ -217,13 +281,11 @@ export default function GuideDashboard() {
   const handleUpgrade = async (planCode: 'growth' | 'partner') => {
     if (!guide?.id) return;
 
-    // 金牌合伙人显示合约
     if (planCode === 'partner') {
       setShowContract(true);
       return;
     }
 
-    // 初期合伙人直接创建订阅
     await createSubscription(planCode);
   };
 
@@ -251,15 +313,14 @@ export default function GuideDashboard() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || '创建支付失败');
+        throw new Error(data.error || t('paymentFailed', lang));
       }
 
-      // 跳转到 Stripe Checkout
       if (data.checkoutUrl) {
         window.location.href = data.checkoutUrl;
       }
     } catch (err: any) {
-      alert(err.message || '升级失败，请重试');
+      alert(err.message || t('upgradeFailed', lang));
       setUpgrading(false);
     }
   };
@@ -273,11 +334,11 @@ export default function GuideDashboard() {
       no_show: 'bg-gray-50 text-gray-400',
     };
     const labels: Record<string, string> = {
-      pending: '待確認',
-      confirmed: '已確認',
-      completed: '已完成',
-      cancelled: '已取消',
-      no_show: '未到店',
+      pending: t('statusPending', lang),
+      confirmed: t('statusConfirmed', lang),
+      completed: t('statusCompleted', lang),
+      cancelled: t('statusCancelled', lang),
+      no_show: t('statusNoShow', lang),
     };
     return (
       <span className={`px-2 py-1 rounded-full text-xs font-medium ${styles[status] || styles.pending}`}>
@@ -292,8 +353,8 @@ export default function GuideDashboard() {
       gold: 'bg-brand-900 text-white border-brand-900',
     };
     const labels: Record<string, string> = {
-      growth: '初期合夥人',
-      gold: '金牌合夥人',
+      growth: t('growthPartner', lang),
+      gold: t('goldPartner', lang),
     };
     return (
       <span className={`px-3 py-1 rounded-full text-xs font-bold border ${styles[level] || styles.growth}`}>
@@ -307,7 +368,7 @@ export default function GuideDashboard() {
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-gray-900 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">載入中...</p>
+          <p className="text-gray-600">{t('loading', lang)}</p>
         </div>
       </div>
     );
@@ -315,15 +376,15 @@ export default function GuideDashboard() {
 
   return (
     <div className="min-h-screen bg-white">
-      <GuideSidebar pageTitle="控制台" />
+      <GuideSidebar pageTitle={t('pageTitle', lang)} />
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
         <div className="p-6 lg:p-8">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-2xl font-bold text-gray-900">歡迎回來，{guide?.name}</h1>
-            <p className="text-gray-500 mt-1">查看您的業務概況</p>
+            <h1 className="text-2xl font-bold text-gray-900">{t('welcomeBack', lang)}{guide?.name}</h1>
+            <p className="text-gray-500 mt-1">{t('businessOverview', lang)}</p>
           </div>
 
           {/* Profile Card */}
@@ -334,16 +395,16 @@ export default function GuideDashboard() {
                   <span className="text-2xl font-bold text-gray-900">{guide?.name}</span>
                   {guide && getLevelBadge(guide.commission_tier_code || 'growth')}
                 </div>
-                <p className="text-gray-500">手機: {guide?.phone}</p>
+                <p className="text-gray-500">{t('phone', lang)}{guide?.phone}</p>
               </div>
               <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
-                <p className="text-xs text-gray-500 mb-1">您的推薦碼</p>
+                <p className="text-xs text-gray-500 mb-1">{t('yourReferralCode', lang)}</p>
                 <div className="flex items-center gap-2">
                   <span className="font-mono text-xl font-bold tracking-wider text-gray-900">{guide?.referral_code}</span>
                   <button
                     onClick={copyReferralCode}
                     className="p-1 hover:bg-gray-200 rounded transition text-gray-900"
-                    title="複製"
+                    title={t('copy', lang)}
                   >
                     {copied ? <CheckCircle2 size={18} /> : <Copy size={18} />}
                   </button>
@@ -361,7 +422,7 @@ export default function GuideDashboard() {
                 </div>
               </div>
               <p className="text-2xl font-bold text-gray-900">{stats?.totalBookings || 0}</p>
-              <p className="text-sm text-gray-500">總預約數</p>
+              <p className="text-sm text-gray-500">{t('totalBookings', lang)}</p>
             </div>
 
             <div className="bg-white rounded-xl p-6 border border-gray-200">
@@ -371,7 +432,7 @@ export default function GuideDashboard() {
                 </div>
               </div>
               <p className="text-2xl font-bold text-gray-900">{stats?.pendingBookings || 0}</p>
-              <p className="text-sm text-gray-500">待完成</p>
+              <p className="text-sm text-gray-500">{t('pending', lang)}</p>
             </div>
 
             <div className="bg-white rounded-xl p-6 border border-gray-200">
@@ -381,7 +442,7 @@ export default function GuideDashboard() {
                 </div>
               </div>
               <p className="text-2xl font-bold text-gray-900">¥{(stats?.totalCommission || 0).toLocaleString()}</p>
-              <p className="text-sm text-gray-500">累計報酬</p>
+              <p className="text-sm text-gray-500">{t('totalCommission', lang)}</p>
             </div>
 
             <div className="bg-white rounded-xl p-6 border border-gray-200">
@@ -391,7 +452,7 @@ export default function GuideDashboard() {
                 </div>
               </div>
               <p className="text-2xl font-bold text-gray-900">{stats?.referralCount || 0}</p>
-              <p className="text-sm text-gray-500">推薦導遊</p>
+              <p className="text-sm text-gray-500">{t('referredGuides', lang)}</p>
             </div>
           </div>
 
@@ -400,12 +461,12 @@ export default function GuideDashboard() {
             {/* Header with Current Level */}
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="text-lg font-bold text-gray-900">報酬制度</h2>
-                <p className="text-sm text-gray-500">升級金牌合夥人，享受更高報酬</p>
+                <h2 className="text-lg font-bold text-gray-900">{t('commissionSystem', lang)}</h2>
+                <p className="text-sm text-gray-500">{t('upgradeForMore', lang)}</p>
               </div>
               <div className="text-right">
-                <p className="text-xs text-gray-500">您當前等級</p>
-                <p className="text-lg font-bold text-gray-900">{(guide?.commission_tier_code || 'growth') === 'gold' ? '金牌合夥人' : '初期合夥人'}</p>
+                <p className="text-xs text-gray-500">{t('yourCurrentLevel', lang)}</p>
+                <p className="text-lg font-bold text-gray-900">{(guide?.commission_tier_code || 'growth') === 'gold' ? t('goldPartner', lang) : t('growthPartner', lang)}</p>
               </div>
             </div>
 
@@ -417,8 +478,8 @@ export default function GuideDashboard() {
                     ✓
                   </div>
                   <div>
-                    <p className="font-bold text-gray-900">恭喜！您已是金牌合夥人</p>
-                    <p className="text-sm text-gray-600">享受 20% 固定報酬比例</p>
+                    <p className="font-bold text-gray-900">{t('congratsGold', lang)}</p>
+                    <p className="text-sm text-gray-600">{t('enjoy20', lang)}</p>
                   </div>
                 </div>
               </div>
@@ -433,21 +494,21 @@ export default function GuideDashboard() {
                     <span className="text-lg">1</span>
                   </div>
                   <div>
-                    <h4 className="font-bold text-gray-900">初期合夥人</h4>
-                    <p className="text-xs text-gray-400">¥1,980/月</p>
+                    <h4 className="font-bold text-gray-900">{t('growthPartner', lang)}</h4>
+                    <p className="text-xs text-gray-400">¥1,980/{lang === 'ja' ? '月' : lang === 'en' ? 'mo' : '月'}</p>
                   </div>
                 </div>
                 <div className="text-center py-3 bg-gray-50 rounded-lg mb-3">
                   <p className="text-2xl font-bold text-gray-900">10%</p>
-                  <p className="text-xs text-gray-500">固定報酬比例</p>
+                  <p className="text-xs text-gray-500">{t('fixedRate', lang)}</p>
                 </div>
                 <div className="text-xs text-gray-500 space-y-1 mb-4">
-                  <p>夜總會 · 體檢 · 醫療 · 高爾夫</p>
-                  <p>白標頁面基礎功能</p>
-                  <p>標準客服支持</p>
+                  <p>{t('growthServices', lang)}</p>
+                  <p>{t('growthWhitelabel', lang)}</p>
+                  <p>{t('growthSupport', lang)}</p>
                 </div>
                 {(!guide?.commission_tier_code || guide?.commission_tier_code === 'growth') && (
-                  <div className="text-center text-xs text-gray-500 py-2">當前使用中</div>
+                  <div className="text-center text-xs text-gray-500 py-2">{t('currentlyUsing', lang)}</div>
                 )}
               </div>
 
@@ -458,29 +519,29 @@ export default function GuideDashboard() {
                     <span className="text-lg text-white">★</span>
                   </div>
                   <div>
-                    <h4 className="font-bold text-gray-900">金牌合夥人</h4>
-                    <p className="text-xs text-gray-400">¥4,980/月 + ¥200,000 入場費</p>
+                    <h4 className="font-bold text-gray-900">{t('goldPartner', lang)}</h4>
+                    <p className="text-xs text-gray-400">¥4,980/{lang === 'ja' ? '月' : lang === 'en' ? 'mo' : '月'} + ¥200,000</p>
                   </div>
                 </div>
                 <div className="text-center py-3 bg-gray-50 rounded-lg mb-3">
                   <p className="text-2xl font-bold text-gray-900">20%</p>
-                  <p className="text-xs text-gray-500">固定報酬比例</p>
+                  <p className="text-xs text-gray-500">{t('fixedRate', lang)}</p>
                 </div>
                 <div className="text-xs text-gray-500 space-y-1 mb-4">
-                  <p>夜總會 · 體檢 · 醫療 · 高爾夫</p>
-                  <p>白標頁面完整功能 · 高級模板</p>
-                  <p>專屬客服 · 優先資源對接</p>
-                  <p>合夥人專屬群 · 合夥人證書</p>
+                  <p>{t('growthServices', lang)}</p>
+                  <p>{t('goldWhitelabel', lang)}</p>
+                  <p>{t('goldSupport', lang)}</p>
+                  <p>{t('goldPerks', lang)}</p>
                 </div>
                 {guide?.commission_tier_code === 'gold' ? (
-                  <div className="text-center text-xs text-gray-500 py-2">當前使用中</div>
+                  <div className="text-center text-xs text-gray-500 py-2">{t('currentlyUsing', lang)}</div>
                 ) : (
                   <button
                     onClick={() => handleUpgrade('partner')}
                     disabled={upgrading}
                     className="w-full py-2.5 bg-brand-900 text-white rounded-lg text-sm font-bold hover:bg-brand-800 transition disabled:opacity-50"
                   >
-                    {upgrading ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : '立即升級'}
+                    {upgrading ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : t('upgradeNow', lang)}
                   </button>
                 )}
               </div>
@@ -493,15 +554,17 @@ export default function GuideDashboard() {
                   <Users className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-bold text-gray-900 text-sm">推薦獎勵</h4>
-                  <p className="text-xs text-gray-600">成功推薦新導遊加入，您將獲得其每筆訂單報酬的 <span className="font-bold">2%</span> 作為額外獎勵</p>
+                  <h4 className="font-bold text-gray-900 text-sm">{t('referralBonus', lang)}</h4>
+                  <p className="text-xs text-gray-600" dangerouslySetInnerHTML={{
+                    __html: t('referralBonusDesc', lang).replace('<bold>', '<span class="font-bold">').replace('</bold>', '</span>')
+                  }} />
                 </div>
               </div>
             </div>
 
             <div className="mt-3 text-center">
               <p className="text-[10px] text-gray-400">
-                💡 等級每季度初根據上季度銷售額自動調整 · 新季度保留上季度等級至首筆訂單
+                {t('tierNote', lang)}
               </p>
             </div>
           </div>
@@ -513,10 +576,10 @@ export default function GuideDashboard() {
               className="bg-white rounded-xl p-6 border border-gray-200 hover:border-gray-900 hover:shadow-lg transition group"
             >
               <Store className="w-8 h-8 text-gray-900 mb-3" />
-              <h3 className="font-bold text-gray-900 mb-1">瀏覽店舖</h3>
-              <p className="text-sm text-gray-500 mb-3">查看 160+ 高端夜總會</p>
+              <h3 className="font-bold text-gray-900 mb-1">{t('browseVenues', lang)}</h3>
+              <p className="text-sm text-gray-500 mb-3">{t('browse160', lang)}</p>
               <span className="text-gray-900 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
-                立即查看 <ChevronRight size={16} />
+                {t('viewNow', lang)} <ChevronRight size={16} />
               </span>
             </Link>
 
@@ -525,10 +588,10 @@ export default function GuideDashboard() {
               className="bg-white rounded-xl p-6 border border-gray-200 hover:border-gray-900 hover:shadow-lg transition group"
             >
               <Calendar className="w-8 h-8 text-gray-900 mb-3" />
-              <h3 className="font-bold text-gray-900 mb-1">新建預約</h3>
-              <p className="text-sm text-gray-500 mb-3">為客戶預約夜總會</p>
+              <h3 className="font-bold text-gray-900 mb-1">{t('newBooking', lang)}</h3>
+              <p className="text-sm text-gray-500 mb-3">{t('bookForCustomer', lang)}</p>
               <span className="text-gray-900 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
-                立即預約 <ChevronRight size={16} />
+                {t('bookNow', lang)} <ChevronRight size={16} />
               </span>
             </Link>
 
@@ -537,12 +600,12 @@ export default function GuideDashboard() {
               className="bg-white rounded-xl p-6 border border-gray-200 hover:border-gray-900 hover:shadow-lg transition group"
             >
               <TrendingUp className="w-8 h-8 text-gray-900 mb-3" />
-              <h3 className="font-bold text-gray-900 mb-1">報酬結算</h3>
+              <h3 className="font-bold text-gray-900 mb-1">{t('commissionSettlement', lang)}</h3>
               <p className="text-sm text-gray-500 mb-3">
-                {stats?.pendingCommission ? `¥${stats.pendingCommission.toLocaleString()} 待結算` : '查看結算記錄'}
+                {stats?.pendingCommission ? `¥${stats.pendingCommission.toLocaleString()} ${t('pendingSettlement', lang)}` : t('viewSettlement', lang)}
               </p>
               <span className="text-gray-900 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
-                查看詳情 <ChevronRight size={16} />
+                {t('viewDetails', lang)} <ChevronRight size={16} />
               </span>
             </Link>
           </div>
@@ -550,9 +613,9 @@ export default function GuideDashboard() {
           {/* Recent Bookings */}
           <div className="bg-white rounded-xl border border-gray-200">
             <div className="p-6 border-b flex items-center justify-between">
-              <h2 className="font-bold text-gray-900">最近預約</h2>
+              <h2 className="font-bold text-gray-900">{t('recentBookings', lang)}</h2>
               <Link href="/guide-partner/bookings" className="text-gray-900 text-sm font-medium hover:underline">
-                查看全部
+                {t('viewAll', lang)}
               </Link>
             </div>
 
@@ -581,47 +644,47 @@ export default function GuideDashboard() {
             ) : (
               <div className="p-12 text-center text-gray-500">
                 <Calendar className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                <p>暫無預約記錄</p>
+                <p>{t('noBookings', lang)}</p>
                 <Link
                   href="/guide-partner/venues"
                   className="inline-block mt-4 text-gray-900 font-medium hover:underline"
                 >
-                  瀏覽店舖並創建預約
+                  {t('browseAndBook', lang)}
                 </Link>
               </div>
             )}
           </div>
         </div>
 
-        {/* 合约弹窗 */}
+        {/* Contract Modal */}
         {showContract && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">金牌合夥人入會合約</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('contractTitle', lang)}</h2>
 
               <div className="prose prose-sm mb-6 text-gray-600 space-y-3">
-                <h3 className="font-bold text-gray-900">一、會員費用</h3>
-                <p>1. 入場費：¥200,000（一次性支付，終身有效）</p>
-                <p>2. 月會費：¥4,980/月（自動續訂）</p>
+                <h3 className="font-bold text-gray-900">{t('contractFeeTitle', lang)}</h3>
+                <p>{t('contractFee1', lang)}</p>
+                <p>{t('contractFee2', lang)}</p>
 
-                <h3 className="font-bold text-gray-900">二、分成比例</h3>
-                <p>金牌合夥人享受固定 20% 分成比例（所有業務線）</p>
+                <h3 className="font-bold text-gray-900">{t('contractRateTitle', lang)}</h3>
+                <p>{t('contractRateDesc', lang)}</p>
 
-                <h3 className="font-bold text-gray-900">三、降級與重新入會</h3>
+                <h3 className="font-bold text-gray-900">{t('contractDowngradeTitle', lang)}</h3>
                 <p className="text-gray-900 font-medium bg-gray-100 p-3 rounded">
-                  ⚠️ 重要提示：若您停止續費月會費（¥4,980/月），您的金牌合夥人資格將自動失效，降級為初期合夥人（10%分成）。
+                  {t('contractDowngradeWarn', lang)}
                 </p>
                 <p className="text-gray-900 font-medium bg-gray-100 p-3 rounded">
-                  若之後需要重新升級為金牌合夥人，需要重新支付 ¥200,000 入場費。
+                  {t('contractDowngradeRejoin', lang)}
                 </p>
 
-                <h3 className="font-bold text-gray-900">四、權益說明</h3>
+                <h3 className="font-bold text-gray-900">{t('contractBenefitsTitle', lang)}</h3>
                 <ul className="list-disc pl-5">
-                  <li>優先資源對接</li>
-                  <li>專屬客服通道</li>
-                  <li>合夥人專屬群</li>
-                  <li>合夥人證書</li>
-                  <li>年度合夥人大會邀請</li>
+                  <li>{t('contractBenefit1', lang)}</li>
+                  <li>{t('contractBenefit2', lang)}</li>
+                  <li>{t('contractBenefit3', lang)}</li>
+                  <li>{t('contractBenefit4', lang)}</li>
+                  <li>{t('contractBenefit5', lang)}</li>
                 </ul>
               </div>
 
@@ -630,14 +693,14 @@ export default function GuideDashboard() {
                   onClick={() => setShowContract(false)}
                   className="flex-1 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50"
                 >
-                  取消
+                  {t('cancel', lang)}
                 </button>
                 <button
                   onClick={confirmUpgrade}
                   disabled={upgrading}
                   className="flex-1 py-3 bg-brand-900 text-white rounded-lg font-bold hover:bg-gray-800 disabled:opacity-50"
                 >
-                  {upgrading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : '同意並支付'}
+                  {upgrading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : t('agreeAndPay', lang)}
                 </button>
               </div>
             </div>

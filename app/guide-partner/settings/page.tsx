@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
+import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
   Settings,
   User,
@@ -22,6 +23,564 @@ import {
   Clock,
   XCircle
 } from 'lucide-react';
+
+// ============================================================
+// Translations
+// ============================================================
+
+const translations = {
+  // Page title & header
+  pageTitle: {
+    ja: 'アカウント設定',
+    'zh-CN': '账户设置',
+    'zh-TW': '帳戶設置',
+    en: 'Account Settings',
+  },
+  pageSubtitle: {
+    ja: '個人情報とセキュリティ設定を管理',
+    'zh-CN': '管理您的个人信息和安全设置',
+    'zh-TW': '管理您的個人資訊和安全設置',
+    en: 'Manage your personal information and security settings',
+  },
+
+  // Loading
+  loading: {
+    ja: '読み込み中...',
+    'zh-CN': '加载中...',
+    'zh-TW': '載入中...',
+    en: 'Loading...',
+  },
+
+  // Account info section
+  referralCode: {
+    ja: '紹介コード:',
+    'zh-CN': '推荐码:',
+    'zh-TW': '推薦碼:',
+    en: 'Referral code:',
+  },
+
+  // Level labels
+  levelGrowth: {
+    ja: '初期パートナー',
+    'zh-CN': '初期合伙人',
+    'zh-TW': '初期合夥人',
+    en: 'Growth Partner',
+  },
+  levelGold: {
+    ja: 'ゴールドパートナー',
+    'zh-CN': '金牌合伙人',
+    'zh-TW': '金牌合夥人',
+    en: 'Gold Partner',
+  },
+
+  // Tabs
+  tabProfile: {
+    ja: '個人情報',
+    'zh-CN': '个人信息',
+    'zh-TW': '個人資訊',
+    en: 'Profile',
+  },
+  tabPassword: {
+    ja: 'パスワード変更',
+    'zh-CN': '修改密码',
+    'zh-TW': '修改密碼',
+    en: 'Change Password',
+  },
+  tabKyc: {
+    ja: '本人確認',
+    'zh-CN': '身份验证',
+    'zh-TW': '身份驗證',
+    en: 'Identity Verification',
+  },
+
+  // Profile form labels
+  labelName: {
+    ja: '氏名',
+    'zh-CN': '姓名',
+    'zh-TW': '姓名',
+    en: 'Name',
+  },
+  labelPhone: {
+    ja: '電話番号',
+    'zh-CN': '手机号',
+    'zh-TW': '手機號',
+    en: 'Phone Number',
+  },
+  labelEmail: {
+    ja: 'メールアドレス',
+    'zh-CN': '邮箱',
+    'zh-TW': '郵箱',
+    en: 'Email',
+  },
+  emailNotEditable: {
+    ja: 'メールアドレスは変更できません',
+    'zh-CN': '邮箱不可修改',
+    'zh-TW': '郵箱不可修改',
+    en: 'Email cannot be changed',
+  },
+  labelWechat: {
+    ja: 'WeChat ID',
+    'zh-CN': '微信号',
+    'zh-TW': '微信號',
+    en: 'WeChat ID',
+  },
+  wechatPlaceholder: {
+    ja: '任意',
+    'zh-CN': '选填',
+    'zh-TW': '選填',
+    en: 'Optional',
+  },
+  saveChanges: {
+    ja: '変更を保存',
+    'zh-CN': '保存修改',
+    'zh-TW': '儲存修改',
+    en: 'Save Changes',
+  },
+
+  // Profile messages
+  profileUpdated: {
+    ja: '個人情報が更新されました',
+    'zh-CN': '个人信息已更新',
+    'zh-TW': '個人資訊已更新',
+    en: 'Profile updated successfully',
+  },
+  profileUpdateFailed: {
+    ja: '更新に失敗しました。後ほどお試しください',
+    'zh-CN': '更新失败，请稍后重试',
+    'zh-TW': '更新失敗，請稍後重試',
+    en: 'Update failed. Please try again later',
+  },
+
+  // Password form labels
+  labelNewPassword: {
+    ja: '新しいパスワード',
+    'zh-CN': '新密码',
+    'zh-TW': '新密碼',
+    en: 'New Password',
+  },
+  passwordPlaceholder: {
+    ja: '6文字以上',
+    'zh-CN': '至少6位',
+    'zh-TW': '至少6位',
+    en: 'At least 6 characters',
+  },
+  labelConfirmPassword: {
+    ja: '新しいパスワード（確認）',
+    'zh-CN': '确认新密码',
+    'zh-TW': '確認新密碼',
+    en: 'Confirm New Password',
+  },
+  confirmPasswordPlaceholder: {
+    ja: '新しいパスワードを再入力',
+    'zh-CN': '再次输入新密码',
+    'zh-TW': '再次輸入新密碼',
+    en: 'Re-enter new password',
+  },
+  updatePassword: {
+    ja: 'パスワードを更新',
+    'zh-CN': '更新密码',
+    'zh-TW': '更新密碼',
+    en: 'Update Password',
+  },
+
+  // Password messages
+  passwordMismatch: {
+    ja: '新しいパスワードが一致しません',
+    'zh-CN': '两次输入的新密码不一致',
+    'zh-TW': '兩次輸入的新密碼不一致',
+    en: 'New passwords do not match',
+  },
+  passwordTooShort: {
+    ja: '新しいパスワードは6文字以上必要です',
+    'zh-CN': '新密码至少需要6位',
+    'zh-TW': '新密碼至少需要6位',
+    en: 'New password must be at least 6 characters',
+  },
+  passwordUpdated: {
+    ja: 'パスワードが更新されました',
+    'zh-CN': '密码已更新',
+    'zh-TW': '密碼已更新',
+    en: 'Password updated successfully',
+  },
+  passwordUpdateFailed: {
+    ja: 'パスワードの更新に失敗しました',
+    'zh-CN': '密码更新失败',
+    'zh-TW': '密碼更新失敗',
+    en: 'Password update failed',
+  },
+
+  // Image upload messages
+  uploadImageOnly: {
+    ja: '画像ファイルをアップロードしてください',
+    'zh-CN': '请上传图片文件',
+    'zh-TW': '請上傳圖片文件',
+    en: 'Please upload an image file',
+  },
+  imageTooLarge: {
+    ja: '画像サイズは5MB以下にしてください',
+    'zh-CN': '图片大小不能超过 5MB',
+    'zh-TW': '圖片大小不能超過 5MB',
+    en: 'Image size must not exceed 5MB',
+  },
+
+  // KYC validation messages
+  selectDocType: {
+    ja: '証明書の種類を選択してください',
+    'zh-CN': '请选择证件类型',
+    'zh-TW': '請選擇證件類型',
+    en: 'Please select a document type',
+  },
+  enterDocNumber: {
+    ja: '証明書番号を入力してください',
+    'zh-CN': '请输入证件号码',
+    'zh-TW': '請輸入證件號碼',
+    en: 'Please enter the document number',
+  },
+  enterLegalName: {
+    ja: '証明書の氏名を入力してください',
+    'zh-CN': '请输入证件姓名',
+    'zh-TW': '請輸入證件姓名',
+    en: 'Please enter the name on the document',
+  },
+  selectNationality: {
+    ja: '国籍を選択してください',
+    'zh-CN': '请选择国籍',
+    'zh-TW': '請選擇國籍',
+    en: 'Please select your nationality',
+  },
+  uploadFrontPhoto: {
+    ja: '証明書の表面写真をアップロードしてください',
+    'zh-CN': '请上传证件正面照片',
+    'zh-TW': '請上傳證件正面照片',
+    en: 'Please upload the front photo of your document',
+  },
+
+  // KYC upload errors
+  frontUploadFailed: {
+    ja: '表面写真のアップロードに失敗しました',
+    'zh-CN': '正面照片上传失败',
+    'zh-TW': '正面照片上傳失敗',
+    en: 'Front photo upload failed',
+  },
+  backUploadFailed: {
+    ja: '裏面写真のアップロードに失敗しました',
+    'zh-CN': '背面照片上传失败',
+    'zh-TW': '背面照片上傳失敗',
+    en: 'Back photo upload failed',
+  },
+  pleaseRelogin: {
+    ja: '再度ログインしてください',
+    'zh-CN': '请重新登录',
+    'zh-TW': '請重新登錄',
+    en: 'Please log in again',
+  },
+  kycSubmitFailed: {
+    ja: 'KYC の提出に失敗しました',
+    'zh-CN': 'KYC 提交失败',
+    'zh-TW': 'KYC 提交失敗',
+    en: 'KYC submission failed',
+  },
+
+  // KYC status banners
+  kycApprovedTitle: {
+    ja: '本人確認が完了しました',
+    'zh-CN': '身份验证已通过',
+    'zh-TW': '身份驗證已通過',
+    en: 'Identity verification approved',
+  },
+  kycApprovedTime: {
+    ja: '審査通過日:',
+    'zh-CN': '审核通过时间:',
+    'zh-TW': '審核通過時間:',
+    en: 'Approved on:',
+  },
+  kycSubmittedTitle: {
+    ja: '審査中',
+    'zh-CN': '审核中',
+    'zh-TW': '審核中',
+    en: 'Under Review',
+  },
+  kycSubmittedTime: {
+    ja: '提出日:',
+    'zh-CN': '提交时间:',
+    'zh-TW': '提交時間:',
+    en: 'Submitted on:',
+  },
+  kycReviewPeriod: {
+    ja: '1〜3営業日以内に審査いたします',
+    'zh-CN': '我们会在 1-3 个工作日内完成审核',
+    'zh-TW': '我們會在 1-3 個工作日內完成審核',
+    en: 'We will complete the review within 1-3 business days',
+  },
+  kycRejectedTitle: {
+    ja: '認証が否認されました',
+    'zh-CN': '验证未通过',
+    'zh-TW': '驗證未通過',
+    en: 'Verification rejected',
+  },
+  kycRejectedReason: {
+    ja: '理由:',
+    'zh-CN': '原因:',
+    'zh-TW': '原因:',
+    en: 'Reason:',
+  },
+  kycRejectedDefault: {
+    ja: '有効な証明書を再提出してください',
+    'zh-CN': '请重新提交有效证件',
+    'zh-TW': '請重新提交有效證件',
+    en: 'Please resubmit a valid document',
+  },
+  kycPendingTitle: {
+    ja: '本人確認を完了してください',
+    'zh-CN': '请完成身份验证',
+    'zh-TW': '請完成身份驗證',
+    en: 'Please complete identity verification',
+  },
+  kycPendingDesc: {
+    ja: 'KYC 認証完了後、コミッションの受け取りが可能になります',
+    'zh-CN': '完成 KYC 验证后即可开始获得佣金',
+    'zh-TW': '完成 KYC 驗證後即可開始獲得佣金',
+    en: 'Complete KYC verification to start earning commissions',
+  },
+
+  // KYC form labels
+  labelDocType: {
+    ja: '証明書の種類 *',
+    'zh-CN': '证件类型 *',
+    'zh-TW': '證件類型 *',
+    en: 'Document Type *',
+  },
+  selectDocTypePlaceholder: {
+    ja: '証明書の種類を選択',
+    'zh-CN': '请选择证件类型',
+    'zh-TW': '請選擇證件類型',
+    en: 'Select document type',
+  },
+  labelLegalName: {
+    ja: '証明書記載の氏名 *',
+    'zh-CN': '证件姓名 *',
+    'zh-TW': '證件姓名 *',
+    en: 'Legal Name *',
+  },
+  legalNamePlaceholder: {
+    ja: '証明書と同じ氏名を入力してください',
+    'zh-CN': '请输入与证件一致的姓名',
+    'zh-TW': '請輸入與證件一致的姓名',
+    en: 'Enter name as shown on document',
+  },
+  labelDocNumber: {
+    ja: '証明書番号 *',
+    'zh-CN': '证件号码 *',
+    'zh-TW': '證件號碼 *',
+    en: 'Document Number *',
+  },
+  docNumberPlaceholder: {
+    ja: '証明書番号を入力してください',
+    'zh-CN': '请输入证件号码',
+    'zh-TW': '請輸入證件號碼',
+    en: 'Enter document number',
+  },
+  labelNationality: {
+    ja: '国籍 *',
+    'zh-CN': '国籍 *',
+    'zh-TW': '國籍 *',
+    en: 'Nationality *',
+  },
+  selectNationalityPlaceholder: {
+    ja: '国籍を選択',
+    'zh-CN': '请选择国籍',
+    'zh-TW': '請選擇國籍',
+    en: 'Select nationality',
+  },
+
+  // Document front/back
+  labelDocFront: {
+    ja: '証明書の表面 *',
+    'zh-CN': '证件正面 *',
+    'zh-TW': '證件正面 *',
+    en: 'Document Front *',
+  },
+  altDocFront: {
+    ja: '証明書の表面',
+    'zh-CN': '证件正面',
+    'zh-TW': '證件正面',
+    en: 'Document front',
+  },
+  uploadFrontText: {
+    ja: 'クリックして表面写真をアップロード',
+    'zh-CN': '点击上传正面照片',
+    'zh-TW': '點擊上傳正面照片',
+    en: 'Click to upload front photo',
+  },
+  uploadFormatFront: {
+    ja: 'JPG, PNG 対応（最大 5MB）',
+    'zh-CN': '支持 JPG, PNG (最大 5MB)',
+    'zh-TW': '支持 JPG, PNG (最大 5MB)',
+    en: 'Supports JPG, PNG (max 5MB)',
+  },
+  labelDocBack: {
+    ja: '証明書の裏面（任意）',
+    'zh-CN': '证件背面（选填）',
+    'zh-TW': '證件背面（選填）',
+    en: 'Document Back (Optional)',
+  },
+  altDocBack: {
+    ja: '証明書の裏面',
+    'zh-CN': '证件背面',
+    'zh-TW': '證件背面',
+    en: 'Document back',
+  },
+  uploadBackText: {
+    ja: 'クリックして裏面写真をアップロード',
+    'zh-CN': '点击上传背面照片',
+    'zh-TW': '點擊上傳背面照片',
+    en: 'Click to upload back photo',
+  },
+  uploadFormatBack: {
+    ja: 'パスポートの場合、裏面は不要です',
+    'zh-CN': '护照可不上传背面',
+    'zh-TW': '護照可不上傳背面',
+    en: 'Back photo not required for passports',
+  },
+
+  // KYC submit button
+  uploading: {
+    ja: 'アップロード中...',
+    'zh-CN': '上传中...',
+    'zh-TW': '上傳中...',
+    en: 'Uploading...',
+  },
+  resubmitKyc: {
+    ja: '再提出する',
+    'zh-CN': '重新提交验证',
+    'zh-TW': '重新提交驗證',
+    en: 'Resubmit Verification',
+  },
+  submitKyc: {
+    ja: '本人確認を提出',
+    'zh-CN': '提交身份验证',
+    'zh-TW': '提交身份驗證',
+    en: 'Submit Identity Verification',
+  },
+  kycPrivacyNote: {
+    ja: 'お客様の証明書情報は安全に暗号化して保存され、本人確認の目的にのみ使用されます',
+    'zh-CN': '您的证件信息将被安全加密存储，仅用于身份验证目的',
+    'zh-TW': '您的證件信息將被安全加密存儲，僅用於身份驗證目的',
+    en: 'Your document information will be securely encrypted and used only for identity verification purposes',
+  },
+
+  // KYC success modal
+  kycSuccessTitle: {
+    ja: '提出完了',
+    'zh-CN': '提交成功',
+    'zh-TW': '提交成功',
+    en: 'Submission Successful',
+  },
+  kycSuccessDesc: {
+    ja: 'KYC 資料の提出が完了しました。1〜3営業日以内に審査いたします。審査結果はメールでお知らせします。',
+    'zh-CN': '您的 KYC 资料已成功提交，我们会在 1-3 个工作日内完成审核。审核结果将通过邮件通知您。',
+    'zh-TW': '您的 KYC 資料已成功提交，我們會在 1-3 個工作日內完成審核。審核結果將通過郵件通知您。',
+    en: 'Your KYC documents have been submitted successfully. We will complete the review within 1-3 business days. You will be notified of the result via email.',
+  },
+  kycSuccessButton: {
+    ja: '了解しました',
+    'zh-CN': '我知道了',
+    'zh-TW': '我知道了',
+    en: 'Got it',
+  },
+
+  // Account creation
+  accountCreatedOn: {
+    ja: 'アカウント作成日:',
+    'zh-CN': '账号创建于',
+    'zh-TW': '帳號創建於',
+    en: 'Account created on',
+  },
+
+  // Document types
+  docPassport: {
+    ja: 'パスポート Passport',
+    'zh-CN': '护照 Passport',
+    'zh-TW': '護照 Passport',
+    en: 'Passport',
+  },
+  docIdCard: {
+    ja: '身分証明書 ID Card',
+    'zh-CN': '身份证 ID Card',
+    'zh-TW': '身份證 ID Card',
+    en: 'ID Card',
+  },
+  docResidenceCard: {
+    ja: '在留カード Residence Card',
+    'zh-CN': '在留卡 Residence Card',
+    'zh-TW': '在留卡 Residence Card',
+    en: 'Residence Card',
+  },
+  docOther: {
+    ja: 'その他 Other',
+    'zh-CN': '其他 Other',
+    'zh-TW': '其他 Other',
+    en: 'Other',
+  },
+
+  // Nationalities
+  natChina: {
+    ja: '中国 China',
+    'zh-CN': '中国 China',
+    'zh-TW': '中國 China',
+    en: 'China',
+  },
+  natTaiwan: {
+    ja: '台湾 Taiwan',
+    'zh-CN': '台湾 Taiwan',
+    'zh-TW': '台灣 Taiwan',
+    en: 'Taiwan',
+  },
+  natHongKong: {
+    ja: '香港 Hong Kong',
+    'zh-CN': '香港 Hong Kong',
+    'zh-TW': '香港 Hong Kong',
+    en: 'Hong Kong',
+  },
+  natJapan: {
+    ja: '日本 Japan',
+    'zh-CN': '日本 Japan',
+    'zh-TW': '日本 Japan',
+    en: 'Japan',
+  },
+  natKorea: {
+    ja: '韓国 Korea',
+    'zh-CN': '韩国 Korea',
+    'zh-TW': '韓國 Korea',
+    en: 'Korea',
+  },
+  natSingapore: {
+    ja: 'シンガポール Singapore',
+    'zh-CN': '新加坡 Singapore',
+    'zh-TW': '新加坡 Singapore',
+    en: 'Singapore',
+  },
+  natMalaysia: {
+    ja: 'マレーシア Malaysia',
+    'zh-CN': '马来西亚 Malaysia',
+    'zh-TW': '馬來西亞 Malaysia',
+    en: 'Malaysia',
+  },
+  natOther: {
+    ja: 'その他 Other',
+    'zh-CN': '其他 Other',
+    'zh-TW': '其他 Other',
+    en: 'Other',
+  },
+} as const;
+
+const t = (key: keyof typeof translations, lang: Language): string => {
+  return translations[key][lang];
+};
+
+// ============================================================
+// Interfaces
+// ============================================================
 
 interface Guide {
   id: string;
@@ -45,27 +604,13 @@ interface Guide {
   kyc_review_note: string | null;
 }
 
-// Document type options
-const DOCUMENT_TYPES = [
-  { value: 'passport', label: '護照 Passport' },
-  { value: 'id_card', label: '身份證 ID Card' },
-  { value: 'residence_card', label: '在留卡 Residence Card' },
-  { value: 'other', label: '其他 Other' },
-];
-
-// Nationality options
-const NATIONALITIES = [
-  { value: 'CN', label: '中國 China' },
-  { value: 'TW', label: '台灣 Taiwan' },
-  { value: 'HK', label: '香港 Hong Kong' },
-  { value: 'JP', label: '日本 Japan' },
-  { value: 'KR', label: '韓國 Korea' },
-  { value: 'SG', label: '新加坡 Singapore' },
-  { value: 'MY', label: '馬來西亞 Malaysia' },
-  { value: 'OTHER', label: '其他 Other' },
-];
+// ============================================================
+// Component
+// ============================================================
 
 export default function SettingsPage() {
+  const lang = useLanguage();
+
   const [guide, setGuide] = useState<Guide | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -105,6 +650,26 @@ export default function SettingsPage() {
 
   const router = useRouter();
   const supabase = createClient();
+
+  // Document type options (language-aware)
+  const DOCUMENT_TYPES = [
+    { value: 'passport', label: t('docPassport', lang) },
+    { value: 'id_card', label: t('docIdCard', lang) },
+    { value: 'residence_card', label: t('docResidenceCard', lang) },
+    { value: 'other', label: t('docOther', lang) },
+  ];
+
+  // Nationality options (language-aware)
+  const NATIONALITIES = [
+    { value: 'CN', label: t('natChina', lang) },
+    { value: 'TW', label: t('natTaiwan', lang) },
+    { value: 'HK', label: t('natHongKong', lang) },
+    { value: 'JP', label: t('natJapan', lang) },
+    { value: 'KR', label: t('natKorea', lang) },
+    { value: 'SG', label: t('natSingapore', lang) },
+    { value: 'MY', label: t('natMalaysia', lang) },
+    { value: 'OTHER', label: t('natOther', lang) },
+  ];
 
   useEffect(() => {
     loadGuideData();
@@ -161,10 +726,10 @@ export default function SettingsPage() {
 
       if (error) throw error;
 
-      setMessage({ type: 'success', text: '個人資訊已更新' });
+      setMessage({ type: 'success', text: t('profileUpdated', lang) });
       await loadGuideData();
     } catch (err) {
-      setMessage({ type: 'error', text: '更新失敗，請稍後重試' });
+      setMessage({ type: 'error', text: t('profileUpdateFailed', lang) });
     } finally {
       setSaving(false);
     }
@@ -176,13 +741,13 @@ export default function SettingsPage() {
     setMessage(null);
 
     if (passwordForm.newPassword !== passwordForm.confirmPassword) {
-      setMessage({ type: 'error', text: '兩次輸入的新密碼不一致' });
+      setMessage({ type: 'error', text: t('passwordMismatch', lang) });
       setSaving(false);
       return;
     }
 
     if (passwordForm.newPassword.length < 6) {
-      setMessage({ type: 'error', text: '新密碼至少需要6位' });
+      setMessage({ type: 'error', text: t('passwordTooShort', lang) });
       setSaving(false);
       return;
     }
@@ -194,14 +759,14 @@ export default function SettingsPage() {
 
       if (error) throw error;
 
-      setMessage({ type: 'success', text: '密碼已更新' });
+      setMessage({ type: 'success', text: t('passwordUpdated', lang) });
       setPasswordForm({
         currentPassword: '',
         newPassword: '',
         confirmPassword: '',
       });
     } catch (err) {
-      setMessage({ type: 'error', text: '密碼更新失敗' });
+      setMessage({ type: 'error', text: t('passwordUpdateFailed', lang) });
     } finally {
       setSaving(false);
     }
@@ -214,13 +779,13 @@ export default function SettingsPage() {
 
     // Validate file type
     if (!file.type.startsWith('image/')) {
-      setMessage({ type: 'error', text: '請上傳圖片文件' });
+      setMessage({ type: 'error', text: t('uploadImageOnly', lang) });
       return;
     }
 
     // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
-      setMessage({ type: 'error', text: '圖片大小不能超過 5MB' });
+      setMessage({ type: 'error', text: t('imageTooLarge', lang) });
       return;
     }
 
@@ -269,23 +834,23 @@ export default function SettingsPage() {
 
     // Validation
     if (!kycForm.documentType) {
-      setMessage({ type: 'error', text: '請選擇證件類型' });
+      setMessage({ type: 'error', text: t('selectDocType', lang) });
       return;
     }
     if (!kycForm.documentNumber) {
-      setMessage({ type: 'error', text: '請輸入證件號碼' });
+      setMessage({ type: 'error', text: t('enterDocNumber', lang) });
       return;
     }
     if (!kycForm.legalName) {
-      setMessage({ type: 'error', text: '請輸入證件姓名' });
+      setMessage({ type: 'error', text: t('enterLegalName', lang) });
       return;
     }
     if (!kycForm.nationality) {
-      setMessage({ type: 'error', text: '請選擇國籍' });
+      setMessage({ type: 'error', text: t('selectNationality', lang) });
       return;
     }
     if (!frontImage && !guide.id_document_front_url) {
-      setMessage({ type: 'error', text: '請上傳證件正面照片' });
+      setMessage({ type: 'error', text: t('uploadFrontPhoto', lang) });
       return;
     }
 
@@ -300,21 +865,20 @@ export default function SettingsPage() {
       if (frontImage) {
         frontUrl = await uploadImage(frontImage, guide.id, 'front');
         if (!frontUrl) {
-          throw new Error('正面照片上傳失敗');
+          throw new Error(t('frontUploadFailed', lang));
         }
       }
 
       if (backImage) {
         backUrl = await uploadImage(backImage, guide.id, 'back');
         if (!backUrl) {
-          throw new Error('背面照片上傳失敗');
+          throw new Error(t('backUploadFailed', lang));
         }
       }
 
-      // 通过 API 提交 KYC（服务端加密敏感信息）
       const { data: { session } } = await supabase.auth.getSession();
       if (!session?.access_token) {
-        throw new Error('请重新登录');
+        throw new Error(t('pleaseRelogin', lang));
       }
 
       const response = await fetch('/api/kyc/submit', {
@@ -336,13 +900,13 @@ export default function SettingsPage() {
 
       const result = await response.json();
       if (!response.ok) {
-        throw new Error(result.error || 'KYC 提交失败');
+        throw new Error(result.error || t('kycSubmitFailed', lang));
       }
 
       await loadGuideData();
       setShowKycSuccessModal(true);
     } catch (err: any) {
-      setMessage({ type: 'error', text: err.message || 'KYC 提交失敗' });
+      setMessage({ type: 'error', text: err.message || t('kycSubmitFailed', lang) });
     } finally {
       setUploading(false);
     }
@@ -350,8 +914,8 @@ export default function SettingsPage() {
 
   const getLevelLabel = (level: string) => {
     const labels: Record<string, string> = {
-      growth: '初期合夥人',
-      gold: '金牌合夥人',
+      growth: t('levelGrowth', lang),
+      gold: t('levelGold', lang),
     };
     return labels[level] || level;
   };
@@ -361,7 +925,7 @@ export default function SettingsPage() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">載入中...</p>
+          <p className="text-gray-600">{t('loading', lang)}</p>
         </div>
       </div>
     );
@@ -369,15 +933,15 @@ export default function SettingsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <GuideSidebar pageTitle="账户设置" />
+      <GuideSidebar pageTitle={t('pageTitle', lang)} />
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
         <div className="p-6 lg:p-8 max-w-2xl">
           {/* Header */}
           <div className="mb-6">
-            <h1 className="text-2xl font-bold text-gray-900">帳戶設置</h1>
-            <p className="text-gray-500 mt-1">管理您的個人資訊和安全設置</p>
+            <h1 className="text-2xl font-bold text-gray-900">{t('pageTitle', lang)}</h1>
+            <p className="text-gray-500 mt-1">{t('pageSubtitle', lang)}</p>
           </div>
 
           {/* Account Info */}
@@ -397,7 +961,7 @@ export default function SettingsPage() {
               </div>
             </div>
             <div className="mt-4 pt-4 border-t flex items-center gap-2 text-sm text-gray-500">
-              <span>推薦碼:</span>
+              <span>{t('referralCode', lang)}</span>
               <span className="font-mono font-bold text-gray-900">{guide?.referral_code}</span>
             </div>
           </div>
@@ -413,7 +977,7 @@ export default function SettingsPage() {
               }`}
             >
               <User className="inline mr-2" size={16} />
-              個人資訊
+              {t('tabProfile', lang)}
             </button>
             <button
               onClick={() => { setActiveTab('password'); setMessage(null); }}
@@ -424,7 +988,7 @@ export default function SettingsPage() {
               }`}
             >
               <Lock className="inline mr-2" size={16} />
-              修改密碼
+              {t('tabPassword', lang)}
             </button>
             <button
               onClick={() => { setActiveTab('kyc'); setMessage(null); }}
@@ -435,7 +999,7 @@ export default function SettingsPage() {
               }`}
             >
               <Shield className="inline mr-2" size={16} />
-              身份驗證
+              {t('tabKyc', lang)}
               {guide?.kyc_status === 'approved' && (
                 <CheckCircle2 className="inline ml-1 text-green-500" size={14} />
               )}
@@ -464,7 +1028,7 @@ export default function SettingsPage() {
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     <User className="inline mr-1" size={16} />
-                    姓名
+                    {t('labelName', lang)}
                   </label>
                   <input
                     type="text"
@@ -478,7 +1042,7 @@ export default function SettingsPage() {
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     <Phone className="inline mr-1" size={16} />
-                    手機號
+                    {t('labelPhone', lang)}
                   </label>
                   <input
                     type="tel"
@@ -492,7 +1056,7 @@ export default function SettingsPage() {
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     <Mail className="inline mr-1" size={16} />
-                    郵箱
+                    {t('labelEmail', lang)}
                   </label>
                   <input
                     type="email"
@@ -500,20 +1064,20 @@ export default function SettingsPage() {
                     disabled
                     className="w-full px-4 py-3 border border-gray-200 rounded-xl bg-gray-50 text-gray-500"
                   />
-                  <p className="text-xs text-gray-400 mt-1">郵箱不可修改</p>
+                  <p className="text-xs text-gray-400 mt-1">{t('emailNotEditable', lang)}</p>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     <MessageCircle className="inline mr-1" size={16} />
-                    微信號
+                    {t('labelWechat', lang)}
                   </label>
                   <input
                     type="text"
                     value={profileForm.wechatId}
                     onChange={(e) => setProfileForm({ ...profileForm, wechatId: e.target.value })}
                     className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
-                    placeholder="選填"
+                    placeholder={t('wechatPlaceholder', lang)}
                   />
                 </div>
 
@@ -523,7 +1087,7 @@ export default function SettingsPage() {
                   className="w-full bg-brand-600 hover:bg-brand-700 disabled:bg-gray-400 text-white font-bold py-3 rounded-xl transition flex items-center justify-center gap-2"
                 >
                   {saving ? <Loader2 className="animate-spin" size={20} /> : <CheckCircle2 size={20} />}
-                  儲存修改
+                  {t('saveChanges', lang)}
                 </button>
               </form>
             </div>
@@ -535,7 +1099,7 @@ export default function SettingsPage() {
               <form onSubmit={handlePasswordSubmit} className="space-y-5">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    新密碼
+                    {t('labelNewPassword', lang)}
                   </label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
@@ -546,7 +1110,7 @@ export default function SettingsPage() {
                       required
                       minLength={6}
                       className="w-full pl-10 pr-12 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
-                      placeholder="至少6位"
+                      placeholder={t('passwordPlaceholder', lang)}
                     />
                     <button
                       type="button"
@@ -560,7 +1124,7 @@ export default function SettingsPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    確認新密碼
+                    {t('labelConfirmPassword', lang)}
                   </label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
@@ -570,7 +1134,7 @@ export default function SettingsPage() {
                       onChange={(e) => setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })}
                       required
                       className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
-                      placeholder="再次輸入新密碼"
+                      placeholder={t('confirmPasswordPlaceholder', lang)}
                     />
                   </div>
                 </div>
@@ -581,7 +1145,7 @@ export default function SettingsPage() {
                   className="w-full bg-brand-600 hover:bg-brand-700 disabled:bg-gray-400 text-white font-bold py-3 rounded-xl transition flex items-center justify-center gap-2"
                 >
                   {saving ? <Loader2 className="animate-spin" size={20} /> : <Lock size={20} />}
-                  更新密碼
+                  {t('updatePassword', lang)}
                 </button>
               </form>
             </div>
@@ -595,9 +1159,9 @@ export default function SettingsPage() {
                 <div className="bg-green-50 border border-green-200 rounded-xl p-4 flex items-center gap-3">
                   <FileCheck className="text-green-600" size={24} />
                   <div>
-                    <p className="font-bold text-green-800">身份驗證已通過</p>
+                    <p className="font-bold text-green-800">{t('kycApprovedTitle', lang)}</p>
                     <p className="text-sm text-green-600">
-                      審核通過時間: {guide.kyc_reviewed_at ? new Date(guide.kyc_reviewed_at).toLocaleDateString() : '-'}
+                      {t('kycApprovedTime', lang)} {guide.kyc_reviewed_at ? new Date(guide.kyc_reviewed_at).toLocaleDateString() : '-'}
                     </p>
                   </div>
                 </div>
@@ -607,10 +1171,10 @@ export default function SettingsPage() {
                 <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 flex items-center gap-3">
                   <Clock className="text-yellow-600" size={24} />
                   <div>
-                    <p className="font-bold text-yellow-800">審核中</p>
+                    <p className="font-bold text-yellow-800">{t('kycSubmittedTitle', lang)}</p>
                     <p className="text-sm text-yellow-600">
-                      提交時間: {guide.kyc_submitted_at ? new Date(guide.kyc_submitted_at).toLocaleDateString() : '-'}
-                      <br />我們會在 1-3 個工作日內完成審核
+                      {t('kycSubmittedTime', lang)} {guide.kyc_submitted_at ? new Date(guide.kyc_submitted_at).toLocaleDateString() : '-'}
+                      <br />{t('kycReviewPeriod', lang)}
                     </p>
                   </div>
                 </div>
@@ -620,9 +1184,9 @@ export default function SettingsPage() {
                 <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-center gap-3">
                   <XCircle className="text-red-600" size={24} />
                   <div>
-                    <p className="font-bold text-red-800">驗證未通過</p>
+                    <p className="font-bold text-red-800">{t('kycRejectedTitle', lang)}</p>
                     <p className="text-sm text-red-600">
-                      原因: {guide.kyc_review_note || '請重新提交有效證件'}
+                      {t('kycRejectedReason', lang)} {guide.kyc_review_note || t('kycRejectedDefault', lang)}
                     </p>
                   </div>
                 </div>
@@ -632,9 +1196,9 @@ export default function SettingsPage() {
                 <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center gap-3">
                   <Shield className="text-blue-600" size={24} />
                   <div>
-                    <p className="font-bold text-blue-800">請完成身份驗證</p>
+                    <p className="font-bold text-blue-800">{t('kycPendingTitle', lang)}</p>
                     <p className="text-sm text-blue-600">
-                      完成 KYC 驗證後即可開始獲得佣金
+                      {t('kycPendingDesc', lang)}
                     </p>
                   </div>
                 </div>
@@ -647,7 +1211,7 @@ export default function SettingsPage() {
                     {/* Document Type */}
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        證件類型 *
+                        {t('labelDocType', lang)}
                       </label>
                       <select
                         value={kycForm.documentType}
@@ -655,7 +1219,7 @@ export default function SettingsPage() {
                         required
                         className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                       >
-                        <option value="">請選擇證件類型</option>
+                        <option value="">{t('selectDocTypePlaceholder', lang)}</option>
                         {DOCUMENT_TYPES.map((type) => (
                           <option key={type.value} value={type.value}>
                             {type.label}
@@ -667,7 +1231,7 @@ export default function SettingsPage() {
                     {/* Legal Name */}
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        證件姓名 *
+                        {t('labelLegalName', lang)}
                       </label>
                       <input
                         type="text"
@@ -675,14 +1239,14 @@ export default function SettingsPage() {
                         onChange={(e) => setKycForm({ ...kycForm, legalName: e.target.value })}
                         required
                         className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
-                        placeholder="請輸入與證件一致的姓名"
+                        placeholder={t('legalNamePlaceholder', lang)}
                       />
                     </div>
 
                     {/* Document Number */}
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        證件號碼 *
+                        {t('labelDocNumber', lang)}
                       </label>
                       <input
                         type="text"
@@ -690,14 +1254,14 @@ export default function SettingsPage() {
                         onChange={(e) => setKycForm({ ...kycForm, documentNumber: e.target.value })}
                         required
                         className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
-                        placeholder="請輸入證件號碼"
+                        placeholder={t('docNumberPlaceholder', lang)}
                       />
                     </div>
 
                     {/* Nationality */}
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        國籍 *
+                        {t('labelNationality', lang)}
                       </label>
                       <select
                         value={kycForm.nationality}
@@ -705,7 +1269,7 @@ export default function SettingsPage() {
                         required
                         className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                       >
-                        <option value="">請選擇國籍</option>
+                        <option value="">{t('selectNationalityPlaceholder', lang)}</option>
                         {NATIONALITIES.map((nat) => (
                           <option key={nat.value} value={nat.value}>
                             {nat.label}
@@ -719,7 +1283,7 @@ export default function SettingsPage() {
                       {/* Front */}
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                          證件正面 *
+                          {t('labelDocFront', lang)}
                         </label>
                         <div
                           onClick={() => frontInputRef.current?.click()}
@@ -728,14 +1292,14 @@ export default function SettingsPage() {
                           {frontPreview || guide?.id_document_front_url ? (
                             <img
                               src={frontPreview || guide?.id_document_front_url || ''}
-                              alt="證件正面"
+                              alt={t('altDocFront', lang)}
                               className="w-full h-32 object-cover rounded-lg"
                             />
                           ) : (
                             <div className="py-4">
                               <Upload className="mx-auto text-gray-400 mb-2" size={32} />
-                              <p className="text-sm text-gray-500">點擊上傳正面照片</p>
-                              <p className="text-xs text-gray-400 mt-1">支持 JPG, PNG (最大 5MB)</p>
+                              <p className="text-sm text-gray-500">{t('uploadFrontText', lang)}</p>
+                              <p className="text-xs text-gray-400 mt-1">{t('uploadFormatFront', lang)}</p>
                             </div>
                           )}
                           <input
@@ -751,7 +1315,7 @@ export default function SettingsPage() {
                       {/* Back */}
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                          證件背面（選填）
+                          {t('labelDocBack', lang)}
                         </label>
                         <div
                           onClick={() => backInputRef.current?.click()}
@@ -760,14 +1324,14 @@ export default function SettingsPage() {
                           {backPreview || guide?.id_document_back_url ? (
                             <img
                               src={backPreview || guide?.id_document_back_url || ''}
-                              alt="證件背面"
+                              alt={t('altDocBack', lang)}
                               className="w-full h-32 object-cover rounded-lg"
                             />
                           ) : (
                             <div className="py-4">
                               <Upload className="mx-auto text-gray-400 mb-2" size={32} />
-                              <p className="text-sm text-gray-500">點擊上傳背面照片</p>
-                              <p className="text-xs text-gray-400 mt-1">護照可不上傳背面</p>
+                              <p className="text-sm text-gray-500">{t('uploadBackText', lang)}</p>
+                              <p className="text-xs text-gray-400 mt-1">{t('uploadFormatBack', lang)}</p>
                             </div>
                           )}
                           <input
@@ -790,18 +1354,18 @@ export default function SettingsPage() {
                       {uploading ? (
                         <>
                           <Loader2 className="animate-spin" size={20} />
-                          上傳中...
+                          {t('uploading', lang)}
                         </>
                       ) : (
                         <>
                           <Shield size={20} />
-                          {guide?.kyc_status === 'rejected' ? '重新提交驗證' : '提交身份驗證'}
+                          {guide?.kyc_status === 'rejected' ? t('resubmitKyc', lang) : t('submitKyc', lang)}
                         </>
                       )}
                     </button>
 
                     <p className="text-xs text-gray-400 text-center">
-                      您的證件信息將被安全加密存儲，僅用於身份驗證目的
+                      {t('kycPrivacyNote', lang)}
                     </p>
                   </form>
                 </div>
@@ -811,7 +1375,7 @@ export default function SettingsPage() {
 
           {/* Account Created */}
           <div className="mt-6 text-center text-sm text-gray-400">
-            帳號創建於 {guide?.created_at ? new Date(guide.created_at).toLocaleDateString() : ''}
+            {t('accountCreatedOn', lang)} {guide?.created_at ? new Date(guide.created_at).toLocaleDateString() : ''}
           </div>
         </div>
       </main>
@@ -823,15 +1387,15 @@ export default function SettingsPage() {
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircle2 className="w-10 h-10 text-green-600" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">提交成功</h3>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">{t('kycSuccessTitle', lang)}</h3>
             <p className="text-gray-600 mb-6">
-              您的 KYC 資料已成功提交，我們會在 1-3 個工作日內完成審核。審核結果將通過郵件通知您。
+              {t('kycSuccessDesc', lang)}
             </p>
             <button
               onClick={() => setShowKycSuccessModal(false)}
               className="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition"
             >
-              我知道了
+              {t('kycSuccessButton', lang)}
             </button>
           </div>
         </div>

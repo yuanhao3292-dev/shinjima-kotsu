@@ -15,6 +15,200 @@ import {
   ArrowDownRight,
   Target,
 } from 'lucide-react';
+import { useLanguage, type Language } from '@/hooks/useLanguage';
+
+const translations = {
+  pageTitle: {
+    ja: 'データ分析',
+    'zh-CN': '数据分析',
+    'zh-TW': '数据分析',
+    en: 'Analytics',
+  },
+  heading: {
+    ja: 'データ分析',
+    'zh-CN': '数据分析',
+    'zh-TW': '數據分析',
+    en: 'Analytics',
+  },
+  subtitle: {
+    ja: '業績パフォーマンスとトレンドを確認',
+    'zh-CN': '查看您的业绩表现和趋势',
+    'zh-TW': '查看您的業績表現和趨勢',
+    en: 'View your performance and trends',
+  },
+  loading: {
+    ja: '読み込み中...',
+    'zh-CN': '加载中...',
+    'zh-TW': '載入中...',
+    en: 'Loading...',
+  },
+  thisMonthOrders: {
+    ja: '今月の注文',
+    'zh-CN': '本月订单',
+    'zh-TW': '本月訂單',
+    en: 'Orders This Month',
+  },
+  lastMonthLabel: {
+    ja: '先月',
+    'zh-CN': '上月',
+    'zh-TW': '上月',
+    en: 'Last month',
+  },
+  thisMonthCommission: {
+    ja: '今月のコミッション',
+    'zh-CN': '本月佣金',
+    'zh-TW': '本月佣金',
+    en: 'Commission This Month',
+  },
+  thisQuarterSales: {
+    ja: '今四半期の売上',
+    'zh-CN': '本季销售额',
+    'zh-TW': '本季銷售額',
+    en: 'Sales This Quarter',
+  },
+  lastQuarterLabel: {
+    ja: '前四半期',
+    'zh-CN': '上季',
+    'zh-TW': '上季',
+    en: 'Last quarter',
+  },
+  referralCount: {
+    ja: '紹介人数',
+    'zh-CN': '推荐人数',
+    'zh-TW': '推薦人數',
+    en: 'Referrals',
+  },
+  cumulativeReferrals: {
+    ja: '累計紹介',
+    'zh-CN': '累计推荐',
+    'zh-TW': '累計推薦',
+    en: 'Total referrals',
+  },
+  upgradeTarget: {
+    ja: 'アップグレード目標',
+    'zh-CN': '升级目标',
+    'zh-TW': '升級目標',
+    en: 'Upgrade Target',
+  },
+  orderCount: {
+    ja: '注文数',
+    'zh-CN': '订单数',
+    'zh-TW': '訂單數',
+    en: 'Orders',
+  },
+  salesAmount: {
+    ja: '売上額',
+    'zh-CN': '销售额',
+    'zh-TW': '銷售額',
+    en: 'Sales',
+  },
+  monthlyTrend: {
+    ja: '月次トレンド',
+    'zh-CN': '月度趋势',
+    'zh-TW': '月度趨勢',
+    en: 'Monthly Trend',
+  },
+  noData: {
+    ja: 'データなし',
+    'zh-CN': '暂无数据',
+    'zh-TW': '暫無數據',
+    en: 'No data available',
+  },
+  topVenues: {
+    ja: '人気店舗 TOP 5',
+    'zh-CN': '热门店铺 TOP 5',
+    'zh-TW': '熱門店鋪 TOP 5',
+    en: 'Top 5 Venues',
+  },
+  countUnit: {
+    ja: '件',
+    'zh-CN': '笔',
+    'zh-TW': '筆',
+    en: '',
+  },
+  orderStatusBreakdown: {
+    ja: '注文ステータス分布',
+    'zh-CN': '订单状态分布',
+    'zh-TW': '訂單狀態分佈',
+    en: 'Order Status Breakdown',
+  },
+  statusCompleted: {
+    ja: '完了',
+    'zh-CN': '已完成',
+    'zh-TW': '已完成',
+    en: 'Completed',
+  },
+  statusConfirmed: {
+    ja: '確認済み',
+    'zh-CN': '已确认',
+    'zh-TW': '已確認',
+    en: 'Confirmed',
+  },
+  statusPending: {
+    ja: '処理中',
+    'zh-CN': '待处理',
+    'zh-TW': '待處理',
+    en: 'Pending',
+  },
+  statusCancelled: {
+    ja: 'キャンセル',
+    'zh-CN': '已取消',
+    'zh-TW': '已取消',
+    en: 'Cancelled',
+  },
+  cumulativeStats: {
+    ja: '累計統計',
+    'zh-CN': '累计统计',
+    'zh-TW': '累計統計',
+    en: 'Cumulative Statistics',
+  },
+  totalOrders: {
+    ja: '総注文数',
+    'zh-CN': '总订单数',
+    'zh-TW': '總訂單數',
+    en: 'Total Orders',
+  },
+  totalCommission: {
+    ja: '総コミッション',
+    'zh-CN': '总佣金收入',
+    'zh-TW': '總佣金收入',
+    en: 'Total Commission',
+  },
+  totalSales: {
+    ja: '総売上額',
+    'zh-CN': '总销售额',
+    'zh-TW': '總銷售額',
+    en: 'Total Sales',
+  },
+  totalReferrals: {
+    ja: '紹介人数',
+    'zh-CN': '推荐人数',
+    'zh-TW': '推薦人數',
+    en: 'Referrals',
+  },
+  levelGrowth: {
+    ja: '初期パートナー',
+    'zh-CN': '初期合伙人',
+    'zh-TW': '初期合夥人',
+    en: 'Growth Partner',
+  },
+  levelGold: {
+    ja: 'ゴールドパートナー',
+    'zh-CN': '金牌合伙人',
+    'zh-TW': '金牌合夥人',
+    en: 'Gold Partner',
+  },
+  monthSuffix: {
+    ja: '月',
+    'zh-CN': '月',
+    'zh-TW': '月',
+    en: '',
+  },
+} as const;
+
+const t = (key: keyof typeof translations, lang: Language): string => {
+  return translations[key][lang];
+};
 
 interface Guide {
   id: string;
@@ -79,17 +273,18 @@ const LEVEL_TARGETS: Record<string, { bookings: number; spend: number }> = {
   gold: { bookings: 60, spend: 5000000 },
 };
 
-const LEVEL_CONFIG: Record<string, { label: string; color: string; next: string | null }> = {
-  growth: { label: '初期合夥人', color: 'text-brand-700', next: 'gold' },
-  gold: { label: '金牌合夥人', color: 'text-yellow-600', next: null },
-};
-
 export default function AnalyticsPage() {
   const [guide, setGuide] = useState<Guide | null>(null);
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const supabase = createClient();
+  const lang = useLanguage();
+
+  const LEVEL_CONFIG: Record<string, { label: string; color: string; next: string | null }> = {
+    growth: { label: t('levelGrowth', lang), color: 'text-brand-700', next: 'gold' },
+    gold: { label: t('levelGold', lang), color: 'text-yellow-600', next: null },
+  };
 
   useEffect(() => {
     loadAnalytics();
@@ -253,7 +448,7 @@ export default function AnalyticsPage() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">載入中...</p>
+          <p className="text-gray-600">{t('loading', lang)}</p>
         </div>
       </div>
     );
@@ -269,7 +464,7 @@ export default function AnalyticsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <GuideSidebar pageTitle="数据分析" />
+      <GuideSidebar pageTitle={t('pageTitle', lang)} />
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
@@ -278,9 +473,9 @@ export default function AnalyticsPage() {
           <div className="mb-6">
             <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
               <BarChart3 className="text-brand-500" size={28} />
-              數據分析
+              {t('heading', lang)}
             </h1>
-            <p className="text-gray-500 mt-1">查看您的業績表現和趨勢</p>
+            <p className="text-gray-500 mt-1">{t('subtitle', lang)}</p>
           </div>
 
           {/* Key Metrics */}
@@ -288,7 +483,7 @@ export default function AnalyticsPage() {
             {/* 本月訂單 */}
             <div className="bg-white rounded-xl border p-5">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-sm text-gray-500">本月訂單</p>
+                <p className="text-sm text-gray-500">{t('thisMonthOrders', lang)}</p>
                 {stats && (
                   <span className={`text-xs font-medium flex items-center gap-1 ${
                     calcGrowth(stats.thisMonth.bookings, stats.lastMonth.bookings) >= 0
@@ -301,13 +496,13 @@ export default function AnalyticsPage() {
                 )}
               </div>
               <p className="text-3xl font-bold text-gray-900">{stats?.thisMonth.bookings || 0}</p>
-              <p className="text-xs text-gray-400 mt-1">上月: {stats?.lastMonth.bookings || 0}</p>
+              <p className="text-xs text-gray-400 mt-1">{t('lastMonthLabel', lang)}: {stats?.lastMonth.bookings || 0}</p>
             </div>
 
             {/* 本月佣金 */}
             <div className="bg-white rounded-xl border p-5">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-sm text-gray-500">本月佣金</p>
+                <p className="text-sm text-gray-500">{t('thisMonthCommission', lang)}</p>
                 {stats && (
                   <span className={`text-xs font-medium flex items-center gap-1 ${
                     calcGrowth(stats.thisMonth.commission, stats.lastMonth.commission) >= 0
@@ -320,13 +515,13 @@ export default function AnalyticsPage() {
                 )}
               </div>
               <p className="text-3xl font-bold text-green-600">{formatCurrency(stats?.thisMonth.commission || 0)}</p>
-              <p className="text-xs text-gray-400 mt-1">上月: {formatCurrency(stats?.lastMonth.commission || 0)}</p>
+              <p className="text-xs text-gray-400 mt-1">{t('lastMonthLabel', lang)}: {formatCurrency(stats?.lastMonth.commission || 0)}</p>
             </div>
 
             {/* 本季銷售額 */}
             <div className="bg-white rounded-xl border p-5">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-sm text-gray-500">本季銷售額</p>
+                <p className="text-sm text-gray-500">{t('thisQuarterSales', lang)}</p>
                 {stats && (
                   <span className={`text-xs font-medium flex items-center gap-1 ${
                     calcGrowth(stats.thisQuarter.spend, stats.lastQuarter.spend) >= 0
@@ -339,14 +534,14 @@ export default function AnalyticsPage() {
                 )}
               </div>
               <p className="text-3xl font-bold text-indigo-600">{formatCurrency(stats?.thisQuarter.spend || 0)}</p>
-              <p className="text-xs text-gray-400 mt-1">上季: {formatCurrency(stats?.lastQuarter.spend || 0)}</p>
+              <p className="text-xs text-gray-400 mt-1">{t('lastQuarterLabel', lang)}: {formatCurrency(stats?.lastQuarter.spend || 0)}</p>
             </div>
 
             {/* 推薦人數 */}
             <div className="bg-white rounded-xl border p-5">
-              <p className="text-sm text-gray-500 mb-2">推薦人數</p>
+              <p className="text-sm text-gray-500 mb-2">{t('referralCount', lang)}</p>
               <p className="text-3xl font-bold text-purple-600">{stats?.total.referrals || 0}</p>
-              <p className="text-xs text-gray-400 mt-1">累計推薦</p>
+              <p className="text-xs text-gray-400 mt-1">{t('cumulativeReferrals', lang)}</p>
             </div>
           </div>
 
@@ -356,7 +551,7 @@ export default function AnalyticsPage() {
               <div className="flex items-center gap-3 mb-4">
                 <Target className="text-white/80" size={24} />
                 <div>
-                  <p className="text-brand-100 text-sm">升級目標</p>
+                  <p className="text-brand-100 text-sm">{t('upgradeTarget', lang)}</p>
                   <p className="font-bold text-lg">
                     {LEVEL_CONFIG[currentLevel]?.label} → {LEVEL_CONFIG[nextLevel]?.label}
                   </p>
@@ -365,7 +560,7 @@ export default function AnalyticsPage() {
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <div className="flex justify-between text-sm mb-1">
-                    <span className="text-brand-100">訂單數</span>
+                    <span className="text-brand-100">{t('orderCount', lang)}</span>
                     <span>{guide?.total_bookings || 0} / {nextTarget.bookings}</span>
                   </div>
                   <div className="h-3 bg-white/20 rounded-full overflow-hidden">
@@ -377,7 +572,7 @@ export default function AnalyticsPage() {
                 </div>
                 <div>
                   <div className="flex justify-between text-sm mb-1">
-                    <span className="text-brand-100">銷售額</span>
+                    <span className="text-brand-100">{t('salesAmount', lang)}</span>
                     <span>{formatCurrency(stats?.total.spend || 0)} / {formatCurrency(nextTarget.spend)}</span>
                   </div>
                   <div className="h-3 bg-white/20 rounded-full overflow-hidden">
@@ -396,13 +591,13 @@ export default function AnalyticsPage() {
             <div className="bg-white rounded-xl border p-6">
               <h2 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
                 <TrendingUp size={18} />
-                月度趨勢
+                {t('monthlyTrend', lang)}
               </h2>
               {stats?.monthlyTrend && stats.monthlyTrend.length > 0 ? (
                 <div className="space-y-3">
                   {stats.monthlyTrend.map((month) => (
                     <div key={month.month} className="flex items-center gap-4">
-                      <span className="text-sm text-gray-500 w-16">{month.month.slice(5)}月</span>
+                      <span className="text-sm text-gray-500 w-16">{month.month.slice(5)}{t('monthSuffix', lang)}</span>
                       <div className="flex-1">
                         <div className="h-6 bg-gray-100 rounded-full overflow-hidden">
                           <div
@@ -420,7 +615,7 @@ export default function AnalyticsPage() {
                   ))}
                 </div>
               ) : (
-                <p className="text-gray-400 text-center py-8">暫無數據</p>
+                <p className="text-gray-400 text-center py-8">{t('noData', lang)}</p>
               )}
             </div>
 
@@ -428,7 +623,7 @@ export default function AnalyticsPage() {
             <div className="bg-white rounded-xl border p-6">
               <h2 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
                 <PieChart size={18} />
-                熱門店鋪 TOP 5
+                {t('topVenues', lang)}
               </h2>
               {stats?.topVenues && stats.topVenues.length > 0 ? (
                 <div className="space-y-3">
@@ -447,35 +642,35 @@ export default function AnalyticsPage() {
                       </div>
                       <div className="text-right">
                         <p className="font-medium text-gray-900">{formatCurrency(venue.total_spend)}</p>
-                        <p className="text-xs text-gray-400">{venue.booking_count} 筆</p>
+                        <p className="text-xs text-gray-400">{venue.booking_count} {t('countUnit', lang)}</p>
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-gray-400 text-center py-8">暫無數據</p>
+                <p className="text-gray-400 text-center py-8">{t('noData', lang)}</p>
               )}
             </div>
 
             {/* Status Breakdown */}
             <div className="bg-white rounded-xl border p-6 lg:col-span-2">
-              <h2 className="font-bold text-gray-900 mb-4">訂單狀態分佈</h2>
+              <h2 className="font-bold text-gray-900 mb-4">{t('orderStatusBreakdown', lang)}</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="text-center p-4 bg-green-50 rounded-xl">
                   <p className="text-3xl font-bold text-green-600">{stats?.statusBreakdown.completed || 0}</p>
-                  <p className="text-sm text-green-700 mt-1">已完成</p>
+                  <p className="text-sm text-green-700 mt-1">{t('statusCompleted', lang)}</p>
                 </div>
                 <div className="text-center p-4 bg-blue-50 rounded-xl">
                   <p className="text-3xl font-bold text-blue-600">{stats?.statusBreakdown.confirmed || 0}</p>
-                  <p className="text-sm text-blue-700 mt-1">已確認</p>
+                  <p className="text-sm text-blue-700 mt-1">{t('statusConfirmed', lang)}</p>
                 </div>
                 <div className="text-center p-4 bg-yellow-50 rounded-xl">
                   <p className="text-3xl font-bold text-yellow-600">{stats?.statusBreakdown.pending || 0}</p>
-                  <p className="text-sm text-yellow-700 mt-1">待處理</p>
+                  <p className="text-sm text-yellow-700 mt-1">{t('statusPending', lang)}</p>
                 </div>
                 <div className="text-center p-4 bg-gray-50 rounded-xl">
                   <p className="text-3xl font-bold text-gray-500">{stats?.statusBreakdown.cancelled || 0}</p>
-                  <p className="text-sm text-gray-600 mt-1">已取消</p>
+                  <p className="text-sm text-gray-600 mt-1">{t('statusCancelled', lang)}</p>
                 </div>
               </div>
             </div>
@@ -483,22 +678,22 @@ export default function AnalyticsPage() {
 
           {/* Summary */}
           <div className="mt-8 bg-white rounded-xl border p-6">
-            <h2 className="font-bold text-gray-900 mb-4">累計統計</h2>
+            <h2 className="font-bold text-gray-900 mb-4">{t('cumulativeStats', lang)}</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div>
-                <p className="text-sm text-gray-500">總訂單數</p>
+                <p className="text-sm text-gray-500">{t('totalOrders', lang)}</p>
                 <p className="text-2xl font-bold text-gray-900">{stats?.total.bookings || 0}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-500">總佣金收入</p>
+                <p className="text-sm text-gray-500">{t('totalCommission', lang)}</p>
                 <p className="text-2xl font-bold text-green-600">{formatCurrency(stats?.total.commission || 0)}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-500">總銷售額</p>
+                <p className="text-sm text-gray-500">{t('totalSales', lang)}</p>
                 <p className="text-2xl font-bold text-indigo-600">{formatCurrency(stats?.total.spend || 0)}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-500">推薦人數</p>
+                <p className="text-sm text-gray-500">{t('totalReferrals', lang)}</p>
                 <p className="text-2xl font-bold text-purple-600">{stats?.total.referrals || 0}</p>
               </div>
             </div>

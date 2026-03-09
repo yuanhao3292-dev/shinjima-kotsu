@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
+import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
   Store,
   Calendar,
@@ -22,6 +23,514 @@ import {
   Headphones
 } from 'lucide-react';
 
+// ─── i18n translations ───────────────────────────────────────────────
+const translations = {
+  pageTitle: {
+    ja: '報酬精算',
+    'zh-CN': '返金结算',
+    'zh-TW': '返金结算',
+    en: 'Commission Settlement',
+  },
+  headerTitle: {
+    ja: '報酬精算',
+    'zh-CN': '报酬结算',
+    'zh-TW': '報酬結算',
+    en: 'Commission Settlement',
+  },
+  headerDesc: {
+    ja: '報酬収入と精算記録をご確認ください',
+    'zh-CN': '查看您的报酬收入和结算记录',
+    'zh-TW': '查看您的報酬收入和結算記錄',
+    en: 'View your commission income and settlement records',
+  },
+  totalEarned: {
+    ja: '累計収入',
+    'zh-CN': '累计收入',
+    'zh-TW': '累計收入',
+    en: 'Total Earned',
+  },
+  pendingSettlement: {
+    ja: '未精算',
+    'zh-CN': '待结算',
+    'zh-TW': '待結算',
+    en: 'Pending',
+  },
+  thisMonth: {
+    ja: '今月',
+    'zh-CN': '本月',
+    'zh-TW': '本月',
+    en: 'This Month',
+  },
+  lastMonth: {
+    ja: '先月',
+    'zh-CN': '上月',
+    'zh-TW': '上月',
+    en: 'Last Month',
+  },
+  applyWithdrawal: {
+    ja: '出金申請',
+    'zh-CN': '申请提现',
+    'zh-TW': '申請提現',
+    en: 'Request Withdrawal',
+  },
+  commissionCalcTitle: {
+    ja: '報酬計算方式',
+    'zh-CN': '报酬计算方式',
+    'zh-TW': '報酬計算方式',
+    en: 'Commission Calculation',
+  },
+  commissionFormula: {
+    ja: '報酬 = お客様消費金額 ÷ 1.1（消費税10%控除）×',
+    'zh-CN': '报酬 = 客户消费金额 ÷ 1.1（扣除10%消费税）×',
+    'zh-TW': '報酬 = 客戶消費金額 ÷ 1.1（扣除10%消費稅）×',
+    en: 'Commission = Customer spend ÷ 1.1 (excl. 10% tax) ×',
+  },
+  commissionExample: {
+    ja: '例：お客様消費 100 万円 → 報酬約',
+    'zh-CN': '例：客户消费 100 万日元 → 报酬约',
+    'zh-TW': '例：客戶消費 100 萬日元 → 報酬約',
+    en: 'E.g.: Customer spends ¥1,000,000 → Commission approx.',
+  },
+  newCustomerBonusTitle: {
+    ja: '新規顧客初回ボーナス +5%',
+    'zh-CN': '新客首单奖励 +5%',
+    'zh-TW': '新客首單獎勵 +5%',
+    en: 'New Customer Bonus +5%',
+  },
+  newCustomerBonusDesc: {
+    ja: '新規顧客の初回注文で、追加 5% のボーナスコミッションを獲得できます！',
+    'zh-CN': '每位新客户的首笔订单，您将额外获得 5% 的奖励佣金！',
+    'zh-TW': '每位新客戶的首筆訂單，您將額外獲得 5% 的獎勵佣金！',
+    en: 'Earn an extra 5% bonus commission on every new customer\'s first order!',
+  },
+  newCustomerBonusExample: {
+    ja: '例：',
+    'zh-CN': '例：',
+    'zh-TW': '例：',
+    en: 'E.g.: ',
+  },
+  newCustomerBonusLabel: {
+    ja: '+ 新規ボーナス',
+    'zh-CN': '+ 新客奖励',
+    'zh-TW': '+ 新客獎勵',
+    en: '+ New Customer Bonus',
+  },
+  totalCommissionRateLabel: {
+    ja: '= 合計コミッション率',
+    'zh-CN': '= 总佣金率',
+    'zh-TW': '= 總佣金率',
+    en: '= Total Commission Rate',
+  },
+  tabStoreCommission: {
+    ja: '店舗報酬',
+    'zh-CN': '店铺报酬',
+    'zh-TW': '店舖報酬',
+    en: 'Store Commission',
+  },
+  tabWhitelabel: {
+    ja: 'ホワイトラベル注文',
+    'zh-CN': '白标订单',
+    'zh-TW': '白標訂單',
+    en: 'Whitelabel Orders',
+  },
+  tabReferrals: {
+    ja: '紹介報酬',
+    'zh-CN': '推荐奖励',
+    'zh-TW': '推薦獎勵',
+    en: 'Referral Rewards',
+  },
+  tabMonthlySettlement: {
+    ja: '月次精算',
+    'zh-CN': '月度结算',
+    'zh-TW': '月度結算',
+    en: 'Monthly Settlement',
+  },
+  storeCommissionRecords: {
+    ja: '店舗報酬記録',
+    'zh-CN': '店铺报酬记录',
+    'zh-TW': '店舖報酬記錄',
+    en: 'Store Commission Records',
+  },
+  noCommissionRecords: {
+    ja: '報酬記録はありません',
+    'zh-CN': '暂无报酬记录',
+    'zh-TW': '暫無報酬記錄',
+    en: 'No commission records yet',
+  },
+  startBookingToEarn: {
+    ja: '予約を開始して報酬を獲得しましょう',
+    'zh-CN': '开始预约赚取报酬',
+    'zh-TW': '開始預約賺取報酬',
+    en: 'Start booking to earn commissions',
+  },
+  spend: {
+    ja: '消費',
+    'zh-CN': '消费',
+    'zh-TW': '消費',
+    en: 'Spent',
+  },
+  whitelabelCommissionTitle: {
+    ja: 'ホワイトラベル注文コミッション',
+    'zh-CN': '白标订单佣金',
+    'zh-TW': '白標訂單佣金',
+    en: 'Whitelabel Order Commission',
+  },
+  whitelabelCommissionDesc: {
+    ja: 'お客様が専用リンクから注文した分',
+    'zh-CN': '通过您专属链接下单的客户',
+    'zh-TW': '透過您專屬連結下單的客戶',
+    en: 'Orders placed via your exclusive link',
+  },
+  exportCSV: {
+    ja: 'CSV出力',
+    'zh-CN': '导出CSV',
+    'zh-TW': '導出CSV',
+    en: 'Export CSV',
+  },
+  orderTypeMedical: {
+    ja: '医療健診',
+    'zh-CN': '医疗体检',
+    'zh-TW': '醫療體檢',
+    en: 'Medical Checkup',
+  },
+  orderTypeGolf: {
+    ja: 'ゴルフ',
+    'zh-CN': '高尔夫',
+    'zh-TW': '高爾夫',
+    en: 'Golf',
+  },
+  orderTypeBusiness: {
+    ja: 'ビジネス視察',
+    'zh-CN': '商务考察',
+    'zh-TW': '商務考察',
+    en: 'Business Visit',
+  },
+  newCustomerReward: {
+    ja: '新規ボーナス',
+    'zh-CN': '新客奖励',
+    'zh-TW': '新客獎勵',
+    en: 'New Customer Bonus',
+  },
+  orderAmount: {
+    ja: '注文金額',
+    'zh-CN': '订单金额',
+    'zh-TW': '訂單金額',
+    en: 'Order Amount',
+  },
+  baseCommission: {
+    ja: '基本',
+    'zh-CN': '基础',
+    'zh-TW': '基礎',
+    en: 'Base',
+  },
+  bonusReward: {
+    ja: '+ ボーナス',
+    'zh-CN': '+ 奖励',
+    'zh-TW': '+ 獎勵',
+    en: '+ Bonus',
+  },
+  commissionRate: {
+    ja: 'コミッション率',
+    'zh-CN': '佣金率',
+    'zh-TW': '佣金率',
+    en: 'Commission Rate',
+  },
+  noWhitelabelOrders: {
+    ja: 'ホワイトラベル注文はありません',
+    'zh-CN': '暂无白标订单',
+    'zh-TW': '暫無白標訂單',
+    en: 'No whitelabel orders yet',
+  },
+  setupWhitelabelToStart: {
+    ja: 'ホワイトラベルサイトを設定して販促を開始',
+    'zh-CN': '设置白标网站开始推广',
+    'zh-TW': '設置白標網站開始推廣',
+    en: 'Set up your whitelabel site to start promoting',
+  },
+  referralRewardsTitle: {
+    ja: '紹介報酬記録',
+    'zh-CN': '推荐奖励记录',
+    'zh-TW': '推薦獎勵記錄',
+    en: 'Referral Reward Records',
+  },
+  referralRewardsDesc: {
+    ja: 'ご紹介のガイドの業績による 2% の追加報酬',
+    'zh-CN': '您推荐的导游业绩带来的 2% 额外奖励',
+    'zh-TW': '您推薦的導遊業績帶來的 2% 額外獎勵',
+    en: '2% extra reward from your referred guides\' performance',
+  },
+  pendingReferralRewards: {
+    ja: '未精算の紹介報酬',
+    'zh-CN': '待结算奖励',
+    'zh-TW': '待結算獎勵',
+    en: 'Pending Rewards',
+  },
+  unknownGuide: {
+    ja: '不明なガイド',
+    'zh-CN': '未知导游',
+    'zh-TW': '未知導遊',
+    en: 'Unknown Guide',
+  },
+  performanceOf: {
+    ja: ' の業績',
+    'zh-CN': ' 的业绩',
+    'zh-TW': ' 的業績',
+    en: '\'s Performance',
+  },
+  downlineReward: {
+    ja: '紹介報酬',
+    'zh-CN': '下线奖励',
+    'zh-TW': '下線獎勵',
+    en: 'Referral Reward',
+  },
+  customer: {
+    ja: '顧客',
+    'zh-CN': '客户',
+    'zh-TW': '客戶',
+    en: 'Customer',
+  },
+  rewardRate: {
+    ja: '報酬率',
+    'zh-CN': '奖励率',
+    'zh-TW': '獎勵率',
+    en: 'Reward Rate',
+  },
+  noReferralRewards: {
+    ja: '紹介報酬はありません',
+    'zh-CN': '暂无推荐奖励',
+    'zh-TW': '暫無推薦獎勵',
+    en: 'No referral rewards yet',
+  },
+  referralRewardsEmptyDesc: {
+    ja: 'ご紹介のガイドが注文を完了すると、業績の 2% が追加報酬として付与されます',
+    'zh-CN': '当您推荐的导游完成订单后，您将获得其业绩 2% 的额外奖励',
+    'zh-TW': '當您推薦的導遊完成訂單後，您將獲得其業績 2% 的額外獎勵',
+    en: 'When your referred guides complete orders, you earn an extra 2% of their performance',
+  },
+  viewMyReferralCode: {
+    ja: '紹介コードを確認',
+    'zh-CN': '查看我的推荐码',
+    'zh-TW': '查看我的推薦碼',
+    en: 'View My Referral Code',
+  },
+  monthlySettlementRecords: {
+    ja: '月次精算記録',
+    'zh-CN': '月度结算记录',
+    'zh-TW': '月度結算記錄',
+    en: 'Monthly Settlement Records',
+  },
+  ordersCount: {
+    ja: '件の注文',
+    'zh-CN': '笔订单',
+    'zh-TW': '筆訂單',
+    en: ' orders',
+  },
+  totalSpend: {
+    ja: '総消費',
+    'zh-CN': '总消费',
+    'zh-TW': '總消費',
+    en: 'Total Spend',
+  },
+  paidOn: {
+    ja: '支払済',
+    'zh-CN': '已付款',
+    'zh-TW': '已付款',
+    en: 'Paid',
+  },
+  noSettlementRecords: {
+    ja: '精算記録はありません',
+    'zh-CN': '暂无结算记录',
+    'zh-TW': '暫無結算記錄',
+    en: 'No settlement records yet',
+  },
+  monthlySettlementNote: {
+    ja: '毎月初に前月の報酬を集計します',
+    'zh-CN': '每月初统计上月报酬',
+    'zh-TW': '每月初統計上月報酬',
+    en: 'Previous month commissions are tallied at the start of each month',
+  },
+  settlementInfoTitle: {
+    ja: '精算について',
+    'zh-CN': '结算说明',
+    'zh-TW': '結算說明',
+    en: 'Settlement Info',
+  },
+  settlementInfo1: {
+    ja: 'ホワイトラベル注文のコミッションは、サービス完了後 <strong>2 週間</strong>で出金申請が可能です',
+    'zh-CN': '白标订单佣金在客人完成服务后 <strong>2 周</strong>即可申请提现',
+    'zh-TW': '白標訂單佣金在客人完成服務後 <strong>2 週</strong>即可申請提現',
+    en: 'Whitelabel order commissions can be withdrawn <strong>2 weeks</strong> after service completion',
+  },
+  settlementInfo2: {
+    ja: '店舗報酬は毎月 1〜5 日に前月完了分を集計します',
+    'zh-CN': '店铺报酬每月 1-5 日统计上月已完成订单',
+    'zh-TW': '店舖報酬每月 1-5 日統計上月已完成訂單',
+    en: 'Store commissions are tallied on the 1st-5th of each month for prior month',
+  },
+  settlementInfo3: {
+    ja: '出金は銀行振込で、1〜3 営業日で着金します',
+    'zh-CN': '提现通过银行转账支付，1-3 个工作日到账',
+    'zh-TW': '提現通過銀行轉帳支付，1-3 個工作日到帳',
+    en: 'Withdrawals are paid via bank transfer within 1-3 business days',
+  },
+  settlementInfo4: {
+    ja: 'ご不明な点はカスタマーサポートまでお問い合わせください',
+    'zh-CN': '如有疑问请联系客服核实',
+    'zh-TW': '如有疑問請聯繫客服核實',
+    en: 'Contact support if you have any questions',
+  },
+  loading: {
+    ja: '読み込み中...',
+    'zh-CN': '加载中...',
+    'zh-TW': '載入中...',
+    en: 'Loading...',
+  },
+  // Settlement status badges
+  statusPending: {
+    ja: '集計中',
+    'zh-CN': '统计中',
+    'zh-TW': '統計中',
+    en: 'Processing',
+  },
+  statusConfirmed: {
+    ja: '支払待ち',
+    'zh-CN': '待付款',
+    'zh-TW': '待付款',
+    en: 'Awaiting Payment',
+  },
+  statusPaid: {
+    ja: '精算済',
+    'zh-CN': '已结算',
+    'zh-TW': '已結算',
+    en: 'Settled',
+  },
+  // Commission status badges
+  commStatusPending: {
+    ja: '未計算',
+    'zh-CN': '待计算',
+    'zh-TW': '待計算',
+    en: 'Pending',
+  },
+  commStatusCalculated: {
+    ja: 'ロック中',
+    'zh-CN': '锁定中',
+    'zh-TW': '鎖定中',
+    en: 'Locked',
+  },
+  commStatusAvailable: {
+    ja: '出金可能',
+    'zh-CN': '可提现',
+    'zh-TW': '可提現',
+    en: 'Available',
+  },
+  commStatusPaid: {
+    ja: '精算済',
+    'zh-CN': '已结算',
+    'zh-TW': '已結算',
+    en: 'Settled',
+  },
+  daysUntilAvailable: {
+    ja: '日後に出金可能',
+    'zh-CN': '天后可提现',
+    'zh-TW': '天後可提現',
+    en: ' day(s) until available',
+  },
+  // CSV export headers
+  csvDate: {
+    ja: '日付',
+    'zh-CN': '日期',
+    'zh-TW': '日期',
+    en: 'Date',
+  },
+  csvType: {
+    ja: '種類',
+    'zh-CN': '类型',
+    'zh-TW': '類型',
+    en: 'Type',
+  },
+  csvOrderAmount: {
+    ja: '注文金額',
+    'zh-CN': '订单金额',
+    'zh-TW': '訂單金額',
+    en: 'Order Amount',
+  },
+  csvCommissionRate: {
+    ja: 'コミッション率',
+    'zh-CN': '佣金率',
+    'zh-TW': '佣金率',
+    en: 'Commission Rate',
+  },
+  csvCommissionAmount: {
+    ja: 'コミッション金額',
+    'zh-CN': '佣金金额',
+    'zh-TW': '佣金金額',
+    en: 'Commission Amount',
+  },
+  csvNewCustomerBonus: {
+    ja: '新規ボーナス',
+    'zh-CN': '新客奖励',
+    'zh-TW': '新客獎勵',
+    en: 'New Customer Bonus',
+  },
+  csvStatus: {
+    ja: 'ステータス',
+    'zh-CN': '状态',
+    'zh-TW': '狀態',
+    en: 'Status',
+  },
+  csvFilename: {
+    ja: 'コミッションレポート',
+    'zh-CN': '佣金报表',
+    'zh-TW': '佣金報表',
+    en: 'commission-report',
+  },
+  // CSV export status labels
+  csvStatusPending: {
+    ja: '未計算',
+    'zh-CN': '待计算',
+    'zh-TW': '待計算',
+    en: 'Pending',
+  },
+  csvStatusCalculated: {
+    ja: '未精算',
+    'zh-CN': '待结算',
+    'zh-TW': '待結算',
+    en: 'Pending Settlement',
+  },
+  csvStatusPaid: {
+    ja: '精算済',
+    'zh-CN': '已结算',
+    'zh-TW': '已結算',
+    en: 'Settled',
+  },
+  // Tier names
+  tierGold: {
+    ja: 'ゴールドパートナー',
+    'zh-CN': '金牌合伙人',
+    'zh-TW': '金牌合夥人',
+    en: 'Gold Partner',
+  },
+  tierInitial: {
+    ja: '初期パートナー',
+    'zh-CN': '初期合伙人',
+    'zh-TW': '初期合夥人',
+    en: 'Starter Partner',
+  },
+} as const;
+
+const t = (key: keyof typeof translations, lang: Language): string => {
+  return translations[key][lang];
+};
+
+// ─── Date locale mapping ─────────────────────────────────────────────
+const dateLocaleMap: Record<Language, string> = {
+  ja: 'ja-JP',
+  'zh-CN': 'zh-CN',
+  'zh-TW': 'zh-TW',
+  en: 'en-US',
+};
+
+// ─── Interfaces ──────────────────────────────────────────────────────
 interface Settlement {
   id: string;
   settlement_month: string;
@@ -46,7 +555,6 @@ interface CommissionRecord {
   } | null;
 }
 
-// 白标订单佣金记录（包含新客奖励信息）
 interface WhitelabelCommission {
   id: string;
   order_type: string;
@@ -65,7 +573,6 @@ interface WhitelabelCommission {
   } | null;
 }
 
-// 推薦獎勵記錄
 interface ReferralReward {
   id: string;
   referee_id: string;
@@ -91,8 +598,8 @@ interface Stats {
   pendingAmount: number;
   thisMonthAmount: number;
   lastMonthAmount: number;
-  referralPending: number; // 新增：待結算的推薦獎勵
-  referralTotal: number;   // 新增：累計推薦獎勵
+  referralPending: number;
+  referralTotal: number;
 }
 
 export default function CommissionPage() {
@@ -104,9 +611,10 @@ export default function CommissionPage() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'overview' | 'whitelabel' | 'referrals' | 'history'>('overview');
   const [commissionRate, setCommissionRate] = useState<number>(10);
-  const [tierName, setTierName] = useState<string>('銅牌合夥人');
+  const [tierName, setTierName] = useState<'tierGold' | 'tierInitial'>('tierInitial');
   const router = useRouter();
   const supabase = createClient();
+  const lang = useLanguage();
 
   useEffect(() => {
     loadCommissionData();
@@ -137,12 +645,10 @@ export default function CommissionPage() {
         return;
       }
 
-      // 設置佣金信息：金牌 20%，初期 10%
       const isGold = guide.commission_tier_code === 'gold';
       setCommissionRate(isGold ? 20 : 10);
-      setTierName(isGold ? '金牌合夥人' : '初期合夥人');
+      setTierName(isGold ? 'tierGold' : 'tierInitial');
 
-      // 載入結算記錄
       const { data: settlementsData } = await supabase
         .from('commission_settlements')
         .select('*')
@@ -151,7 +657,6 @@ export default function CommissionPage() {
 
       setSettlements(settlementsData || []);
 
-      // 載入最近的報酬記錄
       const { data: commissionsData } = await supabase
         .from('bookings')
         .select(`
@@ -168,14 +673,12 @@ export default function CommissionPage() {
         .order('completed_at', { ascending: false })
         .limit(10);
 
-      // Transform venue from array to object (Supabase returns array for single relations)
       const transformedCommissions = (commissionsData || []).map(c => ({
         ...c,
         venue: Array.isArray(c.venue) ? c.venue[0] : c.venue
       })) as CommissionRecord[];
       setRecentCommissions(transformedCommissions);
 
-      // 載入白標訂單佣金記錄（包含新客獎勵）
       const { data: wlCommissions } = await supabase
         .from('white_label_orders')
         .select('*')
@@ -185,7 +688,6 @@ export default function CommissionPage() {
 
       setWhitelabelCommissions((wlCommissions || []) as WhitelabelCommission[]);
 
-      // 載入推薦獎勵記錄
       const { data: rewards } = await supabase
         .from('referral_rewards')
         .select(`
@@ -204,7 +706,6 @@ export default function CommissionPage() {
         .order('created_at', { ascending: false })
         .limit(50);
 
-      // Transform referee and booking from array to object (including nested venue)
       const transformedRewards = (rewards || []).map(r => {
         const booking = Array.isArray(r.booking) ? r.booking[0] : r.booking;
         return {
@@ -218,16 +719,14 @@ export default function CommissionPage() {
       }) as ReferralReward[];
       setReferralRewards(transformedRewards);
 
-      // 計算統計數據
       const now = new Date();
       const thisMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-      const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1);
-      const lastMonthStr = `${lastMonth.getFullYear()}-${String(lastMonth.getMonth() + 1).padStart(2, '0')}`;
+      const lastMonthDate = new Date(now.getFullYear(), now.getMonth() - 1);
+      const lastMonthStr = `${lastMonthDate.getFullYear()}-${String(lastMonthDate.getMonth() + 1).padStart(2, '0')}`;
 
       const thisMonthSettlement = settlementsData?.find(s => s.settlement_month === thisMonth);
       const lastMonthSettlement = settlementsData?.find(s => s.settlement_month === lastMonthStr);
 
-      // 計算待結算金額（已計算但未支付）
       const { data: pendingBookings } = await supabase
         .from('bookings')
         .select('commission_amount')
@@ -236,7 +735,6 @@ export default function CommissionPage() {
 
       const pendingAmount = pendingBookings?.reduce((sum, b) => sum + (b.commission_amount || 0), 0) || 0;
 
-      // 計算推薦獎勵統計
       const referralPending = transformedRewards
         .filter(r => r.status === 'pending')
         .reduce((sum, r) => sum + (r.reward_amount || 0), 0);
@@ -245,7 +743,7 @@ export default function CommissionPage() {
 
       setStats({
         totalEarned: guide.total_commission || 0,
-        pendingAmount: pendingAmount + referralPending, // 包含推薦獎勵
+        pendingAmount: pendingAmount + referralPending,
         thisMonthAmount: thisMonthSettlement?.total_commission || 0,
         lastMonthAmount: lastMonthSettlement?.total_commission || 0,
         referralPending,
@@ -265,9 +763,9 @@ export default function CommissionPage() {
       paid: 'bg-green-100 text-green-700',
     };
     const labels: Record<string, string> = {
-      pending: '統計中',
-      confirmed: '待付款',
-      paid: '已結算',
+      pending: t('statusPending', lang),
+      confirmed: t('statusConfirmed', lang),
+      paid: t('statusPaid', lang),
     };
     return (
       <span className={`px-2 py-1 rounded-full text-xs font-medium ${styles[status] || styles.pending}`}>
@@ -284,13 +782,12 @@ export default function CommissionPage() {
       paid: 'bg-green-100 text-green-700',
     };
     const labels: Record<string, string> = {
-      pending: '待計算',
-      calculated: '鎖定中',
-      available: '可提現',
-      paid: '已結算',
+      pending: t('commStatusPending', lang),
+      calculated: t('commStatusCalculated', lang),
+      available: t('commStatusAvailable', lang),
+      paid: t('commStatusPaid', lang),
     };
 
-    // 对于 calculated 状态，显示解锁日期
     if (status === 'calculated' && availableAt) {
       const unlockDate = new Date(availableAt);
       const now = new Date();
@@ -302,7 +799,7 @@ export default function CommissionPage() {
           </span>
           {daysLeft > 0 && (
             <p className="text-xs text-yellow-600 mt-1">
-              {daysLeft}天後可提現
+              {daysLeft}{t('daysUntilAvailable', lang)}
             </p>
           )}
         </div>
@@ -318,28 +815,36 @@ export default function CommissionPage() {
 
   const formatMonth = (monthStr: string) => {
     const [year, month] = monthStr.split('-');
-    return `${year}年${parseInt(month)}月`;
+    if (lang === 'ja') return `${year}年${parseInt(month)}月`;
+    if (lang === 'zh-CN' || lang === 'zh-TW') return `${year}年${parseInt(month)}月`;
+    return `${year}/${parseInt(month)}`;
   };
 
-  // 導出 CSV 功能
   const exportToCSV = () => {
     const orderTypeLabels: Record<string, string> = {
-      medical: '醫療體檢',
-      golf: '高爾夫',
-      business: '商務考察',
+      medical: t('orderTypeMedical', lang),
+      golf: t('orderTypeGolf', lang),
+      business: t('orderTypeBusiness', lang),
     };
     const statusLabels: Record<string, string> = {
-      pending: '待計算',
-      calculated: '待結算',
-      paid: '已結算',
+      pending: t('csvStatusPending', lang),
+      calculated: t('csvStatusCalculated', lang),
+      paid: t('csvStatusPaid', lang),
     };
 
-    // 準備 CSV 數據
-    const headers = ['日期', '類型', '訂單金額', '佣金率', '佣金金額', '新客獎勵', '狀態'];
+    const headers = [
+      t('csvDate', lang),
+      t('csvType', lang),
+      t('csvOrderAmount', lang),
+      t('csvCommissionRate', lang),
+      t('csvCommissionAmount', lang),
+      t('csvNewCustomerBonus', lang),
+      t('csvStatus', lang),
+    ];
     const rows = whitelabelCommissions.map(record => {
       const hasBonus = record.metadata?.new_customer_bonus;
       return [
-        new Date(record.created_at).toLocaleDateString('zh-TW'),
+        new Date(record.created_at).toLocaleDateString(dateLocaleMap[lang]),
         orderTypeLabels[record.order_type] || record.order_type,
         record.order_amount,
         `${record.applied_commission_rate}%`,
@@ -349,19 +854,17 @@ export default function CommissionPage() {
       ];
     });
 
-    // 生成 CSV 內容（添加 BOM 以支持中文）
     const BOM = '\uFEFF';
     const csvContent = BOM + [
       headers.join(','),
       ...rows.map(row => row.join(','))
     ].join('\n');
 
-    // 下載文件
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
     link.setAttribute('href', url);
-    link.setAttribute('download', `佣金報表_${new Date().toISOString().split('T')[0]}.csv`);
+    link.setAttribute('download', `${t('csvFilename', lang)}_${new Date().toISOString().split('T')[0]}.csv`);
     link.style.visibility = 'hidden';
     document.body.appendChild(link);
     link.click();
@@ -373,7 +876,7 @@ export default function CommissionPage() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">載入中...</p>
+          <p className="text-gray-600">{t('loading', lang)}</p>
         </div>
       </div>
     );
@@ -381,15 +884,15 @@ export default function CommissionPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <GuideSidebar pageTitle="返金结算" />
+      <GuideSidebar pageTitle={t('pageTitle', lang)} />
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
         <div className="p-6 lg:p-8">
           {/* Header */}
           <div className="mb-6">
-            <h1 className="text-2xl font-bold text-gray-900">報酬結算</h1>
-            <p className="text-gray-500 mt-1">查看您的報酬收入和結算記錄</p>
+            <h1 className="text-2xl font-bold text-gray-900">{t('headerTitle', lang)}</h1>
+            <p className="text-gray-500 mt-1">{t('headerDesc', lang)}</p>
           </div>
 
           {/* Stats Cards */}
@@ -397,7 +900,7 @@ export default function CommissionPage() {
             <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-xl p-6 text-white">
               <div className="flex items-center gap-2 mb-2">
                 <Wallet size={20} />
-                <span className="text-sm opacity-90">累計收入</span>
+                <span className="text-sm opacity-90">{t('totalEarned', lang)}</span>
               </div>
               <p className="text-3xl font-bold">¥{(stats?.totalEarned || 0).toLocaleString()}</p>
             </div>
@@ -405,7 +908,7 @@ export default function CommissionPage() {
             <div className="bg-white rounded-xl p-6 border">
               <div className="flex items-center gap-2 mb-2">
                 <Clock size={20} className="text-yellow-500" />
-                <span className="text-sm text-gray-500">待結算</span>
+                <span className="text-sm text-gray-500">{t('pendingSettlement', lang)}</span>
               </div>
               <p className="text-2xl font-bold text-gray-900">¥{(stats?.pendingAmount || 0).toLocaleString()}</p>
             </div>
@@ -413,7 +916,7 @@ export default function CommissionPage() {
             <div className="bg-white rounded-xl p-6 border">
               <div className="flex items-center gap-2 mb-2">
                 <TrendingUp size={20} className="text-blue-500" />
-                <span className="text-sm text-gray-500">本月</span>
+                <span className="text-sm text-gray-500">{t('thisMonth', lang)}</span>
               </div>
               <p className="text-2xl font-bold text-gray-900">¥{(stats?.thisMonthAmount || 0).toLocaleString()}</p>
             </div>
@@ -421,7 +924,7 @@ export default function CommissionPage() {
             <div className="bg-white rounded-xl p-6 border">
               <div className="flex items-center gap-2 mb-2">
                 <TrendingDown size={20} className="text-gray-400" />
-                <span className="text-sm text-gray-500">上月</span>
+                <span className="text-sm text-gray-500">{t('lastMonth', lang)}</span>
               </div>
               <p className="text-2xl font-bold text-gray-900">¥{(stats?.lastMonthAmount || 0).toLocaleString()}</p>
             </div>
@@ -434,7 +937,7 @@ export default function CommissionPage() {
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-700 text-white rounded-lg font-medium hover:bg-brand-800 transition text-sm"
             >
               <Wallet size={18} />
-              申請提現
+              {t('applyWithdrawal', lang)}
             </Link>
           </div>
 
@@ -445,30 +948,30 @@ export default function CommissionPage() {
                 <span className="text-white font-bold text-lg">{commissionRate}%</span>
               </div>
               <div>
-                <h3 className="font-bold text-brand-800">報酬計算方式 · {tierName}</h3>
+                <h3 className="font-bold text-brand-800">{t('commissionCalcTitle', lang)} · {t(tierName, lang)}</h3>
                 <p className="text-sm text-brand-700 mt-1">
-                  報酬 = 客戶消費金額 ÷ 1.1（扣除10%消費稅）× {commissionRate}%
+                  {t('commissionFormula', lang)} {commissionRate}%
                 </p>
                 <p className="text-xs text-brand-600 mt-2">
-                  例：客戶消費 100 萬日元 → 報酬約 ¥{Math.round(1000000 / 1.1 * commissionRate / 100).toLocaleString()}
+                  {t('commissionExample', lang)} ¥{Math.round(1000000 / 1.1 * commissionRate / 100).toLocaleString()}
                 </p>
               </div>
             </div>
           </div>
 
-          {/* 新客首單獎勵說明 */}
+          {/* New Customer First Order Bonus */}
           <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-xl p-4 mb-8">
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center flex-shrink-0">
                 <Gift size={20} className="text-white" />
               </div>
               <div>
-                <h3 className="font-bold text-purple-800">新客首單獎勵 +5%</h3>
+                <h3 className="font-bold text-purple-800">{t('newCustomerBonusTitle', lang)}</h3>
                 <p className="text-sm text-purple-700 mt-1">
-                  每位新客戶的首筆訂單，您將額外獲得 5% 的獎勵佣金！
+                  {t('newCustomerBonusDesc', lang)}
                 </p>
                 <p className="text-xs text-purple-600 mt-2">
-                  例：{tierName} ({commissionRate}%) + 新客獎勵 (5%) = 總佣金率 {commissionRate + 5}%
+                  {t('newCustomerBonusExample', lang)}{t(tierName, lang)} ({commissionRate}%) {t('newCustomerBonusLabel', lang)} (5%) {t('totalCommissionRateLabel', lang)} {commissionRate + 5}%
                 </p>
               </div>
             </div>
@@ -484,7 +987,7 @@ export default function CommissionPage() {
                   : 'bg-white text-gray-600 hover:bg-gray-50 border'
               }`}
             >
-              店舖報酬
+              {t('tabStoreCommission', lang)}
             </button>
             <button
               onClick={() => setActiveTab('whitelabel')}
@@ -494,7 +997,7 @@ export default function CommissionPage() {
                   : 'bg-white text-gray-600 hover:bg-gray-50 border'
               }`}
             >
-              白標訂單
+              {t('tabWhitelabel', lang)}
             </button>
             <button
               onClick={() => setActiveTab('referrals')}
@@ -504,7 +1007,7 @@ export default function CommissionPage() {
                   : 'bg-white text-gray-600 hover:bg-gray-50 border'
               }`}
             >
-              推薦獎勵
+              {t('tabReferrals', lang)}
             </button>
             <button
               onClick={() => setActiveTab('history')}
@@ -514,7 +1017,7 @@ export default function CommissionPage() {
                   : 'bg-white text-gray-600 hover:bg-gray-50 border'
               }`}
             >
-              月度結算
+              {t('tabMonthlySettlement', lang)}
             </button>
           </div>
 
@@ -522,7 +1025,7 @@ export default function CommissionPage() {
           {activeTab === 'overview' ? (
             <div className="bg-white rounded-xl border">
               <div className="p-4 border-b">
-                <h2 className="font-bold text-gray-900">店舖報酬記錄</h2>
+                <h2 className="font-bold text-gray-900">{t('storeCommissionRecords', lang)}</h2>
               </div>
 
               {recentCommissions.length > 0 ? (
@@ -542,7 +1045,7 @@ export default function CommissionPage() {
                           +¥{record.commission_amount?.toLocaleString()}
                         </p>
                         <p className="text-xs text-gray-400">
-                          消費 ¥{record.actual_spend?.toLocaleString()}
+                          {t('spend', lang)} ¥{record.actual_spend?.toLocaleString()}
                         </p>
                       </div>
                     </div>
@@ -551,12 +1054,12 @@ export default function CommissionPage() {
               ) : (
                 <div className="p-12 text-center text-gray-500">
                   <Wallet className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                  <p>暫無報酬記錄</p>
+                  <p>{t('noCommissionRecords', lang)}</p>
                   <Link
                     href="/guide-partner/venues"
                     className="inline-block mt-4 text-brand-600 font-medium hover:underline"
                   >
-                    開始預約賺取報酬
+                    {t('startBookingToEarn', lang)}
                   </Link>
                 </div>
               )}
@@ -565,8 +1068,8 @@ export default function CommissionPage() {
             <div className="bg-white rounded-xl border">
               <div className="p-4 border-b flex items-center justify-between">
                 <div>
-                  <h2 className="font-bold text-gray-900">白標訂單佣金</h2>
-                  <p className="text-sm text-gray-500 mt-1">透過您專屬連結下單的客戶</p>
+                  <h2 className="font-bold text-gray-900">{t('whitelabelCommissionTitle', lang)}</h2>
+                  <p className="text-sm text-gray-500 mt-1">{t('whitelabelCommissionDesc', lang)}</p>
                 </div>
                 {whitelabelCommissions.length > 0 && (
                   <button
@@ -574,7 +1077,7 @@ export default function CommissionPage() {
                     className="flex items-center gap-2 px-3 py-1.5 text-sm text-brand-600 hover:bg-brand-50 rounded-lg transition"
                   >
                     <Download size={16} />
-                    導出CSV
+                    {t('exportCSV', lang)}
                   </button>
                 )}
               </div>
@@ -584,9 +1087,9 @@ export default function CommissionPage() {
                   {whitelabelCommissions.map((record) => {
                     const hasBonus = record.metadata?.new_customer_bonus;
                     const orderTypeLabels: Record<string, string> = {
-                      medical: '醫療體檢',
-                      golf: '高爾夫',
-                      business: '商務考察',
+                      medical: t('orderTypeMedical', lang),
+                      golf: t('orderTypeGolf', lang),
+                      business: t('orderTypeBusiness', lang),
                     };
                     return (
                       <div key={record.id} className="p-4 flex items-center justify-between hover:bg-gray-50">
@@ -598,15 +1101,15 @@ export default function CommissionPage() {
                             {hasBonus && (
                               <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 text-xs rounded-full">
                                 <Gift size={12} />
-                                新客獎勵
+                                {t('newCustomerReward', lang)}
                               </span>
                             )}
                           </div>
                           <p className="text-sm text-gray-500">
-                            訂單金額 ¥{record.order_amount?.toLocaleString()}
+                            {t('orderAmount', lang)} ¥{record.order_amount?.toLocaleString()}
                           </p>
                           <p className="text-xs text-gray-400 mt-1">
-                            {new Date(record.created_at).toLocaleDateString('zh-TW')}
+                            {new Date(record.created_at).toLocaleDateString(dateLocaleMap[lang])}
                           </p>
                         </div>
                         <div className="text-right">
@@ -616,14 +1119,14 @@ export default function CommissionPage() {
                           </p>
                           {hasBonus && record.metadata ? (
                             <div className="text-xs text-gray-500 mt-1">
-                              <span>基礎 ¥{record.metadata.base_commission?.toLocaleString()}</span>
+                              <span>{t('baseCommission', lang)} ¥{record.metadata.base_commission?.toLocaleString()}</span>
                               <span className="text-purple-600 ml-1">
-                                + 獎勵 ¥{record.metadata.bonus_amount?.toLocaleString()}
+                                {t('bonusReward', lang)} ¥{record.metadata.bonus_amount?.toLocaleString()}
                               </span>
                             </div>
                           ) : (
                             <p className="text-xs text-gray-400">
-                              佣金率 {record.applied_commission_rate}%
+                              {t('commissionRate', lang)} {record.applied_commission_rate}%
                             </p>
                           )}
                         </div>
@@ -634,12 +1137,12 @@ export default function CommissionPage() {
               ) : (
                 <div className="p-12 text-center text-gray-500">
                   <Store className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                  <p>暫無白標訂單</p>
+                  <p>{t('noWhitelabelOrders', lang)}</p>
                   <Link
                     href="/guide-partner/whitelabel"
                     className="inline-block mt-4 text-brand-600 font-medium hover:underline"
                   >
-                    設置白標網站開始推廣
+                    {t('setupWhitelabelToStart', lang)}
                   </Link>
                 </div>
               )}
@@ -649,12 +1152,12 @@ export default function CommissionPage() {
               <div className="p-4 border-b">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="font-bold text-gray-900">推薦獎勵記錄</h2>
-                    <p className="text-sm text-gray-500 mt-1">您推薦的導遊業績帶來的 2% 額外獎勵</p>
+                    <h2 className="font-bold text-gray-900">{t('referralRewardsTitle', lang)}</h2>
+                    <p className="text-sm text-gray-500 mt-1">{t('referralRewardsDesc', lang)}</p>
                   </div>
                   {stats && stats.referralPending > 0 && (
                     <div className="text-right">
-                      <p className="text-xs text-gray-500">待結算獎勵</p>
+                      <p className="text-xs text-gray-500">{t('pendingReferralRewards', lang)}</p>
                       <p className="text-lg font-bold text-yellow-600">
                         ¥{stats.referralPending.toLocaleString()}
                       </p>
@@ -670,21 +1173,21 @@ export default function CommissionPage() {
                       <div>
                         <div className="flex items-center gap-2">
                           <p className="font-medium text-gray-900">
-                            {reward.referee?.name || '未知導遊'} 的業績
+                            {reward.referee?.name || t('unknownGuide', lang)}{t('performanceOf', lang)}
                           </p>
                           <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-purple-100 text-purple-700 text-xs rounded-full">
                             <Users size={12} />
-                            下線獎勵
+                            {t('downlineReward', lang)}
                           </span>
                         </div>
                         {reward.booking && (
                           <p className="text-sm text-gray-500">
-                            客戶: {reward.booking.customer_name}
+                            {t('customer', lang)}: {reward.booking.customer_name}
                             {reward.booking.venue && ` · ${reward.booking.venue.name}`}
                           </p>
                         )}
                         <p className="text-xs text-gray-400 mt-1">
-                          {new Date(reward.created_at).toLocaleDateString('zh-TW')}
+                          {new Date(reward.created_at).toLocaleDateString(dateLocaleMap[lang])}
                         </p>
                       </div>
                       <div className="text-right">
@@ -693,7 +1196,7 @@ export default function CommissionPage() {
                           +¥{reward.reward_amount?.toLocaleString()}
                         </p>
                         <p className="text-xs text-gray-400">
-                          獎勵率 {(reward.reward_rate * 100).toFixed(0)}%
+                          {t('rewardRate', lang)} {(reward.reward_rate * 100).toFixed(0)}%
                         </p>
                       </div>
                     </div>
@@ -702,15 +1205,15 @@ export default function CommissionPage() {
               ) : (
                 <div className="p-12 text-center text-gray-500">
                   <Users className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                  <p>暫無推薦獎勵</p>
+                  <p>{t('noReferralRewards', lang)}</p>
                   <p className="text-sm mt-2 text-gray-400">
-                    當您推薦的導遊完成訂單後，您將獲得其業績 2% 的額外獎勵
+                    {t('referralRewardsEmptyDesc', lang)}
                   </p>
                   <Link
                     href="/guide-partner/referrals"
                     className="inline-block mt-4 text-brand-600 font-medium hover:underline"
                   >
-                    查看我的推薦碼
+                    {t('viewMyReferralCode', lang)}
                   </Link>
                 </div>
               )}
@@ -718,7 +1221,7 @@ export default function CommissionPage() {
           ) : (
             <div className="bg-white rounded-xl border">
               <div className="p-4 border-b">
-                <h2 className="font-bold text-gray-900">月度結算記錄</h2>
+                <h2 className="font-bold text-gray-900">{t('monthlySettlementRecords', lang)}</h2>
               </div>
 
               {settlements.length > 0 ? (
@@ -728,7 +1231,7 @@ export default function CommissionPage() {
                       <div>
                         <p className="font-medium text-gray-900">{formatMonth(settlement.settlement_month)}</p>
                         <p className="text-sm text-gray-500">
-                          {settlement.total_bookings} 筆訂單 · 總消費 ¥{settlement.total_spend?.toLocaleString()}
+                          {settlement.total_bookings} {t('ordersCount', lang)} · {t('totalSpend', lang)} ¥{settlement.total_spend?.toLocaleString()}
                         </p>
                       </div>
                       <div className="text-right">
@@ -738,7 +1241,7 @@ export default function CommissionPage() {
                         </p>
                         {settlement.paid_at && (
                           <p className="text-xs text-gray-400">
-                            {new Date(settlement.paid_at).toLocaleDateString()} 已付款
+                            {new Date(settlement.paid_at).toLocaleDateString(dateLocaleMap[lang])} {t('paidOn', lang)}
                           </p>
                         )}
                       </div>
@@ -748,8 +1251,8 @@ export default function CommissionPage() {
               ) : (
                 <div className="p-12 text-center text-gray-500">
                   <Calendar className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                  <p>暫無結算記錄</p>
-                  <p className="text-sm mt-2">每月初統計上月報酬</p>
+                  <p>{t('noSettlementRecords', lang)}</p>
+                  <p className="text-sm mt-2">{t('monthlySettlementNote', lang)}</p>
                 </div>
               )}
             </div>
@@ -757,12 +1260,12 @@ export default function CommissionPage() {
 
           {/* Settlement Info */}
           <div className="mt-8 bg-gray-100 rounded-xl p-4">
-            <h3 className="font-medium text-gray-700 mb-2">結算說明</h3>
+            <h3 className="font-medium text-gray-700 mb-2">{t('settlementInfoTitle', lang)}</h3>
             <ul className="text-sm text-gray-600 space-y-1">
-              <li>• 白標訂單佣金在客人完成服務後 <strong>2 週</strong>即可申請提現</li>
-              <li>• 店舖報酬每月 1-5 日統計上月已完成訂單</li>
-              <li>• 提現通過銀行轉帳支付，1-3 個工作日到帳</li>
-              <li>• 如有疑問請聯繫客服核實</li>
+              <li dangerouslySetInnerHTML={{ __html: `• ${t('settlementInfo1', lang)}` }} />
+              <li>• {t('settlementInfo2', lang)}</li>
+              <li>• {t('settlementInfo3', lang)}</li>
+              <li>• {t('settlementInfo4', lang)}</li>
             </ul>
           </div>
         </div>

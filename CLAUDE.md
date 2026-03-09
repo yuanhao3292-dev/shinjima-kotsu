@@ -2221,3 +2221,96 @@ services/
 │       ├── adjudicator-v1.ts
 │       └── hospital-matcher-v1.ts
 ```
+
+---
+
+## Guide-Partner i18n 多语言架构方案 (2026-03-09)
+
+### 目标
+为 guide-partner 后台所有页面添加 4 语言支持：ja (日本語), zh-CN (简体中文), zh-TW (繁體中文), en (English)
+
+### 现状
+- 已有 i18n：`/guide-partner/page.tsx` (着陆页), `/guide-partner/login/page.tsx` (登录页)
+- 缺少 i18n：GuideSidebar + 20个后台页面，全部硬编码中文
+
+### 统一 i18n 模式（严格遵守，不可偏离）
+
+每个页面必须遵循以下模式（参考 `/guide-partner/login/page.tsx`）：
+
+```typescript
+// 1. 导入 useLanguage hook
+import { useLanguage, type Language } from '@/hooks/useLanguage';
+
+// 2. 在文件顶部定义 translations 对象（组件外部）
+const translations = {
+  keyName: {
+    ja: '日本語テキスト',
+    'zh-CN': '简体中文文本',
+    'zh-TW': '繁體中文文本',
+    en: 'English text',
+  },
+  // ... 更多翻译键
+} as const;
+
+// 3. 定义 t 辅助函数（组件外部）
+const t = (key: keyof typeof translations, lang: Language): string => {
+  return translations[key][lang];
+};
+
+// 4. 在组件内部使用
+export default function SomePage() {
+  const lang = useLanguage();
+  // 使用: t('keyName', lang)
+}
+```
+
+### 翻译规则
+1. `ja` = 日本語：专业、敬体（です/ます调）
+2. `zh-CN` = 简体中文：大陆用语习惯
+3. `zh-TW` = 繁體中文：台湾用语习惯（當前已有的硬编码文本可直接保留为 zh-TW 值）
+4. `en` = English：简洁专业
+
+### 实施顺序（严格按此顺序执行）
+
+| Phase | 文件 | 影响范围 |
+|-------|------|---------|
+| 1 | `components/guide-partner/GuideSidebar.tsx` | 所有后台页面的导航 |
+| 2 | `app/guide-partner/dashboard/page.tsx` | 控制台主页 |
+| 3 | `app/guide-partner/bookings/page.tsx` + `[id]/page.tsx` + `new/page.tsx` | 预约管理 |
+| 4 | `app/guide-partner/commission/page.tsx` | 返金结算 |
+| 5 | `app/guide-partner/settings/page.tsx` | 账户设置 |
+| 6 | `app/guide-partner/venues/page.tsx` + `[id]/page.tsx` | 店铺浏览 |
+| 7 | `app/guide-partner/referrals/page.tsx` | 推荐管理 |
+| 8 | `app/guide-partner/leaderboard/page.tsx` | 排行榜 |
+| 9 | `app/guide-partner/support/page.tsx` | 客服支持 |
+| 10 | `app/guide-partner/whitelabel/page.tsx` | 分销白标页面 |
+| 11 | `app/guide-partner/register/page.tsx` | 导游注册 |
+| 12 | 剩余页面: analytics, withdrawal, terms, contract, subscription, product-center | 低频页面 |
+
+### 每步实施流程（必须严格遵守）
+1. **回读本架构文档** — 确认当前步骤和翻译模式
+2. **读取目标文件** — 理解当前代码结构
+3. **提取所有硬编码字符串** — 列出需要翻译的文本
+4. **创建 translations 对象** — 4 语言完整翻译
+5. **替换硬编码文本** — 用 `t('key', lang)` 替换
+6. **代码审计** — 逐行检查：
+   - 所有硬编码中文是否已替换？
+   - translations 对象中 4 种语言是否完整？
+   - t() 调用的 key 是否与 translations 中一一对应？
+   - 是否有遗漏的文本？
+7. **构建验证** — `npm run build` 无报错
+8. **确认完成** — 标记 todo 为 completed
+
+### GuideSidebar 特殊处理
+GuideSidebar 组件需要：
+1. 内部调用 `useLanguage()` hook
+2. NAV_ITEMS 的 label 改为 `Record<Language, string>` 格式
+3. pageTitle prop 由调用方传入翻译后的值（每个页面负责传自己的翻译）
+4. 底部"退出登录"按钮翻译
+
+### 注意事项
+- 不修改任何业务逻辑、API 调用、样式
+- 只做文本的多语言化
+- 现有的繁体中文文本直接作为 zh-TW 的值
+- 金额格式保持 ¥ 符号不变
+- 日期格式使用 lang 对应的 locale

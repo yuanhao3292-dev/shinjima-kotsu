@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
+import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
   Store,
   Calendar,
@@ -16,6 +17,109 @@ import {
   Heart,
   ChevronRight
 } from 'lucide-react';
+
+const translations = {
+  pageTitle: {
+    ja: '店舗一覧',
+    'zh-CN': '店铺列表',
+    'zh-TW': '店舖列表',
+    en: 'Venue List',
+  },
+  heading: {
+    ja: '店舗一覧',
+    'zh-CN': '店铺列表',
+    'zh-TW': '店舖列表',
+    en: 'Venue List',
+  },
+  subtitle: {
+    ja: 'お客様のためにサービスを閲覧・予約',
+    'zh-CN': '浏览并为客户预约服务',
+    'zh-TW': '瀏覽並為客戶預約服務',
+    en: 'Browse and book services for your clients',
+  },
+  loading: {
+    ja: '読み込み中...',
+    'zh-CN': '加载中...',
+    'zh-TW': '載入中...',
+    en: 'Loading...',
+  },
+  searchPlaceholder: {
+    ja: '店舗名、ブランド、エリアで検索...',
+    'zh-CN': '搜索店铺名称、品牌、地区...',
+    'zh-TW': '搜尋店舖名稱、品牌、地區...',
+    en: 'Search by venue name, brand, area...',
+  },
+  allFilter: {
+    ja: 'すべて',
+    'zh-CN': '全部',
+    'zh-TW': '全部',
+    en: 'All',
+  },
+  nightclub: {
+    ja: 'ナイトクラブ',
+    'zh-CN': '夜总会',
+    'zh-TW': '夜總會',
+    en: 'Nightclub',
+  },
+  medical: {
+    ja: 'メディカル検査',
+    'zh-CN': '医疗检查',
+    'zh-TW': '醫療檢查',
+    en: 'Medical Checkup',
+  },
+  treatment: {
+    ja: '総合治療',
+    'zh-CN': '综合治疗',
+    'zh-TW': '綜合治療',
+    en: 'Treatment',
+  },
+  minSpend: {
+    ja: '最低消費',
+    'zh-CN': '最低消费',
+    'zh-TW': '最低消費',
+    en: 'Min. Spend',
+  },
+  avgSpend: {
+    ja: '平均消費',
+    'zh-CN': '平均消费',
+    'zh-TW': '平均消費',
+    en: 'Avg. Spend',
+  },
+  viewPriceDetails: {
+    ja: '料金詳細を見る',
+    'zh-CN': '查看价格详情',
+    'zh-TW': '查看價格詳情',
+    en: 'View Price Details',
+  },
+  bookVenue: {
+    ja: 'この店舗を予約',
+    'zh-CN': '预约此店铺',
+    'zh-TW': '預約此店舖',
+    en: 'Book This Venue',
+  },
+  noVenuesFound: {
+    ja: '店舗が見つかりません',
+    'zh-CN': '没有找到店铺',
+    'zh-TW': '沒有找到店舖',
+    en: 'No Venues Found',
+  },
+  tryOtherSearch: {
+    ja: '他の検索条件をお試しください',
+    'zh-CN': '请尝试其他搜索条件',
+    'zh-TW': '請嘗試其他搜尋條件',
+    en: 'Please try other search criteria',
+  },
+  venuesFound: {
+    ja: '件の店舗が見つかりました',
+    'zh-CN': '家店铺',
+    'zh-TW': '家店舖',
+    en: 'venues found',
+  },
+} as const;
+
+const t = (key: keyof typeof translations, lang: Language): string => {
+  return translations[key][lang];
+};
 
 interface Venue {
   id: string;
@@ -31,12 +135,13 @@ interface Venue {
   features: string[];
 }
 
-const CITIES = ['全部', '東京', '大阪', '名古屋', '福岡', '京都', '神戶'];
+const ALL_CITY = '__all__';
+const CITIES = [ALL_CITY, '東京', '大阪', '名古屋', '福岡', '京都', '神戶'];
 const CATEGORIES = [
-  { value: 'all', label: '全部', icon: Store },
-  { value: 'nightclub', label: '夜總會', icon: Wine },
-  { value: 'medical', label: '醫療檢查', icon: Stethoscope },
-  { value: 'treatment', label: '綜合治療', icon: Heart },
+  { value: 'all', labelKey: 'allFilter' as const, icon: Store },
+  { value: 'nightclub', labelKey: 'nightclub' as const, icon: Wine },
+  { value: 'medical', labelKey: 'medical' as const, icon: Stethoscope },
+  { value: 'treatment', labelKey: 'treatment' as const, icon: Heart },
 ];
 
 export default function VenuesPage() {
@@ -44,10 +149,11 @@ export default function VenuesPage() {
   const [filteredVenues, setFilteredVenues] = useState<Venue[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCity, setSelectedCity] = useState('全部');
+  const [selectedCity, setSelectedCity] = useState(ALL_CITY);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const router = useRouter();
   const supabase = createClient();
+  const lang = useLanguage();
 
   useEffect(() => {
     checkAuthAndLoadVenues();
@@ -105,7 +211,7 @@ export default function VenuesPage() {
       );
     }
 
-    if (selectedCity !== '全部') {
+    if (selectedCity !== ALL_CITY) {
       filtered = filtered.filter(v => v.city === selectedCity);
     }
 
@@ -139,7 +245,7 @@ export default function VenuesPage() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">載入中...</p>
+          <p className="text-gray-600">{t('loading', lang)}</p>
         </div>
       </div>
     );
@@ -147,15 +253,15 @@ export default function VenuesPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <GuideSidebar pageTitle="店铺列表" />
+      <GuideSidebar pageTitle={t('pageTitle', lang)} />
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
         <div className="p-6 lg:p-8">
           {/* Header */}
           <div className="mb-6">
-            <h1 className="text-2xl font-bold text-gray-900">店舖列表</h1>
-            <p className="text-gray-500 mt-1">瀏覽並為客戶預約服務</p>
+            <h1 className="text-2xl font-bold text-gray-900">{t('heading', lang)}</h1>
+            <p className="text-gray-500 mt-1">{t('subtitle', lang)}</p>
           </div>
 
           {/* Filters */}
@@ -167,7 +273,7 @@ export default function VenuesPage() {
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="搜尋店舖名稱、品牌、地區..."
+                placeholder={t('searchPlaceholder', lang)}
                 className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
               />
             </div>
@@ -187,7 +293,7 @@ export default function VenuesPage() {
                   `}
                 >
                   <cat.icon size={16} />
-                  {cat.label}
+                  {t(cat.labelKey, lang)}
                 </button>
               ))}
             </div>
@@ -206,7 +312,7 @@ export default function VenuesPage() {
                     }
                   `}
                 >
-                  {city}
+                  {city === ALL_CITY ? t('allFilter', lang) : city}
                 </button>
               ))}
             </div>
@@ -214,7 +320,7 @@ export default function VenuesPage() {
 
           {/* Results Count */}
           <p className="text-sm text-gray-500 mb-4">
-            找到 {filteredVenues.length} 家店舖
+            {filteredVenues.length} {t('venuesFound', lang)}
           </p>
 
           {/* Venues Grid */}
@@ -268,11 +374,11 @@ export default function VenuesPage() {
 
                   <div className="flex items-center justify-between text-sm">
                     <div>
-                      <span className="text-gray-500">最低消費</span>
+                      <span className="text-gray-500">{t('minSpend', lang)}</span>
                       <p className="font-bold text-gray-900">¥{venue.min_spend?.toLocaleString()}</p>
                     </div>
                     <div className="text-right">
-                      <span className="text-gray-500">平均消費</span>
+                      <span className="text-gray-500">{t('avgSpend', lang)}</span>
                       <p className="font-bold text-gray-900">¥{venue.avg_spend?.toLocaleString()}</p>
                     </div>
                   </div>
@@ -285,14 +391,14 @@ export default function VenuesPage() {
                     className="w-full flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white font-medium py-3 rounded-xl transition"
                   >
                     <ChevronRight size={18} />
-                    查看價格詳情
+                    {t('viewPriceDetails', lang)}
                   </Link>
                   <Link
                     href={`/guide-partner/bookings/new?venue=${venue.id}`}
                     className="w-full flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-medium py-3 rounded-xl transition"
                   >
                     <Calendar size={18} />
-                    預約此店舖
+                    {t('bookVenue', lang)}
                   </Link>
                 </div>
               </div>
@@ -302,8 +408,8 @@ export default function VenuesPage() {
           {filteredVenues.length === 0 && (
             <div className="bg-white rounded-xl border p-12 text-center">
               <Store className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="font-bold text-gray-900 mb-2">沒有找到店舖</h3>
-              <p className="text-gray-500">請嘗試其他搜尋條件</p>
+              <h3 className="font-bold text-gray-900 mb-2">{t('noVenuesFound', lang)}</h3>
+              <p className="text-gray-500">{t('tryOtherSearch', lang)}</p>
             </div>
           )}
         </div>

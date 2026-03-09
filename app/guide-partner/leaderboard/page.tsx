@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
+import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
   Trophy,
   Medal,
@@ -12,6 +13,109 @@ import {
   TrendingUp,
   Loader2,
 } from 'lucide-react';
+
+const translations = {
+  pageTitle: {
+    ja: 'ランキング',
+    'zh-CN': '排行榜',
+    'zh-TW': '排行榜',
+    en: 'Leaderboard',
+  },
+  heading: {
+    ja: 'パートナーランキング',
+    'zh-CN': '合伙人排行榜',
+    'zh-TW': '合夥人排行榜',
+    en: 'Partner Leaderboard',
+  },
+  subtitle: {
+    ja: '累計コミッションランキング',
+    'zh-CN': '累计佣金排名',
+    'zh-TW': '累計佣金排名',
+    en: 'Ranked by Total Commission',
+  },
+  loading: {
+    ja: '読み込み中...',
+    'zh-CN': '加载中...',
+    'zh-TW': '載入中...',
+    en: 'Loading...',
+  },
+  yourCurrentRank: {
+    ja: 'あなたの現在の順位',
+    'zh-CN': '您的当前排名',
+    'zh-TW': '您的當前排名',
+    en: 'Your Current Rank',
+  },
+  totalCommission: {
+    ja: '累計コミッション',
+    'zh-CN': '累计佣金',
+    'zh-TW': '累計佣金',
+    en: 'Total Commission',
+  },
+  ordersCount: {
+    ja: '件の注文',
+    'zh-CN': ' 笔订单',
+    'zh-TW': ' 筆訂單',
+    en: ' orders',
+  },
+  gapToNext: {
+    ja: '次の順位まであと',
+    'zh-CN': '距离上一名还差',
+    'zh-TW': '距離上一名還差',
+    en: 'Gap to next rank: ',
+  },
+  leaderboardTitle: {
+    ja: 'コミッションランキング TOP 50',
+    'zh-CN': '佣金排行 TOP 50',
+    'zh-TW': '佣金排行 TOP 50',
+    en: 'Commission Ranking TOP 50',
+  },
+  noData: {
+    ja: 'ランキングデータがありません',
+    'zh-CN': '暂无排行数据',
+    'zh-TW': '暫無排行數據',
+    en: 'No ranking data available',
+  },
+  noDataHint: {
+    ja: '予約を獲得してコミッションを稼ぎ、ランキングに参加しましょう！',
+    'zh-CN': '开始预约赚取佣金，登上排行榜！',
+    'zh-TW': '開始預約賺取佣金，登上排行榜！',
+    en: 'Start booking and earning commission to climb the leaderboard!',
+  },
+  bottomInfo: {
+    ja: 'ランキングは毎日更新されます · 審査通過済みのパートナーのみ表示',
+    'zh-CN': '排行榜每日更新 · 仅显示已通过审核的合伙人',
+    'zh-TW': '排行榜每日更新 · 僅顯示已通過審核的合夥人',
+    en: 'Updated daily · Only verified partners are shown',
+  },
+  youIndicator: {
+    ja: '(あなた)',
+    'zh-CN': '(您)',
+    'zh-TW': '(您)',
+    en: '(You)',
+  },
+  anonymous: {
+    ja: '匿名',
+    'zh-CN': '匿名',
+    'zh-TW': '匿名',
+    en: 'Anonymous',
+  },
+  levelGrowth: {
+    ja: '初期',
+    'zh-CN': '初期',
+    'zh-TW': '初期',
+    en: 'Growth',
+  },
+  levelGold: {
+    ja: 'ゴールド',
+    'zh-CN': '金牌',
+    'zh-TW': '金牌',
+    en: 'Gold',
+  },
+} as const;
+
+const t = (key: keyof typeof translations, lang: Language): string => {
+  return translations[key][lang];
+};
 
 interface LeaderboardEntry {
   id: string;
@@ -23,10 +127,15 @@ interface LeaderboardEntry {
   isCurrentUser: boolean;
 }
 
-// 等级配置
-const LEVEL_CONFIG: Record<string, { label: string; color: string; bgColor: string; borderColor: string }> = {
-  growth: { label: '初期', color: 'text-orange-700', bgColor: 'bg-orange-100', borderColor: 'border-orange-300' },
-  gold: { label: '金牌', color: 'text-yellow-600', bgColor: 'bg-yellow-100', borderColor: 'border-yellow-300' },
+// Level style configuration (colors only, labels handled by translations)
+const LEVEL_STYLES: Record<string, { color: string; bgColor: string; borderColor: string }> = {
+  growth: { color: 'text-orange-700', bgColor: 'bg-orange-100', borderColor: 'border-orange-300' },
+  gold: { color: 'text-yellow-600', bgColor: 'bg-yellow-100', borderColor: 'border-yellow-300' },
+};
+
+const LEVEL_LABEL_KEYS: Record<string, keyof typeof translations> = {
+  growth: 'levelGrowth',
+  gold: 'levelGold',
 };
 
 export default function LeaderboardPage() {
@@ -36,6 +145,7 @@ export default function LeaderboardPage() {
   const [timeRange, setTimeRange] = useState<'all' | 'month' | 'week'>('all');
   const router = useRouter();
   const supabase = createClient();
+  const lang = useLanguage();
 
   useEffect(() => {
     loadLeaderboard();
@@ -99,9 +209,9 @@ export default function LeaderboardPage() {
     }
   };
 
-  // 姓名脫敏（只顯示姓氏 + *）
+  // Mask name (show only first character + *)
   const maskName = (name: string): string => {
-    if (!name || name.length <= 1) return name || '匿名';
+    if (!name || name.length <= 1) return name || t('anonymous', lang);
     return name.charAt(0) + '*'.repeat(name.length - 1);
   };
 
@@ -138,7 +248,7 @@ export default function LeaderboardPage() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">載入中...</p>
+          <p className="text-gray-600">{t('loading', lang)}</p>
         </div>
       </div>
     );
@@ -146,7 +256,7 @@ export default function LeaderboardPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <GuideSidebar pageTitle="排行榜" />
+      <GuideSidebar pageTitle={t('pageTitle', lang)} />
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
@@ -158,8 +268,8 @@ export default function LeaderboardPage() {
                 <Trophy className="text-white" size={24} />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">合夥人排行榜</h1>
-                <p className="text-gray-500">累計佣金排名</p>
+                <h1 className="text-2xl font-bold text-gray-900">{t('heading', lang)}</h1>
+                <p className="text-gray-500">{t('subtitle', lang)}</p>
               </div>
             </div>
           </div>
@@ -169,24 +279,24 @@ export default function LeaderboardPage() {
             <div className="bg-gradient-to-r from-brand-600 to-brand-400 rounded-2xl p-6 text-white mb-8 shadow-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-brand-100 text-sm">您的當前排名</p>
+                  <p className="text-brand-100 text-sm">{t('yourCurrentRank', lang)}</p>
                   <div className="flex items-center gap-3 mt-2">
                     <span className="text-5xl font-bold">#{currentUserRank.rank}</span>
                     <div className="text-left">
-                      <p className="text-brand-100 text-sm">累計佣金</p>
+                      <p className="text-brand-100 text-sm">{t('totalCommission', lang)}</p>
                       <p className="text-2xl font-bold">¥{currentUserRank.total_commission.toLocaleString()}</p>
                     </div>
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${LEVEL_CONFIG[currentUserRank.level]?.bgColor || 'bg-white/20'}`}>
-                    <Star size={14} className={LEVEL_CONFIG[currentUserRank.level]?.color || 'text-white'} />
-                    <span className={`text-sm font-medium ${LEVEL_CONFIG[currentUserRank.level]?.color || 'text-white'}`}>
-                      {LEVEL_CONFIG[currentUserRank.level]?.label || currentUserRank.level}
+                  <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${LEVEL_STYLES[currentUserRank.level]?.bgColor || 'bg-white/20'}`}>
+                    <Star size={14} className={LEVEL_STYLES[currentUserRank.level]?.color || 'text-white'} />
+                    <span className={`text-sm font-medium ${LEVEL_STYLES[currentUserRank.level]?.color || 'text-white'}`}>
+                      {LEVEL_LABEL_KEYS[currentUserRank.level] ? t(LEVEL_LABEL_KEYS[currentUserRank.level], lang) : currentUserRank.level}
                     </span>
                   </div>
                   <p className="text-brand-100 text-sm mt-2">
-                    {currentUserRank.total_bookings} 筆訂單
+                    {currentUserRank.total_bookings}{t('ordersCount', lang)}
                   </p>
                 </div>
               </div>
@@ -194,7 +304,7 @@ export default function LeaderboardPage() {
                 <div className="mt-4 pt-4 border-t border-orange-400/30">
                   <p className="text-brand-100 text-sm flex items-center gap-2">
                     <TrendingUp size={16} />
-                    距離上一名還差 ¥{(leaderboard[currentUserRank.rank - 2]?.total_commission - currentUserRank.total_commission).toLocaleString()}
+                    {t('gapToNext', lang)} ¥{(leaderboard[currentUserRank.rank - 2]?.total_commission - currentUserRank.total_commission).toLocaleString()}
                   </p>
                 </div>
               )}
@@ -206,7 +316,7 @@ export default function LeaderboardPage() {
             <div className="p-4 border-b bg-gray-50">
               <h2 className="font-bold text-gray-900 flex items-center gap-2">
                 <Trophy size={18} className="text-yellow-500" />
-                佣金排行 TOP 50
+                {t('leaderboardTitle', lang)}
               </h2>
             </div>
 
@@ -229,16 +339,16 @@ export default function LeaderboardPage() {
                       <div className="flex items-center gap-2">
                         <p className={`font-medium truncate ${entry.isCurrentUser ? 'text-orange-600' : 'text-gray-900'}`}>
                           {entry.name}
-                          {entry.isCurrentUser && <span className="ml-2 text-xs text-orange-500">(您)</span>}
+                          {entry.isCurrentUser && <span className="ml-2 text-xs text-orange-500">{t('youIndicator', lang)}</span>}
                         </p>
                         <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs ${
-                          LEVEL_CONFIG[entry.level]?.bgColor || 'bg-gray-100'
-                        } ${LEVEL_CONFIG[entry.level]?.color || 'text-gray-600'}`}>
-                          {LEVEL_CONFIG[entry.level]?.label || entry.level}
+                          LEVEL_STYLES[entry.level]?.bgColor || 'bg-gray-100'
+                        } ${LEVEL_STYLES[entry.level]?.color || 'text-gray-600'}`}>
+                          {LEVEL_LABEL_KEYS[entry.level] ? t(LEVEL_LABEL_KEYS[entry.level], lang) : entry.level}
                         </span>
                       </div>
                       <p className="text-sm text-gray-500 mt-0.5">
-                        {entry.total_bookings} 筆訂單
+                        {entry.total_bookings}{t('ordersCount', lang)}
                       </p>
                     </div>
 
@@ -258,8 +368,8 @@ export default function LeaderboardPage() {
               ) : (
                 <div className="p-12 text-center text-gray-500">
                   <Trophy className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                  <p>暫無排行數據</p>
-                  <p className="text-sm mt-2">開始預約賺取佣金，登上排行榜！</p>
+                  <p>{t('noData', lang)}</p>
+                  <p className="text-sm mt-2">{t('noDataHint', lang)}</p>
                 </div>
               )}
             </div>
@@ -267,7 +377,7 @@ export default function LeaderboardPage() {
 
           {/* Bottom Info */}
           <div className="mt-6 text-center text-sm text-gray-400">
-            <p>排行榜每日更新 · 僅顯示已通過審核的合夥人</p>
+            <p>{t('bottomInfo', lang)}</p>
           </div>
         </div>
       </main>

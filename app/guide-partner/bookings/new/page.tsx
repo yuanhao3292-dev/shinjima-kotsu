@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
+import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
   Store,
   Calendar,
@@ -19,6 +20,205 @@ import {
   CheckCircle2,
   Info
 } from 'lucide-react';
+
+const translations = {
+  pageTitle: {
+    ja: '新規予約',
+    'zh-CN': '新建预约',
+    'zh-TW': '新建預約',
+    en: 'New Booking',
+  },
+  pageTitleSidebar: {
+    ja: '新規予約',
+    'zh-CN': '新建预约',
+    'zh-TW': '新建预约',
+    en: 'New Booking',
+  },
+  backToVenues: {
+    ja: '店舗一覧に戻る',
+    'zh-CN': '返回店铺列表',
+    'zh-TW': '返回店舖列表',
+    en: 'Back to Venues',
+  },
+  subtitle: {
+    ja: 'お客様の予約を作成します',
+    'zh-CN': '为您的客户预约服务',
+    'zh-TW': '為您的客戶預約服務',
+    en: 'Create a booking for your customer',
+  },
+  noticeTitle: {
+    ja: '予約に関するご注意',
+    'zh-CN': '预约须知',
+    'zh-TW': '預約須知',
+    en: 'Booking Notice',
+  },
+  noticeDeposit: {
+    ja: '予約送信後、お客様に500元のデポジットのお支払いをお願いしてください',
+    'zh-CN': '预约提交后，请提醒客户支付 500 元人民币定金',
+    'zh-TW': '預約提交後，請提醒客戶支付 500 元人民幣定金',
+    en: 'After submission, please remind the customer to pay the 500 CNY deposit',
+  },
+  noticeActivation: {
+    ja: 'デポジットのお支払い後、予約が有効になります',
+    'zh-CN': '定金支付后预约方可生效',
+    'zh-TW': '定金支付後預約方可生效',
+    en: 'The booking will be activated after the deposit is paid',
+  },
+  noticeSameDay: {
+    ja: '当日キャンセルの場合、デポジットは返金されません',
+    'zh-CN': '当天取消定金不退',
+    'zh-TW': '當天取消定金不退',
+    en: 'Same-day cancellation will forfeit the deposit',
+  },
+  selectVenueLabel: {
+    ja: '店舗を選択 *',
+    'zh-CN': '选择店铺 *',
+    'zh-TW': '選擇店舖 *',
+    en: 'Select Venue *',
+  },
+  selectVenuePlaceholder: {
+    ja: '店舗を選択してください',
+    'zh-CN': '请选择店铺',
+    'zh-TW': '請選擇店舖',
+    en: 'Please select a venue',
+  },
+  minSpend: {
+    ja: '最低消費額:',
+    'zh-CN': '最低消费:',
+    'zh-TW': '最低消費:',
+    en: 'Minimum spend:',
+  },
+  customerNameLabel: {
+    ja: 'お客様氏名 *',
+    'zh-CN': '客户姓名 *',
+    'zh-TW': '客戶姓名 *',
+    en: 'Customer Name *',
+  },
+  customerNamePlaceholder: {
+    ja: 'お客様氏名',
+    'zh-CN': '客户姓名',
+    'zh-TW': '客戶姓名',
+    en: 'Customer name',
+  },
+  customerPhoneLabel: {
+    ja: 'お客様電話番号（任意）',
+    'zh-CN': '客户电话（选填）',
+    'zh-TW': '客戶電話（選填）',
+    en: 'Customer Phone (Optional)',
+  },
+  customerPhonePlaceholder: {
+    ja: 'お客様の電話番号',
+    'zh-CN': '客户联系电话',
+    'zh-TW': '客戶聯繫電話',
+    en: 'Customer phone number',
+  },
+  partySizeLabel: {
+    ja: '人数 *',
+    'zh-CN': '人数 *',
+    'zh-TW': '人數 *',
+    en: 'Party Size *',
+  },
+  personCount: {
+    ja: '名',
+    'zh-CN': '人',
+    'zh-TW': '人',
+    en: 'guests',
+  },
+  moreThanTen: {
+    ja: '10名以上',
+    'zh-CN': '10人以上',
+    'zh-TW': '10人以上',
+    en: 'More than 10',
+  },
+  bookingDateLabel: {
+    ja: '予約日 *',
+    'zh-CN': '预约日期 *',
+    'zh-TW': '預約日期 *',
+    en: 'Booking Date *',
+  },
+  bookingTimeLabel: {
+    ja: '予約時間',
+    'zh-CN': '预约时间',
+    'zh-TW': '預約時間',
+    en: 'Booking Time',
+  },
+  specialRequestsLabel: {
+    ja: '特別なご要望（任意）',
+    'zh-CN': '特殊要求（选填）',
+    'zh-TW': '特殊要求（選填）',
+    en: 'Special Requests (Optional)',
+  },
+  specialRequestsPlaceholder: {
+    ja: '特別なご要望がございましたらご記入ください...',
+    'zh-CN': '如有特殊要求请在此说明...',
+    'zh-TW': '如有特殊要求請在此說明...',
+    en: 'Please describe any special requests...',
+  },
+  submitting: {
+    ja: '送信中...',
+    'zh-CN': '提交中...',
+    'zh-TW': '提交中...',
+    en: 'Submitting...',
+  },
+  submitBooking: {
+    ja: '予約を送信',
+    'zh-CN': '提交预约',
+    'zh-TW': '提交預約',
+    en: 'Submit Booking',
+  },
+  loading: {
+    ja: '読み込み中...',
+    'zh-CN': '加载中...',
+    'zh-TW': '載入中...',
+    en: 'Loading...',
+  },
+  pleaseLogin: {
+    ja: 'ログインしてください',
+    'zh-CN': '请先登录',
+    'zh-TW': '請先登入',
+    en: 'Please log in first',
+  },
+  pleaseSelectVenue: {
+    ja: '店舗を選択してください',
+    'zh-CN': '请选择店铺',
+    'zh-TW': '請選擇店舖',
+    en: 'Please select a venue',
+  },
+  submitFailed: {
+    ja: '送信に失敗しました。後ほどお試しください。',
+    'zh-CN': '提交失败，请稍后重试',
+    'zh-TW': '提交失敗，請稍後重試',
+    en: 'Submission failed. Please try again later.',
+  },
+  bookingSubmitted: {
+    ja: '予約を送信しました',
+    'zh-CN': '预约已提交',
+    'zh-TW': '預約已提交',
+    en: 'Booking Submitted',
+  },
+  successMessage: {
+    ja: '「予約管理」ページで ¥500 のデポジットをお支払いください。\nデポジットのお支払い後、管理者が予約を確認いたします。',
+    'zh-CN': '请前往「我的预约」页面支付 ¥500 定金。\n定金支付后管理员将确认预约。',
+    'zh-TW': '請前往「我的預約」頁面支付 ¥500 定金。\n定金支付後管理員將確認預約。',
+    en: 'Please go to "My Bookings" to pay the ¥500 deposit.\nThe administrator will confirm the booking after deposit payment.',
+  },
+  goToPayDeposit: {
+    ja: 'デポジットを支払う',
+    'zh-CN': '前往支付定金',
+    'zh-TW': '前往支付定金',
+    en: 'Go to Pay Deposit',
+  },
+  continueBooking: {
+    ja: '他の店舗を予約する',
+    'zh-CN': '继续预约其他店铺',
+    'zh-TW': '繼續預約其他店舖',
+    en: 'Book Another Venue',
+  },
+} as const;
+
+const t = (key: keyof typeof translations, lang: Language): string => {
+  return translations[key][lang];
+};
 
 interface Venue {
   id: string;
@@ -59,6 +259,7 @@ function NewBookingForm() {
   });
 
   const supabase = createClient();
+  const lang = useLanguage();
 
   useEffect(() => {
     loadInitialData();
@@ -142,13 +343,13 @@ function NewBookingForm() {
     setSubmitting(true);
 
     if (!guide) {
-      setError('請先登入');
+      setError(t('pleaseLogin', lang));
       setSubmitting(false);
       return;
     }
 
     if (!formData.venueId) {
-      setError('請選擇店舖');
+      setError(t('pleaseSelectVenue', lang));
       setSubmitting(false);
       return;
     }
@@ -193,7 +394,7 @@ function NewBookingForm() {
 
       setSuccess(true);
     } catch (err: any) {
-      setError(err.message || '提交失敗，請稍後重試');
+      setError(err.message || t('submitFailed', lang));
     } finally {
       setSubmitting(false);
     }
@@ -204,7 +405,7 @@ function NewBookingForm() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">載入中...</p>
+          <p className="text-gray-600">{t('loading', lang)}</p>
         </div>
       </div>
     );
@@ -217,23 +418,22 @@ function NewBookingForm() {
           <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle2 className="w-10 h-10 text-green-600" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">預約已提交</h2>
-          <p className="text-gray-600 mb-6">
-            請前往「我的預約」頁面支付 ¥500 定金。<br />
-            定金支付後管理員將確認預約。
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('bookingSubmitted', lang)}</h2>
+          <p className="text-gray-600 mb-6 whitespace-pre-line">
+            {t('successMessage', lang)}
           </p>
           <div className="space-y-3">
             <Link
               href="/guide-partner/bookings"
               className="block w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition"
             >
-              前往支付定金
+              {t('goToPayDeposit', lang)}
             </Link>
             <Link
               href="/guide-partner/venues"
               className="block w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3 rounded-xl transition"
             >
-              繼續預約其他店舖
+              {t('continueBooking', lang)}
             </Link>
           </div>
         </div>
@@ -243,7 +443,7 @@ function NewBookingForm() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <GuideSidebar pageTitle="新建预约" />
+      <GuideSidebar pageTitle={t('pageTitleSidebar', lang)} />
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
@@ -255,10 +455,10 @@ function NewBookingForm() {
               className="inline-flex items-center gap-1 text-neutral-500 hover:text-brand-900 text-sm mb-4"
             >
               <ArrowLeft size={16} />
-              返回店舖列表
+              {t('backToVenues', lang)}
             </Link>
-            <h1 className="text-2xl font-bold text-gray-900">新建預約</h1>
-            <p className="text-gray-500 mt-1">為您的客戶預約服務</p>
+            <h1 className="text-2xl font-bold text-gray-900">{t('pageTitle', lang)}</h1>
+            <p className="text-gray-500 mt-1">{t('subtitle', lang)}</p>
           </div>
 
           {/* Notice */}
@@ -266,11 +466,11 @@ function NewBookingForm() {
             <div className="flex gap-3">
               <Info className="w-5 h-5 text-brand-600 flex-shrink-0 mt-0.5" />
               <div className="text-sm text-brand-800">
-                <p className="font-medium mb-1">預約須知</p>
+                <p className="font-medium mb-1">{t('noticeTitle', lang)}</p>
                 <ul className="list-disc list-inside space-y-1 text-brand-700">
-                  <li>預約提交後，請提醒客戶支付 500 元人民幣定金</li>
-                  <li>定金支付後預約方可生效</li>
-                  <li>當天取消定金不退</li>
+                  <li>{t('noticeDeposit', lang)}</li>
+                  <li>{t('noticeActivation', lang)}</li>
+                  <li>{t('noticeSameDay', lang)}</li>
                 </ul>
               </div>
             </div>
@@ -290,7 +490,7 @@ function NewBookingForm() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <Store className="inline mr-1" size={16} />
-                  選擇店舖 *
+                  {t('selectVenueLabel', lang)}
                 </label>
                 <select
                   value={formData.venueId}
@@ -298,7 +498,7 @@ function NewBookingForm() {
                   required
                   className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                 >
-                  <option value="">請選擇店舖</option>
+                  <option value="">{t('selectVenuePlaceholder', lang)}</option>
                   {venues.map((v) => (
                     <option key={v.id} value={v.id}>
                       {v.name} ({v.city} · {v.area})
@@ -307,7 +507,7 @@ function NewBookingForm() {
                 </select>
                 {venue && (
                   <p className="mt-2 text-sm text-gray-500">
-                    最低消費: ¥{venue.min_spend?.toLocaleString()}
+                    {t('minSpend', lang)} ¥{venue.min_spend?.toLocaleString()}
                   </p>
                 )}
               </div>
@@ -316,7 +516,7 @@ function NewBookingForm() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <User className="inline mr-1" size={16} />
-                  客戶姓名 *
+                  {t('customerNameLabel', lang)}
                 </label>
                 <input
                   type="text"
@@ -324,7 +524,7 @@ function NewBookingForm() {
                   onChange={(e) => setFormData({ ...formData, customerName: e.target.value })}
                   required
                   className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
-                  placeholder="客戶姓名"
+                  placeholder={t('customerNamePlaceholder', lang)}
                 />
               </div>
 
@@ -332,14 +532,14 @@ function NewBookingForm() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <Phone className="inline mr-1" size={16} />
-                  客戶電話（選填）
+                  {t('customerPhoneLabel', lang)}
                 </label>
                 <input
                   type="tel"
                   value={formData.customerPhone}
                   onChange={(e) => setFormData({ ...formData, customerPhone: e.target.value })}
                   className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
-                  placeholder="客戶聯繫電話"
+                  placeholder={t('customerPhonePlaceholder', lang)}
                 />
               </div>
 
@@ -347,7 +547,7 @@ function NewBookingForm() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <Users2 className="inline mr-1" size={16} />
-                  人數 *
+                  {t('partySizeLabel', lang)}
                 </label>
                 <select
                   value={formData.partySize}
@@ -356,9 +556,9 @@ function NewBookingForm() {
                   className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                 >
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
-                    <option key={n} value={n}>{n} 人</option>
+                    <option key={n} value={n}>{n} {t('personCount', lang)}</option>
                   ))}
-                  <option value={15}>10人以上</option>
+                  <option value={15}>{t('moreThanTen', lang)}</option>
                 </select>
               </div>
 
@@ -367,7 +567,7 @@ function NewBookingForm() {
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     <Calendar className="inline mr-1" size={16} />
-                    預約日期 *
+                    {t('bookingDateLabel', lang)}
                   </label>
                   <input
                     type="date"
@@ -381,7 +581,7 @@ function NewBookingForm() {
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     <Clock className="inline mr-1" size={16} />
-                    預約時間
+                    {t('bookingTimeLabel', lang)}
                   </label>
                   <input
                     type="time"
@@ -396,14 +596,14 @@ function NewBookingForm() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <MessageSquare className="inline mr-1" size={16} />
-                  特殊要求（選填）
+                  {t('specialRequestsLabel', lang)}
                 </label>
                 <textarea
                   value={formData.specialRequests}
                   onChange={(e) => setFormData({ ...formData, specialRequests: e.target.value })}
                   rows={3}
                   className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent resize-none"
-                  placeholder="如有特殊要求請在此說明..."
+                  placeholder={t('specialRequestsPlaceholder', lang)}
                 />
               </div>
 
@@ -423,12 +623,12 @@ function NewBookingForm() {
                 {submitting ? (
                   <>
                     <Loader2 className="animate-spin" size={20} />
-                    提交中...
+                    {t('submitting', lang)}
                   </>
                 ) : (
                   <>
                     <CheckCircle2 size={20} />
-                    提交預約
+                    {t('submitBooking', lang)}
                   </>
                 )}
               </button>

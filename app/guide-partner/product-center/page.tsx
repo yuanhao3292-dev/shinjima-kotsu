@@ -17,6 +17,146 @@ import {
 } from '@/lib/config/product-categories';
 import type { ProductCategory } from '@/lib/config/product-categories';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
+import { useLanguage, type Language } from '@/hooks/useLanguage';
+
+const translations = {
+  pageTitle: {
+    ja: 'セレクションセンター',
+    'zh-CN': '选品中心',
+    'zh-TW': '选品中心',
+    en: 'Product Center',
+  },
+  errorLoadFailed: {
+    ja: '読み込みに失敗しました',
+    'zh-CN': '加载失败',
+    'zh-TW': '加載失敗',
+    en: 'Failed to load',
+  },
+  errorNetwork: {
+    ja: 'ネットワークエラー',
+    'zh-CN': '网络错误',
+    'zh-TW': '網路錯誤',
+    en: 'Network error',
+  },
+  errorSetupFirst: {
+    ja: 'まずホワイトラベルページを設定してください',
+    'zh-CN': '请先设置您的白标页面',
+    'zh-TW': '請先設置您的白標頁面',
+    en: 'Please set up your white-label page first',
+  },
+  errorActionFailed: {
+    ja: '操作に失敗しました',
+    'zh-CN': '操作失败',
+    'zh-TW': '操作失敗',
+    en: 'Action failed',
+  },
+  noConfigTitle: {
+    ja: 'ホワイトラベルページ未作成',
+    'zh-CN': '尚未创建白标页面',
+    'zh-TW': '尚未創建白標頁面',
+    en: 'White-label page not created',
+  },
+  noConfigDesc: {
+    ja: '提携機関を選択する前に、まずホワイトラベルページの設定を作成してください。',
+    'zh-CN': '在选择合作机构之前，您需要先创建您的白标页面配置。',
+    'zh-TW': '在選擇合作機構之前，您需要先創建您的白標頁面配置。',
+    en: 'Before selecting partner institutions, you need to create your white-label page configuration.',
+  },
+  createNow: {
+    ja: '今すぐ作成 →',
+    'zh-CN': '立即创建 →',
+    'zh-TW': '立即創建 →',
+    en: 'Create Now →',
+  },
+  institutionCount: {
+    ja: '家機関',
+    'zh-CN': '家机构',
+    'zh-TW': '家機構',
+    en: ' institutions',
+  },
+  selected: {
+    ja: '選択済み',
+    'zh-CN': '已选',
+    'zh-TW': '已選',
+    en: 'Selected',
+  },
+  partnerInstitutions: {
+    ja: '家提携機関',
+    'zh-CN': '家合作机构',
+    'zh-TW': '家合作機構',
+    en: ' partner institutions',
+  },
+  otherModules: {
+    ja: 'その他のサービスモジュール',
+    'zh-CN': '其他服务模块',
+    'zh-TW': '其他服務模塊',
+    en: 'Other Service Modules',
+  },
+  noDescription: {
+    ja: '説明なし',
+    'zh-CN': '暂无描述',
+    'zh-TW': '暫無描述',
+    en: 'No description',
+  },
+  commission: {
+    ja: 'コミッション',
+    'zh-CN': '佣金',
+    'zh-TW': '佣金',
+    en: 'Commission',
+  },
+  deselect: {
+    ja: '選択解除',
+    'zh-CN': '取消选择',
+    'zh-TW': '取消選擇',
+    en: 'Deselect',
+  },
+  addToPage: {
+    ja: '自分のページに追加',
+    'zh-CN': '添加到我的页面',
+    'zh-TW': '添加到我的頁面',
+    en: 'Add to My Page',
+  },
+  viewDetails: {
+    ja: '詳細を見る',
+    'zh-CN': '查看详情',
+    'zh-TW': '查看詳情',
+    en: 'View Details',
+  },
+  requiredModule: {
+    ja: '必須',
+    'zh-CN': '必选',
+    'zh-TW': '必選',
+    en: 'Required',
+  },
+  requiredModuleLabel: {
+    ja: '必須モジュール',
+    'zh-CN': '必选模块',
+    'zh-TW': '必選模塊',
+    en: 'Required module',
+  },
+  add: {
+    ja: '追加',
+    'zh-CN': '添加',
+    'zh-TW': '添加',
+    en: 'Add',
+  },
+  selectedLabel: {
+    ja: '選択済み',
+    'zh-CN': '已选择',
+    'zh-TW': '已選擇',
+    en: 'Selected',
+  },
+  noInstitutions: {
+    ja: '利用可能な提携機関はありません',
+    'zh-CN': '暂无可用合作机构',
+    'zh-TW': '暫無可用合作機構',
+    en: 'No partner institutions available',
+  },
+} as const;
+
+const t = (key: keyof typeof translations, lang: Language): string => {
+  return translations[key][lang];
+};
 
 interface PageModule {
   id: string;
@@ -50,6 +190,7 @@ export default function ProductCenterPage() {
 
   const router = useRouter();
   const supabase = createClient();
+  const lang = useLanguage();
 
   useEffect(() => {
     loadProductCenter();
@@ -76,11 +217,11 @@ export default function ProductCenterPage() {
         setGuideConfig(data.guideConfig);
       } else {
         const error = await response.json();
-        setMessage({ type: 'error', text: error.error || '加载失败' });
+        setMessage({ type: 'error', text: error.error || t('errorLoadFailed', lang) });
       }
     } catch (error) {
       console.error('Load product center error:', error);
-      setMessage({ type: 'error', text: '网络错误' });
+      setMessage({ type: 'error', text: t('errorNetwork', lang) });
     } finally {
       setLoading(false);
     }
@@ -88,7 +229,7 @@ export default function ProductCenterPage() {
 
   const handleToggleModule = async (moduleId: string, isSelected: boolean) => {
     if (!guideConfig) {
-      setMessage({ type: 'error', text: '请先设置您的白标页面' });
+      setMessage({ type: 'error', text: t('errorSetupFirst', lang) });
       return;
     }
 
@@ -114,10 +255,10 @@ export default function ProductCenterPage() {
         setMessage({ type: 'success', text: result.message });
         await loadProductCenter();
       } else {
-        setMessage({ type: 'error', text: result.error || '操作失败' });
+        setMessage({ type: 'error', text: result.error || t('errorActionFailed', lang) });
       }
     } catch {
-      setMessage({ type: 'error', text: '网络错误' });
+      setMessage({ type: 'error', text: t('errorNetwork', lang) });
     } finally {
       setActionLoading(null);
     }
@@ -158,7 +299,7 @@ export default function ProductCenterPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <GuideSidebar pageTitle="选品中心" />
+      <GuideSidebar pageTitle={t('pageTitle', lang)} />
 
       <main className="lg:ml-64 pt-16 lg:pt-0">
         <div className="max-w-6xl mx-auto p-6 lg:p-8">
@@ -189,15 +330,15 @@ export default function ProductCenterPage() {
               <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 flex items-start gap-3">
                 <AlertCircle className="text-amber-600 flex-shrink-0" size={20} />
                 <div>
-                  <p className="font-medium text-amber-800">尚未创建白标页面</p>
+                  <p className="font-medium text-amber-800">{t('noConfigTitle', lang)}</p>
                   <p className="text-sm text-amber-600 mt-1">
-                    在选择合作机构之前，您需要先创建您的白标页面配置。
+                    {t('noConfigDesc', lang)}
                   </p>
                   <button
                     onClick={() => router.push('/guide-partner/whitelabel')}
                     className="mt-2 text-sm text-amber-700 underline hover:no-underline"
                   >
-                    立即创建 →
+                    {t('createNow', lang)}
                   </button>
                 </div>
               </div>
@@ -229,12 +370,12 @@ export default function ProductCenterPage() {
                       {category.description}
                     </p>
                     <div className={`mt-3 flex items-center gap-2 text-xs ${isActive ? 'text-white/80' : 'text-gray-400'}`}>
-                      <span>{catModules.length} 家机构</span>
+                      <span>{catModules.length} {t('institutionCount', lang)}</span>
                       {selectedCount > 0 && (
                         <span className={`px-1.5 py-0.5 rounded-full ${
                           isActive ? 'bg-white/20' : 'bg-green-100 text-green-700'
                         }`}>
-                          已选 {selectedCount}
+                          {t('selected', lang)} {selectedCount}
                         </span>
                       )}
                     </div>
@@ -249,7 +390,7 @@ export default function ProductCenterPage() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <h2 className="text-lg font-bold text-gray-900">{currentCategoryData.category.name}</h2>
-                <span className="text-sm text-gray-400">({currentCategoryData.modules.length} 家合作机构)</span>
+                <span className="text-sm text-gray-400">({currentCategoryData.modules.length} {t('partnerInstitutions', lang)})</span>
               </div>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {currentCategoryData.modules.map((module) => (
@@ -260,6 +401,7 @@ export default function ProductCenterPage() {
                     guideConfig={guideConfig}
                     actionLoading={actionLoading}
                     onToggleModule={handleToggleModule}
+                    lang={lang}
                   />
                 ))}
               </div>
@@ -269,7 +411,7 @@ export default function ProductCenterPage() {
           {/* 未分类模块 */}
           {uncategorizedModules.length > 0 && (
             <div className="mt-8">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">其他服务模块</h2>
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">{t('otherModules', lang)}</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {uncategorizedModules.map((module) => (
                   <div
@@ -283,9 +425,9 @@ export default function ProductCenterPage() {
                     <div className="p-5">
                       <h3 className="font-semibold text-gray-900 mb-2">{module.name_zh || module.name}</h3>
                       <p className="text-sm text-gray-600 mb-3 line-clamp-2">
-                        {module.description_zh || module.description || '暂无描述'}
+                        {module.description_zh || module.description || t('noDescription', lang)}
                       </p>
-                      <span className="text-xs text-gray-500">佣金 {module.commission_rate_min}%</span>
+                      <span className="text-xs text-gray-500">{t('commission', lang)} {module.commission_rate_min}%</span>
                     </div>
                     <div className="border-t px-5 py-3 bg-gray-50">
                       <button
@@ -300,9 +442,9 @@ export default function ProductCenterPage() {
                         {actionLoading === module.id ? (
                           <Loader2 className="animate-spin" size={18} />
                         ) : module.selectedByGuide ? (
-                          <>取消选择</>
+                          <>{t('deselect', lang)}</>
                         ) : (
-                          <><Plus size={18} /> 添加到我的页面</>
+                          <><Plus size={18} /> {t('addToPage', lang)}</>
                         )}
                       </button>
                     </div>
@@ -314,7 +456,7 @@ export default function ProductCenterPage() {
 
           {modules.length === 0 && (
             <div className="text-center py-16 text-gray-500">
-              <p>暂无可用合作机构</p>
+              <p>{t('noInstitutions', lang)}</p>
             </div>
           )}
         </div>
@@ -330,12 +472,14 @@ function ModuleCard({
   guideConfig,
   actionLoading,
   onToggleModule,
+  lang,
 }: {
   module: PageModule;
   category: ProductCategory;
   guideConfig: GuideConfig | null;
   actionLoading: string | null;
   onToggleModule: (moduleId: string, isSelected: boolean) => void;
+  lang: Language;
 }) {
   // 优先使用白标路由（保留 DistributionNav），无 slug 时 fallback 到独立页面
   const detailRoute = module.component_key
@@ -360,17 +504,17 @@ function ModuleCard({
           <h3 className="font-bold text-gray-900">{module.name_zh || module.name}</h3>
           {module.selectedByGuide && (
             <span className="px-2 py-1 bg-green-50 text-green-700 text-xs rounded-full flex items-center gap-1">
-              <Check size={12} /> 已选择
+              <Check size={12} /> {t('selectedLabel', lang)}
             </span>
           )}
         </div>
         <p className="text-sm text-gray-500 line-clamp-2 mb-3">
-          {module.description_zh || module.description || '暂无描述'}
+          {module.description_zh || module.description || t('noDescription', lang)}
         </p>
 
         <div className="flex items-center justify-between text-xs text-gray-400">
-          <span>佣金 {module.commission_rate_min}%</span>
-          {module.is_required && <span className="text-amber-600">必选</span>}
+          <span>{t('commission', lang)} {module.commission_rate_min}%</span>
+          {module.is_required && <span className="text-amber-600">{t('requiredModule', lang)}</span>}
         </div>
       </div>
 
@@ -383,11 +527,11 @@ function ModuleCard({
             rel="noopener noreferrer"
             className="flex-1 py-2 rounded-lg text-sm font-medium text-neutral-500 hover:text-brand-900 hover:bg-gray-100 transition flex items-center justify-center gap-1"
           >
-            查看详情 <ArrowRight size={14} />
+            {t('viewDetails', lang)} <ArrowRight size={14} />
           </a>
         )}
         {module.is_required ? (
-          <span className="flex-1 py-2 text-center text-xs text-gray-400">必选模块</span>
+          <span className="flex-1 py-2 text-center text-xs text-gray-400">{t('requiredModuleLabel', lang)}</span>
         ) : (
           <button
             onClick={() => onToggleModule(module.id, module.selectedByGuide)}
@@ -401,9 +545,9 @@ function ModuleCard({
             {actionLoading === module.id ? (
               <Loader2 className="animate-spin" size={14} />
             ) : module.selectedByGuide ? (
-              <>取消选择</>
+              <>{t('deselect', lang)}</>
             ) : (
-              <><Plus size={14} /> 添加</>
+              <><Plus size={14} /> {t('add', lang)}</>
             )}
           </button>
         )}

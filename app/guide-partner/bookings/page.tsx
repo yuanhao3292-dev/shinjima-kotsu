@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
+import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
   Store,
   Calendar,
@@ -18,6 +19,223 @@ import {
   CreditCard,
   CheckCircle2,
 } from 'lucide-react';
+
+const translations = {
+  pageTitle: {
+    ja: '予約管理',
+    'zh-CN': '我的预约',
+    'zh-TW': '我的預約',
+    en: 'My Bookings',
+  },
+  pageTitleSidebar: {
+    ja: '予約管理',
+    'zh-CN': '我的预约',
+    'zh-TW': '我的预约',
+    en: 'My Bookings',
+  },
+  subtitle: {
+    ja: 'お客様の予約を管理します',
+    'zh-CN': '管理您的客户预约',
+    'zh-TW': '管理您的客戶預約',
+    en: 'Manage your customer bookings',
+  },
+  newBooking: {
+    ja: '新規予約',
+    'zh-CN': '新建预约',
+    'zh-TW': '新建預約',
+    en: 'New Booking',
+  },
+  filterAll: {
+    ja: 'すべて',
+    'zh-CN': '全部',
+    'zh-TW': '全部',
+    en: 'All',
+  },
+  filterPending: {
+    ja: '確認待ち',
+    'zh-CN': '待确认',
+    'zh-TW': '待確認',
+    en: 'Pending',
+  },
+  filterConfirmed: {
+    ja: '確認済み',
+    'zh-CN': '已确认',
+    'zh-TW': '已確認',
+    en: 'Confirmed',
+  },
+  filterCompleted: {
+    ja: '完了',
+    'zh-CN': '已完成',
+    'zh-TW': '已完成',
+    en: 'Completed',
+  },
+  filterCancelled: {
+    ja: 'キャンセル',
+    'zh-CN': '已取消',
+    'zh-TW': '已取消',
+    en: 'Cancelled',
+  },
+  statusPending: {
+    ja: '確認待ち',
+    'zh-CN': '待确认',
+    'zh-TW': '待確認',
+    en: 'Pending',
+  },
+  statusConfirmed: {
+    ja: '確認済み',
+    'zh-CN': '已确认',
+    'zh-TW': '已確認',
+    en: 'Confirmed',
+  },
+  statusCompleted: {
+    ja: '完了',
+    'zh-CN': '已完成',
+    'zh-TW': '已完成',
+    en: 'Completed',
+  },
+  statusCancelled: {
+    ja: 'キャンセル',
+    'zh-CN': '已取消',
+    'zh-TW': '已取消',
+    en: 'Cancelled',
+  },
+  statusNoShow: {
+    ja: '未来店',
+    'zh-CN': '未到店',
+    'zh-TW': '未到店',
+    en: 'No Show',
+  },
+  depositPending: {
+    ja: 'デポジット未払い',
+    'zh-CN': '待支付定金',
+    'zh-TW': '待支付定金',
+    en: 'Deposit Pending',
+  },
+  depositPaid: {
+    ja: 'デポジット済み',
+    'zh-CN': '定金已付',
+    'zh-TW': '定金已付',
+    en: 'Deposit Paid',
+  },
+  depositRefunded: {
+    ja: '返金済み',
+    'zh-CN': '已退款',
+    'zh-TW': '已退款',
+    en: 'Refunded',
+  },
+  depositForfeited: {
+    ja: 'デポジット没収',
+    'zh-CN': '定金没收',
+    'zh-TW': '定金沒收',
+    en: 'Deposit Forfeited',
+  },
+  paymentSuccess: {
+    ja: 'デポジットの支払いが完了しました。管理者が予約を確認いたします。',
+    'zh-CN': '定金支付成功！管理员将尽快确认您的预约。',
+    'zh-TW': '定金支付成功！管理員將盡快確認您的預約。',
+    en: 'Deposit payment successful! The administrator will confirm your booking shortly.',
+  },
+  paymentCancelled: {
+    ja: '支払いがキャンセルされました。後ほどデポジットをお支払いいただけます。',
+    'zh-CN': '支付已取消。您可以稍后再支付定金。',
+    'zh-TW': '支付已取消。您可以稍後再支付定金。',
+    en: 'Payment cancelled. You can pay the deposit later.',
+  },
+  pleaseLogin: {
+    ja: '再ログインしてください',
+    'zh-CN': '请重新登录',
+    'zh-TW': '請重新登入',
+    en: 'Please log in again',
+  },
+  cannotCreatePayment: {
+    ja: '支払いページを作成できません',
+    'zh-CN': '无法创建支付页面',
+    'zh-TW': '無法創建支付頁面',
+    en: 'Unable to create payment page',
+  },
+  paymentFailed: {
+    ja: '支払いリクエストに失敗しました。後ほどお試しください。',
+    'zh-CN': '支付请求失败，请稍后重试',
+    'zh-TW': '支付請求失敗，請稍後重試',
+    en: 'Payment request failed. Please try again later.',
+  },
+  loading: {
+    ja: '読み込み中...',
+    'zh-CN': '加载中...',
+    'zh-TW': '載入中...',
+    en: 'Loading...',
+  },
+  totalRecords: {
+    ja: '件の予約記録',
+    'zh-CN': '条预约记录',
+    'zh-TW': '條預約記錄',
+    en: 'booking records',
+  },
+  personCount: {
+    ja: '名',
+    'zh-CN': '人',
+    'zh-TW': '人',
+    en: 'guests',
+  },
+  actualSpend: {
+    ja: '実際の消費額',
+    'zh-CN': '实际消费',
+    'zh-TW': '實際消費',
+    en: 'Actual Spend',
+  },
+  commission: {
+    ja: '報酬',
+    'zh-CN': '报酬',
+    'zh-TW': '報酬',
+    en: 'Commission',
+  },
+  processing: {
+    ja: '処理中...',
+    'zh-CN': '处理中...',
+    'zh-TW': '處理中...',
+    en: 'Processing...',
+  },
+  payDeposit: {
+    ja: 'デポジットを支払う ¥500',
+    'zh-CN': '支付定金 ¥500',
+    'zh-TW': '支付定金 ¥500',
+    en: 'Pay Deposit ¥500',
+  },
+  createdAt: {
+    ja: '作成日',
+    'zh-CN': '创建于',
+    'zh-TW': '創建於',
+    en: 'Created on',
+  },
+  viewDetails: {
+    ja: '詳細を見る',
+    'zh-CN': '查看详情',
+    'zh-TW': '查看詳情',
+    en: 'View Details',
+  },
+  noBookings: {
+    ja: '予約記録がありません',
+    'zh-CN': '暂无预约记录',
+    'zh-TW': '暫無預約記錄',
+    en: 'No booking records',
+  },
+  startBooking: {
+    ja: 'お客様の予約を始めましょう',
+    'zh-CN': '开始为您的客户预约服务吧',
+    'zh-TW': '開始為您的客戶預約服務吧',
+    en: 'Start booking services for your customers',
+  },
+  browseVenues: {
+    ja: '店舗を見る',
+    'zh-CN': '浏览店铺',
+    'zh-TW': '瀏覽店舖',
+    en: 'Browse Venues',
+  },
+} as const;
+
+const t = (key: keyof typeof translations, lang: Language): string => {
+  return translations[key][lang];
+};
 
 interface Booking {
   id: string;
@@ -40,12 +258,12 @@ interface Booking {
   };
 }
 
-const STATUS_FILTERS = [
-  { value: 'all', label: '全部' },
-  { value: 'pending', label: '待確認' },
-  { value: 'confirmed', label: '已確認' },
-  { value: 'completed', label: '已完成' },
-  { value: 'cancelled', label: '已取消' },
+const STATUS_FILTER_KEYS: { value: string; labelKey: keyof typeof translations }[] = [
+  { value: 'all', labelKey: 'filterAll' },
+  { value: 'pending', labelKey: 'filterPending' },
+  { value: 'confirmed', labelKey: 'filterConfirmed' },
+  { value: 'completed', labelKey: 'filterCompleted' },
+  { value: 'cancelled', labelKey: 'filterCancelled' },
 ];
 
 function BookingsContent() {
@@ -58,6 +276,7 @@ function BookingsContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const supabase = createClient();
+  const lang = useLanguage();
 
   useEffect(() => {
     loadBookings();
@@ -67,11 +286,11 @@ function BookingsContent() {
   useEffect(() => {
     const payment = searchParams.get('payment');
     if (payment === 'success') {
-      setMessage({ type: 'success', text: '定金支付成功！管理員將盡快確認您的預約。' });
+      setMessage({ type: 'success', text: t('paymentSuccess', lang) });
       // Reload bookings to reflect updated deposit status
       loadBookings();
     } else if (payment === 'cancelled') {
-      setMessage({ type: 'error', text: '支付已取消。您可以稍後再支付定金。' });
+      setMessage({ type: 'error', text: t('paymentCancelled', lang) });
     }
   }, [searchParams]);
 
@@ -90,7 +309,7 @@ function BookingsContent() {
     try {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
-        setMessage({ type: 'error', text: '請重新登入' });
+        setMessage({ type: 'error', text: t('pleaseLogin', lang) });
         setPayingBookingId(null);
         return;
       }
@@ -107,7 +326,7 @@ function BookingsContent() {
       const data = await res.json();
 
       if (!res.ok) {
-        setMessage({ type: 'error', text: data.error || '無法創建支付頁面' });
+        setMessage({ type: 'error', text: data.error || t('cannotCreatePayment', lang) });
         setPayingBookingId(null);
         return;
       }
@@ -117,7 +336,7 @@ function BookingsContent() {
       }
     } catch (err) {
       console.error('Payment error:', err);
-      setMessage({ type: 'error', text: '支付請求失敗，請稍後重試' });
+      setMessage({ type: 'error', text: t('paymentFailed', lang) });
       setPayingBookingId(null);
     }
   };
@@ -174,16 +393,16 @@ function BookingsContent() {
       cancelled: 'bg-gray-100 text-gray-700',
       no_show: 'bg-red-100 text-red-700',
     };
-    const labels: Record<string, string> = {
-      pending: '待確認',
-      confirmed: '已確認',
-      completed: '已完成',
-      cancelled: '已取消',
-      no_show: '未到店',
+    const labelKeys: Record<string, keyof typeof translations> = {
+      pending: 'statusPending',
+      confirmed: 'statusConfirmed',
+      completed: 'statusCompleted',
+      cancelled: 'statusCancelled',
+      no_show: 'statusNoShow',
     };
     return (
       <span className={`px-2 py-1 rounded-full text-xs font-medium ${styles[status] || styles.pending}`}>
-        {labels[status] || status}
+        {labelKeys[status] ? t(labelKeys[status], lang) : status}
       </span>
     );
   };
@@ -195,15 +414,15 @@ function BookingsContent() {
       refunded: 'bg-gray-50 text-gray-600 border-gray-200',
       forfeited: 'bg-red-50 text-red-600 border-red-200',
     };
-    const labels: Record<string, string> = {
-      pending: '待支付定金',
-      paid: '定金已付',
-      refunded: '已退款',
-      forfeited: '定金沒收',
+    const labelKeys: Record<string, keyof typeof translations> = {
+      pending: 'depositPending',
+      paid: 'depositPaid',
+      refunded: 'depositRefunded',
+      forfeited: 'depositForfeited',
     };
     return (
       <span className={`px-2 py-1 rounded text-xs border ${styles[status] || styles.pending}`}>
-        {labels[status] || status}
+        {labelKeys[status] ? t(labelKeys[status], lang) : status}
       </span>
     );
   };
@@ -213,7 +432,7 @@ function BookingsContent() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">載入中...</p>
+          <p className="text-gray-600">{t('loading', lang)}</p>
         </div>
       </div>
     );
@@ -221,7 +440,7 @@ function BookingsContent() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <GuideSidebar pageTitle="我的预约" />
+      <GuideSidebar pageTitle={t('pageTitleSidebar', lang)} />
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
@@ -229,15 +448,15 @@ function BookingsContent() {
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">我的預約</h1>
-              <p className="text-gray-500 mt-1">管理您的客戶預約</p>
+              <h1 className="text-2xl font-bold text-gray-900">{t('pageTitle', lang)}</h1>
+              <p className="text-gray-500 mt-1">{t('subtitle', lang)}</p>
             </div>
             <Link
               href="/guide-partner/venues"
               className="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-medium px-4 py-2 rounded-xl transition"
             >
               <Plus size={18} />
-              新建預約
+              {t('newBooking', lang)}
             </Link>
           </div>
 
@@ -245,7 +464,7 @@ function BookingsContent() {
           <div className="bg-white rounded-xl border p-4 mb-6">
             <div className="flex items-center gap-2 overflow-x-auto pb-2">
               <Filter size={16} className="text-gray-400 flex-shrink-0" />
-              {STATUS_FILTERS.map((filter) => (
+              {STATUS_FILTER_KEYS.map((filter) => (
                 <button
                   key={filter.value}
                   onClick={() => setStatusFilter(filter.value)}
@@ -257,7 +476,7 @@ function BookingsContent() {
                     }
                   `}
                 >
-                  {filter.label}
+                  {t(filter.labelKey, lang)}
                 </button>
               ))}
             </div>
@@ -277,7 +496,7 @@ function BookingsContent() {
 
           {/* Results Count */}
           <p className="text-sm text-gray-500 mb-4">
-            共 {filteredBookings.length} 條預約記錄
+            {filteredBookings.length} {t('totalRecords', lang)}
           </p>
 
           {/* Bookings List */}
@@ -313,7 +532,7 @@ function BookingsContent() {
                         </span>
                         <span className="flex items-center gap-1">
                           <Users2 size={14} />
-                          {booking.party_size} 人
+                          {booking.party_size} {t('personCount', lang)}
                         </span>
                       </div>
                     </div>
@@ -322,13 +541,13 @@ function BookingsContent() {
                     <div className="sm:text-right">
                       {booking.actual_spend && (
                         <div className="mb-2">
-                          <p className="text-xs text-gray-500">實際消費</p>
+                          <p className="text-xs text-gray-500">{t('actualSpend', lang)}</p>
                           <p className="font-bold text-gray-900">¥{booking.actual_spend.toLocaleString()}</p>
                         </div>
                       )}
                       {booking.commission_amount && (
                         <div>
-                          <p className="text-xs text-gray-500">報酬</p>
+                          <p className="text-xs text-gray-500">{t('commission', lang)}</p>
                           <p className="font-bold text-green-600">+¥{booking.commission_amount.toLocaleString()}</p>
                         </div>
                       )}
@@ -347,12 +566,12 @@ function BookingsContent() {
                       {payingBookingId === booking.id ? (
                         <>
                           <Loader2 className="animate-spin" size={18} />
-                          處理中...
+                          {t('processing', lang)}
                         </>
                       ) : (
                         <>
                           <CreditCard size={18} />
-                          支付定金 ¥500
+                          {t('payDeposit', lang)}
                         </>
                       )}
                     </button>
@@ -361,13 +580,13 @@ function BookingsContent() {
 
                 <div className="px-4 sm:px-6 py-3 bg-gray-50 border-t flex items-center justify-between">
                   <span className="text-xs text-gray-400">
-                    創建於 {new Date(booking.created_at).toLocaleDateString()}
+                    {t('createdAt', lang)} {new Date(booking.created_at).toLocaleDateString()}
                   </span>
                   <Link
                     href={`/guide-partner/bookings/${booking.id}`}
                     className="text-brand-600 text-sm font-medium flex items-center gap-1 hover:underline"
                   >
-                    查看詳情 <ChevronRight size={14} />
+                    {t('viewDetails', lang)} <ChevronRight size={14} />
                   </Link>
                 </div>
               </div>
@@ -377,14 +596,14 @@ function BookingsContent() {
           {filteredBookings.length === 0 && (
             <div className="bg-white rounded-xl border p-12 text-center">
               <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="font-bold text-gray-900 mb-2">暫無預約記錄</h3>
-              <p className="text-gray-500 mb-4">開始為您的客戶預約服務吧</p>
+              <h3 className="font-bold text-gray-900 mb-2">{t('noBookings', lang)}</h3>
+              <p className="text-gray-500 mb-4">{t('startBooking', lang)}</p>
               <Link
                 href="/guide-partner/venues"
                 className="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-medium px-6 py-3 rounded-xl transition"
               >
                 <Store size={18} />
-                瀏覽店舖
+                {t('browseVenues', lang)}
               </Link>
             </div>
           )}

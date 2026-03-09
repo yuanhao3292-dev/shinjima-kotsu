@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
+import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
   X,
   HeadphonesIcon,
@@ -37,20 +38,289 @@ interface TicketReply {
   created_at: string;
 }
 
-const TICKET_TYPES = [
-  { value: 'commission_dispute', label: '報酬糾紛', icon: '💰' },
-  { value: 'order_issue', label: '訂單問題', icon: '📋' },
-  { value: 'payment_issue', label: '支付問題', icon: '💳' },
-  { value: 'technical_issue', label: '技術問題', icon: '🔧' },
-  { value: 'suggestion', label: '建議反饋', icon: '💡' },
-  { value: 'other', label: '其他問題', icon: '❓' },
+const translations = {
+  pageTitle: {
+    ja: 'サポート',
+    'zh-CN': '客服支持',
+    'zh-TW': '客服支持',
+    en: 'Support',
+  },
+  helpAndSupport: {
+    ja: 'ヘルプとサポート',
+    'zh-CN': '帮助与支持',
+    'zh-TW': '幫助與支持',
+    en: 'Help & Support',
+  },
+  submitTicketHint: {
+    ja: '問題チケットを送信してください。48時間以内に返信いたします',
+    'zh-CN': '提交问题工单，我们将在 48 小时内回复',
+    'zh-TW': '提交問題工單，我們將在 48 小時內回覆',
+    en: 'Submit a ticket and we will respond within 48 hours',
+  },
+  newTicket: {
+    ja: '新規チケット',
+    'zh-CN': '新建工单',
+    'zh-TW': '新建工單',
+    en: 'New Ticket',
+  },
+  slaTitle: {
+    ja: 'サービスレベル契約 (SLA)',
+    'zh-CN': '服务等级承诺 (SLA)',
+    'zh-TW': '服務等級承諾 (SLA)',
+    en: 'Service Level Agreement (SLA)',
+  },
+  slaNormal: {
+    ja: '通常の問題：48時間以内に初回返信',
+    'zh-CN': '普通问题：48 小时内首次回复',
+    'zh-TW': '普通問題：48 小時內首次回覆',
+    en: 'Standard issues: first response within 48 hours',
+  },
+  slaUrgent: {
+    ja: '緊急の問題：24時間以内に初回返信',
+    'zh-CN': '紧急问题：24 小时内首次回复',
+    'zh-TW': '緊急問題：24 小時內首次回覆',
+    en: 'Urgent issues: first response within 24 hours',
+  },
+  slaDispute: {
+    ja: '報酬紛争：72時間以内に処理完了',
+    'zh-CN': '报酬纠纷：72 小时内处理完成',
+    'zh-TW': '報酬糾紛：72 小時內處理完成',
+    en: 'Commission disputes: resolved within 72 hours',
+  },
+  myTickets: {
+    ja: 'マイチケット',
+    'zh-CN': '我的工单',
+    'zh-TW': '我的工單',
+    en: 'My Tickets',
+  },
+  noTickets: {
+    ja: 'チケットの記録がありません',
+    'zh-CN': '暂无工单记录',
+    'zh-TW': '暫無工單記錄',
+    en: 'No tickets yet',
+  },
+  noTicketsHint: {
+    ja: '「新規チケット」をクリックして問題を送信してください',
+    'zh-CN': '点击「新建工单」提交您的问题',
+    'zh-TW': '點擊「新建工單」提交您的問題',
+    en: 'Click "New Ticket" to submit your issue',
+  },
+  selectTicket: {
+    ja: 'チケットを選択して詳細を表示',
+    'zh-CN': '选择一个工单查看详情',
+    'zh-TW': '選擇一個工單查看詳情',
+    en: 'Select a ticket to view details',
+  },
+  meLabel: {
+    ja: '私',
+    'zh-CN': '我',
+    'zh-TW': '我',
+    en: 'Me',
+  },
+  staffLabel: {
+    ja: 'CS',
+    'zh-CN': '客',
+    'zh-TW': '客',
+    en: 'CS',
+  },
+  staffName: {
+    ja: 'カスタマーサポート',
+    'zh-CN': '客服',
+    'zh-TW': '客服',
+    en: 'Customer Support',
+  },
+  resolutionNote: {
+    ja: '解決方法',
+    'zh-CN': '解决方案',
+    'zh-TW': '解決方案',
+    en: 'Resolution',
+  },
+  replyPlaceholder: {
+    ja: '返信内容を入力...',
+    'zh-CN': '输入回复内容...',
+    'zh-TW': '輸入回覆內容...',
+    en: 'Type your reply...',
+  },
+  newTicketTitle: {
+    ja: '新規チケット',
+    'zh-CN': '新建工单',
+    'zh-TW': '新建工單',
+    en: 'New Ticket',
+  },
+  ticketTypeLabel: {
+    ja: '問題の種類',
+    'zh-CN': '问题类型',
+    'zh-TW': '問題類型',
+    en: 'Issue Type',
+  },
+  priorityLabel: {
+    ja: '優先度',
+    'zh-CN': '优先级',
+    'zh-TW': '優先級',
+    en: 'Priority',
+  },
+  priorityLow: {
+    ja: '低 - 一般的なお問い合わせ',
+    'zh-CN': '低 - 一般咨询',
+    'zh-TW': '低 - 一般諮詢',
+    en: 'Low - General inquiry',
+  },
+  priorityNormal: {
+    ja: '普通 - サポートが必要',
+    'zh-CN': '普通 - 需要帮助',
+    'zh-TW': '普通 - 需要幫助',
+    en: 'Normal - Need help',
+  },
+  priorityHigh: {
+    ja: '高 - 使用に影響あり',
+    'zh-CN': '高 - 影响使用',
+    'zh-TW': '高 - 影響使用',
+    en: 'High - Affecting usage',
+  },
+  priorityUrgent: {
+    ja: '緊急 - 重大な問題',
+    'zh-CN': '紧急 - 严重问题',
+    'zh-TW': '緊急 - 嚴重問題',
+    en: 'Urgent - Critical issue',
+  },
+  subjectLabel: {
+    ja: '問題のタイトル',
+    'zh-CN': '问题标题',
+    'zh-TW': '問題標題',
+    en: 'Subject',
+  },
+  subjectPlaceholder: {
+    ja: '問題を簡潔に説明してください',
+    'zh-CN': '简要描述您的问题',
+    'zh-TW': '簡要描述您的問題',
+    en: 'Briefly describe your issue',
+  },
+  descriptionLabel: {
+    ja: '詳細な説明',
+    'zh-CN': '详细描述',
+    'zh-TW': '詳細描述',
+    en: 'Description',
+  },
+  descriptionPlaceholder: {
+    ja: '遭遇した問題を詳しく説明してください：\n- 発生日時\n- 関連する注文番号（もしあれば）\n- ご希望の解決方法',
+    'zh-CN': '请详细描述您遇到的问题，包括：\n- 发生时间\n- 相关订单号（如有）\n- 期望的解决方案',
+    'zh-TW': '請詳細描述您遇到的問題，包括：\n- 發生時間\n- 相關訂單號（如有）\n- 期望的解決方案',
+    en: 'Please describe your issue in detail, including:\n- When it occurred\n- Related order number (if any)\n- Expected resolution',
+  },
+  cancelBtn: {
+    ja: 'キャンセル',
+    'zh-CN': '取消',
+    'zh-TW': '取消',
+    en: 'Cancel',
+  },
+  submittingBtn: {
+    ja: '送信中...',
+    'zh-CN': '提交中...',
+    'zh-TW': '提交中...',
+    en: 'Submitting...',
+  },
+  submitBtn: {
+    ja: 'チケットを送信',
+    'zh-CN': '提交工单',
+    'zh-TW': '提交工單',
+    en: 'Submit Ticket',
+  },
+  submitError: {
+    ja: '送信に失敗しました。後ほど再度お試しください',
+    'zh-CN': '提交失败，请稍后再试',
+    'zh-TW': '提交失敗，請稍後再試',
+    en: 'Submission failed. Please try again later',
+  },
+  typeCommissionDispute: {
+    ja: '報酬紛争',
+    'zh-CN': '报酬纠纷',
+    'zh-TW': '報酬糾紛',
+    en: 'Commission Dispute',
+  },
+  typeOrderIssue: {
+    ja: '注文の問題',
+    'zh-CN': '订单问题',
+    'zh-TW': '訂單問題',
+    en: 'Order Issue',
+  },
+  typePaymentIssue: {
+    ja: '支払いの問題',
+    'zh-CN': '支付问题',
+    'zh-TW': '支付問題',
+    en: 'Payment Issue',
+  },
+  typeTechnicalIssue: {
+    ja: '技術的な問題',
+    'zh-CN': '技术问题',
+    'zh-TW': '技術問題',
+    en: 'Technical Issue',
+  },
+  typeSuggestion: {
+    ja: 'ご意見・ご要望',
+    'zh-CN': '建议反馈',
+    'zh-TW': '建議反饋',
+    en: 'Suggestion',
+  },
+  typeOther: {
+    ja: 'その他',
+    'zh-CN': '其他问题',
+    'zh-TW': '其他問題',
+    en: 'Other',
+  },
+  statusOpen: {
+    ja: '未対応',
+    'zh-CN': '待处理',
+    'zh-TW': '待處理',
+    en: 'Open',
+  },
+  statusInProgress: {
+    ja: '対応中',
+    'zh-CN': '处理中',
+    'zh-TW': '處理中',
+    en: 'In Progress',
+  },
+  statusResolved: {
+    ja: '解決済み',
+    'zh-CN': '已解决',
+    'zh-TW': '已解決',
+    en: 'Resolved',
+  },
+  statusClosed: {
+    ja: 'クローズ',
+    'zh-CN': '已关闭',
+    'zh-TW': '已關閉',
+    en: 'Closed',
+  },
+} as const;
+
+const t = (key: keyof typeof translations, lang: Language): string => {
+  return translations[key][lang];
+};
+
+const getTicketTypes = (lang: Language) => [
+  { value: 'commission_dispute', label: t('typeCommissionDispute', lang), icon: '💰' },
+  { value: 'order_issue', label: t('typeOrderIssue', lang), icon: '📋' },
+  { value: 'payment_issue', label: t('typePaymentIssue', lang), icon: '💳' },
+  { value: 'technical_issue', label: t('typeTechnicalIssue', lang), icon: '🔧' },
+  { value: 'suggestion', label: t('typeSuggestion', lang), icon: '💡' },
+  { value: 'other', label: t('typeOther', lang), icon: '❓' },
 ];
 
-const STATUS_CONFIG: Record<string, { label: string; color: string; icon: any }> = {
-  open: { label: '待處理', color: 'bg-yellow-100 text-yellow-700', icon: Clock },
-  in_progress: { label: '處理中', color: 'bg-blue-100 text-blue-700', icon: MessageSquare },
-  resolved: { label: '已解決', color: 'bg-green-100 text-green-700', icon: CheckCircle2 },
-  closed: { label: '已關閉', color: 'bg-gray-100 text-gray-700', icon: CheckCircle2 },
+const getStatusConfig = (lang: Language): Record<string, { label: string; color: string; icon: any }> => ({
+  open: { label: t('statusOpen', lang), color: 'bg-yellow-100 text-yellow-700', icon: Clock },
+  in_progress: { label: t('statusInProgress', lang), color: 'bg-blue-100 text-blue-700', icon: MessageSquare },
+  resolved: { label: t('statusResolved', lang), color: 'bg-green-100 text-green-700', icon: CheckCircle2 },
+  closed: { label: t('statusClosed', lang), color: 'bg-gray-100 text-gray-700', icon: CheckCircle2 },
+});
+
+const getDateLocale = (lang: Language): string => {
+  const localeMap: Record<Language, string> = {
+    ja: 'ja-JP',
+    'zh-CN': 'zh-CN',
+    'zh-TW': 'zh-TW',
+    en: 'en-US',
+  };
+  return localeMap[lang];
 };
 
 export default function SupportPage() {
@@ -63,6 +333,7 @@ export default function SupportPage() {
   const [guideName, setGuideName] = useState<string>('');
   const router = useRouter();
   const supabase = createClient();
+  const lang = useLanguage();
 
   // 新工单表单
   const [newTicket, setNewTicket] = useState({
@@ -76,6 +347,9 @@ export default function SupportPage() {
   // 回复表单
   const [replyContent, setReplyContent] = useState('');
   const [sendingReply, setSendingReply] = useState(false);
+
+  const TICKET_TYPES = getTicketTypes(lang);
+  const STATUS_CONFIG = getStatusConfig(lang);
 
   useEffect(() => {
     loadData();
@@ -112,7 +386,7 @@ export default function SupportPage() {
 
       setTickets(ticketsData || []);
     } catch (error) {
-      console.error('加载数据失败:', error);
+      console.error('Failed to load data:', error);
     } finally {
       setLoading(false);
     }
@@ -152,8 +426,8 @@ export default function SupportPage() {
       setShowNewTicket(false);
       loadData();
     } catch (error) {
-      console.error('提交工单失败:', error);
-      alert('提交失敗，請稍後再試');
+      console.error('Failed to submit ticket:', error);
+      alert(t('submitError', lang));
     } finally {
       setSubmitting(false);
     }
@@ -178,7 +452,7 @@ export default function SupportPage() {
       setReplyContent('');
       loadTicketReplies(selectedTicket.id);
     } catch (error) {
-      console.error('发送回复失败:', error);
+      console.error('Failed to send reply:', error);
     } finally {
       setSendingReply(false);
     }
@@ -199,7 +473,7 @@ export default function SupportPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <GuideSidebar pageTitle="客服支持" />
+      <GuideSidebar pageTitle={t('pageTitle', lang)} />
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0 min-h-screen">
@@ -207,15 +481,15 @@ export default function SupportPage() {
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">幫助與支持</h1>
-              <p className="text-gray-500 text-sm mt-1">提交問題工單，我們將在 48 小時內回覆</p>
+              <h1 className="text-2xl font-bold text-gray-900">{t('helpAndSupport', lang)}</h1>
+              <p className="text-gray-500 text-sm mt-1">{t('submitTicketHint', lang)}</p>
             </div>
             <button
               onClick={() => setShowNewTicket(true)}
               className="flex items-center gap-2 px-4 py-2 bg-brand-600 text-white rounded-xl hover:bg-brand-700 transition"
             >
               <Plus size={20} />
-              <span>新建工單</span>
+              <span>{t('newTicket', lang)}</span>
             </button>
           </div>
 
@@ -224,11 +498,11 @@ export default function SupportPage() {
             <div className="flex items-start gap-3">
               <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
               <div>
-                <h3 className="font-medium text-blue-900">服務等級承諾 (SLA)</h3>
+                <h3 className="font-medium text-blue-900">{t('slaTitle', lang)}</h3>
                 <ul className="text-sm text-blue-700 mt-1 space-y-1">
-                  <li>• 普通問題：48 小時內首次回覆</li>
-                  <li>• 緊急問題：24 小時內首次回覆</li>
-                  <li>• 報酬糾紛：72 小時內處理完成</li>
+                  <li>• {t('slaNormal', lang)}</li>
+                  <li>• {t('slaUrgent', lang)}</li>
+                  <li>• {t('slaDispute', lang)}</li>
                 </ul>
               </div>
             </div>
@@ -238,19 +512,19 @@ export default function SupportPage() {
             {/* 工单列表 */}
             <div className="bg-white rounded-xl shadow-sm border">
               <div className="p-4 border-b">
-                <h2 className="font-bold text-gray-900">我的工單</h2>
+                <h2 className="font-bold text-gray-900">{t('myTickets', lang)}</h2>
               </div>
               <div className="divide-y max-h-[600px] overflow-y-auto">
                 {tickets.length === 0 ? (
                   <div className="p-8 text-center text-gray-500">
                     <HeadphonesIcon className="w-12 h-12 mx-auto mb-3 text-gray-300" />
-                    <p>暫無工單記錄</p>
-                    <p className="text-sm mt-1">點擊「新建工單」提交您的問題</p>
+                    <p>{t('noTickets', lang)}</p>
+                    <p className="text-sm mt-1">{t('noTicketsHint', lang)}</p>
                   </div>
                 ) : (
                   tickets.map((ticket) => {
                     const statusConfig = STATUS_CONFIG[ticket.status];
-                    const typeConfig = TICKET_TYPES.find(t => t.value === ticket.ticket_type);
+                    const typeConfig = TICKET_TYPES.find(tt => tt.value === ticket.ticket_type);
                     const StatusIcon = statusConfig?.icon || Clock;
 
                     return (
@@ -277,7 +551,7 @@ export default function SupportPage() {
                                 {statusConfig?.label}
                               </span>
                               <span className="text-xs text-gray-400">
-                                {new Date(ticket.created_at).toLocaleDateString('zh-TW')}
+                                {new Date(ticket.created_at).toLocaleDateString(getDateLocale(lang))}
                               </span>
                             </div>
                           </div>
@@ -305,7 +579,7 @@ export default function SupportPage() {
                             {STATUS_CONFIG[selectedTicket.status]?.label}
                           </span>
                           <span className="text-xs text-gray-500">
-                            {TICKET_TYPES.find(t => t.value === selectedTicket.ticket_type)?.label}
+                            {TICKET_TYPES.find(tt => tt.value === selectedTicket.ticket_type)?.label}
                           </span>
                         </div>
                       </div>
@@ -317,11 +591,11 @@ export default function SupportPage() {
                     {/* 原始问题 */}
                     <div className="flex gap-3">
                       <div className="w-8 h-8 rounded-full bg-brand-100 flex items-center justify-center flex-shrink-0">
-                        <span className="text-sm">我</span>
+                        <span className="text-sm">{t('meLabel', lang)}</span>
                       </div>
                       <div className="flex-1">
                         <p className="text-sm text-gray-500 mb-1">
-                          {new Date(selectedTicket.created_at).toLocaleString('zh-TW')}
+                          {new Date(selectedTicket.created_at).toLocaleString(getDateLocale(lang))}
                         </p>
                         <div className="bg-gray-100 rounded-lg p-3">
                           <p className="text-gray-700 whitespace-pre-wrap">{selectedTicket.description}</p>
@@ -335,11 +609,11 @@ export default function SupportPage() {
                         <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
                           reply.is_staff ? 'bg-blue-100' : 'bg-brand-100'
                         }`}>
-                          <span className="text-sm">{reply.is_staff ? '客' : '我'}</span>
+                          <span className="text-sm">{reply.is_staff ? t('staffLabel', lang) : t('meLabel', lang)}</span>
                         </div>
                         <div className="flex-1">
                           <p className={`text-sm text-gray-500 mb-1 ${reply.is_staff ? '' : 'text-right'}`}>
-                            {reply.is_staff ? '客服' : guideName} · {new Date(reply.created_at).toLocaleString('zh-TW')}
+                            {reply.is_staff ? t('staffName', lang) : guideName} · {new Date(reply.created_at).toLocaleString(getDateLocale(lang))}
                           </p>
                           <div className={`rounded-lg p-3 ${
                             reply.is_staff ? 'bg-blue-50' : 'bg-gray-100'
@@ -353,7 +627,7 @@ export default function SupportPage() {
                     {/* 解决说明 */}
                     {selectedTicket.resolution_note && (
                       <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                        <p className="text-sm font-medium text-green-800 mb-1">解決方案</p>
+                        <p className="text-sm font-medium text-green-800 mb-1">{t('resolutionNote', lang)}</p>
                         <p className="text-green-700">{selectedTicket.resolution_note}</p>
                       </div>
                     )}
@@ -367,7 +641,7 @@ export default function SupportPage() {
                           type="text"
                           value={replyContent}
                           onChange={(e) => setReplyContent(e.target.value)}
-                          placeholder="輸入回覆內容..."
+                          placeholder={t('replyPlaceholder', lang)}
                           className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
                           onKeyDown={(e) => {
                             if (e.key === 'Enter' && !e.shiftKey) {
@@ -394,7 +668,7 @@ export default function SupportPage() {
               ) : (
                 <div className="p-8 text-center text-gray-500">
                   <MessageSquare className="w-12 h-12 mx-auto mb-3 text-gray-300" />
-                  <p>選擇一個工單查看詳情</p>
+                  <p>{t('selectTicket', lang)}</p>
                 </div>
               )}
             </div>
@@ -407,7 +681,7 @@ export default function SupportPage() {
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b flex items-center justify-between">
-              <h2 className="text-xl font-bold">新建工單</h2>
+              <h2 className="text-xl font-bold">{t('newTicketTitle', lang)}</h2>
               <button onClick={() => setShowNewTicket(false)} className="p-2 hover:bg-gray-100 rounded-lg">
                 <X size={20} />
               </button>
@@ -416,7 +690,7 @@ export default function SupportPage() {
             <form onSubmit={handleSubmitTicket} className="p-6 space-y-4">
               {/* 问题类型 */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">問題類型</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">{t('ticketTypeLabel', lang)}</label>
                 <div className="grid grid-cols-2 gap-2">
                   {TICKET_TYPES.map((type) => (
                     <button
@@ -438,27 +712,27 @@ export default function SupportPage() {
 
               {/* 优先级 */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">優先級</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">{t('priorityLabel', lang)}</label>
                 <select
                   value={newTicket.priority}
                   onChange={(e) => setNewTicket({ ...newTicket, priority: e.target.value })}
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
                 >
-                  <option value="low">低 - 一般諮詢</option>
-                  <option value="normal">普通 - 需要幫助</option>
-                  <option value="high">高 - 影響使用</option>
-                  <option value="urgent">緊急 - 嚴重問題</option>
+                  <option value="low">{t('priorityLow', lang)}</option>
+                  <option value="normal">{t('priorityNormal', lang)}</option>
+                  <option value="high">{t('priorityHigh', lang)}</option>
+                  <option value="urgent">{t('priorityUrgent', lang)}</option>
                 </select>
               </div>
 
               {/* 标题 */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">問題標題</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">{t('subjectLabel', lang)}</label>
                 <input
                   type="text"
                   value={newTicket.subject}
                   onChange={(e) => setNewTicket({ ...newTicket, subject: e.target.value })}
-                  placeholder="簡要描述您的問題"
+                  placeholder={t('subjectPlaceholder', lang)}
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
                   required
                   maxLength={200}
@@ -467,11 +741,11 @@ export default function SupportPage() {
 
               {/* 描述 */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">詳細描述</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">{t('descriptionLabel', lang)}</label>
                 <textarea
                   value={newTicket.description}
                   onChange={(e) => setNewTicket({ ...newTicket, description: e.target.value })}
-                  placeholder="請詳細描述您遇到的問題，包括：&#10;- 發生時間&#10;- 相關訂單號（如有）&#10;- 期望的解決方案"
+                  placeholder={t('descriptionPlaceholder', lang)}
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500 h-32 resize-none"
                   required
                 />
@@ -484,7 +758,7 @@ export default function SupportPage() {
                   onClick={() => setShowNewTicket(false)}
                   className="flex-1 px-4 py-3 border rounded-xl hover:bg-gray-50 transition"
                 >
-                  取消
+                  {t('cancelBtn', lang)}
                 </button>
                 <button
                   type="submit"
@@ -494,10 +768,10 @@ export default function SupportPage() {
                   {submitting ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" />
-                      提交中...
+                      {t('submittingBtn', lang)}
                     </>
                   ) : (
-                    '提交工單'
+                    t('submitBtn', lang)
                   )}
                 </button>
               </div>

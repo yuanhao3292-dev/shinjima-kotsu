@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import Logo from '@/components/Logo';
+import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
   LayoutDashboard,
   Store,
@@ -23,22 +24,41 @@ import {
 
 interface NavItem {
   icon: LucideIcon;
-  label: string;
+  label: Record<Language, string>;
   href: string;
   highlight?: boolean;
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { icon: LayoutDashboard, label: '控制台', href: '/guide-partner/dashboard' },
-  { icon: Store, label: '店铺列表', href: '/guide-partner/venues' },
-  { icon: Calendar, label: '我的预约', href: '/guide-partner/bookings' },
-  { icon: Wallet, label: '返金结算', href: '/guide-partner/commission' },
-  { icon: Users, label: '我的推荐', href: '/guide-partner/referrals' },
-  { icon: Trophy, label: '排行榜', href: '/guide-partner/leaderboard' },
-  { icon: Globe, label: '分销页面', href: '/guide-partner/whitelabel', highlight: true },
-  { icon: Headphones, label: '客服支持', href: '/guide-partner/support' },
-  { icon: Settings, label: '账户设置', href: '/guide-partner/settings' },
+  { icon: LayoutDashboard, label: { ja: 'ダッシュボード', 'zh-CN': '控制台', 'zh-TW': '控制台', en: 'Dashboard' }, href: '/guide-partner/dashboard' },
+  { icon: Store, label: { ja: '店舗一覧', 'zh-CN': '店铺列表', 'zh-TW': '店舖列表', en: 'Venues' }, href: '/guide-partner/venues' },
+  { icon: Calendar, label: { ja: '予約管理', 'zh-CN': '我的预约', 'zh-TW': '我的預約', en: 'My Bookings' }, href: '/guide-partner/bookings' },
+  { icon: Wallet, label: { ja: '報酬精算', 'zh-CN': '返金结算', 'zh-TW': '報酬結算', en: 'Commission' }, href: '/guide-partner/commission' },
+  { icon: Users, label: { ja: '紹介管理', 'zh-CN': '我的推荐', 'zh-TW': '我的推薦', en: 'Referrals' }, href: '/guide-partner/referrals' },
+  { icon: Trophy, label: { ja: 'ランキング', 'zh-CN': '排行榜', 'zh-TW': '排行榜', en: 'Leaderboard' }, href: '/guide-partner/leaderboard' },
+  { icon: Globe, label: { ja: '販売ページ', 'zh-CN': '分销页面', 'zh-TW': '分銷頁面', en: 'White Label' }, href: '/guide-partner/whitelabel', highlight: true },
+  { icon: Headphones, label: { ja: 'サポート', 'zh-CN': '客服支持', 'zh-TW': '客服支持', en: 'Support' }, href: '/guide-partner/support' },
+  { icon: Settings, label: { ja: 'アカウント設定', 'zh-CN': '账户设置', 'zh-TW': '帳戶設定', en: 'Settings' }, href: '/guide-partner/settings' },
 ];
+
+const sidebarTranslations = {
+  guideBackend: {
+    ja: 'ガイド管理画面',
+    'zh-CN': '导游后台',
+    'zh-TW': '導遊後台',
+    en: 'Guide Dashboard',
+  },
+  logout: {
+    ja: 'ログアウト',
+    'zh-CN': '退出登录',
+    'zh-TW': '退出登入',
+    en: 'Logout',
+  },
+} as const;
+
+const ts = (key: keyof typeof sidebarTranslations, lang: Language): string => {
+  return sidebarTranslations[key][lang];
+};
 
 interface GuideSidebarProps {
   pageTitle?: string;
@@ -49,6 +69,7 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const supabase = createClient();
+  const lang = useLanguage();
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -65,7 +86,7 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
       <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b z-50 flex items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <Logo className="w-8 h-8 text-brand-600" />
-          <span className="font-bold">{pageTitle || '导游后台'}</span>
+          <span className="font-bold">{pageTitle || ts('guideBackend', lang)}</span>
         </div>
         <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2">
           {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
@@ -107,7 +128,7 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
                 `}
               >
                 <item.icon size={20} />
-                <span>{item.label}</span>
+                <span>{item.label[lang]}</span>
                 {item.highlight && !active && (
                   <span className="ml-auto px-2 py-0.5 bg-blue-100 text-blue-600 text-xs rounded-full">
                     NEW
@@ -124,7 +145,7 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
             className="flex items-center gap-3 px-4 py-3 w-full text-gray-600 hover:bg-gray-50 rounded-xl transition"
           >
             <LogOut size={20} />
-            <span>退出登录</span>
+            <span>{ts('logout', lang)}</span>
           </button>
         </div>
       </aside>

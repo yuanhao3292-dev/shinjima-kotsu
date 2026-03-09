@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
+import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
   generatePricingText,
   localeDisplayNames,
@@ -28,6 +29,133 @@ import {
   Heart,
   X,
 } from 'lucide-react';
+
+const translations = {
+  pageTitle: {
+    ja: '店舗詳細',
+    'zh-CN': '店铺详情',
+    'zh-TW': '店舖詳情',
+    en: 'Venue Details',
+  },
+  loading: {
+    ja: '読み込み中...',
+    'zh-CN': '加载中...',
+    'zh-TW': '載入中...',
+    en: 'Loading...',
+  },
+  venueNotFound: {
+    ja: '店舗が存在しないか、公開停止されています',
+    'zh-CN': '店铺不存在或已下架',
+    'zh-TW': '店舖不存在或已下架',
+    en: 'Venue does not exist or has been delisted',
+  },
+  loadFailed: {
+    ja: '読み込みに失敗しました。しばらくしてから再度お試しください',
+    'zh-CN': '加载失败，请稍后重试',
+    'zh-TW': '載入失敗，請稍後重試',
+    en: 'Failed to load. Please try again later',
+  },
+  cannotLoad: {
+    ja: '読み込めません',
+    'zh-CN': '无法加载',
+    'zh-TW': '無法載入',
+    en: 'Unable to Load',
+  },
+  backToVenueList: {
+    ja: '店舗一覧に戻る',
+    'zh-CN': '返回店铺列表',
+    'zh-TW': '返回店舖列表',
+    en: 'Back to Venue List',
+  },
+  officialWebsite: {
+    ja: '公式サイト',
+    'zh-CN': '官网',
+    'zh-TW': '官網',
+    en: 'Website',
+  },
+  features: {
+    ja: '特色',
+    'zh-CN': '特色',
+    'zh-TW': '特色',
+    en: 'Features',
+  },
+  spendReference: {
+    ja: '消費参考',
+    'zh-CN': '消费参考',
+    'zh-TW': '消費參考',
+    en: 'Spending Reference',
+  },
+  minSpend: {
+    ja: '最低消費',
+    'zh-CN': '最低消费',
+    'zh-TW': '最低消費',
+    en: 'Min. Spend',
+  },
+  avgSpend: {
+    ja: '平均消費',
+    'zh-CN': '平均消费',
+    'zh-TW': '平均消費',
+    en: 'Avg. Spend',
+  },
+  serviceCharge: {
+    ja: 'サービス料',
+    'zh-CN': '服务费',
+    'zh-TW': '服務費',
+    en: 'Service Charge',
+  },
+  bookVenue: {
+    ja: 'この店舗を予約',
+    'zh-CN': '预约此店铺',
+    'zh-TW': '預約此店舖',
+    en: 'Book This Venue',
+  },
+  detailedPriceTable: {
+    ja: '詳細料金表',
+    'zh-CN': '详细价格表',
+    'zh-TW': '詳細價格表',
+    en: 'Detailed Price List',
+  },
+  languageInstruction: {
+    ja: '言語を選択して「コピー」をクリックすると、お客様に送信できます',
+    'zh-CN': '选择语言后点击"复制"即可发送给客人',
+    'zh-TW': '選擇語言後點擊「複製」即可發送給客人',
+    en: 'Select a language and click "Copy" to send to your client',
+  },
+  copied: {
+    ja: 'コピーしました！お客様に送信できます',
+    'zh-CN': '已复制！可粘贴发送给客人',
+    'zh-TW': '已複製！可貼上發送給客人',
+    en: 'Copied! Ready to send to your client',
+  },
+  copyPriceList: {
+    ja: '料金表をコピー',
+    'zh-CN': '复制价格表',
+    'zh-TW': '複製價格表',
+    en: 'Copy Price List',
+  },
+  noPricingSet: {
+    ja: 'この店舗にはまだ詳細料金が設定されていません',
+    'zh-CN': '此店铺尚未设置详细价格',
+    'zh-TW': '此店舖尚未設置詳細價格',
+    en: 'No detailed pricing has been set for this venue',
+  },
+  contactAdminForPricing: {
+    ja: '管理者に連絡して料金情報を更新してください',
+    'zh-CN': '请联系管理员更新价格信息',
+    'zh-TW': '請聯繫管理員更新價格資訊',
+    en: 'Please contact admin to update pricing information',
+  },
+  closedDayPrefix: {
+    ja: '休:',
+    'zh-CN': '休:',
+    'zh-TW': '休:',
+    en: 'Closed:',
+  },
+} as const;
+
+const t = (key: keyof typeof translations, lang: Language): string => {
+  return translations[key][lang];
+};
 
 interface Venue {
   id: string;
@@ -60,6 +188,7 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
   const [copied, setCopied] = useState(false);
   const router = useRouter();
   const supabase = createClient();
+  const lang = useLanguage();
 
   const checkAuthAndLoadVenue = useCallback(async () => {
     try {
@@ -88,14 +217,14 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
         .single();
 
       if (venueError || !venueData) {
-        setError('店舖不存在或已下架');
+        setError('venueNotFound');
         return;
       }
 
       setVenue(venueData as Venue);
     } catch (err) {
       console.error('Error:', err);
-      setError('載入失敗，請稍後重試');
+      setError('loadFailed');
     } finally {
       setLoading(false);
     }
@@ -141,7 +270,7 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">Loading...</p>
+          <p className="text-gray-600">{t('loading', lang)}</p>
         </div>
       </div>
     );
@@ -152,14 +281,14 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <Store className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <h2 className="text-xl font-bold text-gray-900 mb-2">無法載入</h2>
-          <p className="text-gray-500 mb-4">{error}</p>
+          <h2 className="text-xl font-bold text-gray-900 mb-2">{t('cannotLoad', lang)}</h2>
+          <p className="text-gray-500 mb-4">{t(error as keyof typeof translations, lang)}</p>
           <Link
             href="/guide-partner/venues"
             className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900"
           >
             <ArrowLeft size={18} />
-            返回店舖列表
+            {t('backToVenueList', lang)}
           </Link>
         </div>
       </div>
@@ -177,7 +306,7 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <GuideSidebar pageTitle="店铺详情" />
+      <GuideSidebar pageTitle={t('pageTitle', lang)} />
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
@@ -188,7 +317,7 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
             className="hidden lg:inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 mb-6"
           >
             <ArrowLeft size={18} />
-            返回店舖列表
+            {t('backToVenueList', lang)}
           </Link>
 
           <div className="grid lg:grid-cols-3 gap-6">
@@ -224,7 +353,7 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
                   {venue.closed_days && (
                     <div className="flex items-center gap-3 text-sm">
                       <X className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                      <span className="text-gray-600">休: {venue.closed_days}</span>
+                      <span className="text-gray-600">{t('closedDayPrefix', lang)} {venue.closed_days}</span>
                     </div>
                   )}
 
@@ -244,7 +373,7 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
                         rel="noopener noreferrer"
                         className="text-neutral-500 hover:text-brand-900 flex items-center gap-1"
                       >
-                        官網 <ExternalLink size={12} />
+                        {t('officialWebsite', lang)} <ExternalLink size={12} />
                       </a>
                     </div>
                   )}
@@ -260,7 +389,7 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
 
                 {venue.features && venue.features.length > 0 && (
                   <div className="mt-4 pt-4 border-t">
-                    <p className="text-xs text-gray-500 mb-2">特色</p>
+                    <p className="text-xs text-gray-500 mb-2">{t('features', lang)}</p>
                     <div className="flex flex-wrap gap-1">
                       {venue.features.map((feature, idx) => (
                         <span key={idx} className="px-2 py-1 bg-brand-50 text-brand-600 text-xs rounded">
@@ -280,20 +409,20 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
 
               {/* Price Summary Card */}
               <div className="bg-white rounded-xl border p-6">
-                <h2 className="font-bold text-gray-900 mb-4">消費參考</h2>
+                <h2 className="font-bold text-gray-900 mb-4">{t('spendReference', lang)}</h2>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-xs text-gray-500">最低消費</p>
+                    <p className="text-xs text-gray-500">{t('minSpend', lang)}</p>
                     <p className="text-lg font-bold text-gray-900">¥{venue.min_spend?.toLocaleString()}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-500">平均消費</p>
+                    <p className="text-xs text-gray-500">{t('avgSpend', lang)}</p>
                     <p className="text-lg font-bold text-gray-900">¥{venue.avg_spend?.toLocaleString()}</p>
                   </div>
                 </div>
                 {venue.service_charge && (
                   <div className="mt-3 pt-3 border-t">
-                    <p className="text-xs text-gray-500">服務費</p>
+                    <p className="text-xs text-gray-500">{t('serviceCharge', lang)}</p>
                     <p className="font-medium text-gray-900">{venue.service_charge}</p>
                   </div>
                 )}
@@ -305,7 +434,7 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
                 className="w-full flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-bold py-4 rounded-xl transition"
               >
                 <Calendar size={20} />
-                預約此店舖
+                {t('bookVenue', lang)}
               </Link>
             </div>
 
@@ -315,7 +444,7 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
                 {/* Language Selector */}
                 <div className="border-b p-4">
                   <div className="flex items-center justify-between">
-                    <h2 className="font-bold text-gray-900">詳細價格表</h2>
+                    <h2 className="font-bold text-gray-900">{t('detailedPriceTable', lang)}</h2>
                     <div className="flex gap-1">
                       {LOCALES.map((locale) => (
                         <button
@@ -335,7 +464,7 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
                     </div>
                   </div>
                   <p className="text-xs text-gray-500 mt-2">
-                    選擇語言後點擊「複製」即可發送給客人
+                    {t('languageInstruction', lang)}
                   </p>
                 </div>
 
@@ -354,12 +483,12 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
                     {copied ? (
                       <>
                         <Check size={20} />
-                        已複製！可貼上發送給客人
+                        {t('copied', lang)}
                       </>
                     ) : (
                       <>
                         <Copy size={20} />
-                        複製 {localeDisplayNames[selectedLocale]} 價格表
+                        {t('copyPriceList', lang)} ({localeDisplayNames[selectedLocale]})
                       </>
                     )}
                   </button>
@@ -374,8 +503,8 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
                   ) : (
                     <div className="text-center py-12 text-gray-500">
                       <Store className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                      <p>此店舖尚未設置詳細價格</p>
-                      <p className="text-sm mt-1">請聯繫管理員更新價格資訊</p>
+                      <p>{t('noPricingSet', lang)}</p>
+                      <p className="text-sm mt-1">{t('contactAdminForPricing', lang)}</p>
                     </div>
                   )}
                 </div>
