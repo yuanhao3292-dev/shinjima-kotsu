@@ -473,55 +473,89 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
             <span className="text-sm tracking-widest text-rose-500 uppercase">Doctor</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-3">院長紹介</h2>
           </div>
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="bg-gradient-to-br from-rose-50 to-gray-50 rounded-3xl p-8 border border-rose-100">
-              <div className="flex items-center gap-5 mb-6">
-                <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-rose-200 shrink-0">
-                  <Image src={doctorAvatar?.src || `${SAI}/doctor.jpg`} alt={doctorAvatar?.alt || '崔煌植 院長'} width={96} height={96} className="object-cover w-full h-full" quality={75} />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900">崔 煌植</h3>
-                  <p className="text-sm text-gray-500">Sai Koshoku｜SAI CLINIC 院长</p>
-                  <Image src={doctorSign?.src || `${SAI}/sign.png`} alt={doctorSign?.alt || '崔煌植 签名'} width={100} height={32} className="mt-1 opacity-60" quality={75} />
-                </div>
+
+          {/* Philosophy heading */}
+          <div className="text-center mb-16">
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 leading-snug">
+              本気であなたのことを考える<br className="hidden md:block" />
+              心のこもった美容医療をお届けしたい
+            </h3>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            {/* Left: secondary photo + message */}
+            <div>
+              <div className="relative rounded-2xl overflow-hidden mb-8 aspect-[4/5]">
+                <Image src={`${SAI}/aboutDoctorImg2.jpg`} alt="崔煌植 院長" fill className="object-cover" quality={80} />
               </div>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                三重大学医学部毕业。曾在济生会西奈利病院（整形外科·皮肤科·内科）积累丰富临床经验，
-                后担任湘南美容クリニック都市旗舰店院长，磨练出卓越的美容外科技术。
-                秉持&ldquo;用心传递美丽&rdquo;的理念，创立SAI CLINIC。
-              </p>
-              <div className="space-y-3">
-                {[
-                  '日本美容外科学会（JSAS）会员',
-                  '韩国美容外科学会（KAAS）会员',
-                  'Allergan Botox Vista 认证医师',
-                  'Allergan Juvéderm Vista 认证医师',
-                  '日本救急医学会 ICLS 讲师',
-                ].map((q, i) => (
-                  <div key={i} className="flex items-center gap-2 text-sm text-gray-700">
-                    <CheckCircle size={16} className="text-rose-500 shrink-0" />
-                    {q}
-                  </div>
-                ))}
+              <div className="space-y-5 text-[15px] text-gray-600 leading-[1.9]">
+                <p>
+                  多くの美容クリニックが生まれる中、流れ作業的な施術や機械的な対応ではなく、患者様お一人おひとりに丁寧に寄り添い、その方にとって本当に必要な施術、心のこもった美容医療をお届けしたい。大手クリニックで経験を積んだからこそ、そう強く思うようになりました。
+                </p>
+                <p>
+                  私たちが何よりも大切にしているのは、患者様との信頼関係です。誠実な対応で、信頼し合える心の関係を最優先に、長く関係を築いていきたいと考えています。
+                </p>
+                <p>
+                  患者様にとって、肩肘張らずリラックスして気軽に通える場所でありたい。そして当院で過ごす時間、そのすべてが楽しかったと思ってもらいたいから。
+                </p>
+                <p>
+                  本気であなたのことを考えるクリニックとして、すべての女性が年齢を重ねることを恐れず、前向きに自分らしく輝けるよう、私たちが全力でサポートいたします。
+                </p>
+                <p>お悩みが少しでもあるようでしたら、ぜひお気軽にご来院ください。</p>
               </div>
             </div>
-            <div className="space-y-6">
-              <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
-                <h4 className="font-bold text-gray-900 mb-3 flex items-center gap-2"><Heart size={18} className="text-rose-500" /> 诊疗理念</h4>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  &ldquo;不推销不需要的手术，只提供真正适合您的方案。
-                  通过外在美容与内在营养的双重调理，实现自然健康的美丽。
-                  希望每位来到SAI CLINIC的客人都能轻松自在，放心把美丽交给我们。&rdquo;
-                </p>
+
+            {/* Right: main doctor photo + name + credentials */}
+            <div>
+              <div className="relative rounded-2xl overflow-hidden mb-8 aspect-[3/4]">
+                <Image src={doctorAvatar?.src || `${SAI}/doctor.jpg`} alt={doctorAvatar?.alt || '崔煌植 院長'} fill className="object-cover" quality={80} />
               </div>
-              <div className="grid grid-cols-3 gap-3">
-                {conceptImages.slice(1, 4).map((item, i) => (
-                  <div key={i} className="relative rounded-xl overflow-hidden h-28">
-                    <Image src={item.src} alt={item.label} fill className="object-cover" quality={75} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <div className="absolute bottom-2 left-0 right-0 text-center text-xs font-medium text-white">{item.label}</div>
-                  </div>
-                ))}
+
+              {/* Signature + Name */}
+              <div className="text-center mb-10">
+                <Image src={doctorSign?.src || `${SAI}/sign.png`} alt={doctorSign?.alt || '崔煌植 签名'} width={160} height={50} className="mx-auto mb-3 opacity-70" quality={75} />
+                <h4 className="text-2xl font-bold text-gray-900 tracking-wide">崔 煌植</h4>
+                <p className="text-sm text-gray-500 mt-1">Sai Koshoku</p>
+              </div>
+
+              {/* Career */}
+              <div className="mb-8">
+                <h5 className="text-xs tracking-widest text-rose-500 uppercase mb-4">経歴</h5>
+                <div className="space-y-2.5 text-sm text-gray-600">
+                  {[
+                    '三重大学医学部 卒業',
+                    '済生会千里病院 形成外科・皮膚科・内科 勤務',
+                    '湘南美容クリニック 都市部大型院 院長',
+                    '美容クリニック技術指導医',
+                    '崔先生の糸リフト塾 代表',
+                    '化粧品 imini 監修医',
+                    'SAI CLINIC 院長',
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-300 mt-1.5 shrink-0"></span>
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Credentials */}
+              <div>
+                <h5 className="text-xs tracking-widest text-rose-500 uppercase mb-4">資格・所属学会</h5>
+                <div className="space-y-2.5 text-sm text-gray-600">
+                  {[
+                    '日本美容外科学会（JSAS）',
+                    '韓国美容外科医学会（KAAS）',
+                    'アラガン・ボトックスビスタ認定医',
+                    'アラガン・ジュビダームビスタ認定医',
+                    '日本救急医学会 ICLSインストラクター認定医',
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-2">
+                      <CheckCircle size={14} className="text-rose-400 mt-0.5 shrink-0" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
