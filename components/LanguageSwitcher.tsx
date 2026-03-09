@@ -86,30 +86,30 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
   const currentLanguage = languages.find(l => l.code === currentLocale) || languages[0];
 
   if (variant === 'compact') {
+    const abbr = currentLocale === 'zh-TW' ? '繁中' : currentLocale === 'zh-CN' ? '简中' : currentLocale.toUpperCase();
     return (
       <div ref={dropdownRef} className={`relative ${className}`}>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-1 px-2 py-1 text-sm text-gray-600 hover:text-gray-900 transition rounded-lg hover:bg-gray-100"
+          className="flex items-center gap-1 px-2 py-1 text-xs font-bold text-gray-600 hover:text-gray-900 transition rounded-lg hover:bg-gray-100 uppercase tracking-wider"
           aria-label="Select language"
         >
-          <span>{currentLanguage.flag}</span>
-          <ChevronDown size={14} className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+          <Globe size={14} />
+          <span>{abbr}</span>
+          <ChevronDown size={12} className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />
         </button>
 
         {isOpen && (
-          <div className="absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
+          <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50">
             {languages.map((lang) => (
               <button
                 key={lang.code}
                 onClick={() => handleLanguageChange(lang.code)}
-                className={`w-full px-4 py-2 text-left text-sm flex items-center gap-2 hover:bg-gray-50 ${
-                  currentLocale === lang.code ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
+                className={`w-full text-left px-4 py-2 text-xs font-medium hover:bg-neutral-50 transition ${
+                  currentLocale === lang.code ? 'text-brand-700 bg-brand-50' : 'text-neutral-600'
                 }`}
               >
-                <span>{lang.flag}</span>
-                <span>{lang.nativeName}</span>
-                {currentLocale === lang.code && <Check size={14} className="ml-auto" />}
+                {lang.nativeName}
               </button>
             ))}
           </div>
@@ -119,31 +119,30 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
   }
 
   if (variant === 'sidebar') {
+    const abbr = currentLocale === 'zh-TW' ? '繁中' : currentLocale === 'zh-CN' ? '简中' : currentLocale.toUpperCase();
     return (
       <div ref={dropdownRef} className={`relative ${className}`}>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-3 px-4 py-3 w-full text-gray-600 hover:bg-gray-50 rounded-xl transition"
+          className="flex items-center gap-2 px-4 py-3 w-full text-gray-600 hover:bg-gray-50 rounded-xl transition"
           aria-label="Select language"
         >
-          <Globe size={20} />
-          <span className="flex-1 text-left text-sm">{currentLanguage.flag} {currentLanguage.nativeName}</span>
-          <ChevronDown size={16} className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+          <Globe size={14} />
+          <span className="text-xs font-bold uppercase tracking-wider">{abbr}</span>
+          <ChevronDown size={12} className={`ml-auto transition-transform ${isOpen ? 'rotate-180' : ''}`} />
         </button>
 
         {isOpen && (
-          <div className="absolute bottom-full left-0 right-0 mb-1 bg-white rounded-xl shadow-lg border border-gray-200 py-1 z-50">
+          <div className="absolute bottom-full left-0 mb-1 w-32 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50">
             {languages.map((lang) => (
               <button
                 key={lang.code}
                 onClick={() => handleLanguageChange(lang.code)}
-                className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-3 hover:bg-gray-50 transition ${
-                  currentLocale === lang.code ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
+                className={`w-full text-left px-4 py-2 text-xs font-medium hover:bg-neutral-50 transition ${
+                  currentLocale === lang.code ? 'text-brand-700 bg-brand-50' : 'text-neutral-600'
                 }`}
               >
-                <span>{lang.flag}</span>
-                <span className="flex-1">{lang.nativeName}</span>
-                {currentLocale === lang.code && <Check size={14} className="text-blue-600" />}
+                {lang.nativeName}
               </button>
             ))}
           </div>
