@@ -195,6 +195,15 @@ export async function POST(request: NextRequest) {
 
     // 创建或获取 Stripe Customer
     let stripeCustomerId = guide.stripe_customer_id;
+    if (stripeCustomerId) {
+      // 验证已有 customer 是否有效（可能是测试模式残留）
+      try {
+        await stripe.customers.retrieve(stripeCustomerId);
+      } catch {
+        console.warn(`Stripe Customer ${stripeCustomerId} 不存在，重新创建`);
+        stripeCustomerId = null;
+      }
+    }
     if (!stripeCustomerId) {
       const customer = await stripe.customers.create({
         name: guide.name,
