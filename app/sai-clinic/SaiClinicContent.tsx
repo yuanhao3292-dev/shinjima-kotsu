@@ -535,7 +535,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
             <span className="text-sm tracking-widest text-rose-500 uppercase">Why SAI CLINIC</span>
             <h2 className="text-3xl font-bold text-gray-900 mt-3">选择 SAI CLINIC 的理由</h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             {[
               {
                 img: featureImages[0]?.src || `${SAI}/topFeatureImg01.jpg`,
@@ -543,13 +543,6 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
                 title: '糸リフト专门诊所',
                 desc: '以线雕提升为核心技术，崔医生在该领域拥有超过15年经验和数千例成功案例。独创SAI LIFT系列，从体验到完美，满足不同需求。',
                 tags: ['SAI LIFT TRY', 'STANDARD', 'PERFECT'],
-              },
-              {
-                img: featureImages[1]?.src || `${SAI}/topFeatureImg02.jpg`,
-                imgAlt: featureImages[1]?.alt || '',
-                title: '韩式美学·日本品质',
-                desc: '积极引进最新韩国美容趋势与技术，同时保持日本医疗的精准与安全标准。兼具韩式审美的时尚感与日式品控的可靠性。',
-                tags: ['JSAS会员', 'KAAS会员', 'Allergan认证'],
               },
               {
                 img: featureImages[2]?.src || `${SAI}/aboutFeatureItem2.jpg`,
