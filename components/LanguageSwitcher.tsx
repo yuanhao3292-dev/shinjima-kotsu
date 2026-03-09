@@ -51,7 +51,7 @@ function setStoredLocale(locale: Locale) {
 }
 
 interface LanguageSwitcherProps {
-  variant?: 'default' | 'compact' | 'footer';
+  variant?: 'default' | 'compact' | 'footer' | 'sidebar';
   className?: string;
 }
 
@@ -110,6 +110,40 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
                 <span>{lang.flag}</span>
                 <span>{lang.nativeName}</span>
                 {currentLocale === lang.code && <Check size={14} className="ml-auto" />}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  if (variant === 'sidebar') {
+    return (
+      <div ref={dropdownRef} className={`relative ${className}`}>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="flex items-center gap-3 px-4 py-3 w-full text-gray-600 hover:bg-gray-50 rounded-xl transition"
+          aria-label="Select language"
+        >
+          <Globe size={20} />
+          <span className="flex-1 text-left text-sm">{currentLanguage.flag} {currentLanguage.nativeName}</span>
+          <ChevronDown size={16} className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        </button>
+
+        {isOpen && (
+          <div className="absolute bottom-full left-0 right-0 mb-1 bg-white rounded-xl shadow-lg border border-gray-200 py-1 z-50">
+            {languages.map((lang) => (
+              <button
+                key={lang.code}
+                onClick={() => handleLanguageChange(lang.code)}
+                className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-3 hover:bg-gray-50 transition ${
+                  currentLocale === lang.code ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
+                }`}
+              >
+                <span>{lang.flag}</span>
+                <span className="flex-1">{lang.nativeName}</span>
+                {currentLocale === lang.code && <Check size={14} className="text-blue-600" />}
               </button>
             ))}
           </div>
