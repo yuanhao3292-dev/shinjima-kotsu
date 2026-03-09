@@ -506,6 +506,8 @@ export default function WhiteLabelSettingsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [subscribing, setSubscribing] = useState(false);
+  const [managingSubscription, setManagingSubscription] = useState(false);
+  const [subscriptionError, setSubscriptionError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -798,7 +800,10 @@ export default function WhiteLabelSettingsPage() {
   };
 
   const handleManageSubscription = async () => {
-    if (!guide) return;
+    if (!guide || managingSubscription) return;
+
+    setManagingSubscription(true);
+    setSubscriptionError(null);
 
     try {
       const response = await fetch('/api/whitelabel/manage-subscription', {
@@ -815,10 +820,12 @@ export default function WhiteLabelSettingsPage() {
       if (data.url) {
         window.location.href = data.url;
       } else {
-        setMessage({ type: 'error', text: data.error || t('errManageFailed', lang) });
+        setSubscriptionError(data.error || t('errManageFailed', lang));
+        setManagingSubscription(false);
       }
     } catch (error) {
-      setMessage({ type: 'error', text: t('errManageRetry', lang) });
+      setSubscriptionError(t('errManageRetry', lang));
+      setManagingSubscription(false);
     }
   };
 
@@ -1016,16 +1023,26 @@ export default function WhiteLabelSettingsPage() {
           </div>
 
           {isSubscribed && (
-            <div className="mt-4 flex items-center justify-between pt-4 border-t">
-              <p className="text-sm text-gray-500">
-                {t('nextRenewalDate', lang)}{guide.subscription_end_date ? new Date(guide.subscription_end_date).toLocaleDateString(getDateLocale(lang)) : '-'}
-              </p>
-              <button
-                onClick={handleManageSubscription}
-                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition text-sm"
-              >
-                {t('manageSubscription', lang)}
-              </button>
+            <div className="mt-4 pt-4 border-t space-y-3">
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-gray-500">
+                  {t('nextRenewalDate', lang)}{guide.subscription_end_date ? new Date(guide.subscription_end_date).toLocaleDateString(getDateLocale(lang)) : '-'}
+                </p>
+                <button
+                  onClick={handleManageSubscription}
+                  disabled={managingSubscription}
+                  className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                >
+                  {managingSubscription && <Loader2 size={14} className="animate-spin" />}
+                  {t('manageSubscription', lang)}
+                </button>
+              </div>
+              {subscriptionError && (
+                <div className="p-3 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2 text-sm text-red-700">
+                  <AlertCircle size={16} className="flex-shrink-0" />
+                  <span>{subscriptionError}</span>
+                </div>
+              )}
             </div>
           )}
         </div>
