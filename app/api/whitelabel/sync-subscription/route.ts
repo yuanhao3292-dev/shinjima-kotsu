@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { createClient as createServerClient } from "@/lib/supabase/server";
 import { getSupabaseAdmin } from '@/lib/supabase/api';
 import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
 
@@ -26,34 +27,17 @@ export async function POST(request: NextRequest) {
     const stripe = getStripe();
     const supabase = getSupabaseAdmin();
 
-    // 🔐 身份验证：从 Authorization header 获取 token
-    const authHeader = request.headers.get('authorization');
+    // 🔐 身份验证：使用 Supabase SSR 客户端正确解析 chunked cookies
     let userId: string | null = null;
 
-    if (authHeader?.startsWith('Bearer ')) {
-      const token = authHeader.split(' ')[1];
-      const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+    try {
+      const serverSupabase = await createServerClient();
+      const { data: { user }, error: authError } = await serverSupabase.auth.getUser();
       if (!authError && user) {
         userId = user.id;
       }
-    }
-
-    // 如果没有 Bearer token，尝试从 cookie 获取（浏览器直接调用场景）
-    if (!userId) {
-      const cookieHeader = request.headers.get('cookie');
-      if (cookieHeader) {
-        // 解析 supabase auth token from cookie
-        const cookies = Object.fromEntries(
-          cookieHeader.split('; ').map(c => c.split('='))
-        );
-        const accessToken = cookies['sb-access-token'] || cookies['supabase-auth-token'];
-        if (accessToken) {
-          const { data: { user } } = await supabase.auth.getUser(accessToken);
-          if (user) {
-            userId = user.id;
-          }
-        }
-      }
+    } catch {
+      // 静默失败，userId 保持 null（兼容付款回调场景）
     }
 
     const body = await request.json();

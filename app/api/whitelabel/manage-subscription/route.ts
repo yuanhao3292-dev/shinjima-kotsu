@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
-import { createClient } from "@supabase/supabase-js";
+import { createClient as createServerClient } from "@/lib/supabase/server";
+import { getSupabaseAdmin } from "@/lib/supabase/api";
 import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
 import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
 
@@ -9,19 +10,6 @@ const getStripe = () => {
     throw new Error("STRIPE_SECRET_KEY is not configured");
   }
   return new Stripe(process.env.STRIPE_SECRET_KEY);
-};
-
-const getSupabase = () => {
-  if (
-    !process.env.NEXT_PUBLIC_SUPABASE_URL ||
-    !process.env.SUPABASE_SERVICE_ROLE_KEY
-  ) {
-    throw new Error("Supabase configuration is missing");
-  }
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-  );
 };
 
 // 验证 returnUrl 必须是同域
@@ -52,7 +40,7 @@ export async function POST(request: NextRequest) {
     }
 
     const stripe = getStripe();
-    const supabase = getSupabase();
+    const supabase = getSupabaseAdmin();
 
     const { guideId, returnUrl } = await request.json();
 
@@ -60,40 +48,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing guideId" }, { status: 400 });
     }
 
-    // 身份验证：从 cookie 获取当前登录用户
-    const cookieHeader = request.headers.get('cookie');
-    let currentUserId: string | null = null;
-
-    if (cookieHeader) {
-      // Supabase 的 cookie 名称格式
-      const cookies = Object.fromEntries(
-        cookieHeader.split('; ').map(c => {
-          const [key, ...rest] = c.split('=');
-          return [key, rest.join('=')];
-        })
-      );
-
-      // 尝试从 Supabase auth cookie 获取 token
-      const authCookieName = Object.keys(cookies).find(k =>
-        k.startsWith('sb-') && k.endsWith('-auth-token')
-      );
-
-      if (authCookieName) {
-        try {
-          const tokenData = JSON.parse(decodeURIComponent(cookies[authCookieName]));
-          const accessToken = tokenData?.access_token || tokenData?.[0]?.access_token;
-
-          if (accessToken) {
-            const { data: { user } } = await supabase.auth.getUser(accessToken);
-            if (user) {
-              currentUserId = user.id;
-            }
-          }
-        } catch {
-          // Cookie 解析失败，继续
-        }
-      }
-    }
+    // 身份验证：使用 Supabase SSR 客户端正确解析 chunked cookies
+    const serverSupabase = await createServerClient();
+    const { data: { user }, error: authError } = await serverSupabase.auth.getUser();
+    const currentUserId = (!authError && user) ? user.id : null;
 
     // 获取导游信息（包含 auth_user_id 用于验证）
     const { data: guide, error: guideError } = await supabase
