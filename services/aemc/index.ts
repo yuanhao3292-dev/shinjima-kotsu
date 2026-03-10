@@ -4,10 +4,14 @@
  * 此文件是 4 AI 联合会诊系统的主入口。
  * 编排流程：输入标准化 → 病历抽取 → 分诊判断 → [挑战] → 质控仲裁 → 安全闸门 → 医院匹配
  *
+ * V3 Lite（Vercel Hobby 兼容，单次 GPT-4o-mini 调用，≤10s）:
+ * CasePacket → GPT-4o-mini (抽取+分诊+仲裁) → Safety Gate → Hospital Match
  * V2 Pipeline（含 Grok 挑战官，OPENROUTER_API_KEY 配置时启用）:
  * CasePacket → AI-1 GPT-4o → AI-2 Gemini → AI-3 Grok → AI-4 Claude → Safety Gate → Hospital Match
  * V1 Fallback（无挑战官 或 挑战官失败）:
  * CasePacket → AI-1 GPT-4o → AI-2 Gemini → AI-4 Claude → Safety Gate → Hospital Match
+ *
+ * 默认使用 V3 Lite（AEMC_PIPELINE_MODE=full 启用完整管线）
  *
  * 设计原则：
  * - 任何 AI 失败都会触发错误通知并向用户返回友好错误
@@ -36,6 +40,7 @@ import { adjudicateCase, AdjudicatorError } from './adjudicator';
 import { evaluateSafetyGate, type SafetyGateInput } from './safety-gate';
 import { matchHospitals } from './hospital-matcher';
 import { HOSPITAL_KNOWLEDGE_BASE } from './hospital-knowledge-base';
+import { runLiteAnalysis } from './lite-analyzer';
 
 // ============================================================
 // Pipeline 配置
@@ -43,6 +48,11 @@ import { HOSPITAL_KNOWLEDGE_BASE } from './hospital-knowledge-base';
 
 const PIPELINE_VERSION_V1 = 'aemc-v1.0';
 const PIPELINE_VERSION_V2 = 'aemc-v2.0';
+const PIPELINE_VERSION_V3_LITE = 'aemc-v3-lite';
+
+// 默认使用 V3 Lite（单次 AI 调用，Vercel Hobby 兼容）
+// 设置 AEMC_PIPELINE_MODE=full 启用完整 4-AI 管线（需要 Vercel Pro 60s 超时）
+const USE_FULL_PIPELINE = process.env.AEMC_PIPELINE_MODE === 'full';
 
 // ============================================================
 // 主入口
@@ -99,6 +109,13 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
   });
 
   console.info(`[AEMC] Pipeline started for case ${casePacket.case_id}`);
+
+  // === V3 Lite: 单次 AI 快速路径（默认） ===
+  if (!USE_FULL_PIPELINE) {
+    return runLitePipeline(casePacket, pipelineStartTime);
+  }
+
+  // === 完整 4-AI 管线（需要 AEMC_PIPELINE_MODE=full） ===
 
   // === Step 2: AI-1 病历抽取 ===
   let structuredCase;
@@ -228,6 +245,61 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
     legacyResult,
     safetyGate,
   };
+}
+
+// ============================================================
+// V3 Lite Pipeline（单次 AI 调用）
+// ============================================================
+
+async function runLitePipeline(
+  casePacket: CasePacket,
+  pipelineStartTime: number
+): Promise<AEMCOutput> {
+  console.info(`[AEMC] V3 Lite mode for case ${casePacket.case_id}`);
+
+  const liteResult = await runLiteAnalysis(casePacket);
+
+  const { structuredCase, triageAssessment, adjudicatedAssessment, runRecord } = liteResult;
+
+  // 安全闸门（确定性逻辑，永远执行）
+  const safetyGateInput: SafetyGateInput = {
+    case_packet: casePacket,
+    structured_case: structuredCase,
+    triage_assessment: triageAssessment,
+    adjudicated_assessment: adjudicatedAssessment,
+  };
+  const safetyGate = evaluateSafetyGate(safetyGateInput);
+
+  // 医院匹配
+  let hospitalRecommendation: HospitalRecommendation | undefined;
+  try {
+    hospitalRecommendation = matchHospitals(structuredCase, triageAssessment, adjudicatedAssessment);
+  } catch (matchError) {
+    console.warn('[AEMC] Hospital matcher failed (non-critical):', matchError instanceof Error ? matchError.message : matchError);
+  }
+
+  const totalLatencyMs = Date.now() - pipelineStartTime;
+  console.info(
+    `[AEMC] V3 Lite completed: gate=${safetyGate.gate_class}, ` +
+    `risk=${adjudicatedAssessment.final_risk_level}, ` +
+    `total=${totalLatencyMs}ms`
+  );
+
+  const pipelineResult: AEMCPipelineResult = {
+    case_id: casePacket.case_id,
+    structured_case: structuredCase,
+    triage_assessment: triageAssessment,
+    adjudicated_assessment: adjudicatedAssessment,
+    hospital_recommendation: hospitalRecommendation,
+    safety_gate: safetyGate,
+    ai_runs: [runRecord],
+    total_latency_ms: totalLatencyMs,
+    pipeline_version: PIPELINE_VERSION_V3_LITE,
+  };
+
+  const legacyResult = convertToLegacyResult(pipelineResult);
+
+  return { pipelineResult, legacyResult, safetyGate };
 }
 
 // ============================================================
