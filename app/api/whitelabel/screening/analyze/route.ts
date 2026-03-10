@@ -10,6 +10,9 @@ import {
   getPhase2QuestionsByBodyParts,
 } from '@/lib/screening-questions';
 
+// Vercel Serverless 函数超时设置（秒）
+export const maxDuration = 60;
+
 // [Phase 3] 最多允许追问轮次
 const MAX_FOLLOWUP_ROUNDS = 2;
 

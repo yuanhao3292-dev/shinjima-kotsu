@@ -18,6 +18,9 @@ import type { AEMCOutput } from '@/services/aemc';
 import { persistPipelineResults, persistFailedRuns } from '@/services/aemc/persistence';
 import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/lib/utils/rate-limiter';
 
+// Vercel Serverless 函数超时设置（秒）
+export const maxDuration = 60;
+
 // 最多允许追问轮次（防止无限循环）
 const MAX_FOLLOWUP_ROUNDS = 2;
 

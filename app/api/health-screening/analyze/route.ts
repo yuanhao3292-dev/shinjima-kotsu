@@ -28,6 +28,11 @@ import {
 import { validateBody } from '@/lib/validations/validate';
 import { HealthScreeningAnalyzeSchema } from '@/lib/validations/api-schemas';
 
+// Vercel Serverless 函数超时设置（秒）
+// AEMC Pipeline 需要 3-4 次顺序 AI 调用，总计约 20-40 秒
+// Hobby 计划上限 10s，Pro 计划上限 60s
+export const maxDuration = 60;
+
 // [Phase 3] 最多允许追问轮次（防止无限循环）
 const MAX_FOLLOWUP_ROUNDS = 2;
 
