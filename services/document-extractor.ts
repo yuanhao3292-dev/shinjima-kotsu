@@ -5,15 +5,15 @@
  *
  * 策略：
  * - PDF（有可选文本）: pdf-parse 直接提取
- * - PDF（扫描件，文本量 < 50 字符）: 降级为 GPT-4o Vision OCR
- * - 图片（JPG/PNG）: GPT-4o Vision OCR
+ * - PDF（扫描件，文本量 < 50 字符）: 返回低置信度结果
+ * - 图片（JPG/PNG）: GPT-4o-mini Vision OCR
  */
 
 import OpenAI from 'openai';
 
 const OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1';
-const VISION_MODEL = 'openai/gpt-4o';
-const VISION_TIMEOUT_MS = 120_000;
+const VISION_MODEL = 'openai/gpt-4o-mini';
+const VISION_TIMEOUT_MS = 9_000;
 const MIN_PDF_TEXT_LENGTH = 50;
 
 export interface DocumentExtractionResult {
@@ -62,17 +62,23 @@ async function extractFromPDF(buffer: Buffer): Promise<DocumentExtractionResult>
       };
     }
 
-    // 文本过短 → 可能是扫描件，降级为 Vision OCR
+    // 文本过短 → 扫描件 PDF，无法直接 Vision OCR（PDF 二进制不能当图片发送）
+    // 返回提取到的少量文本，标记低置信度
     console.info(
-      `[DocExtractor] PDF text too short (${text.length} chars), falling back to Vision OCR`
+      `[DocExtractor] PDF text too short (${text.length} chars), scanned PDF — returning low confidence`
     );
-    return extractFromImage(buffer, 'application/pdf');
+    return {
+      text: text || '（扫描件 PDF，无法提取文本。请改为上传 JPG/PNG 图片格式。）',
+      method: 'pdf-parse',
+      pageCount: pdfData.numpages,
+      confidence: 'low',
+    };
   } catch (error) {
     console.warn(
-      '[DocExtractor] pdf-parse failed, falling back to Vision OCR:',
+      '[DocExtractor] pdf-parse failed:',
       error instanceof Error ? error.message : error
     );
-    return extractFromImage(buffer, 'application/pdf');
+    throw new Error('PDF 解析失败，请确保文件未损坏。如为扫描件，请改为上传 JPG/PNG 图片。');
   }
 }
 
@@ -95,8 +101,7 @@ async function extractFromImage(
   });
 
   const base64 = buffer.toString('base64');
-  const imageMediaType = mimeType === 'application/pdf' ? 'image/png' : mimeType;
-  const dataUrl = `data:${imageMediaType};base64,${base64}`;
+  const dataUrl = `data:${mimeType};base64,${base64}`;
 
   const response = await client.chat.completions.create({
     model: VISION_MODEL,
