@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import PublicLayout from '@/components/PublicLayout';
 import {
-  Award, Shield, Building2,
+  Award, Shield,
   Quote, Globe, Heart, Target
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
@@ -290,25 +290,6 @@ const pageTranslations = {
     'zh-CN': '日本旅行业协会会员',
     en: 'Member of Japan Association of Travel Agents'
   },
-  license3Title: {
-    ja: 'TIMC公式代理店',
-    'zh-TW': 'TIMC官方代理',
-    'zh-CN': 'TIMC官方代理',
-    en: 'TIMC Official Agent'
-  },
-  license3Number: {
-    ja: '公式認定パートナー',
-    'zh-TW': '官方認證合作夥伴',
-    'zh-CN': '官方认证合作伙伴',
-    en: 'Certified Official Partner'
-  },
-  license3Desc: {
-    ja: '徳洲会国際医療センター 公式予約代理店',
-    'zh-TW': '德洲會國際醫療中心 官方預約代理',
-    'zh-CN': '德洲会国际医疗中心 官方预约代理',
-    en: 'Official booking agent for Tokushukai International Medical Center'
-  },
-
   // Partners Section
   partnersLabel: {
     ja: 'Partners',
@@ -536,7 +517,7 @@ export default function AboutPage() {
                 <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('licensesTitle')}</h2>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-2 gap-6">
                 {[
                   {
                     icon: Award,
@@ -549,12 +530,6 @@ export default function AboutPage() {
                     title: t('license2Title'),
                     number: t('license2Number'),
                     desc: t('license2Desc'),
-                  },
-                  {
-                    icon: Building2,
-                    title: t('license3Title'),
-                    number: t('license3Number'),
-                    desc: t('license3Desc'),
                   },
                 ].map((item, index) => {
                   const Icon = item.icon;
