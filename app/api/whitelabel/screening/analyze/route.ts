@@ -201,7 +201,6 @@ export async function POST(request: NextRequest) {
           status: 'needs_followup',
           analysis_result: analysisResult,
           answers_hash: answersHash,
-          followup_questions: followupQuestions,
         })
         .eq('id', screeningId)
         .eq('session_id', sessionId);

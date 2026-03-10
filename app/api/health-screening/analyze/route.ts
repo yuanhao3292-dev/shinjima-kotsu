@@ -160,18 +160,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 生成答案哈希用于缓存
+    // 生成答案哈希用于缓存（目前仅用于日志，DB 列尚未创建）
     const answersHash = generateAnswersHash(answers);
 
-    // 检查是否有相同答案的缓存分析结果
-    const { data: cachedResult } = await supabase
-      .from('health_screenings')
-      .select('analysis_result')
-      .eq('answers_hash', answersHash)
-      .eq('status', 'completed')
-      .not('analysis_result', 'is', null)
-      .limit(1)
-      .maybeSingle();
+    // 缓存查询：暂时跳过（answers_hash 列尚未添加到数据库）
+    const cachedResult: { analysis_result: unknown } | null = null;
 
     let analysisResult;
     let aemcOutputRef: AEMCOutput | null = null; // [Phase 3] 保存 AEMC 输出用于 Class B 判断
@@ -257,14 +250,12 @@ export async function POST(request: NextRequest) {
         .update({
           status: 'needs_followup',
           analysis_result: analysisResult,
-          answers_hash: answersHash,
-          followup_questions: followupQuestions,
         })
         .eq('id', screeningId)
         .eq('user_id', user.id);
 
       if (updateError) {
-        console.warn('Screening followup update failed');
+        console.error('Screening followup update failed:', updateError.message, updateError.code);
         return NextResponse.json({ error: '保存分析结果失败' }, { status: 500 });
       }
 
@@ -288,14 +279,13 @@ export async function POST(request: NextRequest) {
       .update({
         status: 'completed',
         analysis_result: analysisResult,
-        answers_hash: answersHash,
         completed_at: new Date().toISOString(),
       })
       .eq('id', screeningId)
       .eq('user_id', user.id);
 
     if (updateError) {
-      console.warn('Screening update failed');
+      console.error('Screening update failed:', updateError.message, updateError.code, updateError.details);
       return NextResponse.json({ error: '保存分析结果失败' }, { status: 500 });
     }
 
