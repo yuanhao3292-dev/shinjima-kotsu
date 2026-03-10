@@ -835,6 +835,139 @@ export async function sendGuideBookingNotificationToAdmin(data: GuideBookingNoti
 }
 
 // ============================================
+// 导游注册成功通知
+// ============================================
+
+interface GuideRegistrationData {
+  guideEmail: string;
+  guideName: string;
+  referralCode: string;
+}
+
+/**
+ * 发送导游注册成功邮件
+ */
+export async function sendGuideRegistrationEmail(data: GuideRegistrationData) {
+  const resend = getResend();
+  if (!resend) {
+    console.log('Email skipped: Resend not configured');
+    return { success: false, error: 'Resend not configured' };
+  }
+
+  try {
+    const result = await resend.emails.send({
+      from: 'NIIJIMA Partner <partner@niijima-koutsu.jp>',
+      to: data.guideEmail,
+      bcc: BCC_EMAIL,
+      subject: `注册成功！欢迎加入 NIIJIMA 导游合伙人`,
+      html: `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; background-color: #f0f9ff; font-family: 'Helvetica Neue', Arial, sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f0f9ff; padding: 40px 20px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+
+          <!-- Header -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); padding: 40px 30px; text-align: center;">
+              <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 600;">NIIJIMA</h1>
+              <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0; font-size: 16px;">Guide Partner Program</p>
+            </td>
+          </tr>
+
+          <!-- Welcome -->
+          <tr>
+            <td style="padding: 40px 30px 20px; text-align: center;">
+              <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border-radius: 50%; display: inline-block; line-height: 80px;">
+                <span style="font-size: 40px;">&#127881;</span>
+              </div>
+              <h2 style="color: #166534; margin: 20px 0 10px; font-size: 28px;">注册成功！</h2>
+              <p style="color: #6b7280; margin: 0; font-size: 16px;">${data.guideName}，欢迎加入导游合伙人计划</p>
+            </td>
+          </tr>
+
+          <!-- Account Info -->
+          <tr>
+            <td style="padding: 0 30px 30px;">
+              <div style="background-color: #f8fafc; border-radius: 12px; padding: 24px; border: 1px solid #e2e8f0;">
+                <h3 style="color: #1e293b; margin: 0 0 16px; font-size: 16px; font-weight: 600;">您的账户信息</h3>
+                <table width="100%" style="font-size: 14px;">
+                  <tr>
+                    <td style="color: #64748b; padding: 8px 0;">登录邮箱</td>
+                    <td style="color: #1e293b; text-align: right; font-weight: 600;">${data.guideEmail}</td>
+                  </tr>
+                  <tr>
+                    <td style="color: #64748b; padding: 8px 0;">专属推荐码</td>
+                    <td style="color: #ea580c; text-align: right; font-weight: 600; font-size: 18px;">${data.referralCode}</td>
+                  </tr>
+                  <tr>
+                    <td style="color: #64748b; padding: 8px 0;">账户状态</td>
+                    <td style="text-align: right;"><span style="background-color: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">已激活</span></td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Next Steps -->
+          <tr>
+            <td style="padding: 0 30px 30px;">
+              <div style="background-color: #eff6ff; border-radius: 12px; padding: 24px; border: 1px solid #bfdbfe;">
+                <h3 style="color: #1e40af; margin: 0 0 16px; font-size: 16px; font-weight: 600;">开始使用</h3>
+                <ol style="color: #475569; margin: 0; padding-left: 20px; line-height: 2; font-size: 14px;">
+                  <li>登录后进入 <strong>导游合伙人面板</strong></li>
+                  <li>将您的 <strong>推荐码 ${data.referralCode}</strong> 分享给客户</li>
+                  <li>客户通过您的推荐链接预约即可获得 <strong>佣金收益</strong></li>
+                  <li>开通 <strong>白标页面</strong> 打造您的专属品牌</li>
+                </ol>
+              </div>
+            </td>
+          </tr>
+
+          <!-- CTA -->
+          <tr>
+            <td style="padding: 0 30px 30px; text-align: center;">
+              <a href="https://niijima-koutsu.jp/login" style="display: inline-block; background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
+                立即登录
+              </a>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #1e293b; padding: 30px; text-align: center;">
+              <p style="color: #94a3b8; margin: 0 0 8px; font-size: 14px; font-weight: 600;">新島交通株式会社</p>
+              <p style="color: #64748b; margin: 0; font-size: 12px;">Guide Partner Program</p>
+              <p style="color: #475569; margin: 16px 0 0; font-size: 11px;">
+                此邮件由系统自动发送，请勿直接回复
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+      `,
+    });
+
+    console.log('Guide registration email sent:', result);
+    return { success: true, data: result };
+  } catch (error: any) {
+    console.error('Failed to send guide registration email:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+// ============================================
 // AI 筛查 Pipeline 错误通知（发送给管理员）
 // ============================================
 

@@ -5,6 +5,7 @@ import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/uti
 import { validateBody } from '@/lib/validations/validate';
 import { z } from 'zod';
 import { generateUniqueReferralCode, generateRandomPassword } from '@/lib/utils/referral-code';
+import { sendGuideRegistrationEmail } from '@/lib/email';
 
 /**
  * 导游注册 API
@@ -131,7 +132,16 @@ export async function POST(request: NextRequest) {
       return createErrorResponse(Errors.internal('注册失败，请稍后重试'));
     }
 
-    // 6. 注册成功
+    // 6. 发送注册成功邮件（fire-and-forget，不阻断注册流程）
+    sendGuideRegistrationEmail({
+      guideEmail: email,
+      guideName: name,
+      referralCode,
+    }).catch((err) => {
+      console.error('[register] 注册邮件发送失败:', err);
+    });
+
+    // 7. 注册成功
     return NextResponse.json({
       success: true,
       message: '注册成功！',

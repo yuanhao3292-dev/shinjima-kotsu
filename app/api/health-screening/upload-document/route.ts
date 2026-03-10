@@ -5,8 +5,11 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { getSupabaseAdmin } from '@/lib/supabase/api';
 import { extractDocument } from '@/services/document-extractor';
 import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/lib/utils/rate-limiter';
+
+export const maxDuration = 60;
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ALLOWED_MIME_TYPES = [
@@ -71,7 +74,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: '此筛查已完成，无法上传文档' }, { status: 400 });
     }
 
-    // 上传到 Supabase Storage
+    // 上传到 Supabase Storage（使用 Service Role 绕过 Storage RLS）
+    const adminClient = getSupabaseAdmin();
     const timestamp = Date.now();
     const randomStr = Math.random().toString(36).substring(2, 10);
     const fileExt = file.name.split('.').pop() || 'bin';
@@ -79,7 +83,7 @@ export async function POST(request: NextRequest) {
 
     const buffer = Buffer.from(await file.arrayBuffer());
 
-    const { error: uploadError } = await supabase.storage
+    const { error: uploadError } = await adminClient.storage
       .from('screening-documents')
       .upload(storagePath, buffer, {
         contentType: file.type,
@@ -87,13 +91,13 @@ export async function POST(request: NextRequest) {
       });
 
     if (uploadError) {
-      console.error('[DocUpload] Storage upload failed:', uploadError.message);
+      console.error('[DocUpload] Storage upload failed:', uploadError.message, uploadError);
       return NextResponse.json({ error: '文件上传失败' }, { status: 500 });
     }
 
     const {
       data: { publicUrl },
-    } = supabase.storage.from('screening-documents').getPublicUrl(storagePath);
+    } = adminClient.storage.from('screening-documents').getPublicUrl(storagePath);
 
     // 提取文本
     let extractionResult;

@@ -8,6 +8,8 @@ import { getSupabaseAdmin } from '@/lib/supabase/api';
 import { extractDocument } from '@/services/document-extractor';
 import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/lib/utils/rate-limiter';
 
+export const maxDuration = 60;
+
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ALLOWED_MIME_TYPES = [
   'application/pdf',
@@ -83,7 +85,7 @@ export async function POST(request: NextRequest) {
       });
 
     if (uploadError) {
-      console.error('[DocUpload] Storage upload failed:', uploadError.message);
+      console.error('[DocUpload] Storage upload failed:', uploadError.message, uploadError);
       return NextResponse.json({ error: '文件上传失败' }, { status: 500 });
     }
 
