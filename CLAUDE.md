@@ -227,12 +227,24 @@ node scripts/test-complete-integration.js
 - **我的账户**: `app/my-account/page.tsx`
 - **认证**: Supabase Auth (`app/auth/callback/route.ts`, `app/auth/confirm/route.ts`)
 
-### 9. AI 健康筛查
+### 9. AI 健康筛查 (AEMC Pipeline)
 - **问卷页**: `app/health-screening/page.tsx`
 - **结果页**: `app/health-screening/result/[id]/page.tsx`
 - **历史**: `app/health-screening/history/page.tsx`
-- **AI引擎**: `services/deepseek/` (DeepSeek AI分析)
-- **API**: `app/api/health-screening/` (analyze, CRUD)
+- **AI 管线**: `services/aemc/` (AEMC 4-AI 联合会诊系统)
+- **API**: `app/api/health-screening/` (analyze, followup, CRUD)
+
+#### AEMC 关键约束（修改前必读）
+1. **模型 ID 必须在 OpenRouter 上有效**。当前有效模型：
+   - AI-1: `openai/gpt-4o` (extractor.ts)
+   - AI-2: `google/gemini-2.5-flash` (triage.ts)
+   - AI-3: `x-ai/grok-3` (challenger.ts)
+   - AI-4: `anthropic/claude-sonnet-4.5` (adjudicator.ts)
+   - V3 Lite: `openai/gpt-4o-mini` (lite-analyzer.ts)
+2. **默认使用 V3 Lite 模式**（单次 AI 调用，~5s），Vercel Hobby 计划限制 10s 超时
+3. **数据库列对齐**: `health_screenings` 表缺少 `answers_hash`/`followup_*` 列，代码已适配
+4. **安全闸门** (`safety-gate.ts`) 是患者安全最后一道防线，修改需极度谨慎
+5. **CSP 配置** (`vercel.json`): PDF 下载需要 `wasm-unsafe-eval` + `data:` in connect-src
 
 ---
 

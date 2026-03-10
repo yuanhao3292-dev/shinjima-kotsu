@@ -1,1 +1,9 @@
 node scripts/check-route-isolation.js
+
+# TypeScript 类型检查（防止类型错误被提交）
+npx tsc --noEmit 2>&1 | head -30
+if [ ${PIPESTATUS[0]} -ne 0 ]; then
+  echo "❌ TypeScript 类型检查失败，请修复后再提交"
+  exit 1
+fi
+echo "✓ TypeScript 类型检查通过"
