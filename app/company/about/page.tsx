@@ -273,22 +273,22 @@ const pageTranslations = {
     en: 'Domestic and international travel arrangement services'
   },
   license2Title: {
-    ja: '全国旅行業協会',
-    'zh-TW': '全國旅行業協會',
-    'zh-CN': '全国旅行业协会',
-    en: 'ANTA Member'
+    ja: '日本旅行業協会',
+    'zh-TW': '日本旅行業協會',
+    'zh-CN': '日本旅行业协会',
+    en: 'JATA Member'
   },
   license2Number: {
-    ja: 'ANTA 正会員',
-    'zh-TW': 'ANTA 正式會員',
-    'zh-CN': 'ANTA 正式会员',
-    en: 'ANTA Official Member'
+    ja: 'JATA 正会員',
+    'zh-TW': 'JATA 正式會員',
+    'zh-CN': 'JATA 正式会员',
+    en: 'JATA Official Member'
   },
   license2Desc: {
-    ja: '全国旅行業協会に加盟',
-    'zh-TW': '日本全國旅行業協會會員',
-    'zh-CN': '日本全国旅行业协会会员',
-    en: 'Member of All Nippon Travel Agents Association'
+    ja: '日本旅行業協会に加盟',
+    'zh-TW': '日本旅行業協會會員',
+    'zh-CN': '日本旅行业协会会员',
+    en: 'Member of Japan Association of Travel Agents'
   },
   license3Title: {
     ja: 'TIMC公式代理店',
