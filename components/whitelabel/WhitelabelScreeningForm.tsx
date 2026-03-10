@@ -423,8 +423,9 @@ export default function WhitelabelScreeningForm({
 
       router.push(`${resultPath}/${screeningId}`);
     } catch (err: unknown) {
-      console.warn('Quick analysis submission failed');
-      setError(t('analysisFailedRetry'));
+      const msg = err instanceof Error ? err.message : t('analysisFailedRetry');
+      console.warn('Quick analysis submission failed:', msg);
+      setError(msg);
       setIsSubmitting(false);
     }
   };
@@ -460,8 +461,9 @@ export default function WhitelabelScreeningForm({
 
       router.push(`${resultPath}/${screeningId}`);
     } catch (err: unknown) {
-      console.warn('Full analysis submission failed');
-      setError(t('analysisFailedRetry'));
+      const msg = err instanceof Error ? err.message : t('analysisFailedRetry');
+      console.warn('Full analysis submission failed:', msg);
+      setError(msg);
       setIsSubmitting(false);
     }
   };
