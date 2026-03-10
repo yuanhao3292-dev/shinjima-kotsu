@@ -27,7 +27,7 @@ import {
 // ============================================================
 
 const OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1';
-const MODEL_NAME = 'anthropic/claude-sonnet-4-20250514';
+const MODEL_NAME = 'anthropic/claude-sonnet-4.5';
 const MAX_TOKENS = 4000;
 const TEMPERATURE = 0.2;
 const TIMEOUT_MS = 60_000;

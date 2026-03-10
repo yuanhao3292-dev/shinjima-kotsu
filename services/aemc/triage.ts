@@ -21,7 +21,7 @@ import {
 // ============================================================
 
 const OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1';
-const MODEL_NAME = 'google/gemini-1.5-pro';
+const MODEL_NAME = 'google/gemini-2.5-flash';
 const MAX_TOKENS = 4000;
 const TEMPERATURE = 0.3;
 const TIMEOUT_MS = 60_000;
