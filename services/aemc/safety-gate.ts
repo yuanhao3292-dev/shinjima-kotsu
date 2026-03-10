@@ -157,11 +157,11 @@ function scanRedFlags(
 
       if (!alreadyTriggered) {
         // AI 发现了词典没覆盖的红旗，也记录下来
-        // [AUDIT-FIX] 添加 severity: 'high'（保守策略，AI-only 红旗默认 high）
+        // severity 设为 'emergency'：AI 标记的红旗应当触发 D 类安全闸门
         triggers.push({
           rule_id: `AI-FLAG-${triggers.length}`,
           category: 'emergency',
-          severity: 'high',
+          severity: 'emergency',
           description: `AI 识别红旗: ${aiFlag}`,
           source: 'adjudication',
         });

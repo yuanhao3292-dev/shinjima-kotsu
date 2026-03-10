@@ -83,7 +83,12 @@ export async function challengeCase(
       throw new Error('[AI-3 Challenger] Empty response from Grok-3');
     }
 
-    const parsed = JSON.parse(content) as ChallengeReview;
+    // 清理可能的 markdown 包裹
+    const cleanedContent = content
+      .replace(/^```json\s*/i, '')
+      .replace(/```\s*$/, '')
+      .trim();
+    const parsed = JSON.parse(cleanedContent) as ChallengeReview;
 
     // 验证关键字段
     validateChallengeReview(parsed, structuredCase.case_id);

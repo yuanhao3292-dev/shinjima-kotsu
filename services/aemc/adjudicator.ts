@@ -84,6 +84,7 @@ export async function adjudicateCase(
       ],
       temperature: TEMPERATURE,
       max_tokens: MAX_TOKENS,
+      response_format: { type: 'json_object' },
     });
 
     const content = response.choices[0]?.message?.content;

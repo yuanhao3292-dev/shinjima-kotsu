@@ -119,7 +119,7 @@ export async function POST(request: NextRequest) {
       .eq('status', 'completed')
       .not('analysis_result', 'is', null)
       .limit(1)
-      .single();
+      .maybeSingle();
 
     let analysisResult;
     let aemcOutputRef: AEMCOutput | null = null;

@@ -352,7 +352,7 @@ export default function WhitelabelScreeningForm({
         setIsSaving(false);
       }
     },
-    [screeningId, sessionId, lang]
+    [screeningId, sessionId, lang, t]
   );
 
   const buildUpdatedAnswers = useCallback(() => {

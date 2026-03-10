@@ -358,7 +358,7 @@ export default function DynamicScreeningForm({
         setIsSaving(false);
       }
     },
-    [screeningId]
+    [screeningId, t]
   );
 
   // 构建更新后的答案数组

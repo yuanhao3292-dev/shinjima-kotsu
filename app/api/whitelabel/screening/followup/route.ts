@@ -169,7 +169,8 @@ export async function POST(request: NextRequest) {
           followup_count: followupCount,
         })
         .eq('id', screeningId)
-        .eq('session_id', sessionId);
+        .eq('session_id', sessionId)
+        .eq('status', 'needs_followup');
 
       if (updateError) {
         return NextResponse.json({ error: '保存分析结果失败' }, { status: 500 });

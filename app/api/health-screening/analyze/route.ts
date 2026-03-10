@@ -171,7 +171,7 @@ export async function POST(request: NextRequest) {
       .eq('status', 'completed')
       .not('analysis_result', 'is', null)
       .limit(1)
-      .single();
+      .maybeSingle();
 
     let analysisResult;
     let aemcOutputRef: AEMCOutput | null = null; // [Phase 3] 保存 AEMC 输出用于 Class B 判断

@@ -197,7 +197,8 @@ export async function POST(request: NextRequest) {
           followup_count: followupCount,
         })
         .eq('id', screeningId)
-        .eq('user_id', user.id);
+        .eq('user_id', user.id)
+        .eq('status', 'needs_followup');
 
       if (updateError) {
         console.warn('Screening followup update failed');

@@ -76,7 +76,12 @@ export async function extractCase(
       throw new Error('[AI-1 Extractor] Empty response from GPT-4o');
     }
 
-    const parsed = JSON.parse(content) as StructuredCase;
+    // 清理可能的 markdown 包裹
+    const cleanedContent = content
+      .replace(/^```json\s*/i, '')
+      .replace(/```\s*$/, '')
+      .trim();
+    const parsed = JSON.parse(cleanedContent) as StructuredCase;
 
     // 验证关键字段存在
     validateStructuredCase(parsed, casePacket.case_id);
