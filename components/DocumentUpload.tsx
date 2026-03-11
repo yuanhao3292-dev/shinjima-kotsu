@@ -89,6 +89,18 @@ const translations = {
     'zh-TW': 'AI 圖像辨識 (OCR)',
     en: 'AI image recognition (OCR)',
   },
+  lowConfidence: {
+    ja: 'スキャン PDF のためテキスト抽出が不完全です。より正確な結果を得るには、各ページのスクリーンショット（JPG/PNG）をアップロードしてください。',
+    'zh-CN': '扫描件 PDF 文本提取不完整，分析结果可能不准确。建议删除后改为上传各页截图（JPG/PNG）以获得更好的 OCR 识别效果。',
+    'zh-TW': '掃描件 PDF 文字提取不完整，分析結果可能不準確。建議刪除後改為上傳各頁截圖（JPG/PNG）以獲得更好的 OCR 辨識效果。',
+    en: 'Scanned PDF — text extraction incomplete. For better results, please upload page screenshots (JPG/PNG) instead for AI OCR processing.',
+  },
+  successLowConfidence: {
+    ja: 'アップロード完了（テキスト抽出が不完全）',
+    'zh-CN': '上传完成（文本提取不完整）',
+    'zh-TW': '上傳完成（文字提取不完整）',
+    en: 'Upload complete (text extraction incomplete)',
+  },
 } as const;
 
 const ALLOWED_TYPES = ['application/pdf', 'image/jpeg', 'image/png'];
@@ -229,17 +241,30 @@ export default function DocumentUpload({
 
   // 成功状态
   if (status === 'success' && result) {
+    const isLowConfidence = result.confidence === 'low';
     const previewText =
       result.extractedText.length > 200
         ? result.extractedText.substring(0, 200) + '...'
         : result.extractedText;
 
     return (
-      <div className="rounded-xl border-2 border-medical-400/30 bg-medical-50/50 p-5">
+      <div
+        className={`rounded-xl border-2 p-5 ${
+          isLowConfidence
+            ? 'border-amber-400/40 bg-amber-50/50'
+            : 'border-medical-400/30 bg-medical-50/50'
+        }`}
+      >
         <div className="flex items-start gap-3">
-          <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-medical-600" />
+          {isLowConfidence ? (
+            <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
+          ) : (
+            <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-medical-600" />
+          )}
           <div className="min-w-0 flex-1">
-            <p className="font-medium text-medical-700">{t('success')}</p>
+            <p className={`font-medium ${isLowConfidence ? 'text-amber-700' : 'text-medical-700'}`}>
+              {isLowConfidence ? t('successLowConfidence') : t('success')}
+            </p>
             <div className="mt-1 flex items-center gap-2 text-sm text-neutral-500">
               <FileText className="h-4 w-4" />
               <span className="truncate">{result.fileName}</span>
@@ -248,6 +273,11 @@ export default function DocumentUpload({
               {t('method')}
               {result.extractionMethod === 'pdf-parse' ? t('methodPdf') : t('methodVision')}
             </div>
+            {isLowConfidence && (
+              <div className="mt-2 rounded-lg bg-amber-100/70 p-2.5 text-xs leading-relaxed text-amber-800">
+                {t('lowConfidence')}
+              </div>
+            )}
             <div className="mt-3">
               <p className="mb-1 text-xs font-medium text-neutral-500">{t('extractedPreview')}</p>
               <div className="max-h-32 overflow-y-auto rounded-lg bg-white/80 p-3 text-xs leading-relaxed text-neutral-600">
