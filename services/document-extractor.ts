@@ -18,6 +18,7 @@ const OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1';
 const VISION_MODEL = 'openai/gpt-4o-mini';
 const GEMINI_MODEL = 'gemini-2.5-flash';
 const VISION_TIMEOUT_MS = 9_000;
+const GEMINI_OCR_TIMEOUT_MS = 25_000; // 25s — 留余量给 Storage 上传 + DB 更新
 const MIN_PDF_TEXT_LENGTH = 50;
 
 export interface DocumentExtractionResult {
@@ -123,7 +124,8 @@ async function extractPdfWithGemini(
     const ai = new GoogleGenAI({ apiKey });
     const base64 = buffer.toString('base64');
 
-    const response = await ai.models.generateContent({
+    // 超时控制：防止大 PDF 导致 Vercel 504
+    const geminiPromise = ai.models.generateContent({
       model: GEMINI_MODEL,
       contents: [
         {
@@ -151,6 +153,16 @@ Rules:
         },
       ],
     });
+
+    const timeoutPromise = new Promise<null>((resolve) =>
+      setTimeout(() => resolve(null), GEMINI_OCR_TIMEOUT_MS)
+    );
+    const response = await Promise.race([geminiPromise, timeoutPromise]);
+
+    if (!response) {
+      console.warn(`[DocExtractor] Gemini OCR timed out after ${GEMINI_OCR_TIMEOUT_MS / 1000}s`);
+      return null;
+    }
 
     const extractedText = response.text?.trim();
     if (!extractedText || extractedText.length < MIN_PDF_TEXT_LENGTH) {
