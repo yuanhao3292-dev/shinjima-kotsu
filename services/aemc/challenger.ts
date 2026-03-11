@@ -29,7 +29,7 @@ const OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1';
 const MODEL_NAME = 'x-ai/grok-3';
 const MAX_TOKENS = 3000;
 const TEMPERATURE = 0.4; // 稍高温度 = 更发散的挑战思维
-const TIMEOUT_MS = 60_000;
+const TIMEOUT_MS = 12_000; // 12s — 4 AI sequential, must fit in Vercel 60s limit
 
 // ============================================================
 // 主入口
