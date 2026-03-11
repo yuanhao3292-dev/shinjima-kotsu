@@ -117,7 +117,7 @@ export async function POST(request: NextRequest) {
         referral_code: referralCode,
         referrer_id: referrerId, // ✅ 设置推荐人 ID
         status: 'approved',
-        level: 'growth',
+        level: 'bronze',
         kyc_status: 'pending',
         total_commission: 0,
         total_bookings: 0,
