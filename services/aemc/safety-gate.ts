@@ -87,14 +87,21 @@ export function evaluateSafetyGate(input: SafetyGateInput): SafetyGateResult {
   );
   triggeredRules.push(...modelTriggers);
 
-  // Step 4: 检查缺失信息量
+  // Step 4: 交叉验证（AI-1 红旗 vs AI-2 鉴别诊断覆盖度）
+  const crossValidationTriggers = crossValidateRedFlagsVsDifferentials(
+    input.structured_case,
+    input.triage_assessment
+  );
+  triggeredRules.push(...crossValidationTriggers);
+
+  // Step 5: 检查缺失信息量
   const missingInfoTriggers = checkMissingInfo(
     input.structured_case,
     input.adjudicated_assessment
   );
   triggeredRules.push(...missingInfoTriggers);
 
-  // Step 5: 确定最终安全分类
+  // Step 6: 确定最终安全分类
   const gateClass = determineGateClass(triggeredRules, input.adjudicated_assessment);
 
   return {
@@ -428,7 +435,66 @@ function checkModelConsistency(
 }
 
 // ============================================================
-// Step 4: 缺失信息检查
+// Step 4: 红旗 vs 鉴别诊断交叉验证
+// ============================================================
+
+/**
+ * 检查 AI-1 提取的 red_flags 是否被 AI-2 的鉴别诊断覆盖。
+ * 如果 AI-1 发现红旗但 AI-2 的 differential_directions 和
+ * do_not_miss_conditions 中都未提及，则说明分诊可能遗漏了危险信号。
+ */
+function crossValidateRedFlagsVsDifferentials(
+  structuredCase: StructuredCase,
+  triage: TriageAssessment
+): TriggeredRule[] {
+  const triggers: TriggeredRule[] = [];
+
+  if (!structuredCase.red_flags || structuredCase.red_flags.length === 0) {
+    return triggers;
+  }
+
+  // 收集 AI-2 已覆盖的所有条目文本
+  const triageCoverage = [
+    ...triage.differential_directions.map((d) => d.name + ' ' + d.reason),
+    ...triage.do_not_miss_conditions,
+    triage.reasoning_summary,
+  ]
+    .join(' ')
+    .toLowerCase();
+
+  // 检查每个红旗是否被覆盖
+  const uncoveredFlags: string[] = [];
+  for (const flag of structuredCase.red_flags) {
+    const flagLower = flag.toLowerCase();
+    // 提取关键词（取前3个字符以容许部分匹配）
+    const flagKeywords = flagLower
+      .split(/[,，、\s/]+/)
+      .filter((k) => k.length >= 2);
+
+    const isCovered = flagKeywords.some((keyword) =>
+      triageCoverage.includes(keyword)
+    );
+
+    if (!isCovered) {
+      uncoveredFlags.push(flag);
+    }
+  }
+
+  if (uncoveredFlags.length > 0) {
+    triggers.push({
+      rule_id: 'XVAL-001',
+      category: 'model_conflict',
+      severity: 'high',
+      description: `AI-1 提取的 ${uncoveredFlags.length} 个红旗未被 AI-2 鉴别诊断覆盖: ${uncoveredFlags.join('、')}`,
+      source: 'model_comparison',
+    });
+  }
+
+  return triggers;
+}
+
+// ============================================================
+// Step 5: 缺失信息检查
 // ============================================================
 
 function checkMissingInfo(

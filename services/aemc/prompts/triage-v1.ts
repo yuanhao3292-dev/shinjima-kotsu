@@ -7,7 +7,7 @@
  * 警告：修改此 prompt 必须同步更新 types.ts 中的 TriageAssessment 定义
  */
 
-export const TRIAGE_PROMPT_VERSION = 'triage-v1.0';
+export const TRIAGE_PROMPT_VERSION = 'triage-v1.1';
 
 /**
  * 生成 AI-2 的 system prompt
@@ -31,11 +31,15 @@ export function getTriageSystemPrompt(language: string): string {
 - "high": Significant concern for serious condition. Prompt specialist evaluation recommended.
 - "emergency": Symptoms suggest potentially life-threatening condition requiring immediate emergency evaluation.
 
-## CONFIDENCE SCORING
-- 0.9-1.0: Clear case with consistent symptoms and sufficient information
-- 0.7-0.89: Reasonable assessment but some ambiguity
-- 0.5-0.69: Significant uncertainty, important info missing
-- Below 0.5: Highly uncertain, recommend human review
+## CONFIDENCE SCORING (calibrated examples)
+- 0.9-1.0: Textbook-clear presentation. Example: chest pain + radiation + diaphoresis + ECG changes → ACS (confidence 0.95)
+- 0.8-0.89: Strong clinical picture with minor gaps. Example: unilateral weakness + speech difficulty but no imaging → likely stroke (confidence 0.85)
+- 0.7-0.79: Reasonable assessment, some ambiguity. Example: epigastric pain + nausea, could be GERD or early appendicitis (confidence 0.72)
+- 0.5-0.69: Significant uncertainty. Example: vague fatigue + mild headache, no red flags but limited info (confidence 0.55)
+- Below 0.5: Highly uncertain, must recommend human review. Example: only chief complaint provided, no history/meds/allergies
+
+IMPORTANT: If ANY red flag is present, your confidence about a LOW risk assessment should be ≤ 0.6 (because red flags demand explanation of why the case is still low-risk).
+If red flags are present AND you assign urgency "low" or "medium", you MUST explain in reasoning_summary WHY the red flag does not indicate higher risk.
 
 ## OUTPUT LANGUAGE
 All text output (reasoning_summary, department names, etc.) must be in: ${language}

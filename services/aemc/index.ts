@@ -2,12 +2,12 @@
  * AEMC Pipeline 编排入口 (AI Expert Medical Consultation)
  *
  * 此文件是 4 AI 联合会诊系统的主入口。
- * 编排流程：输入标准化 → 病历抽取 → 分诊判断 → [挑战] → 质控仲裁 → 安全闸门 → 医院匹配
+ * 编排流程：输入标准化 → 病历抽取 → [分诊‖挑战] 并行 → 质控仲裁 → 安全闸门 → 医院匹配
  *
  * V3 Lite（Vercel Hobby 兼容，单次 GPT-4o-mini 调用，≤10s）:
  * CasePacket → GPT-4o-mini (抽取+分诊+仲裁) → Safety Gate → Hospital Match
  * V2 Pipeline（含 Grok 挑战官，OPENROUTER_API_KEY 配置时启用）:
- * CasePacket → AI-1 GPT-4o → AI-2 Gemini → AI-3 Grok → AI-4 Claude → Safety Gate → Hospital Match
+ * CasePacket → AI-1 GPT-4o → [AI-2 Gemini ‖ AI-3 Grok] → AI-4 Claude → Safety Gate → Hospital Match
  * V1 Fallback（无挑战官 或 挑战官失败）:
  * CasePacket → AI-1 GPT-4o → AI-2 Gemini → AI-4 Claude → Safety Gate → Hospital Match
  *
@@ -85,8 +85,7 @@ export interface AEMCOutput {
  * 流程：
  * 1. Input Normalizer → CasePacket
  * 2. AI-1 (GPT-4o) → StructuredCase
- * 3. AI-2 (Gemini) → TriageAssessment
- * 3.5. AI-3 (Grok) → ChallengeReview [V2, 可选，失败降级到V1]
+ * 3. [AI-2 (Gemini) ‖ AI-3 (Grok)] → TriageAssessment + ChallengeReview [并行，AI-3 可选]
  * 4. AI-4 (Claude) → AdjudicatedAssessment
  * 5. Safety Gate → SafetyGateResult
  * 6. Hospital Matcher → HospitalRecommendation
@@ -132,14 +131,30 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
     throw new PipelineError('AI-1 Extractor failed', aiRuns, casePacket);
   }
 
-  // === Step 3: AI-2 分诊判断 ===
+  // === Step 3: AI-2 分诊 + AI-3 挑战（并行执行） ===
+  // AI-2 和 AI-3 都只需要 AI-1 的 StructuredCase，可以同时运行
+  // AI-3 在并行模式下独立评估风险，不依赖 AI-2 的输出
   let triageAssessment;
-  try {
-    const triageResult = await triageCase(structuredCase);
-    triageAssessment = triageResult.triageAssessment;
-    aiRuns.push(triageResult.runRecord);
-    console.info(`[AEMC] AI-2 (Gemini) completed in ${triageResult.runRecord.latency_ms}ms`);
-  } catch (error) {
+  let challengeReview;
+  const challengerEnabled = !!process.env.OPENROUTER_API_KEY;
+
+  const triagePromise = triageCase(structuredCase);
+  const challengerPromise = challengerEnabled
+    ? challengeCase(structuredCase) // 并行模式：无 triageAssessment 参数
+    : Promise.resolve(null);
+
+  const [triageSettled, challengerSettled] = await Promise.allSettled([
+    triagePromise,
+    challengerPromise,
+  ]);
+
+  // 处理 AI-2 结果（阻断性：失败则终止）
+  if (triageSettled.status === 'fulfilled') {
+    triageAssessment = triageSettled.value.triageAssessment;
+    aiRuns.push(triageSettled.value.runRecord);
+    console.info(`[AEMC] AI-2 (Gemini) completed in ${triageSettled.value.runRecord.latency_ms}ms`);
+  } else {
+    const error = triageSettled.reason;
     if (error instanceof TriageError) {
       aiRuns.push(error.runRecord);
     }
@@ -147,25 +162,20 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
     throw new PipelineError('AI-2 Triage failed', aiRuns, casePacket);
   }
 
-  // === Step 3.5: AI-3 反方挑战（V2，可选，失败降级到 V1） ===
-  let challengeReview;
-  const challengerEnabled = !!process.env.OPENROUTER_API_KEY;
-  if (challengerEnabled) {
-    try {
-      const challengerResult = await challengeCase(structuredCase, triageAssessment);
-      challengeReview = challengerResult.challengeReview;
-      aiRuns.push(challengerResult.runRecord);
-      console.info(`[AEMC] AI-3 (Grok) completed in ${challengerResult.runRecord.latency_ms}ms`);
-    } catch (error) {
-      // 挑战官失败不阻断 pipeline → 降级到 V1（无挑战）
-      if (error instanceof ChallengerError) {
-        aiRuns.push(error.runRecord);
-      }
-      console.warn(
-        '[AEMC] AI-3 (Grok) failed, continuing without challenger:',
-        error instanceof Error ? error.message : error
-      );
+  // 处理 AI-3 结果（非阻断性：失败降级到 V1）
+  if (challengerSettled.status === 'fulfilled' && challengerSettled.value) {
+    challengeReview = challengerSettled.value.challengeReview;
+    aiRuns.push(challengerSettled.value.runRecord);
+    console.info(`[AEMC] AI-3 (Grok) completed in ${challengerSettled.value.runRecord.latency_ms}ms`);
+  } else if (challengerSettled.status === 'rejected') {
+    const error = challengerSettled.reason;
+    if (error instanceof ChallengerError) {
+      aiRuns.push(error.runRecord);
     }
+    console.warn(
+      '[AEMC] AI-3 (Grok) failed, continuing without challenger:',
+      error instanceof Error ? error.message : error
+    );
   }
 
   // === Step 4: AI-4 质控仲裁 ===

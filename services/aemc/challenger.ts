@@ -45,12 +45,14 @@ export interface ChallengerResult {
  */
 export async function challengeCase(
   structuredCase: StructuredCase,
-  triageAssessment: TriageAssessment
+  triageAssessment?: TriageAssessment
 ): Promise<ChallengerResult> {
   const startTime = Date.now();
   const structuredJson = JSON.stringify(structuredCase, null, 2);
-  const triageJson = JSON.stringify(triageAssessment, null, 2);
-  const inputHash = simpleHash(structuredJson + triageJson);
+  const triageJson = triageAssessment
+    ? JSON.stringify(triageAssessment, null, 2)
+    : undefined;
+  const inputHash = simpleHash(structuredJson + (triageJson || ''));
 
   const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
@@ -64,7 +66,9 @@ export async function challengeCase(
   });
 
   const systemPrompt = getChallengerSystemPrompt(structuredCase.language);
-  const userPrompt = buildChallengerUserPrompt(structuredJson, triageJson);
+  const userPrompt = triageJson
+    ? buildChallengerUserPrompt(structuredJson, triageJson)
+    : buildChallengerUserPrompt(structuredJson);
 
   try {
     const response = await client.chat.completions.create({

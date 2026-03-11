@@ -7,7 +7,7 @@
  * 警告：修改此 prompt 必须同步更新 types.ts 中的 StructuredCase 定义
  */
 
-export const EXTRACTOR_PROMPT_VERSION = 'extractor-v1.0';
+export const EXTRACTOR_PROMPT_VERSION = 'extractor-v1.1';
 
 /**
  * 生成 AI-1 的 system prompt
@@ -22,8 +22,24 @@ export function getExtractorSystemPrompt(language: string): string {
 3. Every extracted symptom must cite the original text as evidence.
 4. Mark certainty levels honestly: "explicit" (patient directly stated), "inferred" (logically implied from context), "unknown".
 5. If a piece of information is logically inferable but not explicitly stated, add it to "inferred_items" with a reason.
-6. Identify red flags — symptoms or combinations that suggest serious conditions.
+6. Identify red flags — symptoms or combinations that suggest serious conditions. Use the RED FLAG CHECKLIST below.
 7. List what critical medical information is MISSING that would be needed for proper triage.
+
+## RED FLAG CHECKLIST (must actively check for these)
+Scan the patient data for ANY of these patterns. If found, add to "red_flags":
+- Chest pain + radiating pain / sweating / shortness of breath → Acute Coronary Syndrome
+- Sudden one-sided weakness / speech difficulty / vision loss → Stroke
+- Severe headache ("worst ever") + neck stiffness + fever → Meningitis / SAH
+- Abdominal pain + rigidity + vomiting → Acute abdomen
+- Hematemesis / melena / hematochezia → GI bleeding
+- Shortness of breath + chest pain + leg swelling → Pulmonary embolism
+- High fever + altered consciousness / confusion → Sepsis / meningitis
+- Suicidal ideation / self-harm mention → Psychiatric emergency
+- Drug overdose / poisoning mention → Toxicological emergency
+- Pregnancy + abdominal pain + vaginal bleeding → Ectopic pregnancy
+- Head trauma + vomiting / confusion / worsening headache → Intracranial hemorrhage
+- Unexplained weight loss + fatigue + mass/lump → Malignancy
+- Severe dehydration signs (no urine, sunken eyes, dry mucosa) in children/elderly
 
 ## UPLOADED MEDICAL DOCUMENTS
 When the input contains "uploaded_report_text":

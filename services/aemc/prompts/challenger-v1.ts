@@ -7,7 +7,7 @@
  * 警告：修改此 prompt 必须同步更新 types.ts 中的 ChallengeReview 定义
  */
 
-export const CHALLENGER_PROMPT_VERSION = 'challenger-v1.0';
+export const CHALLENGER_PROMPT_VERSION = 'challenger-v1.1';
 
 /**
  * 生成 AI-3 的 system prompt
@@ -75,12 +75,16 @@ Return ONLY a valid JSON object matching this exact schema:
 
 /**
  * 构建 AI-3 的 user prompt
+ * 支持两种模式：
+ * - 并行模式（无 triage）：独立评估病例的遗漏风险
+ * - 顺序模式（有 triage）：审查 AI-2 的分诊结果
  */
 export function buildChallengerUserPrompt(
   structuredCaseJson: string,
-  triageAssessmentJson: string
+  triageAssessmentJson?: string
 ): string {
-  return `Challenge the following triage assessment. Your job is to find what the triage AI missed, underestimated, or got wrong.
+  if (triageAssessmentJson) {
+    return `Challenge the following triage assessment. Your job is to find what the triage AI missed, underestimated, or got wrong.
 
 ---STRUCTURED CASE (from AI-1 Extractor)---
 ${structuredCaseJson}
@@ -89,6 +93,26 @@ ${structuredCaseJson}
 ---TRIAGE ASSESSMENT (from AI-2 Triage) — THIS IS WHAT YOU ARE CHALLENGING---
 ${triageAssessmentJson}
 ---END TRIAGE ASSESSMENT---
+
+Return ONLY the JSON object. No markdown code blocks, no explanations.`;
+  }
+
+  // 并行模式：独立评估（无 AI-2 输出可供对比）
+  return `Independently evaluate the following structured medical case for missed risks, under-appreciated dangers, and worst-case scenarios. You do NOT have access to any prior triage assessment — provide your OWN independent risk analysis.
+
+Focus especially on:
+1. Life-threatening conditions that match ANY of the symptoms (even partially)
+2. Red flags that suggest emergency intervention
+3. Symptom combinations that could indicate a serious underlying condition
+4. Conditions commonly missed in primary screening (e.g., PE, aortic dissection, ectopic pregnancy, meningitis)
+5. Age/sex-specific risks
+6. Drug interactions or comorbidity amplification effects
+
+Set under_triage_risk=true if you believe the symptoms could indicate a condition more serious than what a typical triage might assign.
+
+---STRUCTURED CASE (from AI-1 Extractor)---
+${structuredCaseJson}
+---END STRUCTURED CASE---
 
 Return ONLY the JSON object. No markdown code blocks, no explanations.`;
 }
