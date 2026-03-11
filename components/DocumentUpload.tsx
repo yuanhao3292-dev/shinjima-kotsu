@@ -127,6 +127,8 @@ export interface UploadResult {
   extractionMethod: 'pdf-parse' | 'gpt4o-vision' | 'gemini-ocr';
   confidence: 'high' | 'medium' | 'low';
   fileName: string;
+  /** 提取失败时的错误提示（与 extractedText 分离） */
+  errorMessage?: string;
 }
 
 export default function DocumentUpload({
@@ -204,6 +206,7 @@ export default function DocumentUpload({
           extractionMethod: data.extractionMethod,
           confidence: data.confidence,
           fileName: data.fileName,
+          errorMessage: data.errorMessage,
         };
 
         setResult(uploadResult);
@@ -248,10 +251,12 @@ export default function DocumentUpload({
   // 成功状态
   if (status === 'success' && result) {
     const isLowConfidence = result.confidence === 'low';
+    // [SAFETY-FIX] 提取失败时显示 errorMessage，不显示空的 extractedText
+    const displayText = result.extractedText || result.errorMessage || '';
     const previewText =
-      result.extractedText.length > 200
-        ? result.extractedText.substring(0, 200) + '...'
-        : result.extractedText;
+      displayText.length > 200
+        ? displayText.substring(0, 200) + '...'
+        : displayText;
 
     return (
       <div

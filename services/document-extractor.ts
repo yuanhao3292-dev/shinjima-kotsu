@@ -18,7 +18,7 @@ const OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1';
 const VISION_MODEL = 'openai/gpt-4o-mini';
 const GEMINI_MODEL = 'gemini-2.5-flash';
 const VISION_TIMEOUT_MS = 9_000;
-const GEMINI_OCR_TIMEOUT_MS = 25_000; // 25s — 留余量给 Storage 上传 + DB 更新
+const GEMINI_OCR_TIMEOUT_MS = 45_000; // 45s — 多页医学报告（含表格/图表）需要更长处理时间
 const MIN_PDF_TEXT_LENGTH = 50;
 
 export interface DocumentExtractionResult {
@@ -26,6 +26,8 @@ export interface DocumentExtractionResult {
   method: 'pdf-parse' | 'gpt4o-vision' | 'gemini-ocr';
   pageCount?: number;
   confidence: 'high' | 'medium' | 'low';
+  /** 提取失败时的用户友好提示（与 text 分离，防止错误信息被当作医学数据） */
+  errorMessage?: string;
 }
 
 /**
@@ -68,6 +70,7 @@ async function extractFromPDF(buffer: Buffer): Promise<DocumentExtractionResult>
     const pdfData = await pdfParse(buffer);
     pdfText = (pdfData.text || '').trim();
     pageCount = pdfData.numpages;
+    console.info(`[DocExtractor] pdf-parse: ${pdfText.length} chars, ${pageCount} pages`);
   } catch (error) {
     console.warn(
       '[DocExtractor] pdf-parse failed:',
@@ -77,6 +80,7 @@ async function extractFromPDF(buffer: Buffer): Promise<DocumentExtractionResult>
 
   // 提取到足够文本 → 高置信度，直接返回
   if (pdfText.length >= MIN_PDF_TEXT_LENGTH) {
+    console.info(`[DocExtractor] pdf-parse success: ${pdfText.length} chars (threshold: ${MIN_PDF_TEXT_LENGTH})`);
     return {
       text: pdfText,
       method: 'pdf-parse',
@@ -98,11 +102,14 @@ async function extractFromPDF(buffer: Buffer): Promise<DocumentExtractionResult>
   }
 
   // 两个策略都失败 → 低置信度
+  // [SAFETY-FIX] text 保持为空或原始提取内容，错误信息放在 errorMessage
+  // 防止错误提示文本被下游 AEMC Pipeline 当作医学数据分析
   return {
-    text: pdfText || '（PDF 文本提取失败。建议改为上传各页截图 JPG/PNG 以重试。）',
+    text: pdfText || '',
     method: 'pdf-parse',
     pageCount,
     confidence: 'low',
+    errorMessage: '（PDF 文本提取失败。建议改为上传各页截图 JPG/PNG 以重试。）',
   };
 }
 
@@ -120,11 +127,15 @@ async function extractPdfWithGemini(
     return null;
   }
 
+  const pdfSizeKB = Math.round(buffer.length / 1024);
+  console.info(`[DocExtractor] Gemini OCR starting — PDF size: ${pdfSizeKB}KB`);
+
   try {
     const ai = new GoogleGenAI({ apiKey });
     const base64 = buffer.toString('base64');
 
     // 超时控制：防止大 PDF 导致 Vercel 504
+    const geminiStartTime = Date.now();
     const geminiPromise = ai.models.generateContent({
       model: GEMINI_MODEL,
       contents: [
@@ -158,30 +169,32 @@ Rules:
       setTimeout(() => resolve(null), GEMINI_OCR_TIMEOUT_MS)
     );
     const response = await Promise.race([geminiPromise, timeoutPromise]);
+    const geminiElapsedMs = Date.now() - geminiStartTime;
 
     if (!response) {
-      console.warn(`[DocExtractor] Gemini OCR timed out after ${GEMINI_OCR_TIMEOUT_MS / 1000}s`);
+      console.warn(`[DocExtractor] Gemini OCR timed out after ${geminiElapsedMs}ms (limit: ${GEMINI_OCR_TIMEOUT_MS}ms) — PDF: ${pdfSizeKB}KB`);
       return null;
     }
 
     const extractedText = response.text?.trim();
     if (!extractedText || extractedText.length < MIN_PDF_TEXT_LENGTH) {
       console.warn(
-        `[DocExtractor] Gemini returned insufficient text (${extractedText?.length ?? 0} chars)`
+        `[DocExtractor] Gemini returned insufficient text (${extractedText?.length ?? 0} chars) in ${geminiElapsedMs}ms — PDF: ${pdfSizeKB}KB`
       );
       return null;
     }
 
-    console.info(`[DocExtractor] Gemini OCR extracted ${extractedText.length} chars`);
+    console.info(`[DocExtractor] Gemini OCR success: ${extractedText.length} chars in ${geminiElapsedMs}ms — PDF: ${pdfSizeKB}KB`);
     return {
       text: extractedText,
       method: 'gemini-ocr',
       confidence: extractedText.includes('[unclear]') ? 'medium' : 'high',
     };
   } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : String(error);
+    const errorName = error instanceof Error ? error.constructor.name : 'Unknown';
     console.error(
-      '[DocExtractor] Gemini OCR failed:',
-      error instanceof Error ? error.message : error
+      `[DocExtractor] Gemini OCR failed — type: ${errorName}, message: ${errorMsg}, PDF: ${pdfSizeKB}KB`
     );
     return null;
   }
@@ -199,9 +212,10 @@ async function extractFromImage(
   if (!apiKey) {
     console.error('[DocExtractor] OPENROUTER_API_KEY not configured');
     return {
-      text: '（OCR 服务未配置，无法识别图片文字。请联系管理员。）',
+      text: '',
       method: 'gpt4o-vision',
       confidence: 'low',
+      errorMessage: '（OCR 服务未配置，无法识别图片文字。请联系管理员。）',
     };
   }
 
@@ -252,9 +266,10 @@ Rules:
     if (!extractedText) {
       console.warn('[DocExtractor] GPT-4o Vision returned empty response');
       return {
-        text: '（AI OCR 未能识别图片内容。请确保图片清晰、文字可读，然后重新上传。）',
+        text: '',
         method: 'gpt4o-vision',
         confidence: 'low',
+        errorMessage: '（AI OCR 未能识别图片内容。请确保图片清晰、文字可读，然后重新上传。）',
       };
     }
 
@@ -269,9 +284,10 @@ Rules:
       error instanceof Error ? error.message : error
     );
     return {
-      text: '（AI OCR 识别失败，请稍后重试或确保图片清晰可读。）',
+      text: '',
       method: 'gpt4o-vision',
       confidence: 'low',
+      errorMessage: '（AI OCR 识别失败，请稍后重试或确保图片清晰可读。）',
     };
   }
 }

@@ -135,6 +135,8 @@ export async function POST(request: NextRequest) {
       confidence: extractionResult.confidence,
       pageCount: extractionResult.pageCount,
       fileName: file.name,
+      // [SAFETY-FIX] 提取失败时的错误提示（与 extractedText 分离）
+      errorMessage: extractionResult.errorMessage,
     });
   } catch (error) {
     console.warn('Document upload failed:', error instanceof Error ? error.message : error);
