@@ -98,7 +98,14 @@ export async function adjudicateCase(
       .replace(/```\s*$/, '')
       .trim();
 
-    const parsed = JSON.parse(cleanedContent) as AdjudicatedAssessment;
+    let parsed: AdjudicatedAssessment;
+    try {
+      parsed = JSON.parse(cleanedContent) as AdjudicatedAssessment;
+    } catch (parseError) {
+      throw new Error(
+        `[AI-4 Adjudicator] Invalid JSON from ${MODEL_NAME}: ${cleanedContent.slice(0, 200)}`
+      );
+    }
 
     // 验证关键字段
     validateAdjudicatedAssessment(parsed, structuredCase.case_id);
@@ -148,7 +155,8 @@ function validateAdjudicatedAssessment(
   result: AdjudicatedAssessment,
   caseId: string
 ): void {
-  if (!result.case_id) {
+  if (!result.case_id || result.case_id !== caseId) {
+    console.warn(`[AI-4 Adjudicator] case_id mismatch: expected=${caseId}, got=${result.case_id || 'missing'}`);
     result.case_id = caseId;
   }
 
@@ -161,6 +169,7 @@ function validateAdjudicatedAssessment(
 
   // 确保 confidence 在 0-1 范围
   if (typeof result.confidence !== 'number' || result.confidence < 0 || result.confidence > 1) {
+    console.warn(`[AI-4 Adjudicator] Invalid confidence (type=${typeof result.confidence}, value=${result.confidence}), defaulting to 0.5`);
     result.confidence = 0.5;
   }
 

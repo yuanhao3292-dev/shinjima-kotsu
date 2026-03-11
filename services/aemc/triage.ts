@@ -82,7 +82,14 @@ export async function triageCase(
       .replace(/```\s*$/, '')
       .trim();
 
-    const parsed = JSON.parse(cleanedContent) as TriageAssessment;
+    let parsed: TriageAssessment;
+    try {
+      parsed = JSON.parse(cleanedContent) as TriageAssessment;
+    } catch (parseError) {
+      throw new Error(
+        `[AI-2 Triage] Invalid JSON from ${MODEL_NAME}: ${cleanedContent.slice(0, 200)}`
+      );
+    }
 
     // 验证关键字段
     validateTriageAssessment(parsed, structuredCase.case_id);
@@ -132,7 +139,8 @@ function validateTriageAssessment(
   result: TriageAssessment,
   caseId: string
 ): void {
-  if (!result.case_id) {
+  if (!result.case_id || result.case_id !== caseId) {
+    console.warn(`[AI-2 Triage] case_id mismatch: expected=${caseId}, got=${result.case_id || 'missing'}`);
     result.case_id = caseId;
   }
 
@@ -145,7 +153,8 @@ function validateTriageAssessment(
 
   // 确保 confidence 在 0-1 范围
   if (typeof result.confidence !== 'number' || result.confidence < 0 || result.confidence > 1) {
-    result.confidence = 0.5; // 不确定
+    console.warn(`[AI-2 Triage] Invalid confidence (type=${typeof result.confidence}, value=${result.confidence}), defaulting to 0.5`);
+    result.confidence = 0.5;
   }
 
   // 确保布尔字段有默认值（fail-safe: 偏向保守）

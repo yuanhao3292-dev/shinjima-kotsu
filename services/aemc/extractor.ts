@@ -81,7 +81,14 @@ export async function extractCase(
       .replace(/^```json\s*/i, '')
       .replace(/```\s*$/, '')
       .trim();
-    const parsed = JSON.parse(cleanedContent) as StructuredCase;
+    let parsed: StructuredCase;
+    try {
+      parsed = JSON.parse(cleanedContent) as StructuredCase;
+    } catch (parseError) {
+      throw new Error(
+        `[AI-1 Extractor] Invalid JSON from ${MODEL_NAME}: ${cleanedContent.slice(0, 200)}`
+      );
+    }
 
     // 验证关键字段存在
     validateStructuredCase(parsed, casePacket.case_id);
@@ -130,7 +137,8 @@ export async function extractCase(
 
 function validateStructuredCase(result: StructuredCase, caseId: string): void {
   // 确保 case_id 一致
-  if (!result.case_id) {
+  if (!result.case_id || result.case_id !== caseId) {
+    console.warn(`[AI-1 Extractor] case_id mismatch: expected=${caseId}, got=${result.case_id || 'missing'}`);
     result.case_id = caseId;
   }
 
