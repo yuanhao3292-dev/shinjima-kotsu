@@ -121,7 +121,13 @@ export async function POST(request: NextRequest) {
     const documentText = screening.document_extracted_text as string | null;
     const inputMode = (screening.input_mode as string) || 'questionnaire';
 
-    if (inputMode === 'questionnaire' || inputMode === 'hybrid') {
+    // hybrid 模式下用户可能只上传了文档未填问卷 → 视为 document-only
+    const effectiveInputMode =
+      inputMode === 'hybrid' && answers.length === 0 && documentText
+        ? 'document'
+        : inputMode;
+
+    if (effectiveInputMode === 'questionnaire' || effectiveInputMode === 'hybrid') {
       const requiredQuestionCount = calculateRequiredQuestionCount(phase, bodyMapData);
       if (answers.length < requiredQuestionCount) {
         return NextResponse.json(
@@ -133,8 +139,8 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 纯文档模式必须有提取的文本
-    if (inputMode === 'document' && !documentText) {
+    // 文档模式必须有提取的文本
+    if (effectiveInputMode === 'document' && !documentText) {
       return NextResponse.json(
         { error: '请先上传诊断书/检查报告' },
         { status: 400 }
