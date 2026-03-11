@@ -4,21 +4,25 @@
  * 从上传的 PDF 或图片中提取文本内容，用于 AEMC Pipeline 输入。
  *
  * 策略：
- * - PDF（有可选文本）: pdf-parse 直接提取
- * - PDF（扫描件，文本量 < 50 字符）: 返回低置信度结果
+ * - PDF（有可选文本）: pdf-parse 直接提取（快速，免费）
+ * - PDF（扫描件，pdf-parse < 50 字符）: Gemini 2.5 Flash 原生 PDF OCR
  * - 图片（JPG/PNG）: GPT-4o-mini Vision OCR
+ *
+ * 设计原则：整条链路永不 throw，所有失败路径返回 low confidence 结果。
  */
 
 import OpenAI from 'openai';
+import { GoogleGenAI } from '@google/genai';
 
 const OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1';
 const VISION_MODEL = 'openai/gpt-4o-mini';
+const GEMINI_MODEL = 'gemini-2.5-flash';
 const VISION_TIMEOUT_MS = 9_000;
 const MIN_PDF_TEXT_LENGTH = 50;
 
 export interface DocumentExtractionResult {
   text: string;
-  method: 'pdf-parse' | 'gpt4o-vision';
+  method: 'pdf-parse' | 'gpt4o-vision' | 'gemini-ocr';
   pageCount?: number;
   confidence: 'high' | 'medium' | 'low';
 }
@@ -49,13 +53,14 @@ export async function extractDocument(
 
 /**
  * PDF 文本提取
- * 先用 pdf-parse 尝试提取可选文本，若失败或文本过短则返回低置信度结果（不抛错）
+ * 1. pdf-parse（快速提取可选文本）
+ * 2. Gemini 2.5 Flash 原生 PDF OCR（扫描件降级）
  */
 async function extractFromPDF(buffer: Buffer): Promise<DocumentExtractionResult> {
   let pdfText = '';
   let pageCount: number | undefined;
 
-  // Strategy 1: pdf-parse
+  // Strategy 1: pdf-parse（免费，毫秒级）
   try {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const pdfParse = require('pdf-parse');
@@ -69,7 +74,7 @@ async function extractFromPDF(buffer: Buffer): Promise<DocumentExtractionResult>
     );
   }
 
-  // 提取到足够文本 → 高置信度
+  // 提取到足够文本 → 高置信度，直接返回
   if (pdfText.length >= MIN_PDF_TEXT_LENGTH) {
     return {
       text: pdfText,
@@ -79,12 +84,21 @@ async function extractFromPDF(buffer: Buffer): Promise<DocumentExtractionResult>
     };
   }
 
-  // 扫描件 PDF 或 pdf-parse 崩溃 → 返回低置信度（不抛错，文件已上传到 Storage）
+  // Strategy 2: Gemini 2.5 Flash 原生 PDF OCR（扫描件/pdf-parse 崩溃时）
   console.info(
-    `[DocExtractor] PDF text extraction yielded ${pdfText.length} chars — returning low confidence`
+    `[DocExtractor] pdf-parse yielded ${pdfText.length} chars — falling back to Gemini OCR`
   );
+  const geminiResult = await extractPdfWithGemini(buffer);
+  if (geminiResult) {
+    return {
+      ...geminiResult,
+      pageCount: pageCount ?? geminiResult.pageCount,
+    };
+  }
+
+  // 两个策略都失败 → 低置信度
   return {
-    text: pdfText || '（扫描件 PDF，文本提取不完整。建议改为上传各页截图 JPG/PNG 以启用 AI OCR 识别。）',
+    text: pdfText || '（PDF 文本提取失败。建议改为上传各页截图 JPG/PNG 以重试。）',
     method: 'pdf-parse',
     pageCount,
     confidence: 'low',
@@ -92,8 +106,78 @@ async function extractFromPDF(buffer: Buffer): Promise<DocumentExtractionResult>
 }
 
 /**
+ * Gemini 2.5 Flash 原生 PDF OCR
+ * 直接将 PDF 二进制发送给 Gemini，无需转为图片。
+ * 返回 null 表示失败（调用方负责降级）。
+ */
+async function extractPdfWithGemini(
+  buffer: Buffer
+): Promise<DocumentExtractionResult | null> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    console.error('[DocExtractor] GEMINI_API_KEY not configured — skipping Gemini OCR');
+    return null;
+  }
+
+  try {
+    const ai = new GoogleGenAI({ apiKey });
+    const base64 = buffer.toString('base64');
+
+    const response = await ai.models.generateContent({
+      model: GEMINI_MODEL,
+      contents: [
+        {
+          role: 'user',
+          parts: [
+            {
+              inlineData: {
+                mimeType: 'application/pdf',
+                data: base64,
+              },
+            },
+            {
+              text: `Extract ALL text from this medical document PDF.
+
+Rules:
+1. Preserve the original structure (headers, sections, tables) as plain text
+2. For tables, use tab-separated columns with headers
+3. Include ALL numbers, dates, units, and reference ranges exactly as printed
+4. Include patient name, date of birth, examination date, and hospital/clinic name
+5. Mark any text you cannot read clearly as [unclear]
+6. Output in the ORIGINAL language of the document (do not translate)
+7. Return ONLY the extracted text, no commentary or explanation`,
+            },
+          ],
+        },
+      ],
+    });
+
+    const extractedText = response.text?.trim();
+    if (!extractedText || extractedText.length < MIN_PDF_TEXT_LENGTH) {
+      console.warn(
+        `[DocExtractor] Gemini returned insufficient text (${extractedText?.length ?? 0} chars)`
+      );
+      return null;
+    }
+
+    console.info(`[DocExtractor] Gemini OCR extracted ${extractedText.length} chars`);
+    return {
+      text: extractedText,
+      method: 'gemini-ocr',
+      confidence: extractedText.includes('[unclear]') ? 'medium' : 'high',
+    };
+  } catch (error) {
+    console.error(
+      '[DocExtractor] Gemini OCR failed:',
+      error instanceof Error ? error.message : error
+    );
+    return null;
+  }
+}
+
+/**
  * 图片/扫描件 OCR（通过 GPT-4o Vision API）
- * 永不抛错：API 调用失败时返回低置信度结果（文件已上传到 Storage，不能阻断流程）
+ * 永不抛错：API 调用失败时返回低置信度结果
  */
 async function extractFromImage(
   buffer: Buffer,

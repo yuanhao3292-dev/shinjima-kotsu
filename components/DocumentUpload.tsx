@@ -89,6 +89,12 @@ const translations = {
     'zh-TW': 'AI 圖像辨識 (OCR)',
     en: 'AI image recognition (OCR)',
   },
+  methodGemini: {
+    ja: 'Gemini AI ドキュメント OCR',
+    'zh-CN': 'Gemini AI 文档 OCR',
+    'zh-TW': 'Gemini AI 文件 OCR',
+    en: 'Gemini AI document OCR',
+  },
   lowConfidence: {
     ja: 'スキャン PDF のためテキスト抽出が不完全です。より正確な結果を得るには、各ページのスクリーンショット（JPG/PNG）をアップロードしてください。',
     'zh-CN': '扫描件 PDF 文本提取不完整，分析结果可能不准确。建议删除后改为上传各页截图（JPG/PNG）以获得更好的 OCR 识别效果。',
@@ -118,7 +124,7 @@ interface DocumentUploadProps {
 export interface UploadResult {
   documentUrl: string;
   extractedText: string;
-  extractionMethod: 'pdf-parse' | 'gpt4o-vision';
+  extractionMethod: 'pdf-parse' | 'gpt4o-vision' | 'gemini-ocr';
   confidence: 'high' | 'medium' | 'low';
   fileName: string;
 }
@@ -271,7 +277,11 @@ export default function DocumentUpload({
             </div>
             <div className="mt-1 text-xs text-neutral-400">
               {t('method')}
-              {result.extractionMethod === 'pdf-parse' ? t('methodPdf') : t('methodVision')}
+              {result.extractionMethod === 'pdf-parse'
+                  ? t('methodPdf')
+                  : result.extractionMethod === 'gemini-ocr'
+                    ? t('methodGemini')
+                    : t('methodVision')}
             </div>
             {isLowConfidence && (
               <div className="mt-2 rounded-lg bg-amber-100/70 p-2.5 text-xs leading-relaxed text-amber-800">
