@@ -168,7 +168,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       screeningId: screening.id,
-      freeRemaining: usageInfo.freeRemaining,
+      freeRemaining: isTestAccount ? 999 : usageInfo.freeRemaining,
       message: '筛查记录已创建',
     });
   } catch (error: unknown) {
@@ -233,9 +233,12 @@ export async function GET(request: NextRequest) {
       riskLevel: s.analysis_result?.riskLevel || null,
     }));
 
+    // 测试账户：返回不限次数
+    const isTestAccount = user.email?.includes('qqy5618');
+
     return NextResponse.json({
       screenings: processedScreenings,
-      freeRemaining: usageInfo.freeRemaining,
+      freeRemaining: isTestAccount ? 999 : usageInfo.freeRemaining,
       totalUsed: usageInfo.totalUsed,
     });
   } catch (error: unknown) {
