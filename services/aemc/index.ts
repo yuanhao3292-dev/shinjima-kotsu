@@ -52,7 +52,7 @@ const PIPELINE_VERSION_V3_LITE = 'aemc-v3-lite';
 
 // 默认使用 V3 Lite（单次 AI 调用，Vercel Hobby 兼容）
 // 设置 AEMC_PIPELINE_MODE=full 启用完整 4-AI 管线（需要 Vercel Pro 60s 超时）
-const USE_FULL_PIPELINE = process.env.AEMC_PIPELINE_MODE === 'full';
+const USE_FULL_PIPELINE = process.env.AEMC_PIPELINE_MODE?.trim() === 'full';
 
 // ============================================================
 // 主入口
