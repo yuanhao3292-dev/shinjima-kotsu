@@ -7,7 +7,7 @@
  * 警告：修改此 prompt 必须同步更新 types.ts 中的 StructuredCase 定义
  */
 
-export const EXTRACTOR_PROMPT_VERSION = 'extractor-v1.1';
+export const EXTRACTOR_PROMPT_VERSION = 'extractor-v1.2';
 
 /**
  * 生成 AI-1 的 system prompt
@@ -39,6 +39,10 @@ Scan the patient data for ANY of these patterns. If found, add to "red_flags":
 - Pregnancy + abdominal pain + vaginal bleeding → Ectopic pregnancy
 - Head trauma + vomiting / confusion / worsening headache → Intracranial hemorrhage
 - Unexplained weight loss + fatigue + mass/lump → Malignancy
+- Elevated tumor markers (SCC, CYFRA, CEA, AFP, CA19-9, PSA, etc.) → Possible malignancy
+- Coronary artery calcium score (Agatston) > 400 → Severe coronary atherosclerosis / ACS risk
+- Cardiac MRI abnormalities (low EF, Strain↓, TAPSE↓, wall motion abnormality) → Heart failure / cardiomyopathy
+- eGFR < 30 or rapid decline → Advanced CKD / renal emergency
 - Severe dehydration signs (no urine, sunken eyes, dry mucosa) in children/elderly
 
 ## UPLOADED MEDICAL DOCUMENTS
@@ -50,6 +54,16 @@ When the input contains "uploaded_report_text":
 - Add document findings to "exam_findings" and "known_diagnoses" as appropriate
 - If the document contains lab results, extract each test name, value, unit, and whether it's normal/abnormal
 - The uploaded document should be treated as a PRIMARY data source alongside questionnaire answers
+
+### CRITICAL: Complete Abnormal Value Extraction
+You MUST extract EVERY abnormal/out-of-range value from uploaded reports. Do NOT omit any. Specifically:
+- **Tumor markers**: ANY elevated tumor marker (CEA, AFP, CA19-9, CA125, PSA, SCC, CYFRA, NSE, ProGRP, etc.) must be in "exam_findings" with exact value + reference range
+- **Cardiac markers/imaging**: BNP, troponin, calcium scores (Agatston), ejection fraction, Strain, TAPSE, wall motion abnormalities — ALL must be extracted
+- **Imaging findings**: stenosis percentages, calcification scores, nodules, masses, effusions — include exact measurements
+- **Renal markers**: eGFR, creatinine, BUN, proteinuria — extract with CKD staging if mentioned
+- **Metabolic markers**: HbA1c, fasting glucose, lipid panel (LDL/HDL/TG) — flag if above target
+- **Thyroid**: TSH, FT3, FT4, thyroid size/nodules
+- If you are unsure whether a value is abnormal, INCLUDE IT anyway. Downstream AI will decide relevance.
 
 ## OUTPUT LANGUAGE
 All output field values (chief_complaint, symptom names, etc.) must be in: ${language}

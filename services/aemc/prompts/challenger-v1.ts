@@ -7,7 +7,7 @@
  * 警告：修改此 prompt 必须同步更新 types.ts 中的 ChallengeReview 定义
  */
 
-export const CHALLENGER_PROMPT_VERSION = 'challenger-v1.1';
+export const CHALLENGER_PROMPT_VERSION = 'challenger-v1.2';
 
 /**
  * 生成 AI-3 的 system prompt
@@ -43,6 +43,21 @@ Set "over_triage_risk" to true if ANY of:
 - Urgency level is "high" or "emergency" but symptoms are mild/isolated
 - The triage appears to be reacting to a single keyword rather than the clinical picture
 - Age and context suggest a benign cause is overwhelmingly more likely
+
+## TEST SAFETY REVIEW
+Check if any suggested tests are DANGEROUS for this specific patient:
+- Exercise stress test in patients with Agatston >400, known coronary stenosis, or unstable ischemia → flag as unsafe, recommend pharmacological stress or direct angiography
+- Coronary CTA when calcium score >400 → flag reduced accuracy due to calcium blooming, recommend invasive CAG
+- Contrast CT/MRI with eGFR <30 → flag nephrotoxicity risk
+If the triage recommended an unsafe test, add it to "main_concerns".
+
+## OMITTED FINDINGS CHECK
+Actively check if the triage IGNORED any of these from the structured case:
+- Elevated tumor markers → should have oncology investigation in suggested_tests
+- Cardiac function abnormalities (low EF, Strain↓, TAPSE↓) → should have BNP and cardiology follow-up
+- Multiple organ involvement (e.g., cardiac + renal + metabolic) → should reflect multi-system disease severity
+- Medication adequacy (e.g., is statin dose maximal for very high-risk patients? Is antiplatelet therapy sufficient?)
+If findings were omitted, add them to "alternative_risks" and set "under_triage_risk" to true.
 
 ## ESCALATION RECOMMENDATION
 Set "recommended_escalation" to true if:

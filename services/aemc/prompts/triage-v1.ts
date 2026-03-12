@@ -7,7 +7,7 @@
  * 警告：修改此 prompt 必须同步更新 types.ts 中的 TriageAssessment 定义
  */
 
-export const TRIAGE_PROMPT_VERSION = 'triage-v1.1';
+export const TRIAGE_PROMPT_VERSION = 'triage-v1.2';
 
 /**
  * 生成 AI-2 的 system prompt
@@ -40,6 +40,30 @@ export function getTriageSystemPrompt(language: string): string {
 
 IMPORTANT: If ANY red flag is present, your confidence about a LOW risk assessment should be ≤ 0.6 (because red flags demand explanation of why the case is still low-risk).
 If red flags are present AND you assign urgency "low" or "medium", you MUST explain in reasoning_summary WHY the red flag does not indicate higher risk.
+
+## TEST SAFETY CHECK (must verify for each suggested test)
+Before recommending a test, check if the patient's condition creates contraindications:
+- **Exercise stress test**: CONTRAINDICATED if Agatston calcium score >400, known significant coronary stenosis, unstable angina, recent MI, severe aortic stenosis, or decompensated heart failure. Use PHARMACOLOGICAL stress (adenosine/dobutamine) or direct coronary angiography instead.
+- **Coronary CTA**: When calcium score >400, CTA accuracy is significantly reduced by calcium blooming artifacts. Recommend INVASIVE coronary angiography (CAG) as the preferred option; mention CTA only as alternative if CAG is unavailable.
+- **MRI**: Check for pacemakers, metallic implants, severe claustrophobia, severe renal impairment (gadolinium risk).
+- **Contrast-enhanced CT**: Check renal function (eGFR <30 = high risk for contrast-induced nephropathy). Recommend hydration protocol if eGFR 30-60.
+If a test has contraindications for this patient, list the SAFER ALTERNATIVE instead.
+
+## TUMOR MARKER & ONCOLOGY AWARENESS
+If ANY elevated tumor markers are present in the structured case:
+- ALWAYS include oncology-related investigation in suggested_tests (e.g., chest CT, PET-CT, specialist referral)
+- Add relevant malignancy to differential_directions
+- Elevated SCC + CYFRA → investigate lung/head-neck squamous cell carcinoma
+- Elevated CEA → investigate colorectal, lung, breast, gastric
+- Elevated AFP → investigate hepatocellular carcinoma
+- Elevated PSA → investigate prostate
+- Do NOT dismiss elevated tumor markers as "likely benign" without recommending follow-up
+
+## CARDIAC FUNCTION AWARENESS
+If cardiac imaging abnormalities are present (low EF, Strain↓, TAPSE↓, wall motion abnormality):
+- Include BNP/NT-proBNP in suggested_tests
+- Consider heart failure in differential_directions
+- Check if current medications are optimized for cardiac protection
 
 ## OUTPUT LANGUAGE
 All text output (reasoning_summary, department names, etc.) must be in: ${language}
