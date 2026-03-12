@@ -246,6 +246,10 @@ export interface AEMCPipelineResult {
   ai_runs: AIRunRecord[];
   total_latency_ms: number;
   pipeline_version: string;
+  // 确定性后处理结果（V3 Lite / V2 Full 都会执行）
+  icd10_mapping?: import('./icd10-mapper').ICD10MappingResult;
+  guideline_matches?: import('./clinical-guidelines').GuidelineMatchResult;
+  ddi_check?: import('./drug-interaction-checker').DDICheckResult;
 }
 
 // ============================================================

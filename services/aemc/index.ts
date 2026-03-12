@@ -39,6 +39,9 @@ import { calculateClinicalScores } from './clinical-scores';
 import { triageCase, TriageError } from './triage';
 import { challengeCase, ChallengerError } from './challenger';
 import { interceptUnsafeTests } from './test-safety';
+import { matchClinicalGuidelines } from './clinical-guidelines';
+import { checkDrugInteractions } from './drug-interaction-checker';
+import { mapToICD10 } from './icd10-mapper';
 import { adjudicateCase, AdjudicatorError } from './adjudicator';
 import { evaluateSafetyGate, type SafetyGateInput } from './safety-gate';
 import { matchHospitals } from './hospital-matcher';
@@ -146,6 +149,9 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
   // === Step 2c: 临床评分计算（确定性逻辑，注入 AI-2 输入） ===
   const clinicalScores = calculateClinicalScores(structuredCase);
 
+  // === Step 2d: 临床指南匹配（确定性逻辑，注入 AI-2 + AI-4） ===
+  const guidelineResult = matchClinicalGuidelines(structuredCase);
+
   // === Step 3: AI-2 分诊 + AI-3 挑战（并行执行） ===
   // AI-2 和 AI-3 都只需要 AI-1 的 StructuredCase，可以同时运行
   // AI-3 在并行模式下独立评估风险，不依赖 AI-2 的输出
@@ -153,8 +159,9 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
   let challengeReview;
   const challengerEnabled = !!process.env.OPENROUTER_API_KEY;
 
-  // 将临床评分注入 AI-2 的输入（追加到 structuredCase 的文本中）
-  const triagePromise = triageCase(structuredCase, clinicalScores.summaryForTriage);
+  // 将临床评分 + 指南引用注入 AI-2 的输入
+  const triageContext = clinicalScores.summaryForTriage + guidelineResult.guidelineContextForAI;
+  const triagePromise = triageCase(structuredCase, triageContext);
   const challengerPromise = challengerEnabled
     ? challengeCase(structuredCase) // 并行模式：无 triageAssessment 参数
     : Promise.resolve(null);
@@ -203,15 +210,23 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
     );
   }
 
+  // === Step 3c: 药物相互作用检查（确定性逻辑，注入 AI-4） ===
+  const ddiResult = checkDrugInteractions(structuredCase, triageAssessment);
+
   // === Step 4: AI-4 质控仲裁 ===
   let adjudicatedAssessment;
   try {
+    // 汇集所有确定性分析结果注入仲裁官
+    const adjudicatorContext =
+      clinicalScores.summaryForTriage +
+      testSafetyResult.safetyWarningsForAdjudicator +
+      guidelineResult.guidelineContextForAI +
+      ddiResult.ddiWarningsForAdjudicator;
     const adjudicatorResult = await adjudicateCase(
       structuredCase,
       triageAssessment,
       challengeReview, // V2: 传入挑战结果; V1/降级: undefined
-      // 注入确定性分析结果供仲裁官参考
-      clinicalScores.summaryForTriage + testSafetyResult.safetyWarningsForAdjudicator
+      adjudicatorContext
     );
     adjudicatedAssessment = adjudicatorResult.adjudicatedAssessment;
     aiRuns.push(adjudicatorResult.runRecord);
@@ -223,6 +238,12 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
     console.error('[AEMC] AI-4 (Claude) failed:', error instanceof Error ? error.message : error);
     throw new PipelineError('AI-4 Adjudicator failed', aiRuns, casePacket);
   }
+
+  // === Step 4b: ICD-10 编码映射（确定性后处理，附加标准诊断编码） ===
+  const icd10Result = mapToICD10(
+    triageAssessment.differential_directions.map((d) => d.name),
+    casePacket.language
+  );
 
   // === Step 5: 安全闸门（确定性逻辑，永远执行） ===
   const safetyGateInput: SafetyGateInput = {
@@ -256,7 +277,10 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
     `[AEMC] Pipeline completed: gate=${safetyGate.gate_class}, ` +
     `risk=${adjudicatedAssessment.final_risk_level}, ` +
     `total=${totalLatencyMs}ms, ` +
-    `triggers=${safetyGate.triggered_rules.length}`
+    `triggers=${safetyGate.triggered_rules.length}, ` +
+    `guidelines=${guidelineResult.matchedGuidelines.length}, ` +
+    `DDIs=${ddiResult.interactions.length}, ` +
+    `ICD10=${icd10Result.matches.length}`
   );
 
   // === 组装完整结果 ===
@@ -272,6 +296,10 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
     ai_runs: aiRuns,
     total_latency_ms: totalLatencyMs,
     pipeline_version: pipelineVersion,
+    // 确定性后处理结果
+    icd10_mapping: icd10Result,
+    guideline_matches: guidelineResult,
+    ddi_check: ddiResult,
   };
 
   // === Step 7: 向后兼容转换 ===
@@ -316,6 +344,14 @@ async function runLitePipeline(
     );
   }
 
+  // 确定性后处理：临床指南 + DDI + ICD-10
+  const guidelineResult = matchClinicalGuidelines(structuredCase);
+  const ddiResult = checkDrugInteractions(structuredCase, triageAssessment);
+  const icd10Result = mapToICD10(
+    triageAssessment.differential_directions.map((d) => d.name),
+    casePacket.language
+  );
+
   // 安全闸门（确定性逻辑，永远执行）
   const safetyGateInput: SafetyGateInput = {
     case_packet: casePacket,
@@ -337,7 +373,10 @@ async function runLitePipeline(
   console.info(
     `[AEMC] V3 Lite completed: gate=${safetyGate.gate_class}, ` +
     `risk=${adjudicatedAssessment.final_risk_level}, ` +
-    `total=${totalLatencyMs}ms`
+    `total=${totalLatencyMs}ms, ` +
+    `guidelines=${guidelineResult.matchedGuidelines.length}, ` +
+    `DDIs=${ddiResult.interactions.length}, ` +
+    `ICD10=${icd10Result.matches.length}`
   );
 
   const pipelineResult: AEMCPipelineResult = {
@@ -350,6 +389,10 @@ async function runLitePipeline(
     ai_runs: [runRecord],
     total_latency_ms: totalLatencyMs,
     pipeline_version: PIPELINE_VERSION_V3_LITE,
+    // 确定性后处理结果
+    icd10_mapping: icd10Result,
+    guideline_matches: guidelineResult,
+    ddi_check: ddiResult,
   };
 
   const legacyResult = convertToLegacyResult(pipelineResult);
@@ -391,10 +434,14 @@ function convertToLegacyResult(pipeline: AEMCPipelineResult): AnalysisResult {
     riskSummary = `此报告需经人工医疗顾问审核后展示。\n\n${riskSummary}`;
   }
 
-  // 将鉴别方向转为治疗建议（旧版字段）
-  const treatmentSuggestions = triage.differential_directions.map(
-    (d) => `${d.name}（可能性: ${d.likelihood}）: ${d.reason}`
-  );
+  // 将鉴别方向转为治疗建议（旧版字段），附加 ICD-10 编码
+  const treatmentSuggestions = triage.differential_directions.map((d) => {
+    const icd10Match = pipeline.icd10_mapping?.matches.find(
+      (m) => m.originalText === d.name
+    );
+    const codeTag = icd10Match ? ` [${icd10Match.code}]` : '';
+    return `${d.name}${codeTag}（可能性: ${d.likelihood}）: ${d.reason}`;
+  });
 
   // 下一步建议 = 仲裁官的追问 + 安全闸门的解释
   const nextSteps: string[] = [];
@@ -406,6 +453,13 @@ function convertToLegacyResult(pipeline: AEMCPipelineResult): AnalysisResult {
   }
   if (gate.gate_class === 'D') {
     nextSteps.unshift('⚠️ 请立即前往最近的急诊室');
+  }
+  // 药物相互作用警告
+  if (pipeline.ddi_check && pipeline.ddi_check.interactions.length > 0) {
+    const ddiWarnings = pipeline.ddi_check.interactions.map(
+      (ddi) => `${ddi.drugA} + ${ddi.drugB}: ${ddi.recommendation}`
+    );
+    nextSteps.push(`⚠️ 药物相互作用提示: ${ddiWarnings.join('；')}`);
   }
   if (nextSteps.length === 0) {
     nextSteps.push('建议按照推荐科室进行详细检查');
