@@ -17,7 +17,7 @@ import { GoogleGenAI } from '@google/genai';
 const OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1';
 const VISION_MODEL = 'openai/gpt-4o-mini';
 const GEMINI_MODEL = 'gemini-2.5-flash';
-const VISION_TIMEOUT_MS = 9_000;
+const VISION_TIMEOUT_MS = 30_000; // 30s — 复杂医学报告图片 OCR 需要更长时间
 const GEMINI_OCR_TIMEOUT_MS = 45_000; // 45s — 多页医学报告（含表格/图表）需要更长处理时间
 const MIN_PDF_TEXT_LENGTH = 50;
 
@@ -201,10 +201,115 @@ Rules:
 }
 
 /**
- * 图片/扫描件 OCR（通过 GPT-4o Vision API）
+ * 图片/扫描件 OCR
+ * 优先使用 Gemini 2.5 Flash（更快，中文医学文档更好）
+ * 备选使用 GPT-4o-mini Vision
  * 永不抛错：API 调用失败时返回低置信度结果
  */
 async function extractFromImage(
+  buffer: Buffer,
+  mimeType: string
+): Promise<DocumentExtractionResult> {
+  const imageSizeKB = Math.round(buffer.length / 1024);
+  console.info(`[DocExtractor] Image OCR starting — size: ${imageSizeKB}KB, type: ${mimeType}`);
+
+  // Strategy 1: Gemini 2.5 Flash（优先 — 中文/日文医学文档更优）
+  const geminiResult = await extractImageWithGemini(buffer, mimeType);
+  if (geminiResult) {
+    return geminiResult;
+  }
+
+  // Strategy 2: GPT-4o-mini Vision（备选）
+  return extractImageWithVision(buffer, mimeType);
+}
+
+/**
+ * Gemini 2.5 Flash 图片 OCR
+ * 直接发送图片二进制给 Gemini，支持中日英多语言医学文档
+ */
+async function extractImageWithGemini(
+  buffer: Buffer,
+  mimeType: string
+): Promise<DocumentExtractionResult | null> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    console.warn('[DocExtractor] GEMINI_API_KEY not configured — skipping Gemini image OCR');
+    return null;
+  }
+
+  try {
+    const ai = new GoogleGenAI({ apiKey });
+    const base64 = buffer.toString('base64');
+
+    const geminiStartTime = Date.now();
+    const geminiPromise = ai.models.generateContent({
+      model: GEMINI_MODEL,
+      contents: [
+        {
+          role: 'user',
+          parts: [
+            {
+              inlineData: {
+                mimeType,
+                data: base64,
+              },
+            },
+            {
+              text: `Extract ALL text from this medical document image.
+
+Rules:
+1. Preserve the original structure (headers, sections, tables) as plain text
+2. For tables, use tab-separated columns with headers
+3. Include ALL numbers, dates, units, and reference ranges exactly as printed
+4. Include patient name, date of birth, examination date, and hospital/clinic name
+5. Mark any text you cannot read clearly as [unclear]
+6. Output in the ORIGINAL language of the document (do not translate)
+7. Return ONLY the extracted text, no commentary or explanation`,
+            },
+          ],
+        },
+      ],
+    });
+
+    const timeoutPromise = new Promise<null>((resolve) =>
+      setTimeout(() => resolve(null), GEMINI_OCR_TIMEOUT_MS)
+    );
+    const response = await Promise.race([geminiPromise, timeoutPromise]);
+    const elapsedMs = Date.now() - geminiStartTime;
+
+    if (!response) {
+      console.warn(`[DocExtractor] Gemini image OCR timed out after ${elapsedMs}ms`);
+      return null;
+    }
+
+    const extractedText = response.text?.trim();
+    if (!extractedText || extractedText.length < MIN_PDF_TEXT_LENGTH) {
+      console.warn(
+        `[DocExtractor] Gemini image OCR insufficient text (${extractedText?.length ?? 0} chars) in ${elapsedMs}ms`
+      );
+      return null;
+    }
+
+    console.info(`[DocExtractor] Gemini image OCR success: ${extractedText.length} chars in ${elapsedMs}ms`);
+    return {
+      text: extractedText,
+      method: 'gemini-ocr',
+      confidence: extractedText.includes('[unclear]') ? 'medium' : 'high',
+    };
+  } catch (error) {
+    console.error(
+      '[DocExtractor] Gemini image OCR failed:',
+      error instanceof Error ? error.message : error
+    );
+    return null;
+  }
+}
+
+/**
+ * GPT-4o-mini Vision OCR（备选方案）
+ * 永不抛错：API 调用失败时返回低置信度结果
+ */
+async function extractImageWithVision(
   buffer: Buffer,
   mimeType: string
 ): Promise<DocumentExtractionResult> {
@@ -259,7 +364,7 @@ Rules:
         },
       ],
       temperature: 0.1,
-      max_tokens: 4000,
+      max_tokens: 8000,
     });
 
     const extractedText = response.choices[0]?.message?.content?.trim();
