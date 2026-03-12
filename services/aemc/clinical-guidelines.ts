@@ -27,7 +27,7 @@ import type { StructuredCase } from './types';
 // 指南条目定义
 // ============================================================
 
-interface GuidelineEntry {
+export interface GuidelineEntry {
   /** 指南 ID */
   id: string;
   /** 触发条件：patient data 中包含的关键词（任一匹配即触发） */
@@ -94,7 +94,7 @@ const GUIDELINE_DATABASE: GuidelineEntry[] = [
   // 肺癌筛查
   {
     id: 'GL-LUNG-001',
-    triggerKeywords: ['肺结节', '肺占位', 'lung nodule', 'lung mass', '肺腫瘤', '胸部'],
+    triggerKeywords: ['肺结节', '肺占位', 'lung nodule', 'lung mass', '肺腫瘤', '肺部肿块'],
     source: 'NCCN Lung Cancer Screening v1.2025; Fleischner Society 2017',
     evidenceLevel: 'Category 1',
     recommendation: '肺部结节：按 Fleischner Society 标准随访。≥8mm 实性结节需 PET-CT 或活检。毛刺征/分叶征提示恶性。低剂量 CT 用于高危人群筛查。',
@@ -158,7 +158,7 @@ const GUIDELINE_DATABASE: GuidelineEntry[] = [
 
   {
     id: 'GL-DM-001',
-    triggerKeywords: ['糖尿病', 'diabetes', 'hba1c', '血糖'],
+    triggerKeywords: ['糖尿病', 'diabetes', 'hba1c', '血糖升高', '高血糖'],
     source: 'ADA Standards of Care 2025; JDS 糖尿病診療ガイドライン 2024',
     evidenceLevel: 'Level A',
     recommendation: 'HbA1c ≥6.5% 或空腹血糖 ≥126mg/dL：确诊糖尿病。合并 CKD/CVD 优先 SGLT2i 或 GLP-1RA。每年眼底检查 + 足部检查 + UACR。',

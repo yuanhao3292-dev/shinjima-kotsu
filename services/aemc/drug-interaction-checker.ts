@@ -12,7 +12,8 @@
  * 设计原则：
  * - 纯确定性逻辑，无 AI 调用
  * - 只覆盖最危险的 DDI（宁可误报，不可漏报）
- * - 扫描 medication_history + AI-2 推荐的检查/处方建议
+ * - 仅扫描 medication_history（当前用药）+ AI-2 推荐中的药物
+ * - 不扫描 past_history / known_diagnoses（避免已停药误报）
  * - 输出注入 AI-4 供仲裁官参考
  */
 
@@ -88,7 +89,7 @@ const DDI_RULES: DDIRule[] = [
   {
     id: 'DDI-006',
     drugA: ['acei', 'enalapril', '依那普利', 'エナラプリル', 'lisinopril', 'ramipril', 'arb', 'valsartan', '缬沙坦', 'バルサルタン', 'losartan', '氯沙坦', 'ロサルタン', 'telmisartan', 'olmesartan', 'candesartan'],
-    drugB: ['spironolactone', '螺内酯', 'スピロノラクトン', 'eplerenone', '依普利酮', 'エプレレノン', 'potassium', '钾', 'カリウム', 'trimethoprim', '甲氧苄啶'],
+    drugB: ['spironolactone', '螺内酯', 'スピロノラクトン', 'eplerenone', '依普利酮', 'エプレレノン', '补钾', '钾片', '氯化钾', 'potassium chloride', 'potassium supplement', 'カリウム製剤', 'trimethoprim', '甲氧苄啶'],
     severity: 'major',
     interaction: 'ACEI/ARB + 保钾利尿剂/钾补充剂 → 高钾血症风险',
     recommendation: '联用时需定期监测血钾。eGFR <30 时风险更高。血钾 >5.5mEq/L 需停药。',
@@ -163,8 +164,12 @@ export interface DetectedDDI {
  * 检查患者用药的危险相互作用
  *
  * 扫描源：
- * 1. StructuredCase.medication_history（当前用药）
+ * 1. StructuredCase.medication_history（当前用药）— 主要来源
  * 2. TriageAssessment.suggested_tests 中隐含的药物（如推荐抗凝时）
+ *
+ * 不扫描 past_history / known_diagnoses：
+ * - past_history 可能含已停药记录（"2019年停用华法林"）→ 误报
+ * - known_diagnoses 含疾病名非药物（"低钾血症"中的"钾"→ 误报）
  */
 export function checkDrugInteractions(
   structuredCase: StructuredCase,
@@ -172,12 +177,8 @@ export function checkDrugInteractions(
 ): DDICheckResult {
   const interactions: DetectedDDI[] = [];
 
-  // 汇集所有药物相关文本
-  const medicationText = [
-    ...structuredCase.medication_history,
-    ...structuredCase.past_history,
-    ...structuredCase.known_diagnoses,
-  ]
+  // 仅扫描当前用药（medication_history 是 AI-1 提取的当前正在服用的药物）
+  const medicationText = structuredCase.medication_history
     .join(' ')
     .toLowerCase();
 

@@ -345,6 +345,8 @@ async function runLitePipeline(
   }
 
   // 确定性后处理：临床指南 + DDI + ICD-10
+  // 注意：V3 Lite 这些模块在 AI 调用之后执行，仅用于后处理展示和审计，
+  // 不影响 AI 的判断（Full pipeline 中 AI-2/AI-4 可以看到指南和 DDI 警告）
   const guidelineResult = matchClinicalGuidelines(structuredCase);
   const ddiResult = checkDrugInteractions(structuredCase, triageAssessment);
   const icd10Result = mapToICD10(
