@@ -94,6 +94,27 @@ export function evaluateSafetyGate(input: SafetyGateInput): SafetyGateResult {
   );
   triggeredRules.push(...crossValidationTriggers);
 
+  // Step 4b: 肿瘤标志物交叉验证 (XVAL-002)
+  const tumorMarkerTriggers = crossValidateTumorMarkers(
+    input.structured_case,
+    input.triage_assessment
+  );
+  triggeredRules.push(...tumorMarkerTriggers);
+
+  // Step 4c: 心功能交叉验证 (XVAL-003)
+  const cardiacTriggers = crossValidateCardiacFunction(
+    input.structured_case,
+    input.triage_assessment
+  );
+  triggeredRules.push(...cardiacTriggers);
+
+  // Step 4d: 多系统累及交叉验证 (XVAL-004)
+  const multiSystemTriggers = crossValidateMultiSystem(
+    input.structured_case,
+    input.triage_assessment
+  );
+  triggeredRules.push(...multiSystemTriggers);
+
   // Step 5: 检查缺失信息量
   const missingInfoTriggers = checkMissingInfo(
     input.structured_case,
@@ -486,6 +507,220 @@ function crossValidateRedFlagsVsDifferentials(
       category: 'model_conflict',
       severity: 'high',
       description: `AI-1 提取的 ${uncoveredFlags.length} 个红旗未被 AI-2 鉴别诊断覆盖: ${uncoveredFlags.join('、')}`,
+      source: 'model_comparison',
+    });
+  }
+
+  return triggers;
+}
+
+// ============================================================
+// Step 4b: 肿瘤标志物交叉验证 (XVAL-002)
+// ============================================================
+
+/**
+ * 检查 AI-1 提取的 exam_findings 中是否有升高的肿瘤标志物，
+ * 但 AI-2 的 suggested_tests 中没有相应的肿瘤排查检查。
+ */
+function crossValidateTumorMarkers(
+  structuredCase: StructuredCase,
+  triage: TriageAssessment
+): TriggeredRule[] {
+  const triggers: TriggeredRule[] = [];
+
+  const tumorMarkerKeywords = [
+    'scc', 'cyfra', 'cea', 'afp', 'ca19-9', 'ca 19-9', 'ca125', 'ca 125',
+    'psa', 'nse', 'progrp', '肿瘤标志物', '腫瘍マーカー',
+    '鳞状细胞癌', '癌胚抗原', '甲胎蛋白',
+  ];
+
+  const findingsText = structuredCase.exam_findings.join(' ').toLowerCase();
+  const diagnosesText = structuredCase.known_diagnoses.join(' ').toLowerCase();
+  const redFlagsText = structuredCase.red_flags.join(' ').toLowerCase();
+  const combinedPatient = findingsText + ' ' + diagnosesText + ' ' + redFlagsText;
+
+  // 检查是否有升高的肿瘤标志物
+  const hasTumorMarkers = tumorMarkerKeywords.some((kw) =>
+    combinedPatient.includes(kw)
+  );
+  // 额外检查：异常标记
+  const hasAbnormalMarker =
+    combinedPatient.includes('升高') ||
+    combinedPatient.includes('异常') ||
+    combinedPatient.includes('高值') ||
+    combinedPatient.includes('上昇') ||
+    combinedPatient.includes('elevated') ||
+    combinedPatient.includes('abnormal');
+
+  if (!hasTumorMarkers || !hasAbnormalMarker) {
+    return triggers;
+  }
+
+  // 检查 AI-2 是否包含肿瘤排查
+  const triageCoverage = [
+    ...triage.suggested_tests,
+    ...triage.differential_directions.map((d) => d.name + ' ' + d.reason),
+    ...triage.do_not_miss_conditions,
+  ]
+    .join(' ')
+    .toLowerCase();
+
+  const oncologyKeywords = [
+    'pet', 'ct', '腫瘍', '腫瘍科', 'oncolog', '癌', 'cancer', 'malignancy',
+    '悪性', '精查', '生検', 'biopsy', '腫瘤', '肿瘤',
+  ];
+
+  const hasOncologyWorkup = oncologyKeywords.some((kw) =>
+    triageCoverage.includes(kw)
+  );
+
+  if (!hasOncologyWorkup) {
+    triggers.push({
+      rule_id: 'XVAL-002',
+      category: 'oncology',
+      severity: 'high',
+      description:
+        '肿瘤标志物升高但 AI-2 未推荐肿瘤排查检查（PET-CT/专科转诊/活检等）',
+      source: 'model_comparison',
+    });
+  }
+
+  return triggers;
+}
+
+// ============================================================
+// Step 4c: 心功能交叉验证 (XVAL-003)
+// ============================================================
+
+/**
+ * 检查 AI-1 提取的心功能异常指标（低 EF、Strain↓、TAPSE↓），
+ * 但 AI-2 未推荐 BNP/NT-proBNP 或心内科随访。
+ */
+function crossValidateCardiacFunction(
+  structuredCase: StructuredCase,
+  triage: TriageAssessment
+): TriggeredRule[] {
+  const triggers: TriggeredRule[] = [];
+
+  const cardiacAbnormalityKeywords = [
+    'lvef', 'ef ', 'ef:', 'ef=', 'ef<', '射血分数', '駆出率',
+    'strain', 'tapse', 'wall motion', '壁運動', '壁运动',
+    '心機能低下', '心功能低下', '心不全', '心力衰竭',
+  ];
+
+  const findingsText = structuredCase.exam_findings.join(' ').toLowerCase();
+  const diagnosesText = structuredCase.known_diagnoses.join(' ').toLowerCase();
+  const combinedPatient = findingsText + ' ' + diagnosesText;
+
+  const hasCardiacAbnormality = cardiacAbnormalityKeywords.some((kw) =>
+    combinedPatient.includes(kw)
+  );
+
+  if (!hasCardiacAbnormality) {
+    return triggers;
+  }
+
+  // 检查 AI-2 是否包含心功能相关检查/随访
+  const triageCoverage = [
+    ...triage.suggested_tests,
+    ...triage.recommended_departments,
+    ...triage.differential_directions.map((d) => d.name),
+  ]
+    .join(' ')
+    .toLowerCase();
+
+  const cardiacWorkupKeywords = [
+    'bnp', 'nt-probnp', 'ntprobnp', '心不全', 'heart failure',
+    '循環器', '心臓', '心内科', 'cardiol', '心エコー', '心超',
+  ];
+
+  const hasCardiacWorkup = cardiacWorkupKeywords.some((kw) =>
+    triageCoverage.includes(kw)
+  );
+
+  if (!hasCardiacWorkup) {
+    triggers.push({
+      rule_id: 'XVAL-003',
+      category: 'cardiovascular',
+      severity: 'high',
+      description:
+        '心功能异常指标存在但 AI-2 未推荐 BNP 检测或心内科随访',
+      source: 'model_comparison',
+    });
+  }
+
+  return triggers;
+}
+
+// ============================================================
+// Step 4d: 多系统累及交叉验证 (XVAL-004)
+// ============================================================
+
+/**
+ * 检查是否存在多系统同时受累（心血管+肾脏+代谢），
+ * 但 AI-2 的 urgency_level 仍为 low 或 medium。
+ * 多系统疾病通常表示更高风险。
+ */
+function crossValidateMultiSystem(
+  structuredCase: StructuredCase,
+  triage: TriageAssessment
+): TriggeredRule[] {
+  const triggers: TriggeredRule[] = [];
+
+  const combinedText = [
+    ...structuredCase.exam_findings,
+    ...structuredCase.known_diagnoses,
+    ...structuredCase.past_history,
+  ]
+    .join(' ')
+    .toLowerCase();
+
+  // 计算受累系统数
+  let systemCount = 0;
+  const systems: string[] = [];
+
+  // 心血管系统
+  const cardioKeywords = [
+    'agatston', '冠動脈', '冠动脉', 'coronary', '心筋', '心肌',
+    '狭窄', 'stenosis', '心房細動', '房颤', 'atrial fibrillation',
+    '高血圧', '高血压', 'hypertension', '動脈硬化', '动脉硬化',
+  ];
+  if (cardioKeywords.some((kw) => combinedText.includes(kw))) {
+    systemCount++;
+    systems.push('心血管');
+  }
+
+  // 肾脏系统
+  const renalKeywords = [
+    'ckd', '慢性腎', '慢性肾', 'egfr', '肌酐', 'creatinine',
+    'クレアチニン', '腎機能', '肾功能', '蛋白尿', 'proteinuria',
+  ];
+  if (renalKeywords.some((kw) => combinedText.includes(kw))) {
+    systemCount++;
+    systems.push('肾脏');
+  }
+
+  // 代谢系统
+  const metabolicKeywords = [
+    '糖尿病', 'diabetes', 'hba1c', '血脂', 'dyslipidemia',
+    '脂質異常', '脂质异常', '高脂血', 'ldl', '肥満', '肥胖',
+    'メタボリック', '代谢综合',
+  ];
+  if (metabolicKeywords.some((kw) => combinedText.includes(kw))) {
+    systemCount++;
+    systems.push('代谢');
+  }
+
+  // 3个系统都受累 + urgency 仅 low/medium → 可能分诊不足
+  if (
+    systemCount >= 3 &&
+    (triage.urgency_level === 'low' || triage.urgency_level === 'medium')
+  ) {
+    triggers.push({
+      rule_id: 'XVAL-004',
+      category: 'model_conflict',
+      severity: 'high',
+      description: `多系统累及 (${systems.join('+')}=${systemCount}系统) 但分诊等级仅为 ${triage.urgency_level}，可能低估复合风险`,
       source: 'model_comparison',
     });
   }

@@ -47,7 +47,8 @@ export interface AdjudicatorResult {
 export async function adjudicateCase(
   structuredCase: StructuredCase,
   triageAssessment: TriageAssessment,
-  challengeReview?: ChallengeReview
+  challengeReview?: ChallengeReview,
+  additionalContext?: string
 ): Promise<AdjudicatorResult> {
   const startTime = Date.now();
   const structuredJson = JSON.stringify(structuredCase, null, 2);
@@ -69,11 +70,15 @@ export async function adjudicateCase(
   });
 
   const systemPrompt = getAdjudicatorSystemPrompt(structuredCase.language);
-  const userPrompt = buildAdjudicatorUserPrompt(
+  // 将确定性分析结果（临床评分+检查安全拦截）注入用户 prompt
+  const baseUserPrompt = buildAdjudicatorUserPrompt(
     structuredJson,
     triageJson,
     challengeJson
   );
+  const userPrompt = additionalContext
+    ? baseUserPrompt + additionalContext
+    : baseUserPrompt;
 
   try {
     const response = await client.chat.completions.create({

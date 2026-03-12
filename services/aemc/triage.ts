@@ -39,7 +39,8 @@ export interface TriageResult {
  * 调用 Gemini 1.5 Pro 进行分诊判断
  */
 export async function triageCase(
-  structuredCase: StructuredCase
+  structuredCase: StructuredCase,
+  additionalContext?: string
 ): Promise<TriageResult> {
   const startTime = Date.now();
   const inputJson = JSON.stringify(structuredCase, null, 2);
@@ -57,7 +58,11 @@ export async function triageCase(
   });
 
   const systemPrompt = getTriageSystemPrompt(structuredCase.language);
-  const userPrompt = buildTriageUserPrompt(inputJson);
+  // 将确定性临床评分注入用户 prompt，让 AI-2 基于客观分数做决策
+  const baseUserPrompt = buildTriageUserPrompt(inputJson);
+  const userPrompt = additionalContext
+    ? baseUserPrompt + additionalContext
+    : baseUserPrompt;
 
   try {
     const response = await client.chat.completions.create({

@@ -34,8 +34,11 @@ import { MEDICAL_DISCLAIMER } from './types';
 
 import { normalizeToCasePacket, type NormalizerInput } from './input-normalizer';
 import { extractCase, ExtractorError } from './extractor';
+import { validateExtraction } from './extraction-validator';
+import { calculateClinicalScores } from './clinical-scores';
 import { triageCase, TriageError } from './triage';
 import { challengeCase, ChallengerError } from './challenger';
+import { interceptUnsafeTests } from './test-safety';
 import { adjudicateCase, AdjudicatorError } from './adjudicator';
 import { evaluateSafetyGate, type SafetyGateInput } from './safety-gate';
 import { matchHospitals } from './hospital-matcher';
@@ -131,6 +134,18 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
     throw new PipelineError('AI-1 Extractor failed', aiRuns, casePacket);
   }
 
+  // === Step 2b: 提取验证（确定性逻辑，补漏 AI-1 遗漏的异常值） ===
+  const validationResult = validateExtraction(casePacket, structuredCase);
+  if (validationResult.addedFindings.length > 0 || validationResult.addedRedFlags.length > 0) {
+    structuredCase = validationResult.enrichedCase;
+    console.info(
+      `[AEMC] ExtractionValidator: +${validationResult.addedFindings.length} findings, +${validationResult.addedRedFlags.length} red flags`
+    );
+  }
+
+  // === Step 2c: 临床评分计算（确定性逻辑，注入 AI-2 输入） ===
+  const clinicalScores = calculateClinicalScores(structuredCase);
+
   // === Step 3: AI-2 分诊 + AI-3 挑战（并行执行） ===
   // AI-2 和 AI-3 都只需要 AI-1 的 StructuredCase，可以同时运行
   // AI-3 在并行模式下独立评估风险，不依赖 AI-2 的输出
@@ -138,7 +153,8 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
   let challengeReview;
   const challengerEnabled = !!process.env.OPENROUTER_API_KEY;
 
-  const triagePromise = triageCase(structuredCase);
+  // 将临床评分注入 AI-2 的输入（追加到 structuredCase 的文本中）
+  const triagePromise = triageCase(structuredCase, clinicalScores.summaryForTriage);
   const challengerPromise = challengerEnabled
     ? challengeCase(structuredCase) // 并行模式：无 triageAssessment 参数
     : Promise.resolve(null);
@@ -178,13 +194,24 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
     );
   }
 
+  // === Step 3b: 检查安全性拦截（确定性逻辑，替换危险检查推荐） ===
+  const testSafetyResult = interceptUnsafeTests(structuredCase, triageAssessment);
+  if (testSafetyResult.replacements.length > 0) {
+    triageAssessment.suggested_tests = testSafetyResult.safeSuggestedTests;
+    console.info(
+      `[AEMC] TestSafety: ${testSafetyResult.replacements.length} unsafe tests intercepted`
+    );
+  }
+
   // === Step 4: AI-4 质控仲裁 ===
   let adjudicatedAssessment;
   try {
     const adjudicatorResult = await adjudicateCase(
       structuredCase,
       triageAssessment,
-      challengeReview // V2: 传入挑战结果; V1/降级: undefined
+      challengeReview, // V2: 传入挑战结果; V1/降级: undefined
+      // 注入确定性分析结果供仲裁官参考
+      clinicalScores.summaryForTriage + testSafetyResult.safetyWarningsForAdjudicator
     );
     adjudicatedAssessment = adjudicatorResult.adjudicatedAssessment;
     aiRuns.push(adjudicatorResult.runRecord);
@@ -269,7 +296,25 @@ async function runLitePipeline(
 
   const liteResult = await runLiteAnalysis(casePacket);
 
-  const { structuredCase, triageAssessment, adjudicatedAssessment, runRecord } = liteResult;
+  let { structuredCase, triageAssessment } = liteResult;
+  const { adjudicatedAssessment, runRecord } = liteResult;
+
+  // V3 Lite 也执行确定性后处理（提取验证 + 检查安全拦截）
+  const validationResult = validateExtraction(casePacket, structuredCase);
+  if (validationResult.addedFindings.length > 0 || validationResult.addedRedFlags.length > 0) {
+    structuredCase = validationResult.enrichedCase;
+    console.info(
+      `[AEMC-Lite] ExtractionValidator: +${validationResult.addedFindings.length} findings, +${validationResult.addedRedFlags.length} red flags`
+    );
+  }
+
+  const testSafetyResult = interceptUnsafeTests(structuredCase, triageAssessment);
+  if (testSafetyResult.replacements.length > 0) {
+    triageAssessment = { ...triageAssessment, suggested_tests: testSafetyResult.safeSuggestedTests };
+    console.info(
+      `[AEMC-Lite] TestSafety: ${testSafetyResult.replacements.length} unsafe tests intercepted`
+    );
+  }
 
   // 安全闸门（确定性逻辑，永远执行）
   const safetyGateInput: SafetyGateInput = {
