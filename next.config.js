@@ -95,23 +95,8 @@ const nextConfig = {
     ignoreBuildErrors: false,
   },
 
-  // URL 重写 - 把干净的路径重写为查询参数（内部实现）
-  async rewrites() {
-    return [
-      {
-        source: '/medical',
-        destination: '/?page=medical',
-      },
-      {
-        source: '/golf',
-        destination: '/?page=golf',
-      },
-      {
-        source: '/business',
-        destination: '/?page=business',
-      },
-    ];
-  },
+  // /medical, /golf, /business 现在是独立的 App Router 页面（app/medical/page.tsx 等）
+  // 不再需要 rewrites — 旧的 rewrite 方式导致 RSC prefetch 404
 }
 
 module.exports = nextConfig
