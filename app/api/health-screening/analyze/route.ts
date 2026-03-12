@@ -159,7 +159,10 @@ export async function POST(request: NextRequest) {
       console.warn('Usage fetch failed with code:', usageError.code);
     }
 
-    if (usage && usage.free_remaining <= 0) {
+    // 测试账户：不限次数
+    const isTestAccount = user.email?.includes('qqy5618');
+
+    if (!isTestAccount && usage && usage.free_remaining <= 0) {
       return NextResponse.json(
         { error: '您的免费筛查次数已用完' },
         { status: 403 }
@@ -295,24 +298,26 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: '保存分析结果失败' }, { status: 500 });
     }
 
-    // 更新用户的使用量
-    if (usage) {
-      await supabase
-        .from('screening_usage')
-        .update({
-          free_remaining: usage.free_remaining - 1,
-          total_used: usage.total_used + 1,
+    // 更新用户的使用量（测试账户不扣减）
+    if (!isTestAccount) {
+      if (usage) {
+        await supabase
+          .from('screening_usage')
+          .update({
+            free_remaining: usage.free_remaining - 1,
+            total_used: usage.total_used + 1,
+            last_used_at: new Date().toISOString(),
+          })
+          .eq('user_id', user.id);
+      } else {
+        // 如果没有 usage 记录，创建一个
+        await supabase.from('screening_usage').insert({
+          user_id: user.id,
+          free_remaining: 2, // 3 - 1 = 2
+          total_used: 1,
           last_used_at: new Date().toISOString(),
-        })
-        .eq('user_id', user.id);
-    } else {
-      // 如果没有 usage 记录，创建一个
-      await supabase.from('screening_usage').insert({
-        user_id: user.id,
-        free_remaining: 2, // 3 - 1 = 2
-        total_used: 1,
-        last_used_at: new Date().toISOString(),
-      });
+        });
+      }
     }
 
     return NextResponse.json({

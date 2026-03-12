@@ -135,8 +135,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: err.message }, { status: 500 });
     }
 
+    // 测试账户：不限次数
+    const isTestAccount = user.email?.includes('qqy5618');
+
     // 检查是否还有免费次数
-    if (usageInfo.freeRemaining <= 0) {
+    if (!isTestAccount && usageInfo.freeRemaining <= 0) {
       return NextResponse.json(
         {
           error: '本周免费筛查次数已用完，下周一将自动重置',
