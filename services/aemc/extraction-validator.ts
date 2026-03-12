@@ -198,6 +198,25 @@ const MEDICAL_PATTERNS: MedicalPattern[] = [
     isAbnormal: (v) => v < 0.4 || v > 4.0,
     checkKeywords: ['tsh'],
   },
+  // === 肝炎标志物 ===
+  {
+    name: 'HBsAg (乙肝表面抗原)',
+    pattern: /HBsAg[^\d]*?(\d+(?:\.\d+)?)\s*(?:IU\/ml|COI)?/i,
+    alwaysFlag: true,
+    checkKeywords: ['hbsag', '乙肝表面抗原', 'b型肝炎'],
+  },
+  {
+    name: 'HBV DNA',
+    pattern: /HBV\s*DNA[^\d]*?(\d+(?:\.\d+)?)/i,
+    alwaysFlag: true,
+    checkKeywords: ['hbv dna', 'hbv-dna'],
+  },
+  {
+    name: 'Anti-HCV (丙肝抗体)',
+    pattern: /(?:anti-?HCV|HCV\s*(?:Ab|抗体))[^\d]*?(\d+(?:\.\d+)?)/i,
+    alwaysFlag: true,
+    checkKeywords: ['anti-hcv', 'hcv', '丙肝'],
+  },
 ];
 
 // ============================================================

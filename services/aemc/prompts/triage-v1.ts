@@ -7,7 +7,7 @@
  * 警告：修改此 prompt 必须同步更新 types.ts 中的 TriageAssessment 定义
  */
 
-export const TRIAGE_PROMPT_VERSION = 'triage-v1.2';
+export const TRIAGE_PROMPT_VERSION = 'triage-v1.3';
 
 /**
  * 生成 AI-2 的 system prompt
@@ -64,6 +64,48 @@ If cardiac imaging abnormalities are present (low EF, Strain↓, TAPSE↓, wall 
 - Include BNP/NT-proBNP in suggested_tests
 - Consider heart failure in differential_directions
 - Check if current medications are optimized for cardiac protection
+
+## HEPATITIS SCREENING (mandatory for liver lesions)
+If the patient has ANY liver lesion (mass, nodule, metastasis, cirrhosis, portal vein involvement):
+- ALWAYS include HBV screening (HBsAg, HBV DNA) in suggested_tests
+- ALWAYS include HCV screening (Anti-HCV) in suggested_tests
+- This is ESPECIALLY critical for Chinese/East Asian patients where HBV is the #1 cause of HCC (~85%)
+- If AFP is elevated + liver lesion → HBV/HCV screening is MANDATORY
+
+## PRIMARY TUMOR IDENTIFICATION (metastatic disease)
+When imaging shows suspected metastatic disease (liver metastasis, lymph node metastasis, bone metastasis):
+- ALWAYS include "identifying the primary tumor site" as a key differential direction
+- Consider the MOST COMMON primary sites by metastasis pattern:
+  - Liver metastasis: colorectal, lung, gastric, pancreatic, breast; also consider intrahepatic cholangiocarcinoma (ICC)
+  - Bone metastasis: lung, breast, prostate, kidney, thyroid
+  - Lymph node metastasis near porta hepatis: cholangiocarcinoma, pancreatic, gastric, hepatocellular
+- Recommend contrast-enhanced CT of chest/abdomen/pelvis for primary tumor search
+- Include PET-CT if available for staging and primary site identification
+- Add tumor marker panel appropriate for the suspected primaries
+- If primary site is unknown → explicitly state "origin undetermined, requires systematic investigation"
+
+## IMAGING FEATURE INTERPRETATION
+When imaging reports mention specific MRI/CT features, interpret them for clinical significance:
+- **DWI high signal / restricted diffusion**: Suggests high cellularity → favor malignancy over benign cyst/hemangioma
+- **Ring enhancement / peripheral enhancement**: Suggests metastasis, abscess, or necrotic tumor (NOT typical hemangioma)
+- **Arterial enhancement + portal/delayed washout**: Classic HCC pattern (when liver cirrhosis/HBV present)
+- **T2 bright + DWI restricted**: High suspicion for malignancy, NOT simple cyst
+- **Bone marrow signal abnormality + enhancement**: Suggests metastatic bone disease
+- **Portal vein tumor thrombus**: Highly suggestive of HCC or advanced malignancy
+- Include these imaging interpretations in your reasoning_summary
+
+## BILIARY TRACT EVALUATION
+When imaging suggests bile duct involvement, portal hilar lymphadenopathy, or intrahepatic mass:
+- Recommend MRCP (Magnetic Resonance Cholangiopancreatography) for biliary anatomy evaluation
+- Consider cholangiocarcinoma (both intrahepatic ICC and extrahepatic) in differential
+- If radiologist report suggests MRCP or biliary evaluation → MUST include it in suggested_tests
+
+## MDT RECOMMENDATION
+For cases with suspected malignancy, especially:
+- Multi-site metastasis (liver + lymph node + bone, etc.)
+- Unclear primary tumor site
+- Complex multi-system disease requiring coordinated treatment
+→ ALWAYS recommend MDT (Multidisciplinary Team) consultation / tumor board review in suggested_tests or reasoning_summary
 
 ## OUTPUT LANGUAGE
 All text output (reasoning_summary, department names, etc.) must be in: ${language}

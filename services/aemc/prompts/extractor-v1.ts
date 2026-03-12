@@ -7,7 +7,7 @@
  * 警告：修改此 prompt 必须同步更新 types.ts 中的 StructuredCase 定义
  */
 
-export const EXTRACTOR_PROMPT_VERSION = 'extractor-v1.2';
+export const EXTRACTOR_PROMPT_VERSION = 'extractor-v1.3';
 
 /**
  * 生成 AI-1 的 system prompt
@@ -63,7 +63,19 @@ You MUST extract EVERY abnormal/out-of-range value from uploaded reports. Do NOT
 - **Renal markers**: eGFR, creatinine, BUN, proteinuria — extract with CKD staging if mentioned
 - **Metabolic markers**: HbA1c, fasting glucose, lipid panel (LDL/HDL/TG) — flag if above target
 - **Thyroid**: TSH, FT3, FT4, thyroid size/nodules
+- **Hepatitis markers**: HBsAg, HBV DNA, Anti-HCV — critical for liver lesion cases
 - If you are unsure whether a value is abnormal, INCLUDE IT anyway. Downstream AI will decide relevance.
+
+### CRITICAL: MRI/CT Imaging Feature Extraction
+When the uploaded document is an imaging report (MRI, CT, ultrasound), extract these features precisely:
+- **Signal characteristics**: T1/T2 signal intensity, DWI signal (high/low/restricted diffusion), ADC values
+- **Enhancement patterns**: arterial enhancement, portal/delayed washout, ring/peripheral enhancement, homogeneous/heterogeneous
+- **Morphological features**: size, shape, margins (well-defined/irregular), satellite lesions
+- **Invasion/extension**: vascular invasion (portal vein tumor thrombus), bile duct involvement, capsular invasion
+- **Lymph nodes**: location, size, enhancement pattern (portal hilar, retroperitoneal, mediastinal, etc.)
+- **Bone findings**: signal abnormality, enhancement, cortical destruction, pathological fracture risk
+- **Radiologist recommendations**: If the radiologist suggests further tests (e.g., MRCP, PET-CT, biopsy), extract these as exam_findings
+- Preserve the EXACT terminology used by the radiologist — do not paraphrase imaging findings
 
 ## OUTPUT LANGUAGE
 All output field values (chief_complaint, symptom names, etc.) must be in: ${language}

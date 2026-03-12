@@ -115,6 +115,21 @@ export function evaluateSafetyGate(input: SafetyGateInput): SafetyGateResult {
   );
   triggeredRules.push(...multiSystemTriggers);
 
+  // Step 4e: 肝脏病变 + 乙肝/丙肝筛查交叉验证 (XVAL-005)
+  const hepatitisTriggers = crossValidateHepatitisScreening(
+    input.structured_case,
+    input.triage_assessment
+  );
+  triggeredRules.push(...hepatitisTriggers);
+
+  // Step 4f: 疑似恶性肿瘤 + MDT 推荐交叉验证 (XVAL-006)
+  const mdtTriggers = crossValidateMDTRecommendation(
+    input.structured_case,
+    input.triage_assessment,
+    input.adjudicated_assessment
+  );
+  triggeredRules.push(...mdtTriggers);
+
   // Step 5: 检查缺失信息量
   const missingInfoTriggers = checkMissingInfo(
     input.structured_case,
@@ -721,6 +736,163 @@ function crossValidateMultiSystem(
       category: 'model_conflict',
       severity: 'high',
       description: `多系统累及 (${systems.join('+')}=${systemCount}系统) 但分诊等级仅为 ${triage.urgency_level}，可能低估复合风险`,
+      source: 'model_comparison',
+    });
+  }
+
+  return triggers;
+}
+
+// ============================================================
+// Step 4e: 肝脏病变 + 乙肝/丙肝筛查 (XVAL-005)
+// ============================================================
+
+/**
+ * 中国/东亚患者的肝脏病变（肝占位/肝癌疑似/肝硬化等）
+ * 必须包含 HBV/HCV 筛查。HBV 是中国肝细胞癌的首要病因（~85%）。
+ */
+function crossValidateHepatitisScreening(
+  structuredCase: StructuredCase,
+  triage: TriageAssessment
+): TriggeredRule[] {
+  const triggers: TriggeredRule[] = [];
+
+  const combinedPatient = [
+    ...structuredCase.exam_findings,
+    ...structuredCase.known_diagnoses,
+    ...structuredCase.red_flags,
+    structuredCase.chief_complaint,
+  ]
+    .join(' ')
+    .toLowerCase();
+
+  // 检查是否存在肝脏病变
+  const liverLesionKeywords = [
+    '肝占位', '肝脏占位', '肝转移', '肝细胞癌', '肝癌', '肝硬化',
+    '肝脏肿瘤', '肝脏肿块', '肝脏结节', '肝内', '门脉',
+    'hepatocellular', 'liver mass', 'liver lesion', 'liver tumor',
+    'liver metasta', 'hepatic', 'cirrhosis', 'portal',
+    '肝腫瘍', '肝転移', '肝硬変', '門脈',
+  ];
+
+  const hasLiverLesion = liverLesionKeywords.some((kw) =>
+    combinedPatient.includes(kw)
+  );
+
+  if (!hasLiverLesion) {
+    return triggers;
+  }
+
+  // 检查 AI-2 是否推荐了 HBV/HCV 筛查
+  const triageCoverage = [
+    ...triage.suggested_tests,
+    ...triage.differential_directions.map((d) => d.name + ' ' + d.reason),
+    triage.reasoning_summary,
+  ]
+    .join(' ')
+    .toLowerCase();
+
+  const hepatitisScreeningKeywords = [
+    'hbv', 'hcv', 'hbsag', '乙肝', '丙肝', 'hepatitis b', 'hepatitis c',
+    'b型肝炎', 'c型肝炎', '肝炎ウイルス', '肝炎病毒',
+  ];
+
+  const hasHepatitisScreening = hepatitisScreeningKeywords.some((kw) =>
+    triageCoverage.includes(kw)
+  );
+
+  if (!hasHepatitisScreening) {
+    triggers.push({
+      rule_id: 'XVAL-005',
+      category: 'oncology',
+      severity: 'high',
+      description:
+        '肝脏病变但未推荐 HBV/HCV 筛查（东亚 HBV 是肝癌首要病因，必须排查）',
+      source: 'model_comparison',
+    });
+  }
+
+  return triggers;
+}
+
+// ============================================================
+// Step 4f: 疑似恶性肿瘤 + MDT 推荐 (XVAL-006)
+// ============================================================
+
+/**
+ * 多系统肿瘤累及（如肝转移+淋巴结转移+骨转移）或高度疑似恶性肿瘤
+ * 必须推荐 MDT（多学科会诊）。
+ */
+function crossValidateMDTRecommendation(
+  structuredCase: StructuredCase,
+  triage: TriageAssessment,
+  adjudication: AdjudicatedAssessment
+): TriggeredRule[] {
+  const triggers: TriggeredRule[] = [];
+
+  const combinedPatient = [
+    ...structuredCase.exam_findings,
+    ...structuredCase.known_diagnoses,
+    ...structuredCase.red_flags,
+  ]
+    .join(' ')
+    .toLowerCase();
+
+  // 检查是否存在多部位转移或高度疑似恶性肿瘤
+  const metastasisKeywords = [
+    '转移', 'metasta', '転移', '浸润', 'invasion', '浸潤',
+  ];
+  const malignancyKeywords = [
+    '恶性', '癌', 'cancer', 'malignancy', 'carcinoma', 'sarcoma',
+    '悪性', '腫瘍', '肿瘤',
+  ];
+
+  const hasMetastasis = metastasisKeywords.some((kw) =>
+    combinedPatient.includes(kw)
+  );
+  const hasMalignancy = malignancyKeywords.some((kw) =>
+    combinedPatient.includes(kw)
+  );
+
+  // 需要 MDT 的条件：存在转移 OR (高度疑似恶性 + 高风险)
+  const needsMDT =
+    hasMetastasis ||
+    (hasMalignancy &&
+      (adjudication.final_risk_level === 'high' ||
+        adjudication.final_risk_level === 'emergency'));
+
+  if (!needsMDT) {
+    return triggers;
+  }
+
+  // 检查是否已推荐 MDT
+  const allOutput = [
+    ...triage.suggested_tests,
+    ...triage.recommended_departments,
+    ...triage.differential_directions.map((d) => d.name + ' ' + d.reason),
+    triage.reasoning_summary,
+    adjudication.final_summary,
+    ...adjudication.critical_reasons,
+  ]
+    .join(' ')
+    .toLowerCase();
+
+  const mdtKeywords = [
+    'mdt', '多学科', '多科', 'multidisciplinary', 'tumor board',
+    'カンファレンス', '集学的', '合同カンファ',
+  ];
+
+  const hasMDTRecommendation = mdtKeywords.some((kw) =>
+    allOutput.includes(kw)
+  );
+
+  if (!hasMDTRecommendation) {
+    triggers.push({
+      rule_id: 'XVAL-006',
+      category: 'oncology',
+      severity: 'high',
+      description:
+        '疑似恶性肿瘤/转移但未推荐 MDT 多学科会诊（肿瘤治疗决策需多科协作）',
       source: 'model_comparison',
     });
   }

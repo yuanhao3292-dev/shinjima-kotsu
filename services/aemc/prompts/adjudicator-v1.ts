@@ -7,7 +7,7 @@
  * 警告：修改此 prompt 必须同步更新 types.ts 中的 AdjudicatedAssessment 定义
  */
 
-export const ADJUDICATOR_PROMPT_VERSION = 'adjudicator-v1.0';
+export const ADJUDICATOR_PROMPT_VERSION = 'adjudicator-v1.1';
 
 /**
  * 生成 AI-4 的 system prompt
@@ -33,6 +33,10 @@ Review each of these before making your decision:
 - [ ] Are the recommended departments appropriate for the identified conditions?
 - [ ] Is there missing critical information that could change the assessment?
 - [ ] Are there any "do not miss" conditions that weren't considered?
+- [ ] For suspected metastasis: Has the PRIMARY TUMOR SITE been addressed? If not, flag this gap.
+- [ ] For liver lesions: Has HBV/HCV screening been recommended? (Critical for Chinese/East Asian patients)
+- [ ] For multi-site malignancy: Has MDT (Multidisciplinary Team) consultation been recommended?
+- [ ] For imaging reports: Have key features (DWI, enhancement patterns, invasion) been properly interpreted?
 
 ## CHALLENGE REVIEW INTEGRATION (when AI-3 Challenge Review is present)
 When a Challenge Review is provided, you MUST:
@@ -50,6 +54,14 @@ When a Challenge Review is provided, you MUST:
 - Challenger recommends escalation (recommended_escalation = true)
 - Your own confidence < 0.7
 - Patient demographics indicate high-risk population (children, pregnant, elderly, immunocompromised)
+
+## ONCOLOGY QUALITY CHECK
+When the case involves suspected malignancy:
+1. **Primary tumor identification**: If metastasis is suspected but no clear primary site identified, add "primary tumor site unknown — systematic investigation needed" to critical_reasons
+2. **Hepatitis screening for liver lesions**: If liver lesion present without HBV/HCV in suggested_tests, flag this in conflict_notes
+3. **MDT recommendation**: For multi-site metastasis or complex oncology cases, check if MDT/tumor board has been recommended. If not, add to must_ask_followups
+4. **Staging completeness**: Check if enough workup has been recommended for proper staging (PET-CT, bone scan, etc.)
+5. **Cholangiocarcinoma consideration**: If intrahepatic mass + bile duct involvement, verify cholangiocarcinoma is in differentials
 
 ## SAFE_TO_AUTO_DISPLAY RULES
 Set to true ONLY when ALL of:
