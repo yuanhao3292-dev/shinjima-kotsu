@@ -20,6 +20,7 @@ import {
   Sparkles,
   Zap,
   FileText,
+  Globe,
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 
@@ -222,6 +223,12 @@ const translations: Record<string, Record<Language, string>> = {
     'zh-TW': '您的答案會自動儲存，可隨時返回繼續作答',
     en: 'Your answers are auto-saved. You can return anytime to continue',
   },
+  reportLanguage: {
+    ja: 'レポート言語',
+    'zh-CN': '报告语言',
+    'zh-TW': '報告語言',
+    en: 'Report language',
+  },
 };
 
 interface WhitelabelScreeningFormProps {
@@ -242,6 +249,7 @@ export default function WhitelabelScreeningForm({
   const router = useRouter();
   const lang = useLanguage();
   const t = (key: string) => (translations as any)[key]?.[lang] || (translations as any)[key]?.['ja'] || key;
+  const [reportLang, setReportLang] = useState<Language>(lang);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<ScreeningAnswer[]>(initialAnswers);
   const [currentAnswer, setCurrentAnswer] = useState<string | string[]>('');
@@ -415,7 +423,7 @@ export default function WhitelabelScreeningForm({
       const response = await fetch('/api/whitelabel/screening/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ screeningId, sessionId, phase: 1, language: lang }),
+        body: JSON.stringify({ screeningId, sessionId, phase: 1, language: reportLang }),
       });
 
       const data = await response.json();
@@ -453,7 +461,7 @@ export default function WhitelabelScreeningForm({
       const response = await fetch('/api/whitelabel/screening/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ screeningId, sessionId, phase: 2, language: lang }),
+        body: JSON.stringify({ screeningId, sessionId, phase: 2, language: reportLang }),
       });
 
       const data = await response.json();
@@ -634,9 +642,35 @@ export default function WhitelabelScreeningForm({
             {t('quickScreeningDone')}
           </h2>
 
-          <p className="text-gray-600 mb-8">
+          <p className="text-gray-600 mb-6">
             {t('completed10Questions')}
           </p>
+
+          {/* 报告语言选择器 */}
+          <div className="flex items-center justify-center gap-2 mb-8 p-3 bg-gray-50 rounded-xl">
+            <Globe className="w-4 h-4 text-gray-500" />
+            <span className="text-sm text-gray-600">{t('reportLanguage')}:</span>
+            <div className="flex gap-1">
+              {([
+                { code: 'zh-CN' as Language, label: '简体中文' },
+                { code: 'zh-TW' as Language, label: '繁體中文' },
+                { code: 'ja' as Language, label: '日本語' },
+                { code: 'en' as Language, label: 'English' },
+              ]).map(({ code, label }) => (
+                <button
+                  key={code}
+                  onClick={() => setReportLang(code)}
+                  className={`px-3 py-1 text-xs rounded-full transition-colors ${
+                    reportLang === code
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
 
           <div className="grid md:grid-cols-2 gap-4">
             <button
@@ -801,6 +835,34 @@ export default function WhitelabelScreeningForm({
           </div>
         )}
       </div>
+
+      {/* 报告语言选择器（仅在最后一题显示） */}
+      {isLastQuestionInPhase && currentPhase === 2 && (
+        <div className="flex items-center gap-2 mb-4 p-3 bg-gray-50 rounded-xl">
+          <Globe className="w-4 h-4 text-gray-500" />
+          <span className="text-sm text-gray-600">{t('reportLanguage')}:</span>
+          <div className="flex gap-1 flex-wrap">
+            {([
+              { code: 'zh-CN' as Language, label: '简体中文' },
+              { code: 'zh-TW' as Language, label: '繁體中文' },
+              { code: 'ja' as Language, label: '日本語' },
+              { code: 'en' as Language, label: 'English' },
+            ]).map(({ code, label }) => (
+              <button
+                key={code}
+                onClick={() => setReportLang(code)}
+                className={`px-3 py-1 text-xs rounded-full transition-colors ${
+                  reportLang === code
+                    ? 'bg-green-600 text-white'
+                    : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* 导航按钮 */}
       <div className="flex justify-between items-center">
