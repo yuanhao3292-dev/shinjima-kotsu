@@ -425,7 +425,7 @@ export default function DynamicScreeningForm({
       const response = await fetch('/api/health-screening/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ screeningId, phase: 1 }),
+        body: JSON.stringify({ screeningId, phase: 1, language: lang }),
       });
 
       const data = await response.json();
@@ -470,7 +470,7 @@ export default function DynamicScreeningForm({
       const response = await fetch('/api/health-screening/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ screeningId, phase: 2 }),
+        body: JSON.stringify({ screeningId, phase: 2, language: lang }),
       });
 
       const data = await response.json();

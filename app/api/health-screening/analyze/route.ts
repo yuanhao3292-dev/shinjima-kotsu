@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
     // 使用 Zod Schema 验证输入
     const validation = await validateBody(request, HealthScreeningAnalyzeSchema);
     if (!validation.success) return validation.error;
-    const { screeningId, phase } = validation.data; // phase 默认为 2（完整分析）
+    const { screeningId, phase, language } = validation.data; // phase 默认为 2（完整分析）
 
     // 获取筛查记录（screeningId 已由 Schema 验证为有效 UUID）
     const { data: screening, error: fetchError } = await supabase
@@ -192,6 +192,7 @@ export async function POST(request: NextRequest) {
           userType: 'authenticated',
           userId: user.id,
           phase,
+          language,
           uploadedReportText: documentText || undefined,
         });
         analysisResult = aemcOutput.legacyResult;

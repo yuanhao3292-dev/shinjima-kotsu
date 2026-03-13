@@ -28,7 +28,7 @@ function calculateRequiredQuestionCount(phase: 1 | 2, bodyMapData: any): number 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { screeningId, sessionId, phase = 2 } = body;
+    const { screeningId, sessionId, phase = 2, language } = body;
 
     if (!screeningId || !sessionId) {
       return NextResponse.json(
@@ -43,6 +43,10 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    // 验证 language 参数（可选）
+    const validLanguages = ['zh-CN', 'zh-TW', 'en', 'ja'];
+    const validatedLanguage = language && validLanguages.includes(language) ? language : undefined;
 
     const supabase = getSupabaseAdmin();
 
@@ -143,6 +147,7 @@ export async function POST(request: NextRequest) {
           userType: 'whitelabel',
           sessionId,
           phase,
+          language: validatedLanguage,
           uploadedReportText: documentText || undefined,
         });
         analysisResult = aemcOutput.legacyResult;

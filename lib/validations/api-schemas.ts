@@ -204,6 +204,7 @@ export const AuditLogCreateSchema = z.object({
 export const HealthScreeningAnalyzeSchema = z.object({
   screeningId: UUIDSchema,
   phase: z.union([z.literal(1), z.literal(2)]).default(2),
+  language: z.enum(['zh-CN', 'zh-TW', 'en', 'ja']).optional(),
 });
 
 // ==================== Whitelabel Subscription ====================

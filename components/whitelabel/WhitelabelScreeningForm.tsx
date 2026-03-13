@@ -415,7 +415,7 @@ export default function WhitelabelScreeningForm({
       const response = await fetch('/api/whitelabel/screening/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ screeningId, sessionId, phase: 1 }),
+        body: JSON.stringify({ screeningId, sessionId, phase: 1, language: lang }),
       });
 
       const data = await response.json();
@@ -453,7 +453,7 @@ export default function WhitelabelScreeningForm({
       const response = await fetch('/api/whitelabel/screening/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ screeningId, sessionId, phase: 2 }),
+        body: JSON.stringify({ screeningId, sessionId, phase: 2, language: lang }),
       });
 
       const data = await response.json();
