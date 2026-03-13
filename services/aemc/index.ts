@@ -303,7 +303,7 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
   };
 
   // === Step 7: 向后兼容转换 ===
-  const legacyResult = convertToLegacyResult(pipelineResult);
+  const legacyResult = convertToLegacyResult(pipelineResult, casePacket.language);
 
   return {
     pipelineResult,
@@ -397,7 +397,7 @@ async function runLitePipeline(
     ddi_check: ddiResult,
   };
 
-  const legacyResult = convertToLegacyResult(pipelineResult);
+  const legacyResult = convertToLegacyResult(pipelineResult, casePacket.language);
 
   return { pipelineResult, legacyResult, safetyGate };
 }
@@ -410,7 +410,7 @@ async function runLitePipeline(
  * 将 AEMC pipeline 结果转换为旧版 AnalysisResult 格式
  * 确保现有前端组件 (ScreeningResult.tsx) 无需修改
  */
-function convertToLegacyResult(pipeline: AEMCPipelineResult): AnalysisResult {
+function convertToLegacyResult(pipeline: AEMCPipelineResult, language?: AnalysisResult['language']): AnalysisResult {
   const adj = pipeline.adjudicated_assessment;
   const triage = pipeline.triage_assessment;
   const gate = pipeline.safety_gate;
@@ -494,6 +494,7 @@ function convertToLegacyResult(pipeline: AEMCPipelineResult): AnalysisResult {
     isFallback: false,
     analysisSource: 'ai',
     requestId: pipeline.case_id,
+    language,
   };
 }
 

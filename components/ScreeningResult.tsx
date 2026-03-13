@@ -218,6 +218,7 @@ interface ScreeningResultProps {
   screeningId: string;
   bodyMapData?: BodyMapSelectionData;
   isGuideEmbed?: boolean;
+  overrideLanguage?: Language;
 }
 
 export default function ScreeningResult({
@@ -225,8 +226,10 @@ export default function ScreeningResult({
   screeningId: _screeningId,
   bodyMapData,
   isGuideEmbed,
+  overrideLanguage,
 }: ScreeningResultProps) {
-  const lang = useLanguage();
+  const siteLang = useLanguage();
+  const lang = overrideLanguage || siteLang;
 
   // 获取选中的身体部位名称
   const getSelectedBodyPartNames = () => {

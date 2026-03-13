@@ -14,7 +14,7 @@ import {
 import { type BodyMapSelectionData } from './BodyMapSelector';
 import { MEDICAL_DEPARTMENTS, BODY_PARTS } from '@/lib/body-map-config';
 
-// 注册中文字体 - 使用简体中文字体 Noto Sans SC
+// 注册中文字体 - 简体中文 Noto Sans SC
 Font.register({
   family: 'NotoSansSC',
   fonts: [
@@ -24,6 +24,36 @@ Font.register({
     },
     {
       src: 'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-sc@latest/chinese-simplified-700-normal.ttf',
+      fontWeight: 700,
+    },
+  ],
+});
+
+// 注册日文字体 - Noto Sans JP
+Font.register({
+  family: 'NotoSansJP',
+  fonts: [
+    {
+      src: 'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-jp@latest/japanese-400-normal.ttf',
+      fontWeight: 400,
+    },
+    {
+      src: 'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-jp@latest/japanese-700-normal.ttf',
+      fontWeight: 700,
+    },
+  ],
+});
+
+// 注册繁体中文字体 - Noto Sans TC
+Font.register({
+  family: 'NotoSansTC',
+  fonts: [
+    {
+      src: 'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-tc@latest/chinese-traditional-400-normal.ttf',
+      fontWeight: 400,
+    },
+    {
+      src: 'https://cdn.jsdelivr.net/fontsource/fonts/noto-sans-tc@latest/chinese-traditional-700-normal.ttf',
       fontWeight: 700,
     },
   ],
@@ -685,9 +715,19 @@ interface HealthReportPDFProps {
   };
 }
 
+// 根据语言选择字体
+function getFontFamily(lang: PDFLanguage): string {
+  switch (lang) {
+    case 'ja': return 'NotoSansJP';
+    case 'zh-TW': return 'NotoSansTC';
+    default: return 'NotoSansSC';
+  }
+}
+
 const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) => {
   const { analysisResult, bodyMapData, createdAt, id, language } = reportData;
   const lang: PDFLanguage = language || 'zh-CN';
+  const fontFamily = getFontFamily(lang);
   const pt = (key: string) => pdfTranslations[key]?.[lang] ?? pdfTranslations[key]?.['zh-CN'] ?? key;
 
   const riskConfig = {
@@ -714,7 +754,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
   return (
     <Document>
       {/* 封面 */}
-      <Page size="A4" style={[styles.page, styles.coverPage]}>
+      <Page size="A4" style={[styles.page, styles.coverPage, { fontFamily }]}>
         <View style={styles.coverHeader}>
           <Text style={styles.coverBrand}>新岛交通株式会社</Text>
           <Text style={styles.coverTitle}>{pt('coverTitle')}</Text>
@@ -756,7 +796,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
       </Page>
 
       {/* 第2页：风险分析 */}
-      <Page size="A4" style={styles.page}>
+      <Page size="A4" style={[styles.page, { fontFamily }]}>
         <View style={styles.pageHeader}>
           <Text style={styles.headerBrand}>新岛交通</Text>
           <Text style={styles.headerTitle}>AI Health Assessment</Text>
@@ -835,7 +875,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
       </Page>
 
       {/* 第3页：检查建议 */}
-      <Page size="A4" style={styles.page}>
+      <Page size="A4" style={[styles.page, { fontFamily }]}>
         <View style={styles.pageHeader}>
           <Text style={styles.headerBrand}>新岛交通</Text>
           <Text style={styles.headerTitle}>AI Health Assessment</Text>
@@ -897,7 +937,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
       </Page>
 
       {/* 第4页：推荐医院 */}
-      <Page size="A4" style={styles.page}>
+      <Page size="A4" style={[styles.page, { fontFamily }]}>
         <View style={styles.pageHeader}>
           <Text style={styles.headerBrand}>新岛交通</Text>
           <Text style={styles.headerTitle}>AI Health Assessment</Text>

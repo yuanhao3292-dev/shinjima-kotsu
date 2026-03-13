@@ -228,18 +228,21 @@ export default function WhitelabelResultClient({
   recommendedServices,
   contactInfo,
 }: WhitelabelResultClientProps) {
-  const lang = useLanguage();
+  const siteLang = useLanguage();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [screeningData, setScreeningData] = useState<ScreeningData | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
+
+  // 报告语言：优先使用 AI 生成时的语言，否则回退到站点语言
+  const lang: Language = (screeningData?.analysisResult?.language as Language) || siteLang;
 
   useEffect(() => {
     async function fetchResult() {
       try {
         const sessionId = getSessionId();
         if (!sessionId) {
-          setError(t('sessionExpired', lang));
+          setError(t('sessionExpired', siteLang));
           setLoading(false);
           return;
         }
@@ -250,19 +253,19 @@ export default function WhitelabelResultClient({
 
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.error || t('loadFailed', lang));
+          throw new Error(errorData.error || t('loadFailed', siteLang));
         }
 
         const data = await response.json();
 
         if (data.screening.status !== 'completed') {
-          setError(t('screeningIncomplete', lang));
+          setError(t('screeningIncomplete', siteLang));
           setLoading(false);
           return;
         }
 
         if (!data.screening.analysisResult) {
-          throw new Error(t('analysisNotFound', lang));
+          throw new Error(t('analysisNotFound', siteLang));
         }
 
         setScreeningData(data.screening);
@@ -275,7 +278,8 @@ export default function WhitelabelResultClient({
     }
 
     fetchResult();
-  }, [screeningId, lang]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [screeningId]);
 
   const handleDownloadPDF = async () => {
     if (!screeningData) return;
@@ -288,6 +292,7 @@ export default function WhitelabelResultClient({
         userEmail: '',
         bodyMapData: screeningData.bodyMapData,
         analysisResult: screeningData.analysisResult,
+        language: lang,
       });
     } catch (err) {
       console.error('PDF download error:', err);
@@ -396,6 +401,7 @@ export default function WhitelabelResultClient({
             screeningId={screeningId}
             bodyMapData={screeningData.bodyMapData}
             isGuideEmbed={true}
+            overrideLanguage={lang}
           />
         )}
       </div>

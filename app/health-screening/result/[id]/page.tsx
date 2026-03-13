@@ -51,11 +51,14 @@ const t = (key: keyof typeof translations, lang: Language): string => {
 export default function ScreeningResultPage({ params }: PageProps) {
   const { id } = use(params);
   const router = useRouter();
-  const lang = useLanguage();
+  const siteLang = useLanguage();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [screeningData, setScreeningData] = useState<ScreeningData | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
+
+  // 报告语言：优先使用 AI 生成时的语言，否则回退到站点语言
+  const lang: Language = (screeningData?.analysisResult?.language as Language) || siteLang;
 
   useEffect(() => {
     async function fetchResult() {
@@ -69,7 +72,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
 
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.error || t('loadError', lang));
+          throw new Error(errorData.error || t('loadError', siteLang));
         }
 
         const data = await response.json();
@@ -80,7 +83,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
         }
 
         if (!data.screening.analysisResult) {
-          throw new Error(t('analysisNotFound', lang));
+          throw new Error(t('analysisNotFound', siteLang));
         }
 
         setScreeningData(data.screening);
@@ -93,7 +96,8 @@ export default function ScreeningResultPage({ params }: PageProps) {
     }
 
     fetchResult();
-  }, [id, router, lang]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, router]);
 
   const handleDownloadPDF = async () => {
     if (!screeningData) return;
@@ -106,6 +110,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
         userEmail: screeningData.userEmail,
         bodyMapData: screeningData.bodyMapData,
         analysisResult: screeningData.analysisResult,
+        language: lang,
       });
     } catch (err) {
       console.error('PDF download error:', err);
@@ -213,6 +218,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
             result={screeningData.analysisResult}
             screeningId={id}
             bodyMapData={screeningData.bodyMapData}
+            overrideLanguage={lang}
           />
         )}
 

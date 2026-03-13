@@ -269,6 +269,7 @@ export interface AnalysisResult {
   isFallback?: boolean;
   analysisSource?: 'ai' | 'rule-based';
   requestId?: string;
+  language?: 'zh-CN' | 'zh-TW' | 'en' | 'ja';
 }
 
 export interface LegacyRecommendedHospital {
