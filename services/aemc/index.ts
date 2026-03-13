@@ -30,7 +30,7 @@ import type {
   SafetyGateResult,
 } from './types';
 import type { AnalysisResult, LegacyRecommendedHospital } from './types';
-import { MEDICAL_DISCLAIMER } from './types';
+import { MEDICAL_DISCLAIMER, MEDICAL_DISCLAIMERS } from './types';
 
 import { normalizeToCasePacket, type NormalizerInput } from './input-normalizer';
 import { extractCase, ExtractorError } from './extractor';
@@ -414,6 +414,51 @@ function convertToLegacyResult(pipeline: AEMCPipelineResult, language?: Analysis
   const adj = pipeline.adjudicated_assessment;
   const triage = pipeline.triage_assessment;
   const gate = pipeline.safety_gate;
+  const lang = language || 'zh-CN';
+
+  // 多语言标签
+  const labels: Record<string, Record<string, string>> = {
+    emergencySignal: {
+      'zh-CN': '⚠️ 检测到疑似急症信号，建议立即就近就医。',
+      'zh-TW': '⚠️ 檢測到疑似急症信號，建議立即就近就醫。',
+      ja: '⚠️ 緊急性の高い所見が検出されました。直ちに最寄りの医療機関を受診してください。',
+      en: '⚠️ Urgent medical signs detected. Please seek immediate medical attention.',
+    },
+    humanReview: {
+      'zh-CN': '此报告需经人工医疗顾问审核后展示。',
+      'zh-TW': '此報告需經人工醫療顧問審核後展示。',
+      ja: '本レポートは医療コーディネーターの審査後に表示されます。',
+      en: 'This report requires review by a medical advisor before display.',
+    },
+    likelihood: {
+      'zh-CN': '可能性', 'zh-TW': '可能性', ja: '可能性', en: 'likelihood',
+    },
+    supplementInfo: {
+      'zh-CN': '建议补充信息', 'zh-TW': '建議補充資訊',
+      ja: '追加情報のお願い', en: 'Recommended additional information',
+    },
+    keyFocus: {
+      'zh-CN': '重点关注', 'zh-TW': '重點關注',
+      ja: '重要な注意点', en: 'Key concerns',
+    },
+    goToER: {
+      'zh-CN': '⚠️ 请立即前往最近的急诊室',
+      'zh-TW': '⚠️ 請立即前往最近的急診室',
+      ja: '⚠️ 直ちに最寄りの救急外来を受診してください',
+      en: '⚠️ Please go to the nearest emergency room immediately',
+    },
+    ddiWarning: {
+      'zh-CN': '⚠️ 药物相互作用提示', 'zh-TW': '⚠️ 藥物交互作用提示',
+      ja: '⚠️ 薬物相互作用に関する注意', en: '⚠️ Drug interaction warning',
+    },
+    defaultNext: {
+      'zh-CN': '建议按照推荐科室进行详细检查',
+      'zh-TW': '建議按照推薦科室進行詳細檢查',
+      ja: '推奨診療科で詳細な検査を受けることをお勧めします',
+      en: 'We recommend a detailed examination at the recommended department',
+    },
+  };
+  const L = (key: string) => labels[key]?.[lang] || labels[key]?.['zh-CN'] || key;
 
   // 风险等级映射（旧版没有 'emergency'）
   const riskLevelMap: Record<string, AnalysisResult['riskLevel']> = {
@@ -431,9 +476,9 @@ function convertToLegacyResult(pipeline: AEMCPipelineResult, language?: Analysis
   // 构建风险摘要（包含安全闸门信息）
   let riskSummary = adj.final_summary;
   if (gate.gate_class === 'D') {
-    riskSummary = `⚠️ 检测到疑似急症信号，建议立即就近就医。\n\n${riskSummary}`;
+    riskSummary = `${L('emergencySignal')}\n\n${riskSummary}`;
   } else if (gate.gate_class === 'C') {
-    riskSummary = `此报告需经人工医疗顾问审核后展示。\n\n${riskSummary}`;
+    riskSummary = `${L('humanReview')}\n\n${riskSummary}`;
   }
 
   // 将鉴别方向转为治疗建议（旧版字段），附加 ICD-10 编码
@@ -442,29 +487,32 @@ function convertToLegacyResult(pipeline: AEMCPipelineResult, language?: Analysis
       (m) => m.originalText === d.name
     );
     const codeTag = icd10Match ? ` [${icd10Match.code}]` : '';
-    return `${d.name}${codeTag}（可能性: ${d.likelihood}）: ${d.reason}`;
+    return `${d.name}${codeTag}（${L('likelihood')}: ${d.likelihood}）: ${d.reason}`;
   });
 
   // 下一步建议 = 仲裁官的追问 + 安全闸门的解释
   const nextSteps: string[] = [];
   if (adj.must_ask_followups.length > 0) {
-    nextSteps.push(`建议补充信息: ${adj.must_ask_followups.join('、')}`);
+    const sep = lang === 'en' ? ', ' : '、';
+    nextSteps.push(`${L('supplementInfo')}: ${adj.must_ask_followups.join(sep)}`);
   }
   if (adj.critical_reasons.length > 0) {
-    nextSteps.push(`重点关注: ${adj.critical_reasons.join('、')}`);
+    const sep = lang === 'en' ? ', ' : '、';
+    nextSteps.push(`${L('keyFocus')}: ${adj.critical_reasons.join(sep)}`);
   }
   if (gate.gate_class === 'D') {
-    nextSteps.unshift('⚠️ 请立即前往最近的急诊室');
+    nextSteps.unshift(L('goToER'));
   }
   // 药物相互作用警告
   if (pipeline.ddi_check && pipeline.ddi_check.interactions.length > 0) {
     const ddiWarnings = pipeline.ddi_check.interactions.map(
       (ddi) => `${ddi.drugA} + ${ddi.drugB}: ${ddi.recommendation}`
     );
-    nextSteps.push(`⚠️ 药物相互作用提示: ${ddiWarnings.join('；')}`);
+    const sep = lang === 'en' ? '; ' : '；';
+    nextSteps.push(`${L('ddiWarning')}: ${ddiWarnings.join(sep)}`);
   }
   if (nextSteps.length === 0) {
-    nextSteps.push('建议按照推荐科室进行详细检查');
+    nextSteps.push(L('defaultNext'));
   }
 
   // 推荐医院（从 hospital matcher 结果转换）
@@ -490,7 +538,7 @@ function convertToLegacyResult(pipeline: AEMCPipelineResult, language?: Analysis
     recommendedHospitals,
     nextSteps,
     rawContent: JSON.stringify(pipeline, null, 2),
-    disclaimer: MEDICAL_DISCLAIMER,
+    disclaimer: MEDICAL_DISCLAIMERS[lang] || MEDICAL_DISCLAIMER,
     isFallback: false,
     analysisSource: 'ai',
     requestId: pipeline.case_id,

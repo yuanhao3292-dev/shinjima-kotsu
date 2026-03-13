@@ -79,7 +79,7 @@ function cleanMarkdown(text: string): string {
     .trim();
 }
 
-// 中文文本自动换行处理 - 只在中文字符之间插入零宽空格
+// CJK 文本自动换行处理 - 在 CJK 字符之间插入零宽空格
 function wrapChinese(text: string): string {
   if (!text) return '';
   let cleaned = cleanMarkdown(text);
@@ -91,12 +91,10 @@ function wrapChinese(text: string): string {
     .replace(/\s+-\s+/g, ' ')      // 移除独立的连字符
     .replace(/([^\s])-([^\s])/g, '$1$2')  // 移除单词中间不必要的连字符
 
-  // 中文字符范围（包括标点）
-  const isChinese = (char: string) => /[\u4e00-\u9fff]/.test(char);
-  // 中文标点
-  const isChinesePunct = (char: string) => /[\u3000-\u303f\uff00-\uffef\u2018\u2019\u201c\u201d]/.test(char);
-  // 不应该在其前面换行的字符（右括号、逗号、句号等）
-  const noBreakBefore = (char: string) => /[，。！？；：、）】》'"」』\]\),.!?;:\u3002\uff0c]/.test(char);
+  // CJK 字符范围（汉字 + 平假名 + 片假名）
+  const isCJK = (char: string) => /[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff]/.test(char);
+  // 不应该在其前面换行的字符（右括号、逗号、句号等，含日文标点）
+  const noBreakBefore = (char: string) => /[，。！？；：、）】》'"」』\]\),.!?;:\u3002\uff0c\u3001\u3002]/.test(char);
 
   let result = '';
   for (let i = 0; i < cleaned.length; i++) {
@@ -105,9 +103,9 @@ function wrapChinese(text: string): string {
 
     result += char;
 
-    // 在中文字符后面插入零宽空格（允许换行点）
+    // 在 CJK 字符后面插入零宽空格（允许换行点）
     // 但不在标点符号前换行
-    if (isChinese(char) && nextChar && !noBreakBefore(nextChar)) {
+    if (isCJK(char) && nextChar && !noBreakBefore(nextChar)) {
       result += '\u200B';
     }
   }

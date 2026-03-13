@@ -286,7 +286,19 @@ export type RiskLevel = 'low' | 'medium' | 'high';
 // 11. 医疗免责声明
 // ============================================================
 
-export const MEDICAL_DISCLAIMER = `⚠️ 重要醫療免責聲明
+export const MEDICAL_DISCLAIMERS: Record<string, string> = {
+  'zh-CN': `⚠️ 重要医疗免责声明
+
+1. 本 AI 健康评估系统仅供健康参考，不构成任何形式的医学诊断、治疗建议或处方。
+2. AI 分析结果不能替代专业医疗人员的诊查、诊断和治疗建议。
+3. 如您被评估为中度或高度健康风险，请尽速咨询专业医疗机构。
+4. 任何健康决策请务必咨询持有执照的医疗专业人员。
+5. 新岛交通株式会社对因使用本系统所做决策产生的任何后果不承担法律责任。
+6. 紧急情况请立即拨打急救电话或前往最近医疗机构。
+
+© 新岛交通株式会社 | 日本精密健检服务`,
+
+  'zh-TW': `⚠️ 重要醫療免責聲明
 
 1. 本 AI 健康評估系統僅供健康參考，不構成任何形式的醫學診斷、治療建議或處方。
 2. AI 分析結果不能替代專業醫療人員的診查、診斷和治療建議。
@@ -295,4 +307,30 @@ export const MEDICAL_DISCLAIMER = `⚠️ 重要醫療免責聲明
 5. 新島交通株式會社對因使用本系統所做決策產生的任何後果不承擔法律責任。
 6. 緊急情況請立即撥打急救電話或前往最近醫療機構。
 
-© 新島交通株式會社 | 日本精密健檢服務`;
+© 新島交通株式會社 | 日本精密健檢服務`,
+
+  ja: `⚠️ 重要な医療に関する免責事項
+
+1. 本AIヘルスアセスメントシステムは健康上の参考情報としてのみ提供されるものであり、医学的診断、治療の助言、処方を構成するものではありません。
+2. AI分析結果は、医療専門家による診察、診断、治療の助言に代わるものではありません。
+3. 中程度または高度の健康リスクと評価された場合は、速やかに専門医療機関にご相談ください。
+4. 健康に関するすべての判断は、必ず有資格の医療専門家にご相談ください。
+5. 新島交通株式会社は、本システムの利用に基づく判断から生じるいかなる結果についても法的責任を負いません。
+6. 緊急時は、直ちに救急車を呼ぶか、最寄りの医療機関を受診してください。
+
+© 新島交通株式会社 | 日本精密健診サービス`,
+
+  en: `⚠️ Important Medical Disclaimer
+
+1. This AI health assessment system is provided for health reference only and does not constitute medical diagnosis, treatment advice, or prescription.
+2. AI analysis results cannot replace examination, diagnosis, and treatment advice from medical professionals.
+3. If assessed as moderate or high health risk, please consult a professional medical institution promptly.
+4. All health decisions should be made in consultation with licensed medical professionals.
+5. Niijima Kotsu Co., Ltd. assumes no legal liability for any consequences arising from decisions made using this system.
+6. In emergencies, please immediately call emergency services or go to the nearest medical facility.
+
+© Niijima Kotsu Co., Ltd. | Japan Precision Health Screening Services`,
+};
+
+// 向后兼容：保留默认导出
+export const MEDICAL_DISCLAIMER = MEDICAL_DISCLAIMERS['zh-TW'];
