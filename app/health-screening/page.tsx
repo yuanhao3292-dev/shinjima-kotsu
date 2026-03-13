@@ -18,6 +18,7 @@ import {
   FileText,
   Users,
   Upload,
+  Globe,
 } from 'lucide-react';
 import { FREE_SCREENING_LIMIT } from '@/lib/screening-questions';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
@@ -270,6 +271,12 @@ const translations = {
     'zh-TW': '分析中...',
     en: 'Analyzing...',
   },
+  reportLanguage: {
+    ja: 'レポート言語',
+    'zh-CN': '报告语言',
+    'zh-TW': '報告語言',
+    en: 'Report language',
+  },
 } as const;
 
 const t = (key: keyof typeof translations, lang: Language): string => {
@@ -303,6 +310,8 @@ export default function HealthScreeningPage() {
   // [Phase 4] 文档上传状态
   const [documentUploaded, setDocumentUploaded] = useState(false);
   const [isAnalyzingDoc, setIsAnalyzingDoc] = useState(false);
+  // 报告语言（独立于网站 UI 语言）
+  const [reportLang, setReportLang] = useState<Language>(lang);
 
   // 加载用户状态和未完成的筛查
   useEffect(() => {
@@ -465,7 +474,7 @@ export default function HealthScreeningPage() {
       const response = await fetch('/api/health-screening/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ screeningId, phase: 2 }),
+        body: JSON.stringify({ screeningId, phase: 2, language: reportLang }),
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || '分析失败');
@@ -633,6 +642,31 @@ export default function HealthScreeningPage() {
 
           {documentUploaded && (
             <div className="mt-8 space-y-3">
+              {/* 报告语言选择器 */}
+              <div className="flex items-center justify-center gap-2 p-3 bg-gray-50 rounded-xl">
+                <Globe className="w-4 h-4 text-gray-500" />
+                <span className="text-sm text-gray-600">{t('reportLanguage', lang)}:</span>
+                <div className="flex gap-1">
+                  {([
+                    { code: 'zh-CN' as Language, label: '简体中文' },
+                    { code: 'zh-TW' as Language, label: '繁體中文' },
+                    { code: 'ja' as Language, label: '日本語' },
+                    { code: 'en' as Language, label: 'English' },
+                  ]).map(({ code, label }) => (
+                    <button
+                      key={code}
+                      onClick={() => setReportLang(code)}
+                      className={`px-3 py-1 text-xs rounded-full transition-colors ${
+                        reportLang === code
+                          ? 'bg-blue-600 text-white'
+                          : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </div>
               <button
                 onClick={handleAnalyzeWithDocument}
                 disabled={isAnalyzingDoc}

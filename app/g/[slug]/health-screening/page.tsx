@@ -18,6 +18,7 @@ import {
   FileText,
   Users,
   Upload,
+  Globe,
 } from 'lucide-react';
 
 const translations: Record<string, Record<Language, string>> = {
@@ -252,6 +253,12 @@ const translations: Record<string, Record<Language, string>> = {
     'zh-TW': '根據您的情況推薦日本頂尖醫療機構',
     en: 'Recommend top Japanese medical institutions based on your condition',
   },
+  reportLanguage: {
+    ja: 'レポート言語',
+    'zh-CN': '报告语言',
+    'zh-TW': '報告語言',
+    en: 'Report language',
+  },
 };
 
 interface PageProps {
@@ -284,6 +291,8 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
   const [error, setError] = useState<string | null>(null);
   const [documentUploaded, setDocumentUploaded] = useState(false);
   const [isAnalyzingDoc, setIsAnalyzingDoc] = useState(false);
+  // 报告语言（独立于网站 UI 语言）
+  const [reportLang, setReportLang] = useState<Language>(lang);
 
   useEffect(() => {
     setSessionId(getOrCreateSessionId());
@@ -364,7 +373,7 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
       const response = await fetch('/api/whitelabel/screening/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ screeningId, sessionId, phase: 2 }),
+        body: JSON.stringify({ screeningId, sessionId, phase: 2, language: reportLang }),
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || t('analysisFailed'));
@@ -420,6 +429,31 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
 
           {documentUploaded && (
             <div className="mt-8 space-y-3">
+              {/* 报告语言选择器 */}
+              <div className="flex items-center justify-center gap-2 p-3 bg-gray-50 rounded-xl">
+                <Globe className="w-4 h-4 text-gray-500" />
+                <span className="text-sm text-gray-600">{t('reportLanguage')}:</span>
+                <div className="flex gap-1">
+                  {([
+                    { code: 'zh-CN' as Language, label: '简体中文' },
+                    { code: 'zh-TW' as Language, label: '繁體中文' },
+                    { code: 'ja' as Language, label: '日本語' },
+                    { code: 'en' as Language, label: 'English' },
+                  ]).map(({ code, label }) => (
+                    <button
+                      key={code}
+                      onClick={() => setReportLang(code)}
+                      className={`px-3 py-1 text-xs rounded-full transition-colors ${
+                        reportLang === code
+                          ? 'bg-blue-600 text-white'
+                          : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </div>
               <button
                 onClick={handleAnalyzeWithDocument}
                 disabled={isAnalyzingDoc}
