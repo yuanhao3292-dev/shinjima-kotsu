@@ -18,6 +18,7 @@
  */
 
 import type { StructuredCase, TriageAssessment } from './types';
+import { type AEMCLang } from './hospital-knowledge-base';
 
 // ============================================================
 // DDI 规则定义
@@ -137,6 +138,72 @@ const DDI_RULES: DDIRule[] = [
 ];
 
 // ============================================================
+// 多语言翻译
+// ============================================================
+
+type DDIStr = Record<AEMCLang, string>;
+const DDI_LABELS: Record<string, DDIStr> = {
+  recommendation: { 'zh-CN': '建议', 'zh-TW': '建議', en: 'Recommendation', ja: '推奨' },
+};
+function DL(key: string, lang: AEMCLang): string {
+  return DDI_LABELS[key]?.[lang] || DDI_LABELS[key]?.['zh-CN'] || key;
+}
+
+interface DDII18n { interaction: string; recommendation: string }
+const DDI_I18N: Record<string, Partial<Record<AEMCLang, DDII18n>>> = {
+  'DDI-001': {
+    'zh-TW': { interaction: '華法林 + NSAIDs → 出血風險顯著增加（胃腸道出血/顱內出血）', recommendation: '避免聯用。如需鎮痛推薦對乙醯氨基酚。如必須聯用需加用 PPI + 密切監測 INR。' },
+    en: { interaction: 'Warfarin + NSAIDs → significantly increased bleeding risk (GI/intracranial hemorrhage)', recommendation: 'Avoid combination. Use acetaminophen for pain relief. If unavoidable, add PPI + closely monitor INR.' },
+    ja: { interaction: 'ワルファリン + NSAIDs → 出血リスクが著しく増加（消化管出血/頭蓋内出血）', recommendation: '併用回避。鎮痛にはアセトアミノフェンを推奨。やむを得ない場合は PPI 追加＋INR 厳重監視。' },
+  },
+  'DDI-002': {
+    'zh-TW': { interaction: 'DOAC + 抗血小板/NSAIDs → 出血風險增加', recommendation: '需評估出血 vs 血栓風險。雙聯抗栓時縮短療程，加用 PPI。三聯抗栓盡量避免。' },
+    en: { interaction: 'DOAC + antiplatelet/NSAIDs → increased bleeding risk', recommendation: 'Assess bleeding vs thrombotic risk. Shorten dual antithrombotic duration, add PPI. Avoid triple antithrombotic therapy.' },
+    ja: { interaction: 'DOAC + 抗血小板薬/NSAIDs → 出血リスク増加', recommendation: '出血 vs 血栓リスクを評価。二剤併用抗血栓療法は期間短縮＋PPI 追加。三剤併用はできる限り回避。' },
+  },
+  'DDI-003': {
+    'zh-TW': { interaction: '辛伐他汀/洛伐他汀 + 強CYP3A4抑制劑 → 橫紋肌溶解風險', recommendation: '禁止聯用。換用不經CYP3A4代謝的他汀（瑞舒伐他汀/匹伐他汀）。' },
+    en: { interaction: 'Simvastatin/Lovastatin + strong CYP3A4 inhibitors → rhabdomyolysis risk', recommendation: 'Contraindicated. Switch to statins not metabolized by CYP3A4 (rosuvastatin/pitavastatin).' },
+    ja: { interaction: 'シンバスタチン/ロバスタチン + 強力CYP3A4阻害薬 → 横紋筋融解症リスク', recommendation: '併用禁忌。CYP3A4 で代謝されないスタチン（ロスバスタチン/ピタバスタチン）に変更。' },
+  },
+  'DDI-004': {
+    'zh-TW': { interaction: '他汀 + 吉非貝齊 → 橫紋肌溶解風險顯著增加', recommendation: '禁止聯用。如需降甘油三酯，改用非諾貝特（fenofibrate）。' },
+    en: { interaction: 'Statin + gemfibrozil → significantly increased rhabdomyolysis risk', recommendation: 'Contraindicated. Use fenofibrate for triglyceride reduction instead.' },
+    ja: { interaction: 'スタチン + ゲムフィブロジル → 横紋筋融解症リスクが著しく増加', recommendation: '併用禁忌。トリグリセリド低下にはフェノフィブラートを使用。' },
+  },
+  'DDI-005': {
+    'zh-TW': { interaction: '胺碘酮 + QT延長藥物 → 尖端扭轉型室速 (TdP) 風險', recommendation: '避免聯用。如必須聯用需心電監護 + 監測 QTc + 糾正電解質。' },
+    en: { interaction: 'Amiodarone + QT-prolonging drugs → Torsades de Pointes (TdP) risk', recommendation: 'Avoid combination. If unavoidable, continuous ECG monitoring + QTc monitoring + correct electrolytes.' },
+    ja: { interaction: 'アミオダロン + QT 延長薬 → Torsades de Pointes（TdP）リスク', recommendation: '併用回避。やむを得ない場合は心電図モニタリング＋QTc 監視＋電解質補正。' },
+  },
+  'DDI-006': {
+    'zh-TW': { interaction: 'ACEI/ARB + 保鉀利尿劑/鉀補充劑 → 高鉀血症風險', recommendation: '聯用時需定期監測血鉀。eGFR <30 時風險更高。血鉀 >5.5mEq/L 需停藥。' },
+    en: { interaction: 'ACEI/ARB + potassium-sparing diuretics/potassium supplements → hyperkalemia risk', recommendation: 'Monitor serum potassium regularly. Higher risk with eGFR <30. Discontinue if K+ >5.5mEq/L.' },
+    ja: { interaction: 'ACEI/ARB + カリウム保持性利尿薬/カリウム製剤 → 高カリウム血症リスク', recommendation: '併用時は定期的に血清カリウムを監視。eGFR <30 でリスク上昇。K+ >5.5mEq/L で中止。' },
+  },
+  'DDI-007': {
+    'zh-TW': { interaction: '甲氨蝶呤 + NSAIDs/甲氧苄啶 → MTX 血濃度升高，骨髓抑制/腎毒性', recommendation: '避免聯用。如需鎮痛用對乙醯氨基酚。高劑量 MTX 期間嚴禁 NSAIDs。' },
+    en: { interaction: 'Methotrexate + NSAIDs/trimethoprim → elevated MTX levels, myelosuppression/nephrotoxicity', recommendation: 'Avoid combination. Use acetaminophen for pain. NSAIDs strictly contraindicated during high-dose MTX.' },
+    ja: { interaction: 'メトトレキサート + NSAIDs/トリメトプリム → MTX 血中濃度上昇、骨髄抑制/腎毒性', recommendation: '併用回避。鎮痛にはアセトアミノフェン。高用量 MTX 期間中は NSAIDs 厳禁。' },
+  },
+  'DDI-008': {
+    'zh-TW': { interaction: '磺脲類 + 唑類抗真菌藥 → 嚴重低血糖風險（CYP2C9 抑制）', recommendation: '聯用時需加強血糖監測，考慮減少磺脲劑量。告知患者低血糖症狀。' },
+    en: { interaction: 'Sulfonylureas + azole antifungals → severe hypoglycemia risk (CYP2C9 inhibition)', recommendation: 'Intensify glucose monitoring, consider sulfonylurea dose reduction. Educate patient on hypoglycemia symptoms.' },
+    ja: { interaction: 'スルホニル尿素薬 + アゾール系抗真菌薬 → 重症低血糖リスク（CYP2C9 阻害）', recommendation: '併用時は血糖監視を強化、スルホニル尿素薬の減量を検討。低血糖症状について患者に説明。' },
+  },
+  'DDI-009': {
+    'zh-TW': { interaction: '地高辛 + 胺碘酮/維拉帕米/克拉黴素 → 地高辛濃度升高，心律失常/死亡', recommendation: '聯用時地高辛減量 50%。監測地高辛血濃度和心電圖。' },
+    en: { interaction: 'Digoxin + amiodarone/verapamil/clarithromycin → elevated digoxin levels, arrhythmia/death', recommendation: 'Reduce digoxin dose by 50% when combined. Monitor digoxin levels and ECG.' },
+    ja: { interaction: 'ジゴキシン + アミオダロン/ベラパミル/クラリスロマイシン → ジゴキシン濃度上昇、不整脈/死亡', recommendation: '併用時ジゴキシンを 50% 減量。ジゴキシン血中濃度と心電図を監視。' },
+  },
+  'DDI-010': {
+    'zh-TW': { interaction: 'SSRI/SNRI + MAOIs/利奈唑胺/曲馬多 → 5-HT 綜合症（高熱/肌陣攣/意識障礙）', recommendation: 'SSRI/SNRI 與 MAOIs 須間隔 ≥2週（氟西汀 ≥5週）。曲馬多聯用需監測。' },
+    en: { interaction: 'SSRI/SNRI + MAOIs/linezolid/tramadol → serotonin syndrome (hyperthermia/myoclonus/altered consciousness)', recommendation: 'SSRI/SNRI and MAOIs require ≥2 week washout (fluoxetine ≥5 weeks). Monitor if tramadol combined.' },
+    ja: { interaction: 'SSRI/SNRI + MAOIs/リネゾリド/トラマドール → セロトニン症候群（高熱/ミオクローヌス/意識障害）', recommendation: 'SSRI/SNRI と MAOIs は ≥2 週間の休薬期間が必要（フルオキセチンは ≥5 週間）。トラマドール併用時は監視。' },
+  },
+};
+
+// ============================================================
 // 结果类型
 // ============================================================
 
@@ -173,8 +240,10 @@ export interface DetectedDDI {
  */
 export function checkDrugInteractions(
   structuredCase: StructuredCase,
-  triage: TriageAssessment
+  triage: TriageAssessment,
+  language?: string
 ): DDICheckResult {
+  const lang = (language || 'zh-CN') as AEMCLang;
   const interactions: DetectedDDI[] = [];
 
   // 仅扫描当前用药（medication_history 是 AI-1 提取的当前正在服用的药物）
@@ -201,13 +270,14 @@ export function checkDrugInteractions(
       const drugAName = rule.drugA.find((kw) => allText.includes(kw.toLowerCase())) || rule.drugA[0];
       const drugBName = rule.drugB.find((kw) => allText.includes(kw.toLowerCase())) || rule.drugB[0];
 
+      const i18n = DDI_I18N[rule.id]?.[lang];
       interactions.push({
         ruleId: rule.id,
         severity: rule.severity,
         drugA: drugAName,
         drugB: drugBName,
-        interaction: rule.interaction,
-        recommendation: rule.recommendation,
+        interaction: i18n?.interaction || rule.interaction,
+        recommendation: i18n?.recommendation || rule.recommendation,
       });
 
       console.info(`[DDIChecker] ${rule.id}: ${drugAName} + ${drugBName} → ${rule.severity}`);
@@ -220,7 +290,7 @@ export function checkDrugInteractions(
     const lines = interactions.map(
       (ddi) =>
         `[${ddi.ruleId}] ⚠️ ${ddi.severity.toUpperCase()}: ${ddi.interaction}\n` +
-        `  建议: ${ddi.recommendation}`
+        `  ${DL('recommendation', lang)}: ${ddi.recommendation}`
     );
     ddiWarningsForAdjudicator =
       `\n\n--- DRUG-DRUG INTERACTION ALERTS (deterministic, non-AI) ---\n` +

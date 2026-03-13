@@ -25,7 +25,10 @@ import type {
 import {
   HOSPITAL_KNOWLEDGE_BASE,
   normalizeDepartment,
+  getLocalizedHospitalInfo,
+  getLocalizedDepartment,
   type HospitalKnowledge,
+  type AEMCLang,
 } from './hospital-knowledge-base';
 
 // ============================================================
@@ -53,6 +56,77 @@ const WEIGHTS = {
 };
 
 // ============================================================
+// 多语言标签
+// ============================================================
+
+const MATCHER_LABELS: Record<string, Record<AEMCLang, string>> = {
+  deptMatch: {
+    'zh-CN': '科室匹配', 'zh-TW': '科室匹配', en: 'Department match', ja: '診療科一致',
+  },
+  deptRelated: {
+    'zh-CN': '科室相关', 'zh-TW': '科室相關', en: 'Related department', ja: '関連診療科',
+  },
+  deptNeeded: {
+    'zh-CN': '需求', 'zh-TW': '需求', en: 'needed', ja: '必要',
+  },
+  specialtyMatch: {
+    'zh-CN': '专科匹配', 'zh-TW': '專科匹配', en: 'Specialty match', ja: '専門分野一致',
+  },
+  conditionMatch: {
+    'zh-CN': '个症状/疾病关键词匹配', 'zh-TW': '個症狀/疾病關鍵詞匹配',
+    en: ' symptom/condition keyword match(es)', ja: '件の症状/疾患キーワード一致',
+  },
+  hasEmergency: {
+    'zh-CN': '具备急诊处理能力', 'zh-TW': '具備急診處理能力',
+    en: 'Emergency care capability', ja: '救急対応可能',
+  },
+  noEmergency: {
+    'zh-CN': '该机构不具备急诊能力，紧急情况请就近就医',
+    'zh-TW': '該機構不具備急診能力，緊急情況請就近就醫',
+    en: 'This facility does not have emergency capability. In emergencies, please seek nearby medical care.',
+    ja: 'この施設には救急対応能力がありません。緊急時は最寄りの医療機関を受診してください。',
+  },
+  clinicCaution: {
+    'zh-CN': '该机构为诊所（无住院床位），高风险患者可能需要综合医院',
+    'zh-TW': '該機構為診所（無住院床位），高風險患者可能需要綜合醫院',
+    en: 'This is a clinic (no inpatient beds). High-risk patients may require a general hospital.',
+    ja: 'この施設はクリニック（入院ベッドなし）です。高リスク患者は総合病院が必要な場合があります。',
+  },
+  noRemote: {
+    'zh-CN': '该机构暂不提供线上会诊', 'zh-TW': '該機構暫不提供線上會診',
+    en: 'Remote consultation not currently available', ja: 'オンライン診療は現在対応していません',
+  },
+  noMatch: {
+    'zh-CN': '未找到匹配的合作机构，建议联系人工客服进行分诊协调。',
+    'zh-TW': '未找到匹配的合作機構，建議聯繫人工客服進行分診協調。',
+    en: 'No matching partner facility found. Please contact our team for triage coordination.',
+    ja: '該当する提携施設が見つかりませんでした。トリアージのコーディネートについてはスタッフにお問い合わせください。',
+  },
+  emergencyRouting: {
+    'zh-CN': '⚠️ 检测到紧急情况，建议立即就近急诊。如需后续专科治疗，可联系我们协调转诊。',
+    'zh-TW': '⚠️ 檢測到緊急情況，建議立即就近急診。如需後續專科治療，可聯繫我們協調轉診。',
+    en: '⚠️ Emergency detected. Please seek immediate medical care at the nearest facility. Contact us for specialist referral coordination.',
+    ja: '⚠️ 緊急事態が検出されました。最寄りの医療機関で直ちに受診してください。専門的な治療の手配はスタッフにご連絡ください。',
+  },
+  highMatchRouting: {
+    'zh-CN': '推荐优先联系「{name}」的{dept}进行咨询。',
+    'zh-TW': '推薦優先聯繫「{name}」的{dept}進行諮詢。',
+    en: 'We recommend contacting {dept} at "{name}" for consultation.',
+    ja: '「{name}」の{dept}への相談をお勧めします。',
+  },
+  defaultRouting: {
+    'zh-CN': '根据您的症状，建议咨询「{name}」。具体科室安排以医院回复为准。',
+    'zh-TW': '根據您的症狀，建議諮詢「{name}」。具體科室安排以醫院回覆為準。',
+    en: 'Based on your symptoms, we suggest consulting "{name}". Specific department arrangements are subject to the hospital\'s response.',
+    ja: '症状に基づき、「{name}」への相談をお勧めします。具体的な診療科は病院の回答に基づきます。',
+  },
+};
+
+function ML(key: string, lang: AEMCLang): string {
+  return MATCHER_LABELS[key]?.[lang] || MATCHER_LABELS[key]?.['zh-CN'] || key;
+}
+
+// ============================================================
 // 主入口
 // ============================================================
 
@@ -62,13 +136,17 @@ const WEIGHTS = {
  * @param structuredCase AI-1 抽取的病历
  * @param triageAssessment AI-2 分诊判断
  * @param adjudicatedAssessment AI-4 仲裁结果
+ * @param language 输出语言
  * @returns HospitalRecommendation
  */
 export function matchHospitals(
   structuredCase: StructuredCase,
   triageAssessment: TriageAssessment,
-  adjudicatedAssessment: AdjudicatedAssessment
+  adjudicatedAssessment: AdjudicatedAssessment,
+  language?: string
 ): HospitalRecommendation {
+  const lang = (language || 'zh-CN') as AEMCLang;
+
   // 提取匹配特征
   const features = extractMatchingFeatures(
     structuredCase,
@@ -78,7 +156,7 @@ export function matchHospitals(
 
   // 对每个医院计算匹配分数
   const scoredHospitals: ScoredHospital[] = HOSPITAL_KNOWLEDGE_BASE.map((hospital) => {
-    const scoreResult = calculateMatchScore(hospital, features);
+    const scoreResult = calculateMatchScore(hospital, features, lang);
     return {
       hospital,
       score: scoreResult.score,
@@ -101,21 +179,21 @@ export function matchHospitals(
   // 取 top-N
   const topN = qualified.slice(0, MAX_RECOMMENDATIONS);
 
-  // 构建输出
-  const recommendedHospitals: HospitalMatch[] = topN.map((s) => ({
-    hospital_id: s.hospital.id,
-    hospital_name: s.hospital.name,
-    department: s.departmentMatched || s.hospital.departments[0],
-    match_score: Math.round(s.score * 100) / 100,
-    match_reasons: s.matchReasons,
-    cautions: s.cautions,
-  }));
+  // 构建输出（使用本地化名称）
+  const recommendedHospitals: HospitalMatch[] = topN.map((s) => {
+    const localized = getLocalizedHospitalInfo(s.hospital, lang);
+    return {
+      hospital_id: s.hospital.id,
+      hospital_name: localized.name,
+      department: getLocalizedDepartment(s.departmentMatched || s.hospital.departments[0], lang),
+      match_score: Math.round(s.score * 100) / 100,
+      match_reasons: s.matchReasons,
+      cautions: s.cautions,
+    };
+  });
 
   // 路由建议
-  const routingSuggestion = generateRoutingSuggestion(
-    topN,
-    features
-  );
+  const routingSuggestion = generateRoutingSuggestion(topN, features, lang);
 
   // 是否需要人工协调员介入
   const requiresManualReview =
@@ -206,7 +284,8 @@ function extractMatchingFeatures(
 
 function calculateMatchScore(
   hospital: HospitalKnowledge,
-  features: MatchingFeatures
+  features: MatchingFeatures,
+  lang: AEMCLang
 ): ScoreResult {
   const matchReasons: string[] = [];
   const cautions: string[] = [];
@@ -220,7 +299,7 @@ function calculateMatchScore(
     if (hospitalNormalizedDepts.includes(reqDept)) {
       deptScore = 1;
       departmentMatched = reqDept;
-      matchReasons.push(`科室匹配: ${reqDept}`);
+      matchReasons.push(`${ML('deptMatch', lang)}: ${getLocalizedDepartment(reqDept, lang)}`);
       break;
     }
   }
@@ -232,7 +311,7 @@ function calculateMatchScore(
         if (reqDept.includes(hospDept) || hospDept.includes(reqDept)) {
           deptScore = 0.6;
           departmentMatched = hospDept;
-          matchReasons.push(`科室相关: ${hospDept} (需求: ${reqDept})`);
+          matchReasons.push(`${ML('deptRelated', lang)}: ${getLocalizedDepartment(hospDept, lang)} (${ML('deptNeeded', lang)}: ${getLocalizedDepartment(reqDept, lang)})`);
           break;
         }
       }
@@ -252,7 +331,7 @@ function calculateMatchScore(
     const specialtyLower = specialty.toLowerCase();
     if (allFeatureTexts.some((t) => t.includes(specialtyLower) || specialtyLower.includes(t))) {
       specialtyScore = Math.min(specialtyScore + 0.3, 1);
-      matchReasons.push(`专科匹配: ${specialty}`);
+      matchReasons.push(`${ML('specialtyMatch', lang)}: ${specialty}`);
     }
   }
 
@@ -277,7 +356,7 @@ function calculateMatchScore(
     conditionScore = Math.min(conditionMatches / Math.min(hospital.conditionKeywords.length, 5), 1);
   }
   if (conditionMatches > 0) {
-    matchReasons.push(`${conditionMatches} 个症状/疾病关键词匹配`);
+    matchReasons.push(`${conditionMatches} ${ML('conditionMatch', lang)}`);
   }
 
   // --- 4. 急症能力匹配 ---
@@ -285,10 +364,10 @@ function calculateMatchScore(
   if (features.isEmergency || features.riskLevel === 'emergency') {
     if (hospital.hasEmergency) {
       emergencyScore = 1;
-      matchReasons.push('具备急诊处理能力');
+      matchReasons.push(ML('hasEmergency', lang));
     } else {
       emergencyScore = 0;
-      cautions.push('该机构不具备急诊能力，紧急情况请就近就医');
+      cautions.push(ML('noEmergency', lang));
     }
   } else {
     // 非急症时，急症能力不影响分数
@@ -313,10 +392,10 @@ function calculateMatchScore(
 
   // --- 注意事项 ---
   if (hospital.bedCount === 0 && features.riskLevel === 'high') {
-    cautions.push('该机构为诊所（无住院床位），高风险患者可能需要综合医院');
+    cautions.push(ML('clinicCaution', lang));
   }
   if (!hospital.hasRemoteConsultation) {
-    cautions.push('该机构暂不提供线上会诊');
+    cautions.push(ML('noRemote', lang));
   }
 
   return {
@@ -333,20 +412,27 @@ function calculateMatchScore(
 
 function generateRoutingSuggestion(
   topHospitals: ScoredHospital[],
-  features: MatchingFeatures
+  features: MatchingFeatures,
+  lang: AEMCLang
 ): string {
   if (topHospitals.length === 0) {
-    return '未找到匹配的合作机构，建议联系人工客服进行分诊协调。';
+    return ML('noMatch', lang);
   }
 
   if (features.isEmergency || features.riskLevel === 'emergency') {
-    return '⚠️ 检测到紧急情况，建议立即就近急诊。如需后续专科治疗，可联系我们协调转诊。';
+    return ML('emergencyRouting', lang);
   }
 
   const top = topHospitals[0];
+  const localized = getLocalizedHospitalInfo(top.hospital, lang);
+  const dept = getLocalizedDepartment(top.departmentMatched || top.hospital.departments[0], lang);
+
   if (top.score >= 0.6) {
-    return `推荐优先联系「${top.hospital.name}」的${top.departmentMatched || top.hospital.departments[0]}进行咨询。`;
+    return ML('highMatchRouting', lang)
+      .replace('{name}', localized.name)
+      .replace('{dept}', dept);
   }
 
-  return `根据您的症状，建议咨询「${top.hospital.name}」。具体科室安排以医院回复为准。`;
+  return ML('defaultRouting', lang)
+    .replace('{name}', localized.name);
 }

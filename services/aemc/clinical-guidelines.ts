@@ -22,6 +22,7 @@
  */
 
 import type { StructuredCase } from './types';
+import { type AEMCLang } from './hospital-knowledge-base';
 
 // ============================================================
 // 指南条目定义
@@ -191,6 +192,88 @@ const GUIDELINE_DATABASE: GuidelineEntry[] = [
 ];
 
 // ============================================================
+// 多语言标签 + 指南翻译
+// ============================================================
+
+type GLStr = Record<AEMCLang, string>;
+const GL_LABELS: Record<string, GLStr> = {
+  recommendation: { 'zh-CN': '建议', 'zh-TW': '建議', en: 'Recommendation', ja: '推奨' },
+  applicableTests: { 'zh-CN': '适用检查', 'zh-TW': '適用檢查', en: 'Applicable tests', ja: '適用検査' },
+};
+function GLL(key: string, lang: AEMCLang): string {
+  return GL_LABELS[key]?.[lang] || GL_LABELS[key]?.['zh-CN'] || key;
+}
+
+/** Per-guideline recommendation translations (master data is zh-CN in GUIDELINE_DATABASE) */
+const GUIDELINE_I18N: Record<string, Partial<Record<AEMCLang, string>>> = {
+  'GL-HCC-001': {
+    'zh-TW': '肝臟占位性病變需進行多期增強 CT/MRI（動脈期+門脈期+延遲期）評估 LI-RADS 分類。AFP + HBV/HCV 篩查為必查項目。符合 Milan 標準者可評估移植/消融。',
+    en: 'Liver space-occupying lesion requires multiphasic contrast CT/MRI (arterial + portal venous + delayed phase) for LI-RADS classification. AFP + HBV/HCV screening mandatory. Milan criteria-eligible patients may be evaluated for transplant/ablation.',
+    ja: '肝占拠性病変は多相造影 CT/MRI（動脈相＋門脈相＋遅延相）で LI-RADS 分類の評価が必要。AFP + HBV/HCV スクリーニングは必須。Milan 基準を満たす場合、移植/アブレーション評価が可能。',
+  },
+  'GL-HCC-002': {
+    'zh-TW': 'AFP 升高 + 肝臟病變：需行 HBV/HCV 血清學檢查。AFP >400ng/mL 結合影像學特徵可臨床診斷 HCC，無需活檢。AFP 20-400ng/mL 需結合 AFP-L3%、DCP 綜合判斷。',
+    en: 'AFP elevation + liver lesion: HBV/HCV serology required. AFP >400ng/mL with characteristic imaging allows clinical HCC diagnosis without biopsy. AFP 20-400ng/mL requires AFP-L3% and DCP combined assessment.',
+    ja: 'AFP 上昇＋肝病変：HBV/HCV 血清学検査が必要。AFP >400ng/mL と画像所見の組み合わせで臨床的 HCC 診断が可能（生検不要）。AFP 20-400ng/mL は AFP-L3%・DCP で総合判断。',
+  },
+  'GL-CUP-001': {
+    'zh-TW': '多發轉移灶、原發灶不明時：推薦胸腹盆增強 CT + PET-CT 尋找原發灶。免疫組化 panel（CK7/CK20/TTF-1/CDX2/PAX8 等）輔助定位。需 MDT 討論治療策略。',
+    en: 'Multiple metastases with unknown primary: chest/abdomen/pelvis contrast CT + PET-CT recommended to identify primary. IHC panel (CK7/CK20/TTF-1/CDX2/PAX8) for localization. MDT discussion required.',
+    ja: '多発転移巣・原発巣不明時：胸腹骨盤造影 CT＋PET-CT で原発巣検索を推奨。免疫組織化学パネル（CK7/CK20/TTF-1/CDX2/PAX8 等）で原発巣推定。MDT で治療方針を検討。',
+  },
+  'GL-CCA-001': {
+    'zh-TW': '疑似膽管細胞癌：MRCP 評估膽道解剖 + CA19-9 + CEA。需組織活檢明確診斷。Bismuth-Corlette 分型指導手術方案。基因檢測（FGFR2 融合/IDH1 突變）指導靶向治療。',
+    en: 'Suspected cholangiocarcinoma: MRCP for biliary anatomy + CA19-9 + CEA. Tissue biopsy required for diagnosis. Bismuth-Corlette classification guides surgical approach. Genetic testing (FGFR2 fusion/IDH1 mutation) guides targeted therapy.',
+    ja: '胆管細胞癌疑い：MRCP で胆道解剖評価＋CA19-9＋CEA。組織生検で確定診断が必要。Bismuth-Corlette 分類で術式決定。遺伝子検査（FGFR2 融合/IDH1 変異）で分子標的治療を検討。',
+  },
+  'GL-LUNG-001': {
+    'zh-TW': '肺部結節：按 Fleischner Society 標準隨訪。≥8mm 實性結節需 PET-CT 或活檢。毛刺徵/分葉徵提示惡性。低劑量 CT 用於高危人群篩查。',
+    en: 'Pulmonary nodule: follow Fleischner Society criteria. Solid nodules ≥8mm require PET-CT or biopsy. Spiculation/lobulation suggest malignancy. Low-dose CT for high-risk screening.',
+    ja: '肺結節：Fleischner Society 基準でフォローアップ。≥8mm 充実性結節は PET-CT または生検が必要。スピキュレーション/分葉は悪性を示唆。低線量 CT は高リスク群スクリーニングに使用。',
+  },
+  'GL-PROSTATE-001': {
+    'zh-TW': 'PSA >4ng/mL 或 PSA 密度 >0.15：推薦前列腺 mpMRI (PI-RADS 評分)。PI-RADS ≥3 需系統 + 靶向穿刺。PSA >10 或 Gleason ≥7 需行骨掃描分期。',
+    en: 'PSA >4ng/mL or PSA density >0.15: prostate mpMRI (PI-RADS) recommended. PI-RADS ≥3 requires systematic + targeted biopsy. PSA >10 or Gleason ≥7 requires bone scan staging.',
+    ja: 'PSA >4ng/mL または PSA 密度 >0.15：前立腺 mpMRI（PI-RADS）を推奨。PI-RADS ≥3 は系統的＋標的生検が必要。PSA >10 または Gleason ≥7 は骨シンチで病期診断。',
+  },
+  'GL-CAD-001': {
+    'zh-TW': 'Agatston >400：直接冠脈造影 (CAG) 優於 CTA（鈣化偽影影響 CTA 精度）。Agatston 100-400：藥物負荷心肌灌注顯像或 CTA。所有患者需強化他汀 + 抗血小板評估。',
+    en: 'Agatston >400: coronary angiography (CAG) preferred over CTA (calcification artifacts affect CTA accuracy). Agatston 100-400: stress myocardial perfusion imaging or CTA. All patients require intensive statin + antiplatelet assessment.',
+    ja: 'Agatston >400：冠動脈造影（CAG）が CTA より推奨（石灰化アーチファクトの影響）。Agatston 100-400：薬物負荷心筋シンチグラフィーまたは CTA。全患者にスタチン強化＋抗血小板評価。',
+  },
+  'GL-HF-001': {
+    'zh-TW': 'LVEF <40% (HFrEF)：四聯療法（ARNI/ACEI + β受體阻滯劑 + MRA + SGLT2i）。所有疑似心衰需檢測 BNP/NT-proBNP。超聲心動圖為一線影像。',
+    en: 'LVEF <40% (HFrEF): quadruple therapy (ARNI/ACEI + beta-blocker + MRA + SGLT2i). All suspected heart failure requires BNP/NT-proBNP. Echocardiography is first-line imaging.',
+    ja: 'LVEF <40%（HFrEF）：四剤療法（ARNI/ACEI＋β遮断薬＋MRA＋SGLT2i）。心不全疑い全例に BNP/NT-proBNP 検査。心エコーが第一選択画像検査。',
+  },
+  'GL-AF-001': {
+    'zh-TW': 'CHA2DS2-VASc ≥2 (男) / ≥3 (女)：推薦口服抗凝 (DOAC 優先於華法林)。所有房顫患者需甲狀腺功能檢查。心臟超聲評估瓣膜及左房大小。',
+    en: 'CHA2DS2-VASc ≥2 (male) / ≥3 (female): oral anticoagulation recommended (DOAC preferred over warfarin). All AF patients require thyroid function testing. Echocardiography for valvular and left atrial assessment.',
+    ja: 'CHA2DS2-VASc ≥2（男性）/ ≥3（女性）：経口抗凝固療法を推奨（DOAC がワルファリンより推奨）。全心房細動患者に甲状腺機能検査。心エコーで弁膜症・左房径を評価。',
+  },
+  'GL-CKD-001': {
+    'zh-TW': 'eGFR <60：確認 CKD 分期 + UACR。CKD G3a 以上需腎內科隨訪。eGFR <30 禁碘造影劑（或充分水化+NAC）。所有 CKD 患者評估心血管風險。',
+    en: 'eGFR <60: confirm CKD staging + UACR. CKD G3a+ requires nephrology follow-up. eGFR <30 contraindicates iodinated contrast (or hydration + NAC). All CKD patients need cardiovascular risk assessment.',
+    ja: 'eGFR <60：CKD 病期確認＋UACR。CKD G3a 以上は腎臓内科フォローが必要。eGFR <30 はヨード造影剤禁忌（または十分な補液＋NAC）。全 CKD 患者に心血管リスク評価。',
+  },
+  'GL-DM-001': {
+    'zh-TW': 'HbA1c ≥6.5% 或空腹血糖 ≥126mg/dL：確診糖尿病。合併 CKD/CVD 優先 SGLT2i 或 GLP-1RA。每年眼底檢查 + 足部檢查 + UACR。',
+    en: 'HbA1c ≥6.5% or fasting glucose ≥126mg/dL: diabetes confirmed. With CKD/CVD comorbidity, SGLT2i or GLP-1RA preferred. Annual fundoscopy + foot exam + UACR.',
+    ja: 'HbA1c ≥6.5% または空腹時血糖 ≥126mg/dL：糖尿病確定。CKD/CVD 合併例は SGLT2i または GLP-1RA を優先。年 1 回の眼底検査＋足部検査＋UACR。',
+  },
+  'GL-THYROID-001': {
+    'zh-TW': '甲狀腺結節 >1cm：需行超聲 TI-RADS 評估。TI-RADS 4-5 或 >2cm 需 FNA 穿刺。TSH 低需排除功能性結節（甲亢）。',
+    en: 'Thyroid nodule >1cm: ultrasound TI-RADS evaluation required. TI-RADS 4-5 or >2cm requires FNA. Low TSH requires exclusion of functioning nodule (hyperthyroidism).',
+    ja: '甲状腺結節 >1cm：超音波 TI-RADS 評価が必要。TI-RADS 4-5 または >2cm は FNA が必要。TSH 低値は機能性結節（甲状腺機能亢進症）の除外が必要。',
+  },
+  'GL-BONE-001': {
+    'zh-TW': '骨轉移確認後：評估 SRE（骨骼相關事件）風險。推薦唑來膦酸或地諾單抗預防 SRE。脊柱轉移需評估 SINS 評分。病理性骨折風險高時需骨科會診。',
+    en: 'Confirmed bone metastasis: assess SRE risk. Zoledronic acid or denosumab for SRE prevention. Spinal metastasis requires SINS scoring. High pathological fracture risk requires orthopedic consultation.',
+    ja: '骨転移確認後：SRE リスク評価。ゾレドロン酸またはデノスマブで SRE 予防を推奨。脊椎転移は SINS スコア評価が必要。病的骨折リスク高い場合は整形外科コンサルト。',
+  },
+};
+
+// ============================================================
 // 主入口
 // ============================================================
 
@@ -205,8 +288,10 @@ export interface GuidelineMatchResult {
  * 根据 StructuredCase 匹配适用的临床指南
  */
 export function matchClinicalGuidelines(
-  structuredCase: StructuredCase
+  structuredCase: StructuredCase,
+  language?: string
 ): GuidelineMatchResult {
+  const lang = (language || 'zh-CN') as AEMCLang;
   const matchedGuidelines: GuidelineEntry[] = [];
 
   // 汇集所有患者文本
@@ -240,14 +325,23 @@ export function matchClinicalGuidelines(
     matchedGuidelines.push(guideline);
   }
 
+  // 本地化匹配到的指南
+  const localizedGuidelines = matchedGuidelines.map((g) => {
+    const i18nRec = GUIDELINE_I18N[g.id]?.[lang];
+    if (!i18nRec) return g;
+    return { ...g, recommendation: i18nRec };
+  });
+
   // 生成 AI prompt 注入文本
   let guidelineContextForAI = '';
-  if (matchedGuidelines.length > 0) {
-    const lines = matchedGuidelines.map(
+  if (localizedGuidelines.length > 0) {
+    const labelRec = GLL('recommendation', lang);
+    const labelTests = GLL('applicableTests', lang);
+    const lines = localizedGuidelines.map(
       (g) =>
         `[${g.id}] ${g.source} (${g.evidenceLevel})\n` +
-        `  建议: ${g.recommendation}\n` +
-        (g.applicableTests ? `  适用检查: ${g.applicableTests.join(', ')}` : '')
+        `  ${labelRec}: ${g.recommendation}\n` +
+        (g.applicableTests ? `  ${labelTests}: ${g.applicableTests.join(', ')}` : '')
     );
     guidelineContextForAI =
       `\n\n--- CLINICAL GUIDELINE REFERENCES (evidence-based) ---\n` +
@@ -257,9 +351,9 @@ export function matchClinicalGuidelines(
       `\n--- END GUIDELINES ---`;
 
     console.info(
-      `[ClinicalGuidelines] Matched ${matchedGuidelines.length} guidelines: ${matchedGuidelines.map((g) => g.id).join(', ')}`
+      `[ClinicalGuidelines] Matched ${localizedGuidelines.length} guidelines: ${localizedGuidelines.map((g) => g.id).join(', ')}`
     );
   }
 
-  return { matchedGuidelines, guidelineContextForAI };
+  return { matchedGuidelines: localizedGuidelines, guidelineContextForAI };
 }

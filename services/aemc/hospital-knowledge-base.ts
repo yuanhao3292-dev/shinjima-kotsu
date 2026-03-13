@@ -18,12 +18,15 @@ export type HospitalCategory =
   | 'aesthetics'
   | 'stem_cell';
 
+export type AEMCLang = 'zh-CN' | 'zh-TW' | 'en' | 'ja';
+
 export interface HospitalKnowledge {
   /** 对应 page_modules.component_key */
   id: string;
   name: string;
   nameJa: string;
   nameZhTw?: string;
+  nameEn?: string;
   location: string;
   /** 机构分类 */
   category: HospitalCategory;
@@ -60,6 +63,7 @@ export const HOSPITAL_KNOWLEDGE_BASE: HospitalKnowledge[] = [
     name: '兵库医科大学病院',
     nameJa: '兵庫医科大学病院',
     nameZhTw: '兵庫醫科大學病院',
+    nameEn: 'Hyogo College of Medicine Hospital',
     location: '兵库县西宫市',
     category: 'general_hospital',
     departments: [
@@ -109,6 +113,7 @@ export const HOSPITAL_KNOWLEDGE_BASE: HospitalKnowledge[] = [
     name: '近畿大学病院',
     nameJa: '近畿大学病院',
     nameZhTw: '近畿大學病院',
+    nameEn: 'Kindai University Hospital',
     location: '大阪府大阪狭山市',
     category: 'general_hospital',
     departments: [
@@ -152,6 +157,7 @@ export const HOSPITAL_KNOWLEDGE_BASE: HospitalKnowledge[] = [
     name: '大阪国际癌症中心',
     nameJa: '大阪国際がんセンター',
     nameZhTw: '大阪國際癌症中心',
+    nameEn: 'Osaka International Cancer Institute',
     location: '大阪府大阪市',
     category: 'general_hospital',
     departments: [
@@ -193,6 +199,7 @@ export const HOSPITAL_KNOWLEDGE_BASE: HospitalKnowledge[] = [
     name: '大阪重粒子线中心',
     nameJa: '大阪重粒子線センター',
     nameZhTw: '大阪重粒子線中心',
+    nameEn: 'Osaka Heavy Ion Therapy Center',
     location: '大阪府大阪市',
     category: 'general_hospital',
     departments: [
@@ -225,6 +232,7 @@ export const HOSPITAL_KNOWLEDGE_BASE: HospitalKnowledge[] = [
     name: 'IGT 诊所（血管内治疗）',
     nameJa: 'IGTクリニック',
     nameZhTw: 'IGT診所',
+    nameEn: 'IGT Clinic (Endovascular Therapy)',
     location: '大阪府泉佐野市（关西机场附近）',
     category: 'general_hospital',
     departments: [
@@ -264,6 +272,7 @@ export const HOSPITAL_KNOWLEDGE_BASE: HospitalKnowledge[] = [
     name: 'TIMC 精密健诊中心',
     nameJa: 'TIMC精密健診センター',
     nameZhTw: 'TIMC精密健診中心',
+    nameEn: 'TIMC Precision Health Screening Center',
     location: '大阪府',
     category: 'health_screening',
     departments: [
@@ -306,6 +315,7 @@ export const HOSPITAL_KNOWLEDGE_BASE: HospitalKnowledge[] = [
     name: 'SAI 整形外科诊所',
     nameJa: 'SAI美容外科クリニック',
     nameZhTw: 'SAI美容外科診所',
+    nameEn: 'SAI Cosmetic Surgery Clinic',
     location: '大阪府大阪市梅田',
     category: 'aesthetics',
     departments: [
@@ -345,6 +355,7 @@ export const HOSPITAL_KNOWLEDGE_BASE: HospitalKnowledge[] = [
     name: 'W Clinic 男性专科',
     nameJa: 'Wクリニック メンズ',
     nameZhTw: 'W Clinic 男性專科',
+    nameEn: "W Clinic Men's Health",
     location: '大阪府大阪市梅田',
     category: 'aesthetics',
     departments: [
@@ -389,6 +400,7 @@ export const HOSPITAL_KNOWLEDGE_BASE: HospitalKnowledge[] = [
     name: 'Helene 诊所（干细胞再生医疗）',
     nameJa: 'ヘレネクリニック',
     nameZhTw: 'Helene診所',
+    nameEn: 'Helene Clinic (Regenerative Medicine)',
     location: '东京都表参道',
     category: 'stem_cell',
     departments: [
@@ -430,6 +442,7 @@ export const HOSPITAL_KNOWLEDGE_BASE: HospitalKnowledge[] = [
     name: '银座 Phoenix 诊所（免疫细胞治疗）',
     nameJa: '銀座フェニックスクリニック',
     nameZhTw: '銀座Phoenix診所',
+    nameEn: 'Ginza Phoenix Clinic',
     location: '东京都千代田区秋叶原',
     category: 'stem_cell',
     departments: [
@@ -458,6 +471,7 @@ export const HOSPITAL_KNOWLEDGE_BASE: HospitalKnowledge[] = [
     name: 'Cell Medicine（先端细胞医疗）',
     nameJa: 'セルメディシン',
     nameZhTw: 'Cell Medicine',
+    nameEn: 'Cell Medicine (Advanced Cell Therapy)',
     location: '日本',
     category: 'stem_cell',
     departments: [
@@ -487,6 +501,7 @@ export const HOSPITAL_KNOWLEDGE_BASE: HospitalKnowledge[] = [
     name: 'AC Plus 细胞再生医疗',
     nameJa: 'ACプラス',
     nameZhTw: 'AC Plus 細胞再生醫療',
+    nameEn: 'AC Plus Cell Regenerative Medicine',
     location: '大阪府大阪市中央区',
     category: 'stem_cell',
     departments: [
@@ -577,4 +592,205 @@ export function normalizeDepartment(department: string): string {
  */
 export function getHospitalsByCategory(category: HospitalCategory): HospitalKnowledge[] {
   return HOSPITAL_KNOWLEDGE_BASE.filter((h) => h.category === category);
+}
+
+// ============================================================
+// 多语言翻译数据
+// ============================================================
+
+interface HospitalI18nEntry {
+  location: Partial<Record<AEMCLang, string>>;
+  features: Partial<Record<AEMCLang, string[]>>;
+  suitableFor: Partial<Record<AEMCLang, string>>;
+}
+
+const HOSPITAL_I18N: Record<string, HospitalI18nEntry> = {
+  hyogo_medical: {
+    location: { 'zh-TW': '兵庫縣西宮市', en: 'Nishinomiya, Hyogo', ja: '兵庫県西宮市' },
+    features: {
+      'zh-TW': ['特定機能病院（高度醫療認定）', '963床位·41個診療科', '達文西機器人手術', '2026年新院區開業（801床）'],
+      en: ['Designated Advanced Treatment Hospital', '963 beds, 41 departments', 'Da Vinci robotic surgery', 'New campus opening 2026 (801 beds)'],
+      ja: ['特定機能病院（高度医療認定）', '963床・41診療科', 'ダヴィンチロボット手術', '2026年新院開院（801床）'],
+    },
+    suitableFor: { 'zh-TW': '需要綜合醫院診療、手術、急救的患者', en: 'Patients requiring comprehensive hospital care, surgery, or emergency treatment', ja: '総合病院での診療・手術・救急が必要な患者' },
+  },
+  kindai_hospital: {
+    location: { 'zh-TW': '大阪府大阪狹山市', en: 'Osakasayama, Osaka', ja: '大阪府大阪狭山市' },
+    features: {
+      'zh-TW': ['特定機能病院（高度醫療認定）', '800床位·35診療科·20專科中心', '達文西機器人手術', '與近畿大學醫學部聯合研究'],
+      en: ['Designated Advanced Treatment Hospital', '800 beds, 35 departments, 20 specialty centers', 'Da Vinci robotic surgery', 'Joint research with Kindai University School of Medicine'],
+      ja: ['特定機能病院（高度医療認定）', '800床・35診療科・20専門センター', 'ダヴィンチロボット手術', '近畿大学医学部との共同研究'],
+    },
+    suitableFor: { 'zh-TW': '需要綜合診療和大學醫院水準治療的患者', en: 'Patients requiring comprehensive care at university hospital level', ja: '総合診療および大学病院水準の治療が必要な患者' },
+  },
+  cancer_treatment: {
+    location: { 'zh-TW': '大阪府大阪市', en: 'Osaka City, Osaka', ja: '大阪府大阪市' },
+    features: {
+      'zh-TW': ['Lancet 基準5年存活率數據', '質子線·重粒子線治療', '基因組醫療·精準靶向', '多學科聯合會診（MDT）'],
+      en: ['Lancet-benchmarked 5-year survival data', 'Proton & heavy ion beam therapy', 'Genomic medicine & precision targeting', 'Multidisciplinary team (MDT) consultation'],
+      ja: ['Lancet基準 5年生存率データ', '陽子線・重粒子線治療', 'ゲノム医療・精密標的治療', '多診療科カンファレンス（MDT）'],
+    },
+    suitableFor: { 'zh-TW': '確診或疑似癌症患者，尋求第二診療意見', en: 'Patients diagnosed with or suspected of cancer, seeking second opinions', ja: '癌と診断されたまたは疑われる患者、セカンドオピニオンをお求めの方' },
+  },
+  osaka_himak: {
+    location: { 'zh-TW': '大阪府大阪市', en: 'Osaka City, Osaka', ja: '大阪府大阪市' },
+    features: {
+      'zh-TW': ['日本先進重粒子線治療設施', '碳離子線精準照射', '對手術不可的腫瘤有效'],
+      en: ['Advanced heavy ion therapy facility in Japan', 'Precision carbon ion beam irradiation', 'Effective for inoperable tumors'],
+      ja: ['日本先端の重粒子線治療施設', '炭素イオン線による精密照射', '手術不能腫瘍への有効性'],
+    },
+    suitableFor: { 'zh-TW': '需要重粒子線放療的癌症患者', en: 'Cancer patients requiring heavy ion beam radiotherapy', ja: '重粒子線放射線治療が必要な癌患者' },
+  },
+  igtc: {
+    location: { 'zh-TW': '大阪府泉佐野市（關西機場附近）', en: 'Izumisano, Osaka (near Kansai Airport)', ja: '大阪府泉佐野市（関西空港近く）' },
+    features: {
+      'zh-TW': ['血管內介入治療專科', '溫熱療法設備', '關西機場附近交通便利', '免疫細胞+幹細胞綜合治療'],
+      en: ['Endovascular intervention specialty', 'Hyperthermia equipment', 'Convenient access near Kansai Airport', 'Comprehensive immunocell + stem cell therapy'],
+      ja: ['血管内インターベンション専門', 'ハイパーサーミア設備', '関西空港近くで交通便利', '免疫細胞＋幹細胞の総合治療'],
+    },
+    suitableFor: { 'zh-TW': '需要血管介入治療或癌症免疫/幹細胞治療的患者', en: 'Patients requiring endovascular intervention or cancer immunotherapy/stem cell therapy', ja: '血管内治療または癌免疫・幹細胞治療が必要な患者' },
+  },
+  medical_packages: {
+    location: { 'zh-TW': '大阪府', en: 'Osaka', ja: '大阪府' },
+    features: {
+      'zh-TW': ['VIP會員全套精密體檢', 'PET-CT + MRI + 內鏡全覆蓋', 'DWIBS無輻射癌症篩查', '一日完成所有檢查'],
+      en: ['VIP comprehensive precision health screening', 'Full PET-CT + MRI + endoscopy coverage', 'DWIBS radiation-free cancer screening', 'All examinations completed in one day'],
+      ja: ['VIP会員 精密健診フルコース', 'PET-CT + MRI + 内視鏡の全カバー', 'DWIBS 無被曝がんスクリーニング', '1日で全検査完了'],
+    },
+    suitableFor: { 'zh-TW': '需要全面精密體檢或癌症早期篩查的健康人群', en: 'Healthy individuals seeking comprehensive screening or early cancer detection', ja: '総合的な精密健診や早期がんスクリーニングを希望する方' },
+  },
+  sai_clinic: {
+    location: { 'zh-TW': '大阪府大阪市梅田', en: 'Umeda, Osaka City', ja: '大阪府大阪市梅田' },
+    features: {
+      'zh-TW': ['糸リフト（線雕）專科', '30+種美容項目', '面部年輕化綜合方案'],
+      en: ['Thread lift specialty', '30+ aesthetic procedures', 'Comprehensive facial rejuvenation plans'],
+      ja: ['糸リフト専門', '30種類以上の美容施術', 'フェイシャルエイジングケア総合プラン'],
+    },
+    suitableFor: { 'zh-TW': '尋求面部年輕化、整形美容的患者', en: 'Patients seeking facial rejuvenation and cosmetic procedures', ja: 'フェイシャルエイジングケア・美容整形をお求めの方' },
+  },
+  wclinic_mens: {
+    location: { 'zh-TW': '大阪府大阪市梅田', en: 'Umeda, Osaka City', ja: '大阪府大阪市梅田' },
+    features: {
+      'zh-TW': ['40年經驗泌尿外科教授主診', '男性健康綜合方案', 'AGA + 抗衰老 + ED一站式', '大阪梅田交通便利'],
+      en: ['Led by urology professor with 40 years experience', "Comprehensive men's health solutions", 'AGA + anti-aging + ED one-stop', 'Convenient access in Osaka Umeda'],
+      ja: ['泌尿器科教授40年の経験', '男性総合ヘルスケア', 'AGA＋アンチエイジング＋EDワンストップ', '大阪梅田でアクセス便利'],
+    },
+    suitableFor: { 'zh-TW': '男性健康問題（脫髮、ED、更年期、抗衰）', en: "Men's health issues (hair loss, ED, andropause, anti-aging)", ja: '男性の健康問題（薄毛・ED・更年期・アンチエイジング）' },
+  },
+  helene_clinic: {
+    location: { 'zh-TW': '東京都表參道', en: 'Omotesando, Tokyo', ja: '東京都表参道' },
+    features: {
+      'zh-TW': ['表參道高端幹細胞診所', 'MSC最高22.5億細胞治療', '6位專科醫師團隊', 'NK細胞癌症免疫治療'],
+      en: ['Premium stem cell clinic in Omotesando', 'MSC therapy up to 2.25 billion cells', 'Team of 6 specialist physicians', 'NK cell cancer immunotherapy'],
+      ja: ['表参道の高級幹細胞クリニック', 'MSC 最大22.5億個の細胞治療', '6名の専門医チーム', 'NK細胞がん免疫療法'],
+    },
+    suitableFor: { 'zh-TW': '尋求幹細胞抗衰/關節修復/免疫增強的患者', en: 'Patients seeking stem cell anti-aging, joint repair, or immune enhancement', ja: '幹細胞アンチエイジング・関節修復・免疫強化をお求めの方' },
+  },
+  ginza_phoenix: {
+    location: { 'zh-TW': '東京都千代田區秋葉原', en: 'Akihabara, Chiyoda-ku, Tokyo', ja: '東京都千代田区秋葉原' },
+    features: {
+      'zh-TW': ['銀座立地·免疫細胞治療專科', '癌症輔助免疫治療'],
+      en: ['Ginza-area immune cell therapy specialty', 'Adjuvant cancer immunotherapy'],
+      ja: ['銀座エリア・免疫細胞治療専門', 'がん補助免疫療法'],
+    },
+    suitableFor: { 'zh-TW': '尋求癌症免疫細胞輔助治療的患者', en: 'Patients seeking adjuvant cancer immunocell therapy', ja: 'がん免疫細胞補助治療をお求めの方' },
+  },
+  cell_medicine: {
+    location: { 'zh-TW': '日本', en: 'Japan', ja: '日本' },
+    features: {
+      'zh-TW': ['自家癌症疫苗研發', 'iPS細胞臨床應用'],
+      en: ['Autologous cancer vaccine development', 'iPS cell clinical application'],
+      ja: ['自家がんワクチン開発', 'iPS細胞の臨床応用'],
+    },
+    suitableFor: { 'zh-TW': '尋求癌症免疫疫苗或iPS細胞治療的患者', en: 'Patients seeking cancer immunovaccine or iPS cell therapy', ja: 'がん免疫ワクチンまたはiPS細胞治療をお求めの方' },
+  },
+  ac_plus: {
+    location: { 'zh-TW': '大阪府大阪市中央區', en: 'Chuo-ku, Osaka City', ja: '大阪府大阪市中央区' },
+    features: {
+      'zh-TW': ['自體細胞再生醫療'],
+      en: ['Autologous cell regenerative medicine'],
+      ja: ['自家細胞再生医療'],
+    },
+    suitableFor: { 'zh-TW': '尋求自體細胞再生醫療的患者', en: 'Patients seeking autologous cell regenerative medicine', ja: '自家細胞再生医療をお求めの方' },
+  },
+};
+
+// ============================================================
+// 科室名称本地化映射
+// ============================================================
+
+const DEPARTMENT_LOCALIZATION: Record<string, Record<string, string>> = {
+  '内科': { 'zh-TW': '內科', en: 'Internal Medicine', ja: '内科' },
+  '消化内科': { 'zh-TW': '消化內科', en: 'Gastroenterology', ja: '消化器内科' },
+  '呼吸内科': { 'zh-TW': '呼吸內科', en: 'Pulmonology', ja: '呼吸器内科' },
+  '循环内科': { 'zh-TW': '循環內科', en: 'Cardiology', ja: '循環器内科' },
+  '神经内科': { 'zh-TW': '神經內科', en: 'Neurology', ja: '脳神経内科' },
+  '肾脏内科': { 'zh-TW': '腎臟內科', en: 'Nephrology', ja: '腎臓内科' },
+  '内分泌科': { 'zh-TW': '內分泌科', en: 'Endocrinology', ja: '内分泌科' },
+  '血液内科': { 'zh-TW': '血液內科', en: 'Hematology', ja: '血液内科' },
+  '外科': { 'zh-TW': '外科', en: 'Surgery', ja: '外科' },
+  '消化外科': { 'zh-TW': '消化外科', en: 'GI Surgery', ja: '消化器外科' },
+  '心脏外科': { 'zh-TW': '心臟外科', en: 'Cardiac Surgery', ja: '心臓外科' },
+  '脑神经外科': { 'zh-TW': '腦神經外科', en: 'Neurosurgery', ja: '脳神経外科' },
+  '骨科': { 'zh-TW': '骨科', en: 'Orthopedics', ja: '整形外科' },
+  '泌尿外科': { 'zh-TW': '泌尿外科', en: 'Urology', ja: '泌尿器科' },
+  '妇产科': { 'zh-TW': '婦產科', en: 'OB/GYN', ja: '産婦人科' },
+  '小儿科': { 'zh-TW': '小兒科', en: 'Pediatrics', ja: '小児科' },
+  '皮肤科': { 'zh-TW': '皮膚科', en: 'Dermatology', ja: '皮膚科' },
+  '眼科': { 'zh-TW': '眼科', en: 'Ophthalmology', ja: '眼科' },
+  '耳鼻喉科': { 'zh-TW': '耳鼻喉科', en: 'ENT', ja: '耳鼻咽喉科' },
+  '放射科': { 'zh-TW': '放射科', en: 'Radiology', ja: '放射線科' },
+  '肿瘤科': { 'zh-TW': '腫瘤科', en: 'Oncology', ja: '腫瘍科' },
+  '放射线治疗科': { 'zh-TW': '放射治療科', en: 'Radiation Oncology', ja: '放射線治療科' },
+  '康复科': { 'zh-TW': '復健科', en: 'Rehabilitation', ja: 'リハビリテーション科' },
+  '整形外科': { 'zh-TW': '整形外科', en: 'Plastic Surgery', ja: '美容外科' },
+  '美容皮肤科': { 'zh-TW': '美容皮膚科', en: 'Cosmetic Dermatology', ja: '美容皮膚科' },
+  '男性科': { 'zh-TW': '男性科', en: "Men's Health", ja: '男性科' },
+  '再生医疗科': { 'zh-TW': '再生醫療科', en: 'Regenerative Medicine', ja: '再生医療科' },
+  '免疫细胞治疗科': { 'zh-TW': '免疫細胞治療科', en: 'Immunotherapy', ja: '免疫細胞治療科' },
+  '健康诊断科': { 'zh-TW': '健康診斷科', en: 'Health Screening', ja: '健康診断科' },
+  '介入放射科': { 'zh-TW': '介入放射科', en: 'Interventional Radiology', ja: 'IVR科' },
+  '化疗科': { 'zh-TW': '化療科', en: 'Chemotherapy', ja: '化学療法科' },
+  '姑息医疗科': { 'zh-TW': '緩和醫療科', en: 'Palliative Care', ja: '緩和ケア科' },
+  '检验科': { 'zh-TW': '檢驗科', en: 'Laboratory Medicine', ja: '臨床検査科' },
+  '肿瘤内科': { 'zh-TW': '腫瘤內科', en: 'Medical Oncology', ja: '腫瘍内科' },
+  '肿瘤外科': { 'zh-TW': '腫瘤外科', en: 'Surgical Oncology', ja: '腫瘍外科' },
+  '妇科肿瘤科': { 'zh-TW': '婦科腫瘤科', en: 'Gynecologic Oncology', ja: '婦人科腫瘍科' },
+  '急救医疗科': { 'zh-TW': '急救醫療科', en: 'Emergency Medicine', ja: '救急科' },
+  '麻醉科': { 'zh-TW': '麻醉科', en: 'Anesthesiology', ja: '麻酔科' },
+  '胸外科': { 'zh-TW': '胸外科', en: 'Thoracic Surgery', ja: '呼吸器外科' },
+};
+
+// ============================================================
+// 本地化辅助函数
+// ============================================================
+
+/**
+ * 获取医院的本地化信息
+ */
+export function getLocalizedHospitalInfo(hospital: HospitalKnowledge, lang: string) {
+  const l = lang as AEMCLang;
+  const i18n = HOSPITAL_I18N[hospital.id];
+
+  const name =
+    l === 'ja' ? hospital.nameJa
+    : l === 'zh-TW' ? (hospital.nameZhTw || hospital.name)
+    : l === 'en' ? (hospital.nameEn || hospital.nameJa)
+    : hospital.name;
+
+  return {
+    name,
+    location: i18n?.location?.[l] || hospital.location,
+    features: i18n?.features?.[l] || hospital.features,
+    suitableFor: i18n?.suitableFor?.[l] || hospital.suitableFor,
+  };
+}
+
+/**
+ * 获取科室的本地化名称
+ */
+export function getLocalizedDepartment(department: string, lang: string): string {
+  if (lang === 'zh-CN') return department;
+  const localized = DEPARTMENT_LOCALIZATION[department];
+  return localized?.[lang] || department;
 }

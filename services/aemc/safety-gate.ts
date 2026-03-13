@@ -34,6 +34,48 @@ import {
   type RedFlagRule,
 } from './red-flags';
 
+import { type AEMCLang } from './hospital-knowledge-base';
+
+// ============================================================
+// 多语言标签
+// ============================================================
+
+type GL = Record<AEMCLang, string>;
+const GATE_I18N: Record<string, GL> = {
+  pediatric: { 'zh-CN': '儿童患者 ({age}岁)，需专业儿科评估', 'zh-TW': '兒童患者 ({age}歲)，需專業兒科評估', en: 'Pediatric patient (age {age}), requires specialist pediatric evaluation', ja: '小児患者（{age}歳）、専門的な小児科評価が必要' },
+  elderly: { 'zh-CN': '高龄患者 ({age}岁)，需考虑多病共存和药物相互作用', 'zh-TW': '高齡患者 ({age}歲)，需考慮多病共存和藥物交互作用', en: 'Elderly patient (age {age}), consider multimorbidity and drug interactions', ja: '高齢患者（{age}歳）、複数疾患併存と薬物相互作用の考慮が必要' },
+  lowConfidence: { 'zh-CN': '仲裁置信度过低 ({val} < {thr})', 'zh-TW': '仲裁置信度過低 ({val} < {thr})', en: 'Adjudication confidence too low ({val} < {thr})', ja: '裁定信頼度が低すぎます（{val} < {thr}）' },
+  escalateHuman: { 'zh-CN': '仲裁官要求人工升级: {reason}', 'zh-TW': '仲裁官要求人工升級: {reason}', en: 'Adjudicator requested human escalation: {reason}', ja: '裁定者がヒューマンエスカレーションを要求: {reason}' },
+  underTriage: { 'zh-CN': '挑战官检测到分诊不足风险 (under-triage)', 'zh-TW': '挑戰官檢測到分診不足風險 (under-triage)', en: 'Challenger detected under-triage risk', ja: 'チャレンジャーがアンダートリアージリスクを検出' },
+  challengerEscalate: { 'zh-CN': '挑战官建议升级人工审核', 'zh-TW': '挑戰官建議升級人工審核', en: 'Challenger recommends human review escalation', ja: 'チャレンジャーがヒューマンレビューへのエスカレーションを推奨' },
+  challengerLowConf: { 'zh-CN': '挑战官置信度过低 ({val})', 'zh-TW': '挑戰官置信度過低 ({val})', en: 'Challenger confidence too low ({val})', ja: 'チャレンジャー信頼度が低すぎます（{val}）' },
+  emergencyEval: { 'zh-CN': '分诊官建议急诊评估', 'zh-TW': '分診官建議急診評估', en: 'Triage recommends emergency evaluation', ja: 'トリアージが緊急評価を推奨' },
+  doctorReview: { 'zh-CN': '分诊官认为需要医生审查', 'zh-TW': '分診官認為需要醫生審查', en: 'Triage recommends doctor review', ja: 'トリアージが医師レビューを推奨' },
+  riskMismatch: { 'zh-CN': '分诊({triage})与仲裁({adj})风险等级差异过大', 'zh-TW': '分診({triage})與仲裁({adj})風險等級差異過大', en: 'Risk level mismatch between triage ({triage}) and adjudication ({adj})', ja: 'トリアージ（{triage}）と裁定（{adj}）のリスクレベルの差が大きい' },
+  uncoveredFlags: { 'zh-CN': 'AI-1 提取的 {count} 个红旗未被 AI-2 鉴别诊断覆盖: {flags}', 'zh-TW': 'AI-1 提取的 {count} 個紅旗未被 AI-2 鑑別診斷覆蓋: {flags}', en: '{count} red flag(s) from AI-1 not covered by AI-2 differential diagnosis: {flags}', ja: 'AI-1が抽出した {count} 件のレッドフラグがAI-2の鑑別診断でカバーされていません: {flags}' },
+  tumorNoWorkup: { 'zh-CN': '肿瘤标志物升高但 AI-2 未推荐肿瘤排查检查（PET-CT/专科转诊/活检等）', 'zh-TW': '腫瘤標誌物升高但 AI-2 未推薦腫瘤排查檢查（PET-CT/專科轉診/活檢等）', en: 'Elevated tumor markers but AI-2 did not recommend oncology workup (PET-CT/referral/biopsy)', ja: '腫瘍マーカー上昇だがAI-2が腫瘍精査（PET-CT/専門科紹介/生検等）を推奨していない' },
+  cardiacNoWorkup: { 'zh-CN': '心功能异常指标存在但 AI-2 未推荐 BNP 检测或心内科随访', 'zh-TW': '心功能異常指標存在但 AI-2 未推薦 BNP 檢測或心內科隨訪', en: 'Cardiac dysfunction indicators present but AI-2 did not recommend BNP testing or cardiology follow-up', ja: '心機能異常指標が存在するがAI-2がBNP検査または循環器科フォローアップを推奨していない' },
+  multiSystem: { 'zh-CN': '多系统累及 ({systems}={count}系统) 但分诊等级仅为 {level}，可能低估复合风险', 'zh-TW': '多系統累及 ({systems}={count}系統) 但分診等級僅為 {level}，可能低估複合風險', en: 'Multi-system involvement ({systems}={count} systems) but triage level only {level}, may underestimate composite risk', ja: '多系統関与（{systems}={count}系統）だがトリアージレベルは{level}のみ、複合リスクを過小評価の可能性' },
+  hepatitisNoScreen: { 'zh-CN': '肝脏病变但未推荐 HBV/HCV 筛查（东亚 HBV 是肝癌首要病因，必须排查）', 'zh-TW': '肝臟病變但未推薦 HBV/HCV 篩查（東亞 HBV 是肝癌首要病因，必須排查）', en: 'Liver lesion detected but HBV/HCV screening not recommended (HBV is leading cause of HCC in East Asia)', ja: '肝病変が存在するがHBV/HCVスクリーニングが推奨されていない（東アジアではHBVが肝癌の主要原因）' },
+  mdtNotRecommended: { 'zh-CN': '疑似恶性肿瘤/转移但未推荐 MDT 多学科会诊（肿瘤治疗决策需多科协作）', 'zh-TW': '疑似惡性腫瘤/轉移但未推薦 MDT 多學科會診（腫瘤治療決策需多科協作）', en: 'Suspected malignancy/metastasis but MDT multidisciplinary consultation not recommended', ja: '悪性腫瘍/転移の疑いがあるがMDT多診療科カンファレンスが推奨されていない' },
+  missingInfo: { 'zh-CN': '缺失关键信息过多 ({count} 项)，影响分诊准确性', 'zh-TW': '缺失關鍵資訊過多 ({count} 項)，影響分診準確性', en: 'Too many missing critical items ({count}), affecting triage accuracy', ja: '重要な情報の欠落が多すぎます（{count}件）、トリアージ精度に影響' },
+  aiRedFlag: { 'zh-CN': 'AI 识别红旗: {flag}', 'zh-TW': 'AI 識別紅旗: {flag}', en: 'AI-identified red flag: {flag}', ja: 'AIが特定したレッドフラグ: {flag}' },
+  noRisk: { 'zh-CN': '未检测到安全风险，结果可自动展示。', 'zh-TW': '未檢測到安全風險，結果可自動展示。', en: 'No safety risks detected. Results can be displayed automatically.', ja: '安全リスクは検出されませんでした。結果は自動表示可能です。' },
+  gateA: { 'zh-CN': '低风险，结果可自动展示。', 'zh-TW': '低風險，結果可自動展示。', en: 'Low risk. Results can be displayed automatically.', ja: '低リスク。結果は自動表示可能です。' },
+  gateB: { 'zh-CN': '存在信息缺失，建议展示结果同时引导用户补充关键信息。', 'zh-TW': '存在資訊缺失，建議展示結果同時引導用戶補充關鍵資訊。', en: 'Missing information detected. Results shown with prompt to provide additional key information.', ja: '情報の欠落があります。結果を表示しつつ、重要な情報の補足を案内します。' },
+  gateC: { 'zh-CN': '检测到潜在风险信号，结果需人工医疗顾问审核后再展示。', 'zh-TW': '檢測到潛在風險信號，結果需人工醫療顧問審核後再展示。', en: 'Potential risk signals detected. Results require review by a medical advisor before display.', ja: '潜在的なリスクシグナルが検出されました。結果は医療アドバイザーの審査後に表示されます。' },
+  gateD: { 'zh-CN': '检测到疑似急症信号，需立即提示用户就近急诊就医。', 'zh-TW': '檢測到疑似急症信號，需立即提示用戶就近急診就醫。', en: 'Suspected emergency signals detected. User must be advised to seek immediate emergency care.', ja: '緊急性の高い所見が検出されました。直ちに最寄りの救急外来の受診を促す必要があります。' },
+  triggeredRules: { 'zh-CN': '触发规则：', 'zh-TW': '觸發規則：', en: 'Triggered rules: ', ja: 'トリガーされたルール：' },
+  // System names for XVAL-004
+  cardiovascular: { 'zh-CN': '心血管', 'zh-TW': '心血管', en: 'cardiovascular', ja: '心血管' },
+  renal: { 'zh-CN': '肾脏', 'zh-TW': '腎臟', en: 'renal', ja: '腎臓' },
+  metabolic: { 'zh-CN': '代谢', 'zh-TW': '代謝', en: 'metabolic', ja: '代謝' },
+};
+
+function SL(key: string, lang: AEMCLang): string {
+  return GATE_I18N[key]?.[lang] || GATE_I18N[key]?.['zh-CN'] || key;
+}
+
 // ============================================================
 // 安全闸门配置常量
 // ============================================================
@@ -69,56 +111,63 @@ export interface SafetyGateInput {
  * 一旦命中高优先级规则，不会降级到低优先级。
  */
 export function evaluateSafetyGate(input: SafetyGateInput): SafetyGateResult {
+  const lang = (input.case_packet.language || 'zh-CN') as AEMCLang;
   const triggeredRules: TriggeredRule[] = [];
 
   // Step 1: 扫描红旗词典（基于原始文本和结构化数据）
-  const redFlagTriggers = scanRedFlags(input.case_packet, input.structured_case);
+  const redFlagTriggers = scanRedFlags(input.case_packet, input.structured_case, lang);
   triggeredRules.push(...redFlagTriggers);
 
   // Step 2: 检查年龄相关的高危人群
-  const ageTriggers = checkAgeRisks(input.case_packet);
+  const ageTriggers = checkAgeRisks(input.case_packet, lang);
   triggeredRules.push(...ageTriggers);
 
   // Step 3: 检查 AI 模型输出的一致性
   const modelTriggers = checkModelConsistency(
     input.triage_assessment,
     input.challenge_review,
-    input.adjudicated_assessment
+    input.adjudicated_assessment,
+    lang
   );
   triggeredRules.push(...modelTriggers);
 
   // Step 4: 交叉验证（AI-1 红旗 vs AI-2 鉴别诊断覆盖度）
   const crossValidationTriggers = crossValidateRedFlagsVsDifferentials(
     input.structured_case,
-    input.triage_assessment
+    input.triage_assessment,
+    lang
   );
   triggeredRules.push(...crossValidationTriggers);
 
   // Step 4b: 肿瘤标志物交叉验证 (XVAL-002)
   const tumorMarkerTriggers = crossValidateTumorMarkers(
     input.structured_case,
-    input.triage_assessment
+    input.triage_assessment,
+    lang
   );
   triggeredRules.push(...tumorMarkerTriggers);
 
   // Step 4c: 心功能交叉验证 (XVAL-003)
   const cardiacTriggers = crossValidateCardiacFunction(
     input.structured_case,
-    input.triage_assessment
+    input.triage_assessment,
+    lang
   );
   triggeredRules.push(...cardiacTriggers);
 
   // Step 4d: 多系统累及交叉验证 (XVAL-004)
   const multiSystemTriggers = crossValidateMultiSystem(
     input.structured_case,
-    input.triage_assessment
+    input.triage_assessment,
+    lang
   );
   triggeredRules.push(...multiSystemTriggers);
 
   // Step 4e: 肝脏病变 + 乙肝/丙肝筛查交叉验证 (XVAL-005)
   const hepatitisTriggers = crossValidateHepatitisScreening(
     input.structured_case,
-    input.triage_assessment
+    input.triage_assessment,
+    lang
   );
   triggeredRules.push(...hepatitisTriggers);
 
@@ -126,14 +175,16 @@ export function evaluateSafetyGate(input: SafetyGateInput): SafetyGateResult {
   const mdtTriggers = crossValidateMDTRecommendation(
     input.structured_case,
     input.triage_assessment,
-    input.adjudicated_assessment
+    input.adjudicated_assessment,
+    lang
   );
   triggeredRules.push(...mdtTriggers);
 
   // Step 5: 检查缺失信息量
   const missingInfoTriggers = checkMissingInfo(
     input.structured_case,
-    input.adjudicated_assessment
+    input.adjudicated_assessment,
+    lang
   );
   triggeredRules.push(...missingInfoTriggers);
 
@@ -147,7 +198,7 @@ export function evaluateSafetyGate(input: SafetyGateInput): SafetyGateResult {
     require_human_review: gateClass === 'C' || gateClass === 'D',
     require_emergency_notice: gateClass === 'D',
     require_followup_questions: gateClass === 'B',
-    explanation: generateExplanation(gateClass, triggeredRules),
+    explanation: generateExplanation(gateClass, triggeredRules, lang),
   };
 }
 
@@ -161,7 +212,8 @@ export function evaluateSafetyGate(input: SafetyGateInput): SafetyGateResult {
  */
 function scanRedFlags(
   casePacket: CasePacket,
-  structuredCase: StructuredCase
+  structuredCase: StructuredCase,
+  lang: AEMCLang
 ): TriggeredRule[] {
   const triggers: TriggeredRule[] = [];
 
@@ -205,7 +257,7 @@ function scanRedFlags(
           rule_id: `AI-FLAG-${triggers.length}`,
           category: 'emergency',
           severity: 'emergency',
-          description: `AI 识别红旗: ${aiFlag}`,
+          description: SL('aiRedFlag', lang).replace('{flag}', aiFlag),
           source: 'adjudication',
         });
       }
@@ -327,7 +379,7 @@ function matchesRedFlagRule(rule: RedFlagRule, normalizedText: string): boolean 
 // Step 2: 年龄风险检查
 // ============================================================
 
-function checkAgeRisks(casePacket: CasePacket): TriggeredRule[] {
+function checkAgeRisks(casePacket: CasePacket, lang: AEMCLang): TriggeredRule[] {
   const triggers: TriggeredRule[] = [];
   const age = casePacket.demographics.age;
 
@@ -338,7 +390,7 @@ function checkAgeRisks(casePacket: CasePacket): TriggeredRule[] {
         category: 'high_risk_population',
         // [AUDIT-FIX] 添加 severity 字段
         severity: 'high',
-        description: `儿童患者 (${age}岁)，需专业儿科评估`,
+        description: SL('pediatric', lang).replace('{age}', String(age)),
         source: 'red_flag_lexicon',
       });
     }
@@ -349,7 +401,7 @@ function checkAgeRisks(casePacket: CasePacket): TriggeredRule[] {
         category: 'high_risk_population',
         // [AUDIT-FIX] 添加 severity 字段
         severity: 'high',
-        description: `高龄患者 (${age}岁)，需考虑多病共存和药物相互作用`,
+        description: SL('elderly', lang).replace('{age}', String(age)),
         source: 'red_flag_lexicon',
       });
     }
@@ -365,7 +417,8 @@ function checkAgeRisks(casePacket: CasePacket): TriggeredRule[] {
 function checkModelConsistency(
   triage: TriageAssessment,
   challenge: ChallengeReview | undefined,
-  adjudication: AdjudicatedAssessment
+  adjudication: AdjudicatedAssessment,
+  lang: AEMCLang
 ): TriggeredRule[] {
   const triggers: TriggeredRule[] = [];
 
@@ -376,7 +429,7 @@ function checkModelConsistency(
       rule_id: 'MODEL-001',
       category: 'low_confidence',
       severity: 'high',
-      description: `仲裁置信度过低 (${(adjudication.confidence ?? 0).toFixed(2)} < ${CONFIDENCE_THRESHOLD})`,
+      description: SL('lowConfidence', lang).replace('{val}', (adjudication.confidence ?? 0).toFixed(2)).replace('{thr}', String(CONFIDENCE_THRESHOLD)),
       source: 'adjudication',
     });
   }
@@ -387,7 +440,7 @@ function checkModelConsistency(
       rule_id: 'MODEL-002',
       category: 'model_conflict',
       severity: 'high',
-      description: `仲裁官要求人工升级: ${adjudication.escalation_reason}`,
+      description: SL('escalateHuman', lang).replace('{reason}', adjudication.escalation_reason || ''),
       source: 'adjudication',
     });
   }
@@ -400,7 +453,7 @@ function checkModelConsistency(
         rule_id: 'MODEL-003',
         category: 'model_conflict',
         severity: 'high',
-        description: '挑战官检测到分诊不足风险 (under-triage)',
+        description: SL('underTriage', lang),
         source: 'model_comparison',
       });
     }
@@ -411,7 +464,7 @@ function checkModelConsistency(
         rule_id: 'MODEL-004',
         category: 'model_conflict',
         severity: 'high',
-        description: '挑战官建议升级人工审核',
+        description: SL('challengerEscalate', lang),
         source: 'model_comparison',
       });
     }
@@ -423,7 +476,7 @@ function checkModelConsistency(
         rule_id: 'MODEL-005',
         category: 'low_confidence',
         severity: 'high',
-        description: `挑战官置信度过低 (${(challenge.confidence ?? 0).toFixed(2)})`,
+        description: SL('challengerLowConf', lang).replace('{val}', (challenge.confidence ?? 0).toFixed(2)),
         source: 'model_comparison',
       });
     }
@@ -436,7 +489,7 @@ function checkModelConsistency(
       category: 'emergency',
       // [AUDIT-FIX] 急诊评估 = emergency 级别
       severity: 'emergency',
-      description: '分诊官建议急诊评估',
+      description: SL('emergencyEval', lang),
       source: 'adjudication',
     });
   }
@@ -447,7 +500,7 @@ function checkModelConsistency(
       rule_id: 'MODEL-008',
       category: 'model_conflict',
       severity: 'high',
-      description: '分诊官认为需要医生审查',
+      description: SL('doctorReview', lang),
       source: 'adjudication',
     });
   }
@@ -462,7 +515,7 @@ function checkModelConsistency(
       rule_id: 'MODEL-007',
       category: 'model_conflict',
       severity: 'high',
-      description: `分诊(${triage.urgency_level})与仲裁(${adjudication.final_risk_level})风险等级差异过大`,
+      description: SL('riskMismatch', lang).replace('{triage}', triage.urgency_level).replace('{adj}', adjudication.final_risk_level),
       source: 'model_comparison',
     });
   }
@@ -481,7 +534,8 @@ function checkModelConsistency(
  */
 function crossValidateRedFlagsVsDifferentials(
   structuredCase: StructuredCase,
-  triage: TriageAssessment
+  triage: TriageAssessment,
+  lang: AEMCLang
 ): TriggeredRule[] {
   const triggers: TriggeredRule[] = [];
 
@@ -521,7 +575,7 @@ function crossValidateRedFlagsVsDifferentials(
       rule_id: 'XVAL-001',
       category: 'model_conflict',
       severity: 'high',
-      description: `AI-1 提取的 ${uncoveredFlags.length} 个红旗未被 AI-2 鉴别诊断覆盖: ${uncoveredFlags.join('、')}`,
+      description: SL('uncoveredFlags', lang).replace('{count}', String(uncoveredFlags.length)).replace('{flags}', uncoveredFlags.join('、')),
       source: 'model_comparison',
     });
   }
@@ -539,7 +593,8 @@ function crossValidateRedFlagsVsDifferentials(
  */
 function crossValidateTumorMarkers(
   structuredCase: StructuredCase,
-  triage: TriageAssessment
+  triage: TriageAssessment,
+  lang: AEMCLang
 ): TriggeredRule[] {
   const triggers: TriggeredRule[] = [];
 
@@ -594,8 +649,7 @@ function crossValidateTumorMarkers(
       rule_id: 'XVAL-002',
       category: 'oncology',
       severity: 'high',
-      description:
-        '肿瘤标志物升高但 AI-2 未推荐肿瘤排查检查（PET-CT/专科转诊/活检等）',
+      description: SL('tumorNoWorkup', lang),
       source: 'model_comparison',
     });
   }
@@ -613,7 +667,8 @@ function crossValidateTumorMarkers(
  */
 function crossValidateCardiacFunction(
   structuredCase: StructuredCase,
-  triage: TriageAssessment
+  triage: TriageAssessment,
+  lang: AEMCLang
 ): TriggeredRule[] {
   const triggers: TriggeredRule[] = [];
 
@@ -658,8 +713,7 @@ function crossValidateCardiacFunction(
       rule_id: 'XVAL-003',
       category: 'cardiovascular',
       severity: 'high',
-      description:
-        '心功能异常指标存在但 AI-2 未推荐 BNP 检测或心内科随访',
+      description: SL('cardiacNoWorkup', lang),
       source: 'model_comparison',
     });
   }
@@ -678,7 +732,8 @@ function crossValidateCardiacFunction(
  */
 function crossValidateMultiSystem(
   structuredCase: StructuredCase,
-  triage: TriageAssessment
+  triage: TriageAssessment,
+  lang: AEMCLang
 ): TriggeredRule[] {
   const triggers: TriggeredRule[] = [];
 
@@ -702,7 +757,7 @@ function crossValidateMultiSystem(
   ];
   if (cardioKeywords.some((kw) => combinedText.includes(kw))) {
     systemCount++;
-    systems.push('心血管');
+    systems.push(SL('cardiovascular', lang));
   }
 
   // 肾脏系统
@@ -712,7 +767,7 @@ function crossValidateMultiSystem(
   ];
   if (renalKeywords.some((kw) => combinedText.includes(kw))) {
     systemCount++;
-    systems.push('肾脏');
+    systems.push(SL('renal', lang));
   }
 
   // 代谢系统
@@ -723,7 +778,7 @@ function crossValidateMultiSystem(
   ];
   if (metabolicKeywords.some((kw) => combinedText.includes(kw))) {
     systemCount++;
-    systems.push('代谢');
+    systems.push(SL('metabolic', lang));
   }
 
   // 3个系统都受累 + urgency 仅 low/medium → 可能分诊不足
@@ -735,7 +790,7 @@ function crossValidateMultiSystem(
       rule_id: 'XVAL-004',
       category: 'model_conflict',
       severity: 'high',
-      description: `多系统累及 (${systems.join('+')}=${systemCount}系统) 但分诊等级仅为 ${triage.urgency_level}，可能低估复合风险`,
+      description: SL('multiSystem', lang).replace('{systems}', systems.join('+')).replace('{count}', String(systemCount)).replace('{level}', triage.urgency_level),
       source: 'model_comparison',
     });
   }
@@ -753,7 +808,8 @@ function crossValidateMultiSystem(
  */
 function crossValidateHepatitisScreening(
   structuredCase: StructuredCase,
-  triage: TriageAssessment
+  triage: TriageAssessment,
+  lang: AEMCLang
 ): TriggeredRule[] {
   const triggers: TriggeredRule[] = [];
 
@@ -806,8 +862,7 @@ function crossValidateHepatitisScreening(
       rule_id: 'XVAL-005',
       category: 'oncology',
       severity: 'high',
-      description:
-        '肝脏病变但未推荐 HBV/HCV 筛查（东亚 HBV 是肝癌首要病因，必须排查）',
+      description: SL('hepatitisNoScreen', lang),
       source: 'model_comparison',
     });
   }
@@ -826,7 +881,8 @@ function crossValidateHepatitisScreening(
 function crossValidateMDTRecommendation(
   structuredCase: StructuredCase,
   triage: TriageAssessment,
-  adjudication: AdjudicatedAssessment
+  adjudication: AdjudicatedAssessment,
+  lang: AEMCLang
 ): TriggeredRule[] {
   const triggers: TriggeredRule[] = [];
 
@@ -891,8 +947,7 @@ function crossValidateMDTRecommendation(
       rule_id: 'XVAL-006',
       category: 'oncology',
       severity: 'high',
-      description:
-        '疑似恶性肿瘤/转移但未推荐 MDT 多学科会诊（肿瘤治疗决策需多科协作）',
+      description: SL('mdtNotRecommended', lang),
       source: 'model_comparison',
     });
   }
@@ -906,7 +961,8 @@ function crossValidateMDTRecommendation(
 
 function checkMissingInfo(
   structuredCase: StructuredCase,
-  adjudication: AdjudicatedAssessment
+  adjudication: AdjudicatedAssessment,
+  lang: AEMCLang
 ): TriggeredRule[] {
   const triggers: TriggeredRule[] = [];
 
@@ -921,7 +977,7 @@ function checkMissingInfo(
       rule_id: 'INFO-001',
       category: 'missing_info',
       severity: 'high',
-      description: `缺失关键信息过多 (${allMissing.size} 项)，影响分诊准确性`,
+      description: SL('missingInfo', lang).replace('{count}', String(allMissing.size)),
       source: 'adjudication',
     });
   }
@@ -1001,22 +1057,23 @@ function determineGateClass(
 
 function generateExplanation(
   gateClass: SafetyGateClass,
-  triggers: TriggeredRule[]
+  triggers: TriggeredRule[],
+  lang: AEMCLang
 ): string {
   if (triggers.length === 0) {
-    return '未检测到安全风险，结果可自动展示。';
+    return SL('noRisk', lang);
   }
 
   const classDescriptions: Record<SafetyGateClass, string> = {
-    A: '低风险，结果可自动展示。',
-    B: '存在信息缺失，建议展示结果同时引导用户补充关键信息。',
-    C: '检测到潜在风险信号，结果需人工医疗顾问审核后再展示。',
-    D: '检测到疑似急症信号，需立即提示用户就近急诊就医。',
+    A: SL('gateA', lang),
+    B: SL('gateB', lang),
+    C: SL('gateC', lang),
+    D: SL('gateD', lang),
   };
 
   const triggerSummary = triggers
     .map((t) => `[${t.rule_id}] ${t.description}`)
     .join('；');
 
-  return `${classDescriptions[gateClass]} 触发规则：${triggerSummary}`;
+  return `${classDescriptions[gateClass]} ${SL('triggeredRules', lang)}${triggerSummary}`;
 }

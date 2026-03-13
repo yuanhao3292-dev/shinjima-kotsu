@@ -45,7 +45,7 @@ import { mapToICD10 } from './icd10-mapper';
 import { adjudicateCase, AdjudicatorError } from './adjudicator';
 import { evaluateSafetyGate, type SafetyGateInput } from './safety-gate';
 import { matchHospitals } from './hospital-matcher';
-import { HOSPITAL_KNOWLEDGE_BASE } from './hospital-knowledge-base';
+import { HOSPITAL_KNOWLEDGE_BASE, getLocalizedHospitalInfo } from './hospital-knowledge-base';
 import { runLiteAnalysis } from './lite-analyzer';
 
 // ============================================================
@@ -138,7 +138,7 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
   }
 
   // === Step 2b: 提取验证（确定性逻辑，补漏 AI-1 遗漏的异常值） ===
-  const validationResult = validateExtraction(casePacket, structuredCase);
+  const validationResult = validateExtraction(casePacket, structuredCase, casePacket.language);
   if (validationResult.addedFindings.length > 0 || validationResult.addedRedFlags.length > 0) {
     structuredCase = validationResult.enrichedCase;
     console.info(
@@ -147,10 +147,10 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
   }
 
   // === Step 2c: 临床评分计算（确定性逻辑，注入 AI-2 输入） ===
-  const clinicalScores = calculateClinicalScores(structuredCase);
+  const clinicalScores = calculateClinicalScores(structuredCase, casePacket.language);
 
   // === Step 2d: 临床指南匹配（确定性逻辑，注入 AI-2 + AI-4） ===
-  const guidelineResult = matchClinicalGuidelines(structuredCase);
+  const guidelineResult = matchClinicalGuidelines(structuredCase, casePacket.language);
 
   // === Step 3: AI-2 分诊 + AI-3 挑战（并行执行） ===
   // AI-2 和 AI-3 都只需要 AI-1 的 StructuredCase，可以同时运行
@@ -211,7 +211,7 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
   }
 
   // === Step 3c: 药物相互作用检查（确定性逻辑，注入 AI-4） ===
-  const ddiResult = checkDrugInteractions(structuredCase, triageAssessment);
+  const ddiResult = checkDrugInteractions(structuredCase, triageAssessment, casePacket.language);
 
   // === Step 4: AI-4 质控仲裁 ===
   let adjudicatedAssessment;
@@ -260,7 +260,8 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
     hospitalRecommendation = matchHospitals(
       structuredCase,
       triageAssessment,
-      adjudicatedAssessment
+      adjudicatedAssessment,
+      casePacket.language
     );
     console.info(
       `[AEMC] Hospital matcher: ${hospitalRecommendation.recommended_hospitals.length} matches`
@@ -328,7 +329,7 @@ async function runLitePipeline(
   const { adjudicatedAssessment, runRecord } = liteResult;
 
   // V3 Lite 也执行确定性后处理（提取验证 + 检查安全拦截）
-  const validationResult = validateExtraction(casePacket, structuredCase);
+  const validationResult = validateExtraction(casePacket, structuredCase, casePacket.language);
   if (validationResult.addedFindings.length > 0 || validationResult.addedRedFlags.length > 0) {
     structuredCase = validationResult.enrichedCase;
     console.info(
@@ -347,8 +348,8 @@ async function runLitePipeline(
   // 确定性后处理：临床指南 + DDI + ICD-10
   // 注意：V3 Lite 这些模块在 AI 调用之后执行，仅用于后处理展示和审计，
   // 不影响 AI 的判断（Full pipeline 中 AI-2/AI-4 可以看到指南和 DDI 警告）
-  const guidelineResult = matchClinicalGuidelines(structuredCase);
-  const ddiResult = checkDrugInteractions(structuredCase, triageAssessment);
+  const guidelineResult = matchClinicalGuidelines(structuredCase, casePacket.language);
+  const ddiResult = checkDrugInteractions(structuredCase, triageAssessment, casePacket.language);
   const icd10Result = mapToICD10(
     triageAssessment.differential_directions.map((d) => d.name),
     casePacket.language
@@ -366,7 +367,7 @@ async function runLitePipeline(
   // 医院匹配
   let hospitalRecommendation: HospitalRecommendation | undefined;
   try {
-    hospitalRecommendation = matchHospitals(structuredCase, triageAssessment, adjudicatedAssessment);
+    hospitalRecommendation = matchHospitals(structuredCase, triageAssessment, adjudicatedAssessment, casePacket.language);
   } catch (matchError) {
     console.warn('[AEMC] Hospital matcher failed (non-critical):', matchError instanceof Error ? matchError.message : matchError);
   }
@@ -520,10 +521,11 @@ function convertToLegacyResult(pipeline: AEMCPipelineResult, language?: Analysis
     pipeline.hospital_recommendation
       ? pipeline.hospital_recommendation.recommended_hospitals.map((h) => {
           const kb = HOSPITAL_KNOWLEDGE_BASE.find((k) => k.id === h.hospital_id);
+          const localInfo = kb ? getLocalizedHospitalInfo(kb, lang) : null;
           return {
             name: h.hospital_name,
             nameJa: kb?.nameJa,
-            location: kb?.location || '',
+            location: localInfo?.location || kb?.location || '',
             features: h.match_reasons,
             suitableFor: h.department,
           };

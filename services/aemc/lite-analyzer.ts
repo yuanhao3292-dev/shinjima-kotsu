@@ -170,7 +170,13 @@ export async function runLiteAnalysis(
     sc.present_illness = { symptoms: [], aggravating_factors: [], relieving_factors: [], associated_symptoms: [] };
   }
   sc.present_illness.symptoms = sc.present_illness.symptoms || [];
-  if (!sc.chief_complaint) sc.chief_complaint = '未能提取主诉';
+  if (!sc.chief_complaint) {
+    const fallbacks: Record<string, string> = {
+      'zh-CN': '未能提取主诉', 'zh-TW': '未能提取主訴',
+      ja: '主訴を抽出できませんでした', en: 'Unable to extract chief complaint',
+    };
+    sc.chief_complaint = fallbacks[casePacket.language] || fallbacks['zh-CN'];
+  }
 
   ta.case_id = caseId;
   ta.recommended_departments = ta.recommended_departments || [];
