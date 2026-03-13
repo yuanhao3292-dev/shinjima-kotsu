@@ -13,6 +13,7 @@
  */
 
 import type { StructuredCase, TriageAssessment } from './types';
+import { type AEMCLang } from './hospital-knowledge-base';
 
 // ============================================================
 // 类型定义
@@ -68,6 +69,70 @@ function textContains(texts: string[], keywords: string[]): boolean {
 }
 
 // ============================================================
+// 多语言翻译
+// ============================================================
+
+type TSStr = Record<AEMCLang, string>;
+const TS_I18N: Record<string, TSStr> = {
+  // TSR-001: Agatston >400 → 运动负荷试验禁忌，换药物负荷
+  tsr001rep: {
+    'zh-CN': '药物负荷心肌灌注显像（腺苷/多巴酚丁胺）或冠脉造影（CAG）— 运动负荷试验因冠脉钙化高值(Agatston >400)属禁忌',
+    'zh-TW': '藥物負荷心肌灌注顯像（腺苷/多巴酚丁胺）或冠脈造影（CAG）— 運動負荷試驗因冠脈鈣化高值(Agatston >400)屬禁忌',
+    en: 'Pharmacological stress myocardial perfusion imaging (adenosine/dobutamine) or coronary angiography (CAG) — Exercise stress test contraindicated due to high coronary calcification (Agatston >400)',
+    ja: '薬物負荷心筋シンチグラフィー（アデノシン/ドブタミン）または冠動脈造影（CAG）— 運動負荷試験は冠動脈石灰化高値(Agatston >400)のため禁忌',
+  },
+  tsr001reason: {
+    'zh-CN': 'Agatston {val} >400: 运动负荷试验对重症冠脉疾病患者有心脏事件风险。推荐药物负荷或直接 CAG',
+    'zh-TW': 'Agatston {val} >400: 運動負荷試驗對重症冠脈疾病患者有心臟事件風險。推薦藥物負荷或直接 CAG',
+    en: 'Agatston {val} >400: Exercise stress test poses cardiac event risk in severe coronary artery disease. Pharmacological stress or direct CAG recommended',
+    ja: 'Agatston {val} >400: 運動負荷試験は重症冠動脈疾患患者に心臓イベントリスクあり。薬物負荷または直接 CAG を推奨',
+  },
+  // TSR-002: Agatston >400 → CTA 精度低下
+  tsr002rep: {
+    'zh-CN': '冠脉造影（CAG）推荐 — 冠脉 CTA 因钙化伪影导致精度下降(Agatston >400)。CTA 可作为备选',
+    'zh-TW': '冠脈造影（CAG）推薦 — 冠脈 CTA 因鈣化偽影導致精度下降(Agatston >400)。CTA 可作為備選',
+    en: 'Coronary angiography (CAG) recommended — Coronary CTA accuracy degraded by calcium blooming artifact (Agatston >400). CTA may be considered as alternative',
+    ja: '冠動脈造影（CAG）推奨 — 冠動脈CTAはカルシウムブルーミングにより精度低下(Agatston >400)。CTAは代替選択肢として検討可',
+  },
+  tsr002reason: {
+    'zh-CN': 'Agatston {val} >400: 钙化伪影导致冠脉 CTA 狭窄评估精度显著下降。有创 CAG 为首选',
+    'zh-TW': 'Agatston {val} >400: 鈣化偽影導致冠脈 CTA 狹窄評估精度顯著下降。有創 CAG 為首選',
+    en: 'Agatston {val} >400: Calcium blooming significantly degrades coronary CTA stenosis assessment accuracy. Invasive CAG is first-line',
+    ja: 'Agatston {val} >400: カルシウムブルーミングにより冠動脈CTA の狭窄評価精度が著しく低下。侵襲的 CAG が第一選択',
+  },
+  // TSR-003: eGFR <30 → 造影剂禁忌
+  tsr003rep: {
+    'zh-CN': '⚠️ 造影剂使用因肾功能严重低下(eGFR <30)属高风险。优先无造影检查，如必须使用需肾内科会诊并充分水化',
+    'zh-TW': '⚠️ 造影劑使用因腎功能嚴重低下(eGFR <30)屬高風險。優先無造影檢查，如必須使用需腎內科會診並充分水化',
+    en: '⚠️ Contrast agent use is high-risk due to severe renal impairment (eGFR <30). Prioritize non-contrast studies; if unavoidable, nephrology consultation and hydration protocol required',
+    ja: '⚠️ 造影剤使用は腎機能高度低下(eGFR <30)のため高リスク。非造影検査を優先、やむを得ない場合は腎臓内科と相談の上、十分な補液プロトコルを実施',
+  },
+  tsr003reason: {
+    'zh-CN': 'eGFR {val} <30: 造影剂肾病高风险。优先无造影检查，使用造影剂时需肾内科会诊',
+    'zh-TW': 'eGFR {val} <30: 造影劑腎病高風險。優先無造影檢查，使用造影劑時需腎內科會診',
+    en: 'eGFR {val} <30: High risk of contrast-induced nephropathy. Prioritize non-contrast studies; nephrology consultation mandatory if contrast used',
+    ja: 'eGFR {val} <30: 造影剤腎症の高リスク。非造影検査を優先し、造影剤使用時は腎臓内科コンサルト必須',
+  },
+  // TSR-004: eGFR 30-60 → 造影剂注意
+  tsr004suffix: {
+    'zh-CN': '⚠️ eGFR {val}: 使用造影剂时需水化方案',
+    'zh-TW': '⚠️ eGFR {val}: 使用造影劑時需水化方案',
+    en: '⚠️ eGFR {val}: Hydration protocol required when using contrast agent',
+    ja: '⚠️ eGFR {val}: 造影剤使用時は補液プロトコル必須',
+  },
+  tsr004reason: {
+    'zh-CN': 'eGFR {val} (30-60): 造影剂肾病中风险。附加水化方案并提示注意',
+    'zh-TW': 'eGFR {val} (30-60): 造影劑腎病中風險。附加水化方案並提示注意',
+    en: 'eGFR {val} (30-60): Moderate risk of contrast-induced nephropathy. Hydration protocol appended with caution',
+    ja: 'eGFR {val} (30-60): 造影剤腎症の中リスク。補液プロトコルを添付して注意喚起',
+  },
+};
+
+function TSL(key: string, lang: AEMCLang): string {
+  return TS_I18N[key]?.[lang] || TS_I18N[key]?.['zh-CN'] || key;
+}
+
+// ============================================================
 // 安全规则定义
 // ============================================================
 
@@ -78,7 +143,7 @@ interface SafetyRule {
   /** 检查某条建议是否匹配需拦截的危险检查 */
   matchesUnsafeTest: (test: string) => boolean;
   /** 返回替换方案和原因 */
-  getReplacement: (originalTest: string, sc: StructuredCase) => { replacement: string; reason: string };
+  getReplacement: (originalTest: string, sc: StructuredCase, lang: AEMCLang) => { replacement: string; reason: string };
 }
 
 const SAFETY_RULES: SafetyRule[] = [
@@ -104,14 +169,14 @@ const SAFETY_RULES: SafetyRule[] = [
         (t.includes('負荷') && t.includes('心電'))
       );
     },
-    getReplacement: (_orig, sc) => {
+    getReplacement: (_orig, sc, lang) => {
       const agatston = extractNumericFromText(
         [...sc.exam_findings, ...sc.known_diagnoses],
         ['agatston', 'calcium score', '钙化评分', '钙化积分']
       );
       return {
-        replacement: '薬物負荷心筋シンチグラフィー（アデノシン/ドブタミン）または冠動脈造影（CAG）— 運動負荷試験は冠動脈石灰化高値(Agatston >400)のため禁忌',
-        reason: `Agatston ${agatston} >400: 運動負荷試験は重症冠動脈疾患患者に心臓イベントリスクあり。薬物負荷または直接 CAG を推奨`,
+        replacement: TSL('tsr001rep', lang),
+        reason: TSL('tsr001reason', lang).replace('{val}', String(agatston)),
       };
     },
   },
@@ -139,14 +204,14 @@ const SAFETY_RULES: SafetyRule[] = [
         (t.includes('coronary') && t.includes('ct'))
       );
     },
-    getReplacement: (_orig, sc) => {
+    getReplacement: (_orig, sc, lang) => {
       const agatston = extractNumericFromText(
         [...sc.exam_findings, ...sc.known_diagnoses],
         ['agatston', 'calcium score', '钙化評分', '钙化積分']
       );
       return {
-        replacement: '冠動脈造影（CAG）推奨 — 冠動脈CTAはカルシウムブルーミングにより精度低下(Agatston >400)。CTAは代替選択肢として検討可',
-        reason: `Agatston ${agatston} >400: カルシウムブルーミングにより冠動脈CTA の狭窄評価精度が著しく低下。侵襲的 CAG が第一選択`,
+        replacement: TSL('tsr002rep', lang),
+        reason: TSL('tsr002reason', lang).replace('{val}', String(agatston)),
       };
     },
   },
@@ -171,14 +236,14 @@ const SAFETY_RULES: SafetyRule[] = [
         (t.includes('enhanced') && (t.includes('ct') || t.includes('mri')))
       );
     },
-    getReplacement: (_orig, sc) => {
+    getReplacement: (orig, sc, lang) => {
       const egfr = extractNumericFromText(
         [...sc.exam_findings, ...sc.known_diagnoses],
         ['egfr', 'gfr']
       );
       return {
-        replacement: '⚠️ 造影剤使用は腎機能高度低下(eGFR <30)のため高リスク。非造影検査を優先、やむを得ない場合は腎臓内科と相談の上、十分な補液プロトコルを実施',
-        reason: `eGFR ${egfr} <30: 造影剤腎症の高リスク。非造影検査を優先し、造影剤使用時は腎臓内科コンサルト必須`,
+        replacement: `${orig}（${TSL('tsr003rep', lang)}）`,
+        reason: TSL('tsr003reason', lang).replace('{val}', String(egfr)),
       };
     },
   },
@@ -201,14 +266,14 @@ const SAFETY_RULES: SafetyRule[] = [
         (t.includes('enhanced') && (t.includes('ct') || t.includes('mri')))
       );
     },
-    getReplacement: (orig, sc) => {
+    getReplacement: (orig, sc, lang) => {
       const egfr = extractNumericFromText(
         [...sc.exam_findings, ...sc.known_diagnoses],
         ['egfr', 'gfr']
       );
       return {
-        replacement: `${orig}（⚠️ eGFR ${egfr}: 造影剤使用時は補液プロトコル必須）`,
-        reason: `eGFR ${egfr} (30-60): 造影剤腎症の中リスク。補液プロトコルを添付して注意喚起`,
+        replacement: `${orig}（${TSL('tsr004suffix', lang).replace('{val}', String(egfr))}）`,
+        reason: TSL('tsr004reason', lang).replace('{val}', String(egfr)),
       };
     },
   },
@@ -224,8 +289,10 @@ const SAFETY_RULES: SafetyRule[] = [
  */
 export function interceptUnsafeTests(
   structuredCase: StructuredCase,
-  triageAssessment: TriageAssessment
+  triageAssessment: TriageAssessment,
+  language?: string
 ): TestSafetyResult {
+  const lang = (language || 'zh-CN') as AEMCLang;
   const replacements: TestReplacement[] = [];
   const safeSuggestedTests = [...triageAssessment.suggested_tests];
 
@@ -236,7 +303,7 @@ export function interceptUnsafeTests(
       if (!rule.appliesTo(structuredCase)) continue;
       if (!rule.matchesUnsafeTest(test)) continue;
 
-      const { replacement, reason } = rule.getReplacement(test, structuredCase);
+      const { replacement, reason } = rule.getReplacement(test, structuredCase, lang);
 
       replacements.push({
         original: test,

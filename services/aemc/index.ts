@@ -202,7 +202,7 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
   }
 
   // === Step 3b: 检查安全性拦截（确定性逻辑，替换危险检查推荐） ===
-  const testSafetyResult = interceptUnsafeTests(structuredCase, triageAssessment);
+  const testSafetyResult = interceptUnsafeTests(structuredCase, triageAssessment, casePacket.language);
   if (testSafetyResult.replacements.length > 0) {
     triageAssessment.suggested_tests = testSafetyResult.safeSuggestedTests;
     console.info(
@@ -337,7 +337,7 @@ async function runLitePipeline(
     );
   }
 
-  const testSafetyResult = interceptUnsafeTests(structuredCase, triageAssessment);
+  const testSafetyResult = interceptUnsafeTests(structuredCase, triageAssessment, casePacket.language);
   if (testSafetyResult.replacements.length > 0) {
     triageAssessment = { ...triageAssessment, suggested_tests: testSafetyResult.safeSuggestedTests };
     console.info(
@@ -535,6 +535,7 @@ function convertToLegacyResult(pipeline: AEMCPipelineResult, language?: Analysis
   return {
     riskLevel: effectiveRiskLevel,
     riskSummary,
+    recommendedDepartments: adj.final_departments,
     recommendedTests: triage.suggested_tests,
     treatmentSuggestions,
     recommendedHospitals,

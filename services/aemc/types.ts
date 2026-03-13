@@ -260,6 +260,7 @@ export interface AnalysisResult {
   riskLevel: 'low' | 'medium' | 'high';
   riskSummary: string;
   riskFactors?: string[];
+  recommendedDepartments?: string[];
   recommendedTests: string[];
   treatmentSuggestions: string[];
   recommendedHospitals: LegacyRecommendedHospital[];

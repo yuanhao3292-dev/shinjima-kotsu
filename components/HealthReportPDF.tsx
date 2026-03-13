@@ -699,6 +699,7 @@ interface HealthReportPDFProps {
     analysisResult: {
       riskLevel: 'low' | 'medium' | 'high';
       riskSummary: string;
+      recommendedDepartments?: string[];
       recommendedTests: string[];
       treatmentSuggestions: string[];
       recommendedHospitals: {
@@ -743,10 +744,30 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
   };
 
   const getDepartments = () => {
-    if (!bodyMapData?.recommendedDepartments) return [];
-    return bodyMapData.recommendedDepartments
-      .map((deptId) => MEDICAL_DEPARTMENTS.find((d) => d.id === deptId))
-      .filter(Boolean);
+    // 优先使用问卷 bodyMapData 的科室推荐
+    if (bodyMapData?.recommendedDepartments && bodyMapData.recommendedDepartments.length > 0) {
+      const mapped = bodyMapData.recommendedDepartments
+        .map((deptId) => MEDICAL_DEPARTMENTS.find((d) => d.id === deptId))
+        .filter(Boolean);
+      if (mapped.length > 0) return mapped;
+    }
+    // 回退：使用 AEMC pipeline 输出的科室名
+    if (analysisResult.recommendedDepartments && analysisResult.recommendedDepartments.length > 0) {
+      return analysisResult.recommendedDepartments.map((deptName) => ({
+        name: deptName,
+        description: '',
+        recommendedTests: [] as string[],
+      }));
+    }
+    return [];
+  };
+
+  // 动态编号：Section 02 (症状区域) 可能隐藏，后续编号自动调整
+  const hasSymptomSection = !!(bodyMapData && bodyMapData.selectedBodyParts.length > 0);
+  const secNum = (n: number) => {
+    if (n <= 2) return String(n).padStart(2, '0');
+    const adjusted = hasSymptomSection ? n : n - 1;
+    return String(adjusted).padStart(2, '0');
   };
 
   return (
@@ -754,7 +775,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
       {/* 封面 */}
       <Page size="A4" style={[styles.page, styles.coverPage, { fontFamily }]}>
         <View style={styles.coverHeader}>
-          <Text style={styles.coverBrand}>新岛交通株式会社</Text>
+          <Text style={styles.coverBrand}>新島交通株式会社</Text>
           <Text style={styles.coverTitle}>{pt('coverTitle')}</Text>
           <Text style={styles.coverSubtitle}>{pt('coverSubtitle')}</Text>
         </View>
@@ -796,7 +817,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
       {/* 第2页：风险分析 */}
       <Page size="A4" style={[styles.page, { fontFamily }]}>
         <View style={styles.pageHeader}>
-          <Text style={styles.headerBrand}>新岛交通</Text>
+          <Text style={styles.headerBrand}>新島交通</Text>
           <Text style={styles.headerTitle}>AI Health Assessment</Text>
         </View>
 
@@ -846,7 +867,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
 
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionNum}>03</Text>
+            <Text style={styles.sectionNum}>{secNum(3)}</Text>
             <Text style={styles.sectionTitle}>{pt('recommendedDepartments')}</Text>
           </View>
           <View style={styles.sectionBar} />
@@ -867,7 +888,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
 
         <View style={styles.footer}>
           <Text style={styles.footerText}>{formatDateShort(createdAt)}</Text>
-          <Text style={styles.footerBrand}>新岛交通株式会社</Text>
+          <Text style={styles.footerBrand}>新島交通株式会社</Text>
           <Text style={styles.footerText}>{pt('page2')}</Text>
         </View>
       </Page>
@@ -875,13 +896,13 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
       {/* 第3页：检查建议 */}
       <Page size="A4" style={[styles.page, { fontFamily }]}>
         <View style={styles.pageHeader}>
-          <Text style={styles.headerBrand}>新岛交通</Text>
+          <Text style={styles.headerBrand}>新島交通</Text>
           <Text style={styles.headerTitle}>AI Health Assessment</Text>
         </View>
 
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionNum}>04</Text>
+            <Text style={styles.sectionNum}>{secNum(4)}</Text>
             <Text style={styles.sectionTitle}>{pt('suggestedExaminations')}</Text>
           </View>
           <View style={styles.sectionBar} />
@@ -897,7 +918,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
 
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionNum}>05</Text>
+            <Text style={styles.sectionNum}>{secNum(5)}</Text>
             <Text style={styles.sectionTitle}>{pt('advancedTreatment')}</Text>
           </View>
           <View style={styles.sectionBar} />
@@ -913,7 +934,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
 
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionNum}>06</Text>
+            <Text style={styles.sectionNum}>{secNum(6)}</Text>
             <Text style={styles.sectionTitle}>{pt('nextSteps')}</Text>
           </View>
           <View style={styles.sectionBar} />
@@ -929,7 +950,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
 
         <View style={styles.footer}>
           <Text style={styles.footerText}>{formatDateShort(createdAt)}</Text>
-          <Text style={styles.footerBrand}>新岛交通株式会社</Text>
+          <Text style={styles.footerBrand}>新島交通株式会社</Text>
           <Text style={styles.footerText}>{pt('page3')}</Text>
         </View>
       </Page>
@@ -937,13 +958,13 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
       {/* 第4页：推荐医院 */}
       <Page size="A4" style={[styles.page, { fontFamily }]}>
         <View style={styles.pageHeader}>
-          <Text style={styles.headerBrand}>新岛交通</Text>
+          <Text style={styles.headerBrand}>新島交通</Text>
           <Text style={styles.headerTitle}>AI Health Assessment</Text>
         </View>
 
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionNum}>07</Text>
+            <Text style={styles.sectionNum}>{secNum(7)}</Text>
             <Text style={styles.sectionTitle}>{pt('recommendedHospitals')}</Text>
           </View>
           <View style={styles.sectionBar} />
@@ -982,7 +1003,7 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
 
         <View style={styles.footer}>
           <Text style={styles.footerText}>© 2025 新島交通株式会社</Text>
-          <Text style={styles.footerBrand}>新岛交通株式会社</Text>
+          <Text style={styles.footerBrand}>新島交通株式会社</Text>
           <Text style={styles.footerText}>{pt('page4')}</Text>
         </View>
       </Page>
