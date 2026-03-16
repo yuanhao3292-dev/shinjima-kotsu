@@ -137,7 +137,14 @@ function extractNumericValue(
 
 function hasKeyword(texts: string[], keywords: string[]): boolean {
   const combined = texts.join(' ').toLowerCase();
-  return keywords.some((kw) => combined.includes(kw.toLowerCase()));
+  return keywords.some((kw) => {
+    const lower = kw.toLowerCase();
+    // 短英文关键词（≤4 字符且全 ASCII）使用词边界匹配，防止子串误匹配
+    if (lower.length <= 4 && /^[a-z0-9-]+$/.test(lower)) {
+      return new RegExp(`\\b${lower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i').test(combined);
+    }
+    return combined.includes(lower);
+  });
 }
 
 // ============================================================
@@ -245,7 +252,7 @@ function calculateCardiovascularRisk(structuredCase: StructuredCase, lang: AEMCL
   }
 
   // 糖尿病/糖耐量异常
-  if (hasKeyword(allText, ['糖尿病', 'diabetes', 'hba1c', '糖耐量', 'impaired glucose', 'pre-diabet', '血糖'])) {
+  if (hasKeyword(allText, ['糖尿病', 'diabetes', 'hba1c', '糖耐量', 'impaired glucose', 'pre-diabet'])) {
     riskFactors += 1;
     factors.push(CSL('diabetes', lang));
   }
@@ -334,7 +341,7 @@ function calculateCHA2DS2VASc(structuredCase: StructuredCase, lang: AEMCLang): C
   ];
 
   // 仅在有房颤时计算
-  if (!hasKeyword(allText, ['房颤', 'atrial fibrillation', 'af', 'afib', '心房細動'])) {
+  if (!hasKeyword(allText, ['房颤', 'atrial fibrillation', 'afib', 'a-fib', '心房細動', '心房颤动'])) {
     return null;
   }
 
@@ -358,7 +365,7 @@ function calculateCHA2DS2VASc(structuredCase: StructuredCase, lang: AEMCLang): C
     components.push(CSL('chaA2', lang));
   }
   // D: 糖尿病 (+1)
-  if (hasKeyword(allText, ['糖尿病', 'diabetes', 'dm'])) {
+  if (hasKeyword(allText, ['糖尿病', 'diabetes', 'dm2', 'dm1', 'type 2 dm', 'type 1 dm'])) {
     score += 1;
     components.push(CSL('chaD', lang));
   }
@@ -368,7 +375,7 @@ function calculateCHA2DS2VASc(structuredCase: StructuredCase, lang: AEMCLang): C
     components.push(CSL('chaS2', lang));
   }
   // V: 血管疾病 (+1)
-  if (hasKeyword(allText, ['心肌梗', 'mi', '外周动脉', 'pad', '主动脉斑块', 'aortic plaque'])) {
+  if (hasKeyword(allText, ['心肌梗', 'myocardial infarction', '外周动脉', 'peripheral arterial', '主动脉斑块', 'aortic plaque'])) {
     score += 1;
     components.push(CSL('chaV', lang));
   }

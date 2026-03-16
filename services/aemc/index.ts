@@ -250,6 +250,7 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
     case_packet: casePacket,
     structured_case: structuredCase,
     triage_assessment: triageAssessment,
+    challenge_review: challengeReview,
     adjudicated_assessment: adjudicatedAssessment,
   };
   const safetyGate = evaluateSafetyGate(safetyGateInput);

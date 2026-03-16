@@ -298,11 +298,11 @@ const MEDICAL_PATTERNS: MedicalPattern[] = [
   {
     name: 'LVEF (左室射血分数)',
     i18nKey: 'lvef',
-    pattern: /(?:LVEF|EF|射血分数|駆出率)[^\d]*?(\d+(?:\.\d+)?)\s*%?/i,
+    pattern: /(?:LVEF|(?<![A-Za-z])EF(?![A-Za-z])|射血分数|駆出率)[^\d]*?(\d+(?:\.\d+)?)\s*%?/i,
     isAbnormal: (v) => v < 50,
     redFlagCondition: (v) => v < 40,
     redFlagDescription: 'LVEF <40%，提示收缩性心力衰竭',
-    checkKeywords: ['lvef', 'ef', '射血分数', '駆出率'],
+    checkKeywords: ['lvef', '射血分数', '駆出率'],
   },
   {
     name: 'TAPSE',
@@ -326,8 +326,8 @@ const MEDICAL_PATTERNS: MedicalPattern[] = [
   {
     name: '血清肌酐',
     i18nKey: 'creatinine',
-    pattern: /(?:creatinine|クレアチニン|肌酐|Cr)[^\d]*?(\d+(?:\.\d+)?)\s*(?:mg\/dl|μmol\/l)?/i,
-    isAbnormal: (v) => v > 1.2,
+    pattern: /(?:creatinine|クレアチニン|肌酐|(?<![A-Za-z])Cr(?![A-Za-z]))[^\d]*?(\d+(?:\.\d+)?)\s*(?:mg\/dl|μmol\/l)?/i,
+    isAbnormal: (v) => v > 20 ? v > 106 : v > 1.2, // >20 视为 μmol/L（阈值 106），否则 mg/dL（阈值 1.2）
     checkKeywords: ['creatinine', 'クレアチニン', '肌酐'],
   },
   // === 代谢指标 ===

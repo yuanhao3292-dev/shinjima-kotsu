@@ -297,26 +297,26 @@ export function interceptUnsafeTests(
   const safeSuggestedTests = [...triageAssessment.suggested_tests];
 
   for (let i = 0; i < safeSuggestedTests.length; i++) {
-    const test = safeSuggestedTests[i];
+    const originalTest = safeSuggestedTests[i];
 
     for (const rule of SAFETY_RULES) {
       if (!rule.appliesTo(structuredCase)) continue;
-      if (!rule.matchesUnsafeTest(test)) continue;
+      // 检查原始文本和当前替换文本，确保多规则可叠加
+      const currentTest = safeSuggestedTests[i];
+      if (!rule.matchesUnsafeTest(originalTest) && !rule.matchesUnsafeTest(currentTest)) continue;
 
-      const { replacement, reason } = rule.getReplacement(test, structuredCase, lang);
+      const { replacement, reason } = rule.getReplacement(currentTest, structuredCase, lang);
 
       replacements.push({
-        original: test,
+        original: originalTest,
         replacement,
         reason,
         ruleId: rule.id,
       });
 
       safeSuggestedTests[i] = replacement;
-      console.info(`[TestSafety] ${rule.id}: 替换 "${test}" → "${replacement}"`);
-
-      // 每条检查只匹配第一个适用的安全规则
-      break;
+      console.info(`[TestSafety] ${rule.id}: 替换 "${currentTest}" → "${replacement}"`);
+      // 不 break — 允许多规则叠加（如冠脉规则 + 肾脏造影剂警告）
     }
   }
 
