@@ -230,6 +230,8 @@ async function handleCheckoutSessionCompleted(supabase: SupabaseClient, session:
     : null;
   const orderType = session.metadata?.order_type || 'medical';
   const moduleId = session.metadata?.module_id || null;
+  const locale = (session.metadata?.locale || 'ja') as 'ja' | 'zh-CN' | 'zh-TW' | 'en';
+  const provider = session.metadata?.provider || undefined;
 
   // 更新订单状态为 paid
   const { error: orderError } = await supabase
@@ -303,19 +305,20 @@ async function handleCheckoutSessionCompleted(supabase: SupabaseClient, session:
   if (orderDetails && orderDetails.customer_snapshot) {
     const customerSnapshot = orderDetails.customer_snapshot as { name: string; email: string };
 
-    // 单独查询套餐名称
-    let packageName = '體檢套餐';
+    // 单独查询套餐名称（根据 locale 选择对应语言）
+    let packageName = locale === 'en' ? 'Medical Check-up' : locale === 'ja' ? '健診プラン' : '體檢套餐';
     if (orderDetails.package_id) {
+      const nameColumn = locale === 'ja' ? 'name_ja' : locale === 'en' ? 'name_en' : 'name_zh_tw';
       const { data: packageData } = await supabase
         .from('medical_packages')
-        .select('name_zh_tw')
+        .select(`${nameColumn}, name_zh_tw`)
         .eq('id', orderDetails.package_id)
         .single();
-      if (packageData?.name_zh_tw) {
-        packageName = packageData.name_zh_tw;
+      if (packageData) {
+        packageName = (packageData as Record<string, string>)[nameColumn] || packageData.name_zh_tw || packageName;
       }
     }
-    console.log('Package name:', packageName);
+    console.log('Package name:', packageName, 'locale:', locale);
 
     // 发送客户确认邮件
     await sendOrderConfirmationEmail({
@@ -327,6 +330,8 @@ async function handleCheckoutSessionCompleted(supabase: SupabaseClient, session:
       preferredDate: orderDetails.preferred_date || undefined,
       preferredTime: orderDetails.preferred_time || undefined,
       notes: orderDetails.notes || undefined,
+      locale,
+      provider,
     });
 
     // 发送商家通知
@@ -887,7 +892,7 @@ async function calculateAndRecordCommission(
   // 4. 更新导游的累计佣金（注意：不更新 available_balance，等待 2 周后由 RPC 释放）
   const { data: guideData } = await supabase
     .from('guides')
-    .select('total_commission, name, email')
+    .select('total_commission, name, email, preferred_locale')
     .eq('id', guideId)
     .single();
 
@@ -915,6 +920,7 @@ async function calculateAndRecordCommission(
         isNewCustomerBonus: isNewCustomerFirstOrder,
         bonusAmount: bonusCommission > 0 ? bonusCommission : undefined,
         orderId,
+        locale: (guideData.preferred_locale || 'ja') as 'ja' | 'zh-CN' | 'zh-TW' | 'en',
       });
     }
   }

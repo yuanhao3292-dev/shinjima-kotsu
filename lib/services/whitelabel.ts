@@ -9,7 +9,7 @@ import { DEFAULT_SELECTED_PAGES } from "@/lib/whitelabel-config";
 // Re-export types for consumers
 export type { GuideDistributionPage } from "@/lib/types/whitelabel";
 
-// 服务端 Supabase 客户端
+// 服务端 Supabase 客户端（禁用 Next.js fetch 缓存，确保白标设置修改后立即生效）
 function getServiceClient() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
   const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -18,7 +18,12 @@ function getServiceClient() {
     throw new Error("Missing Supabase environment variables");
   }
 
-  return createClient(supabaseUrl, supabaseServiceKey);
+  return createClient(supabaseUrl, supabaseServiceKey, {
+    global: {
+      fetch: (url: RequestInfo | URL, init?: RequestInit) =>
+        fetch(url, { ...init, cache: 'no-store' }),
+    },
+  });
 }
 
 /**

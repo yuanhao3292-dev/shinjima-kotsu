@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
+
 
 // ======================================
 // 多语言翻译
@@ -1075,10 +1075,6 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
 
   return (
     <div className="animate-fade-in-up min-h-screen bg-white">
-      {/* Language Switcher - Fixed top right */}
-      <div className="fixed top-4 right-4 z-50">
-        <LanguageSwitcher variant="compact" />
-      </div>
 
       {/* ========================================
           1. Hero Section - 全屏背景图 (TIMC 风格)

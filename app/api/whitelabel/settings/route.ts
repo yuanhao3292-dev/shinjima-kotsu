@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { createClient as createServerClient } from "@/lib/supabase/server";
 import { getSupabaseAdmin } from "@/lib/supabase/api";
 import { validateBody } from "@/lib/validations/validate";
@@ -174,10 +175,10 @@ export async function PUT(request: NextRequest) {
 
     const supabase = getSupabaseAdmin();
 
-    // 4. 获取当前导游信息
+    // 4. 获取当前导游信息（含 slug，用于更新后清除页面缓存）
     const { data: guide, error: guideError } = await supabase
       .from("guides")
-      .select("id, subscription_status")
+      .select("id, subscription_status, slug")
       .eq("auth_user_id", user.id)
       .single();
 
@@ -256,6 +257,16 @@ export async function PUT(request: NextRequest) {
         { error: "保存失败，请稍后重试" },
         { status: 500 }
       );
+    }
+
+    // 9. 清除白标页面缓存，使新设置立即生效
+    const currentSlug = guide.slug;
+    const newSlug = settings.slug?.toLowerCase();
+    if (currentSlug) {
+      revalidatePath(`/g/${currentSlug}`, "layout");
+    }
+    if (newSlug && newSlug !== currentSlug) {
+      revalidatePath(`/g/${newSlug}`, "layout");
     }
 
     return NextResponse.json({

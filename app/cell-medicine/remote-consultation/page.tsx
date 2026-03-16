@@ -167,6 +167,7 @@ export default function CellMedicineRemoteConsultationPage() {
           customerInfo: { name: customerInfo.name, email: customerInfo.email || '', phone: customerInfo.phone, line: customerInfo.line, wechat: customerInfo.wechat, country: customerInfo.country },
           preferredDate: preferredTimes.time1 || null, preferredTime: null, notes: fullNotes,
           provider: providerKey || 'cell_medicine',
+          locale: currentLang,
         }),
       });
       const data = await response.json();

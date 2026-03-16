@@ -1,3 +1,4 @@
+import PublicLayout from '@/components/PublicLayout';
 import IGTCContent from './IGTCContent';
 
 export const metadata = {
@@ -6,5 +7,9 @@ export const metadata = {
 };
 
 export default function IGTCPage() {
-  return <IGTCContent />;
+  return (
+    <PublicLayout showFooter={true}>
+      <IGTCContent />
+    </PublicLayout>
+  );
 }

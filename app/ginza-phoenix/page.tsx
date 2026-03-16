@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import PublicLayout from '@/components/PublicLayout';
 import GinzaPhoenixContent from './GinzaPhoenixContent';
 
 export const metadata: Metadata = {
@@ -13,5 +14,9 @@ export const metadata: Metadata = {
 };
 
 export default function GinzaPhoenixPage() {
-  return <GinzaPhoenixContent />;
+  return (
+    <PublicLayout showFooter={true}>
+      <GinzaPhoenixContent />
+    </PublicLayout>
+  );
 }

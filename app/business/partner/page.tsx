@@ -1733,7 +1733,7 @@ export default function PartnerBusinessPage() {
                 </div>
                 <div className="text-sm text-neutral-400 mb-1">{t('contactAddressLabel')}</div>
                 <div className="text-white">
-                  大阪府大阪市浪速区大国1-2-21-602
+                  {currentLang === 'en' ? '1-2-21-602 Daikoku, Naniwa-ku, Osaka 556-0014, Japan' : currentLang === 'zh-TW' ? '大阪府大阪市浪速區大國1-2-21-602' : '大阪府大阪市浪速区大国1-2-21-602'}
                 </div>
               </div>
             </div>

@@ -317,6 +317,7 @@ export default function PackageDetailContent({
           preferredDate: preferredDate || null,
           notes: notesWithTime || null,
           provider: providerKey,
+          locale: currentLang,
           ...(isGuideEmbed && guideSlug ? { guideSlug } : {}),
         }),
       });

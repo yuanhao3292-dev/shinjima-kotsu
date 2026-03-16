@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
     // 使用 Zod 验证输入
     const validation = await validateBody(request, CreateCheckoutSessionSchema);
     if (!validation.success) return validation.error;
-    const { packageSlug, customerInfo, preferredDate, preferredTime, notes, guideSlug: bodyGuideSlug, provider } = validation.data;
+    const { packageSlug, customerInfo, preferredDate, preferredTime, notes, guideSlug: bodyGuideSlug, provider, locale } = validation.data;
 
     // 获取白标导游归属（优先 body 显式传入，fallback Cookie）
     // body 优先：防止跨浏览器/跨设备场景下 Cookie 丢失
@@ -231,6 +231,11 @@ export async function POST(request: NextRequest) {
     // 如果有来源提供方，记录到 metadata（用于后台按机构统计转化）
     if (provider) {
       sessionMetadata.provider = provider;
+    }
+
+    // 客户选择的语言，用于发送对应语种的确认邮件
+    if (locale) {
+      sessionMetadata.locale = locale;
     }
 
     // 构建 success/cancel URL

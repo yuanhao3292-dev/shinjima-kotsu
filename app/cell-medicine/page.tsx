@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import PublicLayout from '@/components/PublicLayout';
 import CellMedicineContent from './CellMedicineContent';
 
 export const metadata: Metadata = {
@@ -13,5 +14,9 @@ export const metadata: Metadata = {
 };
 
 export default function CellMedicinePage() {
-  return <CellMedicineContent />;
+  return (
+    <PublicLayout showFooter={true}>
+      <CellMedicineContent />
+    </PublicLayout>
+  );
 }

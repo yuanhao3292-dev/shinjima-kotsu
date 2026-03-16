@@ -82,8 +82,8 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
     });
   };
 
-  // 合作球场数据（含官网链接）
-  const partnerCourses = [
+  // 合作球场数据 — 从翻译数据获取
+  const partnerCourses = (t.golf as any).partnerCourses || [
     { name: '六甲国際ゴルフ倶楽部', region: '兵庫', rank: 'Top 30', url: 'http://rokkokokusai-kobe.jp/' },
     { name: 'ABCゴルフ倶楽部', region: '兵庫', rank: 'Top 50', url: 'https://abc-golf.co.jp/' },
     { name: '太平洋クラブ御殿場コース', region: '静岡', rank: 'Top 10', url: 'https://www.taiheiyoclub.co.jp/course/gotenba/' },
@@ -97,7 +97,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
     { value: '25+', label: t.golf.stat_courses || '提携名門コース', sublabel: 'Premium Courses' },
     { value: '98%+', label: t.golf.stat_booking || '予約成功率', sublabel: 'Booking Success' },
     { value: '1,500+', label: t.golf.stat_guests || '年間VIPゲスト', sublabel: 'Annual VIP Guests' },
-    { value: '15年', label: t.golf.stat_experience || '業界経験', sublabel: 'Years Experience' },
+    { value: '15+', label: t.golf.stat_experience || '業界経験', sublabel: 'Years Experience' },
   ];
 
   return (
@@ -273,11 +273,11 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
          <div className="text-center mb-20">
            <div className="inline-flex items-center gap-4 mb-4">
              <div className="w-12 h-px bg-gradient-to-r from-transparent to-gold-400"></div>
-             <span className="text-gold-600 text-xs tracking-[0.3em] uppercase font-bold">Signature Itineraries</span>
+             <span className="text-gold-600 text-xs tracking-[0.3em] uppercase font-bold">{(t.golf as any).plans_section_label || 'Signature Itineraries'}</span>
              <div className="w-12 h-px bg-gradient-to-l from-transparent to-gold-400"></div>
            </div>
-           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-neutral-900 mb-4">Recommended Itineraries</h2>
-           <p className="text-neutral-500 max-w-xl mx-auto">Curated experiences for discerning golfers</p>
+           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-neutral-900 mb-4">{(t.golf as any).plans_section_title || 'Recommended Itineraries'}</h2>
+           <p className="text-neutral-500 max-w-xl mx-auto">{(t.golf as any).plans_section_subtitle || 'Curated experiences for discerning golfers'}</p>
          </div>
 
          {/* Plan Cards - Premium Design */}
@@ -387,8 +387,8 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
      <div className="py-16 bg-white">
        <div className="container mx-auto px-6 py-12 md:py-24">
          <div className="max-w-2xl mx-auto text-center">
-           <h3 className="text-2xl font-serif font-bold text-neutral-900 mb-2">{'\u958B\u59CB\u60A8\u7684\u9AD8\u723E\u592B\u4E4B\u65C5'}</h3>
-           <p className="text-neutral-500 mb-8">{'\u5C08\u696D\u7403\u5834\u9810\u7D04\u30FB\x56\x49\x50\u79AE\u9047\u30FB\u5168\u7A0B\u966A\u540C'}</p>
+           <h3 className="text-2xl font-serif font-bold text-neutral-900 mb-2">{t.golf.cta_title}</h3>
+           <p className="text-neutral-500 mb-8">{t.golf.cta_desc}</p>
            <ContactButtons />
          </div>
        </div>

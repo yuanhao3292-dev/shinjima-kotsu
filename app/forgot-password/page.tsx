@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import MemberLayout from '@/components/MemberLayout';
 import Logo from '@/components/Logo';
@@ -40,12 +41,15 @@ const t = (key: keyof typeof translations, lang: Language): string => {
   return translations[key][lang];
 };
 
-export default function ForgotPasswordPage() {
+function ForgotPasswordForm() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const lang = useLanguage();
+  const searchParams = useSearchParams();
+  const isGuide = searchParams.get('from') === 'guide';
+  const loginPath = isGuide ? '/guide-partner/login' : '/login';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,8 +58,11 @@ export default function ForgotPasswordPage() {
 
     try {
       const supabase = createClient();
+      const resetUrl = isGuide
+        ? `${window.location.origin}/reset-password?from=guide`
+        : `${window.location.origin}/reset-password`;
       const { error } = await supabase.auth.resetPasswordForEmail(email.trim().toLowerCase(), {
-        redirectTo: `${window.location.origin}/reset-password`,
+        redirectTo: resetUrl,
       });
 
       if (error) {
@@ -84,7 +91,7 @@ export default function ForgotPasswordPage() {
               {t('resetEmailSentPrefix', lang)} <span className="font-bold text-neutral-900">{email}</span>{t('resetEmailSent', lang)}
             </p>
             <Link
-              href="/login"
+              href={loginPath}
               className="block w-full bg-brand-900 hover:bg-brand-800 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg"
             >
               {t('backToLogin', lang)}
@@ -142,7 +149,7 @@ export default function ForgotPasswordPage() {
             </div>
 
             {/* Back Link */}
-            <Link href="/login" className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 mb-6 text-sm font-medium transition">
+            <Link href={loginPath} className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 mb-6 text-sm font-medium transition">
               <ArrowLeft size={16} />
               {t('backToLogin', lang)}
             </Link>
@@ -200,7 +207,7 @@ export default function ForgotPasswordPage() {
               <div className="mt-6 text-center">
                 <p className="text-neutral-600 text-sm">
                   {t('rememberPassword', lang)}
-                  <Link href="/login" className="text-brand-600 hover:text-brand-700 font-bold ml-1">
+                  <Link href={loginPath} className="text-brand-600 hover:text-brand-700 font-bold ml-1">
                     {t('loginNow', lang)}
                   </Link>
                 </p>
@@ -210,5 +217,13 @@ export default function ForgotPasswordPage() {
         </div>
       </div>
     </MemberLayout>
+  );
+}
+
+export default function ForgotPasswordPage() {
+  return (
+    <Suspense>
+      <ForgotPasswordForm />
+    </Suspense>
   );
 }

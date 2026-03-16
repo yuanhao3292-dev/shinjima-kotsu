@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import MemberLayout from '@/components/MemberLayout';
@@ -42,7 +42,7 @@ const t = (key: keyof typeof translations, lang: Language): string => {
   return translations[key][lang];
 };
 
-export default function ResetPasswordPage() {
+function ResetPasswordForm() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -51,6 +51,9 @@ export default function ResetPasswordPage() {
   const [success, setSuccess] = useState(false);
   const router = useRouter();
   const lang = useLanguage();
+  const searchParams = useSearchParams();
+  const isGuide = searchParams.get('from') === 'guide';
+  const loginPath = isGuide ? '/guide-partner/login' : '/login';
 
   useEffect(() => {
     const checkSession = async () => {
@@ -90,7 +93,7 @@ export default function ResetPasswordPage() {
 
       setSuccess(true);
       setTimeout(() => {
-        router.push('/login');
+        router.push(loginPath);
       }, 3000);
     } catch {
       setError(t('resetFailed', lang));
@@ -112,7 +115,7 @@ export default function ResetPasswordPage() {
               {t('passwordUpdated', lang)}
             </p>
             <Link
-              href="/login"
+              href={loginPath}
               className="block w-full bg-brand-900 hover:bg-brand-800 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg"
             >
               {t('loginNow', lang)}
@@ -247,5 +250,13 @@ export default function ResetPasswordPage() {
         </div>
       </div>
     </MemberLayout>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense>
+      <ResetPasswordForm />
+    </Suspense>
   );
 }

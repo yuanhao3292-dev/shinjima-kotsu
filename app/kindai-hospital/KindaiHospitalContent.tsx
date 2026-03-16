@@ -32,7 +32,7 @@ import {
   CheckCircle,
 } from 'lucide-react'
 import { useLanguage, type Language } from '@/hooks/useLanguage'
-import LanguageSwitcher from '@/components/LanguageSwitcher'
+
 
 interface KindaiHospitalContentProps {
   isGuideEmbed?: boolean
@@ -1416,10 +1416,6 @@ export default function KindaiHospitalContent({
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
-      {/* Language Switcher - Fixed top right */}
-      <div className="fixed top-4 right-4 z-50">
-        <LanguageSwitcher variant="compact" />
-      </div>
 
       {/* Hero Section */}
       <section className="relative h-[70vh] min-h-[600px] overflow-hidden">

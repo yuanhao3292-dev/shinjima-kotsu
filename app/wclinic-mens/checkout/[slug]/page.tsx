@@ -153,6 +153,7 @@ export default function WClinicMensCheckoutPage() {
           preferredDate: preferredDate || null,
           notes: fullNotes,
           provider: providerKey || 'wclinic_mens',
+          locale: lang,
         }),
       });
 

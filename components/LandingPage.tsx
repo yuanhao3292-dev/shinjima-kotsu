@@ -552,7 +552,14 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="mb-10">
               <div className="text-xs text-neutral-500 mb-3 uppercase tracking-wider">{currentLang === 'zh-TW' ? '合作名門' : currentLang === 'zh-CN' ? '合作名门' : currentLang === 'ja' ? '提携名門コース' : 'Partner Courses'}</div>
               <div className="flex flex-wrap gap-2">
-                {['廣野ゴルフ倶楽部', '霞ヶ関カンツリー倶楽部', '小野ゴルフ倶楽部', '茨木カンツリー倶楽部', '古賀ゴルフ・クラブ'].map((course, idx) => (
+                {(currentLang === 'en'
+                  ? ['Hirono Golf Club', 'Kasumigaseki CC', 'Ono Golf Club', 'Ibaraki CC', 'Koga Golf Club']
+                  : currentLang === 'zh-CN'
+                  ? ['广野高尔夫俱乐部', '霞之关乡村俱乐部', '小野高尔夫俱乐部', '茨木乡村俱乐部', '古贺高尔夫俱乐部']
+                  : currentLang === 'zh-TW'
+                  ? ['廣野高爾夫俱樂部', '霞之關鄉村俱樂部', '小野高爾夫俱樂部', '茨木鄉村俱樂部', '古賀高爾夫俱樂部']
+                  : ['廣野ゴルフ倶楽部', '霞ヶ関カンツリー倶楽部', '小野ゴルフ倶楽部', '茨木カンツリー倶楽部', '古賀ゴルフ・クラブ']
+                ).map((course, idx) => (
                   <span key={idx} className="text-sm text-white/80 after:content-['·'] after:mx-2 after:text-gold-400 last:after:content-none">
                     {course}
                   </span>

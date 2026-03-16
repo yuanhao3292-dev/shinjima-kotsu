@@ -12,7 +12,7 @@ import {
 import ContactButtons from '@/components/ContactButtons';
 import type { SaiClinicImage } from '@/lib/services/sai-clinic-images';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
+
 
 // Translation helper function
 const t = (translations: Record<Language, string>, lang: Language): string => translations[lang];
@@ -336,10 +336,6 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
 
   return (
     <div className="animate-fade-in-up">
-      {/* Language Switcher - Fixed top right */}
-      <div className="fixed top-4 right-4 z-50">
-        <LanguageSwitcher variant="compact" />
-      </div>
 
       {/* ━━━━━━━━ 1. HERO ━━━━━━━━ */}
       <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-gray-950">

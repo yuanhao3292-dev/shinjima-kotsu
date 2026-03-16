@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import PublicLayout from '@/components/PublicLayout';
 import HeleneClinicContent from './HeleneClinicContent';
 
 export const metadata: Metadata = {
@@ -13,5 +14,9 @@ export const metadata: Metadata = {
 };
 
 export default function HeleneClinicPage() {
-  return <HeleneClinicContent />;
+  return (
+    <PublicLayout showFooter={true}>
+      <HeleneClinicContent />
+    </PublicLayout>
+  );
 }

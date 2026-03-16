@@ -5,7 +5,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import PublicLayout from '@/components/PublicLayout';
-import Logo from '@/components/Logo';
 import { Mail, Lock, Loader2, AlertCircle, Eye, EyeOff, User } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 
@@ -160,6 +159,12 @@ const translations = {
     'zh-TW': '申請成為合夥人',
     en: 'Apply to Become a Partner',
   },
+  forgotPassword: {
+    ja: 'パスワードをお忘れですか？',
+    'zh-CN': '忘记密码？',
+    'zh-TW': '忘記密碼？',
+    en: 'Forgot password?',
+  },
   backToHome: {
     ja: '← ガイドパートナートップへ戻る',
     'zh-CN': '← 返回导游合伙人首页',
@@ -303,10 +308,11 @@ function LoginForm() {
         <div className="absolute inset-0 bg-gradient-to-t from-brand-900/50 via-transparent to-brand-900/30"></div>
         <div className="relative z-10 flex flex-col justify-center px-16 text-white">
           <div className="flex items-center gap-3 mb-8">
-            <Logo className="w-12 h-12 text-white" />
-            <div>
-              <span className="font-serif font-bold text-2xl tracking-wide">NIIJIMA</span>
-              <p className="text-xs text-brand-200 uppercase tracking-widest">Guide Partner</p>
+            <div className="flex flex-col">
+              <span className="font-serif font-bold text-lg tracking-wide leading-none">NIIJIMA</span>
+              <span className="text-[10px] uppercase tracking-widest leading-none mt-1 text-white/60">
+                {{ ja: '新島交通株式会社', 'zh-TW': '新島交通株式會社', 'zh-CN': '新岛交通株式会社', en: 'Niijima Kotsu Co., Ltd.' }[lang]}
+              </span>
             </div>
           </div>
           <h1 className="text-4xl font-serif font-bold mb-6 leading-tight">
@@ -349,9 +355,13 @@ function LoginForm() {
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-neutral-50">
         <div className="w-full max-w-md">
           {/* Mobile Logo */}
-          <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
-            <Logo className="w-10 h-10 text-brand-600" />
-            <span className="font-serif font-bold text-xl">NIIJIMA</span>
+          <div className="lg:hidden flex items-center justify-center mb-8">
+            <div className="flex flex-col items-center">
+              <span className="font-serif font-bold text-lg tracking-wide leading-none text-neutral-900">NIIJIMA</span>
+              <span className="text-[10px] uppercase tracking-widest leading-none mt-1 text-neutral-400">
+                {{ ja: '新島交通株式会社', 'zh-TW': '新島交通株式會社', 'zh-CN': '新岛交通株式会社', en: 'Niijima Kotsu Co., Ltd.' }[lang]}
+              </span>
+            </div>
           </div>
 
           {/* Login Card */}
@@ -417,6 +427,12 @@ function LoginForm() {
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
                 </div>
+              </div>
+
+              <div className="flex justify-end">
+                <Link href="/forgot-password?from=guide" className="text-sm text-brand-600 hover:text-brand-700 font-medium">
+                  {t('forgotPassword', lang)}
+                </Link>
               </div>
 
               <button

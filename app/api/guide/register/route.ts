@@ -4,7 +4,7 @@ import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from
 import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
 import { validateBody } from '@/lib/validations/validate';
 import { z } from 'zod';
-import { generateUniqueReferralCode, generateRandomPassword } from '@/lib/utils/referral-code';
+import { generateUniqueReferralCode } from '@/lib/utils/referral-code';
 import { sendGuideRegistrationEmail } from '@/lib/email';
 
 /**
@@ -20,12 +20,13 @@ import { sendGuideRegistrationEmail } from '@/lib/email';
  */
 
 const RegisterGuideSchema = z.object({
-  name: z.string().min(1, '请输入姓名'),
+  name: z.string().min(1, '请输入姓名').max(100, '姓名不能超过 100 个字符'),
   email: z.string().email('请输入有效的邮箱地址'),
-  phone: z.string().min(1, '请输入电话号码'),
-  wechat_id: z.string().optional(),
-  password: z.string().min(8, '密码至少需要 8 位字符'),
+  phone: z.string().min(1, '请输入电话号码').max(20, '电话号码格式不正确'),
+  wechat_id: z.string().max(50).optional(),
+  password: z.string().min(8, '密码至少需要 8 位字符').max(128, '密码不能超过 128 个字符'),
   referrer_code: z.string().max(20).optional(), // 推荐人的推荐码
+  locale: z.enum(['ja', 'zh-CN', 'zh-TW', 'en']).optional().default('ja'),
 });
 
 export async function POST(request: NextRequest) {
@@ -46,7 +47,7 @@ export async function POST(request: NextRequest) {
     // 验证输入
     const validation = await validateBody(request, RegisterGuideSchema);
     if (!validation.success) return validation.error;
-    const { name, email, phone, wechat_id, password, referrer_code } = validation.data;
+    const { name, email, phone, wechat_id, password, referrer_code, locale } = validation.data;
 
     const supabase = getSupabaseAdmin();
 
@@ -116,6 +117,7 @@ export async function POST(request: NextRequest) {
         wechat_id: wechat_id || null,
         referral_code: referralCode,
         referrer_id: referrerId, // ✅ 设置推荐人 ID
+        preferred_locale: locale || 'ja',
         status: 'approved',
         level: 'bronze',
         kyc_status: 'pending',
@@ -126,7 +128,10 @@ export async function POST(request: NextRequest) {
     if (guideError) {
       // ⚠️ 关键：如果创建 guides 记录失败，必须删除刚创建的 auth 账户
       console.error('[CRITICAL] 导游记录创建失败，正在清理 auth 账户:', guideError);
-      await supabase.auth.admin.deleteUser(authData.user.id);
+      const { error: cleanupError } = await supabase.auth.admin.deleteUser(authData.user.id);
+      if (cleanupError) {
+        console.error('[CRITICAL] Auth 账户清理失败，存在孤儿记录:', authData.user.id, cleanupError);
+      }
 
       logError(normalizeError(guideError), { path: '/api/guide/register', method: 'POST' });
       return createErrorResponse(Errors.internal('注册失败，请稍后重试'));
@@ -137,6 +142,7 @@ export async function POST(request: NextRequest) {
       guideEmail: email,
       guideName: name,
       referralCode,
+      locale: locale || 'ja',
     }).catch((err) => {
       console.error('[register] 注册邮件发送失败:', err);
     });

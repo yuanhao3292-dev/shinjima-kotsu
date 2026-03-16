@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowRight, CheckCircle, MapPin, Building, Activity, Shield,
 import PackageComparisonTable from '../PackageComparisonTable';
 import ContactButtons from '../ContactButtons';
 import { localizeText } from '@/lib/utils/text-converter';
+import { getTestimonials } from '@/lib/data/medical-checkup-i18n';
 import type { SubViewProps } from './types';
 
 // --- NEW COMPONENT: AI Tech Card (Used in MedicalView) ---
@@ -630,66 +631,48 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               {/* 滾動容器 */}
               <div className="flex animate-scroll-reviews hover:pause-animation">
                   {/* 第一組評價 */}
-                  {[
-                      { name: '\u9673\u5148\u751F', loc: '\u53F0\u5317', flag: '\uD83C\uDDF9\uD83C\uDDFC', pkg: 'SELECT \u7504\u9078\u5957\u9910', text: '\u7B2C\u4E00\u6B21\u4F86\u65E5\u672C\u505A\u5065\u6AA2\uFF0C\u5F9E\u9810\u7D04\u5230\u9AD4\u6AA2\u5B8C\u6210\u90FD\u975E\u5E38\u9806\u66A2\u3002TIMC\u7684\u8A2D\u5099\u771F\u7684\u5F88\u5148\u9032\uFF0C\u6574\u500B\u74B0\u5883\u4E5F\u5F88\u8212\u9069\u3002', highlight: '\u8A2D\u5099\u5148\u9032\u3001\u74B0\u5883\u8212\u9069' },
-                      { name: '\u6797\u5C0F\u59D0', loc: '\u9AD8\u96C4', flag: '\uD83C\uDDF9\uD83C\uDDFC', pkg: 'PREMIUM \u5C0A\u4EAB\u5957\u9910', text: '\u505A\u4E86PET-CT\u5168\u8EAB\u6AA2\u67E5\uFF0C\u91AB\u751F\u975E\u5E38\u4ED4\u7D30\u5730\u89E3\u8AAA\u4E86\u6BCF\u4E00\u9805\u7D50\u679C\u3002\u4E2D\u6587\u5831\u544A\u5F88\u8A73\u76E1\uFF0C\u4E0B\u6B21\u6703\u5E36\u7238\u5ABD\u4E00\u8D77\u4F86\u3002', highlight: 'PET-CT\u6AA2\u67E5\u5C08\u696D' },
-                      { name: '\u738B\u5148\u751F', loc: '\u65B0\u7AF9', flag: '\uD83C\uDDF9\uD83C\uDDFC', pkg: 'VIP \u81F3\u5C0A\u5957\u9910', text: '\u516C\u53F8\u9AD8\u7BA1\u5065\u6AA2\u9078\u64C7\u4E86VIP\u5957\u9910\uFF0C\u5F9E\u6A5F\u5834\u63A5\u9001\u5230\u6AA2\u67E5\u5F8C\u7684\u4F11\u606F\u90FD\u5B89\u6392\u5F97\u5F88\u5468\u5230\u3002\u8178\u80C3\u93E1\u662F\u7121\u75DB\u7684\uFF0C\u7761\u4E00\u899A\u5C31\u505A\u5B8C\u4E86\u3002', highlight: '\u7121\u75DB\u8178\u80C3\u93E1\u3001\u670D\u52D9\u5468\u5230' },
-                      { name: '\u9EC3\u5148\u751F', loc: '\u4E0A\u6D77', flag: '\uD83C\uDDE8\uD83C\uDDF3', pkg: 'PREMIUM \u5C0A\u4EAB\u5957\u9910', text: '\u5C08\u7A0B\u5F9E\u4E0A\u6D77\u98DB\u904E\u4F86\u505A\u9AD4\u6AA2\uFF0C\u6574\u9AD4\u9AD4\u9A57\u975E\u5E38\u597D\u3002\u65E5\u672C\u7684\u91AB\u7642\u6C34\u5E73\u78BA\u5BE6\u9818\u5148\uFF0CMRI\u6AA2\u67E5\u975E\u5E38\u7D30\u7DFB\u3002', highlight: 'MRI\u6AA2\u67E5\u7D30\u7DFB' },
-                      { name: '\u5F35\u5C0F\u59D0', loc: '\u9999\u6E2F', flag: '\uD83C\uDDED\uD83C\uDDF0', pkg: 'SELECT \u7504\u9078\u5957\u9910', text: '\u9999\u6E2F\u904E\u4F86\u5F88\u65B9\u4FBF\uFF0C\u5169\u500B\u5C0F\u6642\u98DB\u6A5F\u5C31\u5230\u3002\u6AA2\u67E5\u6D41\u7A0B\u5F88\u9806\uFF0C\u7FFB\u8B6F\u5168\u7A0B\u966A\u540C\uFF0C\u5B8C\u5168\u6C92\u6709\u8A9E\u8A00\u969C\u7919\u3002', highlight: '\u4E2D\u6587\u670D\u52D9\u8CBC\u5FC3' },
-                      { name: '\u674E\u5148\u751F', loc: '\u6DF1\u5733', flag: '\uD83C\uDDE8\uD83C\uDDF3', pkg: 'VIP \u81F3\u5C0A\u5957\u9910', text: '\u5E36\u7236\u6BCD\u4E00\u8D77\u4F86\u505A\u5E74\u5EA6\u5065\u6AA2\uFF0CVIP\u5957\u9910\u7684\u4F11\u606F\u5BA4\u975E\u5E38\u8212\u9069\uFF0C\u8001\u4EBA\u5BB6\u4E5F\u4E0D\u6703\u89BA\u5F97\u7D2F\u3002\u5831\u544A\u89E3\u8B80\u5F88\u8A73\u7D30\u3002', highlight: '\u9069\u5408\u5168\u5BB6\u5065\u6AA2' },
-                      { name: '\u5433\u5C0F\u59D0', loc: '\u53F0\u4E2D', flag: '\uD83C\uDDF9\uD83C\uDDFC', pkg: 'PREMIUM \u5C0A\u4EAB\u5957\u9910', text: '\u670B\u53CB\u63A8\u85A6\u4F86\u7684\uFF0C\u505A\u4E86\u5168\u8EABMRI\u548C\u816B\u7624\u6A19\u8A18\u7269\u6AA2\u6E2C\u3002\u91AB\u751F\u8AAA\u6211\u7684\u5065\u5EB7\u72C0\u6CC1\u5F88\u597D\uFF0C\u8B93\u6211\u5B89\u5FC3\u4E0D\u5C11\u3002', highlight: '\u5168\u8EABMRI\u7CBE\u6E96' },
-                      { name: '\u8A31\u5148\u751F', loc: '\u5317\u4EAC', flag: '\uD83C\uDDE8\uD83C\uDDF3', pkg: 'SELECT \u7504\u9078\u5957\u9910', text: '\u65E5\u672C\u91AB\u7642\u670D\u52D9\u679C\u7136\u540D\u4E0D\u865B\u50B3\uFF0C\u5F9E\u63A5\u6A5F\u958B\u59CB\u5C31\u611F\u53D7\u5230\u5C08\u696D\u3002\u5DF2\u7D93\u63A8\u85A6\u7D66\u597D\u5E7E\u500B\u670B\u53CB\u4E86\u3002', highlight: '\u63A5\u6A5F\u670D\u52D9\u5468\u5230' },
-                  ].map((review, i) => (
+                  {getTestimonials(currentLang || 'zh-TW').map((review, i) => (
                       <div key={`first-${i}`} className="flex-shrink-0 w-80 mx-3 bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
                           <div className="flex items-center gap-3 mb-4">
                               <div className="w-10 h-10 bg-gradient-to-br from-brand-700 to-brand-900 rounded-full flex items-center justify-center text-white font-bold">
-                                  {localizeText(review.name, currentLang || 'zh-TW').charAt(0)}
+                                  {review.name.charAt(0)}
                               </div>
                               <div>
                                   <div className="flex items-center gap-2">
-                                      <span className="font-semibold text-neutral-900 text-sm">{localizeText(review.name, currentLang || 'zh-TW')}</span>
+                                      <span className="font-semibold text-neutral-900 text-sm">{review.name}</span>
                                       <span>{review.flag}</span>
                                   </div>
                                   <div className="text-xs text-neutral-400">{review.loc}</div>
                               </div>
                           </div>
-                          <div className="text-xs text-brand-700 font-medium mb-3">{localizeText(review.pkg, currentLang || 'zh-TW')}</div>
-                          <p className="text-sm text-neutral-600 leading-relaxed mb-4 line-clamp-3">{localizeText(review.text, currentLang || 'zh-TW')}</p>
+                          <div className="text-xs text-brand-700 font-medium mb-3">{review.pkg}</div>
+                          <p className="text-sm text-neutral-600 leading-relaxed mb-4 line-clamp-3">{review.text}</p>
                           <div className="flex items-center gap-2 text-brand-600 text-xs">
                               <CheckCircle size={12} />
-                              <span className="font-medium">{localizeText(review.highlight, currentLang || 'zh-TW')}</span>
+                              <span className="font-medium">{review.highlight}</span>
                           </div>
                       </div>
                   ))}
                   {/* 複製一組實現無縫滾動 */}
-                  {[
-                      { name: '\u9673\u5148\u751F', loc: '\u53F0\u5317', flag: '\uD83C\uDDF9\uD83C\uDDFC', pkg: 'SELECT \u7504\u9078\u5957\u9910', text: '\u7B2C\u4E00\u6B21\u4F86\u65E5\u672C\u505A\u5065\u6AA2\uFF0C\u5F9E\u9810\u7D04\u5230\u9AD4\u6AA2\u5B8C\u6210\u90FD\u975E\u5E38\u9806\u66A2\u3002TIMC\u7684\u8A2D\u5099\u771F\u7684\u5F88\u5148\u9032\uFF0C\u6574\u500B\u74B0\u5883\u4E5F\u5F88\u8212\u9069\u3002', highlight: '\u8A2D\u5099\u5148\u9032\u3001\u74B0\u5883\u8212\u9069' },
-                      { name: '\u6797\u5C0F\u59D0', loc: '\u9AD8\u96C4', flag: '\uD83C\uDDF9\uD83C\uDDFC', pkg: 'PREMIUM \u5C0A\u4EAB\u5957\u9910', text: '\u505A\u4E86PET-CT\u5168\u8EAB\u6AA2\u67E5\uFF0C\u91AB\u751F\u975E\u5E38\u4ED4\u7D30\u5730\u89E3\u8AAA\u4E86\u6BCF\u4E00\u9805\u7D50\u679C\u3002\u4E2D\u6587\u5831\u544A\u5F88\u8A73\u76E1\uFF0C\u4E0B\u6B21\u6703\u5E36\u7238\u5ABD\u4E00\u8D77\u4F86\u3002', highlight: 'PET-CT\u6AA2\u67E5\u5C08\u696D' },
-                      { name: '\u738B\u5148\u751F', loc: '\u65B0\u7AF9', flag: '\uD83C\uDDF9\uD83C\uDDFC', pkg: 'VIP \u81F3\u5C0A\u5957\u9910', text: '\u516C\u53F8\u9AD8\u7BA1\u5065\u6AA2\u9078\u64C7\u4E86VIP\u5957\u9910\uFF0C\u5F9E\u6A5F\u5834\u63A5\u9001\u5230\u6AA2\u67E5\u5F8C\u7684\u4F11\u606F\u90FD\u5B89\u6392\u5F97\u5F88\u5468\u5230\u3002\u8178\u80C3\u93E1\u662F\u7121\u75DB\u7684\uFF0C\u7761\u4E00\u899A\u5C31\u505A\u5B8C\u4E86\u3002', highlight: '\u7121\u75DB\u8178\u80C3\u93E1\u3001\u670D\u52D9\u5468\u5230' },
-                      { name: '\u9EC3\u5148\u751F', loc: '\u4E0A\u6D77', flag: '\uD83C\uDDE8\uD83C\uDDF3', pkg: 'PREMIUM \u5C0A\u4EAB\u5957\u9910', text: '\u5C08\u7A0B\u5F9E\u4E0A\u6D77\u98DB\u904E\u4F86\u505A\u9AD4\u6AA2\uFF0C\u6574\u9AD4\u9AD4\u9A57\u975E\u5E38\u597D\u3002\u65E5\u672C\u7684\u91AB\u7642\u6C34\u5E73\u78BA\u5BE6\u9818\u5148\uFF0CMRI\u6AA2\u67E5\u975E\u5E38\u7D30\u7DFB\u3002', highlight: 'MRI\u6AA2\u67E5\u7D30\u7DFB' },
-                      { name: '\u5F35\u5C0F\u59D0', loc: '\u9999\u6E2F', flag: '\uD83C\uDDED\uD83C\uDDF0', pkg: 'SELECT \u7504\u9078\u5957\u9910', text: '\u9999\u6E2F\u904E\u4F86\u5F88\u65B9\u4FBF\uFF0C\u5169\u500B\u5C0F\u6642\u98DB\u6A5F\u5C31\u5230\u3002\u6AA2\u67E5\u6D41\u7A0B\u5F88\u9806\uFF0C\u7FFB\u8B6F\u5168\u7A0B\u966A\u540C\uFF0C\u5B8C\u5168\u6C92\u6709\u8A9E\u8A00\u969C\u7919\u3002', highlight: '\u4E2D\u6587\u670D\u52D9\u8CBC\u5FC3' },
-                      { name: '\u674E\u5148\u751F', loc: '\u6DF1\u5733', flag: '\uD83C\uDDE8\uD83C\uDDF3', pkg: 'VIP \u81F3\u5C0A\u5957\u9910', text: '\u5E36\u7236\u6BCD\u4E00\u8D77\u4F86\u505A\u5E74\u5EA6\u5065\u6AA2\uFF0CVIP\u5957\u9910\u7684\u4F11\u606F\u5BA4\u975E\u5E38\u8212\u9069\uFF0C\u8001\u4EBA\u5BB6\u4E5F\u4E0D\u6703\u89BA\u5F97\u7D2F\u3002\u5831\u544A\u89E3\u8B80\u5F88\u8A73\u7D30\u3002', highlight: '\u9069\u5408\u5168\u5BB6\u5065\u6AA2' },
-                      { name: '\u5433\u5C0F\u59D0', loc: '\u53F0\u4E2D', flag: '\uD83C\uDDF9\uD83C\uDDFC', pkg: 'PREMIUM \u5C0A\u4EAB\u5957\u9910', text: '\u670B\u53CB\u63A8\u85A6\u4F86\u7684\uFF0C\u505A\u4E86\u5168\u8EABMRI\u548C\u816B\u7624\u6A19\u8A18\u7269\u6AA2\u6E2C\u3002\u91AB\u751F\u8AAA\u6211\u7684\u5065\u5EB7\u72C0\u6CC1\u5F88\u597D\uFF0C\u8B93\u6211\u5B89\u5FC3\u4E0D\u5C11\u3002', highlight: '\u5168\u8EABMRI\u7CBE\u6E96' },
-                      { name: '\u8A31\u5148\u751F', loc: '\u5317\u4EAC', flag: '\uD83C\uDDE8\uD83C\uDDF3', pkg: 'SELECT \u7504\u9078\u5957\u9910', text: '\u65E5\u672C\u91AB\u7642\u670D\u52D9\u679C\u7136\u540D\u4E0D\u865B\u50B3\uFF0C\u5F9E\u63A5\u6A5F\u958B\u59CB\u5C31\u611F\u53D7\u5230\u5C08\u696D\u3002\u5DF2\u7D93\u63A8\u85A6\u7D66\u597D\u5E7E\u500B\u670B\u53CB\u4E86\u3002', highlight: '\u63A5\u6A5F\u670D\u52D9\u5468\u5230' },
-                  ].map((review, i) => (
+                  {getTestimonials(currentLang || 'zh-TW').map((review, i) => (
                       <div key={`second-${i}`} className="flex-shrink-0 w-80 mx-3 bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
                           <div className="flex items-center gap-3 mb-4">
                               <div className="w-10 h-10 bg-gradient-to-br from-brand-700 to-brand-900 rounded-full flex items-center justify-center text-white font-bold">
-                                  {localizeText(review.name, currentLang || 'zh-TW').charAt(0)}
+                                  {review.name.charAt(0)}
                               </div>
                               <div>
                                   <div className="flex items-center gap-2">
-                                      <span className="font-semibold text-neutral-900 text-sm">{localizeText(review.name, currentLang || 'zh-TW')}</span>
+                                      <span className="font-semibold text-neutral-900 text-sm">{review.name}</span>
                                       <span>{review.flag}</span>
                                   </div>
                                   <div className="text-xs text-neutral-400">{review.loc}</div>
                               </div>
                           </div>
-                          <div className="text-xs text-brand-700 font-medium mb-3">{localizeText(review.pkg, currentLang || 'zh-TW')}</div>
-                          <p className="text-sm text-neutral-600 leading-relaxed mb-4 line-clamp-3">{localizeText(review.text, currentLang || 'zh-TW')}</p>
+                          <div className="text-xs text-brand-700 font-medium mb-3">{review.pkg}</div>
+                          <p className="text-sm text-neutral-600 leading-relaxed mb-4 line-clamp-3">{review.text}</p>
                           <div className="flex items-center gap-2 text-brand-600 text-xs">
                               <CheckCircle size={12} />
-                              <span className="font-medium">{localizeText(review.highlight, currentLang || 'zh-TW')}</span>
+                              <span className="font-medium">{review.highlight}</span>
                           </div>
                       </div>
                   ))}

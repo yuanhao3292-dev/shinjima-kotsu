@@ -5,7 +5,6 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import PublicLayout from '@/components/PublicLayout';
-import Logo from '@/components/Logo';
 import { User, Phone, Mail, Lock, Loader2, AlertCircle, Eye, EyeOff, MessageCircle } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 
@@ -283,12 +282,13 @@ function RegisterForm() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name: formData.name,
+          name: formData.name.trim(),
           email: formData.email.trim().toLowerCase(),
-          phone: formData.phone,
+          phone: formData.phone.trim(),
           wechat_id: formData.wechatId || undefined,
           password: formData.password,
           referrer_code: referrerCode || undefined,
+          locale: lang,
         }),
       });
 
@@ -296,7 +296,7 @@ function RegisterForm() {
 
       if (!response.ok) {
         // 處理 API 錯誤
-        setError(data.error?.message || t('errorRegisterFailed', lang));
+        setError(data.error || t('errorRegisterFailed', lang));
         setLoading(false);
         return;
       }
@@ -344,10 +344,11 @@ function RegisterForm() {
         <div className="absolute inset-0 bg-gradient-to-t from-brand-900/50 via-transparent to-brand-900/30"></div>
         <div className="relative z-10 flex flex-col justify-center px-16 text-white">
           <div className="flex items-center gap-3 mb-8">
-            <Logo className="w-12 h-12 text-white" />
-            <div>
-              <span className="font-serif font-bold text-2xl tracking-wide">NIIJIMA</span>
-              <p className="text-xs text-brand-200 uppercase tracking-widest">Guide Partner</p>
+            <div className="flex flex-col">
+              <span className="font-serif font-bold text-lg tracking-wide leading-none">NIIJIMA</span>
+              <span className="text-[10px] uppercase tracking-widest leading-none mt-1 text-white/60">
+                {{ ja: '新島交通株式会社', 'zh-TW': '新島交通株式會社', 'zh-CN': '新岛交通株式会社', en: 'Niijima Kotsu Co., Ltd.' }[lang]}
+              </span>
             </div>
           </div>
           <h1 className="text-4xl font-serif font-bold mb-6 leading-tight">
@@ -384,9 +385,13 @@ function RegisterForm() {
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gray-50">
         <div className="w-full max-w-md">
           {/* Mobile Logo */}
-          <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
-            <Logo className="w-10 h-10 text-brand-600" />
-            <span className="font-serif font-bold text-xl">NIIJIMA</span>
+          <div className="lg:hidden flex items-center justify-center mb-8">
+            <div className="flex flex-col items-center">
+              <span className="font-serif font-bold text-lg tracking-wide leading-none text-neutral-900">NIIJIMA</span>
+              <span className="text-[10px] uppercase tracking-widest leading-none mt-1 text-neutral-400">
+                {{ ja: '新島交通株式会社', 'zh-TW': '新島交通株式會社', 'zh-CN': '新岛交通株式会社', en: 'Niijima Kotsu Co., Ltd.' }[lang]}
+              </span>
+            </div>
           </div>
 
           {/* Register Card */}

@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import PublicLayout from '@/components/PublicLayout';
 import HyogoMedicalContent from './HyogoMedicalContent';
 
 export const metadata: Metadata = {
@@ -13,5 +14,9 @@ export const metadata: Metadata = {
 };
 
 export default function HyogoMedicalPage() {
-  return <HyogoMedicalContent />;
+  return (
+    <PublicLayout showFooter={true}>
+      <HyogoMedicalContent />
+    </PublicLayout>
+  );
 }

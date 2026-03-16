@@ -186,6 +186,7 @@ export default function HyogoRemoteConsultationPage() {
           preferredTime: null,
           notes: fullNotes,
           provider: providerKey || 'hyogo_medical',
+          locale: currentLang,
         }),
       });
 

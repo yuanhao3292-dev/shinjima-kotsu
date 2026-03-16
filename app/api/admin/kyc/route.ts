@@ -163,7 +163,7 @@ export async function POST(request: NextRequest) {
     // 获取导游信息用于发送邮件
     const { data: guideData } = await supabase
       .from('guides')
-      .select('name, email')
+      .select('name, email, preferred_locale')
       .eq('id', guideId)
       .single();
 
@@ -174,6 +174,7 @@ export async function POST(request: NextRequest) {
         guideName: guideData.name || '用户',
         status: action === 'approve' ? 'approved' : 'rejected',
         reviewNote: reviewNote || undefined,
+        locale: (guideData.preferred_locale || 'ja') as 'ja' | 'zh-CN' | 'zh-TW' | 'en',
       }).catch(err => {
         console.error('发送 KYC 通知邮件失败:', err);
       });

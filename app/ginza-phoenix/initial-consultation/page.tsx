@@ -186,6 +186,7 @@ export default function GinzaPhoenixInitialConsultationPage() {
           preferredTime: null,
           notes: fullNotes,
           provider: providerKey || 'ginza_phoenix',
+          locale: currentLang,
         }),
       });
 

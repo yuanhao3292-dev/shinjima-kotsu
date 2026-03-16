@@ -276,7 +276,7 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ packageSlug, customerInfo, preferredDate: preferredDate || null, notes: notesWithTime || null, guideSlug }),
+        body: JSON.stringify({ packageSlug, customerInfo, preferredDate: preferredDate || null, notes: notesWithTime || null, guideSlug, locale: currentLang }),
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || '創建支付會話失敗');

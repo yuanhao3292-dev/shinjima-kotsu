@@ -186,6 +186,7 @@ export default function IGTCRemoteConsultationPage() {
           preferredTime: null,
           notes: fullNotes,
           provider: providerKey || 'igtc',
+          locale: currentLang,
         }),
       });
 

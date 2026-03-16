@@ -247,6 +247,7 @@ export default function RemoteConsultationPage() {
           preferredTime: null,
           notes: fullNotes,
           provider: providerKey,
+          locale: currentLang,
         }),
       });
 

@@ -10,7 +10,7 @@ import {
   Calendar, FileText, Stethoscope, Sparkles, Train,
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
+
 
 // ======================================
 // Hero image export (white-label mapping)
@@ -243,10 +243,6 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
 
   return (
     <div className="min-h-screen bg-white text-[#333]">
-      {/* Language Switcher - Fixed top right */}
-      <div className="fixed top-4 right-4 z-50">
-        <LanguageSwitcher variant="compact" />
-      </div>
 
       {/* ===== 1. HERO ===== */}
       <section className="relative min-h-[600px] md:min-h-[700px] flex items-center overflow-hidden">

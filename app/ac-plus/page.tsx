@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import PublicLayout from '@/components/PublicLayout';
 import ACPlusContent from './ACPlusContent';
 
 export const metadata: Metadata = {
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function ACPlusPage() {
-  return <ACPlusContent />;
+  return (
+    <PublicLayout showFooter={true}>
+      <ACPlusContent />
+    </PublicLayout>
+  );
 }

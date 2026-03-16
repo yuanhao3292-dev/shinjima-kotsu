@@ -15,7 +15,7 @@ import {
   Stethoscope, Droplets, ChevronDown,
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
+
 
 // ======================================
 // Hero Image
@@ -422,10 +422,6 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
 
   return (
     <div className="animate-fade-in-up min-h-screen bg-white">
-      {/* Language Switcher - Fixed top right */}
-      <div className="fixed top-4 right-4 z-50">
-        <LanguageSwitcher variant="compact" />
-      </div>
 
       {/* ========================================
           1. Hero Section — 兵库医科风格全屏背景

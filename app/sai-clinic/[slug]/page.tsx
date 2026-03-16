@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams } from 'next/navigation';
+import Cookies from 'js-cookie';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CheckCircle, Shield, Lock, CreditCard } from 'lucide-react';
@@ -256,6 +257,7 @@ export default function SaiClinicCheckoutPage() {
           customerInfo,
           preferredDate: preferredDate || null,
           notes: fullNotes.trim() || null,
+          locale: Cookies.get('NEXT_LOCALE') || 'ja',
         }),
       });
       const data = await response.json();

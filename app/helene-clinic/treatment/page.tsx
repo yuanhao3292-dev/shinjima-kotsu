@@ -457,6 +457,7 @@ export default function HeleneTreatmentPage() {
           preferredTime: null,
           notes: fullNotes,
           provider: providerKey || 'helene_clinic',
+          locale: currentLang,
         }),
       });
 

@@ -185,6 +185,7 @@ export default function WClinicMensInitialConsultationPage() {
           preferredTime: null,
           notes: fullNotes,
           provider: providerKey || 'wclinic_mens',
+          locale: currentLang,
         }),
       });
 

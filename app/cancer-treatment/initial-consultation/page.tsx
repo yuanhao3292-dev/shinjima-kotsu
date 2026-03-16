@@ -224,6 +224,7 @@ export default function InitialConsultationPage() {
           preferredTime: null,
           notes: fullNotes,
           provider: providerKey,
+          locale: currentLang,
         }),
       });
 

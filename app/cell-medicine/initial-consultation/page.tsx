@@ -156,6 +156,7 @@ export default function CellMedicineInitialConsultationPage() {
           customerInfo: { name: customerInfo.name, email: customerInfo.email || '', phone: customerInfo.phone, line: customerInfo.line, wechat: customerInfo.wechat, country: customerInfo.country },
           preferredDate: null, preferredTime: null, notes: fullNotes,
           provider: providerKey || 'cell_medicine',
+          locale: currentLang,
         }),
       });
       const data = await response.json();

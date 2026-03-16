@@ -186,6 +186,7 @@ export default function HeleneInitialConsultationPage() {
           preferredTime: null,
           notes: fullNotes,
           provider: providerKey || 'helene_clinic',
+          locale: currentLang,
         }),
       });
 

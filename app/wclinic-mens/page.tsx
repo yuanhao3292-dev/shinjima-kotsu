@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import PublicLayout from '@/components/PublicLayout';
 import WClinicMensContent from './WClinicMensContent';
 
 export const metadata: Metadata = {
@@ -13,5 +14,9 @@ export const metadata: Metadata = {
 };
 
 export default function WClinicMensPage() {
-  return <WClinicMensContent />;
+  return (
+    <PublicLayout showFooter={true}>
+      <WClinicMensContent />
+    </PublicLayout>
+  );
 }
