@@ -19,6 +19,8 @@ import {
   Users,
   Upload,
   Globe,
+  Brain,
+  CheckCircle2,
 } from 'lucide-react';
 import { FREE_SCREENING_LIMIT } from '@/lib/screening-questions';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
@@ -204,6 +206,73 @@ const translations = {
     'zh-CN': '基于先进 AI 模型，为您提供专业的健康评估',
     'zh-TW': '基於先進 AI 模型，為您提供專業的健康評估',
     en: 'Professional health assessment based on advanced AI models',
+  },
+  // AI Matrix Section
+  aiMatrixTitle: {
+    ja: '世界最先端の AI 合同会診システム',
+    'zh-CN': '全球顶尖 AI 联合会诊系统',
+    'zh-TW': '全球頂尖 AI 聯合會診系統',
+    en: 'World-Leading Multi-AI Consultation System',
+  },
+  aiMatrixSubtitle: {
+    ja: '4つの世界トップクラスのAIモデルが独立して分析し、相互検証を行うことで、単一AIでは実現できない精度と安全性を確保します',
+    'zh-CN': '4 大全球顶尖 AI 模型独立分析、交叉验证，实现单一 AI 无法达到的精度与安全性',
+    'zh-TW': '4 大全球頂尖 AI 模型獨立分析、交叉驗證，實現單一 AI 無法達到的精度與安全性',
+    en: 'Four world-leading AI models analyze independently and cross-validate, achieving accuracy and safety impossible with any single AI',
+  },
+  aiRole1: {
+    ja: '病歴抽出・構造化',
+    'zh-CN': '病历抽取与结构化',
+    'zh-TW': '病歷抽取與結構化',
+    en: 'Medical Record Extraction',
+  },
+  aiRole1Desc: {
+    ja: 'お客様の健康情報から症状・既往歴・検査値を正確に抽出し、標準化された医療データに変換します',
+    'zh-CN': '从您的健康信息中精准提取症状、病史、检查值，转化为标准化医疗数据',
+    'zh-TW': '從您的健康資訊中精準提取症狀、病史、檢查值，轉化為標準化醫療數據',
+    en: 'Precisely extracts symptoms, medical history, and test values from your health information into standardized medical data',
+  },
+  aiRole2: {
+    ja: 'トリアージ・分析評価',
+    'zh-CN': '分诊分析与风险评估',
+    'zh-TW': '分診分析與風險評估',
+    en: 'Triage & Risk Assessment',
+  },
+  aiRole2Desc: {
+    ja: '構造化データに基づき、緊急度の判定、推奨診療科の選定、必要な検査項目の提案を行います',
+    'zh-CN': '基于结构化数据进行紧急程度判定、推荐就诊科室、建议必要检查项目',
+    'zh-TW': '基於結構化數據進行緊急程度判定、推薦就診科室、建議必要檢查項目',
+    en: 'Determines urgency level, recommends medical departments, and suggests necessary examinations based on structured data',
+  },
+  aiRole3: {
+    ja: '反論的チャレンジ検証',
+    'zh-CN': '反方质疑与挑战验证',
+    'zh-TW': '反方質疑與挑戰驗證',
+    en: 'Devil\'s Advocate Review',
+  },
+  aiRole3Desc: {
+    ja: '独立した第三者の視点で分析結果を批判的に検証し、見落としや過小評価がないかチェックします',
+    'zh-CN': '以独立第三方视角批判性审查分析结论，检查是否存在遗漏或风险低估',
+    'zh-TW': '以獨立第三方視角批判性審查分析結論，檢查是否存在遺漏或風險低估',
+    en: 'Critically examines analysis conclusions from an independent perspective, checking for oversights or underestimated risks',
+  },
+  aiRole4: {
+    ja: '品質管理・最終裁定',
+    'zh-CN': '质控仲裁与最终裁定',
+    'zh-TW': '質控仲裁與最終裁定',
+    en: 'Quality Adjudication',
+  },
+  aiRole4Desc: {
+    ja: '全AIの分析結果を総合的に審査し、矛盾点を解消して最終的な健康評価レポートを生成します',
+    'zh-CN': '综合审查所有 AI 分析结果，解决分歧矛盾，生成最终健康评估报告',
+    'zh-TW': '綜合審查所有 AI 分析結果，解決分歧矛盾，生成最終健康評估報告',
+    en: 'Comprehensively reviews all AI analyses, resolves discrepancies, and generates the final health assessment report',
+  },
+  aiMatrixSafety: {
+    ja: 'さらに、臨床ガイドラインに基づく安全チェック、薬物相互作用検出、検査禁忌スクリーニングなどの確定的医療ロジックが全プロセスを監視し、AI判断だけに依存しない多重安全メカニズムを構築しています。',
+    'zh-CN': '此外，基于临床指南的安全检查、药物相互作用检测、检查禁忌筛查等确定性医学逻辑全程监控，构建不依赖单一 AI 判断的多重安全机制。',
+    'zh-TW': '此外，基於臨床指南的安全檢查、藥物交互作用檢測、檢查禁忌篩查等確定性醫學邏輯全程監控，構建不依賴單一 AI 判斷的多重安全機制。',
+    en: 'Additionally, deterministic medical logic — including clinical guideline safety checks, drug interaction detection, and test contraindication screening — monitors the entire process, building multi-layered safety mechanisms beyond AI judgment alone.',
   },
   japanMedicalRecommend: {
     ja: '日本医療推奨',
@@ -900,8 +969,105 @@ export default function HealthScreeningPage() {
         </div>
       </div>
 
+      {/* AI 联合会诊系统介绍 */}
+      <div className="bg-gradient-to-b from-gray-900 to-gray-800 py-16">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 text-blue-300 rounded-full text-sm font-medium mb-4 backdrop-blur-sm">
+              <Brain className="w-4 h-4" />
+              AEMC — AI Expert Medical Consultation
+            </div>
+            <h2 className="text-2xl md:text-3xl font-serif text-white mb-4">
+              {t('aiMatrixTitle', lang)}
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed">
+              {t('aiMatrixSubtitle', lang)}
+            </p>
+          </div>
+
+          {/* 4 AI 模型卡片 */}
+          <div className="grid md:grid-cols-2 gap-4 mb-8">
+            {/* GPT-4o */}
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span className="text-emerald-400 font-bold text-lg">G</span>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="text-white font-bold">ChatGPT</h3>
+                    <span className="text-xs text-gray-500 bg-white/5 px-2 py-0.5 rounded">GPT-4o</span>
+                  </div>
+                  <p className="text-blue-300 text-sm font-medium mb-2">{t('aiRole1', lang)}</p>
+                  <p className="text-gray-400 text-sm leading-relaxed">{t('aiRole1Desc', lang)}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Gemini */}
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span className="text-blue-400 font-bold text-lg">G</span>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="text-white font-bold">Gemini</h3>
+                    <span className="text-xs text-gray-500 bg-white/5 px-2 py-0.5 rounded">Google</span>
+                  </div>
+                  <p className="text-blue-300 text-sm font-medium mb-2">{t('aiRole2', lang)}</p>
+                  <p className="text-gray-400 text-sm leading-relaxed">{t('aiRole2Desc', lang)}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Grok */}
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-orange-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span className="text-orange-400 font-bold text-lg">X</span>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="text-white font-bold">Grok</h3>
+                    <span className="text-xs text-gray-500 bg-white/5 px-2 py-0.5 rounded">xAI</span>
+                  </div>
+                  <p className="text-blue-300 text-sm font-medium mb-2">{t('aiRole3', lang)}</p>
+                  <p className="text-gray-400 text-sm leading-relaxed">{t('aiRole3Desc', lang)}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Claude */}
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-amber-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span className="text-amber-400 font-bold text-lg">C</span>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="text-white font-bold">Claude</h3>
+                    <span className="text-xs text-gray-500 bg-white/5 px-2 py-0.5 rounded">Anthropic</span>
+                  </div>
+                  <p className="text-blue-300 text-sm font-medium mb-2">{t('aiRole4', lang)}</p>
+                  <p className="text-gray-400 text-sm leading-relaxed">{t('aiRole4Desc', lang)}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 安全机制说明 */}
+          <div className="flex items-start gap-3 bg-blue-500/10 border border-blue-500/20 rounded-xl p-5">
+            <CheckCircle2 className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
+            <p className="text-gray-300 text-sm leading-relaxed">
+              {t('aiMatrixSafety', lang)}
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* 原有功能特性 */}
-      <div className="max-w-4xl mx-auto px-4 pb-16">
+      <div className="max-w-4xl mx-auto px-4 py-16">
         <div className="grid md:grid-cols-3 gap-6">
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
             <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
