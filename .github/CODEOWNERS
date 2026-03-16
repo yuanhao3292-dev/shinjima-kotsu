@@ -1,0 +1,4 @@
+# AEMC Pipeline — 医疗安全关键模块，修改需 owner 审核
+/services/aemc/                     @yuanhao3292-dev
+/tests/aemc-*.test.ts               @yuanhao3292-dev
+/services/document-extractor.ts     @yuanhao3292-dev
