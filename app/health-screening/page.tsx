@@ -974,58 +974,6 @@ export default function HealthScreeningPage() {
         </div>
       </div>
 
-      {/* 新功能亮点 */}
-      <div className="max-w-4xl mx-auto px-4 py-12">
-        <div className="text-center mb-10">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
-            <Sparkles className="w-4 h-4" />
-            {t('newFeatures', lang)}
-          </span>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
-              <Activity className="w-6 h-6 text-blue-600" />
-            </div>
-            <h3 className="font-bold text-gray-900 mb-2">{t('bodyMapInteraction', lang)}</h3>
-            <p className="text-gray-500 text-sm">
-              {t('bodyMapDesc', lang)}
-            </p>
-          </div>
-
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
-              <Users className="w-6 h-6 text-green-600" />
-            </div>
-            <h3 className="font-bold text-gray-900 mb-2">{t('smartDeptRecommend', lang)}</h3>
-            <p className="text-gray-500 text-sm">
-              {t('smartDeptDesc', lang)}
-            </p>
-          </div>
-
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
-              <Sparkles className="w-6 h-6 text-purple-600" />
-            </div>
-            <h3 className="font-bold text-gray-900 mb-2">{t('dynamicQuestionnaire', lang)}</h3>
-            <p className="text-gray-500 text-sm">
-              {t('dynamicDesc', lang)}
-            </p>
-          </div>
-
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
-              <FileText className="w-6 h-6 text-orange-600" />
-            </div>
-            <h3 className="font-bold text-gray-900 mb-2">{t('pdfReport', lang)}</h3>
-            <p className="text-gray-500 text-sm">
-              {t('pdfDesc', lang)}
-            </p>
-          </div>
-        </div>
-      </div>
-
       {/* AI 联合会诊系统介绍 */}
       <div className="bg-gradient-to-b from-gray-900 to-gray-800 py-16">
         <div className="max-w-4xl mx-auto px-4">
@@ -1042,89 +990,10 @@ export default function HealthScreeningPage() {
             </p>
           </div>
 
-          {/* 4 AI 模型卡片 */}
-          <div className="grid md:grid-cols-2 gap-4 mb-8">
-            {/* GPT-4o */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <span className="text-emerald-400 font-bold text-lg">G</span>
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className="text-white font-bold">ChatGPT</h3>
-                    <span className="text-xs text-gray-500 bg-white/5 px-2 py-0.5 rounded">GPT-4o</span>
-                  </div>
-                  <p className="text-blue-300 text-sm font-medium mb-2">{t('aiRole1', lang)}</p>
-                  <p className="text-gray-400 text-sm leading-relaxed">{t('aiRole1Desc', lang)}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Gemini */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <span className="text-blue-400 font-bold text-lg">G</span>
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className="text-white font-bold">Gemini</h3>
-                    <span className="text-xs text-gray-500 bg-white/5 px-2 py-0.5 rounded">Google</span>
-                  </div>
-                  <p className="text-blue-300 text-sm font-medium mb-2">{t('aiRole2', lang)}</p>
-                  <p className="text-gray-400 text-sm leading-relaxed">{t('aiRole2Desc', lang)}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Grok */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-orange-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <span className="text-orange-400 font-bold text-lg">X</span>
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className="text-white font-bold">Grok</h3>
-                    <span className="text-xs text-gray-500 bg-white/5 px-2 py-0.5 rounded">xAI</span>
-                  </div>
-                  <p className="text-blue-300 text-sm font-medium mb-2">{t('aiRole3', lang)}</p>
-                  <p className="text-gray-400 text-sm leading-relaxed">{t('aiRole3Desc', lang)}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Claude */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-amber-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <span className="text-amber-400 font-bold text-lg">C</span>
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className="text-white font-bold">Claude</h3>
-                    <span className="text-xs text-gray-500 bg-white/5 px-2 py-0.5 rounded">Anthropic</span>
-                  </div>
-                  <p className="text-blue-300 text-sm font-medium mb-2">{t('aiRole4', lang)}</p>
-                  <p className="text-gray-400 text-sm leading-relaxed">{t('aiRole4Desc', lang)}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* 安全机制说明 */}
-          <div className="flex items-start gap-3 bg-blue-500/10 border border-blue-500/20 rounded-xl p-5">
-            <CheckCircle2 className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-            <p className="text-gray-300 text-sm leading-relaxed">
-              {t('aiMatrixSafety', lang)}
-            </p>
-          </div>
-
           {/* Pipeline Flow Visualization */}
-          <div className="mt-16">
-            <h2 className="text-2xl font-bold text-white text-center mb-2">{t('pipelineTitle', lang)}</h2>
-            <p className="text-gray-400 text-center text-sm mb-10">{t('pipelineDeterministic', lang)}</p>
+          <div className="mb-12">
+            <h3 className="text-xl font-bold text-white text-center mb-2">{t('pipelineTitle', lang)}</h3>
+            <p className="text-gray-400 text-center text-sm mb-8">{t('pipelineDeterministic', lang)}</p>
 
             <div className="flex flex-col items-center gap-0">
               {/* INPUT */}
@@ -1249,6 +1118,137 @@ export default function HealthScreeningPage() {
                 <p className="text-gray-400 text-xs">{t('pipelineOutputDesc', lang)}</p>
               </div>
             </div>
+          </div>
+
+          {/* 4 AI 模型卡片 */}
+          <div className="grid md:grid-cols-2 gap-4 mb-8">
+            {/* GPT-4o */}
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span className="text-emerald-400 font-bold text-lg">G</span>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="text-white font-bold">ChatGPT</h3>
+                    <span className="text-xs text-gray-500 bg-white/5 px-2 py-0.5 rounded">OpenAI</span>
+                  </div>
+                  <p className="text-blue-300 text-sm font-medium mb-2">{t('aiRole1', lang)}</p>
+                  <p className="text-gray-400 text-sm leading-relaxed">{t('aiRole1Desc', lang)}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Gemini */}
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span className="text-blue-400 font-bold text-lg">G</span>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="text-white font-bold">Gemini</h3>
+                    <span className="text-xs text-gray-500 bg-white/5 px-2 py-0.5 rounded">Google</span>
+                  </div>
+                  <p className="text-blue-300 text-sm font-medium mb-2">{t('aiRole2', lang)}</p>
+                  <p className="text-gray-400 text-sm leading-relaxed">{t('aiRole2Desc', lang)}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Grok */}
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-orange-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span className="text-orange-400 font-bold text-lg">X</span>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="text-white font-bold">Grok</h3>
+                    <span className="text-xs text-gray-500 bg-white/5 px-2 py-0.5 rounded">xAI</span>
+                  </div>
+                  <p className="text-blue-300 text-sm font-medium mb-2">{t('aiRole3', lang)}</p>
+                  <p className="text-gray-400 text-sm leading-relaxed">{t('aiRole3Desc', lang)}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Claude */}
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-amber-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span className="text-amber-400 font-bold text-lg">C</span>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="text-white font-bold">Claude</h3>
+                    <span className="text-xs text-gray-500 bg-white/5 px-2 py-0.5 rounded">Anthropic</span>
+                  </div>
+                  <p className="text-blue-300 text-sm font-medium mb-2">{t('aiRole4', lang)}</p>
+                  <p className="text-gray-400 text-sm leading-relaxed">{t('aiRole4Desc', lang)}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 安全机制说明 */}
+          <div className="flex items-start gap-3 bg-blue-500/10 border border-blue-500/20 rounded-xl p-5">
+            <CheckCircle2 className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
+            <p className="text-gray-300 text-sm leading-relaxed">
+              {t('aiMatrixSafety', lang)}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* 新功能亮点 */}
+      <div className="max-w-4xl mx-auto px-4 py-12">
+        <div className="text-center mb-10">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
+            <Sparkles className="w-4 h-4" />
+            {t('newFeatures', lang)}
+          </span>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+              <Activity className="w-6 h-6 text-blue-600" />
+            </div>
+            <h3 className="font-bold text-gray-900 mb-2">{t('bodyMapInteraction', lang)}</h3>
+            <p className="text-gray-500 text-sm">
+              {t('bodyMapDesc', lang)}
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
+              <Users className="w-6 h-6 text-green-600" />
+            </div>
+            <h3 className="font-bold text-gray-900 mb-2">{t('smartDeptRecommend', lang)}</h3>
+            <p className="text-gray-500 text-sm">
+              {t('smartDeptDesc', lang)}
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
+              <Sparkles className="w-6 h-6 text-purple-600" />
+            </div>
+            <h3 className="font-bold text-gray-900 mb-2">{t('dynamicQuestionnaire', lang)}</h3>
+            <p className="text-gray-500 text-sm">
+              {t('dynamicDesc', lang)}
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
+              <FileText className="w-6 h-6 text-orange-600" />
+            </div>
+            <h3 className="font-bold text-gray-900 mb-2">{t('pdfReport', lang)}</h3>
+            <p className="text-gray-500 text-sm">
+              {t('pdfDesc', lang)}
+            </p>
           </div>
         </div>
       </div>
