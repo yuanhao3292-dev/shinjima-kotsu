@@ -88,7 +88,7 @@ export default function RegisterPage() {
         email: email.trim().toLowerCase(),
         password,
         options: {
-          data: { full_name: name.trim() },
+          data: { full_name: name.trim(), locale: lang },
           emailRedirectTo: `${window.location.origin}/auth/callback`,
         },
       });
