@@ -21,6 +21,8 @@ import {
   Globe,
   Brain,
   CheckCircle2,
+  ArrowDown,
+  FileOutput,
 } from 'lucide-react';
 import { FREE_SCREENING_LIMIT } from '@/lib/screening-questions';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
@@ -273,6 +275,61 @@ const translations = {
     'zh-CN': '此外，基于临床指南的安全检查、药物相互作用检测、检查禁忌筛查等确定性医学逻辑全程监控，构建不依赖单一 AI 判断的多重安全机制。',
     'zh-TW': '此外，基於臨床指南的安全檢查、藥物交互作用檢測、檢查禁忌篩查等確定性醫學邏輯全程監控，構建不依賴單一 AI 判斷的多重安全機制。',
     en: 'Additionally, deterministic medical logic — including clinical guideline safety checks, drug interaction detection, and test contraindication screening — monitors the entire process, building multi-layered safety mechanisms beyond AI judgment alone.',
+  },
+  // Pipeline Flow
+  pipelineTitle: {
+    ja: '分析プロセスの全体像',
+    'zh-CN': '分析流程全景',
+    'zh-TW': '分析流程全景',
+    en: 'Complete Analysis Pipeline',
+  },
+  pipelineInput: {
+    ja: 'お客様の健康情報',
+    'zh-CN': '您的健康信息',
+    'zh-TW': '您的健康資訊',
+    en: 'Your Health Information',
+  },
+  pipelineInputDesc: {
+    ja: '問診回答 / 検査報告書 / 診断書',
+    'zh-CN': '问诊回答 / 检查报告 / 诊断书',
+    'zh-TW': '問診回答 / 檢查報告 / 診斷書',
+    en: 'Questionnaire / Test Reports / Medical Documents',
+  },
+  pipelineCheck1: {
+    ja: '抽出検証 + 臨床スコア + ガイドライン照合',
+    'zh-CN': '提取验证 + 临床评分 + 指南匹配',
+    'zh-TW': '提取驗證 + 臨床評分 + 指南匹配',
+    en: 'Extraction Validation + Clinical Scoring + Guideline Matching',
+  },
+  pipelineCheck2: {
+    ja: '検査禁忌チェック + 薬物相互作用検出',
+    'zh-CN': '检查禁忌筛查 + 药物相互作用检测',
+    'zh-TW': '檢查禁忌篩查 + 藥物交互作用檢測',
+    en: 'Test Contraindication Screening + Drug Interaction Detection',
+  },
+  pipelineCheck3: {
+    ja: '安全ゲート + ICD-10 + 医療機関マッチング',
+    'zh-CN': '安全闸门 + ICD-10 编码 + 医疗机构匹配',
+    'zh-TW': '安全閘門 + ICD-10 編碼 + 醫療機構匹配',
+    en: 'Safety Gate + ICD-10 Coding + Hospital Matching',
+  },
+  pipelineOutput: {
+    ja: '健康評価レポート',
+    'zh-CN': '健康评估报告',
+    'zh-TW': '健康評估報告',
+    en: 'Health Assessment Report',
+  },
+  pipelineOutputDesc: {
+    ja: 'リスク評価 / 推奨検査 / 医療機関推薦 / PDF',
+    'zh-CN': '风险评估 / 推荐检查 / 医疗机构推荐 / PDF',
+    'zh-TW': '風險評估 / 推薦檢查 / 醫療機構推薦 / PDF',
+    en: 'Risk Assessment / Recommended Tests / Hospital Referral / PDF',
+  },
+  pipelineDeterministic: {
+    ja: '確定的医療ロジック',
+    'zh-CN': '确定性医学逻辑',
+    'zh-TW': '確定性醫學邏輯',
+    en: 'Deterministic Medical Logic',
   },
   japanMedicalRecommend: {
     ja: '日本医療推奨',
@@ -1062,6 +1119,136 @@ export default function HealthScreeningPage() {
             <p className="text-gray-300 text-sm leading-relaxed">
               {t('aiMatrixSafety', lang)}
             </p>
+          </div>
+
+          {/* Pipeline Flow Visualization */}
+          <div className="mt-16">
+            <h2 className="text-2xl font-bold text-white text-center mb-2">{t('pipelineTitle', lang)}</h2>
+            <p className="text-gray-400 text-center text-sm mb-10">{t('pipelineDeterministic', lang)}</p>
+
+            <div className="flex flex-col items-center gap-0">
+              {/* INPUT */}
+              <div className="w-full max-w-md bg-gradient-to-r from-sky-500/20 to-blue-500/20 border border-sky-500/30 rounded-2xl p-5 text-center">
+                <div className="flex items-center justify-center gap-2 mb-1">
+                  <Upload className="w-5 h-5 text-sky-400" />
+                  <span className="text-white font-bold">{t('pipelineInput', lang)}</span>
+                </div>
+                <p className="text-gray-400 text-xs">{t('pipelineInputDesc', lang)}</p>
+              </div>
+
+              <ArrowDown className="w-5 h-5 text-gray-600 my-2" />
+
+              {/* AI-1: GPT-4o */}
+              <div className="w-full max-w-md bg-white/5 border border-emerald-500/30 rounded-2xl p-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-emerald-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <span className="text-emerald-400 font-bold">G</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-white font-bold text-sm">AI-1</span>
+                      <span className="text-emerald-400 text-xs">ChatGPT / GPT-4o</span>
+                    </div>
+                    <p className="text-gray-400 text-xs">{t('aiRole1', lang)}</p>
+                  </div>
+                </div>
+              </div>
+
+              <ArrowDown className="w-5 h-5 text-gray-600 my-2" />
+
+              {/* Deterministic Check 1 */}
+              <div className="w-full max-w-sm bg-yellow-500/10 border border-yellow-500/20 rounded-xl px-4 py-2.5 text-center">
+                <div className="flex items-center justify-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-yellow-400" />
+                  <span className="text-yellow-300 text-xs font-medium">{t('pipelineCheck1', lang)}</span>
+                </div>
+              </div>
+
+              <ArrowDown className="w-5 h-5 text-gray-600 my-2" />
+
+              {/* AI-2: Gemini */}
+              <div className="w-full max-w-md bg-white/5 border border-blue-500/30 rounded-2xl p-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <span className="text-blue-400 font-bold">G</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-white font-bold text-sm">AI-2</span>
+                      <span className="text-blue-400 text-xs">Gemini 2.5 Pro</span>
+                    </div>
+                    <p className="text-gray-400 text-xs">{t('aiRole2', lang)}</p>
+                  </div>
+                </div>
+              </div>
+
+              <ArrowDown className="w-5 h-5 text-gray-600 my-2" />
+
+              {/* Deterministic Check 2 */}
+              <div className="w-full max-w-sm bg-yellow-500/10 border border-yellow-500/20 rounded-xl px-4 py-2.5 text-center">
+                <div className="flex items-center justify-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-yellow-400" />
+                  <span className="text-yellow-300 text-xs font-medium">{t('pipelineCheck2', lang)}</span>
+                </div>
+              </div>
+
+              <ArrowDown className="w-5 h-5 text-gray-600 my-2" />
+
+              {/* AI-3: Grok */}
+              <div className="w-full max-w-md bg-white/5 border border-orange-500/30 rounded-2xl p-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-orange-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <span className="text-orange-400 font-bold">X</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-white font-bold text-sm">AI-3</span>
+                      <span className="text-orange-400 text-xs">Grok</span>
+                    </div>
+                    <p className="text-gray-400 text-xs">{t('aiRole3', lang)}</p>
+                  </div>
+                </div>
+              </div>
+
+              <ArrowDown className="w-5 h-5 text-gray-600 my-2" />
+
+              {/* AI-4: Claude */}
+              <div className="w-full max-w-md bg-white/5 border border-amber-500/30 rounded-2xl p-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-amber-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <span className="text-amber-400 font-bold">C</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-white font-bold text-sm">AI-4</span>
+                      <span className="text-amber-400 text-xs">Claude</span>
+                    </div>
+                    <p className="text-gray-400 text-xs">{t('aiRole4', lang)}</p>
+                  </div>
+                </div>
+              </div>
+
+              <ArrowDown className="w-5 h-5 text-gray-600 my-2" />
+
+              {/* Deterministic Check 3 */}
+              <div className="w-full max-w-sm bg-yellow-500/10 border border-yellow-500/20 rounded-xl px-4 py-2.5 text-center">
+                <div className="flex items-center justify-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-yellow-400" />
+                  <span className="text-yellow-300 text-xs font-medium">{t('pipelineCheck3', lang)}</span>
+                </div>
+              </div>
+
+              <ArrowDown className="w-5 h-5 text-gray-600 my-2" />
+
+              {/* OUTPUT */}
+              <div className="w-full max-w-md bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-2xl p-5 text-center">
+                <div className="flex items-center justify-center gap-2 mb-1">
+                  <FileOutput className="w-5 h-5 text-green-400" />
+                  <span className="text-white font-bold">{t('pipelineOutput', lang)}</span>
+                </div>
+                <p className="text-gray-400 text-xs">{t('pipelineOutputDesc', lang)}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
