@@ -14,33 +14,40 @@ export async function GET(request: Request) {
   if (code) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
-    if (!error) {
+
+    // 构造重定向 URL 的辅助函数
+    const buildRedirectUrl = (path: string) => {
       const forwardedHost = request.headers.get('x-forwarded-host');
       const isLocalEnv = process.env.NODE_ENV === 'development';
 
       if (isLocalEnv) {
-        return NextResponse.redirect(`${origin}${next}`);
+        return `${origin}${path}`;
       } else if (forwardedHost) {
-        // 验证 x-forwarded-host 是否为允许的域名
         const allowedHostPatterns = [
           'niijima-koutsu.jp',
           'www.niijima-koutsu.jp',
         ];
         const isAllowedHost =
           allowedHostPatterns.includes(forwardedHost) ||
-          forwardedHost.endsWith('.vercel.app'); // Vercel 预览部署
+          forwardedHost.endsWith('.vercel.app');
 
         if (isAllowedHost) {
-          return NextResponse.redirect(`https://${forwardedHost}${next}`);
+          return `https://${forwardedHost}${path}`;
         }
-        // 不在白名单中的 host，使用 origin
-        return NextResponse.redirect(`${origin}${next}`);
-      } else {
-        return NextResponse.redirect(`${origin}${next}`);
       }
+      return `${origin}${path}`;
+    };
+
+    if (!error) {
+      return NextResponse.redirect(buildRedirectUrl(next));
     }
+
+    // PKCE 交换失败（常见于用户在不同浏览器/邮件App中打开验证链接）
+    // 邮箱已在 Supabase 侧验证成功，只是无法建立 session
+    // 显示友好提示，引导用户登录
+    return NextResponse.redirect(buildRedirectUrl('/login?verified=true'));
   }
 
-  // 如果出错，重定向到错误页面
+  // 没有 code 参数，真正的错误
   return NextResponse.redirect(`${origin}/login?error=auth_callback_error`);
 }

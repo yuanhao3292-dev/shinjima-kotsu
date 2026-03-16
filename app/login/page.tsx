@@ -172,6 +172,12 @@ const translations = {
     'zh-TW': '驗證失敗，請重試',
     en: 'Verification failed, please try again',
   },
+  emailVerified: {
+    ja: 'メールアドレスの認証が完了しました！以下からログインしてください。',
+    'zh-CN': '邮箱验证成功！请在下方登录。',
+    'zh-TW': '郵箱驗證成功！請在下方登入。',
+    en: 'Email verified successfully! Please log in below.',
+  },
 } as const;
 
 // 翻译辅助函数
@@ -191,6 +197,7 @@ function LoginForm() {
   const searchParams = useSearchParams();
   const redirect = searchParams.get('redirect') || '/my-account';
   const urlError = searchParams.get('error');
+  const verified = searchParams.get('verified');
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -285,6 +292,14 @@ function LoginForm() {
               <h1 className="text-2xl font-serif font-bold text-neutral-900">{t('pageTitle', lang)}</h1>
               <p className="text-neutral-500 mt-2 text-sm">{t('pageSubtitle', lang)}</p>
             </div>
+
+            {/* Email Verified Success Message */}
+            {verified && !error && (
+              <div className="mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl flex items-center gap-2 text-sm">
+                <svg className="w-[18px] h-[18px] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <span>{t('emailVerified', lang)}</span>
+              </div>
+            )}
 
             {/* Error Messages */}
             {(error || urlError) && (
