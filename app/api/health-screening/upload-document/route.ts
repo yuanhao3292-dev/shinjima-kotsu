@@ -114,6 +114,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // 页数超限检查 — 返回具体页数让前端显示友好提示
+    if (extractionResult.errorMessage?.startsWith('PDF_PAGE_LIMIT_EXCEEDED:')) {
+      const actualPages = extractionResult.errorMessage.split(':')[1];
+      return NextResponse.json(
+        { error: 'PDF_PAGE_LIMIT', pageCount: Number(actualPages), maxPages: 10 },
+        { status: 400 }
+      );
+    }
+
     // 更新筛查记录
     const documentType = file.type === 'application/pdf' ? 'pdf' : 'image';
     const { error: updateError } = await supabase

@@ -20,6 +20,7 @@ const GEMINI_MODEL = 'gemini-2.5-flash';
 const VISION_TIMEOUT_MS = 30_000; // 30s — 复杂医学报告图片 OCR 需要更长时间
 const GEMINI_OCR_TIMEOUT_MS = 45_000; // 45s — 多页医学报告（含表格/图表）需要更长处理时间
 const MIN_PDF_TEXT_LENGTH = 50;
+const MAX_PDF_PAGES = 10; // 限制 PDF 最大页数，防止大文件消耗过多 token
 
 export interface DocumentExtractionResult {
   text: string;
@@ -71,6 +72,18 @@ async function extractFromPDF(buffer: Buffer): Promise<DocumentExtractionResult>
     pdfText = (pdfData.text || '').trim();
     pageCount = pdfData.numpages;
     console.info(`[DocExtractor] pdf-parse: ${pdfText.length} chars, ${pageCount} pages`);
+
+    // 页数限制检查
+    if (pageCount && pageCount > MAX_PDF_PAGES) {
+      console.warn(`[DocExtractor] PDF exceeds page limit: ${pageCount} > ${MAX_PDF_PAGES}`);
+      return {
+        text: '',
+        method: 'pdf-parse',
+        pageCount,
+        confidence: 'low',
+        errorMessage: `PDF_PAGE_LIMIT_EXCEEDED:${pageCount}`,
+      };
+    }
   } catch (error) {
     console.warn(
       '[DocExtractor] pdf-parse failed:',

@@ -30,10 +30,10 @@ const translations = {
     en: 'Browse files',
   },
   formats: {
-    ja: 'PDF, JPG, PNG 対応 (最大 10MB)',
-    'zh-CN': '支持 PDF、JPG、PNG（最大 10MB）',
-    'zh-TW': '支援 PDF、JPG、PNG（最大 10MB）',
-    en: 'PDF, JPG, PNG supported (max 10MB)',
+    ja: 'PDF, JPG, PNG 対応 (最大 10MB・PDF は 10 ページまで)',
+    'zh-CN': '支持 PDF、JPG、PNG（最大 10MB，PDF 限 10 页内）',
+    'zh-TW': '支援 PDF、JPG、PNG（最大 10MB，PDF 限 10 頁內）',
+    en: 'PDF, JPG, PNG supported (max 10MB, PDF up to 10 pages)',
   },
   uploading: {
     ja: 'アップロード＆テキスト抽出中...',
@@ -70,6 +70,12 @@ const translations = {
     'zh-CN': '文件大小超过 10MB',
     'zh-TW': '檔案大小超過 10MB',
     en: 'File size exceeds 10MB',
+  },
+  errorPageLimit: {
+    ja: 'PDF のページ数が上限（10ページ）を超えています。必要なページだけを抽出して再アップロードしてください',
+    'zh-CN': 'PDF 页数超过上限（10页），请仅提取需要分析的页面后重新上传',
+    'zh-TW': 'PDF 頁數超過上限（10頁），請僅提取需要分析的頁面後重新上傳',
+    en: 'PDF exceeds the 10-page limit. Please extract only the relevant pages and re-upload',
   },
   method: {
     ja: '抽出方式：',
@@ -195,7 +201,11 @@ export default function DocumentUpload({
         const data = await response.json();
 
         if (!response.ok) {
-          setError(data.error || '上传失败');
+          if (data.error === 'PDF_PAGE_LIMIT') {
+            setError(t('errorPageLimit'));
+          } else {
+            setError(data.error || '上传失败');
+          }
           setStatus('error');
           return;
         }

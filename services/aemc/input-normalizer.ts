@@ -13,6 +13,9 @@
 import type { ScreeningAnswer } from '@/lib/screening-questions';
 import type { CasePacket, CaseSymptom, Demographics } from './types';
 
+// 上传文档提取文本的最大长度（约 8000 tokens）
+const MAX_REPORT_TEXT_LENGTH = 15_000;
+
 // ============================================================
 // 年龄范围 → 中间值映射
 // ============================================================
@@ -67,9 +70,13 @@ export function normalizeToCasePacket(input: NormalizerInput): CasePacket {
   }
   if (input.uploadedReportText) {
     sourceTypes.push('medical_report');
+    // 截断过长的文档文本，防止消耗过多 AI token
+    const truncatedText = input.uploadedReportText.length > MAX_REPORT_TEXT_LENGTH
+      ? input.uploadedReportText.slice(0, MAX_REPORT_TEXT_LENGTH) + '\n\n[... 文档内容已截断，仅分析前 15000 字符 ...]'
+      : input.uploadedReportText;
     rawTextBundle.push({
       source: 'uploaded_document',
-      text: input.uploadedReportText,
+      text: truncatedText,
     });
   }
   // 至少标记一个来源
@@ -86,7 +93,11 @@ export function normalizeToCasePacket(input: NormalizerInput): CasePacket {
     body_regions: bodyRegions,
     selected_symptoms: selectedSymptoms,
     questionnaire_answers: questionnaireAnswers,
-    uploaded_report_text: input.uploadedReportText,
+    uploaded_report_text: input.uploadedReportText
+      ? (input.uploadedReportText.length > MAX_REPORT_TEXT_LENGTH
+          ? input.uploadedReportText.slice(0, MAX_REPORT_TEXT_LENGTH)
+          : input.uploadedReportText)
+      : undefined,
     timeline: [],
     raw_text_bundle: rawTextBundle,
     metadata: {
