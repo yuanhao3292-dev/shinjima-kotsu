@@ -474,7 +474,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                   </div>
                 ) : (
                   <div className="space-y-1.5 text-sm text-gray-600 mb-4">
-                    <div>〒556-0014 大阪府大阪市浪速区大国1-2-21-602</div>
+                    <div>{currentLang === 'en' ? '1-2-21-602 Daikoku, Naniwa-ku, Osaka 556-0014, Japan' : currentLang === 'zh-TW' ? '〒556-0014 大阪府大阪市浪速區大國1-2-21-602' : currentLang === 'zh-CN' ? '〒556-0014 大阪府大阪市浪速区大国1-2-21-602' : '〒556-0014 大阪府大阪市浪速区大国1-2-21-602'}</div>
                     <div>
                       <a href="tel:06-6632-8807" className="hover:text-gray-900 transition-colors">TEL: 06-6632-8807</a>
                     </div>

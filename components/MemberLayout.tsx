@@ -159,7 +159,7 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
                   {t('hospitalName', lang)}
                 </p>
                 <div className="space-y-1.5 text-sm text-gray-600">
-                  <div>〒556-0014 大阪府大阪市浪速区大国1-2-21-602</div>
+                  <div>{lang === 'en' ? '1-2-21-602 Daikoku, Naniwa-ku, Osaka 556-0014, Japan' : lang === 'zh-TW' ? '〒556-0014 大阪府大阪市浪速區大國1-2-21-602' : lang === 'zh-CN' ? '〒556-0014 大阪府大阪市浪速区大国1-2-21-602' : '〒556-0014 大阪府大阪市浪速区大国1-2-21-602'}</div>
                   <div className="flex items-center gap-3">
                     <a href="tel:06-6632-8807" className="hover:text-gray-900 transition-colors">TEL: 06-6632-8807</a>
                   </div>
