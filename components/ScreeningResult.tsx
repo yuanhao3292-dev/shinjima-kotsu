@@ -13,7 +13,6 @@ import {
   ArrowRight,
   FileText,
   Share2,
-  MessageCircle,
   Activity,
   Users,
 } from 'lucide-react';
@@ -189,24 +188,6 @@ const translations = {
     'zh-TW': '查看歷史',
     ja: '履歴を見る',
     en: 'View History',
-  },
-  needConsultation: {
-    'zh-CN': '需要专业咨询？',
-    'zh-TW': '需要專業諮詢？',
-    ja: '専門的なご相談が必要ですか？',
-    en: 'Need Professional Consultation?',
-  },
-  consultationDesc: {
-    'zh-CN': '我们的医疗顾问可以根据您的筛查结果，为您推荐最适合的日本医疗服务。',
-    'zh-TW': '我們的醫療顧問可以根據您的篩查結果，為您推薦最適合的日本醫療服務。',
-    ja: 'スクリーニング結果に基づき、最適な日本の医療サービスをご提案いたします。',
-    en: 'Our medical consultants can recommend the most suitable Japanese medical services based on your screening results.',
-  },
-  lineConsult: {
-    'zh-CN': 'LINE 咨询',
-    'zh-TW': 'LINE 諮詢',
-    ja: 'LINE で相談する',
-    en: 'LINE Consultation',
   },
 };
 
@@ -583,28 +564,6 @@ export default function ScreeningResult({
         </div>
       )}
 
-      {/* 咨询入口（白标模式下隐藏，由白标结果页渲染导游联系方式） */}
-      {!isGuideEmbed && (
-        <div className="bg-gray-900 text-white rounded-2xl p-6 md:p-8">
-          <div className="flex flex-col md:flex-row items-center gap-6">
-            <div className="flex-1">
-              <h3 className="text-xl font-bold mb-2">{t('needConsultation', lang)}</h3>
-              <p className="text-gray-400">
-                {t('consultationDesc', lang)}
-              </p>
-            </div>
-            <a
-              href="https://line.me/R/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-6 py-3 bg-green-500 text-white rounded-xl hover:bg-green-600 transition-colors whitespace-nowrap"
-            >
-              <MessageCircle className="w-5 h-5" />
-              {t('lineConsult', lang)}
-            </a>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
