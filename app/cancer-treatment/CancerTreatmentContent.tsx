@@ -349,332 +349,428 @@ const PARTNER_INSTITUTIONS = [
   { icon: Stethoscope, label: { ja: '専門クリニック', 'zh-TW': '專門診所', 'zh-CN': '专门诊所', en: 'Specialized Clinics' } as Record<Language, string> },
   { icon: FlaskConical, label: { ja: '再生医療クリニック', 'zh-TW': '再生醫療診所', 'zh-CN': '再生医疗诊所', en: 'Regenerative Medicine Clinics' } as Record<Language, string> },
 ];
-// 日本知名癌症治療醫療機構介紹（純信息展示，非合作聲明）
-// 關西地區優先置頂
+// 医疗机构 i18n 辅助函数
+const L = (ja: string, tw: string, cn: string, en: string): Record<Language, string> => ({ ja, 'zh-TW': tw, 'zh-CN': cn, en });
+// 日本知名癌症治疗医疗机构介绍（纯信息展示，非合作声明）— 关西地区优先置顶
 const JAPAN_MEDICAL_INSTITUTIONS = [
   {
-    category: '關西地區癌症專門醫院',
+    category: L('関西地域 がん専門病院', '關西地區癌症專門醫院', '关西地区癌症专门医院', 'Kansai Cancer Specialty Hospitals'),
     color: 'red',
     institutions: [
       {
         name: '大阪国際がんセンター',
-        nameZh: '大阪國際癌症中心',
-        location: '大阪府大阪市中央區',
+        nameLocal: L('大阪国際がんセンター', '大阪國際癌症中心', '大阪国际癌症中心', 'Osaka International Cancer Center'),
+        location: L('大阪府大阪市中央区', '大阪府大阪市中央區', '大阪府大阪市中央区', 'Chuo-ku, Osaka City, Osaka'),
         website: 'https://oici.jp/',
-        specialty: ['肺癌', '消化器癌', '乳癌', '血液腫瘤', '婦科腫瘤'],
-        features: [
-          '大阪府立癌症專門醫院（2017年新建）',
-          '年間手術量超 5,000 例',
-          '最先端癌症治療設備完備',
-          '癌症基因組醫療核心拠點',
-          '國際患者支援窗口',
+        specialty: [
+          L('肺がん', '肺癌', '肺癌', 'Lung Cancer'),
+          L('消化器がん', '消化器癌', '消化器癌', 'GI Cancer'),
+          L('乳がん', '乳癌', '乳癌', 'Breast Cancer'),
+          L('血液腫瘍', '血液腫瘤', '血液肿瘤', 'Hematologic Tumors'),
+          L('婦人科腫瘍', '婦科腫瘤', '妇科肿瘤', 'Gynecologic Tumors'),
         ],
-        treatments: ['達芬奇機器人手術', '免疫治療', '基因靶向治療', '放射線治療'],
+        features: [
+          L('大阪府立がん専門病院（2017年新築）', '大阪府立癌症專門醫院（2017年新建）', '大阪府立癌症专门医院（2017年新建）', 'Osaka prefectural cancer hospital (rebuilt 2017)'),
+          L('年間手術件数 5,000例超', '年間手術量超 5,000 例', '年间手术量超 5,000 例', 'Over 5,000 surgeries per year'),
+          L('最先端がん治療設備完備', '最先端癌症治療設備完備', '最先端癌症治疗设备完备', 'State-of-the-art cancer treatment equipment'),
+          L('がんゲノム医療中核拠点', '癌症基因組醫療核心據點', '癌症基因组医疗核心据点', 'Core hub for cancer genomic medicine'),
+          L('国際患者支援窓口あり', '國際患者支援窗口', '国际患者支援窗口', 'International patient support desk'),
+        ],
+        treatments: [
+          L('ダヴィンチ手術', '達芬奇機器人手術', '达芬奇机器人手术', 'Da Vinci Robotic Surgery'),
+          L('免疫療法', '免疫治療', '免疫治疗', 'Immunotherapy'),
+          L('遺伝子標的治療', '基因靶向治療', '基因靶向治疗', 'Gene-targeted Therapy'),
+          L('放射線治療', '放射線治療', '放射线治疗', 'Radiation Therapy'),
+        ],
       },
       {
         name: '兵庫県立がんセンター',
-        nameZh: '兵庫縣立癌症中心',
-        location: '兵庫縣明石市',
+        nameLocal: L('兵庫県立がんセンター', '兵庫縣立癌症中心', '兵库县立癌症中心', 'Hyogo Prefectural Cancer Center'),
+        location: L('兵庫県明石市', '兵庫縣明石市', '兵库县明石市', 'Akashi, Hyogo'),
         website: 'https://www.hyogo-cc.jp/',
-        specialty: ['肺癌', '消化器癌', '乳癌', '頭頸部癌'],
-        features: [
-          '兵庫縣癌症治療核心醫院',
-          '多學科協作治療體制',
-          '緩和醫療充實',
-          '臨床試驗積極參與',
+        specialty: [
+          L('肺がん', '肺癌', '肺癌', 'Lung Cancer'),
+          L('消化器がん', '消化器癌', '消化器癌', 'GI Cancer'),
+          L('乳がん', '乳癌', '乳癌', 'Breast Cancer'),
+          L('頭頸部がん', '頭頸部癌', '头颈部癌', 'Head & Neck Cancer'),
         ],
-        treatments: ['微創手術', '化學療法', '放射線治療', '緩和醫療'],
+        features: [
+          L('兵庫県がん治療の中核病院', '兵庫縣癌症治療核心醫院', '兵库县癌症治疗核心医院', 'Core cancer hospital of Hyogo'),
+          L('多職種チーム医療体制', '多學科協作治療體制', '多学科协作治疗体制', 'Multidisciplinary team approach'),
+          L('緩和ケアが充実', '緩和醫療充實', '缓和医疗充实', 'Comprehensive palliative care'),
+          L('臨床試験に積極参加', '臨床試驗積極參與', '临床试验积极参与', 'Active clinical trial participation'),
+        ],
+        treatments: [
+          L('低侵襲手術', '微創手術', '微创手术', 'Minimally Invasive Surgery'),
+          L('化学療法', '化學療法', '化学疗法', 'Chemotherapy'),
+          L('放射線治療', '放射線治療', '放射线治疗', 'Radiation Therapy'),
+          L('緩和ケア', '緩和醫療', '缓和医疗', 'Palliative Care'),
+        ],
       },
       {
         name: '神戸大学医学部附属病院',
-        nameZh: '神戶大學醫學部附屬醫院',
-        location: '兵庫縣神戶市',
+        nameLocal: L('神戸大学医学部附属病院', '神戶大學醫學部附屬醫院', '神户大学医学部附属医院', 'Kobe University Hospital'),
+        location: L('兵庫県神戸市', '兵庫縣神戶市', '兵库县神户市', 'Kobe, Hyogo'),
         website: 'https://www.hosp.kobe-u.ac.jp/',
-        specialty: ['肝膽胰癌', '消化器癌', '乳癌', '血液腫瘤'],
-        features: [
-          '神戶醫療產業都市核心醫院',
-          '肝膽胰外科日本領先',
-          '先進醫療設備完備',
-          '國際醫療交流活躍',
+        specialty: [
+          L('肝胆膵がん', '肝膽胰癌', '肝胆胰癌', 'Hepatobiliary & Pancreatic Cancer'),
+          L('消化器がん', '消化器癌', '消化器癌', 'GI Cancer'),
+          L('乳がん', '乳癌', '乳癌', 'Breast Cancer'),
+          L('血液腫瘍', '血液腫瘤', '血液肿瘤', 'Hematologic Tumors'),
         ],
-        treatments: ['高難度肝膽胰手術', '免疫治療', '基因組醫療'],
+        features: [
+          L('神戸医療産業都市の中核病院', '神戶醫療產業都市核心醫院', '神户医疗产业都市核心医院', 'Core hospital of Kobe Biomedical Innovation Cluster'),
+          L('肝胆膵外科は日本トップクラス', '肝膽胰外科日本領先', '肝胆胰外科日本领先', 'Leading hepatobiliary surgery in Japan'),
+          L('先進医療設備完備', '先進醫療設備完備', '先进医疗设备完备', 'Advanced medical equipment'),
+          L('国際医療交流が活発', '國際醫療交流活躍', '国际医疗交流活跃', 'Active international medical exchange'),
+        ],
+        treatments: [
+          L('高難度肝胆膵手術', '高難度肝膽胰手術', '高难度肝胆胰手术', 'Complex Hepatobiliary Surgery'),
+          L('免疫療法', '免疫治療', '免疫治疗', 'Immunotherapy'),
+          L('ゲノム医療', '基因組醫療', '基因组医疗', 'Genomic Medicine'),
+        ],
       },
       {
         name: '奈良県立医科大学附属病院',
-        nameZh: '奈良縣立醫科大學附屬醫院',
-        location: '奈良縣橿原市',
+        nameLocal: L('奈良県立医科大学附属病院', '奈良縣立醫科大學附屬醫院', '奈良县立医科大学附属医院', 'Nara Medical University Hospital'),
+        location: L('奈良県橿原市', '奈良縣橿原市', '奈良县橿原市', 'Kashihara, Nara'),
         website: 'https://www.naramed-u.ac.jp/hospital/',
-        specialty: ['消化器癌', '肺癌', '婦科腫瘤', '血液腫瘤'],
-        features: [
-          '奈良縣唯一的特定機能醫院',
-          '癌症診療連攜拠點醫院',
-          '地域醫療支援完善',
-          '多職種團隊醫療',
+        specialty: [
+          L('消化器がん', '消化器癌', '消化器癌', 'GI Cancer'),
+          L('肺がん', '肺癌', '肺癌', 'Lung Cancer'),
+          L('婦人科腫瘍', '婦科腫瘤', '妇科肿瘤', 'Gynecologic Tumors'),
+          L('血液腫瘍', '血液腫瘤', '血液肿瘤', 'Hematologic Tumors'),
         ],
-        treatments: ['腹腔鏡手術', '化學療法', '放射線治療'],
+        features: [
+          L('奈良県唯一の特定機能病院', '奈良縣唯一的特定機能醫院', '奈良县唯一的特定机能医院', 'Only advanced treatment hospital in Nara'),
+          L('がん診療連携拠点病院', '癌症診療連攜據點醫院', '癌症诊疗连携据点医院', 'Designated regional cancer care hospital'),
+          L('地域医療支援が充実', '地域醫療支援完善', '地域医疗支援完善', 'Strong regional medical support'),
+          L('多職種チーム医療', '多職種團隊醫療', '多职种团队医疗', 'Multidisciplinary team medicine'),
+        ],
+        treatments: [
+          L('腹腔鏡手術', '腹腔鏡手術', '腹腔镜手术', 'Laparoscopic Surgery'),
+          L('化学療法', '化學療法', '化学疗法', 'Chemotherapy'),
+          L('放射線治療', '放射線治療', '放射线治疗', 'Radiation Therapy'),
+        ],
       },
       {
         name: '和歌山県立医科大学附属病院',
-        nameZh: '和歌山縣立醫科大學附屬醫院',
-        location: '和歌山縣和歌山市',
+        nameLocal: L('和歌山県立医科大学附属病院', '和歌山縣立醫科大學附屬醫院', '和歌山县立医科大学附属医院', 'Wakayama Medical University Hospital'),
+        location: L('和歌山県和歌山市', '和歌山縣和歌山市', '和歌山县和歌山市', 'Wakayama City, Wakayama'),
         website: 'https://www.wakayama-med.ac.jp/hospital/',
-        specialty: ['消化器癌', '肺癌', '乳癌', '泌尿器癌'],
-        features: [
-          '和歌山縣癌症診療核心醫院',
-          '內視鏡治療技術精湛',
-          '癌症基因組醫療拠點',
-          '緩和醫療團隊完備',
+        specialty: [
+          L('消化器がん', '消化器癌', '消化器癌', 'GI Cancer'),
+          L('肺がん', '肺癌', '肺癌', 'Lung Cancer'),
+          L('乳がん', '乳癌', '乳癌', 'Breast Cancer'),
+          L('泌尿器がん', '泌尿器癌', '泌尿器癌', 'Urologic Cancer'),
         ],
-        treatments: ['內視鏡手術', '化學療法', '基因組醫療', '緩和醫療'],
+        features: [
+          L('和歌山県がん診療の中核病院', '和歌山縣癌症診療核心醫院', '和歌山县癌症诊疗核心医院', 'Core cancer hospital of Wakayama'),
+          L('内視鏡治療技術が精鍛', '內視鏡治療技術精湛', '内视镜治疗技术精湛', 'Exceptional endoscopic treatment skills'),
+          L('がんゲノム医療拠点', '癌症基因組醫療據點', '癌症基因组医疗据点', 'Cancer genomic medicine hub'),
+          L('緩和ケアチーム完備', '緩和醫療團隊完備', '缓和医疗团队完备', 'Full palliative care team'),
+        ],
+        treatments: [
+          L('内視鏡手術', '內視鏡手術', '内视镜手术', 'Endoscopic Surgery'),
+          L('化学療法', '化學療法', '化学疗法', 'Chemotherapy'),
+          L('ゲノム医療', '基因組醫療', '基因组医疗', 'Genomic Medicine'),
+          L('緩和ケア', '緩和醫療', '缓和医疗', 'Palliative Care'),
+        ],
       },
     ],
   },
   {
-    category: '關西地區大學附屬醫院',
+    category: L('関西地域 大学付属病院', '關西地區大學附屬醫院', '关西地区大学附属医院', 'Kansai University Hospitals'),
     color: 'green',
     institutions: [
       {
         name: '大阪大学医学部附属病院',
-        nameZh: '大阪大學醫學部附屬醫院',
-        location: '大阪府吹田市',
+        nameLocal: L('大阪大学医学部附属病院', '大阪大學醫學部附屬醫院', '大阪大学医学部附属医院', 'Osaka University Hospital'),
+        location: L('大阪府吹田市', '大阪府吹田市', '大阪府吹田市', 'Suita, Osaka'),
         website: 'https://www.hosp.med.osaka-u.ac.jp/',
-        specialty: ['消化器癌', '血液腫瘤', '皮膚癌'],
-        features: [
-          '關西地區頂級醫療機構',
-          '光免疫療法臨床研究領先',
-          '幹細胞治療研究先驅',
+        specialty: [
+          L('消化器がん', '消化器癌', '消化器癌', 'GI Cancer'),
+          L('血液腫瘍', '血液腫瘤', '血液肿瘤', 'Hematologic Tumors'),
+          L('皮膚がん', '皮膚癌', '皮肤癌', 'Skin Cancer'),
         ],
-        treatments: ['光免疫療法', '再生醫療', 'CAR-T 療法'],
+        features: [
+          L('関西トップクラスの医療機関', '關西地區頂級醫療機構', '关西地区顶级医疗机构', 'Top-tier medical institution in Kansai'),
+          L('光免疫療法の臨床研究で先行', '光免疫療法臨床研究領先', '光免疫疗法临床研究领先', 'Pioneer in photoimmunotherapy research'),
+          L('幹細胞治療研究の先駆者', '幹細胞治療研究先驅', '干细胞治疗研究先驱', 'Pioneer in stem cell therapy research'),
+        ],
+        treatments: [
+          L('光免疫療法', '光免疫療法', '光免疫疗法', 'Photoimmunotherapy'),
+          L('再生医療', '再生醫療', '再生医疗', 'Regenerative Medicine'),
+          L('CAR-T療法', 'CAR-T 療法', 'CAR-T 疗法', 'CAR-T Therapy'),
+        ],
       },
       {
         name: '京都大学医学部附属病院',
-        nameZh: '京都大學醫學部附屬醫院',
-        location: '京都府京都市',
+        nameLocal: L('京都大学医学部附属病院', '京都大學醫學部附屬醫院', '京都大学医学部附属医院', 'Kyoto University Hospital'),
+        location: L('京都府京都市', '京都府京都市', '京都府京都市', 'Kyoto City, Kyoto'),
         website: 'https://www.kuhp.kyoto-u.ac.jp/',
-        specialty: ['血液腫瘤', '消化器癌', '腦腫瘤', '乳癌'],
-        features: [
-          'iPS 細胞研究發源地（山中伸彌教授）',
-          '再生醫療世界領先',
-          '癌症基因組醫療核心拠點',
-          '關西醫學研究重鎮',
+        specialty: [
+          L('血液腫瘍', '血液腫瘤', '血液肿瘤', 'Hematologic Tumors'),
+          L('消化器がん', '消化器癌', '消化器癌', 'GI Cancer'),
+          L('脳腫瘍', '腦腫瘤', '脑肿瘤', 'Brain Tumors'),
+          L('乳がん', '乳癌', '乳癌', 'Breast Cancer'),
         ],
-        treatments: ['iPS 細胞治療', '基因組醫療', 'CAR-T 療法', '免疫治療'],
+        features: [
+          L('iPS細胞研究発祥の地（山中伸弥教授）', 'iPS 細胞研究發源地（山中伸彌教授）', 'iPS 细胞研究发源地（山中伸弥教授）', 'Birthplace of iPS cell research (Prof. Yamanaka)'),
+          L('再生医療で世界をリード', '再生醫療世界領先', '再生医疗世界领先', 'World leader in regenerative medicine'),
+          L('がんゲノム医療中核拠点', '癌症基因組醫療核心據點', '癌症基因组医疗核心据点', 'Core hub for cancer genomic medicine'),
+          L('関西医学研究の重鎮', '關西醫學研究重鎮', '关西医学研究重镇', 'Leading medical research center in Kansai'),
+        ],
+        treatments: [
+          L('iPS細胞治療', 'iPS 細胞治療', 'iPS 细胞治疗', 'iPS Cell Therapy'),
+          L('ゲノム医療', '基因組醫療', '基因组医疗', 'Genomic Medicine'),
+          L('CAR-T療法', 'CAR-T 療法', 'CAR-T 疗法', 'CAR-T Therapy'),
+          L('免疫療法', '免疫治療', '免疫治疗', 'Immunotherapy'),
+        ],
       },
       {
         name: '近畿大学医学部附属病院',
-        nameZh: '近畿大學醫學部附屬醫院',
-        location: '大阪府大阪狹山市',
+        nameLocal: L('近畿大学医学部附属病院', '近畿大學醫學部附屬醫院', '近畿大学医学部附属医院', 'Kindai University Hospital'),
+        location: L('大阪府大阪狭山市', '大阪府大阪狹山市', '大阪府大阪狭山市', 'Osakasayama, Osaka'),
         website: 'https://www.med.kindai.ac.jp/',
-        specialty: ['肝癌', '腎癌', '膀胱癌', '前列腺癌'],
-        features: [
-          '近大醫院（世界首創完全養殖黑鮪魚聞名）',
-          '泌尿器科腫瘤治療強項',
-          '達芬奇機器人手術經驗豐富',
-          '癌症免疫治療研究活躍',
+        specialty: [
+          L('肝がん', '肝癌', '肝癌', 'Liver Cancer'),
+          L('腎がん', '腎癌', '肾癌', 'Kidney Cancer'),
+          L('膀胱がん', '膀胱癌', '膀胱癌', 'Bladder Cancer'),
+          L('前立腺がん', '前列腺癌', '前列腺癌', 'Prostate Cancer'),
         ],
-        treatments: ['達芬奇機器人手術', '免疫檢查點抑制劑', '精準放射治療'],
+        features: [
+          L('近大病院（完全養殖マグロで有名）', '近大醫院（世界首創完全養殖黑鮪魚聞名）', '近大医院（世界首创完全养殖蓝鳍金枪鱼闻名）', 'Kindai Hospital (famed for pioneering farmed bluefin tuna)'),
+          L('泌尿器科腫瘍治療に強み', '泌尿器科腫瘤治療強項', '泌尿器科肿瘤治疗强项', 'Strong in urologic cancer treatment'),
+          L('ダヴィンチ手術の経験が豊富', '達芬奇機器人手術經驗豐富', '达芬奇机器人手术经验丰富', 'Extensive Da Vinci surgery experience'),
+          L('がん免疫療法研究が活発', '癌症免疫治療研究活躍', '癌症免疫治疗研究活跃', 'Active cancer immunotherapy research'),
+        ],
+        treatments: [
+          L('ダヴィンチ手術', '達芬奇機器人手術', '达芬奇机器人手术', 'Da Vinci Robotic Surgery'),
+          L('免疫チェックポイント阻害剤', '免疫檢查點抑制劑', '免疫检查点抑制剂', 'Immune Checkpoint Inhibitors'),
+          L('精密放射線治療', '精準放射治療', '精准放射治疗', 'Precision Radiation Therapy'),
+        ],
       },
     ],
   },
   {
-    category: 'BNCT 硼中子俘獲治療（關西）',
+    category: L('BNCT ホウ素中性子捕捉療法（関西）', 'BNCT 硼中子俘獲治療（關西）', 'BNCT 硼中子俘获治疗（关西）', 'BNCT Boron Neutron Capture Therapy (Kansai)'),
     color: 'orange',
     institutions: [
       {
         name: '大阪医科薬科大学病院',
-        nameZh: '大阪醫科藥科大學醫院',
-        location: '大阪府高槻市',
+        nameLocal: L('大阪医科薬科大学病院', '大阪醫科藥科大學醫院', '大阪医科药科大学医院', 'Osaka Medical & Pharmaceutical University Hospital'),
+        location: L('大阪府高槻市', '大阪府高槻市', '大阪府高槻市', 'Takatsuki, Osaka'),
         website: 'https://hospital.ompu.ac.jp/',
-        specialty: ['頭頸部癌（復發）', '腦腫瘤', '惡性黑色素瘤'],
-        features: [
-          '全球首個醫院內設置 BNCT 設備',
-          '對手術困難、復發癌症效果顯著',
-          '單次照射即可完成治療',
+        specialty: [
+          L('頭頸部がん（再発）', '頭頸部癌（復發）', '头颈部癌（复发）', 'Recurrent Head & Neck Cancer'),
+          L('脳腫瘍', '腦腫瘤', '脑肿瘤', 'Brain Tumors'),
+          L('悪性黒色腫', '惡性黑色素瘤', '恶性黑色素瘤', 'Malignant Melanoma'),
         ],
-        treatments: ['BNCT 硼中子俘獲治療'],
+        features: [
+          L('世界初の院内BNCT設備設置', '全球首個醫院內設置 BNCT 設備', '全球首个医院内设置 BNCT 设备', "World's first in-hospital BNCT facility"),
+          L('手術困難・再発がんに顕著な効果', '對手術困難、復發癌症效果顯著', '对手术困难、复发癌症效果显著', 'Effective for inoperable & recurrent cancers'),
+          L('1回の照射で治療完了可能', '單次照射即可完成治療', '单次照射即可完成治疗', 'Treatment possible in a single session'),
+        ],
+        treatments: [
+          L('BNCT ホウ素中性子捕捉療法', 'BNCT 硼中子俘獲治療', 'BNCT 硼中子俘获治疗', 'BNCT (Boron Neutron Capture Therapy)'),
+        ],
       },
     ],
   },
   {
-    category: '重粒子線・質子線治療設施（關西）',
+    category: L('重粒子線・陽子線治療施設（関西）', '重粒子線・質子線治療設施（關西）', '重粒子线・质子线治疗设施（关西）', 'Heavy Ion & Proton Therapy (Kansai)'),
     color: 'purple',
     institutions: [
       {
         name: '兵庫県立粒子線医療センター',
-        nameZh: '兵庫縣立粒子線醫療中心',
-        location: '兵庫縣龍野市',
+        nameLocal: L('兵庫県立粒子線医療センター', '兵庫縣立粒子線醫療中心', '兵库县立粒子线医疗中心', 'Hyogo Ion Beam Medical Center'),
+        location: L('兵庫県たつの市', '兵庫縣龍野市', '兵库县龙野市', 'Tatsuno, Hyogo'),
         website: 'https://www.hibmc.shingu.hyogo.jp/',
-        specialty: ['肺癌', '肝癌', '前列腺癌', '胰臟癌'],
-        features: [
-          '全球首個同時擁有質子線和重粒子線的設施',
-          '治療適應症最廣',
-          '可根據癌症類型選擇最佳粒子線',
+        specialty: [
+          L('肺がん', '肺癌', '肺癌', 'Lung Cancer'),
+          L('肝がん', '肝癌', '肝癌', 'Liver Cancer'),
+          L('前立腺がん', '前列腺癌', '前列腺癌', 'Prostate Cancer'),
+          L('膵がん', '胰臟癌', '胰腺癌', 'Pancreatic Cancer'),
         ],
-        treatments: ['質子線治療', '重粒子線治療'],
+        features: [
+          L('世界初の陽子線・重粒子線両方を備えた施設', '全球首個同時擁有質子線和重粒子線的設施', '全球首个同时拥有质子线和重粒子线的设施', "World's first dual proton & heavy ion facility"),
+          L('治療適応症が最も広い', '治療適應症最廣', '治疗适应症最广', 'Widest range of treatable cancers'),
+          L('がんの種類に応じた最適な粒子線を選択', '可根據癌症類型選擇最佳粒子線', '可根据癌症类型选择最佳粒子线', 'Optimal particle beam selected per cancer type'),
+        ],
+        treatments: [
+          L('陽子線治療', '質子線治療', '质子线治疗', 'Proton Beam Therapy'),
+          L('重粒子線治療', '重粒子線治療', '重粒子线治疗', 'Heavy Ion Therapy'),
+        ],
       },
     ],
   },
   {
-    category: '國立癌症中心（東京）',
+    category: L('国立がんセンター（東京）', '國立癌症中心（東京）', '国立癌症中心（东京）', 'National Cancer Center (Tokyo)'),
     color: 'blue',
     institutions: [
       {
         name: '国立がん研究センター中央病院',
-        nameZh: '國立癌症研究中心中央醫院',
-        location: '東京都中央區',
+        nameLocal: L('国立がん研究センター中央病院', '國立癌症研究中心中央醫院', '国立癌症研究中心中央医院', 'National Cancer Center Hospital'),
+        location: L('東京都中央区', '東京都中央區', '东京都中央区', 'Chuo-ku, Tokyo'),
         website: 'https://www.ncc.go.jp/jp/ncch/',
-        specialty: ['消化器癌', '肺癌', '乳癌', '血液腫瘤'],
-        features: [
-          '日本癌症研究最高學府',
-          '年手術量超 8,000 例',
-          '最新臨床試驗優先參與',
-          '多學科團隊會診制度',
+        specialty: [
+          L('消化器がん', '消化器癌', '消化器癌', 'GI Cancer'),
+          L('肺がん', '肺癌', '肺癌', 'Lung Cancer'),
+          L('乳がん', '乳癌', '乳癌', 'Breast Cancer'),
+          L('血液腫瘍', '血液腫瘤', '血液肿瘤', 'Hematologic Tumors'),
         ],
-        treatments: ['達芬奇機器人手術', '免疫檢查點抑制劑', '基因靶向治療'],
+        features: [
+          L('日本がん研究の最高学府', '日本癌症研究最高學府', '日本癌症研究最高学府', "Japan's top cancer research institution"),
+          L('年間手術件数 8,000例超', '年手術量超 8,000 例', '年手术量超 8,000 例', 'Over 8,000 surgeries per year'),
+          L('最新臨床試験に優先参加', '最新臨床試驗優先參與', '最新临床试验优先参与', 'Priority access to latest clinical trials'),
+          L('多職種チーム合同カンファレンス', '多學科團隊會診制度', '多学科团队会诊制度', 'Multidisciplinary team conferences'),
+        ],
+        treatments: [
+          L('ダヴィンチ手術', '達芬奇機器人手術', '达芬奇机器人手术', 'Da Vinci Robotic Surgery'),
+          L('免疫チェックポイント阻害剤', '免疫檢查點抑制劑', '免疫检查点抑制剂', 'Immune Checkpoint Inhibitors'),
+          L('遺伝子標的治療', '基因靶向治療', '基因靶向治疗', 'Gene-targeted Therapy'),
+        ],
       },
       {
         name: '国立がん研究センター東病院',
-        nameZh: '國立癌症研究中心東醫院',
-        location: '千葉縣柏市',
+        nameLocal: L('国立がん研究センター東病院', '國立癌症研究中心東醫院', '国立癌症研究中心东医院', 'National Cancer Center Hospital East'),
+        location: L('千葉県柏市', '千葉縣柏市', '千叶县柏市', 'Kashiwa, Chiba'),
         website: 'https://www.ncc.go.jp/jp/ncce/',
-        specialty: ['頭頸部癌', '食道癌', '肝膽胰癌'],
-        features: [
-          '質子線治療先驅',
-          '頭頸部癌治療日本領先',
-          '消化器內視鏡治療技術頂尖',
-          '國際患者支援體制完善',
+        specialty: [
+          L('頭頸部がん', '頭頸部癌', '头颈部癌', 'Head & Neck Cancer'),
+          L('食道がん', '食道癌', '食道癌', 'Esophageal Cancer'),
+          L('肝胆膵がん', '肝膽胰癌', '肝胆胰癌', 'Hepatobiliary & Pancreatic Cancer'),
         ],
-        treatments: ['質子線治療', '光免疫療法', '內視鏡黏膜下剝離術(ESD)'],
+        features: [
+          L('陽子線治療の先駆者', '質子線治療先驅', '质子线治疗先驱', 'Pioneer in proton beam therapy'),
+          L('頭頸部がん治療で日本トップ', '頭頸部癌治療日本領先', '头颈部癌治疗日本领先', "Japan's leader in head & neck cancer"),
+          L('消化器内視鏡治療技術が最高水準', '消化器內視鏡治療技術頂尖', '消化器内视镜治疗技术顶尖', 'World-class GI endoscopic treatment'),
+          L('国際患者支援体制が充実', '國際患者支援體制完善', '国际患者支援体制完善', 'Comprehensive international patient support'),
+        ],
+        treatments: [
+          L('陽子線治療', '質子線治療', '质子线治疗', 'Proton Beam Therapy'),
+          L('光免疫療法', '光免疫療法', '光免疫疗法', 'Photoimmunotherapy'),
+          L('内視鏡的粘膜下層剥離術(ESD)', '內視鏡黏膜下剝離術(ESD)', '内视镜黏膜下剥离术(ESD)', 'Endoscopic Submucosal Dissection (ESD)'),
+        ],
       },
     ],
   },
   {
-    category: '首都圈大學附屬醫院',
+    category: L('首都圏 大学付属病院', '首都圈大學附屬醫院', '首都圈大学附属医院', 'Greater Tokyo University Hospitals'),
     color: 'blue',
     institutions: [
       {
         name: '東京大学医学部附属病院',
-        nameZh: '東京大學醫學部附屬醫院',
-        location: '東京都文京區',
+        nameLocal: L('東京大学医学部附属病院', '東京大學醫學部附屬醫院', '东京大学医学部附属医院', 'The University of Tokyo Hospital'),
+        location: L('東京都文京区', '東京都文京區', '东京都文京区', 'Bunkyo-ku, Tokyo'),
         website: 'https://www.h.u-tokyo.ac.jp/',
-        specialty: ['全科癌症', '罕見癌症', '復發難治癌症'],
-        features: [
-          '日本醫學最高學府',
-          '最新治療技術臨床應用',
-          '疑難雜症診斷能力強',
+        specialty: [
+          L('全がん', '全科癌症', '全科癌症', 'All Cancer Types'),
+          L('希少がん', '罕見癌症', '罕见癌症', 'Rare Cancers'),
+          L('再発難治がん', '復發難治癌症', '复发难治癌症', 'Refractory / Recurrent Cancers'),
         ],
-        treatments: ['CAR-T 細胞療法', '精準醫療', '臨床試驗'],
+        features: [
+          L('日本医学の最高学府', '日本醫學最高學府', '日本医学最高学府', "Japan's top medical university"),
+          L('最新治療技術の臨床応用', '最新治療技術臨床應用', '最新治疗技术临床应用', 'Clinical application of cutting-edge treatments'),
+          L('難病診断能力に優れる', '疑難雜症診斷能力強', '疑难杂症诊断能力强', 'Exceptional diagnostics for complex cases'),
+        ],
+        treatments: [
+          L('CAR-T細胞療法', 'CAR-T 細胞療法', 'CAR-T 细胞疗法', 'CAR-T Cell Therapy'),
+          L('精密医療', '精準醫療', '精准医疗', 'Precision Medicine'),
+          L('臨床試験', '臨床試驗', '临床试验', 'Clinical Trials'),
+        ],
       },
       {
         name: '慶應義塾大学病院',
-        nameZh: '慶應義塾大學醫院',
-        location: '東京都新宿區',
+        nameLocal: L('慶應義塾大学病院', '慶應義塾大學醫院', '庆应义塾大学医院', 'Keio University Hospital'),
+        location: L('東京都新宿区', '東京都新宿區', '东京都新宿区', 'Shinjuku-ku, Tokyo'),
         website: 'https://www.hosp.keio.ac.jp/',
-        specialty: ['肺癌', '消化器癌', '婦科腫瘤'],
-        features: [
-          '私立醫學名校附屬醫院',
-          '腫瘤內科實力強勁',
-          '國際患者接待經驗豐富',
+        specialty: [
+          L('肺がん', '肺癌', '肺癌', 'Lung Cancer'),
+          L('消化器がん', '消化器癌', '消化器癌', 'GI Cancer'),
+          L('婦人科腫瘍', '婦科腫瘤', '妇科肿瘤', 'Gynecologic Tumors'),
         ],
-        treatments: ['分子靶向治療', '免疫治療', '微創手術'],
+        features: [
+          L('名門私立大学付属病院', '私立醫學名校附屬醫院', '私立医学名校附属医院', 'Prestigious private university hospital'),
+          L('腫瘍内科の実力が強い', '腫瘤內科實力強勁', '肿瘤内科实力强劲', 'Strong medical oncology department'),
+          L('国際患者の受入経験が豊富', '國際患者接待經驗豐富', '国际患者接待经验丰富', 'Extensive international patient experience'),
+        ],
+        treatments: [
+          L('分子標的治療', '分子靶向治療', '分子靶向治疗', 'Molecular Targeted Therapy'),
+          L('免疫療法', '免疫治療', '免疫治疗', 'Immunotherapy'),
+          L('低侵襲手術', '微創手術', '微创手术', 'Minimally Invasive Surgery'),
+        ],
       },
     ],
   },
   {
-    category: '其他地區先進設施',
+    category: L('その他の先進施設', '其他地區先進設施', '其他地区先进设施', 'Other Advanced Facilities'),
     color: 'purple',
     institutions: [
       {
         name: '量子科学技術研究開発機構 QST病院',
-        nameZh: 'QST醫院（原放醫研）',
-        location: '千葉縣千葉市',
+        nameLocal: L('QST病院（旧放医研）', 'QST醫院（原放醫研）', 'QST医院（原放医研）', 'QST Hospital (formerly NIRS)'),
+        location: L('千葉県千葉市', '千葉縣千葉市', '千叶县千叶市', 'Chiba City, Chiba'),
         website: 'https://www.qst.go.jp/',
-        specialty: ['骨軟部肉瘤', '頭頸部癌', '前列腺癌', '肝癌'],
-        features: [
-          '世界重粒子線治療發源地',
-          '治療經驗超 14,000 例',
-          '對放射線抵抗性癌症效果顯著',
-          '短療程（約 3-4 週）',
+        specialty: [
+          L('骨軟部腫瘍', '骨軟部肉瘤', '骨软部肉瘤', 'Bone & Soft Tissue Sarcoma'),
+          L('頭頸部がん', '頭頸部癌', '头颈部癌', 'Head & Neck Cancer'),
+          L('前立腺がん', '前列腺癌', '前列腺癌', 'Prostate Cancer'),
+          L('肝がん', '肝癌', '肝癌', 'Liver Cancer'),
         ],
-        treatments: ['重粒子線治療（碳離子線）'],
+        features: [
+          L('世界の重粒子線治療発祥の地', '世界重粒子線治療發源地', '世界重粒子线治疗发源地', 'Birthplace of heavy ion therapy worldwide'),
+          L('治療経験 14,000例超', '治療經驗超 14,000 例', '治疗经验超 14,000 例', 'Over 14,000 cases treated'),
+          L('放射線抵抗性がんに顕著な効果', '對放射線抵抗性癌症效果顯著', '对放射线抵抗性癌症效果显著', 'Effective for radiation-resistant cancers'),
+          L('短い治療期間（約3〜4週）', '短療程（約 3-4 週）', '短疗程（约 3-4 周）', 'Short treatment course (~3-4 weeks)'),
+        ],
+        treatments: [
+          L('重粒子線治療（炭素イオン線）', '重粒子線治療（碳離子線）', '重粒子线治疗（碳离子线）', 'Heavy Ion Therapy (Carbon Ion)'),
+        ],
       },
       {
         name: '静岡県立静岡がんセンター',
-        nameZh: '靜岡縣立靜岡癌症中心',
-        location: '靜岡縣長泉町',
+        nameLocal: L('静岡県立静岡がんセンター', '靜岡縣立靜岡癌症中心', '静冈县立静冈癌症中心', 'Shizuoka Cancer Center'),
+        location: L('静岡県長泉町', '靜岡縣長泉町', '静冈县长泉町', 'Nagaizumi, Shizuoka'),
         website: 'https://www.scchr.jp/',
-        specialty: ['肺癌', '食道癌', '縱隔腫瘤'],
-        features: [
-          '質子線治療經驗豐富',
-          '環境優美，康復氛圍佳',
-          '多學科整合治療',
+        specialty: [
+          L('肺がん', '肺癌', '肺癌', 'Lung Cancer'),
+          L('食道がん', '食道癌', '食道癌', 'Esophageal Cancer'),
+          L('縦隔腫瘍', '縱隔腫瘤', '纵隔肿瘤', 'Mediastinal Tumors'),
         ],
-        treatments: ['質子線治療', '立體定向放射治療'],
+        features: [
+          L('陽子線治療の経験が豊富', '質子線治療經驗豐富', '质子线治疗经验丰富', 'Extensive proton therapy experience'),
+          L('自然環境に恵まれ療養に最適', '環境優美，康復氛圍佳', '环境优美，康复氛围佳', 'Beautiful surroundings ideal for recovery'),
+          L('多職種統合治療', '多學科整合治療', '多学科整合治疗', 'Integrated multidisciplinary treatment'),
+        ],
+        treatments: [
+          L('陽子線治療', '質子線治療', '质子线治疗', 'Proton Beam Therapy'),
+          L('定位放射線治療', '立體定向放射治療', '立体定向放射治疗', 'Stereotactic Radiation Therapy'),
+        ],
       },
       {
         name: '南東北BNCT研究センター',
-        nameZh: '南東北BNCT研究中心',
-        location: '福島縣郡山市',
+        nameLocal: L('南東北BNCT研究センター', '南東北BNCT研究中心', '南东北BNCT研究中心', 'Southern Tohoku BNCT Research Center'),
+        location: L('福島県郡山市', '福島縣郡山市', '福岛县郡山市', 'Koriyama, Fukushima'),
         website: 'https://www.southerntohoku-bnct.com/',
-        specialty: ['頭頸部癌', '腦腫瘤', '惡性黑色素瘤'],
-        features: [
-          'BNCT 治療先驅機構',
-          '加速器型 BNCT 治療系統',
-          '無需核反應爐，安全性高',
+        specialty: [
+          L('頭頸部がん', '頭頸部癌', '头颈部癌', 'Head & Neck Cancer'),
+          L('脳腫瘍', '腦腫瘤', '脑肿瘤', 'Brain Tumors'),
+          L('悪性黒色腫', '惡性黑色素瘤', '恶性黑色素瘤', 'Malignant Melanoma'),
         ],
-        treatments: ['BNCT 硼中子俘獲治療'],
+        features: [
+          L('BNCT治療の先駆機関', 'BNCT 治療先驅機構', 'BNCT 治疗先驱机构', 'Pioneering BNCT institution'),
+          L('加速器型BNCTシステム', '加速器型 BNCT 治療系統', '加速器型 BNCT 治疗系统', 'Accelerator-based BNCT system'),
+          L('原子炉不要で安全性が高い', '無需核反應爐，安全性高', '无需核反应炉，安全性高', 'No nuclear reactor needed; high safety'),
+        ],
+        treatments: [
+          L('BNCT ホウ素中性子捕捉療法', 'BNCT 硼中子俘獲治療', 'BNCT 硼中子俘获治疗', 'BNCT (Boron Neutron Capture Therapy)'),
+        ],
       },
     ],
   },
 ];
-// ============================================================================
-// 繁简转换配置（模块级缓存，避免每次渲染重新创建）
-// ============================================================================
-const TRAD_TO_SIMP_MAP: Record<string, string> = {
-  '癌症': '癌症', '專門': '专门', '醫院': '医院', '醫療': '医疗', '機構': '机构',
-  '國際': '国际', '縣': '县', '區': '区', '醫學': '医学', '療法': '疗法',
-  '檢查': '检查', '診斷': '诊断', '診療': '诊疗', '診所': '诊所', '瘤': '瘤',
-  '癥': '症', '臟': '脏', '體': '体', '質': '质', '離': '离', '線': '线',
-  '藥': '药', '劑': '剂', '標': '标', '靶': '靶', '測': '测', '設': '设',
-  '備': '备', '極': '极', '優': '优', '據': '据', '點': '点', '關': '关',
-  '協': '协', '産': '产', '從': '从', '後': '后', '術': '术', '達': '达',
-  '過': '过', '進': '进', '遠': '远', '還': '还', '這': '这', '個': '个',
-  '專': '专', '為': '为', '與': '与', '業': '业', '義': '义', '開': '开',
-  '際': '际', '復': '复', '發': '发', '當': '当', '護': '护',
-  '細': '细', '組': '组', '織': '织', '導': '导', '團': '团', '難': '难',
-  '類': '类', '約': '约', '經': '经', '緻': '致', '續': '续', '總': '总',
-  '網': '网', '綫': '线', '給': '给', '統': '统', '維': '维', '縮': '缩',
-  '積': '积', '穩': '稳', '築': '筑', '籤': '签',
-  '籍': '籍', '糧': '粮', '紀': '纪', '紅': '红', '紙': '纸',
-  '級': '级', '純': '纯', '紮': '扎', '納': '纳', '紛': '纷', '紹': '绍',
-  '絡': '络', '綜': '综', '綠': '绿', '緊': '紧', '緣': '缘',
-  '練': '练', '縱': '纵', '繁': '繁', '纖': '纤',
-  '績': '绩', '繪': '绘', '繼': '继',
-  '罐': '罐', '羅': '罗', '羣': '群', '習': '习',
-  '膽': '胆', '臨': '临', '膜': '膜', '脈': '脉', '腦': '脑', '腸': '肠',
-  '膀': '膀', '腎': '肾', '腺': '腺', '臓': '脏', '膚': '肤',
-};
-
-/**
- * 高性能繁简转换函数（O(n) 复杂度）
- *
- * 性能对比：
- * - 原实现：O(n × m)，50字符 × 100映射 = 5000次操作
- * - 新实现：O(n)，50字符 = 50次操作
- * - 性能提升：100倍
- *
- * @param text 繁体中文文本
- * @returns 简体中文文本
- */
-function convertToSimplified(text: string): string {
-  if (!text) return text;
-
-  // 使用单次遍历的字符映射，复杂度为 O(n)
-  // 避免使用正则表达式和多次字符串替换
-  return Array.from(text)
-    .map(char => TRAD_TO_SIMP_MAP[char] || char)
-    .join('');
-}
 
 interface CancerTreatmentContentProps {
   isGuideEmbed?: boolean;
@@ -687,16 +783,6 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
   const [showWechatQR, setShowWechatQR] = useState(false);
   const currentLang = useLanguage();
 
-  // 使用 useMemo 缓存本地化文本函数，避免每次渲染重新创建
-  const getLocalizedText = React.useMemo(() => {
-    return (text: string | string[]): string | string[] => {
-      if (currentLang !== 'zh-CN') return text;
-      if (Array.isArray(text)) {
-        return text.map(t => convertToSimplified(t));
-      }
-      return convertToSimplified(text);
-    };
-  }, [currentLang]);
   const t = (key: keyof typeof pageTranslations) => pageTranslations[key][currentLang];
   return (
     <>
@@ -860,7 +946,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   {/* Category Header */}
                   <div className={`${colors.headerBg} ${colors.headerText} px-6 py-4 rounded-t-2xl flex items-center gap-3`}>
                     <Award size={24} />
-                    <h3 className="text-xl font-bold">{category.category}</h3>
+                    <h3 className="text-xl font-bold">{category.category[currentLang]}</h3>
                   </div>
                   {/* Institutions Grid */}
                   <div className={`bg-white border-2 ${colors.cardBorder} border-t-0 rounded-b-2xl p-6`}>
@@ -873,19 +959,19 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                           {/* Hospital Name */}
                           <div className="mb-4">
                             <h4 className="text-lg font-bold text-brand-900 mb-1">{inst.name}</h4>
-                            <p className="text-sm text-neutral-500">{getLocalizedText(inst.nameZh)}</p>
+                            <p className="text-sm text-neutral-500">{inst.nameLocal[currentLang]}</p>
                             <div className="flex items-center gap-1 text-xs text-neutral-400 mt-1">
                               <MapPin size={12} />
-                              {getLocalizedText(inst.location)}
+                              {inst.location[currentLang]}
                             </div>
                           </div>
                           {/* Specialty Tags */}
                           <div className="mb-4">
                             <p className="text-xs text-neutral-500 mb-2">{t('instSpecialty')}</p>
                             <div className="flex flex-wrap gap-1">
-                              {(getLocalizedText(inst.specialty) as string[]).map((spec, i) => (
+                              {inst.specialty.map((spec, i) => (
                                 <span key={i} className={`${colors.badge} text-xs px-2 py-1 rounded-full`}>
-                                  {spec}
+                                  {spec[currentLang]}
                                 </span>
                               ))}
                             </div>
@@ -894,10 +980,10 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                           <div className="mb-4">
                             <p className="text-xs text-neutral-500 mb-2">{t('instFeatures')}</p>
                             <ul className="space-y-1">
-                              {(getLocalizedText(inst.features) as string[]).map((feature, i) => (
+                              {inst.features.map((feature, i) => (
                                 <li key={i} className="flex items-start gap-2 text-sm text-neutral-600">
                                   <CheckCircle size={14} className={`${colors.tagText} mt-0.5 flex-shrink-0`} />
-                                  <span>{feature}</span>
+                                  <span>{feature[currentLang]}</span>
                                 </li>
                               ))}
                             </ul>
@@ -906,9 +992,9 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                           <div className="mb-4">
                             <p className="text-xs text-neutral-500 mb-2">{t('instTreatments')}</p>
                             <div className="flex flex-wrap gap-1">
-                              {(getLocalizedText(inst.treatments) as string[]).map((treatment, i) => (
+                              {inst.treatments.map((treatment, i) => (
                                 <span key={i} className={`${colors.tagBg} ${colors.tagText} text-xs px-2 py-1 rounded border border-current/20`}>
-                                  {treatment}
+                                  {treatment[currentLang]}
                                 </span>
                               ))}
                             </div>

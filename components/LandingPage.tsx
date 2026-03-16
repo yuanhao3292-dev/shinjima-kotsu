@@ -313,38 +313,38 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
             {/* 核心标题 - 温暖、给人希望 */}
             <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
-              {currentLang === 'zh-TW' ? '把健康交給' : currentLang === 'zh-CN' ? '把健康交给' : '健康を託す'}
+              {currentLang === 'zh-TW' ? '把健康交給' : currentLang === 'zh-CN' ? '把健康交给' : currentLang === 'ja' ? '健康を託す' : 'Entrust Your Health'}
               <br />
-              <span className="text-brand-300">{currentLang === 'zh-TW' ? '值得信賴的人' : currentLang === 'zh-CN' ? '值得信赖的人' : '信頼できる人へ'}</span>
+              <span className="text-brand-300">{currentLang === 'zh-TW' ? '值得信賴的人' : currentLang === 'zh-CN' ? '值得信赖的人' : currentLang === 'ja' ? '信頼できる人へ' : 'To Those You Trust'}</span>
             </h2>
 
             <p className="text-sm sm:text-base md:text-xl text-brand-100/80 mb-6 md:mb-8 leading-relaxed font-light">
-              {currentLang === 'zh-TW' ? '日本醫療技術全球領先，PET-CT可發現5mm早期病變。我們提供專車接送、全程陪診翻譯、報告解讀——讓您專心照顧健康，其他的交給我們。' : currentLang === 'zh-CN' ? '日本医疗技术全球领先，PET-CT可发现5mm早期病变。我们提供专车接送、全程陪诊翻译、报告解读——让您专心照顾健康，其他的交给我们。' : '日本の医療技術は世界トップクラス。PET-CTは5mmの早期病変を発見可能。専用車送迎、全行程通訳同行、レポート解説——健康に専念していただき、他はお任せください。'}
+              {currentLang === 'zh-TW' ? '日本醫療技術全球領先，PET-CT可發現5mm早期病變。我們提供專車接送、全程陪診翻譯、報告解讀——讓您專心照顧健康，其他的交給我們。' : currentLang === 'zh-CN' ? '日本医疗技术全球领先，PET-CT可发现5mm早期病变。我们提供专车接送、全程陪诊翻译、报告解读——让您专心照顾健康，其他的交给我们。' : currentLang === 'ja' ? '日本の医療技術は世界トップクラス。PET-CTは5mmの早期病変を発見可能。専用車送迎、全行程通訳同行、レポート解説——健康に専念していただき、他はお任せください。' : 'Japan leads the world in medical technology. PET-CT can detect lesions as small as 5mm. We provide private transfers, full interpretation, and report analysis — focus on your health, and leave the rest to us.'}
             </p>
 
             {/* 核心数据 */}
             <div className="grid grid-cols-3 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-white/20">
               <div className="text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">12<span className="text-brand-300">年</span></div>
-                <div className="text-[10px] md:text-xs text-brand-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '醫療服務經驗' : currentLang === 'zh-CN' ? '医疗服务经验' : '医療サービス実績'}</div>
+                <div className="text-[10px] md:text-xs text-brand-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '醫療服務經驗' : currentLang === 'zh-CN' ? '医疗服务经验' : currentLang === 'ja' ? '医療サービス実績' : 'Medical Service'}</div>
               </div>
               <div className="border-x border-white/20 px-2 md:px-6 py-12 md:py-24 text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">3000<span className="text-brand-300">+</span></div>
-                <div className="text-[10px] md:text-xs text-brand-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : currentLang === 'zh-CN' ? '服务客户' : 'ご利用者様'}</div>
+                <div className="text-[10px] md:text-xs text-brand-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : currentLang === 'zh-CN' ? '服务客户' : currentLang === 'ja' ? 'ご利用者様' : 'Clients Served'}</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">100<span className="text-brand-300">%</span></div>
-                <div className="text-[10px] md:text-xs text-brand-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '全程陪同' : currentLang === 'zh-CN' ? '全程陪同' : '全行程同行'}</div>
+                <div className="text-[10px] md:text-xs text-brand-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '全程陪同' : currentLang === 'zh-CN' ? '全程陪同' : currentLang === 'ja' ? '全行程同行' : 'Full Escort'}</div>
               </div>
             </div>
 
             {/* 服务亮点标签 */}
             <div className="flex flex-wrap gap-3 mb-10">
               {[
-                currentLang === 'zh-TW' ? '專車接送' : currentLang === 'zh-CN' ? '专车接送' : '専用車送迎',
-                currentLang === 'zh-TW' ? '醫療翻譯' : currentLang === 'zh-CN' ? '医疗翻译' : '医療通訳',
-                currentLang === 'zh-TW' ? '報告解讀' : currentLang === 'zh-CN' ? '报告解读' : 'レポート解説',
-                currentLang === 'zh-TW' ? '後續跟進' : currentLang === 'zh-CN' ? '后续跟进' : 'アフターフォロー'
+                currentLang === 'zh-TW' ? '專車接送' : currentLang === 'zh-CN' ? '专车接送' : currentLang === 'ja' ? '専用車送迎' : 'Private Transfer',
+                currentLang === 'zh-TW' ? '醫療翻譯' : currentLang === 'zh-CN' ? '医疗翻译' : currentLang === 'ja' ? '医療通訳' : 'Medical Interpreter',
+                currentLang === 'zh-TW' ? '報告解讀' : currentLang === 'zh-CN' ? '报告解读' : currentLang === 'ja' ? 'レポート解説' : 'Report Analysis',
+                currentLang === 'zh-TW' ? '後續跟進' : currentLang === 'zh-CN' ? '后续跟进' : currentLang === 'ja' ? 'アフターフォロー' : 'Follow-up Care'
               ].map((tag, idx) => (
                 <span key={idx} className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">
                   {tag}
@@ -358,14 +358,14 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 onClick={() => setCurrentPage('medical')}
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-brand-900 text-sm font-medium rounded-lg hover:bg-brand-50 transition-colors cursor-pointer"
               >
-                {currentLang === 'zh-TW' ? '了解體檢方案' : currentLang === 'zh-CN' ? '了解体检方案' : '健診プランを見る'}
+                {currentLang === 'zh-TW' ? '了解體檢方案' : currentLang === 'zh-CN' ? '了解体检方案' : currentLang === 'ja' ? '健診プランを見る' : 'View Checkup Plans'}
                 <ArrowRight size={18} className="ml-3" />
               </a>
               <a
                 href="/health-screening"
                 className="inline-flex items-center justify-center px-8 py-4 border border-white/40 text-white text-sm rounded-lg hover:bg-white/10 transition-colors"
               >
-                {currentLang === 'zh-TW' ? '免費健康評估' : currentLang === 'zh-CN' ? '免费健康评估' : '無料健康診断'}
+                {currentLang === 'zh-TW' ? '免費健康評估' : currentLang === 'zh-CN' ? '免费健康评估' : currentLang === 'ja' ? '無料健康診断' : 'Free Health Assessment'}
               </a>
             </div>
           </div>
@@ -374,12 +374,12 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
         {/* 右下角：检查项目卡片（桌面端） */}
         <div className="hidden lg:block absolute right-8 bottom-8 w-80">
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
-            <h4 className="text-white font-medium mb-4">{currentLang === 'zh-TW' ? '精密檢查項目' : currentLang === 'zh-CN' ? '精密检查项目' : '精密検査項目'}</h4>
+            <h4 className="text-white font-medium mb-4">{currentLang === 'zh-TW' ? '精密檢查項目' : currentLang === 'zh-CN' ? '精密检查项目' : currentLang === 'ja' ? '精密検査項目' : 'Advanced Screening'}</h4>
             <div className="space-y-3">
               {[
-                { name: 'PET-CT', desc: currentLang === 'zh-TW' ? '全身癌症早期篩查' : currentLang === 'zh-CN' ? '全身癌症早期筛查' : '全身がん早期検診' },
-                { name: 'MRI 3.0T', desc: currentLang === 'zh-TW' ? '腦部·心臟精密檢查' : currentLang === 'zh-CN' ? '脑部·心脏精密检查' : '脳・心臓精密検査' },
-                { name: currentLang === 'zh-TW' ? '無痛胃腸鏡' : currentLang === 'zh-CN' ? '无痛胃肠镜' : '無痛内視鏡', desc: currentLang === 'zh-TW' ? '消化道全面檢查' : currentLang === 'zh-CN' ? '消化道全面检查' : '消化器系総合検査' },
+                { name: 'PET-CT', desc: currentLang === 'zh-TW' ? '全身癌症早期篩查' : currentLang === 'zh-CN' ? '全身癌症早期筛查' : currentLang === 'ja' ? '全身がん早期検診' : 'Full-body Early Cancer Screening' },
+                { name: 'MRI 3.0T', desc: currentLang === 'zh-TW' ? '腦部·心臟精密檢查' : currentLang === 'zh-CN' ? '脑部·心脏精密检查' : currentLang === 'ja' ? '脳・心臓精密検査' : 'Brain & Heart Precision Scan' },
+                { name: currentLang === 'zh-TW' ? '無痛胃腸鏡' : currentLang === 'zh-CN' ? '无痛胃肠镜' : currentLang === 'ja' ? '無痛内視鏡' : 'Painless Endoscopy', desc: currentLang === 'zh-TW' ? '消化道全面檢查' : currentLang === 'zh-CN' ? '消化道全面检查' : currentLang === 'ja' ? '消化器系総合検査' : 'Complete GI Examination' },
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-3 text-sm">
                   <CheckCircle size={16} className="text-brand-300 flex-shrink-0" />
@@ -420,38 +420,38 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
             {/* 核心标题 */}
             <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
-              {currentLang === 'zh-TW' ? '面對重疾' : currentLang === 'zh-CN' ? '面对重疾' : '重病と向き合う時'}
+              {currentLang === 'zh-TW' ? '面對重疾' : currentLang === 'zh-CN' ? '面对重疾' : currentLang === 'ja' ? '重病と向き合う時' : 'Facing Serious Illness'}
               <br />
-              <span className="text-brand-300">{currentLang === 'zh-TW' ? '日本醫療給您更多希望' : currentLang === 'zh-CN' ? '日本医疗给您更多希望' : '日本医療がもう一つの希望に'}</span>
+              <span className="text-brand-300">{currentLang === 'zh-TW' ? '日本醫療給您更多希望' : currentLang === 'zh-CN' ? '日本医疗给您更多希望' : currentLang === 'ja' ? '日本医療がもう一つの希望に' : 'Japan\'s Medicine Offers More Hope'}</span>
             </h2>
 
             <p className="text-sm sm:text-base md:text-xl text-neutral-200/80 mb-6 md:mb-8 leading-relaxed font-light">
-              {currentLang === 'zh-TW' ? '質子重離子治療、免疫細胞療法、達文西微創手術——日本癌症5年生存率全球領先。我們協助您獲得日本頂尖醫院的治療機會，全程陪同，讓您專注康復。' : currentLang === 'zh-CN' ? '质子重离子治疗、免疫细胞疗法、达文西微创手术——日本癌症5年生存率全球领先。我们协助您获得日本顶尖医院的治疗机会，全程陪同，让您专注康復。' : '陽子線・重粒子線治療、免疫細胞療法、ダヴィンチ手術——日本のがん5年生存率は世界トップ。日本トップ病院での治療機会をサポート、全行程同行で治療に専念いただけます。'}
+              {currentLang === 'zh-TW' ? '質子重離子治療、免疫細胞療法、達文西微創手術——日本癌症5年生存率全球領先。我們協助您獲得日本頂尖醫院的治療機會，全程陪同，讓您專注康復。' : currentLang === 'zh-CN' ? '质子重离子治疗、免疫细胞疗法、达文西微创手术——日本癌症5年生存率全球领先。我们协助您获得日本顶尖医院的治疗机会，全程陪同，让您专注康復。' : currentLang === 'ja' ? '陽子線・重粒子線治療、免疫細胞療法、ダヴィンチ手術——日本のがん5年生存率は世界トップ。日本トップ病院での治療機会をサポート、全行程同行で治療に専念いただけます。' : 'Proton/heavy ion therapy, immunotherapy, Da Vinci surgery — Japan leads the world in cancer 5-year survival rates. We help you access top hospitals with full escort, so you can focus on recovery.'}
             </p>
 
             {/* 核心数据 */}
             <div className="grid grid-cols-3 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-white/20">
               <div className="text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">68<span className="text-brand-300">%</span></div>
-                <div className="text-[10px] md:text-xs text-neutral-300/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '癌症5年生存率' : currentLang === 'zh-CN' ? '癌症5年生存率' : 'がん5年生存率'}</div>
+                <div className="text-[10px] md:text-xs text-neutral-300/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '癌症5年生存率' : currentLang === 'zh-CN' ? '癌症5年生存率' : currentLang === 'ja' ? 'がん5年生存率' : '5-Year Survival'}</div>
               </div>
               <div className="border-x border-white/20 px-2 md:px-6 py-12 md:py-24 text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">98<span className="text-brand-300">%</span></div>
-                <div className="text-[10px] md:text-xs text-neutral-300/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '心臟手術成功率' : currentLang === 'zh-CN' ? '心脏手术成功率' : '心臓手術成功率'}</div>
+                <div className="text-[10px] md:text-xs text-neutral-300/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '心臟手術成功率' : currentLang === 'zh-CN' ? '心脏手术成功率' : currentLang === 'ja' ? '心臓手術成功率' : 'Heart Surgery Success'}</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">24<span className="text-brand-300">h</span></div>
-                <div className="text-[10px] md:text-xs text-neutral-300/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '病歷評估響應' : currentLang === 'zh-CN' ? '病历评估响应' : '診療情報評価'}</div>
+                <div className="text-[10px] md:text-xs text-neutral-300/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '病歷評估響應' : currentLang === 'zh-CN' ? '病历评估响应' : currentLang === 'ja' ? '診療情報評価' : 'Case Review'}</div>
               </div>
             </div>
 
             {/* 治疗领域标签 */}
             <div className="flex flex-wrap gap-3 mb-10">
               {[
-                currentLang === 'zh-TW' ? '癌症治療' : currentLang === 'zh-CN' ? '癌症治疗' : 'がん治療',
-                currentLang === 'zh-TW' ? '質子重離子' : currentLang === 'zh-CN' ? '质子重离子' : '陽子線・重粒子線',
-                currentLang === 'zh-TW' ? '心臟手術' : currentLang === 'zh-CN' ? '心脏手术' : '心臓手術',
-                currentLang === 'zh-TW' ? '腦血管' : currentLang === 'zh-CN' ? '脑血管' : '脳血管治療'
+                currentLang === 'zh-TW' ? '癌症治療' : currentLang === 'zh-CN' ? '癌症治疗' : currentLang === 'ja' ? 'がん治療' : 'Cancer Treatment',
+                currentLang === 'zh-TW' ? '質子重離子' : currentLang === 'zh-CN' ? '质子重离子' : currentLang === 'ja' ? '陽子線・重粒子線' : 'Proton/Heavy Ion',
+                currentLang === 'zh-TW' ? '心臟手術' : currentLang === 'zh-CN' ? '心脏手术' : currentLang === 'ja' ? '心臓手術' : 'Heart Surgery',
+                currentLang === 'zh-TW' ? '腦血管' : currentLang === 'zh-CN' ? '脑血管' : currentLang === 'ja' ? '脳血管治療' : 'Cerebrovascular'
               ].map((tag, idx) => (
                 <span key={idx} className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">
                   {tag}
@@ -465,14 +465,14 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 href="/cancer-treatment"
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-brand-900 text-sm font-medium rounded-lg hover:bg-brand-50 transition-colors"
               >
-                {currentLang === 'zh-TW' ? '了解治療服務' : currentLang === 'zh-CN' ? '了解治疗服务' : '治療サービス詳細'}
+                {currentLang === 'zh-TW' ? '了解治療服務' : currentLang === 'zh-CN' ? '了解治疗服务' : currentLang === 'ja' ? '治療サービス詳細' : 'Explore Treatment Services'}
                 <ArrowRight size={18} className="ml-3" />
               </a>
               <a
                 href="/cancer-treatment/remote-consultation"
                 className="inline-flex items-center justify-center px-8 py-4 border border-white/40 text-white text-sm rounded-lg hover:bg-white/10 transition-colors"
               >
-                {currentLang === 'zh-TW' ? '免費遠程諮詢' : currentLang === 'zh-CN' ? '免费远程咨询' : '無料遠隔相談'}
+                {currentLang === 'zh-TW' ? '免費遠程諮詢' : currentLang === 'zh-CN' ? '免费远程咨询' : currentLang === 'ja' ? '無料遠隔相談' : 'Free Remote Consultation'}
               </a>
             </div>
           </div>
@@ -481,13 +481,13 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
         {/* 右下角：治疗流程简述（桌面端） */}
         <div className="hidden lg:block absolute right-8 bottom-8 w-80">
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
-            <h4 className="text-white font-medium mb-4">{currentLang === 'zh-TW' ? '服務流程' : currentLang === 'zh-CN' ? '服务流程' : 'サービスの流れ'}</h4>
+            <h4 className="text-white font-medium mb-4">{currentLang === 'zh-TW' ? '服務流程' : currentLang === 'zh-CN' ? '服务流程' : currentLang === 'ja' ? 'サービスの流れ' : 'Service Flow'}</h4>
             <div className="space-y-3">
               {[
-                { step: '01', text: currentLang === 'zh-TW' ? '提交病歷，24小時內評估' : currentLang === 'zh-CN' ? '提交病历，24小时内评估' : '診療情報提出、24時間以内に評価' },
-                { step: '02', text: currentLang === 'zh-TW' ? '制定方案，明確費用' : currentLang === 'zh-CN' ? '制定方案，明确费用' : '治療計画策定、費用明確化' },
-                { step: '03', text: currentLang === 'zh-TW' ? '赴日治療，全程陪同' : currentLang === 'zh-CN' ? '赴日治疗，全程陪同' : '渡航・治療、全行程同行' },
-                { step: '04', text: currentLang === 'zh-TW' ? '回國後持續跟進' : currentLang === 'zh-CN' ? '回国后持续跟进' : '帰国後継続フォロー' },
+                { step: '01', text: currentLang === 'zh-TW' ? '提交病歷，24小時內評估' : currentLang === 'zh-CN' ? '提交病历，24小时内评估' : currentLang === 'ja' ? '診療情報提出、24時間以内に評価' : 'Submit records, review within 24h' },
+                { step: '02', text: currentLang === 'zh-TW' ? '制定方案，明確費用' : currentLang === 'zh-CN' ? '制定方案，明确费用' : currentLang === 'ja' ? '治療計画策定、費用明確化' : 'Treatment plan with clear costs' },
+                { step: '03', text: currentLang === 'zh-TW' ? '赴日治療，全程陪同' : currentLang === 'zh-CN' ? '赴日治疗，全程陪同' : currentLang === 'ja' ? '渡航・治療、全行程同行' : 'Travel to Japan with full escort' },
+                { step: '04', text: currentLang === 'zh-TW' ? '回國後持續跟進' : currentLang === 'zh-CN' ? '回国后持续跟进' : currentLang === 'ja' ? '帰国後継続フォロー' : 'Continued follow-up after return' },
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-3 text-sm">
                   <span className="w-6 h-6 bg-brand-400/30 rounded-full flex items-center justify-center text-xs text-brand-200 flex-shrink-0">{item.step}</span>
@@ -523,34 +523,34 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             </div>
 
             <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
-              {currentLang === 'zh-TW' ? '踏入' : currentLang === 'zh-CN' ? '踏入' : '足を踏み入れる'}
+              {currentLang === 'zh-TW' ? '踏入' : currentLang === 'zh-CN' ? '踏入' : currentLang === 'ja' ? '足を踏み入れる' : 'Step Into'}
               <br />
-              <span className="text-gold-400">{currentLang === 'zh-TW' ? '傳說中的名門' : currentLang === 'zh-CN' ? '传说中的名门' : '伝説の名門へ'}</span>
+              <span className="text-gold-400">{currentLang === 'zh-TW' ? '傳說中的名門' : currentLang === 'zh-CN' ? '传说中的名门' : currentLang === 'ja' ? '伝説の名門へ' : 'Legendary Championship Courses'}</span>
             </h2>
 
             <p className="text-sm sm:text-base md:text-xl text-neutral-300 mb-6 md:mb-8 leading-relaxed font-light">
-              {currentLang === 'zh-TW' ? '廣野、霞ヶ関、小野——這些球場的名字，在高爾夫愛好者心中如雷貫耳。平時需要會員介紹才能踏入的聖地，現在向您敞開大門。' : currentLang === 'zh-CN' ? '广野、霞ヶ関、小野——这些球场的名字，在高尔夫爱好者心中如雷貫耳。平时需要会员介绍才能踏入的圣地，现在向您敞开大门。' : '廣野、霞ヶ関、小野——ゴルフ愛好家なら誰もが憧れる名門。通常は会員紹介が必要な聖地が、今あなたに開かれます。'}
+              {currentLang === 'zh-TW' ? '廣野、霞ヶ関、小野——這些球場的名字，在高爾夫愛好者心中如雷貫耳。平時需要會員介紹才能踏入的聖地，現在向您敞開大門。' : currentLang === 'zh-CN' ? '广野、霞ヶ関、小野——这些球场的名字，在高尔夫爱好者心中如雷貫耳。平时需要会员介绍才能踏入的圣地，现在向您敞开大门。' : currentLang === 'ja' ? '廣野、霞ヶ関、小野——ゴルフ愛好家なら誰もが憧れる名門。通常は会員紹介が必要な聖地が、今あなたに開かれます。' : 'Hirono, Kasumigaseki, Ono — names that resonate with every golf enthusiast. These members-only sanctuaries are now open to you.'}
             </p>
 
             {/* 核心数据 - 金色边框 */}
             <div className="grid grid-cols-3 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-white/20">
               <div className="text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">25<span className="text-gold-400">+</span></div>
-                <div className="text-[10px] md:text-xs text-neutral-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '名門球場' : currentLang === 'zh-CN' ? '名门球场' : '名門コース'}</div>
+                <div className="text-[10px] md:text-xs text-neutral-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '名門球場' : currentLang === 'zh-CN' ? '名门球场' : currentLang === 'ja' ? '名門コース' : 'Elite Courses'}</div>
               </div>
               <div className="border-x border-white/20 px-2 md:px-6 py-12 md:py-24 text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">0</div>
-                <div className="text-[10px] md:text-xs text-neutral-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '會員介紹' : currentLang === 'zh-CN' ? '会员介绍' : '会員紹介不要'}</div>
+                <div className="text-[10px] md:text-xs text-neutral-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '會員介紹' : currentLang === 'zh-CN' ? '会员介绍' : currentLang === 'ja' ? '会員紹介不要' : 'No Referral Needed'}</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">VIP</div>
-                <div className="text-[10px] md:text-xs text-neutral-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '專屬待遇' : currentLang === 'zh-CN' ? '专属待遇' : '専用待遇'}</div>
+                <div className="text-[10px] md:text-xs text-neutral-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '專屬待遇' : currentLang === 'zh-CN' ? '专属待遇' : currentLang === 'ja' ? '専用待遇' : 'VIP Treatment'}</div>
               </div>
             </div>
 
             {/* 球场列表 */}
             <div className="mb-10">
-              <div className="text-xs text-neutral-500 mb-3 uppercase tracking-wider">{currentLang === 'zh-TW' ? '合作名門' : currentLang === 'zh-CN' ? '合作名门' : '提携名門コース'}</div>
+              <div className="text-xs text-neutral-500 mb-3 uppercase tracking-wider">{currentLang === 'zh-TW' ? '合作名門' : currentLang === 'zh-CN' ? '合作名门' : currentLang === 'ja' ? '提携名門コース' : 'Partner Courses'}</div>
               <div className="flex flex-wrap gap-2">
                 {['廣野ゴルフ倶楽部', '霞ヶ関カンツリー倶楽部', '小野ゴルフ倶楽部', '茨木カンツリー倶楽部', '古賀ゴルフ・クラブ'].map((course, idx) => (
                   <span key={idx} className="text-sm text-white/80 after:content-['·'] after:mx-2 after:text-gold-400 last:after:content-none">
@@ -564,7 +564,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               onClick={() => setCurrentPage('golf')}
               className="inline-flex items-center px-8 py-4 bg-gold-400 text-brand-900 text-sm font-medium tracking-wider hover:bg-gold-300 transition-colors cursor-pointer"
             >
-              {currentLang === 'zh-TW' ? '探索名門球場' : currentLang === 'zh-CN' ? '探索名门球场' : '名門コースを見る'}
+              {currentLang === 'zh-TW' ? '探索名門球場' : currentLang === 'zh-CN' ? '探索名门球场' : currentLang === 'ja' ? '名門コースを見る' : 'Explore Elite Courses'}
               <ArrowRight size={18} className="ml-3" />
             </a>
           </div>
@@ -573,12 +573,12 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
         {/* 右下角服务标签 */}
         <div className="absolute bottom-12 right-12 hidden lg:block">
           <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-6 max-w-xs">
-            <div className="text-xs text-gold-400 mb-2 uppercase tracking-wider">{currentLang === 'zh-TW' ? '尊享服務' : currentLang === 'zh-CN' ? '尊享服务' : 'プレミアムサービス'}</div>
+            <div className="text-xs text-gold-400 mb-2 uppercase tracking-wider">{currentLang === 'zh-TW' ? '尊享服務' : currentLang === 'zh-CN' ? '尊享服务' : currentLang === 'ja' ? 'プレミアムサービス' : 'Premium Services'}</div>
             <div className="space-y-2 text-sm text-white/80">
-              <div>✓ {currentLang === 'zh-TW' ? '專屬開球時段' : currentLang === 'zh-CN' ? '专属开球时段' : '専用スタート枠'}</div>
-              <div>✓ {currentLang === 'zh-TW' ? '雙語球童服務' : currentLang === 'zh-CN' ? '双语球童服务' : 'バイリンガルキャディ'}</div>
-              <div>✓ {currentLang === 'zh-TW' ? '溫泉旅館安排' : currentLang === 'zh-CN' ? '温泉旅馆安排' : '温泉旅館手配'}</div>
-              <div>✓ {currentLang === 'zh-TW' ? '懷石料理預約' : currentLang === 'zh-CN' ? '怀石料理预约' : '懐石料理予約'}</div>
+              <div>✓ {currentLang === 'zh-TW' ? '專屬開球時段' : currentLang === 'zh-CN' ? '专属开球时段' : currentLang === 'ja' ? '専用スタート枠' : 'Reserved Tee Times'}</div>
+              <div>✓ {currentLang === 'zh-TW' ? '雙語球童服務' : currentLang === 'zh-CN' ? '双语球童服务' : currentLang === 'ja' ? 'バイリンガルキャディ' : 'Bilingual Caddy'}</div>
+              <div>✓ {currentLang === 'zh-TW' ? '溫泉旅館安排' : currentLang === 'zh-CN' ? '温泉旅馆安排' : currentLang === 'ja' ? '温泉旅館手配' : 'Onsen Ryokan Arrangement'}</div>
+              <div>✓ {currentLang === 'zh-TW' ? '懷石料理預約' : currentLang === 'zh-CN' ? '怀石料理预约' : currentLang === 'ja' ? '懐石料理予約' : 'Kaiseki Dining Reservation'}</div>
             </div>
           </div>
         </div>
@@ -602,18 +602,18 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               <div>
                 <p className="text-xs tracking-[0.3em] text-gold-400 uppercase mb-8 md:mb-10">Business Inspection</p>
                 <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-white mb-8 md:mb-10 leading-tight">
-                  {currentLang === 'zh-TW' ? '對話日本頂尖企業' : currentLang === 'zh-CN' ? '对话日本顶尖企业' : '日本トップ企業との対話'}
+                  {currentLang === 'zh-TW' ? '對話日本頂尖企業' : currentLang === 'zh-CN' ? '对话日本顶尖企业' : currentLang === 'ja' ? '日本トップ企業との対話' : 'Connect with Japan\'s Leading Companies'}
                 </h2>
                 <p className="text-neutral-300 leading-relaxed mb-8">
-                  {currentLang === 'zh-TW' ? '12年深耕日本商務市場，我們與豐田、松下、資生堂等500強企業建立深度合作。從工廠參觀到高管對談，為您打造真正有價值的商務考察之旅。' : currentLang === 'zh-CN' ? '12年深耕日本商务市场，我们与丰田、松下、资生堂等500强企业建立深度合作。从工厂参观到高管对谈，为您打造真正有价值的商务考察之旅。' : '12年間日本ビジネス市場を深耕。トヨタ、パナソニック、資生堂など500社以上と深い協力関係を構築。工場見学から経営層との対談まで、真に価値ある視察をご提供。'}
+                  {currentLang === 'zh-TW' ? '12年深耕日本商務市場，我們與豐田、松下、資生堂等500強企業建立深度合作。從工廠參觀到高管對談，為您打造真正有價值的商務考察之旅。' : currentLang === 'zh-CN' ? '12年深耕日本商务市场，我们与丰田、松下、资生堂等500强企业建立深度合作。从工厂参观到高管对谈，为您打造真正有价值的商务考察之旅。' : currentLang === 'ja' ? '12年間日本ビジネス市場を深耕。トヨタ、パナソニック、資生堂など500社以上と深い協力関係を構築。工場見学から経営層との対談まで、真に価値ある視察をご提供。' : '12 years in the Japan business market. Deep partnerships with Toyota, Panasonic, Shiseido and 500+ companies. From factory tours to executive meetings, we deliver truly valuable business inspections.'}
                 </p>
 
                 <div className="grid grid-cols-2 gap-3 md:gap-6 mb-10">
                   {[
-                    { num: '16', label: currentLang === 'zh-TW' ? '行業覆蓋' : currentLang === 'zh-CN' ? '行业覆盖' : '対応業界' },
-                    { num: '500+', label: currentLang === 'zh-TW' ? '合作企業' : currentLang === 'zh-CN' ? '合作企业' : '提携企業' },
-                    { num: '98%', label: currentLang === 'zh-TW' ? '客戶滿意度' : currentLang === 'zh-CN' ? '客户满意度' : '顧客満足度' },
-                    { num: '1000+', label: currentLang === 'zh-TW' ? '成功案例' : currentLang === 'zh-CN' ? '成功案例' : '成功実績' },
+                    { num: '16', label: currentLang === 'zh-TW' ? '行業覆蓋' : currentLang === 'zh-CN' ? '行业覆盖' : currentLang === 'ja' ? '対応業界' : 'Industries' },
+                    { num: '500+', label: currentLang === 'zh-TW' ? '合作企業' : currentLang === 'zh-CN' ? '合作企业' : currentLang === 'ja' ? '提携企業' : 'Partner Companies' },
+                    { num: '98%', label: currentLang === 'zh-TW' ? '客戶滿意度' : currentLang === 'zh-CN' ? '客户满意度' : currentLang === 'ja' ? '顧客満足度' : 'Satisfaction' },
+                    { num: '1000+', label: currentLang === 'zh-TW' ? '成功案例' : currentLang === 'zh-CN' ? '成功案例' : currentLang === 'ja' ? '成功実績' : 'Success Cases' },
                   ].map((stat, idx) => (
                     <div key={idx} className="border-l-2 border-gold-400/50 pl-4">
                       <div className="text-2xl font-light text-white">{stat.num}</div>
@@ -624,11 +624,11 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
                 <div className="flex flex-wrap gap-3 mb-10">
                   {[
-                    currentLang === 'zh-TW' ? '製造業' : currentLang === 'zh-CN' ? '制造业' : '製造業',
-                    currentLang === 'zh-TW' ? '零售業' : currentLang === 'zh-CN' ? '零售业' : '小売業',
-                    currentLang === 'zh-TW' ? '醫療健康' : currentLang === 'zh-CN' ? '医疗健康' : '医療・ヘルスケア',
-                    currentLang === 'zh-TW' ? '科技創新' : currentLang === 'zh-CN' ? '科技创新' : 'テクノロジー',
-                    currentLang === 'zh-TW' ? '農業食品' : currentLang === 'zh-CN' ? '农业食品' : '農業・食品',
+                    currentLang === 'zh-TW' ? '製造業' : currentLang === 'zh-CN' ? '制造业' : currentLang === 'ja' ? '製造業' : 'Manufacturing',
+                    currentLang === 'zh-TW' ? '零售業' : currentLang === 'zh-CN' ? '零售业' : currentLang === 'ja' ? '小売業' : 'Retail',
+                    currentLang === 'zh-TW' ? '醫療健康' : currentLang === 'zh-CN' ? '医疗健康' : currentLang === 'ja' ? '医療・ヘルスケア' : 'Healthcare',
+                    currentLang === 'zh-TW' ? '科技創新' : currentLang === 'zh-CN' ? '科技创新' : currentLang === 'ja' ? 'テクノロジー' : 'Technology',
+                    currentLang === 'zh-TW' ? '農業食品' : currentLang === 'zh-CN' ? '农业食品' : currentLang === 'ja' ? '農業・食品' : 'Agriculture & Food',
                   ].map((tag, idx) => (
                     <span key={idx} className="px-3 py-1 text-xs border border-white/20 text-neutral-300">
                       {tag}
@@ -640,17 +640,17 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                   onClick={() => setCurrentPage('business')}
                   className="inline-flex items-center px-8 py-4 bg-gold-400 text-brand-900 text-sm font-medium hover:bg-gold-300 transition-colors cursor-pointer"
                 >
-                  {currentLang === 'zh-TW' ? '定制考察方案' : currentLang === 'zh-CN' ? '定制考察方案' : '視察プランを相談'}
+                  {currentLang === 'zh-TW' ? '定制考察方案' : currentLang === 'zh-CN' ? '定制考察方案' : currentLang === 'ja' ? '視察プランを相談' : 'Plan Your Inspection'}
                   <ArrowRight size={18} className="ml-3" />
                 </a>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { name: currentLang === 'zh-TW' ? '豐田汽車' : currentLang === 'zh-CN' ? '丰田汽车' : 'トヨタ自動車', type: currentLang === 'zh-TW' ? '製造業' : currentLang === 'zh-CN' ? '制造业' : '製造業' },
-                  { name: currentLang === 'zh-TW' ? '松下電器' : currentLang === 'zh-CN' ? '松下电器' : 'パナソニック', type: currentLang === 'zh-TW' ? '電子科技' : currentLang === 'zh-CN' ? '电子科技' : '電機' },
-                  { name: currentLang === 'zh-TW' ? '資生堂' : currentLang === 'zh-CN' ? '资生堂' : '資生堂', type: currentLang === 'zh-TW' ? '美妝日化' : currentLang === 'zh-CN' ? '美妝日化' : '化粧品' },
-                  { name: currentLang === 'zh-TW' ? '永旺集團' : currentLang === 'zh-CN' ? '永旺集团' : 'イオン', type: currentLang === 'zh-TW' ? '零售業' : currentLang === 'zh-CN' ? '零售业' : '小売業' },
+                  { name: currentLang === 'zh-TW' ? '豐田汽車' : currentLang === 'zh-CN' ? '丰田汽车' : currentLang === 'ja' ? 'トヨタ自動車' : 'Toyota Motor', type: currentLang === 'zh-TW' ? '製造業' : currentLang === 'zh-CN' ? '制造业' : currentLang === 'ja' ? '製造業' : 'Manufacturing' },
+                  { name: currentLang === 'zh-TW' ? '松下電器' : currentLang === 'zh-CN' ? '松下电器' : currentLang === 'ja' ? 'パナソニック' : 'Panasonic', type: currentLang === 'zh-TW' ? '電子科技' : currentLang === 'zh-CN' ? '电子科技' : currentLang === 'ja' ? '電機' : 'Electronics' },
+                  { name: currentLang === 'zh-TW' ? '資生堂' : currentLang === 'zh-CN' ? '资生堂' : currentLang === 'ja' ? '資生堂' : 'Shiseido', type: currentLang === 'zh-TW' ? '美妝日化' : currentLang === 'zh-CN' ? '美妝日化' : currentLang === 'ja' ? '化粧品' : 'Cosmetics' },
+                  { name: currentLang === 'zh-TW' ? '永旺集團' : currentLang === 'zh-CN' ? '永旺集团' : currentLang === 'ja' ? 'イオン' : 'AEON Group', type: currentLang === 'zh-TW' ? '零售業' : currentLang === 'zh-CN' ? '零售业' : currentLang === 'ja' ? '小売業' : 'Retail' },
                 ].map((company, idx) => (
                   <div key={idx} className="bg-white/10 backdrop-blur p-6 border border-white/10 hover:border-white/30 transition-colors">
                     <div className="text-white font-medium mb-1">{company.name}</div>
@@ -670,7 +670,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="text-center mb-12">
               <p className="text-xs tracking-[0.3em] text-neutral-400 uppercase mb-3">Partners</p>
               <h2 className="serif text-2xl md:text-3xl text-neutral-900 tracking-wide">
-                {currentLang === 'zh-TW' ? '合作夥伴' : currentLang === 'zh-CN' ? '合作伙伴' : '主要取引先'}
+                {currentLang === 'zh-TW' ? '合作夥伴' : currentLang === 'zh-CN' ? '合作伙伴' : currentLang === 'ja' ? '主要取引先' : 'Our Partners'}
               </h2>
             </div>
 
@@ -699,16 +699,16 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           <div className="max-w-4xl mx-auto text-center">
             <p className="text-xs tracking-[0.3em] text-neutral-400 uppercase mb-6">Corporate Philosophy</p>
             <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-white mb-8 leading-relaxed">
-              {currentLang === 'zh-TW' ? '用心連結世界與日本' : currentLang === 'zh-CN' ? '用心连结世界与日本' : '心をつなぐ、世界と日本'}
+              {currentLang === 'zh-TW' ? '用心連結世界與日本' : currentLang === 'zh-CN' ? '用心连结世界与日本' : currentLang === 'ja' ? '心をつなぐ、世界と日本' : 'Connecting the World with Japan'}
             </h2>
             <p className="text-neutral-400 leading-relaxed mb-10 max-w-2xl mx-auto">
-              {currentLang === 'zh-TW' ? '我們致力於為華人旅客提供最高品質的日本旅遊體驗。我們相信，真正的服務不僅是滿足需求，更是創造感動。' : currentLang === 'zh-CN' ? '我们致力于为华人旅客提供最高品质的日本旅游体验。我们相信，真正的服务不仅是满足需求，更是创造感动。' : '2020年設立以来、新島交通は華人旅行者の皆様に最高品質の日本旅行体験を提供してまいりました。真のサービスとは、ニーズを満たすだけでなく、感動を創造することだと信じています。'}
+              {currentLang === 'zh-TW' ? '我們致力於為華人旅客提供最高品質的日本旅遊體驗。我們相信，真正的服務不僅是滿足需求，更是創造感動。' : currentLang === 'zh-CN' ? '我们致力于为华人旅客提供最高品质的日本旅游体验。我们相信，真正的服务不仅是满足需求，更是创造感动。' : currentLang === 'ja' ? '2020年設立以来、新島交通は華人旅行者の皆様に最高品質の日本旅行体験を提供してまいりました。真のサービスとは、ニーズを満たすだけでなく、感動を創造することだと信じています。' : 'We are dedicated to providing the highest quality Japan travel experience. We believe true service is not just meeting needs, but creating memorable moments.'}
             </p>
             <a
               href="/company/about"
               className="inline-flex items-center text-xs text-white border border-white/30 px-8 py-3 hover:bg-white hover:text-brand-900 transition-all tracking-wider"
             >
-              {currentLang === 'zh-TW' ? '了解更多' : currentLang === 'zh-CN' ? '了解更多' : '詳しく見る'}
+              {currentLang === 'zh-TW' ? '了解更多' : currentLang === 'zh-CN' ? '了解更多' : currentLang === 'ja' ? '詳しく見る' : 'Learn More'}
               <ArrowRight size={14} className="ml-2" />
             </a>
           </div>
@@ -742,34 +742,34 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
             {/* 核心标题 */}
             <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
-              {currentLang === 'zh-TW' ? '導遊提攜夥伴' : currentLang === 'zh-CN' ? '导游提攜伙伴' : 'ガイドパートナー'}
+              {currentLang === 'zh-TW' ? '導遊提攜夥伴' : currentLang === 'zh-CN' ? '导游提攜伙伴' : currentLang === 'ja' ? 'ガイドパートナー' : 'Guide Partner'}
               <br />
-              <span className="text-gold-400">{currentLang === 'zh-TW' ? '客戶介紹計劃' : currentLang === 'zh-CN' ? '客户介绍计划' : '顧客紹介プログラム'}</span>
+              <span className="text-gold-400">{currentLang === 'zh-TW' ? '客戶介紹計劃' : currentLang === 'zh-CN' ? '客户介绍计划' : currentLang === 'ja' ? '顧客紹介プログラム' : 'Client Referral Program'}</span>
             </h2>
 
             <p className="text-sm sm:text-base md:text-xl text-gold-100/80 mb-6 md:mb-8 leading-relaxed font-light">
-              {currentLang === 'zh-TW' ? '新島交通提供高端夜總會、精密體檢、綜合醫療等服務資源。您介紹客戶，我們提供服務，成功即有介紹報酬。' : currentLang === 'zh-CN' ? '新岛交通提供高端夜总会、精密体检、综合医疗等服务资源。您介绍客户，我们提供服务，成功即有介绍报酬。' : '新島交通は高級クラブ、精密健診、総合医療などのサービスを提供。お客様をご紹介いただき、成約時に紹介報酬をお支払いします。'}
+              {currentLang === 'zh-TW' ? '新島交通提供高端夜總會、精密體檢、綜合醫療等服務資源。您介紹客戶，我們提供服務，成功即有介紹報酬。' : currentLang === 'zh-CN' ? '新岛交通提供高端夜总会、精密体检、综合医疗等服务资源。您介绍客户，我们提供服务，成功即有介绍报酬。' : currentLang === 'ja' ? '新島交通は高級クラブ、精密健診、総合医療などのサービスを提供。お客様をご紹介いただき、成約時に紹介報酬をお支払いします。' : 'Niijima Kotsu offers premium nightclub, health checkup, and comprehensive medical services. Refer clients, we provide the service, and you earn a referral commission.'}
             </p>
 
             {/* 核心数据 */}
             <div className="grid grid-cols-2 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-white/20">
               <div className="text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">160<span className="text-gold-400">+</span></div>
-                <div className="text-xs text-gold-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '合作店舖' : currentLang === 'zh-CN' ? '合作店舖' : '提携店舗'}</div>
+                <div className="text-xs text-gold-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '合作店舖' : currentLang === 'zh-CN' ? '合作店舖' : currentLang === 'ja' ? '提携店舗' : 'Partner Venues'}</div>
               </div>
               <div className="border-l border-white/20 pl-3 md:pl-6 text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">3000<span className="text-gold-400">+</span></div>
-                <div className="text-[10px] md:text-xs text-gold-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : currentLang === 'zh-CN' ? '服务客户' : 'ご利用者様'}</div>
+                <div className="text-[10px] md:text-xs text-gold-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : currentLang === 'zh-CN' ? '服务客户' : currentLang === 'ja' ? 'ご利用者様' : 'Clients Served'}</div>
               </div>
             </div>
 
             {/* 服务亮点标签 */}
             <div className="flex flex-wrap gap-3 mb-10">
               {[
-                currentLang === 'zh-TW' ? '高端夜總會' : currentLang === 'zh-CN' ? '高端夜总会' : '高級クラブ',
-                currentLang === 'zh-TW' ? 'TIMC精密體檢' : currentLang === 'zh-CN' ? 'TIMC精密体检' : 'TIMC精密健診',
-                currentLang === 'zh-TW' ? '綜合醫療' : currentLang === 'zh-CN' ? '综合医疗' : '総合医療',
-                currentLang === 'zh-TW' ? '幹細胞·抗衰' : currentLang === 'zh-CN' ? '干细胞·抗衰' : '幹細胞・アンチエイジング'
+                currentLang === 'zh-TW' ? '高端夜總會' : currentLang === 'zh-CN' ? '高端夜总会' : currentLang === 'ja' ? '高級クラブ' : 'Premium Nightclub',
+                currentLang === 'zh-TW' ? 'TIMC精密體檢' : currentLang === 'zh-CN' ? 'TIMC精密体检' : currentLang === 'ja' ? 'TIMC精密健診' : 'TIMC Health Checkup',
+                currentLang === 'zh-TW' ? '綜合醫療' : currentLang === 'zh-CN' ? '综合医疗' : currentLang === 'ja' ? '総合医療' : 'Comprehensive Medical',
+                currentLang === 'zh-TW' ? '幹細胞·抗衰' : currentLang === 'zh-CN' ? '干细胞·抗衰' : currentLang === 'ja' ? '幹細胞・アンチエイジング' : 'Stem Cell & Anti-aging'
               ].map((tag, idx) => (
                 <span key={idx} className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">
                   {tag}
@@ -783,14 +783,14 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 href="/guide-partner"
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-brand-900 text-sm font-medium rounded-lg hover:bg-brand-50 transition-colors"
               >
-                {currentLang === 'zh-TW' ? '了解詳情' : currentLang === 'zh-CN' ? '了解详情' : '詳細を見る'}
+                {currentLang === 'zh-TW' ? '了解詳情' : currentLang === 'zh-CN' ? '了解详情' : currentLang === 'ja' ? '詳細を見る' : 'Learn More'}
                 <ArrowRight size={18} className="ml-3" />
               </a>
               <a
                 href="/guide-partner/login"
                 className="inline-flex items-center justify-center px-8 py-4 border border-white/40 text-white text-sm rounded-lg hover:bg-white/10 transition-colors"
               >
-                {currentLang === 'zh-TW' ? '夥伴登入' : currentLang === 'zh-CN' ? '伙伴登入' : 'パートナーログイン'}
+                {currentLang === 'zh-TW' ? '夥伴登入' : currentLang === 'zh-CN' ? '伙伴登入' : currentLang === 'ja' ? 'パートナーログイン' : 'Partner Login'}
               </a>
             </div>
           </div>
@@ -799,12 +799,12 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
         {/* 右下角：合作模式卡片（桌面端） */}
         <div className="hidden lg:block absolute right-8 bottom-8 w-80">
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
-            <h4 className="text-white font-medium mb-4">{currentLang === 'zh-TW' ? '合作模式' : currentLang === 'zh-CN' ? '合作模式' : '提携モデル'}</h4>
+            <h4 className="text-white font-medium mb-4">{currentLang === 'zh-TW' ? '合作模式' : currentLang === 'zh-CN' ? '合作模式' : currentLang === 'ja' ? '提携モデル' : 'How It Works'}</h4>
             <div className="space-y-3">
               {[
-                { name: currentLang === 'zh-TW' ? '您介紹客戶' : currentLang === 'zh-CN' ? '您介绍客户' : 'お客様をご紹介', desc: currentLang === 'zh-TW' ? '推薦有需求的客戶' : currentLang === 'zh-CN' ? '推荐有需求的客户' : 'ニーズのあるお客様を' },
-                { name: currentLang === 'zh-TW' ? '新島提供服務' : currentLang === 'zh-CN' ? '新岛提供服务' : '新島がサービス提供', desc: currentLang === 'zh-TW' ? '預約、接待、全程服務' : currentLang === 'zh-CN' ? '预约、接待、全程服务' : '予約・接客・全行程' },
-                { name: currentLang === 'zh-TW' ? '成功獲得報酬' : currentLang === 'zh-CN' ? '成功获得报酬' : '成約で報酬', desc: currentLang === 'zh-TW' ? '每月結算介紹報酬' : currentLang === 'zh-CN' ? '每月结算介绍报酬' : '毎月紹介報酬を精算' },
+                { name: currentLang === 'zh-TW' ? '您介紹客戶' : currentLang === 'zh-CN' ? '您介绍客户' : currentLang === 'ja' ? 'お客様をご紹介' : 'Refer Clients', desc: currentLang === 'zh-TW' ? '推薦有需求的客戶' : currentLang === 'zh-CN' ? '推荐有需求的客户' : currentLang === 'ja' ? 'ニーズのあるお客様を' : 'Recommend clients in need' },
+                { name: currentLang === 'zh-TW' ? '新島提供服務' : currentLang === 'zh-CN' ? '新岛提供服务' : currentLang === 'ja' ? '新島がサービス提供' : 'We Deliver', desc: currentLang === 'zh-TW' ? '預約、接待、全程服務' : currentLang === 'zh-CN' ? '预约、接待、全程服务' : currentLang === 'ja' ? '予約・接客・全行程' : 'Booking, reception, full service' },
+                { name: currentLang === 'zh-TW' ? '成功獲得報酬' : currentLang === 'zh-CN' ? '成功获得报酬' : currentLang === 'ja' ? '成約で報酬' : 'Earn Commission', desc: currentLang === 'zh-TW' ? '每月結算介紹報酬' : currentLang === 'zh-CN' ? '每月结算介绍报酬' : currentLang === 'ja' ? '毎月紹介報酬を精算' : 'Monthly referral payouts' },
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-3 text-sm">
                   <CheckCircle size={16} className="text-gold-400 flex-shrink-0" />
@@ -817,7 +817,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             </div>
             {/* 法律声明 */}
             <p className="text-[10px] text-gold-200/40 mt-4 pt-3 border-t border-white/10 leading-relaxed">
-              {currentLang === 'zh-TW' ? '所有旅行服務由新島交通株式會社提供' : currentLang === 'zh-CN' ? '所有旅行服务由新岛交通株式会社提供' : '全ての旅行サービスは新島交通株式会社が提供'}
+              {currentLang === 'zh-TW' ? '所有旅行服務由新島交通株式會社提供' : currentLang === 'zh-CN' ? '所有旅行服务由新岛交通株式会社提供' : currentLang === 'ja' ? '全ての旅行サービスは新島交通株式会社が提供' : 'All travel services provided by Niijima Kotsu Co., Ltd.'}
             </p>
           </div>
         </div>
@@ -979,7 +979,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
     e.preventDefault();
     if (!partnerInquiryForm.companyName.trim() || !partnerInquiryForm.contactName.trim() ||
         !partnerInquiryForm.email.trim() || !partnerInquiryForm.message.trim()) {
-      setInquiryErrorMessage('請填寫所有必填欄位');
+      setInquiryErrorMessage(lang === 'zh-TW' ? '請填寫所有必填欄位' : lang === 'zh-CN' ? '请填写所有必填栏位' : lang === 'ja' ? 'すべての必須項目を入力してください' : 'Please fill in all required fields');
       return;
     }
 
@@ -999,11 +999,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
         setInquirySubmitStatus('success');
       } else {
         setInquirySubmitStatus('error');
-        setInquiryErrorMessage(data.error || '提交失敗，請稍後再試');
+        setInquiryErrorMessage(data.error || (lang === 'zh-TW' ? '提交失敗，請稍後再試' : lang === 'zh-CN' ? '提交失败，请稍后再试' : lang === 'ja' ? '送信に失敗しました。後でもう一度お試しください' : 'Submission failed. Please try again later'));
       }
     } catch (error) {
       setInquirySubmitStatus('error');
-      setInquiryErrorMessage('網絡錯誤，請稍後再試');
+      setInquiryErrorMessage(lang === 'zh-TW' ? '網絡錯誤，請稍後再試' : lang === 'zh-CN' ? '网络错误，请稍后再试' : lang === 'ja' ? 'ネットワークエラー。後でもう一度お試しください' : 'Network error. Please try again later');
     } finally {
       setIsSubmittingInquiry(false);
     }
@@ -1062,38 +1062,38 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                      <User size={24} />
                   </div>
                   <h3 className="text-2xl font-serif font-bold text-brand-900">
-                    {lang === 'ja' ? 'B2B パートナー登録' : 'Partner Application'}
+                    {lang === 'zh-TW' ? 'B2B 合作夥伴申請' : lang === 'zh-CN' ? 'B2B 合作伙伴申请' : lang === 'ja' ? 'B2B パートナー登録' : 'Partner Application'}
                   </h3>
                   <p className="text-sm text-neutral-500 mt-2">
-                    Access exclusive B2B rates and AI quoting system.
+                    {lang === 'zh-TW' ? '獲取專屬 B2B 價格與 AI 報價系統' : lang === 'zh-CN' ? '获取专属 B2B 价格与 AI 报价系统' : lang === 'ja' ? 'B2B専用料金とAI見積もりシステムをご利用いただけます' : 'Access exclusive B2B rates and AI quoting system.'}
                   </p>
                </div>
 
                <form onSubmit={handleAuthSubmit} className="space-y-4">
                   <div>
-                    <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">Company Name</label>
+                    <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">{lang === 'zh-TW' ? '公司名稱' : lang === 'zh-CN' ? '公司名称' : lang === 'ja' ? '会社名' : 'Company Name'}</label>
                     <input
                       type="text"
                       required
                       value={authFormData.companyName}
                       onChange={(e) => setAuthFormData({...authFormData, companyName: e.target.value})}
                       className="w-full p-3 border border-neutral-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none"
-                      placeholder="Travel Agency Co., Ltd."
+                      placeholder={lang === 'zh-TW' ? '旅行社名稱' : lang === 'zh-CN' ? '旅行社名称' : lang === 'ja' ? '旅行会社名' : 'Travel Agency Co., Ltd.'}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">Contact Person</label>
+                    <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">{lang === 'zh-TW' ? '聯絡人' : lang === 'zh-CN' ? '联络人' : lang === 'ja' ? '担当者名' : 'Contact Person'}</label>
                     <input
                       type="text"
                       required
                       value={authFormData.contactPerson}
                       onChange={(e) => setAuthFormData({...authFormData, contactPerson: e.target.value})}
                       className="w-full p-3 border border-neutral-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none"
-                      placeholder="Name"
+                      placeholder={lang === 'zh-TW' ? '您的姓名' : lang === 'zh-CN' ? '您的姓名' : lang === 'ja' ? 'お名前' : 'Your Name'}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">Email Address</label>
+                    <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">{lang === 'zh-TW' ? '電子郵件' : lang === 'zh-CN' ? '电子邮件' : lang === 'ja' ? 'メールアドレス' : 'Email Address'}</label>
                     <input
                       type="email"
                       required
@@ -1110,7 +1110,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                     className="w-full bg-brand-600 text-white font-bold py-3 rounded-lg hover:bg-brand-700 transition shadow-lg mt-2 flex items-center justify-center gap-2"
                   >
                     {isSendingAuth ? <Loader2 className="animate-spin" size={16} /> : <ArrowRight size={16} />}
-                    {isSendingAuth ? 'Processing...' : 'Apply for Access'}
+                    {isSendingAuth ? (lang === 'zh-TW' ? '處理中...' : lang === 'zh-CN' ? '处理中...' : lang === 'ja' ? '処理中...' : 'Processing...') : (lang === 'zh-TW' ? '申請加入' : lang === 'zh-CN' ? '申请加入' : lang === 'ja' ? 'アクセス申請' : 'Apply for Access')}
                   </button>
                </form>
             </div>
@@ -1134,16 +1134,17 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                    <div className="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-6">
                      <CheckCircle className="text-brand-700" size={32} />
                    </div>
-                   <h3 className="text-2xl font-serif font-bold text-brand-900 mb-4">申請已提交</h3>
+                   <h3 className="text-2xl font-serif font-bold text-brand-900 mb-4">
+                     {lang === 'zh-TW' ? '申請已提交' : lang === 'zh-CN' ? '申请已提交' : lang === 'ja' ? '申請を送信しました' : 'Application Submitted'}
+                   </h3>
                    <p className="text-neutral-600 mb-6">
-                     感謝您的合作申請！我們已收到您的信息，<br />
-                     將在 1-2 個工作日內與您聯繫。
+                     {lang === 'zh-TW' ? (<>感謝您的合作申請！我們已收到您的信息，<br />將在 1-2 個工作日內與您聯繫。</>) : lang === 'zh-CN' ? (<>感谢您的合作申请！我们已收到您的信息，<br />将在 1-2 个工作日内与您联系。</>) : lang === 'ja' ? (<>お申し込みありがとうございます！<br />1〜2営業日以内にご連絡いたします。</>) : (<>Thank you for your inquiry! We have received your information<br />and will contact you within 1-2 business days.</>)}
                    </p>
                    <button
                      onClick={() => setShowPartnerInquiryModal(false)}
                      className="bg-brand-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-brand-500 transition"
                    >
-                     關閉
+                     {lang === 'zh-TW' ? '關閉' : lang === 'zh-CN' ? '关闭' : lang === 'ja' ? '閉じる' : 'Close'}
                    </button>
                  </div>
                ) : (
@@ -1156,9 +1157,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                        </div>
                        <div>
                          <h3 className="text-xl font-serif font-bold text-brand-900">
-                           同業合作申請
+                           {lang === 'zh-TW' ? '同業合作申請' : lang === 'zh-CN' ? '同业合作申请' : lang === 'ja' ? 'パートナー申請' : 'Partner Inquiry'}
                          </h3>
-                         <p className="text-sm text-neutral-500">填寫以下資料，我們將盡快與您聯繫</p>
+                         <p className="text-sm text-neutral-500">{lang === 'zh-TW' ? '填寫以下資料，我們將盡快與您聯繫' : lang === 'zh-CN' ? '填写以下资料，我们将尽快与您联系' : lang === 'ja' ? '以下の情報をご記入ください。折り返しご連絡いたします' : 'Fill in the form below and we will contact you shortly'}</p>
                        </div>
                      </div>
                    </div>
@@ -1167,7 +1168,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                        <div>
                          <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">
-                           公司名稱 <span className="text-gold-500">*</span>
+                           {lang === 'zh-TW' ? '公司名稱' : lang === 'zh-CN' ? '公司名称' : lang === 'ja' ? '会社名' : 'Company Name'} <span className="text-gold-500">*</span>
                          </label>
                          <input
                            type="text"
@@ -1175,12 +1176,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                            value={partnerInquiryForm.companyName}
                            onChange={(e) => setPartnerInquiryForm({...partnerInquiryForm, companyName: e.target.value})}
                            className="w-full p-3 border border-neutral-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none"
-                           placeholder="旅行社名稱"
+                           placeholder={lang === 'zh-TW' ? '旅行社名稱' : lang === 'zh-CN' ? '旅行社名称' : lang === 'ja' ? '旅行会社名' : 'Travel Agency Name'}
                          />
                        </div>
                        <div>
                          <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">
-                           聯絡人 <span className="text-gold-500">*</span>
+                           {lang === 'zh-TW' ? '聯絡人' : lang === 'zh-CN' ? '联络人' : lang === 'ja' ? '担当者名' : 'Contact Person'} <span className="text-gold-500">*</span>
                          </label>
                          <input
                            type="text"
@@ -1188,7 +1189,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                            value={partnerInquiryForm.contactName}
                            onChange={(e) => setPartnerInquiryForm({...partnerInquiryForm, contactName: e.target.value})}
                            className="w-full p-3 border border-neutral-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none"
-                           placeholder="您的姓名"
+                           placeholder={lang === 'zh-TW' ? '您的姓名' : lang === 'zh-CN' ? '您的姓名' : lang === 'ja' ? 'お名前' : 'Your Name'}
                          />
                        </div>
                      </div>
@@ -1196,7 +1197,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                        <div>
                          <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">
-                           電子郵件 <span className="text-gold-500">*</span>
+                           {lang === 'zh-TW' ? '電子郵件' : lang === 'zh-CN' ? '电子邮件' : lang === 'ja' ? 'メールアドレス' : 'Email'} <span className="text-gold-500">*</span>
                          </label>
                          <input
                            type="email"
@@ -1209,7 +1210,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                        </div>
                        <div>
                          <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">
-                           聯絡電話
+                           {lang === 'zh-TW' ? '聯絡電話' : lang === 'zh-CN' ? '联络电话' : lang === 'ja' ? '電話番号' : 'Phone'}
                          </label>
                          <input
                            type="tel"
@@ -1223,25 +1224,25 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
 
                      <div>
                        <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">
-                         業務類型
+                         {lang === 'zh-TW' ? '業務類型' : lang === 'zh-CN' ? '业务类型' : lang === 'ja' ? '業種' : 'Business Type'}
                        </label>
                        <select
                          value={partnerInquiryForm.businessType}
                          onChange={(e) => setPartnerInquiryForm({...partnerInquiryForm, businessType: e.target.value})}
                          className="w-full p-3 border border-neutral-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none bg-white"
                        >
-                         <option value="">請選擇</option>
-                         <option value="旅行社">旅行社</option>
-                         <option value="OTA 平台">OTA 平台</option>
-                         <option value="導遊/領隊">導遊/領隊</option>
-                         <option value="企業差旅">企業差旅</option>
-                         <option value="其他">其他</option>
+                         <option value="">{lang === 'zh-TW' ? '請選擇' : lang === 'zh-CN' ? '请选择' : lang === 'ja' ? '選択してください' : 'Please Select'}</option>
+                         <option value="旅行社">{lang === 'zh-TW' ? '旅行社' : lang === 'zh-CN' ? '旅行社' : lang === 'ja' ? '旅行会社' : 'Travel Agency'}</option>
+                         <option value="OTA 平台">{lang === 'zh-TW' ? 'OTA 平台' : lang === 'zh-CN' ? 'OTA 平台' : lang === 'ja' ? 'OTAプラットフォーム' : 'OTA Platform'}</option>
+                         <option value="導遊/領隊">{lang === 'zh-TW' ? '導遊/領隊' : lang === 'zh-CN' ? '导游/领队' : lang === 'ja' ? 'ガイド/添乗員' : 'Guide / Tour Leader'}</option>
+                         <option value="企業差旅">{lang === 'zh-TW' ? '企業差旅' : lang === 'zh-CN' ? '企业差旅' : lang === 'ja' ? '法人出張' : 'Corporate Travel'}</option>
+                         <option value="其他">{lang === 'zh-TW' ? '其他' : lang === 'zh-CN' ? '其他' : lang === 'ja' ? 'その他' : 'Other'}</option>
                        </select>
                      </div>
 
                      <div>
                        <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">
-                         合作意向說明 <span className="text-gold-500">*</span>
+                         {lang === 'zh-TW' ? '合作意向說明' : lang === 'zh-CN' ? '合作意向说明' : lang === 'ja' ? '提携についてのご説明' : 'Partnership Details'} <span className="text-gold-500">*</span>
                        </label>
                        <textarea
                          required
@@ -1249,7 +1250,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                          value={partnerInquiryForm.message}
                          onChange={(e) => setPartnerInquiryForm({...partnerInquiryForm, message: e.target.value})}
                          className="w-full p-3 border border-neutral-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none resize-none"
-                         placeholder="請簡述您的合作需求，例如：主要客群、預計業務量、希望合作的產品類型等..."
+                         placeholder={lang === 'zh-TW' ? '請簡述您的合作需求，例如：主要客群、預計業務量、希望合作的產品類型等...' : lang === 'zh-CN' ? '请简述您的合作需求，例如：主要客群、预计业务量、希望合作的产品类型等...' : lang === 'ja' ? 'ご提携のご要望をお聞かせください（主な顧客層、予想取引量、ご希望の商品タイプなど）' : 'Briefly describe your partnership needs (e.g., target customers, expected volume, preferred product types)...'}
                        />
                      </div>
 
@@ -1265,18 +1266,18 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                        {isSubmittingInquiry ? (
                          <>
                            <Loader2 className="animate-spin" size={16} />
-                           提交中...
+                           {lang === 'zh-TW' ? '提交中...' : lang === 'zh-CN' ? '提交中...' : lang === 'ja' ? '送信中...' : 'Submitting...'}
                          </>
                        ) : (
                          <>
                            <Mail size={16} />
-                           提交申請
+                           {lang === 'zh-TW' ? '提交申請' : lang === 'zh-CN' ? '提交申请' : lang === 'ja' ? '申請を送信' : 'Submit Application'}
                          </>
                        )}
                      </button>
 
                      <p className="text-xs text-neutral-400 text-center">
-                       提交後我們會將確認信發送至您的郵箱
+                       {lang === 'zh-TW' ? '提交後我們會將確認信發送至您的郵箱' : lang === 'zh-CN' ? '提交后我们会将确认信发送至您的邮箱' : lang === 'ja' ? '送信後、確認メールをお送りいたします' : 'A confirmation email will be sent after submission'}
                      </p>
                    </form>
                  </>
