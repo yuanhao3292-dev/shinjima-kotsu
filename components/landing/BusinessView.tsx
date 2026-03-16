@@ -11,43 +11,44 @@ import type { SubViewProps } from './types';
 const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, currentLang, getImage }) => {
    // ⚡ 性能优化：缓存所有通用文本的翻译结果
    const isEn = currentLang === 'en';
+   const isJa = currentLang === 'ja';
    const localizedTexts = useMemo(() => ({
       // 类别标题
-      automotive: isEn ? 'Automotive Manufacturing' : localizeText('汽車製造業', currentLang),
-      electronics: isEn ? 'Electronics & Semiconductor' : localizeText('電子與半導體產業', currentLang),
-      precision: isEn ? 'Precision Machinery & Automation' : localizeText('精密機械與自動化', currentLang),
-      medical: isEn ? 'Medical & Healthcare' : localizeText('醫療與健康照護', currentLang),
-      appliances: isEn ? 'Appliances & Consumer Electronics' : localizeText('家電與消費電子', currentLang),
-      retail: isEn ? 'Retail & Services' : localizeText('零售與服務業', currentLang),
-      hospitality: isEn ? 'Hospitality' : localizeText('飯店與款待業', currentLang),
-      food: isEn ? 'Food & Beverage' : localizeText('食品與飲料產業', currentLang),
-      logistics: isEn ? 'Logistics & Transportation' : localizeText('物流與運輸', currentLang),
-      tech: isEn ? 'Technology & Communications' : localizeText('科技與通訊', currentLang),
+      automotive: isJa ? '自動車製造業' : isEn ? 'Automotive Manufacturing' : localizeText('汽車製造業', currentLang),
+      electronics: isJa ? '電子・半導体産業' : isEn ? 'Electronics & Semiconductor' : localizeText('電子與半導體產業', currentLang),
+      precision: isJa ? '精密機械・オートメーション' : isEn ? 'Precision Machinery & Automation' : localizeText('精密機械與自動化', currentLang),
+      medical: isJa ? '医療・ヘルスケア' : isEn ? 'Medical & Healthcare' : localizeText('醫療與健康照護', currentLang),
+      appliances: isJa ? '家電・消費者向け電子機器' : isEn ? 'Appliances & Consumer Electronics' : localizeText('家電與消費電子', currentLang),
+      retail: isJa ? '小売・サービス業' : isEn ? 'Retail & Services' : localizeText('零售與服務業', currentLang),
+      hospitality: isJa ? 'ホテル・ホスピタリティ' : isEn ? 'Hospitality' : localizeText('飯店與款待業', currentLang),
+      food: isJa ? '食品・飲料産業' : isEn ? 'Food & Beverage' : localizeText('食品與飲料產業', currentLang),
+      logistics: isJa ? '物流・運輸' : isEn ? 'Logistics & Transportation' : localizeText('物流與運輸', currentLang),
+      tech: isJa ? 'テクノロジー・通信' : isEn ? 'Technology & Communications' : localizeText('科技與通訊', currentLang),
 
       // 通用文案
-      officialWebsite: isEn ? 'Official Website' : localizeText('官方網站', currentLang),
-      topCompanies: isEn ? 'Top Japanese Companies Available for Inspection' : localizeText('可預約考察的日本頂級企業', currentLang),
-      companyIntro: isEn ? 'All companies below are open for business inspection bookings. We handle full coordination, professional interpretation and itinerary planning.' : localizeText('以下企業均開放企業考察預約，我們負責全程協調、專業翻譯及行程安排', currentLang),
-      bookableCompanies: isEn ? 'Bookable Companies' : localizeText('可預約企業', currentLang),
-      industryCategories: isEn ? 'Industry Categories' : localizeText('產業類別', currentLang),
-      prefecturesCovered: isEn ? 'Prefectures Covered' : localizeText('覆蓋都道府縣', currentLang),
-      successRate: isEn ? 'Booking Success Rate' : localizeText('預約成功率', currentLang),
-      notice: isEn ? '※ Please Note' : localizeText('※ 注意事項', currentLang),
-      noticeText: isEn ? 'All companies above are open for general corporate visits and business inspections. We handle booking coordination, professional interpreter arrangements, transportation and accommodation. Visit schedules and content vary by company — please inquire for details.' : localizeText('以上企業均開放一般企業見學與商務考察預約。我們負責考察的預約協調、專業翻譯安排、交通接送及住宿統籌。各企業可參訪的時段與內容不盡相同，詳情請洽詢。', currentLang),
-      ctaTitle: isEn ? 'Start Your Business Inspection' : localizeText('開始您的商務考察', currentLang),
-      ctaSubtitle: isEn ? 'Custom itineraries · Corporate visit arrangements · Full interpretation support' : localizeText('專業行程定制・企業參訪安排・全程翻譯陪同', currentLang),
-   }), [currentLang, isEn]);
+      officialWebsite: isJa ? '公式サイト' : isEn ? 'Official Website' : localizeText('官方網站', currentLang),
+      topCompanies: isJa ? '視察予約可能な日本トップ企業' : isEn ? 'Top Japanese Companies Available for Inspection' : localizeText('可預約考察的日本頂級企業', currentLang),
+      companyIntro: isJa ? '以下の企業はすべて企業視察の予約が可能です。全行程のコーディネート、プロ通訳の手配、スケジュール作成を承ります。' : isEn ? 'All companies below are open for business inspection bookings. We handle full coordination, professional interpretation and itinerary planning.' : localizeText('以下企業均開放企業考察預約，我們負責全程協調、專業翻譯及行程安排', currentLang),
+      bookableCompanies: isJa ? '予約可能企業' : isEn ? 'Bookable Companies' : localizeText('可預約企業', currentLang),
+      industryCategories: isJa ? '産業カテゴリー' : isEn ? 'Industry Categories' : localizeText('產業類別', currentLang),
+      prefecturesCovered: isJa ? '対応都道府県' : isEn ? 'Prefectures Covered' : localizeText('覆蓋都道府縣', currentLang),
+      successRate: isJa ? '予約成功率' : isEn ? 'Booking Success Rate' : localizeText('預約成功率', currentLang),
+      notice: isJa ? '※ ご注意事項' : isEn ? '※ Please Note' : localizeText('※ 注意事項', currentLang),
+      noticeText: isJa ? '上記の企業はすべて一般企業見学およびビジネス視察の予約が可能です。視察の予約調整、プロ通訳の手配、送迎・宿泊の手配を承ります。各企業の見学可能な時間帯や内容は異なりますので、詳細はお問い合わせください。' : isEn ? 'All companies above are open for general corporate visits and business inspections. We handle booking coordination, professional interpreter arrangements, transportation and accommodation. Visit schedules and content vary by company — please inquire for details.' : localizeText('以上企業均開放一般企業見學與商務考察預約。我們負責考察的預約協調、專業翻譯安排、交通接送及住宿統籌。各企業可參訪的時段與內容不盡相同，詳情請洽詢。', currentLang),
+      ctaTitle: isJa ? 'ビジネス視察を始めましょう' : isEn ? 'Start Your Business Inspection' : localizeText('開始您的商務考察', currentLang),
+      ctaSubtitle: isJa ? 'オーダーメイド行程・企業訪問手配・全行程通訳サポート' : isEn ? 'Custom itineraries · Corporate visit arrangements · Full interpretation support' : localizeText('專業行程定制・企業參訪安排・全程翻譯陪同', currentLang),
+   }), [currentLang, isEn, isJa]);
 
    // ⚡ 性能优化：缓存所有企业数据的翻译结果
    // 数据源：@/data/companies.ts（数据与视图分离）
    const localizedCompanies = useMemo(() => {
       const localizeCompanies = (companies: Company[]) =>
          companies.map(c => ({
-            name: isEn ? c.nameEn : localizeText(c.name, currentLang),
+            name: isJa ? c.nameJa : isEn ? c.nameEn : localizeText(c.name, currentLang),
             nameEn: c.nameEn,
-            desc: isEn ? c.descEn : localizeText(c.desc, currentLang),
+            desc: isJa ? c.descJa : isEn ? c.descEn : localizeText(c.desc, currentLang),
             url: c.url,
-            location: isEn ? c.locationEn : localizeText(c.location, currentLang),
+            location: isJa ? c.locationJa : isEn ? c.locationEn : localizeText(c.location, currentLang),
          }));
 
       return {
@@ -62,7 +63,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
          logistics: localizeCompanies(COMPANY_DATA.logistics),
          tech: localizeCompanies(COMPANY_DATA.tech),
       };
-   }, [currentLang, isEn]);
+   }, [currentLang, isEn, isJa]);
 
    // CONFIGURATION: Map Plan IDs to Image URLs
    // 所有图片均可通过数据库 site_images 表进行更换
