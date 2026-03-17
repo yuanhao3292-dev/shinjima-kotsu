@@ -656,6 +656,75 @@ const DETAIL_PAGE_HERO_IMAGES: Record<string, string> = {
 
 ---
 
+## 🔒 白标品牌设置与联系方式数据隔离规范 (Whitelabel Data Isolation - LOCKED)
+
+**状态**: 🔒 **架构锁定** (Architecture Locked)
+**生效日期**: 2026-03-18
+**解锁条件**: 仅限用户明确指令
+
+### 安全背景
+
+白标系统中每个导游拥有独立的品牌设置和联系方式。数据隔离一旦被破坏，将导致 A 导游的客户联系信息泄露给 B 导游，造成严重的数据安全事故。
+
+### ⛔ 锁定的数据隔离架构
+
+以下文件中的**数据隔离查询模式**禁止修改：
+
+| 文件 | 锁定内容 | 冻结级别 |
+|------|----------|----------|
+| `app/api/whitelabel/settings/route.ts` | GET/PUT 必须通过 `auth_user_id = user.id` 过滤 | 🔒 LOCKED |
+| `lib/services/whitelabel.ts` | `getGuideBySlug()` 必须通过 `.eq("slug", slug).single()` 查询 | 🔒 LOCKED |
+| `app/g/[slug]/layout.tsx` | contactInfo 必须从当前 slug 对应的 guide 对象读取 | 🔒 LOCKED |
+| `lib/contexts/WhiteLabelContext.tsx` | contact 对象必须从 guideConfig（slug 绑定）读取 | 🔒 LOCKED |
+
+### 锁定的具体模式
+
+**1. API 层 — 写入隔离（settings/route.ts PUT）**
+```
+guides 表查询: .eq("auth_user_id", user.id).single()
+guides 表更新: .eq("id", guide.id)
+```
+禁止：移除 `.eq("auth_user_id", user.id)` 过滤、批量更新多个导游、接受前端传入 guideId 替代 auth_user_id 查询
+
+**2. API 层 — 读取隔离（settings/route.ts GET）**
+```
+guides 表查询: .eq("auth_user_id", user.id).single()
+```
+禁止：移除 `.single()`、返回其他导游数据、根据前端参数查询任意导游
+
+**3. 展示层 — slug 绑定（layout.tsx + whitelabel.ts）**
+```
+contactInfo = { guide.contactWechat, guide.contactLine, guide.contactDisplayPhone, guide.email }
+其中 guide 来自 getGuideBySlug(slug)，slug 来自 URL 参数
+```
+禁止：从全局配置/其他导游读取联系方式、移除 slug 到 guide 的一对一绑定
+
+### 锁定的数据库字段
+
+以下 `guides` 表字段的读写路径已锁定：
+
+| 字段 | 用途 | 隔离方式 |
+|------|------|----------|
+| `contact_wechat` | 微信号 | auth_user_id 写入 / slug 读取 |
+| `contact_line` | LINE ID | auth_user_id 写入 / slug 读取 |
+| `contact_display_phone` | 显示电话 | auth_user_id 写入 / slug 读取 |
+| `email` | 邮箱 | auth_user_id 写入 / slug 读取 |
+| `brand_name` | 品牌名称 | auth_user_id 写入 / slug 读取 |
+| `brand_tagline` | 品牌标语 | auth_user_id 写入 / slug 读取 |
+| `brand_logo_url` | 品牌 Logo | auth_user_id 写入 / slug 读取 |
+| `brand_color` | 品牌色 | auth_user_id 写入 / slug 读取 |
+
+### ⛔ 绝对禁止
+
+- ❌ 不要在 API 中接受前端传入的 `guideId` 来查询/更新其他导游的品牌或联系方式
+- ❌ 不要移除 `.eq("auth_user_id", user.id)` 查询条件
+- ❌ 不要将多个导游的联系方式放入同一个响应中返回
+- ❌ 不要在白标展示页面使用除当前 slug 对应 guide 之外的联系信息
+- ❌ 不要创建可以批量读取/修改多个导游品牌设置的 API 端点（管理员 API 除外）
+- ❌ 不要移除 `guides.slug` 的 UNIQUE 数据库约束
+
+---
+
 ## 🔒 医疗旅游业务合规规范 (Medical Tourism Compliance - MANDATORY)
 
 **状态**: 🔒 **强制执行** (Mandatory)

@@ -19,6 +19,12 @@ import {
 import { DEFAULT_SELECTED_PAGES } from "@/lib/whitelabel-config";
 
 /**
+ * 🔒 数据隔离锁定 — 见 CLAUDE.md「白标品牌设置与联系方式数据隔离规范」
+ * 所有查询必须通过 auth_user_id 过滤，禁止接受前端传入 guideId。
+ * 修改此文件的数据隔离模式需用户明确授权。
+ */
+
+/**
  * GET - 获取当前导游的白标设置
  */
 export async function GET(request: NextRequest) {

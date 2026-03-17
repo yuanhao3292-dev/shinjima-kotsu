@@ -27,7 +27,9 @@ function getServiceClient() {
 }
 
 /**
- * 根据 slug 获取导游白标配置
+ * 🔒 数据隔离锁定 — 见 CLAUDE.md「白标品牌设置与联系方式数据隔离规范」
+ * 必须通过 .eq("slug", slug).single() 查询，确保一个 slug 只返回一个导游的数据。
+ * 禁止移除 slug 过滤或返回多个导游数据。
  */
 export async function getGuideBySlug(
   slug: string

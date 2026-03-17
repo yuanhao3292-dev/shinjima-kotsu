@@ -43,6 +43,10 @@ export function WhiteLabelProvider({
       isWhiteLabelMode && guideConfig?.brandName
         ? guideConfig.brandName
         : DEFAULT_OFFICIAL_BRANDING.name,
+    tagline:
+      isWhiteLabelMode && guideConfig?.brandTagline
+        ? guideConfig.brandTagline
+        : null,
     logoUrl:
       isWhiteLabelMode && guideConfig?.brandLogoUrl
         ? guideConfig.brandLogoUrl
@@ -55,7 +59,8 @@ export function WhiteLabelProvider({
     showOfficialBranding: !isWhiteLabelMode || !isSubscriptionActive,
   };
 
-  // 构建联系方式
+  // 🔒 构建联系方式 — 数据隔离锁定，必须从 guideConfig（slug 绑定）读取
+  // 见 CLAUDE.md「白标品牌设置与联系方式数据隔离规范」
   const contact =
     isWhiteLabelMode && guideConfig
       ? {
@@ -114,6 +119,7 @@ export function useWhiteLabel(): WhiteLabelContextValue {
       isSubscriptionActive: false,
       branding: {
         name: DEFAULT_OFFICIAL_BRANDING.name,
+        tagline: null,
         logoUrl: DEFAULT_OFFICIAL_BRANDING.logoUrl,
         color: DEFAULT_OFFICIAL_BRANDING.color,
         showOfficialBranding: true,
