@@ -451,20 +451,20 @@ export default function ProductCenterPage() {
                 {uncategorizedModules.map((module) => (
                   <div
                     key={module.id}
-                    className={`bg-white rounded-xl border-2 overflow-hidden transition ${
+                    className={`bg-white rounded-xl border-2 overflow-hidden transition flex flex-col ${
                       module.selectedByGuide
                         ? 'border-brand-500 shadow-md'
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
-                    <div className="p-5">
+                    <div className="p-5 flex-1">
                       <h3 className="font-semibold text-gray-900 mb-2">{module.name_zh || module.name}</h3>
                       <p className="text-sm text-gray-600 mb-3 line-clamp-2">
                         {module.description_zh || module.description || t('noDescription', lang)}
                       </p>
                       <span className="text-xs text-gray-500">{t('commission', lang)} {module.commission_rate_min}%</span>
                     </div>
-                    <div className="border-t px-5 py-3 bg-gray-50 flex items-center gap-2">
+                    <div className="border-t px-5 py-3 bg-gray-50 flex items-center gap-2 mt-auto">
                       {module.component_key && MODULE_DETAIL_ROUTES[module.component_key] && (
                         <a
                           href={MODULE_DETAIL_ROUTES[module.component_key]}
@@ -510,7 +510,18 @@ export default function ProductCenterPage() {
   );
 }
 
-/** 机构卡片组件 */
+/**
+ * 🔒 机构卡片组件 — 布局锁定
+ * 见 CLAUDE.md「产品中心卡片布局规范」
+ *
+ * 三层 flex 结构（禁止修改）：
+ *   1. 外层 div: flex flex-col          — 垂直弹性布局
+ *   2. 内容 div: p-5 flex-1             — 自动填充剩余空间
+ *   3. 操作区 div: mt-auto border-t     — 固定底部对齐
+ *
+ * 新增医院/模块时只需在数据库 page_modules 表添加记录，
+ * 不要修改卡片的 flex 结构或 grid 容器的 cols 定义。
+ */
 function ModuleCard({
   module,
   category,

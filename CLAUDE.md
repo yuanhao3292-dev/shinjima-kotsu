@@ -725,6 +725,52 @@ contactInfo = { guide.contactWechat, guide.contactLine, guide.contactDisplayPhon
 
 ---
 
+## 🔒 产品中心卡片布局规范 (Product Center Card Layout - LOCKED)
+
+**状态**: 🔒 **布局锁定** (Layout Locked)
+**生效日期**: 2026-03-18
+**锁定原因**: 卡片等高对齐 — 防止新增医院/模块时破坏视觉一致性
+
+### 锁定的布局结构
+
+产品中心页面 (`app/guide-partner/product-center/page.tsx`) 中所有模块卡片必须遵循 **三层 flex 结构**：
+
+```
+外层 div: flex flex-col           ← 垂直弹性布局，使同行卡片等高
+  ├─ 渐变条 div: h-1.5            ← 分类标识色
+  ├─ 内容 div: p-5 flex-1         ← 自动填充剩余空间（标题+描述+佣金）
+  └─ 操作区 div: mt-auto border-t ← 固定在卡片底部（预览+选择按钮）
+```
+
+### ⛔ 锁定的 CSS 类组合
+
+| 元素 | 必须包含的类 | 冻结级别 |
+|------|-------------|----------|
+| 卡片外层 `div` | `flex flex-col` | 🔒 LOCKED |
+| 内容区 `div` | `flex-1` | 🔒 LOCKED |
+| 操作区 `div` | `mt-auto` | 🔒 LOCKED |
+| Grid 容器 | `grid md:grid-cols-2 lg:grid-cols-3 gap-4` | 🔒 LOCKED |
+| "已选择" 徽章 | `shrink-0` | 🔒 LOCKED |
+| 描述文字 `p` | `line-clamp-2` | 🔒 LOCKED |
+
+### ⛔ 绝对禁止
+
+- ❌ 不要移除卡片外层的 `flex flex-col` — 会导致同行卡片高度不一致
+- ❌ 不要移除内容区的 `flex-1` — 会导致操作按钮无法对齐到底部
+- ❌ 不要移除操作区的 `mt-auto` — 会导致按钮位置随内容长度浮动
+- ❌ 不要移除描述的 `line-clamp-2` — 会导致长描述撑开卡片高度差异
+- ❌ 不要修改 Grid 列数定义（md:2 / lg:3）— 影响整体布局节奏
+- ❌ 不要为单个卡片设置固定高度（如 `h-64`）— 应由 flex 自动计算
+
+### ✅ 新增医院/模块的正确方式
+
+1. 在数据库 `page_modules` 表插入新记录（name, description, component_key 等）
+2. 如有新分类，在 `PRODUCT_CATEGORIES` 数组中添加分类定义
+3. 如有新预览路由，在 `MODULE_DETAIL_ROUTES` 对象中添加映射
+4. **不需要修改 `ModuleCard` 组件或 Grid 容器的布局代码**
+
+---
+
 ## 🔒 医疗旅游业务合规规范 (Medical Tourism Compliance - MANDATORY)
 
 **状态**: 🔒 **强制执行** (Mandatory)
