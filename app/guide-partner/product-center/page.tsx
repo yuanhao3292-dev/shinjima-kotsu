@@ -528,7 +528,7 @@ function ModuleCard({
 }) {
   return (
     <div
-      className={`bg-white rounded-xl border-2 overflow-hidden transition-all ${
+      className={`bg-white rounded-xl border-2 overflow-hidden transition-all flex flex-col ${
         module.selectedByGuide
           ? 'border-brand-500 shadow-lg'
           : 'border-gray-200 hover:border-gray-300 hover:shadow-md'
@@ -537,11 +537,11 @@ function ModuleCard({
       {/* 顶部渐变条 */}
       <div className={`h-1.5 bg-gradient-to-r ${category.gradient}`} />
 
-      <div className="p-5">
+      <div className="p-5 flex-1">
         <div className="flex items-center justify-between mb-2">
           <h3 className="font-bold text-gray-900">{module.name_zh || module.name}</h3>
           {module.selectedByGuide && (
-            <span className="px-2 py-1 bg-green-50 text-green-700 text-xs rounded-full flex items-center gap-1">
+            <span className="px-2 py-1 bg-green-50 text-green-700 text-xs rounded-full flex items-center gap-1 shrink-0">
               <Check size={12} /> {t('selectedLabel', lang)}
             </span>
           )}
@@ -557,7 +557,7 @@ function ModuleCard({
       </div>
 
       {/* 操作区 */}
-      <div className="px-5 py-3 border-t bg-gray-50/50 flex items-center gap-2">
+      <div className="px-5 py-3 border-t bg-gray-50/50 flex items-center gap-2 mt-auto">
         {module.component_key && MODULE_DETAIL_ROUTES[module.component_key] && (
           <a
             href={MODULE_DETAIL_ROUTES[module.component_key]}
