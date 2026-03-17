@@ -123,6 +123,42 @@ const translations = {
     'zh-TW': '管理訂閱',
     en: 'Manage Subscription',
   },
+  planProfessional: {
+    ja: 'プロフェッショナル',
+    'zh-CN': '专业版',
+    'zh-TW': '專業版',
+    en: 'Professional',
+  },
+  featureAllPages: {
+    ja: '全ページ対応',
+    'zh-CN': '全部页面',
+    'zh-TW': '全部頁面',
+    en: 'All Pages',
+  },
+  featureSubdomain: {
+    ja: '専用サブドメイン',
+    'zh-CN': '专属子域名',
+    'zh-TW': '專屬子域名',
+    en: 'Custom Subdomain',
+  },
+  featureBrandName: {
+    ja: 'ブランド名変更',
+    'zh-CN': '品牌名称替换',
+    'zh-TW': '品牌名稱替換',
+    en: 'Brand Name Replacement',
+  },
+  featureContact: {
+    ja: '連絡先表示',
+    'zh-CN': '联系方式展示',
+    'zh-TW': '聯繫方式展示',
+    en: 'Contact Info Display',
+  },
+  featureAnalytics: {
+    ja: 'アクセス統計',
+    'zh-CN': '访问统计',
+    'zh-TW': '訪問統計',
+    en: 'Visit Analytics',
+  },
   yourPageLink: {
     ja: 'あなた専用のページリンク',
     'zh-CN': '您的专属页面链接',
@@ -860,7 +896,7 @@ export default function WhiteLabelSettingsPage() {
       <div className="min-h-screen bg-gray-50">
         <GuideSidebar pageTitle={t('pageTitle', lang)} />
         <main className="lg:ml-64 pt-16 lg:pt-0">
-          <div className="max-w-4xl mx-auto p-6 lg:p-8">
+          <div className="p-6 lg:p-8 max-w-4xl">
             {message && (
               <div className="p-4 rounded-lg flex items-center gap-3 bg-red-50 text-red-800 border border-red-200">
                 <AlertCircle size={20} />
@@ -948,7 +984,7 @@ export default function WhiteLabelSettingsPage() {
       )}
 
       <main className="lg:ml-64 pt-16 lg:pt-0">
-        <div className="max-w-4xl mx-auto p-6 lg:p-8 space-y-8">
+        <div className="p-6 lg:p-8 space-y-8">
         {/* Header */}
         <div>
           <h1 className="text-2xl font-bold text-gray-900">{t('headerTitle', lang)}</h1>
@@ -999,14 +1035,14 @@ export default function WhiteLabelSettingsPage() {
               : 'border-gray-200'
           }`}>
             <div className="flex items-center justify-between mb-3">
-              <h3 className="font-bold text-lg">{SUBSCRIPTION_PLANS.professional.name}</h3>
+              <h3 className="font-bold text-lg">{t('planProfessional', lang)}</h3>
               <span className="text-2xl font-bold">¥{SUBSCRIPTION_PLANS.professional.priceJpy}<span className="text-sm font-normal text-gray-500">{t('perMonth', lang)}</span></span>
             </div>
             <ul className="space-y-2 text-sm text-gray-600 mb-4">
-              {SUBSCRIPTION_PLANS.professional.features.map((feature, i) => (
-                <li key={i} className="flex items-center gap-2">
+              {(['featureAllPages', 'featureSubdomain', 'featureBrandName', 'featureContact', 'featureAnalytics'] as const).map((key) => (
+                <li key={key} className="flex items-center gap-2">
                   <Check size={14} className="text-green-500" />
-                  {feature}
+                  {t(key, lang)}
                 </li>
               ))}
             </ul>

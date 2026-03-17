@@ -938,7 +938,7 @@ export default function SettingsPage() {
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
-        <div className="p-6 lg:p-8 max-w-2xl">
+        <div className="p-6 lg:p-8">
           {/* Header */}
           <div className="mb-6">
             <h1 className="text-2xl font-bold text-gray-900">{t('pageTitle', lang)}</h1>
@@ -1286,6 +1286,19 @@ export default function SettingsPage() {
                         <label className="block text-sm font-medium text-gray-700 mb-2">
                           {t('labelDocFront', lang)}
                         </label>
+                        {/* Front sample diagram */}
+                        <div className="mb-2 rounded-lg border border-emerald-300 bg-emerald-50 p-3">
+                          <p className="text-xs font-bold text-emerald-700 mb-1.5">在留カード 表面 例図</p>
+                          <div className="grid grid-cols-[40px_1fr] gap-2 text-[10px] text-emerald-600">
+                            <div className="row-span-4 bg-white border border-emerald-200 rounded flex items-center justify-center text-emerald-400">
+                              Photo
+                            </div>
+                            <div className="bg-white/70 rounded px-1.5 py-0.5 border border-emerald-200">氏名 Name</div>
+                            <div className="bg-white/70 rounded px-1.5 py-0.5 border border-emerald-200">国籍・地域 Nationality</div>
+                            <div className="bg-white/70 rounded px-1.5 py-0.5 border border-emerald-200">在留資格 Status ／ 在留期間 Period</div>
+                            <div className="bg-white/70 rounded px-1.5 py-0.5 border border-emerald-200">在留カード番号 Card No.</div>
+                          </div>
+                        </div>
                         <div
                           onClick={() => frontInputRef.current?.click()}
                           className="border-2 border-dashed border-gray-300 rounded-xl p-4 text-center cursor-pointer hover:border-brand-400 transition"
@@ -1318,6 +1331,19 @@ export default function SettingsPage() {
                         <label className="block text-sm font-medium text-gray-700 mb-2">
                           {t('labelDocBack', lang)}
                         </label>
+                        {/* Back sample diagram */}
+                        <div className="mb-2 rounded-lg border border-emerald-300 bg-emerald-50 p-3">
+                          <p className="text-xs font-bold text-emerald-700 mb-1.5">在留カード 裏面 例図</p>
+                          <div className="space-y-1 text-[10px] text-emerald-600">
+                            <div className="bg-white/70 rounded px-1.5 py-0.5 border border-emerald-200">住居地 Address</div>
+                            <div className="bg-white/70 rounded px-1.5 py-0.5 border border-emerald-200">住居地変更届出 Change of Address</div>
+                            <div className="grid grid-cols-2 gap-1">
+                              <div className="bg-white/70 rounded px-1.5 py-0.5 border border-emerald-200">資格外活動許可</div>
+                              <div className="bg-white/70 rounded px-1.5 py-0.5 border border-emerald-200">在留期間更新</div>
+                            </div>
+                            <div className="bg-white/70 rounded px-1.5 py-0.5 border border-emerald-200">在留カード番号 Card No.</div>
+                          </div>
+                        </div>
                         <div
                           onClick={() => backInputRef.current?.click()}
                           className="border-2 border-dashed border-gray-300 rounded-xl p-4 text-center cursor-pointer hover:border-brand-400 transition"

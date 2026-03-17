@@ -93,7 +93,7 @@ export const WithdrawalRequestSchema = z.object({
 
 export const KYCSubmitSchema = z.object({
   guideId: UUIDSchema,
-  documentType: z.enum(['passport', 'residence_card', 'drivers_license', 'national_id'], {
+  documentType: z.enum(['passport', 'id_card', 'residence_card', 'other'], {
     error: '无效的证件类型',
   }),
   documentNumber: z.string().min(5, '证件号码至少5位').max(30, '证件号码最多30位'),
