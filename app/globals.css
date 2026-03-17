@@ -4,6 +4,10 @@
    统一品牌色彩系统 (Unified Brand Color System)
    ============================================ */
 @theme {
+  /* 默认字体 — 确保 html 和 body 使用一致的字体 */
+  --font-sans: 'Noto Sans JP', sans-serif;
+  --font-serif: 'Shippori Mincho', serif;
+
   /* Brand Navy — 所有深色背景、Hero 遮罩的统一底色 */
   --color-brand-50: #f0f4f8;
   --color-brand-100: #d9e2ec;
@@ -73,42 +77,46 @@ body {
   overflow-x: hidden;
 }
 
-h1, h2, h3, .serif {
+.serif, .font-serif {
   font-family: 'Shippori Mincho', serif;
 }
 
-/* Locale-specific font overrides - !important 覆盖 Tailwind utilities */
+/* Locale-specific font overrides */
+/* 通过 CSS 变量覆盖 Tailwind v4 的 --font-sans/--font-serif，确保 html→body→子元素 全链路字体一致 */
+[data-locale="zh-TW"] {
+  --font-sans: 'Noto Sans TC', sans-serif;
+  --font-serif: 'Noto Serif TC', serif;
+}
 [data-locale="zh-TW"] body,
 [data-locale="zh-TW"] .font-sans {
   font-family: 'Noto Sans TC', sans-serif !important;
 }
-[data-locale="zh-TW"] h1,
-[data-locale="zh-TW"] h2,
-[data-locale="zh-TW"] h3,
 [data-locale="zh-TW"] .serif,
 [data-locale="zh-TW"] .font-serif {
   font-family: 'Noto Serif TC', serif !important;
 }
 
+[data-locale="zh-CN"] {
+  --font-sans: 'HarmonyOS Sans SC', 'MiSans', 'OPPOSans', 'Alibaba PuHuiTi', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  --font-serif: 'FZSongti-S06', 'STZhongsong', 'Source Han Serif SC', 'Noto Serif SC', 'LXGW WenKai', serif;
+}
 [data-locale="zh-CN"] body,
 [data-locale="zh-CN"] .font-sans {
   font-family: 'HarmonyOS Sans SC', 'MiSans', 'OPPOSans', 'Alibaba PuHuiTi', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif !important;
 }
-[data-locale="zh-CN"] h1,
-[data-locale="zh-CN"] h2,
-[data-locale="zh-CN"] h3,
 [data-locale="zh-CN"] .serif,
 [data-locale="zh-CN"] .font-serif {
   font-family: 'FZSongti-S06', 'STZhongsong', 'Source Han Serif SC', 'Noto Serif SC', 'LXGW WenKai', serif !important;
 }
 
+[data-locale="en"] {
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+}
 [data-locale="en"] body,
 [data-locale="en"] .font-sans {
   font-family: 'Inter', sans-serif !important;
 }
-[data-locale="en"] h1,
-[data-locale="en"] h2,
-[data-locale="en"] h3,
 [data-locale="en"] .serif,
 [data-locale="en"] .font-serif {
   font-family: 'Playfair Display', serif !important;
