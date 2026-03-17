@@ -187,6 +187,7 @@ export default function ACPlusRemoteConsultationPage() {
           notes: fullNotes,
           provider: providerKey || 'ac_plus',
           locale: currentLang,
+          ...(guideSlug ? { guideSlug } : {}),
         }),
       });
 

@@ -187,6 +187,7 @@ export default function HeleneRemoteConsultationPage() {
           notes: fullNotes,
           provider: providerKey || 'helene_clinic',
           locale: currentLang,
+          ...(guideSlug ? { guideSlug } : {}),
         }),
       });
 

@@ -225,6 +225,7 @@ export default function InitialConsultationPage() {
           notes: fullNotes,
           provider: providerKey,
           locale: currentLang,
+          ...(guideSlug ? { guideSlug } : {}),
         }),
       });
 

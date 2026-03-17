@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
+import { isValidSlug } from '@/lib/whitelabel-config';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -185,7 +186,10 @@ const COLOR_THEMES: Record<string, { headerBg: string; button: string; cardBg: s
 
 export default function SaiClinicCheckoutPage() {
   const params = useParams();
+  const searchParams = useSearchParams();
   const slug = params.slug as string;
+  const guideSlugParam = searchParams.get('guide');
+  const guideSlug = guideSlugParam && isValidSlug(guideSlugParam) ? guideSlugParam : null;
   const pkg = SAI_PACKAGES[slug];
   const theme = pkg ? COLOR_THEMES[pkg.colorTheme] : COLOR_THEMES.rose;
   const isVIP = pkg?.colorTheme === 'amber';
@@ -258,6 +262,7 @@ export default function SaiClinicCheckoutPage() {
           preferredDate: preferredDate || null,
           notes: fullNotes.trim() || null,
           locale: Cookies.get('NEXT_LOCALE') || 'ja',
+          ...(guideSlug ? { guideSlug } : {}),
         }),
       });
       const data = await response.json();

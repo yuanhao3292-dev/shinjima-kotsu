@@ -157,6 +157,7 @@ export default function CellMedicineInitialConsultationPage() {
           preferredDate: null, preferredTime: null, notes: fullNotes,
           provider: providerKey || 'cell_medicine',
           locale: currentLang,
+          ...(guideSlug ? { guideSlug } : {}),
         }),
       });
       const data = await response.json();

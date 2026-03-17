@@ -187,6 +187,7 @@ export default function IGTCInitialConsultationPage() {
           notes: fullNotes,
           provider: providerKey || 'igtc',
           locale: currentLang,
+          ...(guideSlug ? { guideSlug } : {}),
         }),
       });
 

@@ -186,6 +186,7 @@ export default function WClinicMensRemoteConsultationPage() {
           notes: fullNotes,
           provider: providerKey || 'wclinic_mens',
           locale: currentLang,
+          ...(guideSlug ? { guideSlug } : {}),
         }),
       });
 

@@ -458,6 +458,7 @@ export default function HeleneTreatmentPage() {
           notes: fullNotes,
           provider: providerKey || 'helene_clinic',
           locale: currentLang,
+          ...(guideSlug ? { guideSlug } : {}),
         }),
       });
 

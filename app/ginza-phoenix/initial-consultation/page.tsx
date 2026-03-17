@@ -187,6 +187,7 @@ export default function GinzaPhoenixInitialConsultationPage() {
           notes: fullNotes,
           provider: providerKey || 'ginza_phoenix',
           locale: currentLang,
+          ...(guideSlug ? { guideSlug } : {}),
         }),
       });
 

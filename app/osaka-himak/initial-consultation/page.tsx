@@ -187,6 +187,7 @@ export default function ACPlusInitialConsultationPage() {
           notes: fullNotes,
           provider: providerKey || 'osaka_himak',
           locale: currentLang,
+          ...(guideSlug ? { guideSlug } : {}),
         }),
       });
 

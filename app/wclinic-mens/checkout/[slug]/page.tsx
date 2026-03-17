@@ -154,6 +154,7 @@ export default function WClinicMensCheckoutPage() {
           notes: fullNotes,
           provider: providerKey || 'wclinic_mens',
           locale: lang,
+          ...(guideSlug ? { guideSlug } : {}),
         }),
       });
 

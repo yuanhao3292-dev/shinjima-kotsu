@@ -248,6 +248,7 @@ export default function RemoteConsultationPage() {
           notes: fullNotes,
           provider: providerKey,
           locale: currentLang,
+          ...(guideSlug ? { guideSlug } : {}),
         }),
       });
 

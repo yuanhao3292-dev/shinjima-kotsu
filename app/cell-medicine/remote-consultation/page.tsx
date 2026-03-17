@@ -168,6 +168,7 @@ export default function CellMedicineRemoteConsultationPage() {
           preferredDate: preferredTimes.time1 || null, preferredTime: null, notes: fullNotes,
           provider: providerKey || 'cell_medicine',
           locale: currentLang,
+          ...(guideSlug ? { guideSlug } : {}),
         }),
       });
       const data = await response.json();

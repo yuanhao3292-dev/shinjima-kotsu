@@ -187,6 +187,7 @@ export default function HyogoInitialConsultationPage() {
           notes: fullNotes,
           provider: providerKey || 'hyogo_medical',
           locale: currentLang,
+          ...(guideSlug ? { guideSlug } : {}),
         }),
       });
 
