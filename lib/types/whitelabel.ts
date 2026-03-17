@@ -64,6 +64,7 @@ export interface WhiteLabelContextValue {
   // 品牌信息（合并后的最终值）
   branding: {
     name: string;
+    tagline: string | null;
     logoUrl: string | null;
     color: string;
     showOfficialBranding: boolean;
