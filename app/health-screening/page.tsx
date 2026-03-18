@@ -50,10 +50,10 @@ const translations = {
     en: 'Back to Symptoms',
   },
   freeRemaining: {
-    ja: '今週の無料スクリーニング残数',
-    'zh-CN': '本周免费筛查剩余',
-    'zh-TW': '本週免費篩查剩餘',
-    en: 'Free screenings remaining this week',
+    ja: '今月の無料スクリーニング残数',
+    'zh-CN': '本月免费筛查剩余',
+    'zh-TW': '本月免費篩查剩餘',
+    en: 'Free screenings remaining this month',
   },
   aiQuestionnaire: {
     ja: 'AI スマート健康問診',
@@ -116,10 +116,10 @@ const translations = {
     en: 'Start Smart Screening',
   },
   limitReached: {
-    ja: '今週の無料スクリーニング回数を使い切りました。来週月曜日に自動的にリセットされます',
-    'zh-CN': '本周免费筛查次数已用完，下周一将自动重置',
-    'zh-TW': '本週免費篩查次數已用完，下週一將自動重置',
-    en: 'Weekly free screenings used up. Will reset next Monday',
+    ja: '今月の無料スクリーニング回数を使い切りました。来月1日に自動的にリセットされます',
+    'zh-CN': '本月免费筛查次数已用完，下月1日将自动重置',
+    'zh-TW': '本月免費篩查次數已用完，下月1日將自動重置',
+    en: 'Monthly free screenings used up. Will reset on the 1st of next month',
   },
   viewHistory: {
     ja: '履歴を見る',

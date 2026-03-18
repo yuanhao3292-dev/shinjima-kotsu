@@ -23,6 +23,7 @@ import { persistPipelineResults, persistFailedRuns } from '@/services/aemc/persi
 import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/lib/utils/rate-limiter';
 import {
   PHASE_1_QUESTIONS,
+  FREE_SCREENING_LIMIT,
   getPhase2QuestionsByBodyParts,
 } from '@/lib/screening-questions';
 import { validateBody } from '@/lib/validations/validate';
@@ -314,7 +315,7 @@ export async function POST(request: NextRequest) {
         // 如果没有 usage 记录，创建一个
         await supabase.from('screening_usage').insert({
           user_id: user.id,
-          free_remaining: 2, // 3 - 1 = 2
+          free_remaining: FREE_SCREENING_LIMIT - 1,
           total_used: 1,
           last_used_at: new Date().toISOString(),
         });

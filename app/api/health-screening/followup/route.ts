@@ -17,6 +17,7 @@ import { runAEMCPipeline, PipelineError } from '@/services/aemc';
 import type { AEMCOutput } from '@/services/aemc';
 import { persistPipelineResults, persistFailedRuns } from '@/services/aemc/persistence';
 import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/lib/utils/rate-limiter';
+import { FREE_SCREENING_LIMIT } from '@/lib/screening-questions';
 
 // Vercel Serverless 函数超时设置（秒）
 export const maxDuration = 60;
@@ -255,7 +256,7 @@ export async function POST(request: NextRequest) {
     } else {
       await supabase.from('screening_usage').insert({
         user_id: user.id,
-        free_remaining: 2,
+        free_remaining: FREE_SCREENING_LIMIT - 1,
         total_used: 1,
         last_used_at: new Date().toISOString(),
       });

@@ -9,35 +9,30 @@ import { createClient } from '@/lib/supabase/server';
 import { FREE_SCREENING_LIMIT } from '@/lib/screening-questions';
 
 /**
- * 获取本周的开始时间（周一 00:00:00 UTC+8）
+ * 获取本月的开始时间（1日 00:00:00 UTC+8）
  */
-function getWeekStart(): Date {
+function getMonthStart(): Date {
   const now = new Date();
   // 调整到东八区
   const utc8Offset = 8 * 60 * 60 * 1000;
   const localNow = new Date(now.getTime() + utc8Offset);
 
-  const day = localNow.getUTCDay(); // 0 = Sunday, 1 = Monday, ...
-  const diff = day === 0 ? 6 : day - 1; // 计算距离周一的天数
+  const monthStart = new Date(Date.UTC(localNow.getUTCFullYear(), localNow.getUTCMonth(), 1));
 
-  const weekStart = new Date(localNow);
-  weekStart.setUTCDate(localNow.getUTCDate() - diff);
-  weekStart.setUTCHours(0, 0, 0, 0);
-
-  // 转回 UTC
-  return new Date(weekStart.getTime() - utc8Offset);
+  // 转回 UTC（减去东八区偏移）
+  return new Date(monthStart.getTime() - utc8Offset);
 }
 
 /**
- * 检查并更新用户的周次数
- * 如果是新的一周，重置免费次数
+ * 检查并更新用户的月次数
+ * 如果是新的一月，重置免费次数
  */
-async function getOrResetWeeklyUsage(
+async function getOrResetMonthlyUsage(
   supabase: any,
   userId: string
 ): Promise<{ freeRemaining: number; totalUsed: number; weekStart: string }> {
-  const currentWeekStart = getWeekStart();
-  const weekStartStr = currentWeekStart.toISOString();
+  const currentMonthStart = getMonthStart();
+  const weekStartStr = currentMonthStart.toISOString(); // 复用 week_start 列存月初时间
 
   // 获取现有 usage 记录
   const { data: usage, error } = await supabase
@@ -75,12 +70,12 @@ async function getOrResetWeeklyUsage(
     throw new Error('查询用量记录失败');
   }
 
-  // 检查是否需要重置（新的一周）
+  // 检查是否需要重置（新的一月）
   const usageWeekStart = usage.week_start ? new Date(usage.week_start) : null;
-  const needsReset = !usageWeekStart || usageWeekStart < currentWeekStart;
+  const needsReset = !usageWeekStart || usageWeekStart < currentMonthStart;
 
   if (needsReset) {
-    // 重置为新的一周
+    // 重置为新的一月
     const { error: updateError } = await supabase
       .from('screening_usage')
       .update({
@@ -91,7 +86,7 @@ async function getOrResetWeeklyUsage(
 
     if (updateError) {
       console.error('Reset weekly usage error:', updateError);
-      throw new Error(`重置周用量失败: ${updateError.message || updateError.code}`);
+      throw new Error(`重置月用量失败: ${updateError.message || updateError.code}`);
     }
 
     return {
@@ -129,7 +124,7 @@ export async function POST(request: NextRequest) {
     // 检查用户的本周免费额度
     let usageInfo;
     try {
-      usageInfo = await getOrResetWeeklyUsage(supabase, user.id);
+      usageInfo = await getOrResetMonthlyUsage(supabase, user.id);
     } catch (err: any) {
       console.error('Usage check error:', err);
       return NextResponse.json({ error: err.message }, { status: 500 });
@@ -198,7 +193,7 @@ export async function GET(request: NextRequest) {
     // 获取用户的本周 usage 记录（自动重置如果是新的一周）
     let usageInfo;
     try {
-      usageInfo = await getOrResetWeeklyUsage(supabase, user.id);
+      usageInfo = await getOrResetMonthlyUsage(supabase, user.id);
     } catch (err: any) {
       console.error('Usage check error:', err);
       usageInfo = {
