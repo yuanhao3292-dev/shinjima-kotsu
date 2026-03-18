@@ -536,7 +536,7 @@ export default function HealthScreeningPage() {
               <Sparkles className="w-4 h-4" />
               <span>{t('aiFollowup', lang)}</span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-serif text-neutral-900">
+            <h1 className="text-2xl md:text-3xl font-serif text-neutral-900 tracking-wide">
               {t('followupTitle', lang)}
             </h1>
             <p className="text-neutral-500 mt-2">
@@ -583,7 +583,7 @@ export default function HealthScreeningPage() {
               <Shield className="w-4 h-4" />
               <span>{t('freeRemaining', lang)} {data.freeRemaining} {lang === 'ja' ? '回' : lang === 'en' ? '' : '次'}</span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-serif text-gray-900">
+            <h1 className="text-2xl md:text-3xl font-serif text-gray-900 tracking-wide">
               {t('aiQuestionnaire', lang)}
             </h1>
             <p className="text-gray-500 mt-2">
@@ -629,7 +629,7 @@ export default function HealthScreeningPage() {
               <Upload className="w-4 h-4" />
               <span>{t('uploadDocTitle', lang)}</span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-serif text-gray-900">
+            <h1 className="text-2xl md:text-3xl font-serif text-gray-900 tracking-wide">
               {t('uploadDocTitle', lang)}
             </h1>
             <p className="text-gray-500 mt-2">
@@ -739,7 +739,7 @@ export default function HealthScreeningPage() {
               <Activity className="w-4 h-4" />
               <span>{t('step1', lang)}</span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-serif text-gray-900">
+            <h1 className="text-2xl md:text-3xl font-serif text-gray-900 tracking-wide">
               {t('clickBodyMap', lang)}
             </h1>
             <p className="text-gray-500 mt-2">
@@ -782,7 +782,7 @@ export default function HealthScreeningPage() {
             <Heart className="w-12 h-12 text-white" />
           </div>
 
-          <h1 className="text-3xl md:text-4xl font-serif text-gray-900 mb-4">
+          <h1 className="text-3xl md:text-4xl font-serif text-gray-900 tracking-wide mb-4">
             {t('aiScreeningTitle', lang)}
           </h1>
 
