@@ -631,10 +631,12 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
 
   return (
     <div className={`min-h-screen bg-white ${isGuideEmbed ? '' : ''}`}>
-      {/* Language Switcher - Fixed top right */}
-      <div className="fixed top-4 right-4 z-50">
-        <LanguageSwitcher variant="compact" />
-      </div>
+      {/* Language Switcher - Fixed top right (隐藏于白标页面，导航栏已包含) */}
+      {!isGuideEmbed && (
+        <div className="fixed top-4 right-4 z-50">
+          <LanguageSwitcher variant="compact" />
+        </div>
+      )}
 
       {/* ============ Hero Section (Photo-Based) ============ */}
       <section className="relative min-h-[70vh] flex items-center overflow-hidden text-white">
