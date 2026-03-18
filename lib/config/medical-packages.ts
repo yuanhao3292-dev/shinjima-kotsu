@@ -947,6 +947,50 @@ export const MEDICAL_PACKAGES: Record<string, MedicalPackageConfig> = {
     sortOrder: 174,
   },
 
+  // ─── OICI（大阪国際がんセンター）咨询服务 ───
+  'oici-initial-consultation': {
+    slug: 'oici-initial-consultation',
+    nameZhTw: '大阪國際癌症中心 - 前期諮詢服務',
+    nameJa: '大阪国際がんセンター - 初期相談サービス',
+    nameEn: 'OICI - Initial Consultation',
+    descriptionZhTw: '病歷翻譯、大阪國際癌症中心諮詢、治療方案初步評估、費用概算',
+    priceJpy: 221000,
+    category: 'cancer_treatment',
+    sortOrder: 133,
+  },
+  'oici-remote-consultation': {
+    slug: 'oici-remote-consultation',
+    nameZhTw: '大阪國際癌症中心 - 遠程會診服務',
+    nameJa: '大阪国際がんセンター - 遠隔診療サービス',
+    nameEn: 'OICI - Remote Consultation',
+    descriptionZhTw: '與大阪國際癌症中心專科醫生遠程視頻會診、治療方案制定、費用概算',
+    priceJpy: 243000,
+    category: 'cancer_treatment',
+    sortOrder: 134,
+  },
+
+  // ─── 近畿大学病院 咨询服务 ───
+  'kindai-initial-consultation': {
+    slug: 'kindai-initial-consultation',
+    nameZhTw: '近畿大學醫院 - 前期諮詢服務',
+    nameJa: '近畿大学病院 - 初期相談サービス',
+    nameEn: 'Kindai University Hospital - Initial Consultation',
+    descriptionZhTw: '病歷翻譯、近畿大學醫院諮詢、治療方案初步評估、費用概算',
+    priceJpy: 221000,
+    category: 'cancer_treatment',
+    sortOrder: 135,
+  },
+  'kindai-remote-consultation': {
+    slug: 'kindai-remote-consultation',
+    nameZhTw: '近畿大學醫院 - 遠程會診服務',
+    nameJa: '近畿大学病院 - 遠隔診療サービス',
+    nameEn: 'Kindai University Hospital - Remote Consultation',
+    descriptionZhTw: '與近畿大學醫院專科醫生遠程視頻會診、治療方案制定、費用概算',
+    priceJpy: 243000,
+    category: 'cancer_treatment',
+    sortOrder: 136,
+  },
+
   // ─── TIMC 健康体检套餐 ───
   'vip-member-course': {
     slug: 'vip-member-course',
