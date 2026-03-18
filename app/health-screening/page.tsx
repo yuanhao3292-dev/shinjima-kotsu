@@ -271,6 +271,12 @@ const translations = {
     'zh-TW': '分析中...',
     en: 'Analyzing...',
   },
+  analyzingPatience: {
+    ja: 'AI が資料を詳しく分析しています。通常 30 秒〜1 分ほどかかります。画面を閉じないでください。',
+    'zh-CN': 'AI 正在详细分析您的资料，通常需要 30 秒至 1 分钟，请勿关闭页面。',
+    'zh-TW': 'AI 正在詳細分析您的資料，通常需要 30 秒至 1 分鐘，請勿關閉頁面。',
+    en: 'AI is analyzing your data in detail. This usually takes 30 seconds to 1 minute. Please do not close the page.',
+  },
   reportLanguage: {
     ja: 'レポート言語',
     'zh-CN': '报告语言',
@@ -673,9 +679,14 @@ export default function HealthScreeningPage() {
                 className="w-full px-6 py-4 bg-gradient-to-r from-medical-600 to-medical-700 text-white text-lg font-medium rounded-xl hover:from-medical-700 hover:to-medical-800 transition-all disabled:opacity-50 shadow-lg"
               >
                 {isAnalyzingDoc ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    {t('analyzing', lang)}
+                  <span className="flex flex-col items-center gap-2">
+                    <span className="flex items-center gap-2">
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      {t('analyzing', lang)}
+                    </span>
+                    <span className="text-xs text-white/70 font-normal">
+                      {t('analyzingPatience', lang)}
+                    </span>
                   </span>
                 ) : (
                   <span className="flex items-center justify-center gap-2">

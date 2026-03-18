@@ -35,6 +35,12 @@ const translations = {
     'zh-TW': '支援 PDF、JPG、PNG（最大 10MB，PDF 限 10 頁內）',
     en: 'PDF, JPG, PNG supported (max 10MB, PDF up to 10 pages)',
   },
+  uploadingPatience: {
+    ja: '文書の内容を読み取っています。しばらくお待ちください...',
+    'zh-CN': '正在读取文档内容，请耐心等待...',
+    'zh-TW': '正在讀取文檔內容，請耐心等待...',
+    en: 'Reading document content, please wait...',
+  },
   uploading: {
     ja: 'アップロード＆テキスト抽出中...',
     'zh-CN': '上传并提取文本中...',
@@ -329,6 +335,7 @@ export default function DocumentUpload({
         <div className="flex flex-col items-center gap-3">
           <Loader2 className="h-8 w-8 animate-spin text-brand-500" />
           <p className="text-sm font-medium text-brand-600">{t('uploading')}</p>
+          <p className="text-xs text-neutral-400">{t('uploadingPatience')}</p>
         </div>
       </div>
     );
