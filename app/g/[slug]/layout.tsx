@@ -73,13 +73,6 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
     }
   });
 
-  // 强制添加 AI 健康筛查入口（所有白标页面必须包含）
-  navItems.push({
-    id: 'ai-screening',
-    label: 'AI 健康筛查',
-    href: `/g/${slug}/health-screening`,
-  });
-
   // 🔒 联系信息 — 数据隔离锁定，必须从当前 slug 对应的 guide 对象读取
   // 见 CLAUDE.md「白标品牌设置与联系方式数据隔离规范」
   const contactInfo = {
