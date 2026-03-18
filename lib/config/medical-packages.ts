@@ -1053,6 +1053,28 @@ export const MEDICAL_PACKAGES: Record<string, MedicalPackageConfig> = {
     sortOrder: 205,
   },
 
+  // ─── SAI CLINIC 咨询服务 ───
+  'sai-initial-consultation': {
+    slug: 'sai-initial-consultation',
+    nameZhTw: 'SAI CLINIC - 前期諮詢服務',
+    nameJa: 'SAI CLINIC - 初期相談サービス',
+    nameEn: 'SAI CLINIC - Initial Consultation',
+    descriptionZhTw: '病歷翻譯、SAI CLINIC諮詢、醫美整形方案評估、費用概算',
+    priceJpy: 221000,
+    category: 'cosmetic_surgery',
+    sortOrder: 299,
+  },
+  'sai-remote-consultation': {
+    slug: 'sai-remote-consultation',
+    nameZhTw: 'SAI CLINIC - 遠程諮詢服務',
+    nameJa: 'SAI CLINIC - 遠隔相談サービス',
+    nameEn: 'SAI CLINIC - Remote Consultation',
+    descriptionZhTw: '與SAI CLINIC專科醫生遠程視頻諮詢、醫美整形方案制定、費用概算',
+    priceJpy: 243000,
+    category: 'cosmetic_surgery',
+    sortOrder: 300,
+  },
+
   // ─── SAI CLINIC 医美整形 ───
   'sai-lift-try': {
     slug: 'sai-lift-try',
