@@ -311,7 +311,7 @@ export default function HealthScreeningPage() {
   const [documentUploaded, setDocumentUploaded] = useState(false);
   const [isAnalyzingDoc, setIsAnalyzingDoc] = useState(false);
   // 报告语言（独立于网站 UI 语言）
-  const [reportLang, setReportLang] = useState<Language>(lang);
+  const [reportLang, setReportLang] = useState<Language>('zh-CN');
 
   // 加载用户状态和未完成的筛查
   useEffect(() => {

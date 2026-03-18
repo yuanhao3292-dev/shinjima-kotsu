@@ -209,6 +209,11 @@ export const HealthScreeningAnalyzeSchema = z.object({
   language: z.enum(['zh-CN', 'zh-TW', 'en', 'ja']).optional(),
 });
 
+export const HealthScreeningTranslateSchema = z.object({
+  screeningId: UUIDSchema,
+  language: z.enum(['zh-CN', 'zh-TW', 'en', 'ja']),
+});
+
 // ==================== Whitelabel Subscription ====================
 
 export const WhitelabelSubscriptionSchema = z.object({
@@ -449,6 +454,7 @@ export type BookingAvailabilityCheckInput = z.infer<typeof BookingAvailabilityCh
 export type TicketActionInput = z.infer<typeof TicketActionSchema>;
 export type AuditLogCreateInput = z.infer<typeof AuditLogCreateSchema>;
 export type HealthScreeningAnalyzeInput = z.infer<typeof HealthScreeningAnalyzeSchema>;
+export type HealthScreeningTranslateInput = z.infer<typeof HealthScreeningTranslateSchema>;
 export type WhitelabelSubscriptionInput = z.infer<typeof WhitelabelSubscriptionSchema>;
 export type WhitelabelSettingsInput = z.infer<typeof WhitelabelSettingsSchema>;
 export type CalculateQuoteInput = z.infer<typeof CalculateQuoteSchema>;

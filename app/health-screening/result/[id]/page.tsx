@@ -4,7 +4,7 @@ import { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import ScreeningResult from '@/components/ScreeningResult';
-import { ArrowLeft, Loader2, AlertCircle, Download, FileText } from 'lucide-react';
+import { ArrowLeft, Loader2, AlertCircle, Download, FileText, Globe, Check } from 'lucide-react';
 import { type AnalysisResult } from '@/services/aemc/types';
 import { downloadHealthReportPDF } from '@/components/HealthReportPDF';
 import { type BodyMapSelectionData } from '@/components/BodyMapSelector';
@@ -42,7 +42,17 @@ const translations = {
   reportSubtitle: { ja: 'あなたの回答に基づき、AIが以下の健康分析レポートを生成しました', 'zh-CN': '根据您的回答，AI 为您生成了以下健康分析报告', 'zh-TW': '根據您的回答，AI 為您生成了以下健康分析報告', en: 'Based on your responses, AI has generated the following health analysis report' },
   saveReportTitle: { ja: '健康レポートを保存', 'zh-CN': '保存您的健康报告', 'zh-TW': '保存您的健康報告', en: 'Save Your Health Report' },
   saveReportDesc: { ja: 'PDF形式の精美なレポートをダウンロードし、保存や医師への共有に便利', 'zh-CN': '下载 PDF 格式的精美报告，方便保存和分享给医生', 'zh-TW': '下載 PDF 格式的精美報告，方便保存和分享給醫生', en: 'Download beautiful PDF report for easy saving and sharing with your doctor' },
+  translating: { ja: '翻訳中...', 'zh-CN': '翻译中...', 'zh-TW': '翻譯中...', en: 'Translating...' },
+  translateError: { ja: '翻訳に失敗しました', 'zh-CN': '翻译失败', 'zh-TW': '翻譯失敗', en: 'Translation failed' },
+  reportLanguage: { ja: 'レポート言語', 'zh-CN': '报告语言', 'zh-TW': '報告語言', en: 'Report Language' },
 } as const;
+
+const LANGUAGE_OPTIONS: { value: Language; label: string }[] = [
+  { value: 'zh-CN', label: '简体中文' },
+  { value: 'zh-TW', label: '繁體中文' },
+  { value: 'ja', label: '日本語' },
+  { value: 'en', label: 'English' },
+];
 
 const t = (key: keyof typeof translations, lang: Language): string => {
   return translations[key][lang];
@@ -56,9 +66,11 @@ export default function ScreeningResultPage({ params }: PageProps) {
   const [error, setError] = useState<string | null>(null);
   const [screeningData, setScreeningData] = useState<ScreeningData | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [isTranslating, setIsTranslating] = useState(false);
+  const [displayResult, setDisplayResult] = useState<AnalysisResult | null>(null);
 
-  // 报告语言：优先使用 AI 生成时的语言，否则回退到站点语言
-  const lang: Language = (screeningData?.analysisResult?.language as Language) || siteLang;
+  // 报告语言：优先使用当前展示结果的语言，否则回退到站点语言
+  const lang: Language = (displayResult?.language as Language) || (screeningData?.analysisResult?.language as Language) || siteLang;
 
   useEffect(() => {
     async function fetchResult() {
@@ -99,8 +111,10 @@ export default function ScreeningResultPage({ params }: PageProps) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, router]);
 
+  const currentResult = displayResult || screeningData?.analysisResult;
+
   const handleDownloadPDF = async () => {
-    if (!screeningData) return;
+    if (!screeningData || !currentResult) return;
 
     setIsDownloading(true);
     try {
@@ -109,7 +123,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
         createdAt: screeningData.createdAt,
         userEmail: screeningData.userEmail,
         bodyMapData: screeningData.bodyMapData,
-        analysisResult: screeningData.analysisResult,
+        analysisResult: currentResult,
         language: lang,
       });
     } catch (err) {
@@ -117,6 +131,29 @@ export default function ScreeningResultPage({ params }: PageProps) {
       alert(t('pdfDownloadError', lang));
     } finally {
       setIsDownloading(false);
+    }
+  };
+
+  const handleTranslate = async (targetLang: Language) => {
+    if (!screeningData || isTranslating) return;
+    // 如果目标语言与当前展示语言相同，无需翻译
+    if (targetLang === lang) return;
+
+    setIsTranslating(true);
+    setError(null);
+    try {
+      const response = await fetch('/api/health-screening/translate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ screeningId: id, language: targetLang }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || t('translateError', lang));
+      setDisplayResult(result.analysisResult);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsTranslating(false);
     }
   };
 
@@ -195,7 +232,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
         </div>
       </div>
 
-      {/* Title */}
+      {/* Title + Language Selector */}
       <div className="bg-gradient-to-b from-white to-blue-50/30 py-8">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm mb-4">
@@ -208,16 +245,44 @@ export default function ScreeningResultPage({ params }: PageProps) {
           <p className="text-gray-500 mt-2">
             {t('reportSubtitle', lang)}
           </p>
+
+          {/* 语言切换 */}
+          <div className="mt-4 flex items-center justify-center gap-2">
+            <Globe className="w-4 h-4 text-gray-400" />
+            <span className="text-sm text-gray-400">{t('reportLanguage', lang)}:</span>
+            <div className="inline-flex rounded-lg border border-gray-200 overflow-hidden">
+              {LANGUAGE_OPTIONS.map((opt) => (
+                <button
+                  key={opt.value}
+                  onClick={() => handleTranslate(opt.value)}
+                  disabled={isTranslating}
+                  className={`px-3 py-1.5 text-sm transition-colors ${
+                    lang === opt.value
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-white text-gray-600 hover:bg-gray-50'
+                  } ${isTranslating ? 'opacity-50 cursor-not-allowed' : ''}`}
+                >
+                  {isTranslating && lang !== opt.value ? '' : opt.label}
+                </button>
+              ))}
+            </div>
+            {isTranslating && (
+              <span className="inline-flex items-center gap-1 text-sm text-blue-600">
+                <Loader2 className="w-3 h-3 animate-spin" />
+                {t('translating', lang)}
+              </span>
+            )}
+          </div>
         </div>
       </div>
 
       {/* Result */}
       <div className="max-w-4xl mx-auto px-4 pb-16">
-        {screeningData?.analysisResult && (
+        {currentResult && (
           <ScreeningResult
-            result={screeningData.analysisResult}
+            result={currentResult}
             screeningId={id}
-            bodyMapData={screeningData.bodyMapData}
+            bodyMapData={screeningData?.bodyMapData}
             overrideLanguage={lang}
           />
         )}
