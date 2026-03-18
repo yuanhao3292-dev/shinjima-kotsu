@@ -117,7 +117,7 @@ export default function ScreeningHistoryPage() {
       <div className="min-h-screen bg-[#faf9f7] flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-10 h-10 animate-spin text-blue-500 mx-auto mb-4" />
-          <p className="text-gray-500">{t('loadingHistory', lang)}</p>
+          <p className="text-neutral-500">{t('loadingHistory', lang)}</p>
         </div>
       </div>
     );
@@ -126,7 +126,7 @@ export default function ScreeningHistoryPage() {
   return (
     <div className="min-h-screen bg-[#faf9f7]">
       {/* Header */}
-      <div className="bg-white border-b border-gray-100">
+      <div className="bg-white border-b border-neutral-100">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <Link
             href="/my-account"
@@ -143,10 +143,10 @@ export default function ScreeningHistoryPage() {
         <div className="max-w-4xl mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <h1 className="text-2xl md:text-3xl font-serif text-gray-900 tracking-wide">
+              <h1 className="text-2xl md:text-3xl font-serif text-neutral-900 tracking-wide">
                 {t('historyTitle', lang)}
               </h1>
-              <p className="text-gray-500 mt-1">
+              <p className="text-neutral-500 mt-1">
                 {t('usedCount', lang)} {totalUsed} {t('times', lang)} · {t('freeRemaining', lang)} {freeRemaining} {t('times', lang)}
               </p>
             </div>
@@ -180,10 +180,10 @@ export default function ScreeningHistoryPage() {
             <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <Clock className="w-8 h-8 text-gray-400" />
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
+            <h3 className="text-lg font-medium text-neutral-900 mb-2">
               {t('noRecordsTitle', lang)}
             </h3>
-            <p className="text-gray-500 mb-6">
+            <p className="text-neutral-500 mb-6">
               {t('noRecordsDesc', lang)}
             </p>
             <Link
@@ -225,13 +225,13 @@ export default function ScreeningHistoryPage() {
                         </div>
                       ) : (
                         <div className="p-2 rounded-lg bg-gray-100">
-                          <Clock className="w-6 h-6 text-gray-500" />
+                          <Clock className="w-6 h-6 text-neutral-500" />
                         </div>
                       )}
 
                       <div>
                         <div className="flex items-center gap-2">
-                          <h3 className="font-medium text-gray-900">
+                          <h3 className="font-medium text-neutral-900">
                             {isCompleted ? t('reportCompleted', lang) : t('incompleteScreening', lang)}
                           </h3>
                           {isCompleted && risk && (
@@ -247,7 +247,7 @@ export default function ScreeningHistoryPage() {
                             </span>
                           )}
                         </div>
-                        <p className="text-sm text-gray-500 mt-1">
+                        <p className="text-sm text-neutral-500 mt-1">
                           {isCompleted && screening.completedAt
                             ? `${t('completedAt', lang)} ${formatDateTimeLong(screening.completedAt)}`
                             : `${t('startedAt', lang)} ${formatDateTimeLong(screening.createdAt)}`}

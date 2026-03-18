@@ -512,7 +512,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
 
           return (
             <div key={partId} className="bg-white rounded-xl p-4 shadow-sm">
-              <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
+              <h3 className="font-semibold text-neutral-900 mb-3 flex items-center gap-2">
                 <span className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
                   {getPartName(partId).charAt(0)}
                 </span>
@@ -552,7 +552,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
 
         {/* 通用症状 */}
         <div className="bg-white rounded-xl p-4 shadow-sm">
-          <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
+          <h3 className="font-semibold text-neutral-900 mb-3 flex items-center gap-2">
             <span className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center text-purple-600">
               {t('generalShort')}
             </span>
@@ -620,7 +620,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
 
         {/* 问题卡片 */}
         <div className="bg-white rounded-xl p-6 shadow-sm">
-          <h3 className="text-lg font-bold text-gray-900 mb-4">
+          <h3 className="text-lg font-semibold text-neutral-900 mb-4">
             {currentQuestion.question}
           </h3>
 
@@ -736,7 +736,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
 
         {/* 选中的部位 */}
         <div className="bg-white rounded-xl p-4 shadow-sm">
-          <h3 className="font-bold text-gray-900 mb-3">{t('selectedParts')}</h3>
+          <h3 className="font-semibold text-neutral-900 mb-3">{t('selectedParts')}</h3>
           <div className="flex flex-wrap gap-2">
             {selectedBodyParts.map((partId) => {
               return (
@@ -754,7 +754,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
         {/* 选中的症状 */}
         {selectedSymptoms.length > 0 && (
           <div className="bg-white rounded-xl p-4 shadow-sm">
-            <h3 className="font-bold text-gray-900 mb-3">{t('selectedSymptoms')}</h3>
+            <h3 className="font-semibold text-neutral-900 mb-3">{t('selectedSymptoms')}</h3>
             <div className="space-y-2">
               {selectedSymptoms.map((symptom) => (
                 <div
@@ -782,7 +782,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
         {/* 推荐科室 */}
         {departments.length > 0 && (
           <div className="bg-white rounded-xl p-4 shadow-sm">
-            <h3 className="font-bold text-gray-900 mb-3">{t('recommendedDepts')}</h3>
+            <h3 className="font-semibold text-neutral-900 mb-3">{t('recommendedDepts')}</h3>
             <div className="grid grid-cols-2 gap-2">
               {departments.map((dept) => (
                 <div
@@ -842,7 +842,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
 
       {/* 标题 */}
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold text-gray-900">
+        <h2 className="text-2xl font-serif font-semibold text-neutral-900 tracking-wide">
           {step === 'body-select' && t('stepBodySelectTitle')}
           {step === 'symptom-select' && t('stepSymptomSelectTitle')}
           {step === 'followup' && t('stepFollowUpTitle')}

@@ -667,7 +667,7 @@ export default function DynamicScreeningForm({
             <CheckCircle className="w-10 h-10 text-green-600" />
           </div>
 
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl font-serif font-semibold text-neutral-900 tracking-wide mb-4">
             {t('quickScreeningComplete')}
           </h2>
 
@@ -838,7 +838,7 @@ export default function DynamicScreeningForm({
 
       {/* 问题卡片 */}
       <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-6">
-        <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-6">
+        <h2 className="text-xl md:text-2xl font-serif font-semibold text-neutral-900 tracking-wide mb-6">
           {currentQuestion.question}
         </h2>
 

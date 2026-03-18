@@ -318,7 +318,7 @@ export default function ScreeningResult({
             <div className="p-2 bg-indigo-100 rounded-lg">
               <Activity className="w-6 h-6 text-indigo-600" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900">{t('symptomLocation', lang)}</h3>
+            <h3 className="text-xl font-serif font-semibold text-neutral-900 tracking-wide">{t('symptomLocation', lang)}</h3>
           </div>
 
           <div className="flex flex-wrap gap-2 mb-4">
@@ -372,7 +372,7 @@ export default function ScreeningResult({
             <div className="p-2 bg-teal-100 rounded-lg">
               <Users className="w-6 h-6 text-teal-600" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900">{t('recommendedDepts', lang)}</h3>
+            <h3 className="text-xl font-serif font-semibold text-neutral-900 tracking-wide">{t('recommendedDepts', lang)}</h3>
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
@@ -383,7 +383,7 @@ export default function ScreeningResult({
               >
                 <span className="text-2xl">{dept.icon}</span>
                 <div>
-                  <h4 className="font-bold text-gray-900">{dept.name}</h4>
+                  <h4 className="font-semibold text-neutral-900">{dept.name}</h4>
                   <p className="text-sm text-gray-500 mt-1">{dept.description}</p>
                   <div className="flex flex-wrap gap-1 mt-2">
                     {dept.recommendedTests.slice(0, 3).map((test: string, testIdx: number) => (
@@ -409,7 +409,7 @@ export default function ScreeningResult({
             <div className="p-2 bg-blue-100 rounded-lg">
               <Stethoscope className="w-6 h-6 text-blue-600" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900">{t('recommendedTests', lang)}</h3>
+            <h3 className="text-xl font-serif font-semibold text-neutral-900 tracking-wide">{t('recommendedTests', lang)}</h3>
           </div>
 
           <div className="space-y-3">
@@ -435,7 +435,7 @@ export default function ScreeningResult({
             <div className="p-2 bg-purple-100 rounded-lg">
               <Pill className="w-6 h-6 text-purple-600" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900">
+            <h3 className="text-xl font-serif font-semibold text-neutral-900 tracking-wide">
               {t('treatmentSuggestions', lang)}
             </h3>
           </div>
@@ -461,7 +461,7 @@ export default function ScreeningResult({
             <div className="p-2 bg-green-100 rounded-lg">
               <Building2 className="w-6 h-6 text-green-600" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900">{t('recommendedHospitals', lang)}</h3>
+            <h3 className="text-xl font-serif font-semibold text-neutral-900 tracking-wide">{t('recommendedHospitals', lang)}</h3>
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
@@ -504,7 +504,7 @@ export default function ScreeningResult({
       {/* 下一步建议 */}
       {result.nextSteps.length > 0 && (
         <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 md:p-8">
-          <h3 className="text-xl font-bold text-gray-900 mb-4">{t('nextSteps', lang)}</h3>
+          <h3 className="text-xl font-serif font-semibold text-neutral-900 tracking-wide mb-4">{t('nextSteps', lang)}</h3>
           <div className="space-y-3">
             {result.nextSteps.map((step, index) => (
               <div key={index} className="flex items-start gap-3">

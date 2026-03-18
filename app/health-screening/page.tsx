@@ -583,10 +583,10 @@ export default function HealthScreeningPage() {
               <Shield className="w-4 h-4" />
               <span>{t('freeRemaining', lang)} {data.freeRemaining} {lang === 'ja' ? '回' : lang === 'en' ? '' : '次'}</span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-serif text-gray-900 tracking-wide">
+            <h1 className="text-2xl md:text-3xl font-serif text-neutral-900 tracking-wide">
               {t('aiQuestionnaire', lang)}
             </h1>
-            <p className="text-gray-500 mt-2">
+            <p className="text-neutral-500 mt-2">
               {t('customizedFlow', lang)}
             </p>
           </div>
@@ -629,10 +629,10 @@ export default function HealthScreeningPage() {
               <Upload className="w-4 h-4" />
               <span>{t('uploadDocTitle', lang)}</span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-serif text-gray-900 tracking-wide">
+            <h1 className="text-2xl md:text-3xl font-serif text-neutral-900 tracking-wide">
               {t('uploadDocTitle', lang)}
             </h1>
-            <p className="text-gray-500 mt-2">
+            <p className="text-neutral-500 mt-2">
               {t('uploadDocDesc', lang)}
             </p>
           </div>
@@ -739,10 +739,10 @@ export default function HealthScreeningPage() {
               <Activity className="w-4 h-4" />
               <span>{t('step1', lang)}</span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-serif text-gray-900 tracking-wide">
+            <h1 className="text-2xl md:text-3xl font-serif text-neutral-900 tracking-wide">
               {t('clickBodyMap', lang)}
             </h1>
-            <p className="text-gray-500 mt-2">
+            <p className="text-neutral-500 mt-2">
               {t('preciseDiagnosis', lang)}
             </p>
           </div>
@@ -782,7 +782,7 @@ export default function HealthScreeningPage() {
             <Heart className="w-12 h-12 text-white" />
           </div>
 
-          <h1 className="text-3xl md:text-4xl font-serif text-gray-900 tracking-wide mb-4">
+          <h1 className="text-3xl md:text-4xl font-serif text-neutral-900 tracking-wide mb-4">
             {t('aiScreeningTitle', lang)}
           </h1>
 
@@ -812,7 +812,7 @@ export default function HealthScreeningPage() {
               <button
                 onClick={startNewScreening}
                 disabled={isCreating}
-                className="px-10 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-lg font-medium rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-200 hover:shadow-xl hover:shadow-blue-300 transform hover:-translate-y-0.5"
+                className="px-10 py-4 bg-gradient-to-r from-brand-600 to-brand-700 text-white text-lg font-medium rounded-xl hover:from-brand-700 hover:to-brand-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-brand-200 hover:shadow-xl hover:shadow-brand-300 transform hover:-translate-y-0.5"
               >
                 {isCreating ? (
                   <span className="flex items-center gap-2">
@@ -869,42 +869,42 @@ export default function HealthScreeningPage() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+          <div className="bg-white rounded-2xl p-5 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow">
             <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
               <Activity className="w-6 h-6 text-blue-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">{t('bodyMapInteraction', lang)}</h3>
-            <p className="text-gray-500 text-sm">
+            <h3 className="font-semibold text-neutral-900 mb-2">{t('bodyMapInteraction', lang)}</h3>
+            <p className="text-neutral-500 text-sm">
               {t('bodyMapDesc', lang)}
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+          <div className="bg-white rounded-2xl p-5 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow">
             <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
               <Users className="w-6 h-6 text-green-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">{t('smartDeptRecommend', lang)}</h3>
-            <p className="text-gray-500 text-sm">
+            <h3 className="font-semibold text-neutral-900 mb-2">{t('smartDeptRecommend', lang)}</h3>
+            <p className="text-neutral-500 text-sm">
               {t('smartDeptDesc', lang)}
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+          <div className="bg-white rounded-2xl p-5 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow">
             <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
               <Sparkles className="w-6 h-6 text-purple-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">{t('dynamicQuestionnaire', lang)}</h3>
-            <p className="text-gray-500 text-sm">
+            <h3 className="font-semibold text-neutral-900 mb-2">{t('dynamicQuestionnaire', lang)}</h3>
+            <p className="text-neutral-500 text-sm">
               {t('dynamicDesc', lang)}
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+          <div className="bg-white rounded-2xl p-5 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow">
             <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
               <FileText className="w-6 h-6 text-orange-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">{t('pdfReport', lang)}</h3>
-            <p className="text-gray-500 text-sm">
+            <h3 className="font-semibold text-neutral-900 mb-2">{t('pdfReport', lang)}</h3>
+            <p className="text-neutral-500 text-sm">
               {t('pdfDesc', lang)}
             </p>
           </div>
@@ -914,32 +914,32 @@ export default function HealthScreeningPage() {
       {/* 原有功能特性 */}
       <div className="max-w-4xl mx-auto px-4 pb-16">
         <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100">
             <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
               <Shield className="w-6 h-6 text-blue-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">{t('privacyProtection', lang)}</h3>
-            <p className="text-gray-500 text-sm">
+            <h3 className="font-semibold text-neutral-900 mb-2">{t('privacyProtection', lang)}</h3>
+            <p className="text-neutral-500 text-sm">
               {t('privacyDesc', lang)}
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100">
             <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
               <Sparkles className="w-6 h-6 text-purple-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">{t('aiAnalysis', lang)}</h3>
-            <p className="text-gray-500 text-sm">
+            <h3 className="font-semibold text-neutral-900 mb-2">{t('aiAnalysis', lang)}</h3>
+            <p className="text-neutral-500 text-sm">
               {t('aiAnalysisDesc', lang)}
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100">
             <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
               <Heart className="w-6 h-6 text-green-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">{t('japanMedicalRecommend', lang)}</h3>
-            <p className="text-gray-500 text-sm">
+            <h3 className="font-semibold text-neutral-900 mb-2">{t('japanMedicalRecommend', lang)}</h3>
+            <p className="text-neutral-500 text-sm">
               {t('japanMedicalDesc', lang)}
             </p>
           </div>

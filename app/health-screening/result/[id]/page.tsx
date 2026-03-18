@@ -162,7 +162,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-10 h-10 animate-spin text-blue-500 mx-auto mb-4" />
-          <p className="text-gray-500">{t('loadingResult', lang)}</p>
+          <p className="text-neutral-500">{t('loadingResult', lang)}</p>
         </div>
       </div>
     );
@@ -171,7 +171,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
   if (error) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-        <div className="bg-white border-b border-gray-100 shadow-sm">
+        <div className="bg-white border-b border-neutral-100 shadow-sm">
           <div className="max-w-4xl mx-auto px-4 py-4">
             <Link
               href="/health-screening"
@@ -202,7 +202,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       {/* Header */}
-      <div className="bg-white border-b border-gray-100 shadow-sm">
+      <div className="bg-white border-b border-neutral-100 shadow-sm">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link
             href="/health-screening/history"
@@ -239,10 +239,10 @@ export default function ScreeningResultPage({ params }: PageProps) {
             <FileText className="w-4 h-4" />
             {t('analysisComplete', lang)}
           </div>
-          <h1 className="text-2xl md:text-3xl font-serif text-gray-900 tracking-wide">
+          <h1 className="text-2xl md:text-3xl font-serif text-neutral-900 tracking-wide">
             {t('reportTitle', lang)}
           </h1>
-          <p className="text-gray-500 mt-2">
+          <p className="text-neutral-500 mt-2">
             {t('reportSubtitle', lang)}
           </p>
 
@@ -290,8 +290,8 @@ export default function ScreeningResultPage({ params }: PageProps) {
         <div className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-center md:text-left">
-              <h3 className="font-bold text-gray-900 mb-1">{t('saveReportTitle', lang)}</h3>
-              <p className="text-sm text-gray-500">
+              <h3 className="font-semibold text-neutral-900 mb-1">{t('saveReportTitle', lang)}</h3>
+              <p className="text-sm text-neutral-500">
                 {t('saveReportDesc', lang)}
               </p>
             </div>
