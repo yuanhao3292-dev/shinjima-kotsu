@@ -1086,7 +1086,8 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
         </div>
       </section>
 
-      {/* ============ Contact ============ */}
+      {/* ============ Contact (standalone only) ============ */}
+      {!isGuideEmbed && (
       <section className="py-16 bg-white border-t border-gray-100">
         <div className="container mx-auto px-6 text-center">
           <h3 className="text-xl font-bold text-gray-900 mb-6">{t('contactTitle')}</h3>
@@ -1117,6 +1118,7 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
           </p>
         </div>
       </section>
+      )}
     </div>
   );
 }
