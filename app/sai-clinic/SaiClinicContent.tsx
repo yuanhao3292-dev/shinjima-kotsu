@@ -278,10 +278,11 @@ const FAQ = [
 
 interface SaiClinicContentProps {
   isGuideEmbed?: boolean;
+  guideSlug?: string;
   images?: SaiClinicImage[] | null;
 }
 
-export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicContentProps) {
+export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: SaiClinicContentProps) {
   const lang = useLanguage();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [menuTab, setMenuTab] = useState<string>('surgery');
@@ -290,6 +291,9 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
   const getRefPrice = (price: number) => Math.ceil(price * 1.3 / 10000) * 10000;
 
   const checkoutBase = '/sai-clinic';
+  /** 白标模式下，CTA 链接自动带上 ?guide= 参数 */
+  const checkoutHref = (path: string) =>
+    guideSlug ? `${path}?guide=${guideSlug}` : path;
 
   // ━━━━━━━━ 图片查询工具（从 DB 或 fallback） ━━━━━━━━
   const allImages = images && images.length > 0 ? images : FALLBACK_IMAGES;
@@ -355,7 +359,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
                 <div className="h-[1px] w-12 bg-rose-400"></div>
                 <span className="text-xs tracking-[0.3em] text-rose-300 uppercase">Aesthetic Medicine in Osaka</span>
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-6">
                 SAI CLINIC
                 <br />
                 <span className="text-rose-300">{t(TR.location, lang)}</span>
@@ -467,7 +471,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-rose-500 uppercase">Doctor</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-3">院長紹介</h2>
+            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">院長紹介</h2>
           </div>
 
           {/* Philosophy heading */}
@@ -563,7 +567,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-rose-500 uppercase">Why SAI CLINIC</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-3">选择 SAI CLINIC 的理由</h2>
+            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">选择 SAI CLINIC 的理由</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
             {[
@@ -606,7 +610,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center mb-12">
             <span className="text-sm tracking-widest text-rose-500 uppercase">Our Service</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-3">一站式医美服务</h2>
+            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">一站式医美服务</h2>
             <p className="text-gray-500 text-sm mt-2 max-w-xl mx-auto">
               您的费用包含以下全部服务 —— 让您只需专注于变美，其余一切交给我们
             </p>
@@ -637,7 +641,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-rose-500 uppercase">Clinic Gallery</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-3">诊所环境</h2>
+            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">诊所环境</h2>
             <p className="text-gray-500 text-sm mt-2">位于大阪梅田 YANMAR 大楼 B2F，高端私密的诊疗空间</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -659,7 +663,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-rose-500 uppercase">Case Results</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-3">症例紹介</h2>
+            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">症例紹介</h2>
             <p className="text-gray-500 text-sm mt-2">糸リフト施術の実際の効果（写真掲載は患者様のご同意済み）</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
@@ -689,7 +693,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
             <div className="absolute inset-0 flex items-center px-8 md:px-12">
               <div>
                 <span className="text-sm tracking-widest text-rose-400 uppercase">Thread Lift Packages</span>
-                <h2 className="text-3xl md:text-4xl font-bold text-white mt-2">SAI LIFT 糸リフト系列</h2>
+                <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mt-2">SAI LIFT 糸リフト系列</h2>
                 <p className="text-gray-300 text-sm mt-2 max-w-md">招牌线雕提升项目，三档可选</p>
                 <div className="mt-4 inline-flex items-center gap-2 px-4 py-1.5 bg-rose-500/20 backdrop-blur border border-rose-400/30 rounded-full text-xs font-bold text-rose-300">
                   <Clock size={12} /> 本月预约名额余剩 7 名
@@ -731,7 +735,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
                   ))}
                 </div>
                 <Link
-                  href={`${checkoutBase}/${pkg.slug}`}
+                  href={checkoutHref(`${checkoutBase}/${pkg.slug}`)}
                   className={`w-full py-3 text-sm font-bold rounded-lg transition text-center block ${
                     pkg.flagship
                       ? 'bg-amber-500 text-black hover:bg-amber-400'
@@ -753,7 +757,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-rose-500 uppercase">Combination Sets</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-3">人气组合套餐</h2>
+            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">人气组合套餐</h2>
             <p className="text-gray-500 text-sm mt-2">针对特定问题的综合解决方案</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -767,7 +771,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
                   <p className="text-xl font-bold text-gray-900">{formatPrice(pkg.price)}</p>
                   <span className="text-[10px] px-2 py-0.5 bg-green-100 text-green-700 rounded-full font-bold">省 {formatPrice(getRefPrice(pkg.price) - pkg.price)}</span>
                 </div>
-                <Link href={`${checkoutBase}/${pkg.slug}`} className="w-full py-2 bg-rose-500 text-white text-sm font-bold rounded-lg hover:bg-rose-600 transition text-center block">立即预约</Link>
+                <Link href={checkoutHref(`${checkoutBase}/${pkg.slug}`)} className="w-full py-2 bg-rose-500 text-white text-sm font-bold rounded-lg hover:bg-rose-600 transition text-center block">立即预约</Link>
               </div>
             ))}
           </div>
@@ -796,7 +800,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
                       <span className="text-xs line-through text-gray-400 block">参考价 {formatPrice(getRefPrice(pkg.price))}</span>
                       <p className="text-xl font-bold text-purple-700">{formatPrice(pkg.price)}</p>
                       <span className="text-[10px] px-2 py-0.5 bg-green-100 text-green-700 rounded-full font-bold inline-block mb-1">省 {formatPrice(getRefPrice(pkg.price) - pkg.price)}</span>
-                      <Link href={`${checkoutBase}/${pkg.slug}`} className="inline-block mt-1 px-4 py-1.5 bg-purple-600 text-white text-xs font-bold rounded-lg hover:bg-purple-700 transition">立即预约</Link>
+                      <Link href={checkoutHref(`${checkoutBase}/${pkg.slug}`)} className="inline-block mt-1 px-4 py-1.5 bg-purple-600 text-white text-xs font-bold rounded-lg hover:bg-purple-700 transition">立即预约</Link>
                     </div>
                   </div>
                 ))}
@@ -820,7 +824,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
                       <span className="text-xs line-through text-gray-400 block">参考价 {formatPrice(getRefPrice(pkg.price))}</span>
                       <p className="text-xl font-bold text-blue-700">{formatPrice(pkg.price)}</p>
                       <span className="text-[10px] px-2 py-0.5 bg-green-100 text-green-700 rounded-full font-bold inline-block mb-1">省 {formatPrice(getRefPrice(pkg.price) - pkg.price)}</span>
-                      <Link href={`${checkoutBase}/${pkg.slug}`} className="inline-block mt-1 px-4 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg hover:bg-blue-700 transition">立即预约</Link>
+                      <Link href={checkoutHref(`${checkoutBase}/${pkg.slug}`)} className="inline-block mt-1 px-4 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg hover:bg-blue-700 transition">立即预约</Link>
                     </div>
                   </div>
                 ))}
@@ -835,7 +839,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-rose-500 uppercase">More Treatments</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-3">更多服务项目</h2>
+            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">更多服务项目</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...INJECTABLE_PACKAGES, ...FAT_PACKAGES, ...WELLNESS_PACKAGES].map((pkg) => (
@@ -850,7 +854,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
                       <p className="text-xl font-bold text-gray-900">{formatPrice(pkg.price)}</p>
                       <span className="text-[10px] px-2 py-0.5 bg-green-100 text-green-700 rounded-full font-bold">省 {formatPrice(getRefPrice(pkg.price) - pkg.price)}</span>
                     </div>
-                    <Link href={`${checkoutBase}/${pkg.slug}`} className="px-4 py-2 bg-rose-500 text-white text-xs font-bold rounded-lg hover:bg-rose-600 transition">立即预约</Link>
+                    <Link href={checkoutHref(`${checkoutBase}/${pkg.slug}`)} className="px-4 py-2 bg-rose-500 text-white text-xs font-bold rounded-lg hover:bg-rose-600 transition">立即预约</Link>
                   </div>
                 </div>
               </div>
@@ -864,7 +868,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-rose-500 uppercase">Full Price List</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-3">完整价格一览</h2>
+            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">完整价格一览</h2>
             <p className="text-gray-500 text-sm mt-2">所有项目价格（含税·含服务费）</p>
           </div>
 
@@ -910,7 +914,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-rose-400 uppercase">Treatment Flow</span>
-            <h2 className="text-3xl font-bold mt-3">治疗流程</h2>
+            <h2 className="text-3xl font-serif font-bold mt-3">治疗流程</h2>
             <p className="text-gray-400 text-sm mt-2">完全预约制·全程中文服务</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
@@ -937,7 +941,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-rose-500 uppercase">Access</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-3">交通指南</h2>
+            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">交通指南</h2>
           </div>
           <div className="grid lg:grid-cols-2 gap-12">
             <div className="bg-gray-50 rounded-2xl overflow-hidden border border-gray-100">
@@ -993,7 +997,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-rose-500 uppercase">Reviews</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-3">客户评价</h2>
+            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">客户评价</h2>
             <p className="text-gray-400 text-sm mt-2">来自2,800+客户的真实体验反馈</p>
             <div className="flex items-center justify-center gap-1 mt-3">
               {Array.from({ length: 5 }).map((_, i) => (
@@ -1033,7 +1037,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
             <Image src={recommendImg?.src || `${SAI}/a-reccoImg.jpg`} alt={recommendImg?.alt || '推薦'} fill className="object-cover" quality={75} />
           </div>
           <span className="text-sm tracking-widest text-rose-500 uppercase">Transformation</span>
-          <h2 className="text-3xl font-bold text-gray-900 mt-3 mb-12">从犹豫到自信的蜕变</h2>
+          <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3 mb-12">从犹豫到自信的蜕变</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white rounded-2xl p-6 border border-gray-100">
               <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -1075,7 +1079,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-rose-500 uppercase">FAQ</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-3">常见问题</h2>
+            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">常见问题</h2>
           </div>
           <div className="space-y-3">
             {FAQ.map((faq, i) => (
@@ -1101,7 +1105,7 @@ export default function SaiClinicContent({ isGuideEmbed, images }: SaiClinicCont
         <Image src={ctaBg?.src || `${SAI}/topFvImg04.jpg`} alt={ctaBg?.alt || 'SAI CLINIC'} fill className="object-cover" quality={75} />
         <div className="absolute inset-0 bg-gradient-to-r from-rose-600/90 to-pink-600/90"></div>
         <div className="max-w-3xl mx-auto px-6 relative z-10">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">不要再等了，美丽不应该被推迟</h2>
+          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">不要再等了，美丽不应该被推迟</h2>
           <p className="text-rose-100 text-lg mb-6 leading-relaxed">
             崔煌植医生亲自为您制定专属方案。从线上咨询到术后跟进，全程中文服务。
           </p>

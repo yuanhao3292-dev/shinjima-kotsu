@@ -8,7 +8,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { CheckCircle, Shield, Lock, CreditCard } from 'lucide-react';
 import CheckoutLayout from '@/components/CheckoutLayout';
-import SmartBackLink from '@/components/SmartBackLink';
 
 // ━━━━━━━━ SAI CLINIC 套餐数据 ━━━━━━━━
 
@@ -208,7 +207,7 @@ export default function SaiClinicCheckoutPage() {
         <div className="flex-grow flex items-center justify-center py-20">
           <div className="text-center">
             <p className="text-xl text-gray-600 mb-4">找不到该项目</p>
-            <Link href="/sai-clinic" className="text-rose-600 hover:underline">返回 SAI CLINIC</Link>
+            <Link href={guideSlug ? `/g/${guideSlug}/sai-clinic` : '/sai-clinic'} className="text-rose-600 hover:underline">返回 SAI CLINIC</Link>
           </div>
         </div>
       </CheckoutLayout>
@@ -282,7 +281,7 @@ export default function SaiClinicCheckoutPage() {
       {/* Header */}
       <div className="bg-white border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 py-3">
-          <SmartBackLink defaultHref="/sai-clinic" defaultLabel="返回 SAI CLINIC" memberHref="/sai-clinic" memberLabel="返回 SAI CLINIC" />
+          <Link href={guideSlug ? `/g/${guideSlug}/sai-clinic` : '/sai-clinic'} className="text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1">← 返回 SAI CLINIC</Link>
         </div>
       </div>
 

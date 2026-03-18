@@ -67,7 +67,7 @@ export default async function ModuleDetailPage({ params }: PageProps) {
 
     case 'sai_clinic': {
       const images = await getSaiClinicImages();
-      return <SaiClinicContent isGuideEmbed images={images} />;
+      return <SaiClinicContent isGuideEmbed guideSlug={slug} images={images} />;
     }
 
     case 'cancer_treatment':
@@ -83,7 +83,7 @@ export default async function ModuleDetailPage({ params }: PageProps) {
       return <WClinicMensContent isGuideEmbed guideSlug={slug} />;
 
     case 'cell_medicine':
-      return <CellMedicineContent isGuideEmbed />;
+      return <CellMedicineContent isGuideEmbed guideSlug={slug} />;
 
     case 'ac_plus':
       return <ACPlusContent isGuideEmbed guideSlug={slug} />;

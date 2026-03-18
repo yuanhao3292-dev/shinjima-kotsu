@@ -388,9 +388,10 @@ const t = {
 // ======================================
 interface Props {
   isGuideEmbed?: boolean;
+  guideSlug?: string;
 }
 
-export default function CellMedicineContent({ isGuideEmbed }: Props) {
+export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) {
   const lang = useLanguage();
 
   const tr = (key: keyof typeof t): string => {
@@ -454,7 +455,7 @@ export default function CellMedicineContent({ isGuideEmbed }: Props) {
             </div>
 
             <Link
-              href={isGuideEmbed ? '#vaccine-detail' : '/cell-medicine/initial-consultation'}
+              href={guideSlug ? `/cell-medicine/initial-consultation?guide=${guideSlug}` : '/cell-medicine/initial-consultation'}
               className="inline-flex items-center gap-3 bg-[#2fb6b2] text-white px-8 py-4 rounded-full font-bold hover:bg-[#2fb6b2] transition-all shadow-lg hover:shadow-xl"
             >
               {tr('ctaInitial')} <ArrowRight size={18} />
@@ -766,7 +767,7 @@ export default function CellMedicineContent({ isGuideEmbed }: Props) {
 
           <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
             <Link
-              href={isGuideEmbed ? '#' : '/cell-medicine/initial-consultation'}
+              href={guideSlug ? `/cell-medicine/initial-consultation?guide=${guideSlug}` : '/cell-medicine/initial-consultation'}
               className="bg-white text-gray-900 px-8 py-6 rounded-2xl font-bold hover:bg-gray-100 transition-all shadow-lg hover:shadow-xl text-center"
             >
               <div className="text-lg mb-1">{tr('ctaInitial')}</div>
@@ -774,7 +775,7 @@ export default function CellMedicineContent({ isGuideEmbed }: Props) {
               <div className="text-[#2fb6b2] font-bold mt-2">¥221,000</div>
             </Link>
             <Link
-              href={isGuideEmbed ? '#' : '/cell-medicine/remote-consultation'}
+              href={guideSlug ? `/cell-medicine/remote-consultation?guide=${guideSlug}` : '/cell-medicine/remote-consultation'}
               className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-8 py-6 rounded-2xl font-bold hover:bg-white/20 transition-all text-center"
             >
               <div className="text-lg mb-1">{tr('ctaRemote')}</div>

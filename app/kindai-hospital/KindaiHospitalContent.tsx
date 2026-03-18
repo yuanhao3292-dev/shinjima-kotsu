@@ -2139,7 +2139,7 @@ export default function KindaiHospitalContent({
                       ))}
                     </ul>
                     <Link
-                      href={!isGuideEmbed ? svc.href : '#contact-form'}
+                      href={guideSlug ? `${svc.href}?guide=${guideSlug}` : svc.href}
                       className={`block w-full py-3 bg-gradient-to-r ${svc.gradient} ${svc.hoverGradient} text-white text-center font-bold rounded-xl transition shadow-lg`}
                     >
                       {bookNow[locale]}
