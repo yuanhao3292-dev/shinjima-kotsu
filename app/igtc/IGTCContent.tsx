@@ -1801,7 +1801,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                         <div className="flex items-center gap-4">
                           <span className="text-lg font-black text-cyan-600">¥{pkg.priceJpy.toLocaleString()}</span>
                           <Link
-                            href={`/medical-packages/${item.slug}`}
+                            href={guideSlug ? `/g/${guideSlug}/medical-packages/${item.slug}` : `/medical-packages/${item.slug}`}
                             className="hidden sm:inline-flex items-center gap-1 bg-cyan-600 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-cyan-700 transition"
                           >
                             <ArrowRight size={14} />
