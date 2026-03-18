@@ -598,7 +598,8 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
           </div>
         )}
 
-        {/* 12. CTA */}
+        {/* 12. CTA (standalone only) */}
+        {!isGuideEmbed && (
         <div className="bg-blue-600 rounded-3xl p-12 text-center text-white shadow-2xl shadow-blue-200">
           <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif mb-6">{t.medical.cta_title}</h3>
           <p className="text-blue-100 max-w-2xl mx-auto mb-6 leading-relaxed whitespace-pre-line">
@@ -610,6 +611,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
             </button>
           </div>
         </div>
+        )}
 
         {/* 13. Contact */}
         {!isGuideEmbed && (

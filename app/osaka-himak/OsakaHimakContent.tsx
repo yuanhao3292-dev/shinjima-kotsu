@@ -711,7 +711,8 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
         </div>
       </section>
 
-      {/* ===== 10. CTA ===== */}
+      {/* ===== 10. CTA (standalone only) ===== */}
+      {!isGuideEmbed && (
       <section className="py-20 bg-gradient-to-br from-[#0056b3] to-[#003d82]">
         <div className="max-w-4xl mx-auto px-6 text-center text-white">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">{t.ctaTitle[lang]}</h2>
@@ -730,6 +731,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
           </Link>
         </div>
       </section>
+      )}
 
     </div>
   );

@@ -721,7 +721,8 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
         </div>
       </section>
 
-      {/* ===== 13. CONSULTATION CTA ===== */}
+      {/* ===== 13. CONSULTATION CTA (standalone only) ===== */}
+      {!isGuideEmbed && (
       <section id="consultation" className="py-20 bg-[#f6f6f6]">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <img src={IMG.logo} alt="AC Cell Clinic" className="h-14 mx-auto mb-6 object-contain" />
@@ -742,6 +743,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
           </div>
         </div>
       </section>
+      )}
 
       {/* ===== 14. LEGAL FOOTER ===== */}
       {!isGuideEmbed && (
