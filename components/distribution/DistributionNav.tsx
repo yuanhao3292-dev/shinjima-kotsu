@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 export interface NavItem {
   id: string;
@@ -84,17 +85,26 @@ export default function DistributionNav({
           : 'bg-transparent'
       }`}
     >
-      <div className="max-w-[1400px] mx-auto px-4 h-20 flex items-center justify-between gap-10">
-        {homeHref ? (
-          <Link href={homeHref} className="hover:opacity-80 transition-opacity">
-            {brandEl}
-          </Link>
-        ) : (
-          brandEl
-        )}
+      {/*
+        🔒 导航栏三段式布局 — 禁止叠加
+        左: 品牌名 (shrink-0)
+        中: 导航项 (flex-1, overflow-hidden, 超宽时隐藏溢出)
+        右: 语言切换 + 汉堡菜单 (shrink-0, 固定不被挤压)
+      */}
+      <div className="max-w-[1400px] mx-auto px-4 h-20 flex items-center gap-6">
+        {/* 左: 品牌 */}
+        <div className="shrink-0">
+          {homeHref ? (
+            <Link href={homeHref} className="hover:opacity-80 transition-opacity">
+              {brandEl}
+            </Link>
+          ) : (
+            brandEl
+          )}
+        </div>
 
-        {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-5">
+        {/* 中: 桌面端导航项 */}
+        <nav className="hidden lg:flex items-center gap-4 flex-1 min-w-0 overflow-x-auto scrollbar-hide">
           {navItems.map((item) => {
             const active = isActive(item);
             const cls = `py-2 text-sm font-medium transition-colors whitespace-nowrap ${
@@ -122,18 +132,24 @@ export default function DistributionNav({
           })}
         </nav>
 
-        {/* Mobile hamburger */}
-        <button
-          className="lg:hidden p-2 rounded-lg transition-colors"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label={isOpen ? '关闭菜单' : '打开菜单'}
-        >
-          {isOpen ? (
-            <X size={24} className={scrolled ? 'text-gray-900' : 'text-white'} />
-          ) : (
-            <Menu size={24} className={scrolled ? 'text-gray-900' : 'text-white'} />
-          )}
-        </button>
+        {/* 右: 语言切换 + 汉堡菜单 (shrink-0 防止被挤压) */}
+        <div className="shrink-0 flex items-center gap-2 ml-auto">
+          <LanguageSwitcher
+            variant="compact"
+            className={scrolled ? '' : '[&_button]:text-white/70 [&_button]:hover:text-white [&_button]:hover:bg-white/10'}
+          />
+          <button
+            className="lg:hidden p-2 rounded-lg transition-colors"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? '关闭菜单' : '打开菜单'}
+          >
+            {isOpen ? (
+              <X size={24} className={scrolled ? 'text-gray-900' : 'text-white'} />
+            ) : (
+              <Menu size={24} className={scrolled ? 'text-gray-900' : 'text-white'} />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
@@ -167,6 +183,9 @@ export default function DistributionNav({
               </button>
             );
           })}
+          <div className="pt-2 border-t mt-2">
+            <LanguageSwitcher variant="compact" />
+          </div>
         </div>
       </div>
     </header>
