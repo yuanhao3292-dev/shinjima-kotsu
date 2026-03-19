@@ -4,6 +4,7 @@ import { generateAnswersHash } from '@/lib/utils/answers-hash';
 import { sendScreeningErrorNotification } from '@/lib/email';
 import { runAEMCPipeline, PipelineError } from '@/services/aemc';
 import type { AEMCOutput } from '@/services/aemc';
+import { rematchHospitalsFromCachedResult } from '@/services/aemc/hospital-matcher';
 import { persistPipelineResults, persistFailedRuns } from '@/services/aemc/persistence';
 import {
   PHASE_1_QUESTIONS,
@@ -118,8 +119,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 生成答案哈希用于缓存
-    const answersHash = generateAnswersHash(answers);
+    // 生成答案哈希用于缓存（包含文档文本，避免不同 PDF 产生相同哈希）
+    const answersHash = generateAnswersHash(answers, documentText || undefined);
 
     // 检查是否有相同答案的缓存分析结果
     const { data: cachedResult } = await supabase
@@ -135,8 +136,24 @@ export async function POST(request: NextRequest) {
     let aemcOutputRef: AEMCOutput | null = null;
 
     if (cachedResult?.analysis_result) {
-      console.info('Using cached whitelabel analysis result');
+      console.info('[Whitelabel] Cache HIT, reusing AI analysis, re-matching hospitals');
       analysisResult = cachedResult.analysis_result;
+      try {
+        const freshMatch = await rematchHospitalsFromCachedResult(analysisResult, validatedLanguage);
+        analysisResult = {
+          ...analysisResult,
+          recommendedHospitals: freshMatch.recommended_hospitals.map((h) => ({
+            name: h.hospital_name,
+            nameJa: h.hospital_name_ja || '',
+            location: h.location || '',
+            features: h.match_reasons,
+            suitableFor: h.department,
+            doctors: h.recommended_doctors,
+          })),
+        };
+      } catch (rematchErr) {
+        console.warn('[Whitelabel] Hospital rematch failed, using cached hospitals:', rematchErr instanceof Error ? rematchErr.message : rematchErr);
+      }
     } else {
       // AEMC 4 AI 联合会诊 Pipeline（唯一分析路径）
       try {

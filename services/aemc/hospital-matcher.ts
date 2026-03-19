@@ -429,14 +429,55 @@ export async function matchHospitals(
   adjudicatedAssessment: AdjudicatedAssessment,
   language?: string
 ): Promise<HospitalRecommendation> {
-  const lang = (language || 'zh-CN') as AEMCLang;
-
-  // 提取匹配特征
   const features = extractMatchingFeatures(
     structuredCase,
     triageAssessment,
     adjudicatedAssessment
   );
+  return matchHospitalsFromFeatures(features, language);
+}
+
+/**
+ * 从缓存的 analysisResult 重新匹配医院（轻量版）
+ *
+ * 为什么需要：cache 命中时返回旧的 analysis_result 包含旧的推荐医院。
+ * AI pipeline（昂贵）应该缓存，但医院匹配（便宜、确定性）应始终用最新算法。
+ * 此函数从缓存结果中提取特征，重新运行医院匹配。
+ */
+export async function rematchHospitalsFromCachedResult(
+  cachedResult: {
+    recommendedDepartments?: string[];
+    recommendedTests?: string[];
+    riskLevel?: string;
+    requiresEmergencyNotice?: boolean;
+    treatmentSuggestions?: string[];
+  },
+  language?: string
+): Promise<HospitalRecommendation> {
+  const rawDepts = cachedResult.recommendedDepartments || [];
+  const features: MatchingFeatures = {
+    normalizedDepartments: rawDepts.map(normalizeDepartment),
+    rawDepartments: rawDepts,
+    symptoms: [],
+    differentialNames: [],
+    suggestedTests: cachedResult.recommendedTests || [],
+    redFlags: [],
+    isEmergency: cachedResult.requiresEmergencyNotice || false,
+    riskLevel: cachedResult.riskLevel || 'medium',
+    chiefComplaint: '',
+  };
+  return matchHospitalsFromFeatures(features, language);
+}
+
+// ============================================================
+// 核心匹配引擎（共享逻辑）
+// ============================================================
+
+async function matchHospitalsFromFeatures(
+  features: MatchingFeatures,
+  language?: string
+): Promise<HospitalRecommendation> {
+  const lang = (language || 'zh-CN') as AEMCLang;
 
   // 从 DB 查询候选医院，失败时降级到静态数据
   let candidates: HospitalKnowledge[];
