@@ -53,6 +53,7 @@
     "@types/node": "^22.14.0",
     "@types/three": "^0.182.0",
     "@vitejs/plugin-react": "^5.1.2",
+    "cheerio": "^1.2.0",
     "autoprefixer": "^10.4.23",
     "dotenv": "^17.2.3",
     "husky": "^9.1.7",

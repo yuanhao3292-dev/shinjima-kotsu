@@ -587,13 +587,6 @@ export function normalizeDepartment(department: string): string {
   return department.trim();
 }
 
-/**
- * 获取指定分类的所有医院
- */
-export function getHospitalsByCategory(category: HospitalCategory): HospitalKnowledge[] {
-  return HOSPITAL_KNOWLEDGE_BASE.filter((h) => h.category === category);
-}
-
 // ============================================================
 // 多语言翻译数据
 // ============================================================
