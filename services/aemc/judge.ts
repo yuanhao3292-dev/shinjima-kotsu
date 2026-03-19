@@ -36,7 +36,7 @@ const OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1';
 const MODEL_NAME = 'anthropic/claude-sonnet-4.5';
 const MAX_TOKENS = 2000;
 const TEMPERATURE = 0.1; // 低温度确保一致性
-const TIMEOUT_MS = 10_000; // 10s
+const TIMEOUT_MS = 15_000; // 15s（AI-4 刚用完同模型，OpenRouter 并发限制需要更多余量）
 
 // ============================================================
 // 主入口
@@ -87,7 +87,7 @@ export async function judgeCase(
         max_tokens: MAX_TOKENS,
         response_format: { type: 'json_object' },
       }),
-      { maxRetries: 1, baseDelayMs: 1000, label: 'AI-5 Judge' }
+      { maxRetries: 2, baseDelayMs: 1500, label: 'AI-5 Judge' }
     );
 
     const content = response.choices[0]?.message?.content;

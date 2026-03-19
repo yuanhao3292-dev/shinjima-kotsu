@@ -13,6 +13,7 @@ import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/lib/utils/rate-limit
 import { validateBody } from '@/lib/validations/validate';
 import { HealthScreeningTranslateSchema } from '@/lib/validations/api-schemas';
 import { MEDICAL_DISCLAIMERS, type AnalysisResult } from '@/services/aemc/types';
+import { getSupabaseAdmin } from '@/lib/supabase/api';
 
 export const maxDuration = 30;
 
@@ -85,6 +86,22 @@ export async function POST(request: NextRequest) {
       });
     }
 
+    // 缓存检查：analysis_result._translations[language] 存在则直接返回（不调 AI）
+    const cachedTranslations = (analysisResult as unknown as Record<string, unknown>)._translations as Record<string, unknown> | undefined;
+    if (cachedTranslations?.[language]) {
+      console.info(`[Translate] Cache HIT: ${screeningId} → ${language}`);
+      const cachedTexts = cachedTranslations[language] as Record<string, unknown>;
+      const cachedResult = rebuildAnalysisResult(analysisResult, cachedTexts, language);
+      return NextResponse.json({
+        success: true,
+        analysisResult: cachedResult,
+        translated: true,
+        cached: true,
+        sourceLanguage: analysisResult.language || 'zh-CN',
+        targetLanguage: language,
+      });
+    }
+
     // 提取需要翻译的文本
     const textsToTranslate = buildTranslationPayload(analysisResult);
 
@@ -150,10 +167,26 @@ Rules:
       language
     );
 
+    // 将翻译结果缓存到 analysis_result._translations（fire-and-forget，不阻断响应）
+    const supabaseAdmin = getSupabaseAdmin();
+    const updatedTranslations = { ...(cachedTranslations || {}), [language]: translatedTexts };
+    supabaseAdmin
+      .from('health_screenings')
+      .update({
+        analysis_result: { ...analysisResult, _translations: updatedTranslations },
+      })
+      .eq('id', screeningId)
+      .eq('user_id', user.id)
+      .then(({ error: updateErr }) => {
+        if (updateErr) console.warn('[Translate] Cache write failed:', updateErr.message);
+        else console.info(`[Translate] Cached translation: ${screeningId} → ${language}`);
+      });
+
     return NextResponse.json({
       success: true,
       analysisResult: translatedResult,
       translated: true,
+      cached: false,
       sourceLanguage: analysisResult.language || 'zh-CN',
       targetLanguage: language,
     });

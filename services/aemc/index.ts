@@ -60,7 +60,8 @@ const PIPELINE_VERSION_V3_LITE = 'aemc-v3-lite';
 
 // 默认使用 V3 Lite（单次 AI 调用，Vercel Hobby 兼容）
 // 设置 AEMC_PIPELINE_MODE=full 启用完整 4-AI 管线（需要 Vercel Pro 60s 超时）
-const ENV_FULL_PIPELINE = process.env.AEMC_PIPELINE_MODE?.trim() === 'full';
+// .replace 处理 Vercel CLI 拉取的 .env.local 中可能附带的 \n 字面量
+const ENV_FULL_PIPELINE = process.env.AEMC_PIPELINE_MODE?.trim().replace(/\\n/g, '') === 'full';
 
 // ============================================================
 // 主入口
@@ -281,6 +282,9 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
   );
 
   // === Step 4c: LLM-as-Judge 逻辑一致性验证（非阻断性） ===
+  // 等待 500ms 再调用 Judge（与 AI-4 使用同一模型，避免 OpenRouter 并发限制）
+  await new Promise((r) => setTimeout(r, 500));
+
   let judgeVerdict;
   try {
     const judgeResult = await judgeCase(
@@ -301,9 +305,20 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
     if (error instanceof JudgeError) {
       aiRuns.push(error.runRecord);
     }
-    aemcLog.warn('judge', 'AI-5 (Judge) failed, continuing without verification', {
-      error: error instanceof Error ? error.message : String(error),
-    });
+    const errMsg = error instanceof Error ? error.message : String(error);
+    aemcLog.warn('judge', 'AI-5 (Judge) failed, continuing without verification', { error: errMsg });
+
+    // Judge 失败告警（与管线错误通知共用通道，fire-and-forget）
+    import('@/lib/email').then(({ sendScreeningErrorNotification }) => {
+      sendScreeningErrorNotification({
+        errorMessage: `AI-5 Judge failed: ${errMsg}`,
+        screeningId: casePacket.case_id,
+        userType: input.userType,
+        userId: input.userId,
+        endpoint: 'AEMC Pipeline — Judge',
+        timestamp: new Date().toISOString(),
+      }).catch(() => {});
+    }).catch(() => {});
   }
 
   // === Step 5: 安全闸门（确定性逻辑，永远执行） ===
