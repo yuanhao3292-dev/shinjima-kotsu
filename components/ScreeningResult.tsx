@@ -22,6 +22,7 @@ import {
 import { type BodyMapSelectionData } from './BodyMapSelector';
 import { BODY_PARTS, MEDICAL_DEPARTMENTS } from '@/lib/body-map-config';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
+import RecommendedPackages from './RecommendedPackages';
 
 const translations = {
   riskLow: {
@@ -608,6 +609,9 @@ export default function ScreeningResult({
           </div>
         </div>
       )}
+
+      {/* 推荐健检套餐 */}
+      <RecommendedPackages result={result} lang={lang} />
 
       {/* 下一步建议 */}
       {result.nextSteps.length > 0 && (
