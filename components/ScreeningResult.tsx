@@ -186,16 +186,16 @@ const translations = {
     en: '© Niijima Kotsu Co., Ltd. | Japan Precision Health Screening Services',
   },
   emergencyTitle: {
-    'zh-CN': '检测到疑似急症信号',
-    'zh-TW': '檢測到疑似急症信號',
-    ja: '緊急性の高い所見が検出されました',
-    en: 'Urgent Medical Signs Detected',
+    'zh-CN': '建议尽早前往医疗机构就诊',
+    'zh-TW': '建議盡早前往醫療機構就診',
+    ja: '早めの医療機関への受診をお勧めします',
+    en: 'We Recommend Visiting a Medical Facility Soon',
   },
   emergencyDesc: {
-    'zh-CN': '请立即拨打急救电话或前往最近的急诊室。不要等待，时间至关重要。',
-    'zh-TW': '請立即撥打急救電話或前往最近的急診室。不要等待，時間至關重要。',
-    ja: '直ちに救急車を呼ぶか、最寄りの救急外来を受診してください。時間が重要です。',
-    en: 'Call emergency services or go to the nearest emergency room immediately. Do not wait — time is critical.',
+    'zh-CN': 'AI 筛查检测到需要关注的健康信号，建议您尽早预约专业医生进行详细检查。以下为当地急救电话，如有需要可拨打咨询。',
+    'zh-TW': 'AI 篩查檢測到需要關注的健康信號，建議您盡早預約專業醫生進行詳細檢查。以下為當地急救電話，如有需要可撥打諮詢。',
+    ja: 'AIスクリーニングにより注意が必要な健康シグナルが検出されました。早めに専門医の詳しい検査を受けることをお勧めします。必要に応じて下記の緊急連絡先をご利用ください。',
+    en: 'Our AI screening detected health signals that warrant attention. We recommend scheduling a detailed examination with a specialist soon. Emergency numbers are provided below if needed.',
   },
   emergencyCallJapan: {
     'zh-CN': '日本急救 119',
@@ -353,27 +353,27 @@ export default function ScreeningResult({
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Gate D: 急诊警报横幅 */}
       {result.requiresEmergencyNotice && (
-        <div className="bg-red-600 text-white rounded-2xl p-6 md:p-8 shadow-lg shadow-red-200 animate-pulse-slow">
+        <div className="bg-orange-50 border-2 border-orange-300 rounded-2xl p-6 md:p-8">
           <div className="flex items-start gap-4">
-            <div className="p-3 bg-white/20 rounded-full flex-shrink-0">
-              <ShieldAlert className="w-8 h-8" />
+            <div className="p-3 bg-orange-100 rounded-full flex-shrink-0">
+              <ShieldAlert className="w-7 h-7 text-orange-600" />
             </div>
             <div className="flex-1">
-              <h2 className="text-xl font-bold mb-2">{t('emergencyTitle', lang)}</h2>
-              <p className="text-red-100 mb-4">{t('emergencyDesc', lang)}</p>
+              <h2 className="text-lg font-bold text-orange-800 mb-2">{t('emergencyTitle', lang)}</h2>
+              <p className="text-orange-700 text-sm mb-4">{t('emergencyDesc', lang)}</p>
               <div className="flex flex-wrap gap-3">
                 <a
                   href="tel:119"
-                  className="inline-flex items-center gap-2 px-5 py-3 bg-white text-red-700 rounded-xl font-bold hover:bg-red-50 transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-orange-600 text-white rounded-xl text-sm font-medium hover:bg-orange-700 transition-colors"
                 >
-                  <Phone className="w-5 h-5" />
+                  <Phone className="w-4 h-4" />
                   {t('emergencyCallJapan', lang)}
                 </a>
                 <a
                   href="tel:120"
-                  className="inline-flex items-center gap-2 px-5 py-3 bg-white/20 text-white rounded-xl font-medium hover:bg-white/30 transition-colors border border-white/40"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-orange-700 rounded-xl text-sm font-medium hover:bg-orange-50 transition-colors border border-orange-300"
                 >
-                  <Phone className="w-5 h-5" />
+                  <Phone className="w-4 h-4" />
                   {t('emergencyCallChina', lang)}
                 </a>
               </div>
