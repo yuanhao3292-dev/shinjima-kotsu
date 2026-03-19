@@ -52,6 +52,10 @@
     {
       "path": "/api/cron/health-checkup-reminder",
       "schedule": "0 9 1 * *"
+    },
+    {
+      "path": "/api/cron/pipeline-digest",
+      "schedule": "0 1 * * *"
     }
   ],
   "headers": [

@@ -842,7 +842,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
 
       {/* 标题 */}
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-serif font-semibold text-neutral-900 tracking-wide">
+        <h2 className="text-2xl font-semibold text-neutral-900 tracking-wide">
           {step === 'body-select' && t('stepBodySelectTitle')}
           {step === 'symptom-select' && t('stepSymptomSelectTitle')}
           {step === 'followup' && t('stepFollowUpTitle')}

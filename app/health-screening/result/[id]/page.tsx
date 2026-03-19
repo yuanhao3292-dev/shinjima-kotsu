@@ -280,7 +280,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
             <FileText className="w-4 h-4" />
             {t('analysisComplete', lang)}
           </div>
-          <h1 className="text-2xl md:text-3xl font-serif text-neutral-900 tracking-wide">
+          <h1 className="text-2xl md:text-3xl font-semibold text-neutral-900 tracking-wide">
             {t('reportTitle', lang)}
           </h1>
           <p className="text-neutral-500 mt-2">

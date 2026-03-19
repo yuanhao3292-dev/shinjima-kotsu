@@ -384,7 +384,7 @@ export default function WhitelabelResultClient({
             <FileText className="w-4 h-4" />
             {t('analysisComplete', lang)}
           </div>
-          <h1 className="text-2xl md:text-3xl font-serif text-gray-900">
+          <h1 className="text-2xl md:text-3xl font-semibold text-gray-900">
             {t('aiHealthReport', lang)}
           </h1>
           <p className="text-gray-500 mt-2">

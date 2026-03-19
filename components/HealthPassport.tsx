@@ -291,7 +291,7 @@ export default function HealthPassport({ screenings, snapshots, lang }: Props) {
         <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4">
           <Shield className="w-8 h-8 text-emerald-400" />
         </div>
-        <h3 className="text-lg font-serif font-semibold text-neutral-900 mb-2">
+        <h3 className="text-lg font-semibold text-neutral-900 mb-2">
           {t('passportTitle', lang)}
         </h3>
         <p className="text-neutral-500 text-sm">{t('noData', lang)}</p>
@@ -326,7 +326,7 @@ export default function HealthPassport({ screenings, snapshots, lang }: Props) {
           <div className="p-2 bg-emerald-100 rounded-lg">
             <Shield className="w-6 h-6 text-emerald-600" />
           </div>
-          <h3 className="text-xl font-serif font-semibold text-neutral-900 tracking-wide">
+          <h3 className="text-xl font-semibold text-neutral-900 tracking-wide">
             {t('passportTitle', lang)}
           </h3>
         </div>
@@ -377,7 +377,7 @@ export default function HealthPassport({ screenings, snapshots, lang }: Props) {
       {/* ─── Section B: Trend Chart ─── */}
       {chartData.length >= 2 && (
         <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
-          <h4 className="text-lg font-serif font-semibold text-neutral-900 mb-4">
+          <h4 className="text-lg font-semibold text-neutral-900 mb-4">
             {t('trendTitle', lang)}
           </h4>
           <div className="h-48 md:h-56">
@@ -423,7 +423,7 @@ export default function HealthPassport({ screenings, snapshots, lang }: Props) {
 
       {/* ─── Section C: History Cards (grouped by year) ─── */}
       <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
-        <h4 className="text-lg font-serif font-semibold text-neutral-900 mb-4">
+        <h4 className="text-lg font-semibold text-neutral-900 mb-4">
           {t('historyTitle', lang)}
         </h4>
 

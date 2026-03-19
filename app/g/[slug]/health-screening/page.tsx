@@ -408,7 +408,7 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
               <Upload className="w-4 h-4" />
               <span>{t('uploadDiagnosisReport')}</span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-serif text-gray-900">
+            <h1 className="text-2xl md:text-3xl font-semibold text-gray-900">
               {t('uploadDiagnosisReport')}
             </h1>
             <p className="text-gray-500 mt-2">
@@ -513,7 +513,7 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
               <Shield className="w-4 h-4" />
               <span>{t('freeAiAnalysis')}</span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-serif text-gray-900">
+            <h1 className="text-2xl md:text-3xl font-semibold text-gray-900">
               {t('aiHealthConsultation')}
             </h1>
             <p className="text-gray-500 mt-2">
@@ -556,7 +556,7 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
               <Activity className="w-4 h-4" />
               <span>{t('stepOneSelectAreas')}</span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-serif text-gray-900">
+            <h1 className="text-2xl md:text-3xl font-semibold text-gray-900">
               {t('clickBodyMap')}
             </h1>
             <p className="text-gray-500 mt-2">
@@ -597,7 +597,7 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
             <Heart className="w-12 h-12 text-white" />
           </div>
 
-          <h1 className="text-3xl md:text-4xl font-serif text-gray-900 mb-4">
+          <h1 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
             {t('aiHealthScreening')}
           </h1>
 
