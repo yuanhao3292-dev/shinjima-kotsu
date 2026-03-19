@@ -50,16 +50,18 @@ const MIN_MATCH_SCORE = 0.15;
 
 /** 匹配权重 */
 const WEIGHTS = {
-  /** 科室直接匹配（最高权重） */
-  departmentMatch: 0.40,
+  /** 科室匹配（累积 + 覆盖率） */
+  departmentMatch: 0.35,
   /** 专科/治疗方向匹配 */
-  specialtyMatch: 0.25,
+  specialtyMatch: 0.20,
   /** 症状/疾病关键词匹配 */
   conditionMatch: 0.15,
   /** 急症能力匹配 */
   emergencyMatch: 0.10,
   /** 机构优先级（规模/综合性） */
   priorityBonus: 0.10,
+  /** 科室覆盖率加分（覆盖越多患者需求科室 → 分越高） */
+  coverageBonus: 0.10,
 };
 
 // ============================================================
@@ -290,6 +292,47 @@ async function queryHospitalCandidates(
     aemcLog.warn('hospital-matcher', 'DB query error', { error: err instanceof Error ? err.message : String(err) });
     return null;
   }
+}
+
+// ============================================================
+// 专科中心识别：名称/专科关键词 → 对应科室
+// 当医院是某领域的专科中心且患者需要该科室时，额外加分
+// ============================================================
+
+const SPECIALTY_CENTER_INDICATORS: { keywords: string[]; depts: string[] }[] = [
+  { keywords: ['循環器', '循环器', '心臓', '心脏', 'cardiovascular', 'cardiac', 'heart'], depts: ['循环内科', '心脏外科'] },
+  { keywords: ['がん', '癌', 'cancer', '腫瘍', '肿瘤', 'oncology'], depts: ['肿瘤科', '放射线治疗科', '化疗科'] },
+  { keywords: ['脳', '脑', 'neuro', '神経', '神经'], depts: ['脑神经外科', '神经内科'] },
+  { keywords: ['呼吸', 'respiratory', 'pulmonary', '肺'], depts: ['呼吸内科'] },
+  { keywords: ['消化', 'gastro', '胃', '肝'], depts: ['消化内科', '消化外科'] },
+  { keywords: ['腎', '肾', 'kidney', 'renal', 'nephro'], depts: ['肾脏内科'] },
+  { keywords: ['眼', 'eye', 'ophthalm'], depts: ['眼科'] },
+  { keywords: ['整形', 'orthop', '骨'], depts: ['骨科'] },
+  { keywords: ['小児', '小儿', '儿童', 'pediatr', 'children'], depts: ['小儿科'] },
+];
+
+/**
+ * 检测医院是否为某领域的专科中心
+ * 依据：医院名称 / specialties / category 含有专科指标词
+ * 返回该专科中心对应的科室列表
+ */
+function detectSpecialtyCenterDepts(hospital: HospitalKnowledge): string[] {
+  const texts = [
+    hospital.name, hospital.nameJa, hospital.nameEn || '',
+    ...hospital.specialties,
+    hospital.suitableFor,
+  ].map((t) => t.toLowerCase());
+
+  const matched: string[] = [];
+  for (const indicator of SPECIALTY_CENTER_INDICATORS) {
+    const isCenter = indicator.keywords.some((kw) =>
+      texts.some((t) => t.includes(kw.toLowerCase()))
+    );
+    if (isCenter) {
+      matched.push(...indicator.depts);
+    }
+  }
+  return [...new Set(matched)];
 }
 
 // ============================================================
@@ -582,33 +625,47 @@ function calculateMatchScore(
   const cautions: string[] = [];
   let departmentMatched = '';
 
-  // --- 1. 科室匹配 ---
-  let deptScore = 0;
+  // --- 1. 科室匹配（累积制：匹配越多科室 → 分越高） ---
   const hospitalNormalizedDepts = hospital.departments.map(normalizeDepartment);
+  const totalNeeded = features.normalizedDepartments.length || 1;
+  let exactMatches = 0;
+  let partialMatches = 0;
+  const matchedDeptNames: string[] = [];
 
   for (const reqDept of features.normalizedDepartments) {
+    // 精确匹配
     if (hospitalNormalizedDepts.includes(reqDept)) {
-      deptScore = 1;
-      departmentMatched = reqDept;
-      matchReasons.push(`${ML('deptMatch', lang)}: ${getLocalizedDepartment(reqDept, lang)}`);
-      break;
+      exactMatches++;
+      if (!departmentMatched) departmentMatched = reqDept;
+      matchedDeptNames.push(getLocalizedDepartment(reqDept, lang));
+      continue;
     }
+    // 部分匹配：科室名称包含关系
+    let found = false;
+    for (const hospDept of hospitalNormalizedDepts) {
+      if (reqDept.includes(hospDept) || hospDept.includes(reqDept)) {
+        partialMatches++;
+        if (!departmentMatched) departmentMatched = hospDept;
+        matchedDeptNames.push(getLocalizedDepartment(hospDept, lang));
+        found = true;
+        break;
+      }
+    }
+    if (found) continue;
   }
 
-  // 部分匹配：科室名称包含关系
-  if (deptScore === 0) {
-    for (const reqDept of features.normalizedDepartments) {
-      for (const hospDept of hospitalNormalizedDepts) {
-        if (reqDept.includes(hospDept) || hospDept.includes(reqDept)) {
-          deptScore = 0.6;
-          departmentMatched = hospDept;
-          matchReasons.push(`${ML('deptRelated', lang)}: ${getLocalizedDepartment(hospDept, lang)} (${ML('deptNeeded', lang)}: ${getLocalizedDepartment(reqDept, lang)})`);
-          break;
-        }
-      }
-      if (deptScore > 0) break;
-    }
+  // 科室分数：精确匹配 1.0/个，部分匹配 0.6/个，取平均
+  const totalDeptHits = exactMatches + partialMatches;
+  const deptScore = totalDeptHits > 0
+    ? (exactMatches * 1.0 + partialMatches * 0.6) / totalNeeded
+    : 0;
+
+  if (matchedDeptNames.length > 0) {
+    matchReasons.push(`${ML('deptMatch', lang)}: ${matchedDeptNames.join(', ')}`);
   }
+
+  // 覆盖率分数：覆盖患者多少比例的科室需求
+  const coverageScore = Math.min(totalDeptHits / totalNeeded, 1);
 
   // --- 2. 专科匹配 ---
   let specialtyScore = 0;
@@ -623,6 +680,22 @@ function calculateMatchScore(
     if (allFeatureTexts.some((t) => t.includes(specialtyLower) || specialtyLower.includes(t))) {
       specialtyScore = Math.min(specialtyScore + 0.3, 1);
       matchReasons.push(`${ML('specialtyMatch', lang)}: ${specialty}`);
+    }
+  }
+
+  // --- 2b. 专科中心加分 ---
+  // 如果医院是某领域的专科中心，且患者需要该科室，给予 specialty 额外加分
+  const centerDepts = detectSpecialtyCenterDepts(hospital);
+  if (centerDepts.length > 0) {
+    const centerMatchCount = features.normalizedDepartments.filter((d) =>
+      centerDepts.includes(d)
+    ).length;
+    if (centerMatchCount > 0) {
+      // 专科中心匹配患者关键科室 → specialty 分数直接拉满
+      specialtyScore = Math.min(specialtyScore + 0.5 * centerMatchCount, 1);
+      if (!matchReasons.some((r) => r.includes(ML('specialtyMatch', lang)))) {
+        matchReasons.push(`${ML('specialtyMatch', lang)}: ${centerDepts[0]}`);
+      }
     }
   }
 
@@ -643,7 +716,6 @@ function calculateMatchScore(
     }
   }
   if (hospital.conditionKeywords.length > 0) {
-    // 匹配比例，但最多到 1
     conditionScore = Math.min(conditionMatches / Math.min(hospital.conditionKeywords.length, 5), 1);
   }
   if (conditionMatches > 0) {
@@ -674,7 +746,8 @@ function calculateMatchScore(
     specialtyScore * WEIGHTS.specialtyMatch +
     conditionScore * WEIGHTS.conditionMatch +
     emergencyScore * WEIGHTS.emergencyMatch +
-    priorityScore * WEIGHTS.priorityBonus;
+    priorityScore * WEIGHTS.priorityBonus +
+    coverageScore * WEIGHTS.coverageBonus;
 
   // 急症降级：非急诊机构在紧急情况下大幅降分，避免推荐到无急救能力的诊所
   if ((features.isEmergency || features.riskLevel === 'emergency') && !hospital.hasEmergency) {

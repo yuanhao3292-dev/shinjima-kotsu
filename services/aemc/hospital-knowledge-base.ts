@@ -14,6 +14,7 @@
 
 export type HospitalCategory =
   | 'general_hospital'
+  | 'specialty_center'
   | 'health_screening'
   | 'aesthetics'
   | 'stem_cell';
