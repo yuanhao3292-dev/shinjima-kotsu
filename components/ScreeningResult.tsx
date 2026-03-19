@@ -16,7 +16,6 @@ import {
   Activity,
   Users,
   Phone,
-  ShieldAlert,
   Clock,
 } from 'lucide-react';
 import { type BodyMapSelectionData } from './BodyMapSelector';
@@ -351,24 +350,6 @@ export default function ScreeningResult({
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      {/* Gate D: 急诊警报横幅 */}
-      {result.requiresEmergencyNotice && (
-        <div className="bg-orange-50 border border-orange-200 rounded-2xl p-6 md:p-8">
-          <div className="flex items-start gap-4">
-            <div className="p-3 bg-orange-100 rounded-full flex-shrink-0">
-              <ShieldAlert className="w-7 h-7 text-orange-600" />
-            </div>
-            <div className="flex-1">
-              <h2 className="text-lg font-bold text-orange-800 mb-2">{t('emergencyTitle', lang)}</h2>
-              <p className="text-orange-700 text-sm">{t('emergencyDesc', lang)}</p>
-              <p className="text-orange-400 text-xs mt-3">
-                {t('emergencyCallJapan', lang)} 119 &nbsp;|&nbsp; {t('emergencyCallChina', lang)} 120
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Gate C: 人工审核通知横幅 */}
       {result.requiresHumanReview && !result.requiresEmergencyNotice && (
         <div className="bg-amber-50 border-2 border-amber-300 rounded-2xl p-6 md:p-8">

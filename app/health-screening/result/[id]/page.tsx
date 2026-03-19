@@ -4,7 +4,7 @@ import { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import ScreeningResult from '@/components/ScreeningResult';
-import { ArrowLeft, Loader2, AlertCircle, Download, FileText, Globe, Check, RefreshCw } from 'lucide-react';
+import { ArrowLeft, Loader2, AlertCircle, Download, FileText, RefreshCw } from 'lucide-react';
 import { type AnalysisResult } from '@/services/aemc/types';
 import { downloadHealthReportPDF } from '@/components/HealthReportPDF';
 import { type BodyMapSelectionData } from '@/components/BodyMapSelector';
@@ -49,13 +49,6 @@ const translations = {
   loadErrorDesc: { ja: 'ネットワークの問題が原因かもしれません。もう一度お試しください。', 'zh-CN': '可能是网络问题，请重试。', 'zh-TW': '可能是網路問題，請重試。', en: 'This may be a network issue. Please try again.' },
 } as const;
 
-const LANGUAGE_OPTIONS: { value: Language; label: string }[] = [
-  { value: 'zh-CN', label: '简体中文' },
-  { value: 'zh-TW', label: '繁體中文' },
-  { value: 'ja', label: '日本語' },
-  { value: 'en', label: 'English' },
-];
-
 const t = (key: keyof typeof translations, lang: Language): string => {
   return translations[key][lang];
 };
@@ -68,11 +61,9 @@ export default function ScreeningResultPage({ params }: PageProps) {
   const [error, setError] = useState<string | null>(null);
   const [screeningData, setScreeningData] = useState<ScreeningData | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
-  const [isTranslating, setIsTranslating] = useState(false);
-  const [displayResult, setDisplayResult] = useState<AnalysisResult | null>(null);
 
-  // 报告语言：优先使用当前展示结果的语言，否则回退到站点语言
-  const lang: Language = (displayResult?.language as Language) || (screeningData?.analysisResult?.language as Language) || siteLang;
+  // 报告语言：使用分析结果的语言，否则回退到站点语言
+  const lang: Language = (screeningData?.analysisResult?.language as Language) || siteLang;
 
   useEffect(() => {
     async function fetchResult() {
@@ -113,7 +104,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, router]);
 
-  const currentResult = displayResult || screeningData?.analysisResult;
+  const currentResult = screeningData?.analysisResult;
 
   const handleDownloadPDF = async () => {
     if (!screeningData || !currentResult) return;
@@ -133,29 +124,6 @@ export default function ScreeningResultPage({ params }: PageProps) {
       alert(t('pdfDownloadError', lang));
     } finally {
       setIsDownloading(false);
-    }
-  };
-
-  const handleTranslate = async (targetLang: Language) => {
-    if (!screeningData || isTranslating) return;
-    // 如果目标语言与当前展示语言相同，无需翻译
-    if (targetLang === lang) return;
-
-    setIsTranslating(true);
-    setError(null);
-    try {
-      const response = await fetch('/api/health-screening/translate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ screeningId: id, language: targetLang }),
-      });
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.error || t('translateError', lang));
-      setDisplayResult(result.analysisResult);
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setIsTranslating(false);
     }
   };
 
@@ -319,33 +287,6 @@ export default function ScreeningResultPage({ params }: PageProps) {
             {t('reportSubtitle', lang)}
           </p>
 
-          {/* 语言切换 */}
-          <div className="mt-4 flex items-center justify-center gap-2">
-            <Globe className="w-4 h-4 text-gray-400" />
-            <span className="text-sm text-gray-400">{t('reportLanguage', lang)}:</span>
-            <div className="inline-flex rounded-lg border border-gray-200 overflow-hidden">
-              {LANGUAGE_OPTIONS.map((opt) => (
-                <button
-                  key={opt.value}
-                  onClick={() => handleTranslate(opt.value)}
-                  disabled={isTranslating}
-                  className={`px-3 py-1.5 text-sm transition-colors ${
-                    lang === opt.value
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-white text-gray-600 hover:bg-gray-50'
-                  } ${isTranslating ? 'opacity-50 cursor-not-allowed' : ''}`}
-                >
-                  {isTranslating && lang !== opt.value ? '' : opt.label}
-                </button>
-              ))}
-            </div>
-            {isTranslating && (
-              <span className="inline-flex items-center gap-1 text-sm text-blue-600">
-                <Loader2 className="w-3 h-3 animate-spin" />
-                {t('translating', lang)}
-              </span>
-            )}
-          </div>
         </div>
       </div>
 
