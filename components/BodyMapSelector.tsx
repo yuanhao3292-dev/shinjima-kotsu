@@ -280,11 +280,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
 
   // 从症状选择进入追问
   const proceedToFollowUp = () => {
-    if (selectedSymptoms.length === 0) {
-      // 没有选择症状，直接进入总结
-      setStep('summary');
-      return;
-    }
+    if (selectedSymptoms.length === 0) return; // 必须选择至少一个症状
 
     // 检查是否有需要追问的症状
     const hasFollowUp = selectedSymptoms.some((symptom) => {
@@ -922,9 +918,10 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
         {step === 'symptom-select' && (
           <button
             onClick={proceedToFollowUp}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"
+            disabled={selectedSymptoms.length === 0}
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
-            {selectedSymptoms.length > 0 ? t('nextDetailedInquiry') : t('skipSymptomSelection')}
+            {t('nextDetailedInquiry')}
             <ChevronRight className="w-5 h-5" />
           </button>
         )}
