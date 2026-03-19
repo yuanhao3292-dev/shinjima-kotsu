@@ -15,7 +15,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-// import { generateAnswersHash } from '@/lib/utils/answers-hash'; // 暂时禁用，待 answers_hash 列添加后恢复
+import { generateAnswersHash } from '@/lib/utils/answers-hash';
 import { sendScreeningErrorNotification } from '@/lib/email';
 import { runAEMCPipeline, PipelineError } from '@/services/aemc';
 import type { AEMCOutput } from '@/services/aemc';
@@ -169,9 +169,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 答案哈希缓存暂时禁用（answers_hash 列待添加到生产数据库）
-    // TODO: 在 Supabase Dashboard 执行 migration 094 后重新启用
-    const cachedResult = null;
+    // 生成答案哈希用于缓存
+    const answersHash = generateAnswersHash(answers);
+
+    // 缓存查询：同一用户 + 同一答案哈希 → 直接返回上次分析结果
+    const { data: cachedRecord } = await supabase
+      .from('health_screenings')
+      .select('analysis_result')
+      .eq('answers_hash', answersHash)
+      .eq('user_id', user.id)
+      .eq('status', 'completed')
+      .not('analysis_result', 'is', null)
+      .order('completed_at', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    const cachedResult = cachedRecord?.analysis_result
+      ? { analysis_result: cachedRecord.analysis_result }
+      : null;
 
     let analysisResult;
     let aemcOutputRef: AEMCOutput | null = null; // [Phase 3] 保存 AEMC 输出用于 Class B 判断
@@ -261,6 +276,7 @@ export async function POST(request: NextRequest) {
         .update({
           status: 'needs_followup',
           analysis_result: analysisResult,
+          answers_hash: answersHash,
         })
         .eq('id', screeningId)
         .eq('user_id', user.id);
@@ -294,6 +310,7 @@ export async function POST(request: NextRequest) {
         status: 'completed',
         analysis_result: analysisResult,
         completed_at: new Date().toISOString(),
+        answers_hash: answersHash,
       })
       .eq('id', screeningId)
       .eq('user_id', user.id);
