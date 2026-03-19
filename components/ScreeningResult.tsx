@@ -185,24 +185,6 @@ const translations = {
     ja: '© 新島交通株式会社 | 日本精密健診サービス',
     en: '© Niijima Kotsu Co., Ltd. | Japan Precision Health Screening Services',
   },
-  bookCheckupTitle: {
-    'zh-CN': '预约日本精密健检',
-    'zh-TW': '預約日本精密健檢',
-    ja: '日本精密健診のご予約',
-    en: 'Book Japan Precision Health Screening',
-  },
-  bookCheckupDesc: {
-    'zh-CN': '根据您的健康评估结果，建议进行一次全面的日本精密健检，获取精准的医学数据支持。',
-    'zh-TW': '根據您的健康評估結果，建議進行一次全面的日本精密健檢，獲取精準的醫學數據支持。',
-    ja: '健康評価結果に基づき、精密な医学データを得るために日本精密健診を受けることをお勧めします。',
-    en: 'Based on your health assessment, we recommend a comprehensive Japan precision health screening for accurate medical data.',
-  },
-  bookCheckupCta: {
-    'zh-CN': '查看健检套餐 & 一键预约',
-    'zh-TW': '查看健檢套餐 & 一鍵預約',
-    ja: '健診プランを見る＆予約する',
-    en: 'View Plans & Book Now',
-  },
   emergencyTitle: {
     'zh-CN': '建议尽早前往医疗机构就诊',
     'zh-TW': '建議盡早前往醫療機構就診',
@@ -675,33 +657,6 @@ export default function ScreeningResult({
 
       {/* 推荐健检套餐 */}
       <RecommendedPackages result={result} lang={lang} />
-
-      {/* 一键预约日本精密健检 CTA */}
-      <Link
-        href="/health-checkup"
-        className="block bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl shadow-lg p-6 md:p-8 hover:shadow-xl transition-shadow group"
-      >
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex-1">
-            <div className="flex items-center gap-3 mb-2">
-              <Activity className="w-6 h-6 text-white" />
-              <h3 className="text-xl font-serif font-semibold text-white tracking-wide">
-                {t('bookCheckupTitle', lang)}
-              </h3>
-            </div>
-            <p className="text-emerald-100 text-sm leading-relaxed">
-              {t('bookCheckupDesc', lang)}
-            </p>
-          </div>
-          <div className="flex-shrink-0 bg-white/20 rounded-full p-3 group-hover:bg-white/30 transition-colors">
-            <ArrowRight className="w-6 h-6 text-white" />
-          </div>
-        </div>
-        <div className="mt-4 inline-flex items-center gap-2 bg-white text-emerald-700 font-bold px-5 py-2.5 rounded-lg text-sm">
-          {t('bookCheckupCta', lang)}
-          <ArrowRight className="w-4 h-4" />
-        </div>
-      </Link>
 
       {/* 下一步建议 */}
       {result.nextSteps.length > 0 && (
