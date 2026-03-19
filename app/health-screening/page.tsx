@@ -482,6 +482,10 @@ export default function HealthScreeningPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ screeningId, phase: 2, language: reportLang }),
       });
+      const contentType = response.headers.get('content-type') || '';
+      if (!contentType.includes('application/json')) {
+        throw new Error('服务器暂时不可用，请稍后重试');
+      }
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || '分析失败');
 
