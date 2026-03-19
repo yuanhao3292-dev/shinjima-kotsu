@@ -16,7 +16,7 @@ import { sendScreeningErrorNotification } from '@/lib/email';
 import { runAEMCPipeline, PipelineError } from '@/services/aemc';
 import type { AEMCOutput } from '@/services/aemc';
 import { persistPipelineResults, persistFailedRuns } from '@/services/aemc/persistence';
-import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/lib/utils/rate-limiter';
+import { checkRateLimit, buildRateLimitKey, RATE_LIMITS } from '@/lib/utils/rate-limiter';
 import { FREE_SCREENING_LIMIT } from '@/lib/screening-questions';
 
 // Vercel Serverless 函数超时设置（秒）
@@ -32,16 +32,6 @@ interface FollowupAnswer {
 
 export async function POST(request: NextRequest) {
   try {
-    // 限速
-    const clientIp = getClientIp(request);
-    const rateLimitResult = await checkRateLimit(
-      `${clientIp}:/api/health-screening/followup`,
-      RATE_LIMITS.sensitive
-    );
-    if (!rateLimitResult.success) {
-      return NextResponse.json({ error: '请求过于频繁，请稍后再试' }, { status: 429 });
-    }
-
     const supabase = await createClient();
 
     // 获取当前用户
@@ -55,6 +45,13 @@ export async function POST(request: NextRequest) {
         { error: '请先登入后再使用此功能' },
         { status: 401 }
       );
+    }
+
+    // 用户级限速（防止 VPN 轮换绕过 IP 限流）
+    const rateLimitKey = buildRateLimitKey(request, '/api/health-screening/followup', user.id);
+    const rateLimitResult = await checkRateLimit(rateLimitKey, RATE_LIMITS.sensitive);
+    if (!rateLimitResult.success) {
+      return NextResponse.json({ error: '请求过于频繁，请稍后再试' }, { status: 429 });
     }
 
     // 解析请求体

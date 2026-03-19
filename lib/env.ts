@@ -28,6 +28,7 @@ const serverSchema = z.object({
   ENCRYPTION_KEY: z.string().min(16),
 
   // Optional
+  NEXT_PUBLIC_SENTRY_DSN: z.string().url().optional(),
   DEEPSEEK_API_KEY: z.string().optional(),
   GEMINI_API_KEY: z.string().optional(),
   AEMC_PIPELINE_MODE: z.enum(['full', 'lite']).optional(),

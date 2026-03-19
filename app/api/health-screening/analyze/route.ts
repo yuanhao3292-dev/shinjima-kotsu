@@ -20,7 +20,7 @@ import { sendScreeningErrorNotification } from '@/lib/email';
 import { runAEMCPipeline, PipelineError } from '@/services/aemc';
 import type { AEMCOutput } from '@/services/aemc';
 import { persistPipelineResults, persistFailedRuns } from '@/services/aemc/persistence';
-import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/lib/utils/rate-limiter';
+import { checkRateLimit, buildRateLimitKey, RATE_LIMITS } from '@/lib/utils/rate-limiter';
 import {
   PHASE_1_QUESTIONS,
   FREE_SCREENING_LIMIT,
@@ -54,16 +54,6 @@ function calculateRequiredQuestionCount(phase: 1 | 2, bodyMapData: any): number 
 // POST: 触发 AI 分析
 export async function POST(request: NextRequest) {
   try {
-    // 限速 — 防止 AI API 配额滥用
-    const clientIp = getClientIp(request);
-    const rateLimitResult = await checkRateLimit(
-      `${clientIp}:/api/health-screening/analyze`,
-      RATE_LIMITS.sensitive
-    );
-    if (!rateLimitResult.success) {
-      return NextResponse.json({ error: '请求过于频繁，请稍后再试' }, { status: 429 });
-    }
-
     const supabase = await createClient();
 
     // 获取当前用户
@@ -77,6 +67,13 @@ export async function POST(request: NextRequest) {
         { error: '请先登入后再使用此功能' },
         { status: 401 }
       );
+    }
+
+    // 限速 — 用户级限流（防止 VPN 轮换绕过 IP 限流）
+    const rateLimitKey = buildRateLimitKey(request, '/api/health-screening/analyze', user.id);
+    const rateLimitResult = await checkRateLimit(rateLimitKey, RATE_LIMITS.sensitive);
+    if (!rateLimitResult.success) {
+      return NextResponse.json({ error: '请求过于频繁，请稍后再试' }, { status: 429 });
     }
 
     // 使用 Zod Schema 验证输入
@@ -172,18 +169,31 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 生成答案哈希用于缓存（目前仅用于日志，DB 列尚未创建）
+    // 生成答案哈希用于缓存
     const answersHash = generateAnswersHash(answers);
 
-    // 缓存查询：暂时跳过（answers_hash 列尚未添加到数据库）
-    const cachedResult: { analysis_result: unknown } | null = null;
+    // 缓存查询：同一用户 + 同一答案哈希 → 直接返回上次分析结果
+    const { data: cachedRecord } = await supabase
+      .from('health_screenings')
+      .select('analysis_result')
+      .eq('answers_hash', answersHash)
+      .eq('user_id', user.id)
+      .eq('status', 'completed')
+      .not('analysis_result', 'is', null)
+      .order('completed_at', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    const cachedResult = cachedRecord?.analysis_result
+      ? { analysis_result: cachedRecord.analysis_result }
+      : null;
 
     let analysisResult;
     let aemcOutputRef: AEMCOutput | null = null; // [Phase 3] 保存 AEMC 输出用于 Class B 判断
 
     if (cachedResult?.analysis_result) {
-      // 使用缓存的分析结果
-      console.info('Using cached analysis result');
+      // 使用缓存的分析结果（省去 AI 调用，节约成本）
+      console.info(`[AEMC] Cache HIT for hash=${answersHash}, skipping AI pipeline`);
       analysisResult = cachedResult.analysis_result;
     } else {
       // AEMC 4 AI 联合会诊 Pipeline（唯一分析路径）
@@ -263,6 +273,7 @@ export async function POST(request: NextRequest) {
         .update({
           status: 'needs_followup',
           analysis_result: analysisResult,
+          answers_hash: answersHash,
         })
         .eq('id', screeningId)
         .eq('user_id', user.id);
@@ -293,6 +304,7 @@ export async function POST(request: NextRequest) {
         status: 'completed',
         analysis_result: analysisResult,
         completed_at: new Date().toISOString(),
+        answers_hash: answersHash,
       })
       .eq('id', screeningId)
       .eq('user_id', user.id);

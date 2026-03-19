@@ -27,6 +27,7 @@ import {
   type TriageAssessment,
   type ChallengeReview,
   type AdjudicatedAssessment,
+  type JudgeVerdict,
 } from './types';
 
 import {
@@ -66,6 +67,8 @@ const GATE_I18N: Record<string, GL> = {
   gateC: { 'zh-CN': '检测到潜在风险信号，结果需人工医疗顾问审核后再展示。', 'zh-TW': '檢測到潛在風險信號，結果需人工醫療顧問審核後再展示。', en: 'Potential risk signals detected. Results require review by a medical advisor before display.', ja: '潜在的なリスクシグナルが検出されました。結果は医療アドバイザーの審査後に表示されます。' },
   gateD: { 'zh-CN': '检测到疑似急症信号，需立即提示用户就近急诊就医。', 'zh-TW': '檢測到疑似急症信號，需立即提示用戶就近急診就醫。', en: 'Suspected emergency signals detected. User must be advised to seek immediate emergency care.', ja: '緊急性の高い所見が検出されました。直ちに最寄りの救急外来の受診を促す必要があります。' },
   triggeredRules: { 'zh-CN': '触发规则：', 'zh-TW': '觸發規則：', en: 'Triggered rules: ', ja: 'トリガーされたルール：' },
+  judgeInconsistency: { 'zh-CN': 'AI Judge 检测到逻辑不一致: {desc}', 'zh-TW': 'AI Judge 檢測到邏輯不一致: {desc}', en: 'AI Judge detected logical inconsistency: {desc}', ja: 'AIジャッジが論理的な不整合を検出: {desc}' },
+  judgeEscalate: { 'zh-CN': 'AI Judge 建议升级人工审核 ({count} 个不一致)', 'zh-TW': 'AI Judge 建議升級人工審核 ({count} 個不一致)', en: 'AI Judge recommends escalation ({count} inconsistencies)', ja: 'AIジャッジがエスカレーションを推奨（{count}件の不整合）' },
   // System names for XVAL-004
   cardiovascular: { 'zh-CN': '心血管', 'zh-TW': '心血管', en: 'cardiovascular', ja: '心血管' },
   renal: { 'zh-CN': '肾脏', 'zh-TW': '腎臟', en: 'renal', ja: '腎臓' },
@@ -100,6 +103,7 @@ export interface SafetyGateInput {
   triage_assessment: TriageAssessment;
   challenge_review?: ChallengeReview;
   adjudicated_assessment: AdjudicatedAssessment;
+  judge_verdict?: JudgeVerdict;
 }
 
 /**
@@ -130,6 +134,12 @@ export function evaluateSafetyGate(input: SafetyGateInput): SafetyGateResult {
     lang
   );
   triggeredRules.push(...modelTriggers);
+
+  // Step 3b: LLM-as-Judge 逻辑一致性验证结果
+  if (input.judge_verdict) {
+    const judgeTriggers = checkJudgeVerdict(input.judge_verdict, lang);
+    triggeredRules.push(...judgeTriggers);
+  }
 
   // Step 4: 交叉验证（AI-1 红旗 vs AI-2 鉴别诊断覆盖度）
   const crossValidationTriggers = crossValidateRedFlagsVsDifferentials(
@@ -948,6 +958,47 @@ function crossValidateMDTRecommendation(
       category: 'oncology',
       severity: 'high',
       description: SL('mdtNotRecommended', lang),
+      source: 'model_comparison',
+    });
+  }
+
+  return triggers;
+}
+
+// ============================================================
+// Step 3b: LLM-as-Judge 逻辑一致性验证
+// ============================================================
+
+/**
+ * 检查 AI-5 Judge 的验证结果。
+ * 如果 Judge 发现逻辑不一致且建议升级，触发 C 类规则。
+ */
+function checkJudgeVerdict(verdict: JudgeVerdict, lang: AEMCLang): TriggeredRule[] {
+  const triggers: TriggeredRule[] = [];
+
+  if (verdict.is_logically_consistent) {
+    return triggers;
+  }
+
+  // 有 high severity 不一致 → 触发 model_conflict
+  const highSeverity = verdict.inconsistencies.filter((i) => i.severity === 'high');
+  for (const inc of highSeverity) {
+    triggers.push({
+      rule_id: `JUDGE-${triggers.length + 1}`.padStart(10, '0').slice(-8),
+      category: 'model_conflict',
+      severity: 'high',
+      description: SL('judgeInconsistency', lang).replace('{desc}', inc.description),
+      source: 'model_comparison',
+    });
+  }
+
+  // Judge 建议升级且有不一致（但无 high severity 单项）→ 整体触发
+  if (verdict.should_escalate && highSeverity.length === 0) {
+    triggers.push({
+      rule_id: 'JUDGE-ESC',
+      category: 'model_conflict',
+      severity: 'high',
+      description: SL('judgeEscalate', lang).replace('{count}', String(verdict.inconsistencies.length)),
       source: 'model_comparison',
     });
   }

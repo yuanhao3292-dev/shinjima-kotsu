@@ -1,4 +1,5 @@
 const path = require('path');
+const { withSentryConfig } = require('@sentry/nextjs');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -99,4 +100,11 @@ const nextConfig = {
   // 不再需要 rewrites — 旧的 rewrite 方式导致 RSC prefetch 404
 }
 
-module.exports = nextConfig
+module.exports = withSentryConfig(nextConfig, {
+  // Suppress source map upload warnings when SENTRY_AUTH_TOKEN is not set
+  silent: !process.env.SENTRY_AUTH_TOKEN,
+  // Upload source maps for better stack traces
+  widenClientFileUpload: true,
+  // Disable Sentry telemetry
+  disableLogger: true,
+})

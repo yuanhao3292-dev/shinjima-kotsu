@@ -3,6 +3,7 @@
  * 提供统一的错误分类和响应格式
  */
 import { NextResponse } from 'next/server';
+import * as Sentry from '@sentry/nextjs';
 
 /**
  * 错误类型枚举
@@ -228,9 +229,13 @@ export function logError(
     details: error.details,
   };
 
-  // 生产环境可以集成到日志服务（如 Sentry、DataDog）
   if (error.type === ErrorType.INTERNAL || error.type === ErrorType.EXTERNAL_SERVICE) {
     console.error('[API Error]', JSON.stringify(logEntry));
+    // 上报到 Sentry（仅服务端错误和外部服务错误）
+    Sentry.captureException(new Error(error.message), {
+      tags: { errorType: error.type, code: error.code },
+      extra: { ...context, details: error.details },
+    });
   } else {
     console.warn('[API Warning]', JSON.stringify(logEntry));
   }

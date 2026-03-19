@@ -25,5 +25,8 @@ jobs:
       - name: Route isolation check
         run: node scripts/check-route-isolation.js
 
+      - name: Unit tests with coverage
+        run: npx vitest run --coverage
+
       - name: Build
         run: npm run build

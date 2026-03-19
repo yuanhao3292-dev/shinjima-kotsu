@@ -43,6 +43,7 @@ import { matchClinicalGuidelines } from './clinical-guidelines';
 import { checkDrugInteractions } from './drug-interaction-checker';
 import { mapToICD10 } from './icd10-mapper';
 import { adjudicateCase, AdjudicatorError } from './adjudicator';
+import { judgeCase, JudgeError } from './judge';
 import { evaluateSafetyGate, type SafetyGateInput } from './safety-gate';
 import { matchHospitals } from './hospital-matcher';
 // HOSPITAL_KNOWLEDGE_BASE used by hospital-matcher.ts as fallback
@@ -277,6 +278,32 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
     casePacket.language
   );
 
+  // === Step 4c: LLM-as-Judge 逻辑一致性验证（非阻断性） ===
+  let judgeVerdict;
+  try {
+    const judgeResult = await judgeCase(
+      structuredCase,
+      triageAssessment,
+      adjudicatedAssessment
+    );
+    judgeVerdict = judgeResult.judgeVerdict;
+    aiRuns.push(judgeResult.runRecord);
+    aemcLog.aiCall('judge', judgeResult.runRecord.model_name, {
+      latencyMs: judgeResult.runRecord.latency_ms,
+      inputTokens: judgeResult.runRecord.input_tokens,
+      outputTokens: judgeResult.runRecord.output_tokens,
+      success: true,
+    });
+    aemcLog.info('judge', `Verdict: consistent=${judgeVerdict.is_logically_consistent}, inconsistencies=${judgeVerdict.inconsistencies.length}`);
+  } catch (error) {
+    if (error instanceof JudgeError) {
+      aiRuns.push(error.runRecord);
+    }
+    aemcLog.warn('judge', 'AI-5 (Judge) failed, continuing without verification', {
+      error: error instanceof Error ? error.message : String(error),
+    });
+  }
+
   // === Step 5: 安全闸门（确定性逻辑，永远执行） ===
   const safetyGateInput: SafetyGateInput = {
     case_packet: casePacket,
@@ -284,6 +311,7 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
     triage_assessment: triageAssessment,
     challenge_review: challengeReview,
     adjudicated_assessment: adjudicatedAssessment,
+    judge_verdict: judgeVerdict,
   };
   const safetyGate = evaluateSafetyGate(safetyGateInput);
 
@@ -323,6 +351,7 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
     triage_assessment: triageAssessment,
     challenge_review: challengeReview, // V2: present; V1/degraded: undefined
     adjudicated_assessment: adjudicatedAssessment,
+    judge_verdict: judgeVerdict, // Full pipeline: present; Lite: undefined
     hospital_recommendation: hospitalRecommendation,
     safety_gate: safetyGate,
     ai_runs: aiRuns,

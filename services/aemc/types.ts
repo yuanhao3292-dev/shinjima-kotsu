@@ -167,6 +167,24 @@ export interface AdjudicatedAssessment {
 }
 
 // ============================================================
+// 5b. judge_verdict — LLM-as-Judge 逻辑一致性验证输出
+// ============================================================
+
+export interface JudgeVerdict {
+  case_id: string;
+  is_logically_consistent: boolean;
+  inconsistencies: JudgeInconsistency[];
+  confidence: number; // 0-1
+  should_escalate: boolean;
+}
+
+export interface JudgeInconsistency {
+  category: 'differential_coherence' | 'department_logic' | 'urgency_justification' | 'test_rationale' | 'high_risk_exclusion';
+  severity: 'low' | 'medium' | 'high';
+  description: string;
+}
+
+// ============================================================
 // 6. hospital_recommendation — 医院匹配输出
 // ============================================================
 
@@ -218,7 +236,7 @@ export interface TriggeredRule {
 // ============================================================
 
 export type AIModelVendor = 'openai' | 'google' | 'xai' | 'anthropic' | 'deepseek';
-export type AIRole = 'extractor' | 'triage' | 'challenger' | 'adjudicator' | 'hospital_matcher';
+export type AIRole = 'extractor' | 'triage' | 'challenger' | 'adjudicator' | 'judge' | 'hospital_matcher';
 
 export interface AIRunRecord {
   screening_id: string;
@@ -244,6 +262,7 @@ export interface AEMCPipelineResult {
   triage_assessment: TriageAssessment;
   challenge_review?: ChallengeReview; // V2 才有
   adjudicated_assessment: AdjudicatedAssessment;
+  judge_verdict?: JudgeVerdict; // Full pipeline 才有
   hospital_recommendation?: HospitalRecommendation;
   safety_gate: SafetyGateResult;
   ai_runs: AIRunRecord[];

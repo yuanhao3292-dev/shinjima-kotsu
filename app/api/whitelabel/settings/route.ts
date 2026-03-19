@@ -6,7 +6,7 @@ import { validateBody } from "@/lib/validations/validate";
 import { WhitelabelSettingsSchema } from "@/lib/validations/api-schemas";
 import {
   checkRateLimit,
-  getClientIp,
+  buildRateLimitKey,
   RATE_LIMITS,
   createRateLimitHeaders,
 } from "@/lib/utils/rate-limiter";
@@ -147,20 +147,7 @@ export async function GET(request: NextRequest) {
  */
 export async function PUT(request: NextRequest) {
   try {
-    // 1. 速率限制检查
-    const clientIp = getClientIp(request);
-    const rateLimitResult = await checkRateLimit(
-      `${clientIp}:/api/whitelabel/settings`,
-      RATE_LIMITS.standard
-    );
-    if (!rateLimitResult.success) {
-      return createErrorResponse(
-        Errors.rateLimit(rateLimitResult.retryAfter),
-        createRateLimitHeaders(rateLimitResult)
-      );
-    }
-
-    // 2. 验证用户身份
+    // 1. 验证用户身份
     const serverSupabase = await createServerClient();
     const {
       data: { user },
@@ -171,6 +158,16 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json(
         { error: "未登录或登录已过期" },
         { status: 401 }
+      );
+    }
+
+    // 2. 用户级速率限制（防止 VPN 轮换绕过 IP 限流）
+    const rateLimitKey = buildRateLimitKey(request, '/api/whitelabel/settings', user.id);
+    const rateLimitResult = await checkRateLimit(rateLimitKey, RATE_LIMITS.standard);
+    if (!rateLimitResult.success) {
+      return createErrorResponse(
+        Errors.rateLimit(rateLimitResult.retryAfter),
+        createRateLimitHeaders(rateLimitResult)
       );
     }
 

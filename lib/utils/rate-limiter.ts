@@ -222,21 +222,40 @@ function checkRateLimitMemory(
 // ============================================================================
 
 /**
+ * 构建限流 key：支持用户级限流（优先）和 IP 级限流（降级）
+ *
+ * 登录用户按 userId 限流，防止 VPN/代理轮换绕过 IP 限流。
+ * 未登录用户仍然按 IP 限流。
+ *
+ * @example
+ * const key = buildRateLimitKey(request, '/api/health-screening/analyze', userId);
+ * const result = await checkRateLimit(key, RATE_LIMITS.sensitive);
+ */
+export function buildRateLimitKey(
+  request: Request,
+  endpoint: string,
+  userId?: string | null
+): string {
+  if (userId) {
+    return `user:${userId}:${endpoint}`;
+  }
+  return `${getClientIp(request)}:${endpoint}`;
+}
+
+/**
  * 检查速率限制（自动选择 Redis 或内存实现）
  *
- * @param identifier 唯一标识符（通常是 IP + endpoint）
+ * @param identifier 唯一标识符（通常是 IP + endpoint，或 user:id + endpoint）
  * @param config 速率限制配置
  * @returns 速率限制结果
  *
  * @example
- * const clientIp = getClientIp(request);
+ * // IP-based (legacy)
  * const result = await checkRateLimit(`${clientIp}:/api/search`, RATE_LIMITS.search);
- * if (!result.success) {
- *   return NextResponse.json(
- *     { error: '请求过于频繁，请稍后再试' },
- *     { status: 429, headers: createRateLimitHeaders(result) }
- *   );
- * }
+ *
+ * // User-based (preferred for authenticated endpoints)
+ * const key = buildRateLimitKey(request, '/api/search', user?.id);
+ * const result = await checkRateLimit(key, RATE_LIMITS.search);
  */
 export async function checkRateLimit(
   identifier: string,
