@@ -93,9 +93,9 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
       {/* Navigation */}
       <nav className="fixed top-0 left-0 w-full z-50 bg-white shadow-sm">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
-          {/* 返回链接 - 会员页面点击返回会员中心，否则返回首页 */}
+          {/* 返回链接 - 会员子页面返回会员中心，会员中心本身和其他页面返回首页 */}
           <Link
-            href={isLoggedIn && isMemberPage ? '/my-account' : '/'}
+            href={isLoggedIn && isMemberPage && pathname !== '/my-account' ? '/my-account' : '/'}
             className="text-sm font-medium text-gray-600 hover:text-blue-600 transition"
           >
             {t('back', lang)}
