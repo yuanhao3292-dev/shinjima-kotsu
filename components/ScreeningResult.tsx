@@ -353,30 +353,17 @@ export default function ScreeningResult({
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Gate D: 急诊警报横幅 */}
       {result.requiresEmergencyNotice && (
-        <div className="bg-orange-50 border-2 border-orange-300 rounded-2xl p-6 md:p-8">
+        <div className="bg-orange-50 border border-orange-200 rounded-2xl p-6 md:p-8">
           <div className="flex items-start gap-4">
             <div className="p-3 bg-orange-100 rounded-full flex-shrink-0">
               <ShieldAlert className="w-7 h-7 text-orange-600" />
             </div>
             <div className="flex-1">
               <h2 className="text-lg font-bold text-orange-800 mb-2">{t('emergencyTitle', lang)}</h2>
-              <p className="text-orange-700 text-sm mb-4">{t('emergencyDesc', lang)}</p>
-              <div className="flex flex-wrap gap-3">
-                <a
-                  href="tel:119"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-orange-600 text-white rounded-xl text-sm font-medium hover:bg-orange-700 transition-colors"
-                >
-                  <Phone className="w-4 h-4" />
-                  {t('emergencyCallJapan', lang)}
-                </a>
-                <a
-                  href="tel:120"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-orange-700 rounded-xl text-sm font-medium hover:bg-orange-50 transition-colors border border-orange-300"
-                >
-                  <Phone className="w-4 h-4" />
-                  {t('emergencyCallChina', lang)}
-                </a>
-              </div>
+              <p className="text-orange-700 text-sm">{t('emergencyDesc', lang)}</p>
+              <p className="text-orange-400 text-xs mt-3">
+                {t('emergencyCallJapan', lang)} 119 &nbsp;|&nbsp; {t('emergencyCallChina', lang)} 120
+              </p>
             </div>
           </div>
         </div>
