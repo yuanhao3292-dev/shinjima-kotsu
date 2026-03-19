@@ -266,9 +266,12 @@ export async function POST(request: NextRequest) {
       ? aemcOutputRef.pipelineResult.adjudicated_assessment.must_ask_followups
       : null;
 
+    // 使用 Admin Client 保存结果（避免长时间 AI 调用后 JWT 过期）
+    const supabaseAdmin = getSupabaseAdmin();
+
     if (needsFollowup && followupQuestions && followupQuestions.length > 0) {
       // Class B: 保存初步结果但标记为需要追问
-      const { error: updateError } = await supabase
+      const { error: updateError } = await supabaseAdmin
         .from('health_screenings')
         .update({
           status: 'needs_followup',
@@ -298,7 +301,10 @@ export async function POST(request: NextRequest) {
     }
 
     // 正常完成（Class A/C/D 或无 AEMC）
-    const { error: updateError } = await supabase
+    const resultPayloadSize = JSON.stringify(analysisResult).length;
+    console.info(`[Analyze] Saving result: screeningId=${screeningId}, size=${resultPayloadSize} bytes`);
+
+    const { error: updateError } = await supabaseAdmin
       .from('health_screenings')
       .update({
         status: 'completed',
@@ -310,13 +316,12 @@ export async function POST(request: NextRequest) {
       .eq('user_id', user.id);
 
     if (updateError) {
-      console.error('Screening update failed:', updateError.message, updateError.code, updateError.details);
+      console.error('Screening update failed:', updateError.message, updateError.code, updateError.details, `payloadSize=${resultPayloadSize}`);
       return NextResponse.json({ error: '保存分析结果失败' }, { status: 500 });
     }
 
     // [Health Passport] 写入健康快照（fire-and-forget，不阻断主流程）
     try {
-      const supabaseAdmin = getSupabaseAdmin();
       const snapshot = extractSnapshot(analysisResult);
       const { data: prevSnapshot } = await supabaseAdmin
         .from('health_snapshots')
