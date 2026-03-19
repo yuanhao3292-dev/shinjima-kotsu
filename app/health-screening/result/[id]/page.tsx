@@ -161,7 +161,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white font-sans">
         <div className="bg-white border-b border-neutral-100 shadow-sm">
           <div className="max-w-4xl mx-auto px-4 py-4">
             <div className="h-5 w-24 bg-gray-200 rounded animate-pulse" />
@@ -235,7 +235,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
     };
 
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white font-sans">
         <div className="bg-white border-b border-neutral-100 shadow-sm">
           <div className="max-w-4xl mx-auto px-4 py-4">
             <Link
@@ -273,7 +273,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white font-sans">
       {/* Header */}
       <div className="bg-white border-b border-neutral-100 shadow-sm">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">

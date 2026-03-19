@@ -120,7 +120,7 @@ export default function ScreeningHistoryPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#faf9f7] flex items-center justify-center">
+      <div className="min-h-screen bg-[#faf9f7] flex items-center justify-center font-sans">
         <div className="text-center">
           <Loader2 className="w-10 h-10 animate-spin text-emerald-500 mx-auto mb-4" />
           <p className="text-neutral-500">{t('loading', lang)}</p>
@@ -130,7 +130,7 @@ export default function ScreeningHistoryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#faf9f7]">
+    <div className="min-h-screen bg-[#faf9f7] font-sans">
       {/* Header */}
       <div className="bg-white border-b border-neutral-100">
         <div className="max-w-4xl mx-auto px-4 py-4">

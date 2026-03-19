@@ -505,7 +505,7 @@ export default function HealthScreeningPage() {
   // 加载中
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center font-sans">
         <div className="text-center">
           <Loader2 className="w-10 h-10 animate-spin text-blue-500 mx-auto mb-4" />
           <p className="text-gray-500">{t('loading', lang)}</p>
@@ -519,7 +519,7 @@ export default function HealthScreeningPage() {
     const screeningId = data.screeningId || data.existingScreening?.id!;
 
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50/30 to-white">
+      <div className="min-h-screen bg-gradient-to-b from-amber-50/30 to-white font-sans">
         {/* Header */}
         <div className="bg-white border-b border-neutral-100 shadow-sm">
           <div className="max-w-4xl mx-auto px-4 py-4">
@@ -566,7 +566,7 @@ export default function HealthScreeningPage() {
     const initialAnswers = data.existingScreening?.answers || [];
 
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white font-sans">
         {/* Header */}
         <div className="bg-white border-b border-gray-100 shadow-sm">
           <div className="max-w-4xl mx-auto px-4 py-4">
@@ -614,7 +614,7 @@ export default function HealthScreeningPage() {
     const screeningId = data.screeningId || data.existingScreening?.id!;
 
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white font-sans">
         <div className="bg-white border-b border-gray-100 shadow-sm">
           <div className="max-w-4xl mx-auto px-4 py-4">
             <button
@@ -722,7 +722,7 @@ export default function HealthScreeningPage() {
   // 人体图选择步骤
   if (currentStep === 'body-map' && (data?.screeningId || data?.existingScreening)) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white font-sans">
         {/* Header */}
         <div className="bg-white border-b border-gray-100 shadow-sm">
           <div className="max-w-4xl mx-auto px-4 py-4">
@@ -765,7 +765,7 @@ export default function HealthScreeningPage() {
 
   // 欢迎页面
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white font-sans">
       {/* Header */}
       <div className="bg-white border-b border-gray-100 shadow-sm">
         <div className="max-w-4xl mx-auto px-4 py-4">
