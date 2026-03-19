@@ -32,9 +32,9 @@ import { extractSnapshot, compareTrend } from '@/lib/health-score';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
 
 // Vercel Serverless 函数超时设置（秒）
-// AEMC Pipeline 需要 3-4 次顺序 AI 调用，总计约 20-40 秒
-// Hobby 计划上限 10s，Pro 计划上限 60s
-export const maxDuration = 60;
+// AEMC Full Pipeline 需要 4+1 次顺序 AI 调用，文档模式可达 60-90 秒
+// Pro 计划上限 300s
+export const maxDuration = 300;
 
 // [Phase 3] 最多允许追问轮次（防止无限循环）
 const MAX_FOLLOWUP_ROUNDS = 2;
