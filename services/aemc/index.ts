@@ -604,7 +604,7 @@ function convertToLegacyResult(pipeline: AEMCPipelineResult, language?: Analysis
     treatmentSuggestions,
     recommendedHospitals,
     nextSteps,
-    rawContent: JSON.stringify(pipeline, null, 2),
+    rawContent: '',  // 完整 pipeline 数据已通过 persistPipelineResults() 存入审计表
     disclaimer: MEDICAL_DISCLAIMERS[lang] || MEDICAL_DISCLAIMER,
     isFallback: false,
     analysisSource: 'ai',
