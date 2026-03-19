@@ -42,10 +42,10 @@ async function checkEventProcessed(supabase: SupabaseClient, eventId: string): P
       if (data.result === 'success') {
         return true;
       }
-      // 删除失败记录，允许重新处理
+      // 标记为重试中（保留记录用于审计追踪）
       await supabase
         .from('webhook_events')
-        .delete()
+        .update({ result: 'retrying' })
         .eq('event_id', eventId)
         .eq('result', 'failed');
       return false;
@@ -575,6 +575,7 @@ async function handlePartnerEntryFeePaid(
     .from('guides')
     .update({
       subscription_tier: planCode,
+      subscription_plan: 'monthly',
       commission_tier_code: planCode === 'partner' ? 'gold' : 'growth',
       subscription_status: 'active',
       stripe_subscription_id: subscription.id,
@@ -612,6 +613,7 @@ async function handlePartnerSubscriptionCreated(
     .from('guides')
     .update({
       subscription_tier: planCode,
+      subscription_plan: 'monthly',
       commission_tier_code: planCode === 'partner' ? 'gold' : 'growth',
       subscription_status: 'active',
       stripe_subscription_id: session.subscription as string,
@@ -892,7 +894,7 @@ async function calculateAndRecordCommission(
   // 4. 更新导游的累计佣金（注意：不更新 available_balance，等待 2 周后由 RPC 释放）
   const { data: guideData } = await supabase
     .from('guides')
-    .select('total_commission, name, email, preferred_locale')
+    .select('total_commission, name, email, referrer_id')
     .eq('id', guideId)
     .single();
 
@@ -920,8 +922,30 @@ async function calculateAndRecordCommission(
         isNewCustomerBonus: isNewCustomerFirstOrder,
         bonusAmount: bonusCommission > 0 ? bonusCommission : undefined,
         orderId,
-        locale: (guideData.preferred_locale || 'ja') as 'ja' | 'zh-CN' | 'zh-TW' | 'en',
+        locale: 'ja',
       });
+    }
+  }
+
+  // 6. 推荐奖励：如果该导游有推荐人，为推荐人创建 2% 奖励
+  if (commissionAmount > 0 && guideData?.referrer_id) {
+    const referralRewardAmount = Math.round(commissionAmount * 0.02);
+    const { error: rewardError } = await supabase
+      .from('referral_rewards')
+      .upsert({
+        referrer_id: guideData.referrer_id,
+        referee_id: guideId,
+        booking_id: orderId,
+        reward_type: 'commission',
+        reward_rate: 0.02,
+        reward_amount: referralRewardAmount,
+        status: 'pending',
+      }, { onConflict: 'booking_id', ignoreDuplicates: true });
+
+    if (rewardError) {
+      console.error('推荐奖励创建失败:', rewardError);
+    } else {
+      console.log(`✅ 推荐奖励已创建: 推荐人=${guideData.referrer_id}, 奖励=${referralRewardAmount}円 (佣金${commissionAmount}円 × 2%)`);
     }
   }
 }

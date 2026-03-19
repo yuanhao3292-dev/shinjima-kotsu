@@ -179,9 +179,9 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
 
   // 白标模式下显示导游品牌名，否则显示官方品牌
   const displayBrandName = hideOfficialBranding && branding.name ? branding.name : 'NIIJIMA';
-  // 白标模式下副标题显示「日本高端定制旅行」，官方模式显示公司名
+  // 白标模式下副标题显示导游设置的品牌英文名，官方模式显示公司名
   const displayBrandSub = hideOfficialBranding
-    ? '日本高端定制旅行'
+    ? (branding.tagline || '日本高端定制旅行')
     : navLabels[currentLang].brand_sub;
 
   const t = navLabels[currentLang];
@@ -285,18 +285,18 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
               {hideOfficialBranding && branding.logoUrl && (
                 <img src={branding.logoUrl} alt={displayBrandName} className="w-10 h-10 object-contain" />
               )}
-              <div className="flex flex-col">
+              <div className="flex flex-col items-center">
                 <span className={`font-serif font-bold text-lg tracking-wide leading-none ${isTransparent ? 'text-white' : 'text-neutral-900'}`}>{displayBrandName}</span>
                 <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-white/60' : 'text-neutral-400 group-hover:text-brand-500'}`}>{displayBrandSub}</span>
               </div>
             </button>
           ) : (
-            <Link href="/" className="flex items-center gap-3 group">
+            <Link href="/" className="flex items-center gap-3 group text-center">
               {/* 白标模式下如果有自定义 Logo 则显示 */}
               {hideOfficialBranding && branding.logoUrl && (
                 <img src={branding.logoUrl} alt={displayBrandName} className="w-10 h-10 object-contain" />
               )}
-              <div className="flex flex-col">
+              <div className="flex flex-col items-center">
                 <span className={`font-serif font-bold text-lg tracking-wide leading-none ${isTransparent ? 'text-white' : 'text-neutral-900'}`}>{displayBrandName}</span>
                 <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-white/60' : 'text-neutral-400 group-hover:text-brand-500'}`}>{displayBrandSub}</span>
               </div>

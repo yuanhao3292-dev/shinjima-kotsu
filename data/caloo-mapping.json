@@ -1,0 +1,978 @@
+{
+  "a7db70ee-d978-4c2e-afd4-7fe75931b47c": {
+    "hospital_id": "a7db70ee-d978-4c2e-afd4-7fe75931b47c",
+    "name_ja": "（医療法人患中会）小田原箱根健診クリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:54:01.854Z"
+  },
+  "4650b598-c36b-4d71-ac26-1962733bb011": {
+    "hospital_id": "4650b598-c36b-4d71-ac26-1962733bb011",
+    "name_ja": "Alpaca Family Clinic ”Doctor Visit Japan”",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:54:05.552Z"
+  },
+  "11c2e5e5-ab4c-472c-9dd9-7d3d18b030f9": {
+    "hospital_id": "11c2e5e5-ab4c-472c-9dd9-7d3d18b030f9",
+    "name_ja": "JCHO 東京高輪病院",
+    "caloo_id": "1130500550",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1130500550",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.424Z"
+  },
+  "5bb5ec7a-b911-4316-b51b-88870aef5e47": {
+    "hospital_id": "5bb5ec7a-b911-4316-b51b-88870aef5e47",
+    "name_ja": "JTB JMHC（ジャパン・メディカル＆ヘルスツーリズムセンター）",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:54:12.867Z"
+  },
+  "1508c862-5832-4881-b54a-716e7b393739": {
+    "hospital_id": "1508c862-5832-4881-b54a-716e7b393739",
+    "name_ja": "KISHI CLINICA FEMINA",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:54:16.379Z"
+  },
+  "2617d463-57bf-4f94-84ee-7336b6f4939d": {
+    "hospital_id": "2617d463-57bf-4f94-84ee-7336b6f4939d",
+    "name_ja": "NEO HEALTHCARE",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:54:20.022Z"
+  },
+  "55accd24-7c71-4e23-b356-c2ab912ec976": {
+    "hospital_id": "55accd24-7c71-4e23-b356-c2ab912ec976",
+    "name_ja": "New Spineクリニック東京",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:54:23.694Z"
+  },
+  "165f4957-2217-4cb6-bb1e-044c6b131270": {
+    "hospital_id": "165f4957-2217-4cb6-bb1e-044c6b131270",
+    "name_ja": "RYO JIMBO DENTAL新瑞橋歯科・矯正歯科",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:54:27.214Z"
+  },
+  "91a1d9d6-b1e4-4095-be8b-9c5bef8e928c": {
+    "hospital_id": "91a1d9d6-b1e4-4095-be8b-9c5bef8e928c",
+    "name_ja": "THE PREVENTION CLINIC TOKYO",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:54:30.873Z"
+  },
+  "395148d8-7e4e-4eab-86ec-30aaf39273ff": {
+    "hospital_id": "395148d8-7e4e-4eab-86ec-30aaf39273ff",
+    "name_ja": "The Varicose Vein Clinic TOKYO（目黒外科）",
+    "caloo_id": "4130005266",
+    "caloo_url": "https://caloo.jp/hospitals/detail/4130005266",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "164b00c7-7324-45b9-9f14-2254902b2be2": {
+    "hospital_id": "164b00c7-7324-45b9-9f14-2254902b2be2",
+    "name_ja": "カツベ歯科クリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:54:38.180Z"
+  },
+  "c06611a0-44e5-4b0c-9999-761a77bfcef3": {
+    "hospital_id": "c06611a0-44e5-4b0c-9999-761a77bfcef3",
+    "name_ja": "グランドセントラルタワーTokyoアイクリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:54:41.850Z"
+  },
+  "e875fcda-bc16-447f-b454-24686fc6a4b7": {
+    "hospital_id": "e875fcda-bc16-447f-b454-24686fc6a4b7",
+    "name_ja": "チームメディカルクリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:54:45.500Z"
+  },
+  "255a0a73-28be-4d2c-b251-eba23c2d38f2": {
+    "hospital_id": "255a0a73-28be-4d2c-b251-eba23c2d38f2",
+    "name_ja": "マイヘルスクリニック心斎橋院",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:54:49.158Z"
+  },
+  "7882bf7c-3f5f-4e54-9c38-21b5cb912d93": {
+    "hospital_id": "7882bf7c-3f5f-4e54-9c38-21b5cb912d93",
+    "name_ja": "メディカルチェックスタジオ東京銀座クリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:54:52.669Z"
+  },
+  "ff5e66be-8cca-4f23-809b-c343ebcaab21": {
+    "hospital_id": "ff5e66be-8cca-4f23-809b-c343ebcaab21",
+    "name_ja": "一宮西病院 メディカルサポートセンター",
+    "caloo_id": "1230100150",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1230100150",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "e468cd0a-c5e5-4d46-a56e-93e1a24072e9": {
+    "hospital_id": "e468cd0a-c5e5-4d46-a56e-93e1a24072e9",
+    "name_ja": "中部徳洲会病院(沖縄) 【海外在住外国人用窓口】",
+    "caloo_id": "1470000051",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1470000051",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "fb334b2c-355c-4492-825e-e033fd775503": {
+    "hospital_id": "fb334b2c-355c-4492-825e-e033fd775503",
+    "name_ja": "京都そけいヘルニア日帰り手術 Gi外科クリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:55:03.563Z"
+  },
+  "6e66b87b-455c-4624-ac56-8a559fa1c742": {
+    "hospital_id": "6e66b87b-455c-4624-ac56-8a559fa1c742",
+    "name_ja": "京都府立医科大学附属病院",
+    "caloo_id": "1260000046",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1260000046",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "cb855f35-f348-4473-8b45-59fd413fe90c": {
+    "hospital_id": "cb855f35-f348-4473-8b45-59fd413fe90c",
+    "name_ja": "偕行会セントラルクリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:55:10.734Z"
+  },
+  "d676bf19-21e3-415c-90dc-4c49443b7df2": {
+    "hospital_id": "d676bf19-21e3-415c-90dc-4c49443b7df2",
+    "name_ja": "八重洲歯科診療所",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:55:14.377Z"
+  },
+  "7a63e982-8477-46ed-929e-07cdaaa2f306": {
+    "hospital_id": "7a63e982-8477-46ed-929e-07cdaaa2f306",
+    "name_ja": "兵庫医科大学病院",
+    "caloo_id": "1280001860",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1280001860",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "3c8d58ae-a403-4547-a0f6-31a86781cacf": {
+    "hospital_id": "3c8d58ae-a403-4547-a0f6-31a86781cacf",
+    "name_ja": "医学研究所北野病院",
+    "caloo_id": "1270000060",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1270000060",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "85980ded-7915-43eb-89fd-9e4c601ae201": {
+    "hospital_id": "85980ded-7915-43eb-89fd-9e4c601ae201",
+    "name_ja": "医療法人 大阪あべのリンパ浮腫クリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:55:25.299Z"
+  },
+  "ff392393-b1d9-4de6-904c-216d9fb8f9f4": {
+    "hospital_id": "ff392393-b1d9-4de6-904c-216d9fb8f9f4",
+    "name_ja": "医療法人 清医会 / 三上クリニック第一分院",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:55:28.844Z"
+  },
+  "a1ddb8b9-dc9f-4cfb-a4be-7b871b84fbeb": {
+    "hospital_id": "a1ddb8b9-dc9f-4cfb-a4be-7b871b84fbeb",
+    "name_ja": "医療法人 玉心会 鹿嶋ハートクリニック",
+    "caloo_id": "2080003087",
+    "caloo_url": "https://caloo.jp/hospitals/detail/2080003087",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "cd0fc911-15df-40bf-b0ba-d720cf151794": {
+    "hospital_id": "cd0fc911-15df-40bf-b0ba-d720cf151794",
+    "name_ja": "医療法人MIRIZE 博多トラストライズクリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:55:37.688Z"
+  },
+  "81484105-e5e6-41b4-8b29-44efc0b0b104": {
+    "hospital_id": "81484105-e5e6-41b4-8b29-44efc0b0b104",
+    "name_ja": "医療法人いさな会 中京眼科",
+    "caloo_id": "2232303600",
+    "caloo_url": "https://caloo.jp/hospitals/detail/2232303600",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "7f21319c-f6fe-466e-8137-d459a1a8274b": {
+    "hospital_id": "7f21319c-f6fe-466e-8137-d459a1a8274b",
+    "name_ja": "医療法人仁泉会 ＭＩクリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:55:44.975Z"
+  },
+  "866a7ad0-0eca-4247-a944-434e1bc8fd18": {
+    "hospital_id": "866a7ad0-0eca-4247-a944-434e1bc8fd18",
+    "name_ja": "医療法人友紘会 彩都友紘会病院",
+    "caloo_id": "1270002590",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1270002590",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "4be6f52c-0acb-4c32-b774-66ce2c9a82b9": {
+    "hospital_id": "4be6f52c-0acb-4c32-b774-66ce2c9a82b9",
+    "name_ja": "医療法人平成会 八戸平和病院",
+    "caloo_id": "1020000072",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1020000072",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "83df58e5-e9ec-4e29-800a-741bf6e505a8": {
+    "hospital_id": "83df58e5-e9ec-4e29-800a-741bf6e505a8",
+    "name_ja": "医療法人徳洲会 TIMC OSAKA",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:55:55.625Z"
+  },
+  "1f36a4cb-4015-4803-9e4a-ce9868ad07cd": {
+    "hospital_id": "1f36a4cb-4015-4803-9e4a-ce9868ad07cd",
+    "name_ja": "医療法人徳洲会 岸和田徳洲会病院",
+    "caloo_id": "1270005030",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1270005030",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "216432bc-718c-4fbd-9812-b6e87f25cbd5": {
+    "hospital_id": "216432bc-718c-4fbd-9812-b6e87f25cbd5",
+    "name_ja": "医療法人新産健会 LSI札幌クリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:56:02.820Z"
+  },
+  "f6d7df86-6573-4fdd-89ef-4562965b7265": {
+    "hospital_id": "f6d7df86-6573-4fdd-89ef-4562965b7265",
+    "name_ja": "医療法人明正会 今林整形外科病院",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:56:06.357Z"
+  },
+  "092e1fc2-2bc7-443c-a313-c0dd4e205dfd": {
+    "hospital_id": "092e1fc2-2bc7-443c-a313-c0dd4e205dfd",
+    "name_ja": "医療法人永仁会 Seeds Clinic 新宿三丁目",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:56:09.885Z"
+  },
+  "b64d162f-b374-40bd-b630-0ce4403f8bb6": {
+    "hospital_id": "b64d162f-b374-40bd-b630-0ce4403f8bb6",
+    "name_ja": "医療法人湘尽会 かとう前立腺クリニック東京",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:56:13.720Z"
+  },
+  "f4dd1b82-6a5e-4e7a-a091-bebaf3eb3ddb": {
+    "hospital_id": "f4dd1b82-6a5e-4e7a-a091-bebaf3eb3ddb",
+    "name_ja": "医療法人社団 ＤＮ画像診断クリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:56:17.250Z"
+  },
+  "f3d28993-8971-4629-b375-c8a74abbd913": {
+    "hospital_id": "f3d28993-8971-4629-b375-c8a74abbd913",
+    "name_ja": "医療法人社団 斗南堂 八王子クリニック 新宿",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:56:20.783Z"
+  },
+  "60a9570b-a73e-440c-987b-da127fadfb41": {
+    "hospital_id": "60a9570b-a73e-440c-987b-da127fadfb41",
+    "name_ja": "医療法人社団YM会 東京たかはしクリニック 練馬院",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:56:24.310Z"
+  },
+  "00781d8d-1a0e-42cf-89b9-245072c64979": {
+    "hospital_id": "00781d8d-1a0e-42cf-89b9-245072c64979",
+    "name_ja": "医療法人社団ホスピィー 浦田クリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:56:27.821Z"
+  },
+  "fef75086-75e7-4aa0-bfed-4c88f377f587": {
+    "hospital_id": "fef75086-75e7-4aa0-bfed-4c88f377f587",
+    "name_ja": "医療法人社団博施会 東京外科クリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:56:31.333Z"
+  },
+  "709f328a-881b-4f36-8887-cd52ad03eb67": {
+    "hospital_id": "709f328a-881b-4f36-8887-cd52ad03eb67",
+    "name_ja": "医療法人社団永康会 新宿西口腎クリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:56:34.835Z"
+  },
+  "b2b2c07d-808f-4f3e-89a4-1402713ed007": {
+    "hospital_id": "b2b2c07d-808f-4f3e-89a4-1402713ed007",
+    "name_ja": "医療法人社団盛心会 タカラクリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:56:38.338Z"
+  },
+  "a05bcc6d-88c0-4d61-9c65-5450bcb14857": {
+    "hospital_id": "a05bcc6d-88c0-4d61-9c65-5450bcb14857",
+    "name_ja": "医療法人社団祐優会 Okuno Clinic.（オクノクリニック）",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:56:41.869Z"
+  },
+  "9d785075-780f-40eb-b639-2d5d3ff1bf3b": {
+    "hospital_id": "9d785075-780f-40eb-b639-2d5d3ff1bf3b",
+    "name_ja": "医療法人社団福啓会 歯科＆矯正歯科オーラルデザインクリニック 秋葉原院",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:56:45.376Z"
+  },
+  "bd129514-7ff9-4ae3-b3b6-c487d574dc06": {
+    "hospital_id": "bd129514-7ff9-4ae3-b3b6-c487d574dc06",
+    "name_ja": "医療法人社団貴正会 /京都山科きぼうのクリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:56:48.900Z"
+  },
+  "b962cd69-a945-480e-8a5b-e3d3b79d93a6": {
+    "hospital_id": "b962cd69-a945-480e-8a5b-e3d3b79d93a6",
+    "name_ja": "医療法人蜂友会 はちや整形外科病院",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:56:52.414Z"
+  },
+  "49ad4972-966e-46ef-8283-ce882ee173f9": {
+    "hospital_id": "49ad4972-966e-46ef-8283-ce882ee173f9",
+    "name_ja": "医療法人財団健康院 健康院クリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:56:55.919Z"
+  },
+  "ac0221b6-42c1-42e2-a7ea-794d358b3d0f": {
+    "hospital_id": "ac0221b6-42c1-42e2-a7ea-794d358b3d0f",
+    "name_ja": "医療法人鉄蕉会 亀田総合病院【亀田メディカルセンター】",
+    "caloo_id": "1120489250",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1120489250",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "c1a2fa4a-2138-46bd-974f-2b0b8a824d91": {
+    "hospital_id": "c1a2fa4a-2138-46bd-974f-2b0b8a824d91",
+    "name_ja": "医療法人青心会 郡山青藍病院",
+    "caloo_id": "1290033000",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1290033000",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "712aaa8c-91c6-4647-8cc0-caab3d093f6f": {
+    "hospital_id": "712aaa8c-91c6-4647-8cc0-caab3d093f6f",
+    "name_ja": "千葉大学医学部附属病院",
+    "caloo_id": "1120542400",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1120542400",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "d315a2da-6515-4dd0-adbb-ee3ec57bcac5": {
+    "hospital_id": "d315a2da-6515-4dd0-adbb-ee3ec57bcac5",
+    "name_ja": "千葉西総合病院",
+    "caloo_id": "1120136170",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1120136170",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "e71ca68a-488b-4f02-a9a6-8a7191f6a7e1": {
+    "hospital_id": "e71ca68a-488b-4f02-a9a6-8a7191f6a7e1",
+    "name_ja": "半蔵門 渡海消化器・内視鏡クリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:57:29.222Z"
+  },
+  "b5c5179f-ce3e-40b6-a9ae-ba7bafaa2849": {
+    "hospital_id": "b5c5179f-ce3e-40b6-a9ae-ba7bafaa2849",
+    "name_ja": "南部徳洲会病院(沖縄) 【海外在住外国人用窓口】",
+    "caloo_id": "1470000089",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1470000089",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "6d51cc75-8334-42e9-87ab-ca88b030abca": {
+    "hospital_id": "6d51cc75-8334-42e9-87ab-ca88b030abca",
+    "name_ja": "博愛会 さがらパース通りクリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:57:51.897Z"
+  },
+  "350f2d2e-b9df-4c5d-8ea3-1a98ce0921a7": {
+    "hospital_id": "350f2d2e-b9df-4c5d-8ea3-1a98ce0921a7",
+    "name_ja": "吉祥寺駅前クリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:58:04.143Z"
+  },
+  "6cb5aa43-5080-475e-b317-4009f0c0bdae": {
+    "hospital_id": "6cb5aa43-5080-475e-b317-4009f0c0bdae",
+    "name_ja": "名古屋掖済会病院",
+    "caloo_id": "1232300230",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1232300230",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "f099a30d-a77d-49c3-a20d-39c87e74dfb1": {
+    "hospital_id": "f099a30d-a77d-49c3-a20d-39c87e74dfb1",
+    "name_ja": "名港共立クリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:58:26.915Z"
+  },
+  "880c74fe-133d-4b96-9804-eddada9d95e0": {
+    "hospital_id": "880c74fe-133d-4b96-9804-eddada9d95e0",
+    "name_ja": "四谷メディカルキューブ",
+    "caloo_id": "2136420400",
+    "caloo_url": "https://caloo.jp/hospitals/detail/2136420400",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "859850e8-8ad4-4a50-94b0-bd394767532c": {
+    "hospital_id": "859850e8-8ad4-4a50-94b0-bd394767532c",
+    "name_ja": "国立国際医療研究センター (NCGM)／人間ドックセンター",
+    "caloo_id": "1130800120",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1130800120",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "b46b49fa-ce50-4ead-a953-3b04815574c0": {
+    "hospital_id": "b46b49fa-ce50-4ead-a953-3b04815574c0",
+    "name_ja": "国立研究開発法人 国立循環器病研究センター",
+    "caloo_id": "1270002460",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1270002460",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "b7ac024a-326a-4c7e-bc11-5893e6f24431": {
+    "hospital_id": "b7ac024a-326a-4c7e-bc11-5893e6f24431",
+    "name_ja": "地方独立行政法人 大阪府立病院機構 大阪国際がんセンター",
+    "caloo_id": "1270000600",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1270000600",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "ae954e9f-11f7-43fb-b16e-af5266a0a7d3": {
+    "hospital_id": "ae954e9f-11f7-43fb-b16e-af5266a0a7d3",
+    "name_ja": "大分先端画像診断センター",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:59:24.007Z"
+  },
+  "69fbe477-eb63-4000-99e5-1339b1f75ba2": {
+    "hospital_id": "69fbe477-eb63-4000-99e5-1339b1f75ba2",
+    "name_ja": "大阪公立大学医学部附属病院 先端予防医療部附属クリニックMedCity21",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T14:59:35.316Z"
+  },
+  "40e3dca4-e70c-44f6-b847-a10d56a030dc": {
+    "hospital_id": "40e3dca4-e70c-44f6-b847-a10d56a030dc",
+    "name_ja": "大阪医科薬科大学病院",
+    "caloo_id": "1270002850",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1270002850",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "f0cefce5-49df-4f68-8fca-ff14abaa1f19": {
+    "hospital_id": "f0cefce5-49df-4f68-8fca-ff14abaa1f19",
+    "name_ja": "大阪国際がんセンター",
+    "caloo_id": "1270000600",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1270000600",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "6f6f857d-a452-496a-8fe7-4c7f2f417b22": {
+    "hospital_id": "6f6f857d-a452-496a-8fe7-4c7f2f417b22",
+    "name_ja": "大阪国際メディカル＆サイエンスセンター大阪けいさつ病院",
+    "caloo_id": "1270000780",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1270000780",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "47f4512f-9ac1-4aa9-b2d0-9b62066b5f36": {
+    "hospital_id": "47f4512f-9ac1-4aa9-b2d0-9b62066b5f36",
+    "name_ja": "大阪日帰り外科そけいヘルニアクリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T15:00:20.745Z"
+  },
+  "4e79408a-eec7-4a45-b05f-0f603a24131f": {
+    "hospital_id": "4e79408a-eec7-4a45-b05f-0f603a24131f",
+    "name_ja": "大阪重粒子線センター",
+    "caloo_id": "4270005524",
+    "caloo_url": "https://caloo.jp/hospitals/detail/4270005524",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "1ee6a3ad-94d5-46dd-afd5-9ccc3b044846": {
+    "hospital_id": "1ee6a3ad-94d5-46dd-afd5-9ccc3b044846",
+    "name_ja": "大阪重粒子線センター（大阪国際がん治療財団）",
+    "caloo_id": "4270005524",
+    "caloo_url": "https://caloo.jp/hospitals/detail/4270005524",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "c22527e2-614a-4428-9bc7-bfb34991f941": {
+    "hospital_id": "c22527e2-614a-4428-9bc7-bfb34991f941",
+    "name_ja": "天神会 古賀病院21",
+    "caloo_id": "1400001300",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1400001300",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "c051b6d5-4a65-4c3a-8109-8de33df9e127": {
+    "hospital_id": "c051b6d5-4a65-4c3a-8109-8de33df9e127",
+    "name_ja": "慶應義塾大学病院",
+    "caloo_id": "1130900280",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1130900280",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "f6163e4a-82b5-447b-b284-df1456228b05": {
+    "hospital_id": "f6163e4a-82b5-447b-b284-df1456228b05",
+    "name_ja": "日本医科大学 健診医療センター",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T15:01:17.886Z"
+  },
+  "8981f29f-28dc-400e-9cae-10c60a9fba7b": {
+    "hospital_id": "8981f29f-28dc-400e-9cae-10c60a9fba7b",
+    "name_ja": "日本医科大学 千葉北総病院",
+    "caloo_id": "1120243170",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1120243170",
+    "status": "found",
+    "searched_at": "2026-03-18T15:24:21.520Z"
+  },
+  "8adc45a4-d873-4249-a88d-27ee225ed848": {
+    "hospital_id": "8adc45a4-d873-4249-a88d-27ee225ed848",
+    "name_ja": "札幌東徳洲会病院",
+    "caloo_id": "1010000700",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1010000700",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.429Z"
+  },
+  "116b278f-1abd-4dd4-b3ec-9693f66dcab8": {
+    "hospital_id": "116b278f-1abd-4dd4-b3ec-9693f66dcab8",
+    "name_ja": "東京・八重洲総合健診センター",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T15:01:51.940Z"
+  },
+  "4128c015-81fc-45da-9fd7-e0972180f1d7": {
+    "hospital_id": "4128c015-81fc-45da-9fd7-e0972180f1d7",
+    "name_ja": "東京ネフロクリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T15:02:03.560Z"
+  },
+  "4784e1e8-9098-401c-bee1-1d706128950b": {
+    "hospital_id": "4784e1e8-9098-401c-bee1-1d706128950b",
+    "name_ja": "東京内視鏡クリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T15:02:07.251Z"
+  },
+  "18d517e0-42fa-40ed-bf75-50c161a80493": {
+    "hospital_id": "18d517e0-42fa-40ed-bf75-50c161a80493",
+    "name_ja": "東京国際クリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T15:02:10.802Z"
+  },
+  "0739d3a0-d8f5-4b64-8f2e-c1fb229599a0": {
+    "hospital_id": "0739d3a0-d8f5-4b64-8f2e-c1fb229599a0",
+    "name_ja": "東京西徳洲会病院",
+    "caloo_id": "1139200390",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1139200390",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.430Z"
+  },
+  "cf5a88af-63c4-42bd-a93c-25b40258c80d": {
+    "hospital_id": "cf5a88af-63c4-42bd-a93c-25b40258c80d",
+    "name_ja": "東海大学医学部付属病院",
+    "caloo_id": "1140200410",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1140200410",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.430Z"
+  },
+  "85039af3-851b-4f60-ad79-0ca4361db755": {
+    "hospital_id": "85039af3-851b-4f60-ad79-0ca4361db755",
+    "name_ja": "柴垣医院 自由が丘 「人工透析内科」",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T15:02:21.618Z"
+  },
+  "70b6d309-7bc1-4a67-b77a-f5a14022de0f": {
+    "hospital_id": "70b6d309-7bc1-4a67-b77a-f5a14022de0f",
+    "name_ja": "株式会社HIROTSUバイオサイエンス",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T15:02:25.270Z"
+  },
+  "7132740c-d770-48fc-a340-7652c2d59f1b": {
+    "hospital_id": "7132740c-d770-48fc-a340-7652c2d59f1b",
+    "name_ja": "榊原記念病院附属クリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T15:02:28.821Z"
+  },
+  "6a509c19-e75e-4409-9b0e-0dfce7796f3b": {
+    "hospital_id": "6a509c19-e75e-4409-9b0e-0dfce7796f3b",
+    "name_ja": "榛原総合病院／医療法人沖縄徳洲会【海外在住外国人用窓口】",
+    "caloo_id": "1226300190",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1226300190",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.430Z"
+  },
+  "ab986c26-40f7-4c08-932b-dc8d6ce58b98": {
+    "hospital_id": "ab986c26-40f7-4c08-932b-dc8d6ce58b98",
+    "name_ja": "洛和会音羽病院",
+    "caloo_id": "1260000116",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1260000116",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.430Z"
+  },
+  "67b7567a-7967-43b3-9eae-076dd5e53b7c": {
+    "hospital_id": "67b7567a-7967-43b3-9eae-076dd5e53b7c",
+    "name_ja": "淡海せぼねクリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T15:02:39.510Z"
+  },
+  "fc89a1c7-1db2-47b8-959f-2e93634bcc51": {
+    "hospital_id": "fc89a1c7-1db2-47b8-959f-2e93634bcc51",
+    "name_ja": "湘南藤沢徳洲会病院",
+    "caloo_id": "4140000640",
+    "caloo_url": "https://caloo.jp/hospitals/detail/4140000640",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.430Z"
+  },
+  "b56c164e-7203-40e3-ae45-602c59c35f7d": {
+    "hospital_id": "b56c164e-7203-40e3-ae45-602c59c35f7d",
+    "name_ja": "湘南鎌倉総合病院（医療法人徳洲会）",
+    "caloo_id": "1140041940",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1140041940",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.430Z"
+  },
+  "92f09d24-74ac-4ea3-82bb-2dafdc0fe65f": {
+    "hospital_id": "92f09d24-74ac-4ea3-82bb-2dafdc0fe65f",
+    "name_ja": "独立行政法人 国立病院機構 大阪刀根山医療センター",
+    "caloo_id": "1270002020",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1270002020",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.430Z"
+  },
+  "b6d92be2-4848-4167-a503-3b71cb9b1f26": {
+    "hospital_id": "b6d92be2-4848-4167-a503-3b71cb9b1f26",
+    "name_ja": "独立行政法人 国立病院機構 大阪医療センター",
+    "caloo_id": "1270000680",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1270000680",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.430Z"
+  },
+  "c93b24e1-0225-41df-8cbf-09c4b5d2b23a": {
+    "hospital_id": "c93b24e1-0225-41df-8cbf-09c4b5d2b23a",
+    "name_ja": "独立行政法人 国立病院機構 村山医療センター",
+    "caloo_id": "1137901710",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1137901710",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.430Z"
+  },
+  "9789701f-d94a-4026-8f96-3005054f7bc5": {
+    "hospital_id": "9789701f-d94a-4026-8f96-3005054f7bc5",
+    "name_ja": "社会医療法人厚生会 中部国際医療センター",
+    "caloo_id": "4210000568",
+    "caloo_url": "https://caloo.jp/hospitals/detail/4210000568",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.430Z"
+  },
+  "aebe90b2-47d4-47a2-9811-ca592d59e72e": {
+    "hospital_id": "aebe90b2-47d4-47a2-9811-ca592d59e72e",
+    "name_ja": "社会医療法人社団 三思会 新横浜メディカルサテライト",
+    "caloo_id": "4140001939",
+    "caloo_url": "https://caloo.jp/hospitals/detail/4140001939",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.430Z"
+  },
+  "bf322d4b-baaa-431d-8e58-81d37807eb84": {
+    "hospital_id": "bf322d4b-baaa-431d-8e58-81d37807eb84",
+    "name_ja": "社会医療法人財団 董仙会 恵寿総合病院",
+    "caloo_id": "1173110003",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1173110003",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.430Z"
+  },
+  "66697718-f77d-41b9-8c08-2b849e7f61dc": {
+    "hospital_id": "66697718-f77d-41b9-8c08-2b849e7f61dc",
+    "name_ja": "社会福祉法人 大阪暁明館 暁明館透析クリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T15:09:22.737Z"
+  },
+  "1d004589-69fd-4e48-bf65-27e40a12fd54": {
+    "hospital_id": "1d004589-69fd-4e48-bf65-27e40a12fd54",
+    "name_ja": "社会福祉法人恩賜財団済生会支部北海道 済生会小樽病院",
+    "caloo_id": "1010002900",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1010002900",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.430Z"
+  },
+  "4f561419-9742-44e4-9d63-835bb876f9cb": {
+    "hospital_id": "4f561419-9742-44e4-9d63-835bb876f9cb",
+    "name_ja": "神奈川歯科大学附属 横浜クリニック",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T15:11:33.594Z"
+  },
+  "75dd180f-be78-4b7e-bf5c-b0b686147613": {
+    "hospital_id": "75dd180f-be78-4b7e-bf5c-b0b686147613",
+    "name_ja": "神奈川県立病院機構 神奈川県立がんセンター",
+    "caloo_id": "1140503400",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1140503400",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.430Z"
+  },
+  "1a58ee30-22f5-44c7-b312-06f21927d68a": {
+    "hospital_id": "1a58ee30-22f5-44c7-b312-06f21927d68a",
+    "name_ja": "稲波脊椎・関節病院",
+    "caloo_id": "4130003146",
+    "caloo_url": "https://caloo.jp/hospitals/detail/4130003146",
+    "status": "found",
+    "searched_at": "2026-03-18T15:21:46.430Z"
+  },
+  "79c491ef-6d8b-4fd8-a673-2f65d86ad633": {
+    "hospital_id": "79c491ef-6d8b-4fd8-a673-2f65d86ad633",
+    "name_ja": "順天堂大学医学部附属順天堂医院",
+    "caloo_id": "1131200600",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1131200600",
+    "status": "found",
+    "searched_at": "2026-03-18T15:24:21.519Z"
+  },
+  "12653073-00d1-47aa-a061-4fd696003696": {
+    "hospital_id": "12653073-00d1-47aa-a061-4fd696003696",
+    "name_ja": "聖路加国際病院附属／ 聖路加メディローカス",
+    "caloo_id": "4130002077",
+    "caloo_url": "https://caloo.jp/hospitals/detail/4130002077",
+    "status": "found",
+    "searched_at": "2026-03-18T15:24:21.520Z"
+  },
+  "2d502324-f9b5-4e96-956d-6b28a3fd0577": {
+    "hospital_id": "2d502324-f9b5-4e96-956d-6b28a3fd0577",
+    "name_ja": "聖隷浜松病院／聖隷健康診断センター",
+    "caloo_id": "1223301590",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1223301590",
+    "status": "found",
+    "searched_at": "2026-03-18T15:24:21.520Z"
+  },
+  "5638961e-d8f2-48fd-b013-4df71588bfc0": {
+    "hospital_id": "5638961e-d8f2-48fd-b013-4df71588bfc0",
+    "name_ja": "総合病院厚生中央病院",
+    "caloo_id": "1132101010",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1132101010",
+    "status": "found",
+    "searched_at": "2026-03-18T15:24:21.520Z"
+  },
+  "d4a744ba-b94b-4f70-a1d4-9b7ca5e1dfcb": {
+    "hospital_id": "d4a744ba-b94b-4f70-a1d4-9b7ca5e1dfcb",
+    "name_ja": "藤田医科大学 羽田クリニック",
+    "caloo_id": "1230400030",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1230400030",
+    "status": "found",
+    "searched_at": "2026-03-18T15:24:21.520Z"
+  },
+  "c85bd70a-f297-46bb-9776-94582cdfb53b": {
+    "hospital_id": "c85bd70a-f297-46bb-9776-94582cdfb53b",
+    "name_ja": "耳鼻咽喉科サージクリニック老木医院",
+    "caloo_id": "2270076880",
+    "caloo_url": "https://caloo.jp/hospitals/detail/2270076880",
+    "status": "found",
+    "searched_at": "2026-03-18T15:24:21.520Z"
+  },
+  "7156c8f4-1019-479d-bb42-ccb6bc30338f": {
+    "hospital_id": "7156c8f4-1019-479d-bb42-ccb6bc30338f",
+    "name_ja": "静岡てんかん・神経医療センター",
+    "caloo_id": "1223100780",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1223100780",
+    "status": "found",
+    "searched_at": "2026-03-18T15:24:21.520Z"
+  },
+  "ab0f16bb-89f7-419a-8dda-a3fe6a15f357": {
+    "hospital_id": "ab0f16bb-89f7-419a-8dda-a3fe6a15f357",
+    "name_ja": "金沢医科大学病院",
+    "caloo_id": "1172210002",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1172210002",
+    "status": "found",
+    "searched_at": "2026-03-18T15:24:21.520Z"
+  },
+  "dcf08417-a541-4c5b-9804-2f8acb036ea3": {
+    "hospital_id": "dcf08417-a541-4c5b-9804-2f8acb036ea3",
+    "name_ja": "関西医科大学天満橋総合クリニック",
+    "caloo_id": "1270002930",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1270002930",
+    "status": "found",
+    "searched_at": "2026-03-18T15:24:21.520Z"
+  },
+  "afa3299c-5af7-45e7-8560-849adb7343f3": {
+    "hospital_id": "afa3299c-5af7-45e7-8560-849adb7343f3",
+    "name_ja": "関西医科大学附属病院",
+    "caloo_id": "1270003350",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1270003350",
+    "status": "found",
+    "searched_at": "2026-03-18T15:24:21.520Z"
+  },
+  "6ffbe7d0-a853-43f8-b998-4eba8c05cb69": {
+    "hospital_id": "6ffbe7d0-a853-43f8-b998-4eba8c05cb69",
+    "name_ja": "鎌ケ谷総合病院（徳洲会）",
+    "caloo_id": "1120001830",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1120001830",
+    "status": "found",
+    "searched_at": "2026-03-18T15:24:21.520Z"
+  },
+  "7d26b386-81a6-4189-a7ed-0a9537a38a60": {
+    "hospital_id": "7d26b386-81a6-4189-a7ed-0a9537a38a60",
+    "name_ja": "近江草津徳洲会病院",
+    "caloo_id": "1250010035",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1250010035",
+    "status": "found",
+    "searched_at": "2026-03-18T15:24:21.520Z"
+  },
+  "3214d800-2504-4ac0-8b2e-f9f373506346": {
+    "hospital_id": "3214d800-2504-4ac0-8b2e-f9f373506346",
+    "name_ja": "虎の門病院／健康管理センター",
+    "caloo_id": "1130501720",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1130501720",
+    "status": "found",
+    "searched_at": "2026-03-18T15:24:21.521Z"
+  },
+  "5be4ffdd-dcf1-493d-a859-fa51732ef1d4": {
+    "hospital_id": "5be4ffdd-dcf1-493d-a859-fa51732ef1d4",
+    "name_ja": "豊見城中央病院附属 豊崎クリニック【海外在住外国人用窓口】",
+    "caloo_id": "1470000068",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1470000068",
+    "status": "found",
+    "searched_at": "2026-03-18T15:24:21.521Z"
+  },
+  "aba22335-e44d-4912-a32c-c69c32785143": {
+    "hospital_id": "aba22335-e44d-4912-a32c-c69c32785143",
+    "name_ja": "阪和インテリジェント医療センター（錦秀会阪和第二泉北病院）",
+    "caloo_id": "1270005540",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1270005540",
+    "status": "found",
+    "searched_at": "2026-03-18T15:24:21.521Z"
+  },
+  "9f2c0241-ca0f-43ee-8f5f-329421f0ea1b": {
+    "hospital_id": "9f2c0241-ca0f-43ee-8f5f-329421f0ea1b",
+    "name_ja": "総合南東北病院",
+    "caloo_id": "1070000114",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1070000114",
+    "status": "found",
+    "searched_at": "2026-03-18T15:24:21.521Z"
+  },
+  "95febd65-f4cd-4223-a47d-226db7cd0010": {
+    "hospital_id": "95febd65-f4cd-4223-a47d-226db7cd0010",
+    "name_ja": "豊島中央病院",
+    "caloo_id": "1133701130",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1133701130",
+    "status": "found",
+    "searched_at": "2026-03-18T15:24:21.521Z"
+  },
+  "eb0949e2-4577-4a18-aa03-7edb328bbd32": {
+    "hospital_id": "eb0949e2-4577-4a18-aa03-7edb328bbd32",
+    "name_ja": "関西医科大学総合医療センター",
+    "caloo_id": "1270002930",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1270002930",
+    "status": "found",
+    "searched_at": "2026-03-18T15:24:21.521Z"
+  },
+  "184a3517-988b-4d4f-916f-e352f84861a1": {
+    "hospital_id": "184a3517-988b-4d4f-916f-e352f84861a1",
+    "name_ja": "興学会 新橋歯科医療診療所",
+    "caloo_id": "",
+    "caloo_url": "",
+    "status": "not_found",
+    "searched_at": "2026-03-18T15:24:34.299Z"
+  },
+  "fb72a1dd-cf27-4cf4-99ec-f3a0d82b267c": {
+    "hospital_id": "fb72a1dd-cf27-4cf4-99ec-f3a0d82b267c",
+    "name_ja": "近畿大学病院",
+    "caloo_id": "1270003400",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1270003400",
+    "status": "found",
+    "searched_at": "2026-03-18T15:24:34.299Z"
+  },
+  "3b5e892c-58d9-4b35-a3f7-0296368ab7ed": {
+    "hospital_id": "3b5e892c-58d9-4b35-a3f7-0296368ab7ed",
+    "name_ja": "筑波大学附属病院",
+    "caloo_id": "1080000170",
+    "caloo_url": "https://caloo.jp/hospitals/detail/1080000170",
+    "status": "found",
+    "searched_at": "2026-03-18T15:24:34.299Z"
+  }
+}

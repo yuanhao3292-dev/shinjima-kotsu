@@ -273,11 +273,9 @@ interface ReferralReward {
   referee: {
     name: string;
   } | null;
-  booking: {
+  order: {
     customer_name: string;
-    venue: {
-      name: string;
-    } | null;
+    package_name: string;
   } | null;
 }
 
@@ -336,25 +334,38 @@ export default function ReferralsPage() {
           reward_type,
           status,
           created_at,
-          referee:guides!referral_rewards_referee_id_fkey(name),
-          booking:bookings(customer_name, venue:venues(name))
+          booking_id,
+          referee:guides!referral_rewards_referee_id_fkey(name)
         `)
         .eq('referrer_id', guideData.id)
         .order('created_at', { ascending: false })
         .limit(50);
 
-      // Transform referee and booking from array to object (including nested venue)
-      const transformedRewards = (rewardsData || []).map(r => {
-        const booking = Array.isArray(r.booking) ? r.booking[0] : r.booking;
-        return {
+      // booking_id 实际存的是 orders.id，单独查询订单信息
+      const transformedRewards: ReferralReward[] = [];
+      for (const r of rewardsData || []) {
+        let orderInfo: { customer_name: string; package_name: string } | null = null;
+        if (r.booking_id) {
+          const { data: order } = await supabase
+            .from('orders')
+            .select('customer_snapshot, medical_packages(name_ja)')
+            .eq('id', r.booking_id)
+            .maybeSingle();
+          if (order) {
+            const snapshot = order.customer_snapshot as Record<string, string> | null;
+            const pkg = Array.isArray(order.medical_packages) ? order.medical_packages[0] : order.medical_packages;
+            orderInfo = {
+              customer_name: snapshot?.name || snapshot?.full_name || '',
+              package_name: (pkg as Record<string, string> | null)?.name_ja || '',
+            };
+          }
+        }
+        transformedRewards.push({
           ...r,
           referee: Array.isArray(r.referee) ? r.referee[0] : r.referee,
-          booking: booking ? {
-            ...booking,
-            venue: Array.isArray(booking.venue) ? booking.venue[0] : booking.venue
-          } : null
-        };
-      }) as ReferralReward[];
+          order: orderInfo,
+        } as ReferralReward);
+      }
       setRewards(transformedRewards);
     } catch (error) {
       console.error('Error:', error);
@@ -600,10 +611,10 @@ export default function ReferralsPage() {
                         <p className="font-medium text-gray-900">
                           {reward.referee?.name || t('unknownGuide', lang)}{t('performanceReward', lang)}
                         </p>
-                        {reward.booking && (
+                        {reward.order && (
                           <p className="text-sm text-gray-500">
-                            {t('customer', lang)}{reward.booking.customer_name}
-                            {reward.booking.venue && ` · ${reward.booking.venue.name}`}
+                            {reward.order.customer_name && `${t('customer', lang)}${reward.order.customer_name}`}
+                            {reward.order.package_name && ` · ${reward.order.package_name}`}
                           </p>
                         )}
                         <p className="text-xs text-gray-400">

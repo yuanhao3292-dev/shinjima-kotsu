@@ -59,6 +59,43 @@ export async function middleware(request: NextRequest) {
   const hostname = request.headers.get('host') || '';
   const pathname = request.nextUrl.pathname;
 
+  // ========== CSRF Protection for State-Changing API Requests ==========
+  const isStateChangingMethod = ['POST', 'PUT', 'PATCH', 'DELETE'].includes(request.method);
+  const isApiRoute = pathname.startsWith('/api/');
+  // Stripe webhooks use their own signature verification — skip CSRF
+  const isWebhook = pathname.startsWith('/api/webhooks/');
+  // Cron jobs are called by Vercel scheduler — skip CSRF
+  const isCron = pathname.startsWith('/api/cron/');
+
+  if (isStateChangingMethod && isApiRoute && !isWebhook && !isCron) {
+    const origin = request.headers.get('origin');
+    const ALLOWED_ORIGINS = new Set([
+      `https://${DOMAINS.official}`,
+      `https://www.${DOMAINS.official}`,
+      `https://${DOMAINS.whitelabel}`,
+      // Development
+      'http://localhost:3000',
+      'http://localhost:3001',
+    ]);
+
+    // Also allow any subdomain of whitelabel domain
+    const isAllowedOrigin = origin && (
+      ALLOWED_ORIGINS.has(origin) ||
+      origin.endsWith(`.${DOMAINS.whitelabel}`)
+    );
+
+    if (!isAllowedOrigin) {
+      // No valid origin → reject (except for server-to-server calls with API key)
+      const hasApiKey = request.headers.get('x-api-key');
+      if (!hasApiKey) {
+        return new NextResponse(JSON.stringify({ error: 'CSRF validation failed' }), {
+          status: 403,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+    }
+  }
+
   // ========== 跳过 Next.js 内部请求的限速 ==========
   // prefetch 和 RSC 客户端导航是框架自动发起的，不应消耗限速配额
   const isPrefetch = request.headers.get('next-router-prefetch') === '1'

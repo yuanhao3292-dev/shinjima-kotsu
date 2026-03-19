@@ -81,6 +81,17 @@ export async function POST(request: NextRequest) {
       return createErrorResponse(Errors.validation('该邮箱已被注册'));
     }
 
+    // 2.5 检查手机号是否已存在
+    const { data: existingPhone } = await supabase
+      .from('guides')
+      .select('phone')
+      .eq('phone', phone)
+      .maybeSingle();
+
+    if (existingPhone) {
+      return createErrorResponse(Errors.validation('该手机号已被注册'));
+    }
+
     // 3. 生成唯一的推荐码（带重试机制）
     let referralCode: string;
     try {
@@ -117,10 +128,8 @@ export async function POST(request: NextRequest) {
         wechat_id: wechat_id || null,
         referral_code: referralCode,
         referrer_id: referrerId, // ✅ 设置推荐人 ID
-        preferred_locale: locale || 'ja',
         status: 'approved',
         level: 'bronze',
-        kyc_status: 'pending',
         total_commission: 0,
         total_bookings: 0,
       });

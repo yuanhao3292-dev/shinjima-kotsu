@@ -22,10 +22,16 @@ import {
   Puzzle,
   FileText,
   ClipboardCheck,
+  BarChart3,
+  Target,
+  Building2,
 } from 'lucide-react';
 
 const navItems = [
   { icon: LayoutDashboard, label: '控制台', href: '/admin' },
+  { icon: BarChart3, label: '数据分析', href: '/admin/analytics' },
+  { icon: Target, label: 'Data Flywheel', href: '/admin/outcomes' },
+  { icon: Building2, label: 'Enterprise B2B', href: '/admin/enterprises' },
   { icon: UserCheck, label: 'KYC 審核', href: '/admin/kyc' },
   { icon: Users, label: '導遊管理', href: '/admin/guides' },
   { icon: Wallet, label: '結算審核', href: '/admin/settlements' },

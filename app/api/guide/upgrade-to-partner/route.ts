@@ -168,8 +168,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Guide not found" }, { status: 404 });
     }
 
-    // 检查是否已经是该等级
-    if (guide.subscription_tier === planCode) {
+    // 检查是否已经是该等级（必须同时有活跃订阅才算）
+    if (guide.subscription_tier === planCode && guide.subscription_status === 'active') {
       return NextResponse.json(
         { error: `您已经是${PLANS[planCode].name}，无需重复订阅` },
         { status: 400 }
@@ -183,7 +183,7 @@ export async function POST(request: NextRequest) {
         .select("id, status")
         .eq("guide_id", guideId)
         .eq("status", "completed")
-        .single();
+        .maybeSingle();
 
       if (existingEntryFee) {
         // 入场费已支付但导游未升级 → 历史异常数据，清理并允许重新支付

@@ -137,7 +137,7 @@ export async function POST(request: NextRequest) {
             // 获取导游信息并发送订阅成功邮件
             const { data: guideData } = await supabase
               .from('guides')
-              .select('name, email, slug, preferred_locale')
+              .select('name, email, slug')
               .eq('id', guideId)
               .single();
 
@@ -162,7 +162,7 @@ export async function POST(request: NextRequest) {
                 subscriptionPlan: planName,
                 monthlyPrice,
                 whitelabelUrl,
-                locale: (guideData.preferred_locale || 'ja') as 'ja' | 'zh-CN' | 'zh-TW' | 'en',
+                locale: 'ja',
               })
                 .then(() => console.log(`[Webhook] 已发送订阅成功邮件给 ${guideData.email}`))
                 .catch((err) => console.error(`[Webhook] 发送邮件失败（不影响订阅）:`, err));

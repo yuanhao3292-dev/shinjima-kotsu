@@ -175,8 +175,9 @@ export default function LeaderboardPage() {
       // 只顯示已通過審核的導遊
       const { data: guides, error } = await supabase
         .from('guides')
-        .select('id, name, level, total_commission, total_bookings')
+        .select('id, name, commission_tier_code, total_commission, total_bookings')
         .eq('status', 'approved')
+        .gt('total_commission', 0)
         .order('total_commission', { ascending: false })
         .limit(50);
 
@@ -189,7 +190,7 @@ export default function LeaderboardPage() {
       const leaderboardData: LeaderboardEntry[] = (guides || []).map((guide, index) => ({
         id: guide.id,
         name: maskName(guide.name),
-        level: guide.level,
+        level: guide.commission_tier_code || 'growth',
         total_commission: guide.total_commission || 0,
         total_bookings: guide.total_bookings || 0,
         rank: index + 1,
@@ -260,7 +261,7 @@ export default function LeaderboardPage() {
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
-        <div className="p-6 lg:p-8 max-w-4xl">
+        <div className="p-6 lg:p-8">
           {/* Header */}
           <div className="mb-6">
             <div className="flex items-center gap-3">

@@ -4,7 +4,6 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
-import Logo from '@/components/Logo';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
@@ -84,14 +83,16 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
   return (
     <>
       {/* Mobile Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b z-50 flex items-center justify-between px-4">
-        <div className="flex items-center gap-2">
-          <Logo className="w-8 h-8 text-brand-600" />
-          <span className="font-bold">{pageTitle || ts('guideBackend', lang)}</span>
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white shadow-sm z-50 flex items-center justify-between px-4">
+        <div className="flex items-center gap-3">
+          <div className="flex flex-col items-center">
+            <span className="font-serif font-bold text-lg tracking-wide leading-none text-neutral-900">NIIJIMA</span>
+            <span className="text-[10px] uppercase tracking-widest leading-none mt-1 text-neutral-400">{pageTitle || ts('guideBackend', lang)}</span>
+          </div>
         </div>
         <div className="flex items-center gap-2">
           <LanguageSwitcher variant="compact" />
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2">
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 text-neutral-600">
             {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -104,11 +105,10 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
         lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
       `}
       >
-        <div className="h-16 flex items-center gap-3 px-6 border-b">
-          <Logo className="w-8 h-8 text-brand-600" />
-          <div>
-            <span className="font-serif font-bold text-gray-900 tracking-wider">NIIJIMA</span>
-            <p className="text-xs text-gray-500">Guide Partner</p>
+        <div className="h-20 flex items-center gap-3 px-6 border-b">
+          <div className="flex flex-col items-center">
+            <span className="font-serif font-bold text-lg tracking-wide leading-none text-neutral-900">NIIJIMA</span>
+            <span className="text-[10px] uppercase tracking-widest leading-none mt-1 text-neutral-400">{ts('guideBackend', lang)}</span>
           </div>
         </div>
 
@@ -121,20 +121,18 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
                 href={item.href}
                 onClick={() => setSidebarOpen(false)}
                 className={`
-                  flex items-center gap-3 px-4 py-3 rounded-xl transition
+                  flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition
                   ${
                     active
-                      ? 'bg-brand-50 text-brand-600 font-medium'
-                      : item.highlight
-                        ? 'text-blue-600 hover:bg-blue-50 font-medium'
-                        : 'text-gray-600 hover:bg-gray-50'
+                      ? 'bg-brand-50 text-brand-700'
+                      : 'text-neutral-600 hover:text-brand-700 hover:bg-neutral-50'
                   }
                 `}
               >
                 <item.icon size={20} />
                 <span>{item.label[lang]}</span>
                 {item.highlight && !active && (
-                  <span className="ml-auto px-2 py-0.5 bg-blue-100 text-blue-600 text-xs rounded-full">
+                  <span className="ml-auto px-2 py-0.5 bg-gold-50 text-gold-600 text-xs font-medium rounded-full">
                     NEW
                   </span>
                 )}
@@ -147,7 +145,7 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
           <LanguageSwitcher variant="sidebar" />
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3 w-full text-gray-600 hover:bg-gray-50 rounded-xl transition"
+            className="flex items-center gap-3 px-4 py-3 w-full text-neutral-600 hover:text-brand-700 hover:bg-neutral-50 rounded-xl text-sm font-medium transition"
           >
             <LogOut size={20} />
             <span>{ts('logout', lang)}</span>

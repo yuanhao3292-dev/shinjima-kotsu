@@ -11,7 +11,7 @@
  */
 
 import { getSupabaseAdmin } from '@/lib/supabase/api';
-import type { AEMCPipelineResult, AIRunRecord } from './types';
+import type { AEMCPipelineResult, AIRunRecord, StructuredCase } from './types';
 import { aemcLog } from './logger';
 
 // ============================================================
@@ -33,6 +33,7 @@ export async function persistPipelineResults(
     persistAIRuns(pipelineResult.ai_runs, screeningType),
     persistAdjudication(pipelineResult, screeningType),
     persistHospitalMatches(pipelineResult, screeningType),
+    persistStructuredCase(pipelineResult, screeningType),
   ]);
 }
 
@@ -172,6 +173,76 @@ async function persistHospitalMatches(
     }
   } catch (err) {
     aemcLog.warn('persistence', 'Hospital matches persistence error', {
+      error: err instanceof Error ? err.message : String(err),
+    });
+  }
+}
+
+// ============================================================
+// 结构化病历持久化（训练数据积累）
+// ============================================================
+
+/**
+ * 插入 AI-1 Extractor 的结构化输出到 screening_structured_cases
+ * 用途：prompt 改善 / 知识库构建 / Safety Gate 阈值校正
+ */
+async function persistStructuredCase(
+  pipeline: AEMCPipelineResult,
+  screeningType: 'authenticated' | 'whitelabel'
+): Promise<void> {
+  const sc = pipeline.structured_case;
+  if (!sc) return;
+
+  try {
+    const supabase = getSupabaseAdmin();
+
+    // 从 AI runs 中提取 extractor 元数据
+    const extractorRun = pipeline.ai_runs.find((r) => r.role === 'extractor');
+
+    const row = {
+      screening_id: pipeline.case_id,
+      screening_type: screeningType,
+      language: sc.language,
+      // Demographics
+      patient_age: sc.demographics.age ?? null,
+      patient_sex: sc.demographics.sex ?? null,
+      patient_country: sc.demographics.country ?? null,
+      // Chief complaint
+      chief_complaint: sc.chief_complaint,
+      // Present illness
+      symptoms: sc.present_illness.symptoms,
+      aggravating_factors: sc.present_illness.aggravating_factors,
+      relieving_factors: sc.present_illness.relieving_factors,
+      associated_symptoms: sc.present_illness.associated_symptoms,
+      // History
+      past_history: sc.past_history,
+      medication_history: sc.medication_history,
+      allergy_history: sc.allergy_history,
+      known_diagnoses: sc.known_diagnoses,
+      exam_findings: sc.exam_findings,
+      // Red flags
+      red_flags: sc.red_flags,
+      // Gaps
+      missing_critical_info: sc.missing_critical_info,
+      unknown_items: sc.unknown_items,
+      inferred_items: sc.inferred_items,
+      // AI metadata
+      extractor_model: extractorRun
+        ? `${extractorRun.model_vendor}/${extractorRun.model_name}`
+        : null,
+      extractor_prompt_version: extractorRun?.prompt_version ?? null,
+      extraction_latency_ms: extractorRun?.latency_ms ?? null,
+    };
+
+    const { error } = await supabase
+      .from('screening_structured_cases')
+      .insert(row);
+
+    if (error) {
+      aemcLog.warn('persistence', 'Failed to insert structured case', { error: error.message });
+    }
+  } catch (err) {
+    aemcLog.warn('persistence', 'Structured case persistence error', {
       error: err instanceof Error ? err.message : String(err),
     });
   }

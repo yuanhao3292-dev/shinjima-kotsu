@@ -245,9 +245,14 @@ export async function POST(request: NextRequest) {
     const successUrl = `${request.nextUrl.origin}/payment/success?session_id={CHECKOUT_SESSION_ID}${navGuideParam}`;
     const cancelUrl = `${request.nextUrl.origin}/payment/cancel?order_id=${order.id}${navGuideParam}`;
 
+    // 支付方式：卡片 + 支付宝 + 微信支付
+    // Stripe 要求 wechat_pay 使用 payment_method_options 指定 client 类型
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
-      payment_method_types: ['card'],
+      payment_method_types: ['card', 'alipay', 'wechat_pay'],
+      payment_method_options: {
+        wechat_pay: { client: 'web' },
+      },
       line_items: [
         {
           price: packageData.stripe_price_id,

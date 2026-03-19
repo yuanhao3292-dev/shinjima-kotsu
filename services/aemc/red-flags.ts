@@ -566,6 +566,133 @@ export const EMERGENCY_RED_FLAGS: RedFlagRule[] = [
     rationale: '严重脱水可导致休克和器官衰竭，儿童和老年人尤其危险',
   },
 
+  // --- 急性胰腺炎 ---
+  {
+    id: 'GI-003',
+    category: 'gastrointestinal',
+    name_cn: '疑似急性胰腺炎',
+    name_en: 'Suspected Acute Pancreatitis',
+    keywords: [
+      '急性胰腺炎', '胰腺炎',
+      'acute pancreatitis', 'pancreatitis',
+      '急性膵炎', '膵炎',
+    ],
+    combo_trigger: {
+      keywords: [
+        '上腹痛', '腹痛', '上腹部', '中上腹',
+        '背部放射', '放射到背部', '腰背痛',
+        '恶心', '呕吐', '发热',
+        '饮酒', '暴饮暴食', '胆结石',
+        'epigastric pain', 'radiating to back', 'nausea',
+        'vomiting', 'alcohol',
+        '心窩部痛', '背部放散', '嘔吐', '飲酒',
+      ],
+      min_match: 3,
+    },
+    severity: 'emergency',
+    action: 'emergency_notice',
+    rationale: '重症急性胰腺炎死亡率达 20-30%，需紧急液体复苏和 ICU 监护',
+  },
+
+  // --- 张力性气胸 ---
+  {
+    id: 'RESP-004',
+    category: 'respiratory',
+    name_cn: '疑似张力性气胸',
+    name_en: 'Suspected Tension Pneumothorax',
+    keywords: [
+      '张力性气胸', '气胸',
+      'tension pneumothorax', 'pneumothorax',
+      '緊張性気胸', '気胸',
+    ],
+    combo_trigger: {
+      keywords: [
+        '突发胸痛', '胸痛', '呼吸困难', '喘不上气',
+        '呼吸音消失', '呼吸音减弱', '气管偏移',
+        '颈静脉怒张', '低血压', '休克',
+        'sudden chest pain', 'dyspnea', 'absent breath sounds',
+        'tracheal deviation', 'hypotension',
+        '突然の胸痛', '呼吸困難', '呼吸音消失', '気管偏位',
+      ],
+      min_match: 2,
+    },
+    severity: 'emergency',
+    action: 'emergency_notice',
+    rationale: '张力性气胸可在数分钟内因纵隔移位导致心脏压迫和死亡，需紧急减压',
+  },
+
+  // --- 高血压危象 ---
+  {
+    id: 'CV-005',
+    category: 'cardiovascular',
+    name_cn: '高血压危象',
+    name_en: 'Hypertensive Crisis',
+    keywords: [
+      '高血压危象', '高血压急症', '恶性高血压',
+      'hypertensive crisis', 'hypertensive emergency', 'malignant hypertension',
+      '高血圧緊急症', '悪性高血圧',
+    ],
+    combo_trigger: {
+      keywords: [
+        '血压高', '高血压', '收缩压', '舒张压',
+        '180', '200', '220',
+        '剧烈头痛', '视物模糊', '鼻出血',
+        '胸痛', '呼吸困难', '意识模糊',
+        'high blood pressure', 'severe headache', 'blurred vision',
+        'chest pain', 'nosebleed',
+        '血圧が高い', '激しい頭痛', '視力低下', '鼻血',
+      ],
+      min_match: 3,
+    },
+    severity: 'emergency',
+    action: 'emergency_notice',
+    rationale: '高血压危象（收缩压>180）伴靶器官损害可致脑出血/心梗/主动脉夹层',
+  },
+
+  // --- 脊髓压迫综合征 ---
+  {
+    id: 'NEURO-006',
+    category: 'neurological',
+    name_cn: '疑似脊髓压迫',
+    name_en: 'Suspected Spinal Cord Compression',
+    keywords: [
+      '脊髓压迫', '马尾综合征', '截瘫',
+      'spinal cord compression', 'cauda equina syndrome', 'paraplegia',
+      '脊髄圧迫', '馬尾症候群', '対麻痺',
+    ],
+    combo_trigger: {
+      keywords: [
+        '双下肢无力', '双腿无力', '行走困难', '瘫痪',
+        '大小便失禁', '尿潴留', '排尿困难',
+        '鞍区麻木', '会阴麻木',
+        '背痛', '腰痛', '脊柱痛',
+        'bilateral leg weakness', 'urinary retention', 'incontinence',
+        'saddle anesthesia', 'back pain',
+        '両下肢脱力', '排尿障害', '会陰部しびれ', '腰痛',
+      ],
+      min_match: 3,
+    },
+    severity: 'emergency',
+    action: 'emergency_notice',
+    rationale: '脊髓压迫/马尾综合征需 48 小时内紧急减压手术，否则永久性瘫痪',
+  },
+
+  // --- 癫痫持续状态 ---
+  {
+    id: 'NEURO-007',
+    category: 'neurological',
+    name_cn: '癫痫持续状态',
+    name_en: 'Status Epilepticus',
+    keywords: [
+      '癫痫持续状态', '持续抽搐', '连续癫痫', '抽搐不停',
+      'status epilepticus', 'continuous seizure', 'prolonged seizure',
+      'てんかん重積状態', '持続性痙攣',
+    ],
+    severity: 'emergency',
+    action: 'emergency_notice',
+    rationale: '癫痫持续状态（>5分钟）可致脑损伤和死亡，需紧急苯二氮卓类药物控制',
+  },
+
   // --- 急性肾衰竭 ---
   {
     id: 'SYS-008',
