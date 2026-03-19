@@ -60,7 +60,7 @@ const PIPELINE_VERSION_V3_LITE = 'aemc-v3-lite';
 
 // 默认使用 V3 Lite（单次 AI 调用，Vercel Hobby 兼容）
 // 设置 AEMC_PIPELINE_MODE=full 启用完整 4-AI 管线（需要 Vercel Pro 60s 超时）
-const USE_FULL_PIPELINE = process.env.AEMC_PIPELINE_MODE?.trim() === 'full';
+const ENV_FULL_PIPELINE = process.env.AEMC_PIPELINE_MODE?.trim() === 'full';
 
 // ============================================================
 // 主入口
@@ -115,14 +115,19 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
     uploadedReportText: input.uploadedReportText,
   });
 
+  // 文档模式强制 V3 Lite（避免 4+1 AI 顺序调用超时）
+  const isDocumentOnly = casePacket.source_type.includes('medical_report') && !casePacket.source_type.includes('questionnaire');
+  const USE_FULL_PIPELINE = ENV_FULL_PIPELINE && !isDocumentOnly;
+
   aemcLog.info('pipeline', `Started for case ${casePacket.case_id}`, {
     caseId: casePacket.case_id,
     language: casePacket.language,
     sourceTypes: casePacket.source_type,
     mode: USE_FULL_PIPELINE ? 'full' : 'lite',
+    documentOnly: isDocumentOnly,
   });
 
-  // === V3 Lite: 单次 AI 快速路径（默认） ===
+  // === V3 Lite: 单次 AI 快速路径（默认 / 文档模式强制） ===
   if (!USE_FULL_PIPELINE) {
     return runLitePipeline(casePacket, pipelineStartTime);
   }
