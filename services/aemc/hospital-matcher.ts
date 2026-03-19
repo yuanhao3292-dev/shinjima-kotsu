@@ -249,43 +249,24 @@ const DB_SELECT_COLUMNS = [
   'specialist_doctors', 'top_treatments',
 ].join(',');
 
-async function queryHospitalCandidates(
-  normalizedDepts: string[]
-): Promise<HospitalKnowledge[] | null> {
+async function queryHospitalCandidates(): Promise<HospitalKnowledge[] | null> {
   try {
     const supabase = getSupabaseAdmin();
 
-    // 使用 departments GIN 索引做 overlap 过滤
-    let query = supabase
+    // 全量查询所有活跃医院，由评分算法决定排名
+    // 174 家医院全量评分无性能压力，避免 overlaps 预过滤遗漏专科中心
+    const { data, error } = await supabase
       .from('jtb_hospitals')
       .select(DB_SELECT_COLUMNS)
-      .eq('is_active', true);
-
-    if (normalizedDepts.length > 0) {
-      // overlaps: 返回 departments 与请求科室有交集的医院
-      query = query.overlaps('departments', normalizedDepts);
-    }
-
-    const { data, error } = await query.order('priority', { ascending: false }).limit(50);
+      .eq('is_active', true)
+      .order('priority', { ascending: false });
 
     if (error) {
       aemcLog.warn('hospital-matcher', 'DB query failed', { error: error.message });
       return null;
     }
 
-    if (!data || data.length === 0) {
-      // 如果 overlap 查询无结果，退而查询所有高优先级医院
-      const { data: fallbackData, error: fallbackError } = await supabase
-        .from('jtb_hospitals')
-        .select(DB_SELECT_COLUMNS)
-        .eq('is_active', true)
-        .gte('priority', 7)
-        .order('priority', { ascending: false })
-        .limit(30);
-
-      if (fallbackError || !fallbackData) return null;
-      return (fallbackData as unknown as DBHospitalRow[]).map(dbRowToKnowledge);
-    }
+    if (!data || data.length === 0) return null;
 
     return (data as unknown as DBHospitalRow[]).map(dbRowToKnowledge);
   } catch (err) {
@@ -461,7 +442,7 @@ export async function matchHospitals(
   let candidates: HospitalKnowledge[];
   let useDB = false;
 
-  const dbCandidates = await queryHospitalCandidates(features.normalizedDepartments);
+  const dbCandidates = await queryHospitalCandidates();
   if (dbCandidates && dbCandidates.length > 0) {
     candidates = dbCandidates;
     useDB = true;
