@@ -200,9 +200,9 @@ export async function POST(request: NextRequest) {
         aemcOutputRef = aemcOutput; // [Phase 3] 保存引用
 
         // [AUDIT-FIX] 将安全闸门元数据附加到 analysisResult，供前端结构化使用
-        (analysisResult as Record<string, unknown>).safetyGateClass = aemcOutput.safetyGate.gate_class;
-        (analysisResult as Record<string, unknown>).requiresHumanReview = aemcOutput.safetyGate.require_human_review;
-        (analysisResult as Record<string, unknown>).requiresEmergencyNotice = aemcOutput.safetyGate.require_emergency_notice;
+        analysisResult.safetyGateClass = aemcOutput.safetyGate.gate_class;
+        analysisResult.requiresHumanReview = aemcOutput.safetyGate.require_human_review;
+        analysisResult.requiresEmergencyNotice = aemcOutput.safetyGate.require_emergency_notice;
 
         // [Phase 2] 审计持久化（fire-and-forget，不阻断主流程）
         persistPipelineResults(aemcOutput.pipelineResult, 'authenticated').catch((e) => {

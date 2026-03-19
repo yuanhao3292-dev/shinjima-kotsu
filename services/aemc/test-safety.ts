@@ -14,6 +14,7 @@
 
 import type { StructuredCase, TriageAssessment } from './types';
 import { type AEMCLang } from './hospital-knowledge-base';
+import { aemcLog } from './logger';
 
 // ============================================================
 // 类型定义
@@ -315,7 +316,7 @@ export function interceptUnsafeTests(
       });
 
       safeSuggestedTests[i] = replacement;
-      console.info(`[TestSafety] ${rule.id}: 替换 "${currentTest}" → "${replacement}"`);
+      aemcLog.info('test-safety', `${rule.id}: 替换 "${currentTest}" → "${replacement}"`);
       // 不 break — 允许多规则叠加（如冠脉规则 + 肾脏造影剂警告）
     }
   }
@@ -331,9 +332,7 @@ export function interceptUnsafeTests(
       lines.join('\n') +
       `\n--- END TEST SAFETY ---`;
 
-    console.info(
-      `[TestSafety] Intercepted ${replacements.length} unsafe test recommendations`
-    );
+    aemcLog.info('test-safety', `Intercepted ${replacements.length} unsafe test recommendations`);
   }
 
   return {

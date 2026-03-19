@@ -17,6 +17,45 @@ import type { CasePacket, CaseSymptom, Demographics } from './types';
 const MAX_REPORT_TEXT_LENGTH = 15_000;
 
 // ============================================================
+// 输入消毒：防 prompt injection
+// ============================================================
+
+/** 可疑的 prompt injection 模式（大小写不敏感） */
+const INJECTION_PATTERNS = [
+  /ignore\s+(all\s+)?previous\s+instructions/i,
+  /ignore\s+(all\s+)?above/i,
+  /you\s+are\s+now\s+/i,
+  /disregard\s+(all\s+)?prior/i,
+  /forget\s+(all\s+)?previous/i,
+  /new\s+instructions?\s*:/i,
+  /^system\s*:/im,
+  /^assistant\s*:/im,
+  /^###\s*(SYSTEM|INSTRUCTION)/im,
+  /\[INST\]/i,
+  /<<SYS>>/i,
+  /<\|im_start\|>/i,
+];
+
+/**
+ * 消毒用户输入文本，移除可疑的 prompt injection 内容。
+ * 保守策略：仅移除明确的注入模式，不破坏正常医疗文本。
+ */
+function sanitizeText(text: string): string {
+  let cleaned = text;
+
+  // 移除可疑的 prompt injection 模式
+  for (const pattern of INJECTION_PATTERNS) {
+    cleaned = cleaned.replace(pattern, '[FILTERED]');
+  }
+
+  // 移除可能被解释为 prompt 分隔符的特殊标记
+  cleaned = cleaned.replace(/<\|[^|]+\|>/g, ''); // <|endoftext|> 等
+  cleaned = cleaned.replace(/```(system|assistant|user)/gi, '```'); // markdown role tags
+
+  return cleaned;
+}
+
+// ============================================================
 // 年龄范围 → 中间值映射
 // ============================================================
 
@@ -70,10 +109,11 @@ export function normalizeToCasePacket(input: NormalizerInput): CasePacket {
   }
   if (input.uploadedReportText) {
     sourceTypes.push('medical_report');
-    // 截断过长的文档文本，防止消耗过多 AI token
-    const truncatedText = input.uploadedReportText.length > MAX_REPORT_TEXT_LENGTH
-      ? input.uploadedReportText.slice(0, MAX_REPORT_TEXT_LENGTH) + '\n\n[... 文档内容已截断，仅分析前 15000 字符 ...]'
-      : input.uploadedReportText;
+    // 消毒 + 截断过长的文档文本
+    const sanitized = sanitizeText(input.uploadedReportText);
+    const truncatedText = sanitized.length > MAX_REPORT_TEXT_LENGTH
+      ? sanitized.slice(0, MAX_REPORT_TEXT_LENGTH) + '\n\n[... 文档内容已截断，仅分析前 15000 字符 ...]'
+      : sanitized;
     rawTextBundle.push({
       source: 'uploaded_document',
       text: truncatedText,
@@ -94,9 +134,10 @@ export function normalizeToCasePacket(input: NormalizerInput): CasePacket {
     selected_symptoms: selectedSymptoms,
     questionnaire_answers: questionnaireAnswers,
     uploaded_report_text: input.uploadedReportText
-      ? (input.uploadedReportText.length > MAX_REPORT_TEXT_LENGTH
-          ? input.uploadedReportText.slice(0, MAX_REPORT_TEXT_LENGTH)
-          : input.uploadedReportText)
+      ? (() => {
+          const s = sanitizeText(input.uploadedReportText);
+          return s.length > MAX_REPORT_TEXT_LENGTH ? s.slice(0, MAX_REPORT_TEXT_LENGTH) : s;
+        })()
       : undefined,
     timeline: [],
     raw_text_bundle: rawTextBundle,
@@ -195,18 +236,18 @@ function buildRawTextBundle(
   const bundle: Array<{ source: string; text: string }> = [];
 
   for (const a of answers) {
-    // 问题+答案 的完整文本
+    // 问题+答案 的完整文本（答案可能含自由文本，需消毒）
     const answerText = Array.isArray(a.answer) ? a.answer.join('、') : String(a.answer);
     bundle.push({
       source: `questionnaire_q${a.questionId}`,
-      text: `${a.question}: ${answerText}`,
+      text: `${a.question}: ${sanitizeText(answerText)}`,
     });
 
-    // 补充说明
+    // 补充说明（自由文本，必须消毒）
     if (a.note) {
       bundle.push({
         source: `questionnaire_q${a.questionId}_note`,
-        text: a.note,
+        text: sanitizeText(a.note),
       });
     }
   }

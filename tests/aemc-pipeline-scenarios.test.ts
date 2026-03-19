@@ -479,8 +479,8 @@ describe('病例A：高危心血管 + 肾功能不全 + 多药联用 (72岁男)'
 
   describe('Step 6: matchHospitals', () => {
     for (const lang of ALL_LANGS) {
-      it(`${lang}: 推荐含急诊能力的医院`, () => {
-        const result = matchHospitals(
+      it(`${lang}: 推荐含急诊能力的医院`, async () => {
+        const result = await matchHospitals(
           caseA_sc(lang),
           caseA_triage(lang),
           caseA_adj(lang),
@@ -495,9 +495,11 @@ describe('病例A：高危心血管 + 肾功能不全 + 多药联用 (72岁男)'
       });
     }
 
-    it('4语言的 routing_suggestion 各不相同', () => {
-      const routings = ALL_LANGS.map((lang) =>
-        matchHospitals(caseA_sc(lang), caseA_triage(lang), caseA_adj(lang), lang).routing_suggestion
+    it('4语言的 routing_suggestion 各不相同', async () => {
+      const routings = await Promise.all(
+        ALL_LANGS.map(async (lang) =>
+          (await matchHospitals(caseA_sc(lang), caseA_triage(lang), caseA_adj(lang), lang)).routing_suggestion
+        )
       );
       assertDistinctAcrossLangs(routings, 3, 'routing_suggestion');
     });

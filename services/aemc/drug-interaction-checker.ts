@@ -19,6 +19,7 @@
 
 import type { StructuredCase, TriageAssessment } from './types';
 import { type AEMCLang } from './hospital-knowledge-base';
+import { aemcLog } from './logger';
 
 // ============================================================
 // DDI 规则定义
@@ -280,7 +281,7 @@ export function checkDrugInteractions(
         recommendation: i18n?.recommendation || rule.recommendation,
       });
 
-      console.info(`[DDIChecker] ${rule.id}: ${drugAName} + ${drugBName} → ${rule.severity}`);
+      aemcLog.info('ddi-checker', `${rule.id}: ${drugAName} + ${drugBName}`, { severity: rule.severity });
     }
   }
 
@@ -297,9 +298,9 @@ export function checkDrugInteractions(
       lines.join('\n') +
       `\n--- END DDI ALERTS ---`;
 
-    console.info(
-      `[DDIChecker] Detected ${interactions.length} DDIs: ${interactions.map((d) => `${d.ruleId}(${d.severity})`).join(', ')}`
-    );
+    aemcLog.info('ddi-checker', `Detected ${interactions.length} DDIs`, {
+      ddis: interactions.map((d) => `${d.ruleId}(${d.severity})`),
+    });
   }
 
   return { interactions, ddiWarningsForAdjudicator };

@@ -23,6 +23,7 @@
 
 import type { StructuredCase } from './types';
 import { type AEMCLang } from './hospital-knowledge-base';
+import { aemcLog } from './logger';
 
 // ============================================================
 // 指南条目定义
@@ -350,9 +351,9 @@ export function matchClinicalGuidelines(
       lines.join('\n\n') +
       `\n--- END GUIDELINES ---`;
 
-    console.info(
-      `[ClinicalGuidelines] Matched ${localizedGuidelines.length} guidelines: ${localizedGuidelines.map((g) => g.id).join(', ')}`
-    );
+    aemcLog.info('clinical-guidelines', `Matched ${localizedGuidelines.length} guidelines`, {
+      guidelineIds: localizedGuidelines.map((g) => g.id),
+    });
   }
 
   return { matchedGuidelines: localizedGuidelines, guidelineContextForAI };

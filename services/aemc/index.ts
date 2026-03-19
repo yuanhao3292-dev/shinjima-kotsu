@@ -45,8 +45,9 @@ import { mapToICD10 } from './icd10-mapper';
 import { adjudicateCase, AdjudicatorError } from './adjudicator';
 import { evaluateSafetyGate, type SafetyGateInput } from './safety-gate';
 import { matchHospitals } from './hospital-matcher';
-import { HOSPITAL_KNOWLEDGE_BASE, getLocalizedHospitalInfo } from './hospital-knowledge-base';
+// HOSPITAL_KNOWLEDGE_BASE used by hospital-matcher.ts as fallback
 import { runLiteAnalysis } from './lite-analyzer';
+import { aemcLog } from './logger';
 
 // ============================================================
 // Pipeline 配置
@@ -113,7 +114,12 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
     uploadedReportText: input.uploadedReportText,
   });
 
-  console.info(`[AEMC] Pipeline started for case ${casePacket.case_id}`);
+  aemcLog.info('pipeline', `Started for case ${casePacket.case_id}`, {
+    caseId: casePacket.case_id,
+    language: casePacket.language,
+    sourceTypes: casePacket.source_type,
+    mode: USE_FULL_PIPELINE ? 'full' : 'lite',
+  });
 
   // === V3 Lite: 单次 AI 快速路径（默认） ===
   if (!USE_FULL_PIPELINE) {
@@ -128,12 +134,19 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
     const extractResult = await extractCase(casePacket);
     structuredCase = extractResult.structuredCase;
     aiRuns.push(extractResult.runRecord);
-    console.info(`[AEMC] AI-1 (GPT-4o) completed in ${extractResult.runRecord.latency_ms}ms`);
+    aemcLog.aiCall('extractor', extractResult.runRecord.model_name, {
+      latencyMs: extractResult.runRecord.latency_ms,
+      inputTokens: extractResult.runRecord.input_tokens,
+      outputTokens: extractResult.runRecord.output_tokens,
+      success: true,
+    });
   } catch (error) {
     if (error instanceof ExtractorError) {
       aiRuns.push(error.runRecord);
     }
-    console.error('[AEMC] AI-1 (GPT-4o) failed:', error instanceof Error ? error.message : error);
+    aemcLog.error('extractor', 'AI-1 (GPT-4o) failed', {
+      error: error instanceof Error ? error.message : String(error),
+    });
     throw new PipelineError('AI-1 Extractor failed', aiRuns, casePacket);
   }
 
@@ -141,9 +154,10 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
   const validationResult = validateExtraction(casePacket, structuredCase, casePacket.language);
   if (validationResult.addedFindings.length > 0 || validationResult.addedRedFlags.length > 0) {
     structuredCase = validationResult.enrichedCase;
-    console.info(
-      `[AEMC] ExtractionValidator: +${validationResult.addedFindings.length} findings, +${validationResult.addedRedFlags.length} red flags`
-    );
+    aemcLog.info('extraction-validator', 'Enriched structured case', {
+      addedFindings: validationResult.addedFindings.length,
+      addedRedFlags: validationResult.addedRedFlags.length,
+    });
   }
 
   // === Step 2c: 临床评分计算（确定性逻辑，注入 AI-2 输入） ===
@@ -175,13 +189,20 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
   if (triageSettled.status === 'fulfilled') {
     triageAssessment = triageSettled.value.triageAssessment;
     aiRuns.push(triageSettled.value.runRecord);
-    console.info(`[AEMC] AI-2 (Gemini) completed in ${triageSettled.value.runRecord.latency_ms}ms`);
+    aemcLog.aiCall('triage', triageSettled.value.runRecord.model_name, {
+      latencyMs: triageSettled.value.runRecord.latency_ms,
+      inputTokens: triageSettled.value.runRecord.input_tokens,
+      outputTokens: triageSettled.value.runRecord.output_tokens,
+      success: true,
+    });
   } else {
     const error = triageSettled.reason;
     if (error instanceof TriageError) {
       aiRuns.push(error.runRecord);
     }
-    console.error('[AEMC] AI-2 (Gemini) failed:', error instanceof Error ? error.message : error);
+    aemcLog.error('triage', 'AI-2 (Gemini) failed', {
+      error: error instanceof Error ? error.message : String(error),
+    });
     throw new PipelineError('AI-2 Triage failed', aiRuns, casePacket);
   }
 
@@ -189,25 +210,29 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
   if (challengerSettled.status === 'fulfilled' && challengerSettled.value) {
     challengeReview = challengerSettled.value.challengeReview;
     aiRuns.push(challengerSettled.value.runRecord);
-    console.info(`[AEMC] AI-3 (Grok) completed in ${challengerSettled.value.runRecord.latency_ms}ms`);
+    aemcLog.aiCall('challenger', challengerSettled.value.runRecord.model_name, {
+      latencyMs: challengerSettled.value.runRecord.latency_ms,
+      inputTokens: challengerSettled.value.runRecord.input_tokens,
+      outputTokens: challengerSettled.value.runRecord.output_tokens,
+      success: true,
+    });
   } else if (challengerSettled.status === 'rejected') {
     const error = challengerSettled.reason;
     if (error instanceof ChallengerError) {
       aiRuns.push(error.runRecord);
     }
-    console.warn(
-      '[AEMC] AI-3 (Grok) failed, continuing without challenger:',
-      error instanceof Error ? error.message : error
-    );
+    aemcLog.warn('challenger', 'AI-3 (Grok) failed, continuing without challenger', {
+      error: error instanceof Error ? error.message : String(error),
+    });
   }
 
   // === Step 3b: 检查安全性拦截（确定性逻辑，替换危险检查推荐） ===
   const testSafetyResult = interceptUnsafeTests(structuredCase, triageAssessment, casePacket.language);
   if (testSafetyResult.replacements.length > 0) {
     triageAssessment.suggested_tests = testSafetyResult.safeSuggestedTests;
-    console.info(
-      `[AEMC] TestSafety: ${testSafetyResult.replacements.length} unsafe tests intercepted`
-    );
+    aemcLog.info('test-safety', 'Unsafe tests intercepted', {
+      replacements: testSafetyResult.replacements.length,
+    });
   }
 
   // === Step 3c: 药物相互作用检查（确定性逻辑，注入 AI-4） ===
@@ -230,12 +255,19 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
     );
     adjudicatedAssessment = adjudicatorResult.adjudicatedAssessment;
     aiRuns.push(adjudicatorResult.runRecord);
-    console.info(`[AEMC] AI-4 (Claude) completed in ${adjudicatorResult.runRecord.latency_ms}ms`);
+    aemcLog.aiCall('adjudicator', adjudicatorResult.runRecord.model_name, {
+      latencyMs: adjudicatorResult.runRecord.latency_ms,
+      inputTokens: adjudicatorResult.runRecord.input_tokens,
+      outputTokens: adjudicatorResult.runRecord.output_tokens,
+      success: true,
+    });
   } catch (error) {
     if (error instanceof AdjudicatorError) {
       aiRuns.push(error.runRecord);
     }
-    console.error('[AEMC] AI-4 (Claude) failed:', error instanceof Error ? error.message : error);
+    aemcLog.error('adjudicator', 'AI-4 (Claude) failed', {
+      error: error instanceof Error ? error.message : String(error),
+    });
     throw new PipelineError('AI-4 Adjudicator failed', aiRuns, casePacket);
   }
 
@@ -258,32 +290,30 @@ export async function runAEMCPipeline(input: AEMCInput): Promise<AEMCOutput> {
   // === Step 6: 医院匹配（确定性逻辑，无 AI 调用，失败不阻断主流程） ===
   let hospitalRecommendation: HospitalRecommendation | undefined;
   try {
-    hospitalRecommendation = matchHospitals(
+    hospitalRecommendation = await matchHospitals(
       structuredCase,
       triageAssessment,
       adjudicatedAssessment,
       casePacket.language
     );
-    console.info(
-      `[AEMC] Hospital matcher: ${hospitalRecommendation.recommended_hospitals.length} matches`
-    );
+    aemcLog.info('hospital-matcher', 'Matching completed', {
+      matchCount: hospitalRecommendation.recommended_hospitals.length,
+    });
   } catch (matchError) {
-    console.error(
-      '[AEMC] Hospital matcher failed (non-critical):',
-      matchError instanceof Error ? matchError.message : matchError
-    );
+    aemcLog.error('hospital-matcher', 'Matching failed (non-critical)', {
+      error: matchError instanceof Error ? matchError.message : String(matchError),
+    });
   }
 
   const totalLatencyMs = Date.now() - pipelineStartTime;
-  console.info(
-    `[AEMC] Pipeline completed: gate=${safetyGate.gate_class}, ` +
-    `risk=${adjudicatedAssessment.final_risk_level}, ` +
-    `total=${totalLatencyMs}ms, ` +
-    `triggers=${safetyGate.triggered_rules.length}, ` +
-    `guidelines=${guidelineResult.matchedGuidelines.length}, ` +
-    `DDIs=${ddiResult.interactions.length}, ` +
-    `ICD10=${icd10Result.matches.length}`
-  );
+  aemcLog.safetyGate(safetyGate.gate_class, safetyGate.triggered_rules.length, casePacket.case_id);
+  aemcLog.pipeline(casePacket.case_id, challengeReview ? PIPELINE_VERSION_V2 : PIPELINE_VERSION_V1, {
+    totalLatencyMs,
+    gateClass: safetyGate.gate_class,
+    riskLevel: adjudicatedAssessment.final_risk_level,
+    aiCallCount: aiRuns.length,
+    success: true,
+  });
 
   // === 组装完整结果 ===
   const pipelineVersion = challengeReview ? PIPELINE_VERSION_V2 : PIPELINE_VERSION_V1;
@@ -322,7 +352,9 @@ async function runLitePipeline(
   casePacket: CasePacket,
   pipelineStartTime: number
 ): Promise<AEMCOutput> {
-  console.info(`[AEMC] V3 Lite mode for case ${casePacket.case_id}`);
+  aemcLog.info('pipeline', `V3 Lite mode for case ${casePacket.case_id}`, {
+    caseId: casePacket.case_id,
+  });
 
   const liteResult = await runLiteAnalysis(casePacket);
 
@@ -333,17 +365,18 @@ async function runLitePipeline(
   const validationResult = validateExtraction(casePacket, structuredCase, casePacket.language);
   if (validationResult.addedFindings.length > 0 || validationResult.addedRedFlags.length > 0) {
     structuredCase = validationResult.enrichedCase;
-    console.info(
-      `[AEMC-Lite] ExtractionValidator: +${validationResult.addedFindings.length} findings, +${validationResult.addedRedFlags.length} red flags`
-    );
+    aemcLog.info('extraction-validator', 'Enriched structured case (Lite)', {
+      addedFindings: validationResult.addedFindings.length,
+      addedRedFlags: validationResult.addedRedFlags.length,
+    });
   }
 
   const testSafetyResult = interceptUnsafeTests(structuredCase, triageAssessment, casePacket.language);
   if (testSafetyResult.replacements.length > 0) {
     triageAssessment = { ...triageAssessment, suggested_tests: testSafetyResult.safeSuggestedTests };
-    console.info(
-      `[AEMC-Lite] TestSafety: ${testSafetyResult.replacements.length} unsafe tests intercepted`
-    );
+    aemcLog.info('test-safety', 'Unsafe tests intercepted (Lite)', {
+      replacements: testSafetyResult.replacements.length,
+    });
   }
 
   // 确定性后处理：临床指南 + DDI + ICD-10
@@ -368,20 +401,22 @@ async function runLitePipeline(
   // 医院匹配
   let hospitalRecommendation: HospitalRecommendation | undefined;
   try {
-    hospitalRecommendation = matchHospitals(structuredCase, triageAssessment, adjudicatedAssessment, casePacket.language);
+    hospitalRecommendation = await matchHospitals(structuredCase, triageAssessment, adjudicatedAssessment, casePacket.language);
   } catch (matchError) {
-    console.warn('[AEMC] Hospital matcher failed (non-critical):', matchError instanceof Error ? matchError.message : matchError);
+    aemcLog.error('hospital-matcher', 'Matching failed (non-critical, Lite)', {
+      error: matchError instanceof Error ? matchError.message : String(matchError),
+    });
   }
 
   const totalLatencyMs = Date.now() - pipelineStartTime;
-  console.info(
-    `[AEMC] V3 Lite completed: gate=${safetyGate.gate_class}, ` +
-    `risk=${adjudicatedAssessment.final_risk_level}, ` +
-    `total=${totalLatencyMs}ms, ` +
-    `guidelines=${guidelineResult.matchedGuidelines.length}, ` +
-    `DDIs=${ddiResult.interactions.length}, ` +
-    `ICD10=${icd10Result.matches.length}`
-  );
+  aemcLog.safetyGate(safetyGate.gate_class, safetyGate.triggered_rules.length, casePacket.case_id);
+  aemcLog.pipeline(casePacket.case_id, PIPELINE_VERSION_V3_LITE, {
+    totalLatencyMs,
+    gateClass: safetyGate.gate_class,
+    riskLevel: adjudicatedAssessment.final_risk_level,
+    aiCallCount: 1,
+    success: true,
+  });
 
   const pipelineResult: AEMCPipelineResult = {
     case_id: casePacket.case_id,
@@ -517,20 +552,17 @@ function convertToLegacyResult(pipeline: AEMCPipelineResult, language?: Analysis
     nextSteps.push(L('defaultNext'));
   }
 
-  // 推荐医院（从 hospital matcher 结果转换）
+  // 推荐医院（从 hospital matcher 结果转换，直接使用 matcher 已本地化的数据）
   const recommendedHospitals: LegacyRecommendedHospital[] =
     pipeline.hospital_recommendation
-      ? pipeline.hospital_recommendation.recommended_hospitals.map((h) => {
-          const kb = HOSPITAL_KNOWLEDGE_BASE.find((k) => k.id === h.hospital_id);
-          const localInfo = kb ? getLocalizedHospitalInfo(kb, lang) : null;
-          return {
+      ? pipeline.hospital_recommendation.recommended_hospitals.map((h) => ({
             name: h.hospital_name,
-            nameJa: kb?.nameJa,
-            location: localInfo?.location || kb?.location || '',
+            nameJa: h.hospital_name_ja,
+            location: h.location || '',
             features: h.match_reasons,
             suitableFor: h.department,
-          };
-        })
+            doctors: h.recommended_doctors,
+          }))
       : [];
 
   return {

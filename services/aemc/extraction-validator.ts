@@ -13,6 +13,7 @@
 
 import type { CasePacket, StructuredCase } from './types';
 import { type AEMCLang } from './hospital-knowledge-base';
+import { aemcLog } from './logger';
 
 export interface ValidationResult {
   /** AI-1 提取后的补充版 StructuredCase */
@@ -436,7 +437,7 @@ export function validateExtraction(
       const finding = `${prefix} ${localName}: ${rawValue} (${abnormalLabel})`;
       structuredCase.exam_findings.push(finding);
       addedFindings.push(finding);
-      console.info(`[ExtractionValidator] 补充遗漏指标: ${mp.name} = ${rawValue}`);
+      aemcLog.info('extraction-validator', `补充遗漏指标: ${mp.name} = ${rawValue}`);
     }
 
     // 检查是否需要添加红旗
@@ -450,15 +451,13 @@ export function validateExtraction(
         const flag = `${prefix} ${localDesc} (${rawValue})`;
         structuredCase.red_flags.push(flag);
         addedRedFlags.push(flag);
-        console.info(`[ExtractionValidator] 补充红旗: ${mp.redFlagDescription}`);
+        aemcLog.info('extraction-validator', `补充红旗: ${mp.redFlagDescription}`);
       }
     }
   }
 
   if (addedFindings.length > 0 || addedRedFlags.length > 0) {
-    console.info(
-      `[ExtractionValidator] 补充完成: +${addedFindings.length} findings, +${addedRedFlags.length} red flags`
-    );
+    aemcLog.info('extraction-validator', `补充完成: +${addedFindings.length} findings, +${addedRedFlags.length} red flags`);
   }
 
   return {

@@ -10,6 +10,8 @@
 
 import OpenAI from 'openai';
 import type { CasePacket, StructuredCase, AIRunRecord } from './types';
+import { withRetry } from './ai-retry';
+import { aemcLog } from './logger';
 import {
   getExtractorSystemPrompt,
   buildExtractorUserPrompt,
@@ -60,16 +62,19 @@ export async function extractCase(
   const userPrompt = buildExtractorUserPrompt(inputJson);
 
   try {
-    const response = await client.chat.completions.create({
-      model: MODEL_NAME,
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userPrompt },
-      ],
-      temperature: TEMPERATURE,
-      max_tokens: MAX_TOKENS,
-      response_format: { type: 'json_object' },
-    });
+    const response = await withRetry(
+      () => client.chat.completions.create({
+        model: MODEL_NAME,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt },
+        ],
+        temperature: TEMPERATURE,
+        max_tokens: MAX_TOKENS,
+        response_format: { type: 'json_object' },
+      }),
+      { maxRetries: 2, baseDelayMs: 1000, label: 'AI-1 Extractor' }
+    );
 
     const content = response.choices[0]?.message?.content;
     if (!content) {
@@ -138,7 +143,7 @@ export async function extractCase(
 function validateStructuredCase(result: StructuredCase, caseId: string): void {
   // 确保 case_id 一致
   if (!result.case_id || result.case_id !== caseId) {
-    console.warn(`[AI-1 Extractor] case_id mismatch: expected=${caseId}, got=${result.case_id || 'missing'}`);
+    aemcLog.warn('extractor', `case_id mismatch: expected=${caseId}, got=${result.case_id || 'missing'}`);
     result.case_id = caseId;
   }
 

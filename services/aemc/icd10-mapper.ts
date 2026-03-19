@@ -17,6 +17,8 @@
  * - ≤4 字符的纯 ASCII 缩写使用单词边界匹配，防止 substring 误匹配
  */
 
+import { aemcLog } from './logger';
+
 // ============================================================
 // ICD-10 编码条目
 // ============================================================
@@ -177,9 +179,7 @@ export function mapToICD10(
       lines.join('\n') +
       `\n--- END ICD-10 ---`;
 
-    console.info(
-      `[ICD10Mapper] Mapped ${matches.length}/${differentials.length} differentials to ICD-10`
-    );
+    aemcLog.info('icd10-mapper', `Mapped ${matches.length}/${differentials.length} differentials to ICD-10`);
   }
 
   return { matches, formattedForDisplay, icd10ContextForAI };

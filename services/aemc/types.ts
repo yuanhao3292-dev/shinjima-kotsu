@@ -179,10 +179,13 @@ export interface HospitalRecommendation {
 export interface HospitalMatch {
   hospital_id: string;
   hospital_name: string;
+  hospital_name_ja?: string;
+  location?: string;
   department: string;
   match_score: number; // 0-1
   match_reasons: string[];
   cautions: string[];
+  recommended_doctors?: { name: string; qualification: string }[];
 }
 
 // ============================================================
@@ -271,6 +274,12 @@ export interface AnalysisResult {
   analysisSource?: 'ai' | 'rule-based';
   requestId?: string;
   language?: 'zh-CN' | 'zh-TW' | 'en' | 'ja';
+  /** 安全闸门分类（API 注入）: A=自动展示, B=追问, C=人工审核, D=急诊 */
+  safetyGateClass?: 'A' | 'B' | 'C' | 'D';
+  /** 是否需要人工审核（Gate C） */
+  requiresHumanReview?: boolean;
+  /** 是否需要急诊通知（Gate D） */
+  requiresEmergencyNotice?: boolean;
 }
 
 export interface LegacyRecommendedHospital {
@@ -279,6 +288,7 @@ export interface LegacyRecommendedHospital {
   location: string;
   features: string[];
   suitableFor: string;
+  doctors?: { name: string; qualification: string }[];
 }
 
 export type RiskLevel = 'low' | 'medium' | 'high';

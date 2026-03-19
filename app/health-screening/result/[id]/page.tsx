@@ -4,7 +4,7 @@ import { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import ScreeningResult from '@/components/ScreeningResult';
-import { ArrowLeft, Loader2, AlertCircle, Download, FileText, Globe, Check } from 'lucide-react';
+import { ArrowLeft, Loader2, AlertCircle, Download, FileText, Globe, Check, RefreshCw } from 'lucide-react';
 import { type AnalysisResult } from '@/services/aemc/types';
 import { downloadHealthReportPDF } from '@/components/HealthReportPDF';
 import { type BodyMapSelectionData } from '@/components/BodyMapSelector';
@@ -45,6 +45,8 @@ const translations = {
   translating: { ja: '翻訳中...', 'zh-CN': '翻译中...', 'zh-TW': '翻譯中...', en: 'Translating...' },
   translateError: { ja: '翻訳に失敗しました', 'zh-CN': '翻译失败', 'zh-TW': '翻譯失敗', en: 'Translation failed' },
   reportLanguage: { ja: 'レポート言語', 'zh-CN': '报告语言', 'zh-TW': '報告語言', en: 'Report Language' },
+  retry: { ja: '再試行', 'zh-CN': '重试', 'zh-TW': '重試', en: 'Retry' },
+  loadErrorDesc: { ja: 'ネットワークの問題が原因かもしれません。もう一度お試しください。', 'zh-CN': '可能是网络问题，请重试。', 'zh-TW': '可能是網路問題，請重試。', en: 'This may be a network issue. Please try again.' },
 } as const;
 
 const LANGUAGE_OPTIONS: { value: Language; label: string }[] = [
@@ -159,16 +161,79 @@ export default function ScreeningResultPage({ params }: PageProps) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="w-10 h-10 animate-spin text-blue-500 mx-auto mb-4" />
-          <p className="text-neutral-500">{t('loadingResult', lang)}</p>
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+        <div className="bg-white border-b border-neutral-100 shadow-sm">
+          <div className="max-w-4xl mx-auto px-4 py-4">
+            <div className="h-5 w-24 bg-gray-200 rounded animate-pulse" />
+          </div>
+        </div>
+        <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
+          {/* 风险卡片骨架 */}
+          <div className="bg-gray-100 border-2 border-gray-200 rounded-2xl p-6 md:p-8 animate-pulse">
+            <div className="flex items-start gap-4">
+              <div className="w-14 h-14 bg-gray-200 rounded-full" />
+              <div className="flex-1 space-y-3">
+                <div className="h-7 w-32 bg-gray-200 rounded" />
+                <div className="h-4 w-64 bg-gray-200 rounded" />
+              </div>
+            </div>
+            <div className="mt-6 p-4 bg-white/60 rounded-xl space-y-2">
+              <div className="h-4 w-24 bg-gray-200 rounded" />
+              <div className="h-3 w-full bg-gray-200 rounded" />
+              <div className="h-3 w-5/6 bg-gray-200 rounded" />
+              <div className="h-3 w-4/6 bg-gray-200 rounded" />
+            </div>
+          </div>
+          {/* 检查项目骨架 */}
+          <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 animate-pulse">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-blue-100 rounded-lg" />
+              <div className="h-6 w-40 bg-gray-200 rounded" />
+            </div>
+            <div className="space-y-3">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl">
+                  <div className="w-6 h-6 bg-gray-200 rounded-full flex-shrink-0" />
+                  <div className="h-4 w-full bg-gray-200 rounded" />
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* 医院骨架 */}
+          <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 animate-pulse">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-green-100 rounded-lg" />
+              <div className="h-6 w-36 bg-gray-200 rounded" />
+            </div>
+            <div className="grid md:grid-cols-2 gap-4">
+              {[1, 2].map((i) => (
+                <div key={i} className="border border-gray-200 rounded-xl p-5 space-y-3">
+                  <div className="h-5 w-48 bg-gray-200 rounded" />
+                  <div className="h-3 w-32 bg-gray-200 rounded" />
+                  <div className="flex gap-2">
+                    <div className="h-6 w-16 bg-gray-100 rounded-full" />
+                    <div className="h-6 w-20 bg-gray-100 rounded-full" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="text-center pt-4">
+            <Loader2 className="w-6 h-6 animate-spin text-blue-400 mx-auto mb-2" />
+            <p className="text-neutral-400 text-sm">{t('loadingResult', lang)}</p>
+          </div>
         </div>
       </div>
     );
   }
 
   if (error) {
+    const handleRetry = () => {
+      setError(null);
+      setLoading(true);
+      window.location.reload();
+    };
+
     return (
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
         <div className="bg-white border-b border-neutral-100 shadow-sm">
@@ -184,13 +249,21 @@ export default function ScreeningResultPage({ params }: PageProps) {
         </div>
 
         <div className="max-w-lg mx-auto px-4 py-16 text-center">
-          <div className="p-4 bg-red-50 text-red-700 rounded-xl flex items-center gap-3 justify-center">
-            <AlertCircle className="w-5 h-5 flex-shrink-0" />
-            <span>{error}</span>
+          <div className="p-6 bg-red-50 border border-red-200 rounded-2xl">
+            <AlertCircle className="w-10 h-10 text-red-400 mx-auto mb-3" />
+            <h3 className="font-semibold text-red-800 mb-1">{error}</h3>
+            <p className="text-sm text-red-600 mb-4">{t('loadErrorDesc', lang)}</p>
+            <button
+              onClick={handleRetry}
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-colors font-medium text-sm"
+            >
+              <RefreshCw className="w-4 h-4" />
+              {t('retry', lang)}
+            </button>
           </div>
           <Link
             href="/health-screening"
-            className="inline-block mt-6 text-blue-600 hover:underline"
+            className="inline-block mt-6 text-blue-600 hover:underline text-sm"
           >
             {t('backToScreening', lang)}
           </Link>

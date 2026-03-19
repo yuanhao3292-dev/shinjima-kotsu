@@ -15,6 +15,9 @@ import {
   Share2,
   Activity,
   Users,
+  Phone,
+  ShieldAlert,
+  Clock,
 } from 'lucide-react';
 import { type BodyMapSelectionData } from './BodyMapSelector';
 import { BODY_PARTS, MEDICAL_DEPARTMENTS } from '@/lib/body-map-config';
@@ -117,6 +120,12 @@ const translations = {
     ja: '適応：',
     en: 'Suitable for: ',
   },
+  recommendedDoctors: {
+    'zh-CN': '推荐专科医生',
+    'zh-TW': '推薦專科醫生',
+    ja: '推奨専門医',
+    en: 'Recommended Specialists',
+  },
   nextSteps: {
     'zh-CN': '下一步建议',
     'zh-TW': '下一步建議',
@@ -170,6 +179,42 @@ const translations = {
     'zh-TW': '© 新島交通株式會社 | 日本精密健檢服務',
     ja: '© 新島交通株式会社 | 日本精密健診サービス',
     en: '© Niijima Kotsu Co., Ltd. | Japan Precision Health Screening Services',
+  },
+  emergencyTitle: {
+    'zh-CN': '检测到疑似急症信号',
+    'zh-TW': '檢測到疑似急症信號',
+    ja: '緊急性の高い所見が検出されました',
+    en: 'Urgent Medical Signs Detected',
+  },
+  emergencyDesc: {
+    'zh-CN': '请立即拨打急救电话或前往最近的急诊室。不要等待，时间至关重要。',
+    'zh-TW': '請立即撥打急救電話或前往最近的急診室。不要等待，時間至關重要。',
+    ja: '直ちに救急車を呼ぶか、最寄りの救急外来を受診してください。時間が重要です。',
+    en: 'Call emergency services or go to the nearest emergency room immediately. Do not wait — time is critical.',
+  },
+  emergencyCallJapan: {
+    'zh-CN': '日本急救 119',
+    'zh-TW': '日本急救 119',
+    ja: '救急車 119',
+    en: 'Japan Emergency 119',
+  },
+  emergencyCallChina: {
+    'zh-CN': '中国急救 120',
+    'zh-TW': '中國急救 120',
+    ja: '中国救急 120',
+    en: 'China Emergency 120',
+  },
+  humanReviewTitle: {
+    'zh-CN': '报告待人工审核',
+    'zh-TW': '報告待人工審核',
+    ja: 'レポートは審査待ちです',
+    en: 'Report Pending Human Review',
+  },
+  humanReviewDesc: {
+    'zh-CN': '为保障安全，您的筛查结果需经医疗顾问审核后才能完整展示。我们的团队将在24小时内完成审核并通知您。',
+    'zh-TW': '為保障安全，您的篩查結果需經醫療顧問審核後才能完整展示。我們的團隊將在24小時內完成審核並通知您。',
+    ja: '安全のため、スクリーニング結果は医療アドバイザーの審査後に完全に表示されます。24時間以内に審査を完了しご連絡いたします。',
+    en: 'For safety, your screening results require review by a medical advisor before full display. Our team will complete the review within 24 hours and notify you.',
   },
   bookScreening: {
     'zh-CN': '预约日本精密健检',
@@ -286,6 +331,52 @@ export default function ScreeningResult({
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
+      {/* Gate D: 急诊警报横幅 */}
+      {result.requiresEmergencyNotice && (
+        <div className="bg-red-600 text-white rounded-2xl p-6 md:p-8 shadow-lg shadow-red-200 animate-pulse-slow">
+          <div className="flex items-start gap-4">
+            <div className="p-3 bg-white/20 rounded-full flex-shrink-0">
+              <ShieldAlert className="w-8 h-8" />
+            </div>
+            <div className="flex-1">
+              <h2 className="text-xl font-bold mb-2">{t('emergencyTitle', lang)}</h2>
+              <p className="text-red-100 mb-4">{t('emergencyDesc', lang)}</p>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="tel:119"
+                  className="inline-flex items-center gap-2 px-5 py-3 bg-white text-red-700 rounded-xl font-bold hover:bg-red-50 transition-colors"
+                >
+                  <Phone className="w-5 h-5" />
+                  {t('emergencyCallJapan', lang)}
+                </a>
+                <a
+                  href="tel:120"
+                  className="inline-flex items-center gap-2 px-5 py-3 bg-white/20 text-white rounded-xl font-medium hover:bg-white/30 transition-colors border border-white/40"
+                >
+                  <Phone className="w-5 h-5" />
+                  {t('emergencyCallChina', lang)}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Gate C: 人工审核通知横幅 */}
+      {result.requiresHumanReview && !result.requiresEmergencyNotice && (
+        <div className="bg-amber-50 border-2 border-amber-300 rounded-2xl p-6 md:p-8">
+          <div className="flex items-start gap-4">
+            <div className="p-3 bg-amber-100 rounded-full flex-shrink-0">
+              <Clock className="w-7 h-7 text-amber-600" />
+            </div>
+            <div className="flex-1">
+              <h2 className="text-lg font-bold text-amber-800 mb-2">{t('humanReviewTitle', lang)}</h2>
+              <p className="text-amber-700 text-sm leading-relaxed">{t('humanReviewDesc', lang)}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* 风险等级卡片 */}
       <div
         className={`${risk.bg} ${risk.border} border-2 rounded-2xl p-6 md:p-8`}
@@ -495,6 +586,23 @@ export default function ScreeningResult({
                   <span className="font-medium">{t('suitableFor', lang)}</span>
                   {hospital.suitableFor}
                 </p>
+
+                {hospital.doctors && hospital.doctors.length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-gray-100">
+                    <p className="text-xs font-medium text-gray-500 mb-2">
+                      {t('recommendedDoctors', lang)}
+                    </p>
+                    <div className="space-y-1">
+                      {hospital.doctors.map((doc, docIdx) => (
+                        <div key={docIdx} className="flex items-center gap-2 text-sm">
+                          <Stethoscope className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
+                          <span className="font-medium text-gray-800">{doc.name}</span>
+                          <span className="text-xs text-gray-400">({doc.qualification})</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>

@@ -4,6 +4,10 @@
  * 确定性规则引擎：根据 AI 分诊结果匹配最合适的合作医院。
  * 不调用任何 AI API，纯本地计算。
  *
+ * 数据源：
+ * - 主：Supabase jtb_hospitals 表（159 JTB + 11 直营）
+ * - 备：静态 HOSPITAL_KNOWLEDGE_BASE（DB 查询失败时降级）
+ *
  * 匹配逻辑：
  * 1. 科室匹配（权重最高）
  * 2. 症状/疾病关键词匹配
@@ -30,6 +34,9 @@ import {
   type HospitalKnowledge,
   type AEMCLang,
 } from './hospital-knowledge-base';
+
+import { getSupabaseAdmin } from '@/lib/supabase/api';
+import { aemcLog } from './logger';
 
 // ============================================================
 // 配置
@@ -120,10 +127,260 @@ const MATCHER_LABELS: Record<string, Record<AEMCLang, string>> = {
     en: 'Based on your symptoms, we suggest consulting "{name}". Specific department arrangements are subject to the hospital\'s response.',
     ja: '症状に基づき、「{name}」への相談をお勧めします。具体的な診療科は病院の回答に基づきます。',
   },
+  dpcRecord: {
+    'zh-CN': 'DPC实绩', 'zh-TW': 'DPC實績', en: 'DPC record', ja: 'DPC実績',
+  },
+  dpcCases: {
+    'zh-CN': '例', 'zh-TW': '例', en: ' cases', ja: '件',
+  },
 };
 
 function ML(key: string, lang: AEMCLang): string {
   return MATCHER_LABELS[key]?.[lang] || MATCHER_LABELS[key]?.['zh-CN'] || key;
+}
+
+// ============================================================
+// DB 查询：从 jtb_hospitals 表获取候选医院
+// ============================================================
+
+interface DBHospitalRow {
+  id: string;
+  internal_id: string | null;
+  source: string;
+  name_ja: string;
+  name_en: string;
+  name_zh_cn: string;
+  name_zh_tw: string;
+  region: string;
+  prefecture: string;
+  category: string;
+  departments: string[];
+  specialties: string[];
+  condition_keywords: string[];
+  equipment: string[];
+  has_emergency: boolean;
+  bed_count: number;
+  features_ja: string[];
+  features_en: string[];
+  features_zh_cn: string[];
+  features_zh_tw: string[];
+  suitable_for_ja: string;
+  suitable_for_en: string;
+  suitable_for_zh_cn: string;
+  suitable_for_zh_tw: string;
+  location_ja: string;
+  location_en: string;
+  location_zh_cn: string;
+  location_zh_tw: string;
+  languages: string[];
+  website_url: string;
+  priority: number;
+  specialist_doctors: { name: string; qualification: string }[] | null;
+  top_treatments: { disease: string; total: number; surgery?: number; non_surgery?: number; pref_rank?: string; national_rank?: string }[] | null;
+}
+
+/**
+ * 将 DB 行转换为 HospitalKnowledge 兼容对象
+ */
+function dbRowToKnowledge(row: DBHospitalRow): HospitalKnowledge {
+  return {
+    id: row.internal_id || row.id,
+    name: row.name_zh_cn || row.name_ja,
+    nameJa: row.name_ja,
+    nameZhTw: row.name_zh_tw || undefined,
+    nameEn: row.name_en || undefined,
+    location: row.location_zh_cn || row.location_ja || `${row.prefecture}`,
+    category: (row.category as HospitalKnowledge['category']) || 'general_hospital',
+    departments: row.departments || [],
+    specialties: row.specialties || [],
+    conditionKeywords: row.condition_keywords || [],
+    features: row.features_zh_cn?.length > 0 ? row.features_zh_cn : row.features_ja || [],
+    suitableFor: row.suitable_for_zh_cn || row.suitable_for_ja || '',
+    hasEmergency: row.has_emergency || false,
+    hasRemoteConsultation: false,
+    bedCount: row.bed_count || 0,
+    priority: row.priority || 5,
+    // Store i18n data for localization
+    _i18n: {
+      location: { ja: row.location_ja, en: row.location_en, 'zh-CN': row.location_zh_cn, 'zh-TW': row.location_zh_tw },
+      features: { ja: row.features_ja, en: row.features_en, 'zh-CN': row.features_zh_cn, 'zh-TW': row.features_zh_tw },
+      suitableFor: { ja: row.suitable_for_ja, en: row.suitable_for_en, 'zh-CN': row.suitable_for_zh_cn, 'zh-TW': row.suitable_for_zh_tw },
+      name: { ja: row.name_ja, en: row.name_en, 'zh-CN': row.name_zh_cn, 'zh-TW': row.name_zh_tw },
+    },
+    _specialistDoctors: row.specialist_doctors || [],
+    _topTreatments: row.top_treatments || [],
+  } as HospitalKnowledge & { _i18n: unknown };
+}
+
+/**
+ * 获取本地化医院信息（支持 DB 行的 _i18n 字段）
+ */
+function getLocalizedInfo(hospital: HospitalKnowledge, lang: AEMCLang) {
+  const i18n = (hospital as HospitalKnowledge & { _i18n?: Record<string, Record<string, string | string[]>> })._i18n;
+
+  if (i18n) {
+    const name = (i18n.name?.[lang] as string) || hospital.nameJa || hospital.name;
+    const location = (i18n.location?.[lang] as string) || hospital.location;
+    const features = (i18n.features?.[lang] as string[]) || hospital.features;
+    const suitableFor = (i18n.suitableFor?.[lang] as string) || hospital.suitableFor;
+    return { name: name || hospital.name, location, features, suitableFor };
+  }
+
+  // Fallback to original function for static data
+  return getLocalizedHospitalInfo(hospital, lang);
+}
+
+/**
+ * 从 DB 查询候选医院
+ * 使用 GIN 索引按科室 overlap 过滤，返回候选集
+ */
+/** 查询所需的列（排除 raw_data 等大字段） */
+const DB_SELECT_COLUMNS = [
+  'id', 'internal_id', 'source', 'name_ja', 'name_en', 'name_zh_cn', 'name_zh_tw',
+  'region', 'prefecture', 'category',
+  'departments', 'specialties', 'condition_keywords', 'equipment',
+  'has_emergency', 'bed_count',
+  'features_ja', 'features_en', 'features_zh_cn', 'features_zh_tw',
+  'suitable_for_ja', 'suitable_for_en', 'suitable_for_zh_cn', 'suitable_for_zh_tw',
+  'location_ja', 'location_en', 'location_zh_cn', 'location_zh_tw',
+  'languages', 'website_url', 'priority',
+  'specialist_doctors', 'top_treatments',
+].join(',');
+
+async function queryHospitalCandidates(
+  normalizedDepts: string[]
+): Promise<HospitalKnowledge[] | null> {
+  try {
+    const supabase = getSupabaseAdmin();
+
+    // 使用 departments GIN 索引做 overlap 过滤
+    let query = supabase
+      .from('jtb_hospitals')
+      .select(DB_SELECT_COLUMNS)
+      .eq('is_active', true);
+
+    if (normalizedDepts.length > 0) {
+      // overlaps: 返回 departments 与请求科室有交集的医院
+      query = query.overlaps('departments', normalizedDepts);
+    }
+
+    const { data, error } = await query.order('priority', { ascending: false }).limit(50);
+
+    if (error) {
+      aemcLog.warn('hospital-matcher', 'DB query failed', { error: error.message });
+      return null;
+    }
+
+    if (!data || data.length === 0) {
+      // 如果 overlap 查询无结果，退而查询所有高优先级医院
+      const { data: fallbackData, error: fallbackError } = await supabase
+        .from('jtb_hospitals')
+        .select(DB_SELECT_COLUMNS)
+        .eq('is_active', true)
+        .gte('priority', 7)
+        .order('priority', { ascending: false })
+        .limit(30);
+
+      if (fallbackError || !fallbackData) return null;
+      return (fallbackData as unknown as DBHospitalRow[]).map(dbRowToKnowledge);
+    }
+
+    return (data as unknown as DBHospitalRow[]).map(dbRowToKnowledge);
+  } catch (err) {
+    aemcLog.warn('hospital-matcher', 'DB query error', { error: err instanceof Error ? err.message : String(err) });
+    return null;
+  }
+}
+
+// ============================================================
+// 专科医生资质 → 科室匹配（日语资质 → 中文科室关键词）
+// ============================================================
+
+const QUALIFICATION_DEPT_MAP: Record<string, string[]> = {
+  '総合診療': ['内科', '全科'],
+  '循環器': ['循环', '心脏'],
+  '消化器': ['消化'],
+  '呼吸器': ['呼吸'],
+  '内分泌': ['内分泌'],
+  '糖尿病': ['内分泌', '糖尿'],
+  '腎臓': ['肾'],
+  '血液': ['血液'],
+  '脳神経': ['脑', '神经'],
+  '神経内科': ['神经'],
+  '整形外科': ['骨科', '整形'],
+  '皮膚': ['皮肤'],
+  '眼科': ['眼科'],
+  '耳鼻咽喉': ['耳鼻'],
+  '泌尿器': ['泌尿'],
+  '産婦人科': ['妇产'],
+  '小児': ['小儿', '儿科'],
+  '放射線': ['放射'],
+  '麻酔': ['麻醉'],
+  'リハビリ': ['康复'],
+  '外科': ['外科'],
+  '乳腺': ['乳腺'],
+  '感染症': ['感染'],
+  'アレルギー': ['过敏'],
+  '肝臓': ['肝'],
+  '救急': ['急救', '急诊'],
+  'がん': ['肿瘤'],
+  '腫瘍': ['肿瘤'],
+};
+
+/**
+ * 根据患者需要的科室，从医院专科医生中筛选匹配的医生
+ */
+function matchDoctorsToNeededDepts(
+  doctors: { name: string; qualification: string }[],
+  neededDepts: string[],
+  maxResults = 3
+): { name: string; qualification: string }[] {
+  if (!doctors || doctors.length === 0 || neededDepts.length === 0) return [];
+
+  const matched: { name: string; qualification: string }[] = [];
+  const seen = new Set<string>();
+
+  for (const doctor of doctors) {
+    if (seen.has(doctor.name)) continue;
+
+    for (const [qualKeyword, deptKeywords] of Object.entries(QUALIFICATION_DEPT_MAP)) {
+      if (doctor.qualification.includes(qualKeyword)) {
+        const isRelevant = neededDepts.some((dept) =>
+          deptKeywords.some((dk) => dept.includes(dk))
+        );
+        if (isRelevant) {
+          matched.push(doctor);
+          seen.add(doctor.name);
+          break;
+        }
+      }
+    }
+
+    if (matched.length >= maxResults) break;
+  }
+
+  return matched;
+}
+
+/**
+ * 获取医院的 DPC 治疗实绩展示文本（不影响评分，仅展示）
+ */
+function getDPCReasons(
+  treatments: { disease: string; total: number; pref_rank?: string; national_rank?: string }[] | null,
+  lang: AEMCLang,
+  maxResults = 2
+): string[] {
+  if (!treatments || treatments.length === 0) return [];
+
+  const top = [...treatments]
+    .sort((a, b) => b.total - a.total)
+    .slice(0, maxResults);
+
+  return top.map((t) => {
+    const rankInfo = t.national_rank || t.pref_rank || '';
+    const rankSuffix = rankInfo ? `（${rankInfo}）` : '';
+    return `${ML('dpcRecord', lang)}: ${t.disease} ${t.total}${ML('dpcCases', lang)}${rankSuffix}`;
+  });
 }
 
 // ============================================================
@@ -133,18 +390,21 @@ function ML(key: string, lang: AEMCLang): string {
 /**
  * 根据分诊结果匹配合适的医院
  *
+ * 数据流：DB 查询 → 加权评分 → top-N 推荐
+ * 降级：DB 不可用时使用静态 HOSPITAL_KNOWLEDGE_BASE
+ *
  * @param structuredCase AI-1 抽取的病历
  * @param triageAssessment AI-2 分诊判断
  * @param adjudicatedAssessment AI-4 仲裁结果
  * @param language 输出语言
  * @returns HospitalRecommendation
  */
-export function matchHospitals(
+export async function matchHospitals(
   structuredCase: StructuredCase,
   triageAssessment: TriageAssessment,
   adjudicatedAssessment: AdjudicatedAssessment,
   language?: string
-): HospitalRecommendation {
+): Promise<HospitalRecommendation> {
   const lang = (language || 'zh-CN') as AEMCLang;
 
   // 提取匹配特征
@@ -154,8 +414,21 @@ export function matchHospitals(
     adjudicatedAssessment
   );
 
+  // 从 DB 查询候选医院，失败时降级到静态数据
+  let candidates: HospitalKnowledge[];
+  let useDB = false;
+
+  const dbCandidates = await queryHospitalCandidates(features.normalizedDepartments);
+  if (dbCandidates && dbCandidates.length > 0) {
+    candidates = dbCandidates;
+    useDB = true;
+  } else {
+    candidates = HOSPITAL_KNOWLEDGE_BASE;
+    aemcLog.info('hospital-matcher', 'Using static knowledge base as fallback');
+  }
+
   // 对每个医院计算匹配分数
-  const scoredHospitals: ScoredHospital[] = HOSPITAL_KNOWLEDGE_BASE.map((hospital) => {
+  const scoredHospitals: ScoredHospital[] = candidates.map((hospital) => {
     const scoreResult = calculateMatchScore(hospital, features, lang);
     return {
       hospital,
@@ -179,21 +452,39 @@ export function matchHospitals(
   // 取 top-N
   const topN = qualified.slice(0, MAX_RECOMMENDATIONS);
 
-  // 构建输出（使用本地化名称）
+  // 构建输出（使用本地化名称，附加医生推荐和 DPC 实绩）
   const recommendedHospitals: HospitalMatch[] = topN.map((s) => {
-    const localized = getLocalizedHospitalInfo(s.hospital, lang);
+    const localized = useDB ? getLocalizedInfo(s.hospital, lang) : getLocalizedHospitalInfo(s.hospital, lang);
+    const enriched = s.hospital as HospitalKnowledge & {
+      _specialistDoctors?: { name: string; qualification: string }[];
+      _topTreatments?: { disease: string; total: number; pref_rank?: string; national_rank?: string }[];
+    };
+
+    // DPC 实绩展示（不影响评分）
+    const dpcReasons = getDPCReasons(enriched._topTreatments || null, lang);
+    const allReasons = [...s.matchReasons, ...dpcReasons];
+
+    // 匹配相关科室的专科医生
+    const doctors = matchDoctorsToNeededDepts(
+      enriched._specialistDoctors || [],
+      features.normalizedDepartments
+    );
+
     return {
       hospital_id: s.hospital.id,
       hospital_name: localized.name,
+      hospital_name_ja: s.hospital.nameJa,
+      location: localized.location || s.hospital.location,
       department: getLocalizedDepartment(s.departmentMatched || s.hospital.departments[0], lang),
       match_score: Math.round(s.score * 100) / 100,
-      match_reasons: s.matchReasons,
+      match_reasons: allReasons,
       cautions: s.cautions,
+      recommended_doctors: doctors.length > 0 ? doctors : undefined,
     };
   });
 
   // 路由建议
-  const routingSuggestion = generateRoutingSuggestion(topN, features, lang);
+  const routingSuggestion = generateRoutingSuggestion(topN, features, lang, useDB);
 
   // 是否需要人工协调员介入
   const requiresManualReview =
@@ -413,7 +704,8 @@ function calculateMatchScore(
 function generateRoutingSuggestion(
   topHospitals: ScoredHospital[],
   features: MatchingFeatures,
-  lang: AEMCLang
+  lang: AEMCLang,
+  useDB = false
 ): string {
   if (topHospitals.length === 0) {
     return ML('noMatch', lang);
@@ -424,7 +716,7 @@ function generateRoutingSuggestion(
   }
 
   const top = topHospitals[0];
-  const localized = getLocalizedHospitalInfo(top.hospital, lang);
+  const localized = useDB ? getLocalizedInfo(top.hospital, lang) : getLocalizedHospitalInfo(top.hospital, lang);
   const dept = getLocalizedDepartment(top.departmentMatched || top.hospital.departments[0], lang);
 
   if (top.score >= 0.6) {

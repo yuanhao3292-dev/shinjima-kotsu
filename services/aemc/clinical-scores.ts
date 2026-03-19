@@ -17,6 +17,7 @@
 
 import type { StructuredCase } from './types';
 import { type AEMCLang } from './hospital-knowledge-base';
+import { aemcLog } from './logger';
 
 // ============================================================
 // 多语言标签
@@ -452,7 +453,9 @@ export function calculateClinicalScores(
       : '';
 
   if (scores.length > 0) {
-    console.info(`[ClinicalScores] Calculated ${scores.length} scores: ${scores.map((s) => `${s.name}=${s.grade}`).join(', ')}`);
+    aemcLog.info('clinical-scores', `Calculated ${scores.length} scores`, {
+      scores: scores.map((s) => `${s.name}=${s.grade}`),
+    });
   }
 
   return { scores, summaryForTriage };

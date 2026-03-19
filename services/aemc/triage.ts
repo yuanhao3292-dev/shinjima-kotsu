@@ -10,6 +10,8 @@
 
 import OpenAI from 'openai';
 import type { StructuredCase, TriageAssessment, AIRunRecord } from './types';
+import { withRetry } from './ai-retry';
+import { aemcLog } from './logger';
 import {
   getTriageSystemPrompt,
   buildTriageUserPrompt,
@@ -65,16 +67,19 @@ export async function triageCase(
     : baseUserPrompt;
 
   try {
-    const response = await client.chat.completions.create({
-      model: MODEL_NAME,
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userPrompt },
-      ],
-      temperature: TEMPERATURE,
-      max_tokens: MAX_TOKENS,
-      response_format: { type: 'json_object' },
-    });
+    const response = await withRetry(
+      () => client.chat.completions.create({
+        model: MODEL_NAME,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt },
+        ],
+        temperature: TEMPERATURE,
+        max_tokens: MAX_TOKENS,
+        response_format: { type: 'json_object' },
+      }),
+      { maxRetries: 2, baseDelayMs: 1000, label: 'AI-2 Triage' }
+    );
 
     const content = response.choices[0]?.message?.content;
     if (!content) {
@@ -145,7 +150,7 @@ function validateTriageAssessment(
   caseId: string
 ): void {
   if (!result.case_id || result.case_id !== caseId) {
-    console.warn(`[AI-2 Triage] case_id mismatch: expected=${caseId}, got=${result.case_id || 'missing'}`);
+    aemcLog.warn('triage', `case_id mismatch: expected=${caseId}, got=${result.case_id || 'missing'}`);
     result.case_id = caseId;
   }
 
@@ -158,7 +163,7 @@ function validateTriageAssessment(
 
   // 确保 confidence 在 0-1 范围
   if (typeof result.confidence !== 'number' || result.confidence < 0 || result.confidence > 1) {
-    console.warn(`[AI-2 Triage] Invalid confidence (type=${typeof result.confidence}, value=${result.confidence}), defaulting to 0.5`);
+    aemcLog.warn('triage', `Invalid confidence (type=${typeof result.confidence}, value=${result.confidence}), defaulting to 0.5`);
     result.confidence = 0.5;
   }
 

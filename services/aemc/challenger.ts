@@ -15,6 +15,8 @@ import type {
   ChallengeReview,
   AIRunRecord,
 } from './types';
+import { withRetry } from './ai-retry';
+import { aemcLog } from './logger';
 import {
   getChallengerSystemPrompt,
   buildChallengerUserPrompt,
@@ -71,16 +73,19 @@ export async function challengeCase(
     : buildChallengerUserPrompt(structuredJson);
 
   try {
-    const response = await client.chat.completions.create({
-      model: MODEL_NAME,
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userPrompt },
-      ],
-      temperature: TEMPERATURE,
-      max_tokens: MAX_TOKENS,
-      response_format: { type: 'json_object' },
-    });
+    const response = await withRetry(
+      () => client.chat.completions.create({
+        model: MODEL_NAME,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt },
+        ],
+        temperature: TEMPERATURE,
+        max_tokens: MAX_TOKENS,
+        response_format: { type: 'json_object' },
+      }),
+      { maxRetries: 1, baseDelayMs: 1000, label: 'AI-3 Challenger' }
+    );
 
     const content = response.choices[0]?.message?.content;
     if (!content) {
@@ -150,13 +155,13 @@ function validateChallengeReview(
   caseId: string
 ): void {
   if (!result.case_id || result.case_id !== caseId) {
-    console.warn(`[AI-3 Challenger] case_id mismatch: expected=${caseId}, got=${result.case_id || 'missing'}`);
+    aemcLog.warn('challenger', `case_id mismatch: expected=${caseId}, got=${result.case_id || 'missing'}`);
     result.case_id = caseId;
   }
 
   // 确保 confidence 在 0-1 范围
   if (typeof result.confidence !== 'number' || result.confidence < 0 || result.confidence > 1) {
-    console.warn(`[AI-3 Challenger] Invalid confidence (type=${typeof result.confidence}, value=${result.confidence}), defaulting to 0.5`);
+    aemcLog.warn('challenger', `Invalid confidence (type=${typeof result.confidence}, value=${result.confidence}), defaulting to 0.5`);
     result.confidence = 0.5;
   }
 

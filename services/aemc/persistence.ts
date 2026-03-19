@@ -12,6 +12,7 @@
 
 import { getSupabaseAdmin } from '@/lib/supabase/api';
 import type { AEMCPipelineResult, AIRunRecord } from './types';
+import { aemcLog } from './logger';
 
 // ============================================================
 // 主入口：一次性持久化整个 Pipeline 结果
@@ -21,7 +22,7 @@ import type { AEMCPipelineResult, AIRunRecord } from './types';
  * 持久化完整 pipeline 结果（AI runs + 仲裁记录 + 医院匹配）
  *
  * 调用方无需 await（fire-and-forget），但建议 await 以确保审计完整性。
- * 任何持久化错误都只会 console.warn，不会 throw。
+ * 任何持久化错误都只会 aemcLog.warn，不会 throw。
  */
 export async function persistPipelineResults(
   pipelineResult: AEMCPipelineResult,
@@ -71,13 +72,12 @@ async function persistAIRuns(
       .insert(rows);
 
     if (error) {
-      console.warn('[AEMC Persistence] Failed to insert AI runs:', error.message);
+      aemcLog.warn('persistence', 'Failed to insert AI runs', { error: error.message });
     }
   } catch (err) {
-    console.warn(
-      '[AEMC Persistence] AI runs persistence error:',
-      err instanceof Error ? err.message : err
-    );
+    aemcLog.warn('persistence', 'AI runs persistence error', {
+      error: err instanceof Error ? err.message : String(err),
+    });
   }
 }
 
@@ -125,13 +125,12 @@ async function persistAdjudication(
       .insert(row);
 
     if (error) {
-      console.warn('[AEMC Persistence] Failed to insert adjudication:', error.message);
+      aemcLog.warn('persistence', 'Failed to insert adjudication', { error: error.message });
     }
   } catch (err) {
-    console.warn(
-      '[AEMC Persistence] Adjudication persistence error:',
-      err instanceof Error ? err.message : err
-    );
+    aemcLog.warn('persistence', 'Adjudication persistence error', {
+      error: err instanceof Error ? err.message : String(err),
+    });
   }
 }
 
@@ -169,13 +168,12 @@ async function persistHospitalMatches(
       .insert(rows);
 
     if (error) {
-      console.warn('[AEMC Persistence] Failed to insert hospital matches:', error.message);
+      aemcLog.warn('persistence', 'Failed to insert hospital matches', { error: error.message });
     }
   } catch (err) {
-    console.warn(
-      '[AEMC Persistence] Hospital matches persistence error:',
-      err instanceof Error ? err.message : err
-    );
+    aemcLog.warn('persistence', 'Hospital matches persistence error', {
+      error: err instanceof Error ? err.message : String(err),
+    });
   }
 }
 

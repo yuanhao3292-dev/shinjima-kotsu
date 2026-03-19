@@ -16,12 +16,17 @@ import type {
   AdjudicatedAssessment,
   AIRunRecord,
 } from './types';
+import { withRetry } from './ai-retry';
+import { aemcLog } from './logger';
 
 const OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1';
+const DEEPSEEK_BASE_URL = 'https://api.deepseek.com/v1';
 const MODEL_NAME = 'openai/gpt-4o-mini';
+const FALLBACK_MODEL_NAME = 'deepseek-chat';
 const MAX_TOKENS = 4000;
 const TEMPERATURE = 0.2;
 const TIMEOUT_MS = 9_000; // Vercel Hobby 10s 限制，留 1s 给其他逻辑
+const FALLBACK_TIMEOUT_MS = 8_000;
 
 export const LITE_PROMPT_VERSION = 'lite-v1.0';
 
@@ -112,29 +117,80 @@ export async function runLiteAnalysis(
     throw new Error('[Lite Analyzer] OPENROUTER_API_KEY not configured');
   }
 
+  const systemPrompt = getSystemPrompt(casePacket.language);
+  const userPrompt = `Analyze this patient case:\n\n---PATIENT DATA START---\n${inputJson}\n---PATIENT DATA END---\n\nReturn ONLY the JSON object.`;
+  const messages: { role: 'system' | 'user'; content: string }[] = [
+    { role: 'system', content: systemPrompt },
+    { role: 'user', content: userPrompt },
+  ];
+
+  // 是否有 DeepSeek 备选
+  const deepseekKey = process.env.DEEPSEEK_API_KEY;
+  const hasFallback = !!deepseekKey;
+  // 有 fallback 时缩短主调用超时，为 fallback 留时间
+  const primaryTimeout = hasFallback ? 6_000 : TIMEOUT_MS;
+
+  // Primary: OpenRouter GPT-4o-mini
+  try {
+    return await callAndParse(
+      { apiKey, baseURL: OPENROUTER_BASE_URL, timeout: primaryTimeout },
+      MODEL_NAME, messages, casePacket, inputHash, startTime, 'openai',
+      { maxRetries: 1, baseDelayMs: 500, label: 'V3 Lite' }
+    );
+  } catch (primaryError) {
+    if (!hasFallback) throw primaryError;
+
+    aemcLog.warn('lite-analyzer', 'Primary (OpenRouter) failed, falling back to DeepSeek', {
+      error: primaryError instanceof Error ? primaryError.message : String(primaryError),
+    });
+
+    // Fallback: DeepSeek V3 直连（不经 OpenRouter）
+    try {
+      return await callAndParse(
+        { apiKey: deepseekKey!, baseURL: DEEPSEEK_BASE_URL, timeout: FALLBACK_TIMEOUT_MS },
+        FALLBACK_MODEL_NAME, messages, casePacket, inputHash, startTime, 'deepseek',
+        { maxRetries: 0, label: 'V3 Lite-Fallback' }
+      );
+    } catch {
+      // Fallback 也失败，抛出原始错误（更有诊断价值）
+      throw primaryError;
+    }
+  }
+}
+
+/**
+ * 调用 LLM 并解析响应为 LiteAnalysisResult
+ */
+async function callAndParse(
+  clientConfig: { apiKey: string; baseURL: string; timeout: number },
+  modelName: string,
+  messages: { role: 'system' | 'user'; content: string }[],
+  casePacket: CasePacket,
+  inputHash: string,
+  startTime: number,
+  vendor: AIRunRecord['model_vendor'],
+  retryOptions: { maxRetries: number; baseDelayMs?: number; label: string }
+): Promise<LiteAnalysisResult> {
   const client = new OpenAI({
-    apiKey,
-    baseURL: OPENROUTER_BASE_URL,
-    timeout: TIMEOUT_MS,
+    apiKey: clientConfig.apiKey,
+    baseURL: clientConfig.baseURL,
+    timeout: clientConfig.timeout,
   });
 
-  const response = await client.chat.completions.create({
-    model: MODEL_NAME,
-    messages: [
-      { role: 'system', content: getSystemPrompt(casePacket.language) },
-      {
-        role: 'user',
-        content: `Analyze this patient case:\n\n---PATIENT DATA START---\n${inputJson}\n---PATIENT DATA END---\n\nReturn ONLY the JSON object.`,
-      },
-    ],
-    temperature: TEMPERATURE,
-    max_tokens: MAX_TOKENS,
-    response_format: { type: 'json_object' },
-  });
+  const response = await withRetry(
+    () => client.chat.completions.create({
+      model: modelName,
+      messages,
+      temperature: TEMPERATURE,
+      max_tokens: MAX_TOKENS,
+      response_format: { type: 'json_object' },
+    }),
+    retryOptions
+  );
 
   const content = response.choices[0]?.message?.content;
   if (!content) {
-    throw new Error('[Lite Analyzer] Empty response');
+    throw new Error(`[Lite Analyzer] Empty response from ${modelName}`);
   }
 
   const cleanedContent = content
@@ -148,7 +204,7 @@ export async function runLiteAnalysis(
     adjudicated_assessment: AdjudicatedAssessment;
   };
 
-  // 确保 case_id 一致
+  // 确保字段完整
   const caseId = casePacket.case_id;
   const sc = parsed.structured_case;
   const ta = parsed.triage_assessment;
@@ -205,9 +261,9 @@ export async function runLiteAnalysis(
     adjudicatedAssessment: aa,
     runRecord: {
       screening_id: casePacket.metadata.screening_id,
-      model_vendor: 'openai',
-      model_name: MODEL_NAME,
-      role: 'adjudicator', // 一站式角色，记录为 adjudicator
+      model_vendor: vendor,
+      model_name: modelName,
+      role: 'adjudicator',
       prompt_version: LITE_PROMPT_VERSION,
       input_hash: inputHash,
       output_json: parsed as unknown as Record<string, unknown>,

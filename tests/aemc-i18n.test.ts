@@ -619,7 +619,7 @@ describe('extraction-validator i18n', () => {
 
 describe('hospital-matcher i18n', () => {
   describe('匹配结果本地化', () => {
-    it('4种语言返回不同的医院名称和科室', () => {
+    it('4种语言返回不同的医院名称和科室', async () => {
       const sc = makeStructuredCase({
         chief_complaint: '胸痛',
         present_illness: {
@@ -640,7 +640,7 @@ describe('hospital-matcher i18n', () => {
         final_risk_level: 'medium',
       });
 
-      const results = LANGS.map((lang) => matchHospitals(sc, triage, adj, lang));
+      const results = await Promise.all(LANGS.map((lang) => matchHospitals(sc, triage, adj, lang)));
 
       // 每种语言都应有推荐
       for (const r of results) {
@@ -654,7 +654,7 @@ describe('hospital-matcher i18n', () => {
   });
 
   describe('注意事项本地化 (noEmergency / clinicCaution)', () => {
-    it('4种语言的无急诊警告各不相同', () => {
+    it('4种语言的无急诊警告各不相同', async () => {
       const sc = makeStructuredCase();
       const triage = makeTriageAssessment({ needs_emergency_evaluation: true });
       const adj = makeAdjudicatedAssessment({
@@ -662,7 +662,7 @@ describe('hospital-matcher i18n', () => {
         final_risk_level: 'emergency',
       });
 
-      const results = LANGS.map((lang) => matchHospitals(sc, triage, adj, lang));
+      const results = await Promise.all(LANGS.map((lang) => matchHospitals(sc, triage, adj, lang)));
 
       // 紧急情况下应触发 emergencyRouting
       const routings = results.map((r) => r.routing_suggestion);
