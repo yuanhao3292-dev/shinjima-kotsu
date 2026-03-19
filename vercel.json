@@ -48,6 +48,10 @@
     {
       "path": "/api/cron/reset-quarterly-tiers",
       "schedule": "0 0 1 1,4,7,10 *"
+    },
+    {
+      "path": "/api/cron/health-checkup-reminder",
+      "schedule": "0 9 1 * *"
     }
   ],
   "headers": [

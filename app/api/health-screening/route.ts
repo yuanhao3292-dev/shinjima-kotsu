@@ -228,11 +228,19 @@ export async function GET(request: NextRequest) {
       riskLevel: s.analysis_result?.riskLevel || null,
     }));
 
+    // [Health Passport] 获取健康快照
+    const { data: snapshots } = await supabase
+      .from('health_snapshots')
+      .select('*')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false });
+
     // 测试账户：返回不限次数
     const isTestAccount = user.email?.includes('qqy5618');
 
     return NextResponse.json({
       screenings: processedScreenings,
+      snapshots: snapshots ?? [],
       freeRemaining: isTestAccount ? 999 : usageInfo.freeRemaining,
       totalUsed: usageInfo.totalUsed,
     });

@@ -28,6 +28,8 @@ import {
 } from '@/lib/screening-questions';
 import { validateBody } from '@/lib/validations/validate';
 import { HealthScreeningAnalyzeSchema } from '@/lib/validations/api-schemas';
+import { extractSnapshot, compareTrend } from '@/lib/health-score';
+import { getSupabaseAdmin } from '@/lib/supabase/api';
 
 // Vercel Serverless 函数超时设置（秒）
 // AEMC Pipeline 需要 3-4 次顺序 AI 调用，总计约 20-40 秒
@@ -298,6 +300,43 @@ export async function POST(request: NextRequest) {
     if (updateError) {
       console.error('Screening update failed:', updateError.message, updateError.code, updateError.details);
       return NextResponse.json({ error: '保存分析结果失败' }, { status: 500 });
+    }
+
+    // [Health Passport] 写入健康快照（fire-and-forget，不阻断主流程）
+    try {
+      const supabaseAdmin = getSupabaseAdmin();
+      const snapshot = extractSnapshot(analysisResult);
+      const { data: prevSnapshot } = await supabaseAdmin
+        .from('health_snapshots')
+        .select('id, health_score, departments')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .single();
+
+      const prevMapped = prevSnapshot
+        ? { healthScore: prevSnapshot.health_score as number, departments: prevSnapshot.departments as string[] }
+        : null;
+      const trend = compareTrend(snapshot, prevMapped);
+
+      await supabaseAdmin.from('health_snapshots').insert({
+        screening_id: screeningId,
+        user_id: user.id,
+        health_score: snapshot.healthScore,
+        risk_level: snapshot.riskLevel,
+        safety_gate: snapshot.safetyGate,
+        department_count: snapshot.departmentCount,
+        test_count: snapshot.testCount,
+        departments: snapshot.departments,
+        top_findings: snapshot.topFindings,
+        score_delta: trend.scoreDelta,
+        prev_snapshot_id: prevSnapshot?.id ?? null,
+        trend: trend.trend,
+        new_departments: trend.newDepartments,
+        resolved_departments: trend.resolvedDepartments,
+      });
+    } catch (snapshotErr) {
+      console.warn('[HealthPassport] Snapshot write failed:', snapshotErr instanceof Error ? snapshotErr.message : snapshotErr);
     }
 
     // 更新用户的使用量（测试账户不扣减）
