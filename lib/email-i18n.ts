@@ -590,3 +590,70 @@ export const guideRegistration = {
     en: 'Log In Now',
   },
 } as const;
+
+// ============================================
+// 6. 健康复查提醒 (Health Checkup Reminder)
+// ============================================
+
+export const healthCheckupReminder = {
+  subject: {
+    ja: '🏥 年次健康スクリーニングのお知らせ（前回から{{months}}ヶ月）',
+    'zh-CN': '🏥 年度健康筛查提醒（距上次{{months}}个月）',
+    'zh-TW': '🏥 年度健康篩查提醒（距上次{{months}}個月）',
+    en: '🏥 Annual Health Screening Reminder ({{months}} months since last visit)',
+  },
+  subjectHighRisk: {
+    ja: '⚠️ 健康フォローアップが必要です（前回から{{months}}ヶ月）',
+    'zh-CN': '⚠️ 健康复查提醒（距上次{{months}}个月）',
+    'zh-TW': '⚠️ 健康複查提醒（距上次{{months}}個月）',
+    en: '⚠️ Health Follow-up Needed ({{months}} months since last visit)',
+  },
+  statusTitle: {
+    ja: '定期健康チェックの時期です',
+    'zh-CN': '是时候进行定期健康检查了',
+    'zh-TW': '是時候進行定期健康檢查了',
+    en: 'Time for Your Regular Health Check',
+  },
+  statusTitleHighRisk: {
+    ja: 'フォローアップ検査をお勧めします',
+    'zh-CN': '建议进行复查',
+    'zh-TW': '建議進行複查',
+    en: 'Follow-up Examination Recommended',
+  },
+  message: {
+    ja: '定期的な健康スクリーニングは最良の予防策です。前回のスクリーニングからしばらく経ちました。最新の健康状態を確認しましょう。',
+    'zh-CN': '定期健康筛查是最好的预防。距离您上次筛查已有一段时间，建议您进行新一轮检查，了解最新健康状况。',
+    'zh-TW': '定期健康篩查是最好的預防。距離您上次篩查已有一段時間，建議您進行新一輪檢查，了解最新健康狀況。',
+    en: 'Regular health screenings are the best form of prevention. It has been a while since your last checkup. Check your latest health status.',
+  },
+  messageHighRisk: {
+    ja: '前回のスクリーニングで健康リスクの上昇が検出されました。年次フォローアップ検査を強くお勧めします。',
+    'zh-CN': '您上次筛查检测到较高的健康风险。我们强烈建议您进行年度复查。',
+    'zh-TW': '您上次篩查檢測到較高的健康風險。我們強烈建議您進行年度複查。',
+    en: 'Your previous screening detected elevated health risks. We strongly recommend scheduling your annual follow-up checkup.',
+  },
+  monthsLabel: {
+    ja: '前回から',
+    'zh-CN': '距上次',
+    'zh-TW': '距上次',
+    en: 'Since last screening',
+  },
+  monthsUnit: {
+    ja: 'ヶ月',
+    'zh-CN': '个月',
+    'zh-TW': '個月',
+    en: 'months',
+  },
+  lastScoreLabel: {
+    ja: '前回のスコア',
+    'zh-CN': '上次评分',
+    'zh-TW': '上次評分',
+    en: 'Last Score',
+  },
+  ctaText: {
+    ja: '今すぐスクリーニングを受ける',
+    'zh-CN': '立即开始健康筛查',
+    'zh-TW': '立即開始健康篩查',
+    en: 'Start Health Screening Now',
+  },
+} as const;

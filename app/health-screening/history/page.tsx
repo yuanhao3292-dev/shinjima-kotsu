@@ -8,11 +8,14 @@ import {
   Loader2,
   AlertCircle,
   Plus,
+  Download,
 } from 'lucide-react';
 import { FREE_SCREENING_LIMIT } from '@/lib/screening-questions';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import HealthPassport from '@/components/HealthPassport';
 import type { HealthSnapshotRow } from '@/lib/health-score';
+import { calculateHealthScoreWithBreakdown } from '@/lib/health-score';
+import { downloadHealthPassportPDF } from '@/components/HealthPassportPDF';
 
 interface ScreeningRecord {
   id: string;
@@ -32,6 +35,8 @@ const T: Record<string, Record<Language, string>> = {
   freeRemaining: { ja: '残り無料回数', 'zh-CN': '免费剩余', 'zh-TW': '免費剩餘', en: 'Free Remaining' },
   times: { ja: '回', 'zh-CN': '次', 'zh-TW': '次', en: 'times' },
   newScreening: { ja: '新しいスクリーニング', 'zh-CN': '新的筛查', 'zh-TW': '新的篩查', en: 'New Screening' },
+  downloadPDF: { ja: 'PDFエクスポート', 'zh-CN': '导出PDF', 'zh-TW': '匯出PDF', en: 'Export PDF' },
+  generating: { ja: '生成中...', 'zh-CN': '生成中...', 'zh-TW': '生成中...', en: 'Generating...' },
 };
 
 const t = (key: string, lang: Language): string => T[key]?.[lang] ?? key;
@@ -45,6 +50,7 @@ export default function ScreeningHistoryPage() {
   const [snapshots, setSnapshots] = useState<HealthSnapshotRow[]>([]);
   const [freeRemaining, setFreeRemaining] = useState(FREE_SCREENING_LIMIT);
   const [totalUsed, setTotalUsed] = useState(0);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
     async function fetchHistory() {
@@ -76,6 +82,41 @@ export default function ScreeningHistoryPage() {
 
     fetchHistory();
   }, [router, lang]);
+
+  const handleDownloadPassportPDF = async () => {
+    if (snapshots.length === 0 || isDownloading) return;
+    setIsDownloading(true);
+    try {
+      const latest = snapshots[0];
+      // Build a minimal AnalysisResult to compute breakdown
+      const breakdown = calculateHealthScoreWithBreakdown({
+        riskLevel: latest.risk_level as 'low' | 'medium' | 'high',
+        recommendedDepartments: latest.departments,
+        recommendedTests: Array(latest.test_count).fill(''),
+        safetyGateClass: latest.safety_gate as string | undefined,
+        requiresHumanReview: false,
+        riskSummary: latest.top_findings[0] ?? '',
+        treatmentSuggestions: [],
+      } as any);
+      const langMap: Record<Language, 'ja' | 'zh-CN' | 'zh-TW' | 'en'> = { ja: 'ja', 'zh-CN': 'zh-CN', 'zh-TW': 'zh-TW', en: 'en' };
+      await downloadHealthPassportPDF({
+        language: langMap[lang],
+        healthScore: latest.health_score,
+        riskLevel: latest.risk_level,
+        trend: latest.trend,
+        scoreDelta: latest.score_delta,
+        breakdown,
+        topFindings: latest.top_findings,
+        departments: latest.departments,
+        latestScreeningDate: latest.created_at,
+        snapshots,
+      });
+    } catch (err) {
+      console.error('Passport PDF error:', err);
+    } finally {
+      setIsDownloading(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -116,15 +157,31 @@ export default function ScreeningHistoryPage() {
               </p>
             </div>
 
-            {freeRemaining > 0 && (
-              <Link
-                href="/health-screening"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
-              >
-                <Plus className="w-5 h-5" />
-                {t('newScreening', lang)}
-              </Link>
-            )}
+            <div className="flex items-center gap-3">
+              {snapshots.length > 0 && (
+                <button
+                  onClick={handleDownloadPassportPDF}
+                  disabled={isDownloading}
+                  className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 rounded-lg hover:bg-neutral-50 disabled:opacity-50 transition-colors text-sm"
+                >
+                  {isDownloading ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <Download className="w-4 h-4" />
+                  )}
+                  {isDownloading ? t('generating', lang) : t('downloadPDF', lang)}
+                </button>
+              )}
+              {freeRemaining > 0 && (
+                <Link
+                  href="/health-screening"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+                >
+                  <Plus className="w-5 h-5" />
+                  {t('newScreening', lang)}
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       </div>

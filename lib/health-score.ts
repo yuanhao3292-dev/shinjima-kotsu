@@ -1,9 +1,9 @@
 /**
- * Health Passport — 健康评分 + 快照提取 + 趋势分析
+ * Health Passport — 加权健康评分 + 评分详情 + 快照提取 + 趋势分析
  *
  * 纯确定性函数，零 AI 调用。
- * 从 AnalysisResult 计算健康评分（0-100），提取结构化快照，
- * 并对比历次快照生成趋势指标。
+ * 从 AnalysisResult 计算加权健康评分（0-100），提供透明的评分详情，
+ * 提取结构化快照，并对比历次快照生成趋势指标。
  */
 
 import type { AnalysisResult } from '@/services/aemc/types';
@@ -49,46 +49,145 @@ export interface HealthSnapshotRow {
   created_at: string;
 }
 
+/** 评分详情中的每一条扣分项 */
+export interface ScoreBreakdownItem {
+  category: 'risk_level' | 'department' | 'test' | 'safety_gate' | 'human_review' | 'cancer_keyword';
+  label: string;
+  deduction: number;
+}
+
+/** 完整评分详情 */
+export interface ScoreBreakdownResult {
+  baseScore: 100;
+  totalDeduction: number;
+  finalScore: number;
+  items: ScoreBreakdownItem[];
+}
+
 // ============================================================
-// 1. 健康评分算法
+// 科室权重常量
 // ============================================================
 
 /**
- * 从 AnalysisResult 确定性计算健康评分 0-100
+ * 科室权重映射（关键词 → 扣分权重）
+ * Tier 1 (8): 生命攸关科室（心脏/肿瘤/脑神经）
+ * Tier 2 (6): 重要但非即刻致命（呼吸/消化/肾脏/内分泌）
+ * Default (4): 其他科室
+ */
+const DEPT_WEIGHT_KEYWORDS: [string[], number][] = [
+  // Tier 1 — weight 8
+  [['cardiology', 'cardiac', '循環器', '心臓', '心脏', '心血管'], 8],
+  [['oncology', '腫瘍', '肿瘤', 'がん'], 8],
+  [['neurosurgery', 'neurology', '脳神経', '脑神经', '神経内科', '神经内科'], 8],
+  // Tier 2 — weight 6
+  [['pulmonology', 'respiratory', '呼吸器', '呼吸'], 6],
+  [['gastroenterology', 'gastro', '消化器', '消化', '胃腸', '胃肠'], 6],
+  [['nephrology', 'renal', '腎臓', '肾脏', '腎'], 6],
+  [['endocrinology', '内分泌'], 6],
+];
+
+const DEFAULT_DEPT_WEIGHT = 4;
+
+/** 癌症关键词（中日英），用于文本扫描 */
+const CANCER_KEYWORDS = [
+  'cancer', 'tumor', 'tumour', 'malignant', 'carcinoma',
+  'lymphoma', 'leukemia', 'metastasis', 'neoplasm', 'sarcoma',
+  '癌', '腫瘍', '腫瘤', '肿瘤', '悪性', '恶性', '転移', '轉移',
+  'がん', '白血病', 'リンパ腫',
+];
+
+// ============================================================
+// 科室权重查找
+// ============================================================
+
+function getDeptWeight(deptName: string): number {
+  const lower = deptName.toLowerCase();
+  for (const [keywords, weight] of DEPT_WEIGHT_KEYWORDS) {
+    if (keywords.some(kw => lower.includes(kw))) return weight;
+  }
+  return DEFAULT_DEPT_WEIGHT;
+}
+
+// ============================================================
+// 1. 加权健康评分算法（带评分详情）
+// ============================================================
+
+/**
+ * 从 AnalysisResult 计算加权健康评分，返回完整评分详情。
  *
- * 基础分 = 100
- * - riskLevel === 'high'          → -30
- * - riskLevel === 'medium'        → -15
- * - 每个 recommendedDepartment    → -5（最多 -20）
- * - 每个 recommendedTest          → -2（最多 -10）
- * - safetyGateClass === 'C'       → -10
- * - safetyGateClass === 'D'       → -25
- * - requiresHumanReview           → -5
- * 最终分 = clamp(score, 20, 100)
+ * 算法：
+ * - 基础分 = 100
+ * - 风险等级：high -30, medium -15
+ * - 科室加权扣分（Tier1=-8, Tier2=-6, 默认=-4，总上限 -30）
+ * - 检查项 -2/个（上限 -10）
+ * - 安全闸门：D -25, C -10
+ * - 人工审核 -5
+ * - 癌症关键词（文本扫描）-8（一次性）
+ * - clamp(20, 100)
+ */
+export function calculateHealthScoreWithBreakdown(result: AnalysisResult): ScoreBreakdownResult {
+  const items: ScoreBreakdownItem[] = [];
+
+  // 1. Risk level
+  if (result.riskLevel === 'high') {
+    items.push({ category: 'risk_level', label: 'High Risk', deduction: 30 });
+  } else if (result.riskLevel === 'medium') {
+    items.push({ category: 'risk_level', label: 'Medium Risk', deduction: 15 });
+  }
+
+  // 2. Departments (weighted, max total -30)
+  let deptTotal = 0;
+  for (const dept of result.recommendedDepartments ?? []) {
+    const name = dept.trim();
+    if (!name) continue;
+    const weight = getDeptWeight(name);
+    const deduction = Math.min(weight, 30 - deptTotal);
+    if (deduction <= 0) break;
+    deptTotal += deduction;
+    items.push({ category: 'department', label: name, deduction });
+  }
+
+  // 3. Tests (-2 each, max -10)
+  const tests = result.recommendedTests ?? [];
+  const testDeduction = Math.min(tests.length * 2, 10);
+  if (testDeduction > 0) {
+    items.push({ category: 'test', label: `${tests.length} tests`, deduction: testDeduction });
+  }
+
+  // 4. Safety gate
+  if (result.safetyGateClass === 'D') {
+    items.push({ category: 'safety_gate', label: 'Emergency Gate', deduction: 25 });
+  } else if (result.safetyGateClass === 'C') {
+    items.push({ category: 'safety_gate', label: 'Review Gate', deduction: 10 });
+  }
+
+  // 5. Human review
+  if (result.requiresHumanReview) {
+    items.push({ category: 'human_review', label: 'Human Review', deduction: 5 });
+  }
+
+  // 6. Cancer keyword scan (one-time -8)
+  const textToScan = [
+    result.riskSummary ?? '',
+    ...(result.recommendedDepartments ?? []),
+    ...(result.treatmentSuggestions ?? []),
+  ].join(' ').toLowerCase();
+
+  if (CANCER_KEYWORDS.some(kw => textToScan.includes(kw.toLowerCase()))) {
+    items.push({ category: 'cancer_keyword', label: 'Cancer Risk', deduction: 8 });
+  }
+
+  const totalDeduction = items.reduce((sum, item) => sum + item.deduction, 0);
+  const finalScore = Math.max(20, Math.min(100, 100 - totalDeduction));
+
+  return { baseScore: 100, totalDeduction, finalScore, items };
+}
+
+/**
+ * 简化版：仅返回最终分数（向后兼容）
  */
 export function calculateHealthScore(result: AnalysisResult): number {
-  let score = 100;
-
-  // Risk level deduction
-  if (result.riskLevel === 'high') score -= 30;
-  else if (result.riskLevel === 'medium') score -= 15;
-
-  // Department deduction: -5 each, max -20
-  const deptCount = result.recommendedDepartments?.length ?? 0;
-  score -= Math.min(deptCount * 5, 20);
-
-  // Test deduction: -2 each, max -10
-  const testCount = result.recommendedTests?.length ?? 0;
-  score -= Math.min(testCount * 2, 10);
-
-  // Safety gate deduction
-  if (result.safetyGateClass === 'D') score -= 25;
-  else if (result.safetyGateClass === 'C') score -= 10;
-
-  // Human review flag
-  if (result.requiresHumanReview) score -= 5;
-
-  return Math.max(20, Math.min(100, score));
+  return calculateHealthScoreWithBreakdown(result).finalScore;
 }
 
 // ============================================================

@@ -25,6 +25,7 @@ import {
 } from 'recharts';
 import type { Language } from '@/hooks/useLanguage';
 import type { HealthSnapshotRow } from '@/lib/health-score';
+import ScoreRing from './ScoreRing';
 
 // ============================================================
 // i18n
@@ -178,47 +179,6 @@ interface Props {
   screenings: ScreeningRecord[];
   snapshots: HealthSnapshotRow[];
   lang: Language;
-}
-
-// ============================================================
-// Score Ring (SVG)
-// ============================================================
-
-function ScoreRing({ score, size = 160 }: { score: number; size?: number }) {
-  const strokeWidth = 12;
-  const radius = (size - strokeWidth) / 2;
-  const circumference = 2 * Math.PI * radius;
-  const progress = (score / 100) * circumference;
-
-  const color =
-    score >= 80 ? '#10b981' : score >= 60 ? '#f59e0b' : '#ef4444';
-
-  return (
-    <svg width={size} height={size} className="transform -rotate-90">
-      {/* Background circle */}
-      <circle
-        cx={size / 2}
-        cy={size / 2}
-        r={radius}
-        fill="none"
-        stroke="#e5e7eb"
-        strokeWidth={strokeWidth}
-      />
-      {/* Progress circle */}
-      <circle
-        cx={size / 2}
-        cy={size / 2}
-        r={radius}
-        fill="none"
-        stroke={color}
-        strokeWidth={strokeWidth}
-        strokeLinecap="round"
-        strokeDasharray={circumference}
-        strokeDashoffset={circumference - progress}
-        className="transition-all duration-1000 ease-out"
-      />
-    </svg>
-  );
 }
 
 // ============================================================

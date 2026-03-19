@@ -23,6 +23,10 @@ import { type BodyMapSelectionData } from './BodyMapSelector';
 import { BODY_PARTS, MEDICAL_DEPARTMENTS } from '@/lib/body-map-config';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import RecommendedPackages from './RecommendedPackages';
+import { useMemo } from 'react';
+import { calculateHealthScoreWithBreakdown } from '@/lib/health-score';
+import ScoreRing from './ScoreRing';
+import ScoreBreakdown from './ScoreBreakdown';
 
 const translations = {
   riskLow: {
@@ -235,6 +239,18 @@ const translations = {
     ja: '履歴を見る',
     en: 'View History',
   },
+  healthScore: {
+    'zh-CN': '健康评分',
+    'zh-TW': '健康評分',
+    ja: '健康スコア',
+    en: 'Health Score',
+  },
+  healthScoreDesc: {
+    'zh-CN': '基于AI分析结果的综合健康评分',
+    'zh-TW': '基於AI分析結果的綜合健康評分',
+    ja: 'AI分析結果に基づく総合健康スコア',
+    en: 'Comprehensive health score based on AI analysis',
+  },
 };
 
 const t = (key: keyof typeof translations, lang: Language): string =>
@@ -257,6 +273,9 @@ export default function ScreeningResult({
 }: ScreeningResultProps) {
   const siteLang = useLanguage();
   const lang = overrideLanguage || siteLang;
+
+  // 健康评分详情
+  const breakdown = useMemo(() => calculateHealthScoreWithBreakdown(result), [result]);
 
   // 获取选中的身体部位名称
   const getSelectedBodyPartNames = () => {
@@ -399,6 +418,45 @@ export default function ScreeningResult({
           <h3 className="font-semibold text-gray-800 mb-2">{t('detailedAssessment', lang)}</h3>
           <div className="text-gray-700 whitespace-pre-wrap text-sm leading-relaxed">
             {result.riskSummary}
+          </div>
+        </div>
+      </div>
+
+      {/* 健康评分卡片 */}
+      <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="p-2 bg-emerald-100 rounded-lg">
+            <Activity className="w-6 h-6 text-emerald-600" />
+          </div>
+          <div>
+            <h3 className="text-xl font-serif font-semibold text-neutral-900 tracking-wide">
+              {t('healthScore', lang)}
+            </h3>
+            <p className="text-xs text-neutral-400 mt-0.5">{t('healthScoreDesc', lang)}</p>
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-center gap-6">
+          <div className="relative flex-shrink-0">
+            <ScoreRing score={breakdown.finalScore} size={120} />
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <span
+                className={`text-3xl font-bold ${
+                  breakdown.finalScore >= 80
+                    ? 'text-emerald-600'
+                    : breakdown.finalScore >= 60
+                      ? 'text-amber-500'
+                      : 'text-red-500'
+                }`}
+              >
+                {breakdown.finalScore}
+              </span>
+              <span className="text-[10px] text-neutral-400">/100</span>
+            </div>
+          </div>
+
+          <div className="flex-1 w-full">
+            <ScoreBreakdown breakdown={breakdown} lang={lang} />
           </div>
         </div>
       </div>
