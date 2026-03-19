@@ -487,7 +487,7 @@ export default function HealthScreeningPage() {
         throw new Error('服务器暂时不可用，请稍后重试');
       }
       const result = await response.json();
-      if (!response.ok) throw new Error(result.error || '分析失败');
+      if (!response.ok) throw new Error(result._debug ? `${result.error} [${result._debug}]` : (result.error || '分析失败'));
 
       if (result.needsFollowup && result.followupQuestions) {
         setFollowupQuestions(result.followupQuestions);

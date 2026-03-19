@@ -247,8 +247,16 @@ export async function POST(request: NextRequest) {
           timestamp: new Date().toISOString(),
         }).catch((e) => console.warn('[AEMC] Error notification failed:', e));
 
+        const debugStage = pipelineError instanceof PipelineError
+          ? `Stage: ${pipelineError.message}, AI runs: ${pipelineError.aiRuns.length}`
+          : (pipelineError instanceof Error ? pipelineError.message : String(pipelineError));
+        console.error('[AEMC] Debug:', debugStage);
+
         return NextResponse.json(
-          { error: 'AI 分析服务暂时不可用，请稍后重试。我们已通知技术团队处理。' },
+          {
+            error: 'AI 分析服务暂时不可用，请稍后重试。我们已通知技术团队处理。',
+            _debug: debugStage,
+          },
           { status: 503 }
         );
       }
