@@ -46,28 +46,28 @@ const pageTranslations = {
     en: '"Connecting the World with Japan, Heart to Heart"'
   },
   ceoMessage1: {
-    ja: '平素より新島交通株式会社をご愛顧いただき、誠にありがとうございます。',
-    'zh-TW': '感謝各位一直以來對新島交通株式會社的支持與厚愛。',
-    'zh-CN': '感谢各位一直以来对新岛交通株式会社的支持与厚爱。',
-    en: 'Thank you for your continued support of NIIJIMA KOTSU Co., Ltd.'
+    ja: '私は稲盛和夫氏の人生哲学を深く信じています——人生・仕事の結果＝考え方×熱意×能力。新島交通を創業する過程において、この信念が常に私たちの道標となってまいりました。',
+    'zh-TW': '我深信稻盛和夫先生的人生哲學——人生與事業的成果，取決於思維方式、熱情與能力的乘積。在創立新島交通的過程中，這一信念始終指引著我們前行。',
+    'zh-CN': '我深信稻盛和夫先生的人生哲学——人生与事业的成果，取决于思维方式、热情与能力的乘积。在创立新岛交通的过程中，这一信念始终指引着我们前行。',
+    en: 'I deeply believe in the life philosophy of Mr. Kazuo Inamori — the results of life and work equal the product of mindset, passion, and ability. This belief has guided us throughout the founding and growth of NIIJIMA KOTSU.'
   },
   ceoMessage2: {
-    ja: '私は日本で長年生活する中で、日本独自の「おもてなし」精神——心からのきめ細やかなサービスを深く体験してまいりました。しかし同時に、多くの海外からの旅行者が言語の壁や情報の非対称性により、日本の最高品質のサービスを十分に享受できていない現状も目の当たりにしてきました。',
-    'zh-TW': '我在日本生活多年，深刻體驗了日本獨特的「款待」精神——發自內心的細膩服務。然而同時，我也親眼目睹許多海外旅客因語言障礙和信息不對稱，無法充分享受日本最高品質的服務。',
-    'zh-CN': '我在日本生活多年，深刻体验了日本独特的"款待"精神——发自内心的细腻服务。然而同时，我也亲眼目睹许多海外旅客因语言障碍和信息不对称，无法充分享受日本最高品质的服务。',
-    en: 'Having lived in Japan for many years, I have deeply experienced Japan\'s unique "Omotenashi" spirit—heartfelt and meticulous service. At the same time, I have witnessed many international travelers unable to fully enjoy Japan\'s highest quality services due to language barriers and information asymmetry.'
+    ja: '私たちの事業は、ひとつの素朴な気づきから始まりました。日本には世界トップクラスの医療があるにもかかわらず、言語や情報の壁により、多くの海外の方々がその恩恵を受けられていません。この壁を打ち破り、助けを必要とするすべての方に日本の先端医療を届けること——これが私たちの使命であり、「愛」の実践です。他者の健康を自らの責任と捉えること。',
+    'zh-TW': '我們的事業源於一個樸素的觀察：日本擁有世界頂級的醫療資源，卻因語言和信息的壁壘，讓無數海外患者望而卻步。打破這道壁壘，讓每一位需要幫助的人都能享受日本先端醫療——這是我們的使命，也是我們對「愛」的詮釋：把他人的健康視為自己的責任。',
+    'zh-CN': '我们的事业源于一个朴素的观察：日本拥有世界顶级的医疗资源，却因语言和信息的壁垒，让无数海外患者望而却步。打破这道壁垒，让每一位需要帮助的人都能享受日本先端医疗——这是我们的使命，也是我们对「爱」的诠释：把他人的健康视为自己的责任。',
+    en: 'Our business was born from a simple observation: Japan possesses world-class medical resources, yet language and information barriers deter countless international patients. Breaking down these barriers so everyone in need can access Japan\'s advanced healthcare — this is our mission and our interpretation of "love": treating others\' health as our own responsibility.'
   },
   ceoMessage3: {
-    ja: 'これこそが新島交通を創業した原点です。私たちは日本の精密健診と先端医療を事業の核心とし、独自開発のAI問診システムにより、言語や医療知識の壁を取り除き、一人ひとりに最適な医療体験をお届けしています。さらに、会員制ゴルフや商務視察などの付加価値サービスで、お客様の日本体験をトータルにサポートいたします。',
-    'zh-TW': '這正是創立新島交通的初心。我們以日本精密健診與先端醫療為核心事業，通過自主研發的AI智能問診系統，消除語言和醫療知識的壁壘，為每位客戶精準匹配最適合的醫療方案。同時，我們也提供會員制高爾夫、商務考察等增值服務，全方位豐富您的日本之旅。',
-    'zh-CN': '这正是创立新岛交通的初心。我们以日本精密健诊与先端医疗为核心事业，通过自主研发的AI智能问诊系统，消除语言和医疗知识的壁垒，为每位客户精准匹配最适合的医疗方案。同时，我们也提供会员制高尔夫、商务考察等增值服务，全方位丰富您的日本之旅。',
-    en: 'This is the founding principle of NIIJIMA KOTSU. We have positioned Japan\'s precision health screenings and advanced medical services as our core business. Through our proprietary AI-powered medical consultation system, we eliminate language and medical knowledge barriers, delivering personalized healthcare experiences to each client. Additionally, we offer exclusive golf and business inspection tours to enrich your entire Japan journey.'
+    ja: '「真心」とは、一人ひとりのお客様への誓いです。AI問診による最適なマッチングから、多言語対応の付き添い通訳まで、テクノロジーでサービスを進化させ、真心でお客様の心を動かします。「調和」とは、チームと社会への願いです——企業の成功だけでなく、社員一人ひとりがこの舞台で自分自身の人生の価値を実現できることを目指しています。',
+    'zh-TW': '所謂「真誠」，體現在我們對每一位客戶的承諾。從AI智能問診的精準匹配，到全程多語種陪診的細緻關懷，我們以科技賦能服務，以真心打動人心。所謂「和諧」，是我們對團隊與社會的期許——不僅追求企業的成功，更希望每一位員工都能在這個平台上實現各自的人生價值。',
+    'zh-CN': '所谓「真诚」，体现在我们对每一位客户的承诺。从AI智能问诊的精准匹配，到全程多语种陪诊的细致关怀，我们以科技赋能服务，以真心打动人心。所谓「和谐」，是我们对团队与社会的期许——不仅追求企业的成功，更希望每一位员工都能在这个平台上实现各自的人生价值。',
+    en: '"Sincerity" is embodied in our commitment to every client. From precise AI-powered medical matching to attentive multilingual support, we empower services with technology and touch hearts with genuine care. "Harmony" is our aspiration for team and society — pursuing not only business success, but ensuring every team member can realize their own life\'s value on this platform.'
   },
   ceoMessage4: {
-    ja: '今後も医療ツーリズムを中核に、AIテクノロジーでサービスを絶えず進化させ、「日本で医療を受けたいのに、どうすればいいか分からない」という壁をなくしていくことが私たちの目標です。真心を込めて、一人ひとりの健康と笑顔のためにお力添えしてまいります。',
-    'zh-TW': '未來，我們將繼續以醫療旅遊為核心，借助AI技術持續革新服務體驗，讓「想去日本看病，卻不知從何開始」成為歷史。以真心打動人心，為每一位客戶的健康與幸福助力。',
-    'zh-CN': '未来，我们将继续以医疗旅游为核心，借助AI技术持续革新服务体验，让「想去日本看病，却不知从何开始」成为历史。以真心打动人心，为每一位客户的健康与幸福助力。',
-    en: 'Looking ahead, we will continue centering on medical tourism, constantly evolving through AI technology. Our goal is to eliminate the barrier of "wanting to receive medical care in Japan but not knowing where to start." With sincerity, we support the health and happiness of every client.'
+    ja: '私たちは「人を大切にすること」「姿勢がすべてを決める」「細部が成否を分ける」という三つの原則を貫いています。医療ツーリズムを核に、AIテクノロジーを原動力として、世界をリードする赴日医療サービスブランドの構築を目指し、「日本で医療を受けたいのに、どうすればいいか分からない」という壁をなくしてまいります。',
+    'zh-TW': '我們堅持以人為本、態度決定一切、細節決定成敗。以醫療旅遊為核心，以AI技術為驅動，我們立志打造全球領先的赴日醫療服務品牌，讓「想去日本看病，卻不知從何開始」成為歷史。',
+    'zh-CN': '我们坚持以人为本、态度决定一切、细节决定成败。以医疗旅游为核心，以AI技术为驱动，我们立志打造全球领先的赴日医疗服务品牌，让「想去日本看病，却不知从何开始」成为历史。',
+    en: 'We uphold three principles: people first, attitude determines everything, and details determine success. With medical tourism at our core and AI technology as our driving force, we aspire to build a globally leading medical travel brand for Japan, making "wanting Japanese healthcare but not knowing where to start" a thing of the past.'
   },
   ceoMessage5: {
     ja: '皆様のご支援を賜りますよう、何卒よろしくお願い申し上げます。',
