@@ -5,8 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
-import MemberLayout from '@/components/MemberLayout';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
+import PublicLayout from '@/components/PublicLayout';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import { useSiteImages } from '@/lib/hooks/useSiteImages';
 import { User } from '@supabase/supabase-js';
@@ -22,6 +21,7 @@ import {
 
 const translations = {
   loading: { ja: '読み込み中...', 'zh-CN': '载入中...', 'zh-TW': '載入中...', en: 'Loading...' },
+  heroLabel: { ja: 'MY ACCOUNT', 'zh-CN': 'MY ACCOUNT', 'zh-TW': 'MY ACCOUNT', en: 'MY ACCOUNT' },
   member: { ja: '会員', 'zh-CN': '会员', 'zh-TW': '會員', en: 'Member' },
   welcomeBack: { ja: 'お帰りなさい', 'zh-CN': '欢迎回来', 'zh-TW': '歡迎回來', en: 'Welcome back' },
   accountDesc: { ja: 'ここで健診予約を管理し、注文記録を確認し、会員専用サービスをお楽しみください。', 'zh-CN': '在这里管理您的体检预约、查看订单记录，享受专属会员服务。', 'zh-TW': '在這裡管理您的健檢預約、查看訂單記錄，享受專屬會員服務。', en: 'Manage your health checkup appointments, view order history, and enjoy exclusive member services.' },
@@ -74,14 +74,14 @@ export default function MyAccountPage() {
 
   if (loading) {
     return (
-      <MemberLayout showFooter={false}>
-        <div className="min-h-[calc(100vh-80px)] flex items-center justify-center bg-neutral-50">
+      <PublicLayout showFooter={false} transparentNav={false}>
+        <div className="min-h-screen flex items-center justify-center bg-white">
           <div className="text-center">
-            <Loader2 className="w-8 h-8 animate-spin text-brand-600 mx-auto mb-4" />
-            <p className="text-neutral-500">{t('loading', lang)}</p>
+            <Loader2 className="w-8 h-8 animate-spin text-brand-700 mx-auto mb-4" />
+            <p className="text-neutral-500 text-sm">{t('loading', lang)}</p>
           </div>
         </div>
-      </MemberLayout>
+      </PublicLayout>
     );
   }
 
@@ -104,74 +104,87 @@ export default function MyAccountPage() {
   });
 
   return (
-    <MemberLayout showFooter={false}>
-      <div className="min-h-[calc(100vh-80px)] flex">
-        {/* Left Side - Hero Image */}
-        <div className="hidden lg:flex lg:w-1/2 relative bg-brand-900">
+    <PublicLayout showFooter={false} transparentNav={false}>
+      <div className="min-h-screen flex">
+        {/* Left Side — Brand Hero */}
+        <div className="hidden lg:flex lg:w-1/2 relative bg-brand-900 overflow-hidden">
           <Image
             src={getImage('medical_hero', 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg')}
-            alt="Medical"
+            alt="My Account"
             fill
             className="object-cover"
             quality={75}
             sizes="50vw"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-900/80 via-brand-900/30 to-brand-900/50"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70" />
 
-          {/* Language Switcher - Top Right */}
-          <div className="absolute top-8 right-8 z-20 bg-white/90 backdrop-blur-sm rounded-lg shadow-md">
-            <LanguageSwitcher />
+          {/* Decorative Elements */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
+            <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
           </div>
 
-          <div className="relative z-10 flex flex-col justify-center px-16 text-white">
-            <h1 className="text-4xl font-serif font-bold mb-6 leading-tight">
-              {t('welcomeBack', lang)}<br />
-              <span className="text-brand-300">{userName}</span>
-            </h1>
-            <p className="text-neutral-300 leading-relaxed mb-8 max-w-md">
-              {t('accountDesc', lang)}
-            </p>
-            <div className="flex items-center gap-6 text-sm">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-neutral-300">{t('support24h', lang)}</span>
+          <div className="relative z-10 flex flex-col justify-center px-16">
+            <div className="max-w-lg">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="h-[1px] w-12 bg-gold-400" />
+                <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">
+                  {t('heroLabel', lang)}
+                </span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-brand-400 rounded-full"></div>
-                <span className="text-neutral-300">{t('chineseService', lang)}</span>
+
+              <h1 className="font-serif text-4xl xl:text-5xl text-white mb-4 leading-tight">
+                {t('welcomeBack', lang)}
+                <br />
+                <span className="text-gold-400">{userName}</span>
+              </h1>
+
+              <p className="text-lg text-neutral-300 leading-relaxed font-light mb-10 max-w-md">
+                {t('accountDesc', lang)}
+              </p>
+
+              <div className="flex items-center gap-6 text-sm">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                  <span className="text-neutral-300">{t('support24h', lang)}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-gold-400 rounded-full" />
+                  <span className="text-neutral-300">{t('chineseService', lang)}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right Side - Account Info */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-neutral-50 relative">
-          {/* Language Switcher for mobile - Top Right */}
-          <div className="absolute top-4 right-4 lg:hidden z-20">
-            <LanguageSwitcher />
-          </div>
-
+        {/* Right Side — Account Info */}
+        <div className="w-full lg:w-1/2 flex items-start justify-center p-8 pt-24 bg-white overflow-y-auto">
           <div className="w-full max-w-md">
+            {/* Mobile hero label */}
+            <div className="lg:hidden flex items-center gap-3 mb-6">
+              <div className="h-[1px] w-8 bg-gold-400" />
+              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">MY ACCOUNT</span>
+            </div>
 
-            {/* Profile Card */}
-            <div className="bg-white rounded-2xl shadow-xl p-8 border border-neutral-100 mb-6">
+            {/* Profile Section */}
+            <div className="border border-neutral-200 p-8 mb-6">
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-16 bg-brand-50 rounded-full flex items-center justify-center">
-                  <UserIcon className="w-8 h-8 text-brand-600" />
+                <div className="w-16 h-16 bg-neutral-50 border border-neutral-200 flex items-center justify-center">
+                  <UserIcon className="w-8 h-8 text-brand-700" />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-serif font-bold text-neutral-900">{userName}</h1>
+                  <h1 className="text-2xl font-serif text-brand-900">{userName}</h1>
                   <p className="text-neutral-500 text-sm">{t('welcomeBackShort', lang)}</p>
                 </div>
               </div>
 
-              <div className="space-y-4 border-t border-neutral-100 pt-6">
+              <div className="space-y-4 border-t border-neutral-200 pt-6">
                 <div className="flex items-center gap-3 text-neutral-600">
                   <Mail className="w-5 h-5 text-neutral-400" />
                   <span className="text-sm">{user.email}</span>
                   {user.email_confirmed_at && (
-                    <span className="inline-flex items-center gap-1 text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded-full border border-green-200">
+                    <span className="inline-flex items-center gap-1 text-xs bg-green-50 text-green-700 px-2 py-0.5 border border-green-200">
                       <Shield className="w-3 h-3" />
                       {t('verified', lang)}
                     </span>
@@ -185,13 +198,13 @@ export default function MyAccountPage() {
             </div>
 
             {/* Quick Actions */}
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-neutral-100 mb-6">
+            <div className="border border-neutral-200 overflow-hidden mb-6">
               <Link
                 href="/my-orders"
-                className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors border-b border-neutral-100"
+                className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors border-b border-neutral-200"
               >
                 <div>
-                  <h3 className="font-semibold text-neutral-900">{t('myOrders', lang)}</h3>
+                  <h3 className="font-semibold text-brand-900">{t('myOrders', lang)}</h3>
                   <p className="text-sm text-neutral-500">{t('viewAllOrders', lang)}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-neutral-400" />
@@ -199,10 +212,10 @@ export default function MyAccountPage() {
 
               <Link
                 href="/health-checkup"
-                className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors border-b border-neutral-100"
+                className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors border-b border-neutral-200"
               >
                 <div>
-                  <h3 className="font-semibold text-neutral-900">{t('bookCheckup', lang)}</h3>
+                  <h3 className="font-semibold text-brand-900">{t('bookCheckup', lang)}</h3>
                   <p className="text-sm text-neutral-500">{t('browsePackages', lang)}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-neutral-400" />
@@ -210,12 +223,12 @@ export default function MyAccountPage() {
 
               <Link
                 href="/health-screening"
-                className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors border-b border-neutral-100"
+                className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors border-b border-neutral-200"
               >
                 <div>
-                  <h3 className="font-semibold text-neutral-900 flex items-center gap-2">
+                  <h3 className="font-semibold text-brand-900 flex items-center gap-2">
                     {t('aiHealthScreening', lang)}
-                    <span className="inline-flex items-center gap-1 text-xs bg-purple-50 text-purple-700 px-2 py-0.5 rounded-full border border-purple-200">
+                    <span className="inline-flex items-center gap-1 text-xs bg-gold-400/10 text-gold-700 px-2 py-0.5 border border-gold-400/30">
                       {t('free', lang)}
                     </span>
                   </h3>
@@ -229,7 +242,7 @@ export default function MyAccountPage() {
                 className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors"
               >
                 <div>
-                  <h3 className="font-semibold text-neutral-900">{t('comprehensiveTreatment', lang)}</h3>
+                  <h3 className="font-semibold text-brand-900">{t('comprehensiveTreatment', lang)}</h3>
                   <p className="text-sm text-neutral-500">{t('treatmentTypes', lang)}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-neutral-400" />
@@ -240,7 +253,7 @@ export default function MyAccountPage() {
             <button
               onClick={handleLogout}
               disabled={loggingOut}
-              className="w-full bg-white hover:bg-gray-50 text-gray-700 font-medium py-4 px-6 rounded-xl shadow-lg border border-gray-200 transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-white hover:bg-neutral-50 text-neutral-700 font-medium py-4 px-6 border border-neutral-200 transition-colors flex items-center justify-center gap-2 text-sm"
             >
               {loggingOut ? (
                 <>
@@ -257,6 +270,6 @@ export default function MyAccountPage() {
           </div>
         </div>
       </div>
-    </MemberLayout>
+    </PublicLayout>
   );
 }
