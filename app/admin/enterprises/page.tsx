@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useMemo, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
+import Link from 'next/link';
 import {
   Building2,
   Loader2,
@@ -15,6 +16,8 @@ import {
   RefreshCw,
   CheckCircle2,
   Clock,
+  Search,
+  ChevronRight,
 } from 'lucide-react';
 
 // ============================================================
@@ -245,6 +248,25 @@ export default function EnterprisesPage() {
   const [error, setError] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [token, setToken] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [statusFilter, setStatusFilter] = useState<string>('all');
+
+  const filteredEnterprises = useMemo(() => {
+    let result = enterprises;
+    if (statusFilter !== 'all') {
+      result = result.filter(e => e.status === statusFilter);
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter(e =>
+        e.name.toLowerCase().includes(q) ||
+        (e.name_en && e.name_en.toLowerCase().includes(q)) ||
+        (e.stock_code && e.stock_code.toLowerCase().includes(q)) ||
+        e.contact_email.toLowerCase().includes(q)
+      );
+    }
+    return result;
+  }, [enterprises, statusFilter, searchQuery]);
 
   const fetchData = useCallback(async () => {
     try {
@@ -351,21 +373,48 @@ export default function EnterprisesPage() {
 
       {/* Enterprise List */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-100">
+        <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between gap-4">
           <h2 className="font-semibold text-gray-900">Enterprises</h2>
+          <div className="flex items-center gap-3">
+            <div className="relative">
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="搜索名称 / 股票代码..."
+                className="pl-9 pr-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none w-56"
+              />
+            </div>
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+            >
+              <option value="all">All Status</option>
+              <option value="active">Active</option>
+              <option value="pending">Pending</option>
+              <option value="suspended">Suspended</option>
+              <option value="expired">Expired</option>
+            </select>
+          </div>
         </div>
 
-        {enterprises.length === 0 ? (
+        {filteredEnterprises.length === 0 ? (
           <div className="p-12 text-center text-gray-400">
             <Building2 className="w-8 h-8 mx-auto mb-3 opacity-50" />
-            <p>No enterprises yet</p>
+            <p>{enterprises.length === 0 ? 'No enterprises yet' : 'No matching enterprises'}</p>
           </div>
         ) : (
           <div className="divide-y divide-gray-50">
-            {enterprises.map((ent) => {
+            {filteredEnterprises.map((ent) => {
               const statusCfg = STATUS_CONFIG[ent.status] || STATUS_CONFIG.pending;
               return (
-                <div key={ent.id} className="px-6 py-4 flex items-center gap-4 hover:bg-gray-50 transition">
+                <Link
+                  key={ent.id}
+                  href={`/admin/enterprises/${ent.id}`}
+                  className="px-6 py-4 flex items-center gap-4 hover:bg-gray-50 transition block"
+                >
                   <div className="text-2xl">{REGION_FLAGS[ent.region] || '🏢'}</div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
@@ -389,15 +438,16 @@ export default function EnterprisesPage() {
                       </span>
                     </div>
                   </div>
-                  {ent.annual_fee_jpy && (
+                  {ent.annual_fee_jpy ? (
                     <div className="text-right">
                       <p className="text-sm font-semibold text-gray-700">
                         ¥{ent.annual_fee_jpy.toLocaleString()}
                       </p>
                       <p className="text-xs text-gray-400">/year</p>
                     </div>
-                  )}
-                </div>
+                  ) : null}
+                  <ChevronRight className="w-4 h-4 text-gray-300" />
+                </Link>
               );
             })}
           </div>

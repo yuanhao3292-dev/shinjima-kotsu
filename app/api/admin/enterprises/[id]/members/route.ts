@@ -1,139 +1,112 @@
 /**
- * Enterprise Member Management API
+ * Admin Enterprise Members API
  *
- * Authenticated by API key (B2B) or admin auth.
- *
- * GET    /api/enterprise/members?enterprise_id=XXX — List members
- * POST   /api/enterprise/members — Add member(s) (single or batch)
- * PATCH  /api/enterprise/members — Update member (body.memberId required)
- * DELETE /api/enterprise/members — Soft-delete member (body.memberId required)
+ * GET    /api/admin/enterprises/[id]/members — List members (paginated)
+ * POST   /api/admin/enterprises/[id]/members — Add member(s)
+ * PATCH  /api/admin/enterprises/[id]/members — Update member (body.memberId required)
+ * DELETE /api/admin/enterprises/[id]/members — Soft-delete member (body.memberId required)
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { validateAPIKey } from '@/lib/utils/api-key-auth';
 import { verifyAdminAuth } from '@/lib/utils/admin-auth';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
 import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
 import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
 
-/** Authenticate either via API key or admin token */
-async function authenticate(request: NextRequest): Promise<{
-  valid: boolean;
-  error?: string;
-  enterpriseId?: string;
-  isAdmin?: boolean;
-}> {
-  const authHeader = request.headers.get('authorization');
-
-  // Try API key first (B2B access)
-  if (authHeader?.startsWith('Bearer nk_')) {
-    const apiAuth = await validateAPIKey(authHeader, 'enterprise_management');
-    if (apiAuth.valid && apiAuth.key) {
-      // Look up enterprise linked to this API key
-      const supabase = getSupabaseAdmin();
-      const { data } = await supabase
-        .from('enterprises')
-        .select('id')
-        .eq('api_key_id', apiAuth.key.id)
-        .eq('status', 'active')
-        .single();
-
-      if (!data) {
-        return { valid: false, error: 'API key not linked to an active enterprise' };
-      }
-      return { valid: true, enterpriseId: data.id };
-    }
-    return { valid: false, error: apiAuth.error };
-  }
-
-  // Fall back to admin auth
-  const adminAuth = await verifyAdminAuth(authHeader);
-  if (adminAuth.isValid) {
-    return { valid: true, isAdmin: true };
-  }
-
-  return { valid: false, error: 'Unauthorized' };
+interface RouteContext {
+  params: Promise<{ id: string }>;
 }
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest, context: RouteContext) {
+  const { id: enterpriseId } = await context.params;
+
   const clientIp = getClientIp(request);
   const rateLimitResult = await checkRateLimit(
-    `${clientIp}:/api/enterprise/members:GET`,
+    `${clientIp}:/api/admin/enterprises/${enterpriseId}/members:GET`,
     RATE_LIMITS.standard
   );
   if (!rateLimitResult.success) {
-    return createErrorResponse(
-      Errors.rateLimit(rateLimitResult.retryAfter),
-      createRateLimitHeaders(rateLimitResult)
-    );
+    return createErrorResponse(Errors.rateLimit(rateLimitResult.retryAfter), createRateLimitHeaders(rateLimitResult));
   }
 
-  const auth = await authenticate(request);
-  if (!auth.valid) {
-    return createErrorResponse(Errors.auth(auth.error));
+  const authResult = await verifyAdminAuth(request.headers.get('authorization'));
+  if (!authResult.isValid) {
+    return createErrorResponse(Errors.auth(authResult.error));
   }
 
   const supabase = getSupabaseAdmin();
   const { searchParams } = new URL(request.url);
-  const enterpriseId = auth.enterpriseId || searchParams.get('enterprise_id');
-
-  if (!enterpriseId) {
-    return createErrorResponse(Errors.validation('enterprise_id is required'));
-  }
+  const page = Math.max(parseInt(searchParams.get('page') || '1', 10), 1);
+  const limit = Math.min(Math.max(parseInt(searchParams.get('limit') || '50', 10), 1), 200);
+  const status = searchParams.get('status') || 'active';
+  const search = searchParams.get('search') || '';
 
   try {
-    const { data, error } = await supabase
+    let query = supabase
       .from('enterprise_members')
-      .select('id, full_name, full_name_en, title, email, phone, gender, date_of_birth, preferred_language, last_screening_date, last_health_score, screening_count, status, created_at')
-      .eq('enterprise_id', enterpriseId)
-      .neq('status', 'removed')
-      .order('full_name');
+      .select('*', { count: 'exact' })
+      .eq('enterprise_id', enterpriseId);
+
+    if (status !== 'all') {
+      query = query.eq('status', status);
+    } else {
+      query = query.neq('status', 'removed');
+    }
+
+    if (search) {
+      query = query.or(`full_name.ilike.%${search}%,full_name_en.ilike.%${search}%,email.ilike.%${search}%`);
+    }
+
+    const { data, count, error } = await query
+      .order('created_at', { ascending: false })
+      .range((page - 1) * limit, page * limit - 1);
 
     if (error) {
-      logError(normalizeError(error), { path: '/api/enterprise/members', method: 'GET' });
+      logError(normalizeError(error), { path: `/api/admin/enterprises/${enterpriseId}/members`, method: 'GET' });
       return createErrorResponse(Errors.internal('Failed to fetch members'));
     }
 
-    return NextResponse.json({ members: data || [] });
+    return NextResponse.json({
+      members: data || [],
+      pagination: {
+        page,
+        limit,
+        total: count || 0,
+        totalPages: Math.ceil((count || 0) / limit),
+      },
+    });
   } catch (error: unknown) {
     const apiError = normalizeError(error);
-    logError(apiError, { path: '/api/enterprise/members', method: 'GET' });
+    logError(apiError, { path: `/api/admin/enterprises/${enterpriseId}/members`, method: 'GET' });
     return createErrorResponse(apiError);
   }
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest, context: RouteContext) {
+  const { id: enterpriseId } = await context.params;
+
   const clientIp = getClientIp(request);
   const rateLimitResult = await checkRateLimit(
-    `${clientIp}:/api/enterprise/members`,
+    `${clientIp}:/api/admin/enterprises/${enterpriseId}/members`,
     RATE_LIMITS.sensitive
   );
   if (!rateLimitResult.success) {
-    return createErrorResponse(
-      Errors.rateLimit(rateLimitResult.retryAfter),
-      createRateLimitHeaders(rateLimitResult)
-    );
+    return createErrorResponse(Errors.rateLimit(rateLimitResult.retryAfter), createRateLimitHeaders(rateLimitResult));
   }
 
-  const auth = await authenticate(request);
-  if (!auth.valid) {
-    return createErrorResponse(Errors.auth(auth.error));
+  const authResult = await verifyAdminAuth(request.headers.get('authorization'));
+  if (!authResult.isValid) {
+    return createErrorResponse(Errors.auth(authResult.error));
   }
 
   try {
     const body = await request.json();
-    const enterpriseId = auth.enterpriseId || body.enterpriseId;
-
-    if (!enterpriseId) {
-      return createErrorResponse(Errors.validation('enterpriseId is required'));
-    }
-
     const supabase = getSupabaseAdmin();
 
-    // Check enterprise member limit
+    // Check enterprise exists and get member_limit
     const { data: enterprise } = await supabase
       .from('enterprises')
-      .select('member_limit')
+      .select('id, member_limit, status')
       .eq('id', enterpriseId)
       .single();
 
@@ -141,13 +114,18 @@ export async function POST(request: NextRequest) {
       return createErrorResponse(Errors.notFound('Enterprise'));
     }
 
+    if (enterprise.status !== 'active') {
+      return createErrorResponse(Errors.business('Enterprise is not active', 'ENTERPRISE_NOT_ACTIVE'));
+    }
+
+    // Check current count
     const { count: currentCount } = await supabase
       .from('enterprise_members')
       .select('*', { count: 'exact', head: true })
       .eq('enterprise_id', enterpriseId)
       .eq('status', 'active');
 
-    // Support batch add: { members: [...] } or single { fullName, ... }
+    // Support batch: { members: [...] } or single { fullName, ... }
     const membersToAdd = body.members || [body];
 
     if ((currentCount || 0) + membersToAdd.length > enterprise.member_limit) {
@@ -175,12 +153,9 @@ export async function POST(request: NextRequest) {
       medical_notes: m.medicalNotes || m.medical_notes || null,
     }));
 
-    // Validate all have full_name
     const invalid = insertData.filter((m: any) => !m.full_name);
     if (invalid.length > 0) {
-      return createErrorResponse(
-        Errors.validation(`${invalid.length} member(s) missing fullName`)
-      );
+      return createErrorResponse(Errors.validation(`${invalid.length} member(s) missing fullName`));
     }
 
     const { data, error } = await supabase
@@ -189,47 +164,54 @@ export async function POST(request: NextRequest) {
       .select('id, full_name');
 
     if (error) {
-      logError(normalizeError(error), { path: '/api/enterprise/members', method: 'POST' });
+      logError(normalizeError(error), { path: `/api/admin/enterprises/${enterpriseId}/members`, method: 'POST' });
       return createErrorResponse(Errors.internal('Failed to add members'));
     }
 
-    return NextResponse.json({
-      success: true,
-      added: data?.length || 0,
-      members: data,
+    // Audit log
+    await supabase.from('enterprise_audit_log').insert({
+      enterprise_id: enterpriseId,
+      actor_type: 'admin',
+      actor_id: authResult.userId,
+      action: 'members_added',
+      details: {
+        count: data?.length || 0,
+        names: data?.map((m: any) => m.full_name),
+        admin_email: authResult.email,
+      },
     });
+
+    return NextResponse.json({ success: true, added: data?.length || 0, members: data });
   } catch (error: unknown) {
     const apiError = normalizeError(error);
-    logError(apiError, { path: '/api/enterprise/members', method: 'POST' });
+    logError(apiError, { path: `/api/admin/enterprises/${enterpriseId}/members`, method: 'POST' });
     return createErrorResponse(apiError);
   }
 }
 
-export async function PATCH(request: NextRequest) {
+export async function PATCH(request: NextRequest, context: RouteContext) {
+  const { id: enterpriseId } = await context.params;
+
   const clientIp = getClientIp(request);
   const rateLimitResult = await checkRateLimit(
-    `${clientIp}:/api/enterprise/members:PATCH`,
+    `${clientIp}:/api/admin/enterprises/${enterpriseId}/members:PATCH`,
     RATE_LIMITS.sensitive
   );
   if (!rateLimitResult.success) {
     return createErrorResponse(Errors.rateLimit(rateLimitResult.retryAfter), createRateLimitHeaders(rateLimitResult));
   }
 
-  const auth = await authenticate(request);
-  if (!auth.valid) {
-    return createErrorResponse(Errors.auth(auth.error));
+  const authResult = await verifyAdminAuth(request.headers.get('authorization'));
+  if (!authResult.isValid) {
+    return createErrorResponse(Errors.auth(authResult.error));
   }
 
   try {
     const body = await request.json();
     const { memberId, ...fields } = body;
-    const enterpriseId = auth.enterpriseId || body.enterpriseId;
 
     if (!memberId) {
       return createErrorResponse(Errors.validation('memberId is required'));
-    }
-    if (!enterpriseId) {
-      return createErrorResponse(Errors.validation('enterpriseId is required'));
     }
 
     const supabase = getSupabaseAdmin();
@@ -247,6 +229,7 @@ export async function PATCH(request: NextRequest) {
       preferredLanguage: 'preferred_language',
       medicalNotes: 'medical_notes',
       allergies: 'allergies',
+      status: 'status',
     };
 
     const updateData: Record<string, unknown> = {};
@@ -265,46 +248,53 @@ export async function PATCH(request: NextRequest) {
       .update(updateData)
       .eq('id', memberId)
       .eq('enterprise_id', enterpriseId)
-      .select('id, full_name, status')
+      .select()
       .single();
 
     if (error || !data) {
       return createErrorResponse(Errors.notFound('Member'));
     }
 
+    // Audit log
+    await supabase.from('enterprise_audit_log').insert({
+      enterprise_id: enterpriseId,
+      actor_type: 'admin',
+      actor_id: authResult.userId,
+      action: 'member_updated',
+      details: { memberId, fields: Object.keys(updateData), admin_email: authResult.email },
+    });
+
     return NextResponse.json({ success: true, member: data });
   } catch (error: unknown) {
     const apiError = normalizeError(error);
-    logError(apiError, { path: '/api/enterprise/members', method: 'PATCH' });
+    logError(apiError, { path: `/api/admin/enterprises/${enterpriseId}/members`, method: 'PATCH' });
     return createErrorResponse(apiError);
   }
 }
 
-export async function DELETE(request: NextRequest) {
+export async function DELETE(request: NextRequest, context: RouteContext) {
+  const { id: enterpriseId } = await context.params;
+
   const clientIp = getClientIp(request);
   const rateLimitResult = await checkRateLimit(
-    `${clientIp}:/api/enterprise/members:DELETE`,
+    `${clientIp}:/api/admin/enterprises/${enterpriseId}/members:DELETE`,
     RATE_LIMITS.sensitive
   );
   if (!rateLimitResult.success) {
     return createErrorResponse(Errors.rateLimit(rateLimitResult.retryAfter), createRateLimitHeaders(rateLimitResult));
   }
 
-  const auth = await authenticate(request);
-  if (!auth.valid) {
-    return createErrorResponse(Errors.auth(auth.error));
+  const authResult = await verifyAdminAuth(request.headers.get('authorization'));
+  if (!authResult.isValid) {
+    return createErrorResponse(Errors.auth(authResult.error));
   }
 
   try {
     const body = await request.json();
     const { memberId } = body;
-    const enterpriseId = auth.enterpriseId || body.enterpriseId;
 
     if (!memberId) {
       return createErrorResponse(Errors.validation('memberId is required'));
-    }
-    if (!enterpriseId) {
-      return createErrorResponse(Errors.validation('enterpriseId is required'));
     }
 
     const supabase = getSupabaseAdmin();
@@ -321,10 +311,19 @@ export async function DELETE(request: NextRequest) {
       return createErrorResponse(Errors.notFound('Member'));
     }
 
+    // Audit log
+    await supabase.from('enterprise_audit_log').insert({
+      enterprise_id: enterpriseId,
+      actor_type: 'admin',
+      actor_id: authResult.userId,
+      action: 'member_removed',
+      details: { memberId, memberName: data.full_name, admin_email: authResult.email },
+    });
+
     return NextResponse.json({ success: true, member: data });
   } catch (error: unknown) {
     const apiError = normalizeError(error);
-    logError(apiError, { path: '/api/enterprise/members', method: 'DELETE' });
+    logError(apiError, { path: `/api/admin/enterprises/${enterpriseId}/members`, method: 'DELETE' });
     return createErrorResponse(apiError);
   }
 }
