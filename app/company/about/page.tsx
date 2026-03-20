@@ -5,7 +5,8 @@ import Image from 'next/image';
 import PublicLayout from '@/components/PublicLayout';
 import {
   Award, Shield,
-  Quote, Globe, Heart, Target
+  Quote, Globe, Heart, Target,
+  Brain, Hospital, HeartHandshake
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 
@@ -51,22 +52,22 @@ const pageTranslations = {
     en: 'Thank you for your continued support of NIIJIMA KOTSU Co., Ltd.'
   },
   ceoMessage2: {
-    ja: '私は日本で長年生活する中で、日本独自の「おもてなし」精神——心からのきめ細やかなサービスを深く体験してまいりました。しかし同時に、多くの華人旅行者が言語の壁や情報の非対称性により、日本の最高品質のサービスを十分に享受できていない現状も目の当たりにしてきました。',
-    'zh-TW': '我在日本生活多年，深刻體驗了日本獨特的「款待」精神——發自內心的細膩服務。然而同時，我也親眼目睹許多華人旅客因語言障礙和信息不對稱，無法充分享受日本最高品質的服務。',
-    'zh-CN': '我在日本生活多年，深刻体验了日本独特的"款待"精神——发自内心的细腻服务。然而同时，我也亲眼目睹许多华人旅客因语言障碍和信息不对称，无法充分享受日本最高品质的服务。',
-    en: 'Having lived in Japan for many years, I have deeply experienced Japan\'s unique "Omotenashi" spirit—heartfelt and meticulous service. At the same time, I have witnessed many Chinese travelers unable to fully enjoy Japan\'s highest quality services due to language barriers and information asymmetry.'
+    ja: '私は日本で長年生活する中で、日本独自の「おもてなし」精神——心からのきめ細やかなサービスを深く体験してまいりました。しかし同時に、多くの海外からの旅行者が言語の壁や情報の非対称性により、日本の最高品質のサービスを十分に享受できていない現状も目の当たりにしてきました。',
+    'zh-TW': '我在日本生活多年，深刻體驗了日本獨特的「款待」精神——發自內心的細膩服務。然而同時，我也親眼目睹許多海外旅客因語言障礙和信息不對稱，無法充分享受日本最高品質的服務。',
+    'zh-CN': '我在日本生活多年，深刻体验了日本独特的"款待"精神——发自内心的细腻服务。然而同时，我也亲眼目睹许多海外旅客因语言障碍和信息不对称，无法充分享受日本最高品质的服务。',
+    en: 'Having lived in Japan for many years, I have deeply experienced Japan\'s unique "Omotenashi" spirit—heartfelt and meticulous service. At the same time, I have witnessed many international travelers unable to fully enjoy Japan\'s highest quality services due to language barriers and information asymmetry.'
   },
   ceoMessage3: {
-    ja: 'これこそが新島交通を創業した原点です。世界トップクラスの精密健診、会員制の名門ゴルフ場、充実したビジネス視察など、お客様一人ひとりに「日本にはこんな楽しみ方があったのか」という驚きと感動をお届けしたいと考えております。',
-    'zh-TW': '這正是創立新島交通的初心。世界頂級的精密健診、會員制名門高爾夫球場、充實的商務考察等，我們希望為每一位客戶帶來「原來日本還有這樣的體驗」的驚喜與感動。',
-    'zh-CN': '这正是创立新岛交通的初心。世界顶级的精密健诊、会员制名门高尔夫球场、充实的商务考察等，我们希望为每一位客户带来「原来日本还有这样的体验」的惊喜与感动。',
-    en: 'This is the founding principle of NIIJIMA KOTSU. World-class precision health screenings, exclusive member-only golf courses, comprehensive business inspections, and more. We aim to bring each customer the surprise and emotion of discovering "Japan has experiences like this!"'
+    ja: 'これこそが新島交通を創業した原点です。私たちは日本の精密健診と先端医療を事業の核心とし、独自開発のAI問診システムにより、言語や医療知識の壁を取り除き、一人ひとりに最適な医療体験をお届けしています。さらに、会員制ゴルフや商務視察などの付加価値サービスで、お客様の日本体験をトータルにサポートいたします。',
+    'zh-TW': '這正是創立新島交通的初心。我們以日本精密健診與先端醫療為核心事業，通過自主研發的AI智能問診系統，消除語言和醫療知識的壁壘，為每位客戶精準匹配最適合的醫療方案。同時，我們也提供會員制高爾夫、商務考察等增值服務，全方位豐富您的日本之旅。',
+    'zh-CN': '这正是创立新岛交通的初心。我们以日本精密健诊与先端医疗为核心事业，通过自主研发的AI智能问诊系统，消除语言和医疗知识的壁垒，为每位客户精准匹配最适合的医疗方案。同时，我们也提供会员制高尔夫、商务考察等增值服务，全方位丰富您的日本之旅。',
+    en: 'This is the founding principle of NIIJIMA KOTSU. We have positioned Japan\'s precision health screenings and advanced medical services as our core business. Through our proprietary AI-powered medical consultation system, we eliminate language and medical knowledge barriers, delivering personalized healthcare experiences to each client. Additionally, we offer exclusive golf and business inspection tours to enrich your entire Japan journey.'
   },
   ceoMessage4: {
-    ja: '今後も医療ツーリズム、ハイエンドカスタマイズ、ビジネス視察の三大領域を深耕し、テクノロジーでサービスを進化させ、真心でお客様の心を動かしてまいります。',
-    'zh-TW': '未來我們將持續深耕醫療旅遊、高端定制、商務考察三大領域，以科技賦能服務，以真心打動人心。',
-    'zh-CN': '未来我们将持续深耕医疗旅游、高端定制、商务考察三大领域，以科技赋能服务，以真心打动人心。',
-    en: 'We will continue to deepen our expertise in medical tourism, high-end customization, and business inspections, empowering our services with technology and touching hearts with sincerity.'
+    ja: '今後も医療ツーリズムを中核に、AIテクノロジーでサービスを絶えず進化させ、「日本で医療を受けたいのに、どうすればいいか分からない」という壁をなくしていくことが私たちの目標です。真心を込めて、一人ひとりの健康と笑顔のためにお力添えしてまいります。',
+    'zh-TW': '未來，我們將繼續以醫療旅遊為核心，借助AI技術持續革新服務體驗，讓「想去日本看病，卻不知從何開始」成為歷史。以真心打動人心，為每一位客戶的健康與幸福助力。',
+    'zh-CN': '未来，我们将继续以医疗旅游为核心，借助AI技术持续革新服务体验，让「想去日本看病，却不知从何开始」成为历史。以真心打动人心，为每一位客户的健康与幸福助力。',
+    en: 'Looking ahead, we will continue centering on medical tourism, constantly evolving through AI technology. Our goal is to eliminate the barrier of "wanting to receive medical care in Japan but not knowing where to start." With sincerity, we support the health and happiness of every client.'
   },
   ceoMessage5: {
     ja: '皆様のご支援を賜りますよう、何卒よろしくお願い申し上げます。',
@@ -95,10 +96,10 @@ const pageTranslations = {
     en: 'Sincerity'
   },
   philosophy1Desc: {
-    ja: 'お客様の立場に立ち、心を込めたサービスを提供します',
-    'zh-TW': '站在客戶的立場，提供用心的服務',
-    'zh-CN': '站在客户的立场，提供用心的服务',
-    en: 'We provide heartfelt service from the customer\'s perspective'
+    ja: 'お客様の健康と人生に寄り添い、一人ひとりに最適な医療体験をお届けします',
+    'zh-TW': '關注客戶的健康與人生，為每一位客戶提供最適合的醫療服務體驗',
+    'zh-CN': '关注客户的健康与人生，为每一位客户提供最适合的医疗服务体验',
+    en: 'Caring about each client\'s health and life, delivering the most personalized medical experience'
   },
   philosophy2Title: {
     ja: '連結',
@@ -107,10 +108,10 @@ const pageTranslations = {
     en: 'Connection'
   },
   philosophy2Desc: {
-    ja: '華人世界と日本の架け橋として、文化と価値をつなぎます',
-    'zh-TW': '作為華人世界與日本的橋樑，連結文化與價值',
-    'zh-CN': '作为华人世界与日本的桥梁，连结文化与价值',
-    en: 'As a bridge between the Chinese world and Japan, connecting cultures and values'
+    ja: '世界と日本の医療・文化をつなぐ架け橋として、最高品質のサービスをお届けします',
+    'zh-TW': '作為世界與日本醫療、文化的橋樑，提供最高品質的服務',
+    'zh-CN': '作为世界与日本医疗、文化的桥梁，提供最高品质的服务',
+    en: 'As a bridge connecting the world with Japan\'s healthcare and culture, delivering the highest quality service'
   },
   philosophy3Title: {
     ja: '革新',
@@ -119,10 +120,10 @@ const pageTranslations = {
     en: 'Innovation'
   },
   philosophy3Desc: {
-    ja: 'テクノロジーで業界を革新し、新たな価値を創造します',
-    'zh-TW': '以科技革新行業，創造新的價值',
-    'zh-CN': '以科技革新行业，创造新的价值',
-    en: 'Innovating the industry with technology, creating new value'
+    ja: 'AI問診技術で赴日医療の壁を打ち破り、誰もが日本の先端医療にアクセスできる未来を創ります',
+    'zh-TW': '以AI問診技術打破赴日醫療的壁壘，讓每個人都能享受日本先端醫療',
+    'zh-CN': '以AI问诊技术打破赴日医疗的壁垒，让每个人都能享受日本先端医疗',
+    en: 'Breaking down barriers to Japanese healthcare with AI consultation technology, making advanced medicine accessible to all'
   },
 
   // Company Profile Section
@@ -303,6 +304,68 @@ const pageTranslations = {
     'zh-CN': '主要合作伙伴',
     en: 'Key Partners'
   },
+  partnersMedicalLabel: {
+    ja: '医療パートナー',
+    'zh-TW': '醫療合作機構',
+    'zh-CN': '医疗合作机构',
+    en: 'Medical Partners'
+  },
+  partnersServiceLabel: {
+    ja: 'サービスパートナー',
+    'zh-TW': '服務合作夥伴',
+    'zh-CN': '服务合作伙伴',
+    en: 'Service Partners'
+  },
+
+  // Medical Strengths Section
+  medicalLabel: {
+    ja: 'Medical Excellence',
+    'zh-TW': 'Medical Excellence',
+    'zh-CN': 'Medical Excellence',
+    en: 'Medical Excellence'
+  },
+  medicalTitle: {
+    ja: '医療の強み',
+    'zh-TW': '醫療實力',
+    'zh-CN': '医疗实力',
+    en: 'Medical Strengths'
+  },
+  medicalAiTitle: {
+    ja: 'AI問診システム',
+    'zh-TW': 'AI智能問診系統',
+    'zh-CN': 'AI智能问诊系统',
+    en: 'AI Medical Consultation'
+  },
+  medicalAiDesc: {
+    ja: '独自開発のAI問診技術で、言語・医療知識の壁を取り除き、最適な診療科と医療機関をご案内',
+    'zh-TW': '自主研發AI問診技術，消除語言與醫療知識壁壘，精準推薦診療科與醫療機構',
+    'zh-CN': '自主研发AI问诊技术，消除语言与医疗知识壁垒，精准推荐诊疗科与医疗机构',
+    en: 'Proprietary AI consultation technology eliminates language and medical knowledge barriers, precisely matching patients with the right departments and hospitals'
+  },
+  medicalNetworkTitle: {
+    ja: '幅広い医療領域',
+    'zh-TW': '多元醫療領域',
+    'zh-CN': '多元医疗领域',
+    en: 'Comprehensive Medical Fields'
+  },
+  medicalNetworkDesc: {
+    ja: '精密健診・がん治療・美容医療・再生医療など、大学病院から専門クリニックまで幅広くカバー',
+    'zh-TW': '精密體檢、癌症治療、醫療美容、再生醫療等，從大學醫院到專科診所全面覆蓋',
+    'zh-CN': '精密体检、癌症治疗、医疗美容、再生医疗等，从大学医院到专科诊所全面覆盖',
+    en: 'From precision screenings to cancer treatment, aesthetic medicine, and regenerative therapy — covering university hospitals to specialized clinics'
+  },
+  medicalServiceTitle: {
+    ja: 'フルサポート体制',
+    'zh-TW': '全程服務體系',
+    'zh-CN': '全程服务体系',
+    en: 'Full Support System'
+  },
+  medicalServiceDesc: {
+    ja: 'AI問診から予約手配、中国語通訳、術後フォローまで、ワンストップでサポート',
+    'zh-TW': '從AI問診到預約安排、中文翻譯、術後跟進，一站式全程服務',
+    'zh-CN': '从AI问诊到预约安排、中文翻译、术后跟进，一站式全程服务',
+    en: 'One-stop support from AI consultation to appointment scheduling, interpretation, and post-treatment follow-up'
+  },
 
 };
 
@@ -311,12 +374,15 @@ export default function AboutPage() {
 
   const t = (key: keyof typeof pageTranslations) => pageTranslations[key][currentLang];
 
-  const partners = [
+  const medicalPartners = [
     { ja: '徳洲会グループ', 'zh-TW': '德洲會集團', 'zh-CN': '德洲会集团', en: 'Tokushukai Group' },
     { ja: 'TIMC OSAKA', 'zh-TW': 'TIMC OSAKA', 'zh-CN': 'TIMC OSAKA', en: 'TIMC OSAKA' },
+  ];
+
+  const servicePartners = [
     { ja: '株式会社南海国際旅行', 'zh-TW': '株式會社南海國際旅行', 'zh-CN': '株式会社南海国际旅行', en: 'Nankai International Travel Co., Ltd.' },
-    { ja: '帝国ホテル大阪', 'zh-TW': '大阪帝國飯店', 'zh-CN': '大阪帝国酒店', en: 'Imperial Hotel Osaka' },
-    { ja: 'ザ・リッツ・カールトン', 'zh-TW': '麗思卡爾頓', 'zh-CN': '丽思卡尔顿', en: 'The Ritz-Carlton' },
+    { ja: '株式会社大丸松坂屋百貨店', 'zh-TW': '大丸松坂屋百貨', 'zh-CN': '大丸松坂屋百货', en: 'Daimaru Matsuzakaya Department Stores Co., Ltd.' },
+    { ja: '株式会社近鉄百貨店', 'zh-TW': '近鐵百貨', 'zh-CN': '近铁百货', en: 'Kintetsu Department Store Co., Ltd.' },
     { ja: '海南航空', 'zh-TW': '海南航空', 'zh-CN': '海南航空', en: 'Hainan Airlines' },
     { ja: 'INSOUホールディングス株式会社', 'zh-TW': 'INSOU控股株式會社', 'zh-CN': 'INSOU控股株式会社', en: 'INSOU Holdings Co., Ltd.' },
     { ja: 'アリババ日本', 'zh-TW': '阿里巴巴日本', 'zh-CN': '阿里巴巴日本', en: 'Alibaba Japan' },
@@ -460,8 +526,62 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Company Profile Table */}
+        {/* Medical Strengths */}
         <section className="py-20 bg-white">
+          <div className="container mx-auto px-6">
+            <div className="max-w-5xl mx-auto">
+              <div className="text-center mb-12">
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <div className="h-[1px] w-12 bg-gold-400"></div>
+                  <span className="text-xs tracking-[0.3em] text-gold-500 uppercase">{t('medicalLabel')}</span>
+                  <div className="h-[1px] w-12 bg-gold-400"></div>
+                </div>
+                <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('medicalTitle')}</h2>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="relative bg-gradient-to-br from-brand-900 to-brand-800 rounded-2xl p-8 text-white">
+                  <Brain className="w-10 h-10 text-gold-400 mb-5" />
+                  <h3 className="text-lg font-bold mb-3">{t('medicalAiTitle')}</h3>
+                  <p className="text-white/80 text-sm leading-relaxed">{t('medicalAiDesc')}</p>
+                  <div className="mt-6 pt-4 border-t border-white/20">
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-3xl font-bold text-gold-400">4</span>
+                      <span className="text-white/60 text-sm">{currentLang === 'en' ? 'languages supported' : currentLang === 'ja' ? '言語対応' : '语言支持'}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-2xl p-8 border border-neutral-200 hover:shadow-lg transition">
+                  <Hospital className="w-10 h-10 text-brand-900 mb-5" />
+                  <h3 className="text-lg font-bold text-brand-900 mb-3">{t('medicalNetworkTitle')}</h3>
+                  <p className="text-neutral-600 text-sm leading-relaxed">{t('medicalNetworkDesc')}</p>
+                  <div className="mt-6 pt-4 border-t border-neutral-100">
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-3xl font-bold text-brand-900">6+</span>
+                      <span className="text-neutral-400 text-sm">{currentLang === 'en' ? 'medical fields' : currentLang === 'ja' ? '医療領域' : '医疗领域'}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-2xl p-8 border border-neutral-200 hover:shadow-lg transition">
+                  <HeartHandshake className="w-10 h-10 text-brand-900 mb-5" />
+                  <h3 className="text-lg font-bold text-brand-900 mb-3">{t('medicalServiceTitle')}</h3>
+                  <p className="text-neutral-600 text-sm leading-relaxed">{t('medicalServiceDesc')}</p>
+                  <div className="mt-6 pt-4 border-t border-neutral-100">
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-3xl font-bold text-brand-900">300+</span>
+                      <span className="text-neutral-400 text-sm">{currentLang === 'en' ? 'screening items' : currentLang === 'ja' ? '検査項目' : '检查项目'}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Company Profile Table */}
+        <section className="py-20 bg-neutral-50">
           <div className="container mx-auto px-6">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-12">
@@ -505,7 +625,7 @@ export default function AboutPage() {
         </section>
 
         {/* Licenses & Certifications */}
-        <section className="py-16 bg-neutral-50">
+        <section className="py-16 bg-white">
           <div className="container mx-auto px-6">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
@@ -550,7 +670,7 @@ export default function AboutPage() {
         </section>
 
         {/* Partners */}
-        <section className="py-16 bg-white">
+        <section className="py-16 bg-neutral-50">
           <div className="container mx-auto px-6">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
@@ -562,12 +682,34 @@ export default function AboutPage() {
                 <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('partnersTitle')}</h2>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {partners.map((partner, index) => (
-                  <div key={index} className="p-5 bg-neutral-50 rounded-xl text-center font-medium text-neutral-700 hover:bg-brand-900 hover:text-white transition cursor-default">
-                    {partner[currentLang]}
-                  </div>
-                ))}
+              {/* Medical Partners */}
+              <div className="mb-8">
+                <h3 className="text-sm font-bold text-brand-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                  <div className="w-2 h-2 bg-gold-400 rounded-full" />
+                  {t('partnersMedicalLabel')}
+                </h3>
+                <div className="grid grid-cols-2 gap-4">
+                  {medicalPartners.map((partner, index) => (
+                    <div key={index} className="p-5 bg-brand-900/5 rounded-xl text-center font-medium text-brand-900 border border-brand-900/10 hover:bg-brand-900 hover:text-white transition cursor-default">
+                      {partner[currentLang]}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Service Partners */}
+              <div>
+                <h3 className="text-sm font-bold text-neutral-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+                  <div className="w-2 h-2 bg-neutral-300 rounded-full" />
+                  {t('partnersServiceLabel')}
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {servicePartners.map((partner, index) => (
+                    <div key={index} className="p-5 bg-neutral-50 rounded-xl text-center font-medium text-neutral-700 hover:bg-brand-900 hover:text-white transition cursor-default">
+                      {partner[currentLang]}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
