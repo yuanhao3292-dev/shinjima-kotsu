@@ -322,8 +322,7 @@ const FAQ_DATA: FAQItem[] = [
 
 // Page UI translations
 const pageTranslations = {
-  headerTitle: { ja: 'よくある質問', 'zh-TW': '常見問題', 'zh-CN': '常见问题', en: 'FAQ' },
-  heroTitle: { ja: 'よくある質問 FAQ', 'zh-TW': '常見問題 FAQ', 'zh-CN': '常见问题 FAQ', en: 'Frequently Asked Questions' },
+  heroTitle: { ja: 'よくある質問', 'zh-TW': '常見問題', 'zh-CN': '常见问题', en: 'Frequently Asked Questions' },
   heroSubtitle: {
     ja: 'TIMC健診予約に関するよくある質問',
     'zh-TW': '關於 TIMC 體檢預約的常見問題解答',
@@ -393,35 +392,49 @@ export default function FAQPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <header className="absolute top-0 left-0 right-0 z-50">
+        <div className="max-w-6xl mx-auto px-6 py-4">
           <SmartBackLink />
-          <h1 className="text-xl font-bold text-gray-900">{t('headerTitle')}</h1>
-          <div className="w-24"></div>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 py-12">
-        {/* Title Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">{t('heroTitle')}</h1>
-          <p className="text-xl text-gray-600">
-            {t('heroSubtitle')}
-          </p>
-        </div>
+      {/* Hero */}
+      <section className="relative min-h-[50vh] flex items-center bg-brand-900 overflow-hidden">
+        <div className="absolute top-20 -left-20 w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl pointer-events-none" />
+        <div className="absolute bottom-10 right-10 w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl pointer-events-none" />
 
+        <div className="container mx-auto px-6 py-32 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="flex items-center justify-center gap-3 mb-8">
+              <div className="h-[1px] w-12 bg-gold-400" />
+              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">FAQ</span>
+              <div className="h-[1px] w-12 bg-gold-400" />
+            </div>
+
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif text-white mb-6 leading-tight">
+              {t('heroTitle')}
+            </h1>
+            <p className="text-xl text-neutral-300 font-light max-w-2xl mx-auto leading-relaxed">
+              {t('heroSubtitle')}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Content */}
+      <main className="max-w-4xl mx-auto px-6 py-16">
         {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
           {CATEGORY_KEYS.map(key => (
             <button
               key={key}
               onClick={() => setActiveCategory(key)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              className={`px-5 py-2 text-sm font-medium tracking-wide transition-colors ${
                 activeCategory === key
-                  ? 'bg-indigo-600 text-white shadow-lg'
-                  : 'bg-white text-gray-600 hover:bg-gray-100'
+                  ? 'bg-brand-900 text-white'
+                  : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
               }`}
             >
               {CATEGORY_LABELS[key][currentLang]}
@@ -430,29 +443,29 @@ export default function FAQPage() {
         </div>
 
         {/* FAQ List */}
-        <div className="space-y-4">
-          {filteredFAQs.map((faq, index) => {
+        <div className="space-y-3">
+          {filteredFAQs.map((faq) => {
             const globalIndex = FAQ_DATA.indexOf(faq);
             const isOpen = openItems.includes(globalIndex);
 
             return (
               <div
                 key={globalIndex}
-                className="bg-white rounded-xl shadow-sm overflow-hidden"
+                className="border border-neutral-200 overflow-hidden"
               >
                 <button
                   onClick={() => toggleItem(globalIndex)}
-                  className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
+                  className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-neutral-50 transition-colors"
                 >
                   <div className="flex items-start gap-4 pr-4">
-                    <span className="flex-shrink-0 w-8 h-8 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold text-sm">
+                    <span className="flex-shrink-0 w-8 h-8 bg-gold-400/20 text-gold-600 rounded-full flex items-center justify-center font-bold text-sm">
                       Q
                     </span>
-                    <span className="font-medium text-gray-900">{faq.question[currentLang]}</span>
+                    <span className="font-medium text-brand-900">{faq.question[currentLang]}</span>
                   </div>
                   <ChevronDown
                     size={20}
-                    className={`flex-shrink-0 text-gray-400 transition-transform duration-200 ${
+                    className={`flex-shrink-0 text-neutral-400 transition-transform duration-200 ${
                       isOpen ? 'rotate-180' : ''
                     }`}
                   />
@@ -461,10 +474,10 @@ export default function FAQPage() {
                 {isOpen && (
                   <div className="px-6 pb-5">
                     <div className="flex gap-4 pl-0 md:pl-12">
-                      <span className="hidden md:flex flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full items-center justify-center font-bold text-sm">
+                      <span className="hidden md:flex flex-shrink-0 w-8 h-8 bg-neutral-100 text-neutral-500 rounded-full items-center justify-center font-bold text-sm">
                         A
                       </span>
-                      <p className="text-gray-600 leading-relaxed">{faq.answer[currentLang]}</p>
+                      <p className="text-neutral-600 leading-relaxed">{faq.answer[currentLang]}</p>
                     </div>
                   </div>
                 )}
@@ -474,9 +487,9 @@ export default function FAQPage() {
         </div>
 
         {/* Contact Section */}
-        <div className="mt-16 bg-white rounded-2xl shadow-lg p-8 text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('contactTitle')}</h2>
-          <p className="text-gray-600 mb-8">
+        <div className="mt-16 border border-neutral-200 p-8 text-center">
+          <h2 className="text-2xl font-serif text-brand-900 mb-4">{t('contactTitle')}</h2>
+          <p className="text-neutral-600 mb-8">
             {t('contactSubtitle')}
           </p>
 
@@ -485,14 +498,14 @@ export default function FAQPage() {
               href="https://line.me/ti/p/j3XxBP50j9"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-[#06C755] hover:bg-[#05b34c] text-white px-6 py-3 rounded-xl font-semibold transition-colors"
+              className="inline-flex items-center justify-center gap-2 bg-[#06C755] hover:bg-[#05b34c] text-white px-6 py-3 text-sm font-medium tracking-wider transition-colors"
             >
               <MessageCircle size={20} />
               {t('lineConsult')}
             </a>
             <button
               onClick={() => setShowWechatQR(true)}
-              className="inline-flex items-center justify-center gap-2 bg-[#07C160] hover:bg-[#06ad56] text-white px-6 py-3 rounded-xl font-semibold transition-colors"
+              className="inline-flex items-center justify-center gap-2 bg-[#07C160] hover:bg-[#06ad56] text-white px-6 py-3 text-sm font-medium tracking-wider transition-colors"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178A1.17 1.17 0 014.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178 1.17 1.17 0 01-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 01.598.082l1.584.926a.272.272 0 00.139.045c.133 0 .241-.108.241-.243 0-.06-.024-.118-.04-.177l-.327-1.233a.49.49 0 01-.009-.102c0-.142.062-.28.177-.375C23.116 17.715 24 16.046 24 14.194c0-2.942-2.696-5.336-7.062-5.336zm-2.745 3.086c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.97-.983zm5.49 0c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.969-.983z"/>
@@ -501,7 +514,7 @@ export default function FAQPage() {
             </button>
             <a
               href="mailto:haoyuan@niijima-koutsu.jp"
-              className="inline-flex items-center justify-center gap-2 bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-xl font-semibold transition-colors"
+              className="inline-flex items-center justify-center gap-2 bg-brand-900 hover:bg-brand-800 text-white px-6 py-3 text-sm font-medium tracking-wider transition-colors"
             >
               <Mail size={20} />
               {t('emailConsult')}
@@ -516,20 +529,20 @@ export default function FAQPage() {
             onClick={() => setShowWechatQR(false)}
           >
             <div
-              className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl"
+              className="bg-white p-6 max-w-sm w-full"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-center mb-4">
-                <h3 className="font-bold text-lg text-gray-900">{t('wechatTitle')}</h3>
+                <h3 className="font-serif text-lg text-brand-900">{t('wechatTitle')}</h3>
                 <button
                   onClick={() => setShowWechatQR(false)}
-                  className="text-gray-400 hover:text-gray-600 p-1"
+                  className="text-neutral-400 hover:text-neutral-600 p-1"
                 >
                   <X size={20} />
                 </button>
               </div>
 
-              <div className="bg-gray-50 rounded-xl p-4 flex justify-center">
+              <div className="bg-neutral-50 p-4 flex justify-center">
                 <Image
                   src={WECHAT_QR_URL}
                   alt="WeChat QR Code"
@@ -540,19 +553,19 @@ export default function FAQPage() {
                 />
               </div>
 
-              <p className="text-center text-gray-600 mt-4 text-sm">
+              <p className="text-center text-neutral-600 mt-4 text-sm">
                 {t('wechatScanQR')}
               </p>
 
-              <div className="mt-4 text-center text-xs px-3 py-2 rounded-lg bg-[#07C160]/10 text-[#07C160]">
+              <div className="mt-4 text-center text-xs px-3 py-2 bg-[#07C160]/10 text-[#07C160]">
                 {t('wechatOnline')}
               </div>
             </div>
           </div>
         )}
 
-        {/* SEO Footer */}
-        <div className="mt-12 text-center text-sm text-gray-500">
+        {/* Footer text */}
+        <div className="mt-12 text-center text-sm text-neutral-500">
           <p>{t('footerText')}</p>
         </div>
       </main>
