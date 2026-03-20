@@ -758,7 +758,7 @@ export default function GuidePartnerPage() {
   return (
     <PublicLayout showFooter={false} activeNav="partner">
       {/* Hero */}
-      <section className="relative min-h-[85vh] flex items-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center bg-brand-900 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
@@ -768,10 +768,16 @@ export default function GuidePartnerPage() {
             className="object-cover object-center"
             sizes="100vw"
             quality={75}
+            priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-900/80 to-brand-900/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70"></div>
         </div>
-        <div className="relative z-10 container mx-auto px-6 py-24">
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
+          <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+        </div>
+        <div className="relative z-10 container mx-auto px-6 py-32">
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-8">
               <div className="h-[1px] w-12 bg-gold-400"></div>
