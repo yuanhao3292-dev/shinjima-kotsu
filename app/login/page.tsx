@@ -5,32 +5,36 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
-import MemberLayout from '@/components/MemberLayout';
-import Logo from '@/components/Logo';
-import { Mail, Lock, Loader2, AlertCircle, Eye, EyeOff, User } from 'lucide-react';
+import PublicLayout from '@/components/PublicLayout';
+import { Mail, Lock, Loader2, AlertCircle, Eye, EyeOff } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import { useSiteImages } from '@/lib/hooks/useSiteImages';
 
-// ==================== 翻译对象 ====================
+// ==================== Translations ====================
 const translations = {
-  // Hero 区域
+  heroLabel: {
+    ja: 'MEMBER LOGIN',
+    'zh-CN': 'MEMBER LOGIN',
+    'zh-TW': 'MEMBER LOGIN',
+    en: 'MEMBER LOGIN',
+  },
   heroTitle: {
-    ja: 'NIIJIMA スマート医療サービスプラットフォーム',
-    'zh-CN': 'NIIJIMA 智能医疗服务平台',
-    'zh-TW': 'NIIJIMA 智能醫療服務平台',
-    en: 'NIIJIMA Smart Medical Service Platform',
+    ja: '会員ログイン',
+    'zh-CN': '会员登录',
+    'zh-TW': '會員登入',
+    en: 'Member Login',
   },
   heroSubtitle: {
-    ja: 'AI健康スクリーニング · 会員予約管理 · 日本医療リソース連携',
-    'zh-CN': 'AI 健康筛查 · 会员预约管理 · 日本医疗资源对接',
-    'zh-TW': 'AI 健康篩查 · 會員預約管理 · 日本醫療資源對接',
-    en: 'AI Health Screening · Appointment Management · Japan Medical Coordination',
+    ja: 'サービスをご利用ください',
+    'zh-CN': '开始使用我们的服务',
+    'zh-TW': '開始使用我們的服務',
+    en: 'Access Your Account',
   },
-  heroDescription: {
-    ja: 'NIIJIMAは、専門的な訪日医療コーディネートサービスを提供します。AIスマートスクリーニングシステムにより、最適な医療プランをマッチングし、徳洲会国際医療センター(TIMC)、日本トップクラスのがん専門病院、幹細胞クリニックなどの優良医療リソースの予約管理サービスを提供します。',
-    'zh-CN': 'NIIJIMA 为您提供专业的访日医疗对接服务。通过 AI 智能筛查系统，为您匹配最适合的医疗方案，并提供德州会国际医疗中心(TIMC)、日本顶级癌症专科医院、干细胞诊所等优质医疗资源的预约管理服务。',
-    'zh-TW': 'NIIJIMA 為您提供專業的訪日醫療對接服務。透過 AI 智能篩查系統，為您配對最適合的醫療方案，並提供德州會國際醫療中心(TIMC)、日本頂級癌症專科醫院、幹細胞診所等優質醫療資源的預約管理服務。',
-    en: 'NIIJIMA provides professional Japan medical coordination services. Through our AI smart screening system, we match you with the most suitable medical plans and provide appointment management for premium resources including TIMC, top cancer specialty hospitals, and stem cell clinics.',
+  heroDesc: {
+    ja: 'AI健康スクリーニング・予約管理・注文照会など、すべてのサービスをご利用いただけます。',
+    'zh-CN': 'AI 健康筛查、预约管理、订单查询等，所有服务尽在掌握。',
+    'zh-TW': 'AI 健康篩查、預約管理、訂單查詢等，所有服務盡在掌握。',
+    en: 'Access AI health screening, appointment management, order tracking, and all our services.',
   },
   support24h: {
     ja: '24時間カスタマーサポート',
@@ -45,21 +49,7 @@ const translations = {
     en: 'Chinese Service',
   },
 
-  // 表单标题
-  pageTitle: {
-    ja: '会員ログイン',
-    'zh-CN': '会员登录',
-    'zh-TW': '會員登入',
-    en: 'Member Login',
-  },
-  pageSubtitle: {
-    ja: 'ログインしてAI健康スクリーニングと予約を管理',
-    'zh-CN': '登录管理 AI 筛查和预约服务',
-    'zh-TW': '登入管理 AI 篩查和預約服務',
-    en: 'Login to manage AI screening and appointments',
-  },
-
-  // 表单字段
+  // Form
   emailLabel: {
     ja: 'メールアドレス',
     'zh-CN': '电子邮箱',
@@ -90,8 +80,6 @@ const translations = {
     'zh-TW': '忘記密碼？',
     en: 'Forgot Password?',
   },
-
-  // 按钮文本
   loginButton: {
     ja: 'ログイン',
     'zh-CN': '登录',
@@ -104,21 +92,17 @@ const translations = {
     'zh-TW': '登入中...',
     en: 'Logging in...',
   },
-
-  // 分隔符
   or: {
     ja: 'または',
     'zh-CN': '或',
     'zh-TW': '或',
     en: 'or',
   },
-
-  // 注册链接
   noAccount: {
     ja: 'アカウントをお持ちでないですか？',
     'zh-CN': '还没有账号？',
     'zh-TW': '還沒有帳號？',
-    en: 'Don\'t have an account?',
+    en: "Don't have an account?",
   },
   registerNow: {
     ja: '今すぐ登録',
@@ -126,8 +110,6 @@ const translations = {
     'zh-TW': '立即註冊',
     en: 'Register Now',
   },
-
-  // 访客查询
   guestLookup: {
     ja: 'アカウントなしでも注文照会可能',
     'zh-CN': '没有账号也可以查询订单',
@@ -141,7 +123,7 @@ const translations = {
     en: 'Check with Order Number →',
   },
 
-  // 错误消息
+  // Error messages
   errorInvalidCredentials: {
     ja: 'メールアドレスまたはパスワードが間違っています',
     'zh-CN': '邮箱或密码错误',
@@ -180,7 +162,6 @@ const translations = {
   },
 } as const;
 
-// 翻译辅助函数
 const t = (key: keyof typeof translations, lang: Language): string => {
   return translations[key][lang];
 };
@@ -232,9 +213,9 @@ function LoginForm() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-80px)] flex">
-      {/* Left Side - Hero Image */}
-      <div className="hidden lg:flex lg:w-1/2 relative bg-brand-900">
+    <div className="min-h-screen flex">
+      {/* Left Side — Brand Hero */}
+      <div className="hidden lg:flex lg:w-1/2 relative bg-brand-900 overflow-hidden">
         <Image
           src={getImage('medical_hero', 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg')}
           alt="Medical"
@@ -244,170 +225,178 @@ function LoginForm() {
           sizes="50vw"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-900/80 via-brand-900/30 to-brand-900/50"></div>
-        <div className="relative z-10 flex flex-col justify-center px-16 text-white">
-          <div className="flex items-center gap-3 mb-8">
-            <Logo className="w-12 h-12 text-white" />
-            <div>
-              <span className="font-serif font-bold text-2xl tracking-wide">NIIJIMA</span>
-              <p className="text-xs text-brand-200 uppercase tracking-widest">Medical Tourism</p>
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70" />
+
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
+          <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
+        </div>
+
+        <div className="relative z-10 flex flex-col justify-center px-16">
+          <div className="max-w-lg">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="h-[1px] w-12 bg-gold-400" />
+              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">
+                {t('heroLabel', lang)}
+              </span>
             </div>
-          </div>
-          <h1 className="text-4xl font-serif font-bold mb-6 leading-tight">
-            {t('heroTitle', lang)}<br/>
-            <span className="text-brand-300">{t('heroSubtitle', lang)}</span>
-          </h1>
-          <p className="text-neutral-300 leading-relaxed mb-8 max-w-md">
-            {t('heroDescription', lang)}
-          </p>
-          <div className="flex items-center gap-6 text-sm">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-neutral-300">{t('support24h', lang)}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-gold-400 rounded-full"></div>
-              <span className="text-neutral-300">{t('chineseService', lang)}</span>
+
+            <h1 className="font-serif text-4xl xl:text-5xl text-white mb-4 leading-tight">
+              {t('heroTitle', lang)}
+              <br />
+              <span className="text-gold-400">{t('heroSubtitle', lang)}</span>
+            </h1>
+
+            <p className="text-lg text-neutral-300 leading-relaxed font-light mb-10 max-w-md">
+              {t('heroDesc', lang)}
+            </p>
+
+            <div className="flex items-center gap-6 text-sm">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                <span className="text-neutral-300">{t('support24h', lang)}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-gold-400 rounded-full" />
+                <span className="text-neutral-300">{t('chineseService', lang)}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Right Side - Login Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-neutral-50">
+      {/* Right Side — Login Form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white">
         <div className="w-full max-w-md">
-          {/* Mobile Logo */}
-          <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
-            <Logo className="w-10 h-10 text-brand-600" />
-            <span className="font-serif font-bold text-xl">NIIJIMA</span>
+          {/* Mobile hero label */}
+          <div className="lg:hidden flex items-center gap-3 mb-6">
+            <div className="h-[1px] w-8 bg-gold-400" />
+            <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">MEMBER LOGIN</span>
           </div>
 
-          {/* Login Card */}
-          <div className="bg-white rounded-2xl shadow-xl p-8 border border-neutral-100">
-            {/* Header */}
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-50 rounded-full mb-4">
-                <User className="w-8 h-8 text-brand-600" />
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="text-2xl font-serif text-brand-900 mb-2">{t('heroTitle', lang)}</h1>
+            <p className="text-neutral-500 text-sm">{t('heroDesc', lang)}</p>
+          </div>
+
+          {/* Email Verified */}
+          {verified && !error && !urlError && (
+            <div className="mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 flex items-center gap-2 text-sm">
+              <svg className="w-[18px] h-[18px] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>{t('emailVerified', lang)}</span>
+            </div>
+          )}
+
+          {/* Error */}
+          {(error || urlError) && (
+            <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 flex items-center gap-2 text-sm">
+              <AlertCircle size={18} className="flex-shrink-0" />
+              <span>
+                {error || (urlError === 'auth_callback_error' ? t('errorAuthCallback', lang) : t('errorVerificationFailed', lang))}
+              </span>
+            </div>
+          )}
+
+          {/* Form */}
+          <form onSubmit={handleLogin} className="space-y-5">
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 mb-2">
+                {t('emailLabel', lang)}
+              </label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="w-full pl-10 pr-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent transition bg-white text-sm"
+                  placeholder={t('emailPlaceholder', lang)}
+                />
               </div>
-              <h1 className="text-2xl font-serif font-bold text-neutral-900">{t('pageTitle', lang)}</h1>
-              <p className="text-neutral-500 mt-2 text-sm">{t('pageSubtitle', lang)}</p>
             </div>
 
-            {/* Email Verified Success Message */}
-            {verified && !error && !urlError && (
-              <div className="mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl flex items-center gap-2 text-sm">
-                <svg className="w-[18px] h-[18px] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                <span>{t('emailVerified', lang)}</span>
-              </div>
-            )}
-
-            {/* Error Messages */}
-            {(error || urlError) && (
-              <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl flex items-center gap-2 text-sm">
-                <AlertCircle size={18} />
-                <span>
-                  {error || (urlError === 'auth_callback_error' ? t('errorAuthCallback', lang) : t('errorVerificationFailed', lang))}
-                </span>
-              </div>
-            )}
-
-            {/* Login Form */}
-            <form onSubmit={handleLogin} className="space-y-5">
-              <div>
-                <label className="block text-sm font-medium text-neutral-700 mb-2">
-                  {t('emailLabel', lang)}
-                </label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400" size={20} />
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="w-full pl-10 pr-4 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
-                    placeholder={t('emailPlaceholder', lang)}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-neutral-700 mb-2">
-                  {t('passwordLabel', lang)}
-                </label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400" size={20} />
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    className="w-full pl-10 pr-12 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
-                    placeholder={t('passwordPlaceholder', lang)}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
-                  >
-                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                  </button>
-                </div>
-                <div className="mt-2 text-right">
-                  <Link
-                    href="/forgot-password"
-                    className="text-sm text-brand-600 hover:text-brand-700 font-medium"
-                  >
-                    {t('forgotPassword', lang)}
-                  </Link>
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-brand-900 hover:bg-brand-800 disabled:bg-neutral-400 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
-              >
-                {loading ? (
-                  <>
-                    <Loader2 className="animate-spin" size={20} />
-                    {t('loggingIn', lang)}
-                  </>
-                ) : (
-                  t('loginButton', lang)
-                )}
-              </button>
-            </form>
-
-            {/* Divider */}
-            <div className="my-6 flex items-center">
-              <div className="flex-grow border-t border-neutral-200"></div>
-              <span className="px-4 text-sm text-neutral-400">{t('or', lang)}</span>
-              <div className="flex-grow border-t border-neutral-200"></div>
-            </div>
-
-            {/* Register Link */}
-            <div className="text-center">
-              <p className="text-neutral-600 text-sm">
-                {t('noAccount', lang)}
-                <Link
-                  href="/register"
-                  className="text-brand-600 hover:text-brand-700 font-bold ml-1"
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 mb-2">
+                {t('passwordLabel', lang)}
+              </label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="w-full pl-10 pr-12 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent transition bg-white text-sm"
+                  placeholder={t('passwordPlaceholder', lang)}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
                 >
-                  {t('registerNow', lang)}
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+              <div className="mt-2 text-right">
+                <Link
+                  href="/forgot-password"
+                  className="text-sm text-brand-700 hover:text-brand-900 font-medium"
+                >
+                  {t('forgotPassword', lang)}
                 </Link>
-              </p>
+              </div>
             </div>
 
-            {/* Guest Order Lookup */}
-            <div className="mt-6 pt-6 border-t border-neutral-100 text-center">
-              <p className="text-xs text-neutral-400 mb-2">{t('guestLookup', lang)}</p>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-gold-400 hover:bg-gold-300 disabled:bg-neutral-300 text-brand-900 font-medium py-3 px-6 text-sm tracking-wider transition-colors flex items-center justify-center gap-2"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="animate-spin" size={18} />
+                  {t('loggingIn', lang)}
+                </>
+              ) : (
+                t('loginButton', lang)
+              )}
+            </button>
+          </form>
+
+          {/* Divider */}
+          <div className="my-6 flex items-center">
+            <div className="flex-grow border-t border-neutral-200" />
+            <span className="px-4 text-sm text-neutral-400">{t('or', lang)}</span>
+            <div className="flex-grow border-t border-neutral-200" />
+          </div>
+
+          {/* Register */}
+          <div className="text-center">
+            <p className="text-neutral-600 text-sm">
+              {t('noAccount', lang)}
               <Link
-                href="/order-lookup"
-                className="text-brand-600 hover:text-brand-700 text-sm font-medium inline-flex items-center gap-1"
+                href="/register"
+                className="text-brand-700 hover:text-brand-900 font-medium ml-1"
               >
-                {t('useOrderNumber', lang)}
+                {t('registerNow', lang)}
               </Link>
-            </div>
+            </p>
+          </div>
+
+          {/* Guest Lookup */}
+          <div className="mt-6 pt-6 border-t border-neutral-200 text-center">
+            <p className="text-xs text-neutral-400 mb-2">{t('guestLookup', lang)}</p>
+            <Link
+              href="/order-lookup"
+              className="text-brand-700 hover:text-brand-900 text-sm font-medium inline-flex items-center gap-1"
+            >
+              {t('useOrderNumber', lang)}
+            </Link>
           </div>
         </div>
       </div>
@@ -417,18 +406,15 @@ function LoginForm() {
 
 function LoadingFallback() {
   return (
-    <div className="min-h-[calc(100vh-80px)] flex items-center justify-center bg-neutral-50">
+    <div className="min-h-screen flex items-center justify-center bg-white">
       <div className="w-full max-w-md p-8">
-        <div className="bg-white rounded-2xl shadow-xl p-8 animate-pulse">
-          <div className="flex justify-center mb-8">
-            <div className="w-16 h-16 bg-neutral-200 rounded-full"></div>
-          </div>
-          <div className="h-8 bg-neutral-200 rounded w-1/2 mx-auto mb-4"></div>
-          <div className="h-4 bg-neutral-200 rounded w-2/3 mx-auto mb-8"></div>
-          <div className="space-y-4">
-            <div className="h-12 bg-neutral-200 rounded-xl"></div>
-            <div className="h-12 bg-neutral-200 rounded-xl"></div>
-            <div className="h-12 bg-neutral-200 rounded-xl"></div>
+        <div className="animate-pulse">
+          <div className="h-6 bg-neutral-200 w-1/3 mb-2" />
+          <div className="h-4 bg-neutral-200 w-2/3 mb-8" />
+          <div className="space-y-5">
+            <div className="h-12 bg-neutral-100 border border-neutral-200" />
+            <div className="h-12 bg-neutral-100 border border-neutral-200" />
+            <div className="h-12 bg-neutral-200" />
           </div>
         </div>
       </div>
@@ -438,10 +424,10 @@ function LoadingFallback() {
 
 export default function LoginPage() {
   return (
-    <MemberLayout showFooter={false}>
+    <PublicLayout showFooter={false}>
       <Suspense fallback={<LoadingFallback />}>
         <LoginForm />
       </Suspense>
-    </MemberLayout>
+    </PublicLayout>
   );
 }
