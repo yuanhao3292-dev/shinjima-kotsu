@@ -222,11 +222,11 @@ export default function LeaderboardPage() {
       case 1:
         return <Crown className="text-yellow-500" size={24} />;
       case 2:
-        return <Medal className="text-gray-400" size={24} />;
+        return <Medal className="text-neutral-400" size={24} />;
       case 3:
         return <Medal className="text-amber-600" size={24} />;
       default:
-        return <span className="w-6 h-6 flex items-center justify-center text-gray-500 font-bold">{rank}</span>;
+        return <span className="w-6 h-6 flex items-center justify-center text-neutral-500 font-bold">{rank}</span>;
     }
   };
 
@@ -236,27 +236,27 @@ export default function LeaderboardPage() {
       case 1:
         return 'bg-gradient-to-r from-yellow-50 to-amber-50 border-yellow-300';
       case 2:
-        return 'bg-gradient-to-r from-gray-50 to-slate-50 border-gray-300';
+        return 'bg-gradient-to-r from-neutral-50 to-neutral-50 border-neutral-300';
       case 3:
         return 'bg-gradient-to-r from-amber-50 to-amber-100 border-amber-300';
       default:
-        return 'bg-white border-gray-200';
+        return 'bg-white border-neutral-200';
     }
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">{t('loading', lang)}</p>
+          <p className="text-neutral-600">{t('loading', lang)}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-neutral-50">
       <GuideSidebar pageTitle={t('pageTitle', lang)} />
 
       {/* Main Content */}
@@ -265,19 +265,19 @@ export default function LeaderboardPage() {
           {/* Header */}
           <div className="mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-brand-500 rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-brand-500 flex items-center justify-center">
                 <Trophy className="text-white" size={24} />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">{t('heading', lang)}</h1>
-                <p className="text-gray-500">{t('subtitle', lang)}</p>
+                <h1 className="text-2xl font-bold font-serif text-brand-900">{t('heading', lang)}</h1>
+                <p className="text-neutral-500">{t('subtitle', lang)}</p>
               </div>
             </div>
           </div>
 
           {/* Current User Rank Card */}
           {currentUserRank && (
-            <div className="bg-gradient-to-r from-brand-600 to-brand-400 rounded-2xl p-6 text-white mb-8 shadow-lg">
+            <div className="bg-gradient-to-r from-brand-600 to-brand-400 p-6 text-white mb-8">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-brand-100 text-sm">{t('yourCurrentRank', lang)}</p>
@@ -290,7 +290,7 @@ export default function LeaderboardPage() {
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${LEVEL_STYLES[currentUserRank.level]?.bgColor || 'bg-white/20'}`}>
+                  <div className={`inline-flex items-center gap-2 px-3 py-1 ${LEVEL_STYLES[currentUserRank.level]?.bgColor || 'bg-white/20'}`}>
                     <Star size={14} className={LEVEL_STYLES[currentUserRank.level]?.color || 'text-white'} />
                     <span className={`text-sm font-medium ${LEVEL_STYLES[currentUserRank.level]?.color || 'text-white'}`}>
                       {LEVEL_LABEL_KEYS[currentUserRank.level] ? t(LEVEL_LABEL_KEYS[currentUserRank.level], lang) : currentUserRank.level}
@@ -313,9 +313,9 @@ export default function LeaderboardPage() {
           )}
 
           {/* Leaderboard List */}
-          <div className="bg-white rounded-xl border shadow-sm overflow-hidden">
-            <div className="p-4 border-b bg-gray-50">
-              <h2 className="font-bold text-gray-900 flex items-center gap-2">
+          <div className="bg-white border overflow-hidden">
+            <div className="p-4 border-b bg-neutral-50">
+              <h2 className="font-bold font-serif text-brand-900 flex items-center gap-2">
                 <Trophy size={18} className="text-yellow-500" />
                 {t('leaderboardTitle', lang)}
               </h2>
@@ -338,17 +338,17 @@ export default function LeaderboardPage() {
                     {/* Name & Level */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <p className={`font-medium truncate ${entry.isCurrentUser ? 'text-amber-600' : 'text-gray-900'}`}>
+                        <p className={`font-medium truncate ${entry.isCurrentUser ? 'text-amber-600' : 'text-neutral-900'}`}>
                           {entry.name}
                           {entry.isCurrentUser && <span className="ml-2 text-xs text-amber-500">{t('youIndicator', lang)}</span>}
                         </p>
-                        <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs ${
-                          LEVEL_STYLES[entry.level]?.bgColor || 'bg-gray-100'
-                        } ${LEVEL_STYLES[entry.level]?.color || 'text-gray-600'}`}>
+                        <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs ${
+                          LEVEL_STYLES[entry.level]?.bgColor || 'bg-neutral-100'
+                        } ${LEVEL_STYLES[entry.level]?.color || 'text-neutral-600'}`}>
                           {LEVEL_LABEL_KEYS[entry.level] ? t(LEVEL_LABEL_KEYS[entry.level], lang) : entry.level}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-500 mt-0.5">
+                      <p className="text-sm text-neutral-500 mt-0.5">
                         {entry.total_bookings}{t('ordersCount', lang)}
                       </p>
                     </div>
@@ -357,9 +357,9 @@ export default function LeaderboardPage() {
                     <div className="text-right">
                       <p className={`font-bold ${entry.rank <= 3 ? 'text-lg' : ''} ${
                         entry.rank === 1 ? 'text-yellow-600' :
-                        entry.rank === 2 ? 'text-gray-500' :
+                        entry.rank === 2 ? 'text-neutral-500' :
                         entry.rank === 3 ? 'text-amber-600' :
-                        'text-gray-900'
+                        'text-neutral-900'
                       }`}>
                         ¥{entry.total_commission.toLocaleString()}
                       </p>
@@ -367,8 +367,8 @@ export default function LeaderboardPage() {
                   </div>
                 ))
               ) : (
-                <div className="p-12 text-center text-gray-500">
-                  <Trophy className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                <div className="p-12 text-center text-neutral-500">
+                  <Trophy className="w-12 h-12 mx-auto mb-4 text-neutral-300" />
                   <p>{t('noData', lang)}</p>
                   <p className="text-sm mt-2">{t('noDataHint', lang)}</p>
                 </div>
@@ -377,7 +377,7 @@ export default function LeaderboardPage() {
           </div>
 
           {/* Bottom Info */}
-          <div className="mt-6 text-center text-sm text-gray-400">
+          <div className="mt-6 text-center text-sm text-neutral-400">
             <p>{t('bottomInfo', lang)}</p>
           </div>
         </div>

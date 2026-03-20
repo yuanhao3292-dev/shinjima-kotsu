@@ -433,7 +433,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
       pending: 'bg-yellow-100 text-yellow-700',
       confirmed: 'bg-blue-100 text-blue-700',
       completed: 'bg-green-100 text-green-700',
-      cancelled: 'bg-gray-100 text-gray-700',
+      cancelled: 'bg-neutral-100 text-neutral-700',
       no_show: 'bg-red-100 text-red-700',
     };
     const labelKeys: Record<string, keyof typeof translations> = {
@@ -444,7 +444,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
       no_show: 'statusNoShow',
     };
     return (
-      <span className={`px-3 py-1 rounded-full text-sm font-medium ${styles[status] || styles.pending}`}>
+      <span className={`px-3 py-1 text-sm font-medium ${styles[status] || styles.pending}`}>
         {labelKeys[status] ? t(labelKeys[status], lang) : status}
       </span>
     );
@@ -454,7 +454,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
     const styles: Record<string, string> = {
       pending: 'bg-yellow-50 text-yellow-600 border-yellow-200',
       paid: 'bg-green-50 text-green-600 border-green-200',
-      refunded: 'bg-gray-50 text-gray-600 border-gray-200',
+      refunded: 'bg-neutral-50 text-neutral-600 border-neutral-200',
       forfeited: 'bg-red-50 text-red-600 border-red-200',
     };
     const labelKeys: Record<string, keyof typeof translations> = {
@@ -464,7 +464,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
       forfeited: 'depositStatusForfeited',
     };
     return (
-      <span className={`px-3 py-1 rounded text-sm border ${styles[status] || styles.pending}`}>
+      <span className={`px-3 py-1 text-sm border ${styles[status] || styles.pending}`}>
         {labelKeys[status] ? t(labelKeys[status], lang) : status}
       </span>
     );
@@ -472,17 +472,17 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">{t('loading', lang)}</p>
+          <p className="text-neutral-600">{t('loading', lang)}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-neutral-50">
       <GuideSidebar pageTitle={t('pageTitleSidebar', lang)} />
 
       {/* Main Content */}
@@ -497,11 +497,11 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
               <ArrowLeft size={16} />
               {t('backToList', lang)}
             </Link>
-            <h1 className="text-2xl font-bold text-gray-900">{t('pageTitle', lang)}</h1>
+            <h1 className="text-2xl font-bold font-serif text-brand-900">{t('pageTitle', lang)}</h1>
           </div>
 
           {error && (
-            <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl flex items-center gap-2">
+            <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 flex items-center gap-2">
               <AlertCircle size={18} />
               <span>{error}</span>
             </div>
@@ -510,16 +510,16 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
           {booking ? (
             <div className="space-y-6">
               {/* Status Card */}
-              <div className="bg-white rounded-xl border p-6">
+              <div className="bg-white border p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="font-bold text-gray-900">{t('bookingStatus', lang)}</h2>
+                  <h2 className="font-bold font-serif text-brand-900">{t('bookingStatus', lang)}</h2>
                   {getStatusBadge(booking.status)}
                 </div>
 
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="text-gray-500">{t('deposit', lang)}</span>
+                  <span className="text-neutral-500">{t('deposit', lang)}</span>
                   {getDepositBadge(booking.deposit_status)}
-                  <span className="text-gray-400">¥{booking.deposit_amount}</span>
+                  <span className="text-neutral-400">¥{booking.deposit_amount}</span>
                 </div>
 
                 {/* Pay Deposit Button */}
@@ -527,7 +527,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
                   <button
                     onClick={handlePayDeposit}
                     disabled={payingDeposit}
-                    className="w-full flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 disabled:bg-gray-400 text-white font-bold py-3 rounded-xl transition"
+                    className="w-full flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 disabled:bg-neutral-400 text-white font-bold py-3 transition"
                   >
                     {payingDeposit ? (
                       <>
@@ -545,34 +545,34 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
               </div>
 
               {/* Customer Info */}
-              <div className="bg-white rounded-xl border p-6">
-                <h2 className="font-bold text-gray-900 mb-4">{t('customerInfo', lang)}</h2>
+              <div className="bg-white border p-6">
+                <h2 className="font-bold font-serif text-brand-900 mb-4">{t('customerInfo', lang)}</h2>
                 <div className="grid gap-4">
                   <div className="flex items-center gap-3">
-                    <Users2 className="w-5 h-5 text-gray-400" />
+                    <Users2 className="w-5 h-5 text-neutral-400" />
                     <div>
-                      <p className="font-medium text-gray-900">{booking.customer_name}</p>
-                      <p className="text-sm text-gray-500">{booking.party_size} {t('personCount', lang)}</p>
+                      <p className="font-medium text-brand-900">{booking.customer_name}</p>
+                      <p className="text-sm text-neutral-500">{booking.party_size} {t('personCount', lang)}</p>
                     </div>
                   </div>
                   {booking.customer_phone && (
                     <div className="flex items-center gap-3">
-                      <Phone className="w-5 h-5 text-gray-400" />
-                      <span className="text-gray-600">{booking.customer_phone}</span>
+                      <Phone className="w-5 h-5 text-neutral-400" />
+                      <span className="text-neutral-600">{booking.customer_phone}</span>
                     </div>
                   )}
                 </div>
               </div>
 
               {/* Venue Info */}
-              <div className="bg-white rounded-xl border p-6">
-                <h2 className="font-bold text-gray-900 mb-4">{t('venueInfo', lang)}</h2>
+              <div className="bg-white border p-6">
+                <h2 className="font-bold font-serif text-brand-900 mb-4">{t('venueInfo', lang)}</h2>
                 <div className="space-y-3">
-                  <p className="font-medium text-gray-900">{booking.venue?.name}</p>
+                  <p className="font-medium text-brand-900">{booking.venue?.name}</p>
                   {booking.venue?.name_ja && (
-                    <p className="text-sm text-gray-500">{booking.venue.name_ja}</p>
+                    <p className="text-sm text-neutral-500">{booking.venue.name_ja}</p>
                   )}
-                  <div className="flex items-center gap-2 text-gray-600">
+                  <div className="flex items-center gap-2 text-neutral-600">
                     <MapPin size={16} />
                     <span>{booking.venue?.city} · {booking.venue?.area}</span>
                   </div>
@@ -580,23 +580,23 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
               </div>
 
               {/* Booking Info */}
-              <div className="bg-white rounded-xl border p-6">
-                <h2 className="font-bold text-gray-900 mb-4">{t('bookingInfo', lang)}</h2>
+              <div className="bg-white border p-6">
+                <h2 className="font-bold font-serif text-brand-900 mb-4">{t('bookingInfo', lang)}</h2>
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
-                    <Calendar className="w-5 h-5 text-gray-400" />
-                    <span className="text-gray-600">{booking.booking_date}</span>
+                    <Calendar className="w-5 h-5 text-neutral-400" />
+                    <span className="text-neutral-600">{booking.booking_date}</span>
                   </div>
                   {booking.booking_time && (
                     <div className="flex items-center gap-3">
-                      <Clock className="w-5 h-5 text-gray-400" />
-                      <span className="text-gray-600">{booking.booking_time}</span>
+                      <Clock className="w-5 h-5 text-neutral-400" />
+                      <span className="text-neutral-600">{booking.booking_time}</span>
                     </div>
                   )}
                   {booking.special_requests && (
                     <div className="flex items-start gap-3">
-                      <MessageSquare className="w-5 h-5 text-gray-400 mt-0.5" />
-                      <p className="text-gray-600">{booking.special_requests}</p>
+                      <MessageSquare className="w-5 h-5 text-neutral-400 mt-0.5" />
+                      <p className="text-neutral-600">{booking.special_requests}</p>
                     </div>
                   )}
                 </div>
@@ -604,8 +604,8 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
 
               {/* Commission Info */}
               {(booking.actual_spend || booking.status === 'completed') && (
-                <div className="bg-green-50 border border-green-200 rounded-xl p-6">
-                  <h2 className="font-bold text-green-800 mb-4">{t('commissionInfo', lang)}</h2>
+                <div className="bg-green-50 border border-green-200 p-6">
+                  <h2 className="font-bold font-serif text-green-800 mb-4">{t('commissionInfo', lang)}</h2>
                   <div className="grid gap-3">
                     <div className="flex justify-between">
                       <span className="text-green-700">{t('actualSpend', lang)}</span>
@@ -625,26 +625,26 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
 
               {/* Actions */}
               {(booking.status === 'pending' || booking.status === 'confirmed') && (
-                <div className="bg-white rounded-xl border p-6">
-                  <h2 className="font-bold text-gray-900 mb-4">{t('actions', lang)}</h2>
+                <div className="bg-white border p-6">
+                  <h2 className="font-bold font-serif text-brand-900 mb-4">{t('actions', lang)}</h2>
                   <div className="flex flex-wrap gap-3">
                     <button
                       onClick={cancelBooking}
                       disabled={updating}
-                      className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 disabled:bg-gray-50 text-gray-700 font-medium px-4 py-2 rounded-xl transition"
+                      className="flex items-center gap-2 bg-neutral-100 hover:bg-neutral-200 disabled:bg-neutral-50 text-neutral-700 font-medium px-4 py-2 transition"
                     >
                       {updating ? <Loader2 className="animate-spin" size={18} /> : <X size={18} />}
                       {t('cancelBooking', lang)}
                     </button>
                   </div>
-                  <p className="text-xs text-gray-400 mt-3">
+                  <p className="text-xs text-neutral-400 mt-3">
                     {t('adminHandleNote', lang)}
                   </p>
                 </div>
               )}
 
               {/* Meta Info */}
-              <div className="text-sm text-gray-400 text-center">
+              <div className="text-sm text-neutral-400 text-center">
                 {t('createdAt', lang)} {new Date(booking.created_at).toLocaleString(dateLocaleMap[lang])}
                 {booking.completed_at && (
                   <> · {t('completedAt', lang)} {new Date(booking.completed_at).toLocaleString(dateLocaleMap[lang])}</>
@@ -652,9 +652,9 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
               </div>
             </div>
           ) : (
-            <div className="bg-white rounded-xl border p-12 text-center">
-              <AlertCircle className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-500">{t('bookingNotExist', lang)}</p>
+            <div className="bg-white border p-12 text-center">
+              <AlertCircle className="w-12 h-12 text-neutral-300 mx-auto mb-4" />
+              <p className="text-neutral-500">{t('bookingNotExist', lang)}</p>
             </div>
           )}
         </div>

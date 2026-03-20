@@ -758,7 +758,7 @@ export default function CommissionPage() {
 
   const getSettlementStatusBadge = (status: string) => {
     const styles: Record<string, string> = {
-      pending: 'bg-gray-100 text-gray-600',
+      pending: 'bg-neutral-100 text-neutral-600',
       confirmed: 'bg-brand-100 text-brand-700',
       paid: 'bg-green-100 text-green-700',
     };
@@ -768,7 +768,7 @@ export default function CommissionPage() {
       paid: t('statusPaid', lang),
     };
     return (
-      <span className={`px-2 py-1 rounded-full text-xs font-medium ${styles[status] || styles.pending}`}>
+      <span className={`px-2 py-1 text-xs font-medium ${styles[status] || styles.pending}`}>
         {labels[status] || status}
       </span>
     );
@@ -776,8 +776,8 @@ export default function CommissionPage() {
 
   const getCommissionStatusBadge = (status: string, availableAt?: string | null) => {
     const styles: Record<string, string> = {
-      pending: 'bg-gray-100 text-gray-600',
-      calculated: 'bg-gray-100 text-gray-600',
+      pending: 'bg-neutral-100 text-neutral-600',
+      calculated: 'bg-neutral-100 text-neutral-600',
       available: 'bg-brand-100 text-brand-700',
       paid: 'bg-green-100 text-green-700',
     };
@@ -794,7 +794,7 @@ export default function CommissionPage() {
       const daysLeft = Math.max(0, Math.ceil((unlockDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)));
       return (
         <div className="text-right">
-          <span className={`px-2 py-1 rounded-full text-xs font-medium ${styles.calculated}`}>
+          <span className={`px-2 py-1 text-xs font-medium ${styles.calculated}`}>
             {labels.calculated}
           </span>
           {daysLeft > 0 && (
@@ -807,7 +807,7 @@ export default function CommissionPage() {
     }
 
     return (
-      <span className={`px-2 py-1 rounded-full text-xs font-medium ${styles[status] || styles.pending}`}>
+      <span className={`px-2 py-1 text-xs font-medium ${styles[status] || styles.pending}`}>
         {labels[status] || status}
       </span>
     );
@@ -873,17 +873,17 @@ export default function CommissionPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">{t('loading', lang)}</p>
+          <p className="text-neutral-600">{t('loading', lang)}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-neutral-50">
       <GuideSidebar pageTitle={t('pageTitle', lang)} />
 
       {/* Main Content */}
@@ -891,13 +891,13 @@ export default function CommissionPage() {
         <div className="p-6 lg:p-8">
           {/* Header */}
           <div className="mb-6">
-            <h1 className="text-2xl font-bold text-gray-900">{t('headerTitle', lang)}</h1>
-            <p className="text-gray-500 mt-1">{t('headerDesc', lang)}</p>
+            <h1 className="text-2xl font-bold font-serif text-brand-900">{t('headerTitle', lang)}</h1>
+            <p className="text-neutral-500 mt-1">{t('headerDesc', lang)}</p>
           </div>
 
           {/* Stats Cards */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <div className="bg-gradient-to-br from-brand-800 to-brand-900 rounded-xl p-6 text-white">
+            <div className="bg-gradient-to-br from-brand-800 to-brand-900 p-6 text-white">
               <div className="flex items-center gap-2 mb-2">
                 <Wallet size={20} />
                 <span className="text-sm opacity-90">{t('totalEarned', lang)}</span>
@@ -905,28 +905,28 @@ export default function CommissionPage() {
               <p className="text-3xl font-bold">¥{(stats?.totalEarned || 0).toLocaleString()}</p>
             </div>
 
-            <div className="bg-white rounded-xl p-6 border">
+            <div className="bg-white p-6 border">
               <div className="flex items-center gap-2 mb-2">
                 <Clock size={20} className="text-yellow-500" />
-                <span className="text-sm text-gray-500">{t('pendingSettlement', lang)}</span>
+                <span className="text-sm text-neutral-500">{t('pendingSettlement', lang)}</span>
               </div>
-              <p className="text-2xl font-bold text-gray-900">¥{(stats?.pendingAmount || 0).toLocaleString()}</p>
+              <p className="text-2xl font-bold text-brand-900">¥{(stats?.pendingAmount || 0).toLocaleString()}</p>
             </div>
 
-            <div className="bg-white rounded-xl p-6 border">
+            <div className="bg-white p-6 border">
               <div className="flex items-center gap-2 mb-2">
                 <TrendingUp size={20} className="text-brand-500" />
-                <span className="text-sm text-gray-500">{t('thisMonth', lang)}</span>
+                <span className="text-sm text-neutral-500">{t('thisMonth', lang)}</span>
               </div>
-              <p className="text-2xl font-bold text-gray-900">¥{(stats?.thisMonthAmount || 0).toLocaleString()}</p>
+              <p className="text-2xl font-bold text-brand-900">¥{(stats?.thisMonthAmount || 0).toLocaleString()}</p>
             </div>
 
-            <div className="bg-white rounded-xl p-6 border">
+            <div className="bg-white p-6 border">
               <div className="flex items-center gap-2 mb-2">
-                <TrendingDown size={20} className="text-gray-400" />
-                <span className="text-sm text-gray-500">{t('lastMonth', lang)}</span>
+                <TrendingDown size={20} className="text-neutral-400" />
+                <span className="text-sm text-neutral-500">{t('lastMonth', lang)}</span>
               </div>
-              <p className="text-2xl font-bold text-gray-900">¥{(stats?.lastMonthAmount || 0).toLocaleString()}</p>
+              <p className="text-2xl font-bold text-brand-900">¥{(stats?.lastMonthAmount || 0).toLocaleString()}</p>
             </div>
           </div>
 
@@ -934,7 +934,7 @@ export default function CommissionPage() {
           <div className="mb-8">
             <Link
               href="/guide-partner/withdrawal"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-700 text-white rounded-lg font-medium hover:bg-brand-800 transition text-sm"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-700 text-white font-medium hover:bg-brand-800 transition text-sm"
             >
               <Wallet size={18} />
               {t('applyWithdrawal', lang)}
@@ -942,9 +942,9 @@ export default function CommissionPage() {
           </div>
 
           {/* Commission Rate Info */}
-          <div className="bg-brand-50 border border-brand-200 rounded-xl p-4 mb-8">
+          <div className="bg-brand-50 border border-brand-200 p-4 mb-8">
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 bg-brand-600 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 bg-brand-600 flex items-center justify-center flex-shrink-0">
                 <span className="text-white font-bold text-lg">{commissionRate}%</span>
               </div>
               <div>
@@ -960,9 +960,9 @@ export default function CommissionPage() {
           </div>
 
           {/* New Customer First Order Bonus */}
-          <div className="bg-gradient-to-r from-brand-50 to-brand-100 border border-brand-200 rounded-xl p-4 mb-8">
+          <div className="bg-gradient-to-r from-brand-50 to-brand-100 border border-brand-200 p-4 mb-8">
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-brand-700 to-brand-900 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 bg-gradient-to-br from-brand-700 to-brand-900 flex items-center justify-center flex-shrink-0">
                 <Gift size={20} className="text-white" />
               </div>
               <div>
@@ -981,40 +981,40 @@ export default function CommissionPage() {
           <div className="flex gap-2 mb-6">
             <button
               onClick={() => setActiveTab('overview')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+              className={`px-4 py-2 text-sm font-medium transition ${
                 activeTab === 'overview'
                   ? 'bg-brand-600 text-white'
-                  : 'bg-white text-gray-600 hover:bg-gray-50 border'
+                  : 'bg-white text-neutral-600 hover:bg-neutral-50 border'
               }`}
             >
               {t('tabStoreCommission', lang)}
             </button>
             <button
               onClick={() => setActiveTab('whitelabel')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+              className={`px-4 py-2 text-sm font-medium transition ${
                 activeTab === 'whitelabel'
                   ? 'bg-brand-600 text-white'
-                  : 'bg-white text-gray-600 hover:bg-gray-50 border'
+                  : 'bg-white text-neutral-600 hover:bg-neutral-50 border'
               }`}
             >
               {t('tabWhitelabel', lang)}
             </button>
             <button
               onClick={() => setActiveTab('referrals')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+              className={`px-4 py-2 text-sm font-medium transition ${
                 activeTab === 'referrals'
                   ? 'bg-brand-600 text-white'
-                  : 'bg-white text-gray-600 hover:bg-gray-50 border'
+                  : 'bg-white text-neutral-600 hover:bg-neutral-50 border'
               }`}
             >
               {t('tabReferrals', lang)}
             </button>
             <button
               onClick={() => setActiveTab('history')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+              className={`px-4 py-2 text-sm font-medium transition ${
                 activeTab === 'history'
                   ? 'bg-brand-600 text-white'
-                  : 'bg-white text-gray-600 hover:bg-gray-50 border'
+                  : 'bg-white text-neutral-600 hover:bg-neutral-50 border'
               }`}
             >
               {t('tabMonthlySettlement', lang)}
@@ -1023,28 +1023,28 @@ export default function CommissionPage() {
 
           {/* Content */}
           {activeTab === 'overview' ? (
-            <div className="bg-white rounded-xl border">
+            <div className="bg-white border">
               <div className="p-4 border-b">
-                <h2 className="font-bold text-gray-900">{t('storeCommissionRecords', lang)}</h2>
+                <h2 className="font-bold font-serif text-brand-900">{t('storeCommissionRecords', lang)}</h2>
               </div>
 
               {recentCommissions.length > 0 ? (
                 <div className="divide-y">
                   {recentCommissions.map((record) => (
-                    <div key={record.id} className="p-4 flex items-center justify-between hover:bg-gray-50">
+                    <div key={record.id} className="p-4 flex items-center justify-between hover:bg-neutral-50">
                       <div>
-                        <p className="font-medium text-gray-900">{record.customer_name}</p>
-                        <p className="text-sm text-gray-500">
+                        <p className="font-medium text-brand-900">{record.customer_name}</p>
+                        <p className="text-sm text-neutral-500">
                           {record.venue?.name} · {record.venue?.city}
                         </p>
-                        <p className="text-xs text-gray-400 mt-1">{record.booking_date}</p>
+                        <p className="text-xs text-neutral-400 mt-1">{record.booking_date}</p>
                       </div>
                       <div className="text-right">
                         {getCommissionStatusBadge(record.commission_status)}
                         <p className="font-bold text-green-600 mt-1">
                           +¥{record.commission_amount?.toLocaleString()}
                         </p>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-xs text-neutral-400">
                           {t('spend', lang)} ¥{record.actual_spend?.toLocaleString()}
                         </p>
                       </div>
@@ -1052,8 +1052,8 @@ export default function CommissionPage() {
                   ))}
                 </div>
               ) : (
-                <div className="p-12 text-center text-gray-500">
-                  <Wallet className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                <div className="p-12 text-center text-neutral-500">
+                  <Wallet className="w-12 h-12 mx-auto mb-4 text-neutral-300" />
                   <p>{t('noCommissionRecords', lang)}</p>
                   <Link
                     href="/guide-partner/venues"
@@ -1065,16 +1065,16 @@ export default function CommissionPage() {
               )}
             </div>
           ) : activeTab === 'whitelabel' ? (
-            <div className="bg-white rounded-xl border">
+            <div className="bg-white border">
               <div className="p-4 border-b flex items-center justify-between">
                 <div>
-                  <h2 className="font-bold text-gray-900">{t('whitelabelCommissionTitle', lang)}</h2>
-                  <p className="text-sm text-gray-500 mt-1">{t('whitelabelCommissionDesc', lang)}</p>
+                  <h2 className="font-bold font-serif text-brand-900">{t('whitelabelCommissionTitle', lang)}</h2>
+                  <p className="text-sm text-neutral-500 mt-1">{t('whitelabelCommissionDesc', lang)}</p>
                 </div>
                 {whitelabelCommissions.length > 0 && (
                   <button
                     onClick={exportToCSV}
-                    className="flex items-center gap-2 px-3 py-1.5 text-sm text-brand-600 hover:bg-brand-50 rounded-lg transition"
+                    className="flex items-center gap-2 px-3 py-1.5 text-sm text-brand-600 hover:bg-brand-50 transition"
                   >
                     <Download size={16} />
                     {t('exportCSV', lang)}
@@ -1092,23 +1092,23 @@ export default function CommissionPage() {
                       business: t('orderTypeBusiness', lang),
                     };
                     return (
-                      <div key={record.id} className="p-4 flex items-center justify-between hover:bg-gray-50">
+                      <div key={record.id} className="p-4 flex items-center justify-between hover:bg-neutral-50">
                         <div>
                           <div className="flex items-center gap-2">
-                            <p className="font-medium text-gray-900">
+                            <p className="font-medium text-brand-900">
                               {orderTypeLabels[record.order_type] || record.order_type}
                             </p>
                             {hasBonus && (
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-gradient-to-r from-brand-100 to-brand-200 text-brand-700 text-xs rounded-full">
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-gradient-to-r from-brand-100 to-brand-200 text-brand-700 text-xs">
                                 <Gift size={12} />
                                 {t('newCustomerReward', lang)}
                               </span>
                             )}
                           </div>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-neutral-500">
                             {t('orderAmount', lang)} ¥{record.order_amount?.toLocaleString()}
                           </p>
-                          <p className="text-xs text-gray-400 mt-1">
+                          <p className="text-xs text-neutral-400 mt-1">
                             {new Date(record.created_at).toLocaleDateString(dateLocaleMap[lang])}
                           </p>
                         </div>
@@ -1118,14 +1118,14 @@ export default function CommissionPage() {
                             +¥{record.commission_amount?.toLocaleString()}
                           </p>
                           {hasBonus && record.metadata ? (
-                            <div className="text-xs text-gray-500 mt-1">
+                            <div className="text-xs text-neutral-500 mt-1">
                               <span>{t('baseCommission', lang)} ¥{record.metadata.base_commission?.toLocaleString()}</span>
                               <span className="text-brand-600 ml-1">
                                 {t('bonusReward', lang)} ¥{record.metadata.bonus_amount?.toLocaleString()}
                               </span>
                             </div>
                           ) : (
-                            <p className="text-xs text-gray-400">
+                            <p className="text-xs text-neutral-400">
                               {t('commissionRate', lang)} {record.applied_commission_rate}%
                             </p>
                           )}
@@ -1135,8 +1135,8 @@ export default function CommissionPage() {
                   })}
                 </div>
               ) : (
-                <div className="p-12 text-center text-gray-500">
-                  <Store className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                <div className="p-12 text-center text-neutral-500">
+                  <Store className="w-12 h-12 mx-auto mb-4 text-neutral-300" />
                   <p>{t('noWhitelabelOrders', lang)}</p>
                   <Link
                     href="/guide-partner/whitelabel"
@@ -1148,16 +1148,16 @@ export default function CommissionPage() {
               )}
             </div>
           ) : activeTab === 'referrals' ? (
-            <div className="bg-white rounded-xl border">
+            <div className="bg-white border">
               <div className="p-4 border-b">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="font-bold text-gray-900">{t('referralRewardsTitle', lang)}</h2>
-                    <p className="text-sm text-gray-500 mt-1">{t('referralRewardsDesc', lang)}</p>
+                    <h2 className="font-bold font-serif text-brand-900">{t('referralRewardsTitle', lang)}</h2>
+                    <p className="text-sm text-neutral-500 mt-1">{t('referralRewardsDesc', lang)}</p>
                   </div>
                   {stats && stats.referralPending > 0 && (
                     <div className="text-right">
-                      <p className="text-xs text-gray-500">{t('pendingReferralRewards', lang)}</p>
+                      <p className="text-xs text-neutral-500">{t('pendingReferralRewards', lang)}</p>
                       <p className="text-lg font-bold text-yellow-600">
                         ¥{stats.referralPending.toLocaleString()}
                       </p>
@@ -1169,24 +1169,24 @@ export default function CommissionPage() {
               {referralRewards.length > 0 ? (
                 <div className="divide-y">
                   {referralRewards.map((reward) => (
-                    <div key={reward.id} className="p-4 flex items-center justify-between hover:bg-gray-50">
+                    <div key={reward.id} className="p-4 flex items-center justify-between hover:bg-neutral-50">
                       <div>
                         <div className="flex items-center gap-2">
-                          <p className="font-medium text-gray-900">
+                          <p className="font-medium text-brand-900">
                             {reward.referee?.name || t('unknownGuide', lang)}{t('performanceOf', lang)}
                           </p>
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-brand-100 text-brand-700 text-xs rounded-full">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-brand-100 text-brand-700 text-xs">
                             <Users size={12} />
                             {t('downlineReward', lang)}
                           </span>
                         </div>
                         {reward.booking && (
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-neutral-500">
                             {t('customer', lang)}: {reward.booking.customer_name}
                             {reward.booking.venue && ` · ${reward.booking.venue.name}`}
                           </p>
                         )}
-                        <p className="text-xs text-gray-400 mt-1">
+                        <p className="text-xs text-neutral-400 mt-1">
                           {new Date(reward.created_at).toLocaleDateString(dateLocaleMap[lang])}
                         </p>
                       </div>
@@ -1195,7 +1195,7 @@ export default function CommissionPage() {
                         <p className="font-bold text-green-600 mt-1">
                           +¥{reward.reward_amount?.toLocaleString()}
                         </p>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-xs text-neutral-400">
                           {t('rewardRate', lang)} {(reward.reward_rate * 100).toFixed(0)}%
                         </p>
                       </div>
@@ -1203,10 +1203,10 @@ export default function CommissionPage() {
                   ))}
                 </div>
               ) : (
-                <div className="p-12 text-center text-gray-500">
-                  <Users className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                <div className="p-12 text-center text-neutral-500">
+                  <Users className="w-12 h-12 mx-auto mb-4 text-neutral-300" />
                   <p>{t('noReferralRewards', lang)}</p>
-                  <p className="text-sm mt-2 text-gray-400">
+                  <p className="text-sm mt-2 text-neutral-400">
                     {t('referralRewardsEmptyDesc', lang)}
                   </p>
                   <Link
@@ -1219,18 +1219,18 @@ export default function CommissionPage() {
               )}
             </div>
           ) : (
-            <div className="bg-white rounded-xl border">
+            <div className="bg-white border">
               <div className="p-4 border-b">
-                <h2 className="font-bold text-gray-900">{t('monthlySettlementRecords', lang)}</h2>
+                <h2 className="font-bold font-serif text-brand-900">{t('monthlySettlementRecords', lang)}</h2>
               </div>
 
               {settlements.length > 0 ? (
                 <div className="divide-y">
                   {settlements.map((settlement) => (
-                    <div key={settlement.id} className="p-4 flex items-center justify-between hover:bg-gray-50">
+                    <div key={settlement.id} className="p-4 flex items-center justify-between hover:bg-neutral-50">
                       <div>
-                        <p className="font-medium text-gray-900">{formatMonth(settlement.settlement_month)}</p>
-                        <p className="text-sm text-gray-500">
+                        <p className="font-medium text-brand-900">{formatMonth(settlement.settlement_month)}</p>
+                        <p className="text-sm text-neutral-500">
                           {settlement.total_bookings} {t('ordersCount', lang)} · {t('totalSpend', lang)} ¥{settlement.total_spend?.toLocaleString()}
                         </p>
                       </div>
@@ -1240,7 +1240,7 @@ export default function CommissionPage() {
                           ¥{settlement.total_commission?.toLocaleString()}
                         </p>
                         {settlement.paid_at && (
-                          <p className="text-xs text-gray-400">
+                          <p className="text-xs text-neutral-400">
                             {new Date(settlement.paid_at).toLocaleDateString(dateLocaleMap[lang])} {t('paidOn', lang)}
                           </p>
                         )}
@@ -1249,8 +1249,8 @@ export default function CommissionPage() {
                   ))}
                 </div>
               ) : (
-                <div className="p-12 text-center text-gray-500">
-                  <Calendar className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                <div className="p-12 text-center text-neutral-500">
+                  <Calendar className="w-12 h-12 mx-auto mb-4 text-neutral-300" />
                   <p>{t('noSettlementRecords', lang)}</p>
                   <p className="text-sm mt-2">{t('monthlySettlementNote', lang)}</p>
                 </div>
@@ -1259,9 +1259,9 @@ export default function CommissionPage() {
           )}
 
           {/* Settlement Info */}
-          <div className="mt-8 bg-gray-100 rounded-xl p-4">
-            <h3 className="font-medium text-gray-700 mb-2">{t('settlementInfoTitle', lang)}</h3>
-            <ul className="text-sm text-gray-600 space-y-1">
+          <div className="mt-8 bg-neutral-100 p-4">
+            <h3 className="font-medium text-brand-900 mb-2">{t('settlementInfoTitle', lang)}</h3>
+            <ul className="text-sm text-neutral-600 space-y-1">
               <li dangerouslySetInnerHTML={{ __html: `• ${t('settlementInfo1', lang)}` }} />
               <li>• {t('settlementInfo2', lang)}</li>
               <li>• {t('settlementInfo3', lang)}</li>

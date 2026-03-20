@@ -414,10 +414,10 @@ function NewBookingForm() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">{t('loading', lang)}</p>
+          <p className="text-neutral-600">{t('loading', lang)}</p>
         </div>
       </div>
     );
@@ -425,25 +425,25 @@ function NewBookingForm() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
-          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+      <div className="min-h-screen bg-neutral-50 flex items-center justify-center p-4">
+        <div className="bg-white p-8 max-w-md w-full text-center">
+          <div className="w-20 h-20 bg-green-100 flex items-center justify-center mx-auto mb-6">
             <CheckCircle2 className="w-10 h-10 text-green-600" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('bookingSubmitted', lang)}</h2>
-          <p className="text-gray-600 mb-6 whitespace-pre-line">
+          <h2 className="font-serif text-2xl font-bold text-brand-900 mb-4">{t('bookingSubmitted', lang)}</h2>
+          <p className="text-neutral-600 mb-6 whitespace-pre-line">
             {t('successMessage', lang)}
           </p>
           <div className="space-y-3">
             <Link
               href="/guide-partner/bookings"
-              className="block w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition"
+              className="block w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 transition"
             >
               {t('goToPayDeposit', lang)}
             </Link>
             <Link
               href="/guide-partner/venues"
-              className="block w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3 rounded-xl transition"
+              className="block w-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-medium py-3 transition"
             >
               {t('continueBooking', lang)}
             </Link>
@@ -454,7 +454,7 @@ function NewBookingForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-neutral-50">
       <GuideSidebar pageTitle={t('pageTitleSidebar', lang)} />
 
       {/* Main Content */}
@@ -469,12 +469,12 @@ function NewBookingForm() {
               <ArrowLeft size={16} />
               {t('backToVenues', lang)}
             </Link>
-            <h1 className="text-2xl font-bold text-gray-900">{t('pageTitle', lang)}</h1>
-            <p className="text-gray-500 mt-1">{t('subtitle', lang)}</p>
+            <h1 className="font-serif text-2xl font-bold text-brand-900">{t('pageTitle', lang)}</h1>
+            <p className="text-neutral-500 mt-1">{t('subtitle', lang)}</p>
           </div>
 
           {/* Notice */}
-          <div className="bg-brand-50 border border-brand-200 rounded-xl p-4 mb-6">
+          <div className="bg-brand-50 border border-brand-200 p-4 mb-6">
             <div className="flex gap-3">
               <Info className="w-5 h-5 text-brand-600 flex-shrink-0 mt-0.5" />
               <div className="text-sm text-brand-800">
@@ -489,9 +489,9 @@ function NewBookingForm() {
           </div>
 
           {/* Form */}
-          <div className="bg-white rounded-xl border p-6">
+          <div className="bg-white border p-6">
             {error && (
-              <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl flex items-center gap-2 text-sm">
+              <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 flex items-center gap-2 text-sm">
                 <AlertCircle size={18} />
                 <span>{error}</span>
               </div>
@@ -500,7 +500,7 @@ function NewBookingForm() {
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* 店舖選擇 */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   <Store className="inline mr-1" size={16} />
                   {t('selectVenueLabel', lang)}
                 </label>
@@ -508,7 +508,7 @@ function NewBookingForm() {
                   value={formData.venueId}
                   onChange={handleVenueChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                 >
                   <option value="">{t('selectVenuePlaceholder', lang)}</option>
                   {venues.map((v) => (
@@ -518,7 +518,7 @@ function NewBookingForm() {
                   ))}
                 </select>
                 {venue && (
-                  <p className="mt-2 text-sm text-gray-500">
+                  <p className="mt-2 text-sm text-neutral-500">
                     {t('minSpend', lang)} ¥{venue.min_spend?.toLocaleString()}
                   </p>
                 )}
@@ -526,7 +526,7 @@ function NewBookingForm() {
 
               {/* 客戶姓名 */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   <User className="inline mr-1" size={16} />
                   {t('customerNameLabel', lang)}
                 </label>
@@ -535,14 +535,14 @@ function NewBookingForm() {
                   value={formData.customerName}
                   onChange={(e) => setFormData({ ...formData, customerName: e.target.value })}
                   required
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                   placeholder={t('customerNamePlaceholder', lang)}
                 />
               </div>
 
               {/* 客戶電話 */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   <Phone className="inline mr-1" size={16} />
                   {t('customerPhoneLabel', lang)}
                 </label>
@@ -550,14 +550,14 @@ function NewBookingForm() {
                   type="tel"
                   value={formData.customerPhone}
                   onChange={(e) => setFormData({ ...formData, customerPhone: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                   placeholder={t('customerPhonePlaceholder', lang)}
                 />
               </div>
 
               {/* 人數 */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   <Users2 className="inline mr-1" size={16} />
                   {t('partySizeLabel', lang)}
                 </label>
@@ -565,7 +565,7 @@ function NewBookingForm() {
                   value={formData.partySize}
                   onChange={(e) => setFormData({ ...formData, partySize: parseInt(e.target.value) })}
                   required
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                 >
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
                     <option key={n} value={n}>{n} {t('personCount', lang)}</option>
@@ -577,7 +577,7 @@ function NewBookingForm() {
               {/* 日期時間 */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
                     <Calendar className="inline mr-1" size={16} />
                     {t('bookingDateLabel', lang)}
                   </label>
@@ -587,11 +587,11 @@ function NewBookingForm() {
                     onChange={(e) => setFormData({ ...formData, bookingDate: e.target.value })}
                     required
                     min={new Date().toISOString().split('T')[0]}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
                     <Clock className="inline mr-1" size={16} />
                     {t('bookingTimeLabel', lang)}
                   </label>
@@ -599,14 +599,14 @@ function NewBookingForm() {
                     type="time"
                     value={formData.bookingTime}
                     onChange={(e) => setFormData({ ...formData, bookingTime: e.target.value })}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                   />
                 </div>
               </div>
 
               {/* 特殊要求 */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   <MessageSquare className="inline mr-1" size={16} />
                   {t('specialRequestsLabel', lang)}
                 </label>
@@ -614,13 +614,13 @@ function NewBookingForm() {
                   value={formData.specialRequests}
                   onChange={(e) => setFormData({ ...formData, specialRequests: e.target.value })}
                   rows={3}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent resize-none"
+                  className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent resize-none"
                   placeholder={t('specialRequestsPlaceholder', lang)}
                 />
               </div>
 
               {/* 合同主体声明 */}
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+              <div className="bg-blue-50 border border-blue-200 p-4">
                 <p className="text-sm text-blue-800">
                   <strong>{t('contractNoticeTitle', lang)}</strong>{t('contractNoticeBody', lang)}
                 </p>
@@ -630,7 +630,7 @@ function NewBookingForm() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-brand-600 hover:bg-brand-700 disabled:bg-gray-400 text-white font-bold py-4 rounded-xl transition flex items-center justify-center gap-2"
+                className="w-full bg-brand-600 hover:bg-brand-700 disabled:bg-neutral-400 text-white font-bold py-4 transition flex items-center justify-center gap-2"
               >
                 {submitting ? (
                   <>
@@ -655,7 +655,7 @@ function NewBookingForm() {
 
 function LoadingFallback() {
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+    <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
       <Loader2 className="w-12 h-12 text-brand-500 animate-spin" />
     </div>
   );

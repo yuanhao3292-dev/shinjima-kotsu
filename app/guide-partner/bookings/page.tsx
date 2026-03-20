@@ -388,10 +388,10 @@ function BookingsContent() {
 
   const getStatusBadge = (status: string) => {
     const styles: Record<string, string> = {
-      pending: 'bg-gray-100 text-gray-600',
+      pending: 'bg-neutral-100 text-neutral-600',
       confirmed: 'bg-brand-100 text-brand-700',
       completed: 'bg-green-100 text-green-700',
-      cancelled: 'bg-gray-100 text-gray-700',
+      cancelled: 'bg-neutral-100 text-neutral-700',
       no_show: 'bg-red-100 text-red-700',
     };
     const labelKeys: Record<string, keyof typeof translations> = {
@@ -402,7 +402,7 @@ function BookingsContent() {
       no_show: 'statusNoShow',
     };
     return (
-      <span className={`px-2 py-1 rounded-full text-xs font-medium ${styles[status] || styles.pending}`}>
+      <span className={`px-2 py-1 text-xs font-medium ${styles[status] || styles.pending}`}>
         {labelKeys[status] ? t(labelKeys[status], lang) : status}
       </span>
     );
@@ -410,9 +410,9 @@ function BookingsContent() {
 
   const getDepositBadge = (status: string) => {
     const styles: Record<string, string> = {
-      pending: 'bg-gray-50 text-gray-600 border-gray-200',
+      pending: 'bg-neutral-50 text-neutral-600 border-neutral-200',
       paid: 'bg-green-50 text-green-600 border-green-200',
-      refunded: 'bg-gray-50 text-gray-600 border-gray-200',
+      refunded: 'bg-neutral-50 text-neutral-600 border-neutral-200',
       forfeited: 'bg-red-50 text-red-600 border-red-200',
     };
     const labelKeys: Record<string, keyof typeof translations> = {
@@ -422,7 +422,7 @@ function BookingsContent() {
       forfeited: 'depositForfeited',
     };
     return (
-      <span className={`px-2 py-1 rounded text-xs border ${styles[status] || styles.pending}`}>
+      <span className={`px-2 py-1 text-xs border ${styles[status] || styles.pending}`}>
         {labelKeys[status] ? t(labelKeys[status], lang) : status}
       </span>
     );
@@ -430,17 +430,17 @@ function BookingsContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">{t('loading', lang)}</p>
+          <p className="text-neutral-600">{t('loading', lang)}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-neutral-50">
       <GuideSidebar pageTitle={t('pageTitleSidebar', lang)} />
 
       {/* Main Content */}
@@ -449,12 +449,12 @@ function BookingsContent() {
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">{t('pageTitle', lang)}</h1>
-              <p className="text-gray-500 mt-1">{t('subtitle', lang)}</p>
+              <h1 className="text-2xl font-bold font-serif text-brand-900">{t('pageTitle', lang)}</h1>
+              <p className="text-neutral-500 mt-1">{t('subtitle', lang)}</p>
             </div>
             <Link
               href="/guide-partner/venues"
-              className="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-medium px-4 py-2 rounded-xl transition"
+              className="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-medium px-4 py-2 transition"
             >
               <Plus size={18} />
               {t('newBooking', lang)}
@@ -462,18 +462,18 @@ function BookingsContent() {
           </div>
 
           {/* Filters */}
-          <div className="bg-white rounded-xl border p-4 mb-6">
+          <div className="bg-white border p-4 mb-6">
             <div className="flex items-center gap-2 overflow-x-auto pb-2">
-              <Filter size={16} className="text-gray-400 flex-shrink-0" />
+              <Filter size={16} className="text-neutral-400 flex-shrink-0" />
               {STATUS_FILTER_KEYS.map((filter) => (
                 <button
                   key={filter.value}
                   onClick={() => setStatusFilter(filter.value)}
                   className={`
-                    px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition
+                    px-4 py-2 text-sm font-medium whitespace-nowrap transition
                     ${statusFilter === filter.value
                       ? 'bg-brand-600 text-white'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
                     }
                   `}
                 >
@@ -485,7 +485,7 @@ function BookingsContent() {
 
           {/* Payment Message */}
           {message && (
-            <div className={`mb-4 p-4 rounded-xl flex items-center gap-2 ${
+            <div className={`mb-4 p-4 flex items-center gap-2 ${
               message.type === 'success'
                 ? 'bg-green-50 border border-green-200 text-green-700'
                 : 'bg-red-50 border border-red-200 text-red-700'
@@ -496,7 +496,7 @@ function BookingsContent() {
           )}
 
           {/* Results Count */}
-          <p className="text-sm text-gray-500 mb-4">
+          <p className="text-sm text-neutral-500 mb-4">
             {filteredBookings.length} {t('totalRecords', lang)}
           </p>
 
@@ -505,23 +505,23 @@ function BookingsContent() {
             {filteredBookings.map((booking) => (
               <div
                 key={booking.id}
-                className="bg-white rounded-xl border hover:border-brand-300 hover:shadow-md transition overflow-hidden"
+                className="bg-white border hover:border-brand-300 transition overflow-hidden"
               >
                 <div className="p-4 sm:p-6">
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                     {/* Left: Info */}
                     <div className="flex-grow">
                       <div className="flex items-center gap-3 mb-2">
-                        <h3 className="font-bold text-gray-900 text-lg">{booking.customer_name}</h3>
+                        <h3 className="font-bold text-brand-900 text-lg">{booking.customer_name}</h3>
                         {getStatusBadge(booking.status)}
                         {getDepositBadge(booking.deposit_status)}
                       </div>
 
-                      <p className="text-gray-600 font-medium mb-2">
+                      <p className="text-neutral-600 font-medium mb-2">
                         {booking.venue?.name}
                       </p>
 
-                      <div className="flex flex-wrap gap-4 text-sm text-gray-500">
+                      <div className="flex flex-wrap gap-4 text-sm text-neutral-500">
                         <span className="flex items-center gap-1">
                           <MapPin size={14} />
                           {booking.venue?.city} · {booking.venue?.area}
@@ -542,13 +542,13 @@ function BookingsContent() {
                     <div className="sm:text-right">
                       {booking.actual_spend && (
                         <div className="mb-2">
-                          <p className="text-xs text-gray-500">{t('actualSpend', lang)}</p>
-                          <p className="font-bold text-gray-900">¥{booking.actual_spend.toLocaleString()}</p>
+                          <p className="text-xs text-neutral-500">{t('actualSpend', lang)}</p>
+                          <p className="font-bold text-brand-900">¥{booking.actual_spend.toLocaleString()}</p>
                         </div>
                       )}
                       {booking.commission_amount && (
                         <div>
-                          <p className="text-xs text-gray-500">{t('commission', lang)}</p>
+                          <p className="text-xs text-neutral-500">{t('commission', lang)}</p>
                           <p className="font-bold text-green-600">+¥{booking.commission_amount.toLocaleString()}</p>
                         </div>
                       )}
@@ -562,7 +562,7 @@ function BookingsContent() {
                     <button
                       onClick={() => handlePayDeposit(booking.id)}
                       disabled={payingBookingId === booking.id}
-                      className="w-full flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 disabled:bg-gray-400 text-white font-bold py-3 rounded-xl transition"
+                      className="w-full flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 disabled:bg-neutral-400 text-white font-bold py-3 transition"
                     >
                       {payingBookingId === booking.id ? (
                         <>
@@ -579,8 +579,8 @@ function BookingsContent() {
                   </div>
                 )}
 
-                <div className="px-4 sm:px-6 py-3 bg-gray-50 border-t flex items-center justify-between">
-                  <span className="text-xs text-gray-400">
+                <div className="px-4 sm:px-6 py-3 bg-neutral-50 border-t flex items-center justify-between">
+                  <span className="text-xs text-neutral-400">
                     {t('createdAt', lang)} {new Date(booking.created_at).toLocaleDateString(dateLocaleMap[lang])}
                   </span>
                   <Link
@@ -595,13 +595,13 @@ function BookingsContent() {
           </div>
 
           {filteredBookings.length === 0 && (
-            <div className="bg-white rounded-xl border p-12 text-center">
-              <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="font-bold text-gray-900 mb-2">{t('noBookings', lang)}</h3>
-              <p className="text-gray-500 mb-4">{t('startBooking', lang)}</p>
+            <div className="bg-white border p-12 text-center">
+              <Calendar className="w-16 h-16 text-neutral-300 mx-auto mb-4" />
+              <h3 className="font-bold text-brand-900 mb-2">{t('noBookings', lang)}</h3>
+              <p className="text-neutral-500 mb-4">{t('startBooking', lang)}</p>
               <Link
                 href="/guide-partner/venues"
-                className="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-medium px-6 py-3 rounded-xl transition"
+                className="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-medium px-6 py-3 transition"
               >
                 <Store size={18} />
                 {t('browseVenues', lang)}
@@ -618,7 +618,7 @@ function BookingsContent() {
 export default function BookingsPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
         <Loader2 className="w-12 h-12 text-brand-500 animate-spin" />
       </div>
     }>

@@ -457,18 +457,18 @@ export default function SubscriptionPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-neutral-50">
       <GuideSidebar pageTitle={t('pageTitle', lang)} />
       <main className="lg:ml-64 pt-16 lg:pt-0"><div className="max-w-6xl mx-auto p-6 lg:p-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">{t('heading', lang)}</h1>
-          <p className="text-gray-600">{t('subtitle', lang)}</p>
+          <h1 className="text-3xl md:text-4xl font-bold font-serif text-brand-900 mb-3">{t('heading', lang)}</h1>
+          <p className="text-neutral-600">{t('subtitle', lang)}</p>
         </div>
 
         {/* Error Message */}
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2 text-red-700">
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 flex items-center gap-2 text-red-700">
             <AlertCircle size={20} />
             <span>{error}</span>
             <button onClick={() => setError(null)} className="ml-auto">×</button>
@@ -484,16 +484,16 @@ export default function SubscriptionPage() {
             return (
               <div
                 key={plan.code}
-                className={`relative bg-white rounded-2xl border-2 p-8 transition-all ${
+                className={`relative bg-white border-2 p-8 transition-all ${
                   plan.code === 'partner'
-                    ? 'border-amber-400 shadow-lg scale-105'
-                    : 'border-gray-200 hover:border-gray-300'
+                    ? 'border-amber-400 scale-105'
+                    : 'border-neutral-200 hover:border-neutral-300'
                 }`}
               >
                 {/* Badge */}
                 {plan.code === 'partner' && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                    <span className="inline-flex items-center gap-1 bg-gradient-to-r from-amber-400 to-amber-500 text-white px-4 py-1 rounded-full text-sm font-bold">
+                    <span className="inline-flex items-center gap-1 bg-gradient-to-r from-amber-400 to-amber-500 text-white px-4 py-1 text-sm font-bold">
                       <Crown size={14} /> {t('recommend', lang)}
                     </span>
                   </div>
@@ -501,14 +501,14 @@ export default function SubscriptionPage() {
 
                 {isCurrent && (
                   <div className="absolute top-4 right-4">
-                    <span className="inline-flex items-center gap-1 bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-medium">
+                    <span className="inline-flex items-center gap-1 bg-green-100 text-green-700 px-3 py-1 text-xs font-medium">
                       <Check size={12} /> {t('currentPlan', lang)}
                     </span>
                   </div>
                 )}
 
                 {/* Icon */}
-                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-4 ${
+                <div className={`w-14 h-14 flex items-center justify-center mb-4 ${
                   plan.code === 'partner' ? 'bg-amber-100' : 'bg-green-100'
                 }`}>
                   {plan.code === 'partner' ? (
@@ -519,33 +519,33 @@ export default function SubscriptionPage() {
                 </div>
 
                 {/* Name */}
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
+                <h3 className="text-2xl font-bold text-brand-900 mb-2">{plan.name}</h3>
 
                 {/* Price */}
                 <div className="mb-4">
                   <div className="flex items-baseline gap-1 mb-1">
-                    <span className="text-4xl font-bold text-gray-900">¥{plan.monthlyFee.toLocaleString()}</span>
-                    <span className="text-gray-500">{t('perMonth', lang)}</span>
+                    <span className="text-4xl font-bold text-neutral-900">¥{plan.monthlyFee.toLocaleString()}</span>
+                    <span className="text-neutral-500">{t('perMonth', lang)}</span>
                   </div>
                   {plan.entryFee > 0 && (
-                    <div className="text-sm text-gray-600">
+                    <div className="text-sm text-neutral-600">
                       + ¥{plan.entryFee.toLocaleString()} {t('entryFee', lang)}
                     </div>
                   )}
                 </div>
 
                 {/* Commission */}
-                <div className="bg-gray-50 rounded-lg p-4 mb-6">
+                <div className="bg-neutral-50 p-4 mb-6">
                   <div className="text-center">
                     <div className="text-3xl font-bold text-amber-600 mb-1">{plan.commission}</div>
-                    <div className="text-xs text-gray-500">{t('fixedCommission', lang)}</div>
+                    <div className="text-xs text-neutral-500">{t('fixedCommission', lang)}</div>
                   </div>
                 </div>
 
                 {/* Features */}
                 <ul className="space-y-3 mb-6">
                   {plan.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-sm text-gray-600">
+                    <li key={idx} className="flex items-start gap-2 text-sm text-neutral-600">
                       <Check size={16} className="text-green-600 flex-shrink-0 mt-0.5" />
                       <span>{feature}</span>
                     </li>
@@ -554,12 +554,12 @@ export default function SubscriptionPage() {
 
                 {/* CTA */}
                 {isCurrent && subscriptionActive ? (
-                  <div className="text-center text-sm text-gray-500 py-3">{t('currentlyUsing', lang)}</div>
+                  <div className="text-center text-sm text-neutral-500 py-3">{t('currentlyUsing', lang)}</div>
                 ) : !subscriptionActive && plan.code === 'growth' ? (
                   <button
                     onClick={() => handleUpgrade(plan.code)}
                     disabled={upgrading}
-                    className="w-full py-3 bg-brand-900 text-white rounded-lg font-bold hover:bg-brand-800 transition disabled:opacity-50"
+                    className="w-full py-3 bg-brand-900 text-white font-bold hover:bg-brand-800 transition disabled:opacity-50"
                   >
                     {upgrading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : t('subscribeNow', lang)}
                   </button>
@@ -567,7 +567,7 @@ export default function SubscriptionPage() {
                   <button
                     onClick={() => handleUpgrade(plan.code)}
                     disabled={upgrading}
-                    className="w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg font-bold hover:from-amber-600 hover:to-amber-700 transition disabled:opacity-50"
+                    className="w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold hover:from-amber-600 hover:to-amber-700 transition disabled:opacity-50"
                   >
                     {upgrading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : t('upgradeNow', lang)}
                   </button>
@@ -575,7 +575,7 @@ export default function SubscriptionPage() {
                   <button
                     onClick={() => handleUpgrade(plan.code)}
                     disabled={upgrading}
-                    className="w-full py-3 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition disabled:opacity-50"
+                    className="w-full py-3 bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition disabled:opacity-50"
                   >
                     {t('selectPlan', lang)}
                   </button>
@@ -588,22 +588,22 @@ export default function SubscriptionPage() {
         {/* 合约弹窗 */}
         {showContract && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('contractTitle', lang)}</h2>
+            <div className="bg-white max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8">
+              <h2 className="text-2xl font-bold font-serif text-brand-900 mb-4">{t('contractTitle', lang)}</h2>
 
-              <div className="prose prose-sm mb-6 text-gray-600 space-y-3">
-                <h3 className="font-bold text-gray-900">{t('contractSection1', lang)}</h3>
+              <div className="prose prose-sm mb-6 text-neutral-600 space-y-3">
+                <h3 className="font-bold text-brand-900">{t('contractSection1', lang)}</h3>
                 <p>{t('contractFee1', lang)}</p>
                 <p>{t('contractFee2', lang)}</p>
 
-                <h3 className="font-bold text-gray-900">{t('contractSection2', lang)}</h3>
+                <h3 className="font-bold text-brand-900">{t('contractSection2', lang)}</h3>
                 <p>{t('contractCommission', lang)}</p>
 
-                <h3 className="font-bold text-gray-900">{t('contractSection3', lang)}</h3>
+                <h3 className="font-bold text-brand-900">{t('contractSection3', lang)}</h3>
                 <p className="text-red-600 font-medium">{t('contractWarning1', lang)}</p>
                 <p className="text-red-600 font-medium">{t('contractWarning2', lang)}</p>
 
-                <h3 className="font-bold text-gray-900">{t('contractSection4', lang)}</h3>
+                <h3 className="font-bold text-brand-900">{t('contractSection4', lang)}</h3>
                 <ul className="list-disc pl-5">
                   <li>{t('benefit1', lang)}</li>
                   <li>{t('benefit2', lang)}</li>
@@ -616,14 +616,14 @@ export default function SubscriptionPage() {
               <div className="flex gap-3">
                 <button
                   onClick={() => { setShowContract(false); setSelectedPlan(null); }}
-                  className="flex-1 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50"
+                  className="flex-1 py-3 border border-neutral-300 text-neutral-700 font-medium hover:bg-neutral-50"
                 >
                   {t('cancel', lang)}
                 </button>
                 <button
                   onClick={confirmUpgrade}
                   disabled={upgrading}
-                  className="flex-1 py-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg font-bold hover:from-amber-600 hover:to-amber-700 disabled:opacity-50"
+                  className="flex-1 py-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold hover:from-amber-600 hover:to-amber-700 disabled:opacity-50"
                 >
                   {upgrading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : t('agreeAndPay', lang)}
                 </button>
@@ -633,7 +633,7 @@ export default function SubscriptionPage() {
         )}
 
         {/* 说明 */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+        <div className="bg-blue-50 border border-blue-200 p-6">
           <h4 className="font-bold text-blue-900 mb-2">{t('faqTitle', lang)}</h4>
           <div className="text-sm text-blue-800 space-y-2">
             <p>• {t('faq1', lang)}</p>
