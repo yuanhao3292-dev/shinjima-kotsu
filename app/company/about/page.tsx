@@ -375,7 +375,7 @@ export default function AboutPage() {
   const t = (key: keyof typeof pageTranslations) => pageTranslations[key][currentLang];
 
   const medicalPartners = [
-    { ja: '徳洲会グループ', 'zh-TW': '德洲會集團', 'zh-CN': '德洲会集团', en: 'Tokushukai Group' },
+    { ja: '徳洲会グループ', 'zh-TW': '德州會集團', 'zh-CN': '德州会集团', en: 'Tokushukai Group' },
     { ja: 'TIMC OSAKA', 'zh-TW': 'TIMC OSAKA', 'zh-CN': 'TIMC OSAKA', en: 'TIMC OSAKA' },
   ];
 

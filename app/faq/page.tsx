@@ -100,8 +100,8 @@ const FAQ_DATA: FAQItem[] = [
     },
     answer: {
       ja: 'TIMC OSAKA（徳洲会国際医療センター）は大阪市北区梅田三丁目2番2号 JP TOWER OSAKA 11階にあります。大阪駅から徒歩約5分の好立地です。',
-      'zh-TW': 'TIMC OSAKA（德洲會國際醫療中心）位於大阪市北區梅田三丁目 2 番 2 號 JP TOWER OSAKA 11 樓。交通便利，從大阪站步行約 5 分鐘即可到達。',
-      'zh-CN': 'TIMC OSAKA（德洲会国际医疗中心）位于大阪市北区梅田三丁目 2 番 2 号 JP TOWER OSAKA 11 楼。交通便利，从大阪站步行约 5 分钟即可到达。',
+      'zh-TW': 'TIMC OSAKA（德州會國際醫療中心）位於大阪市北區梅田三丁目 2 番 2 號 JP TOWER OSAKA 11 樓。交通便利，從大阪站步行約 5 分鐘即可到達。',
+      'zh-CN': 'TIMC OSAKA（德州会国际医疗中心）位于大阪市北区梅田三丁目 2 番 2 号 JP TOWER OSAKA 11 楼。交通便利，从大阪站步行约 5 分钟即可到达。',
       en: 'TIMC OSAKA (Tokushukai International Medical Center) is located on the 11th floor of JP TOWER OSAKA, 3-2-2 Umeda, Kita-ku, Osaka. It is about a 5-minute walk from Osaka Station.',
     },
   },
@@ -350,8 +350,8 @@ const pageTranslations = {
   wechatOnline: { ja: 'WeChat オンライン', 'zh-TW': '微信客服在線', 'zh-CN': '微信客服在线', en: 'WeChat Online' },
   footerText: {
     ja: 'TIMC OSAKA（徳洲会国際医療センター）健診予約サービスは新島交通株式会社が提供',
-    'zh-TW': 'TIMC OSAKA（德洲會國際醫療中心）體檢預約服務由新島交通株式会社提供',
-    'zh-CN': 'TIMC OSAKA（德洲会国际医疗中心）体检预约服务由新岛交通株式会社提供',
+    'zh-TW': 'TIMC OSAKA（德州會國際醫療中心）體檢預約服務由新島交通株式会社提供',
+    'zh-CN': 'TIMC OSAKA（德州会国际医疗中心）体检预约服务由新岛交通株式会社提供',
     en: 'TIMC OSAKA health check booking service provided by Niijima Transport Co., Ltd.',
   },
 };

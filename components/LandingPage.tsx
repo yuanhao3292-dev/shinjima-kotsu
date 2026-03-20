@@ -189,7 +189,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
     {
       id: 'timc-health-checkup',
       title: currentLang === 'zh-TW' ? '日本 TIMC 精密體檢' : currentLang === 'zh-CN' ? '日本 TIMC 精密体检' : currentLang === 'ja' ? '日本TIMC精密健診' : 'Japan TIMC Premium Checkup',
-      subtitle: currentLang === 'zh-TW' ? '德洲會國際醫療中心' : currentLang === 'zh-CN' ? '德洲会国际医疗中心' : currentLang === 'ja' ? '徳洲会国際医療センター' : 'Tokushukai International Medical Center',
+      subtitle: currentLang === 'zh-TW' ? '德州會國際醫療中心' : currentLang === 'zh-CN' ? '德州会国际医疗中心' : currentLang === 'ja' ? '徳洲会国際医療センター' : 'Tokushukai International Medical Center',
       description: currentLang === 'zh-TW' ? 'PET-CT / MRI / 胃腸鏡 - 早期發現，守護健康' : currentLang === 'zh-CN' ? 'PET-CT / MRI / 胃肠镜 - 早期发现，守护健康' : currentLang === 'ja' ? 'PET-CT / MRI / 胃腸内視鏡 - 早期発見で健康を守る' : 'PET-CT / MRI / Endoscopy - Early Detection for Better Health',
       imageUrl: getImage('hero_slide_2', 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg'),
       mobileImageUrl: getImage('hero_slide_2_mobile', 'https://i.ibb.co/TDYnsXBb/013-2.jpg'),

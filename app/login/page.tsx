@@ -28,8 +28,8 @@ const translations = {
   },
   heroDescription: {
     ja: 'NIIJIMAは、専門的な訪日医療コーディネートサービスを提供します。AIスマートスクリーニングシステムにより、最適な医療プランをマッチングし、徳洲会国際医療センター(TIMC)、日本トップクラスのがん専門病院、幹細胞クリニックなどの優良医療リソースの予約管理サービスを提供します。',
-    'zh-CN': 'NIIJIMA 为您提供专业的访日医疗对接服务。通过 AI 智能筛查系统，为您匹配最适合的医疗方案，并提供德洲会国际医疗中心(TIMC)、日本顶级癌症专科医院、干细胞诊所等优质医疗资源的预约管理服务。',
-    'zh-TW': 'NIIJIMA 為您提供專業的訪日醫療對接服務。透過 AI 智能篩查系統，為您配對最適合的醫療方案，並提供德洲會國際醫療中心(TIMC)、日本頂級癌症專科醫院、幹細胞診所等優質醫療資源的預約管理服務。',
+    'zh-CN': 'NIIJIMA 为您提供专业的访日医疗对接服务。通过 AI 智能筛查系统，为您匹配最适合的医疗方案，并提供德州会国际医疗中心(TIMC)、日本顶级癌症专科医院、干细胞诊所等优质医疗资源的预约管理服务。',
+    'zh-TW': 'NIIJIMA 為您提供專業的訪日醫療對接服務。透過 AI 智能篩查系統，為您配對最適合的醫療方案，並提供德州會國際醫療中心(TIMC)、日本頂級癌症專科醫院、幹細胞診所等優質醫療資源的預約管理服務。',
     en: 'NIIJIMA provides professional Japan medical coordination services. Through our AI smart screening system, we match you with the most suitable medical plans and provide appointment management for premium resources including TIMC, top cancer specialty hospitals, and stem cell clinics.',
   },
   support24h: {

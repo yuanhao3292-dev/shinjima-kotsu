@@ -446,6 +446,132 @@ useEffect(() => {
 
 ---
 
+## 品牌设计系统 (Brand Design System)
+
+所有公开页面必须遵循以下设计规范，确保与首页 (`LandingPage.tsx`) 和企业介绍页 (`app/company/about/page.tsx`) 风格一致。
+
+### 调色板
+
+| 用途 | Tailwind Class | 说明 |
+|------|---------------|------|
+| 主色 | `brand-900` | 深色背景、标题文字、hover 状态 |
+| 金色装饰 | `gold-400` / `gold-500` | 装饰线、标签文字 |
+| 正文 | `neutral-700` | 段落文字 |
+| 次要文字 | `neutral-500` / `neutral-400` | 辅助说明、日期 |
+| 浅背景 | `neutral-50` | 交替 section 背景 |
+| 边框 | `neutral-200` | 分割线、卡片边框 |
+
+**禁止使用：** `gray-*`（用 `neutral-*` 替代）、`slate-*`（用 `brand-*` 替代）、`blue-600` 链接色（用 `brand-700` 替代）
+
+### 页面结构
+
+```
+<PublicLayout showFooter>
+  <!-- Hero Section (brand-900 深色背景) -->
+  <!-- Content Sections (bg-white / bg-neutral-50 交替) -->
+</PublicLayout>
+```
+
+**必须使用 `PublicLayout`**，禁止自建 header/footer。
+
+### Hero Section 标准
+
+```tsx
+<section className="relative min-h-[40vh] flex items-center bg-brand-900 overflow-hidden">
+  {/* 装饰圆 */}
+  <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
+  <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
+
+  {/* 内容 */}
+  <div className="relative container mx-auto px-6 py-24">
+    <div className="max-w-3xl mx-auto text-center">
+      {/* Gold 标签线 */}
+      <div className="flex items-center justify-center gap-3 mb-8">
+        <div className="h-[1px] w-12 bg-gold-400" />
+        <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">SECTION LABEL</span>
+        <div className="h-[1px] w-12 bg-gold-400" />
+      </div>
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif text-white leading-tight">
+        页面标题
+      </h1>
+    </div>
+  </div>
+</section>
+```
+
+### Section 标题标准
+
+```tsx
+<div className="text-center mb-12">
+  <div className="flex items-center justify-center gap-3 mb-4">
+    <div className="h-[1px] w-12 bg-gold-400" />
+    <span className="text-xs tracking-[0.3em] text-gold-500 uppercase">ENGLISH LABEL</span>
+    <div className="h-[1px] w-12 bg-gold-400" />
+  </div>
+  <h2 className="text-2xl md:text-3xl font-serif text-brand-900">中文/日文标题</h2>
+</div>
+```
+
+### 内容容器
+
+```tsx
+<section className="py-16 bg-white">  {/* 或 bg-neutral-50 交替 */}
+  <div className="container mx-auto px-6">
+    <div className="max-w-4xl mx-auto">  {/* 或 max-w-5xl */}
+      {/* 内容 */}
+    </div>
+  </div>
+</section>
+```
+
+### 子标题（法律/文章内）
+
+```tsx
+<h2 className="text-lg font-bold text-brand-900 mb-3 pb-2 border-b border-neutral-200">
+```
+
+### 链接
+
+```tsx
+<Link className="text-brand-700 hover:text-brand-900 text-sm flex items-center gap-1 transition-colors">
+  链接文字 <ArrowRight size={14} />
+</Link>
+```
+
+### CTA Section 标准
+
+```tsx
+<section className="py-20 bg-brand-900 text-white">
+  {/* Gold 标签线 + serif 标题 + neutral-400 描述 */}
+  {/* 主按钮: bg-white text-brand-900 px-8 py-3 */}
+  {/* 次按钮: border border-white/30 text-white hover:bg-white hover:text-brand-900 */}
+</section>
+```
+
+### 表格（公司信息/法律文档）
+
+```tsx
+<div className="bg-neutral-50 rounded-2xl overflow-hidden">
+  <table className="w-full"><tbody className="divide-y divide-neutral-200">
+    <tr className="flex flex-col md:table-row hover:bg-white transition">
+      <th className="py-5 px-6 text-left font-bold text-brand-900 bg-neutral-100 md:bg-transparent md:w-44 align-top" />
+      <td className="py-5 px-6 text-neutral-600" />
+    </tr>
+  </tbody></table>
+</div>
+```
+
+### 卡片
+
+```tsx
+<div className="bg-white rounded-2xl p-8 border border-neutral-200 hover:shadow-lg transition">
+  <h3 className="text-xl font-bold text-brand-900 mb-3">标题</h3>
+  <p className="text-neutral-600">描述</p>
+</div>
+```
+
+---
+
 ## ⚠️ 多语言字体系统（重要踩坑记录）
 
 ### 字体配置

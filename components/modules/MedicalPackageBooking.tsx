@@ -492,7 +492,7 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-8">
         <div className="max-w-6xl mx-auto px-6 text-center text-sm text-gray-400">
-          <p>体检服务由 TIMC 德洲会国际医疗中心 提供</p>
+          <p>体检服务由 TIMC 德州会国际医疗中心 提供</p>
           <p className="mt-1">旅行服务由 新岛交通株式会社 提供 · 大阪府知事登录旅行业 第2-3115号</p>
         </div>
       </footer>

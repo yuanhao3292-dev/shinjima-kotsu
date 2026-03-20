@@ -204,8 +204,8 @@ const pageTranslations = {
   },
   resource2Subtitle: {
     'ja': '徳洲会 TIMC',
-    'zh-TW': '德洲會 TIMC',
-    'zh-CN': '德洲会 TIMC',
+    'zh-TW': '德州會 TIMC',
+    'zh-CN': '德州会 TIMC',
     'en': 'Tokushukai TIMC',
   },
   resource2Title: {
@@ -216,8 +216,8 @@ const pageTranslations = {
   },
   resource2Desc1: {
     'ja': '徳洲会医療グループ傘下の国際医療センター、大阪 JP Tower内。',
-    'zh-TW': '德洲會醫療集團旗下的國際醫療中心，位於大阪 JP Tower。',
-    'zh-CN': '德洲会医疗集团旗下的国际医疗中心，位于大阪 JP Tower。',
+    'zh-TW': '德州會醫療集團旗下的國際醫療中心，位於大阪 JP Tower。',
+    'zh-CN': '德州会医疗集团旗下的国际医疗中心，位于大阪 JP Tower。',
     'en': 'Tokushukai Medical Group\'s international center at Osaka JP Tower.',
   },
   resource2Desc2: {

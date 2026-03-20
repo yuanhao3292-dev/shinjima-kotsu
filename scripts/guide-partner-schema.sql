@@ -346,7 +346,7 @@ ON CONFLICT DO NOTHING;
 
 -- 添加医疗服务
 INSERT INTO venues (name, name_ja, brand, city, area, category, min_spend, avg_spend, description, features) VALUES
-('TIMC大阪', 'TIMC OSAKA', 'TIMC', '大阪', '梅田', 'medical', 500000, 1500000, '德洲会国际医疗中心', ARRAY['PET-CT', 'MRI', '中文服务', 'VIP专属']),
+('TIMC大阪', 'TIMC OSAKA', 'TIMC', '大阪', '梅田', 'medical', 500000, 1500000, '德州会国际医疗中心', ARRAY['PET-CT', 'MRI', '中文服务', 'VIP专属']),
 ('新岛综合治疗', '新島総合治療', '新岛', '大阪', '梅田', 'treatment', 1000000, 3000000, '干细胞/抗衰', ARRAY['干细胞', '抗衰老', '再生医疗'])
 ON CONFLICT DO NOTHING;
 

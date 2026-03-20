@@ -100,7 +100,7 @@ VALUES (
   'TIMC 健检套餐',
   'TIMC健診パッケージ',
   'medical-packages',
-  '德洲会国际医疗中心 6 大健检套餐，从基础到 VIP 全覆盖',
+  '德州会国际医疗中心 6 大健检套餐，从基础到 VIP 全覆盖',
   'medical_packages',
   10,
   false,

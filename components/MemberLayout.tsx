@@ -26,7 +26,7 @@ const translations = {
 
   // Footer
   brandDesc: { ja: '日本医療ツーリズム専門サービス', 'zh-CN': '专业日本医疗旅游服务', 'zh-TW': '專業日本醫療旅遊服務', en: 'Professional Japan Medical Tourism Service' },
-  hospitalName: { ja: 'TIMC 大阪徳洲会国際医療センター', 'zh-CN': 'TIMC 大阪德洲会国际医疗中心', 'zh-TW': 'TIMC 大阪德洲會國際醫療中心', en: 'TIMC Osaka Tokushukai International Medical Center' },
+  hospitalName: { ja: 'TIMC 大阪徳洲会国際医療センター', 'zh-CN': 'TIMC 大阪德州会国际医疗中心', 'zh-TW': 'TIMC 大阪德州會國際醫療中心', en: 'TIMC Osaka Tokushukai International Medical Center' },
   quickLinks: { ja: 'クイックリンク', 'zh-CN': '快速链接', 'zh-TW': '快速連結', en: 'Quick Links' },
   orderLookup: { ja: '注文照会', 'zh-CN': '订单查询', 'zh-TW': '訂單查詢', en: 'Order Lookup' },
   memberCenter: { ja: '会員センター', 'zh-CN': '会员中心', 'zh-TW': '會員中心', en: 'Member Center' },

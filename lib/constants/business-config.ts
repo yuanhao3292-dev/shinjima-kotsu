@@ -39,8 +39,8 @@ export const BUSINESS_ITEMS: readonly BusinessItemConfig[] = [
     titleEn: 'Medical Tourism',
     description: {
       ja: '世界最先端の日本の医療技術を活用した精密健診・がん治療サービス。TIMC（徳洲会国際医療センター）と提携し、PET-CT、MRI、内視鏡など高度な検査を提供。',
-      'zh-TW': '運用日本世界領先的醫療技術提供精密健檢及癌症治療服務。與TIMC（德洲會國際醫療中心）合作，提供PET-CT、MRI、內視鏡等高端檢查。',
-      'zh-CN': '运用日本世界领先的医疗技术提供精密体检及癌症治疗服务。与TIMC（德洲会国际医疗中心）合作，提供PET-CT、MRI、内视镜等高端检查。',
+      'zh-TW': '運用日本世界領先的醫療技術提供精密健檢及癌症治療服務。與TIMC（德州會國際醫療中心）合作，提供PET-CT、MRI、內視鏡等高端檢查。',
+      'zh-CN': '运用日本世界领先的医疗技术提供精密体检及癌症治疗服务。与TIMC（德州会国际医疗中心）合作，提供PET-CT、MRI、内视镜等高端检查。',
       en: 'Precision health screenings and cancer treatment services utilizing Japan\'s world-leading medical technology. Partnered with TIMC for PET-CT, MRI, endoscopy, and more.',
     },
     link: '/business/medical',

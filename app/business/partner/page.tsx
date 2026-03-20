@@ -180,8 +180,8 @@ const pageTranslations = {
   },
   advantage1Desc: {
     'ja': '徳洲会、TIMCなど日本のトップ医療機関と深く提携し、精密健診、がん治療、重粒子線治療など希少な医療リソースを提供します。',
-    'zh-TW': '與德洲會、TIMC等日本頂級醫療機構深度合作，提供精密健檢、癌症治療、質子重離子等稀缺醫療資源。',
-    'zh-CN': '与德洲会、TIMC等日本顶级医疗机构深度合作，提供精密健检、癌症治疗、质子重离子等稀缺医疗资源。',
+    'zh-TW': '與德州會、TIMC等日本頂級醫療機構深度合作，提供精密健檢、癌症治療、質子重離子等稀缺醫療資源。',
+    'zh-CN': '与德州会、TIMC等日本顶级医疗机构深度合作，提供精密健检、癌症治疗、质子重离子等稀缺医疗资源。',
     'en': 'Deep partnerships with Japan\'s top medical institutions like Tokushukai and TIMC, providing premium health checkups, cancer treatment, and proton/heavy ion therapy resources.',
   },
   advantage2Title: {
@@ -520,8 +520,8 @@ const pageTranslations = {
   },
   solutionReadyDesc: {
     'ja': '徳洲会病院の予約チャネル、広野ゴルフの会員人脈、トヨタ工場の視察許可——12年間の日本市場での実績が、あなたのビジネス転換を強力にサポートします。',
-    'zh-TW': '德洲會醫院的預約渠道、廣野高爾夫的會員人脈、豐田工廠的考察許可——12年深耕日本市場，為您的業務轉型提供強大支持。',
-    'zh-CN': '德洲会医院的预约渠道、广野高尔夫的会员人脉、丰田工厂的考察许可——12年深耕日本市场，为您的业务转型提供强大支持。',
+    'zh-TW': '德州會醫院的預約渠道、廣野高爾夫的會員人脈、豐田工廠的考察許可——12年深耕日本市場，為您的業務轉型提供強大支持。',
+    'zh-CN': '德州会医院的预约渠道、广野高尔夫的会员人脉、丰田工厂的考察许可——12年深耕日本市场，为您的业务转型提供强大支持。',
     'en': 'Tokushukai Hospital booking channels, Hirono Golf Club member connections, Toyota factory inspection permits -- 12 years in Japan market, providing strong support for your business transformation.',
   },
   solutionFooterTitle: {
