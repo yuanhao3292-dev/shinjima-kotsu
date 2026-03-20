@@ -1053,84 +1053,109 @@ export default function GuidePartnerPage() {
               </button>
             </div>
             <div className="flex-1">
-              <div className="bg-brand-800/50 rounded-lg p-4 border border-brand-700">
+              <a
+                href="https://niijima-koutsu.jp/g/demo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block group"
+              >
                 <p className="text-neutral-400 text-sm mb-3">{t('previewLabel')}</p>
-                <div className="bg-brand-900 rounded overflow-hidden">
+                <div className="rounded-lg overflow-hidden border border-brand-700 shadow-2xl">
                   {/* Browser chrome */}
-                  <div className="flex items-center gap-2 px-3 py-2 border-b border-brand-700">
+                  <div className="flex items-center gap-2 px-3 py-2 bg-neutral-800 border-b border-neutral-700">
                     <div className="w-2.5 h-2.5 rounded-full bg-red-500/70"></div>
                     <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/70"></div>
                     <div className="w-2.5 h-2.5 rounded-full bg-green-500/70"></div>
-                    <span className="text-neutral-500 text-xs ml-2">niijima-koutsu.jp/g/demo</span>
+                    <div className="flex-1 mx-4">
+                      <div className="bg-neutral-700 rounded-md px-3 py-1 text-neutral-400 text-[10px] text-center">niijima-koutsu.jp/g/yourname</div>
+                    </div>
                   </div>
-                  {/* Static mockup of the whitelabel demo page */}
-                  <a
-                    href="https://niijima-koutsu.jp/g/demo"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block relative h-[400px] md:h-[480px] overflow-hidden group cursor-pointer"
-                  >
-                    <Image
-                      src="https://i.ibb.co/xS1h4rTM/hero-medical.jpg"
-                      alt="White-label demo preview"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-teal-900/90 via-teal-900/70 to-transparent" />
-                    {/* Mockup nav bar */}
-                    <div className="absolute top-0 inset-x-0 flex items-center justify-between px-4 py-3 bg-black/20 backdrop-blur-sm border-b border-white/10">
-                      <div className="flex items-center gap-2">
-                        <div className="w-5 h-5 rounded bg-white/20"></div>
-                        <span className="text-white/80 text-xs font-medium">{t('previewBrandName')}</span>
+                  {/* Page mockup — stacked sections */}
+                  <div className="relative h-[400px] md:h-[480px] overflow-hidden bg-gray-950">
+                    {/* Section 1: Hero with medical image */}
+                    <div className="relative h-[55%]">
+                      <Image
+                        src="https://i.ibb.co/xS1h4rTM/hero-medical.jpg"
+                        alt="White-label demo preview"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-r from-teal-900/90 via-teal-900/70 to-transparent" />
+                      {/* Nav */}
+                      <div className="absolute top-0 inset-x-0 flex items-center justify-between px-4 py-2.5 bg-black/30 backdrop-blur-sm">
+                        <div className="flex items-center gap-1.5">
+                          <div className="w-4 h-4 rounded bg-white/25"></div>
+                          <span className="text-white/80 text-[10px] font-medium">{t('previewBrandName')}</span>
+                        </div>
+                        <div className="flex gap-2">
+                          <div className="w-6 h-1 rounded-full bg-white/20"></div>
+                          <div className="w-6 h-1 rounded-full bg-white/20"></div>
+                          <div className="w-6 h-1 rounded-full bg-white/20"></div>
+                        </div>
                       </div>
-                      <div className="flex gap-3">
-                        <div className="w-8 h-1.5 rounded-full bg-white/20"></div>
-                        <div className="w-8 h-1.5 rounded-full bg-white/20"></div>
-                        <div className="w-8 h-1.5 rounded-full bg-white/20"></div>
+                      {/* Hero text */}
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <div className="text-[9px] tracking-widest text-white/50 uppercase mb-1">Premium Health Screening</div>
+                        <div className="text-base md:text-lg font-bold text-white leading-snug mb-1.5">日本精密健康检查</div>
+                        <div className="text-[9px] text-white/50 mb-2 line-clamp-1">在日本顶级医疗机构进行全面精密体检</div>
+                        <div className="inline-block bg-white text-gray-900 px-2.5 py-1 rounded-full text-[9px] font-bold">了解详情 →</div>
                       </div>
                     </div>
-                    {/* Mockup hero content */}
-                    <div className="absolute inset-0 flex items-center px-6 md:px-8">
-                      <div className="max-w-[70%]">
-                        <div className="flex items-center gap-2 mb-3">
-                          <div className="h-[1px] w-6 bg-white/40"></div>
-                          <span className="text-[10px] tracking-[0.2em] text-white/60 uppercase">Premium Health Screening</span>
+                    {/* Section 2: Product cards row */}
+                    <div className="h-[25%] bg-white flex gap-2 p-3">
+                      <div className="flex-1 rounded overflow-hidden relative">
+                        <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 to-emerald-800"></div>
+                        <div className="relative p-2">
+                          <div className="text-[7px] text-white/60 uppercase tracking-wider">University Hospital</div>
+                          <div className="text-[10px] font-bold text-white mt-0.5">兵库医科大学病院</div>
                         </div>
-                        <h3 className="text-lg md:text-2xl font-bold text-white leading-tight mb-2">
-                          日本精密健康检查
-                        </h3>
-                        <p className="text-[10px] md:text-xs text-white/60 leading-relaxed mb-4 line-clamp-2">
-                          在日本顶级医疗机构进行全面精密体检，享受高端医疗资源与专业中文陪诊服务。
-                        </p>
-                        <div className="flex gap-4 mb-4">
-                          <div>
-                            <div className="text-sm md:text-base font-bold text-white">300+<span className="text-white/50 text-xs ml-0.5">项</span></div>
-                            <div className="text-[8px] text-white/40 uppercase">检查项目</div>
-                          </div>
-                          <div>
-                            <div className="text-sm md:text-base font-bold text-white">99.2<span className="text-white/50 text-xs ml-0.5">%</span></div>
-                            <div className="text-[8px] text-white/40 uppercase">满意度</div>
-                          </div>
-                          <div>
-                            <div className="text-sm md:text-base font-bold text-white">24h</div>
-                            <div className="text-[8px] text-white/40 uppercase">报告出具</div>
-                          </div>
+                      </div>
+                      <div className="flex-1 rounded overflow-hidden relative">
+                        <div className="absolute inset-0 bg-gradient-to-br from-rose-500 to-rose-700"></div>
+                        <div className="relative p-2">
+                          <div className="text-[7px] text-white/60 uppercase tracking-wider">Aesthetic Medicine</div>
+                          <div className="text-[10px] font-bold text-white mt-0.5">SAI 美容外科</div>
                         </div>
-                        <div className="inline-flex items-center gap-1 bg-white text-gray-900 px-3 py-1.5 rounded-full text-[10px] font-bold">
-                          了解详情 <ChevronRight size={10} />
+                      </div>
+                      <div className="flex-1 rounded overflow-hidden relative">
+                        <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 to-indigo-800"></div>
+                        <div className="relative p-2">
+                          <div className="text-[7px] text-white/60 uppercase tracking-wider">Regenerative</div>
+                          <div className="text-[10px] font-bold text-white mt-0.5">干细胞再生医疗</div>
                         </div>
+                      </div>
+                    </div>
+                    {/* Section 3: Trust bar */}
+                    <div className="h-[20%] bg-gray-50 flex items-center justify-around px-4">
+                      <div className="text-center">
+                        <div className="w-5 h-5 mx-auto mb-1 rounded bg-blue-100 flex items-center justify-center">
+                          <Shield size={10} className="text-blue-600" />
+                        </div>
+                        <div className="text-[7px] text-gray-500">持牌旅行社</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="w-5 h-5 mx-auto mb-1 rounded bg-amber-100 flex items-center justify-center">
+                          <Shield size={10} className="text-amber-600" />
+                        </div>
+                        <div className="text-[7px] text-gray-500">认证医疗</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="w-5 h-5 mx-auto mb-1 rounded bg-emerald-100 flex items-center justify-center">
+                          <Shield size={10} className="text-emerald-600" />
+                        </div>
+                        <div className="text-[7px] text-gray-500">中文服务</div>
                       </div>
                     </div>
                     {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
-                      <span className="opacity-0 group-hover:opacity-100 transition-opacity text-white text-sm font-medium bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+                      <span className="opacity-0 group-hover:opacity-100 transition-opacity text-white text-sm font-medium bg-white/20 backdrop-blur-sm px-5 py-2.5 rounded-full border border-white/30">
                         {t('viewDemo')}
                       </span>
                     </div>
-                  </a>
+                  </div>
                 </div>
-              </div>
+              </a>
             </div>
           </div>
         </div>

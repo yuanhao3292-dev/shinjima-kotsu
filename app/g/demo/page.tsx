@@ -1,5 +1,4 @@
-import { ArrowRight, Shield, Award, MapPin, Heart, Sparkles } from 'lucide-react';
-import Link from 'next/link';
+import { ArrowRight, Shield, Award, MapPin } from 'lucide-react';
 import { COLOR_THEMES } from '@/lib/types/display-config';
 
 /**
@@ -9,8 +8,6 @@ import { COLOR_THEMES } from '@/lib/types/display-config';
  */
 
 const DEMO_BRAND = '示例品牌';
-const DEMO_SLUG = 'demo';
-
 const DEMO_PRODUCTS = [
   {
     componentKey: 'medical_packages',
@@ -173,35 +170,6 @@ export default function DemoWhiteLabelPage() {
           </section>
         );
       })}
-
-      {/* AI Health Screening */}
-      <section className="py-20 bg-gradient-to-br from-indigo-50 via-white to-blue-50">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full text-sm mb-6">
-            <Sparkles className="w-4 h-4" />
-            AI 智能健康评估
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            免费 AI 健康筛查
-          </h2>
-          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            通过人体图交互选择不适部位，AI 智能分析您的健康状况，推荐最适合的日本医疗服务
-          </p>
-          <Link
-            href={`/g/${DEMO_SLUG}/health-screening`}
-            className="inline-flex items-center gap-3 bg-indigo-600 text-white px-8 py-4 rounded-full font-bold hover:bg-indigo-700 transition-all shadow-lg hover:shadow-xl"
-          >
-            <Heart className="w-5 h-5" />
-            开始免费筛查
-            <ArrowRight size={18} />
-          </Link>
-          <div className="flex justify-center gap-8 mt-8 text-sm text-gray-500">
-            <span>&#10003; 无需登录</span>
-            <span>&#10003; 完全免费</span>
-            <span>&#10003; AI 智能分析</span>
-          </div>
-        </div>
-      </section>
 
       {/* Trust Section */}
       <section className="py-16 bg-gray-50">
