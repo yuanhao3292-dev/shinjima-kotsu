@@ -681,20 +681,44 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               </h2>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-6">
-              {[
-                { name: '徳洲会グループ', sub: 'Tokushukai Group' },
-                { name: 'TIMC OSAKA', sub: 'Medical Center' },
-                { name: '帝国ホテル', sub: 'Imperial Hotel' },
-                { name: 'ザ・リッツ・カールトン', sub: 'The Ritz-Carlton' },
-                { name: 'ANA', sub: 'All Nippon Airways' },
-                { name: 'JR西日本', sub: 'JR West' },
-              ].map((partner, index) => (
-                <div key={index} className="bg-white p-6 text-center border border-neutral-200 hover:border-neutral-300 transition-colors">
-                  <div className="text-sm font-medium text-neutral-900 mb-1">{partner.name}</div>
-                  <div className="text-[10px] text-neutral-400">{partner.sub}</div>
-                </div>
-              ))}
+            {/* Medical Partners */}
+            <div className="mb-8">
+              <p className="text-[10px] tracking-[0.2em] text-neutral-400 uppercase mb-4 text-center">
+                {currentLang === 'zh-TW' ? '醫療合作機構' : currentLang === 'zh-CN' ? '医疗合作机构' : currentLang === 'ja' ? '医療提携機関' : 'Medical Partners'}
+              </p>
+              <div className="grid grid-cols-2 gap-3 md:gap-6 max-w-md mx-auto">
+                {[
+                  { name: '徳洲会グループ', sub: 'Tokushukai Group' },
+                  { name: 'TIMC OSAKA', sub: 'Medical Center' },
+                ].map((partner, index) => (
+                  <div key={index} className="bg-white p-6 text-center border border-neutral-200 hover:border-neutral-300 transition-colors">
+                    <div className="text-sm font-medium text-neutral-900 mb-1">{partner.name}</div>
+                    <div className="text-[10px] text-neutral-400">{partner.sub}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Service Partners */}
+            <div>
+              <p className="text-[10px] tracking-[0.2em] text-neutral-400 uppercase mb-4 text-center">
+                {currentLang === 'zh-TW' ? '服務合作夥伴' : currentLang === 'zh-CN' ? '服务合作伙伴' : currentLang === 'ja' ? 'サービスパートナー' : 'Service Partners'}
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-6">
+                {[
+                  { name: '南海国際旅行', sub: 'Nankai International Travel' },
+                  { name: '大丸松坂屋百貨', sub: 'Daimaru Matsuzakaya' },
+                  { name: '近鉄百貨店', sub: 'Kintetsu Department Store' },
+                  { name: '海南航空', sub: 'Hainan Airlines' },
+                  { name: 'INSOU', sub: 'INSOU Holdings' },
+                  { name: 'アリババ日本', sub: 'Alibaba Japan' },
+                ].map((partner, index) => (
+                  <div key={index} className="bg-white p-6 text-center border border-neutral-200 hover:border-neutral-300 transition-colors">
+                    <div className="text-sm font-medium text-neutral-900 mb-1">{partner.name}</div>
+                    <div className="text-[10px] text-neutral-400">{partner.sub}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
