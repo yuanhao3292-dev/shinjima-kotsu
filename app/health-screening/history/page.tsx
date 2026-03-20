@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { FREE_SCREENING_LIMIT } from '@/lib/screening-questions';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
+import PublicLayout from '@/components/PublicLayout';
 import HealthPassport from '@/components/HealthPassport';
 import type { HealthSnapshotRow } from '@/lib/health-score';
 import { calculateHealthScoreWithBreakdown } from '@/lib/health-score';
@@ -30,6 +31,7 @@ const T: Record<string, Record<Language, string>> = {
   loadError: { ja: '読み込みに失敗しました', 'zh-CN': '载入失败', 'zh-TW': '載入失敗', en: 'Failed to load' },
   loading: { ja: '読み込み中...', 'zh-CN': '载入中...', 'zh-TW': '載入中...', en: 'Loading...' },
   backToAccount: { ja: 'マイアカウントに戻る', 'zh-CN': '返回我的账户', 'zh-TW': '返回我的帳戶', en: 'Back to My Account' },
+  heroLabel: { ja: 'HEALTH PASSPORT', 'zh-CN': 'HEALTH PASSPORT', 'zh-TW': 'HEALTH PASSPORT', en: 'HEALTH PASSPORT' },
   title: { ja: 'ヘルスパスポート', 'zh-CN': '健康护照', 'zh-TW': '健康護照', en: 'Health Passport' },
   usedCount: { ja: '使用済み', 'zh-CN': '已使用', 'zh-TW': '已使用', en: 'Used' },
   freeRemaining: { ja: '残り無料回数', 'zh-CN': '免费剩余', 'zh-TW': '免費剩餘', en: 'Free Remaining' },
@@ -88,7 +90,6 @@ export default function ScreeningHistoryPage() {
     setIsDownloading(true);
     try {
       const latest = snapshots[0];
-      // Build a minimal AnalysisResult to compute breakdown
       const breakdown = calculateHealthScoreWithBreakdown({
         riskLevel: latest.risk_level as 'low' | 'medium' | 'high',
         recommendedDepartments: latest.departments,
@@ -120,49 +121,63 @@ export default function ScreeningHistoryPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#faf9f7] flex items-center justify-center font-sans">
-        <div className="text-center">
-          <Loader2 className="w-10 h-10 animate-spin text-emerald-500 mx-auto mb-4" />
-          <p className="text-neutral-500">{t('loading', lang)}</p>
+      <PublicLayout showFooter={false} transparentNav={false}>
+        <div className="min-h-screen flex items-center justify-center bg-white">
+          <div className="text-center">
+            <Loader2 className="w-8 h-8 animate-spin text-brand-700 mx-auto mb-4" />
+            <p className="text-neutral-500 text-sm">{t('loading', lang)}</p>
+          </div>
         </div>
-      </div>
+      </PublicLayout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#faf9f7] font-sans">
-      {/* Header */}
-      <div className="bg-white border-b border-neutral-100">
-        <div className="max-w-4xl mx-auto px-4 py-4">
-          <Link
-            href="/my-account"
-            className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
-          >
-            <ArrowLeft size={18} />
-            <span className="text-sm">{t('backToAccount', lang)}</span>
-          </Link>
-        </div>
-      </div>
+    <PublicLayout showFooter={false} transparentNav={false}>
+      <div className="min-h-screen bg-white">
+        {/* Hero Section */}
+        <section className="relative bg-brand-900 overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
+            <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
+          </div>
 
-      {/* Title */}
-      <div className="bg-gradient-to-b from-white to-[#faf9f7] py-8">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
-              <h1 className="text-2xl md:text-3xl font-semibold text-neutral-900 tracking-wide">
-                {t('title', lang)}
-              </h1>
-              <p className="text-neutral-500 mt-1">
-                {t('usedCount', lang)} {totalUsed} {t('times', lang)} · {t('freeRemaining', lang)} {freeRemaining} {t('times', lang)}
-              </p>
+          <div className="relative z-10 max-w-4xl mx-auto px-6 pt-40 pb-16 text-center">
+            <div className="flex items-center justify-center gap-3 mb-8">
+              <div className="h-[1px] w-12 bg-gold-400" />
+              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">
+                {t('heroLabel', lang)}
+              </span>
+              <div className="h-[1px] w-12 bg-gold-400" />
             </div>
+
+            <h1 className="font-serif text-3xl md:text-4xl xl:text-5xl text-white mb-6 leading-tight">
+              {t('title', lang)}
+            </h1>
+
+            <p className="text-neutral-300 text-sm">
+              {t('usedCount', lang)} {totalUsed} {t('times', lang)} · {t('freeRemaining', lang)} {freeRemaining} {t('times', lang)}
+            </p>
+          </div>
+        </section>
+
+        {/* Action Bar */}
+        <div className="border-b border-neutral-200 bg-white">
+          <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+            <Link
+              href="/my-account"
+              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors text-sm"
+            >
+              <ArrowLeft size={18} />
+              <span>{t('backToAccount', lang)}</span>
+            </Link>
 
             <div className="flex items-center gap-3">
               {snapshots.length > 0 && (
                 <button
                   onClick={handleDownloadPassportPDF}
                   disabled={isDownloading}
-                  className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 rounded-lg hover:bg-neutral-50 disabled:opacity-50 transition-colors text-sm"
+                  className="inline-flex items-center gap-2 px-4 py-2 border border-neutral-200 text-neutral-700 hover:bg-neutral-50 disabled:opacity-50 transition-colors text-sm"
                 >
                   {isDownloading ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -175,32 +190,32 @@ export default function ScreeningHistoryPage() {
               {freeRemaining > 0 && (
                 <Link
                   href="/health-screening"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-gold-400 hover:bg-gold-300 text-brand-900 font-medium text-sm tracking-wider transition-colors"
                 >
-                  <Plus className="w-5 h-5" />
+                  <Plus className="w-4 h-4" />
                   {t('newScreening', lang)}
                 </Link>
               )}
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Content */}
-      <div className="max-w-4xl mx-auto px-4 pb-16">
-        {error && (
-          <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-xl flex items-center gap-3">
-            <AlertCircle className="w-5 h-5 flex-shrink-0" />
-            <span>{error}</span>
-          </div>
-        )}
+        {/* Content */}
+        <div className="max-w-4xl mx-auto px-6 py-10">
+          {error && (
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 flex items-center gap-3 text-sm">
+              <AlertCircle className="w-5 h-5 flex-shrink-0" />
+              <span>{error}</span>
+            </div>
+          )}
 
-        <HealthPassport
-          screenings={screenings}
-          snapshots={snapshots}
-          lang={lang}
-        />
+          <HealthPassport
+            screenings={screenings}
+            snapshots={snapshots}
+            lang={lang}
+          />
+        </div>
       </div>
-    </div>
+    </PublicLayout>
   );
 }
