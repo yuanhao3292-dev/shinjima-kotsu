@@ -3,11 +3,11 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
-import MemberLayout from '@/components/MemberLayout';
-import Logo from '@/components/Logo';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
+import PublicLayout from '@/components/PublicLayout';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
+import { useSiteImages } from '@/lib/hooks/useSiteImages';
 import { User } from '@supabase/supabase-js';
 import {
   ArrowLeft,
@@ -59,6 +59,7 @@ const translations = {
   loadingOrders: { ja: '注文を読み込み中...', 'zh-CN': '载入订单中...', 'zh-TW': '載入訂單中...', en: 'Loading orders...' },
 
   // Page titles and descriptions
+  heroLabel: { ja: 'MY ORDERS', 'zh-CN': 'MY ORDERS', 'zh-TW': 'MY ORDERS', en: 'MY ORDERS' },
   myOrders: { ja: 'マイオーダー', 'zh-CN': '我的订单', 'zh-TW': '我的訂單', en: 'My Orders' },
   bookingRecords: { ja: '予約記録', 'zh-CN': '预约记录', 'zh-TW': '預約記錄', en: 'Booking Records' },
   ordersDesc: { ja: 'すべての健診予約記録を確認し、注文状況を追跡し、行程の手配をいつでも把握できます。', 'zh-CN': '查看您的所有体检预约记录，追踪订单状态，随时掌握行程安排。', 'zh-TW': '查看您的所有健檢預約記錄，追蹤訂單狀態，隨時掌握行程安排。', en: 'View all your health checkup booking records, track order status, and stay updated on your schedule.' },
@@ -87,11 +88,11 @@ const t = (key: keyof typeof translations, lang: Language): string => {
 
 const getStatusConfig = (lang: Language): Record<string, { label: string; color: string; bgColor: string; icon: LucideIcon }> => ({
   pending: { label: t('statusPending', lang), color: 'text-yellow-700', bgColor: 'bg-yellow-50 border-yellow-200', icon: Clock },
-  paid: { label: t('statusPaid', lang), color: 'text-blue-700', bgColor: 'bg-blue-50 border-blue-200', icon: CreditCard },
-  confirmed: { label: t('statusConfirmed', lang), color: 'text-indigo-700', bgColor: 'bg-indigo-50 border-indigo-200', icon: CheckCircle },
+  paid: { label: t('statusPaid', lang), color: 'text-brand-700', bgColor: 'bg-brand-50 border-brand-200', icon: CreditCard },
+  confirmed: { label: t('statusConfirmed', lang), color: 'text-brand-700', bgColor: 'bg-brand-50 border-brand-200', icon: CheckCircle },
   completed: { label: t('statusCompleted', lang), color: 'text-green-700', bgColor: 'bg-green-50 border-green-200', icon: CheckCircle },
   cancelled: { label: t('statusCancelled', lang), color: 'text-red-700', bgColor: 'bg-red-50 border-red-200', icon: XCircle },
-  refunded: { label: t('statusRefunded', lang), color: 'text-gray-700', bgColor: 'bg-gray-50 border-gray-200', icon: XCircle },
+  refunded: { label: t('statusRefunded', lang), color: 'text-neutral-700', bgColor: 'bg-neutral-50 border-neutral-200', icon: XCircle },
 });
 
 export default function MyOrdersPage() {
@@ -102,6 +103,7 @@ export default function MyOrdersPage() {
   const router = useRouter();
   const lang = useLanguage();
   const supabase = createClient();
+  const { getImage } = useSiteImages();
 
   useEffect(() => {
     const fetchUserAndOrders = async () => {
@@ -173,14 +175,14 @@ export default function MyOrdersPage() {
 
   if (loading) {
     return (
-      <MemberLayout showFooter={false}>
-        <div className="min-h-[calc(100vh-80px)] flex items-center justify-center bg-gray-50">
+      <PublicLayout showFooter={false} transparentNav={false}>
+        <div className="min-h-screen flex items-center justify-center bg-white">
           <div className="text-center">
-            <Loader2 className="w-8 h-8 animate-spin text-blue-600 mx-auto mb-4" />
-            <p className="text-gray-500">{t('loadingOrders', lang)}</p>
+            <Loader2 className="w-8 h-8 animate-spin text-brand-700 mx-auto mb-4" />
+            <p className="text-neutral-500 text-sm">{t('loadingOrders', lang)}</p>
           </div>
         </div>
-      </MemberLayout>
+      </PublicLayout>
     );
   }
 
@@ -189,91 +191,92 @@ export default function MyOrdersPage() {
   }
 
   return (
-    <MemberLayout showFooter={false}>
-      <div className="min-h-[calc(100vh-80px)] flex">
-        {/* Left Side - Hero Image */}
-        <div className="hidden lg:flex lg:w-2/5 relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2000')] bg-cover bg-center opacity-30"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-slate-900/50"></div>
+    <PublicLayout showFooter={false} transparentNav={false}>
+      <div className="min-h-screen flex">
+        {/* Left Side — Brand Hero */}
+        <div className="hidden lg:flex lg:w-1/2 relative bg-brand-900 overflow-hidden">
+          <Image
+            src={getImage('medical_hero', 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2000')}
+            alt="My Orders"
+            fill
+            className="object-cover"
+            quality={75}
+            sizes="50vw"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70" />
 
-          {/* Language Switcher - Top Right */}
-          <div className="absolute top-8 right-8 z-20">
-            <LanguageSwitcher />
+          {/* Decorative Elements */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
+            <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
           </div>
 
-          <div className="relative z-10 flex flex-col justify-center px-12 text-white">
-            <div className="flex items-center gap-3 mb-8">
-              <Logo className="w-12 h-12 text-white" />
-              <div>
-                <span className="font-serif font-bold text-2xl tracking-wide">NIIJIMA</span>
-                <p className="text-xs text-blue-200 uppercase tracking-widest">Medical Tourism</p>
+          <div className="relative z-10 flex flex-col justify-center px-16">
+            <div className="max-w-lg">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="h-[1px] w-12 bg-gold-400" />
+                <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">
+                  {t('heroLabel', lang)}
+                </span>
               </div>
+
+              <h1 className="font-serif text-4xl xl:text-5xl text-white mb-4 leading-tight">
+                {t('myOrders', lang)}
+                <br />
+                <span className="text-gold-400">{t('bookingRecords', lang)}</span>
+              </h1>
+
+              <p className="text-lg text-neutral-300 leading-relaxed font-light max-w-md">
+                {t('ordersDesc', lang)}
+              </p>
             </div>
-            <h1 className="text-3xl font-serif font-bold mb-6 leading-tight">
-              {t('myOrders', lang)}<br />
-              <span className="text-blue-400">{t('bookingRecords', lang)}</span>
-            </h1>
-            <p className="text-gray-300 leading-relaxed mb-8 max-w-sm">
-              {t('ordersDesc', lang)}
-            </p>
           </div>
         </div>
 
-        {/* Right Side - Orders List */}
-        <div className="w-full lg:w-3/5 bg-gray-50 p-8 overflow-y-auto relative">
-          {/* Language Switcher for mobile - Top Right */}
-          <div className="absolute top-4 right-4 lg:hidden z-20">
-            <LanguageSwitcher />
-          </div>
-
-          <div className="max-w-2xl mx-auto">
-            {/* Mobile Logo */}
-            <div className="lg:hidden flex items-center justify-center gap-3 mb-6">
-              <Logo className="w-10 h-10 text-blue-600" />
-              <span className="font-serif font-bold text-xl">NIIJIMA</span>
+        {/* Right Side — Orders List */}
+        <div className="w-full lg:w-1/2 bg-white p-8 pt-24 overflow-y-auto">
+          <div className="max-w-lg mx-auto">
+            {/* Mobile hero label */}
+            <div className="lg:hidden flex items-center gap-3 mb-6">
+              <div className="h-[1px] w-8 bg-gold-400" />
+              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">MY ORDERS</span>
             </div>
 
             {/* Back Link */}
             <Link
               href="/my-account"
-              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 mb-6 text-sm font-medium transition"
+              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 mb-6 text-sm font-medium transition-colors"
             >
               <ArrowLeft size={16} />
               {t('backToAccount', lang)}
             </Link>
 
-            {/* Header Card */}
-            <div className="bg-white rounded-2xl shadow-xl p-6 mb-6 border border-gray-100">
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 bg-blue-50 rounded-full flex items-center justify-center">
-                  <FileText className="w-7 h-7 text-blue-600" />
-                </div>
-                <div>
-                  <h1 className="text-2xl font-serif font-bold text-gray-900">{t('myOrders', lang)}</h1>
-                  <p className="text-gray-500 text-sm">{t('viewAllOrders', lang)}</p>
-                </div>
-              </div>
+            {/* Header */}
+            <div className="mb-8">
+              <h1 className="text-2xl font-serif text-brand-900 mb-2">{t('myOrders', lang)}</h1>
+              <p className="text-neutral-500 text-sm">{t('viewAllOrders', lang)}</p>
             </div>
 
             {/* Error Message */}
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl mb-6 flex items-center gap-2 text-sm">
-                <AlertCircle className="w-5 h-5" />
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 mb-6 flex items-center gap-2 text-sm">
+                <AlertCircle className="w-5 h-5 flex-shrink-0" />
                 <span>{error}</span>
               </div>
             )}
 
             {/* Orders List */}
             {orders.length === 0 ? (
-              <div className="bg-white rounded-2xl shadow-xl p-8 text-center border border-gray-100">
-                <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <FileText className="w-10 h-10 text-gray-300" />
+              <div className="border border-neutral-200 p-8 text-center">
+                <div className="w-16 h-16 bg-neutral-50 border border-neutral-200 flex items-center justify-center mx-auto mb-6">
+                  <FileText className="w-8 h-8 text-neutral-300" />
                 </div>
-                <h3 className="text-xl font-serif font-bold text-gray-900 mb-3">{t('noOrders', lang)}</h3>
-                <p className="text-gray-500 mb-8">{t('noOrdersDesc', lang)}</p>
+                <h3 className="text-lg font-serif text-brand-900 mb-3">{t('noOrders', lang)}</h3>
+                <p className="text-neutral-500 text-sm mb-8">{t('noOrdersDesc', lang)}</p>
                 <Link
                   href="/medical"
-                  className="inline-flex items-center gap-2 bg-black hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg"
+                  className="inline-flex items-center gap-2 bg-gold-400 hover:bg-gold-300 text-brand-900 font-medium py-3 px-6 text-sm tracking-wider transition-colors"
                 >
                   <Package className="w-5 h-5" />
                   {t('browsePackages', lang)}
@@ -303,48 +306,48 @@ export default function MyOrdersPage() {
                   return (
                     <div
                       key={order.id}
-                      className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow border border-gray-100"
+                      className="border border-neutral-200 p-6 hover:bg-neutral-50/50 transition-colors"
                     >
                       <div className="flex items-start justify-between mb-4">
                         <div>
-                          <p className="text-xs text-gray-400 mb-1">{t('orderNumber', lang)}</p>
-                          <p className="font-mono font-bold text-gray-900">{order.order_number}</p>
+                          <p className="text-xs text-neutral-400 mb-1">{t('orderNumber', lang)}</p>
+                          <p className="font-mono font-bold text-brand-900">{order.order_number}</p>
                         </div>
-                        <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium border ${status.bgColor} ${status.color}`}>
+                        <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium border ${status.bgColor} ${status.color}`}>
                           <StatusIcon className="w-4 h-4" />
                           {status.label}
                         </span>
                       </div>
 
-                      <div className="border-t border-gray-100 pt-4">
+                      <div className="border-t border-neutral-200 pt-4">
                         <div className="flex items-center gap-3 mb-3">
-                          <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
-                            <Package className="w-5 h-5 text-blue-600" />
+                          <div className="w-10 h-10 bg-neutral-50 border border-neutral-200 flex items-center justify-center">
+                            <Package className="w-5 h-5 text-brand-700" />
                           </div>
-                          <span className="font-semibold text-gray-900">{packageName}</span>
+                          <span className="font-semibold text-brand-900">{packageName}</span>
                         </div>
                         {order.preferred_date && (
                           <div className="flex items-center gap-3 mb-3">
-                            <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center">
-                              <Calendar className="w-5 h-5 text-green-600" />
+                            <div className="w-10 h-10 bg-neutral-50 border border-neutral-200 flex items-center justify-center">
+                              <Calendar className="w-5 h-5 text-neutral-600" />
                             </div>
-                            <span className="text-gray-600 text-sm">
+                            <span className="text-neutral-600 text-sm">
                               {t('bookingDate', lang)}：{preferredDate}
                               {order.preferred_time && ` ${order.preferred_time}`}
                             </span>
                           </div>
                         )}
-                        <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-50">
-                          <span className="text-sm text-gray-400">{t('orderDate', lang)}：{orderDate}</span>
-                          <span className="text-xl font-bold text-blue-600">
+                        <div className="flex items-center justify-between mt-4 pt-4 border-t border-neutral-100">
+                          <span className="text-sm text-neutral-400">{t('orderDate', lang)}：{orderDate}</span>
+                          <span className="text-xl font-bold text-brand-700">
                             ¥{order.total_amount_jpy?.toLocaleString() || '-'}
                           </span>
                         </div>
                       </div>
 
                       {order.notes && (
-                        <div className="mt-4 pt-4 border-t border-gray-100">
-                          <p className="text-sm text-gray-500">{t('notes', lang)}：{order.notes}</p>
+                        <div className="mt-4 pt-4 border-t border-neutral-200">
+                          <p className="text-sm text-neutral-500">{t('notes', lang)}：{order.notes}</p>
                         </div>
                       )}
 
@@ -362,6 +365,6 @@ export default function MyOrdersPage() {
           </div>
         </div>
       </div>
-    </MemberLayout>
+    </PublicLayout>
   );
 }
