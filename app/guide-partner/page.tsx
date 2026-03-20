@@ -1053,108 +1053,32 @@ export default function GuidePartnerPage() {
               </button>
             </div>
             <div className="flex-1">
-              <a
-                href="https://niijima-koutsu.jp/g/demo"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block group"
-              >
-                <p className="text-neutral-400 text-sm mb-3">{t('previewLabel')}</p>
-                <div className="rounded-lg overflow-hidden border border-brand-700 shadow-2xl">
-                  {/* Browser chrome */}
-                  <div className="flex items-center gap-2 px-3 py-2 bg-neutral-800 border-b border-neutral-700">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/70"></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/70"></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/70"></div>
-                    <div className="flex-1 mx-4">
-                      <div className="bg-neutral-700 rounded-md px-3 py-1 text-neutral-400 text-[10px] text-center">niijima-koutsu.jp/g/yourname</div>
-                    </div>
-                  </div>
-                  {/* Page mockup — stacked sections */}
-                  <div className="relative h-[400px] md:h-[480px] overflow-hidden bg-gray-950">
-                    {/* Section 1: Hero with medical image */}
-                    <div className="relative h-[55%]">
-                      <Image
-                        src="https://i.ibb.co/xS1h4rTM/hero-medical.jpg"
-                        alt="White-label demo preview"
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-r from-teal-900/90 via-teal-900/70 to-transparent" />
-                      {/* Nav */}
-                      <div className="absolute top-0 inset-x-0 flex items-center justify-between px-4 py-2.5 bg-black/30 backdrop-blur-sm">
-                        <div className="flex items-center gap-1.5">
-                          <div className="w-4 h-4 rounded bg-white/25"></div>
-                          <span className="text-white/80 text-[10px] font-medium">{t('previewBrandName')}</span>
-                        </div>
-                        <div className="flex gap-2">
-                          <div className="w-6 h-1 rounded-full bg-white/20"></div>
-                          <div className="w-6 h-1 rounded-full bg-white/20"></div>
-                          <div className="w-6 h-1 rounded-full bg-white/20"></div>
-                        </div>
-                      </div>
-                      {/* Hero text */}
-                      <div className="absolute bottom-4 left-4 right-4">
-                        <div className="text-[9px] tracking-widest text-white/50 uppercase mb-1">Premium Health Screening</div>
-                        <div className="text-base md:text-lg font-bold text-white leading-snug mb-1.5">日本精密健康检查</div>
-                        <div className="text-[9px] text-white/50 mb-2 line-clamp-1">在日本顶级医疗机构进行全面精密体检</div>
-                        <div className="inline-block bg-white text-gray-900 px-2.5 py-1 rounded-full text-[9px] font-bold">了解详情 →</div>
-                      </div>
-                    </div>
-                    {/* Section 2: Product cards row */}
-                    <div className="h-[25%] bg-white flex gap-2 p-3">
-                      <div className="flex-1 rounded overflow-hidden relative">
-                        <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 to-emerald-800"></div>
-                        <div className="relative p-2">
-                          <div className="text-[7px] text-white/60 uppercase tracking-wider">University Hospital</div>
-                          <div className="text-[10px] font-bold text-white mt-0.5">兵库医科大学病院</div>
-                        </div>
-                      </div>
-                      <div className="flex-1 rounded overflow-hidden relative">
-                        <div className="absolute inset-0 bg-gradient-to-br from-rose-500 to-rose-700"></div>
-                        <div className="relative p-2">
-                          <div className="text-[7px] text-white/60 uppercase tracking-wider">Aesthetic Medicine</div>
-                          <div className="text-[10px] font-bold text-white mt-0.5">SAI 美容外科</div>
-                        </div>
-                      </div>
-                      <div className="flex-1 rounded overflow-hidden relative">
-                        <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 to-indigo-800"></div>
-                        <div className="relative p-2">
-                          <div className="text-[7px] text-white/60 uppercase tracking-wider">Regenerative</div>
-                          <div className="text-[10px] font-bold text-white mt-0.5">干细胞再生医疗</div>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Section 3: Trust bar */}
-                    <div className="h-[20%] bg-gray-50 flex items-center justify-around px-4">
-                      <div className="text-center">
-                        <div className="w-5 h-5 mx-auto mb-1 rounded bg-blue-100 flex items-center justify-center">
-                          <Shield size={10} className="text-blue-600" />
-                        </div>
-                        <div className="text-[7px] text-gray-500">持牌旅行社</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="w-5 h-5 mx-auto mb-1 rounded bg-amber-100 flex items-center justify-center">
-                          <Shield size={10} className="text-amber-600" />
-                        </div>
-                        <div className="text-[7px] text-gray-500">认证医疗</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="w-5 h-5 mx-auto mb-1 rounded bg-emerald-100 flex items-center justify-center">
-                          <Shield size={10} className="text-emerald-600" />
-                        </div>
-                        <div className="text-[7px] text-gray-500">中文服务</div>
-                      </div>
-                    </div>
-                    {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
-                      <span className="opacity-0 group-hover:opacity-100 transition-opacity text-white text-sm font-medium bg-white/20 backdrop-blur-sm px-5 py-2.5 rounded-full border border-white/30">
-                        {t('viewDemo')}
-                      </span>
-                    </div>
+              <p className="text-neutral-400 text-sm mb-3">{t('previewLabel')}</p>
+              <div className="rounded-lg overflow-hidden border border-brand-700 shadow-2xl">
+                {/* Browser chrome */}
+                <div className="flex items-center gap-2 px-3 py-2 bg-neutral-800 border-b border-neutral-700">
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-500/70"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/70"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-500/70"></div>
+                  <div className="flex-1 mx-4">
+                    <div className="bg-neutral-700 rounded-md px-3 py-1 text-neutral-400 text-[10px] text-center">niijima-koutsu.jp/g/yourname</div>
                   </div>
                 </div>
+                {/* Live iframe preview */}
+                <iframe
+                  src="/g/demo"
+                  className="w-full h-[400px] md:h-[480px] border-0"
+                  title="White-label demo"
+                  loading="lazy"
+                />
+              </div>
+              <a
+                href="/g/demo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-center text-gold-400 text-sm mt-3 hover:underline"
+              >
+                {t('viewDemo')}
               </a>
             </div>
           </div>
