@@ -449,7 +449,7 @@ export default function GuideDashboard() {
               </div>
               <div className="text-right">
                 <p className="text-xs text-neutral-500">{t('yourCurrentLevel', lang)}</p>
-                <p className="text-lg font-bold text-brand-900">{(guide?.commission_tier_code || 'growth') === 'gold' ? t('goldPartner', lang) : t('growthPartner', lang)}</p>
+                <p className="text-lg font-serif font-bold text-brand-900">{(guide?.commission_tier_code || 'growth') === 'gold' ? t('goldPartner', lang) : t('growthPartner', lang)}</p>
               </div>
             </div>
 
@@ -596,7 +596,7 @@ export default function GuideDashboard() {
           {/* Recent Bookings */}
           <div className="bg-white border border-neutral-200">
             <div className="p-6 border-b border-neutral-200 flex items-center justify-between">
-              <h2 className="font-bold text-brand-900">{t('recentBookings', lang)}</h2>
+              <h2 className="font-serif font-bold text-brand-900">{t('recentBookings', lang)}</h2>
               <Link href="/guide-partner/bookings" className="text-brand-700 hover:text-brand-900 text-sm font-medium">
                 {t('viewAll', lang)}
               </Link>

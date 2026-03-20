@@ -376,7 +376,7 @@ export default function OrderLookupPage() {
                 <div className="w-16 h-16 bg-neutral-50 border border-neutral-200 flex items-center justify-center mx-auto mb-4">
                   <AlertCircle className="w-8 h-8 text-neutral-300" />
                 </div>
-                <h3 className="text-lg font-serif text-brand-900 mb-2">{t('orderNotFound', lang)}</h3>
+                <h3 className="text-lg font-semibold text-brand-900 mb-2">{t('orderNotFound', lang)}</h3>
                 <p className="text-neutral-500 text-sm">
                   {t('checkInput', lang)}
                 </p>

@@ -770,7 +770,7 @@ export default function GuidePartnerPage() {
       {/* Resources */}
       <section id="how-it-works" className="bg-neutral-50 py-20">
         <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-brand-900 mb-2">{t('resourcesTitle')}</h2>
+          <h2 className="text-2xl font-serif text-brand-900 mb-2">{t('resourcesTitle')}</h2>
           <p className="text-neutral-500 mb-12">{t('resourcesDesc')}</p>
 
           <div className="space-y-6">
@@ -861,7 +861,7 @@ export default function GuidePartnerPage() {
       {/* Partnership Rules */}
       <section className="bg-white py-20 border-t border-neutral-100">
         <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-brand-900 mb-2">{t('rulesTitle')}</h2>
+          <h2 className="text-2xl font-serif text-brand-900 mb-2">{t('rulesTitle')}</h2>
           <p className="text-neutral-500 mb-12">{t('rulesDesc')}</p>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -946,7 +946,7 @@ export default function GuidePartnerPage() {
           <div className="md:flex md:items-center md:gap-12">
             <div className="flex-1 mb-10 md:mb-0">
               <p className="text-gold-400 text-sm font-medium mb-4">{t('brandSectionBadge')}</p>
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">
+              <h2 className="text-2xl md:text-3xl font-serif mb-4">
                 {t('brandSectionTitle')}
               </h2>
               <p className="text-neutral-400 leading-relaxed mb-6">
@@ -1023,7 +1023,7 @@ export default function GuidePartnerPage() {
       {/* CTA */}
       <section className="bg-white py-16">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-brand-900 mb-4">
+          <h2 className="text-2xl md:text-3xl font-serif text-brand-900 mb-4">
             {t('ctaTitle')}
           </h2>
           <p className="text-neutral-600 mb-8">

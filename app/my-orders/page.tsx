@@ -272,7 +272,7 @@ export default function MyOrdersPage() {
                 <div className="w-16 h-16 bg-neutral-50 border border-neutral-200 flex items-center justify-center mx-auto mb-6">
                   <FileText className="w-8 h-8 text-neutral-300" />
                 </div>
-                <h3 className="text-lg font-serif text-brand-900 mb-3">{t('noOrders', lang)}</h3>
+                <h3 className="text-lg font-semibold text-brand-900 mb-3">{t('noOrders', lang)}</h3>
                 <p className="text-neutral-500 text-sm mb-8">{t('noOrdersDesc', lang)}</p>
                 <Link
                   href="/medical"
