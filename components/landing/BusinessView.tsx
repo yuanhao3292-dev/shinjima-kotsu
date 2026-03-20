@@ -2,7 +2,7 @@
 
 import React, { useMemo } from 'react';
 import Image from 'next/image';
-import { ArrowLeft, Building, Microscope, Heart, Factory, Cpu, Monitor, Stethoscope, Globe, Bus, Utensils, ExternalLink } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Building, Microscope, Heart, Factory, Cpu, Monitor, Stethoscope, Globe, Bus, Utensils, ExternalLink, MessageSquare } from 'lucide-react';
 import ContactButtons from '../ContactButtons';
 import { COMPANY_DATA, type Company } from '@/data/companies';
 import { localizeText } from '@/lib/utils/text-converter';
@@ -125,34 +125,56 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
 
    return (
     <div className="animate-fade-in-up min-h-screen bg-white">
-      {/* Hero - Full height with transparent nav overlap */}
-      <div className="relative min-h-[85vh] flex flex-col items-center justify-center overflow-hidden">
-         {/* Background Image */}
-         <div className="absolute inset-0">
-           <Image
-             src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
-             alt="Business"
-             fill
-             className="object-cover object-center"
-             sizes="100vw"
-             quality={75}
-           />
-           <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-900/80 to-brand-900/70"></div>
-         </div>
-         {/* Decorative Elements */}
-         <div className="absolute inset-0">
-           <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
-           <div className="absolute w-72 h-72 bg-brand-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
-         </div>
-         <div className="relative z-10 text-center px-6 py-12 md:py-24">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif font-bold text-white mb-4 md:mb-6 leading-tight">
-                {t.business.hero_title}
+      {/* 1. Hero Section - Cancer Treatment style */}
+      <section className="relative min-h-screen flex items-center bg-brand-900 overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src={getImage('business_hero')}
+            fill
+            className="object-cover object-center"
+            alt="Japan Business Inspection"
+            sizes="100vw"
+            quality={75}
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70"></div>
+        </div>
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
+          <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+        </div>
+        <div className="container mx-auto px-6 relative z-10 py-32">
+          <div className="max-w-4xl">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="h-[1px] w-12 bg-gold-400"></div>
+              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">BUSINESS INSPECTION</span>
+            </div>
+            <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
+              {t.business.hero_title}
             </h1>
-            <p className="text-neutral-300 max-w-2xl mx-auto leading-relaxed whitespace-pre-line">
-                {t.business.hero_text}
+            <p className="text-lg text-neutral-300 mb-8 leading-relaxed max-w-2xl whitespace-pre-line">
+              {t.business.hero_text}
             </p>
-         </div>
-      </div>
+            <div className="flex flex-wrap gap-4">
+              <a
+                href="#business-plans-section"
+                className="inline-flex items-center gap-2 bg-white text-brand-900 px-8 py-4 font-bold hover:bg-neutral-100 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
+              >
+                {t.business.btn_case}
+                <ArrowRight size={18} />
+              </a>
+              <a
+                href="#business-contact"
+                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 font-bold hover:bg-white/20 transition-all"
+              >
+                <MessageSquare size={20} />
+                {currentLang === 'zh-TW' ? '諮詢預約' : currentLang === 'zh-CN' ? '咨询预约' : currentLang === 'ja' ? 'お問い合わせ' : 'Contact Us'}
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <div className="container mx-auto px-6 py-12 md:py-24 py-24">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center mb-12 md:mb-24">
@@ -168,7 +190,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                       }
                    }}
-                   className="bg-brand-600 text-white px-8 py-3 rounded-full font-bold hover:bg-brand-700 transition shadow-lg"
+                   className="inline-flex items-center gap-2 bg-brand-900 text-white px-8 py-4 font-bold hover:bg-brand-800 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
                 >
                    {t.business.btn_case}
                 </button>
@@ -319,7 +341,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
           </div>
 
           {/* Contact Buttons */}
-          <div className="py-16 bg-neutral-50 -mx-6 px-6 py-12 md:py-24 mt-16">
+          <div id="business-contact" className="py-16 bg-neutral-50 -mx-6 px-6 py-12 md:py-24 mt-16">
             <div className="max-w-2xl mx-auto text-center">
               <h3 className="text-2xl font-serif font-bold text-neutral-900 mb-2">{localizedTexts.ctaTitle}</h3>
               <p className="text-neutral-500 mb-8">{localizedTexts.ctaSubtitle}</p>
