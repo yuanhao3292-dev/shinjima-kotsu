@@ -709,13 +709,13 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               {currentLang === 'zh-TW' ? '用心連結世界與日本' : currentLang === 'zh-CN' ? '用心连结世界与日本' : currentLang === 'ja' ? '心をつなぐ、世界と日本' : 'Connecting the World with Japan'}
             </h2>
             <p className="text-neutral-400 leading-relaxed mb-10 max-w-2xl mx-auto">
-              {currentLang === 'zh-TW' ? '我們致力於為華人旅客提供最高品質的日本旅遊體驗。我們相信，真正的服務不僅是滿足需求，更是創造感動。' : currentLang === 'zh-CN' ? '我们致力于为华人旅客提供最高品质的日本旅游体验。我们相信，真正的服务不仅是满足需求，更是创造感动。' : currentLang === 'ja' ? '2020年設立以来、新島交通は華人旅行者の皆様に最高品質の日本旅行体験を提供してまいりました。真のサービスとは、ニーズを満たすだけでなく、感動を創造することだと信じています。' : 'We are dedicated to providing the highest quality Japan travel experience. We believe true service is not just meeting needs, but creating memorable moments.'}
+              {currentLang === 'zh-TW' ? '我們致力於為全球旅客提供最高品質的日本旅遊體驗。我們相信，真正的服務不僅是滿足需求，更是創造感動。' : currentLang === 'zh-CN' ? '我们致力于为全球旅客提供最高品质的日本旅游体验。我们相信，真正的服务不仅是满足需求，更是创造感动。' : currentLang === 'ja' ? '2020年設立以来、新島交通は世界中の旅行者の皆様に最高品質の日本旅行体験を提供してまいりました。真のサービスとは、ニーズを満たすだけでなく、感動を創造することだと信じています。' : 'We are dedicated to providing the highest quality Japan travel experience. We believe true service is not just meeting needs, but creating memorable moments.'}
             </p>
             <a
               href="/company/about"
               className="inline-flex items-center text-xs text-white border border-white/30 px-8 py-3 hover:bg-white hover:text-brand-900 transition-all tracking-wider"
             >
-              {currentLang === 'zh-TW' ? '了解更多' : currentLang === 'zh-CN' ? '了解更多' : currentLang === 'ja' ? '詳しく見る' : 'Learn More'}
+              {currentLang === 'zh-TW' ? '企業介紹' : currentLang === 'zh-CN' ? '企业介绍' : currentLang === 'ja' ? '会社紹介' : 'About Us'}
               <ArrowRight size={14} className="ml-2" />
             </a>
           </div>
