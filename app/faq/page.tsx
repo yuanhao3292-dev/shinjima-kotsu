@@ -21,7 +21,7 @@ const CATEGORY_LABELS: Record<string, Record<Language, string>> = {
   cancer: { ja: 'がん治療', 'zh-TW': '重症治療', 'zh-CN': '重症治疗', en: 'Cancer Treatment' },
   checkup: { ja: '健診・体検', 'zh-TW': '精密體檢', 'zh-CN': '精密体检', en: 'Health Checkup' },
   golf: { ja: 'ゴルフ', 'zh-TW': '高爾夫', 'zh-CN': '高尔夫', en: 'Golf' },
-  business: { ja: '商務視察', 'zh-TW': '商務考察', 'zh-CN': '商务考察', en: 'Business Tour' },
+  business: { ja: 'ビジネス視察', 'zh-TW': '商務考察', 'zh-CN': '商务考察', en: 'Business Tour' },
   ground: { ja: '地上手配', 'zh-TW': '日本地接', 'zh-CN': '日本地接', en: 'Ground Service' },
 };
 
@@ -38,7 +38,7 @@ const FAQ_DATA: FAQItem[] = [
       en: 'What types of cancer can be treated in Japan? What are the advantages compared to China?',
     },
     answer: {
-      ja: '日本は消化器がん（胃・大腸・肝臓・食道）の治療で世界的にリードしており、5年生存率は国際平均を大きく上回っています。主な優位性：（1）精密検査による高い早期発見率（2）腹腔鏡・ロボット手術（ダヴィンチ等）の高い普及率（3）陽子線・重粒子線治療施設が世界最多（全国約30施設以上）（4）多科学連携治療（MDT）体制が充実し、複数の専門医が共同で治療方針を決定。代表的な専門病院に、がん研有明病院、国立がん研究センターなどがあります。',
+      ja: '日本は消化器がん（胃・大腸・肝臓・食道）の治療で世界的にリードしており、5年生存率は国際平均を大きく上回っています。主な優位性：（1）精密検査による高い早期発見率（2）腹腔鏡・ロボット手術（ダヴィンチ等）の高い普及率（3）陽子線・重粒子線治療施設が世界最多（全国約30施設以上）（4）多学科連携治療（MDT）体制が充実し、複数の専門医が共同で治療方針を決定。代表的な専門病院に、がん研有明病院、国立がん研究センターなどがあります。',
       'zh-TW': '日本在消化系統腫瘤（胃癌、腸癌、肝癌、食道癌）的治療方面全球領先，五年生存率顯著高於國際平均水平。核心優勢包括：（1）早期發現率高，精密檢查體系完善（2）微創手術技術成熟，腹腔鏡、達芬奇機器人手術等普及率高（3）質子重離子治療設施數量全球最多（全國約30餘處）（4）多學科聯合診療（MDT）制度完善，由外科、內科、放療科等多學科專家共同制定治療方案。知名的癌症專科醫院包括癌研有明病院和國立癌症研究中心等。',
       'zh-CN': '日本在消化系统肿瘤（胃癌、肠癌、肝癌、食道癌）的治疗方面全球领先，五年生存率显著高于国际平均水平。核心优势包括：（1）早期发现率高，精密检查体系完善（2）微创手术技术成熟，腹腔镜、达芬奇机器人手术等普及率高（3）质子重离子治疗设施数量全球最多（全国约30余处）（4）多学科联合诊疗（MDT）制度完善，由外科、内科、放疗科等多学科专家共同制定治疗方案。知名的癌症专科医院包括癌研有明病院和国立癌症研究中心等。',
       en: 'Japan leads globally in treating digestive cancers (stomach, colon, liver, esophageal), with 5-year survival rates significantly above international averages. Key advantages: (1) High early detection rates through precision screening (2) Widespread minimally invasive surgery including da Vinci robotic surgery (3) World\'s most proton/heavy ion therapy facilities (~30+ nationwide) (4) Well-established MDT (Multi-Disciplinary Team) system where specialists jointly develop treatment plans. Leading hospitals include Cancer Institute Hospital Ariake and National Cancer Center.',
@@ -53,16 +53,16 @@ const FAQ_DATA: FAQItem[] = [
       en: 'What visa is needed for medical treatment in Japan? What is the process?',
     },
     answer: {
-      ja: '「医療滞在ビザ」の取得が必要です。2011年から外国人患者向けに設けられた専用ビザです。手続きの流れ：（1）患者の診療記録を翻訳し、日本の病院に評価を依頼（2）病院から受入確認書・治療計画書を取得（3）日本政府認定の身元保証機関から身元保証書を取得（4）パスポート・申請書・残高証明（10万元以上）・治療計画書等を揃え、日本大使館指定の代理店で申請。準備から発給まで約3-4週間、有効期間は通常30-90日。当社は身元保証から申請手続きまで一括サポートいたします。',
+      ja: '「医療滞在ビザ」の取得が必要です。2011年から外国人患者向けに設けられた専用ビザです。手続きの流れ：（1）患者の診療記録を翻訳し、日本の病院に評価を依頼（2）病院から受入確認書・治療計画書を取得（3）日本政府認定の身元保証機関から身元保証書を取得（4）パスポート・申請書・残高証明（10万人民元以上）・治療計画書等を揃え、日本大使館指定の代理店で申請。準備から発給まで約3-4週間、有効期間は通常30-90日。当社は身元保証から申請手続きまで一括サポートいたします。',
       'zh-TW': '需要申請「醫療滯在簽證」，這是日本政府自2011年起專門面向海外患者開設的簽證類別。辦理流程：（1）患者提供病歷資料，由我們翻譯後提交日本醫院評估（2）日本醫院出具接收通知書和治療計劃書（3）由具備「身元保證」資質的機構出具擔保函（4）攜帶護照、簽證申請表、存款證明（不少於10萬元人民幣）、治療計劃書等材料到日本大使館指定機構遞交申請。從準備到出簽約需3-4週，簽證有效期通常為30-90天。我們提供從身元擔保到簽證申請的全程協助。',
       'zh-CN': '需要申请"医疗滞在签证"，这是日本政府自2011年起专门面向海外患者开设的签证类别。办理流程：（1）患者提供病历资料，由我们翻译后提交日本医院评估（2）日本医院出具接收通知书和治疗计划书（3）由具备"身元保证"资质的机构出具担保函（4）携带护照、签证申请表、存款证明（不少于10万元人民币）、治疗计划书等材料到日本大使馆指定机构递交申请。从准备到出签约需3-4周，签证有效期通常为30-90天。我们提供从身元担保到签证申请的全程协助。',
-      en: 'You need a "Medical Stay Visa," established in 2011 specifically for overseas patients. Process: (1) Submit translated medical records for Japanese hospital evaluation (2) Obtain acceptance letter and treatment plan from the hospital (3) Get a guarantor letter from an authorized institution (4) Submit passport, application form, bank statement (min. ¥100,000 CNY), treatment plan, etc. to the designated agency. Processing takes 3-4 weeks, with validity of 30-90 days. We provide full support from guarantor arrangements to visa application.',
+      en: 'You need a "Medical Stay Visa," established in 2011 specifically for overseas patients. Process: (1) Submit translated medical records for Japanese hospital evaluation (2) Obtain acceptance letter and treatment plan from the hospital (3) Get a guarantor letter from an authorized institution (4) Submit passport, application form, bank statement (min. RMB 100,000), treatment plan, etc. to the designated agency. Processing takes 3-4 weeks, with validity of 30-90 days. We provide full support from guarantor arrangements to visa application.',
     },
   },
   {
     category: 'cancer',
     question: {
-      ja: '質子線・重粒子線治療はどのような患者に適していますか？',
+      ja: '陽子線・重粒子線治療はどのような患者に適していますか？',
       'zh-TW': '質子重離子治療適合哪些患者？',
       'zh-CN': '质子重离子治疗适合哪些患者？',
       en: 'Which patients are suitable for proton/heavy ion therapy?',
@@ -116,7 +116,7 @@ const FAQ_DATA: FAQItem[] = [
     answer: {
       ja: '日本の人間ドック（高級健診）は通常以下を含みます：基礎検査（血圧、体脂肪率等）、血液検査（肝腎機能、血脂、腫瘍マーカー等）、尿検査、心電図、腹部超音波、胸部CT、胃内視鏡（上部消化管）、甲状腺超音波、眼底検査、肺機能検査など。ハイグレードプランではPET-CT全身腫瘍スクリーニング、頭部MRI/MRA、大腸内視鏡も選択可能です。中国との主な違い：（1）CT・MRIの分解能がミリ単位で極めて精密（2）胃カメラが標準で、経鼻法や鎮静法で苦痛が少ない（3）一対一の専属サポート、全程中国語対応（4）報告書に詳細な健康アドバイスとフォローアップ計画を添付。',
       'zh-TW': '日本高端體檢（人間ドック）通常包含：基礎檢查（血壓、體脂率等）、血液檢查（肝腎功能、血脂、腫瘤標誌物等）、尿檢、心電圖、腹部超聲波、胸部CT、胃鏡、甲狀腺超聲波、眼底檢查、肺功能等。高端套餐可加選PET-CT全身腫瘤篩查、頭部MRI/MRA、大腸鏡。與國內體檢的主要區別：（1）影像設備分辨率達毫米級，可發現極早期病變（2）胃鏡是標配，日本醫生操作技術精湛，可選無痛胃鏡（3）全程一對一專屬服務，配備中文醫療翻譯（4）報告附詳細健康建議和後續隨訪方案。',
-      'zh-CN': '日本高端体检（人间ドック）通常包含：基础检查（血压、体脂率等）、血液检查（肝肾功能、血脂、肿瘤标志物等）、尿检、心电图、腹部超声波、胸部CT、胃镜、甲状腺超声波、眼底检查、肺功能等。高端套餐可加选PET-CT全身肿瘤筛查、头部MRI/MRA、大肠镜。与国内体检的主要区别：（1）影像设备分辨率达毫米级，可发现极早期病变（2）胃镜是标配，日本医生操作技术精湛，可选无痛胃镜（3）全程一对一专属服务，配备中文医疗翻译（4）报告附详细健康建议和后续随访方案。',
+      'zh-CN': '日本高端体检（人间Dock/综合体检）通常包含：基础检查（血压、体脂率等）、血液检查（肝肾功能、血脂、肿瘤标志物等）、尿检、心电图、腹部超声波、胸部CT、胃镜、甲状腺超声波、眼底检查、肺功能等。高端套餐可加选PET-CT全身肿瘤筛查、头部MRI/MRA、大肠镜。与国内体检的主要区别：（1）影像设备分辨率达毫米级，可发现极早期病变（2）胃镜是标配，日本医生操作技术精湛，可选无痛胃镜（3）全程一对一专属服务，配备中文医疗翻译（4）报告附详细健康建议和后续随访方案。',
       en: 'Japanese premium health checkups (Ningen Dock) typically include: basic measurements, blood tests (liver/kidney function, lipids, tumor markers), urinalysis, ECG, abdominal ultrasound, chest CT, gastroscopy, thyroid ultrasound, fundoscopy, and pulmonary function tests. Premium packages add PET-CT, brain MRI/MRA, and colonoscopy. Key differences from Chinese checkups: (1) Millimeter-level imaging resolution for ultra-early detection (2) Gastroscopy is standard, with painless sedation options (3) One-on-one service with Chinese medical interpreter (4) Reports include detailed health advice and follow-up plans.',
     },
   },
@@ -129,7 +129,7 @@ const FAQ_DATA: FAQItem[] = [
       en: 'Is PET-CT mandatory? Who is it suitable for?',
     },
     answer: {
-      ja: 'PET-CTは必須ではありませんが、がんの早期発見に有効な検査です。がん細胞が正常細胞の3-8倍のブドウ糖を取り込む特性を利用し、全身の代謝異常部位を検出します。推奨対象：（1）40-70歳の方（2）がんの家族歴がある方（3）長期喫煙・飲酒者（4）腫瘍の全身転移評価が必要な方。ただし5mm以下の微小腫瘍や一部の低代謝腫瘍には限界があるため、通常の検査を補完する位置づけです。費用は約7-10万円（人民元約3,500-5,000元）。当院では受診者の年齢・病歴に応じて最適なプランをご提案します。',
+      ja: 'PET-CTは必須ではありませんが、がんの早期発見に有効な検査です。がん細胞が正常細胞の3-8倍のブドウ糖を取り込む特性を利用し、全身の代謝異常部位を検出します。推奨対象：（1）40-70歳の方（2）がんの家族歴がある方（3）長期喫煙・飲酒者（4）腫瘍の全身転移評価が必要な方。ただし5mm以下の微小腫瘍や一部の低代謝腫瘍には限界があるため、通常の検査を補完する位置づけです。費用は約7-10万円（人民元約3,500-5,000元）。当社では受診者の年齢・病歴に応じて最適なプランをご提案します。',
       'zh-TW': 'PET-CT 並非人人必做，但對癌症早期篩查非常有效。原理是利用癌細胞吸收葡萄糖能力比正常細胞強3-8倍的特點來掃描全身。適合人群：（1）40-70歲人群（2）有癌症家族史者（3）長期吸煙飲酒者（4）已確診腫瘤需評估全身轉移情況的患者。但需注意，PET-CT 對早期微小腫瘤（小於5mm）和某些低代謝腫瘤的檢出率有限，因此更適合作為綜合體檢的補充。費用約7-10萬日元（折合人民幣約3500-5000元）。我們會根據您的年齡和病史推薦最適合的套餐。',
       'zh-CN': 'PET-CT 并非人人必做，但对癌症早期筛查非常有效。原理是利用癌细胞吸收葡萄糖能力比正常细胞强3-8倍的特点来扫描全身。适合人群：（1）40-70岁人群（2）有癌症家族史者（3）长期吸烟饮酒者（4）已确诊肿瘤需评估全身转移情况的患者。但需注意，PET-CT 对早期微小肿瘤（小于5mm）和某些低代谢肿瘤的检出率有限，因此更适合作为综合体检的补充。费用约7-10万日元（折合人民币约3500-5000元）。我们会根据您的年龄和病史推荐最适合的套餐。',
       en: 'PET-CT is not mandatory but very effective for early cancer screening. It detects metabolic abnormalities since cancer cells absorb 3-8x more glucose than normal cells. Recommended for: (1) Ages 40-70 (2) Family history of cancer (3) Long-term smokers/drinkers (4) Patients needing metastasis assessment. Limitations exist for tumors under 5mm and some low-metabolism types. Cost: ~¥70,000-100,000. We recommend the optimal package based on your age and medical history.',
@@ -161,7 +161,7 @@ const FAQ_DATA: FAQItem[] = [
     answer: {
       ja: 'プラン内容により異なります。参考価格：（1）基本人間ドック（半日）：約5-8万円 — 血液検査、超音波、心電図、胸部X線等（2）標準プラン（胃カメラ含む）：約8-12万円（3）がんスクリーニング（PET-CT＋MRI）：約15-25万円（4）最上級全身精密検査：約30-50万円 — PET-CT、全身MRI、脳MRI/MRA、胃大腸内視鏡等を全て含む。上記は純粋な検査費用で、航空券・宿泊・通訳費は含みません。当社では通訳陪同・送迎・宿泊手配込みのワンストップパッケージもご用意しています。',
       'zh-TW': '費用因套餐內容不同差異較大。參考價格：（1）基礎人間ドック（半日）：約5-8萬日元（折合人民幣2500-4000元）——血液、超聲波、心電圖、胸部X線等（2）標準套餐（含胃鏡）：約8-12萬日元（3）癌症篩查套餐（PET-CT + MRI）：約15-25萬日元（4）頂級全身精密檢查：約30-50萬日元——含PET-CT、全身MRI、腦MRI/MRA、胃腸鏡等全部項目。以上為純體檢費用，不含機票、住宿和翻譯。我們提供包含翻譯陪同、接送、住宿安排的一站式套餐。',
-      'zh-CN': '费用因套餐内容不同差异较大。参考价格：（1）基础人间ドック（半日）：约5-8万日元（折合人民币2500-4000元）——血液、超声波、心电图、胸部X线等（2）标准套餐（含胃镜）：约8-12万日元（3）癌症筛查套餐（PET-CT + MRI）：约15-25万日元（4）顶级全身精密检查：约30-50万日元——含PET-CT、全身MRI、脑MRI/MRA、胃肠镜等全部项目。以上为纯体检费用，不含机票、住宿和翻译。我们提供包含翻译陪同、接送、住宿安排的一站式套餐。',
+      'zh-CN': '费用因套餐内容不同差异较大。参考价格：（1）基础人间Dock（半日）：约5-8万日元（折合人民币2500-4000元）——血液、超声波、心电图、胸部X线等（2）标准套餐（含胃镜）：约8-12万日元（3）癌症筛查套餐（PET-CT + MRI）：约15-25万日元（4）顶级全身精密检查：约30-50万日元——含PET-CT、全身MRI、脑MRI/MRA、胃肠镜等全部项目。以上为纯体检费用，不含机票、住宿和翻译。我们提供包含翻译陪同、接送、住宿安排的一站式套餐。',
       en: 'Costs vary by package: (1) Basic Ningen Dock (half-day): ~¥50,000-80,000 (2) Standard with gastroscopy: ~¥80,000-120,000 (3) Cancer screening (PET-CT + MRI): ~¥150,000-250,000 (4) Comprehensive full-body: ~¥300,000-500,000 including PET-CT, full-body MRI, brain MRI/MRA, and endoscopies. These are checkup-only prices, excluding flights, accommodation, and interpretation. We offer all-inclusive packages with interpreter, transfers, and hotel arrangements.',
     },
   },
@@ -177,7 +177,7 @@ const FAQ_DATA: FAQItem[] = [
     answer: {
       ja: '日本には2,600以上のゴルフ場があり、世界級の名コースも多数あります。おすすめ：（1）廣野ゴルフ倶楽部（兵庫）—日本ランキング1位、アジアNo.1（完全会員制）（2）川奈ホテルゴルフコース・富士コース（静岡）—富士山と太平洋を望む絶景コース、ホテル宿泊者予約可（3）太平洋クラブ御殿場コース—プロトーナメント開催コース（4）那覇空港から好アクセスの沖縄コース—年中プレー可能。当社ではお客様のレベルやご希望に合わせて最適なコースをご提案し、予約から送迎まで一括手配いたします。',
       'zh-TW': '日本擁有超過2600家高爾夫球場，其中不乏世界級名場。推薦：（1）廣野高爾夫俱樂部（兵庫縣）——日本排名第一、亞洲第一，純會員制（2）川奈酒店高爾夫·富士球場（靜岡縣）——可遠眺富士山和太平洋，酒店住客可預約（3）太平洋俱樂部·御殿場球場——多次舉辦職業賽事（4）沖繩球場——四季皆可打球，海景絕佳。我們會根據您的水平和偏好推薦最適合的球場，從預約到接送全程安排。',
-      'zh-CN': '日本拥有超过2600家高尔夫球场，其中不乏世界级名场。推荐：（1）广野高尔夫俱乐部（�的库县）——日本排名第一、亚洲第一，纯会员制（2）川奈酒店高尔夫·富士球场（静冈县）——可远眺富士山和太平洋，酒店住客可预约（3）太平洋俱乐部·御殿场球场——多次举办职业赛事（4）冲绳球场——四季皆可打球，海景绝佳。我们会根据您的水平和偏好推荐最适合的球场，从预约到接送全程安排。',
+      'zh-CN': '日本拥有超过2600家高尔夫球场，其中不乏世界级名场。推荐：（1）广野高尔夫俱乐部（兵库县）——日本排名第一、亚洲第一，纯会员制（2）川奈酒店高尔夫·富士球场（静冈县）——可远眺富士山和太平洋，酒店住客可预约（3）太平洋俱乐部·御殿场球场——多次举办职业赛事（4）冲绳球场——四季皆可打球，海景绝佳。我们会根据您的水平和偏好推荐最适合的球场，从预约到接送全程安排。',
       en: 'Japan has over 2,600 golf courses with many world-class options: (1) Hirono Golf Club (Hyogo) — Japan\'s #1, Asia\'s #1, members-only (2) Kawana Hotel Golf Course Fuji Course (Shizuoka) — stunning Mt. Fuji & Pacific views, hotel guests can book (3) Taiheiyo Club Gotemba — hosts professional tournaments (4) Okinawa courses — playable year-round with ocean views. We recommend the best course for your level and handle everything from booking to transfers.',
     },
   },
@@ -236,7 +236,7 @@ const FAQ_DATA: FAQItem[] = [
       en: 'What industries and companies can be visited in Japan?',
     },
     answer: {
-      ja: '人気の視察テーマ：（1）リーン製造・自動車産業—トヨタ工場見学とTPS（トヨタ生産方式）体験（2）経営管理—京セラのアメーバ経営研修、パナソニックの経営理念学習（3）スマート製造—ファナック（FANUC）ロボット工場、オムロン自動化工場（4）製品設計—TOTO工場見学（多品種小ロット生産の模範）（5）小売・サービス—セブンイレブンのサプライチェーン管理（6）医療・介護—先進病院や介護施設の見学（7）農業・食品—精品農業・食品安全体制の視察。お客様の業種や学習目標に合わせ、テクノパーク・大学・研究機関の視察も手配可能です。',
+      ja: '人気の視察テーマ：（1）リーン製造・自動車産業—トヨタ工場見学とTPS（トヨタ生産方式）体験（2）経営管理—京セラのアメーバ経営研修、パナソニックの経営理念学習（3）スマート製造—ファナック（FANUC）ロボット工場、オムロン自動化工場（4）製品設計—TOTO工場見学（多品種小ロット生産の模範）（5）小売・サービス—セブンイレブンのサプライチェーン管理（6）医療・介護—先進病院や介護施設の見学（7）農業・食品—高品質農業・食品安全体制の視察。お客様の業種や学習目標に合わせ、テクノパーク・大学・研究機関の視察も手配可能です。',
       'zh-TW': '熱門考察方向：（1）精益製造/汽車工業——豐田工廠參觀及TPS豐田生產方式體驗（2）經營管理——京瓷阿米巴經營學習、松下經營理念研修（3）智能製造——發那科（FANUC）機器人工廠、歐姆龍自動化工廠（4）產品設計——TOTO工廠（多品種小批量典範）（5）零售/服務業——7-11便利店供應鏈管理（6）醫療/健康產業——日本知名醫院和養老設施參觀（7）農業/食品——精品農業、食品安全體系考察。我們會根據您的行業背景和學習目標深度定製行程。',
       'zh-CN': '热门考察方向：（1）精益制造/汽车工业——丰田工厂参观及TPS丰田生产方式体验（2）经营管理——京瓷阿米巴经营学习、松下经营理念研修（3）智能制造——发那科（FANUC）机器人工厂、欧姆龙自动化工厂（4）产品设计——TOTO工厂（多品种小批量典范）（5）零售/服务业——7-11便利店供应链管理（6）医疗/健康产业——日本知名医院和养老设施参观（7）农业/食品——精品农业、食品安全体系考察。我们会根据您的行业背景和学习目标深度定制行程。',
       en: 'Popular study themes: (1) Lean manufacturing — Toyota factory tour & TPS experience (2) Management — Kyocera Amoeba Management, Panasonic philosophy (3) Smart manufacturing — FANUC robotics, Omron automation (4) Product design — TOTO factory (multi-variety small-batch model) (5) Retail — 7-Eleven supply chain (6) Healthcare — hospital & elderly care facilities (7) Agriculture & food safety systems. We customize itineraries based on your industry and learning objectives.',
@@ -245,13 +245,13 @@ const FAQ_DATA: FAQItem[] = [
   {
     category: 'business',
     question: {
-      ja: '商務ビザの取得方法と必要書類は？',
+      ja: '商用ビザの取得方法と必要書類は？',
       'zh-TW': '商務考察簽證如何辦理？需要什麼材料？',
       'zh-CN': '商务考察签证如何办理？需要什么材料？',
       en: 'How do I get a business visa? What documents are needed?',
     },
     answer: {
-      ja: '「短期滞在ビザ（商用目的）」を申請します。必要書類：【申請者側】パスポート原件・申請書・証明写真・在職証明・会社営業許可証副本・訪問者名簿。【日本招聘側】招聘理由書（訪問目的と日程）・滞在予定表・身元保証書・会社登記事項証明書。審査は通常5-7営業日で、有効期間90日、1回の滞在は最長15日または30日。2-3週間前のご準備をお勧めします。当社が招聘状の発行から申請サポートまで一括で対応いたします。',
+      ja: '「短期滞在ビザ（商用目的）」を申請します。必要書類：【申請者側】パスポート原本・申請書・証明写真・在職証明・会社営業許可証コピー・訪問者名簿。【日本招聘側】招聘理由書（訪問目的と日程）・滞在予定表・身元保証書・会社登記事項証明書。審査は通常5-7営業日で、有効期間90日、1回の滞在は最長15日または30日。2-3週間前のご準備をお勧めします。当社が招聘状の発行から申請サポートまで一括で対応いたします。',
       'zh-TW': '通常申請「短期商用簽證」。所需材料分三部分：【申請人】護照原件、簽證申請表、照片、在職證明、公司營業執照副本、申請人名簿。【日本邀請方需提供】招聘理由書（說明邀請目的和行程）、滯在預定表（詳細日程）、身元保證書、邀請方公司登記證明。審核一般需5-7個工作日，建議提前2-3週準備。商務簽證有效期90天，單次停留最長15天或30天。我們提供邀請函開具和簽證申請全程協助。',
       'zh-CN': '通常申请"短期商用签证"。所需材料分三部分：【申请人】护照原件、签证申请表、照片、在职证明、公司营业执照副本、申请人名簿。【日本邀请方需提供】招聘理由书（说明邀请目的和行程）、滞在预定表（详细日程）、身元保证书、邀请方公司登记证明。审核一般需5-7个工作日，建议提前2-3周准备。商务签证有效期90天，单次停留最长15天或30天。我们提供邀请函开具和签证申请全程协助。',
       en: 'Apply for a "Short-term Business Visa." Required documents: [Applicant] passport, application form, photo, employment certificate, business license. [Japanese inviter] invitation letter with purpose/itinerary, schedule, guarantor letter, company registration. Processing: 5-7 business days; validity: 90 days, max stay 15 or 30 days. Plan 2-3 weeks ahead. We handle invitation letters and full visa application support.',
@@ -266,7 +266,7 @@ const FAQ_DATA: FAQItem[] = [
       en: 'How are itineraries arranged? Can they be customized?',
     },
     answer: {
-      ja: '標準的な商務視察は5-7日間、2-3都市をカバーします。典型例：1日目—来日・オリエンテーション、2-3日目—企業視察（1日1-2社、工場見学・経営層座談・事例共有）、4日目—専門研修または大学交流、5日目—文化体験（茶道・伝統工芸等）、6日目—都市間移動または補足視察、7日目—総括会・帰国。行程は完全カスタマイズ可能です。当社はお客様の業種・目的に合わせ、企業アポイント調整・専門通訳手配・交通宿泊・ビザサポートまでワンストップでご提供。標準団（10-30名）から少人数VIP団（5名以下）まで対応しています。',
+      ja: '標準的なビジネス視察は5-7日間、2-3都市をカバーします。典型例：1日目—来日・オリエンテーション、2-3日目—企業視察（1日1-2社、工場見学・経営層座談・事例共有）、4日目—専門研修または大学交流、5日目—文化体験（茶道・伝統工芸等）、6日目—都市間移動または補足視察、7日目—総括会・帰国。行程は完全カスタマイズ可能です。当社はお客様の業種・目的に合わせ、企業アポイント調整・専門通訳手配・交通宿泊・ビザサポートまでワンストップでご提供。標準団（10-30名）から少人数VIP団（5名以下）まで対応しています。',
       'zh-TW': '標準行程一般5-7天，覆蓋2-3個城市。典型安排：第1天——抵達日本、行程說明會；第2-3天——企業參訪（每天1-2家，含工廠車間參觀、管理層座談、案例分享）；第4天——專題研修或大學交流；第5天——文化體驗（茶道、傳統工藝等）；第6天——城市間移動或補充參訪；第7天——總結分享會、返程。行程完全可以根據您的行業背景和學習目標深度定製。我們提供從行程設計、企業對接、翻譯陪同、交通住宿到簽證的一站式服務，支持10-30人標準團和5人以下VIP小團。',
       'zh-CN': '标准行程一般5-7天，覆盖2-3个城市。典型安排：第1天——抵达日本、行程说明会；第2-3天——企业参访（每天1-2家，含工厂车间参观、管理层座谈、案例分享）；第4天——专题研修或大学交流；第5天——文化体验（茶道、传统工艺等）；第6天——城市间移动或补充参访；第7天——总结分享会、返程。行程完全可以根据您的行业背景和学习目标深度定制。我们提供从行程设计、企业对接、翻译陪同、交通住宿到签证的一站式服务，支持10-30人标准团和5人以下VIP小团。',
       en: 'Standard tours run 5-7 days across 2-3 cities. Typical schedule: Day 1 — arrival & orientation; Days 2-3 — company visits (1-2/day: factory tours, executive talks, case studies); Day 4 — specialized training or university exchange; Day 5 — cultural experiences; Day 6 — city transfer or additional visits; Day 7 — wrap-up & departure. Fully customizable to your industry and goals. We provide end-to-end service including scheduling, interpretation, logistics, and visa support for groups of 5-30+.',
@@ -275,13 +275,13 @@ const FAQ_DATA: FAQItem[] = [
   {
     category: 'business',
     question: {
-      ja: '商務視察の費用はどのくらいですか？',
+      ja: 'ビジネス視察の費用はどのくらいですか？',
       'zh-TW': '商務考察的費用大概是多少？',
       'zh-CN': '商务考察的费用大概是多少？',
       en: 'How much does a business study tour cost?',
     },
     answer: {
-      ja: '費用は行程・企業レベル・団体規模により異なります。参考価格：（1）標準団（10-20名、5-7日間）：約2-4万元/人 — 企業視察費・通訳・国内交通・宿泊・一部食事含む（2）ハイエンドカスタム団（5-10名、6-8日間、トップ企業深度視察）：約5-8万元/人（3）VIP少人数団（3-5名）：約8-15万元/人。上記は国際航空券・ビザ費用を含みません。企業視察費が主要コストの一つで、知名企業（トヨタ等）の正式接待は高額な調整費が必要です。当社では予算に応じた最適なプランをご提案します。2-3ヶ月前からの準備をお勧めします。',
+      ja: '費用は行程・企業レベル・団体規模により異なります。参考価格：（1）標準団（10-20名、5-7日間）：約2〜4万人民元/人 — 企業視察費・通訳・国内交通・宿泊・一部食事含む（2）ハイエンドカスタム団（5-10名、6-8日間、一流企業の集中視察）：約5〜8万人民元/人（3）VIP少人数団（3-5名）：約8〜15万人民元/人。上記は国際航空券・ビザ費用を含みません。企業視察費が主要コストの一つで、知名企業（トヨタ等）の正式接待は高額な調整費が必要です。当社では予算に応じた最適なプランをご提案します。2-3ヶ月前からの準備をお勧めします。',
       'zh-TW': '費用因行程、企業級別和團組規模不同差異較大。參考價格：（1）標準團（10-20人，5-7天）：約2-4萬元人民幣/人——含企業參訪費、翻譯、日本境內交通、住宿和部分餐飲（2）高端定製團（5-10人，6-8天，頂級企業深度參訪）：約5-8萬元/人（3）VIP小團（3-5人）：約8-15萬元/人。以上不含國際機票和簽證費。建議提前2-3個月啟動籌備，以預留充足時間進行企業對接和簽證辦理。',
       'zh-CN': '费用因行程、企业级别和团组规模不同差异较大。参考价格：（1）标准团（10-20人，5-7天）：约2-4万元人民币/人——含企业参访费、翻译、日本境内交通、住宿和部分餐饮（2）高端定制团（5-10人，6-8天，顶级企业深度参访）：约5-8万元/人（3）VIP小团（3-5人）：约8-15万元/人。以上不含国际机票和签证费。建议提前2-3个月启动筹备，以预留充足时间进行企业对接和签证办理。',
       en: 'Costs vary by itinerary, company tier, and group size. Reference: (1) Standard group (10-20 people, 5-7 days): ~¥20,000-40,000 CNY/person including visits, interpretation, domestic transport, accommodation (2) Premium custom (5-10 people, 6-8 days): ~¥50,000-80,000/person (3) VIP small group (3-5 people): ~¥80,000-150,000/person. International flights and visa fees not included. We recommend starting preparations 2-3 months in advance.',
@@ -321,13 +321,13 @@ const FAQ_DATA: FAQItem[] = [
   {
     category: 'ground',
     question: {
-      ja: 'カスタマイズ旅程は可能ですか？どうやって要望を伝えればいいですか？',
+      ja: 'オーダーメイド行程は可能ですか？どうやって要望を伝えればいいですか？',
       'zh-TW': '可以安排定制行程嗎？如何對接需求？',
       'zh-CN': '可以安排定制行程吗？如何对接需求？',
       en: 'Can I get a customized itinerary? How do I communicate my needs?',
     },
     answer: {
-      ja: 'もちろん可能です。オーダーメイド行程は当社の強みの一つです。対接の流れ：（1）ヒアリング—WeChatまたはメールで人数・日程・予算・興味（グルメ/買い物/文化/自然/親子等）・特別なご要望（車椅子/チャイルドシート/ハラール食等）をお伺い（2）プラン作成—1-3営業日以内にカスタム行程案をお出しします（日別の詳細スケジュール・ホテル・費用見積り含む）（3）調整・確定—ご要望に合わせて修正を繰り返し、最終確定（4）お支払い—確定後にデポジット30-50%、残金は出発前または現地精算（5）現地実行—専属ドライバーガイドがスケジュール通りご案内、途中変更も柔軟に対応。純観光・体検＋旅行・ゴルフ＋温泉・商務＋文化体験など様々な組み合わせが可能です。',
+      ja: 'もちろん可能です。オーダーメイド行程は当社の強みの一つです。ご依頼の流れ：（1）ヒアリング—WeChatまたはメールで人数・日程・予算・興味（グルメ/買い物/文化/自然/親子等）・特別なご要望（車椅子/チャイルドシート/ハラール食等）をお伺い（2）プラン作成—1-3営業日以内にカスタム行程案をお出しします（日別の詳細スケジュール・ホテル・費用見積り含む）（3）調整・確定—ご要望に合わせて修正を繰り返し、最終確定（4）お支払い—確定後にデポジット30-50%、残金は出発前または現地精算（5）現地実行—専属ドライバーガイドがスケジュール通りご案内、途中変更も柔軟に対応。純観光・体検＋旅行・ゴルフ＋温泉・商務＋文化体験など様々な組み合わせが可能です。',
       'zh-TW': '完全可以，定製行程是我們的核心優勢。對接流程：（1）需求溝通——通過微信或郵件告知出行人數、日期、預算、興趣偏好（美食/購物/文化/自然/親子等）和特殊需求（輪椅通道、兒童座椅、清真飲食等）（2）方案設計——1-3個工作日內出具定製行程方案，含每日詳細安排、推薦酒店、費用明細（3）確認調整——反覆溝通至滿意（4）確認付款——確認後支付定金30-50%，餘款出行前付清或現場結算（5）出行執行——全程由專屬司導按行程執行，期間可靈活調整。可涵蓋純觀光、體檢+旅遊、高爾夫+溫泉、商務考察+文化體驗等各種組合。',
       'zh-CN': '完全可以，定制行程是我们的核心优势。对接流程：（1）需求沟通——通过微信或邮件告知出行人数、日期、预算、兴趣偏好（美食/购物/文化/自然/亲子等）和特殊需求（轮椅通道、儿童座椅、清真饮食等）（2）方案设计——1-3个工作日内出具定制行程方案，含每日详细安排、推荐酒店、费用明细（3）确认调整——反复沟通至满意（4）确认付款——确认后支付定金30-50%，余款出行前付清或现场结算（5）出行执行——全程由专属司导按行程执行，期间可灵活调整。可涵盖纯观光、体检+旅游、高尔夫+温泉、商务考察+文化体验等各种组合。',
       en: 'Absolutely — custom itineraries are our specialty. Process: (1) Consultation — share group size, dates, budget, interests (food/shopping/culture/nature/family), and special needs via WeChat or email (2) Planning — we deliver a custom itinerary within 1-3 days with daily details, hotel suggestions, and cost breakdown (3) Refinement — iterate until perfect (4) Payment — 30-50% deposit, balance before departure or on-site (5) Execution — dedicated driver-guide follows the plan with flexible adjustments. Combinations include sightseeing, checkup + travel, golf + onsen, business + cultural experiences.',
