@@ -82,37 +82,62 @@ const MedicalTechCard = memo(function MedicalTechCard({
 // 使用 React.memo 优化 MedicalView 渲染性能
 const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuote, currentLang, getImage }) => (
   <div className="animate-fade-in-up min-h-screen bg-white">
-    {/* 1. Hero Section - Full height with transparent nav overlap */}
-    <div className="relative min-h-[85vh] flex items-center overflow-hidden text-white bg-brand-900">
-      <Image
+    {/* 1. Hero Section - Cancer Treatment style */}
+    <section className="relative min-h-screen flex items-center bg-brand-900 overflow-hidden">
+      <div className="absolute inset-0">
+        <Image
           src={getImage('medical_hero')}
           fill
-          className="object-cover opacity-80"
+          className="object-cover object-center"
           alt="TIMC Lobby Luxury Environment"
           key="medical_hero"
           sizes="100vw"
           quality={75}
           priority
-      />
-      <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-900/60 to-transparent"></div>
-      <div className="absolute inset-0 opacity-30 pointer-events-none">
-         <div className="absolute w-full h-full bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70"></div>
       </div>
-      <div className="container mx-auto px-6 py-12 md:py-24 relative z-10">
-          <div className="max-w-3xl animate-fade-in-up">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif mb-4 md:mb-6 leading-[1.2]">
-                 {t.medical.hero_title_1}<br/>
-                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-200 to-white">{t.medical.hero_title_2}</span>
-              </h1>
-              <h2 className="text-base sm:text-lg md:text-2xl text-neutral-300 font-light mb-6 md:mb-8 font-serif">
-                 {t.medical.hero_subtitle}
-              </h2>
-              <p className="text-neutral-400 font-light leading-relaxed text-sm md:text-base border-l-2 border-brand-500 pl-4 md:pl-6 max-w-2xl whitespace-pre-line">
-                 {t.medical.hero_text}
-              </p>
+      {/* Decorative Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
+        <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+      </div>
+      <div className="container mx-auto px-6 relative z-10 py-32">
+        <div className="max-w-4xl">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="h-[1px] w-12 bg-gold-400"></div>
+            <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">TIMC OSAKA</span>
           </div>
+          <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
+            {t.medical.hero_title_1}<br/>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-gold-400">{t.medical.hero_title_2}</span>
+          </h1>
+          <p className="text-xl text-neutral-300 mb-4 leading-relaxed max-w-2xl">
+            {t.medical.hero_subtitle}
+          </p>
+          <p className="text-lg text-neutral-400 mb-8 leading-relaxed max-w-2xl whitespace-pre-line">
+            {t.medical.hero_text}
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <a
+              href="#packages"
+              className="inline-flex items-center gap-2 bg-white text-brand-900 px-8 py-4 font-bold hover:bg-neutral-100 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
+            >
+              <Scan size={20} />
+              {currentLang === 'zh-TW' ? '查看體檢套餐' : currentLang === 'zh-CN' ? '查看体检套餐' : currentLang === 'ja' ? '健診プランを見る' : 'View Plans'}
+              <ArrowRight size={18} />
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 font-bold hover:bg-white/20 transition-all"
+            >
+              <MessageSquare size={20} />
+              {currentLang === 'zh-TW' ? '諮詢預約' : currentLang === 'zh-CN' ? '咨询预约' : currentLang === 'ja' ? 'ご予約相談' : 'Consult'}
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
     {/* Hospital Introduction Video Section */}
     <div className="bg-gradient-to-b from-brand-900 to-brand-800 py-20">
