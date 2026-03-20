@@ -788,7 +788,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
     <>
       {/* Hero Section - hide in guide embed mode */}
       {!isGuideEmbed && (
-      <div className="relative min-h-[85vh] flex items-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center bg-brand-900 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
@@ -798,17 +798,22 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
             className="object-cover object-center"
             sizes="100vw"
             quality={75}
+            priority
           />
           {/* Dark Overlay with Gradient */}
           <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70"></div>
         </div>
         {/* Decorative Elements */}
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 pointer-events-none">
           <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
           <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
         </div>
         <div className="container mx-auto px-6 relative z-10 py-32">
           <div className="max-w-4xl">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="h-[1px] w-12 bg-gold-400"></div>
+              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">CANCER TREATMENT</span>
+            </div>
             <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-gold-400">{t('heroTitle2')}</span>
             </h1>
@@ -821,7 +826,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
             <div className="flex flex-wrap gap-4 mb-8">
               <a
                 href="#contact-form"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-brand-600 to-brand-400 text-white px-8 py-4 rounded-full font-bold hover:from-brand-700 hover:to-brand-500 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-brand-600 to-brand-400 text-white px-8 py-4 font-bold hover:from-brand-700 hover:to-brand-500 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
               >
                 <MessageSquare size={20} />
                 {t('heroCTA')}
@@ -829,7 +834,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
               </a>
               <a
                 href="#treatment-flow"
-                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-full font-bold hover:bg-white/20 transition-all"
+                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 font-bold hover:bg-white/20 transition-all"
               >
                 {t('heroFlow')}
               </a>
@@ -870,7 +875,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
             </div>
           </div>
         </div>
-      </div>
+      </section>
       )}
       {/* Japan Medical Institutions Introduction - 關西優先置頂 */}
       <section className="py-24 bg-gradient-to-br from-neutral-50 to-brand-50">
