@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { ChevronDown, Mail, MessageCircle, X } from 'lucide-react';
-import SmartBackLink from '@/components/SmartBackLink';
+import { ChevronDown, Mail, MessageCircle, ArrowRight, X } from 'lucide-react';
+import PublicLayout from '@/components/PublicLayout';
 
 const WECHAT_QR_URL = '/wechat-qr.png';
 
@@ -322,12 +322,35 @@ const FAQ_DATA: FAQItem[] = [
 
 // Page UI translations
 const pageTranslations = {
-  heroTitle: { ja: 'よくある質問', 'zh-TW': '常見問題', 'zh-CN': '常见问题', en: 'Frequently Asked Questions' },
-  heroSubtitle: {
-    ja: 'TIMC健診予約に関するよくある質問',
-    'zh-TW': '關於 TIMC 體檢預約的常見問題解答',
-    'zh-CN': '关于 TIMC 体检预约的常见问题解答',
-    en: 'Common questions about TIMC health check bookings',
+  heroTitle1: {
+    ja: 'よくある質問',
+    'zh-TW': '常見問題',
+    'zh-CN': '常见问题',
+    en: 'Frequently Asked Questions',
+  },
+  heroTitle2: {
+    ja: 'お気軽にお問い合わせください',
+    'zh-TW': '我們隨時為您解答',
+    'zh-CN': '我们随时为您解答',
+    en: 'We are here to help',
+  },
+  heroDesc: {
+    ja: 'TIMC健診の予約・検査・支払いについて、よくいただくご質問をまとめました。',
+    'zh-TW': '我們整理了關於 TIMC 體檢預約、檢查流程及付款的常見問題。',
+    'zh-CN': '我们整理了关于 TIMC 体检预约、检查流程及付款的常见问题。',
+    en: 'We have compiled frequently asked questions about TIMC health check bookings, procedures, and payments.',
+  },
+  btnBrowse: {
+    ja: '質問を見る',
+    'zh-TW': '瀏覽問題',
+    'zh-CN': '浏览问题',
+    en: 'Browse Questions',
+  },
+  btnContact: {
+    ja: 'お問い合わせ',
+    'zh-TW': '聯繫我們',
+    'zh-CN': '联系我们',
+    en: 'Contact Us',
   },
   contactTitle: {
     ja: 'その他のご質問がありますか？',
@@ -347,12 +370,6 @@ const pageTranslations = {
   wechatTitle: { ja: 'WeChat相談', 'zh-TW': '微信諮詢', 'zh-CN': '微信咨询', en: 'WeChat' },
   wechatScanQR: { ja: 'QRコードをスキャンして追加', 'zh-TW': '請用微信掃描二維碼添加客服', 'zh-CN': '请用微信扫描二维码添加客服', en: 'Scan QR code to add our service' },
   wechatOnline: { ja: 'WeChat オンライン', 'zh-TW': '微信客服在線', 'zh-CN': '微信客服在线', en: 'WeChat Online' },
-  footerText: {
-    ja: 'TIMC OSAKA（徳洲会国際医療センター）健診予約サービスは新島交通株式会社が提供',
-    'zh-TW': 'TIMC OSAKA（德州會國際醫療中心）體檢預約服務由新島交通株式会社提供',
-    'zh-CN': 'TIMC OSAKA（德州会国际医疗中心）体检预约服务由新岛交通株式会社提供',
-    en: 'TIMC OSAKA health check booking service provided by Niijima Transport Co., Ltd.',
-  },
 };
 
 export default function FAQPage() {
@@ -392,183 +409,206 @@ export default function FAQPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="absolute top-0 left-0 right-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <SmartBackLink />
-        </div>
-      </header>
-
+    <PublicLayout showFooter>
       {/* Hero */}
-      <section className="relative min-h-[50vh] flex items-center bg-brand-900 overflow-hidden">
-        <div className="absolute top-20 -left-20 w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl pointer-events-none" />
-        <div className="absolute bottom-10 right-10 w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl pointer-events-none" />
-
-        <div className="container mx-auto px-6 py-32 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="flex items-center justify-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-gold-400" />
-              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">FAQ</span>
-              <div className="h-[1px] w-12 bg-gold-400" />
+      <section className="relative min-h-screen flex items-center bg-brand-900 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1590559899731-a382839e5549?q=80&w=2094&auto=format&fit=crop"
+            alt="FAQ"
+            fill
+            className="object-cover object-center"
+            sizes="100vw"
+            quality={75}
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70"></div>
+        </div>
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
+          <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+        </div>
+        <div className="relative z-10 container mx-auto px-6 py-32">
+          <div className="max-w-3xl">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="h-[1px] w-12 bg-gold-400"></div>
+              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">FREQUENTLY ASKED QUESTIONS</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif text-white mb-6 leading-tight">
-              {t('heroTitle')}
+            <h1 className="font-serif text-4xl md:text-6xl text-white mb-6 leading-tight">
+              {t('heroTitle1')}
+              <br />
+              <span className="text-gold-400">{t('heroTitle2')}</span>
             </h1>
-            <p className="text-xl text-neutral-300 font-light max-w-2xl mx-auto leading-relaxed">
-              {t('heroSubtitle')}
+
+            <p className="text-xl text-neutral-300 mb-8 leading-relaxed font-light max-w-2xl">
+              {t('heroDesc')}
             </p>
+
+            <div className="flex flex-wrap gap-4">
+              <a
+                href="#faq-list"
+                className="inline-flex items-center px-8 py-4 bg-gold-400 text-brand-900 text-sm font-medium tracking-wider hover:bg-gold-300 transition-colors"
+              >
+                {t('btnBrowse')}
+                <ArrowRight size={16} className="ml-2" />
+              </a>
+              <a
+                href="#faq-contact"
+                className="inline-flex items-center px-8 py-4 border border-white/20 bg-white/10 backdrop-blur-sm text-white text-sm tracking-wider hover:bg-white/20 transition-colors"
+              >
+                {t('btnContact')}
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Content */}
-      <main className="max-w-4xl mx-auto px-6 py-16">
-        {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
-          {CATEGORY_KEYS.map(key => (
-            <button
-              key={key}
-              onClick={() => setActiveCategory(key)}
-              className={`px-5 py-2 text-sm font-medium tracking-wide transition-colors ${
-                activeCategory === key
-                  ? 'bg-brand-900 text-white'
-                  : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
-              }`}
-            >
-              {CATEGORY_LABELS[key][currentLang]}
-            </button>
-          ))}
-        </div>
-
-        {/* FAQ List */}
-        <div className="space-y-3">
-          {filteredFAQs.map((faq) => {
-            const globalIndex = FAQ_DATA.indexOf(faq);
-            const isOpen = openItems.includes(globalIndex);
-
-            return (
-              <div
-                key={globalIndex}
-                className="border border-neutral-200 overflow-hidden"
+      <section id="faq-list" className="py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-6">
+          {/* Category Filter */}
+          <div className="flex flex-wrap justify-center gap-2 mb-10">
+            {CATEGORY_KEYS.map(key => (
+              <button
+                key={key}
+                onClick={() => setActiveCategory(key)}
+                className={`px-5 py-2 text-sm font-medium tracking-wide transition-colors ${
+                  activeCategory === key
+                    ? 'bg-brand-900 text-white'
+                    : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+                }`}
               >
-                <button
-                  onClick={() => toggleItem(globalIndex)}
-                  className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-neutral-50 transition-colors"
-                >
-                  <div className="flex items-start gap-4 pr-4">
-                    <span className="flex-shrink-0 w-8 h-8 bg-gold-400/20 text-gold-600 rounded-full flex items-center justify-center font-bold text-sm">
-                      Q
-                    </span>
-                    <span className="font-medium text-brand-900">{faq.question[currentLang]}</span>
-                  </div>
-                  <ChevronDown
-                    size={20}
-                    className={`flex-shrink-0 text-neutral-400 transition-transform duration-200 ${
-                      isOpen ? 'rotate-180' : ''
-                    }`}
-                  />
-                </button>
-
-                {isOpen && (
-                  <div className="px-6 pb-5">
-                    <div className="flex gap-4 pl-0 md:pl-12">
-                      <span className="hidden md:flex flex-shrink-0 w-8 h-8 bg-neutral-100 text-neutral-500 rounded-full items-center justify-center font-bold text-sm">
-                        A
-                      </span>
-                      <p className="text-neutral-600 leading-relaxed">{faq.answer[currentLang]}</p>
-                    </div>
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Contact Section */}
-        <div className="mt-16 border border-neutral-200 p-8 text-center">
-          <h2 className="text-2xl font-serif text-brand-900 mb-4">{t('contactTitle')}</h2>
-          <p className="text-neutral-600 mb-8">
-            {t('contactSubtitle')}
-          </p>
-
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <a
-              href="https://line.me/ti/p/j3XxBP50j9"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-[#06C755] hover:bg-[#05b34c] text-white px-6 py-3 text-sm font-medium tracking-wider transition-colors"
-            >
-              <MessageCircle size={20} />
-              {t('lineConsult')}
-            </a>
-            <button
-              onClick={() => setShowWechatQR(true)}
-              className="inline-flex items-center justify-center gap-2 bg-[#07C160] hover:bg-[#06ad56] text-white px-6 py-3 text-sm font-medium tracking-wider transition-colors"
-            >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178A1.17 1.17 0 014.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178 1.17 1.17 0 01-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 01.598.082l1.584.926a.272.272 0 00.139.045c.133 0 .241-.108.241-.243 0-.06-.024-.118-.04-.177l-.327-1.233a.49.49 0 01-.009-.102c0-.142.062-.28.177-.375C23.116 17.715 24 16.046 24 14.194c0-2.942-2.696-5.336-7.062-5.336zm-2.745 3.086c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.97-.983zm5.49 0c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.969-.983z"/>
-              </svg>
-              {t('wechatConsult')}
-            </button>
-            <a
-              href="mailto:haoyuan@niijima-koutsu.jp"
-              className="inline-flex items-center justify-center gap-2 bg-brand-900 hover:bg-brand-800 text-white px-6 py-3 text-sm font-medium tracking-wider transition-colors"
-            >
-              <Mail size={20} />
-              {t('emailConsult')}
-            </a>
+                {CATEGORY_LABELS[key][currentLang]}
+              </button>
+            ))}
           </div>
-        </div>
 
-        {/* WeChat QR Modal */}
-        {showWechatQR && (
-          <div
-            className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4"
-            onClick={() => setShowWechatQR(false)}
-          >
-            <div
-              className="bg-white p-6 max-w-sm w-full"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="font-serif text-lg text-brand-900">{t('wechatTitle')}</h3>
-                <button
-                  onClick={() => setShowWechatQR(false)}
-                  className="text-neutral-400 hover:text-neutral-600 p-1"
+          {/* FAQ List */}
+          <div className="space-y-3">
+            {filteredFAQs.map((faq) => {
+              const globalIndex = FAQ_DATA.indexOf(faq);
+              const isOpen = openItems.includes(globalIndex);
+
+              return (
+                <div
+                  key={globalIndex}
+                  className="border border-neutral-200 overflow-hidden"
                 >
-                  <X size={20} />
-                </button>
-              </div>
+                  <button
+                    onClick={() => toggleItem(globalIndex)}
+                    className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-neutral-50 transition-colors"
+                  >
+                    <div className="flex items-start gap-4 pr-4">
+                      <span className="flex-shrink-0 w-8 h-8 bg-gold-400/20 text-gold-600 rounded-full flex items-center justify-center font-bold text-sm">
+                        Q
+                      </span>
+                      <span className="font-medium text-brand-900">{faq.question[currentLang]}</span>
+                    </div>
+                    <ChevronDown
+                      size={20}
+                      className={`flex-shrink-0 text-neutral-400 transition-transform duration-200 ${
+                        isOpen ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
 
-              <div className="bg-neutral-50 p-4 flex justify-center">
-                <Image
-                  src={WECHAT_QR_URL}
-                  alt="WeChat QR Code"
-                  width={256}
-                  height={256}
-                  quality={75}
-                  className="w-64 h-64 object-contain"
-                />
-              </div>
+                  {isOpen && (
+                    <div className="px-6 pb-5">
+                      <div className="flex gap-4 pl-0 md:pl-12">
+                        <span className="hidden md:flex flex-shrink-0 w-8 h-8 bg-neutral-100 text-neutral-500 rounded-full items-center justify-center font-bold text-sm">
+                          A
+                        </span>
+                        <p className="text-neutral-600 leading-relaxed">{faq.answer[currentLang]}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
 
-              <p className="text-center text-neutral-600 mt-4 text-sm">
-                {t('wechatScanQR')}
-              </p>
+          {/* Contact Section */}
+          <div id="faq-contact" className="mt-16 border border-neutral-200 p-8 text-center">
+            <h2 className="text-2xl font-serif text-brand-900 mb-4">{t('contactTitle')}</h2>
+            <p className="text-neutral-600 mb-8">
+              {t('contactSubtitle')}
+            </p>
 
-              <div className="mt-4 text-center text-xs px-3 py-2 bg-[#07C160]/10 text-[#07C160]">
-                {t('wechatOnline')}
-              </div>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <a
+                href="https://line.me/ti/p/j3XxBP50j9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-[#06C755] hover:bg-[#05b34c] text-white px-6 py-3 text-sm font-medium tracking-wider transition-colors"
+              >
+                <MessageCircle size={20} />
+                {t('lineConsult')}
+              </a>
+              <button
+                onClick={() => setShowWechatQR(true)}
+                className="inline-flex items-center justify-center gap-2 bg-[#07C160] hover:bg-[#06ad56] text-white px-6 py-3 text-sm font-medium tracking-wider transition-colors"
+              >
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178A1.17 1.17 0 014.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178 1.17 1.17 0 01-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 01.598.082l1.584.926a.272.272 0 00.139.045c.133 0 .241-.108.241-.243 0-.06-.024-.118-.04-.177l-.327-1.233a.49.49 0 01-.009-.102c0-.142.062-.28.177-.375C23.116 17.715 24 16.046 24 14.194c0-2.942-2.696-5.336-7.062-5.336zm-2.745 3.086c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.97-.983zm5.49 0c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.969-.983z"/>
+                </svg>
+                {t('wechatConsult')}
+              </button>
+              <a
+                href="mailto:haoyuan@niijima-koutsu.jp"
+                className="inline-flex items-center justify-center gap-2 bg-brand-900 hover:bg-brand-800 text-white px-6 py-3 text-sm font-medium tracking-wider transition-colors"
+              >
+                <Mail size={20} />
+                {t('emailConsult')}
+              </a>
             </div>
           </div>
-        )}
-
-        {/* Footer text */}
-        <div className="mt-12 text-center text-sm text-neutral-500">
-          <p>{t('footerText')}</p>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* WeChat QR Modal */}
+      {showWechatQR && (
+        <div
+          className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4"
+          onClick={() => setShowWechatQR(false)}
+        >
+          <div
+            className="bg-white p-6 max-w-sm w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="font-serif text-lg text-brand-900">{t('wechatTitle')}</h3>
+              <button
+                onClick={() => setShowWechatQR(false)}
+                className="text-neutral-400 hover:text-neutral-600 p-1"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="bg-neutral-50 p-4 flex justify-center">
+              <Image
+                src={WECHAT_QR_URL}
+                alt="WeChat QR Code"
+                width={256}
+                height={256}
+                quality={75}
+                className="w-64 h-64 object-contain"
+              />
+            </div>
+
+            <p className="text-center text-neutral-600 mt-4 text-sm">
+              {t('wechatScanQR')}
+            </p>
+
+            <div className="mt-4 text-center text-xs px-3 py-2 bg-[#07C160]/10 text-[#07C160]">
+              {t('wechatOnline')}
+            </div>
+          </div>
+        </div>
+      )}
+    </PublicLayout>
   );
 }
