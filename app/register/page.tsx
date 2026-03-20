@@ -4,12 +4,10 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
-import MemberLayout from '@/components/MemberLayout';
-import Logo from '@/components/Logo';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
+import PublicLayout from '@/components/PublicLayout';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import { useSiteImages } from '@/lib/hooks/useSiteImages';
-import { Mail, Lock, User, Loader2, AlertCircle, Eye, EyeOff, CheckCircle, UserPlus } from 'lucide-react';
+import { Mail, Lock, User, Loader2, AlertCircle, Eye, EyeOff, CheckCircle } from 'lucide-react';
 
 const translations = {
   // Errors
@@ -18,7 +16,7 @@ const translations = {
   emailAlreadyRegistered: { ja: 'このメールアドレスは既に登録されています。ログインしてください', 'zh-CN': '此邮箱已被注册，请直接登录', 'zh-TW': '此郵箱已被註冊，請直接登入', en: 'This email is already registered. Please log in' },
   registerFailed: { ja: '登録に失敗しました。後でもう一度お試しください', 'zh-CN': '注册失败，请稍后重试', 'zh-TW': '註冊失敗，請稍後重試', en: 'Registration failed. Please try again later' },
 
-  // Success page
+  // Success
   registerSuccess: { ja: '登録成功！', 'zh-CN': '注册成功！', 'zh-TW': '註冊成功！', en: 'Registration Successful!' },
   verificationEmailSent: { ja: 'に認証メールを送信しました。メール内のリンクをクリックして認証を完了してください。', 'zh-CN': ' 发送验证邮件，请点击邮件中的链接完成验证。', 'zh-TW': ' 發送驗證郵件，請點擊郵件中的連結完成驗證。', en: '. Please click the link in the email to complete verification.' },
   verificationEmailSentPrefix: { ja: '私たちは', 'zh-CN': '我们已向', 'zh-TW': '我們已向', en: 'We have sent a verification email to' },
@@ -26,8 +24,9 @@ const translations = {
   noEmail: { ja: 'メールが届いていませんか？迷惑メールフォルダをご確認ください', 'zh-CN': '没有收到邮件？请检查垃圾邮件夹', 'zh-TW': '沒有收到郵件？請檢查垃圾郵件匣', en: 'No email? Please check your spam folder' },
 
   // Hero
-  joinUs: { ja: '会員登録', 'zh-CN': '加入我们', 'zh-TW': '加入我們', en: 'Join Us' },
-  startHealthJourney: { ja: '健康への旅を始めましょう', 'zh-CN': '开启健康之旅', 'zh-TW': '開啟健康之旅', en: 'Start Your Health Journey' },
+  heroLabel: { ja: 'MEMBER REGISTRATION', 'zh-CN': 'MEMBER REGISTRATION', 'zh-TW': 'MEMBER REGISTRATION', en: 'MEMBER REGISTRATION' },
+  heroTitle: { ja: '会員登録', 'zh-CN': '会员注册', 'zh-TW': '會員註冊', en: 'Member Registration' },
+  heroSubtitle: { ja: '健康への旅を始めましょう', 'zh-CN': '开启健康之旅', 'zh-TW': '開啟健康之旅', en: 'Start Your Health Journey' },
   heroDesc: { ja: '会員登録で、便利な予約管理、注文照会、専用健診パッケージの推奨サービスをお楽しみいただけます。', 'zh-CN': '注册成为会员，享受便捷的预约管理、订单查询，以及专属的体检套餐推荐服务。', 'zh-TW': '註冊成為會員，享受便捷的預約管理、訂單查詢，以及專屬的健檢套餐推薦服務。', en: 'Register to enjoy convenient appointment management, order tracking, and personalized health checkup recommendations.' },
   benefit1: { ja: 'ワンクリックですべての予約を管理', 'zh-CN': '一键管理所有预约', 'zh-TW': '一鍵管理所有預約', en: 'Manage all appointments with one click' },
   benefit2: { ja: '専用会員優待通知', 'zh-CN': '专属会员优惠通知', 'zh-TW': '專屬會員優惠通知', en: 'Exclusive member offers' },
@@ -110,36 +109,37 @@ export default function RegisterPage() {
     }
   };
 
+  // Success state
   if (success) {
     return (
-      <MemberLayout showFooter={false}>
-        <div className="min-h-[calc(100vh-80px)] flex items-center justify-center p-8 bg-neutral-50">
-          <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 text-center border border-neutral-100">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-green-50 rounded-full mb-6">
+      <PublicLayout showFooter={false} transparentNav={false}>
+        <div className="min-h-screen flex items-center justify-center p-8 pt-24 bg-white">
+          <div className="w-full max-w-md text-center">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-green-50 border border-green-200 mb-6">
               <CheckCircle className="w-10 h-10 text-green-600" />
             </div>
-            <h1 className="text-2xl font-serif font-bold text-neutral-900 mb-3">{t('registerSuccess', lang)}</h1>
+            <h1 className="text-2xl font-serif text-brand-900 mb-3">{t('registerSuccess', lang)}</h1>
             <p className="text-neutral-600 mb-8 leading-relaxed">
-              {t('verificationEmailSentPrefix', lang)} <span className="font-bold text-neutral-900">{email}</span>{t('verificationEmailSent', lang)}
+              {t('verificationEmailSentPrefix', lang)} <span className="font-medium text-brand-900">{email}</span>{t('verificationEmailSent', lang)}
             </p>
             <Link
               href="/login"
-              className="block w-full bg-brand-900 hover:bg-brand-800 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg"
+              className="block w-full bg-gold-400 hover:bg-gold-300 text-brand-900 font-medium py-3 px-6 text-sm tracking-wider transition-colors"
             >
               {t('goToLogin', lang)}
             </Link>
             <p className="text-sm text-neutral-400 mt-6">{t('noEmail', lang)}</p>
           </div>
         </div>
-      </MemberLayout>
+      </PublicLayout>
     );
   }
 
   return (
-    <MemberLayout showFooter={false}>
-      <div className="min-h-[calc(100vh-80px)] flex">
-        {/* Left Side - Hero Image */}
-        <div className="hidden lg:flex lg:w-1/2 relative bg-brand-900">
+    <PublicLayout showFooter={false} transparentNav={false}>
+      <div className="min-h-screen flex">
+        {/* Left Side — Brand Hero */}
+        <div className="hidden lg:flex lg:w-1/2 relative bg-brand-900 overflow-hidden">
           <Image
             src={getImage('medical_hero', 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg')}
             alt="Medical"
@@ -149,132 +149,172 @@ export default function RegisterPage() {
             sizes="50vw"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-900/80 via-brand-900/30 to-brand-900/50"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70" />
 
-          {/* Language Switcher - Top Right */}
-          <div className="absolute top-8 right-8 z-20 bg-white/90 backdrop-blur-sm rounded-lg shadow-md">
-            <LanguageSwitcher />
+          {/* Decorative Elements */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
+            <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
           </div>
 
-          <div className="relative z-10 flex flex-col justify-center px-16 text-white">
-            <div className="flex items-center gap-3 mb-8">
-              <Logo className="w-12 h-12 text-white" />
-              <div>
-                <span className="font-serif font-bold text-2xl tracking-wide">NIIJIMA</span>
-                <p className="text-xs text-brand-200 uppercase tracking-widest">Medical Tourism</p>
+          <div className="relative z-10 flex flex-col justify-center px-16">
+            <div className="max-w-lg">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="h-[1px] w-12 bg-gold-400" />
+                <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">
+                  {t('heroLabel', lang)}
+                </span>
               </div>
-            </div>
-            <h1 className="text-4xl font-serif font-bold mb-6 leading-tight">
-              {t('joinUs', lang)}<br />
-              <span className="text-brand-300">{t('startHealthJourney', lang)}</span>
-            </h1>
-            <p className="text-neutral-300 leading-relaxed mb-8 max-w-md">
-              {t('heroDesc', lang)}
-            </p>
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 text-sm">
-                <CheckCircle className="w-5 h-5 text-green-400" />
-                <span className="text-neutral-300">{t('benefit1', lang)}</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm">
-                <CheckCircle className="w-5 h-5 text-green-400" />
-                <span className="text-neutral-300">{t('benefit2', lang)}</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm">
-                <CheckCircle className="w-5 h-5 text-green-400" />
-                <span className="text-neutral-300">{t('benefit3', lang)}</span>
+
+              <h1 className="font-serif text-4xl xl:text-5xl text-white mb-4 leading-tight">
+                {t('heroTitle', lang)}
+                <br />
+                <span className="text-gold-400">{t('heroSubtitle', lang)}</span>
+              </h1>
+
+              <p className="text-lg text-neutral-300 leading-relaxed font-light mb-10 max-w-md">
+                {t('heroDesc', lang)}
+              </p>
+
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 text-sm">
+                  <CheckCircle className="w-4 h-4 text-gold-400" />
+                  <span className="text-neutral-300">{t('benefit1', lang)}</span>
+                </div>
+                <div className="flex items-center gap-3 text-sm">
+                  <CheckCircle className="w-4 h-4 text-gold-400" />
+                  <span className="text-neutral-300">{t('benefit2', lang)}</span>
+                </div>
+                <div className="flex items-center gap-3 text-sm">
+                  <CheckCircle className="w-4 h-4 text-gold-400" />
+                  <span className="text-neutral-300">{t('benefit3', lang)}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right Side - Register Form */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-neutral-50 relative">
-          {/* Language Switcher for mobile - Top Right */}
-          <div className="absolute top-4 right-4 lg:hidden z-20">
-            <LanguageSwitcher />
-          </div>
-
+        {/* Right Side — Register Form */}
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 pt-24 bg-white">
           <div className="w-full max-w-md">
-            {/* Mobile Logo */}
-            <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
-              <Logo className="w-10 h-10 text-brand-600" />
-              <span className="font-serif font-bold text-xl">NIIJIMA</span>
+            {/* Mobile hero label */}
+            <div className="lg:hidden flex items-center gap-3 mb-6">
+              <div className="h-[1px] w-8 bg-gold-400" />
+              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">MEMBER REGISTRATION</span>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-xl p-8 border border-neutral-100">
-              <div className="text-center mb-8">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-50 rounded-full mb-4">
-                  <UserPlus className="w-8 h-8 text-brand-600" />
+            {/* Header */}
+            <div className="mb-8">
+              <h1 className="text-2xl font-serif text-brand-900 mb-2">{t('registerTitle', lang)}</h1>
+              <p className="text-neutral-500 text-sm">{t('registerSubtitle', lang)}</p>
+            </div>
+
+            {/* Error */}
+            {error && (
+              <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 flex items-center gap-2 text-sm">
+                <AlertCircle size={18} className="flex-shrink-0" />
+                <span>{error}</span>
+              </div>
+            )}
+
+            {/* Form */}
+            <form onSubmit={handleRegister} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-neutral-700 mb-2">{t('nameLabel', lang)}</label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    className="w-full pl-10 pr-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent transition bg-white text-sm"
+                    placeholder={t('namePlaceholder', lang)}
+                  />
                 </div>
-                <h1 className="text-2xl font-serif font-bold text-neutral-900">{t('registerTitle', lang)}</h1>
-                <p className="text-neutral-500 mt-2 text-sm">{t('registerSubtitle', lang)}</p>
               </div>
 
-              {error && (
-                <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl flex items-center gap-2 text-sm">
-                  <AlertCircle size={18} />
-                  <span>{error}</span>
+              <div>
+                <label className="block text-sm font-medium text-neutral-700 mb-2">{t('emailLabel', lang)}</label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="w-full pl-10 pr-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent transition bg-white text-sm"
+                    placeholder={t('emailPlaceholder', lang)}
+                  />
                 </div>
-              )}
-
-              <form onSubmit={handleRegister} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-2">{t('nameLabel', lang)}</label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={20} />
-                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} required
-                      className="w-full pl-10 pr-4 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
-                      placeholder={t('namePlaceholder', lang)} />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-2">{t('emailLabel', lang)}</label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={20} />
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required
-                      className="w-full pl-10 pr-4 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
-                      placeholder={t('emailPlaceholder', lang)} />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-2">{t('passwordLabel', lang)}</label>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={20} />
-                    <input type={showPassword ? 'text' : 'password'} value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6}
-                      className="w-full pl-10 pr-12 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
-                      placeholder={t('passwordPlaceholder', lang)} />
-                    <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600">
-                      {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                    </button>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-2">{t('confirmPasswordLabel', lang)}</label>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={20} />
-                    <input type={showPassword ? 'text' : 'password'} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required
-                      className="w-full pl-10 pr-4 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
-                      placeholder={t('confirmPasswordPlaceholder', lang)} />
-                  </div>
-                </div>
-
-                <button type="submit" disabled={loading}
-                  className="w-full bg-brand-900 hover:bg-brand-800 disabled:bg-neutral-400 text-white font-bold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl mt-6">
-                  {loading ? <><Loader2 className="animate-spin" size={20} />{t('registering', lang)}</> : t('registerButton', lang)}
-                </button>
-              </form>
-
-              <div className="mt-6 text-center">
-                <p className="text-neutral-600 text-sm">{t('haveAccount', lang)}<Link href="/login" className="text-brand-600 hover:text-brand-700 font-bold ml-1">{t('loginNow', lang)}</Link></p>
               </div>
+
+              <div>
+                <label className="block text-sm font-medium text-neutral-700 mb-2">{t('passwordLabel', lang)}</label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    minLength={6}
+                    className="w-full pl-10 pr-12 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent transition bg-white text-sm"
+                    placeholder={t('passwordPlaceholder', lang)}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-neutral-700 mb-2">{t('confirmPasswordLabel', lang)}</label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                    className="w-full pl-10 pr-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent transition bg-white text-sm"
+                    placeholder={t('confirmPasswordPlaceholder', lang)}
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-gold-400 hover:bg-gold-300 disabled:bg-neutral-300 text-brand-900 font-medium py-3 px-6 text-sm tracking-wider transition-colors flex items-center justify-center gap-2 mt-2"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="animate-spin" size={18} />
+                    {t('registering', lang)}
+                  </>
+                ) : (
+                  t('registerButton', lang)
+                )}
+              </button>
+            </form>
+
+            {/* Login link */}
+            <div className="mt-6 text-center">
+              <p className="text-neutral-600 text-sm">
+                {t('haveAccount', lang)}
+                <Link href="/login" className="text-brand-700 hover:text-brand-900 font-medium ml-1">
+                  {t('loginNow', lang)}
+                </Link>
+              </p>
             </div>
           </div>
         </div>
       </div>
-    </MemberLayout>
+    </PublicLayout>
   );
 }
