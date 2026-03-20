@@ -1,13 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import PublicLayout from '@/components/PublicLayout';
 import { localizeText } from '@/lib/utils/text-converter';
 import DOMPurify from 'dompurify';
-import { ArrowLeft, Calendar, Tag, Loader2 } from 'lucide-react';
+import { ArrowLeft, Calendar, Loader2 } from 'lucide-react';
 
 type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
 
@@ -29,6 +29,12 @@ const categoryLabels: Record<string, Record<Language, string>> = {
   service: { ja: 'サービス', 'zh-TW': '服務', 'zh-CN': '服务', en: 'Service' },
 };
 
+const categoryStyles: Record<string, string> = {
+  announcement: 'bg-blue-50 text-blue-700 border border-blue-200',
+  press: 'bg-emerald-50 text-emerald-700 border border-emerald-200',
+  service: 'bg-amber-50 text-amber-700 border border-amber-200',
+};
+
 const detailTranslations = {
   backToList: { ja: 'ニュース一覧', 'zh-TW': '新聞列表', 'zh-CN': '新闻列表', en: 'News List' },
   backToListFull: { ja: 'ニュース一覧に戻る', 'zh-TW': '返回新聞列表', 'zh-CN': '返回新闻列表', en: 'Back to News List' },
@@ -38,7 +44,6 @@ const detailTranslations = {
 
 export default function NewsDetailPage() {
   const params = useParams();
-  const router = useRouter();
   const [news, setNews] = useState<NewsDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -88,7 +93,7 @@ export default function NewsDetailPage() {
     return (
       <PublicLayout activeNav="news">
         <div className="min-h-screen flex items-center justify-center">
-          <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
+          <Loader2 className="w-8 h-8 animate-spin text-neutral-400" />
         </div>
       </PublicLayout>
     );
@@ -98,8 +103,8 @@ export default function NewsDetailPage() {
     return (
       <PublicLayout activeNav="news">
         <div className="min-h-screen flex flex-col items-center justify-center gap-4">
-          <p className="text-gray-500 text-lg">{t('notFound')}</p>
-          <Link href="/news" className="text-neutral-500 hover:text-brand-900 flex items-center gap-2">
+          <p className="text-neutral-500 text-lg">{t('notFound')}</p>
+          <Link href="/news" className="text-brand-700 hover:text-brand-900 flex items-center gap-2 transition-colors">
             <ArrowLeft size={16} />
             {t('backToListFull')}
           </Link>
@@ -111,6 +116,7 @@ export default function NewsDetailPage() {
   const date = new Date(news.published_at);
   const dateStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
   const catLabel = (categoryLabels[news.category] || categoryLabels.announcement)[lang];
+  const catStyle = categoryStyles[news.category] || categoryStyles.announcement;
 
   return (
     <PublicLayout activeNav="news">
@@ -127,23 +133,23 @@ export default function NewsDetailPage() {
 
           {/* Category & Date */}
           <div className="flex items-center gap-4 mb-6">
-            <span className="text-xs px-3 py-1 rounded-full bg-teal-50 text-teal-700 border border-teal-200">
+            <span className={`text-xs px-3 py-1 rounded-full ${catStyle}`}>
               {catLabel}
             </span>
-            <span className="flex items-center gap-1.5 text-sm text-gray-400">
+            <span className="flex items-center gap-1.5 text-sm text-neutral-400">
               <Calendar size={14} />
               {dateStr}
             </span>
           </div>
 
           {/* Title */}
-          <h1 className="text-2xl md:text-3xl font-serif text-gray-900 mb-8 leading-relaxed">
+          <h1 className="text-2xl md:text-3xl font-serif text-brand-900 mb-8 leading-relaxed">
             {localizeText(news.title, lang)}
           </h1>
 
           {/* Featured Image */}
           {news.image_url && (
-            <div className="mb-10 rounded-xl overflow-hidden">
+            <div className="mb-10 overflow-hidden">
               <Image
                 src={news.image_url}
                 alt={news.title}
@@ -157,21 +163,21 @@ export default function NewsDetailPage() {
           )}
 
           {/* Content */}
-          <div className="prose prose-gray max-w-none">
+          <div className="prose prose-neutral max-w-none">
             {news.content ? (
               <div
-                className="text-gray-700 leading-[2] text-base whitespace-pre-wrap"
+                className="text-neutral-700 leading-[2] text-base whitespace-pre-wrap"
                 dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(localizeText(news.content, lang).replace(/\n/g, '<br/>')) }}
               />
             ) : news.summary ? (
-              <p className="text-gray-700 leading-relaxed">{localizeText(news.summary, lang)}</p>
+              <p className="text-neutral-700 leading-relaxed">{localizeText(news.summary, lang)}</p>
             ) : (
-              <p className="text-gray-400">{t('noContent')}</p>
+              <p className="text-neutral-400">{t('noContent')}</p>
             )}
           </div>
 
           {/* Back to list */}
-          <div className="mt-16 pt-8 border-t border-gray-100">
+          <div className="mt-16 pt-8 border-t border-neutral-200">
             <Link
               href="/news"
               className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-900 transition-colors"
