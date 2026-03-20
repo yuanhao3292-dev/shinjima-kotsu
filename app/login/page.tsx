@@ -267,7 +267,7 @@ function LoginForm() {
       </div>
 
       {/* Right Side — Login Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 pt-24 bg-white">
         <div className="w-full max-w-md">
           {/* Mobile hero label */}
           <div className="lg:hidden flex items-center gap-3 mb-6">
