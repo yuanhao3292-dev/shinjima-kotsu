@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { ArrowRight, Shield, Award, MapPin } from 'lucide-react';
 import { COLOR_THEMES } from '@/lib/types/display-config';
 
@@ -11,6 +12,7 @@ const DEMO_BRAND = '示例品牌';
 const DEMO_PRODUCTS = [
   {
     componentKey: 'medical_packages',
+    href: '/g/demo/medical-packages',
     heroImage: 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg',
     colorTheme: 'teal' as const,
     tagline: 'Premium Health Screening',
@@ -25,6 +27,7 @@ const DEMO_PRODUCTS = [
   },
   {
     componentKey: 'hyogo_medical',
+    href: '/g/demo/hyogo-medical',
     heroImage: 'https://www.hosp.hyo-med.ac.jp/library/petcenter/institution/img/img01.jpg',
     colorTheme: 'emerald' as const,
     tagline: 'University Hospital',
@@ -39,6 +42,7 @@ const DEMO_PRODUCTS = [
   },
   {
     componentKey: 'sai_clinic',
+    href: '/g/demo/sai-clinic',
     heroImage: 'https://saicli.jp/wp-content/themes/initializr/img/topFvImg01.jpg',
     colorTheme: 'rose' as const,
     tagline: 'Aesthetic Medicine',
@@ -52,6 +56,7 @@ const DEMO_PRODUCTS = [
   },
   {
     componentKey: 'helene_clinic',
+    href: '/g/demo/helene-clinic',
     heroImage: 'https://stemcells.jp/en/wp-content/themes/flavor_flavor_flavor/images/top/top-firstview-bg.webp',
     colorTheme: 'indigo' as const,
     tagline: 'Regenerative Medicine',
@@ -108,9 +113,9 @@ export default function DemoWhiteLabelPage() {
               ))}
             </div>
 
-            <span className="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full font-bold shadow-lg cursor-default">
+            <Link href={heroProduct.href} className="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all">
               {heroProduct.ctaText} <ArrowRight size={18} />
-            </span>
+            </Link>
           </div>
         </div>
       </section>
@@ -162,9 +167,9 @@ export default function DemoWhiteLabelPage() {
                   </div>
                 )}
 
-                <span className="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full font-bold shadow-lg cursor-default">
+                <Link href={product.href} className="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all">
                   {product.ctaText} <ArrowRight size={18} />
-                </span>
+                </Link>
               </div>
             </div>
           </section>
