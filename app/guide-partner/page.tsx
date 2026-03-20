@@ -758,7 +758,7 @@ export default function GuidePartnerPage() {
   return (
     <PublicLayout showFooter={false} activeNav="partner">
       {/* Hero */}
-      <section className="relative min-h-[70vh] flex items-center text-white overflow-hidden">
+      <section className="relative min-h-[85vh] flex items-center overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
@@ -769,35 +769,42 @@ export default function GuidePartnerPage() {
             sizes="100vw"
             quality={75}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-900/85 to-brand-900/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-900/80 to-brand-900/40"></div>
         </div>
-        <div className="relative z-10 max-w-5xl mx-auto px-6 py-24 md:py-32">
-          <p className="text-gold-400 text-sm font-medium mb-4 tracking-wide">
-            {t('heroTagline')}
-          </p>
-          <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-6">
-            {t('heroTitle1')}<br />
-            <span className="text-gold-400">{t('heroTitle2')}</span>
-          </h1>
-          <p className="text-neutral-400 text-lg leading-relaxed max-w-xl mb-10">
-            {t('heroDesc')}<br />
-            {t('heroDesc2')}
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <button
-              onClick={() => setShowWechatQR(true)}
-              className="bg-gold-400 hover:bg-gold-500 text-black font-bold px-8 py-4 rounded transition-colors"
-              aria-label={t('ariaWechatApply')}
-            >
-              {t('btnWechatApply')}
-            </button>
-            <a
-              href="#how-it-works"
-              className="border border-brand-600 hover:border-neutral-400 text-white px-8 py-4 rounded transition-colors"
-              aria-label={t('ariaLearnHow')}
-            >
-              {t('btnLearnHow')}
-            </a>
+        <div className="relative z-10 container mx-auto px-6 py-24">
+          <div className="max-w-3xl">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="h-[1px] w-12 bg-gold-400"></div>
+              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">{t('heroTagline')}</span>
+            </div>
+
+            <h1 className="font-serif text-4xl md:text-6xl text-white mb-6 leading-tight">
+              {t('heroTitle1')}
+              <br />
+              <span className="text-gold-400">{t('heroTitle2')}</span>
+            </h1>
+
+            <p className="text-xl text-neutral-300 mb-8 leading-relaxed font-light max-w-2xl">
+              {t('heroDesc')}<br />
+              {t('heroDesc2')}
+            </p>
+
+            <div className="flex flex-wrap gap-4">
+              <button
+                onClick={() => setShowWechatQR(true)}
+                className="inline-flex items-center px-8 py-4 bg-gold-400 text-brand-900 text-sm font-medium tracking-wider hover:bg-gold-300 transition-colors"
+                aria-label={t('ariaWechatApply')}
+              >
+                {t('btnWechatApply')}
+              </button>
+              <a
+                href="#how-it-works"
+                className="inline-flex items-center px-8 py-4 border border-white/20 bg-white/10 backdrop-blur-sm text-white text-sm tracking-wider hover:bg-white/20 transition-colors"
+                aria-label={t('ariaLearnHow')}
+              >
+                {t('btnLearnHow')}
+              </a>
+            </div>
           </div>
         </div>
       </section>
