@@ -5,9 +5,6 @@ import PublicLayout from '@/components/PublicLayout';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  Phone,
-  Mail,
-  MapPin,
   ChevronRight,
   Shield,
   X
@@ -593,56 +590,6 @@ const pageTranslations = {
     'en': 'Niijima Kotsu Co., Ltd. | Osaka Gov. License No. 2-3115 | JATA Member',
   },
 
-  // Footer
-  footerCompany: {
-    'ja': '新島交通株式会社',
-    'zh-TW': '新島交通株式會社',
-    'zh-CN': '新岛交通株式会社',
-    'en': 'Niijima Kotsu Co., Ltd.',
-  },
-  footerAddress: {
-    'ja': '〒556-0014 大阪府大阪市浪速区大国1-2-21-602',
-    'zh-TW': '〒556-0014 大阪府大阪市浪速区大国1-2-21-602',
-    'zh-CN': '〒556-0014 大阪府大阪市浪速区大国1-2-21-602',
-    'en': '〒556-0014 1-2-21-602 Daikoku, Naniwa-ku, Osaka, Japan',
-  },
-  footerLicense: {
-    'ja': '大阪府知事登録旅行業 第2-3115号',
-    'zh-TW': '大阪府知事登錄旅行業 第2-3115號',
-    'zh-CN': '大阪府知事登录旅行业 第2-3115号',
-    'en': 'Osaka Gov. License No. 2-3115',
-  },
-  footerJATA: {
-    'ja': '一般社団法人 日本旅行業協会（JATA）正会員',
-    'zh-TW': '一般社團法人 日本旅行業協會（JATA）正會員',
-    'zh-CN': '一般社团法人 日本旅行业协会（JATA）正会员',
-    'en': 'JATA (Japan Association of Travel Agents) Member',
-  },
-  footerTokushoho: {
-    'ja': '特定商取引法',
-    'zh-TW': '特定商取引法',
-    'zh-CN': '特定商取引法',
-    'en': 'Tokushoho',
-  },
-  footerPrivacy: {
-    'ja': 'プライバシーポリシー',
-    'zh-TW': '隱私政策',
-    'zh-CN': '隐私政策',
-    'en': 'Privacy Policy',
-  },
-  footerTerms: {
-    'ja': '利用規約',
-    'zh-TW': '利用規約',
-    'zh-CN': '利用规约',
-    'en': 'Terms',
-  },
-  footerCopyright: {
-    'ja': '新島交通株式会社',
-    'zh-TW': '新島交通株式會社',
-    'zh-CN': '新岛交通株式会社',
-    'en': 'Niijima Kotsu Co., Ltd.',
-  },
-
   // WeChat QR Modal
   modalTitle: {
     'ja': 'WeChat QRコードスキャン申請',
@@ -706,24 +653,6 @@ const pageTranslations = {
     'zh-CN': '在新标签页打开示例网站',
     'en': 'Open demo site in new tab',
   },
-  ariaTokushoho: {
-    'ja': '特定商取引法ページへ移動',
-    'zh-TW': '前往特定商取引法頁面',
-    'zh-CN': '前往特定商取引法页面',
-    'en': 'Go to Commercial Transactions Act page',
-  },
-  ariaPrivacy: {
-    'ja': 'プライバシーポリシーページへ移動',
-    'zh-TW': '前往隱私政策頁面',
-    'zh-CN': '前往隐私政策页面',
-    'en': 'Go to Privacy Policy page',
-  },
-  ariaTerms: {
-    'ja': '利用規約ページへ移動',
-    'zh-TW': '前往使用條款頁面',
-    'zh-CN': '前往使用条款页面',
-    'en': 'Go to Terms of Service page',
-  },
 };
 
 function getInitialLang(): Language {
@@ -756,7 +685,7 @@ export default function GuidePartnerPage() {
   };
 
   return (
-    <PublicLayout showFooter={false} activeNav="partner">
+    <PublicLayout showFooter={true} activeNav="partner">
       {/* Hero */}
       <section className="relative min-h-screen flex items-center bg-brand-900 overflow-hidden">
         {/* Background Image */}
@@ -1136,42 +1065,6 @@ export default function GuidePartnerPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-brand-900 text-white py-12">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="md:flex md:justify-between md:items-start">
-            <div className="mb-8 md:mb-0">
-              <h4 className="font-bold text-lg mb-4">{t('footerCompany')}</h4>
-              <div className="space-y-2 text-neutral-400 text-sm">
-                <p className="flex items-center gap-2">
-                  <MapPin size={14} />
-                  {t('footerAddress')}
-                </p>
-                <p className="flex items-center gap-2">
-                  <Phone size={14} />
-                  06-6632-8807
-                </p>
-                <p className="flex items-center gap-2">
-                  <Mail size={14} />
-                  info@niijima-koutsu.jp
-                </p>
-              </div>
-            </div>
-            <div className="text-neutral-400 text-sm">
-              <p>{t('footerLicense')}</p>
-              <p>{t('footerJATA')}</p>
-              <div className="mt-4 flex gap-4">
-                <Link href="/legal/tokushoho" className="hover:text-white transition" aria-label={t('ariaTokushoho')}>{t('footerTokushoho')}</Link>
-                <Link href="/legal/privacy" className="hover:text-white transition" aria-label={t('ariaPrivacy')}>{t('footerPrivacy')}</Link>
-                <Link href="/legal/terms" className="hover:text-white transition" aria-label={t('ariaTerms')}>{t('footerTerms')}</Link>
-              </div>
-            </div>
-          </div>
-          <div className="mt-8 pt-8 border-t border-brand-800 text-center text-neutral-500 text-xs">
-            <p>© {new Date().getFullYear()} {t('footerCopyright')}. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
 
       {/* WeChat QR Modal */}
       {showWechatQR && (
