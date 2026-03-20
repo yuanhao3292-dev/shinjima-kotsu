@@ -22,7 +22,7 @@ const CATEGORY_LABELS: Record<string, Record<Language, string>> = {
   checkup: { ja: '健診・体検', 'zh-TW': '精密體檢', 'zh-CN': '精密体检', en: 'Health Checkup' },
   golf: { ja: 'ゴルフ', 'zh-TW': '高爾夫', 'zh-CN': '高尔夫', en: 'Golf' },
   business: { ja: 'ビジネス視察', 'zh-TW': '商務考察', 'zh-CN': '商务考察', en: 'Business Tour' },
-  ground: { ja: '地上手配', 'zh-TW': '日本地接', 'zh-CN': '日本地接', en: 'Ground Service' },
+  ground: { ja: 'ランドオペレーター', 'zh-TW': '日本地接', 'zh-CN': '日本地接', en: 'Ground Service' },
 };
 
 const CATEGORY_KEYS = ['all', 'cancer', 'checkup', 'golf', 'business', 'ground'];
@@ -291,13 +291,13 @@ const FAQ_DATA: FAQItem[] = [
   {
     category: 'ground',
     question: {
-      ja: '日本の地上手配サービスにはどのようなものが含まれますか？',
+      ja: 'ランドオペレーターサービスにはどのようなものが含まれますか？',
       'zh-TW': '日本地接服務具體包含哪些內容？',
       'zh-CN': '日本地接服务具体包含哪些内容？',
       en: 'What does Japan ground handling service include?',
     },
     answer: {
-      ja: '日本の地上手配は訪日のお客様へのワンストップサービスです：（1）空港送迎—中国語ドライバーがネームボードでお出迎え（2）ホテル手配—予算・好みに合わせたホテルや温泉旅館の予約（3）専用車チャーター—トヨタアルファードなどのMPV/商用車をドライバー付きで手配（4）行程設計—旅行・商務・体検等のカスタム行程作成（5）中国語ガイド—日本ガイド資格を持つ中国語ガイドの手配（6）レストラン予約—ミシュラン星付き店や名店の代行予約（7）体験予約—茶道・着物体験等の手配（8）24時間中国語緊急サポートラインの提供。',
+      ja: 'ランドオペレーターサービスは訪日のお客様へのワンストップサービスです：（1）空港送迎—中国語ドライバーがネームボードでお出迎え（2）ホテル手配—予算・好みに合わせたホテルや温泉旅館の予約（3）専用車チャーター—トヨタアルファードなどのMPV/商用車をドライバー付きで手配（4）行程設計—旅行・商務・体検等のカスタム行程作成（5）中国語ガイド—日本ガイド資格を持つ中国語ガイドの手配（6）レストラン予約—ミシュラン星付き店や名店の代行予約（7）体験予約—茶道・着物体験等の手配（8）24時間中国語緊急サポートラインの提供。',
       'zh-TW': '日本地接服務是為赴日客人提供的一站式落地服務：（1）機場接送——安排中文司機在成田/羽田/關西等機場接機（2）酒店預訂——根據預算和偏好代訂酒店或日式溫泉旅館（3）包車服務——提供豐田阿爾法德等商務車，含中文司機（4）行程規劃——定製旅遊/商務/體檢等行程方案（5）中文導遊——安排持日本導遊資格證的中文導遊陪同（6）餐廳預約——代訂米其林星級餐廳、壽司名店等（7）體驗預約——茶道、和服體驗等（8）24小時中文緊急聯繫熱線。',
       'zh-CN': '日本地接服务是为赴日客人提供的一站式落地服务：（1）机场接送——安排中文司机在成田/羽田/关西等机场接机（2）酒店预订——根据预算和偏好代订酒店或日式温泉旅馆（3）包车服务——提供丰田阿尔法德等商务车，含中文司机（4）行程规划——定制旅游/商务/体检等行程方案（5）中文导游——安排持日本导游资格证的中文导游陪同（6）餐厅预约——代订米其林星级餐厅、寿司名店等（7）体验预约——茶道、和服体验等（8）24小时中文紧急联系热线。',
       en: 'Japan ground service is a one-stop landing service: (1) Airport transfers with Chinese-speaking drivers (2) Hotel booking — hotels or traditional ryokan/onsen based on budget (3) Charter car service — Toyota Alphard etc. with Chinese driver (4) Itinerary planning — custom travel/business/medical schedules (5) Chinese guides with Japanese guide certification (6) Restaurant reservations including Michelin-starred venues (7) Experience bookings — tea ceremony, kimono, etc. (8) 24/7 Chinese emergency hotline.',
@@ -365,7 +365,7 @@ const pageTranslations = {
     en: 'We are here to help',
   },
   heroDesc: {
-    ja: '重症治療・精密健診・ゴルフ・商務視察・日本地上手配など、お客様からよくいただくご質問をまとめました。',
+    ja: '重症治療・精密健診・ゴルフ・ビジネス視察・ランドオペレーターなど、お客様からよくいただくご質問をまとめました。',
     'zh-TW': '重症治療、精密體檢、高爾夫、商務考察、日本地接等，我們整理了客戶最常問的問題。',
     'zh-CN': '重症治疗、精密体检、高尔夫、商务考察、日本地接等，我们整理了客户最常问的问题。',
     en: 'We have compiled the most frequently asked questions about cancer treatment, health checkups, golf, business tours, and Japan ground services.',
