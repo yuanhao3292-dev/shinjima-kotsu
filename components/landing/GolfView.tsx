@@ -2,11 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { ArrowLeft, ArrowRight, MapPin, Building, Lock, Trophy, Car, Bath } from 'lucide-react';
+import { ArrowLeft, ArrowRight, MapPin, Building, Lock, Trophy, Car, Bath, MessageSquare } from 'lucide-react';
 import ContactButtons from '../ContactButtons';
 import type { SubViewProps } from './types';
 
-const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, getImage }) => {
+const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, currentLang, getImage }) => {
   // Default images as fallback - All URLs verified working (Unsplash)
   const defaultPlanImages: Record<string, string> = {
     'hokkaido-summer': 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=1200&auto=format&fit=crop',
@@ -102,56 +102,59 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
 
   return (
   <div className="animate-fade-in-up min-h-screen bg-neutral-50">
-     {/* ===== HERO SECTION - Full Screen Cinematic ===== */}
-     <div className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
-        {/* Background with Ken Burns effect */}
-        <div className="absolute inset-0">
-          <Image
-              src={getImage('golf_hero')}
-              fill
-              className="object-cover animate-kenburns-slow"
-              alt="Golf Course"
-              key="golf_hero"
-              sizes="100vw"
-              quality={75}
-          />
-          {/* Multi-layer gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/70"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/40 via-transparent to-brand-900/40"></div>
-        </div>
-
-        {/* Decorative gold lines */}
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold-400/50 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold-400/50 to-transparent"></div>
-
-        {/* Content */}
-        <div className="relative z-10 text-center text-white px-6 py-12 md:py-24 max-w-5xl mx-auto">
-           {/* Main Title with Gold Accent */}
-           <div className="animate-fade-in-up-delay-2">
-             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-serif font-bold mb-4 tracking-tight">
-               <span className="golf-gold-text">{t.golf.title_1}</span>
-             </h1>
-             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-serif font-light text-white/90 mb-6 md:mb-8">{t.golf.title_2}</h2>
+     {/* 1. Hero Section - Cancer Treatment style */}
+     <section className="relative min-h-screen flex items-center bg-brand-900 overflow-hidden">
+       <div className="absolute inset-0">
+         <Image
+           src={getImage('golf_hero')}
+           fill
+           className="object-cover object-center"
+           alt="Premium Golf Course Japan"
+           sizes="100vw"
+           quality={75}
+           priority
+         />
+         <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70"></div>
+       </div>
+       {/* Decorative Elements */}
+       <div className="absolute inset-0 pointer-events-none">
+         <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
+         <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+       </div>
+       <div className="container mx-auto px-6 relative z-10 py-32">
+         <div className="max-w-4xl">
+           <div className="flex items-center gap-3 mb-8">
+             <div className="h-[1px] w-12 bg-gold-400"></div>
+             <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">PREMIUM GOLF</span>
            </div>
-
-           {/* Subtitle */}
-           <div className="animate-fade-in-up-delay-3">
-             <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-12 leading-relaxed whitespace-pre-line font-light">
-               {t.golf.desc}
-             </p>
-           </div>
-
-           {/* CTA Button */}
-           <div className="animate-fade-in-up-delay-4 flex justify-center">
-             <button
-               onClick={() => document.getElementById('golf-plans')?.scrollIntoView({ behavior: 'smooth' })}
-               className="px-10 py-4 border border-white/30 text-white font-medium rounded-full hover:bg-white/10 transition-all duration-300 backdrop-blur-sm"
+           <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-4 leading-tight">
+             {t.golf.title_1}
+           </h1>
+           <h2 className="text-2xl md:text-4xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-gold-400 mb-6">
+             {t.golf.title_2}
+           </h2>
+           <p className="text-lg text-neutral-300 mb-8 leading-relaxed max-w-2xl whitespace-pre-line">
+             {t.golf.desc}
+           </p>
+           <div className="flex flex-wrap gap-4">
+             <a
+               href="#golf-plans"
+               className="inline-flex items-center gap-2 bg-white text-brand-900 px-8 py-4 font-bold hover:bg-neutral-100 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
              >
                {t.golf.btn_tour || 'View Itineraries'}
-             </button>
+               <ArrowRight size={18} />
+             </a>
+             <a
+               href="#golf-contact"
+               className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 font-bold hover:bg-white/20 transition-all"
+             >
+               <MessageSquare size={20} />
+               {currentLang === 'zh-TW' ? '諮詢預約' : currentLang === 'zh-CN' ? '咨询预约' : currentLang === 'ja' ? 'お問い合わせ' : 'Contact Us'}
+             </a>
            </div>
-        </div>
-     </div>
+         </div>
+       </div>
+     </section>
 
      {/* ===== STATS BAR - Floating ===== */}
      <div className="relative -mt-20 z-20 container mx-auto px-6 py-12 md:py-24">
@@ -384,7 +387,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, g
      </div>
 
      {/* Contact Buttons */}
-     <div className="py-16 bg-white">
+     <div id="golf-contact" className="py-16 bg-white">
        <div className="container mx-auto px-6 py-12 md:py-24">
          <div className="max-w-2xl mx-auto text-center">
            <h3 className="text-2xl font-serif font-bold text-neutral-900 mb-2">{t.golf.cta_title}</h3>
