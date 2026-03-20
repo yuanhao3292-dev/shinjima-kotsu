@@ -2,13 +2,13 @@
 
 import { useState, Suspense } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
-import MemberLayout from '@/components/MemberLayout';
-import Logo from '@/components/Logo';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
+import PublicLayout from '@/components/PublicLayout';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
-import { Mail, Loader2, AlertCircle, CheckCircle, KeyRound, ArrowLeft } from 'lucide-react';
+import { useSiteImages } from '@/lib/hooks/useSiteImages';
+import { Mail, Loader2, AlertCircle, CheckCircle, ArrowLeft } from 'lucide-react';
 
 const translations = {
   // Errors
@@ -22,6 +22,7 @@ const translations = {
   noEmail: { ja: 'メールが届いていませんか？迷惑メールフォルダをご確認ください', 'zh-CN': '没有收到邮件？请检查垃圾邮件夹', 'zh-TW': '沒有收到郵件？請檢查垃圾郵件匣', en: 'No email? Please check your spam folder' },
 
   // Hero
+  heroLabel: { ja: 'PASSWORD RESET', 'zh-CN': 'PASSWORD RESET', 'zh-TW': 'PASSWORD RESET', en: 'PASSWORD RESET' },
   forgotPasswordHero: { ja: 'パスワードをお忘れですか？', 'zh-CN': '忘记密码？', 'zh-TW': '忘記密碼？', en: 'Forgot Password?' },
   dontWorry: { ja: 'ご心配なく', 'zh-CN': '别担心', 'zh-TW': '別擔心', en: 'Don\'t Worry' },
   heroDesc: { ja: '登録時に使用したメールアドレスを入力してください。リセットリンクをお送りします。安全かつ迅速にアカウントを回復できます。', 'zh-CN': '输入您注册时使用的电子邮箱，我们将发送重置链接给您。安全、快速地找回您的账号。', 'zh-TW': '輸入您註冊時使用的電子郵箱，我們將發送重置連結給您。安全、快速地找回您的帳號。', en: 'Enter the email you used to register. We\'ll send you a reset link. Securely and quickly recover your account.' },
@@ -47,6 +48,7 @@ function ForgotPasswordForm() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const lang = useLanguage();
+  const { getImage } = useSiteImages();
   const searchParams = useSearchParams();
   const isGuide = searchParams.get('from') === 'guide';
   const loginPath = isGuide ? '/guide-partner/login' : '/login';
@@ -78,152 +80,223 @@ function ForgotPasswordForm() {
     }
   };
 
+  // ==================== Success State ====================
   if (success) {
     return (
-      <MemberLayout showFooter={false}>
-        <div className="min-h-[calc(100vh-80px)] flex items-center justify-center p-8 bg-neutral-50">
-          <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 text-center border border-neutral-100">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-green-50 rounded-full mb-6">
-              <CheckCircle className="w-10 h-10 text-green-600" />
+      <div className="min-h-screen flex">
+        {/* Left Side — Brand Hero */}
+        <div className="hidden lg:flex lg:w-1/2 relative bg-brand-900 overflow-hidden">
+          <Image
+            src={getImage('medical_hero', 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg')}
+            alt="Password Reset"
+            fill
+            className="object-cover"
+            quality={75}
+            sizes="50vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70" />
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
+            <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
+          </div>
+          <div className="relative z-10 flex flex-col justify-center px-16">
+            <div className="max-w-lg">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="h-[1px] w-12 bg-gold-400" />
+                <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">
+                  {t('heroLabel', lang)}
+                </span>
+              </div>
+              <h1 className="font-serif text-4xl xl:text-5xl text-white mb-4 leading-tight">
+                {t('emailSent', lang)}
+              </h1>
+              <p className="text-lg text-neutral-300 leading-relaxed font-light max-w-md">
+                {t('heroDesc', lang)}
+              </p>
             </div>
-            <h1 className="text-2xl font-serif font-bold text-neutral-900 mb-3">{t('emailSent', lang)}</h1>
-            <p className="text-neutral-600 mb-8 leading-relaxed">
-              {t('resetEmailSentPrefix', lang)} <span className="font-bold text-neutral-900">{email}</span>{t('resetEmailSent', lang)}
+          </div>
+        </div>
+
+        {/* Right Side — Success Content */}
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 pt-24 bg-white">
+          <div className="w-full max-w-md text-center">
+            <div className="lg:hidden flex items-center gap-3 mb-6 justify-center">
+              <div className="h-[1px] w-8 bg-gold-400" />
+              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">PASSWORD RESET</span>
+              <div className="h-[1px] w-8 bg-gold-400" />
+            </div>
+
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-green-50 border border-green-200 mb-6">
+              <CheckCircle className="w-8 h-8 text-green-600" />
+            </div>
+
+            <h1 className="text-2xl font-serif text-brand-900 mb-3">{t('emailSent', lang)}</h1>
+            <p className="text-neutral-600 mb-8 leading-relaxed text-sm">
+              {t('resetEmailSentPrefix', lang)} <span className="font-bold text-brand-900">{email}</span>{t('resetEmailSent', lang)}
             </p>
+
             <Link
               href={loginPath}
-              className="block w-full bg-brand-900 hover:bg-brand-800 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg"
+              className="block w-full bg-gold-400 hover:bg-gold-300 text-brand-900 font-medium py-3 px-6 text-sm tracking-wider transition-colors"
             >
               {t('backToLogin', lang)}
             </Link>
-            <p className="text-sm text-neutral-400 mt-6">{t('noEmail', lang)}</p>
+
+            <p className="text-xs text-neutral-400 mt-6">{t('noEmail', lang)}</p>
           </div>
         </div>
-      </MemberLayout>
+      </div>
     );
   }
 
+  // ==================== Form State ====================
   return (
-    <MemberLayout showFooter={false}>
-      <div className="min-h-[calc(100vh-80px)] flex">
-        {/* Left Side - Hero Image */}
-        <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-brand-900 via-brand-700 to-brand-900">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?q=80&w=2000')] bg-cover bg-center opacity-30"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-900/90 via-transparent to-brand-900/50"></div>
+    <div className="min-h-screen flex">
+      {/* Left Side — Brand Hero */}
+      <div className="hidden lg:flex lg:w-1/2 relative bg-brand-900 overflow-hidden">
+        <Image
+          src={getImage('medical_hero', 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg')}
+          alt="Password Reset"
+          fill
+          className="object-cover"
+          quality={75}
+          sizes="50vw"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70" />
 
-          {/* Language Switcher - Top Right */}
-          <div className="absolute top-8 right-8 z-20">
-            <LanguageSwitcher />
-          </div>
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
+          <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
+        </div>
 
-          <div className="relative z-10 flex flex-col justify-center px-16 text-white">
+        <div className="relative z-10 flex flex-col justify-center px-16">
+          <div className="max-w-lg">
             <div className="flex items-center gap-3 mb-8">
-              <Logo className="w-12 h-12 text-white" />
-              <div>
-                <span className="font-serif font-bold text-2xl tracking-wide">NIIJIMA</span>
-                <p className="text-xs text-brand-200 uppercase tracking-widest">Medical Tourism</p>
-              </div>
+              <div className="h-[1px] w-12 bg-gold-400" />
+              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">
+                {t('heroLabel', lang)}
+              </span>
             </div>
-            <h1 className="text-4xl font-serif font-bold mb-6 leading-tight">
-              {t('forgotPasswordHero', lang)}<br />
-              <span className="text-brand-300">{t('dontWorry', lang)}</span>
+
+            <h1 className="font-serif text-4xl xl:text-5xl text-white mb-4 leading-tight">
+              {t('forgotPasswordHero', lang)}
+              <br />
+              <span className="text-gold-400">{t('dontWorry', lang)}</span>
             </h1>
-            <p className="text-neutral-300 leading-relaxed mb-8 max-w-md">
+
+            <p className="text-lg text-neutral-300 leading-relaxed font-light max-w-md">
               {t('heroDesc', lang)}
             </p>
           </div>
         </div>
+      </div>
 
-        {/* Right Side - Form */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-neutral-50 relative">
-          {/* Language Switcher for mobile - Top Right */}
-          <div className="absolute top-4 right-4 lg:hidden z-20">
-            <LanguageSwitcher />
+      {/* Right Side — Form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 pt-24 bg-white">
+        <div className="w-full max-w-md">
+          {/* Mobile hero label */}
+          <div className="lg:hidden flex items-center gap-3 mb-6">
+            <div className="h-[1px] w-8 bg-gold-400" />
+            <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">PASSWORD RESET</span>
           </div>
 
-          <div className="w-full max-w-md">
-            {/* Mobile Logo */}
-            <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
-              <Logo className="w-10 h-10 text-brand-600" />
-              <span className="font-serif font-bold text-xl">NIIJIMA</span>
+          {/* Back Link */}
+          <Link
+            href={loginPath}
+            className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 mb-6 text-sm font-medium transition-colors"
+          >
+            <ArrowLeft size={16} />
+            {t('backToLogin', lang)}
+          </Link>
+
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="text-2xl font-serif text-brand-900 mb-2">{t('forgotPasswordTitle', lang)}</h1>
+            <p className="text-neutral-500 text-sm">{t('forgotPasswordSubtitle', lang)}</p>
+          </div>
+
+          {/* Error */}
+          {error && (
+            <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 flex items-center gap-2 text-sm">
+              <AlertCircle size={18} className="flex-shrink-0" />
+              <span>{error}</span>
+            </div>
+          )}
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 mb-2">
+                {t('emailLabel', lang)}
+              </label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="w-full pl-10 pr-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent transition bg-white text-sm"
+                  placeholder={t('emailPlaceholder', lang)}
+                />
+              </div>
             </div>
 
-            {/* Back Link */}
-            <Link href={loginPath} className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 mb-6 text-sm font-medium transition">
-              <ArrowLeft size={16} />
-              {t('backToLogin', lang)}
-            </Link>
-
-            <div className="bg-white rounded-2xl shadow-xl p-8 border border-neutral-100">
-              <div className="text-center mb-8">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-50 rounded-full mb-4">
-                  <KeyRound className="w-8 h-8 text-brand-600" />
-                </div>
-                <h1 className="text-2xl font-serif font-bold text-neutral-900">{t('forgotPasswordTitle', lang)}</h1>
-                <p className="text-neutral-500 mt-2 text-sm">{t('forgotPasswordSubtitle', lang)}</p>
-              </div>
-
-              {error && (
-                <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl flex items-center gap-2 text-sm">
-                  <AlertCircle size={18} />
-                  <span>{error}</span>
-                </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-gold-400 hover:bg-gold-300 disabled:bg-neutral-300 text-brand-900 font-medium py-3 px-6 text-sm tracking-wider transition-colors flex items-center justify-center gap-2"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="animate-spin" size={18} />
+                  {t('sending', lang)}
+                </>
+              ) : (
+                t('sendResetLink', lang)
               )}
+            </button>
+          </form>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-2">
-                    {t('emailLabel', lang)}
-                  </label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400" size={20} />
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="w-full pl-10 pr-4 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
-                      placeholder={t('emailPlaceholder', lang)}
-                    />
-                  </div>
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full bg-brand-900 hover:bg-brand-800 disabled:bg-neutral-400 text-white font-bold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
-                >
-                  {loading ? (
-                    <>
-                      <Loader2 className="animate-spin" size={20} />
-                      {t('sending', lang)}
-                    </>
-                  ) : (
-                    t('sendResetLink', lang)
-                  )}
-                </button>
-              </form>
-
-              <div className="mt-6 text-center">
-                <p className="text-neutral-600 text-sm">
-                  {t('rememberPassword', lang)}
-                  <Link href={loginPath} className="text-brand-600 hover:text-brand-700 font-bold ml-1">
-                    {t('loginNow', lang)}
-                  </Link>
-                </p>
-              </div>
-            </div>
+          {/* Login link */}
+          <div className="mt-6 text-center">
+            <p className="text-neutral-600 text-sm">
+              {t('rememberPassword', lang)}
+              <Link href={loginPath} className="text-brand-700 hover:text-brand-900 font-medium ml-1">
+                {t('loginNow', lang)}
+              </Link>
+            </p>
           </div>
         </div>
       </div>
-    </MemberLayout>
+    </div>
+  );
+}
+
+function LoadingFallback() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="w-full max-w-md p-8">
+        <div className="animate-pulse">
+          <div className="h-4 bg-neutral-200 w-1/4 mb-6" />
+          <div className="h-6 bg-neutral-200 w-1/2 mb-2" />
+          <div className="h-4 bg-neutral-200 w-3/4 mb-8" />
+          <div className="h-12 bg-neutral-100 border border-neutral-200 mb-5" />
+          <div className="h-12 bg-neutral-200" />
+        </div>
+      </div>
+    </div>
   );
 }
 
 export default function ForgotPasswordPage() {
   return (
-    <Suspense>
-      <ForgotPasswordForm />
-    </Suspense>
+    <PublicLayout showFooter={false} transparentNav={false}>
+      <Suspense fallback={<LoadingFallback />}>
+        <ForgotPasswordForm />
+      </Suspense>
+    </PublicLayout>
   );
 }
