@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import PublicLayout from '@/components/PublicLayout';
 import BodyMapSelector, { type BodyMapSelectionData } from '@/components/BodyMapSelector';
 import DynamicScreeningForm from '@/components/DynamicScreeningForm';
 import FollowUpQuestionnaire from '@/components/FollowUpQuestionnaire';
@@ -302,6 +303,48 @@ interface ScreeningData {
 
 type ScreeningStep = 'welcome' | 'body-map' | 'questionnaire' | 'followup' | 'upload-document';
 
+// ==================== Step Header ====================
+function StepHeader({ onBack, label }: { onBack: () => void; label: string }) {
+  return (
+    <div className="bg-white border-b border-neutral-200">
+      <div className="max-w-4xl mx-auto px-4 py-4">
+        <button
+          onClick={onBack}
+          className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
+        >
+          <ArrowLeft size={18} />
+          <span className="text-sm">{label}</span>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ==================== Step Title Section ====================
+function StepTitleSection({ badge, badgeIcon: BadgeIcon, title, subtitle }: {
+  badge: string;
+  badgeIcon: React.ComponentType<{ className?: string }>;
+  title: string;
+  subtitle: string;
+}) {
+  return (
+    <div className="py-8 bg-white">
+      <div className="max-w-4xl mx-auto px-4 text-center">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-50 text-brand-700 border border-neutral-200 text-sm mb-4">
+          <BadgeIcon className="w-4 h-4" />
+          <span>{badge}</span>
+        </div>
+        <h1 className="text-2xl md:text-3xl font-serif text-brand-900 tracking-wide">
+          {title}
+        </h1>
+        <p className="text-neutral-500 mt-2">
+          {subtitle}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export default function HealthScreeningPage() {
   const lang = useLanguage();
   const router = useRouter();
@@ -311,15 +354,11 @@ export default function HealthScreeningPage() {
   const [isCreating, setIsCreating] = useState(false);
   const [currentStep, setCurrentStep] = useState<ScreeningStep>('welcome');
   const [bodyMapData, setBodyMapData] = useState<BodyMapSelectionData | null>(null);
-  // [Phase 3] 补问系统状态
   const [followupQuestions, setFollowupQuestions] = useState<string[]>([]);
-  // [Phase 4] 文档上传状态
   const [documentUploaded, setDocumentUploaded] = useState(false);
   const [isAnalyzingDoc, setIsAnalyzingDoc] = useState(false);
-  // 报告语言（独立于网站 UI 语言）
   const [reportLang, setReportLang] = useState<Language>('zh-CN');
 
-  // 加载用户状态和未完成的筛查
   useEffect(() => {
     async function fetchData() {
       try {
@@ -337,13 +376,11 @@ export default function HealthScreeningPage() {
 
         const result = await response.json();
 
-        // 检查是否有未完成的筛查（in_progress 或 needs_followup）
         const pendingScreening = result.screenings?.find(
           (s: any) => s.status === 'in_progress' || s.status === 'needs_followup'
         );
 
         if (pendingScreening) {
-          // 获取详细答案
           const detailResponse = await fetch(
             `/api/health-screening/${pendingScreening.id}`
           );
@@ -358,25 +395,19 @@ export default function HealthScreeningPage() {
                 bodyMapData: detailData.screening.bodyMapData,
               },
             });
-            // [Phase 3] 如果状态是 needs_followup，直接显示补问界面
             if (pendingScreening.status === 'needs_followup' && detailData.screening.followupQuestions) {
               setBodyMapData(detailData.screening.bodyMapData || null);
               setFollowupQuestions(detailData.screening.followupQuestions);
               setCurrentStep('followup');
             } else if (detailData.screening.bodyMapData) {
-              // 如果有已保存的 bodyMapData，恢复到问卷步骤
               setBodyMapData(detailData.screening.bodyMapData);
               setCurrentStep('questionnaire');
             }
           } else {
-            setData({
-              freeRemaining: result.freeRemaining,
-            });
+            setData({ freeRemaining: result.freeRemaining });
           }
         } else {
-          setData({
-            freeRemaining: result.freeRemaining,
-          });
+          setData({ freeRemaining: result.freeRemaining });
         }
       } catch (err: any) {
         console.error('Fetch error:', err);
@@ -389,15 +420,12 @@ export default function HealthScreeningPage() {
     fetchData();
   }, [router]);
 
-  // 开始新的筛查
   const startNewScreening = async () => {
     setIsCreating(true);
     setError(null);
 
     try {
-      const response = await fetch('/api/health-screening', {
-        method: 'POST',
-      });
+      const response = await fetch('/api/health-screening', { method: 'POST' });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -409,7 +437,6 @@ export default function HealthScreeningPage() {
         screeningId: result.screeningId,
         freeRemaining: result.freeRemaining,
       });
-      // 进入人体图选择步骤
       setCurrentStep('body-map');
     } catch (err: any) {
       console.error('Create error:', err);
@@ -419,30 +446,25 @@ export default function HealthScreeningPage() {
     }
   };
 
-  // 人体图选择完成
   const handleBodyMapComplete = (selectionData: BodyMapSelectionData) => {
     setBodyMapData(selectionData);
     setCurrentStep('questionnaire');
   };
 
-  // 返回到人体图选择
   const handleBackToBodyMap = () => {
     setCurrentStep('body-map');
   };
 
-  // [Phase 3] AEMC 安全闸门 Class B → 显示补问界面
   const handleFollowupRequired = (_screeningId: string, questions: string[]) => {
     setFollowupQuestions(questions);
     setCurrentStep('followup');
   };
 
-  // [Phase 4] 开始文档上传流程
   const startWithDocumentUpload = async () => {
     if (data?.existingScreening) {
       setCurrentStep('upload-document');
       return;
     }
-    // 先创建筛查记录
     setIsCreating(true);
     setError(null);
     try {
@@ -464,12 +486,10 @@ export default function HealthScreeningPage() {
     }
   };
 
-  // [Phase 4] 文档上传成功
   const handleDocumentUploadSuccess = (_result: UploadResult) => {
     setDocumentUploaded(true);
   };
 
-  // [Phase 4] 仅用文档触发分析
   const handleAnalyzeWithDocument = async () => {
     const screeningId = data?.screeningId || data?.existingScreening?.id;
     if (!screeningId) return;
@@ -502,453 +522,346 @@ export default function HealthScreeningPage() {
     }
   };
 
-  // 加载中
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center font-sans">
-        <div className="text-center">
-          <Loader2 className="w-10 h-10 animate-spin text-blue-500 mx-auto mb-4" />
-          <p className="text-gray-500">{t('loading', lang)}</p>
-        </div>
-      </div>
-    );
-  }
-
-  // [Phase 3] 补问界面
-  if (currentStep === 'followup' && (data?.screeningId || data?.existingScreening)) {
-    const screeningId = data.screeningId || data.existingScreening?.id!;
-
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50/30 to-white font-sans">
-        {/* Header */}
-        <div className="bg-white border-b border-neutral-100 shadow-sm">
-          <div className="max-w-4xl mx-auto px-4 py-4">
-            <button
-              onClick={() => setCurrentStep('body-map')}
-              className="inline-flex items-center gap-2 text-neutral-500 hover:text-neutral-700 transition-colors"
-            >
-              <ArrowLeft size={18} />
-              <span className="text-sm">{t('backToSymptoms', lang)}</span>
-            </button>
+  // ==================== Render Content ====================
+  const renderContent = () => {
+    // Loading
+    if (loading) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-white">
+          <div className="text-center">
+            <Loader2 className="w-8 h-8 animate-spin text-brand-700 mx-auto mb-4" />
+            <p className="text-neutral-500 text-sm">{t('loading', lang)}</p>
           </div>
         </div>
+      );
+    }
 
-        {/* Title */}
-        <div className="bg-gradient-to-b from-white to-amber-50/30 py-8">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-100 text-amber-700 rounded-full text-sm mb-4">
-              <Sparkles className="w-4 h-4" />
-              <span>{t('aiFollowup', lang)}</span>
-            </div>
-            <h1 className="text-2xl md:text-3xl font-semibold text-neutral-900 tracking-wide">
-              {t('followupTitle', lang)}
-            </h1>
-            <p className="text-neutral-500 mt-2">
-              {t('followupDesc', lang)}
-            </p>
-          </div>
-        </div>
-
-        {/* Follow-up Form */}
-        <div className="max-w-4xl mx-auto px-4 pb-16">
-          <FollowUpQuestionnaire
-            screeningId={screeningId}
-            questions={followupQuestions}
+    // Follow-up step
+    if (currentStep === 'followup' && (data?.screeningId || data?.existingScreening)) {
+      const screeningId = data!.screeningId || data!.existingScreening?.id!;
+      return (
+        <div className="min-h-screen bg-white">
+          <StepHeader onBack={() => setCurrentStep('body-map')} label={t('backToSymptoms', lang)} />
+          <StepTitleSection
+            badge={t('aiFollowup', lang)}
+            badgeIcon={Sparkles}
+            title={t('followupTitle', lang)}
+            subtitle={t('followupDesc', lang)}
           />
-        </div>
-      </div>
-    );
-  }
-
-  // 显示问卷表单
-  if (currentStep === 'questionnaire' && (data?.screeningId || data?.existingScreening)) {
-    const screeningId = data.screeningId || data.existingScreening?.id!;
-    const initialAnswers = data.existingScreening?.answers || [];
-
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white font-sans">
-        {/* Header */}
-        <div className="bg-white border-b border-gray-100 shadow-sm">
-          <div className="max-w-4xl mx-auto px-4 py-4">
-            <button
-              onClick={handleBackToBodyMap}
-              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
-            >
-              <ArrowLeft size={18} />
-              <span className="text-sm">{t('backToSymptoms', lang)}</span>
-            </button>
+          <div className="max-w-4xl mx-auto px-4 pb-16">
+            <FollowUpQuestionnaire
+              screeningId={screeningId}
+              questions={followupQuestions}
+            />
           </div>
         </div>
+      );
+    }
 
-        {/* Progress Info */}
-        <div className="bg-gradient-to-b from-white to-blue-50/30 py-8">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm mb-4">
-              <Shield className="w-4 h-4" />
-              <span>{t('freeRemaining', lang)} {data.freeRemaining} {lang === 'ja' ? '回' : lang === 'en' ? '' : '次'}</span>
-            </div>
-            <h1 className="text-2xl md:text-3xl font-semibold text-neutral-900 tracking-wide">
-              {t('aiQuestionnaire', lang)}
-            </h1>
-            <p className="text-neutral-500 mt-2">
-              {t('customizedFlow', lang)}
-            </p>
-          </div>
-        </div>
-
-        {/* Form */}
-        <div className="max-w-4xl mx-auto px-4 pb-16">
-          <DynamicScreeningForm
-            screeningId={screeningId}
-            initialAnswers={initialAnswers}
-            bodyMapData={bodyMapData || undefined}
-            onFollowupRequired={handleFollowupRequired}
-          />
-        </div>
-      </div>
-    );
-  }
-
-  // [Phase 4] 文档上传步骤
-  if (currentStep === 'upload-document' && (data?.screeningId || data?.existingScreening)) {
-    const screeningId = data.screeningId || data.existingScreening?.id!;
-
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white font-sans">
-        <div className="bg-white border-b border-gray-100 shadow-sm">
-          <div className="max-w-4xl mx-auto px-4 py-4">
-            <button
-              onClick={() => setCurrentStep('welcome')}
-              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
-            >
-              <ArrowLeft size={18} />
-              <span className="text-sm">{t('backToAccount', lang)}</span>
-            </button>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-b from-white to-blue-50/30 py-8">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-medical-100 text-medical-700 rounded-full text-sm mb-4">
-              <Upload className="w-4 h-4" />
-              <span>{t('uploadDocTitle', lang)}</span>
-            </div>
-            <h1 className="text-2xl md:text-3xl font-semibold text-neutral-900 tracking-wide">
-              {t('uploadDocTitle', lang)}
-            </h1>
-            <p className="text-neutral-500 mt-2">
-              {t('uploadDocDesc', lang)}
-            </p>
-          </div>
-        </div>
-
-        <div className="max-w-2xl mx-auto px-4 py-8">
-          <DocumentUpload
-            screeningId={screeningId}
-            language={lang}
-            onUploadSuccess={handleDocumentUploadSuccess}
-            onRemove={() => setDocumentUploaded(false)}
-          />
-
-          {documentUploaded && (
-            <div className="mt-8 space-y-3">
-              {/* 报告语言选择器 */}
-              <div className="flex items-center justify-center gap-2 p-3 bg-gray-50 rounded-xl">
-                <Globe className="w-4 h-4 text-gray-500" />
-                <span className="text-sm text-gray-600">{t('reportLanguage', lang)}:</span>
-                <div className="flex gap-1">
-                  {([
-                    { code: 'zh-CN' as Language, label: '简体中文' },
-                    { code: 'zh-TW' as Language, label: '繁體中文' },
-                    { code: 'ja' as Language, label: '日本語' },
-                    { code: 'en' as Language, label: 'English' },
-                  ]).map(({ code, label }) => (
-                    <button
-                      key={code}
-                      onClick={() => setReportLang(code)}
-                      className={`px-3 py-1 text-xs rounded-full transition-colors ${
-                        reportLang === code
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
-                      }`}
-                    >
-                      {label}
-                    </button>
-                  ))}
-                </div>
+    // Questionnaire step
+    if (currentStep === 'questionnaire' && (data?.screeningId || data?.existingScreening)) {
+      const screeningId = data!.screeningId || data!.existingScreening?.id!;
+      const initialAnswers = data!.existingScreening?.answers || [];
+      return (
+        <div className="min-h-screen bg-white">
+          <StepHeader onBack={handleBackToBodyMap} label={t('backToSymptoms', lang)} />
+          <div className="py-8 bg-white">
+            <div className="max-w-4xl mx-auto px-4 text-center">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-50 text-brand-700 border border-neutral-200 text-sm mb-4">
+                <Shield className="w-4 h-4" />
+                <span>{t('freeRemaining', lang)} {data!.freeRemaining} {lang === 'ja' ? '回' : lang === 'en' ? '' : '次'}</span>
               </div>
-              <button
-                onClick={handleAnalyzeWithDocument}
-                disabled={isAnalyzingDoc}
-                className="w-full px-6 py-4 bg-gradient-to-r from-medical-600 to-medical-700 text-white text-lg font-medium rounded-xl hover:from-medical-700 hover:to-medical-800 transition-all disabled:opacity-50 shadow-lg"
-              >
-                {isAnalyzingDoc ? (
-                  <span className="flex flex-col items-center gap-2">
-                    <span className="flex items-center gap-2">
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      {t('analyzing', lang)}
-                    </span>
-                    <span className="text-xs text-white/70 font-normal">
-                      {t('analyzingPatience', lang)}
-                    </span>
-                  </span>
-                ) : (
-                  <span className="flex items-center justify-center gap-2">
-                    <Sparkles className="w-5 h-5" />
-                    {t('analyzeDoc', lang)}
-                  </span>
-                )}
-              </button>
-              <button
-                onClick={() => setCurrentStep('body-map')}
-                className="w-full px-6 py-3 border-2 border-brand-200 text-brand-700 rounded-xl hover:bg-brand-50 transition-colors text-sm"
-              >
-                {t('orContinueQuestionnaire', lang)}
-              </button>
+              <h1 className="text-2xl md:text-3xl font-serif text-brand-900 tracking-wide">
+                {t('aiQuestionnaire', lang)}
+              </h1>
+              <p className="text-neutral-500 mt-2">
+                {t('customizedFlow', lang)}
+              </p>
             </div>
-          )}
-
-          {error && (
-            <div className="mt-4 p-4 bg-red-50 text-red-700 rounded-xl flex items-center gap-3">
-              <AlertCircle className="w-5 h-5 flex-shrink-0" />
-              <span>{error}</span>
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  }
-
-  // 人体图选择步骤
-  if (currentStep === 'body-map' && (data?.screeningId || data?.existingScreening)) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white font-sans">
-        {/* Header */}
-        <div className="bg-white border-b border-gray-100 shadow-sm">
-          <div className="max-w-4xl mx-auto px-4 py-4">
-            <Link
-              href="/my-account"
-              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
-            >
-              <ArrowLeft size={18} />
-              <span className="text-sm">{t('backToAccount', lang)}</span>
-            </Link>
+          </div>
+          <div className="max-w-4xl mx-auto px-4 pb-16">
+            <DynamicScreeningForm
+              screeningId={screeningId}
+              initialAnswers={initialAnswers}
+              bodyMapData={bodyMapData || undefined}
+              onFollowupRequired={handleFollowupRequired}
+            />
           </div>
         </div>
+      );
+    }
 
-        {/* Progress Info */}
-        <div className="bg-gradient-to-b from-white to-blue-50/30 py-8">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm mb-4">
-              <Activity className="w-4 h-4" />
-              <span>{t('step1', lang)}</span>
-            </div>
-            <h1 className="text-2xl md:text-3xl font-semibold text-neutral-900 tracking-wide">
-              {t('clickBodyMap', lang)}
-            </h1>
-            <p className="text-neutral-500 mt-2">
-              {t('preciseDiagnosis', lang)}
-            </p>
-          </div>
-        </div>
-
-        {/* Body Map Selector */}
-        <div className="max-w-4xl mx-auto px-4 pb-16">
-          <BodyMapSelector
-            onComplete={handleBodyMapComplete}
-            onBack={() => setCurrentStep('welcome')}
+    // Document upload step
+    if (currentStep === 'upload-document' && (data?.screeningId || data?.existingScreening)) {
+      const screeningId = data!.screeningId || data!.existingScreening?.id!;
+      return (
+        <div className="min-h-screen bg-white">
+          <StepHeader onBack={() => setCurrentStep('welcome')} label={t('backToAccount', lang)} />
+          <StepTitleSection
+            badge={t('uploadDocTitle', lang)}
+            badgeIcon={Upload}
+            title={t('uploadDocTitle', lang)}
+            subtitle={t('uploadDocDesc', lang)}
           />
-        </div>
-      </div>
-    );
-  }
+          <div className="max-w-2xl mx-auto px-4 py-8">
+            <DocumentUpload
+              screeningId={screeningId}
+              language={lang}
+              onUploadSuccess={handleDocumentUploadSuccess}
+              onRemove={() => setDocumentUploaded(false)}
+            />
 
-  // 欢迎页面
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white font-sans">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-100 shadow-sm">
-        <div className="max-w-4xl mx-auto px-4 py-4">
-          <Link
-            href="/my-account"
-            className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
-          >
-            <ArrowLeft size={18} />
-            <span className="text-sm">{t('backToAccount', lang)}</span>
-          </Link>
-        </div>
-      </div>
+            {documentUploaded && (
+              <div className="mt-8 space-y-3">
+                {/* Report language selector */}
+                <div className="flex items-center justify-center gap-2 p-3 bg-neutral-50 border border-neutral-200">
+                  <Globe className="w-4 h-4 text-neutral-500" />
+                  <span className="text-sm text-neutral-600">{t('reportLanguage', lang)}:</span>
+                  <div className="flex gap-1">
+                    {([
+                      { code: 'zh-CN' as Language, label: '简体中文' },
+                      { code: 'zh-TW' as Language, label: '繁體中文' },
+                      { code: 'ja' as Language, label: '日本語' },
+                      { code: 'en' as Language, label: 'English' },
+                    ]).map(({ code, label }) => (
+                      <button
+                        key={code}
+                        onClick={() => setReportLang(code)}
+                        className={`px-3 py-1 text-xs transition-colors ${
+                          reportLang === code
+                            ? 'bg-brand-900 text-white'
+                            : 'bg-white text-neutral-600 hover:bg-neutral-100 border border-neutral-200'
+                        }`}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <button
+                  onClick={handleAnalyzeWithDocument}
+                  disabled={isAnalyzingDoc}
+                  className="w-full px-6 py-4 bg-gold-400 hover:bg-gold-300 text-brand-900 text-lg font-medium tracking-wider transition-colors disabled:opacity-50"
+                >
+                  {isAnalyzingDoc ? (
+                    <span className="flex flex-col items-center gap-2">
+                      <span className="flex items-center gap-2">
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        {t('analyzing', lang)}
+                      </span>
+                      <span className="text-xs text-brand-900/70 font-normal">
+                        {t('analyzingPatience', lang)}
+                      </span>
+                    </span>
+                  ) : (
+                    <span className="flex items-center justify-center gap-2">
+                      <Sparkles className="w-5 h-5" />
+                      {t('analyzeDoc', lang)}
+                    </span>
+                  )}
+                </button>
+                <button
+                  onClick={() => setCurrentStep('body-map')}
+                  className="w-full px-6 py-3 border border-neutral-200 text-brand-700 hover:bg-neutral-50 transition-colors text-sm"
+                >
+                  {t('orContinueQuestionnaire', lang)}
+                </button>
+              </div>
+            )}
 
-      {/* Hero */}
-      <div className="bg-gradient-to-b from-white to-blue-50/30 py-16">
-        <div className="max-w-2xl mx-auto px-4 text-center">
-          <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full mb-6 shadow-lg shadow-blue-200">
-            <Heart className="w-12 h-12 text-white" />
+            {error && (
+              <div className="mt-4 p-4 bg-red-50 border border-red-200 text-red-700 flex items-center gap-3 text-sm">
+                <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                <span>{error}</span>
+              </div>
+            )}
           </div>
+        </div>
+      );
+    }
 
-          <h1 className="text-3xl md:text-4xl font-semibold text-neutral-900 tracking-wide mb-4">
-            {t('aiScreeningTitle', lang)}
-          </h1>
-
-          <p className="text-gray-500 text-lg mb-8 leading-relaxed">
-            {t('upgradeDesc', lang)}
-          </p>
-
-          {/* 免费次数提示 */}
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-green-100 text-green-700 rounded-full text-sm mb-8 shadow-sm">
-            <Sparkles className="w-4 h-4" />
-            <span>
-              {t('freeRemaining', lang)} {data?.freeRemaining ?? FREE_SCREENING_LIMIT} {lang === 'ja' ? '回' : lang === 'en' ? '' : '次'}
-            </span>
-          </div>
-
-          {/* 错误提示 */}
-          {error && (
-            <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-xl flex items-center gap-3 max-w-md mx-auto">
-              <AlertCircle className="w-5 h-5 flex-shrink-0" />
-              <span>{error}</span>
-            </div>
-          )}
-
-          {/* 开始按钮 */}
-          {(data?.freeRemaining ?? FREE_SCREENING_LIMIT) > 0 ? (
-            <div className="flex flex-col items-center gap-3">
-              <button
-                onClick={startNewScreening}
-                disabled={isCreating}
-                className="px-10 py-4 bg-gradient-to-r from-brand-600 to-brand-700 text-white text-lg font-medium rounded-xl hover:from-brand-700 hover:to-brand-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-brand-200 hover:shadow-xl hover:shadow-brand-300 transform hover:-translate-y-0.5"
-              >
-                {isCreating ? (
-                  <span className="flex items-center gap-2">
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    {t('creating', lang)}
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-2">
-                    <Activity className="w-5 h-5" />
-                    {t('startScreening', lang)}
-                  </span>
-                )}
-              </button>
-              <button
-                onClick={startWithDocumentUpload}
-                disabled={isCreating}
-                className="px-8 py-3 border-2 border-medical-300 text-medical-700 rounded-xl hover:bg-medical-50 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-              >
-                <Upload className="w-4 h-4" />
-                {t('orUploadDoc', lang)}
-              </button>
-            </div>
-          ) : (
-            <div className="text-center">
-              <p className="text-gray-500 mb-4">{t('limitReached', lang)}</p>
+    // Body map step
+    if (currentStep === 'body-map' && (data?.screeningId || data?.existingScreening)) {
+      return (
+        <div className="min-h-screen bg-white">
+          <div className="bg-white border-b border-neutral-200">
+            <div className="max-w-4xl mx-auto px-4 py-4">
               <Link
-                href="/health-screening/history"
-                className="text-blue-600 hover:underline"
+                href="/my-account"
+                className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
               >
-                {t('viewHistory', lang)}
+                <ArrowLeft size={18} />
+                <span className="text-sm">{t('backToAccount', lang)}</span>
               </Link>
             </div>
-          )}
-
-          {/* 快捷链接 */}
-          <div className="flex justify-center gap-4 mt-6">
-            <Link
-              href="/health-screening/history"
-              className="text-sm text-neutral-500 hover:text-brand-900 transition-colors"
-            >
-              {t('viewHistory', lang)} →
-            </Link>
+          </div>
+          <StepTitleSection
+            badge={t('step1', lang)}
+            badgeIcon={Activity}
+            title={t('clickBodyMap', lang)}
+            subtitle={t('preciseDiagnosis', lang)}
+          />
+          <div className="max-w-4xl mx-auto px-4 pb-16">
+            <BodyMapSelector
+              onComplete={handleBodyMapComplete}
+              onBack={() => setCurrentStep('welcome')}
+            />
           </div>
         </div>
+      );
+    }
+
+    // ==================== Welcome Page ====================
+    return (
+      <div className="min-h-screen bg-white">
+        {/* Hero Section */}
+        <section className="relative bg-brand-900 overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
+            <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
+          </div>
+
+          <div className="relative z-10 max-w-4xl mx-auto px-6 py-20 text-center">
+            <div className="flex items-center justify-center gap-3 mb-8">
+              <div className="h-[1px] w-12 bg-gold-400" />
+              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">AI HEALTH SCREENING</span>
+              <div className="h-[1px] w-12 bg-gold-400" />
+            </div>
+
+            <h1 className="font-serif text-3xl md:text-4xl xl:text-5xl text-white mb-6 leading-tight">
+              {t('aiScreeningTitle', lang)}
+            </h1>
+
+            <p className="text-lg text-neutral-300 leading-relaxed font-light mb-10 max-w-2xl mx-auto">
+              {t('upgradeDesc', lang)}
+            </p>
+
+            {/* Free remaining badge */}
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-gold-400/10 text-gold-400 border border-gold-400/30 text-sm mb-10">
+              <Sparkles className="w-4 h-4" />
+              <span>
+                {t('freeRemaining', lang)} {data?.freeRemaining ?? FREE_SCREENING_LIMIT} {lang === 'ja' ? '回' : lang === 'en' ? '' : '次'}
+              </span>
+            </div>
+
+            {/* Error */}
+            {error && (
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 flex items-center gap-3 max-w-md mx-auto text-sm">
+                <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                <span>{error}</span>
+              </div>
+            )}
+
+            {/* CTA */}
+            {(data?.freeRemaining ?? FREE_SCREENING_LIMIT) > 0 ? (
+              <div className="flex flex-col items-center gap-3">
+                <button
+                  onClick={startNewScreening}
+                  disabled={isCreating}
+                  className="px-10 py-4 bg-gold-400 hover:bg-gold-300 text-brand-900 text-lg font-medium tracking-wider transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                >
+                  {isCreating ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      {t('creating', lang)}
+                    </>
+                  ) : (
+                    <>
+                      <Activity className="w-5 h-5" />
+                      {t('startScreening', lang)}
+                    </>
+                  )}
+                </button>
+                <button
+                  onClick={startWithDocumentUpload}
+                  disabled={isCreating}
+                  className="px-8 py-3 border border-white/20 text-white/80 hover:text-white hover:border-white/40 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 text-sm"
+                >
+                  <Upload className="w-4 h-4" />
+                  {t('orUploadDoc', lang)}
+                </button>
+              </div>
+            ) : (
+              <div className="text-center">
+                <p className="text-neutral-300 mb-4">{t('limitReached', lang)}</p>
+                <Link
+                  href="/health-screening/history"
+                  className="text-gold-400 hover:text-gold-300"
+                >
+                  {t('viewHistory', lang)}
+                </Link>
+              </div>
+            )}
+
+            <div className="flex justify-center gap-4 mt-6">
+              <Link
+                href="/health-screening/history"
+                className="text-sm text-neutral-400 hover:text-white transition-colors"
+              >
+                {t('viewHistory', lang)} →
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* New Features */}
+        <section className="py-16 bg-white">
+          <div className="max-w-4xl mx-auto px-6">
+            <div className="text-center mb-10">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <div className="h-[1px] w-8 bg-gold-400" />
+                <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">FEATURES</span>
+                <div className="h-[1px] w-8 bg-gold-400" />
+              </div>
+              <h2 className="text-2xl font-serif text-brand-900">{t('newFeatures', lang)}</h2>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[
+                { icon: Activity, title: t('bodyMapInteraction', lang), desc: t('bodyMapDesc', lang) },
+                { icon: Users, title: t('smartDeptRecommend', lang), desc: t('smartDeptDesc', lang) },
+                { icon: Sparkles, title: t('dynamicQuestionnaire', lang), desc: t('dynamicDesc', lang) },
+                { icon: FileText, title: t('pdfReport', lang), desc: t('pdfDesc', lang) },
+              ].map(({ icon: Icon, title, desc }) => (
+                <div key={title} className="border border-neutral-200 p-5 hover:bg-neutral-50/50 transition-colors">
+                  <div className="w-12 h-12 bg-neutral-50 border border-neutral-200 flex items-center justify-center mb-4">
+                    <Icon className="w-6 h-6 text-brand-700" />
+                  </div>
+                  <h3 className="font-semibold text-brand-900 mb-2">{title}</h3>
+                  <p className="text-neutral-500 text-sm">{desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Core Features */}
+        <section className="pb-16 bg-white">
+          <div className="max-w-4xl mx-auto px-6">
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                { icon: Shield, title: t('privacyProtection', lang), desc: t('privacyDesc', lang) },
+                { icon: Sparkles, title: t('aiAnalysis', lang), desc: t('aiAnalysisDesc', lang) },
+                { icon: Heart, title: t('japanMedicalRecommend', lang), desc: t('japanMedicalDesc', lang) },
+              ].map(({ icon: Icon, title, desc }) => (
+                <div key={title} className="border border-neutral-200 p-6">
+                  <div className="w-12 h-12 bg-neutral-50 border border-neutral-200 flex items-center justify-center mb-4">
+                    <Icon className="w-6 h-6 text-brand-700" />
+                  </div>
+                  <h3 className="font-semibold text-brand-900 mb-2">{title}</h3>
+                  <p className="text-neutral-500 text-sm">{desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </div>
+    );
+  };
 
-      {/* 新功能亮点 */}
-      <div className="max-w-4xl mx-auto px-4 py-12">
-        <div className="text-center mb-10">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
-            <Sparkles className="w-4 h-4" />
-            {t('newFeatures', lang)}
-          </span>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
-              <Activity className="w-6 h-6 text-blue-600" />
-            </div>
-            <h3 className="font-semibold text-neutral-900 mb-2">{t('bodyMapInteraction', lang)}</h3>
-            <p className="text-neutral-500 text-sm">
-              {t('bodyMapDesc', lang)}
-            </p>
-          </div>
-
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
-              <Users className="w-6 h-6 text-green-600" />
-            </div>
-            <h3 className="font-semibold text-neutral-900 mb-2">{t('smartDeptRecommend', lang)}</h3>
-            <p className="text-neutral-500 text-sm">
-              {t('smartDeptDesc', lang)}
-            </p>
-          </div>
-
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
-              <Sparkles className="w-6 h-6 text-purple-600" />
-            </div>
-            <h3 className="font-semibold text-neutral-900 mb-2">{t('dynamicQuestionnaire', lang)}</h3>
-            <p className="text-neutral-500 text-sm">
-              {t('dynamicDesc', lang)}
-            </p>
-          </div>
-
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
-              <FileText className="w-6 h-6 text-orange-600" />
-            </div>
-            <h3 className="font-semibold text-neutral-900 mb-2">{t('pdfReport', lang)}</h3>
-            <p className="text-neutral-500 text-sm">
-              {t('pdfDesc', lang)}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* 原有功能特性 */}
-      <div className="max-w-4xl mx-auto px-4 pb-16">
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100">
-            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
-              <Shield className="w-6 h-6 text-blue-600" />
-            </div>
-            <h3 className="font-semibold text-neutral-900 mb-2">{t('privacyProtection', lang)}</h3>
-            <p className="text-neutral-500 text-sm">
-              {t('privacyDesc', lang)}
-            </p>
-          </div>
-
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100">
-            <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
-              <Sparkles className="w-6 h-6 text-purple-600" />
-            </div>
-            <h3 className="font-semibold text-neutral-900 mb-2">{t('aiAnalysis', lang)}</h3>
-            <p className="text-neutral-500 text-sm">
-              {t('aiAnalysisDesc', lang)}
-            </p>
-          </div>
-
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100">
-            <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
-              <Heart className="w-6 h-6 text-green-600" />
-            </div>
-            <h3 className="font-semibold text-neutral-900 mb-2">{t('japanMedicalRecommend', lang)}</h3>
-            <p className="text-neutral-500 text-sm">
-              {t('japanMedicalDesc', lang)}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+  return (
+    <PublicLayout showFooter={false} transparentNav={false}>
+      {renderContent()}
+    </PublicLayout>
   );
 }
