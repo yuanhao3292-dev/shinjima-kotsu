@@ -3,10 +3,12 @@
 import { useState, Suspense, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 import PublicLayout from '@/components/PublicLayout';
-import { Mail, Lock, Loader2, AlertCircle, Eye, EyeOff, User } from 'lucide-react';
+import { Mail, Lock, Loader2, AlertCircle, Eye, EyeOff } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
+import { useSiteImages } from '@/lib/hooks/useSiteImages';
 
 // 翻译对象
 const translations = {
@@ -61,6 +63,12 @@ const translations = {
   },
 
   // Hero section
+  heroLabel: {
+    ja: 'GUIDE PARTNER',
+    'zh-CN': 'GUIDE PARTNER',
+    'zh-TW': 'GUIDE PARTNER',
+    en: 'GUIDE PARTNER',
+  },
   heroTitle: {
     ja: 'ガイドパートナーシステム',
     'zh-CN': '导游合伙人系统',
@@ -73,7 +81,7 @@ const translations = {
     'zh-TW': '輕鬆管理您的業務',
     en: 'Easily Manage Your Business',
   },
-  heroLoginText: {
+  heroDesc: {
     ja: 'ログイン後、以下のことができます:',
     'zh-CN': '登录后您可以:',
     'zh-TW': '登入後您可以:',
@@ -171,18 +179,6 @@ const translations = {
     'zh-TW': '← 返回導遊合夥人首頁',
     en: '← Back to Guide Partner Home',
   },
-  legalNotice: {
-    ja: '本サービスは新島交通株式会社が提供しています',
-    'zh-CN': '本服务由新岛交通株式会社提供',
-    'zh-TW': '本服務由新島交通株式會社提供',
-    en: 'This service is provided by NIIJIMA KOTSU Co., Ltd.',
-  },
-  legalLicense: {
-    ja: '大阪府知事登録旅行業 第2-3115号 ｜ JATA正会員',
-    'zh-CN': '大阪府知事登录旅行业 第2-3115号 ｜ JATA正式会员',
-    'zh-TW': '大阪府知事登錄旅行業 第2-3115號 ｜ JATA正式會員',
-    en: 'Osaka Prefecture Travel Agency No. 2-3115 | JATA Member',
-  },
 } as const;
 
 const t = (key: keyof typeof translations, lang: Language): string => {
@@ -192,7 +188,6 @@ const t = (key: keyof typeof translations, lang: Language): string => {
 // 安全的重定向路径验证
 const getSafeRedirect = (redirect: string | null, allowedPrefix: string, defaultPath: string): string => {
   if (!redirect) return defaultPath;
-  // 只允许相对路径且必须以指定前缀开头
   if (redirect.startsWith(allowedPrefix) && !redirect.includes('//') && !redirect.includes('..')) {
     return redirect;
   }
@@ -201,6 +196,7 @@ const getSafeRedirect = (redirect: string | null, allowedPrefix: string, default
 
 function LoginForm() {
   const lang = useLanguage();
+  const { getImage } = useSiteImages();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -238,7 +234,7 @@ function LoginForm() {
         return;
       }
 
-      // 2. 檢查是否是管理員（管理員應該使用管理員登入頁面）
+      // 2. 檢查是否是管理員
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
         const verifyResponse = await fetch('/api/admin/verify', {
@@ -253,7 +249,7 @@ function LoginForm() {
         }
       }
 
-      // 3. 檢查是否是導遊（确保 authData.user 存在）
+      // 3. 檢查是否是導遊
       if (!authData.user) {
         setError(t('loginFailed', lang));
         return;
@@ -290,7 +286,6 @@ function LoginForm() {
         return;
       }
 
-      // 使用安全验证后的路径
       router.push(safeRedirect);
       router.refresh();
     } catch {
@@ -301,184 +296,187 @@ function LoginForm() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-80px)] flex">
-      {/* Left Side - Hero */}
-      <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-brand-900 via-brand-700 to-brand-900">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=2000')] bg-cover bg-center opacity-20"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-900/50 via-transparent to-brand-900/30"></div>
-        <div className="relative z-10 flex flex-col justify-center px-16 text-white">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="flex flex-col">
-              <span className="font-serif font-bold text-lg tracking-wide leading-none">NIIJIMA</span>
-              <span className="text-[10px] uppercase tracking-widest leading-none mt-1 text-white/60">
-                {{ ja: '新島交通株式会社', 'zh-TW': '新島交通株式會社', 'zh-CN': '新岛交通株式会社', en: 'Niijima Kotsu Co., Ltd.' }[lang]}
+    <div className="min-h-screen flex">
+      {/* Left Side — Brand Hero */}
+      <div className="hidden lg:flex lg:w-1/2 relative bg-brand-900 overflow-hidden">
+        <Image
+          src={getImage('guide_hero', 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=2000')}
+          alt="Guide Partner"
+          fill
+          className="object-cover"
+          quality={75}
+          sizes="50vw"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70" />
+
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
+          <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
+        </div>
+
+        <div className="relative z-10 flex flex-col justify-center px-16">
+          <div className="max-w-lg">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="h-[1px] w-12 bg-gold-400" />
+              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">
+                {t('heroLabel', lang)}
               </span>
             </div>
+
+            <h1 className="font-serif text-4xl xl:text-5xl text-white mb-4 leading-tight">
+              {t('heroTitle', lang)}
+              <br />
+              <span className="text-gold-400">{t('heroSubtitle', lang)}</span>
+            </h1>
+
+            <p className="text-lg text-neutral-300 leading-relaxed font-light mb-10 max-w-md">
+              {t('heroDesc', lang)}
+            </p>
+
+            <ul className="space-y-3 text-sm">
+              {(['feature1', 'feature2', 'feature3', 'feature4'] as const).map((key) => (
+                <li key={key} className="flex items-center gap-2">
+                  <svg className="w-5 h-5 text-gold-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-neutral-300">{t(key, lang)}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-          <h1 className="text-4xl font-serif font-bold mb-6 leading-tight">
-            {t('heroTitle', lang)}<br />
-            <span className="text-brand-300">{t('heroSubtitle', lang)}</span>
-          </h1>
-          <p className="text-neutral-300 leading-relaxed mb-8 max-w-md">
-            {t('heroLoginText', lang)}
-          </p>
-          <ul className="space-y-3 text-sm">
-            <li className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              {t('feature1', lang)}
-            </li>
-            <li className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              {t('feature2', lang)}
-            </li>
-            <li className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              {t('feature3', lang)}
-            </li>
-            <li className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              {t('feature4', lang)}
-            </li>
-          </ul>
         </div>
       </div>
 
-      {/* Right Side - Login Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-neutral-50">
+      {/* Right Side — Login Form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 pt-24 bg-white">
         <div className="w-full max-w-md">
-          {/* Mobile Logo */}
-          <div className="lg:hidden flex items-center justify-center mb-8">
-            <div className="flex flex-col items-center">
-              <span className="font-serif font-bold text-lg tracking-wide leading-none text-neutral-900">NIIJIMA</span>
-              <span className="text-[10px] uppercase tracking-widest leading-none mt-1 text-neutral-400">
-                {{ ja: '新島交通株式会社', 'zh-TW': '新島交通株式會社', 'zh-CN': '新岛交通株式会社', en: 'Niijima Kotsu Co., Ltd.' }[lang]}
-              </span>
-            </div>
+          {/* Mobile hero label */}
+          <div className="lg:hidden flex items-center gap-3 mb-6">
+            <div className="h-[1px] w-8 bg-gold-400" />
+            <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">GUIDE PARTNER</span>
           </div>
 
-          {/* Login Card */}
-          <div className="bg-white rounded-2xl shadow-xl p-8 border border-neutral-100">
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-50 rounded-full mb-4">
-                <User className="w-8 h-8 text-brand-600" />
-              </div>
-              <h1 className="text-2xl font-serif font-bold text-neutral-900">{t('loginTitle', lang)}</h1>
-              <p className="text-neutral-500 mt-2 text-sm">{t('loginDesc', lang)}</p>
-            </div>
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="text-2xl font-serif text-brand-900 mb-2">{t('loginTitle', lang)}</h1>
+            <p className="text-neutral-500 text-sm">{t('loginDesc', lang)}</p>
+          </div>
 
-            {error && (
-              <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm">
-                <div className="flex items-center gap-2">
-                  <AlertCircle size={18} />
-                  <span>{error}</span>
-                </div>
+          {/* Error */}
+          {error && (
+            <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 flex items-start gap-2 text-sm">
+              <AlertCircle size={18} className="flex-shrink-0 mt-0.5" />
+              <div>
+                <span>{error}</span>
                 {error.includes(t('isAdmin', lang).slice(0, 10)) && (
                   <Link
                     href="/admin/login"
-                    className="mt-2 inline-block text-brand-600 hover:text-brand-700 font-medium"
+                    className="mt-2 block text-brand-700 hover:text-brand-900 font-medium"
                   >
                     {t('goToAdminLogin', lang)}
                   </Link>
                 )}
               </div>
-            )}
+            </div>
+          )}
 
-            <form onSubmit={handleLogin} className="space-y-5">
-              <div>
-                <label className="block text-sm font-medium text-neutral-700 mb-2">{t('emailLabel', lang)}</label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400" size={20} />
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="w-full pl-10 pr-4 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
-                    placeholder="your@email.com"
-                  />
-                </div>
+          {/* Form */}
+          <form onSubmit={handleLogin} className="space-y-5">
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 mb-2">
+                {t('emailLabel', lang)}
+              </label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="w-full pl-10 pr-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent transition bg-white text-sm"
+                  placeholder="your@email.com"
+                />
               </div>
+            </div>
 
-              <div>
-                <label className="block text-sm font-medium text-neutral-700 mb-2">{t('passwordLabel', lang)}</label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400" size={20} />
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    className="w-full pl-10 pr-12 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
-                    placeholder="••••••••"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
-                  >
-                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                  </button>
-                </div>
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 mb-2">
+                {t('passwordLabel', lang)}
+              </label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="w-full pl-10 pr-12 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent transition bg-white text-sm"
+                  placeholder="••••••••"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
               </div>
-
-              <div className="flex justify-end">
-                <Link href="/forgot-password?from=guide" className="text-sm text-brand-600 hover:text-brand-700 font-medium">
+              <div className="mt-2 text-right">
+                <Link
+                  href="/forgot-password?from=guide"
+                  className="text-sm text-brand-700 hover:text-brand-900 font-medium"
+                >
                   {t('forgotPassword', lang)}
                 </Link>
               </div>
+            </div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-brand-900 hover:bg-brand-800 disabled:bg-neutral-400 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-gold-400 hover:bg-gold-300 disabled:bg-neutral-300 text-brand-900 font-medium py-3 px-6 text-sm tracking-wider transition-colors flex items-center justify-center gap-2"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="animate-spin" size={18} />
+                  {t('loggingIn', lang)}
+                </>
+              ) : (
+                t('loginButton', lang)
+              )}
+            </button>
+          </form>
+
+          {/* Divider */}
+          <div className="my-6 flex items-center">
+            <div className="flex-grow border-t border-neutral-200" />
+            <span className="px-4 text-sm text-neutral-400">{t('orDivider', lang)}</span>
+            <div className="flex-grow border-t border-neutral-200" />
+          </div>
+
+          {/* Register */}
+          <div className="text-center">
+            <p className="text-neutral-600 text-sm">
+              {t('noAccount', lang)}
+              <Link
+                href="/guide-partner/register"
+                className="text-brand-700 hover:text-brand-900 font-medium ml-1"
               >
-                {loading ? (
-                  <>
-                    <Loader2 className="animate-spin" size={20} />
-                    {t('loggingIn', lang)}
-                  </>
-                ) : (
-                  t('loginButton', lang)
-                )}
-              </button>
-            </form>
-
-            <div className="my-6 flex items-center">
-              <div className="flex-grow border-t border-neutral-200"></div>
-              <span className="px-4 text-sm text-neutral-400">{t('orDivider', lang)}</span>
-              <div className="flex-grow border-t border-neutral-200"></div>
-            </div>
-
-            <div className="text-center">
-              <p className="text-neutral-600 text-sm">
-                {t('noAccount', lang)}
-                <Link href="/guide-partner/register" className="text-brand-600 hover:text-brand-700 font-bold ml-1">
-                  {t('registerLink', lang)}
-                </Link>
-              </p>
-            </div>
-
-            <div className="mt-6 pt-6 border-t border-neutral-100 text-center">
-              <Link href="/guide-partner" className="text-neutral-500 hover:text-brand-900 text-sm">
-                {t('backToHome', lang)}
+                {t('registerLink', lang)}
               </Link>
-            </div>
+            </p>
+          </div>
 
-            {/* 法律声明 */}
-            <div className="mt-8 pt-6 border-t border-neutral-100 text-center">
-              <p className="text-[10px] text-neutral-400 leading-relaxed">
-                {t('legalNotice', lang)}<br />
-                {t('legalLicense', lang)}
-              </p>
-            </div>
+          {/* Back to Guide Partner Home */}
+          <div className="mt-6 pt-6 border-t border-neutral-200 text-center">
+            <Link
+              href="/guide-partner"
+              className="text-neutral-500 hover:text-brand-900 text-sm"
+            >
+              {t('backToHome', lang)}
+            </Link>
           </div>
         </div>
       </div>
@@ -488,17 +486,15 @@ function LoginForm() {
 
 function LoadingFallback() {
   return (
-    <div className="min-h-[calc(100vh-80px)] flex items-center justify-center bg-neutral-50">
+    <div className="min-h-screen flex items-center justify-center bg-white">
       <div className="w-full max-w-md p-8">
-        <div className="bg-white rounded-2xl shadow-xl p-8 animate-pulse">
-          <div className="flex justify-center mb-8">
-            <div className="w-16 h-16 bg-neutral-200 rounded-full"></div>
-          </div>
-          <div className="h-8 bg-neutral-200 rounded w-1/2 mx-auto mb-4"></div>
-          <div className="space-y-4">
-            <div className="h-12 bg-neutral-200 rounded-xl"></div>
-            <div className="h-12 bg-neutral-200 rounded-xl"></div>
-            <div className="h-12 bg-neutral-200 rounded-xl"></div>
+        <div className="animate-pulse">
+          <div className="h-6 bg-neutral-200 w-1/3 mb-2" />
+          <div className="h-4 bg-neutral-200 w-2/3 mb-8" />
+          <div className="space-y-5">
+            <div className="h-12 bg-neutral-100 border border-neutral-200" />
+            <div className="h-12 bg-neutral-100 border border-neutral-200" />
+            <div className="h-12 bg-neutral-200" />
           </div>
         </div>
       </div>
@@ -509,11 +505,9 @@ function LoadingFallback() {
 export default function GuideLoginPage() {
   return (
     <PublicLayout showFooter={false} transparentNav={false}>
-      <div className="pt-20">
-        <Suspense fallback={<LoadingFallback />}>
-          <LoginForm />
-        </Suspense>
-      </div>
+      <Suspense fallback={<LoadingFallback />}>
+        <LoginForm />
+      </Suspense>
     </PublicLayout>
   );
 }
