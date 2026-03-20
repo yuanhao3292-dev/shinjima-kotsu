@@ -1056,28 +1056,80 @@ export default function GuidePartnerPage() {
               <div className="bg-brand-800/50 rounded-lg p-4 border border-brand-700">
                 <p className="text-neutral-400 text-sm mb-3">{t('previewLabel')}</p>
                 <div className="bg-brand-900 rounded overflow-hidden">
+                  {/* Browser chrome */}
                   <div className="flex items-center gap-2 px-3 py-2 border-b border-brand-700">
                     <div className="w-2.5 h-2.5 rounded-full bg-red-500/70"></div>
                     <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/70"></div>
                     <div className="w-2.5 h-2.5 rounded-full bg-green-500/70"></div>
                     <span className="text-neutral-500 text-xs ml-2">niijima-koutsu.jp/g/demo</span>
                   </div>
-                  <iframe
-                    src="https://niijima-koutsu.jp/g/demo"
-                    className="w-full h-[400px] md:h-[480px] border-0"
-                    title="White-label demo"
-                    loading="lazy"
-                  />
+                  {/* Static mockup of the whitelabel demo page */}
+                  <a
+                    href="https://niijima-koutsu.jp/g/demo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block relative h-[400px] md:h-[480px] overflow-hidden group cursor-pointer"
+                  >
+                    <Image
+                      src="https://i.ibb.co/xS1h4rTM/hero-medical.jpg"
+                      alt="White-label demo preview"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-teal-900/90 via-teal-900/70 to-transparent" />
+                    {/* Mockup nav bar */}
+                    <div className="absolute top-0 inset-x-0 flex items-center justify-between px-4 py-3 bg-black/20 backdrop-blur-sm border-b border-white/10">
+                      <div className="flex items-center gap-2">
+                        <div className="w-5 h-5 rounded bg-white/20"></div>
+                        <span className="text-white/80 text-xs font-medium">{t('previewBrandName')}</span>
+                      </div>
+                      <div className="flex gap-3">
+                        <div className="w-8 h-1.5 rounded-full bg-white/20"></div>
+                        <div className="w-8 h-1.5 rounded-full bg-white/20"></div>
+                        <div className="w-8 h-1.5 rounded-full bg-white/20"></div>
+                      </div>
+                    </div>
+                    {/* Mockup hero content */}
+                    <div className="absolute inset-0 flex items-center px-6 md:px-8">
+                      <div className="max-w-[70%]">
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="h-[1px] w-6 bg-white/40"></div>
+                          <span className="text-[10px] tracking-[0.2em] text-white/60 uppercase">Premium Health Screening</span>
+                        </div>
+                        <h3 className="text-lg md:text-2xl font-bold text-white leading-tight mb-2">
+                          日本精密健康检查
+                        </h3>
+                        <p className="text-[10px] md:text-xs text-white/60 leading-relaxed mb-4 line-clamp-2">
+                          在日本顶级医疗机构进行全面精密体检，享受高端医疗资源与专业中文陪诊服务。
+                        </p>
+                        <div className="flex gap-4 mb-4">
+                          <div>
+                            <div className="text-sm md:text-base font-bold text-white">300+<span className="text-white/50 text-xs ml-0.5">项</span></div>
+                            <div className="text-[8px] text-white/40 uppercase">检查项目</div>
+                          </div>
+                          <div>
+                            <div className="text-sm md:text-base font-bold text-white">99.2<span className="text-white/50 text-xs ml-0.5">%</span></div>
+                            <div className="text-[8px] text-white/40 uppercase">满意度</div>
+                          </div>
+                          <div>
+                            <div className="text-sm md:text-base font-bold text-white">24h</div>
+                            <div className="text-[8px] text-white/40 uppercase">报告出具</div>
+                          </div>
+                        </div>
+                        <div className="inline-flex items-center gap-1 bg-white text-gray-900 px-3 py-1.5 rounded-full text-[10px] font-bold">
+                          了解详情 <ChevronRight size={10} />
+                        </div>
+                      </div>
+                    </div>
+                    {/* Hover overlay */}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                      <span className="opacity-0 group-hover:opacity-100 transition-opacity text-white text-sm font-medium bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
+                        {t('viewDemo')}
+                      </span>
+                    </div>
+                  </a>
                 </div>
-                <a
-                  href="https://niijima-koutsu.jp/g/demo"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-center text-gold-400 text-sm mt-3 hover:underline"
-                  aria-label={t('ariaViewDemo')}
-                >
-                  {t('viewDemo')}
-                </a>
               </div>
             </div>
           </div>
