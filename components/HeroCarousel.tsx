@@ -157,17 +157,17 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
               </div>
             )}
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight">
               {currentSlide.title.split('\n').map((line, i) => (
                 <span key={i}>
                   {i > 0 && <br />}
-                  {line}
+                  {i > 0 ? <span className="text-gold-400">{line}</span> : line}
                 </span>
               ))}
             </h1>
 
             {currentSlide.description && (
-              <p className="text-lg md:text-xl text-neutral-300 mb-10 leading-relaxed max-w-2xl">
+              <p className="text-xl text-neutral-300 mb-10 leading-relaxed font-light max-w-2xl">
                 {currentSlide.description}
               </p>
             )}
@@ -179,7 +179,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
                     href={currentSlide.ctaLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-white text-brand-900 px-8 py-4 font-bold hover:bg-neutral-100 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
+                    className="inline-flex items-center gap-2 px-8 py-4 bg-gold-400 text-brand-900 text-sm font-medium tracking-wider hover:bg-gold-300 transition-colors"
                   >
                     {currentSlide.ctaText}
                     <ExternalLink size={18} />
@@ -187,7 +187,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
                 ) : (
                   <Link
                     href={currentSlide.ctaLink}
-                    className="inline-flex items-center gap-2 bg-white text-brand-900 px-8 py-4 font-bold hover:bg-neutral-100 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
+                    className="inline-flex items-center gap-2 px-8 py-4 bg-gold-400 text-brand-900 text-sm font-medium tracking-wider hover:bg-gold-300 transition-colors"
                   >
                     {currentSlide.ctaText}
                     <ArrowRight size={18} />

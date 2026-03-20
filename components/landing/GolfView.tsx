@@ -127,26 +127,24 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
              <div className="h-[1px] w-12 bg-gold-400"></div>
              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">PREMIUM GOLF</span>
            </div>
-           <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-4 leading-tight">
+           <h1 className="text-4xl md:text-6xl font-serif text-white mb-6 leading-tight">
              {t.golf.title_1}
+             <br />
+             <span className="text-gold-400">{t.golf.title_2}</span>
            </h1>
-           <h2 className="text-2xl md:text-4xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-gold-400 mb-6">
-             {t.golf.title_2}
-           </h2>
-           <p className="text-lg text-neutral-300 mb-8 leading-relaxed max-w-2xl whitespace-pre-line">
+           <p className="text-xl text-neutral-300 mb-8 leading-relaxed font-light max-w-2xl whitespace-pre-line">
              {t.golf.desc}
            </p>
            <div className="flex flex-wrap gap-4">
              <a
                href="#golf-plans"
-               className="inline-flex items-center gap-2 bg-white text-brand-900 px-8 py-4 font-bold hover:bg-neutral-100 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
+               className="inline-flex items-center px-8 py-4 bg-gold-400 text-brand-900 text-sm font-medium tracking-wider hover:bg-gold-300 transition-colors"
              >
                {t.golf.btn_tour || 'View Itineraries'}
-               <ArrowRight size={18} />
              </a>
              <a
                href="#golf-contact"
-               className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 font-bold hover:bg-white/20 transition-all"
+               className="inline-flex items-center px-8 py-4 border border-white/20 bg-white/10 backdrop-blur-sm text-white text-sm tracking-wider hover:bg-white/20 transition-colors"
              >
                <MessageSquare size={20} />
                {currentLang === 'zh-TW' ? '諮詢預約' : currentLang === 'zh-CN' ? '咨询预约' : currentLang === 'ja' ? 'お問い合わせ' : 'Contact Us'}

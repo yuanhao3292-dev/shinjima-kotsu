@@ -108,28 +108,27 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
             <div className="h-[1px] w-12 bg-gold-400"></div>
             <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">TIMC OSAKA</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-serif text-white mb-6 leading-tight">
             {t.medical.hero_title_1}<br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-gold-400">{t.medical.hero_title_2}</span>
+            <span className="text-gold-400">{t.medical.hero_title_2}</span>
           </h1>
-          <p className="text-xl text-neutral-300 mb-4 leading-relaxed max-w-2xl">
+          <p className="text-xl text-neutral-300 mb-4 leading-relaxed font-light max-w-2xl">
             {t.medical.hero_subtitle}
           </p>
-          <p className="text-lg text-neutral-400 mb-8 leading-relaxed max-w-2xl whitespace-pre-line">
+          <p className="text-xl text-neutral-400 mb-8 leading-relaxed font-light max-w-2xl whitespace-pre-line">
             {t.medical.hero_text}
           </p>
           <div className="flex flex-wrap gap-4">
             <a
               href="#packages"
-              className="inline-flex items-center gap-2 bg-white text-brand-900 px-8 py-4 font-bold hover:bg-neutral-100 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gold-400 text-brand-900 text-sm font-medium tracking-wider hover:bg-gold-300 transition-colors"
             >
               <Scan size={20} />
               {currentLang === 'zh-TW' ? '查看體檢套餐' : currentLang === 'zh-CN' ? '查看体检套餐' : currentLang === 'ja' ? '健診プランを見る' : 'View Plans'}
-              <ArrowRight size={18} />
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 font-bold hover:bg-white/20 transition-all"
+              className="inline-flex items-center gap-2 px-8 py-4 border border-white/20 bg-white/10 backdrop-blur-sm text-white text-sm tracking-wider hover:bg-white/20 transition-colors"
             >
               <MessageSquare size={20} />
               {currentLang === 'zh-TW' ? '諮詢預約' : currentLang === 'zh-CN' ? '咨询预约' : currentLang === 'ja' ? 'ご予約相談' : 'Consult'}

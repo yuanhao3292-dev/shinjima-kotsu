@@ -814,27 +814,26 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
               <div className="h-[1px] w-12 bg-gold-400"></div>
               <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">CANCER TREATMENT</span>
             </div>
-            <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-gold-400">{t('heroTitle2')}</span>
+            <h1 className="text-4xl md:text-6xl font-serif text-white mb-6 leading-tight">
+              <span className="text-gold-400">{t('heroTitle2')}</span>
             </h1>
-            <p className="text-xl text-neutral-300 mb-4 leading-relaxed max-w-2xl">
+            <p className="text-xl text-neutral-300 mb-4 leading-relaxed font-light max-w-2xl">
               {t('heroStat')} <span className="text-white font-bold">57.4%</span>
             </p>
-            <p className="text-lg text-neutral-400 mb-8 leading-relaxed max-w-2xl">
+            <p className="text-xl text-neutral-400 mb-8 leading-relaxed font-light max-w-2xl">
               {t('heroDesc')}
             </p>
             <div className="flex flex-wrap gap-4 mb-8">
               <a
                 href="#contact-form"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-brand-600 to-brand-400 text-white px-8 py-4 font-bold hover:from-brand-700 hover:to-brand-500 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-gold-400 text-brand-900 text-sm font-medium tracking-wider hover:bg-gold-300 transition-colors"
               >
                 <MessageSquare size={20} />
                 {t('heroCTA')}
-                <ArrowRight size={18} />
               </a>
               <a
                 href="#treatment-flow"
-                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 font-bold hover:bg-white/20 transition-all"
+                className="inline-flex items-center px-8 py-4 border border-white/20 bg-white/10 backdrop-blur-sm text-white text-sm tracking-wider hover:bg-white/20 transition-colors"
               >
                 {t('heroFlow')}
               </a>
