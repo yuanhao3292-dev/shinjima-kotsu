@@ -83,7 +83,7 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
   return (
     <>
       {/* Mobile Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white shadow-sm z-50 flex items-center justify-between px-4">
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-neutral-200 z-50 flex items-center justify-between px-4">
         <div className="flex items-center gap-3">
           <div className="flex flex-col items-center">
             <span className="font-serif font-bold text-lg tracking-wide leading-none text-neutral-900">NIIJIMA</span>
@@ -121,7 +121,7 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
                 href={item.href}
                 onClick={() => setSidebarOpen(false)}
                 className={`
-                  flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition
+                  flex items-center gap-3 px-4 py-3 text-sm font-medium transition
                   ${
                     active
                       ? 'bg-brand-50 text-brand-700'
@@ -132,7 +132,7 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
                 <item.icon size={20} />
                 <span>{item.label[lang]}</span>
                 {item.highlight && !active && (
-                  <span className="ml-auto px-2 py-0.5 bg-gold-50 text-gold-600 text-xs font-medium rounded-full">
+                  <span className="ml-auto px-2 py-0.5 bg-gold-400/10 text-gold-700 text-xs font-medium border border-gold-400/30">
                     NEW
                   </span>
                 )}
@@ -145,7 +145,7 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
           <LanguageSwitcher variant="sidebar" />
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3 w-full text-neutral-600 hover:text-brand-700 hover:bg-neutral-50 rounded-xl text-sm font-medium transition"
+            className="flex items-center gap-3 px-4 py-3 w-full text-neutral-600 hover:text-brand-700 hover:bg-neutral-50 text-sm font-medium transition"
           >
             <LogOut size={20} />
             <span>{ts('logout', lang)}</span>
