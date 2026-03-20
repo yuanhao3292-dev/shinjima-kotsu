@@ -721,7 +721,7 @@ export default function HealthScreeningPage() {
             <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
           </div>
 
-          <div className="relative z-10 max-w-4xl mx-auto px-6 py-20 text-center">
+          <div className="relative z-10 max-w-4xl mx-auto px-6 pt-40 pb-20 text-center">
             <div className="flex items-center justify-center gap-3 mb-8">
               <div className="h-[1px] w-12 bg-gold-400" />
               <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">AI HEALTH SCREENING</span>
