@@ -424,7 +424,7 @@ function LoadingFallback() {
 
 export default function LoginPage() {
   return (
-    <PublicLayout showFooter={false}>
+    <PublicLayout showFooter={false} transparentNav={false}>
       <Suspense fallback={<LoadingFallback />}>
         <LoginForm />
       </Suspense>
