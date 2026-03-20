@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ExternalLink, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -78,7 +78,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
   if (!slides || slides.length === 0 || !isMounted) {
     return (
       <div
-        className="relative w-full overflow-hidden bg-gray-900 flex items-center justify-center"
+        className="relative w-full overflow-hidden bg-brand-900 flex items-center justify-center"
         style={{ height }}
       >
         <div className="text-center">
@@ -93,7 +93,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
 
   return (
     <div
-      className="relative w-full overflow-hidden bg-gray-900"
+      className="relative w-full overflow-hidden bg-brand-900"
       style={{ height }}
       onMouseEnter={pauseAutoPlay}
       onMouseLeave={resumeAutoPlay}
@@ -132,72 +132,68 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
               />
             </div>
 
-            {/* Overlay */}
-            <div
-              className="absolute inset-0"
-              style={{ background: slide.overlayColor || 'rgba(0, 0, 0, 0.4)' }}
-            />
+            {/* Brand overlay gradient */}
+            <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-900/80 to-brand-900/60" />
           </div>
         );
       })}
 
+      {/* Decorative blur circles */}
+      <div className="absolute inset-0 z-15 pointer-events-none">
+        <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
+        <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+      </div>
+
       {/* Content */}
-      <div className="relative z-20 h-full flex items-center justify-center">
-        <div
-          className={`container mx-auto px-6 ${
-            currentSlide.textPosition === 'left'
-              ? 'text-left'
-              : currentSlide.textPosition === 'right'
-              ? 'text-right'
-              : 'text-center'
-          }`}
-        >
-          <div className="max-w-4xl mx-auto animate-fade-in-up">
+      <div className="relative z-20 h-full flex items-center">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl animate-fade-in-up">
             {currentSlide.subtitle && (
-              <p
-                className="text-sm md:text-base tracking-[0.3em] uppercase mb-4 opacity-90"
-                style={{ color: currentSlide.textColor || 'white' }}
-              >
-                {currentSlide.subtitle}
-              </p>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="h-[1px] w-12 bg-gold-400"></div>
+                <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">
+                  {currentSlide.subtitle}
+                </span>
+              </div>
             )}
 
-            <h1
-              className="text-3xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 leading-tight"
-              style={{ color: currentSlide.textColor || 'white' }}
-            >
-              {currentSlide.title}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 leading-tight">
+              {currentSlide.title.split('\n').map((line, i) => (
+                <span key={i}>
+                  {i > 0 && <br />}
+                  {line}
+                </span>
+              ))}
             </h1>
 
             {currentSlide.description && (
-              <p
-                className="text-base md:text-xl mb-8 opacity-90 max-w-2xl mx-auto"
-                style={{ color: currentSlide.textColor || 'white' }}
-              >
+              <p className="text-lg md:text-xl text-neutral-300 mb-10 leading-relaxed max-w-2xl">
                 {currentSlide.description}
               </p>
             )}
 
             {currentSlide.ctaText && currentSlide.ctaLink && (
-              currentSlide.ctaExternal ? (
-                <a
-                  href={currentSlide.ctaLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-white text-gray-900 px-8 py-4 rounded-full font-bold hover:bg-opacity-90 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
-                >
-                  {currentSlide.ctaText}
-                  <ExternalLink size={18} />
-                </a>
-              ) : (
-                <Link
-                  href={currentSlide.ctaLink}
-                  className="inline-flex items-center gap-2 bg-white text-gray-900 px-8 py-4 rounded-full font-bold hover:bg-opacity-90 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
-                >
-                  {currentSlide.ctaText}
-                  <ChevronRight size={18} />
-                </Link>
-              )
+              <div className="flex flex-wrap gap-4">
+                {currentSlide.ctaExternal ? (
+                  <a
+                    href={currentSlide.ctaLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-white text-brand-900 px-8 py-4 font-bold hover:bg-neutral-100 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
+                  >
+                    {currentSlide.ctaText}
+                    <ExternalLink size={18} />
+                  </a>
+                ) : (
+                  <Link
+                    href={currentSlide.ctaLink}
+                    className="inline-flex items-center gap-2 bg-white text-brand-900 px-8 py-4 font-bold hover:bg-neutral-100 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
+                  >
+                    {currentSlide.ctaText}
+                    <ArrowRight size={18} />
+                  </Link>
+                )}
+              </div>
             )}
           </div>
         </div>
@@ -208,14 +204,14 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
         <>
           <button
             onClick={() => { goToPrev(); pauseAutoPlay(); setTimeout(resumeAutoPlay, 3000); }}
-            className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all"
+            className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-sm flex items-center justify-center text-white transition-all border border-white/20"
             aria-label="Previous slide"
           >
             <ChevronLeft size={24} />
           </button>
           <button
             onClick={() => { goToNext(); pauseAutoPlay(); setTimeout(resumeAutoPlay, 3000); }}
-            className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all"
+            className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-sm flex items-center justify-center text-white transition-all border border-white/20"
             aria-label="Next slide"
           >
             <ChevronRight size={24} />
@@ -232,8 +228,8 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
               onClick={() => goToSlide(index)}
               className={`transition-all ${
                 index === currentIndex
-                  ? 'w-8 h-2 bg-white rounded-full'
-                  : 'w-2 h-2 bg-white/50 hover:bg-white/70 rounded-full'
+                  ? 'w-8 h-1 bg-gold-400'
+                  : 'w-4 h-1 bg-white/30 hover:bg-white/50'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -243,9 +239,9 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
 
       {/* Progress bar */}
       {isAutoPlaying && slides.length > 1 && (
-        <div className="absolute bottom-0 left-0 right-0 z-30 h-1 bg-white/20">
+        <div className="absolute bottom-0 left-0 right-0 z-30 h-[2px] bg-white/10">
           <div
-            className="h-full bg-white/60 transition-none"
+            className="h-full bg-gold-400/60 transition-none"
             style={{
               animation: `progress ${autoPlayInterval}ms linear`,
               animationIterationCount: 'infinite',
