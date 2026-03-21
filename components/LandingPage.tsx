@@ -527,16 +527,12 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             </p>
 
             {/* 核心数据 - 金色边框 */}
-            <div className="grid grid-cols-3 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-white/20">
+            <div className="grid grid-cols-2 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-white/20">
               <div className="text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">25<span className="text-gold-400">+</span></div>
                 <div className="text-[10px] md:text-xs text-neutral-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '名門球場' : currentLang === 'zh-CN' ? '名门球场' : currentLang === 'ja' ? '名門コース' : 'Elite Courses'}</div>
               </div>
-              <div className="border-x border-white/20 px-2 md:px-6 py-12 md:py-24 text-center">
-                <div className="text-2xl md:text-4xl font-light text-white mb-1">0</div>
-                <div className="text-[10px] md:text-xs text-neutral-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '免會員介紹' : currentLang === 'zh-CN' ? '免会员介绍' : currentLang === 'ja' ? '会員紹介不要' : 'No Referral Needed'}</div>
-              </div>
-              <div className="text-center">
+              <div className="border-l border-white/20 text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">VIP</div>
                 <div className="text-[10px] md:text-xs text-neutral-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '專屬待遇' : currentLang === 'zh-CN' ? '专属待遇' : currentLang === 'ja' ? '専用待遇' : 'VIP Treatment'}</div>
               </div>
