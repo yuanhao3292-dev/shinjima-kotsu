@@ -18,7 +18,7 @@ const pageTranslations = {
   heroTitle1: { ja: '日本がん治療', 'zh-TW': '日本癌症治療', 'zh-CN': '日本癌症治疗', en: 'Japan Cancer Treatment' } as Record<Language, string>,
   heroTitle2: { ja: '5年生存率世界トップ', 'zh-TW': '五年存活率領先全球', 'zh-CN': '五年存活率领先全球', en: '5-Year Survival Rate Leads Globally' } as Record<Language, string>,
   heroStat: { ja: 'Lancet研究によると日本のがん5年生存率は', 'zh-TW': '柳葉刀研究顯示日本癌症五年存活率達', 'zh-CN': '柳叶刀研究显示日本癌症五年存活率达', en: 'Lancet research shows Japan cancer 5-year survival rate reaches' } as Record<Language, string>,
-  heroDesc: { ja: '陽子線・重粒子線、光免疫療法、BNCT——世界最先端の治療法が日本に集結', 'zh-TW': '質子重離子、光免疫療法、BNCT 硼中子俘獲——世界前沿療法匯聚日本', 'zh-CN': '质子重离子、光免疫疗法、BNCT 硼中子俘获——世界前沿疗法汇聚日本', en: 'Proton/Heavy Ion, Photoimmunotherapy, BNCT — Cutting-edge treatments converge in Japan' } as Record<Language, string>,
+  heroDesc: { ja: '世界最先端の治療法が日本に集結', 'zh-TW': '世界前沿療法匯聚日本', 'zh-CN': '世界前沿疗法汇聚日本', en: 'Cutting-edge treatments converge in Japan' } as Record<Language, string>,
   heroCTA: { ja: '治療プランを相談', 'zh-TW': '諮詢治療方案', 'zh-CN': '咨询治疗方案', en: 'Consult Treatment Plan' } as Record<Language, string>,
   heroFlow: { ja: '治療の流れを見る', 'zh-TW': '了解治療流程', 'zh-CN': '了解治疗流程', en: 'View Treatment Process' } as Record<Language, string>,
   statGastric: { ja: '胃がん5年生存率', 'zh-TW': '胃癌五年存活率', 'zh-CN': '胃癌五年存活率', en: 'Gastric Cancer 5-Year Survival' } as Record<Language, string>,
