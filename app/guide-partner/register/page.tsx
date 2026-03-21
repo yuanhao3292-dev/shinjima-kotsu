@@ -306,7 +306,7 @@ function RegisterForm() {
   const heroSide = (
     <div className="hidden lg:flex lg:w-1/2 relative bg-brand-900 overflow-hidden">
       <Image
-        src={getImage('guide_hero', 'https://images.unsplash.com/photo-1492571350019-22de08371fd3?q=80&w=2000')}
+        src={getImage('guide_hero', 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=2000')}
         alt="Guide Partner"
         fill
         className="object-cover"
