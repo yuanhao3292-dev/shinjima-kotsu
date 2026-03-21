@@ -175,6 +175,16 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
   // 图片从数据库 site_images 表读取，可在后台管理
   const heroSlides: CarouselSlide[] = [
     {
+      id: 'ai-health-screening',
+      title: currentLang === 'zh-TW' ? 'AI 智能健康檢測' : currentLang === 'zh-CN' ? 'AI 智能健康检测' : currentLang === 'ja' ? 'AI健康診断' : 'AI Health Screening',
+      subtitle: currentLang === 'zh-TW' ? '3 分鐘風險評估' : currentLang === 'zh-CN' ? '3 分钟风险评估' : currentLang === 'ja' ? '3分リスク診断' : '3-Min Risk Assessment',
+      description: currentLang === 'zh-TW' ? '基於 AI 的專業問診，為您推薦最適合的體檢方案' : currentLang === 'zh-CN' ? '基于 AI 的专业问诊，为您推荐最适合的体检方案' : currentLang === 'ja' ? 'AIによる問診で最適な健診プランをご提案' : 'AI-powered consultation for personalized health plans',
+      imageUrl: getImage('hero_slide_3', 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2000&auto=format&fit=crop'),
+      ctaText: currentLang === 'zh-TW' ? '免費檢測' : currentLang === 'zh-CN' ? '免费检测' : currentLang === 'ja' ? '無料診断' : 'Free Screening',
+      ctaLink: '/health-screening',
+      advertiser: 'NIIJIMA',
+    },
+    {
       id: 'cancer-treatment',
       title: currentLang === 'zh-TW' ? '日本尖端癌症治療' : currentLang === 'zh-CN' ? '日本尖端癌症治疗' : currentLang === 'ja' ? '日本最先端がん治療' : 'Japan Advanced Cancer Treatment',
       subtitle: currentLang === 'zh-TW' ? '質子重離子 / 光免疫 / BNCT' : currentLang === 'zh-CN' ? '质子重离子 / 光免疫 / BNCT' : currentLang === 'ja' ? '陽子線・光免疫・BNCT' : 'Proton / Photoimmunotherapy / BNCT',
@@ -194,16 +204,6 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       ctaText: currentLang === 'zh-TW' ? '了解詳情' : currentLang === 'zh-CN' ? '了解详情' : currentLang === 'ja' ? '詳細を見る' : 'Learn More',
       ctaLink: '/medical',
       advertiser: 'TIMC',
-    },
-    {
-      id: 'ai-health-screening',
-      title: currentLang === 'zh-TW' ? 'AI 智能健康檢測' : currentLang === 'zh-CN' ? 'AI 智能健康检测' : currentLang === 'ja' ? 'AI健康診断' : 'AI Health Screening',
-      subtitle: currentLang === 'zh-TW' ? '3 分鐘風險評估' : currentLang === 'zh-CN' ? '3 分钟风险评估' : currentLang === 'ja' ? '3分リスク診断' : '3-Min Risk Assessment',
-      description: currentLang === 'zh-TW' ? '基於 AI 的專業問診，為您推薦最適合的體檢方案' : currentLang === 'zh-CN' ? '基于 AI 的专业问诊，为您推荐最适合的体检方案' : currentLang === 'ja' ? 'AIによる問診で最適な健診プランをご提案' : 'AI-powered consultation for personalized health plans',
-      imageUrl: getImage('hero_slide_3', 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2000&auto=format&fit=crop'),
-      ctaText: currentLang === 'zh-TW' ? '免費檢測' : currentLang === 'zh-CN' ? '免费检测' : currentLang === 'ja' ? '無料診断' : 'Free Screening',
-      ctaLink: '/health-screening',
-      advertiser: 'NIIJIMA',
     },
   ];
 
