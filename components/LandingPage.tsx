@@ -534,7 +534,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               </div>
               <div className="border-x border-white/20 px-2 md:px-6 py-12 md:py-24 text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">0</div>
-                <div className="text-[10px] md:text-xs text-neutral-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '會員介紹' : currentLang === 'zh-CN' ? '会员介绍' : currentLang === 'ja' ? '会員紹介不要' : 'No Referral Needed'}</div>
+                <div className="text-[10px] md:text-xs text-neutral-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '免會員介紹' : currentLang === 'zh-CN' ? '免会员介绍' : currentLang === 'ja' ? '会員紹介不要' : 'No Referral Needed'}</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">VIP</div>
