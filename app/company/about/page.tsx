@@ -540,10 +540,10 @@ export default function AboutPage() {
               </div>
 
               <div className="grid md:grid-cols-3 gap-8">
-                <div className="relative bg-gradient-to-br from-brand-900 to-brand-800 rounded-2xl p-8 text-white">
+                <div className="relative flex flex-col bg-gradient-to-br from-brand-900 to-brand-800 rounded-2xl p-8 text-white">
                   <Brain className="w-10 h-10 text-gold-400 mb-5" />
                   <h3 className="text-lg font-bold mb-3">{t('medicalAiTitle')}</h3>
-                  <p className="text-white/80 text-sm leading-relaxed">{t('medicalAiDesc')}</p>
+                  <p className="text-white/80 text-sm leading-relaxed flex-1">{t('medicalAiDesc')}</p>
                   <div className="mt-6 pt-4 border-t border-white/20">
                     <div className="flex items-baseline gap-1">
                       <span className="text-3xl font-bold text-gold-400">4</span>
@@ -552,10 +552,10 @@ export default function AboutPage() {
                   </div>
                 </div>
 
-                <div className="bg-white rounded-2xl p-8 border border-neutral-200 hover:shadow-lg transition">
+                <div className="flex flex-col bg-white rounded-2xl p-8 border border-neutral-200 hover:shadow-lg transition">
                   <Hospital className="w-10 h-10 text-brand-900 mb-5" />
                   <h3 className="text-lg font-bold text-brand-900 mb-3">{t('medicalNetworkTitle')}</h3>
-                  <p className="text-neutral-600 text-sm leading-relaxed">{t('medicalNetworkDesc')}</p>
+                  <p className="text-neutral-600 text-sm leading-relaxed flex-1">{t('medicalNetworkDesc')}</p>
                   <div className="mt-6 pt-4 border-t border-neutral-100">
                     <div className="flex items-baseline gap-1">
                       <span className="text-3xl font-bold text-brand-900">20+</span>
@@ -564,10 +564,10 @@ export default function AboutPage() {
                   </div>
                 </div>
 
-                <div className="bg-white rounded-2xl p-8 border border-neutral-200 hover:shadow-lg transition">
+                <div className="flex flex-col bg-white rounded-2xl p-8 border border-neutral-200 hover:shadow-lg transition">
                   <HeartHandshake className="w-10 h-10 text-brand-900 mb-5" />
                   <h3 className="text-lg font-bold text-brand-900 mb-3">{t('medicalServiceTitle')}</h3>
-                  <p className="text-neutral-600 text-sm leading-relaxed">{t('medicalServiceDesc')}</p>
+                  <p className="text-neutral-600 text-sm leading-relaxed flex-1">{t('medicalServiceDesc')}</p>
                   <div className="mt-6 pt-4 border-t border-neutral-100">
                     <div className="flex items-baseline gap-1">
                       <span className="text-3xl font-bold text-brand-900">4 AI</span>
