@@ -885,7 +885,7 @@ export default function WhiteLabelSettingsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
         <Loader2 className="w-8 h-8 animate-spin text-brand-600" />
       </div>
     );
@@ -893,20 +893,20 @@ export default function WhiteLabelSettingsPage() {
 
   if (!guide) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-neutral-50">
         <GuideSidebar pageTitle={t('pageTitle', lang)} />
         <main className="lg:ml-64 pt-16 lg:pt-0">
           <div className="p-6 lg:p-8 max-w-4xl">
             {message && (
-              <div className="p-4 rounded-lg flex items-center gap-3 bg-red-50 text-red-800 border border-red-200">
+              <div className="p-4 flex items-center gap-3 bg-red-50 text-red-800 border border-red-200">
                 <AlertCircle size={20} />
                 <span>{message.text}</span>
               </div>
             )}
-            <div className="mt-6 bg-white rounded-xl border p-6 text-center">
+            <div className="mt-6 bg-white border p-6 text-center">
               <AlertCircle size={48} className="mx-auto text-amber-500 mb-4" />
-              <h2 className="text-xl font-bold text-gray-900 mb-2">{t('guideNotFoundTitle', lang)}</h2>
-              <p className="text-gray-600 mb-6 whitespace-pre-line">
+              <h2 className="text-xl font-bold font-serif text-brand-900 mb-2">{t('guideNotFoundTitle', lang)}</h2>
+              <p className="text-neutral-600 mb-6 whitespace-pre-line">
                 {t('guideNotFoundDesc', lang)}
               </p>
             </div>
@@ -919,7 +919,7 @@ export default function WhiteLabelSettingsPage() {
   const isSubscribed = guide.subscription_status === 'active';
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-neutral-50">
       <GuideSidebar pageTitle={t('pageTitle', lang)} />
 
       {/* 订阅成功弹窗 */}
@@ -932,38 +932,38 @@ export default function WhiteLabelSettingsPage() {
           }}
         >
           <div
-            className="bg-white rounded-2xl max-w-md w-full p-8 text-center animate-in fade-in zoom-in duration-300"
+            className="bg-white max-w-md w-full p-8 text-center animate-in fade-in zoom-in duration-300"
             onClick={(e) => e.stopPropagation()}
           >
             {/* 成功图标 */}
-            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="w-20 h-20 bg-green-100 flex items-center justify-center mx-auto mb-6">
               <CheckCircle2 size={48} className="text-green-600" />
             </div>
 
             {/* 标题 */}
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            <h2 className="text-2xl font-bold font-serif text-brand-900 mb-2">
               {t('successTitle', lang)}
             </h2>
 
             {/* 描述 */}
-            <p className="text-gray-600 mb-6 whitespace-pre-line">
+            <p className="text-neutral-600 mb-6 whitespace-pre-line">
               {t('successDesc', lang)}
             </p>
 
             {/* 订阅信息 */}
-            <div className="bg-gray-50 rounded-xl p-4 mb-6">
+            <div className="bg-neutral-50 p-4 mb-6">
               <div className="flex justify-between items-center mb-2">
-                <span className="text-gray-500">{t('successPlanLabel', lang)}</span>
+                <span className="text-neutral-500">{t('successPlanLabel', lang)}</span>
                 <span className="font-medium">{t('successPlanValue', lang)}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-500">{t('successFeeLabel', lang)}</span>
+                <span className="text-neutral-500">{t('successFeeLabel', lang)}</span>
                 <span className="font-bold text-brand-600">¥1,980{t('perMonth', lang)}</span>
               </div>
             </div>
 
             {/* 提示 */}
-            <div className="bg-brand-50 border border-brand-200 rounded-lg p-3 mb-6 text-left">
+            <div className="bg-brand-50 border border-brand-200 p-3 mb-6 text-left">
               <p className="text-brand-800 text-sm whitespace-pre-line">
                 {t('successEmailNotice', lang)}
               </p>
@@ -975,7 +975,7 @@ export default function WhiteLabelSettingsPage() {
                 setShowSuccessModal(false);
                 loadGuideData();
               }}
-              className="w-full py-3 bg-brand-600 text-white rounded-xl font-medium hover:bg-brand-700 transition"
+              className="w-full py-3 bg-brand-600 text-white font-medium hover:bg-brand-700 transition"
             >
               {t('startSetup', lang)}
             </button>
@@ -987,13 +987,13 @@ export default function WhiteLabelSettingsPage() {
         <div className="p-6 lg:p-8 space-y-8">
         {/* Header */}
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">{t('headerTitle', lang)}</h1>
-          <p className="text-gray-500 mt-1">{t('headerDesc', lang)}</p>
+          <h1 className="text-2xl font-bold font-serif text-brand-900">{t('headerTitle', lang)}</h1>
+          <p className="text-neutral-500 mt-1">{t('headerDesc', lang)}</p>
         </div>
 
         {/* 消息提示 */}
         {message && (
-          <div className={`p-4 rounded-lg flex items-center gap-3 ${
+          <div className={`p-4 flex items-center gap-3 ${
             message.type === 'success'
               ? 'bg-green-50 text-green-800 border border-green-200'
               : 'bg-red-50 text-red-800 border border-red-200'
@@ -1008,37 +1008,37 @@ export default function WhiteLabelSettingsPage() {
         )}
 
         {/* 订阅方案选择 */}
-        <div className="bg-white rounded-xl border p-6">
+        <div className="bg-white border p-6">
           <div className="flex items-start justify-between mb-6">
             <div>
-              <h2 className="text-lg font-bold flex items-center gap-2">
+              <h2 className="text-lg font-bold font-serif flex items-center gap-2">
                 <CreditCard size={20} />
                 {t('subscriptionPlan', lang)}
               </h2>
-              <p className="text-gray-500 text-sm mt-1">
+              <p className="text-neutral-500 text-sm mt-1">
                 {t('choosePlan', lang)}
               </p>
             </div>
-            <div className={`px-3 py-1 rounded-full text-sm font-medium ${
+            <div className={`px-3 py-1 text-sm font-medium ${
               isSubscribed
                 ? 'bg-green-100 text-green-700'
-                : 'bg-gray-100 text-gray-600'
+                : 'bg-neutral-100 text-neutral-600'
             }`}>
               {isSubscribed ? t('subscribed', lang) : t('notSubscribed', lang)}
             </div>
           </div>
 
           {/* 专业版 */}
-          <div className={`p-5 rounded-xl border-2 transition ${
+          <div className={`p-5 border-2 transition ${
             isSubscribed
               ? 'border-brand-500 bg-brand-50'
-              : 'border-gray-200'
+              : 'border-neutral-200'
           }`}>
             <div className="flex items-center justify-between mb-3">
               <h3 className="font-bold text-lg">{t('planProfessional', lang)}</h3>
-              <span className="text-2xl font-bold">¥{SUBSCRIPTION_PLANS.professional.priceJpy}<span className="text-sm font-normal text-gray-500">{t('perMonth', lang)}</span></span>
+              <span className="text-2xl font-bold">¥{SUBSCRIPTION_PLANS.professional.priceJpy}<span className="text-sm font-normal text-neutral-500">{t('perMonth', lang)}</span></span>
             </div>
-            <ul className="space-y-2 text-sm text-gray-600 mb-4">
+            <ul className="space-y-2 text-sm text-neutral-600 mb-4">
               {(['featureAllPages', 'featureSubdomain', 'featureBrandName', 'featureContact', 'featureAnalytics'] as const).map((key) => (
                 <li key={key} className="flex items-center gap-2">
                   <Check size={14} className="text-green-500" />
@@ -1050,7 +1050,7 @@ export default function WhiteLabelSettingsPage() {
               <button
                 onClick={() => handleSubscribe('professional')}
                 disabled={subscribing}
-                className="w-full py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full py-2 bg-brand-600 text-white hover:bg-brand-700 transition font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {subscribing && <Loader2 size={16} className="animate-spin" />}
                 {subscribing ? t('processing', lang) : t('subscribeNow', lang)}
@@ -1061,20 +1061,20 @@ export default function WhiteLabelSettingsPage() {
           {isSubscribed && (
             <div className="mt-4 pt-4 border-t space-y-3">
               <div className="flex items-center justify-between">
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-neutral-500">
                   {t('nextRenewalDate', lang)}{guide.subscription_end_date ? new Date(guide.subscription_end_date).toLocaleDateString(getDateLocale(lang)) : '-'}
                 </p>
                 <button
                   onClick={handleManageSubscription}
                   disabled={managingSubscription}
-                  className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                  className="px-4 py-2 border border-neutral-300 hover:bg-neutral-50 transition text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                 >
                   {managingSubscription && <Loader2 size={14} className="animate-spin" />}
                   {t('manageSubscription', lang)}
                 </button>
               </div>
               {subscriptionError && (
-                <div className="p-3 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2 text-sm text-red-700">
+                <div className="p-3 bg-red-50 border border-red-200 flex items-center gap-2 text-sm text-red-700">
                   <AlertCircle size={16} className="flex-shrink-0" />
                   <span>{subscriptionError}</span>
                 </div>
@@ -1085,20 +1085,20 @@ export default function WhiteLabelSettingsPage() {
 
         {/* 分销页面 URL */}
         {isSubscribed && (
-          <div className="bg-white rounded-xl border p-6">
-            <h2 className="text-lg font-bold flex items-center gap-2 mb-4">
+          <div className="bg-white border p-6">
+            <h2 className="text-lg font-bold font-serif flex items-center gap-2 mb-4">
               <Globe size={20} />
               {t('yourPageLink', lang)}
             </h2>
 
             {whiteLabelUrl ? (
               <div className="flex items-center gap-3">
-                <div className="flex-1 p-3 bg-gray-50 rounded-lg font-mono text-sm truncate">
+                <div className="flex-1 p-3 bg-neutral-50 font-mono text-sm truncate">
                   {whiteLabelUrl}
                 </div>
                 <button
                   onClick={copyUrl}
-                  className="p-3 border rounded-lg hover:bg-gray-50 transition"
+                  className="p-3 border hover:bg-neutral-50 transition"
                   title={t('copyLink', lang)}
                 >
                   {copied ? <Check size={18} className="text-green-600" /> : <Copy size={18} />}
@@ -1107,21 +1107,21 @@ export default function WhiteLabelSettingsPage() {
                   href={whiteLabelUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 border rounded-lg hover:bg-gray-50 transition"
+                  className="p-3 border hover:bg-neutral-50 transition"
                   title={t('openPage', lang)}
                 >
                   <ExternalLink size={18} />
                 </a>
               </div>
             ) : (
-              <p className="text-gray-500 text-sm">
+              <p className="text-neutral-500 text-sm">
                 {t('setSlugFirst', lang)}
               </p>
             )}
 
             {/* 分销页面配置缺失提示 */}
             {!hasWhiteLabelConfig && (
-              <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-3">
+              <div className="mt-4 p-4 bg-amber-50 border border-amber-200 flex items-start gap-3">
                 <AlertCircle size={20} className="text-amber-500 mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-amber-800 font-medium text-sm">{t('pageNotGenerated', lang)}</p>
@@ -1134,13 +1134,13 @@ export default function WhiteLabelSettingsPage() {
 
             {/* 统计数据 */}
             <div className="mt-6 grid grid-cols-2 gap-4">
-              <div className="p-4 bg-brand-50 rounded-lg">
+              <div className="p-4 bg-brand-50">
                 <div className="text-2xl font-bold text-brand-700">
                   {guide.whitelabel_views.toLocaleString()}
                 </div>
                 <div className="text-sm text-brand-600">{t('pageViews', lang)}</div>
               </div>
-              <div className="p-4 bg-green-50 rounded-lg">
+              <div className="p-4 bg-green-50">
                 <div className="text-2xl font-bold text-green-700">
                   {guide.whitelabel_conversions.toLocaleString()}
                 </div>
@@ -1152,14 +1152,14 @@ export default function WhiteLabelSettingsPage() {
 
         {/* 选品中心入口 */}
         {isSubscribed && (
-          <div className="bg-gradient-to-r from-brand-700 to-brand-900 rounded-xl p-6 text-white">
+          <div className="bg-gradient-to-r from-brand-700 to-brand-900 p-6 text-white">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center">
+                <div className="w-14 h-14 bg-white/20 flex items-center justify-center">
                   <Package size={28} />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold">{t('productCenter', lang)}</h2>
+                  <h2 className="text-xl font-bold font-serif">{t('productCenter', lang)}</h2>
                   <p className="text-white/80 text-sm mt-1">
                     {t('productCenterDesc', lang)}
                   </p>
@@ -1167,7 +1167,7 @@ export default function WhiteLabelSettingsPage() {
               </div>
               <Link
                 href="/guide-partner/product-center"
-                className="flex items-center gap-2 bg-white text-brand-600 px-5 py-3 rounded-xl font-medium hover:bg-white/90 transition"
+                className="flex items-center gap-2 bg-white text-brand-600 px-5 py-3 font-medium hover:bg-white/90 transition"
               >
                 {t('enterProductCenter', lang)}
                 <ChevronRight size={18} />
@@ -1176,21 +1176,21 @@ export default function WhiteLabelSettingsPage() {
 
             {/* 快速信息 */}
             <div className="mt-6 grid grid-cols-3 gap-4">
-              <div className="bg-white/10 rounded-lg p-3">
+              <div className="bg-white/10 p-3">
                 <div className="flex items-center gap-2 text-white/70 text-sm mb-1">
                   <Package size={14} />
                   {t('serviceModules', lang)}
                 </div>
                 <div className="text-lg font-bold">{t('freeChoice', lang)}</div>
               </div>
-              <div className="bg-white/10 rounded-lg p-3">
+              <div className="bg-white/10 p-3">
                 <div className="flex items-center gap-2 text-white/70 text-sm mb-1">
                   <User size={14} />
                   {t('selfIntroduction', lang)}
                 </div>
                 <div className="text-lg font-bold">{t('multipleTemplates', lang)}</div>
               </div>
-              <div className="bg-white/10 rounded-lg p-3">
+              <div className="bg-white/10 p-3">
                 <div className="flex items-center gap-2 text-white/70 text-sm mb-1">
                   <Car size={14} />
                   {t('vehicleDisplay', lang)}
@@ -1202,8 +1202,8 @@ export default function WhiteLabelSettingsPage() {
         )}
 
         {/* 品牌设置 */}
-        <div className={`bg-white rounded-xl border p-6 ${!isSubscribed ? 'opacity-50 pointer-events-none' : ''}`}>
-          <h2 className="text-lg font-bold flex items-center gap-2 mb-6">
+        <div className={`bg-white border p-6 ${!isSubscribed ? 'opacity-50 pointer-events-none' : ''}`}>
+          <h2 className="text-lg font-bold font-serif flex items-center gap-2 mb-6">
             <Palette size={20} />
             {t('brandSettings', lang)}
           </h2>
@@ -1211,27 +1211,27 @@ export default function WhiteLabelSettingsPage() {
           <div className="space-y-6">
             {/* URL 标识 */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-brand-900 mb-2">
                 {t('pageIdentifier', lang)}
               </label>
               <div className="flex items-center gap-2">
-                <span className="text-gray-400 text-sm">bespoketrip.jp/g/</span>
+                <span className="text-neutral-400 text-sm">bespoketrip.jp/g/</span>
                 <input
                   type="text"
                   value={formData.slug}
                   onChange={(e) => setFormData({ ...formData, slug: e.target.value.toLowerCase() })}
                   placeholder="your-name"
-                  className="w-40 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+                  className="w-40 px-4 py-2 border focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
                 />
               </div>
-              <p className="mt-1 text-xs text-gray-500">
+              <p className="mt-1 text-xs text-neutral-500">
                 {t('slugHint', lang)}
               </p>
             </div>
 
             {/* 品牌名称 */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-brand-900 mb-2">
                 {t('brandName', lang)}
               </label>
               <input
@@ -1239,16 +1239,16 @@ export default function WhiteLabelSettingsPage() {
                 value={formData.brandName}
                 onChange={(e) => setFormData({ ...formData, brandName: e.target.value })}
                 placeholder={t('brandNamePlaceholder', lang)}
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+                className="w-full px-4 py-2 border focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
               />
-              <p className="mt-1 text-xs text-gray-500">
+              <p className="mt-1 text-xs text-neutral-500">
                 {t('brandNameHint', lang)}
               </p>
             </div>
 
             {/* 品牌英文名 (导航栏副标题) */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-brand-900 mb-2">
                 {t('brandEnglishName', lang)}
               </label>
               <input
@@ -1256,9 +1256,9 @@ export default function WhiteLabelSettingsPage() {
                 value={formData.brandTagline}
                 onChange={(e) => setFormData({ ...formData, brandTagline: e.target.value })}
                 placeholder={t('brandEnglishPlaceholder', lang)}
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+                className="w-full px-4 py-2 border focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
               />
-              <p className="mt-1 text-xs text-gray-500">
+              <p className="mt-1 text-xs text-neutral-500">
                 {t('brandEnglishHint', lang)}
               </p>
             </div>
@@ -1267,18 +1267,18 @@ export default function WhiteLabelSettingsPage() {
         </div>
 
         {/* 联系方式 */}
-        <div className={`bg-white rounded-xl border p-6 ${!isSubscribed ? 'opacity-50 pointer-events-none' : ''}`}>
-          <h2 className="text-lg font-bold flex items-center gap-2 mb-6">
+        <div className={`bg-white border p-6 ${!isSubscribed ? 'opacity-50 pointer-events-none' : ''}`}>
+          <h2 className="text-lg font-bold font-serif flex items-center gap-2 mb-6">
             <MessageCircle size={20} />
             {t('contactInfo', lang)}
           </h2>
-          <p className="text-sm text-gray-500 mb-6">
+          <p className="text-sm text-neutral-500 mb-6">
             {t('contactInfoDesc', lang)}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-brand-900 mb-2">
                 {t('wechatId', lang)}
               </label>
               <input
@@ -1286,12 +1286,12 @@ export default function WhiteLabelSettingsPage() {
                 value={formData.contactWechat}
                 onChange={(e) => setFormData({ ...formData, contactWechat: e.target.value })}
                 placeholder="your_wechat_id"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+                className="w-full px-4 py-2 border focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-brand-900 mb-2">
                 {t('lineId', lang)}
               </label>
               <input
@@ -1299,12 +1299,12 @@ export default function WhiteLabelSettingsPage() {
                 value={formData.contactLine}
                 onChange={(e) => setFormData({ ...formData, contactLine: e.target.value })}
                 placeholder="your_line_id"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+                className="w-full px-4 py-2 border focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
               />
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-brand-900 mb-2">
                 {t('displayPhone', lang)}
               </label>
               <input
@@ -1312,12 +1312,12 @@ export default function WhiteLabelSettingsPage() {
                 value={formData.contactDisplayPhone}
                 onChange={(e) => setFormData({ ...formData, contactDisplayPhone: e.target.value })}
                 placeholder="+86 138-xxxx-xxxx"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+                className="w-full px-4 py-2 border focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
               />
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-brand-900 mb-2">
                 {t('email', lang)}
               </label>
               <input
@@ -1325,9 +1325,9 @@ export default function WhiteLabelSettingsPage() {
                 value={formData.contactEmail}
                 onChange={(e) => setFormData({ ...formData, contactEmail: e.target.value })}
                 placeholder="your@email.com"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+                className="w-full px-4 py-2 border focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
               />
-              <p className="mt-1 text-xs text-gray-500">
+              <p className="mt-1 text-xs text-neutral-500">
                 {t('emailHint', lang)}
               </p>
             </div>
@@ -1340,7 +1340,7 @@ export default function WhiteLabelSettingsPage() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="flex items-center gap-2 px-6 py-3 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition font-medium disabled:opacity-50"
+              className="flex items-center gap-2 px-6 py-3 bg-brand-600 text-white hover:bg-brand-700 transition font-medium disabled:opacity-50"
             >
               {saving ? (
                 <Loader2 size={18} className="animate-spin" />
@@ -1354,7 +1354,7 @@ export default function WhiteLabelSettingsPage() {
 
         {/* 未订阅提示 */}
         {!isSubscribed && (
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 text-center">
+          <div className="bg-amber-50 border border-amber-200 p-6 text-center">
             <AlertCircle size={32} className="mx-auto text-amber-500 mb-3" />
             <h3 className="font-bold text-amber-800 mb-2">{t('needSubscription', lang)}</h3>
             <p className="text-amber-700 text-sm mb-4">
@@ -1363,7 +1363,7 @@ export default function WhiteLabelSettingsPage() {
             <button
               onClick={() => handleSubscribe('professional')}
               disabled={subscribing}
-              className="px-6 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 mx-auto"
+              className="px-6 py-2 bg-amber-500 text-white hover:bg-amber-600 transition font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 mx-auto"
             >
               {subscribing && <Loader2 size={16} className="animate-spin" />}
               {subscribing ? t('processing', lang) : t('subscribeNow', lang)}
@@ -1372,7 +1372,7 @@ export default function WhiteLabelSettingsPage() {
         )}
 
         {/* 法律声明 */}
-        <div className="bg-brand-50 border border-brand-200 rounded-xl p-6">
+        <div className="bg-brand-50 border border-brand-200 p-6">
           <h3 className="font-bold text-brand-800 mb-3 flex items-center gap-2">
             <AlertCircle size={18} />
             {t('legalNotice', lang)}
