@@ -602,10 +602,10 @@ export default function AboutPage() {
                       { label: t('labelEstablished'), value: t('valueEstablished') },
                       { label: t('labelCapital'), value: t('valueCapital') },
                       { label: t('labelCEO'), value: t('valueCEO') },
-                      { label: t('labelFax'), value: t('valueFax') },
                       { label: t('labelAddress'), value: t('valueAddress') },
                       { label: t('labelPhone'), value: '06-6632-8807' },
-                      { label: t('labelEmail'), value: 'info@niijima-koutsu.jp' },
+                      { label: t('labelFax'), value: t('valueFax') },
+                      { label: t('labelEmail'), value: 'haoyuan@niijima-koutsu.jp' },
                       { label: t('labelBusiness'), value: t('valueBusiness') },
                     ].map((row, index) => (
                       <tr key={index} className="flex flex-col md:table-row hover:bg-white transition">
