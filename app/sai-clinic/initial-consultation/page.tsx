@@ -20,7 +20,7 @@ const pageTranslations = {
   serviceNameEn: { ja: 'SAI CLINIC - Initial Consultation', 'zh-TW': 'SAI CLINIC - Initial Consultation', 'zh-CN': 'SAI CLINIC - Initial Consultation', en: 'SAI CLINIC - Initial Consultation' } as Record<Language, string>,
   serviceDescription: { ja: 'カウンセリング・SAI CLINIC相談・美容整形プラン評価・費用概算', 'zh-TW': '諮詢翻譯、SAI CLINIC諮詢、醫美整形方案評估、費用概算', 'zh-CN': '咨询翻译、SAI CLINIC咨询、医美整形方案评估、费用概算', en: 'Consultation, SAI CLINIC assessment, cosmetic surgery plan evaluation, cost estimate' } as Record<Language, string>,
   serviceLongDescription: { ja: 'SAI CLINIC大阪梅田向けの初期相談サービス。お悩みや写真資料を翻訳（中→日）し、SAI CLINICと初期カウンセリングを行い、糸リフト・二重整形・ヒアルロン酸注入等の美容整形プランの適応性を評価し、費用概算をご提供します。', 'zh-TW': '專為SAI CLINIC大阪梅田提供的前期諮詢服務。我們將翻譯您的諮詢資料及照片（中→日），並與SAI CLINIC進行初步諮詢，評估線雕提升、雙眼皮、玻尿酸注射等醫美整形方案的可行性並提供費用概算。', 'zh-CN': '专为SAI CLINIC大阪梅田提供的前期咨询服务。我们将翻译您的咨询资料及照片（中→日），并与SAI CLINIC进行初步咨询，评估线雕提升、双眼皮、玻尿酸注射等医美整形方案的可行性并提供费用概算。', en: 'Initial consultation for SAI CLINIC Osaka Umeda. We translate your consultation materials and photos (CN→JP), consult with the clinic, assess cosmetic procedure feasibility including thread lift, double eyelid surgery, hyaluronic acid injections, and provide cost estimates.' } as Record<Language, string>,
-  taxIncluded: { ja: '日円（税込）', 'zh-TW': '日円（税込）', 'zh-CN': '日元（含税）', en: 'JPY (tax incl.)' } as Record<Language, string>,
+  taxIncluded: { ja: '日円（税込）', 'zh-TW': '日圓（含稅）', 'zh-CN': '日元（含税）', en: 'JPY (tax incl.)' } as Record<Language, string>,
   backToMain: { ja: 'SAI CLINICに戻る', 'zh-TW': '返回SAI CLINIC', 'zh-CN': '返回SAI CLINIC', en: 'Back to SAI CLINIC' } as Record<Language, string>,
   featuresTitle: { ja: 'サービス内容', 'zh-TW': '服務包含', 'zh-CN': '服务包含', en: 'Service Includes' } as Record<Language, string>,
   feature1: { ja: '相談資料・写真の翻訳（中→日）', 'zh-TW': '諮詢資料·照片翻譯（中→日）', 'zh-CN': '咨询资料·照片翻译（中→日）', en: 'Consultation materials & photo translation (CN→JP)' } as Record<Language, string>,
@@ -35,7 +35,7 @@ const pageTranslations = {
   doc4: { ja: '現在の服用薬', 'zh-TW': '目前服用藥物', 'zh-CN': '目前服用药物', en: 'Current medications' } as Record<Language, string>,
   doc5: { ja: 'パスポート写真ページ', 'zh-TW': '護照照片頁', 'zh-CN': '护照照片页', en: 'Passport photo page' } as Record<Language, string>,
   bookingInfo: { ja: 'ご予約情報', 'zh-TW': '預約信息', 'zh-CN': '预约信息', en: 'Booking Information' } as Record<Language, string>,
-  contractNotice: { ja: 'ご契約について：本サービスのご契約は、新島交通株式会社（大阪府知事登録旅行業 第2-3115号）との間で締結されます。', 'zh-TW': 'ご契約について：本サービスのご契約は、新島交通株式会社（大阪府知事登録旅行業 第2-3115号）との間で締結されます。', 'zh-CN': 'ご契約について：本サービスのご契約は、新島交通株式会社（大阪府知事登録旅行業 第2-3115号）との間で締結されます。', en: 'Contract Notice: This service contract is concluded with Niijima Kotsu Co., Ltd. (Osaka Prefecture Registered Travel Agency No. 2-3115).' } as Record<Language, string>,
+  contractNotice: { ja: 'ご契約について：本サービスのご契約は、新島交通株式会社（大阪府知事登録旅行業 第2-3115号）との間で締結されます。', 'zh-TW': '關於契約：本服務之契約由新島交通株式會社（大阪府知事登錄旅行業 第2-3115號）與您締結。', 'zh-CN': '关于合同：本服务合同由新岛交通株式会社（大阪府知事登录旅行业 第2-3115号）与您签订。', en: 'Contract Notice: This service contract is concluded with Niijima Kotsu Co., Ltd. (Osaka Prefecture Registered Travel Agency No. 2-3115).' } as Record<Language, string>,
   patientInfoTitle: { ja: '患者情報', 'zh-TW': '患者信息', 'zh-CN': '患者信息', en: 'Patient Information' } as Record<Language, string>,
   patientName: { ja: '患者氏名 *', 'zh-TW': '患者姓名 *', 'zh-CN': '患者姓名 *', en: 'Patient Name *' } as Record<Language, string>,
   patientNamePlaceholder: { ja: '患者氏名をご入力ください', 'zh-TW': '請輸入患者姓名', 'zh-CN': '请输入患者姓名', en: 'Enter patient name' } as Record<Language, string>,
@@ -82,6 +82,7 @@ const pageTranslations = {
   alertPaymentError: { ja: 'お支払い処理でエラーが発生しました。しばらくしてから再度お試しください', 'zh-TW': '支付流程出現錯誤，請稍後重試', 'zh-CN': '支付流程出现错误，请稍后重试', en: 'Payment error occurred. Please try again later' } as Record<Language, string>,
   alertCreateSessionError: { ja: '支払いセッションの作成に失敗しました', 'zh-TW': '創建支付會話失敗', 'zh-CN': '创建支付会话失败', en: 'Failed to create payment session' } as Record<Language, string>,
   alertNoCheckoutUrl: { ja: '支払いリンクを取得できませんでした', 'zh-TW': '未獲取到支付鏈接', 'zh-CN': '未获取到支付链接', en: 'Failed to retrieve payment link' } as Record<Language, string>,
+  notProvided: { ja: '未記入', 'zh-TW': '未填寫', 'zh-CN': '未填写', en: 'Not provided' } as Record<Language, string>,
 };
 
 const SERVICE_INFO = {
@@ -162,10 +163,10 @@ export default function SaiClinicInitialConsultationPage() {
       let fullNotes = `【${t('serviceName')}】\n\n`;
       fullNotes += `【${t('patientInfoTitle')}】\n`;
       fullNotes += `${t('patientName').replace(' *', '')}: ${patientInfo.patientName}\n`;
-      fullNotes += `${t('age')}: ${patientInfo.age || '未提供'}\n`;
-      fullNotes += `${t('gender')}: ${patientInfo.gender || '未提供'}\n`;
-      fullNotes += `${t('cancerType')}: ${patientInfo.cancerType || '未提供'}\n`;
-      fullNotes += `${t('currentStatus')}: ${patientInfo.currentStatus || '未提供'}\n\n`;
+      fullNotes += `${t('age')}: ${patientInfo.age || t('notProvided')}\n`;
+      fullNotes += `${t('gender')}: ${patientInfo.gender || t('notProvided')}\n`;
+      fullNotes += `${t('cancerType')}: ${patientInfo.cancerType || t('notProvided')}\n`;
+      fullNotes += `${t('currentStatus')}: ${patientInfo.currentStatus || t('notProvided')}\n\n`;
       fullNotes += `【${t('contactInfoTitle')}】\n${contactMethods.join('\n')}\n\n`;
       if (notes) fullNotes += `【${t('additionalNotes')}】\n${notes}`;
 
@@ -208,7 +209,7 @@ export default function SaiClinicInitialConsultationPage() {
       <Suspense fallback={null}>
         <ProviderBanner lang={currentLang} />
       </Suspense>
-      <div className="bg-white border-b border-gray-100">
+      <div className="bg-white border-b border-neutral-100">
         <div className="max-w-4xl mx-auto px-4 py-3">
           <Link href={backHref} className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-900 transition">
             <ArrowLeft size={16} />
@@ -217,16 +218,16 @@ export default function SaiClinicInitialConsultationPage() {
         </div>
       </div>
 
-      <div className="bg-gradient-to-r from-blue-700 to-blue-900 py-12">
+      <div className="bg-brand-900 py-12">
         <div className="max-w-4xl mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
               <h1 className="text-3xl font-serif font-bold text-white">{t('serviceName')}</h1>
-              <p className="text-gray-300 text-sm mt-1">{t('serviceNameEn')}</p>
+              <p className="text-neutral-300 text-sm mt-1">{t('serviceNameEn')}</p>
             </div>
             <div className="text-right">
               <p className="text-4xl font-bold text-white">¥{SERVICE_INFO.price.toLocaleString()}</p>
-              <p className="text-xs text-gray-300 mt-1">{t('taxIncluded')}</p>
+              <p className="text-xs text-neutral-300 mt-1">{t('taxIncluded')}</p>
             </div>
           </div>
         </div>
@@ -235,25 +236,25 @@ export default function SaiClinicInitialConsultationPage() {
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-1">
-            <div className="bg-blue-50 rounded-2xl p-6 border border-blue-100 sticky top-8">
-              <h3 className="text-lg font-bold text-blue-900 mb-3">{t('featuresTitle')}</h3>
-              <p className="text-sm text-gray-600 mb-6 leading-relaxed">{t('serviceLongDescription')}</p>
-              <div className="space-y-2.5 text-sm text-gray-700">
+            <div className="bg-neutral-50 p-6 border border-neutral-200 sticky top-8">
+              <h3 className="text-lg font-bold text-brand-900 mb-3">{t('featuresTitle')}</h3>
+              <p className="text-sm text-neutral-600 mb-6 leading-relaxed">{t('serviceLongDescription')}</p>
+              <div className="space-y-2.5 text-sm text-neutral-700">
                 {[t('feature1'), t('feature2'), t('feature3'), t('feature4'), t('feature5')].map((feature, idx) => (
                   <div key={idx} className="flex gap-2">
-                    <CheckCircle size={16} className="shrink-0 mt-0.5 text-blue-500" />
+                    <CheckCircle size={16} className="shrink-0 mt-0.5 text-brand-700" />
                     <span>{feature}</span>
                   </div>
                 ))}
               </div>
-              <div className="mt-6 pt-6 border-t border-blue-200">
-                <h4 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-                  <FileText size={16} className="text-blue-600" />
+              <div className="mt-6 pt-6 border-t border-neutral-200">
+                <h4 className="font-bold text-brand-900 mb-3 flex items-center gap-2">
+                  <FileText size={16} className="text-brand-700" />
                   {t('requiredDocsTitle')}
                 </h4>
-                <ul className="space-y-2 text-sm text-gray-600">
+                <ul className="space-y-2 text-sm text-neutral-600">
                   {[t('doc1'), t('doc2'), t('doc3'), t('doc4'), t('doc5')].map((doc, idx) => (
-                    <li key={idx} className="flex gap-2"><span className="text-gray-400">•</span><span>{doc}</span></li>
+                    <li key={idx} className="flex gap-2"><span className="text-neutral-400">•</span><span>{doc}</span></li>
                   ))}
                 </ul>
               </div>
@@ -261,55 +262,55 @@ export default function SaiClinicInitialConsultationPage() {
           </div>
 
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl border border-gray-200 p-8">
-              <h2 className="text-2xl font-serif font-bold text-gray-900 mb-6">{t('bookingInfo')}</h2>
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
-                <p className="text-sm text-blue-800">
+            <div className="bg-white border border-neutral-200 p-8">
+              <h2 className="text-2xl font-serif font-bold text-brand-900 mb-6">{t('bookingInfo')}</h2>
+              <div className="bg-neutral-50 border border-neutral-200 p-4 mb-6">
+                <p className="text-sm text-neutral-700">
                   <strong>{t('contractNotice').split('：')[0]}：</strong>{t('contractNotice').split('：')[1]}
                 </p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-8">
                 <div>
-                  <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2"><Users size={18} className="text-blue-600" />{t('patientInfoTitle')}</h3>
+                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-2"><Users size={18} className="text-brand-700" />{t('patientInfoTitle')}</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('patientName')}</label>
-                      <input type="text" required value={patientInfo.patientName} onChange={(e) => setPatientInfo({ ...patientInfo, patientName: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder={t('patientNamePlaceholder')} />
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('patientName')}</label>
+                      <input type="text" required value={patientInfo.patientName} onChange={(e) => setPatientInfo({ ...patientInfo, patientName: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent" placeholder={t('patientNamePlaceholder')} />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('age')}</label>
-                      <input type="text" value={patientInfo.age} onChange={(e) => setPatientInfo({ ...patientInfo, age: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder={t('agePlaceholder')} />
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('age')}</label>
+                      <input type="text" value={patientInfo.age} onChange={(e) => setPatientInfo({ ...patientInfo, age: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent" placeholder={t('agePlaceholder')} />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('gender')}</label>
-                      <select value={patientInfo.gender} onChange={(e) => setPatientInfo({ ...patientInfo, gender: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('gender')}</label>
+                      <select value={patientInfo.gender} onChange={(e) => setPatientInfo({ ...patientInfo, gender: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent">
                         <option value="">{t('genderSelect')}</option>
                         <option value={t('male')}>{t('male')}</option>
                         <option value={t('female')}>{t('female')}</option>
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('cancerType')}</label>
-                      <input type="text" value={patientInfo.cancerType} onChange={(e) => setPatientInfo({ ...patientInfo, cancerType: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder={t('cancerTypePlaceholder')} />
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('cancerType')}</label>
+                      <input type="text" value={patientInfo.cancerType} onChange={(e) => setPatientInfo({ ...patientInfo, cancerType: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent" placeholder={t('cancerTypePlaceholder')} />
                     </div>
                     <div className="md:col-span-2">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('currentStatus')}</label>
-                      <textarea value={patientInfo.currentStatus} onChange={(e) => setPatientInfo({ ...patientInfo, currentStatus: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows={3} placeholder={t('currentStatusPlaceholder')} />
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('currentStatus')}</label>
+                      <textarea value={patientInfo.currentStatus} onChange={(e) => setPatientInfo({ ...patientInfo, currentStatus: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent" rows={3} placeholder={t('currentStatusPlaceholder')} />
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2"><Phone size={18} className="text-blue-600" />{t('contactInfoTitle')}</h3>
+                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-2"><Phone size={18} className="text-brand-700" />{t('contactInfoTitle')}</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('contactName')}</label>
-                      <input type="text" required value={customerInfo.name} onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder={t('contactNamePlaceholder')} />
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('contactName')}</label>
+                      <input type="text" required value={customerInfo.name} onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent" placeholder={t('contactNamePlaceholder')} />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('region')}</label>
-                      <select value={customerInfo.country} onChange={(e) => setCustomerInfo({ ...customerInfo, country: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('region')}</label>
+                      <select value={customerInfo.country} onChange={(e) => setCustomerInfo({ ...customerInfo, country: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent">
                         <option value="TW">{t('regionTW')}</option>
                         <option value="CN">{t('regionCN')}</option>
                         <option value="HK">{t('regionHK')}</option>
@@ -319,48 +320,48 @@ export default function SaiClinicInitialConsultationPage() {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('phone')}</label>
-                      <input type="tel" value={customerInfo.phone} onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder={t('phonePlaceholder')} />
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('phone')}</label>
+                      <input type="tel" value={customerInfo.phone} onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent" placeholder={t('phonePlaceholder')} />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('email')}</label>
-                      <input type="email" value={customerInfo.email} onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder={t('emailPlaceholder')} />
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('email')}</label>
+                      <input type="email" value={customerInfo.email} onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent" placeholder={t('emailPlaceholder')} />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('lineId')}</label>
-                      <input type="text" value={customerInfo.line} onChange={(e) => setCustomerInfo({ ...customerInfo, line: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder={t('lineIdPlaceholder')} />
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('lineId')}</label>
+                      <input type="text" value={customerInfo.line} onChange={(e) => setCustomerInfo({ ...customerInfo, line: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent" placeholder={t('lineIdPlaceholder')} />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('wechat')}</label>
-                      <input type="text" value={customerInfo.wechat} onChange={(e) => setCustomerInfo({ ...customerInfo, wechat: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder={t('wechatPlaceholder')} />
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('wechat')}</label>
+                      <input type="text" value={customerInfo.wechat} onChange={(e) => setCustomerInfo({ ...customerInfo, wechat: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent" placeholder={t('wechatPlaceholder')} />
                     </div>
                   </div>
                   {contactError && <p className="mt-2 text-sm text-red-500">{contactError}</p>}
-                  <p className="mt-2 text-xs text-gray-400">{t('contactMethodRequired')}</p>
+                  <p className="mt-2 text-xs text-neutral-400">{t('contactMethodRequired')}</p>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">{t('additionalNotes')}</label>
-                  <textarea value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows={4} placeholder={t('additionalNotesPlaceholder')} />
+                  <label className="block text-sm font-medium text-neutral-700 mb-1">{t('additionalNotes')}</label>
+                  <textarea value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent" rows={4} placeholder={t('additionalNotesPlaceholder')} />
                 </div>
 
-                <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                <div className="bg-neutral-50 p-6 border border-neutral-200">
                   <div className="flex justify-between items-center mb-4">
-                    <span className="text-gray-600">{t('serviceFee')}</span>
+                    <span className="text-neutral-600">{t('serviceFee')}</span>
                     <div className="text-right">
-                      <span className="text-2xl font-bold text-gray-900">¥{SERVICE_INFO.price.toLocaleString()}</span>
-                      <span className="text-xs text-gray-500 ml-1">{t('taxIncluded').split('（')[0]}</span>
+                      <span className="text-2xl font-bold text-brand-900">¥{SERVICE_INFO.price.toLocaleString()}</span>
+                      <span className="text-xs text-neutral-500 ml-1">{t('taxIncluded').split('（')[0]}</span>
                     </div>
                   </div>
-                  <p className="text-xs text-gray-500 mb-4">{t('paymentNotice')}</p>
-                  <button type="submit" disabled={processing} className="w-full py-4 bg-gradient-to-r from-blue-700 to-blue-900 text-white font-bold rounded-xl hover:from-blue-600 hover:to-blue-800 transition shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                  <p className="text-xs text-neutral-500 mb-4">{t('paymentNotice')}</p>
+                  <button type="submit" disabled={processing} className="w-full py-4 bg-gold-400 text-brand-900 font-bold hover:bg-gold-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                     {processing ? (<><Loader2 className="animate-spin" size={20} />{t('processing')}</>) : (<><CreditCard size={20} />{t('confirmPayment')}</>)}
                   </button>
                 </div>
 
-                <div className="flex flex-wrap justify-center gap-6 text-xs text-gray-500">
+                <div className="flex flex-wrap justify-center gap-6 text-xs text-neutral-500">
                   <div className="flex items-center gap-1"><Shield size={14} className="text-green-500" /><span>{t('securePayment')}</span></div>
-                  <div className="flex items-center gap-1"><Clock size={14} className="text-blue-500" /><span>{t('contact24h')}</span></div>
+                  <div className="flex items-center gap-1"><Clock size={14} className="text-brand-700" /><span>{t('contact24h')}</span></div>
                 </div>
                 <div className="flex items-center justify-center gap-2 mt-4">
                   <Image src="/icons/payment/visa.svg" alt="Visa" width={40} height={25} className="h-6 w-auto" />

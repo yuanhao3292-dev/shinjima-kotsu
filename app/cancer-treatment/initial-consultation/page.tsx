@@ -21,7 +21,7 @@ const pageTranslations = {
   serviceNameEn: { ja: 'Initial Consultation', 'zh-TW': 'Initial Consultation', 'zh-CN': 'Initial Consultation', en: 'Initial Consultation' } as Record<Language, string>,
   serviceDescription: { ja: '資料翻訳・病院相談・治療プラン初期評価', 'zh-TW': '資料翻譯、醫院諮詢、治療方案初步評估', 'zh-CN': '资料翻译、医院咨询、治疗方案初步评估', en: 'Document translation, hospital consultation, initial treatment assessment' } as Record<Language, string>,
   serviceLongDescription: { ja: 'がん患者様向けの初期相談サービス。診療情報を翻訳（中→日）し、日本の提携病院と初期相談を行い、治療可能性を評価し、費用概算をご提供します。', 'zh-TW': '專為癌症患者提供的前期諮詢服務。我們將翻譯您的病歷資料（中文→日文），並與日本合作醫院進行初步諮詢，評估治療可行性並提供費用概算。', 'zh-CN': '专为癌症患者提供的前期咨询服务。我们将翻译您的病历资料（中文→日文），并与日本合作医院进行初步咨询，评估治疗可行性并提供费用概算。', en: 'Initial consultation service for cancer patients. We translate your medical records (CN→JP), consult with partner hospitals in Japan, assess treatment feasibility and provide cost estimates.' } as Record<Language, string>,
-  taxIncluded: { ja: '日円（税込）', 'zh-TW': '日円（税込）', 'zh-CN': '日元（含税）', en: 'JPY (tax incl.)' } as Record<Language, string>,
+  taxIncluded: { ja: '日円（税込）', 'zh-TW': '日圓（含稅）', 'zh-CN': '日元（含税）', en: 'JPY (tax incl.)' } as Record<Language, string>,
 
   // Navigation
   backToMain: { ja: '日本がん総合治療に戻る', 'zh-TW': '返回日本綜合治療', 'zh-CN': '返回日本综合治疗', en: 'Back to Japan Cancer Treatment' } as Record<Language, string>,
@@ -45,7 +45,7 @@ const pageTranslations = {
 
   // Form Headers
   bookingInfo: { ja: 'ご予約情報', 'zh-TW': '預約信息', 'zh-CN': '预约信息', en: 'Booking Information' } as Record<Language, string>,
-  contractNotice: { ja: 'ご契約について：本サービスのご契約は、新島交通株式会社（大阪府知事登録旅行業 第2-3115号）との間で締結されます。', 'zh-TW': 'ご契約について：本サービスのご契約は、新島交通株式会社（大阪府知事登録旅行業 第2-3115号）との間で締結されます。', 'zh-CN': 'ご契約について：本サービスのご契約は、新島交通株式会社（大阪府知事登録旅行業 第2-3115号）との間で締結されます。', en: 'Contract Notice: This service contract is concluded with Niijima Kotsu Co., Ltd. (Osaka Prefecture Registered Travel Agency No. 2-3115).' } as Record<Language, string>,
+  contractNotice: { ja: 'ご契約について：本サービスのご契約は、新島交通株式会社（大阪府知事登録旅行業 第2-3115号）との間で締結されます。', 'zh-TW': '關於契約：本服務之契約由新島交通株式會社（大阪府知事登錄旅行業 第2-3115號）與您締結。', 'zh-CN': '关于合同：本服务合同由新岛交通株式会社（大阪府知事登录旅行业 第2-3115号）与您签订。', en: 'Contract Notice: This service contract is concluded with Niijima Kotsu Co., Ltd. (Osaka Prefecture Registered Travel Agency No. 2-3115).' } as Record<Language, string>,
 
   // Patient Information
   patientInfoTitle: { ja: '患者情報', 'zh-TW': '患者信息', 'zh-CN': '患者信息', en: 'Patient Information' } as Record<Language, string>,
@@ -104,6 +104,7 @@ const pageTranslations = {
   alertPaymentError: { ja: 'お支払い処理でエラーが発生しました。しばらくしてから再度お試しください', 'zh-TW': '支付流程出現錯誤，請稍後重試', 'zh-CN': '支付流程出现错误，请稍后重试', en: 'Payment error occurred. Please try again later' } as Record<Language, string>,
   alertCreateSessionError: { ja: '支払いセッションの作成に失敗しました', 'zh-TW': '創建支付會話失敗', 'zh-CN': '创建支付会话失败', en: 'Failed to create payment session' } as Record<Language, string>,
   alertNoCheckoutUrl: { ja: '支払いリンクを取得できませんでした', 'zh-TW': '未獲取到支付鏈接', 'zh-CN': '未获取到支付链接', en: 'Failed to retrieve payment link' } as Record<Language, string>,
+  notProvided: { ja: '未記入', 'zh-TW': '未填寫', 'zh-CN': '未填写', en: 'Not provided' } as Record<Language, string>,
 };
 
 const SERVICE_INFO = {
@@ -198,10 +199,10 @@ export default function InitialConsultationPage() {
       let fullNotes = `【${t('serviceName')}】\n\n`;
       fullNotes += `【${t('patientInfoTitle')}】\n`;
       fullNotes += `${t('patientName').replace(' *', '')}: ${patientInfo.patientName}\n`;
-      fullNotes += `${t('age')}: ${patientInfo.age || '未提供'}\n`;
-      fullNotes += `${t('gender')}: ${patientInfo.gender || '未提供'}\n`;
-      fullNotes += `${t('diagnosis')}: ${patientInfo.diagnosis || '未提供'}\n`;
-      fullNotes += `${t('currentStatus')}: ${patientInfo.currentStatus || '未提供'}\n\n`;
+      fullNotes += `${t('age')}: ${patientInfo.age || t('notProvided')}\n`;
+      fullNotes += `${t('gender')}: ${patientInfo.gender || t('notProvided')}\n`;
+      fullNotes += `${t('diagnosis')}: ${patientInfo.diagnosis || t('notProvided')}\n`;
+      fullNotes += `${t('currentStatus')}: ${patientInfo.currentStatus || t('notProvided')}\n\n`;
       fullNotes += `【${t('contactInfoTitle')}】\n${contactMethods.join('\n')}\n\n`;
       if (notes) {
         fullNotes += `【${t('additionalNotes')}】\n${notes}`;
@@ -246,7 +247,7 @@ export default function InitialConsultationPage() {
         <ProviderBanner lang={currentLang} />
       </Suspense>
       {/* Header */}
-      <div className="bg-white border-b border-gray-100">
+      <div className="bg-white border-b border-neutral-100">
         <div className="max-w-4xl mx-auto px-4 py-3">
           <Link
             href={backHref}
@@ -259,16 +260,16 @@ export default function InitialConsultationPage() {
       </div>
 
       {/* Hero */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 py-12">
+      <div className="bg-brand-900 py-12">
         <div className="max-w-4xl mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
               <h1 className="text-3xl font-serif font-bold text-white">{t('serviceName')}</h1>
-              <p className="text-blue-200 text-sm mt-1">{t('serviceNameEn')}</p>
+              <p className="text-neutral-300 text-sm mt-1">{t('serviceNameEn')}</p>
             </div>
             <div className="text-right">
               <p className="text-4xl font-bold text-white">¥{SERVICE_INFO.price.toLocaleString()}</p>
-              <p className="text-xs text-blue-200 mt-1">{t('taxIncluded')}</p>
+              <p className="text-xs text-neutral-300 mt-1">{t('taxIncluded')}</p>
             </div>
           </div>
         </div>
@@ -278,26 +279,26 @@ export default function InitialConsultationPage() {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Left: Service Info */}
           <div className="lg:col-span-1">
-            <div className="bg-blue-50 rounded-2xl p-6 border border-blue-100 sticky top-8">
-              <h3 className="text-lg font-bold text-blue-900 mb-3">{t('featuresTitle')}</h3>
-              <p className="text-sm text-gray-600 mb-6 leading-relaxed">{t('serviceLongDescription')}</p>
-              <div className="space-y-2.5 text-sm text-gray-700">
+            <div className="bg-neutral-50 p-6 border border-neutral-200 sticky top-8">
+              <h3 className="text-lg font-bold text-brand-900 mb-3">{t('featuresTitle')}</h3>
+              <p className="text-sm text-neutral-600 mb-6 leading-relaxed">{t('serviceLongDescription')}</p>
+              <div className="space-y-2.5 text-sm text-neutral-700">
                 {[t('feature1'), t('feature2'), t('feature3'), t('feature4'), t('feature5')].map((feature, idx) => (
                   <div key={idx} className="flex gap-2">
-                    <CheckCircle size={16} className="shrink-0 mt-0.5 text-blue-500" />
+                    <CheckCircle size={16} className="shrink-0 mt-0.5 text-brand-700" />
                     <span>{feature}</span>
                   </div>
                 ))}
               </div>
-              <div className="mt-6 pt-6 border-t border-blue-200">
-                <h4 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-                  <FileText size={16} className="text-blue-600" />
+              <div className="mt-6 pt-6 border-t border-neutral-200">
+                <h4 className="font-bold text-brand-900 mb-3 flex items-center gap-2">
+                  <FileText size={16} className="text-brand-700" />
                   {t('requiredDocsTitle')}
                 </h4>
-                <ul className="space-y-2 text-sm text-gray-600">
+                <ul className="space-y-2 text-sm text-neutral-600">
                   {[t('doc1'), t('doc2'), t('doc3'), t('doc4'), t('doc5')].map((doc, idx) => (
                     <li key={idx} className="flex gap-2">
-                      <span className="text-gray-400">•</span>
+                      <span className="text-neutral-400">•</span>
                       <span>{doc}</span>
                     </li>
                   ))}
@@ -308,12 +309,12 @@ export default function InitialConsultationPage() {
 
           {/* Right: Booking Form */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl border border-gray-200 p-8">
-              <h2 className="text-2xl font-serif font-bold text-gray-900 mb-6">{t('bookingInfo')}</h2>
+            <div className="bg-white border border-neutral-200 p-8">
+              <h2 className="text-2xl font-serif font-bold text-brand-900 mb-6">{t('bookingInfo')}</h2>
 
               {/* Contract Notice */}
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
-                <p className="text-sm text-blue-800">
+              <div className="bg-neutral-50 border border-neutral-200 p-4 mb-6">
+                <p className="text-sm text-neutral-700">
                   <strong>{t('contractNotice').split('：')[0]}：</strong>{t('contractNotice').split('：')[1]}
                 </p>
               </div>
@@ -321,38 +322,38 @@ export default function InitialConsultationPage() {
               <form onSubmit={handleSubmit} className="space-y-8">
                 {/* Patient Info */}
                 <div>
-                  <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-                    <Users size={18} className="text-blue-600" />
+                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-2">
+                    <Users size={18} className="text-brand-700" />
                     {t('patientInfoTitle')}
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('patientName')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('patientName')}</label>
                       <input
                         type="text"
                         required
                         value={patientInfo.patientName}
                         onChange={(e) => setPatientInfo({ ...patientInfo, patientName: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                         placeholder={t('patientNamePlaceholder')}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('age')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('age')}</label>
                       <input
                         type="text"
                         value={patientInfo.age}
                         onChange={(e) => setPatientInfo({ ...patientInfo, age: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                         placeholder={t('agePlaceholder')}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('gender')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('gender')}</label>
                       <select
                         value={patientInfo.gender}
                         onChange={(e) => setPatientInfo({ ...patientInfo, gender: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                       >
                         <option value="">{t('genderSelect')}</option>
                         <option value={t('male')}>{t('male')}</option>
@@ -360,21 +361,21 @@ export default function InitialConsultationPage() {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('diagnosis')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('diagnosis')}</label>
                       <input
                         type="text"
                         value={patientInfo.diagnosis}
                         onChange={(e) => setPatientInfo({ ...patientInfo, diagnosis: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                         placeholder={t('diagnosisPlaceholder')}
                       />
                     </div>
                     <div className="md:col-span-2">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('currentStatus')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('currentStatus')}</label>
                       <textarea
                         value={patientInfo.currentStatus}
                         onChange={(e) => setPatientInfo({ ...patientInfo, currentStatus: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                         rows={3}
                         placeholder={t('currentStatusPlaceholder')}
                       />
@@ -384,28 +385,28 @@ export default function InitialConsultationPage() {
 
                 {/* Contact Info */}
                 <div>
-                  <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-                    <Phone size={18} className="text-blue-600" />
+                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-2">
+                    <Phone size={18} className="text-brand-700" />
                     {t('contactInfoTitle')}
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('contactName')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('contactName')}</label>
                       <input
                         type="text"
                         required
                         value={customerInfo.name}
                         onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                         placeholder={t('contactNamePlaceholder')}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('region')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('region')}</label>
                       <select
                         value={customerInfo.country}
                         onChange={(e) => setCustomerInfo({ ...customerInfo, country: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                       >
                         <option value="TW">{t('regionTW')}</option>
                         <option value="CN">{t('regionCN')}</option>
@@ -416,42 +417,42 @@ export default function InitialConsultationPage() {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('phone')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('phone')}</label>
                       <input
                         type="tel"
                         value={customerInfo.phone}
                         onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                         placeholder={t('phonePlaceholder')}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('email')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('email')}</label>
                       <input
                         type="email"
                         value={customerInfo.email}
                         onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                         placeholder={t('emailPlaceholder')}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('lineId')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('lineId')}</label>
                       <input
                         type="text"
                         value={customerInfo.line}
                         onChange={(e) => setCustomerInfo({ ...customerInfo, line: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                         placeholder={t('lineIdPlaceholder')}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('wechat')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('wechat')}</label>
                       <input
                         type="text"
                         value={customerInfo.wechat}
                         onChange={(e) => setCustomerInfo({ ...customerInfo, wechat: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                         placeholder={t('wechatPlaceholder')}
                       />
                     </div>
@@ -459,37 +460,37 @@ export default function InitialConsultationPage() {
                   {contactError && (
                     <p className="mt-2 text-sm text-red-500">{contactError}</p>
                   )}
-                  <p className="mt-2 text-xs text-gray-400">{t('contactMethodRequired')}</p>
+                  <p className="mt-2 text-xs text-neutral-400">{t('contactMethodRequired')}</p>
                 </div>
 
                 {/* Notes */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">{t('additionalNotes')}</label>
+                  <label className="block text-sm font-medium text-neutral-700 mb-1">{t('additionalNotes')}</label>
                   <textarea
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                     rows={4}
                     placeholder={t('additionalNotesPlaceholder')}
                   />
                 </div>
 
                 {/* Summary */}
-                <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                <div className="bg-neutral-50 p-6 border border-neutral-200">
                   <div className="flex justify-between items-center mb-4">
-                    <span className="text-gray-600">{t('serviceFee')}</span>
+                    <span className="text-neutral-600">{t('serviceFee')}</span>
                     <div className="text-right">
-                      <span className="text-2xl font-bold text-gray-900">¥{SERVICE_INFO.price.toLocaleString()}</span>
-                      <span className="text-xs text-gray-500 ml-1">{t('taxIncluded').split('（')[0]}</span>
+                      <span className="text-2xl font-bold text-brand-900">¥{SERVICE_INFO.price.toLocaleString()}</span>
+                      <span className="text-xs text-neutral-500 ml-1">{t('taxIncluded').split('（')[0]}</span>
                     </div>
                   </div>
-                  <p className="text-xs text-gray-500 mb-4">
+                  <p className="text-xs text-neutral-500 mb-4">
                     {t('paymentNotice')}
                   </p>
                   <button
                     type="submit"
                     disabled={processing}
-                    className="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-700 text-white font-bold rounded-xl hover:from-blue-700 hover:to-indigo-800 transition shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full py-4 bg-gold-400 text-brand-900 font-bold hover:bg-gold-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {processing ? (
                       <>
@@ -506,13 +507,13 @@ export default function InitialConsultationPage() {
                 </div>
 
                 {/* Trust Indicators */}
-                <div className="flex flex-wrap justify-center gap-6 text-xs text-gray-500">
+                <div className="flex flex-wrap justify-center gap-6 text-xs text-neutral-500">
                   <div className="flex items-center gap-1">
                     <Shield size={14} className="text-green-500" />
                     <span>{t('securePayment')}</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <Clock size={14} className="text-blue-500" />
+                    <Clock size={14} className="text-brand-700" />
                     <span>{t('contact24h')}</span>
                   </div>
                 </div>

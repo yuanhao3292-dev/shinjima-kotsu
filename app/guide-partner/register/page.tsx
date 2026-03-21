@@ -9,6 +9,7 @@ import PublicLayout from '@/components/PublicLayout';
 import { User, Phone, Mail, Lock, Loader2, AlertCircle, Eye, EyeOff, MessageCircle } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import { useSiteImages } from '@/lib/hooks/useSiteImages';
+import { COUNTRY_CODES, DEFAULT_CODE_BY_LANG } from '@/lib/config/country-codes';
 
 const translations = {
   // Success page
@@ -227,6 +228,7 @@ function RegisterForm() {
     password: '',
     confirmPassword: '',
   });
+  const [countryCode, setCountryCode] = useState(() => DEFAULT_CODE_BY_LANG[lang] || '+86');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -275,7 +277,7 @@ function RegisterForm() {
         body: JSON.stringify({
           name: formData.name.trim(),
           email: formData.email.trim().toLowerCase(),
-          phone: formData.phone.trim(),
+          phone: formData.phone.trim() ? `${countryCode}${formData.phone.trim()}` : '',
           wechat_id: formData.wechatId || undefined,
           password: formData.password,
           referrer_code: referrerCode || undefined,
@@ -446,14 +448,25 @@ function RegisterForm() {
 
             <div>
               <label className="block text-sm font-medium text-neutral-700 mb-2">{t('labelPhone', lang)}</label>
-              <div className="relative">
-                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+              <div className="flex">
+                <div className="relative flex items-center">
+                  <Phone className="absolute left-3 text-neutral-400 pointer-events-none" size={18} />
+                  <select
+                    value={countryCode}
+                    onChange={(e) => setCountryCode(e.target.value)}
+                    className="pl-10 pr-2 py-3 border border-neutral-200 border-r-0 bg-neutral-50 text-sm text-neutral-700 outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent appearance-none min-w-[120px]"
+                  >
+                    {COUNTRY_CODES.map((cc) => (
+                      <option key={cc.code} value={cc.code}>{cc.label}</option>
+                    ))}
+                  </select>
+                </div>
                 <input
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   required
-                  className="w-full pl-10 pr-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent transition bg-white text-sm"
+                  className="flex-1 px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent transition bg-white text-sm"
                   placeholder={t('placeholderPhone', lang)}
                 />
               </div>

@@ -308,6 +308,7 @@ export interface LegacyRecommendedHospital {
   features: string[];
   suitableFor: string;
   doctors?: { name: string; qualification: string }[];
+  hospitalId?: string;
 }
 
 export type RiskLevel = 'low' | 'medium' | 'high';

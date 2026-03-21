@@ -18,7 +18,7 @@ const ui = {
   backToMain: { ja: 'W CLINIC men\'sに戻る', 'zh-TW': '返回W CLINIC men\'s', 'zh-CN': '返回W CLINIC men\'s', en: 'Back to W CLINIC men\'s' } as Record<Language, string>,
   taxIncluded: { ja: '（税込）', 'zh-TW': '（含稅）', 'zh-CN': '（含税）', en: '(tax incl.)' } as Record<Language, string>,
   bookingInfo: { ja: 'ご予約情報', 'zh-TW': '預約信息', 'zh-CN': '预约信息', en: 'Booking Information' } as Record<Language, string>,
-  contractNotice: { ja: 'ご契約について：本サービスのご契約は、新島交通株式会社（大阪府知事登録旅行業 第2-3115号）との間で締結されます。', 'zh-TW': '合約說明：本服務合約由新島交通株式會社（大阪府知事登録旅行業 第2-3115號）締結。', 'zh-CN': '合同说明：本服务合同由新岛交通株式会社（大阪府知事登录旅行业 第2-3115号）締结。', en: 'Contract Notice: This service contract is concluded with Niijima Kotsu Co., Ltd. (Osaka Prefecture Registered Travel Agency No. 2-3115).' } as Record<Language, string>,
+  contractNotice: { ja: 'ご契約について：本サービスのご契約は、新島交通株式会社（大阪府知事登録旅行業 第2-3115号）との間で締結されます。', 'zh-TW': '關於契約：本服務之契約由新島交通株式會社（大阪府知事登錄旅行業 第2-3115號）與您締結。', 'zh-CN': '关于合同：本服务合同由新岛交通株式会社（大阪府知事登录旅行业 第2-3115号）与您签订。', en: 'Contract Notice: This service contract is concluded with Niijima Kotsu Co., Ltd. (Osaka Prefecture Registered Travel Agency No. 2-3115).' } as Record<Language, string>,
   contactName: { ja: 'お名前 *', 'zh-TW': '姓名 *', 'zh-CN': '姓名 *', en: 'Name *' } as Record<Language, string>,
   contactNamePh: { ja: 'お名前をご入力ください', 'zh-TW': '請輸入姓名', 'zh-CN': '请输入姓名', en: 'Enter your name' } as Record<Language, string>,
   region: { ja: '所在地域', 'zh-TW': '所在地區', 'zh-CN': '所在地区', en: 'Region' } as Record<Language, string>,
@@ -94,7 +94,7 @@ export default function WClinicMensCheckoutPage() {
       <CheckoutLayout>
         <div className="flex-grow flex items-center justify-center py-20">
           <div className="text-center">
-            <p className="text-xl text-gray-600 mb-4">{ui.notFound[lang]}</p>
+            <p className="text-xl text-neutral-600 mb-4">{ui.notFound[lang]}</p>
             <Link href={backHref} className="text-amber-600 hover:underline">{t('backToMain')}</Link>
           </div>
         </div>
@@ -177,7 +177,7 @@ export default function WClinicMensCheckoutPage() {
       </Suspense>
 
       {/* Back link */}
-      <div className="bg-white border-b border-gray-100">
+      <div className="bg-white border-b border-neutral-100">
         <div className="max-w-4xl mx-auto px-4 py-3">
           <Link href={backHref} className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-900 transition">
             <ArrowLeft size={16} />
@@ -187,17 +187,17 @@ export default function WClinicMensCheckoutPage() {
       </div>
 
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#293f58] to-[#1a2a3e] py-10">
+      <div className="bg-brand-900 py-10">
         <div className="max-w-4xl mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <span className="inline-block text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 bg-white/10 text-[#00c300]">W CLINIC men&apos;s</span>
               <h1 className="text-2xl md:text-3xl font-serif font-bold text-white">{getName()}</h1>
-              <p className="text-gray-400 text-sm mt-1">{pkg.nameEn}</p>
+              <p className="text-neutral-400 text-sm mt-1">{pkg.nameEn}</p>
             </div>
             <div className="text-right">
               <p className="text-3xl md:text-4xl font-bold text-white">¥{pkg.priceJpy.toLocaleString()}</p>
-              <p className="text-xs text-gray-400 mt-1">{t('taxIncluded')}</p>
+              <p className="text-xs text-neutral-400 mt-1">{t('taxIncluded')}</p>
             </div>
           </div>
         </div>
@@ -205,22 +205,22 @@ export default function WClinicMensCheckoutPage() {
 
       {/* Form */}
       <div className="max-w-4xl mx-auto px-4 py-10">
-        <div className="bg-white rounded-2xl border border-gray-200 p-6 md:p-8">
-          <h2 className="text-xl font-serif font-bold text-gray-900 mb-4">{t('bookingInfo')}</h2>
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6">
-            <p className="text-sm text-amber-800">{t('contractNotice')}</p>
+        <div className="bg-white border border-neutral-200 p-6 md:p-8">
+          <h2 className="text-xl font-serif font-bold text-brand-900 mb-4">{t('bookingInfo')}</h2>
+          <div className="bg-neutral-50 border border-neutral-200 p-4 mb-6">
+            <p className="text-sm text-neutral-700">{t('contractNotice')}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Name & Region */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">{t('contactName')}</label>
-                <input type="text" required value={customerInfo.name} onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('contactNamePh')} />
+                <label className="block text-sm font-medium text-neutral-700 mb-1">{t('contactName')}</label>
+                <input type="text" required value={customerInfo.name} onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('contactNamePh')} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">{t('region')}</label>
-                <select value={customerInfo.country} onChange={(e) => setCustomerInfo({ ...customerInfo, country: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                <label className="block text-sm font-medium text-neutral-700 mb-1">{t('region')}</label>
+                <select value={customerInfo.country} onChange={(e) => setCustomerInfo({ ...customerInfo, country: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent">
                   <option value="TW">{t('regionTW')}</option>
                   <option value="CN">{t('regionCN')}</option>
                   <option value="HK">{t('regionHK')}</option>
@@ -233,56 +233,56 @@ export default function WClinicMensCheckoutPage() {
             {/* Contact methods */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">{t('phone')}</label>
-                <input type="tel" value={customerInfo.phone} onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('phonePh')} />
+                <label className="block text-sm font-medium text-neutral-700 mb-1">{t('phone')}</label>
+                <input type="tel" value={customerInfo.phone} onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('phonePh')} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">{t('email')}</label>
-                <input type="email" value={customerInfo.email} onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('emailPh')} />
+                <label className="block text-sm font-medium text-neutral-700 mb-1">{t('email')}</label>
+                <input type="email" value={customerInfo.email} onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('emailPh')} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">{t('lineId')}</label>
-                <input type="text" value={customerInfo.line} onChange={(e) => setCustomerInfo({ ...customerInfo, line: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('lineIdPh')} />
+                <label className="block text-sm font-medium text-neutral-700 mb-1">{t('lineId')}</label>
+                <input type="text" value={customerInfo.line} onChange={(e) => setCustomerInfo({ ...customerInfo, line: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('lineIdPh')} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">{t('wechat')}</label>
-                <input type="text" value={customerInfo.wechat} onChange={(e) => setCustomerInfo({ ...customerInfo, wechat: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('wechatPh')} />
+                <label className="block text-sm font-medium text-neutral-700 mb-1">{t('wechat')}</label>
+                <input type="text" value={customerInfo.wechat} onChange={(e) => setCustomerInfo({ ...customerInfo, wechat: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('wechatPh')} />
               </div>
             </div>
             {contactError && <p className="text-sm text-red-500">{contactError}</p>}
-            <p className="text-xs text-gray-400">{t('contactRequired')}</p>
+            <p className="text-xs text-neutral-400">{t('contactRequired')}</p>
 
             {/* Preferred date */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">{t('preferredDate')}</label>
-              <input type="text" value={preferredDate} onChange={(e) => setPreferredDate(e.target.value)} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('preferredDatePh')} />
+              <label className="block text-sm font-medium text-neutral-700 mb-1">{t('preferredDate')}</label>
+              <input type="text" value={preferredDate} onChange={(e) => setPreferredDate(e.target.value)} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('preferredDatePh')} />
             </div>
 
             {/* Notes */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">{t('notes')}</label>
-              <textarea value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent" rows={3} placeholder={t('notesPh')} />
+              <label className="block text-sm font-medium text-neutral-700 mb-1">{t('notes')}</label>
+              <textarea value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" rows={3} placeholder={t('notesPh')} />
             </div>
 
             {/* Payment */}
-            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+            <div className="bg-neutral-50 p-6 border border-neutral-200">
               <div className="flex justify-between items-center mb-4">
-                <span className="text-gray-600">{t('serviceFee')}</span>
+                <span className="text-neutral-600">{t('serviceFee')}</span>
                 <div className="text-right">
-                  <span className="text-2xl font-bold text-gray-900">¥{pkg.priceJpy.toLocaleString()}</span>
-                  <span className="text-xs text-gray-500 ml-1">{t('taxIncluded')}</span>
+                  <span className="text-2xl font-bold text-brand-900">¥{pkg.priceJpy.toLocaleString()}</span>
+                  <span className="text-xs text-neutral-500 ml-1">{t('taxIncluded')}</span>
                 </div>
               </div>
-              <p className="text-xs text-gray-500 mb-4">{t('paymentNotice')}</p>
-              <button type="submit" disabled={processing} className="w-full py-4 bg-gradient-to-r from-[#293f58] to-[#1a2a3e] text-white font-bold rounded-xl hover:from-[#1a2a3e] hover:to-[#293f58] transition shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+              <p className="text-xs text-neutral-500 mb-4">{t('paymentNotice')}</p>
+              <button type="submit" disabled={processing} className="w-full py-4 bg-gold-400 text-brand-900 font-bold hover:bg-gold-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                 {processing ? (<><Loader2 className="animate-spin" size={20} />{t('processing')}</>) : (<><CreditCard size={20} />{t('confirmPayment')}</>)}
               </button>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-6 text-xs text-gray-500">
+            <div className="flex flex-wrap justify-center gap-6 text-xs text-neutral-500">
               <div className="flex items-center gap-1"><Shield size={14} className="text-green-500" /><span>{t('securePayment')}</span></div>
               <div className="flex items-center gap-1"><Clock size={14} className="text-amber-500" /><span>{t('contact24h')}</span></div>
-              <div className="flex items-center gap-1"><Lock size={14} className="text-gray-400" /><span>Stripe</span></div>
+              <div className="flex items-center gap-1"><Lock size={14} className="text-neutral-400" /><span>Stripe</span></div>
             </div>
           </form>
         </div>

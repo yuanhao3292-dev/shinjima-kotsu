@@ -17,6 +17,9 @@ const i18n = {
   orderNumber: { ja: '注文番号', 'zh-TW': '訂單編號', 'zh-CN': '订单编号', en: 'Order ID' } as Record<Language, string>,
   backToPackages: { ja: 'パッケージ一覧に戻る', 'zh-TW': '返回套餐列表', 'zh-CN': '返回套餐列表', en: 'Back to Packages' } as Record<Language, string>,
   backToHome: { ja: 'トップページに戻る', 'zh-TW': '返回首頁', 'zh-CN': '返回首页', en: 'Back to Home' } as Record<Language, string>,
+  wechatTitle: { ja: 'カスタマーサポート', 'zh-TW': '聯繫客服', 'zh-CN': '联系客服', en: 'Contact Support' } as Record<Language, string>,
+  wechatScan: { ja: 'QRコードをスキャンしてサポートを追加', 'zh-TW': '掃碼添加客服微信', 'zh-CN': '扫码添加客服微信', en: 'Scan to add support on WeChat' } as Record<Language, string>,
+  wechatTip: { ja: '追加後にご注文番号をお伝えください', 'zh-TW': '添加後請告知訂單編號', 'zh-CN': '添加后请告知订单编号', en: 'Share your order number after adding' } as Record<Language, string>,
 };
 
 function detectLanguage(): Language {
@@ -101,27 +104,35 @@ function PaymentSuccessContent() {
   const backToHomeHref = guideSlugParam ? `/g/${guideSlugParam}` : '/';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-100 flex items-center justify-center px-4">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center">
+    <div className="min-h-screen bg-white flex items-center justify-center px-4">
+      <div className="max-w-md w-full border border-neutral-200 p-8 text-center">
         <div className="mb-6">
-          <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+          <div className="mx-auto w-16 h-16 bg-green-100 flex items-center justify-center">
             <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
         </div>
 
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">{t('title')}</h1>
-        <p className="text-gray-600 mb-6">{t('subtitle')}</p>
+        <h1 className="text-3xl font-bold text-brand-900 mb-2">{t('title')}</h1>
+        <p className="text-neutral-600 mb-6">{t('subtitle')}</p>
 
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 text-left">
-          <p className="text-sm text-gray-700 mb-2">📧 {t('emailSent')}</p>
-          <p className="text-sm text-gray-700 mb-2">📞 {t('contactSoon')}</p>
-          <p className="text-sm text-gray-700">🏥 {t('keepPhone')}</p>
+        {/* 微信QR — 主CTA */}
+        <div className="bg-[#07C160]/5 border border-[#07C160]/30 p-6 mb-6 text-center">
+          <h2 className="font-bold text-brand-900 mb-1">{t('wechatTitle')}</h2>
+          <p className="text-sm text-neutral-500 mb-4">{t('wechatScan')}</p>
+          <img src="/wechat-qr.png" alt="WeChat QR" className="w-48 h-48 mx-auto object-contain mb-3" />
+          <p className="text-xs text-neutral-400">{t('wechatTip')}</p>
+        </div>
+
+        <div className="bg-neutral-50 border border-neutral-200 p-4 mb-6 text-left">
+          <p className="text-sm text-neutral-700 mb-2">📧 {t('emailSent')}</p>
+          <p className="text-sm text-neutral-700 mb-2">📞 {t('contactSoon')}</p>
+          <p className="text-sm text-neutral-700">🏥 {t('keepPhone')}</p>
         </div>
 
         {displayOrderId && (
-          <div className="mb-6 text-sm text-gray-500">
+          <div className="mb-6 text-sm text-neutral-500">
             <p>{t('orderNumber')}: {displayOrderId}</p>
           </div>
         )}
@@ -129,13 +140,13 @@ function PaymentSuccessContent() {
         <div className="space-y-3">
           <Link
             href={backToPackagesHref}
-            className="block w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
+            className="block w-full bg-gold-400 hover:bg-gold-300 text-brand-900 font-bold py-3 px-6 tracking-wider transition-colors"
           >
             {t('backToPackages')}
           </Link>
           <Link
             href={backToHomeHref}
-            className="block w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
+            className="block w-full bg-neutral-100 hover:bg-neutral-200 text-brand-900 font-semibold py-3 px-6 transition-colors"
           >
             {t('backToHome')}
           </Link>

@@ -608,6 +608,7 @@ function convertToLegacyResult(pipeline: AEMCPipelineResult, language?: Analysis
             features: h.match_reasons,
             suitableFor: h.department,
             doctors: h.recommended_doctors,
+            hospitalId: h.hospital_id,
           }))
       : [];
 

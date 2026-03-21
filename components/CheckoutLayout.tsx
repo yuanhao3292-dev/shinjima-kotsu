@@ -102,9 +102,9 @@ export default function CheckoutLayout({ children }: CheckoutLayoutProps) {
   const labels = brandLabels[currentLang];
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-white flex flex-col">
       {/* Minimal top bar */}
-      <header className="bg-white border-b border-gray-200">
+      <header className="bg-white border-b border-neutral-200">
         <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
           {/* Brand - minimal, synced with whitelabel settings */}
           <Link href="/" className="flex items-center gap-2 group">
@@ -112,8 +112,8 @@ export default function CheckoutLayout({ children }: CheckoutLayoutProps) {
               <img src={branding.logoUrl} alt={displayBrandName} className="w-8 h-8 object-contain" />
             )}
             <div className="flex flex-col">
-              <span className="font-serif font-bold text-sm tracking-wide text-gray-900">{displayBrandName}</span>
-              <span className="text-[9px] uppercase tracking-widest text-gray-400 leading-none">
+              <span className="font-serif font-bold text-sm tracking-wide text-brand-900">{displayBrandName}</span>
+              <span className="text-[9px] uppercase tracking-widest text-neutral-400 leading-none">
                 {hideOfficialBranding ? '日本高端定制旅行' : labels.sub}
               </span>
             </div>
@@ -121,7 +121,7 @@ export default function CheckoutLayout({ children }: CheckoutLayoutProps) {
 
           <div className="flex items-center gap-4">
             {/* Secure badge */}
-            <div className="hidden sm:flex items-center gap-1.5 text-xs text-gray-400">
+            <div className="hidden sm:flex items-center gap-1.5 text-xs text-neutral-400">
               <Lock size={12} className="text-green-500" />
               <span>{securePaymentLabel[currentLang]}</span>
             </div>
@@ -130,14 +130,14 @@ export default function CheckoutLayout({ children }: CheckoutLayoutProps) {
             <div className="relative checkout-lang-dropdown">
               <button
                 onClick={() => setLangMenuOpen(!langMenuOpen)}
-                className="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-800 transition"
+                className="flex items-center gap-1 text-xs text-neutral-500 hover:text-neutral-800 transition"
               >
                 <Globe size={13} />
                 {currentLang === 'zh-TW' ? '繁中' : currentLang === 'zh-CN' ? '简中' : currentLang.toUpperCase()}
                 <ChevronDown size={11} />
               </button>
               {langMenuOpen && (
-                <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-xl border border-gray-100 py-1.5 z-50">
+                <div className="absolute right-0 mt-2 w-32 bg-white border border-neutral-200 py-1.5 z-50">
                   {[
                     { code: 'ja', label: '日本語' },
                     { code: 'zh-TW', label: '繁體中文' },
@@ -147,8 +147,8 @@ export default function CheckoutLayout({ children }: CheckoutLayoutProps) {
                     <button
                       key={lang.code}
                       onClick={() => handleLangChange(lang.code as Language)}
-                      className={`w-full text-left px-3 py-1.5 text-xs hover:bg-gray-50 transition ${
-                        currentLang === lang.code ? 'text-blue-600 font-medium' : 'text-gray-600'
+                      className={`w-full text-left px-3 py-1.5 text-xs hover:bg-white transition ${
+                        currentLang === lang.code ? 'text-brand-700 font-medium' : 'text-neutral-600'
                       }`}
                     >
                       {lang.label}
@@ -167,12 +167,12 @@ export default function CheckoutLayout({ children }: CheckoutLayoutProps) {
       </main>
 
       {/* Minimal footer */}
-      <footer className="bg-white border-t border-gray-200 py-6">
+      <footer className="bg-white border-t border-neutral-200 py-6">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <p className="text-xs text-gray-400">
+          <p className="text-xs text-neutral-400">
             {labels.legal}
           </p>
-          <p className="text-xs text-gray-300 mt-1">
+          <p className="text-xs text-neutral-300 mt-1">
             © {new Date().getFullYear()} {labels.copyright}. All rights reserved.
           </p>
         </div>

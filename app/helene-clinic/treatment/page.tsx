@@ -248,14 +248,14 @@ const TREATMENT_CATEGORIES: TreatmentCategory[] = [
 const pageTranslations = {
   pageTitle: { ja: 'ヘレネクリニック 治療予約', 'zh-TW': 'HELENE診所 治療預約', 'zh-CN': 'HELENE诊所 治疗预约', en: 'HELENE Clinic Treatment Booking' } as Record<Language, string>,
   pageTitleEn: { ja: 'HELENE Clinic - Treatment Booking', 'zh-TW': 'HELENE Clinic - Treatment Booking', 'zh-CN': 'HELENE Clinic - Treatment Booking', en: 'HELENE Clinic - Treatment Booking' } as Record<Language, string>,
-  taxIncluded: { ja: '日円（税込）', 'zh-TW': '日円（税込）', 'zh-CN': '日元（含税）', en: 'JPY (tax incl.)' } as Record<Language, string>,
+  taxIncluded: { ja: '日円（税込）', 'zh-TW': '日圓（含稅）', 'zh-CN': '日元（含税）', en: 'JPY (tax incl.)' } as Record<Language, string>,
   backToMain: { ja: 'ヘレネクリニックに戻る', 'zh-TW': '返回HELENE診所', 'zh-CN': '返回HELENE诊所', en: 'Back to HELENE Clinic' } as Record<Language, string>,
   selectTreatment: { ja: '治療メニューを選択', 'zh-TW': '選擇治療項目', 'zh-CN': '选择治疗项目', en: 'Select Treatment' } as Record<Language, string>,
   selectTreatmentHint: { ja: '以下のメニューからご希望の治療をお選びください', 'zh-TW': '請從以下項目中選擇您希望的治療', 'zh-CN': '请从以下项目中选择您希望的治疗', en: 'Please select your desired treatment from the options below' } as Record<Language, string>,
   noTreatmentSelected: { ja: '治療メニューを選択してください', 'zh-TW': '請選擇治療項目', 'zh-CN': '请选择治疗项目', en: 'Please select a treatment' } as Record<Language, string>,
   selectedTreatment: { ja: '選択中の治療', 'zh-TW': '已選擇的治療', 'zh-CN': '已选择的治疗', en: 'Selected Treatment' } as Record<Language, string>,
   bookingInfo: { ja: 'ご予約情報', 'zh-TW': '預約信息', 'zh-CN': '预约信息', en: 'Booking Information' } as Record<Language, string>,
-  contractNotice: { ja: 'ご契約について：本サービスのご契約は、新島交通株式会社（大阪府知事登録旅行業 第2-3115号）との間で締結されます。', 'zh-TW': 'ご契約について：本サービスのご契約は、新島交通株式会社（大阪府知事登録旅行業 第2-3115号）との間で締結されます。', 'zh-CN': 'ご契約について：本サービスのご契約は、新島交通株式会社（大阪府知事登録旅行業 第2-3115号）との間で締結されます。', en: 'Contract Notice: This service contract is concluded with Niijima Kotsu Co., Ltd. (Osaka Prefecture Registered Travel Agency No. 2-3115).' } as Record<Language, string>,
+  contractNotice: { ja: 'ご契約について：本サービスのご契約は、新島交通株式会社（大阪府知事登録旅行業 第2-3115号）との間で締結されます。', 'zh-TW': '關於契約：本服務之契約由新島交通株式會社（大阪府知事登錄旅行業 第2-3115號）與您締結。', 'zh-CN': '关于合同：本服务合同由新岛交通株式会社（大阪府知事登录旅行业 第2-3115号）与您签订。', en: 'Contract Notice: This service contract is concluded with Niijima Kotsu Co., Ltd. (Osaka Prefecture Registered Travel Agency No. 2-3115).' } as Record<Language, string>,
   patientInfoTitle: { ja: '患者情報', 'zh-TW': '患者信息', 'zh-CN': '患者信息', en: 'Patient Information' } as Record<Language, string>,
   patientName: { ja: '患者氏名 *', 'zh-TW': '患者姓名 *', 'zh-CN': '患者姓名 *', en: 'Patient Name *' } as Record<Language, string>,
   patientNamePlaceholder: { ja: '患者氏名をご入力ください', 'zh-TW': '請輸入患者姓名', 'zh-CN': '请输入患者姓名', en: 'Enter patient name' } as Record<Language, string>,
@@ -303,6 +303,7 @@ const pageTranslations = {
   alertPaymentError: { ja: 'お支払い処理でエラーが発生しました。しばらくしてから再度お試しください', 'zh-TW': '支付流程出現錯誤，請稍後重試', 'zh-CN': '支付流程出现错误，请稍后重试', en: 'Payment error occurred. Please try again later' } as Record<Language, string>,
   alertCreateSessionError: { ja: '支払いセッションの作成に失敗しました', 'zh-TW': '創建支付會話失敗', 'zh-CN': '创建支付会话失败', en: 'Failed to create payment session' } as Record<Language, string>,
   alertNoCheckoutUrl: { ja: '支払いリンクを取得できませんでした', 'zh-TW': '未獲取到支付鏈接', 'zh-CN': '未获取到支付链接', en: 'Failed to retrieve payment link' } as Record<Language, string>,
+  notProvided: { ja: '未記入', 'zh-TW': '未填寫', 'zh-CN': '未填写', en: 'Not provided' } as Record<Language, string>,
 };
 
 // ─── Page Component ───
@@ -433,10 +434,10 @@ export default function HeleneTreatmentPage() {
       fullNotes += `¥${selectedPrice.toLocaleString()} ${t('taxIncluded')}\n\n`;
       fullNotes += `【${t('patientInfoTitle')}】\n`;
       fullNotes += `${t('patientName').replace(' *', '')}: ${patientInfo.patientName}\n`;
-      fullNotes += `${t('age')}: ${patientInfo.age || '未提供'}\n`;
-      fullNotes += `${t('gender')}: ${patientInfo.gender || '未提供'}\n`;
-      fullNotes += `${t('treatmentGoal')}: ${patientInfo.treatmentGoal || '未提供'}\n`;
-      fullNotes += `${t('currentStatus')}: ${patientInfo.currentStatus || '未提供'}\n\n`;
+      fullNotes += `${t('age')}: ${patientInfo.age || t('notProvided')}\n`;
+      fullNotes += `${t('gender')}: ${patientInfo.gender || t('notProvided')}\n`;
+      fullNotes += `${t('treatmentGoal')}: ${patientInfo.treatmentGoal || t('notProvided')}\n`;
+      fullNotes += `${t('currentStatus')}: ${patientInfo.currentStatus || t('notProvided')}\n\n`;
       fullNotes += `【${t('contactInfoTitle')}】\n${contactMethods.join('\n')}\n\n`;
       if (notes) fullNotes += `【${t('additionalNotes')}】\n${notes}`;
 
@@ -482,7 +483,7 @@ export default function HeleneTreatmentPage() {
       </Suspense>
 
       {/* Top bar: back link */}
-      <div className="bg-white border-b border-gray-100">
+      <div className="bg-white border-b border-neutral-100">
         <div className="max-w-6xl mx-auto px-4 py-3">
           <Link
             href={backHref}
@@ -495,12 +496,12 @@ export default function HeleneTreatmentPage() {
       </div>
 
       {/* Hero banner */}
-      <div className="bg-gradient-to-r from-indigo-700 to-purple-800 py-12">
+      <div className="bg-brand-900 py-12">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
               <h1 className="text-3xl font-serif font-bold text-white">{t('pageTitle')}</h1>
-              <p className="text-indigo-200 text-sm mt-1">{t('pageTitleEn')}</p>
+              <p className="text-neutral-300 text-sm mt-1">{t('pageTitleEn')}</p>
             </div>
             <div className="text-right">
               {selectedSlug ? (
@@ -508,10 +509,10 @@ export default function HeleneTreatmentPage() {
                   <p className="text-4xl font-bold text-white">
                     ¥{selectedPrice.toLocaleString()}
                   </p>
-                  <p className="text-xs text-indigo-200 mt-1">{t('taxIncluded')}</p>
+                  <p className="text-xs text-neutral-300 mt-1">{t('taxIncluded')}</p>
                 </>
               ) : (
-                <p className="text-lg text-indigo-200">{t('noTreatmentSelected')}</p>
+                <p className="text-lg text-neutral-300">{t('noTreatmentSelected')}</p>
               )}
             </div>
           </div>
@@ -524,20 +525,20 @@ export default function HeleneTreatmentPage() {
 
           {/* ── Left sidebar: Treatment selector ── */}
           <div className="lg:col-span-1">
-            <div className="bg-indigo-50 rounded-2xl p-5 border border-indigo-100 sticky top-8">
-              <h3 className="text-lg font-bold text-indigo-900 mb-1">{t('selectTreatment')}</h3>
-              <p className="text-xs text-gray-500 mb-4">{t('selectTreatmentHint')}</p>
+            <div className="bg-neutral-50 p-5 border border-neutral-200 sticky top-8">
+              <h3 className="text-lg font-bold text-brand-900 mb-1">{t('selectTreatment')}</h3>
+              <p className="text-xs text-neutral-500 mb-4">{t('selectTreatmentHint')}</p>
 
               {/* Selected treatment summary (top of sidebar) */}
               {selectedSlug && (
-                <div className="mb-4 bg-white rounded-xl p-3 border border-indigo-200">
+                <div className="mb-4 bg-white p-3 border border-neutral-200">
                   <div className="flex items-start gap-2">
-                    <CheckCircle size={16} className="shrink-0 mt-0.5 text-indigo-600" />
+                    <CheckCircle size={16} className="shrink-0 mt-0.5 text-brand-700" />
                     <div className="min-w-0">
-                      <p className="text-sm font-medium text-indigo-900 break-words">{selectedTreatmentLabel}</p>
+                      <p className="text-sm font-medium text-brand-900 break-words">{selectedTreatmentLabel}</p>
                       <p className="text-lg font-bold text-indigo-700 mt-0.5">
                         ¥{selectedPrice.toLocaleString()}
-                        <span className="text-xs font-normal text-gray-500 ml-1">{t('taxIncluded')}</span>
+                        <span className="text-xs font-normal text-neutral-500 ml-1">{t('taxIncluded')}</span>
                       </p>
                     </div>
                   </div>
@@ -550,15 +551,15 @@ export default function HeleneTreatmentPage() {
                   const isExpanded = !!expandedCategories[category.id];
                   const hasSel = category.items.some((it) => it.slug === selectedSlug);
                   return (
-                    <div key={category.id} className="rounded-xl overflow-hidden border border-indigo-100 bg-white">
+                    <div key={category.id} className="rounded-xl overflow-hidden border border-neutral-200 bg-white">
                       {/* Category header */}
                       <button
                         type="button"
                         onClick={() => toggleCategory(category.id)}
                         className={`w-full flex items-center justify-between px-4 py-3 text-left transition ${
                           hasSel
-                            ? 'bg-indigo-100 text-indigo-900'
-                            : 'bg-white text-gray-800 hover:bg-indigo-50'
+                            ? 'bg-indigo-100 text-brand-900'
+                            : 'bg-white text-brand-900 hover:bg-neutral-50'
                         }`}
                       >
                         <span className="text-sm font-semibold leading-tight pr-2">
@@ -571,7 +572,7 @@ export default function HeleneTreatmentPage() {
 
                       {/* Items */}
                       {isExpanded && (
-                        <div className="border-t border-indigo-50">
+                        <div className="border-t border-neutral-200">
                           {category.items.map((item) => {
                             const pkg = MEDICAL_PACKAGES[item.slug];
                             const price = pkg ? pkg.priceJpy : 0;
@@ -581,8 +582,8 @@ export default function HeleneTreatmentPage() {
                                 key={item.slug}
                                 className={`flex items-start gap-3 px-4 py-3 cursor-pointer transition border-b border-gray-50 last:border-b-0 ${
                                   isSelected
-                                    ? 'bg-indigo-50'
-                                    : 'hover:bg-gray-50'
+                                    ? 'bg-neutral-50'
+                                    : 'hover:bg-neutral-50'
                                 }`}
                               >
                                 <input
@@ -591,13 +592,13 @@ export default function HeleneTreatmentPage() {
                                   value={item.slug}
                                   checked={isSelected}
                                   onChange={() => setSelectedSlug(item.slug)}
-                                  className="mt-1 h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500 shrink-0"
+                                  className="mt-1 h-4 w-4 text-brand-700 border-gray-300 focus:ring-brand-700 shrink-0"
                                 />
                                 <div className="min-w-0 flex-1">
-                                  <p className={`text-sm leading-tight ${isSelected ? 'font-semibold text-indigo-900' : 'text-gray-700'}`}>
+                                  <p className={`text-sm leading-tight ${isSelected ? 'font-semibold text-brand-900' : 'text-neutral-700'}`}>
                                     {item.label[currentLang]}
                                   </p>
-                                  <p className={`text-sm mt-0.5 ${isSelected ? 'font-bold text-indigo-700' : 'text-gray-500'}`}>
+                                  <p className={`text-sm mt-0.5 ${isSelected ? 'font-bold text-indigo-700' : 'text-neutral-500'}`}>
                                     ¥{price.toLocaleString()}
                                   </p>
                                 </div>
@@ -615,12 +616,12 @@ export default function HeleneTreatmentPage() {
 
           {/* ── Right main area: Form ── */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl border border-gray-200 p-6 md:p-8">
-              <h2 className="text-2xl font-serif font-bold text-gray-900 mb-6">{t('bookingInfo')}</h2>
+            <div className="bg-white border border-neutral-200 p-6 md:p-8">
+              <h2 className="text-2xl font-serif font-bold text-brand-900 mb-6">{t('bookingInfo')}</h2>
 
               {/* Contract notice */}
-              <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-4 mb-6">
-                <p className="text-sm text-indigo-800">
+              <div className="bg-neutral-50 border border-neutral-200 p-4 mb-6">
+                <p className="text-sm text-neutral-700">
                   <strong>{t('contractNotice').split('：')[0]}：</strong>
                   {t('contractNotice').split('：')[1]}
                 </p>
@@ -630,38 +631,38 @@ export default function HeleneTreatmentPage() {
 
                 {/* Patient info */}
                 <div>
-                  <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-                    <Users size={18} className="text-indigo-600" />
+                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-2">
+                    <Users size={18} className="text-brand-700" />
                     {t('patientInfoTitle')}
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('patientName')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('patientName')}</label>
                       <input
                         type="text"
                         required
                         value={patientInfo.patientName}
                         onChange={(e) => setPatientInfo({ ...patientInfo, patientName: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                         placeholder={t('patientNamePlaceholder')}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('age')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('age')}</label>
                       <input
                         type="text"
                         value={patientInfo.age}
                         onChange={(e) => setPatientInfo({ ...patientInfo, age: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                         placeholder={t('agePlaceholder')}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('gender')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('gender')}</label>
                       <select
                         value={patientInfo.gender}
                         onChange={(e) => setPatientInfo({ ...patientInfo, gender: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                       >
                         <option value="">{t('genderSelect')}</option>
                         <option value={t('male')}>{t('male')}</option>
@@ -669,21 +670,21 @@ export default function HeleneTreatmentPage() {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('treatmentGoal')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('treatmentGoal')}</label>
                       <input
                         type="text"
                         value={patientInfo.treatmentGoal}
                         onChange={(e) => setPatientInfo({ ...patientInfo, treatmentGoal: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                         placeholder={t('treatmentGoalPlaceholder')}
                       />
                     </div>
                     <div className="md:col-span-2">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('currentStatus')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('currentStatus')}</label>
                       <textarea
                         value={patientInfo.currentStatus}
                         onChange={(e) => setPatientInfo({ ...patientInfo, currentStatus: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                         rows={3}
                         placeholder={t('currentStatusPlaceholder')}
                       />
@@ -693,28 +694,28 @@ export default function HeleneTreatmentPage() {
 
                 {/* Contact info */}
                 <div>
-                  <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-                    <Phone size={18} className="text-indigo-600" />
+                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-2">
+                    <Phone size={18} className="text-brand-700" />
                     {t('contactInfoTitle')}
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('contactName')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('contactName')}</label>
                       <input
                         type="text"
                         required
                         value={customerInfo.name}
                         onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                         placeholder={t('contactNamePlaceholder')}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('region')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('region')}</label>
                       <select
                         value={customerInfo.country}
                         onChange={(e) => setCustomerInfo({ ...customerInfo, country: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                       >
                         <option value="TW">{t('regionTW')}</option>
                         <option value="CN">{t('regionCN')}</option>
@@ -725,89 +726,89 @@ export default function HeleneTreatmentPage() {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('phone')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('phone')}</label>
                       <input
                         type="tel"
                         value={customerInfo.phone}
                         onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                         placeholder={t('phonePlaceholder')}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('email')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('email')}</label>
                       <input
                         type="email"
                         value={customerInfo.email}
                         onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                         placeholder={t('emailPlaceholder')}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('lineId')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('lineId')}</label>
                       <input
                         type="text"
                         value={customerInfo.line}
                         onChange={(e) => setCustomerInfo({ ...customerInfo, line: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                         placeholder={t('lineIdPlaceholder')}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">{t('wechat')}</label>
+                      <label className="block text-sm font-medium text-neutral-700 mb-1">{t('wechat')}</label>
                       <input
                         type="text"
                         value={customerInfo.wechat}
                         onChange={(e) => setCustomerInfo({ ...customerInfo, wechat: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                         placeholder={t('wechatPlaceholder')}
                       />
                     </div>
                   </div>
                   {contactError && <p className="mt-2 text-sm text-red-500">{contactError}</p>}
-                  <p className="mt-2 text-xs text-gray-400">{t('contactMethodRequired')}</p>
+                  <p className="mt-2 text-xs text-neutral-400">{t('contactMethodRequired')}</p>
                 </div>
 
                 {/* Additional notes */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">{t('additionalNotes')}</label>
+                  <label className="block text-sm font-medium text-neutral-700 mb-1">{t('additionalNotes')}</label>
                   <textarea
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"
                     rows={4}
                     placeholder={t('additionalNotesPlaceholder')}
                   />
                 </div>
 
                 {/* Payment summary */}
-                <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                <div className="bg-neutral-50 p-6 border border-neutral-200">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-gray-600">{t('treatmentFee')}</span>
+                    <span className="text-neutral-600">{t('treatmentFee')}</span>
                     <div className="text-right">
                       {selectedSlug ? (
                         <>
-                          <span className="text-2xl font-bold text-gray-900">
+                          <span className="text-2xl font-bold text-brand-900">
                             ¥{selectedPrice.toLocaleString()}
                           </span>
-                          <span className="text-xs text-gray-500 ml-1">
+                          <span className="text-xs text-neutral-500 ml-1">
                             {t('taxIncluded').split('（')[0]}
                           </span>
                         </>
                       ) : (
-                        <span className="text-sm text-gray-400">{t('noTreatmentSelected')}</span>
+                        <span className="text-sm text-neutral-400">{t('noTreatmentSelected')}</span>
                       )}
                     </div>
                   </div>
                   {selectedSlug && (
-                    <p className="text-xs text-gray-500 mb-1">{selectedTreatmentLabel}</p>
+                    <p className="text-xs text-neutral-500 mb-1">{selectedTreatmentLabel}</p>
                   )}
-                  <p className="text-xs text-gray-500 mb-4">{t('paymentNotice')}</p>
+                  <p className="text-xs text-neutral-500 mb-4">{t('paymentNotice')}</p>
                   <button
                     type="submit"
                     disabled={processing || !selectedSlug}
-                    className="w-full py-4 bg-gradient-to-r from-indigo-700 to-purple-800 text-white font-bold rounded-xl hover:from-indigo-800 hover:to-purple-900 transition shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full py-4 bg-gold-400 text-brand-900 font-bold hover:bg-gold-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {processing ? (
                       <>
@@ -824,13 +825,13 @@ export default function HeleneTreatmentPage() {
                 </div>
 
                 {/* Trust badges */}
-                <div className="flex flex-wrap justify-center gap-6 text-xs text-gray-500">
+                <div className="flex flex-wrap justify-center gap-6 text-xs text-neutral-500">
                   <div className="flex items-center gap-1">
                     <Shield size={14} className="text-green-500" />
                     <span>{t('securePayment')}</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <Clock size={14} className="text-indigo-500" />
+                    <Clock size={14} className="text-brand-700" />
                     <span>{t('contact24h')}</span>
                   </div>
                 </div>

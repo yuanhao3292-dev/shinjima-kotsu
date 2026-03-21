@@ -17,13 +17,20 @@ import {
   Users,
   Phone,
   Clock,
+  X,
+  Loader2,
+  ShoppingCart,
 } from 'lucide-react';
 import { type BodyMapSelectionData } from './BodyMapSelector';
 import { BODY_PARTS, MEDICAL_DEPARTMENTS } from '@/lib/body-map-config';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import RecommendedPackages from './RecommendedPackages';
-import { useMemo } from 'react';
+import { MODULE_DETAIL_ROUTES } from '@/lib/config/product-categories';
+import { useState, useEffect, useMemo } from 'react';
 import { calculateHealthScoreWithBreakdown } from '@/lib/health-score';
+import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
+import { COUNTRY_CODES, DEFAULT_CODE_BY_LANG } from '@/lib/config/country-codes';
+import { createClient } from '@/lib/supabase/client';
 import ScoreRing from './ScoreRing';
 import ScoreBreakdown from './ScoreBreakdown';
 
@@ -250,10 +257,242 @@ const translations = {
     ja: 'AI分析結果に基づく総合健康スコア',
     en: 'Comprehensive health score based on AI analysis',
   },
+  bookConsultation: {
+    'zh-CN': '预约咨询',
+    'zh-TW': '預約諮詢',
+    ja: '相談を予約する',
+    en: 'Book Consultation',
+  },
+  payNow: {
+    'zh-CN': '立即支付',
+    'zh-TW': '立即支付',
+    ja: '今すぐ支払い',
+    en: 'Pay Now',
+  },
+  initialConsultation: {
+    'zh-CN': '前期咨询服务',
+    'zh-TW': '前期諮詢服務',
+    ja: '初期相談サービス',
+    en: 'Initial Consultation',
+  },
+  quickCheckout: {
+    'zh-CN': '快速预约',
+    'zh-TW': '快速預約',
+    ja: 'クイック予約',
+    en: 'Quick Booking',
+  },
+  nameRequired: {
+    'zh-CN': '姓名 *',
+    'zh-TW': '姓名 *',
+    ja: 'お名前 *',
+    en: 'Name *',
+  },
+  emailLabel: {
+    'zh-CN': '邮箱',
+    'zh-TW': '電子郵件',
+    ja: 'メール',
+    en: 'Email',
+  },
+  phoneLabel: {
+    'zh-CN': '电话',
+    'zh-TW': '電話',
+    ja: '電話',
+    en: 'Phone',
+  },
+  processingPayment: {
+    'zh-CN': '跳转支付中...',
+    'zh-TW': '跳轉付款中...',
+    ja: '決済ページへ...',
+    en: 'Redirecting...',
+  },
+  checkoutError: {
+    'zh-CN': '创建订单失败，请重试',
+    'zh-TW': '建立訂單失敗，請重試',
+    ja: '注文作成に失敗しました',
+    en: 'Order failed. Please retry.',
+  },
+  contactRequired: {
+    'zh-CN': '请填写姓名和至少一种联系方式',
+    'zh-TW': '請填寫姓名和至少一種聯繫方式',
+    ja: 'お名前と連絡先をご入力ください',
+    en: 'Name and one contact method required',
+  },
+  taxIncl: {
+    'zh-CN': '含税',
+    'zh-TW': '含稅',
+    ja: '税込',
+    en: 'tax incl.',
+  },
 };
 
 const t = (key: keyof typeof translations, lang: Language): string =>
   translations[key][lang];
+
+function getConsultationUrl(hospitalId?: string): string | null {
+  if (!hospitalId) return null;
+  const baseRoute = MODULE_DETAIL_ROUTES[hospitalId];
+  if (!baseRoute) return null;
+  return `${baseRoute}/initial-consultation`;
+}
+
+const HOSPITAL_CONSULTATION_SLUGS: Record<string, string> = {
+  hyogo_medical: 'hyogo-initial-consultation',
+  kindai_hospital: 'kindai-initial-consultation',
+  cancer_treatment: 'cancer-initial-consultation',
+  osaka_himak: 'osaka-himak-initial-consultation',
+  igtc: 'igtc-initial-consultation',
+  sai_clinic: 'sai-initial-consultation',
+  wclinic_mens: 'wclinic-mens-initial-consultation',
+  helene_clinic: 'helene-initial-consultation',
+  ginza_phoenix: 'ginza-phoenix-initial-consultation',
+  cell_medicine: 'cell-medicine-initial-consultation',
+  ac_plus: 'ac-plus-initial-consultation',
+  oici: 'oici-initial-consultation',
+};
+
+function getConsultationPackageSlug(hospitalId?: string): string | null {
+  if (!hospitalId) return null;
+  return HOSPITAL_CONSULTATION_SLUGS[hospitalId] || null;
+}
+
+const LOCALE_MAP: Record<Language, string> = {
+  ja: 'ja', 'zh-CN': 'zh-CN', 'zh-TW': 'zh-TW', en: 'en',
+};
+
+function ConsultationCheckoutModal({
+  packageSlug,
+  hospitalName,
+  price,
+  screeningId,
+  lang,
+  onClose,
+}: {
+  packageSlug: string;
+  hospitalName: string;
+  price: number;
+  screeningId: string;
+  lang: Language;
+  onClose: () => void;
+}) {
+  const supabase = useMemo(() => createClient(), []);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [countryCode, setCountryCode] = useState('+86');
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setCountryCode(DEFAULT_CODE_BY_LANG[lang] || '+86');
+  }, [lang]);
+
+  useEffect(() => {
+    (async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        setEmail(user.email || '');
+        const meta = user.user_metadata;
+        if (meta?.full_name) setName(meta.full_name);
+        else if (meta?.name) setName(meta.name);
+        if (meta?.phone) setPhone(meta.phone);
+      }
+    })();
+  }, [supabase]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    if (!name.trim() || (!email.trim() && !phone.trim())) {
+      setError(t('contactRequired', lang));
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const res = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          packageSlug,
+          customerInfo: {
+            name: name.trim(),
+            email: email.trim() || undefined,
+            phone: phone.trim() ? `${countryCode}${phone.trim()}` : undefined,
+          },
+          notes: `AI Screening Ref: ${screeningId}`,
+          locale: LOCALE_MAP[lang],
+        }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || t('checkoutError', lang));
+      }
+      const { checkoutUrl } = await res.json();
+      if (checkoutUrl) window.location.href = checkoutUrl;
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : t('checkoutError', lang);
+      setError(message);
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={onClose}>
+      <div className="bg-white w-full max-w-md" onClick={(e) => e.stopPropagation()}>
+        <div className="bg-gold-400 px-6 py-4 flex items-center justify-between">
+          <div>
+            <h3 className="text-brand-900 font-semibold">{t('quickCheckout', lang)}</h3>
+            <p className="text-brand-900/70 text-sm">{hospitalName}</p>
+          </div>
+          <button onClick={onClose} className="text-brand-900/60 hover:text-brand-900">
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+          <div className="text-center pb-2">
+            <p className="text-xs text-neutral-500 mb-1">{t('initialConsultation', lang)}</p>
+            <span className="text-3xl font-bold text-brand-900">¥{price.toLocaleString()}</span>
+            <span className="text-xs text-neutral-400 ml-1">({t('taxIncl', lang)})</span>
+          </div>
+          <div className="text-center text-xs text-neutral-400">
+            Screening Ref: {screeningId.slice(-8).toUpperCase()}
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-neutral-700 mb-1">{t('nameRequired', lang)}</label>
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} required
+              className="w-full px-3 py-2.5 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent outline-none text-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-neutral-700 mb-1">{t('emailLabel', lang)}</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-3 py-2.5 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent outline-none text-sm" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-neutral-700 mb-1">{t('phoneLabel', lang)}</label>
+            <div className="flex">
+              <select value={countryCode} onChange={(e) => setCountryCode(e.target.value)}
+                className="px-2 py-2.5 border border-neutral-200 border-r-0 bg-neutral-50 text-sm text-neutral-700 outline-none focus:ring-2 focus:ring-brand-700 focus:border-transparent min-w-[80px]">
+                {COUNTRY_CODES.map((cc) => (
+                  <option key={cc.code} value={cc.code}>{cc.label}</option>
+                ))}
+              </select>
+              <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)}
+                className="flex-1 px-3 py-2.5 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent outline-none text-sm" />
+            </div>
+          </div>
+          {error && <p className="text-red-600 text-sm bg-red-50 px-3 py-2">{error}</p>}
+          <button type="submit" disabled={submitting}
+            className="w-full py-3 bg-gold-400 hover:bg-gold-300 text-brand-900 font-bold tracking-wider transition disabled:opacity-50 flex items-center justify-center gap-2">
+            {submitting ? (
+              <><Loader2 className="w-4 h-4 animate-spin" />{t('processingPayment', lang)}</>
+            ) : (
+              <><ShoppingCart className="w-4 h-4" />{t('payNow', lang)}</>
+            )}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
 
 interface ScreeningResultProps {
   result: AnalysisResult;
@@ -265,13 +504,18 @@ interface ScreeningResultProps {
 
 export default function ScreeningResult({
   result,
-  screeningId: _screeningId,
+  screeningId,
   bodyMapData,
   isGuideEmbed,
   overrideLanguage,
 }: ScreeningResultProps) {
   const siteLang = useLanguage();
   const lang = overrideLanguage || siteLang;
+  const [checkoutHospital, setCheckoutHospital] = useState<{
+    slug: string;
+    name: string;
+    price: number;
+  } | null>(null);
 
   // 健康评分详情
   const breakdown = useMemo(() => calculateHealthScoreWithBreakdown(result), [result]);
@@ -352,7 +596,7 @@ export default function ScreeningResult({
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Gate C: 人工审核通知横幅 */}
       {result.requiresHumanReview && !result.requiresEmergencyNotice && (
-        <div className="bg-amber-50 border-2 border-amber-300 rounded-2xl p-6 md:p-8">
+        <div className="bg-amber-50 border-2 border-amber-300 p-6 md:p-8">
           <div className="flex items-start gap-4">
             <div className="p-3 bg-amber-100 rounded-full flex-shrink-0">
               <Clock className="w-7 h-7 text-amber-600" />
@@ -367,7 +611,7 @@ export default function ScreeningResult({
 
       {/* 风险等级卡片 */}
       <div
-        className={`${risk.bg} ${risk.border} border-2 rounded-2xl p-6 md:p-8`}
+        className={`${risk.bg} ${risk.border} border-2 p-6 md:p-8`}
       >
         <div className="flex items-start gap-4">
           <div className={`${risk.color} p-3 rounded-full ${risk.bg}`}>
@@ -377,23 +621,23 @@ export default function ScreeningResult({
             <h2 className={`text-2xl font-bold ${risk.color} mb-2`}>
               {risk.label}
             </h2>
-            <p className="text-gray-600">{risk.description}</p>
+            <p className="text-neutral-600">{risk.description}</p>
           </div>
         </div>
 
         {/* 风险摘要 */}
-        <div className="mt-6 p-4 bg-white/60 rounded-xl">
-          <h3 className="font-semibold text-gray-800 mb-2">{t('detailedAssessment', lang)}</h3>
-          <div className="text-gray-700 whitespace-pre-wrap text-sm leading-relaxed">
+        <div className="mt-6 p-4 bg-white/60">
+          <h3 className="font-semibold text-neutral-800 mb-2">{t('detailedAssessment', lang)}</h3>
+          <div className="text-neutral-700 whitespace-pre-wrap text-sm leading-relaxed">
             {result.riskSummary}
           </div>
         </div>
       </div>
 
       {/* 健康评分卡片 */}
-      <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+      <div className="bg-white border border-neutral-200 p-6 md:p-8">
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-2 bg-emerald-100 rounded-lg">
+          <div className="p-2 bg-emerald-100">
             <Activity className="w-6 h-6 text-emerald-600" />
           </div>
           <div>
@@ -431,9 +675,9 @@ export default function ScreeningResult({
 
       {/* 症状部位（如果有 bodyMapData）*/}
       {bodyMapData && bodyMapData.selectedBodyParts.length > 0 && (
-        <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+        <div className="bg-white border border-neutral-200 p-6 md:p-8">
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-indigo-100 rounded-lg">
+            <div className="p-2 bg-indigo-100">
               <Activity className="w-6 h-6 text-indigo-600" />
             </div>
             <h3 className="text-xl font-semibold text-neutral-900 tracking-wide">{t('symptomLocation', lang)}</h3>
@@ -451,13 +695,13 @@ export default function ScreeningResult({
           </div>
 
           {bodyMapData.selectedSymptoms.length > 0 && (
-            <div className="mt-4 pt-4 border-t border-gray-100">
-              <h4 className="text-sm font-medium text-gray-700 mb-3">{t('specificSymptoms', lang)}</h4>
+            <div className="mt-4 pt-4 border-t border-neutral-100">
+              <h4 className="text-sm font-medium text-neutral-700 mb-3">{t('specificSymptoms', lang)}</h4>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                 {bodyMapData.selectedSymptoms.map((symptom, idx) => (
                   <div
                     key={idx}
-                    className={`px-3 py-2 rounded-lg text-sm flex items-center gap-2 ${
+                    className={`px-3 py-2 text-sm flex items-center gap-2 ${
                       symptom.severity === 'high'
                         ? 'bg-red-50 text-red-700'
                         : symptom.severity === 'medium'
@@ -485,9 +729,9 @@ export default function ScreeningResult({
 
       {/* 推荐科室（如果有 bodyMapData）*/}
       {bodyMapData && getRecommendedDepartments().length > 0 && (
-        <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+        <div className="bg-white border border-neutral-200 p-6 md:p-8">
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-teal-100 rounded-lg">
+            <div className="p-2 bg-teal-100">
               <Users className="w-6 h-6 text-teal-600" />
             </div>
             <h3 className="text-xl font-semibold text-neutral-900 tracking-wide">{t('recommendedDepts', lang)}</h3>
@@ -497,12 +741,12 @@ export default function ScreeningResult({
             {getRecommendedDepartments().map((dept: any, idx) => (
               <div
                 key={idx}
-                className="p-4 bg-gray-50 rounded-xl flex items-start gap-3"
+                className="p-4 bg-neutral-50 flex items-start gap-3"
               >
                 <span className="text-2xl">{dept.icon}</span>
                 <div>
                   <h4 className="font-semibold text-neutral-900">{dept.name}</h4>
-                  <p className="text-sm text-gray-500 mt-1">{dept.description}</p>
+                  <p className="text-sm text-neutral-500 mt-1">{dept.description}</p>
                   <div className="flex flex-wrap gap-1 mt-2">
                     {dept.recommendedTests.slice(0, 3).map((test: string, testIdx: number) => (
                       <span
@@ -522,9 +766,9 @@ export default function ScreeningResult({
 
       {/* 建议检查项目 */}
       {result.recommendedTests.length > 0 && (
-        <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+        <div className="bg-white border border-neutral-200 p-6 md:p-8">
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-blue-100 rounded-lg">
+            <div className="p-2 bg-blue-100">
               <Stethoscope className="w-6 h-6 text-blue-600" />
             </div>
             <h3 className="text-xl font-semibold text-neutral-900 tracking-wide">{t('recommendedTests', lang)}</h3>
@@ -534,12 +778,12 @@ export default function ScreeningResult({
             {result.recommendedTests.map((test, index) => (
               <div
                 key={index}
-                className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl"
+                className="flex items-start gap-3 p-4 bg-neutral-50"
               >
                 <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 text-white text-sm flex items-center justify-center font-medium">
                   {index + 1}
                 </div>
-                <p className="text-gray-700">{test}</p>
+                <p className="text-neutral-700">{test}</p>
               </div>
             ))}
           </div>
@@ -548,9 +792,9 @@ export default function ScreeningResult({
 
       {/* 日本先端治疗建议 */}
       {result.treatmentSuggestions.length > 0 && (
-        <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+        <div className="bg-white border border-neutral-200 p-6 md:p-8">
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-purple-100 rounded-lg">
+            <div className="p-2 bg-purple-100">
               <Pill className="w-6 h-6 text-purple-600" />
             </div>
             <h3 className="text-xl font-semibold text-neutral-900 tracking-wide">
@@ -562,10 +806,10 @@ export default function ScreeningResult({
             {result.treatmentSuggestions.map((suggestion, index) => (
               <div
                 key={index}
-                className="flex items-center gap-3 p-3 bg-purple-50 rounded-lg"
+                className="flex items-center gap-3 p-3 bg-purple-50"
               >
                 <CheckCircle className="w-5 h-5 text-purple-500 flex-shrink-0" />
-                <span className="text-gray-700">{suggestion}</span>
+                <span className="text-neutral-700">{suggestion}</span>
               </div>
             ))}
           </div>
@@ -574,64 +818,95 @@ export default function ScreeningResult({
 
       {/* 推荐医疗机构 */}
       {result.recommendedHospitals.length > 0 && (
-        <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+        <div className="bg-white border border-neutral-200 p-6 md:p-8">
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-green-100 rounded-lg">
+            <div className="p-2 bg-green-100">
               <Building2 className="w-6 h-6 text-green-600" />
             </div>
             <h3 className="text-xl font-semibold text-neutral-900 tracking-wide">{t('recommendedHospitals', lang)}</h3>
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
-            {result.recommendedHospitals.map((hospital, index) => (
-              <div
-                key={index}
-                className="border border-gray-200 rounded-xl p-5 hover:shadow-md transition-shadow"
-              >
-                <h4 className="font-bold text-lg text-gray-900 mb-1">
-                  {hospital.name}
-                </h4>
-                <div className="flex items-center gap-1 text-gray-500 text-sm mb-3">
-                  <MapPin className="w-4 h-4" />
-                  <span>{hospital.location}</span>
-                </div>
-
-                {hospital.features.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {hospital.features.map((feature, idx) => (
-                      <span
-                        key={idx}
-                        className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full"
-                      >
-                        {feature}
-                      </span>
-                    ))}
+            {result.recommendedHospitals.map((hospital, index) => {
+              const packageSlug = getConsultationPackageSlug(hospital.hospitalId);
+              const packagePrice = packageSlug ? MEDICAL_PACKAGES[packageSlug]?.priceJpy : null;
+              const consultUrl = !packageSlug ? getConsultationUrl(hospital.hospitalId) : null;
+              return (
+                <div
+                  key={index}
+                  className="border border-neutral-200 p-5"
+                >
+                  <h4 className="font-bold text-lg text-brand-900 mb-1">
+                    {hospital.name}
+                  </h4>
+                  <div className="flex items-center gap-1 text-neutral-500 text-sm mb-3">
+                    <MapPin className="w-4 h-4" />
+                    <span>{hospital.location}</span>
                   </div>
-                )}
 
-                <p className="text-sm text-gray-600">
-                  <span className="font-medium">{t('suitableFor', lang)}</span>
-                  {hospital.suitableFor}
-                </p>
-
-                {hospital.doctors && hospital.doctors.length > 0 && (
-                  <div className="mt-3 pt-3 border-t border-gray-100">
-                    <p className="text-xs font-medium text-gray-500 mb-2">
-                      {t('recommendedDoctors', lang)}
-                    </p>
-                    <div className="space-y-1">
-                      {hospital.doctors.map((doc, docIdx) => (
-                        <div key={docIdx} className="flex items-center gap-2 text-sm">
-                          <Stethoscope className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
-                          <span className="font-medium text-gray-800">{doc.name}</span>
-                          <span className="text-xs text-gray-400">({doc.qualification})</span>
-                        </div>
+                  {hospital.features.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {hospital.features.map((feature, idx) => (
+                        <span
+                          key={idx}
+                          className="px-2 py-1 bg-neutral-100 text-neutral-600 text-xs"
+                        >
+                          {feature}
+                        </span>
                       ))}
                     </div>
-                  </div>
-                )}
-              </div>
-            ))}
+                  )}
+
+                  <p className="text-sm text-neutral-600">
+                    <span className="font-medium">{t('suitableFor', lang)}</span>
+                    {hospital.suitableFor}
+                  </p>
+
+                  {hospital.doctors && hospital.doctors.length > 0 && (
+                    <div className="mt-3 pt-3 border-t border-neutral-100">
+                      <p className="text-xs font-medium text-neutral-500 mb-2">
+                        {t('recommendedDoctors', lang)}
+                      </p>
+                      <div className="space-y-1">
+                        {hospital.doctors.map((doc, docIdx) => (
+                          <div key={docIdx} className="flex items-center gap-2 text-sm">
+                            <Stethoscope className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
+                            <span className="font-medium text-neutral-800">{doc.name}</span>
+                            <span className="text-xs text-neutral-400">({doc.qualification})</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {packageSlug && packagePrice ? (
+                    <div className="mt-4 pt-3 border-t border-neutral-200">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs text-neutral-500">{t('initialConsultation', lang)}</span>
+                        <span className="text-sm font-bold text-brand-900">¥{packagePrice.toLocaleString()}<span className="text-xs font-normal text-neutral-400 ml-1">({t('taxIncl', lang)})</span></span>
+                      </div>
+                      <button
+                        onClick={() => setCheckoutHospital({ slug: packageSlug, name: hospital.name, price: packagePrice })}
+                        className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-gold-400 hover:bg-gold-300 text-brand-900 font-medium text-sm tracking-wider transition-colors"
+                      >
+                        <ShoppingCart className="w-4 h-4" />
+                        {t('payNow', lang)}
+                      </button>
+                    </div>
+                  ) : consultUrl ? (
+                    <div className="mt-4 pt-3 border-t border-neutral-200">
+                      <Link
+                        href={consultUrl}
+                        className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-gold-400 hover:bg-gold-300 text-brand-900 font-medium text-sm tracking-wider transition-colors"
+                      >
+                        <Phone className="w-4 h-4" />
+                        {t('bookConsultation', lang)}
+                      </Link>
+                    </div>
+                  ) : null}
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
@@ -641,13 +916,13 @@ export default function ScreeningResult({
 
       {/* 下一步建议 */}
       {result.nextSteps.length > 0 && (
-        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 md:p-8">
+        <div className="bg-neutral-50 border border-neutral-200 p-6 md:p-8">
           <h3 className="text-xl font-semibold text-neutral-900 tracking-wide mb-4">{t('nextSteps', lang)}</h3>
           <div className="space-y-3">
             {result.nextSteps.map((step, index) => (
               <div key={index} className="flex items-start gap-3">
-                <ArrowRight className="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" />
-                <p className="text-gray-700">{step}</p>
+                <ArrowRight className="w-5 h-5 text-brand-700 mt-0.5 flex-shrink-0" />
+                <p className="text-neutral-700">{step}</p>
               </div>
             ))}
           </div>
@@ -655,7 +930,7 @@ export default function ScreeningResult({
       )}
 
       {/* 完整医疗免责声明 */}
-      <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 text-sm">
+      <div className="bg-amber-50 border border-amber-200 p-5 text-sm">
         <div className="flex items-start gap-3">
           <AlertCircle className="w-6 h-6 text-amber-600 flex-shrink-0 mt-0.5" />
           <div className="space-y-2">
@@ -678,7 +953,7 @@ export default function ScreeningResult({
         <div className="flex flex-col sm:flex-row gap-4 pt-4">
           <Link
             href="/medical"
-            className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium"
+            className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-gold-400 hover:bg-gold-300 text-brand-900 font-medium text-sm tracking-wider transition-colors"
           >
             <Stethoscope className="w-5 h-5" />
             {t('bookScreening', lang)}
@@ -686,7 +961,7 @@ export default function ScreeningResult({
 
           <button
             onClick={handleShare}
-            className="flex items-center justify-center gap-2 px-6 py-4 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors"
+            className="flex items-center justify-center gap-2 px-6 py-4 border border-neutral-200 text-neutral-700 hover:bg-neutral-50 transition-colors text-sm"
           >
             <Share2 className="w-5 h-5" />
             {t('shareResult', lang)}
@@ -694,12 +969,23 @@ export default function ScreeningResult({
 
           <Link
             href="/health-screening/history"
-            className="flex items-center justify-center gap-2 px-6 py-4 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors"
+            className="flex items-center justify-center gap-2 px-6 py-4 border border-neutral-200 text-neutral-700 hover:bg-neutral-50 transition-colors text-sm"
           >
             <FileText className="w-5 h-5" />
             {t('viewHistory', lang)}
           </Link>
         </div>
+      )}
+
+      {checkoutHospital && (
+        <ConsultationCheckoutModal
+          packageSlug={checkoutHospital.slug}
+          hospitalName={checkoutHospital.name}
+          price={checkoutHospital.price}
+          screeningId={screeningId}
+          lang={lang}
+          onClose={() => setCheckoutHospital(null)}
+        />
       )}
 
     </div>
