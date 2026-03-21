@@ -551,6 +551,30 @@ const JAPAN_MEDICAL_INSTITUTIONS = [
           L('精密放射線治療', '精準放射治療', '精准放射治疗', 'Precision Radiation Therapy'),
         ],
       },
+      {
+        name: '兵庫医科大学病院',
+        nameLocal: L('兵庫医科大学病院', '兵庫醫科大學醫院', '兵库医科大学医院', 'Hyogo Medical University Hospital'),
+        location: L('兵庫県西宮市', '兵庫縣西宮市', '兵库县西宫市', 'Nishinomiya, Hyogo'),
+        website: 'https://www.hosp.hyo-med.ac.jp/',
+        specialty: [
+          L('消化器がん', '消化器癌', '消化器癌', 'GI Cancer'),
+          L('肺がん', '肺癌', '肺癌', 'Lung Cancer'),
+          L('乳がん', '乳癌', '乳癌', 'Breast Cancer'),
+          L('肝がん', '肝癌', '肝癌', 'Liver Cancer'),
+        ],
+        features: [
+          L('病床数963床の大規模総合病院', '963張病床的大型綜合醫院', '963张病床的大型综合医院', 'Large general hospital with 963 beds'),
+          L('41の診療科を擁する', '擁有41個診療科', '拥有41个诊疗科', '41 clinical departments'),
+          L('ダヴィンチ手術導入', '引進達芬奇機器人手術', '引进达芬奇机器人手术', 'Da Vinci robotic surgery available'),
+          L('2026年新キャンパス開設（801床）', '2026年新院區開設（801床）', '2026年新院区开设（801床）', 'New campus opening 2026 (801 beds)'),
+        ],
+        treatments: [
+          L('ダヴィンチ手術', '達芬奇機器人手術', '达芬奇机器人手术', 'Da Vinci Robotic Surgery'),
+          L('化学療法', '化學療法', '化学疗法', 'Chemotherapy'),
+          L('放射線治療', '放射治療', '放射治疗', 'Radiation Therapy'),
+          L('内視鏡手術', '內視鏡手術', '内视镜手术', 'Endoscopic Surgery'),
+        ],
+      },
     ],
   },
   {
@@ -601,6 +625,28 @@ const JAPAN_MEDICAL_INSTITUTIONS = [
         treatments: [
           L('陽子線治療', '質子線治療', '质子线治疗', 'Proton Beam Therapy'),
           L('重粒子線治療', '重粒子線治療', '重粒子线治疗', 'Heavy Ion Therapy'),
+        ],
+      },
+      {
+        name: '大阪重粒子線センター',
+        nameLocal: L('大阪重粒子線センター', '大阪重粒子線中心', '大阪重粒子线中心', 'Osaka Heavy Ion Therapy Center'),
+        location: L('大阪府大阪市', '大阪府大阪市', '大阪府大阪市', 'Osaka City, Osaka'),
+        website: 'https://www.osaka-himak.or.jp/',
+        specialty: [
+          L('前立腺がん', '前列腺癌', '前列腺癌', 'Prostate Cancer'),
+          L('膵がん', '胰臟癌', '胰腺癌', 'Pancreatic Cancer'),
+          L('肺がん', '肺癌', '肺癌', 'Lung Cancer'),
+          L('肝がん', '肝癌', '肝癌', 'Liver Cancer'),
+          L('骨軟部腫瘍', '骨軟部肉瘤', '骨软部肉瘤', 'Bone & Soft Tissue Sarcoma'),
+        ],
+        features: [
+          L('炭素イオン線による精密照射', '碳離子線精準照射', '碳离子线精准照射', 'Precision carbon ion beam irradiation'),
+          L('手術困難ながんに有効', '對手術困難的癌症有效', '对手术困难的癌症有效', 'Effective for inoperable tumors'),
+          L('周辺正常組織へのダメージが少ない', '對周圍正常組織損傷小', '对周围正常组织损伤小', 'Minimal damage to surrounding normal tissue'),
+          L('大阪市内のアクセス利便性', '位於大阪市內交通便利', '位于大阪市内交通便利', 'Conveniently located in central Osaka'),
+        ],
+        treatments: [
+          L('重粒子線治療（炭素イオン線）', '重粒子線治療（碳離子線）', '重粒子线治疗（碳离子线）', 'Heavy Ion Therapy (Carbon Ion)'),
         ],
       },
     ],
