@@ -558,8 +558,8 @@ export default function AboutPage() {
                   <p className="text-neutral-600 text-sm leading-relaxed">{t('medicalNetworkDesc')}</p>
                   <div className="mt-6 pt-4 border-t border-neutral-100">
                     <div className="flex items-baseline gap-1">
-                      <span className="text-3xl font-bold text-brand-900">6+</span>
-                      <span className="text-neutral-400 text-sm">{currentLang === 'en' ? 'medical fields' : currentLang === 'ja' ? '医療領域' : '医疗领域'}</span>
+                      <span className="text-3xl font-bold text-brand-900">20+</span>
+                      <span className="text-neutral-400 text-sm">{currentLang === 'en' ? 'partner hospitals' : currentLang === 'ja' ? '提携医療機関' : currentLang === 'zh-TW' ? '合作醫院' : '合作医院'}</span>
                     </div>
                   </div>
                 </div>
