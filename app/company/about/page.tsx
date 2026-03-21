@@ -570,8 +570,8 @@ export default function AboutPage() {
                   <p className="text-neutral-600 text-sm leading-relaxed">{t('medicalServiceDesc')}</p>
                   <div className="mt-6 pt-4 border-t border-neutral-100">
                     <div className="flex items-baseline gap-1">
-                      <span className="text-3xl font-bold text-brand-900">300+</span>
-                      <span className="text-neutral-400 text-sm">{currentLang === 'en' ? 'screening items' : currentLang === 'ja' ? '検査項目' : '检查项目'}</span>
+                      <span className="text-3xl font-bold text-brand-900">4 AI</span>
+                      <span className="text-neutral-400 text-sm">{currentLang === 'en' ? 'joint consultation' : currentLang === 'ja' ? '連合会診' : currentLang === 'zh-TW' ? '聯合會診' : '联合会诊'}</span>
                     </div>
                   </div>
                 </div>
