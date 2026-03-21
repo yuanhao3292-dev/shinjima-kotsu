@@ -269,8 +269,8 @@ const pageTranslations = {
   },
   license1Desc: {
     ja: '国内旅行・海外旅行の手配旅行業務',
-    'zh-TW': '國內旅遊及海外旅遊代理業務',
-    'zh-CN': '国内旅游及海外旅游代理业务',
+    'zh-TW': '國內及海外旅遊安排業務（手配旅行）',
+    'zh-CN': '国内及海外旅游安排业务（手配旅行）',
     en: 'Domestic and international travel arrangement services'
   },
   license2Title: {
