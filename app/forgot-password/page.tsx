@@ -87,7 +87,10 @@ function ForgotPasswordForm() {
         {/* Left Side — Brand Hero */}
         <div className="hidden lg:flex lg:w-1/2 relative bg-brand-900 overflow-hidden">
           <Image
-            src={getImage('medical_hero', 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg')}
+            src={isGuide
+              ? getImage('guide_hero', 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=2000')
+              : getImage('medical_hero', 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg')
+            }
             alt="Password Reset"
             fill
             className="object-cover"
@@ -155,7 +158,10 @@ function ForgotPasswordForm() {
       {/* Left Side — Brand Hero */}
       <div className="hidden lg:flex lg:w-1/2 relative bg-brand-900 overflow-hidden">
         <Image
-          src={getImage('medical_hero', 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg')}
+          src={isGuide
+              ? getImage('guide_hero', 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=2000')
+              : getImage('medical_hero', 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg')
+            }
           alt="Password Reset"
           fill
           className="object-cover"
