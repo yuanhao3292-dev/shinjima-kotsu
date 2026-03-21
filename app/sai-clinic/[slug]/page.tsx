@@ -174,13 +174,13 @@ const SAI_PACKAGES: Record<string, SaiPackage> = {
 };
 
 const COLOR_THEMES: Record<string, { headerBg: string; button: string; cardBg: string; cardBorder: string; check: string; title: string; price: string }> = {
-  rose: { headerBg: 'bg-gradient-to-r from-rose-600 to-pink-600', button: 'bg-rose-600 text-white hover:bg-rose-700', cardBg: 'bg-rose-50', cardBorder: 'border-rose-200', check: 'text-rose-500', title: 'text-rose-900', price: 'text-rose-900' },
-  purple: { headerBg: 'bg-gradient-to-r from-purple-600 to-violet-600', button: 'bg-purple-600 text-white hover:bg-purple-700', cardBg: 'bg-purple-50', cardBorder: 'border-purple-200', check: 'text-purple-500', title: 'text-purple-900', price: 'text-purple-900' },
-  blue: { headerBg: 'bg-gradient-to-r from-blue-600 to-indigo-600', button: 'bg-blue-600 text-white hover:bg-blue-700', cardBg: 'bg-blue-50', cardBorder: 'border-blue-200', check: 'text-blue-500', title: 'text-blue-900', price: 'text-blue-900' },
-  amber: { headerBg: 'bg-gray-900', button: 'bg-amber-500 text-black hover:bg-amber-400', cardBg: 'bg-gray-900', cardBorder: 'border-gray-700', check: 'text-amber-500', title: 'text-amber-400', price: 'text-amber-400' },
-  gray: { headerBg: 'bg-gradient-to-r from-gray-700 to-gray-800', button: 'bg-gray-700 text-white hover:bg-gray-800', cardBg: 'bg-gray-50', cardBorder: 'border-gray-300', check: 'text-gray-500', title: 'text-gray-800', price: 'text-gray-800' },
-  teal: { headerBg: 'bg-gradient-to-r from-teal-600 to-cyan-600', button: 'bg-teal-600 text-white hover:bg-teal-700', cardBg: 'bg-teal-50', cardBorder: 'border-teal-200', check: 'text-teal-500', title: 'text-teal-900', price: 'text-teal-900' },
-  green: { headerBg: 'bg-gradient-to-r from-emerald-600 to-green-600', button: 'bg-emerald-600 text-white hover:bg-emerald-700', cardBg: 'bg-emerald-50', cardBorder: 'border-emerald-200', check: 'text-emerald-500', title: 'text-emerald-900', price: 'text-emerald-900' },
+  rose: { headerBg: 'bg-brand-900', button: 'bg-gold-400 text-brand-900 hover:bg-gold-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
+  purple: { headerBg: 'bg-brand-900', button: 'bg-gold-400 text-brand-900 hover:bg-gold-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
+  blue: { headerBg: 'bg-brand-900', button: 'bg-gold-400 text-brand-900 hover:bg-gold-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
+  amber: { headerBg: 'bg-brand-900', button: 'bg-gold-400 text-brand-900 hover:bg-gold-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-gold-500', title: 'text-brand-900', price: 'text-brand-900' },
+  gray: { headerBg: 'bg-brand-900', button: 'bg-gold-400 text-brand-900 hover:bg-gold-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
+  teal: { headerBg: 'bg-brand-900', button: 'bg-gold-400 text-brand-900 hover:bg-gold-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
+  green: { headerBg: 'bg-brand-900', button: 'bg-gold-400 text-brand-900 hover:bg-gold-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
 };
 
 export default function SaiClinicCheckoutPage() {
@@ -206,8 +206,8 @@ export default function SaiClinicCheckoutPage() {
       <CheckoutLayout>
         <div className="flex-grow flex items-center justify-center py-20">
           <div className="text-center">
-            <p className="text-xl text-gray-600 mb-4">找不到该项目</p>
-            <Link href={guideSlug ? `/g/${guideSlug}/sai-clinic` : '/sai-clinic'} className="text-rose-600 hover:underline">返回 SAI CLINIC</Link>
+            <p className="text-xl text-neutral-600 mb-4">找不到该项目</p>
+            <Link href={guideSlug ? `/g/${guideSlug}/sai-clinic` : '/sai-clinic'} className="text-brand-700 hover:underline">返回 SAI CLINIC</Link>
           </div>
         </div>
       </CheckoutLayout>
@@ -279,9 +279,9 @@ export default function SaiClinicCheckoutPage() {
   return (
     <CheckoutLayout>
       {/* Header */}
-      <div className="bg-white border-b border-gray-100">
+      <div className="bg-white border-b border-neutral-100">
         <div className="max-w-6xl mx-auto px-4 py-3">
-          <Link href={guideSlug ? `/g/${guideSlug}/sai-clinic` : '/sai-clinic'} className="text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1">← 返回 SAI CLINIC</Link>
+          <Link href={guideSlug ? `/g/${guideSlug}/sai-clinic` : '/sai-clinic'} className="text-sm text-neutral-500 hover:text-neutral-700 flex items-center gap-1">← 返回 SAI CLINIC</Link>
         </div>
       </div>
 
@@ -291,12 +291,12 @@ export default function SaiClinicCheckoutPage() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
               <span className="inline-block text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3 bg-white/20 text-white">{pkg.category}</span>
-              <h1 className={`text-3xl md:text-4xl font-bold ${isVIP ? 'text-amber-400' : 'text-white'}`}>{pkg.name}</h1>
-              <p className={`text-sm mt-2 ${isVIP ? 'text-gray-400' : 'text-white/70'}`}>{pkg.nameEn}</p>
+              <h1 className={`text-3xl md:text-4xl font-bold ${'text-white'}`}>{pkg.name}</h1>
+              <p className={`text-sm mt-2 ${isVIP ? 'text-neutral-400' : 'text-white/70'}`}>{pkg.nameEn}</p>
             </div>
             <div className="text-right">
-              <p className={`text-4xl md:text-5xl font-bold ${isVIP ? 'text-amber-400' : 'text-white'}`}>¥{pkg.price.toLocaleString()}</p>
-              <p className={`text-xs mt-1 ${isVIP ? 'text-gray-500' : 'text-white/60'}`}>含税·含全程服务费</p>
+              <p className={`text-4xl md:text-5xl font-bold ${'text-white'}`}>¥{pkg.price.toLocaleString()}</p>
+              <p className={`text-xs mt-1 ${isVIP ? 'text-neutral-500' : 'text-white/60'}`}>含税·含全程服务费</p>
             </div>
           </div>
         </div>
@@ -308,8 +308,8 @@ export default function SaiClinicCheckoutPage() {
           <div className="lg:col-span-1">
             <div className={`rounded-2xl p-6 border ${theme.cardBorder} ${theme.cardBg} ${isVIP ? 'text-white' : ''} sticky top-8`}>
               <h3 className={`text-lg font-bold mb-3 ${theme.title}`}>项目内容</h3>
-              <p className={`text-sm mb-6 leading-relaxed ${isVIP ? 'text-gray-300' : 'text-gray-500'}`}>{pkg.description}</p>
-              <div className={`space-y-2.5 text-sm ${isVIP ? '' : 'text-gray-700'}`}>
+              <p className={`text-sm mb-6 leading-relaxed ${isVIP ? 'text-neutral-300' : 'text-neutral-500'}`}>{pkg.description}</p>
+              <div className={`space-y-2.5 text-sm ${isVIP ? '' : 'text-neutral-700'}`}>
                 {pkg.features.map((f, i) => (
                   <div key={i} className="flex gap-2">
                     <CheckCircle size={16} className={`shrink-0 mt-0.5 ${theme.check}`} />
@@ -317,9 +317,9 @@ export default function SaiClinicCheckoutPage() {
                   </div>
                 ))}
               </div>
-              <div className={`mt-6 pt-6 border-t ${isVIP ? 'border-gray-700' : 'border-gray-200'}`}>
+              <div className={`mt-6 pt-6 border-t ${isVIP ? 'border-neutral-200' : 'border-neutral-200'}`}>
                 <div className="flex justify-between items-center">
-                  <span className={`text-sm ${isVIP ? 'text-gray-400' : 'text-gray-500'}`}>项目费用</span>
+                  <span className={`text-sm ${isVIP ? 'text-neutral-400' : 'text-neutral-500'}`}>项目费用</span>
                   <span className={`text-xl font-bold ${theme.price}`}>¥{pkg.price.toLocaleString()}</span>
                 </div>
               </div>
@@ -328,75 +328,75 @@ export default function SaiClinicCheckoutPage() {
 
           {/* Right: Booking Form */}
           <div className="lg:col-span-2">
-            <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-gray-200 p-6 md:p-8">
-              <h2 className="text-xl font-bold text-gray-900 mb-6">预约信息</h2>
+            <form onSubmit={handleSubmit} className="bg-white border border-neutral-200 p-6 md:p-8">
+              <h2 className="text-xl font-bold text-brand-900 mb-6">预约信息</h2>
 
               {/* Name */}
               <div className="mb-5">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  姓名 <span className="text-rose-500">*</span>
+                <label className="block text-sm font-medium text-neutral-700 mb-1">
+                  姓名 <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text" required value={customerInfo.name}
                   onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none"
+                  className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none"
                   placeholder="您的姓名"
                 />
               </div>
 
               {/* Company */}
               <div className="mb-5">
-                <label className="block text-sm font-medium text-gray-700 mb-1">公司（选填）</label>
+                <label className="block text-sm font-medium text-neutral-700 mb-1">公司（选填）</label>
                 <input
                   type="text" value={customerInfo.company}
                   onChange={(e) => setCustomerInfo({ ...customerInfo, company: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none"
+                  className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none"
                   placeholder="公司名称"
                 />
               </div>
 
               {/* Contact Methods */}
               <div className="mb-5">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  联系方式 <span className="text-rose-500">*</span>
-                  <span className="text-xs text-gray-400 ml-2">至少填写一种</span>
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
+                  联系方式 <span className="text-red-500">*</span>
+                  <span className="text-xs text-neutral-400 ml-2">至少填写一种</span>
                 </label>
-                {contactError && <p className="text-sm text-rose-500 mb-2">{contactError}</p>}
+                {contactError && <p className="text-sm text-red-500 mb-2">{contactError}</p>}
                 <div className="grid sm:grid-cols-2 gap-3">
-                  <input type="tel" value={customerInfo.phone} onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none" placeholder="电话号码" />
-                  <input type="email" value={customerInfo.email} onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none" placeholder="邮箱" />
-                  <input type="text" value={customerInfo.line} onChange={(e) => setCustomerInfo({ ...customerInfo, line: e.target.value })} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none" placeholder="LINE ID" />
-                  <input type="text" value={customerInfo.wechat} onChange={(e) => setCustomerInfo({ ...customerInfo, wechat: e.target.value })} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none" placeholder="微信号" />
-                  <input type="text" value={customerInfo.whatsapp} onChange={(e) => setCustomerInfo({ ...customerInfo, whatsapp: e.target.value })} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none" placeholder="WhatsApp" />
+                  <input type="tel" value={customerInfo.phone} onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none" placeholder="电话号码" />
+                  <input type="email" value={customerInfo.email} onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none" placeholder="邮箱" />
+                  <input type="text" value={customerInfo.line} onChange={(e) => setCustomerInfo({ ...customerInfo, line: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none" placeholder="LINE ID" />
+                  <input type="text" value={customerInfo.wechat} onChange={(e) => setCustomerInfo({ ...customerInfo, wechat: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none" placeholder="微信号" />
+                  <input type="text" value={customerInfo.whatsapp} onChange={(e) => setCustomerInfo({ ...customerInfo, whatsapp: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none" placeholder="WhatsApp" />
                 </div>
               </div>
 
               {/* Preferred Date */}
               <div className="mb-5">
-                <label className="block text-sm font-medium text-gray-700 mb-1">希望预约日期（选填）</label>
+                <label className="block text-sm font-medium text-neutral-700 mb-1">希望预约日期（选填）</label>
                 <input
                   type="date" value={preferredDate}
                   onChange={(e) => setPreferredDate(e.target.value)}
                   min={new Date().toISOString().split('T')[0]}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none"
+                  className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none"
                 />
               </div>
 
               {/* Notes */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-1">备注（选填）</label>
+                <label className="block text-sm font-medium text-neutral-700 mb-1">备注（选填）</label>
                 <textarea
                   value={notes} onChange={(e) => setNotes(e.target.value)}
                   rows={3} maxLength={1000}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none resize-none"
+                  className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none resize-none"
                   placeholder="如有特殊需求或问题，请在此备注..."
                 />
               </div>
 
               {/* Cancellation Policy */}
-              <div className="mb-8 bg-gray-50 rounded-xl p-5 border border-gray-100">
-                <h4 className="font-medium text-gray-900 text-sm mb-3">预约须知</h4>
-                <ul className="space-y-1.5 text-xs text-gray-500">
+              <div className="mb-8 bg-neutral-50 p-5 border border-neutral-100">
+                <h4 className="font-medium text-brand-900 text-sm mb-3">预约须知</h4>
+                <ul className="space-y-1.5 text-xs text-neutral-500">
                   <li>- SAI CLINIC 采用完全预约制</li>
                   <li>- 预约确认后，如需变更请提前3天联系</li>
                   <li>- 当日取消或无故未到将收取全额费用</li>
@@ -408,7 +408,7 @@ export default function SaiClinicCheckoutPage() {
               {/* Submit */}
               <button
                 type="submit" disabled={processing}
-                className={`w-full py-4 rounded-xl font-bold text-lg transition flex items-center justify-center gap-2 ${theme.button} disabled:opacity-50`}
+                className={`w-full py-4 font-bold text-lg transition flex items-center justify-center gap-2 ${theme.button} disabled:opacity-50`}
               >
                 {processing ? (
                   <span className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
@@ -421,7 +421,7 @@ export default function SaiClinicCheckoutPage() {
               </button>
 
               {/* Security badges */}
-              <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-gray-400">
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-neutral-400">
                 <span className="flex items-center gap-1"><Lock size={12} /> SSL加密</span>
                 <span className="flex items-center gap-1"><Shield size={12} /> Stripe安全支付</span>
                 <span className="flex items-center gap-1"><Shield size={12} /> 隐私保护</span>
