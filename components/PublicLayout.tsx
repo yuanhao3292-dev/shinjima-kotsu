@@ -41,7 +41,7 @@ const navLabels = {
     footerHealthScreening: 'AI 健康評估',
     footerTagline: '為您打開日本不對外的門',
     footerTagline2: '尖端醫療 · 名門球場 · 商務資源',
-    footerTaglineAlt: '尖端醫療，名門球場，商務資源——一站直通日本核心圈層。',
+    footerTaglineAlt: '尖端醫療，名門球場，商務資源——您的日本專屬通道。',
     footerCopyright: '新島交通株式會社',
   },
   'ja': {
@@ -69,7 +69,7 @@ const navLabels = {
     footerHealthScreening: 'AI健康診断',
     footerTagline: '日本の閉ざされた扉を、あなたに',
     footerTagline2: '先端医療 · 名門ゴルフ · ビジネスリソース',
-    footerTaglineAlt: '先端医療、名門ゴルフ、ビジネスリソース——日本の核心に直結。',
+    footerTaglineAlt: '先端医療、名門ゴルフ、ビジネスリソース——あなた専用の日本チャネル。',
     footerCopyright: '新島交通株式会社',
   },
   'zh-CN': {
@@ -97,7 +97,7 @@ const navLabels = {
     footerHealthScreening: 'AI 健康评估',
     footerTagline: '为您打开日本不对外的门',
     footerTagline2: '尖端医疗 · 名门球场 · 商务资源',
-    footerTaglineAlt: '尖端医疗，名门球场，商务资源——一站直通日本核心圈层。',
+    footerTaglineAlt: '尖端医疗，名门球场，商务资源——您的日本专属通道。',
     footerCopyright: '新岛交通株式会社',
   },
   'en': {
@@ -125,7 +125,7 @@ const navLabels = {
     footerHealthScreening: 'AI Health Screening',
     footerTagline: 'Opening Japan\'s Closed Doors for You',
     footerTagline2: 'Advanced Medicine · Elite Golf · Business Resources',
-    footerTaglineAlt: 'Advanced medicine, elite golf courses, business resources — your direct access to Japan\'s inner circle.',
+    footerTaglineAlt: 'Advanced medicine, elite golf courses, business resources — your exclusive channel to Japan.',
     footerCopyright: 'Niijima Kotsu Co., Ltd.',
   },
 };
