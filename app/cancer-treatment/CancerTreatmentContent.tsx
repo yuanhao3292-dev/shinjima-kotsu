@@ -768,6 +768,29 @@ const JAPAN_MEDICAL_INSTITUTIONS = [
           L('BNCT ホウ素中性子捕捉療法', 'BNCT 硼中子俘獲治療', 'BNCT 硼中子俘获治疗', 'BNCT (Boron Neutron Capture Therapy)'),
         ],
       },
+      {
+        name: '国立循環器病研究センター',
+        nameLocal: L('国立循環器病研究センター', '國立腦心血管疾病研究中心', '国立脑心血管疾病研究中心', 'National Cerebral and Cardiovascular Center'),
+        location: L('大阪府吹田市', '大阪府吹田市', '大阪府吹田市', 'Suita, Osaka'),
+        website: 'https://www.ncvc.go.jp/',
+        specialty: [
+          L('心臓腫瘍', '心臟腫瘤', '心脏肿瘤', 'Cardiac Tumors'),
+          L('脳腫瘍（脳血管関連）', '腦腫瘤（腦血管相關）', '脑肿瘤（脑血管相关）', 'Brain Tumors (Cerebrovascular)'),
+          L('循環器合併がん', '合併循環系統疾病之癌症', '合并循环系统疾病的癌症', 'Cancer with Cardiovascular Complications'),
+          L('腫瘍循環器学', '腫瘤心臟學', '肿瘤心脏学', 'Cardio-Oncology'),
+        ],
+        features: [
+          L('循環器疾患の国立研究拠点', '循環系統疾病國家級研究據點', '循环系统疾病国家级研究据点', 'National research hub for cardiovascular diseases'),
+          L('がん治療と循環器管理の統合医療', '癌症治療與循環系統管理的整合醫療', '癌症治疗与循环系统管理的整合医疗', 'Integrated cancer treatment with cardiovascular management'),
+          L('脳卒中・心疾患合併がん患者に強い', '擅長腦中風及心臟病合併癌症患者', '擅长脑卒中及心脏病合并癌症患者', 'Specialized in cancer patients with stroke/heart disease'),
+          L('最先端の画像診断・カテーテル技術', '最尖端影像診斷及導管技術', '最尖端影像诊断及导管技术', 'Cutting-edge imaging diagnostics & catheter technology'),
+        ],
+        treatments: [
+          L('腫瘍循環器外来（Onco-Cardiology）', '腫瘤心臟科門診（Onco-Cardiology）', '肿瘤心脏科门诊（Onco-Cardiology）', 'Onco-Cardiology Clinic'),
+          L('心臓手術併施がん摘出', '心臟手術同步腫瘤切除', '心脏手术同步肿瘤切除', 'Concurrent cardiac surgery & tumor resection'),
+          L('脳血管内治療', '腦血管介入治療', '脑血管介入治疗', 'Endovascular Neurosurgery'),
+        ],
+      },
     ],
   },
 ];
