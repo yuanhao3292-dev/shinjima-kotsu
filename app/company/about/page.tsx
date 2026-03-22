@@ -844,7 +844,7 @@ export default function AboutPage() {
                   return (
                     <div key={index} className={`relative flex items-center mb-8 last:mb-0 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
                       {/* 内容卡片 */}
-                      <div className={`ml-16 md:ml-0 md:w-[calc(50%-2rem)] ${isLeft ? 'md:pr-0 md:text-right' : 'md:pl-0 md:text-left'}`}>
+                      <div className={`ml-16 md:ml-0 md:w-[calc(50%-2rem)] ${isLeft ? 'md:pr-0 md:text-left' : 'md:pl-0 md:text-left'}`}>
                         <div className={`p-5 border ${item.active ? 'border-gold-400 bg-white/5' : item.done ? 'border-white/20 bg-white/5' : 'border-white/10'}`}>
                           <h3 className={`text-xl font-bold mb-1 ${item.active ? 'text-gold-400' : item.done ? 'text-white/80' : 'text-white'}`}>{item.year}</h3>
                           <p className="text-sm text-neutral-300 whitespace-pre-line">{item.desc}</p>
