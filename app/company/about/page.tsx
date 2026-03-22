@@ -6,7 +6,7 @@ import PublicLayout from '@/components/PublicLayout';
 import {
   Award, Shield,
   Quote, Globe, Heart, Target,
-  Brain, Hospital, HeartHandshake
+  Brain, Hospital, HeartHandshake, TrendingUp, Rocket, Building2
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 
@@ -367,6 +367,62 @@ const pageTranslations = {
     en: 'One-stop support from AI consultation to appointment scheduling, interpretation, and post-treatment follow-up'
   },
 
+  // IPO Vision Section
+  ipoLabel: {
+    ja: 'VISION 2030',
+    'zh-TW': 'VISION 2030',
+    'zh-CN': 'VISION 2030',
+    en: 'VISION 2030'
+  },
+  ipoTitle: {
+    ja: '日本上場を目指して',
+    'zh-TW': '邁向日本上市',
+    'zh-CN': '迈向日本上市',
+    en: 'Toward Japan IPO'
+  },
+  ipoDesc: {
+    ja: '赴日医療事業を中核に、2030年の日本市場上場を目指しています。AI医療技術と20以上の提携医療機関のネットワークを基盤に、アジアから日本への医療ツーリズムのリーディングカンパニーを目指します。',
+    'zh-TW': '以赴日醫療業務為核心，目標2030年在日本上市。依託AI醫療技術與20餘家合作醫療機構網絡，致力成為亞洲赴日醫療旅遊的領軍企業。',
+    'zh-CN': '以赴日医疗业务为核心，目标2030年在日本上市。依托AI医疗技术与20余家合作医疗机构网络，致力成为亚洲赴日医疗旅游的领军企业。',
+    en: 'With inbound medical tourism as our core business, we aim to go public on the Japanese market by 2030. Leveraging AI medical technology and a network of 20+ partner hospitals, we strive to become the leading company in Asia-to-Japan medical tourism.'
+  },
+  ipoMilestone1Title: {
+    ja: '現在',
+    'zh-TW': '現階段',
+    'zh-CN': '现阶段',
+    en: 'Current'
+  },
+  ipoMilestone1Desc: {
+    ja: 'AI問診システム稼働・医療機関20施設以上と提携',
+    'zh-TW': 'AI問診系統運營中・合作醫療機構20+',
+    'zh-CN': 'AI问诊系统运营中・合作医疗机构20+',
+    en: 'AI consultation system live, 20+ partner hospitals'
+  },
+  ipoMilestone2Title: {
+    ja: '2027',
+    'zh-TW': '2027',
+    'zh-CN': '2027',
+    en: '2027'
+  },
+  ipoMilestone2Desc: {
+    ja: 'アジア主要都市への事業展開・年間利用者数目標 5,000名',
+    'zh-TW': '拓展亞洲主要城市・年服務目標5,000人',
+    'zh-CN': '拓展亚洲主要城市・年服务目标5,000人',
+    en: 'Expand to major Asian cities, target 5,000 annual users'
+  },
+  ipoMilestone3Title: {
+    ja: '2030',
+    'zh-TW': '2030',
+    'zh-CN': '2030',
+    en: '2030'
+  },
+  ipoMilestone3Desc: {
+    ja: '日本市場上場（IPO）',
+    'zh-TW': '日本市場上市（IPO）',
+    'zh-CN': '日本市场上市（IPO）',
+    en: 'Japan Market IPO'
+  },
+
 };
 
 export default function AboutPage() {
@@ -661,6 +717,47 @@ export default function AboutPage() {
                       <h3 className="font-bold text-brand-900 text-lg mb-1">{item.title}</h3>
                       <p className="text-sm text-neutral-500 mb-2">{item.number}</p>
                       <p className="text-sm text-neutral-600">{item.desc}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* IPO Vision 2030 */}
+        <section className="py-20 bg-brand-900 text-white">
+          <div className="container mx-auto px-6">
+            <div className="max-w-5xl mx-auto">
+              <div className="text-center mb-12">
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <div className="h-[1px] w-12 bg-gold-400"></div>
+                  <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">{t('ipoLabel')}</span>
+                  <div className="h-[1px] w-12 bg-gold-400"></div>
+                </div>
+                <h2 className="text-3xl font-serif text-white mt-3">{t('ipoTitle')}</h2>
+                <p className="text-neutral-300 text-sm leading-relaxed mt-4 max-w-2xl mx-auto">{t('ipoDesc')}</p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-8">
+                {[
+                  { icon: Building2, title: t('ipoMilestone1Title'), desc: t('ipoMilestone1Desc'), active: true },
+                  { icon: Rocket, title: t('ipoMilestone2Title'), desc: t('ipoMilestone2Desc'), active: false },
+                  { icon: TrendingUp, title: t('ipoMilestone3Title'), desc: t('ipoMilestone3Desc'), active: false },
+                ].map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <div key={index} className="relative">
+                      {index < 2 && (
+                        <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-[1px] bg-white/20" />
+                      )}
+                      <div className={`relative p-6 border ${item.active ? 'border-gold-400 bg-white/5' : 'border-white/10'} text-center`}>
+                        <div className={`w-14 h-14 mx-auto mb-4 flex items-center justify-center ${item.active ? 'bg-gold-400 text-brand-900' : 'bg-white/10 text-gold-400'}`}>
+                          <Icon size={24} />
+                        </div>
+                        <h3 className={`text-2xl font-bold mb-2 ${item.active ? 'text-gold-400' : 'text-white'}`}>{item.title}</h3>
+                        <p className="text-sm text-neutral-300">{item.desc}</p>
+                      </div>
                     </div>
                   );
                 })}
