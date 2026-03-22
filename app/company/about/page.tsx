@@ -387,16 +387,16 @@ const pageTranslations = {
     en: 'With inbound medical tourism as our core business, we aim to go public on the Japanese market by 2030. Leveraging AI medical technology and a network of 20+ partner hospitals, we strive to become the leading company in Asia-to-Japan medical tourism.'
   },
   ipoMilestone1Title: {
-    ja: '現在',
-    'zh-TW': '現階段',
-    'zh-CN': '现阶段',
-    en: 'Current'
+    ja: '2026',
+    'zh-TW': '2026',
+    'zh-CN': '2026',
+    en: '2026'
   },
   ipoMilestone1Desc: {
-    ja: 'AI問診システム稼働・医療機関20施設以上と提携',
-    'zh-TW': 'AI問診系統運營中・合作醫療機構20+',
-    'zh-CN': 'AI问诊系统运营中・合作医疗机构20+',
-    en: 'AI consultation system live, 20+ partner hospitals'
+    ja: 'AI問診システムが日本国内20医療機関をカバー',
+    'zh-TW': 'AI問診系統覆蓋日本20家醫療機構',
+    'zh-CN': 'AI问诊系统覆盖日本20家医疗机构',
+    en: 'AI consultation system covers 20 hospitals in Japan'
   },
   ipoMilestone2Title: {
     ja: '2027',
@@ -405,18 +405,30 @@ const pageTranslations = {
     en: '2027'
   },
   ipoMilestone2Desc: {
-    ja: 'アジア主要都市への事業展開・年間利用者数目標 5,000名',
-    'zh-TW': '拓展亞洲主要城市・年服務目標5,000人',
-    'zh-CN': '拓展亚洲主要城市・年服务目标5,000人',
-    en: 'Expand to major Asian cities, target 5,000 annual users'
+    ja: 'AI問診対応医療機関 180施設以上に拡大',
+    'zh-TW': 'AI問診覆蓋醫療機構突破180家',
+    'zh-CN': 'AI问诊覆盖医疗机构突破180家',
+    en: 'AI consultation coverage expands to 180+ hospitals'
   },
   ipoMilestone3Title: {
+    ja: '2028',
+    'zh-TW': '2028',
+    'zh-CN': '2028',
+    en: '2028'
+  },
+  ipoMilestone3Desc: {
+    ja: '年間外国人入国患者数 20,000人突破',
+    'zh-TW': '年均接診外國入境患者突破2萬人',
+    'zh-CN': '年均接诊外国入境患者突破2万人',
+    en: 'Annual inbound patients exceed 20,000'
+  },
+  ipoMilestone4Title: {
     ja: '2030',
     'zh-TW': '2030',
     'zh-CN': '2030',
     en: '2030'
   },
-  ipoMilestone3Desc: {
+  ipoMilestone4Desc: {
     ja: '日本市場上場（IPO）',
     'zh-TW': '日本市場上市（IPO）',
     'zh-CN': '日本市场上市（IPO）',
@@ -739,16 +751,17 @@ export default function AboutPage() {
                 <p className="text-neutral-300 text-sm leading-relaxed mt-4 max-w-2xl mx-auto">{t('ipoDesc')}</p>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-8">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {[
                   { icon: Building2, title: t('ipoMilestone1Title'), desc: t('ipoMilestone1Desc'), active: true },
-                  { icon: Rocket, title: t('ipoMilestone2Title'), desc: t('ipoMilestone2Desc'), active: false },
-                  { icon: TrendingUp, title: t('ipoMilestone3Title'), desc: t('ipoMilestone3Desc'), active: false },
+                  { icon: Hospital, title: t('ipoMilestone2Title'), desc: t('ipoMilestone2Desc'), active: false },
+                  { icon: Rocket, title: t('ipoMilestone3Title'), desc: t('ipoMilestone3Desc'), active: false },
+                  { icon: TrendingUp, title: t('ipoMilestone4Title'), desc: t('ipoMilestone4Desc'), active: false },
                 ].map((item, index) => {
                   const Icon = item.icon;
                   return (
                     <div key={index} className="relative">
-                      {index < 2 && (
+                      {index < 3 && (
                         <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-[1px] bg-white/20" />
                       )}
                       <div className={`relative p-6 border ${item.active ? 'border-gold-400 bg-white/5' : 'border-white/10'} text-center`}>
