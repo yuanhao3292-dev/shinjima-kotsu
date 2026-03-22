@@ -763,55 +763,37 @@ export default function AboutPage() {
                 <p className="text-neutral-300 text-sm leading-relaxed mt-4 max-w-2xl mx-auto">{t('ipoDesc')}</p>
               </div>
 
-              <div className="space-y-6">
-                {/* Row 1: 2026 → 2027 → 2028 */}
-                <div className="grid md:grid-cols-3 gap-6">
+              <div className="max-w-2xl mx-auto relative">
+                {/* 中间竖线 */}
+                <div className="absolute left-6 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[1px] bg-white/20" />
+
                 {[
-                  { icon: Building2, title: t('ipoMilestone1Title'), desc: t('ipoMilestone1Desc'), active: true },
-                  { icon: Hospital, title: t('ipoMilestone2Title'), desc: t('ipoMilestone2Desc'), active: false },
-                  { icon: Users, title: t('ipoMilestone3Title'), desc: t('ipoMilestone3Desc'), active: false },
+                  { icon: Building2, year: t('ipoMilestone1Title'), desc: t('ipoMilestone1Desc'), active: true },
+                  { icon: Hospital, year: t('ipoMilestone2Title'), desc: t('ipoMilestone2Desc'), active: false },
+                  { icon: Users, year: t('ipoMilestone3Title'), desc: t('ipoMilestone3Desc'), active: false },
+                  { icon: Bot, year: t('ipoMilestone4Title'), desc: t('ipoMilestone4Desc'), active: false },
+                  { icon: TrendingUp, year: t('ipoMilestone5Title'), desc: t('ipoMilestone5Desc'), active: false },
                 ].map((item, index) => {
                   const Icon = item.icon;
+                  const isLeft = index % 2 === 0;
                   return (
-                    <div key={index} className="relative">
-                      {index < 2 && (
-                        <div className="hidden md:block absolute top-1/2 -translate-y-1/2 left-[60%] w-[80%] h-[1px] bg-white/20" />
-                      )}
-                      <div className={`relative p-6 border ${item.active ? 'border-gold-400 bg-white/5' : 'border-white/10'} text-center`}>
-                        <div className={`w-14 h-14 mx-auto mb-4 flex items-center justify-center ${item.active ? 'bg-gold-400 text-brand-900' : 'bg-white/10 text-gold-400'}`}>
-                          <Icon size={24} />
+                    <div key={index} className={`relative flex items-center mb-8 last:mb-0 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+                      {/* 内容卡片 */}
+                      <div className={`ml-16 md:ml-0 md:w-[calc(50%-2rem)] ${isLeft ? 'md:pr-0 md:text-right' : 'md:pl-0 md:text-left'}`}>
+                        <div className={`p-5 border ${item.active ? 'border-gold-400 bg-white/5' : 'border-white/10'}`}>
+                          <h3 className={`text-xl font-bold mb-1 ${item.active ? 'text-gold-400' : 'text-white'}`}>{item.year}</h3>
+                          <p className="text-sm text-neutral-300 whitespace-pre-line">{item.desc}</p>
                         </div>
-                        <h3 className={`text-2xl font-bold mb-2 ${item.active ? 'text-gold-400' : 'text-white'}`}>{item.title}</h3>
-                        <p className="text-sm text-neutral-300 whitespace-pre-line">{item.desc}</p>
                       </div>
+                      {/* 中间节点 */}
+                      <div className={`absolute left-6 md:left-1/2 -translate-x-1/2 w-12 h-12 flex items-center justify-center z-10 ${item.active ? 'bg-gold-400 text-brand-900' : 'bg-brand-800 border border-white/20 text-gold-400'}`}>
+                        <Icon size={20} />
+                      </div>
+                      {/* 占位 */}
+                      <div className="hidden md:block md:w-[calc(50%-2rem)]" />
                     </div>
                   );
                 })}
-                </div>
-                {/* Row 2: 2029 → 2030 */}
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div className="md:col-start-1" />
-                {[
-                  { icon: Bot, title: t('ipoMilestone4Title'), desc: t('ipoMilestone4Desc'), active: false },
-                  { icon: TrendingUp, title: t('ipoMilestone5Title'), desc: t('ipoMilestone5Desc'), active: false },
-                ].map((item, index) => {
-                  const Icon = item.icon;
-                  return (
-                    <div key={index} className="relative">
-                      {index < 1 && (
-                        <div className="hidden md:block absolute top-1/2 -translate-y-1/2 left-[60%] w-[80%] h-[1px] bg-white/20" />
-                      )}
-                      <div className="relative p-6 border border-white/10 text-center">
-                        <div className="w-14 h-14 mx-auto mb-4 flex items-center justify-center bg-white/10 text-gold-400">
-                          <Icon size={24} />
-                        </div>
-                        <h3 className="text-2xl font-bold mb-2 text-white">{item.title}</h3>
-                        <p className="text-sm text-neutral-300 whitespace-pre-line">{item.desc}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-                </div>
               </div>
             </div>
           </div>
