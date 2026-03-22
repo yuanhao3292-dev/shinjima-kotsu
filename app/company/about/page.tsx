@@ -762,7 +762,7 @@ export default function AboutPage() {
                   return (
                     <div key={index} className="relative">
                       {index < 3 && (
-                        <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-[1px] bg-white/20" />
+                        <div className="hidden md:block absolute top-1/2 -translate-y-1/2 left-[60%] w-[80%] h-[1px] bg-white/20" />
                       )}
                       <div className={`relative p-6 border ${item.active ? 'border-gold-400 bg-white/5' : 'border-white/10'} text-center`}>
                         <div className={`w-14 h-14 mx-auto mb-4 flex items-center justify-center ${item.active ? 'bg-gold-400 text-brand-900' : 'bg-white/10 text-gold-400'}`}>
