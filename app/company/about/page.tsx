@@ -393,10 +393,10 @@ const pageTranslations = {
     en: '2026'
   },
   ipoMilestone1Desc: {
-    ja: 'AI問診システムが日本国内20医療機関をカバー',
-    'zh-TW': 'AI問診系統覆蓋日本20家醫療機構',
-    'zh-CN': 'AI问诊系统覆盖日本20家医疗机构',
-    en: 'AI consultation system covers 20 hospitals in Japan'
+    ja: 'AI問診システムが日本国内180医療機関をカバー',
+    'zh-TW': 'AI問診系統覆蓋日本180家醫療機構',
+    'zh-CN': 'AI问诊系统覆盖日本180家医疗机构',
+    en: 'AI consultation system covers 180 hospitals in Japan'
   },
   ipoMilestone2Title: {
     ja: '2027',
@@ -405,10 +405,10 @@ const pageTranslations = {
     en: '2027'
   },
   ipoMilestone2Desc: {
-    ja: 'AI問診対応 180施設以上に拡大\n業務の85%を無人化・自動化（販売前後）',
-    'zh-TW': 'AI問診覆蓋醫療機構突破180家\n實現85%業務無人化自動售前售後',
-    'zh-CN': 'AI问诊覆盖医疗机构突破180家\n实现85%业务无人化自动售前售后',
-    en: 'AI coverage expands to 180+ hospitals\n85% business automation in pre & post sales'
+    ja: 'AI問診対応 500施設以上に拡大\n業務の85%を無人化・自動化（販売前後）',
+    'zh-TW': 'AI問診覆蓋醫療機構突破500家\n實現85%業務無人化自動售前售後',
+    'zh-CN': 'AI问诊覆盖医疗机构突破500家\n实现85%业务无人化自动售前售后',
+    en: 'AI coverage expands to 500+ hospitals\n85% business automation in pre & post sales'
   },
   ipoMilestone3Title: {
     ja: '2028',
