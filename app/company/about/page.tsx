@@ -6,7 +6,7 @@ import PublicLayout from '@/components/PublicLayout';
 import {
   Award, Shield,
   Quote, Globe, Heart, Target,
-  Brain, Hospital, HeartHandshake, TrendingUp, Rocket, Building2
+  Brain, Hospital, HeartHandshake, TrendingUp, Rocket, Building2, Bot, Users
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 
@@ -405,10 +405,10 @@ const pageTranslations = {
     en: '2027'
   },
   ipoMilestone2Desc: {
-    ja: 'AI問診対応医療機関 180施設以上に拡大',
-    'zh-TW': 'AI問診覆蓋醫療機構突破180家',
-    'zh-CN': 'AI问诊覆盖医疗机构突破180家',
-    en: 'AI consultation coverage expands to 180+ hospitals'
+    ja: 'AI問診対応 180施設以上に拡大\n業務の85%を無人化・自動化（販売前後）',
+    'zh-TW': 'AI問診覆蓋醫療機構突破180家\n實現85%業務無人化自動售前售後',
+    'zh-CN': 'AI问诊覆盖医疗机构突破180家\n实现85%业务无人化自动售前售后',
+    en: 'AI coverage expands to 180+ hospitals\n85% business automation in pre & post sales'
   },
   ipoMilestone3Title: {
     ja: '2028',
@@ -423,12 +423,24 @@ const pageTranslations = {
     en: 'Annual inbound patients exceed 20,000'
   },
   ipoMilestone4Title: {
+    ja: '2029',
+    'zh-TW': '2029',
+    'zh-CN': '2029',
+    en: '2029'
+  },
+  ipoMilestone4Desc: {
+    ja: '完全無人化の病状追跡を実現\nVIP専用AIメディカルアシスタント',
+    'zh-TW': '實現全面無人化病情跟蹤\n打造VIP專屬AI醫療助理',
+    'zh-CN': '实现全面无人化病情跟踪\n打造VIP专属AI医疗助理',
+    en: 'Fully automated patient tracking\nVIP exclusive AI medical assistant'
+  },
+  ipoMilestone5Title: {
     ja: '2030',
     'zh-TW': '2030',
     'zh-CN': '2030',
     en: '2030'
   },
-  ipoMilestone4Desc: {
+  ipoMilestone5Desc: {
     ja: '日本市場上場（IPO）',
     'zh-TW': '日本市場上市（IPO）',
     'zh-CN': '日本市场上市（IPO）',
@@ -751,17 +763,18 @@ export default function AboutPage() {
                 <p className="text-neutral-300 text-sm leading-relaxed mt-4 max-w-2xl mx-auto">{t('ipoDesc')}</p>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="space-y-6">
+                {/* Row 1: 2026 → 2027 → 2028 */}
+                <div className="grid md:grid-cols-3 gap-6">
                 {[
                   { icon: Building2, title: t('ipoMilestone1Title'), desc: t('ipoMilestone1Desc'), active: true },
                   { icon: Hospital, title: t('ipoMilestone2Title'), desc: t('ipoMilestone2Desc'), active: false },
-                  { icon: Rocket, title: t('ipoMilestone3Title'), desc: t('ipoMilestone3Desc'), active: false },
-                  { icon: TrendingUp, title: t('ipoMilestone4Title'), desc: t('ipoMilestone4Desc'), active: false },
+                  { icon: Users, title: t('ipoMilestone3Title'), desc: t('ipoMilestone3Desc'), active: false },
                 ].map((item, index) => {
                   const Icon = item.icon;
                   return (
                     <div key={index} className="relative">
-                      {index < 3 && (
+                      {index < 2 && (
                         <div className="hidden md:block absolute top-1/2 -translate-y-1/2 left-[60%] w-[80%] h-[1px] bg-white/20" />
                       )}
                       <div className={`relative p-6 border ${item.active ? 'border-gold-400 bg-white/5' : 'border-white/10'} text-center`}>
@@ -769,11 +782,36 @@ export default function AboutPage() {
                           <Icon size={24} />
                         </div>
                         <h3 className={`text-2xl font-bold mb-2 ${item.active ? 'text-gold-400' : 'text-white'}`}>{item.title}</h3>
-                        <p className="text-sm text-neutral-300">{item.desc}</p>
+                        <p className="text-sm text-neutral-300 whitespace-pre-line">{item.desc}</p>
                       </div>
                     </div>
                   );
                 })}
+                </div>
+                {/* Row 2: 2029 → 2030 */}
+                <div className="grid md:grid-cols-3 gap-6">
+                  <div className="md:col-start-1" />
+                {[
+                  { icon: Bot, title: t('ipoMilestone4Title'), desc: t('ipoMilestone4Desc'), active: false },
+                  { icon: TrendingUp, title: t('ipoMilestone5Title'), desc: t('ipoMilestone5Desc'), active: false },
+                ].map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <div key={index} className="relative">
+                      {index < 1 && (
+                        <div className="hidden md:block absolute top-1/2 -translate-y-1/2 left-[60%] w-[80%] h-[1px] bg-white/20" />
+                      )}
+                      <div className="relative p-6 border border-white/10 text-center">
+                        <div className="w-14 h-14 mx-auto mb-4 flex items-center justify-center bg-white/10 text-gold-400">
+                          <Icon size={24} />
+                        </div>
+                        <h3 className="text-2xl font-bold mb-2 text-white">{item.title}</h3>
+                        <p className="text-sm text-neutral-300 whitespace-pre-line">{item.desc}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+                </div>
               </div>
             </div>
           </div>
