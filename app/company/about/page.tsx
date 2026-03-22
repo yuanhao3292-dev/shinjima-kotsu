@@ -6,7 +6,7 @@ import PublicLayout from '@/components/PublicLayout';
 import {
   Award, Shield,
   Quote, Globe, Heart, Target,
-  Brain, Hospital, HeartHandshake, TrendingUp, Rocket, Building2, Bot, Users
+  Brain, Hospital, HeartHandshake, TrendingUp, Rocket, Building2, Bot, Users, Store, Plane
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 
@@ -385,6 +385,66 @@ const pageTranslations = {
     'zh-TW': '以赴日醫療業務為核心，目標2030年在日本上市。依託AI醫療技術與20餘家合作醫療機構網絡，致力成為亞洲赴日醫療旅遊的領軍企業。',
     'zh-CN': '以赴日医疗业务为核心，目标2030年在日本上市。依托AI医疗技术与20余家合作医疗机构网络，致力成为亚洲赴日医疗旅游的领军企业。',
     en: 'With inbound medical tourism as our core business, we aim to go public on the Japanese market by 2030. Leveraging AI medical technology and a network of 20+ partner hospitals, we strive to become the leading company in Asia-to-Japan medical tourism.'
+  },
+  ipoMilestoneATitle: {
+    ja: '2020',
+    'zh-TW': '2020',
+    'zh-CN': '2020',
+    en: '2020'
+  },
+  ipoMilestoneADesc: {
+    ja: '新島交通株式会社設立（2月）',
+    'zh-TW': '新島交通株式會社成立（2月）',
+    'zh-CN': '新岛交通株式会社成立（2月）',
+    en: 'Niijima Kotsu Co., Ltd. established (February)'
+  },
+  ipoMilestoneBTitle: {
+    ja: '2022',
+    'zh-TW': '2022',
+    'zh-CN': '2022',
+    en: '2022'
+  },
+  ipoMilestoneBDesc: {
+    ja: 'INSOUホールディングス株式会社と提携、160店舗へ訪日外国人送客サービスを提供\n大丸百貨店・近鉄百貨店と提携、観光バスへの広告掲載を開始',
+    'zh-TW': '與INSOUホールディングス株式會社達成合作，為160家店鋪提供訪日外國遊客送客服務\n與大丸百貨、近鐵百貨簽訂合作協議，在日本落地旅遊巴士上投放廣告',
+    'zh-CN': '与INSOUホールディングス株式会社达成合作，为160家店铺提供访日外国游客送客服务\n与大丸百货、近铁百货签订合作协议，在日本落地旅游巴士上投放广告',
+    en: 'Partnered with INSOU Holdings to provide inbound tourist referral services for 160 stores\nSigned advertising agreements with Daimaru and Kintetsu department stores for sightseeing buses'
+  },
+  ipoMilestoneCTitle: {
+    ja: '2023',
+    'zh-TW': '2023',
+    'zh-CN': '2023',
+    en: '2023'
+  },
+  ipoMilestoneCDesc: {
+    ja: 'コロナ後、中国政府副部長級の訪日招商活動を受け入れた最初の旅行会社\n中国各省市幹部と日本企業の商談会を多数開催\n天津航空・アリババJAPANと提携、航空路線での広告掲載を開始',
+    'zh-TW': '疫情恢復後首批接待中國官方副部級領導赴日招商活動\n舉辦多場中國政府各省市領導與日本企業的商務洽談會議\n與天津航空、阿里巴巴JAPAN簽訂合作協議，在航空線上投放廣告',
+    'zh-CN': '疫情恢复后首批接待中国官方副部级领导赴日招商活动\n举办多场中国政府各省市领导与日本企业的商务洽谈会议\n与天津航空、阿里巴巴JAPAN签订合作协议，在航空线上投放广告',
+    en: 'First agency to host Chinese vice-ministerial investment delegations post-COVID\nOrganized multiple business matchmaking events between Chinese officials and Japanese enterprises\nSigned advertising partnerships with Tianjin Airlines and Alibaba JAPAN'
+  },
+  ipoMilestoneDTitle: {
+    ja: '2024',
+    'zh-TW': '2024',
+    'zh-CN': '2024',
+    en: '2024'
+  },
+  ipoMilestoneDDesc: {
+    ja: '株式会社南海国際旅行・徳洲会グループと訪日医療事業の提携契約を締結',
+    'zh-TW': '與株式會社南海國際旅行、德洲會集團達成日本醫療業務合作協議',
+    'zh-CN': '与株式会社南海国際旅行、德洲会集团达成日本医疗业务合作协议',
+    en: 'Signed medical tourism partnership with Nankai International Travel and Tokushukai Medical Group'
+  },
+  ipoMilestoneETitle: {
+    ja: '2025',
+    'zh-TW': '2025',
+    'zh-CN': '2025',
+    en: '2025'
+  },
+  ipoMilestoneEDesc: {
+    ja: '台湾の旅行会社200社以上と提携達成',
+    'zh-TW': '與超200家台灣旅行社達成合作',
+    'zh-CN': '与超200家台湾旅行社达成合作',
+    en: 'Partnership established with 200+ travel agencies in Taiwan'
   },
   ipoMilestone1Title: {
     ja: '2026',
@@ -768,11 +828,16 @@ export default function AboutPage() {
                 <div className="absolute left-6 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[1px] bg-white/20" />
 
                 {[
-                  { icon: Building2, year: t('ipoMilestone1Title'), desc: t('ipoMilestone1Desc'), active: true },
-                  { icon: Hospital, year: t('ipoMilestone2Title'), desc: t('ipoMilestone2Desc'), active: false },
-                  { icon: Users, year: t('ipoMilestone3Title'), desc: t('ipoMilestone3Desc'), active: false },
-                  { icon: Bot, year: t('ipoMilestone4Title'), desc: t('ipoMilestone4Desc'), active: false },
-                  { icon: TrendingUp, year: t('ipoMilestone5Title'), desc: t('ipoMilestone5Desc'), active: false },
+                  { icon: Rocket, year: t('ipoMilestoneATitle'), desc: t('ipoMilestoneADesc'), done: true, active: false },
+                  { icon: Store, year: t('ipoMilestoneBTitle'), desc: t('ipoMilestoneBDesc'), done: true, active: false },
+                  { icon: Plane, year: t('ipoMilestoneCTitle'), desc: t('ipoMilestoneCDesc'), done: true, active: false },
+                  { icon: Heart, year: t('ipoMilestoneDTitle'), desc: t('ipoMilestoneDDesc'), done: true, active: false },
+                  { icon: HeartHandshake, year: t('ipoMilestoneETitle'), desc: t('ipoMilestoneEDesc'), done: true, active: false },
+                  { icon: Building2, year: t('ipoMilestone1Title'), desc: t('ipoMilestone1Desc'), done: false, active: true },
+                  { icon: Hospital, year: t('ipoMilestone2Title'), desc: t('ipoMilestone2Desc'), done: false, active: false },
+                  { icon: Users, year: t('ipoMilestone3Title'), desc: t('ipoMilestone3Desc'), done: false, active: false },
+                  { icon: Bot, year: t('ipoMilestone4Title'), desc: t('ipoMilestone4Desc'), done: false, active: false },
+                  { icon: TrendingUp, year: t('ipoMilestone5Title'), desc: t('ipoMilestone5Desc'), done: false, active: false },
                 ].map((item, index) => {
                   const Icon = item.icon;
                   const isLeft = index % 2 === 0;
@@ -780,13 +845,13 @@ export default function AboutPage() {
                     <div key={index} className={`relative flex items-center mb-8 last:mb-0 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
                       {/* 内容卡片 */}
                       <div className={`ml-16 md:ml-0 md:w-[calc(50%-2rem)] ${isLeft ? 'md:pr-0 md:text-right' : 'md:pl-0 md:text-left'}`}>
-                        <div className={`p-5 border ${item.active ? 'border-gold-400 bg-white/5' : 'border-white/10'}`}>
-                          <h3 className={`text-xl font-bold mb-1 ${item.active ? 'text-gold-400' : 'text-white'}`}>{item.year}</h3>
+                        <div className={`p-5 border ${item.active ? 'border-gold-400 bg-white/5' : item.done ? 'border-white/20 bg-white/5' : 'border-white/10'}`}>
+                          <h3 className={`text-xl font-bold mb-1 ${item.active ? 'text-gold-400' : item.done ? 'text-white/80' : 'text-white'}`}>{item.year}</h3>
                           <p className="text-sm text-neutral-300 whitespace-pre-line">{item.desc}</p>
                         </div>
                       </div>
                       {/* 中间节点 */}
-                      <div className={`absolute left-6 md:left-1/2 -translate-x-1/2 w-12 h-12 flex items-center justify-center z-10 ${item.active ? 'bg-gold-400 text-brand-900' : 'bg-brand-800 border border-white/20 text-gold-400'}`}>
+                      <div className={`absolute left-6 md:left-1/2 -translate-x-1/2 w-12 h-12 flex items-center justify-center z-10 ${item.active ? 'bg-gold-400 text-brand-900' : item.done ? 'bg-white/10 border border-white/30 text-white/70' : 'bg-brand-800 border border-white/20 text-gold-400'}`}>
                         <Icon size={20} />
                       </div>
                       {/* 占位 */}
