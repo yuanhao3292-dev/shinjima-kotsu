@@ -1970,6 +1970,26 @@ const backHref = guideSlug ? `/g/${guideSlug}/hyogo-medical` : '/hyogo-medical';
 - ❌ 不要让 Cookie 残留影响官方域名的 UI 显示
 - ❌ 不要在 checkout 子页面硬编码返回链接（必须使用 `?guide=` 参数构建）
 - ❌ 不要在白标域名上直接渲染裸模块页面（必须通过 `/g/{slug}/` 路由）
+- ❌ 不要在任何域名的 PublicLayout 中显示导游品牌名（`hideOfficialBranding` 永远为 `false`）
+- ❌ 不要在 `/g/[slug]` 页面中使用绝对 `https://niijima-koutsu.jp/` 链接（应使用相对路径，让用户留在当前域名）
+
+### 🔑 品牌显示与归因隔离规范（2026-03-23）
+
+**核心原则：两个域名用于区分获客渠道归因，品牌始终统一为 NIIJIMA。**
+
+| 域名 | 品牌显示 | 获客归因 |
+|------|---------|---------|
+| `niijima-koutsu.jp` | NIIJIMA（新岛交通） | 公司自主获客 |
+| `bespoketrip.jp` | NIIJIMA（新岛交通） | 导游引流（通过 `wl_guide` Cookie 追踪） |
+
+**实现方式：**
+- `useWhiteLabelVisibility().hideOfficialBranding` 永远返回 `false`
+- `PublicLayout` 在所有域名下始终显示 NIIJIMA 品牌、官方地址、官方联系方式
+- 导游身份仅通过 Cookie 在后端 API 层归因，前端 UI 完全不暴露导游信息
+- `/g/[slug]` 白标页面的链接使用相对路径（如 `/company/about`），用户点击后留在 `bespoketrip.jp` 域内
+
+**日本旅行業法合规背景：**
+导游不持有旅行業许可证，不能以自己品牌面向客户销售旅行产品。所有客户看到的品牌必须是持牌旅行社（新岛交通），导游仅作为内部引流渠道获得佣金。
 
 ---
 
