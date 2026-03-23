@@ -14,8 +14,8 @@ export interface SubViewProps {
   currentLang: Language;
   landingInputText?: string;
   setLandingInputText?: (text: string) => void;
-  // 白标模式：隐藏官方品牌内容
-  hideOfficialBranding?: boolean;
+  // 白标模式：隐藏导游合伙人招募内容
+  hideGuidePartnerContent?: boolean;
   // 从数据库获取图片的函数（支持可选的 fallback 参数）
   getImage: (key: string, fallback?: string) => string;
 }

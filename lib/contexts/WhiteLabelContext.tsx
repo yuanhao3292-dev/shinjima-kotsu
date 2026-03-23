@@ -144,8 +144,8 @@ export function useWhiteLabelVisibility() {
   return {
     // 隐藏导游合伙人相关内容
     hideGuidePartnerContent: isWhiteLabelMode && isSubscriptionActive,
-    // 隐藏官方品牌
-    hideOfficialBranding: isWhiteLabelMode && isSubscriptionActive,
+    // bespoketrip.jp 域名下也始终显示 NIIJIMA 品牌，不再替换为导游品牌
+    hideOfficialBranding: false,
     // 显示导游品牌
     showGuideBranding: isWhiteLabelMode && isSubscriptionActive,
   };

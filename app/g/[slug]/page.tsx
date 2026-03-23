@@ -275,7 +275,7 @@ export default async function GuideHomePage({ params }: PageProps) {
             我们致力于为全球旅客提供最高品质的日本旅游体验。我们相信，真正的服务不仅是满足需求，更是创造感动。
           </p>
           <a
-            href="https://niijima-koutsu.jp/company/about"
+            href="/company/about"
             className="inline-flex items-center text-xs text-white border border-white/30 px-8 py-3 hover:bg-white hover:text-gray-900 transition-all tracking-wider"
           >
             企业介绍

@@ -145,7 +145,7 @@ interface LandingPageProps {
 // --- PLACEHOLDER: Removed inline PartnerView (now in ./landing/PartnerView.tsx) ---
 
 // ... (HomeView remains largely the same but ensure no breaking changes) ...
-const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, currentLang, landingInputText, setLandingInputText, hideOfficialBranding, getImage }) => {
+const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, currentLang, landingInputText, setLandingInputText, hideGuidePartnerContent, getImage }) => {
   // 获取佣金等级配置（用于动态显示分成比例）
   const { summary: commissionSummary } = useCommissionTiers();
 
@@ -737,7 +737,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       </section>
 
       {/* 9. 導遊合作 - 沉浸式全屏背景，与其他板块风格统一 */}
-      {!hideOfficialBranding && (
+      {!hideGuidePartnerContent && (
       <section id="guide-partner" className="relative min-h-[85vh] flex items-center">
         {/* 全屏背景图 */}
         <div className="absolute inset-0">
@@ -894,7 +894,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
 
   // 白标模式
   const { isWhiteLabelMode, branding } = useWhiteLabel();
-  const { hideOfficialBranding, hideGuidePartnerContent } = useWhiteLabelVisibility();
+  const { hideGuidePartnerContent } = useWhiteLabelVisibility();
 
   // 从数据库获取网站图片配置（支持后台管理更换图片）
   const { getImage: getDbImage } = useSiteImages();
@@ -1056,7 +1056,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
               currentLang={lang}
               landingInputText={landingInputText}
               setLandingInputText={setLandingInputText}
-              hideOfficialBranding={hideOfficialBranding}
+              hideGuidePartnerContent={hideGuidePartnerContent}
               getImage={getImage}
             />
           )}
