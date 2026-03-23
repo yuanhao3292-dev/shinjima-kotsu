@@ -274,13 +274,13 @@ export default async function GuideHomePage({ params }: PageProps) {
           <p className="text-neutral-400 leading-relaxed mb-10 max-w-2xl mx-auto">
             我们致力于为全球旅客提供最高品质的日本旅游体验。我们相信，真正的服务不仅是满足需求，更是创造感动。
           </p>
-          <Link
-            href="/company/about"
+          <a
+            href="https://niijima-koutsu.jp/company/about"
             className="inline-flex items-center text-xs text-white border border-white/30 px-8 py-3 hover:bg-white hover:text-gray-900 transition-all tracking-wider"
           >
             企业介绍
             <ArrowRight size={14} className="ml-2" />
-          </Link>
+          </a>
         </div>
       </section>
     </>

@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getGuideDistributionPage, recordPageView } from '@/lib/services/whitelabel';
 import { headers } from 'next/headers';
-import Link from 'next/link';
 import DistributionNav from '@/components/distribution/DistributionNav';
 import FloatingContact from '@/components/distribution/FloatingContact';
 import type { NavItem } from '@/components/distribution/DistributionNav';
@@ -128,14 +127,14 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
               </div>
             </div>
 
-            {/* 服务项目 */}
+            {/* 服务项目 — 链接指向官网，避免子域名下走 PublicLayout */}
             <div>
               <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">服务项目</h4>
               <ul className="space-y-2.5">
-                <li><Link href="/medical" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">精密体检</Link></li>
-                <li><Link href="/cancer-treatment" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">癌症治疗</Link></li>
-                <li><Link href="/golf" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">名门高尔夫</Link></li>
-                <li><Link href="/business" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">商务考察</Link></li>
+                <li><a href="https://niijima-koutsu.jp/medical" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">精密体检</a></li>
+                <li><a href="https://niijima-koutsu.jp/cancer-treatment" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">癌症治疗</a></li>
+                <li><a href="https://niijima-koutsu.jp/golf" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">名门高尔夫</a></li>
+                <li><a href="https://niijima-koutsu.jp/business" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">商务考察</a></li>
               </ul>
             </div>
 
@@ -143,9 +142,9 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
             <div>
               <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">合作伙伴</h4>
               <ul className="space-y-2.5">
-                <li><Link href="/guide-partner" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">导游伙伴计划</Link></li>
-                <li><Link href="/business/partner" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">商务合作</Link></li>
-                <li><Link href="/health-screening" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">AI 健康评估</Link></li>
+                <li><a href="https://niijima-koutsu.jp/guide-partner" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">导游伙伴计划</a></li>
+                <li><a href="https://niijima-koutsu.jp/business/partner" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">商务合作</a></li>
+                <li><a href="https://niijima-koutsu.jp/health-screening" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">AI 健康评估</a></li>
               </ul>
             </div>
 
@@ -153,12 +152,12 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
             <div>
               <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">公司资讯</h4>
               <ul className="space-y-2.5">
-                <li><Link href="/company/about" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">关于我们</Link></li>
-                <li><Link href="/news" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">最新消息</Link></li>
-                <li><Link href="/faq" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">常见问题</Link></li>
-                <li><Link href="/legal/tokushoho" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">特定商取引法</Link></li>
-                <li><Link href="/legal/privacy" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">隐私政策</Link></li>
-                <li><Link href="/legal/terms" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">使用条款</Link></li>
+                <li><a href="https://niijima-koutsu.jp/company/about" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">关于我们</a></li>
+                <li><a href="https://niijima-koutsu.jp/news" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">最新消息</a></li>
+                <li><a href="https://niijima-koutsu.jp/faq" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">常见问题</a></li>
+                <li><a href="https://niijima-koutsu.jp/legal/tokushoho" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">特定商取引法</a></li>
+                <li><a href="https://niijima-koutsu.jp/legal/privacy" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">隐私政策</a></li>
+                <li><a href="https://niijima-koutsu.jp/legal/terms" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">使用条款</a></li>
               </ul>
             </div>
           </div>
