@@ -64,7 +64,7 @@ export function buildDistributionNavItems(
       const dc = m.module.displayConfig as ImmersiveDisplayConfig | null;
       navItems.push({
         id: key,
-        label: m.customTitle || dc?.navLabel || MODULE_LABELS[key] || m.module.name,
+        label: MODULE_LABELS[key] || m.customTitle || dc?.navLabel || m.module.name,
         href: `/g/${slug}/${toUrlSlug(key)}`,
       });
     }
