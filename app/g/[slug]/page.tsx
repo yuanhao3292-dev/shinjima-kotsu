@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getGuideDistributionPage } from '@/lib/services/whitelabel';
-import { ArrowRight, Shield, Award, MapPin } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import type { ImmersiveDisplayConfig } from '@/lib/types/display-config';
 import { COLOR_THEMES, type ColorTheme } from '@/lib/types/display-config';
@@ -218,32 +218,69 @@ export default async function GuideHomePage({ params }: PageProps) {
         );
       })}
 
-      {/* ━━━━━━━━ 信赖保障 ━━━━━━━━ */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-14 h-14 mx-auto mb-4 bg-white rounded-2xl shadow-sm flex items-center justify-center">
-                <Shield size={24} className="text-blue-600" />
-              </div>
-              <h4 className="font-bold text-gray-900 mb-2">持牌旅行社保障</h4>
-              <p className="text-sm text-gray-500">新岛交通株式会社<br />大阪府知事登録旅行業 第2-3115号</p>
-            </div>
-            <div className="text-center">
-              <div className="w-14 h-14 mx-auto mb-4 bg-white rounded-2xl shadow-sm flex items-center justify-center">
-                <Award size={24} className="text-amber-600" />
-              </div>
-              <h4 className="font-bold text-gray-900 mb-2">认证医疗机构</h4>
-              <p className="text-sm text-gray-500">合作医院均为JCI/厚生省认证<br />确保医疗品质与服务水准</p>
-            </div>
-            <div className="text-center">
-              <div className="w-14 h-14 mx-auto mb-4 bg-white rounded-2xl shadow-sm flex items-center justify-center">
-                <MapPin size={24} className="text-emerald-600" />
-              </div>
-              <h4 className="font-bold text-gray-900 mb-2">全程中文服务</h4>
-              <p className="text-sm text-gray-500">从咨询到术后跟进<br />全程专业中文陪同</p>
+      {/* ━━━━━━━━ 合作伙伴 ━━━━━━━━ */}
+      <section className="py-20 bg-neutral-50 border-t border-neutral-200">
+        <div className="max-w-6xl mx-auto px-6 py-12 md:py-24">
+          <div className="text-center mb-12">
+            <p className="text-xs tracking-[0.3em] text-neutral-400 uppercase mb-3">Partners</p>
+            <h2 className="font-serif text-2xl md:text-3xl text-neutral-900 tracking-wide">合作伙伴</h2>
+          </div>
+
+          {/* 医疗合作机构 */}
+          <div className="mb-8">
+            <p className="text-[10px] tracking-[0.2em] text-neutral-400 uppercase mb-4 text-center">医疗合作机构</p>
+            <div className="grid grid-cols-2 gap-3 md:gap-6 max-w-md mx-auto">
+              {[
+                { name: '徳洲会グループ', sub: 'Tokushukai Group' },
+                { name: 'TIMC OSAKA', sub: 'Medical Center' },
+              ].map((partner, index) => (
+                <div key={index} className="bg-white p-6 text-center border border-neutral-200 hover:border-neutral-300 transition-colors">
+                  <div className="text-sm font-medium text-neutral-900 mb-1">{partner.name}</div>
+                  <div className="text-[10px] text-neutral-400">{partner.sub}</div>
+                </div>
+              ))}
             </div>
           </div>
+
+          {/* 服务合作伙伴 */}
+          <div>
+            <p className="text-[10px] tracking-[0.2em] text-neutral-400 uppercase mb-4 text-center">服务合作伙伴</p>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-6">
+              {[
+                { name: '南海国際旅行', sub: 'Nankai International Travel' },
+                { name: '大丸松坂屋百貨', sub: 'Daimaru Matsuzakaya' },
+                { name: '近鉄百貨店', sub: 'Kintetsu Department Store' },
+                { name: '海南航空', sub: 'Hainan Airlines' },
+                { name: 'INSOU', sub: 'INSOU Holdings' },
+                { name: 'アリババ日本', sub: 'Alibaba Japan' },
+              ].map((partner, index) => (
+                <div key={index} className="bg-white p-6 text-center border border-neutral-200 hover:border-neutral-300 transition-colors">
+                  <div className="text-sm font-medium text-neutral-900 mb-1">{partner.name}</div>
+                  <div className="text-[10px] text-neutral-400">{partner.sub}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ━━━━━━━━ 企业理念 ━━━━━━━━ */}
+      <section className="py-24 bg-gray-900 text-white">
+        <div className="max-w-4xl mx-auto px-6 py-12 md:py-24 text-center">
+          <p className="text-xs tracking-[0.3em] text-neutral-400 uppercase mb-6">Corporate Philosophy</p>
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white mb-8 leading-relaxed">
+            用心连结世界与日本
+          </h2>
+          <p className="text-neutral-400 leading-relaxed mb-10 max-w-2xl mx-auto">
+            我们致力于为全球旅客提供最高品质的日本旅游体验。我们相信，真正的服务不仅是满足需求，更是创造感动。
+          </p>
+          <Link
+            href="/company/about"
+            className="inline-flex items-center text-xs text-white border border-white/30 px-8 py-3 hover:bg-white hover:text-gray-900 transition-all tracking-wider"
+          >
+            企业介绍
+            <ArrowRight size={14} className="ml-2" />
+          </Link>
         </div>
       </section>
     </>
