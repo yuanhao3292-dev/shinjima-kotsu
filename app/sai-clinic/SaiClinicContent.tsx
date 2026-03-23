@@ -37,20 +37,20 @@ const FALLBACK_IMAGES: SaiClinicImage[] = [
   { id: 'f-g7', category: 'gallery', src: `${SAI}/aboutGalleryImg7.jpg`, alt: 'SAI CLINIC 恢复室', label: '恢复室', display_order: 7, metadata: null },
   { id: 'f-g8', category: 'gallery', src: `${SAI}/aboutGalleryImg8.jpg`, alt: 'SAI CLINIC 入口', label: '诊所入口', display_order: 8, metadata: null },
   { id: 'f-g9', category: 'gallery', src: `${SAI}/aboutGalleryImg9.jpg`, alt: 'SAI CLINIC 走廊', label: '诊所走廊', display_order: 9, metadata: null },
-  { id: 'f-c1', category: 'case', src: `${SAI_UP}/2025/05/SAI_PH_threadlift_009-01.jpg`, alt: '40代女性 糸リフト+ヒアルロン酸', label: '40代女性', display_order: 1, metadata: { title: '40代女性 · 糸リフト+ヒアルロン酸', desc: 'SAI LIFT STANDARD + 法令纹玻尿酸注射。自然的提升效果，法令纹明显改善。' } },
-  { id: 'f-c2', category: 'case', src: `${SAI_UP}/2025/08/SAI_PH_threadlift_001-01.jpg`, alt: '50代女性 糸リフト', label: '50代女性', display_order: 2, metadata: { title: '50代女性 · 糸リフト', desc: 'SAI LIFT PERFECT 全脸线雕提升。显著改善面部松弛，恢复年轻轮廓。' } },
-  { id: 'f-c3', category: 'case', src: `${SAI_UP}/2025/11/SAI_PH_threadlift_006-01.jpg`, alt: '50代女性 糸リフト+脂肪溶解', label: '50代女性', display_order: 3, metadata: { title: '50代女性 · 糸リフト+脂肪溶解', desc: '线雕提升 + 面部吸脂。V脸效果明显，下颚线条更加紧致。' } },
+  { id: 'f-c1', category: 'case', src: `${SAI_UP}/2025/05/SAI_PH_threadlift_009-01.jpg`, alt: '40代女性 线雕+玻尿酸', label: '40代女性', display_order: 1, metadata: { title: '40代女性 · 线雕+玻尿酸', desc: 'SAI LIFT STANDARD + 法令纹玻尿酸注射。自然的提升效果，法令纹明显改善。' } },
+  { id: 'f-c2', category: 'case', src: `${SAI_UP}/2025/08/SAI_PH_threadlift_001-01.jpg`, alt: '50代女性 线雕', label: '50代女性', display_order: 2, metadata: { title: '50代女性 · 线雕', desc: 'SAI LIFT PERFECT 全脸线雕提升。显著改善面部松弛，恢复年轻轮廓。' } },
+  { id: 'f-c3', category: 'case', src: `${SAI_UP}/2025/11/SAI_PH_threadlift_006-01.jpg`, alt: '50代女性 线雕+脂肪溶解', label: '50代女性', display_order: 3, metadata: { title: '50代女性 · 线雕+脂肪溶解', desc: '线雕提升 + 面部吸脂。V脸效果明显，下颚线条更加紧致。' } },
   { id: 'f-d1', category: 'doctor', src: `${SAI}/doctor.jpg`, alt: '崔煌植 院長', label: '院長头像', display_order: 1, metadata: { usage: 'avatar' } },
   { id: 'f-d2', category: 'doctor', src: `${SAI}/sign.png`, alt: '崔煌植 签名', label: '签名', display_order: 2, metadata: { usage: 'signature' } },
   { id: 'f-d3', category: 'doctor', src: `${SAI}/a-reccoImg.jpg`, alt: '推薦', label: '推薦头像', display_order: 3, metadata: { usage: 'recommend' } },
-  { id: 'f-f1', category: 'feature', src: `${SAI}/topFeatureImg01.jpg`, alt: '糸リフト专门诊所', label: '糸リフト专门', display_order: 1, metadata: { title: '糸リフト专门诊所' } },
+  { id: 'f-f1', category: 'feature', src: `${SAI}/topFeatureImg01.jpg`, alt: '线雕专门诊所', label: '线雕专门', display_order: 1, metadata: { title: '线雕专门诊所' } },
   { id: 'f-f2', category: 'feature', src: `${SAI}/topFeatureImg02.jpg`, alt: '韩式美学·日本品质', label: '韩式美学', display_order: 2, metadata: { title: '韩式美学·日本品质' } },
   { id: 'f-f3', category: 'feature', src: `${SAI}/aboutFeatureItem2.jpg`, alt: '内外兼修·个性定制', label: '内外兼修', display_order: 3, metadata: { title: '内外兼修·个性定制' } },
   { id: 'f-cp1', category: 'concept', src: `${SAI}/aboutConcept1.jpg`, alt: 'SAI CLINIC 施術風景', label: '施术风景', display_order: 1, metadata: null },
   { id: 'f-cp2', category: 'concept', src: `${SAI}/aboutConcept2.jpg`, alt: '抗衰老专门', label: '抗衰老专门', display_order: 2, metadata: null },
   { id: 'f-cp3', category: 'concept', src: `${SAI}/aboutConcept3.jpg`, alt: '韩式美学', label: '韩式美学', display_order: 3, metadata: null },
   { id: 'f-cp4', category: 'concept', src: `${SAI}/aboutConcept4.jpg`, alt: '个性化方案', label: '个性化方案', display_order: 4, metadata: null },
-  { id: 'f-t1', category: 'threadlift', src: `${SAI_UP}/2025/06/sai_threadlift_title.jpg`, alt: 'SAI LIFT 糸リフト', label: '糸リフト hero', display_order: 1, metadata: null },
+  { id: 'f-t1', category: 'threadlift', src: `${SAI_UP}/2025/06/sai_threadlift_title.jpg`, alt: 'SAI LIFT 线雕', label: '线雕 hero', display_order: 1, metadata: null },
 ];
 
 // ━━━━━━━━ 套餐数据 ━━━━━━━━
@@ -58,7 +58,7 @@ const FALLBACK_IMAGES: SaiClinicImage[] = [
 const THREAD_LIFT_PACKAGES = [
   {
     slug: 'sai-lift-try',
-    name: { ja: 'SAI LIFT TRY', 'zh-CN': '体验版糸リフト', 'zh-TW': '體驗版糸リフト', en: 'SAI LIFT TRY' } as Record<Language, string>,
+    name: { ja: 'SAI LIFT TRY', 'zh-CN': '体验版线雕', 'zh-TW': '體驗版線雕', en: 'SAI LIFT TRY' } as Record<Language, string>,
     price: 380000,
     features: [
       { ja: '初回体験推奨', 'zh-CN': '初次体验推荐', 'zh-TW': '初次體驗推薦', en: 'First-time recommended' } as Record<Language, string>,
@@ -70,7 +70,7 @@ const THREAD_LIFT_PACKAGES = [
   },
   {
     slug: 'sai-lift-standard',
-    name: { ja: 'SAI LIFT STANDARD', 'zh-CN': '标准版糸リフト', 'zh-TW': '標準版糸リフト', en: 'SAI LIFT STANDARD' } as Record<Language, string>,
+    name: { ja: 'SAI LIFT STANDARD', 'zh-CN': '标准版线雕', 'zh-TW': '標準版線雕', en: 'SAI LIFT STANDARD' } as Record<Language, string>,
     price: 680000,
     features: [
       { ja: '人気No.1', 'zh-CN': '高人气选择', 'zh-TW': '高人氣選擇', en: 'Most popular' } as Record<Language, string>,
@@ -84,7 +84,7 @@ const THREAD_LIFT_PACKAGES = [
   },
   {
     slug: 'sai-lift-perfect',
-    name: { ja: 'SAI LIFT PERFECT', 'zh-CN': '完美版糸リフト', 'zh-TW': '完美版糸リフト', en: 'SAI LIFT PERFECT' } as Record<Language, string>,
+    name: { ja: 'SAI LIFT PERFECT', 'zh-CN': '完美版线雕', 'zh-TW': '完美版线雕', en: 'SAI LIFT PERFECT' } as Record<Language, string>,
     price: 980000,
     features: [
       { ja: '最強引き上げ効果', 'zh-CN': '最强提升效果', 'zh-TW': '最強提升效果', en: 'Maximum lifting' } as Record<Language, string>,
@@ -99,9 +99,9 @@ const THREAD_LIFT_PACKAGES = [
 ];
 
 const COMBO_PACKAGES = [
-  { slug: 'sai-nasolabial-set', name: { ja: 'ほうれい線セット', 'zh-CN': '法令纹改善套餐', 'zh-TW': '法令紋改善套餐', en: 'Nasolabial Fold Set' } as Record<Language, string>, price: 378000, desc: { ja: '糸リフト + ヒアルロン酸注射', 'zh-CN': '糸リフト + 玻尿酸注射，针对法令纹的综合解决方案', 'zh-TW': '糸リフト + 玻尿酸注射，針對法令紋的綜合解決方案', en: 'Thread lift + hyaluronic acid injection for nasolabial folds' } as Record<Language, string> },
+  { slug: 'sai-nasolabial-set', name: { ja: 'ほうれい線セット', 'zh-CN': '法令纹改善套餐', 'zh-TW': '法令紋改善套餐', en: 'Nasolabial Fold Set' } as Record<Language, string>, price: 378000, desc: { ja: '糸リフト + ヒアルロン酸注射', 'zh-CN': '线雕 + 玻尿酸注射，针对法令纹的综合解决方案', 'zh-TW': '線雕 + 玻尿酸注射，針對法令紋的綜合解決方案', en: 'Thread lift + hyaluronic acid injection for nasolabial folds' } as Record<Language, string> },
   { slug: 'sai-vline-set', name: { ja: 'V-Lineセット', 'zh-CN': 'V脸线条套餐', 'zh-TW': 'V臉線條套餐', en: 'V-Line Set' } as Record<Language, string>, price: 496000, desc: { ja: '脂肪溶解 + 糸リフト', 'zh-CN': '精准脂肪溶解 + 线雕提升，打造理想V脸线条', 'zh-TW': '精準脂肪溶解 + 線雕提升，打造理想V臉線條', en: 'Fat dissolving + thread lift for ideal V-line' } as Record<Language, string> },
-  { slug: 'sai-neck-set', name: { ja: '首シワセット', 'zh-CN': '颈纹改善套餐', 'zh-TW': '頸紋改善套餐', en: 'Neck Wrinkle Set' } as Record<Language, string>, price: 378000, desc: { ja: '糸リフト + ヒアルロン酸', 'zh-CN': '糸リフト + 玻尿酸，有效改善颈部细纹和松弛', 'zh-TW': '糸リフト + 玻尿酸，有效改善頸部細紋和鬆弛', en: 'Thread lift + hyaluronic acid for neck wrinkles' } as Record<Language, string> },
+  { slug: 'sai-neck-set', name: { ja: '首シワセット', 'zh-CN': '颈纹改善套餐', 'zh-TW': '頸紋改善套餐', en: 'Neck Wrinkle Set' } as Record<Language, string>, price: 378000, desc: { ja: '糸リフト + ヒアルロン酸', 'zh-CN': '线雕 + 玻尿酸，有效改善颈部细纹和松弛', 'zh-TW': '線雕 + 玻尿酸，有效改善頸部細紋和鬆弛', en: 'Thread lift + hyaluronic acid for neck wrinkles' } as Record<Language, string> },
   { slug: 'sai-eye-fatigue-set', name: { ja: '目元セット', 'zh-CN': '眼周疲劳改善套餐', 'zh-TW': '眼周疲勞改善套餐', en: 'Eye Rejuvenation Set' } as Record<Language, string>, price: 378000, desc: { ja: '目元総合若返り', 'zh-CN': '针对眼周暗沉、细纹的综合年轻化方案', 'zh-TW': '針對眼周暗沉、細紋的綜合年輕化方案', en: 'Comprehensive eye rejuvenation for dark circles and fine lines' } as Record<Language, string> },
 ];
 
@@ -359,6 +359,18 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
     doctorMsg5: mi('お悩みが少しでもあるようでしたら、ぜひお気軽にご来院ください。', '如果您有任何烦恼，欢迎随时来院咨询。', '如果您有任何煩惱，歡迎隨時來院諮詢。', 'If you have any concerns at all, please feel free to visit us.'),
     careerLabel: mi('経歴', '经历', '經歷', 'Career'),
     credLabel: mi('資格・所属学会', '资质·所属学会', '資質·所屬學會', 'Certifications'),
+    career1: mi('三重大学医学部 卒業', '三重大学医学部 毕业', '三重大學醫學部 畢業', 'Mie University School of Medicine'),
+    career2: mi('済生会千里病院 形成外科・皮膚科・内科 勤務', '济生会千里医院 整形外科·皮肤科·内科', '濟生會千里醫院 整形外科·皮膚科·內科', 'Saiseikai Senri Hospital — Plastic Surgery, Dermatology, Internal Medicine'),
+    career3: mi('湘南美容クリニック 都市部大型院 院長', '湘南美容诊所 都市大型分院 院长', '湘南美容診所 都市大型分院 院長', 'Shonan Beauty Clinic — Urban Major Branch Director'),
+    career4: mi('美容クリニック技術指導医', '美容诊所技术指导医师', '美容診所技術指導醫師', 'Aesthetic Clinic Technical Supervisor'),
+    career5: mi('崔先生の糸リフト塾 代表', '"崔医生线雕讲堂" 主讲', '「崔醫生線雕講堂」主講', 'Director, Dr. Sai\'s Thread Lift Academy'),
+    career6: mi('化粧品 imini 監修医', '化妆品品牌 imini 监修医师', '化妝品品牌 imini 監修醫師', 'Medical Supervisor, imini Cosmetics'),
+    career7: mi('SAI CLINIC 院長', 'SAI CLINIC 院长', 'SAI CLINIC 院長', 'SAI CLINIC Director'),
+    cred1: mi('日本美容外科学会（JSAS）', '日本美容外科学会（JSAS）', '日本美容外科學會（JSAS）', 'Japan Society of Aesthetic Surgery (JSAS)'),
+    cred2: mi('韓国美容外科医学会（KAAS）', '韩国美容外科学会（KAAS）', '韓國美容外科學會（KAAS）', 'Korean Academy of Aesthetic Surgery (KAAS)'),
+    cred3: mi('アラガン・ボトックスビスタ認定医', 'Allergan BOTOX VISTA 认证医师', 'Allergan BOTOX VISTA 認證醫師', 'Allergan BOTOX VISTA Certified'),
+    cred4: mi('アラガン・ジュビダームビスタ認定医', 'Allergan JUVÉDERM VISTA 认证医师', 'Allergan JUVÉDERM VISTA 認證醫師', 'Allergan JUVÉDERM VISTA Certified'),
+    cred5: mi('日本救急医学会 ICLSインストラクター認定医', '日本急救医学会 ICLS 认证讲师', '日本急救醫學會 ICLS 認證講師', 'Japan Association for Acute Medicine ICLS Instructor'),
     // Features
     feat1Title: mi('糸リフト専門クリニック', '线雕提升专门诊所', '線雕提升專門診所', 'Thread Lift Specialist Clinic'),
     feat1Desc: mi('糸リフトをコア技術とし、崔医師はこの分野で15年以上の経験と数千例の成功実績を持っています。独自のSAI LIFTシリーズで、体験から完美まで多様なニーズに対応。', '以线雕提升为核心技术，崔医生在该领域拥有超过15年经验和数千例成功案例。独创SAI LIFT系列，从体验到完美，满足不同需求。', '以線雕提升為核心技術，崔醫生在該領域擁有超過15年經驗和數千例成功案例。獨創SAI LIFT系列，從體驗到完美，滿足不同需求。', 'Thread lifting as our core expertise — Dr. Sai has 15+ years of experience and thousands of successful cases. Our original SAI LIFT series offers options from trial to perfect.'),
@@ -630,18 +642,10 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
               <div className="mb-8">
                 <h5 className="text-xs tracking-widest text-rose-500 uppercase mb-4">{t(TR.careerLabel, lang)}</h5>
                 <div className="space-y-2.5 text-sm text-gray-600">
-                  {[
-                    '三重大学医学部 卒業',
-                    '済生会千里病院 形成外科・皮膚科・内科 勤務',
-                    '湘南美容クリニック 都市部大型院 院長',
-                    '美容クリニック技術指導医',
-                    '崔先生の糸リフト塾 代表',
-                    '化粧品 imini 監修医',
-                    'SAI CLINIC 院長',
-                  ].map((item, i) => (
+                  {[TR.career1, TR.career2, TR.career3, TR.career4, TR.career5, TR.career6, TR.career7].map((item, i) => (
                     <div key={i} className="flex items-start gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-rose-300 mt-1.5 shrink-0"></span>
-                      <span>{item}</span>
+                      <span>{t(item, lang)}</span>
                     </div>
                   ))}
                 </div>
@@ -651,16 +655,10 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
               <div>
                 <h5 className="text-xs tracking-widest text-rose-500 uppercase mb-4">{t(TR.credLabel, lang)}</h5>
                 <div className="space-y-2.5 text-sm text-gray-600">
-                  {[
-                    '日本美容外科学会（JSAS）',
-                    '韓国美容外科医学会（KAAS）',
-                    'アラガン・ボトックスビスタ認定医',
-                    'アラガン・ジュビダームビスタ認定医',
-                    '日本救急医学会 ICLSインストラクター認定医',
-                  ].map((item, i) => (
+                  {[TR.cred1, TR.cred2, TR.cred3, TR.cred4, TR.cred5].map((item, i) => (
                     <div key={i} className="flex items-start gap-2">
                       <CheckCircle size={14} className="text-rose-400 mt-0.5 shrink-0" />
-                      <span>{item}</span>
+                      <span>{t(item, lang)}</span>
                     </div>
                   ))}
                 </div>
@@ -872,7 +870,6 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
             {COMBO_PACKAGES.map((pkg) => (
               <div key={pkg.slug} className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition hover:-translate-y-1 flex flex-col">
                 <h4 className="font-bold text-gray-900 mb-1">{t(pkg.name, lang)}</h4>
-                <p className="text-xs text-gray-400 mb-3">{pkg.name.ja}</p>
                 <p className="text-sm text-gray-500 leading-relaxed mb-4 flex-grow">{t(pkg.desc, lang)}</p>
                 <div className="mb-3">
                   <span className="text-xs line-through text-gray-400">{t(TR.separateBooking, lang)} {formatPrice(getRefPrice(pkg.price))}</span>
@@ -901,7 +898,6 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                   <div key={pkg.slug} className="bg-purple-50/50 rounded-xl p-5 border border-purple-100 hover:shadow-lg transition flex flex-col sm:flex-row sm:items-center gap-4">
                     <div className="flex-grow">
                       <h4 className="font-bold text-gray-900">{t(pkg.name, lang)}</h4>
-                      <p className="text-xs text-gray-400 mb-1">{pkg.name.ja}</p>
                       <p className="text-sm text-gray-500">{t(pkg.desc, lang)}</p>
                     </div>
                     <div className="text-right shrink-0">
@@ -925,7 +921,6 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                   <div key={pkg.slug} className="bg-blue-50/50 rounded-xl p-5 border border-blue-100 hover:shadow-lg transition flex flex-col sm:flex-row sm:items-center gap-4">
                     <div className="flex-grow">
                       <h4 className="font-bold text-gray-900">{t(pkg.name, lang)}</h4>
-                      <p className="text-xs text-gray-400 mb-1">{pkg.name.ja}</p>
                       <p className="text-sm text-gray-500">{t(pkg.desc, lang)}</p>
                     </div>
                     <div className="text-right shrink-0">
@@ -953,7 +948,6 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
             {[...INJECTABLE_PACKAGES, ...FAT_PACKAGES, ...WELLNESS_PACKAGES].map((pkg) => (
               <div key={pkg.slug} className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition hover:-translate-y-1 flex flex-col">
                 <h4 className="font-bold text-gray-900 mb-1">{t(pkg.name, lang)}</h4>
-                <p className="text-xs text-gray-400 mb-3">{pkg.name.ja}</p>
                 <p className="text-sm text-gray-500 leading-relaxed mb-4 flex-grow">{t(pkg.desc, lang)}</p>
                 <div>
                   <span className="text-xs line-through text-gray-400">{t(TR.separateBooking, lang)} {formatPrice(getRefPrice(pkg.price))}</span>
