@@ -77,9 +77,6 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
                 <div>
                   <a href="tel:06-6632-8807" className="hover:text-gray-900 transition-colors">TEL: 06-6632-8807</a>
                 </div>
-                <div>
-                  <a href="mailto:haoyuan@niijima-koutsu.jp" className="hover:text-gray-900 transition-colors">haoyuan@niijima-koutsu.jp</a>
-                </div>
               </div>
             </div>
 

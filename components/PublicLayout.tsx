@@ -301,7 +301,6 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                   <div className="space-y-1.5 text-sm text-gray-600 mb-4">
                     <div>〒556-0014 大阪府大阪市浪速区大国1-2-21-602</div>
                     <div><a href="tel:06-6632-8807" className="hover:text-gray-900 transition-colors">TEL: 06-6632-8807</a></div>
-                    <div><a href="mailto:haoyuan@niijima-koutsu.jp" className="hover:text-gray-900 transition-colors">haoyuan@niijima-koutsu.jp</a></div>
                   </div>
                 </div>
                 <div>
