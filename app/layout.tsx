@@ -6,6 +6,8 @@ import LocaleFontSetter from '@/components/LocaleFontSetter'
 import WhiteLabelTracker from '@/components/WhiteLabelTracker'
 import { WhiteLabelProvider } from '@/lib/contexts/WhiteLabelContext'
 import { getWhiteLabelConfig } from '@/lib/utils/whitelabel-server'
+import { getGuideDistributionPage } from '@/lib/services/whitelabel'
+import { buildDistributionNavItems } from '@/lib/utils/build-distribution-nav'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import BrowserFingerprint from '@/components/BrowserFingerprint'
@@ -47,6 +49,18 @@ export default async function RootLayout({
   // 服务端获取白标配置
   const whiteLabelConfig = await getWhiteLabelConfig();
 
+  // 白标模式下构建 DistributionNav 导航项，供 PublicLayout 渲染统一导航
+  let distributionNavItems: { id: string; label: string; href?: string }[] | null = null;
+  if (whiteLabelConfig.isWhiteLabelMode && whiteLabelConfig.currentSlug) {
+    const pageData = await getGuideDistributionPage(whiteLabelConfig.currentSlug);
+    if (pageData) {
+      distributionNavItems = buildDistributionNavItems(
+        whiteLabelConfig.currentSlug,
+        pageData.selectedModules,
+      );
+    }
+  }
+
   return (
     <html lang="ja">
       <head>
@@ -59,7 +73,7 @@ export default async function RootLayout({
       </head>
       <body className="antialiased">
         <LocaleFontSetter />
-        <WhiteLabelProvider initialConfig={whiteLabelConfig}>
+        <WhiteLabelProvider initialConfig={{ ...whiteLabelConfig, distributionNavItems }}>
           {children}
           <FloatingContact />
           <WhiteLabelTracker />

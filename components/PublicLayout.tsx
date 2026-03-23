@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Globe, ChevronDown, LogIn, X, Menu } from 'lucide-react';
 import { useWhiteLabel, useWhiteLabelVisibility } from '@/lib/contexts/WhiteLabelContext';
+import DistributionNav from '@/components/distribution/DistributionNav';
 
 type Language = 'zh-TW' | 'zh-CN' | 'ja' | 'en';
 
@@ -174,7 +175,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
   };
 
   // 白标模式
-  const { isWhiteLabelMode, branding, contact, guideConfig, isSubscriptionActive } = useWhiteLabel();
+  const { isWhiteLabelMode, branding, contact, guideConfig, isSubscriptionActive, currentSlug, distributionNavItems } = useWhiteLabel();
   const { hideGuidePartnerContent, hideOfficialBranding } = useWhiteLabelVisibility();
 
   // 白标模式下显示导游品牌名，否则显示官方品牌
@@ -270,6 +271,86 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
       return `text-sm font-medium text-neutral-600 hover:text-brand-700 transition`;
     }
   };
+
+  // 白标模式下使用导游的 DistributionNav，保持全域导航一致
+  if (isWhiteLabelMode && distributionNavItems && distributionNavItems.length > 0) {
+    return (
+      <div className="min-h-screen bg-white text-neutral-800 font-sans selection:bg-brand-100 flex flex-col">
+        <DistributionNav
+          brandName="NIIJIMA"
+          brandTagline="新島交通株式会社"
+          navItems={distributionNavItems}
+          homeHref={currentSlug ? `/g/${currentSlug}` : '/'}
+          startScrolled={!transparentNav}
+        />
+        <main className="flex-grow">
+          {children}
+        </main>
+        {showFooter && (
+          <footer className="bg-gradient-to-b from-[#f8f6f3] to-[#f0ece6] text-gray-800">
+            <div className="container mx-auto px-6 py-16">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-6">
+                <div className="col-span-2">
+                  <div className="mb-4">
+                    <h3 className="text-xl font-serif tracking-[0.2em] mb-1 text-gray-800">NIIJIMA</h3>
+                    <p className="text-xs tracking-[0.1em] text-gray-500">新島交通株式会社</p>
+                  </div>
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4 max-w-[280px]">
+                    尖端医疗，名门球场，商务资源——您的日本专属通道。
+                  </p>
+                  <div className="space-y-1.5 text-sm text-gray-600 mb-4">
+                    <div>〒556-0014 大阪府大阪市浪速区大国1-2-21-602</div>
+                    <div><a href="tel:06-6632-8807" className="hover:text-gray-900 transition-colors">TEL: 06-6632-8807</a></div>
+                    <div><a href="mailto:haoyuan@niijima-koutsu.jp" className="hover:text-gray-900 transition-colors">haoyuan@niijima-koutsu.jp</a></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">服务项目</h4>
+                  <ul className="space-y-2.5">
+                    <li><a href="/medical" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">精密体检</a></li>
+                    <li><a href="/cancer-treatment" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">癌症治疗</a></li>
+                    <li><a href="/golf" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">名门高尔夫</a></li>
+                    <li><a href="/business" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">商务考察</a></li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">合作伙伴</h4>
+                  <ul className="space-y-2.5">
+                    <li><a href="/guide-partner" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">导游伙伴计划</a></li>
+                    <li><a href="/business/partner" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">商务合作</a></li>
+                    <li><a href="/health-screening" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">AI 健康评估</a></li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">公司资讯</h4>
+                  <ul className="space-y-2.5">
+                    <li><a href="/company/about" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">关于我们</a></li>
+                    <li><a href="/news" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">最新消息</a></li>
+                    <li><a href="/faq" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">常见问题</a></li>
+                    <li><a href="/legal/tokushoho" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">特定商取引法</a></li>
+                    <li><a href="/legal/privacy" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">隐私政策</a></li>
+                    <li><a href="/legal/terms" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">使用条款</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="border-t border-gray-300/50">
+              <div className="container mx-auto px-6 py-6">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                  <div className="text-center md:text-left">
+                    <p className="text-xs text-gray-500">大阪府知事登録旅行業 第2-3115号 ｜ 一般社団法人 日本旅行業協会（JATA）正会員</p>
+                  </div>
+                  <div className="text-center md:text-right">
+                    <p className="text-xs text-gray-500">&copy; {new Date().getFullYear()} 新岛交通株式会社. All rights reserved.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </footer>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white text-neutral-800 font-sans selection:bg-brand-100 flex flex-col">

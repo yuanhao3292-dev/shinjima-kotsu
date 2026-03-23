@@ -80,6 +80,9 @@ export interface WhiteLabelContextValue {
 
   // 导游选择的商城页面（用于过滤导航链接）
   selectedPages: string[];
+
+  // 白标模式下的 DistributionNav 导航项（用于 PublicLayout 渲染统一导航）
+  distributionNavItems: { id: string; label: string; href?: string }[] | null;
 }
 
 export interface WhiteLabelOrder {

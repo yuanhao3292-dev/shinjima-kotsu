@@ -19,6 +19,7 @@ interface WhiteLabelProviderProps {
     isWhiteLabelMode: boolean;
     guideConfig: GuideWhiteLabelConfig | null;
     currentSlug: string | null;
+    distributionNavItems?: { id: string; label: string; href?: string }[] | null;
   };
 }
 
@@ -88,6 +89,7 @@ export function WhiteLabelProvider({
     branding,
     contact,
     selectedPages,
+    distributionNavItems: initialConfig?.distributionNavItems ?? null,
   };
 
   return (
@@ -131,6 +133,7 @@ export function useWhiteLabel(): WhiteLabelContextValue {
         email: DEFAULT_CONTACT.EMAIL,
       },
       selectedPages: DEFAULT_SELECTED_PAGES,
+      distributionNavItems: null,
     };
   }
 
