@@ -19,7 +19,7 @@ interface WhiteLabelProviderProps {
     isWhiteLabelMode: boolean;
     guideConfig: GuideWhiteLabelConfig | null;
     currentSlug: string | null;
-    distributionNavItems?: { id: string; label: string; href?: string }[] | null;
+    distributionNavItems?: { id: string; label: string | Record<string, string>; href?: string }[] | null;
   };
 }
 

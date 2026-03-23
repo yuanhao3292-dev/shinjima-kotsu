@@ -50,7 +50,7 @@ export default async function RootLayout({
   const whiteLabelConfig = await getWhiteLabelConfig();
 
   // 白标模式下构建 DistributionNav 导航项，供 PublicLayout 渲染统一导航
-  let distributionNavItems: { id: string; label: string; href?: string }[] | null = null;
+  let distributionNavItems: { id: string; label: string | Record<string, string>; href?: string }[] | null = null;
   if (whiteLabelConfig.isWhiteLabelMode && whiteLabelConfig.currentSlug) {
     const pageData = await getGuideDistributionPage(whiteLabelConfig.currentSlug);
     if (pageData) {

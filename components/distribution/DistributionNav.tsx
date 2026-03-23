@@ -5,10 +5,12 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { useLanguage } from '@/hooks/useLanguage';
 
 export interface NavItem {
   id: string;
-  label: string;
+  /** 支持纯字符串或多语言 Record（如 { ja: '...', 'zh-CN': '...', ... }） */
+  label: string | Record<string, string>;
   /** 如果有 href，使用 Link 页面导航；否则使用 scrollTo 锚点导航 */
   href?: string;
 }
@@ -33,6 +35,13 @@ export default function DistributionNav({
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(startScrolled);
   const pathname = usePathname();
+  const lang = useLanguage();
+
+  /** 解析多语言 label */
+  const resolveLabel = (label: string | Record<string, string>): string => {
+    if (typeof label === 'string') return label;
+    return label[lang] || label['zh-CN'] || label.ja || Object.values(label)[0] || '';
+  };
 
   useEffect(() => {
     if (startScrolled) return;
@@ -120,13 +129,13 @@ export default function DistributionNav({
             if (item.href) {
               return (
                 <Link key={item.id} href={item.href} className={cls}>
-                  {item.label}
+                  {resolveLabel(item.label)}
                 </Link>
               );
             }
             return (
               <button key={item.id} onClick={() => scrollTo(item.id)} className={cls}>
-                {item.label}
+                {resolveLabel(item.label)}
               </button>
             );
           })}
@@ -173,13 +182,13 @@ export default function DistributionNav({
                   className={cls}
                   onClick={() => setIsOpen(false)}
                 >
-                  {item.label}
+                  {resolveLabel(item.label)}
                 </Link>
               );
             }
             return (
               <button key={item.id} onClick={() => scrollTo(item.id)} className={cls}>
-                {item.label}
+                {resolveLabel(item.label)}
               </button>
             );
           })}

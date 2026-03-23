@@ -82,7 +82,7 @@ export interface WhiteLabelContextValue {
   selectedPages: string[];
 
   // 白标模式下的 DistributionNav 导航项（用于 PublicLayout 渲染统一导航）
-  distributionNavItems: { id: string; label: string; href?: string }[] | null;
+  distributionNavItems: { id: string; label: string | Record<string, string>; href?: string }[] | null;
 }
 
 export interface WhiteLabelOrder {
