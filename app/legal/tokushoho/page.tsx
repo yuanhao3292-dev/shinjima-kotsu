@@ -69,14 +69,25 @@ export default function TokushohoPage() {
                   <TableRow
                     label="販売URL"
                     value={
-                      <a
-                        href="https://niijima-koutsu.jp"
-                        className="text-brand-700 hover:text-brand-900 transition-colors"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        https://niijima-koutsu.jp
-                      </a>
+                      <>
+                        <a
+                          href="https://niijima-koutsu.jp"
+                          className="text-brand-700 hover:text-brand-900 transition-colors"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          https://niijima-koutsu.jp
+                        </a>
+                        <br />
+                        <a
+                          href="https://bespoketrip.jp"
+                          className="text-brand-700 hover:text-brand-900 transition-colors"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          https://bespoketrip.jp
+                        </a>
+                      </>
                     }
                   />
                   <TableRow
