@@ -244,23 +244,30 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // 3. 处理子域名访问 - 设置导游 Cookie
+  // 3. 处理子域名访问 - 设置导游 Cookie + 首页重定向到 /g/{slug}
   if (subdomainSlug) {
-    const response = await updateSession(request);
-
-    // 设置/更新白标 Cookie
-    response.cookies.set(WHITELABEL_COOKIE_NAME, subdomainSlug, COOKIE_OPTIONS);
-
-    // 设置白标模式标识
-    response.headers.set('x-whitelabel-mode', 'true');
-    response.headers.set('x-whitelabel-slug', subdomainSlug);
-
     // 隐藏导游合伙人页面
     if (pathname.startsWith('/guide-partner')) {
-      const url = new URL('/', request.url);
+      const url = new URL(`/g/${subdomainSlug}`, request.url);
       return NextResponse.redirect(url);
     }
 
+    // 子域名首页 → 重定向到 /g/{slug} 白标布局（新岛交通品牌）
+    // ⚠️ 仅重定向根路径。其他路径（checkout、login 等）保留原位，
+    //    因为它们使用独立 layout（CheckoutLayout 已锁定 NIIJIMA 品牌）。
+    //    不可盲目重定向所有路径到 /g/ — 会导致无匹配路由 404。
+    if (pathname === '/') {
+      const url = new URL(`/g/${subdomainSlug}`, request.url);
+      const redirectResponse = NextResponse.redirect(url);
+      redirectResponse.cookies.set(WHITELABEL_COOKIE_NAME, subdomainSlug, COOKIE_OPTIONS);
+      return redirectResponse;
+    }
+
+    // 其他路径：设置 Cookie + 白标标识，正常渲染
+    const response = await updateSession(request);
+    response.cookies.set(WHITELABEL_COOKIE_NAME, subdomainSlug, COOKIE_OPTIONS);
+    response.headers.set('x-whitelabel-mode', 'true');
+    response.headers.set('x-whitelabel-slug', subdomainSlug);
     return response;
   }
 

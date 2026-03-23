@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Globe, ChevronDown, Lock } from 'lucide-react';
-import { useWhiteLabel, useWhiteLabelVisibility } from '@/lib/contexts/WhiteLabelContext';
 
 type Language = 'zh-TW' | 'zh-CN' | 'ja' | 'en';
 
@@ -71,11 +70,7 @@ export default function CheckoutLayout({ children }: CheckoutLayoutProps) {
   const [currentLang, setCurrentLang] = useState<Language>('zh-CN');
   const [langMenuOpen, setLangMenuOpen] = useState(false);
 
-  // 白标品牌同步
-  const { branding } = useWhiteLabel();
-  const { hideOfficialBranding } = useWhiteLabelVisibility();
-
-  const displayBrandName = hideOfficialBranding && branding.name ? branding.name : 'NIIJIMA';
+  const displayBrandName = 'NIIJIMA';
 
   useEffect(() => {
     setCurrentLang(getInitialLang());
@@ -108,13 +103,10 @@ export default function CheckoutLayout({ children }: CheckoutLayoutProps) {
         <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
           {/* Brand - minimal, synced with whitelabel settings */}
           <Link href="/" className="flex items-center gap-2 group">
-            {hideOfficialBranding && branding.logoUrl && (
-              <img src={branding.logoUrl} alt={displayBrandName} className="w-8 h-8 object-contain" />
-            )}
             <div className="flex flex-col">
               <span className="font-serif font-bold text-sm tracking-wide text-brand-900">{displayBrandName}</span>
               <span className="text-[9px] uppercase tracking-widest text-neutral-400 leading-none">
-                {hideOfficialBranding ? '日本高端定制旅行' : labels.sub}
+                {labels.sub}
               </span>
             </div>
           </Link>

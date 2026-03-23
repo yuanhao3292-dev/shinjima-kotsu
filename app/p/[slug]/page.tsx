@@ -53,13 +53,11 @@ export async function generateMetadata({ params }: PageProps) {
     };
   }
 
-  const brandName = guide.brandName || guide.name;
-
   return {
-    title: `${brandName} - 日本高端定制旅行`,
+    title: `新岛交通 - 日本高端定制旅行`,
     description: '专业日本高端体检、名门高尔夫、商务考察服务。中文服务、专属定制。',
     openGraph: {
-      title: `${brandName} - 日本高端定制旅行`,
+      title: `新岛交通 - 日本高端定制旅行`,
       description: '专业日本高端体检、名门高尔夫、商务考察服务。',
     },
   };

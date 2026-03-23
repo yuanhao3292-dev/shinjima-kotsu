@@ -1,8 +1,6 @@
 import DistributionNav from '@/components/distribution/DistributionNav';
 import type { NavItem } from '@/components/distribution/DistributionNav';
 
-const DEMO_BRAND = '示例品牌';
-
 const navItems: NavItem[] = [
   { id: 'home', label: '首页', href: '/g/demo' },
   { id: 'medical_packages', label: '精密体检', href: '/g/demo/medical-packages' },
@@ -15,8 +13,8 @@ export default function DemoLayout({ children }: { children: React.ReactNode }) 
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <DistributionNav
-        brandName={DEMO_BRAND}
-        brandTagline="高端日本医疗服务"
+        brandName="NIIJIMA"
+        brandTagline="新島交通株式会社"
         navItems={navItems}
         homeHref="/g/demo"
       />
@@ -28,7 +26,7 @@ export default function DemoLayout({ children }: { children: React.ReactNode }) 
             <p>大阪府知事登録旅行業 第2-3115号</p>
           </div>
           <div className="mt-6 text-xs text-gray-500">
-            <p>&copy; {new Date().getFullYear()} {DEMO_BRAND}. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} 新島交通株式会社. All rights reserved.</p>
           </div>
         </div>
       </footer>
@@ -37,6 +35,6 @@ export default function DemoLayout({ children }: { children: React.ReactNode }) 
 }
 
 export const metadata = {
-  title: '示例品牌 - 日本高端医疗服务 Demo',
+  title: '新岛交通 - 日本高端医疗服务 Demo',
   description: '白标分销页面演示 — 精密体检、医疗美容、干细胞再生医疗',
 };

@@ -48,7 +48,6 @@ export default async function GuideHomePage({ params }: PageProps) {
   }
 
   const { guide, selectedModules } = pageData;
-  const brandName = guide.brandName || guide.name;
 
   // 提取有沉浸式配置的产品卡片
   const productCards = selectedModules
@@ -138,8 +137,8 @@ export default async function GuideHomePage({ params }: PageProps) {
                   <div className="h-[1px] w-12 bg-white/40" />
                   <span className="text-xs tracking-[0.3em] text-white/60 uppercase">Japan Premium Medical & Beauty</span>
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                  {brandName}
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
+                  NIIJIMA
                 </h1>
                 <p className="text-lg text-white/70 leading-relaxed mb-8 max-w-xl">
                   专业医疗旅行服务平台，提供预约安排、中文翻译、全程陪同等一站式服务，让您安心就医。

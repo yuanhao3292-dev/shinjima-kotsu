@@ -270,9 +270,9 @@ export function createTemplateContext(
   templateConfig?: Record<string, unknown>
 ): TemplateContext {
   return {
-    brandName: pageData.guide.brandName || pageData.guide.name,
+    brandName: '新岛交通',
     brandColor: pageData.guide.brandColor,
-    brandLogoUrl: pageData.guide.brandLogoUrl,
+    brandLogoUrl: null, // 白标页面不使用导游logo，统一使用新岛交通品牌
     pageData,
     templateConfig,
   };

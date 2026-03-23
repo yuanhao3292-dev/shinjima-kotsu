@@ -4,7 +4,7 @@ import { MessageCircle, Phone, Mail } from 'lucide-react';
 
 interface ContactSectionProps {
   brandColor: string;
-  brandName: string;
+  brandName?: string;
   contactInfo: {
     wechat: string | null;
     line: string | null;
@@ -13,7 +13,7 @@ interface ContactSectionProps {
   };
 }
 
-export default function WhitelabelContactSection({ brandColor, brandName, contactInfo }: ContactSectionProps) {
+export default function WhitelabelContactSection({ brandColor, contactInfo }: ContactSectionProps) {
   const hasContact = contactInfo.wechat || contactInfo.line || contactInfo.phone || contactInfo.email;
 
   if (!hasContact) return null;
@@ -88,7 +88,7 @@ export default function WhitelabelContactSection({ brandColor, brandName, contac
         </div>
 
         <p className="text-center text-sm text-gray-400 mt-6">
-          旅行服务由 {brandName} 提供
+          旅行服务由 新岛交通株式会社 提供
         </p>
       </div>
     </section>

@@ -70,10 +70,8 @@ export async function generateMetadata({ params }: PageProps) {
     return { title: '页面不存在' };
   }
 
-  const brandName = pageData.guide.brandName || pageData.guide.name;
-
   return {
-    title: `AI 健康评估报告 - ${brandName}`,
+    title: `AI 健康评估报告 - 新岛交通`,
     description: '基于 AI 智能分析的健康评估报告',
   };
 }

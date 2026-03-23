@@ -121,10 +121,10 @@ const translations = {
     en: 'Learn More',
   },
   needConsultation: {
-    'zh-CN': '需要专业咨询？联系 {brandName}',
-    'zh-TW': '需要專業諮詢？聯繫 {brandName}',
-    ja: '専門的なご相談が必要ですか？{brandName} にお問い合わせください',
-    en: 'Need professional consultation? Contact {brandName}',
+    'zh-CN': '需要专业咨询？联系我们',
+    'zh-TW': '需要專業諮詢？聯繫我們',
+    ja: '専門的なご相談が必要ですか？お気軽にお問い合わせください',
+    en: 'Need professional consultation? Contact us',
   },
   consultationDesc: {
     'zh-CN': '我们的医疗顾问可以根据您的筛查结果，为您推荐最适合的日本医疗服务',
@@ -454,7 +454,7 @@ export default function WhitelabelResultClient({
         <div className="bg-gradient-to-r from-gray-900 to-gray-800 text-white rounded-2xl p-6 md:p-8">
           <div className="text-center mb-6">
             <h3 className="text-xl font-bold mb-2">
-              {t('needConsultation', lang).replace('{brandName}', contactInfo.brandName)}
+              {t('needConsultation', lang)}
             </h3>
             <p className="text-gray-400">
               {t('consultationDesc', lang)}

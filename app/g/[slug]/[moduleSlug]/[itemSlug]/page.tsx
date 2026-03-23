@@ -46,10 +46,8 @@ export async function generateMetadata({ params }: PageProps) {
     return { title: '页面不存在' };
   }
 
-  const brandName = result.guide.brandName || result.guide.name;
-
   return {
-    title: `${itemSlug.replace(/-/g, ' ')} - ${brandName}`,
-    description: `${brandName} - 体检套餐详情`,
+    title: `${itemSlug.replace(/-/g, ' ')} - 新岛交通`,
+    description: `新岛交通 - 体检套餐详情`,
   };
 }

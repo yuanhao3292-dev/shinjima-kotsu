@@ -108,11 +108,10 @@ export async function generateMetadata({ params }: PageProps) {
     return { title: '页面不存在' };
   }
 
-  const brandName = result.guide.brandName || result.guide.name;
   const moduleName = result.module.customTitle || result.module.module.name;
 
   return {
-    title: `${moduleName} - ${brandName}`,
-    description: result.module.module.description || `${brandName} - ${moduleName}`,
+    title: `${moduleName} - 新岛交通`,
+    description: result.module.module.description || `新岛交通 - ${moduleName}`,
   };
 }

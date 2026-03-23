@@ -5,6 +5,7 @@ import DistributionNav from '@/components/distribution/DistributionNav';
 import FloatingContact from '@/components/distribution/FloatingContact';
 import type { NavItem } from '@/components/distribution/DistributionNav';
 import type { ImmersiveDisplayConfig } from '@/lib/types/display-config';
+import { DEFAULT_CONTACT } from '@/lib/whitelabel-config';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -43,8 +44,6 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
 
   const { guide, selectedModules } = pageData;
 
-  const brandName = guide.brandName || guide.name;
-  const brandTagline = guide.brandTagline || null;
   const brandColor = guide.brandColor || '#2563eb';
   const homeHref = `/g/${slug}`;
 
@@ -73,13 +72,12 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
     }
   });
 
-  // 🔒 联系信息 — 数据隔离锁定，必须从当前 slug 对应的 guide 对象读取
-  // 见 CLAUDE.md「白标品牌设置与联系方式数据隔离规范」
+  // 联系信息 — 统一使用新岛交通官方联系方式
   const contactInfo = {
-    wechat: guide.contactWechat || null,
-    line: guide.contactLine || null,
-    phone: guide.contactDisplayPhone || null,
-    email: guide.email || null,
+    wechat: null,
+    line: DEFAULT_CONTACT.LINE_URL,
+    phone: DEFAULT_CONTACT.PHONE,
+    email: DEFAULT_CONTACT.EMAIL,
   };
 
   // 记录页面访问（非阻塞）
@@ -92,10 +90,10 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      {/* 导航栏 — 仅展示导游品牌 */}
+      {/* 导航栏 — 新岛交通品牌 */}
       <DistributionNav
-        brandName={brandName}
-        brandTagline={brandTagline}
+        brandName="NIIJIMA"
+        brandTagline="新島交通株式会社"
         navItems={navItems}
         homeHref={homeHref}
       />
@@ -113,12 +111,12 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
             <p>大阪府知事登録旅行業 第2-3115号</p>
           </div>
           <div className="mt-6 text-xs text-gray-500">
-            <p>&copy; {new Date().getFullYear()} {brandName}. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} 新島交通株式会社. All rights reserved.</p>
           </div>
         </div>
       </footer>
 
-      {/* 悬浮联系按钮 — 展示导游联系方式 */}
+      {/* 悬浮联系按钮 — 新岛交通官方联系方式 */}
       <FloatingContact
         brandColor={brandColor}
         contactInfo={contactInfo}
@@ -135,10 +133,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return { title: '页面不存在' };
   }
 
-  const brandName = pageData.guide.brandName || pageData.guide.name;
-
   return {
-    title: pageData.config.seoTitle || `${brandName} - 日本高端医疗·美容服务`,
+    title: pageData.config.seoTitle || `新岛交通 - 日本高端医疗·美容服务`,
     description: pageData.config.seoDescription || '专业日本高端体检、医疗美容服务。中文服务、专属定制。',
   };
 }
