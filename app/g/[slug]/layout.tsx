@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { getGuideDistributionPage, recordPageView } from '@/lib/services/whitelabel';
 import { headers } from 'next/headers';
+import Link from 'next/link';
 import DistributionNav from '@/components/distribution/DistributionNav';
 import FloatingContact from '@/components/distribution/FloatingContact';
 import type { NavItem } from '@/components/distribution/DistributionNav';
@@ -103,15 +104,79 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
         {children}
       </main>
 
-      {/* 页脚 */}
-      <footer className="bg-gray-950 text-white py-12">
-        <div className="max-w-5xl mx-auto px-6 text-center">
-          <div className="text-sm text-gray-400 space-y-1">
-            <p>旅行服务由 新岛交通株式会社 提供</p>
-            <p>大阪府知事登録旅行業 第2-3115号</p>
+      {/* 页脚 — 与官网统一风格 */}
+      <footer className="bg-gradient-to-b from-[#f8f6f3] to-[#f0ece6] text-gray-800">
+        <div className="container mx-auto px-6 py-16">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-6">
+            {/* 品牌区域 */}
+            <div className="col-span-2">
+              <div className="mb-4">
+                <h3 className="text-xl font-serif tracking-[0.2em] mb-1 text-gray-800">NIIJIMA</h3>
+                <p className="text-xs tracking-[0.1em] text-gray-500">新島交通株式会社</p>
+              </div>
+              <p className="text-gray-600 text-sm leading-relaxed mb-4 max-w-[280px]">
+                尖端医疗，名门球场，商务资源——您的日本专属通道。
+              </p>
+              <div className="space-y-1.5 text-sm text-gray-600 mb-4">
+                <div>〒556-0014 大阪府大阪市浪速区大国1-2-21-602</div>
+                <div>
+                  <a href="tel:06-6632-8807" className="hover:text-gray-900 transition-colors">TEL: 06-6632-8807</a>
+                </div>
+                <div>
+                  <a href="mailto:haoyuan@niijima-koutsu.jp" className="hover:text-gray-900 transition-colors">haoyuan@niijima-koutsu.jp</a>
+                </div>
+              </div>
+            </div>
+
+            {/* 服务项目 */}
+            <div>
+              <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">服务项目</h4>
+              <ul className="space-y-2.5">
+                <li><Link href="/medical" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">精密体检</Link></li>
+                <li><Link href="/cancer-treatment" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">癌症治疗</Link></li>
+                <li><Link href="/golf" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">名门高尔夫</Link></li>
+                <li><Link href="/business" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">商务考察</Link></li>
+              </ul>
+            </div>
+
+            {/* 合作伙伴 */}
+            <div>
+              <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">合作伙伴</h4>
+              <ul className="space-y-2.5">
+                <li><Link href="/guide-partner" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">导游伙伴计划</Link></li>
+                <li><Link href="/business/partner" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">商务合作</Link></li>
+                <li><Link href="/health-screening" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">AI 健康评估</Link></li>
+              </ul>
+            </div>
+
+            {/* 公司信息 */}
+            <div>
+              <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">公司资讯</h4>
+              <ul className="space-y-2.5">
+                <li><Link href="/company/about" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">关于我们</Link></li>
+                <li><Link href="/news" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">最新消息</Link></li>
+                <li><Link href="/faq" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">常见问题</Link></li>
+                <li><Link href="/legal/tokushoho" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">特定商取引法</Link></li>
+                <li><Link href="/legal/privacy" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">隐私政策</Link></li>
+                <li><Link href="/legal/terms" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">使用条款</Link></li>
+              </ul>
+            </div>
           </div>
-          <div className="mt-6 text-xs text-gray-500">
-            <p>&copy; {new Date().getFullYear()} 新島交通株式会社. All rights reserved.</p>
+        </div>
+
+        {/* 底部信息栏 */}
+        <div className="border-t border-gray-300/50">
+          <div className="container mx-auto px-6 py-6">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div className="text-center md:text-left">
+                <p className="text-xs text-gray-500">大阪府知事登録旅行業 第2-3115号 ｜ 一般社団法人 日本旅行業協会（JATA）正会員</p>
+              </div>
+              <div className="text-center md:text-right">
+                <p className="text-xs text-gray-500">
+                  &copy; {new Date().getFullYear()} 新岛交通株式会社. All rights reserved.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </footer>
