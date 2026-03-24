@@ -31,8 +31,8 @@ const IMAGES: Record<string, string> = {
 const REVIEWS = [
   { name: '陳先生', loc: '台北', flag: '🇹🇼', pkg: 'SELECT 甄選套餐', text: '第一次來日本做健檢，從預約到體檢完成都非常順暢。TIMC的設備真的很先進，整個環境也很舒適。', highlight: '設備先進、環境舒適' },
   { name: '林小姐', loc: '高雄', flag: '🇹🇼', pkg: 'PREMIUM 尊享套餐', text: '做了PET-CT全身檢查，醫生非常仔細地解說了每一項結果。中文報告很詳盡，下次會帶爸媽一起來。', highlight: 'PET-CT檢查專業' },
-  { name: '王先生', loc: '新竹', flag: '🇹🇼', pkg: 'VIP 至尊套餐', text: '公司高管健檢選擇了VIP套餐，從機場接送到檢查後的休息都安排得很周到。腸胃鏡是無痛的，睡一覺就做完了。', highlight: '無痛腸胃鏡、服務周到' },
-  { name: '黃先生', loc: '上海', flag: '🇨🇳', pkg: 'PREMIUM 尊享套餐', text: '專程從上海飛過來做體檢，整體體驗非常好。日本的醫療水平確實領先，MRI檢查非常細緻。', highlight: 'MRI檢查細緻' },
+  { name: '王先生', loc: '新竹', flag: '🇹🇼', pkg: 'VIP 至尊套餐', text: '公司高管健檢選擇了VIP套餐，從機場接送到檢查後的休息都安排得很周到。腸胃鏡採用鎮靜麻醉，不適感很小。', highlight: '腸胃鏡舒適、服務周到' },
+  { name: '黃先生', loc: '上海', flag: '🇨🇳', pkg: 'PREMIUM 尊享套餐', text: '專程從上海飛過來做體檢，整體體驗非常好。MRI檢查非常細緻，報告也很詳盡。', highlight: 'MRI檢查細緻' },
   { name: '張小姐', loc: '香港', flag: '🇭🇰', pkg: 'SELECT 甄選套餐', text: '香港過來很方便，兩個小時飛機就到。檢查流程很順，翻譯全程陪同，完全沒有語言障礙。', highlight: '中文服務貼心' },
   { name: '李先生', loc: '深圳', flag: '🇨🇳', pkg: 'VIP 至尊套餐', text: '帶父母一起來做年度健檢，VIP套餐的休息室非常舒適，老人家也不會覺得累。報告解讀很詳細。', highlight: '適合全家健檢' },
   { name: '吳小姐', loc: '台中', flag: '🇹🇼', pkg: 'PREMIUM 尊享套餐', text: '朋友推薦來的，做了全身MRI和腫瘤標記物檢測。醫生說我的健康狀況很好，讓我安心不少。', highlight: '全身MRI精準' },
@@ -248,7 +248,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
                   <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_1_desc}</p>
                   <div className="mt-6 flex gap-3">
                     <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">4,000㎡</span>
-                    <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">Japan&apos;s Largest</span>
+                    <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">Large-scale Facility</span>
                   </div>
                 </div>
               </div>
@@ -504,18 +504,26 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
 
           <div className="flex flex-wrap justify-center gap-12 mb-12">
             <div className="text-center">
-              <div className="text-4xl font-bold text-blue-600">98%</div>
-              <div className="text-sm text-gray-500 mt-1">{t.medical.stat_satisfaction}</div>
+              <div className="text-4xl font-bold text-blue-600">6</div>
+              <div className="text-sm text-gray-500 mt-1">{lang === 'ja' ? '健診プラン' : lang === 'en' ? 'Checkup Plans' : '體檢方案'}</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-blue-600">500+</div>
-              <div className="text-sm text-gray-500 mt-1">{t.medical.stat_served}</div>
+              <div className="text-4xl font-bold text-blue-600">70+</div>
+              <div className="text-sm text-gray-500 mt-1">{lang === 'ja' ? '検査項目' : lang === 'en' ? 'Exam Items' : '檢查項目'}</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-blue-600">4.9</div>
-              <div className="text-sm text-gray-500 mt-1">{t.medical.stat_rating}</div>
+              <div className="text-4xl font-bold text-blue-600">4</div>
+              <div className="text-sm text-gray-500 mt-1">{lang === 'ja' ? '対応言語' : lang === 'en' ? 'Languages' : '支援語言'}</div>
             </div>
           </div>
+
+          <p className="text-xs text-gray-400 text-center mb-6 max-w-2xl mx-auto leading-relaxed">
+            {lang === 'ja'
+              ? '※ 以下は個別のご利用者がサービスの流れや環境に対して述べた感想であり、医療効果や検査結果を保証するものではありません。実際の体験は個人により異なります。'
+              : lang === 'en'
+              ? '※ The following are individual impressions of service and environment, not guarantees of medical outcomes. Actual experiences may vary.'
+              : '※ 以下為個別利用者對服務流程及環境的感想，並非對醫療效果或檢查結果的保證。實際體驗因人而異。'}
+          </p>
 
           <div className="relative overflow-hidden">
             <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />

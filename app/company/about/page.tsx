@@ -52,10 +52,10 @@ const pageTranslations = {
     en: 'I deeply believe in the life philosophy of Mr. Kazuo Inamori — the results of life and work equal the product of mindset, passion, and ability. This belief has guided us throughout the founding and growth of NIIJIMA KOTSU.'
   },
   ceoMessage2: {
-    ja: '私たちの事業は、ひとつの素朴な気づきから始まりました。日本には世界トップクラスの医療があるにもかかわらず、言語や情報の壁により、多くの海外の方々がその恩恵を受けられていません。この壁を打ち破り、助けを必要とするすべての方に日本の先端医療を届けること——これが私たちの使命であり、「愛」の実践です。他者の健康を自らの責任と捉えること。',
-    'zh-TW': '我們的事業源於一個樸素的觀察：日本擁有世界頂級的醫療資源，卻因語言和信息的壁壘，讓無數海外患者望而卻步。打破這道壁壘，讓每一位需要幫助的人都能享受日本先端醫療——這是我們的使命，也是我們對「愛」的詮釋：把他人的健康視為自己的責任。',
-    'zh-CN': '我们的事业源于一个朴素的观察：日本拥有世界顶级的医疗资源，却因语言和信息的壁垒，让无数海外患者望而却步。打破这道壁垒，让每一位需要帮助的人都能享受日本先端医疗——这是我们的使命，也是我们对「爱」的诠释：把他人的健康视为自己的责任。',
-    en: 'Our business was born from a simple observation: Japan possesses world-class medical resources, yet language and information barriers deter countless international patients. Breaking down these barriers so everyone in need can access Japan\'s advanced healthcare — this is our mission and our interpretation of "love": treating others\' health as our own responsibility.'
+    ja: '私たちの事業は、ひとつの素朴な気づきから始まりました。日本には高水準の医療があるにもかかわらず、言語や情報の壁により、多くの海外の方々がその恩恵を受けられていません。この壁を打ち破り、助けを必要とするすべての方に日本の先進医療を届けること——これが私たちの使命であり、「愛」の実践です。他者の健康を自らの責任と捉えること。',
+    'zh-TW': '我們的事業源於一個樸素的觀察：日本擁有高水準的醫療資源，卻因語言和信息的壁壘，讓無數海外患者望而卻步。打破這道壁壘，讓每一位需要幫助的人都能享受日本先進醫療——這是我們的使命，也是我們對「愛」的詮釋：把他人的健康視為自己的責任。',
+    'zh-CN': '我们的事业源于一个朴素的观察：日本拥有高水准的医疗资源，却因语言和信息的壁垒，让无数海外患者望而却步。打破这道壁垒，让每一位需要帮助的人都能享受日本先进医疗——这是我们的使命，也是我们对「爱」的诠释：把他人的健康视为自己的责任。',
+    en: 'Our business was born from a simple observation: Japan possesses high-quality medical resources, yet language and information barriers deter countless international patients. Breaking down these barriers so everyone in need can access Japan\'s advanced healthcare — this is our mission and our interpretation of "love": treating others\' health as our own responsibility.'
   },
   ceoMessage3: {
     ja: '「真心」とは、一人ひとりのお客様への誓いです。AI問診による最適なマッチングから、多言語対応の付き添い通訳まで、テクノロジーでサービスを進化させ、真心でお客様の心を動かします。「調和」とは、チームと社会への願いです——企業の成功だけでなく、社員一人ひとりがこの舞台で自分自身の人生の価値を実現できることを目指しています。',
@@ -108,10 +108,10 @@ const pageTranslations = {
     en: 'Connection'
   },
   philosophy2Desc: {
-    ja: '世界と日本の医療・文化をつなぐ架け橋として、最高品質のサービスをお届けします',
-    'zh-TW': '作為世界與日本醫療、文化的橋樑，提供最高品質的服務',
-    'zh-CN': '作为世界与日本医疗、文化的桥梁，提供最高品质的服务',
-    en: 'As a bridge connecting the world with Japan\'s healthcare and culture, delivering the highest quality service'
+    ja: '世界と日本の医療・文化をつなぐ架け橋として、高品質なサービスをお届けします',
+    'zh-TW': '作為世界與日本醫療、文化的橋樑，提供高品質的服務',
+    'zh-CN': '作为世界与日本医疗、文化的桥梁，提供高品质的服务',
+    en: 'As a bridge connecting the world with Japan\'s healthcare and culture, delivering high-quality service'
   },
   philosophy3Title: {
     ja: '革新',

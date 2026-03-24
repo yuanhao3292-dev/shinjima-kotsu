@@ -70,7 +70,7 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
                 <p className="text-xs tracking-[0.1em] text-gray-500">新島交通株式会社</p>
               </div>
               <p className="text-gray-600 text-sm leading-relaxed mb-4 max-w-[280px]">
-                尖端医疗，名门球场，商务资源——您的日本专属通道。
+                优质医疗，名门球场，商务资源——您的日本专属通道。
               </p>
               <div className="space-y-1.5 text-sm text-gray-600 mb-4">
                 <div>〒556-0014 大阪府大阪市浪速区大国1-2-21-602</div>

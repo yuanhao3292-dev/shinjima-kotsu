@@ -342,7 +342,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                           <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_1_desc}</p>
                           <div className="mt-6 flex gap-3">
                               <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">4,000&#x33A1;</span>
-                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">Japan&apos;s Largest</span>
+                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">Large-Scale Facility</span>
                           </div>
                       </div>
                   </div>
@@ -630,21 +630,26 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               <p className="text-neutral-500 text-sm mt-2">{t.medical.testimonials_sub}</p>
           </div>
 
-          {/* 統計數據 */}
+          {/* 統計數據 — 仅展示可验证的事实 */}
           <div className="flex flex-wrap justify-center gap-12 mb-12">
               <div className="text-center">
-                  <div className="text-4xl font-bold text-brand-700">98%</div>
-                  <div className="text-sm text-neutral-500 mt-1">{t.medical.stat_satisfaction}</div>
+                  <div className="text-4xl font-bold text-brand-700">6</div>
+                  <div className="text-sm text-neutral-500 mt-1">{currentLang === 'zh-TW' ? '體檢套餐' : currentLang === 'zh-CN' ? '体检套餐' : currentLang === 'ja' ? '健診コース' : 'Checkup Plans'}</div>
               </div>
               <div className="text-center">
-                  <div className="text-4xl font-bold text-brand-700">500+</div>
-                  <div className="text-sm text-neutral-500 mt-1">{t.medical.stat_served}</div>
+                  <div className="text-4xl font-bold text-brand-700">70+</div>
+                  <div className="text-sm text-neutral-500 mt-1">{currentLang === 'zh-TW' ? '檢查項目' : currentLang === 'zh-CN' ? '检查项目' : currentLang === 'ja' ? '検査項目' : 'Exam Items'}</div>
               </div>
               <div className="text-center">
-                  <div className="text-4xl font-bold text-brand-700">4.9</div>
-                  <div className="text-sm text-neutral-500 mt-1">{t.medical.stat_rating}</div>
+                  <div className="text-4xl font-bold text-brand-700">4</div>
+                  <div className="text-sm text-neutral-500 mt-1">{currentLang === 'zh-TW' ? '語言支援' : currentLang === 'zh-CN' ? '语言支持' : currentLang === 'ja' ? '対応言語' : 'Languages'}</div>
               </div>
           </div>
+
+          {/* 医療広告ガイドライン準拠：体験談免責声明 */}
+          <p className="text-xs text-neutral-400 text-center mb-6 max-w-2xl mx-auto leading-relaxed">
+              {currentLang === 'zh-TW' ? '※ 以下為個別利用者對服務流程及環境的感想，並非對醫療效果或檢查結果的保證。實際體驗因人而異。' : currentLang === 'zh-CN' ? '※ 以下为个别利用者对服务流程及环境的感想，并非对医疗效果或检查结果的保证。实际体验因人而异。' : currentLang === 'ja' ? '※ 以下はサービスの流れ・環境に対する個人の感想であり、医療上の効果や検査結果を保証するものではありません。体験は個人により異なります。' : '※ The following are individual impressions about the service process and environment. They do not guarantee medical outcomes or examination results. Experiences may vary.'}
+          </p>
 
           {/* 自動滾動評價卡片 */}
           <div className="relative overflow-hidden">

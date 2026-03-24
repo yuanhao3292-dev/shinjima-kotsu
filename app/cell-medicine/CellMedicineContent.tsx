@@ -121,7 +121,7 @@ const t = {
     en: 'Clinical Evidence',
   } as Record<Language, string>,
   evidenceLiver: { ja: '肝細胞がん：再発リスク81%低減', 'zh-TW': '肝細胞癌：復發風險降低81%', 'zh-CN': '肝细胞癌：复发风险降低81%', en: 'Hepatocellular carcinoma: 81% recurrence risk reduction' } as Record<Language, string>,
-  evidenceBrain: { ja: '脳腫瘍：3年生存率38%（通常の約3倍）', 'zh-TW': '腦瘤：3年存活率38%（約為常規的3倍）', 'zh-CN': '脑肿瘤：3年生存率38%（约为常规的3倍）', en: 'Brain tumor: 38% 3-year survival (approx. 3x standard)' } as Record<Language, string>,
+  evidenceBrain: { ja: '脳腫瘍：3年生存率38%（臨床研究結果）', 'zh-TW': '腦瘤：3年存活率38%（臨床研究結果）', 'zh-CN': '脑肿瘤：3年生存率38%（临床研究结果）', en: 'Brain tumor: 38% 3-year survival (clinical study result)' } as Record<Language, string>,
   evidenceSafety: { ja: '3,000例以上で重篤な副作用報告なし', 'zh-TW': '3,000例以上無嚴重副作用報告', 'zh-CN': '3,000例以上无严重副作用报告', en: 'No serious adverse effects reported in 3,000+ cases' } as Record<Language, string>,
   evidencePublished: { ja: '国際学術誌に臨床試験結果を発表', 'zh-TW': '臨床試驗結果發表於國際學術期刊', 'zh-CN': '临床试验结果发表于国际学术期刊', en: 'Clinical trial results published in international journals' } as Record<Language, string>,
 

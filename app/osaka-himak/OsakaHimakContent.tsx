@@ -35,12 +35,12 @@ const IMG = {
 const t = {
   heroTag: { ja: '関西初の重粒子線がん治療', 'zh-TW': '關西首家重粒子線癌症治療', 'zh-CN': '关西首家重粒子线癌症治疗', en: 'Kansai\'s First Heavy Ion Therapy' } as Record<Language, string>,
   heroTitle: { ja: '大阪重粒子線センター', 'zh-TW': '大阪重粒子線中心', 'zh-CN': '大阪重粒子线中心', en: 'Osaka Heavy Ion Therapy Center' } as Record<Language, string>,
-  heroSub: { ja: '立足大阪、面向全国、服务世界\n最先端のがん治療で、切らない・痛くない・体に優しい', 'zh-TW': '立足大阪、面向全國、服務世界\n最先進的癌症治療，無需開刀、沒有疼痛、對身體溫和', 'zh-CN': '立足大阪、面向全国、服务世界\n最先进的癌症治疗，无需开刀、没有疼痛、对身体温和', en: 'Based in Osaka, serving nationwide and globally\nCutting-edge cancer treatment — no surgery, painless, gentle on the body' } as Record<Language, string>,
+  heroSub: { ja: '立足大阪、面向全国、服务世界\n先進的ながん治療で、切らない・痛くない・体に優しい', 'zh-TW': '立足大阪、面向全國、服務世界\n先進的癌症治療，無需開刀、沒有疼痛、對身體溫和', 'zh-CN': '立足大阪、面向全国、服务世界\n先进的癌症治疗，无需开刀、没有疼痛、对身体温和', en: 'Based in Osaka, serving nationwide and globally\nAdvanced cancer treatment — no surgery, painless, gentle on the body' } as Record<Language, string>,
   ctaConsult: { ja: '無料相談を予約する', 'zh-TW': '預約免費諮詢', 'zh-CN': '预约免费咨询', en: 'Book Free Consultation' } as Record<Language, string>,
   ctaLearn: { ja: '詳しく見る', 'zh-TW': '查看詳情', 'zh-CN': '查看详情', en: 'Learn More' } as Record<Language, string>,
 
   // Stats
-  stat1: { ja: '世界最小型', 'zh-TW': '世界最小型', 'zh-CN': '世界最小型', en: 'World\'s Smallest' } as Record<Language, string>,
+  stat1: { ja: '世界最小クラス', 'zh-TW': '世界最小等級', 'zh-CN': '世界最小级别', en: 'Among World\'s Smallest' } as Record<Language, string>,
   stat1Label: { ja: '重粒子線装置', 'zh-TW': '重粒子線裝置', 'zh-CN': '重粒子线装置', en: 'Heavy Ion System' } as Record<Language, string>,
   stat2: { ja: '全室対応', 'zh-TW': '全室對應', 'zh-CN': '全室对应', en: 'All Rooms' } as Record<Language, string>,
   stat2Label: { ja: 'スキャン照射', 'zh-TW': '掃描照射', 'zh-CN': '扫描照射', en: 'Scanning Irradiation' } as Record<Language, string>,
@@ -52,13 +52,13 @@ const t = {
   // Intro
   introTag: { ja: '施設紹介', 'zh-TW': '設施介紹', 'zh-CN': '设施介绍', en: 'About the Center' } as Record<Language, string>,
   introTitle: { ja: '大阪重粒子線センターとは', 'zh-TW': '關於大阪重粒子線中心', 'zh-CN': '关于大阪重粒子线中心', en: 'About Osaka Heavy Ion Therapy Center' } as Record<Language, string>,
-  introP1: { ja: '大阪重粒子線センターは、公益財団法人大阪国際がん治療財団が運営する関西初の重粒子線がん治療施設です。大阪市中央区大手前に位置し、世界最先端の小型化重粒子線治療装置を導入しています。', 'zh-TW': '大阪重粒子線中心是由公益財團法人大阪國際癌症治療財團營運的關西首家重粒子線癌症治療設施。位於大阪市中央區大手前,導入了世界最先進的小型化重粒子線治療裝置。', 'zh-CN': '大阪重粒子线中心是由公益财团法人大阪国际癌症治疗财团运营的关西首家重粒子线癌症治疗设施。位于大阪市中央区大手前,导入了世界最先进的小型化重粒子线治疗装置。', en: 'Osaka Heavy Ion Therapy Center is Kansai\'s first heavy ion cancer treatment facility, operated by the Public Interest Incorporated Foundation Osaka International Cancer Treatment Foundation. Located in Otemae, Chuo-ku, Osaka, featuring the world\'s most advanced miniaturized heavy ion therapy system.' } as Record<Language, string>,
+  introP1: { ja: '大阪重粒子線センターは、公益財団法人大阪国際がん治療財団が運営する関西初の重粒子線がん治療施設です。大阪市中央区大手前に位置し、先進的な小型化重粒子線治療装置を導入しています。', 'zh-TW': '大阪重粒子線中心是由公益財團法人大阪國際癌症治療財團營運的關西首家重粒子線癌症治療設施。位於大阪市中央區大手前,導入了先進的小型化重粒子線治療裝置。', 'zh-CN': '大阪重粒子线中心是由公益财团法人大阪国际癌症治疗财团运营的关西首家重粒子线癌症治疗设施。位于大阪市中央区大手前,导入了先进的小型化重粒子线治疗装置。', en: 'Osaka Heavy Ion Therapy Center is Kansai\'s first heavy ion cancer treatment facility, operated by the Public Interest Incorporated Foundation Osaka International Cancer Treatment Foundation. Located in Otemae, Chuo-ku, Osaka, featuring an advanced miniaturized heavy ion therapy system.' } as Record<Language, string>,
   introP2: { ja: '全ての治療室で最新のスキャン照射治療を実施。体への負担が少なく、高齢者の方でも安心して治療を受けていただけます。通常の放射線治療では効果が限定的ながんや、手術が困難な腫瘍に対しても高い治療効果を発揮します。', 'zh-TW': '所有治療室均採用最新的掃描照射治療。對身體負擔小,高齡者也可以放心接受治療。對普通放射線治療效果有限的癌症,以及手術困難的腫瘤也能發揮高治療效果。', 'zh-CN': '所有治疗室均采用最新的扫描照射治疗。对身体负担小,高龄者也可以放心接受治疗。对普通放射线治疗效果有限的癌症,以及手术困难的肿瘤也能发挥高治疗效果。', en: 'All treatment rooms are equipped with the latest scanning irradiation technology. Gentle on the body, safe for elderly patients. Highly effective even for cancers with limited response to conventional radiation or tumors difficult to operate on.' } as Record<Language, string>,
 
   // Science Behind Heavy Ion Therapy
   scienceTag: { ja: '重粒子線治療の科学', 'zh-TW': '重粒子線治療的科學原理', 'zh-CN': '重粒子线治疗的科学原理', en: 'Science of Heavy Ion Therapy' } as Record<Language, string>,
   scienceTitle: { ja: '炭素イオンが実現する精密ながん治療', 'zh-TW': '碳離子實現的精準癌症治療', 'zh-CN': '碳离子实现的精准癌症治疗', en: 'Precision Cancer Treatment with Carbon Ions' } as Record<Language, string>,
-  scienceIntro: { ja: '重粒子線治療は、炭素イオン（C12）を光速の約70%まで加速し、がん細胞をピンポイントで破壊する最先端の放射線治療です。通常のX線治療と比べて、約3倍の生物学的効果を持ちながら、正常組織への影響を大幅に低減します。', 'zh-TW': '重粒子線治療是將碳離子（C12）加速至光速約70%，精準破壞癌細胞的最先進放射線治療。與普通X射線治療相比，具有約3倍的生物學效果，同時大幅降低對正常組織的影響。', 'zh-CN': '重粒子线治疗是将碳离子（C12）加速至光速约70%，精准破坏癌细胞的最先进放射线治疗。与普通X射线治疗相比，具有约3倍的生物学效果，同时大幅降低对正常组织的影响。', en: 'Heavy ion therapy accelerates carbon ions (C12) to approximately 70% of light speed, precisely destroying cancer cells with cutting-edge radiation treatment. Compared to conventional X-ray therapy, it delivers about 3 times the biological effect while significantly reducing impact on normal tissue.' } as Record<Language, string>,
+  scienceIntro: { ja: '重粒子線治療は、炭素イオン（C12）を光速の約70%まで加速し、がん細胞をピンポイントで破壊する先進的な放射線治療です。通常のX線治療と比べて、約3倍の生物学的効果を持ちながら、正常組織への影響を大幅に低減します。', 'zh-TW': '重粒子線治療是將碳離子（C12）加速至光速約70%，精準破壞癌細胞的先進放射線治療。與普通X射線治療相比，具有約3倍的生物學效果，同時大幅降低對正常組織的影響。', 'zh-CN': '重粒子线治疗是将碳离子（C12）加速至光速约70%，精准破坏癌细胞的先进放射线治疗。与普通X射线治疗相比，具有约3倍的生物学效果，同时大幅降低对正常组织的影响。', en: 'Heavy ion therapy accelerates carbon ions (C12) to approximately 70% of light speed, precisely destroying cancer cells with advanced radiation treatment. Compared to conventional X-ray therapy, it delivers about 3 times the biological effect while significantly reducing impact on normal tissue.' } as Record<Language, string>,
 
   braggPeakTitle: { ja: 'ブラッグピーク効果', 'zh-TW': '布拉格峰效應', 'zh-CN': '布拉格峰效应', en: 'Bragg Peak Effect' } as Record<Language, string>,
   braggPeakDesc: { ja: '重粒子線は体内を進む際、表面付近ではエネルギーをほとんど放出せず、設定した深さ（腫瘍位置）で最大エネルギーを集中放出します。この特性により、腫瘍の手前と奥の正常組織を保護しながら、がん細胞のみを強力に攻撃できます。', 'zh-TW': '重粒子線在體內行進時，表面附近幾乎不釋放能量，在設定深度（腫瘤位置）集中釋放最大能量。這一特性使得在保護腫瘤前後正常組織的同時，能夠強力攻擊癌細胞。', 'zh-CN': '重粒子线在体内行进时，表面附近几乎不释放能量，在设定深度（肿瘤位置）集中释放最大能量。这一特性使得在保护肿瘤前后正常组织的同时，能够强力攻击癌细胞。', en: 'Heavy ions deposit minimal energy near the body surface, concentrating maximum energy at the preset depth (tumor location). This property enables powerful attack on cancer cells while protecting normal tissue before and after the tumor.' } as Record<Language, string>,
@@ -149,8 +149,8 @@ const t = {
 
   // Facility
   facilityTag: { ja: '施設・設備', 'zh-TW': '設施・設備', 'zh-CN': '设施·设备', en: 'Facilities & Equipment' } as Record<Language, string>,
-  facilityTitle: { ja: '世界最先端の小型化装置', 'zh-TW': '世界最先進的小型化裝置', 'zh-CN': '世界最先进的小型化装置', en: 'World\'s Most Advanced Miniaturized System' } as Record<Language, string>,
-  facilityDesc: { ja: '従来の装置と比べて約1/3の設置面積を実現。全ての治療室で360度回転ガントリーによるスキャン照射が可能です。患者様の負担を最小限に抑える最新鋭の治療環境を提供します。', 'zh-TW': '與傳統裝置相比,安裝面積約為1/3。所有治療室均可進行360度旋轉機架的掃描照射。提供將患者負擔降至最低的最先進治療環境。', 'zh-CN': '与传统装置相比,安装面积约为1/3。所有治疗室均可进行360度旋转机架的扫描照射。提供将患者负担降至最低的最先进治疗环境。', en: 'Installation footprint approximately 1/3 of conventional systems. All treatment rooms equipped with 360-degree rotating gantry for scanning irradiation. State-of-the-art treatment environment minimizing patient burden.' } as Record<Language, string>,
+  facilityTitle: { ja: '先進的な小型化装置', 'zh-TW': '先進的小型化裝置', 'zh-CN': '先进的小型化装置', en: 'Advanced Miniaturized System' } as Record<Language, string>,
+  facilityDesc: { ja: '従来の装置と比べて約1/3の設置面積を実現。全ての治療室で360度回転ガントリーによるスキャン照射が可能です。患者様の負担を最小限に抑える先進的な治療環境を提供します。', 'zh-TW': '與傳統裝置相比,安裝面積約為1/3。所有治療室均可進行360度旋轉機架的掃描照射。提供將患者負擔降至最低的先進治療環境。', 'zh-CN': '与传统装置相比,安装面积约为1/3。所有治疗室均可进行360度旋转机架的扫描照射。提供将患者负担降至最低的先进治疗环境。', en: 'Installation footprint approximately 1/3 of conventional systems. All treatment rooms equipped with 360-degree rotating gantry for scanning irradiation. Advanced treatment environment minimizing patient burden.' } as Record<Language, string>,
 
   // Access
   accessTag: { ja: 'アクセス', 'zh-TW': '交通指南', 'zh-CN': '交通指南', en: 'Access' } as Record<Language, string>,

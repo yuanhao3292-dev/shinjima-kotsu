@@ -41,10 +41,10 @@ const t = {
     en: 'Bringing Hope to Patients, Progress to Medicine',
   } as Record<Language, string>,
   heroText: {
-    ja: '1972年開院。50年以上にわたり最先端の医療設備と\n高度な医療技術で兵庫県の地域医療に貢献し続ける国指定特定機能病院。\n全国わずか87施設、兵庫県内2施設のみ。',
-    'zh-TW': '1972年開院。50多年來以最先進的醫療設備和\n高端醫療技術持續貢獻兵庫縣的地區醫療。\n國家指定特定功能醫院，全日本僅87家，兵庫縣內僅2家。',
-    'zh-CN': '1972年开院。50多年来以最先进的医疗设备和\n高端医疗技术持续贡献兵库县的地区医疗。\n国家指定特定功能医院，全日本仅87家，兵库县内仅2家。',
-    en: 'Founded in 1972. Over 50 years of cutting-edge equipment\nand advanced medical technology serving Hyogo Prefecture.\nNationally designated — only 87 in Japan, 2 in Hyogo.',
+    ja: '1972年開院。50年以上にわたり先進的な医療設備と\n高度な医療技術で兵庫県の地域医療に貢献し続ける国指定特定機能病院。\n全国わずか87施設、兵庫県内2施設のみ。',
+    'zh-TW': '1972年開院。50多年來以先進的醫療設備和\n高端醫療技術持續貢獻兵庫縣的地區醫療。\n國家指定特定功能醫院，全日本僅87家，兵庫縣內僅2家。',
+    'zh-CN': '1972年开院。50多年来以先进的医疗设备和\n高端医疗技术持续贡献兵库县的地区医疗。\n国家指定特定功能医院，全日本仅87家，兵库县内仅2家。',
+    en: 'Founded in 1972. Over 50 years of advanced equipment\nand medical technology serving Hyogo Prefecture.\nNationally designated — only 87 in Japan, 2 in Hyogo.',
   } as Record<Language, string>,
   limitBadge: {
     ja: '2026年9月 新病院棟 開院予定',
@@ -125,16 +125,16 @@ const t = {
 
   // Equipment
   equipTitle: {
-    ja: '最先端の医療設備',
-    'zh-TW': '最先進的醫療設備',
-    'zh-CN': '最先进的医疗设备',
-    en: 'Cutting-Edge Medical Equipment',
+    ja: '先進的な医療設備',
+    'zh-TW': '先進醫療設備',
+    'zh-CN': '先进医疗设备',
+    en: 'Advanced Medical Equipment',
   } as Record<Language, string>,
   equipSub: {
-    ja: '年間6万件以上の画像検査を支える世界レベルの医療機器群',
-    'zh-TW': '支撐每年6萬件以上影像檢查的世界級醫療設備',
-    'zh-CN': '支撑每年6万件以上影像检查的世界级医疗设备',
-    en: 'World-class equipment supporting 60,000+ annual imaging studies',
+    ja: '年間6万件以上の画像検査を支える充実した医療機器群',
+    'zh-TW': '支撐每年6萬件以上影像檢查的充實醫療設備',
+    'zh-CN': '支撑每年6万件以上影像检查的充实医疗设备',
+    en: 'Comprehensive equipment supporting 60,000+ annual imaging studies',
   } as Record<Language, string>,
 
   // Facility / New Building
@@ -201,9 +201,9 @@ const t = {
   // Robot badges & descriptions
   robotDaVinciBadge: { ja: '2017年導入', 'zh-TW': '2017年引進', 'zh-CN': '2017年引进', en: 'Since 2017' } as Record<Language, string>,
   robotDaVinciDesc: {
-    ja: '手ぶれ補正機能・多関節鉗子・立体3D映像を備えた最先端ロボット支援手術システム。泌尿器科、上部消化管外科、下部消化管外科、産科婦人科、呼吸器外科、耳鼻咽喉科の6科で活用。年間250件以上のロボット支援手術を実施。',
-    'zh-TW': '配備防手震功能、多關節鉗子、立體3D影像的最先進機器人輔助手術系統。在泌尿科、上消化道外科、下消化道外科、婦產科、呼吸器外科、耳鼻喉科6個科別使用。年間250件以上機器人輔助手術。',
-    'zh-CN': '配备防手抖功能、多关节钳子、立体3D影像的最先进机器人辅助手术系统。在泌尿科、上消化道外科、下消化道外科、妇产科、呼吸器外科、耳鼻喉科6个科室使用。年间250件以上机器人辅助手术。',
+    ja: '手ぶれ補正機能・多関節鉗子・立体3D映像を備えた先進的ロボット支援手術システム。泌尿器科、上部消化管外科、下部消化管外科、産科婦人科、呼吸器外科、耳鼻咽喉科の6科で活用。年間250件以上のロボット支援手術を実施。',
+    'zh-TW': '配備防手震功能、多關節鉗子、立體3D影像的先進機器人輔助手術系統。在泌尿科、上消化道外科、下消化道外科、婦產科、呼吸器外科、耳鼻喉科6個科別使用。年間250件以上機器人輔助手術。',
+    'zh-CN': '配备防手抖功能、多关节钳子、立体3D影像的先进机器人辅助手术系统。在泌尿科、上消化道外科、下消化道外科、妇产科、呼吸器外科、耳鼻喉科6个科室使用。年间250件以上机器人辅助手术。',
     en: 'Advanced robotic surgical system with anti-tremor, multi-jointed forceps, and stereoscopic 3D imaging. Used across 6 departments. 250+ robotic surgeries annually.',
   } as Record<Language, string>,
   robotHinotoriBadge: { ja: '2024年導入・日本製', 'zh-TW': '2024年引進・日本製造', 'zh-CN': '2024年引进・日本制造', en: '2024 / Made in Japan' } as Record<Language, string>,
@@ -251,10 +251,10 @@ const t = {
   } as Record<Language, string>,
   equipEndoTitle: { ja: '内視鏡センター（7室）', 'zh-TW': '內視鏡中心（7間）', 'zh-CN': '内镜中心（7间）', en: 'Endoscopy Center (7 Rooms)' } as Record<Language, string>,
   equipEndoDesc: {
-    ja: '年間13,734件（上部6,869件・下部5,357件・ESD 248件）。NBI拡大内視鏡・カプセル内視鏡・ダブルバルーン内視鏡・EUS完備。早期がん内視鏡治療は全国屈指。',
-    'zh-TW': '年間13,734件（上部6,869件・下部5,357件・ESD 248件）。配備NBI放大內視鏡・膠囊內視鏡・雙氣囊內視鏡・EUS。早期癌內視鏡治療全國頂級。',
-    'zh-CN': '年间13,734件（上部6,869件・下部5,357件・ESD 248件）。配备NBI放大内镜・胶囊内镜・双气囊内镜・EUS。早期癌内镜治疗全国顶级。',
-    en: '13,734/yr (6,869 upper, 5,357 lower, 248 ESD). NBI, capsule, double-balloon, EUS. Nationally top early cancer endoscopic treatment.',
+    ja: '年間13,734件（上部6,869件・下部5,357件・ESD 248件）。NBI拡大内視鏡・カプセル内視鏡・ダブルバルーン内視鏡・EUS完備。早期がん内視鏡治療に豊富な実績。',
+    'zh-TW': '年間13,734件（上部6,869件・下部5,357件・ESD 248件）。配備NBI放大內視鏡・膠囊內視鏡・雙氣囊內視鏡・EUS。早期癌內視鏡治療實績豐富。',
+    'zh-CN': '年间13,734件（上部6,869件・下部5,357件・ESD 248件）。配备NBI放大内镜・胶囊内镜・双气囊内镜・EUS。早期癌内镜治疗实绩丰富。',
+    en: '13,734/yr (6,869 upper, 5,357 lower, 248 ESD). NBI, capsule, double-balloon, EUS. Extensive experience in early cancer endoscopic treatment.',
   } as Record<Language, string>,
 
   // Additional equipment
@@ -267,9 +267,9 @@ const t = {
   } as Record<Language, string>,
   equipOpTitle: { ja: '手術室 17室', 'zh-TW': '手術室 17間', 'zh-CN': '手术室 17间', en: '17 Operating Rooms' } as Record<Language, string>,
   equipOpDesc: {
-    ja: 'ハイブリッド手術室含む17室。ダヴィンチXi・hinotori対応のロボット手術室を完備。年間9,672件の手術を支える最先端設備。',
-    'zh-TW': '含混合手術室共17間。配備Da Vinci Xi・hinotori對應的機器人手術室。支撐每年9,672件手術的最先進設備。',
-    'zh-CN': '含混合手术室共17间。配备Da Vinci Xi・hinotori对应的机器人手术室。支撑每年9,672件手术的最先进设备。',
+    ja: 'ハイブリッド手術室含む17室。ダヴィンチXi・hinotori対応のロボット手術室を完備。年間9,672件の手術を支える先進的設備。',
+    'zh-TW': '含混合手術室共17間。配備Da Vinci Xi・hinotori對應的機器人手術室。支撐每年9,672件手術的先進設備。',
+    'zh-CN': '含混合手术室共17间。配备Da Vinci Xi・hinotori对应的机器人手术室。支撑每年9,672件手术的先进设备。',
     en: '17 ORs including hybrid suites. Da Vinci Xi & hinotori-ready robotic ORs. Supporting 9,672 surgeries annually.',
   } as Record<Language, string>,
 
@@ -347,16 +347,16 @@ const NATIONAL_FIRSTS = [
     rank: { ja: '日本一', 'zh-TW': '日本第一', 'zh-CN': '日本第一', en: '#1 in Japan' } as Record<Language, string>,
     title: { ja: '中皮腫センター（悪性中皮腫）', 'zh-TW': '間皮瘤中心（惡性間皮瘤）', 'zh-CN': '间皮瘤中心（恶性间皮瘤）', en: 'Mesothelioma Center' } as Record<Language, string>,
     desc: {
-      ja: '全国最多の悪性中皮腫症例数。年間800件以上を診療する日本随一の専門施設。呼吸器外科では年間50件以上の根治手術を実施。呼吸器外科全体で年間403件の手術。',
-      'zh-TW': '全國最多惡性間皮瘤病例數。每年診療800件以上，日本首屈一指的專門設施。呼吸器外科每年50件以上根治手術。呼吸器外科全年403件手術。',
-      'zh-CN': '全国最多恶性间皮瘤病例数。每年诊疗800件以上，日本首屈一指的专门设施。呼吸器外科每年50件以上根治手术。呼吸器外科全年403件手术。',
-      en: 'Japan\'s highest mesothelioma caseload. 800+ cases/year. 50+ radical surgeries annually. 403 total thoracic surgeries per year.',
+      ja: '悪性中皮腫の症例数で全国DPC統計上位。年間800件以上を診療する専門施設。呼吸器外科では年間50件以上の根治手術を実施。呼吸器外科全体で年間403件の手術。',
+      'zh-TW': '惡性間皮瘤病例數在全國DPC統計中名列前茅。每年診療800件以上的專門設施。呼吸器外科每年50件以上根治手術。呼吸器外科全年403件手術。',
+      'zh-CN': '恶性间皮瘤病例数在全国DPC统计中名列前茅。每年诊疗800件以上的专门设施。呼吸器外科每年50件以上根治手术。呼吸器外科全年403件手术。',
+      en: 'Top nationally in mesothelioma caseload by DPC data. 800+ cases/year. 50+ radical surgeries annually. 403 total thoracic surgeries per year.',
     } as Record<Language, string>,
     icon: Shield,
     color: 'from-[#0f7459] to-[#1766b0]',
   },
   {
-    rank: { ja: '兵庫県1位 / 全国トップクラス', 'zh-TW': '兵庫縣第1 / 全國頂級', 'zh-CN': '兵库县第1 / 全国顶级', en: '#1 in Hyogo / National Top' } as Record<Language, string>,
+    rank: { ja: '兵庫県1位 / 全国上位', 'zh-TW': '兵庫縣第1 / 全國領先', 'zh-CN': '兵库县第1 / 全国领先', en: '#1 in Hyogo / Nationally Leading' } as Record<Language, string>,
     title: { ja: '脳神経外科（血管内治療）', 'zh-TW': '腦神經外科（血管內治療）', 'zh-CN': '脑神经外科（血管内治疗）', en: 'Neurosurgery (Endovascular)' } as Record<Language, string>,
     desc: {
       ja: '脳血管内治療件数で兵庫県第1位。年間手術810件、血管内治療315件。フローダイバーターステント治療は全国でも数施設のみ。吉村紳一教授の累計症例約4,000件。24時間365日専門医常駐。',
@@ -371,21 +371,21 @@ const NATIONAL_FIRSTS = [
     rank: { ja: '全国1～2位', 'zh-TW': '全國第1～2名', 'zh-CN': '全国第1～2名', en: '#1-2 Nationally' } as Record<Language, string>,
     title: { ja: '耳鼻咽喉科（耳手術）', 'zh-TW': '耳鼻喉科（耳手術）', 'zh-CN': '耳鼻喉科（耳手术）', en: 'ENT (Ear Surgery)' } as Record<Language, string>,
     desc: {
-      ja: '年間耳手術約350件は大学病院として全国1～2位。累計人工内耳手術190件以上。鼓室形成術の成功率・聴力改善率ともに全国トップレベル。内視鏡下副鼻腔手術208件、頭頸部がん手術91件。',
-      'zh-TW': '年間耳手術約350件，大學醫院中全國第1～2。累計人工耳蝸190件以上。鼓室形成術成功率與聽力改善率全國頂級。內視鏡鼻竇手術208件、頭頸部癌手術91件。',
-      'zh-CN': '年间耳手术约350件，大学医院中全国第1～2。累计人工耳蜗190件以上。鼓室形成术成功率与听力改善率全国顶级。内镜鼻窦手术208件、头颈部癌手术91件。',
-      en: '~350 ear surgeries/yr — #1-2 among university hospitals. 190+ cochlear implants. Top success rates. 208 sinus surgeries, 91 head-neck cancer surgeries.',
+      ja: '年間耳手術約350件は大学病院として全国上位の実績。累計人工内耳手術190件以上。鼓室形成術に豊富な実績。内視鏡下副鼻腔手術208件、頭頸部がん手術91件。',
+      'zh-TW': '年間耳手術約350件，大學醫院中全國領先。累計人工耳蝸190件以上。鼓室形成術實績豐富。內視鏡鼻竇手術208件、頭頸部癌手術91件。',
+      'zh-CN': '年间耳手术约350件，大学医院中全国领先。累计人工耳蜗190件以上。鼓室形成术实绩丰富。内镜鼻窦手术208件、头颈部癌手术91件。',
+      en: '~350 ear surgeries/yr — among the top university hospitals. 190+ cochlear implants. Extensive tympanoplasty experience. 208 sinus surgeries, 91 head-neck cancer surgeries.',
     } as Record<Language, string>,
     icon: Ear,
     color: 'from-[#0f7459] to-[#1766b0]',
   },
   {
-    rank: { ja: '全国トップクラス', 'zh-TW': '全國頂級', 'zh-CN': '全国顶级', en: 'National Top-Tier' } as Record<Language, string>,
+    rank: { ja: '全国上位の実績', 'zh-TW': '全國領先實績', 'zh-CN': '全国领先实绩', en: 'Nationally Leading' } as Record<Language, string>,
     title: { ja: '腎移植センター', 'zh-TW': '腎移植中心', 'zh-CN': '肾移植中心', en: 'Kidney Transplant Center' } as Record<Language, string>,
     desc: {
-      ja: '1983年からの累計411件以上。10年生着率85%・10年患者生存率96%は全国トップレベル。ABO不適合移植・先行的移植にも対応。腹腔鏡ドナー手術200件以上の実績。',
-      'zh-TW': '自1983年累計411件以上。10年移植存活率85%・10年患者存活率96%，全國頂級。可進行ABO不相容移植・先行性移植。腹腔鏡供體手術200件以上。',
-      'zh-CN': '自1983年累计411件以上。10年移植存活率85%・10年患者存活率96%，全国顶级。可进行ABO不相容移植・先行性移植。腹腔镜供体手术200件以上。',
+      ja: '1983年からの累計411件以上。10年生着率85%・10年患者生存率96%。ABO不適合移植・先行的移植にも対応。腹腔鏡ドナー手術200件以上の実績。',
+      'zh-TW': '自1983年累計411件以上。10年移植存活率85%・10年患者存活率96%。可進行ABO不相容移植・先行性移植。腹腔鏡供體手術200件以上。',
+      'zh-CN': '自1983年累计411件以上。10年移植存活率85%・10年患者存活率96%。可进行ABO不相容移植・先行性移植。腹腔镜供体手术200件以上。',
       en: '411+ transplants since 1983. 10-year graft survival 85%, patient survival 96%. ABO-incompatible and pre-emptive transplants. 200+ laparoscopic donor surgeries.',
     } as Record<Language, string>,
     icon: HeartPulse,
@@ -690,7 +690,7 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     name: { ja: '池内 浩基', 'zh-TW': '池内 浩基', 'zh-CN': '池内浩基', en: 'Hiroki Ikeuchi' },
     title: { ja: '病院長 / 主任教授', 'zh-TW': '院長 / 主任教授', 'zh-CN': '院长 / 主任教授', en: 'Hospital Director / Chief Professor' },
     dept: { ja: '炎症性腸疾患外科', 'zh-TW': '炎症性腸病外科', 'zh-CN': '炎症性肠病外科', en: 'IBD Surgery' },
-    specialty: { ja: 'IBD外科治療の日本トップ権威', 'zh-TW': 'IBD外科治療的日本頂級權威', 'zh-CN': 'IBD外科治疗的日本顶级权威', en: 'Japan\'s top authority on IBD surgical treatment' },
+    specialty: { ja: 'IBD外科治療の専門家', 'zh-TW': 'IBD外科治療專家', 'zh-CN': 'IBD外科治疗专家', en: 'IBD surgical treatment specialist' },
     highlights: [
       { ja: 'UC・CD住院患者数 全国DPC第1位', 'zh-TW': 'UC・CD住院患者數 全國DPC第1', 'zh-CN': 'UC・CD住院患者数 全国DPC第1', en: '#1 nationally in UC & CD hospitalization (DPC)' },
       { ja: '累計手術4,140件以上', 'zh-TW': '累計手術4,140件以上', 'zh-CN': '累计手术4,140件以上', en: '4,140+ cumulative surgeries' },
@@ -1182,7 +1182,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
               {({ ja: '疾患別 — あなたの名医を見つける', 'zh-TW': '按疾病分類 — 找到您的名醫', 'zh-CN': '按疾病分类 — 找到您的名医', en: 'Find Your Specialist by Condition' } as Record<Language, string>)[lang]}
             </h3>
             <p className="text-gray-500 mt-3 max-w-2xl mx-auto text-sm">
-              {({ ja: '各分野のトップ教授陣が、高度な専門治療をご提供します', 'zh-TW': '各領域頂尖教授團隊，為您提供高端專業治療', 'zh-CN': '各领域顶尖教授团队，为您提供高端专业治疗', en: 'Top professors in each field provide advanced specialized treatment' } as Record<Language, string>)[lang]}
+              {({ ja: '各分野の専門教授陣が、高度な専門治療をご提供します', 'zh-TW': '各領域專業教授團隊，為您提供高端專業治療', 'zh-CN': '各领域专业教授团队，为您提供高端专业治疗', en: 'Expert professors in each field provide advanced specialized treatment' } as Record<Language, string>)[lang]}
             </p>
           </div>
 

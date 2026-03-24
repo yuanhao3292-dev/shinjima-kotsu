@@ -99,7 +99,7 @@ const t = {
     ja: '銀座鳳凰クリニックは、がん免疫療法と再生医療を専門とする自由診療のクリニックです。院内にCPC（細胞培養加工施設）を併設し、細胞の採取から培養・品質管理・投与まで一貫して院内で実施。兵庫医科大学発ベンチャー技術に基づく、科学的エビデンスのある先端治療を提供しています。',
     'zh-TW': '銀座鳳凰診所是專注於癌症免疫療法與再生醫療的自費診療診所。院內設有CPC（細胞培養加工設施），從細胞採集到培養、品質管理、給藥全程院內完成。基於兵庫醫科大學創投技術，提供有科學依據的先端治療。',
     'zh-CN': '银座凤凰诊所是专注于癌症免疫疗法与再生医疗的自费诊疗诊所。院内设有CPC（细胞培养加工设施），从细胞采集到培养、品质管理、给药全程院内完成。基于兵库医科大学创投技术，提供有科学依据的先端治疗。',
-    en: 'Ginza Phoenix Clinic is a self-pay clinic specializing in cancer immunotherapy and regenerative medicine. With an in-house CPC (Cell Processing Center), all processes from cell extraction to culture, quality control, and administration are performed on-site. We deliver cutting-edge, evidence-based treatments based on Hyogo Medical University venture technology.',
+    en: 'Ginza Phoenix Clinic is a self-pay clinic specializing in cancer immunotherapy and regenerative medicine. With an in-house CPC (Cell Processing Center), all processes from cell extraction to culture, quality control, and administration are performed on-site. We deliver evidence-based treatments based on Hyogo Medical University venture technology.',
   } as Record<Language, string>,
   whyTag: {
     ja: '選ばれる理由',
@@ -180,10 +180,10 @@ const t = {
     en: 'In-House CPC',
   } as Record<Language, string>,
   cpcTitle: {
-    ja: '東京最大級の院内細胞培養加工施設',
-    'zh-TW': '東京最大級別院內細胞培養加工設施',
-    'zh-CN': '东京最大级别院内细胞培养加工设施',
-    en: 'One of Tokyo\'s Largest In-House Cell Processing Centers',
+    ja: '大規模な院内細胞培養加工施設',
+    'zh-TW': '大規模院內細胞培養加工設施',
+    'zh-CN': '大规模院内细胞培养加工设施',
+    en: 'Large-Scale In-House Cell Processing Center',
   } as Record<Language, string>,
   cpcDesc: {
     ja: '当クリニックは院内にGMP基準のCPC（細胞培養加工施設）を完備。患者様の細胞の採取から培養・品質管理・投与まで、すべてを院内で一貫して実施します。外部委託と比較して、輸送中の細胞劣化リスクを最小限に抑え、より高い品質管理と安全性を実現しています。',
@@ -296,13 +296,13 @@ const STATS = [
 const WHY_CHOOSE_US = [
   {
     icon: <Building2 size={24} />,
-    title: { ja: '東京最大級の院内CPC', 'zh-TW': '東京最大級別院內CPC', 'zh-CN': '东京最大级别院内CPC', en: 'One of Tokyo\'s Largest In-House CPC' } as Record<Language, string>,
+    title: { ja: '大規模な院内CPC', 'zh-TW': '大規模院內CPC', 'zh-CN': '大规模院内CPC', en: 'Large-Scale In-House CPC' } as Record<Language, string>,
     desc: { ja: '院内にGMP基準の細胞培養加工施設を保有。採取から培養・品質管理・投与まで一貫して院内で実施し、外部輸送による細胞劣化リスクを排除', 'zh-TW': '院內配備GMP標準細胞培養加工設施。從採集到培養、品質管理、給藥全程院內完成，排除外部運輸導致的細胞劣化風險', 'zh-CN': '院内配备GMP标准细胞培养加工设施。从采集到培养、品质管理、给药全程院内完成，排除外部运输导致的细胞劣化风险', en: 'In-house GMP-grade cell processing facility. End-to-end on-site processing eliminates cell degradation risk from external transport' } as Record<Language, string>,
   },
   {
     icon: <GraduationCap size={24} />,
     title: { ja: '東京大学医学博士が率いる専門チーム', 'zh-TW': '東京大學醫學博士領銜專業團隊', 'zh-CN': '东京大学医学博士领衔专业团队', en: 'Led by a University of Tokyo PhD' } as Record<Language, string>,
-    desc: { ja: '永井恒志院長（東京大学医学博士）が率いる医療チーム。兵庫医科大学の研究支援による最先端のがん免疫細胞療法を提供', 'zh-TW': '永井恒志院長（東京大學醫學博士）領銜醫療團隊。兵庫醫科大學研究支持的最先端癌症免疫細胞療法', 'zh-CN': '永井恒志院长（东京大学医学博士）领衔医疗团队。兵库医科大学研究支持的最先端癌症免疫细胞疗法', en: 'Medical team led by Director Nagai Hisashi, PhD (University of Tokyo). Cutting-edge cancer immunocell therapy backed by Hyogo Medical University research' } as Record<Language, string>,
+    desc: { ja: '永井恒志院長（東京大学医学博士）が率いる医療チーム。兵庫医科大学の研究支援による先進的ながん免疫細胞療法を提供', 'zh-TW': '永井恒志院長（東京大學醫學博士）領銜醫療團隊。兵庫醫科大學研究支持的先進癌症免疫細胞療法', 'zh-CN': '永井恒志院长（东京大学医学博士）领衔医疗团队。兵库医科大学研究支持的先进癌症免疫细胞疗法', en: 'Medical team led by Director Nagai Hisashi, PhD (University of Tokyo). Advanced cancer immunocell therapy backed by Hyogo Medical University research' } as Record<Language, string>,
   },
   {
     icon: <ShieldCheck size={24} />,

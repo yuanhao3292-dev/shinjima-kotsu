@@ -236,7 +236,7 @@ const tr = {
   // Academic Achievements
   academicTag: { ja: '学術実績', 'zh-TW': '學術成就', 'zh-CN': '学术成就', en: 'Academic Achievements' } as Record<Language, string>,
   academicTitle: { ja: '国際的な学術活動', 'zh-TW': '國際學術活動', 'zh-CN': '国际学术活动', en: 'International Academic Activities' } as Record<Language, string>,
-  academicDesc: { ja: '世界トップレベルの学術交流と研究発表を継続的に実施。', 'zh-TW': '持續進行世界頂尖水準的學術交流與研究發表。', 'zh-CN': '持续进行世界顶尖水准的学术交流与研究发表。', en: 'Continuous world-class academic exchange and research presentations.' } as Record<Language, string>,
+  academicDesc: { ja: '国際的な学術交流と研究発表を継続的に実施。', 'zh-TW': '持續進行國際學術交流與研究發表。', 'zh-CN': '持续进行国际学术交流与研究发表。', en: 'Continuous international academic exchange and research presentations.' } as Record<Language, string>,
 
   // Patient Testimonials
   testimonialTag: { ja: '患者の声', 'zh-TW': '患者見證', 'zh-CN': '患者见证', en: 'Patient Testimonials' } as Record<Language, string>,

@@ -188,7 +188,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       id: 'cancer-treatment',
       title: currentLang === 'zh-TW' ? '日本尖端癌症治療' : currentLang === 'zh-CN' ? '日本尖端癌症治疗' : currentLang === 'ja' ? '日本最先端がん治療' : 'Japan Advanced Cancer Treatment',
       subtitle: currentLang === 'zh-TW' ? '質子重離子 / 光免疫 / BNCT' : currentLang === 'zh-CN' ? '质子重离子 / 光免疫 / BNCT' : currentLang === 'ja' ? '陽子線・光免疫・BNCT' : 'Proton / Photoimmunotherapy / BNCT',
-      description: currentLang === 'zh-TW' ? '全球領先的癌症治療技術，精準打擊癌細胞' : currentLang === 'zh-CN' ? '全球领先的癌症治疗技术，精准打击癌细胞' : currentLang === 'ja' ? '世界最先端の治療技術でがん細胞を狙い撃ち' : 'World-leading technology for precise cancer treatment',
+      description: currentLang === 'zh-TW' ? '質子重離子、光免疫、BNCT——為癌症患者提供更多治療選擇' : currentLang === 'zh-CN' ? '质子重离子、光免疫、BNCT——为癌症患者提供更多治疗选择' : currentLang === 'ja' ? '陽子線・光免疫・BNCT——がん患者により多くの治療選択肢を' : 'Proton, photoimmunotherapy, BNCT — more treatment options for cancer patients',
       imageUrl: getImage('hero_slide_1', 'https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=2000&auto=format&fit=crop'),
       ctaText: currentLang === 'zh-TW' ? '諮詢治療方案' : currentLang === 'zh-CN' ? '咨询治疗方案' : currentLang === 'ja' ? '治療相談' : 'Consult Now',
       ctaLink: '/cancer-treatment',
@@ -319,8 +319,8 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             {/* 核心数据 */}
             <div className="grid grid-cols-3 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-white/20">
               <div className="text-center">
-                <div className="text-2xl md:text-4xl font-light text-white mb-1">12<span className="text-brand-300">年</span></div>
-                <div className="text-[10px] md:text-xs text-brand-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '醫療服務經驗' : currentLang === 'zh-CN' ? '医疗服务经验' : currentLang === 'ja' ? '医療サービス実績' : 'Medical Service'}</div>
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">10<span className="text-brand-300">+</span></div>
+                <div className="text-[10px] md:text-xs text-brand-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '提攜醫療機構' : currentLang === 'zh-CN' ? '提携医疗机构' : currentLang === 'ja' ? '提携医療機関' : 'Partner Clinics'}</div>
               </div>
               <div className="border-x border-white/20 px-2 md:px-6 py-12 md:py-24 text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">3000<span className="text-brand-300">+</span></div>
@@ -420,24 +420,29 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             </h2>
 
             <p className="text-sm sm:text-base md:text-xl text-neutral-200/80 mb-6 md:mb-8 leading-relaxed font-light">
-              {currentLang === 'zh-TW' ? '質子重離子治療、免疫細胞療法、達文西微創手術——日本癌症5年生存率全球領先。我們協助您獲得日本頂尖醫院的治療機會，全程陪同，讓您專注康復。' : currentLang === 'zh-CN' ? '质子重离子治疗、免疫细胞疗法、达文西微创手术——日本癌症5年生存率全球领先。我们协助您获得日本顶尖医院的治疗机会，全程陪同，让您专注康復。' : currentLang === 'ja' ? '陽子線・重粒子線治療、免疫細胞療法、ダヴィンチ手術——日本のがん5年生存率は世界トップ。日本トップ病院での治療機会をサポート、全行程同行で治療に専念いただけます。' : 'Proton/heavy ion therapy, immunotherapy, Da Vinci surgery — Japan leads the world in cancer 5-year survival rates. We help you access top hospitals with full escort, so you can focus on recovery.'}
+              {currentLang === 'zh-TW' ? '質子重離子治療、免疫細胞療法、達文西微創手術——日本擁有世界領先水準的癌症治療技術。我們協助您獲得日本醫院的治療機會，全程陪同，讓您專注康復。' : currentLang === 'zh-CN' ? '质子重离子治疗、免疫细胞疗法、达文西微创手术——日本拥有世界领先水准的癌症治疗技术。我们协助您获得日本医院的治疗机会，全程陪同，让您专注康复。' : currentLang === 'ja' ? '陽子線・重粒子線治療、免疫細胞療法、ダヴィンチ手術——日本は世界有数のがん治療技術を有しています。日本の病院での治療機会をサポートし、全行程同行で治療に専念いただけます。' : 'Proton/heavy ion therapy, immunotherapy, Da Vinci surgery — Japan has world-class cancer treatment technology. We help you access Japanese hospitals with full escort, so you can focus on recovery.'}
             </p>
 
             {/* 核心数据 */}
             <div className="grid grid-cols-3 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-white/20">
               <div className="text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">68<span className="text-brand-300">%</span></div>
-                <div className="text-[10px] md:text-xs text-neutral-300/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '癌症5年生存率' : currentLang === 'zh-CN' ? '癌症5年生存率' : currentLang === 'ja' ? 'がん5年生存率' : '5-Year Survival'}</div>
+                <div className="text-[10px] md:text-xs text-neutral-300/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '癌症5年生存率 *' : currentLang === 'zh-CN' ? '癌症5年生存率 *' : currentLang === 'ja' ? 'がん5年生存率 *' : '5-Year Survival *'}</div>
               </div>
               <div className="border-x border-white/20 px-2 md:px-6 py-12 md:py-24 text-center">
-                <div className="text-2xl md:text-4xl font-light text-white mb-1">98<span className="text-brand-300">%</span></div>
-                <div className="text-[10px] md:text-xs text-neutral-300/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '心臟手術成功率' : currentLang === 'zh-CN' ? '心脏手术成功率' : currentLang === 'ja' ? '心臓手術成功率' : 'Heart Surgery Success'}</div>
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">7<span className="text-brand-300">+</span></div>
+                <div className="text-[10px] md:text-xs text-neutral-300/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '對應治療領域' : currentLang === 'zh-CN' ? '对应治疗领域' : currentLang === 'ja' ? '対応治療分野' : 'Treatment Fields'}</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">24<span className="text-brand-300">h</span></div>
                 <div className="text-[10px] md:text-xs text-neutral-300/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '病歷評估響應' : currentLang === 'zh-CN' ? '病历评估响应' : currentLang === 'ja' ? '診療情報評価' : 'Case Review'}</div>
               </div>
             </div>
+
+            {/* 出处脚注 */}
+            <p className="text-[10px] text-neutral-400/60 mb-6">
+              {currentLang === 'zh-TW' ? '* 出處：国立がん研究センター「がん統計」（2014-2017年診断症例）' : currentLang === 'zh-CN' ? '* 出处：国立がん研究センター「がん統計」（2014-2017年诊断病例）' : currentLang === 'ja' ? '* 出典：国立がん研究センター「がん統計」（2014〜2017年診断症例）' : '* Source: National Cancer Center Japan, Cancer Statistics (2014-2017 diagnosed cases)'}
+            </p>
 
             {/* 治疗领域标签 */}
             <div className="flex flex-wrap gap-3 mb-10">
@@ -602,15 +607,15 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                   {currentLang === 'zh-TW' ? '對話日本頂尖企業' : currentLang === 'zh-CN' ? '对话日本顶尖企业' : currentLang === 'ja' ? '日本トップ企業との対話' : 'Connect with Japan\'s Leading Companies'}
                 </h2>
                 <p className="text-neutral-300 leading-relaxed mb-8">
-                  {currentLang === 'zh-TW' ? '12年深耕日本商務市場，我們與豐田、松下、資生堂等500強企業建立深度合作。從工廠參觀到高管對談，為您打造真正有價值的商務考察之旅。' : currentLang === 'zh-CN' ? '12年深耕日本商务市场，我们与丰田、松下、资生堂等500强企业建立深度合作。从工厂参观到高管对谈，为您打造真正有价值的商务考察之旅。' : currentLang === 'ja' ? '12年間日本ビジネス市場を深耕。トヨタ、パナソニック、資生堂など500社以上と深い協力関係を構築。工場見学から経営層との対談まで、真に価値ある視察をご提供。' : '12 years in the Japan business market. Deep partnerships with Toyota, Panasonic, Shiseido and 500+ companies. From factory tours to executive meetings, we deliver truly valuable business inspections.'}
+                  {currentLang === 'zh-TW' ? '我們擁有豐富的日本商務考察經驗，可安排豐田、松下、資生堂等知名企業的工廠參觀與高管對談，為您打造真正有價值的商務考察之旅。' : currentLang === 'zh-CN' ? '我们拥有丰富的日本商务考察经验，可安排丰田、松下、资生堂等知名企业的工厂参观与高管对谈，为您打造真正有价值的商务考察之旅。' : currentLang === 'ja' ? '豊富な日本ビジネス視察の実績を持ち、トヨタ、パナソニック、資生堂など有名企業の工場見学や経営層との対談を手配。真に価値ある視察をご提供します。' : 'With extensive Japan business inspection experience, we arrange factory tours and executive meetings at renowned companies like Toyota, Panasonic, and Shiseido, delivering truly valuable business trips.'}
                 </p>
 
                 <div className="grid grid-cols-2 gap-3 md:gap-6 mb-10">
                   {[
                     { num: '16', label: currentLang === 'zh-TW' ? '行業覆蓋' : currentLang === 'zh-CN' ? '行业覆盖' : currentLang === 'ja' ? '対応業界' : 'Industries' },
-                    { num: '500+', label: currentLang === 'zh-TW' ? '合作企業' : currentLang === 'zh-CN' ? '合作企业' : currentLang === 'ja' ? '提携企業' : 'Partner Companies' },
-                    { num: '98%', label: currentLang === 'zh-TW' ? '客戶滿意度' : currentLang === 'zh-CN' ? '客户满意度' : currentLang === 'ja' ? '顧客満足度' : 'Satisfaction' },
-                    { num: '1000+', label: currentLang === 'zh-TW' ? '成功案例' : currentLang === 'zh-CN' ? '成功案例' : currentLang === 'ja' ? '成功実績' : 'Success Cases' },
+                    { num: '100+', label: currentLang === 'zh-TW' ? '可訪問企業' : currentLang === 'zh-CN' ? '可访问企业' : currentLang === 'ja' ? '視察先企業' : 'Visitable Companies' },
+                    { num: '2020', label: currentLang === 'zh-TW' ? '公司成立' : currentLang === 'zh-CN' ? '公司成立' : currentLang === 'ja' ? '会社設立' : 'Established' },
+                    { num: currentLang === 'ja' ? '大阪' : 'Osaka', label: currentLang === 'zh-TW' ? '本社所在地' : currentLang === 'zh-CN' ? '总部所在地' : currentLang === 'ja' ? '本社所在地' : 'Headquarters' },
                   ].map((stat, idx) => (
                     <div key={idx} className="border-l-2 border-gold-400/50 pl-4">
                       <div className="text-2xl font-light text-white">{stat.num}</div>
@@ -1125,6 +1130,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                     />
                   </div>
                   {authError && <p className="text-xs text-gold-500">{authError}</p>}
+                  <p className="text-xs text-neutral-400 leading-relaxed">
+                    {lang === 'zh-TW' ? (<>提交即表示您同意我們的<a href="/legal/privacy" target="_blank" className="underline hover:text-neutral-600">隱私政策</a>。</>) : lang === 'zh-CN' ? (<>提交即表示您同意我们的<a href="/legal/privacy" target="_blank" className="underline hover:text-neutral-600">隐私政策</a>。</>) : lang === 'ja' ? (<>送信することで、<a href="/legal/privacy" target="_blank" className="underline hover:text-neutral-600">プライバシーポリシー</a>に同意したものとみなされます。</>) : (<>By submitting, you agree to our <a href="/legal/privacy" target="_blank" className="underline hover:text-neutral-600">Privacy Policy</a>.</>)}
+                  </p>
                   <button
                     type="submit"
                     disabled={isSendingAuth}
@@ -1297,8 +1305,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                        )}
                      </button>
 
-                     <p className="text-xs text-neutral-400 text-center">
-                       {lang === 'zh-TW' ? '提交後我們會將確認信發送至您的郵箱' : lang === 'zh-CN' ? '提交后我们会将确认信发送至您的邮箱' : lang === 'ja' ? '送信後、確認メールをお送りいたします' : 'A confirmation email will be sent after submission'}
+                     <p className="text-xs text-neutral-400 text-center leading-relaxed">
+                       {lang === 'zh-TW' ? (<>提交即表示您同意我們的<a href="/legal/privacy" target="_blank" className="underline hover:text-neutral-600">隱私政策</a>。提交後我們會將確認信發送至您的郵箱。</>) : lang === 'zh-CN' ? (<>提交即表示您同意我们的<a href="/legal/privacy" target="_blank" className="underline hover:text-neutral-600">隐私政策</a>。提交后我们会将确认信发送至您的邮箱。</>) : lang === 'ja' ? (<>送信することで、<a href="/legal/privacy" target="_blank" className="underline hover:text-neutral-600">プライバシーポリシー</a>に同意したものとみなされます。送信後、確認メールをお送りいたします。</>) : (<>By submitting, you agree to our <a href="/legal/privacy" target="_blank" className="underline hover:text-neutral-600">Privacy Policy</a>. A confirmation email will be sent after submission.</>)}
                      </p>
                    </form>
                  </>

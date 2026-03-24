@@ -68,7 +68,7 @@ const t = {
   // Stats
   stat1: { ja: '累計患者数', 'zh-TW': '累計患者數', 'zh-CN': '累计患者数', en: 'Total Patients' } as Record<Language, string>,
   stat2: { ja: '開業年数', 'zh-TW': '開業年數', 'zh-CN': '开业年数', en: 'Years in Practice' } as Record<Language, string>,
-  stat3: { ja: '患者満足度', 'zh-TW': '患者滿意度', 'zh-CN': '患者满意度', en: 'Patient Satisfaction' } as Record<Language, string>,
+  stat3: { ja: '厚労省認可計画数', 'zh-TW': '厚勞省認可計劃數', 'zh-CN': '厚劳省认可计划数', en: 'MHLW-Approved Plans' } as Record<Language, string>,
   stat4: { ja: 'CPC規格', 'zh-TW': 'CPC規格', 'zh-CN': 'CPC规格', en: 'CPC Standard' } as Record<Language, string>,
 
   // Intro
@@ -347,7 +347,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
           {[
             { val: '30,000+', label: t.stat1[lang], icon: <Users size={20} /> },
             { val: '18', label: t.stat2[lang], icon: <Star size={20} /> },
-            { val: '98%+', label: t.stat3[lang], icon: <Heart size={20} /> },
+            { val: '19', label: t.stat3[lang], icon: <Heart size={20} /> },
             { val: 'ISO 5', label: t.stat4[lang], icon: <Shield size={20} /> },
           ].map((s, i) => (
             <div key={i} className="flex flex-col items-center gap-2">

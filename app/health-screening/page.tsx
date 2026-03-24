@@ -99,10 +99,10 @@ const translations = {
     en: 'AI Smart Health Screening',
   },
   upgradeDesc: {
-    ja: '全面刷新！人体図インタラクションで不調部位を選択。AIが症状に基づき医療科を推奨し、プロフェッショナルな健康評価レポートを生成します',
-    'zh-CN': '全新升级！通过人体图交互选择不适部位，AI 根据您的症状智能推荐检查科室，并生成专业健康评估报告',
-    'zh-TW': '全新升級！通過人體圖交互選擇不適部位，AI 根據您的症狀智能推薦檢查科室，並生成專業健康評估報告',
-    en: 'Brand new upgrade! Select affected areas via body map interaction, AI recommends medical departments and generates professional health assessment report',
+    ja: '全面刷新！人体図インタラクションで不調部位を選択。AIが症状に基づき参考情報を提供し、健康評価レポートを生成します',
+    'zh-CN': '全新升级！通过人体图交互选择不适部位，AI 根据您的症状提供参考信息，并生成健康评估报告',
+    'zh-TW': '全新升級！通過人體圖交互選擇不適部位，AI 根據您的症狀提供參考資訊，並生成健康評估報告',
+    en: 'Brand new upgrade! Select affected areas via body map interaction, AI provides reference information and generates health assessment report',
   },
   creating: {
     ja: '作成中...',
@@ -147,16 +147,16 @@ const translations = {
     en: 'Intuitively select affected areas, no text description needed',
   },
   smartDeptRecommend: {
-    ja: 'スマート診療科推奨',
-    'zh-CN': '智能科室推荐',
-    'zh-TW': '智能科室推薦',
-    en: 'Smart Department Recommendation',
+    ja: '診療科参考情報',
+    'zh-CN': '科室参考信息',
+    'zh-TW': '科室參考資訊',
+    en: 'Department Reference Info',
   },
   smartDeptDesc: {
-    ja: 'AIが症状に対応する医療科を自動的に関連付けます',
-    'zh-CN': 'AI 自动关聯症状对應的医疗科室',
-    'zh-TW': 'AI 自動關聯症狀對應的醫療科室',
-    en: 'AI automatically associates symptoms with medical departments',
+    ja: 'AIが症状に関連する医療科の参考情報を提供します',
+    'zh-CN': 'AI 提供症状相关的医疗科室参考信息',
+    'zh-TW': 'AI 提供症狀相關的醫療科室參考資訊',
+    en: 'AI provides reference information on symptom-related departments',
   },
   dynamicQuestionnaire: {
     ja: 'ダイナミック問診',
@@ -201,22 +201,22 @@ const translations = {
     en: 'AI Smart Analysis',
   },
   aiAnalysisDesc: {
-    ja: '先進的なAIモデルに基づき、プロフェッショナルな健康評価を提供',
-    'zh-CN': '基于先进 AI 模型，为您提供专业的健康评估',
-    'zh-TW': '基於先進 AI 模型，為您提供專業的健康評估',
-    en: 'Professional health assessment based on advanced AI models',
+    ja: 'AIモデルによる健康参考情報を提供（医療診断ではありません）',
+    'zh-CN': '基于 AI 模型提供健康参考信息（非医疗诊断）',
+    'zh-TW': '基於 AI 模型提供健康參考資訊（非醫療診斷）',
+    en: 'AI-powered health reference information (not a medical diagnosis)',
   },
   japanMedicalRecommend: {
-    ja: '日本医療推奨',
-    'zh-CN': '日本医疗推荐',
-    'zh-TW': '日本醫療推薦',
-    en: 'Japan Medical Recommendation',
+    ja: '日本医療情報',
+    'zh-CN': '日本医疗信息',
+    'zh-TW': '日本醫療資訊',
+    en: 'Japan Medical Information',
   },
   japanMedicalDesc: {
-    ja: 'あなたの状況に基づき、日本のトップクラスの医療機関を推奨',
-    'zh-CN': '根据您的情况推荐日本顶尖医疗机构',
-    'zh-TW': '根據您的情況推薦日本頂尖醫療機構',
-    en: 'Recommend top Japanese medical institutions based on your condition',
+    ja: 'あなたの状況に応じた日本の医療機関情報をご案内',
+    'zh-CN': '根据您的情况提供日本医疗机构参考信息',
+    'zh-TW': '根據您的情況提供日本醫療機構參考資訊',
+    en: 'Provide reference information on Japanese medical institutions based on your situation',
   },
   aiFollowup: {
     ja: 'AI 補充問診',
@@ -853,6 +853,22 @@ export default function HealthScreeningPage() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* AI Screening Disclaimer */}
+        <section className="bg-neutral-50 border-t border-neutral-200 py-6">
+          <div className="max-w-4xl mx-auto px-6">
+            <p className="text-xs text-neutral-400 leading-relaxed text-center">
+              {lang === 'ja'
+                ? '※ 本AIスクリーニングは医療診断ではありません。結果は参考情報としてのみご利用ください。AIの分析には限界があり、誤りが含まれる可能性があります。健康上の懸念がある場合は、必ず資格を有する医師にご相談ください。'
+                : lang === 'en'
+                ? '※ This AI screening is NOT a medical diagnosis. Results are for reference only. AI analysis has limitations and may contain errors. If you have health concerns, please consult a qualified physician.'
+                : lang === 'zh-TW'
+                ? '※ 本 AI 篩查並非醫療診斷，結果僅供參考。AI 分析存在局限性，可能包含錯誤。如有健康疑慮，請務必諮詢合格醫師。'
+                : '※ 本 AI 筛查并非医疗诊断，结果仅供参考。AI 分析存在局限性，可能包含错误。如有健康疑虑，请务必咨询合格医师。'
+              }
+            </p>
           </div>
         </section>
       </div>

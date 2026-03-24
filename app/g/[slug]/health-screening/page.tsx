@@ -236,10 +236,10 @@ const translations: Record<string, Record<Language, string>> = {
     en: 'AI Analysis',
   },
   aiAnalysisDesc: {
-    ja: '先進的なAIモデルに基づき、専門的な健康評価を提供',
-    'zh-CN': '基于先进 AI 模型，为您提供专业的健康评估',
-    'zh-TW': '基於先進 AI 模型，為您提供專業的健康評估',
-    en: 'Powered by advanced AI models, providing professional health assessments',
+    ja: 'AIモデルに基づく健康参考情報を提供（医療診断ではありません）',
+    'zh-CN': '基于 AI 模型，为您提供健康参考信息（非医疗诊断）',
+    'zh-TW': '基於 AI 模型，為您提供健康參考資訊（非醫療診斷）',
+    en: 'AI-powered health reference information (not a medical diagnosis)',
   },
   japanMedicalRecommendation: {
     ja: '日本医療推薦',
@@ -248,10 +248,10 @@ const translations: Record<string, Record<Language, string>> = {
     en: 'Japan Medical Recommendation',
   },
   japanMedicalRecommendationDesc: {
-    ja: 'お客様の状況に合わせて日本トップクラスの医療機関をご推薦',
-    'zh-CN': '根据您的情况推荐日本顶尖医疗机构',
-    'zh-TW': '根據您的情況推薦日本頂尖醫療機構',
-    en: 'Recommend top Japanese medical institutions based on your condition',
+    ja: 'お客様の状況に合わせて日本の優良医療機関をご案内',
+    'zh-CN': '根据您的情况推荐日本优质医疗机构',
+    'zh-TW': '根據您的情況推薦日本優質醫療機構',
+    en: 'Recommend quality Japanese medical institutions based on your condition',
   },
   reportLanguage: {
     ja: 'レポート言語',

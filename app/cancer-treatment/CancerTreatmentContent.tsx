@@ -16,18 +16,18 @@ const pageTranslations = {
   // Hero
   heroBadge: { ja: '日本がん治療', 'zh-TW': '日本癌症治療', 'zh-CN': '日本癌症治疗', en: 'Japan Cancer Treatment' } as Record<Language, string>,
   heroTitle1: { ja: '日本がん治療', 'zh-TW': '日本癌症治療', 'zh-CN': '日本癌症治疗', en: 'Japan Cancer Treatment' } as Record<Language, string>,
-  heroTitle2: { ja: '5年生存率世界トップ', 'zh-TW': '五年存活率領先全球', 'zh-CN': '五年存活率领先全球', en: '5-Year Survival Rate Leads Globally' } as Record<Language, string>,
+  heroTitle2: { ja: '5年生存率が高水準', 'zh-TW': '五年存活率位居世界前列', 'zh-CN': '五年存活率位居世界前列', en: '5-Year Survival Rate Among World\'s Highest' } as Record<Language, string>,
   heroStat: { ja: 'Lancet研究によると日本のがん5年生存率は', 'zh-TW': '柳葉刀研究顯示日本癌症五年存活率達', 'zh-CN': '柳叶刀研究显示日本癌症五年存活率达', en: 'Lancet research shows Japan cancer 5-year survival rate reaches' } as Record<Language, string>,
-  heroDesc: { ja: '世界最先端の治療法が日本に集結', 'zh-TW': '世界前沿療法匯聚日本', 'zh-CN': '世界前沿疗法汇聚日本', en: 'Cutting-edge treatments converge in Japan' } as Record<Language, string>,
+  heroDesc: { ja: '先進的な治療法が日本に集結', 'zh-TW': '先進療法匯聚日本', 'zh-CN': '先进疗法汇聚日本', en: 'Advanced treatments converge in Japan' } as Record<Language, string>,
   heroCTA: { ja: '治療プランを相談', 'zh-TW': '諮詢治療方案', 'zh-CN': '咨询治疗方案', en: 'Consult Treatment Plan' } as Record<Language, string>,
   heroFlow: { ja: '治療の流れを見る', 'zh-TW': '了解治療流程', 'zh-CN': '了解治疗流程', en: 'View Treatment Process' } as Record<Language, string>,
   statGastric: { ja: '胃がん5年生存率', 'zh-TW': '胃癌五年存活率', 'zh-CN': '胃癌五年存活率', en: 'Gastric Cancer 5-Year Survival' } as Record<Language, string>,
-  statProstate: { ja: '前立腺がん陽子線治療', 'zh-TW': '前列腺癌質子治療', 'zh-CN': '前列腺癌质子治疗', en: 'Prostate Cancer Proton Therapy' } as Record<Language, string>,
-  statProstateSub: { ja: '5年生存率*', 'zh-TW': '五年存活率*', 'zh-CN': '五年存活率*', en: '5-Year Survival*' } as Record<Language, string>,
+  statProstate: { ja: '先進治療技術の種類', 'zh-TW': '先進治療技術種類', 'zh-CN': '先进治疗技术种类', en: 'Advanced Treatment Types' } as Record<Language, string>,
+  statProstateSub: { ja: '質子・重粒子・免疫・BNCT 等', 'zh-TW': '質子、重離子、免疫、BNCT 等', 'zh-CN': '质子、重离子、免疫、BNCT 等', en: 'Proton, Heavy Ion, Immuno, BNCT, etc.' } as Record<Language, string>,
   statCost: { ja: '費用は米国の', 'zh-TW': '費用僅為美國', 'zh-CN': '费用仅为美国', en: 'Cost Only 1/3 of US' } as Record<Language, string>,
   statCostSub: { ja: '参考概算', 'zh-TW': '參考估算', 'zh-CN': '参考估算', en: 'Reference Estimate' } as Record<Language, string>,
   dataSource: { ja: '*データ出典：Lancet Oncology 2018; 各医療機関公開資料。個人の治療効果は症状により異なります。参考情報としてご利用ください。', 'zh-TW': '*數據來源：Lancet Oncology 2018; 各醫療機構公開資料。個人療效因病情而異，僅供參考。', 'zh-CN': '*数据来源：Lancet Oncology 2018; 各医疗机构公开资料。个人疗效因病情而异，仅供参考。', en: '*Data source: Lancet Oncology 2018; public data from medical institutions. Individual results vary.' } as Record<Language, string>,
-  trustEarly: { ja: '超早期精密スクリーニング、5mm腫瘍検出可能', 'zh-TW': '超早期精密篩查，5mm 腫瘤可檢出', 'zh-CN': '超早期精密筛查，5mm 肿瘤可检出', en: 'Ultra-early screening, 5mm tumors detectable' } as Record<Language, string>,
+  trustEarly: { ja: '精密スクリーニングによる早期発見', 'zh-TW': '精密篩查助力早期發現', 'zh-CN': '精密筛查助力早期发现', en: 'Precision screening for early detection' } as Record<Language, string>,
   trustTranslator: { ja: '専門医療通訳が全行程同行', 'zh-TW': '專業醫療翻譯全程陪同', 'zh-CN': '专业医疗翻译全程陪同', en: 'Professional medical interpreter throughout' } as Record<Language, string>,
   trustRemote: { ja: '遠隔診療確認後に来日', 'zh-TW': '遠程會診確認後再赴日', 'zh-CN': '远程会诊确认后再赴日', en: 'Visit Japan after remote consultation confirmation' } as Record<Language, string>,
   // Institutions Section
@@ -52,13 +52,13 @@ const pageTranslations = {
   stdDesc: { ja: '高い安全性、精密な治療、QOL重視、EBMと多職種連携を強調', 'zh-TW': '安全性高、治療精準、重視生活質量（QOL）、強調循證醫學與多學科協作', 'zh-CN': '安全性高、治疗精准、重视生活质量（QOL）、强调循证医学与多学科协作', en: 'High safety, precision treatment, QOL-focused, evidence-based multidisciplinary approach' } as Record<Language, string>,
   // Regenerative Section
   regenTitle: { ja: '再生医療等の補助治療', 'zh-TW': '再生醫療等輔助治療', 'zh-CN': '再生医疗等辅助治疗', en: 'Regenerative Medicine & Supportive Treatments' } as Record<Language, string>,
-  regenDesc: { ja: '最新の再生医療技術で身体回復と再発予防をサポート', 'zh-TW': '結合最新再生醫療技術，幫助患者身體恢復並預防癌症復發', 'zh-CN': '结合最新再生医疗技术，帮助患者身体恢复并预防癌症复发', en: 'Supporting recovery and recurrence prevention with regenerative medicine' } as Record<Language, string>,
+  regenDesc: { ja: '再生医療技術で身体回復と治療後のケアをサポート', 'zh-TW': '結合再生醫療技術，幫助患者身體恢復及治療後護理', 'zh-CN': '结合再生医疗技术，帮助患者身体恢复及治疗后护理', en: 'Supporting recovery and post-treatment care with regenerative medicine' } as Record<Language, string>,
   regenRecovery: { ja: '身体回復', 'zh-TW': '身體恢復', 'zh-CN': '身体恢复', en: 'Body Recovery' } as Record<Language, string>,
   regenHealth: { ja: '長期健康管理', 'zh-TW': '長期健康管理', 'zh-CN': '长期健康管理', en: 'Long-term Health' } as Record<Language, string>,
-  regenPrevention: { ja: '再発予防', 'zh-TW': '預防復發', 'zh-CN': '预防复发', en: 'Recurrence Prevention' } as Record<Language, string>,
+  regenPrevention: { ja: '治療後の経過観察', 'zh-TW': '治療後追蹤觀察', 'zh-CN': '治疗后追踪观察', en: 'Post-treatment Monitoring' } as Record<Language, string>,
   // Partner Section
   partnerTitle: { ja: '相談可能な医療機関タイプ', 'zh-TW': '可協助諮詢的醫療機構類型', 'zh-CN': '可协助咨询的医疗机构类型', en: 'Types of Partner Medical Institutions' } as Record<Language, string>,
-  partnerDesc: { ja: '日本各種トップクラスのがん治療施設を網羅', 'zh-TW': '涵蓋日本各類頂尖癌症治療設施', 'zh-CN': '涵盖日本各类顶尖癌症治疗设施', en: 'Covering top cancer treatment facilities across Japan' } as Record<Language, string>,
+  partnerDesc: { ja: '日本各地の主要ながん治療施設をご案内', 'zh-TW': '涵蓋日本各地主要癌症治療設施', 'zh-CN': '涵盖日本各地主要癌症治疗设施', en: 'Covering major cancer treatment facilities across Japan' } as Record<Language, string>,
   // Service Section
   svcTitle: { ja: 'サービスご予約', 'zh-TW': '諮詢服務預約', 'zh-CN': '咨询服务预约', en: 'Book Consultation Service' } as Record<Language, string>,
   svcDesc: { ja: 'ご希望のサービスを選択し、お支払い後24時間以内にご連絡いたします', 'zh-TW': '選擇您需要的服務，在線支付後我們將在 24 小時內與您聯繫', 'zh-CN': '选择您需要的服务，在线支付后我们将在 24 小时内与您联系', en: 'Select your service, we will contact you within 24 hours after payment' } as Record<Language, string>,
@@ -78,6 +78,12 @@ const pageTranslations = {
   contactLine: { ja: 'LINEで相談', 'zh-TW': 'LINE 諮詢', 'zh-CN': 'LINE 咨询', en: 'LINE Chat' } as Record<Language, string>,
   contactEmail: { ja: 'メールで相談', 'zh-TW': '郵件諮詢', 'zh-CN': '邮件咨询', en: 'Email Us' } as Record<Language, string>,
   contactWechat: { ja: 'WeChatで相談', 'zh-TW': '微信諮詢', 'zh-CN': '微信咨询', en: 'WeChat' } as Record<Language, string>,
+  medicalDisclaimer: {
+    ja: '※ 当社（新島交通株式会社）は旅行業者であり、医療機関ではありません。本ページの情報は各医療機関の公開資料および学術論文に基づく参考情報であり、医療行為の勧誘や治療効果の保証を目的とするものではありません。実際の治療方針は担当医師の診断に基づきます。渡航前に必ず主治医にご相談ください。',
+    'zh-TW': '※ 本公司（新島交通株式會社）為旅行業者，非醫療機構。本頁面資訊來源於各醫療機構公開資料及學術論文，僅供參考，不構成醫療行為的招攬或治療效果的保證。實際治療方案以主治醫師診斷為準。赴日前請務必諮詢您的主治醫師。',
+    'zh-CN': '※ 本公司（新岛交通株式会社）为旅行业者，非医疗机构。本页面信息来源于各医疗机构公开资料及学术论文，仅供参考，不构成医疗行为的招揽或治疗效果的保证。实际治疗方案以主治医师诊断为准。赴日前请务必咨询您的主治医师。',
+    en: '※ Our company (NIIJIMA KOUTSU Co., Ltd.) is a registered travel agency, not a medical institution. Information on this page is sourced from publicly available institutional data and academic publications for reference only, and does not constitute solicitation of medical treatment or guarantee of treatment outcomes. Actual treatment plans are determined by the attending physician. Please consult your doctor before traveling to Japan.'
+  } as Record<Language, string>,
   backHome: { ja: 'ホームに戻る', 'zh-TW': '返回首頁', 'zh-CN': '返回首页', en: 'Back to Home' } as Record<Language, string>,
   wechatTitle: { ja: 'WeChat相談', 'zh-TW': '微信諮詢', 'zh-CN': '微信咨询', en: 'WeChat Consultation' } as Record<Language, string>,
   wechatScan: { ja: 'QRコードをスキャンして追加', 'zh-TW': '掃描二維碼添加客服微信', 'zh-CN': '扫描二维码添加客服微信', en: 'Scan QR code to add us' } as Record<Language, string>,
@@ -249,7 +255,7 @@ const STANDARD_TREATMENTS = [
       { ja: '生存率だけでなく、術後のQOLを重視', 'zh-TW': '不僅追求生存率，更重視術後生活質量', 'zh-CN': '不仅追求生存率，更重视术后生活质量', en: 'Prioritizes post-surgery quality of life' } as Record<Language, string>,
       { ja: '食事・排尿・会話等の機能保護', 'zh-TW': '進食、排尿、說話等功能保護', 'zh-CN': '进食、排尿、说话等功能保护', en: 'Protects eating, urinary, speech functions' } as Record<Language, string>,
     ],
-    desc: { ja: '日本の低侵襲手術技術は世界をリードし、治療効果を追求しながら最大限にQOLを保護します。', 'zh-TW': '日本微創手術技術世界領先，在追求治療效果的同時最大限度保護患者的生活質量。', 'zh-CN': '日本微创手术技术世界领先，在追求治疗效果的同时最大限度保护患者的生活质量。', en: 'Japan leads in minimally invasive surgery, maximizing quality of life while pursuing treatment outcomes.' } as Record<Language, string>,
+    desc: { ja: '日本の低侵襲手術技術は高い水準を有し、治療効果を追求しながらQOLの保護を重視しています。', 'zh-TW': '日本微創手術技術水準高，在追求治療效果的同時重視保護患者的生活質量。', 'zh-CN': '日本微创手术技术水准高，在追求治疗效果的同时重视保护患者的生活质量。', en: 'Japanese minimally invasive surgery maintains high standards, emphasizing quality of life alongside treatment outcomes.' } as Record<Language, string>,
   },
   {
     id: 'chemo',
@@ -269,7 +275,7 @@ const STANDARD_TREATMENTS = [
     title: { ja: '放射線治療', 'zh-TW': '放射線治療', 'zh-CN': '放射线治疗', en: 'Radiation Therapy' } as Record<Language, string>,
     color: 'purple',
     features: [
-      { ja: '陽子線・重粒子線治療で世界をリード', 'zh-TW': '陽子線、重離子線治療世界領先', 'zh-CN': '质子线、重离子线治疗世界领先', en: 'World-leading proton and heavy ion therapy' } as Record<Language, string>,
+      { ja: '陽子線・重粒子線治療の実績が豊富', 'zh-TW': '陽子線、重離子線治療經驗豐富', 'zh-CN': '质子线、重离子线治疗经验丰富', en: 'Extensive proton and heavy ion therapy experience' } as Record<Language, string>,
       { ja: '定位放射線治療技術が成熟', 'zh-TW': '立體定向放射治療技術成熟', 'zh-CN': '立体定向放射治疗技术成熟', en: 'Mature stereotactic radiation technology' } as Record<Language, string>,
       { ja: '正常組織を最大限に保護し合併症を軽減', 'zh-TW': '最大限度保護正常組織，減少併發症', 'zh-CN': '最大限度保护正常组织，减少并发症', en: 'Maximum protection of normal tissue' } as Record<Language, string>,
     ],
@@ -333,12 +339,12 @@ const REGENERATIVE_TREATMENTS = [
     icon: Shield,
     title: { ja: 'NK等免疫細胞', 'zh-TW': 'NK等免疫細胞', 'zh-CN': 'NK等免疫细胞', en: 'NK Immune Cells' } as Record<Language, string>,
     subtitle: 'NK Cell Therapy',
-    purpose: { ja: '再発予防', 'zh-TW': '預防復發', 'zh-CN': '预防复发', en: 'Recurrence Prevention' } as Record<Language, string>,
+    purpose: { ja: '免疫サポート', 'zh-TW': '免疫支持', 'zh-CN': '免疫支持', en: 'Immune Support' } as Record<Language, string>,
     color: 'green',
     features: [
-      { ja: '体の免疫機能を強化', 'zh-TW': '增強機體免疫功能', 'zh-CN': '增强机体免疫功能', en: 'Enhances immune function' } as Record<Language, string>,
-      { ja: '抗腫瘍防御力を向上', 'zh-TW': '提高抗腫瘤防禦能力', 'zh-CN': '提高抗肿瘤防御能力', en: 'Improves anti-tumor defense' } as Record<Language, string>,
-      { ja: 'がん再発を予防', 'zh-TW': '預防癌症復發', 'zh-CN': '预防癌症复发', en: 'Prevents cancer recurrence' } as Record<Language, string>,
+      { ja: '免疫機能の維持をサポート', 'zh-TW': '輔助維持免疫功能', 'zh-CN': '辅助维持免疫功能', en: 'Supports immune function maintenance' } as Record<Language, string>,
+      { ja: '体の自然防御力をケア', 'zh-TW': '護理身體自然防禦力', 'zh-CN': '护理身体自然防御力', en: 'Supports natural defense capacity' } as Record<Language, string>,
+      { ja: '治療後の健康管理の一環', 'zh-TW': '治療後健康管理的一環', 'zh-CN': '治疗后健康管理的一环', en: 'Part of post-treatment health management' } as Record<Language, string>,
     ],
   },
 ];
@@ -372,7 +378,7 @@ const JAPAN_MEDICAL_INSTITUTIONS = [
         features: [
           L('大阪府立がん専門病院（2017年新築）', '大阪府立癌症專門醫院（2017年新建）', '大阪府立癌症专门医院（2017年新建）', 'Osaka prefectural cancer hospital (rebuilt 2017)'),
           L('年間手術件数 5,000例超', '年間手術量超 5,000 例', '年间手术量超 5,000 例', 'Over 5,000 surgeries per year'),
-          L('最先端がん治療設備完備', '最先端癌症治療設備完備', '最先端癌症治疗设备完备', 'State-of-the-art cancer treatment equipment'),
+          L('先進がん治療設備完備', '先進癌症治療設備完備', '先进癌症治疗设备完备', 'Advanced cancer treatment equipment'),
           L('がんゲノム医療中核拠点', '癌症基因組醫療核心據點', '癌症基因组医疗核心据点', 'Core hub for cancer genomic medicine'),
           L('国際患者支援窓口あり', '國際患者支援窗口', '国际患者支援窗口', 'International patient support desk'),
         ],
@@ -420,7 +426,7 @@ const JAPAN_MEDICAL_INSTITUTIONS = [
         ],
         features: [
           L('神戸医療産業都市の中核病院', '神戶醫療產業都市核心醫院', '神户医疗产业都市核心医院', 'Core hospital of Kobe Biomedical Innovation Cluster'),
-          L('肝胆膵外科は日本トップクラス', '肝膽胰外科日本領先', '肝胆胰外科日本领先', 'Leading hepatobiliary surgery in Japan'),
+          L('肝胆膵外科に強みを有する', '肝膽胰外科為強項', '肝胆胰外科为强项', 'Strength in hepatobiliary & pancreatic surgery'),
           L('先進医療設備完備', '先進醫療設備完備', '先进医疗设备完备', 'Advanced medical equipment'),
           L('国際医療交流が活発', '國際醫療交流活躍', '国际医疗交流活跃', 'Active international medical exchange'),
         ],
@@ -492,7 +498,7 @@ const JAPAN_MEDICAL_INSTITUTIONS = [
           L('循環器疾患の国立研究拠点', '循環系統疾病國家級研究據點', '循环系统疾病国家级研究据点', 'National research hub for cardiovascular diseases'),
           L('がん治療と循環器管理の統合医療', '癌症治療與循環系統管理的整合醫療', '癌症治疗与循环系统管理的整合医疗', 'Integrated cancer treatment with cardiovascular management'),
           L('脳卒中・心疾患合併がん患者に強い', '擅長腦中風及心臟病合併癌症患者', '擅长脑卒中及心脏病合并癌症患者', 'Specialized in cancer patients with stroke/heart disease'),
-          L('最先端の画像診断・カテーテル技術', '最尖端影像診斷及導管技術', '最尖端影像诊断及导管技术', 'Cutting-edge imaging diagnostics & catheter technology'),
+          L('高精度の画像診断・カテーテル技術', '高精度影像診斷及導管技術', '高精度影像诊断及导管技术', 'High-precision imaging diagnostics & catheter technology'),
         ],
         treatments: [
           L('腫瘍循環器外来（Onco-Cardiology）', '腫瘤心臟科門診（Onco-Cardiology）', '肿瘤心脏科门诊（Onco-Cardiology）', 'Onco-Cardiology Clinic'),
@@ -517,7 +523,7 @@ const JAPAN_MEDICAL_INSTITUTIONS = [
           L('皮膚がん', '皮膚癌', '皮肤癌', 'Skin Cancer'),
         ],
         features: [
-          L('関西トップクラスの医療機関', '關西地區頂級醫療機構', '关西地区顶级医疗机构', 'Top-tier medical institution in Kansai'),
+          L('関西を代表する医療機関', '關西地區代表性醫療機構', '关西地区代表性医疗机构', 'Leading medical institution in Kansai'),
           L('光免疫療法の臨床研究で先行', '光免疫療法臨床研究領先', '光免疫疗法临床研究领先', 'Pioneer in photoimmunotherapy research'),
           L('幹細胞治療研究の先駆者', '幹細胞治療研究先驅', '干细胞治疗研究先驱', 'Pioneer in stem cell therapy research'),
         ],
@@ -540,7 +546,7 @@ const JAPAN_MEDICAL_INSTITUTIONS = [
         ],
         features: [
           L('iPS細胞研究発祥の地（山中伸弥教授）', 'iPS 細胞研究發源地（山中伸彌教授）', 'iPS 细胞研究发源地（山中伸弥教授）', 'Birthplace of iPS cell research (Prof. Yamanaka)'),
-          L('再生医療で世界をリード', '再生醫療世界領先', '再生医疗世界领先', 'World leader in regenerative medicine'),
+          L('再生医療研究に注力', '再生醫療研究領域活躍', '再生医疗研究领域活跃', 'Active in regenerative medicine research'),
           L('がんゲノム医療中核拠点', '癌症基因組醫療核心據點', '癌症基因组医疗核心据点', 'Core hub for cancer genomic medicine'),
           L('関西医学研究の重鎮', '關西醫學研究重鎮', '关西医学研究重镇', 'Leading medical research center in Kansai'),
         ],
@@ -642,7 +648,7 @@ const JAPAN_MEDICAL_INSTITUTIONS = [
         ],
         features: [
           L('世界初の陽子線・重粒子線両方を備えた施設', '全球首個同時擁有質子線和重粒子線的設施', '全球首个同时拥有质子线和重粒子线的设施', "World's first dual proton & heavy ion facility"),
-          L('治療適応症が最も広い', '治療適應症最廣', '治疗适应症最广', 'Widest range of treatable cancers'),
+          L('治療適応症の範囲が広い', '治療適應症範圍廣泛', '治疗适应症范围广泛', 'Wide range of treatable cancers'),
           L('がんの種類に応じた最適な粒子線を選択', '可根據癌症類型選擇最佳粒子線', '可根据癌症类型选择最佳粒子线', 'Optimal particle beam selected per cancer type'),
         ],
         treatments: [
@@ -713,8 +719,8 @@ const JAPAN_MEDICAL_INSTITUTIONS = [
         ],
         features: [
           L('陽子線治療の先駆者', '質子線治療先驅', '质子线治疗先驱', 'Pioneer in proton beam therapy'),
-          L('頭頸部がん治療で日本トップ', '頭頸部癌治療日本領先', '头颈部癌治疗日本领先', "Japan's leader in head & neck cancer"),
-          L('消化器内視鏡治療技術が最高水準', '消化器內視鏡治療技術頂尖', '消化器内视镜治疗技术顶尖', 'World-class GI endoscopic treatment'),
+          L('頭頸部がん治療に強みを有する', '頭頸部癌治療為強項', '头颈部癌治疗为强项', 'Strength in head & neck cancer treatment'),
+          L('消化器内視鏡治療技術に定評あり', '消化器內視鏡治療技術享有盛譽', '消化器内视镜治疗技术享有盛誉', 'Renowned GI endoscopic treatment expertise'),
           L('国際患者支援体制が充実', '國際患者支援體制完善', '国际患者支援体制完善', 'Comprehensive international patient support'),
         ],
         treatments: [
@@ -914,7 +920,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                 <div className="text-xs text-neutral-400 mt-1">Lancet 2018*</div>
               </div>
               <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
-                <div className="text-3xl font-bold text-white mb-1">95%+</div>
+                <div className="text-3xl font-bold text-white mb-1">7+</div>
                 <div className="text-sm text-neutral-300">{t('statProstate')}</div>
                 <div className="text-xs text-neutral-400 mt-1">{t('statProstateSub')}</div>
               </div>
@@ -1529,6 +1535,21 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
           </div>
         </div>
       </section>
+      {/* Medical Disclaimer */}
+      <div className="bg-neutral-50 border-t border-neutral-200 py-8">
+        <div className="container mx-auto px-6">
+          <p className="text-xs text-neutral-400 leading-relaxed max-w-4xl mx-auto text-center">
+            {t('medicalDisclaimer')}
+          </p>
+          <p className="text-xs text-neutral-400 leading-relaxed max-w-4xl mx-auto text-center mt-2">
+            <a href="/legal/medical-disclaimer" className="underline hover:text-neutral-600">{currentLang === 'ja' ? '医療免責事項の詳細' : currentLang === 'en' ? 'Medical Disclaimer Details' : '醫療免責聲明詳情'}</a>
+            {' | '}
+            <a href="/legal/tokushoho" className="underline hover:text-neutral-600">{currentLang === 'ja' ? '特定商取引法に基づく表記' : currentLang === 'en' ? 'Specified Commercial Transactions' : '特定商取引法標示'}</a>
+            {' | '}
+            <a href="/legal/privacy" className="underline hover:text-neutral-600">{currentLang === 'ja' ? 'プライバシーポリシー' : currentLang === 'en' ? 'Privacy Policy' : '隱私政策'}</a>
+          </p>
+        </div>
+      </div>
       {/* Back to Home */}
       <div className="py-8 bg-white text-center">
         <Link

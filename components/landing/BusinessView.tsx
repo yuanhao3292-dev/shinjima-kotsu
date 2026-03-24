@@ -256,9 +256,9 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
              </div>
 
              {/* Stats Bar */}
-             <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+             <div className="mt-12 grid grid-cols-2 md:grid-cols-3 gap-4">
                 <div className="bg-brand-900 text-white p-6 rounded-xl text-center">
-                   <div className="text-3xl font-bold">100+</div>
+                   <div className="text-3xl font-bold">70+</div>
                    <div className="text-sm opacity-80">{localizedTexts.bookableCompanies}</div>
                 </div>
                 <div className="bg-brand-800 text-white p-6 rounded-xl text-center">
@@ -266,12 +266,8 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                    <div className="text-sm opacity-80">{localizedTexts.industryCategories}</div>
                 </div>
                 <div className="bg-brand-700 text-white p-6 rounded-xl text-center">
-                   <div className="text-3xl font-bold">47</div>
-                   <div className="text-sm opacity-80">{localizedTexts.prefecturesCovered}</div>
-                </div>
-                <div className="bg-brand-600 text-white p-6 rounded-xl text-center">
-                   <div className="text-3xl font-bold">95%</div>
-                   <div className="text-sm opacity-80">{localizedTexts.successRate}</div>
+                   <div className="text-3xl font-bold">16</div>
+                   <div className="text-sm opacity-80">{currentLang === 'zh-TW' ? '考察方案' : currentLang === 'zh-CN' ? '考察方案' : currentLang === 'ja' ? '視察プラン' : 'Inspection Plans'}</div>
                 </div>
              </div>
 

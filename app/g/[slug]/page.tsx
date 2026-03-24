@@ -272,7 +272,7 @@ export default async function GuideHomePage({ params }: PageProps) {
             用心连结世界与日本
           </h2>
           <p className="text-neutral-400 leading-relaxed mb-10 max-w-2xl mx-auto">
-            我们致力于为全球旅客提供最高品质的日本旅游体验。我们相信，真正的服务不仅是满足需求，更是创造感动。
+            我们致力于为全球旅客提供优质的日本旅游体验。我们相信，真正的服务不仅是满足需求，更是创造感动。
           </p>
           <a
             href="/company/about"

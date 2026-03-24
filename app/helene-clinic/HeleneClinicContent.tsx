@@ -181,7 +181,7 @@ const tr = {
 
   // Facility
   facilityTag: { ja: '施設紹介', 'zh-TW': '設施介紹', 'zh-CN': '设施介绍', en: 'Facilities' } as Record<Language, string>,
-  facilityTitle: { ja: '表参道の最先端再生医療施設', 'zh-TW': '表參道最先進再生醫療設施', 'zh-CN': '表参道最先进再生医疗设施', en: 'State-of-the-Art Regenerative Medicine Facility in Omotesando' } as Record<Language, string>,
+  facilityTitle: { ja: '表参道の先進再生医療施設', 'zh-TW': '表參道先進再生醫療設施', 'zh-CN': '表参道先进再生医疗设施', en: 'Advanced Regenerative Medicine Facility in Omotesando' } as Record<Language, string>,
 
   // Treatments
   treatTag: { ja: '治療メニュー', 'zh-TW': '治療項目', 'zh-CN': '治疗项目', en: 'Treatments' } as Record<Language, string>,
@@ -198,7 +198,7 @@ const tr = {
 
   // Team
   teamTag: { ja: '医療チーム', 'zh-TW': '醫療團隊', 'zh-CN': '医疗团队', en: 'Medical Team' } as Record<Language, string>,
-  teamTitle: { ja: '世界トップレベルの専門医チーム', 'zh-TW': '世界頂級專科醫師團隊', 'zh-CN': '世界顶级专科医师团队', en: 'World-Class Specialist Team' } as Record<Language, string>,
+  teamTitle: { ja: '国際的な実績を持つ専門医チーム', 'zh-TW': '具國際實績的專科醫師團隊', 'zh-CN': '具国际实绩的专科医师团队', en: 'Specialist Team with International Experience' } as Record<Language, string>,
 
   // Lab
   labTag: { ja: '細胞培養室（CPC）', 'zh-TW': '細胞培養室（CPC）', 'zh-CN': '细胞培养室（CPC）', en: 'Cell Processing Center (CPC)' } as Record<Language, string>,
@@ -753,12 +753,12 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
               </h3>
               <p className="text-white/80 text-sm leading-relaxed">
                 {lang === 'ja'
-                  ? 'TIME誌「世界で最も影響力のある100人」（2020年）、FMedSci（2021年）、Clarivate高被引用研究者（2022-2024年）に選出されたRavindra Gupta教授を学術顧問に迎え、最先端の研究成果を臨床に応用しています'
+                  ? 'TIME誌「世界で最も影響力のある100人」（2020年）、FMedSci（2021年）、Clarivate高被引用研究者（2022-2024年）に選出されたRavindra Gupta教授を学術顧問に迎え、先進的な研究成果を臨床に応用しています'
                   : lang === 'en'
-                  ? 'Prof. Ravindra Gupta — TIME "100 Most Influential" (2020), FMedSci (2021), Clarivate Highly Cited Researcher (2022-2024) — serves as academic advisor, bringing cutting-edge research to clinical practice'
+                  ? 'Prof. Ravindra Gupta — TIME "100 Most Influential" (2020), FMedSci (2021), Clarivate Highly Cited Researcher (2022-2024) — serves as academic advisor, bringing advanced research to clinical practice'
                   : lang === 'zh-TW'
-                  ? '邀請TIME「全球最具影響力100人」（2020年）、FMedSci（2021年）、Clarivate高被引研究者（2022-2024年）的Ravindra Gupta教授擔任學術顧問，將最尖端研究成果應用於臨床'
-                  : '邀请TIME「全球最具影响力100人」（2020年）、FMedSci（2021年）、Clarivate高被引研究者（2022-2024年）的Ravindra Gupta教授担任学术顾问，将最尖端研究成果应用于临床'}
+                  ? '邀請TIME「全球最具影響力100人」（2020年）、FMedSci（2021年）、Clarivate高被引研究者（2022-2024年）的Ravindra Gupta教授擔任學術顧問，將先進研究成果應用於臨床'
+                  : '邀请TIME「全球最具影响力100人」（2020年）、FMedSci（2021年）、Clarivate高被引研究者（2022-2024年）的Ravindra Gupta教授担任学术顾问，将先进研究成果应用于临床'}
               </p>
             </div>
           </div>

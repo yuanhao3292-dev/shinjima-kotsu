@@ -84,20 +84,20 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
   // 合作球场数据 — 从翻译数据获取
   const partnerCourses = (t.golf as any).partnerCourses || [
-    { name: '六甲国際ゴルフ倶楽部', region: '兵庫', rank: 'Top 30', url: 'http://rokkokokusai-kobe.jp/' },
-    { name: 'ABCゴルフ倶楽部', region: '兵庫', rank: 'Top 50', url: 'https://abc-golf.co.jp/' },
-    { name: '太平洋クラブ御殿場コース', region: '静岡', rank: 'Top 10', url: 'https://www.taiheiyoclub.co.jp/course/gotenba/' },
-    { name: '有馬ロイヤルゴルフクラブ', region: '兵庫', rank: 'Top 100', url: 'https://arima-royal.com/' },
-    { name: 'ゴールデンバレーゴルフ倶楽部', region: '兵庫', rank: 'Top 100', url: 'https://www.gvgc.jp/' },
-    { name: '富士桜カントリー倶楽部', region: '山梨', rank: 'Top 50', url: 'https://www.fujizakura-cc.jp/' },
+    { name: '六甲国際ゴルフ倶楽部', region: '兵庫', rank: '名門', url: 'http://rokkokokusai-kobe.jp/' },
+    { name: 'ABCゴルフ倶楽部', region: '兵庫', rank: '名門', url: 'https://abc-golf.co.jp/' },
+    { name: '太平洋クラブ御殿場コース', region: '静岡', rank: '名門', url: 'https://www.taiheiyoclub.co.jp/course/gotenba/' },
+    { name: '有馬ロイヤルゴルフクラブ', region: '兵庫', rank: '名門', url: 'https://arima-royal.com/' },
+    { name: 'ゴールデンバレーゴルフ倶楽部', region: '兵庫', rank: '名門', url: 'https://www.gvgc.jp/' },
+    { name: '富士桜カントリー倶楽部', region: '山梨', rank: '名門', url: 'https://www.fujizakura-cc.jp/' },
   ];
 
-  // 统计数据
+  // 统计数据 — 仅使用可验证的事实
   const stats = [
     { value: '25+', label: t.golf.stat_courses || '提携名門コース', sublabel: 'Premium Courses' },
-    { value: '98%+', label: t.golf.stat_booking || '予約成功率', sublabel: 'Booking Success' },
-    { value: '1,500+', label: t.golf.stat_guests || '年間VIPゲスト', sublabel: 'Annual VIP Guests' },
-    { value: '15+', label: t.golf.stat_experience || '業界経験', sublabel: 'Years Experience' },
+    { value: '7', label: currentLang === 'zh-TW' ? '地區覆蓋' : currentLang === 'zh-CN' ? '地区覆盖' : currentLang === 'ja' ? '対応エリア' : 'Regions', sublabel: 'Across Japan' },
+    { value: 'VIP', label: currentLang === 'zh-TW' ? '專屬待遇' : currentLang === 'zh-CN' ? '专属待遇' : currentLang === 'ja' ? '専用サービス' : 'Exclusive Service', sublabel: 'Members Only Access' },
+    { value: '2020', label: currentLang === 'zh-TW' ? '公司成立' : currentLang === 'zh-CN' ? '公司成立' : currentLang === 'ja' ? '会社設立' : 'Established', sublabel: 'Osaka, Japan' },
   ];
 
   return (

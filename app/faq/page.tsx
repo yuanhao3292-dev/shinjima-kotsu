@@ -175,10 +175,10 @@ const FAQ_DATA: FAQItem[] = [
       en: 'What famous golf courses does Japan have?',
     },
     answer: {
-      ja: '日本には2,600以上のゴルフ場があり、世界的な名コースも多数あります。おすすめ：（1）廣野ゴルフ倶楽部（兵庫）—日本ランキング1位、アジアNo.1（完全会員制）（2）川奈ホテルゴルフコース・富士コース（静岡）—富士山と太平洋を望む絶景コース、ホテル宿泊者予約可（3）太平洋クラブ御殿場コース—プロトーナメント開催コース（4）那覇空港からアクセスの良い沖縄コース—年中プレー可能。当社ではお客様のレベルやご希望に合わせて最適なコースをご提案し、予約から送迎まで一括手配いたします。',
-      'zh-TW': '日本擁有超過2600家高爾夫球場，其中不乏世界級名場。推薦：（1）廣野高爾夫俱樂部（兵庫縣）——日本排名第一、亞洲第一，純會員制（2）川奈酒店高爾夫·富士球場（靜岡縣）——可遠眺富士山和太平洋，酒店住客可預約（3）太平洋俱樂部·御殿場球場——多次舉辦職業賽事（4）沖繩球場——四季皆可打球，海景絕佳。我們會根據您的水平和偏好推薦最適合的球場，從預約到接送全程安排。',
-      'zh-CN': '日本拥有超过2600家高尔夫球场，其中不乏世界级名场。推荐：（1）广野高尔夫俱乐部（兵库县）——日本排名第一、亚洲第一，纯会员制（2）川奈酒店高尔夫·富士球场（静冈县）——可远眺富士山和太平洋，酒店住客可预约（3）太平洋俱乐部·御殿场球场——多次举办职业赛事（4）冲绳球场——四季皆可打球，海景绝佳。我们会根据您的水平和偏好推荐最适合的球场，从预约到接送全程安排。',
-      en: 'Japan has over 2,600 golf courses with many world-class options: (1) Hirono Golf Club (Hyogo) — Japan\'s #1, Asia\'s #1, members-only (2) Kawana Hotel Golf Course Fuji Course (Shizuoka) — stunning Mt. Fuji & Pacific views, hotel guests can book (3) Taiheiyo Club Gotemba — hosts professional tournaments (4) Okinawa courses — playable year-round with ocean views. We recommend the best course for your level and handle everything from booking to transfers.',
+      ja: '日本には2,600以上のゴルフ場があり、世界的な名コースも多数あります。おすすめ：（1）廣野ゴルフ倶楽部（兵庫）—各種ランキングで日本1位評価、アジアでも最高評価（完全会員制）（2）川奈ホテルゴルフコース・富士コース（静岡）—富士山と太平洋を望む絶景コース、ホテル宿泊者予約可（3）太平洋クラブ御殿場コース—プロトーナメント開催コース（4）那覇空港からアクセスの良い沖縄コース—年中プレー可能。当社ではお客様のレベルやご希望に合わせて最適なコースをご提案し、予約から送迎まで一括手配いたします。',
+      'zh-TW': '日本擁有超過2600家高爾夫球場，其中不乏知名球場。推薦：（1）廣野高爾夫俱樂部（兵庫縣）——各大排名中位居日本第一，純會員制（2）川奈酒店高爾夫·富士球場（靜岡縣）——可遠眺富士山和太平洋，酒店住客可預約（3）太平洋俱樂部·御殿場球場——多次舉辦職業賽事（4）沖繩球場——四季皆可打球，海景絕佳。我們會根據您的水平和偏好推薦最適合的球場，從預約到接送全程安排。',
+      'zh-CN': '日本拥有超过2600家高尔夫球场，其中不乏知名球场。推荐：（1）广野高尔夫俱乐部（兵库县）——各大排名中位居日本第一，纯会员制（2）川奈酒店高尔夫·富士球场（静冈县）——可远眺富士山和太平洋，酒店住客可预约（3）太平洋俱乐部·御殿场球场——多次举办职业赛事（4）冲绳球场——四季皆可打球，海景绝佳。我们会根据您的水平和偏好推荐最适合的球场，从预约到接送全程安排。',
+      en: 'Japan has over 2,600 golf courses with many renowned options: (1) Hirono Golf Club (Hyogo) — consistently ranked #1 in Japan by major golf publications, members-only (2) Kawana Hotel Golf Course Fuji Course (Shizuoka) — stunning Mt. Fuji & Pacific views, hotel guests can book (3) Taiheiyo Club Gotemba — hosts professional tournaments (4) Okinawa courses — playable year-round with ocean views. We recommend the best course for your level and handle everything from booking to transfers.',
     },
   },
   {

@@ -105,13 +105,13 @@ const tr = {
     ja: '施設紹介', 'zh-TW': '設施介紹', 'zh-CN': '设施介绍', en: 'Hospital Facilities',
   } as Record<Language, string>,
   facilityTitle: {
-    ja: '2017年新築の最新鋭施設', 'zh-TW': '2017年新建的最先進設施', 'zh-CN': '2017年新建的最先进设施', en: 'State-of-the-Art Facility Built in 2017',
+    ja: '2017年新築の先進施設', 'zh-TW': '2017年新建的先進設施', 'zh-CN': '2017年新建的先进设施', en: 'Modern Facility Built in 2017',
   } as Record<Language, string>,
   facilityDesc: {
-    ja: '地上13階建・延床面積 68,329㎡ — 大阪城を望む最新のがん治療拠点',
-    'zh-TW': '地上13層·總樓面積 68,329㎡ — 可眺望大阪城的最新癌症治療中心',
-    'zh-CN': '地上13层·总建筑面积 68,329㎡ — 可眺望大阪城的最新癌症治疗中心',
-    en: '13 Stories · 68,329㎡ — State-of-the-art cancer treatment hub overlooking Osaka Castle',
+    ja: '地上13階建・延床面積 68,329㎡ — 大阪城を望むがん治療拠点',
+    'zh-TW': '地上13層·總樓面積 68,329㎡ — 可眺望大阪城的癌症治療中心',
+    'zh-CN': '地上13层·总建筑面积 68,329㎡ — 可眺望大阪城的癌症治疗中心',
+    en: '13 Stories · 68,329㎡ — Modern cancer treatment hub overlooking Osaka Castle',
   } as Record<Language, string>,
   facilityEntrance: {
     ja: '外来エントランスホール', 'zh-TW': '門診大廳', 'zh-CN': '门诊大厅', en: 'Outpatient Entrance Hall',
@@ -142,7 +142,7 @@ const tr = {
     ja: '先端治療技術', 'zh-TW': '先進治療技術', 'zh-CN': '先进治疗技术', en: 'Advanced Treatments',
   } as Record<Language, string>,
   treatTitle: {
-    ja: '最先端のがん治療', 'zh-TW': '最先進的癌症治療', 'zh-CN': '最先进的癌症治疗', en: 'Cutting-Edge Cancer Treatment',
+    ja: '先進的ながん治療', 'zh-TW': '先進的癌症治療', 'zh-CN': '先进的癌症治疗', en: 'Advanced Cancer Treatment',
   } as Record<Language, string>,
 
   // Robot
@@ -150,13 +150,13 @@ const tr = {
     ja: 'ロボット手術センター', 'zh-TW': '機器人手術中心', 'zh-CN': '机器人手术中心', en: 'Robotic Surgery Center',
   } as Record<Language, string>,
   robotTitle: {
-    ja: 'da Vinci Xi 3台体制 — 関西最多の実績', 'zh-TW': 'da Vinci Xi 3台體制 — 關西最多實績', 'zh-CN': 'da Vinci Xi 3台体制 — 关西最多实绩', en: '3 da Vinci Xi Systems — Most Cases in Kansai',
+    ja: 'da Vinci Xi 3台体制 — 豊富な手術実績', 'zh-TW': 'da Vinci Xi 3台體制 — 豐富手術實績', 'zh-CN': 'da Vinci Xi 3台体制 — 丰富手术实绩', en: '3 da Vinci Xi Systems — Extensive Surgical Experience',
   } as Record<Language, string>,
   robotDesc: {
-    ja: '泌尿器・消化器・呼吸器・婦人科・頭頸部・肝胆膵・乳腺・整形外科の8科でロボット支援手術を実施。年間500件以上、関西で最多の実績を誇ります。',
-    'zh-TW': '泌尿科·消化科·呼吸科·婦科·頭頸部·肝膽胰·乳腺·整形外科8科實施機器人輔助手術。年500+件，關西最多實績。',
-    'zh-CN': '泌尿科·消化科·呼吸科·妇科·头颈部·肝胆胰·乳腺·整形外科8科实施机器人辅助手术。年500+件，关西最多实绩。',
-    en: 'Robot-assisted surgery across 8 departments: urology, GI, respiratory, gynecology, head/neck, HPB, breast, orthopedics. 500+ cases/year — most in Kansai.',
+    ja: '泌尿器・消化器・呼吸器・婦人科・頭頸部・肝胆膵・乳腺・整形外科の8科でロボット支援手術を実施。年間500件以上の実績があります。',
+    'zh-TW': '泌尿科·消化科·呼吸科·婦科·頭頸部·肝膽胰·乳腺·整形外科8科實施機器人輔助手術。年500+件實績。',
+    'zh-CN': '泌尿科·消化科·呼吸科·妇科·头颈部·肝胆胰·乳腺·整形外科8科实施机器人辅助手术。年500+件实绩。',
+    en: 'Robot-assisted surgery across 8 departments: urology, GI, respiratory, gynecology, head/neck, HPB, breast, orthopedics. 500+ cases/year.',
   } as Record<Language, string>,
   robotStat1: { ja: '年間 500+ 件', 'zh-TW': '年 500+ 件', 'zh-CN': '年 500+ 件', en: '500+ / Year' } as Record<Language, string>,
   robotStat2: { ja: '8診療科で実施', 'zh-TW': '8科實施', 'zh-CN': '8科实施', en: '8 Departments' } as Record<Language, string>,
@@ -224,7 +224,7 @@ const tr = {
     ja: '沿革', 'zh-TW': '歷史沿革', 'zh-CN': '历史沿革', en: 'History',
   } as Record<Language, string>,
   historyTitle: {
-    ja: '65年以上の歴史 — 日本のがん医療を牽引', 'zh-TW': '65年以上歷史 — 引領日本癌症醫療', 'zh-CN': '65年以上历史 — 引领日本癌症医疗', en: '65+ Years of History — Leading Cancer Medicine in Japan',
+    ja: '65年以上の歴史 — 日本のがん医療に貢献', 'zh-TW': '65年以上歷史 — 為日本癌症醫療貢獻', 'zh-CN': '65年以上历史 — 为日本癌症医疗贡献', en: '65+ Years of History — Contributing to Cancer Medicine in Japan',
   } as Record<Language, string>,
 
   // Common
@@ -241,7 +241,7 @@ const KEY_STATS = [
   {
     value: '69%',
     label: { ja: '全がん5年相対生存率', 'zh-TW': '全癌五年相對生存率', 'zh-CN': '全癌五年相对生存率', en: '5-Year Relative Survival' } as Record<Language, string>,
-    sub: { ja: '全国トップクラス', 'zh-TW': '全國頂級水準', 'zh-CN': '全国顶级水准', en: 'Among best in Japan' } as Record<Language, string>,
+    sub: { ja: '高い治療実績', 'zh-TW': '高水準治療實績', 'zh-CN': '高水准治疗实绩', en: 'High treatment record' } as Record<Language, string>,
   },
   {
     value: '4,270+',

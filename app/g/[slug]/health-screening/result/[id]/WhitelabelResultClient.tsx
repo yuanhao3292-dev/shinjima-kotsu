@@ -109,10 +109,10 @@ const translations = {
     en: 'Based on your screening results, we recommend the following services',
   },
   recommendedServicesDesc: {
-    'zh-CN': '日本顶级医疗机构，提供专业诊断与治疗服务',
-    'zh-TW': '日本頂級醫療機構，提供專業診斷與治療服務',
-    ja: '日本トップクラスの医療機関による専門的な診断・治療サービスです',
-    en: 'Top-tier Japanese medical institutions providing professional diagnosis and treatment services',
+    'zh-CN': '日本优质医疗机构，提供专业诊断与治疗服务',
+    'zh-TW': '日本優質醫療機構，提供專業診斷與治療服務',
+    ja: '日本の優良医療機関による専門的な診断・治療サービスです',
+    en: 'Quality Japanese medical institutions providing professional diagnosis and treatment services',
   },
   learnMore: {
     'zh-CN': '了解详情',

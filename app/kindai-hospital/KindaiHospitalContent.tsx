@@ -389,9 +389,9 @@ export default function KindaiHospitalContent({
 
   // 先进医疗设备（精简版）
   const equipmentTitle = {
-    ja: '最先端医療機器',
-    'zh-CN': '顶尖医疗设备',
-    'zh-TW': '頂尖醫療設備',
+    ja: '先進医療機器',
+    'zh-CN': '先进医疗设备',
+    'zh-TW': '先進醫療設備',
     en: 'Advanced Medical Equipment',
   }
 
@@ -446,10 +446,10 @@ export default function KindaiHospitalContent({
         en: 'Artis zee / ARTIS Q ceiling',
       },
       purpose: {
-        ja: '手術と画像診断を同時実施可能な最新鋭手術室',
-        'zh-CN': '可同时进行手术和影像诊断的最先进手术室',
-        'zh-TW': '可同時進行手術和影像診斷的最先進手術室',
-        en: 'State-of-the-art OR enabling simultaneous surgery and imaging',
+        ja: '手術と画像診断を同時実施可能な高機能手術室',
+        'zh-CN': '可同时进行手术和影像诊断的高功能手术室',
+        'zh-TW': '可同時進行手術和影像診斷的高功能手術室',
+        en: 'High-performance OR enabling simultaneous surgery and imaging',
       },
       imageUrl: 'https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_2020_02_hybrid_operating_room_01.jpg',
       applications: {
@@ -738,16 +738,16 @@ export default function KindaiHospitalContent({
         { ja: 'TAVI（大動脈弁狭窄症カテーテル治療）', 'zh-CN': 'TAVI（大动脉瓣狭窄症导管治疗）', 'zh-TW': 'TAVI（大動脈瓣狹窄症導管治療）', en: 'Transcatheter Aortic Valve Implantation (TAVI)' },
       ],
       credentials: {
-        ja: 'メルボルン大学オースチン医療センター留学、日本トップクラスの心臓手術実績',
-        'zh-CN': '墨尔本大学奥斯汀医疗中心留学经历，日本顶级心脏手术实绩',
-        'zh-TW': '墨爾本大學奧斯汀醫療中心留學經歷，日本頂級心臟手術實績',
-        en: 'Trained at Austin Health, University of Melbourne; Top-tier cardiac surgery track record in Japan',
+        ja: 'メルボルン大学オースチン医療センター留学、豊富な心臓手術実績',
+        'zh-CN': '墨尔本大学奥斯汀医疗中心留学经历，丰富的心脏手术实绩',
+        'zh-TW': '墨爾本大學奧斯汀醫療中心留學經歷，豐富的心臟手術實績',
+        en: 'Trained at Austin Health, University of Melbourne; extensive cardiac surgery track record',
       },
       achievements: {
-        ja: '全国から患者が来院する心臓外科のトップランナー、80歳以上・再手術患者への対応実績',
-        'zh-CN': '全国患者慕名而来的心脏外科领军者，擅长80岁以上及再手术患者',
-        'zh-TW': '全國患者慕名而來的心臟外科領軍者，擅長80歲以上及再手術患者',
-        en: 'Leading cardiac surgeon with patients from across Japan; Expert in treating patients 80+ and reoperation cases',
+        ja: '全国から患者が来院する心臓外科の専門家、80歳以上・再手術患者への対応実績',
+        'zh-CN': '全国患者慕名而来的心脏外科专家，擅长80岁以上及再手术患者',
+        'zh-TW': '全國患者慕名而來的心臟外科專家，擅長80歲以上及再手術患者',
+        en: 'Cardiac surgery specialist with patients from across Japan; Expert in treating patients 80+ and reoperation cases',
       },
       photoUrl: 'https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_kindaibito_sakaguchi_genichi01.jpg',
     },

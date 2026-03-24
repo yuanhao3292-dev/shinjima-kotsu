@@ -73,7 +73,7 @@ const THREAD_LIFT_PACKAGES = [
     name: { ja: 'SAI LIFT STANDARD', 'zh-CN': '标准版线雕', 'zh-TW': '標準版線雕', en: 'SAI LIFT STANDARD' } as Record<Language, string>,
     price: 680000,
     features: [
-      { ja: '人気No.1', 'zh-CN': '高人气选择', 'zh-TW': '高人氣選擇', en: 'Most popular' } as Record<Language, string>,
+      { ja: '当院おすすめ', 'zh-CN': '本院推荐', 'zh-TW': '本院推薦', en: 'Recommended' } as Record<Language, string>,
       { ja: '明らかな引き上げ効果', 'zh-CN': '明显提升效果', 'zh-TW': '明顯提升效果', en: 'Noticeable lifting' } as Record<Language, string>,
       { ja: 'コラーゲン再生促進', 'zh-CN': '刺激胶原再生', 'zh-TW': '刺激膠原再生', en: 'Stimulates collagen' } as Record<Language, string>,
       { ja: '効果12-18ヶ月持続', 'zh-CN': '效果持续12-18个月', 'zh-TW': '效果持續12-18個月', en: 'Lasts 12-18 months' } as Record<Language, string>,
