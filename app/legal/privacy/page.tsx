@@ -58,7 +58,7 @@ export default function PrivacyPolicyPage() {
                 <li>生年月日・性別</li>
                 <li>住所・電話番号・メールアドレス</li>
                 <li>パスポート情報（海外からのお客様の場合）</li>
-                <li>健康状態に関する情報（医療サービスご利用の場合）</li>
+                <li>健康状態に関する情報（既往歴、アレルギー歴、現在の服薬情報等 ※医療サービスご利用の場合。要配慮個人情報として、お客様の明示的な同意のもとに収集いたします）</li>
                 <li>クレジットカード情報（決済に必要な範囲）</li>
                 <li>ご予約・ご利用履歴</li>
               </ul>
@@ -74,6 +74,7 @@ export default function PrivacyPolicyPage() {
                 <li>お問い合わせへの対応</li>
                 <li>サービス向上のための分析</li>
                 <li>新サービスや特典のご案内（ご同意いただいた場合のみ）</li>
+                <li>医療機関への診療情報の共有（お客様の明示的な同意に基づく）</li>
                 <li>法令に基づく対応</li>
               </ul>
             </Section>
@@ -85,6 +86,8 @@ export default function PrivacyPolicyPage() {
               <ul className="list-disc list-inside space-y-1 text-neutral-600">
                 <li>お客様の同意がある場合</li>
                 <li>サービス提供に必要な業務委託先（宿泊施設、医療機関等）への提供</li>
+                <li>提携ガイド（導遊）への紹介元情報の提供（ご予約の円滑な提供のため）</li>
+                <li>決済サービス提供者（Stripe Inc.）への決済に必要な情報の提供</li>
                 <li>法令に基づく場合</li>
                 <li>人の生命、身体または財産の保護のために必要な場合</li>
               </ul>
@@ -110,6 +113,7 @@ export default function PrivacyPolicyPage() {
                 <li>アクセス日時・閲覧ページ</li>
                 <li>リファラー（参照元）</li>
                 <li>使用ブラウザ・OS情報</li>
+                <li>紹介元パートナーの識別情報（wl_guideクッキー、有効期間30日、ご予約の紹介元特定のため）</li>
               </ul>
               <p className="mt-3 text-sm text-neutral-500">
                 お客様はブラウザの設定によりCookieを無効にすることができますが、

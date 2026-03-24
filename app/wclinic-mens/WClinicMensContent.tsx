@@ -629,7 +629,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   </li>
                   <li className="flex items-start gap-2 text-sm text-gray-600">
                     <CheckCircle size={14} className="text-[#00c300] mt-0.5 shrink-0" />
-                    <span>{lang === 'ja' ? '効果が迅速かつ確実' : lang === 'en' ? 'Rapid and reliable results' : lang === 'zh-TW' ? '效果迅速且確實' : '效果迅速且确实'}</span>
+                    <span>{lang === 'ja' ? '効果が迅速に現れやすい' : lang === 'en' ? 'Effects tend to appear quickly' : lang === 'zh-TW' ? '效果容易迅速顯現' : '效果容易迅速显现'}</span>
                   </li>
                 </ul>
                 <div className="text-center pt-4 border-t border-gray-100">

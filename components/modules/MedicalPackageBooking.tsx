@@ -216,6 +216,7 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
   const [notes, setNotes] = useState('');
   const [selectedAddOns, setSelectedAddOns] = useState<string[]>([]);
   const [contactError, setContactError] = useState('');
+  const [consents, setConsents] = useState({ cancel: false, tokushoho: false, privacy: false });
 
   if (!pkg) {
     return (
@@ -276,7 +277,7 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ packageSlug, customerInfo, preferredDate: preferredDate || null, notes: notesWithTime || null, guideSlug, locale: currentLang }),
+        body: JSON.stringify({ packageSlug, customerInfo, preferredDate: preferredDate || null, notes: notesWithTime || null, guideSlug, locale: currentLang, consents }),
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || '創建支付會話失敗');
@@ -462,7 +463,29 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
                   </ul>
                 </div>
 
-                <button type="submit" disabled={processing} className={`w-full py-4 text-base font-bold rounded-xl transition-all ${pkg.colors.button} disabled:opacity-50`}>
+                {/* Medical Disclaimer */}
+                <p className="mb-6 text-xs text-gray-500 leading-relaxed">{t.medicalDisclaimer}</p>
+
+                {/* Legal Consent Checkboxes */}
+                <div className="mb-8 space-y-3">
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" checked={consents.cancel} onChange={(e) => setConsents({ ...consents, cancel: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900" />
+                    <span className="text-sm text-gray-700">{t.consentCancel}</span>
+                  </label>
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" checked={consents.tokushoho} onChange={(e) => setConsents({ ...consents, tokushoho: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900" />
+                    <span className="text-sm text-gray-700"><Link href="/legal/tokushoho" target="_blank" className="underline hover:text-gray-900">{t.consentTokushoho}</Link></span>
+                  </label>
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" checked={consents.privacy} onChange={(e) => setConsents({ ...consents, privacy: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900" />
+                    <span className="text-sm text-gray-700"><Link href="/legal/privacy" target="_blank" className="underline hover:text-gray-900">{t.consentPrivacy}</Link></span>
+                  </label>
+                  {!(consents.cancel && consents.tokushoho && consents.privacy) && (
+                    <p className="text-xs text-amber-600">{t.consentRequired}</p>
+                  )}
+                </div>
+
+                <button type="submit" disabled={processing || !(consents.cancel && consents.tokushoho && consents.privacy)} className={`w-full py-4 text-base font-bold rounded-xl transition-all ${pkg.colors.button} disabled:opacity-50`}>
                   {processing ? t.processing : `${t.submitBtn} ¥${pkg.price.toLocaleString()}`}
                 </button>
                 <p className="mt-4 text-xs text-gray-400 text-center">{t.stripeNote}</p>

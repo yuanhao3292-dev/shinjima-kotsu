@@ -249,7 +249,7 @@ const STANDARD_TREATMENTS = [
       { ja: '生存率だけでなく、術後のQOLを重視', 'zh-TW': '不僅追求生存率，更重視術後生活質量', 'zh-CN': '不仅追求生存率，更重视术后生活质量', en: 'Prioritizes post-surgery quality of life' } as Record<Language, string>,
       { ja: '食事・排尿・会話等の機能保護', 'zh-TW': '進食、排尿、說話等功能保護', 'zh-CN': '进食、排尿、说话等功能保护', en: 'Protects eating, urinary, speech functions' } as Record<Language, string>,
     ],
-    desc: { ja: '日本の低侵襲手術技術は世界をリードし、治癒を追求しながら最大限にQOLを保護します。', 'zh-TW': '日本微創手術技術世界領先，在追求治癒的同時最大限度保護患者的生活質量。', 'zh-CN': '日本微创手术技术世界领先，在追求治愈的同时最大限度保护患者的生活质量。', en: 'Japan leads in minimally invasive surgery, maximizing quality of life while pursuing cure.' } as Record<Language, string>,
+    desc: { ja: '日本の低侵襲手術技術は世界をリードし、治療効果を追求しながら最大限にQOLを保護します。', 'zh-TW': '日本微創手術技術世界領先，在追求治療效果的同時最大限度保護患者的生活質量。', 'zh-CN': '日本微创手术技术世界领先，在追求治疗效果的同时最大限度保护患者的生活质量。', en: 'Japan leads in minimally invasive surgery, maximizing quality of life while pursuing treatment outcomes.' } as Record<Language, string>,
   },
   {
     id: 'chemo',
@@ -616,7 +616,7 @@ const JAPAN_MEDICAL_INSTITUTIONS = [
         ],
         features: [
           L('世界初の院内BNCT設備設置', '全球首個醫院內設置 BNCT 設備', '全球首个医院内设置 BNCT 设备', "World's first in-hospital BNCT facility"),
-          L('手術困難・再発がんに顕著な効果', '對手術困難、復發癌症效果顯著', '对手术困难、复发癌症效果显著', 'Effective for inoperable & recurrent cancers'),
+          L('手術困難・再発がんへの治療実績あり', '對手術困難、復發癌症具有治療實績', '对手术困难、复发癌症具有治疗实绩', 'Treatment track record for inoperable & recurrent cancers'),
           L('1回の照射で治療完了可能', '單次照射即可完成治療', '单次照射即可完成治疗', 'Treatment possible in a single session'),
         ],
         treatments: [
@@ -791,7 +791,7 @@ const JAPAN_MEDICAL_INSTITUTIONS = [
         features: [
           L('世界の重粒子線治療発祥の地', '世界重粒子線治療發源地', '世界重粒子线治疗发源地', 'Birthplace of heavy ion therapy worldwide'),
           L('治療経験 14,000例超', '治療經驗超 14,000 例', '治疗经验超 14,000 例', 'Over 14,000 cases treated'),
-          L('放射線抵抗性がんに顕著な効果', '對放射線抵抗性癌症效果顯著', '对放射线抵抗性癌症效果显著', 'Effective for radiation-resistant cancers'),
+          L('放射線抵抗性がんへの治療実績あり', '對放射線抵抗性癌症具有治療實績', '对放射线抵抗性癌症具有治疗实绩', 'Treatment track record for radiation-resistant cancers'),
           L('短い治療期間（約3〜4週）', '短療程（約 3-4 週）', '短疗程（约 3-4 周）', 'Short treatment course (~3-4 weeks)'),
         ],
         treatments: [

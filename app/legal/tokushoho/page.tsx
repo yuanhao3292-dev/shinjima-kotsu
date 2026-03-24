@@ -161,8 +161,12 @@ export default function TokushohoPage() {
               <h2 className="font-bold text-brand-900 mb-2">提携パートナー経由でご利用のお客様へ</h2>
               <p className="text-neutral-700 text-sm leading-relaxed">
                 本サービスは新島交通株式会社が提供・運営しております。
-                提携パートナー（導遊・旅行代理店等）を通じてご予約いただいた場合も、
-                サービス提供・決済・お問い合わせ対応はすべて新島交通株式会社が行います。
+                提携パートナー（ガイド・旅行代理店等）は、お客様への情報提供・ご紹介を行う立場であり、
+                サービスの直接提供者ではありません。サービス提供・決済・返金・アフターサポートの
+                責任主体は新島交通株式会社です。
+              </p>
+              <p className="text-neutral-700 text-sm leading-relaxed mt-2">
+                医療サービスは各提携医療機関が直接提供し、新島交通株式会社は予約手配を行います。
               </p>
             </div>
 

@@ -79,6 +79,12 @@ export const CreateCheckoutSessionSchema = z.object({
   provider: z.string().max(50).regex(/^[a-z0-9_]+$/).optional().nullable(),
   // 客户选择的语言，用于发送对应语种的确认邮件
   locale: z.enum(['ja', 'zh-CN', 'zh-TW', 'en']).optional().default('ja'),
+  // 法定同意确认（電子消費者契約法・特定商取引法）
+  consents: z.object({
+    cancel: z.literal(true, { error: 'キャンセルポリシーへの同意が必要です' }),
+    tokushoho: z.literal(true, { error: '特定商取引法に基づく表記の確認が必要です' }),
+    privacy: z.literal(true, { error: 'プライバシーポリシーへの同意が必要です' }),
+  }),
 });
 
 // ==================== Withdrawal ====================

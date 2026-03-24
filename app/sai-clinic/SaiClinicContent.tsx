@@ -87,7 +87,7 @@ const THREAD_LIFT_PACKAGES = [
     name: { ja: 'SAI LIFT PERFECT', 'zh-CN': '完美版线雕', 'zh-TW': '完美版线雕', en: 'SAI LIFT PERFECT' } as Record<Language, string>,
     price: 980000,
     features: [
-      { ja: '最強引き上げ効果', 'zh-CN': '最强提升效果', 'zh-TW': '最強提升效果', en: 'Maximum lifting' } as Record<Language, string>,
+      { ja: '最大限の引き上げ効果', 'zh-CN': '最大程度提升效果', 'zh-TW': '最大程度提升效果', en: 'Maximum lifting effect' } as Record<Language, string>,
       { ja: '全顔総合改善', 'zh-CN': '全脸全方位改善', 'zh-TW': '全臉全方位改善', en: 'Full-face enhancement' } as Record<Language, string>,
       { ja: '最長持続期間', 'zh-CN': '最长持效期', 'zh-TW': '最長持效期', en: 'Longest duration' } as Record<Language, string>,
       { ja: '術後1年以内再診割引', 'zh-CN': '术后1年内复诊优惠', 'zh-TW': '術後1年內復診優惠', en: '1-year follow-up discount' } as Record<Language, string>,

@@ -232,6 +232,7 @@ export default function PackageDetailContent({
   const [selectedAddOns, setSelectedAddOns] = useState<string[]>([]);
   const [contactError, setContactError] = useState('');
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [consents, setConsents] = useState({ cancel: false, tokushoho: false, privacy: false });
 
   if (!pkg) {
     return (
@@ -318,6 +319,7 @@ export default function PackageDetailContent({
           notes: notesWithTime || null,
           provider: providerKey,
           locale: currentLang,
+          consents,
           ...(isGuideEmbed && guideSlug ? { guideSlug } : {}),
         }),
       });
@@ -517,7 +519,29 @@ export default function PackageDetailContent({
                   </ul>
                 </div>
 
-                <button type="submit" disabled={processing} className={`w-full py-4 text-base font-bold transition-all ${pkg.colors.button} disabled:opacity-50`}>
+                {/* Medical Disclaimer */}
+                <p className="mb-6 text-xs text-neutral-500 leading-relaxed">{t.medicalDisclaimer}</p>
+
+                {/* Legal Consent Checkboxes */}
+                <div className="mb-8 space-y-3">
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" checked={consents.cancel} onChange={(e) => setConsents({ ...consents, cancel: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-neutral-300 text-brand-900 focus:ring-brand-700" />
+                    <span className="text-sm text-neutral-700">{t.consentCancel}</span>
+                  </label>
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" checked={consents.tokushoho} onChange={(e) => setConsents({ ...consents, tokushoho: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-neutral-300 text-brand-900 focus:ring-brand-700" />
+                    <span className="text-sm text-neutral-700"><Link href="/legal/tokushoho" target="_blank" className="underline hover:text-brand-900">{t.consentTokushoho}</Link></span>
+                  </label>
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" checked={consents.privacy} onChange={(e) => setConsents({ ...consents, privacy: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-neutral-300 text-brand-900 focus:ring-brand-700" />
+                    <span className="text-sm text-neutral-700"><Link href="/legal/privacy" target="_blank" className="underline hover:text-brand-900">{t.consentPrivacy}</Link></span>
+                  </label>
+                  {!(consents.cancel && consents.tokushoho && consents.privacy) && (
+                    <p className="text-xs text-amber-600">{t.consentRequired}</p>
+                  )}
+                </div>
+
+                <button type="submit" disabled={processing || !(consents.cancel && consents.tokushoho && consents.privacy)} className={`w-full py-4 text-base font-bold transition-all ${pkg.colors.button} disabled:opacity-50`}>
                   {processing ? t.processing : `${t.submitBtn} ¥${pkg.price.toLocaleString()}`}
                 </button>
                 <p className="mt-4 text-xs text-neutral-400 text-center">{t.stripeNote}</p>
