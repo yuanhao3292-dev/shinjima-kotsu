@@ -37,8 +37,10 @@ const navLabels = {
     footerNews: '最新消息',
     footerFaq: '常見問題',
     footerTokushoho: '特定商取引法',
+    footerYakkan: '旅行業約款',
     footerPrivacy: '隱私政策',
     footerTerms: '使用條款',
+    footerMedicalDisclaimer: '醫療免責事項',
     footerHealthScreening: 'AI 健康評估',
     footerTagline: '為您打開日本不對外的門',
     footerTagline2: '尖端醫療 · 名門球場 · 商務資源',
@@ -65,8 +67,10 @@ const navLabels = {
     footerNews: 'お知らせ',
     footerFaq: 'よくある質問',
     footerTokushoho: '特定商取引法',
+    footerYakkan: '旅行業約款',
     footerPrivacy: 'プライバシーポリシー',
     footerTerms: '利用規約',
+    footerMedicalDisclaimer: '医療免責事項',
     footerHealthScreening: 'AI健康診断',
     footerTagline: '日本の閉ざされた扉を、あなたに',
     footerTagline2: '先端医療 · 名門ゴルフ · ビジネスリソース',
@@ -93,8 +97,10 @@ const navLabels = {
     footerNews: '最新消息',
     footerFaq: '常见问题',
     footerTokushoho: '特定商取引法',
+    footerYakkan: '旅行業约款',
     footerPrivacy: '隐私政策',
     footerTerms: '使用条款',
+    footerMedicalDisclaimer: '医疗免责事项',
     footerHealthScreening: 'AI 健康评估',
     footerTagline: '为您打开日本不对外的门',
     footerTagline2: '尖端医疗 · 名门球场 · 商务资源',
@@ -121,8 +127,10 @@ const navLabels = {
     footerNews: 'News',
     footerFaq: 'FAQ',
     footerTokushoho: 'Tokushoho',
+    footerYakkan: 'Travel Terms',
     footerPrivacy: 'Privacy Policy',
     footerTerms: 'Terms of Use',
+    footerMedicalDisclaimer: 'Medical Disclaimer',
     footerHealthScreening: 'AI Health Screening',
     footerTagline: 'Opening Japan\'s Closed Doors for You',
     footerTagline2: 'Advanced Medicine · Elite Golf · Business Resources',
@@ -327,10 +335,10 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                     <li><a href="/news" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">最新消息</a></li>
                     <li><a href="/faq" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">常见问题</a></li>
                     <li><a href="/legal/tokushoho" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">特定商取引法</a></li>
-                    <li><a href="/legal/yakkan" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">旅行業約款</a></li>
+                    <li><a href="/legal/yakkan" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">旅行業约款</a></li>
                     <li><a href="/legal/privacy" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">隐私政策</a></li>
                     <li><a href="/legal/terms" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">使用条款</a></li>
-                    <li><a href="/legal/medical-disclaimer" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">医療免責事項</a></li>
+                    <li><a href="/legal/medical-disclaimer" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">医疗免责事项</a></li>
                   </ul>
                 </div>
               </div>
@@ -656,7 +664,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                   </li>
                   <li>
                     <Link href="/legal/yakkan" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                      旅行業約款
+                      {t.footerYakkan}
                     </Link>
                   </li>
                   <li>
@@ -671,7 +679,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                   </li>
                   <li>
                     <Link href="/legal/medical-disclaimer" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                      医療免責事項
+                      {t.footerMedicalDisclaimer}
                     </Link>
                   </li>
                 </ul>

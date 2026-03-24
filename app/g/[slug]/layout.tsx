@@ -109,10 +109,10 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
                 <li><a href="/news" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">最新消息</a></li>
                 <li><a href="/faq" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">常见问题</a></li>
                 <li><a href="/legal/tokushoho" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">特定商取引法</a></li>
-                <li><a href="/legal/yakkan" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">旅行業約款</a></li>
+                <li><a href="/legal/yakkan" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">旅行業约款</a></li>
                 <li><a href="/legal/privacy" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">隐私政策</a></li>
                 <li><a href="/legal/terms" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">使用条款</a></li>
-                <li><a href="/legal/medical-disclaimer" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">医療免責事項</a></li>
+                <li><a href="/legal/medical-disclaimer" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">医疗免责事项</a></li>
               </ul>
             </div>
           </div>

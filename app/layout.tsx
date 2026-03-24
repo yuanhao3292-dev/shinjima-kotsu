@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Script from 'next/script'
 import './globals.css'
 import FloatingContact from '@/components/FloatingContact'
 import LocaleFontSetter from '@/components/LocaleFontSetter'
@@ -11,6 +10,7 @@ import { buildDistributionNavItems } from '@/lib/utils/build-distribution-nav'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import BrowserFingerprint from '@/components/BrowserFingerprint'
+import CookieConsent from '@/components/CookieConsent'
 
 export const metadata: Metadata = {
   title: 'TIMC OSAKA 體檢預約 | 日本大阪德州會國際醫療中心 - 新島交通',
@@ -81,11 +81,7 @@ export default async function RootLayout({
         <BrowserFingerprint />
         <Analytics />
         <SpeedInsights />
-        <Script
-          defer
-          src="https://cloud.umami.is/script.js"
-          data-website-id="905e0ccc-e1fc-4af5-8d17-8127501c6af3"
-        />
+        <CookieConsent />
       </body>
     </html>
   )
