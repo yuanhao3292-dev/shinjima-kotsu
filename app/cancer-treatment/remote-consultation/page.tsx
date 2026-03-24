@@ -11,6 +11,7 @@ import {
   ArrowLeft, CheckCircle, FileText, Shield, Clock,
   Loader2, CreditCard, Users, Phone, Video, MessageSquare
 } from 'lucide-react';
+import ConsentCheckboxes, { allConsented, type Consents } from '@/components/ConsentCheckboxes';
 
 type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
 
@@ -156,6 +157,7 @@ export default function RemoteConsultationPage() {
   });
   const [notes, setNotes] = useState('');
   const [contactError, setContactError] = useState('');
+  const [consents, setConsents] = useState<Consents>({ cancel: false, tokushoho: false, privacy: false });
 
   // Language detection from NEXT_LOCALE cookie or browser language
   useEffect(() => {
@@ -249,6 +251,7 @@ export default function RemoteConsultationPage() {
           notes: fullNotes,
           provider: providerKey,
           locale: currentLang,
+          consents,
           ...(guideSlug ? { guideSlug } : {}),
         }),
       });
@@ -569,9 +572,11 @@ export default function RemoteConsultationPage() {
                   <p className="text-xs text-neutral-500 mb-4">
                     {t('paymentNotice')}
                   </p>
+                  <ConsentCheckboxes consents={consents} onChange={setConsents} lang={currentLang} />
+
                   <button
                     type="submit"
-                    disabled={processing}
+                    disabled={processing || !allConsented(consents)}
                     className="w-full py-4 bg-gold-400 text-brand-900 font-bold hover:bg-gold-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {processing ? (

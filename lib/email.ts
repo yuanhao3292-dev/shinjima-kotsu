@@ -74,7 +74,7 @@ export async function sendOrderConfirmationEmail(data: OrderConfirmationData) {
     { label: packageLabel, value: data.packageName },
     {
       label: t(oc.labelAmount, locale),
-      value: `¥${data.packagePrice.toLocaleString()}`,
+      value: `¥${data.packagePrice.toLocaleString()}（税込）`,
       valueColor: '#1e40af',
       valueFontSize: '18px',
     },
@@ -171,7 +171,7 @@ export async function sendNewOrderNotificationToMerchant(data: OrderConfirmation
         <ul>
           <li><strong>訂單編號:</strong> ${data.orderId}</li>
           <li><strong>套餐:</strong> ${data.packageName}</li>
-          <li><strong>金額:</strong> ¥${data.packagePrice.toLocaleString()}</li>
+          <li><strong>金額:</strong> ¥${data.packagePrice.toLocaleString()}（税込）</li>
           <li><strong>客戶姓名:</strong> ${data.customerName}</li>
           <li><strong>客戶郵箱:</strong> ${data.customerEmail}</li>
           <li><strong>希望日期:</strong> ${data.preferredDate || '未指定'}</li>

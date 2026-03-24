@@ -12,6 +12,7 @@ import {
   Loader2, CreditCard, Users, Phone,
   ChevronDown, ChevronUp,
 } from 'lucide-react';
+import ConsentCheckboxes, { allConsented, type Consents } from '@/components/ConsentCheckboxes';
 
 type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
 
@@ -337,6 +338,7 @@ export default function HeleneTreatmentPage() {
   });
   const [notes, setNotes] = useState('');
   const [contactError, setContactError] = useState('');
+  const [consents, setConsents] = useState<Consents>({ cancel: false, tokushoho: false, privacy: false });
 
   // ── Language detection ──
   useEffect(() => {
@@ -459,6 +461,7 @@ export default function HeleneTreatmentPage() {
           notes: fullNotes,
           provider: providerKey || 'helene_clinic',
           locale: currentLang,
+          consents,
           ...(guideSlug ? { guideSlug } : {}),
         }),
       });
@@ -805,6 +808,8 @@ export default function HeleneTreatmentPage() {
                     <p className="text-xs text-neutral-500 mb-1">{selectedTreatmentLabel}</p>
                   )}
                   <p className="text-xs text-neutral-500 mb-4">{t('paymentNotice')}</p>
+                  <ConsentCheckboxes consents={consents} onChange={setConsents} lang={currentLang} />
+
                   <button
                     type="submit"
                     disabled={processing || !selectedSlug}

@@ -156,6 +156,16 @@ export default function TokushohoPage() {
               </table>
             </div>
 
+            {/* クーリング・オフについて */}
+            <div className="bg-neutral-50 border border-neutral-200 rounded-2xl p-6">
+              <h2 className="font-bold text-brand-900 mb-2">申込みの撤回等について</h2>
+              <p className="text-neutral-700 text-sm leading-relaxed">
+                本サービスは特定商取引法第26条第1項に定める「旅行業法に基づく旅行業者の行う取引」に該当するため、
+                クーリング・オフ制度の適用対象外です。
+                キャンセル・返金については上記のキャンセルポリシーをご確認ください。
+              </p>
+            </div>
+
             {/* 白标モードの注意書き */}
             <div className="bg-neutral-50 border border-neutral-200 rounded-2xl p-6">
               <h2 className="font-bold text-brand-900 mb-2">提携パートナー経由でご利用のお客様へ</h2>

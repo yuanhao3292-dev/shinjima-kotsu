@@ -11,6 +11,7 @@ import {
   ArrowLeft, CheckCircle, FileText, Shield, Clock,
   Loader2, CreditCard, Users, Phone, Video
 } from 'lucide-react';
+import ConsentCheckboxes, { allConsented, type Consents } from '@/components/ConsentCheckboxes';
 
 type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
 
@@ -113,6 +114,7 @@ export default function WClinicMensRemoteConsultationPage() {
   const [preferredTimes, setPreferredTimes] = useState({ time1: '', time2: '', time3: '' });
   const [notes, setNotes] = useState('');
   const [contactError, setContactError] = useState('');
+  const [consents, setConsents] = useState<Consents>({ cancel: false, tokushoho: false, privacy: false });
 
   useEffect(() => {
     const cookies = document.cookie.split(';');
@@ -187,6 +189,7 @@ export default function WClinicMensRemoteConsultationPage() {
           notes: fullNotes,
           provider: providerKey || 'wclinic_mens',
           locale: currentLang,
+          consents,
           ...(guideSlug ? { guideSlug } : {}),
         }),
       });
@@ -370,7 +373,9 @@ export default function WClinicMensRemoteConsultationPage() {
                     </div>
                   </div>
                   <p className="text-xs text-neutral-500 mb-4">{t('paymentNotice')}</p>
-                  <button type="submit" disabled={processing} className="w-full py-4 bg-gold-400 text-brand-900 font-bold hover:bg-gold-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                  <ConsentCheckboxes consents={consents} onChange={setConsents} lang={currentLang} />
+
+                <button type="submit" disabled={processing || !allConsented(consents)} className="w-full py-4 bg-gold-400 text-brand-900 font-bold hover:bg-gold-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                     {processing ? (<><Loader2 className="animate-spin" size={20} />{t('processing')}</>) : (<><CreditCard size={20} />{t('confirmPayment')}</>)}
                   </button>
                 </div>

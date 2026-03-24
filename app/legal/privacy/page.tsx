@@ -121,7 +121,24 @@ export default function PrivacyPolicyPage() {
               </p>
             </Section>
 
-            <Section title="7. 開示・訂正・削除の請求">
+            <Section title="7. 海外への個人情報の移転について">
+              <p className="mb-3">
+                当社のサービス提供にあたり、お客様の個人情報を以下の海外事業者に移転する場合があります。
+                これらの事業者は適切な安全管理措置を講じております。
+              </p>
+              <ul className="list-disc list-inside space-y-1 text-neutral-600">
+                <li>Stripe, Inc.（米国）— 決済処理</li>
+                <li>Supabase, Inc.（米国 AWS）— データベース管理</li>
+                <li>Resend, Inc.（米国）— メール配信</li>
+                <li>Vercel, Inc.（米国）— ウェブホスティング</li>
+                <li>Functional Software, Inc.（米国、Sentry）— エラーモニタリング</li>
+              </ul>
+              <p className="mt-3 text-sm text-neutral-500">
+                これらの移転は、個人情報保護法第28条に基づき、お客様のサービス利用に必要な範囲で行われます。
+              </p>
+            </Section>
+
+            <Section title="8. 開示・訂正・削除の請求">
               <p>
                 お客様は、当社が保有する自己の個人情報について、開示、訂正、追加、削除、
                 利用停止または消去を請求することができます。
@@ -129,17 +146,17 @@ export default function PrivacyPolicyPage() {
               </p>
             </Section>
 
-            <Section title="8. プライバシーポリシーの改定">
+            <Section title="9. プライバシーポリシーの改定">
               <p>
                 当社は、必要に応じて本プライバシーポリシーを改定することがあります。
                 改定した場合は、本ウェブサイト上でお知らせいたします。
               </p>
             </Section>
 
-            <Section title="9. お問い合わせ窓口">
+            <Section title="10. お問い合わせ窓口">
               <div className="bg-neutral-50 p-6 rounded-2xl">
                 <p className="font-bold text-brand-900">新島交通株式会社</p>
-                <p className="text-sm text-neutral-600">個人情報保護管理者</p>
+                <p className="text-sm text-neutral-600">個人情報保護管理者: 代表取締役 員昊</p>
                 <div className="mt-3 text-sm text-neutral-700 space-y-1">
                   <p>〒556-0014 大阪府大阪市浪速区大国1-2-21-602</p>
                   <p>電話: 06-6632-8807</p>

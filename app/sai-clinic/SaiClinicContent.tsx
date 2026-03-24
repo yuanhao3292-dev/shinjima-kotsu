@@ -290,7 +290,6 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
   const [menuTab, setMenuTab] = useState<string>('surgery');
 
   const formatPrice = (price: number) => `¥${price.toLocaleString()}`;
-  const getRefPrice = (price: number) => Math.ceil(price * 1.3 / 10000) * 10000;
 
   const checkoutBase = '/sai-clinic';
   /** 白标模式下，CTA 链接自动带上 ?guide= 参数 */
@@ -405,10 +404,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
     threadLiftDesc: mi('看板メニューの糸リフト、3つのプランから選択可能', '招牌线雕提升项目，三档可选', '招牌線雕提升項目，三檔可選', 'Our signature thread lift — choose from 3 plans'),
     monthlyQuota: mi('今月の予約枠 残り 7 名', '本月预约名额余剩 7 名', '本月預約名額餘剩 7 名', '7 slots remaining this month'),
     popular: mi('人気', '人气', '人氣', 'Popular'),
-    separateBooking: mi('個別予約', '分别预约', '分別預約', 'Book separately'),
-    save: mi('お得', '省', '省', 'Save'),
     includedServices: mi('税込・中文通訳・術後フォロー含む', '含税·含中文陪诊·含术后跟进', '含稅·含中文陪診·含術後跟進', 'Tax incl. · Chinese service · Post-op follow-up'),
-    refPrice: mi('参考価格', '参考价', '參考價', 'Ref. price'),
     // Combo
     comboTitle: mi('人気コンビネーションセット', '人气组合套餐', '人氣組合套餐', 'Popular Combination Sets'),
     comboDesc: mi('特定のお悩みに対する総合ソリューション', '针对特定问题的综合解决方案', '針對特定問題的綜合解決方案', 'Comprehensive solutions for specific concerns'),
@@ -823,13 +819,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                 {pkg.popular && <div className="absolute top-0 right-0 bg-rose-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">{t(TR.popular, lang)}</div>}
                 <div className="mb-4">
                   <h4 className={`text-xl font-bold ${pkg.flagship ? 'text-amber-400' : pkg.popular ? 'text-rose-700' : 'text-gray-900'}`}>{t(pkg.name, lang)}</h4>
-                  <div className="mt-2">
-                    <span className={`text-xs line-through ${pkg.flagship ? 'text-gray-500' : 'text-gray-400'}`}>{t(TR.separateBooking, lang)} {formatPrice(getRefPrice(pkg.price))}</span>
-                  </div>
-                  <p className={`text-2xl font-bold ${pkg.flagship ? 'text-amber-400' : pkg.popular ? 'text-rose-700' : 'text-gray-900'}`}>{formatPrice(pkg.price)}</p>
-                  <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold inline-block mt-1 ${pkg.flagship ? 'bg-amber-500/20 text-amber-400' : 'bg-green-100 text-green-700'}`}>
-                    {t(TR.save, lang)} {formatPrice(getRefPrice(pkg.price) - pkg.price)}
-                  </span>
+                  <p className={`text-2xl font-bold mt-2 ${pkg.flagship ? 'text-amber-400' : pkg.popular ? 'text-rose-700' : 'text-gray-900'}`}>{formatPrice(pkg.price)}</p>
                   <p className={`text-[10px] mt-1 ${pkg.flagship ? 'text-gray-500' : 'text-gray-400'}`}>{t(TR.includedServices, lang)}</p>
                 </div>
                 <div className="space-y-1.5 mb-4 text-xs flex-grow">
@@ -872,9 +862,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                 <h4 className="font-bold text-gray-900 mb-1">{t(pkg.name, lang)}</h4>
                 <p className="text-sm text-gray-500 leading-relaxed mb-4 flex-grow">{t(pkg.desc, lang)}</p>
                 <div className="mb-3">
-                  <span className="text-xs line-through text-gray-400">{t(TR.separateBooking, lang)} {formatPrice(getRefPrice(pkg.price))}</span>
                   <p className="text-xl font-bold text-gray-900">{formatPrice(pkg.price)}</p>
-                  <span className="text-[10px] px-2 py-0.5 bg-green-100 text-green-700 rounded-full font-bold">{t(TR.save, lang)} {formatPrice(getRefPrice(pkg.price) - pkg.price)}</span>
                 </div>
                 <Link href={checkoutHref(`${checkoutBase}/${pkg.slug}`)} className="w-full py-2 bg-rose-500 text-white text-sm font-bold rounded-lg hover:bg-rose-600 transition text-center block">{t(TR.bookNow, lang)}</Link>
               </div>
@@ -901,9 +889,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                       <p className="text-sm text-gray-500">{t(pkg.desc, lang)}</p>
                     </div>
                     <div className="text-right shrink-0">
-                      <span className="text-xs line-through text-gray-400 block">{t(TR.refPrice, lang)} {formatPrice(getRefPrice(pkg.price))}</span>
                       <p className="text-xl font-bold text-purple-700">{formatPrice(pkg.price)}</p>
-                      <span className="text-[10px] px-2 py-0.5 bg-green-100 text-green-700 rounded-full font-bold inline-block mb-1">{t(TR.save, lang)} {formatPrice(getRefPrice(pkg.price) - pkg.price)}</span>
                       <Link href={checkoutHref(`${checkoutBase}/${pkg.slug}`)} className="inline-block mt-1 px-4 py-1.5 bg-purple-600 text-white text-xs font-bold rounded-lg hover:bg-purple-700 transition">{t(TR.bookNow, lang)}</Link>
                     </div>
                   </div>
@@ -924,9 +910,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                       <p className="text-sm text-gray-500">{t(pkg.desc, lang)}</p>
                     </div>
                     <div className="text-right shrink-0">
-                      <span className="text-xs line-through text-gray-400 block">{t(TR.refPrice, lang)} {formatPrice(getRefPrice(pkg.price))}</span>
                       <p className="text-xl font-bold text-blue-700">{formatPrice(pkg.price)}</p>
-                      <span className="text-[10px] px-2 py-0.5 bg-green-100 text-green-700 rounded-full font-bold inline-block mb-1">{t(TR.save, lang)} {formatPrice(getRefPrice(pkg.price) - pkg.price)}</span>
                       <Link href={checkoutHref(`${checkoutBase}/${pkg.slug}`)} className="inline-block mt-1 px-4 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg hover:bg-blue-700 transition">{t(TR.bookNow, lang)}</Link>
                     </div>
                   </div>
@@ -950,12 +934,8 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                 <h4 className="font-bold text-gray-900 mb-1">{t(pkg.name, lang)}</h4>
                 <p className="text-sm text-gray-500 leading-relaxed mb-4 flex-grow">{t(pkg.desc, lang)}</p>
                 <div>
-                  <span className="text-xs line-through text-gray-400">{t(TR.separateBooking, lang)} {formatPrice(getRefPrice(pkg.price))}</span>
                   <div className="flex items-end justify-between mt-1">
-                    <div>
-                      <p className="text-xl font-bold text-gray-900">{formatPrice(pkg.price)}</p>
-                      <span className="text-[10px] px-2 py-0.5 bg-green-100 text-green-700 rounded-full font-bold">{t(TR.save, lang)} {formatPrice(getRefPrice(pkg.price) - pkg.price)}</span>
-                    </div>
+                    <p className="text-xl font-bold text-gray-900">{formatPrice(pkg.price)}</p>
                     <Link href={checkoutHref(`${checkoutBase}/${pkg.slug}`)} className="px-4 py-2 bg-rose-500 text-white text-xs font-bold rounded-lg hover:bg-rose-600 transition">{t(TR.bookNow, lang)}</Link>
                   </div>
                 </div>
