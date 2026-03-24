@@ -103,7 +103,7 @@ const t: Record<Language, {
       'サービス提供日の7日前～14日前：旅行代金の50%',
       'サービス提供日の7日前以降：旅行代金の100%',
     ],
-    art6medical: 'なお、医療サービスについては、提携医療機関の個別のキャンセルポリシーが適用される場合があります。',
+    art6medical: 'なお、具体的なキャンセル料の金額・料率は、各サービスページおよび特定商取引法に基づく表記に定めるところによります。医療サービスについては、提携医療機関の個別のキャンセルポリシーが適用される場合があります。',
     art7title: '第7条（当社による解除）',
     art7intro: '当社は、次に掲げる場合において、手配旅行契約を解除することがあります：',
     art7items: [
@@ -167,7 +167,7 @@ const t: Record<Language, {
       '服務提供日7至14天前：旅行費用之50%',
       '服務提供日7天以內：旅行費用之100%',
     ],
-    art6medical: '關於醫療服務，可能適用合作醫療機構之個別取消政策。',
+    art6medical: '具體之取消費用金額及費率，以各服務頁面及特定商取引法標示之規定為準。關於醫療服務，可能適用合作醫療機構之個別取消政策。',
     art7title: '第7條（本公司之解除）',
     art7intro: '本公司在以下情況下，可解除旅行安排合約：',
     art7items: [
@@ -190,7 +190,7 @@ const t: Record<Language, {
     art11health: '旅客應善加利用本公司提供之資訊，努力理解旅客之權利義務等。旅客須向本公司提供關於自身健康狀況等之準確資訊。',
     ch8: '第八章 醫療旅遊特別規定',
     art12title: '第12條（醫療服務之處理）',
-    art12: '在本公司安排之醫療旅遊服務中，醫療行為由合作醫療機構直接提供。本公司之角色為提供與醫療機構之預約安排、口譯翻譯、渡航安排等旅行服務，並非醫療行為之提供者。',
+    art12: '在本公司安排之醫療旅遊服務中，醫療行為由合作醫療機構直接提供。本公司之角色為提供與醫療機構之預約安排、口譯翻譯、交通行程安排等旅行服務，並非醫療行為之提供者。',
     art12consent: '治療效果因人而異，不保證結果。旅客須與醫療機構另行進行知情同意（說明與同意）之程序。',
     appendix: '附則',
     appendixDate: '本約款自2025年1月1日起適用。',
@@ -231,7 +231,7 @@ const t: Record<Language, {
       '服务提供日7至14天前：旅行费用之50%',
       '服务提供日7天以内：旅行费用之100%',
     ],
-    art6medical: '关于医疗服务，可能适用合作医疗机构之个别取消政策。',
+    art6medical: '具体之取消费用金额及费率，以各服务页面及特定商取引法标示之规定为准。关于医疗服务，可能适用合作医疗机构之个别取消政策。',
     art7title: '第7条（本公司之解除）',
     art7intro: '本公司在以下情况下，可解除旅行安排合同：',
     art7items: [
@@ -254,7 +254,7 @@ const t: Record<Language, {
     art11health: '旅客应善加利用本公司提供之信息，努力理解旅客之权利义务等。旅客须向本公司提供关于自身健康状况等之准确信息。',
     ch8: '第八章 医疗旅游特别规定',
     art12title: '第12条（医疗服务之处理）',
-    art12: '在本公司安排之医疗旅游服务中，医疗行为由合作医疗机构直接提供。本公司之角色为提供与医疗机构之预约安排、口译翻译、渡航安排等旅行服务，并非医疗行为之提供者。',
+    art12: '在本公司安排之医疗旅游服务中，医疗行为由合作医疗机构直接提供。本公司之角色为提供与医疗机构之预约安排、口译翻译、交通行程安排等旅行服务，并非医疗行为之提供者。',
     art12consent: '治疗效果因人而异，不保证结果。旅客须与医疗机构另行进行知情同意（说明与同意）之程序。',
     appendix: '附则',
     appendixDate: '本约款自2025年1月1日起适用。',
@@ -295,7 +295,7 @@ const t: Record<Language, {
       '7 to 14 days before service date: 50% of travel cost',
       'Within 7 days of service date: 100% of travel cost',
     ],
-    art6medical: 'For medical services, individual cancellation policies of partner medical institutions may apply.',
+    art6medical: 'Specific cancellation fee amounts and rates are as set forth on each service page and in the Specified Commercial Transactions disclosure. For medical services, individual cancellation policies of partner medical institutions may apply.',
     art7title: 'Article 7 (Cancellation by the Company)',
     art7intro: 'The Company may cancel the arranged travel contract in the following cases:',
     art7items: [
