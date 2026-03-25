@@ -382,7 +382,6 @@ export default function IGTCInitialConsultationPage() {
                   <Image src="/icons/payment/jcb.svg" alt="JCB" width={40} height={25} className="h-6 w-auto" />
                   <Image src="/icons/payment/applepay.svg" alt="Apple Pay" width={40} height={25} className="h-6 w-auto" />
                   <Image src="/icons/payment/alipay.svg" alt="Alipay" width={40} height={25} className="h-6 w-auto" />
-                  <Image src="/icons/payment/wechatpay.svg" alt="WeChat Pay" width={40} height={25} className="h-6 w-auto" />
                 </div>
               </form>
             </div>
