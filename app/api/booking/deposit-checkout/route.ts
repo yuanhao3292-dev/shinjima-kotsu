@@ -1,15 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import Stripe from 'stripe';
 import { getSupabaseAdmin, getSupabaseWithAuth } from '@/lib/supabase/api';
 import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
 import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
-
-const getStripe = () => {
-  if (!process.env.STRIPE_SECRET_KEY) {
-    throw new Error('STRIPE_SECRET_KEY is not configured');
-  }
-  return new Stripe(process.env.STRIPE_SECRET_KEY);
-};
+import { getStripeServer as getStripe } from '@/lib/stripe-server';
 
 /**
  * POST /api/booking/deposit-checkout

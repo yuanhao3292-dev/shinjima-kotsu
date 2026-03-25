@@ -13,6 +13,7 @@ import {
   Loader2, CreditCard, Users, Phone, Mail, MessageSquare
 } from 'lucide-react';
 import ConsentCheckboxes, { allConsented, type Consents } from '@/components/ConsentCheckboxes';
+import OrderConfirmationModal from '@/components/OrderConfirmationModal';
 
 type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
 
@@ -103,6 +104,7 @@ export default function CellMedicineInitialConsultationPage() {
   const providerKey = useProviderKey();
   const [currentLang, setCurrentLang] = useState<Language>('zh-CN');
   const [processing, setProcessing] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [customerInfo, setCustomerInfo] = useState({ name: '', email: '', phone: '', line: '', wechat: '', country: 'CN' });
   const [patientInfo, setPatientInfo] = useState({ patientName: '', age: '', gender: '', diagnosis: '', currentStatus: '', interestService: '' });
   const [notes, setNotes] = useState('');
@@ -125,14 +127,18 @@ export default function CellMedicineInitialConsultationPage() {
   const t = (key: keyof typeof pageTranslations): string => pageTranslations[key][currentLang] || pageTranslations[key]['zh-CN'];
   const hasValidContact = () => customerInfo.phone.trim() !== '' || customerInfo.email.trim() !== '' || customerInfo.line.trim() !== '' || customerInfo.wechat.trim() !== '';
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setContactError('');
+    if (!customerInfo.name) { alert(t('alertContactName')); return; }
+    if (!patientInfo.patientName) { alert(t('alertPatientName')); return; }
+    if (!hasValidContact()) { setContactError(t('alertContactMethod')); return; }
+    setShowConfirmation(true);
+  }
+
+  async function handleConfirmedSubmit() {
     setProcessing(true);
     try {
-      if (!customerInfo.name) { alert(t('alertContactName')); setProcessing(false); return; }
-      if (!patientInfo.patientName) { alert(t('alertPatientName')); setProcessing(false); return; }
-      if (!hasValidContact()) { setContactError(t('alertContactMethod')); setProcessing(false); return; }
 
       const contactMethods: string[] = [];
       if (customerInfo.phone) contactMethods.push(`${t('phone')}: ${customerInfo.phone}`);
@@ -170,7 +176,8 @@ export default function CellMedicineInitialConsultationPage() {
       else throw new Error(t('alertNoCheckoutUrl'));
     } catch (error: unknown) {
       alert(error instanceof Error ? error.message : t('alertPaymentError'));
-    } finally { setProcessing(false); }
+    } finally { setProcessing(false);
+      setShowConfirmation(false); }
   }
 
   return (
@@ -276,12 +283,25 @@ export default function CellMedicineInitialConsultationPage() {
                   <Image src="/icons/payment/mastercard.svg" alt="Mastercard" width={40} height={25} className="h-6 w-auto" />
                   <Image src="/icons/payment/amex.svg" alt="American Express" width={40} height={25} className="h-6 w-auto" />
                   <Image src="/icons/payment/jcb.svg" alt="JCB" width={40} height={25} className="h-6 w-auto" />
+                  <Image src="/icons/payment/applepay.svg" alt="Apple Pay" width={40} height={25} className="h-6 w-auto" />
+                  <Image src="/icons/payment/alipay.svg" alt="Alipay" width={40} height={25} className="h-6 w-auto" />
+                  <Image src="/icons/payment/wechatpay.svg" alt="WeChat Pay" width={40} height={25} className="h-6 w-auto" />
                 </div>
               </form>
             </div>
           </div>
         </div>
       </div>
+      <OrderConfirmationModal
+        isOpen={showConfirmation}
+        onConfirm={handleConfirmedSubmit}
+        onCancel={() => setShowConfirmation(false)}
+        packageName={t('serviceName')}
+        price={SERVICE_INFO.price}
+        customerName={customerInfo.name}
+        lang={currentLang}
+        isProcessing={processing}
+      />
     </CheckoutLayout>
   );
 }

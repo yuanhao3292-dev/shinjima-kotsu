@@ -345,7 +345,7 @@ export const TIMCQuotePDF: React.FC<TIMCQuotePDFProps> = ({ quote }) => {
         {/* Footer */}
         <View style={styles.footer}>
           <Text>新島交通株式会社 | TIMC 大阪中央高級醫療センター 官方合作夥伴</Text>
-          <Text>Email: info@niijima-koutsu.com | TEL: +81-6-XXXX-XXXX</Text>
+          <Text>Email: info@niijima-koutsu.jp | TEL: +81-6-6632-8807</Text>
         </View>
       </Page>
     </Document>

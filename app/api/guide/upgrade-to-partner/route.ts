@@ -14,13 +14,7 @@ import {
   createErrorResponse,
   Errors,
 } from "@/lib/utils/api-errors";
-
-const getStripe = () => {
-  if (!process.env.STRIPE_SECRET_KEY) {
-    throw new Error("STRIPE_SECRET_KEY is not configured");
-  }
-  return new Stripe(process.env.STRIPE_SECRET_KEY);
-};
+import { getStripeServer as getStripe } from '@/lib/stripe-server';
 
 const getSupabase = () => {
   if (

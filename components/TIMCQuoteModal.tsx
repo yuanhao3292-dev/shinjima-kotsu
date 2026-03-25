@@ -2,7 +2,6 @@
 
 import React, { useState, useMemo } from 'react';
 import { X, FileText, Download, Users, Calendar, Building2, Phone, Mail, Hotel, Plane, Languages, ClipboardCheck } from 'lucide-react';
-import { pdf } from '@react-pdf/renderer';
 import { saveAs } from 'file-saver';
 import {
   TIMC_PACKAGES,
@@ -151,6 +150,7 @@ export const TIMCQuoteModal: React.FC<TIMCQuoteModalProps> = ({ isOpen, onClose 
 
     setIsGenerating(true);
     try {
+      const { pdf } = await import('@react-pdf/renderer');
       const blob = await pdf(<TIMCQuotePDF quote={quoteResult} />).toBlob();
       saveAs(blob, `${quoteResult.quoteNumber}.pdf`);
     } catch (error) {

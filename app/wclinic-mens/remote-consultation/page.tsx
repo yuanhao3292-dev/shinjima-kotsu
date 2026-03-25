@@ -12,6 +12,7 @@ import {
   Loader2, CreditCard, Users, Phone, Video
 } from 'lucide-react';
 import ConsentCheckboxes, { allConsented, type Consents } from '@/components/ConsentCheckboxes';
+import OrderConfirmationModal from '@/components/OrderConfirmationModal';
 
 type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
 
@@ -109,6 +110,7 @@ export default function WClinicMensRemoteConsultationPage() {
   const backHref = guideSlug ? `/g/${guideSlug}/wclinic-mens` : '/wclinic-mens';
   const [currentLang, setCurrentLang] = useState<Language>('zh-CN');
   const [processing, setProcessing] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [customerInfo, setCustomerInfo] = useState({ name: '', email: '', phone: '', line: '', wechat: '', country: 'CN' });
   const [patientInfo, setPatientInfo] = useState({ patientName: '', age: '', gender: '', diagnosis: '', previousConsultation: '', questions: '' });
   const [preferredTimes, setPreferredTimes] = useState({ time1: '', time2: '', time3: '' });
@@ -140,15 +142,19 @@ export default function WClinicMensRemoteConsultationPage() {
     return customerInfo.phone.trim() !== '' || customerInfo.email.trim() !== '' || customerInfo.line.trim() !== '' || customerInfo.wechat.trim() !== '';
   };
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setContactError('');
+    if (!customerInfo.name) { alert(t('alertContactName')); return; }
+    if (!patientInfo.patientName) { alert(t('alertPatientName')); return; }
+    if (!hasValidContact()) { setContactError(t('alertContactMethod')); return; }
+    setShowConfirmation(true);
+  }
+
+  async function handleConfirmedSubmit() {
     setProcessing(true);
 
     try {
-      if (!customerInfo.name) { alert(t('alertContactName')); setProcessing(false); return; }
-      if (!patientInfo.patientName) { alert(t('alertPatientName')); setProcessing(false); return; }
-      if (!hasValidContact()) { setContactError(t('alertContactMethod')); setProcessing(false); return; }
 
       const contactMethods: string[] = [];
       if (customerInfo.phone) contactMethods.push(`${t('phone')}: ${customerInfo.phone}`);
@@ -203,6 +209,7 @@ export default function WClinicMensRemoteConsultationPage() {
       alert(message);
     } finally {
       setProcessing(false);
+      setShowConfirmation(false);
     }
   }
 
@@ -389,6 +396,16 @@ export default function WClinicMensRemoteConsultationPage() {
           </div>
         </div>
       </div>
+      <OrderConfirmationModal
+        isOpen={showConfirmation}
+        onConfirm={handleConfirmedSubmit}
+        onCancel={() => setShowConfirmation(false)}
+        packageName={t('serviceName')}
+        price={SERVICE_INFO.price}
+        customerName={customerInfo.name}
+        lang={currentLang}
+        isProcessing={processing}
+      />
     </CheckoutLayout>
   );
 }

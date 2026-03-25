@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getGuideDistributionPage } from '@/lib/services/whitelabel';
+import { getCachedDistributionPageWithTag } from '@/lib/cache/whitelabel-cache';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import type { ImmersiveDisplayConfig } from '@/lib/types/display-config';
@@ -41,7 +41,7 @@ const DETAIL_PAGE_HERO_IMAGES: Record<string, string> = {
 
 export default async function GuideHomePage({ params }: PageProps) {
   const { slug } = await params;
-  const pageData = await getGuideDistributionPage(slug);
+  const pageData = await getCachedDistributionPageWithTag(slug);
 
   if (!pageData) {
     notFound();

@@ -13,6 +13,7 @@ import {
   Loader2, CreditCard, Users, Phone, Mail, MessageSquare
 } from 'lucide-react';
 import ConsentCheckboxes, { allConsented, type Consents } from '@/components/ConsentCheckboxes';
+import OrderConfirmationModal from '@/components/OrderConfirmationModal';
 
 type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
 
@@ -122,6 +123,7 @@ export default function InitialConsultationPage() {
   const backHref = guideSlug ? `/g/${guideSlug}/cancer-treatment` : '/cancer-treatment';
   const [currentLang, setCurrentLang] = useState<Language>('zh-TW');
   const [processing, setProcessing] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [customerInfo, setCustomerInfo] = useState({
     name: '',
     email: '',
@@ -169,27 +171,25 @@ export default function InitialConsultationPage() {
            customerInfo.wechat.trim() !== '';
   };
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setContactError('');
+    if (!customerInfo.name) {
+        alert(t('alertContactName')); return;
+      }
+    if (!patientInfo.patientName) {
+        alert(t('alertPatientName')); return;
+      }
+    if (!hasValidContact()) {
+        setContactError(t('alertContactMethod')); return;
+      }
+    setShowConfirmation(true);
+  }
+
+  async function handleConfirmedSubmit() {
     setProcessing(true);
 
     try {
-      if (!customerInfo.name) {
-        alert(t('alertContactName'));
-        setProcessing(false);
-        return;
-      }
-      if (!patientInfo.patientName) {
-        alert(t('alertPatientName'));
-        setProcessing(false);
-        return;
-      }
-      if (!hasValidContact()) {
-        setContactError(t('alertContactMethod'));
-        setProcessing(false);
-        return;
-      }
 
       // Build contact methods info
       const contactMethods: string[] = [];
@@ -241,6 +241,7 @@ export default function InitialConsultationPage() {
       alert(error.message || t('alertPaymentError'));
     } finally {
       setProcessing(false);
+      setShowConfirmation(false);
     }
   }
 
@@ -527,12 +528,25 @@ export default function InitialConsultationPage() {
                   <Image src="/icons/payment/mastercard.svg" alt="Mastercard" width={40} height={25} className="h-6 w-auto" />
                   <Image src="/icons/payment/amex.svg" alt="American Express" width={40} height={25} className="h-6 w-auto" />
                   <Image src="/icons/payment/jcb.svg" alt="JCB" width={40} height={25} className="h-6 w-auto" />
+                  <Image src="/icons/payment/applepay.svg" alt="Apple Pay" width={40} height={25} className="h-6 w-auto" />
+                  <Image src="/icons/payment/alipay.svg" alt="Alipay" width={40} height={25} className="h-6 w-auto" />
+                  <Image src="/icons/payment/wechatpay.svg" alt="WeChat Pay" width={40} height={25} className="h-6 w-auto" />
                 </div>
               </form>
             </div>
           </div>
         </div>
       </div>
+      <OrderConfirmationModal
+        isOpen={showConfirmation}
+        onConfirm={handleConfirmedSubmit}
+        onCancel={() => setShowConfirmation(false)}
+        packageName={t('serviceName')}
+        price={SERVICE_INFO.price}
+        customerName={customerInfo.name}
+        lang={currentLang}
+        isProcessing={processing}
+      />
     </CheckoutLayout>
   );
 }

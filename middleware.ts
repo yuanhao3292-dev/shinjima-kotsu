@@ -85,14 +85,15 @@ export async function middleware(request: NextRequest) {
     );
 
     if (!isAllowedOrigin) {
-      // No valid origin → reject (except for server-to-server calls with API key)
-      const hasApiKey = request.headers.get('x-api-key');
-      if (!hasApiKey) {
+      // No valid origin → only allow server-to-server calls with a VALID enterprise API key
+      const apiKey = request.headers.get('x-api-key');
+      if (!apiKey || !apiKey.startsWith('nk_')) {
         return new NextResponse(JSON.stringify({ error: 'CSRF validation failed' }), {
           status: 403,
           headers: { 'Content-Type': 'application/json' },
         });
       }
+      // API key format validated; actual key verification happens in the route handler via validateAPIKey()
     }
   }
 

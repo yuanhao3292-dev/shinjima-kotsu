@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { CheckCircle, Car, Building, Check, Shield, Lock, CreditCard, ArrowLeft } from 'lucide-react';
 import { translations, Language } from '@/translations';
+import OrderConfirmationModal from '@/components/OrderConfirmationModal';
 
 interface MedicalPackageBookingProps {
   packageSlug: string;
@@ -217,6 +218,7 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
   const [selectedAddOns, setSelectedAddOns] = useState<string[]>([]);
   const [contactError, setContactError] = useState('');
   const [consents, setConsents] = useState({ cancel: false, tokushoho: false, privacy: false });
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   if (!pkg) {
     return (
@@ -237,22 +239,23 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
            customerInfo.whatsapp.trim() !== '';
   };
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setContactError('');
+    if (!customerInfo.name) {
+      alert(t.nameRequired);
+      return;
+    }
+    if (!hasValidContact()) {
+      setContactError(t.contactError);
+      return;
+    }
+    setShowConfirmation(true);
+  }
+
+  async function handleConfirmedSubmit() {
     setProcessing(true);
     try {
-      if (!customerInfo.name) {
-        alert(t.nameRequired);
-        setProcessing(false);
-        return;
-      }
-      if (!hasValidContact()) {
-        setContactError(t.contactError);
-        setProcessing(false);
-        return;
-      }
-
       const contactMethods: string[] = [];
       if (customerInfo.phone) contactMethods.push(`電話: ${customerInfo.phone}`);
       if (customerInfo.email) contactMethods.push(`郵箱: ${customerInfo.email}`);
@@ -288,6 +291,7 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
       alert(message);
     } finally {
       setProcessing(false);
+      setShowConfirmation(false);
     }
   }
 
@@ -519,6 +523,17 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
           <p className="mt-1">旅行服务由 新岛交通株式会社 提供 · 大阪府知事登录旅行业 第2-3115号</p>
         </div>
       </footer>
+
+      <OrderConfirmationModal
+        isOpen={showConfirmation}
+        onConfirm={handleConfirmedSubmit}
+        onCancel={() => setShowConfirmation(false)}
+        packageName={pkg.name}
+        price={pkg.price}
+        customerName={customerInfo.name}
+        lang={currentLang}
+        isProcessing={processing}
+      />
     </div>
   );
 }

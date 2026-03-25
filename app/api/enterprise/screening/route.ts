@@ -151,11 +151,15 @@ export async function POST(request: NextRequest) {
       screening_type: 'ai_triage',
     });
 
-    // 7. Update enterprise quota counter
-    await supabase
-      .from('enterprises')
-      .update({ screening_used: enterprise.screening_used + 1 })
-      .eq('id', enterpriseId);
+    // 7. Atomic quota increment (prevents race condition on concurrent requests)
+    const { data: quotaResult, error: quotaError } = await supabase.rpc(
+      'increment_enterprise_screening_quota',
+      { p_enterprise_id: enterpriseId }
+    );
+    if (quotaError || quotaResult?.error) {
+      console.warn(`[EnterpriseScreening] Quota increment failed (screening already completed):`, quotaResult?.error || quotaError);
+      // Screening already ran, so we don't fail the request — just log the quota overage
+    }
 
     // 8. Update member screening stats
     const riskLevel = output.legacyResult?.riskLevel;

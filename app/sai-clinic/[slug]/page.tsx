@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { CheckCircle, Shield, Lock, CreditCard } from 'lucide-react';
 import CheckoutLayout from '@/components/CheckoutLayout';
+import OrderConfirmationModal from '@/components/OrderConfirmationModal';
 
 // ━━━━━━━━ SAI CLINIC 套餐数据 ━━━━━━━━
 
@@ -194,6 +195,7 @@ export default function SaiClinicCheckoutPage() {
   const isVIP = pkg?.colorTheme === 'amber';
 
   const [processing, setProcessing] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [customerInfo, setCustomerInfo] = useState({
     name: '', email: '', phone: '', line: '', wechat: '', whatsapp: '', company: '', country: 'TW',
   });
@@ -222,21 +224,21 @@ export default function SaiClinicCheckoutPage() {
            customerInfo.whatsapp.trim() !== '';
   };
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setContactError('');
+    if (!customerInfo.name) {
+        alert('请输入姓名'); return;
+      }
+    if (!hasValidContact()) {
+        setContactError('请至少填写一种联系方式'); return;
+      }
+    setShowConfirmation(true);
+  }
+
+  async function handleConfirmedSubmit() {
     setProcessing(true);
     try {
-      if (!customerInfo.name) {
-        alert('请输入姓名');
-        setProcessing(false);
-        return;
-      }
-      if (!hasValidContact()) {
-        setContactError('请至少填写一种联系方式');
-        setProcessing(false);
-        return;
-      }
 
       const contactMethods: string[] = [];
       if (customerInfo.phone) contactMethods.push(`电话: ${customerInfo.phone}`);
@@ -273,6 +275,7 @@ export default function SaiClinicCheckoutPage() {
       alert(message);
     } finally {
       setProcessing(false);
+      setShowConfirmation(false);
     }
   }
 
@@ -433,11 +436,24 @@ export default function SaiClinicCheckoutPage() {
                 <Image src="/icons/payment/mastercard.svg" alt="Mastercard" width={40} height={25} className="h-6 w-auto" />
                 <Image src="/icons/payment/amex.svg" alt="American Express" width={40} height={25} className="h-6 w-auto" />
                 <Image src="/icons/payment/jcb.svg" alt="JCB" width={40} height={25} className="h-6 w-auto" />
+                <Image src="/icons/payment/applepay.svg" alt="Apple Pay" width={40} height={25} className="h-6 w-auto" />
+                <Image src="/icons/payment/alipay.svg" alt="Alipay" width={40} height={25} className="h-6 w-auto" />
+                <Image src="/icons/payment/wechatpay.svg" alt="WeChat Pay" width={40} height={25} className="h-6 w-auto" />
               </div>
             </form>
           </div>
         </div>
       </div>
+      <OrderConfirmationModal
+        isOpen={showConfirmation}
+        onConfirm={handleConfirmedSubmit}
+        onCancel={() => setShowConfirmation(false)}
+        packageName={pkg.name}
+        price={pkg.price}
+        customerName={customerInfo.name}
+        lang={(Cookies.get('NEXT_LOCALE') || 'ja') as 'ja' | 'zh-TW' | 'zh-CN' | 'en'}
+        isProcessing={processing}
+      />
     </CheckoutLayout>
   );
 }

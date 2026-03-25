@@ -1,16 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import Stripe from "stripe";
 import { createClient as createServerClient } from "@/lib/supabase/server";
 import { getSupabaseAdmin } from "@/lib/supabase/api";
 import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
 import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
-
-const getStripe = () => {
-  if (!process.env.STRIPE_SECRET_KEY) {
-    throw new Error("STRIPE_SECRET_KEY is not configured");
-  }
-  return new Stripe(process.env.STRIPE_SECRET_KEY);
-};
+import { getStripeServer as getStripe } from '@/lib/stripe-server';
 
 // 验证 returnUrl 必须是同域
 const ALLOWED_HOSTS = ['niijima-koutsu.jp', 'www.niijima-koutsu.jp', 'localhost:3000'];

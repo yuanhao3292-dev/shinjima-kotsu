@@ -13,6 +13,7 @@ import {
   ChevronDown, ChevronUp,
 } from 'lucide-react';
 import ConsentCheckboxes, { allConsented, type Consents } from '@/components/ConsentCheckboxes';
+import OrderConfirmationModal from '@/components/OrderConfirmationModal';
 
 type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
 
@@ -317,6 +318,7 @@ export default function HeleneTreatmentPage() {
   const backHref = guideSlug ? `/g/${guideSlug}/helene-clinic` : '/helene-clinic';
   const [currentLang, setCurrentLang] = useState<Language>('zh-CN');
   const [processing, setProcessing] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [selectedSlug, setSelectedSlug] = useState<string>('');
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({
     'msc-iv': true,
@@ -397,32 +399,28 @@ export default function HeleneTreatmentPage() {
   };
 
   // ── Submit ──
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setContactError('');
+    if (!selectedSlug) {
+        alert(t('alertSelectTreatment')); return;
+      }
+    if (!patientInfo.patientName) {
+        alert(t('alertPatientName')); return;
+      }
+    if (!customerInfo.name) {
+        alert(t('alertContactName')); return;
+      }
+    if (!hasValidContact()) {
+        setContactError(t('alertContactMethod')); return;
+      }
+    setShowConfirmation(true);
+  }
+
+  async function handleConfirmedSubmit() {
     setProcessing(true);
 
     try {
-      if (!selectedSlug) {
-        alert(t('alertSelectTreatment'));
-        setProcessing(false);
-        return;
-      }
-      if (!patientInfo.patientName) {
-        alert(t('alertPatientName'));
-        setProcessing(false);
-        return;
-      }
-      if (!customerInfo.name) {
-        alert(t('alertContactName'));
-        setProcessing(false);
-        return;
-      }
-      if (!hasValidContact()) {
-        setContactError(t('alertContactMethod'));
-        setProcessing(false);
-        return;
-      }
 
       const contactMethods: string[] = [];
       if (customerInfo.phone) contactMethods.push(`${t('phone')}: ${customerInfo.phone}`);
@@ -475,6 +473,7 @@ export default function HeleneTreatmentPage() {
       alert(message);
     } finally {
       setProcessing(false);
+      setShowConfirmation(false);
     }
   }
 
@@ -846,6 +845,16 @@ export default function HeleneTreatmentPage() {
 
         </div>
       </div>
+      <OrderConfirmationModal
+        isOpen={showConfirmation}
+        onConfirm={handleConfirmedSubmit}
+        onCancel={() => setShowConfirmation(false)}
+        packageName={t('pageTitle')}
+        price={selectedPrice}
+        customerName={customerInfo.name}
+        lang={currentLang}
+        isProcessing={processing}
+      />
     </CheckoutLayout>
   );
 }

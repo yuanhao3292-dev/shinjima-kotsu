@@ -3,6 +3,7 @@ import { verifyAdminAuth } from '@/lib/utils/admin-auth';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
 import { Resend } from 'resend';
 import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
+import { escapeHtml } from '@/lib/utils/html-escape';
 import { validateBody } from '@/lib/validations/validate';
 import { WithdrawalActionSchema } from '@/lib/validations/api-schemas';
 import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
@@ -259,6 +260,9 @@ export async function POST(request: NextRequest) {
 }
 
 function generateWithdrawalEmail(name: string, title: string, content: string): string {
+  const safeName = escapeHtml(name || '尊敬的合伙人');
+  const safeTitle = escapeHtml(title);
+  const safeContent = escapeHtml(content);
   return `
 <!DOCTYPE html>
 <html>
@@ -283,10 +287,10 @@ function generateWithdrawalEmail(name: string, title: string, content: string): 
           <!-- Content -->
           <tr>
             <td style="padding: 40px 30px; text-align: center;">
-              <h2 style="color: #1e293b; margin: 0 0 10px; font-size: 24px;">${title}</h2>
-              <p style="color: #6b7280; margin: 0 0 20px; font-size: 16px;">${name || '尊敬的合伙人'}，您好</p>
+              <h2 style="color: #1e293b; margin: 0 0 10px; font-size: 24px;">${safeTitle}</h2>
+              <p style="color: #6b7280; margin: 0 0 20px; font-size: 16px;">${safeName}，您好</p>
               <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 30px;">
-                ${content}
+                ${safeContent}
               </p>
               <a href="https://niijima-koutsu.jp/guide-partner/commission"
                  style="display: inline-block; background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600;">

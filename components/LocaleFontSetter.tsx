@@ -29,6 +29,7 @@ export default function LocaleFontSetter() {
   useEffect(() => {
     const locale = getStoredLocale();
     document.documentElement.setAttribute('data-locale', locale);
+    document.documentElement.setAttribute('lang', locale);
   }, []);
 
   return null;

@@ -33,6 +33,7 @@ import { COUNTRY_CODES, DEFAULT_CODE_BY_LANG } from '@/lib/config/country-codes'
 import { createClient } from '@/lib/supabase/client';
 import ScoreRing from './ScoreRing';
 import ScoreBreakdown from './ScoreBreakdown';
+import OrderConfirmationModal from '@/components/OrderConfirmationModal';
 
 const translations = {
   riskLow: {
@@ -381,6 +382,7 @@ function ConsultationCheckoutModal({
   const [countryCode, setCountryCode] = useState('+86');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   useEffect(() => {
     setCountryCode(DEFAULT_CODE_BY_LANG[lang] || '+86');
@@ -399,13 +401,17 @@ function ConsultationCheckoutModal({
     })();
   }, [supabase]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     if (!name.trim() || (!email.trim() && !phone.trim())) {
       setError(t('contactRequired', lang));
       return;
     }
+    setShowConfirmation(true);
+  };
+
+  const handleConfirmedSubmit = async () => {
     setSubmitting(true);
     try {
       const res = await fetch('/api/create-checkout-session', {
@@ -432,10 +438,22 @@ function ConsultationCheckoutModal({
       const message = err instanceof Error ? err.message : t('checkoutError', lang);
       setError(message);
       setSubmitting(false);
+      setShowConfirmation(false);
     }
   };
 
   return (
+    <>
+    <OrderConfirmationModal
+      isOpen={showConfirmation}
+      onConfirm={handleConfirmedSubmit}
+      onCancel={() => setShowConfirmation(false)}
+      packageName={hospitalName}
+      price={price}
+      customerName={name}
+      lang={lang}
+      isProcessing={submitting}
+    />
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={onClose}>
       <div className="bg-white w-full max-w-md" onClick={(e) => e.stopPropagation()}>
         <div className="bg-gold-400 px-6 py-4 flex items-center justify-between">
@@ -491,6 +509,7 @@ function ConsultationCheckoutModal({
         </form>
       </div>
     </div>
+    </>
   );
 }
 

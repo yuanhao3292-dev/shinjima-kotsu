@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { sendOrderConfirmationEmail, sendNewOrderNotificationToMerchant, sendGuideCommissionNotification } from '@/lib/email';
+import { escapeHtml } from '@/lib/utils/html-escape';
 
 // 延迟初始化，避免构建时报错
 const getStripe = () => {
@@ -180,6 +181,8 @@ export async function POST(request: NextRequest) {
 
       default:
         console.log(`未处理的事件类型: ${event.type}`);
+        await recordEventProcessed(supabase, event.id, event.type, 'skipped');
+        return NextResponse.json({ received: true });
     }
 
     // 记录事件已成功处理
@@ -250,10 +253,10 @@ async function handleCheckoutSessionCompleted(supabase: SupabaseClient, session:
 
   // 如果有导游归属，计算并记录佣金
   if (guideId && commissionRate !== null && commissionRate !== undefined) {
-    // 获取订单的客户 ID
+    // 获取订单的客户 ID 和套餐 ID
     const { data: orderData } = await supabase
       .from('orders')
-      .select('customer_id')
+      .select('customer_id, package_id')
       .eq('id', orderId)
       .single();
 
@@ -266,6 +269,7 @@ async function handleCheckoutSessionCompleted(supabase: SupabaseClient, session:
       moduleId,
       sessionAmountTotal: session.amount_total || 0,
       customerId: orderData?.customer_id,
+      packageId: orderData?.package_id,
     });
   }
 
@@ -771,28 +775,75 @@ interface CommissionParams {
   moduleId: string | null;
   sessionAmountTotal: number; // Stripe 金额（日元，单位为分）
   customerId?: string; // 客户 ID，用于判断是否新客首单
+  packageId?: string; // 套餐 ID，用于查询个别消費税率
 }
 
 // 新客首单奖励率
 const NEW_CUSTOMER_BONUS_RATE = 5; // +5%
 
 /**
+ * 源泉徴収額を計算
+ * 居住者: 100万円以下 → 10.21%, 100万円超 → 20.42%
+ * 非居住者: 一律 20.42%
+ */
+function calculateWithholdingTax(
+  commission: number,
+  isResident: boolean
+): { withholdingAmount: number; withholdingRate: number } {
+  if (commission <= 0) {
+    return { withholdingAmount: 0, withholdingRate: 0 };
+  }
+
+  if (!isResident) {
+    // 非居住者: 一律 20.42%
+    const amount = Math.round(commission * 0.2042);
+    return { withholdingAmount: amount, withholdingRate: 0.2042 };
+  }
+
+  // 居住者: 100万円以下 → 10.21%, 100万円超過分 → 20.42%
+  const threshold = 1_000_000;
+  if (commission <= threshold) {
+    const amount = Math.round(commission * 0.1021);
+    return { withholdingAmount: amount, withholdingRate: 0.1021 };
+  } else {
+    const amount = Math.round(threshold * 0.1021 + (commission - threshold) * 0.2042);
+    // 加重平均レートを記録
+    const effectiveRate = amount / commission;
+    return { withholdingAmount: amount, withholdingRate: Math.round(effectiveRate * 10000) / 10000 };
+  }
+}
+
+/**
  * 计算并记录白标订单的佣金
- * 佣金计算公式：(订单金额 / 1.1) × (佣金率 + 新客奖励)%
- * 其中 /1.1 是扣除日本消费税
+ * 佣金计算公式：(订単金額 / (1 + 税率)) × (佣金率 + 新客奖励)%
+ * 税率根据套餐个別設定（默认10%）
  * 新客首单额外 +5% 奖励
+ * 源泉徴収: 居住者10.21%/20.42%, 非居住者20.42%
  */
 async function calculateAndRecordCommission(
   supabase: SupabaseClient,
   params: CommissionParams
 ) {
-  const { orderId, guideId, guideSlug, orderType, commissionRate, moduleId, sessionAmountTotal, customerId } = params;
+  const { orderId, guideId, guideSlug, orderType, commissionRate, moduleId, sessionAmountTotal, customerId, packageId } = params;
 
   // Stripe 日元金额不需要除以 100（日元是零小数货币）
   const orderAmount = sessionAmountTotal;
 
-  // 计算净额（扣除 10% 消费税）
-  const netAmount = Math.round(orderAmount / 1.1);
+  // 查询套餐个別消費税率（默认 10%）
+  let taxRate = 10;
+  if (packageId) {
+    const { data: pkgData } = await supabase
+      .from('medical_packages')
+      .select('tax_rate')
+      .eq('id', packageId)
+      .single();
+    if (pkgData?.tax_rate !== null && pkgData?.tax_rate !== undefined) {
+      taxRate = Number(pkgData.tax_rate);
+    }
+  }
+
+  // 计算净额（扣除个別消費税率）
+  const netAmount = taxRate > 0 ? Math.round(orderAmount / (1 + taxRate / 100)) : orderAmount;
 
   // 检查是否是新客户首单（该客户在该导游下的首次付款订单）
   let isNewCustomerFirstOrder = false;
@@ -824,7 +875,18 @@ async function calculateAndRecordCommission(
   const bonusCommission = Math.round(netAmount * bonusRate / 100);
   const commissionAmount = baseCommission + bonusCommission;
 
-  console.log(`💰 佣金计算: 订单金额=${orderAmount}, 净额=${netAmount}, 基础佣金率=${commissionRate}%, 新客奖励=${bonusRate}%, 总佣金率=${finalCommissionRate}%, 佣金=${commissionAmount}`);
+  // 查询导游的税务居住地（用于源泉徴収計算）
+  const { data: guideTaxInfo } = await supabase
+    .from('guides')
+    .select('tax_residency, invoice_registration_number')
+    .eq('id', guideId)
+    .single();
+
+  const isResident = guideTaxInfo?.tax_residency === 'resident';
+  const { withholdingAmount, withholdingRate } = calculateWithholdingTax(commissionAmount, isResident);
+  const netCommissionAmount = commissionAmount - withholdingAmount;
+
+  console.log(`💰 佣金计算: 订单金额=${orderAmount}, 税率=${taxRate}%, 净額=${netAmount}, 基础佣金率=${commissionRate}%, 新客奖励=${bonusRate}%, 总佣金率=${finalCommissionRate}%, 佣金=${commissionAmount}, 源泉徴収=${withholdingAmount}(${(withholdingRate * 100).toFixed(2)}%), 手取り=${netCommissionAmount}`);
 
   // 1. 更新 orders 表的佣金信息
   await supabase
@@ -875,40 +937,46 @@ async function calculateAndRecordCommission(
       commission_amount: commissionAmount,
       commission_status: 'calculated',
       commission_available_at: commissionAvailableAt,
+      withholding_tax_amount: withholdingAmount,
+      withholding_tax_rate: withholdingRate,
       // 新客首单奖励信息（存储在 metadata 中）
-      metadata: isNewCustomerFirstOrder ? {
-        new_customer_bonus: true,
-        bonus_rate: bonusRate,
-        bonus_amount: bonusCommission,
-        base_commission: baseCommission,
-      } : null,
+      metadata: {
+        ...(isNewCustomerFirstOrder ? {
+          new_customer_bonus: true,
+          bonus_rate: bonusRate,
+          bonus_amount: bonusCommission,
+          base_commission: baseCommission,
+        } : {}),
+        tax_rate: taxRate,
+        is_resident: isResident,
+        has_invoice_number: !!guideTaxInfo?.invoice_registration_number,
+        net_commission: netCommissionAmount,
+      },
     });
 
   if (wlOrderError) {
     console.error('创建白标订单记录失败:', wlOrderError);
+    throw new Error(`白标订单记录创建失败: ${wlOrderError.message}`);
   } else {
     const bonusInfo = isNewCustomerFirstOrder ? ` (含新客奖励 +${bonusRate}%)` : '';
     console.log(`✅ 白标订单记录已创建: 导游=${guideSlug}, 佣金=${commissionAmount}円${bonusInfo}`);
   }
 
-  // 4. 更新导游的累计佣金（注意：不更新 available_balance，等待 2 周后由 RPC 释放）
+  // 4. 原子递增导游累计佣金（防并发丢失更新）
   const { data: guideData } = await supabase
     .from('guides')
-    .select('total_commission, name, email, referrer_id')
+    .select('name, email, referrer_id')
     .eq('id', guideId)
     .single();
 
-  if (guideData) {
-    const newTotal = (guideData.total_commission || 0) + commissionAmount;
-    await supabase
-      .from('guides')
-      .update({
-        total_commission: newTotal,
-        updated_at: new Date().toISOString(),
-      })
-      .eq('id', guideId);
+  // 原子递增 total_commission（不再 read-modify-write）
+  const { data: newTotal } = await supabase.rpc('increment_guide_commission', {
+    p_guide_id: guideId,
+    p_amount: commissionAmount,
+  });
 
-    console.log(`✅ 导游累计佣金已更新: ${newTotal}円`);
+  if (guideData) {
+    console.log(`✅ 导游累计佣金已原子更新: ${newTotal}円`);
 
     // 5. 发送佣金通知邮件给导游
     if (guideData.email) {
@@ -921,6 +989,7 @@ async function calculateAndRecordCommission(
         commissionRate: finalCommissionRate,
         isNewCustomerBonus: isNewCustomerFirstOrder,
         bonusAmount: bonusCommission > 0 ? bonusCommission : undefined,
+        withholdingAmount: withholdingAmount > 0 ? withholdingAmount : undefined,
         orderId,
         locale: 'ja',
       });
@@ -929,7 +998,7 @@ async function calculateAndRecordCommission(
 
   // 6. 推荐奖励：如果该导游有推荐人，为推荐人创建 2% 奖励
   if (commissionAmount > 0 && guideData?.referrer_id) {
-    const referralRewardAmount = Math.round(commissionAmount * 0.02);
+    const referralRewardAmount = Math.round(netCommissionAmount * 0.02);
     const { error: rewardError } = await supabase
       .from('referral_rewards')
       .upsert({
@@ -1006,7 +1075,7 @@ async function handleNightclubDepositPaid(supabase: SupabaseClient, session: Str
       body: JSON.stringify({
         from: 'NIIJIMA Partner <partner@niijima-koutsu.jp>',
         to: adminEmail,
-        subject: `【新預約待確認】${venueName} - ${booking.booking_date}`,
+        subject: `【新預約待確認】${escapeHtml(venueName)} - ${escapeHtml(String(booking.booking_date))}`,
         html: `
           <!DOCTYPE html>
           <html>
@@ -1017,11 +1086,11 @@ async function handleNightclubDepositPaid(supabase: SupabaseClient, session: Str
             </div>
             <div style="background: #f9fafb; padding: 24px; border-radius: 0 0 10px 10px; border: 1px solid #e5e7eb; border-top: none;">
               <table style="width: 100%; border-collapse: collapse;">
-                <tr><td style="padding: 8px 12px; font-weight: 600; color: #6b7280;">店鋪</td><td style="padding: 8px 12px;">${venueName}</td></tr>
-                <tr style="background: #fff;"><td style="padding: 8px 12px; font-weight: 600; color: #6b7280;">預約日期</td><td style="padding: 8px 12px;">${booking.booking_date}</td></tr>
-                <tr><td style="padding: 8px 12px; font-weight: 600; color: #6b7280;">客人數</td><td style="padding: 8px 12px;">${booking.party_size}人</td></tr>
-                <tr style="background: #fff;"><td style="padding: 8px 12px; font-weight: 600; color: #6b7280;">客戶</td><td style="padding: 8px 12px;">${booking.customer_name}</td></tr>
-                <tr><td style="padding: 8px 12px; font-weight: 600; color: #6b7280;">定金</td><td style="padding: 8px 12px; color: #4f46e5; font-weight: 700;">¥${booking.deposit_amount}</td></tr>
+                <tr><td style="padding: 8px 12px; font-weight: 600; color: #6b7280;">店鋪</td><td style="padding: 8px 12px;">${escapeHtml(venueName)}</td></tr>
+                <tr style="background: #fff;"><td style="padding: 8px 12px; font-weight: 600; color: #6b7280;">預約日期</td><td style="padding: 8px 12px;">${escapeHtml(String(booking.booking_date))}</td></tr>
+                <tr><td style="padding: 8px 12px; font-weight: 600; color: #6b7280;">客人數</td><td style="padding: 8px 12px;">${Number(booking.party_size)}人</td></tr>
+                <tr style="background: #fff;"><td style="padding: 8px 12px; font-weight: 600; color: #6b7280;">客戶</td><td style="padding: 8px 12px;">${escapeHtml(String(booking.customer_name))}</td></tr>
+                <tr><td style="padding: 8px 12px; font-weight: 600; color: #6b7280;">定金</td><td style="padding: 8px 12px; color: #4f46e5; font-weight: 700;">¥${Number(booking.deposit_amount)}</td></tr>
               </table>
               <div style="text-align: center; margin-top: 20px;">
                 <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.niijima-koutsu.jp'}/admin/bookings"

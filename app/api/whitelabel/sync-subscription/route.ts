@@ -3,6 +3,7 @@ import Stripe from "stripe";
 import { createClient as createServerClient } from "@/lib/supabase/server";
 import { getSupabaseAdmin } from '@/lib/supabase/api';
 import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
+import { getStripeServer as getStripe } from '@/lib/stripe-server';
 
 /**
  * 订阅状态同步 API
@@ -14,13 +15,6 @@ import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/uti
  *
  * ⚠️ 安全：需要用户身份验证，只能同步自己的订阅状态
  */
-
-const getStripe = () => {
-  if (!process.env.STRIPE_SECRET_KEY) {
-    throw new Error("STRIPE_SECRET_KEY is not configured");
-  }
-  return new Stripe(process.env.STRIPE_SECRET_KEY);
-};
 
 export async function POST(request: NextRequest) {
   try {

@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 import { WHITELABEL_COOKIE_NAME } from '@/lib/types/whitelabel';
 import { isValidSlug } from '@/lib/whitelabel-config';
@@ -7,14 +6,7 @@ import { validateBody } from '@/lib/validations/validate';
 import { CreateCheckoutSessionSchema } from '@/lib/validations/api-schemas';
 import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
 import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
-
-// 延迟初始化，避免构建时报错
-const getStripe = () => {
-  if (!process.env.STRIPE_SECRET_KEY) {
-    throw new Error('STRIPE_SECRET_KEY is not configured');
-  }
-  return new Stripe(process.env.STRIPE_SECRET_KEY);
-};
+import { getStripeServer as getStripe } from '@/lib/stripe-server';
 
 const getSupabase = () => {
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
@@ -213,7 +205,39 @@ export async function POST(request: NextRequest) {
       return createErrorResponse(Errors.internal('创建订单失败'));
     }
 
-    // 4. 创建 Stripe Checkout Session
+    // 4. 防重复支付：检查同客户+同套餐是否有近30分钟内的pending订单
+    if (existingCustomer) {
+      const thirtyMinAgo = new Date(Date.now() - 30 * 60 * 1000).toISOString();
+      const { data: recentOrder } = await supabase
+        .from('orders')
+        .select('id, checkout_session_id')
+        .eq('customer_id', customerId)
+        .eq('package_id', packageData.id)
+        .eq('status', 'pending')
+        .gte('created_at', thirtyMinAgo)
+        .not('checkout_session_id', 'is', null)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      if (recentOrder?.checkout_session_id) {
+        try {
+          const existingSession = await stripe.checkout.sessions.retrieve(recentOrder.checkout_session_id);
+          if (existingSession.status === 'open' && existingSession.url) {
+            return NextResponse.json({
+              sessionId: existingSession.id,
+              checkoutUrl: existingSession.url,
+              orderId: recentOrder.id,
+              reused: true,
+            });
+          }
+        } catch {
+          // session expired or invalid, proceed to create new one
+        }
+      }
+    }
+
+    // 5. 创建 Stripe Checkout Session
     const sessionMetadata: Record<string, string> = {
       order_id: order.id,
       package_slug: packageSlug,
@@ -245,14 +269,11 @@ export async function POST(request: NextRequest) {
     const successUrl = `${request.nextUrl.origin}/payment/success?session_id={CHECKOUT_SESSION_ID}${navGuideParam}`;
     const cancelUrl = `${request.nextUrl.origin}/payment/cancel?order_id=${order.id}${navGuideParam}`;
 
-    // 支付方式：卡片 + 支付宝 + 微信支付
-    // Stripe 要求 wechat_pay 使用 payment_method_options 指定 client 类型
+    // 支付方式：让 Stripe 自动根据账户已激活的支付方式展示
+    // 当 alipay / wechat_pay 审核通过后会自动出现在 Checkout 页面
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
-      payment_method_types: ['card', 'alipay', 'wechat_pay'],
-      payment_method_options: {
-        wechat_pay: { client: 'web' },
-      },
+      payment_method_types: ['card'],
       line_items: [
         {
           price: packageData.stripe_price_id,

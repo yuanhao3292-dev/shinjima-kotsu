@@ -220,11 +220,31 @@ export async function GET(request: NextRequest) {
     }
 
     const supabase = getSupabase();
+
+    // ===== 鉴权：仅允许导游查看自己的订单，或管理员查看任意订单 =====
+    const authHeader = request.headers.get('authorization');
+    if (!authHeader?.startsWith('Bearer ')) {
+      return createErrorResponse(Errors.auth('未授权'));
+    }
+    const token = authHeader.split(' ')[1];
+    const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+    if (authError || !user) {
+      return createErrorResponse(Errors.auth('认证失败'));
+    }
+
+    // 查询该用户对应的导游
+    const { data: authGuide } = await supabase
+      .from('guides')
+      .select('id')
+      .eq('auth_user_id', user.id)
+      .single();
+
     const { searchParams } = new URL(request.url);
 
-    const guideId = searchParams.get('guideId');
+    // 认证后的 guideId：导游只能查自己的，admin 可指定（TODO: admin fallback）
+    const guideId = authGuide?.id;
     if (!guideId) {
-      return NextResponse.json({ error: 'guideId is required' }, { status: 400 });
+      return createErrorResponse(Errors.auth('导游不存在'));
     }
 
     const page = Math.max(1, parseInt(searchParams.get('page') || '1'));

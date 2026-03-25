@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { Package, ArrowRight, ShoppingCart, X, Loader2 } from 'lucide-react';
+import OrderConfirmationModal from '@/components/OrderConfirmationModal';
 import { createClient } from '@/lib/supabase/client';
 import type { AnalysisResult } from '@/services/aemc/types';
 import type { Language } from '@/hooks/useLanguage';
@@ -158,6 +159,7 @@ function QuickCheckoutModal({
   const [phone, setPhone] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   // Pre-fill from auth user
   useEffect(() => {
@@ -173,7 +175,7 @@ function QuickCheckoutModal({
     })();
   }, [supabase]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
@@ -183,6 +185,10 @@ function QuickCheckoutModal({
       return;
     }
 
+    setShowConfirmation(true);
+  };
+
+  const handleConfirmedSubmit = async () => {
     setSubmitting(true);
     try {
       const res = await fetch('/api/create-checkout-session', {
@@ -211,6 +217,7 @@ function QuickCheckoutModal({
     } catch (err: any) {
       setError(err.message || t('checkoutError', lang));
       setSubmitting(false);
+      setShowConfirmation(false);
     }
   };
 
@@ -218,6 +225,17 @@ function QuickCheckoutModal({
   const price = getPackagePrice(slug);
 
   return (
+    <>
+    <OrderConfirmationModal
+      isOpen={showConfirmation}
+      onConfirm={handleConfirmedSubmit}
+      onCancel={() => setShowConfirmation(false)}
+      packageName={packageName}
+      price={price}
+      customerName={name}
+      lang={lang}
+      isProcessing={submitting}
+    />
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={onClose}>
       <div
         className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden"
@@ -306,6 +324,7 @@ function QuickCheckoutModal({
         </form>
       </div>
     </div>
+    </>
   );
 }
 

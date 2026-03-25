@@ -18,6 +18,8 @@ import {
   healthCheckupReminder as i18n,
 } from '@/lib/email-i18n';
 
+export const maxDuration = 60;
+
 export async function GET(request: NextRequest) {
   // 验证 Cron 密钥
   const authHeader = request.headers.get('authorization');

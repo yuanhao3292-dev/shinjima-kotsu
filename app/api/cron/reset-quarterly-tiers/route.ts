@@ -12,6 +12,9 @@ import { getSupabaseAdmin } from '@/lib/supabase/api';
  * 环境变量：
  * - CRON_SECRET: 用于验证请求的密钥
  */
+
+export const maxDuration = 60;
+
 export async function GET(request: NextRequest) {
   // 验证 Cron 密钥（防止未授权访问）
   const authHeader = request.headers.get('authorization');

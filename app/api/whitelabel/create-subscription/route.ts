@@ -5,13 +5,7 @@ import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from
 import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
 import { validateBody } from '@/lib/validations/validate';
 import { WhitelabelSubscriptionSchema } from '@/lib/validations/api-schemas';
-
-const getStripe = () => {
-  if (!process.env.STRIPE_SECRET_KEY) {
-    throw new Error("STRIPE_SECRET_KEY is not configured");
-  }
-  return new Stripe(process.env.STRIPE_SECRET_KEY);
-};
+import { getStripeServer as getStripe } from '@/lib/stripe-server';
 
 const getSupabase = () => {
   if (

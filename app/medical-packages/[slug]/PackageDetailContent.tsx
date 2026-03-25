@@ -8,6 +8,7 @@ import SmartBackLink from '@/components/SmartBackLink';
 import ProviderBanner, { useProviderKey } from '@/components/ProviderBanner';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 import { translations, Language } from '@/translations';
+import OrderConfirmationModal from '@/components/OrderConfirmationModal';
 
 // 套餐基础数据（不含翻译文本）
 const packageColors: Record<string, {
@@ -217,6 +218,7 @@ export default function PackageDetailContent({
   const pkg = packagesData[packageSlug];
 
   const [processing, setProcessing] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [customerInfo, setCustomerInfo] = useState({
     name: '',
     email: '',
@@ -277,7 +279,7 @@ export default function PackageDetailContent({
     return Object.keys(errors).length === 0;
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setContactError('');
     setFieldErrors({});
@@ -286,6 +288,10 @@ export default function PackageDetailContent({
       return;
     }
 
+    setShowConfirmation(true);
+  }
+
+  async function handleConfirmedSubmit() {
     setProcessing(true);
     try {
       const contactMethods: string[] = [];
@@ -334,6 +340,7 @@ export default function PackageDetailContent({
       alert(message);
     } finally {
       setProcessing(false);
+      setShowConfirmation(false);
     }
   }
 
@@ -553,6 +560,9 @@ export default function PackageDetailContent({
                     <Image src="/icons/payment/mastercard.svg" alt="Mastercard" width={40} height={25} className="h-6 w-auto" />
                     <Image src="/icons/payment/amex.svg" alt="American Express" width={40} height={25} className="h-6 w-auto" />
                     <Image src="/icons/payment/jcb.svg" alt="JCB" width={40} height={25} className="h-6 w-auto" />
+                    <Image src="/icons/payment/applepay.svg" alt="Apple Pay" width={40} height={25} className="h-6 w-auto" />
+                    <Image src="/icons/payment/alipay.svg" alt="Alipay" width={40} height={25} className="h-6 w-auto" />
+                    <Image src="/icons/payment/wechatpay.svg" alt="WeChat Pay" width={40} height={25} className="h-6 w-auto" />
                   </div>
                 </div>
 
@@ -566,6 +576,16 @@ export default function PackageDetailContent({
           </div>
         </div>
       </div>
+      <OrderConfirmationModal
+        isOpen={showConfirmation}
+        onConfirm={handleConfirmedSubmit}
+        onCancel={() => setShowConfirmation(false)}
+        packageName={pkg.name}
+        price={pkg.price}
+        customerName={customerInfo.name}
+        lang={currentLang}
+        isProcessing={processing}
+      />
     </>
   );
 }

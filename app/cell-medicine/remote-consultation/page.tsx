@@ -12,6 +12,7 @@ import {
   Loader2, CreditCard, Users, Phone, Video
 } from 'lucide-react';
 import ConsentCheckboxes, { allConsented, type Consents } from '@/components/ConsentCheckboxes';
+import OrderConfirmationModal from '@/components/OrderConfirmationModal';
 
 type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
 
@@ -109,6 +110,7 @@ export default function CellMedicineRemoteConsultationPage() {
   const providerKey = useProviderKey();
   const [currentLang, setCurrentLang] = useState<Language>('zh-CN');
   const [processing, setProcessing] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [customerInfo, setCustomerInfo] = useState({ name: '', email: '', phone: '', line: '', wechat: '', country: 'CN' });
   const [patientInfo, setPatientInfo] = useState({ patientName: '', age: '', gender: '', diagnosis: '', previousConsultation: '', questions: '' });
   const [preferredTimes, setPreferredTimes] = useState({ time1: '', time2: '', time3: '' });
@@ -132,14 +134,18 @@ export default function CellMedicineRemoteConsultationPage() {
   const t = (key: keyof typeof pageTranslations): string => pageTranslations[key][currentLang] || pageTranslations[key]['zh-CN'];
   const hasValidContact = () => customerInfo.phone.trim() !== '' || customerInfo.email.trim() !== '' || customerInfo.line.trim() !== '' || customerInfo.wechat.trim() !== '';
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setContactError('');
+    if (!customerInfo.name) { alert(t('alertContactName')); return; }
+    if (!patientInfo.patientName) { alert(t('alertPatientName')); return; }
+    if (!hasValidContact()) { setContactError(t('alertContactMethod')); return; }
+    setShowConfirmation(true);
+  }
+
+  async function handleConfirmedSubmit() {
     setProcessing(true);
     try {
-      if (!customerInfo.name) { alert(t('alertContactName')); setProcessing(false); return; }
-      if (!patientInfo.patientName) { alert(t('alertPatientName')); setProcessing(false); return; }
-      if (!hasValidContact()) { setContactError(t('alertContactMethod')); setProcessing(false); return; }
 
       const contactMethods: string[] = [];
       if (customerInfo.phone) contactMethods.push(`${t('phone')}: ${customerInfo.phone}`);
@@ -181,7 +187,8 @@ export default function CellMedicineRemoteConsultationPage() {
       else throw new Error(t('alertNoCheckoutUrl'));
     } catch (error: unknown) {
       alert(error instanceof Error ? error.message : t('alertPaymentError'));
-    } finally { setProcessing(false); }
+    } finally { setProcessing(false);
+      setShowConfirmation(false); }
   }
 
   return (
@@ -299,6 +306,16 @@ export default function CellMedicineRemoteConsultationPage() {
           </div>
         </div>
       </div>
+      <OrderConfirmationModal
+        isOpen={showConfirmation}
+        onConfirm={handleConfirmedSubmit}
+        onCancel={() => setShowConfirmation(false)}
+        packageName={t('serviceName')}
+        price={SERVICE_INFO.price}
+        customerName={customerInfo.name}
+        lang={currentLang}
+        isProcessing={processing}
+      />
     </CheckoutLayout>
   );
 }

@@ -207,45 +207,39 @@ export async function POST(request: NextRequest) {
       return createErrorResponse(Errors.business('请先完善银行账户信息', 'BANK_INFO_REQUIRED'));
     }
 
-    // 检查余额
+    // 检查余额（快速失败，原子检查在 RPC 内）
     if ((guide.available_balance || 0) < amount) {
       return createErrorResponse(Errors.business('可提现余额不足', 'INSUFFICIENT_BALANCE'));
     }
 
-    // 检查是否有待处理的提现申请
-    const { data: pendingRequests } = await supabase
-      .from('withdrawal_requests')
-      .select('id')
-      .eq('guide_id', guide.id)
-      .in('status', ['pending', 'approved', 'processing'])
-      .limit(1);
+    // 原子操作：检查余额 + 检查pending + 扣减余额 + 创建提现申请（SELECT FOR UPDATE 防并发）
+    const { data: rpcResult, error: rpcError } = await supabase.rpc('create_withdrawal_request', {
+      p_guide_id: guide.id,
+      p_amount: amount,
+      p_bank_name: guide.bank_name,
+      p_bank_branch: guide.bank_branch || null,
+      p_account_type: guide.bank_account_type || null,
+      p_account_number: guide.bank_account_number,
+      p_account_holder: guide.bank_account_holder,
+    });
 
-    if (pendingRequests && pendingRequests.length > 0) {
-      return createErrorResponse(Errors.business('您有待处理的提现申请，请等待处理完成后再申请', 'PENDING_WITHDRAWAL_EXISTS'));
+    if (rpcError) {
+      logError(normalizeError(rpcError), { path: '/api/withdrawal', method: 'POST', context: 'create_withdrawal' });
+      return createErrorResponse(Errors.internal('创建提现申请失败'));
     }
 
-    // 创建提现申请
-    const { data: withdrawal, error: insertError } = await supabase
-      .from('withdrawal_requests')
-      .insert({
-        guide_id: guide.id,
-        amount: amount,
-        bank_name: guide.bank_name,
-        bank_branch: guide.bank_branch,
-        account_type: guide.bank_account_type,
-        account_number: guide.bank_account_number,
-        account_holder: guide.bank_account_holder,
-      })
-      .select()
-      .single();
-
-    if (insertError) {
-      logError(normalizeError(insertError), { path: '/api/withdrawal', method: 'POST', context: 'create_withdrawal' });
-      if (insertError.message?.includes('余额不足')) {
+    if (rpcResult?.error) {
+      const errCode = rpcResult.error;
+      if (errCode === 'INSUFFICIENT_BALANCE') {
         return createErrorResponse(Errors.business('可提现余额不足', 'INSUFFICIENT_BALANCE'));
+      }
+      if (errCode === 'PENDING_WITHDRAWAL_EXISTS') {
+        return createErrorResponse(Errors.business('您有待处理的提现申请，请等待处理完成后再申请', 'PENDING_WITHDRAWAL_EXISTS'));
       }
       return createErrorResponse(Errors.internal('创建提现申请失败'));
     }
+
+    const withdrawal = { id: rpcResult.withdrawal_id, new_balance: rpcResult.new_balance };
 
     return NextResponse.json({
       success: true,

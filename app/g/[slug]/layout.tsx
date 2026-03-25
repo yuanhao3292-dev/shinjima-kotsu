@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
-import { getGuideDistributionPage, recordPageView } from '@/lib/services/whitelabel';
+import { recordPageView } from '@/lib/services/whitelabel';
+import { getCachedDistributionPageWithTag } from '@/lib/cache/whitelabel-cache';
 import { headers } from 'next/headers';
 import DistributionNav from '@/components/distribution/DistributionNav';
 import FloatingContact from '@/components/distribution/FloatingContact';
@@ -14,7 +15,7 @@ interface LayoutProps {
 
 export default async function GuideLayout({ children, params }: LayoutProps) {
   const { slug } = await params;
-  const pageData = await getGuideDistributionPage(slug);
+  const pageData = await getCachedDistributionPageWithTag(slug);
 
   if (!pageData) {
     notFound();
@@ -146,7 +147,7 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const pageData = await getGuideDistributionPage(slug);
+  const pageData = await getCachedDistributionPageWithTag(slug);
 
   if (!pageData) {
     return { title: '页面不存在' };

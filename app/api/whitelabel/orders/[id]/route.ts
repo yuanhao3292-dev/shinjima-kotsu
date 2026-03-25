@@ -22,6 +22,7 @@ import {
   createErrorResponse,
   Errors,
 } from '@/lib/utils/api-errors';
+import { verifyAdminAuth } from '@/lib/utils/admin-auth';
 import { z } from 'zod';
 
 const getSupabase = () => {
@@ -53,6 +54,14 @@ const ACTION_TO_STATUS: Record<string, string> = {
   cancel: 'cancelled',
 };
 
+// 合法状态转换表（终态不可变更）
+const VALID_TRANSITIONS: Record<string, string[]> = {
+  pending: ['confirmed', 'cancelled'],
+  confirmed: ['completed', 'cancelled'],
+  completed: [],
+  cancelled: [],
+};
+
 // ============================================
 // GET - 获取订单详情
 // ============================================
@@ -78,6 +87,32 @@ export async function GET(
 
     const supabase = getSupabase();
 
+    // 鉴权：仅允许 owning guide 或 admin 查看
+    const authHeader = request.headers.get('authorization');
+    if (!authHeader?.startsWith('Bearer ')) {
+      return createErrorResponse(Errors.auth('未授权'));
+    }
+    const token = authHeader.split(' ')[1];
+    const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+    if (authError || !user) {
+      return createErrorResponse(Errors.auth('认证失败'));
+    }
+
+    // 检查是否是 admin
+    const adminResult = await verifyAdminAuth(authHeader);
+    const isAdmin = adminResult.isValid;
+
+    // 非 admin 则必须是 owning guide
+    let callerGuideId: string | null = null;
+    if (!isAdmin) {
+      const { data: guide } = await supabase
+        .from('guides')
+        .select('id')
+        .eq('auth_user_id', user.id)
+        .single();
+      callerGuideId = guide?.id || null;
+    }
+
     // 查询订单详情（直接通过 guide_id 关联 guides）
     const { data: order, error: queryError } = await supabase
       .from('white_label_orders')
@@ -100,6 +135,11 @@ export async function GET(
     if (queryError || !order) {
       console.error('[Orders] Order not found:', orderId);
       return NextResponse.json({ error: '订单不存在' }, { status: 404 });
+    }
+
+    // 非 admin 且不是 owning guide → 403
+    if (!isAdmin && order.guide_id !== callerGuideId) {
+      return createErrorResponse(Errors.forbidden('无权查看此订单'));
     }
 
     // 构建响应（匹配 DB 实际列）
@@ -177,6 +217,12 @@ export async function PATCH(
 
     const supabase = getSupabase();
 
+    // 管理员鉴权
+    const adminAuth = await verifyAdminAuth(request.headers.get('authorization'));
+    if (!adminAuth.isValid) {
+      return createErrorResponse(Errors.forbidden(adminAuth.error || '需要管理员权限'));
+    }
+
     let body: unknown;
     try {
       body = await request.json();
@@ -205,6 +251,15 @@ export async function PATCH(
     const newStatus = ACTION_TO_STATUS[action];
     if (!newStatus) {
       return NextResponse.json({ error: '无效的操作' }, { status: 400 });
+    }
+
+    // 状态转换验证（终态不可变更）
+    const allowedTransitions = VALID_TRANSITIONS[currentOrder.status] || [];
+    if (!allowedTransitions.includes(newStatus)) {
+      return NextResponse.json(
+        { error: `无法从 ${currentOrder.status} 转换到 ${newStatus}` },
+        { status: 400 }
+      );
     }
 
     // 构建更新数据（匹配 DB 实际列）

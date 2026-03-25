@@ -12,6 +12,7 @@ import {
   Loader2, CreditCard, Lock,
 } from 'lucide-react';
 import ConsentCheckboxes, { allConsented, type Consents } from '@/components/ConsentCheckboxes';
+import OrderConfirmationModal from '@/components/OrderConfirmationModal';
 
 type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
 
@@ -65,6 +66,7 @@ export default function WClinicMensCheckoutPage() {
 
   const [lang, setLang] = useState<Language>('zh-CN');
   const [processing, setProcessing] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [contactError, setContactError] = useState('');
   const [customerInfo, setCustomerInfo] = useState({
     name: '', email: '', phone: '', line: '', wechat: '', country: 'CN',
@@ -118,14 +120,18 @@ export default function WClinicMensCheckoutPage() {
     customerInfo.line.trim() !== '' ||
     customerInfo.wechat.trim() !== '';
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setContactError('');
+    if (!customerInfo.name) { alert(t('alertName')); return; }
+    if (!hasValidContact()) { setContactError(t('alertContact')); return; }
+    setShowConfirmation(true);
+  }
+
+  async function handleConfirmedSubmit() {
     setProcessing(true);
 
     try {
-      if (!customerInfo.name) { alert(t('alertName')); setProcessing(false); return; }
-      if (!hasValidContact()) { setContactError(t('alertContact')); setProcessing(false); return; }
 
       const contactMethods: string[] = [];
       if (customerInfo.phone) contactMethods.push(`${t('phone')}: ${customerInfo.phone}`);
@@ -170,6 +176,7 @@ export default function WClinicMensCheckoutPage() {
       alert(message);
     } finally {
       setProcessing(false);
+      setShowConfirmation(false);
     }
   }
 
@@ -292,6 +299,16 @@ export default function WClinicMensCheckoutPage() {
           </form>
         </div>
       </div>
+      <OrderConfirmationModal
+        isOpen={showConfirmation}
+        onConfirm={handleConfirmedSubmit}
+        onCancel={() => setShowConfirmation(false)}
+        packageName={getName()}
+        price={pkg.priceJpy}
+        customerName={customerInfo.name}
+        lang={lang}
+        isProcessing={processing}
+      />
     </CheckoutLayout>
   );
 }
