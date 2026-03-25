@@ -283,17 +283,37 @@ const translations = {
   art9Item5: { ja: '紹介報酬の性質：乙が顧客の紹介に成功して得る報酬は「紹介手数料」であり、旅行業務収入を構成せず、旅行業法の関連規定は適用されません。', 'zh-CN': '介绍报酬性质：乙方因成功介绍客户而获得的报酬，其性质为"紹介手数料"（介绍费），不构成旅行业务收入，不适用旅行业法的相关规定。', 'zh-TW': '介紹報酬性質：乙方因成功介紹客戶而獲得的報酬，其性質為「紹介手数料」（介紹費），不構成旅行業務收入，不適用旅行業法的相關規定。', en: 'Nature of Referral Rewards: The reward obtained by Party B for successfully referring clients is a "referral commission" (referral fee), which does not constitute travel business income and is not subject to travel business law regulations.' },
   art9Item6: { ja: 'ブランド展示サイト：乙が使用するブランド展示サイトは甲のシステムの授権使用であり、サイト上のすべてのサービスは甲が提供します。サイトのフッターには「本サービスは新島交通株式会社が提供しています」および甲の旅行業登録番号が明記されます。', 'zh-CN': '品牌展示网站：乙方使用的品牌展示网站为甲方系统的授权使用，网站上的所有服务由甲方提供。网站底部将明确标示"本サービスは新島交通株式会社が提供しています"及甲方的旅行业登录号。', 'zh-TW': '品牌展示網站：乙方使用的品牌展示網站為甲方系統的授權使用，網站上的所有服務由甲方提供。網站底部將明確標示「本サービスは新島交通株式会社が提供しています」及甲方的旅行業登錄號。', en: 'Branded Display Website: The branded display website used by Party B is an authorized use of Party A\'s system, and all services on the website are provided by Party A. The website footer will clearly indicate "This service is provided by Niijima Kotsu Co., Ltd." and Party A\'s travel business registration number.' },
   art9Item7: { ja: '顧客告知義務：乙が顧客にサービスを紹介する際、サービス提供者が新島交通株式会社であり、契約は新島交通株式会社と締結されることを顧客に明確に告知しなければなりません。', 'zh-CN': '客户告知义务：乙方在向客户介绍服务时，应明确告知客户：服务提供者为新岛交通株式会社，合同将与新岛交通株式会社签订。', 'zh-TW': '客戶告知義務：乙方在向客戶介紹服務時，應明確告知客戶：服務提供者為新島交通株式會社，合同將與新島交通株式會社簽訂。', en: 'Client Disclosure Obligation: When introducing services to clients, Party B must clearly inform them that the service provider is Niijima Kotsu Co., Ltd. and the contract will be entered into with Niijima Kotsu Co., Ltd.' },
-  article10Title: { ja: '第10条 紛争解決', 'zh-CN': '第十条 争议解决', 'zh-TW': '第十條 爭議解決', en: 'Article 10: Dispute Resolution' },
-  art10Item1: { ja: '本契約の解釈には日本法が適用されます', 'zh-CN': '本协议的解释适用日本法律', 'zh-TW': '本協議的解釋適用日本法律', en: 'This Agreement shall be interpreted under Japanese law' },
-  art10Item2: { ja: '両当事者はまず友好的な協議により紛争を解決するものとします', 'zh-CN': '双方应首先通过友好协商解决争议', 'zh-TW': '雙方應首先通過友好協商解決爭議', en: 'Both parties shall first attempt to resolve disputes through amicable negotiation' },
-  art10Item3: { ja: '協議による解決ができない場合、大阪地方裁判所の管轄に付します', 'zh-CN': '协商不成的，提交大阪地方裁判所管辖', 'zh-TW': '協商不成的，提交大阪地方裁判所管轄', en: 'If negotiation fails, the matter shall be submitted to the jurisdiction of the Osaka District Court' },
-  article11Title: { ja: '第11条 連絡先', 'zh-CN': '第十一条 联系方式', 'zh-TW': '第十一條 聯繫方式', en: 'Article 11: Contact Information' },
+  // Article 10: Referral System
+  article10Title: { ja: '第10条 紹介報酬制度（推薦制度）', 'zh-CN': '第十条 推荐奖励制度', 'zh-TW': '第十條 推薦獎勵制度', en: 'Article 10: Referral Reward System' },
+  art10Item1: { ja: '推薦は1階層に限ります。被推薦者がさらに推薦した場合の報酬は発生しません', 'zh-CN': '推荐仅限一层。被推荐者的再推荐不产生报酬', 'zh-TW': '推薦僅限一層。被推薦者的再推薦不產生報酬', en: 'Referrals are limited to one level. No rewards are generated from referrals made by referred partners' },
+  art10Item2: { ja: '推薦報酬率：被推薦者の紹介報酬の2%', 'zh-CN': '推荐报酬率：被推荐者介绍报酬的2%', 'zh-TW': '推薦報酬率：被推薦者介紹報酬的2%', en: 'Referral reward rate: 2% of the referred partner\'s referral commission' },
+  art10Item3: { ja: '本制度は連鎖販売取引（マルチレベルマーケティング）に該当しません。1階層のみの単純紹介制度です', 'zh-CN': '本制度不构成连锁销售交易（传销）。仅为单层简单介绍制度', 'zh-TW': '本制度不構成連鎖銷售交易（傳銷）。僅為單層簡單介紹制度', en: 'This system does not constitute multi-level marketing (MLM). It is a simple one-level referral program' },
+  art10Item4: { ja: '甲は推薦制度を予告なく変更・終了する権利を留保します', 'zh-CN': '甲方保留不经预告变更或终止推荐制度的权利', 'zh-TW': '甲方保留不經預告變更或終止推薦制度的權利', en: 'Party A reserves the right to modify or terminate the referral program without prior notice' },
+
+  // Article 11: Withdrawal Conditions & Deposit
+  article11Title: { ja: '第11条 出金条件および預り金', 'zh-CN': '第十一条 提现条件及定金', 'zh-TW': '第十一條 提現條件及定金', en: 'Article 11: Withdrawal Conditions & Deposits' },
+  art11Item1: { ja: '最低出金額は5,000円です', 'zh-CN': '最低提现金额为5,000日元', 'zh-TW': '最低提現金額為5,000日圓', en: 'Minimum withdrawal amount is ¥5,000' },
+  art11Item2: { ja: '報酬確定後14日間の凍結期間があります（サービス完了確認のため）', 'zh-CN': '报酬确定后有14天冻结期（用于确认服务完成）', 'zh-TW': '報酬確定後有14天凍結期（用於確認服務完成）', en: 'A 14-day hold period applies after commission confirmation (for service completion verification)' },
+  art11Item3: { ja: '出金申請後7営業日以内に指定口座へ振込します', 'zh-CN': '提现申请后7个工作日内汇入指定账户', 'zh-TW': '提現申請後7個工作日內匯入指定帳戶', en: 'Withdrawals are processed within 7 business days to the designated account' },
+  art11Item4: { ja: '振込手数料は甲の負担とします', 'zh-CN': '汇款手续费由甲方承担', 'zh-TW': '匯款手續費由甲方承擔', en: 'Transfer fees are borne by Party A' },
+  art11Item5: { ja: 'KYC（本人確認）完了が出金の前提条件です', 'zh-CN': 'KYC（身份验证）完成是提现的前提条件', 'zh-TW': 'KYC（身份驗證）完成是提現的前提條件', en: 'Completion of KYC (identity verification) is a prerequisite for withdrawals' },
+  art11Item6: { ja: '源泉徴収は所得税法に基づき、報酬支払い時に控除されます。年末に支払調書を発行いたします', 'zh-CN': '预扣税根据日本所得税法在报酬支付时扣除。年末将发放支付调书', 'zh-TW': '預扣稅根據日本所得稅法在報酬支付時扣除。年末將發放支付調書', en: 'Withholding tax is deducted at payment per Japan Income Tax Act. A payment report is issued at year-end' },
+  art11Item7: { ja: '予約時のデポジット（¥500）は予約確定のための預り金です。キャンセル規定に基づき返金対応いたします', 'zh-CN': '预约时的定金（¥500）为预约确认的预付金。根据取消规定处理退款', 'zh-TW': '預約時的定金（¥500）為預約確認的預付金。根據取消規定處理退款', en: 'The booking deposit (¥500) is a reservation hold. Refunds are handled per the cancellation policy' },
+
+  // Article 12: Dispute Resolution (was 10)
+  article12Title: { ja: '第12条 紛争解決', 'zh-CN': '第十二条 争议解决', 'zh-TW': '第十二條 爭議解決', en: 'Article 12: Dispute Resolution' },
+  art12Item1: { ja: '本契約の解釈には日本法が適用されます', 'zh-CN': '本协议的解释适用日本法律', 'zh-TW': '本協議的解釋適用日本法律', en: 'This Agreement shall be interpreted under Japanese law' },
+  art12Item2: { ja: '両当事者はまず友好的な協議により紛争を解決するものとします', 'zh-CN': '双方应首先通过友好协商解决争议', 'zh-TW': '雙方應首先通過友好協商解決爭議', en: 'Both parties shall first attempt to resolve disputes through amicable negotiation' },
+  art12Item3: { ja: '協議による解決ができない場合、大阪地方裁判所の管轄に付します', 'zh-CN': '协商不成的，提交大阪地方裁判所管辖', 'zh-TW': '協商不成的，提交大阪地方裁判所管轄', en: 'If negotiation fails, the matter shall be submitted to the jurisdiction of the Osaka District Court' },
+
+  // Article 13: Contact Information (was 11)
+  article13Title: { ja: '第13条 連絡先', 'zh-CN': '第十三条 联系方式', 'zh-TW': '第十三條 聯繫方式', en: 'Article 13: Contact Information' },
   companyName: { ja: '新島交通株式会社', 'zh-CN': '新岛交通株式会社', 'zh-TW': '新島交通株式會社', en: 'Niijima Kotsu Co., Ltd.' },
   partnerDept: { ja: '提携パートナープログラム運営部', 'zh-CN': '提携伙伴计划运营部', 'zh-TW': '提攜夥伴計劃運營部', en: 'Affiliated Partner Program Operations' },
   address: { ja: '〒556-0014 大阪府大阪市浪速区大国1-2-21-602', 'zh-CN': '〒556-0014 大阪府大阪市浪速区大国1-2-21-602', 'zh-TW': '〒556-0014 大阪府大阪市浪速區大國1-2-21-602', en: '〒556-0014 1-2-21-602 Daikoku, Naniwa-ku, Osaka, Japan' },
   phone: { ja: '電話: 06-6632-8807', 'zh-CN': '电话: 06-6632-8807', 'zh-TW': '電話: 06-6632-8807', en: 'Phone: 06-6632-8807' },
   enactmentDate: { ja: '制定日：2025年1月1日', 'zh-CN': '制定日：2025年1月1日', 'zh-TW': '制定日：2025年1月1日', en: 'Enacted: January 1, 2025' },
-  lastRevisionDate: { ja: '最終改定日：2025年1月18日', 'zh-CN': '最终修订日：2025年1月18日', 'zh-TW': '最終改定日：2025年1月18日', en: 'Last Revised: January 18, 2025' },
+  lastRevisionDate: { ja: '最終改定日：2026年3月25日', 'zh-CN': '最终修订日：2026年3月25日', 'zh-TW': '最終改定日：2026年3月25日', en: 'Last Revised: March 25, 2026' },
   agreeTitle: { ja: '登録をもって同意とみなします', 'zh-CN': '注册即表示同意', 'zh-TW': '註冊即表示同意', en: 'Registration Constitutes Consent' },
   agreeDesc: { ja: '提携パートナー登録を完了した時点で、本契約のすべての条項（特に第9条「法律関係の明確化」）を読み、理解し、同意したものとみなされます。ご不明な点がございましたら、登録前にカスタマーサポートまでお問い合わせください。', 'zh-CN': '当您完成提携伙伴注册时，即表示您已阅读、理解并同意本协议的全部条款，特别是第九条"法律关系明确"的内容。如有任何疑问，请在注册前联系我们的客服团队。', 'zh-TW': '當您完成提攜夥伴註冊時，即表示您已閱讀、理解並同意本協議的全部條款，特別是第九條「法律關係明確」的內容。如有任何疑問，請在註冊前聯繫我們的客服團隊。', en: 'By completing the affiliated partner registration, you confirm that you have read, understood, and agreed to all terms of this Agreement, particularly Article 9 "Clarification of Legal Relationship." If you have any questions, please contact our support team before registering.' },
   privacyPolicy: { ja: 'プライバシーポリシー →', 'zh-CN': '隐私政策 →', 'zh-TW': '隱私政策 →', en: 'Privacy Policy →' },
@@ -519,10 +539,31 @@ export default function GuidePartnerTermsPage() {
               <li>{t('art10Item1', lang)}</li>
               <li>{t('art10Item2', lang)}</li>
               <li>{t('art10Item3', lang)}</li>
+              <li>{t('art10Item4', lang)}</li>
             </ol>
           </Section>
 
           <Section title={t('article11Title', lang)}>
+            <ol className="list-decimal list-inside space-y-2 text-gray-600">
+              <li>{t('art11Item1', lang)}</li>
+              <li>{t('art11Item2', lang)}</li>
+              <li>{t('art11Item3', lang)}</li>
+              <li>{t('art11Item4', lang)}</li>
+              <li>{t('art11Item5', lang)}</li>
+              <li>{t('art11Item6', lang)}</li>
+              <li>{t('art11Item7', lang)}</li>
+            </ol>
+          </Section>
+
+          <Section title={t('article12Title', lang)}>
+            <ol className="list-decimal list-inside space-y-2 text-gray-600">
+              <li>{t('art12Item1', lang)}</li>
+              <li>{t('art12Item2', lang)}</li>
+              <li>{t('art12Item3', lang)}</li>
+            </ol>
+          </Section>
+
+          <Section title={t('article13Title', lang)}>
             <div className="bg-gray-50 p-4 rounded-lg">
               <p className="font-bold text-gray-900">{t('companyName', lang)}</p>
               <p className="text-sm text-gray-600">{t('partnerDept', lang)}</p>

@@ -21,7 +21,8 @@ import {
   Upload,
   FileCheck,
   Clock,
-  XCircle
+  XCircle,
+  Banknote
 } from 'lucide-react';
 
 // ============================================================
@@ -91,6 +92,12 @@ const translations = {
     'zh-CN': '身份验证',
     'zh-TW': '身份驗證',
     en: 'Identity Verification',
+  },
+  tabTax: {
+    ja: '税務情報',
+    'zh-CN': '税务信息',
+    'zh-TW': '稅務資訊',
+    en: 'Tax Information',
   },
 
   // Profile form labels
@@ -572,6 +579,74 @@ const translations = {
     'zh-TW': '其他 Other',
     en: 'Other',
   },
+
+  // Tax info tab
+  taxResidencyLabel: {
+    ja: '税務居住地',
+    'zh-CN': '税务居住地',
+    'zh-TW': '稅務居住地',
+    en: 'Tax Residency',
+  },
+  taxResidencyDesc: {
+    ja: '日本国内に住所がある場合は「日本居住者」を選択してください。源泉徴収率に影響します。',
+    'zh-CN': '如果您在日本有住所，请选择"日本居住者"。这将影响预扣税率。',
+    'zh-TW': '如果您在日本有住所，請選擇「日本居住者」。這將影響預扣稅率。',
+    en: 'Select "Japan Resident" if you have an address in Japan. This affects the withholding tax rate.',
+  },
+  taxResident: {
+    ja: '日本居住者（源泉徴収 10.21%〜）',
+    'zh-CN': '日本居住者（预扣税 10.21%〜）',
+    'zh-TW': '日本居住者（預扣稅 10.21%〜）',
+    en: 'Japan Resident (Withholding 10.21%~)',
+  },
+  taxNonResident: {
+    ja: '非居住者（源泉徴収 20.42%）',
+    'zh-CN': '非居住者（预扣税 20.42%）',
+    'zh-TW': '非居住者（預扣稅 20.42%）',
+    en: 'Non-Resident (Withholding 20.42%)',
+  },
+  invoiceNumberLabel: {
+    ja: '適格請求書発行事業者登録番号',
+    'zh-CN': '合格发票发行事业者登记号',
+    'zh-TW': '合格發票發行事業者登記號',
+    en: 'Qualified Invoice Issuer Registration Number',
+  },
+  invoiceNumberPlaceholder: {
+    ja: 'T1234567890123',
+    'zh-CN': 'T1234567890123',
+    'zh-TW': 'T1234567890123',
+    en: 'T1234567890123',
+  },
+  invoiceNumberDesc: {
+    ja: 'インボイス制度に基づく登録番号をお持ちの場合はご入力ください（T + 13桁数字）',
+    'zh-CN': '如果您持有发票制度登记号，请输入（T + 13位数字）',
+    'zh-TW': '如果您持有發票制度登記號，請輸入（T + 13位數字）',
+    en: 'Enter your invoice registration number if applicable (T + 13 digits)',
+  },
+  invoiceNumberInvalid: {
+    ja: '登録番号の形式が正しくありません（T + 13桁数字）',
+    'zh-CN': '登记号格式不正确（T + 13位数字）',
+    'zh-TW': '登記號格式不正確（T + 13位數字）',
+    en: 'Invalid registration number format (T + 13 digits)',
+  },
+  taxInfoSaved: {
+    ja: '税務情報が更新されました',
+    'zh-CN': '税务信息已更新',
+    'zh-TW': '稅務資訊已更新',
+    en: 'Tax information updated successfully',
+  },
+  taxInfoSaveFailed: {
+    ja: '税務情報の更新に失敗しました',
+    'zh-CN': '税务信息更新失败',
+    'zh-TW': '稅務資訊更新失敗',
+    en: 'Failed to update tax information',
+  },
+  taxInfoNote: {
+    ja: '※ 源泉徴収は所得税法に基づき、紹介報酬の支払い時に控除されます。年末に支払調書を発行いたします。',
+    'zh-CN': '※ 预扣税根据日本所得税法，在支付介绍报酬时扣除。年末将发放支付调书。',
+    'zh-TW': '※ 預扣稅根據日本所得稅法，在支付介紹報酬時扣除。年末將發放支付調書。',
+    en: '※ Withholding tax is deducted from referral commissions per Japan Income Tax Act. A payment report will be issued at year-end.',
+  },
 } as const;
 
 const t = (key: keyof typeof translations, lang: Language): string => {
@@ -603,6 +678,9 @@ interface Guide {
   kyc_submitted_at: string | null;
   kyc_reviewed_at: string | null;
   kyc_review_note: string | null;
+  // Tax fields
+  tax_residency: 'resident' | 'non_resident';
+  invoice_registration_number: string | null;
 }
 
 // ============================================================
@@ -615,7 +693,7 @@ export default function SettingsPage() {
   const [guide, setGuide] = useState<Guide | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [activeTab, setActiveTab] = useState<'profile' | 'password' | 'kyc'>('profile');
+  const [activeTab, setActiveTab] = useState<'profile' | 'password' | 'kyc' | 'tax'>('profile');
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   // Profile form
@@ -640,6 +718,12 @@ export default function SettingsPage() {
     legalName: '',
     nationality: '',
   });
+  // Tax form
+  const [taxForm, setTaxForm] = useState<{
+    taxResidency: 'resident' | 'non_resident';
+    invoiceNumber: string;
+  }>({ taxResidency: 'non_resident', invoiceNumber: '' });
+
   const [frontImage, setFrontImage] = useState<File | null>(null);
   const [backImage, setBackImage] = useState<File | null>(null);
   const [frontPreview, setFrontPreview] = useState<string | null>(null);
@@ -700,6 +784,10 @@ export default function SettingsPage() {
         name: guideData.name || '',
         phone: guideData.phone || '',
         wechatId: guideData.wechat_id || '',
+      });
+      setTaxForm({
+        taxResidency: guideData.tax_residency || 'non_resident',
+        invoiceNumber: guideData.invoice_registration_number || '',
       });
     } catch (error) {
       console.error('Error:', error);
@@ -913,6 +1001,41 @@ export default function SettingsPage() {
     }
   };
 
+  // Submit Tax Info
+  const handleTaxSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!guide) return;
+
+    // Validate invoice number format if provided
+    if (taxForm.invoiceNumber && !/^T\d{13}$/.test(taxForm.invoiceNumber)) {
+      setMessage({ type: 'error', text: t('invoiceNumberInvalid', lang) });
+      return;
+    }
+
+    setSaving(true);
+    setMessage(null);
+
+    try {
+      const { error } = await supabase
+        .from('guides')
+        .update({
+          tax_residency: taxForm.taxResidency,
+          invoice_registration_number: taxForm.invoiceNumber || null,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', guide.id);
+
+      if (error) throw error;
+
+      setMessage({ type: 'success', text: t('taxInfoSaved', lang) });
+      await loadGuideData();
+    } catch (err) {
+      setMessage({ type: 'error', text: t('taxInfoSaveFailed', lang) });
+    } finally {
+      setSaving(false);
+    }
+  };
+
   const getLevelLabel = (level: string) => {
     const labels: Record<string, string> = {
       growth: t('levelGrowth', lang),
@@ -1007,6 +1130,17 @@ export default function SettingsPage() {
               {guide?.kyc_status === 'submitted' && (
                 <Clock className="inline ml-1 text-yellow-500" size={14} />
               )}
+            </button>
+            <button
+              onClick={() => { setActiveTab('tax'); setMessage(null); }}
+              className={`px-4 py-2 text-sm font-medium transition ${
+                activeTab === 'tax'
+                  ? 'bg-brand-600 text-white'
+                  : 'bg-white text-neutral-600 hover:bg-neutral-50 border'
+              }`}
+            >
+              <Banknote className="inline mr-2" size={16} />
+              {t('tabTax', lang)}
             </button>
           </div>
 
@@ -1397,6 +1531,90 @@ export default function SettingsPage() {
                   </form>
                 </div>
               )}
+            </div>
+          )}
+
+          {/* Tax Info Form */}
+          {activeTab === 'tax' && (
+            <div className="bg-white border p-6">
+              <form onSubmit={handleTaxSubmit} className="space-y-6">
+                {/* Tax Residency */}
+                <div>
+                  <label className="block text-sm font-medium text-neutral-700 mb-1">
+                    {t('taxResidencyLabel', lang)}
+                  </label>
+                  <p className="text-xs text-neutral-500 mb-3">
+                    {t('taxResidencyDesc', lang)}
+                  </p>
+                  <div className="space-y-2">
+                    <label className="flex items-center gap-3 p-3 border rounded cursor-pointer hover:bg-neutral-50 transition">
+                      <input
+                        type="radio"
+                        name="taxResidency"
+                        value="resident"
+                        checked={taxForm.taxResidency === 'resident'}
+                        onChange={() => setTaxForm({ ...taxForm, taxResidency: 'resident' })}
+                        className="text-brand-600 focus:ring-brand-500"
+                      />
+                      <span className="text-sm text-neutral-700">{t('taxResident', lang)}</span>
+                    </label>
+                    <label className="flex items-center gap-3 p-3 border rounded cursor-pointer hover:bg-neutral-50 transition">
+                      <input
+                        type="radio"
+                        name="taxResidency"
+                        value="non_resident"
+                        checked={taxForm.taxResidency === 'non_resident'}
+                        onChange={() => setTaxForm({ ...taxForm, taxResidency: 'non_resident' })}
+                        className="text-brand-600 focus:ring-brand-500"
+                      />
+                      <span className="text-sm text-neutral-700">{t('taxNonResident', lang)}</span>
+                    </label>
+                  </div>
+                </div>
+
+                {/* Invoice Registration Number */}
+                <div>
+                  <label className="block text-sm font-medium text-neutral-700 mb-1">
+                    {t('invoiceNumberLabel', lang)}
+                  </label>
+                  <p className="text-xs text-neutral-500 mb-2">
+                    {t('invoiceNumberDesc', lang)}
+                  </p>
+                  <input
+                    type="text"
+                    value={taxForm.invoiceNumber}
+                    onChange={(e) => setTaxForm({ ...taxForm, invoiceNumber: e.target.value })}
+                    placeholder={t('invoiceNumberPlaceholder', lang)}
+                    className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                  />
+                </div>
+
+                {/* Note */}
+                <div className="bg-amber-50 border border-amber-200 p-4 rounded">
+                  <p className="text-xs text-amber-700">
+                    {t('taxInfoNote', lang)}
+                  </p>
+                </div>
+
+                {/* Submit */}
+                <button
+                  type="submit"
+                  disabled={saving}
+                  className="w-full bg-brand-600 hover:bg-brand-700 disabled:bg-neutral-400 text-white font-bold py-3 transition flex items-center justify-center gap-2"
+                >
+                  {saving ? (
+                    <>
+                      <Loader2 className="animate-spin" size={20} />
+                      {t('loading', lang)}
+                    </>
+                  ) : (
+                    <>
+                      <Banknote size={20} />
+                      {t('saveChanges', lang)}
+                    </>
+                  )}
+                </button>
+              </form>
             </div>
           )}
 
