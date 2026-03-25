@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import { escapeHtml } from './utils/html-escape';
 import {
   type EmailLocale,
   t,
@@ -91,7 +92,7 @@ export async function sendOrderConfirmationEmail(data: OrderConfirmationData) {
     ? `
                 <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #e2e8f0;">
                   <p style="color: #64748b; margin: 0 0 4px; font-size: 12px;">${t(oc.labelNotes, locale)}</p>
-                  <p style="color: #1e293b; margin: 0; font-size: 14px;">${data.notes}</p>
+                  <p style="color: #1e293b; margin: 0; font-size: 14px;">${escapeHtml(data.notes)}</p>
                 </div>`
     : '';
 
@@ -169,14 +170,14 @@ export async function sendNewOrderNotificationToMerchant(data: OrderConfirmation
       html: `
         <h2>收到新的體檢預約訂單</h2>
         <ul>
-          <li><strong>訂單編號:</strong> ${data.orderId}</li>
-          <li><strong>套餐:</strong> ${data.packageName}</li>
+          <li><strong>訂單編號:</strong> ${escapeHtml(data.orderId)}</li>
+          <li><strong>套餐:</strong> ${escapeHtml(data.packageName)}</li>
           <li><strong>金額:</strong> ¥${data.packagePrice.toLocaleString()}（税込）</li>
-          <li><strong>客戶姓名:</strong> ${data.customerName}</li>
-          <li><strong>客戶郵箱:</strong> ${data.customerEmail}</li>
-          <li><strong>希望日期:</strong> ${data.preferredDate || '未指定'}</li>
-          <li><strong>希望時段:</strong> ${data.preferredTime || '未指定'}</li>
-          <li><strong>備註:</strong> ${data.notes || '無'}</li>
+          <li><strong>客戶姓名:</strong> ${escapeHtml(data.customerName)}</li>
+          <li><strong>客戶郵箱:</strong> ${escapeHtml(data.customerEmail)}</li>
+          <li><strong>希望日期:</strong> ${escapeHtml(data.preferredDate || '未指定')}</li>
+          <li><strong>希望時段:</strong> ${escapeHtml(data.preferredTime || '未指定')}</li>
+          <li><strong>備註:</strong> ${escapeHtml(data.notes || '無')}</li>
         </ul>
         <p>請盡快聯繫客戶確認體檢日期。</p>
       `,
@@ -230,6 +231,7 @@ export async function sendWhitelabelSubscriptionEmail(data: WhitelabelSubscripti
       {
         label: t(ws.labelStatus, locale),
         value: buildStatusBadge(t(ws.statusActive, locale)),
+        rawHtml: true,
       },
     ]),
   ];
@@ -239,7 +241,7 @@ export async function sendWhitelabelSubscriptionEmail(data: WhitelabelSubscripti
     contentSections.push(
       buildInfoCard(
         t(ws.whitelabelUrlLabel, locale),
-        `<div style="text-align: center;"><a href="${data.whitelabelUrl}" style="color: #2563eb; font-size: 16px; word-break: break-all;">${data.whitelabelUrl}</a></div>`,
+        `<div style="text-align: center;"><a href="${escapeHtml(data.whitelabelUrl)}" style="color: #2563eb; font-size: 16px; word-break: break-all;">${escapeHtml(data.whitelabelUrl)}</a></div>`,
         { bgColor: '#f0fdf4', borderColor: '#bbf7d0' }
       )
     );
@@ -263,7 +265,7 @@ export async function sendWhitelabelSubscriptionEmail(data: WhitelabelSubscripti
     iconEmoji: '🎉',
     iconBgColor: '#dcfce7',
     statusTitle: t(ws.statusTitle, locale),
-    statusSubtitle: t(ws.greeting, locale).replace('{{name}}', data.guideName),
+    statusSubtitle: t(ws.greeting, locale).replace('{{name}}', escapeHtml(data.guideName)),
     contentSections,
     ctaText: t(ws.ctaText, locale),
     ctaUrl: 'https://niijima-koutsu.jp/guide-partner/whitelabel',
@@ -303,6 +305,7 @@ interface GuideCommissionNotificationData {
   commissionRate: number;
   isNewCustomerBonus: boolean;
   bonusAmount?: number;
+  withholdingAmount?: number;
   orderId: string;
   locale?: EmailLocale;
 }
@@ -348,12 +351,29 @@ export async function sendGuideCommissionNotification(data: GuideCommissionNotif
     });
   }
 
+  // 源泉徴収行（withholding tax）
+  if (data.withholdingAmount && data.withholdingAmount > 0) {
+    const withholdingLabel = locale === 'ja' ? '源泉徴収額'
+      : locale === 'en' ? 'Withholding Tax'
+      : '预扣税额';
+    rows.push({
+      label: withholdingLabel,
+      value: `-¥${data.withholdingAmount.toLocaleString()}`,
+      valueColor: '#dc2626',
+      valueBold: false,
+    });
+  }
+
   // 佣金总计行 (使用 extraHtml 实现加粗分隔效果)
+  const netAmount = data.commissionAmount - (data.withholdingAmount || 0);
+  const totalLabel = (data.withholdingAmount && data.withholdingAmount > 0)
+    ? (locale === 'ja' ? '手取り額' : locale === 'en' ? 'Net Amount' : locale === 'zh-TW' ? '實際到手' : '实际到手')
+    : t(gc.labelTotal, locale);
   const totalRowHtml = `
                 <table width="100%" style="font-size: 14px; margin-top: 12px; border-top: 2px solid #166534; padding-top: 8px;">
                   <tr>
-                    <td style="color: #166534; font-weight: 600; font-size: 16px;">${t(gc.labelTotal, locale)}</td>
-                    <td style="color: #166534; text-align: right; font-weight: 700; font-size: 24px;">+¥${data.commissionAmount.toLocaleString()}</td>
+                    <td style="color: #166534; font-weight: 600; font-size: 16px;">${totalLabel}</td>
+                    <td style="color: #166534; text-align: right; font-weight: 700; font-size: 24px;">+¥${netAmount.toLocaleString()}</td>
                   </tr>
                 </table>`;
 
@@ -373,7 +393,7 @@ export async function sendGuideCommissionNotification(data: GuideCommissionNotif
     iconEmoji: '💰',
     iconBgColor: '#dcfce7',
     statusTitle: t(gc.statusTitle, locale),
-    statusSubtitle: t(gc.statusSubtitle, locale).replace('{{name}}', data.guideName),
+    statusSubtitle: t(gc.statusSubtitle, locale).replace('{{name}}', escapeHtml(data.guideName)),
     contentSections,
     ctaText: t(gc.ctaText, locale),
     ctaUrl: 'https://niijima-koutsu.jp/guide-partner/commission',
@@ -444,7 +464,7 @@ export async function sendKYCNotification(data: KYCNotificationData) {
             <td style="padding: 0 30px 20px;">
               <div style="background-color: #f8fafc; border-radius: 8px; padding: 16px; border-left: 4px solid ${statusColor};">
                 <p style="color: #64748b; margin: 0 0 8px; font-size: 12px; font-weight: 600;">${t(kn.reviewNoteLabel, locale)}</p>
-                <p style="color: #1e293b; margin: 0; font-size: 14px;">${data.reviewNote}</p>
+                <p style="color: #1e293b; margin: 0; font-size: 14px;">${escapeHtml(data.reviewNote)}</p>
               </div>
             </td>
           </tr>`
@@ -459,7 +479,7 @@ export async function sendKYCNotification(data: KYCNotificationData) {
     iconBgColor: statusBgColor,
     statusTitle: t(isApproved ? kn.statusApproved : kn.statusRejected, locale),
     statusTitleColor: statusColor,
-    statusSubtitle: `${data.guideName}${locale === 'ja' ? ' 様' : ''}`,
+    statusSubtitle: `${escapeHtml(data.guideName)}${locale === 'ja' ? ' 様' : ''}`,
     contentSections,
     ctaText: t(isApproved ? kn.ctaApproved : kn.ctaRejected, locale),
     ctaUrl: isApproved
@@ -550,20 +570,20 @@ export async function sendGuideBookingNotificationToAdmin(data: GuideBookingNoti
                 <table width="100%" style="font-size: 14px;">
                   <tr>
                     <td style="color: #64748b; padding: 8px 0;">導遊</td>
-                    <td style="color: #1e293b; text-align: right; font-weight: 600;">${data.guideName}</td>
+                    <td style="color: #1e293b; text-align: right; font-weight: 600;">${escapeHtml(data.guideName)}</td>
                   </tr>
                   <tr>
                     <td style="color: #64748b; padding: 8px 0;">店舖</td>
-                    <td style="color: #ea580c; text-align: right; font-weight: 600;">${data.venueName}</td>
+                    <td style="color: #ea580c; text-align: right; font-weight: 600;">${escapeHtml(data.venueName)}</td>
                   </tr>
                   <tr>
                     <td style="color: #64748b; padding: 8px 0;">客戶姓名</td>
-                    <td style="color: #1e293b; text-align: right;">${data.customerName}</td>
+                    <td style="color: #1e293b; text-align: right;">${escapeHtml(data.customerName)}</td>
                   </tr>
                   ${data.customerPhone ? `
                   <tr>
                     <td style="color: #64748b; padding: 8px 0;">客戶電話</td>
-                    <td style="color: #1e293b; text-align: right;">${data.customerPhone}</td>
+                    <td style="color: #1e293b; text-align: right;">${escapeHtml(data.customerPhone)}</td>
                   </tr>
                   ` : ''}
                   <tr>
@@ -572,19 +592,19 @@ export async function sendGuideBookingNotificationToAdmin(data: GuideBookingNoti
                   </tr>
                   <tr>
                     <td style="color: #64748b; padding: 8px 0;">預約日期</td>
-                    <td style="color: #1e293b; text-align: right; font-weight: 600;">${data.bookingDate}</td>
+                    <td style="color: #1e293b; text-align: right; font-weight: 600;">${escapeHtml(data.bookingDate)}</td>
                   </tr>
                   ${data.bookingTime ? `
                   <tr>
                     <td style="color: #64748b; padding: 8px 0;">預約時間</td>
-                    <td style="color: #1e293b; text-align: right;">${data.bookingTime}</td>
+                    <td style="color: #1e293b; text-align: right;">${escapeHtml(data.bookingTime)}</td>
                   </tr>
                   ` : ''}
                   ${data.specialRequests ? `
                   <tr>
                     <td colspan="2" style="padding-top: 12px; border-top: 1px solid #e2e8f0;">
                       <p style="color: #64748b; margin: 0 0 4px; font-size: 12px;">特殊要求</p>
-                      <p style="color: #1e293b; margin: 0;">${data.specialRequests}</p>
+                      <p style="color: #1e293b; margin: 0;">${escapeHtml(data.specialRequests)}</p>
                     </td>
                   </tr>
                   ` : ''}
@@ -660,12 +680,13 @@ export async function sendGuideRegistrationEmail(data: GuideRegistrationData) {
       {
         label: t(gr.labelAccountStatus, locale),
         value: buildStatusBadge(t(gr.statusActive, locale)),
+        rawHtml: true,
       },
     ]),
     // 步骤
     buildStepsSection(t(gr.nextStepsTitle, locale), [
       t(gr.step1, locale),
-      t(gr.step2, locale).replace('{{code}}', data.referralCode),
+      t(gr.step2, locale).replace('{{code}}', escapeHtml(data.referralCode)),
       t(gr.step3, locale),
       t(gr.step4, locale),
     ]),
@@ -679,7 +700,7 @@ export async function sendGuideRegistrationEmail(data: GuideRegistrationData) {
     iconEmoji: '&#127881;',
     iconBgColor: '#dcfce7',
     statusTitle: t(gr.statusTitle, locale),
-    statusSubtitle: t(gr.greeting, locale).replace('{{name}}', data.guideName),
+    statusSubtitle: t(gr.greeting, locale).replace('{{name}}', escapeHtml(data.guideName)),
     contentSections,
     ctaText: t(gr.ctaText, locale),
     ctaUrl: 'https://niijima-koutsu.jp/login',
@@ -752,7 +773,7 @@ export async function sendScreeningErrorNotification(data: ScreeningErrorNotific
     </table>
     <div style="margin-top: 16px; padding: 12px; background: #FEF2F2; border-radius: 6px; border-left: 4px solid #DC2626;">
       <p style="margin: 0; font-size: 13px; color: #991B1B; font-weight: 600;">错误信息</p>
-      <p style="margin: 8px 0 0; font-size: 13px; color: #7F1D1D; font-family: monospace; word-break: break-all;">${data.errorMessage}</p>
+      <p style="margin: 8px 0 0; font-size: 13px; color: #7F1D1D; font-family: monospace; word-break: break-all;">${escapeHtml(data.errorMessage)}</p>
     </div>
     <p style="margin-top: 16px; font-size: 12px; color: #9CA3AF;">
       该用户已收到友好的错误提示，建议稍后重试。如果此错误持续出现，请检查 OpenRouter API 状态和额度。

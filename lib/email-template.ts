@@ -1,3 +1,5 @@
+import { escapeHtml } from './utils/html-escape';
+
 // ============================================
 // 统一邮件 HTML 模板构建器
 // ============================================
@@ -139,6 +141,8 @@ export interface DetailRow {
   valueColor?: string;
   valueBold?: boolean;
   valueFontSize?: string;
+  /** Set to true if value contains intentional HTML (e.g. buildStatusBadge). Default: auto-escaped. */
+  rawHtml?: boolean;
 }
 
 /**
@@ -151,11 +155,14 @@ export function buildDetailsTable(
 ): string {
   const rowsHtml = rows
     .map(
-      (r) => `
+      (r) => {
+        const safeValue = r.rawHtml ? r.value : escapeHtml(r.value);
+        return `
                   <tr>
-                    <td style="color: #64748b; padding: 8px 0;">${r.label}</td>
-                    <td style="color: ${r.valueColor || '#1e293b'}; text-align: right; font-weight: ${r.valueBold !== false ? '600' : '400'}; ${r.valueFontSize ? `font-size: ${r.valueFontSize};` : ''}">${r.value}</td>
-                  </tr>`
+                    <td style="color: #64748b; padding: 8px 0;">${escapeHtml(r.label)}</td>
+                    <td style="color: ${r.valueColor || '#1e293b'}; text-align: right; font-weight: ${r.valueBold !== false ? '600' : '400'}; ${r.valueFontSize ? `font-size: ${r.valueFontSize};` : ''}">${safeValue}</td>
+                  </tr>`;
+      }
     )
     .join('');
 
