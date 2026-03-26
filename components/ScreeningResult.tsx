@@ -17,8 +17,6 @@ import {
   Users,
   Phone,
   Clock,
-  X,
-  Loader2,
   ShoppingCart,
 } from 'lucide-react';
 import { type BodyMapSelectionData } from './BodyMapSelector';
@@ -26,14 +24,11 @@ import { BODY_PARTS, MEDICAL_DEPARTMENTS } from '@/lib/body-map-config';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import RecommendedPackages from './RecommendedPackages';
 import { MODULE_DETAIL_ROUTES } from '@/lib/config/product-categories';
-import { useState, useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { calculateHealthScoreWithBreakdown } from '@/lib/health-score';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
-import { COUNTRY_CODES, DEFAULT_CODE_BY_LANG } from '@/lib/config/country-codes';
-import { createClient } from '@/lib/supabase/client';
 import ScoreRing from './ScoreRing';
 import ScoreBreakdown from './ScoreBreakdown';
-import OrderConfirmationModal from '@/components/OrderConfirmationModal';
 
 const translations = {
   riskLow: {
@@ -264,59 +259,11 @@ const translations = {
     ja: '相談を予約する',
     en: 'Book Consultation',
   },
-  payNow: {
-    'zh-CN': '立即支付',
-    'zh-TW': '立即支付',
-    ja: '今すぐ支払い',
-    en: 'Pay Now',
-  },
   initialConsultation: {
     'zh-CN': '前期咨询服务',
     'zh-TW': '前期諮詢服務',
     ja: '初期相談サービス',
     en: 'Initial Consultation',
-  },
-  quickCheckout: {
-    'zh-CN': '快速预约',
-    'zh-TW': '快速預約',
-    ja: 'クイック予約',
-    en: 'Quick Booking',
-  },
-  nameRequired: {
-    'zh-CN': '姓名 *',
-    'zh-TW': '姓名 *',
-    ja: 'お名前 *',
-    en: 'Name *',
-  },
-  emailLabel: {
-    'zh-CN': '邮箱',
-    'zh-TW': '電子郵件',
-    ja: 'メール',
-    en: 'Email',
-  },
-  phoneLabel: {
-    'zh-CN': '电话',
-    'zh-TW': '電話',
-    ja: '電話',
-    en: 'Phone',
-  },
-  processingPayment: {
-    'zh-CN': '跳转支付中...',
-    'zh-TW': '跳轉付款中...',
-    ja: '決済ページへ...',
-    en: 'Redirecting...',
-  },
-  checkoutError: {
-    'zh-CN': '创建订单失败，请重试',
-    'zh-TW': '建立訂單失敗，請重試',
-    ja: '注文作成に失敗しました',
-    en: 'Order failed. Please retry.',
-  },
-  contactRequired: {
-    'zh-CN': '请填写姓名和至少一种联系方式',
-    'zh-TW': '請填寫姓名和至少一種聯繫方式',
-    ja: 'お名前と連絡先をご入力ください',
-    en: 'Name and one contact method required',
   },
   taxIncl: {
     'zh-CN': '含税',
@@ -331,6 +278,8 @@ const t = (key: keyof typeof translations, lang: Language): string =>
 
 function getConsultationUrl(hospitalId?: string): string | null {
   if (!hospitalId) return null;
+  // TIMC (medical_packages) は健診センター — 初回相談ページなし、パッケージ直接購入
+  if (hospitalId === 'medical_packages') return null;
   const baseRoute = MODULE_DETAIL_ROUTES[hospitalId];
   if (!baseRoute) return null;
   return `${baseRoute}/initial-consultation`;
@@ -354,163 +303,6 @@ const HOSPITAL_CONSULTATION_SLUGS: Record<string, string> = {
 function getConsultationPackageSlug(hospitalId?: string): string | null {
   if (!hospitalId) return null;
   return HOSPITAL_CONSULTATION_SLUGS[hospitalId] || null;
-}
-
-const LOCALE_MAP: Record<Language, string> = {
-  ja: 'ja', 'zh-CN': 'zh-CN', 'zh-TW': 'zh-TW', en: 'en',
-};
-
-function ConsultationCheckoutModal({
-  packageSlug,
-  hospitalName,
-  price,
-  screeningId,
-  lang,
-  onClose,
-}: {
-  packageSlug: string;
-  hospitalName: string;
-  price: number;
-  screeningId: string;
-  lang: Language;
-  onClose: () => void;
-}) {
-  const supabase = useMemo(() => createClient(), []);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [countryCode, setCountryCode] = useState('+86');
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [showConfirmation, setShowConfirmation] = useState(false);
-
-  useEffect(() => {
-    setCountryCode(DEFAULT_CODE_BY_LANG[lang] || '+86');
-  }, [lang]);
-
-  useEffect(() => {
-    (async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        setEmail(user.email || '');
-        const meta = user.user_metadata;
-        if (meta?.full_name) setName(meta.full_name);
-        else if (meta?.name) setName(meta.name);
-        if (meta?.phone) setPhone(meta.phone);
-      }
-    })();
-  }, [supabase]);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    if (!name.trim() || (!email.trim() && !phone.trim())) {
-      setError(t('contactRequired', lang));
-      return;
-    }
-    setShowConfirmation(true);
-  };
-
-  const handleConfirmedSubmit = async () => {
-    setSubmitting(true);
-    try {
-      const res = await fetch('/api/create-checkout-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          packageSlug,
-          customerInfo: {
-            name: name.trim(),
-            email: email.trim() || undefined,
-            phone: phone.trim() ? `${countryCode}${phone.trim()}` : undefined,
-          },
-          notes: `AI Screening Ref: ${screeningId}`,
-          locale: LOCALE_MAP[lang],
-        }),
-      });
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || t('checkoutError', lang));
-      }
-      const { checkoutUrl } = await res.json();
-      if (checkoutUrl) window.location.href = checkoutUrl;
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : t('checkoutError', lang);
-      setError(message);
-      setSubmitting(false);
-      setShowConfirmation(false);
-    }
-  };
-
-  return (
-    <>
-    <OrderConfirmationModal
-      isOpen={showConfirmation}
-      onConfirm={handleConfirmedSubmit}
-      onCancel={() => setShowConfirmation(false)}
-      packageName={hospitalName}
-      price={price}
-      customerName={name}
-      lang={lang}
-      isProcessing={submitting}
-    />
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={onClose}>
-      <div className="bg-white w-full max-w-md" onClick={(e) => e.stopPropagation()}>
-        <div className="bg-gold-400 px-6 py-4 flex items-center justify-between">
-          <div>
-            <h3 className="text-brand-900 font-semibold">{t('quickCheckout', lang)}</h3>
-            <p className="text-brand-900/70 text-sm">{hospitalName}</p>
-          </div>
-          <button onClick={onClose} className="text-brand-900/60 hover:text-brand-900">
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          <div className="text-center pb-2">
-            <p className="text-xs text-neutral-500 mb-1">{t('initialConsultation', lang)}</p>
-            <span className="text-3xl font-bold text-brand-900">¥{price.toLocaleString()}</span>
-            <span className="text-xs text-neutral-400 ml-1">({t('taxIncl', lang)})</span>
-          </div>
-          <div className="text-center text-xs text-neutral-400">
-            Screening Ref: {screeningId.slice(-8).toUpperCase()}
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-neutral-700 mb-1">{t('nameRequired', lang)}</label>
-            <input type="text" value={name} onChange={(e) => setName(e.target.value)} required
-              className="w-full px-3 py-2.5 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent outline-none text-sm" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-neutral-700 mb-1">{t('emailLabel', lang)}</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2.5 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent outline-none text-sm" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-neutral-700 mb-1">{t('phoneLabel', lang)}</label>
-            <div className="flex">
-              <select value={countryCode} onChange={(e) => setCountryCode(e.target.value)}
-                className="px-2 py-2.5 border border-neutral-200 border-r-0 bg-neutral-50 text-sm text-neutral-700 outline-none focus:ring-2 focus:ring-brand-700 focus:border-transparent min-w-[80px]">
-                {COUNTRY_CODES.map((cc) => (
-                  <option key={cc.code} value={cc.code}>{cc.label}</option>
-                ))}
-              </select>
-              <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)}
-                className="flex-1 px-3 py-2.5 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent outline-none text-sm" />
-            </div>
-          </div>
-          {error && <p className="text-red-600 text-sm bg-red-50 px-3 py-2">{error}</p>}
-          <button type="submit" disabled={submitting}
-            className="w-full py-3 bg-gold-400 hover:bg-gold-300 text-brand-900 font-bold tracking-wider transition disabled:opacity-50 flex items-center justify-center gap-2">
-            {submitting ? (
-              <><Loader2 className="w-4 h-4 animate-spin" />{t('processingPayment', lang)}</>
-            ) : (
-              <><ShoppingCart className="w-4 h-4" />{t('payNow', lang)}</>
-            )}
-          </button>
-        </form>
-      </div>
-    </div>
-    </>
-  );
 }
 
 interface ScreeningResultProps {
