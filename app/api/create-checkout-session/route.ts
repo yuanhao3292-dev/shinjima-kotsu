@@ -273,7 +273,7 @@ export async function POST(request: NextRequest) {
     // 当 alipay / wechat_pay 审核通过后会自动出现在 Checkout 页面
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
-      payment_method_types: ['card', 'alipay'],
+      payment_method_types: ['card'],
       line_items: [
         {
           price: packageData.stripe_price_id,
