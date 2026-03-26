@@ -34,6 +34,7 @@ export const MODULE_DETAIL_ROUTES: Record<string, string> = {
   cell_medicine: '/cell-medicine',
   ac_plus: '/ac-plus',
   igtc: '/igtc',
+  oici: '/oici',
   golf: '/business/golf',
   medical_tourism: '/business/medical',
 };

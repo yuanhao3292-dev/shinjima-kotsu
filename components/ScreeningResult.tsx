@@ -530,12 +530,6 @@ export default function ScreeningResult({
 }: ScreeningResultProps) {
   const siteLang = useLanguage();
   const lang = overrideLanguage || siteLang;
-  const [checkoutHospital, setCheckoutHospital] = useState<{
-    slug: string;
-    name: string;
-    price: number;
-  } | null>(null);
-
   // 健康评分详情
   const breakdown = useMemo(() => calculateHealthScoreWithBreakdown(result), [result]);
 
@@ -849,7 +843,7 @@ export default function ScreeningResult({
             {result.recommendedHospitals.map((hospital, index) => {
               const packageSlug = getConsultationPackageSlug(hospital.hospitalId);
               const packagePrice = packageSlug ? MEDICAL_PACKAGES[packageSlug]?.priceJpy : null;
-              const consultUrl = !packageSlug ? getConsultationUrl(hospital.hospitalId) : null;
+              const consultUrl = getConsultationUrl(hospital.hospitalId);
               return (
                 <div
                   key={index}
@@ -898,27 +892,19 @@ export default function ScreeningResult({
                     </div>
                   )}
 
-                  {packageSlug && packagePrice ? (
+                  {consultUrl ? (
                     <div className="mt-4 pt-3 border-t border-neutral-200">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs text-neutral-500">{t('initialConsultation', lang)}</span>
-                        <span className="text-sm font-bold text-brand-900">¥{packagePrice.toLocaleString()}<span className="text-xs font-normal text-neutral-400 ml-1">({t('taxIncl', lang)})</span></span>
-                      </div>
-                      <button
-                        onClick={() => setCheckoutHospital({ slug: packageSlug, name: hospital.name, price: packagePrice })}
-                        className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-gold-400 hover:bg-gold-300 text-brand-900 font-medium text-sm tracking-wider transition-colors"
-                      >
-                        <ShoppingCart className="w-4 h-4" />
-                        {t('payNow', lang)}
-                      </button>
-                    </div>
-                  ) : consultUrl ? (
-                    <div className="mt-4 pt-3 border-t border-neutral-200">
+                      {packagePrice && (
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs text-neutral-500">{t('initialConsultation', lang)}</span>
+                          <span className="text-sm font-bold text-brand-900">¥{packagePrice.toLocaleString()}<span className="text-xs font-normal text-neutral-400 ml-1">({t('taxIncl', lang)})</span></span>
+                        </div>
+                      )}
                       <Link
                         href={consultUrl}
                         className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-gold-400 hover:bg-gold-300 text-brand-900 font-medium text-sm tracking-wider transition-colors"
                       >
-                        <Phone className="w-4 h-4" />
+                        <ShoppingCart className="w-4 h-4" />
                         {t('bookConsultation', lang)}
                       </Link>
                     </div>
@@ -994,17 +980,6 @@ export default function ScreeningResult({
             {t('viewHistory', lang)}
           </Link>
         </div>
-      )}
-
-      {checkoutHospital && (
-        <ConsultationCheckoutModal
-          packageSlug={checkoutHospital.slug}
-          hospitalName={checkoutHospital.name}
-          price={checkoutHospital.price}
-          screeningId={screeningId}
-          lang={lang}
-          onClose={() => setCheckoutHospital(null)}
-        />
       )}
 
     </div>
