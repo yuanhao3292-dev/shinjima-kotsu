@@ -733,6 +733,16 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
       </section>
       )}
 
+      {/* ━━━━━━━━ Medical Disclaimer ━━━━━━━━ */}
+      <section className="py-8 bg-gray-100">
+        <div className="max-w-4xl mx-auto px-6">
+          <ul className="space-y-1.5 text-xs text-gray-500 leading-relaxed">
+            <li>※ {{ ja: '重粒子線治療は先進医療に該当し、技術料は自己負担（約314万円）となります。診察・検査・入院費は保険適用です。', 'zh-TW': '重粒子線治療屬於先進醫療，技術費需自費（約314萬日圓）。診察・檢查・住院費適用保險。', 'zh-CN': '重粒子线治疗属于先进医疗，技术费需自费（约314万日元）。诊察・检查・住院费适用保险。', en: 'Carbon-ion therapy is classified as advanced medicine. The technical fee (approx. ¥3.14M) is self-pay; consultation, testing, and hospitalization are insurance-covered.' }[lang]}</li>
+            <li>※ {{ ja: '治療効果には個人差があり、すべての患者に同様の効果を保証するものではありません。', 'zh-TW': '治療效果因人而異，不保證所有患者均能獲得相同效果。', 'zh-CN': '治疗效果因人而异，不保证所有患者均能获得相同效果。', en: 'Treatment effects vary by individual and are not guaranteed for all patients.' }[lang]}</li>
+            <li>※ {{ ja: '当社（新島交通株式会社・大阪府知事登録旅行業 第2-3115号）は旅行業者であり、医療機関ではありません。医療行為は各提携医療機関が提供します。', 'zh-TW': '本公司（新島交通株式會社・大阪府知事登錄旅行業 第2-3115號）為旅行業者，非醫療機構。醫療行為由各合作醫療機構提供。', 'zh-CN': '本公司（新岛交通株式会社・大阪府知事登录旅行业 第2-3115号）为旅行业者，非医疗机构。医疗行为由各合作医疗机构提供。', en: 'Niijima Kotsu Co., Ltd. (Osaka Gov. Registered Travel Agency No. 2-3115) is a travel agency, not a medical institution. Medical services are provided by partner facilities.' }[lang]}</li>
+          </ul>
+        </div>
+      </section>
     </div>
   );
 }

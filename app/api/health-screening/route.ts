@@ -130,14 +130,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: err.message }, { status: 500 });
     }
 
-    // 测试账户：不限次数
-    const isTestAccount = user.email?.includes('qqy5618');
-
     // 检查是否还有免费次数
-    if (!isTestAccount && usageInfo.freeRemaining <= 0) {
+    if (usageInfo.freeRemaining <= 0) {
       return NextResponse.json(
         {
-          error: '本周免费筛查次数已用完，下周一将自动重置',
+          error: '本月免费筛查次数已用完，下月1日将自动重置',
           freeRemaining: 0,
         },
         { status: 403 }
@@ -163,7 +160,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       screeningId: screening.id,
-      freeRemaining: isTestAccount ? 999 : usageInfo.freeRemaining,
+      freeRemaining: usageInfo.freeRemaining,
       message: '筛查记录已创建',
     });
   } catch (error: unknown) {
@@ -235,13 +232,10 @@ export async function GET(request: NextRequest) {
       .eq('user_id', user.id)
       .order('created_at', { ascending: false });
 
-    // 测试账户：返回不限次数
-    const isTestAccount = user.email?.includes('qqy5618');
-
     return NextResponse.json({
       screenings: processedScreenings,
       snapshots: snapshots ?? [],
-      freeRemaining: isTestAccount ? 999 : usageInfo.freeRemaining,
+      freeRemaining: usageInfo.freeRemaining,
       totalUsed: usageInfo.totalUsed,
     });
   } catch (error: unknown) {

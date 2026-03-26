@@ -288,7 +288,7 @@ export default function CellMedicineRemoteConsultationPage() {
                 <div className="bg-neutral-50 p-6 border border-neutral-200">
                   <div className="flex justify-between items-center mb-4">
                     <span className="text-neutral-600">{t('serviceFee')}</span>
-                    <div className="text-right"><span className="text-2xl font-bold text-brand-900">¥{SERVICE_INFO.price.toLocaleString()}</span><span className="text-xs text-neutral-500 ml-1">{t('taxIncluded').split('（')[0]}</span></div>
+                    <div className="text-right"><span className="text-2xl font-bold text-brand-900">¥{SERVICE_INFO.price.toLocaleString()}</span><span className="text-xs text-neutral-500 ml-1">{t('taxIncluded')}</span></div>
                   </div>
                   <p className="text-xs text-neutral-500 mb-4">{t('paymentNotice')}</p>
                   <ConsentCheckboxes consents={consents} onChange={setConsents} lang={currentLang} />

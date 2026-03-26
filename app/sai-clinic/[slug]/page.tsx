@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { CheckCircle, Shield, Lock, CreditCard } from 'lucide-react';
 import CheckoutLayout from '@/components/CheckoutLayout';
 import OrderConfirmationModal from '@/components/OrderConfirmationModal';
+import ConsentCheckboxes, { allConsented, type Consents } from '@/components/ConsentCheckboxes';
 
 // ━━━━━━━━ SAI CLINIC 套餐数据 ━━━━━━━━
 
@@ -202,6 +203,7 @@ export default function SaiClinicCheckoutPage() {
   const [preferredDate, setPreferredDate] = useState('');
   const [notes, setNotes] = useState('');
   const [contactError, setContactError] = useState('');
+  const [consents, setConsents] = useState<Consents>({ cancel: false, tokushoho: false, privacy: false });
 
   if (!pkg) {
     return (
@@ -232,6 +234,9 @@ export default function SaiClinicCheckoutPage() {
       }
     if (!hasValidContact()) {
         setContactError('请至少填写一种联系方式'); return;
+      }
+    if (!allConsented(consents)) {
+        alert('请确认所有同意事项'); return;
       }
     setShowConfirmation(true);
   }
@@ -408,9 +413,11 @@ export default function SaiClinicCheckoutPage() {
                 </ul>
               </div>
 
+              <ConsentCheckboxes consents={consents} onChange={setConsents} lang={(Cookies.get('NEXT_LOCALE') || 'ja') as 'ja' | 'zh-TW' | 'zh-CN' | 'en'} />
+
               {/* Submit */}
               <button
-                type="submit" disabled={processing}
+                type="submit" disabled={processing || !allConsented(consents)}
                 className={`w-full py-4 font-bold text-lg transition flex items-center justify-center gap-2 ${theme.button} disabled:opacity-50`}
               >
                 {processing ? (

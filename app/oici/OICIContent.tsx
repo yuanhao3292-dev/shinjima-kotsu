@@ -518,7 +518,7 @@ const RESEARCH_ITEMS = [
   {
     icon: Globe,
     title: { ja: '国際共同研究', 'zh-TW': '國際合作研究', 'zh-CN': '国际合作研究', en: 'International Collaborations' } as Record<Language, string>,
-    desc: { ja: 'ドイツ・シンガポール・タイ・米国・中国の研究機関と連携。世界最先端のがん治療知見を共有・還元', 'zh-TW': '與德國·新加坡·泰國·美國·中國研究機構合作。共享世界最前沿癌症治療知識', 'zh-CN': '与德国·新加坡·泰国·美国·中国研究机构合作。共享世界最前沿癌症治疗知识', en: 'Partnerships with institutions in Germany, Singapore, Thailand, USA & China. Sharing cutting-edge cancer research globally' } as Record<Language, string>,
+    desc: { ja: 'ドイツ・シンガポール・タイ・米国・中国の研究機関と連携。先進的ながん治療知見を共有・還元', 'zh-TW': '與德國·新加坡·泰國·美國·中國研究機構合作。共享先進的癌症治療知識', 'zh-CN': '与德国·新加坡·泰国·美国·中国研究机构合作。共享先进的癌症治疗知识', en: 'Partnerships with institutions in Germany, Singapore, Thailand, USA & China. Sharing advanced cancer research globally' } as Record<Language, string>,
   },
 ];
 

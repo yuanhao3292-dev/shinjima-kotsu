@@ -95,9 +95,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: '文件上传失败' }, { status: 500 });
     }
 
-    const {
-      data: { publicUrl },
-    } = adminClient.storage.from('screening-documents').getPublicUrl(storagePath);
+    // 生成有时效的签名 URL（7天，医疗文档不应永久公开）
+    const { data: signedUrlData, error: signedUrlError } = await adminClient.storage
+      .from('screening-documents')
+      .createSignedUrl(storagePath, 7 * 24 * 60 * 60); // 7 days
+
+    if (signedUrlError || !signedUrlData?.signedUrl) {
+      console.error('[DocUpload] Signed URL creation failed:', signedUrlError);
+      return NextResponse.json({ error: '文件URL生成失败' }, { status: 500 });
+    }
+    const documentUrl = signedUrlData.signedUrl;
 
     // 提取文本
     let extractionResult;
@@ -128,7 +135,7 @@ export async function POST(request: NextRequest) {
     const { error: updateError } = await supabase
       .from('health_screenings')
       .update({
-        document_url: publicUrl,
+        document_url: documentUrl,
         document_name: file.name,
         document_type: documentType,
         document_extracted_text: extractionResult.text,
@@ -144,7 +151,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      documentUrl: publicUrl,
+      documentUrl,
       extractedText: extractionResult.text,
       extractionMethod: extractionResult.method,
       confidence: extractionResult.confidence,

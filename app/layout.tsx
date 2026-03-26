@@ -7,10 +7,9 @@ import { WhiteLabelProvider } from '@/lib/contexts/WhiteLabelContext'
 import { getWhiteLabelConfig } from '@/lib/utils/whitelabel-server'
 import { getGuideDistributionPage } from '@/lib/services/whitelabel'
 import { buildDistributionNavItems } from '@/lib/utils/build-distribution-nav'
-import { Analytics } from '@vercel/analytics/react'
-import { SpeedInsights } from '@vercel/speed-insights/next'
 import BrowserFingerprint from '@/components/BrowserFingerprint'
 import CookieConsent from '@/components/CookieConsent'
+import ConsentAnalytics from '@/components/ConsentAnalytics'
 
 export const metadata: Metadata = {
   title: 'TIMC OSAKA 體檢預約 | 日本大阪德州會國際醫療中心 - 新島交通',
@@ -79,8 +78,7 @@ export default async function RootLayout({
           <WhiteLabelTracker />
         </WhiteLabelProvider>
         <BrowserFingerprint />
-        <Analytics />
-        <SpeedInsights />
+        <ConsentAnalytics />
         <CookieConsent />
       </body>
     </html>

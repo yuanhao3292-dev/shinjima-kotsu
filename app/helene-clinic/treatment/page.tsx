@@ -414,6 +414,9 @@ export default function HeleneTreatmentPage() {
     if (!hasValidContact()) {
         setContactError(t('alertContactMethod')); return;
       }
+    if (!allConsented(consents)) {
+        alert('請確認所有同意事項'); return;
+      }
     setShowConfirmation(true);
   }
 
@@ -795,7 +798,7 @@ export default function HeleneTreatmentPage() {
                             ¥{selectedPrice.toLocaleString()}
                           </span>
                           <span className="text-xs text-neutral-500 ml-1">
-                            {t('taxIncluded').split('（')[0]}
+                            {t('taxIncluded')}
                           </span>
                         </>
                       ) : (
@@ -811,7 +814,7 @@ export default function HeleneTreatmentPage() {
 
                   <button
                     type="submit"
-                    disabled={processing || !selectedSlug}
+                    disabled={processing || !selectedSlug || !allConsented(consents)}
                     className="w-full py-4 bg-gold-400 text-brand-900 font-bold hover:bg-gold-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {processing ? (

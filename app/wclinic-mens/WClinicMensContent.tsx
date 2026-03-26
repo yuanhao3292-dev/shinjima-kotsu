@@ -565,7 +565,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 <ul className="space-y-2 mb-5">
                   <li className="flex items-start gap-2 text-sm text-gray-400">
                     <CheckCircle size={14} className="text-[#00c300] mt-0.5 shrink-0" />
-                    <span>{lang === 'ja' ? '薬不要・副作用なしの物理治療' : lang === 'en' ? 'Drug-free, no side effects' : lang === 'zh-TW' ? '無需藥物、無副作用' : '无需药物、无副作用'}</span>
+                    <span>{lang === 'ja' ? '薬不要・副作用が少ない物理治療' : lang === 'en' ? 'Drug-free physical therapy with few side effects' : lang === 'zh-TW' ? '無需藥物、副作用較少的物理治療' : '无需药物、副作用较少的物理治疗'}</span>
                   </li>
                   <li className="flex items-start gap-2 text-sm text-gray-400">
                     <CheckCircle size={14} className="text-[#00c300] mt-0.5 shrink-0" />

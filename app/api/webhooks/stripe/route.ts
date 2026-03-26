@@ -179,6 +179,18 @@ export async function POST(request: NextRequest) {
         break;
       }
 
+      case 'charge.refunded': {
+        const charge = event.data.object as Stripe.Charge;
+        await handleChargeRefunded(supabase, charge);
+        break;
+      }
+
+      case 'charge.dispute.created': {
+        const dispute = event.data.object as Stripe.Dispute;
+        await handleDisputeCreated(supabase, dispute);
+        break;
+      }
+
       default:
         console.log(`未处理的事件类型: ${event.type}`);
         await recordEventProcessed(supabase, event.id, event.type, 'skipped');
@@ -1110,4 +1122,134 @@ async function handleNightclubDepositPaid(supabase: SupabaseClient, session: Str
       console.error('[Nightclub Deposit] Failed to send email:', err);
     });
   }
+}
+
+// ============================================
+// 退款处理：撤回佣金
+// ============================================
+async function handleChargeRefunded(supabase: SupabaseClient, charge: Stripe.Charge) {
+  const paymentIntentId = typeof charge.payment_intent === 'string'
+    ? charge.payment_intent
+    : charge.payment_intent?.id;
+
+  if (!paymentIntentId) {
+    console.log('[Refund] No payment_intent on charge, skipping commission clawback');
+    return;
+  }
+
+  // 查找对应的订单
+  const { data: order } = await supabase
+    .from('orders')
+    .select('id, status, commission_amount, referred_by_guide_id')
+    .eq('payment_intent_id', paymentIntentId)
+    .single();
+
+  if (!order) {
+    console.log(`[Refund] No order found for payment_intent ${paymentIntentId}`);
+    return;
+  }
+
+  // 幂等：如果订单已经是 refunded 状态，跳过
+  if (order.status === 'refunded') {
+    console.log(`[Refund] Order ${order.id} already refunded, skipping`);
+    return;
+  }
+
+  // 1. 更新订单状态
+  await supabase
+    .from('orders')
+    .update({
+      status: 'refunded',
+      commission_status: 'clawed_back',
+    })
+    .eq('id', order.id);
+
+  console.log(`🔄 [Refund] Order ${order.id} marked as refunded`);
+
+  // 2. 撤回佣金（如果有导游佣金）
+  if (order.referred_by_guide_id && order.commission_amount > 0) {
+    await clawbackCommission(supabase, order.id, order.referred_by_guide_id, order.commission_amount);
+  }
+}
+
+// ============================================
+// 争议（Dispute/Chargeback）处理
+// ============================================
+async function handleDisputeCreated(supabase: SupabaseClient, dispute: Stripe.Dispute) {
+  const paymentIntentId = typeof dispute.payment_intent === 'string'
+    ? dispute.payment_intent
+    : dispute.payment_intent?.id;
+
+  if (!paymentIntentId) {
+    console.log('[Dispute] No payment_intent on dispute, skipping');
+    return;
+  }
+
+  // 查找对应的订单
+  const { data: order } = await supabase
+    .from('orders')
+    .select('id, status, commission_amount, referred_by_guide_id')
+    .eq('payment_intent_id', paymentIntentId)
+    .single();
+
+  if (!order) {
+    console.log(`[Dispute] No order found for payment_intent ${paymentIntentId}`);
+    return;
+  }
+
+  if (order.status === 'disputed') {
+    console.log(`[Dispute] Order ${order.id} already disputed, skipping`);
+    return;
+  }
+
+  // 1. 更新订单状态
+  await supabase
+    .from('orders')
+    .update({
+      status: 'disputed',
+      commission_status: 'clawed_back',
+    })
+    .eq('id', order.id);
+
+  console.log(`⚠️ [Dispute] Order ${order.id} marked as disputed (reason: ${dispute.reason})`);
+
+  // 2. 撤回佣金
+  if (order.referred_by_guide_id && order.commission_amount > 0) {
+    await clawbackCommission(supabase, order.id, order.referred_by_guide_id, order.commission_amount);
+  }
+}
+
+// ============================================
+// 佣金撤回（退款/争议共用）
+// ============================================
+async function clawbackCommission(
+  supabase: SupabaseClient,
+  orderId: string,
+  guideId: string,
+  commissionAmount: number
+) {
+  // 1. 更新 white_label_orders 佣金状态
+  const { error: wlError } = await supabase
+    .from('white_label_orders')
+    .update({ commission_status: 'clawed_back' })
+    .eq('source_order_id', orderId)
+    .eq('guide_id', guideId);
+
+  if (wlError) {
+    console.error(`[Clawback] Failed to update white_label_orders for order ${orderId}:`, wlError);
+  }
+
+  // 2. 原子递减导游累计佣金
+  await supabase.rpc('increment_guide_commission', {
+    p_guide_id: guideId,
+    p_amount: -commissionAmount,
+  });
+
+  console.log(`💸 [Clawback] Commission ${commissionAmount}円 clawed back from guide ${guideId} for order ${orderId}`);
+
+  // 3. 撤回推荐奖励
+  await supabase
+    .from('referral_rewards')
+    .update({ status: 'clawed_back' })
+    .eq('booking_id', orderId);
 }

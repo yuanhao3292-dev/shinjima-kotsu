@@ -41,8 +41,35 @@ export default function TokushohoPage() {
                 <tbody className="divide-y divide-neutral-200">
                   <TableRow label="販売業者" value="新島交通株式会社" />
                   <TableRow
+                    label="旅行業登録"
+                    value="大阪府知事登録旅行業 第2-3115号"
+                  />
+                  <TableRow
                     label="運営統括責任者"
                     value="代表取締役 員昊（Yun Hao）"
+                  />
+                  <TableRow
+                    label="旅行業務取扱管理者"
+                    value={
+                      <>
+                        員昊（Yun Hao）<br />
+                        <span className="text-sm text-neutral-500">
+                          旅行業務取扱管理者とは、お客様の旅行を取り扱う営業所での取引に関する責任者です。
+                          ご不明な点があればお気軽にお問い合わせください。
+                        </span>
+                      </>
+                    }
+                  />
+                  <TableRow
+                    label="旅行業保証金"
+                    value={
+                      <>
+                        <p>弁済業務保証金制度に基づき、全国旅行業協会（ANTA）に加入しております。</p>
+                        <p className="text-sm text-neutral-500 mt-1">
+                          当社との取引により損害を被った場合、全国旅行業協会が弁済業務保証金から弁済を行います。
+                        </p>
+                      </>
+                    }
                   />
                   <TableRow
                     label="所在地"

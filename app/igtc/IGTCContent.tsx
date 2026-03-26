@@ -1296,7 +1296,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                       <ul className="space-y-1.5 text-sm text-teal-800">
                         <li>• {lang === 'ja' ? '完全通院治療、入院不要、侵襲的処置なし' : lang === 'en' ? 'Fully outpatient, no hospitalization, non-invasive' : lang === 'zh-TW' ? '完全門診治療，無需住院，無侵入性處置' : '完全门诊治疗，无需住院，无侵入性处置'}</li>
                         <li>• {lang === 'ja' ? '投与後すぐ帰宅可能、日常生活制限なし' : lang === 'en' ? 'Can go home immediately after infusion, no daily life restrictions' : lang === 'zh-TW' ? '輸注後可立即返家，無日常生活限制' : '输注后可立即返家，无日常生活限制'}</li>
-                        <li>• {lang === 'ja' ? '他の治療との併用に最適、副作用極めて少ない' : lang === 'en' ? 'Ideal for combination with other treatments, minimal side effects' : lang === 'zh-TW' ? '最適合與其他治療併用，副作用極少' : '最适合与其他治疗并用，副作用极少'}</li>
+                        <li>• {lang === 'ja' ? '他の治療との併用が可能（※副作用には個人差があります）' : lang === 'en' ? 'Can be combined with other treatments (results may vary)' : lang === 'zh-TW' ? '可與其他治療併用（※效果因人而異）' : '可与其他治疗并用（※效果因人而异）'}</li>
                       </ul>
                     </div>
                   </div>
@@ -1576,43 +1576,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
         </div>
       </section>
 
-      {/* ========== PATIENT TESTIMONIALS ========== */}
-      <section className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <span className="text-cyan-600 font-medium text-sm">{t(tr.testimonialTag, lang)}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t(tr.testimonialTitle, lang)}</h2>
-            <p className="text-gray-600 mt-4 max-w-2xl mx-auto">{t(tr.testimonialDesc, lang)}</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            {PATIENT_TESTIMONIALS.map((testimonial, i) => (
-              <a
-                key={i}
-                href={testimonial.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group bg-gradient-to-br from-sky-50 to-white rounded-2xl p-8 border border-sky-200 hover:border-sky-400 hover:shadow-lg transition"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-14 h-14 bg-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Heart size={28} className="text-white" />
-                  </div>
-                  <div className="text-sky-600 font-bold text-sm">
-                    {lang === 'ja' ? `患者様 ${i + 1}` : lang === 'en' ? `Patient ${i + 1}` : `患者 ${i + 1}`}
-                  </div>
-                </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-4">{t(testimonial.title, lang)}</h3>
-                <div className="inline-flex items-center gap-2 text-sky-600 text-sm font-medium group-hover:gap-3 transition-all">
-                  <span>{lang === 'ja' ? '動画を見る' : lang === 'en' ? 'Watch Video' : lang === 'zh-TW' ? '觀看影片' : '观看视频'}</span>
-                  <ArrowRight size={16} />
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ========== FAQ ========== */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-6">
@@ -1853,6 +1816,17 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               </div>
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* ━━━━━━━━ Medical Disclaimer ━━━━━━━━ */}
+      <section className="py-8 bg-gray-100">
+        <div className="max-w-4xl mx-auto px-6">
+          <ul className="space-y-1.5 text-xs text-gray-500 leading-relaxed">
+            <li>※ {{ ja: '免疫細胞治療は自由診療（保険適用外）です。', 'zh-TW': '免疫細胞治療為自費診療（不適用保險）。', 'zh-CN': '免疫细胞治疗为自费诊疗（不适用保险）。', en: 'Immune cell therapy is self-pay (not covered by insurance).' }[lang]}</li>
+            <li>※ {{ ja: '治療効果には個人差があり、すべての患者に同様の効果を保証するものではありません。副作用には個人差があります。', 'zh-TW': '治療效果因人而異，不保證所有患者均能獲得相同效果。副作用因人而異。', 'zh-CN': '治疗效果因人而异，不保证所有患者均能获得相同效果。副作用因人而异。', en: 'Treatment effects vary by individual and are not guaranteed. Side effects vary by individual.' }[lang]}</li>
+            <li>※ {{ ja: '当社（新島交通株式会社・大阪府知事登録旅行業 第2-3115号）は旅行業者であり、医療機関ではありません。医療行為は各提携医療機関が提供します。', 'zh-TW': '本公司（新島交通株式會社・大阪府知事登錄旅行業 第2-3115號）為旅行業者，非醫療機構。醫療行為由各合作醫療機構提供。', 'zh-CN': '本公司（新岛交通株式会社・大阪府知事登录旅行业 第2-3115号）为旅行业者，非医疗机构。医疗行为由各合作医疗机构提供。', en: 'Niijima Kotsu Co., Ltd. (Osaka Gov. Registered Travel Agency No. 2-3115) is a travel agency, not a medical institution. Medical services are provided by partner facilities.' }[lang]}</li>
+          </ul>
         </div>
       </section>
 

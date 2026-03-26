@@ -203,10 +203,10 @@ const pageTranslations = {
     'en': 'Business Inspection Network',
   },
   advantage3Desc: {
-    'ja': 'トヨタ、パナソニック、資生堂など500+企業の視察リソース。16業界をカバーし、工場見学から経営者対談までワンストップで手配します。',
-    'zh-TW': '豐田、松下、資生堂等500+企業考察資源，覆蓋16大行業，從工廠參觀到高管對談一站式安排。',
-    'zh-CN': '丰田、松下、资生堂等500+企业考察资源，覆盖16大行业，从工厂参观到高管对谈一站式安排。',
-    'en': 'Inspection resources for 500+ companies including Toyota, Panasonic, and Shiseido. Covering 16 industries, from factory tours to executive meetings.',
+    'ja': '大手企業を含む多数の視察リソース。16業界をカバーし、工場見学から経営者対談までワンストップで手配します。（過去実績に基づく）',
+    'zh-TW': '包含大型企業在內的眾多考察資源，覆蓋16大行業，從工廠參觀到高管對談一站式安排。（基於過往實績）',
+    'zh-CN': '包含大型企业在内的众多考察资源，覆盖16大行业，从工厂参观到高管对谈一站式安排。（基于过往实绩）',
+    'en': 'Extensive corporate inspection resources covering 16 industries, from factory tours to executive meetings. (Based on past track record)',
   },
 
   // Partnership Models Section
@@ -389,10 +389,10 @@ const pageTranslations = {
     'en': 'Partner Testimonials',
   },
   voiceSubtitleText: {
-    'ja': '500+ 旅行社のリアルな評価',
-    'zh-TW': '500+ 旅行社的真實評價',
-    'zh-CN': '500+ 旅行社的真实评价',
-    'en': 'Real reviews from 500+ travel agencies',
+    'ja': '多数の旅行社からのリアルな評価',
+    'zh-TW': '眾多旅行社的真實評價',
+    'zh-CN': '众多旅行社的真实评价',
+    'en': 'Real reviews from travel agency partners',
   },
   voiceSubtitleDesc: {
     'ja': '台湾・中国・香港・シンガポールのプロフェッショナルたちから選ばれています',
@@ -401,10 +401,10 @@ const pageTranslations = {
     'en': 'Trusted by professionals from Taiwan, China, Hong Kong, and Singapore',
   },
   voiceBasedOn: {
-    'ja': '500+ 件の評価に基づく',
-    'zh-TW': '基於 500+ 評價',
-    'zh-CN': '基于 500+ 评价',
-    'en': 'Based on 500+ reviews',
+    'ja': 'パートナーからの評価に基づく',
+    'zh-TW': '基於合作夥伴評價',
+    'zh-CN': '基于合作伙伴评价',
+    'en': 'Based on partner reviews',
   },
 
   // Voice Region Stats
@@ -581,10 +581,10 @@ const pageTranslations = {
     'en': '95%',
   },
   bottomStat4Label: {
-    'ja': 'パートナー更新率',
-    'zh-TW': '合作夥伴續約率',
-    'zh-CN': '合作伙伴续约率',
-    'en': 'Partner Renewal Rate',
+    'ja': 'パートナー更新率（自社実績）',
+    'zh-TW': '合作夥伴續約率（自社實績）',
+    'zh-CN': '合作伙伴续约率（自社实绩）',
+    'en': 'Partner Renewal Rate (internal data)',
   },
 
   // Contact Form Section
@@ -1052,6 +1052,7 @@ export default function PartnerBusinessPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [privacyConsent, setPrivacyConsent] = useState(false);
 
   useEffect(() => {
     const cookies = document.cookie.split(';');
@@ -1680,9 +1681,23 @@ export default function PartnerBusinessPage() {
                   />
                 </div>
                 <div className="md:col-span-2">
+                  <label className="flex items-start gap-3 cursor-pointer mb-4">
+                    <input
+                      type="checkbox"
+                      checked={privacyConsent}
+                      onChange={(e) => setPrivacyConsent(e.target.checked)}
+                      className="mt-1 h-4 w-4 rounded border-neutral-300 text-gold-500 focus:ring-gold-500"
+                    />
+                    <span className="text-sm text-neutral-600">
+                      {currentLang === 'ja' && <><a href="/privacy" target="_blank" className="text-gold-600 underline">プライバシーポリシー</a>に同意の上、送信します</>}
+                      {currentLang === 'zh-TW' && <>我同意<a href="/privacy" target="_blank" className="text-gold-600 underline">隱私政策</a>並提交表單</>}
+                      {currentLang === 'zh-CN' && <>我同意<a href="/privacy" target="_blank" className="text-gold-600 underline">隐私政策</a>并提交表单</>}
+                      {currentLang === 'en' && <>I agree to the <a href="/privacy" target="_blank" className="text-gold-600 underline">Privacy Policy</a> and submit</>}
+                    </span>
+                  </label>
                   <button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || !privacyConsent}
                     className="w-full py-4 bg-gold-500 text-white font-medium rounded-lg hover:bg-gold-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {isSubmitting ? (

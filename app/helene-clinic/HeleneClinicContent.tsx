@@ -171,7 +171,7 @@ const tr = {
   viewFlow: { ja: '治療の流れを見る', 'zh-TW': '了解治療流程', 'zh-CN': '了解治疗流程', en: 'View Treatment Flow' } as Record<Language, string>,
 
   // Designation bar
-  desig1: { ja: 'GCR国際認証取得（世界初）', 'zh-TW': 'GCR國際認證（全球首家）', 'zh-CN': 'GCR国际认证（全球首家）', en: 'GCR Certified (World First)' } as Record<Language, string>,
+  desig1: { ja: 'GCR国際認証取得', 'zh-TW': 'GCR國際認證', 'zh-CN': 'GCR国际认证', en: 'GCR Certified' } as Record<Language, string>,
   desig2: { ja: 'ISO 9001品質管理', 'zh-TW': 'ISO 9001品質管理', 'zh-CN': 'ISO 9001质量管理', en: 'ISO 9001 Quality Management' } as Record<Language, string>,
   desig3: { ja: '厚生労働省認可 17件以上', 'zh-TW': '厚生勞動省認可 17+件', 'zh-CN': '厚生劳动省认可 17+件', en: '17+ MHLW Licenses' } as Record<Language, string>,
 
@@ -241,8 +241,8 @@ const tr = {
 const KEY_STATS = [
   { value: '10,000+', label: { ja: '治療実績', 'zh-TW': '治療實績', 'zh-CN': '治疗实绩', en: 'Successful Cases' } as Record<Language, string>, sub: { ja: '累計症例数', 'zh-TW': '累計案例數', 'zh-CN': '累计案例数', en: 'Cumulative cases' } as Record<Language, string> },
   { value: '22.5億', label: { ja: '最大MSC培養数', 'zh-TW': '最大MSC培養數', 'zh-CN': '最大MSC培养数', en: 'Max MSC Cultured' } as Record<Language, string>, sub: { ja: '1ヶ月あたり', 'zh-TW': '每月產能', 'zh-CN': '每月产能', en: 'Per month capacity' } as Record<Language, string> },
-  { value: '17+', label: { ja: '厚労省認可計画', 'zh-TW': '厚勞省認可計畫', 'zh-CN': '厚劳省认可计划', en: 'MHLW Licenses' } as Record<Language, string>, sub: { ja: '日本最多クラス', 'zh-TW': '日本最多級別', 'zh-CN': '日本最多级别', en: 'Among most in Japan' } as Record<Language, string> },
-  { value: '0', label: { ja: '重篤な有害事象', 'zh-TW': '重大不良事件', 'zh-CN': '重大不良事件', en: 'Severe Adverse Events' } as Record<Language, string>, sub: { ja: '安全性実証済み', 'zh-TW': '安全性已驗證', 'zh-CN': '安全性已验证', en: 'Safety proven' } as Record<Language, string> },
+  { value: '17+', label: { ja: '厚労省認可計画', 'zh-TW': '厚勞省認可計畫', 'zh-CN': '厚劳省认可计划', en: 'MHLW Licenses' } as Record<Language, string>, sub: { ja: '再生医療等提供計画', 'zh-TW': '再生醫療提供計畫', 'zh-CN': '再生医疗提供计划', en: 'Regenerative medicine plans' } as Record<Language, string> },
+  { value: '13+', label: { ja: '年の安全運用実績', 'zh-TW': '年安全運營實績', 'zh-CN': '年安全运营实绩', en: 'Years of Safe Operation' } as Record<Language, string>, sub: { ja: '2013年より運用', 'zh-TW': '自2013年運營', 'zh-CN': '自2013年运营', en: 'Operating since 2013' } as Record<Language, string> },
   { value: '13+', label: { ja: '年の臨床経験', 'zh-TW': '年臨床經驗', 'zh-CN': '年临床经验', en: 'Years of Clinical Experience' } as Record<Language, string>, sub: { ja: '2013年設立', 'zh-TW': '2013年設立', 'zh-CN': '2013年设立', en: 'Est. 2013' } as Record<Language, string> },
   { value: '≥92%', label: { ja: '細胞生存率基準', 'zh-TW': '細胞存活率標準', 'zh-CN': '细胞存活率标准', en: 'Cell Viability Standard' } as Record<Language, string>, sub: { ja: '品質証明書発行', 'zh-TW': '發行品質證明書', 'zh-CN': '发行品质证明书', en: 'Quality certificate issued' } as Record<Language, string> },
   { value: '50+', label: { ja: '多言語スタッフ', 'zh-TW': '多語言員工', 'zh-CN': '多语言员工', en: 'Multilingual Staff' } as Record<Language, string>, sub: { ja: '14言語以上対応', 'zh-TW': '14+語言對應', 'zh-CN': '14+语言对应', en: '14+ languages supported' } as Record<Language, string> },
@@ -342,7 +342,7 @@ const TECH_SECTIONS = [
   {
     icon: Microscope,
     title: { ja: '幹細胞数量の精密確認方法', 'zh-TW': '幹細胞數量精密確認方法', 'zh-CN': '干细胞数量精密确认方法', en: 'Precise Cell Count Verification' } as Record<Language, string>,
-    desc: { ja: '2段階検証：STEP1 — Thermo Fisher Countess II FL セルカウンターでトリパンブルー染色により生細胞と死細胞を識別、自動照明・焦点調整。STEP2 — ZEISS Axio Vert.A1顕微鏡と独自開発AI画像認識プログラムで細胞骨格を分析し、計算精度はほぼ100%を実現', 'zh-TW': '兩步驟驗證：STEP1 — Thermo Fisher Countess II FL 細胞計數器，以台盤藍染料區分活細胞與死細胞，自動照明·焦點調整。STEP2 — ZEISS Axio Vert.A1顯微鏡搭配自主開發AI影像辨識程式分析細胞骨架，計算精度接近100%', 'zh-CN': '两步骤验证：STEP1 — Thermo Fisher Countess II FL 细胞计数器，以台盼蓝染料区分活细胞与死细胞，自动照明·焦点调整。STEP2 — ZEISS Axio Vert.A1显微镜搭配自主开发AI图像识别程序分析细胞骨架，计算精度接近100%', en: 'Two-step verification: STEP 1 — Thermo Fisher Countess II FL cell counter with trypan blue staining to distinguish live/dead cells, auto illumination & focus. STEP 2 — ZEISS Axio Vert.A1 microscope with proprietary AI image recognition analyzing cell cytoskeleton, achieving near 100% counting accuracy' } as Record<Language, string>,
+    desc: { ja: '2段階検証：STEP1 — Thermo Fisher Countess II FL セルカウンターでトリパンブルー染色により生細胞と死細胞を識別、自動照明・焦点調整。STEP2 — ZEISS Axio Vert.A1顕微鏡と独自開発AI画像認識プログラムで細胞骨格を分析し、高精度な計測を実現', 'zh-TW': '兩步驟驗證：STEP1 — Thermo Fisher Countess II FL 細胞計數器，以台盤藍染料區分活細胞與死細胞，自動照明·焦點調整。STEP2 — ZEISS Axio Vert.A1顯微鏡搭配自主開發AI影像辨識程式分析細胞骨架，實現高精度計測', 'zh-CN': '两步骤验证：STEP1 — Thermo Fisher Countess II FL 细胞计数器，以台盼蓝染料区分活细胞与死细胞，自动照明·焦点调整。STEP2 — ZEISS Axio Vert.A1显微镜搭配自主开发AI图像识别程序分析细胞骨架，实现高精度计测', en: 'Two-step verification: STEP 1 — Thermo Fisher Countess II FL cell counter with trypan blue staining to distinguish live/dead cells, auto illumination & focus. STEP 2 — ZEISS Axio Vert.A1 microscope with proprietary AI image recognition analyzing cell cytoskeleton, achieving high-precision counting' } as Record<Language, string>,
     // equipment6: Countess 3 FL (600×600), equipment3: Leica DMi1 microscope (600×600)
     images: [
       { src: HELENE_IMAGES.equipment6, w: 828, caption: { ja: 'STEP1: Countess II FL セルカウンター', 'zh-TW': 'STEP1: Countess II FL 細胞計數器', 'zh-CN': 'STEP1: Countess II FL 细胞计数器', en: 'STEP 1: Countess II FL Cell Counter' } as Record<Language, string> },

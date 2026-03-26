@@ -69,16 +69,16 @@ const t = {
 
   // National #1
   nationalTag: {
-    ja: '日本トップクラスの実績',
-    'zh-TW': '日本頂級實績',
-    'zh-CN': '日本顶级实绩',
-    en: 'Japan-Leading Achievements',
+    ja: '全国有数の実績（DPC統計）',
+    'zh-TW': '全國領先實績（DPC統計）',
+    'zh-CN': '全国领先实绩（DPC统计）',
+    en: 'Nationally Leading Achievements (DPC Data)',
   } as Record<Language, string>,
   nationalTitle: {
-    ja: '日本一・全国トップの専門分野',
-    'zh-TW': '日本第一・全國頂尖專科',
-    'zh-CN': '日本第一・全国顶尖专科',
-    en: 'National #1 Specialties',
+    ja: '全国DPC統計上位の専門分野',
+    'zh-TW': '全國DPC統計前列的專科',
+    'zh-CN': '全国DPC统计前列的专科',
+    en: 'Nationally Top-Ranked Specialties (by DPC)',
   } as Record<Language, string>,
 
   // Robots
@@ -332,7 +332,7 @@ const HEADLINE_STATS = [
 // 日本一・全国トップの専門分野
 const NATIONAL_FIRSTS = [
   {
-    rank: { ja: '日本一', 'zh-TW': '日本第一', 'zh-CN': '日本第一', en: '#1 in Japan' } as Record<Language, string>,
+    rank: { ja: 'DPC統計全国1位', 'zh-TW': 'DPC統計全國第1', 'zh-CN': 'DPC统计全国第1', en: '#1 by DPC Data' } as Record<Language, string>,
     title: { ja: 'IBDセンター（炎症性腸疾患）', 'zh-TW': 'IBD中心（炎症性腸病）', 'zh-CN': 'IBD中心（炎症性肠病）', en: 'IBD Center' } as Record<Language, string>,
     desc: {
       ja: '潰瘍性大腸炎・クローン病の入院患者数で全国DPC統計第1位。累計患者約3,150人、累計手術4,140件以上。血球成分除去療法はこの病院で発明された。年間2,000件以上の生物学的製剤治療を実施。',
@@ -344,7 +344,7 @@ const NATIONAL_FIRSTS = [
     color: 'from-[#0f7459] to-[#1766b0]',
   },
   {
-    rank: { ja: '日本一', 'zh-TW': '日本第一', 'zh-CN': '日本第一', en: '#1 in Japan' } as Record<Language, string>,
+    rank: { ja: 'DPC統計全国上位', 'zh-TW': 'DPC統計全國前列', 'zh-CN': 'DPC统计全国前列', en: 'Top by DPC Data' } as Record<Language, string>,
     title: { ja: '中皮腫センター（悪性中皮腫）', 'zh-TW': '間皮瘤中心（惡性間皮瘤）', 'zh-CN': '间皮瘤中心（恶性间皮瘤）', en: 'Mesothelioma Center' } as Record<Language, string>,
     desc: {
       ja: '悪性中皮腫の症例数で全国DPC統計上位。年間800件以上を診療する専門施設。呼吸器外科では年間50件以上の根治手術を実施。呼吸器外科全体で年間403件の手術。',
@@ -412,7 +412,7 @@ const CERTIFICATIONS = [
   },
   {
     title: { ja: '総合周産期母子医療センター', 'zh-TW': '綜合周產期母子醫療中心', 'zh-CN': '综合周产期母子医疗中心', en: 'Perinatal Maternal-Child Center' } as Record<Language, string>,
-    desc: { ja: '2015年指定。阪神地域唯一', 'zh-TW': '2015年指定。阪神地區唯一', 'zh-CN': '2015年指定。阪神地区唯一', en: 'Since 2015. Only one in Hanshin area' } as Record<Language, string>,
+    desc: { ja: '2015年兵庫県指定', 'zh-TW': '2015年兵庫縣指定', 'zh-CN': '2015年兵库县指定', en: 'Hyogo Prefecture designated 2015' } as Record<Language, string>,
     icon: Baby, color: 'pink',
   },
   {
@@ -422,7 +422,7 @@ const CERTIFICATIONS = [
   },
   {
     title: { ja: '肝疾患診療連携拠点病院', 'zh-TW': '肝疾病診療據點醫院', 'zh-CN': '肝疾病诊疗据点医院', en: 'Liver Disease Base Hospital' } as Record<Language, string>,
-    desc: { ja: '2008年指定。兵庫県唯一の拠点病院', 'zh-TW': '2008年指定。兵庫縣唯一的據點醫院', 'zh-CN': '2008年指定。兵库县唯一的据点医院', en: "Since 2008. Hyogo's sole liver disease base" } as Record<Language, string>,
+    desc: { ja: '2008年厚生労働省指定', 'zh-TW': '2008年厚生勞動省指定', 'zh-CN': '2008年厚生劳动省指定', en: 'MHLW designated 2008' } as Record<Language, string>,
     icon: Pill, color: 'green',
   },
   {
@@ -501,7 +501,7 @@ const CENTERS = [
   },
   {
     name: { ja: '周産期センター', 'zh-TW': '周產期中心', 'zh-CN': '周产期中心', en: 'Perinatal Center' } as Record<Language, string>,
-    stat: { ja: 'NICU15床・阪神地域唯一', 'zh-TW': 'NICU15床・阪神地區唯一', 'zh-CN': 'NICU15床・阪神地区唯一', en: '15-bed NICU, only in Hanshin' } as Record<Language, string>,
+    stat: { ja: 'NICU15床・兵庫県指定', 'zh-TW': 'NICU15床・兵庫縣指定', 'zh-CN': 'NICU15床・兵库县指定', en: '15-bed NICU, Hyogo designated' } as Record<Language, string>,
     icon: Baby,
   },
   {
@@ -757,13 +757,13 @@ const EXPERT_DOCTORS: DoctorInfo[] = [
     dept: { ja: '整形外科', 'zh-TW': '骨科', 'zh-CN': '骨科', en: 'Orthopedics' },
     specialty: { ja: '自家培養軟骨JACC®移植による膝関節再生', 'zh-TW': '自體培養軟骨JACC®移植膝關節再生', 'zh-CN': '自体培养软骨JACC®移植膝关节再生', en: 'JACC® autologous cultured cartilage knee regeneration' },
     highlights: [
-      { ja: '日本政府唯一承認の軟骨再生治療', 'zh-TW': '日本政府唯一批准的軟骨再生治療', 'zh-CN': '日本政府唯一批准的软骨再生治疗', en: 'Japan\'s only government-approved cartilage regeneration' },
+      { ja: '厚生労働省承認の軟骨再生治療（JACC®）', 'zh-TW': '厚生勞動省批准的軟骨再生治療（JACC®）', 'zh-CN': '厚生劳动省批准的软骨再生治疗（JACC®）', en: 'MHLW-approved cartilage regeneration therapy (JACC®)' },
       { ja: '実績1,900例以上（7年間225例の臨床研究）', 'zh-TW': '實績1,900例以上（7年225例臨床研究）', 'zh-CN': '实绩1,900例以上（7年225例临床研究）', en: '1,900+ cases (225 in 7-year clinical study)' },
       { ja: 'GCTP・GMP基準の細胞培養', 'zh-TW': '符合GCTP・GMP標準的細胞培養', 'zh-CN': '符合GCTP・GMP标准的细胞培养', en: 'GCTP & GMP-standard cell cultivation' },
     ],
     category: 'eye_ortho',
     diseases: { ja: '膝軟骨損傷、離断性骨軟骨炎、変形性膝関節症', 'zh-TW': '膝軟骨損傷、離斷性骨軟骨炎、退化性膝關節炎', 'zh-CN': '膝软骨损伤、离断性骨软骨炎、变形性膝关节症', en: 'Knee cartilage injury, Osteochondritis, Knee osteoarthritis' },
-    badge: { ja: '政府唯一承認 / 1,900例+', 'zh-TW': '政府唯一批准 / 1,900例+', 'zh-CN': '政府唯一批准 / 1,900例+', en: 'Only Govt-Approved / 1,900+' },
+    badge: { ja: '厚労省承認 / 1,900例+', 'zh-TW': '厚勞省批准 / 1,900例+', 'zh-CN': '厚劳省批准 / 1,900例+', en: 'MHLW-Approved / 1,900+' },
     gradient: 'from-[#0f7459] to-[#1766b0]',
   },
 ];
@@ -2073,6 +2073,17 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
           </div>
         </div>
       )}
+
+      {/* ━━━━━━━━ Medical Disclaimer ━━━━━━━━ */}
+      <section className="py-8 bg-gray-100">
+        <div className="max-w-4xl mx-auto px-6">
+          <ul className="space-y-1.5 text-xs text-gray-500 leading-relaxed">
+            <li>※ {{ ja: '本ページで紹介する検査・治療には自由診療（保険適用外）が含まれます。費用は医療機関の基準に従います。', 'zh-TW': '本頁介紹的檢查・治療包含自費診療（不適用保險）。費用依醫療機構標準。', 'zh-CN': '本页介绍的检查・治疗包含自费诊疗（不适用保险）。费用依医疗机构标准。', en: 'Examinations and treatments on this page may include self-pay options (not covered by insurance). Fees follow each facility\'s standards.' }[lang]}</li>
+            <li>※ {{ ja: '治療効果には個人差があり、すべての患者に同様の効果を保証するものではありません。', 'zh-TW': '治療效果因人而異，不保證所有患者均能獲得相同效果。', 'zh-CN': '治疗效果因人而异，不保证所有患者均能获得相同效果。', en: 'Treatment effects vary by individual and are not guaranteed for all patients.' }[lang]}</li>
+            <li>※ {{ ja: '当社（新島交通株式会社・大阪府知事登録旅行業 第2-3115号）は旅行業者であり、医療機関ではありません。医療行為は各提携医療機関が提供します。', 'zh-TW': '本公司（新島交通株式會社・大阪府知事登錄旅行業 第2-3115號）為旅行業者，非醫療機構。醫療行為由各合作醫療機構提供。', 'zh-CN': '本公司（新岛交通株式会社・大阪府知事登录旅行业 第2-3115号）为旅行业者，非医疗机构。医疗行为由各合作医疗机构提供。', en: 'Niijima Kotsu Co., Ltd. (Osaka Gov. Registered Travel Agency No. 2-3115) is a travel agency, not a medical institution. Medical services are provided by partner facilities.' }[lang]}</li>
+          </ul>
+        </div>
+      </section>
     </div>
   );
 }

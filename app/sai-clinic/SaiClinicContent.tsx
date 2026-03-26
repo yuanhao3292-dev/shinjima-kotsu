@@ -256,12 +256,12 @@ const FULL_MENU = {
 // ━━━━━━━━ 客户评价 ━━━━━━━━
 
 const REVIEWS = [
-  { name: mi('W 様', 'W 女士', 'W 女士', 'Ms. W'), loc: mi('上海', '上海', '上海', 'Shanghai'), treatment: 'SAI LIFT STANDARD', date: mi('2025年10月', '2025年10月', '2025年10月', 'Oct 2025'), text: mi('糸リフトの施術を受けました。効果がとても自然で、崔先生はとても経験豊富で、全過程安心でした。術後の回復も早く、友人から顔色が良くなったと言われましたが、手術したとは分からないそうです。', '做了线雕提升，效果非常自然。崔医生很有经验，整个过程很安心。术后恢复也很快，朋友都说我气色变好了但看不出做了手术。', '做了線雕提升，效果非常自然。崔醫生很有經驗，整個過程很安心。術後恢復也很快，朋友都說我氣色變好了但看不出做了手術。', 'Had a thread lift — very natural results. Dr. Sai is very experienced and I felt reassured throughout. Recovery was quick, friends say I look refreshed but can\'t tell I had anything done.'), stars: 5 },
-  { name: mi('C 様', 'C 小姐', 'C 小姐', 'Ms. C'), loc: mi('台北', '台北', '台北', 'Taipei'), treatment: mi('二重+ほうれい線', '双眼皮+法令纹', '雙眼皮+法令紋', 'Double Eyelid + Nasolabial'), date: mi('2025年9月', '2025年9月', '2025年9月', 'Sep 2025'), text: mi('台北からわざわざ大阪に来ました。崔先生の美的センスは素晴らしく、とても自然なスタイルです。クリニックは梅田の地下街に直結で、雨の日でも濡れずに行けて、交通がとても便利です。', '从台北专程来大阪，崔医生的审美很棒，非常自然的风格。诊所在梅田地下街直结，下雨天也完全不用淋雨，交通太方便了。', '從台北專程來大阪，崔醫生的審美很棒，非常自然的風格。診所在梅田地下街直結，下雨天也完全不用淋雨，交通太方便了。', 'Came from Taipei specifically for this. Dr. Sai has great aesthetic sense — very natural style. The clinic connects directly to Umeda underground mall, super convenient even on rainy days.'), stars: 5 },
-  { name: mi('L 様', 'L 先生', 'L 先生', 'Mr. L'), loc: mi('深圳', '深圳', '深圳', 'Shenzhen'), treatment: mi('ヒアルロン酸+ボトックス', '玻尿酸+肉毒素', '玻尿酸+肉毒素', 'HA + Botox'), date: mi('2025年11月', '2025年11月', '2025年11月', 'Nov 2025'), text: mi('初めて日本で美容施術を受けました。最初はとても緊張していましたが、全過程中国語の通訳付きで、先生もとても丁寧にすべてを説明してくれました。期待以上の体験でした。', '第一次在日本做医美，原本很紧张。好在全程有中文陪诊，医生也非常耐心地解释了所有细节。体验比预期好很多。', '第一次在日本做醫美，原本很緊張。好在全程有中文陪診，醫生也非常耐心地解釋了所有細節。體驗比預期好很多。', 'First time getting aesthetic treatment in Japan. Was nervous at first, but Chinese interpretation was available throughout and the doctor patiently explained everything. Far exceeded my expectations.'), stars: 5 },
-  { name: mi('Z 様', 'Z 女士', 'Z 女士', 'Ms. Z'), loc: mi('香港', '香港', '香港', 'Hong Kong'), treatment: 'SAI LIFT PERFECT', date: mi('2025年8月', '2025年8月', '2025年8月', 'Aug 2025'), text: mi('他のクリニックで糸リフトを試しましたが、ここの引き上げ効果は確かに優れています。崔先生は顔の特徴に合わせて個別にデザインしてくれて、画一的ではありません。', '试过其他诊所的线雕，这里的提升效果确实更好。崔医生会根据面部特征做个性化设计，不是千篇一律的方案。', '試過其他診所的線雕，這裡的提升效果確實更好。崔醫生會根據面部特徵做個性化設計，不是千篇一律的方案。', 'Tried thread lifts at other clinics — the results here are noticeably better. Dr. Sai creates personalized designs based on facial features, not one-size-fits-all.'), stars: 5 },
-  { name: mi('H 様', 'H 小姐', 'H 小姐', 'Ms. H'), loc: mi('北京', '北京', '北京', 'Beijing'), treatment: mi('水光注射+幹細胞', '水光+干细胞', '水光+幹細胞', 'Aqua Glow + Stem Cell'), date: mi('2025年12月', '2025年12月', '2025年12月', 'Dec 2025'), text: mi('水光注射と幹細胞エッセンスを受けました。肌の状態が明らかに改善しました。崔先生は栄養分析もしてくれて、体の内側からのケアを提案してくれました。とてもプロフェッショナルです。', '做了水光注射加干细胞精华，皮肤状态明显改善。崔医生还做了营养分析，建议从内到外调理，很专业。', '做了水光注射加幹細胞精華，皮膚狀態明顯改善。崔醫生還做了營養分析，建議從內到外調理，很專業。', 'Had aqua glow injection with stem cell essence — noticeable skin improvement. Dr. Sai also did a nutrition analysis, recommending inside-out wellness. Very professional.'), stars: 4 },
-  { name: mi('L 様', 'L 先生', 'L 先生', 'Mr. L'), loc: mi('新竹', '新竹', '新竹', 'Hsinchu'), treatment: mi('AGA育毛治療', 'AGA生发治疗', 'AGA生髮治療', 'AGA Hair Treatment'), date: mi('2025年11月', '2025年11月', '2025年11月', 'Nov 2025'), text: mi('長い間悩んでいましたが、崔先生はとても率直なアドバイスをくれて、過度な勧誘は一切ありませんでした。カクテル注射3回後、確かに髪が濃くなりました。', '之前纠结了很久，来了之后崔医生给了很中肯的建议，没有过度推销。鸡尾酒注射三次后头发确实变浓密了。', '之前糾結了很久，來了之後崔醫生給了很中肯的建議，沒有過度推銷。雞尾酒注射三次後頭髮確實變濃密了。', 'Hesitated for a long time, but Dr. Sai gave honest advice with zero hard-selling. After 3 cocktail injection sessions, my hair is noticeably thicker.'), stars: 5 },
+  { name: mi('W 様', 'W 女士', 'W 女士', 'Ms. W'), loc: mi('上海', '上海', '上海', 'Shanghai'), treatment: 'SAI LIFT STANDARD', date: mi('2025年10月', '2025年10月', '2025年10月', 'Oct 2025'), text: mi('崔先生はとても経験豊富で、全過程安心でした。施術前の説明がとても丁寧で、疑問にもすべて答えてくれました。', '崔医生很有经验，整个过程很安心。术前说明非常详细，所有疑问都一一解答。', '崔醫生很有經驗，整個過程很安心。術前說明非常詳細，所有疑問都一一解答。', 'Dr. Sai is very experienced and I felt reassured throughout. Pre-procedure explanations were thorough and all my questions were answered.'), stars: 5 },
+  { name: mi('C 様', 'C 小姐', 'C 小姐', 'Ms. C'), loc: mi('台北', '台北', '台北', 'Taipei'), treatment: mi('カウンセリング', '咨询', '諮詢', 'Consultation'), date: mi('2025年9月', '2025年9月', '2025年9月', 'Sep 2025'), text: mi('台北からわざわざ大阪に来ました。クリニックは梅田の地下街に直結で、雨の日でも濡れずに行けて、交通がとても便利です。スタッフの対応もとても丁寧でした。', '从台北专程来大阪。诊所在梅田地下街直结，下雨天也完全不用淋雨，交通太方便了。工作人员服务也很贴心。', '從台北專程來大阪。診所在梅田地下街直結，下雨天也完全不用淋雨，交通太方便了。工作人員服務也很貼心。', 'Came from Taipei specifically. The clinic connects directly to Umeda underground mall, super convenient even on rainy days. Staff service was excellent.'), stars: 5 },
+  { name: mi('L 様', 'L 先生', 'L 先生', 'Mr. L'), loc: mi('深圳', '深圳', '深圳', 'Shenzhen'), treatment: mi('カウンセリング', '咨询', '諮詢', 'Consultation'), date: mi('2025年11月', '2025年11月', '2025年11月', 'Nov 2025'), text: mi('初めて日本で美容施術を受けました。最初はとても緊張していましたが、全過程中国語の通訳付きで、先生もとても丁寧にすべてを説明してくれました。', '第一次在日本做医美，原本很紧张。好在全程有中文陪诊，医生也非常耐心地解释了所有细节。', '第一次在日本做醫美，原本很緊張。好在全程有中文陪診，醫生也非常耐心地解釋了所有細節。', 'First time getting aesthetic treatment in Japan. Was nervous at first, but Chinese interpretation was available throughout and the doctor patiently explained everything.'), stars: 5 },
+  { name: mi('Z 様', 'Z 女士', 'Z 女士', 'Ms. Z'), loc: mi('香港', '香港', '香港', 'Hong Kong'), treatment: mi('カウンセリング', '咨询', '諮詢', 'Consultation'), date: mi('2025年8月', '2025年8月', '2025年8月', 'Aug 2025'), text: mi('崔先生は顔の特徴に合わせて個別にプランを提案してくれて、画一的ではありません。カウンセリングがとても充実していました。', '崔医生会根据面部特征做个性化方案建议，不是千篇一律。咨询服务非常充实。', '崔醫生會根據面部特徵做個性化方案建議，不是千篇一律。諮詢服務非常充實。', 'Dr. Sai proposes personalized plans based on facial features, not one-size-fits-all. Consultation was very thorough.'), stars: 5 },
+  { name: mi('H 様', 'H 小姐', 'H 小姐', 'Ms. H'), loc: mi('北京', '北京', '北京', 'Beijing'), treatment: mi('カウンセリング', '咨询', '諮詢', 'Consultation'), date: mi('2025年12月', '2025年12月', '2025年12月', 'Dec 2025'), text: mi('崔先生は栄養分析もしてくれて、体の内側からのケアも提案してくれました。とてもプロフェッショナルなカウンセリングでした。', '崔医生还做了营养分析，建议从内到外调理，咨询非常专业。', '崔醫生還做了營養分析，建議從內到外調理，諮詢非常專業。', 'Dr. Sai also did a nutrition analysis, recommending holistic wellness. Very professional consultation.'), stars: 4 },
+  { name: mi('L 様', 'L 先生', 'L 先生', 'Mr. L'), loc: mi('新竹', '新竹', '新竹', 'Hsinchu'), treatment: mi('カウンセリング', '咨询', '諮詢', 'Consultation'), date: mi('2025年11月', '2025年11月', '2025年11月', 'Nov 2025'), text: mi('長い間悩んでいましたが、崔先生はとても率直なアドバイスをくれて、過度な勧誘は一切ありませんでした。信頼できるクリニックです。', '之前纠结了很久，来了之后崔医生给了很中肯的建议，没有过度推销。是值得信赖的诊所。', '之前糾結了很久，來了之後崔醫生給了很中肯的建議，沒有過度推銷。是值得信賴的診所。', 'Hesitated for a long time, but Dr. Sai gave honest advice with zero hard-selling. A trustworthy clinic.'), stars: 5 },
 ];
 
 // ━━━━━━━━ FAQ ━━━━━━━━
@@ -325,7 +325,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
   // ━━━━━━━━ UI翻译 ━━━━━━━━
   const TR = {
     heroSlogan: mi('大阪で、より美しい自分に出会う', '在大阪，遇见更美的自己', '在大阪，遇見更美的自己', 'Meet a more beautiful you in Osaka'),
-    heroDesc: mi('糸リフトを中心に、韓国最先端美学と日本精密医療を融合。崔煌植医師が直接診察、15年以上の経験、2,800名以上の華僑客様から信頼。全て中文サービス、安心の美容旅。', '以线雕提升为核心，融合韩国前沿美学与日本精密医疗。崔煌植医生亲诊，15年经验、2,800+华人客户信赖。全程中文服务，让变美之旅安心无忧。', '以線雕提升為核心，融合韓國前沿美學與日本精密醫療。崔煌植醫生親診，15年經驗、2,800+華人客戶信賴。全程中文服務，讓變美之旅安心無憂。', 'Centered on thread lift, combining Korean cutting-edge aesthetics with Japanese precision medicine. Dr. Sai personally diagnoses, 15+ years experience, trusted by 2,800+ Chinese clients. Full Chinese service.'),
+    heroDesc: mi('糸リフトを中心に、韓国美学と日本精密医療を融合。崔煌植医師が直接診察、15年以上の経験、2,800名以上の華僑客様から信頼。全て中文サービス、安心の美容旅。', '以线雕提升为核心，融合韩国美学与日本精密医疗。崔煌植医生亲诊，15年经验、2,800+华人客户信赖。全程中文服务，让变美之旅安心无忧。', '以線雕提升為核心，融合韓國美學與日本精密醫療。崔煌植醫生親診，15年經驗、2,800+華人客戶信賴。全程中文服務，讓變美之旅安心無憂。', 'Centered on thread lift, combining Korean aesthetics with Japanese precision medicine. Dr. Sai personally diagnoses, 15+ years experience, trusted by 2,800+ Chinese clients. Full Chinese service.'),
     tag1: mi('糸リフト専門', '线雕专门', '線雕專門', 'Thread Lift Specialist'),
     tag2: mi('韓国美学', '韩式美学', '韓式美學', 'Korean Aesthetics'),
     tag3: mi('完全予約制', '完全预约制', '完全預約制', 'By Appointment Only'),
@@ -442,12 +442,12 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
     sta5: mi('阪神梅田駅', '阪神梅田站', '阪神梅田站', 'Hanshin Umeda Sta.'), sta5Time: mi('5分', '5分钟', '5分鐘', '5 min'), sta5Line: mi('阪神線', '阪神线', '阪神線', 'Hanshin Line'),
     // Reviews
     reviewsTitle: mi('お客様の声', '客户评价', '客戶評價', 'Client Reviews'),
-    reviewsDesc: mi('2,800名以上のお客様からのリアルな体験談', '来自2,800+客户的真实体验反馈', '來自2,800+客戶的真實體驗反饋', 'Real feedback from 2,800+ clients'),
+    reviewsDesc: mi('お客様からのサービスに関するご評価', '来自客户的服务评价', '來自客戶的服務評價', 'Service reviews from our clients'),
     // Transformation
     transformTitle: mi('迷いから自信への変化', '从犹豫到自信的蜕变', '從猶豫到自信的蛻變', 'From Hesitation to Confidence'),
     transformBefore: mi('「日本で美容施術、言葉が通じなかったらどうしよう？」「追加料金を取られないかな？」「自然な効果になるかな？」—— 初めてご相談いただくお客様は皆、同じ不安をお持ちです。', '"在日本做医美语言不通怎么办？""价格会不会被加收？""效果自然吗？"—— 每一位第一次咨询的客人，都有同样的顾虑。', '「在日本做醫美語言不通怎麼辦？」「價格會不會被加收？」「效果自然嗎？」—— 每一位第一次諮詢的客人，都有同樣的顧慮。', '"What if there\'s a language barrier?" "Will I be overcharged?" "Will results look natural?" — Every first-time client shares these concerns.'),
     transformDuring: mi('全過程中国語対応、崔医師が直接プランを設計、明朗会計で追加料金なし、術後も継続フォロー —— 日本での美容施術はこんなに安心できるのです。', '全程中文沟通、崔医生亲自设计方案、费用透明无隐形消费、术后持续追踪 —— 原来在日本做医美可以这么安心。', '全程中文溝通、崔醫生親自設計方案、費用透明無隱形消費、術後持續追蹤 —— 原來在日本做醫美可以這麼安心。', 'Full Chinese communication, Dr. Sai personally designs your plan, transparent pricing, ongoing post-op tracking — aesthetic treatment in Japan can be this reassuring.'),
-    transformAfter: mi('「友人に顔色が良くなったと言われた」「超自然で全く分からない」「次も崔先生のところに来る」—— これが2,800名以上のお客様のリアルな声です。', '"朋友都说我气色好了""效果超自然，完全看不出""下次还来崔医生这里" —— 这就是2,800+客户的真实心声。', '「朋友都說我氣色好了」「效果超自然，完全看不出」「下次還來崔醫生這裡」—— 這就是2,800+客戶的真實心聲。', '"Friends say I look refreshed" "So natural, completely undetectable" "Coming back to Dr. Sai next time" — Real words from 2,800+ clients.'),
+    transformAfter: mi('「説明がとても丁寧だった」「安心して任せられた」「次も崔先生のところに来たい」—— 多くのお客様からサービスに対する高い評価をいただいております。', '"说明非常详细""完全可以放心地交给他""下次还想来崔医生这里" —— 众多客户对我们的服务给予高度评价。', '「說明非常詳細」「完全可以放心地交給他」「下次還想來崔醫生這裡」—— 眾多客戶對我們的服務給予高度評價。', '"Very thorough explanations" "I could trust them completely" "I want to come back to Dr. Sai" — Many clients highly rate our service.'),
     // FAQ
     faqTitle: mi('よくあるご質問', '常见问题', '常見問題', 'FAQ'),
     // CTA
@@ -1204,6 +1204,17 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
       )}
 
       {/* ━━━━━━━━ 悬浮 CTA ━━━━━━━━ */}
+      {/* ━━━━━━━━ Medical Disclaimer ━━━━━━━━ */}
+      <section className="py-8 bg-gray-100">
+        <div className="max-w-4xl mx-auto px-6">
+          <ul className="space-y-1.5 text-xs text-gray-500 leading-relaxed">
+            <li>※ {{ ja: '本ページの施術は自由診療（保険適用外）です。', 'zh-TW': '本頁療程為自費診療（不適用保險）。', 'zh-CN': '本页疗程为自费诊疗（不适用保险）。', en: 'All treatments on this page are self-pay (not covered by insurance).' }[lang]}</li>
+            <li>※ {{ ja: '施術効果には個人差があり、すべての方に同様の結果を保証するものではありません。', 'zh-TW': '療程效果因人而異，不保證所有人均能獲得相同效果。', 'zh-CN': '疗程效果因人而异，不保证所有人均能获得相同效果。', en: 'Treatment effects vary by individual and are not guaranteed for all patients.' }[lang]}</li>
+            <li>※ {{ ja: '当社（新島交通株式会社・大阪府知事登録旅行業 第2-3115号）は旅行業者であり、医療機関ではありません。施術は提携クリニックが提供します。', 'zh-TW': '本公司（新島交通株式會社・大阪府知事登錄旅行業 第2-3115號）為旅行業者，非醫療機構。療程由合作診所提供。', 'zh-CN': '本公司（新岛交通株式会社・大阪府知事登录旅行业 第2-3115号）为旅行业者，非医疗机构。疗程由合作诊所提供。', en: 'Niijima Kotsu Co., Ltd. (Osaka Gov. Registered Travel Agency No. 2-3115) is a travel agency, not a medical institution. Treatments are provided by partner clinics.' }[lang]}</li>
+          </ul>
+        </div>
+      </section>
+
       {!isGuideEmbed && (
         <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
           <div className="bg-gray-900 text-white text-[10px] px-3 py-1 rounded-full shadow-lg opacity-90">

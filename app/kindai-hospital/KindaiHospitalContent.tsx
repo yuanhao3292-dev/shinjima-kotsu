@@ -58,17 +58,17 @@ export default function KindaiHospitalContent({
   }
 
   const heroSubtitle = {
-    ja: '南大阪唯一の大学附属病院｜特定機能病院',
-    'zh-CN': '南大阪唯一的大学附属医院 | 国家认定特定功能医院',
-    'zh-TW': '南大阪唯一的大學附屬醫院 | 國家認定特定功能醫院',
-    en: 'The Only University Hospital in South Osaka | Designated Advanced Care Hospital',
+    ja: '南大阪の大学附属病院｜特定機能病院',
+    'zh-CN': '南大阪的大学附属医院 | 国家认定特定功能医院',
+    'zh-TW': '南大阪的大學附屬醫院 | 國家認定特定功能醫院',
+    en: 'University Hospital in South Osaka | Designated Advanced Care Hospital',
   }
 
   const heroDescription = {
-    ja: '1975年創立｜35診療科・20専門センター・800床｜高度先端総合医療センター',
-    'zh-CN': '1975年创立 | 35个诊疗科·20个专门中心·800床 | 高度先进综合医疗中心',
-    'zh-TW': '1975年創立 | 35個診療科·20個專門中心·800床 | 高度先進綜合醫療中心',
-    en: 'Est. 1975 | 35 Departments · 20 Centers · 800 Beds | Advanced Comprehensive Medical Center',
+    ja: '1975年創立｜35診療科・20専門センター・800床｜大学附属総合医療センター',
+    'zh-CN': '1975年创立 | 35个诊疗科·20个专门中心·800床 | 大学附属综合医疗中心',
+    'zh-TW': '1975年創立 | 35個診療科·20個專門中心·800床 | 大學附屬綜合醫療中心',
+    en: 'Est. 1975 | 35 Departments · 20 Centers · 800 Beds | University Comprehensive Medical Center',
   }
 
   // 国家级资质认证
@@ -609,7 +609,7 @@ export default function KindaiHospitalContent({
       advantages: [
         { ja: '約1cm前後のがんも発見可能', 'zh-CN': '可发现约1cm左右的癌症', 'zh-TW': '可發現約1cm左右的癌症', en: 'Can detect cancers ~1cm in size' },
         { ja: '全身同時撮影で転移巣を評価', 'zh-CN': '全身同步拍摄评估转移灶', 'zh-TW': '全身同步拍攝評估轉移灶', en: 'Whole-body scan assesses metastases' },
-        { ja: '副作用なし', 'zh-CN': '无副作用', 'zh-TW': '無副作用', en: 'No side effects' },
+        { ja: '身体への負担が少ない検査', 'zh-CN': '对身体负担较小的检查', 'zh-TW': '對身體負擔較小的檢查', en: 'Low-burden examination' },
         { ja: 'サイクロトロンで検査当日にFDG製剤を製造', 'zh-CN': '回旋加速器当日制造FDG制剂', 'zh-TW': '迴旋加速器當日製造FDG製劑', en: 'Same-day FDG production via cyclotron' },
       ],
     },
@@ -2301,6 +2301,17 @@ export default function KindaiHospitalContent({
               <p className="text-xs text-slate-500">{parkingNote[locale]}</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ━━━━━━━━ Medical Disclaimer ━━━━━━━━ */}
+      <section className="py-8 bg-gray-100">
+        <div className="max-w-4xl mx-auto px-6">
+          <ul className="space-y-1.5 text-xs text-gray-500 leading-relaxed">
+            <li>※ {{ ja: '本ページで紹介する検査・治療には自由診療（保険適用外）が含まれます。費用は医療機関の基準に従います。', 'zh-TW': '本頁介紹的檢查・治療包含自費診療（不適用保險）。費用依醫療機構標準。', 'zh-CN': '本页介绍的检查・治疗包含自费诊疗（不适用保险）。费用依医疗机构标准。', en: 'Examinations and treatments on this page may include self-pay options (not covered by insurance). Fees follow each facility\'s standards.' }[locale]}</li>
+            <li>※ {{ ja: '治療効果には個人差があり、すべての患者に同様の効果を保証するものではありません。', 'zh-TW': '治療效果因人而異，不保證所有患者均能獲得相同效果。', 'zh-CN': '治疗效果因人而异，不保证所有患者均能获得相同效果。', en: 'Treatment effects vary by individual and are not guaranteed for all patients.' }[locale]}</li>
+            <li>※ {{ ja: '当社（新島交通株式会社・大阪府知事登録旅行業 第2-3115号）は旅行業者であり、医療機関ではありません。医療行為は各提携医療機関が提供します。', 'zh-TW': '本公司（新島交通株式會社・大阪府知事登錄旅行業 第2-3115號）為旅行業者，非醫療機構。醫療行為由各合作醫療機構提供。', 'zh-CN': '本公司（新岛交通株式会社・大阪府知事登录旅行业 第2-3115号）为旅行业者，非医疗机构。医疗行为由各合作医疗机构提供。', en: 'Niijima Kotsu Co., Ltd. (Osaka Gov. Registered Travel Agency No. 2-3115) is a travel agency, not a medical institution. Medical services are provided by partner facilities.' }[locale]}</li>
+          </ul>
         </div>
       </section>
     </div>
