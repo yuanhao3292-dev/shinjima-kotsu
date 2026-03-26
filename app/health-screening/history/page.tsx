@@ -60,7 +60,7 @@ export default function ScreeningHistoryPage() {
         const response = await fetch('/api/health-screening');
 
         if (response.status === 401) {
-          router.push('/auth/login?redirect=/health-screening/history');
+          router.push('/login?redirect=/health-screening/history');
           return;
         }
 

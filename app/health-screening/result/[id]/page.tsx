@@ -71,7 +71,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
         const response = await fetch(`/api/health-screening/${id}`);
 
         if (response.status === 401) {
-          router.push('/auth/login?redirect=/health-screening');
+          router.push('/login?redirect=/health-screening');
           return;
         }
 
