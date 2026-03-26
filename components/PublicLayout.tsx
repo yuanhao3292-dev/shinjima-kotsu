@@ -325,7 +325,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                   <ul className="space-y-2.5">
                     <li><a href="/guide-partner" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">导游伙伴计划</a></li>
                     <li><a href="/business/partner" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">商务合作</a></li>
-                    <li><a href="/health-screening" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">AI 健康评估</a></li>
+                    <li><a href="/login?redirect=/health-screening" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">AI 健康评估</a></li>
                   </ul>
                 </div>
                 <div>
@@ -631,7 +631,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                     </Link>
                   </li>
                   <li>
-                    <Link href="/health-screening" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                    <Link href="/login?redirect=/health-screening" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                       {t.footerHealthScreening}
                     </Link>
                   </li>
