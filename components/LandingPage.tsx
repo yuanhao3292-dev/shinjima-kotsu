@@ -181,7 +181,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       description: currentLang === 'zh-TW' ? '基於 AI 的專業問診，為您推薦最適合的體檢方案' : currentLang === 'zh-CN' ? '基于 AI 的专业问诊，为您推荐最适合的体检方案' : currentLang === 'ja' ? 'AIによる問診で最適な健診プランをご提案' : 'AI-powered consultation for personalized health plans',
       imageUrl: getImage('hero_slide_3', 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2000&auto=format&fit=crop'),
       ctaText: currentLang === 'zh-TW' ? '免費檢測' : currentLang === 'zh-CN' ? '免费检测' : currentLang === 'ja' ? '無料診断' : 'Free Screening',
-      ctaLink: '/health-screening',
+      ctaLink: '/login?redirect=/health-screening',
       advertiser: 'NIIJIMA',
     },
     {
@@ -356,7 +356,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 <ArrowRight size={18} className="ml-3" />
               </a>
               <a
-                href="/health-screening"
+                href="/login?redirect=/health-screening"
                 className="inline-flex items-center justify-center px-8 py-4 border border-white/40 text-white text-sm rounded-lg hover:bg-white/10 transition-colors"
               >
                 {currentLang === 'zh-TW' ? '免費健康評估' : currentLang === 'zh-CN' ? '免费健康评估' : currentLang === 'ja' ? '無料健康診断' : 'Free Health Assessment'}

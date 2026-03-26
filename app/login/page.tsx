@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -179,6 +179,16 @@ function LoginForm() {
   const redirect = searchParams.get('redirect') || '/my-account';
   const urlError = searchParams.get('error');
   const verified = searchParams.get('verified');
+
+  // 已登录用户自动跳转
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) {
+        router.replace(redirect);
+      }
+    });
+  }, [redirect, router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
