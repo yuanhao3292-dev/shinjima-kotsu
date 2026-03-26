@@ -106,7 +106,7 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
             <Link href="/" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">{t('home', lang)}</Link>
             <Link href="/medical" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">{t('medicalCheckup', lang)}</Link>
             <Link href="/cancer-treatment" className="text-sm font-medium text-gray-600 hover:text-rose-600 transition">{t('cancerTreatment', lang)}</Link>
-            <Link href="/health-screening" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">{t('aiScreening', lang)}</Link>
+            <Link href="/login?redirect=/health-screening" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">{t('aiScreening', lang)}</Link>
             <Link href="/faq" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">{t('faq', lang)}</Link>
           </div>
 
@@ -174,7 +174,7 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
                 <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">{t('quickLinks', lang)}</h4>
                 <ul className="space-y-2.5">
                   <li><Link href="/medical" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('medicalCheckup', lang)}</Link></li>
-                  <li><Link href="/health-screening" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('aiScreening', lang)}</Link></li>
+                  <li><Link href="/login?redirect=/health-screening" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('aiScreening', lang)}</Link></li>
                   <li><Link href="/cancer-treatment" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('cancerTreatment', lang)}</Link></li>
                   <li><Link href="/order-lookup" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('orderLookup', lang)}</Link></li>
                   <li><Link href="/faq" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('faq', lang)}</Link></li>
