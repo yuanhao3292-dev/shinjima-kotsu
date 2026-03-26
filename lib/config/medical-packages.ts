@@ -3367,6 +3367,18 @@ export const MEDICAL_PACKAGES: Record<string, MedicalPackageConfig> = {
     category: 'cosmetic_surgery',
     sortOrder: 531,
   },
+
+  // ─── JTB 合作医院 共享咨询服务 ───
+  'jtb-initial-consultation': {
+    slug: 'jtb-initial-consultation',
+    nameZhTw: 'JTB 合作醫院 - 前期諮詢服務',
+    nameJa: 'JTB提携病院 - 初期相談サービス',
+    nameEn: 'JTB Partner Hospital - Initial Consultation',
+    descriptionZhTw: '資料翻譯、醫院諮詢、治療方案初步評估',
+    priceJpy: 221000,
+    category: 'other',
+    sortOrder: 900,
+  },
 } as const;
 
 /**

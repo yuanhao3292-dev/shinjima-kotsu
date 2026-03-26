@@ -280,9 +280,11 @@ function getConsultationUrl(hospitalId?: string): string | null {
   if (!hospitalId) return null;
   // TIMC (medical_packages) は健診センター — 初回相談ページなし、パッケージ直接購入
   if (hospitalId === 'medical_packages') return null;
+  // 直営医院 — 専用ルート
   const baseRoute = MODULE_DETAIL_ROUTES[hospitalId];
-  if (!baseRoute) return null;
-  return `${baseRoute}/initial-consultation`;
+  if (baseRoute) return `${baseRoute}/initial-consultation`;
+  // JTB 提携医院 — 動的ルート（hospitalId は UUID）
+  return `/hospital/${hospitalId}/initial-consultation`;
 }
 
 const HOSPITAL_CONSULTATION_SLUGS: Record<string, string> = {
@@ -302,7 +304,11 @@ const HOSPITAL_CONSULTATION_SLUGS: Record<string, string> = {
 
 function getConsultationPackageSlug(hospitalId?: string): string | null {
   if (!hospitalId) return null;
-  return HOSPITAL_CONSULTATION_SLUGS[hospitalId] || null;
+  // 直営医院 — 専用 Stripe パッケージ
+  if (HOSPITAL_CONSULTATION_SLUGS[hospitalId]) return HOSPITAL_CONSULTATION_SLUGS[hospitalId];
+  // JTB 提携医院 — 共有パッケージ
+  if (hospitalId !== 'medical_packages' && !MODULE_DETAIL_ROUTES[hospitalId]) return 'jtb-initial-consultation';
+  return null;
 }
 
 interface ScreeningResultProps {
