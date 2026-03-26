@@ -46,13 +46,17 @@ export async function GET(request: NextRequest) {
     const threeDaysLater = new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000);
     const sevenDaysLater = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
 
+    // 幂等性：排除 24 小时内已发过提醒的导游
+    const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000).toISOString();
+
     // 查找 3 天内即将到期的订阅
     const { data: expiringSoon, error: soonError } = await supabase
       .from('guides')
       .select('id, name, email, subscription_end_date')
       .eq('subscription_status', 'active')
       .lte('subscription_end_date', threeDaysLater.toISOString())
-      .gt('subscription_end_date', now.toISOString());
+      .gt('subscription_end_date', now.toISOString())
+      .or(`last_subscription_reminder_at.is.null,last_subscription_reminder_at.lt.${oneDayAgo}`);
 
     // 查找 7 天内即将到期的订阅（首次提醒）
     const { data: expiringWeek, error: weekError } = await supabase
@@ -60,7 +64,8 @@ export async function GET(request: NextRequest) {
       .select('id, name, email, subscription_end_date')
       .eq('subscription_status', 'active')
       .lte('subscription_end_date', sevenDaysLater.toISOString())
-      .gt('subscription_end_date', threeDaysLater.toISOString());
+      .gt('subscription_end_date', threeDaysLater.toISOString())
+      .or(`last_subscription_reminder_at.is.null,last_subscription_reminder_at.lt.${oneDayAgo}`);
 
     const results = {
       urgent: [] as string[],
@@ -83,6 +88,8 @@ export async function GET(request: NextRequest) {
           subject: `⚠️ 紧急提醒：您的白标订阅将在 ${daysLeft} 天后到期`,
           html: generateReminderEmail(guide.name, daysLeft, true),
         });
+        // 标记已发送，防止重复
+        await supabase.from('guides').update({ last_subscription_reminder_at: new Date().toISOString() }).eq('id', guide.id);
         results.urgent.push(guide.email);
       } catch (err: any) {
         results.errors.push(`${guide.email}: ${err.message}`);
@@ -104,6 +111,7 @@ export async function GET(request: NextRequest) {
           subject: `📅 提醒：您的白标订阅将在 ${daysLeft} 天后到期`,
           html: generateReminderEmail(guide.name, daysLeft, false),
         });
+        await supabase.from('guides').update({ last_subscription_reminder_at: new Date().toISOString() }).eq('id', guide.id);
         results.reminder.push(guide.email);
       } catch (err: any) {
         results.errors.push(`${guide.email}: ${err.message}`);

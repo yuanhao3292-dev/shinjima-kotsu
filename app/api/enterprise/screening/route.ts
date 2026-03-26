@@ -122,10 +122,19 @@ export async function POST(request: NextRequest) {
       return createErrorResponse(Errors.business('Member is not active', 'MEMBER_NOT_ACTIVE'));
     }
 
-    // 3. Create screening record
+    // 3. Atomic quota increment BEFORE running AI pipeline (prevents wasting AI resources on over-quota)
+    const { data: quotaResult, error: quotaError } = await supabase.rpc(
+      'increment_enterprise_screening_quota',
+      { p_enterprise_id: enterpriseId }
+    );
+    if (quotaError || quotaResult?.error) {
+      return createErrorResponse(Errors.business('Screening quota exceeded', 'QUOTA_EXCEEDED'));
+    }
+
+    // 4. Create screening record
     const screeningId = crypto.randomUUID();
 
-    // 4. Run AEMC pipeline
+    // 5. Run AEMC pipeline
     const aemcInput: AEMCInput = {
       screeningId,
       answers,
@@ -137,29 +146,19 @@ export async function POST(request: NextRequest) {
 
     const output = await runAEMCPipeline(aemcInput);
 
-    // 5. Persist results (fire-and-forget pattern from existing code)
+    // 6. Persist results (fire-and-forget pattern from existing code)
     persistPipelineResults(
       output.pipelineResult,
       'authenticated'
     ).catch(err => console.error('[EnterpriseScreening] Persist error:', err));
 
-    // 6. Track usage
+    // 7. Track usage
     await supabase.from('enterprise_screening_usage').insert({
       enterprise_id: enterpriseId,
       member_id: memberId,
       screening_id: screeningId,
       screening_type: 'ai_triage',
     });
-
-    // 7. Atomic quota increment (prevents race condition on concurrent requests)
-    const { data: quotaResult, error: quotaError } = await supabase.rpc(
-      'increment_enterprise_screening_quota',
-      { p_enterprise_id: enterpriseId }
-    );
-    if (quotaError || quotaResult?.error) {
-      console.warn(`[EnterpriseScreening] Quota increment failed (screening already completed):`, quotaResult?.error || quotaError);
-      // Screening already ran, so we don't fail the request — just log the quota overage
-    }
 
     // 8. Update member screening stats
     const riskLevel = output.legacyResult?.riskLevel;
@@ -168,8 +167,7 @@ export async function POST(request: NextRequest) {
       .update({
         last_screening_id: screeningId,
         last_screening_date: new Date().toISOString(),
-        last_health_score: null, // health score computed client-side from AnalysisResult
-        screening_count: (member as any).screening_count ? (member as any).screening_count + 1 : 1,
+        last_health_score: null,
       })
       .eq('id', memberId);
 

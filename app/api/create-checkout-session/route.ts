@@ -177,35 +177,7 @@ export async function POST(request: NextRequest) {
       customerId = newCustomer.id;
     }
 
-    // 3. 创建订单记录（状态为 pending）
-    const { data: order, error: orderError } = await supabase
-      .from('orders')
-      .insert({
-        customer_id: customerId,
-        package_id: packageData.id,
-        quantity: 1,
-        total_amount_jpy: packageData.price_jpy,
-        status: 'pending',
-        customer_snapshot: customerInfo,
-        preferred_date: preferredDate || null,
-        preferred_time: preferredTime || null,
-        notes: notes || null,
-        // 白标归属字段
-        referred_by_guide_id: guideId,
-        referred_by_guide_slug: guideSlug,
-        commission_rate: guideCommissionRate,
-      })
-      .select()
-      .single();
-
-    if (orderError || !order) {
-      // 输出详细的 Supabase 错误信息
-      console.error('[create-checkout-session] Order creation failed:', JSON.stringify(orderError, null, 2));
-      logError(normalizeError(orderError), { path: '/api/create-checkout-session', method: 'POST', context: 'create_order' });
-      return createErrorResponse(Errors.internal('创建订单失败'));
-    }
-
-    // 4. 防重复支付：检查同客户+同套餐是否有近30分钟内的pending订单
+    // 3. 防重复支付：检查同客户+同套餐是否有近30分钟内的pending订单（在创建新订单之前）
     if (existingCustomer) {
       const thirtyMinAgo = new Date(Date.now() - 30 * 60 * 1000).toISOString();
       const { data: recentOrder } = await supabase
@@ -235,6 +207,33 @@ export async function POST(request: NextRequest) {
           // session expired or invalid, proceed to create new one
         }
       }
+    }
+
+    // 4. 创建订单记录（状态为 pending）
+    const { data: order, error: orderError } = await supabase
+      .from('orders')
+      .insert({
+        customer_id: customerId,
+        package_id: packageData.id,
+        quantity: 1,
+        total_amount_jpy: packageData.price_jpy,
+        status: 'pending',
+        customer_snapshot: customerInfo,
+        preferred_date: preferredDate || null,
+        preferred_time: preferredTime || null,
+        notes: notes || null,
+        // 白标归属字段
+        referred_by_guide_id: guideId,
+        referred_by_guide_slug: guideSlug,
+        commission_rate: guideCommissionRate,
+      })
+      .select()
+      .single();
+
+    if (orderError || !order) {
+      console.error('[create-checkout-session] Order creation failed:', JSON.stringify(orderError, null, 2));
+      logError(normalizeError(orderError), { path: '/api/create-checkout-session', method: 'POST', context: 'create_order' });
+      return createErrorResponse(Errors.internal('创建订单失败'));
     }
 
     // 5. 创建 Stripe Checkout Session

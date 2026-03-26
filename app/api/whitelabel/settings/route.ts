@@ -88,17 +88,8 @@ export async function GET(request: NextRequest) {
     }
 
     if (guideError || !guide) {
-      console.log("[whitelabel/settings] 导游信息不存在, guideError:", guideError?.message);
-      // 返回更详细的错误信息以便调试
-      return NextResponse.json({
-        error: "导游信息不存在",
-        debug: {
-          authUserId: user.id,
-          userEmail: user.email,
-          errorCode: guideError?.code,
-          errorMessage: guideError?.message,
-        }
-      }, { status: 404 });
+      console.log("[whitelabel/settings] 导游信息不存在, authUserId:", user.id, "error:", guideError?.message);
+      return NextResponse.json({ error: "导游信息不存在" }, { status: 404 });
     }
 
     // 解析 selected_pages，如果为空则使用默认值

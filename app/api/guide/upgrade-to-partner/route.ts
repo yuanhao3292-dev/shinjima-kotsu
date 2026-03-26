@@ -303,6 +303,13 @@ export async function POST(request: NextRequest) {
           type: "partner_subscription",
           plan_code: planCode,
         },
+        subscription_data: {
+          metadata: {
+            guide_id: guideId,
+            type: "partner_subscription",
+            plan_code: planCode,
+          },
+        },
       };
 
       session = await stripe.checkout.sessions.create(sessionParams);

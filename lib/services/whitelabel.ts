@@ -41,6 +41,7 @@ export async function getGuideBySlug(
     .select("*")
     .eq("slug", slug)
     .eq("status", "approved")
+    .eq("subscription_status", "active")
     .single();
 
   if (error || !data) {

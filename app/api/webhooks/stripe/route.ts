@@ -645,9 +645,9 @@ async function handleSubscriptionUpdated(supabase: SupabaseClient, subscription:
     return;
   }
 
-  const guideId = subscription.metadata?.guide_id;
+  let guideId = subscription.metadata?.guide_id;
   if (!guideId) {
-    // 尝试通过 customer ID 查找
+    // 尝试通过 subscription ID 查找
     const { data: guide } = await supabase
       .from('guides')
       .select('id')
@@ -655,9 +655,10 @@ async function handleSubscriptionUpdated(supabase: SupabaseClient, subscription:
       .single();
 
     if (!guide) {
-      console.error('未找到对应的导游');
+      console.error('未找到对应的导游, subscription:', subscription.id);
       return;
     }
+    guideId = guide.id;
   }
 
   // 映射 Stripe 状态到我们的状态
