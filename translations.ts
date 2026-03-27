@@ -740,7 +740,7 @@ export const translations = {
     partner: {
       hero_tag: 'Travel Agency Partnership',
       hero_title: '御社の「関西支店」として。',
-      hero_text: '新島交通はB2B特化のランドオペレーターです。\n黒子に徹し、御社のブランド価値を最大化します。',
+      hero_text: '新島交通はB2B特化のランドオペレーターです。\n黒子に徹し、御社のブランド価値向上をサポートします。',
       trust_title: '新島の約束',
       trust_1_t: '完全なる黒子対応',
       trust_1_d: '当社のドライバーやガイドは、御社のスタッフとして振る舞います。新島交通の名刺は出しません。',
