@@ -266,10 +266,10 @@ export const translations = {
     business: {
       tag: 'Overseas Business Tour',
       title: '海外企業視察・ビジネスツアー',
-      desc: '「観光」の枠を超え、「実益」を生む旅へ。\n通常の旅行代理店では手配が難しい「企業のバックヤード視察」「医療施設の専門エリア見学」「経営層との意見交換」を実現します。\n単なる移動と宿泊の手配にとどまらず、貴社のビジネス目的に合わせた「学び」と「つながり」をコーディネート。\n関西・東京の産業クラスターを熟知した私たちが、実りあるビジネスツアーをお約束します。',
+      desc: '「観光」の枠を超え、「実益」につながる旅へ。\n通常の旅行代理店では手配が難しい「企業のバックヤード視察」「医療施設の専門エリア見学」「経営層との意見交換」を実現します。\n単なる移動と宿泊の手配にとどまらず、貴社のビジネス目的に合わせた「学び」と「つながり」をコーディネート。\n関西・東京の産業クラスターを熟知した私たちが、充実したビジネスツアーをご提案します。',
       btn_case: '視察プランを見る',
       hero_title: '関西産業視察・商務考察',
-      hero_text: 'ものづくりの街・大阪から、京都の伝統産業まで。\n企業の成長に直結する、深みのある視察プログラムを提案します。',
+      hero_text: 'ものづくりの街・大阪から、京都の伝統産業まで。\n企業の成長につながる、深みのある視察プログラムを提案します。',
       themes_title: '提供可能な視察テーマ',
       theme_1_t: '先端製造業',
       theme_1_d: 'キーエンス、ダイキン等の工場見学や企業ミュージアム。リーン生産方式の現場。',
@@ -288,7 +288,7 @@ export const translations = {
       step_4_t: '実行・同行',
       step_4_d: '専門通訳と専用車を手配。当日は新島スタッフが同行し、円滑な進行を管理。',
       step_5_t: '報告・完了',
-      step_5_d: '視察後の振り返りレポート提出。日系企業との継続的な関係構築を支援。',
+      step_5_d: '視察後の振り返りレポート提出。ご希望に応じ、日系企業との関係構築のきっかけづくりをお手伝い。',
       support_title: 'サポート体制',
       supports: ['招聘理由書作成', '専門通訳手配 (逐次/同時)', '会食セッティング', '専用車手配'],
       itin_title: '戦略的ビジネス視察モデルプラン',
@@ -298,11 +298,11 @@ export const translations = {
           title: '【4日間】トヨタ生産方式(TPS)と日本自動車産業視察',
           subtitle: '名古屋・愛知｜リーン生産とカイゼン哲学の聖地巡礼',
           tags: ['Toyota', 'TPS', 'Kaizen', 'DENSO', 'Automotive'],
-          desc: '日本自動車製造業の中心地で、トヨタ生産方式(TPS)の発祥地を訪問。カイゼン文化とリーンマニュファクチャリングの真髄を学び、デンソー等の世界トップサプライヤーを視察。',
+          desc: '日本自動車製造業の中心地で、トヨタ生産方式(TPS)の発祥地を訪問。カイゼン文化とリーンマニュファクチャリングの真髄を学び、デンソー等の大手サプライヤーを視察。',
           schedule: [
             { day: 'Day 1', text: '中部国際空港到着。専用車にてホテルへ。【Eve】ウェルカムディナー：ひつまぶし料理、業界専門家による日本自動車産業概況ブリーフィング。' },
             { day: 'Day 2', text: '【AM】トヨタ産業技術記念館：織機から自動車への革新の歴史、TPS生産ラインの実演展示。【PM】トヨタ会館：最新モビリティ技術体験。【Eve】トヨタOB役員との懇親会。' },
-            { day: 'Day 3', text: '【AM】デンソー本社：ADAS先進運転支援システム、車載半導体技術の視察。【PM】アイシン：世界トップレベルのトランスミッション、電動化戦略研修。生産ライン見学（要事前申請）。' },
+            { day: 'Day 3', text: '【AM】デンソー本社：ADAS先進運転支援システム、車載半導体技術の視察。【PM】アイシン：トランスミッション技術、電動化戦略研修。生産ライン見学（要事前申請）。' },
             { day: 'Day 4', text: '【AM】名古屋市内自由行動または熱田神宮参拝。【PM】空港送迎。視察報告書・ビジネスマッチング支援提供。' }
           ]
         },
@@ -338,12 +338,12 @@ export const translations = {
           title: '【5日間】先端医療・ヘルスケア産業視察',
           subtitle: '神戸・大阪・東京｜医療機器から高齢者ケアまでの完全エコシステム',
           tags: ['Healthcare', 'Olympus', 'Sysmex', 'Terumo', 'Elderly Care'],
-          desc: '日本の医療機器・ヘルスケア産業は世界トップレベル。オリンパス(内視鏡世界シェア70%)、シスメックス、テルモ等を訪問し、先進介護施設のDX活用も視察。',
+          desc: '日本の医療機器・ヘルスケア産業は国際的に高い評価を受けています。オリンパス(消化器内視鏡で高い世界シェア)、シスメックス、テルモ等を訪問し、先進介護施設のDX活用も視察。',
           schedule: [
             { day: 'Day 1', text: '関西空港到着。専用車で神戸へ。【Eve】神戸港エリアホテル泊、ウェルカムディナー＆日本医療産業ブリーフィング。' },
             { day: 'Day 2', text: '【AM】神戸医療産業都市(KBIC)：再生医療、理研計算科学センター。【PM】シスメックス本社：臨床検査機器・血液分析技術視察。' },
             { day: 'Day 3', text: '【AM】オムロンヘルスケア京都：血圧計、健康管理機器、遠隔医療。【PM】京都高級介護施設視察：DX活用と日本式介護サービス。新幹線で東京へ。' },
-            { day: 'Day 4', text: '【AM】オリンパス技術センター：内視鏡世界シェア70%、低侵襲手術技術。【PM】テルモ：心臓血管医療機器、血液製品技術。【Eve】日中医療関係者交流ディナー。' },
+            { day: 'Day 4', text: '【AM】オリンパス技術センター：消化器内視鏡技術、低侵襲手術技術。【PM】テルモ：心臓血管医療機器、血液製品技術。【Eve】日中医療関係者交流ディナー。' },
             { day: 'Day 5', text: '【AM】東京医科大学病院または聖路加国際病院（検診センター運営）視察。【PM】羽田空港より帰国。医療産業リサーチレポート提供。' }
           ]
         },
@@ -1083,10 +1083,10 @@ export const translations = {
     business: {
       tag: 'Japan Business Study Tour',
       title: '日本商務考察・企業研修',
-      desc: '為什麼全球500強企業每年派遣高管赴日研修？\n因為日本擁有 33,000 家百年企業、發明了精益生產、創造了無數經營傳奇。\n我們不是旅行社，我們是您進入日本商業核心的「通行證」——\n從豐田生產線到京瓷哲學殿堂，從任天堂創意中心到資生堂百年傳承。\n每一次考察，都是一場與日本經營智慧的深度對話。',
+      desc: '為什麼越來越多的企業選擇赴日研修？\n因為日本擁有 33,000 家百年企業、孕育了豐田生產方式(TPS)、創造了無數經營傳奇。\n作為擁有產業資源的旅行業者，我們是您進入日本商業核心的橋樑——\n從豐田生產線到京瓷哲學殿堂，從任天堂創意中心到資生堂百年傳承。\n每一次考察，都是一場與日本經營智慧的深度對話。',
       btn_case: '查看考察方案',
       hero_title: '日本產業深度研修',
-      hero_text: '100+ 頂級企業資源｜專業商務翻譯｜高層對談安排\n讓每一位參訪者都能帶走可落地的經營智慧',
+      hero_text: '100+ 優質企業資源｜專業商務翻譯｜高層對談安排\n讓每一位參訪者都能帶走可落地的經營智慧',
       themes_title: '提供可能的視察主題',
       theme_1_t: '先端製造業',
       theme_1_d: 'Keyence、大金工業等工廠見學與企業博物館。Lean生產方式現場視察。',
@@ -1115,11 +1115,11 @@ export const translations = {
           title: '【4天】豐田生產方式(TPS)與日本汽車產業深度考察',
           subtitle: '名古屋・愛知｜精實生產與改善哲學的朝聖之旅',
           tags: ['Toyota', 'TPS', 'Kaizen', 'DENSO', 'Automotive'],
-          desc: '深入日本汽車製造業核心，親臨豐田生產方式(TPS)發源地，學習改善(Kaizen)文化與精實製造(Lean Manufacturing)的真諦。考察電裝(DENSO)等世界級零部件供應商，理解日本汽車產業的競爭優勢。',
+          desc: '深入日本汽車製造業核心，親臨豐田生產方式(TPS)發源地，學習改善(Kaizen)文化與精實製造(Lean Manufacturing)的真諦。考察電裝(DENSO)等大型零部件供應商，理解日本汽車產業的競爭優勢。',
           schedule: [
             { day: 'Day 1', text: '抵達名古屋中部國際機場。專車接機入住。【Eve】歡迎晚宴：名古屋鰻魚飯三吃，由業界專家進行日本汽車產業概況簡報。' },
             { day: 'Day 2', text: '【AM】豐田產業技術紀念館：從織機到汽車的創新歷程，TPS生產線實景展示。【PM】豐田會館：最新車型與未來移動技術體驗。【Eve】與豐田系統退休高管交流晚宴。' },
-            { day: 'Day 3', text: '【AM】電裝(DENSO)總部：ADAS先進駕駛輔助系統、車載半導體技術視察。【PM】愛信精機：世界級變速箱與電動化戰略研討。安排現場生產線參觀（需提前申請）。' },
+            { day: 'Day 3', text: '【AM】電裝(DENSO)總部：ADAS先進駕駛輔助系統、車載半導體技術視察。【PM】愛信精機：變速箱技術與電動化戰略研討。安排現場生產線參觀（需提前申請）。' },
             { day: 'Day 4', text: '【AM】名古屋市區自由活動或熱田神宮參拜。【PM】專車送機返程。提供考察總結報告與後續商務對接服務。' }
           ]
         },
@@ -1155,12 +1155,12 @@ export const translations = {
           title: '【5天】先端醫療與健康照護產業考察',
           subtitle: '神戶・大阪・東京｜從醫療器材到高齡照護的完整生態',
           tags: ['Healthcare', 'Olympus', 'Sysmex', 'Terumo', 'Elderly Care'],
-          desc: '日本醫療器材與健康照護產業處於世界領先地位。本行程涵蓋奧林巴斯(內視鏡世界第一)、希森美康(臨床檢驗設備)、泰爾茂(心血管醫療)等龍頭企業，並考察日本先進的高齡照護設施與DX應用。',
+          desc: '日本醫療器材與健康照護產業在國際上享有高度評價。本行程涵蓋奧林巴斯(消化器內視鏡全球市佔率領先)、希森美康(臨床檢驗設備)、泰爾茂(心血管醫療)等知名企業，並考察日本先進的高齡照護設施與DX應用。',
           schedule: [
             { day: 'Day 1', text: '抵達大阪關西機場。專車前往神戶。【Eve】入住神戶港區酒店，歡迎晚宴與日本醫療產業概況簡報。' },
             { day: 'Day 2', text: '【AM】神戶醫療產業都市(KBIC)：再生醫療、理化學研究所計算科學中心。【PM】希森美康(Sysmex)總部：臨床檢驗設備與血液分析技術視察。' },
             { day: 'Day 3', text: '【AM】歐姆龍健康照護(OMRON)京都：血壓計、健康管理設備與遠距醫療。【PM】參訪京都高級養老設施：DX導入與日式照護服務。新幹線前往東京。' },
-            { day: 'Day 4', text: '【AM】奧林巴斯(Olympus)技術中心：內視鏡世界市佔70%、微創手術技術。【PM】泰爾茂(Terumo)：心血管醫療器材、血液製品技術視察。【Eve】中日醫療業者交流晚宴。' },
+            { day: 'Day 4', text: '【AM】奧林巴斯(Olympus)技術中心：消化器內視鏡技術、微創手術技術。【PM】泰爾茂(Terumo)：心血管醫療器材、血液製品技術視察。【Eve】中日醫療業者交流晚宴。' },
             { day: 'Day 5', text: '【AM】東京醫科大學附屬醫院或聖路加國際醫院視察（健診中心運營）。【PM】羽田機場返程。提供醫療產業研究報告。' }
           ]
         },
@@ -1755,10 +1755,10 @@ export const translations = {
     business: {
       tag: 'Japan Business Study Tour',
       title: '日本商务考察・企业研修',
-      desc: '为什么全球500强企业每年派遣高管赴日研修？\n因为日本拥有 33,000 家百年企业、发明了精益生产、创造了无数经营传奇。\n我们不是旅行社，我们是您进入日本商业核心的「通行证」——\n从丰田生产线到京瓷哲学殿堂，从任天堂创意中心到资生堂百年传承。\n每一次考察，都是一场与日本经营智慧的深度对话。',
+      desc: '为什么越来越多的企业选择赴日研修？\n因为日本拥有 33,000 家百年企业、孕育了丰田生产方式(TPS)、创造了无数经营传奇。\n作为拥有产业资源的旅行业者，我们是您进入日本商业核心的桥梁——\n从丰田生产线到京瓷哲学殿堂，从任天堂创意中心到资生堂百年传承。\n每一次考察，都是一场与日本经营智慧的深度对话。',
       btn_case: '查看考察方案',
       hero_title: '日本产业深度研修',
-      hero_text: '100+ 顶级企业资源｜专业商务翻译｜高层对谈安排\n让每一位参访者都能带走可落地的经营智慧',
+      hero_text: '100+ 优质企业资源｜专业商务翻译｜高层对谈安排\n让每一位参访者都能带走可落地的经营智慧',
       themes_title: '提供可能的视察主题',
       theme_1_t: '先端制造业',
       theme_1_d: 'Keyence、大金工业等工厂见学与企业博物馆。Lean生产方式现场视察。',
@@ -1787,11 +1787,11 @@ export const translations = {
           title: '【4天】丰田生产方式(TPS)与日本汽车产业深度考察',
           subtitle: '名古屋・爱知｜精实生产与改善哲学的朝圣之旅',
           tags: ['Toyota', 'TPS', 'Kaizen', 'DENSO', 'Automotive'],
-          desc: '深入日本汽车制造业核心，亲临丰田生产方式(TPS)发源地，学习改善(Kaizen)文化与精实制造(Lean Manufacturing)的真谛。考察电装(DENSO)等世界级零部件供应商，理解日本汽车产业的竞争优势。',
+          desc: '深入日本汽车制造业核心，亲临丰田生产方式(TPS)发源地，学习改善(Kaizen)文化与精实制造(Lean Manufacturing)的真谛。考察电装(DENSO)等大型零部件供应商，理解日本汽车产业的竞争优势。',
           schedule: [
             { day: 'Day 1', text: '抵达名古屋中部国际机场。专车接机入住。【Eve】欢迎晚宴：名古屋鳗鱼饭三吃，由业界专家进行日本汽车产业概况简报。' },
             { day: 'Day 2', text: '【AM】丰田产业技术纪念馆：从织机到汽车的创新历程，TPS生产线实景展示。【PM】丰田会馆：最新车型与未来移动技术体验。【Eve】与丰田系统退休高管交流晚宴。' },
-            { day: 'Day 3', text: '【AM】电装(DENSO)总部：ADAS先进驾驶辅助系统、车载半导体技术视察。【PM】爱信精机：世界级变速箱与电动化战略研讨。安排现场生产线参观（需提前申请）。' },
+            { day: 'Day 3', text: '【AM】电装(DENSO)总部：ADAS先进驾驶辅助系统、车载半导体技术视察。【PM】爱信精机：变速箱技术与电动化战略研讨。安排现场生产线参观（需提前申请）。' },
             { day: 'Day 4', text: '【AM】名古屋市区自由活动或热田神宫参拜。【PM】专车送机返程。提供考察总结报告与后续商务对接服务。' }
           ]
         },
@@ -1827,12 +1827,12 @@ export const translations = {
           title: '【5天】先端医疗与健康照护产业考察',
           subtitle: '神户・大阪・东京｜从医疗器材到高龄照护的完整生态',
           tags: ['Healthcare', 'Olympus', 'Sysmex', 'Terumo', 'Elderly Care'],
-          desc: '日本医疗器材与健康照护产业处于世界领先地位。本行程涵盖奧林巴斯(内视镜世界第一)、希森美康(临床检验设备)、泰尔茂(心血管医疗)等龙头企业，并考察日本先进的高龄照护设施与DX应用。',
+          desc: '日本医疗器材与健康照护产业在国际上享有高度评价。本行程涵盖奥林巴斯(消化器内视镜全球市占率领先)、希森美康(临床检验设备)、泰尔茂(心血管医疗)等知名企业，并考察日本先进的高龄照护设施与DX应用。',
           schedule: [
             { day: 'Day 1', text: '抵达大阪关西机场。专车前往神户。【Eve】入住神户港区酒店，欢迎晚宴与日本医疗产业概况简报。' },
             { day: 'Day 2', text: '【AM】神户医疗产业都市(KBIC)：再生医疗、理化学研究所计算科学中心。【PM】希森美康(Sysmex)总部：临床检验设备与血液分析技术视察。' },
             { day: 'Day 3', text: '【AM】欧姆龙健康照护(OMRON)京都：血压计、健康管理设备与远距医疗。【PM】参访京都高级养老设施：DX导入与日式照护服务。新干线前往东京。' },
-            { day: 'Day 4', text: '【AM】奧林巴斯(Olympus)技术中心：内视镜世界市占70%、微创手术技术。【PM】泰尔茂(Terumo)：心血管医疗器材、血液制品技术视察。【Eve】中日医疗业者交流晚宴。' },
+            { day: 'Day 4', text: '【AM】奥林巴斯(Olympus)技术中心：消化器内视镜技术、微创手术技术。【PM】泰尔茂(Terumo)：心血管医疗器材、血液制品技术视察。【Eve】中日医疗业者交流晚宴。' },
             { day: 'Day 5', text: '【AM】东京医科大学附属医院或圣路加国际医院视察（健诊中心运营）。【PM】羽田机场返程。提供医疗产业研究报告。' }
           ]
         },
@@ -2433,10 +2433,10 @@ export const translations = {
     business: {
       tag: 'Overseas Business Tour',
       title: 'Overseas Corporate Inspection & Business Tours',
-      desc: 'Move beyond "tourism" to journeys that generate "real profit."\nWe arrange difficult-to-access opportunities: "corporate backyard tours," "specialized medical facility visits," and "executive-level opinion exchanges."\nWe coordinate not just travel and accommodation, but "learning" and "connections" tailored to your business goals.\nWith deep knowledge of Kansai and Tokyo industrial clusters, we promise a fruitful business tour.',
+      desc: 'Move beyond "tourism" to journeys that generate real business value.\nWe arrange difficult-to-access opportunities: "corporate backyard tours," "specialized medical facility visits," and "executive-level opinion exchanges."\nWe coordinate not just travel and accommodation, but "learning" and "connections" tailored to your business goals.\nWith deep knowledge of Kansai and Tokyo industrial clusters, we design enriching business tours.',
       btn_case: 'View Case Studies',
       hero_title: 'Kansai Industrial Inspection',
-      hero_text: 'From Osaka’s manufacturing roots to Kyoto’s traditional crafts.\nWe design programs that drive corporate growth.',
+      hero_text: 'From Osaka’s manufacturing roots to Kyoto’s traditional crafts.\nWe design programs that support corporate growth.',
       themes_title: 'Inspection Themes',
       theme_1_t: 'Advanced Mfg',
       theme_1_d: 'Factory tours at Keyence, Daikin. Lean manufacturing sites.',
@@ -2455,7 +2455,7 @@ export const translations = {
       step_4_t: 'Execution',
       step_4_d: 'Arrangement of interpreters and vehicles. On-site coordination.',
       step_5_t: 'Feedback',
-      step_5_d: 'Post-event reporting and support for continued business relations.',
+      step_5_d: 'Post-event reporting. Assistance in establishing initial business connections upon request.',
       support_title: 'Support Services',
       supports: ['Visa Invitation Letters', 'Professional Interpreters', 'Business Dining', 'Luxury Fleet (Alphard)'],
       itin_title: 'Strategic Business Inspection Plans',
