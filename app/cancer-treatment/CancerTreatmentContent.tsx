@@ -21,11 +21,11 @@ const pageTranslations = {
   heroDesc: { ja: '先進的な治療法が日本に集結', 'zh-TW': '先進療法匯聚日本', 'zh-CN': '先进疗法汇聚日本', en: 'Advanced treatments converge in Japan' } as Record<Language, string>,
   heroCTA: { ja: '治療プランを相談', 'zh-TW': '諮詢治療方案', 'zh-CN': '咨询治疗方案', en: 'Consult Treatment Plan' } as Record<Language, string>,
   heroFlow: { ja: '治療の流れを見る', 'zh-TW': '了解治療流程', 'zh-CN': '了解治疗流程', en: 'View Treatment Process' } as Record<Language, string>,
-  statGastric: { ja: '胃がん5年生存率', 'zh-TW': '胃癌五年存活率', 'zh-CN': '胃癌五年存活率', en: 'Gastric Cancer 5-Year Survival' } as Record<Language, string>,
+  statGastric: { ja: '胃がん5年生存率（全病期）', 'zh-TW': '胃癌五年存活率（全期別）', 'zh-CN': '胃癌五年存活率（全期别）', en: 'Gastric Cancer 5-Year Survival (All Stages)' } as Record<Language, string>,
   statProstate: { ja: '先進治療技術の種類', 'zh-TW': '先進治療技術種類', 'zh-CN': '先进治疗技术种类', en: 'Advanced Treatment Types' } as Record<Language, string>,
   statProstateSub: { ja: '質子・重粒子・免疫・BNCT 等', 'zh-TW': '質子、重離子、免疫、BNCT 等', 'zh-CN': '质子、重离子、免疫、BNCT 等', en: 'Proton, Heavy Ion, Immuno, BNCT, etc.' } as Record<Language, string>,
   statCost: { ja: '費用は米国の', 'zh-TW': '費用僅為美國', 'zh-CN': '费用仅为美国', en: 'Cost Only 1/3 of US' } as Record<Language, string>,
-  statCostSub: { ja: '参考概算', 'zh-TW': '參考估算', 'zh-CN': '参考估算', en: 'Reference Estimate' } as Record<Language, string>,
+  statCostSub: { ja: '一般的な治療費水準の比較（参考値）', 'zh-TW': '一般治療費用水準比較（參考值）', 'zh-CN': '一般治疗费用水平比较（参考值）', en: 'General treatment cost comparison (reference)' } as Record<Language, string>,
   dataSource: { ja: '*データ出典：Lancet Oncology 2018; 各医療機関公開資料。個人の治療効果は症状により異なります。参考情報としてご利用ください。', 'zh-TW': '*數據來源：Lancet Oncology 2018; 各醫療機構公開資料。個人療效因病情而異，僅供參考。', 'zh-CN': '*数据来源：Lancet Oncology 2018; 各医疗机构公开资料。个人疗效因病情而异，仅供参考。', en: '*Data source: Lancet Oncology 2018; public data from medical institutions. Individual results vary.' } as Record<Language, string>,
   trustEarly: { ja: '精密スクリーニングによる早期発見', 'zh-TW': '精密篩查助力早期發現', 'zh-CN': '精密筛查助力早期发现', en: 'Precision screening for early detection' } as Record<Language, string>,
   trustTranslator: { ja: '専門医療通訳が全行程同行', 'zh-TW': '專業醫療翻譯全程陪同', 'zh-CN': '专业医疗翻译全程陪同', en: 'Professional medical interpreter throughout' } as Record<Language, string>,
@@ -33,7 +33,7 @@ const pageTranslations = {
   // Institutions Section
   instTitle: { ja: '日本の著名ながん治療医療機関', 'zh-TW': '日本知名癌症治療醫療機構', 'zh-CN': '日本知名癌症治疗医疗机构', en: 'Renowned Cancer Treatment Institutions in Japan' } as Record<Language, string>,
   instDesc: { ja: '各医療機関の特色と先進治療技術をご参考ください', 'zh-TW': '以下資訊旨在幫助您了解日本各大醫療機構的特色與先進治療技術，供您參考選擇', 'zh-CN': '以下资讯旨在帮助您了解日本各大医疗机构的特色与先进治疗技术，供您参考选择', en: 'Learn about the specialties and advanced treatments at major Japanese medical institutions' } as Record<Language, string>,
-  instDisclaimer: { ja: '以下の情報は参考用です。実際の治療は医院の診断に基づきます', 'zh-TW': '以下信息僅供參考，實際治療需以醫院診斷為準', 'zh-CN': '以下信息仅供参考，实际治疗需以医院诊断为准', en: 'Information is for reference only. Actual treatment depends on hospital diagnosis' } as Record<Language, string>,
+  instDisclaimer: { ja: '以下は各医療機関の公開資料に基づく参考情報です。当社との提携・推薦関係を示すものではありません', 'zh-TW': '以下資訊來源於各醫療機構公開資料，僅供參考，不代表本公司與該機構存在合作或推薦關係', 'zh-CN': '以下资讯来源于各医疗机构公开资料，仅供参考，不代表本公司与该机构存在合作或推荐关系', en: 'Information below is sourced from public institutional data for reference only and does not imply any partnership with our company' } as Record<Language, string>,
   instSpecialty: { ja: '得意分野', 'zh-TW': '擅長領域', 'zh-CN': '擅长领域', en: 'Specialties' } as Record<Language, string>,
   instFeatures: { ja: '機関の特色', 'zh-TW': '機構特色', 'zh-CN': '机构特色', en: 'Features' } as Record<Language, string>,
   instTreatments: { ja: '特色治療', 'zh-TW': '特色治療', 'zh-CN': '特色治疗', en: 'Featured Treatments' } as Record<Language, string>,
@@ -53,7 +53,7 @@ const pageTranslations = {
   // Regenerative Section
   regenTitle: { ja: '再生医療等の補助治療', 'zh-TW': '再生醫療等輔助治療', 'zh-CN': '再生医疗等辅助治疗', en: 'Regenerative Medicine & Supportive Treatments' } as Record<Language, string>,
   regenDesc: { ja: '再生医療分野の技術を活用した補助的アプローチ（※標準治療ではありません。効果には個人差があります）', 'zh-TW': '運用再生醫療領域技術的輔助性方案（※非標準治療，效果因人而異）', 'zh-CN': '运用再生医疗领域技术的辅助性方案（※非标准治疗，效果因人而异）', en: 'Supplementary approaches using regenerative medicine (※Not standard treatment. Results vary by individual)' } as Record<Language, string>,
-  regenRecovery: { ja: '身体回復', 'zh-TW': '身體恢復', 'zh-CN': '身体恢复', en: 'Body Recovery' } as Record<Language, string>,
+  regenRecovery: { ja: '身体ケア', 'zh-TW': '身體調理', 'zh-CN': '身体调理', en: 'Body Care' } as Record<Language, string>,
   regenHealth: { ja: '長期健康管理', 'zh-TW': '長期健康管理', 'zh-CN': '长期健康管理', en: 'Long-term Health' } as Record<Language, string>,
   regenPrevention: { ja: '治療後の経過観察', 'zh-TW': '治療後追蹤觀察', 'zh-CN': '治疗后追踪观察', en: 'Post-treatment Monitoring' } as Record<Language, string>,
   // Partner Section
@@ -66,7 +66,7 @@ const pageTranslations = {
   svcBookNow: { ja: '今すぐ予約', 'zh-TW': '立即預約', 'zh-CN': '立即预约', en: 'Book Now' } as Record<Language, string>,
   svcInitial1: { ja: '診療情報の翻訳（中→日）', 'zh-TW': '病歷資料翻譯（中→日）', 'zh-CN': '病历资料翻译（中→日）', en: 'Medical record translation (CN→JP)' } as Record<Language, string>,
   svcInitial2: { ja: '日本の病院への初期相談', 'zh-TW': '日本醫院初步諮詢', 'zh-CN': '日本医院初步咨询', en: 'Initial hospital consultation' } as Record<Language, string>,
-  svcInitial3: { ja: '治療可能性評価レポート', 'zh-TW': '治療可行性評估報告', 'zh-CN': '治疗可行性评估报告', en: 'Treatment feasibility report' } as Record<Language, string>,
+  svcInitial3: { ja: '医療機関による治療可能性のご回答の取り次ぎ', 'zh-TW': '轉達醫療機構對治療可行性的回覆', 'zh-CN': '转达医疗机构对治疗可行性的回复', en: 'Relay hospital response on treatment feasibility' } as Record<Language, string>,
   svcInitial4: { ja: '費用概算のご説明', 'zh-TW': '費用概算說明', 'zh-CN': '费用概算说明', en: 'Cost estimation explanation' } as Record<Language, string>,
   svcRemote1: { ja: '日本専門医とのビデオ診察', 'zh-TW': '日本專科醫生視頻會診', 'zh-CN': '日本专科医生视频会诊', en: 'Video consultation with Japanese specialist' } as Record<Language, string>,
   svcRemote2: { ja: '専門医療通訳が全行程同行', 'zh-TW': '專業醫療翻譯全程陪同', 'zh-CN': '专业医疗翻译全程陪同', en: 'Professional medical interpreter throughout' } as Record<Language, string>,
@@ -313,7 +313,7 @@ const REGENERATIVE_TREATMENTS = [
     icon: Dna,
     title: { ja: '間葉系幹細胞', 'zh-TW': '間充質幹細胞', 'zh-CN': '间充质干细胞', en: 'Mesenchymal Stem Cells' } as Record<Language, string>,
     subtitle: 'MSC Therapy',
-    purpose: { ja: '身体回復', 'zh-TW': '身體恢復', 'zh-CN': '身体恢复', en: 'Body Recovery' } as Record<Language, string>,
+    purpose: { ja: '身体ケア', 'zh-TW': '身體調理', 'zh-CN': '身体调理', en: 'Body Care' } as Record<Language, string>,
     color: 'blue',
     features: [
       { ja: '抗炎症・免疫調節', 'zh-TW': '抗炎與免疫調節', 'zh-CN': '抗炎与免疫调节', en: 'Anti-inflammation & immune regulation' } as Record<Language, string>,
@@ -339,7 +339,7 @@ const REGENERATIVE_TREATMENTS = [
     icon: Shield,
     title: { ja: 'NK等免疫細胞', 'zh-TW': 'NK等免疫細胞', 'zh-CN': 'NK等免疫细胞', en: 'NK Immune Cells' } as Record<Language, string>,
     subtitle: 'NK Cell Therapy',
-    purpose: { ja: '免疫サポート', 'zh-TW': '免疫支持', 'zh-CN': '免疫支持', en: 'Immune Support' } as Record<Language, string>,
+    purpose: { ja: '免疫ケア', 'zh-TW': '免疫調理', 'zh-CN': '免疫调理', en: 'Immune Care' } as Record<Language, string>,
     color: 'green',
     features: [
       { ja: '免疫機能へのアプローチ', 'zh-TW': '免疫功能的輔助探索', 'zh-CN': '免疫功能的辅助探索', en: 'Approach to immune function support' } as Record<Language, string>,
@@ -696,7 +696,7 @@ const JAPAN_MEDICAL_INSTITUTIONS = [
           L('血液腫瘍', '血液腫瘤', '血液肿瘤', 'Hematologic Tumors'),
         ],
         features: [
-          L('日本がん研究の最高学府', '日本癌症研究最高學府', '日本癌症研究最高学府', "Japan's top cancer research institution"),
+          L('日本がん研究の中核機関', '日本癌症研究核心機構', '日本癌症研究核心机构', "Japan's core cancer research institution"),
           L('年間手術件数 8,000例超', '年手術量超 8,000 例', '年手术量超 8,000 例', 'Over 8,000 surgeries per year'),
           L('最新臨床試験に優先参加', '最新臨床試驗優先參與', '最新临床试验优先参与', 'Priority access to latest clinical trials'),
           L('多職種チーム合同カンファレンス', '多學科團隊會診制度', '多学科团队会诊制度', 'Multidisciplinary team conferences'),
@@ -746,7 +746,7 @@ const JAPAN_MEDICAL_INSTITUTIONS = [
           L('再発難治がん', '復發難治癌症', '复发难治癌症', 'Refractory / Recurrent Cancers'),
         ],
         features: [
-          L('日本医学の最高学府', '日本醫學最高學府', '日本医学最高学府', "Japan's top medical university"),
+          L('日本を代表する医学研究機関', '日本代表性醫學研究機構', '日本代表性医学研究机构', "One of Japan's leading medical research institutions"),
           L('最新治療技術の臨床応用', '最新治療技術臨床應用', '最新治疗技术临床应用', 'Clinical application of cutting-edge treatments'),
           L('難病診断能力に優れる', '疑難雜症診斷能力強', '疑难杂症诊断能力强', 'Exceptional diagnostics for complex cases'),
         ],
