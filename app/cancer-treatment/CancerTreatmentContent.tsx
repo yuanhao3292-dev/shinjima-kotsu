@@ -16,7 +16,7 @@ const pageTranslations = {
   // Hero
   heroBadge: { ja: '日本がん治療', 'zh-TW': '日本癌症治療', 'zh-CN': '日本癌症治疗', en: 'Japan Cancer Treatment' } as Record<Language, string>,
   heroTitle1: { ja: '日本がん治療', 'zh-TW': '日本癌症治療', 'zh-CN': '日本癌症治疗', en: 'Japan Cancer Treatment' } as Record<Language, string>,
-  heroTitle2: { ja: '5年生存率が高水準', 'zh-TW': '五年存活率位居世界前列', 'zh-CN': '五年存活率位居世界前列', en: '5-Year Survival Rate Among World\'s Highest' } as Record<Language, string>,
+  heroTitle2: { ja: '5年生存率が国際的に高水準', 'zh-TW': '五年存活率達國際高水準', 'zh-CN': '五年存活率达国际高水准', en: '5-Year Survival Rate at Internationally High Standards' } as Record<Language, string>,
   heroStat: { ja: 'Lancet研究によると日本のがん5年生存率は', 'zh-TW': '柳葉刀研究顯示日本癌症五年存活率達', 'zh-CN': '柳叶刀研究显示日本癌症五年存活率达', en: 'Lancet research shows Japan cancer 5-year survival rate reaches' } as Record<Language, string>,
   heroDesc: { ja: '先進的な治療法が日本に集結', 'zh-TW': '先進療法匯聚日本', 'zh-CN': '先进疗法汇聚日本', en: 'Advanced treatments converge in Japan' } as Record<Language, string>,
   heroCTA: { ja: '治療プランを相談', 'zh-TW': '諮詢治療方案', 'zh-CN': '咨询治疗方案', en: 'Consult Treatment Plan' } as Record<Language, string>,
@@ -49,10 +49,10 @@ const pageTranslations = {
   flowClickPhase: { ja: 'フェーズをクリックして詳細を確認', 'zh-TW': '點擊階段查看詳情', 'zh-CN': '点击阶段查看详情', en: 'Click a phase to see details' } as Record<Language, string>,
   // Standard Treatment Section
   stdTitle: { ja: 'がん標準治療', 'zh-TW': '癌症標準治療', 'zh-CN': '癌症标准治疗', en: 'Standard Cancer Treatments' } as Record<Language, string>,
-  stdDesc: { ja: '高い安全性、精密な治療、QOL重視、EBMと多職種連携を強調', 'zh-TW': '安全性高、治療精準、重視生活質量（QOL）、強調循證醫學與多學科協作', 'zh-CN': '安全性高、治疗精准、重视生活质量（QOL）、强调循证医学与多学科协作', en: 'High safety, precision treatment, QOL-focused, evidence-based multidisciplinary approach' } as Record<Language, string>,
+  stdDesc: { ja: '安全性重視、精密な治療、QOL重視、EBMと多職種連携を強調', 'zh-TW': '重視安全性、治療精準、重視生活質量（QOL）、強調循證醫學與多學科協作', 'zh-CN': '重视安全性、治疗精准、重视生活质量（QOL）、强调循证医学与多学科协作', en: 'Safety-focused, precision treatment, QOL-focused, evidence-based multidisciplinary approach' } as Record<Language, string>,
   // Regenerative Section
   regenTitle: { ja: '再生医療等の補助治療', 'zh-TW': '再生醫療等輔助治療', 'zh-CN': '再生医疗等辅助治疗', en: 'Regenerative Medicine & Supportive Treatments' } as Record<Language, string>,
-  regenDesc: { ja: '再生医療技術で身体回復と治療後のケアをサポート', 'zh-TW': '結合再生醫療技術，幫助患者身體恢復及治療後護理', 'zh-CN': '结合再生医疗技术，帮助患者身体恢复及治疗后护理', en: 'Supporting recovery and post-treatment care with regenerative medicine' } as Record<Language, string>,
+  regenDesc: { ja: '再生医療分野の技術を活用した補助的アプローチ（※標準治療ではありません。効果には個人差があります）', 'zh-TW': '運用再生醫療領域技術的輔助性方案（※非標準治療，效果因人而異）', 'zh-CN': '运用再生医疗领域技术的辅助性方案（※非标准治疗，效果因人而异）', en: 'Supplementary approaches using regenerative medicine (※Not standard treatment. Results vary by individual)' } as Record<Language, string>,
   regenRecovery: { ja: '身体回復', 'zh-TW': '身體恢復', 'zh-CN': '身体恢复', en: 'Body Recovery' } as Record<Language, string>,
   regenHealth: { ja: '長期健康管理', 'zh-TW': '長期健康管理', 'zh-CN': '长期健康管理', en: 'Long-term Health' } as Record<Language, string>,
   regenPrevention: { ja: '治療後の経過観察', 'zh-TW': '治療後追蹤觀察', 'zh-CN': '治疗后追踪观察', en: 'Post-treatment Monitoring' } as Record<Language, string>,
@@ -251,7 +251,7 @@ const STANDARD_TREATMENTS = [
     title: { ja: '手術', 'zh-TW': '手術', 'zh-CN': '手术', en: 'Surgery' } as Record<Language, string>,
     color: 'blue',
     features: [
-      { ja: '創傷が小さく、回復が早く、安全性が高い', 'zh-TW': '創傷小、恢復快、安全性高', 'zh-CN': '创伤小、恢复快、安全性高', en: 'Minimally invasive, fast recovery, high safety' } as Record<Language, string>,
+      { ja: '低侵襲アプローチで創傷が小さく、回復が早い', 'zh-TW': '微創手術，創傷小、恢復快', 'zh-CN': '微创手术，创伤小、恢复快', en: 'Minimally invasive approach with reduced trauma and faster recovery' } as Record<Language, string>,
       { ja: '生存率だけでなく、術後のQOLを重視', 'zh-TW': '不僅追求生存率，更重視術後生活質量', 'zh-CN': '不仅追求生存率，更重视术后生活质量', en: 'Prioritizes post-surgery quality of life' } as Record<Language, string>,
       { ja: '食事・排尿・会話等の機能保護', 'zh-TW': '進食、排尿、說話等功能保護', 'zh-CN': '进食、排尿、说话等功能保护', en: 'Protects eating, urinary, speech functions' } as Record<Language, string>,
     ],
@@ -264,10 +264,10 @@ const STANDARD_TREATMENTS = [
     color: 'green',
     features: [
       { ja: '患者の年齢・体力・合併症に応じて投与量を調整', 'zh-TW': '根據患者年齡、體力、合併症調整劑量', 'zh-CN': '根据患者年龄、体力、合并症调整剂量', en: 'Dosage adjusted for age, fitness, comorbidities' } as Record<Language, string>,
-      { ja: '副作用管理が非常にきめ細かい', 'zh-TW': '副作用管理非常細緻', 'zh-CN': '副作用管理非常细致', en: 'Meticulous side effect management' } as Record<Language, string>,
+      { ja: 'プロトコルに基づく副作用モニタリング', 'zh-TW': '基於規範的副作用監測管理', 'zh-CN': '基于规范的副作用监测管理', en: 'Protocol-based side effect monitoring' } as Record<Language, string>,
       { ja: '高齢患者や慢性腫瘍患者に最適', 'zh-TW': '適合高齡患者、慢性腫瘤患者', 'zh-CN': '适合高龄患者、慢性肿瘤患者', en: 'Suitable for elderly and chronic tumor patients' } as Record<Language, string>,
     ],
-    desc: { ja: '最大投与量を追求せず、個体差に基づき最適な方案を策定し、副作用を最小限に抑えます。', 'zh-TW': '不一味追求最大劑量，而是根據個體差異制定最適合的方案，把副作用降到最低。', 'zh-CN': '不一味追求最大剂量，而是根据个体差异制定最适合的方案，把副作用降到最低。', en: 'Optimized for individual differences, minimizing side effects rather than maximizing dosage.' } as Record<Language, string>,
+    desc: { ja: '最大投与量を追求せず、個体差に基づき最適な方案を策定し、副作用の軽減を目指します。', 'zh-TW': '不一味追求最大劑量，而是根據個體差異制定方案，力求減輕副作用。', 'zh-CN': '不一味追求最大剂量，而是根据个体差异制定方案，力求减轻副作用。', en: 'Plans tailored to individual differences, aiming to reduce side effects rather than maximizing dosage.' } as Record<Language, string>,
   },
   {
     id: 'radiation',
@@ -277,9 +277,9 @@ const STANDARD_TREATMENTS = [
     features: [
       { ja: '陽子線・重粒子線治療の実績が豊富', 'zh-TW': '陽子線、重離子線治療經驗豐富', 'zh-CN': '质子线、重离子线治疗经验丰富', en: 'Extensive proton and heavy ion therapy experience' } as Record<Language, string>,
       { ja: '定位放射線治療技術が成熟', 'zh-TW': '立體定向放射治療技術成熟', 'zh-CN': '立体定向放射治疗技术成熟', en: 'Mature stereotactic radiation technology' } as Record<Language, string>,
-      { ja: '正常組織を最大限に保護し合併症を軽減', 'zh-TW': '最大限度保護正常組織，減少併發症', 'zh-CN': '最大限度保护正常组织，减少并发症', en: 'Maximum protection of normal tissue' } as Record<Language, string>,
+      { ja: '正常組織への影響を抑え、合併症リスクの低減を目指す', 'zh-TW': '旨在降低對正常組織的影響，減少併發症風險', 'zh-CN': '旨在降低对正常组织的影响，减少并发症风险', en: 'Aims to reduce impact on normal tissue and lower complication risk' } as Record<Language, string>,
     ],
-    desc: { ja: '高精度放射線技術で腫瘍細胞を精確に攻撃し、周囲の正常組織への損傷を最小限に抑えます。', 'zh-TW': '高精度放射線技術可精準打擊腫瘤細胞，同時將對周圍正常組織的損傷降到最低。', 'zh-CN': '高精度放射线技术可精准打击肿瘤细胞，同时将对周围正常组织的损伤降到最低。', en: 'High-precision radiation precisely targets tumor cells while minimizing damage to surrounding tissue.' } as Record<Language, string>,
+    desc: { ja: '高精度放射線技術で腫瘍細胞を狙い、周囲の正常組織への影響を抑えることを目指します。', 'zh-TW': '高精度放射線技術旨在精準瞄準腫瘤細胞，盡可能減少對周圍正常組織的影響。', 'zh-CN': '高精度放射线技术旨在精准瞄准肿瘤细胞，尽可能减少对周围正常组织的影响。', en: 'High-precision radiation targets tumor cells, aiming to reduce impact on surrounding tissue.' } as Record<Language, string>,
   },
   {
     id: 'immune',
@@ -289,7 +289,7 @@ const STANDARD_TREATMENTS = [
     features: [
       { ja: '適応症の厳格なスクリーニング', 'zh-TW': '嚴格篩選適應症', 'zh-CN': '严格筛选适应症', en: 'Strict indication screening' } as Record<Language, string>,
       { ja: '免疫関連有害事象に高度に警戒', 'zh-TW': '高度警惕免疫相關不良反應', 'zh-CN': '高度警惕免疫相关不良反应', en: 'Highly vigilant of immune-related adverse events' } as Record<Language, string>,
-      { ja: '正常臓器への「誤爆」を最小限に', 'zh-TW': '把對正常器官的「誤傷」控制到最低', 'zh-CN': '把对正常器官的"误伤"控制到最低', en: 'Minimize "friendly fire" on normal organs' } as Record<Language, string>,
+      { ja: '正常臓器への影響を抑える管理体制', 'zh-TW': '管控對正常器官的影響', 'zh-CN': '管控对正常器官的影响', en: 'Protocols to manage impact on normal organs' } as Record<Language, string>,
     ],
     desc: { ja: '免疫療法の効果を発揮しながら、精密な管理で免疫系統による正常臓器への攻撃を防ぎます。', 'zh-TW': '在發揮免疫治療效果的同時，通過精細管理避免免疫系統攻擊正常器官。', 'zh-CN': '在发挥免疫治疗效果的同时，通过精细管理避免免疫系统攻击正常器官。', en: 'Leveraging immunotherapy while preventing immune attacks on normal organs through precise management.' } as Record<Language, string>,
   },
@@ -317,8 +317,8 @@ const REGENERATIVE_TREATMENTS = [
     color: 'blue',
     features: [
       { ja: '抗炎症・免疫調節', 'zh-TW': '抗炎與免疫調節', 'zh-CN': '抗炎与免疫调节', en: 'Anti-inflammation & immune regulation' } as Record<Language, string>,
-      { ja: '化学療法・放射線治療後の身体回復', 'zh-TW': '化療、放療後的身體恢復', 'zh-CN': '化疗、放疗后的身体恢复', en: 'Post-chemo/radiation body recovery' } as Record<Language, string>,
-      { ja: '組織再生を促進', 'zh-TW': '促進組織再生', 'zh-CN': '促进组织再生', en: 'Promotes tissue regeneration' } as Record<Language, string>,
+      { ja: '化学療法・放射線治療後の身体ケア', 'zh-TW': '化療、放療後的身體調理', 'zh-CN': '化疗、放疗后的身体调理', en: 'Post-chemo/radiation body care' } as Record<Language, string>,
+      { ja: '組織修復へのアプローチ', 'zh-TW': '組織修復的輔助探索', 'zh-CN': '组织修复的辅助探索', en: 'Approach to tissue repair support' } as Record<Language, string>,
     ],
   },
   {
@@ -329,8 +329,8 @@ const REGENERATIVE_TREATMENTS = [
     purpose: { ja: '長期健康管理', 'zh-TW': '長期健康管理', 'zh-CN': '长期健康管理', en: 'Long-term Health' } as Record<Language, string>,
     color: 'purple',
     features: [
-      { ja: '細胞修復を促進', 'zh-TW': '促進細胞修復', 'zh-CN': '促进细胞修复', en: 'Promotes cell repair' } as Record<Language, string>,
-      { ja: '治療後の長期健康管理', 'zh-TW': '治療後的長期健康管理', 'zh-CN': '治疗后的长期健康管理', en: 'Long-term post-treatment health management' } as Record<Language, string>,
+      { ja: '細胞修復へのアプローチ', 'zh-TW': '細胞修復的輔助探索', 'zh-CN': '细胞修复的辅助探索', en: 'Approach to cell repair support' } as Record<Language, string>,
+      { ja: '治療後の健康管理を目指す', 'zh-TW': '著眼於治療後的健康管理', 'zh-CN': '着眼于治疗后的健康管理', en: 'Aimed at post-treatment health management' } as Record<Language, string>,
       { ja: 'アンチエイジングケア', 'zh-TW': '抗衰老調理', 'zh-CN': '抗衰老调理', en: 'Anti-aging care' } as Record<Language, string>,
     ],
   },
@@ -342,8 +342,8 @@ const REGENERATIVE_TREATMENTS = [
     purpose: { ja: '免疫サポート', 'zh-TW': '免疫支持', 'zh-CN': '免疫支持', en: 'Immune Support' } as Record<Language, string>,
     color: 'green',
     features: [
-      { ja: '免疫機能の維持をサポート', 'zh-TW': '輔助維持免疫功能', 'zh-CN': '辅助维持免疫功能', en: 'Supports immune function maintenance' } as Record<Language, string>,
-      { ja: '体の自然防御力をケア', 'zh-TW': '護理身體自然防禦力', 'zh-CN': '护理身体自然防御力', en: 'Supports natural defense capacity' } as Record<Language, string>,
+      { ja: '免疫機能へのアプローチ', 'zh-TW': '免疫功能的輔助探索', 'zh-CN': '免疫功能的辅助探索', en: 'Approach to immune function support' } as Record<Language, string>,
+      { ja: '体の自然防御力に着目したケア', 'zh-TW': '著眼於身體自然防禦力的調理', 'zh-CN': '着眼于身体自然防御力的调理', en: 'Care focused on natural defense capacity' } as Record<Language, string>,
       { ja: '治療後の健康管理の一環', 'zh-TW': '治療後健康管理的一環', 'zh-CN': '治疗后健康管理的一环', en: 'Part of post-treatment health management' } as Record<Language, string>,
     ],
   },
