@@ -41,10 +41,10 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
   // 统计数据 — 仅使用可验证的事实
   const stats = [
-    { value: '25+', label: t.golf.stat_courses || '提携名門コース', sublabel: 'Premium Courses' },
-    { value: '7', label: currentLang === 'zh-TW' ? '地區覆蓋' : currentLang === 'zh-CN' ? '地区覆盖' : currentLang === 'ja' ? '対応エリア' : 'Regions', sublabel: 'Across Japan' },
-    { value: 'VIP', label: currentLang === 'zh-TW' ? '專屬待遇' : currentLang === 'zh-CN' ? '专属待遇' : currentLang === 'ja' ? '専用サービス' : 'Exclusive Service', sublabel: 'Members Only Access' },
-    { value: '2020', label: currentLang === 'zh-TW' ? '公司成立' : currentLang === 'zh-CN' ? '公司成立' : currentLang === 'ja' ? '会社設立' : 'Established', sublabel: 'Osaka, Japan' },
+    { value: '25+', label: t.golf.stat_courses || '提携名門コース', sublabel: currentLang === 'zh-TW' ? '頂級球場' : currentLang === 'zh-CN' ? '顶级球场' : currentLang === 'ja' ? 'プレミアムコース' : 'Premium Courses' },
+    { value: '7', label: currentLang === 'zh-TW' ? '地區覆蓋' : currentLang === 'zh-CN' ? '地区覆盖' : currentLang === 'ja' ? '対応エリア' : 'Regions', sublabel: currentLang === 'zh-TW' ? '遍佈日本' : currentLang === 'zh-CN' ? '遍布日本' : currentLang === 'ja' ? '日本全国' : 'Across Japan' },
+    { value: 'VIP', label: currentLang === 'zh-TW' ? '專屬待遇' : currentLang === 'zh-CN' ? '专属待遇' : currentLang === 'ja' ? '専用サービス' : 'Exclusive Service', sublabel: currentLang === 'zh-TW' ? '會員專屬通道' : currentLang === 'zh-CN' ? '会员专属通道' : currentLang === 'ja' ? '会員限定アクセス' : 'Members Only Access' },
+    { value: '2020', label: currentLang === 'zh-TW' ? '公司成立' : currentLang === 'zh-CN' ? '公司成立' : currentLang === 'ja' ? '会社設立' : 'Established', sublabel: currentLang === 'ja' ? '大阪' : 'Osaka, Japan' },
   ];
 
   return (
@@ -76,7 +76,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
          <div className="max-w-4xl">
            <div className="flex items-center gap-3 mb-8">
              <div className="h-[1px] w-12 bg-gold-400"></div>
-             <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">PREMIUM GOLF</span>
+             <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">{currentLang === 'zh-TW' ? '頂級高爾夫' : currentLang === 'zh-CN' ? '顶级高尔夫' : currentLang === 'ja' ? 'プレミアムゴルフ' : 'PREMIUM GOLF'}</span>
            </div>
            <h1 className="text-4xl md:text-6xl font-serif text-white mb-6 leading-tight">
              {t.golf.title_1}
@@ -131,7 +131,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
              <div className="w-12 h-px bg-gradient-to-l from-transparent to-gold-400"></div>
            </div>
            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-neutral-900 golf-title-decorated">
-             Why Choose Niijima Golf?
+             {currentLang === 'zh-TW' ? '為什麼選擇新島高爾夫？' : currentLang === 'zh-CN' ? '为什么选择新岛高尔夫？' : currentLang === 'ja' ? 'なぜ新島ゴルフ？' : 'Why Choose Niijima Golf?'}
            </h2>
          </div>
 
@@ -179,7 +179,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
          <div className="text-center mb-12">
            <div className="inline-flex items-center gap-4 mb-4">
              <div className="w-12 h-px bg-gradient-to-r from-transparent to-gold-400"></div>
-             <span className="text-gold-400 text-xs tracking-[0.3em] uppercase font-bold">Partner Courses</span>
+             <span className="text-gold-400 text-xs tracking-[0.3em] uppercase font-bold">{currentLang === 'zh-TW' ? '合作球場' : currentLang === 'zh-CN' ? '合作球场' : currentLang === 'ja' ? '提携コース' : 'Partner Courses'}</span>
              <div className="w-12 h-px bg-gradient-to-l from-transparent to-gold-400"></div>
            </div>
            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-white">{t.golf.partners_title || '提携名門コース'}</h2>
@@ -204,7 +204,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                {/* External link indicator */}
                <div className="mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
                  <span className="text-[10px] text-gold-400/70 flex items-center justify-center gap-1">
-                   Official Site <ArrowRight size={10} />
+                   {currentLang === 'zh-TW' ? '官方網站' : currentLang === 'zh-CN' ? '官方网站' : currentLang === 'ja' ? '公式サイト' : 'Official Site'} <ArrowRight size={10} />
                  </span>
                </div>
              </a>
@@ -213,7 +213,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
          {/* More Courses Hint */}
          <div className="text-center mt-8">
-           <span className="text-white/40 text-sm">...and 20+ more exclusive courses across Japan</span>
+           <span className="text-white/40 text-sm">{currentLang === 'zh-TW' ? '...以及日本各地 20+ 座頂級球場' : currentLang === 'zh-CN' ? '...以及日本各地 20+ 座顶级球场' : currentLang === 'ja' ? '...ほか日本全国20以上の名門コース' : '...and 20+ more exclusive courses across Japan'}</span>
          </div>
        </div>
      </div>
@@ -225,11 +225,11 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
          <div className="text-center mb-20">
            <div className="inline-flex items-center gap-4 mb-4">
              <div className="w-12 h-px bg-gradient-to-r from-transparent to-gold-400"></div>
-             <span className="text-gold-600 text-xs tracking-[0.3em] uppercase font-bold">{(t.golf as any).plans_section_label || 'Signature Itineraries'}</span>
+             <span className="text-gold-600 text-xs tracking-[0.3em] uppercase font-bold">{(t.golf as any).plans_section_label || (currentLang === 'zh-TW' ? '精選行程' : currentLang === 'zh-CN' ? '精选行程' : currentLang === 'ja' ? '厳選プラン' : 'Signature Itineraries')}</span>
              <div className="w-12 h-px bg-gradient-to-l from-transparent to-gold-400"></div>
            </div>
-           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-neutral-900 mb-4">{(t.golf as any).plans_section_title || 'Recommended Itineraries'}</h2>
-           <p className="text-neutral-500 max-w-xl mx-auto">{(t.golf as any).plans_section_subtitle || 'Curated experiences for discerning golfers'}</p>
+           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-neutral-900 mb-4">{(t.golf as any).plans_section_title || (currentLang === 'zh-TW' ? '推薦行程' : currentLang === 'zh-CN' ? '推荐行程' : currentLang === 'ja' ? 'おすすめプラン' : 'Recommended Itineraries')}</h2>
+           <p className="text-neutral-500 max-w-xl mx-auto">{(t.golf as any).plans_section_subtitle || (currentLang === 'zh-TW' ? '為鑑賞家精心策劃的高爾夫體驗' : currentLang === 'zh-CN' ? '为鉴赏家精心策划的高尔夫体验' : currentLang === 'ja' ? '目の肥えたゴルファーのための厳選体験' : 'Curated experiences for discerning golfers')}</p>
          </div>
 
          {/* Plan Cards - Premium Design */}
@@ -308,7 +308,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                              <Building size={18} className="text-brand-600" />
                            </div>
                            <div>
-                             <span className="text-xs text-neutral-400 uppercase tracking-wider">Accommodation</span>
+                             <span className="text-xs text-neutral-400 uppercase tracking-wider">{currentLang === 'zh-TW' ? '住宿' : currentLang === 'zh-CN' ? '住宿' : currentLang === 'ja' ? '宿泊' : 'Accommodation'}</span>
                              <p className="text-neutral-900 font-bold">{plan.hotel}</p>
                            </div>
                         </div>

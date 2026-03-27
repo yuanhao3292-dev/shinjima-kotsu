@@ -6,7 +6,7 @@ import { ArrowLeft, Handshake, Shield, Phone } from 'lucide-react';
 import TestimonialWall from '../TestimonialWall';
 import type { SubViewProps } from './types';
 
-const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerInquiry, getImage }) => (
+const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerInquiry, currentLang, getImage }) => (
   <div className="animate-fade-in-up min-h-screen bg-white">
      {/* Hero - Full height with transparent nav overlap */}
      <div className="relative min-h-[85vh] flex flex-col items-center justify-center overflow-hidden">
@@ -61,7 +61,7 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
 
          {/* --- INSERT TESTIMONIAL WALL HERE --- */}
          <div className="mb-24">
-            <TestimonialWall />
+            <TestimonialWall currentLang={currentLang} />
          </div>
 
          <div className="bg-brand-900 text-white rounded-3xl p-12">

@@ -229,7 +229,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             {/* 标签 */}
             <div className="flex items-center gap-3 mb-8">
               <div className="h-[1px] w-12 bg-brand-400"></div>
-              <span className="text-xs tracking-[0.3em] text-brand-400 uppercase">Medical Tourism</span>
+              <span className="text-xs tracking-[0.3em] text-brand-400 uppercase">{currentLang === 'zh-TW' ? '醫療旅遊' : currentLang === 'zh-CN' ? '医疗旅游' : currentLang === 'ja' ? 'メディカルツーリズム' : 'Medical Tourism'}</span>
             </div>
 
             {/* 核心标题 - 温暖、给人希望 */}
@@ -246,7 +246,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             {/* 核心数据 */}
             <div className="grid grid-cols-3 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-white/20">
               <div className="text-center">
-                <div className="text-2xl md:text-4xl font-light text-white mb-1">10<span className="text-brand-300">+</span></div>
+                <div className="text-2xl md:text-4xl font-light text-white mb-1">150<span className="text-brand-300">+</span></div>
                 <div className="text-[10px] md:text-xs text-brand-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '提攜醫療機構' : currentLang === 'zh-CN' ? '提携医疗机构' : currentLang === 'ja' ? '提携医療機関' : 'Partner Clinics'}</div>
               </div>
               <div className="border-x border-white/20 px-2 md:px-6 py-12 md:py-24 text-center">

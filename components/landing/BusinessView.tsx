@@ -152,7 +152,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
           <div className="max-w-4xl">
             <div className="flex items-center gap-3 mb-8">
               <div className="h-[1px] w-12 bg-gold-400"></div>
-              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">BUSINESS INSPECTION</span>
+              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">{currentLang === 'zh-TW' ? '商務考察' : currentLang === 'zh-CN' ? '商务考察' : currentLang === 'ja' ? '企業視察' : 'BUSINESS INSPECTION'}</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-serif text-white mb-6 leading-tight">
               {t.business.hero_title}
@@ -289,7 +289,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
           <div id="business-plans-section" className="mb-24 scroll-mt-24">
              <div className="text-center mb-16">
                 <h3 className="text-3xl font-serif text-neutral-900">{t.business.itin_title}</h3>
-                <p className="text-neutral-500 text-sm mt-2">Curated for Executives</p>
+                <p className="text-neutral-500 text-sm mt-2">{currentLang === 'zh-TW' ? '為企業高管精心策劃' : currentLang === 'zh-CN' ? '为企业高管精心策划' : currentLang === 'ja' ? 'エグゼクティブ向け厳選プラン' : 'Curated for Executives'}</p>
              </div>
 
              <div className="space-y-20">

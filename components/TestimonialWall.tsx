@@ -179,16 +179,20 @@ const MarqueeRow = ({ reviews, direction = 'left', duration = '60s' }: { reviews
   );
 };
 
-const TestimonialWall: React.FC = () => {
+const TestimonialWall: React.FC<{ currentLang?: string }> = ({ currentLang = 'ja' }) => {
   // Split into 3 rows for horizontal flow
   const rows = chunkArray(REVIEWS, 3);
+
+  const headerLabel = currentLang === 'zh-TW' ? '合作夥伴心聲' : currentLang === 'zh-CN' ? '合作伙伴心声' : currentLang === 'ja' ? 'パートナーの声' : 'Voice of Partners';
+  const headerTitle = currentLang === 'zh-TW' ? '100+ 旅行社的真實評價' : currentLang === 'zh-CN' ? '100+ 旅行社的真实评价' : currentLang === 'ja' ? '100+ 旅行社のリアルな評価' : '100+ Real Reviews from Travel Agencies';
+  const headerSub = currentLang === 'zh-TW' ? '來自台灣、中國、香港、新加坡的專業旅行社信賴之選' : currentLang === 'zh-CN' ? '来自台湾、中国、香港、新加坡的专业旅行社信赖之选' : currentLang === 'ja' ? '台湾・中国・香港・シンガポールのプロフェッショナルたちから選ばれています' : 'Trusted by professionals from Taiwan, China, Hong Kong & Singapore';
 
   return (
     <div className="w-full bg-neutral-50 py-20 border-y border-neutral-200 overflow-hidden relative">
       <div className="container mx-auto px-6 mb-12 text-center">
-         <span className="text-brand-700 font-bold tracking-widest text-xs uppercase bg-brand-50 px-3 py-1 rounded-full">Voice of Partners</span>
-         <h2 className="text-3xl font-serif text-neutral-900 mt-4">100+ 旅行社のリアルな評価</h2>
-         <p className="text-neutral-500 text-sm mt-2">台湾・中国・香港・シンガポールのプロフェッショナルたちから選ばれています</p>
+         <span className="text-brand-700 font-bold tracking-widest text-xs uppercase bg-brand-50 px-3 py-1 rounded-full">{headerLabel}</span>
+         <h2 className="text-3xl font-serif text-neutral-900 mt-4">{headerTitle}</h2>
+         <p className="text-neutral-500 text-sm mt-2">{headerSub}</p>
       </div>
 
       <div className="flex flex-col gap-8">
