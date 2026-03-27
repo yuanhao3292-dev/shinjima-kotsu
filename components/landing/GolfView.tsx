@@ -7,34 +7,8 @@ import ContactButtons from '../ContactButtons';
 import type { SubViewProps } from './types';
 
 const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, currentLang, getImage }) => {
-  // Default images as fallback - All URLs verified working (Unsplash)
-  const defaultPlanImages: Record<string, string> = {
-    'hokkaido-summer': 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=1200&auto=format&fit=crop',
-    'hokkaido-niseko': 'https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=1200&auto=format&fit=crop',
-    'hokkaido-premium': 'https://images.unsplash.com/photo-1592919505780-303950717480?q=80&w=1200&auto=format&fit=crop',
-    'okinawa-resort': 'https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?q=80&w=1200&auto=format&fit=crop',
-    'okinawa-island-hop': 'https://images.unsplash.com/photo-1596727362302-b8d891c42ab8?q=80&w=1200&auto=format&fit=crop',
-    'kyushu-onsen': 'https://images.unsplash.com/photo-1611374243147-44a702c2d44c?q=80&w=1200&auto=format&fit=crop',
-    'kyushu-championship': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=1200&auto=format&fit=crop',
-    'kyushu-grand': 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=1200&auto=format&fit=crop',
-    'chugoku-sanyo': 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?q=80&w=1200&auto=format&fit=crop',
-    'chugoku-sanin': 'https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=1200&auto=format&fit=crop',
-    'shikoku-pilgrimage': 'https://images.unsplash.com/photo-1589308078059-be1415eab4c3?q=80&w=1200&auto=format&fit=crop',
-    'shikoku-seto': 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=1200&auto=format&fit=crop',
-    'kansai-championship': 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=1200&auto=format&fit=crop',
-    'kansai-kyoto': 'https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=1200&auto=format&fit=crop',
-    'kansai-hirono': 'https://images.unsplash.com/photo-1592919505780-303950717480?q=80&w=1200&auto=format&fit=crop',
-    'tokyo-championship': 'https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?q=80&w=1200&auto=format&fit=crop',
-    'tokyo-fuji': 'https://images.unsplash.com/photo-1596727362302-b8d891c42ab8?q=80&w=1200&auto=format&fit=crop',
-    'tokyo-historic': 'https://images.unsplash.com/photo-1611374243147-44a702c2d44c?q=80&w=1200&auto=format&fit=crop',
-    'chubu-alps': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=1200&auto=format&fit=crop',
-    'chubu-nagoya': 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=1200&auto=format&fit=crop',
-  };
-
   // State for database images (starts empty, merged after API fetch)
   const [dbImages, setDbImages] = useState<Record<string, string>>({});
-  // Track failed image IDs to use fallback
-  const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
 
   // Fetch images from API (database) on mount
   useEffect(() => {
@@ -50,36 +24,9 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       });
   }, []);
 
-  // Image resolution: DB image > default Unsplash > golf_hero fallback
-  // If an image has failed loading, skip the failed source
+  // 获取方案图片：DB > 空（显示骨架屏）
   const getPlanImage = (id: string): string => {
-    const dbUrl = dbImages[id];
-    const defaultUrl = defaultPlanImages[id];
-    const heroFallback = getImage('golf_hero');
-
-    if (failedImages.has(id)) {
-      // Primary source failed, try default Unsplash
-      if (failedImages.has(`${id}-default`)) {
-        // Both failed, use hero fallback
-        return heroFallback;
-      }
-      return defaultUrl || heroFallback;
-    }
-    return dbUrl || defaultUrl || heroFallback;
-  };
-
-  const handlePlanImageError = (planId: string) => {
-    setFailedImages(prev => {
-      const next = new Set(prev);
-      if (!next.has(planId)) {
-        // First failure: mark primary as failed (will try default Unsplash)
-        next.add(planId);
-      } else if (!next.has(`${planId}-default`)) {
-        // Second failure: mark default as also failed (will use hero)
-        next.add(`${planId}-default`);
-      }
-      return next;
-    });
+    return dbImages[id] || '';
   };
 
   // 合作球场数据 — 从翻译数据获取
@@ -105,15 +52,19 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
      {/* 1. Hero Section - Cancer Treatment style */}
      <section className="relative min-h-screen flex items-center bg-brand-900 overflow-hidden">
        <div className="absolute inset-0">
-         <Image
-           src={getImage('golf_hero')}
-           fill
-           className="object-cover object-center"
-           alt="Premium Golf Course Japan"
-           sizes="100vw"
-           quality={75}
-           priority
-         />
+         {getImage('golf_hero') ? (
+           <Image
+             src={getImage('golf_hero')}
+             fill
+             className="object-cover object-center"
+             alt="Premium Golf Course Japan"
+             sizes="100vw"
+             quality={75}
+             priority
+           />
+         ) : (
+           <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+         )}
          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70"></div>
        </div>
        {/* Decorative Elements */}
@@ -297,16 +248,21 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
                         {/* Image */}
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[450px] lg:h-[500px] bg-gradient-to-br from-neutral-200 via-neutral-100 to-neutral-200">
-                           <Image
-                              src={getPlanImage(plan.id)}
-                              fill
-                              className="object-cover transform group-hover:scale-105 transition duration-1000"
-                              alt={plan.title}
-                              sizes="(max-width: 768px) 100vw, 50vw"
-                              quality={75}
-                              priority={index < 2}
-                              onError={() => handlePlanImageError(plan.id)}
-                           />
+                           {getPlanImage(plan.id) ? (
+                             <Image
+                                src={getPlanImage(plan.id)}
+                                fill
+                                className="object-cover transform group-hover:scale-105 transition duration-1000"
+                                alt={plan.title}
+                                sizes="(max-width: 768px) 100vw, 50vw"
+                                quality={75}
+                                priority={index < 2}
+                             />
+                           ) : (
+                             <div className="absolute inset-0 bg-gradient-to-br from-neutral-200 via-neutral-100 to-neutral-200 animate-pulse flex items-center justify-center">
+                               <div className="w-12 h-12 border-2 border-neutral-300 border-t-brand-500 rounded-full animate-spin" />
+                             </div>
+                           )}
                            {/* Gradient overlay */}
                            <div className="absolute inset-0 golf-image-overlay"></div>
 

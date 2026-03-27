@@ -30,104 +30,24 @@ const BusinessView = dynamic(() => import('./landing/BusinessView'), { ssr: fals
 const PartnerView = dynamic(() => import('./landing/PartnerView'), { ssr: false });
 
 // --- IMAGE ASSETS CONFIGURATION ---
-// 硬编码的默认图片（作为数据库未配置时的 fallback）
+// 仅保留实际上传的真实图片（ibb.co），不使用 Unsplash 占位图
 // 所有图片都可以在数据库 site_images 表中更换
 const DEFAULT_SITE_IMAGES: Record<string, string> = {
-  // Medical Page - User Provided Direct Links
+  // Medical Page - 实际拍摄/提供的图片
   medical_hero: "https://i.ibb.co/xS1h4rTM/hero-medical.jpg",
   tech_ct: "https://i.ibb.co/mFbDmCvg/tech-ct.jpg",
   tech_mri: "https://i.ibb.co/XxZdfCML/tech-mri.jpg",
   tech_endo: "https://i.ibb.co/MkkrywCZ/tech-endo.jpg",
   tech_dental: "https://i.ibb.co/tM1LBQJW/tech-dental.jpg",
 
-  // Golf Page
-  golf_hero: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2000&auto=format&fit=crop",
-  plan_kansai: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=1000&auto=format&fit=crop", // Plan 1: Classic Green
-  plan_difficult: "https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?q=80&w=1000&auto=format&fit=crop", // Plan 2: Golfer Swing/Action
-  plan_fuji: "https://i.ibb.co/B2L1nxdg/2025-12-16-16-36-41.png", // Plan 3: Mt. Fuji Spectacular (Updated by User)
-
-  // Business Page
-  business_hero: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop",
-  // New Business Plan Images - 6 Plans
-  biz_auto: "https://images.unsplash.com/photo-1565043666747-69f6646db940?q=80&w=1000&auto=format&fit=crop", // Plan 1: Toyota/Automotive
-  biz_tech: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop", // Plan 2: Semiconductor/Tech
-  biz_retail: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1000&auto=format&fit=crop", // Plan 3: Retail/UNIQLO
-  biz_medical: "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=1000&auto=format&fit=crop", // Plan 4: Medical/Healthcare
-  biz_food: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=1000&auto=format&fit=crop", // Plan 5: Food/Beverage Factory
-  biz_hospitality: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1000&auto=format&fit=crop", // Plan 6: Hotel/Hospitality
-  // New Business Plans (biz-plan-7 to biz-plan-14)
-  biz_century: "https://images.unsplash.com/photo-1480796927426-f609979314bd?q=80&w=1000&auto=format&fit=crop", // Plan 7: Century-old Companies (Kyoto Temple)
-  biz_precision: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1000&auto=format&fit=crop", // Plan 8: Precision Manufacturing
-  biz_esg: "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?q=80&w=1000&auto=format&fit=crop", // Plan 9: ESG/Sustainability
-  biz_inamori: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=80&w=1000&auto=format&fit=crop", // Plan 10: Inamori Philosophy (Kyoto)
-  biz_logistics: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1000&auto=format&fit=crop", // Plan 11: Logistics/Supply Chain
-  biz_agtech: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=1000&auto=format&fit=crop", // Plan 12: AgTech/Food Safety
-  biz_dx: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop", // Plan 13: Digital Transformation
-  biz_construction: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1000&auto=format&fit=crop", // Plan 14: Construction/Real Estate
-  biz_senior_care: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?q=80&w=1000&auto=format&fit=crop", // Plan 15: Senior Care Industry
-  biz_senior_living: "https://images.unsplash.com/photo-1559234938-b60fff04894d?q=80&w=1000&auto=format&fit=crop", // Plan 16: Senior Living & Dementia Care
-
-  // Home Page Previews
-  home_medical_preview: "https://images.unsplash.com/photo-1531297461136-82ae96c51248?q=80&w=1000&auto=format&fit=crop",
-  home_business_preview: "https://images.unsplash.com/photo-1577962917302-cd874c4e3169?q=80&w=800&auto=format&fit=crop",
+  // Golf Page - 仅保留用户上传的富士山图
+  plan_fuji: "https://i.ibb.co/B2L1nxdg/2025-12-16-16-36-41.png",
 
   // Founder
   founder_portrait: "https://i.ibb.co/B2mJDvq7/founder.jpg",
 
-  // MOBILE FALLBACKS (Updated by User Request)
+  // Mobile Fallback - 实际拍摄
   mobile_medical_fallback: "https://i.ibb.co/TDYnsXBb/013-2.jpg",
-  mobile_business_fallback: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1200&auto=format&fit=crop"
-};
-
-const FALLBACK_IMAGES: Record<string, string> = {
-  medical_hero: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2000&auto=format&fit=crop",
-  tech_ct: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=800&auto=format&fit=crop",
-  tech_mri: "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?q=80&w=800&auto=format&fit=crop",
-  tech_endo: "https://images.unsplash.com/photo-1579154204601-01588f351e67?q=80&w=800&auto=format&fit=crop",
-  tech_dental: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=800&auto=format&fit=crop",
-
-  golf_hero: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=2000&auto=format&fit=crop",
-  plan_kansai: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=800&auto=format&fit=crop",
-  plan_difficult: "https://images.unsplash.com/photo-1623567341691-389eb3292434?q=80&w=800&auto=format&fit=crop",
-  plan_fuji: "https://images.unsplash.com/photo-1563205764-5d59524dc335?q=80&w=800&auto=format&fit=crop",
-  
-  business_hero: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format&fit=crop",
-  biz_auto: "https://images.unsplash.com/photo-1565043666747-69f6646db940?q=80&w=800&auto=format&fit=crop",
-  biz_tech: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop",
-  biz_retail: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=800&auto=format&fit=crop",
-  biz_medical: "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=800&auto=format&fit=crop",
-  biz_food: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=800&auto=format&fit=crop",
-  biz_hospitality: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop",
-  biz_century: "https://images.unsplash.com/photo-1480796927426-f609979314bd?q=80&w=800&auto=format&fit=crop",
-  biz_precision: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop",
-  biz_esg: "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?q=80&w=800&auto=format&fit=crop",
-  biz_inamori: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=80&w=800&auto=format&fit=crop",
-  biz_logistics: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop",
-  biz_agtech: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop",
-  biz_dx: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
-  biz_construction: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=800&auto=format&fit=crop",
-  biz_senior_care: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?q=80&w=800&auto=format&fit=crop",
-  biz_senior_living: "https://images.unsplash.com/photo-1559234938-b60fff04894d?q=80&w=800&auto=format&fit=crop",
-
-  founder_portrait: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop",
-  default: "https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=800&auto=format&fit=crop"
-};
-
-const handleSmartImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>, fallbackKey: string) => {
-  const target = e.currentTarget;
-  const attemptStr = target.getAttribute('data-retry-attempt') || '0';
-  let attempt = parseInt(attemptStr, 10);
-  const fallbackSrc = FALLBACK_IMAGES[fallbackKey] || FALLBACK_IMAGES.default;
-
-  if (target.src === fallbackSrc) return;
-  const currentPath = target.getAttribute('src') || '';
-  const cleanBase = currentPath.split('?')[0].replace(/(\.jpg|\.png|\.jpeg|\.webp)+$/i, '');
-  attempt += 1;
-  target.setAttribute('data-retry-attempt', attempt.toString());
-  if (attempt === 1) target.src = `${cleanBase}.jpg.jpg`;
-  else if (attempt === 2) target.src = `${cleanBase}.JPG`;
-  else if (attempt === 3) target.src = `${cleanBase}.png`;
-  else target.src = fallbackSrc;
 };
 
 interface LandingPageProps {
@@ -179,7 +99,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       title: currentLang === 'zh-TW' ? 'AI 智能健康檢測' : currentLang === 'zh-CN' ? 'AI 智能健康检测' : currentLang === 'ja' ? 'AI健康診断' : 'AI Health Screening',
       subtitle: currentLang === 'zh-TW' ? '3 分鐘風險評估' : currentLang === 'zh-CN' ? '3 分钟风险评估' : currentLang === 'ja' ? '3分リスク診断' : '3-Min Risk Assessment',
       description: currentLang === 'zh-TW' ? '基於 AI 的專業問診，為您推薦最適合的體檢方案' : currentLang === 'zh-CN' ? '基于 AI 的专业问诊，为您推荐最适合的体检方案' : currentLang === 'ja' ? 'AIによる問診で最適な健診プランをご提案' : 'AI-powered consultation for personalized health plans',
-      imageUrl: getImage('hero_slide_3', 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2000&auto=format&fit=crop'),
+      imageUrl: getImage('hero_slide_3'),
       ctaText: currentLang === 'zh-TW' ? '免費檢測' : currentLang === 'zh-CN' ? '免费检测' : currentLang === 'ja' ? '無料診断' : 'Free Screening',
       ctaLink: '/login?redirect=/health-screening',
       advertiser: 'NIIJIMA',
@@ -189,7 +109,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       title: currentLang === 'zh-TW' ? '日本尖端癌症治療' : currentLang === 'zh-CN' ? '日本尖端癌症治疗' : currentLang === 'ja' ? '日本最先端がん治療' : 'Japan Advanced Cancer Treatment',
       subtitle: currentLang === 'zh-TW' ? '質子重離子 / 光免疫 / BNCT' : currentLang === 'zh-CN' ? '质子重离子 / 光免疫 / BNCT' : currentLang === 'ja' ? '陽子線・光免疫・BNCT' : 'Proton / Photoimmunotherapy / BNCT',
       description: currentLang === 'zh-TW' ? '質子重離子、光免疫、BNCT——為癌症患者提供更多治療選擇' : currentLang === 'zh-CN' ? '质子重离子、光免疫、BNCT——为癌症患者提供更多治疗选择' : currentLang === 'ja' ? '陽子線・光免疫・BNCT——がん患者により多くの治療選択肢を' : 'Proton, photoimmunotherapy, BNCT — more treatment options for cancer patients',
-      imageUrl: getImage('hero_slide_1', 'https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=2000&auto=format&fit=crop'),
+      imageUrl: getImage('hero_slide_1'),
       ctaText: currentLang === 'zh-TW' ? '諮詢治療方案' : currentLang === 'zh-CN' ? '咨询治疗方案' : currentLang === 'ja' ? '治療相談' : 'Consult Now',
       ctaLink: '/cancer-treatment',
       advertiser: 'NIIJIMA',
@@ -285,14 +205,18 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       <section className="relative min-h-[90vh] flex items-center">
         {/* 全屏背景图 - 温暖的医疗场景 */}
         <div className="absolute inset-0">
-          <Image
-            src={getImage('homepage_medical_bg', 'https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=2000&auto=format&fit=crop')}
-            alt="Healthcare"
-            fill
-            className="object-cover"
-            sizes="100vw"
-            quality={75}
-          />
+          {getImage('homepage_medical_bg') ? (
+            <Image
+              src={getImage('homepage_medical_bg')}
+              alt="Healthcare"
+              fill
+              className="object-cover"
+              sizes="100vw"
+              quality={75}
+            />
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+          )}
           {/* 温暖的渐变，类似高尔夫板块但用蓝绿色调 */}
           <div className="absolute inset-0 bg-gradient-to-r from-brand-900/90 via-brand-900/70 to-transparent"></div>
         </div>
@@ -392,14 +316,18 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       <section className="relative min-h-[90vh] flex items-center">
         {/* 全屏背景图 */}
         <div className="absolute inset-0">
-          <Image
-            src={getImage('homepage_treatment_bg', 'https://images.unsplash.com/photo-1551190822-a9333d879b1f?q=80&w=2000&auto=format&fit=crop')}
-            alt="Advanced Medical Treatment"
-            fill
-            className="object-cover"
-            sizes="100vw"
-            quality={75}
-          />
+          {getImage('homepage_treatment_bg') ? (
+            <Image
+              src={getImage('homepage_treatment_bg')}
+              alt="Advanced Medical Treatment"
+              fill
+              className="object-cover"
+              sizes="100vw"
+              quality={75}
+            />
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+          )}
           {/* 深蓝色渐变，传达专业、希望 */}
           <div className="absolute inset-0 bg-gradient-to-r from-brand-900/90 via-brand-900/70 to-transparent"></div>
         </div>
@@ -502,14 +430,18 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       <section className="relative min-h-[90vh] flex items-center">
         {/* 全屏背景图 */}
         <div className="absolute inset-0">
-          <Image
-            src={getImage('homepage_golf_bg', 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2000&auto=format&fit=crop')}
-            alt="Premium Golf Course"
-            fill
-            className="object-cover"
-            sizes="100vw"
-            quality={75}
-          />
+          {getImage('homepage_golf_bg') ? (
+            <Image
+              src={getImage('homepage_golf_bg')}
+              alt="Premium Golf Course"
+              fill
+              className="object-cover"
+              sizes="100vw"
+              quality={75}
+            />
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+          )}
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
         </div>
 
@@ -589,14 +521,18 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       {/* 7. ビジネス視察 - Business Inspection 顶尖企业对接 */}
       <section className="relative min-h-[90vh] flex items-center bg-brand-900 text-white">
         <div className="absolute inset-0">
-          <Image
-            src={getImage('homepage_business_bg', 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format&fit=crop')}
-            alt="Business District"
-            fill
-            className="object-cover opacity-30"
-            sizes="100vw"
-            quality={75}
-          />
+          {getImage('homepage_business_bg') ? (
+            <Image
+              src={getImage('homepage_business_bg')}
+              alt="Business District"
+              fill
+              className="object-cover opacity-30"
+              sizes="100vw"
+              quality={75}
+            />
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+          )}
         </div>
         <div className="relative container mx-auto px-6 py-12 md:py-24">
           <div className="max-w-6xl mx-auto">
@@ -746,14 +682,18 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       <section id="guide-partner" className="relative min-h-[85vh] flex items-center">
         {/* 全屏背景图 */}
         <div className="absolute inset-0">
-          <Image
-            src={getImage('homepage_partner_bg', 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=2000&auto=format&fit=crop')}
-            alt="Partnership"
-            fill
-            className="object-cover"
-            sizes="100vw"
-            quality={75}
-          />
+          {getImage('homepage_partner_bg') ? (
+            <Image
+              src={getImage('homepage_partner_bg')}
+              alt="Partnership"
+              fill
+              className="object-cover"
+              sizes="100vw"
+              quality={75}
+            />
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+          )}
           {/* 深紫色渐变，传达高端、信任 */}
           <div className="absolute inset-0 bg-gradient-to-r from-brand-900/90 via-brand-900/70 to-transparent"></div>
         </div>
@@ -905,12 +845,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
   const { getImage: getDbImage } = useSiteImages();
 
   // 获取图片：优先从数据库获取，如果数据库没有则使用硬编码的默认值
-  // @param key - 图片标识符
-  // @param fallback - 可选的备用图片 URL（用于数据库和静态配置都没有的情况）
+  // 没有真实图片时返回空字符串，组件侧显示骨架屏
   const getImage = (key: string, fallback?: string): string => {
     const dbImage = getDbImage(key);
     if (dbImage) return dbImage;
-    return DEFAULT_SITE_IMAGES[key] || fallback || FALLBACK_IMAGES[key] || FALLBACK_IMAGES.default;
+    return DEFAULT_SITE_IMAGES[key] || fallback || '';
   };
 
   useEffect(() => { emailjs.init('exX0IhSSUjNgMhuGb'); }, []);

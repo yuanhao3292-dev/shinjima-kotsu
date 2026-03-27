@@ -128,15 +128,19 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
       {/* 1. Hero Section - Cancer Treatment style */}
       <section className="relative min-h-screen flex items-center bg-brand-900 overflow-hidden">
         <div className="absolute inset-0">
-          <Image
-            src={getImage('business_hero')}
-            fill
-            className="object-cover object-center"
-            alt="Japan Business Inspection"
-            sizes="100vw"
-            quality={75}
-            priority
-          />
+          {getImage('business_hero') ? (
+            <Image
+              src={getImage('business_hero')}
+              fill
+              className="object-cover object-center"
+              alt="Japan Business Inspection"
+              sizes="100vw"
+              quality={75}
+              priority
+            />
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+          )}
           <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70"></div>
         </div>
         {/* Decorative Elements */}
@@ -294,14 +298,20 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                       {/* Image - Smaller aspect than Golf */}
                       <div className="md:w-1/3 w-full">
                          <div className="relative rounded-xl overflow-hidden shadow-lg h-[250px] md:h-[320px] group">
-                            <Image
-                               src={getBizImage(plan.id)}
-                               fill
-                               className="object-cover transform group-hover:scale-105 transition duration-700"
-                               alt={plan.title}
-                               sizes="(max-width: 768px) 100vw, 33vw"
-                               quality={75}
-                            />
+                            {getBizImage(plan.id) ? (
+                              <Image
+                                 src={getBizImage(plan.id)}
+                                 fill
+                                 className="object-cover transform group-hover:scale-105 transition duration-700"
+                                 alt={plan.title}
+                                 sizes="(max-width: 768px) 100vw, 33vw"
+                                 quality={75}
+                              />
+                            ) : (
+                              <div className="absolute inset-0 bg-gradient-to-br from-neutral-200 via-neutral-100 to-neutral-200 animate-pulse flex items-center justify-center">
+                                <div className="w-10 h-10 border-2 border-neutral-300 border-t-brand-500 rounded-full animate-spin" />
+                              </div>
+                            )}
                             <div className="absolute inset-0 bg-brand-900/10 group-hover:bg-transparent transition"></div>
                          </div>
                       </div>

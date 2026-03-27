@@ -121,15 +121,19 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
               className="absolute inset-0 transition-transform duration-[10000ms] ease-out"
               style={{ transform: isCurrent ? 'scale(1.05)' : 'scale(1)' }}
             >
-              <Image
-                src={imgSrc}
-                alt={slide.title}
-                fill
-                className="object-cover"
-                sizes="100vw"
-                quality={75}
-                priority={index === 0}
-              />
+              {imgSrc ? (
+                <Image
+                  src={imgSrc}
+                  alt={slide.title}
+                  fill
+                  className="object-cover"
+                  sizes="100vw"
+                  quality={75}
+                  priority={index === 0}
+                />
+              ) : (
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+              )}
             </div>
 
             {/* Brand overlay gradient */}

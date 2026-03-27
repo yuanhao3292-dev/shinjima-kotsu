@@ -35,14 +35,20 @@ const MedicalTechCard = memo(function MedicalTechCard({
     <div className="group relative bg-white rounded-2xl border border-neutral-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
       {/* Image Container with Tech Overlay */}
       <div className="relative h-64 overflow-hidden bg-brand-900">
-        <Image
-          src={img}
-          fill
-          className="object-cover transition-all duration-700"
-          alt={title}
-          sizes="(max-width: 768px) 100vw, 50vw"
-          quality={75}
-        />
+        {img ? (
+          <Image
+            src={img}
+            fill
+            className="object-cover transition-all duration-700"
+            alt={title}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            quality={75}
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse flex items-center justify-center">
+            <div className="w-10 h-10 border-2 border-brand-600 border-t-brand-300 rounded-full animate-spin" />
+          </div>
+        )}
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/graphy.png')] opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
            <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-brand-400 to-transparent shadow-[0_0_15px_rgba(59,130,246,0.8)] animate-[scan_2.5s_linear_infinite]"></div>
@@ -85,16 +91,20 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
     {/* 1. Hero Section - Cancer Treatment style */}
     <section className="relative min-h-screen flex items-center bg-brand-900 overflow-hidden">
       <div className="absolute inset-0">
-        <Image
-          src={getImage('medical_hero')}
-          fill
-          className="object-cover object-center"
-          alt="TIMC Lobby Luxury Environment"
-          key="medical_hero"
-          sizes="100vw"
-          quality={75}
-          priority
-        />
+        {getImage('medical_hero') ? (
+          <Image
+            src={getImage('medical_hero')}
+            fill
+            className="object-cover object-center"
+            alt="TIMC Lobby Luxury Environment"
+            key="medical_hero"
+            sizes="100vw"
+            quality={75}
+            priority
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+        )}
         <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70"></div>
       </div>
       {/* Decorative Elements */}
@@ -279,14 +289,18 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           <div className="flex flex-col md:flex-row min-h-[35vh] md:min-h-[50vh]">
               {/* Ultrasound - Left */}
               <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-                  <Image
-                      src={getImage('detail_echo')}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      alt="Ultrasound"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      quality={75}
-                  />
+                  {getImage('detail_echo') ? (
+                    <Image
+                        src={getImage('detail_echo')}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        alt="Ultrasound"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        quality={75}
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-900/95 via-brand-900/50 to-brand-900/20"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                       <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.detail_echo_title}</h4>
@@ -295,14 +309,18 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               </div>
               {/* Mammography - Right */}
               <div className="relative flex-1 min-h-[35vh] md:min-h-0 overflow-hidden group">
-                  <Image
-                      src={getImage('detail_mammo')}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      alt="Mammography"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      quality={75}
-                  />
+                  {getImage('detail_mammo') ? (
+                    <Image
+                        src={getImage('detail_mammo')}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        alt="Mammography"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        quality={75}
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-900/95 via-brand-900/50 to-brand-900/20"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                       <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.detail_mammo_title}</h4>
@@ -323,14 +341,18 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           <div className="space-y-0">
               {/* Facility 1 - Center Interior */}
               <div className="relative min-h-[60vh] flex items-center overflow-hidden">
-                  <Image
-                      src={getImage('facility_center')}
-                      fill
-                      className="object-cover"
-                      alt="Center Interior"
-                      sizes="100vw"
-                      quality={75}
-                  />
+                  {getImage('facility_center') ? (
+                    <Image
+                        src={getImage('facility_center')}
+                        fill
+                        className="object-cover"
+                        alt="Center Interior"
+                        sizes="100vw"
+                        quality={75}
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-r from-brand-900/90 via-brand-900/70 to-transparent"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl">
@@ -350,14 +372,18 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
 
               {/* Facility 2 - Reception */}
               <div className="relative min-h-[60vh] flex items-center overflow-hidden">
-                  <Image
-                      src={getImage('facility_reception')}
-                      fill
-                      className="object-cover"
-                      alt="Reception"
-                      sizes="100vw"
-                      quality={75}
-                  />
+                  {getImage('facility_reception') ? (
+                    <Image
+                        src={getImage('facility_reception')}
+                        fill
+                        className="object-cover"
+                        alt="Reception"
+                        sizes="100vw"
+                        quality={75}
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-l from-brand-900/90 via-brand-900/70 to-transparent"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl ml-auto text-right">
@@ -377,14 +403,18 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
 
               {/* Facility 3 - Private Suites */}
               <div className="relative min-h-[60vh] flex items-center overflow-hidden">
-                  <Image
-                      src={getImage('facility_room')}
-                      fill
-                      className="object-cover"
-                      alt="Private Suite"
-                      sizes="100vw"
-                      quality={75}
-                  />
+                  {getImage('facility_room') ? (
+                    <Image
+                        src={getImage('facility_room')}
+                        fill
+                        className="object-cover"
+                        alt="Private Suite"
+                        sizes="100vw"
+                        quality={75}
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-r from-brand-900/90 via-brand-900/70 to-transparent"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl">
@@ -405,14 +435,18 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
 
               {/* Facility 4 - Bathroom */}
               <div className="relative min-h-[60vh] flex items-center overflow-hidden">
-                  <Image
-                      src={getImage('facility_bathroom')}
-                      fill
-                      className="object-cover"
-                      alt="Bathroom"
-                      sizes="100vw"
-                      quality={75}
-                  />
+                  {getImage('facility_bathroom') ? (
+                    <Image
+                        src={getImage('facility_bathroom')}
+                        fill
+                        className="object-cover"
+                        alt="Bathroom"
+                        sizes="100vw"
+                        quality={75}
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-l from-brand-900/90 via-brand-900/70 to-transparent"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl ml-auto text-right">
