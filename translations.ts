@@ -765,7 +765,7 @@ export const translations = {
       tag: 'Guide Partnership Program',
       title: '導遊合夥人計劃',
       subtitle: '讓每位獨立導遊，都擁有旅行社的資源',
-      desc: '您有優質的客戶資源，想為他們提供更多高端服務？\n新島交通作為日本第二類旅行社，為您的客戶提供160家高端夜總會、頂級體檢中心、綜合醫療等獨家資源。',
+      desc: '您有優質的客戶資源，想為他們提供更多高端服務？\n新島交通作為日本第二類旅行社，為您的客戶提供160家高端夜總會、精密體檢中心、綜合醫療等豐富資源。',
       service1_title: '高端夜總會',
       service1_desc: 'INSOU集團160家店舖\n覆蓋全日本（除北海道/沖繩）',
       service1_icon: 'nightclub',
@@ -773,7 +773,7 @@ export const translations = {
       service2_desc: '德州會集團旗艦設施\n大阪JP Tower',
       service2_icon: 'medical',
       service3_title: '綜合醫療',
-      service3_desc: '幹細胞·抗衰·專科治療\n日本頂尖醫療資源',
+      service3_desc: '幹細胞·抗衰·專科治療\n日本優質醫療資源',
       service3_icon: 'treatment',
       commission_title: '透明報酬機制',
       commission_rate: '10%',
@@ -787,7 +787,7 @@ export const translations = {
       rule3_desc: '穩定可靠，每月準時結算',
       cta_detail: '了解詳情',
       cta_apply: '申請加入',
-      footer_note: '已有3000+在日導遊加入我們的合作網絡'
+      footer_note: '眾多在日導遊已加入合作網絡'
     },
     about: {
       title: '会社概要',
@@ -1437,7 +1437,7 @@ export const translations = {
       tag: 'Guide Partnership Program',
       title: '導遊合夥人計劃',
       subtitle: '讓每位獨立導遊，都擁有旅行社的資源',
-      desc: '您有優質的客戶資源，想為他們提供更多高端服務？\n新島交通作為日本第二類旅行社，為您的客戶提供160家高端夜總會、頂級體檢中心、綜合醫療等獨家資源。',
+      desc: '您有優質的客戶資源，想為他們提供更多高端服務？\n新島交通作為日本第二類旅行社，為您的客戶提供160家高端夜總會、精密體檢中心、綜合醫療等豐富資源。',
       service1_title: '高端夜總會',
       service1_desc: 'INSOU集團160家店舖\n覆蓋全日本（除北海道/沖繩）',
       service1_icon: 'nightclub',
@@ -1445,7 +1445,7 @@ export const translations = {
       service2_desc: '德州會集團旗艦設施\n大阪JP Tower',
       service2_icon: 'medical',
       service3_title: '綜合醫療',
-      service3_desc: '幹細胞·抗衰·專科治療\n日本頂尖醫療資源',
+      service3_desc: '幹細胞·抗衰·專科治療\n日本優質醫療資源',
       service3_icon: 'treatment',
       commission_title: '透明報酬機制',
       commission_rate: '10%',
@@ -1459,7 +1459,7 @@ export const translations = {
       rule3_desc: '穩定可靠，每月準時結算',
       cta_detail: '了解詳情',
       cta_apply: '申請加入',
-      footer_note: '已有3000+在日導遊加入我們的合作網絡'
+      footer_note: '眾多在日導遊已加入合作網絡'
     },
     about: {
       title: '會社概要',
@@ -2109,7 +2109,7 @@ export const translations = {
       tag: 'Guide Partnership Program',
       title: '导游合伙人计划',
       subtitle: '让每位独立导游，都拥有旅行社的资源',
-      desc: '您有优质的客户资源，想为他们提供更多高端服务？\n新岛交通作为日本第二类旅行社，为您的客户提供160家高端夜总会、顶级体检中心、综合医疗等独家资源。',
+      desc: '您有优质的客户资源，想为他们提供更多高端服务？\n新岛交通作为日本第二类旅行社，为您的客户提供160家高端夜总会、精密体检中心、综合医疗等丰富资源。',
       service1_title: '高端夜总会',
       service1_desc: 'INSOU集团160家店铺\n覆盖全日本（除北海道/冲绳）',
       service1_icon: 'nightclub',
@@ -2117,7 +2117,7 @@ export const translations = {
       service2_desc: '德州会集团旗舰设施\n大阪JP Tower',
       service2_icon: 'medical',
       service3_title: '综合医疗',
-      service3_desc: '干细胞·抗衰·专科治疗\n日本顶尖医疗资源',
+      service3_desc: '干细胞·抗衰·专科治疗\n日本优质医疗资源',
       service3_icon: 'treatment',
       commission_title: '透明报酬机制',
       commission_rate: '10%',
@@ -2131,7 +2131,7 @@ export const translations = {
       rule3_desc: '稳定可靠，每月准时结算',
       cta_detail: '了解详情',
       cta_apply: '申请加入',
-      footer_note: '已有3000+在日导游加入我们的合作网络'
+      footer_note: '众多在日导游已加入合作网络'
     },
     about: {
       title: '会社概要',
@@ -2626,7 +2626,7 @@ export const translations = {
       tag: 'Guide Partnership Program',
       title: '導遊合夥人計劃',
       subtitle: '讓每位獨立導遊，都擁有旅行社的資源',
-      desc: '您有優質的客戶資源，想為他們提供更多高端服務？\n新島交通作為日本第二類旅行社，為您的客戶提供160家高端夜總會、頂級體檢中心、綜合醫療等獨家資源。',
+      desc: '您有優質的客戶資源，想為他們提供更多高端服務？\n新島交通作為日本第二類旅行社，為您的客戶提供160家高端夜總會、精密體檢中心、綜合醫療等豐富資源。',
       service1_title: '高端夜總會',
       service1_desc: 'INSOU集團160家店舖\n覆蓋全日本（除北海道/沖繩）',
       service1_icon: 'nightclub',
@@ -2634,7 +2634,7 @@ export const translations = {
       service2_desc: '德州會集團旗艦設施\n大阪JP Tower',
       service2_icon: 'medical',
       service3_title: '綜合醫療',
-      service3_desc: '幹細胞·抗衰·專科治療\n日本頂尖醫療資源',
+      service3_desc: '幹細胞·抗衰·專科治療\n日本優質醫療資源',
       service3_icon: 'treatment',
       commission_title: '透明報酬機制',
       commission_rate: '10%',
@@ -2648,7 +2648,7 @@ export const translations = {
       rule3_desc: '穩定可靠，每月準時結算',
       cta_detail: '了解詳情',
       cta_apply: '申請加入',
-      footer_note: '已有3000+在日導遊加入我們的合作網絡'
+      footer_note: '眾多在日導遊已加入合作網絡'
     },
     about: {
       title: 'Company Profile',
