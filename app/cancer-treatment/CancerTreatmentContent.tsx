@@ -16,17 +16,18 @@ const pageTranslations = {
   // Hero
   heroBadge: { ja: '日本がん治療', 'zh-TW': '日本癌症治療', 'zh-CN': '日本癌症治疗', en: 'Japan Cancer Treatment' } as Record<Language, string>,
   heroTitle1: { ja: '日本がん治療', 'zh-TW': '日本癌症治療', 'zh-CN': '日本癌症治疗', en: 'Japan Cancer Treatment' } as Record<Language, string>,
-  heroTitle2: { ja: '5年生存率が国際的に高水準', 'zh-TW': '五年存活率達國際高水準', 'zh-CN': '五年存活率达国际高水准', en: '5-Year Survival Rate at Internationally High Standards' } as Record<Language, string>,
-  heroStat: { ja: 'Lancet研究によると日本のがん5年生存率は', 'zh-TW': '柳葉刀研究顯示日本癌症五年存活率達', 'zh-CN': '柳叶刀研究显示日本癌症五年存活率达', en: 'Lancet research shows Japan cancer 5-year survival rate reaches' } as Record<Language, string>,
-  heroDesc: { ja: '先進的な治療法が日本に集結', 'zh-TW': '先進療法匯聚日本', 'zh-CN': '先进疗法汇聚日本', en: 'Advanced treatments converge in Japan' } as Record<Language, string>,
+  heroTitle2: { ja: 'その答えは、日本にあるかもしれません', 'zh-TW': '或許就在日本', 'zh-CN': '或许就在日本', en: 'The Answer May Be in Japan' } as Record<Language, string>,
+  heroStat: { ja: '光免疫療法（日本で先駆けて承認）・BNCT・重粒子線 —— 一部の先進治療は日本でのみ臨床応用体制が整っています', 'zh-TW': '光免疫療法（日本率先批准）· BNCT · 重粒子線 —— 部分先進療法僅在日本具備完整的臨床應用體系', 'zh-CN': '光免疫疗法（日本率先批准）· BNCT · 重粒子线 —— 部分先进疗法仅在日本具备完整的临床应用体系', en: 'Photoimmunotherapy (first approved in Japan) · BNCT · Heavy Ion — some advanced treatments are clinically available only in Japan' } as Record<Language, string>,
+  heroDesc: { ja: 'あなたが探している治療は', 'zh-TW': '您在尋找的治療方案', 'zh-CN': '您在寻找的治疗方案', en: 'The Treatment You Are Looking For' } as Record<Language, string>,
   heroCTA: { ja: '治療プランを相談', 'zh-TW': '諮詢治療方案', 'zh-CN': '咨询治疗方案', en: 'Consult Treatment Plan' } as Record<Language, string>,
   heroFlow: { ja: '治療の流れを見る', 'zh-TW': '了解治療流程', 'zh-CN': '了解治疗流程', en: 'View Treatment Process' } as Record<Language, string>,
-  statGastric: { ja: '胃がん5年生存率（全病期）', 'zh-TW': '胃癌五年存活率（全期別）', 'zh-CN': '胃癌五年存活率（全期别）', en: 'Gastric Cancer 5-Year Survival (All Stages)' } as Record<Language, string>,
-  statProstate: { ja: '先進治療技術の種類', 'zh-TW': '先進治療技術種類', 'zh-CN': '先进治疗技术种类', en: 'Advanced Treatment Types' } as Record<Language, string>,
-  statProstateSub: { ja: '質子・重粒子・免疫・BNCT 等', 'zh-TW': '質子、重離子、免疫、BNCT 等', 'zh-CN': '质子、重离子、免疫、BNCT 等', en: 'Proton, Heavy Ion, Immuno, BNCT, etc.' } as Record<Language, string>,
-  statCost: { ja: '費用は米国の', 'zh-TW': '費用僅為美國', 'zh-CN': '费用仅为美国', en: 'Cost Only 1/3 of US' } as Record<Language, string>,
-  statCostSub: { ja: '一般的な治療費水準の比較（参考値）', 'zh-TW': '一般治療費用水準比較（參考值）', 'zh-CN': '一般治疗费用水平比较（参考值）', en: 'General treatment cost comparison (reference)' } as Record<Language, string>,
-  dataSource: { ja: '*データ出典：Lancet Oncology 2018; 各医療機関公開資料。個人の治療効果は症状により異なります。参考情報としてご利用ください。', 'zh-TW': '*數據來源：Lancet Oncology 2018; 各醫療機構公開資料。個人療效因病情而異，僅供參考。', 'zh-CN': '*数据来源：Lancet Oncology 2018; 各医疗机构公开资料。个人疗效因病情而异，仅供参考。', en: '*Data source: Lancet Oncology 2018; public data from medical institutions. Individual results vary.' } as Record<Language, string>,
+  statHeavyIon: { ja: '重粒子線治療施設', 'zh-TW': '重粒子線治療中心', 'zh-CN': '重粒子线治疗中心', en: 'Heavy Ion Therapy Centers' } as Record<Language, string>,
+  statHeavyIonSub: { ja: '1994年から臨床応用', 'zh-TW': '自1994年臨床應用', 'zh-CN': '自1994年临床应用', en: 'Clinical use since 1994' } as Record<Language, string>,
+  statPhotoimmuno: { ja: '光免疫療法 承認年', 'zh-TW': '光免疫療法獲批年份', 'zh-CN': '光免疫疗法获批年份', en: 'Photoimmunotherapy Approved' } as Record<Language, string>,
+  statPhotoimmunoSub: { ja: '日本で先駆けて承認', 'zh-TW': '日本率先批准', 'zh-CN': '日本率先批准', en: 'First approved in Japan' } as Record<Language, string>,
+  statCost: { ja: '米国同等治療との費用比', 'zh-TW': '相對美國同類治療費用', 'zh-CN': '相对美国同类治疗费用', en: 'vs. Equivalent US Treatment Cost' } as Record<Language, string>,
+  statCostSub: { ja: '一般的な費用水準の比較（参考値）', 'zh-TW': '一般費用水準參考', 'zh-CN': '一般费用水准参考', en: 'General cost comparison (reference)' } as Record<Language, string>,
+  dataSource: { ja: '*各医療機関公開資料に基づく参考情報です。個人の治療効果は症状により異なります。', 'zh-TW': '*資訊來源於各醫療機構公開資料，僅供參考。個人療效因病情而異。', 'zh-CN': '*信息来源于各医疗机构公开资料，仅供参考。个人疗效因病情而异。', en: '*Based on public data from medical institutions. For reference only. Individual results vary.' } as Record<Language, string>,
   trustEarly: { ja: '精密スクリーニングによる早期発見', 'zh-TW': '精密篩查助力早期發現', 'zh-CN': '精密筛查助力早期发现', en: 'Precision screening for early detection' } as Record<Language, string>,
   trustTranslator: { ja: '専門医療通訳が全行程同行', 'zh-TW': '專業醫療翻譯全程陪同', 'zh-CN': '专业医疗翻译全程陪同', en: 'Professional medical interpreter throughout' } as Record<Language, string>,
   trustRemote: { ja: '遠隔診療確認後に来日', 'zh-TW': '遠程會診確認後再赴日', 'zh-CN': '远程会诊确认后再赴日', en: 'Visit Japan after remote consultation confirmation' } as Record<Language, string>,
@@ -895,7 +896,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
               <span className="text-gold-400">{t('heroTitle2')}</span>
             </h1>
             <p className="text-xl text-neutral-300 mb-8 leading-relaxed font-light max-w-2xl">
-              {t('heroStat')} <span className="text-white font-bold">57.4%</span>
+              {t('heroStat')}
             </p>
             <div className="flex flex-wrap gap-4 mb-8">
               <a
@@ -912,17 +913,17 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                 {t('heroFlow')}
               </a>
             </div>
-            {/* Key Stats - Data Driven */}
+            {/* Key Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
-                <div className="text-3xl font-bold text-white mb-1">74.9%</div>
-                <div className="text-sm text-neutral-300">{t('statGastric')}</div>
-                <div className="text-xs text-neutral-400 mt-1">Lancet 2018*</div>
+                <div className="text-3xl font-bold text-white mb-1">7</div>
+                <div className="text-sm text-neutral-300">{t('statHeavyIon')}</div>
+                <div className="text-xs text-neutral-400 mt-1">{t('statHeavyIonSub')}</div>
               </div>
               <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
-                <div className="text-3xl font-bold text-white mb-1">7+</div>
-                <div className="text-sm text-neutral-300">{t('statProstate')}</div>
-                <div className="text-xs text-neutral-400 mt-1">{t('statProstateSub')}</div>
+                <div className="text-3xl font-bold text-white mb-1">2020</div>
+                <div className="text-sm text-neutral-300">{t('statPhotoimmuno')}</div>
+                <div className="text-xs text-neutral-400 mt-1">{t('statPhotoimmunoSub')}</div>
               </div>
               <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
                 <div className="text-3xl font-bold text-white mb-1">1/3</div>
