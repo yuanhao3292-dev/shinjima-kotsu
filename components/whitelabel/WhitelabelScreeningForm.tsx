@@ -68,13 +68,13 @@ const translations: Record<string, Record<Language, string>> = {
     en: 'Please enter ',
   },
   quickScreeningDone: {
-    ja: 'クイックスクリーニング完了！',
+    ja: 'クイックチェック完了！',
     'zh-CN': '快速筛查完成！',
     'zh-TW': '快速篩查完成！',
     en: 'Quick Screening Complete!',
   },
   completed10Questions: {
-    ja: '10問のクイックスクリーニングが完了しました。次のオプションをお選びください：',
+    ja: '10問のクイックチェックが完了しました。次のオプションをお選びください：',
     'zh-CN': '您已完成 10 道快速筛查问题。现在您可以选择：',
     'zh-TW': '您已完成 10 道快速篩查問題。現在您可以選擇：',
     en: 'You have completed 10 quick screening questions. Now you can choose:',
@@ -122,7 +122,7 @@ const translations: Record<string, Record<Language, string>> = {
     en: 'Loading...',
   },
   quickScreening: {
-    ja: 'クイックスクリーニング',
+    ja: 'クイックチェック',
     'zh-CN': '快速筛查',
     'zh-TW': '快速篩查',
     en: 'Quick Screening',
@@ -200,7 +200,7 @@ const translations: Record<string, Record<Language, string>> = {
     en: 'Auto-saving...',
   },
   completeScreening: {
-    ja: 'クイックスクリーニング完了',
+    ja: 'クイックチェック完了',
     'zh-CN': '完成快速筛查',
     'zh-TW': '完成快速篩查',
     en: 'Complete Screening',

@@ -68,10 +68,10 @@ const translations = {
     en: 'We strongly recommend undergoing a professional medical examination as soon as possible to identify potential issues early.',
   },
   shareTitle: {
-    'zh-CN': 'AI 健康筛查结果',
-    'zh-TW': 'AI 健康篩查結果',
-    ja: 'AI 健康スクリーニング結果',
-    en: 'AI Health Screening Results',
+    'zh-CN': 'AI 健康自测结果',
+    'zh-TW': 'AI 健康自測結果',
+    ja: 'AI ヘルスチェック結果',
+    en: 'AI Health Check Results',
   },
   linkCopied: {
     'zh-CN': '链接已复制到剪贴板',
@@ -110,16 +110,22 @@ const translations = {
     en: 'Recommended Tests',
   },
   treatmentSuggestions: {
-    'zh-CN': '日本先端治疗建议',
-    'zh-TW': '日本先端治療建議',
-    ja: '日本の先端治療に関するご提案',
-    en: 'Advanced Treatment Suggestions in Japan',
+    'zh-CN': 'AI 关注的健康事项',
+    'zh-TW': 'AI 關注的健康事項',
+    ja: 'AIが注目した健康上の考慮事項',
+    en: 'Health Considerations Identified by AI',
   },
   recommendedHospitals: {
-    'zh-CN': '推荐医疗机构',
-    'zh-TW': '推薦醫療機構',
-    ja: '推奨医療機関',
-    en: 'Recommended Medical Institutions',
+    'zh-CN': '可供参考的医疗机构',
+    'zh-TW': '可供參考的醫療機構',
+    ja: 'ご参考いただける医療機関',
+    en: 'Medical Institutions for Your Reference',
+  },
+  commercialDisclaimer: {
+    'zh-CN': '以下为新岛交通可协助对接的医疗机构信息，仅供参考，不构成医疗建议。是否咨询完全自愿，与上述 AI 健康分析无直接关联。',
+    'zh-TW': '以下為新島交通可協助對接的醫療機構資訊，僅供參考，不構成醫療建議。是否諮詢完全自願，與上述 AI 健康分析無直接關聯。',
+    ja: '以下は新島交通がご案内可能な医療機関の情報です。参考情報としてご覧ください。ご相談は任意であり、上記のAIヘルスチェック結果とは直接関連しておりません。',
+    en: 'The following medical institutions are available through Niijima Kotsu for your reference only and do not constitute medical advice. Consultation is entirely voluntary and is not directly linked to the AI health check results above.',
   },
   suitableFor: {
     'zh-CN': '适合：',
@@ -148,7 +154,7 @@ const translations = {
   disclaimer1: {
     'zh-CN': '本 AI 健康评估系统仅供健康参考，不构成任何形式的医学诊断、治疗建议或处方。',
     'zh-TW': '本AI健康評估系統僅供健康參考，不構成任何形式的醫學診斷、治療建議或處方。',
-    ja: '本AIスクリーニングは健康参考のみであり、医学的診断や治療提案を構成するものではありません。',
+    ja: '本AIヘルスチェックは健康参考のみであり、医学的診断や治療提案を構成するものではありません。',
     en: 'This AI health screening is for reference only and does not constitute medical diagnosis, treatment advice, or prescription.',
   },
   disclaimer2: {
@@ -196,7 +202,7 @@ const translations = {
   emergencyDesc: {
     'zh-CN': 'AI 筛查检测到需要关注的健康信号，建议您尽早预约专业医生进行详细检查。以下为当地急救电话，如有需要可拨打咨询。',
     'zh-TW': 'AI 篩查檢測到需要關注的健康信號，建議您盡早預約專業醫生進行詳細檢查。以下為當地急救電話，如有需要可撥打諮詢。',
-    ja: 'AIスクリーニングにより注意が必要な健康シグナルが検出されました。早めに専門医の詳しい検査を受けることをお勧めします。必要に応じて下記の緊急連絡先をご利用ください。',
+    ja: 'AIヘルスチェックにより注意が必要な健康シグナルが検出されました。早めに専門医の詳しい検査を受けることをお勧めします。必要に応じて下記の緊急連絡先をご利用ください。',
     en: 'Our AI screening detected health signals that warrant attention. We recommend scheduling a detailed examination with a specialist soon. Emergency numbers are provided below if needed.',
   },
   emergencyCallJapan: {
@@ -220,7 +226,7 @@ const translations = {
   humanReviewDesc: {
     'zh-CN': '为保障安全，您的筛查结果需经医疗顾问审核后才能完整展示。我们的团队将在24小时内完成审核并通知您。',
     'zh-TW': '為保障安全，您的篩查結果需經醫療顧問審核後才能完整展示。我們的團隊將在24小時內完成審核並通知您。',
-    ja: '安全のため、スクリーニング結果は医療アドバイザーの審査後に完全に表示されます。24時間以内に審査を完了しご連絡いたします。',
+    ja: '安全のため、ヘルスチェック結果は医療アドバイザーの審査後に完全に表示されます。24時間以内に審査を完了しご連絡いたします。',
     en: 'For safety, your screening results require review by a medical advisor before full display. Our team will complete the review within 24 hours and notify you.',
   },
   bookScreening: {
@@ -389,7 +395,7 @@ export default function ScreeningResult({
             : lang === 'zh-TW'
             ? `我完成了AI健康篩查，風險等級：${risk.label}`
             : lang === 'ja'
-            ? `AI健康スクリーニングを完了しました。リスクレベル：${risk.label}`
+            ? `AIヘルスチェックを完了しました。リスクレベル：${risk.label}`
             : `I completed the AI health screening. Risk level: ${risk.label}`,
           url: window.location.href,
         });
@@ -627,15 +633,18 @@ export default function ScreeningResult({
         </div>
       )}
 
-      {/* 推荐医疗机构 */}
+      {/* 商业信息分隔 + 推荐医疗机构 */}
       {result.recommendedHospitals.length > 0 && (
         <div className="bg-white border border-neutral-200 p-6 md:p-8">
-          <div className="flex items-center gap-3 mb-6">
+          <div className="flex items-center gap-3 mb-4">
             <div className="p-2 bg-green-100">
               <Building2 className="w-6 h-6 text-green-600" />
             </div>
             <h3 className="text-xl font-semibold text-neutral-900 tracking-wide">{t('recommendedHospitals', lang)}</h3>
           </div>
+          <p className="text-xs text-neutral-400 mb-6 leading-relaxed border-b border-neutral-100 pb-4">
+            {t('commercialDisclaimer', lang)}
+          </p>
 
           <div className="grid md:grid-cols-2 gap-4">
             {result.recommendedHospitals.map((hospital, index) => {

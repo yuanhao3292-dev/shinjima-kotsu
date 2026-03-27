@@ -27,7 +27,7 @@ const translations = {
   sessionExpired: {
     'zh-CN': '会话已过期，请重新进行筛查',
     'zh-TW': '會話已過期，請重新進行篩查',
-    ja: 'セッションの有効期限が切れました。再度スクリーニングを行ってください',
+    ja: 'セッションの有効期限が切れました。再度ヘルスチェックを行ってください',
     en: 'Session expired. Please redo the screening.',
   },
   loadFailed: {
@@ -39,7 +39,7 @@ const translations = {
   screeningIncomplete: {
     'zh-CN': '筛查尚未完成',
     'zh-TW': '篩查尚未完成',
-    ja: 'スクリーニングはまだ完了していません',
+    ja: 'ヘルスチェックはまだ完了していません',
     en: 'Screening is not yet complete',
   },
   analysisNotFound: {
@@ -105,7 +105,7 @@ const translations = {
   recommendedServicesTitle: {
     'zh-CN': '根据您的筛查结果，推荐以下服务',
     'zh-TW': '根據您的篩查結果，推薦以下服務',
-    ja: 'スクリーニング結果に基づき、以下のサービスをおすすめします',
+    ja: 'ヘルスチェック結果に基づき、以下のサービスをご参考ください',
     en: 'Based on your screening results, we recommend the following services',
   },
   recommendedServicesDesc: {
@@ -129,7 +129,7 @@ const translations = {
   consultationDesc: {
     'zh-CN': '我们的医疗顾问可以根据您的筛查结果，为您推荐最适合的日本医疗服务',
     'zh-TW': '我們的醫療顧問可以根據您的篩查結果，為您推薦最適合的日本醫療服務',
-    ja: '当社の医療コンサルタントが、スクリーニング結果に基づき最適な日本の医療サービスをご提案いたします',
+    ja: '当社の医療コンサルタントが、ヘルスチェック結果を踏まえて日本の医療サービスについてご案内いたします',
     en: 'Our medical consultants can recommend the most suitable Japanese medical services based on your screening results',
   },
   wechatLabel: {
@@ -165,7 +165,7 @@ const translations = {
   retakeScreening: {
     'zh-CN': '再次进行筛查 →',
     'zh-TW': '再次進行篩查 →',
-    ja: 'スクリーニングをやり直す →',
+    ja: 'ヘルスチェックをやり直す →',
     en: 'Retake Screening →',
   },
 } as const;

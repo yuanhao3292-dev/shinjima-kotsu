@@ -31,7 +31,7 @@ const translations = {
     en: 'Access Your Account',
   },
   heroDesc: {
-    ja: 'AI健康スクリーニング・予約管理・注文照会など、すべてのサービスをご利用いただけます。',
+    ja: 'AIヘルスチェック・予約管理・注文照会など、すべてのサービスをご利用いただけます。',
     'zh-CN': 'AI 健康筛查、预约管理、订单查询等，所有服务尽在掌握。',
     'zh-TW': 'AI 健康篩查、預約管理、訂單查詢等，所有服務盡在掌握。',
     en: 'Access AI health screening, appointment management, order tracking, and all our services.',

@@ -47,7 +47,7 @@ const T: Record<string, Record<Language, string>> = {
   lastScreening: {
     'zh-CN': '上次筛查',
     'zh-TW': '上次篩查',
-    ja: '前回スクリーニング',
+    ja: '前回チェック',
     en: 'Last Screening',
   },
   daysAgo: {
@@ -89,7 +89,7 @@ const T: Record<string, Record<Language, string>> = {
   historyTitle: {
     'zh-CN': '筛查记录',
     'zh-TW': '篩查記錄',
-    ja: 'スクリーニング履歴',
+    ja: 'チェック履歴',
     en: 'Screening History',
   },
   riskLow: {
@@ -119,7 +119,7 @@ const T: Record<string, Record<Language, string>> = {
   noData: {
     'zh-CN': '完成您的第一次健康筛查以启动健康护照',
     'zh-TW': '完成您的第一次健康篩查以啟動健康護照',
-    ja: '初回のスクリーニングを受けてヘルスパスポートを開始しましょう',
+    ja: '初回のヘルスチェックを受けてヘルスパスポートを開始しましょう',
     en: 'Complete your first screening to activate your Health Passport',
   },
   scorePoints: {
@@ -143,13 +143,13 @@ const T: Record<string, Record<Language, string>> = {
   report: {
     'zh-CN': '健康筛查报告',
     'zh-TW': '健康篩查報告',
-    ja: '健康スクリーニングレポート',
+    ja: 'ヘルスチェックレポート',
     en: 'Health Screening Report',
   },
   incomplete: {
     'zh-CN': '未完成的筛查',
     'zh-TW': '未完成的篩查',
-    ja: '未完了のスクリーニング',
+    ja: '未完了のヘルスチェック',
     en: 'Incomplete Screening',
   },
   startedAt: {

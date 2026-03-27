@@ -36,7 +36,7 @@ const translations: Record<string, Record<Language, string>> = {
     en: 'Back to Home',
   },
   createScreeningFailed: {
-    ja: 'スクリーニングの作成に失敗しました',
+    ja: 'ヘルスチェックの作成に失敗しました',
     'zh-CN': '创建筛查失败',
     'zh-TW': '建立篩查失敗',
     en: 'Failed to create screening',
@@ -128,7 +128,7 @@ const translations: Record<string, Record<Language, string>> = {
 
   // Welcome page
   aiHealthScreening: {
-    ja: 'AI 健康スクリーニング',
+    ja: 'AI ヘルスチェック',
     'zh-CN': 'AI 智能健康筛查',
     'zh-TW': 'AI 智能健康篩查',
     en: 'AI Health Screening',
@@ -152,7 +152,7 @@ const translations: Record<string, Record<Language, string>> = {
     en: 'Creating...',
   },
   startSmartScreening: {
-    ja: 'スクリーニングを開始',
+    ja: 'ヘルスチェックを開始',
     'zh-CN': '开始智能筛查',
     'zh-TW': '開始智能篩查',
     en: 'Start Smart Screening',

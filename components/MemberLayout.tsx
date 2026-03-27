@@ -18,7 +18,7 @@ const translations = {
   home: { ja: 'ホーム', 'zh-CN': '首页', 'zh-TW': '首頁', en: 'Home' },
   medicalCheckup: { ja: '精密健診', 'zh-CN': '精密体检', 'zh-TW': '精密體檢', en: 'Medical Checkup' },
   cancerTreatment: { ja: '総合治療', 'zh-CN': '综合治疗', 'zh-TW': '綜合治療', en: 'Comprehensive Treatment' },
-  aiScreening: { ja: 'AI 健康スクリーニング', 'zh-CN': 'AI 健康筛查', 'zh-TW': 'AI 健康篩查', en: 'AI Health Screening' },
+  aiScreening: { ja: 'AI ヘルスチェック', 'zh-CN': 'AI 健康自测', 'zh-TW': 'AI 健康自測', en: 'AI Health Check' },
   faq: { ja: 'よくある質問', 'zh-CN': '常见问题', 'zh-TW': '常見問題', en: 'FAQ' },
   member: { ja: '会員', 'zh-CN': '会员', 'zh-TW': '會員', en: 'Member' },
   logout: { ja: 'ログアウト', 'zh-CN': '登出', 'zh-TW': '登出', en: 'Logout' },

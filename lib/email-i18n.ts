@@ -597,7 +597,7 @@ export const guideRegistration = {
 
 export const healthCheckupReminder = {
   subject: {
-    ja: '🏥 年次健康スクリーニングのお知らせ（前回から{{months}}ヶ月）',
+    ja: '🏥 年次ヘルスチェックのお知らせ（前回から{{months}}ヶ月）',
     'zh-CN': '🏥 年度健康筛查提醒（距上次{{months}}个月）',
     'zh-TW': '🏥 年度健康篩查提醒（距上次{{months}}個月）',
     en: '🏥 Annual Health Screening Reminder ({{months}} months since last visit)',
@@ -621,13 +621,13 @@ export const healthCheckupReminder = {
     en: 'Follow-up Examination Recommended',
   },
   message: {
-    ja: '定期的な健康スクリーニングは最良の予防策です。前回のスクリーニングからしばらく経ちました。最新の健康状態を確認しましょう。',
+    ja: '定期的なヘルスチェックは最良の予防策です。前回のチェックからしばらく経ちました。最新の健康状態を確認しましょう。',
     'zh-CN': '定期健康筛查是最好的预防。距离您上次筛查已有一段时间，建议您进行新一轮检查，了解最新健康状况。',
     'zh-TW': '定期健康篩查是最好的預防。距離您上次篩查已有一段時間，建議您進行新一輪檢查，了解最新健康狀況。',
     en: 'Regular health screenings are the best form of prevention. It has been a while since your last checkup. Check your latest health status.',
   },
   messageHighRisk: {
-    ja: '前回のスクリーニングで健康リスクの上昇が検出されました。年次フォローアップ検査を強くお勧めします。',
+    ja: '前回のヘルスチェックで健康リスクの上昇が検出されました。年次フォローアップ検査を強くお勧めします。',
     'zh-CN': '您上次筛查检测到较高的健康风险。我们强烈建议您进行年度复查。',
     'zh-TW': '您上次篩查檢測到較高的健康風險。我們強烈建議您進行年度複查。',
     en: 'Your previous screening detected elevated health risks. We strongly recommend scheduling your annual follow-up checkup.',
@@ -651,7 +651,7 @@ export const healthCheckupReminder = {
     en: 'Last Score',
   },
   ctaText: {
-    ja: '今すぐスクリーニングを受ける',
+    ja: '今すぐヘルスチェックを受ける',
     'zh-CN': '立即开始健康筛查',
     'zh-TW': '立即開始健康篩查',
     en: 'Start Health Screening Now',

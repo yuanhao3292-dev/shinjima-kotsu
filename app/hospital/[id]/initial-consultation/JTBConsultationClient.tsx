@@ -42,7 +42,7 @@ const pageTranslations = {
   serviceDescription: { ja: '資料翻訳・病院相談・治療プラン初期評価', 'zh-TW': '資料翻譯、醫院諮詢、治療方案初步評估', 'zh-CN': '资料翻译、医院咨询、治疗方案初步评估', en: 'Document translation, hospital consultation, initial treatment assessment' } as Record<Language, string>,
   serviceLongDescription: { ja: '本サービスでは、お客様の診療情報を翻訳（中→日）し、対象病院と初期相談を行い、治療可能性を評価し、費用概算をご提供します。', 'zh-TW': '本服務將翻譯您的病歷資料（中文→日文），並與目標醫院進行初步諮詢，評估治療可行性並提供費用概算。', 'zh-CN': '本服务将翻译您的病历资料（中文→日文），并与目标医院进行初步咨询，评估治疗可行性并提供费用概算。', en: 'This service translates your medical records (CN→JP), conducts an initial consultation with the target hospital, assesses treatment feasibility and provides cost estimates.' } as Record<Language, string>,
   taxIncluded: { ja: '日円（税込）', 'zh-TW': '日圓（含稅）', 'zh-CN': '日元（含税）', en: 'JPY (tax incl.)' } as Record<Language, string>,
-  backToScreening: { ja: '健康スクリーニングに戻る', 'zh-TW': '返回健康篩查', 'zh-CN': '返回健康筛查', en: 'Back to Health Screening' } as Record<Language, string>,
+  backToScreening: { ja: 'ヘルスチェックに戻る', 'zh-TW': '返回健康自測', 'zh-CN': '返回健康自测', en: 'Back to Health Check' } as Record<Language, string>,
   featuresTitle: { ja: 'サービス内容', 'zh-TW': '服務包含', 'zh-CN': '服务包含', en: 'Service Includes' } as Record<Language, string>,
   feature1: { ja: '診療情報の翻訳（中→日）', 'zh-TW': '病歷資料翻譯（中→日）', 'zh-CN': '病历资料翻译（中→日）', en: 'Medical record translation (CN→JP)' } as Record<Language, string>,
   feature2: { ja: '対象病院への初期相談', 'zh-TW': '目標醫院初步諮詢', 'zh-CN': '目标医院初步咨询', en: 'Initial consultation with hospital' } as Record<Language, string>,

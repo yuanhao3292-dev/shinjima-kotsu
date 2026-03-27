@@ -564,13 +564,11 @@ function convertToLegacyResult(pipeline: AEMCPipelineResult, language?: Analysis
     riskSummary = `${L('humanReview')}\n\n${riskSummary}`;
   }
 
-  // 将鉴别方向转为治疗建议（旧版字段），附加 ICD-10 编码
+  // 将鉴别方向转为用户可见的健康关注事项（旧版字段）
+  // 注意：ICD-10 编码与可能性仅保留在内部 pipelineResult 审计数据中，
+  // 不向用户展示，以避免构成医療法第17条所禁止的诊断行为
   const treatmentSuggestions = triage.differential_directions.map((d) => {
-    const icd10Match = pipeline.icd10_mapping?.matches.find(
-      (m) => m.originalText === d.name
-    );
-    const codeTag = icd10Match ? ` [${icd10Match.code}]` : '';
-    return `${d.name}${codeTag}（${L('likelihood')}: ${d.likelihood}）: ${d.reason}`;
+    return `${d.name}: ${d.reason}`;
   });
 
   // 下一步建议 = 仲裁官的追问 + 安全闸门的解释

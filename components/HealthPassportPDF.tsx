@@ -85,7 +85,7 @@ const T: Record<string, Record<PDFLanguage, string>> = {
   worsening: { ja: '要注意', 'zh-CN': '需注意', 'zh-TW': '需注意', en: 'Needs Attention' },
   keyFindings: { ja: '主な所見', 'zh-CN': '主要发现', 'zh-TW': '主要發現', en: 'Key Findings' },
   departments: { ja: '推奨診療科', 'zh-CN': '推荐科室', 'zh-TW': '推薦科室', en: 'Recommended Departments' },
-  history: { ja: 'スクリーニング履歴', 'zh-CN': '筛查历史', 'zh-TW': '篩查歷史', en: 'Screening History' },
+  history: { ja: 'チェック履歴', 'zh-CN': '自测历史', 'zh-TW': '自測歷史', en: 'Check History' },
   date: { ja: '日付', 'zh-CN': '日期', 'zh-TW': '日期', en: 'Date' },
   score: { ja: 'スコア', 'zh-CN': '评分', 'zh-TW': '評分', en: 'Score' },
   risk: { ja: 'リスク', 'zh-CN': '风险', 'zh-TW': '風險', en: 'Risk' },

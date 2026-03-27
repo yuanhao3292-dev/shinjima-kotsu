@@ -27,7 +27,7 @@ const T: Record<string, Record<Language, string>> = {
     en: 'Health Community',
   },
   subtitle: {
-    ja: '健康スクリーニングの体験をシェアしましょう',
+    ja: 'ヘルスチェックの体験をシェアしましょう',
     'zh-CN': '分享您的健康筛查体验',
     'zh-TW': '分享您的健康篩查體驗',
     en: 'Share your health screening experiences',

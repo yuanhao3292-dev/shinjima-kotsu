@@ -36,7 +36,7 @@ const T: Record<string, Record<Language, string>> = {
   usedCount: { ja: '使用済み', 'zh-CN': '已使用', 'zh-TW': '已使用', en: 'Used' },
   freeRemaining: { ja: '残り無料回数', 'zh-CN': '免费剩余', 'zh-TW': '免費剩餘', en: 'Free Remaining' },
   times: { ja: '回', 'zh-CN': '次', 'zh-TW': '次', en: 'times' },
-  newScreening: { ja: '新しいスクリーニング', 'zh-CN': '新的筛查', 'zh-TW': '新的篩查', en: 'New Screening' },
+  newScreening: { ja: '新しいヘルスチェック', 'zh-CN': '新的健康自测', 'zh-TW': '新的健康自測', en: 'New Health Check' },
   downloadPDF: { ja: 'PDFエクスポート', 'zh-CN': '导出PDF', 'zh-TW': '匯出PDF', en: 'Export PDF' },
   generating: { ja: '生成中...', 'zh-CN': '生成中...', 'zh-TW': '生成中...', en: 'Generating...' },
 };

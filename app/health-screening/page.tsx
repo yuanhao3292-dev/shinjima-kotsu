@@ -33,7 +33,7 @@ const translations = {
     en: 'Failed to load',
   },
   createError: {
-    ja: 'スクリーニング作成に失敗しました',
+    ja: 'ヘルスチェック作成に失敗しました',
     'zh-CN': '创建筛查失败',
     'zh-TW': '創建篩查失敗',
     en: 'Failed to create screening',
@@ -51,7 +51,7 @@ const translations = {
     en: 'Back to Symptoms',
   },
   freeRemaining: {
-    ja: '今月の無料スクリーニング残数',
+    ja: '今月の無料ヘルスチェック残数',
     'zh-CN': '本月免费筛查剩余',
     'zh-TW': '本月免費篩查剩餘',
     en: 'Free screenings remaining this month',
@@ -93,7 +93,7 @@ const translations = {
     en: 'This helps AI customize questionnaire more precisely',
   },
   aiScreeningTitle: {
-    ja: 'AI スマート健康スクリーニング',
+    ja: 'AI スマート健康チェック',
     'zh-CN': 'AI 智能健康筛查',
     'zh-TW': 'AI 智能健康篩查',
     en: 'AI Smart Health Screening',
@@ -111,13 +111,13 @@ const translations = {
     en: 'Creating...',
   },
   startScreening: {
-    ja: 'スマートスクリーニング開始',
+    ja: 'スマートヘルスチェック開始',
     'zh-CN': '开始智能筛查',
     'zh-TW': '開始智能篩查',
     en: 'Start Smart Screening',
   },
   limitReached: {
-    ja: '今月の無料スクリーニング回数を使い切りました。来月1日に自動的にリセットされます',
+    ja: '今月の無料ヘルスチェック回数を使い切りました。来月1日に自動的にリセットされます',
     'zh-CN': '本月免费筛查次数已用完，下月1日将自动重置',
     'zh-TW': '本月免費篩查次數已用完，下月1日將自動重置',
     en: 'Monthly free screenings used up. Will reset on the 1st of next month',
@@ -861,12 +861,22 @@ export default function HealthScreeningPage() {
           <div className="max-w-4xl mx-auto px-6">
             <p className="text-xs text-neutral-400 leading-relaxed text-center">
               {lang === 'ja'
-                ? '※ 本AIスクリーニングは医療診断ではありません。結果は参考情報としてのみご利用ください。AIの分析には限界があり、誤りが含まれる可能性があります。健康上の懸念がある場合は、必ず資格を有する医師にご相談ください。'
+                ? '※ 本AIヘルスチェックは医療診断ではありません。結果は参考情報としてのみご利用ください。AIの分析には限界があり、誤りが含まれる可能性があります。健康上の懸念がある場合は、必ず資格を有する医師にご相談ください。'
                 : lang === 'en'
-                ? '※ This AI screening is NOT a medical diagnosis. Results are for reference only. AI analysis has limitations and may contain errors. If you have health concerns, please consult a qualified physician.'
+                ? '※ This AI health check is NOT a medical diagnosis. Results are for reference only. AI analysis has limitations and may contain errors. If you have health concerns, please consult a qualified physician.'
                 : lang === 'zh-TW'
-                ? '※ 本 AI 篩查並非醫療診斷，結果僅供參考。AI 分析存在局限性，可能包含錯誤。如有健康疑慮，請務必諮詢合格醫師。'
-                : '※ 本 AI 筛查并非医疗诊断，结果仅供参考。AI 分析存在局限性，可能包含错误。如有健康疑虑，请务必咨询合格医师。'
+                ? '※ 本 AI 健康自測並非醫療診斷，結果僅供參考。AI 分析存在局限性，可能包含錯誤。如有健康疑慮，請務必諮詢合格醫師。'
+                : '※ 本 AI 健康自测并非医疗诊断，结果仅供参考。AI 分析存在局限性，可能包含错误。如有健康疑虑，请务必咨询合格医师。'
+              }
+            </p>
+            <p className="text-xs text-neutral-400 leading-relaxed text-center mt-2">
+              {lang === 'ja'
+                ? '※ 入力された健康情報は、分析のため複数の外部AIサービス（OpenAI、Google、Anthropic等）に送信されます。送信データは匿名化処理されており、個人を特定する情報は含まれません。'
+                : lang === 'en'
+                ? '※ Your health information will be sent to multiple external AI services (OpenAI, Google, Anthropic, etc.) for analysis. Submitted data is anonymized and does not contain personally identifiable information.'
+                : lang === 'zh-TW'
+                ? '※ 您輸入的健康資訊將發送至多個外部 AI 服務（OpenAI、Google、Anthropic 等）進行分析。提交的數據經過匿名化處理，不包含可識別個人身份的資訊。'
+                : '※ 您输入的健康信息将发送至多个外部 AI 服务（OpenAI、Google、Anthropic 等）进行分析。提交的数据经过匿名化处理，不包含可识别个人身份的信息。'
               }
             </p>
           </div>

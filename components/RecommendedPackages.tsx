@@ -24,16 +24,16 @@ const t = (key: string, lang: Language): string => T[key]?.[lang] ?? key;
 
 const T: Record<string, Record<Language, string>> = {
   title: {
-    'zh-CN': '推荐健检套餐',
-    'zh-TW': '推薦健檢套餐',
-    ja: 'おすすめ健診コース',
-    en: 'Recommended Packages',
+    'zh-CN': '可供参考的健检套餐',
+    'zh-TW': '可供參考的健檢套餐',
+    ja: 'ご参考いただける健診コース',
+    en: 'Available Health Screening Packages',
   },
   desc: {
-    'zh-CN': '根据您的健康评估结果，为您推荐以下日本精密健检方案',
-    'zh-TW': '根據您的健康評估結果，為您推薦以下日本精密健檢方案',
-    ja: '健康評価の結果に基づき、以下の精密健診プランをおすすめします',
-    en: 'Based on your health assessment, we recommend the following packages',
+    'zh-CN': '如果您有兴趣进一步了解自身健康状况，以下日本精密健检方案可供参考',
+    'zh-TW': '如果您有興趣進一步了解自身健康狀況，以下日本精密健檢方案可供參考',
+    ja: 'ご自身の健康状態についてさらに詳しく知りたい方は、以下の精密健診プランをご参考ください',
+    en: 'If you are interested in learning more about your health, the following precision health screening packages are available for your consideration',
   },
   viewDetails: {
     'zh-CN': '查看详情',
@@ -128,7 +128,7 @@ const T: Record<string, Record<Language, string>> = {
   preventive: {
     'zh-CN': '预防性健康筛查',
     'zh-TW': '預防性健康篩查',
-    ja: '予防的健康スクリーニング',
+    ja: '予防的ヘルスチェック',
     en: 'Preventive Screening',
   },
 };
