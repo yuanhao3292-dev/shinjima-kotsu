@@ -43,6 +43,9 @@ const DEFAULT_SITE_IMAGES: Record<string, string> = {
   // Golf Page - 仅保留用户上传的富士山图
   plan_fuji: "https://i.ibb.co/B2L1nxdg/2025-12-16-16-36-41.png",
 
+  // Homepage Golf Section 背景图
+  homepage_golf_bg: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2000&auto=format&fit=crop",
+
   // Founder
   founder_portrait: "https://i.ibb.co/B2mJDvq7/founder.jpg",
 
