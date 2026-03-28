@@ -248,10 +248,10 @@ const translations: Record<string, Record<Language, string>> = {
     en: 'Japan Medical Recommendation',
   },
   japanMedicalRecommendationDesc: {
-    ja: 'お客様の状況に合わせて日本の優良医療機関をご案内',
-    'zh-CN': '根据您的情况推荐日本优质医疗机构',
-    'zh-TW': '根據您的情況推薦日本優質醫療機構',
-    en: 'Recommend quality Japanese medical institutions based on your condition',
+    ja: 'お客様の状況に合わせて日本の医療機関をご案内',
+    'zh-CN': '根据您的情况推荐日本医疗机构',
+    'zh-TW': '根據您的情況推薦日本醫療機構',
+    en: 'Recommend Japanese medical institutions based on your condition',
   },
   reportLanguage: {
     ja: 'レポート言語',

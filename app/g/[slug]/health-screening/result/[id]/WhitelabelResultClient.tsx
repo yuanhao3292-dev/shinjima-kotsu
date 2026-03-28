@@ -109,10 +109,10 @@ const translations = {
     en: 'Based on your screening results, we recommend the following services',
   },
   recommendedServicesDesc: {
-    'zh-CN': '日本优质医疗机构，提供专业诊断与治疗服务',
-    'zh-TW': '日本優質醫療機構，提供專業診斷與治療服務',
-    ja: '日本の優良医療機関による専門的な診断・治療サービスです',
-    en: 'Quality Japanese medical institutions providing professional diagnosis and treatment services',
+    'zh-CN': '日本医疗机构提供的诊断与治疗服务',
+    'zh-TW': '日本醫療機構提供的診斷與治療服務',
+    ja: '日本の医療機関による診断・治療サービスです',
+    en: 'Diagnosis and treatment services from Japanese medical institutions',
   },
   learnMore: {
     'zh-CN': '了解详情',
@@ -127,10 +127,10 @@ const translations = {
     en: 'Need professional consultation? Contact us',
   },
   consultationDesc: {
-    'zh-CN': '我们的医疗顾问可以根据您的筛查结果，为您推荐最适合的日本医疗服务',
-    'zh-TW': '我們的醫療顧問可以根據您的篩查結果，為您推薦最適合的日本醫療服務',
-    ja: '当社の医療コンサルタントが、ヘルスチェック結果を踏まえて日本の医療サービスについてご案内いたします',
-    en: 'Our medical consultants can recommend the most suitable Japanese medical services based on your screening results',
+    'zh-CN': '我们的工作人员可以根据您的筛查结果，为您介绍相关的日本医疗服务',
+    'zh-TW': '我們的工作人員可以根據您的篩查結果，為您介紹相關的日本醫療服務',
+    ja: '担当スタッフが、ヘルスチェック結果を踏まえて日本の医療サービスについてご案内いたします',
+    en: 'Our staff can introduce relevant Japanese medical services based on your screening results',
   },
   wechatLabel: {
     'zh-CN': '微信:',

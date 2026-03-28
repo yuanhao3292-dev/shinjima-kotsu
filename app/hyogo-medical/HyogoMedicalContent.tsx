@@ -42,8 +42,8 @@ const t = {
   } as Record<Language, string>,
   heroText: {
     ja: '1972年開院。50年以上にわたり先進的な医療設備と\n高度な医療技術で兵庫県の地域医療に貢献し続ける国指定特定機能病院。\n全国わずか87施設、兵庫県内2施設のみ。',
-    'zh-TW': '1972年開院。50多年來以先進的醫療設備和\n高端醫療技術持續貢獻兵庫縣的地區醫療。\n國家指定特定功能醫院，全日本僅87家，兵庫縣內僅2家。',
-    'zh-CN': '1972年开院。50多年来以先进的医疗设备和\n高端医疗技术持续贡献兵库县的地区医疗。\n国家指定特定功能医院，全日本仅87家，兵库县内仅2家。',
+    'zh-TW': '1972年開院。50多年來以先進的醫療設備和\n醫療技術持續貢獻兵庫縣的地區醫療。\n國家指定特定功能醫院，全日本僅87家，兵庫縣內僅2家。',
+    'zh-CN': '1972年开院。50多年来以先进的医疗设备和\n医疗技术持续贡献兵库县的地区医疗。\n国家指定特定功能医院，全日本仅87家，兵库县内仅2家。',
     en: 'Founded in 1972. Over 50 years of advanced equipment\nand medical technology serving Hyogo Prefecture.\nNationally designated — only 87 in Japan, 2 in Hyogo.',
   } as Record<Language, string>,
   limitBadge: {
@@ -104,8 +104,8 @@ const t = {
   } as Record<Language, string>,
   certTitle: {
     ja: '国・自治体が認めた高度医療機関',
-    'zh-TW': '國家與地方認定的高端醫療機構',
-    'zh-CN': '国家与地方认定的高端医疗机构',
+    'zh-TW': '國家與地方認定的醫療機構',
+    'zh-CN': '国家与地方认定的医疗机构',
     en: 'Government-Certified Advanced Medical Institution',
   } as Record<Language, string>,
 
@@ -114,7 +114,7 @@ const t = {
     ja: '専門センター',
     'zh-TW': '專門中心',
     'zh-CN': '专门中心',
-    en: 'Centers of Excellence',
+    en: 'Specialty Centers',
   } as Record<Language, string>,
   centersTitle: {
     ja: '17以上の専門センター',
@@ -1182,7 +1182,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
               {({ ja: '疾患別 — あなたの名医を見つける', 'zh-TW': '按疾病分類 — 找到您的名醫', 'zh-CN': '按疾病分类 — 找到您的名医', en: 'Find Your Specialist by Condition' } as Record<Language, string>)[lang]}
             </h3>
             <p className="text-gray-500 mt-3 max-w-2xl mx-auto text-sm">
-              {({ ja: '各分野の専門教授陣が、高度な専門治療をご提供します', 'zh-TW': '各領域專業教授團隊，為您提供高端專業治療', 'zh-CN': '各领域专业教授团队，为您提供高端专业治疗', en: 'Expert professors in each field provide advanced specialized treatment' } as Record<Language, string>)[lang]}
+              {({ ja: '各分野の専門教授陣が、専門的な治療をご提供します', 'zh-TW': '各領域專業教授團隊，提供專科治療', 'zh-CN': '各领域专业教授团队，提供专科治疗', en: 'Professors in each field provide specialized treatment' } as Record<Language, string>)[lang]}
             </p>
           </div>
 

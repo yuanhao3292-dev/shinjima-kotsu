@@ -17,7 +17,7 @@ const DEMO_PRODUCTS = [
     colorTheme: 'teal' as const,
     tagline: 'Premium Health Screening',
     title: '日本精密健康检查',
-    description: '在日本优质医疗机构进行全面精密体检，享受专业医疗资源与中文陪诊服务。',
+    description: '在日本医疗机构进行全面精密体检，提供中文陪诊服务。',
     stats: [
       { value: '300+', unit: '项', label: '检查项目' },
       { value: '70+', unit: '项', label: '精密项目' },
@@ -47,7 +47,7 @@ const DEMO_PRODUCTS = [
     colorTheme: 'rose' as const,
     tagline: 'Aesthetic Medicine',
     title: 'SAI 美容外科诊所',
-    description: '日本关西知名医美整形诊所，糸リフト、注射美容、眼鼻整形等项目。',
+    description: '日本关西医美整形诊所，糸リフト、注射美容、眼鼻整形等项目。',
     stats: [
       { value: '15,000+', unit: '例', label: '累计案例' },
       { value: '10+', unit: '年', label: '临床经验' },
@@ -61,7 +61,7 @@ const DEMO_PRODUCTS = [
     colorTheme: 'indigo' as const,
     tagline: 'Regenerative Medicine',
     title: '干细胞再生医疗',
-    description: '日本干细胞再生医疗中心，提供抗衰老、免疫调理、慢性病管理等再生医疗服务。',
+    description: '日本再生医疗诊所，提供干细胞疗法、免疫调理等再生医疗服务。',
     stats: [
       { value: '10+', unit: '年', label: '临床经验' },
       { value: '5,000+', unit: '例', label: '治疗案例' },
@@ -191,8 +191,8 @@ export default function DemoWhiteLabelPage() {
               <div className="w-14 h-14 mx-auto mb-4 bg-white rounded-2xl shadow-sm flex items-center justify-center">
                 <Award size={24} className="text-amber-600" />
               </div>
-              <h4 className="font-bold text-gray-900 mb-2">认证医疗机构</h4>
-              <p className="text-sm text-gray-500">合作医院均为JCI/厚生省认证<br />确保医疗品质与服务水准</p>
+              <h4 className="font-bold text-gray-900 mb-2">合作医疗机构</h4>
+              <p className="text-sm text-gray-500">合作医院为日本注册医疗机构</p>
             </div>
             <div className="text-center">
               <div className="w-14 h-14 mx-auto mb-4 bg-white rounded-2xl shadow-sm flex items-center justify-center">

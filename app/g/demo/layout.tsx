@@ -35,6 +35,6 @@ export default function DemoLayout({ children }: { children: React.ReactNode }) 
 }
 
 export const metadata = {
-  title: '新岛交通 - 日本高端医疗服务 Demo',
+  title: '新岛交通 - 日本医疗旅行服务 Demo',
   description: '白标分销页面演示 — 精密体检、医疗美容、干细胞再生医疗',
 };

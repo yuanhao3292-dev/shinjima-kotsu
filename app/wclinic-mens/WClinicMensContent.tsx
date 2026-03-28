@@ -629,7 +629,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   </li>
                   <li className="flex items-start gap-2 text-sm text-gray-600">
                     <CheckCircle size={14} className="text-[#00c300] mt-0.5 shrink-0" />
-                    <span>{lang === 'ja' ? '効果が迅速に現れやすい' : lang === 'en' ? 'Effects tend to appear quickly' : lang === 'zh-TW' ? '效果容易迅速顯現' : '效果容易迅速显现'}</span>
+                    <span>{lang === 'ja' ? '局所投与による治療法' : lang === 'en' ? 'Localized administration method' : lang === 'zh-TW' ? '局部給藥治療方式' : '局部给药治疗方式'}</span>
                   </li>
                 </ul>
                 <div className="text-center pt-4 border-t border-gray-100">
@@ -1121,6 +1121,17 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
           </div>
         </section>
       )}
+
+      {/* ━━━━━━━━ Medical Disclaimer ━━━━━━━━ */}
+      <section className="py-8 bg-gray-100">
+        <div className="max-w-4xl mx-auto px-6">
+          <ul className="space-y-1.5 text-xs text-gray-500 leading-relaxed">
+            <li>※ {lang === 'ja' ? '本ページで紹介する検査・治療には自由診療（保険適用外）が含まれます。費用は医療機関の基準に従います。' : lang === 'en' ? 'Examinations and treatments on this page may include self-pay options (not covered by insurance). Fees follow each facility\'s standards.' : lang === 'zh-TW' ? '本頁介紹的檢查・治療包含自費診療（不適用保險）。費用依醫療機構標準。' : '本页介绍的检查・治疗包含自费诊疗（不适用保险）。费用依医疗机构标准。'}</li>
+            <li>※ {lang === 'ja' ? '治療効果には個人差があり、すべての患者に同様の効果を保証するものではありません。' : lang === 'en' ? 'Treatment effects vary by individual and are not guaranteed for all patients.' : lang === 'zh-TW' ? '治療效果因人而異，不保證所有患者均能獲得相同效果。' : '治疗效果因人而异，不保证所有患者均能获得相同效果。'}</li>
+            <li>※ {lang === 'ja' ? '当社（新島交通株式会社・大阪府知事登録旅行業 第2-3115号）は旅行業者であり、医療機関ではありません。医療行為は各提携医療機関が提供します。' : lang === 'en' ? 'Niijima Kotsu Co., Ltd. (Osaka Gov. Registered Travel Agency No. 2-3115) is a travel agency, not a medical institution. Medical services are provided by partner facilities.' : lang === 'zh-TW' ? '本公司（新島交通株式會社・大阪府知事登錄旅行業 第2-3115號）為旅行業者，非醫療機構。醫療行為由各合作醫療機構提供。' : '本公司（新岛交通株式会社・大阪府知事登录旅行业 第2-3115号）为旅行业者，非医疗机构。医疗行为由各合作医疗机构提供。'}</li>
+          </ul>
+        </div>
+      </section>
     </div>
   );
 }

@@ -71,7 +71,7 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
                 <p className="text-xs tracking-[0.1em] text-gray-500">新島交通株式会社</p>
               </div>
               <p className="text-gray-600 text-sm leading-relaxed mb-4 max-w-[280px]">
-                优质医疗，名门球场，商务资源——您的日本专属通道。
+                医疗旅行、高尔夫、商务考察——您的日本旅行服务窗口。
               </p>
               <div className="space-y-1.5 text-sm text-gray-600 mb-4">
                 <div>〒556-0014 大阪府大阪市浪速区大国1-2-21-602</div>
@@ -154,7 +154,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 
   return {
-    title: pageData.config.seoTitle || `新岛交通 - 日本高端医疗·美容服务`,
-    description: pageData.config.seoDescription || '专业日本高端体检、医疗美容服务。中文服务、专属定制。',
+    title: pageData.config.seoTitle || `新岛交通 - 日本医疗旅行·美容服务`,
+    description: pageData.config.seoDescription || '日本体检、医疗美容旅行服务。中文对应、行程定制。',
   };
 }

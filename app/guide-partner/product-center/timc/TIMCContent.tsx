@@ -29,14 +29,14 @@ const IMAGES: Record<string, string> = {
 
 // 评价数据
 const REVIEWS = [
-  { name: '陳先生', loc: '台北', flag: '🇹🇼', pkg: 'SELECT 甄選套餐', text: '第一次來日本做健檢，從預約到體檢完成都非常順暢。TIMC的設備真的很先進，整個環境也很舒適。', highlight: '設備先進、環境舒適' },
-  { name: '林小姐', loc: '高雄', flag: '🇹🇼', pkg: 'PREMIUM 尊享套餐', text: '做了PET-CT全身檢查，醫生非常仔細地解說了每一項結果。中文報告很詳盡，下次會帶爸媽一起來。', highlight: 'PET-CT檢查專業' },
-  { name: '王先生', loc: '新竹', flag: '🇹🇼', pkg: 'VIP 至尊套餐', text: '公司高管健檢選擇了VIP套餐，從機場接送到檢查後的休息都安排得很周到。腸胃鏡採用鎮靜麻醉，不適感很小。', highlight: '腸胃鏡舒適、服務周到' },
-  { name: '黃先生', loc: '上海', flag: '🇨🇳', pkg: 'PREMIUM 尊享套餐', text: '專程從上海飛過來做體檢，整體體驗非常好。MRI檢查非常細緻，報告也很詳盡。', highlight: 'MRI檢查細緻' },
+  { name: '陳先生', loc: '台北', flag: '🇹🇼', pkg: 'SELECT 甄選套餐', text: '第一次來日本做健檢，從預約到體檢完成都非常順暢。環境很舒適，流程安排也很合理。', highlight: '流程順暢、環境舒適' },
+  { name: '林小姐', loc: '高雄', flag: '🇹🇼', pkg: 'PREMIUM 尊享套餐', text: '中文報告很詳盡，每一項都有清楚的說明。翻譯陪同讓溝通完全沒有障礙，下次會帶爸媽一起來。', highlight: '中文報告詳盡' },
+  { name: '王先生', loc: '新竹', flag: '🇹🇼', pkg: 'VIP 至尊套餐', text: '公司安排的健檢，從機場接送到檢查後的休息都安排得很周到。休息室很舒適，整體服務讓人放心。', highlight: '全程安排周到' },
+  { name: '黃先生', loc: '上海', flag: '🇨🇳', pkg: 'PREMIUM 尊享套餐', text: '專程從上海飛過來做體檢，整體體驗很好。報告說明很詳盡，流程也很高效。', highlight: '報告說明詳盡' },
   { name: '張小姐', loc: '香港', flag: '🇭🇰', pkg: 'SELECT 甄選套餐', text: '香港過來很方便，兩個小時飛機就到。檢查流程很順，翻譯全程陪同，完全沒有語言障礙。', highlight: '中文服務貼心' },
-  { name: '李先生', loc: '深圳', flag: '🇨🇳', pkg: 'VIP 至尊套餐', text: '帶父母一起來做年度健檢，VIP套餐的休息室非常舒適，老人家也不會覺得累。報告解讀很詳細。', highlight: '適合全家健檢' },
-  { name: '吳小姐', loc: '台中', flag: '🇹🇼', pkg: 'PREMIUM 尊享套餐', text: '朋友推薦來的，做了全身MRI和腫瘤標記物檢測。醫生說我的健康狀況很好，讓我安心不少。', highlight: '全身MRI精準' },
-  { name: '許先生', loc: '北京', flag: '🇨🇳', pkg: 'SELECT 甄選套餐', text: '日本醫療服務果然名不虛傳，從接機開始就感受到專業。已經推薦給好幾個朋友了。', highlight: '接機服務周到' },
+  { name: '李先生', loc: '深圳', flag: '🇨🇳', pkg: 'VIP 至尊套餐', text: '帶父母一起來做年度健檢，休息室非常舒適，老人家也不會覺得累。報告解讀說明也很清楚。', highlight: '適合家庭健檢' },
+  { name: '吳小姐', loc: '台中', flag: '🇹🇼', pkg: 'PREMIUM 尊享套餐', text: '朋友推薦來的，從預約到當天接待都很順利。設施很新，工作人員態度親切。', highlight: '設施新穎、服務親切' },
+  { name: '許先生', loc: '北京', flag: '🇨🇳', pkg: 'SELECT 甄選套餐', text: '從接機開始就感受到服務的用心，全程中文溝通無障礙。已經推薦給好幾個朋友了。', highlight: '接機服務周到' },
 ];
 
 interface TIMCContentProps {
@@ -308,7 +308,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
                   <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_4_title}</h4>
                   <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_4_desc}</p>
                   <div className="mt-6 flex justify-end gap-3">
-                    <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">Luxury</span>
+                    <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">Private</span>
                     <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">Full Amenities</span>
                   </div>
                 </div>
@@ -346,7 +346,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
         <div className="mb-24" id="timc-packages">
           <div className="text-center mb-16">
             <h3 className="text-3xl font-serif text-gray-900">{t.medical.pkg_title}</h3>
-            <p className="text-gray-500 text-sm mt-2">TIMC × NIIJIMA Exclusive B2B Lineup</p>
+            <p className="text-gray-500 text-sm mt-2">TIMC × NIIJIMA B2B Package Lineup</p>
 
             {!isGuideEmbed && (
               <div className="mt-8">

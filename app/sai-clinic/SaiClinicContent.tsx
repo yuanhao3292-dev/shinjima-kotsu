@@ -74,7 +74,7 @@ const THREAD_LIFT_PACKAGES = [
     price: 680000,
     features: [
       { ja: '当院おすすめ', 'zh-CN': '本院推荐', 'zh-TW': '本院推薦', en: 'Recommended' } as Record<Language, string>,
-      { ja: '明らかな引き上げ効果', 'zh-CN': '明显提升效果', 'zh-TW': '明顯提升效果', en: 'Noticeable lifting' } as Record<Language, string>,
+      { ja: '引き上げ施術（溶ける糸使用）', 'zh-CN': '提升手术（可吸收线材）', 'zh-TW': '提升手術（可吸收線材）', en: 'Lifting procedure (absorbable threads)' } as Record<Language, string>,
       { ja: 'コラーゲン再生促進', 'zh-CN': '刺激胶原再生', 'zh-TW': '刺激膠原再生', en: 'Stimulates collagen' } as Record<Language, string>,
       { ja: '効果12-18ヶ月持続', 'zh-CN': '效果持续12-18个月', 'zh-TW': '效果持續12-18個月', en: 'Lasts 12-18 months' } as Record<Language, string>,
       { ja: '術後診察含む', 'zh-CN': '含术后回诊', 'zh-TW': '含術後回診', en: 'Includes follow-up' } as Record<Language, string>,
@@ -87,9 +87,9 @@ const THREAD_LIFT_PACKAGES = [
     name: { ja: 'SAI LIFT PERFECT', 'zh-CN': '完美版线雕', 'zh-TW': '完美版线雕', en: 'SAI LIFT PERFECT' } as Record<Language, string>,
     price: 980000,
     features: [
-      { ja: '最大限の引き上げ効果', 'zh-CN': '最大程度提升效果', 'zh-TW': '最大程度提升效果', en: 'Maximum lifting effect' } as Record<Language, string>,
+      { ja: '多方向からの引き上げ', 'zh-CN': '多方向提升', 'zh-TW': '多方向提升', en: 'Multi-directional lifting' } as Record<Language, string>,
       { ja: '全顔総合改善', 'zh-CN': '全脸全方位改善', 'zh-TW': '全臉全方位改善', en: 'Full-face enhancement' } as Record<Language, string>,
-      { ja: '最長持続期間', 'zh-CN': '最长持效期', 'zh-TW': '最長持效期', en: 'Longest duration' } as Record<Language, string>,
+      { ja: '持続期間の目安：18ヶ月以上', 'zh-CN': '持效期约18个月以上', 'zh-TW': '持效期約18個月以上', en: 'Approx. 18+ months duration' } as Record<Language, string>,
       { ja: '術後1年以内再診割引', 'zh-CN': '术后1年内复诊优惠', 'zh-TW': '術後1年內復診優惠', en: '1-year follow-up discount' } as Record<Language, string>,
       { ja: 'VIP専属サービス', 'zh-CN': 'VIP专属服务', 'zh-TW': 'VIP專屬服務', en: 'VIP exclusive service' } as Record<Language, string>,
     ],
@@ -118,7 +118,7 @@ const NOSE_PACKAGES = [
 
 const INJECTABLE_PACKAGES = [
   { slug: 'sai-botox-full-face', name: { ja: 'ボトックス全顔', 'zh-CN': 'Allergan全脸肉毒素', 'zh-TW': 'Allergan全臉肉毒素', en: 'Allergan Full Face Botox' } as Record<Language, string>, price: 240000, desc: { ja: 'Allergan 100単位', 'zh-CN': 'Allergan正品100单位，全脸抗皱除纹', 'zh-TW': 'Allergan正品100單位，全臉抗皺除紋', en: 'Allergan 100 units, full-face anti-wrinkle' } as Record<Language, string> },
-  { slug: 'sai-hyaluronic-1cc', name: { ja: 'ヒアルロン酸1cc', 'zh-CN': '玻尿酸注射（1cc）', 'zh-TW': '玻尿酸注射（1cc）', en: 'Hyaluronic Acid Injection (1cc)' } as Record<Language, string>, price: 148000, desc: { ja: 'プレミアムヒアルロン酸', 'zh-CN': '高端玻尿酸填充，精准塑形', 'zh-TW': '高端玻尿酸填充，精準塑形', en: 'Premium hyaluronic acid filler, precise contouring' } as Record<Language, string> },
+  { slug: 'sai-hyaluronic-1cc', name: { ja: 'ヒアルロン酸1cc', 'zh-CN': '玻尿酸注射（1cc）', 'zh-TW': '玻尿酸注射（1cc）', en: 'Hyaluronic Acid Injection (1cc)' } as Record<Language, string>, price: 148000, desc: { ja: 'ヒアルロン酸注入', 'zh-CN': '玻尿酸注射填充', 'zh-TW': '玻尿酸注射填充', en: 'Hyaluronic acid filler injection' } as Record<Language, string> },
   { slug: 'sai-skin-rejuvenation', name: { ja: '水光注射+幹細胞', 'zh-CN': '肌肤再生·水光注射', 'zh-TW': '肌膚再生·水光注射', en: 'Skin Rejuvenation · Aqua Glow' } as Record<Language, string>, price: 304000, desc: { ja: '水光注射 + 幹細胞エッセンス', 'zh-CN': '水光注射 + 干细胞精华，深层修复再生', 'zh-TW': '水光注射 + 幹細胞精華，深層修復再生', en: 'Aqua glow injection + stem cell essence, deep repair & regeneration' } as Record<Language, string> },
   { slug: 'sai-exosome-therapy', name: { ja: 'エクソソーム療法', 'zh-CN': '干细胞外泌体疗法', 'zh-TW': '幹細胞外泌體療法', en: 'Exosome Therapy' } as Record<Language, string>, price: 760000, desc: { ja: '新鮮幹細胞エクソソーム（2-3回）', 'zh-CN': '新鲜干细胞外泌体（2-3次疗程），最前沿再生医疗', 'zh-TW': '新鮮幹細胞外泌體（2-3次療程），最前沿再生醫療', en: 'Fresh stem cell exosomes (2-3 sessions), cutting-edge regenerative medicine' } as Record<Language, string> },
 ];
@@ -394,11 +394,11 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
     svc6Desc: mi('梅田周辺のおすすめ宿泊施設のご紹介、交通案内・送迎のご手配', '推荐梅田周边合适住宿，提供交通指引及接送安排建议', '推薦梅田周邊合適住宿，提供交通指引及接送安排建議', 'Hotel recommendations near Umeda, transport guidance and transfer arrangements'),
     // Gallery
     galleryTitle: mi('院内ギャラリー', '诊所环境', '診所環境', 'Clinic Gallery'),
-    galleryDesc: mi('大阪梅田 YANMAR ビル B2F、プレミアムプライベート診療空間', '位于大阪梅田 YANMAR 大楼 B2F，高端私密的诊疗空间', '位於大阪梅田 YANMAR 大樓 B2F，高端私密的診療空間', 'Premium private treatment space in YANMAR Building B2F, Osaka Umeda'),
+    galleryDesc: mi('大阪梅田 YANMAR ビル B2F、プライベート診療空間', '位于大阪梅田 YANMAR 大楼 B2F，私密诊疗空间', '位於大阪梅田 YANMAR 大樓 B2F，私密診療空間', 'Private treatment space in YANMAR Building B2F, Osaka Umeda'),
     // Case
     caseTitle: mi('症例紹介', '症例介绍', '症例介紹', 'Case Results'),
-    caseDesc: mi('糸リフト施術の実際の効果（写真掲載は患者様のご同意済み）', '线雕提升实际效果（照片经患者同意刊登）', '線雕提升實際效果（照片經患者同意刊登）', 'Actual thread lift results (photos published with patient consent)'),
-    caseDisclaimer: mi('※ 施術効果には個人差がございます。詳しくはカウンセリング時にご説明いたします。', '※ 手术效果因人而异，详情请在咨询时说明。', '※ 手術效果因人而異，詳情請在諮詢時說明。', '※ Results vary by individual. Details will be explained during consultation.'),
+    caseDesc: mi('糸リフト施術例（写真掲載は患者様のご同意済み）', '线雕手术案例（照片经患者同意刊登）', '線雕手術案例（照片經患者同意刊登）', 'Thread lift procedure examples (photos published with patient consent)'),
+    caseDisclaimer: mi('※ 施術効果には個人差がございます。施術名：糸リフト（溶ける糸）｜費用：¥380,000〜¥980,000（税込）｜リスク・副作用：腫れ、内出血、左右差、感染（稀）｜持続期間の目安：12〜18ヶ月。詳しくはカウンセリング時にご説明いたします。', '※ 手术效果因人而异。手术名：线雕（可吸收线材）｜费用：¥380,000〜¥980,000（含税）｜风险·副作用：肿胀、淤血、左右不对称、感染（罕见）｜持续时间参考：12〜18个月。详情请在咨询时说明。', '※ 手術效果因人而異。手術名：線雕（可吸收線材）｜費用：¥380,000〜¥980,000（含稅）｜風險·副作用：腫脹、瘀血、左右不對稱、感染（罕見）｜持續時間參考：12〜18個月。詳情請在諮詢時說明。', '※ Results vary by individual. Procedure: Thread lift (absorbable threads) | Cost: ¥380,000–¥980,000 (incl. tax) | Risks: swelling, bruising, asymmetry, infection (rare) | Duration: approx. 12–18 months. Details provided during consultation.'),
     // Thread Lift packages
     threadLiftTitle: mi('SAI LIFT 糸リフトシリーズ', 'SAI LIFT 线雕提升系列', 'SAI LIFT 線雕提升系列', 'SAI LIFT Thread Lift Series'),
     threadLiftDesc: mi('看板メニューの糸リフト、3つのプランから選択可能', '招牌线雕提升项目，三档可选', '招牌線雕提升項目，三檔可選', 'Our signature thread lift — choose from 3 plans'),
@@ -447,7 +447,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
     transformTitle: mi('迷いから自信への変化', '从犹豫到自信的蜕变', '從猶豫到自信的蛻變', 'From Hesitation to Confidence'),
     transformBefore: mi('「日本で美容施術、言葉が通じなかったらどうしよう？」「追加料金を取られないかな？」「自然な効果になるかな？」—— 初めてご相談いただくお客様は皆、同じ不安をお持ちです。', '"在日本做医美语言不通怎么办？""价格会不会被加收？""效果自然吗？"—— 每一位第一次咨询的客人，都有同样的顾虑。', '「在日本做醫美語言不通怎麼辦？」「價格會不會被加收？」「效果自然嗎？」—— 每一位第一次諮詢的客人，都有同樣的顧慮。', '"What if there\'s a language barrier?" "Will I be overcharged?" "Will results look natural?" — Every first-time client shares these concerns.'),
     transformDuring: mi('全過程中国語対応、崔医師が直接プランを設計、明朗会計で追加料金なし、術後も継続フォロー —— 日本での美容施術はこんなに安心できるのです。', '全程中文沟通、崔医生亲自设计方案、费用透明无隐形消费、术后持续追踪 —— 原来在日本做医美可以这么安心。', '全程中文溝通、崔醫生親自設計方案、費用透明無隱形消費、術後持續追蹤 —— 原來在日本做醫美可以這麼安心。', 'Full Chinese communication, Dr. Sai personally designs your plan, transparent pricing, ongoing post-op tracking — aesthetic treatment in Japan can be this reassuring.'),
-    transformAfter: mi('「説明がとても丁寧だった」「安心して任せられた」「次も崔先生のところに来たい」—— 多くのお客様からサービスに対する高い評価をいただいております。', '"说明非常详细""完全可以放心地交给他""下次还想来崔医生这里" —— 众多客户对我们的服务给予高度评价。', '「說明非常詳細」「完全可以放心地交給他」「下次還想來崔醫生這裡」—— 眾多客戶對我們的服務給予高度評價。', '"Very thorough explanations" "I could trust them completely" "I want to come back to Dr. Sai" — Many clients highly rate our service.'),
+    transformAfter: mi('丁寧なカウンセリングと術後のフォローを通じて、安心してお任せいただける環境を整えています。', '通过细致的咨询和术后跟踪，为您营造安心的诊疗环境。', '通過細緻的諮詢和術後追蹤，為您營造安心的診療環境。', 'Through thorough consultation and post-operative follow-up, we create a reassuring treatment environment.'),
     // FAQ
     faqTitle: mi('よくあるご質問', '常见问题', '常見問題', 'FAQ'),
     // CTA
@@ -1110,6 +1110,9 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
             ))}
           </div>
         </div>
+        <p className="text-center text-[11px] text-gray-400 mt-6 px-6">
+          {{ ja: '※ 上記はサービスの流れや環境に対する個人の感想であり、施術効果を保証するものではありません。', 'zh-TW': '※ 以上為個人對服務流程及環境的感想，並非對療程效果的保證。', 'zh-CN': '※ 以上为个人对服务流程及环境的感想，并非对疗程效果的保证。', en: '※ The above are individual impressions of service and environment, not guarantees of treatment outcomes.' }[lang]}
+        </p>
       </section>
 
       {/* ━━━━━━━━ TRANSFORMATION ━━━━━━━━ */}
