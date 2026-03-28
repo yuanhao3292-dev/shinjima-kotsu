@@ -370,10 +370,10 @@ const translations = {
     en: 'Subscription required to use the branded website feature',
   },
   needSubscriptionDesc: {
-    ja: '月額わずか¥1,980で専用ブランド展示ページを取得でき、お客様がリンクからアクセスすると自動的にあなたに帰属されます。',
-    'zh-CN': '每月仅需 ¥1,980，即可获得专属品牌展示页面，所有客户通过您的链接访问都将自动归属于您。',
-    'zh-TW': '每月僅需 ¥1,980，即可獲得專屬品牌展示頁面，所有客戶通過您的連結訪問都將自動歸屬於您。',
-    en: 'For just ¥1,980/month, get your exclusive branded page. All customers visiting through your link will be automatically attributed to you.',
+    ja: '初期パートナーとして無料でブランド展示ページを取得でき、お客様がリンクからアクセスすると自動的にあなたに帰属されます。',
+    'zh-CN': '作为初期合伙人，您可免费获得专属品牌展示页面，所有客户通过您的链接访问都将自动归属于您。',
+    'zh-TW': '作為初期合夥人，您可免費獲得專屬品牌展示頁面，所有客戶通過您的連結訪問都將自動歸屬於您。',
+    en: 'As a Growth Partner, get your exclusive branded page for free. All customers visiting through your link will be automatically attributed to you.',
   },
   legalNotice: {
     ja: '重要な法的事項',
@@ -958,7 +958,7 @@ export default function WhiteLabelSettingsPage() {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-neutral-500">{t('successFeeLabel', lang)}</span>
-                <span className="font-bold text-brand-600">¥1,980{t('perMonth', lang)}</span>
+                <span className="font-bold text-green-600">{lang === 'ja' ? '無料' : lang === 'en' ? 'Free' : '免费'}</span>
               </div>
             </div>
 

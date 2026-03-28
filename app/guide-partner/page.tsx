@@ -496,16 +496,16 @@ const pageTranslations = {
     'en': 'NIIJIMA shown as service provider at footer',
   },
   brandPrice: {
-    'ja': '¥1,980',
-    'zh-TW': '¥1,980',
-    'zh-CN': '¥1,980',
-    'en': '¥1,980',
+    'ja': '無料',
+    'zh-TW': '免費',
+    'zh-CN': '免费',
+    'en': 'Free',
   },
   brandPriceUnit: {
-    'ja': '/月（約100元人民元）',
-    'zh-TW': '/月（約 100 元人民幣）',
-    'zh-CN': '/月（约 100 元人民币）',
-    'en': '/month (≈ $14 USD)',
+    'ja': '（初期パートナー会費不要）',
+    'zh-TW': '（初期合夥人無需會費）',
+    'zh-CN': '（初期合伙人无需会费）',
+    'en': '(No membership fee for Growth Partners)',
   },
   btnConsult: {
     'ja': '相談・開設',
@@ -976,7 +976,7 @@ export default function GuidePartnerPage() {
                 </li>
               </ul>
               <div className="flex items-baseline gap-2 mb-6">
-                <span className="text-3xl font-bold text-gold-400">{t('brandPrice')}</span>
+                <span className="text-3xl font-bold text-green-400">{t('brandPrice')}</span>
                 <span className="text-neutral-500">{t('brandPriceUnit')}</span>
               </div>
               <button

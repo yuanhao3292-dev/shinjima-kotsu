@@ -367,7 +367,7 @@ export default function PageModulesPage() {
                   step="0.5"
                   className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500"
                 />
-                <p className="mt-1 text-xs text-gray-400">Gold Partner (¥1,980/月)</p>
+                <p className="mt-1 text-xs text-gray-400">Growth Partner (Free)</p>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Partner 佣金 Plan B (%)</label>

@@ -510,7 +510,7 @@ async function handlePartnerEntryFeePaid(
 
   // 2. 创建 Stripe Price（如果不存在）
   const PLANS = {
-    growth: { monthlyFee: 1980, commission: 10 },
+    growth: { monthlyFee: 0, commission: 10 },
     partner: { monthlyFee: 4980, commission: 20 },
   };
 

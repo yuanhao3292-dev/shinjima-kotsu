@@ -21,12 +21,12 @@ const getSupabase = () => {
 };
 
 // Stripe Price IDs（需要在 Stripe Dashboard 创建）
-const GROWTH_PRICE_ID = process.env.STRIPE_WHITELABEL_PRICE_ID; // 初期合伙人 ¥1,980/月
+const GROWTH_PRICE_ID = process.env.STRIPE_WHITELABEL_PRICE_ID; // 初期合伙人（已免费，仅供向后兼容）
 const PARTNER_PRICE_ID = process.env.STRIPE_PARTNER_MONTHLY_PRICE_ID; // 金牌合伙人 ¥4,980/月
 
 // 按订阅等级的月费
 const TIER_PRICING: Record<string, { amount: number; name: string; description: string }> = {
-  growth: { amount: 1980, name: '初期合伙人 - 月度订阅', description: '每月 ¥1,980，享受10%固定分成' },
+  growth: { amount: 0, name: '初期合伙人 - 免费', description: '免费注册，享受10%固定分成' },
   partner: { amount: 4980, name: '金牌合伙人 - 月度订阅', description: '每月 ¥4,980，享受20%固定分成' },
 };
 

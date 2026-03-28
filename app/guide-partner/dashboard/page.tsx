@@ -478,7 +478,7 @@ export default function GuideDashboard() {
                   </div>
                   <div>
                     <h4 className="font-bold text-brand-900">{t('growthPartner', lang)}</h4>
-                    <p className="text-xs text-neutral-400">¥1,980/{lang === 'ja' ? '月' : lang === 'en' ? 'mo' : '月'}</p>
+                    <p className="text-xs text-neutral-400">{lang === 'ja' ? '無料' : lang === 'en' ? 'Free' : '免费'}</p>
                   </div>
                 </div>
                 <div className="text-center py-3 bg-neutral-50 mb-3">

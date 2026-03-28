@@ -33,10 +33,10 @@ const translations = {
     en: 'Growth Partner',
   },
   growthDesc: {
-    ja: '月額1,980円の会費、固定10%の分成',
-    'zh-CN': '每月1,980日币会员费，固定10%分成',
-    'zh-TW': '每月1,980日幣會員費，固定10%分成',
-    en: 'Monthly fee of 1,980 JPY, fixed 10% commission',
+    ja: '無料登録、固定10%の分成',
+    'zh-CN': '免费注册，固定10%分成',
+    'zh-TW': '免費註冊，固定10%分成',
+    en: 'Free registration, fixed 10% commission',
   },
   growthFeature1: {
     ja: 'ナイトクラブ・カジノ・医療・ゴルフ',
@@ -140,6 +140,12 @@ const translations = {
     'zh-TW': '/月',
     en: '/mo',
   },
+  free: {
+    ja: '無料',
+    'zh-CN': '免费',
+    'zh-TW': '免費',
+    en: 'Free',
+  },
   entryFee: {
     ja: '入場料 (一回限り)',
     'zh-CN': '入场费 (一次性)',
@@ -196,10 +202,10 @@ const translations = {
     en: '3. Downgrade and Re-enrollment',
   },
   contractWarning1: {
-    ja: '重要：月会費（¥4,980/月）の支払いを停止した場合、ゴールドパートナー資格は自動的に失効し、初期パートナー（10%分成）にダウングレードされます。',
-    'zh-CN': '重要提示：若您停止续费月会费（¥4,980/月），您的金牌合伙人资格将自动失效，降级为初期合伙人（10%分成）。',
-    'zh-TW': '重要提示：若您停止續費月會費（¥4,980/月），您的金牌合夥人資格將自動失效，降級為初期合夥人（10%分成）。',
-    en: 'Important: If you stop paying the monthly fee (¥4,980/month), your Gold Partner status will automatically expire and be downgraded to Growth Partner (10% commission).',
+    ja: '重要：月会費（¥4,980/月）の支払いを停止した場合、ゴールドパートナー資格は自動的に失効し、初期パートナー（無料・10%分成）にダウングレードされます。',
+    'zh-CN': '重要提示：若您停止续费月会费（¥4,980/月），您的金牌合伙人资格将自动失效，降级为初期合伙人（免费・10%分成）。',
+    'zh-TW': '重要提示：若您停止續費月會費（¥4,980/月），您的金牌合夥人資格將自動失效，降級為初期合夥人（免費・10%分成）。',
+    en: 'Important: If you stop paying the monthly fee (¥4,980/month), your Gold Partner status will automatically expire and be downgraded to Growth Partner (free, 10% commission).',
   },
   contractWarning2: {
     ja: 'その後ゴールドパートナーに再アップグレードする場合、入場料¥200,000を再度お支払いいただく必要があります。',
@@ -268,10 +274,10 @@ const translations = {
     en: 'Commission rates are calculated based on your current membership tier for each order',
   },
   faq2: {
-    ja: '月会費はStripeで自動更新され、いつでもキャンセル可能',
-    'zh-CN': '月会费通过 Stripe 自动续订，可随时取消',
-    'zh-TW': '月會費通過 Stripe 自動續訂，可隨時取消',
-    en: 'Monthly fees are auto-renewed via Stripe and can be cancelled anytime',
+    ja: 'ゴールドパートナーの月会費はStripeで自動更新され、いつでもキャンセル可能',
+    'zh-CN': '金牌合伙人月会费通过 Stripe 自动续订，可随时取消',
+    'zh-TW': '金牌合夥人月會費通過 Stripe 自動續訂，可隨時取消',
+    en: 'Gold Partner monthly fees are auto-renewed via Stripe and can be cancelled anytime',
   },
   faq3: {
     ja: 'ゴールドパートナーの入場料は一括払い、永久有効（月会費の継続が必要）',
@@ -337,7 +343,7 @@ export default function SubscriptionPage() {
     {
       code: 'growth',
       name: t('growthName', lang),
-      monthlyFee: 1980,
+      monthlyFee: 0,
       entryFee: 0,
       commission: '10%',
       description: t('growthDesc', lang),
@@ -524,8 +530,14 @@ export default function SubscriptionPage() {
                 {/* Price */}
                 <div className="mb-4">
                   <div className="flex items-baseline gap-1 mb-1">
-                    <span className="text-4xl font-bold text-neutral-900">¥{plan.monthlyFee.toLocaleString()}</span>
-                    <span className="text-neutral-500">{t('perMonth', lang)}</span>
+                    {plan.monthlyFee === 0 ? (
+                      <span className="text-4xl font-bold text-green-600">{t('free', lang)}</span>
+                    ) : (
+                      <>
+                        <span className="text-4xl font-bold text-neutral-900">¥{plan.monthlyFee.toLocaleString()}</span>
+                        <span className="text-neutral-500">{t('perMonth', lang)}</span>
+                      </>
+                    )}
                   </div>
                   {plan.entryFee > 0 && (
                     <div className="text-sm text-neutral-600">
@@ -553,16 +565,10 @@ export default function SubscriptionPage() {
                 </ul>
 
                 {/* CTA */}
-                {isCurrent && subscriptionActive ? (
+                {plan.code === 'growth' && currentTier === 'growth' ? (
                   <div className="text-center text-sm text-neutral-500 py-3">{t('currentlyUsing', lang)}</div>
-                ) : !subscriptionActive && plan.code === 'growth' ? (
-                  <button
-                    onClick={() => handleUpgrade(plan.code)}
-                    disabled={upgrading}
-                    className="w-full py-3 bg-brand-900 text-white font-bold hover:bg-brand-800 transition disabled:opacity-50"
-                  >
-                    {upgrading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : t('subscribeNow', lang)}
-                  </button>
+                ) : isCurrent && subscriptionActive ? (
+                  <div className="text-center text-sm text-neutral-500 py-3">{t('currentlyUsing', lang)}</div>
                 ) : isUpgrade ? (
                   <button
                     onClick={() => handleUpgrade(plan.code)}

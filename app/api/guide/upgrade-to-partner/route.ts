@@ -33,7 +33,7 @@ const getSupabase = () => {
 const PLANS = {
   growth: {
     name: '初期合伙人',
-    monthlyFee: 1980,
+    monthlyFee: 0,
     entryFee: 0,
     commission: 10,
   },
@@ -343,10 +343,10 @@ export async function GET(request: NextRequest) {
     const plans = {
       growth: {
         name: "成长版",
-        monthlyFee: 1980,
+        monthlyFee: 0,
         entryFee: 0,
         commission: "10% 固定",
-        commissionDescription: "每月1,980日币会员费，固定10%分成",
+        commissionDescription: "免费注册，固定10%分成",
         features: [
           "白标页面基础功能",
           "3 套模板可选",

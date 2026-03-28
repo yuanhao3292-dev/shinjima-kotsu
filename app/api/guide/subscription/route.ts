@@ -106,7 +106,7 @@ export async function GET(request: NextRequest) {
       subscriptionStatus: guide.subscription_status || "inactive",
       commissionRate,
       commissionType: "fixed",
-      monthlyFee: guide.subscription_tier === "partner" ? 4980 : 1980,
+      monthlyFee: guide.subscription_tier === "partner" ? 4980 : 0,
       entryFeePaid,
       entryFeeAmount: entryFeePaid ? 200000 : 0,
       benefits,

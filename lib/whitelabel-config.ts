@@ -28,7 +28,7 @@ export const SUBSCRIPTION_PLANS = {
     id: 'professional',
     name: '专业版',
     nameEn: 'Professional',
-    priceJpy: 1980,
+    priceJpy: 0,
     maxPages: -1, // -1 表示无限制
     hasSubdomain: true,
     features: ['全部页面', '专属子域名', '品牌名称替换', '联系方式展示', '访问统计'],
@@ -53,7 +53,7 @@ export function isWithinPlanLimit(plan: string | null, pageCount: number): boole
 
 // 旧配置（保留向后兼容）
 export const SUBSCRIPTION = {
-  MONTHLY_PRICE_JPY: 1980,
+  MONTHLY_PRICE_JPY: 0,
   PLAN_NAME: 'monthly',
 } as const;
 

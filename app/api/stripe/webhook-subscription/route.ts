@@ -152,7 +152,7 @@ export async function POST(request: NextRequest) {
                 .select('subscription_tier')
                 .eq('id', guideId)
                 .single();
-              const monthlyPrice = guideInfo?.subscription_tier === 'partner' ? 4980 : 1980;
+              const monthlyPrice = guideInfo?.subscription_tier === 'partner' ? 4980 : 0;
               const planName = guideInfo?.subscription_tier === 'partner' ? '金牌合伙人 - 月度' : '初期合伙人 - 月度';
 
               // 异步发送邮件，不阻塞 Webhook 响应（避免超时）
