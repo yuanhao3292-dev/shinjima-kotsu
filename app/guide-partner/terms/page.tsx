@@ -127,10 +127,10 @@ const translations = {
     en: 'Referral Reward Tiers',
   },
   tiersNote: {
-    ja: '※ 四半期ごとに等級を再計算（1-3月、4-6月、7-9月、10-12月）',
-    'zh-CN': '※ 每季度重新计算等级（1-3月、4-6月、7-9月、10-12月）',
-    'zh-TW': '※ 每季度重新計算等級（1-3月、4-6月、7-9月、10-12月）',
-    en: '* Tiers are recalculated quarterly (Jan-Mar, Apr-Jun, Jul-Sep, Oct-Dec)',
+    ja: '※ 以下の等級は初期パートナーに適用されます。ゴールドパートナーは固定20%の報酬率が適用されます。四半期ごとに等級を再計算（1-3月、4-6月、7-9月、10-12月）',
+    'zh-CN': '※ 以下等级适用于初期合伙人。金牌合伙人享受固定 20% 报酬率。每季度重新计算等级（1-3月、4-6月、7-9月、10-12月）',
+    'zh-TW': '※ 以下等級適用於初期合夥人。金牌合夥人享受固定 20% 報酬率。每季度重新計算等級（1-3月、4-6月、7-9月、10-12月）',
+    en: '* The following tiers apply to Growth Partners. Gold Partners receive a fixed 20% reward rate. Tiers are recalculated quarterly (Jan-Mar, Apr-Jun, Jul-Sep, Oct-Dec)',
   },
   tierHeader: {
     ja: '等級',
@@ -199,10 +199,10 @@ const translations = {
     en: 'If a client requests a refund, the corresponding reward will be deducted',
   },
   art3Payment3: {
-    ja: '報酬支払方法：WeChat送金、支付宝、銀行振込（手数料は乙負担）',
-    'zh-CN': '报酬支付方式：微信转账、支付宝、银行汇款（手续费由乙方承担）',
-    'zh-TW': '報酬支付方式：微信轉帳、支付寶、銀行匯款（手續費由乙方承擔）',
-    en: 'Payment methods: WeChat transfer, Alipay, bank wire (handling fees borne by Party B)',
+    ja: '報酬支払方法：WeChat送金、支付宝、銀行振込（振込手数料は甲の負担）',
+    'zh-CN': '报酬支付方式：微信转账、支付宝、银行汇款（汇款手续费由甲方承担）',
+    'zh-TW': '報酬支付方式：微信轉帳、支付寶、銀行匯款（匯款手續費由甲方承擔）',
+    en: 'Payment methods: WeChat transfer, Alipay, bank wire (transfer fees borne by Party A)',
   },
   art3Payment4: {
     ja: '毎月15日までに前月の紹介報酬の支払いを完了',
@@ -211,10 +211,10 @@ const translations = {
     en: 'Payment of the previous month\'s referral rewards is completed by the 15th of each month',
   },
   art3Payment5: {
-    ja: '最低出金額は1,000日円',
-    'zh-CN': '最低提现金额为 1,000 日元',
-    'zh-TW': '最低提現金額為 1,000 日元',
-    en: 'Minimum withdrawal amount is 1,000 JPY',
+    ja: '最低出金額は5,000円',
+    'zh-CN': '最低提现金额为 5,000 日元',
+    'zh-TW': '最低提現金額為 5,000 日元',
+    en: 'Minimum withdrawal amount is 5,000 JPY',
   },
   article4Title: {
     ja: '第4条 乙の権利と義務',
@@ -250,7 +250,7 @@ const translations = {
   aRight1: { ja: '乙の提携パートナー資格の審査', 'zh-CN': '审核乙方的提携伙伴资格', 'zh-TW': '審核乙方的提攜夥伴資格', en: 'Review Party B\'s affiliated partner qualifications' },
   aRight2: { ja: '紹介報酬ポリシーの調整（30日前に通知）', 'zh-CN': '调整介绍报酬政策（提前30天通知）', 'zh-TW': '調整介紹報酬政策（提前30天通知）', en: 'Adjust referral reward policies (with 30 days\' prior notice)' },
   aRight3: { ja: '違反行為への対処（協力終了を含む）', 'zh-CN': '对违规行为进行处理，包括终止合作', 'zh-TW': '對違規行為進行處理，包括終止合作', en: 'Take action on violations, including termination of cooperation' },
-  aRight4: { ja: '本契約の最終解釈権', 'zh-CN': '解释本协议的最终解释权', 'zh-TW': '解釋本協議的最終解釋權', en: 'Final interpretation authority of this Agreement' },
+  aRight4: { ja: '本契約の条項について補足説明を行う権利（乙の法的権利を制限するものではありません）', 'zh-CN': '对本协议条款进行补充说明的权利（不限制乙方的法定权利）', 'zh-TW': '對本協議條款進行補充說明的權利（不限制乙方的法定權利）', en: 'The right to provide supplementary explanations of this Agreement (without limiting Party B\'s statutory rights)' },
   partyAObligations: { ja: '甲の義務：', 'zh-CN': '甲方的义务：', 'zh-TW': '甲方的義務：', en: 'Obligations of Party A:' },
   aObligation1: { ja: '乙が受け取るべき紹介報酬の適時支払い', 'zh-CN': '按时支付乙方应得的介绍报酬', 'zh-TW': '按時支付乙方應得的介紹報酬', en: 'Timely payment of referral rewards due to Party B' },
   aObligation2: { ja: '安定した技術プラットフォームのサポート提供', 'zh-CN': '提供稳定的技术平台支援', 'zh-TW': '提供穩定的技術平台支援', en: 'Provide stable technical platform support' },

@@ -208,6 +208,36 @@ const translations = {
     'zh-TW': '註冊失敗，請稍後重試',
     en: 'Registration failed. Please try again later',
   },
+  agreeTerms: {
+    ja: '私は以下を読み、同意しました：',
+    'zh-CN': '我已阅读并同意：',
+    'zh-TW': '我已閱讀並同意：',
+    en: 'I have read and agree to:',
+  },
+  serviceAgreement: {
+    ja: 'ガイドパートナーサービス契約',
+    'zh-CN': '导游合作伙伴服务协议',
+    'zh-TW': '導遊提攜夥伴服務協議',
+    en: 'Guide Partner Service Agreement',
+  },
+  and: {
+    ja: 'および',
+    'zh-CN': '和',
+    'zh-TW': '和',
+    en: 'and',
+  },
+  privacyPolicy: {
+    ja: 'プライバシーポリシー',
+    'zh-CN': '隐私政策',
+    'zh-TW': '隱私政策',
+    en: 'Privacy Policy',
+  },
+  errorAgreeRequired: {
+    ja: 'サービス契約とプライバシーポリシーに同意してください',
+    'zh-CN': '请先同意服务协议和隐私政策',
+    'zh-TW': '請先同意服務協議和隱私政策',
+    en: 'Please agree to the Service Agreement and Privacy Policy',
+  },
 } as const;
 
 const t = (key: keyof typeof translations, lang: Language): string => {
@@ -234,6 +264,7 @@ function RegisterForm() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [referrerName, setReferrerName] = useState<string | null>(null);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   // 如果有推荐码，查询推荐人信息
   useEffect(() => {
@@ -257,6 +288,12 @@ function RegisterForm() {
     e.preventDefault();
     setError('');
     setLoading(true);
+
+    if (!agreedToTerms) {
+      setError(t('errorAgreeRequired', lang));
+      setLoading(false);
+      return;
+    }
 
     if (formData.password !== formData.confirmPassword) {
       setError(t('errorPasswordMismatch', lang));
@@ -539,10 +576,31 @@ function RegisterForm() {
               </div>
             </div>
 
+            {/* Terms & Privacy consent */}
+            <div className="flex items-start gap-2 mt-2">
+              <input
+                type="checkbox"
+                id="agree-terms"
+                checked={agreedToTerms}
+                onChange={(e) => setAgreedToTerms(e.target.checked)}
+                className="mt-1 h-4 w-4 border-neutral-300 text-brand-600 focus:ring-brand-500"
+              />
+              <label htmlFor="agree-terms" className="text-xs text-neutral-600 leading-relaxed">
+                {t('agreeTerms', lang)}{' '}
+                <Link href="/guide-partner/terms" target="_blank" className="text-brand-700 underline hover:text-brand-900">
+                  {t('serviceAgreement', lang)}
+                </Link>
+                {' '}{t('and', lang)}{' '}
+                <Link href="/legal/privacy" target="_blank" className="text-brand-700 underline hover:text-brand-900">
+                  {t('privacyPolicy', lang)}
+                </Link>
+              </label>
+            </div>
+
             <button
               type="submit"
-              disabled={loading}
-              className="w-full bg-gold-400 hover:bg-gold-300 disabled:bg-neutral-300 text-brand-900 font-medium py-3 px-6 text-sm tracking-wider transition-colors flex items-center justify-center gap-2 mt-2"
+              disabled={loading || !agreedToTerms}
+              className="w-full bg-gold-400 hover:bg-gold-300 disabled:bg-neutral-300 disabled:cursor-not-allowed text-brand-900 font-medium py-3 px-6 text-sm tracking-wider transition-colors flex items-center justify-center gap-2 mt-2"
             >
               {loading ? (
                 <>

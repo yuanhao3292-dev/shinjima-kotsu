@@ -209,7 +209,7 @@ const pageTranslations = {
     'ja': 'TIMC 精密検診',
     'zh-TW': 'TIMC 精密體檢',
     'zh-CN': 'TIMC 精密健检',
-    'en': 'TIMC Premium Checkup',
+    'en': 'TIMC Precision Checkup',
   },
   resource2Desc1: {
     'ja': '徳洲会医療グループ傘下の国際医療センター、大阪 JP Tower内。',
