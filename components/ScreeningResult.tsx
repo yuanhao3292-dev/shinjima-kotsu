@@ -282,15 +282,16 @@ const translations = {
 const t = (key: keyof typeof translations, lang: Language): string =>
   translations[key][lang];
 
-function getConsultationUrl(hospitalId?: string): string | null {
+function getConsultationUrl(hospitalId?: string, screeningId?: string): string | null {
   if (!hospitalId) return null;
   // TIMC (medical_packages) は健診センター — 初回相談ページなし、パッケージ直接購入
   if (hospitalId === 'medical_packages') return null;
+  const fromParam = screeningId ? `?from=${encodeURIComponent(`/health-screening/result/${screeningId}`)}` : '';
   // 直営医院 — 専用ルート
   const baseRoute = MODULE_DETAIL_ROUTES[hospitalId];
-  if (baseRoute) return `${baseRoute}/initial-consultation`;
+  if (baseRoute) return `${baseRoute}/initial-consultation${fromParam}`;
   // JTB 提携医院 — 動的ルート（hospitalId は UUID）
-  return `/hospital/${hospitalId}/initial-consultation`;
+  return `/hospital/${hospitalId}/initial-consultation${fromParam}`;
 }
 
 const HOSPITAL_CONSULTATION_SLUGS: Record<string, string> = {
@@ -650,7 +651,7 @@ export default function ScreeningResult({
             {result.recommendedHospitals.map((hospital, index) => {
               const packageSlug = getConsultationPackageSlug(hospital.hospitalId);
               const packagePrice = packageSlug ? MEDICAL_PACKAGES[packageSlug]?.priceJpy : null;
-              const consultUrl = getConsultationUrl(hospital.hospitalId);
+              const consultUrl = getConsultationUrl(hospital.hospitalId, screeningId);
               return (
                 <div
                   key={index}

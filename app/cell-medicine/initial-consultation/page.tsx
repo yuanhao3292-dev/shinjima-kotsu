@@ -100,7 +100,8 @@ export default function CellMedicineInitialConsultationPage() {
   const searchParams = useSearchParams();
   const guideSlugParam = searchParams.get('guide');
   const guideSlug = guideSlugParam && isValidSlug(guideSlugParam) ? guideSlugParam : null;
-  const backHref = guideSlug ? `/g/${guideSlug}/cell-medicine` : '/cell-medicine';
+  const fromParam = searchParams.get('from');
+  const backHref = fromParam || (guideSlug ? `/g/${guideSlug}/cell-medicine` : '/cell-medicine');
   const providerKey = useProviderKey();
   const [currentLang, setCurrentLang] = useState<Language>('zh-CN');
   const [processing, setProcessing] = useState(false);

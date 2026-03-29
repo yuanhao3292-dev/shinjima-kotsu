@@ -98,7 +98,8 @@ export default function IGTCInitialConsultationPage() {
   const searchParams = useSearchParams();
   const guideSlugParam = searchParams.get('guide');
   const guideSlug = guideSlugParam && isValidSlug(guideSlugParam) ? guideSlugParam : null;
-  const backHref = guideSlug ? `/g/${guideSlug}/igtc` : '/igtc';
+  const fromParam = searchParams.get('from');
+  const backHref = fromParam || (guideSlug ? `/g/${guideSlug}/igtc` : '/igtc');
   const [currentLang, setCurrentLang] = useState<Language>('zh-CN');
   const [processing, setProcessing] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
