@@ -120,7 +120,8 @@ export default function InitialConsultationPage() {
   const searchParams = useSearchParams();
   const guideSlugParam = searchParams.get('guide');
   const guideSlug = guideSlugParam && isValidSlug(guideSlugParam) ? guideSlugParam : null;
-  const fromParam = searchParams.get('from');
+  const fromRaw = searchParams.get('from');
+  const fromParam = fromRaw?.startsWith('/') ? fromRaw : null;
   const backHref = fromParam || (guideSlug ? `/g/${guideSlug}/cancer-treatment` : '/cancer-treatment');
   const [currentLang, setCurrentLang] = useState<Language>('zh-TW');
   const [processing, setProcessing] = useState(false);

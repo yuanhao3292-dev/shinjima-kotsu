@@ -98,7 +98,8 @@ export default function HeleneInitialConsultationPage() {
   const searchParams = useSearchParams();
   const guideSlugParam = searchParams.get('guide');
   const guideSlug = guideSlugParam && isValidSlug(guideSlugParam) ? guideSlugParam : null;
-  const fromParam = searchParams.get('from');
+  const fromRaw = searchParams.get('from');
+  const fromParam = fromRaw?.startsWith('/') ? fromRaw : null;
   const backHref = fromParam || (guideSlug ? `/g/${guideSlug}/helene-clinic` : '/helene-clinic');
   const [currentLang, setCurrentLang] = useState<Language>('zh-CN');
   const [processing, setProcessing] = useState(false);

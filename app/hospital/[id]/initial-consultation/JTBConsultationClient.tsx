@@ -240,7 +240,7 @@ export default function JTBConsultationClient({ hospital }: { hospital: JTBHospi
       </Suspense>
       <div className="bg-white border-b border-neutral-100">
         <div className="max-w-4xl mx-auto px-4 py-3">
-          <Link href={searchParams.get('from') || '/health-screening/history'} className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-900 transition">
+          <Link href={(searchParams.get('from')?.startsWith('/') ? searchParams.get('from') : null) || '/health-screening/history'} className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-900 transition">
             <ArrowLeft size={16} />
             {t('backToScreening')}
           </Link>

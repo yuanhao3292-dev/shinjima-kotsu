@@ -25,6 +25,7 @@ import { useLanguage, type Language } from '@/hooks/useLanguage';
 import RecommendedPackages from './RecommendedPackages';
 import { MODULE_DETAIL_ROUTES } from '@/lib/config/product-categories';
 import { useMemo } from 'react';
+import { usePathname } from 'next/navigation';
 import { calculateHealthScoreWithBreakdown } from '@/lib/health-score';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 import ScoreRing from './ScoreRing';
@@ -282,11 +283,11 @@ const translations = {
 const t = (key: keyof typeof translations, lang: Language): string =>
   translations[key][lang];
 
-function getConsultationUrl(hospitalId?: string, screeningId?: string): string | null {
+function getConsultationUrl(hospitalId?: string, screeningResultPath?: string): string | null {
   if (!hospitalId) return null;
   // TIMC (medical_packages) は健診センター — 初回相談ページなし、パッケージ直接購入
   if (hospitalId === 'medical_packages') return null;
-  const fromParam = screeningId ? `?from=${encodeURIComponent(`/health-screening/result/${screeningId}`)}` : '';
+  const fromParam = screeningResultPath ? `?from=${encodeURIComponent(screeningResultPath)}` : '';
   // 直営医院 — 専用ルート
   const baseRoute = MODULE_DETAIL_ROUTES[hospitalId];
   if (baseRoute) return `${baseRoute}/initial-consultation${fromParam}`;
@@ -335,6 +336,9 @@ export default function ScreeningResult({
 }: ScreeningResultProps) {
   const siteLang = useLanguage();
   const lang = overrideLanguage || siteLang;
+  const pathname = usePathname();
+  // 构建当前筛查结果页的完整路径（兼容白标 /g/{slug}/... 路径）
+  const screeningResultPath = pathname || `/health-screening/result/${screeningId}`;
   // 健康评分详情
   const breakdown = useMemo(() => calculateHealthScoreWithBreakdown(result), [result]);
 
@@ -651,7 +655,7 @@ export default function ScreeningResult({
             {result.recommendedHospitals.map((hospital, index) => {
               const packageSlug = getConsultationPackageSlug(hospital.hospitalId);
               const packagePrice = packageSlug ? MEDICAL_PACKAGES[packageSlug]?.priceJpy : null;
-              const consultUrl = getConsultationUrl(hospital.hospitalId, screeningId);
+              const consultUrl = getConsultationUrl(hospital.hospitalId, screeningResultPath);
               return (
                 <div
                   key={index}
