@@ -74,6 +74,12 @@ const translations = {
     'zh-TW': '返回我的帳戶',
     en: 'Back to My Account',
   },
+  backToScreening: {
+    ja: 'ヘルスチェックに戻る',
+    'zh-CN': '返回健康筛查',
+    'zh-TW': '返回健康篩查',
+    en: 'Back to Health Screening',
+  },
   step1: {
     ja: '第一歩：不調部位を選択',
     'zh-CN': '第一步：选择不适部位',
@@ -596,7 +602,7 @@ export default function HealthScreeningPage() {
       const screeningId = data!.screeningId || data!.existingScreening?.id!;
       return (
         <div className="min-h-screen bg-white">
-          <StepHeader onBack={() => setCurrentStep('welcome')} label={t('backToAccount', lang)} />
+          <StepHeader onBack={() => setCurrentStep('welcome')} label={t('backToScreening', lang)} />
           <StepTitleSection
             badge={t('uploadDocTitle', lang)}
             badgeIcon={Upload}
@@ -684,17 +690,7 @@ export default function HealthScreeningPage() {
     if (currentStep === 'body-map' && (data?.screeningId || data?.existingScreening)) {
       return (
         <div className="min-h-screen bg-white">
-          <div className="bg-white border-b border-neutral-200">
-            <div className="max-w-4xl mx-auto px-4 py-4">
-              <Link
-                href="/my-account"
-                className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
-              >
-                <ArrowLeft size={18} />
-                <span className="text-sm">{t('backToAccount', lang)}</span>
-              </Link>
-            </div>
-          </div>
+          <StepHeader onBack={() => setCurrentStep('welcome')} label={t('backToScreening', lang)} />
           <StepTitleSection
             badge={t('step1', lang)}
             badgeIcon={Activity}
