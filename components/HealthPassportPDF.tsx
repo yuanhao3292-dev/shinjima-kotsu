@@ -202,7 +202,12 @@ function getFontFamily(lang: PDFLanguage): string {
 // ============================================================
 
 const HealthPassportDocument: React.FC<{ data: PassportPDFData }> = ({ data }) => {
-  const { language: lang, healthScore, riskLevel, trend, scoreDelta, breakdown, topFindings, departments, latestScreeningDate, snapshots } = data;
+  const { language: lang, healthScore, riskLevel, trend, scoreDelta, latestScreeningDate } = data;
+  // AI 输出字段可能 undefined，做 fallback 防止 .map() 崩溃
+  const breakdown = data.breakdown || { items: [], finalScore: healthScore };
+  const topFindings = data.topFindings || [];
+  const departments = data.departments || [];
+  const snapshots = data.snapshots || [];
   const fontFamily = getFontFamily(lang);
   const scoreColor = getScoreColor(healthScore);
   const riskStyle = getRiskStyle(riskLevel);

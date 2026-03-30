@@ -724,10 +724,26 @@ function getFontFamily(lang: PDFLanguage): string {
 }
 
 const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) => {
-  const { analysisResult, bodyMapData, createdAt, id, language } = reportData;
+  const { analysisResult: rawResult, bodyMapData, createdAt, id, language } = reportData;
   const lang: PDFLanguage = language || 'zh-CN';
   const fontFamily = getFontFamily(lang);
   const pt = (key: string) => pdfTranslations[key]?.[lang] ?? pdfTranslations[key]?.['zh-CN'] ?? key;
+
+  // AI 输出的数组字段可能为 undefined/null，统一做 fallback 防止 .map() 崩溃
+  const analysisResult = {
+    ...rawResult,
+    riskLevel: rawResult.riskLevel || 'medium',
+    riskSummary: rawResult.riskSummary || '',
+    recommendedDepartments: rawResult.recommendedDepartments || [],
+    recommendedTests: rawResult.recommendedTests || [],
+    treatmentSuggestions: rawResult.treatmentSuggestions || [],
+    recommendedHospitals: (rawResult.recommendedHospitals || []).map(h => ({
+      ...h,
+      features: h.features || [],
+    })),
+    nextSteps: rawResult.nextSteps || [],
+    disclaimer: rawResult.disclaimer || '',
+  };
 
   const riskConfig = {
     low: { badge: styles.riskBadgeLow, text: styles.riskTextLow, label: pt('riskLow') },
