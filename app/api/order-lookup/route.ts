@@ -1,41 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { WHITELABEL_COOKIE_NAME, isValidSlug as isValidGuideSlug } from '@/lib/whitelabel-config';
-
-// ============================================
-// 简单的内存速率限制器（防止暴力枚举）
-// 生产环境建议使用 Redis 或 Upstash
-// ============================================
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
-const RATE_LIMIT_WINDOW = 60 * 1000; // 1 分钟
-const RATE_LIMIT_MAX_REQUESTS = 5; // 每分钟最多 5 次请求
-
-function checkRateLimit(identifier: string): boolean {
-  const now = Date.now();
-  const record = rateLimitMap.get(identifier);
-
-  // 清理过期记录（简单实现，生产环境需要更好的清理策略）
-  if (rateLimitMap.size > 10000) {
-    for (const [key, value] of rateLimitMap) {
-      if (value.resetTime < now) {
-        rateLimitMap.delete(key);
-      }
-    }
-  }
-
-  if (!record || record.resetTime < now) {
-    // 新记录或已过期
-    rateLimitMap.set(identifier, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
-    return true;
-  }
-
-  if (record.count >= RATE_LIMIT_MAX_REQUESTS) {
-    return false; // 超过限制
-  }
-
-  record.count++;
-  return true;
-}
+import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
+import { createErrorResponse, Errors } from '@/lib/utils/api-errors';
 
 // 延迟初始化 Supabase 客户端
 const getSupabase = () => {
@@ -57,14 +24,16 @@ const isValidEmail = (email: string): boolean => {
 // GET: 通过 session_id 或 order_id 查询订单归属信息
 export async function GET(request: NextRequest) {
   try {
-    // GET 端点也需要速率限制（防枚举）
-    const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
-      || request.headers.get('x-real-ip')
-      || 'unknown';
-    if (!checkRateLimit(`${clientIp}:order-lookup-get`)) {
-      return NextResponse.json(
-        { error: '請求過於頻繁，請稍後再試' },
-        { status: 429 }
+    // 速率限制（防枚举，Upstash Redis 分布式限速）
+    const clientIp = getClientIp(request);
+    const rateLimitResult = await checkRateLimit(
+      `${clientIp}:/api/order-lookup:GET`,
+      RATE_LIMITS.sensitive
+    );
+    if (!rateLimitResult.success) {
+      return createErrorResponse(
+        Errors.rateLimit(rateLimitResult.retryAfter),
+        createRateLimitHeaders(rateLimitResult)
       );
     }
 
@@ -136,16 +105,16 @@ export async function GET(request: NextRequest) {
 // POST: 通过 email + orderId 查询订单详情
 export async function POST(request: NextRequest) {
   try {
-    // 获取客户端 IP 用于速率限制
-    const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
-      || request.headers.get('x-real-ip')
-      || 'unknown';
-
-    // 检查速率限制
-    if (!checkRateLimit(clientIp)) {
-      return NextResponse.json(
-        { error: '請求過於頻繁，請稍後再試' },
-        { status: 429 }
+    // 速率限制（防暴力枚举，Upstash Redis 分布式限速）
+    const clientIp = getClientIp(request);
+    const rateLimitResult = await checkRateLimit(
+      `${clientIp}:/api/order-lookup:POST`,
+      RATE_LIMITS.sensitive
+    );
+    if (!rateLimitResult.success) {
+      return createErrorResponse(
+        Errors.rateLimit(rateLimitResult.retryAfter),
+        createRateLimitHeaders(rateLimitResult)
       );
     }
 

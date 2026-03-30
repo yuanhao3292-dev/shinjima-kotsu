@@ -120,7 +120,7 @@ export async function middleware(request: NextRequest) {
 
   if (botClass === 'human' && !isPublicEntry) {
     const fpCookie = request.cookies.get('__bfp');
-    const fpSecret = process.env.NEXT_PUBLIC_FP_SECRET || 'fp-default-key';
+    const fpSecret = process.env.FP_SECRET || process.env.NEXT_PUBLIC_FP_SECRET || 'fp-default-key';
 
     if (fpCookie?.value) {
       const fpResult = await verifyFingerprintToken(fpCookie.value, fpSecret);

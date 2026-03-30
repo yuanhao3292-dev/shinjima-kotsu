@@ -1133,7 +1133,17 @@ async function handleChargeRefunded(supabase: SupabaseClient, charge: Stripe.Cha
     : charge.payment_intent?.id;
 
   if (!paymentIntentId) {
-    console.log('[Refund] No payment_intent on charge, skipping commission clawback');
+    console.error('[Refund] Missing payment_intent on charge, cannot process refund', {
+      chargeId: charge.id,
+      amountRefunded: charge.amount_refunded,
+    });
+    // 记录为失败事件以便人工对账
+    await supabase.from('webhook_events').insert({
+      event_id: `refund_no_pi_${charge.id}`,
+      event_type: 'charge.refunded',
+      result: 'failed',
+      error_message: 'Missing payment_intent on charge',
+    }).then(() => {}, () => {});
     return;
   }
 
@@ -1181,7 +1191,16 @@ async function handleDisputeCreated(supabase: SupabaseClient, dispute: Stripe.Di
     : dispute.payment_intent?.id;
 
   if (!paymentIntentId) {
-    console.log('[Dispute] No payment_intent on dispute, skipping');
+    console.error('[Dispute] Missing payment_intent on dispute, cannot process', {
+      disputeId: dispute.id,
+      amount: dispute.amount,
+    });
+    await supabase.from('webhook_events').insert({
+      event_id: `dispute_no_pi_${dispute.id}`,
+      event_type: 'charge.dispute.created',
+      result: 'failed',
+      error_message: 'Missing payment_intent on dispute',
+    }).then(() => {}, () => {});
     return;
   }
 
