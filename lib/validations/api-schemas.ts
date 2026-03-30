@@ -76,7 +76,7 @@ export const CreateCheckoutSessionSchema = z.object({
   // 分销归因：从 URL 显式传入，优先于 Cookie（防跨浏览器/设备丢失）
   guideSlug: z.string().min(3).max(50).regex(/^[a-z0-9-]+$/).optional().nullable(),
   // 来源提供方：标识用户从哪个医院/机构页面跳转过来
-  provider: z.string().max(50).regex(/^[a-z0-9_]+$/).optional().nullable(),
+  provider: z.string().max(50).regex(/^[a-z0-9_-]+$/).optional().nullable(),
   // 客户选择的语言，用于发送对应语种的确认邮件
   locale: z.enum(['ja', 'zh-CN', 'zh-TW', 'en']).optional().default('ja'),
   // 法定同意确认（電子消費者契約法・特定商取引法）
