@@ -62,11 +62,10 @@ function collectSignals(): Record<string, unknown> {
 
 async function setFingerprintCookie() {
   try {
-    // 如果已有有效 cookie，跳过（httpOnly cookie 无法通过 JS 检测，
-    // 但如果之前已经设置过就会随请求发送，服务端 API 可以跳过）
+    // httpOnly cookie 无法通过 JS 检测是否已存在，
+    // 服务端 API 会检查请求中的 cookie 并在有效时跳过重新签名
     const signals = collectSignals();
 
-    // 发送到服务端 API 签名
     await fetch('/api/fingerprint', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

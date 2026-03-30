@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { generateFingerprintToken } from '@/lib/utils/fingerprint-token';
+import { generateFingerprintToken, verifyFingerprintToken } from '@/lib/utils/fingerprint-token';
 
 /**
  * POST /api/fingerprint
@@ -8,6 +8,16 @@ import { generateFingerprintToken } from '@/lib/utils/fingerprint-token';
  */
 export async function POST(request: NextRequest) {
   try {
+    // 如果已有有效 cookie，直接跳过（避免每次页面加载都重新签名）
+    const fpSecret = process.env.FP_SECRET || process.env.NEXT_PUBLIC_FP_SECRET || 'fp-default-key';
+    const existingCookie = request.cookies.get('__bfp')?.value;
+    if (existingCookie) {
+      const existing = await verifyFingerprintToken(existingCookie, fpSecret);
+      if (existing.valid) {
+        return NextResponse.json({ ok: true, cached: true });
+      }
+    }
+
     const body = await request.json();
     const { signals } = body;
 
@@ -27,7 +37,6 @@ export async function POST(request: NextRequest) {
     score = Math.min(score, 100);
 
     // 使用服务端密钥签名（不暴露给客户端）
-    const fpSecret = process.env.FP_SECRET || process.env.NEXT_PUBLIC_FP_SECRET || 'fp-default-key';
     const token = await generateFingerprintToken(score, fpSecret);
 
     // 通过 Set-Cookie 返回签名令牌

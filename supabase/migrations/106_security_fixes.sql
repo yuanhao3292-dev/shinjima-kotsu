@@ -11,6 +11,12 @@ CREATE UNIQUE INDEX IF NOT EXISTS idx_unique_pending_order_per_customer_package
 -- 将 orders 更新 + white_label_orders 插入 + 导游余额递增
 -- 封装在单个事务中，任一步骤失败则全部回滚
 -- ============================================
+
+-- 先确保 source_order_id 有唯一约束（幂等性依赖）
+CREATE UNIQUE INDEX IF NOT EXISTS idx_wl_orders_source_order_id_unique
+  ON white_label_orders (source_order_id)
+  WHERE source_order_id IS NOT NULL;
+
 CREATE OR REPLACE FUNCTION calculate_and_record_commission(
   p_order_id UUID,
   p_guide_id UUID,
@@ -18,11 +24,12 @@ CREATE OR REPLACE FUNCTION calculate_and_record_commission(
   p_commission_tax INTEGER,
   p_commission_net INTEGER,
   p_commission_rate NUMERIC,
-  p_bonus_commission INTEGER DEFAULT 0,
-  p_bonus_rate NUMERIC DEFAULT 0,
+  p_applied_commission_rate NUMERIC DEFAULT 0,
   p_order_amount INTEGER DEFAULT 0,
-  p_package_name TEXT DEFAULT '',
-  p_customer_name TEXT DEFAULT ''
+  p_order_type TEXT DEFAULT 'medical',
+  p_module_id UUID DEFAULT NULL,
+  p_withholding_tax_amount INTEGER DEFAULT 0,
+  p_withholding_tax_rate NUMERIC DEFAULT 0
 ) RETURNS INTEGER AS $$
 DECLARE
   v_new_total INTEGER;
@@ -35,12 +42,18 @@ BEGIN
 
   -- Step 2: 创建 white_label_orders 记录（忽略已存在的）
   INSERT INTO white_label_orders (
-    order_id, guide_id, commission_amount, commission_rate,
-    bonus_commission, bonus_rate, status
+    source_order_id, source_order_table, guide_id, module_id,
+    order_type, order_amount, order_currency,
+    commission_rate, applied_commission_rate, commission_amount,
+    commission_status, withholding_tax_amount, withholding_tax_rate,
+    status, customer_name, service_type, service_name, total_amount
   ) VALUES (
-    p_order_id, p_guide_id, p_commission_amount, p_commission_rate,
-    p_bonus_commission, p_bonus_rate, 'completed'
-  ) ON CONFLICT (order_id) DO NOTHING;
+    p_order_id, 'orders', p_guide_id, p_module_id,
+    p_order_type, p_order_amount, 'JPY',
+    p_commission_rate, p_applied_commission_rate, p_commission_amount,
+    'calculated', p_withholding_tax_amount, p_withholding_tax_rate,
+    'completed', '', p_order_type, '', p_order_amount
+  ) ON CONFLICT (source_order_id) WHERE source_order_id IS NOT NULL DO NOTHING;
 
   -- Step 3: 原子递增导游余额
   UPDATE guides SET
