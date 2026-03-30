@@ -20,6 +20,7 @@ const i18n = {
   wechatTitle: { ja: 'カスタマーサポート', 'zh-TW': '聯繫客服', 'zh-CN': '联系客服', en: 'Contact Support' } as Record<Language, string>,
   wechatScan: { ja: 'QRコードをスキャンしてサポートを追加', 'zh-TW': '掃碼添加客服微信', 'zh-CN': '扫码添加客服微信', en: 'Scan to add support on WeChat' } as Record<Language, string>,
   wechatTip: { ja: '追加後にご注文番号をお伝えください', 'zh-TW': '添加後請告知訂單編號', 'zh-CN': '添加后请告知订单编号', en: 'Share your order number after adding' } as Record<Language, string>,
+  downloadReceipt: { ja: '領収書をダウンロード', 'zh-TW': '下載收據', 'zh-CN': '下载收据', en: 'Download Receipt' } as Record<Language, string>,
 };
 
 function detectLanguage(): Language {
@@ -54,6 +55,7 @@ function PaymentSuccessContent() {
 
   const [loading, setLoading] = useState(true);
   const [orderId, setOrderId] = useState<string | null>(null);
+  const [invoiceToken, setInvoiceToken] = useState<string | null>(null);
   const [lang, setLang] = useState<Language>('zh-TW');
 
   useEffect(() => {
@@ -72,6 +74,7 @@ function PaymentSuccessContent() {
         if (response.ok) {
           const data = await response.json();
           if (data.orderId) setOrderId(data.orderId);
+          if (data.invoiceToken) setInvoiceToken(data.invoiceToken);
         }
       } catch (error) {
         console.error('Failed to fetch order info:', error);
@@ -132,8 +135,24 @@ function PaymentSuccessContent() {
         </div>
 
         {displayOrderId && (
-          <div className="mb-6 text-sm text-neutral-500">
+          <div className="mb-4 text-sm text-neutral-500">
             <p>{t('orderNumber')}: {displayOrderId}</p>
+          </div>
+        )}
+
+        {orderId && invoiceToken && (
+          <div className="mb-6">
+            <a
+              href={`/api/invoices/${orderId}?token=${invoiceToken}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-brand-700 hover:text-brand-900 transition-colors border border-neutral-200 rounded-lg px-4 py-2"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              {t('downloadReceipt')}
+            </a>
           </div>
         )}
 

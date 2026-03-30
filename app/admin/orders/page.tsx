@@ -36,6 +36,7 @@ const STATUS_LABELS: Record<string, { label: string; color: string }> = {
   confirmed: { label: '已確認', color: 'bg-blue-100 text-blue-800' },
   completed: { label: '已完成', color: 'bg-gray-100 text-gray-800' },
   cancelled: { label: '已取消', color: 'bg-red-100 text-red-800' },
+  refunded: { label: '已退款', color: 'bg-purple-100 text-purple-800' },
 };
 
 // ============================================
@@ -89,6 +90,8 @@ export default function AdminOrdersPage() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<string>('all');
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [refunding, setRefunding] = useState(false);
+  const [refundModal, setRefundModal] = useState<{ visible: boolean; orderId?: string; amount?: number; reason: string }>({ visible: false, reason: '' });
 
   // 導遊預約
   const [bookings, setBookings] = useState<GuideBooking[]>([]);
@@ -171,6 +174,43 @@ export default function AdminOrdersPage() {
     } catch (error) {
       console.error('更新订单状态失败:', error);
       alert('更新失敗');
+    }
+  }
+
+  function openRefundModal(orderId: string) {
+    const order = orders.find(o => o.id === orderId);
+    setRefundModal({ visible: true, orderId, amount: order?.total_amount || 0, reason: '' });
+  }
+
+  async function confirmRefund() {
+    if (!refundModal.orderId) return;
+
+    setRefunding(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const response = await fetch(`/api/admin/orders/${refundModal.orderId}/refund`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session?.access_token}`,
+        },
+        body: JSON.stringify({ reason: refundModal.reason || undefined }),
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.error || '退款失敗');
+      }
+
+      alert(`退款成功！Stripe Refund ID: ${result.refundId}`);
+      fetchOrders();
+      setSelectedOrder(null);
+    } catch (error: any) {
+      console.error('退款失败:', error);
+      alert(`退款失敗: ${error.message}`);
+    } finally {
+      setRefunding(false);
+      setRefundModal({ visible: false, reason: '' });
     }
   }
 
@@ -745,6 +785,15 @@ export default function AdminOrdersPage() {
                       標記完成
                     </button>
                   )}
+                  {['paid', 'confirmed', 'completed'].includes(selectedOrder.status) && (
+                    <button
+                      onClick={() => openRefundModal(selectedOrder.id)}
+                      disabled={refunding}
+                      className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 text-sm font-medium disabled:opacity-50"
+                    >
+                      退款（Stripe）
+                    </button>
+                  )}
                   {['pending', 'paid', 'confirmed'].includes(selectedOrder.status) && (
                     <button
                       onClick={() => {
@@ -941,6 +990,44 @@ export default function AdminOrdersPage() {
                   )}
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* 退款确认 Modal */}
+      {refundModal.visible && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4 shadow-xl">
+            <h2 className="text-lg font-bold text-gray-900 mb-4">確認退款</h2>
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+              <p className="text-sm text-gray-600 mb-1">退款金額</p>
+              <p className="text-2xl font-bold text-red-600">¥{(refundModal.amount || 0).toLocaleString()}</p>
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-1">退款原因（可選）</label>
+              <textarea
+                value={refundModal.reason}
+                onChange={(e) => setRefundModal(prev => ({ ...prev, reason: e.target.value }))}
+                placeholder="例：客戶取消預約"
+                className="w-full p-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                rows={3}
+              />
+            </div>
+            <p className="text-xs text-gray-400 mb-4">退款將通過 Stripe 退回客戶信用卡，處理需 5-10 個工作日。此操作不可撤銷。</p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setRefundModal({ visible: false, reason: '' })}
+                className="flex-1 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm font-medium"
+              >
+                取消
+              </button>
+              <button
+                onClick={confirmRefund}
+                disabled={refunding}
+                className="flex-1 px-4 py-2.5 bg-purple-600 text-white rounded-lg hover:bg-purple-700 text-sm font-medium disabled:opacity-50"
+              >
+                {refunding ? '處理中...' : '確認退款'}
+              </button>
             </div>
           </div>
         </div>

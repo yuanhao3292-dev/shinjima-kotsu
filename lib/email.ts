@@ -10,6 +10,7 @@ import {
   guideCommission,
   kycNotification,
   guideRegistration,
+  refundNotification,
 } from './email-i18n';
 import {
   buildEmailHtml,
@@ -787,6 +788,95 @@ export async function sendScreeningErrorNotification(data: ScreeningErrorNotific
     return { success: true, data: result };
   } catch (error: any) {
     console.error('[ScreeningError] Failed to send notification:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+// ============================================
+// 退款通知邮件（客户）
+// ============================================
+
+interface RefundNotificationData {
+  customerEmail: string;
+  customerName: string;
+  packageName: string;
+  refundAmount: number;
+  orderId: string;
+  reason?: string;
+  stripeRefundId?: string;
+  locale?: EmailLocale;
+}
+
+export async function sendRefundNotificationEmail(data: RefundNotificationData) {
+  const resend = getResend();
+  if (!resend) {
+    console.log('Email skipped: Resend not configured');
+    return { success: false, error: 'Resend not configured' };
+  }
+
+  const locale: EmailLocale = data.locale || 'ja';
+  const rn = refundNotification;
+
+  const shortId = data.orderId.slice(-8).toUpperCase();
+  const subject = t(rn.subject, locale).replace('{{orderId}}', shortId);
+
+  const rows: Array<{ label: string; value: string; valueColor?: string; valueFontSize?: string; valueBold?: boolean }> = [
+    { label: t(rn.labelOrderId, locale), value: `#${shortId}` },
+    { label: t(rn.labelPackage, locale), value: data.packageName },
+    {
+      label: t(rn.labelRefundAmount, locale),
+      value: `¥${data.refundAmount.toLocaleString()}`,
+      valueColor: '#dc2626',
+      valueFontSize: '18px',
+    },
+    { label: t(rn.labelRefundMethod, locale), value: t(rn.refundMethodCard, locale), valueBold: false },
+    { label: t(rn.labelRefundTimeline, locale), value: t(rn.refundTimeline, locale), valueBold: false },
+  ];
+
+  if (data.stripeRefundId) {
+    rows.push({ label: t(rn.labelRefundId, locale), value: data.stripeRefundId, valueBold: false });
+  }
+
+  if (data.reason) {
+    rows.push({ label: t(rn.labelReason, locale), value: data.reason, valueBold: false });
+  }
+
+  const contentSections = [
+    buildDetailsTable(t(rn.detailsTitle, locale), rows),
+    buildInfoCard('', `<p style="color: #64748b; margin: 0; font-size: 13px;">${t(rn.footerNote, locale)}</p><p style="color: #64748b; margin: 8px 0 0; font-size: 12px;">${t(rn.contactNote, locale)}</p>`),
+    buildContactSection({
+      prompt: t(common.contactPrompt, locale),
+      lineButton: t(common.lineButton, locale),
+      wechatButton: t(common.wechatButton, locale),
+    }),
+  ];
+
+  const html = buildEmailHtml({
+    headerTitle: 'NIIJIMA KOUTSU',
+    headerSubtitle: '',
+    headerTag: 'REFUND',
+    iconEmoji: '&#8634;',
+    statusTitle: t(rn.statusTitle, locale),
+    statusSubtitle: t(rn.statusSubtitle, locale),
+    contentSections,
+    footerCompanyName: t(common.footerCompany, locale),
+    footerSubtitle: '',
+    footerDisclaimer: t(common.footerDisclaimer, locale),
+  });
+
+  try {
+    const result = await resend.emails.send({
+      from: `NIIJIMA <noreply@niijima-koutsu.jp>`,
+      to: data.customerEmail,
+      bcc: BCC_EMAIL,
+      subject,
+      html,
+    });
+
+    console.log('[Refund] Email sent successfully:', result);
+    return { success: true, data: result };
+  } catch (error: any) {
+    console.error('[Refund] Failed to send email:', error);
     return { success: false, error: error.message };
   }
 }

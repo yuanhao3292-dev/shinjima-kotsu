@@ -592,6 +592,103 @@ export const guideRegistration = {
 } as const;
 
 // ============================================
+// 5b. 退款通知 (Refund Notification)
+// ============================================
+
+export const refundNotification = {
+  subject: {
+    ja: '返金処理完了 - 注文 #{{orderId}}',
+    'zh-CN': '退款已处理 - 订单 #{{orderId}}',
+    'zh-TW': '退款已處理 - 訂單 #{{orderId}}',
+    en: 'Refund Processed - Order #{{orderId}}',
+  },
+  statusTitle: {
+    ja: '返金処理完了',
+    'zh-CN': '退款已处理',
+    'zh-TW': '退款已處理',
+    en: 'Refund Processed',
+  },
+  statusSubtitle: {
+    ja: 'ご注文の返金処理が完了いたしました',
+    'zh-CN': '您的订单退款已完成处理',
+    'zh-TW': '您的訂單退款已完成處理',
+    en: 'Your order refund has been processed',
+  },
+  detailsTitle: {
+    ja: '返金詳細',
+    'zh-CN': '退款详情',
+    'zh-TW': '退款詳情',
+    en: 'Refund Details',
+  },
+  labelOrderId: {
+    ja: '注文番号',
+    'zh-CN': '订单编号',
+    'zh-TW': '訂單編號',
+    en: 'Order ID',
+  },
+  labelPackage: {
+    ja: 'サービス内容',
+    'zh-CN': '服务内容',
+    'zh-TW': '服務內容',
+    en: 'Service',
+  },
+  labelRefundAmount: {
+    ja: '返金額',
+    'zh-CN': '退款金额',
+    'zh-TW': '退款金額',
+    en: 'Refund Amount',
+  },
+  labelRefundMethod: {
+    ja: '返金方法',
+    'zh-CN': '退款方式',
+    'zh-TW': '退款方式',
+    en: 'Refund Method',
+  },
+  refundMethodCard: {
+    ja: 'クレジットカードへ返金（5〜10営業日）',
+    'zh-CN': '退回信用卡（5-10个工作日）',
+    'zh-TW': '退回信用卡（5-10個工作日）',
+    en: 'Refund to credit card (5-10 business days)',
+  },
+  labelReason: {
+    ja: '返金理由',
+    'zh-CN': '退款原因',
+    'zh-TW': '退款原因',
+    en: 'Reason',
+  },
+  labelRefundId: {
+    ja: '返金参照番号',
+    'zh-CN': '退款参考号',
+    'zh-TW': '退款參考號',
+    en: 'Refund Reference',
+  },
+  labelRefundTimeline: {
+    ja: '返金予定',
+    'zh-CN': '退款预期',
+    'zh-TW': '退款預期',
+    en: 'Expected Timeline',
+  },
+  refundTimeline: {
+    ja: 'クレジットカード会社の処理に5〜10営業日',
+    'zh-CN': '信用卡公司处理需5-10个工作日',
+    'zh-TW': '信用卡公司處理需5-10個工作日',
+    en: '5-10 business days for credit card processing',
+  },
+  footerNote: {
+    ja: '返金はカード会社の処理に5〜10営業日かかる場合がございます',
+    'zh-CN': '退款可能需要5-10个工作日才能显示在您的信用卡账单中',
+    'zh-TW': '退款可能需要5-10個工作日才能顯示在您的信用卡帳單中',
+    en: 'Refunds may take 5-10 business days to appear on your credit card statement',
+  },
+  contactNote: {
+    ja: 'ご不明な点は新島交通カスタマーサポートまでお問い合わせください（TEL: 06-7777-3353）',
+    'zh-CN': '如有疑问请联系新岛交通客服（TEL: 06-7777-3353）',
+    'zh-TW': '如有疑問請聯繫新島交通客服（TEL: 06-7777-3353）',
+    en: 'For questions, contact Niijima Kotsu support (TEL: 06-7777-3353)',
+  },
+} as const;
+
+// ============================================
 // 6. 健康复查提醒 (Health Checkup Reminder)
 // ============================================
 

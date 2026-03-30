@@ -3,6 +3,7 @@ import Stripe from 'stripe';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { sendOrderConfirmationEmail, sendNewOrderNotificationToMerchant, sendGuideCommissionNotification } from '@/lib/email';
 import { escapeHtml } from '@/lib/utils/html-escape';
+import { clawbackCommission } from '@/lib/refund';
 
 // 延迟初始化，避免构建时报错
 const getStripe = () => {
@@ -697,13 +698,23 @@ async function handleSubscriptionUpdated(supabase: SupabaseClient, subscription:
     ? new Date(periodEnd * 1000).toISOString()
     : null;
 
+  // 构建更新数据
+  const updateData: Record<string, any> = {
+    subscription_status: subscriptionStatus,
+    subscription_end_date: endDate,
+    updated_at: new Date().toISOString(),
+  };
+
+  // 订阅取消/未付款时，立即降级为 Growth（防止付费期间过后仍享受 Partner 佣金率）
+  if (subscriptionStatus === 'cancelled') {
+    updateData.subscription_tier = 'growth';
+    updateData.commission_tier_code = 'growth';
+    console.log(`⚠️ 订阅 ${subscription.id} 已取消，佣金等级降为 growth`);
+  }
+
   await supabase
     .from('guides')
-    .update({
-      subscription_status: subscriptionStatus,
-      subscription_end_date: endDate,
-      updated_at: new Date().toISOString(),
-    })
+    .update(updateData)
     .eq('stripe_subscription_id', subscription.id);
 
   console.log(`✅ 订阅 ${subscription.id} 状态已更新为 ${subscriptionStatus}`);
@@ -740,12 +751,14 @@ async function handleSubscriptionDeleted(supabase: SupabaseClient, subscription:
       .eq('stripe_subscription_id', subscription.id);
 
   } else {
-    // 其他订阅（白标等）
+    // 其他订阅（白标等）— 同样降级 tier 防止佣金漏洞
     await supabase
       .from('guides')
       .update({
         subscription_status: 'cancelled',
         subscription_plan: 'none',
+        subscription_tier: 'growth',
+        commission_tier_code: 'growth',
         updated_at: new Date().toISOString(),
       })
       .eq('stripe_subscription_id', subscription.id);
@@ -1238,37 +1251,4 @@ async function handleDisputeCreated(supabase: SupabaseClient, dispute: Stripe.Di
   }
 }
 
-// ============================================
-// 佣金撤回（退款/争议共用）
-// ============================================
-async function clawbackCommission(
-  supabase: SupabaseClient,
-  orderId: string,
-  guideId: string,
-  commissionAmount: number
-) {
-  // 1. 更新 white_label_orders 佣金状态
-  const { error: wlError } = await supabase
-    .from('white_label_orders')
-    .update({ commission_status: 'clawed_back' })
-    .eq('source_order_id', orderId)
-    .eq('guide_id', guideId);
-
-  if (wlError) {
-    console.error(`[Clawback] Failed to update white_label_orders for order ${orderId}:`, wlError);
-  }
-
-  // 2. 原子递减导游累计佣金
-  await supabase.rpc('increment_guide_commission', {
-    p_guide_id: guideId,
-    p_amount: -commissionAmount,
-  });
-
-  console.log(`💸 [Clawback] Commission ${commissionAmount}円 clawed back from guide ${guideId} for order ${orderId}`);
-
-  // 3. 撤回推荐奖励
-  await supabase
-    .from('referral_rewards')
-    .update({ status: 'clawed_back' })
-    .eq('booking_id', orderId);
-}
+// clawbackCommission 已提取到 lib/refund.ts，供 webhook 和 admin API 共用

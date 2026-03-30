@@ -3,6 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 import { WHITELABEL_COOKIE_NAME, isValidSlug as isValidGuideSlug } from '@/lib/whitelabel-config';
 import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
 import { createErrorResponse, Errors } from '@/lib/utils/api-errors';
+import { generateInvoiceToken } from '@/lib/invoice-token';
 
 // 延迟初始化 Supabase 客户端
 const getSupabase = () => {
@@ -61,7 +62,7 @@ export async function GET(request: NextRequest) {
     // 构建查询：支持 session_id 或 order_id
     let query = supabase
       .from('orders')
-      .select('id, referred_by_guide_slug');
+      .select('id, referred_by_guide_slug, status, customer_snapshot');
 
     if (sessionId) {
       query = query.eq('checkout_session_id', sessionId);
@@ -87,9 +88,18 @@ export async function GET(request: NextRequest) {
       }
     }
 
+    // 为已付款订单生成发票 token
+    let invoiceToken: string | null = null;
+    if (['paid', 'confirmed', 'completed', 'refunded'].includes(order.status)) {
+      const snapshot = order.customer_snapshot as { email?: string } | null;
+      if (snapshot?.email) {
+        invoiceToken = await generateInvoiceToken(order.id, snapshot.email);
+      }
+    }
+
     // Cache-Control: no-store 防止共享设备/代理缓存导游归属信息
     return NextResponse.json(
-      { orderId: order.id, guideSlug },
+      { orderId: order.id, guideSlug, invoiceToken },
       { headers: { 'Cache-Control': 'no-store' } }
     );
 
@@ -218,11 +228,22 @@ export async function POST(request: NextRequest) {
     // 从 customer_snapshot 获取客户信息
     const snapshot = matchedOrder.customer_snapshot as { name?: string; email?: string } | null;
 
+    // 为已付款订单生成发票 token（email 统一小写，确保与验证端一致）
+    let invoiceToken: string | null = null;
+    const orderStatus = matchedOrder.status || 'pending';
+    if (['paid', 'confirmed', 'completed', 'refunded'].includes(orderStatus)) {
+      const customerEmail = (snapshot?.email || email).toLowerCase().trim();
+      if (customerEmail) {
+        invoiceToken = await generateInvoiceToken(matchedOrder.id, customerEmail);
+      }
+    }
+
     return NextResponse.json({
       order: {
         orderId: matchedOrder.order_number || matchedOrder.id,
         orderIdShort: matchedOrder.order_number || matchedOrder.id.slice(-8).toUpperCase(),
-        status: matchedOrder.status || 'pending',
+        orderUuid: matchedOrder.id,
+        status: orderStatus,
         packageName: packageInfo?.name_zh_tw || '體檢套餐',
         packagePrice: matchedOrder.total_amount_jpy || packageInfo?.price_jpy || 0,
         customerName: snapshot?.name || '',
@@ -230,6 +251,7 @@ export async function POST(request: NextRequest) {
         preferredDate: matchedOrder.preferred_date,
         createdAt: matchedOrder.created_at,
         paymentStatus: matchedOrder.paid_at ? 'paid' : 'pending',
+        invoiceToken,
       }
     });
 

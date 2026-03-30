@@ -60,6 +60,7 @@ const translations = {
   orderNotFound: { ja: '注文が見つかりません', 'zh-CN': '未找到订单', 'zh-TW': '未找到訂單', en: 'Order Not Found' },
   checkInput: { ja: '入力したメールアドレスと注文番号が正しいかご確認ください', 'zh-CN': '请确认您输入的电子邮箱和订单编号是否正确', 'zh-TW': '請確認您輸入的電子郵箱和訂單編號是否正確', en: 'Please verify your email and order number are correct' },
   helpText: { ja: '注文番号が見つかりませんか？予約確認メールをご確認いただくか、カスタマーサポートにお問い合わせください。', 'zh-CN': '找不到订单编号？请查看您的预约确认邮件，或联系客服协助查询。', 'zh-TW': '找不到訂單編號？請查看您的預約確認郵件，或聯繫客服協助查詢。', en: 'Can\'t find order number? Check your confirmation email or contact support.' },
+  downloadReceipt: { ja: '領収書をダウンロード', 'zh-CN': '下载收据', 'zh-TW': '下載收據', en: 'Download Receipt' },
 } as const;
 
 const t = (key: keyof typeof translations, lang: Language): string => {
@@ -68,6 +69,7 @@ const t = (key: keyof typeof translations, lang: Language): string => {
 
 interface OrderInfo {
   orderId: string;
+  orderUuid: string;
   status: 'pending' | 'confirmed' | 'completed' | 'cancelled';
   packageName: string;
   packagePrice: number;
@@ -76,6 +78,7 @@ interface OrderInfo {
   preferredDate: string | null;
   createdAt: string;
   paymentStatus: string;
+  invoiceToken: string | null;
 }
 
 const getStatusConfig = (lang: Language) => ({
@@ -352,6 +355,23 @@ export default function OrderLookupPage() {
                     {t('orderCreated', lang)}{formatDateLong(order.createdAt)}
                   </div>
                 </div>
+
+                {/* Download Receipt */}
+                {order.invoiceToken && order.orderUuid && (
+                  <div className="px-6 pb-4">
+                    <a
+                      href={`/api/invoices/${order.orderUuid}?token=${order.invoiceToken}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full inline-flex items-center justify-center gap-2 text-sm text-brand-700 hover:text-brand-900 transition-colors border border-neutral-200 px-4 py-2.5"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                      {t('downloadReceipt', lang)}
+                    </a>
+                  </div>
+                )}
 
                 {/* Actions */}
                 <div className="px-6 pb-6">
