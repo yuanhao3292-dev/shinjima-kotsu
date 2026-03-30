@@ -6,7 +6,6 @@ import Link from 'next/link';
 import ScreeningResult from '@/components/ScreeningResult';
 import { ArrowLeft, Loader2, AlertCircle, Download, FileText, RefreshCw } from 'lucide-react';
 import { type AnalysisResult } from '@/services/aemc/types';
-import { downloadHealthReportPDF } from '@/components/HealthReportPDF';
 import { type BodyMapSelectionData } from '@/components/BodyMapSelector';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 
@@ -60,7 +59,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [screeningData, setScreeningData] = useState<ScreeningData | null>(null);
-  const [isDownloading, setIsDownloading] = useState(false);
+  const isDownloading = false; // 服务端生成，无需 loading 状态
 
   // 报告语言：使用分析结果的语言，否则回退到站点语言
   const lang: Language = (screeningData?.analysisResult?.language as Language) || siteLang;
@@ -106,25 +105,11 @@ export default function ScreeningResultPage({ params }: PageProps) {
 
   const currentResult = screeningData?.analysisResult;
 
-  const handleDownloadPDF = async () => {
-    if (!screeningData || !currentResult) return;
-
-    setIsDownloading(true);
-    try {
-      await downloadHealthReportPDF({
-        id: screeningData.id,
-        createdAt: screeningData.createdAt,
-        userEmail: screeningData.userEmail,
-        bodyMapData: screeningData.bodyMapData,
-        analysisResult: currentResult,
-        language: lang,
-      });
-    } catch (err) {
-      console.error('PDF download error:', err);
-      alert(t('pdfDownloadError', lang));
-    } finally {
-      setIsDownloading(false);
-    }
+  const handleDownloadPDF = () => {
+    if (!screeningData) return;
+    // 服务端生成 PDF — 直接打开 API URL，无需客户端加载 5MB CJK 字体
+    const url = `/api/health-screening/${screeningData.id}/pdf?lang=${encodeURIComponent(lang)}`;
+    window.open(url, '_blank');
   };
 
   if (loading) {

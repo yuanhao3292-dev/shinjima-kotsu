@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { formatDateJPKanji, formatDateShort } from '@/lib/utils/format-date';
 import {
