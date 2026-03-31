@@ -44,3 +44,6 @@ out/
 .env.check
 .env.production.check
 .env*.check
+
+# DPC Excel data (large, downloaded from MHLW)
+data/dpc/*.xlsx

@@ -1,0 +1,324 @@
+{
+  "timestamp": "2026-03-31T15:00:34.757Z",
+  "totalDpcHospitals": 4056,
+  "totalDbHospitals": 85,
+  "matched": [
+    {
+      "dbName": "千葉大学医学部附属病院",
+      "dpcName": "千葉大学医学部附属病院",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "京都府立医科大学附属病院",
+      "dpcName": "京都府立医科大学附属病院",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "独立行政法人 国立病院機構 大阪医療センター",
+      "dpcName": "独立行政法人国立病院機構　大阪医療センター",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "慶應義塾大学病院",
+      "dpcName": "慶應義塾大学病院",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "兵庫医科大学病院",
+      "dpcName": "兵庫医科大学病院",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "大阪国際がんセンター",
+      "dpcName": "地方独立行政法人大阪府立病院機構大阪国際がんセンター",
+      "matchType": "contains",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "洛和会音羽病院",
+      "dpcName": "医療法人社団洛和会洛和会音羽病院",
+      "matchType": "contains",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "東京西徳洲会病院",
+      "dpcName": "医療法人　徳洲会　東京西徳洲会病院",
+      "matchType": "contains",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "地方独立行政法人 大阪府立病院機構 大阪国際がんセンター",
+      "dpcName": "地方独立行政法人大阪府立病院機構大阪国際がんセンター",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "神奈川県立病院機構 神奈川県立がんセンター",
+      "dpcName": "神奈川県立がんセンター",
+      "matchType": "contains",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "総合南東北病院",
+      "dpcName": "総合南東北病院",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "独立行政法人 国立病院機構 大阪刀根山医療センター",
+      "dpcName": "独立行政法人国立病院機構大阪刀根山医療センター",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "総合病院厚生中央病院",
+      "dpcName": "総合病院厚生中央病院",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "医療法人鉄蕉会 亀田総合病院【亀田メディカルセンター】",
+      "dpcName": "医療法人鉄蕉会　亀田総合病院",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "社会医療法人厚生会 中部国際医療センター",
+      "dpcName": "中部国際医療センター",
+      "matchType": "contains",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "湘南藤沢徳洲会病院",
+      "dpcName": "医療法人徳洲会　湘南藤沢徳洲会病院",
+      "matchType": "contains",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "中部徳洲会病院(沖縄) 【海外在住外国人用窓口】",
+      "dpcName": "医療法人　徳洲会　中部徳洲会病院",
+      "matchType": "contains",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "静岡てんかん・神経医療センター",
+      "dpcName": "独立行政法人国立病院機構静岡てんかん・神経医療センター",
+      "matchType": "contains",
+      "treatmentCount": 3
+    },
+    {
+      "dbName": "金沢医科大学病院",
+      "dpcName": "金沢医科大学病院",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "大阪医科薬科大学病院",
+      "dpcName": "大阪医科薬科大学病院",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "順天堂大学医学部附属順天堂医院",
+      "dpcName": "順天堂大学医学部附属順天堂医院",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "医療法人平成会 八戸平和病院",
+      "dpcName": "八戸平和病院",
+      "matchType": "contains",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "医療法人青心会 郡山青藍病院",
+      "dpcName": "医療法人　青心会　郡山青藍病院",
+      "matchType": "exact",
+      "treatmentCount": 7
+    },
+    {
+      "dbName": "関西医科大学附属病院",
+      "dpcName": "関西医科大学附属病院",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "日本医科大学 千葉北総病院",
+      "dpcName": "日本医科大学千葉北総病院",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "医療法人明正会 今林整形外科病院",
+      "dpcName": "医療法人明正会今林整形外科病院",
+      "matchType": "exact",
+      "treatmentCount": 2
+    },
+    {
+      "dbName": "稲波脊椎・関節病院",
+      "dpcName": "医療法人財団岩井医療財団稲波脊椎・関節病院",
+      "matchType": "contains",
+      "treatmentCount": 1
+    },
+    {
+      "dbName": "社会医療法人財団 董仙会 恵寿総合病院",
+      "dpcName": "社会医療法人財団董仙会　恵寿総合病院",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "国立研究開発法人 国立循環器病研究センター",
+      "dpcName": "国立研究開発法人　国立循環器病研究センター",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "南部徳洲会病院(沖縄) 【海外在住外国人用窓口】",
+      "dpcName": "医療法人　徳洲会　南部徳洲会病院",
+      "matchType": "contains",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "医療法人蜂友会 はちや整形外科病院",
+      "dpcName": "医療法人蜂友会　はちや整形外科病院",
+      "matchType": "exact",
+      "treatmentCount": 3
+    },
+    {
+      "dbName": "医療法人徳洲会 岸和田徳洲会病院",
+      "dpcName": "医療法人徳洲会　岸和田徳洲会病院",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "榛原総合病院／医療法人沖縄徳洲会【海外在住外国人用窓口】",
+      "dpcName": "榛原総合病院",
+      "matchType": "contains",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "近畿大学病院",
+      "dpcName": "学校法人近畿大学　近畿大学病院",
+      "matchType": "contains",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "千葉西総合病院",
+      "dpcName": "医療法人　徳洲会　千葉西総合病院",
+      "matchType": "contains",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "東海大学医学部付属病院",
+      "dpcName": "東海大学医学部付属病院",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "筑波大学附属病院",
+      "dpcName": "筑波大学附属病院",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "鎌ケ谷総合病院（徳洲会）",
+      "dpcName": "医療法人徳洲会　鎌ケ谷総合病院",
+      "matchType": "contains",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "独立行政法人 国立病院機構 村山医療センター",
+      "dpcName": "独立行政法人国立病院機構　村山医療センター",
+      "matchType": "exact",
+      "treatmentCount": 9
+    },
+    {
+      "dbName": "医学研究所北野病院",
+      "dpcName": "公益財団法人田附興風会　医学研究所北野病院",
+      "matchType": "contains",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "一宮西病院 メディカルサポートセンター",
+      "dpcName": "一宮西病院",
+      "matchType": "contains",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "札幌東徳洲会病院",
+      "dpcName": "医療法人　徳洲会　札幌東徳洲会病院",
+      "matchType": "contains",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "名古屋掖済会病院",
+      "dpcName": "名古屋掖済会病院",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "湘南鎌倉総合病院（医療法人徳洲会）",
+      "dpcName": "医療法人　徳洲会　湘南鎌倉総合病院",
+      "matchType": "contains",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "関西医科大学総合医療センター",
+      "dpcName": "関西医科大学総合医療センター",
+      "matchType": "exact",
+      "treatmentCount": 10
+    },
+    {
+      "dbName": "天神会 古賀病院21",
+      "dpcName": "古賀病院21",
+      "matchType": "contains",
+      "treatmentCount": 10
+    }
+  ],
+  "unmatched": [
+    "JCHO 東京高輪病院",
+    "医療法人 大阪あべのリンパ浮腫クリニック",
+    "医療法人 玉心会 鹿嶋ハートクリニック",
+    "柴垣医院 自由が丘 「人工透析内科」",
+    "The Varicose Vein Clinic TOKYO（目黒外科）",
+    "医療法人社団盛心会 タカラクリニック",
+    "IGTクリニック",
+    "聖隷浜松病院／聖隷健康診断センター",
+    "八重洲歯科診療所",
+    "医療法人社団永康会 新宿西口腎クリニック",
+    "医療法人社団 斗南堂 八王子クリニック 新宿",
+    "医療法人社団YM会 東京たかはしクリニック 練馬院",
+    "医療法人 清医会 / 三上クリニック第一分院",
+    "大阪重粒子線センター（大阪国際がん治療財団）",
+    "カツベ歯科クリニック",
+    "大阪国際メディカル＆サイエンスセンター大阪けいさつ病院",
+    "耳鼻咽喉科サージクリニック老木医院",
+    "医療法人湘尽会 かとう前立腺クリニック東京",
+    "医療法人いさな会 中京眼科",
+    "興学会 新橋歯科医療診療所",
+    "RYO JIMBO DENTAL新瑞橋歯科・矯正歯科",
+    "社会福祉法人 大阪暁明館 暁明館透析クリニック",
+    "京都そけいヘルニア日帰り手術 Gi外科クリニック",
+    "国立国際医療研究センター (NCGM)／人間ドックセンター",
+    "藤田医科大学 羽田クリニック",
+    "Alpaca Family Clinic ”Doctor Visit Japan”",
+    "大阪重粒子線センター",
+    "医療法人社団貴正会 /京都山科きぼうのクリニック",
+    "New Spineクリニック東京",
+    "医療法人MIRIZE 博多トラストライズクリニック",
+    "淡海せぼねクリニック",
+    "豊島中央病院",
+    "医療法人社団祐優会 Okuno Clinic.（オクノクリニック）",
+    "医療法人社団福啓会 歯科＆矯正歯科オーラルデザインクリニック 秋葉原院",
+    "大阪日帰り外科そけいヘルニアクリニック",
+    "医療法人社団博施会 東京外科クリニック",
+    "グランドセントラルタワーTokyoアイクリニック",
+    "東京内視鏡クリニック",
+    "東京ネフロクリニック"
+  ]
+}
