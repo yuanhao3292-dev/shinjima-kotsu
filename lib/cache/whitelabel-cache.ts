@@ -277,18 +277,3 @@ export async function warmupActiveGuidesCaches(limit: number = 50): Promise<void
 }
 
 // ============================================
-// 缓存状态检查
-// ============================================
-
-/**
- * 获取缓存统计信息（用于监控）
- */
-export function getCacheStats(): {
-  ttl: typeof CACHE_TTL;
-  tags: typeof CACHE_TAGS;
-} {
-  return {
-    ttl: CACHE_TTL,
-    tags: CACHE_TAGS,
-  };
-}

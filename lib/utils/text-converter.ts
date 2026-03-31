@@ -299,10 +299,3 @@ export function localizeTexts(
   }
   return texts.map(t => traditionalToSimplified(t));
 }
-
-/**
- * 获取缓存统计信息（用于监控和调试）
- */
-export function getCacheStats() {
-  return conversionCache.getStats();
-}

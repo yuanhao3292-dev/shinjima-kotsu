@@ -7,7 +7,6 @@ import {
   View,
   StyleSheet,
   Font,
-  pdf,
 } from '@react-pdf/renderer';
 import { type BodyMapSelectionData } from './BodyMapSelector';
 import { MEDICAL_DEPARTMENTS, BODY_PARTS } from '@/lib/body-map-config';
@@ -1025,27 +1024,4 @@ const HealthReportDocument: React.FC<HealthReportPDFProps> = ({ reportData }) =>
   );
 };
 
-export async function generateHealthReportPDF(
-  reportData: HealthReportPDFProps['reportData']
-): Promise<Blob> {
-  const blob = await pdf(<HealthReportDocument reportData={reportData} />).toBlob();
-  return blob;
-}
-
-export async function downloadHealthReportPDF(
-  reportData: HealthReportPDFProps['reportData'],
-  filename?: string
-): Promise<void> {
-  const blob = await generateHealthReportPDF(reportData);
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = filename || `Niijima-Health-Report-${reportData.id.substring(0, 8).toUpperCase()}.pdf`;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  URL.revokeObjectURL(url);
-}
-
-export type { PDFLanguage };
 export default HealthReportDocument;
