@@ -122,6 +122,19 @@ body {
   font-family: 'Playfair Display', serif !important;
 }
 
+[data-locale="ko"] {
+  --font-sans: 'Noto Sans KR', sans-serif;
+  --font-serif: 'Noto Serif KR', serif;
+}
+[data-locale="ko"] body,
+[data-locale="ko"] .font-sans {
+  font-family: 'Noto Sans KR', sans-serif !important;
+}
+[data-locale="ko"] .serif,
+[data-locale="ko"] .font-serif {
+  font-family: 'Noto Serif KR', serif !important;
+}
+
 /* Gemini 科技色调 */
 .gemini-gradient {
   background: linear-gradient(90deg, #4E8cFF 0%, #9B8cFF 100%);

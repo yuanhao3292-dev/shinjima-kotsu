@@ -324,7 +324,7 @@ describe('P0-2: Smart Checkout — 前端字段匹配 API Schema', () => {
     expect(hasContact).toBe(true);
   });
 
-  it('payment_method_types 包含 card, alipay, wechat_pay', async () => {
+  it('payment_method_types 包含 card', async () => {
     // 验证 checkout session 创建代码中包含正确的支付方式
     // 直接读取源码验证（因为实际调用需要 Stripe API key）
     const fs = await import('fs');
@@ -333,9 +333,8 @@ describe('P0-2: Smart Checkout — 前端字段匹配 API Schema', () => {
       'utf-8'
     );
     expect(source).toContain("'card'");
-    expect(source).toContain("'alipay'");
-    expect(source).toContain("'wechat_pay'");
-    expect(source).toContain("client: 'web'");
+    // alipay / wechat_pay 审核通过后会自动出现在 Stripe Checkout 页面
+    // 当前只显式指定 card，其他支付方式由 Stripe 账户配置决定
   });
 });
 

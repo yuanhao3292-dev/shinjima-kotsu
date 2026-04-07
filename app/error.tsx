@@ -9,24 +9,28 @@ const t: Record<string, Record<Language, string>> = {
     'zh-TW': '發生錯誤',
     'zh-CN': '发生错误',
     en: 'Something went wrong',
+    ko: '오류가 발생했습니다',
   },
   desc: {
     ja: 'ページの読み込み中にエラーが発生しました。もう一度お試しください。',
     'zh-TW': '頁面載入時發生錯誤，請重試。',
     'zh-CN': '页面加载时发生错误，请重试。',
     en: 'An error occurred while loading the page. Please try again.',
+    ko: '페이지를 불러오는 중 오류가 발생했습니다. 다시 시도해 주십시오.',
   },
   retry: {
     ja: '再試行',
     'zh-TW': '重試',
     'zh-CN': '重试',
     en: 'Try again',
+    ko: '다시 시도',
   },
   home: {
     ja: 'トップページに戻る',
     'zh-TW': '返回首頁',
     'zh-CN': '返回首页',
     en: 'Go to homepage',
+    ko: '홈으로 돌아가기',
   },
 };
 

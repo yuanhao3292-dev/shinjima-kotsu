@@ -46,40 +46,40 @@ interface Order {
 
 const translations = {
   // Status labels
-  statusPending: { ja: '支払待ち', 'zh-CN': '待付款', 'zh-TW': '待付款', en: 'Pending Payment' },
-  statusPaid: { ja: '支払済み', 'zh-CN': '已付款', 'zh-TW': '已付款', en: 'Paid' },
-  statusConfirmed: { ja: '確認済み', 'zh-CN': '已确认', 'zh-TW': '已確認', en: 'Confirmed' },
-  statusCompleted: { ja: '完了', 'zh-CN': '已完成', 'zh-TW': '已完成', en: 'Completed' },
-  statusCancelled: { ja: 'キャンセル', 'zh-CN': '已取消', 'zh-TW': '已取消', en: 'Cancelled' },
-  statusRefunded: { ja: '返金済み', 'zh-CN': '已退款', 'zh-TW': '已退款', en: 'Refunded' },
+  statusPending: { ja: '支払待ち', 'zh-CN': '待付款', 'zh-TW': '待付款', en: 'Pending Payment', ko: '결제 대기' },
+  statusPaid: { ja: '支払済み', 'zh-CN': '已付款', 'zh-TW': '已付款', en: 'Paid', ko: '결제 완료' },
+  statusConfirmed: { ja: '確認済み', 'zh-CN': '已确认', 'zh-TW': '已確認', en: 'Confirmed', ko: '확인 완료' },
+  statusCompleted: { ja: '完了', 'zh-CN': '已完成', 'zh-TW': '已完成', en: 'Completed', ko: '완료' },
+  statusCancelled: { ja: 'キャンセル', 'zh-CN': '已取消', 'zh-TW': '已取消', en: 'Cancelled', ko: '취소됨' },
+  statusRefunded: { ja: '返金済み', 'zh-CN': '已退款', 'zh-TW': '已退款', en: 'Refunded', ko: '환불 완료' },
 
   // Error messages
-  loadError: { ja: '注文データを読み込めませんでした', 'zh-CN': '无法载入订单资料', 'zh-TW': '無法載入訂單資料', en: 'Unable to load order data' },
-  generalError: { ja: 'エラーが発生しました。後でもう一度お試しください', 'zh-CN': '发生错误，请稍后重试', 'zh-TW': '發生錯誤，請稍後重試', en: 'An error occurred, please try again later' },
-  loadingOrders: { ja: '注文を読み込み中...', 'zh-CN': '载入订单中...', 'zh-TW': '載入訂單中...', en: 'Loading orders...' },
+  loadError: { ja: '注文データを読み込めませんでした', 'zh-CN': '无法载入订单资料', 'zh-TW': '無法載入訂單資料', en: 'Unable to load order data', ko: '주문 데이터를 불러올 수 없습니다' },
+  generalError: { ja: 'エラーが発生しました。後でもう一度お試しください', 'zh-CN': '发生错误，请稍后重试', 'zh-TW': '發生錯誤，請稍後重試', en: 'An error occurred, please try again later', ko: '오류가 발생했습니다. 나중에 다시 시도해 주십시오' },
+  loadingOrders: { ja: '注文を読み込み中...', 'zh-CN': '载入订单中...', 'zh-TW': '載入訂單中...', en: 'Loading orders...', ko: '주문 불러오는 중...' },
 
   // Page titles and descriptions
-  heroLabel: { ja: 'MY ORDERS', 'zh-CN': 'MY ORDERS', 'zh-TW': 'MY ORDERS', en: 'MY ORDERS' },
-  myOrders: { ja: 'マイオーダー', 'zh-CN': '我的订单', 'zh-TW': '我的訂單', en: 'My Orders' },
-  bookingRecords: { ja: '予約記録', 'zh-CN': '预约记录', 'zh-TW': '預約記錄', en: 'Booking Records' },
-  ordersDesc: { ja: 'すべての健診予約記録を確認し、注文状況を追跡し、行程の手配をいつでも把握できます。', 'zh-CN': '查看您的所有体检预约记录，追踪订单状态，随时掌握行程安排。', 'zh-TW': '查看您的所有健檢預約記錄，追蹤訂單狀態，隨時掌握行程安排。', en: 'View all your health checkup booking records, track order status, and stay updated on your schedule.' },
-  backToAccount: { ja: '会員センターに戻る', 'zh-CN': '返回会员中心', 'zh-TW': '返回會員中心', en: 'Back to Member Center' },
-  viewAllOrders: { ja: 'すべての健診予約記録を表示', 'zh-CN': '查看您的所有体检预约记录', 'zh-TW': '查看您的所有健檢預約記錄', en: 'View all your checkup booking records' },
+  heroLabel: { ja: 'MY ORDERS', 'zh-CN': 'MY ORDERS', 'zh-TW': 'MY ORDERS', en: 'MY ORDERS', ko: 'MY ORDERS' },
+  myOrders: { ja: 'マイオーダー', 'zh-CN': '我的订单', 'zh-TW': '我的訂單', en: 'My Orders', ko: '내 주문' },
+  bookingRecords: { ja: '予約記録', 'zh-CN': '预约记录', 'zh-TW': '預約記錄', en: 'Booking Records', ko: '예약 내역' },
+  ordersDesc: { ja: 'すべての健診予約記録を確認し、注文状況を追跡し、行程の手配をいつでも把握できます。', 'zh-CN': '查看您的所有体检预约记录，追踪订单状态，随时掌握行程安排。', 'zh-TW': '查看您的所有健檢預約記錄，追蹤訂單狀態，隨時掌握行程安排。', en: 'View all your health checkup booking records, track order status, and stay updated on your schedule.', ko: '모든 건강검진 예약 내역을 확인하고, 주문 상태를 추적하며, 일정을 파악하실 수 있습니다.' },
+  backToAccount: { ja: '会員センターに戻る', 'zh-CN': '返回会员中心', 'zh-TW': '返回會員中心', en: 'Back to Member Center', ko: '회원 센터로 돌아가기' },
+  viewAllOrders: { ja: 'すべての健診予約記録を表示', 'zh-CN': '查看您的所有体检预约记录', 'zh-TW': '查看您的所有健檢預約記錄', en: 'View all your checkup booking records', ko: '모든 건강검진 예약 내역 보기' },
 
   // Empty state
-  noOrders: { ja: '注文なし', 'zh-CN': '尚无订单', 'zh-TW': '尚無訂單', en: 'No Orders Yet' },
-  noOrdersDesc: { ja: 'まだ健診予約記録がありません', 'zh-CN': '您还没有任何体检预约记录', 'zh-TW': '您還沒有任何健檢預約記錄', en: 'You don\'t have any checkup booking records yet' },
-  browsePackages: { ja: '健診パッケージを閲覧', 'zh-CN': '浏览体检套餐', 'zh-TW': '瀏覽健檢套餐', en: 'Browse Checkup Packages' },
+  noOrders: { ja: '注文なし', 'zh-CN': '尚无订单', 'zh-TW': '尚無訂單', en: 'No Orders Yet', ko: '주문 내역 없음' },
+  noOrdersDesc: { ja: 'まだ健診予約記録がありません', 'zh-CN': '您还没有任何体检预约记录', 'zh-TW': '您還沒有任何健檢預約記錄', en: 'You don\'t have any checkup booking records yet', ko: '아직 건강검진 예약 내역이 없습니다' },
+  browsePackages: { ja: '健診パッケージを閲覧', 'zh-CN': '浏览体检套餐', 'zh-TW': '瀏覽健檢套餐', en: 'Browse Checkup Packages', ko: '건강검진 패키지 둘러보기' },
 
   // Order details
-  orderNumber: { ja: '注文番号', 'zh-CN': '订单编号', 'zh-TW': '訂單編號', en: 'Order Number' },
-  checkupPackage: { ja: '健診パッケージ', 'zh-CN': '体检套餐', 'zh-TW': '健檢套餐', en: 'Checkup Package' },
-  bookingDate: { ja: '予約日', 'zh-CN': '预约日期', 'zh-TW': '預約日期', en: 'Booking Date' },
-  orderDate: { ja: '注文日時', 'zh-CN': '下单时间', 'zh-TW': '下單時間', en: 'Order Date' },
-  notes: { ja: '備考', 'zh-CN': '备注', 'zh-TW': '備註', en: 'Notes' },
-  paidAt: { ja: '支払日', 'zh-CN': '已于', 'zh-TW': '已於', en: 'Paid on' },
-  paidOn: { ja: '支払済み', 'zh-CN': '付款', 'zh-TW': '付款', en: 'payment' },
-  toBeConfirmed: { ja: '確認待ち', 'zh-CN': '待确认', 'zh-TW': '待確認', en: 'To be confirmed' },
+  orderNumber: { ja: '注文番号', 'zh-CN': '订单编号', 'zh-TW': '訂單編號', en: 'Order Number', ko: '주문번호' },
+  checkupPackage: { ja: '健診パッケージ', 'zh-CN': '体检套餐', 'zh-TW': '健檢套餐', en: 'Checkup Package', ko: '건강검진 패키지' },
+  bookingDate: { ja: '予約日', 'zh-CN': '预约日期', 'zh-TW': '預約日期', en: 'Booking Date', ko: '예약일' },
+  orderDate: { ja: '注文日時', 'zh-CN': '下单时间', 'zh-TW': '下單時間', en: 'Order Date', ko: '주문 일시' },
+  notes: { ja: '備考', 'zh-CN': '备注', 'zh-TW': '備註', en: 'Notes', ko: '비고' },
+  paidAt: { ja: '支払日', 'zh-CN': '已于', 'zh-TW': '已於', en: 'Paid on', ko: '결제일' },
+  paidOn: { ja: '支払済み', 'zh-CN': '付款', 'zh-TW': '付款', en: 'payment', ko: '결제' },
+  toBeConfirmed: { ja: '確認待ち', 'zh-CN': '待确认', 'zh-TW': '待確認', en: 'To be confirmed', ko: '확인 대기' },
 } as const;
 
 const t = (key: keyof typeof translations, lang: Language): string => {
@@ -171,6 +171,7 @@ export default function MyOrdersPage() {
     'zh-CN': 'zh-CN',
     'zh-TW': 'zh-TW',
     en: 'en-US',
+    ko: 'ko-KR',
   };
 
   if (loading) {

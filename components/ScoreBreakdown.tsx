@@ -15,66 +15,77 @@ const T: Record<string, Record<Language, string>> = {
     'zh-TW': '評分詳情',
     ja: 'スコア内訳',
     en: 'Score Breakdown',
+    ko: '점수 상세',
   },
   baseScore: {
     'zh-CN': '基础分',
     'zh-TW': '基礎分',
     ja: '基礎スコア',
     en: 'Base Score',
+    ko: '기본 점수',
   },
   finalScore: {
     'zh-CN': '最终评分',
     'zh-TW': '最終評分',
     ja: '最終スコア',
     en: 'Final Score',
+    ko: '최종 점수',
   },
   risk_level: {
     'zh-CN': '风险等级',
     'zh-TW': '風險等級',
     ja: 'リスクレベル',
     en: 'Risk Level',
+    ko: '위험도',
   },
   department: {
     'zh-CN': '推荐科室',
     'zh-TW': '推薦科室',
     ja: '推奨診療科',
     en: 'Department',
+    ko: '추천 진료과',
   },
   test: {
     'zh-CN': '检查项目',
     'zh-TW': '檢查項目',
     ja: '検査項目',
     en: 'Tests',
+    ko: '검사 항목',
   },
   safety_gate: {
     'zh-CN': '安全闸门',
     'zh-TW': '安全閘門',
     ja: '安全ゲート',
     en: 'Safety Gate',
+    ko: '안전 게이트',
   },
   human_review: {
     'zh-CN': '人工审核',
     'zh-TW': '人工審核',
     ja: '専門家レビュー',
     en: 'Expert Review',
+    ko: '전문가 검토',
   },
   cancer_keyword: {
     'zh-CN': '癌症风险',
     'zh-TW': '癌症風險',
     ja: 'がんリスク',
     en: 'Cancer Risk',
+    ko: '암 위험도',
   },
   showDetails: {
     'zh-CN': '查看评分详情',
     'zh-TW': '查看評分詳情',
     ja: 'スコア内訳を表示',
     en: 'Show Score Details',
+    ko: '점수 상세 보기',
   },
   hideDetails: {
     'zh-CN': '收起评分详情',
     'zh-TW': '收起評分詳情',
     ja: 'スコア内訳を隠す',
     en: 'Hide Score Details',
+    ko: '점수 상세 숨기기',
   },
 };
 
@@ -167,6 +178,7 @@ export default function ScoreBreakdown({ breakdown, lang, defaultOpen = false }:
               {lang === 'ja' ? '減点なし — 満点です！' :
                lang === 'en' ? 'No deductions — perfect score!' :
                lang === 'zh-TW' ? '無扣分 — 滿分！' :
+               lang === 'ko' ? '감점 없음 — 만점입니다!' :
                '无扣分 — 满分！'}
             </div>
           )}

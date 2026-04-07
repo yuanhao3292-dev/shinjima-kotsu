@@ -6,7 +6,7 @@ import { Globe, ChevronDown, LogIn, X, Menu } from 'lucide-react';
 import { useWhiteLabel, useWhiteLabelVisibility } from '@/lib/contexts/WhiteLabelContext';
 import DistributionNav from '@/components/distribution/DistributionNav';
 
-type Language = 'zh-TW' | 'zh-CN' | 'ja' | 'en';
+type Language = 'zh-TW' | 'zh-CN' | 'ja' | 'en' | 'ko';
 
 interface PublicLayoutProps {
   children: React.ReactNode;
@@ -137,6 +137,36 @@ const navLabels = {
     footerTaglineAlt: 'Advanced medicine, elite golf courses, business resources — your exclusive channel to Japan.',
     footerCopyright: 'Niijima Kotsu Co., Ltd.',
   },
+  'ko': {
+    brand_sub: '니지마 교통 주식회사',
+    timc: '일본 정밀건강검진',
+    cancer: '일본 종합치료',
+    golf: '명문 골프',
+    business: '비즈니스 시찰',
+    partner: '업무 제휴',
+    guidePartner: '가이드 파트너',
+    login: '로그인',
+    memberLogin: '개인 회원 로그인',
+    guideLogin: '가이드 로그인',
+    memberLoginDesc: '의료·건강검진 고객',
+    guideLoginDesc: '가이드 파트너',
+    footerServices: '서비스',
+    footerPartners: '파트너',
+    footerCompanyInfo: '회사 정보',
+    footerAbout: '회사 소개',
+    footerNews: '공지사항',
+    footerFaq: '자주 묻는 질문',
+    footerTokushoho: '특정상거래법',
+    footerYakkan: '여행업 약관',
+    footerPrivacy: '개인정보처리방침',
+    footerTerms: '이용약관',
+    footerMedicalDisclaimer: '의료 면책사항',
+    footerHealthScreening: 'AI 건강평가',
+    footerTagline: '일본의 닫힌 문을 여는 열쇠',
+    footerTagline2: '첨단 의료 · 명문 골프 · 비즈니스 자원',
+    footerTaglineAlt: '첨단 의료, 명문 골프장, 비즈니스 자원 — 일본으로의 전용 채널.',
+    footerCopyright: '니지마 교통 주식회사',
+  },
 };
 
 function getInitialLang(): Language {
@@ -144,7 +174,7 @@ function getInitialLang(): Language {
   const cookies = document.cookie.split(';');
   for (const cookie of cookies) {
     const [name, value] = cookie.trim().split('=');
-    if (name === 'NEXT_LOCALE' && ['ja', 'zh-TW', 'zh-CN', 'en'].includes(value)) {
+    if (name === 'NEXT_LOCALE' && ['ja', 'zh-TW', 'zh-CN', 'en', 'ko'].includes(value)) {
       return value as Language;
     }
   }
@@ -152,6 +182,7 @@ function getInitialLang(): Language {
   if (browserLang.startsWith('ja')) return 'ja';
   if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') return 'zh-TW';
   if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) return 'zh-CN';
+  if (browserLang.startsWith('ko')) return 'ko';
   if (browserLang.startsWith('en')) return 'en';
   return 'zh-TW';
 }
@@ -236,12 +267,12 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
         }`}
       >
         <Globe size={14} />
-        {currentLang === 'zh-TW' ? '繁中' : currentLang === 'zh-CN' ? '简中' : currentLang.toUpperCase()}
+        {currentLang === 'zh-TW' ? '繁中' : currentLang === 'zh-CN' ? '简���' : currentLang === 'ko' ? '한국' : currentLang.toUpperCase()}
         <ChevronDown size={12} />
       </button>
       {langMenuOpen && (
         <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50 animate-fade-in-down">
-          {[{ code: 'ja', label: '日本語' }, { code: 'zh-TW', label: '繁體中文' }, { code: 'zh-CN', label: '简体中文' }, { code: 'en', label: 'English' }].map((lang) => (
+          {[{ code: 'ja', label: '日本語' }, { code: 'zh-TW', label: '繁體中文' }, { code: 'zh-CN', label: '简体中文' }, { code: 'en', label: 'English' }, { code: 'ko', label: '한국어' }].map((lang) => (
             <button key={lang.code} onClick={() => handleLangChange(lang.code as Language)} className={`w-full text-left px-4 py-2 text-xs font-medium hover:bg-neutral-50 transition ${currentLang === lang.code ? 'text-brand-700 bg-brand-50' : 'text-neutral-600'}`}>
               {lang.label}
             </button>
@@ -564,7 +595,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                   </div>
                 ) : (
                   <div className="space-y-1.5 text-sm text-gray-600 mb-4">
-                    <div>{currentLang === 'en' ? '1-2-21-602 Daikoku, Naniwa-ku, Osaka 556-0014, Japan' : currentLang === 'zh-TW' ? '〒556-0014 大阪府大阪市浪速區大國1-2-21-602' : currentLang === 'zh-CN' ? '〒556-0014 大阪府大阪市浪速区大国1-2-21-602' : '〒556-0014 大阪府大阪市浪速区大国1-2-21-602'}</div>
+                    <div>{currentLang === 'en' ? '1-2-21-602 Daikoku, Naniwa-ku, Osaka 556-0014, Japan' : currentLang === 'zh-TW' ? '〒556-0014 大阪府大阪市浪速區大國1-2-21-602' : currentLang === 'zh-CN' ? '〒556-0014 大阪府大阪市浪速区大国1-2-21-602' : currentLang === 'ko' ? '〒556-0014 오사카부 오사카시 나니와구 다이코쿠 1-2-21-602' : '〒556-0014 大阪府大阪市浪速区大国1-2-21-602'}</div>
                     <div>
                       <a href="tel:06-6632-8807" className="hover:text-gray-900 transition-colors">TEL: 06-6632-8807</a>
                     </div>

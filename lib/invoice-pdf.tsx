@@ -17,36 +17,37 @@ const BRAND = {
 // ============================================
 // i18n
 // ============================================
-type Locale = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
+type Locale = 'ja' | 'zh-TW' | 'zh-CN' | 'en' | 'ko';
 
 const i18n = {
-  title: { ja: '領収書', 'zh-TW': '收據', 'zh-CN': '收据', en: 'Receipt' },
-  invoiceNo: { ja: '発行番号', 'zh-TW': '單號', 'zh-CN': '单号', en: 'Receipt No.' },
-  issueDate: { ja: '発行日', 'zh-TW': '開立日期', 'zh-CN': '开立日期', en: 'Issue Date' },
-  billTo: { ja: 'ご依頼主', 'zh-TW': '客戶資訊', 'zh-CN': '客户信息', en: 'Bill To' },
-  name: { ja: 'お名前', 'zh-TW': '姓名', 'zh-CN': '姓名', en: 'Name' },
-  email: { ja: 'メール', 'zh-TW': '電郵', 'zh-CN': '邮箱', en: 'Email' },
-  serviceDetails: { ja: 'サービス明細', 'zh-TW': '服務明細', 'zh-CN': '服务明细', en: 'Service Details' },
-  description: { ja: '内容', 'zh-TW': '項目', 'zh-CN': '项目', en: 'Description' },
-  qty: { ja: '数量', 'zh-TW': '數量', 'zh-CN': '数量', en: 'Qty' },
-  unitPrice: { ja: '単価', 'zh-TW': '單價', 'zh-CN': '单价', en: 'Unit Price' },
-  amount: { ja: '金額', 'zh-TW': '金額', 'zh-CN': '金额', en: 'Amount' },
-  taxRate: { ja: '税率', 'zh-TW': '稅率', 'zh-CN': '税率', en: 'Tax Rate' },
-  subtotal: { ja: '小計（税抜）', 'zh-TW': '小計（未稅）', 'zh-CN': '小计（未税）', en: 'Subtotal (excl. tax)' },
-  consumptionTax: { ja: '消費税（10%）', 'zh-TW': '消費稅（10%）', 'zh-CN': '消费税（10%）', en: 'Consumption Tax (10%)' },
-  total: { ja: '合計（税込）', 'zh-TW': '合計（含稅）', 'zh-CN': '合计（含税）', en: 'Total (Tax Incl.)' },
-  paymentMethod: { ja: 'お支払い方法', 'zh-TW': '付款方式', 'zh-CN': '付款方式', en: 'Payment Method' },
-  creditCard: { ja: 'クレジットカード', 'zh-TW': '信用卡', 'zh-CN': '信用卡', en: 'Credit Card' },
-  paymentStatus: { ja: '支払い状況', 'zh-TW': '付款狀態', 'zh-CN': '付款状态', en: 'Payment Status' },
-  paid: { ja: '支払い済み', 'zh-TW': '已付款', 'zh-CN': '已付款', en: 'Paid' },
-  registrationNo: { ja: '登録番号', 'zh-TW': '登錄番號', 'zh-CN': '登录番号', en: 'Registration No.' },
+  title: { ja: '領収書', 'zh-TW': '收據', 'zh-CN': '收据', en: 'Receipt', ko: '영수증' },
+  invoiceNo: { ja: '発行番号', 'zh-TW': '單號', 'zh-CN': '单号', en: 'Receipt No.', ko: '발행번호' },
+  issueDate: { ja: '発行日', 'zh-TW': '開立日期', 'zh-CN': '开立日期', en: 'Issue Date', ko: '발행일' },
+  billTo: { ja: 'ご依頼主', 'zh-TW': '客戶資訊', 'zh-CN': '客户信息', en: 'Bill To', ko: '의뢰인' },
+  name: { ja: 'お名前', 'zh-TW': '姓名', 'zh-CN': '姓名', en: 'Name', ko: '성명' },
+  email: { ja: 'メール', 'zh-TW': '電郵', 'zh-CN': '邮箱', en: 'Email', ko: '이메일' },
+  serviceDetails: { ja: 'サービス明細', 'zh-TW': '服務明細', 'zh-CN': '服务明细', en: 'Service Details', ko: '서비스 내역' },
+  description: { ja: '内容', 'zh-TW': '項目', 'zh-CN': '项目', en: 'Description', ko: '내용' },
+  qty: { ja: '数量', 'zh-TW': '數量', 'zh-CN': '数量', en: 'Qty', ko: '수량' },
+  unitPrice: { ja: '単価', 'zh-TW': '單價', 'zh-CN': '单价', en: 'Unit Price', ko: '단가' },
+  amount: { ja: '金額', 'zh-TW': '金額', 'zh-CN': '金额', en: 'Amount', ko: '금액' },
+  taxRate: { ja: '税率', 'zh-TW': '稅率', 'zh-CN': '税率', en: 'Tax Rate', ko: '세율' },
+  subtotal: { ja: '小計（税抜）', 'zh-TW': '小計（未稅）', 'zh-CN': '小计（未税）', en: 'Subtotal (excl. tax)', ko: '소계 (세전)' },
+  consumptionTax: { ja: '消費税（10%）', 'zh-TW': '消費稅（10%）', 'zh-CN': '消费税（10%）', en: 'Consumption Tax (10%)', ko: '소비세 (10%)' },
+  total: { ja: '合計（税込）', 'zh-TW': '合計（含稅）', 'zh-CN': '合计（含税）', en: 'Total (Tax Incl.)', ko: '합계 (세포함)' },
+  paymentMethod: { ja: 'お支払い方法', 'zh-TW': '付款方式', 'zh-CN': '付款方式', en: 'Payment Method', ko: '결제 방법' },
+  creditCard: { ja: 'クレジットカード', 'zh-TW': '信用卡', 'zh-CN': '信用卡', en: 'Credit Card', ko: '신용카드' },
+  paymentStatus: { ja: '支払い状況', 'zh-TW': '付款狀態', 'zh-CN': '付款状态', en: 'Payment Status', ko: '결제 상태' },
+  paid: { ja: '支払い済み', 'zh-TW': '已付款', 'zh-CN': '已付款', en: 'Paid', ko: '결제 완료' },
+  registrationNo: { ja: '登録番号', 'zh-TW': '登錄番號', 'zh-CN': '登录番号', en: 'Registration No.', ko: '등록번호' },
   legalNote: {
     ja: '本書は電子発行のため押印を省略しております',
     'zh-TW': '本收據為電子開立，免蓋章',
     'zh-CN': '本收据为电子开立，免盖章',
     en: 'This receipt is electronically generated. No stamp required.',
+    ko: '본 영수증은 전자 발행으로 날인을 생략합니다',
   },
-  companyName: { ja: '新島交通株式会社', 'zh-TW': '新島交通株式會社', 'zh-CN': '新岛交通株式会社', en: 'Niijima Kotsu Co., Ltd.' },
+  companyName: { ja: '新島交通株式会社', 'zh-TW': '新島交通株式會社', 'zh-CN': '新岛交通株式会社', en: 'Niijima Kotsu Co., Ltd.', ko: '니지마 교통 주식회사' },
 } as const;
 
 function t(key: keyof typeof i18n, locale: Locale): string {

@@ -1,0 +1,1187 @@
+openapi: 3.1.0
+info:
+  title: NIIJIMA B2B API
+  version: 1.0.0
+  description: |
+    AI-powered medical triage and enterprise health screening platform.
+
+    ## Authentication
+
+    All B2B endpoints require an API key passed as a Bearer token:
+    ```
+    Authorization: Bearer nk_live_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    ```
+
+    API keys are SHA-256 hashed for storage. Each key has scoped permissions:
+    - `medical_triage` — Access to `/api/v1/medical-triage`
+    - `enterprise_management` — Access to `/api/enterprise/dashboard` and `/api/enterprise/members`
+    - `enterprise_screening` — Access to `/api/enterprise/screening`
+
+    ## Rate Limiting
+
+    All endpoints enforce per-IP rate limits. Rate limit status is returned in response headers:
+    - `X-RateLimit-Remaining` — Requests remaining in current window
+    - `X-RateLimit-Reset` — Unix timestamp when the window resets
+
+    | Endpoint Category | Window | Max Requests |
+    |---|---|---|
+    | Standard (dashboard, members GET) | 60s | 30 |
+    | Sensitive (screening, members POST/PATCH/DELETE) | 60s | 10 |
+
+    ## Error Format
+
+    All errors follow a consistent JSON structure:
+    ```json
+    {
+      "error": "Human-readable error message",
+      "type": "ERROR_TYPE",
+      "code": "OPTIONAL_BUSINESS_CODE"
+    }
+    ```
+
+  contact:
+    name: NIIJIMA API Support
+    email: api@niijima-koutsu.jp
+  license:
+    name: Proprietary
+
+servers:
+  - url: https://www.niijima-koutsu.jp
+    description: Production
+  - url: http://localhost:3000
+    description: Development
+
+tags:
+  - name: Medical Triage
+    description: AI medical triage via multi-model consensus (AEMC pipeline)
+  - name: Enterprise
+    description: Enterprise member management and dashboard
+  - name: Health
+    description: System health checks
+  - name: Invoices
+    description: Order receipt PDF generation
+
+# ============================================================
+# Security Schemes
+# ============================================================
+
+security:
+  - ApiKeyAuth: []
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: http
+      scheme: bearer
+      description: |
+        API key with `nk_live_` or `nk_test_` prefix.
+        Example: `Bearer nk_live_abc123def456ghi789jkl012`
+
+  # ============================================================
+  # Reusable Schemas
+  # ============================================================
+
+  schemas:
+    # --- Medical Triage ---
+
+    TriageRequest:
+      type: object
+      required:
+        - symptoms
+      properties:
+        symptoms:
+          type: string
+          minLength: 5
+          description: Free-text symptom description
+          example: "Persistent headache for 3 days with mild fever and neck stiffness"
+        age:
+          type: integer
+          minimum: 0
+          maximum: 150
+          example: 35
+        gender:
+          type: string
+          enum: [male, female, other]
+        medicalHistory:
+          type: array
+          items:
+            type: string
+          example: ["hypertension", "diabetes"]
+        medications:
+          type: array
+          items:
+            type: string
+          example: ["metformin 500mg"]
+        allergies:
+          type: array
+          items:
+            type: string
+          example: ["penicillin"]
+        language:
+          type: string
+          enum: [ja, zh-CN, zh-TW, en]
+          default: en
+          description: Language for the response summary
+
+    TriageResponse:
+      type: object
+      properties:
+        requestId:
+          type: string
+          format: uuid
+        riskLevel:
+          type: string
+          enum: [low, medium, high, critical]
+          description: Overall risk assessment
+        departments:
+          type: array
+          items:
+            type: string
+          description: Recommended medical departments
+          example: ["Internal Medicine", "Neurology"]
+        recommendedTests:
+          type: array
+          items:
+            type: string
+          description: Suggested diagnostic tests
+          example: ["Complete blood count", "Brain MRI"]
+        summary:
+          type: string
+          description: AI-generated risk assessment summary
+        healthScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+          description: Composite health score (0=critical, 100=healthy)
+        confidence:
+          type:
+            - number
+            - 'null'
+          format: float
+          minimum: 0
+          maximum: 1
+          description: AI consensus confidence score
+        safetyGateClass:
+          type: string
+          enum: [A, B, C, D]
+          description: |
+            Safety classification:
+            - A: Safe for self-care guidance
+            - B: Recommend medical consultation
+            - C: Prompt medical attention needed
+            - D: Emergency — immediate medical attention required
+        disclaimer:
+          type: string
+          description: Legal disclaimer (always included)
+        processingTimeMs:
+          type: integer
+          description: Total processing time in milliseconds
+
+    # --- Enterprise ---
+
+    DashboardResponse:
+      type: object
+      properties:
+        enterprise:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            name:
+              type: string
+            nameEn:
+              type:
+                - string
+                - 'null'
+            region:
+              type:
+                - string
+                - 'null'
+            contractType:
+              type:
+                - string
+                - 'null'
+            contractEnd:
+              type:
+                - string
+                - 'null'
+              format: date
+        quota:
+          type: object
+          properties:
+            total:
+              type: integer
+              description: Total screening quota
+            used:
+              type: integer
+              description: Screenings used
+            remaining:
+              type: integer
+              description: Screenings remaining
+        members:
+          type: object
+          properties:
+            total:
+              type: integer
+              description: Active member count
+            limit:
+              type: integer
+              description: Maximum allowed members
+            screened:
+              type: integer
+              description: Members with at least one screening
+            avgHealthScore:
+              type:
+                - integer
+                - 'null'
+              description: Average health score of screened members
+            scoreDistribution:
+              type: object
+              properties:
+                excellent:
+                  type: integer
+                  description: Score >= 80
+                good:
+                  type: integer
+                  description: 60 <= score < 80
+                needsAttention:
+                  type: integer
+                  description: Score < 60
+                notScreened:
+                  type: integer
+        recentScreenings:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+              member_id:
+                type: string
+                format: uuid
+              screening_type:
+                type: string
+              created_at:
+                type: string
+                format: date-time
+
+    Member:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        full_name:
+          type: string
+        full_name_en:
+          type:
+            - string
+            - 'null'
+        title:
+          type:
+            - string
+            - 'null'
+        email:
+          type:
+            - string
+            - 'null'
+          format: email
+        phone:
+          type:
+            - string
+            - 'null'
+        gender:
+          type:
+            - string
+            - 'null'
+          enum: [male, female, other]
+        date_of_birth:
+          type:
+            - string
+            - 'null'
+          format: date
+        preferred_language:
+          type: string
+          enum: [ja, zh-CN, zh-TW, en]
+        last_screening_date:
+          type:
+            - string
+            - 'null'
+          format: date-time
+        last_health_score:
+          type:
+            - integer
+            - 'null'
+        screening_count:
+          type: integer
+        status:
+          type: string
+          enum: [active, inactive, removed]
+        created_at:
+          type: string
+          format: date-time
+
+    MemberCreate:
+      type: object
+      required:
+        - fullName
+      properties:
+        fullName:
+          type: string
+          description: Full name (required)
+          example: "田中 太郎"
+        fullNameEn:
+          type: string
+          example: "Taro Tanaka"
+        title:
+          type: string
+          example: "Manager"
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        gender:
+          type: string
+          enum: [male, female, other]
+        dateOfBirth:
+          type: string
+          format: date
+        nationality:
+          type: string
+          description: ISO 3166-1 alpha-2 country code
+          example: "JP"
+        passportNumber:
+          type: string
+        preferredLanguage:
+          type: string
+          enum: [ja, zh-CN, zh-TW, en]
+          default: zh-CN
+        allergies:
+          type:
+            - string
+            - 'null'
+        medicalNotes:
+          type:
+            - string
+            - 'null'
+
+    MemberUpdate:
+      type: object
+      required:
+        - memberId
+      properties:
+        memberId:
+          type: string
+          format: uuid
+        fullName:
+          type: string
+        fullNameEn:
+          type: string
+        title:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        gender:
+          type: string
+          enum: [male, female, other]
+        dateOfBirth:
+          type: string
+          format: date
+        nationality:
+          type: string
+        passportNumber:
+          type: string
+        preferredLanguage:
+          type: string
+          enum: [ja, zh-CN, zh-TW, en]
+        medicalNotes:
+          type: string
+        allergies:
+          type: string
+
+    ScreeningRequest:
+      type: object
+      required:
+        - memberId
+        - answers
+      properties:
+        enterpriseId:
+          type: string
+          format: uuid
+          description: Required when using admin auth; auto-resolved for API key auth
+        memberId:
+          type: string
+          format: uuid
+          description: Enterprise member to screen
+        answers:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required:
+              - questionId
+              - question
+              - answer
+            properties:
+              questionId:
+                type: integer
+              question:
+                type: string
+              answer:
+                type: string
+          description: Screening questionnaire answers
+        bodyMapData:
+          type: object
+          description: Optional body map symptom selection data
+          additionalProperties: true
+        language:
+          type: string
+          enum: [ja, zh-CN, zh-TW, en]
+          default: zh-CN
+        phase:
+          type: integer
+          enum: [1, 2]
+          default: 2
+          description: Screening phase (1=basic, 2=detailed)
+
+    ScreeningResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        screeningId:
+          type: string
+          format: uuid
+        result:
+          type: object
+          description: Legacy screening result object
+          properties:
+            riskLevel:
+              type: string
+              enum: [low, medium, high, critical]
+            riskSummary:
+              type: string
+            recommendedDepartments:
+              type: array
+              items:
+                type: string
+            recommendedTests:
+              type: array
+              items:
+                type: string
+        safetyGate:
+          type: object
+          properties:
+            gateClass:
+              type: string
+              enum: [A, B, C, D]
+            requiresHumanReview:
+              type: boolean
+
+    # --- Health Check ---
+
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [healthy, degraded, unhealthy]
+        timestamp:
+          type: string
+          format: date-time
+        uptime_ms:
+          type: integer
+        version:
+          type: string
+          description: Git commit SHA (first 7 chars) or "dev"
+        checks:
+          type: object
+          properties:
+            database:
+              $ref: '#/components/schemas/DependencyCheck'
+            redis:
+              $ref: '#/components/schemas/DependencyCheck'
+
+    DependencyCheck:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [ok, degraded, down]
+        latency_ms:
+          type: integer
+        error:
+          type:
+            - string
+            - 'null'
+
+    # --- Common ---
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+        - type
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+        type:
+          type: string
+          enum:
+            - VALIDATION_ERROR
+            - AUTH_ERROR
+            - FORBIDDEN
+            - NOT_FOUND
+            - BUSINESS_ERROR
+            - RATE_LIMIT
+            - INTERNAL_ERROR
+        code:
+          type: string
+          description: Machine-readable business error code
+          example: QUOTA_EXCEEDED
+        requestId:
+          type: string
+          format: uuid
+
+  # ============================================================
+  # Reusable Parameters
+  # ============================================================
+
+  parameters:
+    EnterpriseIdQuery:
+      name: enterprise_id
+      in: query
+      required: false
+      description: Enterprise ID (auto-resolved from API key; required for admin auth)
+      schema:
+        type: string
+        format: uuid
+
+  # ============================================================
+  # Reusable Headers
+  # ============================================================
+
+  headers:
+    X-RateLimit-Remaining:
+      description: Number of requests remaining in the current window
+      schema:
+        type: integer
+    X-RateLimit-Reset:
+      description: Unix timestamp (seconds) when the rate limit window resets
+      schema:
+        type: integer
+
+# ============================================================
+# Paths
+# ============================================================
+
+paths:
+
+  # ----------------------------------------------------------
+  # Medical Triage
+  # ----------------------------------------------------------
+
+  /api/v1/medical-triage:
+    post:
+      operationId: triageSymptoms
+      tags: [Medical Triage]
+      summary: AI medical triage
+      description: |
+        Run symptoms through the AEMC (AI-Enhanced Medical Consensus) pipeline.
+        Uses multi-model consensus across GPT-4o, Gemini, Grok, and Claude
+        for reliable triage assessments.
+
+        **Required scope:** `medical_triage`
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TriageRequest'
+            examples:
+              basic:
+                summary: Basic symptom description
+                value:
+                  symptoms: "Persistent headache for 3 days with mild fever"
+                  language: "en"
+              detailed:
+                summary: Detailed with history
+                value:
+                  symptoms: "頭痛が3日間続き、軽い発熱と首のこわばりがある"
+                  age: 45
+                  gender: "male"
+                  medicalHistory: ["hypertension"]
+                  medications: ["amlodipine 5mg"]
+                  language: "ja"
+      responses:
+        '200':
+          description: Triage completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TriageResponse'
+        '400':
+          description: Invalid input (symptoms too short or missing)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "symptoms field is required (minimum 5 characters)"
+                type: VALIDATION_ERROR
+                requestId: "550e8400-e29b-41d4-a716-446655440000"
+        '401':
+          description: Missing or invalid API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "Invalid or inactive API key"
+                type: AUTH_ERROR
+                requestId: "550e8400-e29b-41d4-a716-446655440000"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # ----------------------------------------------------------
+  # Enterprise Dashboard
+  # ----------------------------------------------------------
+
+  /api/enterprise/dashboard:
+    get:
+      operationId: getEnterpriseDashboard
+      tags: [Enterprise]
+      summary: Enterprise dashboard data
+      description: |
+        Returns member overview, quota usage, health score distribution,
+        and recent screening activity.
+
+        **Required scope:** `enterprise_management`
+      security:
+        - ApiKeyAuth: []
+      responses:
+        '200':
+          description: Dashboard data
+          headers:
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/X-RateLimit-Remaining'
+            X-RateLimit-Reset:
+              $ref: '#/components/headers/X-RateLimit-Reset'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded (30 req/min)
+          headers:
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/X-RateLimit-Remaining'
+            X-RateLimit-Reset:
+              $ref: '#/components/headers/X-RateLimit-Reset'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # ----------------------------------------------------------
+  # Enterprise Members
+  # ----------------------------------------------------------
+
+  /api/enterprise/members:
+    get:
+      operationId: listMembers
+      tags: [Enterprise]
+      summary: List enterprise members
+      description: |
+        Returns all active and inactive members (excludes soft-deleted).
+
+        **Required scope:** `enterprise_management`
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - $ref: '#/components/parameters/EnterpriseIdQuery'
+      responses:
+        '200':
+          description: Member list
+          headers:
+            X-RateLimit-Remaining:
+              $ref: '#/components/headers/X-RateLimit-Remaining'
+            X-RateLimit-Reset:
+              $ref: '#/components/headers/X-RateLimit-Reset'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  members:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Member'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      operationId: addMembers
+      tags: [Enterprise]
+      summary: Add member(s)
+      description: |
+        Add a single member or batch-add multiple members.
+        Checks enterprise member limit before inserting.
+
+        **Required scope:** `enterprise_management`
+
+        **Batch format:** `{ "members": [{ "fullName": "..." }, ...] }`
+        **Single format:** `{ "fullName": "..." }`
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - type: object
+                  description: Single member
+                  allOf:
+                    - $ref: '#/components/schemas/MemberCreate'
+                - type: object
+                  description: Batch add
+                  required:
+                    - members
+                  properties:
+                    enterpriseId:
+                      type: string
+                      format: uuid
+                      description: Required when using admin auth
+                    members:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/MemberCreate'
+            examples:
+              single:
+                summary: Add one member
+                value:
+                  fullName: "田中 太郎"
+                  email: "tanaka@example.com"
+                  preferredLanguage: "ja"
+              batch:
+                summary: Batch add
+                value:
+                  members:
+                    - fullName: "田中 太郎"
+                      email: "tanaka@example.com"
+                    - fullName: "鈴木 花子"
+                      email: "suzuki@example.com"
+      responses:
+        '200':
+          description: Members added
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  added:
+                    type: integer
+                  members:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        full_name:
+                          type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Member limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "Member limit exceeded. Current: 48, Adding: 5, Limit: 50"
+                type: BUSINESS_ERROR
+                code: MEMBER_LIMIT_EXCEEDED
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    patch:
+      operationId: updateMember
+      tags: [Enterprise]
+      summary: Update a member
+      description: |
+        Update allowed fields on a member. Only provided fields are updated.
+
+        **Required scope:** `enterprise_management`
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberUpdate'
+      responses:
+        '200':
+          description: Member updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  member:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      full_name:
+                        type: string
+                      status:
+                        type: string
+        '400':
+          description: No valid fields to update
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Member not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      operationId: removeMember
+      tags: [Enterprise]
+      summary: Remove a member (soft-delete)
+      description: |
+        Sets member status to `removed`. The member record is not physically deleted.
+
+        **Required scope:** `enterprise_management`
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - memberId
+              properties:
+                memberId:
+                  type: string
+                  format: uuid
+                enterpriseId:
+                  type: string
+                  format: uuid
+                  description: Required when using admin auth
+      responses:
+        '200':
+          description: Member removed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  member:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      full_name:
+                        type: string
+                      status:
+                        type: string
+                        example: removed
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Member not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # ----------------------------------------------------------
+  # Enterprise Screening
+  # ----------------------------------------------------------
+
+  /api/enterprise/screening:
+    post:
+      operationId: submitScreening
+      tags: [Enterprise]
+      summary: Submit member screening
+      description: |
+        Run an AI health screening for an enterprise member.
+        Validates quota, runs the AEMC pipeline, and updates member records.
+
+        **Required scope:** `enterprise_screening`
+
+        **Timeout:** 300 seconds (AI pipeline processing)
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScreeningRequest'
+            example:
+              memberId: "550e8400-e29b-41d4-a716-446655440000"
+              answers:
+                - questionId: 1
+                  question: "What symptoms are you experiencing?"
+                  answer: "Persistent headache and fatigue"
+                - questionId: 2
+                  question: "How long have you had these symptoms?"
+                  answer: "About 2 weeks"
+              language: "zh-CN"
+              phase: 2
+      responses:
+        '200':
+          description: Screening completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScreeningResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Enterprise or member not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Quota exceeded or member not active
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                quota:
+                  summary: Quota exceeded
+                  value:
+                    error: "Screening quota exceeded"
+                    type: BUSINESS_ERROR
+                    code: QUOTA_EXCEEDED
+                inactive:
+                  summary: Member not active
+                  value:
+                    error: "Member is not active"
+                    type: BUSINESS_ERROR
+                    code: MEMBER_NOT_ACTIVE
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # ----------------------------------------------------------
+  # Health Check
+  # ----------------------------------------------------------
+
+  /api/health:
+    get:
+      operationId: healthCheck
+      tags: [Health]
+      summary: System health check
+      description: |
+        Returns connectivity status for all critical dependencies
+        (database, Redis). No authentication required.
+
+        - Response < 3s per dependency: `ok`
+        - Response > 3s: `degraded`
+        - Connection failed: `down`
+        - HTTP 503 returned if any dependency is `down`
+      security: []
+      responses:
+        '200':
+          description: System healthy or degraded
+          headers:
+            Cache-Control:
+              schema:
+                type: string
+                example: no-store
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: healthy
+                timestamp: "2025-06-01T12:00:00.000Z"
+                uptime_ms: 45
+                version: "a1b2c3d"
+                checks:
+                  database:
+                    status: ok
+                    latency_ms: 23
+                  redis:
+                    status: ok
+                    latency_ms: 12
+        '503':
+          description: System unhealthy (at least one dependency down)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+  # ----------------------------------------------------------
+  # Invoices
+  # ----------------------------------------------------------
+
+  /api/invoices/{orderId}:
+    get:
+      operationId: getInvoicePdf
+      tags: [Invoices]
+      summary: Download order receipt PDF
+      description: |
+        Generates and returns a PDF receipt for a paid order.
+        Authenticated via signed token (no login required).
+
+        Only orders with status `paid`, `confirmed`, `completed`, or `refunded`
+        can generate receipts.
+      security: []
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          description: Order UUID
+          schema:
+            type: string
+            format: uuid
+        - name: token
+          in: query
+          required: true
+          description: HMAC-signed access token (generated per order + customer email)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: PDF receipt
+          headers:
+            Content-Disposition:
+              schema:
+                type: string
+                example: 'inline; filename="receipt-ABC12345.pdf"'
+            Cache-Control:
+              schema:
+                type: string
+                example: 'private, max-age=3600'
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Missing token, invalid order ID, or order not paid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Invalid token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid token"
+        '404':
+          description: Order not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Order not found"
+        '500':
+          description: PDF generation failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Failed to generate invoice"

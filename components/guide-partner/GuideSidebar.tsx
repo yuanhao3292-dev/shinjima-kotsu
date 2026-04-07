@@ -30,15 +30,15 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { icon: LayoutDashboard, label: { ja: 'ダッシュボード', 'zh-CN': '控制台', 'zh-TW': '控制台', en: 'Dashboard' }, href: '/guide-partner/dashboard' },
-  { icon: Store, label: { ja: 'ナイトクラブ', 'zh-CN': '夜总会', 'zh-TW': '夜總會', en: 'Nightclubs' }, href: '/guide-partner/venues' },
-  { icon: Calendar, label: { ja: '予約管理', 'zh-CN': '我的预约', 'zh-TW': '我的預約', en: 'My Bookings' }, href: '/guide-partner/bookings' },
-  { icon: Wallet, label: { ja: '報酬精算', 'zh-CN': '返金结算', 'zh-TW': '報酬結算', en: 'Commission' }, href: '/guide-partner/commission' },
-  { icon: Users, label: { ja: '紹介管理', 'zh-CN': '我的推荐', 'zh-TW': '我的推薦', en: 'Referrals' }, href: '/guide-partner/referrals' },
-  { icon: Trophy, label: { ja: 'ランキング', 'zh-CN': '排行榜', 'zh-TW': '排行榜', en: 'Leaderboard' }, href: '/guide-partner/leaderboard' },
-  { icon: Globe, label: { ja: '販売ページ', 'zh-CN': '分销页面', 'zh-TW': '分銷頁面', en: 'White Label' }, href: '/guide-partner/whitelabel', highlight: true },
-  { icon: Headphones, label: { ja: 'サポート', 'zh-CN': '客服支持', 'zh-TW': '客服支持', en: 'Support' }, href: '/guide-partner/support' },
-  { icon: Settings, label: { ja: 'アカウント設定', 'zh-CN': '账户设置', 'zh-TW': '帳戶設定', en: 'Settings' }, href: '/guide-partner/settings' },
+  { icon: LayoutDashboard, label: { ja: 'ダッシュボード', 'zh-CN': '控制台', 'zh-TW': '控制台', en: 'Dashboard', ko: '대시보드' }, href: '/guide-partner/dashboard' },
+  { icon: Store, label: { ja: 'ナイトクラブ', 'zh-CN': '夜总会', 'zh-TW': '夜總會', en: 'Nightclubs', ko: '나이트클럽' }, href: '/guide-partner/venues' },
+  { icon: Calendar, label: { ja: '予約管理', 'zh-CN': '我的预约', 'zh-TW': '我的預約', en: 'My Bookings', ko: '예약 관리' }, href: '/guide-partner/bookings' },
+  { icon: Wallet, label: { ja: '報酬精算', 'zh-CN': '返金结算', 'zh-TW': '報酬結算', en: 'Commission', ko: '커미션' }, href: '/guide-partner/commission' },
+  { icon: Users, label: { ja: '紹介管理', 'zh-CN': '我的推荐', 'zh-TW': '我的推薦', en: 'Referrals', ko: '추천' }, href: '/guide-partner/referrals' },
+  { icon: Trophy, label: { ja: 'ランキング', 'zh-CN': '排行榜', 'zh-TW': '排行榜', en: 'Leaderboard', ko: '리더보드' }, href: '/guide-partner/leaderboard' },
+  { icon: Globe, label: { ja: '販売ページ', 'zh-CN': '分销页面', 'zh-TW': '分銷頁面', en: 'White Label', ko: '화이트라벨' }, href: '/guide-partner/whitelabel', highlight: true },
+  { icon: Headphones, label: { ja: 'サポート', 'zh-CN': '客服支持', 'zh-TW': '客服支持', en: 'Support', ko: '지원' }, href: '/guide-partner/support' },
+  { icon: Settings, label: { ja: 'アカウント設定', 'zh-CN': '账户设置', 'zh-TW': '帳戶設定', en: 'Settings', ko: '설정' }, href: '/guide-partner/settings' },
 ];
 
 const sidebarTranslations = {
@@ -47,12 +47,14 @@ const sidebarTranslations = {
     'zh-CN': '导游后台',
     'zh-TW': '導遊後台',
     en: 'Guide Dashboard',
+    ko: '가이드 대시보드',
   },
   logout: {
     ja: 'ログアウト',
     'zh-CN': '退出登录',
     'zh-TW': '退出登入',
     en: 'Logout',
+    ko: '로그아웃',
   },
 } as const;
 

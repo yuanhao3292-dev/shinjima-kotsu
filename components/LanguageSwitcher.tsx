@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Globe, ChevronDown, Check } from 'lucide-react';
 
-type Locale = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
+type Locale = 'ja' | 'zh-TW' | 'zh-CN' | 'en' | 'ko';
 
 interface Language {
   code: Locale;
@@ -17,6 +17,7 @@ const languages: Language[] = [
   { code: 'zh-TW', name: 'Chinese (Traditional)', nativeName: '繁體中文', flag: '🇹🇼' },
   { code: 'zh-CN', name: 'Chinese (Simplified)', nativeName: '简体中文', flag: '🇨🇳' },
   { code: 'en', name: 'English', nativeName: 'English', flag: '🇺🇸' },
+  { code: 'ko', name: 'Korean', nativeName: '한국어', flag: '🇰🇷' },
 ];
 
 const LOCALE_COOKIE_NAME = 'NEXT_LOCALE';
@@ -28,7 +29,7 @@ function getStoredLocale(): Locale {
   const cookies = document.cookie.split(';');
   for (const cookie of cookies) {
     const [name, value] = cookie.trim().split('=');
-    if (name === LOCALE_COOKIE_NAME && ['ja', 'zh-TW', 'zh-CN', 'en'].includes(value)) {
+    if (name === LOCALE_COOKIE_NAME && ['ja', 'zh-TW', 'zh-CN', 'en', 'ko'].includes(value)) {
       return value as Locale;
     }
   }
@@ -38,6 +39,7 @@ function getStoredLocale(): Locale {
   if (browserLang.startsWith('ja')) return 'ja';
   if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') return 'zh-TW';
   if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) return 'zh-CN';
+  if (browserLang.startsWith('ko')) return 'ko';
   if (browserLang.startsWith('en')) return 'en';
 
   return 'ja'; // Default
@@ -86,7 +88,7 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
   const currentLanguage = languages.find(l => l.code === currentLocale) || languages[0];
 
   if (variant === 'compact') {
-    const abbr = currentLocale === 'zh-TW' ? '繁中' : currentLocale === 'zh-CN' ? '简中' : currentLocale.toUpperCase();
+    const abbr = currentLocale === 'zh-TW' ? '繁中' : currentLocale === 'zh-CN' ? '简中' : currentLocale === 'ko' ? '한국' : currentLocale.toUpperCase();
     return (
       <div ref={dropdownRef} className={`relative ${className}`}>
         <button
@@ -119,7 +121,7 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
   }
 
   if (variant === 'sidebar') {
-    const abbr = currentLocale === 'zh-TW' ? '繁中' : currentLocale === 'zh-CN' ? '简中' : currentLocale.toUpperCase();
+    const abbr = currentLocale === 'zh-TW' ? '繁中' : currentLocale === 'zh-CN' ? '简中' : currentLocale === 'ko' ? '한국' : currentLocale.toUpperCase();
     return (
       <div ref={dropdownRef} className={`relative ${className}`}>
         <button

@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 
-export type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
+export type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en' | 'ko';
 
 const LANGUAGE_COOKIE_NAME = 'NEXT_LOCALE';
-const VALID_LANGUAGES: Language[] = ['ja', 'zh-TW', 'zh-CN', 'en'];
+const VALID_LANGUAGES: Language[] = ['ja', 'zh-TW', 'zh-CN', 'en', 'ko'];
 
 /**
  * 统一的语言检测和管理 Hook
@@ -39,6 +39,8 @@ export function useLanguage(): Language {
       detectedLang = 'zh-TW';
     } else if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) {
       detectedLang = 'zh-CN';
+    } else if (browserLang.startsWith('ko')) {
+      detectedLang = 'ko';
     } else if (browserLang.startsWith('en')) {
       detectedLang = 'en';
     }
@@ -74,7 +76,8 @@ export function formatNumber(num: number, lang: Language): string {
     'ja': 'ja-JP',
     'zh-TW': 'zh-TW',
     'zh-CN': 'zh-CN',
-    'en': 'en-US'
+    'en': 'en-US',
+    'ko': 'ko-KR'
   };
 
   return new Intl.NumberFormat(localeMap[lang]).format(num);

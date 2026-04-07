@@ -73,42 +73,49 @@ export const PACKAGE_HIGHLIGHTS: Record<string, Record<Language, string[]>> = {
     'zh-TW': ['全身PET-CT + 腦MRI', '上下消化道內視鏡', 'VIP專屬休息室'],
     ja: ['全身PET-CT + 脳MRI', '上部下部消化管内視鏡', 'VIP専用ラウンジ'],
     en: ['Full-body PET-CT + Brain MRI', 'Upper & Lower GI Endoscopy', 'VIP Lounge'],
+    ko: ['전신 PET-CT + 뇌 MRI', '상·하부 소화관 내시경', 'VIP 전용 라운지'],
   },
   'premium-cardiac-course': {
     'zh-CN': ['心脏CT造影 + 超声波', 'PET-CT全身扫描', '动脉硬化精密检测'],
     'zh-TW': ['心臟CT造影 + 超聲波', 'PET-CT全身掃描', '動脈硬化精密檢測'],
     ja: ['心臓CT造影 + 超音波', 'PET-CT全身スキャン', '動脈硬化精密検査'],
     en: ['Cardiac CT Angiography + Echo', 'Full-body PET-CT Scan', 'Arteriosclerosis Testing'],
+    ko: ['심장 CT 조영 + 초음파', 'PET-CT 전신 스캔', '동맥경화 정밀 검사'],
   },
   'select-gastro-colonoscopy': {
     'zh-CN': ['上下消化道内视镜', 'PET-CT全身扫描', '幽门螺杆菌检测'],
     'zh-TW': ['上下消化道內視鏡', 'PET-CT全身掃描', '幽門螺桿菌檢測'],
     ja: ['上部下部消化管内視鏡', 'PET-CT全身スキャン', 'ピロリ菌検査'],
     en: ['Upper & Lower GI Endoscopy', 'Full-body PET-CT Scan', 'H. pylori Test'],
+    ko: ['상·하부 소화관 내시경', 'PET-CT 전신 스캔', '헬리코박터균 검사'],
   },
   'select-gastroscopy': {
     'zh-CN': ['上消化道内视镜', 'PET-CT全身扫描', '腹部超声波检查'],
     'zh-TW': ['上消化道內視鏡', 'PET-CT全身掃描', '腹部超聲波檢查'],
     ja: ['上部消化管内視鏡', 'PET-CT全身スキャン', '腹部超音波検査'],
     en: ['Upper GI Endoscopy', 'Full-body PET-CT Scan', 'Abdominal Ultrasound'],
+    ko: ['상부 소화관 내시경', 'PET-CT 전신 스캔', '복부 초음파 검사'],
   },
   'dwibs-cancer-screening': {
     'zh-CN': ['全身DWIBS无创癌筛', '无辐射MRI技术', '30分钟快速检查'],
     'zh-TW': ['全身DWIBS無創癌篩', '無輻射MRI技術', '30分鐘快速檢查'],
     ja: ['全身DWIBS無侵襲がん検診', '被ばくゼロMRI技術', '30分のスピード検査'],
     en: ['Full-body DWIBS Cancer Screen', 'Radiation-free MRI', '30-min Quick Exam'],
+    ko: ['전신 DWIBS 비침습 암 검진', '무방사선 MRI 기술', '30분 신속 검사'],
   },
   'basic-checkup': {
     'zh-CN': ['PET-CT全身扫描', '基础血液生化检查', '心电图 + 胸部X光'],
     'zh-TW': ['PET-CT全身掃描', '基礎血液生化檢查', '心電圖 + 胸部X光'],
     ja: ['PET-CT全身スキャン', '基礎血液生化学検査', '心電図 + 胸部X線'],
     en: ['Full-body PET-CT Scan', 'Basic Blood Panel', 'ECG + Chest X-ray'],
+    ko: ['PET-CT 전신 스캔', '기본 혈액 생화학 검사', '심전도 + 흉부 X선'],
   },
   'cancer-initial-consultation': {
     'zh-CN': ['病历资料翻译', '日本专科医生评估', '治疗方案 + 费用概算'],
     'zh-TW': ['病歷資料翻譯', '日本專科醫生評估', '治療方案 + 費用概算'],
     ja: ['医療記録翻訳', '日本専門医評価', '治療計画 + 費用見積'],
     en: ['Medical Record Translation', 'Japanese Specialist Review', 'Treatment Plan + Cost Estimate'],
+    ko: ['의료 기록 번역', '일본 전문의 평가', '치료 계획 + 비용 견적'],
   },
 };
 
@@ -198,7 +205,7 @@ export function getPackageName(slug: string, lang: Language): string {
   const pkg = MEDICAL_PACKAGES[slug];
   if (!pkg) return slug;
   if (lang === 'ja') return pkg.nameJa;
-  if (lang === 'en') return pkg.nameEn;
+  if (lang === 'en' || lang === 'ko') return pkg.nameEn;
   return pkg.nameZhTw; // zh-CN / zh-TW 共用繁体名
 }
 

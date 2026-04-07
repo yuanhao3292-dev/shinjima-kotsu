@@ -2,7 +2,7 @@
 
 import { Loader2, ShieldCheck, X } from 'lucide-react';
 
-type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
+type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en' | 'ko';
 
 const modalT = {
   title: {
@@ -10,48 +10,56 @@ const modalT = {
     'zh-TW': '訂單確認',
     'zh-CN': '订单确认',
     en: 'Order Confirmation',
+    ko: '주문 내용 확인',
   },
   packageLabel: {
     ja: 'サービス',
     'zh-TW': '服務',
     'zh-CN': '服务',
     en: 'Service',
+    ko: '서비스',
   },
   priceLabel: {
     ja: '金額（税込）',
     'zh-TW': '金額（含稅）',
     'zh-CN': '金额（含税）',
     en: 'Amount (tax incl.)',
+    ko: '금액(세금 포함)',
   },
   customerLabel: {
     ja: 'お客様名',
     'zh-TW': '客戶姓名',
     'zh-CN': '客户姓名',
     en: 'Customer Name',
+    ko: '고객명',
   },
   cancelPolicy: {
     ja: 'キャンセルポリシーに同意の上ご注文ください',
     'zh-TW': '請在同意取消政策後下單',
     'zh-CN': '请在同意取消政策后下单',
     en: 'Please review the cancellation policy before ordering',
+    ko: '취소 정책에 동의 후 주문해 주세요',
   },
   legalLinks: {
     ja: '利用規約・特定商取引法に基づく表記',
     'zh-TW': '使用條款・特定商交易法標示',
     'zh-CN': '使用条款・特定商交易法标示',
     en: 'Terms of Service & Commercial Transaction Act',
+    ko: '이용약관·특정상거래법에 의한 표기',
   },
   confirm: {
     ja: '注文を確定する',
     'zh-TW': '確認訂單',
     'zh-CN': '确认订单',
     en: 'Confirm Order',
+    ko: '주문 확정',
   },
   cancel: {
     ja: '戻る',
     'zh-TW': '返回',
     'zh-CN': '返回',
     en: 'Go Back',
+    ko: '돌아가기',
   },
 } as const;
 

@@ -28,17 +28,17 @@ interface ScreeningRecord {
 }
 
 const T: Record<string, Record<Language, string>> = {
-  loadError: { ja: '読み込みに失敗しました', 'zh-CN': '载入失败', 'zh-TW': '載入失敗', en: 'Failed to load' },
-  loading: { ja: '読み込み中...', 'zh-CN': '载入中...', 'zh-TW': '載入中...', en: 'Loading...' },
-  backToAccount: { ja: 'マイアカウントに戻る', 'zh-CN': '返回我的账户', 'zh-TW': '返回我的帳戶', en: 'Back to My Account' },
-  heroLabel: { ja: 'HEALTH PASSPORT', 'zh-CN': 'HEALTH PASSPORT', 'zh-TW': 'HEALTH PASSPORT', en: 'HEALTH PASSPORT' },
-  title: { ja: 'ヘルスパスポート', 'zh-CN': '健康护照', 'zh-TW': '健康護照', en: 'Health Passport' },
-  usedCount: { ja: '使用済み', 'zh-CN': '已使用', 'zh-TW': '已使用', en: 'Used' },
-  freeRemaining: { ja: '残り無料回数', 'zh-CN': '免费剩余', 'zh-TW': '免費剩餘', en: 'Free Remaining' },
-  times: { ja: '回', 'zh-CN': '次', 'zh-TW': '次', en: 'times' },
-  newScreening: { ja: '新しいヘルスチェック', 'zh-CN': '新的健康自测', 'zh-TW': '新的健康自測', en: 'New Health Check' },
-  downloadPDF: { ja: 'PDFエクスポート', 'zh-CN': '导出PDF', 'zh-TW': '匯出PDF', en: 'Export PDF' },
-  generating: { ja: '生成中...', 'zh-CN': '生成中...', 'zh-TW': '生成中...', en: 'Generating...' },
+  loadError: { ja: '読み込みに失敗しました', 'zh-CN': '载入失败', 'zh-TW': '載入失敗', en: 'Failed to load', ko: '불러오기에 실패했습니다' },
+  loading: { ja: '読み込み中...', 'zh-CN': '载入中...', 'zh-TW': '載入中...', en: 'Loading...', ko: '불러오는 중...' },
+  backToAccount: { ja: 'マイアカウントに戻る', 'zh-CN': '返回我的账户', 'zh-TW': '返回我的帳戶', en: 'Back to My Account', ko: '내 계정으로 돌아가기' },
+  heroLabel: { ja: 'HEALTH PASSPORT', 'zh-CN': 'HEALTH PASSPORT', 'zh-TW': 'HEALTH PASSPORT', en: 'HEALTH PASSPORT', ko: 'HEALTH PASSPORT' },
+  title: { ja: 'ヘルスパスポート', 'zh-CN': '健康护照', 'zh-TW': '健康護照', en: 'Health Passport', ko: '건강 여권' },
+  usedCount: { ja: '使用済み', 'zh-CN': '已使用', 'zh-TW': '已使用', en: 'Used', ko: '사용 완료' },
+  freeRemaining: { ja: '残り無料回数', 'zh-CN': '免费剩余', 'zh-TW': '免費剩餘', en: 'Free Remaining', ko: '무료 잔여 횟수' },
+  times: { ja: '回', 'zh-CN': '次', 'zh-TW': '次', en: 'times', ko: '회' },
+  newScreening: { ja: '新しいヘルスチェック', 'zh-CN': '新的健康自测', 'zh-TW': '新的健康自測', en: 'New Health Check', ko: '새 건강검진' },
+  downloadPDF: { ja: 'PDFエクスポート', 'zh-CN': '导出PDF', 'zh-TW': '匯出PDF', en: 'Export PDF', ko: 'PDF 내보내기' },
+  generating: { ja: '生成中...', 'zh-CN': '生成中...', 'zh-TW': '生成中...', en: 'Generating...', ko: '생성 중...' },
 };
 
 const t = (key: string, lang: Language): string => T[key]?.[lang] ?? key;
@@ -99,7 +99,7 @@ export default function ScreeningHistoryPage() {
         riskSummary: latest.top_findings[0] ?? '',
         treatmentSuggestions: [],
       } as any);
-      const langMap: Record<Language, 'ja' | 'zh-CN' | 'zh-TW' | 'en'> = { ja: 'ja', 'zh-CN': 'zh-CN', 'zh-TW': 'zh-TW', en: 'en' };
+      const langMap: Record<Language, 'ja' | 'zh-CN' | 'zh-TW' | 'en'> = { ja: 'ja', 'zh-CN': 'zh-CN', 'zh-TW': 'zh-TW', en: 'en', ko: 'en' };
       await downloadHealthPassportPDF({
         language: langMap[lang],
         healthScore: latest.health_score,

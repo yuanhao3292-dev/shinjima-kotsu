@@ -71,4 +71,5 @@ export const DEFAULT_CODE_BY_LANG: Record<Language, string> = {
   'zh-TW': '+886',
   ja: '+81',
   en: '+1',
+  ko: '+82',
 };
