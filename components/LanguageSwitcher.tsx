@@ -17,7 +17,7 @@ const languages: Language[] = [
   { code: 'zh-TW', name: 'Chinese (Traditional)', nativeName: '繁體中文', flag: '🇹🇼' },
   { code: 'zh-CN', name: 'Chinese (Simplified)', nativeName: '\u7B80\u4E2D', flag: '🇨🇳' },
   { code: 'en', name: 'English', nativeName: 'English', flag: '🇺🇸' },
-  { code: 'ko', name: 'Korean', nativeName: '한국어', flag: '🇰🇷' },
+  { code: 'ko', name: 'Korean', nativeName: '\uD55C\uAD6D\uC5B4', flag: '🇰🇷' },
 ];
 
 const LOCALE_COOKIE_NAME = 'NEXT_LOCALE';
@@ -88,7 +88,7 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
   const currentLanguage = languages.find(l => l.code === currentLocale) || languages[0];
 
   if (variant === 'compact') {
-    const abbr = currentLocale === 'zh-TW' ? '繁中' : currentLocale === 'zh-CN' ? '简中' : currentLocale === 'ko' ? '한국' : currentLocale.toUpperCase();
+    const abbr = currentLocale === 'zh-TW' ? '\u7E41\u4E2D' : currentLocale === 'zh-CN' ? '\u7B80\u4E2D' : currentLocale === 'ko' ? '\uD55C\uAD6D' : currentLocale.toUpperCase();
     return (
       <div ref={dropdownRef} className={`relative ${className}`}>
         <button
@@ -121,7 +121,7 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
   }
 
   if (variant === 'sidebar') {
-    const abbr = currentLocale === 'zh-TW' ? '繁中' : currentLocale === 'zh-CN' ? '简中' : currentLocale === 'ko' ? '한국' : currentLocale.toUpperCase();
+    const abbr = currentLocale === 'zh-TW' ? '\u7E41\u4E2D' : currentLocale === 'zh-CN' ? '\u7B80\u4E2D' : currentLocale === 'ko' ? '\uD55C\uAD6D' : currentLocale.toUpperCase();
     return (
       <div ref={dropdownRef} className={`relative ${className}`}>
         <button
