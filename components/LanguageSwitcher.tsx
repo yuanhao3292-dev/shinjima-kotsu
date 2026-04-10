@@ -13,7 +13,7 @@ interface Language {
 }
 
 const languages: Language[] = [
-  { code: 'ja', name: 'Japanese', nativeName: '日本語', flag: '🇯🇵' },
+  { code: 'ja', name: 'Japanese', nativeName: '\u65E5\u672C\u8A9E', flag: '🇯🇵' },
   { code: 'zh-TW', name: 'Chinese (Traditional)', nativeName: '\u7E41\u4E2D', flag: '🇹🇼' },
   { code: 'zh-CN', name: 'Chinese (Simplified)', nativeName: '\u7B80\u4E2D', flag: '🇨🇳' },
   { code: 'en', name: 'English', nativeName: 'English', flag: '🇺🇸' },
