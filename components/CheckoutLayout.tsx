@@ -132,8 +132,8 @@ export default function CheckoutLayout({ children }: CheckoutLayoutProps) {
                 <div className="absolute right-0 mt-2 w-32 bg-white border border-neutral-200 py-1.5 z-50">
                   {[
                     { code: 'ja', label: '\u65E5\u672C\u8A9E' },
-                    { code: 'zh-TW', label: '\u7E41\u4E2D' },
-                    { code: 'zh-CN', label: '\u7B80\u4E2D' },
+                    { code: 'zh-TW', label: '\u7E41\u4F53\u4E2D\u6587' },
+                    { code: 'zh-CN', label: '\u7B80\u4F53\u4E2D\u6587' },
                     { code: 'en', label: 'English' },
                   ].map((lang) => (
                     <button

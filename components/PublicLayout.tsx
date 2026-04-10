@@ -267,12 +267,12 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
         }`}
       >
         <Globe size={14} />
-        {currentLang === 'zh-TW' ? '\u7E41\u4E2D' : currentLang === 'zh-CN' ? '\u7B80\u4E2D' : currentLang === 'ko' ? '\uD55C\uAD6D' : currentLang.toUpperCase()}
+        {currentLang === 'zh-TW' ? '\u7E41\u4F53\u4E2D\u6587' : currentLang === 'zh-CN' ? '\u7B80\u4F53\u4E2D\u6587' : currentLang === 'ko' ? '\uD55C\uAD6D' : currentLang.toUpperCase()}
         <ChevronDown size={12} />
       </button>
       {langMenuOpen && (
         <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50 animate-fade-in-down">
-          {[{ code: 'ja', label: '\u65E5\u672C\u8A9E' }, { code: 'zh-TW', label: '\u7E41\u4E2D' }, { code: 'zh-CN', label: '\u7B80\u4E2D' }, { code: 'en', label: 'English' }, { code: 'ko', label: '\uD55C\uAD6D\uC5B4' }].map((lang) => (
+          {[{ code: 'ja', label: '\u65E5\u672C\u8A9E' }, { code: 'zh-TW', label: '\u7E41\u4F53\u4E2D\u6587' }, { code: 'zh-CN', label: '\u7B80\u4F53\u4E2D\u6587' }, { code: 'en', label: 'English' }, { code: 'ko', label: '\uD55C\uAD6D\uC5B4' }].map((lang) => (
             <button key={lang.code} onClick={() => handleLangChange(lang.code as Language)} className={`w-full text-left px-4 py-2 text-xs font-medium hover:bg-neutral-50 transition ${currentLang === lang.code ? 'text-brand-700 bg-brand-50' : 'text-neutral-600'}`}>
               {lang.label}
             </button>

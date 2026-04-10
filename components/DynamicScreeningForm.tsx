@@ -715,8 +715,8 @@ export default function DynamicScreeningForm({
             <span className="text-sm text-gray-600">{t('reportLanguage')}:</span>
             <div className="flex gap-1">
               {([
-                { code: 'zh-CN' as Language, label: '\u7B80\u4E2D' },
-                { code: 'zh-TW' as Language, label: '\u7E41\u4E2D' },
+                { code: 'zh-CN' as Language, label: '\u7B80\u4F53\u4E2D\u6587' },
+                { code: 'zh-TW' as Language, label: '\u7E41\u4F53\u4E2D\u6587' },
                 { code: 'ja' as Language, label: '\u65E5\u672C\u8A9E' },
                 { code: 'en' as Language, label: 'English' },
                 { code: 'ko' as Language, label: '\uD55C\uAD6D\uC5B4' },
