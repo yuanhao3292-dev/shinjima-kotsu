@@ -272,7 +272,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
       </button>
       {langMenuOpen && (
         <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50 animate-fade-in-down">
-          {[{ code: 'ja', label: '日本語' }, { code: 'zh-TW', label: '繁體中文' }, { code: 'zh-CN', label: '简体中文' }, { code: 'en', label: 'English' }, { code: 'ko', label: '한국어' }].map((lang) => (
+          {[{ code: 'ja', label: '\u65E5\u672C\u8A9E' }, { code: 'zh-TW', label: '\u7E41\u4E2D' }, { code: 'zh-CN', label: '\u7B80\u4E2D' }, { code: 'en', label: 'English' }, { code: 'ko', label: '\uD55C\uAD6D\uC5B4' }].map((lang) => (
             <button key={lang.code} onClick={() => handleLangChange(lang.code as Language)} className={`w-full text-left px-4 py-2 text-xs font-medium hover:bg-neutral-50 transition ${currentLang === lang.code ? 'text-brand-700 bg-brand-50' : 'text-neutral-600'}`}>
               {lang.label}
             </button>
