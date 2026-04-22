@@ -65,7 +65,7 @@ export async function GET(request: NextRequest) {
         .single();
 
       if (error || !guide) {
-        return createErrorResponse(Errors.notFound('导游不存在'));
+        return createErrorResponse(Errors.notFound('\u5BFC\u6E38'));
       }
 
       // 获取导游的订单统计

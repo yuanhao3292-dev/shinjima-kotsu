@@ -57,7 +57,7 @@ export async function GET(request: NextRequest) {
         .single();
 
       if (error || !venue) {
-        return createErrorResponse(Errors.notFound('店铺不存在'));
+        return createErrorResponse(Errors.notFound('\u5E97\u94FA'));
       }
 
       return NextResponse.json(venue);
@@ -200,7 +200,7 @@ export async function POST(request: NextRequest) {
           .single();
 
         if (!venue) {
-          return createErrorResponse(Errors.notFound('店铺不存在'));
+          return createErrorResponse(Errors.notFound('\u5E97\u94FA'));
         }
 
         const { error } = await supabase

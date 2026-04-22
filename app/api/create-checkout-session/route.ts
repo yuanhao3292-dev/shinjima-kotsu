@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (packageError || !packageData) {
-      return createErrorResponse(Errors.notFound('套餐不存在'));
+      return createErrorResponse(Errors.notFound('\u5957\u9910'));
     }
 
     // 验证套餐配置完整性

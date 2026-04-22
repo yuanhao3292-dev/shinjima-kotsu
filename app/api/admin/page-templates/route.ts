@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
         .single();
 
       if (error || !template) {
-        return createErrorResponse(Errors.notFound('模板不存在'));
+        return createErrorResponse(Errors.notFound('\u6A21\u677F'));
       }
 
       return NextResponse.json(template);

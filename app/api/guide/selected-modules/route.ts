@@ -100,7 +100,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (!module) {
-      return createErrorResponse(Errors.notFound('模块不存在'));
+      return createErrorResponse(Errors.notFound('\u6A21\u5757'));
     }
 
     if (!module.is_active) {

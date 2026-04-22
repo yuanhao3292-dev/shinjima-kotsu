@@ -47,7 +47,7 @@ export async function GET(request: NextRequest) {
         .single();
 
       if (error || !module) {
-        return createErrorResponse(Errors.notFound('模块不存在'));
+        return createErrorResponse(Errors.notFound('\u6A21\u5757'));
       }
 
       return NextResponse.json(module);
@@ -195,7 +195,7 @@ export async function POST(request: NextRequest) {
           .single();
 
         if (!module) {
-          return createErrorResponse(Errors.notFound('模块不存在'));
+          return createErrorResponse(Errors.notFound('\u6A21\u5757'));
         }
 
         const newIsActive = !module.is_active;

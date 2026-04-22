@@ -85,7 +85,7 @@ export async function GET(request: NextRequest) {
         .single();
 
       if (error || !news) {
-        return createErrorResponse(Errors.notFound('新闻不存在'));
+        return createErrorResponse(Errors.notFound('\u65B0\u95FB'));
       }
 
       return NextResponse.json(localizeNews(news, lang));

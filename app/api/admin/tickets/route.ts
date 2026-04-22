@@ -55,7 +55,7 @@ export async function GET(request: NextRequest) {
         .single();
 
       if (error || !ticket) {
-        return createErrorResponse(Errors.notFound('工单不存在'));
+        return createErrorResponse(Errors.notFound('\u5DE5\u5355'));
       }
 
       // 获取回复列表

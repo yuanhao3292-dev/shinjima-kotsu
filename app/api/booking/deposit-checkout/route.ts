@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (bookingError || !booking) {
-      return createErrorResponse(Errors.notFound('預約不存在'));
+      return createErrorResponse(Errors.notFound('\u9810\u7D04'));
     }
 
     if (booking.status !== 'pending' || booking.deposit_status !== 'pending') {

@@ -71,7 +71,7 @@ export async function GET(request: NextRequest) {
         .single();
 
       if (error || !news) {
-        return createErrorResponse(Errors.notFound('新闻不存在'));
+        return createErrorResponse(Errors.notFound('\u65B0\u95FB'));
       }
 
       return NextResponse.json(news);
@@ -264,7 +264,7 @@ export async function POST(request: NextRequest) {
           .single();
 
         if (!news) {
-          return createErrorResponse(Errors.notFound('新闻不存在'));
+          return createErrorResponse(Errors.notFound('\u65B0\u95FB'));
         }
 
         const newPublishedState = !news.is_published;
@@ -306,7 +306,7 @@ export async function POST(request: NextRequest) {
           .single();
 
         if (!news) {
-          return createErrorResponse(Errors.notFound('新闻不存在'));
+          return createErrorResponse(Errors.notFound('\u65B0\u95FB'));
         }
 
         const newFeaturedState = !news.is_featured;

@@ -56,7 +56,7 @@ export async function GET(request: NextRequest) {
         .single();
 
       if (error) {
-        return createErrorResponse(Errors.notFound('导游不存在'));
+        return createErrorResponse(Errors.notFound('\u5BFC\u6E38'));
       }
 
       // 解密身份证号码并脱敏显示

@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
       .single();
 
     if (guideError || !guide) {
-      return createErrorResponse(Errors.notFound('导游不存在'));
+      return createErrorResponse(Errors.notFound('\u5BFC\u6E38'));
     }
 
     // 释放到期佣金（2周等待期已过的佣金自动进入可提现余额）
@@ -177,7 +177,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (guideError || !guide) {
-      return createErrorResponse(Errors.notFound('导游不存在'));
+      return createErrorResponse(Errors.notFound('\u5BFC\u6E38'));
     }
 
     // 释放到期佣金（2周等待期已过的佣金自动进入可提现余额）
