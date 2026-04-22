@@ -28,59 +28,65 @@ const getSupabase = () => {
 // ============================================
 
 /**
- * 检查事件是否已被处理
- * @returns true 如果事件已成功处理，false 如果是新事件或之前处理失败（允许重试）
+ * 尝试"认领"事件：利用 event_id 唯一约束，先插入再处理（消除 TOCTOU 竞态）
+ * @returns true 如果成功认领（可以处理），false 如果事件已被其他进程认领且成功处理
  */
-async function checkEventProcessed(supabase: SupabaseClient, eventId: string): Promise<boolean> {
+async function claimEvent(
+  supabase: SupabaseClient,
+  eventId: string,
+  eventType: string
+): Promise<boolean> {
   try {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('webhook_events')
-      .select('id, result')
-      .eq('event_id', eventId)
-      .single();
+      .insert({
+        event_id: eventId,
+        event_type: eventType,
+        result: 'failed', // 先标记为 failed，处理成功后再更新为 success
+      });
 
-    if (data && !error) {
-      // 只有成功处理的事件才跳过，失败的事件允许 Stripe 重试
-      if (data.result === 'success') {
-        return true;
+    if (error) {
+      // 唯一约束冲突：事件已被认领
+      if (error.code === '23505') {
+        // 检查之前的处理结果
+        const { data } = await supabase
+          .from('webhook_events')
+          .select('result')
+          .eq('event_id', eventId)
+          .single();
+
+        // 只有之前成功处理的才跳过，失败的允许 Stripe 重试
+        return data?.result !== 'success';
       }
-      // 标记为重试中（保留记录用于审计追踪）
-      await supabase
-        .from('webhook_events')
-        .update({ result: 'retrying' })
-        .eq('event_id', eventId)
-        .eq('result', 'failed');
-      return false;
+      // 其他错误（如表不存在），允许继续处理
+      console.error('认领 webhook 事件失败:', error);
+      return true;
     }
-    return false;
+    return true; // 成功插入 = 成功认领
   } catch {
-    // 表不存在或其他错误，允许继续处理
-    return false;
+    return true; // 出错时允许处理
   }
 }
 
 /**
- * 记录事件已被处理
+ * 更新事件处理结果
  */
-async function recordEventProcessed(
+async function updateEventResult(
   supabase: SupabaseClient,
   eventId: string,
-  eventType: string,
   result: 'success' | 'failed' | 'skipped',
   errorMessage?: string
 ): Promise<void> {
   try {
     await supabase
       .from('webhook_events')
-      .insert({
-        event_id: eventId,
-        event_type: eventType,
+      .update({
         result,
-        error_message: errorMessage,
-      });
+        error_message: errorMessage || null,
+      })
+      .eq('event_id', eventId);
   } catch (err) {
-    // 记录失败不应阻止主流程
-    console.error('记录 webhook 事件失败:', err);
+    console.error('更新 webhook 事件结果失败:', err);
   }
 }
 
@@ -122,10 +128,10 @@ export async function POST(request: NextRequest) {
   }
 
   // ============================================
-  // 幂等性检查：防止重复处理同一事件
+  // 幂等性检查：先认领事件，消除 TOCTOU 竞态窗口
   // ============================================
-  const isProcessed = await checkEventProcessed(supabase, event.id);
-  if (isProcessed) {
+  const canProcess = await claimEvent(supabase, event.id, event.type);
+  if (!canProcess) {
     console.log(`⏭️ 事件已处理，跳过: ${event.id} (${event.type})`);
     return NextResponse.json({ received: true, skipped: true });
   }
@@ -194,19 +200,19 @@ export async function POST(request: NextRequest) {
 
       default:
         console.log(`未处理的事件类型: ${event.type}`);
-        await recordEventProcessed(supabase, event.id, event.type, 'skipped');
+        await updateEventResult(supabase, event.id, 'skipped');
         return NextResponse.json({ received: true });
     }
 
     // 记录事件已成功处理
-    await recordEventProcessed(supabase, event.id, event.type, 'success');
+    await updateEventResult(supabase, event.id, 'success');
     return NextResponse.json({ received: true });
 
   } catch (error: unknown) {
     console.error('处理 Webhook 事件失败:', error);
-    // 记录事件处理失败
+    // 保留 failed 状态（claimEvent 已插入），记录错误信息
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    await recordEventProcessed(supabase, event.id, event.type, 'failed', errorMessage);
+    await updateEventResult(supabase, event.id, 'failed', errorMessage);
     return NextResponse.json(
       { error: 'Webhook handler failed' },
       { status: 500 }
@@ -947,6 +953,8 @@ async function calculateAndRecordCommission(
   }
 
   // 3. 创建 whitelabel_orders 记录（包含新客奖励信息 + 等待期）
+  // 利用 source_order_id 唯一索引作为幂等性屏障：
+  // 如果插入因唯一约束失败（23505），说明佣金已记录，跳过后续步骤防止重复计佣
   const { error: wlOrderError } = await supabase
     .from('white_label_orders')
     .insert({
@@ -981,12 +989,17 @@ async function calculateAndRecordCommission(
     });
 
   if (wlOrderError) {
+    // 唯一约束冲突 = 佣金已记录，安全跳过（防止 Stripe 重试导致重复计佣）
+    if (wlOrderError.code === '23505') {
+      console.log(`⏭️ 佣金已记录，跳过重复处理: orderId=${orderId}, guideId=${guideId}`);
+      return;
+    }
     console.error('创建白标订单记录失败:', wlOrderError);
     throw new Error(`白标订单记录创建失败: ${wlOrderError.message}`);
-  } else {
-    const bonusInfo = isNewCustomerFirstOrder ? ` (含新客奖励 +${bonusRate}%)` : '';
-    console.log(`✅ 白标订单记录已创建: 导游=${guideSlug}, 佣金=${commissionAmount}円${bonusInfo}`);
   }
+
+  const bonusInfo = isNewCustomerFirstOrder ? ` (含新客奖励 +${bonusRate}%)` : '';
+  console.log(`✅ 白标订单记录已创建: 导游=${guideSlug}, 佣金=${commissionAmount}円${bonusInfo}`);
 
   // 4. 原子递增导游累计佣金（防并发丢失更新）
   const { data: guideData } = await supabase

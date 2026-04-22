@@ -25,5 +25,8 @@ jobs:
       - name: Route isolation check
         run: node scripts/check-route-isolation.js
 
+      - name: Run tests
+        run: npm run test
+
       - name: Build
         run: npm run build

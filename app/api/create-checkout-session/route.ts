@@ -132,13 +132,26 @@ export async function POST(request: NextRequest) {
     let customerId: string;
     let existingCustomer = null;
 
-    // 只在有 email 时尝试查找现有客户（避免匹配多个无 email 的客户）
+    // 优先按 email 匹配现有客户
     if (customerInfo.email && customerInfo.email.trim() !== '') {
       const { data } = await supabase
         .from('customers')
         .select('id, stripe_customer_id')
         .eq('email', customerInfo.email)
         .single();
+      existingCustomer = data;
+    }
+
+    // Fallback: 无 email 时按 phone + country 匹配（防止同一客户重复创建）
+    if (!existingCustomer && customerInfo.phone && customerInfo.phone.trim() !== '') {
+      const { data } = await supabase
+        .from('customers')
+        .select('id, stripe_customer_id')
+        .eq('phone', customerInfo.phone)
+        .eq('country', customerInfo.country || 'TW')
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
       existingCustomer = data;
     }
 
