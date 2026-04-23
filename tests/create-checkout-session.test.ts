@@ -503,4 +503,45 @@ describe('POST /api/create-checkout-session', () => {
     const res = await POST(makeRequest(body));
     expect(res.status).toBe(400);
   });
+
+  // ============================================================
+  // 8. 响应格式契约（防止返回值结构被改坏）
+  // ============================================================
+
+  it('response always contains sessionId, checkoutUrl, orderId', async () => {
+    setupSuccessFlow();
+    const res = await POST(makeRequest(VALID_BODY));
+    const json = await res.json();
+
+    expect(json).toHaveProperty('sessionId');
+    expect(json).toHaveProperty('checkoutUrl');
+    expect(json).toHaveProperty('orderId');
+    expect(typeof json.sessionId).toBe('string');
+    expect(typeof json.checkoutUrl).toBe('string');
+    expect(typeof json.orderId).toBe('string');
+  });
+
+  // ============================================================
+  // 9. Stripe API 失败回退
+  // ============================================================
+
+  it('returns 500 when Stripe API throws', async () => {
+    setupSuccessFlow();
+    mockStripe.checkout.sessions.create.mockRejectedValueOnce(
+      new Error('Stripe API error: Invalid price')
+    );
+
+    const res = await POST(makeRequest(VALID_BODY));
+    expect(res.status).toBe(500);
+  });
+
+  // ============================================================
+  // 10. consents 完全缺失
+  // ============================================================
+
+  it('rejects request without consents object', async () => {
+    const { consents, ...bodyWithoutConsents } = VALID_BODY;
+    const res = await POST(makeRequest(bodyWithoutConsents));
+    expect(res.status).toBe(400);
+  });
 });
