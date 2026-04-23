@@ -223,25 +223,47 @@ export async function POST(request: NextRequest) {
     }
 
     // 4. 创建订单记录（状态为 pending）
-    const { data: order, error: orderError } = await supabase
+    const orderPayload = {
+      customer_id: customerId,
+      package_id: packageData.id,
+      quantity: 1,
+      total_amount_jpy: packageData.price_jpy,
+      status: 'pending' as const,
+      customer_snapshot: customerInfo,
+      preferred_date: preferredDate || null,
+      preferred_time: preferredTime || null,
+      notes: notes || null,
+      // 白标归属字段
+      referred_by_guide_id: guideId,
+      referred_by_guide_slug: guideSlug,
+      commission_rate: guideCommissionRate,
+    };
+
+    let { data: order, error: orderError } = await supabase
       .from('orders')
-      .insert({
-        customer_id: customerId,
-        package_id: packageData.id,
-        quantity: 1,
-        total_amount_jpy: packageData.price_jpy,
-        status: 'pending',
-        customer_snapshot: customerInfo,
-        preferred_date: preferredDate || null,
-        preferred_time: preferredTime || null,
-        notes: notes || null,
-        // 白标归属字段
-        referred_by_guide_id: guideId,
-        referred_by_guide_slug: guideSlug,
-        commission_rate: guideCommissionRate,
-      })
+      .insert(orderPayload)
       .select()
       .single();
+
+    // 唯一约束冲突（23505）：同客户+同套餐已有 pending 订单
+    // 取消旧的 pending 订单，然后重试创建
+    if (orderError?.code === '23505') {
+      console.warn(`[create-checkout-session] Pending order conflict for customer=${customerId}, package=${packageData.id}. Cancelling old pending order and retrying.`);
+      await supabase
+        .from('orders')
+        .update({ status: 'cancelled' })
+        .eq('customer_id', customerId)
+        .eq('package_id', packageData.id)
+        .eq('status', 'pending');
+
+      const retry = await supabase
+        .from('orders')
+        .insert(orderPayload)
+        .select()
+        .single();
+      order = retry.data;
+      orderError = retry.error;
+    }
 
     if (orderError || !order) {
       console.error('[create-checkout-session] Order creation failed:', JSON.stringify(orderError, null, 2));

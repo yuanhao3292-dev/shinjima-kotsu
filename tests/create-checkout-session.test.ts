@@ -318,6 +318,47 @@ describe('POST /api/create-checkout-session', () => {
   });
 
   // ============================================================
+  // 3b. Pending 订单冲突自动恢复（23505）
+  // ============================================================
+
+  it('cancels old pending order and retries on 23505 conflict', async () => {
+    setupSuccessFlow();
+
+    // 第一次 insert 返回 23505，模拟唯一约束冲突
+    // 第二次 insert（重试）返回成功
+    let insertCallCount = 0;
+    const ordersBuilder = mockQueryBuilder({ data: null, error: null });
+    const originalInsert = ordersBuilder.insert;
+    ordersBuilder.insert = vi.fn((...args: any[]) => {
+      insertCallCount++;
+      if (insertCallCount === 1) {
+        // 第一次：模拟 23505 冲突
+        const errorBuilder = mockQueryBuilder({
+          data: null,
+          error: { code: '23505', message: 'duplicate key value violates unique constraint' },
+        });
+        return errorBuilder;
+      }
+      // 第二次：成功
+      const successBuilder = mockQueryBuilder({
+        data: { ...VALID_PACKAGE, id: 'order-002' },
+        error: null,
+      });
+      return successBuilder;
+    });
+    // update（取消旧订单）也需要走 ordersBuilder
+    tableBuilders['orders'] = ordersBuilder;
+
+    const res = await POST(makeRequest(VALID_BODY));
+    const json = await res.json();
+
+    expect(res.status).toBe(200);
+    expect(json.orderId).toBe('order-002');
+    // insert 被调用了 2 次（首次冲突 + 重试）
+    expect(ordersBuilder.insert).toHaveBeenCalledTimes(2);
+  });
+
+  // ============================================================
   // 4. Zod 输入验证
   // ============================================================
 
