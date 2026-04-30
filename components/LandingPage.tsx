@@ -229,7 +229,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             {/* 标签 */}
             <div className="flex items-center gap-3 mb-8">
               <div className="h-[1px] w-12 bg-brand-400"></div>
-              <span className="text-xs tracking-[0.3em] text-brand-400 uppercase">{currentLang === 'zh-TW' ? '醫療旅遊' : currentLang === 'zh-CN' ? '医疗旅游' : currentLang === 'ja' ? 'メディカルツーリズム' : 'Medical Tourism'}</span>
+              <span className="text-xs tracking-[0.3em] text-brand-400 uppercase">Medical Tourism</span>
             </div>
 
             {/* 核心标题 - 温暖、给人希望 */}
