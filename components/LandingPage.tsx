@@ -640,9 +640,9 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               </p>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-6">
                 {[
-                  { name: 'INSOU', sub: 'INSOU Holdings', url: 'https://insou.co.jp/' },
+                  { name: 'INSOU', sub: 'INSOU Holdings', url: 'https://fankura.com/' },
                   { name: 'JTB', sub: 'JTB Corporation', url: 'https://www.jtb.co.jp/' },
-                  { name: '\u5357\u6D77\u56FD\u969B\u65C5\u884C', sub: 'Nankai International Travel', url: 'https://www.nankaitravel.co.jp/' },
+                  { name: '\u5357\u6D77\u56FD\u969B\u65C5\u884C', sub: 'Nankai International Travel', url: 'https://www.nankai-travel.com/' },
                   { name: '\u5927\u4E38\u677E\u5742\u5C4B\u767E\u8CA8', sub: 'Daimaru Matsuzakaya', url: 'https://www.daimaru-matsuzakaya.com/' },
                   { name: '\u8FD1\u9244\u767E\u8CA8\u5E97', sub: 'Kintetsu Department Store', url: 'https://www.d-kintetsu.co.jp/' },
                   { name: '\u6D77\u5357\u822A\u7A7A', sub: 'Hainan Airlines', url: 'https://www.hainanairlines.com/' },
