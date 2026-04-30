@@ -640,12 +640,12 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               </p>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-6">
                 {[
+                  { name: 'INSOU', sub: 'INSOU Holdings' },
                   { name: 'JTB', sub: 'JTB Corporation' },
                   { name: '南海国際旅行', sub: 'Nankai International Travel' },
                   { name: '大丸松坂屋百貨', sub: 'Daimaru Matsuzakaya' },
                   { name: '近鉄百貨店', sub: 'Kintetsu Department Store' },
                   { name: '海南航空', sub: 'Hainan Airlines' },
-                  { name: 'INSOU', sub: 'INSOU Holdings' },
                   { name: 'アリババ日本', sub: 'Alibaba Japan' },
                 ].map((partner, index) => (
                   <div key={index} className="bg-white p-6 text-center border border-neutral-200 hover:border-neutral-300 transition-colors">
