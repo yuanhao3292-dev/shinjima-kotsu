@@ -622,13 +622,13 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               </p>
               <div className="grid grid-cols-2 gap-3 md:gap-6 max-w-md mx-auto">
                 {[
-                  { name: '徳洲会グループ', sub: 'Tokushukai Group' },
-                  { name: 'TIMC OSAKA', sub: 'Medical Center' },
+                  { name: '\u5FB3\u6D32\u4F1A\u30B0\u30EB\u30FC\u30D7', sub: 'Tokushukai Group', url: 'https://www.tokushukai.or.jp/' },
+                  { name: 'TIMC OSAKA', sub: 'Medical Center', url: 'https://timc.jp/' },
                 ].map((partner, index) => (
-                  <div key={index} className="bg-white p-6 text-center border border-neutral-200 hover:border-neutral-300 transition-colors">
+                  <a key={index} href={partner.url} target="_blank" rel="noopener noreferrer" className="bg-white p-6 text-center border border-neutral-200 hover:border-neutral-300 hover:shadow-sm transition-all">
                     <div className="text-sm font-medium text-neutral-900 mb-1">{partner.name}</div>
                     <div className="text-[10px] text-neutral-400">{partner.sub}</div>
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>
@@ -636,22 +636,22 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             {/* Service Partners */}
             <div>
               <p className="text-[10px] tracking-[0.2em] text-neutral-400 uppercase mb-4 text-center">
-                {currentLang === 'zh-TW' ? '服務合作夥伴' : currentLang === 'zh-CN' ? '服务合作伙伴' : currentLang === 'ja' ? 'サービスパートナー' : 'Service Partners'}
+                {currentLang === 'zh-TW' ? '\u670D\u52D9\u5408\u4F5C\u5925\u4F34' : currentLang === 'zh-CN' ? '\u670D\u52A1\u5408\u4F5C\u4F19\u4F34' : currentLang === 'ja' ? '\u30B5\u30FC\u30D3\u30B9\u30D1\u30FC\u30C8\u30CA\u30FC' : 'Service Partners'}
               </p>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-6">
                 {[
-                  { name: 'INSOU', sub: 'INSOU Holdings' },
-                  { name: 'JTB', sub: 'JTB Corporation' },
-                  { name: '南海国際旅行', sub: 'Nankai International Travel' },
-                  { name: '大丸松坂屋百貨', sub: 'Daimaru Matsuzakaya' },
-                  { name: '近鉄百貨店', sub: 'Kintetsu Department Store' },
-                  { name: '海南航空', sub: 'Hainan Airlines' },
-                  { name: 'アリババ日本', sub: 'Alibaba Japan' },
+                  { name: 'INSOU', sub: 'INSOU Holdings', url: 'https://insou.co.jp/' },
+                  { name: 'JTB', sub: 'JTB Corporation', url: 'https://www.jtb.co.jp/' },
+                  { name: '\u5357\u6D77\u56FD\u969B\u65C5\u884C', sub: 'Nankai International Travel', url: 'https://www.nankaitravel.co.jp/' },
+                  { name: '\u5927\u4E38\u677E\u5742\u5C4B\u767E\u8CA8', sub: 'Daimaru Matsuzakaya', url: 'https://www.daimaru-matsuzakaya.com/' },
+                  { name: '\u8FD1\u9244\u767E\u8CA8\u5E97', sub: 'Kintetsu Department Store', url: 'https://www.d-kintetsu.co.jp/' },
+                  { name: '\u6D77\u5357\u822A\u7A7A', sub: 'Hainan Airlines', url: 'https://www.hainanairlines.com/' },
+                  { name: '\u30A2\u30EA\u30D0\u30D0\u65E5\u672C', sub: 'Alibaba Japan', url: 'https://www.alibaba.co.jp/' },
                 ].map((partner, index) => (
-                  <div key={index} className="bg-white p-6 text-center border border-neutral-200 hover:border-neutral-300 transition-colors">
+                  <a key={index} href={partner.url} target="_blank" rel="noopener noreferrer" className="bg-white p-6 text-center border border-neutral-200 hover:border-neutral-300 hover:shadow-sm transition-all">
                     <div className="text-sm font-medium text-neutral-900 mb-1">{partner.name}</div>
                     <div className="text-[10px] text-neutral-400">{partner.sub}</div>
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>
