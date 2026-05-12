@@ -541,11 +541,14 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <div>
-                <p className="text-xs tracking-[0.3em] text-gold-400 uppercase mb-8 md:mb-10">Business Inspection</p>
-                <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-white mb-8 md:mb-10 leading-tight">
+                <div className="flex items-center gap-3 mb-8 md:mb-10">
+                  <div className="h-[1px] w-12 bg-gold-400"></div>
+                  <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">Business Inspection</span>
+                </div>
+                <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
                   {currentLang === 'zh-TW' ? '對話日本頂尖企業' : currentLang === 'zh-CN' ? '对话日本顶尖企业' : currentLang === 'ja' ? '日本トップ企業との対話' : 'Connect with Japan\'s Leading Companies'}
                 </h2>
-                <p className="text-neutral-300 leading-relaxed mb-8">
+                <p className="text-sm sm:text-base md:text-xl text-neutral-300 leading-relaxed font-light mb-6 md:mb-8">
                   {currentLang === 'zh-TW' ? '我們擁有豐富的日本商務考察經驗，可安排豐田、松下、資生堂等知名企業的工廠參觀與高管對談，為您打造真正有價值的商務考察之旅。' : currentLang === 'zh-CN' ? '我们拥有丰富的日本商务考察经验，可安排丰田、松下、资生堂等知名企业的工厂参观与高管对谈，为您打造真正有价值的商务考察之旅。' : currentLang === 'ja' ? '豊富な日本ビジネス視察の実績を持ち、トヨタ、パナソニック、資生堂など有名企業の工場見学や経営層との対談を手配。真に価値ある視察をご提供します。' : 'With extensive Japan business inspection experience, we arrange factory tours and executive meetings at renowned companies like Toyota, Panasonic, and Shiseido, delivering truly valuable business trips.'}
                 </p>
 
@@ -557,8 +560,8 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                     { num: currentLang === 'ja' ? '大阪' : 'Osaka', label: currentLang === 'zh-TW' ? '本社所在地' : currentLang === 'zh-CN' ? '总部所在地' : currentLang === 'ja' ? '本社所在地' : 'Headquarters' },
                   ].map((stat, idx) => (
                     <div key={idx} className="border-l-2 border-gold-400/50 pl-4">
-                      <div className="text-2xl font-light text-white">{stat.num}</div>
-                      <div className="text-xs text-neutral-400">{stat.label}</div>
+                      <div className="text-2xl md:text-4xl font-light text-white">{stat.num}</div>
+                      <div className="text-[10px] md:text-xs text-neutral-400 tracking-wider uppercase">{stat.label}</div>
                     </div>
                   ))}
                 </div>
@@ -571,7 +574,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                     currentLang === 'zh-TW' ? '科技創新' : currentLang === 'zh-CN' ? '科技创新' : currentLang === 'ja' ? 'テクノロジー' : 'Technology',
                     currentLang === 'zh-TW' ? '農業食品' : currentLang === 'zh-CN' ? '农业食品' : currentLang === 'ja' ? '農業・食品' : 'Agriculture & Food',
                   ].map((tag, idx) => (
-                    <span key={idx} className="px-3 py-1 text-xs border border-white/20 text-neutral-300">
+                    <span key={idx} className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">
                       {tag}
                     </span>
                   ))}
@@ -579,7 +582,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
                 <a
                   onClick={() => setCurrentPage('business')}
-                  className="inline-flex items-center px-8 py-4 bg-gold-400 text-brand-900 text-sm font-medium hover:bg-gold-300 transition-colors cursor-pointer"
+                  className="inline-flex items-center px-8 py-4 bg-gold-400 text-brand-900 text-sm font-medium rounded-lg hover:bg-gold-300 transition-colors cursor-pointer"
                 >
                   {currentLang === 'zh-TW' ? '定制考察方案' : currentLang === 'zh-CN' ? '定制考察方案' : currentLang === 'ja' ? '視察プランを相談' : 'Plan Your Inspection'}
                   <ArrowRight size={18} className="ml-3" />
@@ -594,8 +597,8 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                   { name: currentLang === 'zh-TW' ? '永旺集團' : currentLang === 'zh-CN' ? '永旺集团' : currentLang === 'ja' ? 'イオン' : 'AEON Group', type: currentLang === 'zh-TW' ? '零售業' : currentLang === 'zh-CN' ? '零售业' : currentLang === 'ja' ? '小売業' : 'Retail' },
                 ].map((company, idx) => (
                   <div key={idx} className="bg-white/10 backdrop-blur p-6 border border-white/10 hover:border-white/30 transition-colors">
-                    <div className="text-white font-medium mb-1">{company.name}</div>
-                    <div className="text-xs text-neutral-400">{company.type}</div>
+                    <div className="text-sm text-white font-medium mb-1">{company.name}</div>
+                    <div className="text-[10px] text-neutral-400">{company.type}</div>
                   </div>
                 ))}
               </div>
