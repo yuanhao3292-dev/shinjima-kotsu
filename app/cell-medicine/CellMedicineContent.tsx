@@ -423,7 +423,7 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
               </span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
               {tr('heroTitle')}
             </h1>
             <p className="text-lg text-[#2fb6b2]/20/80 mb-6">
