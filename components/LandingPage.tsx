@@ -350,7 +350,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               <span className="text-brand-300">{currentLang === 'zh-TW' ? '日本醫療給您更多希望' : currentLang === 'zh-CN' ? '日本医疗给您更多希望' : currentLang === 'ja' ? '日本医療がもう一つの希望に' : 'Japan\'s Medicine Offers More Hope'}</span>
             </h2>
 
-            <p className="text-sm sm:text-base md:text-xl text-neutral-200/80 mb-6 md:mb-8 leading-relaxed font-light">
+            <p className="text-sm sm:text-base md:text-xl text-brand-100/80 mb-6 md:mb-8 leading-relaxed font-light">
               {currentLang === 'zh-TW' ? '質子重離子治療、免疫細胞療法、達文西微創手術——日本擁有世界領先水準的癌症治療技術。我們協助您獲得日本醫院的治療機會，全程陪同，讓您專注康復。' : currentLang === 'zh-CN' ? '质子重离子治疗、免疫细胞疗法、达文西微创手术——日本拥有世界领先水准的癌症治疗技术。我们协助您获得日本医院的治疗机会，全程陪同，让您专注康复。' : currentLang === 'ja' ? '陽子線・重粒子線治療、免疫細胞療法、ダヴィンチ手術——日本は世界有数のがん治療技術を有しています。日本の病院での治療機会をサポートし、全行程同行で治療に専念いただけます。' : 'Proton/heavy ion therapy, immunotherapy, Da Vinci surgery — Japan has world-class cancer treatment technology. We help you access Japanese hospitals with full escort, so you can focus on recovery.'}
             </p>
 
@@ -358,15 +358,15 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="grid grid-cols-3 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-white/20">
               <div className="text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">68<span className="text-brand-300">%</span></div>
-                <div className="text-[10px] md:text-xs text-neutral-300/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '癌症5年生存率 *' : currentLang === 'zh-CN' ? '癌症5年生存率 *' : currentLang === 'ja' ? 'がん5年生存率 *' : '5-Year Survival *'}</div>
+                <div className="text-[10px] md:text-xs text-brand-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '癌症5年生存率 *' : currentLang === 'zh-CN' ? '癌症5年生存率 *' : currentLang === 'ja' ? 'がん5年生存率 *' : '5-Year Survival *'}</div>
               </div>
               <div className="border-x border-white/20 px-2 md:px-6 py-12 md:py-24 text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">7<span className="text-brand-300">+</span></div>
-                <div className="text-[10px] md:text-xs text-neutral-300/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '對應治療領域' : currentLang === 'zh-CN' ? '对应治疗领域' : currentLang === 'ja' ? '対応治療分野' : 'Treatment Fields'}</div>
+                <div className="text-[10px] md:text-xs text-brand-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '對應治療領域' : currentLang === 'zh-CN' ? '对应治疗领域' : currentLang === 'ja' ? '対応治療分野' : 'Treatment Fields'}</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl md:text-4xl font-light text-white mb-1">24<span className="text-brand-300">h</span></div>
-                <div className="text-[10px] md:text-xs text-neutral-300/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '病歷評估響應' : currentLang === 'zh-CN' ? '病历评估响应' : currentLang === 'ja' ? '診療情報評価' : 'Case Review'}</div>
+                <div className="text-[10px] md:text-xs text-brand-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '病歷評估響應' : currentLang === 'zh-CN' ? '病历评估响应' : currentLang === 'ja' ? '診療情報評価' : 'Case Review'}</div>
               </div>
             </div>
 
@@ -462,7 +462,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               <span className="text-gold-400">{currentLang === 'zh-TW' ? '傳說中的名門' : currentLang === 'zh-CN' ? '传说中的名门' : currentLang === 'ja' ? '伝説の名門へ' : 'Legendary Championship Courses'}</span>
             </h2>
 
-            <p className="text-sm sm:text-base md:text-xl text-neutral-300 mb-6 md:mb-8 leading-relaxed font-light">
+            <p className="text-sm sm:text-base md:text-xl text-white/80 mb-6 md:mb-8 leading-relaxed font-light">
               {currentLang === 'zh-TW' ? '廣野、霞ヶ関、小野——這些球場的名字，在高爾夫愛好者心中如雷貫耳。平時需要會員介紹才能踏入的聖地，現在向您敞開大門。' : currentLang === 'zh-CN' ? '广野、霞ヶ関、小野——这些球场的名字，在高尔夫爱好者心中如雷貫耳。平时需要会员介绍才能踏入的圣地，现在向您敞开大门。' : currentLang === 'ja' ? '廣野、霞ヶ関、小野——ゴルフ愛好家なら誰もが憧れる名門。通常は会員紹介が必要な聖地が、今あなたに開かれます。' : 'Hirono, Kasumigaseki, Ono — names that resonate with every golf enthusiast. These members-only sanctuaries are now open to you.'}
             </p>
 
@@ -667,7 +667,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
         <div className="container mx-auto px-6 py-12 md:py-24">
           <div className="max-w-4xl mx-auto text-center">
             <p className="text-xs tracking-[0.3em] text-neutral-400 uppercase mb-6">Corporate Philosophy</p>
-            <h2 className="serif text-3xl md:text-4xl lg:text-5xl text-white mb-8 leading-relaxed">
+            <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-8 leading-relaxed">
               {currentLang === 'zh-TW' ? '用心連結世界與日本' : currentLang === 'zh-CN' ? '用心连结世界与日本' : currentLang === 'ja' ? '心をつなぐ、世界と日本' : 'Connecting the World with Japan'}
             </h2>
             <p className="text-neutral-400 leading-relaxed mb-10 max-w-2xl mx-auto">
