@@ -895,7 +895,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
               <div className="h-[1px] w-12 bg-gold-400"></div>
               <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">CANCER TREATMENT</span>
             </div>
-            <h1 className="text-4xl md:text-6xl font-serif text-white mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight">
               {t('heroDesc')}
               <br />
               <span className="text-gold-400">{t('heroTitle2')}</span>
