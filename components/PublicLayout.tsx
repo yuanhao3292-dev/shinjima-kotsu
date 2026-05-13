@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Globe, ChevronDown, LogIn, X, Menu } from 'lucide-react';
 import { useWhiteLabel, useWhiteLabelVisibility } from '@/lib/contexts/WhiteLabelContext';
 import DistributionNav from '@/components/distribution/DistributionNav';
+import ObfuscatedEmail from '@/components/ObfuscatedEmail';
 
 type Language = 'zh-TW' | 'zh-CN' | 'ja' | 'en' | 'ko';
 
@@ -600,7 +601,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                       <a href="tel:06-6632-8807" className="hover:text-gray-900 transition-colors">TEL: 06-6632-8807</a>
                     </div>
                     <div>
-                      <a href="mailto:haoyuan@niijima-koutsu.jp" className="hover:text-gray-900 transition-colors">haoyuan@niijima-koutsu.jp</a>
+                      <ObfuscatedEmail user="haoyuan" domain="niijima-koutsu.jp" className="hover:text-gray-900 transition-colors" />
                     </div>
                   </div>
                 )}

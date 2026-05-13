@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import PublicLayout from '@/components/PublicLayout';
+import ObfuscatedEmail from '@/components/ObfuscatedEmail';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -1040,7 +1041,7 @@ export default function GuidePartnerPage() {
             {t('btnWechatQR')}
           </button>
           <p className="text-neutral-500 text-sm mt-4">
-            {t('ctaEmailLabel')} <a href="mailto:haoyuan@niijima-koutsu.jp" className="underline">haoyuan@niijima-koutsu.jp</a>
+            {t('ctaEmailLabel')} <ObfuscatedEmail user="haoyuan" domain="niijima-koutsu.jp" className="underline" />
           </p>
         </div>
       </section>

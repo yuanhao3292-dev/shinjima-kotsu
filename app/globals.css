@@ -4,9 +4,9 @@
    统一品牌色彩系统 (Unified Brand Color System)
    ============================================ */
 @theme {
-  /* 默认字体 — 确保 html 和 body 使用一致的字体 */
-  --font-sans: 'Noto Sans JP', sans-serif;
-  --font-serif: 'Shippori Mincho', serif;
+  /* 默认字体 — next/font 自托管，CSS 变量由 layout.tsx 注入 */
+  --font-sans: var(--font-noto-sans-jp), 'Noto Sans JP', sans-serif;
+  --font-serif: var(--font-shippori-mincho), 'Shippori Mincho', serif;
 
   /* Brand Navy — 所有深色背景、Hero 遮罩的统一底色 */
   --color-brand-50: #f0f4f8;
@@ -71,68 +71,68 @@
 
 /* 基础样式 */
 body {
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: var(--font-noto-sans-jp), 'Noto Sans JP', sans-serif;
   background-color: #FAFAFA;
   color: #2D2D2D;
   overflow-x: hidden;
 }
 
 .serif, .font-serif {
-  font-family: 'Shippori Mincho', serif;
+  font-family: var(--font-shippori-mincho), 'Shippori Mincho', serif;
 }
 
 /* Locale-specific font overrides */
 /* 通过 CSS 变量覆盖 Tailwind v4 的 --font-sans/--font-serif，确保 html→body→子元素 全链路字体一致 */
 [data-locale="zh-TW"] {
-  --font-sans: 'Noto Sans TC', sans-serif;
-  --font-serif: 'Noto Serif TC', serif;
+  --font-sans: var(--font-noto-sans-tc), 'Noto Sans TC', sans-serif;
+  --font-serif: var(--font-noto-serif-tc), 'Noto Serif TC', serif;
 }
 [data-locale="zh-TW"] body,
 [data-locale="zh-TW"] .font-sans {
-  font-family: 'Noto Sans TC', sans-serif !important;
+  font-family: var(--font-noto-sans-tc), 'Noto Sans TC', sans-serif !important;
 }
 [data-locale="zh-TW"] .serif,
 [data-locale="zh-TW"] .font-serif {
-  font-family: 'Noto Serif TC', serif !important;
+  font-family: var(--font-noto-serif-tc), 'Noto Serif TC', serif !important;
 }
 
 [data-locale="zh-CN"] {
-  --font-sans: 'HarmonyOS Sans SC', 'MiSans', 'OPPOSans', 'Alibaba PuHuiTi', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
-  --font-serif: 'FZSongti-S06', 'STZhongsong', 'Source Han Serif SC', 'Noto Serif SC', 'LXGW WenKai', serif;
+  --font-sans: var(--font-noto-sans-sc), 'HarmonyOS Sans SC', 'MiSans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-serif: var(--font-noto-serif-sc), 'FZSongti-S06', 'STZhongsong', 'Source Han Serif SC', 'LXGW WenKai', serif;
 }
 [data-locale="zh-CN"] body,
 [data-locale="zh-CN"] .font-sans {
-  font-family: 'HarmonyOS Sans SC', 'MiSans', 'OPPOSans', 'Alibaba PuHuiTi', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif !important;
+  font-family: var(--font-noto-sans-sc), 'HarmonyOS Sans SC', 'MiSans', 'PingFang SC', 'Microsoft YaHei', sans-serif !important;
 }
 [data-locale="zh-CN"] .serif,
 [data-locale="zh-CN"] .font-serif {
-  font-family: 'FZSongti-S06', 'STZhongsong', 'Source Han Serif SC', 'Noto Serif SC', 'LXGW WenKai', serif !important;
+  font-family: var(--font-noto-serif-sc), 'FZSongti-S06', 'STZhongsong', 'Source Han Serif SC', 'LXGW WenKai', serif !important;
 }
 
 [data-locale="en"] {
-  --font-sans: 'Inter', sans-serif;
-  --font-serif: 'Playfair Display', serif;
+  --font-sans: var(--font-inter), 'Inter', sans-serif;
+  --font-serif: var(--font-playfair-display), 'Playfair Display', serif;
 }
 [data-locale="en"] body,
 [data-locale="en"] .font-sans {
-  font-family: 'Inter', sans-serif !important;
+  font-family: var(--font-inter), 'Inter', sans-serif !important;
 }
 [data-locale="en"] .serif,
 [data-locale="en"] .font-serif {
-  font-family: 'Playfair Display', serif !important;
+  font-family: var(--font-playfair-display), 'Playfair Display', serif !important;
 }
 
 [data-locale="ko"] {
-  --font-sans: 'Noto Sans KR', sans-serif;
-  --font-serif: 'Noto Serif KR', serif;
+  --font-sans: var(--font-noto-sans-kr), 'Noto Sans KR', sans-serif;
+  --font-serif: var(--font-noto-serif-kr), 'Noto Serif KR', serif;
 }
 [data-locale="ko"] body,
 [data-locale="ko"] .font-sans {
-  font-family: 'Noto Sans KR', sans-serif !important;
+  font-family: var(--font-noto-sans-kr), 'Noto Sans KR', sans-serif !important;
 }
 [data-locale="ko"] .serif,
 [data-locale="ko"] .font-serif {
-  font-family: 'Noto Serif KR', serif !important;
+  font-family: var(--font-noto-serif-kr), 'Noto Serif KR', serif !important;
 }
 
 /* Gemini 科技色调 */

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import PublicLayout from '@/components/PublicLayout';
+import ObfuscatedEmail from '@/components/ObfuscatedEmail';
 import {
   ArrowRight,
   CheckCircle2,
@@ -1729,9 +1730,7 @@ export default function PartnerBusinessPage() {
                   <Mail size={24} className="text-gold-400" />
                 </div>
                 <div className="text-sm text-neutral-400 mb-1">{t('contactEmailLabel')}</div>
-                <a href="mailto:haoyuan@niijima-koutsu.jp" className="text-white hover:text-gold-400 transition-colors">
-                  haoyuan@niijima-koutsu.jp
-                </a>
+                <ObfuscatedEmail user="haoyuan" domain="niijima-koutsu.jp" className="text-white hover:text-gold-400 transition-colors" />
               </div>
               <div>
                 <div className="w-12 h-12 bg-gold-400/10 rounded-full flex items-center justify-center mx-auto mb-4">

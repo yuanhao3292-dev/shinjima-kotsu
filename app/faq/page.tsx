@@ -586,13 +586,14 @@ export default function FAQPage() {
                 </svg>
                 {t('wechatConsult')}
               </button>
-              <a
-                href="mailto:haoyuan@niijima-koutsu.jp"
-                className="inline-flex items-center justify-center gap-2 bg-brand-900 hover:bg-brand-800 text-white px-6 py-3 text-sm font-medium tracking-wider transition-colors"
+              <button
+                type="button"
+                onClick={() => { window.location.href = ['mailto:', 'haoyuan', '@', 'niijima-koutsu.jp'].join(''); }}
+                className="inline-flex items-center justify-center gap-2 bg-brand-900 hover:bg-brand-800 text-white px-6 py-3 text-sm font-medium tracking-wider transition-colors cursor-pointer"
               >
                 <Mail size={20} />
                 {t('emailConsult')}
-              </a>
+              </button>
             </div>
           </div>
         </div>

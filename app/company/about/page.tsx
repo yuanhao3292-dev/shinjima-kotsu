@@ -9,6 +9,7 @@ import {
   Brain, Hospital, HeartHandshake, TrendingUp, Rocket, Building2, Bot, Users, Store, Plane
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
+import ObfuscatedEmail from '@/components/ObfuscatedEmail';
 
 // 页面翻译
 const pageTranslations = {
@@ -745,7 +746,7 @@ export default function AboutPage() {
                       { label: t('labelAddress'), value: t('valueAddress') },
                       { label: t('labelPhone'), value: '06-6632-8807' },
                       { label: t('labelFax'), value: t('valueFax') },
-                      { label: t('labelEmail'), value: 'haoyuan@niijima-koutsu.jp' },
+                      { label: t('labelEmail'), value: null, isEmail: true },
                       { label: t('labelBusiness'), value: t('valueBusiness') },
                     ].map((row, index) => (
                       <tr key={index} className="flex flex-col md:table-row hover:bg-white transition">
@@ -753,7 +754,7 @@ export default function AboutPage() {
                           {row.label}
                         </th>
                         <td className="py-5 px-6 text-neutral-600 whitespace-pre-line">
-                          {row.value}
+                          {row.isEmail ? <ObfuscatedEmail user="haoyuan" domain="niijima-koutsu.jp" className="text-neutral-600 hover:text-brand-700 transition-colors" /> : row.value}
                         </td>
                       </tr>
                     ))}

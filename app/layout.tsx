@@ -10,6 +10,93 @@ import { buildDistributionNavItems } from '@/lib/utils/build-distribution-nav'
 import BrowserFingerprint from '@/components/BrowserFingerprint'
 import CookieConsent from '@/components/CookieConsent'
 import ConsentAnalytics from '@/components/ConsentAnalytics'
+import {
+  Inter,
+  Playfair_Display,
+  Noto_Sans_JP,
+  Noto_Sans_TC,
+  Noto_Sans_SC,
+  Noto_Sans_KR,
+  Noto_Serif_TC,
+  Noto_Serif_SC,
+  Noto_Serif_KR,
+  Shippori_Mincho,
+} from 'next/font/google'
+
+// === 自托管字体（构建时下载，运行时从 Vercel CDN 提供） ===
+// 默认语言 (ja) 预加载，其他语言按需加载
+const notoSansJP = Noto_Sans_JP({
+  subsets: ['latin'],
+  variable: '--font-noto-sans-jp',
+  display: 'swap',
+})
+const shipporiMincho = Shippori_Mincho({
+  subsets: ['latin'],
+  weight: ['400', '600', '700'],
+  variable: '--font-shippori-mincho',
+  display: 'swap',
+})
+const notoSansTC = Noto_Sans_TC({
+  subsets: ['latin'],
+  variable: '--font-noto-sans-tc',
+  display: 'swap',
+  preload: false,
+})
+const notoSansSC = Noto_Sans_SC({
+  subsets: ['latin'],
+  variable: '--font-noto-sans-sc',
+  display: 'swap',
+  preload: false,
+})
+const notoSansKR = Noto_Sans_KR({
+  subsets: ['latin'],
+  variable: '--font-noto-sans-kr',
+  display: 'swap',
+  preload: false,
+})
+const notoSerifTC = Noto_Serif_TC({
+  subsets: ['latin'],
+  variable: '--font-noto-serif-tc',
+  display: 'swap',
+  preload: false,
+})
+const notoSerifSC = Noto_Serif_SC({
+  subsets: ['latin'],
+  variable: '--font-noto-serif-sc',
+  display: 'swap',
+  preload: false,
+})
+const notoSerifKR = Noto_Serif_KR({
+  subsets: ['latin'],
+  variable: '--font-noto-serif-kr',
+  display: 'swap',
+  preload: false,
+})
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+  preload: false,
+})
+const playfairDisplay = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-playfair-display',
+  display: 'swap',
+  preload: false,
+})
+
+const fontVariableClasses = [
+  notoSansJP.variable,
+  shipporiMincho.variable,
+  notoSansTC.variable,
+  notoSansSC.variable,
+  notoSansKR.variable,
+  notoSerifTC.variable,
+  notoSerifSC.variable,
+  notoSerifKR.variable,
+  inter.variable,
+  playfairDisplay.variable,
+].join(' ')
 
 export const metadata: Metadata = {
   title: 'TIMC OSAKA 體檢預約 | 日本大阪德州會國際醫療中心 - 新島交通',
@@ -61,13 +148,9 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="ja">
+    <html lang="ja" className={fontVariableClasses}>
       <head>
-        {/* 使用 loli.net 镜像，中国大陆可访问 */}
-        <link rel="preconnect" href="https://fonts.loli.net" />
-        <link rel="preconnect" href="https://gstatic.loli.net" crossOrigin="anonymous" />
-        <link href="https://fonts.loli.net/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Shippori+Mincho:wght@400;600;700&family=Noto+Serif+TC:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&family=Noto+Serif+KR:wght@400;600;700&family=Inter:wght@300;400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
-        {/* 霞鹜文楷 - jsDelivr 中国有节点，用于简体中文标题 */}
+        {/* 霞鹜文楷 - jsDelivr 中国有节点，用于简体中文 serif 后备字体 */}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@latest/style.min.css" />
       </head>
       <body className="antialiased">
