@@ -521,12 +521,14 @@ export default function AboutPage() {
   ];
 
   const servicePartners = [
+    { ja: 'INSOUホールディングス株式会社', 'zh-TW': 'INSOU控股株式會社', 'zh-CN': 'INSOU控股株式会社', en: 'INSOU Holdings Co., Ltd.' },
+    { ja: 'JTB', 'zh-TW': 'JTB', 'zh-CN': 'JTB', en: 'JTB Corporation' },
     { ja: '株式会社南海国際旅行', 'zh-TW': '株式會社南海國際旅行', 'zh-CN': '株式会社南海国际旅行', en: 'Nankai International Travel Co., Ltd.' },
     { ja: '株式会社大丸松坂屋百貨店', 'zh-TW': '大丸松坂屋百貨', 'zh-CN': '大丸松坂屋百货', en: 'Daimaru Matsuzakaya Department Stores Co., Ltd.' },
     { ja: '株式会社近鉄百貨店', 'zh-TW': '近鐵百貨', 'zh-CN': '近铁百货', en: 'Kintetsu Department Store Co., Ltd.' },
     { ja: '海南航空', 'zh-TW': '海南航空', 'zh-CN': '海南航空', en: 'Hainan Airlines' },
-    { ja: 'INSOUホールディングス株式会社', 'zh-TW': 'INSOU控股株式會社', 'zh-CN': 'INSOU控股株式会社', en: 'INSOU Holdings Co., Ltd.' },
     { ja: 'アリババ日本', 'zh-TW': '阿里巴巴日本', 'zh-CN': '阿里巴巴日本', en: 'Alibaba Japan' },
+    { ja: '行政書士田原靖弘事務所', 'zh-TW': '行政書士田原靖弘事務所', 'zh-CN': '行政书士田原靖弘事务所', en: 'Tahara Administrative Scrivener Office' },
   ];
 
   return (
@@ -899,7 +901,7 @@ export default function AboutPage() {
                   <div className="w-2 h-2 bg-neutral-300 rounded-full" />
                   {t('partnersServiceLabel')}
                 </h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {servicePartners.map((partner, index) => (
                     <div key={index} className="p-5 bg-neutral-50 rounded-xl text-center font-medium text-neutral-700 hover:bg-brand-900 hover:text-white transition cursor-default">
                       {partner[currentLang]}
