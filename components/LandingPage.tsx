@@ -641,7 +641,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               <p className="text-[10px] tracking-[0.2em] text-neutral-400 uppercase mb-4 text-center">
                 {currentLang === 'zh-TW' ? '\u670D\u52D9\u5408\u4F5C\u5925\u4F34' : currentLang === 'zh-CN' ? '\u670D\u52A1\u5408\u4F5C\u4F19\u4F34' : currentLang === 'ja' ? '\u30B5\u30FC\u30D3\u30B9\u30D1\u30FC\u30C8\u30CA\u30FC' : 'Service Partners'}
               </p>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
                 {[
                   { name: 'INSOU', sub: 'INSOU Holdings', url: 'https://fankura.com/' },
                   { name: 'JTB', sub: 'JTB Corporation', url: 'https://www.jtb.co.jp/' },
@@ -650,6 +650,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                   { name: '\u8FD1\u9244\u767E\u8CA8\u5E97', sub: 'Kintetsu Department Store', url: 'https://www.d-kintetsu.co.jp/' },
                   { name: '\u6D77\u5357\u822A\u7A7A', sub: 'Hainan Airlines', url: 'https://www.hainanairlines.com/' },
                   { name: '\u30A2\u30EA\u30D0\u30D0\u65E5\u672C', sub: 'Alibaba Japan', url: 'https://www.alibaba.co.jp/' },
+                  { name: '\u884C\u653F\u66F8\u58EB\u7530\u539F\u9756\u5F18\u4E8B\u52D9\u6240', sub: 'Tahara Administrative Office', url: 'https://www.gyouseisyoshi-tahara.com/' },
                 ].map((partner, index) => (
                   <a key={index} href={partner.url} target="_blank" rel="noopener noreferrer" className="bg-white p-6 text-center border border-neutral-200 hover:border-neutral-300 hover:shadow-sm transition-all">
                     <div className="text-sm font-medium text-neutral-900 mb-1">{partner.name}</div>
