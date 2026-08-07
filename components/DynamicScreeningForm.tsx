@@ -916,7 +916,7 @@ export default function DynamicScreeningForm({
               { code: 'zh-TW' as Language, label: '\u7E41\u4E2D' },
               { code: 'ja' as Language, label: '\u65E5\u672C\u8A9E' },
               { code: 'en' as Language, label: 'English' },
-              { code: 'ko' as Language, label: '\uD55C\uAD6D\uC5B6' },
+              { code: 'ko' as Language, label: '\uD55C\uAD6D\uC5B4' },
             ]).map(({ code, label }) => (
               <button
                 key={code}
