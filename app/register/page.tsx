@@ -18,11 +18,21 @@ const translations = {
   registerFailed: { ja: '登録に失敗しました。後でもう一度お試しください', 'zh-CN': '注册失败，请稍后重试', 'zh-TW': '註冊失敗，請稍後重試', en: 'Registration failed. Please try again later' },
 
   // Success
-  registerSuccess: { ja: '登録成功！', 'zh-CN': '注册成功！', 'zh-TW': '註冊成功！', en: 'Registration Successful!' },
-  verificationEmailSent: { ja: 'に認証メールを送信しました。メール内のリンクをクリックして認証を完了してください。', 'zh-CN': ' 发送验证邮件，请点击邮件中的链接完成验证。', 'zh-TW': ' 發送驗證郵件，請點擊郵件中的連結完成驗證。', en: '. Please click the link in the email to complete verification.' },
-  verificationEmailSentPrefix: { ja: '私たちは', 'zh-CN': '我们已向', 'zh-TW': '我們已向', en: 'We have sent a verification email to' },
   goToLogin: { ja: 'ログインへ', 'zh-CN': '前往登录', 'zh-TW': '前往登入', en: 'Go to Login' },
   noEmail: { ja: 'メールが届いていませんか？迷惑メールフォルダをご確認ください', 'zh-CN': '没有收到邮件？请检查垃圾邮件夹', 'zh-TW': '沒有收到郵件？請檢查垃圾郵件匣', en: 'No email? Please check your spam folder' },
+
+  // 验证码确认步骤
+  codeStepTitle: { ja: '確認コードを入力', 'zh-CN': '输入验证码', 'zh-TW': '輸入驗證碼', en: 'Enter Verification Code' },
+  codeSentPrefix: { ja: '', 'zh-CN': '我们已向 ', 'zh-TW': '我們已向 ', en: 'We sent an 8-digit code to ' },
+  codeSentSuffix: { ja: ' に8桁の確認コードを送信しました', 'zh-CN': ' 发送了 8 位验证码', 'zh-TW': ' 發送了 8 位驗證碼', en: '' },
+  codeLabel: { ja: '確認コード', 'zh-CN': '验证码', 'zh-TW': '驗證碼', en: 'Verification Code' },
+  codePlaceholder: { ja: '8桁の数字', 'zh-CN': '8 位数字', 'zh-TW': '8 位數字', en: '8 digits' },
+  verifyCode: { ja: 'アカウントを有効化', 'zh-CN': '激活账号', 'zh-TW': '啟用帳號', en: 'Activate Account' },
+  codeVerifying: { ja: '確認中...', 'zh-CN': '验证中...', 'zh-TW': '驗證中...', en: 'Verifying...' },
+  codeInvalid: { ja: '確認コードが正しくないか、有効期限が切れています', 'zh-CN': '验证码不正确或已过期', 'zh-TW': '驗證碼不正確或已過期', en: 'The code is incorrect or has expired' },
+  codeHint: { ja: '確認コードの有効期限は1時間です', 'zh-CN': '验证码 1 小时内有效', 'zh-TW': '驗證碼 1 小時內有效', en: 'The code is valid for 1 hour' },
+  resendCode: { ja: 'コードを再送信', 'zh-CN': '重新发送', 'zh-TW': '重新發送', en: 'Resend code' },
+  activated: { ja: 'アカウントが有効化されました', 'zh-CN': '账号已激活', 'zh-TW': '帳號已啟用', en: 'Account Activated' },
 
   // Hero
   heroLabel: { ja: 'MEMBER REGISTRATION', 'zh-CN': 'MEMBER REGISTRATION', 'zh-TW': 'MEMBER REGISTRATION', en: 'MEMBER REGISTRATION' },
@@ -63,6 +73,8 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [code, setCode] = useState('');
+  const [verifyingCode, setVerifyingCode] = useState(false);
   const lang = useLanguage();
   const { getImage } = useSiteImages();
 
@@ -110,6 +122,42 @@ export default function RegisterPage() {
     }
   };
 
+  /**
+   * 用邮件里的 8 位验证码激活账号。
+   *
+   * 之所以不用邮件里的确认链接：链接是一次性令牌，邮件安全扫描器会在投递时
+   * 自动预取，把令牌消费掉。生产 Auth Logs 里能看到发信 20 秒后就有一次
+   * /verify 成功，用户真正点击时已经 403 —— 密码重置就是栽在这上面。
+   * 注册若走同一条路，后果更重：账号永远激活不了，用户直接流失。
+   * 验证码需要人工转录，扫描器无法代劳。
+   */
+  const handleVerifyCode = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setVerifyingCode(true);
+
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.auth.verifyOtp({
+        email: email.trim().toLowerCase(),
+        token: code.trim(),
+        type: 'signup',
+      });
+
+      if (error) {
+        setError(t('codeInvalid', lang));
+        return;
+      }
+
+      // verifyOtp 成功即已登录，直接进会员中心
+      window.location.href = '/my-account';
+    } catch {
+      setError(t('codeInvalid', lang));
+    } finally {
+      setVerifyingCode(false);
+    }
+  };
+
   // Success state
   if (success) {
     return (
@@ -119,17 +167,58 @@ export default function RegisterPage() {
             <div className="inline-flex items-center justify-center w-20 h-20 bg-green-50 border border-green-200 mb-6">
               <CheckCircle className="w-10 h-10 text-green-600" />
             </div>
-            <h1 className="text-2xl font-serif text-brand-900 mb-3">{t('registerSuccess', lang)}</h1>
-            <p className="text-neutral-600 mb-8 leading-relaxed">
-              {t('verificationEmailSentPrefix', lang)} <span className="font-medium text-brand-900">{email}</span>{t('verificationEmailSent', lang)}
+            <h1 className="text-2xl font-serif text-brand-900 mb-3">{t('codeStepTitle', lang)}</h1>
+            <p className="text-neutral-600 mb-6 leading-relaxed text-sm">
+              {t('codeSentPrefix', lang)}<span className="font-medium text-brand-900">{email}</span>{t('codeSentSuffix', lang)}
             </p>
-            <Link
-              href="/login"
-              className="block w-full bg-gold-400 hover:bg-gold-300 text-brand-900 font-medium py-3 px-6 text-sm tracking-wider transition-colors"
-            >
+
+            {error && (
+              <div className="mb-5 bg-red-50 border border-red-200 text-red-700 px-4 py-3 flex items-center gap-2 text-sm text-left">
+                <AlertCircle size={18} className="shrink-0" />
+                <span>{error}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleVerifyCode} className="space-y-4">
+              <div className="text-left">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
+                  {t('codeLabel', lang)}
+                </label>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  autoComplete="one-time-code"
+                  value={code}
+                  onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 8))}
+                  required
+                  autoFocus
+                  className="w-full px-4 py-3 border border-neutral-200 text-center text-2xl tracking-[0.4em] font-mono focus:ring-2 focus:ring-gold-400 focus:border-transparent transition"
+                  placeholder={t('codePlaceholder', lang)}
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={verifyingCode || code.length < 6}
+                className="w-full bg-gold-400 hover:bg-gold-300 disabled:bg-neutral-200 disabled:text-neutral-400 text-brand-900 font-medium py-3 px-6 text-sm tracking-wider transition-colors flex items-center justify-center gap-2"
+              >
+                {verifyingCode ? (
+                  <>
+                    <Loader2 className="animate-spin" size={18} />
+                    {t('codeVerifying', lang)}
+                  </>
+                ) : (
+                  t('verifyCode', lang)
+                )}
+              </button>
+            </form>
+
+            <p className="text-xs text-neutral-400 mt-5">{t('codeHint', lang)}</p>
+            <p className="text-sm text-neutral-400 mt-2">{t('noEmail', lang)}</p>
+
+            <Link href="/login" className="block mt-6 text-sm text-brand-700 hover:text-brand-900 underline">
               {t('goToLogin', lang)}
             </Link>
-            <p className="text-sm text-neutral-400 mt-6">{t('noEmail', lang)}</p>
           </div>
         </div>
       </PublicLayout>
