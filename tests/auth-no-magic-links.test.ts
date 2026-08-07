@@ -30,9 +30,13 @@ describe('认证流程', () => {
   });
 
   it('注册确认用 verifyOtp 而非依赖链接', () => {
-    const src = read('app/register/page.tsx');
-    expect(src, '注册页应当调用 verifyOtp').toContain('verifyOtp');
-    expect(src, "注册页的 verifyOtp 类型应为 signup").toContain("type: 'signup'");
+    // 验证动作发生在独立的 /verify-email 页，注册页只负责发码并跳转
+    const src = read('app/verify-email/page.tsx');
+    expect(src, '验证页应当调用 verifyOtp').toContain('verifyOtp');
+    expect(src, "验证页的 verifyOtp 类型应为 signup").toContain("type: 'signup'");
+
+    const register = read('app/register/page.tsx');
+    expect(register, '注册页应当跳转到验证页').toContain('/verify-email');
   });
 
   it('重置页在无会话时提供验证码入口，而不是死路一条', () => {
@@ -65,5 +69,22 @@ describe('认证流程', () => {
     const src = read('app/api/guide/register/route.ts');
     expect(src).toContain('admin.createUser');
     expect(src, '导游账号应当免邮件确认').toContain('email_confirm: true');
+  });
+
+  it('验证码输入位于固定地址，而非发码页的临时状态', () => {
+    // 这个坑踩过两次：密码重置和注册都曾把输入框做在发码页的 React 状态里。
+    // 用户必须切到邮箱客户端抄码，回来时状态早已丢失，验证码无处可填。
+    // 输入框必须在一个刷新不丢、可直接访问的地址上。
+    for (const page of ['app/reset-password/page.tsx', 'app/verify-email/page.tsx']) {
+      const src = read(page);
+      expect(src, `${page} 应当自己承担验证码输入`).toContain('verifyOtp');
+      expect(src, `${page} 应当有验证码输入框`).toMatch(/one-time-code/);
+    }
+
+    // 发码页只负责发码并跳转，不得自己渲染验证码输入框
+    for (const page of ['app/register/page.tsx', 'app/forgot-password/page.tsx']) {
+      const src = read(page);
+      expect(src, `${page} 不应内嵌验证码输入框`).not.toMatch(/one-time-code/);
+    }
   });
 });
