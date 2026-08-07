@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
+import { authRedirectUrl } from '@/lib/config/site';
 import PublicLayout from '@/components/PublicLayout';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import { useSiteImages } from '@/lib/hooks/useSiteImages';
@@ -16,10 +17,8 @@ const translations = {
 
   // Success page
   emailSent: { ja: 'メールを送信しました', 'zh-CN': '邮件已发送', 'zh-TW': '郵件已發送', en: 'Email Sent' },
-  resetEmailSent: { ja: 'に パスワードリセットメールを送信しました。メール内のリンクをクリックしてパスワードをリセットしてください。', 'zh-CN': ' 发送密码重置邮件，请点击邮件中的链接重置密码。', 'zh-TW': ' 發送密碼重置郵件，請點擊郵件中的連結重置密碼。', en: '. Please click the link in the email to reset your password.' },
   resetEmailSentPrefix: { ja: '私たちは', 'zh-CN': '我们已向', 'zh-TW': '我們已向', en: 'We have sent a password reset email to' },
   backToLogin: { ja: 'ログインに戻る', 'zh-CN': '返回登录', 'zh-TW': '返回登入', en: 'Back to Login' },
-  noEmail: { ja: 'メールが届いていませんか？迷惑メールフォルダをご確認ください', 'zh-CN': '没有收到邮件？请检查垃圾邮件夹', 'zh-TW': '沒有收到郵件？請檢查垃圾郵件匣', en: 'No email? Please check your spam folder' },
 
   // Hero
   heroLabel: { ja: 'PASSWORD RESET', 'zh-CN': 'PASSWORD RESET', 'zh-TW': 'PASSWORD RESET', en: 'PASSWORD RESET' },
@@ -29,13 +28,25 @@ const translations = {
 
   // Form
   forgotPasswordTitle: { ja: 'パスワードを忘れた', 'zh-CN': '忘记密码', 'zh-TW': '忘記密碼', en: 'Forgot Password' },
-  forgotPasswordSubtitle: { ja: 'メールアドレスを入力してください。リセットリンクをお送りします', 'zh-CN': '输入您的邮箱，我们将发送重置链接', 'zh-TW': '輸入您的郵箱，我們將發送重置連結', en: 'Enter your email and we\'ll send you a reset link' },
+  forgotPasswordSubtitle: { ja: '\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002\u78ba\u8a8d\u30b3\u30fc\u30c9\u3092\u304a\u9001\u308a\u3057\u307e\u3059', 'zh-CN': '\u8f93\u5165\u60a8\u7684\u90ae\u7bb1\uff0c\u6211\u4eec\u5c06\u53d1\u9001\u9a8c\u8bc1\u7801', 'zh-TW': '\u8f38\u5165\u60a8\u7684\u90f5\u7bb1\uff0c\u6211\u5011\u5c07\u767c\u9001\u9a57\u8b49\u78bc', en: 'Enter your email and we\'ll send you a verification code' },
   emailLabel: { ja: 'メールアドレス', 'zh-CN': '电子邮箱', 'zh-TW': '電子郵箱', en: 'Email' },
   emailPlaceholder: { ja: 'your@email.com', 'zh-CN': 'your@email.com', 'zh-TW': 'your@email.com', en: 'your@email.com' },
   sending: { ja: '送信中...', 'zh-CN': '发送中...', 'zh-TW': '發送中...', en: 'Sending...' },
-  sendResetLink: { ja: 'リセットリンクを送信', 'zh-CN': '发送重置链接', 'zh-TW': '發送重置連結', en: 'Send Reset Link' },
+  sendResetLink: { ja: '\u78ba\u8a8d\u30b3\u30fc\u30c9\u3092\u9001\u4fe1', 'zh-CN': '\u53d1\u9001\u9a8c\u8bc1\u7801', 'zh-TW': '\u767c\u9001\u9a57\u8b49\u78bc', en: 'Send Verification Code' },
   rememberPassword: { ja: 'パスワードを思い出しましたか？', 'zh-CN': '想起密码了？', 'zh-TW': '想起密碼了？', en: 'Remember your password?' },
   loginNow: { ja: 'ログイン', 'zh-CN': '立即登录', 'zh-TW': '立即登入', en: 'Log in now' },
+
+  // 验证码步骤
+  codeStepTitle: { ja: '確認コードを入力', 'zh-CN': '输入验证码', 'zh-TW': '輸入驗證碼', en: 'Enter Verification Code' },
+  codeStepSubtitle: { ja: 'に8桁の確認コードを送信しました', 'zh-CN': '，请查收 8 位验证码', 'zh-TW': '，請查收 8 位驗證碼', en: '. Check your inbox for the 8-digit code.' },
+  codeLabel: { ja: '確認コード', 'zh-CN': '验证码', 'zh-TW': '驗證碼', en: 'Verification Code' },
+  codePlaceholder: { ja: '8桁の数字', 'zh-CN': '8 位数字', 'zh-TW': '8 位數字', en: '8 digits' },
+  verifying: { ja: '確認中...', 'zh-CN': '验证中...', 'zh-TW': '驗證中...', en: 'Verifying...' },
+  verifyCode: { ja: 'コードを確認', 'zh-CN': '验证并继续', 'zh-TW': '驗證並繼續', en: 'Verify and Continue' },
+  codeInvalid: { ja: '確認コードが正しくないか、有効期限が切れています', 'zh-CN': '验证码不正确或已过期', 'zh-TW': '驗證碼不正確或已過期', en: 'The code is incorrect or has expired' },
+  codeHint: { ja: 'コードの有効期限は1時間です。メールが届かない場合は迷惑メールフォルダをご確認ください。', 'zh-CN': '验证码 1 小时内有效。没收到邮件请检查垃圾邮件夹。', 'zh-TW': '驗證碼 1 小時內有效。沒收到郵件請檢查垃圾郵件匣。', en: 'The code is valid for 1 hour. If no email arrives, check your spam folder.' },
+  resendCode: { ja: 'コードを再送信', 'zh-CN': '重新发送验证码', 'zh-TW': '重新發送驗證碼', en: 'Resend code' },
+  changeEmail: { ja: 'メールアドレスを変更', 'zh-CN': '换个邮箱', 'zh-TW': '換個郵箱', en: 'Use a different email' },
 } as const;
 
 const t = (key: keyof typeof translations, lang: Language): string => {
@@ -46,7 +57,9 @@ function ForgotPasswordForm() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
+  const [step, setStep] = useState<'email' | 'code'>('email');
+  const [code, setCode] = useState('');
+  const [verifying, setVerifying] = useState(false);
   const lang = useLanguage();
   const { getImage } = useSiteImages();
   const searchParams = useSearchParams();
@@ -60,9 +73,9 @@ function ForgotPasswordForm() {
 
     try {
       const supabase = createClient();
-      const resetUrl = isGuide
-        ? `${window.location.origin}/reset-password?from=guide`
-        : `${window.location.origin}/reset-password`;
+      const resetUrl = authRedirectUrl(
+        isGuide ? '/reset-password?from=guide' : '/reset-password'
+      );
       const { error } = await supabase.auth.resetPasswordForEmail(email.trim().toLowerCase(), {
         redirectTo: resetUrl,
       });
@@ -72,7 +85,7 @@ function ForgotPasswordForm() {
         return;
       }
 
-      setSuccess(true);
+      setStep('code');
     } catch {
       setError(t('sendFailed', lang));
     } finally {
@@ -80,8 +93,43 @@ function ForgotPasswordForm() {
     }
   };
 
-  // ==================== Success State ====================
-  if (success) {
+  /**
+   * 用邮件里的 8 位验证码换取会话。
+   *
+   * 这里刻意不用邮件里的魔法链接：链接是一次性的，谁先访问谁消费掉，
+   * 而邮件安全扫描器会在投递时自动预取链接 —— 生产日志里可以看到
+   * 发信 20 秒后就有一次 /verify 成功，等用户真正点击时已经 403。
+   * 验证码需要人工转录，扫描器无法代劳，因此不受这个问题影响。
+   */
+  const handleVerifyCode = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setVerifying(true);
+
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.auth.verifyOtp({
+        email: email.trim().toLowerCase(),
+        token: code.trim(),
+        type: 'recovery',
+      });
+
+      if (error) {
+        setError(t('codeInvalid', lang));
+        return;
+      }
+
+      // 会话已建立，重置页会据此放行密码表单
+      window.location.href = isGuide ? '/reset-password?from=guide' : '/reset-password';
+    } catch {
+      setError(t('codeInvalid', lang));
+    } finally {
+      setVerifying(false);
+    }
+  };
+
+  // ==================== 验证码步骤 ====================
+  if (step === 'code') {
     return (
       <div className="min-h-screen flex">
         {/* Left Side — Brand Hero */}
@@ -133,19 +181,76 @@ function ForgotPasswordForm() {
               <CheckCircle className="w-8 h-8 text-green-600" />
             </div>
 
-            <h1 className="text-2xl font-serif text-brand-900 mb-3">{t('emailSent', lang)}</h1>
-            <p className="text-neutral-600 mb-8 leading-relaxed text-sm">
-              {t('resetEmailSentPrefix', lang)} <span className="font-bold text-brand-900">{email}</span>{t('resetEmailSent', lang)}
+            <h1 className="text-2xl font-serif text-brand-900 mb-3">{t('codeStepTitle', lang)}</h1>
+            <p className="text-neutral-600 mb-6 leading-relaxed text-sm">
+              {t('resetEmailSentPrefix', lang)} <span className="font-bold text-brand-900">{email}</span>{t('codeStepSubtitle', lang)}
             </p>
 
-            <Link
-              href={loginPath}
-              className="block w-full bg-gold-400 hover:bg-gold-300 text-brand-900 font-medium py-3 px-6 text-sm tracking-wider transition-colors"
-            >
+            {error && (
+              <div className="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 flex items-center gap-2 text-sm text-left">
+                <AlertCircle size={18} className="shrink-0" />
+                <span>{error}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleVerifyCode} className="space-y-4">
+              <div className="text-left">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
+                  {t('codeLabel', lang)}
+                </label>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  autoComplete="one-time-code"
+                  value={code}
+                  onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 8))}
+                  required
+                  autoFocus
+                  className="w-full px-4 py-3 border border-neutral-200 text-center text-2xl tracking-[0.4em] font-mono focus:ring-2 focus:ring-gold-400 focus:border-transparent transition"
+                  placeholder={t('codePlaceholder', lang)}
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={verifying || code.length < 6}
+                className="w-full bg-gold-400 hover:bg-gold-300 disabled:bg-neutral-200 disabled:text-neutral-400 text-brand-900 font-medium py-3 px-6 text-sm tracking-wider transition-colors flex items-center justify-center gap-2"
+              >
+                {verifying ? (
+                  <>
+                    <Loader2 className="animate-spin" size={18} />
+                    {t('verifying', lang)}
+                  </>
+                ) : (
+                  t('verifyCode', lang)
+                )}
+              </button>
+            </form>
+
+            <p className="text-xs text-neutral-400 mt-5 leading-relaxed">{t('codeHint', lang)}</p>
+
+            <div className="flex items-center justify-center gap-4 mt-5 text-sm">
+              <button
+                type="button"
+                onClick={handleSubmit}
+                disabled={loading}
+                className="text-brand-700 hover:text-brand-900 underline disabled:text-neutral-400"
+              >
+                {loading ? t('sending', lang) : t('resendCode', lang)}
+              </button>
+              <span className="text-neutral-300">|</span>
+              <button
+                type="button"
+                onClick={() => { setStep('email'); setCode(''); setError(''); }}
+                className="text-brand-700 hover:text-brand-900 underline"
+              >
+                {t('changeEmail', lang)}
+              </button>
+            </div>
+
+            <Link href={loginPath} className="block mt-6 text-xs text-neutral-400 hover:text-neutral-600">
               {t('backToLogin', lang)}
             </Link>
-
-            <p className="text-xs text-neutral-400 mt-6">{t('noEmail', lang)}</p>
           </div>
         </div>
       </div>

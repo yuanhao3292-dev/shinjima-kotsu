@@ -14,7 +14,7 @@ const translations = {
   // Errors
   linkExpired: { ja: 'リセットリンクの有効期限が切れているか無効です。再度申請してください', 'zh-CN': '重置链接已过期或无效，请重新申请', 'zh-TW': '重置連結已過期或無效，請重新申請', en: 'Reset link has expired or is invalid. Please request a new one' },
   linkExpiredHint: { ja: 'リセットリンクは1回のみ有効です。複数回申請した場合は、最新のメールのリンクをご利用ください。', 'zh-CN': '重置链接只能使用一次。如果你申请了多封邮件，请点击最新一封里的链接。', 'zh-TW': '重置連結只能使用一次。如果你申請了多封郵件，請點擊最新一封裡的連結。', en: 'A reset link can only be used once. If you requested several emails, use the link in the most recent one.' },
-  linkMissing: { ja: 'このページはパスワードリセットメールのリンクから開いてください', 'zh-CN': '请从密码重置邮件中的链接打开此页面', 'zh-TW': '請從密碼重置郵件中的連結打開此頁面', en: 'Please open this page from the link in your password reset email' },
+  linkMissing: { ja: '\u30bb\u30c3\u30b7\u30e7\u30f3\u304c\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3002\u78ba\u8a8d\u30b3\u30fc\u30c9\u306e\u5165\u529b\u304b\u3089\u3084\u308a\u76f4\u3057\u3066\u304f\u3060\u3055\u3044', 'zh-CN': '\u672a\u627e\u5230\u6709\u6548\u4f1a\u8bdd\uff0c\u8bf7\u91cd\u65b0\u7533\u8bf7\u9a8c\u8bc1\u7801', 'zh-TW': '\u672a\u627e\u5230\u6709\u6548\u6703\u8a71\uff0c\u8acb\u91cd\u65b0\u7533\u8acb\u9a57\u8b49\u78bc', en: 'No active session. Please request a verification code again' },
   verifying: { ja: 'リンクを確認しています...', 'zh-CN': '正在验证链接...', 'zh-TW': '正在驗證連結...', en: 'Verifying link...' },
   requestNewLink: { ja: '新しいリンクを申請する', 'zh-CN': '重新申请重置链接', 'zh-TW': '重新申請重置連結', en: 'Request a new link' },
   passwordMismatch: { ja: '2回入力したパスワードが一致しません', 'zh-CN': '两次输入的密码不一致', 'zh-TW': '兩次輸入的密碼不一致', en: 'Passwords do not match' },
@@ -120,27 +120,25 @@ function ResetPasswordForm() {
       if (session) markValid();
     });
 
-    // 会话可能在订阅之前就已建立（例如用户刷新页面），补查一次
+    // 会话可能在订阅之前就已建立：
+    //   - 用户在 /forgot-password 输入验证码通过后跳转过来（此时 URL 无凭证）
+    //   - 用户刷新了本页
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) markValid();
-      else if (!hasPendingCredential()) {
-        // URL 里没有任何待处理凭证，说明是直接访问本页，不是从邮件进来的
-        if (!settled) {
-          settled = true;
-          setLinkErrorKey('linkMissing');
-          setLinkState('invalid');
-        }
-      }
     });
 
-    // 兜底：凭证存在但迟迟换不到会话
-    const timer = setTimeout(() => {
-      if (!settled) {
-        settled = true;
-        setLinkErrorKey('linkExpired');
-        setLinkState('invalid');
-      }
-    }, 8000);
+    // 兜底。URL 里带着待处理凭证时给足时间换取会话；否则只等一小会儿，
+    // 因为验证码流程的会话本应已在本地存好，等久了只是白让用户干瞪眼。
+    const timer = setTimeout(
+      () => {
+        if (!settled) {
+          settled = true;
+          setLinkErrorKey(hasPendingCredential() ? 'linkExpired' : 'linkMissing');
+          setLinkState('invalid');
+        }
+      },
+      hasPendingCredential() ? 8000 : 2500
+    );
 
     return () => {
       subscription.unsubscribe();
