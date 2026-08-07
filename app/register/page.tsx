@@ -149,7 +149,8 @@ export default function RegisterPage() {
         return;
       }
 
-      // verifyOtp 成功即已登录，直接进会员中心
+      // 整页跳转而非 router.push：verifyOtp 刚写入会话 cookie，
+      // 需要一次完整请求让服务端组件读到它，否则会员中心会当作未登录。
       window.location.href = '/my-account';
     } catch {
       setError(t('codeInvalid', lang));
