@@ -40,14 +40,35 @@ const translations = {
   confirmNewPasswordPlaceholder: { ja: '新しいパスワードを再入力', 'zh-CN': '再次输入新密码', 'zh-TW': '再次輸入新密碼', en: 'Re-enter new password' },
   resetting: { ja: 'リセット中...', 'zh-CN': '重置中...', 'zh-TW': '重置中...', en: 'Resetting...' },
   confirmReset: { ja: 'リセットを確認', 'zh-CN': '确认重置', 'zh-TW': '確認重置', en: 'Confirm Reset' },
+
+  // 验证码输入步骤
+  enterCodeTitle: { ja: '確認コードを入力', 'zh-CN': '输入验证码', 'zh-TW': '輸入驗證碼', en: 'Enter Verification Code' },
+  enterCodeSubtitle: { ja: 'メールに届いた8桁のコードを入力してください', 'zh-CN': '请输入邮件中收到的 8 位验证码', 'zh-TW': '請輸入郵件中收到的 8 位驗證碼', en: 'Enter the 8-digit code from your email' },
+  emailLabel: { ja: 'メールアドレス', 'zh-CN': '电子邮箱', 'zh-TW': '電子郵箱', en: 'Email' },
+  emailPlaceholder: { ja: 'your@email.com', 'zh-CN': 'your@email.com', 'zh-TW': 'your@email.com', en: 'your@email.com' },
+  codeLabel: { ja: '確認コード', 'zh-CN': '验证码', 'zh-TW': '驗證碼', en: 'Verification Code' },
+  codePlaceholder: { ja: '8桁の数字', 'zh-CN': '8 位数字', 'zh-TW': '8 位數字', en: '8 digits' },
+  verifyCode: { ja: 'コードを確認', 'zh-CN': '验证并继续', 'zh-TW': '驗證並繼續', en: 'Verify and Continue' },
+  codeVerifying: { ja: '確認中...', 'zh-CN': '验证中...', 'zh-TW': '驗證中...', en: 'Verifying...' },
+  codeInvalid: { ja: '確認コードが正しくないか、有効期限が切れています', 'zh-CN': '验证码不正确或已过期', 'zh-TW': '驗證碼不正確或已過期', en: 'The code is incorrect or has expired' },
+  noCodeYet: { ja: 'コードをお持ちでない場合', 'zh-CN': '还没有验证码？', 'zh-TW': '還沒有驗證碼？', en: "Don't have a code?" },
+  requestCode: { ja: 'コードを申請', 'zh-CN': '申请验证码', 'zh-TW': '申請驗證碼', en: 'Request one' },
 } as const;
 
 const t = (key: keyof typeof translations, lang: Language): string => {
   return (translations[key] as Record<Language, string>)[lang];
 };
 
-/** 链接校验的三种状态 */
-type LinkState = 'verifying' | 'valid' | 'invalid';
+/**
+ * 页面阶段。
+ * checking  —— 正在确认是否已有会话
+ * need-code —— 没有会话，请用户输入邮箱 + 验证码换取会话
+ * ready     —— 会话已建立，可以设置新密码
+ *
+ * 注意 need-code **不是错误状态**：用户去邮箱抄验证码时页面状态会丢失，
+ * 回来时必须能原地继续，而不是被打回"申请重置"从头再来。
+ */
+type Phase = 'checking' | 'need-code' | 'ready';
 
 /**
  * 读取 Supabase 回跳时携带的错误。
@@ -85,8 +106,10 @@ function ResetPasswordForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-  const [linkState, setLinkState] = useState<LinkState>('verifying');
-  const [linkErrorKey, setLinkErrorKey] = useState<'linkExpired' | 'linkMissing'>('linkExpired');
+  const [phase, setPhase] = useState<Phase>('checking');
+  const [otpEmail, setOtpEmail] = useState('');
+  const [otpCode, setOtpCode] = useState('');
+  const [verifyingCode, setVerifyingCode] = useState(false);
   const router = useRouter();
   const lang = useLanguage();
   const searchParams = useSearchParams();
@@ -97,47 +120,39 @@ function ResetPasswordForm() {
   useEffect(() => {
     const supabase = createClient();
 
-    // Supabase 明确回报了错误（令牌过期、已被使用、类型不符…），直接采信
+    // 兼容旧的魔法链接：Supabase 拒绝令牌时会把错误带在 URL 上。
+    // 这不再是死路 —— 直接让用户输验证码即可。
     const authError = readSupabaseAuthError();
     if (authError) {
       console.warn('[reset-password] Supabase 拒绝了恢复令牌:', authError.code, authError.description);
-      setLinkErrorKey('linkExpired');
-      setLinkState('invalid');
-      return;
     }
 
     let settled = false;
-    const markValid = () => {
+    const markReady = () => {
       if (settled) return;
       settled = true;
-      setLinkState('valid');
+      setPhase('ready');
     };
 
-    // 关键：supabase-js 需要异步解析 URL 里的凭证才能建立会话，
-    // 直接 getSession() 很可能在解析完成前返回 null —— 那会让完全有效的
-    // 链接也被判成"已过期"。因此监听状态变化，而不是只查一次。
+    // supabase-js 需要异步解析 URL 里的凭证才能建立会话，
+    // 直接 getSession() 可能在解析完成前返回 null，所以同时监听状态变化。
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session) markValid();
+      if (session) markReady();
     });
 
-    // 会话可能在订阅之前就已建立：
-    //   - 用户在 /forgot-password 输入验证码通过后跳转过来（此时 URL 无凭证）
-    //   - 用户刷新了本页
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) markValid();
+      if (session) markReady();
     });
 
-    // 兜底。URL 里带着待处理凭证时给足时间换取会话；否则只等一小会儿，
-    // 因为验证码流程的会话本应已在本地存好，等久了只是白让用户干瞪眼。
+    // 超时后落到验证码输入。URL 带凭证时多等一会儿，否则很快切过去。
     const timer = setTimeout(
       () => {
         if (!settled) {
           settled = true;
-          setLinkErrorKey(hasPendingCredential() ? 'linkExpired' : 'linkMissing');
-          setLinkState('invalid');
+          setPhase('need-code');
         }
       },
-      hasPendingCredential() ? 8000 : 2500
+      hasPendingCredential() && !authError ? 6000 : 800
     );
 
     return () => {
@@ -146,14 +161,48 @@ function ResetPasswordForm() {
     };
   }, []);
 
+  // 从申请页带过来的邮箱，省去用户再输一遍
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const saved = window.sessionStorage.getItem('pw_reset_email');
+    if (saved) setOtpEmail(saved);
+  }, []);
+
+  const handleVerifyCode = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setVerifyingCode(true);
+
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.auth.verifyOtp({
+        email: otpEmail.trim().toLowerCase(),
+        token: otpCode.trim(),
+        type: 'recovery',
+      });
+
+      if (error) {
+        setError(t('codeInvalid', lang));
+        return;
+      }
+
+      window.sessionStorage.removeItem('pw_reset_email');
+      setPhase('ready');
+    } catch {
+      setError(t('codeInvalid', lang));
+    } finally {
+      setVerifyingCode(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
     // 没有有效会话时 updateUser 必然失败，且只会抛出英文原始错误。
     // 表单此时已经隐藏，这里是防止程序化提交的兜底。
-    if (linkState !== 'valid') {
-      setError(t(linkErrorKey, lang));
+    if (phase !== 'ready') {
+      setError(t('enterCodeSubtitle', lang));
       return;
     }
 
@@ -267,43 +316,91 @@ function ResetPasswordForm() {
                 <p className="text-neutral-500 mt-2 text-sm">{t('resetPasswordSubtitle', lang)}</p>
               </div>
 
-              {linkState === 'verifying' && (
+              {phase === 'checking' && (
                 <div className="mb-6 flex items-center justify-center gap-2 text-neutral-500 text-sm py-2">
                   <Loader2 className="animate-spin" size={18} />
                   <span>{t('verifying', lang)}</span>
                 </div>
               )}
 
-              {linkState === 'invalid' && (
-                <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm">
-                  <div className="flex items-start gap-2">
-                    <AlertCircle size={18} className="shrink-0 mt-0.5" />
-                    <div>
-                      <p>{t(linkErrorKey, lang)}</p>
-                      {linkErrorKey === 'linkExpired' && (
-                        <p className="mt-1.5 text-red-600/80 text-xs leading-relaxed">
-                          {t('linkExpiredHint', lang)}
-                        </p>
-                      )}
+              {phase === 'need-code' && (
+                <>
+                  <p className="text-sm text-neutral-600 mb-5 text-center">
+                    {t('enterCodeSubtitle', lang)}
+                  </p>
+
+                  {error && (
+                    <div className="mb-5 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl flex items-center gap-2 text-sm">
+                      <AlertCircle size={18} className="shrink-0" />
+                      <span>{error}</span>
                     </div>
-                  </div>
-                  <Link
-                    href={forgotPath}
-                    className="mt-3 block w-full text-center bg-brand-900 hover:bg-brand-800 text-white font-bold py-2.5 px-4 rounded-lg transition-colors"
-                  >
-                    {t('requestNewLink', lang)}
-                  </Link>
-                </div>
+                  )}
+
+                  <form onSubmit={handleVerifyCode} className="space-y-5">
+                    <div>
+                      <label className="block text-sm font-medium text-neutral-700 mb-2">
+                        {t('emailLabel', lang)}
+                      </label>
+                      <input
+                        type="email"
+                        value={otpEmail}
+                        onChange={(e) => setOtpEmail(e.target.value)}
+                        required
+                        className="w-full px-4 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
+                        placeholder={t('emailPlaceholder', lang)}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-neutral-700 mb-2">
+                        {t('codeLabel', lang)}
+                      </label>
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        autoComplete="one-time-code"
+                        value={otpCode}
+                        onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 8))}
+                        required
+                        autoFocus
+                        className="w-full px-4 py-3 border border-neutral-200 rounded-xl text-center text-2xl tracking-[0.4em] font-mono focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
+                        placeholder={t('codePlaceholder', lang)}
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={verifyingCode || otpCode.length < 6}
+                      className="w-full bg-brand-900 hover:bg-brand-800 disabled:bg-neutral-300 text-white font-bold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg"
+                    >
+                      {verifyingCode ? (
+                        <>
+                          <Loader2 className="animate-spin" size={20} />
+                          {t('codeVerifying', lang)}
+                        </>
+                      ) : (
+                        t('verifyCode', lang)
+                      )}
+                    </button>
+                  </form>
+
+                  <p className="text-center text-sm text-neutral-500 mt-5">
+                    {t('noCodeYet', lang)}{' '}
+                    <Link href={forgotPath} className="text-brand-700 hover:text-brand-900 font-medium underline">
+                      {t('requestCode', lang)}
+                    </Link>
+                  </p>
+                </>
               )}
 
-              {error && linkState === 'valid' && (
+              {error && phase === 'ready' && (
                 <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl flex items-center gap-2 text-sm">
                   <AlertCircle size={18} />
                   <span>{error}</span>
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-5" hidden={linkState !== 'valid'}>
+              <form onSubmit={handleSubmit} className="space-y-5" hidden={phase !== 'ready'}>
                 <div>
                   <label className="block text-sm font-medium text-neutral-700 mb-2">
                     {t('newPasswordLabel', lang)}
