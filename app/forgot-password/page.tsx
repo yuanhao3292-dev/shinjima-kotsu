@@ -37,16 +37,6 @@ const translations = {
   loginNow: { ja: 'ログイン', 'zh-CN': '立即登录', 'zh-TW': '立即登入', en: 'Log in now' },
 
   // 验证码步骤
-  codeStepTitle: { ja: '確認コードを入力', 'zh-CN': '输入验证码', 'zh-TW': '輸入驗證碼', en: 'Enter Verification Code' },
-  codeStepSubtitle: { ja: 'に8桁の確認コードを送信しました', 'zh-CN': '，请查收 8 位验证码', 'zh-TW': '，請查收 8 位驗證碼', en: '. Check your inbox for the 8-digit code.' },
-  codeLabel: { ja: '確認コード', 'zh-CN': '验证码', 'zh-TW': '驗證碼', en: 'Verification Code' },
-  codePlaceholder: { ja: '8桁の数字', 'zh-CN': '8 位数字', 'zh-TW': '8 位數字', en: '8 digits' },
-  verifying: { ja: '確認中...', 'zh-CN': '验证中...', 'zh-TW': '驗證中...', en: 'Verifying...' },
-  verifyCode: { ja: 'コードを確認', 'zh-CN': '验证并继续', 'zh-TW': '驗證並繼續', en: 'Verify and Continue' },
-  codeInvalid: { ja: '確認コードが正しくないか、有効期限が切れています', 'zh-CN': '验证码不正确或已过期', 'zh-TW': '驗證碼不正確或已過期', en: 'The code is incorrect or has expired' },
-  codeHint: { ja: 'コードの有効期限は1時間です。メールが届かない場合は迷惑メールフォルダをご確認ください。', 'zh-CN': '验证码 1 小时内有效。没收到邮件请检查垃圾邮件夹。', 'zh-TW': '驗證碼 1 小時內有效。沒收到郵件請檢查垃圾郵件匣。', en: 'The code is valid for 1 hour. If no email arrives, check your spam folder.' },
-  resendCode: { ja: 'コードを再送信', 'zh-CN': '重新发送验证码', 'zh-TW': '重新發送驗證碼', en: 'Resend code' },
-  changeEmail: { ja: 'メールアドレスを変更', 'zh-CN': '换个邮箱', 'zh-TW': '換個郵箱', en: 'Use a different email' },
 } as const;
 
 const t = (key: keyof typeof translations, lang: Language): string => {
@@ -57,9 +47,6 @@ function ForgotPasswordForm() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [step, setStep] = useState<'email' | 'code'>('email');
-  const [code, setCode] = useState('');
-  const [verifying, setVerifying] = useState(false);
   const lang = useLanguage();
   const { getImage } = useSiteImages();
   const searchParams = useSearchParams();
@@ -85,177 +72,17 @@ function ForgotPasswordForm() {
         return;
       }
 
-      setStep('code');
+      // 邮箱交给重置页预填。之所以跳转而不是留在本页用局部状态展示输入框：
+      // 用户要切到邮箱客户端抄验证码，回来时本页的 React 状态早就没了，
+      // 会被打回"输入邮箱"从头再来。/reset-password 是固定地址，随时可回。
+      window.sessionStorage.setItem('pw_reset_email', email.trim().toLowerCase());
+      window.location.href = isGuide ? '/reset-password?from=guide' : '/reset-password';
     } catch {
       setError(t('sendFailed', lang));
     } finally {
       setLoading(false);
     }
   };
-
-  /**
-   * 用邮件里的 8 位验证码换取会话。
-   *
-   * 这里刻意不用邮件里的魔法链接：链接是一次性的，谁先访问谁消费掉，
-   * 而邮件安全扫描器会在投递时自动预取链接 —— 生产日志里可以看到
-   * 发信 20 秒后就有一次 /verify 成功，等用户真正点击时已经 403。
-   * 验证码需要人工转录，扫描器无法代劳，因此不受这个问题影响。
-   */
-  const handleVerifyCode = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-    setVerifying(true);
-
-    try {
-      const supabase = createClient();
-      const { error } = await supabase.auth.verifyOtp({
-        email: email.trim().toLowerCase(),
-        token: code.trim(),
-        type: 'recovery',
-      });
-
-      if (error) {
-        setError(t('codeInvalid', lang));
-        return;
-      }
-
-      // 会话已建立，重置页会据此放行密码表单
-      window.location.href = isGuide ? '/reset-password?from=guide' : '/reset-password';
-    } catch {
-      setError(t('codeInvalid', lang));
-    } finally {
-      setVerifying(false);
-    }
-  };
-
-  // ==================== 验证码步骤 ====================
-  if (step === 'code') {
-    return (
-      <div className="min-h-screen flex">
-        {/* Left Side — Brand Hero */}
-        <div className="hidden lg:flex lg:w-1/2 relative bg-brand-900 overflow-hidden">
-          <Image
-            src={isGuide
-              ? getImage('guide_hero', 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=2000')
-              : getImage('medical_hero', 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg')
-            }
-            alt="Password Reset"
-            fill
-            className="object-cover"
-            quality={75}
-            sizes="50vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70" />
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
-            <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
-          </div>
-          <div className="relative z-10 flex flex-col justify-center px-16">
-            <div className="max-w-lg">
-              <div className="flex items-center gap-3 mb-8">
-                <div className="h-[1px] w-12 bg-gold-400" />
-                <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">
-                  {t('heroLabel', lang)}
-                </span>
-              </div>
-              <h1 className="font-serif text-4xl xl:text-5xl text-white mb-4 leading-tight">
-                {t('emailSent', lang)}
-              </h1>
-              <p className="text-lg text-neutral-300 leading-relaxed font-light max-w-md">
-                {t('heroDesc', lang)}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Side — Success Content */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 pt-24 bg-white">
-          <div className="w-full max-w-md text-center">
-            <div className="lg:hidden flex items-center gap-3 mb-6 justify-center">
-              <div className="h-[1px] w-8 bg-gold-400" />
-              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">PASSWORD RESET</span>
-              <div className="h-[1px] w-8 bg-gold-400" />
-            </div>
-
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-green-50 border border-green-200 mb-6">
-              <CheckCircle className="w-8 h-8 text-green-600" />
-            </div>
-
-            <h1 className="text-2xl font-serif text-brand-900 mb-3">{t('codeStepTitle', lang)}</h1>
-            <p className="text-neutral-600 mb-6 leading-relaxed text-sm">
-              {t('resetEmailSentPrefix', lang)} <span className="font-bold text-brand-900">{email}</span>{t('codeStepSubtitle', lang)}
-            </p>
-
-            {error && (
-              <div className="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 flex items-center gap-2 text-sm text-left">
-                <AlertCircle size={18} className="shrink-0" />
-                <span>{error}</span>
-              </div>
-            )}
-
-            <form onSubmit={handleVerifyCode} className="space-y-4">
-              <div className="text-left">
-                <label className="block text-sm font-medium text-neutral-700 mb-2">
-                  {t('codeLabel', lang)}
-                </label>
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  autoComplete="one-time-code"
-                  value={code}
-                  onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 8))}
-                  required
-                  autoFocus
-                  className="w-full px-4 py-3 border border-neutral-200 text-center text-2xl tracking-[0.4em] font-mono focus:ring-2 focus:ring-gold-400 focus:border-transparent transition"
-                  placeholder={t('codePlaceholder', lang)}
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={verifying || code.length < 6}
-                className="w-full bg-gold-400 hover:bg-gold-300 disabled:bg-neutral-200 disabled:text-neutral-400 text-brand-900 font-medium py-3 px-6 text-sm tracking-wider transition-colors flex items-center justify-center gap-2"
-              >
-                {verifying ? (
-                  <>
-                    <Loader2 className="animate-spin" size={18} />
-                    {t('verifying', lang)}
-                  </>
-                ) : (
-                  t('verifyCode', lang)
-                )}
-              </button>
-            </form>
-
-            <p className="text-xs text-neutral-400 mt-5 leading-relaxed">{t('codeHint', lang)}</p>
-
-            <div className="flex items-center justify-center gap-4 mt-5 text-sm">
-              <button
-                type="button"
-                onClick={handleSubmit}
-                disabled={loading}
-                className="text-brand-700 hover:text-brand-900 underline disabled:text-neutral-400"
-              >
-                {loading ? t('sending', lang) : t('resendCode', lang)}
-              </button>
-              <span className="text-neutral-300">|</span>
-              <button
-                type="button"
-                onClick={() => { setStep('email'); setCode(''); setError(''); }}
-                className="text-brand-700 hover:text-brand-900 underline"
-              >
-                {t('changeEmail', lang)}
-              </button>
-            </div>
-
-            <Link href={loginPath} className="block mt-6 text-xs text-neutral-400 hover:text-neutral-600">
-              {t('backToLogin', lang)}
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   // ==================== Form State ====================
   return (
