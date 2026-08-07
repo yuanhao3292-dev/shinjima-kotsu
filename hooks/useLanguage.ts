@@ -82,3 +82,35 @@ export function formatNumber(num: number, lang: Language): string {
 
   return new Intl.NumberFormat(localeMap[lang]).format(num);
 }
+
+/**
+ * 获取语言的人类可读名称（语言切换器使用）
+ *
+ * 这里刻意用 \u 转义而非 CJK 字面量：这些字符串曾在一次工具链
+ * 非 UTF-8 写入中损坏成 U+FFFD（见 commit 3a1b4e3），转义形式对
+ * 编码往返免疫。
+ */
+export function getLanguageName(lang: Language): string {
+  const names: Record<Language, string> = {
+    'ja': '\u65E5\u672C\u8A9E',
+    'zh-TW': '\u7E41\u9AD4\u4E2D\u6587',
+    'zh-CN': '\u7B80\u4F53\u4E2D\u6587',
+    'en': 'English',
+    'ko': '\uD55C\uAD6D\uC5B4',
+  };
+  return names[lang];
+}
+
+/**
+ * 获取语言的旗帜 emoji
+ */
+export function getLanguageFlag(lang: Language): string {
+  const flags: Record<Language, string> = {
+    'ja': '🇯🇵',
+    'zh-TW': '🇹🇼',
+    'zh-CN': '🇨🇳',
+    'en': '🇺🇸',
+    'ko': '🇰🇷',
+  };
+  return flags[lang];
+}

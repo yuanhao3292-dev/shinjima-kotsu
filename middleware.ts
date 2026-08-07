@@ -14,11 +14,24 @@ import {
   type RateLimitConfig,
 } from '@/lib/utils/rate-limiter';
 import { verifyFingerprintToken } from '@/lib/utils/fingerprint-token';
+import { getFingerprintSecret } from '@/lib/utils/secrets';
 
 /**
  * 429 友好页面（避免白屏）
  */
 const RATE_LIMIT_HTML = `<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>请求过于频繁</title><style>body{font-family:-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#f9fafb;color:#374151}div{text-align:center;max-width:400px;padding:2rem}h1{font-size:1.5rem;margin-bottom:.5rem}p{color:#6b7280;margin-bottom:1.5rem}button{background:#2563eb;color:#fff;border:none;padding:.6rem 1.5rem;border-radius:.375rem;cursor:pointer;font-size:.95rem}button:hover{background:#1d4ed8}</style></head><body><div><h1>请求过于频繁</h1><p>您的操作过快，请稍等片刻后重试。</p><button onclick="location.reload()">刷新页面</button></div></body></html>`;
+
+/**
+ * 自带签名校验、需跳过 CSRF Origin 检查的 webhook 路径前缀。
+ * 新增 webhook 时必须同步登记，否则会被 CSRF 网关 403。
+ */
+const WEBHOOK_PATH_PREFIXES = ['/api/webhooks/', '/api/stripe/webhook'];
+
+/**
+ * 允许用企业 API key 代替 Origin 校验的路由前缀。
+ * 必须与实际调用 validateAPIKey() 的路由保持一致（见 lib/utils/api-key-auth.ts）。
+ */
+const API_KEY_ROUTE_PREFIXES = ['/api/v1/', '/api/enterprise/'];
 
 /**
  * 页面请求速率限制配置
@@ -62,8 +75,9 @@ export async function middleware(request: NextRequest) {
   // ========== CSRF Protection for State-Changing API Requests ==========
   const isStateChangingMethod = ['POST', 'PUT', 'PATCH', 'DELETE'].includes(request.method);
   const isApiRoute = pathname.startsWith('/api/');
-  // Stripe webhooks use their own signature verification — skip CSRF
-  const isWebhook = pathname.startsWith('/api/webhooks/');
+  // Webhooks 自带签名校验（Stripe constructEvent），跳过 CSRF。
+  // 注意订阅 webhook 挂在 /api/stripe/ 下而非 /api/webhooks/，两个前缀都要覆盖。
+  const isWebhook = WEBHOOK_PATH_PREFIXES.some((prefix) => pathname.startsWith(prefix));
   // Cron jobs are called by Vercel scheduler — skip CSRF
   const isCron = pathname.startsWith('/api/cron/');
 
@@ -85,15 +99,18 @@ export async function middleware(request: NextRequest) {
     );
 
     if (!isAllowedOrigin) {
-      // No valid origin → only allow server-to-server calls with a VALID enterprise API key
+      // 无合法 Origin → 仅放行「确实会校验 API key 的 B2B 端点」的服务端调用。
+      // 此处只做格式预筛，真正的密钥校验在路由内的 validateAPIKey() 完成；
+      // 因此绕过必须限定在那批路由上，否则等于对全部 API 关闭了 CSRF 网关。
       const apiKey = request.headers.get('x-api-key');
-      if (!apiKey || !apiKey.startsWith('nk_')) {
+      const isApiKeyRoute = API_KEY_ROUTE_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+
+      if (!isApiKeyRoute || !apiKey || !apiKey.startsWith('nk_')) {
         return new NextResponse(JSON.stringify({ error: 'CSRF validation failed' }), {
           status: 403,
           headers: { 'Content-Type': 'application/json' },
         });
       }
-      // API key format validated; actual key verification happens in the route handler via validateAPIKey()
     }
   }
 
@@ -120,9 +137,13 @@ export async function middleware(request: NextRequest) {
 
   if (botClass === 'human' && !isPublicEntry) {
     const fpCookie = request.cookies.get('__bfp');
-    const fpSecret = process.env.FP_SECRET || process.env.NEXT_PUBLIC_FP_SECRET || 'fp-default-key';
+    const fpSecret = getFingerprintSecret();
 
-    if (fpCookie?.value) {
+    if (!fpSecret) {
+      // 生产环境未配置 FP_SECRET：无法验证任何指纹，一律按可疑处理。
+      // 这样只会收紧限速，不会误伤到把站点打挂。
+      botClass = 'suspicious_tool';
+    } else if (fpCookie?.value) {
       const fpResult = await verifyFingerprintToken(fpCookie.value, fpSecret);
       if (!fpResult.valid || fpResult.score > 70) {
         // 指纹无效或 bot 评分高 → 降级限速

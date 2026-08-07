@@ -131,13 +131,12 @@ async function checkRateLimitRedis(
       resetTime,
     };
   } catch (error) {
-    // Redis 错误时记录日志并降级到通过（避免服务中断）
-    console.error('[RateLimit] Redis error, allowing request:', error);
-    return {
-      success: true,
-      remaining: config.maxRequests - 1,
-      resetTime: now + config.windowMs,
-    };
+    // Redis 故障时降级到本实例的内存计数，而不是直接放行。
+    // 内存模式在多实例部署下不精确（每个实例各算各的），但仍能挡住
+    // 单实例上的高频攻击；一律 allow 则等于攻击者压垮 Redis 就能同时
+    // 解除全站限流。
+    console.error('[RateLimit] Redis error, falling back to in-memory counting:', error);
+    return checkRateLimitMemory(identifier, config);
   }
 }
 
@@ -273,10 +272,20 @@ export async function checkRateLimit(
 
 /**
  * 获取客户端 IP 地址
- * 优先使用 x-forwarded-for（适用于代理/CDN 后端）
+ *
+ * 这些头都是客户端可以自行设置的，只有当请求确实经过会覆写它们的边缘网络时
+ * 才可信。因此优先读 Vercel 专有的 x-vercel-forwarded-for —— 该头由平台在
+ * 边缘写入、不接受来路请求携带的同名值；只有它缺席时才退回通用头。
+ *
+ * 若将来把服务迁到自建网关后面，必须确认网关同样会覆写 x-forwarded-for，
+ * 否则攻击者可以靠伪造该头无限轮换限流 key。
  */
 export function getClientIp(request: Request): string {
-  // Vercel / Cloudflare 等代理设置的真实 IP
+  const vercelForwarded = request.headers.get('x-vercel-forwarded-for');
+  if (vercelForwarded) {
+    return vercelForwarded.split(',')[0].trim();
+  }
+
   const forwarded = request.headers.get('x-forwarded-for');
   if (forwarded) {
     // 取第一个 IP（原始客户端）

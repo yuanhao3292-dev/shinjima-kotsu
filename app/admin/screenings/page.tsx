@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase-client';
+import { createClient } from '@/lib/supabase/client';
 import { formatDateTime } from '@/lib/utils/format-date';
 import Link from 'next/link';
 import {
@@ -96,6 +96,7 @@ function TableSkeleton() {
 }
 
 export default function AdminScreeningsPage() {
+  const supabase = createClient();
   const [allScreenings, setAllScreenings] = useState<ScreeningRecord[]>([]); // 全部数据用于统计
   const [displayScreenings, setDisplayScreenings] = useState<ScreeningRecord[]>([]); // 过滤后的数据用于显示
   const [loading, setLoading] = useState(true);

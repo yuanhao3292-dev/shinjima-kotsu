@@ -206,7 +206,7 @@ app/kindai-hospital/
 
 ## 📝 开发流程复盘
 
-本页面使用了标准化提取流程（`templates/hospital-extraction-template.md`）：
+本页面使用了标准化提取流程（`docs/templates/hospital-extraction-template.md`）：
 
 1. ✅ **官网结构扫描** - 识别关键页面 URL
 2. ✅ **分层内容提取** - 使用 WebFetch + 强约束 Prompt

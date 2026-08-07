@@ -234,6 +234,14 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
     checkAuthAndLoadVenue();
   }, [checkAuthAndLoadVenue]);
 
+  // 必须在所有提前 return 之前无条件调用：这个 useMemo 原本写在
+  // `if (!venue) return null` 之后，首屏 loading 时被跳过、数据到达后才执行，
+  // Hook 数量在两次渲染间发生变化会让 React 抛 "Rendered more hooks" 错误。
+  const pricingText = useMemo(
+    () => (venue ? generatePricingText(venue, selectedLocale) : ''),
+    [venue, selectedLocale]
+  );
+
   const handleCopy = async () => {
     if (!venue) return;
 
@@ -298,11 +306,6 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
   if (!venue) {
     return null;
   }
-
-  const pricingText = useMemo(
-    () => generatePricingText(venue, selectedLocale),
-    [venue, selectedLocale]
-  );
 
   return (
     <div className="min-h-screen bg-gray-50">

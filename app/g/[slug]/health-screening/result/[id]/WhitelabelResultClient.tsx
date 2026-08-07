@@ -6,6 +6,7 @@ import ScreeningResult from '@/components/ScreeningResult';
 import { type BodyMapSelectionData } from '@/components/BodyMapSelector';
 import { type AnalysisResult } from '@/services/aemc/types';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
+import { SCREENING_SESSION_HEADER } from '@/lib/utils/screening-session';
 import {
   ArrowLeft,
   Loader2,
@@ -246,9 +247,9 @@ export default function WhitelabelResultClient({
           return;
         }
 
-        const response = await fetch(
-          `/api/whitelabel/screening/${screeningId}?sessionId=${encodeURIComponent(sessionId)}`
-        );
+        const response = await fetch(`/api/whitelabel/screening/${screeningId}`, {
+          headers: { [SCREENING_SESSION_HEADER]: sessionId },
+        });
 
         if (!response.ok) {
           const errorData = await response.json();
@@ -280,12 +281,31 @@ export default function WhitelabelResultClient({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [screeningId]);
 
-  const handleDownloadPDF = () => {
+  const handleDownloadPDF = async () => {
     if (!screeningData) return;
-    // 服务端生成 PDF — 直接打开 API URL
     const sessionId = getSessionId();
-    const url = `/api/health-screening/${screeningData.id}/pdf?sessionId=${encodeURIComponent(sessionId)}&lang=${encodeURIComponent(lang)}`;
-    window.open(url, '_blank');
+    if (!sessionId) {
+      setError(t('sessionExpired', siteLang));
+      return;
+    }
+
+    // 会话令牌走请求头而非 URL，因此不能用 window.open 直接导航，
+    // 改为取回 PDF 二进制后用 blob URL 打开。
+    try {
+      const response = await fetch(
+        `/api/health-screening/${screeningData.id}/pdf?lang=${encodeURIComponent(lang)}`,
+        { headers: { [SCREENING_SESSION_HEADER]: sessionId } }
+      );
+      if (!response.ok) throw new Error(t('loadFailed', siteLang));
+
+      const blobUrl = URL.createObjectURL(await response.blob());
+      window.open(blobUrl, '_blank');
+      // 交给浏览器打开后即可释放，已打开的标签页仍持有该对象
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 60_000);
+    } catch (err: any) {
+      console.error('PDF download error:', err);
+      setError(err.message || t('loadFailed', siteLang));
+    }
   };
 
   if (loading) {

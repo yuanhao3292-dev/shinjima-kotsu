@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
 import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/lib/utils/rate-limiter';
 import { generateSigningToken } from '@/lib/utils/signing-token';
+import { decryptContractRow, encryptContractPII } from '@/lib/utils/contract-pii';
 
 /** 验证签约令牌 */
 function verifySigningToken(contractId: string, token: string): boolean {
@@ -73,12 +74,8 @@ export async function POST(request: NextRequest) {
       .from('customer_service_contracts')
       .update({
         customer_name: customerData.customerName,
-        passport_number: customerData.passportNumber,
         nationality: customerData.nationality,
-        phone: customerData.phone,
-        email: customerData.email,
-        emergency_contact: customerData.emergencyContact,
-        emergency_phone: customerData.emergencyPhone,
+        ...encryptContractPII(customerData),
         customer_signature_data: signature,
         signed_by_customer_at: new Date().toISOString(),
         status: 'signed',
@@ -97,7 +94,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      contract: updatedContract,
+      contract: decryptContractRow(updatedContract),
       message: '合同签署成功',
     });
   } catch (error) {
@@ -147,7 +144,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      contract,
+      contract: decryptContractRow(contract),
     });
   } catch (error) {
     console.error('Fetch contract error:', error);

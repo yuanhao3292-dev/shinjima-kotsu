@@ -2032,6 +2032,46 @@ const backHref = guideSlug ? `/g/${guideSlug}/hyogo-medical` : '/hyogo-medical';
 
 ## 开发注意事项
 
+### 🔒 RLS 策略硬规矩（2026-08-07 起）
+
+`CREATE POLICY` 省略 `TO` 子句时默认作用于 `PUBLIC`，其中**包含 `anon`** ——
+也就是任何持有公开 anon key 的人。而 `service_role` 本身绕过 RLS、不需要策略。
+
+因此「给 service role 开全权限」的正确写法是**不写策略**；写成
+`FOR ALL USING (true)` 反而把权限开放给了匿名用户。曾有四张表因此被开放，
+其中 `customer_service_contracts` 存明文护照号（已由迁移 108 修复）。
+
+新增策略必须显式写 `TO`：
+
+```sql
+CREATE POLICY "..." ON some_table
+  FOR SELECT
+  TO authenticated          -- ← 不要省略
+  USING (user_id = auth.uid());
+```
+
+迁移目录约定与已知编号冲突见 `supabase/migrations/README.md`。
+
+### 🔒 密钥一律 fail-closed
+
+签名/加密密钥统一从 `lib/utils/secrets.ts` 取，缺失时返回 null 或抛错。
+**禁止**写 `process.env.X || 'some-default'`，也禁止把密钥放进
+`NEXT_PUBLIC_` 变量（那会打包进客户端 bundle）。
+
+### 会话令牌不进 URL
+
+白标筛查的 `sessionId` 是能力令牌，走 `x-screening-session` 请求头
+（见 `lib/utils/screening-session.ts`）。放进 query string 会泄露到
+访问日志、CDN 日志和浏览器历史。
+
+### 质量门禁
+
+CI（`.github/workflows/ci.yml`）会跑：`tsc --noEmit`、`eslint .`、
+路由隔离检查、迁移编号检查、单元测试、构建，以及独立的 Playwright 冒烟测试。
+pre-commit 钩子对暂存文件跑同样的类型与 lint 检查。
+
+TypeScript 严格度现状与推进计划见 `docs/typescript-strictness.md`。
+
 ### Windows 环境
 - Bash 工具中 `cd C:\path` 不生效，需用 `powershell.exe -NoProfile -Command "Set-Location '...'; command"`
 - PowerShell 中 `&&` 链式命令与 here-string 不兼容，需分开执行

@@ -285,7 +285,7 @@ export async function POST(request: NextRequest) {
       aemcOutputRef.safetyGate.require_followup_questions &&
       followupCount < MAX_FOLLOWUP_ROUNDS;
 
-    const followupQuestions = needsFollowup
+    const followupQuestions = needsFollowup && aemcOutputRef
       ? aemcOutputRef.pipelineResult.adjudicated_assessment.must_ask_followups
       : null;
 

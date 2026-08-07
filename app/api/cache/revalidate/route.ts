@@ -19,6 +19,8 @@ import {
   invalidateTemplatesCache,
   invalidateModulesCache,
 } from '@/lib/cache/whitelabel-cache';
+import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/lib/utils/rate-limiter';
+import { constantTimeEqual } from '@/lib/utils/constant-time';
 
 // ============================================
 // 类型定义
@@ -39,6 +41,15 @@ interface RevalidateRequest {
 
 export async function POST(request: NextRequest) {
   try {
+    // 0. 限速：没有限速的密钥校验端点可以被无限次爆破
+    const rateLimitResult = await checkRateLimit(
+      `${getClientIp(request)}:/api/cache/revalidate`,
+      RATE_LIMITS.auth
+    );
+    if (!rateLimitResult.success) {
+      return NextResponse.json({ error: '请求过于频繁' }, { status: 429 });
+    }
+
     const body: RevalidateRequest = await request.json();
     const { type, slug, secret } = body;
 
@@ -52,7 +63,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (secret !== expectedSecret) {
+    // 常量时间比较：普通 !== 会在首个不同字符处返回，泄露前缀匹配长度
+    if (typeof secret !== 'string' || !constantTimeEqual(secret, expectedSecret)) {
       console.warn('[Revalidate] Invalid secret provided');
       return NextResponse.json(
         { error: 'Invalid secret' },

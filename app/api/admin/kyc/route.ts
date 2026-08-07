@@ -60,7 +60,7 @@ export async function GET(request: NextRequest) {
       }
 
       // 解密身份证号码并脱敏显示
-      let maskedDocumentNumber = null;
+      let maskedDocumentNumber: string | null = null;
       if (guide.id_document_number) {
         try {
           const decrypted = decryptPII(guide.id_document_number);

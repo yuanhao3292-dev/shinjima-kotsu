@@ -78,7 +78,7 @@ export async function GET(request: NextRequest) {
   }
 
   const authResult = await verifyGuide(request);
-  if ('error' in authResult) {
+  if (authResult.error) {
     return createErrorResponse(authResult.error);
   }
 
@@ -140,7 +140,7 @@ export async function POST(request: NextRequest) {
   }
 
   const authResult = await verifyGuide(request);
-  if ('error' in authResult) {
+  if (authResult.error) {
     return createErrorResponse(authResult.error);
   }
 

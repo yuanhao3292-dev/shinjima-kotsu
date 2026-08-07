@@ -388,7 +388,7 @@ export async function POST(request: NextRequest) {
         }
 
         // actualSpend is guaranteed by Zod refine, but assert for TS narrowing
-        if (actualSpend === undefined) {
+        if (actualSpend === undefined || actualSpend === null) {
           return createErrorResponse(
             Errors.validation('actualSpend is required for complete action')
           );

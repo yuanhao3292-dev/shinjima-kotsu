@@ -532,7 +532,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-gold-400 shrink-0" /> {t.medical.pkg_vip_item_5}</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-gold-400 shrink-0" /> {t.medical.pkg_vip_item_6}</div>
                   </div>
-                  <a href="/medical-packages/vip-member-course" className="w-full py-2 bg-gold-400 text-brand-900 text-xs font-bold rounded hover:bg-gold-300 transition text-center block">{t.medical.pkg_consult_btn}</a>
+                  <Link href="/medical-packages/vip-member-course" className="w-full py-2 bg-gold-400 text-brand-900 text-xs font-bold rounded hover:bg-gold-300 transition text-center block">{t.medical.pkg_consult_btn}</Link>
               </div>
 
               {/* 2. PREMIUM (Cardiac) */}
@@ -553,7 +553,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_premium_item_4}</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_premium_item_5}</div>
                    </div>
-                   <a href="/medical-packages/premium-cardiac-course" className="w-full py-2 border border-brand-300 text-brand-700 text-xs font-bold rounded hover:bg-brand-50 transition text-center block">{t.medical.pkg_consult_btn}</a>
+                   <Link href="/medical-packages/premium-cardiac-course" className="w-full py-2 border border-brand-300 text-brand-700 text-xs font-bold rounded hover:bg-brand-50 transition text-center block">{t.medical.pkg_consult_btn}</Link>
               </div>
 
               {/* 3. SELECT (Gastro + Colon) */}
@@ -574,7 +574,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_select_gc_item_4}</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-brand-500 shrink-0" /> {t.medical.pkg_select_gc_item_5}</div>
                    </div>
-                   <a href="/medical-packages/select-gastro-colonoscopy" className="w-full py-2 border border-brand-300 text-brand-700 text-xs font-bold rounded hover:bg-brand-50 transition text-center block">{t.medical.pkg_consult_btn}</a>
+                   <Link href="/medical-packages/select-gastro-colonoscopy" className="w-full py-2 border border-brand-300 text-brand-700 text-xs font-bold rounded hover:bg-brand-50 transition text-center block">{t.medical.pkg_consult_btn}</Link>
               </div>
 
               {/* 4. SELECT (Stomach only) */}

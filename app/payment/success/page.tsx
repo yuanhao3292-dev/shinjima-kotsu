@@ -68,9 +68,9 @@ function PaymentSuccessContent() {
       return;
     }
 
-    async function fetchOrderId() {
+    async function fetchOrderId(id: string) {
       try {
-        const response = await fetch(`/api/order-lookup?session_id=${encodeURIComponent(sessionId)}`);
+        const response = await fetch(`/api/order-lookup?session_id=${encodeURIComponent(id)}`);
         if (response.ok) {
           const data = await response.json();
           if (data.orderId) setOrderId(data.orderId);
@@ -83,7 +83,7 @@ function PaymentSuccessContent() {
       }
     }
 
-    fetchOrderId();
+    fetchOrderId(sessionId);
   }, [sessionId, router, guideSlugParam]);
 
   const t = (key: keyof typeof i18n) => i18n[key][lang];

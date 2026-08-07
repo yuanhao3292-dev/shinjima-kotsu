@@ -1,9 +1,9 @@
 /**
- * Tests for lib/hooks/useLanguage.ts helper functions
+ * Tests for hooks/useLanguage.ts helper functions
  * (Hook testing requires React test utils — we test the pure utility functions)
  */
 import { describe, it, expect } from 'vitest';
-import { getLanguageName, getLanguageFlag } from '@/lib/hooks/useLanguage';
+import { getLanguageName, getLanguageFlag } from '@/hooks/useLanguage';
 
 // ============================================================
 // getLanguageName

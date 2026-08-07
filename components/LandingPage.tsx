@@ -9,6 +9,7 @@ import { translations, Language } from '../translations';
 import { UserProfile } from '../types';
 import { ArrowLeft, ArrowRight, CheckCircle, MapPin, Building, Activity, Shield, Armchair, FileText, Check, Zap, Coffee, Globe, ChevronDown, Heart, Bus, Utensils, Quote, Lock, Trophy, Car, Bath, Handshake, Mail, X, Phone, Loader2, User, Scan, Cpu, Microscope, Monitor, Map, Award, MessageSquare, Factory, Stethoscope, ExternalLink } from 'lucide-react';
 import emailjs from '@emailjs/browser';
+import { EMAILJS_PUBLIC_KEY } from '@/lib/config/emailjs';
 import HeroCarousel, { CarouselSlide } from './HeroCarousel';
 import TestimonialWall from './TestimonialWall';
 import PackageComparisonTable from './PackageComparisonTable';
@@ -192,13 +193,13 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
             {/* 查看更多 */}
             <div className="text-center mt-10">
-              <a
+              <Link
                 href="/news"
                 className="inline-flex items-center text-sm text-neutral-600 hover:text-brand-900 border border-neutral-300 px-8 py-4 rounded hover:border-neutral-400 transition-colors"
               >
                 {currentLang === 'zh-TW' ? '查看全部消息' : currentLang === 'zh-CN' ? '查看全部消息' : currentLang === 'en' ? 'View All News' : 'すべてのお知らせ'}
                 <ArrowRight size={14} className="ml-2" />
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -860,7 +861,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
     return DEFAULT_SITE_IMAGES[key] || fallback || '';
   };
 
-  useEffect(() => { emailjs.init('exX0IhSSUjNgMhuGb'); }, []);
+  useEffect(() => { emailjs.init(EMAILJS_PUBLIC_KEY); }, []);
 
   // 从 cookie 读取用户语言偏好
   useEffect(() => {

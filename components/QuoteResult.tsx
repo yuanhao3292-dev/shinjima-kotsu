@@ -4,6 +4,7 @@ import { QuoteResponse, ItineraryRequest } from '../types';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { TrendingDown, TrendingUp, Cpu, Download, CheckCircle, Send, User, Phone, Mail, X, Loader2, AlertCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
+import { EMAILJS_PUBLIC_KEY, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID } from '@/lib/config/emailjs';
 
 interface QuoteResultProps {
   quote: QuoteResponse;
@@ -21,7 +22,7 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, request, isAiLoading }
   // Initialize EmailJS explicitly
   useEffect(() => {
     // PUBLIC KEY
-    emailjs.init('exX0IhSSUjNgMhuGb');
+    emailjs.init(EMAILJS_PUBLIC_KEY);
   }, []);
 
   const chartData = [
@@ -44,9 +45,9 @@ const QuoteResult: React.FC<QuoteResultProps> = ({ quote, request, isAiLoading }
     setIsSending(true);
 
     // --- EMAILJS CONFIGURATION ---
-    const serviceId = 'service_epq3fhj';
-    const templateId = 'template_x7h0fb6'; 
-    const publicKey = 'exX0IhSSUjNgMhuGb';
+    const serviceId = EMAILJS_SERVICE_ID;
+    const templateId = EMAILJS_TEMPLATE_ID;
+    const publicKey = EMAILJS_PUBLIC_KEY;
 
     // Construct a detailed message for the OP
     const messageBody = `
@@ -186,7 +187,7 @@ Timestamp: ${new Date().toLocaleString()}
                   ))}
                 </Pie>
                 <Tooltip 
-                  formatter={(value: number) => `¥${value.toLocaleString()}`}
+                  formatter={(value: number | undefined) => `¥${value?.toLocaleString()}`}
                   contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
                 />
                 <Legend verticalAlign="bottom" height={36}/>
@@ -212,7 +213,7 @@ Timestamp: ${new Date().toLocaleString()}
                   </div>
                 ) : (
                   <p className="text-sm text-gray-700 leading-relaxed italic">
-                    "{quote.system_note}"
+                    &ldquo;{quote.system_note}&rdquo;
                   </p>
                 )}
               </div>

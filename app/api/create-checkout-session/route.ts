@@ -130,7 +130,7 @@ export async function POST(request: NextRequest) {
 
     // 2. 创建或获取客户记录
     let customerId: string;
-    let existingCustomer = null;
+    let existingCustomer: { id: string; stripe_customer_id: string | null } | null = null;
 
     // 优先按 email 匹配现有客户
     if (customerInfo.email && customerInfo.email.trim() !== '') {
