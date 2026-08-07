@@ -427,7 +427,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                 }`}
               >
                 <Globe size={14} />
-                {currentLang === 'zh-TW' ? '\u7E41\u4F53\u4E2D\u6587' : currentLang === 'zh-CN' ? '\u7B80\u4F53\u4E2D\u6587' : currentLang === 'ko' ? '\uD55C\uAD6D' : currentLang.toUpperCase()}
+                {currentLang === 'zh-TW' ? '\u7E41\u4F53\u4E2D\u6587' : currentLang === 'zh-CN' ? '\u7B80\u4F53\u4E2D\u6587' : currentLang === 'ko' ? '\uD55C\uAD6D\uC5B4' : currentLang.toUpperCase()}
                 <ChevronDown size={12} />
               </button>
               {langMenuOpen && (

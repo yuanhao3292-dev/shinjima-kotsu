@@ -88,7 +88,7 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
   const currentLanguage = languages.find(l => l.code === currentLocale) || languages[0];
 
   if (variant === 'compact') {
-    const abbr = currentLocale === 'zh-TW' ? '\u7E41\u4F53\u4E2D\u6587' : currentLocale === 'zh-CN' ? '\u7B80\u4F53\u4E2D\u6587' : currentLocale === 'ko' ? '\uD55C\uAD6D' : currentLocale.toUpperCase();
+    const abbr = currentLocale === 'zh-TW' ? '\u7E41\u4F53\u4E2D\u6587' : currentLocale === 'zh-CN' ? '\u7B80\u4F53\u4E2D\u6587' : currentLocale === 'ko' ? '\uD55C\uAD6D\uC5B4' : currentLocale.toUpperCase();
     return (
       <div ref={dropdownRef} className={`relative ${className}`}>
         <button
@@ -121,7 +121,7 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
   }
 
   if (variant === 'sidebar') {
-    const abbr = currentLocale === 'zh-TW' ? '\u7E41\u4F53\u4E2D\u6587' : currentLocale === 'zh-CN' ? '\u7B80\u4F53\u4E2D\u6587' : currentLocale === 'ko' ? '\uD55C\uAD6D' : currentLocale.toUpperCase();
+    const abbr = currentLocale === 'zh-TW' ? '\u7E41\u4F53\u4E2D\u6587' : currentLocale === 'zh-CN' ? '\u7B80\u4F53\u4E2D\u6587' : currentLocale === 'ko' ? '\uD55C\uAD6D\uC5B4' : currentLocale.toUpperCase();
     return (
       <div ref={dropdownRef} className={`relative ${className}`}>
         <button
