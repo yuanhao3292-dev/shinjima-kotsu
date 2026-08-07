@@ -151,20 +151,41 @@ interface RateLimitEntry {
 
 const rateLimitStore: Map<string, RateLimitEntry> = new Map();
 const CLEANUP_INTERVAL = 5 * 60 * 1000;
+/**
+ * 条目数上限。Redis 故障时这里会承接全部流量，而清理每 5 分钟才跑一次——
+ * 攻击者轮换 IP 就能在这个窗口内把内存撑爆。超过上限时先清过期项，
+ * 仍然超限则按插入顺序丢弃最旧的（Map 保持插入顺序）。
+ */
+const MAX_ENTRIES = 50_000;
 let lastCleanup = Date.now();
 
 /**
  * 清理过期的速率限制条目
  */
-function cleanup() {
+function cleanup(force = false) {
   const now = Date.now();
-  if (now - lastCleanup < CLEANUP_INTERVAL) return;
+  if (!force && now - lastCleanup < CLEANUP_INTERVAL) return;
 
   lastCleanup = now;
   for (const [key, entry] of rateLimitStore.entries()) {
     if (entry.resetTime < now) {
       rateLimitStore.delete(key);
     }
+  }
+}
+
+/** 保证内存占用有上界 */
+function enforceCapacity() {
+  if (rateLimitStore.size < MAX_ENTRIES) return;
+
+  cleanup(true);
+
+  let overflow = rateLimitStore.size - MAX_ENTRIES;
+  if (overflow <= 0) return;
+
+  for (const key of rateLimitStore.keys()) {
+    rateLimitStore.delete(key);
+    if (--overflow <= 0) break;
   }
 }
 
@@ -185,6 +206,7 @@ function checkRateLimitMemory(
 
   // 新请求或窗口已重置
   if (!entry || entry.resetTime < now) {
+    enforceCapacity();
     rateLimitStore.set(identifier, {
       count: 1,
       resetTime: now + config.windowMs,

@@ -289,8 +289,12 @@ export default function WhitelabelResultClient({
       return;
     }
 
-    // 会话令牌走请求头而非 URL，因此不能用 window.open 直接导航，
-    // 改为取回 PDF 二进制后用 blob URL 打开。
+    // 会话令牌走请求头而非 URL，所以拿不到可直接导航的地址，只能先取回二进制。
+    //
+    // 触发方式必须是 <a download> 而不是 window.open：fetch 之后用户激活
+    // （transient user activation）已经过期，此时调用 window.open 会被浏览器
+    // 静默拦截 —— 它返回 null 而不抛异常，catch 不触发，用户点了按钮却毫无反应。
+    // 锚点下载不受弹窗策略限制，也能保留文件名。
     try {
       const response = await fetch(
         `/api/health-screening/${screeningData.id}/pdf?lang=${encodeURIComponent(lang)}`,
@@ -299,12 +303,16 @@ export default function WhitelabelResultClient({
       if (!response.ok) throw new Error(t('loadFailed', siteLang));
 
       const blobUrl = URL.createObjectURL(await response.blob());
-      window.open(blobUrl, '_blank');
-      // 交给浏览器打开后即可释放，已打开的标签页仍持有该对象
-      setTimeout(() => URL.revokeObjectURL(blobUrl), 60_000);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = `Niijima-Health-Report-${screeningData.id.slice(0, 8)}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(blobUrl);
     } catch (err: any) {
       console.error('PDF download error:', err);
-      setError(err.message || t('loadFailed', siteLang));
+      setError(err.message || t('pdfFailed', siteLang));
     }
   };
 

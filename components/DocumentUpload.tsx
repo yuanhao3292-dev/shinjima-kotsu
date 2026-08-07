@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback } from 'react';
-import { Upload, FileText, X, Loader2, CheckCircle, AlertCircle, Image } from 'lucide-react';
+import { Upload, FileText, X, Loader2, CheckCircle, AlertCircle, Image as ImageIcon } from 'lucide-react';
 import type { Language } from '@/hooks/useLanguage';
 
 const translations = {
@@ -369,7 +369,7 @@ export default function DocumentUpload({
           <div className="flex gap-2">
             <Upload className="h-8 w-8 text-neutral-400" />
             <FileText className="h-6 w-6 text-neutral-300" />
-            <Image className="h-6 w-6 text-neutral-300" />
+            <ImageIcon className="h-6 w-6 text-neutral-300" />
           </div>
           <div>
             <p className="text-sm text-neutral-600">

@@ -24,7 +24,7 @@ import {
   Tag,
   Download,
   Upload,
-  Image,
+  Image as ImageIcon,
   ExternalLink,
 } from 'lucide-react';
 import { BODY_PARTS, MEDICAL_DEPARTMENTS } from '@/lib/body-map-config';
@@ -594,7 +594,7 @@ export default function AdminScreeningsPage() {
                       {selectedRecord.document_type === 'pdf' ? (
                         <FileText className="text-red-500" size={20} />
                       ) : (
-                        <Image className="text-blue-500" size={20} />
+                        <ImageIcon className="text-blue-500" size={20} />
                       )}
                     </div>
                     <div className="flex-1 min-w-0">

@@ -11,7 +11,7 @@ import {
   Thermometer, Syringe, BedDouble, CalendarCheck,
   ChevronDown, ChevronUp, FileText, Droplets, Dna, Beaker,
 } from 'lucide-react';
-import { useLanguage, type Language } from '@/hooks/useLanguage';
+import { useLanguage4, type Language } from '@/hooks/useLanguage';
 
 
 interface Props {
@@ -534,7 +534,7 @@ const PATIENT_TESTIMONIALS = [
 // 组件
 // ======================================
 export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
-  const lang = useLanguage();
+  const lang = useLanguage4();
   const [expandedProtocol, setExpandedProtocol] = useState<number | null>(null);
 
   return (

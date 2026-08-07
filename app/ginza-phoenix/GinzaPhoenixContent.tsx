@@ -14,7 +14,7 @@ import {
   Zap, ShieldCheck, FileText, HelpCircle,
   Beaker,
 } from 'lucide-react';
-import { useLanguage, type Language } from '@/hooks/useLanguage';
+import { useLanguage4, type Language } from '@/hooks/useLanguage';
 
 
 // Hero Image (白标首图映射用)
@@ -490,7 +490,7 @@ interface GinzaPhoenixContentProps {
 }
 
 export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPhoenixContentProps) {
-  const lang = useLanguage();
+  const lang = useLanguage4();
   const [expandedTherapy, setExpandedTherapy] = useState<number | null>(null);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);

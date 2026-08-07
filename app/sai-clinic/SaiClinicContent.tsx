@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import ContactButtons from '@/components/ContactButtons';
 import type { SaiClinicImage } from '@/lib/services/sai-clinic-images';
-import { useLanguage, type Language } from '@/hooks/useLanguage';
+import { useLanguage4, type Language } from '@/hooks/useLanguage';
 
 
 // Translation helper function
@@ -285,7 +285,7 @@ interface SaiClinicContentProps {
 }
 
 export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: SaiClinicContentProps) {
-  const lang = useLanguage();
+  const lang = useLanguage4();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [menuTab, setMenuTab] = useState<string>('surgery');
 

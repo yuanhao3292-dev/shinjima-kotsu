@@ -13,7 +13,7 @@ import {
   HeartPulse, Scan,
   ArrowRight, Globe, Mail, MessageSquare, CreditCard, Lock
 } from 'lucide-react';
-import { useLanguage, type Language } from '@/hooks/useLanguage';
+import { useLanguage4, type Language } from '@/hooks/useLanguage';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 
 
@@ -1115,7 +1115,7 @@ interface HyogoMedicalContentProps {
 }
 
 export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMedicalContentProps) {
-  const lang = useLanguage();
+  const lang = useLanguage4();
   const [showWechatQR, setShowWechatQR] = useState(false);
   const [activePhase, setActivePhase] = useState<number>(1);
   const [expandedStep, setExpandedStep] = useState<number | null>(null);

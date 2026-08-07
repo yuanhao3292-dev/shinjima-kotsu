@@ -15,7 +15,7 @@ import {
   GraduationCap, Zap, Eye, Brain,
   Sparkles, Star,
 } from 'lucide-react';
-import { useLanguage, type Language } from '@/hooks/useLanguage';
+import { useLanguage4, type Language } from '@/hooks/useLanguage';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 
 
@@ -502,7 +502,7 @@ const PRICING_CATEGORIES: PricingCategory[] = [
 // Component
 // ======================================
 export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneClinicContentProps) {
-  const lang = useLanguage();
+  const lang = useLanguage4();
   const [expandedFlow, setExpandedFlow] = useState<number>(0);
 
   const t = (key: keyof typeof tr) => tr[key][lang] || tr[key]['ja'];

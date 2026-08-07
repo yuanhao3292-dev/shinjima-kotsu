@@ -85,6 +85,8 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
+    // 整页跳转而非 router.push：登出后必须丢弃内存里残留的用户数据与
+    // 路由缓存，客户端导航会把它们带到下一个页面。
     window.location.href = '/';
   };
 

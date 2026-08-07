@@ -187,7 +187,7 @@ Timestamp: ${new Date().toLocaleString()}
                   ))}
                 </Pie>
                 <Tooltip 
-                  formatter={(value: number | undefined) => `¥${value?.toLocaleString()}`}
+                  formatter={(value: number | undefined) => `\u00A5${(value ?? 0).toLocaleString()}`}
                   contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
                 />
                 <Legend verticalAlign="bottom" height={36}/>

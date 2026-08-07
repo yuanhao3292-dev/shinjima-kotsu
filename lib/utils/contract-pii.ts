@@ -66,7 +66,13 @@ export function decryptContractRow<T extends Record<string, unknown>>(contract: 
 
     try {
       result[field] = decryptPII(value, true);
-    } catch {
+    } catch (error) {
+      // 静默吞掉会让界面看起来像"客户没填"，且没有任何排查线索。
+      // 最常见的原因是 ENCRYPTION_KEY 被改动或轮换 —— 必须能从日志看出来。
+      console.error(
+        `[contract-pii] ${field} 解密失败（检查 ENCRYPTION_KEY 是否变更）:`,
+        error instanceof Error ? error.message : error
+      );
       result[field] = '';
     }
   }

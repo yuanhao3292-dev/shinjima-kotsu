@@ -15,12 +15,21 @@
 ## 已知的类型层"谎言"
 
 多语言字典大量使用 `as Record<Language, string>` 断言，但 `Language` 含
-`ko` 而大部分字典只有 4 语（ja/zh-CN/zh-TW/en）。**韩语用户在这些位置
-实际拿到 `undefined`**——这是代码库长期存在的约定，断言只是让它显式化了。
-若要真正支持韩语，需要补文案并把断言换成完整的 5 语字典。
+`ko` 而大部分字典只有 4 语（ja/zh-CN/zh-TW/en）。断言让 tsc 看不出这个缺口。
+
+**运行时影响已通过 `useLanguage4()` 兜住**（见 `hooks/useLanguage.ts`）：
+11 个医院专题页把 `ko` 归一到 `ja`，韩语用户看到一致的日文而不是空白。
+在此之前，选韩语会让这些页面的标题、描述、资质文案整片渲染成空。
+
+实测缺口（2026-08）：8 个页面完全没有韩语文案，兵库医大缺 35 处、
+癌症治疗缺 7 处、大阪 HIMAK 缺 3 处；只有 ac-plus 是完整的，因此它仍用
+`useLanguage()`。
+
+补齐真实韩语文案后，把对应页面改回 `useLanguage()` 即可。
 
 共享类型在 `hooks/useLanguage.ts`：`LocalizedText`（5 语）、
-`LocalizedText4`（4 语）。新代码优先用它们 + `satisfies`，别再手写断言。
+`LocalizedText4`（4 语）、`Language4`。新代码优先用它们 + `satisfies`，
+别再手写断言——`satisfies` 会在缺键时直接报错，断言不会。
 
 ## 检查覆盖范围的缺口
 

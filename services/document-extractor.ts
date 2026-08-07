@@ -66,7 +66,6 @@ async function extractFromPDF(buffer: Buffer): Promise<DocumentExtractionResult>
 
   // Strategy 1: pdf-parse（免费，毫秒级）
   try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const pdfParse = require('pdf-parse');
     const pdfData = await pdfParse(buffer);
     pdfText = (pdfData.text || '').trim();

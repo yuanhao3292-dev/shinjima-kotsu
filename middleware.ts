@@ -92,26 +92,42 @@ export async function middleware(request: NextRequest) {
       'http://localhost:3001',
     ]);
 
-    // Also allow any subdomain of whitelabel domain
+    // 白标子域名 + Vercel 预览部署（预览域名每次部署都变，只能按后缀放行；
+    // 仅在非生产环境启用，生产环境不接受 vercel.app 来源）
+    const isPreviewOrigin =
+      process.env.VERCEL_ENV !== 'production' && !!origin && origin.endsWith('.vercel.app');
+
     const isAllowedOrigin = origin && (
       ALLOWED_ORIGINS.has(origin) ||
-      origin.endsWith(`.${DOMAINS.whitelabel}`)
+      origin.endsWith(`.${DOMAINS.whitelabel}`) ||
+      isPreviewOrigin
     );
 
     if (!isAllowedOrigin) {
       // 无合法 Origin → 仅放行「确实会校验 API key 的 B2B 端点」的服务端调用。
       // 此处只做格式预筛，真正的密钥校验在路由内的 validateAPIKey() 完成；
       // 因此绕过必须限定在那批路由上，否则等于对全部 API 关闭了 CSRF 网关。
-      const apiKey = request.headers.get('x-api-key');
+      //
+      // 密钥走 Authorization: Bearer（与 lib/utils/api-key-auth.ts 和
+      // docs/openapi.yaml 一致）。曾经这里读的是 x-api-key，与路由端对不上，
+      // 只是因为 middleware 根本没在 /api/* 上运行才没暴露出来。
+      const authHeader = request.headers.get('authorization') || '';
+      const apiKey = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : '';
       const isApiKeyRoute = API_KEY_ROUTE_PREFIXES.some((prefix) => pathname.startsWith(prefix));
 
-      if (!isApiKeyRoute || !apiKey || !apiKey.startsWith('nk_')) {
+      if (!isApiKeyRoute || !apiKey.startsWith('nk_')) {
         return new NextResponse(JSON.stringify({ error: 'CSRF validation failed' }), {
           status: 403,
           headers: { 'Content-Type': 'application/json' },
         });
       }
     }
+  }
+
+  // API 路由到此为止：下面的指纹校验、页面限速、白标重写、Supabase session
+  // 刷新都是为页面请求设计的（429 还会返回 HTML），API 有自己的 per-route 限速。
+  if (isApiRoute) {
+    return NextResponse.next();
   }
 
   // ========== 跳过 Next.js 内部请求的限速 ==========
@@ -371,6 +387,13 @@ export const config = {
      * - public files (images, etc.)
      * - API routes that don't need auth
      */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$|api/(?!protected)).*)',
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$|api/).*)',
+    // API 路由单独登记：只为跑上面的 CSRF 网关，函数体在那之后立刻 return。
+    //
+    // 此前这里写的是 `api/(?!protected)`，意图大概是"放行不需要鉴权的 API"，
+    // 实际效果是排除了除 /api/protected 之外的全部 API —— 而仓库里并不存在
+    // /api/protected 路由，等于 middleware 从未在任何 API 上执行过，
+    // CSRF 校验一直是死代码。
+    '/api/:path*',
   ],
 };

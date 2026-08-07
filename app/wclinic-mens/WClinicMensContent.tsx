@@ -14,7 +14,7 @@ import {
   Star, ShieldCheck,
   Stethoscope, Droplets, ChevronDown,
 } from 'lucide-react';
-import { useLanguage, type Language } from '@/hooks/useLanguage';
+import { useLanguage4, type Language } from '@/hooks/useLanguage';
 
 
 // ======================================
@@ -417,7 +417,7 @@ interface WClinicMensContentProps {
 }
 
 export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicMensContentProps) {
-  const lang = useLanguage();
+  const lang = useLanguage4();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
 
   return (

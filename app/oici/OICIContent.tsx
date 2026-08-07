@@ -11,7 +11,7 @@ import {
   ArrowRight, Globe, Mail, MessageSquare,
   Dna, Target, Radio, FlaskConical, Bot, Clock
 } from 'lucide-react';
-import { useLanguage, type Language } from '@/hooks/useLanguage';
+import { useLanguage4, type Language } from '@/hooks/useLanguage';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 
@@ -588,7 +588,7 @@ const HISTORY_MILESTONES = [
 // Component
 // ======================================
 export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
-  const lang = useLanguage();
+  const lang = useLanguage4();
   const [expandedPhase, setExpandedPhase] = useState<number>(0);
 
   const t = (key: keyof typeof tr) => tr[key][lang] || tr[key]['ja'];

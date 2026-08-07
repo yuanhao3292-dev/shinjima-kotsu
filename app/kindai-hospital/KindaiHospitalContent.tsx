@@ -31,7 +31,7 @@ import {
   Globe,
   CheckCircle,
 } from 'lucide-react'
-import { useLanguage, type Language } from '@/hooks/useLanguage'
+import { useLanguage4, type Language } from '@/hooks/useLanguage'
 
 
 interface KindaiHospitalContentProps {
@@ -43,7 +43,7 @@ export default function KindaiHospitalContent({
   isGuideEmbed = false,
   guideSlug,
 }: KindaiHospitalContentProps) {
-  const locale = useLanguage()
+  const locale = useLanguage4()
   const [activePhase, setActivePhase] = useState<number>(1)
   const [expandedStep, setExpandedStep] = useState<number | null>(null)
 

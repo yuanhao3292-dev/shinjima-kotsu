@@ -13,6 +13,9 @@ export type LocalizedText = Record<Language, string>;
 /** 四语言变体：部分页面不提供韩语 */
 export type LocalizedText4 = Record<Exclude<Language, 'ko'>, string>;
 
+/** 医院专题页实际提供的语种 */
+export type Language4 = Exclude<Language, 'ko'>;
+
 const LANGUAGE_COOKIE_NAME = 'NEXT_LOCALE';
 const VALID_LANGUAGES: Language[] = ['ja', 'zh-TW', 'zh-CN', 'en', 'ko'];
 
@@ -57,6 +60,25 @@ export function useLanguage(): Language {
   }, []);
 
   return currentLang;
+}
+
+/**
+ * 医院专题页专用：把语言收窄到页面实际提供的四语种。
+ *
+ * 语言切换器提供韩语，但各医院页的内联文案字典只写了 ja/zh-TW/zh-CN/en。
+ * 直接拿 'ko' 去索引会得到 undefined，React 渲染成空白 —— 韩语用户看到的
+ * 是一个个空标题、空段落。缺口规模（2026-08 实测）：8 个页面完全没有韩语，
+ * 兵库医大缺 35 处、癌症治疗缺 7 处、大阪 HIMAK 缺 3 处。
+ *
+ * 在补齐真实韩语文案之前，统一回退到日语 —— 与 resolveLabel 的回退语种一致，
+ * 也比"一半韩文一半空白"更可用。
+ *
+ * 文案补齐后，把对应页面改回 useLanguage() 即可。
+ * ac-plus 的韩语已完整，未使用本 hook。
+ */
+export function useLanguage4(): Language4 {
+  const lang = useLanguage();
+  return lang === 'ko' ? 'ja' : lang;
 }
 
 /**

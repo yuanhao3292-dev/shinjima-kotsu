@@ -9,7 +9,7 @@ import {
   Heart, Brain, Microscope, HelpCircle, Mail,
   Calendar, FileText, Stethoscope, Sparkles, Train,
 } from 'lucide-react';
-import { useLanguage, type Language } from '@/hooks/useLanguage';
+import { useLanguage4, type Language } from '@/hooks/useLanguage';
 
 
 // ======================================
@@ -234,7 +234,7 @@ interface OsakaHimakContentProps {
 }
 
 export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHimakContentProps) {
-  const lang = useLanguage();
+  const lang = useLanguage4();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const checkoutHref = (path: string) => {
