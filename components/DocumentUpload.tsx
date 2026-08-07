@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback } from 'react';
-import { Upload, FileText, X, Loader2, CheckCircle, AlertCircle, Image } from 'lucide-react';
+import { Upload, FileText, X, Loader2, CheckCircle, AlertCircle, Image as ImageIcon } from 'lucide-react';
 import type { Language } from '@/hooks/useLanguage';
 
 const translations = {
@@ -158,7 +158,7 @@ export default function DocumentUpload({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const t = useCallback(
-    (key: keyof typeof translations) => translations[key][language] || translations[key]['zh-CN'],
+    (key: keyof typeof translations) => (translations[key] as Record<Language, string>)[language] || translations[key]['zh-CN'],
     [language]
   );
 
@@ -369,7 +369,7 @@ export default function DocumentUpload({
           <div className="flex gap-2">
             <Upload className="h-8 w-8 text-neutral-400" />
             <FileText className="h-6 w-6 text-neutral-300" />
-            <Image className="h-6 w-6 text-neutral-300" />
+            <ImageIcon className="h-6 w-6 text-neutral-300" />
           </div>
           <div>
             <p className="text-sm text-neutral-600">

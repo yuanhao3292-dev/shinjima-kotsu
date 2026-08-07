@@ -73,8 +73,15 @@ export async function GET(
       return NextResponse.json({ error: 'Customer email not found' }, { status: 400 });
     }
 
-    // 验证 token
-    const isValid = await verifyInvoiceToken(token, orderId, customerEmail);
+    // 验证 token。密钥未配置时 getInvoiceSecret() 会抛错（fail-closed），
+    // 这属于服务端配置问题而非客户端令牌无效，要能从响应上区分开。
+    let isValid: boolean;
+    try {
+      isValid = await verifyInvoiceToken(token, orderId, customerEmail);
+    } catch (err) {
+      console.error('[invoice] 令牌校验无法执行:', err);
+      return NextResponse.json({ error: 'Invoice service unavailable' }, { status: 503 });
+    }
     if (!isValid) {
       return NextResponse.json({ error: 'Invalid token' }, { status: 403 });
     }

@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
   }
 
   const authResult = await verifyGuideAndGetId(request);
-  if ('error' in authResult) {
+  if (authResult.error) {
     return createErrorResponse(authResult.error);
   }
 

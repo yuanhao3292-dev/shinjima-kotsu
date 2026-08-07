@@ -354,11 +354,11 @@ export function translateTerm(term: string, locale: PricingLocale): string {
 export function generatePricingText(
   venue: {
     name: string;
-    business_hours?: string;
-    closed_days?: string;
-    service_charge?: string;
-    website?: string;
-    pricing_info?: Record<string, unknown>;
+    business_hours?: string | null;
+    closed_days?: string | null;
+    service_charge?: string | null;
+    website?: string | null;
+    pricing_info?: Record<string, unknown> | null;
   },
   locale: PricingLocale
 ): string {

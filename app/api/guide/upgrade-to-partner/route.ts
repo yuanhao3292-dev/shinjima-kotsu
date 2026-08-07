@@ -121,7 +121,12 @@ export async function POST(request: NextRequest) {
     const supabase = getSupabase();
 
     const body = await request.json();
-    const { guideId, planCode = 'growth', successUrl, cancelUrl } = body;
+    const { guideId, planCode = 'growth', successUrl, cancelUrl } = body as {
+      guideId?: string;
+      planCode?: keyof typeof PLANS;
+      successUrl?: string;
+      cancelUrl?: string;
+    };
 
     if (!guideId) {
       return NextResponse.json({ error: "guideId is required" }, { status: 400 });

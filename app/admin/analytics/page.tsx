@@ -384,8 +384,8 @@ export default function AnalyticsPage() {
                 <XAxis dataKey="label" tick={{ fontSize: 12 }} />
                 <YAxis tick={{ fontSize: 12 }} />
                 <Tooltip
-                  formatter={(value: number, name: string) => [
-                    `¥${value}K`,
+                  formatter={(value: number | undefined, name: string | undefined) => [
+                    `¥${value ?? 0}K`,
                     name === 'revenueK' ? '売上' : '手数料',
                   ]}
                 />
@@ -459,7 +459,7 @@ export default function AnalyticsPage() {
               <XAxis dataKey="label" tick={{ fontSize: 12 }} />
               <YAxis tick={{ fontSize: 12 }} />
               <Tooltip
-                formatter={(value: number) => [`${value}件`, '受注']}
+                formatter={(value: number | undefined) => [`${value ?? 0}\u4EF6`, '\u53D7\u6CE8']}
               />
               <Line
                 type="monotone"

@@ -6,6 +6,7 @@ import ScreeningResult from '@/components/ScreeningResult';
 import { type BodyMapSelectionData } from '@/components/BodyMapSelector';
 import { type AnalysisResult } from '@/services/aemc/types';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
+import { SCREENING_SESSION_HEADER } from '@/lib/utils/screening-session';
 import {
   ArrowLeft,
   Loader2,
@@ -170,7 +171,7 @@ const translations = {
 } as const;
 
 const t = (key: keyof typeof translations, lang: Language): string =>
-  translations[key][lang];
+  (translations[key] as Record<Language, string>)[lang];
 
 // ---------------------------------------------------------------------------
 // Interfaces
@@ -246,9 +247,9 @@ export default function WhitelabelResultClient({
           return;
         }
 
-        const response = await fetch(
-          `/api/whitelabel/screening/${screeningId}?sessionId=${encodeURIComponent(sessionId)}`
-        );
+        const response = await fetch(`/api/whitelabel/screening/${screeningId}`, {
+          headers: { [SCREENING_SESSION_HEADER]: sessionId },
+        });
 
         if (!response.ok) {
           const errorData = await response.json();
@@ -280,12 +281,39 @@ export default function WhitelabelResultClient({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [screeningId]);
 
-  const handleDownloadPDF = () => {
+  const handleDownloadPDF = async () => {
     if (!screeningData) return;
-    // 服务端生成 PDF — 直接打开 API URL
     const sessionId = getSessionId();
-    const url = `/api/health-screening/${screeningData.id}/pdf?sessionId=${encodeURIComponent(sessionId)}&lang=${encodeURIComponent(lang)}`;
-    window.open(url, '_blank');
+    if (!sessionId) {
+      setError(t('sessionExpired', siteLang));
+      return;
+    }
+
+    // 会话令牌走请求头而非 URL，所以拿不到可直接导航的地址，只能先取回二进制。
+    //
+    // 触发方式必须是 <a download> 而不是 window.open：fetch 之后用户激活
+    // （transient user activation）已经过期，此时调用 window.open 会被浏览器
+    // 静默拦截 —— 它返回 null 而不抛异常，catch 不触发，用户点了按钮却毫无反应。
+    // 锚点下载不受弹窗策略限制，也能保留文件名。
+    try {
+      const response = await fetch(
+        `/api/health-screening/${screeningData.id}/pdf?lang=${encodeURIComponent(lang)}`,
+        { headers: { [SCREENING_SESSION_HEADER]: sessionId } }
+      );
+      if (!response.ok) throw new Error(t('loadFailed', siteLang));
+
+      const blobUrl = URL.createObjectURL(await response.blob());
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = `Niijima-Health-Report-${screeningData.id.slice(0, 8)}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(blobUrl);
+    } catch (err: any) {
+      console.error('PDF download error:', err);
+      setError(err.message || t('pdfFailed', siteLang));
+    }
   };
 
   if (loading) {

@@ -16,11 +16,15 @@ dist-ssr
 .next/
 out/
 
+# TypeScript 增量编译缓存（3MB 级产物，不应进版本库）
+*.tsbuildinfo
+
 # Environment variables
+# 注意：下面用的是通配前缀，而不是 .env*.local ——
+# 曾经有 .env.local.stripe-test 因为 .local 不在结尾而漏网被提交。
 .env
-.env.local
-.env.production
-.env.development
+.env.*
+!.env.example
 
 # Editor directories and files
 .vscode/*

@@ -25,7 +25,7 @@ import {
   MessageCircleQuestion,
   Upload,
   FileText,
-  Image,
+  Image as ImageIcon,
   ExternalLink,
 } from 'lucide-react';
 
@@ -690,7 +690,7 @@ export default function ReviewsPage() {
                         {adj.document_type === 'pdf' ? (
                           <FileText className="w-4 h-4 text-red-500 shrink-0" />
                         ) : (
-                          <Image className="w-4 h-4 text-blue-500 shrink-0" />
+                          <ImageIcon className="w-4 h-4 text-blue-500 shrink-0" />
                         )}
                         <span className="text-sm text-gray-700 truncate flex-1">{adj.document_name}</span>
                         <a

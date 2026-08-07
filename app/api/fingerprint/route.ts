@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateFingerprintToken, verifyFingerprintToken } from '@/lib/utils/fingerprint-token';
+import { getFingerprintSecret } from '@/lib/utils/secrets';
 
 /**
  * POST /api/fingerprint
@@ -8,8 +9,14 @@ import { generateFingerprintToken, verifyFingerprintToken } from '@/lib/utils/fi
  */
 export async function POST(request: NextRequest) {
   try {
+    const fpSecret = getFingerprintSecret();
+    if (!fpSecret) {
+      // 密钥缺失时不签发令牌。middleware 会把这些请求按可疑流量限速，
+      // 站点仍可访问，但不会因为使用可猜测的密钥而形成虚假信任。
+      return NextResponse.json({ error: 'Fingerprinting unavailable' }, { status: 503 });
+    }
+
     // 如果已有有效 cookie，直接跳过（避免每次页面加载都重新签名）
-    const fpSecret = process.env.FP_SECRET || process.env.NEXT_PUBLIC_FP_SECRET || 'fp-default-key';
     const existingCookie = request.cookies.get('__bfp')?.value;
     if (existingCookie) {
       const existing = await verifyFingerprintToken(existingCookie, fpSecret);

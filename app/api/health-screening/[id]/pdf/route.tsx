@@ -3,6 +3,7 @@ import { renderToBuffer } from '@react-pdf/renderer';
 import { createClient } from '@/lib/supabase/server';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
 import HealthReportDocument from '@/components/HealthReportPDF';
+import { getScreeningSessionId } from '@/lib/utils/screening-session';
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -10,16 +11,16 @@ interface RouteParams {
 
 /**
  * GET /api/health-screening/[id]/pdf?lang=zh-CN
- * GET /api/health-screening/[id]/pdf?sessionId=xxx&lang=zh-CN  (whitelabel)
  *
  * 服务端生成健康评估报告 PDF。
- * 支持两种认证：Supabase auth（官方用户）或 sessionId（白标用户）。
+ * 支持两种认证：Supabase auth（官方用户），或白标用户通过
+ * x-screening-session 请求头携带的会话令牌（见 lib/utils/screening-session.ts）。
  */
 export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
     const searchParams = request.nextUrl.searchParams;
-    const sessionId = searchParams.get('sessionId');
+    const sessionId = getScreeningSessionId(request);
     const lang = searchParams.get('lang') as 'ja' | 'zh-CN' | 'zh-TW' | 'en' | null;
     const language = (['ja', 'zh-CN', 'zh-TW', 'en'].includes(lang || '') ? lang : null) as 'ja' | 'zh-CN' | 'zh-TW' | 'en' | null;
 

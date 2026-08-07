@@ -79,7 +79,21 @@ export async function GET(request: NextRequest, context: RouteContext) {
       .limit(50);
 
     // API Key info (if linked)
-    let apiKey = null;
+    let apiKey: {
+      id: string;
+      name: string;
+      key_prefix: string;
+      scopes: string[];
+      rate_limit_per_minute: number;
+      rate_limit_per_day: number;
+      total_requests: number;
+      total_tokens_in: number;
+      total_tokens_out: number;
+      is_active: boolean;
+      last_used_at: string | null;
+      expires_at: string | null;
+      created_at: string;
+    } | null = null;
     if (enterprise.api_key_id) {
       const { data } = await supabase
         .from('api_keys')

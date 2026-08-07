@@ -273,7 +273,6 @@ export async function getGuideDistributionPage(
   const selectedModules: SelectedModuleWithDetails[] = (selectedModulesData || [])
     .filter((sm) => sm.page_modules)
     .map((sm) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const mod = sm.page_modules as any;
       return {
         id: sm.id,
@@ -353,7 +352,6 @@ export async function getGuideModuleByComponentKey(
 
   if (!data || !data.page_modules) return null;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mod = data.page_modules as any;
   const matchingModule: SelectedModuleWithDetails = {
     id: data.id,

@@ -207,7 +207,7 @@ const translations = {
 } as const;
 
 const t = (key: keyof typeof translations, lang: Language): string => {
-  return translations[key][lang];
+  return (translations[key] as Record<Language, string>)[lang];
 };
 
 interface Guide {
@@ -553,7 +553,7 @@ export default function AnalyticsPage() {
                 <div>
                   <p className="text-brand-100 text-sm">{t('upgradeTarget', lang)}</p>
                   <p className="font-bold text-lg">
-                    {LEVEL_CONFIG[currentLevel]?.label} → {LEVEL_CONFIG[nextLevel]?.label}
+                    {LEVEL_CONFIG[currentLevel]?.label} → {nextLevel && LEVEL_CONFIG[nextLevel]?.label}
                   </p>
                 </div>
               </div>

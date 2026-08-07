@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
 import { generateSigningToken } from '@/lib/utils/signing-token';
+import { decryptContractRow } from '@/lib/utils/contract-pii';
 import CustomerContractSigningPage from './CustomerContractSigningPage';
 
 interface ContractSignPageProps {
@@ -67,7 +68,7 @@ export default async function ContractSignPage({ params, searchParams }: Contrac
   }
 
   // 渲染签署页面（客户端组件）
-  return <CustomerContractSigningPage contract={contract} signingToken={token} />;
+  return <CustomerContractSigningPage contract={decryptContractRow(contract)} signingToken={token} />;
 }
 
 export async function generateMetadata({ params }: ContractSignPageProps) {

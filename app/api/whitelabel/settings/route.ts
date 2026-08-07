@@ -49,7 +49,26 @@ export async function GET(request: NextRequest) {
     console.log("[whitelabel/settings] 查询导游信息, auth_user_id:", user.id, "email:", user.email);
 
     // 先尝试查询包含 selected_pages 的完整字段
-    let guide;
+    // （备用查询不含 selected_pages / brand_tagline，故这两列为可选）
+    let guide: {
+      id: string;
+      name: string | null;
+      slug: string | null;
+      brand_name: string | null;
+      brand_tagline?: string | null;
+      brand_logo_url: string | null;
+      brand_color: string | null;
+      contact_wechat: string | null;
+      contact_line: string | null;
+      contact_display_phone: string | null;
+      email: string | null;
+      subscription_status: string | null;
+      subscription_plan: string | null;
+      subscription_end_date: string | null;
+      whitelabel_views: number | null;
+      whitelabel_conversions: number | null;
+      selected_pages?: string[] | string | null;
+    } | null;
     let guideError;
 
     const { data: guideData, error: queryError } = await supabase

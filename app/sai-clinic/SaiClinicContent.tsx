@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import ContactButtons from '@/components/ContactButtons';
 import type { SaiClinicImage } from '@/lib/services/sai-clinic-images';
-import { useLanguage, type Language } from '@/hooks/useLanguage';
+import { useLanguage4, type Language } from '@/hooks/useLanguage';
 
 
 // Translation helper function
@@ -285,7 +285,7 @@ interface SaiClinicContentProps {
 }
 
 export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: SaiClinicContentProps) {
-  const lang = useLanguage();
+  const lang = useLanguage4();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [menuTab, setMenuTab] = useState<string>('surgery');
 
@@ -1111,7 +1111,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
           </div>
         </div>
         <p className="text-center text-[11px] text-gray-400 mt-6 px-6">
-          {{ ja: '※ 上記はサービスの流れや環境に対する個人の感想であり、施術効果を保証するものではありません。', 'zh-TW': '※ 以上為個人對服務流程及環境的感想，並非對療程效果的保證。', 'zh-CN': '※ 以上为个人对服务流程及环境的感想，并非对疗程效果的保证。', en: '※ The above are individual impressions of service and environment, not guarantees of treatment outcomes.' }[lang]}
+          {({ ja: '※ 上記はサービスの流れや環境に対する個人の感想であり、施術効果を保証するものではありません。', 'zh-TW': '※ 以上為個人對服務流程及環境的感想，並非對療程效果的保證。', 'zh-CN': '※ 以上为个人对服务流程及环境的感想，并非对疗程效果的保证。', en: '※ The above are individual impressions of service and environment, not guarantees of treatment outcomes.' } as Record<Language, string>)[lang]}
         </p>
       </section>
 
@@ -1211,9 +1211,9 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
       <section className="py-8 bg-gray-100">
         <div className="max-w-4xl mx-auto px-6">
           <ul className="space-y-1.5 text-xs text-gray-500 leading-relaxed">
-            <li>※ {{ ja: '本ページの施術は自由診療（保険適用外）です。', 'zh-TW': '本頁療程為自費診療（不適用保險）。', 'zh-CN': '本页疗程为自费诊疗（不适用保险）。', en: 'All treatments on this page are self-pay (not covered by insurance).' }[lang]}</li>
-            <li>※ {{ ja: '施術効果には個人差があり、すべての方に同様の結果を保証するものではありません。', 'zh-TW': '療程效果因人而異，不保證所有人均能獲得相同效果。', 'zh-CN': '疗程效果因人而异，不保证所有人均能获得相同效果。', en: 'Treatment effects vary by individual and are not guaranteed for all patients.' }[lang]}</li>
-            <li>※ {{ ja: '当社（新島交通株式会社・大阪府知事登録旅行業 第2-3115号）は旅行業者であり、医療機関ではありません。施術は提携クリニックが提供します。', 'zh-TW': '本公司（新島交通株式會社・大阪府知事登錄旅行業 第2-3115號）為旅行業者，非醫療機構。療程由合作診所提供。', 'zh-CN': '本公司（新岛交通株式会社・大阪府知事登录旅行业 第2-3115号）为旅行业者，非医疗机构。疗程由合作诊所提供。', en: 'Niijima Kotsu Co., Ltd. (Osaka Gov. Registered Travel Agency No. 2-3115) is a travel agency, not a medical institution. Treatments are provided by partner clinics.' }[lang]}</li>
+            <li>※ {({ ja: '本ページの施術は自由診療（保険適用外）です。', 'zh-TW': '本頁療程為自費診療（不適用保險）。', 'zh-CN': '本页疗程为自费诊疗（不适用保险）。', en: 'All treatments on this page are self-pay (not covered by insurance).' } as Record<Language, string>)[lang]}</li>
+            <li>※ {({ ja: '施術効果には個人差があり、すべての方に同様の結果を保証するものではありません。', 'zh-TW': '療程效果因人而異，不保證所有人均能獲得相同效果。', 'zh-CN': '疗程效果因人而异，不保证所有人均能获得相同效果。', en: 'Treatment effects vary by individual and are not guaranteed for all patients.' } as Record<Language, string>)[lang]}</li>
+            <li>※ {({ ja: '当社（新島交通株式会社・大阪府知事登録旅行業 第2-3115号）は旅行業者であり、医療機関ではありません。施術は提携クリニックが提供します。', 'zh-TW': '本公司（新島交通株式會社・大阪府知事登錄旅行業 第2-3115號）為旅行業者，非醫療機構。療程由合作診所提供。', 'zh-CN': '本公司（新岛交通株式会社・大阪府知事登录旅行业 第2-3115号）为旅行业者，非医疗机构。疗程由合作诊所提供。', en: 'Niijima Kotsu Co., Ltd. (Osaka Gov. Registered Travel Agency No. 2-3115) is a travel agency, not a medical institution. Treatments are provided by partner clinics.' } as Record<Language, string>)[lang]}</li>
           </ul>
         </div>
       </section>

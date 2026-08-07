@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
     if (!validation.success) return validation.error;
     const { venueId, guideId, date, time } = validation.data;
 
-    const conflicts = [];
+    const conflicts: { type: string; message: string; bookingId: string }[] = [];
 
     // 检查店铺冲突
     if (venueId) {
@@ -168,7 +168,7 @@ export async function POST(request: NextRequest) {
 }
 
 // 辅助函数：检查时间是否冲突（2小时内视为冲突）
-function isTimeConflict(time1: string | null, time2: string | null): boolean {
+function isTimeConflict(time1: string | null | undefined, time2: string | null | undefined): boolean {
   // 如果任一方没有指定时间，视为可能冲突
   if (!time1 || !time2) return true;
 
@@ -183,7 +183,7 @@ function isTimeConflict(time1: string | null, time2: string | null): boolean {
 
 // 辅助函数：生成时间段（店铺）
 function generateTimeSlots(bookings: any[]) {
-  const slots = [];
+  const slots: { time_slot: string; is_available: boolean; existing_booking_id: string | null }[] = [];
   for (let hour = 10; hour <= 22; hour++) {
     const timeStr = `${hour.toString().padStart(2, '0')}:00`;
     const conflict = bookings.find(b => isTimeConflict(timeStr, b.booking_time));
@@ -198,7 +198,7 @@ function generateTimeSlots(bookings: any[]) {
 
 // 辅助函数：生成时间段（导游）
 function generateGuidTimeSlots(bookings: any[]) {
-  const slots = [];
+  const slots: { time_slot: string; is_available: boolean; venue_name: string | null }[] = [];
   for (let hour = 10; hour <= 22; hour++) {
     const timeStr = `${hour.toString().padStart(2, '0')}:00`;
     const conflict = bookings.find(b => isTimeConflict(timeStr, b.booking_time));

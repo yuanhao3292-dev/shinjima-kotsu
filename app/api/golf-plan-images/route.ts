@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase-client';
+import { getSupabaseAdmin } from '@/lib/supabase/api';
 
 // Prevent static generation - this route requires runtime env vars
 export const dynamic = 'force-dynamic';
@@ -31,6 +31,7 @@ const DEFAULT_IMAGES: Record<string, string> = {
 export async function GET() {
   try {
     // Try to fetch from database
+    const supabase = getSupabaseAdmin();
     const { data, error } = await supabase
       .from('golf_plan_images')
       .select('plan_id, image_url');

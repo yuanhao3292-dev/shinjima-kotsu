@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import PublicLayout from '@/components/PublicLayout';
 import { localizeText } from '@/lib/utils/text-converter';
@@ -97,6 +98,7 @@ const pageTranslations = {
 };
 
 export default function NewsPage() {
+  const router = useRouter();
   const [newsList, setNewsList] = useState<NewsItem[]>([]);
   const [stats, setStats] = useState<NewsStats | null>(null);
   const [loading, setLoading] = useState(true);
@@ -241,7 +243,7 @@ export default function NewsPage() {
               {featuredNews.slice(0, 3).map((news, index) => (
                 <article
                   key={news.id}
-                  onClick={() => window.location.href = `/news/${news.id}`}
+                  onClick={() => router.push(`/news/${news.id}`)}
                   className={`group relative overflow-hidden rounded-2xl hover:shadow-xl transition-all duration-500 cursor-pointer ${
                     index === 0 ? 'md:col-span-2 md:row-span-2' : ''
                   }`}
@@ -358,7 +360,7 @@ export default function NewsPage() {
                   return (
                     <article
                       key={news.id}
-                      onClick={() => window.location.href = `/news/${news.id}`}
+                      onClick={() => router.push(`/news/${news.id}`)}
                       className="group p-6 hover:bg-neutral-50 transition-all duration-300 cursor-pointer"
                       style={{ animationDelay: `${index * 50}ms` }}
                     >

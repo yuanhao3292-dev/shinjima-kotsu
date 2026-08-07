@@ -31,7 +31,7 @@ import {
   Globe,
   CheckCircle,
 } from 'lucide-react'
-import { useLanguage, type Language } from '@/hooks/useLanguage'
+import { useLanguage4, type Language } from '@/hooks/useLanguage'
 
 
 interface KindaiHospitalContentProps {
@@ -43,7 +43,7 @@ export default function KindaiHospitalContent({
   isGuideEmbed = false,
   guideSlug,
 }: KindaiHospitalContentProps) {
-  const locale = useLanguage()
+  const locale = useLanguage4()
   const [activePhase, setActivePhase] = useState<number>(1)
   const [expandedStep, setExpandedStep] = useState<number | null>(null)
 
@@ -55,21 +55,21 @@ export default function KindaiHospitalContent({
     'zh-CN': '近畿大学医院',
     'zh-TW': '近畿大學醫院',
     en: 'Kindai University Hospital',
-  }
+  } as Record<Language, string>
 
   const heroSubtitle = {
     ja: '南大阪の大学附属病院｜特定機能病院',
     'zh-CN': '南大阪的大学附属医院 | 国家认定特定功能医院',
     'zh-TW': '南大阪的大學附屬醫院 | 國家認定特定功能醫院',
     en: 'University Hospital in South Osaka | Designated Advanced Care Hospital',
-  }
+  } as Record<Language, string>
 
   const heroDescription = {
     ja: '1975年創立｜35診療科・20専門センター・800床｜大学附属総合医療センター',
     'zh-CN': '1975年创立 | 35个诊疗科·20个专门中心·800床 | 大学附属综合医疗中心',
     'zh-TW': '1975年創立 | 35個診療科·20個專門中心·800床 | 大學附屬綜合醫療中心',
     en: 'Est. 1975 | 35 Departments · 20 Centers · 800 Beds | University Comprehensive Medical Center',
-  }
+  } as Record<Language, string>
 
   // 国家级资质认证
   const certificationsTitle = {
@@ -77,7 +77,7 @@ export default function KindaiHospitalContent({
     'zh-CN': '国家认定医疗资质',
     'zh-TW': '國家認定醫療資質',
     en: 'National Medical Certifications',
-  }
+  } as Record<Language, string>
 
   const certifications = [
     {
@@ -87,13 +87,13 @@ export default function KindaiHospitalContent({
         'zh-CN': '特定功能医院',
         'zh-TW': '特定功能醫院',
         en: 'Advanced Care Hospital',
-      },
+      } as Record<Language, string>,
       description: {
         ja: '厚生労働省指定・高度医療提供施設',
         'zh-CN': '厚生劳动省指定的高度医疗提供机构',
         'zh-TW': '厚生勞動省指定的高度醫療提供機構',
         en: 'Designated by Ministry of Health for Advanced Care',
-      },
+      } as Record<Language, string>,
     },
     {
       icon: Microscope,
@@ -102,13 +102,13 @@ export default function KindaiHospitalContent({
         'zh-CN': '癌症基因组医疗核心医院',
         'zh-TW': '癌症基因組醫療核心醫院',
         en: 'Cancer Genomic Medicine Hub',
-      },
+      } as Record<Language, string>,
       description: {
         ja: '国指定・がんゲノム医療の中核拠点',
         'zh-CN': '国家指定的癌症基因组医疗核心据点',
         'zh-TW': '國家指定的癌症基因組醫療核心據點',
         en: 'National Hub for Genomic Cancer Treatment',
-      },
+      } as Record<Language, string>,
     },
     {
       icon: GraduationCap,
@@ -117,13 +117,13 @@ export default function KindaiHospitalContent({
         'zh-CN': '临床研修指定医院',
         'zh-TW': '臨床研修指定醫院',
         en: 'Clinical Training Hospital',
-      },
+      } as Record<Language, string>,
       description: {
         ja: '医師育成・臨床研究の拠点施設',
         'zh-CN': '医师培养与临床研究的核心机构',
         'zh-TW': '醫師培養與臨床研究的核心機構',
         en: 'Core Facility for Physician Training & Research',
-      },
+      } as Record<Language, string>,
     },
     {
       icon: Heart,
@@ -132,13 +132,13 @@ export default function KindaiHospitalContent({
         'zh-CN': '灾害救援核心医院',
         'zh-TW': '災害救援核心醫院',
         en: 'Disaster Relief Hospital',
-      },
+      } as Record<Language, string>,
       description: {
         ja: '大阪府指定・災害時医療提供体制',
         'zh-CN': '大阪府指定的灾害时医疗保障体系',
         'zh-TW': '大阪府指定的災害時醫療保障體系',
         en: 'Osaka Prefecture Designated Emergency Medical System',
-      },
+      } as Record<Language, string>,
     },
   ]
 
@@ -148,91 +148,91 @@ export default function KindaiHospitalContent({
     'zh-CN': '综合医疗实力',
     'zh-TW': '綜合醫療實力',
     en: 'Comprehensive Medical Capability',
-  }
+  } as Record<Language, string>
 
   const comprehensiveStats = [
     {
       icon: Building2,
       number: '800',
-      unit: { ja: '床', 'zh-CN': '床', 'zh-TW': '床', en: 'Beds' },
-      label: { ja: '病床数', 'zh-CN': '病床数', 'zh-TW': '病床數', en: 'Total Beds' },
+      unit: { ja: '床', 'zh-CN': '床', 'zh-TW': '床', en: 'Beds' } as Record<Language, string>,
+      label: { ja: '病床数', 'zh-CN': '病床数', 'zh-TW': '病床數', en: 'Total Beds' } as Record<Language, string>,
     },
     {
       icon: Stethoscope,
       number: '35',
-      unit: { ja: '科', 'zh-CN': '科', 'zh-TW': '科', en: 'Depts' },
+      unit: { ja: '科', 'zh-CN': '科', 'zh-TW': '科', en: 'Depts' } as Record<Language, string>,
       label: {
         ja: '診療科',
         'zh-CN': '诊疗科',
         'zh-TW': '診療科',
         en: 'Medical Departments',
-      },
+      } as Record<Language, string>,
     },
     {
       icon: Heart,
       number: '20',
-      unit: { ja: 'センター', 'zh-CN': '中心', 'zh-TW': '中心', en: 'Centers' },
+      unit: { ja: 'センター', 'zh-CN': '中心', 'zh-TW': '中心', en: 'Centers' } as Record<Language, string>,
       label: {
         ja: '専門医療センター',
         'zh-CN': '专门医疗中心',
         'zh-TW': '專門醫療中心',
         en: 'Specialized Centers',
-      },
+      } as Record<Language, string>,
     },
     {
       icon: Users,
       number: '23,451',
-      unit: { ja: '名', 'zh-CN': '人', 'zh-TW': '人', en: '' },
+      unit: { ja: '名', 'zh-CN': '人', 'zh-TW': '人', en: '' } as Record<Language, string>,
       label: {
         ja: '年間退院患者数',
         'zh-CN': '年度出院患者',
         'zh-TW': '年度出院患者',
         en: 'Annual Discharges',
-      },
+      } as Record<Language, string>,
     },
     {
       icon: Activity,
       number: '3,000+',
-      unit: { ja: '件', 'zh-CN': '台', 'zh-TW': '台', en: '' },
+      unit: { ja: '件', 'zh-CN': '台', 'zh-TW': '台', en: '' } as Record<Language, string>,
       label: {
         ja: '年間手術件数',
         'zh-CN': '年度手术量',
         'zh-TW': '年度手術量',
         en: 'Annual Surgeries',
-      },
+      } as Record<Language, string>,
     },
     {
       icon: Award,
       number: '50',
-      unit: { ja: '年', 'zh-CN': '年', 'zh-TW': '年', en: 'Yrs' },
+      unit: { ja: '年', 'zh-CN': '年', 'zh-TW': '年', en: 'Yrs' } as Record<Language, string>,
       label: {
         ja: '臨床実績（1975年創立）',
         'zh-CN': '临床实绩（1975年创立）',
         'zh-TW': '臨床實績（1975年創立）',
         en: 'Clinical Track Record (Est. 1975)',
-      },
+      } as Record<Language, string>,
     },
     {
       icon: UserCheck,
       number: '773',
-      unit: { ja: '名', 'zh-CN': '人', 'zh-TW': '人', en: '' },
+      unit: { ja: '名', 'zh-CN': '人', 'zh-TW': '人', en: '' } as Record<Language, string>,
       label: {
         ja: '医師数',
         'zh-CN': '医师团队',
         'zh-TW': '醫師團隊',
         en: 'Medical Doctors',
-      },
+      } as Record<Language, string>,
     },
     {
       icon: Heart,
       number: '892',
-      unit: { ja: '名', 'zh-CN': '人', 'zh-TW': '人', en: '' },
+      unit: { ja: '名', 'zh-CN': '人', 'zh-TW': '人', en: '' } as Record<Language, string>,
       label: {
         ja: '看護師数',
         'zh-CN': '护士团队',
         'zh-TW': '護士團隊',
         en: 'Nursing Staff',
-      },
+      } as Record<Language, string>,
     },
   ]
 
@@ -242,7 +242,7 @@ export default function KindaiHospitalContent({
     'zh-CN': 'MDT多学科协作诊疗',
     'zh-TW': 'MDT多學科協作診療',
     en: 'Multidisciplinary Team (MDT) Approach',
-  }
+  } as Record<Language, string>
 
   const mdtDescription = {
     ja: '複雑な疾患に対して、複数の診療科の専門医がチームを組み、患者様一人ひとりに最適な治療計画を策定します。外科、内科、放射線科、病理診断科、緩和ケア科などの専門家が協力し、エビデンスに基づいた総合的な治療を提供します。',
@@ -251,7 +251,7 @@ export default function KindaiHospitalContent({
     'zh-TW':
       '針對複雜疾病,由多個診療科的專家組成團隊,為每位患者制定最優的個性化治療方案。外科、內科、放射科、病理診斷科、姑息治療科等專家協作,提供基於循證醫學的綜合治療。',
     en: 'For complex diseases, specialists from multiple departments form a team to develop optimal personalized treatment plans for each patient. Experts in surgery, internal medicine, radiology, pathology, and palliative care collaborate to provide evidence-based comprehensive treatment.',
-  }
+  } as Record<Language, string>
 
   const mdtFeatures = [
     {
@@ -261,13 +261,13 @@ export default function KindaiHospitalContent({
         'zh-CN': '癌症专家委员会',
         'zh-TW': '癌症專家委員會',
         en: 'Cancer Board',
-      },
+      } as Record<Language, string>,
       description: {
         ja: '各科の専門医が集まり、治療方針を協議',
         'zh-CN': '各科专家汇聚,共同讨论治疗方针',
         'zh-TW': '各科專家匯聚,共同討論治療方針',
         en: 'Specialists from all departments discuss treatment strategies',
-      },
+      } as Record<Language, string>,
     },
     {
       icon: Microscope,
@@ -276,13 +276,13 @@ export default function KindaiHospitalContent({
         'zh-CN': '最新循证医学',
         'zh-TW': '最新循證醫學',
         en: 'Latest Evidence-Based Medicine',
-      },
+      } as Record<Language, string>,
       description: {
         ja: '大学病院ならではの研究成果を臨床に応用',
         'zh-CN': '将大学医院的研究成果应用于临床',
         'zh-TW': '將大學醫院的研究成果應用於臨床',
         en: 'Applying university hospital research to clinical practice',
-      },
+      } as Record<Language, string>,
     },
     {
       icon: Heart,
@@ -291,13 +291,13 @@ export default function KindaiHospitalContent({
         'zh-CN': '个性化医疗',
         'zh-TW': '個性化醫療',
         en: 'Personalized Medicine',
-      },
+      } as Record<Language, string>,
       description: {
         ja: '患者様の状態に合わせた最適な治療計画',
         'zh-CN': '根据患者状况制定最优治疗方案',
         'zh-TW': '根據患者狀況制定最優治療方案',
         en: 'Optimal treatment plans tailored to patient conditions',
-      },
+      } as Record<Language, string>,
     },
     {
       icon: CheckCircle2,
@@ -306,13 +306,13 @@ export default function KindaiHospitalContent({
         'zh-CN': '多维度评估',
         'zh-TW': '多維度評估',
         en: 'Multidimensional Evaluation',
-      },
+      } as Record<Language, string>,
       description: {
         ja: '診断から治療、予後まで総合的にサポート',
         'zh-CN': '从诊断到治疗、预后全方位支持',
         'zh-TW': '從診斷到治療、預後全方位支持',
         en: 'Comprehensive support from diagnosis to treatment and prognosis',
-      },
+      } as Record<Language, string>,
     },
   ]
 
@@ -322,7 +322,7 @@ export default function KindaiHospitalContent({
     'zh-CN': '大学医院优势',
     'zh-TW': '大學醫院優勢',
     en: 'University Hospital Strengths',
-  }
+  } as Record<Language, string>
 
   const universityFeatures = [
     {
@@ -332,13 +332,13 @@ export default function KindaiHospitalContent({
         'zh-CN': '近畿大学医学部附属',
         'zh-TW': '近畿大學醫學部附屬',
         en: 'Affiliated with Kindai University Faculty of Medicine',
-      },
+      } as Record<Language, string>,
       description: {
         ja: '医学教育・研究・診療の三位一体',
         'zh-CN': '医学教育、研究、诊疗三位一体',
         'zh-TW': '醫學教育、研究、診療三位一體',
         en: 'Integration of medical education, research, and clinical practice',
-      },
+      } as Record<Language, string>,
     },
     {
       icon: FlaskConical,
@@ -347,13 +347,13 @@ export default function KindaiHospitalContent({
         'zh-CN': '临床研究中心',
         'zh-TW': '臨床研究中心',
         en: 'Clinical Research Center',
-      },
+      } as Record<Language, string>,
       description: {
         ja: '最新の医学研究成果を即座に臨床に反映',
         'zh-CN': '最新医学研究成果立即应用于临床',
         'zh-TW': '最新醫學研究成果立即應用於臨床',
         en: 'Immediate clinical application of latest medical research',
-      },
+      } as Record<Language, string>,
     },
     {
       icon: UserCheck,
@@ -362,13 +362,13 @@ export default function KindaiHospitalContent({
         'zh-CN': '专科医师培养',
         'zh-TW': '專科醫師培養',
         en: 'Specialist Training',
-      },
+      } as Record<Language, string>,
       description: {
         ja: '次世代を担う優秀な医師を育成',
         'zh-CN': '培养引领下一代的优秀医师',
         'zh-TW': '培養引領下一代的優秀醫師',
         en: 'Training excellent physicians for the next generation',
-      },
+      } as Record<Language, string>,
     },
     {
       icon: Microscope,
@@ -377,13 +377,13 @@ export default function KindaiHospitalContent({
         'zh-CN': '先进医疗认证',
         'zh-TW': '先進醫療認證',
         en: 'Advanced Medical Approval',
-      },
+      } as Record<Language, string>,
       description: {
         ja: '保険適用外の最新治療技術を提供可能',
         'zh-CN': '可提供保险范围外的最新治疗技术',
         'zh-TW': '可提供保險範圍外的最新治療技術',
         en: 'Access to latest treatments beyond standard insurance coverage',
-      },
+      } as Record<Language, string>,
     },
   ]
 
@@ -393,7 +393,7 @@ export default function KindaiHospitalContent({
     'zh-CN': '先进医疗设备',
     'zh-TW': '先進醫療設備',
     en: 'Advanced Medical Equipment',
-  }
+  } as Record<Language, string>
 
   const coreEquipment = [
     {
@@ -403,32 +403,32 @@ export default function KindaiHospitalContent({
         'zh-CN': 'da Vinci 手术辅助机器人',
         'zh-TW': 'da Vinci 手術輔助機器人',
         en: 'da Vinci Surgical Robot',
-      },
+      } as Record<Language, string>,
       highlight: {
         ja: '第4世代 da Vinci Xiシステム',
         'zh-CN': '第4代 da Vinci Xi系统',
         'zh-TW': '第4代 da Vinci Xi系統',
         en: '4th Generation da Vinci Xi System',
-      },
+      } as Record<Language, string>,
       purpose: {
         ja: '3D高精細画像と多関節アームによる低侵襲精密手術',
         'zh-CN': '通过3D高清影像和多关节机械臂实现微创精密手术',
         'zh-TW': '透過3D高清影像和多關節機械臂實現微創精密手術',
         en: '3D HD imaging with multi-articulated arms for minimally invasive precision surgery',
-      },
+      } as Record<Language, string>,
       imageUrl: 'https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_2020_03_davinci_01.jpg',
       applications: {
         ja: '泌尿器科・外科・婦人科',
         'zh-CN': '泌尿外科、外科、妇科',
         'zh-TW': '泌尿外科、外科、婦科',
         en: 'Urology, Surgery, Gynecology',
-      },
+      } as Record<Language, string>,
       yearIntroduced: '2016',
       advantages: [
-        { ja: '手ぶれがなく安全な手術', 'zh-CN': '无手部抖动,安全手术', 'zh-TW': '無手部抖動,安全手術', en: 'Tremor-free, safe surgery' },
-        { ja: '術後の機能温存率向上', 'zh-CN': '术后功能保留率提高', 'zh-TW': '術後功能保留率提高', en: 'Improved post-op function preservation' },
-        { ja: '出血量が少ない', 'zh-CN': '出血量少', 'zh-TW': '出血量少', en: 'Minimal blood loss' },
-        { ja: '早期社会復帰が可能', 'zh-CN': '可快速重返社会', 'zh-TW': '可快速重返社會', en: 'Faster return to daily life' },
+        { ja: '手ぶれがなく安全な手術', 'zh-CN': '无手部抖动,安全手术', 'zh-TW': '無手部抖動,安全手術', en: 'Tremor-free, safe surgery' } as Record<Language, string>,
+        { ja: '術後の機能温存率向上', 'zh-CN': '术后功能保留率提高', 'zh-TW': '術後功能保留率提高', en: 'Improved post-op function preservation' } as Record<Language, string>,
+        { ja: '出血量が少ない', 'zh-CN': '出血量少', 'zh-TW': '出血量少', en: 'Minimal blood loss' } as Record<Language, string>,
+        { ja: '早期社会復帰が可能', 'zh-CN': '可快速重返社会', 'zh-TW': '可快速重返社會', en: 'Faster return to daily life' } as Record<Language, string>,
       ],
     },
     {
@@ -438,38 +438,38 @@ export default function KindaiHospitalContent({
         'zh-CN': '复合手术室',
         'zh-TW': '複合手術室',
         en: 'Hybrid Operating Room',
-      },
+      } as Record<Language, string>,
       highlight: {
         ja: 'Artis zee / ARTIS Q ceiling',
         'zh-CN': 'Artis zee / ARTIS Q ceiling',
         'zh-TW': 'Artis zee / ARTIS Q ceiling',
         en: 'Artis zee / ARTIS Q ceiling',
-      },
+      } as Record<Language, string>,
       purpose: {
         ja: '手術と画像診断を同時実施可能な高機能手術室',
         'zh-CN': '可同时进行手术和影像诊断的高功能手术室',
         'zh-TW': '可同時進行手術和影像診斷的高功能手術室',
         en: 'High-performance OR enabling simultaneous surgery and imaging',
-      },
+      } as Record<Language, string>,
       imageUrl: 'https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_2020_02_hybrid_operating_room_01.jpg',
       applications: {
         ja: '心臓血管外科・脳神経外科',
         'zh-CN': '心血管外科、脑外科',
         'zh-TW': '心血管外科、腦外科',
         en: 'Cardiovascular, Neurosurgery',
-      },
+      } as Record<Language, string>,
       yearIntroduced: '2016',
       facilities: {
         ja: '面積71.8m²・Artis zeego（多軸駆動アーム搭載血管撮影システム）',
         'zh-CN': '面积71.8m²·Artis zeego（多轴驱动臂血管造影系统）',
         'zh-TW': '面積71.8m²·Artis zeego（多軸驅動臂血管造影系統）',
         en: 'Area: 71.8m² · Artis zeego (Multi-axis angiography system)',
-      },
+      } as Record<Language, string>,
       advantages: [
-        { ja: '術中撮影画像の3D化・瞬時の画像融合', 'zh-CN': '术中影像3D化·瞬间图像融合', 'zh-TW': '術中影像3D化·瞬間圖像融合', en: 'Intraoperative 3D imaging & instant fusion' },
-        { ja: '患者の院内移動減少', 'zh-CN': '减少患者院内移动', 'zh-TW': '減少患者院內移動', en: 'Reduced patient transfers' },
-        { ja: '手術時間短縮・出血量低減', 'zh-CN': '缩短手术时间·减少出血', 'zh-TW': '縮短手術時間·減少出血', en: 'Shorter surgery time, less bleeding' },
-        { ja: '入院期間短縮', 'zh-CN': '缩短住院时间', 'zh-TW': '縮短住院時間', en: 'Shorter hospital stay' },
+        { ja: '術中撮影画像の3D化・瞬時の画像融合', 'zh-CN': '术中影像3D化·瞬间图像融合', 'zh-TW': '術中影像3D化·瞬間圖像融合', en: 'Intraoperative 3D imaging & instant fusion' } as Record<Language, string>,
+        { ja: '患者の院内移動減少', 'zh-CN': '减少患者院内移动', 'zh-TW': '減少患者院內移動', en: 'Reduced patient transfers' } as Record<Language, string>,
+        { ja: '手術時間短縮・出血量低減', 'zh-CN': '缩短手术时间·减少出血', 'zh-TW': '縮短手術時間·減少出血', en: 'Shorter surgery time, less bleeding' } as Record<Language, string>,
+        { ja: '入院期間短縮', 'zh-CN': '缩短住院时间', 'zh-TW': '縮短住院時間', en: 'Shorter hospital stay' } as Record<Language, string>,
       ],
     },
     {
@@ -479,45 +479,45 @@ export default function KindaiHospitalContent({
         'zh-CN': 'Halcyon 放射治疗设备',
         'zh-TW': 'Halcyon 放射治療設備',
         en: 'Halcyon Radiation Therapy System',
-      },
+      } as Record<Language, string>,
       highlight: {
         ja: 'kV-CBCT画像誘導放射線治療',
         'zh-CN': 'kV-CBCT影像引导放射治疗',
         'zh-TW': 'kV-CBCT影像引導放射治療',
         en: 'kV-CBCT Image-Guided Radiation Therapy',
-      },
+      } as Record<Language, string>,
       purpose: {
         ja: '毎回CT撮影による高精度照射・治療時間を大幅短縮',
         'zh-CN': '每次治疗前CT扫描实现精准照射,大幅缩短治疗时间',
         'zh-TW': '每次治療前CT掃描實現精準照射,大幅縮短治療時間',
         en: 'Pre-treatment CT for precision targeting with significantly reduced treatment time',
-      },
+      } as Record<Language, string>,
       imageUrl: 'https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_2020_04_halcyon_01.jpg',
       applications: {
         ja: '放射線治療センター',
         'zh-CN': '放射治疗中心',
         'zh-TW': '放射治療中心',
         en: 'Radiation Therapy Center',
-      },
+      } as Record<Language, string>,
       yearIntroduced: '2019',
       status: {
         ja: '西日本初導入',
         'zh-CN': '西日本首台引进',
         'zh-TW': '西日本首台引進',
         en: 'First in Western Japan',
-      },
+      } as Record<Language, string>,
       advantages: [
-        { ja: '治療時間が約半分に短縮（約15分→約3分）', 'zh-CN': '治疗时间缩短约一半（约15分→约3分）', 'zh-TW': '治療時間縮短約一半（約15分→約3分）', en: 'Treatment time halved (15min→3min)' },
-        { ja: '息を止める必要がない', 'zh-CN': '无需屏住呼吸', 'zh-TW': '無需屏住呼吸', en: 'No breath-holding required' },
-        { ja: '高い静音性', 'zh-CN': '高静音性', 'zh-TW': '高靜音性', en: 'High noise reduction' },
-        { ja: 'より鮮明なCT画像撮影が可能', 'zh-CN': '可拍摄更清晰的CT图像', 'zh-TW': '可拍攝更清晰的CT圖像', en: 'Clearer CT imaging' },
+        { ja: '治療時間が約半分に短縮（約15分→約3分）', 'zh-CN': '治疗时间缩短约一半（约15分→约3分）', 'zh-TW': '治療時間縮短約一半（約15分→約3分）', en: 'Treatment time halved (15min→3min)' } as Record<Language, string>,
+        { ja: '息を止める必要がない', 'zh-CN': '无需屏住呼吸', 'zh-TW': '無需屏住呼吸', en: 'No breath-holding required' } as Record<Language, string>,
+        { ja: '高い静音性', 'zh-CN': '高静音性', 'zh-TW': '高靜音性', en: 'High noise reduction' } as Record<Language, string>,
+        { ja: 'より鮮明なCT画像撮影が可能', 'zh-CN': '可拍摄更清晰的CT图像', 'zh-TW': '可拍攝更清晰的CT圖像', en: 'Clearer CT imaging' } as Record<Language, string>,
       ],
       targetDiseases: {
         ja: '前立腺がん・肺がん・頭頸部がん・膵臓がん・婦人科がん',
         'zh-CN': '前列腺癌、肺癌、头颈部癌、胰腺癌、妇科癌',
         'zh-TW': '前列腺癌、肺癌、頭頸部癌、胰臟癌、婦科癌',
         en: 'Prostate, lung, head/neck, pancreatic, gynecological cancers',
-      },
+      } as Record<Language, string>,
     },
     {
       icon: Activity,
@@ -526,44 +526,44 @@ export default function KindaiHospitalContent({
         'zh-CN': 'NAVIO 膝关节手术辅助机器人',
         'zh-TW': 'NAVIO 膝關節手術輔助機器人',
         en: 'NAVIO Knee Surgery Robot',
-      },
+      } as Record<Language, string>,
       highlight: {
         ja: 'CT不要・術中リアルタイム3Dマッピング',
         'zh-CN': '无需CT·术中实时3D骨骼成像',
         'zh-TW': '無需CT·術中即時3D骨骼成像',
         en: 'No CT Required - Real-time 3D Bone Mapping',
-      },
+      } as Record<Language, string>,
       purpose: {
         ja: '人工膝関節置換術の精度向上・被曝ゼロ',
         'zh-CN': '提高人工膝关节置换术精度,零辐射',
         'zh-TW': '提高人工膝關節置換術精度,零輻射',
         en: 'Enhanced precision for knee replacement with zero radiation',
-      },
+      } as Record<Language, string>,
       imageUrl: 'https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_2020_01_navio_01.jpg',
       applications: {
         ja: '整形外科',
         'zh-CN': '骨科',
         'zh-TW': '骨科',
         en: 'Orthopedics',
-      },
+      } as Record<Language, string>,
       yearIntroduced: '2019',
       status: {
         ja: '日本国内初導入',
         'zh-CN': '日本国内首台引进',
         'zh-TW': '日本國內首台引進',
         en: 'First in Japan',
-      },
+      } as Record<Language, string>,
       technology: {
         ja: '赤外線技術で骨の形状と関節の動きを感知し、ドリル動作を制御',
         'zh-CN': '利用红外线技术感知骨骼形状和关节运动,控制钻孔动作',
         'zh-TW': '利用紅外線技術感知骨骼形狀和關節運動,控制鑽孔動作',
         en: 'Infrared technology detects bone shape and joint movement to control drilling',
-      },
+      } as Record<Language, string>,
       advantages: [
-        { ja: '必要な部分のみを正確に削除', 'zh-CN': '仅精确删除必要部分', 'zh-TW': '僅精確刪除必要部分', en: 'Precisely removes only necessary parts' },
-        { ja: '前十字靭帯の温存が実現', 'zh-CN': '实现前交叉韧带保留', 'zh-TW': '實現前交叉韌帶保留', en: 'ACL preservation achieved' },
-        { ja: '骨削除時のエラー防止', 'zh-CN': '防止骨削除误差', 'zh-TW': '防止骨削除誤差', en: 'Error prevention in bone resection' },
-        { ja: 'リハビリ期間の短縮・早期退院', 'zh-CN': '缩短康复期·早期出院', 'zh-TW': '縮短康復期·早期出院', en: 'Shorter rehab, earlier discharge' },
+        { ja: '必要な部分のみを正確に削除', 'zh-CN': '仅精确删除必要部分', 'zh-TW': '僅精確刪除必要部分', en: 'Precisely removes only necessary parts' } as Record<Language, string>,
+        { ja: '前十字靭帯の温存が実現', 'zh-CN': '实现前交叉韧带保留', 'zh-TW': '實現前交叉韌帶保留', en: 'ACL preservation achieved' } as Record<Language, string>,
+        { ja: '骨削除時のエラー防止', 'zh-CN': '防止骨削除误差', 'zh-TW': '防止骨削除誤差', en: 'Error prevention in bone resection' } as Record<Language, string>,
+        { ja: 'リハビリ期間の短縮・早期退院', 'zh-CN': '缩短康复期·早期出院', 'zh-TW': '縮短康復期·早期出院', en: 'Shorter rehab, earlier discharge' } as Record<Language, string>,
       ],
     },
     {
@@ -573,44 +573,44 @@ export default function KindaiHospitalContent({
         'zh-CN': 'PET分子影像中心',
         'zh-TW': 'PET分子影像中心',
         en: 'PET Molecular Imaging Center',
-      },
+      } as Record<Language, string>,
       highlight: {
         ja: 'BresTome® 頭部・乳房専用PET装置',
         'zh-CN': 'BresTome® 头部/乳房专用PET设备',
         'zh-TW': 'BresTome® 頭部/乳房專用PET設備',
         en: 'BresTome® Dedicated Brain/Breast PET Scanner',
-      },
+      } as Record<Language, string>,
       purpose: {
         ja: '早期がん検出・認知症診断に特化した高精度検査',
         'zh-CN': '专门用于早期癌症检测和认知症诊断的高精度检查',
         'zh-TW': '專門用於早期癌症檢測和認知症診斷的高精度檢查',
         en: 'High-precision detection for early cancer and dementia diagnosis',
-      },
+      } as Record<Language, string>,
       imageUrl: 'https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_2020_05_pet_01.jpg',
       applications: {
         ja: 'PET分子イメージングセンター',
         'zh-CN': 'PET分子影像中心',
         'zh-TW': 'PET分子影像中心',
         en: 'PET Imaging Center',
-      },
+      } as Record<Language, string>,
       yearIntroduced: '2005',
       status: {
         ja: '大阪南エリア初導入',
         'zh-CN': '南大阪地区首台引进',
         'zh-TW': '南大阪地區首台引進',
         en: 'First in South Osaka',
-      },
+      } as Record<Language, string>,
       technology: {
         ja: '18F-FDG薬剤を利用し、がん細胞が正常細胞よりも多くのブドウ糖を消費する特性を活用',
         'zh-CN': '利用18F-FDG药剂,运用癌细胞比正常细胞消耗更多葡萄糖的特性',
         'zh-TW': '利用18F-FDG藥劑,運用癌細胞比正常細胞消耗更多葡萄糖的特性',
         en: 'Uses 18F-FDG tracer, leveraging cancer cells\' higher glucose consumption',
-      },
+      } as Record<Language, string>,
       advantages: [
-        { ja: '約1cm前後のがんも発見可能', 'zh-CN': '可发现约1cm左右的癌症', 'zh-TW': '可發現約1cm左右的癌症', en: 'Can detect cancers ~1cm in size' },
-        { ja: '全身同時撮影で転移巣を評価', 'zh-CN': '全身同步拍摄评估转移灶', 'zh-TW': '全身同步拍攝評估轉移灶', en: 'Whole-body scan assesses metastases' },
-        { ja: '身体への負担が少ない検査', 'zh-CN': '对身体负担较小的检查', 'zh-TW': '對身體負擔較小的檢查', en: 'Low-burden examination' },
-        { ja: 'サイクロトロンで検査当日にFDG製剤を製造', 'zh-CN': '回旋加速器当日制造FDG制剂', 'zh-TW': '迴旋加速器當日製造FDG製劑', en: 'Same-day FDG production via cyclotron' },
+        { ja: '約1cm前後のがんも発見可能', 'zh-CN': '可发现约1cm左右的癌症', 'zh-TW': '可發現約1cm左右的癌症', en: 'Can detect cancers ~1cm in size' } as Record<Language, string>,
+        { ja: '全身同時撮影で転移巣を評価', 'zh-CN': '全身同步拍摄评估转移灶', 'zh-TW': '全身同步拍攝評估轉移灶', en: 'Whole-body scan assesses metastases' } as Record<Language, string>,
+        { ja: '身体への負担が少ない検査', 'zh-CN': '对身体负担较小的检查', 'zh-TW': '對身體負擔較小的檢查', en: 'Low-burden examination' } as Record<Language, string>,
+        { ja: 'サイクロトロンで検査当日にFDG製剤を製造', 'zh-CN': '回旋加速器当日制造FDG制剂', 'zh-TW': '迴旋加速器當日製造FDG製劑', en: 'Same-day FDG production via cyclotron' } as Record<Language, string>,
       ],
     },
     {
@@ -620,48 +620,48 @@ export default function KindaiHospitalContent({
         'zh-CN': '光免疫疗法（Alluminox）',
         'zh-TW': '光免疫療法（Alluminox）',
         en: 'Photoimmunotherapy (Alluminox)',
-      },
+      } as Record<Language, string>,
       highlight: {
         ja: '第5のがん治療法・アキャルックス®',
         'zh-CN': '第5种癌症治疗法·Akalux®',
         'zh-TW': '第5種癌症治療法·Akalux®',
         en: 'The 5th Cancer Treatment - Akalux®',
-      },
+      } as Record<Language, string>,
       purpose: {
         ja: '切除不能な頭頸部がんに対する革新的光治療',
         'zh-CN': '针对不可切除头颈部癌症的创新光疗法',
         'zh-TW': '針對不可切除頭頸部癌症的創新光療法',
         en: 'Innovative light therapy for unresectable head and neck cancer',
-      },
+      } as Record<Language, string>,
       imageUrl: 'https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_2022_amc01_alluminox_01.jpg',
       applications: {
         ja: '耳鼻咽喉・頭頸部外科',
         'zh-CN': '耳鼻咽喉·头颈部外科',
         'zh-TW': '耳鼻咽喉·頭頸部外科',
         en: 'Otolaryngology & Head/Neck Surgery',
-      },
+      } as Record<Language, string>,
       yearIntroduced: '2022',
       status: {
         ja: '第5のがん治療法として注目',
         'zh-CN': '作为第5代癌症治疗法备受关注',
         'zh-TW': '作為第5代癌症治療法備受關注',
         en: '5th cancer treatment gaining attention',
-      },
+      } as Record<Language, string>,
       developer: {
         ja: '楽天メディカル',
         'zh-CN': '乐天医疗',
         'zh-TW': '樂天醫療',
         en: 'Rakuten Medical',
-      },
+      } as Record<Language, string>,
       treatmentProcess: [
-        { ja: '第1段階: アキャルックス®を点滴投与し、がん細胞表面のタンパク質に結合', 'zh-CN': '第1步: 静脉注射Akalux®,与癌细胞表面蛋白结合', 'zh-TW': '第1步: 靜脈注射Akalux®,與癌細胞表面蛋白結合', en: 'Step 1: IV Akalux® binds to cancer cell proteins' },
-        { ja: '第2段階: レーザ光を照射して薬剤を反応させ、がん細胞を消滅', 'zh-CN': '第2步: 激光照射激活药物,消灭癌细胞', 'zh-TW': '第2步: 激光照射激活藥物,消滅癌細胞', en: 'Step 2: Laser activates drug to eliminate cancer cells' },
+        { ja: '第1段階: アキャルックス®を点滴投与し、がん細胞表面のタンパク質に結合', 'zh-CN': '第1步: 静脉注射Akalux®,与癌细胞表面蛋白结合', 'zh-TW': '第1步: 靜脈注射Akalux®,與癌細胞表面蛋白結合', en: 'Step 1: IV Akalux® binds to cancer cell proteins' } as Record<Language, string>,
+        { ja: '第2段階: レーザ光を照射して薬剤を反応させ、がん細胞を消滅', 'zh-CN': '第2步: 激光照射激活药物,消灭癌细胞', 'zh-TW': '第2步: 激光照射激活藥物,消滅癌細胞', en: 'Step 2: Laser activates drug to eliminate cancer cells' } as Record<Language, string>,
       ],
       advantages: [
-        { ja: '入院期間わずか2日間', 'zh-CN': '住院仅需2天', 'zh-TW': '住院僅需2天', en: 'Only 2-day hospital stay' },
-        { ja: '保険適用対象（切除不能な局所進行又は局所再発の頭頸部がん）', 'zh-CN': '已纳入保险（不可切除的局部晚期或复发头颈部癌）', 'zh-TW': '已納入保險（不可切除的局部晚期或復發頭頸部癌）', en: 'Insurance-covered (unresectable advanced/recurrent head & neck cancer)' },
-        { ja: '手術・化学療法・放射線療法・免疫療法に続く新治療法', 'zh-CN': '继手术、化疗、放疗、免疫疗法后的新疗法', 'zh-TW': '繼手術、化療、放療、免疫療法後的新療法', en: 'New option after surgery, chemo, radiation, immunotherapy' },
-        { ja: '数日間の遮光が必要（強い光・直射日光を避ける）', 'zh-CN': '需避光数日（避免强光·直射阳光）', 'zh-TW': '需避光數日（避免強光·直射陽光）', en: 'Light avoidance required for a few days' },
+        { ja: '入院期間わずか2日間', 'zh-CN': '住院仅需2天', 'zh-TW': '住院僅需2天', en: 'Only 2-day hospital stay' } as Record<Language, string>,
+        { ja: '保険適用対象（切除不能な局所進行又は局所再発の頭頸部がん）', 'zh-CN': '已纳入保险（不可切除的局部晚期或复发头颈部癌）', 'zh-TW': '已納入保險（不可切除的局部晚期或復發頭頸部癌）', en: 'Insurance-covered (unresectable advanced/recurrent head & neck cancer)' } as Record<Language, string>,
+        { ja: '手術・化学療法・放射線療法・免疫療法に続く新治療法', 'zh-CN': '继手术、化疗、放疗、免疫疗法后的新疗法', 'zh-TW': '繼手術、化療、放療、免疫療法後的新療法', en: 'New option after surgery, chemo, radiation, immunotherapy' } as Record<Language, string>,
+        { ja: '数日間の遮光が必要（強い光・直射日光を避ける）', 'zh-CN': '需避光数日（避免强光·直射阳光）', 'zh-TW': '需避光數日（避免強光·直射陽光）', en: 'Light avoidance required for a few days' } as Record<Language, string>,
       ],
     },
   ]
@@ -672,7 +672,7 @@ export default function KindaiHospitalContent({
     'zh-CN': '专家医师团队',
     'zh-TW': '專家醫師團隊',
     en: 'Expert Medical Team',
-  }
+  } as Record<Language, string>
 
   const featuredDoctors = [
     {
@@ -681,36 +681,36 @@ export default function KindaiHospitalContent({
         'zh-CN': '津谷康浩',
         'zh-TW': '津谷康浩',
         en: 'Tsutani Yasuhiro',
-      },
+      } as Record<Language, string>,
       title: {
         ja: '教授・診療部長',
         'zh-CN': '教授·诊疗部长',
         'zh-TW': '教授·診療部長',
         en: 'Professor & Director',
-      },
+      } as Record<Language, string>,
       department: {
         ja: '呼吸器外科',
         'zh-CN': '呼吸外科',
         'zh-TW': '呼吸外科',
         en: 'Thoracic Surgery',
-      },
+      } as Record<Language, string>,
       specialties: [
-        { ja: '肺がん', 'zh-CN': '肺癌', 'zh-TW': '肺癌', en: 'Lung Cancer' },
-        { ja: '縦隔腫瘍', 'zh-CN': '纵隔肿瘤', 'zh-TW': '縱隔腫瘤', en: 'Mediastinal Tumors' },
-        { ja: '胸腔鏡手術', 'zh-CN': '胸腔镜手术', 'zh-TW': '胸腔鏡手術', en: 'Thoracoscopic Surgery' },
+        { ja: '肺がん', 'zh-CN': '肺癌', 'zh-TW': '肺癌', en: 'Lung Cancer' } as Record<Language, string>,
+        { ja: '縦隔腫瘍', 'zh-CN': '纵隔肿瘤', 'zh-TW': '縱隔腫瘤', en: 'Mediastinal Tumors' } as Record<Language, string>,
+        { ja: '胸腔鏡手術', 'zh-CN': '胸腔镜手术', 'zh-TW': '胸腔鏡手術', en: 'Thoracoscopic Surgery' } as Record<Language, string>,
       ],
       credentials: {
         ja: '日本外科学会専門医・指導医、日本呼吸器外科学会専門医、da Vinci Certificate取得',
         'zh-CN': '日本外科学会专科医师·指导医师、日本呼吸外科学会专科医师、da Vinci 认证',
         'zh-TW': '日本外科學會專科醫師·指導醫師、日本呼吸外科學會專科醫師、da Vinci 認證',
         en: 'Board-certified surgeon, thoracic surgery specialist, da Vinci certified',
-      },
+      } as Record<Language, string>,
       achievements: {
         ja: '肺がん手術年間150例以上、胸腔鏡手術のエキスパート',
         'zh-CN': '每年肺癌手术150例以上,胸腔镜手术专家',
         'zh-TW': '每年肺癌手術150例以上,胸腔鏡手術專家',
         en: '150+ lung cancer surgeries annually, expert in thoracoscopic procedures',
-      },
+      } as Record<Language, string>,
       photoUrl: 'https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_kindaibito_tsutani_yasuhiro01.jpg',
     },
     {
@@ -719,36 +719,36 @@ export default function KindaiHospitalContent({
         'zh-CN': '坂口元一',
         'zh-TW': '坂口元一',
         en: 'Sakaguchi Genichi',
-      },
+      } as Record<Language, string>,
       title: {
         ja: '主任教授',
         'zh-CN': '主任教授',
         'zh-TW': '主任教授',
         en: 'Chief Professor',
-      },
+      } as Record<Language, string>,
       department: {
         ja: '心臓血管外科',
         'zh-CN': '心脏血管外科',
         'zh-TW': '心臟血管外科',
         en: 'Cardiovascular Surgery',
-      },
+      } as Record<Language, string>,
       specialties: [
-        { ja: '心臓手術', 'zh-CN': '心脏手术', 'zh-TW': '心臟手術', en: 'Cardiac Surgery' },
-        { ja: '小切開弁膜症手術（MICS）', 'zh-CN': '小切开瓣膜症手术（MICS）', 'zh-TW': '小切開瓣膜症手術（MICS）', en: 'Minimally Invasive Cardiac Surgery (MICS)' },
-        { ja: 'TAVI（大動脈弁狭窄症カテーテル治療）', 'zh-CN': 'TAVI（大动脉瓣狭窄症导管治疗）', 'zh-TW': 'TAVI（大動脈瓣狹窄症導管治療）', en: 'Transcatheter Aortic Valve Implantation (TAVI)' },
+        { ja: '心臓手術', 'zh-CN': '心脏手术', 'zh-TW': '心臟手術', en: 'Cardiac Surgery' } as Record<Language, string>,
+        { ja: '小切開弁膜症手術（MICS）', 'zh-CN': '小切开瓣膜症手术（MICS）', 'zh-TW': '小切開瓣膜症手術（MICS）', en: 'Minimally Invasive Cardiac Surgery (MICS)' } as Record<Language, string>,
+        { ja: 'TAVI（大動脈弁狭窄症カテーテル治療）', 'zh-CN': 'TAVI（大动脉瓣狭窄症导管治疗）', 'zh-TW': 'TAVI（大動脈瓣狹窄症導管治療）', en: 'Transcatheter Aortic Valve Implantation (TAVI)' } as Record<Language, string>,
       ],
       credentials: {
         ja: 'メルボルン大学オースチン医療センター留学、豊富な心臓手術実績',
         'zh-CN': '墨尔本大学奥斯汀医疗中心留学经历，丰富的心脏手术实绩',
         'zh-TW': '墨爾本大學奧斯汀醫療中心留學經歷，豐富的心臟手術實績',
         en: 'Trained at Austin Health, University of Melbourne; extensive cardiac surgery track record',
-      },
+      } as Record<Language, string>,
       achievements: {
         ja: '全国から患者が来院する心臓外科の専門家、80歳以上・再手術患者への対応実績',
         'zh-CN': '全国患者慕名而来的心脏外科专家，擅长80岁以上及再手术患者',
         'zh-TW': '全國患者慕名而來的心臟外科專家，擅長80歲以上及再手術患者',
         en: 'Cardiac surgery specialist with patients from across Japan; Expert in treating patients 80+ and reoperation cases',
-      },
+      } as Record<Language, string>,
       photoUrl: 'https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_kindaibito_sakaguchi_genichi01.jpg',
     },
     {
@@ -757,37 +757,37 @@ export default function KindaiHospitalContent({
         'zh-CN': '安松隆治',
         'zh-TW': '安松隆治',
         en: 'Yasumatsu Ryuji',
-      },
+      } as Record<Language, string>,
       title: {
         ja: '主任教授',
         'zh-CN': '主任教授',
         'zh-TW': '主任教授',
         en: 'Chief Professor',
-      },
+      } as Record<Language, string>,
       department: {
         ja: '耳鼻咽喉・頭頸部外科',
         'zh-CN': '耳鼻咽喉·头颈部外科',
         'zh-TW': '耳鼻咽喉·頭頸部外科',
         en: 'Otolaryngology & Head/Neck Surgery',
-      },
+      } as Record<Language, string>,
       specialties: [
-        { ja: '頭頸部がん治療', 'zh-CN': '头颈部癌症治疗', 'zh-TW': '頭頸部癌症治療', en: 'Head & Neck Cancer Treatment' },
-        { ja: '内視鏡手術', 'zh-CN': '内窥镜手术', 'zh-TW': '內窺鏡手術', en: 'Endoscopic Surgery' },
-        { ja: 'ロボット支援下手術', 'zh-CN': '机器人辅助手术', 'zh-TW': '機器人輔助手術', en: 'Robot-Assisted Surgery' },
-        { ja: '光免疫療法', 'zh-CN': '光免疫疗法', 'zh-TW': '光免疫療法', en: 'Photoimmunotherapy' },
+        { ja: '頭頸部がん治療', 'zh-CN': '头颈部癌症治疗', 'zh-TW': '頭頸部癌症治療', en: 'Head & Neck Cancer Treatment' } as Record<Language, string>,
+        { ja: '内視鏡手術', 'zh-CN': '内窥镜手术', 'zh-TW': '內窺鏡手術', en: 'Endoscopic Surgery' } as Record<Language, string>,
+        { ja: 'ロボット支援下手術', 'zh-CN': '机器人辅助手术', 'zh-TW': '機器人輔助手術', en: 'Robot-Assisted Surgery' } as Record<Language, string>,
+        { ja: '光免疫療法', 'zh-CN': '光免疫疗法', 'zh-TW': '光免疫療法', en: 'Photoimmunotherapy' } as Record<Language, string>,
       ],
       credentials: {
         ja: '頭頸部がん専門医・指導医、大阪府内数少ない頭頸部がん専門家',
         'zh-CN': '头颈部癌症专科医师·指导医师，大阪府内为数不多的头颈部癌症专家',
         'zh-TW': '頭頸部癌症專科醫師·指導醫師，大阪府內為數不多的頭頸部癌症專家',
         en: 'Board-certified head & neck cancer specialist and instructor; One of few head & neck cancer experts in Osaka Prefecture',
-      },
+      } as Record<Language, string>,
       achievements: {
         ja: '低侵襲治療と機能温存を重視した頭頸部がん治療の第一人者、光免疫療法導入リーダー',
         'zh-CN': '微创治疗和功能保留的头颈部癌症治疗先驱，光免疫疗法引进领导者',
         'zh-TW': '微創治療和功能保留的頭頸部癌症治療先驅，光免疫療法引進領導者',
         en: 'Pioneer in minimally invasive and function-preserving head & neck cancer treatment; Leader in implementing photoimmunotherapy',
-      },
+      } as Record<Language, string>,
       photoUrl: 'https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_kindaibito_yasumatsu_ryuji01.jpg',
     },
     {
@@ -796,36 +796,36 @@ export default function KindaiHospitalContent({
         'zh-CN': '林秀敏',
         'zh-TW': '林秀敏',
         en: 'Hayashi Hidetoshi',
-      },
+      } as Record<Language, string>,
       title: {
         ja: '主任教授',
         'zh-CN': '主任教授',
         'zh-TW': '主任教授',
         en: 'Chief Professor',
-      },
+      } as Record<Language, string>,
       department: {
         ja: '腫瘍内科',
         'zh-CN': '肿瘤内科',
         'zh-TW': '腫瘤內科',
         en: 'Medical Oncology',
-      },
+      } as Record<Language, string>,
       specialties: [
-        { ja: '肺がん治療', 'zh-CN': '肺癌治疗', 'zh-TW': '肺癌治療', en: 'Lung Cancer Treatment' },
-        { ja: '原発不明がん', 'zh-CN': '原发不明癌', 'zh-TW': '原發不明癌', en: 'Cancer of Unknown Primary' },
-        { ja: '免疫チェックポイント阻害薬', 'zh-CN': '免疫检查点抑制剂', 'zh-TW': '免疫檢查點抑制劑', en: 'Immune Checkpoint Inhibitors' },
+        { ja: '肺がん治療', 'zh-CN': '肺癌治疗', 'zh-TW': '肺癌治療', en: 'Lung Cancer Treatment' } as Record<Language, string>,
+        { ja: '原発不明がん', 'zh-CN': '原发不明癌', 'zh-TW': '原發不明癌', en: 'Cancer of Unknown Primary' } as Record<Language, string>,
+        { ja: '免疫チェックポイント阻害薬', 'zh-CN': '免疫检查点抑制剂', 'zh-TW': '免疫檢查點抑制劑', en: 'Immune Checkpoint Inhibitors' } as Record<Language, string>,
       ],
       credentials: {
         ja: '2003年大阪大学医学部卒業、京都大学本庶佑特別教授との共同研究実績',
         'zh-CN': '2003年大阪大学医学部毕业，与京都大学本庶佑特别教授共同研究经历',
         'zh-TW': '2003年大阪大學醫學部畢業，與京都大學本庶佑特別教授共同研究經歷',
         en: 'Graduated from Osaka University School of Medicine (2003); Collaborative research with Prof. Tasuku Honjo at Kyoto University',
-      },
+      } as Record<Language, string>,
       achievements: {
         ja: '原発不明がんへの免疫チェックポイント阻害薬の有効性を世界で初めて確認し、治療薬承認に貢献',
         'zh-CN': '世界首次确认免疫检查点抑制剂对原发不明癌的有效性，为治疗药物获批做出贡献',
         'zh-TW': '世界首次確認免疫檢查點抑制劑對原發不明癌的有效性，為治療藥物獲批做出貢獻',
         en: 'World-first confirmation of immune checkpoint inhibitor efficacy for cancer of unknown primary; Contributed to drug approval',
-      },
+      } as Record<Language, string>,
       photoUrl: 'https://www.med.kindai.ac.jp/img/about/mirai/detail/pic_detail_kindaibito_hayashi_hidetoshi01.jpg',
     },
   ]
@@ -836,7 +836,7 @@ export default function KindaiHospitalContent({
     'zh-CN': '主要专门医疗中心',
     'zh-TW': '主要專門醫療中心',
     en: 'Major Specialized Medical Centers',
-  }
+  } as Record<Language, string>
 
   // 癌症中心
   const cancerCenterTitle = {
@@ -844,7 +844,7 @@ export default function KindaiHospitalContent({
     'zh-CN': '癌症中心',
     'zh-TW': '癌症中心',
     en: 'Cancer Center',
-  }
+  } as Record<Language, string>
 
   const cancerCenterDescription = {
     ja: '手術、化学療法、放射線治療、緩和ケアを統合した総合がん診療を提供。キャンサーボード（多診療科合同カンファレンス）により、患者様一人ひとりに最適な治療法を選択します。',
@@ -853,7 +853,7 @@ export default function KindaiHospitalContent({
     'zh-TW':
       '提供整合手術、化療、放療、姑息治療的綜合癌症診療。通過癌症專家委員會（多科室聯合會議）,為每位患者選擇最優治療方法。',
     en: 'Comprehensive cancer care integrating surgery, chemotherapy, radiation therapy, and palliative care. Cancer Board (multidisciplinary conference) selects optimal treatment for each patient.',
-  }
+  } as Record<Language, string>
 
   const cancerFeatures = [
     {
@@ -862,13 +862,13 @@ export default function KindaiHospitalContent({
         'zh-CN': '癌症基因组医疗',
         'zh-TW': '癌症基因組醫療',
         en: 'Genomic Cancer Medicine',
-      },
+      } as Record<Language, string>,
       description: {
         ja: '遺伝子解析に基づく個別化治療',
         'zh-CN': '基于基因分析的个性化治疗',
         'zh-TW': '基於基因分析的個性化治療',
         en: 'Personalized treatment based on genetic analysis',
-      },
+      } as Record<Language, string>,
     },
     {
       title: {
@@ -876,13 +876,13 @@ export default function KindaiHospitalContent({
         'zh-CN': '多学科综合治疗',
         'zh-TW': '多學科綜合治療',
         en: 'Multidisciplinary Treatment',
-      },
+      } as Record<Language, string>,
       description: {
         ja: '外科・内科・放射線科の協力治療',
         'zh-CN': '外科、内科、放射科协作治疗',
         'zh-TW': '外科、內科、放射科協作治療',
         en: 'Collaborative treatment by surgery, internal medicine, and radiology',
-      },
+      } as Record<Language, string>,
     },
     {
       title: {
@@ -890,13 +890,13 @@ export default function KindaiHospitalContent({
         'zh-CN': '姑息治疗',
         'zh-TW': '姑息治療',
         en: 'Palliative Care',
-      },
+      } as Record<Language, string>,
       description: {
         ja: '症状緩和・QOL向上支援',
         'zh-CN': '症状缓解与生活质量提升支持',
         'zh-TW': '症狀緩解與生活質量提升支持',
         en: 'Symptom relief and quality of life improvement',
-      },
+      } as Record<Language, string>,
     },
     {
       title: {
@@ -904,13 +904,13 @@ export default function KindaiHospitalContent({
         'zh-CN': 'AYA世代患者支持',
         'zh-TW': 'AYA世代患者支持',
         en: 'AYA Generation Support',
-      },
+      } as Record<Language, string>,
       description: {
         ja: '若年がん患者の特別サポート',
         'zh-CN': '青少年及年轻成人癌症患者特别支持',
         'zh-TW': '青少年及年輕成人癌症患者特別支持',
         en: 'Special support for adolescent and young adult cancer patients',
-      },
+      } as Record<Language, string>,
     },
     {
       title: {
@@ -918,13 +918,13 @@ export default function KindaiHospitalContent({
         'zh-CN': '生育力保存',
         'zh-TW': '生育力保存',
         en: 'Fertility Preservation',
-      },
+      } as Record<Language, string>,
       description: {
         ja: 'がん治療前の生殖機能保存治療',
         'zh-CN': '癌症治疗前的生殖功能保存治疗',
         'zh-TW': '癌症治療前的生殖功能保存治療',
         en: 'Reproductive function preservation before cancer treatment',
-      },
+      } as Record<Language, string>,
     },
     {
       title: {
@@ -932,13 +932,13 @@ export default function KindaiHospitalContent({
         'zh-CN': '居家姑息护理衔接',
         'zh-TW': '居家姑息護理銜接',
         en: 'Home Palliative Care Coordination',
-      },
+      } as Record<Language, string>,
       description: {
         ja: '地域医療機関との連携体制',
         'zh-CN': '与社区医疗机构的合作体系',
         'zh-TW': '與社區醫療機構的合作體系',
         en: 'Collaboration with community medical facilities',
-      },
+      } as Record<Language, string>,
     },
   ]
 
@@ -948,7 +948,7 @@ export default function KindaiHospitalContent({
     'zh-CN': '心脏血管中心',
     'zh-TW': '心臟血管中心',
     en: 'Cardiovascular Center',
-  }
+  } as Record<Language, string>
 
   const cardioCenterDescription = {
     ja: '循環器内科・心臓血管外科の密接な連携により、急性心筋梗塞・大動脈解離などの緊急疾患から、冠動脈バイパス術・弁膜症手術まで、24時間体制で対応します。',
@@ -957,7 +957,7 @@ export default function KindaiHospitalContent({
     'zh-TW':
       '循環內科與心臟血管外科緊密協作,從急性心肌梗塞、主動脈夾層等急症,到冠狀動脈搭橋術、瓣膜手術,提供24小時全天候應對。',
     en: 'Close collaboration between cardiology and cardiovascular surgery provides 24/7 response from emergencies like acute myocardial infarction and aortic dissection to coronary bypass and valve surgery.',
-  }
+  } as Record<Language, string>
 
   const cardioFeatures = [
     {
@@ -966,13 +966,13 @@ export default function KindaiHospitalContent({
         'zh-CN': 'Door to Balloon < 90分钟',
         'zh-TW': 'Door to Balloon < 90分鐘',
         en: 'Door to Balloon < 90 min',
-      },
+      } as Record<Language, string>,
       description: {
         ja: '急性心筋梗塞の迅速な緊急カテーテル治療',
         'zh-CN': '急性心肌梗塞的快速紧急导管治疗',
         'zh-TW': '急性心肌梗塞的快速緊急導管治療',
         en: 'Rapid emergency catheterization for acute MI',
-      },
+      } as Record<Language, string>,
     },
     {
       title: {
@@ -980,13 +980,13 @@ export default function KindaiHospitalContent({
         'zh-CN': '24小时Heart Call',
         'zh-TW': '24小時Heart Call',
         en: '24/7 Heart Call',
-      },
+      } as Record<Language, string>,
       description: {
         ja: '心臓専門医による24時間緊急対応',
         'zh-CN': '心脏专科医师24小时紧急应对',
         'zh-TW': '心臟專科醫師24小時緊急應對',
         en: 'Cardiac specialist 24/7 emergency response',
-      },
+      } as Record<Language, string>,
     },
     {
       title: {
@@ -994,13 +994,13 @@ export default function KindaiHospitalContent({
         'zh-CN': '混合手术室',
         'zh-TW': '混合手術室',
         en: 'Hybrid Operating Room',
-      },
+      } as Record<Language, string>,
       description: {
         ja: 'カテーテル+外科手術の同時実施',
         'zh-CN': '导管治疗与外科手术同步实施',
         'zh-TW': '導管治療與外科手術同步實施',
         en: 'Simultaneous catheter and surgical procedures',
-      },
+      } as Record<Language, string>,
     },
     {
       title: {
@@ -1008,13 +1008,13 @@ export default function KindaiHospitalContent({
         'zh-CN': 'TAVI（经导管主动脉瓣置换术）',
         'zh-TW': 'TAVI（經導管主動脈瓣置換術）',
         en: 'TAVI (Transcatheter Aortic Valve Implantation)',
-      },
+      } as Record<Language, string>,
       description: {
         ja: '低侵襲な弁膜症治療',
         'zh-CN': '微创瓣膜疾病治疗',
         'zh-TW': '微創瓣膜疾病治療',
         en: 'Minimally invasive valve disease treatment',
-      },
+      } as Record<Language, string>,
     },
   ]
 
@@ -1024,7 +1024,7 @@ export default function KindaiHospitalContent({
     'zh-CN': '脑卒中中心',
     'zh-TW': '腦卒中中心',
     en: 'Stroke Center',
-  }
+  } as Record<Language, string>
 
   const strokeCenterDescription = {
     ja: '年間293例の脳卒中患者を受け入れ、脳神経内科・脳神経外科・リハビリテーション科が一体となり、急性期治療から回復期リハビリまで一貫したケアを提供します。',
@@ -1033,28 +1033,28 @@ export default function KindaiHospitalContent({
     'zh-TW':
       '年收治293例腦卒中患者,神經內科、神經外科、康復科一體化,從急性期治療到恢復期康復提供一貫的醫療服務。',
     en: 'Admitting 293 stroke patients annually, neurology, neurosurgery, and rehabilitation work as one to provide consistent care from acute treatment to recovery rehabilitation.',
-  }
+  } as Record<Language, string>
 
   const strokeStats = [
     {
       number: '293',
-      unit: { ja: '例', 'zh-CN': '例', 'zh-TW': '例', en: 'cases' },
+      unit: { ja: '例', 'zh-CN': '例', 'zh-TW': '例', en: 'cases' } as Record<Language, string>,
       label: {
         ja: '年間脳卒中患者数',
         'zh-CN': '年度脑卒中患者',
         'zh-TW': '年度腦卒中患者',
         en: 'Annual Stroke Patients',
-      },
+      } as Record<Language, string>,
     },
     {
       number: '16.84',
-      unit: { ja: '日', 'zh-CN': '天', 'zh-TW': '天', en: 'days' },
+      unit: { ja: '日', 'zh-CN': '天', 'zh-TW': '天', en: 'days' } as Record<Language, string>,
       label: {
         ja: '平均在院日数',
         'zh-CN': '平均住院天数',
         'zh-TW': '平均住院天數',
         en: 'Average Length of Stay',
-      },
+      } as Record<Language, string>,
     },
   ]
 
@@ -1064,35 +1064,35 @@ export default function KindaiHospitalContent({
     'zh-CN': '交通信息',
     'zh-TW': '交通資訊',
     en: 'Access',
-  }
+  } as Record<Language, string>
 
   const accessAddress = {
     ja: '〒590-0197 大阪府堺市南区三原台1丁14番1号',
     'zh-CN': '〒590-0197 大阪府堺市南区三原台1丁14番1号',
     'zh-TW': '〒590-0197 大阪府堺市南區三原台1丁14番1號',
     en: '〒590-0197 1-14-1 Miharadai, Minami-ku, Sakai City, Osaka',
-  }
+  } as Record<Language, string>
 
   const trainTitle = {
     ja: '電車でお越しの方',
     'zh-CN': '电车出行',
     'zh-TW': '電車出行',
     en: 'By Train',
-  }
+  } as Record<Language, string>
 
   const trainRoute = {
     ja: '南海泉北線「泉ケ丘」駅 → 徒歩約6分（550m）',
     'zh-CN': '南海泉北线「泉丘」站 → 步行约6分钟（550米）',
     'zh-TW': '南海泉北線「泉丘」站 → 步行約6分鐘（550米）',
     en: 'Nankai Senboku Line "Izumigaoka" Station → 6 min walk (550m)',
-  }
+  } as Record<Language, string>
 
   const busTitle = {
     ja: 'バスでお越しの方',
     'zh-CN': '巴士出行',
     'zh-TW': '巴士出行',
     en: 'By Bus',
-  }
+  } as Record<Language, string>
 
   const busRoutes = [
     {
@@ -1100,19 +1100,19 @@ export default function KindaiHospitalContent({
       'zh-CN': '270路「近大大阪医疗校区前」方向',
       'zh-TW': '270路「近大大阪醫療校區前」方向',
       en: 'Route 270 to "Kindai Osaka Medical Campus"',
-    },
+    } as Record<Language, string>,
     {
       ja: '213系統 三原台回り',
       'zh-CN': '213路 三原台循环',
       'zh-TW': '213路 三原台循環',
       en: 'Route 213 Miharadai Loop',
-    },
+    } as Record<Language, string>,
     {
       ja: '市内循環バス A/B線（院内停留所）',
       'zh-CN': '市内循环巴士 A/B线（院内停靠）',
       'zh-TW': '市內循環巴士 A/B線（院內停靠）',
       en: 'City Loop Bus A/B Line (On-campus stop)',
-    },
+    } as Record<Language, string>,
   ]
 
   const carTitle = {
@@ -1120,7 +1120,7 @@ export default function KindaiHospitalContent({
     'zh-CN': '自驾出行',
     'zh-TW': '自駕出行',
     en: 'By Car',
-  }
+  } as Record<Language, string>
 
   const carRoutes = [
     {
@@ -1128,13 +1128,13 @@ export default function KindaiHospitalContent({
       'zh-CN': '堺IC出口 → 普通道路 约4公里',
       'zh-TW': '堺IC出口 → 普通道路 約4公里',
       en: 'Sakai IC Exit → General Road ~4km',
-    },
+    } as Record<Language, string>,
     {
       ja: '美原北IC出口 → 一般道 約11km',
       'zh-CN': '美原北IC出口 → 普通道路 约11公里',
       'zh-TW': '美原北IC出口 → 普通道路 約11公里',
       en: 'Mihara-kita IC Exit → General Road ~11km',
-    },
+    } as Record<Language, string>,
   ]
 
   const parkingNote = {
@@ -1142,7 +1142,7 @@ export default function KindaiHospitalContent({
     'zh-CN': '※ 设有专用停车场',
     'zh-TW': '※ 設有專用停車場',
     en: '* Dedicated parking available',
-  }
+  } as Record<Language, string>
 
   // ========== 就诊流程 (Treatment Flow) ==========
 
@@ -1151,49 +1151,49 @@ export default function KindaiHospitalContent({
     'zh-CN': '就诊流程',
     'zh-TW': '就診流程',
     en: 'Treatment Flow',
-  }
+  } as Record<Language, string>
 
   const flowTitle = {
     ja: '近畿大学病院での受診 — 全プロセス',
     'zh-CN': '近畿大学医院就诊 — 全流程',
     'zh-TW': '近畿大學醫院就診 — 全流程',
     en: 'Kindai Hospital Treatment — Complete Process',
-  }
+  } as Record<Language, string>
 
   const flowDesc = {
     ja: '初回相談から来日受診・術後フォローまで、全ステップを安心サポート',
     'zh-CN': '从初次咨询到来日就诊、术后跟踪，全程安心支持',
     'zh-TW': '從初次諮詢到來日就診、術後跟蹤，全程安心支持',
     en: 'Full support from initial consultation to treatment in Japan and post-op follow-up',
-  }
+  } as Record<Language, string>
 
   const flowClickPhase = {
     ja: '各フェーズをクリックして詳細を確認',
     'zh-CN': '点击各阶段查看详情',
     'zh-TW': '點擊各階段查看詳情',
     en: 'Click each phase for details',
-  }
+  } as Record<Language, string>
 
   const flowYouDo = {
     ja: 'あなたがすること',
     'zh-CN': '您需要做的',
     'zh-TW': '您需要做的',
     en: 'What You Do',
-  }
+  } as Record<Language, string>
 
   const flowWeHandle = {
     ja: '私たちがサポート',
     'zh-CN': '我们为您处理',
     'zh-TW': '我們為您處理',
     en: 'What We Handle',
-  }
+  } as Record<Language, string>
 
   const flowStepDetail = {
     ja: 'ステップ詳細',
     'zh-CN': '步骤详情',
     'zh-TW': '步驟詳情',
     en: 'Step Details',
-  }
+  } as Record<Language, string>
 
   const treatmentPhases = [
     {
@@ -1201,19 +1201,19 @@ export default function KindaiHospitalContent({
       phaseNumber: 1,
       icon: MessageSquare,
       color: 'blue' as const,
-      title: { ja: '初回相談', 'zh-CN': '初次咨询', 'zh-TW': '初次諮詢', en: 'Initial Consultation' },
-      subtitle: { ja: 'オンラインで症状・ご希望をヒアリング', 'zh-CN': '在线了解病情与需求', 'zh-TW': '線上了解病情與需求', en: 'Online assessment of condition & needs' },
-      duration: { ja: '1-3日', 'zh-CN': '1-3天', 'zh-TW': '1-3天', en: '1-3 days' },
+      title: { ja: '初回相談', 'zh-CN': '初次咨询', 'zh-TW': '初次諮詢', en: 'Initial Consultation' } as Record<Language, string>,
+      subtitle: { ja: 'オンラインで症状・ご希望をヒアリング', 'zh-CN': '在线了解病情与需求', 'zh-TW': '線上了解病情與需求', en: 'Online assessment of condition & needs' } as Record<Language, string>,
+      duration: { ja: '1-3日', 'zh-CN': '1-3天', 'zh-TW': '1-3天', en: '1-3 days' } as Record<Language, string>,
       stepRange: [1, 3] as const,
       patientActions: [
-        { ja: 'お問い合わせフォーム送信', 'zh-CN': '提交咨询表单', 'zh-TW': '提交諮詢表單', en: 'Submit inquiry form' },
-        { ja: '医療記録・検査結果の準備', 'zh-CN': '准备病历、检查结果', 'zh-TW': '準備病歷、檢查結果', en: 'Prepare medical records & test results' },
-        { ja: 'オンライン面談参加', 'zh-CN': '参加在线会诊', 'zh-TW': '參加線上會診', en: 'Join online consultation' },
+        { ja: 'お問い合わせフォーム送信', 'zh-CN': '提交咨询表单', 'zh-TW': '提交諮詢表單', en: 'Submit inquiry form' } as Record<Language, string>,
+        { ja: '医療記録・検査結果の準備', 'zh-CN': '准备病历、检查结果', 'zh-TW': '準備病歷、檢查結果', en: 'Prepare medical records & test results' } as Record<Language, string>,
+        { ja: 'オンライン面談参加', 'zh-CN': '参加在线会诊', 'zh-TW': '參加線上會診', en: 'Join online consultation' } as Record<Language, string>,
       ],
       weHandle: [
-        { ja: '24時間以内に初回返信', 'zh-CN': '24小时内初步回复', 'zh-TW': '24小時內初步回覆', en: 'Initial response within 24 hours' },
-        { ja: '専門医師との面談調整', 'zh-CN': '安排专科医师会诊', 'zh-TW': '安排專科醫師會診', en: 'Arrange specialist consultation' },
-        { ja: '医療記録の翻訳サポート', 'zh-CN': '病历翻译支持', 'zh-TW': '病歷翻譯支持', en: 'Medical record translation support' },
+        { ja: '24時間以内に初回返信', 'zh-CN': '24小时内初步回复', 'zh-TW': '24小時內初步回覆', en: 'Initial response within 24 hours' } as Record<Language, string>,
+        { ja: '専門医師との面談調整', 'zh-CN': '安排专科医师会诊', 'zh-TW': '安排專科醫師會診', en: 'Arrange specialist consultation' } as Record<Language, string>,
+        { ja: '医療記録の翻訳サポート', 'zh-CN': '病历翻译支持', 'zh-TW': '病歷翻譯支持', en: 'Medical record translation support' } as Record<Language, string>,
       ],
     },
     {
@@ -1221,20 +1221,20 @@ export default function KindaiHospitalContent({
       phaseNumber: 2,
       icon: FileText,
       color: 'green' as const,
-      title: { ja: '来日前準備', 'zh-CN': '来日前准备', 'zh-TW': '來日前準備', en: 'Pre-Arrival Preparation' },
-      subtitle: { ja: '予約確定・ビザ・宿泊など全手配', 'zh-CN': '预约确定、签证、住宿等全程安排', 'zh-TW': '預約確定、簽證、住宿等全程安排', en: 'Appointment, visa, accommodation arrangements' },
-      duration: { ja: '7-14日', 'zh-CN': '7-14天', 'zh-TW': '7-14天', en: '7-14 days' },
-      feeSummary: { ja: '相談料 ¥221,000~', 'zh-CN': '咨询费 ¥221,000起', 'zh-TW': '諮詢費 ¥221,000起', en: 'Consultation fee from ¥221,000' },
+      title: { ja: '来日前準備', 'zh-CN': '来日前准备', 'zh-TW': '來日前準備', en: 'Pre-Arrival Preparation' } as Record<Language, string>,
+      subtitle: { ja: '予約確定・ビザ・宿泊など全手配', 'zh-CN': '预约确定、签证、住宿等全程安排', 'zh-TW': '預約確定、簽證、住宿等全程安排', en: 'Appointment, visa, accommodation arrangements' } as Record<Language, string>,
+      duration: { ja: '7-14日', 'zh-CN': '7-14天', 'zh-TW': '7-14天', en: '7-14 days' } as Record<Language, string>,
+      feeSummary: { ja: '相談料 ¥221,000~', 'zh-CN': '咨询费 ¥221,000起', 'zh-TW': '諮詢費 ¥221,000起', en: 'Consultation fee from ¥221,000' } as Record<Language, string>,
       stepRange: [4, 6] as const,
       patientActions: [
-        { ja: '診察予約の確定', 'zh-CN': '确认就诊预约', 'zh-TW': '確認就診預約', en: 'Confirm appointment' },
-        { ja: '来日スケジュール調整', 'zh-CN': '调整来日行程', 'zh-TW': '調整來日行程', en: 'Adjust travel schedule' },
-        { ja: 'ビザ申請（必要な場合）', 'zh-CN': '申请签证（如需要）', 'zh-TW': '申請簽證（如需要）', en: 'Apply for visa (if needed)' },
+        { ja: '診察予約の確定', 'zh-CN': '确认就诊预约', 'zh-TW': '確認就診預約', en: 'Confirm appointment' } as Record<Language, string>,
+        { ja: '来日スケジュール調整', 'zh-CN': '调整来日行程', 'zh-TW': '調整來日行程', en: 'Adjust travel schedule' } as Record<Language, string>,
+        { ja: 'ビザ申請（必要な場合）', 'zh-CN': '申请签证（如需要）', 'zh-TW': '申請簽證（如需要）', en: 'Apply for visa (if needed)' } as Record<Language, string>,
       ],
       weHandle: [
-        { ja: '病院への予約代行', 'zh-CN': '代为预约医院', 'zh-TW': '代為預約醫院', en: 'Hospital appointment booking' },
-        { ja: '医療ビザ招聘状発行', 'zh-CN': '办理医疗签证邀请函', 'zh-TW': '辦理醫療簽證邀請函', en: 'Medical visa invitation letter' },
-        { ja: '宿泊・送迎手配', 'zh-CN': '安排住宿与接送', 'zh-TW': '安排住宿與接送', en: 'Accommodation & transport arrangement' },
+        { ja: '病院への予約代行', 'zh-CN': '代为预约医院', 'zh-TW': '代為預約醫院', en: 'Hospital appointment booking' } as Record<Language, string>,
+        { ja: '医療ビザ招聘状発行', 'zh-CN': '办理医疗签证邀请函', 'zh-TW': '辦理醫療簽證邀請函', en: 'Medical visa invitation letter' } as Record<Language, string>,
+        { ja: '宿泊・送迎手配', 'zh-CN': '安排住宿与接送', 'zh-TW': '安排住宿與接送', en: 'Accommodation & transport arrangement' } as Record<Language, string>,
       ],
     },
     {
@@ -1242,20 +1242,20 @@ export default function KindaiHospitalContent({
       phaseNumber: 3,
       icon: Stethoscope,
       color: 'red' as const,
-      title: { ja: '来日受診', 'zh-CN': '来日就诊', 'zh-TW': '來日就診', en: 'Treatment in Japan' },
-      subtitle: { ja: '初診・検査・治療を通訳同行サポート', 'zh-CN': '初诊·检查·治疗全程翻译陪同', 'zh-TW': '初診·檢查·治療全程翻譯陪同', en: 'Consultation, tests, treatment with interpreter' },
-      duration: { ja: '1-7日', 'zh-CN': '1-7天', 'zh-TW': '1-7天', en: '1-7 days' },
-      feeSummary: { ja: '通訳同行 ¥50,000~', 'zh-CN': '翻译陪同 ¥50,000起', 'zh-TW': '翻譯陪同 ¥50,000起', en: 'Interpreter from ¥50,000' },
+      title: { ja: '来日受診', 'zh-CN': '来日就诊', 'zh-TW': '來日就診', en: 'Treatment in Japan' } as Record<Language, string>,
+      subtitle: { ja: '初診・検査・治療を通訳同行サポート', 'zh-CN': '初诊·检查·治疗全程翻译陪同', 'zh-TW': '初診·檢查·治療全程翻譯陪同', en: 'Consultation, tests, treatment with interpreter' } as Record<Language, string>,
+      duration: { ja: '1-7日', 'zh-CN': '1-7天', 'zh-TW': '1-7天', en: '1-7 days' } as Record<Language, string>,
+      feeSummary: { ja: '通訳同行 ¥50,000~', 'zh-CN': '翻译陪同 ¥50,000起', 'zh-TW': '翻譯陪同 ¥50,000起', en: 'Interpreter from ¥50,000' } as Record<Language, string>,
       stepRange: [7, 9] as const,
       patientActions: [
-        { ja: '時間通りに病院へ来院', 'zh-CN': '按时到达医院', 'zh-TW': '按時到達醫院', en: 'Arrive at hospital on time' },
-        { ja: '診察・検査を受診', 'zh-CN': '接受诊察与检查', 'zh-TW': '接受診察與檢查', en: 'Undergo consultation & tests' },
-        { ja: '治療方針の相談・決定', 'zh-CN': '商讨与确定治疗方案', 'zh-TW': '商討與確定治療方案', en: 'Discuss & decide treatment plan' },
+        { ja: '時間通りに病院へ来院', 'zh-CN': '按时到达医院', 'zh-TW': '按時到達醫院', en: 'Arrive at hospital on time' } as Record<Language, string>,
+        { ja: '診察・検査を受診', 'zh-CN': '接受诊察与检查', 'zh-TW': '接受診察與檢查', en: 'Undergo consultation & tests' } as Record<Language, string>,
+        { ja: '治療方針の相談・決定', 'zh-CN': '商讨与确定治疗方案', 'zh-TW': '商討與確定治療方案', en: 'Discuss & decide treatment plan' } as Record<Language, string>,
       ],
       weHandle: [
-        { ja: '病院までの送迎', 'zh-CN': '医院接送服务', 'zh-TW': '醫院接送服務', en: 'Hospital transportation' },
-        { ja: '診察・検査時の通訳', 'zh-CN': '诊察·检查现场翻译', 'zh-TW': '診察·檢查現場翻譯', en: 'Interpretation during consultations' },
-        { ja: '診断書・処方箋の翻訳', 'zh-CN': '诊断书·处方翻译', 'zh-TW': '診斷書·處方翻譯', en: 'Translation of diagnosis & prescriptions' },
+        { ja: '病院までの送迎', 'zh-CN': '医院接送服务', 'zh-TW': '醫院接送服務', en: 'Hospital transportation' } as Record<Language, string>,
+        { ja: '診察・検査時の通訳', 'zh-CN': '诊察·检查现场翻译', 'zh-TW': '診察·檢查現場翻譯', en: 'Interpretation during consultations' } as Record<Language, string>,
+        { ja: '診断書・処方箋の翻訳', 'zh-CN': '诊断书·处方翻译', 'zh-TW': '診斷書·處方翻譯', en: 'Translation of diagnosis & prescriptions' } as Record<Language, string>,
       ],
     },
     {
@@ -1263,34 +1263,34 @@ export default function KindaiHospitalContent({
       phaseNumber: 4,
       icon: Heart,
       color: 'purple' as const,
-      title: { ja: '術後フォロー', 'zh-CN': '术后跟踪', 'zh-TW': '術後跟蹤', en: 'Post-Treatment Follow-up' },
-      subtitle: { ja: '帰国後もオンラインで継続サポート', 'zh-CN': '回国后在线持续跟进', 'zh-TW': '回國後線上持續跟進', en: 'Ongoing online support after return' },
-      duration: { ja: '継続', 'zh-CN': '持续', 'zh-TW': '持續', en: 'Ongoing' },
+      title: { ja: '術後フォロー', 'zh-CN': '术后跟踪', 'zh-TW': '術後跟蹤', en: 'Post-Treatment Follow-up' } as Record<Language, string>,
+      subtitle: { ja: '帰国後もオンラインで継続サポート', 'zh-CN': '回国后在线持续跟进', 'zh-TW': '回國後線上持續跟進', en: 'Ongoing online support after return' } as Record<Language, string>,
+      duration: { ja: '継続', 'zh-CN': '持续', 'zh-TW': '持續', en: 'Ongoing' } as Record<Language, string>,
       stepRange: [10, 11] as const,
       patientActions: [
-        { ja: '定期検査結果の共有', 'zh-CN': '分享定期检查结果', 'zh-TW': '分享定期檢查結果', en: 'Share regular test results' },
-        { ja: '体調変化の報告', 'zh-CN': '报告身体变化', 'zh-TW': '報告身體變化', en: 'Report health changes' },
+        { ja: '定期検査結果の共有', 'zh-CN': '分享定期检查结果', 'zh-TW': '分享定期檢查結果', en: 'Share regular test results' } as Record<Language, string>,
+        { ja: '体調変化の報告', 'zh-CN': '报告身体变化', 'zh-TW': '報告身體變化', en: 'Report health changes' } as Record<Language, string>,
       ],
       weHandle: [
-        { ja: 'オンライン経過観察', 'zh-CN': '在线随访', 'zh-TW': '線上隨訪', en: 'Online follow-up monitoring' },
-        { ja: '検査結果の医師確認', 'zh-CN': '医师审查检查结果', 'zh-TW': '醫師審查檢查結果', en: 'Doctor review of test results' },
-        { ja: '再来院が必要な場合の調整', 'zh-CN': '必要时安排再次来日', 'zh-TW': '必要時安排再次來日', en: 'Arrange return visit if needed' },
+        { ja: 'オンライン経過観察', 'zh-CN': '在线随访', 'zh-TW': '線上隨訪', en: 'Online follow-up monitoring' } as Record<Language, string>,
+        { ja: '検査結果の医師確認', 'zh-CN': '医师审查检查结果', 'zh-TW': '醫師審查檢查結果', en: 'Doctor review of test results' } as Record<Language, string>,
+        { ja: '再来院が必要な場合の調整', 'zh-CN': '必要时安排再次来日', 'zh-TW': '必要時安排再次來日', en: 'Arrange return visit if needed' } as Record<Language, string>,
       ],
     },
   ]
 
   const treatmentFlow = [
-    { step: 1, title: { ja: 'お問い合わせ', 'zh-CN': '提交咨询', 'zh-TW': '提交諮詢', en: 'Submit Inquiry' }, subtitle: { ja: 'フォームまたはLINE/微信で症状を送信', 'zh-CN': '通过表单或LINE/微信发送病情', 'zh-TW': '通過表單或LINE/微信發送病情', en: 'Submit via form or LINE/WeChat' }, from: { ja: 'あなた', 'zh-CN': '您', 'zh-TW': '您', en: 'You' }, to: { ja: '私たち', 'zh-CN': '我们', 'zh-TW': '我們', en: 'Us' } },
-    { step: 2, title: { ja: '初回返信・ヒアリング', 'zh-CN': '初步回复·了解需求', 'zh-TW': '初步回覆·了解需求', en: 'Initial Response & Assessment' }, subtitle: { ja: '24時間以内に返信、詳細ヒアリング', 'zh-CN': '24小时内回复，详细了解', 'zh-TW': '24小時內回覆，詳細了解', en: 'Reply within 24h, detailed assessment' }, from: { ja: '私たち', 'zh-CN': '我们', 'zh-TW': '我們', en: 'Us' }, to: { ja: 'あなた', 'zh-CN': '您', 'zh-TW': '您', en: 'You' } },
-    { step: 3, title: { ja: 'オンライン事前面談', 'zh-CN': '在线预诊', 'zh-TW': '線上預診', en: 'Online Pre-Consultation' }, subtitle: { ja: '専門医師とのビデオ相談（必要な場合）', 'zh-CN': '与专科医师视频会诊（如需要）', 'zh-TW': '與專科醫師視訊會診（如需要）', en: 'Video consultation with specialist (if needed)' }, from: { ja: '医師', 'zh-CN': '医师', 'zh-TW': '醫師', en: 'Doctor' }, to: { ja: 'あなた', 'zh-CN': '您', 'zh-TW': '您', en: 'You' }, fee: 221000, desc: { ja: 'オンライン事前面談は任意です。専門医師が直接病状を確認し、来日治療の適応性を判断します。', 'zh-CN': '在线预诊为可选服务。专科医师直接确认病情，判断来日治疗的适应性。', 'zh-TW': '線上預診為可選服務。專科醫師直接確認病情，判斷來日治療的適應性。', en: 'Optional service. Specialist directly confirms condition and assesses suitability for treatment in Japan.' } },
-    { step: 4, title: { ja: '受診予約確定', 'zh-CN': '确定就诊预约', 'zh-TW': '確定就診預約', en: 'Confirm Appointment' }, subtitle: { ja: '診察日時の決定と病院への予約', 'zh-CN': '确定就诊日期并向医院预约', 'zh-TW': '確定就診日期並向醫院預約', en: 'Set date and book hospital appointment' }, from: { ja: '私たち', 'zh-CN': '我们', 'zh-TW': '我們', en: 'Us' }, to: { ja: '病院', 'zh-CN': '医院', 'zh-TW': '醫院', en: 'Hospital' }, fee: 221000 },
-    { step: 5, title: { ja: '医療ビザ招聘状発行', 'zh-CN': '办理医疗签证邀请函', 'zh-TW': '辦理醫療簽證邀請函', en: 'Medical Visa Invitation' }, subtitle: { ja: '病院からの公式招聘状を取得', 'zh-CN': '获取医院官方邀请函', 'zh-TW': '獲取醫院官方邀請函', en: 'Obtain official hospital invitation' }, from: { ja: '病院', 'zh-CN': '医院', 'zh-TW': '醫院', en: 'Hospital' }, to: { ja: 'あなた', 'zh-CN': '您', 'zh-TW': '您', en: 'You' } },
-    { step: 6, title: { ja: '宿泊・送迎手配', 'zh-CN': '安排住宿与接送', 'zh-TW': '安排住宿與接送', en: 'Arrange Accommodation & Transport' }, subtitle: { ja: '病院近くのホテル・空港送迎を手配', 'zh-CN': '安排医院附近酒店及机场接送', 'zh-TW': '安排醫院附近酒店及機場接送', en: 'Book nearby hotel & airport transfer' }, from: { ja: '私たち', 'zh-CN': '我们', 'zh-TW': '我們', en: 'Us' }, to: { ja: 'あなた', 'zh-CN': '您', 'zh-TW': '您', en: 'You' } },
-    { step: 7, title: { ja: '初診受付・検査', 'zh-CN': '初诊登记·检查', 'zh-TW': '初診登記·檢查', en: 'Initial Visit & Tests' }, subtitle: { ja: '受付手続きと必要な検査を実施', 'zh-CN': '办理手续并进行必要检查', 'zh-TW': '辦理手續並進行必要檢查', en: 'Registration and necessary tests' }, from: { ja: 'あなた', 'zh-CN': '您', 'zh-TW': '您', en: 'You' }, to: { ja: '病院', 'zh-CN': '医院', 'zh-TW': '醫院', en: 'Hospital' }, fee: 50000, desc: { ja: '通訳同行サービスには、受付・診察・検査時の通訳、会計サポート、院内移動のアシストが含まれます。', 'zh-CN': '翻译陪同服务包括登记、诊察、检查时的翻译，结算支持，院内移动协助。', 'zh-TW': '翻譯陪同服務包括登記、診察、檢查時的翻譯，結算支持，院內移動協助。', en: 'Interpreter service includes translation during registration, consultation, tests, payment support, and in-hospital assistance.' } },
-    { step: 8, title: { ja: '診察・診断', 'zh-CN': '诊察·诊断', 'zh-TW': '診察·診斷', en: 'Consultation & Diagnosis' }, subtitle: { ja: '専門医師による詳細診察と診断', 'zh-CN': '专科医师详细诊察与诊断', 'zh-TW': '專科醫師詳細診察與診斷', en: 'Detailed examination & diagnosis by specialist' }, from: { ja: '医師', 'zh-CN': '医师', 'zh-TW': '醫師', en: 'Doctor' }, to: { ja: 'あなた', 'zh-CN': '您', 'zh-TW': '您', en: 'You' } },
-    { step: 9, title: { ja: '治療方針決定・開始', 'zh-CN': '确定治疗方案·开始治疗', 'zh-TW': '確定治療方案·開始治療', en: 'Treatment Plan & Initiation' }, subtitle: { ja: '治療計画の説明と治療開始', 'zh-CN': '说明治疗计划并开始治疗', 'zh-TW': '說明治療計劃並開始治療', en: 'Explain treatment plan and begin treatment' }, from: { ja: '医師', 'zh-CN': '医师', 'zh-TW': '醫師', en: 'Doctor' }, to: { ja: 'あなた', 'zh-CN': '您', 'zh-TW': '您', en: 'You' } },
-    { step: 10, title: { ja: 'オンライン経過観察', 'zh-CN': '在线随访', 'zh-TW': '線上隨訪', en: 'Online Follow-up' }, subtitle: { ja: '帰国後の定期オンライン相談', 'zh-CN': '回国后定期在线咨询', 'zh-TW': '回國後定期線上諮詢', en: 'Regular online consultations after return' }, from: { ja: 'あなた', 'zh-CN': '您', 'zh-TW': '您', en: 'You' }, to: { ja: '医師', 'zh-CN': '医师', 'zh-TW': '醫師', en: 'Doctor' } },
-    { step: 11, title: { ja: '再来院調整（必要時）', 'zh-CN': '安排再次来日（如需）', 'zh-TW': '安排再次來日（如需）', en: 'Arrange Return Visit (if needed)' }, subtitle: { ja: '追加検査・治療が必要な場合', 'zh-CN': '需要追加检查或治疗时', 'zh-TW': '需要追加檢查或治療時', en: 'When additional tests/treatment needed' }, from: { ja: '私たち', 'zh-CN': '我们', 'zh-TW': '我們', en: 'Us' }, to: { ja: 'あなた', 'zh-CN': '您', 'zh-TW': '您', en: 'You' } },
+    { step: 1, title: { ja: 'お問い合わせ', 'zh-CN': '提交咨询', 'zh-TW': '提交諮詢', en: 'Submit Inquiry' } as Record<Language, string>, subtitle: { ja: 'フォームまたはLINE/微信で症状を送信', 'zh-CN': '通过表单或LINE/微信发送病情', 'zh-TW': '通過表單或LINE/微信發送病情', en: 'Submit via form or LINE/WeChat' } as Record<Language, string>, from: { ja: 'あなた', 'zh-CN': '您', 'zh-TW': '您', en: 'You' } as Record<Language, string>, to: { ja: '私たち', 'zh-CN': '我们', 'zh-TW': '我們', en: 'Us' } as Record<Language, string> },
+    { step: 2, title: { ja: '初回返信・ヒアリング', 'zh-CN': '初步回复·了解需求', 'zh-TW': '初步回覆·了解需求', en: 'Initial Response & Assessment' } as Record<Language, string>, subtitle: { ja: '24時間以内に返信、詳細ヒアリング', 'zh-CN': '24小时内回复，详细了解', 'zh-TW': '24小時內回覆，詳細了解', en: 'Reply within 24h, detailed assessment' } as Record<Language, string>, from: { ja: '私たち', 'zh-CN': '我们', 'zh-TW': '我們', en: 'Us' } as Record<Language, string>, to: { ja: 'あなた', 'zh-CN': '您', 'zh-TW': '您', en: 'You' } as Record<Language, string> },
+    { step: 3, title: { ja: 'オンライン事前面談', 'zh-CN': '在线预诊', 'zh-TW': '線上預診', en: 'Online Pre-Consultation' } as Record<Language, string>, subtitle: { ja: '専門医師とのビデオ相談（必要な場合）', 'zh-CN': '与专科医师视频会诊（如需要）', 'zh-TW': '與專科醫師視訊會診（如需要）', en: 'Video consultation with specialist (if needed)' } as Record<Language, string>, from: { ja: '医師', 'zh-CN': '医师', 'zh-TW': '醫師', en: 'Doctor' } as Record<Language, string>, to: { ja: 'あなた', 'zh-CN': '您', 'zh-TW': '您', en: 'You' } as Record<Language, string>, fee: 221000, desc: { ja: 'オンライン事前面談は任意です。専門医師が直接病状を確認し、来日治療の適応性を判断します。', 'zh-CN': '在线预诊为可选服务。专科医师直接确认病情，判断来日治疗的适应性。', 'zh-TW': '線上預診為可選服務。專科醫師直接確認病情，判斷來日治療的適應性。', en: 'Optional service. Specialist directly confirms condition and assesses suitability for treatment in Japan.' } as Record<Language, string> },
+    { step: 4, title: { ja: '受診予約確定', 'zh-CN': '确定就诊预约', 'zh-TW': '確定就診預約', en: 'Confirm Appointment' } as Record<Language, string>, subtitle: { ja: '診察日時の決定と病院への予約', 'zh-CN': '确定就诊日期并向医院预约', 'zh-TW': '確定就診日期並向醫院預約', en: 'Set date and book hospital appointment' } as Record<Language, string>, from: { ja: '私たち', 'zh-CN': '我们', 'zh-TW': '我們', en: 'Us' } as Record<Language, string>, to: { ja: '病院', 'zh-CN': '医院', 'zh-TW': '醫院', en: 'Hospital' } as Record<Language, string>, fee: 221000 },
+    { step: 5, title: { ja: '医療ビザ招聘状発行', 'zh-CN': '办理医疗签证邀请函', 'zh-TW': '辦理醫療簽證邀請函', en: 'Medical Visa Invitation' } as Record<Language, string>, subtitle: { ja: '病院からの公式招聘状を取得', 'zh-CN': '获取医院官方邀请函', 'zh-TW': '獲取醫院官方邀請函', en: 'Obtain official hospital invitation' } as Record<Language, string>, from: { ja: '病院', 'zh-CN': '医院', 'zh-TW': '醫院', en: 'Hospital' } as Record<Language, string>, to: { ja: 'あなた', 'zh-CN': '您', 'zh-TW': '您', en: 'You' } as Record<Language, string> },
+    { step: 6, title: { ja: '宿泊・送迎手配', 'zh-CN': '安排住宿与接送', 'zh-TW': '安排住宿與接送', en: 'Arrange Accommodation & Transport' } as Record<Language, string>, subtitle: { ja: '病院近くのホテル・空港送迎を手配', 'zh-CN': '安排医院附近酒店及机场接送', 'zh-TW': '安排醫院附近酒店及機場接送', en: 'Book nearby hotel & airport transfer' } as Record<Language, string>, from: { ja: '私たち', 'zh-CN': '我们', 'zh-TW': '我們', en: 'Us' } as Record<Language, string>, to: { ja: 'あなた', 'zh-CN': '您', 'zh-TW': '您', en: 'You' } as Record<Language, string> },
+    { step: 7, title: { ja: '初診受付・検査', 'zh-CN': '初诊登记·检查', 'zh-TW': '初診登記·檢查', en: 'Initial Visit & Tests' } as Record<Language, string>, subtitle: { ja: '受付手続きと必要な検査を実施', 'zh-CN': '办理手续并进行必要检查', 'zh-TW': '辦理手續並進行必要檢查', en: 'Registration and necessary tests' } as Record<Language, string>, from: { ja: 'あなた', 'zh-CN': '您', 'zh-TW': '您', en: 'You' } as Record<Language, string>, to: { ja: '病院', 'zh-CN': '医院', 'zh-TW': '醫院', en: 'Hospital' } as Record<Language, string>, fee: 50000, desc: { ja: '通訳同行サービスには、受付・診察・検査時の通訳、会計サポート、院内移動のアシストが含まれます。', 'zh-CN': '翻译陪同服务包括登记、诊察、检查时的翻译，结算支持，院内移动协助。', 'zh-TW': '翻譯陪同服務包括登記、診察、檢查時的翻譯，結算支持，院內移動協助。', en: 'Interpreter service includes translation during registration, consultation, tests, payment support, and in-hospital assistance.' } as Record<Language, string> },
+    { step: 8, title: { ja: '診察・診断', 'zh-CN': '诊察·诊断', 'zh-TW': '診察·診斷', en: 'Consultation & Diagnosis' } as Record<Language, string>, subtitle: { ja: '専門医師による詳細診察と診断', 'zh-CN': '专科医师详细诊察与诊断', 'zh-TW': '專科醫師詳細診察與診斷', en: 'Detailed examination & diagnosis by specialist' } as Record<Language, string>, from: { ja: '医師', 'zh-CN': '医师', 'zh-TW': '醫師', en: 'Doctor' } as Record<Language, string>, to: { ja: 'あなた', 'zh-CN': '您', 'zh-TW': '您', en: 'You' } as Record<Language, string> },
+    { step: 9, title: { ja: '治療方針決定・開始', 'zh-CN': '确定治疗方案·开始治疗', 'zh-TW': '確定治療方案·開始治療', en: 'Treatment Plan & Initiation' } as Record<Language, string>, subtitle: { ja: '治療計画の説明と治療開始', 'zh-CN': '说明治疗计划并开始治疗', 'zh-TW': '說明治療計劃並開始治療', en: 'Explain treatment plan and begin treatment' } as Record<Language, string>, from: { ja: '医師', 'zh-CN': '医师', 'zh-TW': '醫師', en: 'Doctor' } as Record<Language, string>, to: { ja: 'あなた', 'zh-CN': '您', 'zh-TW': '您', en: 'You' } as Record<Language, string> },
+    { step: 10, title: { ja: 'オンライン経過観察', 'zh-CN': '在线随访', 'zh-TW': '線上隨訪', en: 'Online Follow-up' } as Record<Language, string>, subtitle: { ja: '帰国後の定期オンライン相談', 'zh-CN': '回国后定期在线咨询', 'zh-TW': '回國後定期線上諮詢', en: 'Regular online consultations after return' } as Record<Language, string>, from: { ja: 'あなた', 'zh-CN': '您', 'zh-TW': '您', en: 'You' } as Record<Language, string>, to: { ja: '医師', 'zh-CN': '医师', 'zh-TW': '醫師', en: 'Doctor' } as Record<Language, string> },
+    { step: 11, title: { ja: '再来院調整（必要時）', 'zh-CN': '安排再次来日（如需）', 'zh-TW': '安排再次來日（如需）', en: 'Arrange Return Visit (if needed)' } as Record<Language, string>, subtitle: { ja: '追加検査・治療が必要な場合', 'zh-CN': '需要追加检查或治疗时', 'zh-TW': '需要追加檢查或治療時', en: 'When additional tests/treatment needed' } as Record<Language, string>, from: { ja: '私たち', 'zh-CN': '我们', 'zh-TW': '我們', en: 'Us' } as Record<Language, string>, to: { ja: 'あなた', 'zh-CN': '您', 'zh-TW': '您', en: 'You' } as Record<Language, string> },
   ]
 
   const phaseColors = {
@@ -1309,108 +1309,108 @@ export default function KindaiHospitalContent({
 
   // ========== 咨询服务 ==========
 
-  const svcTag = { ja: 'サポートサービス', 'zh-CN': '咨询服务', 'zh-TW': '諮詢服務', en: 'Support Services' }
-  const svcTitle = { ja: '受診サポートサービスのご案内', 'zh-CN': '就诊支持服务介绍', 'zh-TW': '就診支持服務介紹', en: 'Medical Support Services' }
-  const svcDesc = { ja: '初回相談から来日受診・通訳同行まで、あなたに最適なサポートプランをお選びください', 'zh-CN': '从初次咨询到来日就诊、翻译陪同，选择最适合您的支持方案', 'zh-TW': '從初次諮詢到來日就診、翻譯陪同，選擇最適合您的支持方案', en: 'From initial consultation to treatment in Japan with interpreter — choose your ideal support plan' }
-  const svcLimit = { ja: '各月5名様限定', 'zh-CN': '每月限5名', 'zh-TW': '每月限5名', en: 'Limited to 5 per month' }
-  const taxIncl = { ja: '税込', 'zh-CN': '含税', 'zh-TW': '含稅', en: 'Tax Incl.' }
-  const bookNow = { ja: '今すぐ予約', 'zh-CN': '立即预约', 'zh-TW': '立即預約', en: 'Book Now' }
+  const svcTag = { ja: 'サポートサービス', 'zh-CN': '咨询服务', 'zh-TW': '諮詢服務', en: 'Support Services' } as Record<Language, string>
+  const svcTitle = { ja: '受診サポートサービスのご案内', 'zh-CN': '就诊支持服务介绍', 'zh-TW': '就診支持服務介紹', en: 'Medical Support Services' } as Record<Language, string>
+  const svcDesc = { ja: '初回相談から来日受診・通訳同行まで、あなたに最適なサポートプランをお選びください', 'zh-CN': '从初次咨询到来日就诊、翻译陪同，选择最适合您的支持方案', 'zh-TW': '從初次諮詢到來日就診、翻譯陪同，選擇最適合您的支持方案', en: 'From initial consultation to treatment in Japan with interpreter — choose your ideal support plan' } as Record<Language, string>
+  const svcLimit = { ja: '各月5名様限定', 'zh-CN': '每月限5名', 'zh-TW': '每月限5名', en: 'Limited to 5 per month' } as Record<Language, string>
+  const taxIncl = { ja: '税込', 'zh-CN': '含税', 'zh-TW': '含稅', en: 'Tax Incl.' } as Record<Language, string>
+  const bookNow = { ja: '今すぐ予約', 'zh-CN': '立即预约', 'zh-TW': '立即預約', en: 'Book Now' } as Record<Language, string>
 
   const consultationServices = [
     {
       slug: 'initial-consultation',
-      name: { ja: '前期相談サービス', 'zh-CN': '前期咨询服务', 'zh-TW': '前期諮詢服務', en: 'Initial Consultation Service' },
+      name: { ja: '前期相談サービス', 'zh-CN': '前期咨询服务', 'zh-TW': '前期諮詢服務', en: 'Initial Consultation Service' } as Record<Language, string>,
       nameEn: 'Initial Consultation',
       price: 221000,
       gradient: 'from-[#003e7e] to-[#0052a3]',
       hoverGradient: 'hover:from-[#002f5f] hover:to-[#003d7f]',
       checkColor: 'text-[#003e7e]',
       href: '/kindai-hospital/initial-consultation',
-      desc: { ja: '初回から来日受診まで、全プロセスをサポート', 'zh-CN': '从初次咨询到来日就诊的全流程支持', 'zh-TW': '從初次諮詢到來日就診的全流程支持', en: 'Full support from initial inquiry to treatment in Japan' },
+      desc: { ja: '初回から来日受診まで、全プロセスをサポート', 'zh-CN': '从初次咨询到来日就诊的全流程支持', 'zh-TW': '從初次諮詢到來日就診的全流程支持', en: 'Full support from initial inquiry to treatment in Japan' } as Record<Language, string>,
       features: [
-        { ja: 'オンライン事前面談（30分）', 'zh-CN': '在线预诊（30分钟）', 'zh-TW': '線上預診（30分鐘）', en: 'Online pre-consultation (30min)' },
-        { ja: '病院予約代行', 'zh-CN': '代为预约医院', 'zh-TW': '代為預約醫院', en: 'Hospital appointment booking' },
-        { ja: '医療ビザ招聘状取得', 'zh-CN': '办理医疗签证邀请函', 'zh-TW': '辦理醫療簽證邀請函', en: 'Medical visa invitation' },
-        { ja: '宿泊・送迎手配', 'zh-CN': '住宿与接送安排', 'zh-TW': '住宿與接送安排', en: 'Accommodation & transport' },
+        { ja: 'オンライン事前面談（30分）', 'zh-CN': '在线预诊（30分钟）', 'zh-TW': '線上預診（30分鐘）', en: 'Online pre-consultation (30min)' } as Record<Language, string>,
+        { ja: '病院予約代行', 'zh-CN': '代为预约医院', 'zh-TW': '代為預約醫院', en: 'Hospital appointment booking' } as Record<Language, string>,
+        { ja: '医療ビザ招聘状取得', 'zh-CN': '办理医疗签证邀请函', 'zh-TW': '辦理醫療簽證邀請函', en: 'Medical visa invitation' } as Record<Language, string>,
+        { ja: '宿泊・送迎手配', 'zh-CN': '住宿与接送安排', 'zh-TW': '住宿與接送安排', en: 'Accommodation & transport' } as Record<Language, string>,
       ],
     },
     {
       slug: 'remote-consultation',
-      name: { ja: '遠隔会診サービス', 'zh-CN': '远程会诊服务', 'zh-TW': '遠程會診服務', en: 'Remote Consultation Service' },
+      name: { ja: '遠隔会診サービス', 'zh-CN': '远程会诊服务', 'zh-TW': '遠程會診服務', en: 'Remote Consultation Service' } as Record<Language, string>,
       nameEn: 'Remote Consultation',
       price: 243000,
       gradient: 'from-green-600 to-green-700',
       hoverGradient: 'hover:from-green-700 hover:to-green-800',
       checkColor: 'text-green-600',
       href: '/kindai-hospital/remote-consultation',
-      desc: { ja: 'まずはオンラインで専門医に相談したい方', 'zh-CN': '想先在线向专科医师咨询的您', 'zh-TW': '想先線上向專科醫師諮詢的您', en: 'For those who want to consult a specialist online first' },
+      desc: { ja: 'まずはオンラインで専門医に相談したい方', 'zh-CN': '想先在线向专科医师咨询的您', 'zh-TW': '想先線上向專科醫師諮詢的您', en: 'For those who want to consult a specialist online first' } as Record<Language, string>,
       features: [
-        { ja: 'オンライン医師面談（30分）', 'zh-CN': '在线医师会诊（30分钟）', 'zh-TW': '線上醫師會診（30分鐘）', en: 'Online doctor consultation (30min)' },
-        { ja: '医療記録翻訳サポート', 'zh-CN': '病历翻译支持', 'zh-TW': '病歷翻譯支持', en: 'Medical record translation' },
-        { ja: 'セカンドオピニオン取得', 'zh-CN': '获取第二诊疗意见', 'zh-TW': '獲取第二診療意見', en: 'Second opinion' },
-        { ja: '治療方針アドバイス', 'zh-CN': '治疗方案建议', 'zh-TW': '治療方案建議', en: 'Treatment plan advice' },
+        { ja: 'オンライン医師面談（30分）', 'zh-CN': '在线医师会诊（30分钟）', 'zh-TW': '線上醫師會診（30分鐘）', en: 'Online doctor consultation (30min)' } as Record<Language, string>,
+        { ja: '医療記録翻訳サポート', 'zh-CN': '病历翻译支持', 'zh-TW': '病歷翻譯支持', en: 'Medical record translation' } as Record<Language, string>,
+        { ja: 'セカンドオピニオン取得', 'zh-CN': '获取第二诊疗意见', 'zh-TW': '獲取第二診療意見', en: 'Second opinion' } as Record<Language, string>,
+        { ja: '治療方針アドバイス', 'zh-CN': '治疗方案建议', 'zh-TW': '治療方案建議', en: 'Treatment plan advice' } as Record<Language, string>,
       ],
     },
   ]
 
-  const memberTitle = { ja: '会員制医療サポート', 'zh-CN': '会员制医疗支持', 'zh-TW': '會員制醫療支持', en: 'Membership Medical Support' }
-  const memberDesc = { ja: '年間サポート会員も募集中。継続的な健康管理・定期検診・緊急時対応をトータルサポートします。詳しくはお問い合わせください。', 'zh-CN': '现正招募年度支持会员。全面支持持续健康管理、定期体检、紧急应对。详情请咨询。', 'zh-TW': '現正招募年度支持會員。全面支持持續健康管理、定期體檢、緊急應對。詳情請諮詢。', en: 'Annual support membership now available. Comprehensive support for ongoing health management, regular check-ups, and emergency response. Contact us for details.' }
+  const memberTitle = { ja: '会員制医療サポート', 'zh-CN': '会员制医疗支持', 'zh-TW': '會員制醫療支持', en: 'Membership Medical Support' } as Record<Language, string>
+  const memberDesc = { ja: '年間サポート会員も募集中。継続的な健康管理・定期検診・緊急時対応をトータルサポートします。詳しくはお問い合わせください。', 'zh-CN': '现正招募年度支持会员。全面支持持续健康管理、定期体检、紧急应对。详情请咨询。', 'zh-TW': '現正招募年度支持會員。全面支持持續健康管理、定期體檢、緊急應對。詳情請諮詢。', en: 'Annual support membership now available. Comprehensive support for ongoing health management, regular check-ups, and emergency response. Contact us for details.' } as Record<Language, string>
 
   // ========== 全35诊疗科 ==========
 
-  const deptTitle = { ja: '全35診療科', 'zh-CN': '全35个诊疗科', 'zh-TW': '全35個診療科', en: 'All 35 Clinical Departments' }
-  const deptInternal = { ja: '内科系', 'zh-CN': '内科系', 'zh-TW': '內科系', en: 'Internal Medicine' }
-  const deptSurgical = { ja: '外科系', 'zh-CN': '外科系', 'zh-TW': '外科系', en: 'Surgical' }
-  const deptSpecialty = { ja: '専門科・その他', 'zh-CN': '专科・其他', 'zh-TW': '專科・其他', en: 'Specialty & Others' }
+  const deptTitle = { ja: '全35診療科', 'zh-CN': '全35个诊疗科', 'zh-TW': '全35個診療科', en: 'All 35 Clinical Departments' } as Record<Language, string>
+  const deptInternal = { ja: '内科系', 'zh-CN': '内科系', 'zh-TW': '內科系', en: 'Internal Medicine' } as Record<Language, string>
+  const deptSurgical = { ja: '外科系', 'zh-CN': '外科系', 'zh-TW': '外科系', en: 'Surgical' } as Record<Language, string>
+  const deptSpecialty = { ja: '専門科・その他', 'zh-CN': '专科・其他', 'zh-TW': '專科・其他', en: 'Specialty & Others' } as Record<Language, string>
 
   const departments = {
     internal: [
-      { ja: '循環器内科', 'zh-CN': '循环内科', 'zh-TW': '循環內科', en: 'Cardiology' },
-      { ja: '消化器内科', 'zh-CN': '消化内科', 'zh-TW': '消化內科', en: 'Gastroenterology' },
-      { ja: '呼吸器内科', 'zh-CN': '呼吸内科', 'zh-TW': '呼吸內科', en: 'Pulmonology' },
-      { ja: '神経内科', 'zh-CN': '神经内科', 'zh-TW': '神經內科', en: 'Neurology' },
-      { ja: '腎臓内科', 'zh-CN': '肾脏内科', 'zh-TW': '腎臟內科', en: 'Nephrology' },
-      { ja: '内分泌・代謝・糖尿病内科', 'zh-CN': '内分泌・代谢・糖尿病内科', 'zh-TW': '內分泌・代謝・糖尿病內科', en: 'Endocrinology & Diabetes' },
-      { ja: '血液内科', 'zh-CN': '血液内科', 'zh-TW': '血液內科', en: 'Hematology' },
-      { ja: 'リウマチ・膠原病内科', 'zh-CN': '风湿・胶原病内科', 'zh-TW': '風濕・膠原病內科', en: 'Rheumatology' },
-      { ja: '感染症内科', 'zh-CN': '感染科', 'zh-TW': '感染科', en: 'Infectious Disease' },
-      { ja: '総合内科', 'zh-CN': '综合内科', 'zh-TW': '綜合內科', en: 'General Internal Medicine' },
+      { ja: '循環器内科', 'zh-CN': '循环内科', 'zh-TW': '循環內科', en: 'Cardiology' } as Record<Language, string>,
+      { ja: '消化器内科', 'zh-CN': '消化内科', 'zh-TW': '消化內科', en: 'Gastroenterology' } as Record<Language, string>,
+      { ja: '呼吸器内科', 'zh-CN': '呼吸内科', 'zh-TW': '呼吸內科', en: 'Pulmonology' } as Record<Language, string>,
+      { ja: '神経内科', 'zh-CN': '神经内科', 'zh-TW': '神經內科', en: 'Neurology' } as Record<Language, string>,
+      { ja: '腎臓内科', 'zh-CN': '肾脏内科', 'zh-TW': '腎臟內科', en: 'Nephrology' } as Record<Language, string>,
+      { ja: '内分泌・代謝・糖尿病内科', 'zh-CN': '内分泌・代谢・糖尿病内科', 'zh-TW': '內分泌・代謝・糖尿病內科', en: 'Endocrinology & Diabetes' } as Record<Language, string>,
+      { ja: '血液内科', 'zh-CN': '血液内科', 'zh-TW': '血液內科', en: 'Hematology' } as Record<Language, string>,
+      { ja: 'リウマチ・膠原病内科', 'zh-CN': '风湿・胶原病内科', 'zh-TW': '風濕・膠原病內科', en: 'Rheumatology' } as Record<Language, string>,
+      { ja: '感染症内科', 'zh-CN': '感染科', 'zh-TW': '感染科', en: 'Infectious Disease' } as Record<Language, string>,
+      { ja: '総合内科', 'zh-CN': '综合内科', 'zh-TW': '綜合內科', en: 'General Internal Medicine' } as Record<Language, string>,
     ],
     surgical: [
-      { ja: '心臓血管外科', 'zh-CN': '心脏血管外科', 'zh-TW': '心臟血管外科', en: 'Cardiovascular Surgery' },
-      { ja: '消化器外科', 'zh-CN': '消化外科', 'zh-TW': '消化外科', en: 'Gastrointestinal Surgery' },
-      { ja: '呼吸器外科', 'zh-CN': '呼吸外科', 'zh-TW': '呼吸外科', en: 'Thoracic Surgery' },
-      { ja: '脳神経外科', 'zh-CN': '神经外科', 'zh-TW': '神經外科', en: 'Neurosurgery' },
-      { ja: '整形外科', 'zh-CN': '骨科', 'zh-TW': '骨科', en: 'Orthopedics' },
-      { ja: '形成外科', 'zh-CN': '整形外科', 'zh-TW': '整形外科', en: 'Plastic Surgery' },
-      { ja: '乳腺外科', 'zh-CN': '乳腺外科', 'zh-TW': '乳腺外科', en: 'Breast Surgery' },
-      { ja: '泌尿器科', 'zh-CN': '泌尿科', 'zh-TW': '泌尿科', en: 'Urology' },
-      { ja: '婦人科', 'zh-CN': '妇科', 'zh-TW': '婦科', en: 'Gynecology' },
-      { ja: '産科', 'zh-CN': '产科', 'zh-TW': '產科', en: 'Obstetrics' },
+      { ja: '心臓血管外科', 'zh-CN': '心脏血管外科', 'zh-TW': '心臟血管外科', en: 'Cardiovascular Surgery' } as Record<Language, string>,
+      { ja: '消化器外科', 'zh-CN': '消化外科', 'zh-TW': '消化外科', en: 'Gastrointestinal Surgery' } as Record<Language, string>,
+      { ja: '呼吸器外科', 'zh-CN': '呼吸外科', 'zh-TW': '呼吸外科', en: 'Thoracic Surgery' } as Record<Language, string>,
+      { ja: '脳神経外科', 'zh-CN': '神经外科', 'zh-TW': '神經外科', en: 'Neurosurgery' } as Record<Language, string>,
+      { ja: '整形外科', 'zh-CN': '骨科', 'zh-TW': '骨科', en: 'Orthopedics' } as Record<Language, string>,
+      { ja: '形成外科', 'zh-CN': '整形外科', 'zh-TW': '整形外科', en: 'Plastic Surgery' } as Record<Language, string>,
+      { ja: '乳腺外科', 'zh-CN': '乳腺外科', 'zh-TW': '乳腺外科', en: 'Breast Surgery' } as Record<Language, string>,
+      { ja: '泌尿器科', 'zh-CN': '泌尿科', 'zh-TW': '泌尿科', en: 'Urology' } as Record<Language, string>,
+      { ja: '婦人科', 'zh-CN': '妇科', 'zh-TW': '婦科', en: 'Gynecology' } as Record<Language, string>,
+      { ja: '産科', 'zh-CN': '产科', 'zh-TW': '產科', en: 'Obstetrics' } as Record<Language, string>,
     ],
     specialty: [
-      { ja: '小児科', 'zh-CN': '小儿科', 'zh-TW': '小兒科', en: 'Pediatrics' },
-      { ja: '新生児科', 'zh-CN': '新生儿科', 'zh-TW': '新生兒科', en: 'Neonatology' },
-      { ja: '眼科', 'zh-CN': '眼科', 'zh-TW': '眼科', en: 'Ophthalmology' },
-      { ja: '耳鼻咽喉科', 'zh-CN': '耳鼻喉科', 'zh-TW': '耳鼻喉科', en: 'Otolaryngology' },
-      { ja: '皮膚科', 'zh-CN': '皮肤科', 'zh-TW': '皮膚科', en: 'Dermatology' },
-      { ja: '精神神経科', 'zh-CN': '精神神经科', 'zh-TW': '精神神經科', en: 'Psychiatry' },
-      { ja: '放射線治療科', 'zh-CN': '放射治疗科', 'zh-TW': '放射治療科', en: 'Radiation Oncology' },
-      { ja: '放射線診断科', 'zh-CN': '放射诊断科', 'zh-TW': '放射診斷科', en: 'Radiology' },
-      { ja: '麻酔科', 'zh-CN': '麻醉科', 'zh-TW': '麻醉科', en: 'Anesthesiology' },
-      { ja: '救命救急科', 'zh-CN': '急诊科', 'zh-TW': '急診科', en: 'Emergency Medicine' },
-      { ja: 'リハビリテーション科', 'zh-CN': '康复科', 'zh-TW': '康復科', en: 'Rehabilitation' },
-      { ja: '病理診断科', 'zh-CN': '病理诊断科', 'zh-TW': '病理診斷科', en: 'Pathology' },
-      { ja: '臨床検査科', 'zh-CN': '临床检验科', 'zh-TW': '臨床檢驗科', en: 'Clinical Laboratory' },
-      { ja: '歯科口腔外科', 'zh-CN': '口腔外科', 'zh-TW': '口腔外科', en: 'Oral Surgery' },
-      { ja: '総合診療科', 'zh-CN': '全科', 'zh-TW': '全科', en: 'General Practice' },
+      { ja: '小児科', 'zh-CN': '小儿科', 'zh-TW': '小兒科', en: 'Pediatrics' } as Record<Language, string>,
+      { ja: '新生児科', 'zh-CN': '新生儿科', 'zh-TW': '新生兒科', en: 'Neonatology' } as Record<Language, string>,
+      { ja: '眼科', 'zh-CN': '眼科', 'zh-TW': '眼科', en: 'Ophthalmology' } as Record<Language, string>,
+      { ja: '耳鼻咽喉科', 'zh-CN': '耳鼻喉科', 'zh-TW': '耳鼻喉科', en: 'Otolaryngology' } as Record<Language, string>,
+      { ja: '皮膚科', 'zh-CN': '皮肤科', 'zh-TW': '皮膚科', en: 'Dermatology' } as Record<Language, string>,
+      { ja: '精神神経科', 'zh-CN': '精神神经科', 'zh-TW': '精神神經科', en: 'Psychiatry' } as Record<Language, string>,
+      { ja: '放射線治療科', 'zh-CN': '放射治疗科', 'zh-TW': '放射治療科', en: 'Radiation Oncology' } as Record<Language, string>,
+      { ja: '放射線診断科', 'zh-CN': '放射诊断科', 'zh-TW': '放射診斷科', en: 'Radiology' } as Record<Language, string>,
+      { ja: '麻酔科', 'zh-CN': '麻醉科', 'zh-TW': '麻醉科', en: 'Anesthesiology' } as Record<Language, string>,
+      { ja: '救命救急科', 'zh-CN': '急诊科', 'zh-TW': '急診科', en: 'Emergency Medicine' } as Record<Language, string>,
+      { ja: 'リハビリテーション科', 'zh-CN': '康复科', 'zh-TW': '康復科', en: 'Rehabilitation' } as Record<Language, string>,
+      { ja: '病理診断科', 'zh-CN': '病理诊断科', 'zh-TW': '病理診斷科', en: 'Pathology' } as Record<Language, string>,
+      { ja: '臨床検査科', 'zh-CN': '临床检验科', 'zh-TW': '臨床檢驗科', en: 'Clinical Laboratory' } as Record<Language, string>,
+      { ja: '歯科口腔外科', 'zh-CN': '口腔外科', 'zh-TW': '口腔外科', en: 'Oral Surgery' } as Record<Language, string>,
+      { ja: '総合診療科', 'zh-CN': '全科', 'zh-TW': '全科', en: 'General Practice' } as Record<Language, string>,
     ],
   }
 
   // ========== CTA Section ==========
 
-  const ctaTitle = { ja: '近畿大学病院での受診をご検討の方へ', 'zh-CN': '考虑在近畿大学医院就诊的您', 'zh-TW': '考慮在近畿大學醫院就診的您', en: 'Considering Medical Care at Kindai University Hospital?' }
-  const ctaDesc = { ja: '中国語対応スタッフが丁寧にサポートいたします。\n予約手配から通訳同行まで一括対応。お気軽にご相談ください。', 'zh-CN': '中文服务人员为您提供全程支援。\n从预约安排到翻译陪同一站式服务，欢迎随时咨询。', 'zh-TW': '中文服務人員為您提供全程支援。\n從預約安排到翻譯陪同一站式服務，歡迎隨時諮詢。', en: 'Chinese-speaking staff provide full support.\nFrom appointment arrangement to interpreter accompaniment. Feel free to consult us.' }
+  const ctaTitle = { ja: '近畿大学病院での受診をご検討の方へ', 'zh-CN': '考虑在近畿大学医院就诊的您', 'zh-TW': '考慮在近畿大學醫院就診的您', en: 'Considering Medical Care at Kindai University Hospital?' } as Record<Language, string>
+  const ctaDesc = { ja: '中国語対応スタッフが丁寧にサポートいたします。\n予約手配から通訳同行まで一括対応。お気軽にご相談ください。', 'zh-CN': '中文服务人员为您提供全程支援。\n从预约安排到翻译陪同一站式服务，欢迎随时咨询。', 'zh-TW': '中文服務人員為您提供全程支援。\n從預約安排到翻譯陪同一站式服務，歡迎隨時諮詢。', en: 'Chinese-speaking staff provide full support.\nFrom appointment arrangement to interpreter accompaniment. Feel free to consult us.' } as Record<Language, string>
 
   // ========== 渲染 ==========
 
@@ -2308,9 +2308,9 @@ export default function KindaiHospitalContent({
       <section className="py-8 bg-gray-100">
         <div className="max-w-4xl mx-auto px-6">
           <ul className="space-y-1.5 text-xs text-gray-500 leading-relaxed">
-            <li>※ {{ ja: '本ページで紹介する検査・治療には自由診療（保険適用外）が含まれます。費用は医療機関の基準に従います。', 'zh-TW': '本頁介紹的檢查・治療包含自費診療（不適用保險）。費用依醫療機構標準。', 'zh-CN': '本页介绍的检查・治疗包含自费诊疗（不适用保险）。费用依医疗机构标准。', en: 'Examinations and treatments on this page may include self-pay options (not covered by insurance). Fees follow each facility\'s standards.' }[locale]}</li>
-            <li>※ {{ ja: '治療効果には個人差があり、すべての患者に同様の効果を保証するものではありません。', 'zh-TW': '治療效果因人而異，不保證所有患者均能獲得相同效果。', 'zh-CN': '治疗效果因人而异，不保证所有患者均能获得相同效果。', en: 'Treatment effects vary by individual and are not guaranteed for all patients.' }[locale]}</li>
-            <li>※ {{ ja: '当社（新島交通株式会社・大阪府知事登録旅行業 第2-3115号）は旅行業者であり、医療機関ではありません。医療行為は各提携医療機関が提供します。', 'zh-TW': '本公司（新島交通株式會社・大阪府知事登錄旅行業 第2-3115號）為旅行業者，非醫療機構。醫療行為由各合作醫療機構提供。', 'zh-CN': '本公司（新岛交通株式会社・大阪府知事登录旅行业 第2-3115号）为旅行业者，非医疗机构。医疗行为由各合作医疗机构提供。', en: 'Niijima Kotsu Co., Ltd. (Osaka Gov. Registered Travel Agency No. 2-3115) is a travel agency, not a medical institution. Medical services are provided by partner facilities.' }[locale]}</li>
+            <li>※ {({ ja: '本ページで紹介する検査・治療には自由診療（保険適用外）が含まれます。費用は医療機関の基準に従います。', 'zh-TW': '本頁介紹的檢查・治療包含自費診療（不適用保險）。費用依醫療機構標準。', 'zh-CN': '本页介绍的检查・治疗包含自费诊疗（不适用保险）。费用依医疗机构标准。', en: 'Examinations and treatments on this page may include self-pay options (not covered by insurance). Fees follow each facility\'s standards.' } as Record<Language, string>)[locale]}</li>
+            <li>※ {({ ja: '治療効果には個人差があり、すべての患者に同様の効果を保証するものではありません。', 'zh-TW': '治療效果因人而異，不保證所有患者均能獲得相同效果。', 'zh-CN': '治疗效果因人而异，不保证所有患者均能获得相同效果。', en: 'Treatment effects vary by individual and are not guaranteed for all patients.' } as Record<Language, string>)[locale]}</li>
+            <li>※ {({ ja: '当社（新島交通株式会社・大阪府知事登録旅行業 第2-3115号）は旅行業者であり、医療機関ではありません。医療行為は各提携医療機関が提供します。', 'zh-TW': '本公司（新島交通株式會社・大阪府知事登錄旅行業 第2-3115號）為旅行業者，非醫療機構。醫療行為由各合作醫療機構提供。', 'zh-CN': '本公司（新岛交通株式会社・大阪府知事登录旅行业 第2-3115号）为旅行业者，非医疗机构。医疗行为由各合作医疗机构提供。', en: 'Niijima Kotsu Co., Ltd. (Osaka Gov. Registered Travel Agency No. 2-3115) is a travel agency, not a medical institution. Medical services are provided by partner facilities.' } as Record<Language, string>)[locale]}</li>
           </ul>
         </div>
       </section>

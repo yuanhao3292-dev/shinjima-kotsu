@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
+import { getScreeningSessionId } from '@/lib/utils/screening-session';
 
 export async function GET(
   request: NextRequest,
@@ -7,7 +8,7 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const sessionId = request.nextUrl.searchParams.get('sessionId');
+    const sessionId = getScreeningSessionId(request);
 
     if (!sessionId) {
       return NextResponse.json(

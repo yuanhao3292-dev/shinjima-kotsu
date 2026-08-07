@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase-client';
+import { createClient } from '@/lib/supabase/client';
 import { formatDateTime } from '@/lib/utils/format-date';
 import Link from 'next/link';
 
@@ -83,6 +83,7 @@ const DEPOSIT_STATUS_LABELS: Record<string, { label: string; color: string }> = 
 type TabType = 'medical' | 'guide';
 
 export default function AdminOrdersPage() {
+  const supabase = createClient();
   const [activeTab, setActiveTab] = useState<TabType>('medical');
 
   // 醫療訂單

@@ -182,7 +182,7 @@ const translations = {
 } as const;
 
 const t = (key: keyof typeof translations, lang: Language): string => {
-  return translations[key][lang];
+  return (translations[key] as Record<Language, string>)[lang];
 };
 
 // 安全的重定向路径验证

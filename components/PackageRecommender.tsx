@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { ArrowRight, ArrowLeft, CheckCircle, Sparkles, User, Calendar, Heart, Target, X } from 'lucide-react';
 
 interface RecommendationResult {
@@ -204,6 +205,7 @@ interface PackageRecommenderProps {
 }
 
 export default function PackageRecommender({ onClose, onSelectPackage }: PackageRecommenderProps) {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
   const [showResult, setShowResult] = useState(false);
@@ -320,7 +322,7 @@ export default function PackageRecommender({ onClose, onSelectPackage }: Package
                   if (onSelectPackage) {
                     onSelectPackage(recommendation.packageSlug);
                   } else {
-                    window.location.href = '/medical';
+                    router.push('/medical');
                   }
                 }}
                 className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 px-6 rounded-xl transition-colors"

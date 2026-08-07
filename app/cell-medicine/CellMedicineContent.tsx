@@ -11,7 +11,7 @@ import {
   GraduationCap, Building2, CircleDot,
   Zap, Leaf, Users, Star,
 } from 'lucide-react';
-import { useLanguage, type Language } from '@/hooks/useLanguage';
+import { useLanguage4, type Language } from '@/hooks/useLanguage';
 
 // ======================================
 // Hero 图片（白标首图映射用）
@@ -392,7 +392,7 @@ interface Props {
 }
 
 export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) {
-  const lang = useLanguage();
+  const lang = useLanguage4();
 
   const tr = (key: keyof typeof t): string => {
     return t[key][lang] || t[key]['zh-CN'];

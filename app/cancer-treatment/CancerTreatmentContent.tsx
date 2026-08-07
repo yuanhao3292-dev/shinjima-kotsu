@@ -11,7 +11,7 @@ import {
   Atom, Pill, Radio, FlaskConical, HeartPulse, Leaf, CreditCard,
   MapPin, Award, Info, ExternalLink
 } from 'lucide-react';
-import { useLanguage, type Language } from '@/hooks/useLanguage';
+import { useLanguage4, type Language } from '@/hooks/useLanguage';
 const pageTranslations = {
   // Hero
   heroBadge: { ja: '日本がん治療', 'zh-TW': '日本癌症治療', 'zh-CN': '日本癌症治疗', en: 'Japan Cancer Treatment', ko: '일본 암 치료' } as Record<Language, string>,
@@ -862,7 +862,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
   const [activePhase, setActivePhase] = useState<number>(1);
   const [showWechatQR, setShowWechatQR] = useState(false);
-  const currentLang = useLanguage();
+  const currentLang = useLanguage4();
 
   const t = (key: keyof typeof pageTranslations) => pageTranslations[key][currentLang];
   return (

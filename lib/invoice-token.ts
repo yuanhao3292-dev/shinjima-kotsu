@@ -7,17 +7,11 @@
  * Token 有效期 7 天（TOKEN_TTL_MS）。
  */
 
+import { getInvoiceSecret as getSecret } from './utils/secrets';
+import { constantTimeEqual } from './utils/constant-time';
+
 const TOKEN_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 天
 const TOKEN_BUCKET_MS = 60 * 60 * 1000; // 1 小时粒度（同一小时内生成相同 token）
-
-const getSecret = (): string => {
-  const secret = process.env.INVOICE_SECRET || process.env.FP_SECRET;
-  if (!secret) {
-    console.error('[CRITICAL] INVOICE_SECRET env var not set — invoice tokens will be insecure');
-    return 'invoice-fallback-' + (process.env.NEXT_PUBLIC_SUPABASE_URL || 'dev');
-  }
-  return secret;
-};
 
 async function hmac(data: string, secret: string): Promise<string> {
   const encoder = new TextEncoder();
@@ -71,14 +65,3 @@ export async function verifyInvoiceToken(
   return false;
 }
 
-/** 常量时间字符串比较（无提前退出） */
-function constantTimeEqual(a: string, b: string): boolean {
-  const len = Math.max(a.length, b.length);
-  let result = a.length ^ b.length;
-  for (let i = 0; i < len; i++) {
-    const c1 = i < a.length ? a.charCodeAt(i) : 0;
-    const c2 = i < b.length ? b.charCodeAt(i) : 0;
-    result |= c1 ^ c2;
-  }
-  return result === 0;
-}

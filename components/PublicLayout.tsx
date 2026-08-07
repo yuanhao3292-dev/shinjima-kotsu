@@ -259,30 +259,6 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
   // 判断是否使用透明模式（未滚动 + 启用透明导航）
   const isTransparent = transparentNav && !scrolled;
 
-  const LanguageSwitcher = () => (
-    <div className="relative lang-dropdown">
-      <button
-        onClick={() => setLangMenuOpen(!langMenuOpen)}
-        className={`flex items-center gap-1 text-xs font-bold transition uppercase tracking-wider ${
-          isTransparent ? 'text-white/80 hover:text-white' : 'text-neutral-600 hover:text-neutral-900'
-        }`}
-      >
-        <Globe size={14} />
-        {currentLang === 'zh-TW' ? '\u7E41\u4F53\u4E2D\u6587' : currentLang === 'zh-CN' ? '\u7B80\u4F53\u4E2D\u6587' : currentLang === 'ko' ? '\uD55C\uAD6D' : currentLang.toUpperCase()}
-        <ChevronDown size={12} />
-      </button>
-      {langMenuOpen && (
-        <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50 animate-fade-in-down">
-          {[{ code: 'ja', label: '\u65E5\u672C\u8A9E' }, { code: 'zh-TW', label: '\u7E41\u4F53\u4E2D\u6587' }, { code: 'zh-CN', label: '\u7B80\u4F53\u4E2D\u6587' }, { code: 'en', label: 'English' }, { code: 'ko', label: '\uD55C\uAD6D\uC5B4' }].map((lang) => (
-            <button key={lang.code} onClick={() => handleLangChange(lang.code as Language)} className={`w-full text-left px-4 py-2 text-xs font-medium hover:bg-neutral-50 transition ${currentLang === lang.code ? 'text-brand-700 bg-brand-50' : 'text-neutral-600'}`}>
-              {lang.label}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-
   const isActive = (nav: string) => activeNav === nav;
 
   // 导航项的样式
@@ -363,13 +339,13 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                 <div>
                   <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">公司资讯</h4>
                   <ul className="space-y-2.5">
-                    <li><a href="/company/about" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">关于我们</a></li>
-                    <li><a href="/news" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">最新消息</a></li>
-                    <li><a href="/faq" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">常见问题</a></li>
-                    <li><a href="/legal/tokushoho" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">特定商取引法</a></li>
+                    <li><Link href="/company/about" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">关于我们</Link></li>
+                    <li><Link href="/news" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">最新消息</Link></li>
+                    <li><Link href="/faq" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">常见问题</Link></li>
+                    <li><Link href="/legal/tokushoho" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">特定商取引法</Link></li>
                     <li><a href="/legal/yakkan" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">旅行業约款</a></li>
-                    <li><a href="/legal/privacy" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">隐私政策</a></li>
-                    <li><a href="/legal/terms" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">使用条款</a></li>
+                    <li><Link href="/legal/privacy" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">隐私政策</Link></li>
+                    <li><Link href="/legal/terms" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">使用条款</Link></li>
                     <li><a href="/legal/medical-disclaimer" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">医疗免责事项</a></li>
                   </ul>
                 </div>
@@ -443,7 +419,27 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
 
           {/* Actions */}
           <div className="flex items-center gap-6">
-            <LanguageSwitcher />
+            <div className="relative lang-dropdown">
+              <button
+                onClick={() => setLangMenuOpen(!langMenuOpen)}
+                className={`flex items-center gap-1 text-xs font-bold transition uppercase tracking-wider ${
+                  isTransparent ? 'text-white/80 hover:text-white' : 'text-neutral-600 hover:text-neutral-900'
+                }`}
+              >
+                <Globe size={14} />
+                {currentLang === 'zh-TW' ? '\u7E41\u4F53\u4E2D\u6587' : currentLang === 'zh-CN' ? '\u7B80\u4F53\u4E2D\u6587' : currentLang === 'ko' ? '\uD55C\uAD6D' : currentLang.toUpperCase()}
+                <ChevronDown size={12} />
+              </button>
+              {langMenuOpen && (
+                <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50 animate-fade-in-down">
+                  {[{ code: 'ja', label: '\u65E5\u672C\u8A9E' }, { code: 'zh-TW', label: '\u7E41\u4F53\u4E2D\u6587' }, { code: 'zh-CN', label: '\u7B80\u4F53\u4E2D\u6587' }, { code: 'en', label: 'English' }, { code: 'ko', label: '\uD55C\uAD6D\uC5B4' }].map((lang) => (
+                    <button key={lang.code} onClick={() => handleLangChange(lang.code as Language)} className={`w-full text-left px-4 py-2 text-xs font-medium hover:bg-neutral-50 transition ${currentLang === lang.code ? 'text-brand-700 bg-brand-50' : 'text-neutral-600'}`}>
+                      {lang.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Login Dropdown */}
             <div className="relative hidden md:block login-dropdown">
