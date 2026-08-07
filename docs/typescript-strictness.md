@@ -1,42 +1,45 @@
-# TypeScript 严格度现状与推进路线
+# TypeScript 严格度现状
 
-`tsconfig.json` 里 `"strict"` 仍是 `false`，但已逐项打开当前零错误的严格检查。
-这份文档记录为什么这样分阶段，以及剩下什么。
+**`"strict": true` 已于 2026-08-07 全量开启**，`npx tsc --noEmit` 零错误。
 
-## 已开启
+推进过程（供追溯）：
 
-| 选项 | 开启时的错误数 |
-|------|----------------|
-| `strictFunctionTypes` | 0 |
-| `strictBindCallApply` | 0 |
-| `noImplicitThis` | 0 |
-| `alwaysStrict` | 0 |
-| `useUnknownInCatchVariables` | 0 |
-| `strictNullChecks` | 22（已逐个修复后开启） |
+1. 先逐项打开当时零错误的选项：`strictFunctionTypes`、`strictBindCallApply`、
+   `noImplicitThis`、`alwaysStrict`、`useUnknownInCatchVariables`
+2. 修复 26 处 `strictNullChecks` 错误后开启（多为 `let x = null` 推断、
+   `[]` 推断成 `never[]`、recharts formatter 参数签名）
+3. 修复 165 处 `noImplicitAny`——大头是医院专题页的内联多语言字典缺
+   `as Record<Language, string>` 标注（KindaiHospitalContent 一个文件 99 处）
+4. 换成 `"strict": true`，修掉最后 1 处 `strictPropertyInitialization` 关联错误
 
-这几项在打开前实测都不产生新错误，或错误量小到可以一次性修完，
-因此没有理由继续关着 —— 关着只会让新代码继续引入同类问题。
+## 已知的类型层"谎言"
 
-## 尚未开启
+多语言字典大量使用 `as Record<Language, string>` 断言，但 `Language` 含
+`ko` 而大部分字典只有 4 语（ja/zh-CN/zh-TW/en）。**韩语用户在这些位置
+实际拿到 `undefined`**——这是代码库长期存在的约定，断言只是让它显式化了。
+若要真正支持韩语，需要补文案并把断言换成完整的 5 语字典。
 
-| 选项 | 当前错误数 | 说明 |
-|------|-----------|------|
-| `noImplicitAny` | 179 | 主要来自 Supabase 查询结果的隐式 any、事件处理器参数、以及早期迁移自 Vite 的组件 |
+共享类型在 `hooks/useLanguage.ts`：`LocalizedText`（5 语）、
+`LocalizedText4`（4 语）。新代码优先用它们 + `satisfies`，别再手写断言。
 
-`noImplicitAny` 是唯一还挡在 `"strict": true` 前面的选项。179 处不是不能修，
-但需要逐个判断真实类型（很多是数据库行的形状），属于独立任务，不适合和
-安全修复混在一起。
+## 检查覆盖范围的缺口
 
-推进建议：按目录分批处理，每批修完就在这里更新计数。全部归零后把
-`"strict": false` 连同上面这一串单项开关一起换成 `"strict": true`。
+`tsconfig.json` 的 `exclude` 仍排除 `tests/` 和 `scripts/`：
 
-## 类型检查的覆盖范围
+- `tests/`：mock 对象缺类型标注，纳入前需先补
+- `scripts/`：70+ 一次性运维脚本，多数已废弃，不值得投入
 
-`tsconfig.json` 的 `exclude` 目前是 `["node_modules", "tests", "scripts"]`。
+`vitest.config.ts` 的 coverage 阈值（lines 60 等）只在手动
+`npm run test:coverage` 时生效，CI 未开——测试数量已足够（1583 个），
+先不给 CI 增加 coverage 采集的时间成本。
 
-- `tests/` 被排除：测试里有大量 mock 对象，纳入检查会产生噪音。
-- `scripts/` 被排除：70+ 个一次性运维脚本，其中不少已经不再使用。
+## 注意事项
 
-这意味着 `npx tsc --noEmit` 的"零错误"只覆盖 `app/`、`components/`、`lib/`、
-`services/`、`hooks/`。把 `tests/` 纳入检查是值得做的（能挡住测试与实现之间
-的类型漂移），但要先解决 mock 的类型标注问题。
+`incremental: true` + 陈旧的 `.tsbuildinfo` 会跳过未改动文件的检查，
+曾掩盖过 4 个真实错误。本地验证一律用：
+
+```bash
+npx tsc --noEmit --incremental false
+```
+
+CI 是全新 checkout 不受影响；`.tsbuildinfo` 已加入 `.gitignore`。

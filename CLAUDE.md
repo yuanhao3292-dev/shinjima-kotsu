@@ -2064,7 +2064,7 @@ CREATE POLICY "..." ON some_table
 （见 `lib/utils/screening-session.ts`）。放进 query string 会泄露到
 访问日志、CDN 日志和浏览器历史。
 
-### 质量门禁
+### 质量门禁（TypeScript 已全量 strict）
 
 CI（`.github/workflows/ci.yml`）会跑：`tsc --noEmit`、`eslint .`、
 路由隔离检查、迁移编号检查、单元测试、构建，以及独立的 Playwright 冒烟测试。

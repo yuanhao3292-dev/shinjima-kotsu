@@ -30,7 +30,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
   };
 
   // 合作球场数据 — 从翻译数据获取
-  const partnerCourses = (t.golf as any).partnerCourses || [
+  const partnerCourses: { name: string; region: string; rank: string; url: string }[] = (t.golf as any).partnerCourses || [
     { name: '六甲国際ゴルフ倶楽部', region: '兵庫', rank: '名門', url: 'http://rokkokokusai-kobe.jp/' },
     { name: 'ABCゴルフ倶楽部', region: '兵庫', rank: '名門', url: 'https://abc-golf.co.jp/' },
     { name: '太平洋クラブ御殿場コース', region: '静岡', rank: '名門', url: 'https://www.taiheiyoclub.co.jp/course/gotenba/' },

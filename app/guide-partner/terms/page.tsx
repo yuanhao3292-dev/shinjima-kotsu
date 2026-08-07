@@ -324,7 +324,7 @@ const translations = {
 } as const;
 
 const t = (key: keyof typeof translations, lang: Language): string => {
-  return translations[key][lang];
+  return (translations[key] as Record<Language, string>)[lang];
 };
 
 export default function GuidePartnerTermsPage() {

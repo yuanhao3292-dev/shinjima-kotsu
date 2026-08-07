@@ -112,7 +112,7 @@ const translations = {
 } as const;
 
 const t = (key: keyof typeof translations, lang: Language): string =>
-  translations[key][lang];
+  (translations[key] as Record<Language, string>)[lang];
 
 interface FollowUpQuestionnaireProps {
   screeningId: string;

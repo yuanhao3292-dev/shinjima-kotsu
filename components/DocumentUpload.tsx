@@ -158,7 +158,7 @@ export default function DocumentUpload({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const t = useCallback(
-    (key: keyof typeof translations) => translations[key][language] || translations[key]['zh-CN'],
+    (key: keyof typeof translations) => (translations[key] as Record<Language, string>)[language] || translations[key]['zh-CN'],
     [language]
   );
 

@@ -170,9 +170,9 @@ export async function POST(request: NextRequest) {
         analysisResult = aemcOutput.legacyResult;
         aemcOutputRef = aemcOutput;
 
-        (analysisResult as Record<string, unknown>).safetyGateClass = aemcOutput.safetyGate.gate_class;
-        (analysisResult as Record<string, unknown>).requiresHumanReview = aemcOutput.safetyGate.require_human_review;
-        (analysisResult as Record<string, unknown>).requiresEmergencyNotice = aemcOutput.safetyGate.require_emergency_notice;
+        analysisResult.safetyGateClass = aemcOutput.safetyGate.gate_class;
+        analysisResult.requiresHumanReview = aemcOutput.safetyGate.require_human_review;
+        analysisResult.requiresEmergencyNotice = aemcOutput.safetyGate.require_emergency_notice;
 
         persistPipelineResults(aemcOutput.pipelineResult, 'whitelabel').catch((e) => {
           console.warn('[AEMC] Persistence fire-and-forget error:', e instanceof Error ? e.message : e);

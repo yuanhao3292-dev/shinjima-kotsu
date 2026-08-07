@@ -281,7 +281,7 @@ const translations = {
 };
 
 const t = (key: keyof typeof translations, lang: Language): string =>
-  translations[key][lang];
+  (translations[key] as Record<Language, string>)[lang];
 
 function getConsultationUrl(hospitalId?: string, screeningResultPath?: string): string | null {
   if (!hospitalId) return null;

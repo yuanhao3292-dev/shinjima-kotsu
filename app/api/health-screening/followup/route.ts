@@ -139,9 +139,9 @@ export async function POST(request: NextRequest) {
       aemcOutputRef = aemcOutput;
 
       // 安全闸门元数据
-      (analysisResult as Record<string, unknown>).safetyGateClass = aemcOutput.safetyGate.gate_class;
-      (analysisResult as Record<string, unknown>).requiresHumanReview = aemcOutput.safetyGate.require_human_review;
-      (analysisResult as Record<string, unknown>).requiresEmergencyNotice = aemcOutput.safetyGate.require_emergency_notice;
+      analysisResult.safetyGateClass = aemcOutput.safetyGate.gate_class;
+      analysisResult.requiresHumanReview = aemcOutput.safetyGate.require_human_review;
+      analysisResult.requiresEmergencyNotice = aemcOutput.safetyGate.require_emergency_notice;
 
       // 审计持久化
       persistPipelineResults(aemcOutput.pipelineResult, 'authenticated').catch((e) => {

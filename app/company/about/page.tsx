@@ -513,7 +513,7 @@ const pageTranslations = {
 export default function AboutPage() {
   const currentLang = useLanguage();
 
-  const t = (key: keyof typeof pageTranslations) => pageTranslations[key][currentLang];
+  const t = (key: keyof typeof pageTranslations) => (pageTranslations[key] as Record<Language, string>)[currentLang];
 
   const medicalPartners = [
     { ja: '徳洲会グループ', 'zh-TW': '德州會集團', 'zh-CN': '德州会集团', en: 'Tokushukai Group' },
@@ -889,7 +889,7 @@ export default function AboutPage() {
                 <div className="grid grid-cols-2 gap-4">
                   {medicalPartners.map((partner, index) => (
                     <div key={index} className="p-5 bg-brand-900/5 rounded-xl text-center font-medium text-brand-900 border border-brand-900/10 hover:bg-brand-900 hover:text-white transition cursor-default">
-                      {partner[currentLang]}
+                      {(partner as Record<Language, string>)[currentLang]}
                     </div>
                   ))}
                 </div>
@@ -904,7 +904,7 @@ export default function AboutPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {servicePartners.map((partner, index) => (
                     <div key={index} className="p-5 bg-neutral-50 rounded-xl text-center font-medium text-neutral-700 hover:bg-brand-900 hover:text-white transition cursor-default">
-                      {partner[currentLang]}
+                      {(partner as Record<Language, string>)[currentLang]}
                     </div>
                   ))}
                 </div>

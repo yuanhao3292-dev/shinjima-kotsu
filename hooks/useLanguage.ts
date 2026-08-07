@@ -5,6 +5,14 @@ import Cookies from 'js-cookie';
 
 export type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en' | 'ko';
 
+/**
+ * 多语言文案对象。医院专题页的内联字典请统一标注此类型，
+ * 缺了标注 noImplicitAny 会把索引访问推断成 any。
+ */
+export type LocalizedText = Record<Language, string>;
+/** 四语言变体：部分页面不提供韩语 */
+export type LocalizedText4 = Record<Exclude<Language, 'ko'>, string>;
+
 const LANGUAGE_COOKIE_NAME = 'NEXT_LOCALE';
 const VALID_LANGUAGES: Language[] = ['ja', 'zh-TW', 'zh-CN', 'en', 'ko'];
 
