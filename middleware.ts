@@ -148,7 +148,9 @@ export async function middleware(request: NextRequest) {
   // ========== Browser Fingerprint Check ==========
   // UA 显示为 human 时，验证浏览器指纹 cookie 进一步确认
   // 公开入口页面跳过指纹检查：用户首次访问这些页面必然没有 cookie
-  const PUBLIC_ENTRY_PATHS = ['/login', '/register', '/forgot-password'];
+  // 从邮件链接跳进来的用户必然没有 __bfp cookie，指纹校验会把他们降级到
+  // 严格限速。这些页面是账号恢复的唯一入口，不能因此变得不可用。
+  const PUBLIC_ENTRY_PATHS = ['/login', '/register', '/forgot-password', '/reset-password'];
   const isPublicEntry = PUBLIC_ENTRY_PATHS.some((p) => pathname === p || pathname.startsWith(p + '/'));
 
   if (botClass === 'human' && !isPublicEntry) {

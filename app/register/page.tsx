@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
+import { authRedirectUrl } from '@/lib/config/site';
 import PublicLayout from '@/components/PublicLayout';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import { useSiteImages } from '@/lib/hooks/useSiteImages';
@@ -88,7 +89,7 @@ export default function RegisterPage() {
         password,
         options: {
           data: { full_name: name.trim(), locale: lang },
-          emailRedirectTo: `${window.location.origin}/auth/callback`,
+          emailRedirectTo: authRedirectUrl('/auth/callback'),
         },
       });
 
