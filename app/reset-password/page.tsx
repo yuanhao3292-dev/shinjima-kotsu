@@ -13,6 +13,10 @@ import { Lock, Loader2, AlertCircle, CheckCircle, Eye, EyeOff, KeyRound } from '
 const translations = {
   // Errors
   linkExpired: { ja: 'リセットリンクの有効期限が切れているか無効です。再度申請してください', 'zh-CN': '重置链接已过期或无效，请重新申请', 'zh-TW': '重置連結已過期或無效，請重新申請', en: 'Reset link has expired or is invalid. Please request a new one' },
+  linkExpiredHint: { ja: 'リセットリンクは1回のみ有効です。複数回申請した場合は、最新のメールのリンクをご利用ください。', 'zh-CN': '重置链接只能使用一次。如果你申请了多封邮件，请点击最新一封里的链接。', 'zh-TW': '重置連結只能使用一次。如果你申請了多封郵件，請點擊最新一封裡的連結。', en: 'A reset link can only be used once. If you requested several emails, use the link in the most recent one.' },
+  linkMissing: { ja: 'このページはパスワードリセットメールのリンクから開いてください', 'zh-CN': '请从密码重置邮件中的链接打开此页面', 'zh-TW': '請從密碼重置郵件中的連結打開此頁面', en: 'Please open this page from the link in your password reset email' },
+  verifying: { ja: 'リンクを確認しています...', 'zh-CN': '正在验证链接...', 'zh-TW': '正在驗證連結...', en: 'Verifying link...' },
+  requestNewLink: { ja: '新しいリンクを申請する', 'zh-CN': '重新申请重置链接', 'zh-TW': '重新申請重置連結', en: 'Request a new link' },
   passwordMismatch: { ja: '2回入力したパスワードが一致しません', 'zh-CN': '两次输入的密码不一致', 'zh-TW': '兩次輸入的密碼不一致', en: 'Passwords do not match' },
   passwordTooShort: { ja: 'パスワードは最低6文字必要です', 'zh-CN': '密码至少需要6个字符', 'zh-TW': '密碼至少需要6個字符', en: 'Password must be at least 6 characters' },
   resetFailed: { ja: 'リセットに失敗しました。後でもう一度お試しください', 'zh-CN': '重置失败，请稍后重试', 'zh-TW': '重置失敗，請稍後重試', en: 'Reset failed. Please try again later' },
@@ -42,6 +46,38 @@ const t = (key: keyof typeof translations, lang: Language): string => {
   return (translations[key] as Record<Language, string>)[lang];
 };
 
+/** 链接校验的三种状态 */
+type LinkState = 'verifying' | 'valid' | 'invalid';
+
+/**
+ * 读取 Supabase 回跳时携带的错误。
+ * 它会把 error / error_code / error_description 同时放进 query 和 hash 片段，
+ * 两处都要看。
+ */
+function readSupabaseAuthError(): { code: string; description: string } | null {
+  if (typeof window === 'undefined') return null;
+
+  const query = new URLSearchParams(window.location.search);
+  const hash = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+
+  const code = query.get('error_code') || hash.get('error_code');
+  const error = query.get('error') || hash.get('error');
+  if (!code && !error) return null;
+
+  return {
+    code: code || error || 'unknown',
+    description: query.get('error_description') || hash.get('error_description') || '',
+  };
+}
+
+/** URL 里是否带着待处理的恢复凭证（PKCE 的 code，或隐式流的 access_token） */
+function hasPendingCredential(): boolean {
+  if (typeof window === 'undefined') return false;
+  const query = new URLSearchParams(window.location.search);
+  const hash = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+  return Boolean(query.get('code') || hash.get('access_token') || hash.get('code'));
+}
+
 function ResetPasswordForm() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -49,26 +85,79 @@ function ResetPasswordForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [linkState, setLinkState] = useState<LinkState>('verifying');
+  const [linkErrorKey, setLinkErrorKey] = useState<'linkExpired' | 'linkMissing'>('linkExpired');
   const router = useRouter();
   const lang = useLanguage();
   const searchParams = useSearchParams();
   const isGuide = searchParams.get('from') === 'guide';
   const loginPath = isGuide ? '/guide-partner/login' : '/login';
+  const forgotPath = isGuide ? '/forgot-password?from=guide' : '/forgot-password';
 
   useEffect(() => {
-    const checkSession = async () => {
-      const supabase = createClient();
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        setError(t('linkExpired', lang));
-      }
+    const supabase = createClient();
+
+    // Supabase 明确回报了错误（令牌过期、已被使用、类型不符…），直接采信
+    const authError = readSupabaseAuthError();
+    if (authError) {
+      console.warn('[reset-password] Supabase 拒绝了恢复令牌:', authError.code, authError.description);
+      setLinkErrorKey('linkExpired');
+      setLinkState('invalid');
+      return;
+    }
+
+    let settled = false;
+    const markValid = () => {
+      if (settled) return;
+      settled = true;
+      setLinkState('valid');
     };
-    checkSession();
-  }, [lang]);
+
+    // 关键：supabase-js 需要异步解析 URL 里的凭证才能建立会话，
+    // 直接 getSession() 很可能在解析完成前返回 null —— 那会让完全有效的
+    // 链接也被判成"已过期"。因此监听状态变化，而不是只查一次。
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) markValid();
+    });
+
+    // 会话可能在订阅之前就已建立（例如用户刷新页面），补查一次
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) markValid();
+      else if (!hasPendingCredential()) {
+        // URL 里没有任何待处理凭证，说明是直接访问本页，不是从邮件进来的
+        if (!settled) {
+          settled = true;
+          setLinkErrorKey('linkMissing');
+          setLinkState('invalid');
+        }
+      }
+    });
+
+    // 兜底：凭证存在但迟迟换不到会话
+    const timer = setTimeout(() => {
+      if (!settled) {
+        settled = true;
+        setLinkErrorKey('linkExpired');
+        setLinkState('invalid');
+      }
+    }, 8000);
+
+    return () => {
+      subscription.unsubscribe();
+      clearTimeout(timer);
+    };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+
+    // 没有有效会话时 updateUser 必然失败，且只会抛出英文原始错误。
+    // 表单此时已经隐藏，这里是防止程序化提交的兜底。
+    if (linkState !== 'valid') {
+      setError(t(linkErrorKey, lang));
+      return;
+    }
 
     if (password !== confirmPassword) {
       setError(t('passwordMismatch', lang));
@@ -180,14 +269,43 @@ function ResetPasswordForm() {
                 <p className="text-neutral-500 mt-2 text-sm">{t('resetPasswordSubtitle', lang)}</p>
               </div>
 
-              {error && (
+              {linkState === 'verifying' && (
+                <div className="mb-6 flex items-center justify-center gap-2 text-neutral-500 text-sm py-2">
+                  <Loader2 className="animate-spin" size={18} />
+                  <span>{t('verifying', lang)}</span>
+                </div>
+              )}
+
+              {linkState === 'invalid' && (
+                <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm">
+                  <div className="flex items-start gap-2">
+                    <AlertCircle size={18} className="shrink-0 mt-0.5" />
+                    <div>
+                      <p>{t(linkErrorKey, lang)}</p>
+                      {linkErrorKey === 'linkExpired' && (
+                        <p className="mt-1.5 text-red-600/80 text-xs leading-relaxed">
+                          {t('linkExpiredHint', lang)}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <Link
+                    href={forgotPath}
+                    className="mt-3 block w-full text-center bg-brand-900 hover:bg-brand-800 text-white font-bold py-2.5 px-4 rounded-lg transition-colors"
+                  >
+                    {t('requestNewLink', lang)}
+                  </Link>
+                </div>
+              )}
+
+              {error && linkState === 'valid' && (
                 <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl flex items-center gap-2 text-sm">
                   <AlertCircle size={18} />
                   <span>{error}</span>
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-5" hidden={linkState !== 'valid'}>
                 <div>
                   <label className="block text-sm font-medium text-neutral-700 mb-2">
                     {t('newPasswordLabel', lang)}
