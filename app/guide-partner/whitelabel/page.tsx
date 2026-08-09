@@ -6,7 +6,6 @@ import Link from 'next/link';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
 import { createClient } from '@/lib/supabase/client';
 import { DEFAULT_SELECTED_PAGES } from '@/lib/whitelabel-config';
-import { SUBSCRIPTION_PLANS } from '@/lib/whitelabel-config';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
   Globe,
@@ -145,6 +144,41 @@ const translations = {
     'zh-TW': '專業版',
     en: 'Professional',
     ko: '프로페셔널',
+  },
+  planGrowth: {
+    ja: '初期パートナー',
+    'zh-CN': '初期合伙人',
+    'zh-TW': '初期合夥人',
+    en: 'Growth Partner',
+    ko: '초기 파트너',
+  },
+  planPartner: {
+    ja: 'ゴールドパートナー',
+    'zh-CN': '金牌合伙人',
+    'zh-TW': '金牌合夥人',
+    en: 'Gold Partner',
+    ko: '골드 파트너',
+  },
+  priceFree: {
+    ja: '無料',
+    'zh-CN': '免费',
+    'zh-TW': '免費',
+    en: 'Free',
+    ko: '무료',
+  },
+  whitelabelIncludedFree: {
+    ja: '初期パートナーはホワイトラベルページを無料で利用できます',
+    'zh-CN': '初期合伙人免费包含品牌展示页面',
+    'zh-TW': '初期合夥人免費包含品牌展示頁面',
+    en: 'Growth partners get the white-label page for free',
+    ko: '초기 파트너는 화이트라벨 페이지를 무료로 이용할 수 있습니다',
+  },
+  enableFree: {
+    ja: '無料で有効化',
+    'zh-CN': '免费启用',
+    'zh-TW': '免費啟用',
+    en: 'Enable for Free',
+    ko: '무료로 활성화',
   },
   featureAllPages: {
     ja: '全ページ対応',
@@ -420,11 +454,11 @@ const translations = {
     ko: '설정 저장',
   },
   needSubscription: {
-    ja: 'ブランド展示サイト機能を使用するにはサブスクリプションが必要です',
-    'zh-CN': '需要订阅才能使用品牌展示网站功能',
-    'zh-TW': '需要訂閱才能使用品牌展示網站功能',
-    en: 'Subscription required to use the branded website feature',
-    ko: '브랜드 전시 사이트 기능을 사용하려면 구독이 필요합니다',
+    ja: 'ブランド展示ページを有効化しましょう',
+    'zh-CN': '启用你的品牌展示页面',
+    'zh-TW': '啟用你的品牌展示頁面',
+    en: 'Enable your branded showcase page',
+    ko: '브랜드 전시 페이지를 활성화하세요',
   },
   needSubscriptionDesc: {
     ja: '初期パートナーとして無料でブランド展示ページを取得でき、お客様がリンクからアクセスすると自動的にあなたに帰属されます。',
@@ -613,6 +647,7 @@ interface GuideWhiteLabelData {
   email: string | null;
   subscription_status: 'inactive' | 'active' | 'cancelled' | 'past_due';
   subscription_plan: string | null;
+  subscription_tier: string | null;
   subscription_end_date: string | null;
   whitelabel_views: number;
   whitelabel_conversions: number;
@@ -766,6 +801,7 @@ export default function WhiteLabelSettingsPage() {
         email: guideData.email,
         subscription_status: guideData.subscriptionStatus,
         subscription_plan: guideData.subscriptionPlan,
+        subscription_tier: guideData.subscriptionTier ?? 'growth',
         subscription_end_date: guideData.subscriptionEndDate,
         whitelabel_views: guideData.whiteLabelViews,
         whitelabel_conversions: guideData.whiteLabelConversions,
@@ -999,6 +1035,10 @@ export default function WhiteLabelSettingsPage() {
   }
 
   const isSubscribed = guide.subscription_status === 'active';
+  // 白标订阅按导游真实等级定价：初期合伙人(growth)免费包含,金牌(partner)¥4,980/月。
+  const isPartnerTier = guide.subscription_tier === 'partner';
+  const planName = isPartnerTier ? t('planPartner', lang) : t('planGrowth', lang);
+  const planPriceLabel = isPartnerTier ? '¥4,980' : t('priceFree', lang);
 
   return (
     <div className="min-h-screen bg-zinc-50">
@@ -1110,16 +1150,22 @@ export default function WhiteLabelSettingsPage() {
             </div>
           </div>
 
-          {/* 专业版 */}
+          {/* 当前等级对应的方案 */}
           <div className={`p-5 rounded-lg border-2 transition ${
             isSubscribed
               ? 'border-zinc-900 bg-zinc-100'
               : 'border-zinc-200'
           }`}>
             <div className="flex items-center justify-between mb-3">
-              <h3 className="font-bold text-lg">{t('planProfessional', lang)}</h3>
-              <span className="text-2xl font-bold">¥{SUBSCRIPTION_PLANS.professional.priceJpy}<span className="text-sm font-normal text-zinc-500">{t('perMonth', lang)}</span></span>
+              <h3 className="font-bold text-lg">{planName}</h3>
+              <span className="text-2xl font-bold">
+                {planPriceLabel}
+                {isPartnerTier && <span className="text-sm font-normal text-zinc-500">{t('perMonth', lang)}</span>}
+              </span>
             </div>
+            {!isPartnerTier && (
+              <p className="text-sm text-zinc-500 mb-3">{t('whitelabelIncludedFree', lang)}</p>
+            )}
             <ul className="space-y-2 text-sm text-zinc-600 mb-4">
               {(['featureAllPages', 'featureSubdomain', 'featureBrandName', 'featureContact', 'featureAnalytics'] as const).map((key) => (
                 <li key={key} className="flex items-center gap-2">
@@ -1135,7 +1181,7 @@ export default function WhiteLabelSettingsPage() {
                 className="w-full py-2 rounded-lg bg-zinc-900 text-white hover:bg-zinc-800 transition font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {subscribing && <Loader2 size={16} className="animate-spin" />}
-                {subscribing ? t('processing', lang) : t('subscribeNow', lang)}
+                {subscribing ? t('processing', lang) : isPartnerTier ? t('subscribeNow', lang) : t('enableFree', lang)}
               </button>
             )}
           </div>
