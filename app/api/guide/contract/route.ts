@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     const { data: guide, error: guideError } = await supabase
       .from('guides')
       .select('id')
-      .eq('user_id', user.id)
+      .eq('auth_user_id', user.id)
       .single();
 
     if (guideError || !guide) {
@@ -78,7 +78,7 @@ export async function PATCH(request: NextRequest) {
     const { data: guide, error: guideError } = await supabase
       .from('guides')
       .select('id')
-      .eq('user_id', user.id)
+      .eq('auth_user_id', user.id)
       .single();
 
     if (guideError || !guide) {

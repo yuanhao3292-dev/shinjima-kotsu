@@ -223,29 +223,33 @@ export default function GuideContractPage() {
   }, []);
 
   async function loadContract() {
-    // 获取当前登录导游的信息
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
+    // 用 try/finally 保证任何提前返回或异常都会关闭加载态，
+    // 否则任一分支的 return 都会让页面永久卡在"加载中"。
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
 
-    // 获取导游ID
-    const { data: guide } = await supabase
-      .from('guides')
-      .select('id')
-      .eq('user_id', user.id)
-      .single();
+      // 获取导游 ID。guides 表的外键列是 auth_user_id，不是 user_id。
+      const { data: guide } = await supabase
+        .from('guides')
+        .select('id')
+        .eq('auth_user_id', user.id)
+        .single();
 
-    if (!guide) return;
+      if (!guide) return;
 
-    // 获取导游的佣金协议
-    const { data: contractData } = await supabase
-      .from('guide_commission_contracts')
-      .select('*')
-      .eq('guide_id', guide.id)
-      .eq('status', 'active')
-      .single();
+      // 获取导游的佣金协议（无 active 协议时 contractData 为 null，页面正常显示空态）
+      const { data: contractData } = await supabase
+        .from('guide_commission_contracts')
+        .select('*')
+        .eq('guide_id', guide.id)
+        .eq('status', 'active')
+        .single();
 
-    setContract(contractData);
-    setLoading(false);
+      setContract(contractData);
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleSignatureUploaded(url: string) {
