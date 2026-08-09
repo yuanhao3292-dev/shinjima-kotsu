@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
     // 获取导游信息（包含订阅状态和当前等级）
     const { data: guide, error: guideError } = await supabase
       .from("guides")
-      .select("id, name, email, phone, stripe_customer_id, subscription_status, subscription_id, subscription_tier")
+      .select("id, name, email, phone, stripe_customer_id, subscription_status, subscription_tier")
       .eq("id", guideId)
       .single();
 

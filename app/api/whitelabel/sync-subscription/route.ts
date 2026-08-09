@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
     // 获取导游信息（包含 auth_user_id 用于权限验证，以及白标所需字段）
     const { data: guide, error: guideError } = await supabase
       .from("guides")
-      .select("id, auth_user_id, stripe_customer_id, subscription_id, subscription_status, slug, name, brand_name, brand_logo_url, brand_color, contact_wechat, contact_line, contact_display_phone, email")
+      .select("id, auth_user_id, stripe_customer_id, stripe_subscription_id, subscription_status, slug, name, brand_name, brand_logo_url, brand_color, contact_wechat, contact_line, contact_display_phone, email")
       .eq("id", guideId)
       .single();
 
@@ -144,9 +144,9 @@ export async function POST(request: NextRequest) {
     const { data: updatedGuide, error: updateError } = await supabase
       .from("guides")
       .update({
-        subscription_id: whitelabelSub.id,
+        stripe_subscription_id: whitelabelSub.id,
         subscription_status: dbStatus,
-        subscription_current_period_end: currentPeriodEnd,
+        subscription_end_date: currentPeriodEnd,
         updated_at: new Date().toISOString(),
       })
       .eq("id", guideId)
