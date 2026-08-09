@@ -1142,17 +1142,17 @@ export default function SettingsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
+      <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
-          <p className="text-neutral-600">{t('loading', lang)}</p>
+          <Loader2 className="w-12 h-12 text-zinc-500 animate-spin mx-auto mb-4" />
+          <p className="text-zinc-600">{t('loading', lang)}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-neutral-50">
+    <div className="min-h-screen bg-zinc-50">
       <GuideSidebar pageTitle={t('pageTitle', lang)} />
 
       {/* Main Content */}
@@ -1160,29 +1160,29 @@ export default function SettingsPage() {
         <div className="p-6 lg:p-8">
           {/* Header */}
           <div className="mb-6">
-            <h1 className="text-2xl font-bold font-serif text-brand-900">{t('pageTitle', lang)}</h1>
-            <p className="text-neutral-500 mt-1">{t('pageSubtitle', lang)}</p>
+            <h1 className="text-2xl font-bold tracking-tight font-sans text-zinc-900">{t('pageTitle', lang)}</h1>
+            <p className="text-zinc-500 mt-1">{t('pageSubtitle', lang)}</p>
           </div>
 
           {/* Account Info */}
-          <div className="bg-white border p-6 mb-6">
+          <div className="bg-white p-6 mb-6 rounded-xl border border-zinc-200 shadow-sm">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-brand-100 flex items-center justify-center">
-                <span className="text-2xl font-bold text-brand-600">
+              <div className="w-16 h-16 bg-zinc-100 rounded-lg flex items-center justify-center">
+                <span className="text-2xl font-bold text-zinc-500">
                   {guide?.name?.charAt(0).toUpperCase()}
                 </span>
               </div>
               <div>
-                <h2 className="text-xl font-bold font-serif text-brand-900">{guide?.name}</h2>
-                <p className="text-neutral-500">{guide?.email}</p>
-                <p className="text-sm text-brand-600 font-medium mt-1">
+                <h2 className="text-xl font-bold font-sans text-zinc-900">{guide?.name}</h2>
+                <p className="text-zinc-500">{guide?.email}</p>
+                <p className="text-sm text-zinc-500 font-medium mt-1">
                   {getLevelLabel(guide?.level || 'bronze')}
                 </p>
               </div>
             </div>
-            <div className="mt-4 pt-4 border-t flex items-center gap-2 text-sm text-neutral-500">
+            <div className="mt-4 pt-4 border-t border-zinc-200 flex items-center gap-2 text-sm text-zinc-500">
               <span>{t('referralCode', lang)}</span>
-              <span className="font-mono font-bold text-neutral-900">{guide?.referral_code}</span>
+              <span className="font-mono font-bold text-zinc-900">{guide?.referral_code}</span>
             </div>
           </div>
 
@@ -1190,10 +1190,10 @@ export default function SettingsPage() {
           <div className="flex flex-wrap gap-2 mb-6">
             <button
               onClick={() => { setActiveTab('profile'); setMessage(null); }}
-              className={`px-4 py-2 text-sm font-medium transition ${
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                 activeTab === 'profile'
-                  ? 'bg-brand-600 text-white'
-                  : 'bg-white text-neutral-600 hover:bg-neutral-50 border'
+                  ? 'bg-zinc-900 text-white'
+                  : 'bg-white text-zinc-600 hover:bg-zinc-50 border border-zinc-200'
               }`}
             >
               <User className="inline mr-2" size={16} />
@@ -1201,10 +1201,10 @@ export default function SettingsPage() {
             </button>
             <button
               onClick={() => { setActiveTab('password'); setMessage(null); }}
-              className={`px-4 py-2 text-sm font-medium transition ${
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                 activeTab === 'password'
-                  ? 'bg-brand-600 text-white'
-                  : 'bg-white text-neutral-600 hover:bg-neutral-50 border'
+                  ? 'bg-zinc-900 text-white'
+                  : 'bg-white text-zinc-600 hover:bg-zinc-50 border border-zinc-200'
               }`}
             >
               <Lock className="inline mr-2" size={16} />
@@ -1212,10 +1212,10 @@ export default function SettingsPage() {
             </button>
             <button
               onClick={() => { setActiveTab('kyc'); setMessage(null); }}
-              className={`px-4 py-2 text-sm font-medium transition ${
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                 activeTab === 'kyc'
-                  ? 'bg-brand-600 text-white'
-                  : 'bg-white text-neutral-600 hover:bg-neutral-50 border'
+                  ? 'bg-zinc-900 text-white'
+                  : 'bg-white text-zinc-600 hover:bg-zinc-50 border border-zinc-200'
               }`}
             >
               <Shield className="inline mr-2" size={16} />
@@ -1224,15 +1224,15 @@ export default function SettingsPage() {
                 <CheckCircle2 className="inline ml-1 text-green-500" size={14} />
               )}
               {guide?.kyc_status === 'submitted' && (
-                <Clock className="inline ml-1 text-yellow-500" size={14} />
+                <Clock className="inline ml-1 text-amber-500" size={14} />
               )}
             </button>
             <button
               onClick={() => { setActiveTab('tax'); setMessage(null); }}
-              className={`px-4 py-2 text-sm font-medium transition ${
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                 activeTab === 'tax'
-                  ? 'bg-brand-600 text-white'
-                  : 'bg-white text-neutral-600 hover:bg-neutral-50 border'
+                  ? 'bg-zinc-900 text-white'
+                  : 'bg-white text-zinc-600 hover:bg-zinc-50 border border-zinc-200'
               }`}
             >
               <Banknote className="inline mr-2" size={16} />
@@ -1242,7 +1242,7 @@ export default function SettingsPage() {
 
           {/* Message */}
           {message && (
-            <div className={`mb-6 px-4 py-3 flex items-center gap-2 text-sm ${
+            <div className={`mb-6 px-4 py-3 rounded-lg flex items-center gap-2 text-sm ${
               message.type === 'success'
                 ? 'bg-green-50 border border-green-200 text-green-700'
                 : 'bg-red-50 border border-red-200 text-red-700'
@@ -1254,10 +1254,10 @@ export default function SettingsPage() {
 
           {/* Profile Form */}
           {activeTab === 'profile' && (
-            <div className="bg-white border p-6">
+            <div className="bg-white p-6 rounded-xl border border-zinc-200 shadow-sm">
               <form onSubmit={handleProfileSubmit} className="space-y-5">
                 <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-2">
+                  <label className="block text-sm font-medium text-zinc-700 mb-2">
                     <User className="inline mr-1" size={16} />
                     {t('labelName', lang)}
                   </label>
@@ -1266,12 +1266,12 @@ export default function SettingsPage() {
                     value={profileForm.name}
                     onChange={(e) => setProfileForm({ ...profileForm, name: e.target.value })}
                     required
-                    className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                    className="w-full px-4 py-3 rounded-lg border border-zinc-200 focus:border-zinc-400 focus:ring-1 focus:ring-zinc-900"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-2">
+                  <label className="block text-sm font-medium text-zinc-700 mb-2">
                     <Phone className="inline mr-1" size={16} />
                     {t('labelPhone', lang)}
                   </label>
@@ -1280,12 +1280,12 @@ export default function SettingsPage() {
                     value={profileForm.phone}
                     onChange={(e) => setProfileForm({ ...profileForm, phone: e.target.value })}
                     required
-                    className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                    className="w-full px-4 py-3 rounded-lg border border-zinc-200 focus:border-zinc-400 focus:ring-1 focus:ring-zinc-900"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-2">
+                  <label className="block text-sm font-medium text-zinc-700 mb-2">
                     <Mail className="inline mr-1" size={16} />
                     {t('labelEmail', lang)}
                   </label>
@@ -1293,13 +1293,13 @@ export default function SettingsPage() {
                     type="email"
                     value={guide?.email || ''}
                     disabled
-                    className="w-full px-4 py-3 border border-neutral-200 bg-neutral-50 text-neutral-500"
+                    className="w-full px-4 py-3 border border-zinc-200 bg-zinc-50 text-zinc-500"
                   />
-                  <p className="text-xs text-neutral-400 mt-1">{t('emailNotEditable', lang)}</p>
+                  <p className="text-xs text-zinc-400 mt-1">{t('emailNotEditable', lang)}</p>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-2">
+                  <label className="block text-sm font-medium text-zinc-700 mb-2">
                     <MessageCircle className="inline mr-1" size={16} />
                     {t('labelWechat', lang)}
                   </label>
@@ -1307,7 +1307,7 @@ export default function SettingsPage() {
                     type="text"
                     value={profileForm.wechatId}
                     onChange={(e) => setProfileForm({ ...profileForm, wechatId: e.target.value })}
-                    className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                    className="w-full px-4 py-3 rounded-lg border border-zinc-200 focus:border-zinc-400 focus:ring-1 focus:ring-zinc-900"
                     placeholder={t('wechatPlaceholder', lang)}
                   />
                 </div>
@@ -1315,7 +1315,7 @@ export default function SettingsPage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="w-full bg-brand-600 hover:bg-brand-700 disabled:bg-neutral-400 text-white font-bold py-3 transition flex items-center justify-center gap-2"
+                  className="w-full bg-zinc-900 hover:bg-zinc-800 disabled:bg-zinc-400 text-white font-bold py-3 rounded-lg transition flex items-center justify-center gap-2"
                 >
                   {saving ? <Loader2 className="animate-spin" size={20} /> : <CheckCircle2 size={20} />}
                   {t('saveChanges', lang)}
@@ -1326,27 +1326,27 @@ export default function SettingsPage() {
 
           {/* Password Form */}
           {activeTab === 'password' && (
-            <div className="bg-white border p-6">
+            <div className="bg-white p-6 rounded-xl border border-zinc-200 shadow-sm">
               <form onSubmit={handlePasswordSubmit} className="space-y-5">
                 <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-2">
+                  <label className="block text-sm font-medium text-zinc-700 mb-2">
                     {t('labelNewPassword', lang)}
                   </label>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400" size={20} />
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400" size={20} />
                     <input
                       type={showPassword ? 'text' : 'password'}
                       value={passwordForm.newPassword}
                       onChange={(e) => setPasswordForm({ ...passwordForm, newPassword: e.target.value })}
                       required
                       minLength={6}
-                      className="w-full pl-10 pr-12 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                      className="w-full pl-10 pr-12 py-3 rounded-lg border border-zinc-200 focus:border-zinc-400 focus:ring-1 focus:ring-zinc-900"
                       placeholder={t('passwordPlaceholder', lang)}
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-zinc-400 hover:text-zinc-600"
                     >
                       {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                     </button>
@@ -1354,17 +1354,17 @@ export default function SettingsPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-2">
+                  <label className="block text-sm font-medium text-zinc-700 mb-2">
                     {t('labelConfirmPassword', lang)}
                   </label>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400" size={20} />
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400" size={20} />
                     <input
                       type={showPassword ? 'text' : 'password'}
                       value={passwordForm.confirmPassword}
                       onChange={(e) => setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })}
                       required
-                      className="w-full pl-10 pr-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-3 rounded-lg border border-zinc-200 focus:border-zinc-400 focus:ring-1 focus:ring-zinc-900"
                       placeholder={t('confirmPasswordPlaceholder', lang)}
                     />
                   </div>
@@ -1373,7 +1373,7 @@ export default function SettingsPage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="w-full bg-brand-600 hover:bg-brand-700 disabled:bg-neutral-400 text-white font-bold py-3 transition flex items-center justify-center gap-2"
+                  className="w-full bg-zinc-900 hover:bg-zinc-800 disabled:bg-zinc-400 text-white font-bold py-3 rounded-lg transition flex items-center justify-center gap-2"
                 >
                   {saving ? <Loader2 className="animate-spin" size={20} /> : <Lock size={20} />}
                   {t('updatePassword', lang)}
@@ -1387,7 +1387,7 @@ export default function SettingsPage() {
             <div className="space-y-6">
               {/* KYC Status Banner */}
               {guide?.kyc_status === 'approved' && (
-                <div className="bg-green-50 border border-green-200 p-4 flex items-center gap-3">
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-center gap-3">
                   <FileCheck className="text-green-600" size={24} />
                   <div>
                     <p className="font-bold text-green-800">{t('kycApprovedTitle', lang)}</p>
@@ -1399,11 +1399,11 @@ export default function SettingsPage() {
               )}
 
               {guide?.kyc_status === 'submitted' && (
-                <div className="bg-yellow-50 border border-yellow-200 p-4 flex items-center gap-3">
-                  <Clock className="text-yellow-600" size={24} />
+                <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 flex items-center gap-3">
+                  <Clock className="text-amber-600" size={24} />
                   <div>
-                    <p className="font-bold text-yellow-800">{t('kycSubmittedTitle', lang)}</p>
-                    <p className="text-sm text-yellow-600">
+                    <p className="font-bold text-amber-800">{t('kycSubmittedTitle', lang)}</p>
+                    <p className="text-sm text-amber-600">
                       {t('kycSubmittedTime', lang)} {guide.kyc_submitted_at ? new Date(guide.kyc_submitted_at).toLocaleDateString(dateLocaleMap[lang]) : '-'}
                       <br />{t('kycReviewPeriod', lang)}
                     </p>
@@ -1412,7 +1412,7 @@ export default function SettingsPage() {
               )}
 
               {guide?.kyc_status === 'rejected' && (
-                <div className="bg-red-50 border border-red-200 p-4 flex items-center gap-3">
+                <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-center gap-3">
                   <XCircle className="text-red-600" size={24} />
                   <div>
                     <p className="font-bold text-red-800">{t('kycRejectedTitle', lang)}</p>
@@ -1424,11 +1424,11 @@ export default function SettingsPage() {
               )}
 
               {guide?.kyc_status === 'pending' && (
-                <div className="bg-blue-50 border border-blue-200 p-4 flex items-center gap-3">
-                  <Shield className="text-blue-600" size={24} />
+                <div className="bg-zinc-50 border border-zinc-200 rounded-lg p-4 flex items-center gap-3">
+                  <Shield className="text-zinc-400" size={24} />
                   <div>
-                    <p className="font-bold text-blue-800">{t('kycPendingTitle', lang)}</p>
-                    <p className="text-sm text-blue-600">
+                    <p className="font-bold text-zinc-900">{t('kycPendingTitle', lang)}</p>
+                    <p className="text-sm text-zinc-500">
                       {t('kycPendingDesc', lang)}
                     </p>
                   </div>
@@ -1437,18 +1437,18 @@ export default function SettingsPage() {
 
               {/* KYC Form - Only show if not approved */}
               {guide?.kyc_status !== 'approved' && (
-                <div className="bg-white border p-6">
+                <div className="bg-white p-6 rounded-xl border border-zinc-200 shadow-sm">
                   <form onSubmit={handleKycSubmit} className="space-y-5">
                     {/* Document Type */}
                     <div>
-                      <label className="block text-sm font-medium text-neutral-700 mb-2">
+                      <label className="block text-sm font-medium text-zinc-700 mb-2">
                         {t('labelDocType', lang)}
                       </label>
                       <select
                         value={kycForm.documentType}
                         onChange={(e) => setKycForm({ ...kycForm, documentType: e.target.value })}
                         required
-                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                        className="w-full px-4 py-3 rounded-lg border border-zinc-200 focus:border-zinc-400 focus:ring-1 focus:ring-zinc-900"
                       >
                         <option value="">{t('selectDocTypePlaceholder', lang)}</option>
                         {DOCUMENT_TYPES.map((type) => (
@@ -1461,7 +1461,7 @@ export default function SettingsPage() {
 
                     {/* Legal Name */}
                     <div>
-                      <label className="block text-sm font-medium text-neutral-700 mb-2">
+                      <label className="block text-sm font-medium text-zinc-700 mb-2">
                         {t('labelLegalName', lang)}
                       </label>
                       <input
@@ -1469,14 +1469,14 @@ export default function SettingsPage() {
                         value={kycForm.legalName}
                         onChange={(e) => setKycForm({ ...kycForm, legalName: e.target.value })}
                         required
-                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                        className="w-full px-4 py-3 rounded-lg border border-zinc-200 focus:border-zinc-400 focus:ring-1 focus:ring-zinc-900"
                         placeholder={t('legalNamePlaceholder', lang)}
                       />
                     </div>
 
                     {/* Document Number */}
                     <div>
-                      <label className="block text-sm font-medium text-neutral-700 mb-2">
+                      <label className="block text-sm font-medium text-zinc-700 mb-2">
                         {t('labelDocNumber', lang)}
                       </label>
                       <input
@@ -1484,21 +1484,21 @@ export default function SettingsPage() {
                         value={kycForm.documentNumber}
                         onChange={(e) => setKycForm({ ...kycForm, documentNumber: e.target.value })}
                         required
-                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                        className="w-full px-4 py-3 rounded-lg border border-zinc-200 focus:border-zinc-400 focus:ring-1 focus:ring-zinc-900"
                         placeholder={t('docNumberPlaceholder', lang)}
                       />
                     </div>
 
                     {/* Nationality */}
                     <div>
-                      <label className="block text-sm font-medium text-neutral-700 mb-2">
+                      <label className="block text-sm font-medium text-zinc-700 mb-2">
                         {t('labelNationality', lang)}
                       </label>
                       <select
                         value={kycForm.nationality}
                         onChange={(e) => setKycForm({ ...kycForm, nationality: e.target.value })}
                         required
-                        className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                        className="w-full px-4 py-3 rounded-lg border border-zinc-200 focus:border-zinc-400 focus:ring-1 focus:ring-zinc-900"
                       >
                         <option value="">{t('selectNationalityPlaceholder', lang)}</option>
                         {NATIONALITIES.map((nat) => (
@@ -1513,37 +1513,37 @@ export default function SettingsPage() {
                     <div className="grid md:grid-cols-2 gap-4">
                       {/* Front */}
                       <div>
-                        <label className="block text-sm font-medium text-neutral-700 mb-2">
+                        <label className="block text-sm font-medium text-zinc-700 mb-2">
                           {t('labelDocFront', lang)}
                         </label>
                         {/* Front sample diagram */}
-                        <div className="mb-2 border border-emerald-300 bg-emerald-50 p-3">
-                          <p className="text-xs font-bold text-emerald-700 mb-1.5">在留カード 表面 例図</p>
-                          <div className="grid grid-cols-[40px_1fr] gap-2 text-[10px] text-emerald-600">
-                            <div className="row-span-4 bg-white border border-emerald-200 flex items-center justify-center text-emerald-400">
+                        <div className="mb-2 rounded-lg border border-zinc-200 bg-zinc-50 p-3">
+                          <p className="text-xs font-bold text-zinc-900 mb-1.5">在留カード 表面 例図</p>
+                          <div className="grid grid-cols-[40px_1fr] gap-2 text-[10px] text-zinc-500">
+                            <div className="row-span-4 bg-white border border-zinc-200 flex items-center justify-center text-zinc-400">
                               Photo
                             </div>
-                            <div className="bg-white/70 px-1.5 py-0.5 border border-emerald-200">氏名 Name</div>
-                            <div className="bg-white/70 px-1.5 py-0.5 border border-emerald-200">国籍・地域 Nationality</div>
-                            <div className="bg-white/70 px-1.5 py-0.5 border border-emerald-200">在留資格 Status ／ 在留期間 Period</div>
-                            <div className="bg-white/70 px-1.5 py-0.5 border border-emerald-200">在留カード番号 Card No.</div>
+                            <div className="bg-white/70 px-1.5 py-0.5 border border-zinc-200">氏名 Name</div>
+                            <div className="bg-white/70 px-1.5 py-0.5 border border-zinc-200">国籍・地域 Nationality</div>
+                            <div className="bg-white/70 px-1.5 py-0.5 border border-zinc-200">在留資格 Status ／ 在留期間 Period</div>
+                            <div className="bg-white/70 px-1.5 py-0.5 border border-zinc-200">在留カード番号 Card No.</div>
                           </div>
                         </div>
                         <div
                           onClick={() => frontInputRef.current?.click()}
-                          className="border-2 border-dashed border-neutral-300 p-4 text-center cursor-pointer hover:border-brand-400 transition"
+                          className="border-2 border-dashed border-zinc-300 rounded-lg p-4 text-center cursor-pointer hover:border-zinc-400 transition"
                         >
                           {frontPreview || guide?.id_document_front_url ? (
                             <img
                               src={frontPreview || guide?.id_document_front_url || ''}
                               alt={t('altDocFront', lang)}
-                              className="w-full h-32 object-cover"
+                              className="w-full h-32 object-cover rounded-lg"
                             />
                           ) : (
                             <div className="py-4">
-                              <Upload className="mx-auto text-neutral-400 mb-2" size={32} />
-                              <p className="text-sm text-neutral-500">{t('uploadFrontText', lang)}</p>
-                              <p className="text-xs text-neutral-400 mt-1">{t('uploadFormatFront', lang)}</p>
+                              <Upload className="mx-auto text-zinc-400 mb-2" size={32} />
+                              <p className="text-sm text-zinc-500">{t('uploadFrontText', lang)}</p>
+                              <p className="text-xs text-zinc-400 mt-1">{t('uploadFormatFront', lang)}</p>
                             </div>
                           )}
                           <input
@@ -1558,37 +1558,37 @@ export default function SettingsPage() {
 
                       {/* Back */}
                       <div>
-                        <label className="block text-sm font-medium text-neutral-700 mb-2">
+                        <label className="block text-sm font-medium text-zinc-700 mb-2">
                           {t('labelDocBack', lang)}
                         </label>
                         {/* Back sample diagram */}
-                        <div className="mb-2 border border-emerald-300 bg-emerald-50 p-3">
-                          <p className="text-xs font-bold text-emerald-700 mb-1.5">在留カード 裏面 例図</p>
-                          <div className="space-y-1 text-[10px] text-emerald-600">
-                            <div className="bg-white/70 px-1.5 py-0.5 border border-emerald-200">住居地 Address</div>
-                            <div className="bg-white/70 px-1.5 py-0.5 border border-emerald-200">住居地変更届出 Change of Address</div>
+                        <div className="mb-2 rounded-lg border border-zinc-200 bg-zinc-50 p-3">
+                          <p className="text-xs font-bold text-zinc-900 mb-1.5">在留カード 裏面 例図</p>
+                          <div className="space-y-1 text-[10px] text-zinc-500">
+                            <div className="bg-white/70 px-1.5 py-0.5 border border-zinc-200">住居地 Address</div>
+                            <div className="bg-white/70 px-1.5 py-0.5 border border-zinc-200">住居地変更届出 Change of Address</div>
                             <div className="grid grid-cols-2 gap-1">
-                              <div className="bg-white/70 px-1.5 py-0.5 border border-emerald-200">資格外活動許可</div>
-                              <div className="bg-white/70 px-1.5 py-0.5 border border-emerald-200">在留期間更新</div>
+                              <div className="bg-white/70 px-1.5 py-0.5 border border-zinc-200">資格外活動許可</div>
+                              <div className="bg-white/70 px-1.5 py-0.5 border border-zinc-200">在留期間更新</div>
                             </div>
-                            <div className="bg-white/70 px-1.5 py-0.5 border border-emerald-200">在留カード番号 Card No.</div>
+                            <div className="bg-white/70 px-1.5 py-0.5 border border-zinc-200">在留カード番号 Card No.</div>
                           </div>
                         </div>
                         <div
                           onClick={() => backInputRef.current?.click()}
-                          className="border-2 border-dashed border-neutral-300 p-4 text-center cursor-pointer hover:border-brand-400 transition"
+                          className="border-2 border-dashed border-zinc-300 rounded-lg p-4 text-center cursor-pointer hover:border-zinc-400 transition"
                         >
                           {backPreview || guide?.id_document_back_url ? (
                             <img
                               src={backPreview || guide?.id_document_back_url || ''}
                               alt={t('altDocBack', lang)}
-                              className="w-full h-32 object-cover"
+                              className="w-full h-32 object-cover rounded-lg"
                             />
                           ) : (
                             <div className="py-4">
-                              <Upload className="mx-auto text-neutral-400 mb-2" size={32} />
-                              <p className="text-sm text-neutral-500">{t('uploadBackText', lang)}</p>
-                              <p className="text-xs text-neutral-400 mt-1">{t('uploadFormatBack', lang)}</p>
+                              <Upload className="mx-auto text-zinc-400 mb-2" size={32} />
+                              <p className="text-sm text-zinc-500">{t('uploadBackText', lang)}</p>
+                              <p className="text-xs text-zinc-400 mt-1">{t('uploadFormatBack', lang)}</p>
                             </div>
                           )}
                           <input
@@ -1606,7 +1606,7 @@ export default function SettingsPage() {
                     <button
                       type="submit"
                       disabled={uploading}
-                      className="w-full bg-brand-600 hover:bg-brand-700 disabled:bg-neutral-400 text-white font-bold py-3 transition flex items-center justify-center gap-2"
+                      className="w-full bg-zinc-900 hover:bg-zinc-800 disabled:bg-zinc-400 text-white font-bold py-3 rounded-lg transition flex items-center justify-center gap-2"
                     >
                       {uploading ? (
                         <>
@@ -1621,7 +1621,7 @@ export default function SettingsPage() {
                       )}
                     </button>
 
-                    <p className="text-xs text-neutral-400 text-center">
+                    <p className="text-xs text-zinc-400 text-center">
                       {t('kycPrivacyNote', lang)}
                     </p>
                   </form>
@@ -1632,48 +1632,48 @@ export default function SettingsPage() {
 
           {/* Tax Info Form */}
           {activeTab === 'tax' && (
-            <div className="bg-white border p-6">
+            <div className="bg-white p-6 rounded-xl border border-zinc-200 shadow-sm">
               <form onSubmit={handleTaxSubmit} className="space-y-6">
                 {/* Tax Residency */}
                 <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-1">
+                  <label className="block text-sm font-medium text-zinc-700 mb-1">
                     {t('taxResidencyLabel', lang)}
                   </label>
-                  <p className="text-xs text-neutral-500 mb-3">
+                  <p className="text-xs text-zinc-500 mb-3">
                     {t('taxResidencyDesc', lang)}
                   </p>
                   <div className="space-y-2">
-                    <label className="flex items-center gap-3 p-3 border rounded cursor-pointer hover:bg-neutral-50 transition">
+                    <label className="flex items-center gap-3 p-3 border border-zinc-200 rounded-lg cursor-pointer hover:bg-zinc-50 transition">
                       <input
                         type="radio"
                         name="taxResidency"
                         value="resident"
                         checked={taxForm.taxResidency === 'resident'}
                         onChange={() => setTaxForm({ ...taxForm, taxResidency: 'resident' })}
-                        className="text-brand-600 focus:ring-brand-500"
+                        className="text-zinc-900 focus:ring-zinc-900"
                       />
-                      <span className="text-sm text-neutral-700">{t('taxResident', lang)}</span>
+                      <span className="text-sm text-zinc-700">{t('taxResident', lang)}</span>
                     </label>
-                    <label className="flex items-center gap-3 p-3 border rounded cursor-pointer hover:bg-neutral-50 transition">
+                    <label className="flex items-center gap-3 p-3 border border-zinc-200 rounded-lg cursor-pointer hover:bg-zinc-50 transition">
                       <input
                         type="radio"
                         name="taxResidency"
                         value="non_resident"
                         checked={taxForm.taxResidency === 'non_resident'}
                         onChange={() => setTaxForm({ ...taxForm, taxResidency: 'non_resident' })}
-                        className="text-brand-600 focus:ring-brand-500"
+                        className="text-zinc-900 focus:ring-zinc-900"
                       />
-                      <span className="text-sm text-neutral-700">{t('taxNonResident', lang)}</span>
+                      <span className="text-sm text-zinc-700">{t('taxNonResident', lang)}</span>
                     </label>
                   </div>
                 </div>
 
                 {/* Invoice Registration Number */}
                 <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-1">
+                  <label className="block text-sm font-medium text-zinc-700 mb-1">
                     {t('invoiceNumberLabel', lang)}
                   </label>
-                  <p className="text-xs text-neutral-500 mb-2">
+                  <p className="text-xs text-zinc-500 mb-2">
                     {t('invoiceNumberDesc', lang)}
                   </p>
                   <input
@@ -1681,12 +1681,12 @@ export default function SettingsPage() {
                     value={taxForm.invoiceNumber}
                     onChange={(e) => setTaxForm({ ...taxForm, invoiceNumber: e.target.value })}
                     placeholder={t('invoiceNumberPlaceholder', lang)}
-                    className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                    className="w-full px-4 py-3 rounded-lg border border-zinc-200 focus:border-zinc-400 focus:ring-1 focus:ring-zinc-900"
                   />
                 </div>
 
                 {/* Note */}
-                <div className="bg-amber-50 border border-amber-200 p-4 rounded">
+                <div className="bg-amber-50 border border-amber-200 p-4 rounded-lg">
                   <p className="text-xs text-amber-700">
                     {t('taxInfoNote', lang)}
                   </p>
@@ -1696,7 +1696,7 @@ export default function SettingsPage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="w-full bg-brand-600 hover:bg-brand-700 disabled:bg-neutral-400 text-white font-bold py-3 transition flex items-center justify-center gap-2"
+                  className="w-full bg-zinc-900 hover:bg-zinc-800 disabled:bg-zinc-400 text-white font-bold py-3 rounded-lg transition flex items-center justify-center gap-2"
                 >
                   {saving ? (
                     <>
@@ -1715,7 +1715,7 @@ export default function SettingsPage() {
           )}
 
           {/* Account Created */}
-          <div className="mt-6 text-center text-sm text-neutral-400">
+          <div className="mt-6 text-center text-sm text-zinc-400">
             {t('accountCreatedOn', lang)} {guide?.created_at ? new Date(guide.created_at).toLocaleDateString(dateLocaleMap[lang]) : ''}
           </div>
         </div>
@@ -1724,17 +1724,17 @@ export default function SettingsPage() {
       {/* KYC Success Modal */}
       {showKycSuccessModal && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white max-w-md w-full p-6 text-center animate-in fade-in zoom-in duration-200">
-            <div className="w-16 h-16 bg-green-100 flex items-center justify-center mx-auto mb-4">
+          <div className="bg-white max-w-md w-full p-6 rounded-xl shadow-lg text-center animate-in fade-in zoom-in duration-200">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircle2 className="w-10 h-10 text-green-600" />
             </div>
-            <h3 className="text-xl font-bold text-brand-900 mb-2">{t('kycSuccessTitle', lang)}</h3>
-            <p className="text-neutral-600 mb-6">
+            <h3 className="text-xl font-bold text-zinc-900 mb-2">{t('kycSuccessTitle', lang)}</h3>
+            <p className="text-zinc-600 mb-6">
               {t('kycSuccessDesc', lang)}
             </p>
             <button
               onClick={() => setShowKycSuccessModal(false)}
-              className="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 transition"
+              className="w-full bg-zinc-900 hover:bg-zinc-800 text-white font-bold py-3 rounded-lg transition"
             >
               {t('kycSuccessButton', lang)}
             </button>

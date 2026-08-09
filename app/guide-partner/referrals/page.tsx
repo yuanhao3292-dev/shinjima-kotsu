@@ -430,10 +430,10 @@ export default function ReferralsPage() {
 
   const getStatusBadge = (status: string) => {
     const styles: Record<string, string> = {
-      pending: 'bg-neutral-100 text-neutral-600',
+      pending: 'bg-zinc-100 text-zinc-600',
       approved: 'bg-green-100 text-green-700',
       rejected: 'bg-red-100 text-red-700',
-      suspended: 'bg-neutral-100 text-neutral-700',
+      suspended: 'bg-zinc-100 text-zinc-700',
     };
     const labelKeys: Record<string, keyof typeof translations> = {
       pending: 'statusPending',
@@ -442,7 +442,7 @@ export default function ReferralsPage() {
       suspended: 'statusSuspended',
     };
     return (
-      <span className={`px-2 py-1 text-xs font-medium ${styles[status] || styles.pending}`}>
+      <span className={`px-2 py-1 rounded-md text-xs font-medium ${styles[status] || styles.pending}`}>
         {labelKeys[status] ? t(labelKeys[status], lang) : status}
       </span>
     );
@@ -450,8 +450,8 @@ export default function ReferralsPage() {
 
   const getLevelBadge = (level: string) => {
     const styles: Record<string, string> = {
-      growth: 'text-brand-600',
-      gold: 'text-yellow-500',
+      growth: 'text-zinc-500',
+      gold: 'text-zinc-900',
     };
     const labelKeys: Record<string, keyof typeof translations> = {
       growth: 'levelGrowth',
@@ -474,17 +474,17 @@ export default function ReferralsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
+      <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
-          <p className="text-neutral-600">{t('loading', lang)}</p>
+          <Loader2 className="w-12 h-12 text-zinc-500 animate-spin mx-auto mb-4" />
+          <p className="text-zinc-600">{t('loading', lang)}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-neutral-50">
+    <div className="min-h-screen bg-zinc-50">
       <GuideSidebar pageTitle={t('pageTitle', lang)} />
 
       {/* Main Content */}
@@ -492,20 +492,20 @@ export default function ReferralsPage() {
         <div className="p-6 lg:p-8">
           {/* Header */}
           <div className="mb-6">
-            <h1 className="text-2xl font-bold font-serif text-brand-900">{t('heading', lang)}</h1>
-            <p className="text-neutral-500 mt-1">{t('subtitle', lang)}</p>
+            <h1 className="text-2xl font-bold tracking-tight font-sans text-zinc-900">{t('heading', lang)}</h1>
+            <p className="text-zinc-500 mt-1">{t('subtitle', lang)}</p>
           </div>
 
           {/* Referral Code Card */}
-          <div className="bg-gradient-to-r from-brand-700 to-brand-900 p-6 text-white mb-8">
+          <div className="bg-gradient-to-r from-zinc-600 to-zinc-900 p-6 rounded-xl shadow-sm text-white mb-8">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
               <div>
-                <h2 className="text-lg font-medium font-serif opacity-90 mb-2">{t('yourReferralCode', lang)}</h2>
+                <h2 className="text-lg font-medium font-sans opacity-90 mb-2">{t('yourReferralCode', lang)}</h2>
                 <div className="flex items-center gap-3">
                   <span className="font-mono text-3xl font-bold tracking-wider">{guide?.referral_code}</span>
                   <button
                     onClick={copyReferralCode}
-                    className="p-2 bg-white/20 hover:bg-white/30 transition"
+                    className="p-2 rounded-lg bg-white/20 hover:bg-white/30 transition"
                     title={t('copyReferralCode', lang)}
                   >
                     {copied ? <CheckCircle2 size={20} /> : <Copy size={20} />}
@@ -516,7 +516,7 @@ export default function ReferralsPage() {
               <div className="flex gap-3">
                 <button
                   onClick={copyReferralLink}
-                  className="flex items-center gap-2 bg-white/20 hover:bg-white/30 px-4 py-2 transition"
+                  className="flex items-center gap-2 rounded-lg bg-white/20 hover:bg-white/30 px-4 py-2 transition"
                 >
                   <Share2 size={18} />
                   {t('copyInviteLink', lang)}
@@ -533,63 +533,63 @@ export default function ReferralsPage() {
 
           {/* Stats */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <div className="bg-white p-6 border">
+            <div className="bg-white p-6 rounded-xl border border-zinc-200 shadow-sm">
               <div className="flex items-center gap-2 mb-2">
-                <Users size={20} className="text-brand-500" />
-                <span className="text-sm text-neutral-500">{t('referralCount', lang)}</span>
+                <Users size={20} className="text-zinc-400" />
+                <span className="text-sm text-zinc-500">{t('referralCount', lang)}</span>
               </div>
-              <p className="text-2xl font-bold text-brand-900">{referrals.length}</p>
+              <p className="text-2xl font-bold tracking-tight text-zinc-900">{referrals.length}</p>
             </div>
 
-            <div className="bg-white p-6 border">
+            <div className="bg-white p-6 rounded-xl border border-zinc-200 shadow-sm">
               <div className="flex items-center gap-2 mb-2">
-                <CheckCircle2 size={20} className="text-green-500" />
-                <span className="text-sm text-neutral-500">{t('approved', lang)}</span>
+                <CheckCircle2 size={20} className="text-green-600" />
+                <span className="text-sm text-zinc-500">{t('approved', lang)}</span>
               </div>
-              <p className="text-2xl font-bold text-brand-900">
+              <p className="text-2xl font-bold tracking-tight text-zinc-900">
                 {referrals.filter(r => r.status === 'approved').length}
               </p>
             </div>
 
-            <div className="bg-white p-6 border">
+            <div className="bg-white p-6 rounded-xl border border-zinc-200 shadow-sm">
               <div className="flex items-center gap-2 mb-2">
-                <Gift size={20} className="text-brand-500" />
-                <span className="text-sm text-neutral-500">{t('totalRewards', lang)}</span>
+                <Gift size={20} className="text-zinc-400" />
+                <span className="text-sm text-zinc-500">{t('totalRewards', lang)}</span>
               </div>
-              <p className="text-2xl font-bold text-brand-900">¥{totalRewards.toLocaleString()}</p>
+              <p className="text-2xl font-bold tracking-tight text-zinc-900">¥{totalRewards.toLocaleString()}</p>
             </div>
 
-            <div className="bg-white p-6 border">
+            <div className="bg-white p-6 rounded-xl border border-zinc-200 shadow-sm">
               <div className="flex items-center gap-2 mb-2">
-                <Clock size={20} className="text-yellow-500" />
-                <span className="text-sm text-neutral-500">{t('pendingSettlement', lang)}</span>
+                <Clock size={20} className="text-amber-500" />
+                <span className="text-sm text-zinc-500">{t('pendingSettlement', lang)}</span>
               </div>
-              <p className="text-2xl font-bold text-brand-900">¥{pendingRewards.toLocaleString()}</p>
+              <p className="text-2xl font-bold tracking-tight text-zinc-900">¥{pendingRewards.toLocaleString()}</p>
             </div>
           </div>
 
           {/* Referral List */}
-          <div className="bg-white border mb-8">
-            <div className="p-4 border-b">
-              <h2 className="font-bold font-serif text-brand-900">{t('referredGuides', lang)}</h2>
+          <div className="bg-white rounded-xl border border-zinc-200 shadow-sm mb-8 overflow-hidden">
+            <div className="p-4 border-b border-zinc-200">
+              <h2 className="font-semibold font-sans text-zinc-900">{t('referredGuides', lang)}</h2>
             </div>
 
             {referrals.length > 0 ? (
-              <div className="divide-y">
+              <div className="divide-y divide-zinc-100">
                 {referrals.map((referral) => (
-                  <div key={referral.id} className="p-4 flex items-center justify-between hover:bg-neutral-50">
+                  <div key={referral.id} className="p-4 flex items-center justify-between hover:bg-zinc-50">
                     <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 bg-brand-100 flex items-center justify-center">
-                        <span className="text-brand-600 font-bold">
+                      <div className="w-10 h-10 rounded-lg bg-zinc-100 flex items-center justify-center">
+                        <span className="text-zinc-500 font-bold">
                           {referral.name.charAt(0).toUpperCase()}
                         </span>
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <p className="font-medium text-brand-900">{referral.name}</p>
+                          <p className="font-medium text-zinc-900">{referral.name}</p>
                           {getStatusBadge(referral.status)}
                         </div>
-                        <p className="text-xs text-neutral-400">
+                        <p className="text-xs text-zinc-400">
                           {t('joinedOn', lang)}{new Date(referral.created_at).toLocaleDateString(dateLocaleMap[lang])}
                         </p>
                       </div>
@@ -598,10 +598,10 @@ export default function ReferralsPage() {
                     <div className="text-right">
                       {referral.status === 'approved' && (
                         <>
-                          <p className="text-sm text-neutral-500">
+                          <p className="text-sm text-zinc-500">
                             {referral.total_bookings}{t('bookingsCount', lang)}
                           </p>
-                          <p className="text-xs text-neutral-400">
+                          <p className="text-xs text-zinc-400">
                             {getLevelBadge(referral.level)}
                           </p>
                         </>
@@ -611,8 +611,8 @@ export default function ReferralsPage() {
                 ))}
               </div>
             ) : (
-              <div className="p-12 text-center text-neutral-500">
-                <UserPlus className="w-12 h-12 mx-auto mb-4 text-neutral-300" />
+              <div className="p-12 text-center text-zinc-500">
+                <UserPlus className="w-12 h-12 mx-auto mb-4 text-zinc-300" />
                 <p>{t('noReferrals', lang)}</p>
                 <p className="text-sm mt-2">{t('noReferralsHint', lang)}</p>
               </div>
@@ -620,12 +620,12 @@ export default function ReferralsPage() {
           </div>
 
           {/* Rewards History */}
-          <div className="bg-white border mb-8">
-            <div className="p-4 border-b">
+          <div className="bg-white rounded-xl border border-zinc-200 shadow-sm mb-8 overflow-hidden">
+            <div className="p-4 border-b border-zinc-200">
               <div className="flex items-center justify-between">
-                <h2 className="font-bold font-serif text-brand-900">{t('rewardDetails', lang)}</h2>
+                <h2 className="font-semibold font-sans text-zinc-900">{t('rewardDetails', lang)}</h2>
                 {pendingRewards > 0 && (
-                  <span className="text-sm text-yellow-600 font-medium">
+                  <span className="text-sm text-amber-600 font-medium">
                     {t('pendingAmount', lang)} ¥{pendingRewards.toLocaleString()}
                   </span>
                 )}
@@ -633,28 +633,28 @@ export default function ReferralsPage() {
             </div>
 
             {rewards.length > 0 ? (
-              <div className="divide-y">
+              <div className="divide-y divide-zinc-100">
                 {rewards.map((reward) => (
-                  <div key={reward.id} className="p-4 flex items-center justify-between hover:bg-neutral-50">
+                  <div key={reward.id} className="p-4 flex items-center justify-between hover:bg-zinc-50">
                     <div className="flex items-center gap-4">
-                      <div className={`w-10 h-10 flex items-center justify-center ${
-                        reward.status === 'paid' ? 'bg-green-100' : 'bg-neutral-100'
+                      <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                        reward.status === 'paid' ? 'bg-green-100' : 'bg-zinc-100'
                       }`}>
                         <Gift size={20} className={
-                          reward.status === 'paid' ? 'text-green-600' : 'text-neutral-600'
+                          reward.status === 'paid' ? 'text-green-600' : 'text-zinc-600'
                         } />
                       </div>
                       <div>
-                        <p className="font-medium text-brand-900">
+                        <p className="font-medium text-zinc-900">
                           {reward.referee?.name || t('unknownGuide', lang)}{t('performanceReward', lang)}
                         </p>
                         {reward.order && (
-                          <p className="text-sm text-neutral-500">
+                          <p className="text-sm text-zinc-500">
                             {reward.order.customer_name && `${t('customer', lang)}${reward.order.customer_name}`}
                             {reward.order.package_name && ` · ${reward.order.package_name}`}
                           </p>
                         )}
-                        <p className="text-xs text-neutral-400">
+                        <p className="text-xs text-zinc-400">
                           {new Date(reward.created_at).toLocaleDateString(dateLocaleMap[lang])}
                           {reward.reward_rate && ` · ${t('rewardRate', lang)} ${(reward.reward_rate * 100).toFixed(0)}%`}
                         </p>
@@ -662,15 +662,15 @@ export default function ReferralsPage() {
                     </div>
 
                     <div className="text-right">
-                      <span className={`px-2 py-1 text-xs font-medium ${
+                      <span className={`px-2 py-1 rounded-md text-xs font-medium ${
                         reward.status === 'paid'
                           ? 'bg-green-100 text-green-700'
-                          : 'bg-neutral-100 text-neutral-600'
+                          : 'bg-zinc-100 text-zinc-600'
                       }`}>
                         {reward.status === 'paid' ? t('settled', lang) : t('pendingLabel', lang)}
                       </span>
                       <p className={`font-bold mt-1 ${
-                        reward.status === 'paid' ? 'text-green-600' : 'text-neutral-600'
+                        reward.status === 'paid' ? 'text-green-700' : 'text-zinc-600'
                       }`}>
                         +¥{reward.reward_amount?.toLocaleString()}
                       </p>
@@ -679,8 +679,8 @@ export default function ReferralsPage() {
                 ))}
               </div>
             ) : (
-              <div className="p-12 text-center text-neutral-500">
-                <Gift className="w-12 h-12 mx-auto mb-4 text-neutral-300" />
+              <div className="p-12 text-center text-zinc-500">
+                <Gift className="w-12 h-12 mx-auto mb-4 text-zinc-300" />
                 <p>{t('noRewards', lang)}</p>
                 <p className="text-sm mt-2">{t('noRewardsHint', lang)}</p>
               </div>
@@ -688,19 +688,19 @@ export default function ReferralsPage() {
           </div>
 
           {/* Reward Rules */}
-          <div className="bg-brand-50 border border-brand-200 p-6">
-            <h3 className="font-bold text-brand-800 mb-4">{t('rewardRulesTitle', lang)}</h3>
-            <div className="space-y-3 text-sm text-brand-700">
+          <div className="bg-zinc-100 rounded-xl border border-zinc-200 p-6">
+            <h3 className="font-semibold text-zinc-900 mb-4">{t('rewardRulesTitle', lang)}</h3>
+            <div className="space-y-3 text-sm text-zinc-600">
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-brand-500 text-white flex items-center justify-center flex-shrink-0 text-xs font-bold">1</div>
+                <div className="w-6 h-6 rounded-md bg-zinc-900 text-white flex items-center justify-center flex-shrink-0 text-xs font-bold">1</div>
                 <p>{t('rule1', lang)}</p>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-brand-500 text-white flex items-center justify-center flex-shrink-0 text-xs font-bold">2</div>
+                <div className="w-6 h-6 rounded-md bg-zinc-900 text-white flex items-center justify-center flex-shrink-0 text-xs font-bold">2</div>
                 <p>{t('rule2', lang)}</p>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-brand-500 text-white flex items-center justify-center flex-shrink-0 text-xs font-bold">3</div>
+                <div className="w-6 h-6 rounded-md bg-zinc-900 text-white flex items-center justify-center flex-shrink-0 text-xs font-bold">3</div>
                 <p>{t('rule3', lang)}</p>
               </div>
             </div>

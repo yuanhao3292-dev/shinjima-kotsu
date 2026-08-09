@@ -201,24 +201,24 @@ export default function VenuesPage() {
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'nightclub': return 'bg-brand-100 text-brand-600';
-      default: return 'bg-neutral-100 text-neutral-600';
+      case 'nightclub': return 'bg-zinc-100 text-zinc-500';
+      default: return 'bg-zinc-100 text-zinc-600';
     }
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
+      <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
-          <p className="text-neutral-600">{t('loading', lang)}</p>
+          <Loader2 className="w-12 h-12 text-zinc-500 animate-spin mx-auto mb-4" />
+          <p className="text-zinc-600">{t('loading', lang)}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-neutral-50">
+    <div className="min-h-screen bg-zinc-50">
       <GuideSidebar pageTitle={t('pageTitle', lang)} />
 
       {/* Main Content */}
@@ -226,21 +226,21 @@ export default function VenuesPage() {
         <div className="p-6 lg:p-8">
           {/* Header */}
           <div className="mb-6">
-            <h1 className="text-2xl font-bold font-serif text-brand-900">{t('heading', lang)}</h1>
-            <p className="text-neutral-500 mt-1">{t('subtitle', lang)}</p>
+            <h1 className="text-2xl font-bold tracking-tight font-sans text-zinc-900">{t('heading', lang)}</h1>
+            <p className="text-zinc-500 mt-1">{t('subtitle', lang)}</p>
           </div>
 
           {/* Filters */}
-          <div className="bg-white border p-4 mb-6">
+          <div className="bg-white rounded-xl border border-zinc-200 shadow-sm p-4 mb-6">
             {/* Search */}
             <div className="relative mb-4">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400" size={20} />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400" size={20} />
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder={t('searchPlaceholder', lang)}
-                className="w-full pl-10 pr-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 rounded-lg border border-zinc-200 focus:border-zinc-400 focus:ring-1 focus:ring-zinc-900"
               />
             </div>
 
@@ -251,10 +251,10 @@ export default function VenuesPage() {
                   key={city}
                   onClick={() => setSelectedCity(city)}
                   className={`
-                    px-4 py-2 text-sm font-medium transition
+                    px-4 py-2 rounded-lg text-sm font-medium transition
                     ${selectedCity === city
-                      ? 'bg-neutral-900 text-white'
-                      : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+                      ? 'bg-zinc-900 text-white'
+                      : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
                     }
                   `}
                 >
@@ -265,7 +265,7 @@ export default function VenuesPage() {
           </div>
 
           {/* Results Count */}
-          <p className="text-sm text-neutral-500 mb-4">
+          <p className="text-sm text-zinc-500 mb-4">
             {filteredVenues.length} {t('venuesFound', lang)}
           </p>
 
@@ -274,29 +274,29 @@ export default function VenuesPage() {
             {filteredVenues.map((venue) => (
               <div
                 key={venue.id}
-                className="bg-white border hover:border-brand-300 transition overflow-hidden"
+                className="bg-white rounded-xl border border-zinc-200 shadow-sm hover:border-zinc-300 transition overflow-hidden"
               >
                 {/* Header */}
-                <div className="p-4 border-b">
+                <div className="p-4 border-b border-zinc-200">
                   <div className="flex items-start justify-between mb-2">
                     <div>
-                      <h3 className="font-bold text-brand-900">{venue.name}</h3>
+                      <h3 className="font-semibold text-zinc-900">{venue.name}</h3>
                       {venue.name_ja && (
-                        <p className="text-xs text-neutral-400">{venue.name_ja}</p>
+                        <p className="text-xs text-zinc-400">{venue.name_ja}</p>
                       )}
                     </div>
-                    <div className={`p-2 ${getCategoryColor(venue.category)}`}>
+                    <div className={`p-2 rounded-lg ${getCategoryColor(venue.category)}`}>
                       {getCategoryIcon(venue.category)}
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 text-sm text-neutral-500">
+                  <div className="flex items-center gap-2 text-sm text-zinc-500">
                     <MapPin size={14} />
                     <span>{venue.city} · {venue.area}</span>
                   </div>
 
                   {venue.brand && (
-                    <span className="inline-block mt-2 px-2 py-1 bg-neutral-100 text-xs text-neutral-600">
+                    <span className="inline-block mt-2 px-2 py-1 rounded-md bg-zinc-100 text-xs text-zinc-700">
                       {venue.brand}
                     </span>
                   )}
@@ -305,13 +305,13 @@ export default function VenuesPage() {
                 {/* Content */}
                 <div className="p-4">
                   {venue.description && (
-                    <p className="text-sm text-neutral-600 mb-3 line-clamp-2">{venue.description}</p>
+                    <p className="text-sm text-zinc-600 mb-3 line-clamp-2">{venue.description}</p>
                   )}
 
                   {venue.features && venue.features.length > 0 && (
                     <div className="flex flex-wrap gap-1 mb-3">
                       {venue.features.slice(0, 3).map((feature, idx) => (
-                        <span key={idx} className="px-2 py-1 bg-brand-50 text-brand-600 text-xs">
+                        <span key={idx} className="px-2 py-1 rounded-md bg-zinc-100 text-zinc-700 text-xs">
                           {feature}
                         </span>
                       ))}
@@ -320,28 +320,28 @@ export default function VenuesPage() {
 
                   <div className="flex items-center justify-between text-sm">
                     <div>
-                      <span className="text-neutral-500">{t('minSpend', lang)}</span>
-                      <p className="font-bold text-neutral-900">¥{venue.min_spend?.toLocaleString()}</p>
+                      <span className="text-zinc-500">{t('minSpend', lang)}</span>
+                      <p className="font-bold text-zinc-900">¥{venue.min_spend?.toLocaleString()}</p>
                     </div>
                     <div className="text-right">
-                      <span className="text-neutral-500">{t('avgSpend', lang)}</span>
-                      <p className="font-bold text-neutral-900">¥{venue.avg_spend?.toLocaleString()}</p>
+                      <span className="text-zinc-500">{t('avgSpend', lang)}</span>
+                      <p className="font-bold text-zinc-900">¥{venue.avg_spend?.toLocaleString()}</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Action */}
-                <div className="p-4 border-t bg-neutral-50 space-y-2">
+                <div className="p-4 border-t border-zinc-200 bg-zinc-50 space-y-2">
                   <Link
                     href={`/guide-partner/venues/${venue.id}`}
-                    className="w-full flex items-center justify-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-white font-medium py-3 transition"
+                    className="w-full flex items-center justify-center gap-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white font-medium py-3 transition"
                   >
                     <ChevronRight size={18} />
                     {t('viewPriceDetails', lang)}
                   </Link>
                   <Link
                     href={`/guide-partner/bookings/new?venue=${venue.id}`}
-                    className="w-full flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-medium py-3 transition"
+                    className="w-full flex items-center justify-center gap-2 rounded-lg border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50 font-medium py-3 transition"
                   >
                     <Calendar size={18} />
                     {t('bookVenue', lang)}
@@ -352,10 +352,10 @@ export default function VenuesPage() {
           </div>
 
           {filteredVenues.length === 0 && (
-            <div className="bg-white border p-12 text-center">
-              <Store className="w-16 h-16 text-neutral-300 mx-auto mb-4" />
-              <h3 className="font-bold text-brand-900 mb-2">{t('noVenuesFound', lang)}</h3>
-              <p className="text-neutral-500">{t('tryOtherSearch', lang)}</p>
+            <div className="bg-white rounded-xl border border-zinc-200 shadow-sm p-12 text-center">
+              <Store className="w-16 h-16 text-zinc-300 mx-auto mb-4" />
+              <h3 className="font-semibold text-zinc-900 mb-2">{t('noVenuesFound', lang)}</h3>
+              <p className="text-zinc-500">{t('tryOtherSearch', lang)}</p>
             </div>
           )}
         </div>

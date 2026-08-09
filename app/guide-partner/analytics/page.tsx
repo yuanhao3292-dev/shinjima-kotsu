@@ -282,8 +282,8 @@ export default function AnalyticsPage() {
   const lang = useLanguage();
 
   const LEVEL_CONFIG: Record<string, { label: string; color: string; next: string | null }> = {
-    growth: { label: t('levelGrowth', lang), color: 'text-brand-700', next: 'gold' },
-    gold: { label: t('levelGold', lang), color: 'text-yellow-600', next: null },
+    growth: { label: t('levelGrowth', lang), color: 'text-zinc-600', next: 'gold' },
+    gold: { label: t('levelGold', lang), color: 'text-zinc-900', next: null },
   };
 
   useEffect(() => {
@@ -445,10 +445,10 @@ export default function AnalyticsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">{t('loading', lang)}</p>
+          <Loader2 className="w-12 h-12 text-zinc-500 animate-spin mx-auto mb-4" />
+          <p className="text-zinc-500">{t('loading', lang)}</p>
         </div>
       </div>
     );
@@ -463,7 +463,7 @@ export default function AnalyticsPage() {
   } : null;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-zinc-50">
       <GuideSidebar pageTitle={t('pageTitle', lang)} />
 
       {/* Main Content */}
@@ -471,19 +471,19 @@ export default function AnalyticsPage() {
         <div className="p-6 lg:p-8 max-w-6xl">
           {/* Header */}
           <div className="mb-6">
-            <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
-              <BarChart3 className="text-brand-500" size={28} />
+            <h1 className="text-2xl font-bold tracking-tight text-zinc-900 flex items-center gap-3">
+              <BarChart3 className="text-zinc-400" size={28} />
               {t('heading', lang)}
             </h1>
-            <p className="text-gray-500 mt-1">{t('subtitle', lang)}</p>
+            <p className="text-sm text-zinc-500 mt-1">{t('subtitle', lang)}</p>
           </div>
 
           {/* Key Metrics */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             {/* 本月訂單 */}
-            <div className="bg-white rounded-xl border p-5">
+            <div className="bg-white rounded-xl border border-zinc-200 shadow-sm p-5">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-sm text-gray-500">{t('thisMonthOrders', lang)}</p>
+                <p className="text-sm font-medium text-zinc-500">{t('thisMonthOrders', lang)}</p>
                 {stats && (
                   <span className={`text-xs font-medium flex items-center gap-1 ${
                     calcGrowth(stats.thisMonth.bookings, stats.lastMonth.bookings) >= 0
@@ -495,14 +495,14 @@ export default function AnalyticsPage() {
                   </span>
                 )}
               </div>
-              <p className="text-3xl font-bold text-gray-900">{stats?.thisMonth.bookings || 0}</p>
-              <p className="text-xs text-gray-400 mt-1">{t('lastMonthLabel', lang)}: {stats?.lastMonth.bookings || 0}</p>
+              <p className="text-3xl font-bold tracking-tight text-zinc-900">{stats?.thisMonth.bookings || 0}</p>
+              <p className="text-xs text-zinc-400 mt-1">{t('lastMonthLabel', lang)}: {stats?.lastMonth.bookings || 0}</p>
             </div>
 
             {/* 本月佣金 */}
-            <div className="bg-white rounded-xl border p-5">
+            <div className="bg-white rounded-xl border border-zinc-200 shadow-sm p-5">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-sm text-gray-500">{t('thisMonthCommission', lang)}</p>
+                <p className="text-sm font-medium text-zinc-500">{t('thisMonthCommission', lang)}</p>
                 {stats && (
                   <span className={`text-xs font-medium flex items-center gap-1 ${
                     calcGrowth(stats.thisMonth.commission, stats.lastMonth.commission) >= 0
@@ -514,14 +514,14 @@ export default function AnalyticsPage() {
                   </span>
                 )}
               </div>
-              <p className="text-3xl font-bold text-green-600">{formatCurrency(stats?.thisMonth.commission || 0)}</p>
-              <p className="text-xs text-gray-400 mt-1">{t('lastMonthLabel', lang)}: {formatCurrency(stats?.lastMonth.commission || 0)}</p>
+              <p className="text-3xl font-bold tracking-tight text-zinc-900">{formatCurrency(stats?.thisMonth.commission || 0)}</p>
+              <p className="text-xs text-zinc-400 mt-1">{t('lastMonthLabel', lang)}: {formatCurrency(stats?.lastMonth.commission || 0)}</p>
             </div>
 
             {/* 本季銷售額 */}
-            <div className="bg-white rounded-xl border p-5">
+            <div className="bg-white rounded-xl border border-zinc-200 shadow-sm p-5">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-sm text-gray-500">{t('thisQuarterSales', lang)}</p>
+                <p className="text-sm font-medium text-zinc-500">{t('thisQuarterSales', lang)}</p>
                 {stats && (
                   <span className={`text-xs font-medium flex items-center gap-1 ${
                     calcGrowth(stats.thisQuarter.spend, stats.lastQuarter.spend) >= 0
@@ -533,25 +533,25 @@ export default function AnalyticsPage() {
                   </span>
                 )}
               </div>
-              <p className="text-3xl font-bold text-indigo-600">{formatCurrency(stats?.thisQuarter.spend || 0)}</p>
-              <p className="text-xs text-gray-400 mt-1">{t('lastQuarterLabel', lang)}: {formatCurrency(stats?.lastQuarter.spend || 0)}</p>
+              <p className="text-3xl font-bold tracking-tight text-zinc-900">{formatCurrency(stats?.thisQuarter.spend || 0)}</p>
+              <p className="text-xs text-zinc-400 mt-1">{t('lastQuarterLabel', lang)}: {formatCurrency(stats?.lastQuarter.spend || 0)}</p>
             </div>
 
             {/* 推薦人數 */}
-            <div className="bg-white rounded-xl border p-5">
-              <p className="text-sm text-gray-500 mb-2">{t('referralCount', lang)}</p>
-              <p className="text-3xl font-bold text-purple-600">{stats?.total.referrals || 0}</p>
-              <p className="text-xs text-gray-400 mt-1">{t('cumulativeReferrals', lang)}</p>
+            <div className="bg-white rounded-xl border border-zinc-200 shadow-sm p-5">
+              <p className="text-sm font-medium text-zinc-500 mb-2">{t('referralCount', lang)}</p>
+              <p className="text-3xl font-bold tracking-tight text-zinc-900">{stats?.total.referrals || 0}</p>
+              <p className="text-xs text-zinc-400 mt-1">{t('cumulativeReferrals', lang)}</p>
             </div>
           </div>
 
           {/* Level Progress */}
           {nextTarget && progress && (
-            <div className="bg-gradient-to-r from-brand-600 to-brand-400 rounded-2xl p-6 text-white mb-8">
+            <div className="bg-gradient-to-r from-zinc-500 to-zinc-400 rounded-2xl p-6 text-white mb-8">
               <div className="flex items-center gap-3 mb-4">
                 <Target className="text-white/80" size={24} />
                 <div>
-                  <p className="text-brand-100 text-sm">{t('upgradeTarget', lang)}</p>
+                  <p className="text-zinc-100 text-sm">{t('upgradeTarget', lang)}</p>
                   <p className="font-bold text-lg">
                     {LEVEL_CONFIG[currentLevel]?.label} → {nextLevel && LEVEL_CONFIG[nextLevel]?.label}
                   </p>
@@ -560,7 +560,7 @@ export default function AnalyticsPage() {
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <div className="flex justify-between text-sm mb-1">
-                    <span className="text-brand-100">{t('orderCount', lang)}</span>
+                    <span className="text-zinc-100">{t('orderCount', lang)}</span>
                     <span>{guide?.total_bookings || 0} / {nextTarget.bookings}</span>
                   </div>
                   <div className="h-3 bg-white/20 rounded-full overflow-hidden">
@@ -572,7 +572,7 @@ export default function AnalyticsPage() {
                 </div>
                 <div>
                   <div className="flex justify-between text-sm mb-1">
-                    <span className="text-brand-100">{t('salesAmount', lang)}</span>
+                    <span className="text-zinc-100">{t('salesAmount', lang)}</span>
                     <span>{formatCurrency(stats?.total.spend || 0)} / {formatCurrency(nextTarget.spend)}</span>
                   </div>
                   <div className="h-3 bg-white/20 rounded-full overflow-hidden">
@@ -588,8 +588,8 @@ export default function AnalyticsPage() {
 
           <div className="grid lg:grid-cols-2 gap-6">
             {/* Monthly Trend */}
-            <div className="bg-white rounded-xl border p-6">
-              <h2 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <div className="bg-white rounded-xl border border-zinc-200 shadow-sm p-6">
+              <h2 className="font-semibold text-zinc-900 mb-4 flex items-center gap-2">
                 <TrendingUp size={18} />
                 {t('monthlyTrend', lang)}
               </h2>
@@ -597,104 +597,104 @@ export default function AnalyticsPage() {
                 <div className="space-y-3">
                   {stats.monthlyTrend.map((month) => (
                     <div key={month.month} className="flex items-center gap-4">
-                      <span className="text-sm text-gray-500 w-16">{month.month.slice(5)}{t('monthSuffix', lang)}</span>
+                      <span className="text-sm text-zinc-500 w-16">{month.month.slice(5)}{t('monthSuffix', lang)}</span>
                       <div className="flex-1">
-                        <div className="h-6 bg-gray-100 rounded-full overflow-hidden">
+                        <div className="h-6 bg-zinc-100 rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-r from-brand-400 to-brand-300 rounded-full"
+                            className="h-full bg-zinc-900 rounded-full"
                             style={{
                               width: `${Math.min(100, (month.commission / Math.max(...stats.monthlyTrend.map(m => m.commission || 1))) * 100)}%`
                             }}
                           />
                         </div>
                       </div>
-                      <span className="text-sm font-medium text-gray-700 w-24 text-right">
+                      <span className="text-sm font-medium text-zinc-900 w-24 text-right">
                         {formatCurrency(month.commission)}
                       </span>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-gray-400 text-center py-8">{t('noData', lang)}</p>
+                <p className="text-zinc-400 text-center py-8">{t('noData', lang)}</p>
               )}
             </div>
 
             {/* Top Venues */}
-            <div className="bg-white rounded-xl border p-6">
-              <h2 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <div className="bg-white rounded-xl border border-zinc-200 shadow-sm p-6">
+              <h2 className="font-semibold text-zinc-900 mb-4 flex items-center gap-2">
                 <PieChart size={18} />
                 {t('topVenues', lang)}
               </h2>
               {stats?.topVenues && stats.topVenues.length > 0 ? (
                 <div className="space-y-3">
                   {stats.topVenues.map((venue, idx) => (
-                    <div key={venue.venue_name} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div key={venue.venue_name} className="flex items-center justify-between p-3 bg-zinc-50 rounded-lg">
                       <div className="flex items-center gap-3">
                         <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-                          idx === 0 ? 'bg-yellow-400 text-yellow-900' :
-                          idx === 1 ? 'bg-gray-300 text-gray-700' :
-                          idx === 2 ? 'bg-amber-400 text-amber-900' :
-                          'bg-gray-200 text-gray-600'
+                          idx === 0 ? 'bg-zinc-900 text-white' :
+                          idx === 1 ? 'bg-zinc-700 text-white' :
+                          idx === 2 ? 'bg-zinc-400 text-white' :
+                          'bg-zinc-200 text-zinc-600'
                         }`}>
                           {idx + 1}
                         </span>
-                        <span className="font-medium text-gray-900">{venue.venue_name}</span>
+                        <span className="font-medium text-zinc-900">{venue.venue_name}</span>
                       </div>
                       <div className="text-right">
-                        <p className="font-medium text-gray-900">{formatCurrency(venue.total_spend)}</p>
-                        <p className="text-xs text-gray-400">{venue.booking_count} {t('countUnit', lang)}</p>
+                        <p className="font-medium text-zinc-900">{formatCurrency(venue.total_spend)}</p>
+                        <p className="text-xs text-zinc-400">{venue.booking_count} {t('countUnit', lang)}</p>
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-gray-400 text-center py-8">{t('noData', lang)}</p>
+                <p className="text-zinc-400 text-center py-8">{t('noData', lang)}</p>
               )}
             </div>
 
             {/* Status Breakdown */}
-            <div className="bg-white rounded-xl border p-6 lg:col-span-2">
-              <h2 className="font-bold text-gray-900 mb-4">{t('orderStatusBreakdown', lang)}</h2>
+            <div className="bg-white rounded-xl border border-zinc-200 shadow-sm p-6 lg:col-span-2">
+              <h2 className="font-semibold text-zinc-900 mb-4">{t('orderStatusBreakdown', lang)}</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="text-center p-4 bg-green-50 rounded-xl">
-                  <p className="text-3xl font-bold text-green-600">{stats?.statusBreakdown.completed || 0}</p>
+                <div className="text-center p-4 bg-green-100 rounded-lg">
+                  <p className="text-3xl font-bold tracking-tight text-green-700">{stats?.statusBreakdown.completed || 0}</p>
                   <p className="text-sm text-green-700 mt-1">{t('statusCompleted', lang)}</p>
                 </div>
-                <div className="text-center p-4 bg-blue-50 rounded-xl">
-                  <p className="text-3xl font-bold text-blue-600">{stats?.statusBreakdown.confirmed || 0}</p>
-                  <p className="text-sm text-blue-700 mt-1">{t('statusConfirmed', lang)}</p>
+                <div className="text-center p-4 bg-zinc-100 rounded-lg">
+                  <p className="text-3xl font-bold tracking-tight text-zinc-900">{stats?.statusBreakdown.confirmed || 0}</p>
+                  <p className="text-sm text-zinc-500 mt-1">{t('statusConfirmed', lang)}</p>
                 </div>
-                <div className="text-center p-4 bg-yellow-50 rounded-xl">
-                  <p className="text-3xl font-bold text-yellow-600">{stats?.statusBreakdown.pending || 0}</p>
-                  <p className="text-sm text-yellow-700 mt-1">{t('statusPending', lang)}</p>
+                <div className="text-center p-4 bg-amber-50 rounded-lg">
+                  <p className="text-3xl font-bold tracking-tight text-amber-800">{stats?.statusBreakdown.pending || 0}</p>
+                  <p className="text-sm text-amber-800 mt-1">{t('statusPending', lang)}</p>
                 </div>
-                <div className="text-center p-4 bg-gray-50 rounded-xl">
-                  <p className="text-3xl font-bold text-gray-500">{stats?.statusBreakdown.cancelled || 0}</p>
-                  <p className="text-sm text-gray-600 mt-1">{t('statusCancelled', lang)}</p>
+                <div className="text-center p-4 bg-red-100 rounded-lg">
+                  <p className="text-3xl font-bold tracking-tight text-red-700">{stats?.statusBreakdown.cancelled || 0}</p>
+                  <p className="text-sm text-red-700 mt-1">{t('statusCancelled', lang)}</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Summary */}
-          <div className="mt-8 bg-white rounded-xl border p-6">
-            <h2 className="font-bold text-gray-900 mb-4">{t('cumulativeStats', lang)}</h2>
+          <div className="mt-8 bg-white rounded-xl border border-zinc-200 shadow-sm p-6">
+            <h2 className="font-semibold text-zinc-900 mb-4">{t('cumulativeStats', lang)}</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div>
-                <p className="text-sm text-gray-500">{t('totalOrders', lang)}</p>
-                <p className="text-2xl font-bold text-gray-900">{stats?.total.bookings || 0}</p>
+                <p className="text-sm font-medium text-zinc-500">{t('totalOrders', lang)}</p>
+                <p className="text-2xl font-bold tracking-tight text-zinc-900">{stats?.total.bookings || 0}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-500">{t('totalCommission', lang)}</p>
-                <p className="text-2xl font-bold text-green-600">{formatCurrency(stats?.total.commission || 0)}</p>
+                <p className="text-sm font-medium text-zinc-500">{t('totalCommission', lang)}</p>
+                <p className="text-2xl font-bold tracking-tight text-zinc-900">{formatCurrency(stats?.total.commission || 0)}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-500">{t('totalSales', lang)}</p>
-                <p className="text-2xl font-bold text-indigo-600">{formatCurrency(stats?.total.spend || 0)}</p>
+                <p className="text-sm font-medium text-zinc-500">{t('totalSales', lang)}</p>
+                <p className="text-2xl font-bold tracking-tight text-zinc-900">{formatCurrency(stats?.total.spend || 0)}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-500">{t('totalReferrals', lang)}</p>
-                <p className="text-2xl font-bold text-purple-600">{stats?.total.referrals || 0}</p>
+                <p className="text-sm font-medium text-zinc-500">{t('totalReferrals', lang)}</p>
+                <p className="text-2xl font-bold tracking-tight text-zinc-900">{stats?.total.referrals || 0}</p>
               </div>
             </div>
           </div>

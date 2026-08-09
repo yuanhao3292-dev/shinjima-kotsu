@@ -445,12 +445,12 @@ export default function WithdrawalPage() {
   const lang = useLanguage();
 
   const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string }> = {
-    pending: { label: t('statusPending', lang), color: 'text-gray-600', bg: 'bg-gray-100' },
-    approved: { label: t('statusApproved', lang), color: 'text-brand-700', bg: 'bg-brand-100' },
-    processing: { label: t('statusProcessing', lang), color: 'text-brand-700', bg: 'bg-brand-100' },
+    pending: { label: t('statusPending', lang), color: 'text-amber-800', bg: 'bg-amber-50' },
+    approved: { label: t('statusApproved', lang), color: 'text-zinc-600', bg: 'bg-zinc-100' },
+    processing: { label: t('statusProcessing', lang), color: 'text-amber-800', bg: 'bg-amber-50' },
     completed: { label: t('statusCompleted', lang), color: 'text-green-700', bg: 'bg-green-100' },
     rejected: { label: t('statusRejected', lang), color: 'text-red-700', bg: 'bg-red-100' },
-    cancelled: { label: t('statusCancelled', lang), color: 'text-gray-700', bg: 'bg-gray-100' },
+    cancelled: { label: t('statusCancelled', lang), color: 'text-zinc-600', bg: 'bg-zinc-100' },
   };
 
   const loadData = useCallback(async () => {
@@ -571,17 +571,17 @@ export default function WithdrawalPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 text-brand-500 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">{t('loading', lang)}</p>
+          <Loader2 className="w-12 h-12 text-zinc-900 animate-spin mx-auto mb-4" />
+          <p className="text-zinc-500 text-sm">{t('loading', lang)}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-zinc-50">
       <GuideSidebar pageTitle={t('pageTitle', lang)} />
 
       {/* Main Content */}
@@ -589,51 +589,51 @@ export default function WithdrawalPage() {
         <div className="p-6 lg:p-8 max-w-4xl">
           {/* Header */}
           <div className="mb-6">
-            <Link href="/guide-partner/commission" className="inline-flex items-center gap-1 text-sm text-neutral-500 hover:text-brand-900 mb-2">
+            <Link href="/guide-partner/commission" className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-900 mb-2">
               <ArrowLeft size={16} />
               {t('backToCommission', lang)}
             </Link>
-            <h1 className="text-2xl font-bold text-gray-900">{t('heading', lang)}</h1>
-            <p className="text-gray-500 mt-1">{t('subtitle', lang)}</p>
+            <h1 className="text-2xl font-bold tracking-tight text-zinc-900">{t('heading', lang)}</h1>
+            <p className="text-sm text-zinc-500 mt-1">{t('subtitle', lang)}</p>
           </div>
 
           {/* Balance Cards */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <div className="bg-gradient-to-br from-brand-800 to-brand-900 rounded-xl p-5 text-white">
+            <div className="bg-zinc-900 rounded-xl p-5 text-white shadow-sm">
               <div className="flex items-center gap-2 mb-2">
                 <Wallet size={18} />
                 <span className="text-sm opacity-90">{t('available', lang)}</span>
               </div>
-              <p className="text-2xl font-bold">¥{(balance?.available || 0).toLocaleString()}</p>
+              <p className="text-2xl font-bold tracking-tight">¥{(balance?.available || 0).toLocaleString()}</p>
             </div>
 
-            <div className="bg-white rounded-xl p-5 border">
+            <div className="bg-white rounded-xl p-5 border border-zinc-200 shadow-sm">
               <div className="flex items-center gap-2 mb-2">
-                <Lock size={18} className="text-gray-400" />
-                <span className="text-sm text-gray-500">{t('locked', lang)}</span>
+                <Lock size={18} className="text-zinc-400" />
+                <span className="text-sm text-zinc-500">{t('locked', lang)}</span>
               </div>
-              <p className="text-2xl font-bold text-gray-900">¥{(balance?.locked || 0).toLocaleString()}</p>
+              <p className="text-2xl font-bold tracking-tight text-zinc-900">¥{(balance?.locked || 0).toLocaleString()}</p>
               {balance?.nearestUnlockDate && (
-                <p className="text-xs text-gray-400 mt-1">
+                <p className="text-xs text-zinc-400 mt-1">
                   {t('nearestUnlock', lang)}: {new Date(balance.nearestUnlockDate).toLocaleDateString(dateLocaleMap[lang])}
                 </p>
               )}
             </div>
 
-            <div className="bg-white rounded-xl p-5 border">
+            <div className="bg-white rounded-xl p-5 border border-zinc-200 shadow-sm">
               <div className="flex items-center gap-2 mb-2">
-                <Clock size={18} className="text-yellow-500" />
-                <span className="text-sm text-gray-500">{t('processing', lang)}</span>
+                <Clock size={18} className="text-zinc-400" />
+                <span className="text-sm text-zinc-500">{t('processing', lang)}</span>
               </div>
-              <p className="text-2xl font-bold text-gray-900">¥{(balance?.pending || 0).toLocaleString()}</p>
+              <p className="text-2xl font-bold tracking-tight text-zinc-900">¥{(balance?.pending || 0).toLocaleString()}</p>
             </div>
 
-            <div className="bg-white rounded-xl p-5 border">
+            <div className="bg-white rounded-xl p-5 border border-zinc-200 shadow-sm">
               <div className="flex items-center gap-2 mb-2">
-                <Banknote size={18} className="text-brand-500" />
-                <span className="text-sm text-gray-500">{t('totalWithdrawn', lang)}</span>
+                <Banknote size={18} className="text-zinc-400" />
+                <span className="text-sm text-zinc-500">{t('totalWithdrawn', lang)}</span>
               </div>
-              <p className="text-2xl font-bold text-gray-900">¥{(balance?.totalWithdrawn || 0).toLocaleString()}</p>
+              <p className="text-2xl font-bold tracking-tight text-zinc-900">¥{(balance?.totalWithdrawn || 0).toLocaleString()}</p>
             </div>
           </div>
 
@@ -659,65 +659,65 @@ export default function WithdrawalPage() {
           )}
 
           {/* Withdrawal Form */}
-          <div className="bg-white rounded-xl border p-6 mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">{t('applyWithdrawal', lang)}</h2>
+          <div className="bg-white rounded-xl border border-zinc-200 shadow-sm p-6 mb-8">
+            <h2 className="text-lg font-semibold text-zinc-900 mb-4">{t('applyWithdrawal', lang)}</h2>
 
             {!bankInfoComplete ? (
-              <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
                 <div className="flex items-start gap-3">
-                  <AlertCircle size={20} className="text-yellow-600 mt-0.5 shrink-0" />
+                  <AlertCircle size={20} className="text-amber-600 mt-0.5 shrink-0" />
                   <div>
-                    <p className="text-yellow-800 font-medium">{t('bankIncomplete', lang)}</p>
-                    <p className="text-yellow-700 text-sm mt-1">{t('bankIncompleteDesc', lang)}</p>
-                    <Link href="/guide-partner/settings" className="inline-block mt-2 text-sm text-brand-600 hover:text-brand-700 font-medium">
+                    <p className="text-amber-800 font-medium">{t('bankIncomplete', lang)}</p>
+                    <p className="text-amber-700 text-sm mt-1">{t('bankIncompleteDesc', lang)}</p>
+                    <Link href="/guide-partner/settings" className="inline-block mt-2 text-sm text-zinc-500 hover:text-zinc-600 font-medium">
                       {t('goToSettings', lang)}
                     </Link>
                   </div>
                 </div>
               </div>
             ) : hasPendingWithdrawal ? (
-              <div className="p-4 bg-brand-50 border border-brand-200 rounded-lg">
+              <div className="p-4 bg-zinc-100 border border-zinc-200 rounded-lg">
                 <div className="flex items-start gap-3">
-                  <Clock size={20} className="text-brand-600 mt-0.5 shrink-0" />
+                  <Clock size={20} className="text-zinc-500 mt-0.5 shrink-0" />
                   <div>
-                    <p className="text-brand-800 font-medium">{t('pendingWithdrawal', lang)}</p>
-                    <p className="text-brand-700 text-sm mt-1">{t('pendingWithdrawalDesc', lang)}</p>
+                    <p className="text-zinc-900 font-medium">{t('pendingWithdrawal', lang)}</p>
+                    <p className="text-zinc-600 text-sm mt-1">{t('pendingWithdrawalDesc', lang)}</p>
                   </div>
                 </div>
               </div>
             ) : (
               <>
                 {/* Bank Info Display */}
-                <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-                  <p className="text-sm text-gray-500 mb-2">{t('remitAccount', lang)}</p>
+                <div className="mb-6 p-4 bg-zinc-50 rounded-lg border border-zinc-200">
+                  <p className="text-sm text-zinc-500 mb-2">{t('remitAccount', lang)}</p>
                   <div className="grid grid-cols-2 gap-2 text-sm">
                     <div>
-                      <span className="text-gray-400">{t('bankLabel', lang)}</span>
-                      <span className="text-gray-700">{bankInfo?.bankName}</span>
+                      <span className="text-zinc-400">{t('bankLabel', lang)}</span>
+                      <span className="text-zinc-700">{bankInfo?.bankName}</span>
                     </div>
                     <div>
-                      <span className="text-gray-400">{t('branchLabel', lang)}</span>
-                      <span className="text-gray-700">{bankInfo?.bankBranch || '-'}</span>
+                      <span className="text-zinc-400">{t('branchLabel', lang)}</span>
+                      <span className="text-zinc-700">{bankInfo?.bankBranch || '-'}</span>
                     </div>
                     <div>
-                      <span className="text-gray-400">{t('accountLabel', lang)}</span>
-                      <span className="text-gray-700">{bankInfo?.accountNumber}</span>
+                      <span className="text-zinc-400">{t('accountLabel', lang)}</span>
+                      <span className="text-zinc-700">{bankInfo?.accountNumber}</span>
                     </div>
                     <div>
-                      <span className="text-gray-400">{t('holderLabel', lang)}</span>
-                      <span className="text-gray-700">{bankInfo?.accountHolder}</span>
+                      <span className="text-zinc-400">{t('holderLabel', lang)}</span>
+                      <span className="text-zinc-700">{bankInfo?.accountHolder}</span>
                     </div>
                   </div>
-                  <Link href="/guide-partner/settings" className="text-xs text-brand-600 hover:text-brand-700 mt-2 inline-block">
+                  <Link href="/guide-partner/settings" className="text-xs text-zinc-500 hover:text-zinc-600 mt-2 inline-block">
                     {t('editBankInfo', lang)}
                   </Link>
                 </div>
 
                 {/* Amount Input */}
                 <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">{t('withdrawAmountLabel', lang)}</label>
+                  <label className="block text-sm font-medium text-zinc-700 mb-2">{t('withdrawAmountLabel', lang)}</label>
                   <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg">¥</span>
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 text-lg">¥</span>
                     <input
                       type="number"
                       value={amount}
@@ -725,14 +725,14 @@ export default function WithdrawalPage() {
                       placeholder={`${t('minAmountPlaceholder', lang)} ${minAmount.toLocaleString()}`}
                       min={minAmount}
                       max={balance?.available || 0}
-                      className="w-full pl-10 pr-4 py-3 border rounded-lg text-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
+                      className="w-full pl-10 pr-4 py-3 border border-zinc-200 rounded-lg text-lg focus:ring-1 focus:ring-zinc-900 focus:border-zinc-400 outline-none"
                     />
                   </div>
                   <div className="flex justify-between mt-2">
-                    <p className="text-xs text-gray-400">{t('minWithdrawal', lang)} ¥{minAmount.toLocaleString()}</p>
+                    <p className="text-xs text-zinc-400">{t('minWithdrawal', lang)} ¥{minAmount.toLocaleString()}</p>
                     <button
                       onClick={() => setAmount(String(balance?.available || 0))}
-                      className="text-xs text-brand-600 hover:text-brand-700"
+                      className="text-xs text-zinc-500 hover:text-zinc-600"
                     >
                       {t('withdrawAll', lang)}
                     </button>
@@ -742,7 +742,7 @@ export default function WithdrawalPage() {
                 <button
                   onClick={handleSubmit}
                   disabled={submitting || !amount}
-                  className="w-full py-3 bg-brand-700 text-white rounded-lg font-medium hover:bg-brand-800 disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center justify-center gap-2"
+                  className="w-full py-3 bg-zinc-900 text-white rounded-lg font-medium hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center justify-center gap-2"
                 >
                   {submitting ? (
                     <>
@@ -754,7 +754,7 @@ export default function WithdrawalPage() {
                   )}
                 </button>
 
-                <p className="text-xs text-gray-400 text-center mt-3">
+                <p className="text-xs text-zinc-400 text-center mt-3">
                   {t('submitNote', lang)}
                 </p>
               </>
@@ -762,30 +762,30 @@ export default function WithdrawalPage() {
           </div>
 
           {/* Withdrawal History */}
-          <div className="bg-white rounded-xl border">
-            <div className="p-6 border-b">
-              <h2 className="text-lg font-semibold text-gray-900">{t('withdrawalHistory', lang)}</h2>
+          <div className="bg-white rounded-xl border border-zinc-200 shadow-sm">
+            <div className="p-6 border-b border-zinc-200">
+              <h2 className="text-lg font-semibold text-zinc-900">{t('withdrawalHistory', lang)}</h2>
             </div>
 
             {withdrawals.length === 0 ? (
-              <div className="p-12 text-center text-gray-400">
+              <div className="p-12 text-center text-zinc-400">
                 <Banknote size={40} className="mx-auto mb-3 opacity-30" />
                 <p>{t('noWithdrawals', lang)}</p>
               </div>
             ) : (
-              <div className="divide-y">
+              <div className="divide-y divide-zinc-100">
                 {withdrawals.map((w) => {
                   const status = STATUS_CONFIG[w.status] || STATUS_CONFIG.pending;
                   return (
                     <div key={w.id} className="p-4 lg:p-6">
                       <div className="flex items-center justify-between mb-2">
-                        <p className="text-lg font-bold text-gray-900">¥{Number(w.amount).toLocaleString()}</p>
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${status.bg} ${status.color}`}>
+                        <p className="text-lg font-bold tracking-tight text-zinc-900">¥{Number(w.amount).toLocaleString()}</p>
+                        <span className={`px-3 py-1 rounded-md text-xs font-medium ${status.bg} ${status.color}`}>
                           {status.label}
                         </span>
                       </div>
 
-                      <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-400">
+                      <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-zinc-400">
                         <span>{t('applicationDate', lang)}: {new Date(w.created_at).toLocaleDateString(dateLocaleMap[lang])}</span>
                         {w.reviewed_at && (
                           <span>{t('reviewDate', lang)}: {new Date(w.reviewed_at).toLocaleDateString(dateLocaleMap[lang])}</span>
@@ -799,7 +799,7 @@ export default function WithdrawalPage() {
                       </div>
 
                       {w.status === 'rejected' && w.review_note && (
-                        <div className="mt-2 p-2 bg-red-50 rounded text-xs text-red-600">
+                        <div className="mt-2 p-2 bg-red-50 rounded-md text-xs text-red-600">
                           {t('rejectionReason', lang)}{w.review_note}
                         </div>
                       )}
@@ -808,7 +808,7 @@ export default function WithdrawalPage() {
                         <button
                           onClick={() => handleCancel(w.id)}
                           disabled={cancelling === w.id}
-                          className="mt-2 text-xs text-red-500 hover:text-red-700 disabled:opacity-50"
+                          className="mt-2 text-xs text-red-600 hover:text-red-700 disabled:opacity-50"
                         >
                           {cancelling === w.id ? t('cancelling', lang) : t('cancelRequest', lang)}
                         </button>
