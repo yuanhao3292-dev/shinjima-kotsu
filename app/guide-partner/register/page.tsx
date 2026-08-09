@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 import PublicLayout from '@/components/PublicLayout';
-import { User, Phone, Mail, Lock, Loader2, AlertCircle, Eye, EyeOff, MessageCircle } from 'lucide-react';
+import { User, Phone, Mail, Lock, Loader2, AlertCircle, Eye, EyeOff, MessageCircle, CheckCircle } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import { useSiteImages } from '@/lib/hooks/useSiteImages';
 import { COUNTRY_CODES, DEFAULT_CODE_BY_LANG } from '@/lib/config/country-codes';
@@ -407,10 +407,8 @@ function RegisterForm() {
               <div className="h-[1px] w-8 bg-gold-400" />
             </div>
 
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-green-50 border border-green-200 mb-6">
-              <svg className="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gold-400/10 border border-gold-400/30 mb-6">
+              <CheckCircle className="w-8 h-8 text-gold-400" />
             </div>
 
             <h1 className="text-2xl font-serif text-brand-900 mb-3">{t('successTitle', lang)}</h1>
