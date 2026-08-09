@@ -200,11 +200,10 @@ export default function GuideDashboard() {
         return;
       }
 
-      const urlParams = new URLSearchParams(window.location.search);
-      if (guideData.subscription_status !== 'active' && urlParams.get('upgrade') !== 'success') {
-        router.push('/guide-partner/subscription');
-        return;
-      }
+      // 已审核导游即可进入控制台。免费 Growth(初期合伙人)导游的 subscription_status
+      // 并非 'active'(该值仅付费订阅成功时由 Stripe webhook 设置),此前会被强制弹回
+      // 订阅页、进不了自己的后台。订阅/升级为可选项,不再强制拦截。
+      // 白标分销等付费功能仍各自校验 subscription_status，不受此影响。
 
       setGuide(guideData);
 
