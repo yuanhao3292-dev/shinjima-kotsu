@@ -70,7 +70,9 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 2. 检查邮箱是否已存在
+    // 2. 检查邮箱是否已作为导游存在。
+    // 注意：这里只查 guides 表。如果该邮箱注册过个人会员（存在于 auth 但不在
+    // guides 表），这一步查不到，冲突会在第 4 步 createUser 时兜底捕获。
     const { data: existingGuide } = await supabase
       .from('guides')
       .select('email')
@@ -113,6 +115,18 @@ export async function POST(request: NextRequest) {
     });
 
     if (authError || !authData.user) {
+      // 邮箱已在 Auth 系统里存在（例如已注册过个人会员）时，createUser 会失败。
+      // 上面第 2 步只查了 guides 表，查不到这种账号，所以会一路走到这里。
+      // 明确回报"邮箱已注册"，而不是笼统的"创建账户失败"——后者让用户无从下手。
+      const message = authError?.message || '';
+      const alreadyExists =
+        /already.*registered|already.*exists|email.*exists|duplicate/i.test(message) ||
+        (authError as { code?: string })?.code === 'email_exists';
+
+      if (alreadyExists) {
+        return createErrorResponse(Errors.validation('该邮箱已被注册，请直接登录或更换邮箱'));
+      }
+
       logError(normalizeError(authError), { path: '/api/guide/register', method: 'POST' });
       return createErrorResponse(Errors.internal('创建账户失败，请稍后重试'));
     }
