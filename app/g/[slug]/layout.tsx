@@ -5,7 +5,6 @@ import { getCachedDistributionPageWithTag } from '@/lib/cache/whitelabel-cache';
 import { headers } from 'next/headers';
 import DistributionNav from '@/components/distribution/DistributionNav';
 import FloatingContact from '@/components/distribution/FloatingContact';
-import { DEFAULT_CONTACT } from '@/lib/whitelabel-config';
 import { buildDistributionNavItems } from '@/lib/utils/build-distribution-nav';
 
 interface LayoutProps {
@@ -27,15 +26,20 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
   const brandColor = guide.brandColor || '#2563eb';
   const homeHref = `/g/${slug}`;
 
+  // 品牌展示 — 使用当前导游自己的品牌（白标）。未设置时回退官方品牌，避免留白。
+  const brandName = guide.brandName || 'NIIJIMA';
+  const brandTagline = guide.brandTagline || '新島交通株式会社';
+
   // 构建导航：首页 + 选中的模块页面（使用共享工具函数）
   const navItems = buildDistributionNavItems(slug, selectedModules);
 
-  // 联系信息 — 统一使用新岛交通官方联系方式
+  // 联系方式 — 严格从当前 slug 对应的 guide 读取（白标数据隔离，见 CLAUDE.md LOCKED 规范）。
+  // 不回退官方联系方式：避免把 A 导游的客户导流到官方或其他导游。
   const contactInfo = {
-    wechat: null,
-    line: DEFAULT_CONTACT.LINE_URL,
-    phone: DEFAULT_CONTACT.PHONE,
-    email: DEFAULT_CONTACT.EMAIL,
+    wechat: guide.contactWechat || null,
+    line: guide.contactLine || null,
+    phone: guide.contactDisplayPhone || null,
+    email: guide.email || null,
   };
 
   // 记录页面访问（非阻塞）
@@ -48,10 +52,10 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      {/* 导航栏 — 新岛交通品牌 */}
+      {/* 导航栏 — 当前导游品牌（白标） */}
       <DistributionNav
-        brandName="NIIJIMA"
-        brandTagline="新島交通株式会社"
+        brandName={brandName}
+        brandTagline={brandTagline}
         navItems={navItems}
         homeHref={homeHref}
       />
@@ -68,8 +72,8 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
             {/* 品牌区域 */}
             <div className="col-span-2">
               <div className="mb-4">
-                <h3 className="text-xl font-serif tracking-[0.2em] mb-1 text-gray-800">NIIJIMA</h3>
-                <p className="text-xs tracking-[0.1em] text-gray-500">新島交通株式会社</p>
+                <h3 className="text-xl font-serif tracking-[0.2em] mb-1 text-gray-800">{brandName}</h3>
+                <p className="text-xs tracking-[0.1em] text-gray-500">{brandTagline}</p>
               </div>
               <p className="text-gray-600 text-sm leading-relaxed mb-4 max-w-[280px]">
                 医疗旅行、高尔夫、商务考察——您的日本旅行服务窗口。
@@ -137,7 +141,7 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
         </div>
       </footer>
 
-      {/* 悬浮联系按钮 — 新岛交通官方联系方式 */}
+      {/* 悬浮联系按钮 — 当前导游联系方式（白标数据隔离；导游未设置则不显示） */}
       <FloatingContact
         brandColor={brandColor}
         contactInfo={contactInfo}
