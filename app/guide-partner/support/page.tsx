@@ -349,10 +349,10 @@ const getTicketTypes = (lang: Language) => [
 ];
 
 const getStatusConfig = (lang: Language): Record<string, { label: string; color: string; icon: any }> => ({
-  open: { label: t('statusOpen', lang), color: 'bg-yellow-100 text-yellow-700', icon: Clock },
-  in_progress: { label: t('statusInProgress', lang), color: 'bg-brand-100 text-brand-700', icon: MessageSquare },
+  open: { label: t('statusOpen', lang), color: 'bg-amber-50 text-amber-800', icon: Clock },
+  in_progress: { label: t('statusInProgress', lang), color: 'bg-zinc-100 text-zinc-600', icon: MessageSquare },
   resolved: { label: t('statusResolved', lang), color: 'bg-green-100 text-green-700', icon: CheckCircle2 },
-  closed: { label: t('statusClosed', lang), color: 'bg-neutral-100 text-neutral-700', icon: CheckCircle2 },
+  closed: { label: t('statusClosed', lang), color: 'bg-zinc-100 text-zinc-700', icon: CheckCircle2 },
 });
 
 const getDateLocale = (lang: Language): string => {
@@ -508,14 +508,14 @@ export default function SupportPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
-        <Loader2 className="w-12 h-12 text-brand-500 animate-spin" />
+      <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
+        <Loader2 className="w-12 h-12 text-zinc-500 animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-neutral-50">
+    <div className="min-h-screen bg-zinc-50">
       <GuideSidebar pageTitle={t('pageTitle', lang)} />
 
       {/* Main Content */}
@@ -524,12 +524,12 @@ export default function SupportPage() {
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-2xl font-bold font-serif text-brand-900">{t('helpAndSupport', lang)}</h1>
-              <p className="text-neutral-500 text-sm mt-1">{t('submitTicketHint', lang)}</p>
+              <h1 className="text-2xl font-bold font-sans text-zinc-900">{t('helpAndSupport', lang)}</h1>
+              <p className="text-zinc-500 text-sm mt-1">{t('submitTicketHint', lang)}</p>
             </div>
             <button
               onClick={() => setShowNewTicket(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-brand-600 text-white hover:bg-brand-700 transition"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-zinc-900 text-white hover:bg-zinc-800 transition"
             >
               <Plus size={20} />
               <span>{t('newTicket', lang)}</span>
@@ -537,12 +537,12 @@ export default function SupportPage() {
           </div>
 
           {/* SLA 提示 */}
-          <div className="bg-brand-50 border border-brand-200 p-4 mb-6">
+          <div className="bg-zinc-100 border border-zinc-200 rounded-xl p-4 mb-6">
             <div className="flex items-start gap-3">
-              <AlertCircle className="w-5 h-5 text-brand-600 flex-shrink-0 mt-0.5" />
+              <AlertCircle className="w-5 h-5 text-zinc-500 flex-shrink-0 mt-0.5" />
               <div>
-                <h3 className="font-medium text-brand-900">{t('slaTitle', lang)}</h3>
-                <ul className="text-sm text-brand-700 mt-1 space-y-1">
+                <h3 className="font-medium text-zinc-900">{t('slaTitle', lang)}</h3>
+                <ul className="text-sm text-zinc-600 mt-1 space-y-1">
                   <li>• {t('slaNormal', lang)}</li>
                   <li>• {t('slaUrgent', lang)}</li>
                   <li>• {t('slaDispute', lang)}</li>
@@ -553,14 +553,14 @@ export default function SupportPage() {
 
           <div className="grid lg:grid-cols-2 gap-6">
             {/* 工单列表 */}
-            <div className="bg-white border">
-              <div className="p-4 border-b">
-                <h2 className="font-bold font-serif text-brand-900">{t('myTickets', lang)}</h2>
+            <div className="bg-white rounded-xl border border-zinc-200 shadow-sm">
+              <div className="p-4 border-b border-zinc-200">
+                <h2 className="font-bold font-sans text-zinc-900">{t('myTickets', lang)}</h2>
               </div>
-              <div className="divide-y max-h-[600px] overflow-y-auto">
+              <div className="divide-y divide-zinc-100 max-h-[600px] overflow-y-auto">
                 {tickets.length === 0 ? (
-                  <div className="p-8 text-center text-neutral-500">
-                    <HeadphonesIcon className="w-12 h-12 mx-auto mb-3 text-neutral-300" />
+                  <div className="p-8 text-center text-zinc-500">
+                    <HeadphonesIcon className="w-12 h-12 mx-auto mb-3 text-zinc-300" />
                     <p>{t('noTickets', lang)}</p>
                     <p className="text-sm mt-1">{t('noTicketsHint', lang)}</p>
                   </div>
@@ -574,31 +574,31 @@ export default function SupportPage() {
                       <button
                         key={ticket.id}
                         onClick={() => handleSelectTicket(ticket)}
-                        className={`w-full p-4 text-left hover:bg-neutral-50 transition ${
-                          selectedTicket?.id === ticket.id ? 'bg-brand-50' : ''
+                        className={`w-full p-4 text-left hover:bg-zinc-50 transition ${
+                          selectedTicket?.id === ticket.id ? 'bg-zinc-100' : ''
                         }`}
                       >
                         <div className="flex items-start justify-between gap-3">
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1">
                               <span>{typeConfig?.icon}</span>
-                              <span className="font-medium text-brand-900 truncate">
+                              <span className="font-medium text-zinc-900 truncate">
                                 {ticket.subject}
                               </span>
                             </div>
-                            <p className="text-sm text-neutral-500 line-clamp-2">
+                            <p className="text-sm text-zinc-500 line-clamp-2">
                               {ticket.description}
                             </p>
                             <div className="flex items-center gap-2 mt-2">
-                              <span className={`px-2 py-0.5 text-xs font-medium ${statusConfig?.color}`}>
+                              <span className={`px-2 py-0.5 rounded-md text-xs font-medium ${statusConfig?.color}`}>
                                 {statusConfig?.label}
                               </span>
-                              <span className="text-xs text-neutral-400">
+                              <span className="text-xs text-zinc-400">
                                 {new Date(ticket.created_at).toLocaleDateString(getDateLocale(lang))}
                               </span>
                             </div>
                           </div>
-                          <ChevronRight className="w-5 h-5 text-neutral-400 flex-shrink-0" />
+                          <ChevronRight className="w-5 h-5 text-zinc-400 flex-shrink-0" />
                         </div>
                       </button>
                     );
@@ -608,20 +608,20 @@ export default function SupportPage() {
             </div>
 
             {/* 工单详情 */}
-            <div className="bg-white border">
+            <div className="bg-white rounded-xl border border-zinc-200 shadow-sm">
               {selectedTicket ? (
                 <>
-                  <div className="p-4 border-b">
+                  <div className="p-4 border-b border-zinc-200">
                     <div className="flex items-start justify-between">
                       <div>
-                        <h2 className="font-bold font-serif text-brand-900">{selectedTicket.subject}</h2>
+                        <h2 className="font-bold font-sans text-zinc-900">{selectedTicket.subject}</h2>
                         <div className="flex items-center gap-2 mt-1">
-                          <span className={`px-2 py-0.5 text-xs font-medium ${
+                          <span className={`px-2 py-0.5 rounded-md text-xs font-medium ${
                             STATUS_CONFIG[selectedTicket.status]?.color
                           }`}>
                             {STATUS_CONFIG[selectedTicket.status]?.label}
                           </span>
-                          <span className="text-xs text-neutral-500">
+                          <span className="text-xs text-zinc-500">
                             {TICKET_TYPES.find(tt => tt.value === selectedTicket.ticket_type)?.label}
                           </span>
                         </div>
@@ -633,15 +633,15 @@ export default function SupportPage() {
                   <div className="p-4 max-h-[400px] overflow-y-auto space-y-4">
                     {/* 原始问题 */}
                     <div className="flex gap-3">
-                      <div className="w-8 h-8 bg-brand-100 flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 rounded-full bg-zinc-100 flex items-center justify-center flex-shrink-0">
                         <span className="text-sm">{t('meLabel', lang)}</span>
                       </div>
                       <div className="flex-1">
-                        <p className="text-sm text-neutral-500 mb-1">
+                        <p className="text-sm text-zinc-500 mb-1">
                           {new Date(selectedTicket.created_at).toLocaleString(getDateLocale(lang))}
                         </p>
-                        <div className="bg-neutral-100 p-3">
-                          <p className="text-neutral-700 whitespace-pre-wrap">{selectedTicket.description}</p>
+                        <div className="bg-zinc-100 rounded-lg p-3">
+                          <p className="text-zinc-700 whitespace-pre-wrap">{selectedTicket.description}</p>
                         </div>
                       </div>
                     </div>
@@ -649,19 +649,19 @@ export default function SupportPage() {
                     {/* 回复列表 */}
                     {ticketReplies.map((reply) => (
                       <div key={reply.id} className={`flex gap-3 ${reply.is_staff ? '' : 'flex-row-reverse'}`}>
-                        <div className={`w-8 h-8 flex items-center justify-center flex-shrink-0 ${
-                          reply.is_staff ? 'bg-brand-100' : 'bg-brand-100'
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                          reply.is_staff ? 'bg-zinc-100' : 'bg-zinc-100'
                         }`}>
                           <span className="text-sm">{reply.is_staff ? t('staffLabel', lang) : t('meLabel', lang)}</span>
                         </div>
                         <div className="flex-1">
-                          <p className={`text-sm text-neutral-500 mb-1 ${reply.is_staff ? '' : 'text-right'}`}>
+                          <p className={`text-sm text-zinc-500 mb-1 ${reply.is_staff ? '' : 'text-right'}`}>
                             {reply.is_staff ? t('staffName', lang) : guideName} · {new Date(reply.created_at).toLocaleString(getDateLocale(lang))}
                           </p>
-                          <div className={`p-3 ${
-                            reply.is_staff ? 'bg-brand-50' : 'bg-neutral-100'
+                          <div className={`rounded-lg p-3 ${
+                            reply.is_staff ? 'bg-zinc-100' : 'bg-zinc-100'
                           }`}>
-                            <p className="text-neutral-700 whitespace-pre-wrap">{reply.content}</p>
+                            <p className="text-zinc-700 whitespace-pre-wrap">{reply.content}</p>
                           </div>
                         </div>
                       </div>
@@ -669,7 +669,7 @@ export default function SupportPage() {
 
                     {/* 解决说明 */}
                     {selectedTicket.resolution_note && (
-                      <div className="bg-green-50 border border-green-200 p-4">
+                      <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                         <p className="text-sm font-medium text-green-800 mb-1">{t('resolutionNote', lang)}</p>
                         <p className="text-green-700">{selectedTicket.resolution_note}</p>
                       </div>
@@ -678,14 +678,14 @@ export default function SupportPage() {
 
                   {/* 回复输入 */}
                   {selectedTicket.status !== 'closed' && selectedTicket.status !== 'resolved' && (
-                    <div className="p-4 border-t">
+                    <div className="p-4 border-t border-zinc-200">
                       <div className="flex gap-2">
                         <input
                           type="text"
                           value={replyContent}
                           onChange={(e) => setReplyContent(e.target.value)}
                           placeholder={t('replyPlaceholder', lang)}
-                          className="flex-1 px-4 py-2 border focus:outline-none focus:ring-2 focus:ring-brand-500"
+                          className="flex-1 px-4 py-2 rounded-lg border border-zinc-200 focus:outline-none focus:border-zinc-400 focus:ring-1 focus:ring-zinc-900"
                           onKeyDown={(e) => {
                             if (e.key === 'Enter' && !e.shiftKey) {
                               e.preventDefault();
@@ -696,7 +696,7 @@ export default function SupportPage() {
                         <button
                           onClick={handleSendReply}
                           disabled={sendingReply || !replyContent.trim()}
-                          className="px-4 py-2 bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="px-4 py-2 rounded-lg bg-zinc-900 text-white hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           {sendingReply ? (
                             <Loader2 className="w-5 h-5 animate-spin" />
@@ -709,8 +709,8 @@ export default function SupportPage() {
                   )}
                 </>
               ) : (
-                <div className="p-8 text-center text-neutral-500">
-                  <MessageSquare className="w-12 h-12 mx-auto mb-3 text-neutral-300" />
+                <div className="p-8 text-center text-zinc-500">
+                  <MessageSquare className="w-12 h-12 mx-auto mb-3 text-zinc-300" />
                   <p>{t('selectTicket', lang)}</p>
                 </div>
               )}
@@ -722,10 +722,10 @@ export default function SupportPage() {
       {/* 新建工单弹窗 */}
       {showNewTicket && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white w-full max-w-lg max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b flex items-center justify-between">
-              <h2 className="text-xl font-bold font-serif text-brand-900">{t('newTicketTitle', lang)}</h2>
-              <button onClick={() => setShowNewTicket(false)} className="p-2 hover:bg-neutral-100">
+          <div className="bg-white w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-xl shadow-lg">
+            <div className="p-6 border-b border-zinc-200 flex items-center justify-between">
+              <h2 className="text-xl font-bold font-sans text-zinc-900">{t('newTicketTitle', lang)}</h2>
+              <button onClick={() => setShowNewTicket(false)} className="p-2 rounded-md hover:bg-zinc-100">
                 <X size={20} />
               </button>
             </div>
@@ -733,17 +733,17 @@ export default function SupportPage() {
             <form onSubmit={handleSubmitTicket} className="p-6 space-y-4">
               {/* 问题类型 */}
               <div>
-                <label className="block text-sm font-medium text-neutral-700 mb-2">{t('ticketTypeLabel', lang)}</label>
+                <label className="block text-sm font-medium text-zinc-700 mb-2">{t('ticketTypeLabel', lang)}</label>
                 <div className="grid grid-cols-2 gap-2">
                   {TICKET_TYPES.map((type) => (
                     <button
                       key={type.value}
                       type="button"
                       onClick={() => setNewTicket({ ...newTicket, ticket_type: type.value })}
-                      className={`p-3 border text-left transition ${
+                      className={`p-3 rounded-lg border text-left transition ${
                         newTicket.ticket_type === type.value
-                          ? 'border-brand-500 bg-brand-50'
-                          : 'border-neutral-200 hover:border-neutral-300'
+                          ? 'border-zinc-900 bg-zinc-100'
+                          : 'border-zinc-200 hover:border-zinc-300'
                       }`}
                     >
                       <span className="text-xl mr-2">{type.icon}</span>
@@ -755,11 +755,11 @@ export default function SupportPage() {
 
               {/* 优先级 */}
               <div>
-                <label className="block text-sm font-medium text-neutral-700 mb-2">{t('priorityLabel', lang)}</label>
+                <label className="block text-sm font-medium text-zinc-700 mb-2">{t('priorityLabel', lang)}</label>
                 <select
                   value={newTicket.priority}
                   onChange={(e) => setNewTicket({ ...newTicket, priority: e.target.value })}
-                  className="w-full px-4 py-2 border focus:outline-none focus:ring-2 focus:ring-brand-500"
+                  className="w-full px-4 py-2 rounded-lg border border-zinc-200 focus:outline-none focus:border-zinc-400 focus:ring-1 focus:ring-zinc-900"
                 >
                   <option value="low">{t('priorityLow', lang)}</option>
                   <option value="normal">{t('priorityNormal', lang)}</option>
@@ -770,13 +770,13 @@ export default function SupportPage() {
 
               {/* 标题 */}
               <div>
-                <label className="block text-sm font-medium text-neutral-700 mb-2">{t('subjectLabel', lang)}</label>
+                <label className="block text-sm font-medium text-zinc-700 mb-2">{t('subjectLabel', lang)}</label>
                 <input
                   type="text"
                   value={newTicket.subject}
                   onChange={(e) => setNewTicket({ ...newTicket, subject: e.target.value })}
                   placeholder={t('subjectPlaceholder', lang)}
-                  className="w-full px-4 py-2 border focus:outline-none focus:ring-2 focus:ring-brand-500"
+                  className="w-full px-4 py-2 rounded-lg border border-zinc-200 focus:outline-none focus:border-zinc-400 focus:ring-1 focus:ring-zinc-900"
                   required
                   maxLength={200}
                 />
@@ -784,12 +784,12 @@ export default function SupportPage() {
 
               {/* 描述 */}
               <div>
-                <label className="block text-sm font-medium text-neutral-700 mb-2">{t('descriptionLabel', lang)}</label>
+                <label className="block text-sm font-medium text-zinc-700 mb-2">{t('descriptionLabel', lang)}</label>
                 <textarea
                   value={newTicket.description}
                   onChange={(e) => setNewTicket({ ...newTicket, description: e.target.value })}
                   placeholder={t('descriptionPlaceholder', lang)}
-                  className="w-full px-4 py-2 border focus:outline-none focus:ring-2 focus:ring-brand-500 h-32 resize-none"
+                  className="w-full px-4 py-2 rounded-lg border border-zinc-200 focus:outline-none focus:border-zinc-400 focus:ring-1 focus:ring-zinc-900 h-32 resize-none"
                   required
                 />
               </div>
@@ -799,14 +799,14 @@ export default function SupportPage() {
                 <button
                   type="button"
                   onClick={() => setShowNewTicket(false)}
-                  className="flex-1 px-4 py-3 border hover:bg-neutral-50 transition"
+                  className="flex-1 px-4 py-3 rounded-lg border border-zinc-200 text-zinc-700 hover:bg-zinc-50 transition"
                 >
                   {t('cancelBtn', lang)}
                 </button>
                 <button
                   type="submit"
                   disabled={submitting || !newTicket.subject.trim() || !newTicket.description.trim()}
-                  className="flex-1 px-4 py-3 bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-3 rounded-lg bg-zinc-900 text-white hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center justify-center gap-2"
                 >
                   {submitting ? (
                     <>

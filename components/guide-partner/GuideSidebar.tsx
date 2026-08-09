@@ -85,17 +85,17 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
   return (
     <>
       {/* Mobile Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-neutral-200 z-50 flex items-center justify-between px-4">
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-zinc-200 z-50 flex items-center justify-between px-4">
         <div className="flex items-center gap-3">
-          <div className="flex flex-col items-center">
-            <span className="font-serif font-bold text-lg tracking-wide leading-none text-neutral-900">NIIJIMA</span>
-            <span className="text-[10px] uppercase tracking-widest leading-none mt-1 text-neutral-400">{pageTitle || ts('guideBackend', lang)}</span>
+          <div className="flex flex-col">
+            <span className="font-semibold text-base tracking-tight leading-none text-zinc-900">NIIJIMA</span>
+            <span className="text-[11px] leading-none mt-1 text-zinc-500">{pageTitle || ts('guideBackend', lang)}</span>
           </div>
         </div>
         <div className="flex items-center gap-2">
           <LanguageSwitcher variant="compact" />
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 text-neutral-600">
-            {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 text-zinc-600 rounded-md hover:bg-zinc-100 transition">
+            {sidebarOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
@@ -103,18 +103,18 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
       {/* Sidebar */}
       <aside
         className={`
-        fixed top-0 left-0 h-full w-64 bg-white border-r z-40 transform transition-transform duration-300
+        fixed top-0 left-0 h-full w-64 bg-white border-r border-zinc-200 z-40 transform transition-transform duration-300
         lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
       `}
       >
-        <div className="h-20 flex items-center gap-3 px-6 border-b">
-          <div className="flex flex-col items-center">
-            <span className="font-serif font-bold text-lg tracking-wide leading-none text-neutral-900">NIIJIMA</span>
-            <span className="text-[10px] uppercase tracking-widest leading-none mt-1 text-neutral-400">{ts('guideBackend', lang)}</span>
+        <div className="h-16 flex items-center gap-3 px-6 border-b border-zinc-200">
+          <div className="flex flex-col">
+            <span className="font-semibold text-base tracking-tight leading-none text-zinc-900">NIIJIMA</span>
+            <span className="text-[11px] leading-none mt-1 text-zinc-500">{ts('guideBackend', lang)}</span>
           </div>
         </div>
 
-        <nav className="p-4 space-y-1">
+        <nav className="p-3 space-y-1">
           {NAV_ITEMS.map((item) => {
             const active = isActive(item.href);
             return (
@@ -123,18 +123,18 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
                 href={item.href}
                 onClick={() => setSidebarOpen(false)}
                 className={`
-                  flex items-center gap-3 px-4 py-3 text-sm font-medium transition
+                  flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors
                   ${
                     active
-                      ? 'bg-brand-50 text-brand-700'
-                      : 'text-neutral-600 hover:text-brand-700 hover:bg-neutral-50'
+                      ? 'bg-zinc-100 text-zinc-900'
+                      : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
                   }
                 `}
               >
-                <item.icon size={20} />
+                <item.icon size={18} className={active ? 'text-zinc-900' : 'text-zinc-400'} />
                 <span>{item.label[lang]}</span>
                 {item.highlight && !active && (
-                  <span className="ml-auto px-2 py-0.5 bg-gold-400/10 text-gold-700 text-xs font-medium border border-gold-400/30">
+                  <span className="ml-auto px-1.5 py-0.5 bg-zinc-900 text-white text-[10px] font-medium rounded-md">
                     NEW
                   </span>
                 )}
@@ -143,13 +143,13 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
           })}
         </nav>
 
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t space-y-1">
+        <div className="absolute bottom-0 left-0 right-0 p-3 border-t border-zinc-200 space-y-1">
           <LanguageSwitcher variant="sidebar" />
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3 w-full text-neutral-600 hover:text-brand-700 hover:bg-neutral-50 text-sm font-medium transition"
+            className="flex items-center gap-3 px-3 py-2 w-full text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 text-sm font-medium rounded-lg transition-colors"
           >
-            <LogOut size={20} />
+            <LogOut size={18} className="text-zinc-400" />
             <span>{ts('logout', lang)}</span>
           </button>
         </div>
