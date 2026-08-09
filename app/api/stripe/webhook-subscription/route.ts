@@ -110,9 +110,9 @@ export async function POST(request: NextRequest) {
           const { data: updatedGuide, error: updateError } = await supabase
             .from('guides')
             .update({
-              subscription_id: subscriptionId,
+              stripe_subscription_id: subscriptionId,
               subscription_status: 'active',
-              subscription_current_period_end: null, // 将在 subscription.updated 事件中更新
+              subscription_end_date: null, // 将在 subscription.updated 事件中更新
               updated_at: new Date().toISOString(),
             })
             .eq('id', guideId)
@@ -215,9 +215,9 @@ export async function POST(request: NextRequest) {
           const { data: updatedGuide, error: updateError } = await supabase
             .from('guides')
             .update({
-              subscription_id: subscription.id,
+              stripe_subscription_id: subscription.id,
               subscription_status: dbStatus,
-              subscription_current_period_end: currentPeriodEnd,
+              subscription_end_date: currentPeriodEnd,
               updated_at: new Date().toISOString(),
             })
             .eq('id', guideId)
