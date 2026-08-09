@@ -138,7 +138,7 @@ export default async function GuideHomePage({ params }: PageProps) {
                   <span className="text-xs tracking-[0.3em] text-white/60 uppercase">Japan Medical & Beauty Travel</span>
                 </div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
-                  NIIJIMA
+                  {guide.brandName || 'NIIJIMA'}
                 </h1>
                 <p className="text-lg text-white/70 leading-relaxed mb-8 max-w-xl">
                   日本医疗旅行服务平台。提供预约安排、中文翻译、全程陪同等旅行手配服务。
