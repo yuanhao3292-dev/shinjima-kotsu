@@ -25,8 +25,8 @@ describe('whitelabel-config constants', () => {
     expect(typeof WHITELABEL_COOKIE_NAME).toBe('string');
   });
 
-  it('WHITELABEL_COOKIE_MAX_AGE is 7 days in seconds', () => {
-    expect(WHITELABEL_COOKIE_MAX_AGE).toBe(7 * 24 * 60 * 60);
+  it('WHITELABEL_COOKIE_MAX_AGE is 90 days in seconds (medical-tourism attribution window)', () => {
+    expect(WHITELABEL_COOKIE_MAX_AGE).toBe(90 * 24 * 60 * 60);
   });
 
   it('DOMAINS has official and whitelabel entries', () => {

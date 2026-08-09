@@ -441,10 +441,10 @@ describe('POST /api/create-checkout-session', () => {
   // 5. 白标归属
   // ============================================================
 
-  it('includes guide metadata when valid guide found', async () => {
+  it('includes guide metadata when valid active guide found', async () => {
     setupSuccessFlow();
     tableBuilders['guides'] = mockQueryBuilder({
-      data: { id: 'guide-001', subscription_tier: 'partner' },
+      data: { id: 'guide-001', subscription_tier: 'partner', subscription_status: 'active' },
       error: null,
     });
     tableBuilders['page_modules'] = mockQueryBuilder({
@@ -459,6 +459,31 @@ describe('POST /api/create-checkout-session', () => {
     expect(createCall.metadata.guide_id).toBe('guide-001');
     expect(createCall.metadata.guide_slug).toBe('my-guide');
     expect(createCall.success_url).toContain('guide=my-guide');
+  });
+
+  it('omits guide from Stripe metadata when subscription inactive (attribution still recorded on order)', async () => {
+    setupSuccessFlow();
+    // 订阅非 active：不应触发 webhook 自动计佣，但归因需照常落库到 orders.referred_by_*
+    tableBuilders['guides'] = mockQueryBuilder({
+      data: { id: 'guide-001', subscription_tier: 'partner', subscription_status: 'past_due' },
+      error: null,
+    });
+    tableBuilders['page_modules'] = mockQueryBuilder({
+      data: { commission_rate_a: 10, commission_rate_b: 20 },
+      error: null,
+    });
+
+    const body = { ...VALID_BODY, guideSlug: 'my-guide' };
+    const res = await POST(makeRequest(body));
+
+    expect(res.status).toBe(200);
+    const createCall = mockStripe.checkout.sessions.create.mock.calls[0][0];
+    // 关键：订阅失效 → Stripe metadata 不带 guide_id（不自动计佣）
+    expect(createCall.metadata.guide_id).toBeUndefined();
+    // 但订单归因字段仍写入（介绍关系不丢失，可事后人工判付）
+    const orderInsert = tableBuilders['orders'].insert.mock.calls[0][0];
+    expect(orderInsert.referred_by_guide_id).toBe('guide-001');
+    expect(orderInsert.referred_by_guide_slug).toBe('my-guide');
   });
 
   it('clears invalid guideSlug and proceeds without guide attribution', async () => {
