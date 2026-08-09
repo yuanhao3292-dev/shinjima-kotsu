@@ -237,10 +237,10 @@ export async function PATCH(
 
     const { action, totalAmount, commissionAmount, cancelReason, adminNotes } = parseResult.data;
 
-    // 获取当前订单
+    // 获取当前订单（含计佣所需字段）
     const { data: currentOrder, error: fetchError } = await supabase
       .from('white_label_orders')
-      .select('id, status')
+      .select('id, status, guide_id, commission_rate, total_amount, source_order_id')
       .eq('id', orderId)
       .single();
 
@@ -272,15 +272,40 @@ export async function PATCH(
       updateData.admin_notes = adminNotes;
     }
 
+    // 线下/手动订单完成时应入账的佣金（0 = 不入账）。在 update 成功后原子累计到导游。
+    let offlineCommissionToCredit = 0;
+    let offlineCommissionGuideId: string | null = null;
+
     switch (action) {
       case 'confirm':
         updateData.confirmed_at = new Date().toISOString();
         break;
-      case 'complete':
+      case 'complete': {
         updateData.completed_at = new Date().toISOString();
         if (totalAmount !== undefined) updateData.total_amount = totalAmount;
-        if (commissionAmount !== undefined) updateData.commission_amount = commissionAmount;
+
+        // 线下计佣：仅对手动单（无 source_order_id，即非 Stripe 在线单）结算，
+        // 避免与 webhook 在线计佣重复。complete 是终态且状态机不可回退，天然一次性幂等。
+        const isManualOrder = !currentOrder.source_order_id;
+        const effectiveTotal = totalAmount ?? (currentOrder.total_amount as number | null) ?? 0;
+        const rate = (currentOrder.commission_rate as number | null) ?? 0;
+        // 管理员可显式传入 commissionAmount，否则按 总额 × 佣金率(%) 计算
+        const computedCommission = commissionAmount ?? Math.round(effectiveTotal * rate / 100);
+
+        if (isManualOrder && currentOrder.guide_id && computedCommission > 0) {
+          updateData.commission_amount = computedCommission;
+          updateData.commission_status = 'calculated';
+          // 佣金可提现等待期：完成日 + 14 天（与在线路径一致）
+          const availableAt = new Date();
+          availableAt.setDate(availableAt.getDate() + 14);
+          updateData.commission_available_at = availableAt.toISOString();
+          offlineCommissionToCredit = computedCommission;
+          offlineCommissionGuideId = currentOrder.guide_id as string;
+        } else if (commissionAmount !== undefined) {
+          updateData.commission_amount = commissionAmount;
+        }
         break;
+      }
       case 'cancel':
         updateData.cancelled_at = new Date().toISOString();
         if (cancelReason) updateData.cancel_reason = cancelReason;
@@ -304,6 +329,27 @@ export async function PATCH(
     }
 
     console.log(`[Orders] Order ${orderId}: ${currentOrder.status} → ${newStatus}`);
+
+    // 线下手动单完成 → 原子累计导游佣金 + 转化计数（与在线 webhook 路径对齐）。
+    // 放在状态更新成功之后：终态不可回退保证本分支每单最多执行一次。
+    if (offlineCommissionGuideId && offlineCommissionToCredit > 0) {
+      const { error: commissionErr } = await supabase.rpc('increment_guide_commission', {
+        p_guide_id: offlineCommissionGuideId,
+        p_amount: offlineCommissionToCredit,
+      });
+      if (commissionErr) {
+        // 佣金累计失败不回滚订单完成状态，仅告警——避免订单状态与佣金入账互相阻塞。
+        console.error(`[Orders] 线下佣金累计失败 order=${orderId}:`, commissionErr);
+        logError(normalizeError(commissionErr), {
+          path: '/api/whitelabel/orders/[id]',
+          method: 'PATCH',
+          context: 'offline_commission',
+        });
+      } else {
+        await supabase.rpc('increment_guide_conversion_stats', { p_guide_id: offlineCommissionGuideId });
+        console.log(`[Orders] 线下佣金入账: guide=${offlineCommissionGuideId}, +${offlineCommissionToCredit}円`);
+      }
+    }
 
     return NextResponse.json({
       success: true,

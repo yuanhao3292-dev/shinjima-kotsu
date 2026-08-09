@@ -50,22 +50,30 @@ export async function POST(request: NextRequest) {
     let guideSubscriptionTier: string | null = null;
     let guideCommissionRate: number | null = null;
     let moduleId: string | null = null;
+    // 订阅是否有效 → 决定“是否自动计佣”。归因（referred_by_*）无论订阅状态都会落库，
+    // 仅当订阅 active 时才把 guide_id 放进 Stripe metadata 触发 webhook 自动结算佣金。
+    // 这样导游订阅偶发失效（如续费晚了一天）时，介绍关系仍被记录、可事后人工判付，
+    // 不会像以前那样被静默丢弃、事后无从追溯。
+    let guideCommissionEligible = false;
 
     if (guideSlug) {
-      // 查询导游信息
+      // 查询导游信息（仅要求已通过审核；订阅状态单独判定计佣资格）
       const { data: guideData, error: guideError } = await supabase
         .from('guides')
-        .select('id, subscription_tier')
+        .select('id, subscription_tier, subscription_status')
         .eq('slug', guideSlug)
         .eq('status', 'approved')
-        .eq('subscription_status', 'active')
         .single();
 
       if (guideData) {
         guideId = guideData.id;
         guideSubscriptionTier = guideData.subscription_tier;
+        guideCommissionEligible = guideData.subscription_status === 'active';
+        if (!guideCommissionEligible) {
+          console.warn(`[Attribution] 导游 ${guideSlug} 订阅非 active，仅记录归因、暂不自动计佣`);
+        }
       } else {
-        // 无效的 guide_slug，清空以防止记录到订单中
+        // 未知/未通过审核的 guide_slug，清空以防止记录到订单中
         console.warn(`[Security] Invalid guide_slug in cookie: ${guideSlug}`, guideError);
         guideSlug = null;
       }
@@ -278,8 +286,10 @@ export async function POST(request: NextRequest) {
       order_type: 'medical', // 订单类型
     };
 
-    // 如果有导游归属，添加到 metadata
-    if (guideId) {
+    // 仅当导游订阅有效时，才把归属写入 metadata 触发 webhook 自动计佣。
+    // 归因本身已记录在 orders.referred_by_guide_*（上方 orderPayload），与计佣解耦：
+    // 订阅失效导游的介绍关系不丢失，佣金可事后人工判付。
+    if (guideId && guideCommissionEligible) {
       sessionMetadata.guide_id = guideId;
       sessionMetadata.guide_slug = guideSlug!;
       sessionMetadata.commission_rate = String(guideCommissionRate);

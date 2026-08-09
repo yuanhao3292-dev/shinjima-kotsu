@@ -7,7 +7,9 @@
 // Cookie 配置
 // ============================================
 export const WHITELABEL_COOKIE_NAME = 'wl_guide';
-export const WHITELABEL_COOKIE_MAX_AGE = 7 * 24 * 60 * 60; // 7天（导游引流归因窗口）
+// 导游引流归因窗口。医疗旅游决策周期长（数周至数月），窗口过短会导致
+// “看到白标页 → 数周后才下单”的客户丢失归因、介绍费锁不住，故设为 90 天。
+export const WHITELABEL_COOKIE_MAX_AGE = 90 * 24 * 60 * 60; // 90天
 
 // ============================================
 // 域名配置

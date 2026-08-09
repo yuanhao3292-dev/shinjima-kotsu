@@ -1014,6 +1014,10 @@ async function calculateAndRecordCommission(
     p_amount: commissionAmount,
   });
 
+  // 原子递增转化计数（whitelabel_conversions / total_bookings）。
+  // 已越过上面的 23505 幂等屏障，走到这里必为一笔全新成交，不会重复计数。
+  await supabase.rpc('increment_guide_conversion_stats', { p_guide_id: guideId });
+
   if (guideData) {
     console.log(`✅ 导游累计佣金已原子更新: ${newTotal}円`);
 
