@@ -71,7 +71,7 @@ export default async function GuideHomePage({ params }: PageProps) {
   return (
     <>
       {/* ━━━━━━━━ Hero Section ━━━━━━━━ */}
-      <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-gray-950">
+      <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-neutral-950">
         {heroCard && (
           <>
             <img
@@ -125,7 +125,7 @@ export default async function GuideHomePage({ params }: PageProps) {
                 {/* CTA 按钮 */}
                 <Link
                   href={`/g/${slug}/${toUrlSlug(heroCard.componentKey)}`}
-                  className="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition-all shadow-lg hover:shadow-xl"
+                  className="inline-flex items-center gap-3 bg-white text-neutral-900 px-8 py-4 rounded-full font-bold hover:bg-neutral-100 transition-all shadow-lg hover:shadow-xl"
                 >
                   {heroCard.config.ctaText} <ArrowRight size={18} />
                 </Link>
@@ -208,7 +208,7 @@ export default async function GuideHomePage({ params }: PageProps) {
                 {/* CTA 按钮 */}
                 <Link
                   href={detailHref}
-                  className="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition-all shadow-lg hover:shadow-xl"
+                  className="inline-flex items-center gap-3 bg-white text-neutral-900 px-8 py-4 rounded-full font-bold hover:bg-neutral-100 transition-all shadow-lg hover:shadow-xl"
                 >
                   {dc.ctaText} <ArrowRight size={18} />
                 </Link>
@@ -265,7 +265,7 @@ export default async function GuideHomePage({ params }: PageProps) {
       </section>
 
       {/* ━━━━━━━━ 企业理念 ━━━━━━━━ */}
-      <section className="py-24 bg-gray-900 text-white">
+      <section className="py-24 bg-neutral-900 text-white">
         <div className="max-w-4xl mx-auto px-6 py-12 md:py-24 text-center">
           <p className="text-xs tracking-[0.3em] text-neutral-400 uppercase mb-6">Corporate Philosophy</p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white mb-8 leading-relaxed">
@@ -276,7 +276,7 @@ export default async function GuideHomePage({ params }: PageProps) {
           </p>
           <a
             href="/company/about"
-            className="inline-flex items-center text-xs text-white border border-white/30 px-8 py-3 hover:bg-white hover:text-gray-900 transition-all tracking-wider"
+            className="inline-flex items-center text-xs text-white border border-white/30 px-8 py-3 hover:bg-white hover:text-neutral-900 transition-all tracking-wider"
           >
             企业介绍
             <ArrowRight size={14} className="ml-2" />

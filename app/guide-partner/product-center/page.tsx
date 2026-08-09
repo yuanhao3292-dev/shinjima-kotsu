@@ -311,7 +311,7 @@ export default function ProductCenterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-neutral-50">
       <GuideSidebar pageTitle={t('pageTitle', lang)} />
 
       <main className="lg:ml-64 pt-16 lg:pt-0">
@@ -341,17 +341,17 @@ export default function ProductCenterPage() {
           {guideConfig?.slug && (
             <div className="mb-6 bg-white rounded-xl border p-4 flex items-center justify-between">
               <div>
-                <h2 className="font-bold text-gray-900 flex items-center gap-2">
+                <h2 className="font-serif font-bold text-brand-900 flex items-center gap-2">
                   <Eye size={18} className="text-brand-600" />
                   {t('previewSite', lang)}
                 </h2>
-                <p className="text-sm text-gray-500 mt-0.5">{t('previewSiteDesc', lang)}</p>
+                <p className="text-sm text-neutral-500 mt-0.5">{t('previewSiteDesc', lang)}</p>
               </div>
               <a
                 href={`/g/${guideConfig.slug}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-5 py-2.5 bg-brand-600 text-white rounded-lg font-medium hover:bg-brand-700 transition flex items-center gap-2 shrink-0"
+                className="px-5 py-2.5 bg-gold-400 text-brand-900 rounded-lg font-medium hover:bg-gold-300 transition flex items-center gap-2 shrink-0"
               >
                 <ExternalLink size={16} />
                 {t('previewSite', lang)}
@@ -362,16 +362,16 @@ export default function ProductCenterPage() {
           {/* No Config Warning */}
           {!guideConfig && (
             <div className="mb-4">
-              <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 flex items-start gap-3">
-                <AlertCircle className="text-amber-600 flex-shrink-0" size={20} />
+              <div className="bg-gold-100 border border-gold-200 rounded-lg p-4 flex items-start gap-3">
+                <AlertCircle className="text-gold-500 flex-shrink-0" size={20} />
                 <div>
-                  <p className="font-medium text-amber-800">{t('noConfigTitle', lang)}</p>
-                  <p className="text-sm text-amber-600 mt-1">
+                  <p className="font-medium text-brand-900">{t('noConfigTitle', lang)}</p>
+                  <p className="text-sm text-neutral-600 mt-1">
                     {t('noConfigDesc', lang)}
                   </p>
                   <button
                     onClick={() => router.push('/guide-partner/whitelabel')}
-                    className="mt-2 text-sm text-amber-700 underline hover:no-underline"
+                    className="mt-2 text-sm text-brand-700 underline hover:no-underline"
                   >
                     {t('createNow', lang)}
                   </button>
@@ -395,20 +395,20 @@ export default function ProductCenterPage() {
                     className={`relative p-5 rounded-2xl text-left transition-all ${
                       isActive
                         ? `bg-gradient-to-br ${category.gradient} text-white shadow-lg scale-[1.02]`
-                        : 'bg-white border-2 border-gray-200 hover:border-gray-300 hover:shadow-md'
+                        : 'bg-white border-2 border-neutral-200 hover:border-neutral-300 hover:shadow-md'
                     }`}
                   >
-                    <h3 className={`font-bold text-base mb-1 ${isActive ? 'text-white' : 'text-gray-900'}`}>
+                    <h3 className={`font-bold text-base mb-1 ${isActive ? 'text-white' : 'text-brand-900'}`}>
                       {category.name}
                     </h3>
-                    <p className={`text-xs line-clamp-2 ${isActive ? 'text-white/70' : 'text-gray-500'}`}>
+                    <p className={`text-xs line-clamp-2 ${isActive ? 'text-white/70' : 'text-neutral-500'}`}>
                       {category.description}
                     </p>
-                    <div className={`mt-3 flex items-center gap-2 text-xs ${isActive ? 'text-white/80' : 'text-gray-400'}`}>
+                    <div className={`mt-3 flex items-center gap-2 text-xs ${isActive ? 'text-white/80' : 'text-neutral-400'}`}>
                       <span>{catModules.length} {t('institutionCount', lang)}</span>
                       {selectedCount > 0 && (
                         <span className={`px-1.5 py-0.5 rounded-full ${
-                          isActive ? 'bg-white/20' : 'bg-green-100 text-green-700'
+                          isActive ? 'bg-white/20' : 'bg-gold-100 text-brand-900'
                         }`}>
                           {t('selected', lang)} {selectedCount}
                         </span>
@@ -424,8 +424,8 @@ export default function ProductCenterPage() {
           {currentCategoryData && currentCategoryData.modules.length > 0 && (
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <h2 className="text-lg font-bold text-gray-900">{currentCategoryData.category.name}</h2>
-                <span className="text-sm text-gray-400">({currentCategoryData.modules.length} {t('partnerInstitutions', lang)})</span>
+                <h2 className="text-lg font-serif font-bold text-brand-900">{currentCategoryData.category.name}</h2>
+                <span className="text-sm text-neutral-400">({currentCategoryData.modules.length} {t('partnerInstitutions', lang)})</span>
               </div>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {currentCategoryData.modules.map((module) => (
@@ -446,7 +446,7 @@ export default function ProductCenterPage() {
           {/* 未分类模块 */}
           {uncategorizedModules.length > 0 && (
             <div className="mt-8">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">{t('otherModules', lang)}</h2>
+              <h2 className="text-lg font-serif font-bold text-brand-900 mb-4">{t('otherModules', lang)}</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {uncategorizedModules.map((module) => (
                   <div
@@ -454,17 +454,17 @@ export default function ProductCenterPage() {
                     className={`bg-white rounded-xl border-2 overflow-hidden transition flex flex-col ${
                       module.selectedByGuide
                         ? 'border-brand-500 shadow-md'
-                        : 'border-gray-200 hover:border-gray-300'
+                        : 'border-neutral-200 hover:border-neutral-300'
                     }`}
                   >
                     <div className="p-5 flex-1">
-                      <h3 className="font-semibold text-gray-900 mb-2">{module.name_zh || module.name}</h3>
-                      <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                      <h3 className="font-semibold text-brand-900 mb-2">{module.name_zh || module.name}</h3>
+                      <p className="text-sm text-neutral-600 mb-3 line-clamp-2">
                         {module.description_zh || module.description || t('noDescription', lang)}
                       </p>
-                      <span className="text-xs text-gray-500">{t('commission', lang)} {module.commission_rate_min}%</span>
+                      <span className="text-xs text-neutral-500">{t('commission', lang)} {module.commission_rate_min}%</span>
                     </div>
-                    <div className="border-t px-5 py-3 bg-gray-50 flex items-center gap-2 mt-auto">
+                    <div className="border-t px-5 py-3 bg-neutral-50 flex items-center gap-2 mt-auto">
                       {module.component_key && MODULE_DETAIL_ROUTES[module.component_key] && (
                         <a
                           href={MODULE_DETAIL_ROUTES[module.component_key]}
@@ -480,8 +480,8 @@ export default function ProductCenterPage() {
                         disabled={actionLoading === module.id || !guideConfig}
                         className={`flex-1 py-2 rounded-lg font-medium transition flex items-center justify-center gap-2 ${
                           module.selectedByGuide
-                            ? 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                            : 'bg-brand-600 text-white hover:bg-brand-700'
+                            ? 'bg-neutral-200 text-neutral-700 hover:bg-neutral-300'
+                            : 'bg-gold-400 text-brand-900 hover:bg-gold-300'
                         } disabled:opacity-50`}
                       >
                         {actionLoading === module.id ? (
@@ -500,7 +500,7 @@ export default function ProductCenterPage() {
           )}
 
           {modules.length === 0 && (
-            <div className="text-center py-16 text-gray-500">
+            <div className="text-center py-16 text-neutral-500">
               <p>{t('noInstitutions', lang)}</p>
             </div>
           )}
@@ -542,7 +542,7 @@ function ModuleCard({
       className={`bg-white rounded-xl border-2 overflow-hidden transition-all flex flex-col ${
         module.selectedByGuide
           ? 'border-brand-500 shadow-lg'
-          : 'border-gray-200 hover:border-gray-300 hover:shadow-md'
+          : 'border-neutral-200 hover:border-neutral-300 hover:shadow-md'
       }`}
     >
       {/* 顶部渐变条 */}
@@ -550,25 +550,25 @@ function ModuleCard({
 
       <div className="p-5 flex-1">
         <div className="flex items-center justify-between mb-2">
-          <h3 className="font-bold text-gray-900">{module.name_zh || module.name}</h3>
+          <h3 className="font-bold text-brand-900">{module.name_zh || module.name}</h3>
           {module.selectedByGuide && (
-            <span className="px-2 py-1 bg-green-50 text-green-700 text-xs rounded-full flex items-center gap-1 shrink-0">
+            <span className="px-2 py-1 bg-gold-100 text-brand-900 text-xs rounded-full flex items-center gap-1 shrink-0">
               <Check size={12} /> {t('selectedLabel', lang)}
             </span>
           )}
         </div>
-        <p className="text-sm text-gray-500 line-clamp-2 mb-3">
+        <p className="text-sm text-neutral-500 line-clamp-2 mb-3">
           {module.description_zh || module.description || t('noDescription', lang)}
         </p>
 
-        <div className="flex items-center justify-between text-xs text-gray-400">
+        <div className="flex items-center justify-between text-xs text-neutral-400">
           <span>{t('commission', lang)} {module.commission_rate_min}%</span>
-          {module.is_required && <span className="text-amber-600">{t('requiredModule', lang)}</span>}
+          {module.is_required && <span className="text-gold-500">{t('requiredModule', lang)}</span>}
         </div>
       </div>
 
       {/* 操作区 */}
-      <div className="px-5 py-3 border-t bg-gray-50/50 flex items-center gap-2 mt-auto">
+      <div className="px-5 py-3 border-t bg-neutral-50/50 flex items-center gap-2 mt-auto">
         {module.component_key && MODULE_DETAIL_ROUTES[module.component_key] && (
           <a
             href={MODULE_DETAIL_ROUTES[module.component_key]}
@@ -580,14 +580,14 @@ function ModuleCard({
           </a>
         )}
         {module.is_required ? (
-          <span className="flex-1 py-2 text-center text-xs text-gray-400">{t('requiredModuleLabel', lang)}</span>
+          <span className="flex-1 py-2 text-center text-xs text-neutral-400">{t('requiredModuleLabel', lang)}</span>
         ) : (
           <button
             onClick={() => onToggleModule(module.id, module.selectedByGuide)}
             disabled={actionLoading === module.id || !guideConfig}
             className={`flex-1 py-2 rounded-lg text-sm font-medium transition flex items-center justify-center gap-1.5 ${
               module.selectedByGuide
-                ? 'text-gray-600 hover:bg-gray-100'
+                ? 'text-neutral-600 hover:bg-neutral-100'
                 : 'bg-brand-600 text-white hover:bg-brand-700'
             } disabled:opacity-50`}
           >
