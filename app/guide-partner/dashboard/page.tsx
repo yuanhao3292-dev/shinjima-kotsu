@@ -333,11 +333,11 @@ export default function GuideDashboard() {
 
   const getStatusBadge = (status: string) => {
     const styles: Record<string, string> = {
-      pending: 'bg-neutral-100 text-brand-900',
-      confirmed: 'bg-neutral-100 text-brand-900',
-      completed: 'bg-brand-900 text-white',
-      cancelled: 'bg-neutral-50 text-neutral-400',
-      no_show: 'bg-neutral-50 text-neutral-400',
+      pending: 'bg-zinc-100 text-zinc-600',
+      confirmed: 'bg-zinc-100 text-zinc-600',
+      completed: 'bg-green-100 text-green-700',
+      cancelled: 'bg-zinc-100 text-zinc-400',
+      no_show: 'bg-zinc-100 text-zinc-400',
     };
     const labels: Record<string, string> = {
       pending: t('statusPending', lang),
@@ -347,7 +347,7 @@ export default function GuideDashboard() {
       no_show: t('statusNoShow', lang),
     };
     return (
-      <span className={`px-2 py-1 text-xs font-medium ${styles[status] || styles.pending}`}>
+      <span className={`px-2 py-1 rounded-md text-xs font-medium ${styles[status] || styles.pending}`}>
         {labels[status] || status}
       </span>
     );
@@ -355,15 +355,15 @@ export default function GuideDashboard() {
 
   const getLevelBadge = (level: string) => {
     const styles: Record<string, string> = {
-      growth: 'bg-white text-brand-900 border-neutral-200',
-      gold: 'bg-brand-900 text-white border-brand-900',
+      growth: 'bg-zinc-100 text-zinc-700 border-zinc-200',
+      gold: 'bg-zinc-900 text-white border-zinc-900',
     };
     const labels: Record<string, string> = {
       growth: t('growthPartner', lang),
       gold: t('goldPartner', lang),
     };
     return (
-      <span className={`px-3 py-1 text-xs font-bold border ${styles[level] || styles.growth}`}>
+      <span className={`px-2.5 py-0.5 rounded-md text-xs font-medium border ${styles[level] || styles.growth}`}>
         {labels[level] || labels.growth}
       </span>
     );
@@ -371,45 +371,45 @@ export default function GuideDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-8 h-8 text-brand-700 animate-spin mx-auto mb-4" />
-          <p className="text-neutral-500 text-sm">{t('loading', lang)}</p>
+          <Loader2 className="w-8 h-8 text-zinc-900 animate-spin mx-auto mb-4" />
+          <p className="text-zinc-500 text-sm">{t('loading', lang)}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-zinc-50">
       <GuideSidebar pageTitle={t('pageTitle', lang)} />
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
         <div className="p-6 lg:p-8">
           {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-2xl font-serif text-brand-900">{t('welcomeBack', lang)}{guide?.name}</h1>
-            <p className="text-neutral-500 mt-1">{t('businessOverview', lang)}</p>
+          <div className="mb-6">
+            <h1 className="text-2xl font-bold tracking-tight text-zinc-900">{t('welcomeBack', lang)}{guide?.name}</h1>
+            <p className="text-sm text-zinc-500 mt-1">{t('businessOverview', lang)}</p>
           </div>
 
           {/* Profile Card */}
-          <div className="bg-white p-6 mb-8 border border-neutral-200">
+          <div className="bg-white p-6 mb-6 rounded-xl border border-zinc-200 shadow-sm">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div>
                 <div className="flex items-center gap-3 mb-2">
-                  <span className="text-2xl font-serif text-brand-900">{guide?.name}</span>
+                  <span className="text-xl font-semibold text-zinc-900">{guide?.name}</span>
                   {guide && getLevelBadge(guide.commission_tier_code || 'growth')}
                 </div>
-                <p className="text-neutral-500">{t('phone', lang)}{guide?.phone}</p>
+                <p className="text-sm text-zinc-500">{t('phone', lang)}{guide?.phone}</p>
               </div>
-              <div className="bg-neutral-50 p-4 border border-neutral-200">
-                <p className="text-xs text-neutral-500 mb-1">{t('yourReferralCode', lang)}</p>
+              <div className="bg-zinc-50 p-4 rounded-lg border border-zinc-200">
+                <p className="text-xs text-zinc-500 mb-1">{t('yourReferralCode', lang)}</p>
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-xl font-bold tracking-wider text-brand-900">{guide?.referral_code}</span>
+                  <span className="font-mono text-xl font-bold tracking-wider text-zinc-900">{guide?.referral_code}</span>
                   <button
                     onClick={copyReferralCode}
-                    className="p-1 hover:bg-neutral-200 transition text-brand-900"
+                    className="p-1.5 rounded-md hover:bg-zinc-200 transition text-zinc-700"
                     title={t('copy', lang)}
                   >
                     {copied ? <CheckCircle2 size={18} /> : <Copy size={18} />}
@@ -420,49 +420,47 @@ export default function GuideDashboard() {
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             {[
               { icon: Calendar, value: stats?.totalBookings || 0, label: t('totalBookings', lang) },
               { icon: Clock, value: stats?.pendingBookings || 0, label: t('pending', lang) },
               { icon: Wallet, value: `¥${(stats?.totalCommission || 0).toLocaleString()}`, label: t('totalCommission', lang) },
               { icon: Users, value: stats?.referralCount || 0, label: t('referredGuides', lang) },
             ].map(({ icon: Icon, value, label }) => (
-              <div key={label} className="bg-white p-6 border border-neutral-200">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 bg-neutral-50 border border-neutral-200 flex items-center justify-center">
-                    <Icon className="w-5 h-5 text-brand-700" />
-                  </div>
+              <div key={label} className="bg-white p-5 rounded-xl border border-zinc-200 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-medium text-zinc-500">{label}</p>
+                  <Icon className="w-4 h-4 text-zinc-400" />
                 </div>
-                <p className="text-2xl font-bold text-brand-900">{value}</p>
-                <p className="text-sm text-neutral-500">{label}</p>
+                <p className="mt-2 text-3xl font-bold tracking-tight text-zinc-900">{value}</p>
               </div>
             ))}
           </div>
 
           {/* Commission Tier System */}
-          <div className="bg-white p-6 border border-neutral-200 mb-8">
+          <div className="bg-white p-6 rounded-xl border border-zinc-200 shadow-sm mb-6">
             {/* Header with Current Level */}
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="text-lg font-serif font-bold text-brand-900">{t('commissionSystem', lang)}</h2>
-                <p className="text-sm text-neutral-500">{t('upgradeForMore', lang)}</p>
+                <h2 className="text-base font-semibold text-zinc-900">{t('commissionSystem', lang)}</h2>
+                <p className="text-sm text-zinc-500">{t('upgradeForMore', lang)}</p>
               </div>
               <div className="text-right">
-                <p className="text-xs text-neutral-500">{t('yourCurrentLevel', lang)}</p>
-                <p className="text-lg font-serif font-bold text-brand-900">{(guide?.commission_tier_code || 'growth') === 'gold' ? t('goldPartner', lang) : t('growthPartner', lang)}</p>
+                <p className="text-xs text-zinc-500">{t('yourCurrentLevel', lang)}</p>
+                <p className="text-base font-semibold text-zinc-900">{(guide?.commission_tier_code || 'growth') === 'gold' ? t('goldPartner', lang) : t('growthPartner', lang)}</p>
               </div>
             </div>
 
             {/* Gold Partner Highlight */}
             {(guide?.commission_tier_code || 'growth') === 'gold' && (
-              <div className="mb-6 p-4 bg-neutral-50 border border-neutral-200">
-                <div className="flex items-center gap-2">
-                  <div className="w-10 h-10 bg-brand-900 flex items-center justify-center text-white text-sm font-bold">
+              <div className="mb-6 p-4 bg-zinc-50 rounded-lg border border-zinc-200">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-lg bg-zinc-900 flex items-center justify-center text-white text-sm font-bold">
                     ✓
                   </div>
                   <div>
-                    <p className="font-bold text-brand-900">{t('congratsGold', lang)}</p>
-                    <p className="text-sm text-neutral-600">{t('enjoy20', lang)}</p>
+                    <p className="font-medium text-zinc-900">{t('congratsGold', lang)}</p>
+                    <p className="text-sm text-zinc-500">{t('enjoy20', lang)}</p>
                   </div>
                 </div>
               </div>
@@ -471,58 +469,58 @@ export default function GuideDashboard() {
             {/* Tier Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Tier 1: Growth */}
-              <div className={`bg-white p-5 border-2 transition-all ${!guide?.commission_tier_code || guide?.commission_tier_code === 'growth' ? 'border-brand-900' : 'border-neutral-200 opacity-70'}`}>
+              <div className={`bg-white p-5 rounded-xl border transition-all ${!guide?.commission_tier_code || guide?.commission_tier_code === 'growth' ? 'border-zinc-900 ring-1 ring-zinc-900' : 'border-zinc-200 opacity-70'}`}>
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 bg-neutral-100 flex items-center justify-center">
-                    <span className="text-lg">1</span>
+                  <div className="w-9 h-9 rounded-lg bg-zinc-100 flex items-center justify-center">
+                    <span className="text-base font-medium text-zinc-700">1</span>
                   </div>
                   <div>
-                    <h4 className="font-bold text-brand-900">{t('growthPartner', lang)}</h4>
-                    <p className="text-xs text-neutral-400">{lang === 'ja' ? '無料' : lang === 'en' ? 'Free' : '免费'}</p>
+                    <h4 className="font-medium text-zinc-900">{t('growthPartner', lang)}</h4>
+                    <p className="text-xs text-zinc-400">{lang === 'ja' ? '無料' : lang === 'en' ? 'Free' : '免费'}</p>
                   </div>
                 </div>
-                <div className="text-center py-3 bg-neutral-50 mb-3">
-                  <p className="text-2xl font-bold text-brand-900">10%</p>
-                  <p className="text-xs text-neutral-500">{t('fixedRate', lang)}</p>
+                <div className="text-center py-3 bg-zinc-50 rounded-lg mb-3">
+                  <p className="text-2xl font-bold text-zinc-900">10%</p>
+                  <p className="text-xs text-zinc-500">{t('fixedRate', lang)}</p>
                 </div>
-                <div className="text-xs text-neutral-500 space-y-1 mb-4">
+                <div className="text-xs text-zinc-500 space-y-1 mb-4">
                   <p>{t('growthServices', lang)}</p>
                   <p>{t('growthWhitelabel', lang)}</p>
                   <p>{t('growthSupport', lang)}</p>
                 </div>
                 {(!guide?.commission_tier_code || guide?.commission_tier_code === 'growth') && (
-                  <div className="text-center text-xs text-neutral-500 py-2">{t('currentlyUsing', lang)}</div>
+                  <div className="text-center text-xs text-zinc-500 py-2">{t('currentlyUsing', lang)}</div>
                 )}
               </div>
 
               {/* Tier 2: Gold */}
-              <div className={`bg-white p-5 border-2 transition-all ${guide?.commission_tier_code === 'gold' ? 'border-brand-900' : 'border-neutral-200'}`}>
+              <div className={`bg-white p-5 rounded-xl border transition-all ${guide?.commission_tier_code === 'gold' ? 'border-zinc-900 ring-1 ring-zinc-900' : 'border-zinc-200'}`}>
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 bg-brand-900 flex items-center justify-center">
-                    <span className="text-lg text-white">★</span>
+                  <div className="w-9 h-9 rounded-lg bg-zinc-900 flex items-center justify-center">
+                    <span className="text-base text-white">★</span>
                   </div>
                   <div>
-                    <h4 className="font-bold text-brand-900">{t('goldPartner', lang)}</h4>
-                    <p className="text-xs text-neutral-400">¥4,980/{lang === 'ja' ? '月' : lang === 'en' ? 'mo' : '月'} + ¥200,000</p>
+                    <h4 className="font-medium text-zinc-900">{t('goldPartner', lang)}</h4>
+                    <p className="text-xs text-zinc-400">¥4,980/{lang === 'ja' ? '月' : lang === 'en' ? 'mo' : '月'} + ¥200,000</p>
                   </div>
                 </div>
-                <div className="text-center py-3 bg-neutral-50 mb-3">
-                  <p className="text-2xl font-bold text-brand-900">20%</p>
-                  <p className="text-xs text-neutral-500">{t('fixedRate', lang)}</p>
+                <div className="text-center py-3 bg-zinc-50 rounded-lg mb-3">
+                  <p className="text-2xl font-bold text-zinc-900">20%</p>
+                  <p className="text-xs text-zinc-500">{t('fixedRate', lang)}</p>
                 </div>
-                <div className="text-xs text-neutral-500 space-y-1 mb-4">
+                <div className="text-xs text-zinc-500 space-y-1 mb-4">
                   <p>{t('growthServices', lang)}</p>
                   <p>{t('goldWhitelabel', lang)}</p>
                   <p>{t('goldSupport', lang)}</p>
                   <p>{t('goldPerks', lang)}</p>
                 </div>
                 {guide?.commission_tier_code === 'gold' ? (
-                  <div className="text-center text-xs text-neutral-500 py-2">{t('currentlyUsing', lang)}</div>
+                  <div className="text-center text-xs text-zinc-500 py-2">{t('currentlyUsing', lang)}</div>
                 ) : (
                   <button
                     onClick={() => handleUpgrade('partner')}
                     disabled={upgrading}
-                    className="w-full py-2.5 bg-gold-400 hover:bg-gold-300 text-brand-900 text-sm font-medium tracking-wider transition disabled:opacity-50"
+                    className="w-full py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-sm font-medium transition disabled:opacity-50"
                   >
                     {upgrading ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : t('upgradeNow', lang)}
                   </button>
@@ -531,92 +529,92 @@ export default function GuideDashboard() {
             </div>
 
             {/* Referral Bonus Highlight */}
-            <div className="mt-4 p-4 bg-neutral-50 border border-neutral-200">
+            <div className="mt-4 p-4 bg-zinc-50 rounded-lg border border-zinc-200">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-brand-900 flex items-center justify-center flex-shrink-0">
+                <div className="w-9 h-9 rounded-lg bg-zinc-900 flex items-center justify-center flex-shrink-0">
                   <Users className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-bold text-brand-900 text-sm">{t('referralBonus', lang)}</h4>
-                  <p className="text-xs text-neutral-600" dangerouslySetInnerHTML={{
-                    __html: t('referralBonusDesc', lang).replace('<bold>', '<span class="font-bold">').replace('</bold>', '</span>')
+                  <h4 className="font-medium text-zinc-900 text-sm">{t('referralBonus', lang)}</h4>
+                  <p className="text-xs text-zinc-500" dangerouslySetInnerHTML={{
+                    __html: t('referralBonusDesc', lang).replace('<bold>', '<span class="font-medium text-zinc-900">').replace('</bold>', '</span>')
                   }} />
                 </div>
               </div>
             </div>
 
             <div className="mt-3 text-center">
-              <p className="text-[10px] text-neutral-400">
+              <p className="text-[10px] text-zinc-400">
                 {t('tierNote', lang)}
               </p>
             </div>
           </div>
 
           {/* Quick Actions */}
-          <div className="grid md:grid-cols-3 gap-4 mb-8">
+          <div className="grid md:grid-cols-3 gap-4 mb-6">
             <Link
               href="/guide-partner/venues"
-              className="bg-white p-6 border border-neutral-200 hover:border-brand-900 transition group"
+              className="bg-white p-5 rounded-xl border border-zinc-200 shadow-sm hover:border-zinc-300 hover:shadow transition group"
             >
-              <Store className="w-8 h-8 text-brand-700 mb-3" />
-              <h3 className="font-bold text-brand-900 mb-1">{t('browseVenues', lang)}</h3>
-              <p className="text-sm text-neutral-500 mb-3">{t('browse160', lang)}</p>
-              <span className="text-brand-700 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
+              <Store className="w-6 h-6 text-zinc-400 mb-3" />
+              <h3 className="font-medium text-zinc-900 mb-1">{t('browseVenues', lang)}</h3>
+              <p className="text-sm text-zinc-500 mb-3">{t('browse160', lang)}</p>
+              <span className="text-zinc-900 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
                 {t('viewNow', lang)} <ChevronRight size={16} />
               </span>
             </Link>
 
             <Link
               href="/guide-partner/bookings/new"
-              className="bg-white p-6 border border-neutral-200 hover:border-brand-900 transition group"
+              className="bg-white p-5 rounded-xl border border-zinc-200 shadow-sm hover:border-zinc-300 hover:shadow transition group"
             >
-              <Calendar className="w-8 h-8 text-brand-700 mb-3" />
-              <h3 className="font-bold text-brand-900 mb-1">{t('newBooking', lang)}</h3>
-              <p className="text-sm text-neutral-500 mb-3">{t('bookForCustomer', lang)}</p>
-              <span className="text-brand-700 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
+              <Calendar className="w-6 h-6 text-zinc-400 mb-3" />
+              <h3 className="font-medium text-zinc-900 mb-1">{t('newBooking', lang)}</h3>
+              <p className="text-sm text-zinc-500 mb-3">{t('bookForCustomer', lang)}</p>
+              <span className="text-zinc-900 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
                 {t('bookNow', lang)} <ChevronRight size={16} />
               </span>
             </Link>
 
             <Link
               href="/guide-partner/commission"
-              className="bg-white p-6 border border-neutral-200 hover:border-brand-900 transition group"
+              className="bg-white p-5 rounded-xl border border-zinc-200 shadow-sm hover:border-zinc-300 hover:shadow transition group"
             >
-              <TrendingUp className="w-8 h-8 text-brand-700 mb-3" />
-              <h3 className="font-bold text-brand-900 mb-1">{t('commissionSettlement', lang)}</h3>
-              <p className="text-sm text-neutral-500 mb-3">
+              <TrendingUp className="w-6 h-6 text-zinc-400 mb-3" />
+              <h3 className="font-medium text-zinc-900 mb-1">{t('commissionSettlement', lang)}</h3>
+              <p className="text-sm text-zinc-500 mb-3">
                 {stats?.pendingCommission ? `¥${stats.pendingCommission.toLocaleString()} ${t('pendingSettlement', lang)}` : t('viewSettlement', lang)}
               </p>
-              <span className="text-brand-700 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
+              <span className="text-zinc-900 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
                 {t('viewDetails', lang)} <ChevronRight size={16} />
               </span>
             </Link>
           </div>
 
           {/* Recent Bookings */}
-          <div className="bg-white border border-neutral-200">
-            <div className="p-6 border-b border-neutral-200 flex items-center justify-between">
-              <h2 className="font-serif font-bold text-brand-900">{t('recentBookings', lang)}</h2>
-              <Link href="/guide-partner/bookings" className="text-brand-700 hover:text-brand-900 text-sm font-medium">
+          <div className="bg-white rounded-xl border border-zinc-200 shadow-sm overflow-hidden">
+            <div className="p-5 border-b border-zinc-200 flex items-center justify-between">
+              <h2 className="font-semibold text-zinc-900">{t('recentBookings', lang)}</h2>
+              <Link href="/guide-partner/bookings" className="text-zinc-500 hover:text-zinc-900 text-sm font-medium">
                 {t('viewAll', lang)}
               </Link>
             </div>
 
             {recentBookings.length > 0 ? (
-              <div className="divide-y divide-neutral-200">
+              <div className="divide-y divide-zinc-100">
                 {recentBookings.map((booking) => (
-                  <div key={booking.id} className="p-4 flex items-center justify-between hover:bg-neutral-50 transition-colors">
+                  <div key={booking.id} className="p-4 flex items-center justify-between hover:bg-zinc-50 transition-colors">
                     <div>
-                      <p className="font-medium text-brand-900">{booking.customer_name}</p>
-                      <p className="text-sm text-neutral-500">
+                      <p className="font-medium text-zinc-900">{booking.customer_name}</p>
+                      <p className="text-sm text-zinc-500">
                         {booking.venue?.name} · {booking.venue?.city}
                       </p>
-                      <p className="text-xs text-neutral-400 mt-1">{booking.booking_date}</p>
+                      <p className="text-xs text-zinc-400 mt-1">{booking.booking_date}</p>
                     </div>
                     <div className="text-right">
                       {getStatusBadge(booking.status)}
                       {booking.commission_amount && (
-                        <p className="text-sm text-brand-900 font-medium mt-1">
+                        <p className="text-sm text-green-700 font-medium mt-1">
                           +¥{booking.commission_amount.toLocaleString()}
                         </p>
                       )}
@@ -625,12 +623,12 @@ export default function GuideDashboard() {
                 ))}
               </div>
             ) : (
-              <div className="p-12 text-center text-neutral-500">
-                <Calendar className="w-12 h-12 mx-auto mb-4 text-neutral-300" />
+              <div className="p-12 text-center text-zinc-500">
+                <Calendar className="w-12 h-12 mx-auto mb-4 text-zinc-300" />
                 <p>{t('noBookings', lang)}</p>
                 <Link
                   href="/guide-partner/venues"
-                  className="inline-block mt-4 text-brand-700 hover:text-brand-900 font-medium"
+                  className="inline-block mt-4 text-zinc-900 hover:underline font-medium"
                 >
                   {t('browseAndBook', lang)}
                 </Link>
@@ -642,26 +640,26 @@ export default function GuideDashboard() {
         {/* Contract Modal */}
         {showContract && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8">
-              <h2 className="text-2xl font-serif text-brand-900 mb-4">{t('contractTitle', lang)}</h2>
+            <div className="bg-white max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8 rounded-xl shadow-lg">
+              <h2 className="text-xl font-semibold text-zinc-900 mb-4">{t('contractTitle', lang)}</h2>
 
-              <div className="prose prose-sm mb-6 text-neutral-600 space-y-3">
-                <h3 className="font-bold text-brand-900">{t('contractFeeTitle', lang)}</h3>
+              <div className="prose prose-sm mb-6 text-zinc-600 space-y-3">
+                <h3 className="font-medium text-zinc-900">{t('contractFeeTitle', lang)}</h3>
                 <p>{t('contractFee1', lang)}</p>
                 <p>{t('contractFee2', lang)}</p>
 
-                <h3 className="font-bold text-brand-900">{t('contractRateTitle', lang)}</h3>
+                <h3 className="font-medium text-zinc-900">{t('contractRateTitle', lang)}</h3>
                 <p>{t('contractRateDesc', lang)}</p>
 
-                <h3 className="font-bold text-brand-900">{t('contractDowngradeTitle', lang)}</h3>
-                <p className="text-brand-900 font-medium bg-neutral-100 p-3">
+                <h3 className="font-medium text-zinc-900">{t('contractDowngradeTitle', lang)}</h3>
+                <p className="text-amber-900 font-medium bg-amber-50 border border-amber-200 rounded-lg p-3">
                   {t('contractDowngradeWarn', lang)}
                 </p>
-                <p className="text-brand-900 font-medium bg-neutral-100 p-3">
+                <p className="text-zinc-700 bg-zinc-50 border border-zinc-200 rounded-lg p-3">
                   {t('contractDowngradeRejoin', lang)}
                 </p>
 
-                <h3 className="font-bold text-brand-900">{t('contractBenefitsTitle', lang)}</h3>
+                <h3 className="font-medium text-zinc-900">{t('contractBenefitsTitle', lang)}</h3>
                 <ul className="list-disc pl-5">
                   <li>{t('contractBenefit1', lang)}</li>
                   <li>{t('contractBenefit2', lang)}</li>
@@ -674,14 +672,14 @@ export default function GuideDashboard() {
               <div className="flex gap-3">
                 <button
                   onClick={() => setShowContract(false)}
-                  className="flex-1 py-3 border border-neutral-200 text-neutral-700 font-medium hover:bg-neutral-50 transition-colors"
+                  className="flex-1 py-2.5 rounded-lg border border-zinc-200 text-zinc-700 font-medium hover:bg-zinc-50 transition-colors"
                 >
                   {t('cancel', lang)}
                 </button>
                 <button
                   onClick={confirmUpgrade}
                   disabled={upgrading}
-                  className="flex-1 py-3 bg-gold-400 hover:bg-gold-300 text-brand-900 font-medium tracking-wider transition disabled:opacity-50"
+                  className="flex-1 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white font-medium transition disabled:opacity-50"
                 >
                   {upgrading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : t('agreeAndPay', lang)}
                 </button>
