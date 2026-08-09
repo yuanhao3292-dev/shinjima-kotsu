@@ -64,6 +64,7 @@ export async function GET(request: NextRequest) {
       email: string | null;
       subscription_status: string | null;
       subscription_plan: string | null;
+      subscription_tier: string | null;
       subscription_end_date: string | null;
       whitelabel_views: number | null;
       whitelabel_conversions: number | null;
@@ -77,7 +78,7 @@ export async function GET(request: NextRequest) {
         `
         id, name, slug, brand_name, brand_tagline, brand_logo_url, brand_color,
         contact_wechat, contact_line, contact_display_phone, email,
-        subscription_status, subscription_plan, subscription_end_date,
+        subscription_status, subscription_plan, subscription_tier, subscription_end_date,
         whitelabel_views, whitelabel_conversions, selected_pages
       `
       )
@@ -93,7 +94,7 @@ export async function GET(request: NextRequest) {
           `
           id, name, slug, brand_name, brand_logo_url, brand_color,
           contact_wechat, contact_line, contact_display_phone, email,
-          subscription_status, subscription_plan, subscription_end_date,
+          subscription_status, subscription_plan, subscription_tier, subscription_end_date,
           whitelabel_views, whitelabel_conversions
         `
         )
@@ -140,6 +141,7 @@ export async function GET(request: NextRequest) {
       email: guide.email,
       subscriptionStatus: guide.subscription_status || "inactive",
       subscriptionPlan: guide.subscription_plan,
+      subscriptionTier: guide.subscription_tier || "growth",
       subscriptionEndDate: guide.subscription_end_date,
       whiteLabelViews: guide.whitelabel_views || 0,
       whiteLabelConversions: guide.whitelabel_conversions || 0,
