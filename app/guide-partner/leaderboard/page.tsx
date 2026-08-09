@@ -171,30 +171,33 @@ export default function LeaderboardPage() {
         return;
       }
 
-      // 獲取排行榜數據（按累計佣金排序）
-      // 只顯示已通過審核的導遊
-      const { data: guides, error } = await supabase
-        .from('guides')
-        .select('id, name, commission_tier_code, total_commission, total_bookings')
-        .eq('status', 'approved')
-        .gt('total_commission', 0)
-        .order('total_commission', { ascending: false })
-        .limit(50);
-
-      if (error) {
-        console.error('Error loading leaderboard:', error);
+      // 时间范围聚合必须走服务端：bookings 表 RLS 只让导游读到自己的预订，
+      // 客户端直接聚合会导致"本月/本周"榜单只剩自己一人。服务端用
+      // service_role 跨全量读取，并已在服务端完成姓名脱敏。
+      const res = await fetch(`/api/guide/leaderboard?range=${timeRange}`);
+      if (!res.ok) {
+        console.error('Error loading leaderboard:', res.status);
         return;
       }
+      const { leaderboard } = (await res.json()) as {
+        leaderboard: Array<{
+          id: string;
+          nameMasked: string;
+          level: string;
+          commission: number;
+          bookings: number;
+          rank: number;
+        }>;
+      };
 
-      // 處理排行榜數據
-      const leaderboardData: LeaderboardEntry[] = (guides || []).map((guide, index) => ({
-        id: guide.id,
-        name: maskName(guide.name),
-        level: guide.commission_tier_code || 'growth',
-        total_commission: guide.total_commission || 0,
-        total_bookings: guide.total_bookings || 0,
-        rank: index + 1,
-        isCurrentUser: guide.id === currentGuide.id,
+      const leaderboardData: LeaderboardEntry[] = (leaderboard || []).map((r) => ({
+        id: r.id,
+        name: r.nameMasked,
+        level: r.level,
+        total_commission: r.commission,
+        total_bookings: r.bookings,
+        rank: r.rank,
+        isCurrentUser: r.id === currentGuide.id,
       }));
 
       setLeaderboard(leaderboardData);
@@ -210,11 +213,7 @@ export default function LeaderboardPage() {
     }
   };
 
-  // Mask name (show only first character + *)
-  const maskName = (name: string): string => {
-    if (!name || name.length <= 1) return name || t('anonymous', lang);
-    return name.charAt(0) + '*'.repeat(name.length - 1);
-  };
+  // 姓名脱敏已移至服务端 /api/guide/leaderboard，此处不再需要
 
   // 獲取排名圖標
   const getRankIcon = (rank: number) => {
