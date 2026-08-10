@@ -57,10 +57,16 @@ export async function GET(request: NextRequest) {
     }
 
     // 释放到期佣金（2周等待期已过的佣金自动进入可提现余额）
+    // 白标单 + 夜总会预约两条口径都释放；每日 cron 仍是全体兜底
     const { data: releaseResult } = await supabase.rpc('release_matured_commissions', {
       p_guide_id: guide.id,
     });
-    if (releaseResult && releaseResult.released_amount > 0) {
+    const { data: bookingReleaseResult } = await supabase.rpc('release_matured_booking_commissions', {
+      p_guide_id: guide.id,
+    });
+    const releasedTotal =
+      Number(releaseResult?.released_amount || 0) + Number(bookingReleaseResult?.released_amount || 0);
+    if (releasedTotal > 0) {
       // 重新获取更新后的余额
       const { data: updatedGuide } = await supabase
         .from('guides')
@@ -70,20 +76,30 @@ export async function GET(request: NextRequest) {
       if (updatedGuide) {
         guide.available_balance = updatedGuide.available_balance;
       }
-      console.log(`[Withdrawal] 释放到期佣金: ¥${releaseResult.released_amount} (${releaseResult.released_count}笔)`);
+      console.log(`[Withdrawal] 释放到期佣金: ¥${releasedTotal} (白标 ${releaseResult?.released_count || 0} 笔 + 夜总会 ${bookingReleaseResult?.released_count || 0} 笔)`);
     }
 
-    // 查询锁定中的佣金（等待期未到的佣金）
-    const { data: lockedCommissions } = await supabase
+    // 查询锁定中的佣金（等待期未到的佣金）——白标单 + 夜总会预约合并
+    const nowIso = new Date().toISOString();
+    const { data: lockedWhitelabel } = await supabase
       .from('white_label_orders')
       .select('commission_amount, commission_available_at')
       .eq('guide_id', guide.id)
       .eq('commission_status', 'calculated')
       .not('commission_available_at', 'is', null)
-      .gt('commission_available_at', new Date().toISOString());
+      .gt('commission_available_at', nowIso);
 
-    const lockedAmount = lockedCommissions?.reduce((sum, c) => sum + Number(c.commission_amount || 0), 0) || 0;
-    const nearestUnlockDate = lockedCommissions?.length
+    const { data: lockedBookings } = await supabase
+      .from('bookings')
+      .select('commission_amount, commission_available_at')
+      .eq('guide_id', guide.id)
+      .eq('commission_status', 'calculated')
+      .not('commission_available_at', 'is', null)
+      .gt('commission_available_at', nowIso);
+
+    const lockedCommissions = [...(lockedWhitelabel || []), ...(lockedBookings || [])];
+    const lockedAmount = lockedCommissions.reduce((sum, c) => sum + Number(c.commission_amount || 0), 0);
+    const nearestUnlockDate = lockedCommissions.length
       ? lockedCommissions
           .map(c => c.commission_available_at)
           .sort()[0]

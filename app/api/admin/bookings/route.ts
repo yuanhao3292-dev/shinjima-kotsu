@@ -407,21 +407,27 @@ export async function POST(request: NextRequest) {
         const grossCommission = rate > 0 ? Math.round(spendBeforeTax * rate) : 0;
 
         const commissionFields: Record<string, unknown> = { spend_before_tax: spendBeforeTax };
+        let withholdingAmount = 0;
+        let availableAtIso: string | null = null;
+        let referrerId: string | null = null;
         if (typedBooking.guide_id && grossCommission > 0) {
-          const { data: guideTax } = await supabase
+          const { data: guideInfo } = await supabase
             .from('guides')
-            .select('tax_residency')
+            .select('tax_residency, referrer_id')
             .eq('id', typedBooking.guide_id)
             .single();
-          const isResident = guideTax?.tax_residency === 'resident';
-          const { withholdingAmount, withholdingRate } = calculateWithholdingTax(grossCommission, isResident);
+          const isResident = guideInfo?.tax_residency === 'resident';
+          referrerId = (guideInfo?.referrer_id as string | null) ?? null;
+          const wh = calculateWithholdingTax(grossCommission, isResident);
+          withholdingAmount = wh.withholdingAmount;
           const availableAt = new Date();
           availableAt.setDate(availableAt.getDate() + 14);
+          availableAtIso = availableAt.toISOString();
           commissionFields.commission_amount = grossCommission;
           commissionFields.commission_status = 'calculated';
-          commissionFields.commission_available_at = availableAt.toISOString();
+          commissionFields.commission_available_at = availableAtIso;
           commissionFields.withholding_tax_amount = withholdingAmount;
-          commissionFields.withholding_tax_rate = withholdingRate;
+          commissionFields.withholding_tax_rate = wh.withholdingRate;
         }
 
         // .select() 作幂等守卫:仅当本次真的把 confirmed→completed(命中行)才累计佣金,
@@ -454,6 +460,32 @@ export async function POST(request: NextRequest) {
           if (commissionErr) {
             console.error(`[admin/bookings] 夜总会佣金累计失败 booking=${bookingId}:`, commissionErr);
             logError(normalizeError(commissionErr), { path: '/api/admin/bookings', method: 'POST' });
+          }
+
+          // 推荐奖励:该导游有推荐人时,按【净佣金】2% 给推荐人建奖励。
+          // 与白标 webhook 同口径,带 available_at 同期成熟(14天),到期由 cron/提现页
+          // 释放进推荐人余额。旧触发器 trigger_create_referral_reward 已在迁移 115 清除,
+          // 此处是夜总会推荐奖励的唯一权威来源;upsert onConflict(booking_id) 幂等防重。
+          if (referrerId) {
+            const netCommission = grossCommission - withholdingAmount;
+            const referralRewardAmount = Math.round(netCommission * 0.02);
+            if (referralRewardAmount > 0) {
+              const { error: rewardErr } = await supabase
+                .from('referral_rewards')
+                .upsert({
+                  referrer_id: referrerId,
+                  referee_id: typedBooking.guide_id,
+                  booking_id: bookingId,
+                  reward_type: 'commission',
+                  reward_rate: 0.02,
+                  reward_amount: referralRewardAmount,
+                  status: 'pending',
+                  available_at: availableAtIso,
+                }, { onConflict: 'booking_id', ignoreDuplicates: true });
+              if (rewardErr) {
+                console.error(`[admin/bookings] 夜总会推荐奖励创建失败 booking=${bookingId}:`, rewardErr);
+              }
+            }
           }
         }
 
