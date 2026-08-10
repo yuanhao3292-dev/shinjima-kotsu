@@ -1524,25 +1524,6 @@ export default function WhiteLabelSettingsPage() {
           </div>
         )}
 
-        {/* 未订阅提示 */}
-        {!isSubscribed && (
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 text-center">
-            <AlertCircle size={32} className="mx-auto text-amber-600 mb-3" />
-            <h3 className="font-bold text-amber-800 mb-2">{t('needSubscription', lang)}</h3>
-            <p className="text-amber-700 text-sm mb-4">
-              {t('needSubscriptionDesc', lang)}
-            </p>
-            <button
-              onClick={() => handleSubscribe('professional')}
-              disabled={subscribing}
-              className="px-6 py-2 rounded-lg bg-zinc-900 text-white hover:bg-zinc-800 transition font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 mx-auto"
-            >
-              {subscribing && <Loader2 size={16} className="animate-spin" />}
-              {subscribing ? t('processing', lang) : t('subscribeNow', lang)}
-            </button>
-          </div>
-        )}
-
         {/* 法律声明 */}
         <div className="bg-zinc-100 border border-zinc-200 rounded-xl p-6">
           <h3 className="font-bold text-zinc-900 mb-3 flex items-center gap-2">
