@@ -5,6 +5,7 @@ import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from
 import { validateBody } from '@/lib/validations/validate';
 import { BookingActionSchema } from '@/lib/validations/api-schemas';
 import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
+import { calculateWithholdingTax } from '@/lib/commission-tax';
 import { Resend } from 'resend';
 
 /**
@@ -395,20 +396,65 @@ export async function POST(request: NextRequest) {
         }
 
         const now = new Date().toISOString();
-        const { error: updateError } = await supabase
+
+        // 夜总会佣金:与白标/在线单口径一致
+        //   税前基数 = actualSpend ÷ 1.1(去 10% 消费税)
+        //   毛佣金   = 基数 × 阶梯佣金率(bookings.commission_rate 为小数,如 0.10/0.20)
+        //   源泉徴収 = 按导游税务居住地预扣;成熟释放时扣净额入余额
+        //   14 天锁定后由 cron/提现页释放为 available
+        const rate = typedBooking.commission_rate ?? 0;
+        const spendBeforeTax = Math.round(actualSpend / 1.1);
+        const grossCommission = rate > 0 ? Math.round(spendBeforeTax * rate) : 0;
+
+        const commissionFields: Record<string, unknown> = { spend_before_tax: spendBeforeTax };
+        if (typedBooking.guide_id && grossCommission > 0) {
+          const { data: guideTax } = await supabase
+            .from('guides')
+            .select('tax_residency')
+            .eq('id', typedBooking.guide_id)
+            .single();
+          const isResident = guideTax?.tax_residency === 'resident';
+          const { withholdingAmount, withholdingRate } = calculateWithholdingTax(grossCommission, isResident);
+          const availableAt = new Date();
+          availableAt.setDate(availableAt.getDate() + 14);
+          commissionFields.commission_amount = grossCommission;
+          commissionFields.commission_status = 'calculated';
+          commissionFields.commission_available_at = availableAt.toISOString();
+          commissionFields.withholding_tax_amount = withholdingAmount;
+          commissionFields.withholding_tax_rate = withholdingRate;
+        }
+
+        // .select() 作幂等守卫:仅当本次真的把 confirmed→completed(命中行)才累计佣金,
+        // 并发/重试下第二次 update 命中 0 行 → 不重复入账。
+        const { data: completedRows, error: updateError } = await supabase
           .from('bookings')
           .update({
             status: 'completed' as BookingStatus,
             actual_spend: actualSpend,
             completed_at: now,
             updated_at: now,
+            ...commissionFields,
           })
           .eq('id', bookingId)
-          .eq('status', 'confirmed');
+          .eq('status', 'confirmed')
+          .select('id');
 
         if (updateError) {
           logError(normalizeError(updateError), { path: '/api/admin/bookings', method: 'POST' });
           return createErrorResponse(Errors.internal('Failed to complete booking'));
+        }
+
+        // 原子累计导游毛佣金(与白标线下单口径一致);失败仅告警不回滚完成状态
+        const didComplete = (completedRows?.length ?? 0) > 0;
+        if (didComplete && typedBooking.guide_id && grossCommission > 0) {
+          const { error: commissionErr } = await supabase.rpc('increment_guide_commission', {
+            p_guide_id: typedBooking.guide_id,
+            p_amount: grossCommission,
+          });
+          if (commissionErr) {
+            console.error(`[admin/bookings] 夜总会佣金累计失败 booking=${bookingId}:`, commissionErr);
+            logError(normalizeError(commissionErr), { path: '/api/admin/bookings', method: 'POST' });
+          }
         }
 
         await logAuditAction(supabase, 'booking_complete', 'booking', bookingId, authResult, {

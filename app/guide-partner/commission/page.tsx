@@ -148,12 +148,26 @@ const translations = {
     en: 'Whitelabel Orders',
     ko: '화이트라벨 주문',
   },
+  tabNightclub: {
+    ja: '店舗予約報酬',
+    'zh-CN': '店铺预约',
+    'zh-TW': '店舖預約',
+    en: 'Store Bookings',
+    ko: '매장 예약',
+  },
   tabReferrals: {
     ja: '紹介報酬',
     'zh-CN': '推荐奖励',
     'zh-TW': '推薦獎勵',
     en: 'Referral Rewards',
     ko: '추천 보상',
+  },
+  nightclubCommissionDesc: {
+    ja: '店舗予約完了分のコミッション',
+    'zh-CN': '店铺预约完成后的佣金',
+    'zh-TW': '店舖預約完成後的佣金',
+    en: 'Commission from completed store bookings',
+    ko: '매장 예약 완료 커미션',
   },
   tabMonthlySettlement: {
     ja: '月次精算',
@@ -648,6 +662,18 @@ interface ReferralReward {
   } | null;
 }
 
+interface NightclubCommission {
+  id: string;
+  customer_name: string;
+  actual_spend: number | null;
+  spend_before_tax: number | null;
+  commission_amount: number | null;
+  commission_status: string | null;
+  commission_available_at: string | null;
+  completed_at: string | null;
+  venue: { name: string } | null;
+}
+
 interface Stats {
   totalEarned: number;
   pendingAmount: number;
@@ -658,9 +684,10 @@ interface Stats {
 export default function CommissionPage() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [whitelabelCommissions, setWhitelabelCommissions] = useState<WhitelabelCommission[]>([]);
+  const [nightclubCommissions, setNightclubCommissions] = useState<NightclubCommission[]>([]);
   const [referralRewards, setReferralRewards] = useState<ReferralReward[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'whitelabel' | 'referrals'>('whitelabel');
+  const [activeTab, setActiveTab] = useState<'whitelabel' | 'nightclub' | 'referrals'>('whitelabel');
   const [commissionRate, setCommissionRate] = useState<number>(10);
   const [tierName, setTierName] = useState<'tierGold' | 'tierInitial'>('tierInitial');
   const router = useRouter();
@@ -708,6 +735,20 @@ export default function CommissionPage() {
         .limit(20);
 
       setWhitelabelCommissions((wlCommissions || []) as WhitelabelCommission[]);
+
+      // 夜总会(店铺)预约佣金:完成后已计佣的单
+      const { data: ncBookings } = await supabase
+        .from('bookings')
+        .select('id, customer_name, actual_spend, spend_before_tax, commission_amount, commission_status, commission_available_at, completed_at, venue:venues(name)')
+        .eq('guide_id', guide.id)
+        .not('commission_amount', 'is', null)
+        .order('completed_at', { ascending: false })
+        .limit(20);
+
+      setNightclubCommissions((ncBookings || []).map(b => ({
+        ...b,
+        venue: Array.isArray(b.venue) ? b.venue[0] : b.venue,
+      })) as NightclubCommission[]);
 
       const { data: rewards } = await supabase
         .from('referral_rewards')
@@ -952,6 +993,16 @@ export default function CommissionPage() {
               {t('tabWhitelabel', lang)}
             </button>
             <button
+              onClick={() => setActiveTab('nightclub')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+                activeTab === 'nightclub'
+                  ? 'bg-zinc-900 text-white'
+                  : 'bg-white text-zinc-700 hover:bg-zinc-50 border border-zinc-200'
+              }`}
+            >
+              {t('tabNightclub', lang)}
+            </button>
+            <button
               onClick={() => setActiveTab('referrals')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                 activeTab === 'referrals'
@@ -964,7 +1015,7 @@ export default function CommissionPage() {
           </div>
 
           {/* Content */}
-          {activeTab === 'whitelabel' ? (
+          {activeTab === 'whitelabel' && (
             <div className="bg-white rounded-xl border border-zinc-200 shadow-sm overflow-hidden">
               <div className="p-4 border-b border-zinc-200 flex items-center justify-between">
                 <div>
@@ -1047,7 +1098,58 @@ export default function CommissionPage() {
                 </div>
               )}
             </div>
-          ) : (
+          )}
+
+          {activeTab === 'nightclub' && (
+            <div className="bg-white rounded-xl border border-zinc-200 shadow-sm overflow-hidden">
+              <div className="p-4 border-b border-zinc-200">
+                <h2 className="font-semibold font-sans text-zinc-900">{t('storeCommissionRecords', lang)}</h2>
+                <p className="text-sm text-zinc-500 mt-1">{t('nightclubCommissionDesc', lang)}</p>
+              </div>
+
+              {nightclubCommissions.length > 0 ? (
+                <div className="divide-y divide-zinc-100">
+                  {nightclubCommissions.map((record) => (
+                    <div key={record.id} className="p-4 flex items-center justify-between hover:bg-zinc-50">
+                      <div>
+                        <p className="font-medium text-zinc-900">
+                          {record.venue?.name || t('unknownGuide', lang)}
+                        </p>
+                        <p className="text-sm text-zinc-500">
+                          {t('customer', lang)}: {record.customer_name}
+                          {record.actual_spend != null && ` · ${t('spend', lang)} ¥${record.actual_spend.toLocaleString()}`}
+                        </p>
+                        {record.completed_at && (
+                          <p className="text-xs text-zinc-400 mt-1">
+                            {new Date(record.completed_at).toLocaleDateString(dateLocaleMap[lang])}
+                          </p>
+                        )}
+                      </div>
+                      <div className="text-right">
+                        {getCommissionStatusBadge(record.commission_status || 'pending', record.commission_available_at)}
+                        <p className="font-bold tracking-tight text-green-700 mt-1">
+                          +¥{record.commission_amount?.toLocaleString()}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="p-12 text-center text-zinc-500">
+                  <Store className="w-12 h-12 mx-auto mb-4 text-zinc-300" />
+                  <p>{t('noCommissionRecords', lang)}</p>
+                  <Link
+                    href="/guide-partner/bookings/new"
+                    className="inline-block mt-4 text-zinc-500 font-medium hover:underline"
+                  >
+                    {t('startBookingToEarn', lang)}
+                  </Link>
+                </div>
+              )}
+            </div>
+          )}
+
+          {activeTab === 'referrals' && (
             <div className="bg-white rounded-xl border border-zinc-200 shadow-sm overflow-hidden">
               <div className="p-4 border-b border-zinc-200">
                 <div className="flex items-center justify-between">

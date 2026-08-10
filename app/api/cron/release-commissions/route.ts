@@ -49,8 +49,14 @@ export async function GET(request: NextRequest) {
       console.error('[cron/release-commissions] 推荐奖励释放 RPC 失败:', refErr);
     }
 
-    console.log('[cron/release-commissions] 释放结果:', JSON.stringify({ commissions, referrals }));
-    return NextResponse.json({ success: true, commissions, referrals });
+    // 到期夜总会(店铺)预约佣金释放进导游可提现余额
+    const { data: bookings, error: bookingErr } = await supabase.rpc('release_all_matured_booking_commissions');
+    if (bookingErr) {
+      console.error('[cron/release-commissions] 夜总会佣金释放 RPC 失败:', bookingErr);
+    }
+
+    console.log('[cron/release-commissions] 释放结果:', JSON.stringify({ commissions, referrals, bookings }));
+    return NextResponse.json({ success: true, commissions, referrals, bookings });
   } catch (err) {
     console.error('[cron/release-commissions] 异常:', err);
     return NextResponse.json({ error: 'Internal error' }, { status: 500 });
