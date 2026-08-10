@@ -12,11 +12,12 @@ function toUrlSlug(componentKey: string): string {
   return componentKey.replace(/_/g, '-');
 }
 
-/** 有详情页的模块 */
+/** 有详情页的模块（须与 g/[slug]/page.tsx、build-distribution-nav.ts 的 DETAIL_MODULES 对齐） */
 const DETAIL_MODULES = new Set([
-  'medical_packages', 'hyogo_medical', 'cancer_treatment',
+  'medical_packages', 'hyogo_medical', 'kindai_hospital', 'cancer_treatment',
   'sai_clinic', 'wclinic_mens',
   'helene_clinic', 'ginza_phoenix', 'cell_medicine', 'ac_plus', 'igtc',
+  'osaka_himak',
 ]);
 
 export default async function WhitelabelResultPage({ params }: PageProps) {
