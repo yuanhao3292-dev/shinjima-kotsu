@@ -53,10 +53,10 @@ const translations = {
     en: 'Booking Notice',
   },
   noticeDeposit: {
-    ja: '予約送信後、お客様に500元のデポジットのお支払いをお願いしてください',
-    'zh-CN': '预约提交后，请提醒客户支付 500 元人民币定金',
-    'zh-TW': '預約提交後，請提醒客戶支付 500 元人民幣定金',
-    en: 'After submission, please remind the customer to pay the 500 CNY deposit',
+    ja: '予約送信後、お客様に¥500のデポジットのお支払いをお願いしてください',
+    'zh-CN': '预约提交后，请提醒客户支付 ¥500 定金',
+    'zh-TW': '預約提交後，請提醒客戶支付 ¥500 定金',
+    en: 'After submission, please remind the customer to pay the ¥500 deposit',
   },
   noticeActivation: {
     ja: 'デポジットのお支払い後、予約が有効になります',
