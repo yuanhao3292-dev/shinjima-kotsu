@@ -52,7 +52,7 @@ export default function TokushohoPage() {
                     label="旅行業務取扱管理者"
                     value={
                       <>
-                        員昊（Yun Hao）<br />
+                        邱千依<br />
                         <span className="text-sm text-neutral-500">
                           旅行業務取扱管理者とは、お客様の旅行を取り扱う営業所での取引に関する責任者です。
                           ご不明な点があればお気軽にお問い合わせください。
