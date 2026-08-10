@@ -436,7 +436,6 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
     const todayStr = `${year}-${month}-${day}`;
 
     const isSameDay = booking.booking_date === todayStr;
-    const depositStatus = isSameDay ? 'forfeited' : 'refunded';
 
     if (isSameDay) {
       if (!confirm(t('sameDayCancelConfirm', lang))) {
@@ -448,15 +447,24 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
     setError('');
 
     try {
-      const { error: updateError } = await supabase
-        .from('bookings')
-        .update({
-          status: 'cancelled',
-          deposit_status: depositStatus
-        })
-        .eq('id', booking.id);
+      // 取消改由服务端路由代劳(校验所有权/状态、服务端判定押金归属);
+      // 导游 token 已无 bookings 直连 update 权限(RLS 策略已在迁移 116 删除)。
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        setError(t('cancelFailed', lang));
+        return;
+      }
 
-      if (updateError) throw updateError;
+      const res = await fetch('/api/guide-bookings/cancel', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({ bookingId: booking.id }),
+      });
+
+      if (!res.ok) throw new Error('cancel failed');
 
       await loadBookingDetail();
     } catch (err) {
