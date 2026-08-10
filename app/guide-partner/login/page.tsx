@@ -298,7 +298,7 @@ function LoginForm() {
   return (
     <div className="min-h-screen flex">
       {/* Left Side — Brand Hero */}
-      <div className="hidden lg:flex lg:w-1/2 relative bg-brand-900 overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 relative bg-zinc-900 overflow-hidden">
         <Image
           src={getImage('guide_hero', 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=2000')}
           alt="Guide Partner"
@@ -308,40 +308,40 @@ function LoginForm() {
           sizes="50vw"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-zinc-900/95 via-zinc-900/85 to-zinc-900/70" />
 
         {/* Decorative Elements */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
-          <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
+          <div className="absolute w-96 h-96 bg-zinc-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
+          <div className="absolute w-72 h-72 bg-zinc-500/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
         </div>
 
         <div className="relative z-10 flex flex-col justify-center px-16">
           <div className="max-w-lg">
             <div className="flex items-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-gold-400" />
-              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">
+              <div className="h-[1px] w-12 bg-zinc-600" />
+              <span className="text-xs tracking-[0.3em] text-zinc-400 uppercase">
                 {t('heroLabel', lang)}
               </span>
             </div>
 
-            <h1 className="font-serif text-4xl xl:text-5xl text-white mb-4 leading-tight">
+            <h1 className="font-sans text-4xl xl:text-5xl text-white mb-4 leading-tight">
               {t('heroTitle', lang)}
               <br />
-              <span className="text-gold-400">{t('heroSubtitle', lang)}</span>
+              <span className="text-zinc-300">{t('heroSubtitle', lang)}</span>
             </h1>
 
-            <p className="text-lg text-neutral-300 leading-relaxed font-light mb-10 max-w-md">
+            <p className="text-lg text-zinc-300 leading-relaxed font-light mb-10 max-w-md">
               {t('heroDesc', lang)}
             </p>
 
             <ul className="space-y-3 text-sm">
               {(['feature1', 'feature2', 'feature3', 'feature4'] as const).map((key) => (
                 <li key={key} className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-gold-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-5 h-5 text-zinc-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-neutral-300">{t(key, lang)}</span>
+                  <span className="text-zinc-300">{t(key, lang)}</span>
                 </li>
               ))}
             </ul>
@@ -354,26 +354,26 @@ function LoginForm() {
         <div className="w-full max-w-md">
           {/* Mobile hero label */}
           <div className="lg:hidden flex items-center gap-3 mb-6">
-            <div className="h-[1px] w-8 bg-gold-400" />
-            <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">GUIDE PARTNER</span>
+            <div className="h-[1px] w-8 bg-zinc-300" />
+            <span className="text-xs tracking-[0.3em] text-zinc-500 uppercase">GUIDE PARTNER</span>
           </div>
 
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-2xl font-serif text-brand-900 mb-2">{t('loginTitle', lang)}</h1>
-            <p className="text-neutral-500 text-sm">{t('loginDesc', lang)}</p>
+            <h1 className="text-2xl font-sans text-zinc-900 mb-2">{t('loginTitle', lang)}</h1>
+            <p className="text-zinc-500 text-sm">{t('loginDesc', lang)}</p>
           </div>
 
           {/* Error */}
           {error && (
-            <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 flex items-start gap-2 text-sm">
+            <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-start gap-2 text-sm">
               <AlertCircle size={18} className="flex-shrink-0 mt-0.5" />
               <div>
                 <span>{error}</span>
                 {error.includes(t('isAdmin', lang).slice(0, 10)) && (
                   <Link
                     href="/admin/login"
-                    className="mt-2 block text-brand-700 hover:text-brand-900 font-medium"
+                    className="mt-2 block text-zinc-600 hover:text-zinc-900 font-medium"
                   >
                     {t('goToAdminLogin', lang)}
                   </Link>
@@ -385,40 +385,40 @@ function LoginForm() {
           {/* Form */}
           <form onSubmit={handleLogin} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-neutral-700 mb-2">
+              <label className="block text-sm font-medium text-zinc-700 mb-2">
                 {t('emailLabel', lang)}
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={18} />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full pl-10 pr-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent transition bg-white text-sm"
+                  className="w-full pl-10 pr-4 py-3 rounded-lg border border-zinc-200 focus:border-zinc-400 focus:ring-1 focus:ring-zinc-900 transition bg-white text-sm"
                   placeholder="your@email.com"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-neutral-700 mb-2">
+              <label className="block text-sm font-medium text-zinc-700 mb-2">
                 {t('passwordLabel', lang)}
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={18} />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full pl-10 pr-12 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent transition bg-white text-sm"
+                  className="w-full pl-10 pr-12 py-3 rounded-lg border border-zinc-200 focus:border-zinc-400 focus:ring-1 focus:ring-zinc-900 transition bg-white text-sm"
                   placeholder="••••••••"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600"
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
@@ -426,7 +426,7 @@ function LoginForm() {
               <div className="mt-2 text-right">
                 <Link
                   href="/forgot-password?from=guide"
-                  className="text-sm text-brand-700 hover:text-brand-900 font-medium"
+                  className="text-sm text-zinc-600 hover:text-zinc-900 font-medium"
                 >
                   {t('forgotPassword', lang)}
                 </Link>
@@ -436,7 +436,7 @@ function LoginForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gold-400 hover:bg-gold-300 disabled:bg-neutral-300 text-brand-900 font-medium py-3 px-6 text-sm tracking-wider transition-colors flex items-center justify-center gap-2"
+              className="w-full rounded-lg bg-zinc-900 hover:bg-zinc-800 disabled:bg-zinc-300 text-white font-medium py-3 px-6 text-sm tracking-wider transition-colors flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
@@ -451,18 +451,18 @@ function LoginForm() {
 
           {/* Divider */}
           <div className="my-6 flex items-center">
-            <div className="flex-grow border-t border-neutral-200" />
-            <span className="px-4 text-sm text-neutral-400">{t('orDivider', lang)}</span>
-            <div className="flex-grow border-t border-neutral-200" />
+            <div className="flex-grow border-t border-zinc-200" />
+            <span className="px-4 text-sm text-zinc-400">{t('orDivider', lang)}</span>
+            <div className="flex-grow border-t border-zinc-200" />
           </div>
 
           {/* Register */}
           <div className="text-center">
-            <p className="text-neutral-600 text-sm">
+            <p className="text-zinc-600 text-sm">
               {t('noAccount', lang)}
               <Link
                 href="/guide-partner/register"
-                className="text-brand-700 hover:text-brand-900 font-medium ml-1"
+                className="text-zinc-600 hover:text-zinc-900 font-medium ml-1"
               >
                 {t('registerLink', lang)}
               </Link>
@@ -470,10 +470,10 @@ function LoginForm() {
           </div>
 
           {/* Back to Guide Partner Home */}
-          <div className="mt-6 pt-6 border-t border-neutral-200 text-center">
+          <div className="mt-6 pt-6 border-t border-zinc-200 text-center">
             <Link
               href="/guide-partner"
-              className="text-neutral-500 hover:text-brand-900 text-sm"
+              className="text-zinc-500 hover:text-zinc-900 text-sm"
             >
               {t('backToHome', lang)}
             </Link>
@@ -489,12 +489,12 @@ function LoadingFallback() {
     <div className="min-h-screen flex items-center justify-center bg-white">
       <div className="w-full max-w-md p-8">
         <div className="animate-pulse">
-          <div className="h-6 bg-neutral-200 w-1/3 mb-2" />
-          <div className="h-4 bg-neutral-200 w-2/3 mb-8" />
+          <div className="h-6 bg-zinc-200 w-1/3 mb-2" />
+          <div className="h-4 bg-zinc-200 w-2/3 mb-8" />
           <div className="space-y-5">
-            <div className="h-12 bg-neutral-100 border border-neutral-200" />
-            <div className="h-12 bg-neutral-100 border border-neutral-200" />
-            <div className="h-12 bg-neutral-200" />
+            <div className="h-12 bg-zinc-100 border border-zinc-200" />
+            <div className="h-12 bg-zinc-100 border border-zinc-200" />
+            <div className="h-12 bg-zinc-200" />
           </div>
         </div>
       </div>
