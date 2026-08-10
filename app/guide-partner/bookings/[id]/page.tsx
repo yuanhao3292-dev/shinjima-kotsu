@@ -18,6 +18,7 @@ import {
   Loader2,
   AlertCircle,
   CreditCard,
+  ExternalLink,
 } from 'lucide-react';
 
 const translations = {
@@ -210,6 +211,13 @@ const translations = {
     en: 'Venue Info',
     ko: '매장 정보',
   },
+  viewVenueWebsite: {
+    ja: '店舗公式サイト',
+    'zh-CN': '查看店铺官网',
+    'zh-TW': '查看店舖官網',
+    en: 'View venue website',
+    ko: '매장 공식 사이트',
+  },
   bookingInfo: {
     ja: '予約情報',
     'zh-CN': '预约信息',
@@ -318,6 +326,7 @@ interface Booking {
     city: string;
     area: string | null;
     category: string;
+    website_url: string | null;
   } | null;
 }
 
@@ -359,7 +368,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
         .from('bookings')
         .select(`
           *,
-          venue:venues(id, name, name_ja, city, area, category)
+          venue:venues(id, name, name_ja, city, area, category, website_url)
         `)
         .eq('id', id)
         .eq('guide_id', guide.id)
@@ -622,6 +631,17 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
                     <MapPin size={16} />
                     <span>{booking.venue?.city} · {booking.venue?.area}</span>
                   </div>
+                  {booking.venue?.website_url && (
+                    <a
+                      href={booking.venue.website_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-sm text-zinc-900 font-medium hover:underline"
+                    >
+                      <ExternalLink size={14} />
+                      {t('viewVenueWebsite', lang)}
+                    </a>
+                  )}
                 </div>
               </div>
 

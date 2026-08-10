@@ -18,7 +18,8 @@ import {
   Loader2,
   AlertCircle,
   CheckCircle2,
-  Info
+  Info,
+  ExternalLink
 } from 'lucide-react';
 
 const translations = {
@@ -87,6 +88,13 @@ const translations = {
     'zh-CN': '最低消费:',
     'zh-TW': '最低消費:',
     en: 'Minimum spend:',
+  },
+  viewVenueWebsite: {
+    ja: '店舗公式サイト',
+    'zh-CN': '查看店铺官网',
+    'zh-TW': '查看店舖官網',
+    en: 'View venue website',
+    ko: '매장 공식 사이트',
   },
   customerNameLabel: {
     ja: 'お客様氏名 *',
@@ -240,6 +248,7 @@ interface Venue {
   area: string;
   category: string;
   min_spend: number;
+  website_url?: string | null;
 }
 
 interface Guide {
@@ -319,7 +328,7 @@ function NewBookingForm() {
       // 獲取店舖列表
       const { data: venuesData } = await supabase
         .from('venues')
-        .select('id, name, name_ja, city, area, category, min_spend')
+        .select('id, name, name_ja, city, area, category, min_spend, website_url')
         .eq('is_active', true)
         .order('city');
 
@@ -518,9 +527,20 @@ function NewBookingForm() {
                   ))}
                 </select>
                 {venue && (
-                  <p className="mt-2 text-sm text-zinc-500">
-                    {t('minSpend', lang)} ¥{venue.min_spend?.toLocaleString()}
-                  </p>
+                  <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-zinc-500">
+                    <span>{t('minSpend', lang)} ¥{venue.min_spend?.toLocaleString()}</span>
+                    {venue.website_url && (
+                      <a
+                        href={venue.website_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-zinc-900 font-medium hover:underline"
+                      >
+                        <ExternalLink size={14} />
+                        {t('viewVenueWebsite', lang)}
+                      </a>
+                    )}
+                  </div>
                 )}
               </div>
 
