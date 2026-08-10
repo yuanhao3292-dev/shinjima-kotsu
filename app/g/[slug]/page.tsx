@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import type { ImmersiveDisplayConfig } from '@/lib/types/display-config';
 import { COLOR_THEMES, type ColorTheme } from '@/lib/types/display-config';
+import { SUPPORTED_COMPONENT_KEY_SET } from '@/lib/config/product-categories';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -14,13 +15,6 @@ function toUrlSlug(componentKey: string): string {
   return componentKey.replace(/_/g, '-');
 }
 
-/** 支持详情页的 component_key（必须与 page_modules 表一致） */
-const DETAIL_MODULES = new Set([
-  'medical_packages', 'hyogo_medical', 'kindai_hospital', 'cancer_treatment',
-  'sai_clinic', 'wclinic_mens',
-  'helene_clinic', 'ginza_phoenix', 'cell_medicine', 'ac_plus', 'igtc',
-  'osaka_himak',
-]);
 
 /** 详情页首图映射（确保首页背景图严格复用详情页首图） */
 const DETAIL_PAGE_HERO_IMAGES: Record<string, string> = {
@@ -53,7 +47,7 @@ export default async function GuideHomePage({ params }: PageProps) {
   const productCards = selectedModules
     .filter((m) => {
       const dc = m.module.displayConfig;
-      return dc && dc.template === 'immersive' && m.module.componentKey && DETAIL_MODULES.has(m.module.componentKey);
+      return dc && dc.template === 'immersive' && m.module.componentKey && SUPPORTED_COMPONENT_KEY_SET.has(m.module.componentKey);
     })
     .map((m) => ({
       config: m.module.displayConfig as ImmersiveDisplayConfig,
