@@ -23,6 +23,7 @@ import {
   Errors,
 } from '@/lib/utils/api-errors';
 import { verifyAdminAuth } from '@/lib/utils/admin-auth';
+import { calculateWithholdingTax } from '@/lib/commission-tax';
 import { z } from 'zod';
 
 const getSupabase = () => {
@@ -299,6 +300,19 @@ export async function PATCH(
           const availableAt = new Date();
           availableAt.setDate(availableAt.getDate() + 14);
           updateData.commission_available_at = availableAt.toISOString();
+
+          // 源泉徴収：与在线单口径一致（按导游税务居住地计算），存 withholding 列；
+          // release 成熟时会扣除净额入 available_balance,避免线下单多发。
+          const { data: guideTax } = await supabase
+            .from('guides')
+            .select('tax_residency')
+            .eq('id', currentOrder.guide_id)
+            .single();
+          const isResident = guideTax?.tax_residency === 'resident';
+          const { withholdingAmount, withholdingRate } = calculateWithholdingTax(computedCommission, isResident);
+          updateData.withholding_tax_amount = withholdingAmount;
+          updateData.withholding_tax_rate = withholdingRate;
+
           offlineCommissionToCredit = computedCommission;
           offlineCommissionGuideId = currentOrder.guide_id as string;
         } else if (commissionAmount !== undefined) {
