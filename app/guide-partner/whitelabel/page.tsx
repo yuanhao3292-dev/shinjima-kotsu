@@ -180,6 +180,20 @@ const translations = {
     en: 'Enable for Free',
     ko: '무료로 활성화',
   },
+  currentPlan: {
+    ja: '現在ご利用中',
+    'zh-CN': '当前使用中',
+    'zh-TW': '當前使用中',
+    en: 'Currently Active',
+    ko: '현재 이용 중',
+  },
+  upgradeGold: {
+    ja: 'ゴールドにアップグレード',
+    'zh-CN': '升级金牌',
+    'zh-TW': '升級金牌',
+    en: 'Upgrade to Gold',
+    ko: '골드로 업그레이드',
+  },
   featureAllPages: {
     ja: '全ページ対応',
     'zh-CN': '全部页面',
@@ -1041,10 +1055,8 @@ export default function WhiteLabelSettingsPage() {
   }
 
   const isSubscribed = guide.subscription_status === 'active';
-  // 白标订阅按导游真实等级定价：初期合伙人(growth)免费包含,金牌(partner)¥4,980/月。
+  // 白标两个方案并列展示：初期合伙人(growth)免费包含,金牌(partner)¥4,980/月。
   const isPartnerTier = guide.subscription_tier === 'partner';
-  const planName = isPartnerTier ? t('planPartner', lang) : t('planGrowth', lang);
-  const planPriceLabel = isPartnerTier ? '¥4,980' : t('priceFree', lang);
 
   return (
     <div className="min-h-screen bg-zinc-50">
@@ -1156,43 +1168,69 @@ export default function WhiteLabelSettingsPage() {
             </div>
           </div>
 
-          {/* 当前等级对应的方案 */}
-          <div className={`p-5 rounded-lg border-2 transition ${
-            isSubscribed
-              ? 'border-zinc-900 bg-zinc-100'
-              : 'border-zinc-200'
-          }`}>
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="font-bold text-lg">{planName}</h3>
-              <span className="text-2xl font-bold">
-                {planPriceLabel}
-                {isPartnerTier && <span className="text-sm font-normal text-zinc-500">{t('perMonth', lang)}</span>}
-              </span>
-            </div>
-            {!isPartnerTier && (
+          {/* 两个方案并列:初期合伙人(免费) + 金牌合伙人(付费) */}
+          <div className="grid md:grid-cols-2 gap-4">
+            {/* 初期合伙人 — 免费 */}
+            <div className={`p-5 rounded-lg border-2 transition ${
+              isSubscribed && !isPartnerTier ? 'border-zinc-900 bg-zinc-100' : 'border-zinc-200'
+            }`}>
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="font-bold text-lg">{t('planGrowth', lang)}</h3>
+                <span className="text-2xl font-bold">{t('priceFree', lang)}</span>
+              </div>
               <p className="text-sm text-zinc-500 mb-3">{t('whitelabelIncludedFree', lang)}</p>
-            )}
-            <ul className="space-y-2 text-sm text-zinc-600 mb-4">
-              {(['featureAllPages', 'featureSubdomain', 'featureBrandName', 'featureContact', 'featureAnalytics'] as const).map((key) => (
-                <li key={key} className="flex items-center gap-2">
-                  <Check size={14} className="text-green-500" />
-                  {t(key, lang)}
-                </li>
-              ))}
-            </ul>
-            {!isSubscribed && (
-              <button
-                onClick={() => handleSubscribe('professional')}
-                disabled={subscribing}
-                className="w-full py-2 rounded-lg bg-zinc-900 text-white hover:bg-zinc-800 transition font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                {subscribing && <Loader2 size={16} className="animate-spin" />}
-                {subscribing ? t('processing', lang) : isPartnerTier ? t('subscribeNow', lang) : t('enableFree', lang)}
-              </button>
-            )}
+              <ul className="space-y-2 text-sm text-zinc-600 mb-4">
+                {(['featureAllPages', 'featureSubdomain', 'featureBrandName', 'featureContact', 'featureAnalytics'] as const).map((key) => (
+                  <li key={key} className="flex items-center gap-2">
+                    <Check size={14} className="text-green-500" />
+                    {t(key, lang)}
+                  </li>
+                ))}
+              </ul>
+              {isSubscribed && !isPartnerTier ? (
+                <div className="text-center text-sm text-zinc-500 py-2">{t('currentPlan', lang)}</div>
+              ) : (!isSubscribed && !isPartnerTier) ? (
+                <button
+                  onClick={() => handleSubscribe('professional')}
+                  disabled={subscribing}
+                  className="w-full py-2 rounded-lg bg-zinc-900 text-white hover:bg-zinc-800 transition font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                  {subscribing && <Loader2 size={16} className="animate-spin" />}
+                  {subscribing ? t('processing', lang) : t('enableFree', lang)}
+                </button>
+              ) : null}
+            </div>
+
+            {/* 金牌合伙人 — ¥4,980/月 */}
+            <div className={`p-5 rounded-lg border-2 transition ${
+              isSubscribed && isPartnerTier ? 'border-zinc-900 bg-zinc-100' : 'border-zinc-200'
+            }`}>
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="font-bold text-lg">{t('planPartner', lang)}</h3>
+                <span className="text-2xl font-bold">¥4,980<span className="text-sm font-normal text-zinc-500">{t('perMonth', lang)}</span></span>
+              </div>
+              <ul className="space-y-2 text-sm text-zinc-600 mb-4">
+                {(['featureAllPages', 'featureSubdomain', 'featureBrandName', 'featureContact', 'featureAnalytics'] as const).map((key) => (
+                  <li key={key} className="flex items-center gap-2">
+                    <Check size={14} className="text-green-500" />
+                    {t(key, lang)}
+                  </li>
+                ))}
+              </ul>
+              {isSubscribed && isPartnerTier ? (
+                <div className="text-center text-sm text-zinc-500 py-2">{t('currentPlan', lang)}</div>
+              ) : (
+                <button
+                  onClick={() => router.push('/guide-partner/subscription')}
+                  className="w-full py-2 rounded-lg border border-zinc-300 text-zinc-900 hover:bg-zinc-50 transition font-medium text-sm flex items-center justify-center gap-2"
+                >
+                  {t('upgradeGold', lang)}
+                </button>
+              )}
+            </div>
           </div>
 
-          {isSubscribed && (
+          {isSubscribed && isPartnerTier && (
             <div className="mt-4 pt-4 border-t border-zinc-200 space-y-3">
               <div className="flex items-center justify-between">
                 <p className="text-sm text-zinc-500">
