@@ -52,7 +52,7 @@ export default function TokushohoPage() {
                     label="旅行業務取扱管理者"
                     value={
                       <>
-                        員昊（Yun Hao）<br />
+                        邱千依<br />
                         <span className="text-sm text-neutral-500">
                           旅行業務取扱管理者とは、お客様の旅行を取り扱う営業所での取引に関する責任者です。
                           ご不明な点があればお気軽にお問い合わせください。
@@ -64,9 +64,9 @@ export default function TokushohoPage() {
                     label="旅行業保証金"
                     value={
                       <>
-                        <p>弁済業務保証金制度に基づき、全国旅行業協会（ANTA）に加入しております。</p>
+                        <p>弁済業務保証金制度に基づき、一般社団法人日本旅行業協会（JATA）に正会員として加入しております。</p>
                         <p className="text-sm text-neutral-500 mt-1">
-                          当社との取引により損害を被った場合、全国旅行業協会が弁済業務保証金から弁済を行います。
+                          当社との取引により損害を被った場合、日本旅行業協会（JATA）が弁済業務保証金から弁済を行います。
                         </p>
                       </>
                     }
