@@ -286,14 +286,14 @@ export default function ProductCenterPage() {
   const categorizedModules = activeCategories.map((category) => ({
     category,
     modules: modules.filter(
-      (m) => m.component_key && category.moduleKeys.includes(m.component_key)
+      (m) => m.component_key && (category.moduleKeys as readonly string[]).includes(m.component_key)
     ),
   }));
 
   // 不属于任何分类的模块
   const allCategorizedKeys = PRODUCT_CATEGORIES.flatMap((c) => c.moduleKeys);
   const uncategorizedModules = modules.filter(
-    (m) => !m.component_key || !allCategorizedKeys.includes(m.component_key)
+    (m) => !m.component_key || !(allCategorizedKeys as readonly string[]).includes(m.component_key)
   );
 
   // 默认选中第一个有模块的分类
