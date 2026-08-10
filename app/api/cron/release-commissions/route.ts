@@ -36,15 +36,21 @@ export async function GET(request: NextRequest) {
   const supabase = getSupabaseAdmin();
 
   try {
-    const { data, error } = await supabase.rpc('release_all_matured_commissions');
-
-    if (error) {
-      console.error('[cron/release-commissions] RPC 失败:', error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
+    const { data: commissions, error: commErr } = await supabase.rpc('release_all_matured_commissions');
+    if (commErr) {
+      console.error('[cron/release-commissions] 佣金释放 RPC 失败:', commErr);
+      return NextResponse.json({ error: commErr.message }, { status: 500 });
     }
 
-    console.log('[cron/release-commissions] 释放结果:', JSON.stringify(data));
-    return NextResponse.json({ success: true, ...(data as object) });
+    // 到期推荐奖励释放进推荐人可提现余额
+    const { data: referrals, error: refErr } = await supabase.rpc('release_all_matured_referral_rewards');
+    if (refErr) {
+      // 佣金已成功释放,推荐奖励失败不整体报错,仅记日志
+      console.error('[cron/release-commissions] 推荐奖励释放 RPC 失败:', refErr);
+    }
+
+    console.log('[cron/release-commissions] 释放结果:', JSON.stringify({ commissions, referrals }));
+    return NextResponse.json({ success: true, commissions, referrals });
   } catch (err) {
     console.error('[cron/release-commissions] 异常:', err);
     return NextResponse.json({ error: 'Internal error' }, { status: 500 });
