@@ -13,7 +13,7 @@ import IGTCContent from '@/app/igtc/IGTCContent';
 import OsakaHimakContent from '@/app/osaka-himak/OsakaHimakContent';
 import KindaiHospitalContent from '@/app/kindai-hospital/KindaiHospitalContent';
 import { getSaiClinicImages } from '@/lib/services/sai-clinic-images';
-import { SUPPORTED_COMPONENT_KEY_SET } from '@/lib/config/product-categories';
+import { isSupportedComponentKey } from '@/lib/config/product-categories';
 
 interface PageProps {
   params: Promise<{ slug: string; moduleSlug: string }>;
@@ -24,14 +24,20 @@ function toComponentKey(urlSlug: string): string {
   return urlSlug.replace(/-/g, '_');
 }
 
+/** 穷尽性保障:新增 SupportedComponentKey 却漏写 switch case,会在此处编译报错 */
+function assertNever(_key: never): never {
+  notFound();
+}
+
 
 export default async function ModuleDetailPage({ params }: PageProps) {
   const { slug, moduleSlug } = await params;
   const componentKey = toComponentKey(moduleSlug);
 
-  if (!SUPPORTED_COMPONENT_KEY_SET.has(componentKey)) {
+  if (!isSupportedComponentKey(componentKey)) {
     notFound();
   }
+  // 此后 componentKey 已窄化为 SupportedComponentKey,下方 switch 做穷尽检查
 
   // 验证导游已选择此模块
   const result = await getGuideModuleByComponentKey(slug, componentKey);
@@ -81,7 +87,7 @@ export default async function ModuleDetailPage({ params }: PageProps) {
       return <OsakaHimakContent isGuideEmbed guideSlug={slug} />;
 
     default:
-      notFound();
+      return assertNever(componentKey);
   }
 }
 

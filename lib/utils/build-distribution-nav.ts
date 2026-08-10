@@ -5,7 +5,7 @@
 import type { NavItem } from '@/components/distribution/DistributionNav';
 import type { SelectedModuleWithDetails } from '@/lib/types/whitelabel';
 import type { ImmersiveDisplayConfig } from '@/lib/types/display-config';
-import { SUPPORTED_COMPONENT_KEY_SET } from '@/lib/config/product-categories';
+import { isSupportedComponentKey, type SupportedComponentKey } from '@/lib/config/product-categories';
 
 /** 多语言 label 类型 */
 type MultiLabel = Record<string, string>;
@@ -21,7 +21,7 @@ const HOME_LABEL: MultiLabel = {
 };
 
 /** 模块名 fallback 映射（多语言，优先级：customTitle > navLabel > MODULE_LABELS > module.name） */
-const MODULE_LABELS: Record<string, MultiLabel> = {
+const MODULE_LABELS: Record<SupportedComponentKey, MultiLabel> = {
   medical_packages:  { ja: '精密健康診断', 'zh-CN': '精密体检', 'zh-TW': '精密體檢', en: 'Health Screening' },
   hyogo_medical:     { ja: '兵庫医科大学病院', 'zh-CN': '兵库医科大学医院', 'zh-TW': '兵庫醫科大學醫院', en: 'Hyogo Medical University Hospital' },
   kindai_hospital:   { ja: '近畿大学病院', 'zh-CN': '近畿大学医院', 'zh-TW': '近畿大學醫院', en: 'Kindai University Hospital' },
@@ -53,7 +53,7 @@ export function buildDistributionNavItems(
 
   selectedModules.forEach((m) => {
     const key = m.module.componentKey;
-    if (key && SUPPORTED_COMPONENT_KEY_SET.has(key)) {
+    if (key && isSupportedComponentKey(key)) {
       const dc = m.module.displayConfig as ImmersiveDisplayConfig | null;
       navItems.push({
         id: key,
