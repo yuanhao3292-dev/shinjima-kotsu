@@ -1021,6 +1021,8 @@ async function calculateAndRecordCommission(
         reward_rate: 0.02,
         reward_amount: referralRewardAmount,
         status: 'pending',
+        // 推荐奖励与被推荐人订单佣金同期成熟(14天),到期由 cron 释放进推荐人可提现余额
+        available_at: commissionAvailableAt,
       }, { onConflict: 'booking_id', ignoreDuplicates: true });
 
     if (rewardError) {
