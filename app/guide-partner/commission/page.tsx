@@ -8,11 +8,8 @@ import GuideSidebar from '@/components/guide-partner/GuideSidebar';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
   Store,
-  Calendar,
   Wallet,
   Users,
-  TrendingUp,
-  TrendingDown,
   Clock,
   CheckCircle2,
   Loader2,
@@ -613,30 +610,6 @@ const dateLocaleMap: Record<Language, string> = {
 };
 
 // ─── Interfaces ──────────────────────────────────────────────────────
-interface Settlement {
-  id: string;
-  settlement_month: string;
-  total_bookings: number;
-  total_spend: number;
-  total_commission: number;
-  status: string;
-  payment_method: string | null;
-  paid_at: string | null;
-}
-
-interface CommissionRecord {
-  id: string;
-  customer_name: string;
-  booking_date: string;
-  actual_spend: number;
-  commission_amount: number;
-  commission_status: string;
-  venue: {
-    name: string;
-    city: string;
-  } | null;
-}
-
 interface WhitelabelCommission {
   id: string;
   order_type: string;
@@ -678,20 +651,16 @@ interface ReferralReward {
 interface Stats {
   totalEarned: number;
   pendingAmount: number;
-  thisMonthAmount: number;
-  lastMonthAmount: number;
   referralPending: number;
   referralTotal: number;
 }
 
 export default function CommissionPage() {
   const [stats, setStats] = useState<Stats | null>(null);
-  const [settlements, setSettlements] = useState<Settlement[]>([]);
-  const [recentCommissions, setRecentCommissions] = useState<CommissionRecord[]>([]);
   const [whitelabelCommissions, setWhitelabelCommissions] = useState<WhitelabelCommission[]>([]);
   const [referralRewards, setReferralRewards] = useState<ReferralReward[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'overview' | 'whitelabel' | 'referrals' | 'history'>('overview');
+  const [activeTab, setActiveTab] = useState<'whitelabel' | 'referrals'>('whitelabel');
   const [commissionRate, setCommissionRate] = useState<number>(10);
   const [tierName, setTierName] = useState<'tierGold' | 'tierInitial'>('tierInitial');
   const router = useRouter();
@@ -730,36 +699,6 @@ export default function CommissionPage() {
       const isGold = guide.commission_tier_code === 'gold';
       setCommissionRate(isGold ? 20 : 10);
       setTierName(isGold ? 'tierGold' : 'tierInitial');
-
-      const { data: settlementsData } = await supabase
-        .from('commission_settlements')
-        .select('*')
-        .eq('guide_id', guide.id)
-        .order('settlement_month', { ascending: false });
-
-      setSettlements(settlementsData || []);
-
-      const { data: commissionsData } = await supabase
-        .from('bookings')
-        .select(`
-          id,
-          customer_name,
-          booking_date,
-          actual_spend,
-          commission_amount,
-          commission_status,
-          venue:venues(name, city)
-        `)
-        .eq('guide_id', guide.id)
-        .not('commission_amount', 'is', null)
-        .order('completed_at', { ascending: false })
-        .limit(10);
-
-      const transformedCommissions = (commissionsData || []).map(c => ({
-        ...c,
-        venue: Array.isArray(c.venue) ? c.venue[0] : c.venue
-      })) as CommissionRecord[];
-      setRecentCommissions(transformedCommissions);
 
       const { data: wlCommissions } = await supabase
         .from('white_label_orders')
@@ -801,22 +740,6 @@ export default function CommissionPage() {
       }) as ReferralReward[];
       setReferralRewards(transformedRewards);
 
-      const now = new Date();
-      const thisMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-      const lastMonthDate = new Date(now.getFullYear(), now.getMonth() - 1);
-      const lastMonthStr = `${lastMonthDate.getFullYear()}-${String(lastMonthDate.getMonth() + 1).padStart(2, '0')}`;
-
-      const thisMonthSettlement = settlementsData?.find(s => s.settlement_month === thisMonth);
-      const lastMonthSettlement = settlementsData?.find(s => s.settlement_month === lastMonthStr);
-
-      const { data: pendingBookings } = await supabase
-        .from('bookings')
-        .select('commission_amount')
-        .eq('guide_id', guide.id)
-        .eq('commission_status', 'calculated');
-
-      const pendingAmount = pendingBookings?.reduce((sum, b) => sum + (b.commission_amount || 0), 0) || 0;
-
       const referralPending = transformedRewards
         .filter(r => r.status === 'pending')
         .reduce((sum, r) => sum + (r.reward_amount || 0), 0);
@@ -825,9 +748,7 @@ export default function CommissionPage() {
 
       setStats({
         totalEarned: guide.total_commission || 0,
-        pendingAmount: pendingAmount + referralPending,
-        thisMonthAmount: thisMonthSettlement?.total_commission || 0,
-        lastMonthAmount: lastMonthSettlement?.total_commission || 0,
+        pendingAmount: referralPending,
         referralPending,
         referralTotal,
       });
@@ -836,24 +757,6 @@ export default function CommissionPage() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const getSettlementStatusBadge = (status: string) => {
-    const styles: Record<string, string> = {
-      pending: 'bg-zinc-100 text-zinc-600',
-      confirmed: 'bg-amber-50 text-amber-800',
-      paid: 'bg-green-100 text-green-700',
-    };
-    const labels: Record<string, string> = {
-      pending: t('statusPending', lang),
-      confirmed: t('statusConfirmed', lang),
-      paid: t('statusPaid', lang),
-    };
-    return (
-      <span className={`px-2 py-1 rounded-md text-xs font-medium ${styles[status] || styles.pending}`}>
-        {labels[status] || status}
-      </span>
-    );
   };
 
   const getCommissionStatusBadge = (status: string, availableAt?: string | null) => {
@@ -893,14 +796,6 @@ export default function CommissionPage() {
         {labels[status] || status}
       </span>
     );
-  };
-
-  const formatMonth = (monthStr: string) => {
-    const [year, month] = monthStr.split('-');
-    if (lang === 'ja') return `${year}年${parseInt(month)}月`;
-    if (lang === 'zh-CN' || lang === 'zh-TW') return `${year}年${parseInt(month)}月`;
-    if (lang === 'ko') return `${year}년${parseInt(month)}월`;
-    return `${year}/${parseInt(month)}`;
   };
 
   const exportToCSV = () => {
@@ -979,7 +874,7 @@ export default function CommissionPage() {
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
             <div className="bg-zinc-900 p-6 text-white rounded-xl border border-zinc-900 shadow-sm">
               <div className="flex items-center gap-2 mb-2">
                 <Wallet size={20} />
@@ -994,22 +889,6 @@ export default function CommissionPage() {
                 <span className="text-sm text-zinc-500">{t('pendingSettlement', lang)}</span>
               </div>
               <p className="text-2xl font-bold tracking-tight text-zinc-900">¥{(stats?.pendingAmount || 0).toLocaleString()}</p>
-            </div>
-
-            <div className="bg-white p-6 rounded-xl border border-zinc-200 shadow-sm">
-              <div className="flex items-center gap-2 mb-2">
-                <TrendingUp size={20} className="text-zinc-400" />
-                <span className="text-sm text-zinc-500">{t('thisMonth', lang)}</span>
-              </div>
-              <p className="text-2xl font-bold tracking-tight text-zinc-900">¥{(stats?.thisMonthAmount || 0).toLocaleString()}</p>
-            </div>
-
-            <div className="bg-white p-6 rounded-xl border border-zinc-200 shadow-sm">
-              <div className="flex items-center gap-2 mb-2">
-                <TrendingDown size={20} className="text-zinc-400" />
-                <span className="text-sm text-zinc-500">{t('lastMonth', lang)}</span>
-              </div>
-              <p className="text-2xl font-bold tracking-tight text-zinc-900">¥{(stats?.lastMonthAmount || 0).toLocaleString()}</p>
             </div>
           </div>
 
@@ -1063,16 +942,6 @@ export default function CommissionPage() {
           {/* Tabs */}
           <div className="flex gap-2 mb-6">
             <button
-              onClick={() => setActiveTab('overview')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-                activeTab === 'overview'
-                  ? 'bg-zinc-900 text-white'
-                  : 'bg-white text-zinc-700 hover:bg-zinc-50 border border-zinc-200'
-              }`}
-            >
-              {t('tabStoreCommission', lang)}
-            </button>
-            <button
               onClick={() => setActiveTab('whitelabel')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                 activeTab === 'whitelabel'
@@ -1092,62 +961,10 @@ export default function CommissionPage() {
             >
               {t('tabReferrals', lang)}
             </button>
-            <button
-              onClick={() => setActiveTab('history')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-                activeTab === 'history'
-                  ? 'bg-zinc-900 text-white'
-                  : 'bg-white text-zinc-700 hover:bg-zinc-50 border border-zinc-200'
-              }`}
-            >
-              {t('tabMonthlySettlement', lang)}
-            </button>
           </div>
 
           {/* Content */}
-          {activeTab === 'overview' ? (
-            <div className="bg-white rounded-xl border border-zinc-200 shadow-sm overflow-hidden">
-              <div className="p-4 border-b border-zinc-200">
-                <h2 className="font-semibold font-sans text-zinc-900">{t('storeCommissionRecords', lang)}</h2>
-              </div>
-
-              {recentCommissions.length > 0 ? (
-                <div className="divide-y divide-zinc-100">
-                  {recentCommissions.map((record) => (
-                    <div key={record.id} className="p-4 flex items-center justify-between hover:bg-zinc-50">
-                      <div>
-                        <p className="font-medium text-zinc-900">{record.customer_name}</p>
-                        <p className="text-sm text-zinc-500">
-                          {record.venue?.name} · {record.venue?.city}
-                        </p>
-                        <p className="text-xs text-zinc-400 mt-1">{record.booking_date}</p>
-                      </div>
-                      <div className="text-right">
-                        {getCommissionStatusBadge(record.commission_status)}
-                        <p className="font-bold tracking-tight text-green-700 mt-1">
-                          +¥{record.commission_amount?.toLocaleString()}
-                        </p>
-                        <p className="text-xs text-zinc-400">
-                          {t('spend', lang)} ¥{record.actual_spend?.toLocaleString()}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="p-12 text-center text-zinc-500">
-                  <Wallet className="w-12 h-12 mx-auto mb-4 text-zinc-300" />
-                  <p>{t('noCommissionRecords', lang)}</p>
-                  <Link
-                    href="/guide-partner/venues"
-                    className="inline-block mt-4 text-zinc-500 font-medium hover:underline"
-                  >
-                    {t('startBookingToEarn', lang)}
-                  </Link>
-                </div>
-              )}
-            </div>
-          ) : activeTab === 'whitelabel' ? (
+          {activeTab === 'whitelabel' ? (
             <div className="bg-white rounded-xl border border-zinc-200 shadow-sm overflow-hidden">
               <div className="p-4 border-b border-zinc-200 flex items-center justify-between">
                 <div>
@@ -1230,7 +1047,7 @@ export default function CommissionPage() {
                 </div>
               )}
             </div>
-          ) : activeTab === 'referrals' ? (
+          ) : (
             <div className="bg-white rounded-xl border border-zinc-200 shadow-sm overflow-hidden">
               <div className="p-4 border-b border-zinc-200">
                 <div className="flex items-center justify-between">
@@ -1298,44 +1115,6 @@ export default function CommissionPage() {
                   >
                     {t('viewMyReferralCode', lang)}
                   </Link>
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="bg-white rounded-xl border border-zinc-200 shadow-sm overflow-hidden">
-              <div className="p-4 border-b border-zinc-200">
-                <h2 className="font-semibold font-sans text-zinc-900">{t('monthlySettlementRecords', lang)}</h2>
-              </div>
-
-              {settlements.length > 0 ? (
-                <div className="divide-y divide-zinc-100">
-                  {settlements.map((settlement) => (
-                    <div key={settlement.id} className="p-4 flex items-center justify-between hover:bg-zinc-50">
-                      <div>
-                        <p className="font-medium text-zinc-900">{formatMonth(settlement.settlement_month)}</p>
-                        <p className="text-sm text-zinc-500">
-                          {settlement.total_bookings} {t('ordersCount', lang)} · {t('totalSpend', lang)} ¥{settlement.total_spend?.toLocaleString()}
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        {getSettlementStatusBadge(settlement.status)}
-                        <p className="font-bold tracking-tight text-green-700 mt-1">
-                          ¥{settlement.total_commission?.toLocaleString()}
-                        </p>
-                        {settlement.paid_at && (
-                          <p className="text-xs text-zinc-400">
-                            {new Date(settlement.paid_at).toLocaleDateString(dateLocaleMap[lang])} {t('paidOn', lang)}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="p-12 text-center text-zinc-500">
-                  <Calendar className="w-12 h-12 mx-auto mb-4 text-zinc-300" />
-                  <p>{t('noSettlementRecords', lang)}</p>
-                  <p className="text-sm mt-2">{t('monthlySettlementNote', lang)}</p>
                 </div>
               )}
             </div>
