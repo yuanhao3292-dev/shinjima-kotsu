@@ -8,6 +8,7 @@ import {
   isValidSlug,
 } from '@/lib/whitelabel-config';
 import { classifyUserAgent, type BotClassification } from '@/lib/utils/bot-detection';
+import { SUPPORTED_MODULE_PATHS } from '@/lib/config/product-categories';
 import {
   checkRateLimit,
   getClientIp,
@@ -259,15 +260,8 @@ export async function middleware(request: NextRequest) {
   // 2.5 白标域名上的裸模块页面 → 重定向到 /g/{slug}/ 白标路由
   //     checkout 子页面 → 补充 ?guide= 参数（用于返回链接）
   if (isWhiteLabelDomain) {
-    const WHITELABEL_MODULE_PATHS = new Set([
-      'hyogo-medical', 'kindai-hospital', 'cancer-treatment', 'medical-packages',
-      'sai-clinic', 'wclinic-mens', 'helene-clinic',
-      'ginza-phoenix', 'cell-medicine', 'ac-plus', 'igtc',
-      'osaka-himak',
-    ]);
-
     const firstSegment = pathname.split('/')[1];
-    if (firstSegment && WHITELABEL_MODULE_PATHS.has(firstSegment)) {
+    if (firstSegment && SUPPORTED_MODULE_PATHS.has(firstSegment)) {
       const slug = subdomainSlug || request.cookies.get(WHITELABEL_COOKIE_NAME)?.value;
       if (slug && isValidSlug(slug)) {
         const restOfPath = pathname.substring(1 + firstSegment.length); // '' 或 '/initial-consultation'

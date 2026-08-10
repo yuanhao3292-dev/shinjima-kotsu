@@ -34,9 +34,6 @@ export const MODULE_DETAIL_ROUTES: Record<string, string> = {
   cell_medicine: '/cell-medicine',
   ac_plus: '/ac-plus',
   igtc: '/igtc',
-  oici: '/oici',
-  golf: '/business/golf',
-  medical_tourism: '/business/medical',
 };
 
 export const PRODUCT_CATEGORIES: ProductCategory[] = [
@@ -85,6 +82,34 @@ export const PRODUCT_CATEGORIES: ProductCategory[] = [
     sortOrder: 4,
   },
 ];
+
+/**
+ * 白标支持详情页的模块 component_key —— 单一数据源 (SSOT)。
+ * 由 PRODUCT_CATEGORIES.moduleKeys 派生。g/[slug] 首页 / 导航 / 详情页 /
+ * 体检结果页 以及 middleware 全部从这里 import,避免多处硬编码白名单漂移。
+ *
+ * 新增模块:在对应分类的 moduleKeys 加入 key,并补齐各 per-key 映射
+ * (build-distribution-nav 的 MODULE_LABELS、g/[slug]/page 的 DETAIL_PAGE_HERO_IMAGES、
+ *  [moduleSlug]/page 的详情组件 switch)。成员白名单会自动同步,无需再逐处修改。
+ */
+export const SUPPORTED_COMPONENT_KEYS: string[] = Array.from(
+  new Set(PRODUCT_CATEGORIES.flatMap((c) => c.moduleKeys)),
+);
+
+/** SUPPORTED_COMPONENT_KEYS 的 Set 形式,供 .has() 成员判断 */
+export const SUPPORTED_COMPONENT_KEY_SET: ReadonlySet<string> = new Set(
+  SUPPORTED_COMPONENT_KEYS,
+);
+
+/** component_key(下划线) → URL slug(连字符):medical_packages → medical-packages */
+export function toModuleUrlSlug(componentKey: string): string {
+  return componentKey.replace(/_/g, '-');
+}
+
+/** 白标模块的 URL 路径段(连字符形式)集合,供 middleware 路由匹配 */
+export const SUPPORTED_MODULE_PATHS: ReadonlySet<string> = new Set(
+  SUPPORTED_COMPONENT_KEYS.map(toModuleUrlSlug),
+);
 
 /**
  * 获取有模块的活跃分类（空分类自动隐藏）

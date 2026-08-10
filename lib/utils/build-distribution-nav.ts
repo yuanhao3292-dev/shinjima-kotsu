@@ -5,6 +5,7 @@
 import type { NavItem } from '@/components/distribution/DistributionNav';
 import type { SelectedModuleWithDetails } from '@/lib/types/whitelabel';
 import type { ImmersiveDisplayConfig } from '@/lib/types/display-config';
+import { SUPPORTED_COMPONENT_KEY_SET } from '@/lib/config/product-categories';
 
 /** 多语言 label 类型 */
 type MultiLabel = Record<string, string>;
@@ -13,14 +14,6 @@ type MultiLabel = Record<string, string>;
 function toUrlSlug(componentKey: string): string {
   return componentKey.replace(/_/g, '-');
 }
-
-/** 支持详情页的 component_key 白名单（必须与 page_modules 表一致） */
-const DETAIL_MODULES = new Set([
-  'medical_packages', 'hyogo_medical', 'kindai_hospital', 'cancer_treatment',
-  'sai_clinic', 'wclinic_mens',
-  'helene_clinic', 'ginza_phoenix', 'cell_medicine', 'ac_plus', 'igtc',
-  'osaka_himak',
-]);
 
 /** 首页 label（多语言） */
 const HOME_LABEL: MultiLabel = {
@@ -60,7 +53,7 @@ export function buildDistributionNavItems(
 
   selectedModules.forEach((m) => {
     const key = m.module.componentKey;
-    if (key && DETAIL_MODULES.has(key)) {
+    if (key && SUPPORTED_COMPONENT_KEY_SET.has(key)) {
       const dc = m.module.displayConfig as ImmersiveDisplayConfig | null;
       navItems.push({
         id: key,

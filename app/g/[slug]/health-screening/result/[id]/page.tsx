@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { getGuideDistributionPage } from '@/lib/services/whitelabel';
 import type { ImmersiveDisplayConfig } from '@/lib/types/display-config';
 import WhitelabelResultClient from './WhitelabelResultClient';
+import { SUPPORTED_COMPONENT_KEY_SET } from '@/lib/config/product-categories';
 
 interface PageProps {
   params: Promise<{ slug: string; id: string }>;
@@ -12,13 +13,6 @@ function toUrlSlug(componentKey: string): string {
   return componentKey.replace(/_/g, '-');
 }
 
-/** 有详情页的模块（须与 g/[slug]/page.tsx、build-distribution-nav.ts 的 DETAIL_MODULES 对齐） */
-const DETAIL_MODULES = new Set([
-  'medical_packages', 'hyogo_medical', 'kindai_hospital', 'cancer_treatment',
-  'sai_clinic', 'wclinic_mens',
-  'helene_clinic', 'ginza_phoenix', 'cell_medicine', 'ac_plus', 'igtc',
-  'osaka_himak',
-]);
 
 export default async function WhitelabelResultPage({ params }: PageProps) {
   const { slug, id } = await params;
@@ -33,7 +27,7 @@ export default async function WhitelabelResultPage({ params }: PageProps) {
 
   // 构建推荐服务列表（从导游选择的模块中提取）
   const recommendedServices = selectedModules
-    .filter((m) => m.module.componentKey && DETAIL_MODULES.has(m.module.componentKey))
+    .filter((m) => m.module.componentKey && SUPPORTED_COMPONENT_KEY_SET.has(m.module.componentKey))
     .map((m) => {
       const dc = m.module.displayConfig as ImmersiveDisplayConfig | null;
       return {

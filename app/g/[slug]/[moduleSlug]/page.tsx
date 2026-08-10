@@ -13,6 +13,7 @@ import IGTCContent from '@/app/igtc/IGTCContent';
 import OsakaHimakContent from '@/app/osaka-himak/OsakaHimakContent';
 import KindaiHospitalContent from '@/app/kindai-hospital/KindaiHospitalContent';
 import { getSaiClinicImages } from '@/lib/services/sai-clinic-images';
+import { SUPPORTED_COMPONENT_KEY_SET } from '@/lib/config/product-categories';
 
 interface PageProps {
   params: Promise<{ slug: string; moduleSlug: string }>;
@@ -23,27 +24,12 @@ function toComponentKey(urlSlug: string): string {
   return urlSlug.replace(/-/g, '_');
 }
 
-/** 所有支持详情页的 component_key（必须与 page_modules 表一致） */
-const SUPPORTED_KEYS = new Set([
-  'medical_packages',
-  'hyogo_medical',
-  'kindai_hospital',
-  'cancer_treatment',
-  'sai_clinic',
-  'wclinic_mens',
-  'helene_clinic',
-  'ginza_phoenix',
-  'cell_medicine',
-  'ac_plus',
-  'igtc',
-  'osaka_himak',
-]);
 
 export default async function ModuleDetailPage({ params }: PageProps) {
   const { slug, moduleSlug } = await params;
   const componentKey = toComponentKey(moduleSlug);
 
-  if (!SUPPORTED_KEYS.has(componentKey)) {
+  if (!SUPPORTED_COMPONENT_KEY_SET.has(componentKey)) {
     notFound();
   }
 
