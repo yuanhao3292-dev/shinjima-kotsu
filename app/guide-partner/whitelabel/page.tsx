@@ -941,7 +941,13 @@ export default function WhiteLabelSettingsPage() {
       const data = await response.json();
 
       if (data.url) {
+        // 付费等级:跳转 Stripe 结账
         window.location.href = data.url;
+      } else if (data.activated) {
+        // 免费等级:后端已直接激活,刷新数据进入已订阅状态,不跳转付费页
+        await loadGuideData();
+        setShowSuccessModal(true);
+        setSubscribing(false);
       } else {
         setMessage({ type: 'error', text: data.error || t('errSubscriptionFailed', lang) });
         setSubscribing(false);

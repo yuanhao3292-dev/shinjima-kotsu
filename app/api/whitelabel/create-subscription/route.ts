@@ -123,6 +123,26 @@ export async function POST(request: NextRequest) {
     const pricing = TIER_PRICING[tier];
     const stripePriceId = tier === 'partner' ? PARTNER_PRICE_ID : GROWTH_PRICE_ID;
 
+    // 免费等级(初期合伙人 growth,月费 ¥0):直接激活白标,不走 Stripe 付费流程。
+    // 否则"免费启用"会跳到 Stripe 付款页,与免费定位矛盾。
+    if (tier !== 'partner') {
+      const { error: activateError } = await supabase
+        .from('guides')
+        .update({
+          subscription_status: 'active',
+          subscription_tier: 'growth',
+        })
+        .eq('id', guideId)
+        .eq('auth_user_id', user.id); // 数据隔离:仅激活本人
+
+      if (activateError) {
+        logError(normalizeError(activateError), { path: '/api/whitelabel/create-subscription', method: 'POST' });
+        return NextResponse.json({ error: '启用失败，请稍后重试' }, { status: 500 });
+      }
+
+      return NextResponse.json({ activated: true });
+    }
+
     // 创建 Checkout Session
     const sessionParams: Stripe.Checkout.SessionCreateParams = {
       customer: stripeCustomerId,
