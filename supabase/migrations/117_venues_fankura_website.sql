@@ -1,9 +1,10 @@
 -- =====================================================
 -- 117: venues 关联 fankura 店铺官网(详情页)链接
 -- =====================================================
--- 夜总会预约选店时可打开每家店的官网。venues 原本无官网列;各店官网即 fankura.com
--- 店铺详情页(https://www.fankura.com/shop/shop_key/<id>)。按店名匹配自 fankura 目录,
--- 136/149 家命中(其余 13 家当前 fankura 目录无对应页,留空,UI 不显示链接)。
+-- 夜总会预约选店时可打开每家店的官网。venues 原本无官网列。按店名匹配自 fankura 目录:
+-- 136 家用 fankura 店铺详情页(https://www.fankura.com/shop/shop_key/<id>),
+-- 10 家 fankura 链到其独立官网的则直接用真官网(http://...),合计 146/149 命中。
+-- 其余 3 家(エマクラブ 中洲 / D2 / メルセゾン)fankura 现目录已无,留空,UI 不显示链接。
 --
 -- ⚠️ 本项目无迁移自动跟踪,需手动在生产库执行本文件。
 
@@ -144,4 +145,19 @@ UPDATE venues SET website_url = 'https://www.fankura.com/shop/shop_key/20256' WH
 UPDATE venues SET website_url = 'https://www.fankura.com/shop/shop_key/10419' WHERE name = 'リブレット';
 UPDATE venues SET website_url = 'https://www.fankura.com/shop/shop_key/20169' WHERE name = 'ワールドトリップ 広島';
 UPDATE venues SET website_url = 'https://www.fankura.com/shop/shop_key/20081' WHERE name = 'ヴォレ 梅田';
+
+-- 另 10 家:fankura 目录里没有独立 shop_key 详情页,但链到了各店【自己的独立官网】,
+-- 直接用真官网(比 fankura 详情页更正)。这 10 家原在"未命中"名单里,现补齐。
+UPDATE venues SET website_url = 'http://www.osaka-merhen.jp/' WHERE name = '大阪メルヘン';
+UPDATE venues SET website_url = 'http://bloom-lounge.com/' WHERE name = 'カラオケ&ダイニング ブルームラウンジ';
+UPDATE venues SET website_url = 'http://bellebeige.com/' WHERE name = 'クラブ・ラウンジ ベルベージュ';
+UPDATE venues SET website_url = 'http://club-kikyo.com/' WHERE name = 'クラブ桔梗 祇園邸';
+UPDATE venues SET website_url = 'http://www.club-chloris.com/' WHERE name = 'クロリス 六本木';
+UPDATE venues SET website_url = 'http://club-tsukinosou.com/' WHERE name = '月ノ湊';
+UPDATE venues SET website_url = 'http://www.doorlounge-n.com/' WHERE name = 'ドアラウンジ 北新地';
+UPDATE venues SET website_url = 'http://www.wine-bar-bb.com/' WHERE name = 'ビーノワール 六本木';
+UPDATE venues SET website_url = 'http://www.club-binoma.com/' WHERE name = '美ノ間 六本木';
+UPDATE venues SET website_url = 'http://room-lounge-dasyl.com/' WHERE name = 'ルームラウンジダジール';
+
+-- 仍未匹配(3 家,fankura 现目录已无):エマクラブ 中洲 / D2 / メルセゾン。website_url 留空。
 UPDATE venues SET website_url = 'https://www.fankura.com/shop/shop_key/20141' WHERE name = 'ヴォレ 京橋';
