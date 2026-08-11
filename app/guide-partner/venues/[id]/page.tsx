@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
+import PageMotion from '@/components/guide-partner/PageMotion';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
   generatePricingText,
@@ -313,7 +314,7 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
-        <div className="p-6 lg:p-8">
+        <PageMotion className="p-6 lg:p-8">
           {/* Back Button (Desktop) */}
           <Link
             href="/guide-partner/venues"
@@ -514,7 +515,7 @@ export default function VenueDetailPage({ params }: { params: Promise<{ id: stri
               </div>
             </div>
           </div>
-        </div>
+        </PageMotion>
       </main>
 
     </div>

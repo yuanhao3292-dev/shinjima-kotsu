@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
+import PageMotion from '@/components/guide-partner/PageMotion';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
   Store,
@@ -468,7 +469,7 @@ function NewBookingForm() {
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
-        <div className="p-6 lg:p-8 max-w-2xl">
+        <PageMotion className="p-6 lg:p-8 max-w-2xl">
           {/* Header */}
           <div className="mb-6">
             <Link
@@ -666,7 +667,7 @@ function NewBookingForm() {
               </button>
             </form>
           </div>
-        </div>
+        </PageMotion>
       </main>
 
     </div>

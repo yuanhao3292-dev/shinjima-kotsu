@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
+import PageMotion from '@/components/guide-partner/PageMotion';
 import { createClient } from '@/lib/supabase/client';
 import { DEFAULT_SELECTED_PAGES } from '@/lib/whitelabel-config';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
@@ -1124,7 +1125,7 @@ export default function WhiteLabelSettingsPage() {
       )}
 
       <main className="lg:ml-64 pt-16 lg:pt-0">
-        <div className="p-6 lg:p-8 space-y-8">
+        <PageMotion className="p-6 lg:p-8 space-y-8">
         {/* Header */}
         <div>
           <h1 className="text-2xl font-bold font-sans text-zinc-900">{t('headerTitle', lang)}</h1>
@@ -1538,7 +1539,7 @@ export default function WhiteLabelSettingsPage() {
             <li>• {t('legalLine5', lang)}</li>
           </ul>
         </div>
-        </div>
+        </PageMotion>
       </main>
     </div>
   );

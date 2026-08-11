@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
+import PageMotion from '@/components/guide-partner/PageMotion';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
   Store,
@@ -480,7 +481,7 @@ function BookingsContent() {
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
-        <div className="p-6 lg:p-8">
+        <PageMotion className="p-6 lg:p-8">
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
             <div>
@@ -643,7 +644,7 @@ function BookingsContent() {
               </Link>
             </div>
           )}
-        </div>
+        </PageMotion>
       </main>
 
     </div>

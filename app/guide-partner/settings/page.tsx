@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
+import PageMotion from '@/components/guide-partner/PageMotion';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
   Settings,
@@ -1157,7 +1158,7 @@ export default function SettingsPage() {
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
-        <div className="p-6 lg:p-8">
+        <PageMotion className="p-6 lg:p-8">
           {/* Header */}
           <div className="mb-6">
             <h1 className="text-2xl font-bold tracking-tight font-sans text-zinc-900">{t('pageTitle', lang)}</h1>
@@ -1718,7 +1719,7 @@ export default function SettingsPage() {
           <div className="mt-6 text-center text-sm text-zinc-400">
             {t('accountCreatedOn', lang)} {guide?.created_at ? new Date(guide.created_at).toLocaleDateString(dateLocaleMap[lang]) : ''}
           </div>
-        </div>
+        </PageMotion>
       </main>
 
       {/* KYC Success Modal */}
