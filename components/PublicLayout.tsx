@@ -303,7 +303,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
           {children}
         </main>
         {showFooter && (
-          <footer className="bg-gradient-to-b from-[#f8f6f3] to-[#f0ece6] text-gray-800">
+          <footer className="bg-white text-gray-800 border-t border-neutral-200">
             <div className="container mx-auto px-6 py-16">
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-6">
                 <div className="col-span-2">
@@ -557,7 +557,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
 
       {/* Footer - 日式专业设计 */}
       {showFooter && (
-        <footer className="bg-gradient-to-b from-[#f8f6f3] to-[#f0ece6] text-gray-800">
+        <footer className="bg-white text-gray-800 border-t border-neutral-200">
           {/* 主要内容区 */}
           <div className="container mx-auto px-6 py-16">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-6">
