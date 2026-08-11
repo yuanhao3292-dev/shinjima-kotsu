@@ -96,8 +96,8 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
       <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-zinc-200 z-50 flex items-center justify-between px-4">
         <div className="flex items-center gap-3">
           <div className="flex flex-col">
-            <span className="font-semibold text-base tracking-tight leading-none text-zinc-900">NIIJIMA</span>
-            <span className="text-[11px] leading-none mt-1 text-zinc-500">{ts('companyName', lang)}</span>
+            <span className="font-serif font-bold text-lg tracking-wide leading-none text-zinc-900">NIIJIMA</span>
+            <span className="text-[10px] uppercase tracking-widest leading-none mt-1 text-zinc-500">{ts('companyName', lang)}</span>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -117,8 +117,8 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
       >
         <div className="h-16 flex items-center gap-3 px-6 border-b border-zinc-200">
           <div className="flex flex-col">
-            <span className="font-semibold text-base tracking-tight leading-none text-zinc-900">NIIJIMA</span>
-            <span className="text-[11px] leading-none mt-1 text-zinc-500">{ts('companyName', lang)}</span>
+            <span className="font-serif font-bold text-lg tracking-wide leading-none text-zinc-900">NIIJIMA</span>
+            <span className="text-[10px] uppercase tracking-widest leading-none mt-1 text-zinc-500">{ts('companyName', lang)}</span>
           </div>
         </div>
 
