@@ -109,7 +109,7 @@ export default function FloatingContact() {
       {/* 微信二维码弹窗 */}
       {showWechatQR && (
         <div
-          className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4"
           onClick={() => setShowWechatQR(false)}
         >
           <div
@@ -159,7 +159,7 @@ export default function FloatingContact() {
       {/* LINE ID 弹窗（白标模式下显示 LINE ID，类似微信弹窗） */}
       {showLineId && (
         <div
-          className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4"
           onClick={() => setShowLineId(false)}
         >
           <div

@@ -83,7 +83,7 @@ export default function FloatingContact({ brandColor, contactInfo }: FloatingCon
       {/* 遮罩层 */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-30 bg-black/20"
+          className="fixed inset-0 z-30 bg-black/20 backdrop-blur-sm"
           onClick={() => setIsOpen(false)}
         />
       )}

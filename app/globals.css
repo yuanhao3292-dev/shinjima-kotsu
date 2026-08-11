@@ -475,3 +475,23 @@ body {
     transform: none;
   }
 }
+
+/* ── 主站(PublicLayout)统一「按压回弹」反馈 ──────────────────
+   与后台同理但更克制(scale 0.985,配合品牌质感)。作用域 .site-shell 内的
+   按钮与卡片式链接(带 rounded 的 a);保留 hover 过渡;尊重减弱动态。 */
+.site-shell button:not(:disabled),
+.site-shell a[class*="rounded"] {
+  transition-property: color, background-color, border-color, transform, box-shadow, opacity;
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  transition-duration: 200ms;
+}
+.site-shell button:not(:disabled):active,
+.site-shell a[class*="rounded"]:active {
+  transform: scale(0.985);
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-shell button:not(:disabled):active,
+  .site-shell a[class*="rounded"]:active {
+    transform: none;
+  }
+}
