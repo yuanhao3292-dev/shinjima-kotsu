@@ -313,8 +313,8 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
               <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 lg:gap-6">
                 <div className="col-span-2">
                   <div className="mb-4">
-                    <h3 className="text-xl font-serif tracking-[0.2em] mb-1 text-gray-800">NIIJIMA</h3>
-                    <p className="text-xs tracking-[0.1em] text-gray-500">新島交通株式会社</p>
+                    <h3 className="font-serif font-bold text-lg tracking-wide mb-1 text-gray-800">NIIJIMA</h3>
+                    <p className="text-[10px] uppercase tracking-widest text-gray-500">新島交通株式会社</p>
                   </div>
                   <p className="text-gray-600 text-sm leading-relaxed mb-4 max-w-[280px]">
                     尖端医疗，名门球场，商务资源——您的日本专属通道。
@@ -582,8 +582,8 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                     </div>
                   ) : (
                     <>
-                      <h3 className="text-xl font-serif tracking-[0.2em] mb-1 text-gray-800">NIIJIMA</h3>
-                      <p className="text-xs tracking-[0.1em] text-gray-500">{t.brand_sub}</p>
+                      <h3 className="font-serif font-bold text-lg tracking-wide mb-1 text-gray-800">NIIJIMA</h3>
+                      <p className="text-[10px] uppercase tracking-widest text-gray-500">{t.brand_sub}</p>
                     </>
                   )}
                 </div>
