@@ -1595,7 +1595,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
             ].map((img, i) => (
               <div key={i} className="relative aspect-[4/3] rounded-xl overflow-hidden group">
                 <Image src={img.src} fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt={img.label.en} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" quality={75} />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/46 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                   <span className="text-white text-sm font-medium">{img.label[lang]}</span>
                 </div>

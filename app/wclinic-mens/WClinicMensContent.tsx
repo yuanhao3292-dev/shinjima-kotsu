@@ -516,7 +516,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                       sizes="(max-width: 768px) 100vw, 50vw"
                       quality={75}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/18 to-transparent" />
                   </div>
                   <div className="p-6">
                     <h4 className="text-lg font-bold text-gray-900 font-serif mb-2">{service.title[lang]}</h4>
@@ -970,7 +970,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   sizes="(max-width: 768px) 100vw, 50vw"
                   quality={75}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/26 to-transparent" />
                 <div className="absolute bottom-4 left-4">
                   <span className="bg-[#293f58] text-white text-xs font-bold px-3 py-1.5 rounded-full">
                     {lang === 'ja' ? '梅田院' : lang === 'en' ? 'Umeda Clinic' : '梅田院'}
@@ -1014,7 +1014,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   sizes="(max-width: 768px) 100vw, 50vw"
                   quality={75}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/26 to-transparent" />
                 <div className="absolute bottom-4 left-4">
                   <span className="bg-[#293f58] text-white text-xs font-bold px-3 py-1.5 rounded-full">
                     {lang === 'ja' ? '北新地院（メンズヘルスケア外来）' : lang === 'en' ? 'Kitashinchi (Men\'s Healthcare)' : '北新地院（男性健康外来）'}

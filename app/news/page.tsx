@@ -258,7 +258,7 @@ export default function NewsPage() {
                       sizes="(max-width: 768px) 100vw, 50vw"
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/56 via-black/18 to-transparent" />
                   </div>
 
                   {/* 内容 */}

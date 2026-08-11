@@ -248,7 +248,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
       {/* ===== 1. HERO ===== */}
       <section className="relative min-h-[600px] md:min-h-[700px] flex items-center overflow-hidden">
         <img src={IMG.hero1} alt="Osaka Heavy Ion Therapy Center" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/46 via-black/32 to-transparent" />
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 w-full">
           <div className="max-w-2xl">
             <span className="inline-block bg-[#0056b3]/90 text-white text-sm font-semibold px-4 py-1 rounded-full mb-4">

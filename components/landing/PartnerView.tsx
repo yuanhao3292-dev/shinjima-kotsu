@@ -24,7 +24,7 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
            ) : (
              <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
            )}
-           <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-900/80 to-brand-900/70"></div>
+           <div className="absolute inset-0 bg-gradient-to-r from-brand-900/70 via-brand-900/56 to-brand-900/46"></div>
          </div>
          {/* Decorative Elements */}
          <div className="absolute inset-0">

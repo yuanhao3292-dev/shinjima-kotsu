@@ -507,7 +507,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                 <div className="space-y-4">
                   <div className="relative rounded-2xl overflow-hidden h-48 border border-white/10">
                     <Image src={heroGridImages[0]?.src || `${SAI}/topFvImg02.jpg`} alt={heroGridImages[0]?.alt || ''} fill className="object-cover" quality={75} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 text-white">
                       <div className="text-lg font-bold">15+</div>
                       <div className="text-[11px] text-gray-300">{t(TR.yearsExp, lang)}</div>
@@ -515,7 +515,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                   </div>
                   <div className="relative rounded-2xl overflow-hidden h-36 border border-white/10">
                     <Image src={galleryImages[2]?.src || `${SAI}/aboutGalleryImg3.jpg`} alt={galleryImages[2]?.alt || ''} fill className="object-cover" quality={75} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 text-white">
                       <div className="text-lg font-bold">JSAS</div>
                       <div className="text-[11px] text-gray-300">{t(TR.jsas, lang)}</div>
@@ -525,7 +525,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                 <div className="space-y-4 mt-8">
                   <div className="relative rounded-2xl overflow-hidden h-36 border border-white/10">
                     <Image src={conceptImages[0]?.src || `${SAI}/aboutConcept1.jpg`} alt={conceptImages[0]?.alt || ''} fill className="object-cover" quality={75} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 text-white">
                       <div className="text-lg font-bold">KAAS</div>
                       <div className="text-[11px] text-gray-300">{t(TR.kaas, lang)}</div>
@@ -533,7 +533,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                   </div>
                   <div className="relative rounded-2xl overflow-hidden h-48 border border-white/10">
                     <Image src={heroGridImages[1]?.src || `${SAI}/topFvImg03.jpg`} alt={heroGridImages[1]?.alt || ''} fill className="object-cover" quality={75} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 text-white">
                       <div className="text-lg font-bold">{t(TR.location, lang)}</div>
                       <div className="text-[11px] text-gray-300">{t(TR.umedaAccess, lang)}</div>
@@ -751,7 +751,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
               <div key={item.id} className={`relative overflow-hidden rounded-xl group ${i === 0 ? 'col-span-2 row-span-2' : ''}`}>
                 <div className={`relative ${i === 0 ? 'h-full min-h-[300px]' : 'h-48'}`}>
                   <Image src={item.src} alt={item.alt} fill className="object-cover group-hover:scale-105 transition-transform duration-500" quality={75} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/32 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   <div className="absolute bottom-3 left-3 text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">{item.label}</div>
                 </div>
               </div>
@@ -1029,7 +1029,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
             <div className="bg-gray-50 rounded-2xl overflow-hidden border border-gray-100">
               <div className="relative h-48">
                 <Image src={galleryEntrance?.src || `${SAI}/aboutGalleryImg8.jpg`} alt={galleryEntrance?.alt || 'SAI CLINIC 入口'} fill className="object-cover" quality={75} />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/26 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 flex items-center gap-2 bg-white/90 backdrop-blur px-3 py-1.5 rounded-full">
                   <MapPin size={14} className="text-rose-500" />
                   <span className="text-sm font-medium text-gray-800">梅田 YANMAR ビル B2F</span>
