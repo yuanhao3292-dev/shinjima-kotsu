@@ -291,7 +291,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
   // 白标模式下使用导游的 DistributionNav，保持全域导航一致
   if (isWhiteLabelMode && distributionNavItems && distributionNavItems.length > 0) {
     return (
-      <div className="min-h-screen bg-white text-neutral-800 font-sans selection:bg-brand-100 flex flex-col">
+      <div className="site-shell min-h-screen bg-white text-neutral-800 font-sans selection:bg-brand-100 flex flex-col">
         <DistributionNav
           brandName="NIIJIMA"
           brandTagline="新島交通株式会社"
@@ -370,7 +370,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
   }
 
   return (
-    <div className="min-h-screen bg-white text-neutral-800 font-sans selection:bg-brand-100 flex flex-col">
+    <div className="site-shell min-h-screen bg-white text-neutral-800 font-sans selection:bg-brand-100 flex flex-col">
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isTransparent ? 'bg-transparent' : 'bg-white shadow-sm'

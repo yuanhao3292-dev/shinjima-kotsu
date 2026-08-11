@@ -279,7 +279,7 @@ export default function PackageRecommender({ onClose, onSelectPackage }: Package
 
   if (showResult && recommendation) {
     return (
-      <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden animate-fade-in">
           {/* Header */}
           <div className="bg-gradient-to-br from-indigo-600 to-blue-700 text-white p-8 text-center relative">
@@ -349,7 +349,7 @@ export default function PackageRecommender({ onClose, onSelectPackage }: Package
   const QuestionIcon = currentQuestion.icon;
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden">
         {/* Progress Bar */}
         <div className="h-1 bg-gray-100">
