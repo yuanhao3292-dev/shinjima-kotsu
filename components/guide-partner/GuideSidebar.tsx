@@ -49,6 +49,14 @@ const sidebarTranslations = {
     en: 'Guide Dashboard',
     ko: '가이드 대시보드',
   },
+  // logo 副标题:与主站(PublicLayout brand_sub)保持一致的公司名
+  companyName: {
+    ja: '新島交通株式会社',
+    'zh-CN': '新岛交通株式会社',
+    'zh-TW': '新島交通株式會社',
+    en: 'Niijima Kotsu Co., Ltd.',
+    ko: '니지마 교통 주식회사',
+  },
   logout: {
     ja: 'ログアウト',
     'zh-CN': '退出登录',
@@ -89,7 +97,7 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
         <div className="flex items-center gap-3">
           <div className="flex flex-col">
             <span className="font-semibold text-base tracking-tight leading-none text-zinc-900">NIIJIMA</span>
-            <span className="text-[11px] leading-none mt-1 text-zinc-500">{pageTitle || ts('guideBackend', lang)}</span>
+            <span className="text-[11px] leading-none mt-1 text-zinc-500">{ts('companyName', lang)}</span>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -110,7 +118,7 @@ export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
         <div className="h-16 flex items-center gap-3 px-6 border-b border-zinc-200">
           <div className="flex flex-col">
             <span className="font-semibold text-base tracking-tight leading-none text-zinc-900">NIIJIMA</span>
-            <span className="text-[11px] leading-none mt-1 text-zinc-500">{ts('guideBackend', lang)}</span>
+            <span className="text-[11px] leading-none mt-1 text-zinc-500">{ts('companyName', lang)}</span>
           </div>
         </div>
 
