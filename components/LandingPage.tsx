@@ -255,7 +255,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
           )}
           {/* 温暖的渐变，类似高尔夫板块但用蓝绿色调 */}
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/90 via-brand-900/70 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/66 via-brand-900/46 to-transparent"></div>
         </div>
 
         <div className="relative container mx-auto px-6 py-12 md:py-24 py-24 reveal-on-scroll">
@@ -366,7 +366,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
           )}
           {/* 深蓝色渐变，传达专业、希望 */}
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/90 via-brand-900/70 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/66 via-brand-900/46 to-transparent"></div>
         </div>
 
         <div className="relative container mx-auto px-6 py-12 md:py-24 py-24 reveal-on-scroll">
@@ -479,7 +479,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           ) : (
             <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
           )}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/56 via-black/32 to-transparent"></div>
         </div>
 
         <div className="relative container mx-auto px-6 py-12 md:py-24 py-24 reveal-on-scroll">
@@ -737,7 +737,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
           )}
           {/* 深紫色渐变，传达高端、信任 */}
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/90 via-brand-900/70 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/66 via-brand-900/46 to-transparent"></div>
         </div>
 
         <div className="relative container mx-auto px-6 py-12 md:py-24 py-24 reveal-on-scroll">

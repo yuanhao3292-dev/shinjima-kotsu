@@ -8,29 +8,33 @@
   --font-sans: var(--font-noto-sans-jp), 'Noto Sans JP', sans-serif;
   --font-serif: var(--font-shippori-mincho), 'Shippori Mincho', serif;
 
-  /* Brand Navy — 所有深色背景、Hero 遮罩的统一底色 */
-  --color-brand-50: #f0f4f8;
-  --color-brand-100: #d9e2ec;
-  --color-brand-200: #bcccdc;
-  --color-brand-300: #9fb3c8;
-  --color-brand-400: #829ab1;
-  --color-brand-500: #627d98;
-  --color-brand-600: #486581;
-  --color-brand-700: #334e68;
-  --color-brand-800: #243b53;
-  --color-brand-900: #102a43;
+  /* Brand 藍 (Ai) — 日本传统藍色系。取代原冷调企业蓝灰 (#102a43)：
+     原色板是通用「AI 高端模板」的默认冷蓝，观感生硬；藍色偏青、更暖，
+     是日本本土配色语汇，也与医疗青(medical)自然衔接。 */
+  --color-brand-50: #f3f9fb;
+  --color-brand-100: #e3eff4;
+  --color-brand-200: #c0dce8;
+  --color-brand-300: #92c3d6;
+  --color-brand-400: #63a5bf;
+  --color-brand-500: #3d89a8;
+  --color-brand-600: #2a6f8f;
+  --color-brand-700: #1e5975;
+  --color-brand-800: #17475f;
+  --color-brand-900: #12384c;
 
-  /* Gold Accent — 品牌强调色，与高尔夫 #D4AF37 统一 */
-  --color-gold-50: #fdf8ec;
-  --color-gold-100: #faefc9;
-  --color-gold-200: #f5dfa0;
-  --color-gold-300: #ecc968;
-  --color-gold-400: #d4af37;
-  --color-gold-500: #b8960b;
-  --color-gold-600: #9a7b09;
-  --color-gold-700: #7c6207;
-  --color-gold-800: #5e4a06;
-  --color-gold-900: #403204;
+  /* Gold Accent — 由高亮金属金 (#d4af37) 降为柔和金茶/真鍮。
+     金属金是「AI 奢华」最强的模板信号；金茶更接近日本传统「金茶色」，
+     用作点睛而非全站装饰。 */
+  --color-gold-50: #fbf7ee;
+  --color-gold-100: #f5ebd4;
+  --color-gold-200: #ebd9af;
+  --color-gold-300: #dcc183;
+  --color-gold-400: #c9a55f;
+  --color-gold-500: #b08c45;
+  --color-gold-600: #8f7038;
+  --color-gold-700: #6e562b;
+  --color-gold-800: #4e3d1f;
+  --color-gold-900: #2f2512;
 
   /* Medical Teal — 医疗板块标识色 */
   --color-medical-50: #f0fdfa;

@@ -105,7 +105,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
         )}
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-900/70 via-brand-800/60 to-brand-900/46"></div>
       </div>
       {/* Decorative Elements */}
       <div className="absolute inset-0 pointer-events-none">
@@ -225,7 +225,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       sizes="(max-width: 768px) 100vw, 50vw"
                       quality={75}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/95 via-brand-900/50 to-brand-900/20"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/70 via-brand-900/32 to-brand-900/12"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                       <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_ct_t}</h4>
                       <p className="text-base text-white/80 leading-relaxed">{t.medical.tech_ct_d}</p>
@@ -241,7 +241,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       sizes="(max-width: 768px) 100vw, 50vw"
                       quality={75}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/95 via-brand-900/50 to-brand-900/20"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/70 via-brand-900/32 to-brand-900/12"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                       <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_mri_t}</h4>
                       <p className="text-base text-white/80 leading-relaxed">{t.medical.tech_mri_d}</p>
@@ -261,7 +261,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       sizes="(max-width: 768px) 100vw, 50vw"
                       quality={75}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/95 via-brand-900/50 to-brand-900/20"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/70 via-brand-900/32 to-brand-900/12"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                       <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_endo_t}</h4>
                       <p className="text-base text-white/80 leading-relaxed">{t.medical.tech_endo_d}</p>
@@ -277,7 +277,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       sizes="(max-width: 768px) 100vw, 50vw"
                       quality={75}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/95 via-brand-900/50 to-brand-900/20"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/70 via-brand-900/32 to-brand-900/12"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                       <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_dental_t}</h4>
                       <p className="text-base text-white/80 leading-relaxed">{t.medical.tech_dental_d}</p>
@@ -301,7 +301,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   ) : (
                     <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/95 via-brand-900/50 to-brand-900/20"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/70 via-brand-900/32 to-brand-900/12"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                       <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.detail_echo_title}</h4>
                       <p className="text-base text-white/80 leading-relaxed">{t.medical.detail_echo_desc}</p>
@@ -321,7 +321,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   ) : (
                     <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/95 via-brand-900/50 to-brand-900/20"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/70 via-brand-900/32 to-brand-900/12"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                       <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.detail_mammo_title}</h4>
                       <p className="text-base text-white/80 leading-relaxed">{t.medical.detail_mammo_desc}</p>
@@ -353,7 +353,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   ) : (
                     <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-r from-brand-900/90 via-brand-900/70 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-brand-900/66 via-brand-900/46 to-transparent"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl">
                           <div className="flex items-center gap-3 mb-4">
@@ -384,7 +384,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   ) : (
                     <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-l from-brand-900/90 via-brand-900/70 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-l from-brand-900/66 via-brand-900/46 to-transparent"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl ml-auto text-right">
                           <div className="flex items-center justify-end gap-3 mb-4">
@@ -415,7 +415,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   ) : (
                     <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-r from-brand-900/90 via-brand-900/70 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-brand-900/66 via-brand-900/46 to-transparent"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl">
                           <div className="flex items-center gap-3 mb-4">
@@ -447,7 +447,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   ) : (
                     <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-l from-brand-900/90 via-brand-900/70 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-l from-brand-900/66 via-brand-900/46 to-transparent"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl ml-auto text-right">
                           <div className="flex items-center justify-end gap-3 mb-4">

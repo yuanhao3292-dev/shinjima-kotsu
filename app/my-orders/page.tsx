@@ -205,7 +205,7 @@ export default function MyOrdersPage() {
             sizes="50vw"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/85 to-brand-900/70" />
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/70 via-brand-800/60 to-brand-900/46" />
 
           {/* Decorative Elements */}
           <div className="absolute inset-0 pointer-events-none">

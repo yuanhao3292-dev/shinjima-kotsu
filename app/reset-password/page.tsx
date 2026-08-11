@@ -268,7 +268,7 @@ function ResetPasswordForm() {
         {/* Left Side - Hero Image */}
         <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-brand-900 via-brand-700 to-brand-900">
           <div className={`absolute inset-0 bg-cover bg-center opacity-30`} style={{ backgroundImage: `url('${isGuide ? 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=2000' : 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2000'}')` }}></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-900/90 via-transparent to-brand-900/50"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-900/66 via-transparent to-brand-900/32"></div>
 
           {/* Language Switcher - Top Right */}
           <div className="absolute top-8 right-8 z-20">

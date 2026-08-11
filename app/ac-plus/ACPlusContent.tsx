@@ -315,7 +315,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
       {/* ===== 1. HERO ===== */}
       <section className="relative min-h-[600px] md:min-h-[700px] flex items-center overflow-hidden">
         <img src={IMG.hero1} alt="AC Cell Clinic" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/46 via-black/32 to-transparent" />
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 w-full">
           <div className="max-w-2xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
