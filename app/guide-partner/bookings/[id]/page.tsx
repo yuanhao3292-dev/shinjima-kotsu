@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
+import PageMotion from '@/components/guide-partner/PageMotion';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
   Calendar,
@@ -542,7 +543,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
-        <div className="p-6 lg:p-8 max-w-3xl">
+        <PageMotion className="p-6 lg:p-8 max-w-3xl">
           {/* Header */}
           <div className="mb-6">
             <Link
@@ -723,7 +724,7 @@ export default function BookingDetailPage({ params }: { params: Promise<{ id: st
               <p className="text-zinc-500">{t('bookingNotExist', lang)}</p>
             </div>
           )}
-        </div>
+        </PageMotion>
       </main>
 
     </div>

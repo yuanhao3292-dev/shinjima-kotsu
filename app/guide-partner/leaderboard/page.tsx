@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
+import PageMotion from '@/components/guide-partner/PageMotion';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
   Trophy,
@@ -260,7 +261,7 @@ export default function LeaderboardPage() {
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
-        <div className="p-6 lg:p-8">
+        <PageMotion className="p-6 lg:p-8">
           {/* Header */}
           <div className="mb-6">
             <div className="flex items-center gap-3">
@@ -379,7 +380,7 @@ export default function LeaderboardPage() {
           <div className="mt-6 text-center text-sm text-zinc-400">
             <p>{t('bottomInfo', lang)}</p>
           </div>
-        </div>
+        </PageMotion>
       </main>
 
     </div>

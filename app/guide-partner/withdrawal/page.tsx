@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
+import PageMotion from '@/components/guide-partner/PageMotion';
 import {
   Wallet,
   X,
@@ -586,7 +587,7 @@ export default function WithdrawalPage() {
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
-        <div className="p-6 lg:p-8 max-w-4xl">
+        <PageMotion className="p-6 lg:p-8 max-w-4xl">
           {/* Header */}
           <div className="mb-6">
             <Link href="/guide-partner/commission" className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-900 mb-2">
@@ -819,7 +820,7 @@ export default function WithdrawalPage() {
               </div>
             )}
           </div>
-        </div>
+        </PageMotion>
       </main>
     </div>
   );

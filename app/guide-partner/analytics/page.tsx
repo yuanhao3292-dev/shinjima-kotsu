@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
+import PageMotion from '@/components/guide-partner/PageMotion';
 import {
   TrendingUp,
   TrendingDown,
@@ -468,7 +469,7 @@ export default function AnalyticsPage() {
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
-        <div className="p-6 lg:p-8 max-w-6xl">
+        <PageMotion className="p-6 lg:p-8 max-w-6xl">
           {/* Header */}
           <div className="mb-6">
             <h1 className="text-2xl font-bold tracking-tight text-zinc-900 flex items-center gap-3">
@@ -698,7 +699,7 @@ export default function AnalyticsPage() {
               </div>
             </div>
           </div>
-        </div>
+        </PageMotion>
       </main>
     </div>
   );
