@@ -92,6 +92,28 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
     return () => { cancelled = true; };
   }, [currentLang]);
 
+  // 滚动入场:各版块内容容器(.reveal-on-scroll)进入视口时加 .in-view 触发淡入上浮(仅一次)
+  useEffect(() => {
+    const els = Array.from(document.querySelectorAll('.reveal-on-scroll'));
+    if (typeof IntersectionObserver === 'undefined') {
+      els.forEach(el => el.classList.add('in-view'));
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -80px 0px', threshold: 0.08 },
+    );
+    els.forEach(el => io.observe(el));
+    return () => io.disconnect();
+  }, [newsItems]);
+
   // 注意：getImage 函数现在从父组件传入，支持数据库配置的图片
 
   // 首页轮播图配置 - 竞拍展位系统
@@ -145,7 +167,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
       {/* 2. ニュースルーム - JTB风格列表式设计 */}
       <section className="py-20 bg-neutral-50">
-        <div className="container mx-auto px-6 py-12 md:py-24">
+        <div className="container mx-auto px-6 py-12 md:py-24 reveal-on-scroll">
           <div className="max-w-4xl mx-auto">
             {/* 标题 - 居中 */}
             <div className="text-center mb-12">
@@ -166,6 +188,12 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                   ? (currentLang === 'zh-TW' ? '新聞' : currentLang === 'zh-CN' ? '新闻' : currentLang === 'en' ? 'Press' : 'プレス')
                   : (currentLang === 'zh-TW' ? '公告' : currentLang === 'zh-CN' ? '公告' : currentLang === 'en' ? 'Notice' : 'お知らせ');
 
+                // 标题开头的【…】专题前缀抽成标签,减少列表视觉噪音;正文只留其余部分
+                const rawTitle = localizeText(news.title, currentLang);
+                const topicMatch = rawTitle.match(/^【([^】]+)】\s*(.+)$/);
+                const topicLabel = topicMatch ? topicMatch[1] : null;
+                const displayTitle = topicMatch ? topicMatch[2] : rawTitle;
+
                 return (
                   <a key={news.id} href={`/news/${news.id}`} className="group block py-6 border-b border-neutral-200 hover:bg-white transition-colors">
                     <div className="flex flex-col md:flex-row md:items-start gap-4">
@@ -178,11 +206,16 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                         <span className="text-xs px-3 py-1 rounded-full border border-brand-500 text-brand-600">
                           {categoryLabel}
                         </span>
+                        {topicLabel && (
+                          <span className="text-xs px-3 py-1 rounded-full bg-neutral-100 text-neutral-500">
+                            {topicLabel}
+                          </span>
+                        )}
                       </div>
                       {/* 标题 */}
                       <div className="flex-1">
                         <h3 className="text-neutral-900 leading-relaxed group-hover:text-brand-700 transition-colors">
-                          {localizeText(news.title, currentLang)}
+                          {displayTitle}
                         </h3>
                       </div>
                     </div>
@@ -225,7 +258,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           <div className="absolute inset-0 bg-gradient-to-r from-brand-900/90 via-brand-900/70 to-transparent"></div>
         </div>
 
-        <div className="relative container mx-auto px-6 py-12 md:py-24 py-24">
+        <div className="relative container mx-auto px-6 py-12 md:py-24 py-24 reveal-on-scroll">
           <div className="max-w-2xl">
             {/* 标签 */}
             <div className="flex items-center gap-3 mb-8">
@@ -336,7 +369,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           <div className="absolute inset-0 bg-gradient-to-r from-brand-900/90 via-brand-900/70 to-transparent"></div>
         </div>
 
-        <div className="relative container mx-auto px-6 py-12 md:py-24 py-24">
+        <div className="relative container mx-auto px-6 py-12 md:py-24 py-24 reveal-on-scroll">
           <div className="max-w-2xl">
             {/* 标签 */}
             <div className="flex items-center gap-3 mb-8">
@@ -449,7 +482,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
         </div>
 
-        <div className="relative container mx-auto px-6 py-12 md:py-24 py-24">
+        <div className="relative container mx-auto px-6 py-12 md:py-24 py-24 reveal-on-scroll">
           <div className="max-w-2xl">
             {/* 权威认证标签 */}
             <div className="flex items-center gap-3 mb-8">
@@ -538,7 +571,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
           )}
         </div>
-        <div className="relative container mx-auto px-6 py-12 md:py-24">
+        <div className="relative container mx-auto px-6 py-12 md:py-24 reveal-on-scroll">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <div>
@@ -610,7 +643,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
       {/* 8. 主要取引先 - Partners */}
       <section className="py-20 bg-neutral-50 border-t border-neutral-200">
-        <div className="container mx-auto px-6 py-12 md:py-24">
+        <div className="container mx-auto px-6 py-12 md:py-24 reveal-on-scroll">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <p className="text-xs tracking-[0.3em] text-neutral-400 uppercase mb-3">Partners</p>
@@ -666,7 +699,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
       {/* 8. 企業理念 - Corporate Philosophy */}
       <section className="py-24 bg-brand-900 text-white">
-        <div className="container mx-auto px-6 py-12 md:py-24">
+        <div className="container mx-auto px-6 py-12 md:py-24 reveal-on-scroll">
           <div className="max-w-4xl mx-auto text-center">
             <p className="text-xs tracking-[0.3em] text-neutral-400 uppercase mb-6">Corporate Philosophy</p>
             <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-8 leading-relaxed">
@@ -707,7 +740,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           <div className="absolute inset-0 bg-gradient-to-r from-brand-900/90 via-brand-900/70 to-transparent"></div>
         </div>
 
-        <div className="relative container mx-auto px-6 py-12 md:py-24 py-24">
+        <div className="relative container mx-auto px-6 py-12 md:py-24 py-24 reveal-on-scroll">
           <div className="max-w-2xl">
             {/* 标签 */}
             <div className="flex items-center gap-3 mb-8">

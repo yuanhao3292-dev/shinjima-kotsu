@@ -495,3 +495,26 @@ body {
     transform: none;
   }
 }
+
+/* ── 主站版块滚动入场 ──────────────────────────────────────
+   内容容器进入视口时淡入 + 轻微上浮(由 IntersectionObserver 加 .in-view 触发,
+   仅触发一次)。只作用于内容容器,不影响全屏背景大图。尊重系统「减弱动态」。 */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal-on-scroll.in-view {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
