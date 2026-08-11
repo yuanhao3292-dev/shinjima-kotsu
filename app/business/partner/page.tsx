@@ -1185,7 +1185,7 @@ export default function PartnerBusinessPage() {
             sizes="100vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/70 via-brand-900/56 to-brand-900/26"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/88 via-brand-900/52 to-brand-900/12"></div>
         </div>
 
         <div className="relative container mx-auto px-6 py-24">
