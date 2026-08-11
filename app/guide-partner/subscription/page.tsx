@@ -593,8 +593,8 @@ export default function SubscriptionPage() {
 
         {/* 合约弹窗 */}
         {showContract && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8 rounded-xl shadow-lg">
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
+            <div className="bg-white max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8 rounded-2xl shadow-2xl ring-1 ring-black/5 animate-in fade-in zoom-in-95 duration-200">
               <h2 className="text-2xl font-bold font-sans tracking-tight text-zinc-900 mb-4">{t('contractTitle', lang)}</h2>
 
               <div className="prose prose-sm mb-6 text-zinc-600 space-y-3">

@@ -1724,8 +1724,8 @@ export default function SettingsPage() {
 
       {/* KYC Success Modal */}
       {showKycSuccessModal && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white max-w-md w-full p-6 rounded-xl shadow-lg text-center animate-in fade-in zoom-in duration-200">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white max-w-md w-full p-6 rounded-2xl shadow-2xl ring-1 ring-black/5 text-center animate-in fade-in zoom-in-95 duration-200">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircle2 className="w-10 h-10 text-green-600" />
             </div>

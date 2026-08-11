@@ -1066,14 +1066,14 @@ export default function WhiteLabelSettingsPage() {
       {/* 订阅成功弹窗 */}
       {showSuccessModal && (
         <div
-          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-200"
           onClick={() => {
             setShowSuccessModal(false);
             loadGuideData();
           }}
         >
           <div
-            className="bg-white rounded-xl shadow-lg max-w-md w-full p-8 text-center animate-in fade-in zoom-in duration-300"
+            className="bg-white rounded-2xl shadow-2xl ring-1 ring-black/5 max-w-md w-full p-8 text-center animate-in fade-in zoom-in-95 duration-300"
             onClick={(e) => e.stopPropagation()}
           >
             {/* 成功图标 */}
