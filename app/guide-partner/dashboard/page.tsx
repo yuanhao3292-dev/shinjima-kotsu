@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
+import { motion, AnimatePresence, MotionConfig } from 'motion/react';
+import { staggerContainer, riseItem, pressable, tappable, overlayFade, dialogPop } from '@/lib/motion';
 import {
   Store,
   Calendar,
@@ -18,6 +20,9 @@ import {
   ChevronRight,
   Loader2,
 } from 'lucide-react';
+
+// Link 接上弹簧动效(按压下沉/hover 微抬),用于快捷入口卡片
+const MotionLink = motion.create(Link);
 
 const translations = {
   loading: { ja: '読み込み中...', 'zh-CN': '载入中...', 'zh-TW': '載入中...', en: 'Loading...' },
@@ -380,20 +385,21 @@ export default function GuideDashboard() {
   }
 
   return (
+    <MotionConfig reducedMotion="user">
     <div className="min-h-screen bg-zinc-50">
       <GuideSidebar pageTitle={t('pageTitle', lang)} />
 
       {/* Main Content */}
       <main className="lg:ml-64 pt-16 lg:pt-0">
-        <div className="p-6 lg:p-8">
+        <motion.div className="p-6 lg:p-8" variants={staggerContainer} initial="hidden" animate="show">
           {/* Header */}
-          <div className="mb-6">
+          <motion.div variants={riseItem} className="mb-6">
             <h1 className="text-2xl font-bold tracking-tight text-zinc-900">{t('welcomeBack', lang)}{guide?.name}</h1>
             <p className="text-sm text-zinc-500 mt-1">{t('businessOverview', lang)}</p>
-          </div>
+          </motion.div>
 
           {/* Profile Card */}
-          <div className="bg-white p-6 mb-6 rounded-xl border border-zinc-200 shadow-sm">
+          <motion.div variants={riseItem} className="bg-white p-6 mb-6 rounded-xl border border-zinc-200 shadow-sm">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div>
                 <div className="flex items-center gap-3 mb-2">
@@ -406,38 +412,39 @@ export default function GuideDashboard() {
                 <p className="text-xs text-zinc-500 mb-1">{t('yourReferralCode', lang)}</p>
                 <div className="flex items-center gap-2">
                   <span className="font-mono text-xl font-bold tracking-wider text-zinc-900">{guide?.referral_code}</span>
-                  <button
+                  <motion.button
+                    {...tappable}
                     onClick={copyReferralCode}
                     className="p-1.5 rounded-md hover:bg-zinc-200 transition text-zinc-700"
                     title={t('copy', lang)}
                   >
                     {copied ? <CheckCircle2 size={18} /> : <Copy size={18} />}
-                  </button>
+                  </motion.button>
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <motion.div variants={staggerContainer} className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             {[
               { icon: Calendar, value: stats?.totalBookings || 0, label: t('totalBookings', lang) },
               { icon: Clock, value: stats?.pendingBookings || 0, label: t('pending', lang) },
               { icon: Wallet, value: `¥${(stats?.totalCommission || 0).toLocaleString()}`, label: t('totalCommission', lang) },
               { icon: Users, value: stats?.referralCount || 0, label: t('referredGuides', lang) },
             ].map(({ icon: Icon, value, label }) => (
-              <div key={label} className="bg-white p-5 rounded-xl border border-zinc-200 shadow-sm">
+              <motion.div key={label} variants={riseItem} whileHover={{ y: -3 }} className="bg-white p-5 rounded-xl border border-zinc-200 shadow-sm">
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-medium text-zinc-500">{label}</p>
                   <Icon className="w-4 h-4 text-zinc-400" />
                 </div>
                 <p className="mt-2 text-3xl font-bold tracking-tight text-zinc-900">{value}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {/* Commission Tier System */}
-          <div className="bg-white p-6 rounded-xl border border-zinc-200 shadow-sm mb-6">
+          <motion.div variants={riseItem} className="bg-white p-6 rounded-xl border border-zinc-200 shadow-sm mb-6">
             {/* Header with Current Level */}
             <div className="flex items-center justify-between mb-4">
               <div>
@@ -516,13 +523,14 @@ export default function GuideDashboard() {
                 {guide?.commission_tier_code === 'gold' ? (
                   <div className="text-center text-xs text-zinc-500 py-2">{t('currentlyUsing', lang)}</div>
                 ) : (
-                  <button
+                  <motion.button
+                    {...tappable}
                     onClick={() => handleUpgrade('partner')}
                     disabled={upgrading}
                     className="w-full py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-sm font-medium transition disabled:opacity-50"
                   >
                     {upgrading ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : t('upgradeNow', lang)}
-                  </button>
+                  </motion.button>
                 )}
               </div>
             </div>
@@ -547,13 +555,15 @@ export default function GuideDashboard() {
                 {t('tierNote', lang)}
               </p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Quick Actions */}
-          <div className="grid md:grid-cols-3 gap-4 mb-6">
-            <Link
+          <motion.div variants={staggerContainer} className="grid md:grid-cols-3 gap-4 mb-6">
+            <MotionLink
+              variants={riseItem}
+              {...pressable}
               href="/guide-partner/venues"
-              className="bg-white p-5 rounded-xl border border-zinc-200 shadow-sm hover:border-zinc-300 hover:shadow transition group"
+              className="bg-white p-5 rounded-xl border border-zinc-200 shadow-sm hover:border-zinc-300 hover:shadow transition-shadow group"
             >
               <Store className="w-6 h-6 text-zinc-400 mb-3" />
               <h3 className="font-medium text-zinc-900 mb-1">{t('browseVenues', lang)}</h3>
@@ -561,11 +571,13 @@ export default function GuideDashboard() {
               <span className="text-zinc-900 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
                 {t('viewNow', lang)} <ChevronRight size={16} />
               </span>
-            </Link>
+            </MotionLink>
 
-            <Link
+            <MotionLink
+              variants={riseItem}
+              {...pressable}
               href="/guide-partner/bookings/new"
-              className="bg-white p-5 rounded-xl border border-zinc-200 shadow-sm hover:border-zinc-300 hover:shadow transition group"
+              className="bg-white p-5 rounded-xl border border-zinc-200 shadow-sm hover:border-zinc-300 hover:shadow transition-shadow group"
             >
               <Calendar className="w-6 h-6 text-zinc-400 mb-3" />
               <h3 className="font-medium text-zinc-900 mb-1">{t('newBooking', lang)}</h3>
@@ -573,11 +585,13 @@ export default function GuideDashboard() {
               <span className="text-zinc-900 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
                 {t('bookNow', lang)} <ChevronRight size={16} />
               </span>
-            </Link>
+            </MotionLink>
 
-            <Link
+            <MotionLink
+              variants={riseItem}
+              {...pressable}
               href="/guide-partner/commission"
-              className="bg-white p-5 rounded-xl border border-zinc-200 shadow-sm hover:border-zinc-300 hover:shadow transition group"
+              className="bg-white p-5 rounded-xl border border-zinc-200 shadow-sm hover:border-zinc-300 hover:shadow transition-shadow group"
             >
               <TrendingUp className="w-6 h-6 text-zinc-400 mb-3" />
               <h3 className="font-medium text-zinc-900 mb-1">{t('commissionSettlement', lang)}</h3>
@@ -587,11 +601,11 @@ export default function GuideDashboard() {
               <span className="text-zinc-900 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
                 {t('viewDetails', lang)} <ChevronRight size={16} />
               </span>
-            </Link>
-          </div>
+            </MotionLink>
+          </motion.div>
 
           {/* Recent Bookings */}
-          <div className="bg-white rounded-xl border border-zinc-200 shadow-sm overflow-hidden">
+          <motion.div variants={riseItem} className="bg-white rounded-xl border border-zinc-200 shadow-sm overflow-hidden">
             <div className="p-5 border-b border-zinc-200 flex items-center justify-between">
               <h2 className="font-semibold text-zinc-900">{t('recentBookings', lang)}</h2>
               <Link href="/guide-partner/bookings" className="text-zinc-500 hover:text-zinc-900 text-sm font-medium">
@@ -633,13 +647,20 @@ export default function GuideDashboard() {
                 </Link>
               </div>
             )}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Contract Modal */}
+        <AnimatePresence>
         {showContract && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8 rounded-xl shadow-lg">
+          <motion.div
+            variants={overlayFade}
+            initial="hidden"
+            animate="show"
+            exit="exit"
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+          >
+            <motion.div variants={dialogPop} className="bg-white max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8 rounded-2xl shadow-2xl ring-1 ring-black/5">
               <h2 className="text-xl font-semibold text-zinc-900 mb-4">{t('contractTitle', lang)}</h2>
 
               <div className="prose prose-sm mb-6 text-zinc-600 space-y-3">
@@ -669,24 +690,28 @@ export default function GuideDashboard() {
               </div>
 
               <div className="flex gap-3">
-                <button
+                <motion.button
+                  {...tappable}
                   onClick={() => setShowContract(false)}
                   className="flex-1 py-2.5 rounded-lg border border-zinc-200 text-zinc-700 font-medium hover:bg-zinc-50 transition-colors"
                 >
                   {t('cancel', lang)}
-                </button>
-                <button
+                </motion.button>
+                <motion.button
+                  {...tappable}
                   onClick={confirmUpgrade}
                   disabled={upgrading}
                   className="flex-1 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white font-medium transition disabled:opacity-50"
                 >
                   {upgrading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : t('agreeAndPay', lang)}
-                </button>
+                </motion.button>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         )}
+        </AnimatePresence>
       </main>
     </div>
+    </MotionConfig>
   );
 }
