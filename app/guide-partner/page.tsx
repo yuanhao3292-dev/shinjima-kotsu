@@ -1070,14 +1070,14 @@ export default function GuidePartnerPage() {
       {/* WeChat QR Modal */}
       {showWechatQR && (
         <div
-          className="fixed inset-0 bg-black/60 z-[60] flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] flex items-center justify-center p-4 animate-in fade-in duration-200"
           onClick={() => setShowWechatQR(false)}
           role="dialog"
           aria-modal="true"
           aria-labelledby="wechat-modal-title"
         >
           <div
-            className="bg-white rounded-xl p-6 max-w-sm w-full shadow-2xl"
+            className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl ring-1 ring-black/5 animate-in fade-in zoom-in-95 duration-200"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-4">

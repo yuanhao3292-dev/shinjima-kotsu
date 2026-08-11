@@ -453,3 +453,25 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* ── 导游后台统一「按压回弹」反馈(Apple 触感) ──────────────────
+   给 .gp-shell 内所有按钮与卡片式链接(带 rounded 的 <a>)加轻微按压下沉。
+   选择器 .gp-shell button / a[class*="rounded"] 特异性(0,1,1)高于 Tailwind 的
+   .transition-* (0,1,0),故会接管 transition-property(仍含 color/bg,不破坏 hover)。
+   inline 文字链接(无 rounded)不受影响;尊重系统「减弱动态」。 */
+.gp-shell button:not(:disabled),
+.gp-shell a[class*="rounded"] {
+  transition-property: color, background-color, border-color, transform, box-shadow, opacity;
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  transition-duration: 150ms;
+}
+.gp-shell button:not(:disabled):active,
+.gp-shell a[class*="rounded"]:active {
+  transform: scale(0.98);
+}
+@media (prefers-reduced-motion: reduce) {
+  .gp-shell button:not(:disabled):active,
+  .gp-shell a[class*="rounded"]:active {
+    transform: none;
+  }
+}
