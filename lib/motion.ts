@@ -23,14 +23,14 @@ export const spring = {
 export const staggerContainer: Variants = {
   hidden: {},
   show: {
-    transition: { staggerChildren: 0.05, delayChildren: 0.02 },
+    transition: { staggerChildren: 0.08, delayChildren: 0.04 },
   },
 };
 
-/** 子项:从下方 10px 淡入,克制的位移 */
+/** 子项:从下方 16px 淡入 + 轻微缩放,入场更有存在感但仍克制 */
 export const riseItem: Variants = {
-  hidden: { opacity: 0, y: 10 },
-  show: { opacity: 1, y: 0, transition: spring.gentle },
+  hidden: { opacity: 0, y: 16, scale: 0.98 },
+  show: { opacity: 1, y: 0, scale: 1, transition: spring.gentle },
 };
 
 // ── 交互反馈(按压下沉、hover 微抬) ────────────────────────
