@@ -166,7 +166,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       />
 
       {/* 2. ニュースルーム - JTB风格列表式设计 */}
-      <section className="py-20 bg-neutral-50">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-6 py-12 md:py-24 reveal-on-scroll">
           <div className="max-w-4xl mx-auto">
             {/* 标题 - 居中 */}
@@ -642,7 +642,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       </section>
 
       {/* 8. 主要取引先 - Partners */}
-      <section className="py-20 bg-neutral-50 border-t border-neutral-200">
+      <section className="py-20 bg-white border-t border-neutral-200">
         <div className="container mx-auto px-6 py-12 md:py-24 reveal-on-scroll">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
@@ -728,7 +728,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
             {/* 核心标题 */}
             <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
-              {currentLang === 'zh-TW' ? '導遊提攜夥伴' : currentLang === 'zh-CN' ? '导游提攜伙伴' : currentLang === 'ja' ? 'ガイドパートナー' : 'Guide Partner'}
+              {currentLang === 'zh-TW' ? '導遊提攜夥伴' : currentLang === 'zh-CN' ? '导游提携伙伴' : currentLang === 'ja' ? 'ガイドパートナー' : 'Guide Partner'}
               <br />
               <span className="text-gold-400">{currentLang === 'zh-TW' ? '客戶介紹計劃' : currentLang === 'zh-CN' ? '客户介绍计划' : currentLang === 'ja' ? '顧客紹介プログラム' : 'Client Referral Program'}</span>
             </h2>

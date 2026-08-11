@@ -34,7 +34,7 @@ const pageTranslations = {
   prerequisitesTitle: { ja: '前提条件', 'zh-TW': '前提條件', 'zh-CN': '前提条件', en: 'Prerequisites' } as Record<Language, string>,
   prereq1: { ja: '初期相談サービス完了済み', 'zh-TW': '已完成前期諮詢服務', 'zh-CN': '已完成前期咨询', en: 'Completed initial consultation service' } as Record<Language, string>,
   prereq2: { ja: '完全な診療情報提出済み', 'zh-TW': '已提交完整病歷資料', 'zh-CN': '已提交完整病历资料', en: 'Submitted complete medical records' } as Record<Language, string>,
-  prereq3: { ja: '銀座鳳凰クリニックの初期評価完了', 'zh-TW': '診所已完成初步評估', 'zh-CN': '診所已完成初步评估', en: 'Ginza Phoenix Clinic completed initial assessment' } as Record<Language, string>,
+  prereq3: { ja: '銀座鳳凰クリニックの初期評価完了', 'zh-TW': '診所已完成初步評估', 'zh-CN': '诊所已完成初步评估', en: 'Ginza Phoenix Clinic completed initial assessment' } as Record<Language, string>,
   prereqNote: { ja: '* 初期相談未完了の場合は、まず初期相談サービスのご購入をお勧めします', 'zh-TW': '* 如尚未完成前期諮詢，建議先購買前期諮詢服務', 'zh-CN': '* 如尚未完成前期咨询，建议先购买前期咨询服务', en: '* If initial consultation not completed, please purchase initial consultation service first' } as Record<Language, string>,
   bookingInfo: { ja: 'ご予約情報', 'zh-TW': '預約信息', 'zh-CN': '预约信息', en: 'Booking Information' } as Record<Language, string>,
   contractNotice: { ja: 'ご契約について：本サービスのご契約は、新島交通株式会社（大阪府知事登録旅行業 第2-3115号）との間で締結されます。', 'zh-TW': '關於契約：本服務之契約由新島交通株式會社（大阪府知事登錄旅行業 第2-3115號）與您締結。', 'zh-CN': '关于合同：本服务合同由新岛交通株式会社（大阪府知事登录旅行业 第2-3115号）与您签订。', en: 'Contract Notice: This service contract is concluded with Niijima Kotsu Co., Ltd. (Osaka Prefecture Registered Travel Agency No. 2-3115).' } as Record<Language, string>,
