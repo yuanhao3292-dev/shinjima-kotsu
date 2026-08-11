@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import GuideSidebar from '@/components/guide-partner/GuideSidebar';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
-import { motion, AnimatePresence, MotionConfig } from 'motion/react';
+import { motion, AnimatePresence, MotionConfig, useMotionValue, useTransform, useReducedMotion, animate } from 'motion/react';
 import { staggerContainer, riseItem, pressable, tappable, overlayFade, dialogPop } from '@/lib/motion';
 import {
   Store,
@@ -23,6 +23,19 @@ import {
 
 // Link 接上弹簧动效(按压下沉/hover 微抬),用于快捷入口卡片
 const MotionLink = motion.create(Link);
+
+// 数字滚动上扬:载入时从 0 缓动滚到目标值(Apple 式);系统「减弱动态」则直接显示终值
+function AnimatedNumber({ value, prefix = '' }: { value: number; prefix?: string }) {
+  const reduce = useReducedMotion();
+  const mv = useMotionValue(reduce ? value : 0);
+  const text = useTransform(mv, (latest) => `${prefix}${Math.round(latest).toLocaleString()}`);
+  useEffect(() => {
+    if (reduce) { mv.set(value); return; }
+    const controls = animate(mv, value, { duration: 1.0, ease: [0.16, 1, 0.3, 1] });
+    return () => controls.stop();
+  }, [value, reduce, mv]);
+  return <motion.span>{text}</motion.span>;
+}
 
 const translations = {
   loading: { ja: '読み込み中...', 'zh-CN': '载入中...', 'zh-TW': '載入中...', en: 'Loading...' },
@@ -428,17 +441,19 @@ export default function GuideDashboard() {
           {/* Stats Grid */}
           <motion.div variants={staggerContainer} className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             {[
-              { icon: Calendar, value: stats?.totalBookings || 0, label: t('totalBookings', lang) },
-              { icon: Clock, value: stats?.pendingBookings || 0, label: t('pending', lang) },
-              { icon: Wallet, value: `¥${(stats?.totalCommission || 0).toLocaleString()}`, label: t('totalCommission', lang) },
-              { icon: Users, value: stats?.referralCount || 0, label: t('referredGuides', lang) },
-            ].map(({ icon: Icon, value, label }) => (
+              { icon: Calendar, value: stats?.totalBookings || 0, prefix: '', label: t('totalBookings', lang) },
+              { icon: Clock, value: stats?.pendingBookings || 0, prefix: '', label: t('pending', lang) },
+              { icon: Wallet, value: stats?.totalCommission || 0, prefix: '¥', label: t('totalCommission', lang) },
+              { icon: Users, value: stats?.referralCount || 0, prefix: '', label: t('referredGuides', lang) },
+            ].map(({ icon: Icon, value, prefix, label }) => (
               <motion.div key={label} variants={riseItem} whileHover={{ y: -3 }} className="bg-white p-5 rounded-xl border border-zinc-200 shadow-sm">
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-medium text-zinc-500">{label}</p>
                   <Icon className="w-4 h-4 text-zinc-400" />
                 </div>
-                <p className="mt-2 text-3xl font-bold tracking-tight text-zinc-900">{value}</p>
+                <p className="mt-2 text-3xl font-bold tracking-tight text-zinc-900">
+                  <AnimatedNumber value={value} prefix={prefix} />
+                </p>
               </motion.div>
             ))}
           </motion.div>
