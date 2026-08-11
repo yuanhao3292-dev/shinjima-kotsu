@@ -697,28 +697,6 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
         </div>
       </section>
 
-      {/* 8. 企業理念 - Corporate Philosophy */}
-      <section className="py-24 bg-white text-neutral-800">
-        <div className="container mx-auto px-6 py-12 md:py-24 reveal-on-scroll">
-          <div className="max-w-4xl mx-auto text-center">
-            <p className="text-xs tracking-[0.3em] text-neutral-500 uppercase mb-6">Corporate Philosophy</p>
-            <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-brand-900 mb-8 leading-relaxed">
-              {currentLang === 'zh-TW' ? '用心連結世界與日本' : currentLang === 'zh-CN' ? '用心连结世界与日本' : currentLang === 'ja' ? '心をつなぐ、世界と日本' : 'Connecting the World with Japan'}
-            </h2>
-            <p className="text-neutral-600 leading-relaxed mb-10 max-w-2xl mx-auto">
-              {currentLang === 'zh-TW' ? '我們致力於為全球旅客提供最高品質的日本旅遊體驗。我們相信，真正的服務不僅是滿足需求，更是創造感動。' : currentLang === 'zh-CN' ? '我们致力于为全球旅客提供最高品质的日本旅游体验。我们相信，真正的服务不仅是满足需求，更是创造感动。' : currentLang === 'ja' ? '2020年設立以来、新島交通は世界中の旅行者の皆様に最高品質の日本旅行体験を提供してまいりました。真のサービスとは、ニーズを満たすだけでなく、感動を創造することだと信じています。' : 'We are dedicated to providing the highest quality Japan travel experience. We believe true service is not just meeting needs, but creating memorable moments.'}
-            </p>
-            <a
-              href="/company/about"
-              className="inline-flex items-center text-xs text-brand-900 border border-brand-900/30 px-8 py-3 hover:bg-brand-900 hover:text-white transition-all tracking-wider"
-            >
-              {currentLang === 'zh-TW' ? '企業介紹' : currentLang === 'zh-CN' ? '企业介绍' : currentLang === 'ja' ? '会社紹介' : 'About Us'}
-              <ArrowRight size={14} className="ml-2" />
-            </a>
-          </div>
-        </div>
-      </section>
-
       {/* 9. 導遊合作 - 沉浸式全屏背景，与其他板块风格统一 */}
       {!hideGuidePartnerContent && (
       <section id="guide-partner" className="relative min-h-[85vh] flex items-center">

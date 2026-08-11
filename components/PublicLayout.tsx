@@ -34,6 +34,7 @@ const navLabels = {
     footerServices: '服務項目',
     footerPartners: '合作夥伴',
     footerCompanyInfo: '公司資訊',
+    footerLegal: '法律條款',
     footerAbout: '關於我們',
     footerNews: '最新消息',
     footerFaq: '常見問題',
@@ -64,6 +65,7 @@ const navLabels = {
     footerServices: 'サービス',
     footerPartners: 'パートナー',
     footerCompanyInfo: '会社情報',
+    footerLegal: '規約・法的情報',
     footerAbout: '会社概要',
     footerNews: 'お知らせ',
     footerFaq: 'よくある質問',
@@ -94,6 +96,7 @@ const navLabels = {
     footerServices: '服务项目',
     footerPartners: '合作伙伴',
     footerCompanyInfo: '公司资讯',
+    footerLegal: '法律条款',
     footerAbout: '关于我们',
     footerNews: '最新消息',
     footerFaq: '常见问题',
@@ -124,6 +127,7 @@ const navLabels = {
     footerServices: 'Services',
     footerPartners: 'Partners',
     footerCompanyInfo: 'Company Info',
+    footerLegal: 'Legal',
     footerAbout: 'About Us',
     footerNews: 'News',
     footerFaq: 'FAQ',
@@ -154,6 +158,7 @@ const navLabels = {
     footerServices: '서비스',
     footerPartners: '파트너',
     footerCompanyInfo: '회사 정보',
+    footerLegal: '법적 고지',
     footerAbout: '회사 소개',
     footerNews: '공지사항',
     footerFaq: '자주 묻는 질문',
@@ -305,7 +310,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
         {showFooter && (
           <footer className="bg-white text-gray-800 border-t border-neutral-200">
             <div className="container mx-auto px-6 py-16">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 lg:gap-6">
                 <div className="col-span-2">
                   <div className="mb-4">
                     <h3 className="text-xl font-serif tracking-[0.2em] mb-1 text-gray-800">NIIJIMA</h3>
@@ -342,6 +347,11 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                     <li><Link href="/company/about" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">关于我们</Link></li>
                     <li><Link href="/news" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">最新消息</Link></li>
                     <li><Link href="/faq" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">常见问题</Link></li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">法律条款</h4>
+                  <ul className="space-y-2.5">
                     <li><Link href="/legal/tokushoho" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">特定商取引法</Link></li>
                     <li><a href="/legal/yakkan" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">旅行業约款</a></li>
                     <li><Link href="/legal/privacy" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">隐私政策</Link></li>
@@ -560,7 +570,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
         <footer className="bg-white text-gray-800 border-t border-neutral-200">
           {/* 主要内容区 */}
           <div className="container mx-auto px-6 py-16">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 lg:gap-6">
 
               {/* 品牌区域 - 占 2 列 */}
               <div className="col-span-2">
@@ -685,6 +695,13 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                       {t.footerFaq}
                     </Link>
                   </li>
+                </ul>
+              </div>
+
+              {/* 法律条款 */}
+              <div>
+                <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">{t.footerLegal}</h4>
+                <ul className="space-y-2.5">
                   <li>
                     <Link href="/legal/tokushoho" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
                       {t.footerTokushoho}
