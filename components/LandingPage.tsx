@@ -174,7 +174,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               <h2 className="serif text-2xl md:text-3xl text-neutral-900 tracking-wide mb-2">
                 {currentLang === 'zh-TW' ? '最新消息' : currentLang === 'zh-CN' ? '最新消息' : currentLang === 'en' ? 'News' : 'お知らせ'}
               </h2>
-              <p className="text-xs tracking-[0.2em] text-neutral-400 uppercase">News Room</p>
+              <p className="text-xs tracking-[0.2em] text-neutral-500 uppercase">News Room</p>
             </div>
 
             {/* 新闻列表 - 动态从API获取 */}
@@ -405,7 +405,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             </div>
 
             {/* 出处脚注 */}
-            <p className="text-[10px] text-neutral-400/60 mb-6">
+            <p className="text-[10px] text-neutral-500/60 mb-6">
               {currentLang === 'zh-TW' ? '* 出處：国立がん研究センター「がん統計」（2014-2017年診断症例）' : currentLang === 'zh-CN' ? '* 出处：国立がん研究センター「がん統計」（2014-2017年诊断病例）' : currentLang === 'ja' ? '* 出典：国立がん研究センター「がん統計」（2014〜2017年診断症例）' : '* Source: National Cancer Center Japan, Cancer Statistics (2014-2017 diagnosed cases)'}
             </p>
 
@@ -504,11 +504,11 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="grid grid-cols-2 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-neutral-200">
               <div className="text-center">
                 <div className="text-2xl md:text-4xl font-light text-brand-900 mb-1">25<span className="text-brand-500">+</span></div>
-                <div className="text-[10px] md:text-xs text-neutral-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '名門球場' : currentLang === 'zh-CN' ? '名门球场' : currentLang === 'ja' ? '名門コース' : 'Elite Courses'}</div>
+                <div className="text-[10px] md:text-xs text-neutral-500 tracking-wider uppercase">{currentLang === 'zh-TW' ? '名門球場' : currentLang === 'zh-CN' ? '名门球场' : currentLang === 'ja' ? '名門コース' : 'Elite Courses'}</div>
               </div>
               <div className="border-l border-neutral-200 text-center">
                 <div className="text-2xl md:text-4xl font-light text-brand-900 mb-1">VIP</div>
-                <div className="text-[10px] md:text-xs text-neutral-400 tracking-wider uppercase">{currentLang === 'zh-TW' ? '專屬待遇' : currentLang === 'zh-CN' ? '专属待遇' : currentLang === 'ja' ? '専用待遇' : 'VIP Treatment'}</div>
+                <div className="text-[10px] md:text-xs text-neutral-500 tracking-wider uppercase">{currentLang === 'zh-TW' ? '專屬待遇' : currentLang === 'zh-CN' ? '专属待遇' : currentLang === 'ja' ? '専用待遇' : 'VIP Treatment'}</div>
               </div>
             </div>
 
@@ -543,7 +543,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
         {/* 右下角服务标签 */}
         <div className="absolute bottom-12 right-12 hidden lg:block">
-          <div className="bg-white/10 backdrop-blur-sm border border-neutral-200 p-6 max-w-xs">
+          <div className="bg-brand-50 backdrop-blur-sm border border-neutral-200 p-6 max-w-xs">
             <div className="text-xs text-brand-500 mb-2 uppercase tracking-wider">{currentLang === 'zh-TW' ? '尊享服務' : currentLang === 'zh-CN' ? '尊享服务' : currentLang === 'ja' ? 'プレミアムサービス' : 'Premium Services'}</div>
             <div className="space-y-2 text-sm text-brand-900/80">
               <div>✓ {currentLang === 'zh-TW' ? '專屬開球時段' : currentLang === 'zh-CN' ? '专属开球时段' : currentLang === 'ja' ? '専用スタート枠' : 'Reserved Tee Times'}</div>
@@ -582,7 +582,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-brand-900 mb-4 md:mb-6 leading-tight">
                   {currentLang === 'zh-TW' ? '對話日本頂尖企業' : currentLang === 'zh-CN' ? '对话日本顶尖企业' : currentLang === 'ja' ? '日本トップ企業との対話' : 'Connect with Japan\'s Leading Companies'}
                 </h2>
-                <p className="text-sm sm:text-base md:text-xl text-neutral-300 leading-relaxed font-light mb-6 md:mb-8">
+                <p className="text-sm sm:text-base md:text-xl text-neutral-600 leading-relaxed font-light mb-6 md:mb-8">
                   {currentLang === 'zh-TW' ? '我們擁有豐富的日本商務考察經驗，可安排豐田、松下、資生堂等知名企業的工廠參觀與高管對談，為您打造真正有價值的商務考察之旅。' : currentLang === 'zh-CN' ? '我们拥有丰富的日本商务考察经验，可安排丰田、松下、资生堂等知名企业的工厂参观与高管对谈，为您打造真正有价值的商务考察之旅。' : currentLang === 'ja' ? '豊富な日本ビジネス視察の実績を持ち、トヨタ、パナソニック、資生堂など有名企業の工場見学や経営層との対談を手配。真に価値ある視察をご提供します。' : 'With extensive Japan business inspection experience, we arrange factory tours and executive meetings at renowned companies like Toyota, Panasonic, and Shiseido, delivering truly valuable business trips.'}
                 </p>
 
@@ -595,7 +595,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                   ].map((stat, idx) => (
                     <div key={idx} className="border-l-2 border-brand-500/50 pl-4">
                       <div className="text-2xl md:text-4xl font-light text-brand-900">{stat.num}</div>
-                      <div className="text-[10px] md:text-xs text-neutral-400 tracking-wider uppercase">{stat.label}</div>
+                      <div className="text-[10px] md:text-xs text-neutral-500 tracking-wider uppercase">{stat.label}</div>
                     </div>
                   ))}
                 </div>
@@ -630,9 +630,9 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                   { name: currentLang === 'zh-TW' ? '資生堂' : currentLang === 'zh-CN' ? '资生堂' : currentLang === 'ja' ? '資生堂' : 'Shiseido', type: currentLang === 'zh-TW' ? '美妝日化' : currentLang === 'zh-CN' ? '美妝日化' : currentLang === 'ja' ? '化粧品' : 'Cosmetics' },
                   { name: currentLang === 'zh-TW' ? '永旺集團' : currentLang === 'zh-CN' ? '永旺集团' : currentLang === 'ja' ? 'イオン' : 'AEON Group', type: currentLang === 'zh-TW' ? '零售業' : currentLang === 'zh-CN' ? '零售业' : currentLang === 'ja' ? '小売業' : 'Retail' },
                 ].map((company, idx) => (
-                  <div key={idx} className="bg-white/10 backdrop-blur p-6 border border-white/10 hover:border-neutral-300 transition-colors">
+                  <div key={idx} className="bg-brand-50 backdrop-blur p-6 border border-brand-100 hover:border-neutral-300 transition-colors">
                     <div className="text-sm text-brand-900 font-medium mb-1">{company.name}</div>
-                    <div className="text-[10px] text-neutral-400">{company.type}</div>
+                    <div className="text-[10px] text-neutral-500">{company.type}</div>
                   </div>
                 ))}
               </div>
@@ -646,7 +646,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
         <div className="container mx-auto px-6 py-12 md:py-24 reveal-on-scroll">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <p className="text-xs tracking-[0.3em] text-neutral-400 uppercase mb-3">Partners</p>
+              <p className="text-xs tracking-[0.3em] text-neutral-500 uppercase mb-3">Partners</p>
               <h2 className="serif text-2xl md:text-3xl text-neutral-900 tracking-wide">
                 {currentLang === 'zh-TW' ? '合作夥伴' : currentLang === 'zh-CN' ? '合作伙伴' : currentLang === 'ja' ? '主要取引先' : 'Our Partners'}
               </h2>
@@ -654,7 +654,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
             {/* Medical Partners */}
             <div className="mb-8">
-              <p className="text-[10px] tracking-[0.2em] text-neutral-400 uppercase mb-4 text-center">
+              <p className="text-[10px] tracking-[0.2em] text-neutral-500 uppercase mb-4 text-center">
                 {currentLang === 'zh-TW' ? '醫療合作機構' : currentLang === 'zh-CN' ? '医疗合作机构' : currentLang === 'ja' ? '医療提携機関' : 'Medical Partners'}
               </p>
               <div className="grid grid-cols-2 gap-3 md:gap-6 max-w-md mx-auto">
@@ -664,7 +664,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 ].map((partner, index) => (
                   <a key={index} href={partner.url} target="_blank" rel="noopener noreferrer" className="bg-white p-6 text-center border border-neutral-200 hover:border-neutral-300 hover:shadow-sm transition-all">
                     <div className="text-sm font-medium text-neutral-900 mb-1">{partner.name}</div>
-                    <div className="text-[10px] text-neutral-400">{partner.sub}</div>
+                    <div className="text-[10px] text-neutral-500">{partner.sub}</div>
                   </a>
                 ))}
               </div>
@@ -672,7 +672,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
             {/* Service Partners */}
             <div>
-              <p className="text-[10px] tracking-[0.2em] text-neutral-400 uppercase mb-4 text-center">
+              <p className="text-[10px] tracking-[0.2em] text-neutral-500 uppercase mb-4 text-center">
                 {currentLang === 'zh-TW' ? '\u670D\u52D9\u5408\u4F5C\u5925\u4F34' : currentLang === 'zh-CN' ? '\u670D\u52A1\u5408\u4F5C\u4F19\u4F34' : currentLang === 'ja' ? '\u30B5\u30FC\u30D3\u30B9\u30D1\u30FC\u30C8\u30CA\u30FC' : 'Service Partners'}
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
@@ -688,7 +688,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 ].map((partner, index) => (
                   <a key={index} href={partner.url} target="_blank" rel="noopener noreferrer" className="bg-white p-6 text-center border border-neutral-200 hover:border-neutral-300 hover:shadow-sm transition-all">
                     <div className="text-sm font-medium text-neutral-900 mb-1">{partner.name}</div>
-                    <div className="text-[10px] text-neutral-400">{partner.sub}</div>
+                    <div className="text-[10px] text-neutral-500">{partner.sub}</div>
                   </a>
                 ))}
               </div>
@@ -802,7 +802,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               ))}
             </div>
             {/* 法律声明 */}
-            <p className="text-[10px] text-brand-200/40 mt-4 pt-3 border-t border-white/10 leading-relaxed">
+            <p className="text-[10px] text-brand-200/40 mt-4 pt-3 border-t border-brand-100 leading-relaxed">
               {currentLang === 'zh-TW' ? '所有旅行服務由新島交通株式會社提供' : currentLang === 'zh-CN' ? '所有旅行服务由新岛交通株式会社提供' : currentLang === 'ja' ? '全ての旅行サービスは新島交通株式会社が提供' : 'All travel services provided by Niijima Kotsu Co., Ltd.'}
             </p>
           </div>
@@ -1037,7 +1037,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 relative overflow-hidden">
                <button
                  onClick={() => setShowAuthModal(false)}
-                 className="absolute top-4 right-4 text-neutral-400 hover:text-black transition"
+                 className="absolute top-4 right-4 text-neutral-500 hover:text-black transition"
                >
                  <X size={20} />
                </button>
@@ -1089,7 +1089,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                     />
                   </div>
                   {authError && <p className="text-xs text-brand-500">{authError}</p>}
-                  <p className="text-xs text-neutral-400 leading-relaxed">
+                  <p className="text-xs text-neutral-500 leading-relaxed">
                     {lang === 'zh-TW' ? (<>提交即表示您同意我們的<a href="/legal/privacy" target="_blank" className="underline hover:text-neutral-600">隱私政策</a>。</>) : lang === 'zh-CN' ? (<>提交即表示您同意我们的<a href="/legal/privacy" target="_blank" className="underline hover:text-neutral-600">隐私政策</a>。</>) : lang === 'ja' ? (<>送信することで、<a href="/legal/privacy" target="_blank" className="underline hover:text-neutral-600">プライバシーポリシー</a>に同意したものとみなされます。</>) : (<>By submitting, you agree to our <a href="/legal/privacy" target="_blank" className="underline hover:text-neutral-600">Privacy Policy</a>.</>)}
                   </p>
                   <button
@@ -1111,7 +1111,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto relative">
                <button
                  onClick={() => setShowPartnerInquiryModal(false)}
-                 className="absolute top-4 right-4 text-neutral-400 hover:text-black transition z-10"
+                 className="absolute top-4 right-4 text-neutral-500 hover:text-black transition z-10"
                >
                  <X size={20} />
                </button>
@@ -1264,7 +1264,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                        )}
                      </button>
 
-                     <p className="text-xs text-neutral-400 text-center leading-relaxed">
+                     <p className="text-xs text-neutral-500 text-center leading-relaxed">
                        {lang === 'zh-TW' ? (<>提交即表示您同意我們的<a href="/legal/privacy" target="_blank" className="underline hover:text-neutral-600">隱私政策</a>。提交後我們會將確認信發送至您的郵箱。</>) : lang === 'zh-CN' ? (<>提交即表示您同意我们的<a href="/legal/privacy" target="_blank" className="underline hover:text-neutral-600">隐私政策</a>。提交后我们会将确认信发送至您的邮箱。</>) : lang === 'ja' ? (<>送信することで、<a href="/legal/privacy" target="_blank" className="underline hover:text-neutral-600">プライバシーポリシー</a>に同意したものとみなされます。送信後、確認メールをお送りいたします。</>) : (<>By submitting, you agree to our <a href="/legal/privacy" target="_blank" className="underline hover:text-neutral-600">Privacy Policy</a>. A confirmation email will be sent after submission.</>)}
                      </p>
                    </form>
@@ -1316,7 +1316,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
              </div>
              <button
                onClick={() => setToast({ show: false, message: '', type: 'info' })}
-               className="flex-shrink-0 text-neutral-400 hover:text-neutral-600 transition-colors"
+               className="flex-shrink-0 text-neutral-500 hover:text-neutral-600 transition-colors"
              >
                <X className="h-4 w-4" />
              </button>
