@@ -76,12 +76,12 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
          <div className="max-w-4xl">
            <div className="flex items-center gap-3 mb-8">
              <div className="h-[1px] w-12 bg-accent-400"></div>
-             <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">{currentLang === 'zh-TW' ? '頂級高爾夫' : currentLang === 'zh-CN' ? '顶级高尔夫' : currentLang === 'ja' ? 'プレミアムゴルフ' : 'PREMIUM GOLF'}</span>
+             <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">{currentLang === 'zh-TW' ? '頂級高爾夫' : currentLang === 'zh-CN' ? '顶级高尔夫' : currentLang === 'ja' ? 'プレミアムゴルフ' : 'PREMIUM GOLF'}</span>
            </div>
            <h1 className="text-4xl md:text-6xl font-serif text-brand-900 mb-6 leading-tight">
              {t.golf.title_1}
              <br />
-             <span className="text-accent-400">{t.golf.title_2}</span>
+             <span className="text-accent-600">{t.golf.title_2}</span>
            </h1>
            <p className="text-xl text-neutral-600 mb-8 leading-relaxed font-light max-w-2xl whitespace-pre-line">
              {t.golf.desc}
@@ -179,7 +179,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
          <div className="text-center mb-12">
            <div className="inline-flex items-center gap-4 mb-4">
              <div className="w-12 h-px bg-gradient-to-r from-transparent to-accent-400"></div>
-             <span className="text-accent-400 text-xs tracking-[0.3em] uppercase font-bold">{currentLang === 'zh-TW' ? '合作球場' : currentLang === 'zh-CN' ? '合作球场' : currentLang === 'ja' ? '提携コース' : 'Partner Courses'}</span>
+             <span className="text-accent-600 text-xs tracking-[0.3em] uppercase font-bold">{currentLang === 'zh-TW' ? '合作球場' : currentLang === 'zh-CN' ? '合作球场' : currentLang === 'ja' ? '提携コース' : 'Partner Courses'}</span>
              <div className="w-12 h-px bg-gradient-to-l from-transparent to-accent-400"></div>
            </div>
            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-white">{t.golf.partners_title || '提携名門コース'}</h2>
@@ -196,14 +196,14 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 hover:border-accent-400/30 transition-all duration-500 cursor-pointer block"
              >
                <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-to-br from-accent-400/20 to-accent-600/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                 <MapPin size={20} className="text-accent-400" />
+                 <MapPin size={20} className="text-accent-600" />
                </div>
-               <h4 className="text-white font-bold text-sm mb-1 group-hover:text-accent-300 transition-colors">{course.name}</h4>
+               <h4 className="text-white font-bold text-sm mb-1 group-hover:text-accent-600 transition-colors">{course.name}</h4>
                <p className="text-white/50 text-xs mb-2">{course.region}</p>
-               <span className="inline-block text-[10px] px-2 py-1 bg-accent-400/20 text-accent-300 rounded-full">{course.rank}</span>
+               <span className="inline-block text-[10px] px-2 py-1 bg-accent-400/20 text-accent-600 rounded-full">{course.rank}</span>
                {/* External link indicator */}
                <div className="mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                 <span className="text-[10px] text-accent-400/70 flex items-center justify-center gap-1">
+                 <span className="text-[10px] text-accent-600/70 flex items-center justify-center gap-1">
                    {currentLang === 'zh-TW' ? '官方網站' : currentLang === 'zh-CN' ? '官方网站' : currentLang === 'ja' ? '公式サイト' : 'Official Site'} <ArrowRight size={10} />
                  </span>
                </div>

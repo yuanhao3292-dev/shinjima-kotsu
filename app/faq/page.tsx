@@ -464,13 +464,13 @@ export default function FAQPage() {
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-8">
               <div className="h-[1px] w-12 bg-accent-400"></div>
-              <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">FREQUENTLY ASKED QUESTIONS</span>
+              <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">FREQUENTLY ASKED QUESTIONS</span>
             </div>
 
             <h1 className="font-serif text-4xl md:text-6xl text-brand-900 mb-6 leading-tight">
               {t('heroTitle1')}
               <br />
-              <span className="text-accent-400">{t('heroTitle2')}</span>
+              <span className="text-accent-600">{t('heroTitle2')}</span>
             </h1>
 
             <p className="text-xl text-neutral-600 mb-8 leading-relaxed font-light max-w-2xl">

@@ -1192,13 +1192,13 @@ export default function PartnerBusinessPage() {
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-8">
               <div className="h-[1px] w-12 bg-accent-400"></div>
-              <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">{t('heroTagline')}</span>
+              <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">{t('heroTagline')}</span>
             </div>
 
             <h1 className="font-serif text-4xl md:text-6xl text-brand-900 mb-6 leading-tight">
               {t('heroTitle1')}
               <br />
-              <span className="text-accent-400">{t('heroTitle2')}</span>
+              <span className="text-accent-600">{t('heroTitle2')}</span>
             </h1>
 
             <p className="text-xl text-neutral-600 mb-8 leading-relaxed font-light max-w-2xl">
@@ -1225,14 +1225,14 @@ export default function PartnerBusinessPage() {
 
         <div className="absolute bottom-12 right-12 hidden lg:block">
           <div className="bg-brand-50 backdrop-blur-sm border border-neutral-200 p-6 max-w-xs">
-            <div className="text-xs text-accent-400 mb-3 uppercase tracking-wider">{t('heroCredentialLabel')}</div>
+            <div className="text-xs text-accent-600 mb-3 uppercase tracking-wider">{t('heroCredentialLabel')}</div>
             <div className="space-y-2 text-sm text-neutral-600">
               <div className="flex items-center gap-2">
-                <Shield size={14} className="text-accent-400" />
+                <Shield size={14} className="text-accent-600" />
                 {t('heroCredential1')}
               </div>
               <div className="flex items-center gap-2">
-                <Award size={14} className="text-accent-400" />
+                <Award size={14} className="text-accent-600" />
                 {t('heroCredential2')}
               </div>
             </div>
@@ -1287,7 +1287,7 @@ export default function PartnerBusinessPage() {
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <div>
-                <p className="text-xs tracking-[0.3em] text-accent-400 uppercase mb-4">{t('partnershipModelSubtitle')}</p>
+                <p className="text-xs tracking-[0.3em] text-accent-600 uppercase mb-4">{t('partnershipModelSubtitle')}</p>
                 <h2 className="font-serif text-3xl md:text-4xl text-white mb-6">
                   {t('partnershipModelTitle')}
                 </h2>
@@ -1317,7 +1317,7 @@ export default function PartnerBusinessPage() {
                 <div className="space-y-4">
                   {benefits.map((benefit, idx) => (
                     <div key={idx} className="flex items-center gap-3">
-                      <CheckCircle2 size={18} className="text-accent-400 flex-shrink-0" />
+                      <CheckCircle2 size={18} className="text-accent-600 flex-shrink-0" />
                       <span className="text-neutral-300">{benefit}</span>
                     </div>
                   ))}
@@ -1351,7 +1351,7 @@ export default function PartnerBusinessPage() {
                 <div className="text-5xl font-light text-accent-500 mb-1">4.9</div>
                 <div className="flex items-center justify-center gap-0.5 mb-2">
                   {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 text-accent-400" fill="currentColor" viewBox="0 0 20 20">
+                    <svg key={i} className="w-5 h-5 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
                   ))}
@@ -1385,7 +1385,7 @@ export default function PartnerBusinessPage() {
                   <div key={idx} className="flex-shrink-0 w-72 bg-white p-5 rounded-xl shadow-sm border border-neutral-100">
                     <div className="flex items-center gap-0.5 mb-2">
                       {[...Array(item.rating)].map((_, i) => (
-                        <svg key={i} className="w-3.5 h-3.5 text-accent-400" fill="currentColor" viewBox="0 0 20 20">
+                        <svg key={i} className="w-3.5 h-3.5 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                       ))}
@@ -1405,7 +1405,7 @@ export default function PartnerBusinessPage() {
                   <div key={idx} className="flex-shrink-0 w-72 bg-white p-5 rounded-xl shadow-sm border border-neutral-100">
                     <div className="flex items-center gap-0.5 mb-2">
                       {[...Array(item.rating)].map((_, i) => (
-                        <svg key={i} className="w-3.5 h-3.5 text-accent-400" fill="currentColor" viewBox="0 0 20 20">
+                        <svg key={i} className="w-3.5 h-3.5 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                       ))}
@@ -1425,7 +1425,7 @@ export default function PartnerBusinessPage() {
                   <div key={idx} className="flex-shrink-0 w-72 bg-white p-5 rounded-xl shadow-sm border border-neutral-100">
                     <div className="flex items-center gap-0.5 mb-2">
                       {[...Array(item.rating)].map((_, i) => (
-                        <svg key={i} className="w-3.5 h-3.5 text-accent-400" fill="currentColor" viewBox="0 0 20 20">
+                        <svg key={i} className="w-3.5 h-3.5 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                       ))}
@@ -1446,7 +1446,7 @@ export default function PartnerBusinessPage() {
                 <div key={idx} className="bg-gradient-to-br from-accent-50 to-white p-8 rounded-2xl border border-accent-100">
                   <div className="flex items-center gap-0.5 mb-4">
                     {[...Array(5)].map((_, i) => (
-                      <svg key={i} className="w-4 h-4 text-accent-400" fill="currentColor" viewBox="0 0 20 20">
+                      <svg key={i} className="w-4 h-4 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                       </svg>
                     ))}
@@ -1497,10 +1497,10 @@ export default function PartnerBusinessPage() {
             <div className="grid md:grid-cols-2 gap-16 items-center">
               {/* Left: Pain Points */}
               <div>
-                <p className="text-xs tracking-[0.3em] text-accent-400 uppercase mb-4">{t('industrySubtitle')}</p>
+                <p className="text-xs tracking-[0.3em] text-accent-600 uppercase mb-4">{t('industrySubtitle')}</p>
                 <h2 className="font-serif text-3xl md:text-4xl text-white mb-6 leading-tight">
                   {t('industryTitle1')}
-                  <span className="text-accent-400">{t('industryTitle2')}</span>
+                  <span className="text-accent-600">{t('industryTitle2')}</span>
                 </h2>
 
                 <div className="space-y-6 mb-8">
@@ -1513,7 +1513,7 @@ export default function PartnerBusinessPage() {
                 </div>
 
                 <div className="bg-white/5 border border-white/10 rounded-xl p-6">
-                  <div className="text-3xl font-light text-accent-400 mb-2">{t('industryStatValue')}</div>
+                  <div className="text-3xl font-light text-accent-600 mb-2">{t('industryStatValue')}</div>
                   <div className="text-sm text-neutral-300">{t('industryStatLabel')}</div>
                 </div>
               </div>
@@ -1555,7 +1555,7 @@ export default function PartnerBusinessPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-16 border-t border-white/10">
               {bottomStats.map((stat, idx) => (
                 <div key={idx} className="text-center">
-                  <div className="text-3xl font-light text-accent-400 mb-2">{stat.value}</div>
+                  <div className="text-3xl font-light text-accent-600 mb-2">{stat.value}</div>
                   <div className="text-sm text-neutral-400">{stat.label}</div>
                 </div>
               ))}
@@ -1727,23 +1727,23 @@ export default function PartnerBusinessPage() {
             <div className="grid md:grid-cols-3 gap-8 text-center">
               <div>
                 <div className="w-12 h-12 bg-accent-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Mail size={24} className="text-accent-400" />
+                  <Mail size={24} className="text-accent-600" />
                 </div>
                 <div className="text-sm text-neutral-400 mb-1">{t('contactEmailLabel')}</div>
-                <ObfuscatedEmail user="haoyuan" domain="niijima-koutsu.jp" className="text-white hover:text-accent-400 transition-colors" />
+                <ObfuscatedEmail user="haoyuan" domain="niijima-koutsu.jp" className="text-white hover:text-accent-600 transition-colors" />
               </div>
               <div>
                 <div className="w-12 h-12 bg-accent-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Phone size={24} className="text-accent-400" />
+                  <Phone size={24} className="text-accent-600" />
                 </div>
                 <div className="text-sm text-neutral-400 mb-1">{t('contactPhoneLabel')}</div>
-                <a href="tel:+81-6-6632-8807" className="text-white hover:text-accent-400 transition-colors">
+                <a href="tel:+81-6-6632-8807" className="text-white hover:text-accent-600 transition-colors">
                   +81-6-6632-8807
                 </a>
               </div>
               <div>
                 <div className="w-12 h-12 bg-accent-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <MapPin size={24} className="text-accent-400" />
+                  <MapPin size={24} className="text-accent-600" />
                 </div>
                 <div className="text-sm text-neutral-400 mb-1">{t('contactAddressLabel')}</div>
                 <div className="text-white">

@@ -130,7 +130,7 @@ export default function MyAccountPage() {
             <div className="max-w-lg">
               <div className="flex items-center gap-3 mb-8">
                 <div className="h-[1px] w-12 bg-accent-400" />
-                <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">
+                <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">
                   {t('heroLabel', lang)}
                 </span>
               </div>
@@ -138,7 +138,7 @@ export default function MyAccountPage() {
               <h1 className="font-serif text-4xl xl:text-5xl text-white mb-4 leading-tight">
                 {t('welcomeBack', lang)}
                 <br />
-                <span className="text-accent-400">{userName}</span>
+                <span className="text-accent-600">{userName}</span>
               </h1>
 
               <p className="text-lg text-neutral-300 leading-relaxed font-light mb-10 max-w-md">
@@ -165,7 +165,7 @@ export default function MyAccountPage() {
             {/* Mobile hero label */}
             <div className="lg:hidden flex items-center gap-3 mb-6">
               <div className="h-[1px] w-8 bg-accent-400" />
-              <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">MY ACCOUNT</span>
+              <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">MY ACCOUNT</span>
             </div>
 
             {/* Profile Section */}
