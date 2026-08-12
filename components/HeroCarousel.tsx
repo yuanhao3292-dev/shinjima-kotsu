@@ -145,7 +145,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
       {/* Decorative blur circles */}
       <div className="absolute inset-0 z-15 pointer-events-none">
         <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
-        <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+        <div className="absolute w-72 h-72 bg-brand-500/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
       </div>
 
       {/* Content */}
@@ -154,8 +154,8 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
           <div className="max-w-4xl animate-fade-in-up">
             {currentSlide.subtitle && (
               <div className="flex items-center gap-3 mb-6">
-                <div className="h-[1px] w-12 bg-gold-400"></div>
-                <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">
+                <div className="h-[1px] w-12 bg-brand-500"></div>
+                <span className="text-xs tracking-[0.3em] text-brand-500 uppercase">
                   {currentSlide.subtitle}
                 </span>
               </div>
@@ -165,7 +165,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
               {currentSlide.title.split('\n').map((line, i) => (
                 <span key={i}>
                   {i > 0 && <br />}
-                  {i > 0 ? <span className="text-gold-400">{line}</span> : line}
+                  {i > 0 ? <span className="text-brand-500">{line}</span> : line}
                 </span>
               ))}
             </h1>
@@ -183,7 +183,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
                     href={currentSlide.ctaLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-8 py-4 bg-gold-400 text-brand-900 text-sm font-medium tracking-wider hover:bg-gold-300 transition-colors"
+                    className="inline-flex items-center gap-2 px-8 py-4 brand-gradient-solid text-white text-sm font-medium tracking-wider rounded hover:opacity-90 transition-opacity"
                   >
                     {currentSlide.ctaText}
                     <ExternalLink size={18} />
@@ -191,7 +191,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
                 ) : (
                   <Link
                     href={currentSlide.ctaLink}
-                    className="inline-flex items-center gap-2 px-8 py-4 bg-gold-400 text-brand-900 text-sm font-medium tracking-wider hover:bg-gold-300 transition-colors"
+                    className="inline-flex items-center gap-2 px-8 py-4 brand-gradient-solid text-white text-sm font-medium tracking-wider rounded hover:opacity-90 transition-opacity"
                   >
                     {currentSlide.ctaText}
                     <ArrowRight size={18} />
@@ -232,7 +232,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
               onClick={() => goToSlide(index)}
               className={`transition-all ${
                 index === currentIndex
-                  ? 'w-8 h-1 bg-gold-400'
+                  ? 'w-8 h-1 bg-brand-500'
                   : 'w-4 h-1 bg-white/30 hover:bg-white/50'
               }`}
               aria-label={`Go to slide ${index + 1}`}
@@ -245,7 +245,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
       {isAutoPlaying && slides.length > 1 && (
         <div className="absolute bottom-0 left-0 right-0 z-30 h-[2px] bg-white/10">
           <div
-            className="h-full bg-gold-400/60 transition-none"
+            className="h-full bg-brand-500/60 transition-none"
             style={{
               animation: `progress ${autoPlayInterval}ms linear`,
               animationIterationCount: 'infinite',

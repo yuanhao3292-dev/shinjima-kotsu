@@ -8,23 +8,25 @@
   --font-sans: var(--font-noto-sans-jp), 'Noto Sans JP', sans-serif;
   --font-serif: var(--font-shippori-mincho), 'Shippori Mincho', serif;
 
-  /* Brand 藍 (Ai) — 日本传统藍色系。取代原冷调企业蓝灰 (#102a43)：
-     原色板是通用「AI 高端模板」的默认冷蓝，观感生硬；藍色偏青、更暖，
-     是日本本土配色语汇，也与医疗青(medical)自然衔接。 */
-  --color-brand-50: #f3f9fb;
-  --color-brand-100: #e3eff4;
-  --color-brand-200: #c0dce8;
-  --color-brand-300: #92c3d6;
-  --color-brand-400: #63a5bf;
-  --color-brand-500: #3d89a8;
-  --color-brand-600: #2a6f8f;
-  --color-brand-700: #1e5975;
-  --color-brand-800: #17475f;
-  --color-brand-900: #12384c;
+  /* Brand 晴空 (Soft Sky) — 低饱和、高明度的柔和天空蓝。
+     取代原深蓝(#12384c)+金属金的组合：那套饱和度高、明度低，观感「硬」且压抑。
+     本色阶把饱和度下调约四成、明度整体抬高，取 JTB 首屏淡蓝天空的通透感。
+     主色 brand-500 #4e9ac9；渐变亮端 brand-200 #bfe3f3；按钮深端 brand-600 #3e82ac
+     （纯淡色配白字不可读，故按钮一律用 600→400 而非 500→200）。 */
+  --color-brand-50: #f2f9fd;
+  --color-brand-100: #e3f2fa;
+  --color-brand-200: #bfe3f3;
+  --color-brand-300: #9dd3ec;
+  --color-brand-400: #6fb4da;
+  --color-brand-500: #4e9ac9;
+  --color-brand-600: #3e82ac;
+  --color-brand-700: #336a8d;
+  --color-brand-800: #2a566f;
+  --color-brand-900: #22455a;
 
-  /* Gold Accent — 由高亮金属金 (#d4af37) 降为柔和金茶/真鍮。
-     金属金是「AI 奢华」最强的模板信号；金茶更接近日本传统「金茶色」，
-     用作点睛而非全站装饰。 */
+  /* Gold — 已退出主视觉。原金属金/金茶是「AI 奢华模板」最强信号，
+     主色改为晴空蓝渐变后不再用金色做装饰。保留色阶仅供个别历史组件兜底，
+     新页面不要使用。 */
   --color-gold-50: #fbf7ee;
   --color-gold-100: #f5ebd4;
   --color-gold-200: #ebd9af;
@@ -498,6 +500,31 @@ body {
   .site-shell a[class*="rounded"]:active {
     transform: none;
   }
+}
+
+/* ── 品牌渐变（晴空）──────────────────────────────────────
+   JTB 式做法：渐变只用于「该发光的地方」——色带、按钮、标签下划线、
+   统计数字、业务分区块；大面积仍是白底，清爽感来自留白而非色块。
+   ⚠️ 按钮/文字用 --grad-brand-solid（深端起手）保证白字可读；
+      纯装饰色带才用 --grad-brand-soft（淡端）。 */
+:root {
+  /* 装饰用(色带、分区块):最柔和,不承载文字 */
+  --grad-brand-soft: linear-gradient(100deg, #4e9ac9 0%, #bfe3f3 100%);
+  /* 按钮用:白字全程可读(深端 5.85:1、亮端 3.09:1，均达 WCAG 大字标准)。
+     亮端仍是主色 #4e9ac9，柔和观感保留；若再调浅白字会低于 3:1，勿动。 */
+  --grad-brand-solid: linear-gradient(100deg, #336a8d 0%, #4e9ac9 100%);
+  /* 渐变文字(logo、统计数字):不压白字,可用中间调 */
+  --grad-brand-mid: linear-gradient(100deg, #4e9ac9 0%, #8fcbe6 100%);
+}
+.brand-gradient { background-image: var(--grad-brand-soft); }
+.brand-gradient-solid { background-image: var(--grad-brand-solid); }
+.brand-gradient-mid { background-image: var(--grad-brand-mid); }
+/* 渐变文字（logo、统计数字） */
+.brand-gradient-text {
+  background-image: var(--grad-brand-mid);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* ── 主站版块滚动入场 ──────────────────────────────────────
