@@ -50,7 +50,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
   return (
   <div className="animate-fade-in-up min-h-screen bg-neutral-50">
      {/* 1. Hero Section - Cancer Treatment style */}
-     <section className="relative min-h-screen flex items-center bg-brand-900 overflow-hidden">
+     <section className="relative min-h-screen flex items-center brand-gradient-deep overflow-hidden">
        <div className="absolute inset-0">
          {getImage('golf_hero') ? (
            <Image
@@ -63,7 +63,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
              priority
            />
          ) : (
-           <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+           <div className="absolute inset-0 bg-gradient-to-br from-brand-50 to-brand-100 animate-pulse" />
          )}
          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/88 via-brand-800/60 to-brand-900/46"></div>
        </div>
@@ -78,12 +78,12 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
              <div className="h-[1px] w-12 bg-accent-400"></div>
              <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">{currentLang === 'zh-TW' ? '頂級高爾夫' : currentLang === 'zh-CN' ? '顶级高尔夫' : currentLang === 'ja' ? 'プレミアムゴルフ' : 'PREMIUM GOLF'}</span>
            </div>
-           <h1 className="text-4xl md:text-6xl font-serif text-white mb-6 leading-tight">
+           <h1 className="text-4xl md:text-6xl font-serif text-brand-900 mb-6 leading-tight">
              {t.golf.title_1}
              <br />
              <span className="text-accent-400">{t.golf.title_2}</span>
            </h1>
-           <p className="text-xl text-neutral-300 mb-8 leading-relaxed font-light max-w-2xl whitespace-pre-line">
+           <p className="text-xl text-neutral-600 mb-8 leading-relaxed font-light max-w-2xl whitespace-pre-line">
              {t.golf.desc}
            </p>
            <div className="flex flex-wrap gap-4">
@@ -95,7 +95,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
              </a>
              <a
                href="#golf-contact"
-               className="inline-flex items-center px-8 py-4 border border-white/20 bg-white/10 backdrop-blur-sm text-white text-sm tracking-wider hover:bg-white/20 transition-colors"
+               className="inline-flex items-center px-8 py-4 border border-neutral-200 bg-brand-50 backdrop-blur-sm text-brand-900 text-sm tracking-wider hover:bg-brand-50 transition-colors"
              >
                <MessageSquare size={20} />
                {currentLang === 'zh-TW' ? '諮詢預約' : currentLang === 'zh-CN' ? '咨询预约' : currentLang === 'ja' ? 'お問い合わせ' : 'Contact Us'}
@@ -167,7 +167,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
      </div>
 
      {/* ===== PARTNER COURSES SHOWCASE ===== */}
-     <div className="py-20 bg-brand-900 relative overflow-hidden">
+     <div className="py-20 brand-gradient-deep relative overflow-hidden">
        {/* Background Pattern */}
        <div className="absolute inset-0 opacity-5">
          <div className="absolute inset-0" style={{

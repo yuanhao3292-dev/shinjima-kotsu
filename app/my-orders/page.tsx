@@ -195,7 +195,7 @@ export default function MyOrdersPage() {
     <PublicLayout showFooter={false} transparentNav={false}>
       <div className="min-h-screen flex">
         {/* Left Side — Brand Hero */}
-        <div className="hidden lg:flex lg:w-1/2 relative bg-brand-900 overflow-hidden">
+        <div className="hidden lg:flex lg:w-1/2 relative brand-gradient-deep overflow-hidden">
           <Image
             src={getImage('medical_hero', 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2000')}
             alt="My Orders"

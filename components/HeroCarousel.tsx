@@ -78,7 +78,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
   if (!slides || slides.length === 0 || !isMounted) {
     return (
       <div
-        className="relative w-full overflow-hidden bg-brand-900 flex items-center justify-center"
+        className="relative w-full overflow-hidden brand-gradient-deep flex items-center justify-center"
         style={{ height }}
       >
         <div className="text-center">
@@ -93,7 +93,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
 
   return (
     <div
-      className="relative w-full overflow-hidden bg-brand-900"
+      className="relative w-full overflow-hidden brand-gradient-deep"
       style={{ height }}
       onMouseEnter={pauseAutoPlay}
       onMouseLeave={resumeAutoPlay}

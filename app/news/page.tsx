@@ -186,7 +186,7 @@ export default function NewsPage() {
   return (
     <PublicLayout>
       {/* Hero Section */}
-      <section className="relative min-h-[50vh] flex items-center justify-center bg-brand-900 overflow-hidden">
+      <section className="relative min-h-[50vh] flex items-center justify-center brand-gradient-deep overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=2000&auto=format&fit=crop"
@@ -270,17 +270,17 @@ export default function NewsPage() {
                         {categoryConfig[news.category].labels[lang]}
                       </span>
                       {isNewNews(news.published_at) && (
-                        <span className="px-2 py-0.5 bg-red-500 text-white rounded text-xs font-bold animate-pulse">
+                        <span className="px-2 py-0.5 bg-red-500 text-brand-900 rounded text-xs font-bold animate-pulse">
                           {t('newBadge')}
                         </span>
                       )}
                     </div>
-                    <h3 className={`font-bold text-white mb-2 group-hover:text-accent-400 transition-colors ${
+                    <h3 className={`font-bold text-brand-900 mb-2 group-hover:text-accent-400 transition-colors ${
                       index === 0 ? 'text-2xl' : 'text-lg'
                     }`}>
                       {localizeText(news.title, lang)}
                     </h3>
-                    <div className="flex items-center gap-2 text-neutral-300 text-sm">
+                    <div className="flex items-center gap-2 text-neutral-600 text-sm">
                       <Calendar size={14} />
                       <span>{formatDateJP(news.published_at)}</span>
                     </div>
@@ -288,8 +288,8 @@ export default function NewsPage() {
 
                   {/* Hover 效果 */}
                   <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center">
-                      <ArrowRight size={18} className="text-white" />
+                    <div className="w-10 h-10 bg-brand-50 backdrop-blur-md rounded-full flex items-center justify-center">
+                      <ArrowRight size={18} className="text-brand-900" />
                     </div>
                   </div>
                 </article>
@@ -406,7 +406,7 @@ export default function NewsPage() {
                         </div>
 
                         {/* 箭头 */}
-                        <div className="hidden md:flex items-center justify-center w-10 h-10 bg-neutral-100 group-hover:bg-brand-900 transition-all duration-300 flex-shrink-0">
+                        <div className="hidden md:flex items-center justify-center w-10 h-10 bg-neutral-100 group-hover:brand-gradient-deep transition-all duration-300 flex-shrink-0">
                           <ChevronRight
                             size={20}
                             className="text-neutral-400 group-hover:text-white transition-colors"
@@ -465,7 +465,7 @@ export default function NewsPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-brand-900 text-white">
+      <section className="py-20 brand-gradient-deep text-white">
         <div className="container mx-auto px-6 text-center">
           <div className="flex items-center justify-center gap-3 mb-8">
             <div className="h-[1px] w-12 bg-accent-400"></div>

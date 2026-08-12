@@ -34,7 +34,7 @@ const MedicalTechCard = memo(function MedicalTechCard({
   return (
     <div className="group relative bg-white rounded-2xl border border-neutral-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
       {/* Image Container with Tech Overlay */}
-      <div className="relative h-64 overflow-hidden bg-brand-900">
+      <div className="relative h-64 overflow-hidden brand-gradient-deep">
         {img ? (
           <Image
             src={img}
@@ -89,7 +89,7 @@ const MedicalTechCard = memo(function MedicalTechCard({
 const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuote, currentLang, getImage }) => (
   <div className="animate-fade-in-up min-h-screen bg-white">
     {/* 1. Hero Section - Cancer Treatment style */}
-    <section className="relative min-h-screen flex items-center bg-brand-900 overflow-hidden">
+    <section className="relative min-h-screen flex items-center brand-gradient-deep overflow-hidden">
       <div className="absolute inset-0">
         {getImage('medical_hero') ? (
           <Image
@@ -103,7 +103,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
             priority
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-50 to-brand-100 animate-pulse" />
         )}
         <div className="absolute inset-0 bg-gradient-to-r from-brand-900/88 via-brand-800/60 to-brand-900/46"></div>
       </div>
@@ -118,14 +118,14 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
             <div className="h-[1px] w-12 bg-accent-400"></div>
             <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">TIMC OSAKA</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-serif text-white mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-serif text-brand-900 mb-6 leading-tight">
             {t.medical.hero_title_1}<br/>
             <span className="text-accent-400">{t.medical.hero_title_2}</span>
           </h1>
-          <p className="text-xl text-neutral-300 mb-4 leading-relaxed font-light max-w-2xl">
+          <p className="text-xl text-neutral-600 mb-4 leading-relaxed font-light max-w-2xl">
             {t.medical.hero_subtitle}
           </p>
-          <p className="text-xl text-neutral-400 mb-8 leading-relaxed font-light max-w-2xl whitespace-pre-line">
+          <p className="text-xl text-neutral-500 mb-8 leading-relaxed font-light max-w-2xl whitespace-pre-line">
             {t.medical.hero_text}
           </p>
           <div className="flex flex-wrap gap-4">
@@ -138,7 +138,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 px-8 py-4 border border-white/20 bg-white/10 backdrop-blur-sm text-white text-sm tracking-wider hover:bg-white/20 transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-4 border border-neutral-200 bg-brand-50 backdrop-blur-sm text-brand-900 text-sm tracking-wider hover:bg-brand-50 transition-colors"
             >
               <MessageSquare size={20} />
               {currentLang === 'zh-TW' ? '諮詢預約' : currentLang === 'zh-CN' ? '咨询预约' : currentLang === 'ja' ? 'ご予約相談' : 'Consult'}
@@ -467,7 +467,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       </div>
 
       {/* 4. Flow Experience */}
-      <div className="mb-24 bg-brand-900 text-white rounded-3xl p-10 md:p-16 relative overflow-hidden">
+      <div className="mb-24 brand-gradient-deep text-white rounded-3xl p-10 md:p-16 relative overflow-hidden">
            <div className="absolute inset-0 opacity-10" style={{backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png')"}}></div>
            <div className="relative z-10 text-center mb-12">
                <h3 className="text-3xl font-serif">{t.medical.flow_title}</h3>
@@ -513,7 +513,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto px-4">
 
               {/* 1. VIP Member */}
-              <div className="col-span-1 md:col-span-2 lg:col-span-1 border border-accent-400 rounded-2xl p-6 hover:shadow-2xl transition hover:-translate-y-1 relative overflow-hidden bg-brand-900 text-white flex flex-col">
+              <div className="col-span-1 md:col-span-2 lg:col-span-1 border border-accent-400 rounded-2xl p-6 hover:shadow-2xl transition hover:-translate-y-1 relative overflow-hidden brand-gradient-deep text-white flex flex-col">
                   <div className="absolute top-0 right-0 bg-accent-400 text-brand-900 text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">{currentLang === 'zh-TW' ? '旗艦' : currentLang === 'zh-CN' ? '旗舰' : currentLang === 'ja' ? 'フラッグシップ' : 'Flagship'}</div>
                   <div className="mb-4">
                       <h4 className="text-xl font-serif font-bold text-accent-400">{t.medical.pkg_vip_title}</h4>
@@ -783,7 +783,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               <p className="text-neutral-500 mb-6">{t.medical.order_sub}</p>
               <a
                   href="/order-lookup"
-                  className="inline-flex items-center gap-2 bg-brand-900 text-white px-8 py-3 rounded-full font-bold hover:bg-brand-800 transition"
+                  className="inline-flex items-center gap-2 brand-gradient-solid text-white px-8 py-3 rounded-full font-bold hover:brand-gradient-solid transition"
               >
                   <FileText size={18} />
                   {t.medical.order_btn}

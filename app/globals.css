@@ -516,10 +516,14 @@ body {
   --grad-brand-solid: linear-gradient(100deg, #336a8d 0%, #4e9ac9 100%);
   /* 渐变文字(logo、统计数字):不压白字,可用中间调 */
   --grad-brand-mid: linear-gradient(100deg, #4e9ac9 0%, #8fcbe6 100%);
+  /* 深色强调块(卡片/深色分区):保留深底做视觉节奏，但改为晴空色相渐变，与主色统一。
+     两端对白字均安全(#22455a 10.16:1、#336a8d 5.85:1)，故沿用白字无需翻转。 */
+  --grad-brand-deep: linear-gradient(100deg, #22455a 0%, #336a8d 100%);
 }
 .brand-gradient { background-image: var(--grad-brand-soft); }
 .brand-gradient-solid { background-image: var(--grad-brand-solid); }
 .brand-gradient-mid { background-image: var(--grad-brand-mid); }
+.brand-gradient-deep { background-image: var(--grad-brand-deep); }
 /* 渐变文字（logo、统计数字） */
 .brand-gradient-text {
   background-image: var(--grad-brand-mid);
