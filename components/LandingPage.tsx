@@ -166,7 +166,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       />
 
       {/* 2. ニュースルーム - JTB风格列表式设计 */}
-      <section className="py-20 bg-white">
+      <section className="bg-white">
         <div className="container mx-auto px-6 py-12 md:py-24 reveal-on-scroll">
           <div className="max-w-4xl mx-auto">
             {/* 标题 - 居中 */}
@@ -642,7 +642,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       </section>
 
       {/* 8. 主要取引先 - Partners */}
-      <section className="py-20 bg-white border-t border-neutral-200">
+      <section className="bg-white border-t border-neutral-200">
         <div className="container mx-auto px-6 py-12 md:py-24 reveal-on-scroll">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
