@@ -137,7 +137,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
             </div>
 
             {/* Brand overlay gradient */}
-            <div className="absolute inset-0 bg-gradient-to-r from-brand-900/88 via-brand-900/52 to-brand-900/12" />
+            <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/5" />
           </div>
         );
       })}

@@ -508,7 +508,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                   <div className="relative rounded-2xl overflow-hidden h-48 border border-neutral-200">
                     <Image src={heroGridImages[0]?.src || `${SAI}/topFvImg02.jpg`} alt={heroGridImages[0]?.alt || ''} fill className="object-cover" quality={75} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                    <div className="absolute bottom-3 left-3 text-brand-900">
+                    <div className="absolute bottom-3 left-3 text-white">
                       <div className="text-lg font-bold">15+</div>
                       <div className="text-[11px] text-gray-300">{t(TR.yearsExp, lang)}</div>
                     </div>
@@ -516,7 +516,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                   <div className="relative rounded-2xl overflow-hidden h-36 border border-neutral-200">
                     <Image src={galleryImages[2]?.src || `${SAI}/aboutGalleryImg3.jpg`} alt={galleryImages[2]?.alt || ''} fill className="object-cover" quality={75} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                    <div className="absolute bottom-3 left-3 text-brand-900">
+                    <div className="absolute bottom-3 left-3 text-white">
                       <div className="text-lg font-bold">JSAS</div>
                       <div className="text-[11px] text-gray-300">{t(TR.jsas, lang)}</div>
                     </div>
@@ -526,7 +526,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                   <div className="relative rounded-2xl overflow-hidden h-36 border border-neutral-200">
                     <Image src={conceptImages[0]?.src || `${SAI}/aboutConcept1.jpg`} alt={conceptImages[0]?.alt || ''} fill className="object-cover" quality={75} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                    <div className="absolute bottom-3 left-3 text-brand-900">
+                    <div className="absolute bottom-3 left-3 text-white">
                       <div className="text-lg font-bold">KAAS</div>
                       <div className="text-[11px] text-gray-300">{t(TR.kaas, lang)}</div>
                     </div>
@@ -534,7 +534,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                   <div className="relative rounded-2xl overflow-hidden h-48 border border-neutral-200">
                     <Image src={heroGridImages[1]?.src || `${SAI}/topFvImg03.jpg`} alt={heroGridImages[1]?.alt || ''} fill className="object-cover" quality={75} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                    <div className="absolute bottom-3 left-3 text-brand-900">
+                    <div className="absolute bottom-3 left-3 text-white">
                       <div className="text-lg font-bold">{t(TR.location, lang)}</div>
                       <div className="text-[11px] text-gray-300">{t(TR.umedaAccess, lang)}</div>
                     </div>
@@ -752,7 +752,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                 <div className={`relative ${i === 0 ? 'h-full min-h-[300px]' : 'h-48'}`}>
                   <Image src={item.src} alt={item.alt} fill className="object-cover group-hover:scale-105 transition-transform duration-500" quality={75} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/32 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                  <div className="absolute bottom-3 left-3 text-brand-900 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">{item.label}</div>
+                  <div className="absolute bottom-3 left-3 text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">{item.label}</div>
                 </div>
               </div>
             ))}
