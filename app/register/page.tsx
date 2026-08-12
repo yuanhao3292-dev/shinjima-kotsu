@@ -124,7 +124,7 @@ export default function RegisterPage() {
             sizes="50vw"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/88 via-brand-800/60 to-brand-900/46" />
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/5" />
 
           {/* Decorative Elements */}
           <div className="absolute inset-0 pointer-events-none">
