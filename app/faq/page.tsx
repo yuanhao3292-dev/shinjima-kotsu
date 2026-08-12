@@ -441,7 +441,7 @@ export default function FAQPage() {
   return (
     <PublicLayout showFooter>
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center bg-brand-900 overflow-hidden">
+      <section className="relative min-h-screen flex items-center brand-gradient-deep overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
@@ -467,13 +467,13 @@ export default function FAQPage() {
               <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">FREQUENTLY ASKED QUESTIONS</span>
             </div>
 
-            <h1 className="font-serif text-4xl md:text-6xl text-white mb-6 leading-tight">
+            <h1 className="font-serif text-4xl md:text-6xl text-brand-900 mb-6 leading-tight">
               {t('heroTitle1')}
               <br />
               <span className="text-accent-400">{t('heroTitle2')}</span>
             </h1>
 
-            <p className="text-xl text-neutral-300 mb-8 leading-relaxed font-light max-w-2xl">
+            <p className="text-xl text-neutral-600 mb-8 leading-relaxed font-light max-w-2xl">
               {t('heroDesc')}
             </p>
 
@@ -487,7 +487,7 @@ export default function FAQPage() {
               </a>
               <a
                 href="#faq-contact"
-                className="inline-flex items-center px-8 py-4 border border-white/20 bg-white/10 backdrop-blur-sm text-white text-sm tracking-wider hover:bg-white/20 transition-colors"
+                className="inline-flex items-center px-8 py-4 border border-neutral-200 bg-brand-50 backdrop-blur-sm text-brand-900 text-sm tracking-wider hover:bg-brand-50 transition-colors"
               >
                 {t('btnContact')}
               </a>
@@ -589,7 +589,7 @@ export default function FAQPage() {
               <button
                 type="button"
                 onClick={() => { window.location.href = ['mailto:', 'haoyuan', '@', 'niijima-koutsu.jp'].join(''); }}
-                className="inline-flex items-center justify-center gap-2 bg-brand-900 hover:bg-brand-800 text-white px-6 py-3 text-sm font-medium tracking-wider transition-colors cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 brand-gradient-deep hover:brand-gradient-deep text-white px-6 py-3 text-sm font-medium tracking-wider transition-colors cursor-pointer"
               >
                 <Mail size={20} />
                 {t('emailConsult')}

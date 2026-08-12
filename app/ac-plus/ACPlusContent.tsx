@@ -315,25 +315,25 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
       {/* ===== 1. HERO ===== */}
       <section className="relative min-h-[600px] md:min-h-[700px] flex items-center overflow-hidden">
         <img src={IMG.hero1} alt="AC Cell Clinic" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/46 via-black/32 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/5" />
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 w-full">
           <div className="max-w-2xl">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-900 mb-4 leading-tight">
               {t.heroTitle[lang]}
             </h1>
-            <p className="text-lg md:text-xl text-white/85 whitespace-pre-line mb-8 leading-relaxed">
+            <p className="text-lg md:text-xl text-brand-900/85 whitespace-pre-line mb-8 leading-relaxed">
               {t.heroSub[lang]}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href={checkoutHref('/ac-plus/initial-consultation')}
-                className="inline-flex items-center justify-center gap-2 bg-[#4874cb] text-white px-8 py-4 rounded-full font-bold hover:bg-[#3a63b8] transition-all shadow-lg hover:shadow-xl"
+                className="inline-flex items-center justify-center gap-2 bg-[#4874cb] text-brand-900 px-8 py-4 rounded-full font-bold hover:bg-[#3a63b8] transition-all shadow-lg hover:shadow-xl"
               >
                 {t.ctaConsult[lang]} <ArrowRight size={18} />
               </Link>
               <a
                 href="#treatments"
-                className="inline-flex items-center justify-center gap-2 bg-white/15 text-white px-8 py-4 rounded-full font-bold hover:bg-white/25 transition-all border border-white/30 backdrop-blur-sm"
+                className="inline-flex items-center justify-center gap-2 bg-white/15 text-brand-900 px-8 py-4 rounded-full font-bold hover:bg-white/25 transition-all border border-neutral-200 backdrop-blur-sm"
               >
                 {t.ctaLearn[lang]}
               </a>

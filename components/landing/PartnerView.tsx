@@ -64,7 +64,7 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
             <TestimonialWall currentLang={currentLang} />
          </div>
 
-         <div className="bg-brand-900 text-white rounded-3xl p-12">
+         <div className="brand-gradient-deep text-white rounded-3xl p-12">
             <h3 className="text-2xl font-serif mb-12 text-center">{t.partner.flow_title}</h3>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                {[

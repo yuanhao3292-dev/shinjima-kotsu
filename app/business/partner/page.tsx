@@ -1185,7 +1185,7 @@ export default function PartnerBusinessPage() {
             sizes="100vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/88 via-brand-900/52 to-brand-900/12"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/5"></div>
         </div>
 
         <div className="relative container mx-auto px-6 py-24">
@@ -1195,19 +1195,19 @@ export default function PartnerBusinessPage() {
               <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">{t('heroTagline')}</span>
             </div>
 
-            <h1 className="font-serif text-4xl md:text-6xl text-white mb-6 leading-tight">
+            <h1 className="font-serif text-4xl md:text-6xl text-brand-900 mb-6 leading-tight">
               {t('heroTitle1')}
               <br />
               <span className="text-accent-400">{t('heroTitle2')}</span>
             </h1>
 
-            <p className="text-xl text-neutral-300 mb-8 leading-relaxed font-light max-w-2xl">
+            <p className="text-xl text-neutral-600 mb-8 leading-relaxed font-light max-w-2xl">
               {t('heroDesc')}
             </p>
 
             <div className="flex flex-wrap gap-3 mb-10">
               {regionTags.map((region, idx) => (
-                <span key={idx} className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">
+                <span key={idx} className="px-4 py-2 bg-brand-50 rounded-full text-sm text-brand-700 border border-brand-100">
                   {region}
                 </span>
               ))}
@@ -1224,9 +1224,9 @@ export default function PartnerBusinessPage() {
         </div>
 
         <div className="absolute bottom-12 right-12 hidden lg:block">
-          <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-6 max-w-xs">
+          <div className="bg-brand-50 backdrop-blur-sm border border-neutral-200 p-6 max-w-xs">
             <div className="text-xs text-accent-400 mb-3 uppercase tracking-wider">{t('heroCredentialLabel')}</div>
-            <div className="space-y-2 text-sm text-white/80">
+            <div className="space-y-2 text-sm text-neutral-600">
               <div className="flex items-center gap-2">
                 <Shield size={14} className="text-accent-400" />
                 {t('heroCredential1')}
@@ -1282,7 +1282,7 @@ export default function PartnerBusinessPage() {
       </section>
 
       {/* Partnership Models */}
-      <section className="py-20 bg-brand-900 text-white">
+      <section className="py-20 brand-gradient-deep text-white">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -1721,7 +1721,7 @@ export default function PartnerBusinessPage() {
       </section>
 
       {/* Contact Info */}
-      <section className="py-16 bg-brand-900 text-white">
+      <section className="py-16 brand-gradient-deep text-white">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-3 gap-8 text-center">

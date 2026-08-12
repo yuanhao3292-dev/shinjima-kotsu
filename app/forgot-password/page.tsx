@@ -88,7 +88,7 @@ function ForgotPasswordForm() {
   return (
     <div className="min-h-screen flex">
       {/* Left Side — Brand Hero */}
-      <div className="hidden lg:flex lg:w-1/2 relative bg-brand-900 overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 relative brand-gradient-deep overflow-hidden">
         <Image
           src={isGuide
               ? getImage('guide_hero', 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=2000')

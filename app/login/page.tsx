@@ -225,7 +225,7 @@ function LoginForm() {
   return (
     <div className="min-h-screen flex">
       {/* Left Side — Brand Hero */}
-      <div className="hidden lg:flex lg:w-1/2 relative bg-brand-900 overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 relative brand-gradient-deep overflow-hidden">
         <Image
           src={getImage('medical_hero', 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg')}
           alt="Medical"

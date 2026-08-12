@@ -12,7 +12,7 @@ export default function TermsPage() {
   return (
     <PublicLayout showFooter>
       {/* Hero */}
-      <section className="relative min-h-[40vh] flex items-center bg-brand-900 overflow-hidden">
+      <section className="relative min-h-[40vh] flex items-center brand-gradient-deep overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
           <div className="absolute w-72 h-72 bg-accent-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>

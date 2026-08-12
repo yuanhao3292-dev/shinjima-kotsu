@@ -531,7 +531,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
             <Link
               href="/login"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 bg-brand-900 text-white py-4 px-5 rounded-xl font-bold"
+              className="flex items-center gap-3 brand-gradient-solid text-white py-4 px-5 rounded-xl font-bold"
             >
               <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                 <LogIn size={18} />

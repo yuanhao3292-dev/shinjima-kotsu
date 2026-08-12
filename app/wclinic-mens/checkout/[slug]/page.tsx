@@ -197,7 +197,7 @@ export default function WClinicMensCheckoutPage() {
       </div>
 
       {/* Header */}
-      <div className="bg-brand-900 py-10">
+      <div className="brand-gradient-deep py-10">
         <div className="max-w-4xl mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>

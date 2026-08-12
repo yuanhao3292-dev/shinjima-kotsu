@@ -869,7 +869,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
     <>
       {/* Hero Section - hide in guide embed mode */}
       {!isGuideEmbed && (
-      <section className="relative min-h-screen flex items-center bg-brand-900 overflow-hidden">
+      <section className="relative min-h-screen flex items-center brand-gradient-deep overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
@@ -895,12 +895,12 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
               <div className="h-[1px] w-12 bg-accent-400"></div>
               <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">CANCER TREATMENT</span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-brand-900 mb-6 leading-tight">
               {t('heroDesc')}
               <br />
               <span className="text-accent-400">{t('heroTitle2')}</span>
             </h1>
-            <p className="text-xl text-neutral-300 mb-8 leading-relaxed font-light max-w-2xl">
+            <p className="text-xl text-neutral-600 mb-8 leading-relaxed font-light max-w-2xl">
               {t('heroStat')}
             </p>
             <div className="flex flex-wrap gap-4 mb-8">
@@ -913,32 +913,32 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
               </a>
               <a
                 href="#treatment-flow"
-                className="inline-flex items-center px-8 py-4 border border-white/20 bg-white/10 backdrop-blur-sm text-white text-sm tracking-wider hover:bg-white/20 transition-colors"
+                className="inline-flex items-center px-8 py-4 border border-neutral-200 bg-brand-50 backdrop-blur-sm text-brand-900 text-sm tracking-wider hover:bg-brand-50 transition-colors"
               >
                 {t('heroFlow')}
               </a>
             </div>
             {/* Key Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
-                <div className="text-3xl font-bold text-white mb-1">7</div>
-                <div className="text-sm text-neutral-300">{t('statHeavyIon')}</div>
-                <div className="text-xs text-neutral-400 mt-1">{t('statHeavyIonSub')}</div>
+              <div className="bg-white shadow-sm rounded-xl p-4 border border-neutral-200">
+                <div className="text-3xl font-bold text-brand-900 mb-1">7</div>
+                <div className="text-sm text-neutral-600">{t('statHeavyIon')}</div>
+                <div className="text-xs text-neutral-500 mt-1">{t('statHeavyIonSub')}</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
-                <div className="text-3xl font-bold text-white mb-1">2020</div>
-                <div className="text-sm text-neutral-300">{t('statPhotoimmuno')}</div>
-                <div className="text-xs text-neutral-400 mt-1">{t('statPhotoimmunoSub')}</div>
+              <div className="bg-white shadow-sm rounded-xl p-4 border border-neutral-200">
+                <div className="text-3xl font-bold text-brand-900 mb-1">2020</div>
+                <div className="text-sm text-neutral-600">{t('statPhotoimmuno')}</div>
+                <div className="text-xs text-neutral-500 mt-1">{t('statPhotoimmunoSub')}</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
-                <div className="text-3xl font-bold text-white mb-1">1/3</div>
-                <div className="text-sm text-neutral-300">{t('statCost')}</div>
-                <div className="text-xs text-neutral-400 mt-1">{t('statCostSub')}</div>
+              <div className="bg-white shadow-sm rounded-xl p-4 border border-neutral-200">
+                <div className="text-3xl font-bold text-brand-900 mb-1">1/3</div>
+                <div className="text-sm text-neutral-600">{t('statCost')}</div>
+                <div className="text-xs text-neutral-500 mt-1">{t('statCostSub')}</div>
               </div>
             </div>
             <p className="text-xs text-neutral-500 mb-4">{t('dataSource')}</p>
             {/* Trust Points */}
-            <div className="flex flex-wrap gap-6 text-white/80">
+            <div className="flex flex-wrap gap-6 text-neutral-600">
               <div className="flex items-center gap-2">
                 <CheckCircle size={18} className="text-accent-400" />
                 <span className="text-sm">{t('trustEarly')}</span>

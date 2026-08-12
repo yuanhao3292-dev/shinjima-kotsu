@@ -711,7 +711,7 @@ export default function HealthScreeningPage() {
     return (
       <div className="min-h-screen bg-white">
         {/* Hero Section */}
-        <section className="relative bg-brand-900 overflow-hidden">
+        <section className="relative brand-gradient-deep overflow-hidden">
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
             <div className="absolute w-72 h-72 bg-accent-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />

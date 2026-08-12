@@ -225,7 +225,7 @@ export default function SaiClinicRemoteConsultationPage() {
         </div>
       </div>
 
-      <div className="bg-brand-900 py-12">
+      <div className="brand-gradient-deep py-12">
         <div className="max-w-4xl mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>

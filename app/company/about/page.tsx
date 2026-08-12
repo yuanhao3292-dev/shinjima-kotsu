@@ -535,7 +535,7 @@ export default function AboutPage() {
     <PublicLayout>
       <div className="min-h-screen bg-white">
         {/* Hero Section */}
-        <section className="relative min-h-[60vh] flex items-center bg-brand-900 overflow-hidden">
+        <section className="relative min-h-[60vh] flex items-center brand-gradient-deep overflow-hidden">
           <div className="absolute inset-0">
             <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
             <div className="absolute w-72 h-72 bg-accent-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
@@ -636,7 +636,7 @@ export default function AboutPage() {
 
               <div className="grid md:grid-cols-3 gap-8">
                 <div className="bg-white rounded-2xl p-8 border border-neutral-200 text-center hover:shadow-lg transition">
-                  <div className="w-16 h-16 bg-brand-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                  <div className="w-16 h-16 brand-gradient-deep rounded-2xl flex items-center justify-center mx-auto mb-6">
                     <Heart className="w-8 h-8 text-accent-400" />
                   </div>
                   <h3 className="text-xl font-bold text-brand-900 mb-3">{t('philosophy1Title')}</h3>
@@ -646,7 +646,7 @@ export default function AboutPage() {
                 </div>
 
                 <div className="bg-white rounded-2xl p-8 border border-neutral-200 text-center hover:shadow-lg transition">
-                  <div className="w-16 h-16 bg-brand-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                  <div className="w-16 h-16 brand-gradient-deep rounded-2xl flex items-center justify-center mx-auto mb-6">
                     <Globe className="w-8 h-8 text-accent-400" />
                   </div>
                   <h3 className="text-xl font-bold text-brand-900 mb-3">{t('philosophy2Title')}</h3>
@@ -656,7 +656,7 @@ export default function AboutPage() {
                 </div>
 
                 <div className="bg-white rounded-2xl p-8 border border-neutral-200 text-center hover:shadow-lg transition">
-                  <div className="w-16 h-16 bg-brand-900 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                  <div className="w-16 h-16 brand-gradient-deep rounded-2xl flex items-center justify-center mx-auto mb-6">
                     <Target className="w-8 h-8 text-accent-400" />
                   </div>
                   <h3 className="text-xl font-bold text-brand-900 mb-3">{t('philosophy3Title')}</h3>
@@ -798,7 +798,7 @@ export default function AboutPage() {
                   const Icon = item.icon;
                   return (
                     <div key={index} className="bg-white p-6 rounded-xl border border-neutral-200 hover:shadow-md transition">
-                      <div className="w-14 h-14 bg-brand-900 rounded-xl flex items-center justify-center mb-4">
+                      <div className="w-14 h-14 brand-gradient-deep rounded-xl flex items-center justify-center mb-4">
                         <Icon size={24} className="text-accent-400" />
                       </div>
                       <h3 className="font-bold text-brand-900 text-lg mb-1">{item.title}</h3>
@@ -813,7 +813,7 @@ export default function AboutPage() {
         </section>
 
         {/* IPO Vision 2030 */}
-        <section className="py-20 bg-brand-900 text-white">
+        <section className="py-20 brand-gradient-deep text-white">
           <div className="container mx-auto px-6">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
@@ -888,7 +888,7 @@ export default function AboutPage() {
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
                   {medicalPartners.map((partner, index) => (
-                    <div key={index} className="p-5 bg-brand-900/5 rounded-xl text-center font-medium text-brand-900 border border-brand-900/10 hover:bg-brand-900 hover:text-white transition cursor-default">
+                    <div key={index} className="p-5 brand-gradient-deep/5 rounded-xl text-center font-medium text-brand-900 border border-brand-900/10 hover:brand-gradient-deep hover:text-white transition cursor-default">
                       {(partner as Record<Language, string>)[currentLang]}
                     </div>
                   ))}
@@ -903,7 +903,7 @@ export default function AboutPage() {
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {servicePartners.map((partner, index) => (
-                    <div key={index} className="p-5 bg-neutral-50 rounded-xl text-center font-medium text-neutral-700 hover:bg-brand-900 hover:text-white transition cursor-default">
+                    <div key={index} className="p-5 bg-neutral-50 rounded-xl text-center font-medium text-neutral-700 hover:brand-gradient-deep hover:text-white transition cursor-default">
                       {(partner as Record<Language, string>)[currentLang]}
                     </div>
                   ))}

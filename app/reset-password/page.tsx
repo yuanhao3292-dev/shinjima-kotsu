@@ -252,7 +252,7 @@ function ResetPasswordForm() {
             </p>
             <Link
               href={loginPath}
-              className="block w-full bg-brand-900 hover:bg-brand-800 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg"
+              className="block w-full brand-gradient-solid hover:brand-gradient-solid text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg"
             >
               {t('loginNow', lang)}
             </Link>
@@ -371,7 +371,7 @@ function ResetPasswordForm() {
                     <button
                       type="submit"
                       disabled={verifyingCode || otpCode.length < 6}
-                      className="w-full bg-brand-900 hover:bg-brand-800 disabled:bg-neutral-300 text-white font-bold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg"
+                      className="w-full brand-gradient-solid hover:brand-gradient-solid disabled:bg-neutral-300 text-white font-bold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg"
                     >
                       {verifyingCode ? (
                         <>
@@ -446,7 +446,7 @@ function ResetPasswordForm() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-brand-900 hover:bg-brand-800 disabled:bg-neutral-400 text-white font-bold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                  className="w-full brand-gradient-solid hover:brand-gradient-solid disabled:bg-neutral-400 text-white font-bold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
                 >
                   {loading ? (
                     <>
