@@ -255,7 +255,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="absolute inset-0 bg-gradient-to-br from-brand-50 to-brand-100 animate-pulse" />
           )}
           {/* 温暖的渐变，类似高尔夫板块但用蓝绿色调 */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/5"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10"></div>
         </div>
 
         <div className="relative container mx-auto px-6 py-12 md:py-24 py-24 reveal-on-scroll">
@@ -366,7 +366,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="absolute inset-0 bg-gradient-to-br from-brand-50 to-brand-100 animate-pulse" />
           )}
           {/* 深蓝色渐变，传达专业、希望 */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/5"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10"></div>
         </div>
 
         <div className="relative container mx-auto px-6 py-12 md:py-24 py-24 reveal-on-scroll">
@@ -454,7 +454,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 { step: '04', text: currentLang === 'zh-TW' ? '回國後持續跟進' : currentLang === 'zh-CN' ? '回国后持续跟进' : currentLang === 'ja' ? '帰国後継続フォロー' : 'Continued follow-up after return' },
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-3 text-sm">
-                  <span className="w-6 h-6 bg-brand-500/30 rounded-full flex items-center justify-center text-xs text-brand-200 flex-shrink-0">{item.step}</span>
+                  <span className="w-6 h-6 bg-brand-500/30 rounded-full flex items-center justify-center text-xs text-neutral-600 flex-shrink-0">{item.step}</span>
                   <span className="text-brand-900/80">{item.text}</span>
                 </div>
               ))}
@@ -479,7 +479,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           ) : (
             <div className="absolute inset-0 bg-gradient-to-br from-brand-50 to-brand-100 animate-pulse" />
           )}
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/5"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10"></div>
         </div>
 
         <div className="relative container mx-auto px-6 py-12 md:py-24 py-24 reveal-on-scroll">
@@ -715,7 +715,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="absolute inset-0 bg-gradient-to-br from-brand-50 to-brand-100 animate-pulse" />
           )}
           {/* 深紫色渐变，传达高端、信任 */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/5"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10"></div>
         </div>
 
         <div className="relative container mx-auto px-6 py-12 md:py-24 py-24 reveal-on-scroll">
@@ -733,7 +733,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               <span className="text-brand-500">{currentLang === 'zh-TW' ? '客戶介紹計劃' : currentLang === 'zh-CN' ? '客户介绍计划' : currentLang === 'ja' ? '顧客紹介プログラム' : 'Client Referral Program'}</span>
             </h2>
 
-            <p className="text-sm sm:text-base md:text-xl text-brand-100/80 mb-6 md:mb-8 leading-relaxed font-light">
+            <p className="text-sm sm:text-base md:text-xl text-neutral-600 mb-6 md:mb-8 leading-relaxed font-light">
               {currentLang === 'zh-TW' ? '新島交通提供高端夜總會、精密體檢、綜合醫療等服務資源。您介紹客戶，我們提供服務，成功即有介紹報酬。' : currentLang === 'zh-CN' ? '新岛交通提供高端夜总会、精密体检、综合医疗等服务资源。您介绍客户，我们提供服务，成功即有介绍报酬。' : currentLang === 'ja' ? '新島交通は高級クラブ、精密健診、総合医療などのサービスを提供。お客様をご紹介いただき、成約時に紹介報酬をお支払いします。' : 'Niijima Kotsu offers premium nightclub, health checkup, and comprehensive medical services. Refer clients, we provide the service, and you earn a referral commission.'}
             </p>
 
@@ -741,11 +741,11 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="grid grid-cols-2 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-neutral-200">
               <div className="text-center">
                 <div className="text-2xl md:text-4xl font-light text-brand-900 mb-1">160<span className="text-brand-500">+</span></div>
-                <div className="text-xs text-brand-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '合作店舖' : currentLang === 'zh-CN' ? '合作店舖' : currentLang === 'ja' ? '提携店舗' : 'Partner Venues'}</div>
+                <div className="text-xs text-neutral-600 tracking-wider uppercase">{currentLang === 'zh-TW' ? '合作店舖' : currentLang === 'zh-CN' ? '合作店舖' : currentLang === 'ja' ? '提携店舗' : 'Partner Venues'}</div>
               </div>
               <div className="border-l border-neutral-200 pl-3 md:pl-6 text-center">
                 <div className="text-2xl md:text-4xl font-light text-brand-900 mb-1">3000<span className="text-brand-500">+</span></div>
-                <div className="text-[10px] md:text-xs text-brand-200/60 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : currentLang === 'zh-CN' ? '服务客户' : currentLang === 'ja' ? 'ご利用者様' : 'Clients Served'}</div>
+                <div className="text-[10px] md:text-xs text-neutral-600 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : currentLang === 'zh-CN' ? '服务客户' : currentLang === 'ja' ? 'ご利用者様' : 'Clients Served'}</div>
               </div>
             </div>
 
@@ -796,13 +796,13 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                   <CheckCircle size={16} className="text-brand-500 flex-shrink-0" />
                   <div>
                     <span className="text-brand-900">{item.name}</span>
-                    <span className="text-brand-200/60 ml-2">{item.desc}</span>
+                    <span className="text-neutral-600 ml-2">{item.desc}</span>
                   </div>
                 </div>
               ))}
             </div>
             {/* 法律声明 */}
-            <p className="text-[10px] text-brand-200/40 mt-4 pt-3 border-t border-brand-100 leading-relaxed">
+            <p className="text-[10px] text-neutral-600 mt-4 pt-3 border-t border-brand-100 leading-relaxed">
               {currentLang === 'zh-TW' ? '所有旅行服務由新島交通株式會社提供' : currentLang === 'zh-CN' ? '所有旅行服务由新岛交通株式会社提供' : currentLang === 'ja' ? '全ての旅行サービスは新島交通株式会社が提供' : 'All travel services provided by Niijima Kotsu Co., Ltd.'}
             </p>
           </div>

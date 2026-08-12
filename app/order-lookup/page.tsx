@@ -148,7 +148,7 @@ export default function OrderLookupPage() {
             sizes="50vw"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/5" />
+          <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10" />
 
           {/* Decorative Elements */}
           <div className="absolute inset-0 pointer-events-none">
@@ -171,18 +171,18 @@ export default function OrderLookupPage() {
                 <span className="text-accent-600">{t('noLoginRequired', lang)}</span>
               </h1>
 
-              <p className="text-lg text-neutral-300 leading-relaxed font-light mb-10 max-w-md">
+              <p className="text-lg text-neutral-600 leading-relaxed font-light mb-10 max-w-md">
                 {t('heroDesc', lang)}
               </p>
 
               <div className="flex items-center gap-6 text-sm">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                  <span className="text-neutral-300">{t('support24h', lang)}</span>
+                  <span className="text-neutral-600">{t('support24h', lang)}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-accent-400 rounded-full" />
-                  <span className="text-neutral-300">{t('chineseService', lang)}</span>
+                  <span className="text-neutral-600">{t('chineseService', lang)}</span>
                 </div>
               </div>
             </div>
@@ -239,7 +239,7 @@ export default function OrderLookupPage() {
                   className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent font-mono transition bg-white text-sm"
                   placeholder={t('orderIdPlaceholder', lang)}
                 />
-                <p className="mt-2 text-xs text-neutral-400">
+                <p className="mt-2 text-xs text-neutral-500">
                   {t('orderIdHint', lang)}
                 </p>
               </div>
@@ -315,7 +315,7 @@ export default function OrderLookupPage() {
                       <Package className="w-6 h-6 text-brand-700" />
                     </div>
                     <div className="flex-grow">
-                      <p className="text-xs text-neutral-400 mb-1">{t('package', lang)}</p>
+                      <p className="text-xs text-neutral-500 mb-1">{t('package', lang)}</p>
                       <p className="font-semibold text-brand-900">{order.packageName}</p>
                       <p className="text-xl font-bold text-brand-700 mt-1">
                         ¥{order.packagePrice.toLocaleString()}
@@ -330,7 +330,7 @@ export default function OrderLookupPage() {
                         <Calendar className="w-5 h-5 text-neutral-600" />
                       </div>
                       <div>
-                        <p className="text-xs text-neutral-400 mb-1">{t('appointmentDate', lang)}</p>
+                        <p className="text-xs text-neutral-500 mb-1">{t('appointmentDate', lang)}</p>
                         <p className="font-semibold text-brand-900 text-sm">
                           {order.preferredDate ? formatDateLong(order.preferredDate) : t('toBeConfirmed', lang)}
                         </p>
@@ -342,7 +342,7 @@ export default function OrderLookupPage() {
                         <CreditCard className="w-5 h-5 text-neutral-600" />
                       </div>
                       <div>
-                        <p className="text-xs text-neutral-400 mb-1">{t('paymentStatus', lang)}</p>
+                        <p className="text-xs text-neutral-500 mb-1">{t('paymentStatus', lang)}</p>
                         <p className="font-semibold text-brand-900 text-sm">
                           {order.paymentStatus === 'paid' ? t('paid', lang) : t('unpaid', lang)}
                         </p>
@@ -351,7 +351,7 @@ export default function OrderLookupPage() {
                   </div>
 
                   {/* Order Date */}
-                  <div className="pt-4 border-t border-neutral-200 text-sm text-neutral-400">
+                  <div className="pt-4 border-t border-neutral-200 text-sm text-neutral-500">
                     {t('orderCreated', lang)}{formatDateLong(order.createdAt)}
                   </div>
                 </div>
@@ -394,7 +394,7 @@ export default function OrderLookupPage() {
             {searched && !order && !loading && !error && (
               <div className="mt-8 border border-neutral-200 p-8 text-center">
                 <div className="w-16 h-16 bg-neutral-50 border border-neutral-200 flex items-center justify-center mx-auto mb-4">
-                  <AlertCircle className="w-8 h-8 text-neutral-300" />
+                  <AlertCircle className="w-8 h-8 text-neutral-600" />
                 </div>
                 <h3 className="text-lg font-semibold text-brand-900 mb-2">{t('orderNotFound', lang)}</h3>
                 <p className="text-neutral-500 text-sm">
@@ -404,7 +404,7 @@ export default function OrderLookupPage() {
             )}
 
             {/* Help Text */}
-            <p className="mt-6 text-center text-xs text-neutral-400">
+            <p className="mt-6 text-center text-xs text-neutral-500">
               {t('helpText', lang)}
             </p>
           </div>

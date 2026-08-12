@@ -137,7 +137,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
             </div>
 
             {/* Brand overlay gradient */}
-            <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/5" />
+            <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10" />
           </div>
         );
       })}
@@ -171,7 +171,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
             </h1>
 
             {currentSlide.description && (
-              <p className="text-xl text-neutral-300 mb-10 leading-relaxed font-light max-w-2xl">
+              <p className="text-xl text-neutral-600 mb-10 leading-relaxed font-light max-w-2xl">
                 {currentSlide.description}
               </p>
             )}

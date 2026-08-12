@@ -882,7 +882,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
             priority
           />
           {/* Dark Overlay with Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/5"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10"></div>
         </div>
         {/* Decorative Elements */}
         <div className="absolute inset-0 pointer-events-none">
@@ -1044,7 +1044,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                           <div className="mb-4">
                             <h4 className="text-lg font-bold text-brand-900 mb-1">{inst.name}</h4>
                             <p className="text-sm text-neutral-500">{inst.nameLocal[currentLang]}</p>
-                            <div className="flex items-center gap-1 text-xs text-neutral-400 mt-1">
+                            <div className="flex items-center gap-1 text-xs text-neutral-500 mt-1">
                               <MapPin size={12} />
                               {inst.location[currentLang]}
                             </div>
@@ -1146,14 +1146,14 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                       <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isActive ? c.bg : 'bg-neutral-200'}`}>
                         <PhaseIcon size={16} className={isActive ? 'text-white' : 'text-neutral-500'} />
                       </div>
-                      <span className={`text-xs font-bold ${isActive ? c.text : 'text-neutral-400'}`}>
+                      <span className={`text-xs font-bold ${isActive ? c.text : 'text-neutral-500'}`}>
                         PHASE {phase.phaseNumber}
                       </span>
                     </div>
                     <h3 className={`text-sm font-bold ${isActive ? 'text-brand-900' : 'text-neutral-600'}`}>
                       {phase.title[currentLang]}
                     </h3>
-                    <p className="text-xs text-neutral-400 mt-1 flex items-center gap-1">
+                    <p className="text-xs text-neutral-500 mt-1 flex items-center gap-1">
                       <Clock size={10} />
                       {phase.duration[currentLang]}
                     </p>
@@ -1161,7 +1161,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                 );
               })}
             </div>
-            <p className="text-center text-xs text-neutral-400 mt-4">{t('flowClickPhase')}</p>
+            <p className="text-center text-xs text-neutral-500 mt-4">{t('flowClickPhase')}</p>
           </div>
 
           {/* Active Phase Detail */}
@@ -1183,9 +1183,9 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                           <PhaseIcon size={24} />
                         </div>
                         <div>
-                          <div className="text-white/70 text-xs font-bold tracking-wider">PHASE {phase.phaseNumber}</div>
+                          <div className="text-neutral-600 text-xs font-bold tracking-wider">PHASE {phase.phaseNumber}</div>
                           <h3 className="text-xl md:text-2xl font-bold">{phase.title[currentLang]}</h3>
-                          <p className="text-white/80 text-sm mt-1">{phase.subtitle[currentLang]}</p>
+                          <p className="text-neutral-600 text-sm mt-1">{phase.subtitle[currentLang]}</p>
                         </div>
                       </div>
                       <div className="flex flex-wrap items-center gap-3">
@@ -1239,7 +1239,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                     {/* Sub-step Timeline */}
                     <div>
                       <h4 className="font-bold text-brand-900 text-sm mb-4 flex items-center gap-2">
-                        <FileText size={16} className="text-neutral-400" />
+                        <FileText size={16} className="text-neutral-500" />
                         {t('flowStepDetail')}
                       </h4>
                       <div className="relative">
@@ -1274,7 +1274,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                                       </div>
                                     )}
                                   </div>
-                                  <div className="flex items-center gap-1.5 text-xs text-neutral-400">
+                                  <div className="flex items-center gap-1.5 text-xs text-neutral-500">
                                     <span className="bg-neutral-200 px-1.5 py-0.5 rounded text-xs">{step.from[currentLang]}</span>
                                     <ArrowRight size={10} />
                                     <span className="bg-neutral-200 px-1.5 py-0.5 rounded text-xs">{step.to[currentLang]}</span>
@@ -1387,7 +1387,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                     {treatment.purpose[currentLang]}
                   </div>
                   <h3 className="text-xl font-serif font-bold text-brand-900 mb-1">{treatment.title[currentLang]}</h3>
-                  <p className="text-neutral-400 text-sm mb-4">{treatment.subtitle}</p>
+                  <p className="text-neutral-500 text-sm mb-4">{treatment.subtitle}</p>
                   <ul className="space-y-2">
                     {treatment.features.map((feature, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-neutral-600">
@@ -1407,7 +1407,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-serif font-bold mb-4">{t('partnerTitle')}</h2>
-            <p className="text-neutral-300">{t('partnerDesc')}</p>
+            <p className="text-neutral-600">{t('partnerDesc')}</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
             {PARTNER_INSTITUTIONS.map((inst, i) => {
@@ -1417,7 +1417,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Icon size={24} className="text-white" />
                   </div>
-                  <p className="text-sm text-white/90">{inst.label[currentLang]}</p>
+                  <p className="text-sm text-neutral-600">{inst.label[currentLang]}</p>
                 </div>
               );
             })}
@@ -1445,11 +1445,11 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="text-xl font-bold">{CONSULTATION_SERVICES.initial.name[currentLang]}</h3>
-                      <p className="text-brand-200 text-sm">{CONSULTATION_SERVICES.initial.nameEn}</p>
+                      <p className="text-neutral-600 text-sm">{CONSULTATION_SERVICES.initial.nameEn}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-3xl font-bold">¥{CONSULTATION_SERVICES.initial.price.toLocaleString()}</p>
-                      <p className="text-xs text-brand-200">{t('svcTaxIncl')}</p>
+                      <p className="text-xs text-neutral-600">{t('svcTaxIncl')}</p>
                     </div>
                   </div>
                 </div>
@@ -1487,11 +1487,11 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="text-xl font-bold">{CONSULTATION_SERVICES.remote.name[currentLang]}</h3>
-                      <p className="text-brand-200 text-sm">{CONSULTATION_SERVICES.remote.nameEn}</p>
+                      <p className="text-neutral-600 text-sm">{CONSULTATION_SERVICES.remote.nameEn}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-3xl font-bold">¥{CONSULTATION_SERVICES.remote.price.toLocaleString()}</p>
-                      <p className="text-xs text-brand-200">{t('svcTaxIncl')}</p>
+                      <p className="text-xs text-neutral-600">{t('svcTaxIncl')}</p>
                     </div>
                   </div>
                 </div>
@@ -1544,10 +1544,10 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
       {/* Medical Disclaimer */}
       <div className="bg-neutral-50 border-t border-neutral-200 py-8">
         <div className="container mx-auto px-6">
-          <p className="text-xs text-neutral-400 leading-relaxed max-w-4xl mx-auto text-center">
+          <p className="text-xs text-neutral-500 leading-relaxed max-w-4xl mx-auto text-center">
             {t('medicalDisclaimer')}
           </p>
-          <p className="text-xs text-neutral-400 leading-relaxed max-w-4xl mx-auto text-center mt-2">
+          <p className="text-xs text-neutral-500 leading-relaxed max-w-4xl mx-auto text-center mt-2">
             <a href="/legal/medical-disclaimer" className="underline hover:text-neutral-600">{currentLang === 'ja' ? '医療免責事項の詳細' : currentLang === 'en' ? 'Medical Disclaimer Details' : '醫療免責聲明詳情'}</a>
             {' | '}
             <a href="/legal/tokushoho" className="underline hover:text-neutral-600">{currentLang === 'ja' ? '特定商取引法に基づく表記' : currentLang === 'en' ? 'Specified Commercial Transactions' : '特定商取引法標示'}</a>
@@ -1578,7 +1578,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
           >
             <button
               onClick={() => setShowWechatQR(false)}
-              className="absolute top-4 right-4 text-neutral-400 hover:text-neutral-600"
+              className="absolute top-4 right-4 text-neutral-500 hover:text-neutral-600"
             >
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -1601,7 +1601,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                 className="w-48 h-48 mx-auto"
               />
             </div>
-            <p className="text-xs text-neutral-400">
+            <p className="text-xs text-neutral-500">
               {t('wechatNote')}
             </p>
           </div>

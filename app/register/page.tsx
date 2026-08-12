@@ -124,7 +124,7 @@ export default function RegisterPage() {
             sizes="50vw"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/5" />
+          <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10" />
 
           {/* Decorative Elements */}
           <div className="absolute inset-0 pointer-events-none">
@@ -147,22 +147,22 @@ export default function RegisterPage() {
                 <span className="text-accent-600">{t('heroSubtitle', lang)}</span>
               </h1>
 
-              <p className="text-lg text-neutral-300 leading-relaxed font-light mb-10 max-w-md">
+              <p className="text-lg text-neutral-600 leading-relaxed font-light mb-10 max-w-md">
                 {t('heroDesc', lang)}
               </p>
 
               <div className="space-y-3">
                 <div className="flex items-center gap-3 text-sm">
                   <CheckCircle className="w-4 h-4 text-accent-600" />
-                  <span className="text-neutral-300">{t('benefit1', lang)}</span>
+                  <span className="text-neutral-600">{t('benefit1', lang)}</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm">
                   <CheckCircle className="w-4 h-4 text-accent-600" />
-                  <span className="text-neutral-300">{t('benefit2', lang)}</span>
+                  <span className="text-neutral-600">{t('benefit2', lang)}</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm">
                   <CheckCircle className="w-4 h-4 text-accent-600" />
-                  <span className="text-neutral-300">{t('benefit3', lang)}</span>
+                  <span className="text-neutral-600">{t('benefit3', lang)}</span>
                 </div>
               </div>
             </div>
@@ -197,7 +197,7 @@ export default function RegisterPage() {
               <div>
                 <label className="block text-sm font-medium text-neutral-700 mb-2">{t('nameLabel', lang)}</label>
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500" size={18} />
                   <input
                     type="text"
                     value={name}
@@ -212,7 +212,7 @@ export default function RegisterPage() {
               <div>
                 <label className="block text-sm font-medium text-neutral-700 mb-2">{t('emailLabel', lang)}</label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500" size={18} />
                   <input
                     type="email"
                     value={email}
@@ -227,7 +227,7 @@ export default function RegisterPage() {
               <div>
                 <label className="block text-sm font-medium text-neutral-700 mb-2">{t('passwordLabel', lang)}</label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500" size={18} />
                   <input
                     type={showPassword ? 'text' : 'password'}
                     value={password}
@@ -240,7 +240,7 @@ export default function RegisterPage() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-neutral-600"
                   >
                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
@@ -250,7 +250,7 @@ export default function RegisterPage() {
               <div>
                 <label className="block text-sm font-medium text-neutral-700 mb-2">{t('confirmPasswordLabel', lang)}</label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500" size={18} />
                   <input
                     type={showPassword ? 'text' : 'password'}
                     value={confirmPassword}

@@ -111,7 +111,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                   <div className="flex justify-between items-start mb-3">
                      <div>
                         <h5 className="font-bold text-neutral-900 group-hover:text-brand-600 transition">{company.name}</h5>
-                        {company.name !== company.nameEn && <p className="text-xs text-neutral-400">{company.nameEn}</p>}
+                        {company.name !== company.nameEn && <p className="text-xs text-neutral-500">{company.nameEn}</p>}
                      </div>
                      <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                   </div>
@@ -141,7 +141,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
           ) : (
             <div className="absolute inset-0 bg-gradient-to-br from-brand-50 to-brand-100 animate-pulse" />
           )}
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/5"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10"></div>
         </div>
         {/* Decorative Elements */}
         <div className="absolute inset-0 pointer-events-none">
@@ -219,7 +219,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
           <div className="mb-24 brand-gradient-deep rounded-3xl p-10 md:p-16 text-white overflow-hidden relative">
              <div className="relative z-10 text-center mb-16">
                  <h3 className="text-3xl font-serif">{t.business.process_title}</h3>
-                 <p className="text-neutral-400 mt-2 text-sm">{t.business.process_sub}</p>
+                 <p className="text-neutral-500 mt-2 text-sm">{t.business.process_sub}</p>
              </div>
              <div className="relative z-10 grid grid-cols-1 md:grid-cols-5 gap-4">
                  {[
@@ -232,7 +232,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                     <div key={i} className="relative group">
                        <div className="text-4xl font-mono font-bold text-brand-800 mb-4 group-hover:text-brand-500 transition">0{i+1}</div>
                        <h4 className="font-bold text-lg mb-2">{step.t}</h4>
-                       <p className="text-xs text-neutral-400 leading-relaxed">{step.d}</p>
+                       <p className="text-xs text-neutral-500 leading-relaxed">{step.d}</p>
                     </div>
                  ))}
              </div>
@@ -333,7 +333,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                             <div className="space-y-3">
                                {plan.schedule.map((day: any, dIndex: number) => (
                                   <div key={dIndex} className="flex gap-4 text-xs md:text-sm">
-                                     <span className="font-bold text-neutral-400 w-12 flex-shrink-0">{day.day}</span>
+                                     <span className="font-bold text-neutral-500 w-12 flex-shrink-0">{day.day}</span>
                                      <span className="text-neutral-700 leading-relaxed">{day.text}</span>
                                   </div>
                                ))}

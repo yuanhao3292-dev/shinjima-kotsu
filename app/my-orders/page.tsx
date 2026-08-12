@@ -205,7 +205,7 @@ export default function MyOrdersPage() {
             sizes="50vw"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/5" />
+          <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10" />
 
           {/* Decorative Elements */}
           <div className="absolute inset-0 pointer-events-none">
@@ -228,7 +228,7 @@ export default function MyOrdersPage() {
                 <span className="text-accent-600">{t('bookingRecords', lang)}</span>
               </h1>
 
-              <p className="text-lg text-neutral-300 leading-relaxed font-light max-w-md">
+              <p className="text-lg text-neutral-600 leading-relaxed font-light max-w-md">
                 {t('ordersDesc', lang)}
               </p>
             </div>
@@ -271,7 +271,7 @@ export default function MyOrdersPage() {
             {orders.length === 0 ? (
               <div className="border border-neutral-200 p-8 text-center">
                 <div className="w-16 h-16 bg-neutral-50 border border-neutral-200 flex items-center justify-center mx-auto mb-6">
-                  <FileText className="w-8 h-8 text-neutral-300" />
+                  <FileText className="w-8 h-8 text-neutral-600" />
                 </div>
                 <h3 className="text-lg font-semibold text-brand-900 mb-3">{t('noOrders', lang)}</h3>
                 <p className="text-neutral-500 text-sm mb-8">{t('noOrdersDesc', lang)}</p>
@@ -311,7 +311,7 @@ export default function MyOrdersPage() {
                     >
                       <div className="flex items-start justify-between mb-4">
                         <div>
-                          <p className="text-xs text-neutral-400 mb-1">{t('orderNumber', lang)}</p>
+                          <p className="text-xs text-neutral-500 mb-1">{t('orderNumber', lang)}</p>
                           <p className="font-mono font-bold text-brand-900">{order.order_number}</p>
                         </div>
                         <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium border ${status.bgColor} ${status.color}`}>
@@ -339,7 +339,7 @@ export default function MyOrdersPage() {
                           </div>
                         )}
                         <div className="flex items-center justify-between mt-4 pt-4 border-t border-neutral-100">
-                          <span className="text-sm text-neutral-400">{t('orderDate', lang)}：{orderDate}</span>
+                          <span className="text-sm text-neutral-500">{t('orderDate', lang)}：{orderDate}</span>
                           <span className="text-xl font-bold text-brand-700">
                             ¥{order.total_amount_jpy?.toLocaleString() || '-'}
                           </span>

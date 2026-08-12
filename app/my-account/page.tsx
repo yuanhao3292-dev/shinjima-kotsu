@@ -118,7 +118,7 @@ export default function MyAccountPage() {
             sizes="50vw"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/5" />
+          <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10" />
 
           {/* Decorative Elements */}
           <div className="absolute inset-0 pointer-events-none">
@@ -141,18 +141,18 @@ export default function MyAccountPage() {
                 <span className="text-accent-600">{userName}</span>
               </h1>
 
-              <p className="text-lg text-neutral-300 leading-relaxed font-light mb-10 max-w-md">
+              <p className="text-lg text-neutral-600 leading-relaxed font-light mb-10 max-w-md">
                 {t('accountDesc', lang)}
               </p>
 
               <div className="flex items-center gap-6 text-sm">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                  <span className="text-neutral-300">{t('support24h', lang)}</span>
+                  <span className="text-neutral-600">{t('support24h', lang)}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-accent-400 rounded-full" />
-                  <span className="text-neutral-300">{t('chineseService', lang)}</span>
+                  <span className="text-neutral-600">{t('chineseService', lang)}</span>
                 </div>
               </div>
             </div>
@@ -182,7 +182,7 @@ export default function MyAccountPage() {
 
               <div className="space-y-4 border-t border-neutral-200 pt-6">
                 <div className="flex items-center gap-3 text-neutral-600">
-                  <Mail className="w-5 h-5 text-neutral-400" />
+                  <Mail className="w-5 h-5 text-neutral-500" />
                   <span className="text-sm">{user.email}</span>
                   {user.email_confirmed_at && (
                     <span className="inline-flex items-center gap-1 text-xs bg-green-50 text-green-700 px-2 py-0.5 border border-green-200">
@@ -192,7 +192,7 @@ export default function MyAccountPage() {
                   )}
                 </div>
                 <div className="flex items-center gap-3 text-neutral-600">
-                  <Calendar className="w-5 h-5 text-neutral-400" />
+                  <Calendar className="w-5 h-5 text-neutral-500" />
                   <span className="text-sm">{t('memberSince', lang)} {memberSince}</span>
                 </div>
               </div>
@@ -208,7 +208,7 @@ export default function MyAccountPage() {
                   <h3 className="font-semibold text-brand-900">{t('myOrders', lang)}</h3>
                   <p className="text-sm text-neutral-500">{t('viewAllOrders', lang)}</p>
                 </div>
-                <ChevronRight className="w-5 h-5 text-neutral-400" />
+                <ChevronRight className="w-5 h-5 text-neutral-500" />
               </Link>
 
               <Link
@@ -219,7 +219,7 @@ export default function MyAccountPage() {
                   <h3 className="font-semibold text-brand-900">{t('bookCheckup', lang)}</h3>
                   <p className="text-sm text-neutral-500">{t('browsePackages', lang)}</p>
                 </div>
-                <ChevronRight className="w-5 h-5 text-neutral-400" />
+                <ChevronRight className="w-5 h-5 text-neutral-500" />
               </Link>
 
               <Link
@@ -235,7 +235,7 @@ export default function MyAccountPage() {
                   </h3>
                   <p className="text-sm text-neutral-500">{t('aiScreeningDesc', lang)}</p>
                 </div>
-                <ChevronRight className="w-5 h-5 text-neutral-400" />
+                <ChevronRight className="w-5 h-5 text-neutral-500" />
               </Link>
 
               <Link
@@ -246,7 +246,7 @@ export default function MyAccountPage() {
                   <h3 className="font-semibold text-brand-900">{t('comprehensiveTreatment', lang)}</h3>
                   <p className="text-sm text-neutral-500">{t('treatmentTypes', lang)}</p>
                 </div>
-                <ChevronRight className="w-5 h-5 text-neutral-400" />
+                <ChevronRight className="w-5 h-5 text-neutral-500" />
               </Link>
             </div>
 

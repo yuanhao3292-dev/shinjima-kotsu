@@ -315,7 +315,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
       {/* ===== 1. HERO ===== */}
       <section className="relative min-h-[600px] md:min-h-[700px] flex items-center overflow-hidden">
         <img src={IMG.hero1} alt="AC Cell Clinic" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/5" />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10" />
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 w-full">
           <div className="max-w-2xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-900 mb-4 leading-tight">
@@ -354,7 +354,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
             <div key={i} className="flex flex-col items-center gap-2">
               <div className="opacity-80">{s.icon}</div>
               <div className="text-3xl md:text-4xl font-bold">{s.val}</div>
-              <div className="text-sm text-white/80">{s.label}</div>
+              <div className="text-sm text-neutral-600">{s.label}</div>
             </div>
           ))}
         </div>
@@ -749,7 +749,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
       {/* ===== 14. LEGAL FOOTER ===== */}
       {!isGuideEmbed && (
         <section className="py-6 bg-[#333333] text-center">
-          <p className="text-xs text-white/40">
+          <p className="text-xs text-neutral-600">
             {lang === 'ja'
               ? '旅行サービスは 新島交通株式会社 が提供 ｜ 大阪府知事登録旅行業 第2-3115号'
               : lang === 'en'

@@ -453,7 +453,7 @@ export default function FAQPage() {
             quality={75}
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/5"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10"></div>
         </div>
         {/* Decorative Elements */}
         <div className="absolute inset-0 pointer-events-none">
@@ -539,7 +539,7 @@ export default function FAQPage() {
                     </div>
                     <ChevronDown
                       size={20}
-                      className={`flex-shrink-0 text-neutral-400 transition-transform duration-200 ${
+                      className={`flex-shrink-0 text-neutral-500 transition-transform duration-200 ${
                         isOpen ? 'rotate-180' : ''
                       }`}
                     />
@@ -613,7 +613,7 @@ export default function FAQPage() {
               <h3 className="font-serif text-lg text-brand-900">{t('wechatTitle')}</h3>
               <button
                 onClick={() => setShowWechatQR(false)}
-                className="text-neutral-400 hover:text-neutral-600 p-1"
+                className="text-neutral-500 hover:text-neutral-600 p-1"
               >
                 <X size={20} />
               </button>
