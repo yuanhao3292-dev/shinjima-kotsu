@@ -248,7 +248,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
       {/* ===== 1. HERO ===== */}
       <section className="relative min-h-[600px] md:min-h-[700px] flex items-center overflow-hidden">
         <img src={IMG.hero1} alt="Osaka Heavy Ion Therapy Center" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/5" />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10" />
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 w-full">
           <div className="max-w-2xl">
             <span className="inline-block bg-[#0056b3]/90 text-brand-900 text-sm font-semibold px-4 py-1 rounded-full mb-4">
@@ -290,7 +290,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
             <div key={i} className="flex flex-col items-center gap-2">
               <div className="opacity-80">{s.icon}</div>
               <div className="text-2xl md:text-3xl font-bold">{s.val}</div>
-              <div className="text-sm text-white/80">{s.label}</div>
+              <div className="text-sm text-neutral-600">{s.label}</div>
             </div>
           ))}
         </div>
@@ -717,7 +717,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
       <section className="py-20 bg-gradient-to-br from-[#0056b3] to-[#003d82]">
         <div className="max-w-4xl mx-auto px-6 text-center text-white">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">{t.ctaTitle[lang]}</h2>
-          <p className="text-lg text-white/90 mb-6">{t.ctaSub[lang]}</p>
+          <p className="text-lg text-neutral-600 mb-6">{t.ctaSub[lang]}</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
             <div className="flex items-center gap-2 bg-white/15 px-4 py-2 rounded-full backdrop-blur-sm">
               <Globe size={18} />

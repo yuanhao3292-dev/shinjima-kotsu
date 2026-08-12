@@ -101,7 +101,7 @@ function ForgotPasswordForm() {
           sizes="50vw"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/5" />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10" />
 
         {/* Decorative Elements */}
         <div className="absolute inset-0 pointer-events-none">
@@ -124,7 +124,7 @@ function ForgotPasswordForm() {
               <span className="text-accent-600">{t('dontWorry', lang)}</span>
             </h1>
 
-            <p className="text-lg text-neutral-300 leading-relaxed font-light max-w-md">
+            <p className="text-lg text-neutral-600 leading-relaxed font-light max-w-md">
               {t('heroDesc', lang)}
             </p>
           </div>
@@ -170,7 +170,7 @@ function ForgotPasswordForm() {
                 {t('emailLabel', lang)}
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500" size={18} />
                 <input
                   type="email"
                   value={email}

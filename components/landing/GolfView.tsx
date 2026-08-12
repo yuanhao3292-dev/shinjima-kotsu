@@ -65,7 +65,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
          ) : (
            <div className="absolute inset-0 bg-gradient-to-br from-brand-50 to-brand-100 animate-pulse" />
          )}
-         <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/5"></div>
+         <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10"></div>
        </div>
        {/* Decorative Elements */}
        <div className="absolute inset-0 pointer-events-none">
@@ -113,7 +113,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
              <div key={i} className="golf-stat-card text-center p-4 rounded-xl hover:bg-brand-50/50 transition-all duration-500">
                <div className="text-2xl md:text-4xl lg:text-5xl font-bold golf-gold-text mb-2">{stat.value}</div>
                <div className="text-sm font-bold text-neutral-800">{stat.label}</div>
-               <div className="text-xs text-neutral-400 mt-1">{stat.sublabel}</div>
+               <div className="text-xs text-neutral-500 mt-1">{stat.sublabel}</div>
              </div>
            ))}
          </div>
@@ -199,7 +199,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                  <MapPin size={20} className="text-accent-600" />
                </div>
                <h4 className="text-white font-bold text-sm mb-1 group-hover:text-accent-600 transition-colors">{course.name}</h4>
-               <p className="text-white/50 text-xs mb-2">{course.region}</p>
+               <p className="text-neutral-600 text-xs mb-2">{course.region}</p>
                <span className="inline-block text-[10px] px-2 py-1 bg-accent-400/20 text-accent-600 rounded-full">{course.rank}</span>
                {/* External link indicator */}
                <div className="mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -213,7 +213,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
          {/* More Courses Hint */}
          <div className="text-center mt-8">
-           <span className="text-white/40 text-sm">{currentLang === 'zh-TW' ? '...以及日本各地 20+ 座頂級球場' : currentLang === 'zh-CN' ? '...以及日本各地 20+ 座顶级球场' : currentLang === 'ja' ? '...ほか日本全国20以上の名門コース' : '...and 20+ more exclusive courses across Japan'}</span>
+           <span className="text-neutral-600 text-sm">{currentLang === 'zh-TW' ? '...以及日本各地 20+ 座頂級球場' : currentLang === 'zh-CN' ? '...以及日本各地 20+ 座顶级球场' : currentLang === 'ja' ? '...ほか日本全国20以上の名門コース' : '...and 20+ more exclusive courses across Japan'}</span>
          </div>
        </div>
      </div>
@@ -308,7 +308,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                              <Building size={18} className="text-brand-600" />
                            </div>
                            <div>
-                             <span className="text-xs text-neutral-400 uppercase tracking-wider">{currentLang === 'zh-TW' ? '住宿' : currentLang === 'zh-CN' ? '住宿' : currentLang === 'ja' ? '宿泊' : 'Accommodation'}</span>
+                             <span className="text-xs text-neutral-500 uppercase tracking-wider">{currentLang === 'zh-TW' ? '住宿' : currentLang === 'zh-CN' ? '住宿' : currentLang === 'ja' ? '宿泊' : 'Accommodation'}</span>
                              <p className="text-neutral-900 font-bold">{plan.hotel}</p>
                            </div>
                         </div>

@@ -235,7 +235,7 @@ function LoginForm() {
           sizes="50vw"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/5" />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10" />
 
         {/* Decorative Elements */}
         <div className="absolute inset-0 pointer-events-none">
@@ -258,18 +258,18 @@ function LoginForm() {
               <span className="text-accent-600">{t('heroSubtitle', lang)}</span>
             </h1>
 
-            <p className="text-lg text-neutral-300 leading-relaxed font-light mb-10 max-w-md">
+            <p className="text-lg text-neutral-600 leading-relaxed font-light mb-10 max-w-md">
               {t('heroDesc', lang)}
             </p>
 
             <div className="flex items-center gap-6 text-sm">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                <span className="text-neutral-300">{t('support24h', lang)}</span>
+                <span className="text-neutral-600">{t('support24h', lang)}</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-accent-400 rounded-full" />
-                <span className="text-neutral-300">{t('chineseService', lang)}</span>
+                <span className="text-neutral-600">{t('chineseService', lang)}</span>
               </div>
             </div>
           </div>
@@ -318,7 +318,7 @@ function LoginForm() {
                 {t('emailLabel', lang)}
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500" size={18} />
                 <input
                   type="email"
                   value={email}
@@ -335,7 +335,7 @@ function LoginForm() {
                 {t('passwordLabel', lang)}
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500" size={18} />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
@@ -347,7 +347,7 @@ function LoginForm() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-neutral-600"
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
@@ -381,7 +381,7 @@ function LoginForm() {
           {/* Divider */}
           <div className="my-6 flex items-center">
             <div className="flex-grow border-t border-neutral-200" />
-            <span className="px-4 text-sm text-neutral-400">{t('or', lang)}</span>
+            <span className="px-4 text-sm text-neutral-500">{t('or', lang)}</span>
             <div className="flex-grow border-t border-neutral-200" />
           </div>
 
@@ -400,7 +400,7 @@ function LoginForm() {
 
           {/* Guest Lookup */}
           <div className="mt-6 pt-6 border-t border-neutral-200 text-center">
-            <p className="text-xs text-neutral-400 mb-2">{t('guestLookup', lang)}</p>
+            <p className="text-xs text-neutral-500 mb-2">{t('guestLookup', lang)}</p>
             <Link
               href="/order-lookup"
               className="text-brand-700 hover:text-brand-900 text-sm font-medium inline-flex items-center gap-1"
