@@ -150,7 +150,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
 
       {/* Content */}
       <div className="relative z-20 h-full flex items-center">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-6 md:px-24">
           <div className="max-w-4xl animate-fade-in-up">
             {currentSlide.subtitle && (
               <div className="flex items-center gap-3 mb-6">
@@ -208,14 +208,14 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
         <>
           <button
             onClick={() => { goToPrev(); pauseAutoPlay(); setTimeout(resumeAutoPlay, 3000); }}
-            className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-sm flex items-center justify-center text-white transition-all border border-white/20"
+            className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-sm hidden md:flex items-center justify-center text-white transition-all border border-white/20"
             aria-label="Previous slide"
           >
             <ChevronLeft size={24} />
           </button>
           <button
             onClick={() => { goToNext(); pauseAutoPlay(); setTimeout(resumeAutoPlay, 3000); }}
-            className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-sm flex items-center justify-center text-white transition-all border border-white/20"
+            className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-sm hidden md:flex items-center justify-center text-white transition-all border border-white/20"
             aria-label="Next slide"
           >
             <ChevronRight size={24} />
