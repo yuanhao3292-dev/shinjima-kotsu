@@ -159,7 +159,7 @@ function PaymentSuccessContent() {
         <div className="space-y-3">
           <Link
             href={backToPackagesHref}
-            className="block w-full bg-gold-400 hover:bg-gold-300 text-brand-900 font-bold py-3 px-6 tracking-wider transition-colors"
+            className="block w-full bg-accent-400 hover:bg-accent-300 text-brand-900 font-bold py-3 px-6 tracking-wider transition-colors"
           >
             {t('backToPackages')}
           </Link>

@@ -70,18 +70,18 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
        {/* Decorative Elements */}
        <div className="absolute inset-0 pointer-events-none">
          <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
-         <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+         <div className="absolute w-72 h-72 bg-accent-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
        </div>
        <div className="container mx-auto px-6 relative z-10 py-32">
          <div className="max-w-4xl">
            <div className="flex items-center gap-3 mb-8">
-             <div className="h-[1px] w-12 bg-gold-400"></div>
-             <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">{currentLang === 'zh-TW' ? '頂級高爾夫' : currentLang === 'zh-CN' ? '顶级高尔夫' : currentLang === 'ja' ? 'プレミアムゴルフ' : 'PREMIUM GOLF'}</span>
+             <div className="h-[1px] w-12 bg-accent-400"></div>
+             <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">{currentLang === 'zh-TW' ? '頂級高爾夫' : currentLang === 'zh-CN' ? '顶级高尔夫' : currentLang === 'ja' ? 'プレミアムゴルフ' : 'PREMIUM GOLF'}</span>
            </div>
            <h1 className="text-4xl md:text-6xl font-serif text-white mb-6 leading-tight">
              {t.golf.title_1}
              <br />
-             <span className="text-gold-400">{t.golf.title_2}</span>
+             <span className="text-accent-400">{t.golf.title_2}</span>
            </h1>
            <p className="text-xl text-neutral-300 mb-8 leading-relaxed font-light max-w-2xl whitespace-pre-line">
              {t.golf.desc}
@@ -89,7 +89,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
            <div className="flex flex-wrap gap-4">
              <a
                href="#golf-plans"
-               className="inline-flex items-center px-8 py-4 bg-gold-400 text-brand-900 text-sm font-medium tracking-wider hover:bg-gold-300 transition-colors"
+               className="inline-flex items-center px-8 py-4 bg-accent-400 text-brand-900 text-sm font-medium tracking-wider hover:bg-accent-300 transition-colors"
              >
                {t.golf.btn_tour || 'View Itineraries'}
              </a>
@@ -126,9 +126,9 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
          {/* Section Header */}
          <div className="text-center mb-16">
            <div className="inline-flex items-center gap-4 mb-4">
-             <div className="w-12 h-px bg-gradient-to-r from-transparent to-gold-400"></div>
-             <span className="text-gold-600 text-xs tracking-[0.3em] uppercase font-bold">{t.golf.std_title}</span>
-             <div className="w-12 h-px bg-gradient-to-l from-transparent to-gold-400"></div>
+             <div className="w-12 h-px bg-gradient-to-r from-transparent to-accent-400"></div>
+             <span className="text-accent-600 text-xs tracking-[0.3em] uppercase font-bold">{t.golf.std_title}</span>
+             <div className="w-12 h-px bg-gradient-to-l from-transparent to-accent-400"></div>
            </div>
            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-neutral-900 golf-title-decorated">
              {currentLang === 'zh-TW' ? '為什麼選擇新島高爾夫？' : currentLang === 'zh-CN' ? '为什么选择新岛高尔夫？' : currentLang === 'ja' ? 'なぜ新島ゴルフ？' : 'Why Choose Niijima Golf?'}
@@ -150,14 +150,14 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                   {/* Icon with gradient background */}
                   <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500
                     ${item.accent === 'emerald' ? 'bg-brand-50 text-brand-600 group-hover:bg-brand-600 group-hover:text-white' : ''}
-                    ${item.accent === 'amber' ? 'bg-gold-50 text-gold-600 group-hover:bg-gold-600 group-hover:text-white' : ''}
+                    ${item.accent === 'amber' ? 'bg-accent-50 text-accent-600 group-hover:bg-accent-600 group-hover:text-white' : ''}
                     ${item.accent === 'slate' ? 'bg-neutral-100 text-neutral-600 group-hover:bg-brand-700 group-hover:text-white' : ''}
-                    ${item.accent === 'orange' ? 'bg-gold-50 text-gold-500 group-hover:bg-gold-500 group-hover:text-white' : ''}
+                    ${item.accent === 'orange' ? 'bg-accent-50 text-accent-500 group-hover:bg-accent-500 group-hover:text-white' : ''}
                   `}>
                     {item.icon}
                   </div>
                   {/* Gold top border on hover */}
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gold-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-t-2xl"></div>
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-t-2xl"></div>
                   <h3 className="font-bold text-xl mb-4 font-serif text-neutral-900">{item.title}</h3>
                   <p className="text-sm text-neutral-500 leading-relaxed">{item.desc}</p>
                </div>
@@ -178,9 +178,9 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
        <div className="container mx-auto px-6 py-12 md:py-24 relative z-10">
          <div className="text-center mb-12">
            <div className="inline-flex items-center gap-4 mb-4">
-             <div className="w-12 h-px bg-gradient-to-r from-transparent to-gold-400"></div>
-             <span className="text-gold-400 text-xs tracking-[0.3em] uppercase font-bold">{currentLang === 'zh-TW' ? '合作球場' : currentLang === 'zh-CN' ? '合作球场' : currentLang === 'ja' ? '提携コース' : 'Partner Courses'}</span>
-             <div className="w-12 h-px bg-gradient-to-l from-transparent to-gold-400"></div>
+             <div className="w-12 h-px bg-gradient-to-r from-transparent to-accent-400"></div>
+             <span className="text-accent-400 text-xs tracking-[0.3em] uppercase font-bold">{currentLang === 'zh-TW' ? '合作球場' : currentLang === 'zh-CN' ? '合作球场' : currentLang === 'ja' ? '提携コース' : 'Partner Courses'}</span>
+             <div className="w-12 h-px bg-gradient-to-l from-transparent to-accent-400"></div>
            </div>
            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-white">{t.golf.partners_title || '提携名門コース'}</h2>
          </div>
@@ -193,17 +193,17 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                href={course.url}
                target="_blank"
                rel="noopener noreferrer"
-               className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 hover:border-gold-400/30 transition-all duration-500 cursor-pointer block"
+               className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 hover:border-accent-400/30 transition-all duration-500 cursor-pointer block"
              >
-               <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-to-br from-gold-400/20 to-gold-600/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                 <MapPin size={20} className="text-gold-400" />
+               <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-to-br from-accent-400/20 to-accent-600/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                 <MapPin size={20} className="text-accent-400" />
                </div>
-               <h4 className="text-white font-bold text-sm mb-1 group-hover:text-gold-300 transition-colors">{course.name}</h4>
+               <h4 className="text-white font-bold text-sm mb-1 group-hover:text-accent-300 transition-colors">{course.name}</h4>
                <p className="text-white/50 text-xs mb-2">{course.region}</p>
-               <span className="inline-block text-[10px] px-2 py-1 bg-gold-400/20 text-gold-300 rounded-full">{course.rank}</span>
+               <span className="inline-block text-[10px] px-2 py-1 bg-accent-400/20 text-accent-300 rounded-full">{course.rank}</span>
                {/* External link indicator */}
                <div className="mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                 <span className="text-[10px] text-gold-400/70 flex items-center justify-center gap-1">
+                 <span className="text-[10px] text-accent-400/70 flex items-center justify-center gap-1">
                    {currentLang === 'zh-TW' ? '官方網站' : currentLang === 'zh-CN' ? '官方网站' : currentLang === 'ja' ? '公式サイト' : 'Official Site'} <ArrowRight size={10} />
                  </span>
                </div>
@@ -224,9 +224,9 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
          {/* Section Header */}
          <div className="text-center mb-20">
            <div className="inline-flex items-center gap-4 mb-4">
-             <div className="w-12 h-px bg-gradient-to-r from-transparent to-gold-400"></div>
-             <span className="text-gold-600 text-xs tracking-[0.3em] uppercase font-bold">{(t.golf as any).plans_section_label || (currentLang === 'zh-TW' ? '精選行程' : currentLang === 'zh-CN' ? '精选行程' : currentLang === 'ja' ? '厳選プラン' : 'Signature Itineraries')}</span>
-             <div className="w-12 h-px bg-gradient-to-l from-transparent to-gold-400"></div>
+             <div className="w-12 h-px bg-gradient-to-r from-transparent to-accent-400"></div>
+             <span className="text-accent-600 text-xs tracking-[0.3em] uppercase font-bold">{(t.golf as any).plans_section_label || (currentLang === 'zh-TW' ? '精選行程' : currentLang === 'zh-CN' ? '精选行程' : currentLang === 'ja' ? '厳選プラン' : 'Signature Itineraries')}</span>
+             <div className="w-12 h-px bg-gradient-to-l from-transparent to-accent-400"></div>
            </div>
            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-neutral-900 mb-4">{(t.golf as any).plans_section_title || (currentLang === 'zh-TW' ? '推薦行程' : currentLang === 'zh-CN' ? '推荐行程' : currentLang === 'ja' ? 'おすすめプラン' : 'Recommended Itineraries')}</h2>
            <p className="text-neutral-500 max-w-xl mx-auto">{(t.golf as any).plans_section_subtitle || (currentLang === 'zh-TW' ? '為鑑賞家精心策劃的高爾夫體驗' : currentLang === 'zh-CN' ? '为鉴赏家精心策划的高尔夫体验' : currentLang === 'ja' ? '目の肥えたゴルファーのための厳選体験' : 'Curated experiences for discerning golfers')}</p>
@@ -243,8 +243,8 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                   <div className="lg:w-1/2 w-full">
                      <div className="relative group">
                         {/* Gold corner decorations */}
-                        <div className="absolute -top-3 -left-3 w-16 h-16 border-t-2 border-l-2 border-gold-400/60 rounded-tl-lg z-10"></div>
-                        <div className="absolute -bottom-3 -right-3 w-16 h-16 border-b-2 border-r-2 border-gold-400/60 rounded-br-lg z-10"></div>
+                        <div className="absolute -top-3 -left-3 w-16 h-16 border-t-2 border-l-2 border-accent-400/60 rounded-tl-lg z-10"></div>
+                        <div className="absolute -bottom-3 -right-3 w-16 h-16 border-b-2 border-r-2 border-accent-400/60 rounded-br-lg z-10"></div>
 
                         {/* Image */}
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[450px] lg:h-[500px] bg-gradient-to-br from-neutral-200 via-neutral-100 to-neutral-200">
@@ -280,7 +280,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
                            {/* Plan number badge */}
                            <div className="absolute bottom-6 right-6">
-                             <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center shadow-lg">
+                             <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center shadow-lg">
                                <span className="text-white font-bold text-lg">0{index + 1}</span>
                              </div>
                            </div>
@@ -293,11 +293,11 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                      {/* Plan indicator */}
                      <div className="flex items-center gap-4 mb-4">
                         <span className="golf-gold-text font-bold text-sm tracking-[0.2em] uppercase">Plan 0{index + 1}</span>
-                        <div className="flex-grow h-px bg-gradient-to-r from-gold-400/50 to-transparent"></div>
+                        <div className="flex-grow h-px bg-gradient-to-r from-accent-400/50 to-transparent"></div>
                      </div>
 
                      <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-neutral-900 mb-3 leading-tight">{plan.title}</h3>
-                     <h4 className="text-lg text-gold-600 mb-6 font-medium">{plan.subtitle}</h4>
+                     <h4 className="text-lg text-accent-600 mb-6 font-medium">{plan.subtitle}</h4>
                      <p className="text-neutral-600 leading-relaxed mb-10 text-lg">{plan.desc}</p>
 
                      {/* Schedule Card - Premium Style */}
@@ -326,7 +326,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                                    )}
                                  </div>
                                  <div className="flex-1 pb-4">
-                                   <span className="text-xs font-bold text-gold-600 uppercase tracking-wider">{day.day}</span>
+                                   <span className="text-xs font-bold text-accent-600 uppercase tracking-wider">{day.day}</span>
                                    <p className="text-neutral-700 leading-relaxed mt-1">{day.text}</p>
                                  </div>
                               </div>

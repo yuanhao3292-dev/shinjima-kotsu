@@ -24,19 +24,20 @@
   --color-brand-800: #2a566f;
   --color-brand-900: #22455a;
 
-  /* Gold — 已退出主视觉。原金属金/金茶是「AI 奢华模板」最强信号，
-     主色改为晴空蓝渐变后不再用金色做装饰。保留色阶仅供个别历史组件兜底，
-     新页面不要使用。 */
-  --color-gold-50: #fbf7ee;
-  --color-gold-100: #f5ebd4;
-  --color-gold-200: #ebd9af;
-  --color-gold-300: #dcc183;
-  --color-gold-400: #c9a55f;
-  --color-gold-500: #b08c45;
-  --color-gold-600: #8f7038;
-  --color-gold-700: #6e562b;
-  --color-gold-800: #4e3d1f;
-  --color-gold-900: #2f2512;
+  /* Accent 晴空浅阶 — 原为金色(gold)，随主色改为晴空蓝后统一为同色系浅阶。
+     ⚠️ 关键约束：各阶【明度与原金色逐档对齐】(如原 gold-400 #c9a55f 明度 0.4015
+     → 现 #75b1d7 明度 0.4013)，因此全站 457 处旧用法的对比关系原样保留，
+     不会出现「浅底配浅字」。改动明度前务必重新核算对比度。 */
+  --color-accent-50: #f3f8fb;
+  --color-accent-100: #e0eef6;
+  --color-accent-200: #c6deee;
+  --color-accent-300: #a0c9e3;
+  --color-accent-400: #75b1d7;
+  --color-accent-500: #4999ca;
+  --color-accent-600: #317ba9;
+  --color-accent-700: #255e82;
+  --color-accent-800: #1b435d;
+  --color-accent-900: #102838;
 
   /* Medical Teal — 医疗板块标识色 */
   --color-medical-50: #f0fdfa;

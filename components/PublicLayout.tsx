@@ -274,7 +274,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
         return `text-sm font-bold text-white`;
       }
       if (specialColor === 'orange') {
-        return `text-sm font-bold text-gold-400 hover:text-gold-300 transition`;
+        return `text-sm font-bold text-accent-400 hover:text-accent-300 transition`;
       }
       return `text-sm font-medium text-white/80 hover:text-white transition`;
     } else {
@@ -284,7 +284,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
         return `text-sm font-bold text-brand-700`;
       }
       if (specialColor === 'orange') {
-        return `text-sm font-bold text-gold-600 hover:text-gold-500 transition`;
+        return `text-sm font-bold text-accent-600 hover:text-accent-500 transition`;
       }
       if (specialColor === 'red') {
         return `text-sm font-medium text-neutral-600 hover:text-red-600 transition`;
@@ -483,10 +483,10 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                     <Link
                       href="/guide-partner/login"
                       onClick={() => setLoginMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-3 text-sm text-neutral-700 hover:bg-gold-50 hover:text-gold-600 transition"
+                      className="flex items-center gap-3 px-4 py-3 text-sm text-neutral-700 hover:bg-accent-50 hover:text-accent-600 transition"
                     >
-                      <div className="w-8 h-8 rounded-full bg-gold-100 flex items-center justify-center">
-                        <LogIn size={14} className="text-gold-600" />
+                      <div className="w-8 h-8 rounded-full bg-accent-100 flex items-center justify-center">
+                        <LogIn size={14} className="text-accent-600" />
                       </div>
                       <div>
                         <p className="font-medium">{t.guideLogin}</p>
@@ -522,7 +522,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
           )}
           {/* 白标模式下隐藏导游合伙人链接 */}
           {!hideGuidePartnerContent && (
-            <Link href="/guide-partner" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2 text-gold-600 font-bold">{t.guidePartner}</Link>
+            <Link href="/guide-partner" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2 text-accent-600 font-bold">{t.guidePartner}</Link>
           )}
 
           {/* 登入入口区域 */}
@@ -545,7 +545,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
               <Link
                 href="/guide-partner/login"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-3 bg-gold-500 text-white py-4 px-5 rounded-xl font-bold"
+                className="flex items-center gap-3 bg-accent-500 text-white py-4 px-5 rounded-xl font-bold"
               >
                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                   <LogIn size={18} />

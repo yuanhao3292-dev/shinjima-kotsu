@@ -106,14 +106,14 @@ function ForgotPasswordForm() {
         {/* Decorative Elements */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
-          <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
+          <div className="absolute w-72 h-72 bg-accent-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
         </div>
 
         <div className="relative z-10 flex flex-col justify-center px-16">
           <div className="max-w-lg">
             <div className="flex items-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-gold-400" />
-              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">
+              <div className="h-[1px] w-12 bg-accent-400" />
+              <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">
                 {t('heroLabel', lang)}
               </span>
             </div>
@@ -121,7 +121,7 @@ function ForgotPasswordForm() {
             <h1 className="font-serif text-4xl xl:text-5xl text-white mb-4 leading-tight">
               {t('forgotPasswordHero', lang)}
               <br />
-              <span className="text-gold-400">{t('dontWorry', lang)}</span>
+              <span className="text-accent-400">{t('dontWorry', lang)}</span>
             </h1>
 
             <p className="text-lg text-neutral-300 leading-relaxed font-light max-w-md">
@@ -136,8 +136,8 @@ function ForgotPasswordForm() {
         <div className="w-full max-w-md">
           {/* Mobile hero label */}
           <div className="lg:hidden flex items-center gap-3 mb-6">
-            <div className="h-[1px] w-8 bg-gold-400" />
-            <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">PASSWORD RESET</span>
+            <div className="h-[1px] w-8 bg-accent-400" />
+            <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">PASSWORD RESET</span>
           </div>
 
           {/* Back Link */}
@@ -185,7 +185,7 @@ function ForgotPasswordForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gold-400 hover:bg-gold-300 disabled:bg-neutral-300 text-brand-900 font-medium py-3 px-6 text-sm tracking-wider transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-accent-400 hover:bg-accent-300 disabled:bg-neutral-300 text-brand-900 font-medium py-3 px-6 text-sm tracking-wider transition-colors flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>

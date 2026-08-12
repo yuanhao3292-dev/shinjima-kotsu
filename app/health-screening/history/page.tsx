@@ -139,16 +139,16 @@ export default function ScreeningHistoryPage() {
         <section className="relative bg-brand-900 overflow-hidden">
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
-            <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
+            <div className="absolute w-72 h-72 bg-accent-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
           </div>
 
           <div className="relative z-10 max-w-4xl mx-auto px-6 pt-40 pb-16 text-center">
             <div className="flex items-center justify-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-gold-400" />
-              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">
+              <div className="h-[1px] w-12 bg-accent-400" />
+              <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">
                 {t('heroLabel', lang)}
               </span>
-              <div className="h-[1px] w-12 bg-gold-400" />
+              <div className="h-[1px] w-12 bg-accent-400" />
             </div>
 
             <h1 className="font-serif text-3xl md:text-4xl xl:text-5xl text-white mb-6 leading-tight">
@@ -190,7 +190,7 @@ export default function ScreeningHistoryPage() {
               {freeRemaining > 0 && (
                 <Link
                   href="/health-screening"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-gold-400 hover:bg-gold-300 text-brand-900 font-medium text-sm tracking-wider transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-accent-400 hover:bg-accent-300 text-brand-900 font-medium text-sm tracking-wider transition-colors"
                 >
                   <Plus className="w-4 h-4" />
                   {t('newScreening', lang)}

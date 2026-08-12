@@ -176,13 +176,13 @@ const SAI_PACKAGES: Record<string, SaiPackage> = {
 };
 
 const COLOR_THEMES: Record<string, { headerBg: string; button: string; cardBg: string; cardBorder: string; check: string; title: string; price: string }> = {
-  rose: { headerBg: 'bg-brand-900', button: 'bg-gold-400 text-brand-900 hover:bg-gold-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
-  purple: { headerBg: 'bg-brand-900', button: 'bg-gold-400 text-brand-900 hover:bg-gold-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
-  blue: { headerBg: 'bg-brand-900', button: 'bg-gold-400 text-brand-900 hover:bg-gold-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
-  amber: { headerBg: 'bg-brand-900', button: 'bg-gold-400 text-brand-900 hover:bg-gold-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-gold-500', title: 'text-brand-900', price: 'text-brand-900' },
-  gray: { headerBg: 'bg-brand-900', button: 'bg-gold-400 text-brand-900 hover:bg-gold-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
-  teal: { headerBg: 'bg-brand-900', button: 'bg-gold-400 text-brand-900 hover:bg-gold-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
-  green: { headerBg: 'bg-brand-900', button: 'bg-gold-400 text-brand-900 hover:bg-gold-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
+  rose: { headerBg: 'bg-brand-900', button: 'bg-accent-400 text-brand-900 hover:bg-accent-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
+  purple: { headerBg: 'bg-brand-900', button: 'bg-accent-400 text-brand-900 hover:bg-accent-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
+  blue: { headerBg: 'bg-brand-900', button: 'bg-accent-400 text-brand-900 hover:bg-accent-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
+  amber: { headerBg: 'bg-brand-900', button: 'bg-accent-400 text-brand-900 hover:bg-accent-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-accent-500', title: 'text-brand-900', price: 'text-brand-900' },
+  gray: { headerBg: 'bg-brand-900', button: 'bg-accent-400 text-brand-900 hover:bg-accent-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
+  teal: { headerBg: 'bg-brand-900', button: 'bg-accent-400 text-brand-900 hover:bg-accent-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
+  green: { headerBg: 'bg-brand-900', button: 'bg-accent-400 text-brand-900 hover:bg-accent-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
 };
 
 export default function SaiClinicCheckoutPage() {

@@ -197,14 +197,14 @@ export default function NewsPage() {
             quality={75}
           />
           <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
-          <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+          <div className="absolute w-72 h-72 bg-accent-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
         </div>
 
         <div className="relative z-10 container mx-auto px-6 py-20 text-center">
           <div className="flex items-center justify-center gap-3 mb-8">
-            <div className="h-[1px] w-12 bg-gold-400"></div>
-            <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">News Room</span>
-            <div className="h-[1px] w-12 bg-gold-400"></div>
+            <div className="h-[1px] w-12 bg-accent-400"></div>
+            <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">News Room</span>
+            <div className="h-[1px] w-12 bg-accent-400"></div>
           </div>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight">
@@ -232,9 +232,9 @@ export default function NewsPage() {
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
               <div className="flex items-center justify-center gap-3 mb-4">
-                <div className="h-[1px] w-12 bg-gold-400"></div>
-                <span className="text-xs tracking-[0.3em] text-gold-500 uppercase">{t('featuredSubtitle')}</span>
-                <div className="h-[1px] w-12 bg-gold-400"></div>
+                <div className="h-[1px] w-12 bg-accent-400"></div>
+                <span className="text-xs tracking-[0.3em] text-accent-500 uppercase">{t('featuredSubtitle')}</span>
+                <div className="h-[1px] w-12 bg-accent-400"></div>
               </div>
               <h2 className="text-2xl md:text-3xl font-serif text-brand-900">{t('featuredTitle')}</h2>
             </div>
@@ -275,7 +275,7 @@ export default function NewsPage() {
                         </span>
                       )}
                     </div>
-                    <h3 className={`font-bold text-white mb-2 group-hover:text-gold-400 transition-colors ${
+                    <h3 className={`font-bold text-white mb-2 group-hover:text-accent-400 transition-colors ${
                       index === 0 ? 'text-2xl' : 'text-lg'
                     }`}>
                       {localizeText(news.title, lang)}
@@ -307,9 +307,9 @@ export default function NewsPage() {
           <div className="mb-10">
             <div className="text-center mb-8">
               <div className="flex items-center justify-center gap-3 mb-4">
-                <div className="h-[1px] w-12 bg-gold-400"></div>
-                <span className="text-xs tracking-[0.3em] text-gold-500 uppercase">{t('allNewsSubtitle')}</span>
-                <div className="h-[1px] w-12 bg-gold-400"></div>
+                <div className="h-[1px] w-12 bg-accent-400"></div>
+                <span className="text-xs tracking-[0.3em] text-accent-500 uppercase">{t('allNewsSubtitle')}</span>
+                <div className="h-[1px] w-12 bg-accent-400"></div>
               </div>
               <h2 className="text-2xl md:text-3xl font-serif text-brand-900">{t('allNewsTitle')}</h2>
             </div>
@@ -468,9 +468,9 @@ export default function NewsPage() {
       <section className="py-20 bg-brand-900 text-white">
         <div className="container mx-auto px-6 text-center">
           <div className="flex items-center justify-center gap-3 mb-8">
-            <div className="h-[1px] w-12 bg-gold-400"></div>
-            <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">Stay Updated</span>
-            <div className="h-[1px] w-12 bg-gold-400"></div>
+            <div className="h-[1px] w-12 bg-accent-400"></div>
+            <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">Stay Updated</span>
+            <div className="h-[1px] w-12 bg-accent-400"></div>
           </div>
 
           <h2 className="text-3xl md:text-4xl font-serif mb-6">
