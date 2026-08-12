@@ -714,7 +714,7 @@ export default function ScreeningResult({
                       )}
                       <Link
                         href={consultUrl}
-                        className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-gold-400 hover:bg-gold-300 text-brand-900 font-medium text-sm tracking-wider transition-colors"
+                        className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-accent-400 hover:bg-accent-300 text-brand-900 font-medium text-sm tracking-wider transition-colors"
                       >
                         <ShoppingCart className="w-4 h-4" />
                         {t('bookConsultation', lang)}
@@ -770,7 +770,7 @@ export default function ScreeningResult({
         <div className="flex flex-col sm:flex-row gap-4 pt-4">
           <Link
             href="/medical"
-            className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-gold-400 hover:bg-gold-300 text-brand-900 font-medium text-sm tracking-wider transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-accent-400 hover:bg-accent-300 text-brand-900 font-medium text-sm tracking-wider transition-colors"
           >
             <Stethoscope className="w-5 h-5" />
             {t('bookScreening', lang)}

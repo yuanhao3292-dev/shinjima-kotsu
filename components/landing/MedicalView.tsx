@@ -110,17 +110,17 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       {/* Decorative Elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
-        <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+        <div className="absolute w-72 h-72 bg-accent-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
       </div>
       <div className="container mx-auto px-6 relative z-10 py-32">
         <div className="max-w-4xl">
           <div className="flex items-center gap-3 mb-8">
-            <div className="h-[1px] w-12 bg-gold-400"></div>
-            <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">TIMC OSAKA</span>
+            <div className="h-[1px] w-12 bg-accent-400"></div>
+            <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">TIMC OSAKA</span>
           </div>
           <h1 className="text-4xl md:text-6xl font-serif text-white mb-6 leading-tight">
             {t.medical.hero_title_1}<br/>
-            <span className="text-gold-400">{t.medical.hero_title_2}</span>
+            <span className="text-accent-400">{t.medical.hero_title_2}</span>
           </h1>
           <p className="text-xl text-neutral-300 mb-4 leading-relaxed font-light max-w-2xl">
             {t.medical.hero_subtitle}
@@ -131,7 +131,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           <div className="flex flex-wrap gap-4">
             <a
               href="#packages"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gold-400 text-brand-900 text-sm font-medium tracking-wider hover:bg-gold-300 transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-accent-400 text-brand-900 text-sm font-medium tracking-wider hover:bg-accent-300 transition-colors"
             >
               <Scan size={20} />
               {currentLang === 'zh-TW' ? '查看體檢套餐' : currentLang === 'zh-CN' ? '查看体检套餐' : currentLang === 'ja' ? '健診プランを見る' : 'View Plans'}
@@ -357,8 +357,8 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl">
                           <div className="flex items-center gap-3 mb-4">
-                              <div className="h-[1px] w-12 bg-gold-400"></div>
-                              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">01</span>
+                              <div className="h-[1px] w-12 bg-accent-400"></div>
+                              <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">01</span>
                           </div>
                           <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_1_title}</h4>
                           <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_1_desc}</p>
@@ -388,8 +388,8 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl ml-auto text-right">
                           <div className="flex items-center justify-end gap-3 mb-4">
-                              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">02</span>
-                              <div className="h-[1px] w-12 bg-gold-400"></div>
+                              <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">02</span>
+                              <div className="h-[1px] w-12 bg-accent-400"></div>
                           </div>
                           <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_2_title}</h4>
                           <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_2_desc}</p>
@@ -419,8 +419,8 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl">
                           <div className="flex items-center gap-3 mb-4">
-                              <div className="h-[1px] w-12 bg-gold-400"></div>
-                              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">03</span>
+                              <div className="h-[1px] w-12 bg-accent-400"></div>
+                              <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">03</span>
                           </div>
                           <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_3_title}</h4>
                           <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_3_desc}</p>
@@ -451,8 +451,8 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl ml-auto text-right">
                           <div className="flex items-center justify-end gap-3 mb-4">
-                              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">04</span>
-                              <div className="h-[1px] w-12 bg-gold-400"></div>
+                              <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">04</span>
+                              <div className="h-[1px] w-12 bg-accent-400"></div>
                           </div>
                           <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_4_title}</h4>
                           <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_4_desc}</p>
@@ -513,26 +513,26 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto px-4">
 
               {/* 1. VIP Member */}
-              <div className="col-span-1 md:col-span-2 lg:col-span-1 border border-gold-400 rounded-2xl p-6 hover:shadow-2xl transition hover:-translate-y-1 relative overflow-hidden bg-brand-900 text-white flex flex-col">
-                  <div className="absolute top-0 right-0 bg-gold-400 text-brand-900 text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">{currentLang === 'zh-TW' ? '旗艦' : currentLang === 'zh-CN' ? '旗舰' : currentLang === 'ja' ? 'フラッグシップ' : 'Flagship'}</div>
+              <div className="col-span-1 md:col-span-2 lg:col-span-1 border border-accent-400 rounded-2xl p-6 hover:shadow-2xl transition hover:-translate-y-1 relative overflow-hidden bg-brand-900 text-white flex flex-col">
+                  <div className="absolute top-0 right-0 bg-accent-400 text-brand-900 text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">{currentLang === 'zh-TW' ? '旗艦' : currentLang === 'zh-CN' ? '旗舰' : currentLang === 'ja' ? 'フラッグシップ' : 'Flagship'}</div>
                   <div className="mb-4">
-                      <h4 className="text-xl font-serif font-bold text-gold-400">{t.medical.pkg_vip_title}</h4>
+                      <h4 className="text-xl font-serif font-bold text-accent-400">{t.medical.pkg_vip_title}</h4>
                       <p className="text-xs text-neutral-400 mt-1">{currentLang === 'zh-TW' ? 'VIP 會員健診' : currentLang === 'zh-CN' ? 'VIP 会员健诊' : currentLang === 'ja' ? 'VIPメンバーコース' : 'VIP Member Course'}</p>
-                      <p className="text-2xl font-bold text-gold-400 mt-2">&yen;1,512,500</p>
+                      <p className="text-2xl font-bold text-accent-400 mt-2">&yen;1,512,500</p>
                       <p className="text-[10px] text-neutral-500">{t.medical.pkg_price_note}</p>
                   </div>
                   <p className="text-xs text-neutral-300 mb-4 leading-relaxed flex-grow">
                       {t.medical.pkg_vip_desc}
                   </p>
                   <div className="space-y-1.5 mb-4 text-xs">
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-gold-400 shrink-0" /> {t.medical.pkg_vip_item_1}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-gold-400 shrink-0" /> {t.medical.pkg_vip_item_2}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-gold-400 shrink-0" /> {t.medical.pkg_vip_item_3}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-gold-400 shrink-0" /> {t.medical.pkg_vip_item_4}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-gold-400 shrink-0" /> {t.medical.pkg_vip_item_5}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-gold-400 shrink-0" /> {t.medical.pkg_vip_item_6}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-accent-400 shrink-0" /> {t.medical.pkg_vip_item_1}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-accent-400 shrink-0" /> {t.medical.pkg_vip_item_2}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-accent-400 shrink-0" /> {t.medical.pkg_vip_item_3}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-accent-400 shrink-0" /> {t.medical.pkg_vip_item_4}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-accent-400 shrink-0" /> {t.medical.pkg_vip_item_5}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-accent-400 shrink-0" /> {t.medical.pkg_vip_item_6}</div>
                   </div>
-                  <Link href="/medical-packages/vip-member-course" className="w-full py-2 bg-gold-400 text-brand-900 text-xs font-bold rounded hover:bg-gold-300 transition text-center block">{t.medical.pkg_consult_btn}</Link>
+                  <Link href="/medical-packages/vip-member-course" className="w-full py-2 bg-accent-400 text-brand-900 text-xs font-bold rounded hover:bg-accent-300 transition text-center block">{t.medical.pkg_consult_btn}</Link>
               </div>
 
               {/* 2. PREMIUM (Cardiac) */}

@@ -210,14 +210,14 @@ export default function MyOrdersPage() {
           {/* Decorative Elements */}
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
-            <div className="absolute w-72 h-72 bg-gold-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
+            <div className="absolute w-72 h-72 bg-accent-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
           </div>
 
           <div className="relative z-10 flex flex-col justify-center px-16">
             <div className="max-w-lg">
               <div className="flex items-center gap-3 mb-8">
-                <div className="h-[1px] w-12 bg-gold-400" />
-                <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">
+                <div className="h-[1px] w-12 bg-accent-400" />
+                <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">
                   {t('heroLabel', lang)}
                 </span>
               </div>
@@ -225,7 +225,7 @@ export default function MyOrdersPage() {
               <h1 className="font-serif text-4xl xl:text-5xl text-white mb-4 leading-tight">
                 {t('myOrders', lang)}
                 <br />
-                <span className="text-gold-400">{t('bookingRecords', lang)}</span>
+                <span className="text-accent-400">{t('bookingRecords', lang)}</span>
               </h1>
 
               <p className="text-lg text-neutral-300 leading-relaxed font-light max-w-md">
@@ -240,8 +240,8 @@ export default function MyOrdersPage() {
           <div className="max-w-lg mx-auto">
             {/* Mobile hero label */}
             <div className="lg:hidden flex items-center gap-3 mb-6">
-              <div className="h-[1px] w-8 bg-gold-400" />
-              <span className="text-xs tracking-[0.3em] text-gold-400 uppercase">MY ORDERS</span>
+              <div className="h-[1px] w-8 bg-accent-400" />
+              <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">MY ORDERS</span>
             </div>
 
             {/* Back Link */}
@@ -277,7 +277,7 @@ export default function MyOrdersPage() {
                 <p className="text-neutral-500 text-sm mb-8">{t('noOrdersDesc', lang)}</p>
                 <Link
                   href="/medical"
-                  className="inline-flex items-center gap-2 bg-gold-400 hover:bg-gold-300 text-brand-900 font-medium py-3 px-6 text-sm tracking-wider transition-colors"
+                  className="inline-flex items-center gap-2 bg-accent-400 hover:bg-accent-300 text-brand-900 font-medium py-3 px-6 text-sm tracking-wider transition-colors"
                 >
                   <Package className="w-5 h-5" />
                   {t('browsePackages', lang)}
