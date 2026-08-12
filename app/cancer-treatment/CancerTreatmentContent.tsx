@@ -893,12 +893,12 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
           <div className="max-w-4xl">
             <div className="flex items-center gap-3 mb-8">
               <div className="h-[1px] w-12 bg-accent-400"></div>
-              <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">CANCER TREATMENT</span>
+              <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">CANCER TREATMENT</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-brand-900 mb-6 leading-tight">
               {t('heroDesc')}
               <br />
-              <span className="text-accent-400">{t('heroTitle2')}</span>
+              <span className="text-accent-600">{t('heroTitle2')}</span>
             </h1>
             <p className="text-xl text-neutral-600 mb-8 leading-relaxed font-light max-w-2xl">
               {t('heroStat')}
@@ -940,15 +940,15 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
             {/* Trust Points */}
             <div className="flex flex-wrap gap-6 text-neutral-600">
               <div className="flex items-center gap-2">
-                <CheckCircle size={18} className="text-accent-400" />
+                <CheckCircle size={18} className="text-accent-600" />
                 <span className="text-sm">{t('trustEarly')}</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle size={18} className="text-accent-400" />
+                <CheckCircle size={18} className="text-accent-600" />
                 <span className="text-sm">{t('trustTranslator')}</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle size={18} className="text-accent-400" />
+                <CheckCircle size={18} className="text-accent-600" />
                 <span className="text-sm">{t('trustRemote')}</span>
               </div>
             </div>

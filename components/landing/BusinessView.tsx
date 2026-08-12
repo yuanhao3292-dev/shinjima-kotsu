@@ -152,7 +152,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
           <div className="max-w-4xl">
             <div className="flex items-center gap-3 mb-8">
               <div className="h-[1px] w-12 bg-accent-400"></div>
-              <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">{currentLang === 'zh-TW' ? '商務考察' : currentLang === 'zh-CN' ? '商务考察' : currentLang === 'ja' ? '企業視察' : 'BUSINESS INSPECTION'}</span>
+              <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">{currentLang === 'zh-TW' ? '商務考察' : currentLang === 'zh-CN' ? '商务考察' : currentLang === 'ja' ? '企業視察' : 'BUSINESS INSPECTION'}</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-serif text-brand-900 mb-6 leading-tight">
               {t.business.hero_title}

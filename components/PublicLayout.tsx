@@ -394,8 +394,8 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                 <img src={branding.logoUrl} alt={displayBrandName} className="w-10 h-10 object-contain" />
               )}
               <div className="flex flex-col items-center">
-                <span className={`font-serif font-bold text-lg tracking-wide leading-none ${isTransparent ? 'text-white' : 'text-neutral-900'}`}>{displayBrandName}</span>
-                <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-white/60' : 'text-neutral-400 group-hover:text-brand-500'}`}>{displayBrandSub}</span>
+                <span className={`font-serif font-bold text-lg tracking-wide leading-none ${isTransparent ? 'text-neutral-900' : 'text-neutral-900'}`}>{displayBrandName}</span>
+                <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-neutral-500' : 'text-neutral-400 group-hover:text-brand-500'}`}>{displayBrandSub}</span>
               </div>
             </button>
           ) : (
@@ -405,8 +405,8 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                 <img src={branding.logoUrl} alt={displayBrandName} className="w-10 h-10 object-contain" />
               )}
               <div className="flex flex-col items-center">
-                <span className={`font-serif font-bold text-lg tracking-wide leading-none ${isTransparent ? 'text-white' : 'text-neutral-900'}`}>{displayBrandName}</span>
-                <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-white/60' : 'text-neutral-400 group-hover:text-brand-500'}`}>{displayBrandSub}</span>
+                <span className={`font-serif font-bold text-lg tracking-wide leading-none ${isTransparent ? 'text-neutral-900' : 'text-neutral-900'}`}>{displayBrandName}</span>
+                <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-neutral-500' : 'text-neutral-400 group-hover:text-brand-500'}`}>{displayBrandSub}</span>
               </div>
             </Link>
           )}
@@ -433,7 +433,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
               <button
                 onClick={() => setLangMenuOpen(!langMenuOpen)}
                 className={`flex items-center gap-1 text-xs font-bold transition uppercase tracking-wider ${
-                  isTransparent ? 'text-white/80 hover:text-white' : 'text-neutral-600 hover:text-neutral-900'
+                  isTransparent ? 'text-neutral-600 hover:text-neutral-900' : 'text-neutral-600 hover:text-neutral-900'
                 }`}
               >
                 <Globe size={14} />
@@ -457,7 +457,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                 onClick={() => setLoginMenuOpen(!loginMenuOpen)}
                 className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold tracking-wider transition shadow-lg ${
                   isTransparent
-                    ? 'bg-white/20 backdrop-blur text-white border border-white/30 hover:bg-white/30'
+                    ? 'brand-gradient-solid text-white border border-transparent hover:opacity-90'
                     : 'bg-black text-white border border-transparent hover:bg-gray-800 hover:border-gray-600'
                 }`}
               >
@@ -500,7 +500,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
 
             {/* Mobile Menu Button */}
             <button
-              className={`lg:hidden p-2 ${isTransparent ? 'text-white' : 'text-neutral-600'}`}
+              className={`lg:hidden p-2 ${isTransparent ? 'text-neutral-700' : 'text-neutral-600'}`}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}

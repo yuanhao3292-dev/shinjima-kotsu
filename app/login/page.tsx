@@ -247,7 +247,7 @@ function LoginForm() {
           <div className="max-w-lg">
             <div className="flex items-center gap-3 mb-8">
               <div className="h-[1px] w-12 bg-accent-400" />
-              <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">
+              <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">
                 {t('heroLabel', lang)}
               </span>
             </div>
@@ -255,7 +255,7 @@ function LoginForm() {
             <h1 className="font-serif text-4xl xl:text-5xl text-white mb-4 leading-tight">
               {t('heroTitle', lang)}
               <br />
-              <span className="text-accent-400">{t('heroSubtitle', lang)}</span>
+              <span className="text-accent-600">{t('heroSubtitle', lang)}</span>
             </h1>
 
             <p className="text-lg text-neutral-300 leading-relaxed font-light mb-10 max-w-md">
@@ -282,7 +282,7 @@ function LoginForm() {
           {/* Mobile hero label */}
           <div className="lg:hidden flex items-center gap-3 mb-6">
             <div className="h-[1px] w-8 bg-accent-400" />
-            <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">MEMBER LOGIN</span>
+            <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">MEMBER LOGIN</span>
           </div>
 
           {/* Header */}

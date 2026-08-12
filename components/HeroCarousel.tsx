@@ -83,7 +83,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
       >
         <div className="text-center">
           <div className="w-10 h-10 border-2 border-white/20 border-t-white rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-white/40 text-sm">Loading...</p>
+          <p className="text-neutral-600 text-sm">Loading...</p>
         </div>
       </div>
     );
@@ -161,7 +161,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
               </div>
             )}
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-brand-900 mb-6 leading-tight">
               {currentSlide.title.split('\n').map((line, i) => (
                 <span key={i}>
                   {i > 0 && <br />}
