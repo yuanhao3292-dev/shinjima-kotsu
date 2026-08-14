@@ -28,7 +28,6 @@
   --color-brand-800: #2a566f;
   --color-brand-900: #22455a;
 
-
   /* Cool Neutral — 微冷灰（色相 205°，与主题蓝同源，饱和度 8~30%）
      三色制的「黑白轴」。原为暖米灰（#fafaf8…#1c1917），米色调在
      只留 黑/白/渐变蓝 的配色里会读成第四种色感，故整档换冷。
@@ -110,41 +109,6 @@ body {
 [data-locale="ko"] .serif,
 [data-locale="ko"] .font-serif {
   font-family: var(--font-noto-serif-kr), 'Noto Serif KR', serif !important;
-}
-
-/* 流程图专用样式 */
-.process-step {
-  position: relative;
-}
-
-.process-line::after {
-  content: '';
-  position: absolute;
-  top: 24px;
-  right: -50%;
-  width: 100%;
-  height: 2px;
-  background-color: #E5E7EB;
-  z-index: 0;
-}
-
-.process-step:last-child .process-line::after {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .process-line::after { display: none; }
-  .process-step { margin-bottom: 2rem; }
-}
-
-/* Animations */
-@keyframes kenburns {
-  0% { transform: scale(1); }
-  100% { transform: scale(1.1); }
-}
-
-.animate-kenburns-slow {
-  animation: kenburns 20s ease-out infinite alternate;
 }
 
 @keyframes fadeInUp {
@@ -294,22 +258,6 @@ body {
   opacity: 0;
 }
 
-/* 脉冲光晕效果 */
-@keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 20px rgba(111, 180, 218, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(111, 180, 218, 0.5); }
-}
-
-.animate-pulse-glow {
-  animation: pulseGlow 3s ease-in-out infinite;
-}
-
-/* 旋转边框动画 */
-@keyframes rotateBorder {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 /* 玻璃态效果 */
 .golf-glass {
   background: rgba(255, 255, 255, 0.85);
@@ -409,19 +357,16 @@ body {
         多为 12~18px，走正文标准 4.5:1 而非大字标准 3:1，故亮端不能再浅。
         要更亮的蓝只能用于 ≥24px 的大字。 */
   --grad-brand-solid: linear-gradient(100deg, #2a566f 0%, #3a79a2 100%);
-  /* 渐变文字(logo、统计数字):不压白字,可用中间调 */
-  --grad-brand-mid: linear-gradient(100deg, #4e9ac9 0%, #8fcbe6 100%);
   /* 深色强调块(卡片/深色分区):保留深底做视觉节奏，但改为晴空色相渐变，与主色统一。
      两端对白字均安全(#22455a 10.16:1、#336a8d 5.85:1)，故沿用白字无需翻转。 */
   --grad-brand-deep: linear-gradient(100deg, #22455a 0%, #336a8d 100%);
 }
 .brand-gradient { background-image: var(--grad-brand-soft); }
 .brand-gradient-solid { background-image: var(--grad-brand-solid); }
-.brand-gradient-mid { background-image: var(--grad-brand-mid); }
 .brand-gradient-deep { background-image: var(--grad-brand-deep); }
 /* 渐变文字 —— 标题、小标、统计数字
-   ⚠️ 用 --grad-brand-solid 而非 --grad-brand-mid：
-      mid (#4e9ac9→#8fcbe6) 当文字最差只有 1.77:1，任何字号都不可读；
+   ⚠️ 必须用 --grad-brand-solid：更浅的中间调（如 #4e9ac9→#8fcbe6）
+      当文字最差只有 1.77:1，任何字号都不可读（旧 --grad-brand-mid 因此删除）；
       solid (#2a566f→#3b7ca5) 全程 ≥4.55:1，18px 粗体正文标准也达标。
    兜底：先给实色，仅在浏览器支持 background-clip:text 时才转透明，
         否则不支持的环境会得到一段完全不可见的文字。 */

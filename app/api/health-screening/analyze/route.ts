@@ -3,7 +3,7 @@
  * POST: 触发 AI 分析并保存结果
  *
  * 安全特性：
- * - AEMC 4 AI 联合会诊（环境变量 AEMC_ENABLED=true 开启）
+ * - AEMC 联合会诊管线（无条件启用；AEMC_PIPELINE_MODE=full 切完整 4-AI，默认 lite）
  * - 答案哈希缓存（避免重复分析）
  * - AI 故障通知（AEMC 失败 → 管理员邮件通知 + 用户友好错误）
  * - 安全日志（不记录敏感信息）
