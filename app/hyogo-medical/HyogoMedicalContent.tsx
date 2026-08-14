@@ -2037,7 +2037,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                   href="https://line.me/ti/p/j3XxBP50j9"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-3 bg-[#06C755] text-white p-4 rounded-xl hover:bg-brand-500 transition font-bold"
+                  className="flex items-center justify-center gap-3 bg-brand-700 text-white p-4 rounded-xl hover:bg-brand-500 transition font-bold"
                 >
                   <MessageSquare size={20} />
                   {bookingT.contactLine[lang]}
@@ -2051,7 +2051,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                 </a>
                 <button
                   onClick={() => setShowWechatQR(true)}
-                  className="flex items-center justify-center gap-3 bg-[#07C160] text-white p-4 rounded-xl hover:bg-[#06ad56] transition font-bold"
+                  className="flex items-center justify-center gap-3 bg-brand-700 text-white p-4 rounded-xl hover:bg-brand-800 transition font-bold"
                 >
                   <WeChatIcon />
                   {bookingT.contactWechat[lang]}
@@ -2099,7 +2099,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            <div className="w-16 h-16 bg-[#07C160] rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-brand-700 rounded-full flex items-center justify-center mx-auto mb-4">
               <WeChatIcon className="w-10 h-10 text-white" />
             </div>
             <h3 className="text-xl font-bold text-neutral-900 mb-2">{bookingT.wechatTitle[lang]}</h3>

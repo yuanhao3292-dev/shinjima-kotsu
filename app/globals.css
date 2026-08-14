@@ -39,41 +39,21 @@
   --color-accent-800: #1b435d;
   --color-accent-900: #102838;
 
-  /* Medical Teal — 医疗板块标识色 */
-  --color-medical-50: #f0fdfa;
-  --color-medical-100: #ccfbf1;
-  --color-medical-200: #99f6e4;
-  --color-medical-300: #5eead4;
-  --color-medical-400: #2dd4bf;
-  --color-medical-500: #14b8a6;
-  --color-medical-600: #0d9488;
-  --color-medical-700: #0f766e;
-  --color-medical-800: #115e59;
-  --color-medical-900: #134e4a;
-
-  /* Business Steel Blue — 商务板块标识色 */
-  --color-biz-50: #eff6ff;
-  --color-biz-100: #dbeafe;
-  --color-biz-200: #bfdbfe;
-  --color-biz-300: #93c5fd;
-  --color-biz-400: #60a5fa;
-  --color-biz-500: #3b82f6;
-  --color-biz-600: #2563eb;
-  --color-biz-700: #1d4ed8;
-  --color-biz-800: #1e40af;
-  --color-biz-900: #1e3a5f;
-
-  /* Warm Neutral — 暖灰中性色 */
-  --color-neutral-50: #fafaf8;
-  --color-neutral-100: #f5f5f0;
-  --color-neutral-200: #e8e6e1;
-  --color-neutral-300: #d5d1c8;
-  --color-neutral-400: #a8a29e;
-  --color-neutral-500: #78716c;
-  --color-neutral-600: #57534e;
-  --color-neutral-700: #44403c;
-  --color-neutral-800: #292524;
-  --color-neutral-900: #1c1917;
+  /* Cool Neutral — 微冷灰（色相 205°，与主题蓝同源，饱和度 8~30%）
+     三色制的「黑白轴」。原为暖米灰（#fafaf8…#1c1917），米色调在
+     只留 黑/白/渐变蓝 的配色里会读成第四种色感，故整档换冷。
+     ⚠️ 每一档的相对明度与原暖灰逐档对齐（Δ<0.002），全站既有的
+     对比度关系一处不变 —— 只改色相，不改明度。改明度前须重算对比度。 */
+  --color-neutral-50: #f9fafc;
+  --color-neutral-100: #f3f5f7;
+  --color-neutral-200: #e2e7ea;
+  --color-neutral-300: #ccd2d7;
+  --color-neutral-400: #9ba4ab;
+  --color-neutral-500: #69747b;
+  --color-neutral-600: #4c555b;
+  --color-neutral-700: #3a4247;
+  --color-neutral-800: #21272b;
+  --color-neutral-900: #161a1d;
 }
 
 /* 基础样式 */
@@ -141,19 +121,6 @@ body {
 [data-locale="ko"] .font-serif {
   font-family: var(--font-noto-serif-kr), 'Noto Serif KR', serif !important;
 }
-
-/* Gemini 科技色调 */
-.gemini-gradient {
-  background: linear-gradient(90deg, #4E8cFF 0%, #9B8cFF 100%);
-}
-
-.gemini-text {
-  background: linear-gradient(90deg, #4E8cFF 0%, #9B8cFF 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
 
 /* 流程图专用样式 */
 .process-step {
@@ -230,31 +197,17 @@ body {
 
 /* ===== GOLF PAGE LUXURY STYLES ===== */
 
-/* 金色奢华渐变 */
-.golf-gold-gradient {
-  background: linear-gradient(135deg, #B8860B 0%, #D4AF37 50%, #F4E4BA 100%);
-}
-
 .golf-gold-text {
-  background: linear-gradient(135deg, #B8860B 0%, #D4AF37 50%, #DAA520 100%);
+  background: linear-gradient(135deg, #4e9ac9 0%, #6fb4da 50%, #6fb4da 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* 深邃绿色（高尔夫经典色） */
-.golf-green-gradient {
-  background: linear-gradient(135deg, #0D4D2B 0%, #1B5E3A 50%, #2E7D4E 100%);
-}
-
-.golf-green-text {
-  color: #1B5E3A;
-}
-
 /* 奢华卡片效果 */
 .golf-luxury-card {
   background: linear-gradient(145deg, #FFFFFF 0%, #F8F9FA 100%);
-  border: 1px solid rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(111, 180, 218, 0.15);
   box-shadow:
     0 4px 20px rgba(0, 0, 0, 0.05),
     0 1px 3px rgba(0, 0, 0, 0.03);
@@ -262,32 +215,11 @@ body {
 }
 
 .golf-luxury-card:hover {
-  border-color: rgba(212, 175, 55, 0.4);
+  border-color: rgba(111, 180, 218, 0.4);
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.1),
-    0 8px 25px rgba(212, 175, 55, 0.08);
+    0 8px 25px rgba(111, 180, 218, 0.08);
   transform: translateY(-8px);
-}
-
-/* 金色边框装饰线 */
-.golf-gold-border {
-  position: relative;
-}
-
-.golf-gold-border::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, #D4AF37, transparent);
-}
-
-/* 高级分隔线 */
-.golf-divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
 }
 
 /* 数据统计卡片闪光效果 */
@@ -306,7 +238,7 @@ body {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(212, 175, 55, 0.1),
+    rgba(111, 180, 218, 0.1),
     transparent
   );
   transition: left 0.7s ease;
@@ -326,19 +258,8 @@ body {
   );
 }
 
-/* 视差滚动容器 */
-.golf-parallax {
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 @media (max-width: 768px) {
-  .golf-parallax {
-    background-attachment: scroll;
   }
-}
 
 /* 文字装饰线 */
 .golf-title-decorated {
@@ -354,7 +275,7 @@ body {
   transform: translateX(-50%);
   width: 60px;
   height: 2px;
-  background: linear-gradient(90deg, #D4AF37, #B8860B);
+  background: linear-gradient(90deg, #6fb4da, #4e9ac9);
 }
 
 /* 淡入动画 - 延迟版本 */
@@ -385,8 +306,8 @@ body {
 
 /* 脉冲光晕效果 */
 @keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.5); }
+  0%, 100% { box-shadow: 0 0 20px rgba(111, 180, 218, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(111, 180, 218, 0.5); }
 }
 
 .animate-pulse-glow {
@@ -397,28 +318,6 @@ body {
 @keyframes rotateBorder {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
-
-.golf-rotating-border {
-  position: relative;
-}
-
-.golf-rotating-border::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  background: conic-gradient(from 0deg, #D4AF37, #1B5E3A, #D4AF37);
-  border-radius: inherit;
-  z-index: -1;
-  animation: rotateBorder 8s linear infinite;
-}
-
-/* 高级阴影 */
-.golf-premium-shadow {
-  box-shadow:
-    0 10px 40px rgba(0, 0, 0, 0.08),
-    0 2px 10px rgba(0, 0, 0, 0.04),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 /* 玻璃态效果 */

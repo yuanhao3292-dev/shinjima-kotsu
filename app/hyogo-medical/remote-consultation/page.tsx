@@ -382,7 +382,7 @@ export default function HyogoRemoteConsultationPage() {
                   <p className="text-xs text-neutral-500 mb-4">{t('paymentNotice')}</p>
                   <ConsentCheckboxes consents={consents} onChange={setConsents} lang={currentLang} />
 
-                <button type="submit" disabled={processing || !allConsented(consents)} className="w-full py-4 bg-accent-400 text-brand-900 font-bold hover:bg-accent-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                <button type="submit" disabled={processing || !allConsented(consents)} className="w-full py-4 bg-accent-400 text-neutral-900 font-bold hover:bg-accent-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                     {processing ? (<><Loader2 className="animate-spin" size={20} />{t('processing')}</>) : (<><CreditCard size={20} />{t('confirmPayment')}</>)}
                   </button>
                 </div>

@@ -131,7 +131,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           <div className="flex flex-wrap gap-4">
             <a
               href="#packages"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-accent-400 text-brand-900 text-sm font-medium tracking-wider hover:bg-accent-300 transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-accent-400 text-neutral-900 text-sm font-medium tracking-wider hover:bg-accent-300 transition-colors"
             >
               <Scan size={20} />
               {currentLang === 'zh-TW' ? '查看體檢套餐' : currentLang === 'zh-CN' ? '查看体检套餐' : currentLang === 'ja' ? '健診プランを見る' : 'View Plans'}
@@ -514,7 +514,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
 
               {/* 1. VIP Member */}
               <div className="col-span-1 md:col-span-2 lg:col-span-1 border border-accent-400 rounded-2xl p-6 hover:shadow-2xl transition hover:-translate-y-1 relative overflow-hidden brand-gradient-deep text-white flex flex-col">
-                  <div className="absolute top-0 right-0 bg-accent-400 text-brand-900 text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">{currentLang === 'zh-TW' ? '旗艦' : currentLang === 'zh-CN' ? '旗舰' : currentLang === 'ja' ? 'フラッグシップ' : 'Flagship'}</div>
+                  <div className="absolute top-0 right-0 bg-accent-400 text-neutral-900 text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">{currentLang === 'zh-TW' ? '旗艦' : currentLang === 'zh-CN' ? '旗舰' : currentLang === 'ja' ? 'フラッグシップ' : 'Flagship'}</div>
                   <div className="mb-4">
                       <h4 className="text-xl font-serif font-bold text-accent-600">{t.medical.pkg_vip_title}</h4>
                       <p className="text-xs text-neutral-500 mt-1">{currentLang === 'zh-TW' ? 'VIP 會員健診' : currentLang === 'zh-CN' ? 'VIP 会员健诊' : currentLang === 'ja' ? 'VIPメンバーコース' : 'VIP Member Course'}</p>
@@ -532,7 +532,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="flex gap-2"><CheckCircle size={14} className="text-accent-600 shrink-0" /> {t.medical.pkg_vip_item_5}</div>
                       <div className="flex gap-2"><CheckCircle size={14} className="text-accent-600 shrink-0" /> {t.medical.pkg_vip_item_6}</div>
                   </div>
-                  <Link href="/medical-packages/vip-member-course" className="w-full py-2 bg-accent-400 text-brand-900 text-xs font-bold rounded hover:bg-accent-300 transition text-center block">{t.medical.pkg_consult_btn}</Link>
+                  <Link href="/medical-packages/vip-member-course" className="w-full py-2 bg-accent-400 text-neutral-900 text-xs font-bold rounded hover:bg-accent-300 transition text-center block">{t.medical.pkg_consult_btn}</Link>
               </div>
 
               {/* 2. PREMIUM (Cardiac) */}
@@ -659,7 +659,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       {/* 客戶評價區塊 - 自動滾動輪播 */}
       <div className="mb-24" id="timc-testimonials">
           <div className="text-center mb-16">
-              <span className="text-brand-600 text-xs tracking-widest uppercase font-bold">{currentLang === 'zh-TW' ? '客戶評價' : currentLang === 'zh-CN' ? '客户评价' : currentLang === 'ja' ? 'お客様の声' : 'Customer Reviews'}</span>
+              <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">{currentLang === 'zh-TW' ? '客戶評價' : currentLang === 'zh-CN' ? '客户评价' : currentLang === 'ja' ? 'お客様の声' : 'Customer Reviews'}</span>
               <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.medical.testimonials_title}</h3>
               <p className="text-neutral-500 text-sm mt-2">{t.medical.testimonials_sub}</p>
           </div>
@@ -710,7 +710,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                           </div>
                           <div className="text-xs text-brand-700 font-medium mb-3">{review.pkg}</div>
                           <p className="text-sm text-neutral-600 leading-relaxed mb-4 line-clamp-3">{review.text}</p>
-                          <div className="flex items-center gap-2 text-brand-600 text-xs">
+                          <div className="flex items-center gap-2 text-brand-700 text-xs">
                               <CheckCircle size={12} />
                               <span className="font-medium">{review.highlight}</span>
                           </div>
@@ -733,7 +733,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                           </div>
                           <div className="text-xs text-brand-700 font-medium mb-3">{review.pkg}</div>
                           <p className="text-sm text-neutral-600 leading-relaxed mb-4 line-clamp-3">{review.text}</p>
-                          <div className="flex items-center gap-2 text-brand-600 text-xs">
+                          <div className="flex items-center gap-2 text-brand-700 text-xs">
                               <CheckCircle size={12} />
                               <span className="font-medium">{review.highlight}</span>
                           </div>
@@ -746,7 +746,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       {/* FAQ 常見問題 */}
       <div className="mb-24" id="timc-faq">
           <div className="text-center mb-16">
-              <span className="text-brand-600 text-xs tracking-widest uppercase font-bold">FAQ</span>
+              <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">FAQ</span>
               <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.medical.faq_title}</h3>
               <p className="text-neutral-500 text-sm mt-2">{t.medical.faq_sub}</p>
           </div>
@@ -794,7 +794,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       {/* CTA */}
       <div className="bg-brand-700 rounded-3xl p-12 text-center text-white shadow-2xl shadow-brand-200">
           <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif mb-6">{t.medical.cta_title}</h3>
-          <p className="text-neutral-600 max-w-2xl mx-auto mb-6 leading-relaxed whitespace-pre-line">
+          <p className="text-brand-100 max-w-2xl mx-auto mb-6 leading-relaxed whitespace-pre-line">
               {t.medical.cta_text}
           </p>
           <div>

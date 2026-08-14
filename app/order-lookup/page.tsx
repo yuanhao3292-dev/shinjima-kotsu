@@ -381,7 +381,7 @@ export default function OrderLookupPage() {
                       href="https://line.me/ti/p/j3XxBP50j9"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-[#06C755] hover:underline font-bold"
+                      className="inline-flex items-center gap-2 text-brand-700 hover:underline font-bold"
                     >
                       {t('lineSupport', lang)}
                     </a>

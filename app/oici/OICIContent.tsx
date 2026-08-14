@@ -1096,7 +1096,7 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
               href="https://line.me/R/ti/p/@shinjima"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#06C755] text-white font-bold px-6 py-3 rounded-xl hover:opacity-90 transition"
+              className="inline-flex items-center gap-2 bg-brand-700 text-white font-bold px-6 py-3 rounded-xl hover:opacity-90 transition"
             >
               <MessageSquare size={18} />
               LINE

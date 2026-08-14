@@ -498,7 +498,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                   <span key={i} className="px-4 py-2 bg-brand-50 rounded-full text-sm text-brand-700 border border-brand-100">{t(tag, lang)}</span>
                 ))}
               </div>
-              <a href="#sai-packages" className="inline-flex items-center gap-3 bg-brand-500 text-brand-900 px-8 py-4 rounded-full font-bold hover:bg-brand-600 transition-all shadow-lg shadow-brand-500/20">
+              <a href="#sai-packages" className="inline-flex items-center gap-3 bg-brand-500 text-neutral-900 px-8 py-4 rounded-full font-bold hover:bg-brand-600 transition-all shadow-lg shadow-brand-500/20">
                 {t(TR.viewAll, lang)} <ArrowRight size={18} />
               </a>
             </div>
@@ -816,7 +816,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                 }`}
               >
                 {pkg.flagship && <div className="absolute top-0 right-0 bg-brand-500 text-black text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Flagship</div>}
-                {pkg.popular && <div className="absolute top-0 right-0 bg-brand-500 text-brand-900 text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">{t(TR.popular, lang)}</div>}
+                {pkg.popular && <div className="absolute top-0 right-0 bg-brand-500 text-neutral-900 text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">{t(TR.popular, lang)}</div>}
                 <div className="mb-4">
                   <h4 className={`text-xl font-bold ${pkg.flagship ? 'text-brand-700' : pkg.popular ? 'text-brand-700' : 'text-neutral-900'}`}>{t(pkg.name, lang)}</h4>
                   <p className={`text-2xl font-bold mt-2 ${pkg.flagship ? 'text-amber-400' : pkg.popular ? 'text-brand-700' : 'text-neutral-900'}`}>{formatPrice(pkg.price)}</p>
@@ -836,7 +836,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                     pkg.flagship
                       ? 'bg-brand-500 text-black hover:bg-brand-400'
                       : pkg.popular
-                        ? 'bg-brand-500 text-brand-900 hover:bg-brand-600'
+                        ? 'bg-brand-500 text-neutral-900 hover:bg-brand-600'
                         : 'border border-neutral-300 text-neutral-700 hover:bg-neutral-50'
                   }`}
                 >
@@ -864,7 +864,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                 <div className="mb-3">
                   <p className="text-xl font-bold text-neutral-900">{formatPrice(pkg.price)}</p>
                 </div>
-                <Link href={checkoutHref(`${checkoutBase}/${pkg.slug}`)} className="w-full py-2 bg-brand-500 text-brand-900 text-sm font-bold rounded-lg hover:bg-brand-600 transition text-center block">{t(TR.bookNow, lang)}</Link>
+                <Link href={checkoutHref(`${checkoutBase}/${pkg.slug}`)} className="w-full py-2 bg-brand-500 text-neutral-900 text-sm font-bold rounded-lg hover:bg-brand-600 transition text-center block">{t(TR.bookNow, lang)}</Link>
               </div>
             ))}
           </div>
@@ -936,7 +936,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                 <div>
                   <div className="flex items-end justify-between mt-1">
                     <p className="text-xl font-bold text-neutral-900">{formatPrice(pkg.price)}</p>
-                    <Link href={checkoutHref(`${checkoutBase}/${pkg.slug}`)} className="px-4 py-2 bg-brand-500 text-brand-900 text-xs font-bold rounded-lg hover:bg-brand-600 transition">{t(TR.bookNow, lang)}</Link>
+                    <Link href={checkoutHref(`${checkoutBase}/${pkg.slug}`)} className="px-4 py-2 bg-brand-500 text-neutral-900 text-xs font-bold rounded-lg hover:bg-brand-600 transition">{t(TR.bookNow, lang)}</Link>
                   </div>
                 </div>
               </div>
@@ -961,7 +961,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                 key={key}
                 onClick={() => setMenuTab(key)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition ${
-                  menuTab === key ? 'bg-brand-500 text-brand-900' : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+                  menuTab === key ? 'bg-brand-500 text-neutral-900' : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
                 }`}
               >
                 {cat.icon} {t(cat.title, lang)}
@@ -1132,7 +1132,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
               <p className="text-sm text-neutral-500 leading-relaxed">{t(TR.transformBefore, lang)}</p>
             </div>
             <div className="bg-white rounded-2xl p-6 border border-brand-200 shadow-lg relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-500 text-brand-900 text-[10px] font-bold px-3 py-1 rounded-full">SAI CLINIC</div>
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-500 text-neutral-900 text-[10px] font-bold px-3 py-1 rounded-full">SAI CLINIC</div>
               <div className="w-12 h-12 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-4 mt-2">
                 <Sparkles size={24} className="text-brand-700" />
               </div>
@@ -1225,7 +1225,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
           </div>
           <a
             href="#sai-packages"
-            className="flex items-center gap-2 bg-brand-500 text-brand-900 pl-5 pr-4 py-3 rounded-full font-bold shadow-lg shadow-brand-500/30 hover:bg-brand-600 hover:shadow-xl hover:shadow-brand-500/40 transition-all text-sm"
+            className="flex items-center gap-2 bg-brand-500 text-neutral-900 pl-5 pr-4 py-3 rounded-full font-bold shadow-lg shadow-brand-500/30 hover:bg-brand-600 hover:shadow-xl hover:shadow-brand-500/40 transition-all text-sm"
           >
             <Sparkles size={16} />
             {t(TR.bookNow, lang)}

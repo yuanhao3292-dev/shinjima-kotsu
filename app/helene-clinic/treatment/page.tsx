@@ -815,7 +815,7 @@ export default function HeleneTreatmentPage() {
                   <button
                     type="submit"
                     disabled={processing || !selectedSlug || !allConsented(consents)}
-                    className="w-full py-4 bg-accent-400 text-brand-900 font-bold hover:bg-accent-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full py-4 bg-accent-400 text-neutral-900 font-bold hover:bg-accent-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {processing ? (
                       <>

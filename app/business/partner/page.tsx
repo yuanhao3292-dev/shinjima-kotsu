@@ -1215,7 +1215,7 @@ export default function PartnerBusinessPage() {
 
             <a
               href="#contact-form"
-              className="inline-flex items-center px-8 py-4 bg-accent-400 text-brand-900 text-sm font-medium tracking-wider hover:bg-accent-300 transition-colors"
+              className="inline-flex items-center px-8 py-4 bg-accent-400 text-neutral-900 text-sm font-medium tracking-wider hover:bg-accent-300 transition-colors"
             >
               {t('heroCta')}
               <ArrowRight size={18} className="ml-3" />

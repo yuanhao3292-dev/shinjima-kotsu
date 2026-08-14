@@ -399,7 +399,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
               )}
               <div className="flex flex-col items-center">
                 <span className={`font-serif font-bold text-lg tracking-wide leading-none ${isTransparent ? 'text-neutral-900' : 'text-neutral-900'}`}>{displayBrandName}</span>
-                <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-neutral-500' : 'text-neutral-400 group-hover:text-brand-700'}`}>{displayBrandSub}</span>
+                <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-neutral-500' : 'text-neutral-600 group-hover:text-brand-700'}`}>{displayBrandSub}</span>
               </div>
             </button>
           ) : (
@@ -410,7 +410,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
               )}
               <div className="flex flex-col items-center">
                 <span className={`font-serif font-bold text-lg tracking-wide leading-none ${isTransparent ? 'text-neutral-900' : 'text-neutral-900'}`}>{displayBrandName}</span>
-                <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-neutral-500' : 'text-neutral-400 group-hover:text-brand-700'}`}>{displayBrandSub}</span>
+                <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-neutral-500' : 'text-neutral-600 group-hover:text-brand-700'}`}>{displayBrandSub}</span>
               </div>
             </Link>
           )}

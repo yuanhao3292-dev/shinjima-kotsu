@@ -212,7 +212,7 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
                     href="https://line.me/ti/p/j3XxBP50j9"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block text-[#06C755] font-bold hover:underline"
+                    className="block text-brand-700 font-bold hover:underline"
                   >
                     @niijima-medical
                   </a>

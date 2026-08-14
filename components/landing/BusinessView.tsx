@@ -163,7 +163,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
             <div className="flex flex-wrap gap-4">
               <a
                 href="#business-plans-section"
-                className="inline-flex items-center px-8 py-4 bg-accent-400 text-brand-900 text-sm font-medium tracking-wider hover:bg-accent-300 transition-colors"
+                className="inline-flex items-center px-8 py-4 bg-accent-400 text-neutral-900 text-sm font-medium tracking-wider hover:bg-accent-300 transition-colors"
               >
                 {t.business.btn_case}
               </a>

@@ -18,7 +18,7 @@ const StatusIcon = ({ status, currentLang = 'zh-TW' }: { status: ItemStatus; par
       return <Circle className="w-4 h-4 text-accent-500" />;
     case 'partial':
       return (
-        <span className="text-[10px] text-brand-500 font-medium leading-tight text-center">
+        <span className="text-[10px] text-brand-700 font-medium leading-tight text-center">
           {ui('partial', currentLang)}
         </span>
       );
@@ -132,7 +132,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                   ▶
                 </span>
                 <span className="font-bold text-neutral-700">{category.category}</span>
-                <span className="text-xs text-neutral-400 ml-auto">{category.items.length}{ui('items', currentLang)}</span>
+                <span className="text-xs text-neutral-600 ml-auto">{category.items.length}{ui('items', currentLang)}</span>
               </div>
 
               {/* 项目列表 */}
@@ -151,14 +151,14 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                         <div className="flex-1 min-w-0">
                           <div className={`text-sm font-medium ${
                             status === 'included' ? 'text-neutral-900' :
-                            status === 'optional' ? 'text-brand-600' :
+                            status === 'optional' ? 'text-brand-700' :
                             status === 'partial' ? 'text-brand-700' :
-                            'text-neutral-400'
+                            'text-neutral-600'
                           }`}>
                             {item.name}
                           </div>
                           {item.detail && (
-                            <div className="text-xs text-neutral-400 mt-0.5 leading-tight">
+                            <div className="text-xs text-neutral-600 mt-0.5 leading-tight">
                               {item.detail}
                             </div>
                           )}
@@ -168,7 +168,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                             </div>
                           )}
                         </div>
-                        <div className="flex-shrink-0 text-xs text-neutral-400">
+                        <div className="flex-shrink-0 text-xs text-neutral-600">
                           {status === 'included' && ui('included', currentLang)}
                           {status === 'optional' && ui('optional', currentLang)}
                           {status === 'partial' && ui('partial', currentLang)}
@@ -195,7 +195,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
           >
             {ui('bookNow', currentLang)} {selectedPackage.name}
           </button>
-          <div className="text-center text-xs text-neutral-400 mt-2">
+          <div className="text-center text-xs text-neutral-600 mt-2">
             {ui('priceNote', currentLang)}
           </div>
         </div>
@@ -235,7 +235,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
             {/* 项目列 */}
             <div className="p-4 bg-neutral-50">
               <div className="text-sm font-bold text-neutral-700">{ui('checkItems', currentLang)}</div>
-              <div className="text-xs text-neutral-400 mt-1">● {ui('included', currentLang)} ○ {ui('optional', currentLang)}</div>
+              <div className="text-xs text-neutral-600 mt-1">● {ui('included', currentLang)} ○ {ui('optional', currentLang)}</div>
             </div>
 
             {/* 套餐列 */}
@@ -249,17 +249,17 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                 }`}
               >
                 <div className={`text-sm font-bold ${
-                  pkg.id === 'vip' ? 'text-accent-700' : 'text-neutral-800'
+                  pkg.id === 'vip' ? 'text-accent-300' : 'text-neutral-800'
                 }`}>
                   {pkg.name}
                 </div>
                 <div className={`text-xs ${
-                  pkg.id === 'vip' ? 'text-neutral-400' : 'text-neutral-500'
+                  pkg.id === 'vip' ? 'text-neutral-300' : 'text-neutral-500'
                 }`}>
                   {pkg.nameZh}
                 </div>
                 <div className={`text-base font-bold mt-1 ${
-                  pkg.id === 'vip' ? 'text-accent-700' : 'text-neutral-900'
+                  pkg.id === 'vip' ? 'text-accent-300' : 'text-neutral-900'
                 }`}>
                   {formatPrice(pkg.price)}
                 </div>
@@ -294,7 +294,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                     ▶
                   </span>
                   <span className="font-bold text-neutral-700">{category.category}</span>
-                  <span className="text-xs text-neutral-400">({category.items.length}{ui('items', currentLang)})</span>
+                  <span className="text-xs text-neutral-600">({category.items.length}{ui('items', currentLang)})</span>
                 </div>
               </div>
 
@@ -311,7 +311,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                     <div className="p-3 border-r border-neutral-200">
                       <div className="text-sm text-neutral-800">{item.name}</div>
                       {item.detail && (
-                        <div className="text-xs text-neutral-400 mt-0.5 leading-tight">{item.detail}</div>
+                        <div className="text-xs text-neutral-600 mt-0.5 leading-tight">{item.detail}</div>
                       )}
                     </div>
 
@@ -355,10 +355,10 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
               <span className="text-neutral-600">{ui('legendNone', currentLang)}</span>
             </div>
           </div>
-          <div className="text-center text-xs text-neutral-400 mt-3">
+          <div className="text-center text-xs text-neutral-600 mt-3">
             {ui('priceNote', currentLang)}
           </div>
-          <div className="text-center text-xs text-neutral-400 mt-1">
+          <div className="text-center text-xs text-neutral-600 mt-1">
             {ui('source', currentLang)}：TOKUSHUKAI INTERNATIONAL Medical Check-up OSAKA (TIMC) Ver.9.5
           </div>
         </div>
