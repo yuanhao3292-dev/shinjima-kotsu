@@ -226,15 +226,15 @@ export default function FollowUpQuestionnaire({
   return (
     <div className="max-w-2xl mx-auto">
       {/* 提示横幅 */}
-      <div className="mb-6 p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl border border-amber-200">
+      <div className="mb-6 p-4 bg-gradient-to-r from-brand-50 to-brand-50 rounded-xl border border-brand-200">
         <div className="flex items-center gap-2 mb-2">
-          <HelpCircle className="w-5 h-5 text-amber-600" />
-          <span className="font-medium text-amber-800">
+          <HelpCircle className="w-5 h-5 text-brand-600" />
+          <span className="font-medium text-brand-800">
             {t('aiNeedsInfo', lang)}
             {followupRound > 1 && t('roundN', lang).replace('{{round}}', String(followupRound))}
           </span>
         </div>
-        <p className="text-sm text-amber-700">
+        <p className="text-sm text-brand-700">
           {t('aiNeedsInfoDesc', lang)}
         </p>
       </div>
@@ -256,7 +256,7 @@ export default function FollowUpQuestionnaire({
         </div>
         <div className="h-2 bg-neutral-200 rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-amber-400 to-amber-500 transition-all duration-300"
+            className="h-full bg-gradient-to-r from-brand-400 to-brand-500 transition-all duration-300"
             style={{ width: `${(answeredCount / currentQuestions.length) * 100}%` }}
           />
         </div>
@@ -270,8 +270,8 @@ export default function FollowUpQuestionnaire({
             className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-6"
           >
             <div className="flex items-start gap-3 mb-4">
-              <div className="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                <span className="text-sm font-semibold text-amber-700">{index + 1}</span>
+              <div className="w-8 h-8 bg-brand-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span className="text-sm font-semibold text-brand-700">{index + 1}</span>
               </div>
               <h3 className="text-base font-medium text-neutral-900">{question}</h3>
             </div>
@@ -280,7 +280,7 @@ export default function FollowUpQuestionnaire({
               onChange={(e) => handleAnswerChange(index, e.target.value)}
               placeholder={t('answerPlaceholder', lang)}
               rows={3}
-              className="w-full p-3 border border-neutral-300 rounded-xl focus:ring-2 focus:ring-amber-400 focus:border-amber-400 resize-none text-neutral-800 placeholder:text-neutral-400"
+              className="w-full p-3 border border-neutral-300 rounded-xl focus:ring-2 focus:ring-brand-400 focus:border-brand-400 resize-none text-neutral-800 placeholder:text-neutral-400"
               disabled={isSubmitting}
             />
           </div>
@@ -308,7 +308,7 @@ export default function FollowUpQuestionnaire({
         <button
           onClick={handleSubmit}
           disabled={!allAnswered || isSubmitting}
-          className="order-1 sm:order-2 flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-xl hover:from-amber-600 hover:to-amber-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+          className="order-1 sm:order-2 flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-brand-500 to-brand-600 text-white rounded-xl hover:from-brand-600 hover:to-brand-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
         >
           {isSubmitting ? (
             <>

@@ -50,20 +50,20 @@ const categoryConfig = {
   },
   announcement: {
     labels: { ja: 'お知らせ', 'zh-TW': '公告', 'zh-CN': '公告', en: 'Notice' },
-    color: 'bg-blue-600 text-white',
-    lightColor: 'bg-blue-50 text-blue-700 border border-blue-200',
+    color: 'bg-brand-600 text-white',
+    lightColor: 'bg-brand-50 text-brand-700 border border-brand-200',
     icon: Bell
   },
   press: {
     labels: { ja: 'プレスリリース', 'zh-TW': '新聞稿', 'zh-CN': '新闻稿', en: 'Press' },
-    color: 'bg-emerald-600 text-white',
-    lightColor: 'bg-emerald-50 text-emerald-700 border border-emerald-200',
+    color: 'bg-brand-600 text-white',
+    lightColor: 'bg-brand-50 text-brand-700 border border-brand-200',
     icon: Megaphone
   },
   service: {
     labels: { ja: 'サービス', 'zh-TW': '服務', 'zh-CN': '服务', en: 'Service' },
-    color: 'bg-amber-500 text-white',
-    lightColor: 'bg-amber-50 text-amber-700 border border-amber-200',
+    color: 'bg-brand-500 text-white',
+    lightColor: 'bg-brand-50 text-brand-700 border border-brand-200',
     icon: Sparkles
   },
 };
@@ -197,14 +197,14 @@ export default function NewsPage() {
             quality={75}
           />
           <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
-          <div className="absolute w-72 h-72 bg-accent-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+          <div className="absolute w-72 h-72 bg-brand-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
         </div>
 
         <div className="relative z-10 container mx-auto px-6 py-20 text-center">
           <div className="flex items-center justify-center gap-3 mb-8">
-            <div className="h-[1px] w-12 bg-accent-400"></div>
-            <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">News Room</span>
-            <div className="h-[1px] w-12 bg-accent-400"></div>
+            <div className="h-[1px] w-12 bg-brand-400"></div>
+            <span className="text-xs tracking-[0.3em] text-brand-400 uppercase">News Room</span>
+            <div className="h-[1px] w-12 bg-brand-400"></div>
           </div>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight">
@@ -232,9 +232,9 @@ export default function NewsPage() {
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
               <div className="flex items-center justify-center gap-3 mb-4">
-                <div className="h-[1px] w-12 bg-accent-400"></div>
-                <span className="text-xs tracking-[0.3em] text-accent-500 uppercase">{t('featuredSubtitle')}</span>
-                <div className="h-[1px] w-12 bg-accent-400"></div>
+                <div className="h-[1px] w-12 bg-brand-400"></div>
+                <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">{t('featuredSubtitle')}</span>
+                <div className="h-[1px] w-12 bg-brand-400"></div>
               </div>
               <h2 className="text-2xl md:text-3xl font-serif text-brand-900">{t('featuredTitle')}</h2>
             </div>
@@ -270,17 +270,17 @@ export default function NewsPage() {
                         {categoryConfig[news.category].labels[lang]}
                       </span>
                       {isNewNews(news.published_at) && (
-                        <span className="px-2 py-0.5 bg-red-500 text-brand-900 rounded text-xs font-bold animate-pulse">
+                        <span className="px-2 py-0.5 bg-brand-700 text-white rounded text-xs font-bold animate-pulse">
                           {t('newBadge')}
                         </span>
                       )}
                     </div>
-                    <h3 className={`font-bold text-brand-900 mb-2 group-hover:text-accent-400 transition-colors ${
+                    <h3 className={`font-bold text-white mb-2 group-hover:text-brand-700 transition-colors ${
                       index === 0 ? 'text-2xl' : 'text-lg'
                     }`}>
                       {localizeText(news.title, lang)}
                     </h3>
-                    <div className="flex items-center gap-2 text-neutral-600 text-sm">
+                    <div className="flex items-center gap-2 text-neutral-200 text-sm">
                       <Calendar size={14} />
                       <span>{formatDateJP(news.published_at)}</span>
                     </div>
@@ -307,9 +307,9 @@ export default function NewsPage() {
           <div className="mb-10">
             <div className="text-center mb-8">
               <div className="flex items-center justify-center gap-3 mb-4">
-                <div className="h-[1px] w-12 bg-accent-400"></div>
-                <span className="text-xs tracking-[0.3em] text-accent-500 uppercase">{t('allNewsSubtitle')}</span>
-                <div className="h-[1px] w-12 bg-accent-400"></div>
+                <div className="h-[1px] w-12 bg-brand-400"></div>
+                <span className="text-xs tracking-[0.3em] text-brand-800 uppercase">{t('allNewsSubtitle')}</span>
+                <div className="h-[1px] w-12 bg-brand-400"></div>
               </div>
               <h2 className="text-2xl md:text-3xl font-serif text-brand-900">{t('allNewsTitle')}</h2>
             </div>
@@ -387,7 +387,7 @@ export default function NewsPage() {
                             {config.labels[lang]}
                           </span>
                           {isNewNews(news.published_at) && (
-                            <span className="px-2 py-0.5 bg-red-500 text-white rounded text-xs font-bold animate-pulse">
+                            <span className="px-2 py-0.5 bg-brand-500 text-white rounded text-xs font-bold animate-pulse">
                               {t('newBadge')}
                             </span>
                           )}
@@ -406,7 +406,7 @@ export default function NewsPage() {
                         </div>
 
                         {/* 箭头 */}
-                        <div className="hidden md:flex items-center justify-center w-10 h-10 bg-neutral-100 group-hover:brand-gradient-deep transition-all duration-300 flex-shrink-0">
+                        <div className="hidden md:flex items-center justify-center w-10 h-10 bg-neutral-100 group-hover:opacity-90 transition-all duration-300 flex-shrink-0">
                           <ChevronRight
                             size={20}
                             className="text-neutral-400 group-hover:text-white transition-colors"
@@ -468,9 +468,9 @@ export default function NewsPage() {
       <section className="py-20 brand-gradient-deep text-white">
         <div className="container mx-auto px-6 text-center">
           <div className="flex items-center justify-center gap-3 mb-8">
-            <div className="h-[1px] w-12 bg-accent-400"></div>
-            <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">Stay Updated</span>
-            <div className="h-[1px] w-12 bg-accent-400"></div>
+            <div className="h-[1px] w-12 bg-brand-400"></div>
+            <span className="text-xs tracking-[0.3em] text-brand-400 uppercase">Stay Updated</span>
+            <div className="h-[1px] w-12 bg-brand-400"></div>
           </div>
 
           <h2 className="text-3xl md:text-4xl font-serif mb-6">

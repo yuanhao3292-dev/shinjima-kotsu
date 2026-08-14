@@ -41,40 +41,40 @@ export default function FloatingContact({ brandColor, contactInfo }: FloatingCon
       {/* 联系方式弹窗 */}
       {isOpen && (
         <div className="fixed bottom-24 right-6 z-40 w-80 bg-white rounded-2xl shadow-2xl p-6 animate-fade-in-up">
-          <h3 className="text-lg font-bold text-gray-900 mb-4">联系我们</h3>
+          <h3 className="text-lg font-bold text-neutral-900 mb-4">联系我们</h3>
           <div className="space-y-3">
             {contactInfo.wechat && (
-              <div className="p-3 bg-green-50 rounded-lg">
-                <div className="text-sm font-medium text-gray-900">微信</div>
-                <div className="text-sm text-gray-600 mt-1">{contactInfo.wechat}</div>
+              <div className="p-3 bg-brand-50 rounded-lg">
+                <div className="text-sm font-medium text-neutral-900">微信</div>
+                <div className="text-sm text-neutral-600 mt-1">{contactInfo.wechat}</div>
               </div>
             )}
             {contactInfo.line && (
-              <div className="p-3 bg-green-50 rounded-lg">
-                <div className="text-sm font-medium text-gray-900">LINE</div>
-                <div className="text-sm text-gray-600 mt-1">{contactInfo.line}</div>
+              <div className="p-3 bg-brand-50 rounded-lg">
+                <div className="text-sm font-medium text-neutral-900">LINE</div>
+                <div className="text-sm text-neutral-600 mt-1">{contactInfo.line}</div>
               </div>
             )}
             {contactInfo.phone && (
               <a
                 href={`tel:${contactInfo.phone}`}
-                className="block p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition"
+                className="block p-3 bg-brand-50 rounded-lg hover:bg-brand-100 transition"
               >
-                <div className="text-sm font-medium text-gray-900">电话</div>
-                <div className="text-sm text-blue-600 mt-1">{contactInfo.phone}</div>
+                <div className="text-sm font-medium text-neutral-900">电话</div>
+                <div className="text-sm text-brand-600 mt-1">{contactInfo.phone}</div>
               </a>
             )}
             {contactInfo.email && (
               <a
                 href={`mailto:${contactInfo.email}`}
-                className="block p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition"
+                className="block p-3 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition"
               >
-                <div className="text-sm font-medium text-gray-900">邮箱</div>
-                <div className="text-sm text-gray-600 mt-1">{contactInfo.email}</div>
+                <div className="text-sm font-medium text-neutral-900">邮箱</div>
+                <div className="text-sm text-neutral-600 mt-1">{contactInfo.email}</div>
               </a>
             )}
           </div>
-          <div className="mt-4 pt-4 border-t text-xs text-gray-400">
+          <div className="mt-4 pt-4 border-t text-xs text-neutral-400">
             有任何问题欢迎咨询
           </div>
         </div>

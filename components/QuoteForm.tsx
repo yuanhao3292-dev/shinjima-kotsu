@@ -67,15 +67,15 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ request, setRequest, onCalculate,
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 h-full flex flex-col">
+    <div className="bg-white rounded-xl shadow-lg border border-neutral-100 p-6 h-full flex flex-col">
       <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center space-x-2 text-blue-900">
+        <div className="flex items-center space-x-2 text-brand-900">
           <Calculator className="w-6 h-6" />
           <h2 className="text-xl font-bold">新詢價單</h2>
         </div>
         <button 
           onClick={() => setShowImport(!showImport)}
-          className="text-xs flex items-center gap-1 text-purple-600 font-medium hover:bg-purple-50 px-2 py-1 rounded transition"
+          className="text-xs flex items-center gap-1 text-brand-600 font-medium hover:bg-brand-50 px-2 py-1 rounded transition"
         >
           <Sparkles size={14} />
           {showImport ? '隱藏智慧填單' : 'AI 智慧填單'}
@@ -84,22 +84,22 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ request, setRequest, onCalculate,
 
       {/* Smart Import Section */}
       {showImport && (
-        <div className="mb-6 bg-purple-50 border border-purple-100 rounded-lg p-4 animate-fade-in-down">
-          <label className="block text-sm font-bold text-purple-900 mb-2 flex items-center gap-2">
+        <div className="mb-6 bg-brand-50 border border-brand-100 rounded-lg p-4 animate-fade-in-down">
+          <label className="block text-sm font-bold text-brand-900 mb-2 flex items-center gap-2">
             <MessageSquare size={16} />
             貼上 Line/微信 需求內容
           </label>
           <textarea
             value={importText}
             onChange={(e) => setImportText(e.target.value)}
-            className="w-full p-3 text-sm border border-purple-200 rounded-lg mb-3 focus:ring-2 focus:ring-purple-400 outline-none"
+            className="w-full p-3 text-sm border border-brand-200 rounded-lg mb-3 focus:ring-2 focus:ring-brand-400 outline-none"
             rows={3}
             placeholder="例如：你好，我們有25人要去大阪5天，大概10月出發，需要4星級飯店和一台大巴..."
           ></textarea>
           <button
             onClick={handleSmartImport}
             disabled={isImporting}
-            className="w-full py-2 bg-purple-600 text-white rounded-lg text-sm font-bold hover:bg-purple-700 transition flex items-center justify-center gap-2"
+            className="w-full py-2 bg-brand-600 text-white rounded-lg text-sm font-bold hover:bg-brand-700 transition flex items-center justify-center gap-2"
           >
             {isImporting ? (
               <>
@@ -120,12 +120,12 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ request, setRequest, onCalculate,
         
         {/* Agency Info */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1">旅行社名稱</label>
+          <label className="block text-sm font-semibold text-neutral-700 mb-1">旅行社名稱</label>
           <input
             type="text"
             value={request.agency_name}
             onChange={(e) => updateField('agency_name', e.target.value)}
-            className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none"
+            className="w-full p-2.5 bg-neutral-50 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all outline-none"
             placeholder="例如：雄獅旅遊"
           />
         </div>
@@ -133,43 +133,43 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ request, setRequest, onCalculate,
         {/* Basic Stats */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+            <label className="block text-sm font-semibold text-neutral-700 mb-1 flex items-center gap-1">
               <Users size={14} /> 人數 (Pax)
             </label>
             <input
               type="number"
               value={request.pax}
               onChange={(e) => updateField('pax', parseInt(e.target.value) || 0)}
-              className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-blue-500"
+              className="w-full p-2.5 bg-neutral-50 border border-neutral-200 rounded-lg focus:ring-brand-500"
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+            <label className="block text-sm font-semibold text-neutral-700 mb-1 flex items-center gap-1">
               <Calendar size={14} /> 天數
             </label>
             <input
               type="number"
               value={request.travel_days}
               onChange={(e) => updateField('travel_days', parseInt(e.target.value) || 0)}
-              className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-blue-500"
+              className="w-full p-2.5 bg-neutral-50 border border-neutral-200 rounded-lg focus:ring-brand-500"
             />
           </div>
         </div>
 
         {/* Location & Hotel */}
-        <div className="p-4 bg-blue-50 rounded-lg border border-blue-100 space-y-4">
-          <h3 className="text-sm font-bold text-blue-800 uppercase tracking-wide flex items-center gap-2">
+        <div className="p-4 bg-brand-50 rounded-lg border border-brand-100 space-y-4">
+          <h3 className="text-sm font-bold text-brand-800 uppercase tracking-wide flex items-center gap-2">
             <Building size={16}/> 住宿資訊
           </h3>
           
           <div>
-            <label className="block text-xs font-semibold text-gray-600 mb-1">目的地</label>
+            <label className="block text-xs font-semibold text-neutral-600 mb-1">目的地</label>
             <div className="relative">
-              <MapPin className="absolute left-3 top-3 text-gray-400 w-4 h-4" />
+              <MapPin className="absolute left-3 top-3 text-neutral-400 w-4 h-4" />
               <select
                 value={request.hotel_req.location}
                 onChange={(e) => updateHotelField('location', e.target.value)}
-                className="w-full pl-9 p-2.5 bg-white border border-gray-200 rounded-lg focus:ring-blue-500 appearance-none"
+                className="w-full pl-9 p-2.5 bg-white border border-neutral-200 rounded-lg focus:ring-brand-500 appearance-none"
               >
                 {LOCATIONS.map(loc => (
                   <option key={loc.value} value={loc.value}>{loc.label}</option>
@@ -180,11 +180,11 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ request, setRequest, onCalculate,
 
           <div className="grid grid-cols-2 gap-4">
              <div>
-                <label className="block text-xs font-semibold text-gray-600 mb-1">等級</label>
+                <label className="block text-xs font-semibold text-neutral-600 mb-1">等級</label>
                 <select
                   value={request.hotel_req.stars}
                   onChange={(e) => updateHotelField('stars', parseInt(e.target.value))}
-                  className="w-full p-2 bg-white border border-gray-200 rounded-lg text-sm"
+                  className="w-full p-2 bg-white border border-neutral-200 rounded-lg text-sm"
                 >
                   {STARS.map(star => (
                     <option key={star.value} value={star.value}>{star.label}</option>
@@ -192,28 +192,28 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ request, setRequest, onCalculate,
                 </select>
              </div>
              <div>
-                <label className="block text-xs font-semibold text-gray-600 mb-1">房間數</label>
+                <label className="block text-xs font-semibold text-neutral-600 mb-1">房間數</label>
                 <input
                   type="number"
                   value={request.hotel_req.rooms}
                   onChange={(e) => updateHotelField('rooms', parseInt(e.target.value) || 0)}
-                  className="w-full p-2 bg-white border border-gray-200 rounded-lg text-sm"
+                  className="w-full p-2 bg-white border border-neutral-200 rounded-lg text-sm"
                 />
              </div>
           </div>
         </div>
 
         {/* Resources: Transport & Guide */}
-        <div className="p-4 bg-gray-50 rounded-lg border border-gray-200 space-y-4">
+        <div className="p-4 bg-neutral-50 rounded-lg border border-neutral-200 space-y-4">
            {/* Guide Selection */}
            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+              <label className="block text-sm font-semibold text-neutral-700 mb-1 flex items-center gap-1">
                 <Languages size={14} /> 導遊語言
               </label>
               <select
                 value={request.guide_language}
                 onChange={(e) => updateField('guide_language', e.target.value)}
-                className="w-full p-2 bg-white border border-gray-300 rounded-lg text-sm"
+                className="w-full p-2 bg-white border border-neutral-300 rounded-lg text-sm"
               >
                 <option value="zh">中文導遊 (25,000 JPY/日)</option>
                 <option value="en">英文導遊 (33,000 JPY/日)</option>
@@ -223,14 +223,14 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ request, setRequest, onCalculate,
            {/* Bus Selection */}
            <div>
              <div className="flex items-center justify-between mb-2">
-                <label className="text-sm font-bold text-gray-700 flex items-center gap-2">
+                <label className="text-sm font-bold text-neutral-700 flex items-center gap-2">
                   <Bus size={16}/> 需要用車?
                 </label>
                 <input
                   type="checkbox"
                   checked={request.need_bus}
                   onChange={(e) => updateField('need_bus', e.target.checked)}
-                  className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
+                  className="w-5 h-5 text-brand-600 rounded focus:ring-brand-500"
                 />
              </div>
              
@@ -239,7 +239,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ request, setRequest, onCalculate,
                   <select
                     value={request.bus_type}
                     onChange={(e) => updateField('bus_type', e.target.value)}
-                    className="w-full p-2 bg-white border border-gray-300 rounded-lg text-sm"
+                    className="w-full p-2 bg-white border border-neutral-300 rounded-lg text-sm"
                   >
                     {Object.entries(VEHICLE_LABELS).map(([key, label]) => (
                       <option key={key} value={key}>{label}</option>
@@ -252,12 +252,12 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ request, setRequest, onCalculate,
 
       </div>
 
-      <div className="mt-4 pt-4 border-t border-gray-100">
+      <div className="mt-4 pt-4 border-t border-neutral-100">
         <button
           onClick={onCalculate}
           disabled={loading}
           className={`w-full py-4 rounded-xl font-bold text-white shadow-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] ${
-            loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-blue-600 to-indigo-700 hover:shadow-xl'
+            loading ? 'bg-neutral-400 cursor-not-allowed' : 'bg-gradient-to-r from-brand-600 to-brand-700 hover:shadow-xl'
           }`}
         >
           {loading ? (

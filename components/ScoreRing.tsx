@@ -12,7 +12,7 @@ export default function ScoreRing({ score, size = 160, strokeWidth = 12 }: Score
   const progress = (score / 100) * circumference;
 
   const color =
-    score >= 80 ? '#10b981' : score >= 60 ? '#f59e0b' : '#ef4444';
+    score >= 80 ? '#6fb4da' : score >= 60 ? '#6fb4da' : '#4e9ac9';
 
   return (
     <svg width={size} height={size} className="transform -rotate-90">
@@ -21,7 +21,7 @@ export default function ScoreRing({ score, size = 160, strokeWidth = 12 }: Score
         cy={size / 2}
         r={radius}
         fill="none"
-        stroke="#e5e7eb"
+        stroke="#e8e6e1"
         strokeWidth={strokeWidth}
       />
       <circle

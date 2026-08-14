@@ -218,18 +218,18 @@ function TrendBadge({
   const config = {
     improving: {
       icon: TrendingUp,
-      color: 'text-emerald-600',
-      bg: 'bg-emerald-50',
+      color: 'text-brand-600',
+      bg: 'bg-brand-50',
     },
     stable: {
       icon: Minus,
-      color: 'text-blue-600',
-      bg: 'bg-blue-50',
+      color: 'text-brand-600',
+      bg: 'bg-brand-50',
     },
     worsening: {
       icon: TrendingDown,
-      color: 'text-amber-600',
-      bg: 'bg-amber-50',
+      color: 'text-brand-600',
+      bg: 'bg-brand-50',
     },
   };
 
@@ -309,8 +309,8 @@ export default function HealthPassport({ screenings, snapshots, lang }: Props) {
   if (!hasData) {
     return (
       <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
-        <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4">
-          <Shield className="w-8 h-8 text-emerald-400" />
+        <div className="w-16 h-16 bg-brand-50 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Shield className="w-8 h-8 text-brand-700" />
         </div>
         <h3 className="text-lg font-semibold text-neutral-900 mb-2">
           {t('passportTitle', lang)}
@@ -322,10 +322,10 @@ export default function HealthPassport({ screenings, snapshots, lang }: Props) {
 
   const scoreColor =
     latestSnapshot.health_score >= 80
-      ? 'text-emerald-600'
+      ? 'text-brand-600'
       : latestSnapshot.health_score >= 60
-        ? 'text-amber-500'
-        : 'text-red-500';
+        ? 'text-brand-700'
+        : 'text-brand-700';
 
   const riskLabels: Record<string, string> = {
     low: t('riskLow', lang),
@@ -335,7 +335,7 @@ export default function HealthPassport({ screenings, snapshots, lang }: Props) {
 
   const riskConfig: Record<string, { color: string; bg: string; icon: typeof CheckCircle }> = {
     low: { color: 'text-green-600', bg: 'bg-green-50', icon: CheckCircle },
-    medium: { color: 'text-yellow-600', bg: 'bg-yellow-50', icon: AlertCircle },
+    medium: { color: 'text-brand-600', bg: 'bg-brand-50', icon: AlertCircle },
     high: { color: 'text-red-600', bg: 'bg-red-50', icon: AlertTriangle },
   };
 
@@ -344,8 +344,8 @@ export default function HealthPassport({ screenings, snapshots, lang }: Props) {
       {/* ─── Section A: Score Overview ─── */}
       <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-2 bg-emerald-100 rounded-lg">
-            <Shield className="w-6 h-6 text-emerald-600" />
+          <div className="p-2 bg-brand-100 rounded-lg">
+            <Shield className="w-6 h-6 text-brand-600" />
           </div>
           <h3 className="text-xl font-semibold text-neutral-900 tracking-wide">
             {t('passportTitle', lang)}
@@ -406,13 +406,13 @@ export default function HealthPassport({ screenings, snapshots, lang }: Props) {
               <LineChart data={chartData}>
                 <XAxis
                   dataKey="date"
-                  tick={{ fontSize: 12, fill: '#9ca3af' }}
+                  tick={{ fontSize: 12, fill: '#6fb4da' }}
                   axisLine={false}
                   tickLine={false}
                 />
                 <YAxis
                   domain={[0, 100]}
-                  tick={{ fontSize: 12, fill: '#9ca3af' }}
+                  tick={{ fontSize: 12, fill: '#6fb4da' }}
                   axisLine={false}
                   tickLine={false}
                   width={32}
@@ -431,9 +431,9 @@ export default function HealthPassport({ screenings, snapshots, lang }: Props) {
                 <Line
                   type="monotone"
                   dataKey="score"
-                  stroke="#10b981"
+                  stroke="#6fb4da"
                   strokeWidth={2.5}
-                  dot={{ fill: '#10b981', r: 4, strokeWidth: 2, stroke: '#fff' }}
+                  dot={{ fill: '#6fb4da', r: 4, strokeWidth: 2, stroke: '#fff' }}
                   activeDot={{ r: 6 }}
                 />
               </LineChart>
@@ -470,7 +470,7 @@ export default function HealthPassport({ screenings, snapshots, lang }: Props) {
                         ? `/health-screening/result/${screening.id}`
                         : '/health-screening'
                     }
-                    className="flex items-center justify-between p-4 rounded-xl border border-neutral-100 hover:border-emerald-200 hover:shadow-sm transition-all group"
+                    className="flex items-center justify-between p-4 rounded-xl border border-neutral-100 hover:border-brand-200 hover:shadow-sm transition-all group"
                   >
                     <div className="flex items-center gap-3 min-w-0">
                       {/* Icon */}
@@ -479,7 +479,7 @@ export default function HealthPassport({ screenings, snapshots, lang }: Props) {
                           <RiskIcon className={`w-5 h-5 ${risk.color}`} />
                         </div>
                       ) : (
-                        <div className="p-2 rounded-lg flex-shrink-0 bg-gray-100">
+                        <div className="p-2 rounded-lg flex-shrink-0 bg-neutral-100">
                           <Clock className="w-5 h-5 text-neutral-400" />
                         </div>
                       )}
@@ -497,14 +497,14 @@ export default function HealthPassport({ screenings, snapshots, lang }: Props) {
                             </span>
                           )}
                           {!isCompleted && (
-                            <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-50 text-yellow-600">
+                            <span className="text-xs px-2 py-0.5 rounded-full bg-brand-50 text-brand-700">
                               {t('inProgress', lang)}
                             </span>
                           )}
                           {/* Score + trend badge */}
                           {snap && (
                             <>
-                              <span className="text-xs font-semibold text-emerald-600">
+                              <span className="text-xs font-semibold text-brand-600">
                                 {snap.health_score}{t('scorePoints', lang)}
                               </span>
                               {snap.trend !== 'stable' && (
@@ -525,7 +525,7 @@ export default function HealthPassport({ screenings, snapshots, lang }: Props) {
                       </div>
                     </div>
 
-                    <ArrowRight className="w-4 h-4 text-neutral-300 group-hover:text-emerald-500 transition-colors flex-shrink-0" />
+                    <ArrowRight className="w-4 h-4 text-neutral-300 group-hover:text-brand-700 transition-colors flex-shrink-0" />
                   </Link>
                 );
               })}

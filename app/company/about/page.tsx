@@ -538,15 +538,15 @@ export default function AboutPage() {
         <section className="relative min-h-[60vh] flex items-center brand-gradient-deep overflow-hidden">
           <div className="absolute inset-0">
             <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
-            <div className="absolute w-72 h-72 bg-accent-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+            <div className="absolute w-72 h-72 bg-brand-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
           </div>
 
           <div className="relative container mx-auto px-6 py-24">
             <div className="max-w-3xl mx-auto text-center">
               <div className="flex items-center justify-center gap-3 mb-8">
-                <div className="h-[1px] w-12 bg-accent-400"></div>
-                <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">NIIJIMA KOTSU Co., Ltd.</span>
-                <div className="h-[1px] w-12 bg-accent-400"></div>
+                <div className="h-[1px] w-12 bg-brand-400"></div>
+                <span className="text-xs tracking-[0.3em] text-brand-400 uppercase">NIIJIMA KOTSU Co., Ltd.</span>
+                <div className="h-[1px] w-12 bg-brand-400"></div>
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-white leading-tight">
                 {t('valueCompanyName')}
@@ -561,9 +561,9 @@ export default function AboutPage() {
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <div className="h-[1px] w-12 bg-accent-400"></div>
-                  <span className="text-xs tracking-[0.3em] text-accent-500 uppercase">{t('ceoSectionLabel')}</span>
-                  <div className="h-[1px] w-12 bg-accent-400"></div>
+                  <div className="h-[1px] w-12 bg-brand-400"></div>
+                  <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">{t('ceoSectionLabel')}</span>
+                  <div className="h-[1px] w-12 bg-brand-400"></div>
                 </div>
                 <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('ceoSectionTitle')}</h2>
               </div>
@@ -572,7 +572,7 @@ export default function AboutPage() {
                 {/* CEO Photo */}
                 <div className="lg:w-1/3 flex-shrink-0">
                   <div className="relative">
-                    <div className="absolute inset-0 bg-accent-400/20 transform translate-x-4 translate-y-4 rounded-2xl"></div>
+                    <div className="absolute inset-0 bg-brand-400/20 transform translate-x-4 translate-y-4 rounded-2xl"></div>
                     <Image
                       src="https://i.ibb.co/B2mJDvq7/founder.jpg"
                       alt="Yuan Hao"
@@ -594,7 +594,7 @@ export default function AboutPage() {
                 <div className="lg:w-2/3">
                   <div className="relative mb-8">
                     <Quote className="absolute -top-4 -left-6 text-neutral-100 w-20 h-20 transform -scale-x-100" />
-                    <p className="text-2xl text-brand-900 relative z-10 italic font-serif pl-4 border-l-4 border-accent-400 leading-relaxed">
+                    <p className="text-2xl text-brand-900 relative z-10 italic font-serif pl-4 border-l-4 border-brand-400 leading-relaxed">
                       {t('ceoSlogan')}
                     </p>
                   </div>
@@ -627,9 +627,9 @@ export default function AboutPage() {
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <div className="h-[1px] w-12 bg-accent-400"></div>
-                  <span className="text-xs tracking-[0.3em] text-accent-500 uppercase">{t('philosophyLabel')}</span>
-                  <div className="h-[1px] w-12 bg-accent-400"></div>
+                  <div className="h-[1px] w-12 bg-brand-400"></div>
+                  <span className="text-xs tracking-[0.3em] text-brand-800 uppercase">{t('philosophyLabel')}</span>
+                  <div className="h-[1px] w-12 bg-brand-400"></div>
                 </div>
                 <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('philosophyTitle')}</h2>
               </div>
@@ -637,7 +637,7 @@ export default function AboutPage() {
               <div className="grid md:grid-cols-3 gap-8">
                 <div className="bg-white rounded-2xl p-8 border border-neutral-200 text-center hover:shadow-lg transition">
                   <div className="w-16 h-16 brand-gradient-deep rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <Heart className="w-8 h-8 text-accent-400" />
+                    <Heart className="w-8 h-8 text-brand-400" />
                   </div>
                   <h3 className="text-xl font-bold text-brand-900 mb-3">{t('philosophy1Title')}</h3>
                   <p className="text-neutral-600 text-sm leading-relaxed">
@@ -647,7 +647,7 @@ export default function AboutPage() {
 
                 <div className="bg-white rounded-2xl p-8 border border-neutral-200 text-center hover:shadow-lg transition">
                   <div className="w-16 h-16 brand-gradient-deep rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <Globe className="w-8 h-8 text-accent-400" />
+                    <Globe className="w-8 h-8 text-brand-400" />
                   </div>
                   <h3 className="text-xl font-bold text-brand-900 mb-3">{t('philosophy2Title')}</h3>
                   <p className="text-neutral-600 text-sm leading-relaxed">
@@ -657,7 +657,7 @@ export default function AboutPage() {
 
                 <div className="bg-white rounded-2xl p-8 border border-neutral-200 text-center hover:shadow-lg transition">
                   <div className="w-16 h-16 brand-gradient-deep rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <Target className="w-8 h-8 text-accent-400" />
+                    <Target className="w-8 h-8 text-brand-400" />
                   </div>
                   <h3 className="text-xl font-bold text-brand-900 mb-3">{t('philosophy3Title')}</h3>
                   <p className="text-neutral-600 text-sm leading-relaxed">
@@ -675,21 +675,21 @@ export default function AboutPage() {
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <div className="h-[1px] w-12 bg-accent-400"></div>
-                  <span className="text-xs tracking-[0.3em] text-accent-500 uppercase">{t('medicalLabel')}</span>
-                  <div className="h-[1px] w-12 bg-accent-400"></div>
+                  <div className="h-[1px] w-12 bg-brand-400"></div>
+                  <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">{t('medicalLabel')}</span>
+                  <div className="h-[1px] w-12 bg-brand-400"></div>
                 </div>
                 <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('medicalTitle')}</h2>
               </div>
 
               <div className="grid md:grid-cols-3 gap-8">
                 <div className="relative flex flex-col bg-gradient-to-br from-brand-900 to-brand-800 rounded-2xl p-8 text-white">
-                  <Brain className="w-10 h-10 text-accent-400 mb-5" />
+                  <Brain className="w-10 h-10 text-brand-700 mb-5" />
                   <h3 className="text-lg font-bold mb-3">{t('medicalAiTitle')}</h3>
                   <p className="text-white/80 text-sm leading-relaxed flex-1">{t('medicalAiDesc')}</p>
                   <div className="mt-6 pt-4 border-t border-white/20">
                     <div className="flex items-baseline gap-1">
-                      <span className="text-3xl font-bold text-accent-400">4</span>
+                      <span className="text-3xl font-bold text-brand-700">4</span>
                       <span className="text-white/60 text-sm">{currentLang === 'en' ? 'languages supported' : currentLang === 'ja' ? '言語対応' : '语言支持'}</span>
                     </div>
                   </div>
@@ -729,9 +729,9 @@ export default function AboutPage() {
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <div className="h-[1px] w-12 bg-accent-400"></div>
-                  <span className="text-xs tracking-[0.3em] text-accent-500 uppercase">{t('profileLabel')}</span>
-                  <div className="h-[1px] w-12 bg-accent-400"></div>
+                  <div className="h-[1px] w-12 bg-brand-400"></div>
+                  <span className="text-xs tracking-[0.3em] text-brand-800 uppercase">{t('profileLabel')}</span>
+                  <div className="h-[1px] w-12 bg-brand-400"></div>
                 </div>
                 <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('profileTitle')}</h2>
               </div>
@@ -773,9 +773,9 @@ export default function AboutPage() {
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <div className="h-[1px] w-12 bg-accent-400"></div>
-                  <span className="text-xs tracking-[0.3em] text-accent-500 uppercase">{t('licensesLabel')}</span>
-                  <div className="h-[1px] w-12 bg-accent-400"></div>
+                  <div className="h-[1px] w-12 bg-brand-400"></div>
+                  <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">{t('licensesLabel')}</span>
+                  <div className="h-[1px] w-12 bg-brand-400"></div>
                 </div>
                 <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('licensesTitle')}</h2>
               </div>
@@ -799,7 +799,7 @@ export default function AboutPage() {
                   return (
                     <div key={index} className="bg-white p-6 rounded-xl border border-neutral-200 hover:shadow-md transition">
                       <div className="w-14 h-14 brand-gradient-deep rounded-xl flex items-center justify-center mb-4">
-                        <Icon size={24} className="text-accent-400" />
+                        <Icon size={24} className="text-brand-400" />
                       </div>
                       <h3 className="font-bold text-brand-900 text-lg mb-1">{item.title}</h3>
                       <p className="text-sm text-neutral-500 mb-2">{item.number}</p>
@@ -818,12 +818,12 @@ export default function AboutPage() {
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <div className="h-[1px] w-12 bg-accent-400"></div>
-                  <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">{t('ipoLabel')}</span>
-                  <div className="h-[1px] w-12 bg-accent-400"></div>
+                  <div className="h-[1px] w-12 bg-brand-400"></div>
+                  <span className="text-xs tracking-[0.3em] text-brand-400 uppercase">{t('ipoLabel')}</span>
+                  <div className="h-[1px] w-12 bg-brand-400"></div>
                 </div>
                 <h2 className="text-3xl font-serif text-white mt-3">{t('ipoTitle')}</h2>
-                <p className="text-neutral-300 text-sm leading-relaxed mt-4 max-w-2xl mx-auto">{t('ipoDesc')}</p>
+                <p className="text-neutral-200 text-sm leading-relaxed mt-4 max-w-2xl mx-auto">{t('ipoDesc')}</p>
               </div>
 
               <div className="max-w-2xl mx-auto relative">
@@ -848,13 +848,13 @@ export default function AboutPage() {
                     <div key={index} className={`relative flex items-center mb-8 last:mb-0 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
                       {/* 内容卡片 */}
                       <div className={`ml-16 md:ml-0 md:w-[calc(50%-2rem)] ${isLeft ? 'md:pr-0 md:text-left' : 'md:pl-0 md:text-left'}`}>
-                        <div className={`p-5 border ${item.active ? 'border-accent-400 bg-white/5' : item.done ? 'border-white/20 bg-white/5' : 'border-white/10'}`}>
-                          <h3 className={`text-xl font-bold mb-1 ${item.active ? 'text-accent-400' : item.done ? 'text-white/80' : 'text-white'}`}>{item.year}</h3>
+                        <div className={`p-5 border ${item.active ? 'border-brand-400 bg-white/5' : item.done ? 'border-white/20 bg-white/5' : 'border-white/10'}`}>
+                          <h3 className={`text-xl font-bold mb-1 ${item.active ? 'text-brand-700' : item.done ? 'text-white/80' : 'text-white'}`}>{item.year}</h3>
                           <p className="text-sm text-neutral-300 whitespace-pre-line">{item.desc}</p>
                         </div>
                       </div>
                       {/* 中间节点 */}
-                      <div className={`absolute left-6 md:left-1/2 -translate-x-1/2 w-12 h-12 flex items-center justify-center z-10 ${item.active ? 'bg-accent-400 text-brand-900' : item.done ? 'bg-white/10 border border-white/30 text-white/70' : 'bg-brand-800 border border-white/20 text-accent-400'}`}>
+                      <div className={`absolute left-6 md:left-1/2 -translate-x-1/2 w-12 h-12 flex items-center justify-center z-10 ${item.active ? 'bg-brand-400 text-neutral-900' : item.done ? 'bg-white/10 border border-white/30 text-white/70' : 'bg-brand-800 border border-white/20 text-brand-700'}`}>
                         <Icon size={20} />
                       </div>
                       {/* 占位 */}
@@ -873,9 +873,9 @@ export default function AboutPage() {
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <div className="h-[1px] w-12 bg-accent-400"></div>
-                  <span className="text-xs tracking-[0.3em] text-accent-500 uppercase">{t('partnersLabel')}</span>
-                  <div className="h-[1px] w-12 bg-accent-400"></div>
+                  <div className="h-[1px] w-12 bg-brand-400"></div>
+                  <span className="text-xs tracking-[0.3em] text-brand-800 uppercase">{t('partnersLabel')}</span>
+                  <div className="h-[1px] w-12 bg-brand-400"></div>
                 </div>
                 <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('partnersTitle')}</h2>
               </div>
@@ -883,12 +883,12 @@ export default function AboutPage() {
               {/* Medical Partners */}
               <div className="mb-8">
                 <h3 className="text-sm font-bold text-brand-900 uppercase tracking-wider mb-4 flex items-center gap-2">
-                  <div className="w-2 h-2 bg-accent-400 rounded-full" />
+                  <div className="w-2 h-2 bg-brand-400 rounded-full" />
                   {t('partnersMedicalLabel')}
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
                   {medicalPartners.map((partner, index) => (
-                    <div key={index} className="p-5 brand-gradient-deep/5 rounded-xl text-center font-medium text-brand-900 border border-brand-900/10 hover:brand-gradient-deep hover:text-white transition cursor-default">
+                    <div key={index} className="p-5 brand-gradient-deep/5 rounded-xl text-center font-medium text-brand-900 border border-brand-900/10 hover:opacity-90 hover:text-white transition cursor-default">
                       {(partner as Record<Language, string>)[currentLang]}
                     </div>
                   ))}
@@ -903,7 +903,7 @@ export default function AboutPage() {
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {servicePartners.map((partner, index) => (
-                    <div key={index} className="p-5 bg-neutral-50 rounded-xl text-center font-medium text-neutral-700 hover:brand-gradient-deep hover:text-white transition cursor-default">
+                    <div key={index} className="p-5 bg-neutral-50 rounded-xl text-center font-medium text-neutral-700 hover:opacity-90 hover:text-white transition cursor-default">
                       {(partner as Record<Language, string>)[currentLang]}
                     </div>
                   ))}

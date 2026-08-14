@@ -150,7 +150,7 @@ const ReviewCard: React.FC<{ review: Review }> = ({ review }) => (
         <span className="text-xl">{review.flag}</span>
         <div>
             <p className="text-xs font-bold text-neutral-800">{review.loc}</p>
-            <div className="flex text-accent-400 gap-0.5 mt-0.5">
+            <div className="flex text-brand-700 gap-0.5 mt-0.5">
                 {[...Array(5)].map((_, i) => <Star key={i} size={10} fill="currentColor" />)}
             </div>
         </div>

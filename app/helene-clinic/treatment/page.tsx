@@ -506,7 +506,7 @@ export default function HeleneTreatmentPage() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
               <h1 className="text-3xl font-serif font-bold text-white">{t('pageTitle')}</h1>
-              <p className="text-neutral-300 text-sm mt-1">{t('pageTitleEn')}</p>
+              <p className="text-neutral-200 text-sm mt-1">{t('pageTitleEn')}</p>
             </div>
             <div className="text-right">
               {selectedSlug ? (
@@ -514,7 +514,7 @@ export default function HeleneTreatmentPage() {
                   <p className="text-4xl font-bold text-white">
                     ¥{selectedPrice.toLocaleString()}
                   </p>
-                  <p className="text-xs text-neutral-300 mt-1">{t('taxIncluded')}</p>
+                  <p className="text-xs text-neutral-200 mt-1">{t('taxIncluded')}</p>
                 </>
               ) : (
                 <p className="text-lg text-neutral-300">{t('noTreatmentSelected')}</p>
@@ -541,7 +541,7 @@ export default function HeleneTreatmentPage() {
                     <CheckCircle size={16} className="shrink-0 mt-0.5 text-brand-700" />
                     <div className="min-w-0">
                       <p className="text-sm font-medium text-brand-900 break-words">{selectedTreatmentLabel}</p>
-                      <p className="text-lg font-bold text-indigo-700 mt-0.5">
+                      <p className="text-lg font-bold text-brand-700 mt-0.5">
                         ¥{selectedPrice.toLocaleString()}
                         <span className="text-xs font-normal text-neutral-500 ml-1">{t('taxIncluded')}</span>
                       </p>
@@ -563,7 +563,7 @@ export default function HeleneTreatmentPage() {
                         onClick={() => toggleCategory(category.id)}
                         className={`w-full flex items-center justify-between px-4 py-3 text-left transition ${
                           hasSel
-                            ? 'bg-indigo-100 text-brand-900'
+                            ? 'bg-brand-100 text-brand-900'
                             : 'bg-white text-brand-900 hover:bg-neutral-50'
                         }`}
                       >
@@ -585,7 +585,7 @@ export default function HeleneTreatmentPage() {
                             return (
                               <label
                                 key={item.slug}
-                                className={`flex items-start gap-3 px-4 py-3 cursor-pointer transition border-b border-gray-50 last:border-b-0 ${
+                                className={`flex items-start gap-3 px-4 py-3 cursor-pointer transition border-b border-neutral-50 last:border-b-0 ${
                                   isSelected
                                     ? 'bg-neutral-50'
                                     : 'hover:bg-neutral-50'
@@ -597,13 +597,13 @@ export default function HeleneTreatmentPage() {
                                   value={item.slug}
                                   checked={isSelected}
                                   onChange={() => setSelectedSlug(item.slug)}
-                                  className="mt-1 h-4 w-4 text-brand-700 border-gray-300 focus:ring-brand-700 shrink-0"
+                                  className="mt-1 h-4 w-4 text-brand-700 border-neutral-300 focus:ring-brand-700 shrink-0"
                                 />
                                 <div className="min-w-0 flex-1">
                                   <p className={`text-sm leading-tight ${isSelected ? 'font-semibold text-brand-900' : 'text-neutral-700'}`}>
                                     {item.label[currentLang]}
                                   </p>
-                                  <p className={`text-sm mt-0.5 ${isSelected ? 'font-bold text-indigo-700' : 'text-neutral-500'}`}>
+                                  <p className={`text-sm mt-0.5 ${isSelected ? 'font-bold text-brand-700' : 'text-neutral-500'}`}>
                                     ¥{price.toLocaleString()}
                                   </p>
                                 </div>
@@ -815,7 +815,7 @@ export default function HeleneTreatmentPage() {
                   <button
                     type="submit"
                     disabled={processing || !selectedSlug || !allConsented(consents)}
-                    className="w-full py-4 bg-accent-400 text-brand-900 font-bold hover:bg-accent-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full py-4 bg-brand-400 text-neutral-900 font-bold hover:bg-brand-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {processing ? (
                       <>
@@ -834,7 +834,7 @@ export default function HeleneTreatmentPage() {
                 {/* Trust badges */}
                 <div className="flex flex-wrap justify-center gap-6 text-xs text-neutral-500">
                   <div className="flex items-center gap-1">
-                    <Shield size={14} className="text-green-500" />
+                    <Shield size={14} className="text-brand-700" />
                     <span>{t('securePayment')}</span>
                   </div>
                   <div className="flex items-center gap-1">

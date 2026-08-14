@@ -330,7 +330,14 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
   const [documentUploaded, setDocumentUploaded] = useState(false);
   const [isAnalyzingDoc, setIsAnalyzingDoc] = useState(false);
   // 报告语言（独立于网站 UI 语言）
+  // ⚠️ useLanguage() 首帧固定返回 'ja'，cookie 值在 effect 里才就位。
+  //    useState(lang) 只取首帧值 → 简中用户的报告语言被钉死在日语
+  //    （实测：zh-CN 界面产出日文报告）。用户手动选择前跟随界面语言。
   const [reportLang, setReportLang] = useState<Language>(lang);
+  const [reportLangTouched, setReportLangTouched] = useState(false);
+  useEffect(() => {
+    if (!reportLangTouched) setReportLang(lang);
+  }, [lang, reportLangTouched]);
 
   useEffect(() => {
     setSessionId(getOrCreateSessionId());
@@ -427,8 +434,8 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
   // 文档上传步骤
   if (currentStep === 'upload-document' && screeningId) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-        <div className="bg-white border-b border-gray-100 shadow-sm">
+      <div className="min-h-screen bg-gradient-to-b from-brand-50 to-white">
+        <div className="bg-white border-b border-neutral-100 shadow-sm">
           <div className="max-w-4xl mx-auto px-4 py-4">
             <button
               onClick={() => setCurrentStep('welcome')}
@@ -440,16 +447,16 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
           </div>
         </div>
 
-        <div className="bg-gradient-to-b from-white to-blue-50/30 py-8">
+        <div className="bg-gradient-to-b from-white to-brand-50/30 py-8">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-medical-100 text-medical-700 rounded-full text-sm mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-100 text-brand-700 rounded-full text-sm mb-4">
               <Upload className="w-4 h-4" />
               <span>{t('uploadDiagnosisReport')}</span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-semibold text-gray-900">
+            <h1 className="text-2xl md:text-3xl font-semibold text-neutral-900">
               {t('uploadDiagnosisReport')}
             </h1>
-            <p className="text-gray-500 mt-2">
+            <p className="text-neutral-500 mt-2">
               {t('uploadDescription')}
             </p>
           </div>
@@ -468,9 +475,9 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
           {documentUploaded && (
             <div className="mt-8 space-y-3">
               {/* 报告语言选择器 */}
-              <div className="flex items-center justify-center gap-2 p-3 bg-gray-50 rounded-xl">
-                <Globe className="w-4 h-4 text-gray-500" />
-                <span className="text-sm text-gray-600">{t('reportLanguage')}:</span>
+              <div className="flex items-center justify-center gap-2 p-3 bg-neutral-50 rounded-xl">
+                <Globe className="w-4 h-4 text-neutral-500" />
+                <span className="text-sm text-neutral-600">{t('reportLanguage')}:</span>
                 <div className="flex gap-1">
                   {([
                     { code: 'zh-CN' as Language, label: '简体中文' },
@@ -481,11 +488,11 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
                   ]).map(({ code, label }) => (
                     <button
                       key={code}
-                      onClick={() => setReportLang(code)}
+                      onClick={() => { setReportLangTouched(true); setReportLang(code); }}
                       className={`px-3 py-1 text-xs rounded-full transition-colors ${
                         reportLang === code
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                          ? 'bg-brand-600 text-white'
+                          : 'bg-white text-neutral-600 hover:bg-neutral-100 border border-neutral-200'
                       }`}
                     >
                       {label}
@@ -496,7 +503,7 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
               <button
                 onClick={handleAnalyzeWithDocument}
                 disabled={isAnalyzingDoc}
-                className="w-full px-6 py-4 bg-gradient-to-r from-medical-600 to-medical-700 text-white text-lg font-medium rounded-xl hover:from-medical-700 hover:to-medical-800 transition-all disabled:opacity-50 shadow-lg"
+                className="w-full px-6 py-4 bg-gradient-to-r from-brand-600 to-brand-700 text-white text-lg font-medium rounded-xl hover:from-brand-700 hover:to-brand-800 transition-all disabled:opacity-50 shadow-lg"
               >
                 {isAnalyzingDoc ? (
                   <span className="flex items-center justify-center gap-2">
@@ -533,8 +540,8 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
   // 问卷步骤
   if (currentStep === 'questionnaire' && screeningId) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-        <div className="bg-white border-b border-gray-100 shadow-sm">
+      <div className="min-h-screen bg-gradient-to-b from-brand-50 to-white">
+        <div className="bg-white border-b border-neutral-100 shadow-sm">
           <div className="max-w-4xl mx-auto px-4 py-4">
             <button
               onClick={() => setCurrentStep('body-map')}
@@ -546,16 +553,16 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
           </div>
         </div>
 
-        <div className="bg-gradient-to-b from-white to-blue-50/30 py-8">
+        <div className="bg-gradient-to-b from-white to-brand-50/30 py-8">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-100 text-brand-700 rounded-full text-sm mb-4">
               <Shield className="w-4 h-4" />
               <span>{t('freeAiAnalysis')}</span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-semibold text-gray-900">
+            <h1 className="text-2xl md:text-3xl font-semibold text-neutral-900">
               {t('aiHealthConsultation')}
             </h1>
-            <p className="text-gray-500 mt-2">
+            <p className="text-neutral-500 mt-2">
               {t('questionnaireDescription')}
             </p>
           </div>
@@ -576,8 +583,8 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
   // 人体图步骤
   if (currentStep === 'body-map' && screeningId) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-        <div className="bg-white border-b border-gray-100 shadow-sm">
+      <div className="min-h-screen bg-gradient-to-b from-brand-50 to-white">
+        <div className="bg-white border-b border-neutral-100 shadow-sm">
           <div className="max-w-4xl mx-auto px-4 py-4">
             <Link
               href={`/g/${slug}`}
@@ -589,16 +596,16 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
           </div>
         </div>
 
-        <div className="bg-gradient-to-b from-white to-blue-50/30 py-8">
+        <div className="bg-gradient-to-b from-white to-brand-50/30 py-8">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-100 text-brand-700 rounded-full text-sm mb-4">
               <Activity className="w-4 h-4" />
               <span>{t('stepOneSelectAreas')}</span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-semibold text-gray-900">
+            <h1 className="text-2xl md:text-3xl font-semibold text-neutral-900">
               {t('clickBodyMap')}
             </h1>
-            <p className="text-gray-500 mt-2">
+            <p className="text-neutral-500 mt-2">
               {t('bodyMapDescription')}
             </p>
           </div>
@@ -616,8 +623,8 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
 
   // 欢迎页面
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      <div className="bg-white border-b border-gray-100 shadow-sm">
+    <div className="min-h-screen bg-gradient-to-b from-brand-50 to-white">
+      <div className="bg-white border-b border-neutral-100 shadow-sm">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <Link
             href={`/g/${slug}`}
@@ -630,17 +637,17 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
       </div>
 
       {/* Hero */}
-      <div className="bg-gradient-to-b from-white to-blue-50/30 py-16">
+      <div className="bg-gradient-to-b from-white to-brand-50/30 py-16">
         <div className="max-w-2xl mx-auto px-4 text-center">
-          <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full mb-6 shadow-lg shadow-blue-200">
+          <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-brand-500 to-brand-600 rounded-full mb-6 shadow-lg shadow-brand-200">
             <Heart className="w-12 h-12 text-white" />
           </div>
 
-          <h1 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
+          <h1 className="text-3xl md:text-4xl font-semibold text-neutral-900 mb-4">
             {t('aiHealthScreening')}
           </h1>
 
-          <p className="text-gray-500 text-lg mb-8 leading-relaxed">
+          <p className="text-neutral-500 text-lg mb-8 leading-relaxed">
             {t('welcomeDescription')}
           </p>
 
@@ -661,7 +668,7 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
             <button
               onClick={startNewScreening}
               disabled={isCreating || !sessionId}
-              className="px-10 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-lg font-medium rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-200 hover:shadow-xl hover:shadow-blue-300 transform hover:-translate-y-0.5"
+              className="px-10 py-4 bg-gradient-to-r from-brand-600 to-brand-700 text-white text-lg font-medium rounded-xl hover:from-brand-700 hover:to-brand-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-brand-200 hover:shadow-xl hover:shadow-brand-300 transform hover:-translate-y-0.5"
             >
               {isCreating ? (
                 <span className="flex items-center gap-2">
@@ -678,7 +685,7 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
             <button
               onClick={startWithDocumentUpload}
               disabled={isCreating || !sessionId}
-              className="px-8 py-3 border-2 border-medical-300 text-medical-700 rounded-xl hover:bg-medical-50 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+              className="px-8 py-3 border-2 border-brand-300 text-brand-700 rounded-xl hover:bg-brand-50 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
             >
               <Upload className="w-4 h-4" />
               {t('orUploadDiagnosis')}
@@ -690,49 +697,49 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
       {/* 功能亮点 */}
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="text-center mb-10">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-100 text-brand-700 rounded-full text-sm font-medium">
             <Sparkles className="w-4 h-4" />
             {t('aiPoweredHealthAssessment')}
           </span>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
-              <Activity className="w-6 h-6 text-blue-600" />
+          <div className="bg-white rounded-2xl p-5 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
+              <Activity className="w-6 h-6 text-brand-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">{t('bodyMapInteraction')}</h3>
-            <p className="text-gray-500 text-sm">
+            <h3 className="font-bold text-neutral-900 mb-2">{t('bodyMapInteraction')}</h3>
+            <p className="text-neutral-500 text-sm">
               {t('bodyMapInteractionDesc')}
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
-              <Users className="w-6 h-6 text-green-600" />
+          <div className="bg-white rounded-2xl p-5 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
+              <Users className="w-6 h-6 text-brand-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">{t('smartDeptRecommendation')}</h3>
-            <p className="text-gray-500 text-sm">
+            <h3 className="font-bold text-neutral-900 mb-2">{t('smartDeptRecommendation')}</h3>
+            <p className="text-neutral-500 text-sm">
               {t('smartDeptRecommendationDesc')}
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
-              <Sparkles className="w-6 h-6 text-purple-600" />
+          <div className="bg-white rounded-2xl p-5 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
+              <Sparkles className="w-6 h-6 text-brand-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">{t('dynamicConsultation')}</h3>
-            <p className="text-gray-500 text-sm">
+            <h3 className="font-bold text-neutral-900 mb-2">{t('dynamicConsultation')}</h3>
+            <p className="text-neutral-500 text-sm">
               {t('dynamicConsultationDesc')}
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
-              <FileText className="w-6 h-6 text-orange-600" />
+          <div className="bg-white rounded-2xl p-5 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
+              <FileText className="w-6 h-6 text-brand-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">{t('pdfReport')}</h3>
-            <p className="text-gray-500 text-sm">
+            <h3 className="font-bold text-neutral-900 mb-2">{t('pdfReport')}</h3>
+            <p className="text-neutral-500 text-sm">
               {t('pdfReportDesc')}
             </p>
           </div>
@@ -742,32 +749,32 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
       {/* 信任保障 */}
       <div className="max-w-4xl mx-auto px-4 pb-16">
         <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
-              <Shield className="w-6 h-6 text-blue-600" />
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100">
+            <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
+              <Shield className="w-6 h-6 text-brand-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">{t('privacyProtection')}</h3>
-            <p className="text-gray-500 text-sm">
+            <h3 className="font-bold text-neutral-900 mb-2">{t('privacyProtection')}</h3>
+            <p className="text-neutral-500 text-sm">
               {t('privacyProtectionDesc')}
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-            <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
-              <Sparkles className="w-6 h-6 text-purple-600" />
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100">
+            <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
+              <Sparkles className="w-6 h-6 text-brand-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">{t('aiAnalysis')}</h3>
-            <p className="text-gray-500 text-sm">
+            <h3 className="font-bold text-neutral-900 mb-2">{t('aiAnalysis')}</h3>
+            <p className="text-neutral-500 text-sm">
               {t('aiAnalysisDesc')}
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-            <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
-              <Heart className="w-6 h-6 text-green-600" />
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100">
+            <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
+              <Heart className="w-6 h-6 text-brand-600" />
             </div>
-            <h3 className="font-bold text-gray-900 mb-2">{t('japanMedicalRecommendation')}</h3>
-            <p className="text-gray-500 text-sm">
+            <h3 className="font-bold text-neutral-900 mb-2">{t('japanMedicalRecommendation')}</h3>
+            <p className="text-neutral-500 text-sm">
               {t('japanMedicalRecommendationDesc')}
             </p>
           </div>

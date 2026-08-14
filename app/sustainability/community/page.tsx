@@ -189,13 +189,13 @@ export default function CommunityPage() {
     >
       <div className="space-y-12">
         <section>
-          <p className="text-lg text-gray-600 leading-relaxed">
+          <p className="text-lg text-neutral-600 leading-relaxed">
             {t('intro')}
           </p>
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-rose-600">
+          <h2 className="text-xl font-bold text-neutral-900 mb-6 pb-3 border-b-2 border-brand-600">
             {t('sectionInitiatives')}
           </h2>
 
@@ -203,17 +203,17 @@ export default function CommunityPage() {
             {initiatives.map((item, index) => {
               const Icon = item.icon;
               return (
-                <div key={index} className="p-6 bg-gray-50 rounded-xl">
+                <div key={index} className="p-6 bg-neutral-50 rounded-xl">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-rose-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <Icon size={24} className="text-rose-600" />
+                    <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <Icon size={24} className="text-brand-600" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900 mb-2">{item.title}</h3>
-                      <p className="text-gray-600 text-sm mb-4">{item.description}</p>
+                      <h3 className="font-bold text-neutral-900 mb-2">{item.title}</h3>
+                      <p className="text-neutral-600 text-sm mb-4">{item.description}</p>
                       <div className="flex flex-wrap gap-2">
                         {item.achievements.map((achievement, aIndex) => (
-                          <span key={aIndex} className="px-3 py-1 bg-white rounded-full text-xs font-medium text-gray-600 border border-gray-200">
+                          <span key={aIndex} className="px-3 py-1 bg-white rounded-full text-xs font-medium text-neutral-600 border border-neutral-200">
                             {achievement}
                           </span>
                         ))}
@@ -227,14 +227,14 @@ export default function CommunityPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-rose-600">
+          <h2 className="text-xl font-bold text-neutral-900 mb-6 pb-3 border-b-2 border-brand-600">
             {t('sectionResults')}
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {stats.map((stat, index) => (
-              <div key={index} className="p-4 bg-rose-50 rounded-xl text-center">
-                <div className="text-2xl font-bold text-rose-600">{stat.value}</div>
-                <div className="text-sm text-gray-600">{stat.label}</div>
+              <div key={index} className="p-4 bg-brand-50 rounded-xl text-center">
+                <div className="text-2xl font-bold text-brand-600">{stat.value}</div>
+                <div className="text-sm text-neutral-600">{stat.label}</div>
               </div>
             ))}
           </div>

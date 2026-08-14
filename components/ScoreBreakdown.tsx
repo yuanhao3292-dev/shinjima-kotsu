@@ -96,15 +96,15 @@ const t = (key: string, lang: Language): string => T[key]?.[lang] ?? key;
 // ============================================================
 
 function deductionColor(deduction: number): string {
-  if (deduction >= 20) return 'text-red-600';
-  if (deduction >= 8) return 'text-orange-500';
-  return 'text-amber-500';
+  if (deduction >= 20) return 'text-brand-600';
+  if (deduction >= 8) return 'text-brand-500';
+  return 'text-brand-500';
 }
 
 function deductionBg(deduction: number): string {
-  if (deduction >= 20) return 'bg-red-50';
-  if (deduction >= 8) return 'bg-orange-50';
-  return 'bg-amber-50';
+  if (deduction >= 20) return 'bg-brand-50';
+  if (deduction >= 8) return 'bg-brand-50';
+  return 'bg-brand-50';
 }
 
 // ============================================================
@@ -122,10 +122,10 @@ export default function ScoreBreakdown({ breakdown, lang, defaultOpen = false }:
 
   const scoreColor =
     breakdown.finalScore >= 80
-      ? 'text-emerald-600'
+      ? 'text-brand-600'
       : breakdown.finalScore >= 60
-        ? 'text-amber-500'
-        : 'text-red-500';
+        ? 'text-brand-700'
+        : 'text-brand-700';
 
   return (
     <div className="w-full">
@@ -174,7 +174,7 @@ export default function ScoreBreakdown({ breakdown, lang, defaultOpen = false }:
 
           {/* No deductions */}
           {breakdown.items.length === 0 && (
-            <div className="text-sm text-emerald-600 text-center py-2">
+            <div className="text-sm text-brand-600 text-center py-2">
               {lang === 'ja' ? '減点なし — 満点です！' :
                lang === 'en' ? 'No deductions — perfect score!' :
                lang === 'zh-TW' ? '無扣分 — 滿分！' :

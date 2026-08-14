@@ -554,20 +554,20 @@ export default function WhitelabelScreeningForm({
               onClick={() => handleSingleSelect(option.value)}
               className={`w-full p-4 text-left rounded-xl border-2 transition-all ${
                 currentAnswer === option.value
-                  ? 'border-blue-500 bg-blue-50 text-blue-900'
-                  : 'border-gray-200 hover:border-gray-300 bg-white'
+                  ? 'border-brand-500 bg-brand-50 text-brand-900'
+                  : 'border-neutral-200 hover:border-neutral-300 bg-white'
               }`}
             >
               <div className="flex items-center gap-3">
                 <div
                   className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                     currentAnswer === option.value
-                      ? 'border-blue-500'
-                      : 'border-gray-300'
+                      ? 'border-brand-500'
+                      : 'border-neutral-300'
                   }`}
                 >
                   {currentAnswer === option.value && (
-                    <div className="w-3 h-3 rounded-full bg-blue-500" />
+                    <div className="w-3 h-3 rounded-full bg-brand-500" />
                   )}
                 </div>
                 <span>{option.label}</span>
@@ -582,23 +582,23 @@ export default function WhitelabelScreeningForm({
       const selectedValues = Array.isArray(currentAnswer) ? currentAnswer : [];
       return (
         <div className="space-y-3">
-          <p className="text-sm text-gray-500 mb-2">{t('canSelectMultiple')}</p>
+          <p className="text-sm text-neutral-500 mb-2">{t('canSelectMultiple')}</p>
           {question.options?.map((option) => (
             <button
               key={option.value}
               onClick={() => handleMultiSelect(option.value)}
               className={`w-full p-4 text-left rounded-xl border-2 transition-all ${
                 selectedValues.includes(option.value)
-                  ? 'border-blue-500 bg-blue-50 text-blue-900'
-                  : 'border-gray-200 hover:border-gray-300 bg-white'
+                  ? 'border-brand-500 bg-brand-50 text-brand-900'
+                  : 'border-neutral-200 hover:border-neutral-300 bg-white'
               }`}
             >
               <div className="flex items-center gap-3">
                 <div
                   className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
                     selectedValues.includes(option.value)
-                      ? 'border-blue-500 bg-blue-500'
-                      : 'border-gray-300'
+                      ? 'border-brand-500 bg-brand-500'
+                      : 'border-neutral-300'
                   }`}
                 >
                   {selectedValues.includes(option.value) && (
@@ -619,7 +619,7 @@ export default function WhitelabelScreeningForm({
           <div className="space-y-4">
             {question.fields.map((field) => (
               <div key={field}>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-neutral-700 mb-1">
                   {field}
                 </label>
                 <input
@@ -627,7 +627,7 @@ export default function WhitelabelScreeningForm({
                   value={inputFields[field] || ''}
                   onChange={(e) => handleInputChange(field, e.target.value)}
                   placeholder={lang === 'ja' ? `${field}${t('pleaseEnter')}` : `${t('pleaseEnter')}${field}`}
-                  className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full p-3 border border-neutral-300 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
                 />
               </div>
             ))}
@@ -641,7 +641,7 @@ export default function WhitelabelScreeningForm({
           onChange={(e) => handleTextInput(e.target.value)}
           placeholder={question.placeholder}
           rows={4}
-          className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+          className="w-full p-4 border border-neutral-300 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 resize-none"
         />
       );
     }
@@ -672,18 +672,18 @@ export default function WhitelabelScreeningForm({
             <CheckCircle className="w-10 h-10 text-green-600" />
           </div>
 
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl font-bold text-neutral-900 mb-4">
             {t('quickScreeningDone')}
           </h2>
 
-          <p className="text-gray-600 mb-6">
+          <p className="text-neutral-600 mb-6">
             {t('completed10Questions')}
           </p>
 
           {/* 报告语言选择器 */}
-          <div className="flex items-center justify-center gap-2 mb-8 p-3 bg-gray-50 rounded-xl">
-            <Globe className="w-4 h-4 text-gray-500" />
-            <span className="text-sm text-gray-600">{t('reportLanguage')}:</span>
+          <div className="flex items-center justify-center gap-2 mb-8 p-3 bg-neutral-50 rounded-xl">
+            <Globe className="w-4 h-4 text-neutral-500" />
+            <span className="text-sm text-neutral-600">{t('reportLanguage')}:</span>
             <div className="flex gap-1">
               {([
                 { code: 'zh-CN' as Language, label: '简体中文' },
@@ -697,8 +697,8 @@ export default function WhitelabelScreeningForm({
                   onClick={() => setReportLang(code)}
                   className={`px-3 py-1 text-xs rounded-full transition-colors ${
                     reportLang === code
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                      ? 'bg-brand-600 text-white'
+                      : 'bg-white text-neutral-600 hover:bg-neutral-100 border border-neutral-200'
                   }`}
                 >
                   {label}
@@ -711,19 +711,19 @@ export default function WhitelabelScreeningForm({
             <button
               onClick={handleGetQuickResult}
               disabled={isSubmitting}
-              className="p-6 border-2 border-blue-200 rounded-xl hover:border-blue-400 hover:bg-blue-50 transition-all text-left"
+              className="p-6 border-2 border-brand-200 rounded-xl hover:border-brand-400 hover:bg-brand-50 transition-all text-left"
             >
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                  <Zap className="w-5 h-5 text-blue-600" />
+                <div className="w-10 h-10 bg-brand-100 rounded-full flex items-center justify-center">
+                  <Zap className="w-5 h-5 text-brand-600" />
                 </div>
-                <span className="font-semibold text-gray-900">{t('getResultsNow')}</span>
+                <span className="font-semibold text-neutral-900">{t('getResultsNow')}</span>
               </div>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-neutral-600">
                 {t('getResultsDesc')}
               </p>
               {isSubmitting && (
-                <div className="flex items-center gap-2 mt-3 text-blue-600">
+                <div className="flex items-center gap-2 mt-3 text-brand-600">
                   <Loader2 className="w-4 h-4 animate-spin" />
                   <span className="text-sm">{t('aiAnalyzing')}</span>
                 </div>
@@ -733,19 +733,19 @@ export default function WhitelabelScreeningForm({
             <button
               onClick={handleContinueToPhase2}
               disabled={isSubmitting}
-              className="p-6 border-2 border-green-200 rounded-xl hover:border-green-400 hover:bg-green-50 transition-all text-left"
+              className="p-6 border-2 border-brand-200 rounded-xl hover:border-brand-400 hover:bg-brand-50 transition-all text-left"
             >
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                  <FileText className="w-5 h-5 text-green-600" />
+                <div className="w-10 h-10 bg-brand-100 rounded-full flex items-center justify-center">
+                  <FileText className="w-5 h-5 text-brand-600" />
                 </div>
-                <span className="font-semibold text-gray-900">{t('continueInDepth')}</span>
+                <span className="font-semibold text-neutral-900">{t('continueInDepth')}</span>
               </div>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-neutral-600">
                 {t('continueInDepthDesc').replace('{n}', String(getPhase2QuestionsByBodyParts(bodyMapData?.selectedBodyParts || []).length))}
               </p>
               <div className="mt-3">
-                <span className="inline-block px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
+                <span className="inline-block px-2 py-1 bg-brand-100 text-brand-700 text-xs rounded-full">
                   {t('recommended')}
                 </span>
               </div>
@@ -766,8 +766,8 @@ export default function WhitelabelScreeningForm({
   if (!currentQuestion) {
     return (
       <div className="text-center py-12">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-500 mx-auto mb-4" />
-        <p className="text-gray-500">{t('loading')}</p>
+        <Loader2 className="w-8 h-8 animate-spin text-brand-700 mx-auto mb-4" />
+        <p className="text-neutral-500">{t('loading')}</p>
       </div>
     );
   }
@@ -775,29 +775,29 @@ export default function WhitelabelScreeningForm({
   return (
     <div className="max-w-2xl mx-auto">
       {/* 阶段提示 */}
-      <div className="mb-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl">
+      <div className="mb-6 p-4 bg-gradient-to-r from-brand-50 to-brand-50 rounded-xl">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             {currentPhase === 1 ? (
               <>
-                <Zap className="w-5 h-5 text-blue-600" />
-                <span className="font-medium text-blue-700">{t('quickScreening')}</span>
-                <span className="text-sm text-blue-500">{t('phase1')}</span>
+                <Zap className="w-5 h-5 text-brand-600" />
+                <span className="font-medium text-brand-700">{t('quickScreening')}</span>
+                <span className="text-sm text-brand-700">{t('phase1')}</span>
               </>
             ) : (
               <>
-                <FileText className="w-5 h-5 text-green-600" />
-                <span className="font-medium text-green-700">{t('inDepthConsultation')}</span>
-                <span className="text-sm text-green-500">{t('phase2')}</span>
+                <FileText className="w-5 h-5 text-brand-600" />
+                <span className="font-medium text-brand-700">{t('inDepthConsultation')}</span>
+                <span className="text-sm text-brand-700">{t('phase2')}</span>
               </>
             )}
           </div>
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-neutral-500">
             {t('totalQuestions').replace('{n}', String(currentPhaseQuestions.length))}
           </span>
         </div>
         {currentPhase === 1 && (
-          <p className="text-sm text-blue-600 mt-2">
+          <p className="text-sm text-brand-600 mt-2">
             {t('phase1Hint')}
           </p>
         )}
@@ -805,12 +805,12 @@ export default function WhitelabelScreeningForm({
 
       {/* 人体图数据提示 */}
       {bodyMapData && bodyMapData.selectedBodyParts.length > 0 && currentPhase === 2 && (
-        <div className="mb-6 p-4 bg-blue-50 rounded-xl">
-          <div className="flex items-center gap-2 text-blue-700">
+        <div className="mb-6 p-4 bg-brand-50 rounded-xl">
+          <div className="flex items-center gap-2 text-brand-700">
             <Sparkles className="w-5 h-5" />
             <span className="font-medium">{t('smartMode')}</span>
           </div>
-          <p className="text-sm text-blue-600 mt-1">
+          <p className="text-sm text-brand-600 mt-1">
             {t('smartModeDesc')}
           </p>
         </div>
@@ -819,20 +819,20 @@ export default function WhitelabelScreeningForm({
       {/* 进度条 */}
       <div className="mb-8">
         <div className="flex justify-between items-center mb-2">
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-neutral-500">
             {t('questionProgress').replace('{current}', String(currentQuestionIndex + 1)).replace('{total}', String(currentPhaseQuestions.length))}
           </span>
-          <span className="text-sm text-gray-500 flex items-center gap-1">
+          <span className="text-sm text-neutral-500 flex items-center gap-1">
             <span>{categoryIcon}</span>
             {CATEGORY_NAMES[currentQuestion.category]}
           </span>
         </div>
-        <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+        <div className="h-2 bg-neutral-200 rounded-full overflow-hidden">
           <div
             className={`h-full transition-all duration-300 ${
               currentPhase === 1
-                ? 'bg-gradient-to-r from-blue-500 to-blue-600'
-                : 'bg-gradient-to-r from-green-500 to-green-600'
+                ? 'bg-gradient-to-r from-brand-500 to-brand-600'
+                : 'bg-gradient-to-r from-brand-500 to-brand-600'
             }`}
             style={{ width: `${progress}%` }}
           />
@@ -841,7 +841,7 @@ export default function WhitelabelScreeningForm({
 
       {/* 问题卡片 */}
       <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-6">
-        <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-6">
+        <h2 className="text-xl md:text-2xl font-bold text-neutral-900 mb-6">
           {currentQuestion.question}
         </h2>
 
@@ -850,7 +850,7 @@ export default function WhitelabelScreeningForm({
         {currentQuestion.hasNote &&
           (currentAnswer === 'yes' || currentAnswer === 'other') && (
             <div className="mt-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-neutral-700 mb-1">
                 {t('pleaseProvideDetails')}
               </label>
               <textarea
@@ -858,7 +858,7 @@ export default function WhitelabelScreeningForm({
                 onChange={(e) => setCurrentNote(e.target.value)}
                 placeholder={t('describeDetails')}
                 rows={3}
-                className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+                className="w-full p-3 border border-neutral-300 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 resize-none"
               />
             </div>
           )}
@@ -873,9 +873,9 @@ export default function WhitelabelScreeningForm({
 
       {/* 报告语言选择器（仅在最后一题显示） */}
       {isLastQuestionInPhase && currentPhase === 2 && (
-        <div className="flex items-center gap-2 mb-4 p-3 bg-gray-50 rounded-xl">
-          <Globe className="w-4 h-4 text-gray-500" />
-          <span className="text-sm text-gray-600">{t('reportLanguage')}:</span>
+        <div className="flex items-center gap-2 mb-4 p-3 bg-neutral-50 rounded-xl">
+          <Globe className="w-4 h-4 text-neutral-500" />
+          <span className="text-sm text-neutral-600">{t('reportLanguage')}:</span>
           <div className="flex gap-1 flex-wrap">
             {([
               { code: 'zh-CN' as Language, label: '简体中文' },
@@ -889,8 +889,8 @@ export default function WhitelabelScreeningForm({
                 onClick={() => setReportLang(code)}
                 className={`px-3 py-1 text-xs rounded-full transition-colors ${
                   reportLang === code
-                    ? 'bg-green-600 text-white'
-                    : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                    ? 'bg-brand-600 text-white'
+                    : 'bg-white text-neutral-600 hover:bg-neutral-100 border border-neutral-200'
                 }`}
               >
                 {label}
@@ -912,7 +912,7 @@ export default function WhitelabelScreeningForm({
         </button>
 
         {isSaving && (
-          <span className="text-sm text-gray-400 flex items-center gap-1">
+          <span className="text-sm text-neutral-400 flex items-center gap-1">
             <Loader2 className="w-4 h-4 animate-spin" />
             {t('autoSaving')}
           </span>
@@ -923,7 +923,7 @@ export default function WhitelabelScreeningForm({
             <button
               onClick={handlePhase1Complete}
               disabled={!canProceed() || isSubmitting}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-brand-600 to-brand-700 text-white rounded-xl hover:from-brand-700 hover:to-brand-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {t('completeScreening')}
               <CheckCircle className="w-5 h-5" />
@@ -953,8 +953,8 @@ export default function WhitelabelScreeningForm({
             disabled={!canProceed() || isSubmitting}
             className={`flex items-center gap-2 px-6 py-3 text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-colors ${
               currentPhase === 1
-                ? 'bg-blue-600 hover:bg-blue-700'
-                : 'bg-green-600 hover:bg-green-700'
+                ? 'bg-brand-600 hover:bg-brand-700'
+                : 'bg-brand-600 hover:bg-brand-700'
             }`}
           >
             {t('next')}
@@ -963,7 +963,7 @@ export default function WhitelabelScreeningForm({
         )}
       </div>
 
-      <p className="text-center text-sm text-gray-400 mt-6">
+      <p className="text-center text-sm text-neutral-400 mt-6">
         {t('autoSaveNote')}
       </p>
     </div>

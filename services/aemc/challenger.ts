@@ -28,7 +28,10 @@ import {
 // ============================================================
 
 const OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1';
-const MODEL_NAME = 'x-ai/grok-3';
+// x-ai/grok-3 已于 2026 年被 OpenRouter 下线（404: "Grok 3 is deprecated,
+// switching to Grok 4.3"）—— 在此之前挑战官每次都在静默失败、管线降级 V1，
+// 审计表里该角色的 error 字段是唯一线索。已用 grok-4.3 实测连通。
+const MODEL_NAME = 'x-ai/grok-4.3';
 const MAX_TOKENS = 3000;
 const TEMPERATURE = 0.4; // 稍高温度 = 更发散的挑战思维
 const TIMEOUT_MS = 12_000; // 12s — 4 AI sequential, must fit in Vercel 60s limit

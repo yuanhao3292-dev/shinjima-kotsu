@@ -102,8 +102,8 @@ export default function CookieConsent() {
       {/* Cookie consent banner */}
       {show && (
         <div className="fixed bottom-0 left-0 right-0 z-[9999] p-4 animate-in slide-in-from-bottom duration-300">
-          <div className="max-w-3xl mx-auto bg-white border border-gray-200 rounded-2xl shadow-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <div className="flex-1 text-sm text-gray-700 leading-relaxed">
+          <div className="max-w-3xl mx-auto bg-white border border-neutral-200 rounded-2xl shadow-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="flex-1 text-sm text-neutral-700 leading-relaxed">
               <p>{t.message}</p>
               <a
                 href="/legal/privacy"
@@ -115,13 +115,13 @@ export default function CookieConsent() {
             <div className="flex gap-2 shrink-0">
               <button
                 onClick={() => handleAccept('necessary')}
-                className="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors whitespace-nowrap"
+                className="px-4 py-2 text-sm text-neutral-600 border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors whitespace-nowrap"
               >
                 {t.necessary}
               </button>
               <button
                 onClick={() => handleAccept('all')}
-                className="px-4 py-2 text-sm text-white brand-gradient-solid rounded-lg hover:brand-gradient-solid transition-colors whitespace-nowrap"
+                className="px-4 py-2 text-sm text-white brand-gradient-solid rounded-lg hover:opacity-90 transition-colors whitespace-nowrap"
               >
                 {t.accept}
               </button>

@@ -18,6 +18,7 @@ import type {
 } from './types';
 import { withRetry } from './ai-retry';
 import { aemcLog } from './logger';
+import { salvageStructuredCase, salvageTriageAssessment, salvageAdjudicatedAssessment } from './ai-output-schemas';
 
 const OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1';
 const DEEPSEEK_BASE_URL = 'https://api.deepseek.com/v1';
@@ -204,54 +205,12 @@ async function callAndParse(
     adjudicated_assessment: AdjudicatedAssessment;
   };
 
-  // 确保字段完整
+  // Zod 挽救层：类型安全兜底（防字段缺失也防类型错误，
+  // 旧手工 || [] 默认防不住 AI 把数组字段返回成字符串）
   const caseId = casePacket.case_id;
-  const sc = parsed.structured_case;
-  const ta = parsed.triage_assessment;
-  const aa = parsed.adjudicated_assessment;
-
-  sc.case_id = caseId;
-  sc.language = sc.language || casePacket.language;
-  sc.red_flags = sc.red_flags || [];
-  sc.missing_critical_info = sc.missing_critical_info || [];
-  sc.past_history = sc.past_history || [];
-  sc.medication_history = sc.medication_history || [];
-  sc.allergy_history = sc.allergy_history || [];
-  sc.known_diagnoses = sc.known_diagnoses || [];
-  sc.exam_findings = sc.exam_findings || [];
-  sc.inferred_items = sc.inferred_items || [];
-  sc.unknown_items = sc.unknown_items || [];
-  sc.demographics = sc.demographics || {};
-  if (!sc.present_illness) {
-    sc.present_illness = { symptoms: [], aggravating_factors: [], relieving_factors: [], associated_symptoms: [] };
-  }
-  sc.present_illness.symptoms = sc.present_illness.symptoms || [];
-  if (!sc.chief_complaint) {
-    const fallbacks: Record<string, string> = {
-      'zh-CN': '未能提取主诉', 'zh-TW': '未能提取主訴',
-      ja: '主訴を抽出できませんでした', en: 'Unable to extract chief complaint',
-    };
-    sc.chief_complaint = fallbacks[casePacket.language] || fallbacks['zh-CN'];
-  }
-
-  ta.case_id = caseId;
-  ta.recommended_departments = ta.recommended_departments || [];
-  ta.differential_directions = ta.differential_directions || [];
-  ta.suggested_tests = ta.suggested_tests || [];
-  ta.do_not_miss_conditions = ta.do_not_miss_conditions || [];
-  ta.missing_information_impact = ta.missing_information_impact || [];
-  ta.needs_emergency_evaluation = ta.needs_emergency_evaluation ?? false;
-  ta.doctor_review_required = ta.doctor_review_required ?? true;
-  if (typeof ta.confidence !== 'number' || ta.confidence < 0 || ta.confidence > 1) ta.confidence = 0.5;
-
-  aa.case_id = caseId;
-  aa.final_departments = aa.final_departments || [];
-  aa.critical_reasons = aa.critical_reasons || [];
-  aa.must_ask_followups = aa.must_ask_followups || [];
-  aa.conflict_notes = aa.conflict_notes || [];
-  aa.safe_to_auto_display = aa.safe_to_auto_display ?? false;
-  aa.escalate_to_human = aa.escalate_to_human ?? true;
-  if (typeof aa.confidence !== 'number' || aa.confidence < 0 || aa.confidence > 1) aa.confidence = 0.5;
+  const sc = salvageStructuredCase(parsed.structured_case, caseId, casePacket.language);
+  const ta = salvageTriageAssessment(parsed.triage_assessment, caseId);
+  const aa = salvageAdjudicatedAssessment(parsed.adjudicated_assessment, caseId);
 
   const latencyMs = Date.now() - startTime;
 

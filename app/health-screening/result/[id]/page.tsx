@@ -114,40 +114,40 @@ export default function ScreeningResultPage({ params }: PageProps) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white font-sans">
+      <div className="min-h-screen bg-gradient-to-b from-brand-50 to-white font-sans">
         <div className="bg-white border-b border-neutral-100 shadow-sm">
           <div className="max-w-4xl mx-auto px-4 py-4">
-            <div className="h-5 w-24 bg-gray-200 rounded animate-pulse" />
+            <div className="h-5 w-24 bg-neutral-200 rounded animate-pulse" />
           </div>
         </div>
         <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
           {/* 风险卡片骨架 */}
-          <div className="bg-gray-100 border-2 border-gray-200 rounded-2xl p-6 md:p-8 animate-pulse">
+          <div className="bg-neutral-100 border-2 border-neutral-200 rounded-2xl p-6 md:p-8 animate-pulse">
             <div className="flex items-start gap-4">
-              <div className="w-14 h-14 bg-gray-200 rounded-full" />
+              <div className="w-14 h-14 bg-neutral-200 rounded-full" />
               <div className="flex-1 space-y-3">
-                <div className="h-7 w-32 bg-gray-200 rounded" />
-                <div className="h-4 w-64 bg-gray-200 rounded" />
+                <div className="h-7 w-32 bg-neutral-200 rounded" />
+                <div className="h-4 w-64 bg-neutral-200 rounded" />
               </div>
             </div>
             <div className="mt-6 p-4 bg-white/60 rounded-xl space-y-2">
-              <div className="h-4 w-24 bg-gray-200 rounded" />
-              <div className="h-3 w-full bg-gray-200 rounded" />
-              <div className="h-3 w-5/6 bg-gray-200 rounded" />
-              <div className="h-3 w-4/6 bg-gray-200 rounded" />
+              <div className="h-4 w-24 bg-neutral-200 rounded" />
+              <div className="h-3 w-full bg-neutral-200 rounded" />
+              <div className="h-3 w-5/6 bg-neutral-200 rounded" />
+              <div className="h-3 w-4/6 bg-neutral-200 rounded" />
             </div>
           </div>
           {/* 检查项目骨架 */}
           <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 animate-pulse">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-blue-100 rounded-lg" />
-              <div className="h-6 w-40 bg-gray-200 rounded" />
+              <div className="w-10 h-10 bg-brand-100 rounded-lg" />
+              <div className="h-6 w-40 bg-neutral-200 rounded" />
             </div>
             <div className="space-y-3">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl">
-                  <div className="w-6 h-6 bg-gray-200 rounded-full flex-shrink-0" />
-                  <div className="h-4 w-full bg-gray-200 rounded" />
+                <div key={i} className="flex items-start gap-3 p-4 bg-neutral-50 rounded-xl">
+                  <div className="w-6 h-6 bg-neutral-200 rounded-full flex-shrink-0" />
+                  <div className="h-4 w-full bg-neutral-200 rounded" />
                 </div>
               ))}
             </div>
@@ -155,24 +155,24 @@ export default function ScreeningResultPage({ params }: PageProps) {
           {/* 医院骨架 */}
           <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 animate-pulse">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-green-100 rounded-lg" />
-              <div className="h-6 w-36 bg-gray-200 rounded" />
+              <div className="w-10 h-10 bg-brand-100 rounded-lg" />
+              <div className="h-6 w-36 bg-neutral-200 rounded" />
             </div>
             <div className="grid md:grid-cols-2 gap-4">
               {[1, 2].map((i) => (
-                <div key={i} className="border border-gray-200 rounded-xl p-5 space-y-3">
-                  <div className="h-5 w-48 bg-gray-200 rounded" />
-                  <div className="h-3 w-32 bg-gray-200 rounded" />
+                <div key={i} className="border border-neutral-200 rounded-xl p-5 space-y-3">
+                  <div className="h-5 w-48 bg-neutral-200 rounded" />
+                  <div className="h-3 w-32 bg-neutral-200 rounded" />
                   <div className="flex gap-2">
-                    <div className="h-6 w-16 bg-gray-100 rounded-full" />
-                    <div className="h-6 w-20 bg-gray-100 rounded-full" />
+                    <div className="h-6 w-16 bg-neutral-100 rounded-full" />
+                    <div className="h-6 w-20 bg-neutral-100 rounded-full" />
                   </div>
                 </div>
               ))}
             </div>
           </div>
           <div className="text-center pt-4">
-            <Loader2 className="w-6 h-6 animate-spin text-blue-400 mx-auto mb-2" />
+            <Loader2 className="w-6 h-6 animate-spin text-brand-700 mx-auto mb-2" />
             <p className="text-neutral-400 text-sm">{t('loadingResult', lang)}</p>
           </div>
         </div>
@@ -188,7 +188,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
     };
 
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white font-sans">
+      <div className="min-h-screen bg-gradient-to-b from-brand-50 to-white font-sans">
         <div className="bg-white border-b border-neutral-100 shadow-sm">
           <div className="max-w-4xl mx-auto px-4 py-4">
             <Link
@@ -216,7 +216,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
           </div>
           <Link
             href="/health-screening"
-            className="inline-block mt-6 text-blue-600 hover:underline text-sm"
+            className="inline-block mt-6 text-brand-600 hover:underline text-sm"
           >
             {t('backToScreening', lang)}
           </Link>
@@ -226,7 +226,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white font-sans">
+    <div className="min-h-screen bg-gradient-to-b from-brand-50 to-white font-sans">
       {/* Header */}
       <div className="bg-white border-b border-neutral-100 shadow-sm">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -241,7 +241,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
           <button
             onClick={handleDownloadPDF}
             disabled={isDownloading}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all text-sm font-medium shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-brand-600 to-brand-700 text-white rounded-lg hover:from-brand-700 hover:to-brand-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all text-sm font-medium shadow-sm"
           >
             {isDownloading ? (
               <>
@@ -259,7 +259,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
       </div>
 
       {/* Title + Language Selector */}
-      <div className="bg-gradient-to-b from-white to-blue-50/30 py-8">
+      <div className="bg-gradient-to-b from-white to-brand-50/30 py-8">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm mb-4">
             <FileText className="w-4 h-4" />
@@ -286,7 +286,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
           />
         )}
 
-        <div className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
+        <div className="mt-8 p-6 bg-gradient-to-r from-brand-50 to-brand-50 rounded-2xl border border-brand-100">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-center md:text-left">
               <h3 className="font-semibold text-neutral-900 mb-1">{t('saveReportTitle', lang)}</h3>
@@ -297,7 +297,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
             <button
               onClick={handleDownloadPDF}
               disabled={isDownloading}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-lg shadow-blue-200"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-brand-600 to-brand-700 text-white rounded-xl hover:from-brand-700 hover:to-brand-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-lg shadow-brand-200"
             >
               {isDownloading ? (
                 <>

@@ -121,7 +121,7 @@ function PaymentSuccessContent() {
         <p className="text-neutral-600 mb-6">{t('subtitle')}</p>
 
         {/* 微信QR — 主CTA */}
-        <div className="bg-[#07C160]/5 border border-[#07C160]/30 p-6 mb-6 text-center">
+        <div className="bg-brand-50 border border-brand-200/30 p-6 mb-6 text-center">
           <h2 className="font-bold text-brand-900 mb-1">{t('wechatTitle')}</h2>
           <p className="text-sm text-neutral-500 mb-4">{t('wechatScan')}</p>
           <img src="/wechat-qr.png" alt="WeChat QR" className="w-48 h-48 mx-auto object-contain mb-3" />
@@ -159,7 +159,7 @@ function PaymentSuccessContent() {
         <div className="space-y-3">
           <Link
             href={backToPackagesHref}
-            className="block w-full bg-accent-400 hover:bg-accent-300 text-brand-900 font-bold py-3 px-6 tracking-wider transition-colors"
+            className="block w-full brand-gradient-solid hover:opacity-90 text-white font-bold py-3 px-6 tracking-wider transition-colors"
           >
             {t('backToPackages')}
           </Link>

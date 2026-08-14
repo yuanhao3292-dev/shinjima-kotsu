@@ -645,12 +645,12 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
           alt="Osaka International Cancer Center"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#005BAC]/90 via-[#005BAC]/65 to-[#005BAC]/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-800/90 via-brand-800/65 to-brand-800/20" />
 
         <div className="relative z-10 container mx-auto px-6 py-16 md:py-24">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/25 rounded-full px-4 py-1.5 mb-6">
-              <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+              <span className="w-2 h-2 bg-brand-400 rounded-full animate-pulse" />
               <span className="text-xs font-medium tracking-wide">{t('limitBadge')}</span>
             </div>
 
@@ -663,7 +663,7 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
             <p className="text-sm text-white/70 mb-8">{t('heroSubtitle')}</p>
 
             <div className="flex flex-wrap gap-3">
-              <a href="#services" className="inline-flex items-center gap-2 bg-white text-[#005BAC] font-bold px-6 py-3 rounded-xl hover:bg-blue-50 transition shadow-lg">
+              <a href="#services" className="inline-flex items-center gap-2 bg-white text-brand-800 font-bold px-6 py-3 rounded-xl hover:bg-brand-50 transition shadow-lg">
                 <FileText size={18} />
                 {t('consultPlan')}
               </a>
@@ -677,7 +677,7 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
       </section>
 
       {/* ============ Designation Bar ============ */}
-      <section className="bg-[#005BAC]">
+      <section className="bg-brand-800">
         <div className="container mx-auto px-6 py-4">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-0 sm:divide-x sm:divide-white/30">
             {[
@@ -698,17 +698,17 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-[#005BAC] text-xs tracking-widest uppercase font-bold">{t('statsTag')}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t('statsTitle')}</h2>
+            <span className="text-brand-800 text-xs tracking-widest uppercase font-bold">{t('statsTag')}</span>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-2">{t('statsTitle')}</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {KEY_STATS.map((stat, i) => (
-              <div key={i} className="bg-gray-50 rounded-xl p-5 border border-gray-100 hover:shadow-md transition text-center">
-                <div className="text-3xl font-black text-[#005BAC]">
+              <div key={i} className="bg-neutral-50 rounded-xl p-5 border border-neutral-100 hover:shadow-md transition text-center">
+                <div className="text-3xl font-black text-brand-800">
                   {stat.value}
                 </div>
-                <p className="text-sm font-semibold text-gray-800 mt-2">{stat.label[lang]}</p>
-                <p className="text-xs text-gray-400 mt-1">{stat.sub[lang]}</p>
+                <p className="text-sm font-semibold text-neutral-800 mt-2">{stat.label[lang]}</p>
+                <p className="text-xs text-neutral-400 mt-1">{stat.sub[lang]}</p>
               </div>
             ))}
           </div>
@@ -719,9 +719,9 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="bg-white">
         <div className="container mx-auto px-6 pb-4">
           <div className="text-center mb-10">
-            <span className="text-[#005BAC] text-xs tracking-widest uppercase font-bold">{t('facilityTag')}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-3">{t('facilityTitle')}</h2>
-            <p className="text-gray-500 max-w-2xl mx-auto text-sm">{t('facilityDesc')}</p>
+            <span className="text-brand-800 text-xs tracking-widest uppercase font-bold">{t('facilityTag')}</span>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-2 mb-3">{t('facilityTitle')}</h2>
+            <p className="text-neutral-500 max-w-2xl mx-auto text-sm">{t('facilityDesc')}</p>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2">
@@ -732,7 +732,7 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
                 alt={tr[item.labelKey][lang]}
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/80 via-neutral-900/20 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <p className="text-white font-semibold text-lg">{tr[item.labelKey][lang]}</p>
               </div>
@@ -742,28 +742,28 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
       </section>
 
       {/* ============ 8 Specialty Centers ============ */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-neutral-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
-            <span className="text-[#005BAC] text-xs tracking-widest uppercase font-bold">{t('centersTag')}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-3">{t('centersTitle')}</h2>
-            <p className="text-gray-500 max-w-xl mx-auto">{t('centersDesc')}</p>
+            <span className="text-brand-800 text-xs tracking-widest uppercase font-bold">{t('centersTag')}</span>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-2 mb-3">{t('centersTitle')}</h2>
+            <p className="text-neutral-500 max-w-xl mx-auto">{t('centersDesc')}</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
             {SPECIALTY_CENTERS.map((center, i) => (
-              <div key={i} className="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-all">
-                <div className="h-1 bg-[#005BAC]" />
+              <div key={i} className="group bg-white rounded-xl border border-neutral-200 overflow-hidden hover:shadow-md transition-all">
+                <div className="h-1 bg-brand-800" />
                 <div className="p-5">
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center">
-                      <CenterIcon type={center.icon} className="w-5 h-5 text-[#005BAC]" />
+                    <div className="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center">
+                      <CenterIcon type={center.icon} className="w-5 h-5 text-brand-800" />
                     </div>
-                    <h3 className="font-bold text-gray-900 text-sm leading-tight">{center.name[lang]}</h3>
+                    <h3 className="font-bold text-neutral-900 text-sm leading-tight">{center.name[lang]}</h3>
                   </div>
-                  <p className="text-xs text-gray-600 leading-relaxed mb-3">{center.desc[lang]}</p>
+                  <p className="text-xs text-neutral-600 leading-relaxed mb-3">{center.desc[lang]}</p>
                   <div className="flex items-center gap-1.5 text-xs">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#005BAC]" />
-                    <span className="text-[#005BAC] font-medium">{center.stats[lang]}</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand-800" />
+                    <span className="text-brand-800 font-medium">{center.stats[lang]}</span>
                   </div>
                 </div>
               </div>
@@ -776,17 +776,17 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
-            <span className="text-[#005BAC] text-xs tracking-widest uppercase font-bold">{t('treatTag')}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t('treatTitle')}</h2>
+            <span className="text-brand-800 text-xs tracking-widest uppercase font-bold">{t('treatTag')}</span>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-2">{t('treatTitle')}</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {TREATMENTS.map((treat, i) => (
-              <div key={i} className="bg-gray-50 rounded-xl border border-gray-100 p-6 hover:shadow-md transition-all">
-                <div className="w-12 h-12 rounded-xl bg-[#005BAC] flex items-center justify-center mb-4">
+              <div key={i} className="bg-neutral-50 rounded-xl border border-neutral-100 p-6 hover:shadow-md transition-all">
+                <div className="w-12 h-12 rounded-xl bg-brand-800 flex items-center justify-center mb-4">
                   <treat.icon size={22} className="text-white" />
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2">{treat.title[lang]}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{treat.desc[lang]}</p>
+                <h3 className="font-bold text-neutral-900 mb-2">{treat.title[lang]}</h3>
+                <p className="text-sm text-neutral-600 leading-relaxed">{treat.desc[lang]}</p>
               </div>
             ))}
           </div>
@@ -794,22 +794,22 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
       </section>
 
       {/* ============ Da Vinci Robotic Surgery Spotlight ============ */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-neutral-50">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-10 items-center">
             <div>
-              <span className="text-[#005BAC] text-xs tracking-widest uppercase font-bold">{t('robotTag')}</span>
-              <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-4">{t('robotTitle')}</h2>
-              <p className="text-gray-600 leading-relaxed mb-6">{t('robotDesc')}</p>
+              <span className="text-brand-800 text-xs tracking-widest uppercase font-bold">{t('robotTag')}</span>
+              <h2 className="text-3xl font-bold text-neutral-900 mt-2 mb-4">{t('robotTitle')}</h2>
+              <p className="text-neutral-600 leading-relaxed mb-6">{t('robotDesc')}</p>
               <div className="flex flex-wrap gap-3">
                 {[t('robotStat1'), t('robotStat2'), t('robotStat3')].map((stat, i) => (
-                  <span key={i} className="inline-flex items-center gap-1.5 bg-blue-50 text-[#005BAC] text-sm font-medium px-4 py-2 rounded-full">
+                  <span key={i} className="inline-flex items-center gap-1.5 bg-brand-50 text-brand-800 text-sm font-medium px-4 py-2 rounded-full">
                     {stat}
                   </span>
                 ))}
               </div>
             </div>
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg bg-gray-100">
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg bg-neutral-100">
               <img
                 src={OICI_IMAGES.daVinciSystem}
                 alt="da Vinci Xi Surgical Robot System"
@@ -824,18 +824,18 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
-            <span className="text-[#005BAC] text-xs tracking-widest uppercase font-bold">{t('researchTag')}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-3">{t('researchTitle')}</h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">{t('researchDesc')}</p>
+            <span className="text-brand-800 text-xs tracking-widest uppercase font-bold">{t('researchTag')}</span>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-2 mb-3">{t('researchTitle')}</h2>
+            <p className="text-neutral-500 max-w-2xl mx-auto">{t('researchDesc')}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {RESEARCH_ITEMS.map((item, i) => (
-              <div key={i} className="bg-gray-50 rounded-xl border border-gray-100 p-6 hover:shadow-md transition-all">
-                <div className="w-12 h-12 rounded-xl bg-[#005BAC] flex items-center justify-center mb-4">
+              <div key={i} className="bg-neutral-50 rounded-xl border border-neutral-100 p-6 hover:shadow-md transition-all">
+                <div className="w-12 h-12 rounded-xl bg-brand-800 flex items-center justify-center mb-4">
                   <item.icon size={22} className="text-white" />
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2">{item.title[lang]}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{item.desc[lang]}</p>
+                <h3 className="font-bold text-neutral-900 mb-2">{item.title[lang]}</h3>
+                <p className="text-sm text-neutral-600 leading-relaxed">{item.desc[lang]}</p>
               </div>
             ))}
           </div>
@@ -843,23 +843,23 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
       </section>
 
       {/* ============ Patient Support ============ */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-neutral-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
-            <span className="text-[#005BAC] text-xs tracking-widest uppercase font-bold">{t('supportTag')}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-3">{t('supportTitle')}</h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">{t('supportDesc')}</p>
+            <span className="text-brand-800 text-xs tracking-widest uppercase font-bold">{t('supportTag')}</span>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-2 mb-3">{t('supportTitle')}</h2>
+            <p className="text-neutral-500 max-w-2xl mx-auto">{t('supportDesc')}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-5">
             {SUPPORT_ITEMS.map((item, i) => (
-              <div key={i} className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-all">
+              <div key={i} className="bg-white rounded-xl border border-neutral-200 p-6 hover:shadow-md transition-all">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
-                    <item.icon size={20} className="text-[#005BAC]" />
+                  <div className="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center flex-shrink-0">
+                    <item.icon size={20} className="text-brand-800" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-2">{item.title[lang]}</h3>
-                    <p className="text-sm text-gray-600 leading-relaxed">{item.desc[lang]}</p>
+                    <h3 className="font-bold text-neutral-900 mb-2">{item.title[lang]}</h3>
+                    <p className="text-sm text-neutral-600 leading-relaxed">{item.desc[lang]}</p>
                   </div>
                 </div>
               </div>
@@ -872,21 +872,21 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
-            <span className="text-[#005BAC] text-xs tracking-widest uppercase font-bold">{t('deptsTag')}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t('deptsTitle')}</h2>
+            <span className="text-brand-800 text-xs tracking-widest uppercase font-bold">{t('deptsTag')}</span>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-2">{t('deptsTitle')}</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {DEPARTMENTS.map((group, i) => (
-              <div key={i} className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-                <h3 className="font-bold text-[#005BAC] text-lg mb-4 pb-3 border-b border-gray-100">{group.category[lang]}</h3>
+              <div key={i} className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
+                <h3 className="font-bold text-brand-800 text-lg mb-4 pb-3 border-b border-neutral-100">{group.category[lang]}</h3>
                 <ul className="space-y-2">
                   {group.depts.map((dept, j) => (
-                    <li key={j} className="flex items-start gap-2 text-sm text-gray-700">
-                      <CheckCircle size={14} className="text-[#005BAC] mt-0.5 flex-shrink-0" />
+                    <li key={j} className="flex items-start gap-2 text-sm text-neutral-700">
+                      <CheckCircle size={14} className="text-brand-800 mt-0.5 flex-shrink-0" />
                       <span>
                         <span className="font-medium">{dept.ja}</span>
                         {lang !== 'ja' && (
-                          <span className="text-gray-400 ml-1.5">
+                          <span className="text-neutral-400 ml-1.5">
                             {(dept as Record<string, string>)[lang] || (dept as Record<string, string>)['zh-CN'] || dept.en}
                           </span>
                         )}
@@ -904,24 +904,24 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
-            <span className="text-[#005BAC] text-xs tracking-widest uppercase font-bold">{t('historyTag')}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t('historyTitle')}</h2>
+            <span className="text-brand-800 text-xs tracking-widest uppercase font-bold">{t('historyTag')}</span>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-2">{t('historyTitle')}</h2>
           </div>
           <div className="max-w-3xl mx-auto">
             {HISTORY_MILESTONES.map((milestone, i) => (
               <div key={i} className="flex gap-4 mb-6 last:mb-0">
                 <div className="flex flex-col items-center">
-                  <div className="w-10 h-10 rounded-full bg-[#005BAC] text-white flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-brand-800 text-white flex items-center justify-center flex-shrink-0">
                     <Clock size={16} />
                   </div>
                   {i < HISTORY_MILESTONES.length - 1 && (
-                    <div className="w-px flex-1 bg-[#005BAC]/20 mt-2" />
+                    <div className="w-px flex-1 bg-brand-800/20 mt-2" />
                   )}
                 </div>
                 <div className="pb-6">
-                  <span className="text-[#005BAC] font-black text-lg">{milestone.year}</span>
-                  <h4 className="font-bold text-gray-900 mt-1">{milestone.title[lang]}</h4>
-                  <p className="text-sm text-gray-600 mt-1">{milestone.desc[lang]}</p>
+                  <span className="text-brand-800 font-black text-lg">{milestone.year}</span>
+                  <h4 className="font-bold text-neutral-900 mt-1">{milestone.title[lang]}</h4>
+                  <p className="text-sm text-neutral-600 mt-1">{milestone.desc[lang]}</p>
                 </div>
               </div>
             ))}
@@ -930,12 +930,12 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
       </section>
 
       {/* ============ Treatment Flow ============ */}
-      <section id="flow" className="py-20 bg-gray-50">
+      <section id="flow" className="py-20 bg-neutral-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
-            <span className="text-[#005BAC] text-xs tracking-widest uppercase font-bold">{t('flowTag')}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-3">{t('flowTitle')}</h2>
-            <p className="text-gray-500 max-w-xl mx-auto">{t('flowDesc')}</p>
+            <span className="text-brand-800 text-xs tracking-widest uppercase font-bold">{t('flowTag')}</span>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-2 mb-3">{t('flowTitle')}</h2>
+            <p className="text-neutral-500 max-w-xl mx-auto">{t('flowDesc')}</p>
           </div>
 
           <div className="flex flex-wrap gap-2 justify-center mb-8">
@@ -945,8 +945,8 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
                 onClick={() => setExpandedPhase(i)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition ${
                   expandedPhase === i
-                    ? 'bg-[#005BAC] text-white shadow-md'
-                    : 'bg-white text-gray-600 border border-gray-200 hover:border-gray-300'
+                    ? 'bg-brand-800 text-white shadow-md'
+                    : 'bg-white text-neutral-600 border border-neutral-200 hover:border-neutral-300'
                 }`}
               >
                 {i + 1}. {phase.phase[lang]}
@@ -959,14 +959,14 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
               expandedPhase === i && (
                 <div key={i} className="space-y-4">
                   {phase.steps.map((step, j) => (
-                    <div key={j} className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
+                    <div key={j} className="bg-white rounded-xl border border-neutral-200 p-5 shadow-sm">
                       <div className="flex items-start gap-4">
-                        <div className="w-8 h-8 rounded-full bg-[#005BAC] text-white flex items-center justify-center font-bold text-sm flex-shrink-0">
+                        <div className="w-8 h-8 rounded-full bg-brand-800 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">
                           {j + 1}
                         </div>
                         <div>
-                          <h4 className="font-bold text-gray-900 mb-1">{step.title[lang]}</h4>
-                          <p className="text-sm text-gray-600">{step.desc[lang]}</p>
+                          <h4 className="font-bold text-neutral-900 mb-1">{step.title[lang]}</h4>
+                          <p className="text-sm text-neutral-600">{step.desc[lang]}</p>
                         </div>
                       </div>
                     </div>
@@ -995,23 +995,23 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
       <section id="services" className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
-            <span className="text-[#005BAC] text-xs tracking-widest uppercase font-bold">{t('svcTag')}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-3">{t('svcTitle')}</h2>
-            <p className="text-gray-500 max-w-xl mx-auto">{t('svcDesc')}</p>
+            <span className="text-brand-800 text-xs tracking-widest uppercase font-bold">{t('svcTag')}</span>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-2 mb-3">{t('svcTitle')}</h2>
+            <p className="text-neutral-500 max-w-xl mx-auto">{t('svcDesc')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {oiciPackages.map((pkg) => (
-              <div key={pkg.slug} className="bg-white rounded-xl border-2 border-gray-200 hover:border-[#005BAC] p-8 transition shadow-sm hover:shadow-lg">
-                <h3 className="text-lg font-bold text-gray-900 mb-2">{pkg.name[lang]}</h3>
+              <div key={pkg.slug} className="bg-white rounded-xl border-2 border-neutral-200 hover:border-brand-800 p-8 transition shadow-sm hover:shadow-lg">
+                <h3 className="text-lg font-bold text-neutral-900 mb-2">{pkg.name[lang]}</h3>
                 <div className="flex items-baseline gap-1 mb-4">
-                  <span className="text-3xl font-black text-[#005BAC]">¥{pkg.priceJpy.toLocaleString()}</span>
-                  <span className="text-xs text-gray-400">{t('taxIncl')}</span>
+                  <span className="text-3xl font-black text-brand-800">¥{pkg.priceJpy.toLocaleString()}</span>
+                  <span className="text-xs text-neutral-400">{t('taxIncl')}</span>
                 </div>
-                <p className="text-sm text-gray-600 mb-6">{pkg.desc[lang]}</p>
+                <p className="text-sm text-neutral-600 mb-6">{pkg.desc[lang]}</p>
                 <Link
                   href={guideSlug ? `/cancer-treatment/${pkg.ctaPath}?guide=${guideSlug}` : `/cancer-treatment/${pkg.ctaPath}`}
-                  className="block w-full text-center bg-[#005BAC] text-white font-bold py-3 rounded-xl hover:bg-[#004a8a] transition"
+                  className="block w-full text-center bg-brand-800 text-white font-bold py-3 rounded-xl hover:bg-brand-900 transition"
                 >
                   {t('bookNow')}
                 </Link>
@@ -1022,19 +1022,19 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
       </section>
 
       {/* ============ Hospital Info ============ */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-neutral-50">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-center">
-            <div className="bg-white rounded-xl border border-gray-200 p-8">
-              <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                <MapPin size={20} className="text-[#005BAC]" />
+            <div className="bg-white rounded-xl border border-neutral-200 p-8">
+              <h3 className="text-xl font-bold text-neutral-900 mb-6 flex items-center gap-2">
+                <MapPin size={20} className="text-brand-800" />
                 {tr.heroTitle1[lang]}
               </h3>
-              <div className="grid gap-5 text-sm text-gray-600">
+              <div className="grid gap-5 text-sm text-neutral-600">
                 <div className="flex items-start gap-3">
-                  <MapPin size={16} className="text-[#005BAC] mt-0.5 flex-shrink-0" />
+                  <MapPin size={16} className="text-brand-800 mt-0.5 flex-shrink-0" />
                   <div>
-                    <p className="font-medium text-gray-800">
+                    <p className="font-medium text-neutral-800">
                       {lang === 'ja' ? '所在地' : lang === 'en' ? 'Address' : '地址'}
                     </p>
                     <p>〒541-8567</p>
@@ -1042,32 +1042,32 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Phone size={16} className="text-[#005BAC] mt-0.5 flex-shrink-0" />
+                  <Phone size={16} className="text-brand-800 mt-0.5 flex-shrink-0" />
                   <div>
-                    <p className="font-medium text-gray-800">
+                    <p className="font-medium text-neutral-800">
                       {lang === 'ja' ? '代表電話' : lang === 'en' ? 'Phone' : '电话'}
                     </p>
                     <p>06-6945-1181</p>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-neutral-400">
                       {lang === 'ja' ? '平日 9:00〜17:30' : lang === 'en' ? 'Mon-Fri 9:00-17:30' : '工作日 9:00〜17:30'}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Globe size={16} className="text-[#005BAC] mt-0.5 flex-shrink-0" />
+                  <Globe size={16} className="text-brand-800 mt-0.5 flex-shrink-0" />
                   <div>
-                    <p className="font-medium text-gray-800">
+                    <p className="font-medium text-neutral-800">
                       {lang === 'ja' ? '公式サイト' : lang === 'en' ? 'Website' : '官网'}
                     </p>
-                    <a href="https://oici.jp" target="_blank" rel="noopener noreferrer" className="text-[#005BAC] hover:underline flex items-center gap-1">
+                    <a href="https://oici.jp" target="_blank" rel="noopener noreferrer" className="text-brand-800 hover:underline flex items-center gap-1">
                       oici.jp <ExternalLink size={12} />
                     </a>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Train size={16} className="text-[#005BAC] mt-0.5 flex-shrink-0" />
+                  <Train size={16} className="text-brand-800 mt-0.5 flex-shrink-0" />
                   <div>
-                    <p className="font-medium text-gray-800">
+                    <p className="font-medium text-neutral-800">
                       {lang === 'ja' ? '交通アクセス' : lang === 'en' ? 'Access' : '交通'}
                     </p>
                     <p>{lang === 'ja' ? '大阪メトロ谷町線「天満橋駅」徒歩3分' : lang === 'en' ? '3 min walk from Temmabashi Station' : '大阪地铁谷町线「天满桥站」步行3分钟'}</p>
@@ -1088,28 +1088,28 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
 
       {/* ============ Contact (standalone only) ============ */}
       {!isGuideEmbed && (
-      <section className="py-16 bg-white border-t border-gray-100">
+      <section className="py-16 bg-white border-t border-neutral-100">
         <div className="container mx-auto px-6 text-center">
-          <h3 className="text-xl font-bold text-gray-900 mb-6">{t('contactTitle')}</h3>
+          <h3 className="text-xl font-bold text-neutral-900 mb-6">{t('contactTitle')}</h3>
           <div className="flex flex-wrap justify-center gap-4">
             <a
               href="https://line.me/R/ti/p/@shinjima"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#06C755] text-white font-bold px-6 py-3 rounded-xl hover:opacity-90 transition"
+              className="inline-flex items-center gap-2 brand-gradient-solid text-white font-bold px-6 py-3 rounded-xl hover:opacity-90 transition"
             >
               <MessageSquare size={18} />
               LINE
             </a>
             <a
               href="mailto:info@niijima-koutsu.jp"
-              className="inline-flex items-center gap-2 bg-[#005BAC] text-white font-bold px-6 py-3 rounded-xl hover:bg-[#004a8a] transition"
+              className="inline-flex items-center gap-2 brand-gradient-solid text-white font-bold px-6 py-3 rounded-xl hover:opacity-90 transition"
             >
               <Mail size={18} />
               Email
             </a>
           </div>
-          <p className="text-xs text-gray-400 mt-4">
+          <p className="text-xs text-neutral-400 mt-4">
             {lang === 'ja'
               ? '※ 当サイトは大阪国際がんセンターの公式サイトではありません。医療ツーリズムの仲介サービスです。'
               : lang === 'en'
@@ -1121,9 +1121,9 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
       )}
 
       {/* ━━━━━━━━ Medical Disclaimer ━━━━━━━━ */}
-      <section className="py-8 bg-gray-100">
+      <section className="py-8 bg-neutral-100">
         <div className="max-w-4xl mx-auto px-6">
-          <ul className="space-y-1.5 text-xs text-gray-500 leading-relaxed">
+          <ul className="space-y-1.5 text-xs text-neutral-500 leading-relaxed">
             <li>※ {({ ja: '本ページで紹介する検査・治療には自由診療（保険適用外）が含まれます。費用は医療機関の基準に従います。', 'zh-TW': '本頁介紹的檢查・治療包含自費診療（不適用保險）。費用依醫療機構標準。', 'zh-CN': '本页介绍的检查・治疗包含自费诊疗（不适用保险）。费用依医疗机构标准。', en: 'Examinations and treatments on this page may include self-pay options (not covered by insurance). Fees follow each facility\'s standards.' } as Record<Language, string>)[lang]}</li>
             <li>※ {({ ja: '治療効果には個人差があり、すべての患者に同様の効果を保証するものではありません。', 'zh-TW': '治療效果因人而異，不保證所有患者均能獲得相同效果。', 'zh-CN': '治疗效果因人而异，不保证所有患者均能获得相同效果。', en: 'Treatment effects vary by individual and are not guaranteed for all patients.' } as Record<Language, string>)[lang]}</li>
             <li>※ {({ ja: '当社（新島交通株式会社・大阪府知事登録旅行業 第2-3115号）は旅行業者であり、医療機関ではありません。医療行為は各提携医療機関が提供します。', 'zh-TW': '本公司（新島交通株式會社・大阪府知事登錄旅行業 第2-3115號）為旅行業者，非醫療機構。醫療行為由各合作醫療機構提供。', 'zh-CN': '本公司（新岛交通株式会社・大阪府知事登录旅行业 第2-3115号）为旅行业者，非医疗机构。医疗行为由各合作医疗机构提供。', en: 'Niijima Kotsu Co., Ltd. (Osaka Gov. Registered Travel Agency No. 2-3115) is a travel agency, not a medical institution. Medical services are provided by partner facilities.' } as Record<Language, string>)[lang]}</li>

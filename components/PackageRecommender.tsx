@@ -282,7 +282,7 @@ export default function PackageRecommender({ onClose, onSelectPackage }: Package
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden animate-fade-in">
           {/* Header */}
-          <div className="bg-gradient-to-br from-indigo-600 to-blue-700 text-white p-8 text-center relative">
+          <div className="bg-gradient-to-br from-brand-600 to-brand-700 text-white p-8 text-center relative">
             {onClose && (
               <button
                 onClick={onClose}
@@ -301,18 +301,18 @@ export default function PackageRecommender({ onClose, onSelectPackage }: Package
           {/* Result */}
           <div className="p-8">
             <div className="text-center mb-6">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">
+              <h3 className="text-2xl font-bold text-neutral-900 mb-2">
                 {recommendation.packageName}
               </h3>
-              <p className="text-3xl font-bold text-indigo-600">
+              <p className="text-3xl font-bold text-brand-600">
                 ¥{recommendation.price.toLocaleString()}
               </p>
             </div>
 
-            <div className="bg-indigo-50 rounded-xl p-4 mb-6">
+            <div className="bg-brand-50 rounded-xl p-4 mb-6">
               <div className="flex items-start gap-3">
-                <CheckCircle className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" />
-                <p className="text-sm text-indigo-800">{recommendation.reason}</p>
+                <CheckCircle className="w-5 h-5 text-brand-600 flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-brand-800">{recommendation.reason}</p>
               </div>
             </div>
 
@@ -325,7 +325,7 @@ export default function PackageRecommender({ onClose, onSelectPackage }: Package
                     router.push('/medical');
                   }
                 }}
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 px-6 rounded-xl transition-colors"
+                className="w-full brand-gradient-solid hover:opacity-90 text-white font-semibold py-4 px-6 rounded-xl transition-colors"
               >
                 查看精密體檢
               </button>
@@ -335,7 +335,7 @@ export default function PackageRecommender({ onClose, onSelectPackage }: Package
                   setCurrentStep(0);
                   setAnswers({});
                 }}
-                className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3 px-6 rounded-xl transition-colors"
+                className="w-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-medium py-3 px-6 rounded-xl transition-colors"
               >
                 重新測試
               </button>
@@ -352,28 +352,28 @@ export default function PackageRecommender({ onClose, onSelectPackage }: Package
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden">
         {/* Progress Bar */}
-        <div className="h-1 bg-gray-100">
+        <div className="h-1 bg-neutral-100">
           <div
-            className="h-full bg-indigo-600 transition-all duration-300"
+            className="h-full bg-brand-600 transition-all duration-300"
             style={{ width: `${progress}%` }}
           />
         </div>
 
         {/* Header */}
-        <div className="p-6 border-b border-gray-100">
+        <div className="p-6 border-b border-neutral-100">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
-                <QuestionIcon className="w-5 h-5 text-indigo-600" />
+              <div className="w-10 h-10 bg-brand-100 rounded-full flex items-center justify-center">
+                <QuestionIcon className="w-5 h-5 text-brand-600" />
               </div>
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-neutral-500">
                 問題 {currentStep + 1} / {QUESTIONS.length}
               </span>
             </div>
             {onClose && (
               <button
                 onClick={onClose}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-neutral-400 hover:text-neutral-600"
               >
                 <X size={24} />
               </button>
@@ -383,11 +383,11 @@ export default function PackageRecommender({ onClose, onSelectPackage }: Package
 
         {/* Question */}
         <div className="p-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-2">
+          <h2 className="text-xl font-bold text-neutral-900 mb-2">
             {currentQuestion.title}
           </h2>
           {currentQuestion.subtitle && (
-            <p className="text-gray-500 text-sm mb-6">{currentQuestion.subtitle}</p>
+            <p className="text-neutral-500 text-sm mb-6">{currentQuestion.subtitle}</p>
           )}
 
           {/* Options */}
@@ -398,21 +398,21 @@ export default function PackageRecommender({ onClose, onSelectPackage }: Package
                 onClick={() => handleSelect(option.value)}
                 className={`w-full p-4 rounded-xl border-2 text-left transition-all ${
                   isOptionSelected(option.value)
-                    ? 'border-indigo-600 bg-indigo-50'
-                    : 'border-gray-200 hover:border-indigo-300 hover:bg-gray-50'
+                    ? 'border-brand-600 bg-brand-50'
+                    : 'border-neutral-200 hover:border-brand-300 hover:bg-neutral-50'
                 }`}
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className={`font-medium ${isOptionSelected(option.value) ? 'text-indigo-700' : 'text-gray-900'}`}>
+                    <p className={`font-medium ${isOptionSelected(option.value) ? 'text-brand-700' : 'text-neutral-900'}`}>
                       {option.label}
                     </p>
                     {option.description && (
-                      <p className="text-sm text-gray-500 mt-1">{option.description}</p>
+                      <p className="text-sm text-neutral-500 mt-1">{option.description}</p>
                     )}
                   </div>
                   {isOptionSelected(option.value) && (
-                    <CheckCircle className="w-5 h-5 text-indigo-600 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-brand-600 flex-shrink-0" />
                   )}
                 </div>
               </button>
@@ -421,7 +421,7 @@ export default function PackageRecommender({ onClose, onSelectPackage }: Package
         </div>
 
         {/* Footer */}
-        <div className="p-6 border-t border-gray-100 flex justify-between">
+        <div className="p-6 border-t border-neutral-100 flex justify-between">
           <button
             onClick={handleBack}
             disabled={currentStep === 0}
@@ -435,7 +435,7 @@ export default function PackageRecommender({ onClose, onSelectPackage }: Package
             <button
               onClick={handleNext}
               disabled={!canProceed()}
-              className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-300 text-white font-medium px-6 py-2 rounded-lg transition-colors"
+              className="flex items-center gap-2 bg-brand-600 hover:bg-brand-700 disabled:bg-neutral-300 text-white font-medium px-6 py-2 rounded-lg transition-colors"
             >
               {currentStep === QUESTIONS.length - 1 ? '查看結果' : '下一題'}
               <ArrowRight size={18} />

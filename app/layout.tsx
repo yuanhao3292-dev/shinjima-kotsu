@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { cookies } from 'next/headers'
 import './globals.css'
 import FloatingContact from '@/components/FloatingContact'
 import LocaleFontSetter from '@/components/LocaleFontSetter'
@@ -30,11 +31,18 @@ const notoSansJP = Noto_Sans_JP({
   variable: '--font-noto-sans-jp',
   display: 'swap',
 })
+// ⚠️ 必须 preload: false —— 这是一款 CJK 字体，next/font 会为它的每个
+// unicode-range subset 各生成一个 <link rel="preload">。实测线上：
+// 244 个预加载 link 中 239 个属于本字体，硬拉 7.37MB（占全部字体流量
+// 99.6%），而非日语页面一个字形都不会用到它（document.fonts 已加载数为 0）。
+// 其余 8 套字体本来就有 preload: false，唯独这里漏了。
+// 关掉后仍可正常使用，只是改为按需取所需 subset。
 const shipporiMincho = Shippori_Mincho({
   subsets: ['latin'],
   weight: ['400', '600', '700'],
   variable: '--font-shippori-mincho',
   display: 'swap',
+  preload: false,
 })
 const notoSansTC = Noto_Sans_TC({
   subsets: ['latin'],
@@ -147,12 +155,25 @@ export default async function RootLayout({
     }
   }
 
+  // 服务端就定好语言 —— 原本 lang 写死 ja、data-locale 由客户端
+  // LocaleFontSetter 在 useEffect 里补，水合前后各命中一套字体栈：
+  // 简中用户会先下日文 subset（Noto Sans JP + Shippori Mincho），
+  // 水合后再下中文 subset，等于两套都下。
+  // 从 cookie 直接读，首屏即用正确字体族，另一套永远不会被请求。
+  const cookieLocale = (await cookies()).get('NEXT_LOCALE')?.value
+  const locale = ['ja', 'zh-TW', 'zh-CN', 'en', 'ko'].includes(cookieLocale ?? '')
+    ? (cookieLocale as string)
+    : 'ja'
+  const htmlLang = locale
+
   return (
-    <html lang="ja" className={fontVariableClasses}>
-      <head>
-        {/* 霞鹜文楷 - jsDelivr 中国有节点，用于简体中文 serif 后备字体 */}
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@latest/style.min.css" />
-      </head>
+    <html lang={htmlLang} data-locale={locale} className={fontVariableClasses}>
+      {/* 曾在此引入霞鹜文楷 CDN 样式表作为简中 serif 后备，已移除：
+          它是 <head> 里阻塞渲染的第三方样式表，带来 582 条 @font-face
+          （LXGW WenKai + Mono 各 291），而它在字体栈里排第 4 位后备，
+          前面的 var(--font-noto-serif-sc) 已覆盖全部字形 —— 线上实测
+          document.fonts 中该族已加载数为 0，一个字都没渲染过。
+          另外 @latest 未锁版本，第三方随时可变更内容。 */}
       <body className="antialiased">
         <LocaleFontSetter />
         <WhiteLabelProvider initialConfig={{ ...whiteLabelConfig, distributionNavItems }}>

@@ -77,16 +77,16 @@ export default function CustomerContractForm({ initialData, onDataChange }: Cust
     <div className="space-y-6">
       {/* 客户基本信息 */}
       <div>
-        <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <User size={20} className="text-blue-600" />
+        <h3 className="text-lg font-bold text-neutral-900 mb-4 flex items-center gap-2">
+          <User size={20} className="text-brand-600" />
           客户信息
         </h3>
 
         <div className="space-y-4">
           {/* 姓名 */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              姓名 <span className="text-red-500">*</span>
+            <label className="block text-sm font-medium text-neutral-700 mb-1">
+              姓名 <span className="text-brand-500">*</span>
             </label>
             <input
               type="text"
@@ -96,8 +96,8 @@ export default function CustomerContractForm({ initialData, onDataChange }: Cust
               placeholder="请输入您的真实姓名"
               className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 ${
                 errors.customerName
-                  ? 'border-red-300 focus:ring-red-500'
-                  : 'border-gray-300 focus:ring-blue-500'
+                  ? 'border-red-300 focus:ring-brand-500'
+                  : 'border-neutral-300 focus:ring-brand-500'
               }`}
             />
             {errors.customerName && (
@@ -107,8 +107,8 @@ export default function CustomerContractForm({ initialData, onDataChange }: Cust
 
           {/* 护照号 */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              护照号 <span className="text-red-500">*</span>
+            <label className="block text-sm font-medium text-neutral-700 mb-1">
+              护照号 <span className="text-brand-500">*</span>
             </label>
             <input
               type="text"
@@ -118,8 +118,8 @@ export default function CustomerContractForm({ initialData, onDataChange }: Cust
               placeholder="例如: E12345678"
               className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 ${
                 errors.passportNumber
-                  ? 'border-red-300 focus:ring-red-500'
-                  : 'border-gray-300 focus:ring-blue-500'
+                  ? 'border-red-300 focus:ring-brand-500'
+                  : 'border-neutral-300 focus:ring-brand-500'
               }`}
             />
             {errors.passportNumber && (
@@ -129,13 +129,13 @@ export default function CustomerContractForm({ initialData, onDataChange }: Cust
 
           {/* 国籍 */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              国籍 <span className="text-red-500">*</span>
+            <label className="block text-sm font-medium text-neutral-700 mb-1">
+              国籍 <span className="text-brand-500">*</span>
             </label>
             <select
               value={formData.nationality}
               onChange={(e) => handleChange('nationality', e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500"
             >
               <option value="中国">中国</option>
               <option value="日本">日本</option>
@@ -151,16 +151,16 @@ export default function CustomerContractForm({ initialData, onDataChange }: Cust
 
       {/* 联系方式 */}
       <div>
-        <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <Phone size={20} className="text-emerald-600" />
+        <h3 className="text-lg font-bold text-neutral-900 mb-4 flex items-center gap-2">
+          <Phone size={20} className="text-brand-600" />
           联系方式
         </h3>
 
         <div className="space-y-4">
           {/* 手机号 */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              手机号 <span className="text-red-500">*</span>
+            <label className="block text-sm font-medium text-neutral-700 mb-1">
+              手机号 <span className="text-brand-500">*</span>
             </label>
             <input
               type="tel"
@@ -170,20 +170,20 @@ export default function CustomerContractForm({ initialData, onDataChange }: Cust
               placeholder="+86 138 0000 0000"
               className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 ${
                 errors.phone
-                  ? 'border-red-300 focus:ring-red-500'
-                  : 'border-gray-300 focus:ring-blue-500'
+                  ? 'border-red-300 focus:ring-brand-500'
+                  : 'border-neutral-300 focus:ring-brand-500'
               }`}
             />
             {errors.phone && (
               <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
             )}
-            <p className="text-xs text-gray-500 mt-1">请包含国家代码，如 +86</p>
+            <p className="text-xs text-neutral-500 mt-1">请包含国家代码，如 +86</p>
           </div>
 
           {/* 邮箱 */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              电子邮箱 <span className="text-red-500">*</span>
+            <label className="block text-sm font-medium text-neutral-700 mb-1">
+              电子邮箱 <span className="text-brand-500">*</span>
             </label>
             <input
               type="email"
@@ -193,29 +193,29 @@ export default function CustomerContractForm({ initialData, onDataChange }: Cust
               placeholder="your.email@example.com"
               className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 ${
                 errors.email
-                  ? 'border-red-300 focus:ring-red-500'
-                  : 'border-gray-300 focus:ring-blue-500'
+                  ? 'border-red-300 focus:ring-brand-500'
+                  : 'border-neutral-300 focus:ring-brand-500'
               }`}
             />
             {errors.email && (
               <p className="text-red-500 text-xs mt-1">{errors.email}</p>
             )}
-            <p className="text-xs text-gray-500 mt-1">合同将发送到此邮箱</p>
+            <p className="text-xs text-neutral-500 mt-1">合同将发送到此邮箱</p>
           </div>
         </div>
       </div>
 
       {/* 紧急联系人 */}
       <div>
-        <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <Users size={20} className="text-amber-600" />
+        <h3 className="text-lg font-bold text-neutral-900 mb-4 flex items-center gap-2">
+          <Users size={20} className="text-brand-600" />
           紧急联系人
         </h3>
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              紧急联系人姓名 <span className="text-red-500">*</span>
+            <label className="block text-sm font-medium text-neutral-700 mb-1">
+              紧急联系人姓名 <span className="text-brand-500">*</span>
             </label>
             <input
               type="text"
@@ -225,8 +225,8 @@ export default function CustomerContractForm({ initialData, onDataChange }: Cust
               placeholder="请输入紧急联系人姓名"
               className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 ${
                 errors.emergencyContact
-                  ? 'border-red-300 focus:ring-red-500'
-                  : 'border-gray-300 focus:ring-blue-500'
+                  ? 'border-red-300 focus:ring-brand-500'
+                  : 'border-neutral-300 focus:ring-brand-500'
               }`}
             />
             {errors.emergencyContact && (
@@ -235,7 +235,7 @@ export default function CustomerContractForm({ initialData, onDataChange }: Cust
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-neutral-700 mb-1">
               紧急联系人电话 <span className="text-red-500">*</span>
             </label>
             <input
@@ -246,8 +246,8 @@ export default function CustomerContractForm({ initialData, onDataChange }: Cust
               placeholder="+86 138 0000 0000"
               className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 ${
                 errors.emergencyPhone
-                  ? 'border-red-300 focus:ring-red-500'
-                  : 'border-gray-300 focus:ring-blue-500'
+                  ? 'border-red-300 focus:ring-brand-500'
+                  : 'border-neutral-300 focus:ring-brand-500'
               }`}
             />
             {errors.emergencyPhone && (

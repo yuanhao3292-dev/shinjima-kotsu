@@ -5,6 +5,12 @@ const { withSentryConfig } = require('@sentry/nextjs');
 const nextConfig = {
   reactStrictMode: true,
 
+  // 关闭左下角的 Next.js 开发工具指示器（<nextjs-portal>）。
+  // 它本来就只在 next dev 存在，生产构建不含该组件，
+  // 关掉纯粹是不让它挡住本地预览的目视核对与截图。
+  // 只关指示器徽章，编译错误浮层不受影响。
+  devIndicators: false,
+
   // Turbopack 配置 (Next.js 16+ 默认启用)
   turbopack: {},
 

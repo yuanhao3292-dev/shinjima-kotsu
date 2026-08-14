@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 30,
-    borderBottom: '2px solid #2563eb',
+    borderBottom: '2px solid #336a8d',
     paddingBottom: 20,
   },
   headerLeft: {
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   logo: {
     fontSize: 18,
     fontWeight: 700,
-    color: '#2563eb',
+    color: '#336a8d',
     marginBottom: 4,
   },
   subtitle: {
@@ -62,14 +62,14 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 12,
     fontWeight: 700,
-    backgroundColor: '#f3f4f6',
+    backgroundColor: '#f5f5f0',
     padding: 8,
     marginBottom: 10,
   },
   row: {
     flexDirection: 'row',
     paddingVertical: 6,
-    borderBottom: '1px solid #e5e7eb',
+    borderBottom: '1px solid #e8e6e1',
   },
   labelCell: {
     width: '30%',
@@ -80,14 +80,14 @@ const styles = StyleSheet.create({
   },
   tableHeader: {
     flexDirection: 'row',
-    backgroundColor: '#f3f4f6',
+    backgroundColor: '#f5f5f0',
     padding: 8,
     fontWeight: 700,
   },
   tableRow: {
     flexDirection: 'row',
     padding: 8,
-    borderBottom: '1px solid #e5e7eb',
+    borderBottom: '1px solid #e8e6e1',
   },
   itemCol: {
     width: '50%',
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   },
   summarySection: {
     marginTop: 20,
-    borderTop: '2px solid #2563eb',
+    borderTop: '2px solid #336a8d',
     paddingTop: 15,
   },
   summaryRow: {
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     paddingVertical: 8,
     marginTop: 8,
-    borderTop: '1px solid #e5e7eb',
+    borderTop: '1px solid #e8e6e1',
   },
   totalLabel: {
     width: 100,
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     fontSize: 14,
     fontWeight: 700,
-    color: '#2563eb',
+    color: '#336a8d',
   },
   perPersonRow: {
     flexDirection: 'row',
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   notesSection: {
     marginTop: 30,
     padding: 15,
-    backgroundColor: '#fafafa',
+    backgroundColor: '#fafaf8',
     borderRadius: 4,
   },
   notesTitle: {
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 8,
     color: '#999',
-    borderTop: '1px solid #e5e7eb',
+    borderTop: '1px solid #e8e6e1',
     paddingTop: 10,
   },
 });

@@ -314,8 +314,8 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
             onClick={() => setViewMode('front')}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
               viewMode === 'front'
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                ? 'bg-brand-600 text-white'
+                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
             }`}
           >
             {t('front')}
@@ -324,8 +324,8 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
             onClick={() => setViewMode('back')}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
               viewMode === 'back'
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                ? 'bg-brand-600 text-white'
+                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
             }`}
           >
             {t('back')}
@@ -341,8 +341,8 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
           {/* 背景人形轮廓 */}
           <defs>
             <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#e5e7eb" />
-              <stop offset="100%" stopColor="#d1d5db" />
+              <stop offset="0%" stopColor="#e8e6e1" />
+              <stop offset="100%" stopColor="#d5d1c8" />
             </linearGradient>
           </defs>
 
@@ -358,12 +358,12 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                   d={part.path}
                   fill={
                     isSelected
-                      ? '#3b82f6'
+                      ? '#4e9ac9'
                       : isHovered
-                      ? '#93c5fd'
-                      : '#e5e7eb'
+                      ? '#9dd3ec'
+                      : '#e8e6e1'
                   }
-                  stroke={isSelected ? '#1d4ed8' : '#9ca3af'}
+                  stroke={isSelected ? '#336a8d' : '#6fb4da'}
                   strokeWidth={isSelected ? 2 : 1}
                   className="cursor-pointer transition-all duration-200"
                   onClick={() => toggleBodyPart(part.id)}
@@ -397,7 +397,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                     }
                     r="12"
                     fill="white"
-                    stroke="#1d4ed8"
+                    stroke="#336a8d"
                     strokeWidth="2"
                   />
                 )}
@@ -427,7 +427,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                     }
                     textAnchor="middle"
                     fontSize="14"
-                    fill="#1d4ed8"
+                    fill="#336a8d"
                     fontWeight="bold"
                   >
                     ✓
@@ -445,12 +445,12 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                 d="M90,180 L210,180 L220,420 L80,420 Z"
                 fill={
                   selectedBodyParts.includes('back')
-                    ? '#3b82f6'
+                    ? '#4e9ac9'
                     : hoveredPart === 'back'
-                    ? '#93c5fd'
-                    : '#e5e7eb'
+                    ? '#9dd3ec'
+                    : '#e8e6e1'
                 }
-                stroke={selectedBodyParts.includes('back') ? '#1d4ed8' : '#9ca3af'}
+                stroke={selectedBodyParts.includes('back') ? '#336a8d' : '#6fb4da'}
                 strokeWidth={selectedBodyParts.includes('back') ? 2 : 1}
                 className="cursor-pointer transition-all duration-200"
                 onClick={() => toggleBodyPart('back')}
@@ -465,10 +465,10 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                 ry="60"
                 fill={
                   selectedBodyParts.includes('head')
-                    ? '#3b82f6'
-                    : '#e5e7eb'
+                    ? '#4e9ac9'
+                    : '#e8e6e1'
                 }
-                stroke="#9ca3af"
+                stroke="#6fb4da"
                 strokeWidth="1"
                 className="cursor-pointer"
                 onClick={() => toggleBodyPart('head')}
@@ -481,10 +481,10 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                 height="40"
                 fill={
                   selectedBodyParts.includes('neck')
-                    ? '#3b82f6'
-                    : '#e5e7eb'
+                    ? '#4e9ac9'
+                    : '#e8e6e1'
                 }
-                stroke="#9ca3af"
+                stroke="#6fb4da"
                 className="cursor-pointer"
                 onClick={() => toggleBodyPart('neck')}
               />
@@ -494,7 +494,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
 
         {/* 悬浮提示 */}
         {hoveredPart && (
-          <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-3 py-1.5 rounded-lg text-sm shadow-lg z-10">
+          <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-neutral-900 text-white px-3 py-1.5 rounded-lg text-sm shadow-lg z-10">
             {getPartName(hoveredPart)}
           </div>
         )}
@@ -515,7 +515,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
           return (
             <div key={partId} className="bg-white rounded-xl p-4 shadow-sm">
               <h3 className="font-semibold text-neutral-900 mb-3 flex items-center gap-2">
-                <span className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
+                <span className="w-8 h-8 bg-brand-100 rounded-full flex items-center justify-center text-brand-600">
                   {getPartName(partId).charAt(0)}
                 </span>
                 {getPartName(partId)}{t('partSymptoms')}
@@ -531,8 +531,8 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                       onClick={() => toggleSymptom(symptom, partId)}
                       className={`p-3 rounded-lg text-left text-sm transition-all ${
                         isSelected
-                          ? 'bg-blue-100 border-2 border-blue-500 text-blue-900'
-                          : 'bg-gray-50 border-2 border-transparent hover:bg-gray-100'
+                          ? 'bg-brand-100 border-2 border-brand-500 text-brand-900'
+                          : 'bg-neutral-50 border-2 border-transparent hover:bg-neutral-100'
                       }`}
                     >
                       <div className="flex items-center justify-between">
@@ -542,7 +542,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                         )}
                       </div>
                       {isSelected && (
-                        <Check className="w-4 h-4 text-blue-600 mt-1" />
+                        <Check className="w-4 h-4 text-brand-600 mt-1" />
                       )}
                     </button>
                   );
@@ -555,7 +555,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
         {/* 通用症状 */}
         <div className="bg-white rounded-xl p-4 shadow-sm">
           <h3 className="font-semibold text-neutral-900 mb-3 flex items-center gap-2">
-            <span className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center text-purple-600">
+            <span className="w-8 h-8 bg-brand-100 rounded-full flex items-center justify-center text-brand-600">
               {t('generalShort')}
             </span>
             {t('generalSymptoms')}
@@ -571,8 +571,8 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                   onClick={() => toggleSymptom(symptom, 'general')}
                   className={`p-3 rounded-lg text-left text-sm transition-all ${
                     isSelected
-                      ? 'bg-purple-100 border-2 border-purple-500 text-purple-900'
-                      : 'bg-gray-50 border-2 border-transparent hover:bg-gray-100'
+                      ? 'bg-brand-100 border-2 border-brand-500 text-brand-900'
+                      : 'bg-neutral-50 border-2 border-transparent hover:bg-neutral-100'
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -582,7 +582,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                     )}
                   </div>
                   {isSelected && (
-                    <Check className="w-4 h-4 text-purple-600 mt-1" />
+                    <Check className="w-4 h-4 text-brand-600 mt-1" />
                   )}
                 </button>
               );
@@ -606,7 +606,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
     return (
       <div className="space-y-6">
         {/* 进度 */}
-        <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+        <div className="flex items-center justify-between text-sm text-neutral-500 mb-4">
           <span>
             {t('symptomProgress')} {currentSymptomIndex + 1} / {selectedSymptoms.length}
           </span>
@@ -616,8 +616,8 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
         </div>
 
         {/* 症状标签 */}
-        <div className="bg-blue-50 rounded-lg px-4 py-2 inline-flex items-center gap-2">
-          <span className="text-blue-600 font-medium">{currentSymptom.name}</span>
+        <div className="bg-brand-50 rounded-lg px-4 py-2 inline-flex items-center gap-2">
+          <span className="text-brand-600 font-medium">{currentSymptom.name}</span>
         </div>
 
         {/* 问题卡片 */}
@@ -634,8 +634,8 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                   onClick={() => setCurrentFollowUpAnswer(option.value)}
                   className={`w-full p-3 rounded-lg text-left transition-all ${
                     currentFollowUpAnswer === option.value
-                      ? 'bg-blue-100 border-2 border-blue-500'
-                      : 'bg-gray-50 border-2 border-transparent hover:bg-gray-100'
+                      ? 'bg-brand-100 border-2 border-brand-500'
+                      : 'bg-neutral-50 border-2 border-transparent hover:bg-neutral-100'
                   }`}
                 >
                   {option.label}
@@ -663,12 +663,12 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                     }}
                     className={`w-full p-3 rounded-lg text-left transition-all flex items-center justify-between ${
                       selected
-                        ? 'bg-blue-100 border-2 border-blue-500'
-                        : 'bg-gray-50 border-2 border-transparent hover:bg-gray-100'
+                        ? 'bg-brand-100 border-2 border-brand-500'
+                        : 'bg-neutral-50 border-2 border-transparent hover:bg-neutral-100'
                     }`}
                   >
                     <span>{option.label}</span>
-                    {selected && <Check className="w-5 h-5 text-blue-600" />}
+                    {selected && <Check className="w-5 h-5 text-brand-600" />}
                   </button>
                 );
               })}
@@ -681,7 +681,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
               onChange={(e) => setCurrentFollowUpAnswer(e.target.value)}
               placeholder={currentQuestion.placeholder}
               rows={3}
-              className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full p-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
             />
           )}
         </div>
@@ -690,7 +690,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
         <div className="flex justify-between">
           <button
             onClick={skipFollowUp}
-            className="px-4 py-2 text-gray-500 hover:text-gray-700"
+            className="px-4 py-2 text-neutral-500 hover:text-neutral-700"
           >
             {t('notSure')}
           </button>
@@ -700,7 +700,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
               !currentFollowUpAnswer ||
               (Array.isArray(currentFollowUpAnswer) && currentFollowUpAnswer.length === 0)
             }
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            className="px-6 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
             {t('next')}
             <ChevronRight className="w-4 h-4" />
@@ -716,9 +716,9 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
     const riskLevel = calculateRiskLevel();
 
     const riskConfig = {
-      low: { color: 'text-green-600', bg: 'bg-green-100', label: t('riskLow') },
-      medium: { color: 'text-yellow-600', bg: 'bg-yellow-100', label: t('riskMedium') },
-      high: { color: 'text-red-600', bg: 'bg-red-100', label: t('riskHigh') },
+      low: { color: 'text-brand-600', bg: 'bg-brand-100', label: t('riskLow') },
+      medium: { color: 'text-brand-600', bg: 'bg-brand-100', label: t('riskMedium') },
+      high: { color: 'text-brand-600', bg: 'bg-brand-100', label: t('riskHigh') },
     };
 
     return (
@@ -731,7 +731,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
             </div>
             <Info className={`w-5 h-5 ${riskConfig[riskLevel].color}`} />
           </div>
-          <p className="text-sm text-gray-600 mt-2">
+          <p className="text-sm text-neutral-600 mt-2">
             {t('riskDescription')}
           </p>
         </div>
@@ -744,7 +744,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
               return (
                 <span
                   key={partId}
-                  className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm"
+                  className="px-3 py-1 bg-brand-100 text-brand-700 rounded-full text-sm"
                 >
                   {getPartName(partId)}
                 </span>
@@ -761,16 +761,16 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
               {selectedSymptoms.map((symptom) => (
                 <div
                   key={symptom.symptomId}
-                  className="flex items-center justify-between p-2 bg-gray-50 rounded-lg"
+                  className="flex items-center justify-between p-2 bg-neutral-50 rounded-lg"
                 >
                   <span className="text-sm">{symptom.name}</span>
                   <span
                     className={`text-xs px-2 py-0.5 rounded ${
                       symptom.severity === 'high'
-                        ? 'bg-red-100 text-red-700'
+                        ? 'bg-brand-100 text-brand-700'
                         : symptom.severity === 'medium'
-                        ? 'bg-yellow-100 text-yellow-700'
-                        : 'bg-green-100 text-green-700'
+                        ? 'bg-brand-100 text-brand-700'
+                        : 'bg-brand-100 text-brand-700'
                     }`}
                   >
                     {symptom.severity === 'high' ? t('severityHigh') : symptom.severity === 'medium' ? t('severityMedium') : t('severityLow')}
@@ -789,13 +789,13 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
               {departments.map((dept) => (
                 <div
                   key={dept.id}
-                  className="p-3 bg-gray-50 rounded-lg"
+                  className="p-3 bg-neutral-50 rounded-lg"
                 >
                   <div className="flex items-center gap-2 mb-1">
                     <span>{dept.icon}</span>
                     <span className="font-medium text-sm">{dept.name}</span>
                   </div>
-                  <p className="text-xs text-gray-500">{dept.description}</p>
+                  <p className="text-xs text-neutral-500">{dept.description}</p>
                 </div>
               ))}
             </div>
@@ -803,8 +803,8 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
         )}
 
         {/* 提示 */}
-        <div className="bg-blue-50 rounded-xl p-4">
-          <p className="text-sm text-blue-700">
+        <div className="bg-brand-50 rounded-xl p-4">
+          <p className="text-sm text-brand-700">
             {t('aiDescription')}
           </p>
         </div>
@@ -821,10 +821,10 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
             <div
               className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
                 step === s
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-brand-600 text-white'
                   : idx < ['body-select', 'symptom-select', 'followup', 'summary'].indexOf(step)
-                  ? 'bg-blue-100 text-blue-600'
-                  : 'bg-gray-100 text-gray-400'
+                  ? 'bg-brand-100 text-brand-600'
+                  : 'bg-neutral-100 text-neutral-400'
               }`}
             >
               {idx + 1}
@@ -833,8 +833,8 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
               <div
                 className={`w-12 h-0.5 ${
                   idx < ['body-select', 'symptom-select', 'followup', 'summary'].indexOf(step)
-                    ? 'bg-blue-600'
-                    : 'bg-gray-200'
+                    ? 'bg-brand-600'
+                    : 'bg-neutral-200'
                 }`}
               />
             )}
@@ -850,7 +850,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
           {step === 'followup' && t('stepFollowUpTitle')}
           {step === 'summary' && t('stepSummaryTitle')}
         </h2>
-        <p className="text-gray-500 mt-2">
+        <p className="text-neutral-500 mt-2">
           {step === 'body-select' && t('stepBodySelectDesc')}
           {step === 'symptom-select' && t('stepSymptomSelectDesc')}
           {step === 'followup' && t('stepFollowUpDesc')}
@@ -869,18 +869,18 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
       {/* 已选部位显示 (body-select 步骤) */}
       {step === 'body-select' && selectedBodyParts.length > 0 && (
         <div className="bg-white rounded-xl p-4 shadow-sm mb-6">
-          <h4 className="text-sm font-medium text-gray-700 mb-2">{t('selectedPartsLabel')}</h4>
+          <h4 className="text-sm font-medium text-neutral-700 mb-2">{t('selectedPartsLabel')}</h4>
           <div className="flex flex-wrap gap-2">
             {selectedBodyParts.map((partId) => {
               return (
                 <span
                   key={partId}
-                  className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm flex items-center gap-1"
+                  className="px-3 py-1 bg-brand-100 text-brand-700 rounded-full text-sm flex items-center gap-1"
                 >
                   {getPartName(partId)}
                   <button
                     onClick={() => toggleBodyPart(partId)}
-                    className="ml-1 text-blue-500 hover:text-blue-700"
+                    className="ml-1 text-brand-700 hover:text-brand-700"
                   >
                     ×
                   </button>
@@ -905,7 +905,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
               setStep('followup');
             }
           }}
-          className="px-4 py-2 text-gray-600 hover:text-gray-900"
+          className="px-4 py-2 text-neutral-600 hover:text-neutral-900"
         >
           {t('goBack')}
         </button>
@@ -914,7 +914,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
           <button
             onClick={proceedToSymptoms}
             disabled={selectedBodyParts.length === 0}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            className="px-6 py-3 brand-gradient-solid text-white rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
             {t('nextSelectSymptoms')}
             <ChevronRight className="w-5 h-5" />
@@ -925,7 +925,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
           <button
             onClick={proceedToFollowUp}
             disabled={selectedSymptoms.length === 0}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            className="px-6 py-3 brand-gradient-solid text-white rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
             {t('nextDetailedInquiry')}
             <ChevronRight className="w-5 h-5" />
@@ -935,7 +935,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
         {step === 'summary' && (
           <button
             onClick={handleComplete}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"
+            className="px-6 py-3 brand-gradient-solid text-white rounded-lg hover:opacity-90 flex items-center gap-2"
           >
             {t('startAiAnalysis')}
             <ChevronRight className="w-5 h-5" />

@@ -82,7 +82,7 @@ interface OrderInfo {
 }
 
 const getStatusConfig = (lang: Language) => ({
-  pending: { label: t('statusPending', lang), color: 'text-yellow-700', bgColor: 'bg-yellow-50 border-yellow-200', icon: Clock },
+  pending: { label: t('statusPending', lang), color: 'text-brand-700', bgColor: 'bg-brand-50 border-brand-200', icon: Clock },
   confirmed: { label: t('statusConfirmed', lang), color: 'text-brand-700', bgColor: 'bg-brand-50 border-brand-200', icon: CheckCircle },
   completed: { label: t('statusCompleted', lang), color: 'text-green-700', bgColor: 'bg-green-50 border-green-200', icon: CheckCircle },
   cancelled: { label: t('statusCancelled', lang), color: 'text-red-700', bgColor: 'bg-red-50 border-red-200', icon: AlertCircle },
@@ -153,22 +153,22 @@ export default function OrderLookupPage() {
           {/* Decorative Elements */}
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
-            <div className="absolute w-72 h-72 bg-accent-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
+            <div className="absolute w-72 h-72 bg-brand-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
           </div>
 
           <div className="relative z-10 flex flex-col justify-center px-16">
             <div className="max-w-lg">
               <div className="flex items-center gap-3 mb-8">
-                <div className="h-[1px] w-12 bg-accent-400" />
-                <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">
+                <div className="h-[1px] w-12 bg-brand-400" />
+                <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">
                   {t('heroLabel', lang)}
                 </span>
               </div>
 
-              <h1 className="font-serif text-4xl xl:text-5xl text-white mb-4 leading-tight">
+              <h1 className="font-serif text-4xl xl:text-5xl text-brand-900 mb-4 leading-tight">
                 {t('orderLookupHero', lang)}
                 <br />
-                <span className="text-accent-600">{t('noLoginRequired', lang)}</span>
+                <span className="text-brand-700">{t('noLoginRequired', lang)}</span>
               </h1>
 
               <p className="text-lg text-neutral-600 leading-relaxed font-light mb-10 max-w-md">
@@ -177,11 +177,11 @@ export default function OrderLookupPage() {
 
               <div className="flex items-center gap-6 text-sm">
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                  <div className="w-2 h-2 bg-brand-400 rounded-full animate-pulse" />
                   <span className="text-neutral-600">{t('support24h', lang)}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-accent-400 rounded-full" />
+                  <div className="w-2 h-2 bg-brand-400 rounded-full" />
                   <span className="text-neutral-600">{t('chineseService', lang)}</span>
                 </div>
               </div>
@@ -194,8 +194,8 @@ export default function OrderLookupPage() {
           <div className="w-full max-w-md">
             {/* Mobile hero label */}
             <div className="lg:hidden flex items-center gap-3 mb-6">
-              <div className="h-[1px] w-8 bg-accent-400" />
-              <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">ORDER LOOKUP</span>
+              <div className="h-[1px] w-8 bg-brand-400" />
+              <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">ORDER LOOKUP</span>
             </div>
 
             {/* Back Link */}
@@ -254,7 +254,7 @@ export default function OrderLookupPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-accent-400 hover:bg-accent-300 disabled:bg-neutral-300 text-brand-900 font-medium py-3 px-6 text-sm tracking-wider transition-colors flex items-center justify-center gap-2"
+                className="w-full brand-gradient-solid hover:opacity-90 disabled:bg-neutral-300 text-white font-medium py-3 px-6 text-sm tracking-wider transition-colors flex items-center justify-center gap-2"
               >
                 {loading ? (
                   <>
@@ -381,7 +381,7 @@ export default function OrderLookupPage() {
                       href="https://line.me/ti/p/j3XxBP50j9"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-[#06C755] hover:underline font-bold"
+                      className="inline-flex items-center gap-2 text-brand-700 hover:underline font-bold"
                     >
                       {t('lineSupport', lang)}
                     </a>

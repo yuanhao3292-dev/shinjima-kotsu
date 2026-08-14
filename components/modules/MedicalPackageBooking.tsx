@@ -25,59 +25,59 @@ const packageColors: Record<string, {
   badgeBg?: string;
 }> = {
   'vip-member-course': {
-    headerBg: 'bg-gray-900',
-    title: 'text-yellow-400',
-    price: 'text-yellow-400',
-    check: 'text-yellow-500',
-    button: 'bg-yellow-500 text-black hover:bg-yellow-400',
-    cardBg: 'bg-gray-900',
-    cardBorder: 'border-gray-800',
-    badgeBg: 'bg-yellow-500 text-black',
+    headerBg: 'bg-neutral-900',
+    title: 'text-brand-400',
+    price: 'text-brand-400',
+    check: 'text-brand-500',
+    button: 'bg-brand-500 text-black hover:bg-brand-400',
+    cardBg: 'bg-neutral-900',
+    cardBorder: 'border-neutral-800',
+    badgeBg: 'bg-brand-500 text-black',
   },
   'premium-cardiac-course': {
-    headerBg: 'bg-gradient-to-r from-blue-600 to-blue-700',
-    title: 'text-blue-900',
-    price: 'text-blue-900',
-    check: 'text-blue-500',
-    button: 'bg-blue-600 text-white hover:bg-blue-700',
-    cardBg: 'bg-gradient-to-br from-blue-50 to-white',
-    cardBorder: 'border-blue-200',
+    headerBg: 'bg-gradient-to-r from-brand-600 to-brand-700',
+    title: 'text-brand-900',
+    price: 'text-brand-900',
+    check: 'text-brand-500',
+    button: 'bg-brand-600 text-white hover:bg-brand-700',
+    cardBg: 'bg-gradient-to-br from-brand-50 to-white',
+    cardBorder: 'border-brand-200',
   },
   'select-gastro-colonoscopy': {
-    headerBg: 'bg-gradient-to-r from-green-600 to-green-700',
-    title: 'text-green-900',
-    price: 'text-green-900',
-    check: 'text-green-500',
-    button: 'bg-green-600 text-white hover:bg-green-700',
+    headerBg: 'bg-gradient-to-r from-brand-600 to-brand-700',
+    title: 'text-brand-900',
+    price: 'text-brand-900',
+    check: 'text-brand-500',
+    button: 'bg-brand-600 text-white hover:bg-brand-700',
     cardBg: 'bg-white',
-    cardBorder: 'border-green-200',
+    cardBorder: 'border-brand-200',
   },
   'select-gastroscopy': {
-    headerBg: 'bg-gradient-to-r from-teal-600 to-teal-700',
-    title: 'text-teal-800',
-    price: 'text-teal-800',
-    check: 'text-teal-500',
-    button: 'bg-teal-600 text-white hover:bg-teal-700',
+    headerBg: 'bg-gradient-to-r from-brand-600 to-brand-700',
+    title: 'text-brand-800',
+    price: 'text-brand-800',
+    check: 'text-brand-700',
+    button: 'bg-brand-600 text-white hover:bg-brand-700',
     cardBg: 'bg-white',
-    cardBorder: 'border-teal-200',
+    cardBorder: 'border-brand-200',
   },
   'dwibs-cancer-screening': {
-    headerBg: 'bg-gradient-to-r from-purple-600 to-purple-700',
-    title: 'text-purple-900',
-    price: 'text-purple-900',
-    check: 'text-purple-500',
-    button: 'bg-purple-600 text-white hover:bg-purple-700',
+    headerBg: 'bg-gradient-to-r from-brand-600 to-brand-700',
+    title: 'text-brand-900',
+    price: 'text-brand-900',
+    check: 'text-brand-700',
+    button: 'bg-brand-600 text-white hover:bg-brand-700',
     cardBg: 'bg-white',
-    cardBorder: 'border-purple-200',
+    cardBorder: 'border-brand-200',
   },
   'basic-checkup': {
-    headerBg: 'bg-gradient-to-r from-gray-700 to-gray-800',
-    title: 'text-gray-800',
-    price: 'text-gray-800',
-    check: 'text-gray-500',
-    button: 'bg-gray-700 text-white hover:bg-gray-800',
-    cardBg: 'bg-gray-50',
-    cardBorder: 'border-gray-300',
+    headerBg: 'bg-gradient-to-r from-neutral-700 to-neutral-800',
+    title: 'text-neutral-800',
+    price: 'text-neutral-800',
+    check: 'text-neutral-500',
+    button: 'bg-neutral-700 text-white hover:bg-neutral-800',
+    cardBg: 'bg-neutral-50',
+    cardBorder: 'border-neutral-300',
   },
 };
 
@@ -222,9 +222,9 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
 
   if (!pkg) {
     return (
-      <div className="min-h-screen bg-[#faf9f7] flex items-center justify-center">
+      <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-xl text-gray-600 mb-4">{t.notFound}</p>
+          <p className="text-xl text-neutral-600 mb-4">{t.notFound}</p>
           <Link href={`/g/${guideSlug}/medical-packages`} className="text-neutral-500 hover:text-brand-900 inline-flex items-center gap-2">{t.backToList}</Link>
         </div>
       </div>
@@ -298,9 +298,9 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
   const backUrl = `/g/${guideSlug}/medical-packages`;
 
   return (
-    <div className="min-h-screen bg-[#faf9f7]">
+    <div className="min-h-screen bg-neutral-50">
       {/* Header */}
-      <div className="bg-white border-b border-gray-100">
+      <div className="bg-white border-b border-neutral-100">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link
             href={backUrl}
@@ -309,7 +309,7 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
             <ArrowLeft size={18} />
             <span className="text-sm">{t.backToList}</span>
           </Link>
-          <span className="text-sm text-gray-400">{brandName}</span>
+          <span className="text-sm text-neutral-400">{brandName}</span>
         </div>
       </div>
 
@@ -323,12 +323,12 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
                   {pkg.badge}
                 </span>
               )}
-              <h1 className={`text-3xl md:text-4xl font-serif font-bold ${pkg.isVIP ? 'text-yellow-400' : 'text-white'}`}>{pkg.name}</h1>
-              <p className={`text-sm mt-2 ${pkg.isVIP ? 'text-gray-400' : 'text-white/70'}`}>{pkg.nameEn}</p>
+              <h1 className={`text-3xl md:text-4xl font-serif font-bold ${pkg.isVIP ? 'text-brand-700' : 'text-white'}`}>{pkg.name}</h1>
+              <p className={`text-sm mt-2 ${pkg.isVIP ? 'text-neutral-400' : 'text-white/70'}`}>{pkg.nameEn}</p>
             </div>
             <div className="text-right">
-              <p className={`text-4xl md:text-5xl font-bold ${pkg.isVIP ? 'text-yellow-400' : 'text-white'}`}>¥{pkg.price.toLocaleString()}</p>
-              <p className={`text-xs mt-1 ${pkg.isVIP ? 'text-gray-500' : 'text-white/60'}`}>{t.priceNote}</p>
+              <p className={`text-4xl md:text-5xl font-bold ${pkg.isVIP ? 'text-brand-700' : 'text-white'}`}>¥{pkg.price.toLocaleString()}</p>
+              <p className={`text-xs mt-1 ${pkg.isVIP ? 'text-neutral-500' : 'text-white/60'}`}>{t.priceNote}</p>
             </div>
           </div>
         </div>
@@ -340,8 +340,8 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
           <div className="lg:col-span-1">
             <div className={`rounded-2xl p-6 border ${pkg.colors.cardBorder} ${pkg.colors.cardBg} ${pkg.isVIP ? 'text-white' : ''} sticky top-8`}>
               <h3 className={`text-lg font-serif font-bold mb-3 ${pkg.colors.title}`}>{t.pkgIncludes}</h3>
-              <p className={`text-sm mb-6 leading-relaxed ${pkg.isVIP ? 'text-gray-300' : 'text-gray-500'}`}>{pkg.longDescription}</p>
-              <div className={`space-y-2.5 text-sm ${pkg.isVIP ? '' : 'text-gray-700'}`}>
+              <p className={`text-sm mb-6 leading-relaxed ${pkg.isVIP ? 'text-neutral-300' : 'text-neutral-500'}`}>{pkg.longDescription}</p>
+              <div className={`space-y-2.5 text-sm ${pkg.isVIP ? '' : 'text-neutral-700'}`}>
                 {pkg.features.map((feature, idx) => (
                   <div key={idx} className="flex gap-2">
                     <CheckCircle size={16} className={`shrink-0 mt-0.5 ${pkg.colors.check}`} />
@@ -349,9 +349,9 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
                   </div>
                 ))}
               </div>
-              <div className={`mt-6 pt-6 border-t ${pkg.isVIP ? 'border-gray-700' : 'border-gray-200'}`}>
+              <div className={`mt-6 pt-6 border-t ${pkg.isVIP ? 'border-neutral-700' : 'border-neutral-200'}`}>
                 <div className="flex justify-between items-center">
-                  <span className={`text-sm ${pkg.isVIP ? 'text-gray-400' : 'text-gray-500'}`}>{t.pkgPrice}</span>
+                  <span className={`text-sm ${pkg.isVIP ? 'text-neutral-400' : 'text-neutral-500'}`}>{t.pkgPrice}</span>
                   <span className={`text-xl font-bold ${pkg.colors.price}`}>¥{pkg.price.toLocaleString()}</span>
                 </div>
               </div>
@@ -360,26 +360,26 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
 
           {/* Right: Booking Form */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl border border-gray-200 p-8">
-              <h2 className="text-2xl font-serif font-bold text-gray-900 mb-6">{t.bookingTitle}</h2>
+            <div className="bg-white rounded-2xl border border-neutral-200 p-8">
+              <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6">{t.bookingTitle}</h2>
               <form onSubmit={handleSubmit}>
                 {/* 基本信息 */}
                 <div className="grid md:grid-cols-2 gap-5 mb-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">{t.formName} <span className="text-red-500">*</span></label>
-                    <input type="text" required value={customerInfo.name} onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })} className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-sm" placeholder={t.formNamePlaceholder} />
+                    <label className="block text-sm font-medium text-neutral-700 mb-2">{t.formName} <span className="text-red-500">*</span></label>
+                    <input type="text" required value={customerInfo.name} onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })} className="w-full px-4 py-2.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-neutral-900 focus:border-transparent text-sm" placeholder={t.formNamePlaceholder} />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">{t.formCompany}</label>
-                    <input type="text" value={customerInfo.company} onChange={(e) => setCustomerInfo({ ...customerInfo, company: e.target.value })} className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-sm" placeholder={t.formCompanyPlaceholder} />
+                    <label className="block text-sm font-medium text-neutral-700 mb-2">{t.formCompany}</label>
+                    <input type="text" value={customerInfo.company} onChange={(e) => setCustomerInfo({ ...customerInfo, company: e.target.value })} className="w-full px-4 py-2.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-neutral-900 focus:border-transparent text-sm" placeholder={t.formCompanyPlaceholder} />
                   </div>
                 </div>
 
                 {/* 联系方式 */}
                 <div className="mb-6">
                   <div className="flex items-center justify-between mb-3">
-                    <label className="block text-sm font-medium text-gray-700">{t.formContact} <span className="text-red-500">*</span></label>
-                    <span className="text-xs text-gray-400">{t.formContactRequired}</span>
+                    <label className="block text-sm font-medium text-neutral-700">{t.formContact} <span className="text-red-500">*</span></label>
+                    <span className="text-xs text-neutral-400">{t.formContactRequired}</span>
                   </div>
                   {contactError && (
                     <div className="mb-3 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-600">
@@ -388,73 +388,73 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
                   )}
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs text-gray-500 mb-1.5">{t.formPhone}</label>
-                      <input type="tel" value={customerInfo.phone} onChange={(e) => { setCustomerInfo({ ...customerInfo, phone: e.target.value }); setContactError(''); }} className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-sm" placeholder={t.formPhonePlaceholder} />
+                      <label className="block text-xs text-neutral-500 mb-1.5">{t.formPhone}</label>
+                      <input type="tel" value={customerInfo.phone} onChange={(e) => { setCustomerInfo({ ...customerInfo, phone: e.target.value }); setContactError(''); }} className="w-full px-4 py-2.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-neutral-900 focus:border-transparent text-sm" placeholder={t.formPhonePlaceholder} />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-500 mb-1.5">{t.formEmail}</label>
-                      <input type="email" value={customerInfo.email} onChange={(e) => { setCustomerInfo({ ...customerInfo, email: e.target.value }); setContactError(''); }} className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-sm" placeholder={t.formEmailPlaceholder} />
-                      <p className="mt-1 text-xs text-gray-400">{t.formEmailNote}</p>
+                      <label className="block text-xs text-neutral-500 mb-1.5">{t.formEmail}</label>
+                      <input type="email" value={customerInfo.email} onChange={(e) => { setCustomerInfo({ ...customerInfo, email: e.target.value }); setContactError(''); }} className="w-full px-4 py-2.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-neutral-900 focus:border-transparent text-sm" placeholder={t.formEmailPlaceholder} />
+                      <p className="mt-1 text-xs text-neutral-400">{t.formEmailNote}</p>
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-500 mb-1.5">{t.formLine}</label>
-                      <input type="text" value={customerInfo.line} onChange={(e) => { setCustomerInfo({ ...customerInfo, line: e.target.value }); setContactError(''); }} className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-sm" placeholder={t.formLinePlaceholder} />
+                      <label className="block text-xs text-neutral-500 mb-1.5">{t.formLine}</label>
+                      <input type="text" value={customerInfo.line} onChange={(e) => { setCustomerInfo({ ...customerInfo, line: e.target.value }); setContactError(''); }} className="w-full px-4 py-2.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-neutral-900 focus:border-transparent text-sm" placeholder={t.formLinePlaceholder} />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-500 mb-1.5">{t.formWechat}</label>
-                      <input type="text" value={customerInfo.wechat} onChange={(e) => { setCustomerInfo({ ...customerInfo, wechat: e.target.value }); setContactError(''); }} className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-sm" placeholder={t.formWechatPlaceholder} />
+                      <label className="block text-xs text-neutral-500 mb-1.5">{t.formWechat}</label>
+                      <input type="text" value={customerInfo.wechat} onChange={(e) => { setCustomerInfo({ ...customerInfo, wechat: e.target.value }); setContactError(''); }} className="w-full px-4 py-2.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-neutral-900 focus:border-transparent text-sm" placeholder={t.formWechatPlaceholder} />
                     </div>
                     <div className="md:col-span-2">
-                      <label className="block text-xs text-gray-500 mb-1.5">{t.formWhatsapp}</label>
-                      <input type="tel" value={customerInfo.whatsapp} onChange={(e) => { setCustomerInfo({ ...customerInfo, whatsapp: e.target.value }); setContactError(''); }} className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-sm" placeholder={t.formWhatsappPlaceholder} />
+                      <label className="block text-xs text-neutral-500 mb-1.5">{t.formWhatsapp}</label>
+                      <input type="tel" value={customerInfo.whatsapp} onChange={(e) => { setCustomerInfo({ ...customerInfo, whatsapp: e.target.value }); setContactError(''); }} className="w-full px-4 py-2.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-neutral-900 focus:border-transparent text-sm" placeholder={t.formWhatsappPlaceholder} />
                     </div>
                   </div>
-                  <p className="mt-2 text-xs text-gray-400">{t.formContactNote}</p>
+                  <p className="mt-2 text-xs text-neutral-400">{t.formContactNote}</p>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-5 mb-8">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">{t.formDate}</label>
-                    <input type="date" value={preferredDate} onChange={(e) => setPreferredDate(e.target.value)} className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-sm" />
+                    <label className="block text-sm font-medium text-neutral-700 mb-2">{t.formDate}</label>
+                    <input type="date" value={preferredDate} onChange={(e) => setPreferredDate(e.target.value)} className="w-full px-4 py-2.5 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-neutral-900 focus:border-transparent text-sm" />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">{t.formTime}</label>
-                    <div className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-gray-600 text-sm">{t.formTimeFixed}</div>
-                    <p className="mt-1.5 text-xs text-gray-400">{t.formTimeNote}</p>
+                    <label className="block text-sm font-medium text-neutral-700 mb-2">{t.formTime}</label>
+                    <div className="w-full px-4 py-2.5 bg-neutral-50 border border-neutral-200 rounded-lg text-neutral-600 text-sm">{t.formTimeFixed}</div>
+                    <p className="mt-1.5 text-xs text-neutral-400">{t.formTimeNote}</p>
                   </div>
                 </div>
 
                 {/* Add-on Services */}
                 <div className="mb-8">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">{t.addOnTitle}</h3>
+                  <h3 className="text-lg font-semibold text-neutral-900 mb-4">{t.addOnTitle}</h3>
                   <div className="space-y-3">
                     {ADD_ON_SERVICES.map((service) => {
                       const isSelected = selectedAddOns.includes(service.id);
                       const ServiceIcon = service.icon;
                       return (
                         <button key={service.id} type="button" onClick={() => setSelectedAddOns(isSelected ? selectedAddOns.filter(id => id !== service.id) : [...selectedAddOns, service.id])}
-                          className={`w-full p-4 rounded-xl border-2 text-left transition-all flex items-start gap-4 ${isSelected ? 'border-gray-900 bg-gray-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                          <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${isSelected ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-500'}`}>
+                          className={`w-full p-4 rounded-xl border-2 text-left transition-all flex items-start gap-4 ${isSelected ? 'border-neutral-900 bg-neutral-50' : 'border-neutral-200 hover:border-neutral-300'}`}>
+                          <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${isSelected ? 'bg-neutral-900 text-white' : 'bg-neutral-100 text-neutral-500'}`}>
                             <ServiceIcon size={20} />
                           </div>
                           <div className="flex-grow">
                             <div className="flex items-center justify-between">
-                              <span className={`font-medium ${isSelected ? 'text-gray-900' : 'text-gray-700'}`}>{service.name}</span>
-                              {isSelected && <Check className="w-5 h-5 text-gray-900" />}
+                              <span className={`font-medium ${isSelected ? 'text-neutral-900' : 'text-neutral-700'}`}>{service.name}</span>
+                              {isSelected && <Check className="w-5 h-5 text-neutral-900" />}
                             </div>
-                            <p className="text-sm text-gray-500 mt-1">{service.description}</p>
-                            <p className="text-sm font-semibold mt-1 text-gray-900">{service.price ? `¥${service.price.toLocaleString()}` : t.addOnFreeConsult}</p>
+                            <p className="text-sm text-neutral-500 mt-1">{service.description}</p>
+                            <p className="text-sm font-semibold mt-1 text-neutral-900">{service.price ? `¥${service.price.toLocaleString()}` : t.addOnFreeConsult}</p>
                           </div>
                         </button>
                       );
                     })}
                   </div>
-                  {selectedAddOns.length > 0 && <p className="mt-3 text-xs text-gray-400">{t.addOnNote}</p>}
+                  {selectedAddOns.length > 0 && <p className="mt-3 text-xs text-neutral-400">{t.addOnNote}</p>}
                 </div>
 
                 <div className="mb-8">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">{t.formNotes}</label>
-                  <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent text-sm" placeholder={t.formNotesPlaceholder} />
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">{t.formNotes}</label>
+                  <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-neutral-900 focus:border-transparent text-sm" placeholder={t.formNotesPlaceholder} />
                 </div>
 
                 {/* Cancellation Policy */}
@@ -468,21 +468,21 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
                 </div>
 
                 {/* Medical Disclaimer */}
-                <p className="mb-6 text-xs text-gray-500 leading-relaxed">{t.medicalDisclaimer}</p>
+                <p className="mb-6 text-xs text-neutral-500 leading-relaxed">{t.medicalDisclaimer}</p>
 
                 {/* Legal Consent Checkboxes */}
                 <div className="mb-8 space-y-3">
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" checked={consents.cancel} onChange={(e) => setConsents({ ...consents, cancel: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900" />
-                    <span className="text-sm text-gray-700">{t.consentCancel}</span>
+                    <input type="checkbox" checked={consents.cancel} onChange={(e) => setConsents({ ...consents, cancel: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-neutral-300 text-neutral-900 focus:ring-neutral-900" />
+                    <span className="text-sm text-neutral-700">{t.consentCancel}</span>
                   </label>
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" checked={consents.tokushoho} onChange={(e) => setConsents({ ...consents, tokushoho: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900" />
-                    <span className="text-sm text-gray-700"><Link href="/legal/tokushoho" target="_blank" className="underline hover:text-gray-900">{t.consentTokushoho}</Link></span>
+                    <input type="checkbox" checked={consents.tokushoho} onChange={(e) => setConsents({ ...consents, tokushoho: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-neutral-300 text-neutral-900 focus:ring-neutral-900" />
+                    <span className="text-sm text-neutral-700"><Link href="/legal/tokushoho" target="_blank" className="underline hover:text-neutral-900">{t.consentTokushoho}</Link></span>
                   </label>
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" checked={consents.privacy} onChange={(e) => setConsents({ ...consents, privacy: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900" />
-                    <span className="text-sm text-gray-700"><Link href="/legal/privacy" target="_blank" className="underline hover:text-gray-900">{t.consentPrivacy}</Link></span>
+                    <input type="checkbox" checked={consents.privacy} onChange={(e) => setConsents({ ...consents, privacy: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-neutral-300 text-neutral-900 focus:ring-neutral-900" />
+                    <span className="text-sm text-neutral-700"><Link href="/legal/privacy" target="_blank" className="underline hover:text-neutral-900">{t.consentPrivacy}</Link></span>
                   </label>
                   {!(consents.cancel && consents.tokushoho && consents.privacy) && (
                     <p className="text-xs text-amber-600">{t.consentRequired}</p>
@@ -492,11 +492,11 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
                 <button type="submit" disabled={processing || !(consents.cancel && consents.tokushoho && consents.privacy)} className={`w-full py-4 text-base font-bold rounded-xl transition-all ${pkg.colors.button} disabled:opacity-50`}>
                   {processing ? t.processing : `${t.submitBtn} ¥${pkg.price.toLocaleString()}`}
                 </button>
-                <p className="mt-4 text-xs text-gray-400 text-center">{t.stripeNote}</p>
+                <p className="mt-4 text-xs text-neutral-400 text-center">{t.stripeNote}</p>
 
                 {/* Payment Method Icons */}
                 <div className="mt-4 flex items-center justify-center gap-3">
-                  <span className="text-xs text-gray-400">{t.paymentMethods}</span>
+                  <span className="text-xs text-neutral-400">{t.paymentMethods}</span>
                   <div className="flex items-center gap-2">
                     <Image src="/icons/payment/visa.svg" alt="Visa" width={40} height={25} className="h-6 w-auto" />
                     <Image src="/icons/payment/mastercard.svg" alt="Mastercard" width={40} height={25} className="h-6 w-auto" />
@@ -505,7 +505,7 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
                   </div>
                 </div>
 
-                <div className="mt-6 flex items-center justify-center gap-6 text-xs text-gray-400">
+                <div className="mt-6 flex items-center justify-center gap-6 text-xs text-neutral-400">
                   <div className="flex items-center gap-1.5"><Lock size={14} /><span>{t.securitySSL}</span></div>
                   <div className="flex items-center gap-1.5"><CreditCard size={14} /><span>{t.securityStripe}</span></div>
                   <div className="flex items-center gap-1.5"><Shield size={14} /><span>{t.securityPrivacy}</span></div>
@@ -517,8 +517,8 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
       </div>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8">
-        <div className="max-w-6xl mx-auto px-6 text-center text-sm text-gray-400">
+      <footer className="bg-neutral-900 text-white py-8">
+        <div className="max-w-6xl mx-auto px-6 text-center text-sm text-neutral-400">
           <p>体检服务由 TIMC 德州会国际医疗中心 提供</p>
           <p className="mt-1">旅行服务由 新岛交通株式会社 提供 · 大阪府知事登录旅行业 第2-3115号</p>
         </div>

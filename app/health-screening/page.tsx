@@ -363,7 +363,14 @@ export default function HealthScreeningPage() {
   const [followupQuestions, setFollowupQuestions] = useState<string[]>([]);
   const [documentUploaded, setDocumentUploaded] = useState(false);
   const [isAnalyzingDoc, setIsAnalyzingDoc] = useState(false);
-  const [reportLang, setReportLang] = useState<Language>('zh-CN');
+  // 同 g/[slug] 版：默认跟随界面语言（useLanguage 首帧为 'ja'，
+  // cookie 值 effect 后就位），用户手动选择后不再跟随。
+  // 原来写死 'zh-CN'，日语/英语用户默认拿到简中报告。
+  const [reportLang, setReportLang] = useState<Language>(lang);
+  const [reportLangTouched, setReportLangTouched] = useState(false);
+  useEffect(() => {
+    if (!reportLangTouched) setReportLang(lang);
+  }, [lang, reportLangTouched]);
 
   useEffect(() => {
     async function fetchData() {
@@ -632,7 +639,7 @@ export default function HealthScreeningPage() {
                     ]).map(({ code, label }) => (
                       <button
                         key={code}
-                        onClick={() => setReportLang(code)}
+                        onClick={() => { setReportLangTouched(true); setReportLang(code); }}
                         className={`px-3 py-1 text-xs transition-colors ${
                           reportLang === code
                             ? 'bg-brand-900 text-white'
@@ -647,7 +654,7 @@ export default function HealthScreeningPage() {
                 <button
                   onClick={handleAnalyzeWithDocument}
                   disabled={isAnalyzingDoc}
-                  className="w-full px-6 py-4 bg-accent-400 hover:bg-accent-300 text-brand-900 text-lg font-medium tracking-wider transition-colors disabled:opacity-50"
+                  className="w-full px-6 py-4 brand-gradient-solid hover:opacity-90 text-white text-lg font-medium tracking-wider transition-colors disabled:opacity-50"
                 >
                   {isAnalyzingDoc ? (
                     <span className="flex flex-col items-center gap-2">
@@ -714,14 +721,14 @@ export default function HealthScreeningPage() {
         <section className="relative brand-gradient-deep overflow-hidden">
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
-            <div className="absolute w-72 h-72 bg-accent-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
+            <div className="absolute w-72 h-72 bg-brand-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
           </div>
 
           <div className="relative z-10 max-w-4xl mx-auto px-6 pt-40 pb-20 text-center">
             <div className="flex items-center justify-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-accent-400" />
-              <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">AI HEALTH SCREENING</span>
-              <div className="h-[1px] w-12 bg-accent-400" />
+              <div className="h-[1px] w-12 bg-brand-400" />
+              <span className="text-xs tracking-[0.3em] text-brand-400 uppercase">AI HEALTH SCREENING</span>
+              <div className="h-[1px] w-12 bg-brand-400" />
             </div>
 
             <h1 className="font-serif text-3xl md:text-4xl xl:text-5xl text-white mb-6 leading-tight">
@@ -733,7 +740,7 @@ export default function HealthScreeningPage() {
             </p>
 
             {/* Free remaining badge */}
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent-400/10 text-accent-400 border border-accent-400/30 text-sm mb-10">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-400/10 text-brand-400 border border-brand-400/30 text-sm mb-10">
               <Sparkles className="w-4 h-4" />
               <span>
                 {t('freeRemaining', lang)} {data?.freeRemaining ?? FREE_SCREENING_LIMIT} {lang === 'ja' ? '回' : lang === 'en' ? '' : '次'}
@@ -754,7 +761,7 @@ export default function HealthScreeningPage() {
                 <button
                   onClick={startNewScreening}
                   disabled={isCreating}
-                  className="px-10 py-4 bg-accent-400 hover:bg-accent-300 text-brand-900 text-lg font-medium tracking-wider transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                  className="px-10 py-4 brand-gradient-solid hover:opacity-90 text-white text-lg font-medium tracking-wider transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                 >
                   {isCreating ? (
                     <>
@@ -782,7 +789,7 @@ export default function HealthScreeningPage() {
                 <p className="text-neutral-300 mb-4">{t('limitReached', lang)}</p>
                 <Link
                   href="/health-screening/history"
-                  className="text-accent-400 hover:text-accent-300"
+                  className="text-brand-400 hover:text-brand-300"
                 >
                   {t('viewHistory', lang)}
                 </Link>
@@ -805,9 +812,9 @@ export default function HealthScreeningPage() {
           <div className="max-w-4xl mx-auto px-6">
             <div className="text-center mb-10">
               <div className="flex items-center justify-center gap-3 mb-4">
-                <div className="h-[1px] w-8 bg-accent-400" />
-                <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">FEATURES</span>
-                <div className="h-[1px] w-8 bg-accent-400" />
+                <div className="h-[1px] w-8 bg-brand-400" />
+                <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">FEATURES</span>
+                <div className="h-[1px] w-8 bg-brand-400" />
               </div>
               <h2 className="text-2xl font-serif text-brand-900">{t('newFeatures', lang)}</h2>
             </div>

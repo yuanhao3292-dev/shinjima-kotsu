@@ -49,10 +49,10 @@ const pageTranslations = {
     'en': 'Refer clients to us. All services are provided by Niijima Kotsu with full responsibility.',
   },
   btnWechatApply: {
-    'ja': 'WeChat申請',
-    'zh-TW': '微信申請加入',
-    'zh-CN': '微信申请加入',
-    'en': 'WeChat Application',
+    'ja': 'パートナー登録申請',
+    'zh-TW': '申請成為合夥人',
+    'zh-CN': '申请成为合伙人',
+    'en': 'Apply to Become a Partner',
   },
   btnLearnHow: {
     'ja': '仕組みを理解する',
@@ -618,12 +618,6 @@ const pageTranslations = {
   },
 
   // Aria Labels
-  ariaWechatApply: {
-    'ja': 'WeChat QRコードを開いて申請',
-    'zh-TW': '打開微信二維碼申請加入',
-    'zh-CN': '打开微信二维码申请加入',
-    'en': 'Open WeChat QR code to apply',
-  },
   ariaWechatConsult: {
     'ja': 'WeChat QRコードを開いてブランドサイト開設相談',
     'zh-TW': '打開微信二維碼諮詢開通品牌網站',
@@ -688,7 +682,7 @@ export default function GuidePartnerPage() {
   return (
     <PublicLayout showFooter={true} activeNav="partner">
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center bg-zinc-900 overflow-hidden">
+      <section className="relative min-h-screen flex items-center bg-white overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
@@ -700,42 +694,41 @@ export default function GuidePartnerPage() {
             quality={75}
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-zinc-900/95 via-zinc-900/85 to-zinc-900/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10"></div>
         </div>
         {/* Decorative Elements */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute w-96 h-96 bg-zinc-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
-          <div className="absolute w-72 h-72 bg-zinc-500/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+          <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
+          <div className="absolute w-72 h-72 bg-brand-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
         </div>
         <div className="relative z-10 container mx-auto px-6 py-32">
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-zinc-500"></div>
-              <span className="text-xs tracking-[0.3em] text-zinc-400 uppercase">{t('heroTagline')}</span>
+              <div className="h-[1px] w-12 bg-brand-400"></div>
+              <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">{t('heroTagline')}</span>
             </div>
 
-            <h1 className="font-sans text-4xl md:text-6xl text-white mb-6 leading-tight">
+            <h1 className="font-sans text-4xl md:text-6xl text-brand-900 mb-6 leading-tight">
               {t('heroTitle1')}
               <br />
-              <span className="text-white">{t('heroTitle2')}</span>
+              <span className="brand-gradient-text">{t('heroTitle2')}</span>
             </h1>
 
-            <p className="text-xl text-zinc-300 mb-8 leading-relaxed font-light max-w-2xl">
+            <p className="text-xl text-neutral-600 mb-8 leading-relaxed font-light max-w-2xl">
               {t('heroDesc')}<br />
               {t('heroDesc2')}
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <button
-                onClick={() => setShowWechatQR(true)}
-                className="inline-flex items-center px-8 py-4 rounded-lg bg-white text-zinc-900 text-sm font-medium tracking-wider hover:bg-zinc-100 transition-colors"
-                aria-label={t('ariaWechatApply')}
+              <Link
+                href="/guide-partner/register"
+                className="inline-flex items-center px-8 py-4 rounded-lg brand-gradient-solid text-white text-sm font-medium tracking-wide hover:opacity-90 transition-opacity"
               >
                 {t('btnWechatApply')}
-              </button>
+              </Link>
               <a
                 href="#how-it-works"
-                className="inline-flex items-center px-8 py-4 rounded-lg border border-white/20 bg-white/10 backdrop-blur-sm text-white text-sm tracking-wider hover:bg-white/20 transition-colors"
+                className="inline-flex items-center px-8 py-4 rounded-lg border border-neutral-200 bg-white backdrop-blur-sm text-brand-900 text-sm tracking-wider hover:bg-white/20 transition-colors"
                 aria-label={t('ariaLearnHow')}
               >
                 {t('btnLearnHow')}
@@ -746,112 +739,112 @@ export default function GuidePartnerPage() {
       </section>
 
       {/* 3 Steps */}
-      <section className="bg-white py-16 border-b border-zinc-100">
+      <section className="bg-white py-16 border-b border-neutral-100">
         <div className="max-w-5xl mx-auto px-6">
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div>
-              <div className="text-4xl font-bold text-zinc-900 mb-2">01</div>
-              <h3 className="font-bold text-zinc-900 mb-2">{t('step1Title')}</h3>
-              <p className="text-zinc-500 text-sm">{t('step1Desc')}</p>
+              <div className="text-4xl font-bold text-neutral-900 mb-2">01</div>
+              <h3 className="font-bold text-neutral-900 mb-2">{t('step1Title')}</h3>
+              <p className="text-neutral-500 text-sm">{t('step1Desc')}</p>
             </div>
             <div>
-              <div className="text-4xl font-bold text-zinc-900 mb-2">02</div>
-              <h3 className="font-bold text-zinc-900 mb-2">{t('step2Title')}</h3>
-              <p className="text-zinc-500 text-sm">{t('step2Desc')}</p>
+              <div className="text-4xl font-bold text-neutral-900 mb-2">02</div>
+              <h3 className="font-bold text-neutral-900 mb-2">{t('step2Title')}</h3>
+              <p className="text-neutral-500 text-sm">{t('step2Desc')}</p>
             </div>
             <div>
-              <div className="text-4xl font-bold text-zinc-900 mb-2">03</div>
-              <h3 className="font-bold text-zinc-900 mb-2">{t('step3Title')}</h3>
-              <p className="text-zinc-500 text-sm">{t('step3Desc')}</p>
+              <div className="text-4xl font-bold text-neutral-900 mb-2">03</div>
+              <h3 className="font-bold text-neutral-900 mb-2">{t('step3Title')}</h3>
+              <p className="text-neutral-500 text-sm">{t('step3Desc')}</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Resources */}
-      <section id="how-it-works" className="bg-zinc-50 py-20">
+      <section id="how-it-works" className="bg-neutral-50 py-20">
         <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-2xl font-sans text-zinc-900 mb-2">{t('resourcesTitle')}</h2>
-          <p className="text-zinc-500 mb-12">{t('resourcesDesc')}</p>
+          <h2 className="text-2xl font-sans text-neutral-900 mb-2">{t('resourcesTitle')}</h2>
+          <p className="text-neutral-500 mb-12">{t('resourcesDesc')}</p>
 
           <div className="space-y-6">
             {/* Nightclub */}
-            <div className="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-zinc-200">
+            <div className="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-neutral-200">
               <div className="flex flex-col md:flex-row md:items-center gap-6">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="bg-zinc-100 text-zinc-600 text-xs font-bold px-3 py-1 rounded-md">{t('resource1Badge')}</span>
-                    <span className="text-zinc-400 text-sm">{t('resource1Subtitle')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 text-xs font-bold px-3 py-1 rounded-md">{t('resource1Badge')}</span>
+                    <span className="text-neutral-600 text-sm">{t('resource1Subtitle')}</span>
                   </div>
-                  <h3 className="text-xl font-bold text-zinc-900 mb-2">{t('resource1Title')}</h3>
-                  <p className="text-zinc-600 text-sm leading-relaxed mb-4">
+                  <h3 className="text-xl font-bold text-neutral-900 mb-2">{t('resource1Title')}</h3>
+                  <p className="text-neutral-600 text-sm leading-relaxed mb-4">
                     {t('resource1Desc1')}<br />
                     {t('resource1Desc2')}
                   </p>
                   <div className="flex flex-wrap gap-2 text-xs">
-                    <span className="bg-zinc-100 text-zinc-600 px-2 py-1 rounded-md">{t('city1')}</span>
-                    <span className="bg-zinc-100 text-zinc-600 px-2 py-1 rounded-md">{t('city2')}</span>
-                    <span className="bg-zinc-100 text-zinc-600 px-2 py-1 rounded-md">{t('city3')}</span>
-                    <span className="bg-zinc-100 text-zinc-600 px-2 py-1 rounded-md">{t('city4')}</span>
-                    <span className="bg-zinc-100 text-zinc-600 px-2 py-1 rounded-md">{t('citiesMore')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded-md">{t('city1')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded-md">{t('city2')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded-md">{t('city3')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded-md">{t('city4')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded-md">{t('citiesMore')}</span>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-zinc-400 text-sm">{t('priceLabel')}</p>
-                  <p className="text-2xl font-bold text-zinc-900">{t('price1')}<span className="text-sm font-normal text-zinc-500">{t('priceUnit')}</span></p>
+                  <p className="text-neutral-600 text-sm">{t('priceLabel')}</p>
+                  <p className="text-2xl font-bold text-neutral-900">{t('price1')}<span className="text-sm font-normal text-neutral-500">{t('priceUnit')}</span></p>
                 </div>
               </div>
             </div>
 
             {/* Health Checkup */}
-            <div className="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-zinc-200">
+            <div className="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-neutral-200">
               <div className="flex flex-col md:flex-row md:items-center gap-6">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="bg-zinc-100 text-zinc-600 text-xs font-bold px-3 py-1 rounded-md">{t('resource2Badge')}</span>
-                    <span className="text-zinc-400 text-sm">{t('resource2Subtitle')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 text-xs font-bold px-3 py-1 rounded-md">{t('resource2Badge')}</span>
+                    <span className="text-neutral-600 text-sm">{t('resource2Subtitle')}</span>
                   </div>
-                  <h3 className="text-xl font-bold text-zinc-900 mb-2">{t('resource2Title')}</h3>
-                  <p className="text-zinc-600 text-sm leading-relaxed mb-4">
+                  <h3 className="text-xl font-bold text-neutral-900 mb-2">{t('resource2Title')}</h3>
+                  <p className="text-neutral-600 text-sm leading-relaxed mb-4">
                     {t('resource2Desc1')}<br />
                     {t('resource2Desc2')}
                   </p>
                   <div className="flex flex-wrap gap-2 text-xs">
-                    <span className="bg-zinc-100 text-zinc-600 px-2 py-1 rounded-md">{t('tag1')}</span>
-                    <span className="bg-zinc-100 text-zinc-600 px-2 py-1 rounded-md">{t('tag2')}</span>
-                    <span className="bg-zinc-100 text-zinc-600 px-2 py-1 rounded-md">{t('tag3')}</span>
-                    <span className="bg-zinc-100 text-zinc-600 px-2 py-1 rounded-md">{t('tag4')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded-md">{t('tag1')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded-md">{t('tag2')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded-md">{t('tag3')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded-md">{t('tag4')}</span>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-zinc-400 text-sm">{t('packagePriceLabel')}</p>
-                  <p className="text-2xl font-bold text-zinc-900">{t('price2')}<span className="text-sm font-normal text-zinc-500">{t('priceUnit')}</span></p>
+                  <p className="text-neutral-600 text-sm">{t('packagePriceLabel')}</p>
+                  <p className="text-2xl font-bold text-neutral-900">{t('price2')}<span className="text-sm font-normal text-neutral-500">{t('priceUnit')}</span></p>
                 </div>
               </div>
             </div>
 
             {/* Medical Services */}
-            <div className="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-zinc-200">
+            <div className="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-neutral-200">
               <div className="flex flex-col md:flex-row md:items-center gap-6">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="bg-zinc-100 text-zinc-600 text-xs font-bold px-3 py-1 rounded-md">{t('resource3Badge')}</span>
-                    <span className="text-zinc-400 text-sm">{t('resource3Subtitle')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 text-xs font-bold px-3 py-1 rounded-md">{t('resource3Badge')}</span>
+                    <span className="text-neutral-600 text-sm">{t('resource3Subtitle')}</span>
                   </div>
-                  <h3 className="text-xl font-bold text-zinc-900 mb-2">{t('resource3Title')}</h3>
-                  <p className="text-zinc-600 text-sm leading-relaxed mb-4">
+                  <h3 className="text-xl font-bold text-neutral-900 mb-2">{t('resource3Title')}</h3>
+                  <p className="text-neutral-600 text-sm leading-relaxed mb-4">
                     {t('resource3Desc1')}<br />
                     {t('resource3Desc2')}
                   </p>
                   <div className="flex flex-wrap gap-2 text-xs">
-                    <span className="bg-zinc-100 text-zinc-600 px-2 py-1 rounded-md">{t('tag5')}</span>
-                    <span className="bg-zinc-100 text-zinc-600 px-2 py-1 rounded-md">{t('tag6')}</span>
-                    <span className="bg-zinc-100 text-zinc-600 px-2 py-1 rounded-md">{t('tag7')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded-md">{t('tag5')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded-md">{t('tag6')}</span>
+                    <span className="bg-neutral-100 text-neutral-600 px-2 py-1 rounded-md">{t('tag7')}</span>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-zinc-400 text-sm">{t('treatmentPriceLabel')}</p>
-                  <p className="text-2xl font-bold text-zinc-900">{t('price3')}<span className="text-sm font-normal text-zinc-500">{t('priceUnit')}</span></p>
+                  <p className="text-neutral-600 text-sm">{t('treatmentPriceLabel')}</p>
+                  <p className="text-2xl font-bold text-neutral-900">{t('price3')}<span className="text-sm font-normal text-neutral-500">{t('priceUnit')}</span></p>
                 </div>
               </div>
             </div>
@@ -860,79 +853,79 @@ export default function GuidePartnerPage() {
       </section>
 
       {/* Partnership Rules */}
-      <section className="bg-white py-20 border-t border-zinc-100">
+      <section className="bg-white py-20 border-t border-neutral-100">
         <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-2xl font-sans text-zinc-900 mb-2">{t('rulesTitle')}</h2>
-          <p className="text-zinc-500 mb-12">{t('rulesDesc')}</p>
+          <h2 className="text-2xl font-sans text-neutral-900 mb-2">{t('rulesTitle')}</h2>
+          <p className="text-neutral-500 mb-12">{t('rulesDesc')}</p>
 
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="border border-zinc-200 rounded-xl shadow-sm p-6">
-              <h3 className="font-bold text-zinc-900 mb-3">{t('rule1Title')}</h3>
-              <ul className="space-y-2 text-zinc-600 text-sm">
+            <div className="border border-neutral-200 rounded-xl shadow-sm p-6">
+              <h3 className="font-bold text-neutral-900 mb-3">{t('rule1Title')}</h3>
+              <ul className="space-y-2 text-neutral-600 text-sm">
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-zinc-400 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-brand-700 mt-0.5 flex-shrink-0" />
                   <span>{t('rule1Item1')}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-zinc-400 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-brand-700 mt-0.5 flex-shrink-0" />
                   <span>{t('rule1Item2')}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-zinc-400 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-brand-700 mt-0.5 flex-shrink-0" />
                   <span>{t('rule1Item3')}</span>
                 </li>
               </ul>
             </div>
 
-            <div className="border border-zinc-200 rounded-xl shadow-sm p-6">
-              <h3 className="font-bold text-zinc-900 mb-3">{t('rule2Title')}</h3>
-              <ul className="space-y-2 text-zinc-600 text-sm">
+            <div className="border border-neutral-200 rounded-xl shadow-sm p-6">
+              <h3 className="font-bold text-neutral-900 mb-3">{t('rule2Title')}</h3>
+              <ul className="space-y-2 text-neutral-600 text-sm">
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-zinc-400 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-brand-700 mt-0.5 flex-shrink-0" />
                   <span>{t('rule2Item1')}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-zinc-400 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-brand-700 mt-0.5 flex-shrink-0" />
                   <span>{t('rule2Item2')}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-zinc-400 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-brand-700 mt-0.5 flex-shrink-0" />
                   <span>{t('rule2Item3')}</span>
                 </li>
               </ul>
             </div>
 
-            <div className="border border-zinc-200 rounded-xl shadow-sm p-6">
-              <h3 className="font-bold text-zinc-900 mb-3">{t('rule3Title')}</h3>
-              <ul className="space-y-2 text-zinc-600 text-sm">
+            <div className="border border-neutral-200 rounded-xl shadow-sm p-6">
+              <h3 className="font-bold text-neutral-900 mb-3">{t('rule3Title')}</h3>
+              <ul className="space-y-2 text-neutral-600 text-sm">
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-zinc-400 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-brand-700 mt-0.5 flex-shrink-0" />
                   <span>{t('rule3Item1')}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-zinc-400 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-brand-700 mt-0.5 flex-shrink-0" />
                   <span>{t('rule3Item2')}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-zinc-400 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-brand-700 mt-0.5 flex-shrink-0" />
                   <span>{t('rule3Item3')}</span>
                 </li>
               </ul>
             </div>
 
-            <div className="border border-zinc-200 rounded-xl shadow-sm p-6">
-              <h3 className="font-bold text-zinc-900 mb-3">{t('rule4Title')}</h3>
-              <ul className="space-y-2 text-zinc-600 text-sm">
+            <div className="border border-neutral-200 rounded-xl shadow-sm p-6">
+              <h3 className="font-bold text-neutral-900 mb-3">{t('rule4Title')}</h3>
+              <ul className="space-y-2 text-neutral-600 text-sm">
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-zinc-400 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-brand-700 mt-0.5 flex-shrink-0" />
                   <span>{t('rule4Item1')}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-zinc-400 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-brand-700 mt-0.5 flex-shrink-0" />
                   <span>{t('rule4Item2')}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <ChevronRight size={16} className="text-zinc-400 mt-0.5 flex-shrink-0" />
+                  <ChevronRight size={16} className="text-brand-700 mt-0.5 flex-shrink-0" />
                   <span>{t('rule4Item3')}</span>
                 </li>
               </ul>
@@ -942,62 +935,62 @@ export default function GuidePartnerPage() {
       </section>
 
       {/* Brand Website */}
-      <section className="bg-zinc-900 text-white py-20">
+      <section className="bg-neutral-50 text-brand-900 py-20">
         <div className="max-w-5xl mx-auto px-6">
           <div className="md:flex md:items-center md:gap-12">
             <div className="flex-1 mb-10 md:mb-0">
-              <p className="text-zinc-400 text-sm font-medium mb-4">{t('brandSectionBadge')}</p>
+              <p className="text-brand-700 text-sm font-medium mb-4">{t('brandSectionBadge')}</p>
               <h2 className="text-2xl md:text-3xl font-sans mb-4">
                 {t('brandSectionTitle')}
               </h2>
-              <p className="text-zinc-400 leading-relaxed mb-6">
+              <p className="text-neutral-600 leading-relaxed mb-6">
                 {t('brandSectionDesc1')}<br />
                 {t('brandSectionDesc2')}
               </p>
-              <ul className="space-y-3 text-zinc-300 text-sm mb-8">
+              <ul className="space-y-3 text-neutral-700 text-sm mb-8">
                 <li className="flex items-center gap-2">
-                  <span className="text-zinc-400">✓</span>
+                  <span className="text-brand-700">✓</span>
                   {t('brandFeature1')}
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-zinc-400">✓</span>
+                  <span className="text-brand-700">✓</span>
                   {t('brandFeature2')}
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-zinc-400">✓</span>
+                  <span className="text-brand-700">✓</span>
                   {t('brandFeature3')}
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-zinc-400">✓</span>
+                  <span className="text-brand-700">✓</span>
                   {t('brandFeature4')}
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-zinc-400">✓</span>
+                  <span className="text-brand-700">✓</span>
                   {t('brandFeature5')}
                 </li>
               </ul>
               <div className="flex items-baseline gap-2 mb-6">
-                <span className="text-3xl font-bold text-green-400">{t('brandPrice')}</span>
-                <span className="text-zinc-500">{t('brandPriceUnit')}</span>
+                <span className="text-3xl font-bold brand-gradient-text">{t('brandPrice')}</span>
+                <span className="text-neutral-600">{t('brandPriceUnit')}</span>
               </div>
               <button
                 onClick={() => setShowWechatQR(true)}
-                className="bg-white hover:bg-zinc-100 text-zinc-900 font-bold px-6 py-3 rounded-lg transition-colors"
+                className="brand-gradient-solid hover:opacity-90 text-white font-bold px-6 py-3 rounded-lg transition-colors"
                 aria-label={t('ariaWechatConsult')}
               >
                 {t('btnConsult')}
               </button>
             </div>
             <div className="flex-1">
-              <p className="text-zinc-400 text-sm mb-3">{t('previewLabel')}</p>
-              <div className="rounded-lg overflow-hidden border border-zinc-600 shadow-2xl">
+              <p className="text-neutral-600 text-sm mb-3">{t('previewLabel')}</p>
+              <div className="rounded-lg overflow-hidden border border-neutral-200 shadow-lg shadow-neutral-900/10">
                 {/* Browser chrome */}
-                <div className="flex items-center gap-2 px-3 py-2 bg-zinc-800 border-b border-zinc-700">
+                <div className="flex items-center gap-2 px-3 py-2 bg-neutral-100 border-b border-neutral-200">
                   <div className="w-2.5 h-2.5 rounded-full bg-red-500/70"></div>
                   <div className="w-2.5 h-2.5 rounded-full bg-amber-500/70"></div>
                   <div className="w-2.5 h-2.5 rounded-full bg-green-500/70"></div>
                   <div className="flex-1 mx-4">
-                    <div className="bg-zinc-700 rounded-md px-3 py-1 text-zinc-400 text-[10px] text-center">niijima-koutsu.jp/g/yourname</div>
+                    <div className="bg-white border border-neutral-200 rounded-md px-3 py-1 text-neutral-600 text-[10px] text-center">niijima-koutsu.jp/g/yourname</div>
                   </div>
                 </div>
                 {/* Live iframe preview */}
@@ -1012,7 +1005,7 @@ export default function GuidePartnerPage() {
                 href="/g/demo"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block text-center text-zinc-400 text-sm mt-3 hover:underline"
+                className="block text-center text-brand-700 text-sm mt-3 hover:underline"
               >
                 {t('viewDemo')}
               </a>
@@ -1024,15 +1017,15 @@ export default function GuidePartnerPage() {
       {/* CTA */}
       <section className="bg-white py-16">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-2xl md:text-3xl font-sans text-zinc-900 mb-4">
+          <h2 className="text-2xl md:text-3xl font-sans text-neutral-900 mb-4">
             {t('ctaTitle')}
           </h2>
-          <p className="text-zinc-600 mb-8">
+          <p className="text-neutral-600 mb-8">
             {t('ctaDesc')}
           </p>
           <button
             onClick={() => setShowWechatQR(true)}
-            className="bg-zinc-900 hover:bg-zinc-800 text-white font-bold px-10 py-4 rounded-lg transition-colors inline-flex items-center gap-3"
+            className="brand-gradient-solid hover:opacity-90 text-white font-bold px-10 py-4 rounded-lg transition-opacity inline-flex items-center gap-3"
             aria-label={t('ariaWechatPartner')}
           >
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
@@ -1040,26 +1033,26 @@ export default function GuidePartnerPage() {
             </svg>
             {t('btnWechatQR')}
           </button>
-          <p className="text-zinc-500 text-sm mt-4">
+          <p className="text-neutral-500 text-sm mt-4">
             {t('ctaEmailLabel')} <ObfuscatedEmail user="haoyuan" domain="niijima-koutsu.jp" className="underline" />
           </p>
         </div>
       </section>
 
       {/* Legal Notice */}
-      <section className="bg-zinc-100 py-12">
+      <section className="bg-neutral-100 py-12">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="bg-white rounded-xl shadow-sm p-6 border border-zinc-200">
+          <div className="bg-white rounded-xl shadow-sm p-6 border border-neutral-200">
             <div className="flex items-center gap-2 mb-4">
-              <Shield className="w-5 h-5 text-zinc-600" />
-              <h3 className="font-bold text-zinc-900">{t('legalTitle')}</h3>
+              <Shield className="w-5 h-5 text-neutral-600" />
+              <h3 className="font-bold text-neutral-900">{t('legalTitle')}</h3>
             </div>
-            <div className="text-sm text-zinc-600 leading-relaxed space-y-2">
+            <div className="text-sm text-neutral-600 leading-relaxed space-y-2">
               <p>
                 {t('legalText')}
               </p>
             </div>
-            <div className="mt-4 pt-4 border-t border-zinc-100 text-xs text-zinc-500">
+            <div className="mt-4 pt-4 border-t border-neutral-100 text-xs text-neutral-500">
               {t('legalFooter')}
             </div>
           </div>
@@ -1081,17 +1074,17 @@ export default function GuidePartnerPage() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-4">
-              <h3 id="wechat-modal-title" className="font-bold text-lg text-zinc-900">{t('modalTitle')}</h3>
+              <h3 id="wechat-modal-title" className="font-bold text-lg text-neutral-900">{t('modalTitle')}</h3>
               <button
                 onClick={() => setShowWechatQR(false)}
-                className="text-zinc-400 hover:text-zinc-600 p-1"
+                className="text-neutral-400 hover:text-neutral-600 p-1"
                 aria-label={t('ariaCloseModal')}
               >
                 <X size={20} />
               </button>
             </div>
 
-            <div className="bg-zinc-50 rounded-lg p-4 flex justify-center">
+            <div className="bg-neutral-50 rounded-lg p-4 flex justify-center">
               <img
                 src={WECHAT_QR_URL}
                 alt="WeChat QR Code"
@@ -1099,11 +1092,11 @@ export default function GuidePartnerPage() {
               />
             </div>
 
-            <p className="text-center text-zinc-600 mt-4 text-sm">
+            <p className="text-center text-neutral-600 mt-4 text-sm">
               {t('modalDesc')}
             </p>
 
-            <div className="mt-4 bg-zinc-50 rounded-lg p-4 text-sm text-zinc-700 border border-zinc-200">
+            <div className="mt-4 bg-neutral-50 rounded-lg p-4 text-sm text-neutral-700 border border-neutral-200">
               <p className="font-medium mb-1">{t('modalNoteTitle')}</p>
               <p>{t('modalNoteText')}</p>
             </div>

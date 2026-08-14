@@ -191,7 +191,12 @@ Rules:
       targetLanguage: language,
     });
   } catch (error: unknown) {
-    console.warn('Health screening translation request failed');
+    // 只记录错误类型与消息（框架/DB 层错误，不含患者数据）——
+    // 完全不记错误信息会让线上故障无从排查
+    console.error(
+      'Health screening translation request failed:',
+      error instanceof Error ? `${error.name}: ${error.message}` : typeof error
+    );
     return NextResponse.json({ error: '翻译服务暂时不可用，请稍后重试' }, { status: 500 });
   }
 }

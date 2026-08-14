@@ -22,11 +22,11 @@ export default function WhitelabelContactSection({ brandColor, contactInfo }: Co
     <section className="py-16 bg-white">
       <div className="max-w-4xl mx-auto px-6">
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold text-gray-900 mb-3">联系我们</h2>
-          <p className="text-gray-600">欢迎随时咨询，我们为您提供专业服务</p>
+          <h2 className="text-3xl font-bold text-neutral-900 mb-3">联系我们</h2>
+          <p className="text-neutral-600">欢迎随时咨询，我们为您提供专业服务</p>
         </div>
 
-        <div className="bg-gray-50 rounded-2xl p-8">
+        <div className="bg-neutral-50 rounded-2xl p-8">
           <div className="grid md:grid-cols-2 gap-6">
             {contactInfo.wechat && (
               <div className="flex items-center gap-4">
@@ -37,8 +37,8 @@ export default function WhitelabelContactSection({ brandColor, contactInfo }: Co
                   <MessageCircle size={24} style={{ color: brandColor }} />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">微信号</p>
-                  <p className="font-medium text-gray-900">{contactInfo.wechat}</p>
+                  <p className="text-sm text-neutral-500">微信号</p>
+                  <p className="font-medium text-neutral-900">{contactInfo.wechat}</p>
                 </div>
               </div>
             )}
@@ -51,8 +51,8 @@ export default function WhitelabelContactSection({ brandColor, contactInfo }: Co
                   <MessageCircle size={24} style={{ color: brandColor }} />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">LINE</p>
-                  <p className="font-medium text-gray-900">{contactInfo.line}</p>
+                  <p className="text-sm text-neutral-500">LINE</p>
+                  <p className="font-medium text-neutral-900">{contactInfo.line}</p>
                 </div>
               </div>
             )}
@@ -65,8 +65,8 @@ export default function WhitelabelContactSection({ brandColor, contactInfo }: Co
                   <Phone size={24} style={{ color: brandColor }} />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">电话</p>
-                  <p className="font-medium text-gray-900">{contactInfo.phone}</p>
+                  <p className="text-sm text-neutral-500">电话</p>
+                  <p className="font-medium text-neutral-900">{contactInfo.phone}</p>
                 </div>
               </div>
             )}
@@ -79,15 +79,15 @@ export default function WhitelabelContactSection({ brandColor, contactInfo }: Co
                   <Mail size={24} style={{ color: brandColor }} />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">邮箱</p>
-                  <p className="font-medium text-gray-900">{contactInfo.email}</p>
+                  <p className="text-sm text-neutral-500">邮箱</p>
+                  <p className="font-medium text-neutral-900">{contactInfo.email}</p>
                 </div>
               </div>
             )}
           </div>
         </div>
 
-        <p className="text-center text-sm text-gray-400 mt-6">
+        <p className="text-center text-sm text-neutral-400 mt-6">
           旅行服务由 新岛交通株式会社 提供
         </p>
       </div>

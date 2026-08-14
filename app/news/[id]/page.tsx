@@ -30,9 +30,9 @@ const categoryLabels: Record<string, Record<Language, string>> = {
 };
 
 const categoryStyles: Record<string, string> = {
-  announcement: 'bg-blue-50 text-blue-700 border border-blue-200',
-  press: 'bg-emerald-50 text-emerald-700 border border-emerald-200',
-  service: 'bg-amber-50 text-amber-700 border border-amber-200',
+  announcement: 'bg-brand-50 text-brand-700 border border-brand-200',
+  press: 'bg-brand-50 text-brand-700 border border-brand-200',
+  service: 'bg-brand-50 text-brand-700 border border-brand-200',
 };
 
 const detailTranslations = {

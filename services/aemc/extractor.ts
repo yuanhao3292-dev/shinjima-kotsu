@@ -12,6 +12,7 @@ import OpenAI from 'openai';
 import type { CasePacket, StructuredCase, AIRunRecord } from './types';
 import { withRetry } from './ai-retry';
 import { aemcLog } from './logger';
+import { salvageStructuredCase } from './ai-output-schemas';
 import {
   getExtractorSystemPrompt,
   buildExtractorUserPrompt,
@@ -88,15 +89,15 @@ export async function extractCase(
       .trim();
     let parsed: StructuredCase;
     try {
-      parsed = JSON.parse(cleanedContent) as StructuredCase;
+      parsed = JSON.parse(cleanedContent);
     } catch (parseError) {
       throw new Error(
         `[AI-1 Extractor] Invalid JSON from ${MODEL_NAME}: ${cleanedContent.slice(0, 200)}`
       );
     }
 
-    // 验证关键字段存在
-    validateStructuredCase(parsed, casePacket.case_id);
+    // Zod 挽救层：类型安全兜底（替代旧 validateStructuredCase 的手工 || [] 默认）
+    parsed = salvageStructuredCase(parsed, casePacket.case_id, casePacket.language);
 
     const latencyMs = Date.now() - startTime;
 
@@ -136,50 +137,6 @@ export async function extractCase(
   }
 }
 
-// ============================================================
-// 输出验证
-// ============================================================
-
-function validateStructuredCase(result: StructuredCase, caseId: string): void {
-  // 确保 case_id 一致
-  if (!result.case_id || result.case_id !== caseId) {
-    aemcLog.warn('extractor', `case_id mismatch: expected=${caseId}, got=${result.case_id || 'missing'}`);
-    result.case_id = caseId;
-  }
-
-  // 确保关键数组字段不为 undefined
-  result.red_flags = result.red_flags || [];
-  result.missing_critical_info = result.missing_critical_info || [];
-  result.past_history = result.past_history || [];
-  result.medication_history = result.medication_history || [];
-  result.allergy_history = result.allergy_history || [];
-  result.known_diagnoses = result.known_diagnoses || [];
-  result.exam_findings = result.exam_findings || [];
-  result.inferred_items = result.inferred_items || [];
-  result.unknown_items = result.unknown_items || [];
-
-  // 确保 present_illness 结构完整
-  if (!result.present_illness) {
-    result.present_illness = {
-      symptoms: [],
-      aggravating_factors: [],
-      relieving_factors: [],
-      associated_symptoms: [],
-    };
-  }
-  result.present_illness.symptoms = result.present_illness.symptoms || [];
-  result.present_illness.aggravating_factors = result.present_illness.aggravating_factors || [];
-  result.present_illness.relieving_factors = result.present_illness.relieving_factors || [];
-  result.present_illness.associated_symptoms = result.present_illness.associated_symptoms || [];
-
-  if (!result.chief_complaint) {
-    result.chief_complaint = '未能提取主诉';
-  }
-
-  // 确保 demographics 存在
-  result.demographics = result.demographics || {};
-  result.language = result.language || 'zh-CN';
-}
 
 // ============================================================
 // 错误类型

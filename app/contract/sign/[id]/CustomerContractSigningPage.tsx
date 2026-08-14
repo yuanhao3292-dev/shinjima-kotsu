@@ -95,31 +95,31 @@ export default function CustomerContractSigningPage({ contract, signingToken }: 
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-emerald-50 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-brand-50 to-brand-50 py-8 px-4">
       <div className="max-w-3xl mx-auto">
         {/* 顶部进度条 */}
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
-            <div className={`flex items-center gap-2 ${step >= 1 ? 'text-blue-600' : 'text-gray-400'}`}>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}>
+            <div className={`flex items-center gap-2 ${step >= 1 ? 'text-brand-600' : 'text-neutral-400'}`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= 1 ? 'bg-brand-600 text-white' : 'bg-neutral-200'}`}>
                 {step > 1 ? '✓' : '1'}
               </div>
               <span className="font-medium hidden sm:inline">填写信息</span>
             </div>
-            <div className="flex-1 h-1 bg-gray-200 mx-2">
-              <div className={`h-full ${step >= 2 ? 'bg-blue-600' : 'bg-gray-200'} transition-all`} style={{ width: step >= 2 ? '100%' : '0%' }}></div>
+            <div className="flex-1 h-1 bg-neutral-200 mx-2">
+              <div className={`h-full ${step >= 2 ? 'bg-brand-600' : 'bg-neutral-200'} transition-all`} style={{ width: step >= 2 ? '100%' : '0%' }}></div>
             </div>
-            <div className={`flex items-center gap-2 ${step >= 2 ? 'text-blue-600' : 'text-gray-400'}`}>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}>
+            <div className={`flex items-center gap-2 ${step >= 2 ? 'text-brand-600' : 'text-neutral-400'}`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= 2 ? 'bg-brand-600 text-white' : 'bg-neutral-200'}`}>
                 {step > 2 ? '✓' : '2'}
               </div>
               <span className="font-medium hidden sm:inline">确认合同</span>
             </div>
-            <div className="flex-1 h-1 bg-gray-200 mx-2">
-              <div className={`h-full ${step >= 3 ? 'bg-blue-600' : 'bg-gray-200'} transition-all`} style={{ width: step >= 3 ? '100%' : '0%' }}></div>
+            <div className="flex-1 h-1 bg-neutral-200 mx-2">
+              <div className={`h-full ${step >= 3 ? 'bg-brand-600' : 'bg-neutral-200'} transition-all`} style={{ width: step >= 3 ? '100%' : '0%' }}></div>
             </div>
-            <div className={`flex items-center gap-2 ${step >= 3 ? 'text-blue-600' : 'text-gray-400'}`}>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= 3 ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}>
+            <div className={`flex items-center gap-2 ${step >= 3 ? 'text-brand-600' : 'text-neutral-400'}`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= 3 ? 'bg-brand-600 text-white' : 'bg-neutral-200'}`}>
                 3
               </div>
               <span className="font-medium hidden sm:inline">在线签名</span>
@@ -133,10 +133,10 @@ export default function CustomerContractSigningPage({ contract, signingToken }: 
           {step === 1 && (
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <FileText size={28} className="text-blue-600" />
+                <FileText size={28} className="text-brand-600" />
                 <div>
-                  <h1 className="text-2xl font-bold text-gray-900">医疗旅行服务合同</h1>
-                  <p className="text-sm text-gray-600">合同编号: {contract.contract_number}</p>
+                  <h1 className="text-2xl font-bold text-neutral-900">医疗旅行服务合同</h1>
+                  <p className="text-sm text-neutral-600">合同编号: {contract.contract_number}</p>
                 </div>
               </div>
 
@@ -148,7 +148,7 @@ export default function CustomerContractSigningPage({ contract, signingToken }: 
               <button
                 onClick={handleNextStep}
                 disabled={!isStepValid()}
-                className="mt-8 w-full py-4 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                className="mt-8 w-full py-4 bg-brand-600 text-white rounded-lg font-medium hover:bg-brand-700 disabled:bg-neutral-300 disabled:cursor-not-allowed transition-colors"
               >
                 下一步：查看合同详情
               </button>
@@ -158,27 +158,27 @@ export default function CustomerContractSigningPage({ contract, signingToken }: 
           {/* 步骤2：合同预览 */}
           {step === 2 && (
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">合同详情</h2>
+              <h2 className="text-2xl font-bold text-neutral-900 mb-6">合同详情</h2>
 
               {/* 服务信息 */}
-              <div className="bg-blue-50 rounded-lg p-6 mb-6">
-                <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <MapPin size={20} className="text-blue-600" />
+              <div className="bg-brand-50 rounded-lg p-6 mb-6">
+                <h3 className="font-bold text-neutral-900 mb-4 flex items-center gap-2">
+                  <MapPin size={20} className="text-brand-600" />
                   服务内容
                 </h3>
                 <div className="space-y-3 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-gray-600">医疗机构</span>
-                    <span className="font-medium text-gray-900">{contract.medical_institution_name}</span>
+                    <span className="text-neutral-600">医疗机构</span>
+                    <span className="font-medium text-neutral-900">{contract.medical_institution_name}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">预约项目</span>
-                    <span className="font-medium text-gray-900">{contract.appointment_project}</span>
+                    <span className="text-neutral-600">预约项目</span>
+                    <span className="font-medium text-neutral-900">{contract.appointment_project}</span>
                   </div>
                   {contract.appointment_datetime && (
                     <div className="flex justify-between">
-                      <span className="text-gray-600">预约时间</span>
-                      <span className="font-medium text-gray-900">
+                      <span className="text-neutral-600">预约时间</span>
+                      <span className="font-medium text-neutral-900">
                         {new Date(contract.appointment_datetime).toLocaleString('zh-CN')}
                       </span>
                     </div>
@@ -187,24 +187,24 @@ export default function CustomerContractSigningPage({ contract, signingToken }: 
               </div>
 
               {/* 费用信息 */}
-              <div className="bg-emerald-50 rounded-lg p-6 mb-6">
-                <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <DollarSign size={20} className="text-emerald-600" />
+              <div className="bg-brand-50 rounded-lg p-6 mb-6">
+                <h3 className="font-bold text-neutral-900 mb-4 flex items-center gap-2">
+                  <DollarSign size={20} className="text-brand-600" />
                   费用明细
                 </h3>
                 <div className="space-y-3 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-gray-600">旅行服务费</span>
-                    <span className="font-medium text-gray-900">¥{contract.service_fee_jpy?.toLocaleString()} 日元</span>
+                    <span className="text-neutral-600">旅行服务费</span>
+                    <span className="font-medium text-neutral-900">¥{contract.service_fee_jpy?.toLocaleString()} 日元</span>
                   </div>
                   {contract.medical_fee_estimate_jpy && (
                     <div className="flex justify-between">
-                      <span className="text-gray-600">医疗费预估</span>
-                      <span className="font-medium text-gray-900">¥{contract.medical_fee_estimate_jpy?.toLocaleString()} 日元</span>
+                      <span className="text-neutral-600">医疗费预估</span>
+                      <span className="font-medium text-neutral-900">¥{contract.medical_fee_estimate_jpy?.toLocaleString()} 日元</span>
                     </div>
                   )}
-                  <div className="pt-3 border-t border-emerald-200">
-                    <p className="text-xs text-gray-600">
+                  <div className="pt-3 border-t border-brand-200">
+                    <p className="text-xs text-neutral-600">
                       💡 医疗费用需直接支付给医疗机构，不包含在服务费中
                     </p>
                   </div>
@@ -213,21 +213,21 @@ export default function CustomerContractSigningPage({ contract, signingToken }: 
 
               {/* 行程信息 */}
               {contract.arrival_date && contract.departure_date && (
-                <div className="bg-amber-50 rounded-lg p-6 mb-6">
-                  <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                    <Calendar size={20} className="text-amber-600" />
+                <div className="bg-brand-50 rounded-lg p-6 mb-6">
+                  <h3 className="font-bold text-neutral-900 mb-4 flex items-center gap-2">
+                    <Calendar size={20} className="text-brand-600" />
                     行程安排
                   </h3>
                   <div className="space-y-3 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-gray-600">抵达日期</span>
-                      <span className="font-medium text-gray-900">
+                      <span className="text-neutral-600">抵达日期</span>
+                      <span className="font-medium text-neutral-900">
                         {new Date(contract.arrival_date).toLocaleDateString('zh-CN')}
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">离开日期</span>
-                      <span className="font-medium text-gray-900">
+                      <span className="text-neutral-600">离开日期</span>
+                      <span className="font-medium text-neutral-900">
                         {new Date(contract.departure_date).toLocaleDateString('zh-CN')}
                       </span>
                     </div>
@@ -236,9 +236,9 @@ export default function CustomerContractSigningPage({ contract, signingToken }: 
               )}
 
               {/* 服务条款 */}
-              <div className="border-2 border-gray-200 rounded-lg p-6 mb-6 max-h-64 overflow-y-auto">
-                <h3 className="font-bold text-gray-900 mb-3">服务条款</h3>
-                <div className="text-sm text-gray-700 space-y-2">
+              <div className="border-2 border-neutral-200 rounded-lg p-6 mb-6 max-h-64 overflow-y-auto">
+                <h3 className="font-bold text-neutral-900 mb-3">服务条款</h3>
+                <div className="text-sm text-neutral-700 space-y-2">
                   <p><strong>1. 服务范围：</strong>新岛交通株式会社提供医疗预约安排、中文翻译、全程陪同等旅行服务。</p>
                   <p><strong>2. 医疗费用：</strong>医疗服务由医疗机构直接提供，医疗费用需您直接支付给医疗机构。</p>
                   <p><strong>3. 风险告知：</strong>医疗服务存在固有风险，请仔细阅读医疗机构提供的风险告知书。</p>
@@ -248,14 +248,14 @@ export default function CustomerContractSigningPage({ contract, signingToken }: 
               </div>
 
               {/* 同意条款 */}
-              <label className="flex items-start gap-3 p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors mb-6">
+              <label className="flex items-start gap-3 p-4 border-2 border-neutral-300 rounded-lg cursor-pointer hover:bg-neutral-50 transition-colors mb-6">
                 <input
                   type="checkbox"
                   checked={agreedToTerms}
                   onChange={(e) => setAgreedToTerms(e.target.checked)}
-                  className="mt-1 w-5 h-5 text-blue-600"
+                  className="mt-1 w-5 h-5 text-brand-600"
                 />
-                <span className="text-sm text-gray-700">
+                <span className="text-sm text-neutral-700">
                   我已仔细阅读并完全理解上述服务条款，自愿签署本合同。我确认所填写的个人信息真实准确，并同意新岛交通株式会社使用这些信息为我提供医疗旅行服务。
                 </span>
               </label>
@@ -263,14 +263,14 @@ export default function CustomerContractSigningPage({ contract, signingToken }: 
               <div className="flex gap-4">
                 <button
                   onClick={() => setStep(1)}
-                  className="flex-1 py-4 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors"
+                  className="flex-1 py-4 bg-neutral-200 text-neutral-700 rounded-lg font-medium hover:bg-neutral-300 transition-colors"
                 >
                   上一步
                 </button>
                 <button
                   onClick={handleNextStep}
                   disabled={!isStepValid()}
-                  className="flex-1 py-4 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                  className="flex-1 py-4 bg-brand-600 text-white rounded-lg font-medium hover:bg-brand-700 disabled:bg-neutral-300 disabled:cursor-not-allowed transition-colors"
                 >
                   下一步：在线签名
                 </button>
@@ -281,12 +281,12 @@ export default function CustomerContractSigningPage({ contract, signingToken }: 
           {/* 步骤3：在线签名 */}
           {step === 3 && (
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">在线签名</h2>
+              <h2 className="text-2xl font-bold text-neutral-900 mb-6">在线签名</h2>
 
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+              <div className="bg-brand-50 border border-brand-200 rounded-lg p-4 mb-6">
                 <div className="flex items-start gap-3">
-                  <AlertCircle className="text-blue-600 mt-0.5" size={20} />
-                  <div className="text-sm text-blue-800">
+                  <AlertCircle className="text-brand-600 mt-0.5" size={20} />
+                  <div className="text-sm text-brand-800">
                     <p className="font-medium mb-1">签名须知</p>
                     <ul className="space-y-1 text-xs">
                       <li>• 请使用手指或鼠标在下方白色区域内签署您的真实姓名</li>
@@ -312,14 +312,14 @@ export default function CustomerContractSigningPage({ contract, signingToken }: 
                 <button
                   onClick={() => setStep(2)}
                   disabled={isSubmitting}
-                  className="flex-1 py-4 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 disabled:opacity-50 transition-colors"
+                  className="flex-1 py-4 bg-neutral-200 text-neutral-700 rounded-lg font-medium hover:bg-neutral-300 disabled:opacity-50 transition-colors"
                 >
                   上一步
                 </button>
                 <button
                   onClick={handleSubmit}
                   disabled={!isStepValid() || isSubmitting}
-                  className="flex-1 py-4 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 py-4 bg-brand-600 text-white rounded-lg font-medium hover:bg-brand-700 disabled:bg-neutral-300 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
                 >
                   {isSubmitting ? (
                     <>
@@ -339,7 +339,7 @@ export default function CustomerContractSigningPage({ contract, signingToken }: 
         </div>
 
         {/* 底部信息 */}
-        <div className="mt-6 text-center text-sm text-gray-600">
+        <div className="mt-6 text-center text-sm text-neutral-600">
           <p>新岛交通株式会社 | 大阪府知事登録旅行業 第2-3115号</p>
           <p className="text-xs mt-1">如有疑问，请联系客服：info@niijima-kotsu.jp</p>
         </div>

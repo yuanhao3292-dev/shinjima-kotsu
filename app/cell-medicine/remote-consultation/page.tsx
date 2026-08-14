@@ -204,13 +204,13 @@ export default function CellMedicineRemoteConsultationPage() {
         <div className="max-w-4xl mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
-              <div className="flex items-center gap-2 mb-2"><Video size={20} className="text-neutral-300" /><span className="text-neutral-300 text-sm">{t('videoConsultation')}</span></div>
+              <div className="flex items-center gap-2 mb-2"><Video size={20} className="text-neutral-200" /><span className="text-neutral-200 text-sm">{t('videoConsultation')}</span></div>
               <h1 className="text-3xl font-serif font-bold text-white">{t('serviceName')}</h1>
-              <p className="text-neutral-300 text-sm mt-1">{t('serviceNameEn')}</p>
+              <p className="text-neutral-200 text-sm mt-1">{t('serviceNameEn')}</p>
             </div>
             <div className="text-right">
               <p className="text-4xl font-bold text-white">¥{SERVICE_INFO.price.toLocaleString()}</p>
-              <p className="text-xs text-neutral-300 mt-1">{t('taxIncluded')}</p>
+              <p className="text-xs text-neutral-200 mt-1">{t('taxIncluded')}</p>
             </div>
           </div>
         </div>
@@ -231,10 +231,10 @@ export default function CellMedicineRemoteConsultationPage() {
                 <h4 className="font-bold text-brand-900 mb-3 flex items-center gap-2"><FileText size={16} className="text-brand-700" />{t('prerequisitesTitle')}</h4>
                 <ul className="space-y-2 text-sm text-neutral-600">
                   {[t('prereq1'), t('prereq2'), t('prereq3')].map((p, i) => (
-                    <li key={i} className="flex gap-2"><span className="text-emerald-400">•</span><span>{p}</span></li>
+                    <li key={i} className="flex gap-2"><span className="text-brand-700">•</span><span>{p}</span></li>
                   ))}
                 </ul>
-                <p className="text-xs text-orange-600 mt-4">{t('prereqNote')}</p>
+                <p className="text-xs text-brand-600 mt-4">{t('prereqNote')}</p>
               </div>
             </div>
           </div>
@@ -293,12 +293,12 @@ export default function CellMedicineRemoteConsultationPage() {
                   <p className="text-xs text-neutral-500 mb-4">{t('paymentNotice')}</p>
                   <ConsentCheckboxes consents={consents} onChange={setConsents} lang={currentLang} />
 
-                <button type="submit" disabled={processing || !allConsented(consents)} className="w-full py-4 bg-accent-400 text-brand-900 font-bold hover:bg-accent-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                <button type="submit" disabled={processing || !allConsented(consents)} className="w-full py-4 bg-brand-400 text-neutral-900 font-bold hover:bg-brand-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                     {processing ? (<><Loader2 className="animate-spin" size={20} />{t('processing')}</>) : (<><CreditCard size={20} />{t('confirmPayment')}</>)}
                   </button>
                 </div>
                 <div className="flex flex-wrap justify-center gap-6 text-xs text-neutral-500">
-                  <div className="flex items-center gap-1"><Shield size={14} className="text-green-500" /><span>{t('securePayment')}</span></div>
+                  <div className="flex items-center gap-1"><Shield size={14} className="text-brand-700" /><span>{t('securePayment')}</span></div>
                   <div className="flex items-center gap-1"><Clock size={14} className="text-brand-700" /><span>{t('confirmTime24h')}</span></div>
                 </div>
               </form>

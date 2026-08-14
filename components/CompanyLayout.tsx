@@ -103,12 +103,12 @@ export default function CompanyLayout({ children, title, titleEn, breadcrumb }: 
 
   return (
     <PublicLayout>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-neutral-50">
         {/* Page Title */}
-        <div className="bg-slate-900 text-white">
+        <div className="bg-neutral-900 text-white">
           <div className="container mx-auto px-6 py-16">
             {/* Breadcrumb */}
-            <div className="flex items-center gap-2 text-sm text-gray-400 mb-4">
+            <div className="flex items-center gap-2 text-sm text-neutral-400 mb-4">
               <Link href="/" className="hover:text-white transition">{layoutTranslations.home[currentLang]}</Link>
               {breadcrumb?.map((item, index) => (
                 <React.Fragment key={index}>
@@ -116,7 +116,7 @@ export default function CompanyLayout({ children, title, titleEn, breadcrumb }: 
                   {item.path ? (
                     <Link href={item.path} className="hover:text-white transition">{resolveLabel(item.label)}</Link>
                   ) : (
-                    <span className="text-gray-300">{resolveLabel(item.label)}</span>
+                    <span className="text-neutral-300">{resolveLabel(item.label)}</span>
                   )}
                 </React.Fragment>
               ))}
@@ -124,7 +124,7 @@ export default function CompanyLayout({ children, title, titleEn, breadcrumb }: 
 
             {/* Title */}
             <h1 className="text-3xl md:text-4xl font-bold">{resolveLabel(title)}</h1>
-            {titleEn && <p className="text-gray-400 mt-2 text-sm uppercase tracking-wider">{titleEn}</p>}
+            {titleEn && <p className="text-neutral-400 mt-2 text-sm uppercase tracking-wider">{titleEn}</p>}
           </div>
         </div>
 
@@ -139,11 +139,11 @@ export default function CompanyLayout({ children, title, titleEn, breadcrumb }: 
 
                   return (
                     <div key={catIndex}>
-                      <div className={`mb-3 pb-2 border-b-2 ${isCurrentCategory ? 'border-blue-600' : 'border-gray-200'}`}>
-                        <h3 className={`font-bold ${isCurrentCategory ? 'text-blue-600' : 'text-gray-900'}`}>
+                      <div className={`mb-3 pb-2 border-b-2 ${isCurrentCategory ? 'border-brand-600' : 'border-neutral-200'}`}>
+                        <h3 className={`font-bold ${isCurrentCategory ? 'text-brand-600' : 'text-neutral-900'}`}>
                           {category.title[currentLang]}
                         </h3>
-                        <p className="text-xs text-gray-400 uppercase tracking-wider">{category.titleEn}</p>
+                        <p className="text-xs text-neutral-400 uppercase tracking-wider">{category.titleEn}</p>
                       </div>
 
                       <ul className="space-y-1">
@@ -157,13 +157,13 @@ export default function CompanyLayout({ children, title, titleEn, breadcrumb }: 
                                 href={item.path}
                                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all ${
                                   isActive
-                                    ? 'bg-blue-600 text-white font-medium'
-                                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                                    ? 'bg-brand-600 text-white font-medium'
+                                    : 'text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900'
                                 }`}
                               >
-                                <Icon size={16} className={isActive ? 'text-white' : 'text-gray-400'} />
+                                <Icon size={16} className={isActive ? 'text-white' : 'text-neutral-400'} />
                                 <span>{item.label[currentLang]}</span>
-                                {!isActive && <ChevronRight size={14} className="ml-auto text-gray-300" />}
+                                {!isActive && <ChevronRight size={14} className="ml-auto text-neutral-300" />}
                               </Link>
                             </li>
                           );
@@ -177,7 +177,7 @@ export default function CompanyLayout({ children, title, titleEn, breadcrumb }: 
 
             {/* Main Content */}
             <main className="flex-1 min-w-0">
-              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 md:p-12">
+              <div className="bg-white rounded-xl shadow-sm border border-neutral-100 p-8 md:p-12">
                 {children}
               </div>
             </main>

@@ -234,11 +234,11 @@ export default function WClinicMensInitialConsultationPage() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
               <h1 className="text-3xl font-serif font-bold text-white">{t('serviceName')}</h1>
-              <p className="text-neutral-300 text-sm mt-1">{t('serviceNameEn')}</p>
+              <p className="text-neutral-200 text-sm mt-1">{t('serviceNameEn')}</p>
             </div>
             <div className="text-right">
               <p className="text-4xl font-bold text-white">¥{SERVICE_INFO.price.toLocaleString()}</p>
-              <p className="text-xs text-neutral-300 mt-1">{t('taxIncluded')}</p>
+              <p className="text-xs text-neutral-200 mt-1">{t('taxIncluded')}</p>
             </div>
           </div>
         </div>
@@ -287,15 +287,15 @@ export default function WClinicMensInitialConsultationPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('patientName')}</label>
-                      <input type="text" required value={patientInfo.patientName} onChange={(e) => setPatientInfo({ ...patientInfo, patientName: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('patientNamePlaceholder')} />
+                      <input type="text" required value={patientInfo.patientName} onChange={(e) => setPatientInfo({ ...patientInfo, patientName: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" placeholder={t('patientNamePlaceholder')} />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('age')}</label>
-                      <input type="text" value={patientInfo.age} onChange={(e) => setPatientInfo({ ...patientInfo, age: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('agePlaceholder')} />
+                      <input type="text" value={patientInfo.age} onChange={(e) => setPatientInfo({ ...patientInfo, age: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" placeholder={t('agePlaceholder')} />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('gender')}</label>
-                      <select value={patientInfo.gender} onChange={(e) => setPatientInfo({ ...patientInfo, gender: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                      <select value={patientInfo.gender} onChange={(e) => setPatientInfo({ ...patientInfo, gender: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent">
                         <option value="">{t('genderSelect')}</option>
                         <option value={t('male')}>{t('male')}</option>
                         <option value={t('female')}>{t('female')}</option>
@@ -303,11 +303,11 @@ export default function WClinicMensInitialConsultationPage() {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('diagnosis')}</label>
-                      <input type="text" value={patientInfo.diagnosis} onChange={(e) => setPatientInfo({ ...patientInfo, diagnosis: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('diagnosisPlaceholder')} />
+                      <input type="text" value={patientInfo.diagnosis} onChange={(e) => setPatientInfo({ ...patientInfo, diagnosis: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" placeholder={t('diagnosisPlaceholder')} />
                     </div>
                     <div className="md:col-span-2">
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('currentStatus')}</label>
-                      <textarea value={patientInfo.currentStatus} onChange={(e) => setPatientInfo({ ...patientInfo, currentStatus: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" rows={3} placeholder={t('currentStatusPlaceholder')} />
+                      <textarea value={patientInfo.currentStatus} onChange={(e) => setPatientInfo({ ...patientInfo, currentStatus: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" rows={3} placeholder={t('currentStatusPlaceholder')} />
                     </div>
                   </div>
                 </div>
@@ -317,11 +317,11 @@ export default function WClinicMensInitialConsultationPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('contactName')}</label>
-                      <input type="text" required value={customerInfo.name} onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('contactNamePlaceholder')} />
+                      <input type="text" required value={customerInfo.name} onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" placeholder={t('contactNamePlaceholder')} />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('region')}</label>
-                      <select value={customerInfo.country} onChange={(e) => setCustomerInfo({ ...customerInfo, country: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                      <select value={customerInfo.country} onChange={(e) => setCustomerInfo({ ...customerInfo, country: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent">
                         <option value="TW">{t('regionTW')}</option>
                         <option value="CN">{t('regionCN')}</option>
                         <option value="HK">{t('regionHK')}</option>
@@ -332,19 +332,19 @@ export default function WClinicMensInitialConsultationPage() {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('phone')}</label>
-                      <input type="tel" value={customerInfo.phone} onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('phonePlaceholder')} />
+                      <input type="tel" value={customerInfo.phone} onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" placeholder={t('phonePlaceholder')} />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('email')}</label>
-                      <input type="email" value={customerInfo.email} onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('emailPlaceholder')} />
+                      <input type="email" value={customerInfo.email} onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" placeholder={t('emailPlaceholder')} />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('lineId')}</label>
-                      <input type="text" value={customerInfo.line} onChange={(e) => setCustomerInfo({ ...customerInfo, line: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('lineIdPlaceholder')} />
+                      <input type="text" value={customerInfo.line} onChange={(e) => setCustomerInfo({ ...customerInfo, line: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" placeholder={t('lineIdPlaceholder')} />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('wechat')}</label>
-                      <input type="text" value={customerInfo.wechat} onChange={(e) => setCustomerInfo({ ...customerInfo, wechat: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('wechatPlaceholder')} />
+                      <input type="text" value={customerInfo.wechat} onChange={(e) => setCustomerInfo({ ...customerInfo, wechat: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" placeholder={t('wechatPlaceholder')} />
                     </div>
                   </div>
                   {contactError && <p className="mt-2 text-sm text-red-500">{contactError}</p>}
@@ -353,7 +353,7 @@ export default function WClinicMensInitialConsultationPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-neutral-700 mb-1">{t('additionalNotes')}</label>
-                  <textarea value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" rows={4} placeholder={t('additionalNotesPlaceholder')} />
+                  <textarea value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" rows={4} placeholder={t('additionalNotesPlaceholder')} />
                 </div>
 
                 <div className="bg-neutral-50 p-6 border border-neutral-200">
@@ -367,14 +367,14 @@ export default function WClinicMensInitialConsultationPage() {
                   <p className="text-xs text-neutral-500 mb-4">{t('paymentNotice')}</p>
                   <ConsentCheckboxes consents={consents} onChange={setConsents} lang={currentLang} />
 
-                <button type="submit" disabled={processing || !allConsented(consents)} className="w-full py-4 bg-accent-400 text-brand-900 font-bold hover:bg-accent-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                <button type="submit" disabled={processing || !allConsented(consents)} className="w-full py-4 bg-brand-400 text-neutral-900 font-bold hover:bg-brand-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                     {processing ? (<><Loader2 className="animate-spin" size={20} />{t('processing')}</>) : (<><CreditCard size={20} />{t('confirmPayment')}</>)}
                   </button>
                 </div>
 
                 <div className="flex flex-wrap justify-center gap-6 text-xs text-neutral-500">
-                  <div className="flex items-center gap-1"><Shield size={14} className="text-green-500" /><span>{t('securePayment')}</span></div>
-                  <div className="flex items-center gap-1"><Clock size={14} className="text-amber-500" /><span>{t('contact24h')}</span></div>
+                  <div className="flex items-center gap-1"><Shield size={14} className="text-brand-700" /><span>{t('securePayment')}</span></div>
+                  <div className="flex items-center gap-1"><Clock size={14} className="text-brand-700" /><span>{t('contact24h')}</span></div>
                 </div>
                 <div className="flex items-center justify-center gap-2 mt-4">
                   <Image src="/icons/payment/visa.svg" alt="Visa" width={40} height={25} className="h-6 w-auto" />

@@ -369,9 +369,9 @@ export default function ScreeningResult({
       description: t('riskLowDesc', lang),
     },
     medium: {
-      color: 'text-yellow-600',
-      bg: 'bg-yellow-50',
-      border: 'border-yellow-200',
+      color: 'text-brand-600',
+      bg: 'bg-brand-50',
+      border: 'border-brand-200',
       icon: AlertCircle,
       label: t('riskMedium', lang),
       description: t('riskMediumDesc', lang),
@@ -418,14 +418,14 @@ export default function ScreeningResult({
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Gate C: 人工审核通知横幅 */}
       {result.requiresHumanReview && !result.requiresEmergencyNotice && (
-        <div className="bg-amber-50 border-2 border-amber-300 p-6 md:p-8">
+        <div className="bg-brand-50 border-2 border-brand-300 p-6 md:p-8">
           <div className="flex items-start gap-4">
-            <div className="p-3 bg-amber-100 rounded-full flex-shrink-0">
-              <Clock className="w-7 h-7 text-amber-600" />
+            <div className="p-3 bg-brand-100 rounded-full flex-shrink-0">
+              <Clock className="w-7 h-7 text-brand-600" />
             </div>
             <div className="flex-1">
-              <h2 className="text-lg font-bold text-amber-800 mb-2">{t('humanReviewTitle', lang)}</h2>
-              <p className="text-amber-700 text-sm leading-relaxed">{t('humanReviewDesc', lang)}</p>
+              <h2 className="text-lg font-bold text-brand-800 mb-2">{t('humanReviewTitle', lang)}</h2>
+              <p className="text-brand-700 text-sm leading-relaxed">{t('humanReviewDesc', lang)}</p>
             </div>
           </div>
         </div>
@@ -459,8 +459,8 @@ export default function ScreeningResult({
       {/* 健康评分卡片 */}
       <div className="bg-white border border-neutral-200 p-6 md:p-8">
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-2 bg-emerald-100">
-            <Activity className="w-6 h-6 text-emerald-600" />
+          <div className="p-2 bg-brand-100">
+            <Activity className="w-6 h-6 text-brand-600" />
           </div>
           <div>
             <h3 className="text-xl font-semibold text-neutral-900 tracking-wide">
@@ -477,10 +477,10 @@ export default function ScreeningResult({
               <span
                 className={`text-3xl font-bold ${
                   breakdown.finalScore >= 80
-                    ? 'text-emerald-600'
+                    ? 'text-brand-600'
                     : breakdown.finalScore >= 60
-                      ? 'text-amber-500'
-                      : 'text-red-500'
+                      ? 'text-brand-700'
+                      : 'text-brand-700'
                 }`}
               >
                 {breakdown.finalScore}
@@ -499,8 +499,8 @@ export default function ScreeningResult({
       {bodyMapData && bodyMapData.selectedBodyParts.length > 0 && (
         <div className="bg-white border border-neutral-200 p-6 md:p-8">
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-indigo-100">
-              <Activity className="w-6 h-6 text-indigo-600" />
+            <div className="p-2 bg-brand-100">
+              <Activity className="w-6 h-6 text-brand-600" />
             </div>
             <h3 className="text-xl font-semibold text-neutral-900 tracking-wide">{t('symptomLocation', lang)}</h3>
           </div>
@@ -509,7 +509,7 @@ export default function ScreeningResult({
             {getSelectedBodyPartNames().map((name, idx) => (
               <span
                 key={idx}
-                className="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-full text-sm font-medium"
+                className="px-4 py-2 bg-brand-50 text-brand-700 rounded-full text-sm font-medium"
               >
                 {name}
               </span>
@@ -525,19 +525,19 @@ export default function ScreeningResult({
                     key={idx}
                     className={`px-3 py-2 text-sm flex items-center gap-2 ${
                       symptom.severity === 'high'
-                        ? 'bg-red-50 text-red-700'
+                        ? 'bg-brand-50 text-brand-700'
                         : symptom.severity === 'medium'
-                        ? 'bg-yellow-50 text-yellow-700'
-                        : 'bg-green-50 text-green-700'
+                        ? 'bg-brand-50 text-brand-700'
+                        : 'bg-brand-50 text-brand-700'
                     }`}
                   >
                     <span
                       className={`w-2 h-2 rounded-full ${
                         symptom.severity === 'high'
-                          ? 'bg-red-500'
+                          ? 'bg-brand-500'
                           : symptom.severity === 'medium'
-                          ? 'bg-yellow-500'
-                          : 'bg-green-500'
+                          ? 'bg-brand-500'
+                          : 'bg-brand-500'
                       }`}
                     />
                     {symptom.name}
@@ -553,8 +553,8 @@ export default function ScreeningResult({
       {bodyMapData && getRecommendedDepartments().length > 0 && (
         <div className="bg-white border border-neutral-200 p-6 md:p-8">
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-teal-100">
-              <Users className="w-6 h-6 text-teal-600" />
+            <div className="p-2 bg-brand-100">
+              <Users className="w-6 h-6 text-brand-600" />
             </div>
             <h3 className="text-xl font-semibold text-neutral-900 tracking-wide">{t('recommendedDepts', lang)}</h3>
           </div>
@@ -573,7 +573,7 @@ export default function ScreeningResult({
                     {dept.recommendedTests.slice(0, 3).map((test: string, testIdx: number) => (
                       <span
                         key={testIdx}
-                        className="px-2 py-0.5 bg-teal-100 text-teal-700 rounded text-xs"
+                        className="px-2 py-0.5 bg-brand-100 text-brand-700 rounded text-xs"
                       >
                         {test}
                       </span>
@@ -590,8 +590,8 @@ export default function ScreeningResult({
       {result.recommendedTests.length > 0 && (
         <div className="bg-white border border-neutral-200 p-6 md:p-8">
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-blue-100">
-              <Stethoscope className="w-6 h-6 text-blue-600" />
+            <div className="p-2 bg-brand-100">
+              <Stethoscope className="w-6 h-6 text-brand-600" />
             </div>
             <h3 className="text-xl font-semibold text-neutral-900 tracking-wide">{t('recommendedTests', lang)}</h3>
           </div>
@@ -602,7 +602,7 @@ export default function ScreeningResult({
                 key={index}
                 className="flex items-start gap-3 p-4 bg-neutral-50"
               >
-                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500 text-white text-sm flex items-center justify-center font-medium">
+                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-500 text-white text-sm flex items-center justify-center font-medium">
                   {index + 1}
                 </div>
                 <p className="text-neutral-700">{test}</p>
@@ -616,8 +616,8 @@ export default function ScreeningResult({
       {result.treatmentSuggestions.length > 0 && (
         <div className="bg-white border border-neutral-200 p-6 md:p-8">
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-purple-100">
-              <Pill className="w-6 h-6 text-purple-600" />
+            <div className="p-2 bg-brand-100">
+              <Pill className="w-6 h-6 text-brand-600" />
             </div>
             <h3 className="text-xl font-semibold text-neutral-900 tracking-wide">
               {t('treatmentSuggestions', lang)}
@@ -628,9 +628,9 @@ export default function ScreeningResult({
             {result.treatmentSuggestions.map((suggestion, index) => (
               <div
                 key={index}
-                className="flex items-center gap-3 p-3 bg-purple-50"
+                className="flex items-center gap-3 p-3 bg-brand-50"
               >
-                <CheckCircle className="w-5 h-5 text-purple-500 flex-shrink-0" />
+                <CheckCircle className="w-5 h-5 text-brand-700 flex-shrink-0" />
                 <span className="text-neutral-700">{suggestion}</span>
               </div>
             ))}
@@ -642,8 +642,8 @@ export default function ScreeningResult({
       {result.recommendedHospitals.length > 0 && (
         <div className="bg-white border border-neutral-200 p-6 md:p-8">
           <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 bg-green-100">
-              <Building2 className="w-6 h-6 text-green-600" />
+            <div className="p-2 bg-brand-100">
+              <Building2 className="w-6 h-6 text-brand-600" />
             </div>
             <h3 className="text-xl font-semibold text-neutral-900 tracking-wide">{t('recommendedHospitals', lang)}</h3>
           </div>
@@ -695,7 +695,7 @@ export default function ScreeningResult({
                       <div className="space-y-1">
                         {hospital.doctors.map((doc, docIdx) => (
                           <div key={docIdx} className="flex items-center gap-2 text-sm">
-                            <Stethoscope className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
+                            <Stethoscope className="w-3.5 h-3.5 text-brand-700 flex-shrink-0" />
                             <span className="font-medium text-neutral-800">{doc.name}</span>
                             <span className="text-xs text-neutral-400">({doc.qualification})</span>
                           </div>
@@ -714,7 +714,7 @@ export default function ScreeningResult({
                       )}
                       <Link
                         href={consultUrl}
-                        className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-accent-400 hover:bg-accent-300 text-brand-900 font-medium text-sm tracking-wider transition-colors"
+                        className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-brand-400 hover:bg-brand-300 text-brand-900 font-medium text-sm tracking-wider transition-colors"
                       >
                         <ShoppingCart className="w-4 h-4" />
                         {t('bookConsultation', lang)}
@@ -760,7 +760,7 @@ export default function ScreeningResult({
               <li>{t('disclaimer5', lang)}</li>
               <li>{t('disclaimer6', lang)}</li>
             </ul>
-            <p className="text-amber-600 text-xs mt-3">{t('disclaimerCopyright', lang)}</p>
+            <p className="text-brand-600 text-xs mt-3">{t('disclaimerCopyright', lang)}</p>
           </div>
         </div>
       </div>
@@ -770,7 +770,7 @@ export default function ScreeningResult({
         <div className="flex flex-col sm:flex-row gap-4 pt-4">
           <Link
             href="/medical"
-            className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-accent-400 hover:bg-accent-300 text-brand-900 font-medium text-sm tracking-wider transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 px-6 py-4 brand-gradient-solid hover:opacity-90 text-white font-medium text-sm tracking-wider transition-colors"
           >
             <Stethoscope className="w-5 h-5" />
             {t('bookScreening', lang)}

@@ -15,14 +15,14 @@ export default function TokushohoPage() {
       <section className="relative min-h-[40vh] flex items-center brand-gradient-deep overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
-          <div className="absolute w-72 h-72 bg-accent-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+          <div className="absolute w-72 h-72 bg-brand-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
         </div>
         <div className="relative container mx-auto px-6 py-24">
           <div className="max-w-3xl mx-auto text-center">
             <div className="flex items-center justify-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-accent-400"></div>
-              <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">Legal Notice</span>
-              <div className="h-[1px] w-12 bg-accent-400"></div>
+              <div className="h-[1px] w-12 bg-brand-400"></div>
+              <span className="text-xs tracking-[0.3em] text-brand-400 uppercase">Legal Notice</span>
+              <div className="h-[1px] w-12 bg-brand-400"></div>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif text-white leading-tight">
               特定商取引法に基づく表記

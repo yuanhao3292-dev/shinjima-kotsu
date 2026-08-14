@@ -318,10 +318,10 @@ export default function WhitelabelResultClient({
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-brand-50 to-white flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-10 h-10 animate-spin text-blue-500 mx-auto mb-4" />
-          <p className="text-gray-500">{t('loadingResults', lang)}</p>
+          <Loader2 className="w-10 h-10 animate-spin text-brand-500 mx-auto mb-4" />
+          <p className="text-neutral-500">{t('loadingResults', lang)}</p>
         </div>
       </div>
     );
@@ -329,8 +329,8 @@ export default function WhitelabelResultClient({
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-        <div className="bg-white border-b border-gray-100 shadow-sm">
+      <div className="min-h-screen bg-gradient-to-b from-brand-50 to-white">
+        <div className="bg-white border-b border-neutral-100 shadow-sm">
           <div className="max-w-4xl mx-auto px-4 py-4">
             <Link
               href={`/g/${slug}/health-screening`}
@@ -349,7 +349,7 @@ export default function WhitelabelResultClient({
           </div>
           <Link
             href={`/g/${slug}/health-screening`}
-            className="inline-block mt-6 text-blue-600 hover:underline"
+            className="inline-block mt-6 text-brand-600 hover:underline"
           >
             {t('retakeScreening', lang)}
           </Link>
@@ -359,9 +359,9 @@ export default function WhitelabelResultClient({
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-brand-50 to-white">
       {/* Header */}
-      <div className="bg-white border-b border-gray-100 shadow-sm">
+      <div className="bg-white border-b border-neutral-100 shadow-sm">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link
             href={`/g/${slug}`}
@@ -374,7 +374,7 @@ export default function WhitelabelResultClient({
           <button
             onClick={handleDownloadPDF}
             disabled={isDownloading}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all text-sm font-medium shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-brand-600 to-brand-700 text-white rounded-lg hover:from-brand-700 hover:to-brand-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all text-sm font-medium shadow-sm"
           >
             {isDownloading ? (
               <>
@@ -392,16 +392,16 @@ export default function WhitelabelResultClient({
       </div>
 
       {/* Title */}
-      <div className="bg-gradient-to-b from-white to-blue-50/30 py-8">
+      <div className="bg-gradient-to-b from-white to-brand-50/30 py-8">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm mb-4">
             <FileText className="w-4 h-4" />
             {t('analysisComplete', lang)}
           </div>
-          <h1 className="text-2xl md:text-3xl font-semibold text-gray-900">
+          <h1 className="text-2xl md:text-3xl font-semibold text-neutral-900">
             {t('aiHealthReport', lang)}
           </h1>
-          <p className="text-gray-500 mt-2">
+          <p className="text-neutral-500 mt-2">
             {t('reportDesc', lang)}
           </p>
         </div>
@@ -424,10 +424,10 @@ export default function WhitelabelResultClient({
       {recommendedServices.length > 0 && (
         <div className="max-w-4xl mx-auto px-4 pb-8">
           <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
+            <h3 className="text-xl font-bold text-neutral-900 mb-2">
               {t('recommendedServicesTitle', lang)}
             </h3>
-            <p className="text-gray-500 text-sm mb-6">
+            <p className="text-neutral-500 text-sm mb-6">
               {t('recommendedServicesDesc', lang)}
             </p>
 
@@ -436,7 +436,7 @@ export default function WhitelabelResultClient({
                 <Link
                   key={index}
                   href={service.href}
-                  className="group flex items-start gap-4 p-4 border border-gray-200 rounded-xl hover:border-blue-300 hover:shadow-md transition-all"
+                  className="group flex items-start gap-4 p-4 border border-neutral-200 rounded-xl hover:border-brand-300 hover:shadow-md transition-all"
                 >
                   {service.heroImage && (
                     <img
@@ -446,13 +446,13 @@ export default function WhitelabelResultClient({
                     />
                   )}
                   <div className="flex-1 min-w-0">
-                    <h4 className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                    <h4 className="font-bold text-neutral-900 group-hover:text-brand-600 transition-colors">
                       {service.name}
                     </h4>
-                    <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+                    <p className="text-sm text-neutral-500 mt-1 line-clamp-2">
                       {service.description}
                     </p>
-                    <span className="inline-flex items-center gap-1 text-sm text-blue-600 mt-2">
+                    <span className="inline-flex items-center gap-1 text-sm text-brand-600 mt-2">
                       {t('learnMore', lang)} <ArrowRight size={14} />
                     </span>
                   </div>
@@ -465,19 +465,19 @@ export default function WhitelabelResultClient({
 
       {/* 导游联系 CTA */}
       <div className="max-w-4xl mx-auto px-4 pb-8">
-        <div className="bg-gradient-to-r from-gray-900 to-gray-800 text-white rounded-2xl p-6 md:p-8">
+        <div className="bg-gradient-to-r from-neutral-900 to-neutral-800 text-white rounded-2xl p-6 md:p-8">
           <div className="text-center mb-6">
             <h3 className="text-xl font-bold mb-2">
               {t('needConsultation', lang)}
             </h3>
-            <p className="text-gray-400">
+            <p className="text-neutral-400">
               {t('consultationDesc', lang)}
             </p>
           </div>
 
           <div className="flex flex-wrap justify-center gap-4">
             {contactInfo.wechat && (
-              <div className="flex items-center gap-2 px-5 py-3 bg-green-500 text-white rounded-xl">
+              <div className="flex items-center gap-2 px-5 py-3 bg-brand-500 text-white rounded-xl">
                 <MessageCircle className="w-5 h-5" />
                 <span>{t('wechatLabel', lang)} {contactInfo.wechat}</span>
               </div>
@@ -487,7 +487,7 @@ export default function WhitelabelResultClient({
                 href={`https://line.me/R/ti/p/${contactInfo.line}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-3 bg-[#06C755] text-white rounded-xl hover:bg-[#05b54e] transition-colors"
+                className="flex items-center gap-2 px-5 py-3 brand-gradient-solid text-white rounded-xl hover:opacity-90 transition-colors"
               >
                 <MessageCircle className="w-5 h-5" />
                 <span>{t('lineConsult', lang)}</span>
@@ -496,7 +496,7 @@ export default function WhitelabelResultClient({
             {contactInfo.phone && (
               <a
                 href={`tel:${contactInfo.phone}`}
-                className="flex items-center gap-2 px-5 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors"
+                className="flex items-center gap-2 px-5 py-3 bg-brand-600 text-white rounded-xl hover:bg-brand-700 transition-colors"
               >
                 <Phone className="w-5 h-5" />
                 <span>{contactInfo.phone}</span>
@@ -505,7 +505,7 @@ export default function WhitelabelResultClient({
             {contactInfo.email && (
               <a
                 href={`mailto:${contactInfo.email}`}
-                className="flex items-center gap-2 px-5 py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-colors"
+                className="flex items-center gap-2 px-5 py-3 bg-brand-600 text-white rounded-xl hover:bg-brand-700 transition-colors"
               >
                 <Mail className="w-5 h-5" />
                 <span>{t('emailConsult', lang)}</span>
@@ -517,18 +517,18 @@ export default function WhitelabelResultClient({
 
       {/* PDF 下载提示 */}
       <div className="max-w-4xl mx-auto px-4 pb-8">
-        <div className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
+        <div className="p-6 bg-gradient-to-r from-brand-50 to-brand-50 rounded-2xl border border-brand-100">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-center md:text-left">
-              <h3 className="font-bold text-gray-900 mb-1">{t('saveReport', lang)}</h3>
-              <p className="text-sm text-gray-500">
+              <h3 className="font-bold text-neutral-900 mb-1">{t('saveReport', lang)}</h3>
+              <p className="text-sm text-neutral-500">
                 {t('saveReportDesc', lang)}
               </p>
             </div>
             <button
               onClick={handleDownloadPDF}
               disabled={isDownloading}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-lg shadow-blue-200"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-brand-600 to-brand-700 text-white rounded-xl hover:from-brand-700 hover:to-brand-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-lg shadow-brand-200"
             >
               {isDownloading ? (
                 <>
@@ -551,7 +551,7 @@ export default function WhitelabelResultClient({
         <div className="text-center">
           <Link
             href={`/g/${slug}/health-screening`}
-            className="text-blue-600 hover:underline text-sm"
+            className="text-brand-600 hover:underline text-sm"
           >
             {t('retakeScreening', lang)}
           </Link>

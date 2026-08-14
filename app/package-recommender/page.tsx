@@ -996,41 +996,41 @@ export default function PackageRecommenderPage() {
 
   if (showResult && recommendation) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-blue-50">
+      <div className="min-h-screen bg-gradient-to-br from-brand-50 via-white to-brand-50">
         <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
           <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors">
               <ArrowLeft size={20} /><span>{ut('backHome')}</span>
             </Link>
-            <h1 className="text-lg font-bold text-gray-900">{ut('pageTitle')}</h1>
+            <h1 className="text-lg font-bold text-neutral-900">{ut('pageTitle')}</h1>
             <div className="w-20"></div>
           </div>
         </header>
         <main className="max-w-2xl mx-auto px-4 py-16">
           <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-            <div className="bg-gradient-to-br from-indigo-600 via-blue-600 to-indigo-700 text-white p-10 text-center relative overflow-hidden">
+            <div className="bg-gradient-to-br from-brand-600 via-brand-600 to-brand-700 text-white p-10 text-center relative overflow-hidden">
               <div className="absolute inset-0 opacity-10"><div className="absolute inset-0" style={{backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png')"}}></div></div>
               <div className="relative z-10">
                 <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur"><Sparkles className="w-10 h-10" /></div>
                 <h2 className="text-3xl font-serif font-bold mb-3">{ut('resultTitle')}</h2>
-                <p className="text-blue-100 text-sm">{ut('resultSubtitle')}</p>
+                <p className="text-brand-700 text-sm">{ut('resultSubtitle')}</p>
               </div>
             </div>
             <div className="p-10">
               <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">{rs(recommendation.packageName)}</h3>
-                <p className="text-4xl font-bold text-indigo-600">¥{recommendation.price.toLocaleString()}</p>
-                <p className="text-sm text-gray-400 mt-1">{ut('priceNote')}</p>
+                <h3 className="text-2xl font-bold text-neutral-900 mb-3">{rs(recommendation.packageName)}</h3>
+                <p className="text-4xl font-bold text-brand-600">¥{recommendation.price.toLocaleString()}</p>
+                <p className="text-sm text-neutral-400 mt-1">{ut('priceNote')}</p>
               </div>
-              <div className="bg-indigo-50 rounded-2xl p-6 mb-8">
+              <div className="bg-brand-50 rounded-2xl p-6 mb-8">
                 <div className="flex items-start gap-4">
-                  <CheckCircle className="w-6 h-6 text-indigo-600 flex-shrink-0 mt-0.5" />
-                  <div><p className="font-semibold text-indigo-900 mb-1">{ut('resultReason')}</p><p className="text-sm text-indigo-700 leading-relaxed">{rs(recommendation.reason)}</p></div>
+                  <CheckCircle className="w-6 h-6 text-brand-600 flex-shrink-0 mt-0.5" />
+                  <div><p className="font-semibold text-brand-900 mb-1">{ut('resultReason')}</p><p className="text-sm text-brand-700 leading-relaxed">{rs(recommendation.reason)}</p></div>
                 </div>
               </div>
               <div className="space-y-4">
-                <a href="/medical" className="block w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-xl transition-colors text-center">{ut('resultViewMedical')}</a>
-                <button onClick={() => { setShowResult(false); setCurrentStep(0); setAnswers({}); }} className="block w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3 px-6 rounded-xl transition-colors text-center">{ut('resultRetry')}</button>
+                <a href="/medical" className="block w-full brand-gradient-solid hover:opacity-90 text-white font-bold py-4 px-6 rounded-xl transition-colors text-center">{ut('resultViewMedical')}</a>
+                <button onClick={() => { setShowResult(false); setCurrentStep(0); setAnswers({}); }} className="block w-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-medium py-3 px-6 rounded-xl transition-colors text-center">{ut('resultRetry')}</button>
                 <Link href="/" className="block w-full text-center text-neutral-500 hover:text-brand-900 py-2 transition-colors">{ut('resultAllPackages')}</Link>
               </div>
             </div>
@@ -1042,50 +1042,50 @@ export default function PackageRecommenderPage() {
 
   const QuestionIcon = currentQuestion.icon;
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-brand-50 via-white to-brand-50">
       <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"><ArrowLeft size={20} /><span>{ut('backHome')}</span></Link>
-          <h1 className="text-lg font-bold text-gray-900">{ut('pageTitle')}</h1>
+          <h1 className="text-lg font-bold text-neutral-900">{ut('pageTitle')}</h1>
           <div className="w-20"></div>
         </div>
       </header>
       <main className="max-w-2xl mx-auto px-4 py-12">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full text-sm font-medium mb-4"><MessageSquare size={16} />{ut('pageBadge')}</div>
-          <h1 className="text-3xl font-serif font-bold text-gray-900 mb-3">{ut('pageHeading')}</h1>
-          <p className="text-gray-500">{ut('pageDesc')}</p>
+          <div className="inline-flex items-center gap-2 bg-brand-100 text-brand-700 px-4 py-2 rounded-full text-sm font-medium mb-4"><MessageSquare size={16} />{ut('pageBadge')}</div>
+          <h1 className="text-3xl font-serif font-bold text-neutral-900 mb-3">{ut('pageHeading')}</h1>
+          <p className="text-neutral-500">{ut('pageDesc')}</p>
         </div>
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-          <div className="h-1.5 bg-gray-100"><div className="h-full bg-gradient-to-r from-indigo-500 to-blue-500 transition-all duration-500" style={{ width: `${progress}%` }} /></div>
-          <div className="p-6 border-b border-gray-100">
+          <div className="h-1.5 bg-neutral-100"><div className="h-full bg-gradient-to-r from-brand-500 to-brand-500 transition-all duration-500" style={{ width: `${progress}%` }} /></div>
+          <div className="p-6 border-b border-neutral-100">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center"><QuestionIcon className="w-6 h-6 text-indigo-600" /></div>
-                <div><span className="text-sm text-gray-400">{ut('questionPrefix')} {currentStep + 1} / {visibleQuestions.length}</span></div>
+                <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center"><QuestionIcon className="w-6 h-6 text-brand-600" /></div>
+                <div><span className="text-sm text-neutral-400">{ut('questionPrefix')} {currentStep + 1} / {visibleQuestions.length}</span></div>
               </div>
             </div>
           </div>
           <div className="p-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-2">{rs(currentQuestion.title)}</h2>
-            {currentQuestion.subtitle && <p className="text-gray-500 text-sm mb-8">{rs(currentQuestion.subtitle)}</p>}
+            <h2 className="text-xl font-bold text-neutral-900 mb-2">{rs(currentQuestion.title)}</h2>
+            {currentQuestion.subtitle && <p className="text-neutral-500 text-sm mb-8">{rs(currentQuestion.subtitle)}</p>}
             <div className="space-y-3">
               {currentQuestion.options.map((option) => (
-                <button key={option.value} onClick={() => handleSelect(option.value)} className={`w-full p-5 rounded-xl border-2 text-left transition-all ${isOptionSelected(option.value) ? 'border-indigo-600 bg-indigo-50 shadow-md' : 'border-gray-200 hover:border-indigo-300 hover:bg-gray-50'}`}>
+                <button key={option.value} onClick={() => handleSelect(option.value)} className={`w-full p-5 rounded-xl border-2 text-left transition-all ${isOptionSelected(option.value) ? 'border-brand-600 bg-brand-50 shadow-md' : 'border-neutral-200 hover:border-brand-300 hover:bg-neutral-50'}`}>
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className={`font-semibold ${isOptionSelected(option.value) ? 'text-indigo-700' : 'text-gray-900'}`}>{rs(option.label)}</p>
-                      {option.description && <p className="text-sm text-gray-500 mt-1">{rs(option.description)}</p>}
+                      <p className={`font-semibold ${isOptionSelected(option.value) ? 'text-brand-700' : 'text-neutral-900'}`}>{rs(option.label)}</p>
+                      {option.description && <p className="text-sm text-neutral-500 mt-1">{rs(option.description)}</p>}
                     </div>
-                    {isOptionSelected(option.value) && <CheckCircle className="w-6 h-6 text-indigo-600 flex-shrink-0" />}
+                    {isOptionSelected(option.value) && <CheckCircle className="w-6 h-6 text-brand-600 flex-shrink-0" />}
                   </div>
                 </button>
               ))}
             </div>
           </div>
-          <div className="p-6 border-t border-gray-100 flex justify-between bg-gray-50">
+          <div className="p-6 border-t border-neutral-100 flex justify-between bg-neutral-50">
             <button onClick={handleBack} disabled={currentStep === 0} className="flex items-center gap-2 text-neutral-500 hover:text-brand-900 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"><ArrowLeft size={18} />{ut('prevQuestion')}</button>
-            {currentQuestion.multiple && <button onClick={handleNext} disabled={!canProceed()} className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-300 text-white font-semibold px-8 py-3 rounded-xl transition-colors">{currentStep === visibleQuestions.length - 1 ? ut('viewResult') : ut('nextQuestion')}<ArrowRight size={18} /></button>}
+            {currentQuestion.multiple && <button onClick={handleNext} disabled={!canProceed()} className="flex items-center gap-2 brand-gradient-solid hover:opacity-90 disabled:bg-neutral-300 text-white font-semibold px-8 py-3 rounded-xl transition-colors">{currentStep === visibleQuestions.length - 1 ? ut('viewResult') : ut('nextQuestion')}<ArrowRight size={18} /></button>}
           </div>
         </div>
       </main>
