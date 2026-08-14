@@ -49,10 +49,10 @@ const pageTranslations = {
     'en': 'Refer clients to us. All services are provided by Niijima Kotsu with full responsibility.',
   },
   btnWechatApply: {
-    'ja': 'WeChat申請',
-    'zh-TW': '微信申請加入',
-    'zh-CN': '微信申请加入',
-    'en': 'WeChat Application',
+    'ja': 'パートナー登録申請',
+    'zh-TW': '申請成為合夥人',
+    'zh-CN': '申请成为合伙人',
+    'en': 'Apply to Become a Partner',
   },
   btnLearnHow: {
     'ja': '仕組みを理解する',
@@ -618,12 +618,6 @@ const pageTranslations = {
   },
 
   // Aria Labels
-  ariaWechatApply: {
-    'ja': 'WeChat QRコードを開いて申請',
-    'zh-TW': '打開微信二維碼申請加入',
-    'zh-CN': '打开微信二维码申请加入',
-    'en': 'Open WeChat QR code to apply',
-  },
   ariaWechatConsult: {
     'ja': 'WeChat QRコードを開いてブランドサイト開設相談',
     'zh-TW': '打開微信二維碼諮詢開通品牌網站',
@@ -726,13 +720,12 @@ export default function GuidePartnerPage() {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <button
-                onClick={() => setShowWechatQR(true)}
-                className="inline-flex items-center px-8 py-4 rounded-lg brand-gradient-solid text-white text-sm font-medium tracking-wider hover:bg-neutral-100 transition-colors"
-                aria-label={t('ariaWechatApply')}
+              <Link
+                href="/guide-partner/register"
+                className="inline-flex items-center px-8 py-4 rounded-lg brand-gradient-solid text-white text-sm font-medium tracking-wide hover:opacity-90 transition-opacity"
               >
                 {t('btnWechatApply')}
-              </button>
+              </Link>
               <a
                 href="#how-it-works"
                 className="inline-flex items-center px-8 py-4 rounded-lg border border-neutral-200 bg-white backdrop-blur-sm text-brand-900 text-sm tracking-wider hover:bg-white/20 transition-colors"
