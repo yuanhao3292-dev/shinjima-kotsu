@@ -230,7 +230,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                    { t: t.business.step_5_t, d: t.business.step_5_d },
                  ].map((step, i) => (
                     <div key={i} className="relative group">
-                       <div className="text-4xl font-mono font-bold text-brand-800 mb-4 group-hover:text-brand-500 transition">0{i+1}</div>
+                       <div className="text-4xl font-mono font-bold text-brand-800 mb-4 group-hover:text-brand-700 transition">0{i+1}</div>
                        <h4 className="font-bold text-lg mb-2">{step.t}</h4>
                        <p className="text-xs text-neutral-500 leading-relaxed">{step.d}</p>
                     </div>

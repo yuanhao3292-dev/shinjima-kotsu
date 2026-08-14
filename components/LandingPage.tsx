@@ -487,13 +487,13 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             {/* 权威认证标签 */}
             <div className="flex items-center gap-3 mb-8">
               <div className="h-[1px] w-12 bg-brand-500"></div>
-              <span className="text-xs tracking-[0.3em] text-brand-500 uppercase">Exclusive Access</span>
+              <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">Exclusive Access</span>
             </div>
 
             <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-brand-900 mb-4 md:mb-6 leading-tight">
               {currentLang === 'zh-TW' ? '踏入' : currentLang === 'zh-CN' ? '踏入' : currentLang === 'ja' ? '足を踏み入れる' : 'Step Into'}
               <br />
-              <span className="text-brand-500">{currentLang === 'zh-TW' ? '傳說中的名門' : currentLang === 'zh-CN' ? '传说中的名门' : currentLang === 'ja' ? '伝説の名門へ' : 'Legendary Championship Courses'}</span>
+              <span className="text-brand-700">{currentLang === 'zh-TW' ? '傳說中的名門' : currentLang === 'zh-CN' ? '传说中的名门' : currentLang === 'ja' ? '伝説の名門へ' : 'Legendary Championship Courses'}</span>
             </h2>
 
             <p className="text-sm sm:text-base md:text-xl text-brand-900/80 mb-6 md:mb-8 leading-relaxed font-light">
@@ -503,7 +503,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             {/* 核心数据 - 金色边框 */}
             <div className="grid grid-cols-2 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-neutral-200">
               <div className="text-center">
-                <div className="text-2xl md:text-4xl font-light text-brand-900 mb-1">25<span className="text-brand-500">+</span></div>
+                <div className="text-2xl md:text-4xl font-light text-brand-900 mb-1">25<span className="text-brand-700">+</span></div>
                 <div className="text-[10px] md:text-xs text-neutral-500 tracking-wider uppercase">{currentLang === 'zh-TW' ? '名門球場' : currentLang === 'zh-CN' ? '名门球场' : currentLang === 'ja' ? '名門コース' : 'Elite Courses'}</div>
               </div>
               <div className="border-l border-neutral-200 text-center">
@@ -524,7 +524,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                   ? ['廣野高爾夫俱樂部', '霞之關鄉村俱樂部', '小野高爾夫俱樂部', '茨木鄉村俱樂部', '古賀高爾夫俱樂部']
                   : ['廣野ゴルフ倶楽部', '霞ヶ関カンツリー倶楽部', '小野ゴルフ倶楽部', '茨木カンツリー倶楽部', '古賀ゴルフ・クラブ']
                 ).map((course, idx) => (
-                  <span key={idx} className="text-sm text-brand-900/80 after:content-['·'] after:mx-2 after:text-brand-500 last:after:content-none">
+                  <span key={idx} className="text-sm text-brand-900/80 after:content-['·'] after:mx-2 after:text-brand-700 last:after:content-none">
                     {course}
                   </span>
                 ))}
@@ -544,7 +544,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
         {/* 右下角服务标签 */}
         <div className="absolute bottom-12 right-12 hidden lg:block">
           <div className="bg-brand-50 backdrop-blur-sm border border-neutral-200 p-6 max-w-xs">
-            <div className="text-xs text-brand-500 mb-2 uppercase tracking-wider">{currentLang === 'zh-TW' ? '尊享服務' : currentLang === 'zh-CN' ? '尊享服务' : currentLang === 'ja' ? 'プレミアムサービス' : 'Premium Services'}</div>
+            <div className="text-xs text-brand-700 mb-2 uppercase tracking-wider">{currentLang === 'zh-TW' ? '尊享服務' : currentLang === 'zh-CN' ? '尊享服务' : currentLang === 'ja' ? 'プレミアムサービス' : 'Premium Services'}</div>
             <div className="space-y-2 text-sm text-brand-900/80">
               <div>✓ {currentLang === 'zh-TW' ? '專屬開球時段' : currentLang === 'zh-CN' ? '专属开球时段' : currentLang === 'ja' ? '専用スタート枠' : 'Reserved Tee Times'}</div>
               <div>✓ {currentLang === 'zh-TW' ? '雙語球童服務' : currentLang === 'zh-CN' ? '双语球童服务' : currentLang === 'ja' ? 'バイリンガルキャディ' : 'Bilingual Caddy'}</div>
@@ -577,7 +577,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               <div>
                 <div className="flex items-center gap-3 mb-8 md:mb-10">
                   <div className="h-[1px] w-12 bg-brand-500"></div>
-                  <span className="text-xs tracking-[0.3em] text-brand-500 uppercase">Business Inspection</span>
+                  <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">Business Inspection</span>
                 </div>
                 <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-brand-900 mb-4 md:mb-6 leading-tight">
                   {currentLang === 'zh-TW' ? '對話日本頂尖企業' : currentLang === 'zh-CN' ? '对话日本顶尖企业' : currentLang === 'ja' ? '日本トップ企業との対話' : 'Connect with Japan\'s Leading Companies'}
@@ -723,14 +723,14 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             {/* 标签 */}
             <div className="flex items-center gap-3 mb-8">
               <div className="h-[1px] w-12 bg-brand-500"></div>
-              <span className="text-xs tracking-[0.3em] text-brand-500 uppercase">Partnership</span>
+              <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">Partnership</span>
             </div>
 
             {/* 核心标题 */}
             <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-brand-900 mb-4 md:mb-6 leading-tight">
               {currentLang === 'zh-TW' ? '導遊提攜夥伴' : currentLang === 'zh-CN' ? '导游提携伙伴' : currentLang === 'ja' ? 'ガイドパートナー' : 'Guide Partner'}
               <br />
-              <span className="text-brand-500">{currentLang === 'zh-TW' ? '客戶介紹計劃' : currentLang === 'zh-CN' ? '客户介绍计划' : currentLang === 'ja' ? '顧客紹介プログラム' : 'Client Referral Program'}</span>
+              <span className="text-brand-700">{currentLang === 'zh-TW' ? '客戶介紹計劃' : currentLang === 'zh-CN' ? '客户介绍计划' : currentLang === 'ja' ? '顧客紹介プログラム' : 'Client Referral Program'}</span>
             </h2>
 
             <p className="text-sm sm:text-base md:text-xl text-neutral-600 mb-6 md:mb-8 leading-relaxed font-light">
@@ -740,11 +740,11 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             {/* 核心数据 */}
             <div className="grid grid-cols-2 gap-3 md:gap-6 mb-10 py-6 md:py-8 border-y border-neutral-200">
               <div className="text-center">
-                <div className="text-2xl md:text-4xl font-light text-brand-900 mb-1">160<span className="text-brand-500">+</span></div>
+                <div className="text-2xl md:text-4xl font-light text-brand-900 mb-1">160<span className="text-brand-700">+</span></div>
                 <div className="text-xs text-neutral-600 tracking-wider uppercase">{currentLang === 'zh-TW' ? '合作店舖' : currentLang === 'zh-CN' ? '合作店舖' : currentLang === 'ja' ? '提携店舗' : 'Partner Venues'}</div>
               </div>
               <div className="border-l border-neutral-200 pl-3 md:pl-6 text-center">
-                <div className="text-2xl md:text-4xl font-light text-brand-900 mb-1">3000<span className="text-brand-500">+</span></div>
+                <div className="text-2xl md:text-4xl font-light text-brand-900 mb-1">3000<span className="text-brand-700">+</span></div>
                 <div className="text-[10px] md:text-xs text-neutral-600 tracking-wider uppercase">{currentLang === 'zh-TW' ? '服務客戶' : currentLang === 'zh-CN' ? '服务客户' : currentLang === 'ja' ? 'ご利用者様' : 'Clients Served'}</div>
               </div>
             </div>
@@ -793,7 +793,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 { name: currentLang === 'zh-TW' ? '成功獲得報酬' : currentLang === 'zh-CN' ? '成功获得报酬' : currentLang === 'ja' ? '成約で報酬' : 'Earn Commission', desc: currentLang === 'zh-TW' ? '每月結算介紹報酬' : currentLang === 'zh-CN' ? '每月结算介绍报酬' : currentLang === 'ja' ? '毎月紹介報酬を精算' : 'Monthly referral payouts' },
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-3 text-sm">
-                  <CheckCircle size={16} className="text-brand-500 flex-shrink-0" />
+                  <CheckCircle size={16} className="text-brand-700 flex-shrink-0" />
                   <div>
                     <span className="text-brand-900">{item.name}</span>
                     <span className="text-neutral-600 ml-2">{item.desc}</span>
@@ -1088,7 +1088,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                       placeholder="agent@example.com"
                     />
                   </div>
-                  {authError && <p className="text-xs text-brand-500">{authError}</p>}
+                  {authError && <p className="text-xs text-brand-700">{authError}</p>}
                   <p className="text-xs text-neutral-500 leading-relaxed">
                     {lang === 'zh-TW' ? (<>提交即表示您同意我們的<a href="/legal/privacy" target="_blank" className="underline hover:text-neutral-600">隱私政策</a>。</>) : lang === 'zh-CN' ? (<>提交即表示您同意我们的<a href="/legal/privacy" target="_blank" className="underline hover:text-neutral-600">隐私政策</a>。</>) : lang === 'ja' ? (<>送信することで、<a href="/legal/privacy" target="_blank" className="underline hover:text-neutral-600">プライバシーポリシー</a>に同意したものとみなされます。</>) : (<>By submitting, you agree to our <a href="/legal/privacy" target="_blank" className="underline hover:text-neutral-600">Privacy Policy</a>.</>)}
                   </p>
@@ -1156,7 +1156,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                        <div>
                          <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">
-                           {lang === 'zh-TW' ? '公司名稱' : lang === 'zh-CN' ? '公司名称' : lang === 'ja' ? '会社名' : 'Company Name'} <span className="text-brand-500">*</span>
+                           {lang === 'zh-TW' ? '公司名稱' : lang === 'zh-CN' ? '公司名称' : lang === 'ja' ? '会社名' : 'Company Name'} <span className="text-brand-700">*</span>
                          </label>
                          <input
                            type="text"
@@ -1169,7 +1169,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                        </div>
                        <div>
                          <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">
-                           {lang === 'zh-TW' ? '聯絡人' : lang === 'zh-CN' ? '联络人' : lang === 'ja' ? '担当者名' : 'Contact Person'} <span className="text-brand-500">*</span>
+                           {lang === 'zh-TW' ? '聯絡人' : lang === 'zh-CN' ? '联络人' : lang === 'ja' ? '担当者名' : 'Contact Person'} <span className="text-brand-700">*</span>
                          </label>
                          <input
                            type="text"
@@ -1185,7 +1185,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                        <div>
                          <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">
-                           {lang === 'zh-TW' ? '電子郵件' : lang === 'zh-CN' ? '电子邮件' : lang === 'ja' ? 'メールアドレス' : 'Email'} <span className="text-brand-500">*</span>
+                           {lang === 'zh-TW' ? '電子郵件' : lang === 'zh-CN' ? '电子邮件' : lang === 'ja' ? 'メールアドレス' : 'Email'} <span className="text-brand-700">*</span>
                          </label>
                          <input
                            type="email"
@@ -1230,7 +1230,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
 
                      <div>
                        <label className="block text-xs font-bold text-neutral-700 uppercase mb-1">
-                         {lang === 'zh-TW' ? '合作意向說明' : lang === 'zh-CN' ? '合作意向说明' : lang === 'ja' ? '提携についてのご説明' : 'Partnership Details'} <span className="text-brand-500">*</span>
+                         {lang === 'zh-TW' ? '合作意向說明' : lang === 'zh-CN' ? '合作意向说明' : lang === 'ja' ? '提携についてのご説明' : 'Partnership Details'} <span className="text-brand-700">*</span>
                        </label>
                        <textarea
                          required
@@ -1243,7 +1243,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                      </div>
 
                      {inquiryErrorMessage && (
-                       <p className="text-sm text-brand-500 bg-brand-50 p-3 rounded-lg">{inquiryErrorMessage}</p>
+                       <p className="text-sm text-brand-700 bg-brand-50 p-3 rounded-lg">{inquiryErrorMessage}</p>
                      )}
 
                      <button
@@ -1294,13 +1294,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
            >
              <div className="flex-shrink-0 mt-0.5">
                {toast.type === 'error' && (
-                 <X className="h-5 w-5 text-brand-500" />
+                 <X className="h-5 w-5 text-brand-700" />
                )}
                {toast.type === 'success' && (
                  <CheckCircle className="h-5 w-5 text-brand-600" />
                )}
                {toast.type === 'info' && (
-                 <Activity className="h-5 w-5 text-brand-500" />
+                 <Activity className="h-5 w-5 text-brand-700" />
                )}
              </div>
              <div className="flex-1">

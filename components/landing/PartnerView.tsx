@@ -74,7 +74,7 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
                  { step: '04', title: t.partner.flow_4, desc: t.partner.flow_4_d },
                ].map((item, i) => (
                  <div key={i} className="text-center">
-                    <div className="text-3xl font-bold text-brand-500 mb-2 font-mono">{item.step}</div>
+                    <div className="text-3xl font-bold text-brand-700 mb-2 font-mono">{item.step}</div>
                     <h4 className="font-bold text-lg mb-2">{item.title}</h4>
                     <p className="text-xs text-neutral-500">{item.desc}</p>
                  </div>

@@ -155,7 +155,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
             {currentSlide.subtitle && (
               <div className="flex items-center gap-3 mb-6">
                 <div className="h-[1px] w-12 bg-brand-500"></div>
-                <span className="text-xs tracking-[0.3em] text-brand-500 uppercase">
+                <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">
                   {currentSlide.subtitle}
                 </span>
               </div>
@@ -165,7 +165,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
               {currentSlide.title.split('\n').map((line, i) => (
                 <span key={i}>
                   {i > 0 && <br />}
-                  {i > 0 ? <span className="text-brand-500">{line}</span> : line}
+                  {i > 0 ? <span className="text-brand-700">{line}</span> : line}
                 </span>
               ))}
             </h1>
