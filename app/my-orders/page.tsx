@@ -222,7 +222,7 @@ export default function MyOrdersPage() {
                 </span>
               </div>
 
-              <h1 className="font-serif text-4xl xl:text-5xl text-white mb-4 leading-tight">
+              <h1 className="font-serif text-4xl xl:text-5xl text-brand-900 mb-4 leading-tight">
                 {t('myOrders', lang)}
                 <br />
                 <span className="text-brand-700">{t('bookingRecords', lang)}</span>

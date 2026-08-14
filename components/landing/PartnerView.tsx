@@ -35,7 +35,7 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
              <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full mb-8">
                <span className="text-xs font-bold text-neutral-600 uppercase tracking-wider">{t.partner.hero_tag}</span>
              </span>
-             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl font-serif font-bold text-white mb-4 md:mb-6 leading-tight">
+             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl font-serif font-bold text-brand-900 mb-4 md:mb-6 leading-tight">
                 {t.partner.hero_title}
              </h1>
              <p className="text-neutral-600 max-w-2xl mx-auto leading-relaxed whitespace-pre-line text-sm md:text-base">
