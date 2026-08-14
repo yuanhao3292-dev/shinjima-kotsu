@@ -89,7 +89,7 @@ const MedicalTechCard = memo(function MedicalTechCard({
 const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuote, currentLang, getImage }) => (
   <div className="animate-fade-in-up min-h-screen bg-white">
     {/* 1. Hero Section - Cancer Treatment style */}
-    <section className="relative min-h-screen flex items-center brand-gradient-deep overflow-hidden">
+    <section className="relative min-h-screen flex items-center bg-white overflow-hidden">
       <div className="absolute inset-0">
         {getImage('medical_hero') ? (
           <Image
@@ -131,7 +131,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           <div className="flex flex-wrap gap-4">
             <a
               href="#packages"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-accent-400 text-neutral-900 text-sm font-medium tracking-wider hover:bg-accent-300 transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-4 brand-gradient-solid text-white text-sm font-medium tracking-wider hover:opacity-90 transition-opacity"
             >
               <Scan size={20} />
               {currentLang === 'zh-TW' ? '查看體檢套餐' : currentLang === 'zh-CN' ? '查看体检套餐' : currentLang === 'ja' ? '健診プランを見る' : 'View Plans'}
@@ -513,26 +513,26 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto px-4">
 
               {/* 1. VIP Member */}
-              <div className="col-span-1 md:col-span-2 lg:col-span-1 border border-accent-400 rounded-2xl p-6 hover:shadow-2xl transition hover:-translate-y-1 relative overflow-hidden brand-gradient-deep text-white flex flex-col">
-                  <div className="absolute top-0 right-0 bg-accent-400 text-neutral-900 text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">{currentLang === 'zh-TW' ? '旗艦' : currentLang === 'zh-CN' ? '旗舰' : currentLang === 'ja' ? 'フラッグシップ' : 'Flagship'}</div>
+              <div className="col-span-1 md:col-span-2 lg:col-span-1 border border-brand-300 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 relative overflow-hidden bg-white flex flex-col">
+                  <div className="absolute top-0 right-0 brand-gradient-solid text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">{currentLang === 'zh-TW' ? '旗艦' : currentLang === 'zh-CN' ? '旗舰' : currentLang === 'ja' ? 'フラッグシップ' : 'Flagship'}</div>
                   <div className="mb-4">
-                      <h4 className="text-xl font-serif font-bold text-accent-600">{t.medical.pkg_vip_title}</h4>
-                      <p className="text-xs text-neutral-500 mt-1">{currentLang === 'zh-TW' ? 'VIP 會員健診' : currentLang === 'zh-CN' ? 'VIP 会员健诊' : currentLang === 'ja' ? 'VIPメンバーコース' : 'VIP Member Course'}</p>
-                      <p className="text-2xl font-bold text-accent-600 mt-2">&yen;1,512,500</p>
+                      <h4 className="text-lg font-serif font-bold text-brand-900">{t.medical.pkg_vip_title}</h4>
+                      <p className="text-xs text-brand-700 mt-1">{currentLang === 'zh-TW' ? 'VIP 會員健診' : currentLang === 'zh-CN' ? 'VIP 会员健诊' : currentLang === 'ja' ? 'VIPメンバーコース' : 'VIP Member Course'}</p>
+                      <p className="text-xl font-bold text-brand-900 mt-2">&yen;1,512,500</p>
                       <p className="text-[10px] text-neutral-500">{t.medical.pkg_price_note}</p>
                   </div>
-                  <p className="text-xs text-neutral-600 mb-4 leading-relaxed flex-grow">
+                  <p className="text-xs text-neutral-500 mb-4 leading-relaxed flex-grow">
                       {t.medical.pkg_vip_desc}
                   </p>
-                  <div className="space-y-1.5 mb-4 text-xs">
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-accent-600 shrink-0" /> {t.medical.pkg_vip_item_1}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-accent-600 shrink-0" /> {t.medical.pkg_vip_item_2}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-accent-600 shrink-0" /> {t.medical.pkg_vip_item_3}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-accent-600 shrink-0" /> {t.medical.pkg_vip_item_4}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-accent-600 shrink-0" /> {t.medical.pkg_vip_item_5}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-accent-600 shrink-0" /> {t.medical.pkg_vip_item_6}</div>
+                  <div className="space-y-1.5 mb-4 text-xs text-neutral-700">
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_vip_item_1}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_vip_item_2}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_vip_item_3}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_vip_item_4}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_vip_item_5}</div>
+                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_vip_item_6}</div>
                   </div>
-                  <Link href="/medical-packages/vip-member-course" className="w-full py-2 bg-accent-400 text-neutral-900 text-xs font-bold rounded hover:bg-accent-300 transition text-center block">{t.medical.pkg_consult_btn}</Link>
+                  <Link href="/medical-packages/vip-member-course" className="w-full py-2 brand-gradient-solid text-white text-xs font-bold rounded hover:opacity-90 transition text-center block">{t.medical.pkg_consult_btn}</Link>
               </div>
 
               {/* 2. PREMIUM (Cardiac) */}
@@ -792,13 +792,13 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       </div>
 
       {/* CTA */}
-      <div className="bg-brand-700 rounded-3xl p-12 text-center text-white shadow-2xl shadow-brand-200">
+      <div className="bg-white border border-neutral-200 rounded-3xl p-12 text-center text-brand-900 shadow-xl shadow-neutral-900/5">
           <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif mb-6">{t.medical.cta_title}</h3>
-          <p className="text-brand-100 max-w-2xl mx-auto mb-6 leading-relaxed whitespace-pre-line">
+          <p className="text-neutral-600 max-w-2xl mx-auto mb-6 leading-relaxed whitespace-pre-line">
               {t.medical.cta_text}
           </p>
           <div>
-              <button onClick={() => { const element = document.getElementById('timc-packages'); element?.scrollIntoView({ behavior: 'smooth' }); }} className="bg-white text-brand-900 font-bold px-10 py-4 rounded-full hover:bg-neutral-100 transition shadow-lg inline-flex items-center gap-2">
+              <button onClick={() => { const element = document.getElementById('timc-packages'); element?.scrollIntoView({ behavior: 'smooth' }); }} className="brand-gradient-solid text-white font-bold px-10 py-4 rounded-full hover:opacity-90 transition-opacity shadow-lg inline-flex items-center gap-2">
                   <Zap size={18} /> {t.medical.cta_btn}
               </button>
           </div>
