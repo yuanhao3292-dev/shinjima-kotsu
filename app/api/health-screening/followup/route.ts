@@ -20,7 +20,9 @@ import { checkRateLimit, buildRateLimitKey, RATE_LIMITS } from '@/lib/utils/rate
 import { FREE_SCREENING_LIMIT } from '@/lib/screening-questions';
 
 // Vercel Serverless 函数超时设置（秒）
-export const maxDuration = 60;
+// 与 analyze 一致：followup 会重新跑完整 AEMC 管线，
+// 文档模式下 4+1 次顺序 AI 调用可达 60-90 秒，60s 会在管线中途被杀
+export const maxDuration = 300;
 
 // 最多允许追问轮次（防止无限循环）
 const MAX_FOLLOWUP_ROUNDS = 2;
