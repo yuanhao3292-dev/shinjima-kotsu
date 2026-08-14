@@ -23,7 +23,7 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
 
   const { guide, selectedModules } = pageData;
 
-  const brandColor = guide.brandColor || '#2563eb';
+  const brandColor = guide.brandColor || '#336a8d';
   const homeHref = `/g/${slug}`;
 
   // 品牌展示 — 使用当前导游自己的品牌（白标）。未设置时回退官方品牌，避免留白。
@@ -66,7 +66,7 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
       </main>
 
       {/* 页脚 — 与官网统一风格 */}
-      <footer className="bg-gradient-to-b from-[#f8f6f3] to-[#f0ece6] text-neutral-800">
+      <footer className="bg-gradient-to-b from-neutral-100 to-neutral-200 text-neutral-800">
         <div className="container mx-auto px-6 py-16">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-6">
             {/* 品牌区域 */}

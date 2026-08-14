@@ -30,7 +30,7 @@ export default function SignatureCanvas({ onSignatureChange, className = '' }: S
     ctx.scale(dpr, dpr);
 
     // 设置绘制样式
-    ctx.strokeStyle = '#000000';
+    ctx.strokeStyle = '#1c1917';
     ctx.lineWidth = 2;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';

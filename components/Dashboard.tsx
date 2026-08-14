@@ -134,7 +134,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, initialRequestTex
         <div className="p-6 flex items-center gap-3 border-b border-neutral-100">
            {/* Sidebar Logo */}
            <div className="w-10 h-10 flex-shrink-0">
-             <Logo className="w-full h-full text-[#1a1a1a]" />
+             <Logo className="w-full h-full text-neutral-900" />
            </div>
            <div>
              <h1 className="font-bold text-lg leading-tight">Niijima<span className="text-brand-600">Admin</span></h1>
@@ -179,7 +179,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, initialRequestTex
              
              {/* Mobile Header Logo */}
              <div className="md:hidden w-8 h-8 flex-shrink-0">
-               <Logo className="w-full h-full text-[#1a1a1a]" />
+               <Logo className="w-full h-full text-neutral-900" />
              </div>
 
              <h2 className="text-xl font-bold text-neutral-800 ml-1">

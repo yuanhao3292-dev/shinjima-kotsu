@@ -124,7 +124,7 @@ export default function CommunityPage() {
   const categories = ['all', 'experience', 'tip', 'question', 'review'];
 
   return (
-    <div className="min-h-screen bg-[#faf9f7]">
+    <div className="min-h-screen bg-neutral-50">
       {/* Header */}
       <div className="bg-white border-b border-neutral-100">
         <div className="max-w-4xl mx-auto px-4 py-4">
@@ -139,7 +139,7 @@ export default function CommunityPage() {
       </div>
 
       {/* Hero */}
-      <div className="bg-gradient-to-b from-white to-[#faf9f7] py-10">
+      <div className="bg-gradient-to-b from-white to-neutral-50 py-10">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-100 rounded-full mb-4">
             <Heart className="w-8 h-8 text-brand-600" />

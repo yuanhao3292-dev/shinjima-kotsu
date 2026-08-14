@@ -406,13 +406,13 @@ export default function HealthPassport({ screenings, snapshots, lang }: Props) {
               <LineChart data={chartData}>
                 <XAxis
                   dataKey="date"
-                  tick={{ fontSize: 12, fill: '#9ca3af' }}
+                  tick={{ fontSize: 12, fill: '#6fb4da' }}
                   axisLine={false}
                   tickLine={false}
                 />
                 <YAxis
                   domain={[0, 100]}
-                  tick={{ fontSize: 12, fill: '#9ca3af' }}
+                  tick={{ fontSize: 12, fill: '#6fb4da' }}
                   axisLine={false}
                   tickLine={false}
                   width={32}
@@ -431,9 +431,9 @@ export default function HealthPassport({ screenings, snapshots, lang }: Props) {
                 <Line
                   type="monotone"
                   dataKey="score"
-                  stroke="#10b981"
+                  stroke="#6fb4da"
                   strokeWidth={2.5}
-                  dot={{ fill: '#10b981', r: 4, strokeWidth: 2, stroke: '#fff' }}
+                  dot={{ fill: '#6fb4da', r: 4, strokeWidth: 2, stroke: '#fff' }}
                   activeDot={{ r: 6 }}
                 />
               </LineChart>

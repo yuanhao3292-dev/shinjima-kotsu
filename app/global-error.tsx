@@ -21,22 +21,22 @@ export default function GlobalError({
           alignItems: 'center',
           justifyContent: 'center',
           minHeight: '100vh',
-          background: '#f9fafb',
+          background: '#fafaf8',
         }}
       >
         <div style={{ textAlign: 'center', maxWidth: 420, padding: 24 }}>
-          <div style={{ fontSize: 64, color: '#d1d5db' }}>⚠</div>
-          <h1 style={{ fontSize: 24, color: '#1f2937', marginBottom: 8 }}>
+          <div style={{ fontSize: 64, color: '#d5d1c8' }}>⚠</div>
+          <h1 style={{ fontSize: 24, color: '#22455a', marginBottom: 8 }}>
             エラーが発生しました
           </h1>
-          <p style={{ color: '#6b7280', marginBottom: 24 }}>
+          <p style={{ color: '#336a8d', marginBottom: 24 }}>
             ページの読み込み中にエラーが発生しました。もう一度お試しください。
           </p>
           <button
             onClick={reset}
             style={{
               padding: '10px 24px',
-              background: '#2563eb',
+              background: '#336a8d',
               color: '#fff',
               border: 'none',
               borderRadius: 8,
@@ -51,9 +51,9 @@ export default function GlobalError({
             href="/"
             style={{
               padding: '10px 24px',
-              border: '1px solid #d1d5db',
+              border: '1px solid #d5d1c8',
               borderRadius: 8,
-              color: '#374151',
+              color: '#22455a',
               textDecoration: 'none',
               fontSize: 16,
             }}
@@ -61,7 +61,7 @@ export default function GlobalError({
             トップページ
           </a>
           {error.digest && (
-            <p style={{ marginTop: 24, fontSize: 12, color: '#9ca3af' }}>
+            <p style={{ marginTop: 24, fontSize: 12, color: '#6fb4da' }}>
               Error ID: {error.digest}
             </p>
           )}

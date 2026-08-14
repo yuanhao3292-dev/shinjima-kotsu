@@ -150,7 +150,7 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
 
       {/* Footer */}
       {showFooter && (
-        <footer className="bg-gradient-to-b from-[#f8f6f3] to-[#f0ece6] text-neutral-800">
+        <footer className="bg-gradient-to-b from-neutral-100 to-neutral-200 text-neutral-800">
           <div className="container mx-auto px-6 py-16">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
               {/* Column 1: Brand */}

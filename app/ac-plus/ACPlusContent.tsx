@@ -327,7 +327,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href={checkoutHref('/ac-plus/initial-consultation')}
-                className="inline-flex items-center justify-center gap-2 bg-[#4874cb] text-brand-900 px-8 py-4 rounded-full font-bold hover:bg-[#3a63b8] transition-all shadow-lg hover:shadow-xl"
+                className="inline-flex items-center justify-center gap-2 bg-brand-700 text-brand-900 px-8 py-4 rounded-full font-bold hover:bg-brand-700 transition-all shadow-lg hover:shadow-xl"
               >
                 {t.ctaConsult[lang]} <ArrowRight size={18} />
               </Link>
@@ -343,7 +343,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
       </section>
 
       {/* ===== 2. STATS BAR ===== */}
-      <section className="bg-[#4874cb] py-8">
+      <section className="bg-brand-700 py-8">
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-white">
           {[
             { val: '30,000+', label: t.stat1[lang], icon: <Users size={20} /> },
@@ -364,7 +364,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block bg-[#4874cb]/10 text-[#4874cb] text-sm font-semibold px-4 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-700/10 text-brand-700 text-sm font-semibold px-4 py-1 rounded-full mb-3">
               {t.introTag[lang]}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#333] mb-2">{t.introTitle[lang]}</h2>
@@ -374,12 +374,12 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
               <p className="text-[#555] leading-relaxed">{t.introP1[lang]}</p>
               <p className="text-[#555] leading-relaxed">{t.introP2[lang]}</p>
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                <div className="flex items-center gap-2 bg-[#f6f6f6] rounded-lg px-4 py-3">
-                  <GraduationCap size={18} className="text-[#4874cb]" />
+                <div className="flex items-center gap-2 bg-neutral-100 rounded-lg px-4 py-3">
+                  <GraduationCap size={18} className="text-brand-700" />
                   <span className="text-sm font-medium">{t.partnerKyoto[lang]}</span>
                 </div>
-                <div className="flex items-center gap-2 bg-[#f6f6f6] rounded-lg px-4 py-3">
-                  <Building2 size={18} className="text-[#4874cb]" />
+                <div className="flex items-center gap-2 bg-neutral-100 rounded-lg px-4 py-3">
+                  <Building2 size={18} className="text-brand-700" />
                   <span className="text-sm font-medium">{t.partnerOsaka[lang]}</span>
                 </div>
               </div>
@@ -394,10 +394,10 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
       </section>
 
       {/* ===== 4. TREATMENT CARDS ===== */}
-      <section id="treatments" className="py-20 bg-[#f6f6f6]">
+      <section id="treatments" className="py-20 bg-neutral-100">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block bg-[#4874cb]/10 text-[#4874cb] text-sm font-semibold px-4 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-700/10 text-brand-700 text-sm font-semibold px-4 py-1 rounded-full mb-3">
               {t.treatTag[lang]}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#333]">{t.treatTitle[lang]}</h2>
@@ -409,11 +409,11 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
                 <div
                   key={tr.key}
                   className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-neutral-100 flex flex-col"
-                  style={{ borderTopColor: '#4874cb', borderTopWidth: 3 }}
+                  style={{ borderTopColor: '#336a8d', borderTopWidth: 3 }}
                 >
                   <div className="relative h-48 overflow-hidden">
                     <img src={tr.img} alt={tr.name[lang]} className="w-full h-full object-cover" />
-                    <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-full p-2 text-[#4874cb]">
+                    <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-full p-2 text-brand-700">
                       {tr.icon}
                     </div>
                   </div>
@@ -425,7 +425,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
                         {isOpen && <div className="mb-4 pt-3 border-t border-neutral-100">{treatDetail(tr.key)}</div>}
                         <button
                           onClick={() => setExpandedTreat(isOpen ? null : tr.key)}
-                          className="inline-flex items-center gap-1 text-sm font-medium text-[#4874cb] transition-colors"
+                          className="inline-flex items-center gap-1 text-sm font-medium text-brand-700 transition-colors"
                         >
                           {isOpen ? t.hideDetail[lang] : t.viewDetail[lang]}
                           {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
@@ -444,7 +444,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block bg-[#4874cb]/10 text-[#4874cb] text-sm font-semibold px-4 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-700/10 text-brand-700 text-sm font-semibold px-4 py-1 rounded-full mb-3">
               {t.scDeepTag[lang]}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#333]">{t.scDeepTitle[lang]}</h2>
@@ -453,11 +453,11 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
           {/* 3 Properties */}
           <div className="grid md:grid-cols-3 gap-6 mb-14">
             {[
-              { title: t.prop1, desc: t.prop1d, icon: <Dna size={28} className="text-[#4874cb]" /> },
-              { title: t.prop2, desc: t.prop2d, icon: <Sparkles size={28} className="text-[#4874cb]" /> },
-              { title: t.prop3, desc: t.prop3d, icon: <Zap size={28} className="text-[#4874cb]" /> },
+              { title: t.prop1, desc: t.prop1d, icon: <Dna size={28} className="text-brand-700" /> },
+              { title: t.prop2, desc: t.prop2d, icon: <Sparkles size={28} className="text-brand-700" /> },
+              { title: t.prop3, desc: t.prop3d, icon: <Zap size={28} className="text-brand-700" /> },
             ].map((p, i) => (
-              <div key={i} className="bg-[#4874cb]/5 rounded-2xl p-6 text-center">
+              <div key={i} className="bg-brand-700/5 rounded-2xl p-6 text-center">
                 <div className="flex justify-center mb-4">{p.icon}</div>
                 <h3 className="text-lg font-bold text-[#333] mb-2">{p.title[lang]}</h3>
                 <p className="text-sm text-[#666]">{p.desc[lang]}</p>
@@ -470,8 +470,8 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
             <h3 className="text-xl font-bold text-[#333] text-center mb-6">{t.clinicalApps[lang]}</h3>
             <div className="flex flex-wrap justify-center gap-3">
               {clinicalAreas.map((area, i) => (
-                <div key={i} className="flex items-center gap-2 bg-[#f6f6f6] rounded-full px-5 py-2.5 text-sm font-medium text-[#444]">
-                  <span className="text-[#4874cb]">{area.icon}</span>
+                <div key={i} className="flex items-center gap-2 bg-neutral-100 rounded-full px-5 py-2.5 text-sm font-medium text-[#444]">
+                  <span className="text-brand-700">{area.icon}</span>
                   {area.label[lang]}
                 </div>
               ))}
@@ -479,7 +479,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
           </div>
 
           {/* Process Diagram */}
-          <div className="bg-[#f6f6f6] rounded-2xl p-8">
+          <div className="bg-neutral-100 rounded-2xl p-8">
             <h3 className="text-xl font-bold text-[#333] text-center mb-8">{t.processTitle[lang]}</h3>
             <div className="flex flex-col md:flex-row items-center justify-center gap-4">
               {[
@@ -490,13 +490,13 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
               ].map((step, i, arr) => (
                 <React.Fragment key={i}>
                   <div className="flex flex-col items-center text-center w-36">
-                    <div className="w-14 h-14 rounded-full bg-[#4874cb] text-white flex items-center justify-center mb-3">
+                    <div className="w-14 h-14 rounded-full bg-brand-700 text-white flex items-center justify-center mb-3">
                       {step.icon}
                     </div>
                     <span className="text-sm font-medium text-[#333] whitespace-pre-line">{step.label[lang]}</span>
                   </div>
                   {i < arr.length - 1 && (
-                    <ArrowRight size={20} className="text-[#4874cb] hidden md:block flex-shrink-0" />
+                    <ArrowRight size={20} className="text-brand-700 hidden md:block flex-shrink-0" />
                   )}
                 </React.Fragment>
               ))}
@@ -509,10 +509,10 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
       </section>
 
       {/* ===== 6. CPC SECTION ===== */}
-      <section className="py-20 bg-[#f6f6f6]">
+      <section className="py-20 bg-neutral-100">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block bg-[#4874cb]/10 text-[#4874cb] text-sm font-semibold px-4 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-700/10 text-brand-700 text-sm font-semibold px-4 py-1 rounded-full mb-3">
               {t.cpcTag[lang]}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#333]">{t.cpcTitle[lang]}</h2>
@@ -532,7 +532,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block bg-[#4874cb]/10 text-[#4874cb] text-sm font-semibold px-4 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-700/10 text-brand-700 text-sm font-semibold px-4 py-1 rounded-full mb-3">
               {t.bldgTag[lang]}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#333] mb-2">{t.bldgTitle[lang]}</h2>
@@ -545,22 +545,22 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
                   key={i}
                   className={`flex items-center gap-4 px-5 py-3.5 border-l-4 transition-colors ${
                     f.floor === '7F'
-                      ? 'border-l-[#4874cb] bg-[#4874cb]/5'
+                      ? 'border-l-brand-700 bg-brand-700/5'
                       : f.floor === '3F'
-                      ? 'border-l-[#4874cb]/50 bg-[#4874cb]/5'
-                      : 'border-l-neutral-200 hover:bg-[#f6f6f6]'
+                      ? 'border-l-brand-700/50 bg-brand-700/5'
+                      : 'border-l-neutral-200 hover:bg-neutral-100'
                   }`}
                 >
-                  <span className="text-lg font-bold text-[#4874cb] w-10 flex-shrink-0">{f.floor}</span>
-                  <span className="text-[#4874cb]">{f.icon}</span>
+                  <span className="text-lg font-bold text-brand-700 w-10 flex-shrink-0">{f.floor}</span>
+                  <span className="text-brand-700">{f.icon}</span>
                   <span className="text-sm font-medium text-[#333]">{f.label[lang]}</span>
                   {f.floor === '7F' && (
-                    <span className="ml-auto text-xs bg-[#4874cb] text-white px-2 py-0.5 rounded-full">
+                    <span className="ml-auto text-xs bg-brand-700 text-white px-2 py-0.5 rounded-full">
                       {lang === 'ja' ? 'クリーンルーム' : lang === 'en' ? 'Cleanroom' : '洁净室'}
                     </span>
                   )}
                   {f.floor === '3F' && (
-                    <span className="ml-auto text-xs bg-[#4874cb]/70 text-white px-2 py-0.5 rounded-full">VIP</span>
+                    <span className="ml-auto text-xs bg-brand-700/70 text-white px-2 py-0.5 rounded-full">VIP</span>
                   )}
                 </div>
               ))}
@@ -574,10 +574,10 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
       </section>
 
       {/* ===== 8. CLINIC FEATURES ===== */}
-      <section className="py-20 bg-[#f6f6f6]">
+      <section className="py-20 bg-neutral-100">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block bg-[#4874cb]/10 text-[#4874cb] text-sm font-semibold px-4 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-700/10 text-brand-700 text-sm font-semibold px-4 py-1 rounded-full mb-3">
               {t.featTag[lang]}
             </span>
           </div>
@@ -590,7 +590,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
               <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                 <div className="relative h-48">
                   <img src={feat.img} alt={feat.title[lang]} className="w-full h-full object-cover" />
-                  <div className="absolute top-3 right-3 bg-[#4874cb] text-white rounded-full p-2.5">
+                  <div className="absolute top-3 right-3 bg-brand-700 text-white rounded-full p-2.5">
                     {feat.icon}
                   </div>
                 </div>
@@ -608,12 +608,12 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block bg-[#4874cb]/10 text-[#4874cb] text-sm font-semibold px-4 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-700/10 text-brand-700 text-sm font-semibold px-4 py-1 rounded-full mb-3">
               {t.histTag[lang]}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#333]">{t.histTitle[lang]}</h2>
           </div>
-          <div className="relative pl-8 border-l-2 border-[#4874cb]/30 space-y-10">
+          <div className="relative pl-8 border-l-2 border-brand-700/30 space-y-10">
             {[
               { year: '2006', text: t.hist2006 },
               { year: '2018', text: t.hist2018 },
@@ -621,9 +621,9 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
               { year: '2024', text: t.hist2024 },
             ].map((item, i) => (
               <div key={i} className="relative">
-                <div className="absolute -left-[41px] top-0 w-5 h-5 bg-[#4874cb] rounded-full border-4 border-white shadow" />
-                <div className="bg-[#f6f6f6] rounded-xl p-5">
-                  <span className="text-sm font-bold text-[#4874cb]">{item.year}</span>
+                <div className="absolute -left-[41px] top-0 w-5 h-5 bg-brand-700 rounded-full border-4 border-white shadow" />
+                <div className="bg-neutral-100 rounded-xl p-5">
+                  <span className="text-sm font-bold text-brand-700">{item.year}</span>
                   <p className="text-[#555] mt-1">{item.text[lang]}</p>
                 </div>
               </div>
@@ -633,17 +633,17 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
       </section>
 
       {/* ===== 10. APPLICABLE CONDITIONS ===== */}
-      <section className="py-20 bg-[#f6f6f6]">
+      <section className="py-20 bg-neutral-100">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block bg-[#4874cb]/10 text-[#4874cb] text-sm font-semibold px-4 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-700/10 text-brand-700 text-sm font-semibold px-4 py-1 rounded-full mb-3">
               {t.condTag[lang]}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#333]">{t.condTitle[lang]}</h2>
           </div>
           <div className="flex flex-wrap justify-center gap-2.5">
             {conditionTags[lang].map((tag, i) => (
-              <span key={i} className="bg-white text-[#444] text-sm px-4 py-2 rounded-full border border-neutral-200 hover:border-[#4874cb] hover:text-[#4874cb] transition-colors cursor-default shadow-sm">
+              <span key={i} className="bg-white text-[#444] text-sm px-4 py-2 rounded-full border border-neutral-200 hover:border-brand-700 hover:text-brand-700 transition-colors cursor-default shadow-sm">
                 {tag}
               </span>
             ))}
@@ -655,7 +655,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block bg-[#4874cb]/10 text-[#4874cb] text-sm font-semibold px-4 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-700/10 text-brand-700 text-sm font-semibold px-4 py-1 rounded-full mb-3">
               {t.accessTag[lang]}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#333]">{t.accessTitle[lang]}</h2>
@@ -663,24 +663,24 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="space-y-5">
               <div className="flex items-start gap-3">
-                <MapPin size={20} className="text-[#4874cb] mt-1 flex-shrink-0" />
+                <MapPin size={20} className="text-brand-700 mt-1 flex-shrink-0" />
                 <div>
                   <p className="font-medium text-[#333]">{t.address[lang]}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Clock size={20} className="text-[#4874cb] mt-1 flex-shrink-0" />
+                <Clock size={20} className="text-brand-700 mt-1 flex-shrink-0" />
                 <div>
                   <p className="font-medium text-[#333]">{t.hours[lang]}</p>
                   <p className="text-sm text-[#666]">{t.closed[lang]}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Shield size={20} className="text-[#4874cb] mt-1 flex-shrink-0" />
+                <Shield size={20} className="text-brand-700 mt-1 flex-shrink-0" />
                 <p className="text-sm text-[#666]">{t.selfPay[lang]}</p>
               </div>
               <div className="flex items-start gap-3">
-                <Globe size={20} className="text-[#4874cb] mt-1 flex-shrink-0" />
+                <Globe size={20} className="text-brand-700 mt-1 flex-shrink-0" />
                 <p className="text-sm text-[#666]">{t.ctaChinese[lang]}</p>
               </div>
             </div>
@@ -690,10 +690,10 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
       </section>
 
       {/* ===== 12. FAQ ===== */}
-      <section className="py-20 bg-[#f6f6f6]">
+      <section className="py-20 bg-neutral-100">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block bg-[#4874cb]/10 text-[#4874cb] text-sm font-semibold px-4 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-700/10 text-brand-700 text-sm font-semibold px-4 py-1 rounded-full mb-3">
               <HelpCircle size={14} className="inline mr-1 -mt-0.5" />{t.faqTag[lang]}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#333]">{t.faqTitle[lang]}</h2>
@@ -708,7 +708,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
                     className="w-full flex items-center justify-between gap-4 px-6 py-4 text-left hover:bg-neutral-50 transition-colors"
                   >
                     <span className="font-medium text-[#333] text-sm md:text-base">{faq.q[lang]}</span>
-                    {isOpen ? <ChevronUp size={18} className="text-[#4874cb] flex-shrink-0" /> : <ChevronDown size={18} className="text-[#999] flex-shrink-0" />}
+                    {isOpen ? <ChevronUp size={18} className="text-brand-700 flex-shrink-0" /> : <ChevronDown size={18} className="text-[#999] flex-shrink-0" />}
                   </button>
                   {isOpen && (
                     <div className="px-6 pb-5 text-sm text-[#555] leading-relaxed border-t border-neutral-50 pt-3">
@@ -724,12 +724,12 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
 
       {/* ===== 13. CONSULTATION CTA (standalone only) ===== */}
       {!isGuideEmbed && (
-      <section id="consultation" className="py-20 bg-[#f6f6f6]">
+      <section id="consultation" className="py-20 bg-neutral-100">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <img src={IMG.logo} alt="AC Cell Clinic" className="h-14 mx-auto mb-6 object-contain" />
           <h2 className="text-3xl md:text-4xl font-bold text-[#333] mb-4">{t.ctaTitle[lang]}</h2>
           <p className="text-lg text-[#555] mb-3">{t.ctaSub[lang]}</p>
-          <div className="inline-flex items-center gap-2 bg-[#4874cb]/10 text-[#4874cb] rounded-full px-4 py-1.5 text-sm mb-4">
+          <div className="inline-flex items-center gap-2 bg-brand-700/10 text-brand-700 rounded-full px-4 py-1.5 text-sm mb-4">
             <Globe size={14} />
             {t.ctaChinese[lang]}
           </div>
@@ -737,7 +737,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href={checkoutHref('/ac-plus/initial-consultation')}
-              className="inline-flex items-center justify-center gap-3 bg-[#4874cb] text-white px-8 py-4 rounded-full font-bold hover:bg-[#3a63b8] transition-all shadow-lg"
+              className="inline-flex items-center justify-center gap-3 bg-brand-700 text-white px-8 py-4 rounded-full font-bold hover:bg-brand-700 transition-all shadow-lg"
             >
               {t.ctaConsult[lang]} <ArrowRight size={18} />
             </Link>
@@ -748,7 +748,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
 
       {/* ===== 14. LEGAL FOOTER ===== */}
       {!isGuideEmbed && (
-        <section className="py-6 bg-[#333333] text-center">
+        <section className="py-6 bg-neutral-800 text-center">
           <p className="text-xs text-neutral-600">
             {lang === 'ja'
               ? '旅行サービスは 新島交通株式会社 が提供 ｜ 大阪府知事登録旅行業 第2-3115号'

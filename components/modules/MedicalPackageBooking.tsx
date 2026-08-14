@@ -222,7 +222,7 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
 
   if (!pkg) {
     return (
-      <div className="min-h-screen bg-[#faf9f7] flex items-center justify-center">
+      <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
         <div className="text-center">
           <p className="text-xl text-neutral-600 mb-4">{t.notFound}</p>
           <Link href={`/g/${guideSlug}/medical-packages`} className="text-neutral-500 hover:text-brand-900 inline-flex items-center gap-2">{t.backToList}</Link>
@@ -298,7 +298,7 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
   const backUrl = `/g/${guideSlug}/medical-packages`;
 
   return (
-    <div className="min-h-screen bg-[#faf9f7]">
+    <div className="min-h-screen bg-neutral-50">
       {/* Header */}
       <div className="bg-white border-b border-neutral-100">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">

@@ -112,26 +112,26 @@ const pt = (key: string, lang: PDFLanguage) => T[key]?.[lang] ?? T[key]?.['zh-CN
 // ============================================================
 
 const colors = {
-  primary: '#0c1829',
-  gold: '#c9a961',
-  goldLight: '#d4bc7e',
-  emerald: '#10b981',
-  amber: '#f59e0b',
-  red: '#ef4444',
-  textPrimary: '#1a1a1a',
-  textSecondary: '#4a4a4a',
-  textMuted: '#7a7a7a',
-  textLight: '#ffffff',
-  bgCream: '#faf8f5',
-  bgCard: '#ffffff',
-  bgWarm: '#f5f2ed',
-  divider: '#e5e0d8',
-  riskLow: '#2d5a4a',
-  riskLowBg: '#e8f3ef',
-  riskMedium: '#8b6914',
-  riskMediumBg: '#fef7e6',
-  riskHigh: '#8b2635',
-  riskHighBg: '#fce8eb',
+  primary: '#22455a',
+  gold: '#6fb4da',
+  goldLight: '#9dd3ec',
+  emerald: '#6fb4da',
+  amber: '#6fb4da',
+  red: '#4e9ac9',
+  textPrimary: '#1c1917',
+  textSecondary: '#44403c',
+  textMuted: '#78716c',
+  textLight: '#fafaf8',
+  bgCream: '#fafaf8',
+  bgCard: '#fafaf8',
+  bgWarm: '#f5f5f0',
+  divider: '#e8e6e1',
+  riskLow: '#2a566f',
+  riskLowBg: '#f5f5f0',
+  riskMedium: '#336a8d',
+  riskMediumBg: '#fafaf8',
+  riskHigh: '#2a566f',
+  riskHighBg: '#e8e6e1',
 };
 
 function getScoreColor(score: number) {
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   // Findings / Departments
   card: { backgroundColor: colors.bgCard, padding: 12, marginBottom: 8, borderLeftWidth: 3, borderLeftColor: colors.gold },
   cardText: { fontSize: 9, color: colors.textSecondary, lineHeight: 1.6 },
-  tag: { fontSize: 8, color: colors.primary, backgroundColor: '#e8eef5', paddingHorizontal: 6, paddingVertical: 3, marginRight: 4, marginBottom: 3 },
+  tag: { fontSize: 8, color: colors.primary, backgroundColor: '#e8e6e1', paddingHorizontal: 6, paddingVertical: 3, marginRight: 4, marginBottom: 3 },
   tagRow: { flexDirection: 'row', flexWrap: 'wrap' },
   // History table
   tableHeader: { flexDirection: 'row', backgroundColor: colors.primary, paddingVertical: 6, paddingHorizontal: 8 },
@@ -267,7 +267,7 @@ const HealthPassportDocument: React.FC<{ data: PassportPDFData }> = ({ data }) =
             <View key={idx} style={[styles.breakdownRow, { backgroundColor: idx % 2 === 0 ? colors.bgWarm : colors.bgCard }]}>
               <Text style={styles.breakdownCategory}>{pt(item.category, lang)}</Text>
               <Text style={styles.breakdownLabel}>{item.label}</Text>
-              <Text style={[styles.breakdownDeduction, { color: item.deduction >= 20 ? colors.red : item.deduction >= 8 ? colors.amber : '#d97706' }]}>
+              <Text style={[styles.breakdownDeduction, { color: item.deduction >= 20 ? colors.red : item.deduction >= 8 ? colors.amber : '#4e9ac9' }]}>
                 -{item.deduction}
               </Text>
             </View>

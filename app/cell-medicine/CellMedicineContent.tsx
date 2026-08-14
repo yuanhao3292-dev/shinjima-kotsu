@@ -407,18 +407,18 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
           alt="Advanced Cell Medicine"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#2fb6b2]/95 via-[#2fb6b2]/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-400/95 via-brand-400/80 to-transparent" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-32 w-full">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#2fb6b2]/20 border border-[#2fb6b2]/30 rounded-full text-sm text-[#2fb6b2]/20 mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-400/20 border border-brand-400/30 rounded-full text-sm text-brand-400/20 mb-6">
               <Dna className="w-4 h-4" />
               {tr('heroBadge')}
             </div>
 
             <div className="flex items-center gap-3 mb-4">
-              <div className="h-[1px] w-12 bg-[#2fb6b2]/40" />
-              <span className="text-xs tracking-[0.3em] text-[#2fb6b2]/70 uppercase">
+              <div className="h-[1px] w-12 bg-brand-400/40" />
+              <span className="text-xs tracking-[0.3em] text-brand-400/70 uppercase">
                 {tr('heroTagline')}
               </span>
             </div>
@@ -426,7 +426,7 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
               {tr('heroTitle')}
             </h1>
-            <p className="text-lg text-[#2fb6b2]/20/80 mb-6">
+            <p className="text-lg text-brand-400/20/80 mb-6">
               {tr('heroSubtitle')}
             </p>
 
@@ -437,26 +437,26 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
             {/* Stats */}
             <div className="flex flex-wrap gap-8 mb-10">
               <div>
-                <div className="text-3xl font-bold text-white">4,000<span className="text-[#2fb6b2]/60 text-xl ml-1">+</span></div>
+                <div className="text-3xl font-bold text-white">4,000<span className="text-brand-400/60 text-xl ml-1">+</span></div>
                 <div className="text-xs text-white/50 uppercase tracking-wider">{tr('statCases')}</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-white">80<span className="text-[#2fb6b2]/60 text-xl ml-1">+</span></div>
+                <div className="text-3xl font-bold text-white">80<span className="text-brand-400/60 text-xl ml-1">+</span></div>
                 <div className="text-xs text-white/50 uppercase tracking-wider">{tr('statHospitals')}</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-white">24<span className="text-[#2fb6b2]/60 text-xl ml-1">{lang === 'en' ? 'yr' : '年'}</span></div>
+                <div className="text-3xl font-bold text-white">24<span className="text-brand-400/60 text-xl ml-1">{lang === 'en' ? 'yr' : '年'}</span></div>
                 <div className="text-xs text-white/50 uppercase tracking-wider">{tr('statHistory')}</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-white">0<span className="text-[#2fb6b2]/60 text-xl ml-1">{lang === 'en' ? 'cases' : '件'}</span></div>
+                <div className="text-3xl font-bold text-white">0<span className="text-brand-400/60 text-xl ml-1">{lang === 'en' ? 'cases' : '件'}</span></div>
                 <div className="text-xs text-white/50 uppercase tracking-wider">{tr('statSafety')}</div>
               </div>
             </div>
 
             <Link
               href={guideSlug ? `/cell-medicine/initial-consultation?guide=${guideSlug}` : '/cell-medicine/initial-consultation'}
-              className="inline-flex items-center gap-3 bg-[#2fb6b2] text-white px-8 py-4 rounded-full font-bold hover:bg-[#2fb6b2] transition-all shadow-lg hover:shadow-xl"
+              className="inline-flex items-center gap-3 bg-brand-400 text-white px-8 py-4 rounded-full font-bold hover:bg-brand-400 transition-all shadow-lg hover:shadow-xl"
             >
               {tr('ctaInitial')} <ArrowRight size={18} />
             </Link>
@@ -468,21 +468,21 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
       <section id="vaccine-detail" className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center gap-3 mb-4">
-            <div className="h-[1px] w-12 bg-[#2fb6b2]" />
-            <span className="text-sm tracking-[0.2em] text-[#2fb6b2] uppercase font-medium">
+            <div className="h-[1px] w-12 bg-brand-400" />
+            <span className="text-sm tracking-[0.2em] text-brand-400 uppercase font-medium">
               {tr('vaccineTag')}
             </span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-6">
             {tr('vaccineTitle')}
           </h2>
-          <p className="text-lg text-[#656d78] leading-relaxed max-w-4xl mb-12">
+          <p className="text-lg text-brand-700 leading-relaxed max-w-4xl mb-12">
             {tr('vaccineDesc')}
           </p>
 
           {/* Mechanism */}
           <h3 className="text-xl font-bold text-neutral-900 mb-6 flex items-center gap-2">
-            <Microscope className="w-5 h-5 text-[#2fb6b2]" />
+            <Microscope className="w-5 h-5 text-brand-400" />
             {tr('mechanismTitle')}
           </h3>
           <div className="grid md:grid-cols-3 gap-6 mb-16">
@@ -491,28 +491,28 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
               { icon: <Zap className="w-6 h-6" />, title: tr('mechanism2Title'), desc: tr('mechanism2Desc'), step: '02' },
               { icon: <ShieldCheck className="w-6 h-6" />, title: tr('mechanism3Title'), desc: tr('mechanism3Desc'), step: '03' },
             ].map((item, idx) => (
-              <div key={idx} className="relative bg-gradient-to-br from-[#2fb6b2]/5 to-white border border-[#2fb6b2]/10 rounded-2xl p-6">
-                <div className="absolute top-4 right-4 text-4xl font-bold text-[#2fb6b2]/10">{item.step}</div>
-                <div className="w-12 h-12 bg-[#2fb6b2]/10 rounded-xl flex items-center justify-center text-[#2fb6b2] mb-4">
+              <div key={idx} className="relative bg-gradient-to-br from-brand-400/5 to-white border border-brand-400/10 rounded-2xl p-6">
+                <div className="absolute top-4 right-4 text-4xl font-bold text-brand-400/10">{item.step}</div>
+                <div className="w-12 h-12 bg-brand-400/10 rounded-xl flex items-center justify-center text-brand-400 mb-4">
                   {item.icon}
                 </div>
                 <h4 className="font-bold text-neutral-900 mb-2">{item.title}</h4>
-                <p className="text-sm text-[#656d78] leading-relaxed">{item.desc}</p>
+                <p className="text-sm text-brand-700 leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
 
           {/* Clinical Evidence */}
           <h3 className="text-xl font-bold text-neutral-900 mb-6 flex items-center gap-2">
-            <Award className="w-5 h-5 text-[#2fb6b2]" />
+            <Award className="w-5 h-5 text-brand-400" />
             {tr('evidenceTitle')}
           </h3>
-          <div className="bg-[#2fb6b2]/5 border border-[#2fb6b2]/10 rounded-2xl p-8 mb-12">
+          <div className="bg-brand-400/5 border border-brand-400/10 rounded-2xl p-8 mb-12">
             <div className="grid md:grid-cols-2 gap-4">
               {[tr('evidenceLiver'), tr('evidenceBrain'), tr('evidenceSafety'), tr('evidencePublished')].map((item, idx) => (
                 <div key={idx} className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-[#2fb6b2] shrink-0 mt-0.5" />
-                  <span className="text-[#656d78]">{item}</span>
+                  <CheckCircle className="w-5 h-5 text-brand-400 shrink-0 mt-0.5" />
+                  <span className="text-brand-700">{item}</span>
                 </div>
               ))}
             </div>
@@ -521,10 +521,10 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
           {/* Applicable Cancers */}
           <div className="bg-neutral-50 border border-neutral-200 rounded-2xl p-8 mb-12">
             <h3 className="text-lg font-bold text-neutral-900 mb-4 flex items-center gap-2">
-              <Activity className="w-5 h-5 text-[#2fb6b2]" />
+              <Activity className="w-5 h-5 text-brand-400" />
               {tr('cancerTitle')}
             </h3>
-            <p className="text-[#656d78] mb-3">{tr('cancerList')}</p>
+            <p className="text-brand-700 mb-3">{tr('cancerList')}</p>
             <p className="text-sm text-neutral-500">{tr('cancerNote')}</p>
           </div>
         </div>
@@ -544,15 +544,15 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
               { icon: <Star className="w-6 h-6" />, title: tr('flow4'), desc: tr('flow4Desc'), step: 'STEP 4' },
             ].map((item, idx) => (
               <div key={idx} className="text-center">
-                <div className="text-xs font-bold text-[#2fb6b2] tracking-wider mb-3">{item.step}</div>
-                <div className="w-16 h-16 mx-auto bg-white border-2 border-[#2fb6b2]/20 rounded-2xl flex items-center justify-center text-[#2fb6b2] mb-4 shadow-sm">
+                <div className="text-xs font-bold text-brand-400 tracking-wider mb-3">{item.step}</div>
+                <div className="w-16 h-16 mx-auto bg-white border-2 border-brand-400/20 rounded-2xl flex items-center justify-center text-brand-400 mb-4 shadow-sm">
                   {item.icon}
                 </div>
                 <h4 className="font-bold text-neutral-900 mb-2">{item.title}</h4>
                 <p className="text-sm text-neutral-500">{item.desc}</p>
                 {idx < 3 && (
                   <div className="hidden md:block mt-4">
-                    <ArrowRight className="w-5 h-5 text-[#2fb6b2] mx-auto" />
+                    <ArrowRight className="w-5 h-5 text-brand-400 mx-auto" />
                   </div>
                 )}
               </div>
@@ -560,9 +560,9 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
           </div>
 
           {/* Pricing */}
-          <div className="mt-16 bg-white border border-[#2fb6b2]/20 rounded-2xl p-8 text-center max-w-2xl mx-auto">
+          <div className="mt-16 bg-white border border-brand-400/20 rounded-2xl p-8 text-center max-w-2xl mx-auto">
             <h3 className="text-lg font-bold text-neutral-900 mb-4">{tr('vaccinePriceTitle')}</h3>
-            <p className="text-3xl font-bold text-[#2fb6b2] mb-2">{tr('vaccinePriceRange')}</p>
+            <p className="text-3xl font-bold text-brand-400 mb-2">{tr('vaccinePriceRange')}</p>
             <p className="text-sm text-neutral-500">{tr('vaccinePriceNote')}</p>
           </div>
         </div>
@@ -579,7 +579,7 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
             <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
               {tr('nobelTitle')}
             </h2>
-            <p className="text-lg text-[#656d78] leading-relaxed max-w-3xl mx-auto">
+            <p className="text-lg text-brand-700 leading-relaxed max-w-3xl mx-auto">
               {tr('nobelDesc')}
             </p>
           </div>
@@ -596,34 +596,34 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
             </div>
 
             {/* Arrow */}
-            <div className="flex flex-col items-center gap-1 text-[#2fb6b2]">
+            <div className="flex flex-col items-center gap-1 text-brand-400">
               <ArrowRight className="w-8 h-8 hidden md:block" />
               <ArrowRight className="w-8 h-8 rotate-90 md:hidden" />
-              <span className="text-xs font-bold tracking-wider text-[#2fb6b2]">{tr('nobelArrow')}</span>
+              <span className="text-xs font-bold tracking-wider text-brand-400">{tr('nobelArrow')}</span>
             </div>
 
             {/* Tanabe */}
-            <div className="bg-gradient-to-br from-[#2fb6b2]/5 to-[#2fb6b2]/5 border-2 border-[#2fb6b2]/20 rounded-2xl p-8 text-center w-full md:w-80">
-              <div className="w-20 h-20 mx-auto bg-[#2fb6b2]/10 rounded-full flex items-center justify-center mb-4">
-                <Dna className="w-10 h-10 text-[#2fb6b2]" />
+            <div className="bg-gradient-to-br from-brand-400/5 to-brand-400/5 border-2 border-brand-400/20 rounded-2xl p-8 text-center w-full md:w-80">
+              <div className="w-20 h-20 mx-auto bg-brand-400/10 rounded-full flex items-center justify-center mb-4">
+                <Dna className="w-10 h-10 text-brand-400" />
               </div>
               <h3 className="text-xl font-bold text-neutral-900 mb-2">{tr('nobelTanabe')}</h3>
-              <p className="text-sm text-[#2fb6b2] font-medium whitespace-pre-line">{tr('nobelTanabeRole')}</p>
+              <p className="text-sm text-brand-400 font-medium whitespace-pre-line">{tr('nobelTanabeRole')}</p>
             </div>
 
             {/* Arrow */}
-            <div className="flex flex-col items-center gap-1 text-[#2fb6b2]">
+            <div className="flex flex-col items-center gap-1 text-brand-400">
               <ArrowRight className="w-8 h-8 hidden md:block" />
               <ArrowRight className="w-8 h-8 rotate-90 md:hidden" />
             </div>
 
             {/* iPeace */}
-            <div className="bg-gradient-to-br from-[#2fb6b2]/5 to-brand-50 border-2 border-[#2fb6b2]/20 rounded-2xl p-8 text-center w-full md:w-80">
-              <div className="w-20 h-20 mx-auto bg-[#2fb6b2]/10 rounded-full flex items-center justify-center mb-4">
-                <Shield className="w-10 h-10 text-[#2fb6b2]" />
+            <div className="bg-gradient-to-br from-brand-400/5 to-brand-50 border-2 border-brand-400/20 rounded-2xl p-8 text-center w-full md:w-80">
+              <div className="w-20 h-20 mx-auto bg-brand-400/10 rounded-full flex items-center justify-center mb-4">
+                <Shield className="w-10 h-10 text-brand-400" />
               </div>
               <h3 className="text-xl font-bold text-neutral-900 mb-2">iPeace, Inc.</h3>
-              <p className="text-sm text-[#2fb6b2] font-medium">
+              <p className="text-sm text-brand-400 font-medium">
                 {lang === 'ja' ? 'My Peace iPS細胞バンキング\nFDA cGMP認証・京都製造' : lang === 'en' ? 'My Peace iPS Cell Banking\nFDA cGMP Certified · Kyoto' : lang === 'zh-TW' ? 'My Peace iPS細胞儲存\nFDA cGMP認證·京都製造' : 'My Peace iPS细胞储存\nFDA cGMP认证·京都制造'}
               </p>
             </div>
@@ -638,11 +638,11 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
           alt="iPeace iPS Cell Banking"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-[#32373c]/95 via-[#2fb6b2]/90 to-[#32373c]/95" />
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-900/95 via-brand-400/90 to-brand-900/95" />
         <div className="relative z-10 max-w-6xl mx-auto px-6">
           <div className="flex items-center gap-3 mb-4">
-            <div className="h-[1px] w-12 bg-[#2fb6b2]/40" />
-            <span className="text-sm tracking-[0.2em] text-[#2fb6b2] uppercase font-medium">
+            <div className="h-[1px] w-12 bg-brand-400/40" />
+            <span className="text-sm tracking-[0.2em] text-brand-400 uppercase font-medium">
               {tr('ipeaceTag')}
             </span>
           </div>
@@ -661,7 +661,7 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
               { icon: <GraduationCap className="w-6 h-6" />, title: tr('ipeaceFeature4Title'), desc: tr('ipeaceFeature4Desc') },
             ].map((item, idx) => (
               <div key={idx} className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-                <div className="w-12 h-12 bg-[#2fb6b2]/20 rounded-xl flex items-center justify-center text-[#2fb6b2] mb-4">
+                <div className="w-12 h-12 bg-brand-400/20 rounded-xl flex items-center justify-center text-brand-400 mb-4">
                   {item.icon}
                 </div>
                 <h4 className="font-bold text-white mb-2">{item.title}</h4>
@@ -673,13 +673,13 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
           {/* Why Bank Now */}
           <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
             <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-[#2fb6b2]" />
+              <Sparkles className="w-5 h-5 text-brand-400" />
               {tr('whyIpsTitle')}
             </h3>
             <div className="space-y-4">
               {[tr('whyIps1'), tr('whyIps2'), tr('whyIps3')].map((item, idx) => (
                 <div key={idx} className="flex items-start gap-3">
-                  <Leaf className="w-5 h-5 text-[#2fb6b2] shrink-0 mt-0.5" />
+                  <Leaf className="w-5 h-5 text-brand-400 shrink-0 mt-0.5" />
                   <span className="text-white/80">{item}</span>
                 </div>
               ))}
@@ -692,8 +692,8 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center gap-3 mb-4">
-            <div className="h-[1px] w-12 bg-[#2fb6b2]" />
-            <span className="text-sm tracking-[0.2em] text-[#2fb6b2] uppercase font-medium">
+            <div className="h-[1px] w-12 bg-brand-400" />
+            <span className="text-sm tracking-[0.2em] text-brand-400 uppercase font-medium">
               {tr('teamTag')}
             </span>
           </div>
@@ -707,12 +707,12 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
               { name: tr('team2Name'), role: tr('team2Role'), desc: tr('team2Desc'), icon: <Dna className="w-6 h-6" /> },
             ].map((member, idx) => (
               <div key={idx} className="bg-neutral-50 border border-neutral-200 rounded-2xl p-8">
-                <div className="w-14 h-14 bg-[#2fb6b2]/10 rounded-2xl flex items-center justify-center text-[#2fb6b2] mb-4">
+                <div className="w-14 h-14 bg-brand-400/10 rounded-2xl flex items-center justify-center text-brand-400 mb-4">
                   {member.icon}
                 </div>
                 <h3 className="text-xl font-bold text-neutral-900 mb-1">{member.name}</h3>
-                <p className="text-sm text-[#2fb6b2] font-medium mb-4">{member.role}</p>
-                <p className="text-sm text-[#656d78] leading-relaxed">{member.desc}</p>
+                <p className="text-sm text-brand-400 font-medium mb-4">{member.role}</p>
+                <p className="text-sm text-brand-700 leading-relaxed">{member.desc}</p>
               </div>
             ))}
           </div>
@@ -723,8 +723,8 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
       <section className="py-16 bg-neutral-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center gap-3 mb-4">
-            <div className="h-[1px] w-12 bg-[#2fb6b2]" />
-            <span className="text-sm tracking-[0.2em] text-[#2fb6b2] uppercase font-medium">
+            <div className="h-[1px] w-12 bg-brand-400" />
+            <span className="text-sm tracking-[0.2em] text-brand-400 uppercase font-medium">
               {tr('locationTag')}
             </span>
           </div>
@@ -734,12 +734,12 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
 
           <div className="bg-white border border-neutral-200 rounded-2xl p-8">
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-[#2fb6b2]/10 rounded-xl flex items-center justify-center shrink-0">
-                <Building2 className="w-6 h-6 text-[#2fb6b2]" />
+              <div className="w-12 h-12 bg-brand-400/10 rounded-xl flex items-center justify-center shrink-0">
+                <Building2 className="w-6 h-6 text-brand-400" />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-neutral-900 mb-2">{tr('locationName')}</h3>
-                <div className="space-y-2 text-sm text-[#656d78]">
+                <div className="space-y-2 text-sm text-brand-700">
                   <div className="flex items-center gap-2">
                     <MapPin className="w-4 h-4 text-neutral-400" />
                     <span>{tr('locationAddress')}</span>
@@ -756,7 +756,7 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
       </section>
 
       {/* ━━━━━━━━ CTA Section ━━━━━━━━ */}
-      <section className="py-20 bg-gradient-to-br from-[#2fb6b2] via-[#32373c] to-[#32373c]">
+      <section className="py-20 bg-gradient-to-br from-brand-400 via-brand-900 to-brand-900">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             {tr('ctaTitle')}
@@ -772,7 +772,7 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
             >
               <div className="text-lg mb-1">{tr('ctaInitial')}</div>
               <div className="text-sm text-neutral-500 font-normal">{tr('ctaInitialDesc')}</div>
-              <div className="text-[#2fb6b2] font-bold mt-2">¥221,000</div>
+              <div className="text-brand-400 font-bold mt-2">¥221,000</div>
             </Link>
             <Link
               href={guideSlug ? `/cell-medicine/remote-consultation?guide=${guideSlug}` : '/cell-medicine/remote-consultation'}
@@ -780,7 +780,7 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
             >
               <div className="text-lg mb-1">{tr('ctaRemote')}</div>
               <div className="text-sm text-white/60 font-normal">{tr('ctaRemoteDesc')}</div>
-              <div className="text-[#2fb6b2] font-bold mt-2">¥243,000</div>
+              <div className="text-brand-400 font-bold mt-2">¥243,000</div>
             </Link>
           </div>
         </div>
@@ -789,7 +789,7 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
       {/* ━━━━━━━━ Legal Footer ━━━━━━━━ */}
       <section className="py-8 bg-neutral-100">
         <div className="max-w-4xl mx-auto px-6">
-          <h4 className="text-sm font-bold text-[#656d78] mb-3">{tr('legalTitle')}</h4>
+          <h4 className="text-sm font-bold text-brand-700 mb-3">{tr('legalTitle')}</h4>
           <ul className="space-y-1.5 text-xs text-neutral-500 leading-relaxed">
             <li>• {tr('legal1')}</li>
             <li>• {tr('legal2')}</li>
