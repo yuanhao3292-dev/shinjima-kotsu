@@ -149,15 +149,15 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
     </section>
 
     {/* Hospital Introduction Video Section */}
-    <div className="bg-gradient-to-b from-brand-900 to-brand-800 py-20">
+    <div className="bg-white py-20">
       <div className="container mx-auto px-6 py-12 md:py-24">
         <div className="text-center mb-12">
           <span className="text-brand-700 text-xs tracking-[0.3em] uppercase font-bold">{currentLang === 'zh-TW' ? '院內導覽' : currentLang === 'zh-CN' ? '院内导览' : currentLang === 'ja' ? '院内ツアー' : 'Hospital Tour'}</span>
-          <h3 className="text-3xl font-serif text-white mt-3">{t.medical.video_title}</h3>
-          <p className="text-neutral-500 text-sm mt-2 max-w-2xl mx-auto">{t.medical.video_subtitle}</p>
+          <h3 className="text-3xl font-serif text-brand-900 mt-3">{t.medical.video_title}</h3>
+          <p className="text-neutral-600 text-sm mt-2 max-w-2xl mx-auto">{t.medical.video_subtitle}</p>
         </div>
         <div className="max-w-4xl mx-auto">
-          <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-white/10">
+          <div className="relative aspect-video rounded-2xl overflow-hidden shadow-xl shadow-neutral-900/10 border border-neutral-200">
             <video
               className="w-full h-full object-cover"
               controls
@@ -168,7 +168,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               {t.medical.video_fallback}
             </video>
           </div>
-          <p className="text-center text-neutral-500 text-xs mt-4">{t.medical.video_caption}</p>
+          <p className="text-center text-neutral-600 text-xs mt-4">{t.medical.video_caption}</p>
         </div>
       </div>
     </div>
@@ -225,10 +225,10 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       sizes="(max-width: 768px) 100vw, 50vw"
                       quality={75}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/70 via-brand-900/32 to-brand-900/12"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/88 via-brand-900/55 to-brand-900/12"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                       <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_ct_t}</h4>
-                      <p className="text-base text-neutral-200 leading-relaxed">{t.medical.tech_ct_d}</p>
+                      <p className="text-base text-white leading-relaxed">{t.medical.tech_ct_d}</p>
                   </div>
               </div>
               {/* MRI - Right */}
@@ -241,10 +241,10 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       sizes="(max-width: 768px) 100vw, 50vw"
                       quality={75}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/70 via-brand-900/32 to-brand-900/12"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/88 via-brand-900/55 to-brand-900/12"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                       <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_mri_t}</h4>
-                      <p className="text-base text-neutral-200 leading-relaxed">{t.medical.tech_mri_d}</p>
+                      <p className="text-base text-white leading-relaxed">{t.medical.tech_mri_d}</p>
                   </div>
               </div>
           </div>
@@ -261,10 +261,10 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       sizes="(max-width: 768px) 100vw, 50vw"
                       quality={75}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/70 via-brand-900/32 to-brand-900/12"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/88 via-brand-900/55 to-brand-900/12"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                       <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_endo_t}</h4>
-                      <p className="text-base text-neutral-200 leading-relaxed">{t.medical.tech_endo_d}</p>
+                      <p className="text-base text-white leading-relaxed">{t.medical.tech_endo_d}</p>
                   </div>
               </div>
               {/* Dental - Right */}
@@ -277,10 +277,10 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       sizes="(max-width: 768px) 100vw, 50vw"
                       quality={75}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/70 via-brand-900/32 to-brand-900/12"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/88 via-brand-900/55 to-brand-900/12"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                       <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_dental_t}</h4>
-                      <p className="text-base text-neutral-200 leading-relaxed">{t.medical.tech_dental_d}</p>
+                      <p className="text-base text-white leading-relaxed">{t.medical.tech_dental_d}</p>
                   </div>
               </div>
           </div>
@@ -301,10 +301,10 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   ) : (
                     <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-900 animate-pulse" />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/70 via-brand-900/32 to-brand-900/12"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/88 via-brand-900/55 to-brand-900/12"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                       <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.detail_echo_title}</h4>
-                      <p className="text-base text-neutral-200 leading-relaxed">{t.medical.detail_echo_desc}</p>
+                      <p className="text-base text-white leading-relaxed">{t.medical.detail_echo_desc}</p>
                   </div>
               </div>
               {/* Mammography - Right */}
@@ -321,10 +321,10 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   ) : (
                     <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-900 animate-pulse" />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/70 via-brand-900/32 to-brand-900/12"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/88 via-brand-900/55 to-brand-900/12"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                       <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.detail_mammo_title}</h4>
-                      <p className="text-base text-neutral-200 leading-relaxed">{t.medical.detail_mammo_desc}</p>
+                      <p className="text-base text-white leading-relaxed">{t.medical.detail_mammo_desc}</p>
                   </div>
               </div>
           </div>
@@ -384,7 +384,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   ) : (
                     <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-900 animate-pulse" />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-l from-brand-900/66 via-brand-900/46 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-l from-brand-900/85 via-brand-900/60 to-transparent"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl ml-auto text-right">
                           <div className="flex items-center justify-end gap-3 mb-4">
@@ -392,7 +392,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                               <div className="h-[1px] w-12 bg-accent-400"></div>
                           </div>
                           <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_2_title}</h4>
-                          <p className="text-lg text-neutral-200 leading-relaxed">{t.medical.facility_2_desc}</p>
+                          <p className="text-lg text-white leading-relaxed">{t.medical.facility_2_desc}</p>
                           <div className="mt-6 flex justify-end gap-3">
                               <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">{currentLang === 'zh-TW' ? '專屬禮賓' : currentLang === 'zh-CN' ? '专属礼宾' : currentLang === 'ja' ? 'コンシェルジュ' : 'Concierge'}</span>
                               <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">{currentLang === 'zh-TW' ? '貴賓接待' : currentLang === 'zh-CN' ? '贵宾接待' : currentLang === 'ja' ? 'ホスピタリティ' : 'Hospitality'}</span>
@@ -447,7 +447,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   ) : (
                     <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-900 animate-pulse" />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-l from-brand-900/66 via-brand-900/46 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-l from-brand-900/85 via-brand-900/60 to-transparent"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl ml-auto text-right">
                           <div className="flex items-center justify-end gap-3 mb-4">
@@ -455,7 +455,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                               <div className="h-[1px] w-12 bg-accent-400"></div>
                           </div>
                           <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_4_title}</h4>
-                          <p className="text-lg text-neutral-200 leading-relaxed">{t.medical.facility_4_desc}</p>
+                          <p className="text-lg text-white leading-relaxed">{t.medical.facility_4_desc}</p>
                           <div className="mt-6 flex justify-end gap-3">
                               <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">{currentLang === 'zh-TW' ? '奢華' : currentLang === 'zh-CN' ? '奢华' : currentLang === 'ja' ? 'ラグジュアリー' : 'Luxury'}</span>
                               <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">{currentLang === 'zh-TW' ? '全套備品' : currentLang === 'zh-CN' ? '全套备品' : currentLang === 'ja' ? '全アメニティ完備' : 'Full Amenities'}</span>
@@ -467,11 +467,11 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       </div>
 
       {/* 4. Flow Experience */}
-      <div className="mb-24 brand-gradient-deep text-white rounded-3xl p-10 md:p-16 relative overflow-hidden">
+      <div className="mb-24 bg-white border border-neutral-200 text-brand-900 rounded-3xl p-10 md:p-16 relative overflow-hidden">
            <div className="absolute inset-0 opacity-10" style={{backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png')"}}></div>
            <div className="relative z-10 text-center mb-12">
                <h3 className="text-3xl font-serif">{t.medical.flow_title}</h3>
-               <p className="text-neutral-500 mt-2 text-sm">{currentLang === 'zh-TW' ? '體驗流程' : currentLang === 'zh-CN' ? '体验流程' : currentLang === 'ja' ? '体験の流れ' : 'Experience the Flow'}</p>
+               <p className="text-neutral-600 mt-2 text-sm">{currentLang === 'zh-TW' ? '體驗流程' : currentLang === 'zh-CN' ? '体验流程' : currentLang === 'ja' ? '体験の流れ' : 'Experience the Flow'}</p>
            </div>
            <div className="relative z-10 grid grid-cols-1 md:grid-cols-5 gap-6 text-center">
               {[
@@ -481,11 +481,11 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   { id: '04', icon: <FileText size={24} />, title: t.medical.flow_4, desc: t.medical.flow_4_d },
                   { id: '05', icon: <Coffee size={24} />, title: t.medical.flow_5, desc: t.medical.flow_5_d },
               ].map((step, i) => (
-               <div key={i} className="bg-white/5 p-6 rounded-xl border border-white/10 hover:bg-white/10 transition group">
-                  <div className="text-brand-700 font-mono text-xl mb-4 opacity-50">{step.id}</div>
-                  <div className="flex justify-center mb-4 text-white opacity-80 group-hover:scale-110 transition">{step.icon}</div>
+               <div key={i} className="bg-neutral-50 p-6 rounded-xl border border-neutral-200 hover:bg-brand-50 transition group">
+                  <div className="text-brand-700 font-mono text-xl mb-4 opacity-70">{step.id}</div>
+                  <div className="flex justify-center mb-4 text-brand-700 opacity-90 group-hover:scale-110 transition">{step.icon}</div>
                   <h4 className="font-bold text-lg mb-2">{step.title}</h4>
-                  <p className="text-xs text-neutral-500 leading-relaxed">{step.desc}</p>
+                  <p className="text-xs text-neutral-600 leading-relaxed">{step.desc}</p>
                </div>
               ))}
            </div>
