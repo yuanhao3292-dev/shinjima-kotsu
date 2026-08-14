@@ -672,7 +672,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               <h3 className="text-xl font-bold text-neutral-900 mb-3 text-center">{t(tr.facilityEnvironment, lang)}</h3>
               <p className="text-neutral-600 text-center leading-relaxed">{t(tr.facilityEnvironmentDesc, lang)}</p>
               <div className="mt-6 text-center">
-                <span className="inline-block bg-brand-50 text-brand-600 px-4 py-2 rounded-lg text-sm font-medium">
+                <span className="inline-block bg-brand-50 text-brand-700 px-4 py-2 rounded-lg text-sm font-medium">
                   {lang === 'ja' ? '3F〜5F 完全個室対応' : lang === 'en' ? 'Private Rooms 3F-5F' : '3F-5F 独立诊室'}
                 </span>
               </div>

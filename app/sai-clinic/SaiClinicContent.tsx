@@ -1104,7 +1104,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                     ))}
                   </div>
                 </div>
-                <div className="px-2 py-1 bg-brand-50 text-brand-600 text-xs rounded-full inline-block mb-3">{typeof r.treatment === 'string' ? r.treatment : t(r.treatment, lang)}</div>
+                <div className="px-2 py-1 bg-brand-50 text-brand-700 text-xs rounded-full inline-block mb-3">{typeof r.treatment === 'string' ? r.treatment : t(r.treatment, lang)}</div>
                 <p className="text-sm text-neutral-600 leading-relaxed">{t(r.text, lang)}</p>
               </div>
             ))}

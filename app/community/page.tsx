@@ -77,9 +77,9 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 
 const RISK_COLORS: Record<string, string> = {
-  low: 'bg-brand-50 text-brand-600',
-  medium: 'bg-brand-50 text-brand-600',
-  high: 'bg-brand-50 text-brand-600',
+  low: 'bg-brand-50 text-brand-700',
+  medium: 'bg-brand-50 text-brand-700',
+  high: 'bg-brand-50 text-brand-700',
 };
 
 // ============================================================

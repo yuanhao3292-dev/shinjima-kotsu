@@ -205,7 +205,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                   { t: t.business.theme_3_t, d: t.business.theme_3_d, i: <Building size={20}/> },
                 ].map((item, i) => (
                   <div key={i} className="bg-white p-6 rounded-xl border border-neutral-200 shadow-sm hover:shadow-md transition flex gap-4 items-start">
-                     <div className="bg-brand-50 text-brand-600 p-3 rounded-lg">{item.i}</div>
+                     <div className="bg-brand-50 text-brand-700 p-3 rounded-lg">{item.i}</div>
                      <div>
                         <h4 className="font-bold text-neutral-900">{item.t}</h4>
                         <p className="text-xs text-neutral-500 mt-1">{item.d}</p>

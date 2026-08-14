@@ -195,7 +195,7 @@ export default function LanguageSwitcher({ variant = 'default', className = '' }
               key={lang.code}
               onClick={() => handleLanguageChange(lang.code)}
               className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-3 hover:bg-neutral-50 transition ${
-                currentLocale === lang.code ? 'bg-brand-50 text-brand-600' : 'text-neutral-700'
+                currentLocale === lang.code ? 'bg-brand-50 text-brand-700' : 'text-neutral-700'
               }`}
             >
               <span className="text-lg">{lang.flag}</span>

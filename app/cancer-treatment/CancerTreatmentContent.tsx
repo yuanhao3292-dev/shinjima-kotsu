@@ -230,12 +230,6 @@ const PHASE_COLOR_MAP: Record<PhaseColor, { bg: string; light: string; border: s
   amber:  { bg: 'bg-accent-500',  light: 'bg-accent-50',  border: 'border-accent-500',  text: 'text-accent-600',  ring: 'ring-accent-200' },
   green:  { bg: 'bg-brand-600',  light: 'bg-brand-50',  border: 'border-brand-600',  text: 'text-brand-600',  ring: 'ring-brand-200' },
 };
-const PHASE_GRADIENT_MAP: Record<PhaseColor, string> = {
-  blue:   'from-brand-700 to-brand-800',
-  purple: 'from-brand-600 to-brand-700',
-  amber:  'from-accent-500 to-accent-600',
-  green:  'from-brand-600 to-brand-700',
-};
 const PHASE_LIGHT_BG_MAP: Record<PhaseColor, string> = {
   blue:   'bg-brand-50 border-brand-100',
   purple: 'bg-brand-50 border-brand-100',
@@ -869,7 +863,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
     <>
       {/* Hero Section - hide in guide embed mode */}
       {!isGuideEmbed && (
-      <section className="relative min-h-screen flex items-center brand-gradient-deep overflow-hidden">
+      <section className="relative min-h-screen flex items-center bg-white overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
@@ -936,7 +930,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                 <div className="text-xs text-neutral-500 mt-1">{t('statCostSub')}</div>
               </div>
             </div>
-            <p className="text-xs text-neutral-500 mb-4">{t('dataSource')}</p>
+            <p className="text-xs text-neutral-600 mb-4">{t('dataSource')}</p>
             {/* Trust Points */}
             <div className="flex flex-wrap gap-6 text-neutral-600">
               <div className="flex items-center gap-2">
@@ -997,7 +991,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   cardBorder: 'border-brand-200',
                   badge: 'bg-brand-100 text-brand-700',
                   tagBg: 'bg-brand-50',
-                  tagText: 'text-brand-600',
+                  tagText: 'text-brand-700',
                 },
                 green: {
                   headerBg: 'bg-brand-600',
@@ -1005,7 +999,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   cardBorder: 'border-brand-200',
                   badge: 'bg-brand-100 text-brand-700',
                   tagBg: 'bg-brand-50',
-                  tagText: 'text-brand-600',
+                  tagText: 'text-brand-700',
                 },
                 orange: {
                   headerBg: 'bg-accent-500',
@@ -1013,7 +1007,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   cardBorder: 'border-accent-200',
                   badge: 'bg-accent-100 text-accent-700',
                   tagBg: 'bg-accent-50',
-                  tagText: 'text-accent-600',
+                  tagText: 'text-accent-700',
                 },
                 red: {
                   headerBg: 'bg-brand-800',
@@ -1176,16 +1170,18 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
               <div className="max-w-5xl mx-auto">
                 <div className="rounded-2xl overflow-hidden shadow-lg border border-neutral-100">
                   {/* Phase Header */}
-                  <div className={`bg-gradient-to-r ${PHASE_GRADIENT_MAP[phase.color]} p-6 md:p-8 text-white`}>
+                  {/* 页头统一用 brand-gradient-solid：PHASE_GRADIENT_MAP 的四个色标在三色制后
+                      都成了蓝色变体，差异已无意义；且其中 from-brand-600 的浅端白字仅 4.21:1 */}
+                  <div className="brand-gradient-solid p-6 md:p-8 text-white">
                     <div className="flex flex-wrap items-center justify-between gap-4">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
                           <PhaseIcon size={24} />
                         </div>
                         <div>
-                          <div className="text-neutral-600 text-xs font-bold tracking-wider">PHASE {phase.phaseNumber}</div>
+                          <div className="text-white text-xs font-bold tracking-wider">PHASE {phase.phaseNumber}</div>
                           <h3 className="text-xl md:text-2xl font-bold">{phase.title[currentLang]}</h3>
-                          <p className="text-neutral-600 text-sm mt-1">{phase.subtitle[currentLang]}</p>
+                          <p className="text-white text-sm mt-1 font-light">{phase.subtitle[currentLang]}</p>
                         </div>
                       </div>
                       <div className="flex flex-wrap items-center gap-3">
@@ -1275,9 +1271,9 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                                     )}
                                   </div>
                                   <div className="flex items-center gap-1.5 text-xs text-neutral-500">
-                                    <span className="bg-neutral-200 px-1.5 py-0.5 rounded text-xs">{step.from[currentLang]}</span>
+                                    <span className="bg-neutral-200 text-neutral-800 px-1.5 py-0.5 rounded text-xs">{step.from[currentLang]}</span>
                                     <ArrowRight size={10} />
-                                    <span className="bg-neutral-200 px-1.5 py-0.5 rounded text-xs">{step.to[currentLang]}</span>
+                                    <span className="bg-neutral-200 text-neutral-800 px-1.5 py-0.5 rounded text-xs">{step.to[currentLang]}</span>
                                   </div>
                                 </div>
                               </div>
@@ -1297,7 +1293,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
       <section className="py-24 bg-gradient-to-br from-neutral-50 to-brand-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-brand-600 text-xs tracking-widest uppercase font-bold">Standard Treatment</span>
+            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">Standard Treatment</span>
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-900 mt-3 mb-4">
               {t('stdTitle')}
             </h2>
@@ -1346,7 +1342,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-brand-600 text-xs tracking-widest uppercase font-bold">Regenerative Medicine</span>
+            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">Regenerative Medicine</span>
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-900 mt-3 mb-4">
               {t('regenTitle')}
             </h2>
@@ -1372,15 +1368,13 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {REGENERATIVE_TREATMENTS.map((treatment) => {
               const Icon = treatment.icon;
-              const colorClasses: Record<string, { gradient: string; bg: string; text: string }> = {
-                blue: { gradient: 'from-brand-600 to-brand-400', bg: 'bg-brand-50', text: 'text-brand-700' },
-                purple: { gradient: 'from-brand-700 to-brand-500', bg: 'bg-brand-50', text: 'text-brand-600' },
-                green: { gradient: 'from-brand-500 to-brand-400', bg: 'bg-brand-50', text: 'text-brand-600' },
-              };
-              const colors = colorClasses[treatment.color];
+              // 三色制之后 blue/purple/green 三档只剩深浅之差，区分已无意义，故统一。
+              // 原 gradient 的亮端 brand-400 配白色图标仅 2.28:1，未达图形元素 3:1；
+              // 原 text-brand-600 压 bg-brand-50 仅 3.95:1，未达正文 4.5:1。
+              const colors = { gradient: '', bg: 'bg-brand-50', text: 'text-brand-700' };
               return (
                 <div key={treatment.id} className="bg-gradient-to-br from-neutral-50 to-white rounded-2xl p-8 border border-neutral-100 hover:shadow-xl transition-all duration-300 group">
-                  <div className={`w-16 h-16 bg-gradient-to-br ${colors.gradient} rounded-2xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-lg`}>
+                  <div className={`w-16 h-16 brand-gradient-solid rounded-2xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-lg`}>
                     <Icon size={32} />
                   </div>
                   <div className={`inline-block ${colors.bg} ${colors.text} text-xs font-bold px-3 py-1 rounded-full mb-4`}>
@@ -1403,7 +1397,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
         </div>
       </section>
       {/* Partner Institutions */}
-      <section className="py-20 bg-gradient-to-br from-brand-900 to-brand-800 text-white">
+      <section className="py-20 bg-neutral-50 text-brand-900">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-serif font-bold mb-4">{t('partnerTitle')}</h2>
@@ -1413,8 +1407,8 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
             {PARTNER_INSTITUTIONS.map((inst, i) => {
               const Icon = inst.icon;
               return (
-                <div key={i} className="bg-white/10 backdrop-blur-md rounded-xl p-6 text-center border border-white/20 hover:bg-white/20 transition">
-                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div key={i} className="bg-white rounded-xl p-6 text-center border border-neutral-200 border-white/20 hover:bg-white/20 transition">
+                  <div className="w-12 h-12 brand-gradient-solid rounded-full flex items-center justify-center mx-auto mb-4">
                     <Icon size={24} className="text-white" />
                   </div>
                   <p className="text-sm text-neutral-600">{inst.label[currentLang]}</p>
@@ -1434,22 +1428,22 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-900 mt-3 mb-4">
                 {t('svcTitle')}
               </h2>
-              <p className="text-neutral-500 mb-4">
+              <p className="text-neutral-600 mb-4">
                 {t('svcDesc')}
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
               {/* Service Card 1: Initial Consultation */}
               <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-neutral-100 hover:shadow-2xl transition-all group">
-                <div className="bg-gradient-to-r from-brand-700 to-brand-800 p-6 text-white">
+                <div className="brand-gradient-solid p-6 text-white">
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="text-xl font-bold">{CONSULTATION_SERVICES.initial.name[currentLang]}</h3>
-                      <p className="text-neutral-600 text-sm">{CONSULTATION_SERVICES.initial.nameEn}</p>
+                      <p className="text-white text-sm font-light">{CONSULTATION_SERVICES.initial.nameEn}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-3xl font-bold">¥{CONSULTATION_SERVICES.initial.price.toLocaleString()}</p>
-                      <p className="text-xs text-neutral-600">{t('svcTaxIncl')}</p>
+                      <p className="text-xs text-white font-light">{t('svcTaxIncl')}</p>
                     </div>
                   </div>
                 </div>
@@ -1475,7 +1469,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   </ul>
                   <Link
                     href={guideSlug ? `/cancer-treatment/initial-consultation?guide=${guideSlug}` : '/cancer-treatment/initial-consultation'}
-                    className="block w-full py-3 bg-gradient-to-r from-brand-700 to-brand-800 text-white text-center font-bold rounded-xl hover:from-brand-800 hover:to-brand-900 transition shadow-lg"
+                    className="block w-full py-3 brand-gradient-solid text-white text-center font-bold rounded-xl hover:from-brand-800 hover:to-brand-900 transition shadow-lg"
                   >
                     {t('svcBookNow')}
                   </Link>
@@ -1483,15 +1477,15 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
               </div>
               {/* Service Card 2: Remote Consultation */}
               <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-neutral-100 hover:shadow-2xl transition-all group">
-                <div className="bg-gradient-to-r from-brand-600 to-brand-700 p-6 text-white">
+                <div className="brand-gradient-solid p-6 text-white">
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="text-xl font-bold">{CONSULTATION_SERVICES.remote.name[currentLang]}</h3>
-                      <p className="text-neutral-600 text-sm">{CONSULTATION_SERVICES.remote.nameEn}</p>
+                      <p className="text-white text-sm font-light">{CONSULTATION_SERVICES.remote.nameEn}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-3xl font-bold">¥{CONSULTATION_SERVICES.remote.price.toLocaleString()}</p>
-                      <p className="text-xs text-neutral-600">{t('svcTaxIncl')}</p>
+                      <p className="text-xs text-white font-light">{t('svcTaxIncl')}</p>
                     </div>
                   </div>
                 </div>
@@ -1517,7 +1511,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   </ul>
                   <Link
                     href={guideSlug ? `/cancer-treatment/remote-consultation?guide=${guideSlug}` : '/cancer-treatment/remote-consultation'}
-                    className="block w-full py-3 bg-gradient-to-r from-brand-600 to-brand-700 text-white text-center font-bold rounded-xl hover:from-brand-700 hover:to-brand-800 transition shadow-lg"
+                    className="block w-full py-3 brand-gradient-solid text-white text-center font-bold rounded-xl hover:from-brand-700 hover:to-brand-800 transition shadow-lg"
                   >
                     {t('svcBookNow')}
                   </Link>

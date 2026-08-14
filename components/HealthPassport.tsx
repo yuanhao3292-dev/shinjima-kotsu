@@ -497,7 +497,7 @@ export default function HealthPassport({ screenings, snapshots, lang }: Props) {
                             </span>
                           )}
                           {!isCompleted && (
-                            <span className="text-xs px-2 py-0.5 rounded-full bg-brand-50 text-brand-600">
+                            <span className="text-xs px-2 py-0.5 rounded-full bg-brand-50 text-brand-700">
                               {t('inProgress', lang)}
                             </span>
                           )}

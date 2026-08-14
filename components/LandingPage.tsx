@@ -1043,7 +1043,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                </button>
 
                <div className="mb-8 text-center">
-                  <div className="w-12 h-12 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="w-12 h-12 bg-brand-50 text-brand-700 rounded-full flex items-center justify-center mx-auto mb-4">
                      <User size={24} />
                   </div>
                   <h3 className="text-2xl font-serif font-bold text-brand-900">
@@ -1140,7 +1140,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                  <>
                    <div className="p-6 border-b border-neutral-100">
                      <div className="flex items-center gap-3">
-                       <div className="w-10 h-10 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center">
+                       <div className="w-10 h-10 bg-brand-50 text-brand-700 rounded-full flex items-center justify-center">
                          <Handshake size={20} />
                        </div>
                        <div>

@@ -149,10 +149,10 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                >
                   {/* Icon with gradient background */}
                   <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500
-                    ${item.accent === 'emerald' ? 'bg-brand-50 text-brand-600 group-hover:bg-brand-600 group-hover:text-white' : ''}
-                    ${item.accent === 'amber' ? 'bg-accent-50 text-accent-600 group-hover:bg-accent-600 group-hover:text-white' : ''}
+                    ${item.accent === 'emerald' ? 'bg-brand-50 text-brand-700 group-hover:bg-brand-600 group-hover:text-white' : ''}
+                    ${item.accent === 'amber' ? 'bg-accent-50 text-accent-700 group-hover:bg-accent-600 group-hover:text-white' : ''}
                     ${item.accent === 'slate' ? 'bg-neutral-100 text-neutral-600 group-hover:bg-brand-700 group-hover:text-white' : ''}
-                    ${item.accent === 'orange' ? 'bg-accent-50 text-accent-600 group-hover:bg-accent-500 group-hover:text-white' : ''}
+                    ${item.accent === 'orange' ? 'bg-accent-50 text-accent-700 group-hover:bg-accent-500 group-hover:text-white' : ''}
                   `}>
                     {item.icon}
                   </div>
