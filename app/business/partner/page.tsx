@@ -1192,7 +1192,7 @@ export default function PartnerBusinessPage() {
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-8">
               <div className="h-[1px] w-12 bg-accent-400"></div>
-              <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">{t('heroTagline')}</span>
+              <span className="text-xs tracking-[0.3em] text-accent-700 uppercase">{t('heroTagline')}</span>
             </div>
 
             <h1 className="font-serif text-4xl md:text-6xl text-brand-900 mb-6 leading-tight">
@@ -1225,7 +1225,7 @@ export default function PartnerBusinessPage() {
 
         <div className="absolute bottom-12 right-12 hidden lg:block">
           <div className="bg-brand-50 backdrop-blur-sm border border-neutral-200 p-6 max-w-xs">
-            <div className="text-xs text-accent-600 mb-3 uppercase tracking-wider">{t('heroCredentialLabel')}</div>
+            <div className="text-xs text-accent-700 mb-3 uppercase tracking-wider">{t('heroCredentialLabel')}</div>
             <div className="space-y-2 text-sm text-neutral-600">
               <div className="flex items-center gap-2">
                 <Shield size={14} className="text-accent-600" />
@@ -1257,7 +1257,7 @@ export default function PartnerBusinessPage() {
                   <div className="text-4xl font-light text-brand-900 mb-2">
                     {stat.value}<span className="text-accent-700">{stat.suffix}</span>
                   </div>
-                  <div className="text-sm text-neutral-500">{stat.label}</div>
+                  <div className="text-sm text-neutral-600">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -1282,13 +1282,13 @@ export default function PartnerBusinessPage() {
       </section>
 
       {/* Partnership Models */}
-      <section className="py-20 brand-gradient-deep text-white">
+      <section className="py-20 bg-neutral-50 text-brand-900">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <div>
-                <p className="text-xs tracking-[0.3em] text-accent-600 uppercase mb-4">{t('partnershipModelSubtitle')}</p>
-                <h2 className="font-serif text-3xl md:text-4xl text-white mb-6">
+                <p className="text-xs tracking-[0.3em] text-brand-700 uppercase mb-4">{t('partnershipModelSubtitle')}</p>
+                <h2 className="font-serif text-3xl md:text-4xl text-brand-900 mb-6">
                   {t('partnershipModelTitle')}
                 </h2>
                 <p className="text-neutral-600 leading-relaxed mb-8">
@@ -1297,12 +1297,12 @@ export default function PartnerBusinessPage() {
 
                 <div className="space-y-6">
                   {partnershipModels.map((model, idx) => (
-                    <div key={idx} className="border-l-2 border-accent-400/50 pl-6">
-                      <h4 className="text-lg font-medium text-white mb-2">{model.title}</h4>
-                      <p className="text-neutral-500 text-sm mb-3">{model.desc}</p>
+                    <div key={idx} className="border-l-2 border-brand-300 pl-6">
+                      <h4 className="text-lg font-medium text-brand-900 mb-2">{model.title}</h4>
+                      <p className="text-neutral-600 text-sm mb-3">{model.desc}</p>
                       <div className="flex flex-wrap gap-2">
                         {model.items.map((item, i) => (
-                          <span key={i} className="text-xs px-2 py-1 bg-white/10 rounded text-neutral-600">
+                          <span key={i} className="text-xs px-2 py-1 bg-white border border-neutral-200 rounded text-neutral-700">
                             {item}
                           </span>
                         ))}
@@ -1312,13 +1312,14 @@ export default function PartnerBusinessPage() {
                 </div>
               </div>
 
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
+              {/* 右栏收益面板 —— 本区块唯一的着色块，作为视觉焦点 */}
+              <div className="brand-gradient-solid rounded-2xl p-8 shadow-lg shadow-brand-900/10">
                 <h3 className="text-xl font-medium text-white mb-6">{t('partnerBenefitsTitle')}</h3>
                 <div className="space-y-4">
                   {benefits.map((benefit, idx) => (
                     <div key={idx} className="flex items-center gap-3">
-                      <CheckCircle2 size={18} className="text-accent-600 flex-shrink-0" />
-                      <span className="text-neutral-600">{benefit}</span>
+                      <CheckCircle2 size={18} className="text-white flex-shrink-0" />
+                      <span className="text-white">{benefit}</span>
                     </div>
                   ))}
                 </div>
@@ -1333,14 +1334,14 @@ export default function PartnerBusinessPage() {
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <p className="text-xs tracking-[0.3em] text-accent-600 uppercase mb-3">{t('voiceSubtitle')}</p>
+              <p className="text-xs tracking-[0.3em] text-accent-700 uppercase mb-3">{t('voiceSubtitle')}</p>
               <h2 className="font-serif text-3xl md:text-4xl text-brand-900 mb-4">
                 {t('voiceTitle')}
               </h2>
               <p className="text-lg text-neutral-500">
                 {t('voiceSubtitleText')}
               </p>
-              <p className="text-sm text-neutral-500 mt-2">
+              <p className="text-sm text-neutral-600 mt-2">
                 {t('voiceSubtitleDesc')}
               </p>
             </div>
@@ -1356,7 +1357,7 @@ export default function PartnerBusinessPage() {
                     </svg>
                   ))}
                 </div>
-                <div className="text-sm text-neutral-500">{t('voiceBasedOn')}</div>
+                <div className="text-sm text-neutral-600">{t('voiceBasedOn')}</div>
               </div>
               <div className="h-16 w-px bg-neutral-200"></div>
               <div className="flex gap-4">
@@ -1458,8 +1459,8 @@ export default function PartnerBusinessPage() {
                     </div>
                     <div>
                       <div className="font-medium text-brand-900">{testimonial.name[currentLang]}</div>
-                      <div className="text-sm text-neutral-500">{testimonial.company[currentLang]}</div>
-                      <div className="text-xs text-accent-600 mt-0.5">{testimonial.region[currentLang]}</div>
+                      <div className="text-sm text-neutral-600">{testimonial.company[currentLang]}</div>
+                      <div className="text-xs text-accent-700 mt-0.5">{testimonial.region[currentLang]}</div>
                     </div>
                   </div>
                 </div>
@@ -1491,35 +1492,36 @@ export default function PartnerBusinessPage() {
       `}</style>
 
       {/* Industry Transformation */}
-      <section className="py-20 bg-gradient-to-br from-brand-900 via-brand-800 to-brand-900 text-white">
+      <section className="py-20 bg-neutral-50 text-brand-900">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-16 items-center">
               {/* Left: Pain Points */}
               <div>
-                <p className="text-xs tracking-[0.3em] text-accent-600 uppercase mb-4">{t('industrySubtitle')}</p>
-                <h2 className="font-serif text-3xl md:text-4xl text-white mb-6 leading-tight">
+                <p className="text-xs tracking-[0.3em] text-brand-700 uppercase mb-4">{t('industrySubtitle')}</p>
+                <h2 className="font-serif text-3xl md:text-4xl text-brand-900 mb-6 leading-tight">
                   {t('industryTitle1')}
-                  <span className="text-accent-600">{t('industryTitle2')}</span>
+                  <span className="brand-gradient-text">{t('industryTitle2')}</span>
                 </h2>
 
                 <div className="space-y-6 mb-8">
                   {painPoints.map((point, idx) => (
-                    <div key={idx} className="border-l-2 border-accent-400/50 pl-5">
-                      <h4 className="font-medium text-white mb-1">{point.title}</h4>
-                      <p className="text-neutral-500 text-sm">{point.desc}</p>
+                    <div key={idx} className="border-l-2 border-brand-300 pl-5">
+                      <h4 className="font-medium text-brand-900 mb-1">{point.title}</h4>
+                      <p className="text-neutral-600 text-sm">{point.desc}</p>
                     </div>
                   ))}
                 </div>
 
-                <div className="bg-white/5 border border-white/10 rounded-xl p-6">
-                  <div className="text-3xl font-light text-accent-600 mb-2">{t('industryStatValue')}</div>
+                <div className="bg-white border border-neutral-200 rounded-xl p-6">
+                  <div className="text-3xl font-light brand-gradient-text w-fit mb-2">{t('industryStatValue')}</div>
                   <div className="text-sm text-neutral-600">{t('industryStatLabel')}</div>
                 </div>
               </div>
 
               {/* Right: Solution */}
-              <div className="bg-white rounded-2xl p-8 md:p-10 border border-neutral-200">
+              {/* 右栏方案卡 —— 与左侧「痛点」对立，用描边+投影抬起 */}
+              <div className="bg-white rounded-2xl p-8 md:p-10 border border-brand-200 shadow-lg shadow-brand-900/5">
                 <h3 className="text-2xl font-bold text-brand-900 mb-6 whitespace-pre-line">
                   {t('solutionTitle')}
                 </h3>
@@ -1531,7 +1533,7 @@ export default function PartnerBusinessPage() {
                 <div className="space-y-4 mb-8">
                   {solutionItems.map((item, idx) => (
                     <div key={idx} className="flex items-center gap-3">
-                      <CheckCircle2 size={20} className="text-accent-600 flex-shrink-0" />
+                      <CheckCircle2 size={20} className="text-brand-700 flex-shrink-0" />
                       <span className="text-brand-900 font-medium">{item}</span>
                     </div>
                   ))}
@@ -1556,7 +1558,7 @@ export default function PartnerBusinessPage() {
               {bottomStats.map((stat, idx) => (
                 <div key={idx} className="text-center">
                   <div className="text-3xl font-light text-accent-600 mb-2">{stat.value}</div>
-                  <div className="text-sm text-neutral-500">{stat.label}</div>
+                  <div className="text-sm text-neutral-600">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -1699,7 +1701,7 @@ export default function PartnerBusinessPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting || !privacyConsent}
-                    className="w-full py-4 bg-accent-500 text-white font-medium rounded-lg hover:bg-accent-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full py-4 brand-gradient-solid text-white font-medium rounded-lg hover:opacity-90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {isSubmitting ? (
                       <>
@@ -1729,14 +1731,14 @@ export default function PartnerBusinessPage() {
                 <div className="w-12 h-12 bg-accent-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Mail size={24} className="text-accent-600" />
                 </div>
-                <div className="text-sm text-neutral-500 mb-1">{t('contactEmailLabel')}</div>
+                <div className="text-sm text-brand-100 mb-1">{t('contactEmailLabel')}</div>
                 <ObfuscatedEmail user="haoyuan" domain="niijima-koutsu.jp" className="text-white hover:text-accent-600 transition-colors" />
               </div>
               <div>
                 <div className="w-12 h-12 bg-accent-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Phone size={24} className="text-accent-600" />
                 </div>
-                <div className="text-sm text-neutral-500 mb-1">{t('contactPhoneLabel')}</div>
+                <div className="text-sm text-brand-100 mb-1">{t('contactPhoneLabel')}</div>
                 <a href="tel:+81-6-6632-8807" className="text-white hover:text-accent-600 transition-colors">
                   +81-6-6632-8807
                 </a>
@@ -1745,7 +1747,7 @@ export default function PartnerBusinessPage() {
                 <div className="w-12 h-12 bg-accent-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <MapPin size={24} className="text-accent-600" />
                 </div>
-                <div className="text-sm text-neutral-500 mb-1">{t('contactAddressLabel')}</div>
+                <div className="text-sm text-brand-100 mb-1">{t('contactAddressLabel')}</div>
                 <div className="text-white">
                   {currentLang === 'en' ? '1-2-21-602 Daikoku, Naniwa-ku, Osaka 556-0014, Japan' : currentLang === 'zh-TW' ? '大阪府大阪市浪速區大國1-2-21-602' : '大阪府大阪市浪速区大国1-2-21-602'}
                 </div>
