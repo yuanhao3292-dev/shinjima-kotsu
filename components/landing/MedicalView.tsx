@@ -484,7 +484,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                <div key={i} className="bg-neutral-50 p-6 rounded-xl border border-neutral-200 hover:bg-brand-50 transition group">
                   <div className="text-brand-700 font-mono text-xl mb-4 opacity-70">{step.id}</div>
                   <div className="flex justify-center mb-4 text-brand-700 opacity-90 group-hover:scale-110 transition">{step.icon}</div>
-                  <h4 className="font-bold text-lg mb-2">{step.title}</h4>
+                  <h4 className="font-bold text-lg mb-2 brand-gradient-text w-fit mx-auto">{step.title}</h4>
                   <p className="text-xs text-neutral-600 leading-relaxed">{step.desc}</p>
                </div>
               ))}

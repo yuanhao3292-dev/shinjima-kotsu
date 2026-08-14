@@ -427,12 +427,22 @@ body {
 .brand-gradient-solid { background-image: var(--grad-brand-solid); }
 .brand-gradient-mid { background-image: var(--grad-brand-mid); }
 .brand-gradient-deep { background-image: var(--grad-brand-deep); }
-/* 渐变文字（logo、统计数字） */
+/* 渐变文字 —— 标题、小标、统计数字
+   ⚠️ 用 --grad-brand-solid 而非 --grad-brand-mid：
+      mid (#4e9ac9→#8fcbe6) 当文字最差只有 1.77:1，任何字号都不可读；
+      solid (#2a566f→#3b7ca5) 全程 ≥4.55:1，18px 粗体正文标准也达标。
+   兜底：先给实色，仅在浏览器支持 background-clip:text 时才转透明，
+        否则不支持的环境会得到一段完全不可见的文字。 */
 .brand-gradient-text {
-  background-image: var(--grad-brand-mid);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #2a566f;
+}
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .brand-gradient-text {
+    background-image: var(--grad-brand-solid);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 }
 
 /* ── 主站版块滚动入场 ──────────────────────────────────────
