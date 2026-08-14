@@ -236,7 +236,7 @@ export default function FloatingContact() {
                   </svg>
                   <div>
                     <div className="font-bold text-sm">{ct('lineConsult')}</div>
-                    <div className="text-xs text-brand-700">ID: {displayLine}</div>
+                    <div className="text-xs text-brand-100">ID: {displayLine}</div>
                   </div>
                 </button>
               ) : (
@@ -251,7 +251,7 @@ export default function FloatingContact() {
                   </svg>
                   <div>
                     <div className="font-bold text-sm">{ct('lineConsult')}</div>
-                    <div className="text-xs text-brand-700">{ct('lineDesc')}</div>
+                    <div className="text-xs text-brand-100">{ct('lineDesc')}</div>
                   </div>
                 </a>
               )}
@@ -266,19 +266,19 @@ export default function FloatingContact() {
                 </svg>
                 <div>
                   <div className="font-bold text-sm">{ct('wechatConsult')}</div>
-                  <div className="text-xs text-brand-700">{ct('wechatDesc')}</div>
+                  <div className="text-xs text-brand-100">{ct('wechatDesc')}</div>
                 </div>
               </button>
 
               {/* 电话 */}
               <a
                 href={`tel:${displayPhone.replace(/[^0-9+]/g, '')}`}
-                className="flex items-center gap-3 bg-neutral-50 hover:bg-neutral-100 text-neutral-700 px-4 py-3 rounded-xl transition-all duration-200"
+                className="flex items-center gap-3 brand-gradient-solid hover:opacity-90 text-white px-4 py-3 rounded-xl transition-all duration-200"
               >
                 <Phone size={20} className="text-brand-700" />
                 <div>
                   <div className="font-medium text-sm">{ct('phoneConsult')}</div>
-                  <div className="text-xs text-neutral-400">{displayPhone}</div>
+                  <div className="text-xs text-brand-100">{displayPhone}</div>
                 </div>
               </a>
 

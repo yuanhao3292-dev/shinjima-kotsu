@@ -61,7 +61,7 @@ export default function ContactButtons({ className = '' }: ContactButtonsProps) 
         {/* Email */}
         <a
           href={`mailto:${DEFAULT_CONTACT.EMAIL}`}
-          className="flex items-center justify-center gap-3 bg-neutral-800 text-white p-4 rounded-xl hover:bg-neutral-700 transition text-sm"
+          className="flex items-center justify-center gap-3 brand-gradient-solid text-white p-4 rounded-xl hover:opacity-90 transition text-sm"
         >
           <Mail size={18} />
           <span className="font-bold">{t('emailConsult')}</span>
