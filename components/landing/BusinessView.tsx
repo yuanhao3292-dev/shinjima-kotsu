@@ -116,7 +116,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                      <span className="text-[10px] bg-neutral-100 text-neutral-600 px-2 py-1 rounded">{company.location}</span>
                   </div>
                   <p className="text-xs text-neutral-600 mb-3">{company.desc}</p>
-                  <div className="flex items-center gap-1 text-brand-600 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
+                  <div className="flex items-center gap-1 text-brand-700 text-xs font-medium"><span>{localizedTexts.officialWebsite}</span><ExternalLink size={12} /></div>
                </a>
             ))}
          </div>
@@ -126,7 +126,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
    return (
     <div className="animate-fade-in-up min-h-screen bg-white">
       {/* 1. Hero Section - Cancer Treatment style */}
-      <section className="relative min-h-screen flex items-center brand-gradient-deep overflow-hidden">
+      <section className="relative min-h-screen flex items-center bg-white overflow-hidden">
         <div className="absolute inset-0">
           {getImage('business_hero') ? (
             <Image
@@ -193,7 +193,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                       }
                    }}
-                   className="inline-flex items-center gap-2 brand-gradient-deep text-white px-8 py-4 font-bold hover:brand-gradient-deep transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
+                   className="inline-flex items-center gap-2 brand-gradient-solid text-white px-8 py-4 font-bold hover:brand-gradient-deep transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
                 >
                    {t.business.btn_case}
                 </button>
@@ -216,10 +216,10 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
           </div>
 
           {/* Process Steps */}
-          <div className="mb-24 brand-gradient-deep rounded-3xl p-10 md:p-16 text-white overflow-hidden relative">
+          <div className="mb-24 bg-white border border-neutral-200 rounded-3xl p-10 md:p-16 text-brand-900 overflow-hidden relative">
              <div className="relative z-10 text-center mb-16">
                  <h3 className="text-3xl font-serif">{t.business.process_title}</h3>
-                 <p className="text-neutral-500 mt-2 text-sm">{t.business.process_sub}</p>
+                 <p className="text-neutral-600 mt-2 text-sm">{t.business.process_sub}</p>
              </div>
              <div className="relative z-10 grid grid-cols-1 md:grid-cols-5 gap-4">
                  {[
@@ -232,7 +232,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                     <div key={i} className="relative group">
                        <div className="text-4xl font-mono font-bold text-brand-800 mb-4 group-hover:text-brand-700 transition">0{i+1}</div>
                        <h4 className="font-bold text-lg mb-2">{step.t}</h4>
-                       <p className="text-xs text-neutral-500 leading-relaxed">{step.d}</p>
+                       <p className="text-xs text-neutral-600 leading-relaxed">{step.d}</p>
                     </div>
                  ))}
              </div>
@@ -261,17 +261,17 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
 
              {/* Stats Bar */}
              <div className="mt-12 grid grid-cols-2 md:grid-cols-3 gap-4">
-                <div className="brand-gradient-deep text-white p-6 rounded-xl text-center">
+                <div className="brand-gradient-solid text-white p-6 rounded-xl text-center">
                    <div className="text-3xl font-bold">70+</div>
-                   <div className="text-sm opacity-80">{localizedTexts.bookableCompanies}</div>
+                   <div className="text-sm">{localizedTexts.bookableCompanies}</div>
                 </div>
-                <div className="brand-gradient-deep text-white p-6 rounded-xl text-center">
+                <div className="brand-gradient-solid text-white p-6 rounded-xl text-center">
                    <div className="text-3xl font-bold">10</div>
-                   <div className="text-sm opacity-80">{localizedTexts.industryCategories}</div>
+                   <div className="text-sm">{localizedTexts.industryCategories}</div>
                 </div>
-                <div className="bg-brand-700 text-white p-6 rounded-xl text-center">
+                <div className="brand-gradient-solid text-white p-6 rounded-xl text-center">
                    <div className="text-3xl font-bold">16</div>
-                   <div className="text-sm opacity-80">{currentLang === 'zh-TW' ? '考察方案' : currentLang === 'zh-CN' ? '考察方案' : currentLang === 'ja' ? '視察プラン' : 'Inspection Plans'}</div>
+                   <div className="text-sm">{currentLang === 'zh-TW' ? '考察方案' : currentLang === 'zh-CN' ? '考察方案' : currentLang === 'ja' ? '視察プラン' : 'Inspection Plans'}</div>
                 </div>
              </div>
 

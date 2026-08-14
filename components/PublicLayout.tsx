@@ -269,18 +269,19 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
   // 导航项的样式
   const getNavLinkClass = (nav: string, isCurrentActive: boolean, specialColor?: string) => {
     if (isTransparent) {
-      // 透明模式：白色文字
+      // 透明模式也用深色文字 —— 各页 Hero 已全部翻白，且导航底下有
+      // from-white/95 的浅色衬底；沿用旧的白字会变成白压白（实测 1:1）。
       if (isCurrentActive) {
-        return `text-sm font-bold text-white`;
+        return `text-sm font-bold text-brand-700`;
       }
       if (specialColor === 'orange') {
-        return `text-sm font-bold text-accent-400 hover:text-accent-300 transition`;
+        return `text-sm font-bold text-accent-600 hover:text-accent-700 transition`;
       }
-      return `text-sm font-medium text-white/80 hover:text-white transition`;
+      return `text-sm font-medium text-neutral-600 hover:text-brand-700 transition`;
     } else {
       // 白色背景模式：深色文字
       if (isCurrentActive) {
-        if (specialColor === 'red') return `text-sm font-bold text-brand-600`;
+        // brand-600 压白底仅 4.21:1，未达正文 4.5
         return `text-sm font-bold text-brand-700`;
       }
       if (specialColor === 'orange') {
