@@ -346,7 +346,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
             <div className="bg-white rounded-2xl shadow-lg p-8 border-l-4 border-brand-500">
               <div className="flex items-center gap-3 mb-4">
                 <div className="bg-brand-500/10 p-3 rounded-lg">
-                  <Microscope size={28} className="text-brand-500" />
+                  <Microscope size={28} className="text-brand-700" />
                 </div>
                 <h3 className="text-xl font-bold text-[#333]">{t.carbonIonTitle[lang]}</h3>
               </div>
@@ -562,7 +562,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
                   <h3 className="text-2xl font-bold text-[#333] mb-2">{t.service2Name[lang]}</h3>
                   <p className="text-sm text-[#666]">{t.service2Desc[lang]}</p>
                 </div>
-                <div className="text-brand-500 flex-shrink-0 ml-4">
+                <div className="text-brand-700 flex-shrink-0 ml-4">
                   <Globe size={40} />
                 </div>
               </div>
@@ -570,7 +570,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
               <div className="space-y-3 mb-6">
                 {[t.service2Feature1[lang], t.service2Feature2[lang], t.service2Feature3[lang], t.service2Feature4[lang]].map((feature, idx) => (
                   <div key={idx} className="flex items-start gap-3">
-                    <CheckCircle size={18} className="text-brand-500 flex-shrink-0 mt-0.5" />
+                    <CheckCircle size={18} className="text-brand-700 flex-shrink-0 mt-0.5" />
                     <span className="text-sm text-[#555]">{feature}</span>
                   </div>
                 ))}
@@ -578,7 +578,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
 
               <div className="pt-6 border-t border-neutral-200 flex items-center justify-between">
                 <div>
-                  <p className="text-3xl font-bold text-brand-500">¥243,000</p>
+                  <p className="text-3xl font-bold text-brand-700">¥243,000</p>
                   <p className="text-xs text-neutral-500 mt-1">{lang === 'ja' ? '税込' : lang === 'zh-CN' ? '含税' : lang === 'zh-TW' ? '税込' : 'tax incl.'}</p>
                 </div>
                 <Link

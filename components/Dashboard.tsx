@@ -158,7 +158,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, initialRequestTex
 
         <div className="p-4 border-t border-neutral-100">
            <div className="bg-gradient-to-br from-brand-900 to-brand-800 rounded-xl p-4 text-white shadow-lg">
-             <p className="text-xs font-medium text-brand-200 mb-1">今日匯率</p>
+             <p className="text-xs font-medium text-brand-700 mb-1">今日匯率</p>
              <div className="flex justify-between items-end">
                <span className="font-bold text-xl">1 TWD</span>
                <span className="text-sm opacity-80">≈ 4.65 JPY</span>
@@ -240,7 +240,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, initialRequestTex
                    ) : (
                      <div className="h-full flex flex-col items-center justify-center text-neutral-400 min-h-[400px] border-2 border-dashed border-neutral-200 rounded-xl bg-white/50">
                         <div className="bg-brand-50 p-6 rounded-full mb-4">
-                          <LayoutDashboard size={48} className="text-brand-300" />
+                          <LayoutDashboard size={48} className="text-brand-700" />
                         </div>
                         <p className="text-lg font-bold text-neutral-600">準備計算</p>
                         <p className="text-sm text-neutral-400">請左側填寫資料或使用 AI 智慧填單。</p>

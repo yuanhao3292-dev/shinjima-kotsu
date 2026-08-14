@@ -124,8 +124,8 @@ export default function ScoreBreakdown({ breakdown, lang, defaultOpen = false }:
     breakdown.finalScore >= 80
       ? 'text-brand-600'
       : breakdown.finalScore >= 60
-        ? 'text-brand-500'
-        : 'text-brand-500';
+        ? 'text-brand-700'
+        : 'text-brand-700';
 
   return (
     <div className="w-full">

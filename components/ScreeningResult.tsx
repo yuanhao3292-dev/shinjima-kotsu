@@ -479,8 +479,8 @@ export default function ScreeningResult({
                   breakdown.finalScore >= 80
                     ? 'text-brand-600'
                     : breakdown.finalScore >= 60
-                      ? 'text-brand-500'
-                      : 'text-brand-500'
+                      ? 'text-brand-700'
+                      : 'text-brand-700'
                 }`}
               >
                 {breakdown.finalScore}
@@ -630,7 +630,7 @@ export default function ScreeningResult({
                 key={index}
                 className="flex items-center gap-3 p-3 bg-brand-50"
               >
-                <CheckCircle className="w-5 h-5 text-brand-500 flex-shrink-0" />
+                <CheckCircle className="w-5 h-5 text-brand-700 flex-shrink-0" />
                 <span className="text-neutral-700">{suggestion}</span>
               </div>
             ))}
@@ -695,7 +695,7 @@ export default function ScreeningResult({
                       <div className="space-y-1">
                         {hospital.doctors.map((doc, docIdx) => (
                           <div key={docIdx} className="flex items-center gap-2 text-sm">
-                            <Stethoscope className="w-3.5 h-3.5 text-brand-500 flex-shrink-0" />
+                            <Stethoscope className="w-3.5 h-3.5 text-brand-700 flex-shrink-0" />
                             <span className="font-medium text-neutral-800">{doc.name}</span>
                             <span className="text-xs text-neutral-400">({doc.qualification})</span>
                           </div>

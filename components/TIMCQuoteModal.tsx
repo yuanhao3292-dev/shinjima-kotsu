@@ -180,7 +180,7 @@ export const TIMCQuoteModal: React.FC<TIMCQuoteModalProps> = ({ isOpen, onClose 
             <FileText size={24} />
             <div>
               <h2 className="text-lg font-bold">TIMC 醫療健檢報價單</h2>
-              <p className="text-brand-100 text-sm">B2B 打包淨價查詢</p>
+              <p className="text-brand-700 text-sm">B2B 打包淨價查詢</p>
             </div>
           </div>
           <button onClick={handleClose} className="text-white/80 hover:text-white transition">

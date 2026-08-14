@@ -199,7 +199,7 @@ export default function FloatingContact() {
               {ct('lineOpenProfile')}
             </a>
 
-            <div className="mt-3 text-center text-xs px-3 py-2 rounded-lg bg-[#06C755]/10 text-[#06C755]">
+            <div className="mt-3 text-center text-xs px-3 py-2 rounded-lg bg-brand-400/10 text-brand-700">
               {ct('lineOnline')}
             </div>
           </div>
@@ -236,7 +236,7 @@ export default function FloatingContact() {
                   </svg>
                   <div>
                     <div className="font-bold text-sm">{ct('lineConsult')}</div>
-                    <div className="text-xs text-brand-100">ID: {displayLine}</div>
+                    <div className="text-xs text-brand-700">ID: {displayLine}</div>
                   </div>
                 </button>
               ) : (
@@ -251,7 +251,7 @@ export default function FloatingContact() {
                   </svg>
                   <div>
                     <div className="font-bold text-sm">{ct('lineConsult')}</div>
-                    <div className="text-xs text-brand-100">{ct('lineDesc')}</div>
+                    <div className="text-xs text-brand-700">{ct('lineDesc')}</div>
                   </div>
                 </a>
               )}
@@ -266,7 +266,7 @@ export default function FloatingContact() {
                 </svg>
                 <div>
                   <div className="font-bold text-sm">{ct('wechatConsult')}</div>
-                  <div className="text-xs text-brand-100">{ct('wechatDesc')}</div>
+                  <div className="text-xs text-brand-700">{ct('wechatDesc')}</div>
                 </div>
               </button>
 
@@ -275,7 +275,7 @@ export default function FloatingContact() {
                 href={`tel:${displayPhone.replace(/[^0-9+]/g, '')}`}
                 className="flex items-center gap-3 bg-neutral-50 hover:bg-neutral-100 text-neutral-700 px-4 py-3 rounded-xl transition-all duration-200"
               >
-                <Phone size={20} className="text-brand-500" />
+                <Phone size={20} className="text-brand-700" />
                 <div>
                   <div className="font-medium text-sm">{ct('phoneConsult')}</div>
                   <div className="text-xs text-neutral-400">{displayPhone}</div>
@@ -287,7 +287,7 @@ export default function FloatingContact() {
                 href={`mailto:${displayEmail}`}
                 className="flex items-center gap-3 bg-neutral-50 hover:bg-neutral-100 text-neutral-700 px-4 py-3 rounded-xl transition-all duration-200"
               >
-                <Mail size={20} className="text-brand-500" />
+                <Mail size={20} className="text-brand-700" />
                 <div>
                   <div className="font-medium text-sm">{ct('emailConsult')}</div>
                   <div className="text-xs text-neutral-400">{displayEmail}</div>
@@ -316,7 +316,7 @@ export default function FloatingContact() {
             transition-all duration-300 transform hover:scale-110
             ${isOpen
               ? 'bg-neutral-800 text-white rotate-0'
-              : 'bg-[#06C755] text-white animate-pulse'
+              : 'bg-brand-400 text-white animate-pulse'
             }
           `}
           aria-label={ct('ariaContact')}

@@ -1013,7 +1013,7 @@ export default function PackageRecommenderPage() {
               <div className="relative z-10">
                 <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur"><Sparkles className="w-10 h-10" /></div>
                 <h2 className="text-3xl font-serif font-bold mb-3">{ut('resultTitle')}</h2>
-                <p className="text-brand-100 text-sm">{ut('resultSubtitle')}</p>
+                <p className="text-brand-700 text-sm">{ut('resultSubtitle')}</p>
               </div>
             </div>
             <div className="p-10">

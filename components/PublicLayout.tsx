@@ -385,7 +385,11 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
       <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isTransparent ? 'bg-transparent' : 'bg-white shadow-sm'
       }`}>
-        <div className="max-w-[1400px] mx-auto px-4 h-20 flex items-center justify-between">
+        {/* 透明导航衬底：各页 Hero 有白底也有深色照片，深色导航字需要一层浅色兜底才能通用 */}
+        {isTransparent && (
+          <div className="absolute inset-x-0 top-0 -bottom-8 bg-gradient-to-b from-white/95 via-white/80 to-transparent pointer-events-none" />
+        )}
+        <div className="relative max-w-[1400px] mx-auto px-4 h-20 flex items-center justify-between">
           {/* Logo */}
           {onLogoClick ? (
             <button onClick={onLogoClick} className="flex items-center gap-3 group">
@@ -395,7 +399,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
               )}
               <div className="flex flex-col items-center">
                 <span className={`font-serif font-bold text-lg tracking-wide leading-none ${isTransparent ? 'text-neutral-900' : 'text-neutral-900'}`}>{displayBrandName}</span>
-                <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-neutral-500' : 'text-neutral-400 group-hover:text-brand-500'}`}>{displayBrandSub}</span>
+                <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-neutral-500' : 'text-neutral-400 group-hover:text-brand-700'}`}>{displayBrandSub}</span>
               </div>
             </button>
           ) : (
@@ -406,7 +410,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
               )}
               <div className="flex flex-col items-center">
                 <span className={`font-serif font-bold text-lg tracking-wide leading-none ${isTransparent ? 'text-neutral-900' : 'text-neutral-900'}`}>{displayBrandName}</span>
-                <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-neutral-500' : 'text-neutral-400 group-hover:text-brand-500'}`}>{displayBrandSub}</span>
+                <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-neutral-500' : 'text-neutral-400 group-hover:text-brand-700'}`}>{displayBrandSub}</span>
               </div>
             </Link>
           )}

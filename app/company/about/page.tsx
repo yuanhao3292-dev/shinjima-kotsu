@@ -562,7 +562,7 @@ export default function AboutPage() {
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <div className="h-[1px] w-12 bg-accent-400"></div>
-                  <span className="text-xs tracking-[0.3em] text-accent-500 uppercase">{t('ceoSectionLabel')}</span>
+                  <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">{t('ceoSectionLabel')}</span>
                   <div className="h-[1px] w-12 bg-accent-400"></div>
                 </div>
                 <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('ceoSectionTitle')}</h2>
@@ -628,7 +628,7 @@ export default function AboutPage() {
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <div className="h-[1px] w-12 bg-accent-400"></div>
-                  <span className="text-xs tracking-[0.3em] text-accent-500 uppercase">{t('philosophyLabel')}</span>
+                  <span className="text-xs tracking-[0.3em] text-accent-700 uppercase">{t('philosophyLabel')}</span>
                   <div className="h-[1px] w-12 bg-accent-400"></div>
                 </div>
                 <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('philosophyTitle')}</h2>
@@ -676,7 +676,7 @@ export default function AboutPage() {
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <div className="h-[1px] w-12 bg-accent-400"></div>
-                  <span className="text-xs tracking-[0.3em] text-accent-500 uppercase">{t('medicalLabel')}</span>
+                  <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">{t('medicalLabel')}</span>
                   <div className="h-[1px] w-12 bg-accent-400"></div>
                 </div>
                 <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('medicalTitle')}</h2>
@@ -684,12 +684,12 @@ export default function AboutPage() {
 
               <div className="grid md:grid-cols-3 gap-8">
                 <div className="relative flex flex-col bg-gradient-to-br from-brand-900 to-brand-800 rounded-2xl p-8 text-white">
-                  <Brain className="w-10 h-10 text-accent-400 mb-5" />
+                  <Brain className="w-10 h-10 text-accent-600 mb-5" />
                   <h3 className="text-lg font-bold mb-3">{t('medicalAiTitle')}</h3>
                   <p className="text-white/80 text-sm leading-relaxed flex-1">{t('medicalAiDesc')}</p>
                   <div className="mt-6 pt-4 border-t border-white/20">
                     <div className="flex items-baseline gap-1">
-                      <span className="text-3xl font-bold text-accent-400">4</span>
+                      <span className="text-3xl font-bold text-accent-600">4</span>
                       <span className="text-white/60 text-sm">{currentLang === 'en' ? 'languages supported' : currentLang === 'ja' ? '言語対応' : '语言支持'}</span>
                     </div>
                   </div>
@@ -730,7 +730,7 @@ export default function AboutPage() {
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <div className="h-[1px] w-12 bg-accent-400"></div>
-                  <span className="text-xs tracking-[0.3em] text-accent-500 uppercase">{t('profileLabel')}</span>
+                  <span className="text-xs tracking-[0.3em] text-accent-700 uppercase">{t('profileLabel')}</span>
                   <div className="h-[1px] w-12 bg-accent-400"></div>
                 </div>
                 <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('profileTitle')}</h2>
@@ -774,7 +774,7 @@ export default function AboutPage() {
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <div className="h-[1px] w-12 bg-accent-400"></div>
-                  <span className="text-xs tracking-[0.3em] text-accent-500 uppercase">{t('licensesLabel')}</span>
+                  <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">{t('licensesLabel')}</span>
                   <div className="h-[1px] w-12 bg-accent-400"></div>
                 </div>
                 <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('licensesTitle')}</h2>
@@ -849,12 +849,12 @@ export default function AboutPage() {
                       {/* 内容卡片 */}
                       <div className={`ml-16 md:ml-0 md:w-[calc(50%-2rem)] ${isLeft ? 'md:pr-0 md:text-left' : 'md:pl-0 md:text-left'}`}>
                         <div className={`p-5 border ${item.active ? 'border-accent-400 bg-white/5' : item.done ? 'border-white/20 bg-white/5' : 'border-white/10'}`}>
-                          <h3 className={`text-xl font-bold mb-1 ${item.active ? 'text-accent-400' : item.done ? 'text-white/80' : 'text-white'}`}>{item.year}</h3>
+                          <h3 className={`text-xl font-bold mb-1 ${item.active ? 'text-accent-600' : item.done ? 'text-white/80' : 'text-white'}`}>{item.year}</h3>
                           <p className="text-sm text-neutral-300 whitespace-pre-line">{item.desc}</p>
                         </div>
                       </div>
                       {/* 中间节点 */}
-                      <div className={`absolute left-6 md:left-1/2 -translate-x-1/2 w-12 h-12 flex items-center justify-center z-10 ${item.active ? 'bg-accent-400 text-brand-900' : item.done ? 'bg-white/10 border border-white/30 text-white/70' : 'bg-brand-800 border border-white/20 text-accent-400'}`}>
+                      <div className={`absolute left-6 md:left-1/2 -translate-x-1/2 w-12 h-12 flex items-center justify-center z-10 ${item.active ? 'bg-accent-400 text-brand-900' : item.done ? 'bg-white/10 border border-white/30 text-white/70' : 'bg-brand-800 border border-white/20 text-accent-600'}`}>
                         <Icon size={20} />
                       </div>
                       {/* 占位 */}
@@ -874,7 +874,7 @@ export default function AboutPage() {
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <div className="h-[1px] w-12 bg-accent-400"></div>
-                  <span className="text-xs tracking-[0.3em] text-accent-500 uppercase">{t('partnersLabel')}</span>
+                  <span className="text-xs tracking-[0.3em] text-accent-700 uppercase">{t('partnersLabel')}</span>
                   <div className="h-[1px] w-12 bg-accent-400"></div>
                 </div>
                 <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('partnersTitle')}</h2>

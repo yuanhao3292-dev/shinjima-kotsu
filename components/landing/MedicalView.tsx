@@ -45,7 +45,7 @@ const MedicalTechCard = memo(function MedicalTechCard({
             quality={75}
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse flex items-center justify-center">
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-900 animate-pulse flex items-center justify-center">
             <div className="w-10 h-10 border-2 border-brand-600 border-t-brand-300 rounded-full animate-spin" />
           </div>
         )}
@@ -299,7 +299,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                         quality={75}
                     />
                   ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-900 animate-pulse" />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-900/70 via-brand-900/32 to-brand-900/12"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
@@ -319,7 +319,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                         quality={75}
                     />
                   ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-900 animate-pulse" />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-900/70 via-brand-900/32 to-brand-900/12"></div>
                   <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
@@ -351,7 +351,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                         quality={75}
                     />
                   ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-900 animate-pulse" />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
@@ -382,7 +382,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                         quality={75}
                     />
                   ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-900 animate-pulse" />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-l from-brand-900/66 via-brand-900/46 to-transparent"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
@@ -413,7 +413,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                         quality={75}
                     />
                   ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-900 animate-pulse" />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
@@ -445,7 +445,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                         quality={75}
                     />
                   ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-900 animate-pulse" />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-l from-brand-900/66 via-brand-900/46 to-transparent"></div>
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">

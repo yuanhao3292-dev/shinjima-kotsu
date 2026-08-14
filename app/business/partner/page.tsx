@@ -1255,7 +1255,7 @@ export default function PartnerBusinessPage() {
               {stats.map((stat, idx) => (
                 <div key={idx} className="text-center p-6 bg-neutral-50 rounded-2xl">
                   <div className="text-4xl font-light text-brand-900 mb-2">
-                    {stat.value}<span className="text-accent-500">{stat.suffix}</span>
+                    {stat.value}<span className="text-accent-700">{stat.suffix}</span>
                   </div>
                   <div className="text-sm text-neutral-500">{stat.label}</div>
                 </div>
@@ -1333,7 +1333,7 @@ export default function PartnerBusinessPage() {
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <p className="text-xs tracking-[0.3em] text-accent-500 uppercase mb-3">{t('voiceSubtitle')}</p>
+              <p className="text-xs tracking-[0.3em] text-accent-600 uppercase mb-3">{t('voiceSubtitle')}</p>
               <h2 className="font-serif text-3xl md:text-4xl text-brand-900 mb-4">
                 {t('voiceTitle')}
               </h2>
@@ -1348,7 +1348,7 @@ export default function PartnerBusinessPage() {
             {/* Rating Overview */}
             <div className="flex items-center justify-center gap-8 mb-12">
               <div className="text-center">
-                <div className="text-5xl font-light text-accent-500 mb-1">4.9</div>
+                <div className="text-5xl font-light text-accent-600 mb-1">4.9</div>
                 <div className="flex items-center justify-center gap-0.5 mb-2">
                   {[...Array(5)].map((_, i) => (
                     <svg key={i} className="w-5 h-5 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
@@ -1531,7 +1531,7 @@ export default function PartnerBusinessPage() {
                 <div className="space-y-4 mb-8">
                   {solutionItems.map((item, idx) => (
                     <div key={idx} className="flex items-center gap-3">
-                      <CheckCircle2 size={20} className="text-accent-500 flex-shrink-0" />
+                      <CheckCircle2 size={20} className="text-accent-600 flex-shrink-0" />
                       <span className="text-brand-900 font-medium">{item}</span>
                     </div>
                   ))}

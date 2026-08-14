@@ -310,7 +310,7 @@ export default function HealthPassport({ screenings, snapshots, lang }: Props) {
     return (
       <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
         <div className="w-16 h-16 bg-brand-50 rounded-full flex items-center justify-center mx-auto mb-4">
-          <Shield className="w-8 h-8 text-brand-400" />
+          <Shield className="w-8 h-8 text-brand-700" />
         </div>
         <h3 className="text-lg font-semibold text-neutral-900 mb-2">
           {t('passportTitle', lang)}
@@ -324,8 +324,8 @@ export default function HealthPassport({ screenings, snapshots, lang }: Props) {
     latestSnapshot.health_score >= 80
       ? 'text-brand-600'
       : latestSnapshot.health_score >= 60
-        ? 'text-brand-500'
-        : 'text-brand-500';
+        ? 'text-brand-700'
+        : 'text-brand-700';
 
   const riskLabels: Record<string, string> = {
     low: t('riskLow', lang),
@@ -525,7 +525,7 @@ export default function HealthPassport({ screenings, snapshots, lang }: Props) {
                       </div>
                     </div>
 
-                    <ArrowRight className="w-4 h-4 text-neutral-300 group-hover:text-brand-500 transition-colors flex-shrink-0" />
+                    <ArrowRight className="w-4 h-4 text-neutral-300 group-hover:text-brand-700 transition-colors flex-shrink-0" />
                   </Link>
                 );
               })}

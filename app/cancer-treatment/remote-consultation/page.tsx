@@ -330,7 +330,7 @@ export default function RemoteConsultationPage() {
                 <ul className="space-y-2 text-sm text-neutral-600">
                   {[t('prereq1'), t('prereq2'), t('prereq3')].map((prereq, idx) => (
                     <li key={idx} className="flex gap-2">
-                      <span className="text-brand-400">•</span>
+                      <span className="text-brand-700">•</span>
                       <span>{prereq}</span>
                     </li>
                   ))}
@@ -597,7 +597,7 @@ export default function RemoteConsultationPage() {
                 {/* Trust Indicators */}
                 <div className="flex flex-wrap justify-center gap-6 text-xs text-neutral-500">
                   <div className="flex items-center gap-1">
-                    <Shield size={14} className="text-brand-500" />
+                    <Shield size={14} className="text-brand-700" />
                     <span>{t('securePayment')}</span>
                   </div>
                   <div className="flex items-center gap-1">

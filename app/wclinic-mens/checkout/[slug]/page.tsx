@@ -201,7 +201,7 @@ export default function WClinicMensCheckoutPage() {
         <div className="max-w-4xl mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <span className="inline-block text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 bg-white/10 text-[#00c300]">W CLINIC men&apos;s</span>
+              <span className="inline-block text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 bg-white/10 text-brand-700">W CLINIC men&apos;s</span>
               <h1 className="text-2xl md:text-3xl font-serif font-bold text-white">{getName()}</h1>
               <p className="text-neutral-400 text-sm mt-1">{pkg.nameEn}</p>
             </div>
@@ -292,8 +292,8 @@ export default function WClinicMensCheckoutPage() {
             </div>
 
             <div className="flex flex-wrap justify-center gap-6 text-xs text-neutral-500">
-              <div className="flex items-center gap-1"><Shield size={14} className="text-brand-500" /><span>{t('securePayment')}</span></div>
-              <div className="flex items-center gap-1"><Clock size={14} className="text-brand-500" /><span>{t('contact24h')}</span></div>
+              <div className="flex items-center gap-1"><Shield size={14} className="text-brand-700" /><span>{t('securePayment')}</span></div>
+              <div className="flex items-center gap-1"><Clock size={14} className="text-brand-700" /><span>{t('contact24h')}</span></div>
               <div className="flex items-center gap-1"><Lock size={14} className="text-neutral-400" /><span>Stripe</span></div>
             </div>
           </form>

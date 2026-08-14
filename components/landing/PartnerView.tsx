@@ -22,7 +22,7 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
                quality={75}
              />
            ) : (
-             <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-950 animate-pulse" />
+             <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-900 animate-pulse" />
            )}
            <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10"></div>
          </div>

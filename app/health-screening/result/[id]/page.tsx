@@ -172,7 +172,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
             </div>
           </div>
           <div className="text-center pt-4">
-            <Loader2 className="w-6 h-6 animate-spin text-brand-400 mx-auto mb-2" />
+            <Loader2 className="w-6 h-6 animate-spin text-brand-700 mx-auto mb-2" />
             <p className="text-neutral-400 text-sm">{t('loadingResult', lang)}</p>
           </div>
         </div>

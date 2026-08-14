@@ -384,11 +384,11 @@ export default function PackageDetailContent({
                   {pkg.badge}
                 </span>
               )}
-              <h1 className={`text-3xl md:text-4xl font-serif font-bold ${pkg.isVIP ? 'text-accent-400' : 'text-white'}`}>{pkg.name}</h1>
+              <h1 className={`text-3xl md:text-4xl font-serif font-bold ${pkg.isVIP ? 'text-accent-600' : 'text-white'}`}>{pkg.name}</h1>
               <p className={`text-sm mt-2 ${pkg.isVIP ? 'text-neutral-400' : 'text-neutral-300'}`}>{pkg.nameEn}</p>
             </div>
             <div className="text-right">
-              <p className={`text-4xl md:text-5xl font-bold ${pkg.isVIP ? 'text-accent-400' : 'text-white'}`}>¥{pkg.price.toLocaleString()}</p>
+              <p className={`text-4xl md:text-5xl font-bold ${pkg.isVIP ? 'text-accent-600' : 'text-white'}`}>¥{pkg.price.toLocaleString()}</p>
               <p className={`text-xs mt-1 ${pkg.isVIP ? 'text-neutral-500' : 'text-neutral-300'}`}>{t.priceNote}</p>
             </div>
           </div>

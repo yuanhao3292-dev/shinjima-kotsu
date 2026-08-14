@@ -56,7 +56,7 @@ const packageColors: Record<string, {
     headerBg: 'bg-gradient-to-r from-brand-600 to-brand-700',
     title: 'text-brand-800',
     price: 'text-brand-800',
-    check: 'text-brand-500',
+    check: 'text-brand-700',
     button: 'bg-brand-600 text-white hover:bg-brand-700',
     cardBg: 'bg-white',
     cardBorder: 'border-brand-200',
@@ -65,7 +65,7 @@ const packageColors: Record<string, {
     headerBg: 'bg-gradient-to-r from-brand-600 to-brand-700',
     title: 'text-brand-900',
     price: 'text-brand-900',
-    check: 'text-brand-500',
+    check: 'text-brand-700',
     button: 'bg-brand-600 text-white hover:bg-brand-700',
     cardBg: 'bg-white',
     cardBorder: 'border-brand-200',
@@ -323,11 +323,11 @@ export default function MedicalPackageBooking({ packageSlug, guideSlug, brandNam
                   {pkg.badge}
                 </span>
               )}
-              <h1 className={`text-3xl md:text-4xl font-serif font-bold ${pkg.isVIP ? 'text-brand-400' : 'text-white'}`}>{pkg.name}</h1>
+              <h1 className={`text-3xl md:text-4xl font-serif font-bold ${pkg.isVIP ? 'text-brand-700' : 'text-white'}`}>{pkg.name}</h1>
               <p className={`text-sm mt-2 ${pkg.isVIP ? 'text-neutral-400' : 'text-white/70'}`}>{pkg.nameEn}</p>
             </div>
             <div className="text-right">
-              <p className={`text-4xl md:text-5xl font-bold ${pkg.isVIP ? 'text-brand-400' : 'text-white'}`}>¥{pkg.price.toLocaleString()}</p>
+              <p className={`text-4xl md:text-5xl font-bold ${pkg.isVIP ? 'text-brand-700' : 'text-white'}`}>¥{pkg.price.toLocaleString()}</p>
               <p className={`text-xs mt-1 ${pkg.isVIP ? 'text-neutral-500' : 'text-white/60'}`}>{t.priceNote}</p>
             </div>
           </div>

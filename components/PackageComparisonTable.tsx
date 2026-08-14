@@ -163,7 +163,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                             </div>
                           )}
                           {status === 'partial' && item.partialNote && (
-                            <div className="text-xs text-brand-500 mt-1">
+                            <div className="text-xs text-brand-700 mt-1">
                               {item.partialNote}
                             </div>
                           )}
@@ -208,11 +208,11 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
               <span>{ui('included', currentLang)}</span>
             </div>
             <div className="flex items-center gap-1">
-              <Circle className="w-3 h-3 text-accent-500" />
+              <Circle className="w-3 h-3 text-accent-700" />
               <span>{ui('optional', currentLang)}</span>
             </div>
             <div className="flex items-center gap-1">
-              <span className="text-[10px] text-brand-500 font-medium">{ui('partial', currentLang)}</span>
+              <span className="text-[10px] text-brand-700 font-medium">{ui('partial', currentLang)}</span>
               <span>{ui('legendPartial', currentLang)}</span>
             </div>
             <div className="flex items-center gap-1">
@@ -249,7 +249,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                 }`}
               >
                 <div className={`text-sm font-bold ${
-                  pkg.id === 'vip' ? 'text-accent-400' : 'text-neutral-800'
+                  pkg.id === 'vip' ? 'text-accent-700' : 'text-neutral-800'
                 }`}>
                   {pkg.name}
                 </div>
@@ -259,7 +259,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                   {pkg.nameZh}
                 </div>
                 <div className={`text-base font-bold mt-1 ${
-                  pkg.id === 'vip' ? 'text-accent-400' : 'text-neutral-900'
+                  pkg.id === 'vip' ? 'text-accent-700' : 'text-neutral-900'
                 }`}>
                   {formatPrice(pkg.price)}
                 </div>
@@ -343,11 +343,11 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
               <span className="text-neutral-600">{ui('legendIncluded', currentLang)}</span>
             </div>
             <div className="flex items-center gap-2">
-              <Circle className="w-4 h-4 text-accent-500" />
+              <Circle className="w-4 h-4 text-accent-700" />
               <span className="text-neutral-600">{ui('legendOptional', currentLang)}</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] text-brand-500 font-medium">{ui('partial', currentLang)}</span>
+              <span className="text-[10px] text-brand-700 font-medium">{ui('partial', currentLang)}</span>
               <span className="text-neutral-600">{ui('legendPartial', currentLang)}</span>
             </div>
             <div className="flex items-center gap-2">

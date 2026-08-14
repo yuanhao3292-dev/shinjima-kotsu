@@ -317,7 +317,7 @@ export default function DocumentUpload({
             </div>
             <button
               onClick={handleRemove}
-              className="mt-3 flex items-center gap-1 text-sm text-brand-500 transition-colors hover:text-brand-700"
+              className="mt-3 flex items-center gap-1 text-sm text-brand-700 transition-colors hover:text-brand-700"
             >
               <X className="h-3.5 w-3.5" />
               {t('remove')}
@@ -333,7 +333,7 @@ export default function DocumentUpload({
     return (
       <div className="rounded-xl border-2 border-dashed border-brand-300 bg-brand-50/30 p-8">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-8 w-8 animate-spin text-brand-500" />
+          <Loader2 className="h-8 w-8 animate-spin text-brand-700" />
           <p className="text-sm font-medium text-brand-600">{t('uploading')}</p>
           <p className="text-xs text-neutral-400">{t('uploadingPatience')}</p>
         </div>

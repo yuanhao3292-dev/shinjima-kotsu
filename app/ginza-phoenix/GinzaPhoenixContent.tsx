@@ -1107,7 +1107,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
           <p className="text-lg text-white/70 mb-3">{t.ctaSubtitle[lang]}</p>
 
           {/* Free consultation highlight */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-400/20 border border-brand-400/30 rounded-full text-brand-200 text-sm mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-400/20 border border-brand-400/30 rounded-full text-brand-700 text-sm mb-8">
             <Sparkles size={14} />
             {lang === 'ja' ? '初回カウンセリング無料' :
              lang === 'en' ? 'Free Initial Counseling' :

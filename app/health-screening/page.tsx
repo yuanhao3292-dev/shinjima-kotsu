@@ -806,7 +806,7 @@ export default function HealthScreeningPage() {
             <div className="text-center mb-10">
               <div className="flex items-center justify-center gap-3 mb-4">
                 <div className="h-[1px] w-8 bg-accent-400" />
-                <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">FEATURES</span>
+                <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">FEATURES</span>
                 <div className="h-[1px] w-8 bg-accent-400" />
               </div>
               <h2 className="text-2xl font-serif text-brand-900">{t('newFeatures', lang)}</h2>

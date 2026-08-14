@@ -233,7 +233,7 @@ export default function NewsPage() {
             <div className="text-center mb-12">
               <div className="flex items-center justify-center gap-3 mb-4">
                 <div className="h-[1px] w-12 bg-accent-400"></div>
-                <span className="text-xs tracking-[0.3em] text-accent-500 uppercase">{t('featuredSubtitle')}</span>
+                <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">{t('featuredSubtitle')}</span>
                 <div className="h-[1px] w-12 bg-accent-400"></div>
               </div>
               <h2 className="text-2xl md:text-3xl font-serif text-brand-900">{t('featuredTitle')}</h2>
@@ -270,17 +270,17 @@ export default function NewsPage() {
                         {categoryConfig[news.category].labels[lang]}
                       </span>
                       {isNewNews(news.published_at) && (
-                        <span className="px-2 py-0.5 bg-brand-500 text-brand-900 rounded text-xs font-bold animate-pulse">
+                        <span className="px-2 py-0.5 bg-brand-700 text-white rounded text-xs font-bold animate-pulse">
                           {t('newBadge')}
                         </span>
                       )}
                     </div>
-                    <h3 className={`font-bold text-brand-900 mb-2 group-hover:text-accent-400 transition-colors ${
+                    <h3 className={`font-bold text-white mb-2 group-hover:text-accent-600 transition-colors ${
                       index === 0 ? 'text-2xl' : 'text-lg'
                     }`}>
                       {localizeText(news.title, lang)}
                     </h3>
-                    <div className="flex items-center gap-2 text-neutral-600 text-sm">
+                    <div className="flex items-center gap-2 text-neutral-200 text-sm">
                       <Calendar size={14} />
                       <span>{formatDateJP(news.published_at)}</span>
                     </div>
@@ -308,7 +308,7 @@ export default function NewsPage() {
             <div className="text-center mb-8">
               <div className="flex items-center justify-center gap-3 mb-4">
                 <div className="h-[1px] w-12 bg-accent-400"></div>
-                <span className="text-xs tracking-[0.3em] text-accent-500 uppercase">{t('allNewsSubtitle')}</span>
+                <span className="text-xs tracking-[0.3em] text-accent-700 uppercase">{t('allNewsSubtitle')}</span>
                 <div className="h-[1px] w-12 bg-accent-400"></div>
               </div>
               <h2 className="text-2xl md:text-3xl font-serif text-brand-900">{t('allNewsTitle')}</h2>

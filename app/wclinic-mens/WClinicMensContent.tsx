@@ -444,22 +444,22 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
           <div className="max-w-3xl animate-fade-in-up">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif mb-4 md:mb-6 leading-[1.2]">
               {t.heroTitle[lang]}<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00c300] to-brand-200">{t.heroSubtitle[lang]}</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-200">{t.heroSubtitle[lang]}</span>
             </h1>
-            <p className="text-neutral-400 font-light leading-relaxed text-sm md:text-base border-l-2 border-[#00c300] pl-4 md:pl-6 max-w-2xl whitespace-pre-line">
+            <p className="text-neutral-400 font-light leading-relaxed text-sm md:text-base border-l-2 border-brand-400 pl-4 md:pl-6 max-w-2xl whitespace-pre-line">
               {t.heroText[lang]}
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <div className="inline-flex items-center gap-3 bg-brand-900/40 border border-[#00c300]/60 px-5 py-3 rounded-full backdrop-blur-md">
+              <div className="inline-flex items-center gap-3 bg-brand-900/40 border border-brand-400/60 px-5 py-3 rounded-full backdrop-blur-md">
                 <span className="relative flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00c300] opacity-75" />
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00c300]" />
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-brand-400" />
                 </span>
-                <span className="text-[#00c300] text-sm font-medium">{t.heroBadge[lang]}</span>
+                <span className="text-brand-400 text-sm font-medium">{t.heroBadge[lang]}</span>
               </div>
               <Link
                 href={isGuideEmbed ? '#consultation' : '/wclinic-mens/initial-consultation'}
-                className="inline-flex items-center gap-2 bg-[#00c300] text-white px-7 py-3 rounded-full font-bold hover:bg-brand-500 transition-all shadow-lg hover:shadow-xl text-sm"
+                className="inline-flex items-center gap-2 brand-gradient-solid text-white px-7 py-3 rounded-full font-bold hover:bg-brand-500 transition-all shadow-lg hover:shadow-xl text-sm"
               >
                 {t.ctaButton[lang]} <ArrowRight size={16} />
               </Link>
@@ -474,7 +474,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
       <div className="bg-gradient-to-r from-brand-900 to-brand-900 py-16 md:py-24">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-[#00c300] text-xs tracking-[0.3em] uppercase font-bold">{t.statsTag[lang]}</span>
+            <span className="text-brand-400 text-xs tracking-[0.3em] uppercase font-bold">{t.statsTag[lang]}</span>
             <h3 className="text-3xl font-serif text-white mt-3">{t.statsTitle[lang]}</h3>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -551,7 +551,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   quality={75}
                 />
                 <div className="absolute inset-0 bg-black/20" />
-                <div className="absolute top-4 right-4 bg-[#00c300] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                <div className="absolute top-4 right-4 bg-brand-700 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                   {lang === 'ja' ? '衝撃波' : lang === 'en' ? 'Shockwave' : '冲击波'}
                 </div>
               </div>
@@ -564,15 +564,15 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 </h4>
                 <ul className="space-y-2 mb-5">
                   <li className="flex items-start gap-2 text-sm text-neutral-400">
-                    <CheckCircle size={14} className="text-[#00c300] mt-0.5 shrink-0" />
+                    <CheckCircle size={14} className="text-brand-700 mt-0.5 shrink-0" />
                     <span>{lang === 'ja' ? '薬不要・副作用が少ない物理治療' : lang === 'en' ? 'Drug-free physical therapy with few side effects' : lang === 'zh-TW' ? '無需藥物、副作用較少的物理治療' : '无需药物、副作用较少的物理治疗'}</span>
                   </li>
                   <li className="flex items-start gap-2 text-sm text-neutral-400">
-                    <CheckCircle size={14} className="text-[#00c300] mt-0.5 shrink-0" />
+                    <CheckCircle size={14} className="text-brand-700 mt-0.5 shrink-0" />
                     <span>{lang === 'ja' ? '低強度衝撃波で陰茎血管新生を促進' : lang === 'en' ? 'Promotes penile neovascularization' : lang === 'zh-TW' ? '促進陰莖血管新生' : '促进阴茎血管新生'}</span>
                   </li>
                   <li className="flex items-start gap-2 text-sm text-neutral-400">
-                    <CheckCircle size={14} className="text-[#00c300] mt-0.5 shrink-0" />
+                    <CheckCircle size={14} className="text-brand-700 mt-0.5 shrink-0" />
                     <span>{lang === 'ja' ? '週1回×6回で1サイクル' : lang === 'en' ? 'Once weekly × 6 sessions per cycle' : lang === 'zh-TW' ? '每週1次×6次為1個週期' : '每周1次×6次为1个周期'}</span>
                   </li>
                 </ul>
@@ -620,15 +620,15 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 </div>
                 <ul className="space-y-2 mb-5">
                   <li className="flex items-start gap-2 text-sm text-neutral-600">
-                    <CheckCircle size={14} className="text-[#00c300] mt-0.5 shrink-0" />
+                    <CheckCircle size={14} className="text-brand-700 mt-0.5 shrink-0" />
                     <span>{lang === 'ja' ? '口服薬が効かない場合の進化形治療' : lang === 'en' ? 'Advanced option when oral meds are ineffective' : lang === 'zh-TW' ? '口服藥物無效時的進階選擇' : '对口服药物无效时的进阶选择'}</span>
                   </li>
                   <li className="flex items-start gap-2 text-sm text-neutral-600">
-                    <CheckCircle size={14} className="text-[#00c300] mt-0.5 shrink-0" />
+                    <CheckCircle size={14} className="text-brand-700 mt-0.5 shrink-0" />
                     <span>{lang === 'ja' ? '血管拡張剤を直接注射' : lang === 'en' ? 'Direct injection of vasodilator' : lang === 'zh-TW' ? '直接注射血管擴張劑' : '直接注射血管扩张剂'}</span>
                   </li>
                   <li className="flex items-start gap-2 text-sm text-neutral-600">
-                    <CheckCircle size={14} className="text-[#00c300] mt-0.5 shrink-0" />
+                    <CheckCircle size={14} className="text-brand-700 mt-0.5 shrink-0" />
                     <span>{lang === 'ja' ? '局所投与による治療法' : lang === 'en' ? 'Localized administration method' : lang === 'zh-TW' ? '局部給藥治療方式' : '局部给药治疗方式'}</span>
                   </li>
                 </ul>
@@ -693,7 +693,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
               {LOH_TREATMENTS.map((item, i) => (
                 <div key={i} className="flex justify-between items-center px-6 py-4 hover:bg-neutral-50 transition">
                   <span className="text-sm text-neutral-700">{item.name[lang]}</span>
-                  <span className="text-sm font-bold text-[#00c300]">{item.price}</span>
+                  <span className="text-sm font-bold text-brand-700">{item.price}</span>
                 </div>
               ))}
             </div>
@@ -708,7 +708,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
           <div className="bg-brand-900 text-white rounded-t-3xl px-8 py-10 md:px-16 md:py-12 relative overflow-hidden">
             <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png')" }} />
             <div className="relative z-10 text-center">
-              <span className="text-[#00c300] text-xs tracking-[0.3em] uppercase font-bold">{t.menuTag[lang]}</span>
+              <span className="text-brand-400 text-xs tracking-[0.3em] uppercase font-bold">{t.menuTag[lang]}</span>
               <h3 className="text-3xl font-serif mt-3">{t.menuTitle[lang]}</h3>
               <p className="text-white/50 mt-3 text-sm">{t.menuSubtitle[lang]}</p>
             </div>
@@ -725,7 +725,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                     className="w-full flex items-center justify-between px-5 py-4 md:px-6 md:py-5 hover:bg-neutral-50 transition text-left"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-brand-900 text-[#00c300] rounded-full flex items-center justify-center shrink-0">
+                      <div className="w-10 h-10 bg-brand-900 text-brand-400 rounded-full flex items-center justify-center shrink-0">
                         <CatIcon size={18} />
                       </div>
                       <div>
@@ -740,7 +740,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                       {cat.items.map((item, i) => (
                         <div key={i} className="flex items-center justify-between px-5 py-3 md:px-6 hover:bg-neutral-50 transition gap-3">
                           <span className="text-sm text-neutral-700 flex-1 min-w-0">{item.name[lang]}</span>
-                          <span className="text-sm font-bold text-[#00c300] whitespace-nowrap">{item.price}</span>
+                          <span className="text-sm font-bold text-brand-700 whitespace-nowrap">{item.price}</span>
                           <Link
                             href={guideSlug ? `/wclinic-mens/checkout/${item.slug}?guide=${guideSlug}` : `/wclinic-mens/checkout/${item.slug}`}
                             className="shrink-0 text-xs font-bold bg-brand-900 text-white px-3 py-1.5 rounded-full hover:bg-brand-900 transition whitespace-nowrap"
@@ -809,10 +809,10 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
             {/* Dr. Uemura — 总监修 */}
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-brand-900/30 group">
               <div className="bg-gradient-to-r from-brand-900 to-brand-900 px-5 py-2.5 flex items-center justify-between">
-                <span className="text-[#00c300] text-xs font-bold tracking-wide">
+                <span className="text-brand-700 text-xs font-bold tracking-wide">
                   {lang === 'ja' ? '総合監修' : lang === 'en' ? 'General Supervisor' : lang === 'zh-TW' ? '總監修' : '总监修'}
                 </span>
-                <Award size={14} className="text-[#00c300]" />
+                <Award size={14} className="text-brand-700" />
               </div>
               <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
@@ -897,7 +897,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 <h3 className="text-xl font-bold text-neutral-900 mb-1 font-serif">
                   {lang === 'ja' ? '植村天受 教授' : lang === 'en' ? 'Prof. Uemura Tenju' : '植村天受 教授'}
                 </h3>
-                <p className="text-sm text-brand-900 font-medium mb-4 border-l-2 border-[#00c300] pl-3">
+                <p className="text-sm text-brand-900 font-medium mb-4 border-l-2 border-brand-400 pl-3">
                   {lang === 'ja' ? 'Wクリニック メンズ 総合監修' : lang === 'en' ? 'W CLINIC men\'s General Supervisor' : lang === 'zh-TW' ? 'W診所 男性 總監修' : 'W诊所 男性 总监修'}
                 </p>
                 <div className="space-y-2 text-sm text-neutral-600">
@@ -913,7 +913,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                     { ja: 'World Journal of Urology, International Journal of Urology 編委', en: 'World Journal of Urology, International Journal of Urology Editorial Board', 'zh-TW': 'World Journal of Urology, International Journal of Urology 編委', 'zh-CN': 'World Journal of Urology, International Journal of Urology 编委' },
                   ].map((cred, i) => (
                     <div key={i} className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-[#00c300] mt-0.5 shrink-0" />
+                      <CheckCircle size={14} className="text-brand-700 mt-0.5 shrink-0" />
                       <span>{(cred as Record<string, string>)[lang]}</span>
                     </div>
                   ))}
@@ -937,7 +937,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
             const Icon = feature.icon;
             return (
               <div key={i} className="bg-neutral-50 p-6 rounded-xl border border-neutral-100 hover:shadow-lg transition duration-300 group text-center">
-                <div className="w-12 h-12 bg-brand-900 text-[#00c300] rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition">
+                <div className="w-12 h-12 bg-brand-900 text-brand-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition">
                   <Icon size={22} />
                 </div>
                 <h4 className="text-base font-bold text-neutral-800 mb-2 font-serif">{feature.title[lang]}</h4>
@@ -1068,7 +1068,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href={guideSlug ? `/wclinic-mens/initial-consultation?guide=${guideSlug}` : '/wclinic-mens/initial-consultation'}
-              className="inline-flex items-center justify-center gap-3 bg-[#00c300] text-white px-8 py-4 rounded-full font-bold hover:bg-brand-500 transition-all shadow-lg"
+              className="inline-flex items-center justify-center gap-3 brand-gradient-solid text-white px-8 py-4 rounded-full font-bold hover:bg-brand-500 transition-all shadow-lg"
             >
               {t.ctaButtonInitial[lang]} <ArrowRight size={18} />
             </Link>

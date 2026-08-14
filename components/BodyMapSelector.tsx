@@ -880,7 +880,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                   {getPartName(partId)}
                   <button
                     onClick={() => toggleBodyPart(partId)}
-                    className="ml-1 text-brand-500 hover:text-brand-700"
+                    className="ml-1 text-brand-700 hover:text-brand-700"
                   >
                     ×
                   </button>

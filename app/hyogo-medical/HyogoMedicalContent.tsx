@@ -2111,7 +2111,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                 <span className="text-lg font-mono font-bold text-neutral-800 select-all">niijima-medical</span>
                 <button
                   onClick={() => { navigator.clipboard.writeText('niijima-medical'); }}
-                  className="px-3 py-1 bg-[#07C160] text-white text-xs rounded-lg hover:bg-[#06ad56] transition"
+                  className="px-3 py-1 bg-brand-400 text-white text-xs rounded-lg hover:bg-brand-500 transition"
                 >
                   {t.copyLabel[lang]}
                 </button>

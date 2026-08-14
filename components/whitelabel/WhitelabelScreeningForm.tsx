@@ -766,7 +766,7 @@ export default function WhitelabelScreeningForm({
   if (!currentQuestion) {
     return (
       <div className="text-center py-12">
-        <Loader2 className="w-8 h-8 animate-spin text-brand-500 mx-auto mb-4" />
+        <Loader2 className="w-8 h-8 animate-spin text-brand-700 mx-auto mb-4" />
         <p className="text-neutral-500">{t('loading')}</p>
       </div>
     );
@@ -782,13 +782,13 @@ export default function WhitelabelScreeningForm({
               <>
                 <Zap className="w-5 h-5 text-brand-600" />
                 <span className="font-medium text-brand-700">{t('quickScreening')}</span>
-                <span className="text-sm text-brand-500">{t('phase1')}</span>
+                <span className="text-sm text-brand-700">{t('phase1')}</span>
               </>
             ) : (
               <>
                 <FileText className="w-5 h-5 text-brand-600" />
                 <span className="font-medium text-brand-700">{t('inDepthConsultation')}</span>
-                <span className="text-sm text-brand-500">{t('phase2')}</span>
+                <span className="text-sm text-brand-700">{t('phase2')}</span>
               </>
             )}
           </div>

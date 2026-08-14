@@ -264,7 +264,7 @@ function QuickCheckoutModal({
         <div className="bg-gradient-to-r from-brand-500 to-brand-600 px-6 py-4 flex items-center justify-between">
           <div>
             <h3 className="text-white font-semibold">{t('quickBook', lang)}</h3>
-            <p className="text-brand-100 text-sm">{packageName}</p>
+            <p className="text-brand-700 text-sm">{packageName}</p>
           </div>
           <button onClick={onClose} className="text-white/80 hover:text-white">
             <X className="w-5 h-5" />
@@ -405,7 +405,7 @@ export default function RecommendedPackages({ result, lang }: Props) {
                   <ul className="space-y-1.5 mb-4 flex-1">
                     {highlights.map((h, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-neutral-600">
-                        <span className="text-brand-500 mt-0.5">•</span>
+                        <span className="text-brand-700 mt-0.5">•</span>
                         {h}
                       </li>
                     ))}
