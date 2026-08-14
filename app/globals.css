@@ -11,8 +11,12 @@
   /* Brand 晴空 (Soft Sky) — 低饱和、高明度的柔和天空蓝。
      取代原深蓝(#12384c)+金属金的组合：那套饱和度高、明度低，观感「硬」且压抑。
      本色阶把饱和度下调约四成、明度整体抬高，取 JTB 首屏淡蓝天空的通透感。
-     主色 brand-500 #4e9ac9；渐变亮端 brand-200 #bfe3f3；按钮深端 brand-600 #3e82ac
-     （纯淡色配白字不可读，故按钮一律用 600→400 而非 500→200）。 */
+     主色 brand-500 #4e9ac9；渐变亮端 brand-200 #bfe3f3。
+     按钮/小标题一律走 --grad-brand-solid，不用单档实色 —— 见下方渐变段的对比度说明。
+     ⚠️ 三色制：本站只有 neutral（黑白轴）与 brand（主题蓝）两套色阶。
+        原 accent-* 是金色改蓝后遗留的第二套蓝，与 brand 同色系、肉眼难分，
+        已按明度对齐并入 brand（600→700、700→800、800/900→900）。
+        不要再新增第三套色阶。 */
   --color-brand-50: #f2f9fd;
   --color-brand-100: #e3f2fa;
   --color-brand-200: #bfe3f3;
@@ -24,20 +28,6 @@
   --color-brand-800: #2a566f;
   --color-brand-900: #22455a;
 
-  /* Accent 晴空浅阶 — 原为金色(gold)，随主色改为晴空蓝后统一为同色系浅阶。
-     ⚠️ 关键约束：各阶【明度与原金色逐档对齐】(如原 gold-400 #c9a55f 明度 0.4015
-     → 现 #75b1d7 明度 0.4013)，因此全站 457 处旧用法的对比关系原样保留，
-     不会出现「浅底配浅字」。改动明度前务必重新核算对比度。 */
-  --color-accent-50: #f3f8fb;
-  --color-accent-100: #e0eef6;
-  --color-accent-200: #c6deee;
-  --color-accent-300: #a0c9e3;
-  --color-accent-400: #75b1d7;
-  --color-accent-500: #4999ca;
-  --color-accent-600: #317ba9;
-  --color-accent-700: #255e82;
-  --color-accent-800: #1b435d;
-  --color-accent-900: #102838;
 
   /* Cool Neutral — 微冷灰（色相 205°，与主题蓝同源，饱和度 8~30%）
      三色制的「黑白轴」。原为暖米灰（#fafaf8…#1c1917），米色调在

@@ -1118,8 +1118,8 @@ export default function PartnerBusinessPage() {
       icon: Trophy,
       title: t('advantage2Title'),
       desc: t('advantage2Desc'),
-      color: 'text-accent-600',
-      bg: 'bg-accent-50'
+      color: 'text-brand-700',
+      bg: 'bg-brand-50'
     },
     {
       icon: Factory,
@@ -1191,14 +1191,14 @@ export default function PartnerBusinessPage() {
         <div className="relative container mx-auto px-6 py-24">
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-accent-400"></div>
-              <span className="text-xs tracking-[0.3em] text-accent-700 uppercase">{t('heroTagline')}</span>
+              <div className="h-[1px] w-12 bg-brand-400"></div>
+              <span className="text-xs tracking-[0.3em] text-brand-800 uppercase">{t('heroTagline')}</span>
             </div>
 
             <h1 className="font-serif text-4xl md:text-6xl text-brand-900 mb-6 leading-tight">
               {t('heroTitle1')}
               <br />
-              <span className="text-accent-600">{t('heroTitle2')}</span>
+              <span className="text-brand-700">{t('heroTitle2')}</span>
             </h1>
 
             <p className="text-xl text-neutral-600 mb-8 leading-relaxed font-light max-w-2xl">
@@ -1225,14 +1225,14 @@ export default function PartnerBusinessPage() {
 
         <div className="absolute bottom-12 right-12 hidden lg:block">
           <div className="bg-brand-50 backdrop-blur-sm border border-neutral-200 p-6 max-w-xs">
-            <div className="text-xs text-accent-700 mb-3 uppercase tracking-wider">{t('heroCredentialLabel')}</div>
+            <div className="text-xs text-brand-800 mb-3 uppercase tracking-wider">{t('heroCredentialLabel')}</div>
             <div className="space-y-2 text-sm text-neutral-600">
               <div className="flex items-center gap-2">
-                <Shield size={14} className="text-accent-600" />
+                <Shield size={14} className="text-brand-700" />
                 {t('heroCredential1')}
               </div>
               <div className="flex items-center gap-2">
-                <Award size={14} className="text-accent-600" />
+                <Award size={14} className="text-brand-700" />
                 {t('heroCredential2')}
               </div>
             </div>
@@ -1255,7 +1255,7 @@ export default function PartnerBusinessPage() {
               {stats.map((stat, idx) => (
                 <div key={idx} className="text-center p-6 bg-neutral-50 rounded-2xl">
                   <div className="text-4xl font-light text-brand-900 mb-2">
-                    {stat.value}<span className="text-accent-700">{stat.suffix}</span>
+                    {stat.value}<span className="text-brand-800">{stat.suffix}</span>
                   </div>
                   <div className="text-sm text-neutral-600">{stat.label}</div>
                 </div>
@@ -1334,7 +1334,7 @@ export default function PartnerBusinessPage() {
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <p className="text-xs tracking-[0.3em] text-accent-700 uppercase mb-3">{t('voiceSubtitle')}</p>
+              <p className="text-xs tracking-[0.3em] text-brand-800 uppercase mb-3">{t('voiceSubtitle')}</p>
               <h2 className="font-serif text-3xl md:text-4xl text-brand-900 mb-4">
                 {t('voiceTitle')}
               </h2>
@@ -1349,10 +1349,10 @@ export default function PartnerBusinessPage() {
             {/* Rating Overview */}
             <div className="flex items-center justify-center gap-8 mb-12">
               <div className="text-center">
-                <div className="text-5xl font-light text-accent-600 mb-1">4.9</div>
+                <div className="text-5xl font-light text-brand-700 mb-1">4.9</div>
                 <div className="flex items-center justify-center gap-0.5 mb-2">
                   {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
+                    <svg key={i} className="w-5 h-5 text-brand-700" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
                   ))}
@@ -1386,7 +1386,7 @@ export default function PartnerBusinessPage() {
                   <div key={idx} className="flex-shrink-0 w-72 bg-white p-5 rounded-xl shadow-sm border border-neutral-100">
                     <div className="flex items-center gap-0.5 mb-2">
                       {[...Array(item.rating)].map((_, i) => (
-                        <svg key={i} className="w-3.5 h-3.5 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
+                        <svg key={i} className="w-3.5 h-3.5 text-brand-700" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                       ))}
@@ -1394,7 +1394,7 @@ export default function PartnerBusinessPage() {
                     <p className="text-sm text-neutral-600 mb-3">&ldquo;{item.quote[currentLang]}&rdquo;</p>
                     <div className="flex items-center justify-between text-xs">
                       <span className="font-medium text-brand-900">{item.name[currentLang]}</span>
-                      <span className="text-accent-600">{item.region[currentLang]}</span>
+                      <span className="text-brand-700">{item.region[currentLang]}</span>
                     </div>
                   </div>
                 ))}
@@ -1406,7 +1406,7 @@ export default function PartnerBusinessPage() {
                   <div key={idx} className="flex-shrink-0 w-72 bg-white p-5 rounded-xl shadow-sm border border-neutral-100">
                     <div className="flex items-center gap-0.5 mb-2">
                       {[...Array(item.rating)].map((_, i) => (
-                        <svg key={i} className="w-3.5 h-3.5 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
+                        <svg key={i} className="w-3.5 h-3.5 text-brand-700" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                       ))}
@@ -1414,7 +1414,7 @@ export default function PartnerBusinessPage() {
                     <p className="text-sm text-neutral-600 mb-3">&ldquo;{item.quote[currentLang]}&rdquo;</p>
                     <div className="flex items-center justify-between text-xs">
                       <span className="font-medium text-brand-900">{item.name[currentLang]}</span>
-                      <span className="text-accent-600">{item.region[currentLang]}</span>
+                      <span className="text-brand-700">{item.region[currentLang]}</span>
                     </div>
                   </div>
                 ))}
@@ -1426,7 +1426,7 @@ export default function PartnerBusinessPage() {
                   <div key={idx} className="flex-shrink-0 w-72 bg-white p-5 rounded-xl shadow-sm border border-neutral-100">
                     <div className="flex items-center gap-0.5 mb-2">
                       {[...Array(item.rating)].map((_, i) => (
-                        <svg key={i} className="w-3.5 h-3.5 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
+                        <svg key={i} className="w-3.5 h-3.5 text-brand-700" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                       ))}
@@ -1434,7 +1434,7 @@ export default function PartnerBusinessPage() {
                     <p className="text-sm text-neutral-600 mb-3">&ldquo;{item.quote[currentLang]}&rdquo;</p>
                     <div className="flex items-center justify-between text-xs">
                       <span className="font-medium text-brand-900">{item.name[currentLang]}</span>
-                      <span className="text-accent-600">{item.region[currentLang]}</span>
+                      <span className="text-brand-700">{item.region[currentLang]}</span>
                     </div>
                   </div>
                 ))}
@@ -1444,23 +1444,23 @@ export default function PartnerBusinessPage() {
             {/* Featured Reviews */}
             <div className="grid md:grid-cols-3 gap-6 mt-12">
               {featuredReviews.map((testimonial, idx) => (
-                <div key={idx} className="bg-gradient-to-br from-accent-50 to-white p-8 rounded-2xl border border-accent-100">
+                <div key={idx} className="bg-gradient-to-br from-brand-50 to-white p-8 rounded-2xl border border-brand-100">
                   <div className="flex items-center gap-0.5 mb-4">
                     {[...Array(5)].map((_, i) => (
-                      <svg key={i} className="w-4 h-4 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
+                      <svg key={i} className="w-4 h-4 text-brand-700" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                       </svg>
                     ))}
                   </div>
                   <p className="text-neutral-700 leading-relaxed mb-6">&ldquo;{testimonial.quote[currentLang]}&rdquo;</p>
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-accent-400 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                    <div className="w-12 h-12 bg-brand-400 rounded-full flex items-center justify-center text-white font-bold text-lg">
                       {testimonial.avatar}
                     </div>
                     <div>
                       <div className="font-medium text-brand-900">{testimonial.name[currentLang]}</div>
                       <div className="text-sm text-neutral-600">{testimonial.company[currentLang]}</div>
-                      <div className="text-xs text-accent-700 mt-0.5">{testimonial.region[currentLang]}</div>
+                      <div className="text-xs text-brand-800 mt-0.5">{testimonial.region[currentLang]}</div>
                     </div>
                   </div>
                 </div>
@@ -1557,7 +1557,7 @@ export default function PartnerBusinessPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-16 border-t border-white/10">
               {bottomStats.map((stat, idx) => (
                 <div key={idx} className="text-center">
-                  <div className="text-3xl font-light text-accent-600 mb-2">{stat.value}</div>
+                  <div className="text-3xl font-light text-brand-700 mb-2">{stat.value}</div>
                   <div className="text-sm text-neutral-600">{stat.label}</div>
                 </div>
               ))}
@@ -1597,7 +1597,7 @@ export default function PartnerBusinessPage() {
                     required
                     value={formData.companyName}
                     onChange={(e) => setFormData({...formData, companyName: e.target.value})}
-                    className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-brand-400 focus:border-transparent transition-all"
                     placeholder={t('formCompanyPlaceholder')}
                   />
                 </div>
@@ -1608,7 +1608,7 @@ export default function PartnerBusinessPage() {
                     required
                     value={formData.contactPerson}
                     onChange={(e) => setFormData({...formData, contactPerson: e.target.value})}
-                    className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-brand-400 focus:border-transparent transition-all"
                     placeholder={t('formContactPlaceholder')}
                   />
                 </div>
@@ -1619,7 +1619,7 @@ export default function PartnerBusinessPage() {
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-brand-400 focus:border-transparent transition-all"
                     placeholder="email@company.com"
                   />
                 </div>
@@ -1630,7 +1630,7 @@ export default function PartnerBusinessPage() {
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-brand-400 focus:border-transparent transition-all"
                     placeholder={t('formPhonePlaceholder')}
                   />
                 </div>
@@ -1640,7 +1640,7 @@ export default function PartnerBusinessPage() {
                     required
                     value={formData.country}
                     onChange={(e) => setFormData({...formData, country: e.target.value})}
-                    className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-brand-400 focus:border-transparent transition-all"
                   >
                     <option value="">{t('formCountryPlaceholder')}</option>
                     <option value="中國大陸">{t('formCountryChina')}</option>
@@ -1662,7 +1662,7 @@ export default function PartnerBusinessPage() {
                     required
                     value={formData.businessType}
                     onChange={(e) => setFormData({...formData, businessType: e.target.value})}
-                    className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-brand-400 focus:border-transparent transition-all"
                   >
                     <option value="">{t('formCountryPlaceholder')}</option>
                     <option value="旅行社">{t('formBusinessTravel')}</option>
@@ -1679,7 +1679,7 @@ export default function PartnerBusinessPage() {
                     rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData({...formData, message: e.target.value})}
-                    className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-accent-400 focus:border-transparent transition-all resize-none"
+                    className="w-full px-4 py-3 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-brand-400 focus:border-transparent transition-all resize-none"
                     placeholder={t('formMessagePlaceholder')}
                   />
                 </div>
@@ -1689,13 +1689,13 @@ export default function PartnerBusinessPage() {
                       type="checkbox"
                       checked={privacyConsent}
                       onChange={(e) => setPrivacyConsent(e.target.checked)}
-                      className="mt-1 h-4 w-4 rounded border-neutral-300 text-accent-500 focus:ring-accent-500"
+                      className="mt-1 h-4 w-4 rounded border-neutral-300 text-brand-500 focus:ring-brand-500"
                     />
                     <span className="text-sm text-neutral-600">
-                      {currentLang === 'ja' && <><a href="/privacy" target="_blank" className="text-accent-600 underline">プライバシーポリシー</a>に同意の上、送信します</>}
-                      {currentLang === 'zh-TW' && <>我同意<a href="/privacy" target="_blank" className="text-accent-600 underline">隱私政策</a>並提交表單</>}
-                      {currentLang === 'zh-CN' && <>我同意<a href="/privacy" target="_blank" className="text-accent-600 underline">隐私政策</a>并提交表单</>}
-                      {currentLang === 'en' && <>I agree to the <a href="/privacy" target="_blank" className="text-accent-600 underline">Privacy Policy</a> and submit</>}
+                      {currentLang === 'ja' && <><a href="/privacy" target="_blank" className="text-brand-700 underline">プライバシーポリシー</a>に同意の上、送信します</>}
+                      {currentLang === 'zh-TW' && <>我同意<a href="/privacy" target="_blank" className="text-brand-700 underline">隱私政策</a>並提交表單</>}
+                      {currentLang === 'zh-CN' && <>我同意<a href="/privacy" target="_blank" className="text-brand-700 underline">隐私政策</a>并提交表单</>}
+                      {currentLang === 'en' && <>I agree to the <a href="/privacy" target="_blank" className="text-brand-700 underline">Privacy Policy</a> and submit</>}
                     </span>
                   </label>
                   <button

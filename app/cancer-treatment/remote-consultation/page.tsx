@@ -292,15 +292,15 @@ export default function RemoteConsultationPage() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <Video size={20} className="text-neutral-300" />
-                <span className="text-neutral-300 text-sm">{t('videoConsultation')}</span>
+                <Video size={20} className="text-neutral-200" />
+                <span className="text-neutral-200 text-sm">{t('videoConsultation')}</span>
               </div>
               <h1 className="text-3xl font-serif font-bold text-white">{t('serviceName')}</h1>
-              <p className="text-neutral-300 text-sm mt-1">{t('serviceNameEn')}</p>
+              <p className="text-neutral-200 text-sm mt-1">{t('serviceNameEn')}</p>
             </div>
             <div className="text-right">
               <p className="text-4xl font-bold text-white">¥{SERVICE_INFO.price.toLocaleString()}</p>
-              <p className="text-xs text-neutral-300 mt-1">{t('taxIncluded')}</p>
+              <p className="text-xs text-neutral-200 mt-1">{t('taxIncluded')}</p>
             </div>
           </div>
         </div>
@@ -578,7 +578,7 @@ export default function RemoteConsultationPage() {
                   <button
                     type="submit"
                     disabled={processing || !allConsented(consents)}
-                    className="w-full py-4 bg-accent-400 text-neutral-900 font-bold hover:bg-accent-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full py-4 bg-brand-400 text-neutral-900 font-bold hover:bg-brand-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {processing ? (
                       <>

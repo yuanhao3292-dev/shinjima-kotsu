@@ -15,7 +15,7 @@ const StatusIcon = ({ status, currentLang = 'zh-TW' }: { status: ItemStatus; par
     case 'included':
       return <Check className="w-5 h-5 text-brand-600" />;
     case 'optional':
-      return <Circle className="w-4 h-4 text-accent-500" />;
+      return <Circle className="w-4 h-4 text-brand-500" />;
     case 'partial':
       return (
         <span className="text-[10px] text-brand-700 font-medium leading-tight text-center">
@@ -23,7 +23,9 @@ const StatusIcon = ({ status, currentLang = 'zh-TW' }: { status: ItemStatus; par
         </span>
       );
     case 'none':
-      return <X className="w-4 h-4 text-neutral-300" />;
+      // 「不含此项」是承载信息的图形元素，WCAG 要求 3:1。
+      // neutral-300 仅 1.53:1、neutral-400 也只有 2.53:1，故用 500（4.79:1）。
+      return <X className="w-4 h-4 text-neutral-500" />;
   }
 };
 
@@ -84,11 +86,11 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
             </button>
 
             <div className="text-center flex-1">
-              <div className={`text-lg font-bold ${selectedPackage.id === 'vip' ? 'text-accent-600' : 'text-neutral-900'}`}>
+              <div className={`text-lg font-bold ${selectedPackage.id === 'vip' ? 'text-brand-700' : 'text-neutral-900'}`}>
                 {selectedPackage.name}
               </div>
               <div className="text-sm text-neutral-500">{selectedPackage.nameZh}</div>
-              <div className={`text-xl font-bold mt-1 ${selectedPackage.id === 'vip' ? 'text-accent-600' : 'text-brand-700'}`}>
+              <div className={`text-xl font-bold mt-1 ${selectedPackage.id === 'vip' ? 'text-brand-700' : 'text-brand-700'}`}>
                 {formatPrice(selectedPackage.price)}
               </div>
             </div>
@@ -189,7 +191,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
             onClick={() => onBookNow?.(selectedPackage.id)}
             className={`block w-full text-center py-3 rounded-xl font-bold text-lg transition ${
               selectedPackage.id === 'vip'
-                ? 'bg-gradient-to-r from-accent-500 to-accent-600 text-black'
+                ? 'bg-gradient-to-r from-brand-500 to-brand-700 text-black'
                 : 'bg-brand-700 text-white hover:bg-brand-800'
             }`}
           >
@@ -208,7 +210,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
               <span>{ui('included', currentLang)}</span>
             </div>
             <div className="flex items-center gap-1">
-              <Circle className="w-3 h-3 text-accent-700" />
+              <Circle className="w-3 h-3 text-brand-800" />
               <span>{ui('optional', currentLang)}</span>
             </div>
             <div className="flex items-center gap-1">
@@ -216,7 +218,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
               <span>{ui('legendPartial', currentLang)}</span>
             </div>
             <div className="flex items-center gap-1">
-              <X className="w-3 h-3 text-neutral-300" />
+              <X className="w-3 h-3 text-neutral-500" />
               <span>{ui('notIncluded', currentLang)}</span>
             </div>
           </div>
@@ -249,7 +251,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                 }`}
               >
                 <div className={`text-sm font-bold ${
-                  pkg.id === 'vip' ? 'text-accent-300' : 'text-neutral-800'
+                  pkg.id === 'vip' ? 'text-brand-300' : 'text-neutral-800'
                 }`}>
                   {pkg.name}
                 </div>
@@ -259,7 +261,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                   {pkg.nameZh}
                 </div>
                 <div className={`text-base font-bold mt-1 ${
-                  pkg.id === 'vip' ? 'text-accent-300' : 'text-neutral-900'
+                  pkg.id === 'vip' ? 'text-brand-300' : 'text-neutral-900'
                 }`}>
                   {formatPrice(pkg.price)}
                 </div>
@@ -267,7 +269,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                   onClick={() => onBookNow?.(pkg.id)}
                   className={`inline-block mt-2 text-xs px-3 py-1 rounded ${
                     pkg.id === 'vip'
-                      ? 'bg-accent-500 text-black hover:bg-accent-400'
+                      ? 'bg-brand-500 text-black hover:bg-brand-400'
                       : 'bg-brand-700 text-white hover:bg-brand-800'
                   } transition`}
                 >
@@ -343,7 +345,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
               <span className="text-neutral-600">{ui('legendIncluded', currentLang)}</span>
             </div>
             <div className="flex items-center gap-2">
-              <Circle className="w-4 h-4 text-accent-700" />
+              <Circle className="w-4 h-4 text-brand-800" />
               <span className="text-neutral-600">{ui('legendOptional', currentLang)}</span>
             </div>
             <div className="flex items-center gap-2">
@@ -351,7 +353,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
               <span className="text-neutral-600">{ui('legendPartial', currentLang)}</span>
             </div>
             <div className="flex items-center gap-2">
-              <X className="w-4 h-4 text-neutral-300" />
+              <X className="w-4 h-4 text-neutral-500" />
               <span className="text-neutral-600">{ui('legendNone', currentLang)}</span>
             </div>
           </div>

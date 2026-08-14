@@ -227,19 +227,19 @@ type PhaseColor = 'blue' | 'purple' | 'amber' | 'green';
 const PHASE_COLOR_MAP: Record<PhaseColor, { bg: string; light: string; border: string; text: string; ring: string }> = {
   blue:   { bg: 'bg-brand-700',   light: 'bg-brand-50',   border: 'border-brand-700',   text: 'text-brand-700',   ring: 'ring-brand-200' },
   purple: { bg: 'bg-brand-600', light: 'bg-brand-50', border: 'border-brand-600', text: 'text-brand-600', ring: 'ring-brand-200' },
-  amber:  { bg: 'bg-accent-500',  light: 'bg-accent-50',  border: 'border-brand-500',  text: 'text-accent-600',  ring: 'ring-accent-200' },
+  amber:  { bg: 'bg-brand-500',  light: 'bg-brand-50',  border: 'border-brand-500',  text: 'text-brand-700',  ring: 'ring-brand-200' },
   green:  { bg: 'bg-brand-600',  light: 'bg-brand-50',  border: 'border-brand-600',  text: 'text-brand-600',  ring: 'ring-brand-200' },
 };
 const PHASE_LIGHT_BG_MAP: Record<PhaseColor, string> = {
   blue:   'bg-brand-50 border-brand-100',
   purple: 'bg-brand-50 border-brand-100',
-  amber:  'bg-accent-50 border-brand-100',
+  amber:  'bg-brand-50 border-brand-100',
   green:  'bg-brand-50 border-brand-100',
 };
 const PHASE_DOT_MAP: Record<PhaseColor, string> = {
   blue: 'bg-brand-500',
   purple: 'bg-brand-500',
-  amber: 'bg-accent-500',
+  amber: 'bg-brand-500',
   green: 'bg-brand-500',
 };
 
@@ -881,18 +881,18 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
         {/* Decorative Elements */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
-          <div className="absolute w-72 h-72 bg-accent-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+          <div className="absolute w-72 h-72 bg-brand-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
         </div>
         <div className="container mx-auto px-6 relative z-10 py-32">
           <div className="max-w-4xl">
             <div className="flex items-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-accent-400"></div>
-              <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">CANCER TREATMENT</span>
+              <div className="h-[1px] w-12 bg-brand-400"></div>
+              <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">CANCER TREATMENT</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-brand-900 mb-6 leading-tight">
               {t('heroDesc')}
               <br />
-              <span className="text-accent-600">{t('heroTitle2')}</span>
+              <span className="text-brand-700">{t('heroTitle2')}</span>
             </h1>
             <p className="text-xl text-neutral-600 mb-8 leading-relaxed font-light max-w-2xl">
               {t('heroStat')}
@@ -934,15 +934,15 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
             {/* Trust Points */}
             <div className="flex flex-wrap gap-6 text-neutral-600">
               <div className="flex items-center gap-2">
-                <CheckCircle size={18} className="text-accent-600" />
+                <CheckCircle size={18} className="text-brand-700" />
                 <span className="text-sm">{t('trustEarly')}</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle size={18} className="text-accent-600" />
+                <CheckCircle size={18} className="text-brand-700" />
                 <span className="text-sm">{t('trustTranslator')}</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle size={18} className="text-accent-600" />
+                <CheckCircle size={18} className="text-brand-700" />
                 <span className="text-sm">{t('trustRemote')}</span>
               </div>
             </div>
@@ -962,7 +962,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
               {t('instDesc')}
             </p>
             {/* 免責聲明 */}
-            <div className="inline-flex items-center gap-2 bg-accent-50 border border-brand-200 px-4 py-2 rounded-lg text-sm text-accent-700">
+            <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-200 px-4 py-2 rounded-lg text-sm text-brand-800">
               <Info size={16} />
               <span>{t('instDisclaimer')}</span>
             </div>
@@ -1171,7 +1171,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                         <ul className="space-y-2.5">
                           {phase.patientActions.map((action, i) => (
                             <li key={i} className="flex items-start gap-2.5 text-sm text-neutral-700">
-                              <CheckCircle size={16} className="text-accent-600 flex-shrink-0 mt-0.5" />
+                              <CheckCircle size={16} className="text-brand-700 flex-shrink-0 mt-0.5" />
                               <span>{action[currentLang]}</span>
                             </li>
                           ))}
@@ -1220,7 +1220,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                                     <div className="flex items-center gap-2 mb-1">
                                       <h5 className="text-sm font-bold text-brand-900">{step.title[currentLang]}</h5>
                                       {step.fee && (
-                                        <span className="bg-accent-100 text-accent-700 text-xs font-bold px-2 py-0.5 rounded-full">
+                                        <span className="bg-brand-100 text-brand-800 text-xs font-bold px-2 py-0.5 rounded-full">
                                           ¥{step.fee}
                                         </span>
                                       )}
@@ -1268,7 +1268,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
               const Icon = treatment.icon;
               // 同上：五档差异在三色制后已无含义（brand-50/accent-50 两套底、
               // 600/700 两档字），且 text-brand-600 压 bg-brand-50 仅 3.95:1、
-              // text-accent-600 压 bg-accent-50 仅 4.33:1，都未达正文 4.5。
+              // text-brand-700 压 bg-brand-50 仅 4.33:1，都未达正文 4.5。
               const colors = { bg: 'bg-brand-50', text: 'text-brand-700', border: 'border-brand-200' };
               return (
                 <div
@@ -1318,7 +1318,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
               <Leaf size={16} />
               {t('regenHealth')}
             </div>
-            <div className="flex items-center gap-2 bg-accent-100 text-accent-700 px-4 py-2 rounded-full text-sm font-bold">
+            <div className="flex items-center gap-2 bg-brand-100 text-brand-800 px-4 py-2 rounded-full text-sm font-bold">
               <Shield size={16} />
               {t('regenPrevention')}
             </div>
@@ -1378,7 +1378,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
       </section>
       {/* Service / Contact Section - hidden in guide embed mode */}
       {!isGuideEmbed && (<>
-      <section id="contact-form" className="py-24 bg-gradient-to-br from-brand-50 to-accent-50">
+      <section id="contact-form" className="py-24 bg-gradient-to-br from-brand-50 to-brand-50">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">

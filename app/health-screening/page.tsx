@@ -714,14 +714,14 @@ export default function HealthScreeningPage() {
         <section className="relative brand-gradient-deep overflow-hidden">
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
-            <div className="absolute w-72 h-72 bg-accent-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
+            <div className="absolute w-72 h-72 bg-brand-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
           </div>
 
           <div className="relative z-10 max-w-4xl mx-auto px-6 pt-40 pb-20 text-center">
             <div className="flex items-center justify-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-accent-400" />
-              <span className="text-xs tracking-[0.3em] text-accent-400 uppercase">AI HEALTH SCREENING</span>
-              <div className="h-[1px] w-12 bg-accent-400" />
+              <div className="h-[1px] w-12 bg-brand-400" />
+              <span className="text-xs tracking-[0.3em] text-brand-400 uppercase">AI HEALTH SCREENING</span>
+              <div className="h-[1px] w-12 bg-brand-400" />
             </div>
 
             <h1 className="font-serif text-3xl md:text-4xl xl:text-5xl text-white mb-6 leading-tight">
@@ -733,7 +733,7 @@ export default function HealthScreeningPage() {
             </p>
 
             {/* Free remaining badge */}
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent-400/10 text-accent-400 border border-accent-400/30 text-sm mb-10">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-400/10 text-brand-400 border border-brand-400/30 text-sm mb-10">
               <Sparkles className="w-4 h-4" />
               <span>
                 {t('freeRemaining', lang)} {data?.freeRemaining ?? FREE_SCREENING_LIMIT} {lang === 'ja' ? '回' : lang === 'en' ? '' : '次'}
@@ -782,7 +782,7 @@ export default function HealthScreeningPage() {
                 <p className="text-neutral-300 mb-4">{t('limitReached', lang)}</p>
                 <Link
                   href="/health-screening/history"
-                  className="text-accent-400 hover:text-accent-300"
+                  className="text-brand-400 hover:text-brand-300"
                 >
                   {t('viewHistory', lang)}
                 </Link>
@@ -805,9 +805,9 @@ export default function HealthScreeningPage() {
           <div className="max-w-4xl mx-auto px-6">
             <div className="text-center mb-10">
               <div className="flex items-center justify-center gap-3 mb-4">
-                <div className="h-[1px] w-8 bg-accent-400" />
-                <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">FEATURES</span>
-                <div className="h-[1px] w-8 bg-accent-400" />
+                <div className="h-[1px] w-8 bg-brand-400" />
+                <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">FEATURES</span>
+                <div className="h-[1px] w-8 bg-brand-400" />
               </div>
               <h2 className="text-2xl font-serif text-brand-900">{t('newFeatures', lang)}</h2>
             </div>

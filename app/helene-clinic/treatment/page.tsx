@@ -506,7 +506,7 @@ export default function HeleneTreatmentPage() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
               <h1 className="text-3xl font-serif font-bold text-white">{t('pageTitle')}</h1>
-              <p className="text-neutral-300 text-sm mt-1">{t('pageTitleEn')}</p>
+              <p className="text-neutral-200 text-sm mt-1">{t('pageTitleEn')}</p>
             </div>
             <div className="text-right">
               {selectedSlug ? (
@@ -514,7 +514,7 @@ export default function HeleneTreatmentPage() {
                   <p className="text-4xl font-bold text-white">
                     ¥{selectedPrice.toLocaleString()}
                   </p>
-                  <p className="text-xs text-neutral-300 mt-1">{t('taxIncluded')}</p>
+                  <p className="text-xs text-neutral-200 mt-1">{t('taxIncluded')}</p>
                 </>
               ) : (
                 <p className="text-lg text-neutral-300">{t('noTreatmentSelected')}</p>
@@ -815,7 +815,7 @@ export default function HeleneTreatmentPage() {
                   <button
                     type="submit"
                     disabled={processing || !selectedSlug || !allConsented(consents)}
-                    className="w-full py-4 bg-accent-400 text-neutral-900 font-bold hover:bg-accent-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full py-4 bg-brand-400 text-neutral-900 font-bold hover:bg-brand-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {processing ? (
                       <>

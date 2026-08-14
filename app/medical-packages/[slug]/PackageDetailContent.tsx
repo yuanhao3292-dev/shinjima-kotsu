@@ -23,20 +23,20 @@ const packageColors: Record<string, {
 }> = {
   'vip-member-course': {
     headerBg: 'bg-brand-900',
-    title: 'text-accent-400',
-    price: 'text-accent-400',
-    check: 'text-accent-400',
-    button: 'bg-accent-400 text-neutral-900 hover:bg-accent-300',
+    title: 'text-brand-400',
+    price: 'text-brand-400',
+    check: 'text-brand-400',
+    button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300',
     cardBg: 'bg-brand-900',
-    cardBorder: 'border-accent-400/30',
-    badgeBg: 'bg-accent-400 text-neutral-900',
+    cardBorder: 'border-brand-400/30',
+    badgeBg: 'bg-brand-400 text-neutral-900',
   },
   'premium-cardiac-course': {
     headerBg: 'bg-brand-900',
     title: 'text-brand-900',
     price: 'text-brand-900',
     check: 'text-brand-700',
-    button: 'bg-accent-400 text-neutral-900 hover:bg-accent-300',
+    button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300',
     cardBg: 'bg-neutral-50',
     cardBorder: 'border-neutral-200',
   },
@@ -45,7 +45,7 @@ const packageColors: Record<string, {
     title: 'text-brand-900',
     price: 'text-brand-900',
     check: 'text-brand-700',
-    button: 'bg-accent-400 text-neutral-900 hover:bg-accent-300',
+    button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300',
     cardBg: 'bg-neutral-50',
     cardBorder: 'border-neutral-200',
   },
@@ -54,7 +54,7 @@ const packageColors: Record<string, {
     title: 'text-brand-900',
     price: 'text-brand-900',
     check: 'text-brand-700',
-    button: 'bg-accent-400 text-neutral-900 hover:bg-accent-300',
+    button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300',
     cardBg: 'bg-neutral-50',
     cardBorder: 'border-neutral-200',
   },
@@ -63,7 +63,7 @@ const packageColors: Record<string, {
     title: 'text-brand-900',
     price: 'text-brand-900',
     check: 'text-brand-700',
-    button: 'bg-accent-400 text-neutral-900 hover:bg-accent-300',
+    button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300',
     cardBg: 'bg-neutral-50',
     cardBorder: 'border-neutral-200',
   },
@@ -72,7 +72,7 @@ const packageColors: Record<string, {
     title: 'text-brand-900',
     price: 'text-brand-900',
     check: 'text-brand-700',
-    button: 'bg-accent-400 text-neutral-900 hover:bg-accent-300',
+    button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300',
     cardBg: 'bg-neutral-50',
     cardBorder: 'border-neutral-200',
   },
@@ -384,11 +384,11 @@ export default function PackageDetailContent({
                   {pkg.badge}
                 </span>
               )}
-              <h1 className={`text-3xl md:text-4xl font-serif font-bold ${pkg.isVIP ? 'text-accent-600' : 'text-white'}`}>{pkg.name}</h1>
+              <h1 className={`text-3xl md:text-4xl font-serif font-bold ${pkg.isVIP ? 'text-brand-700' : 'text-white'}`}>{pkg.name}</h1>
               <p className={`text-sm mt-2 ${pkg.isVIP ? 'text-neutral-400' : 'text-neutral-300'}`}>{pkg.nameEn}</p>
             </div>
             <div className="text-right">
-              <p className={`text-4xl md:text-5xl font-bold ${pkg.isVIP ? 'text-accent-600' : 'text-white'}`}>¥{pkg.price.toLocaleString()}</p>
+              <p className={`text-4xl md:text-5xl font-bold ${pkg.isVIP ? 'text-brand-700' : 'text-white'}`}>¥{pkg.price.toLocaleString()}</p>
               <p className={`text-xs mt-1 ${pkg.isVIP ? 'text-neutral-500' : 'text-neutral-300'}`}>{t.priceNote}</p>
             </div>
           </div>

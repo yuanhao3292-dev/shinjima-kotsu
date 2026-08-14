@@ -458,19 +458,19 @@ export default function FAQPage() {
         {/* Decorative Elements */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
-          <div className="absolute w-72 h-72 bg-accent-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+          <div className="absolute w-72 h-72 bg-brand-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
         </div>
         <div className="relative z-10 container mx-auto px-6 py-32">
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-accent-400"></div>
-              <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">FREQUENTLY ASKED QUESTIONS</span>
+              <div className="h-[1px] w-12 bg-brand-400"></div>
+              <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">FREQUENTLY ASKED QUESTIONS</span>
             </div>
 
             <h1 className="font-serif text-4xl md:text-6xl text-brand-900 mb-6 leading-tight">
               {t('heroTitle1')}
               <br />
-              <span className="text-accent-600">{t('heroTitle2')}</span>
+              <span className="text-brand-700">{t('heroTitle2')}</span>
             </h1>
 
             <p className="text-xl text-neutral-600 mb-8 leading-relaxed font-light max-w-2xl">
@@ -532,7 +532,7 @@ export default function FAQPage() {
                     className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-neutral-50 transition-colors"
                   >
                     <div className="flex items-start gap-4 pr-4">
-                      <span className="flex-shrink-0 w-8 h-8 bg-accent-400/20 text-accent-600 rounded-full flex items-center justify-center font-bold text-sm">
+                      <span className="flex-shrink-0 w-8 h-8 bg-brand-400/20 text-brand-700 rounded-full flex items-center justify-center font-bold text-sm">
                         Q
                       </span>
                       <span className="font-medium text-brand-900">{faq.question[currentLang]}</span>

@@ -114,8 +114,8 @@ function VerifyEmailForm() {
       <div className="min-h-screen flex items-center justify-center p-8 pt-24 bg-white">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-accent-50 border border-accent-200 mb-5">
-              <MailCheck className="w-8 h-8 text-accent-600" />
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-50 border border-brand-200 mb-5">
+              <MailCheck className="w-8 h-8 text-brand-700" />
             </div>
             <h1 className="text-2xl font-serif text-brand-900 mb-2">{t('title', lang)}</h1>
             <p className="text-sm text-neutral-500">{t('subtitle', lang)}</p>
@@ -144,7 +144,7 @@ function VerifyEmailForm() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-accent-400 focus:border-transparent transition"
+                className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
                 placeholder={t('emailPlaceholder', lang)}
               />
             </div>
@@ -161,7 +161,7 @@ function VerifyEmailForm() {
                 onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 8))}
                 required
                 autoFocus
-                className="w-full px-4 py-3 border border-neutral-200 text-center text-2xl tracking-[0.4em] font-mono focus:ring-2 focus:ring-accent-400 focus:border-transparent transition"
+                className="w-full px-4 py-3 border border-neutral-200 text-center text-2xl tracking-[0.4em] font-mono focus:ring-2 focus:ring-brand-400 focus:border-transparent transition"
                 placeholder={t('codePlaceholder', lang)}
               />
             </div>

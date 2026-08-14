@@ -110,17 +110,17 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       {/* Decorative Elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
-        <div className="absolute w-72 h-72 bg-accent-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+        <div className="absolute w-72 h-72 bg-brand-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
       </div>
       <div className="container mx-auto px-6 relative z-10 py-32">
         <div className="max-w-4xl">
           <div className="flex items-center gap-3 mb-8">
-            <div className="h-[1px] w-12 bg-accent-400"></div>
-            <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">TIMC OSAKA</span>
+            <div className="h-[1px] w-12 bg-brand-400"></div>
+            <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">TIMC OSAKA</span>
           </div>
           <h1 className="text-4xl md:text-6xl font-serif text-brand-900 mb-6 leading-tight">
             {t.medical.hero_title_1}<br/>
-            <span className="text-accent-600">{t.medical.hero_title_2}</span>
+            <span className="text-brand-700">{t.medical.hero_title_2}</span>
           </h1>
           <p className="text-xl text-neutral-600 mb-4 leading-relaxed font-light max-w-2xl">
             {t.medical.hero_subtitle}
@@ -357,8 +357,8 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl">
                           <div className="flex items-center gap-3 mb-4">
-                              <div className="h-[1px] w-12 bg-accent-400"></div>
-                              <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">01</span>
+                              <div className="h-[1px] w-12 bg-brand-400"></div>
+                              <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">01</span>
                           </div>
                           <h4 className="text-3xl md:text-4xl lg:text-5xl text-brand-900 mb-6 font-serif">{t.medical.facility_1_title}</h4>
                           <p className="text-lg text-neutral-600 leading-relaxed">{t.medical.facility_1_desc}</p>
@@ -388,8 +388,8 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl ml-auto text-right">
                           <div className="flex items-center justify-end gap-3 mb-4">
-                              <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">02</span>
-                              <div className="h-[1px] w-12 bg-accent-400"></div>
+                              <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">02</span>
+                              <div className="h-[1px] w-12 bg-brand-400"></div>
                           </div>
                           <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_2_title}</h4>
                           <p className="text-lg text-white leading-relaxed">{t.medical.facility_2_desc}</p>
@@ -419,8 +419,8 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl">
                           <div className="flex items-center gap-3 mb-4">
-                              <div className="h-[1px] w-12 bg-accent-400"></div>
-                              <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">03</span>
+                              <div className="h-[1px] w-12 bg-brand-400"></div>
+                              <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">03</span>
                           </div>
                           <h4 className="text-3xl md:text-4xl lg:text-5xl text-brand-900 mb-6 font-serif">{t.medical.facility_3_title}</h4>
                           <p className="text-lg text-neutral-600 leading-relaxed">{t.medical.facility_3_desc}</p>
@@ -451,8 +451,8 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl ml-auto text-right">
                           <div className="flex items-center justify-end gap-3 mb-4">
-                              <span className="text-xs tracking-[0.3em] text-accent-600 uppercase">04</span>
-                              <div className="h-[1px] w-12 bg-accent-400"></div>
+                              <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">04</span>
+                              <div className="h-[1px] w-12 bg-brand-400"></div>
                           </div>
                           <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_4_title}</h4>
                           <p className="text-lg text-white leading-relaxed">{t.medical.facility_4_desc}</p>
