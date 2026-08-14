@@ -1723,32 +1723,32 @@ export default function PartnerBusinessPage() {
       </section>
 
       {/* Contact Info */}
-      <section className="py-16 brand-gradient-deep text-white">
+      <section className="py-16 bg-white border-t border-neutral-200 text-brand-900">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-3 gap-8 text-center">
               <div>
-                <div className="w-12 h-12 bg-accent-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Mail size={24} className="text-accent-600" />
+                <div className="w-12 h-12 brand-gradient-solid rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Mail size={24} className="text-white" />
                 </div>
-                <div className="text-sm text-brand-100 mb-1">{t('contactEmailLabel')}</div>
-                <ObfuscatedEmail user="haoyuan" domain="niijima-koutsu.jp" className="text-white hover:text-accent-600 transition-colors" />
+                <div className="text-sm text-neutral-600 mb-1">{t('contactEmailLabel')}</div>
+                <ObfuscatedEmail user="haoyuan" domain="niijima-koutsu.jp" className="text-brand-900 font-medium hover:text-brand-700 transition-colors" />
               </div>
               <div>
-                <div className="w-12 h-12 bg-accent-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Phone size={24} className="text-accent-600" />
+                <div className="w-12 h-12 brand-gradient-solid rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Phone size={24} className="text-white" />
                 </div>
-                <div className="text-sm text-brand-100 mb-1">{t('contactPhoneLabel')}</div>
-                <a href="tel:+81-6-6632-8807" className="text-white hover:text-accent-600 transition-colors">
+                <div className="text-sm text-neutral-600 mb-1">{t('contactPhoneLabel')}</div>
+                <a href="tel:+81-6-6632-8807" className="text-brand-900 font-medium hover:text-brand-700 transition-colors">
                   +81-6-6632-8807
                 </a>
               </div>
               <div>
-                <div className="w-12 h-12 bg-accent-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <MapPin size={24} className="text-accent-600" />
+                <div className="w-12 h-12 brand-gradient-solid rounded-full flex items-center justify-center mx-auto mb-4">
+                  <MapPin size={24} className="text-white" />
                 </div>
-                <div className="text-sm text-brand-100 mb-1">{t('contactAddressLabel')}</div>
-                <div className="text-white">
+                <div className="text-sm text-neutral-600 mb-1">{t('contactAddressLabel')}</div>
+                <div className="text-brand-900">
                   {currentLang === 'en' ? '1-2-21-602 Daikoku, Naniwa-ku, Osaka 556-0014, Japan' : currentLang === 'zh-TW' ? '大阪府大阪市浪速區大國1-2-21-602' : '大阪府大阪市浪速区大国1-2-21-602'}
                 </div>
               </div>
