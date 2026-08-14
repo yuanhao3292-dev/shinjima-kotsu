@@ -533,7 +533,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
             <a
               onClick={() => setCurrentPage('golf')}
-              className="inline-flex items-center px-8 py-4 bg-brand-500 text-neutral-900 text-sm font-medium tracking-wider hover:bg-brand-300 transition-colors cursor-pointer"
+              className="inline-flex items-center px-8 py-4 brand-gradient-solid text-white text-sm font-medium tracking-wider hover:opacity-90 transition-colors cursor-pointer"
             >
               {currentLang === 'zh-TW' ? '探索名門球場' : currentLang === 'zh-CN' ? '探索名门球场' : currentLang === 'ja' ? '名門コースを見る' : 'Explore Elite Courses'}
               <ArrowRight size={18} className="ml-3" />
@@ -616,7 +616,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
                 <a
                   onClick={() => setCurrentPage('business')}
-                  className="inline-flex items-center px-8 py-4 bg-brand-500 text-neutral-900 text-sm font-medium rounded-lg hover:bg-brand-300 transition-colors cursor-pointer"
+                  className="inline-flex items-center px-8 py-4 brand-gradient-solid text-white text-sm font-medium rounded-lg hover:opacity-90 transition-colors cursor-pointer"
                 >
                   {currentLang === 'zh-TW' ? '定制考察方案' : currentLang === 'zh-CN' ? '定制考察方案' : currentLang === 'ja' ? '視察プランを相談' : 'Plan Your Inspection'}
                   <ArrowRight size={18} className="ml-3" />
@@ -1130,7 +1130,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                    </p>
                    <button
                      onClick={() => setShowPartnerInquiryModal(false)}
-                     className="bg-brand-600 text-brand-900 px-8 py-3 rounded-lg font-bold hover:bg-brand-500 transition"
+                     className="brand-gradient-solid text-white px-8 py-3 rounded-lg font-bold hover:opacity-90 transition"
                    >
                      {lang === 'zh-TW' ? '關閉' : lang === 'zh-CN' ? '关闭' : lang === 'ja' ? '閉じる' : 'Close'}
                    </button>

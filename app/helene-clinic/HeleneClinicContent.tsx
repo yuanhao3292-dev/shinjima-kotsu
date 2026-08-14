@@ -941,7 +941,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
           <div className="sm:hidden mt-6 text-center">
             <Link
               href={guideSlug ? `/helene-clinic/treatment?guide=${guideSlug}` : '/helene-clinic/treatment'}
-              className="inline-flex items-center gap-2 bg-brand-700 text-white font-bold px-8 py-3 rounded-xl hover:bg-brand-800 transition"
+              className="inline-flex items-center gap-2 brand-gradient-solid text-white font-bold px-8 py-3 rounded-xl hover:opacity-90 transition"
             >
               <ArrowRight size={18} />
               {t('pricingCta')}

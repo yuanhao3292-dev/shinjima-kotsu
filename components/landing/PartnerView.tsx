@@ -83,7 +83,7 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
             <div className="mt-16 text-center border-t border-brand-800 pt-12">
                <h4 className="text-xl font-serif mb-4">{t.partner.cta_title}</h4>
                <p className="text-neutral-500 mb-8 whitespace-pre-line">{t.partner.cta_desc}</p>
-               <button onClick={onOpenPartnerInquiry} className="bg-brand-600 text-white px-10 py-4 rounded-full font-bold hover:bg-brand-500 transition shadow-lg">
+               <button onClick={onOpenPartnerInquiry} className="brand-gradient-solid text-white px-10 py-4 rounded-full font-bold hover:opacity-90 transition shadow-lg">
                   {t.partner.cta_btn}
                </button>
             </div>

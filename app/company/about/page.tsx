@@ -888,7 +888,7 @@ export default function AboutPage() {
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
                   {medicalPartners.map((partner, index) => (
-                    <div key={index} className="p-5 brand-gradient-deep/5 rounded-xl text-center font-medium text-brand-900 border border-brand-900/10 hover:brand-gradient-deep hover:text-white transition cursor-default">
+                    <div key={index} className="p-5 brand-gradient-deep/5 rounded-xl text-center font-medium text-brand-900 border border-brand-900/10 hover:opacity-90 hover:text-white transition cursor-default">
                       {(partner as Record<Language, string>)[currentLang]}
                     </div>
                   ))}
@@ -903,7 +903,7 @@ export default function AboutPage() {
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {servicePartners.map((partner, index) => (
-                    <div key={index} className="p-5 bg-neutral-50 rounded-xl text-center font-medium text-neutral-700 hover:brand-gradient-deep hover:text-white transition cursor-default">
+                    <div key={index} className="p-5 bg-neutral-50 rounded-xl text-center font-medium text-neutral-700 hover:opacity-90 hover:text-white transition cursor-default">
                       {(partner as Record<Language, string>)[currentLang]}
                     </div>
                   ))}

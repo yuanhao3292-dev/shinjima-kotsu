@@ -277,7 +277,7 @@ export default function MyOrdersPage() {
                 <p className="text-neutral-500 text-sm mb-8">{t('noOrdersDesc', lang)}</p>
                 <Link
                   href="/medical"
-                  className="inline-flex items-center gap-2 bg-accent-400 hover:bg-accent-300 text-brand-900 font-medium py-3 px-6 text-sm tracking-wider transition-colors"
+                  className="inline-flex items-center gap-2 brand-gradient-solid hover:opacity-90 text-white font-medium py-3 px-6 text-sm tracking-wider transition-colors"
                 >
                   <Package className="w-5 h-5" />
                   {t('browsePackages', lang)}

@@ -406,7 +406,7 @@ export default function NewsPage() {
                         </div>
 
                         {/* 箭头 */}
-                        <div className="hidden md:flex items-center justify-center w-10 h-10 bg-neutral-100 group-hover:brand-gradient-deep transition-all duration-300 flex-shrink-0">
+                        <div className="hidden md:flex items-center justify-center w-10 h-10 bg-neutral-100 group-hover:opacity-90 transition-all duration-300 flex-shrink-0">
                           <ChevronRight
                             size={20}
                             className="text-neutral-400 group-hover:text-white transition-colors"

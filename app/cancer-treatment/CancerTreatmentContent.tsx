@@ -906,7 +906,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
             <div className="flex flex-wrap gap-4 mb-8">
               <a
                 href="#contact-form"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-accent-400 text-neutral-900 text-sm font-medium tracking-wider hover:bg-accent-300 transition-colors"
+                className="inline-flex items-center gap-2 px-8 py-4 brand-gradient-solid text-white text-sm font-medium tracking-wider hover:opacity-90 transition-colors"
               >
                 <MessageSquare size={20} />
                 {t('heroCTA')}

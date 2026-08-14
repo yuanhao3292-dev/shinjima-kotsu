@@ -456,7 +456,7 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
 
             <Link
               href={guideSlug ? `/cell-medicine/initial-consultation?guide=${guideSlug}` : '/cell-medicine/initial-consultation'}
-              className="inline-flex items-center gap-3 brand-gradient-solid text-white px-8 py-4 rounded-full font-bold hover:bg-brand-400 transition-all shadow-lg hover:shadow-xl"
+              className="inline-flex items-center gap-3 brand-gradient-solid text-white px-8 py-4 rounded-full font-bold hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
             >
               {tr('ctaInitial')} <ArrowRight size={18} />
             </Link>

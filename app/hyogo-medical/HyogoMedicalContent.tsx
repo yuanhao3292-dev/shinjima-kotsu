@@ -2037,7 +2037,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                   href="https://line.me/ti/p/j3XxBP50j9"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-3 brand-gradient-solid text-white p-4 rounded-xl hover:bg-brand-500 transition font-bold"
+                  className="flex items-center justify-center gap-3 brand-gradient-solid text-white p-4 rounded-xl hover:opacity-90 transition font-bold"
                 >
                   <MessageSquare size={20} />
                   {bookingT.contactLine[lang]}

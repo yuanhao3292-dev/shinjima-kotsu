@@ -1103,7 +1103,7 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
             </a>
             <a
               href="mailto:info@niijima-koutsu.jp"
-              className="inline-flex items-center gap-2 bg-brand-800 text-white font-bold px-6 py-3 rounded-xl hover:bg-brand-900 transition"
+              className="inline-flex items-center gap-2 brand-gradient-solid text-white font-bold px-6 py-3 rounded-xl hover:opacity-90 transition"
             >
               <Mail size={18} />
               Email

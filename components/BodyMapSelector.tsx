@@ -914,7 +914,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
           <button
             onClick={proceedToSymptoms}
             disabled={selectedBodyParts.length === 0}
-            className="px-6 py-3 bg-brand-600 text-white rounded-lg hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            className="px-6 py-3 brand-gradient-solid text-white rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
             {t('nextSelectSymptoms')}
             <ChevronRight className="w-5 h-5" />
@@ -925,7 +925,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
           <button
             onClick={proceedToFollowUp}
             disabled={selectedSymptoms.length === 0}
-            className="px-6 py-3 bg-brand-600 text-white rounded-lg hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            className="px-6 py-3 brand-gradient-solid text-white rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
             {t('nextDetailedInquiry')}
             <ChevronRight className="w-5 h-5" />
@@ -935,7 +935,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
         {step === 'summary' && (
           <button
             onClick={handleComplete}
-            className="px-6 py-3 bg-brand-600 text-white rounded-lg hover:bg-brand-700 flex items-center gap-2"
+            className="px-6 py-3 brand-gradient-solid text-white rounded-lg hover:opacity-90 flex items-center gap-2"
           >
             {t('startAiAnalysis')}
             <ChevronRight className="w-5 h-5" />

@@ -459,7 +459,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
               </div>
               <Link
                 href={isGuideEmbed ? '#consultation' : '/wclinic-mens/initial-consultation'}
-                className="inline-flex items-center gap-2 brand-gradient-solid text-white px-7 py-3 rounded-full font-bold hover:bg-brand-500 transition-all shadow-lg hover:shadow-xl text-sm"
+                className="inline-flex items-center gap-2 brand-gradient-solid text-white px-7 py-3 rounded-full font-bold hover:opacity-90 transition-all shadow-lg hover:shadow-xl text-sm"
               >
                 {t.ctaButton[lang]} <ArrowRight size={16} />
               </Link>
@@ -1068,7 +1068,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href={guideSlug ? `/wclinic-mens/initial-consultation?guide=${guideSlug}` : '/wclinic-mens/initial-consultation'}
-              className="inline-flex items-center justify-center gap-3 brand-gradient-solid text-white px-8 py-4 rounded-full font-bold hover:bg-brand-500 transition-all shadow-lg"
+              className="inline-flex items-center justify-center gap-3 brand-gradient-solid text-white px-8 py-4 rounded-full font-bold hover:opacity-90 transition-all shadow-lg"
             >
               {t.ctaButtonInitial[lang]} <ArrowRight size={18} />
             </Link>

@@ -480,7 +480,7 @@ export default function FAQPage() {
             <div className="flex flex-wrap gap-4">
               <a
                 href="#faq-list"
-                className="inline-flex items-center px-8 py-4 bg-accent-400 text-neutral-900 text-sm font-medium tracking-wider hover:bg-accent-300 transition-colors"
+                className="inline-flex items-center px-8 py-4 brand-gradient-solid text-white text-sm font-medium tracking-wider hover:opacity-90 transition-colors"
               >
                 {t('btnBrowse')}
                 <ArrowRight size={16} className="ml-2" />
@@ -589,7 +589,7 @@ export default function FAQPage() {
               <button
                 type="button"
                 onClick={() => { window.location.href = ['mailto:', 'haoyuan', '@', 'niijima-koutsu.jp'].join(''); }}
-                className="inline-flex items-center justify-center gap-2 brand-gradient-deep hover:brand-gradient-deep text-white px-6 py-3 text-sm font-medium tracking-wider transition-colors cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 brand-gradient-deep hover:opacity-90 text-white px-6 py-3 text-sm font-medium tracking-wider transition-colors cursor-pointer"
               >
                 <Mail size={20} />
                 {t('emailConsult')}

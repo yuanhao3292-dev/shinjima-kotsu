@@ -89,7 +89,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
            <div className="flex flex-wrap gap-4">
              <a
                href="#golf-plans"
-               className="inline-flex items-center px-8 py-4 bg-accent-400 text-neutral-900 text-sm font-medium tracking-wider hover:bg-accent-300 transition-colors"
+               className="inline-flex items-center px-8 py-4 brand-gradient-solid text-white text-sm font-medium tracking-wider hover:opacity-90 transition-colors"
              >
                {t.golf.btn_tour || 'View Itineraries'}
              </a>

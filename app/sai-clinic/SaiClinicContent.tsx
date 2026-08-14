@@ -498,7 +498,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                   <span key={i} className="px-4 py-2 bg-brand-50 rounded-full text-sm text-brand-700 border border-brand-100">{t(tag, lang)}</span>
                 ))}
               </div>
-              <a href="#sai-packages" className="inline-flex items-center gap-3 bg-brand-500 text-neutral-900 px-8 py-4 rounded-full font-bold hover:bg-brand-600 transition-all shadow-lg shadow-brand-500/20">
+              <a href="#sai-packages" className="inline-flex items-center gap-3 brand-gradient-solid text-white px-8 py-4 rounded-full font-bold hover:opacity-90 transition-all shadow-lg shadow-brand-500/20">
                 {t(TR.viewAll, lang)} <ArrowRight size={18} />
               </a>
             </div>

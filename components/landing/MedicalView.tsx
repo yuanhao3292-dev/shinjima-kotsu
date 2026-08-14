@@ -783,7 +783,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               <p className="text-neutral-500 mb-6">{t.medical.order_sub}</p>
               <a
                   href="/order-lookup"
-                  className="inline-flex items-center gap-2 brand-gradient-solid text-white px-8 py-3 rounded-full font-bold hover:brand-gradient-solid transition"
+                  className="inline-flex items-center gap-2 brand-gradient-solid text-white px-8 py-3 rounded-full font-bold hover:opacity-90 transition"
               >
                   <FileText size={18} />
                   {t.medical.order_btn}

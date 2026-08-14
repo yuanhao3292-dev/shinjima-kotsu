@@ -81,7 +81,7 @@ function PaymentCancelContent() {
         <div className="space-y-3">
           <button
             onClick={() => router.back()}
-            className="block w-full bg-accent-400 hover:bg-accent-300 text-brand-900 font-bold py-3 px-6 tracking-wider transition-colors"
+            className="block w-full brand-gradient-solid hover:opacity-90 text-white font-bold py-3 px-6 tracking-wider transition-colors"
           >
             {t('retryPayment')}
           </button>

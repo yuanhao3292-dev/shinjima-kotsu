@@ -263,7 +263,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href={checkoutHref('/osaka-himak/initial-consultation')}
-                className="inline-flex items-center justify-center gap-2 bg-brand-800 text-brand-900 px-8 py-4 rounded-full font-bold hover:bg-brand-900 transition-all shadow-lg hover:shadow-xl"
+                className="inline-flex items-center justify-center gap-2 brand-gradient-solid text-white px-8 py-4 rounded-full font-bold hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
               >
                 {t.ctaConsult[lang]} <ArrowRight size={18} />
               </Link>
@@ -548,7 +548,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
                 </div>
                 <Link
                   href={checkoutHref('/osaka-himak/initial-consultation')}
-                  className="inline-flex items-center gap-2 bg-brand-800 text-white px-6 py-3 rounded-full font-bold hover:bg-brand-900 transition-all"
+                  className="inline-flex items-center gap-2 brand-gradient-solid text-white px-6 py-3 rounded-full font-bold hover:opacity-90 transition-all"
                 >
                   {t.serviceLearnMore[lang]} <ArrowRight size={16} />
                 </Link>
@@ -583,7 +583,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
                 </div>
                 <Link
                   href={checkoutHref('/osaka-himak/remote-consultation')}
-                  className="inline-flex items-center gap-2 bg-brand-500 text-white px-6 py-3 rounded-full font-bold hover:bg-brand-500 transition-all"
+                  className="inline-flex items-center gap-2 brand-gradient-solid text-white px-6 py-3 rounded-full font-bold hover:opacity-90 transition-all"
                 >
                   {t.serviceLearnMore[lang]} <ArrowRight size={16} />
                 </Link>

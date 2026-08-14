@@ -514,7 +514,7 @@ export const TIMCQuoteModal: React.FC<TIMCQuoteModalProps> = ({ isOpen, onClose 
                 <button
                   onClick={handleGenerateQuote}
                   disabled={isGenerating}
-                  className="flex-1 px-6 py-3 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="flex-1 px-6 py-3 brand-gradient-solid text-white rounded-lg hover:opacity-90 transition flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                   {isGenerating ? (
                     <>
@@ -606,7 +606,7 @@ export const TIMCQuoteModal: React.FC<TIMCQuoteModalProps> = ({ isOpen, onClose 
                     <button
                       onClick={handleDownloadPDF}
                       disabled={isGenerating}
-                      className="flex-1 px-6 py-3 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition flex items-center justify-center gap-2 disabled:opacity-50"
+                      className="flex-1 px-6 py-3 brand-gradient-solid text-white rounded-lg hover:opacity-90 transition flex items-center justify-center gap-2 disabled:opacity-50"
                     >
                       {isGenerating ? (
                         <>

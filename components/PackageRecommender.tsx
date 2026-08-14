@@ -325,7 +325,7 @@ export default function PackageRecommender({ onClose, onSelectPackage }: Package
                     router.push('/medical');
                   }
                 }}
-                className="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-4 px-6 rounded-xl transition-colors"
+                className="w-full brand-gradient-solid hover:opacity-90 text-white font-semibold py-4 px-6 rounded-xl transition-colors"
               >
                 查看精密體檢
               </button>

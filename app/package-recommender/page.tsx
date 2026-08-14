@@ -1029,7 +1029,7 @@ export default function PackageRecommenderPage() {
                 </div>
               </div>
               <div className="space-y-4">
-                <a href="/medical" className="block w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-4 px-6 rounded-xl transition-colors text-center">{ut('resultViewMedical')}</a>
+                <a href="/medical" className="block w-full brand-gradient-solid hover:opacity-90 text-white font-bold py-4 px-6 rounded-xl transition-colors text-center">{ut('resultViewMedical')}</a>
                 <button onClick={() => { setShowResult(false); setCurrentStep(0); setAnswers({}); }} className="block w-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-medium py-3 px-6 rounded-xl transition-colors text-center">{ut('resultRetry')}</button>
                 <Link href="/" className="block w-full text-center text-neutral-500 hover:text-brand-900 py-2 transition-colors">{ut('resultAllPackages')}</Link>
               </div>
@@ -1085,7 +1085,7 @@ export default function PackageRecommenderPage() {
           </div>
           <div className="p-6 border-t border-neutral-100 flex justify-between bg-neutral-50">
             <button onClick={handleBack} disabled={currentStep === 0} className="flex items-center gap-2 text-neutral-500 hover:text-brand-900 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"><ArrowLeft size={18} />{ut('prevQuestion')}</button>
-            {currentQuestion.multiple && <button onClick={handleNext} disabled={!canProceed()} className="flex items-center gap-2 bg-brand-600 hover:bg-brand-700 disabled:bg-neutral-300 text-white font-semibold px-8 py-3 rounded-xl transition-colors">{currentStep === visibleQuestions.length - 1 ? ut('viewResult') : ut('nextQuestion')}<ArrowRight size={18} /></button>}
+            {currentQuestion.multiple && <button onClick={handleNext} disabled={!canProceed()} className="flex items-center gap-2 brand-gradient-solid hover:opacity-90 disabled:bg-neutral-300 text-white font-semibold px-8 py-3 rounded-xl transition-colors">{currentStep === visibleQuestions.length - 1 ? ut('viewResult') : ut('nextQuestion')}<ArrowRight size={18} /></button>}
           </div>
         </div>
       </main>

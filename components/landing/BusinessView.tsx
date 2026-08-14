@@ -163,7 +163,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
             <div className="flex flex-wrap gap-4">
               <a
                 href="#business-plans-section"
-                className="inline-flex items-center px-8 py-4 bg-accent-400 text-neutral-900 text-sm font-medium tracking-wider hover:bg-accent-300 transition-colors"
+                className="inline-flex items-center px-8 py-4 brand-gradient-solid text-white text-sm font-medium tracking-wider hover:opacity-90 transition-colors"
               >
                 {t.business.btn_case}
               </a>
@@ -193,7 +193,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                       }
                    }}
-                   className="inline-flex items-center gap-2 brand-gradient-solid text-white px-8 py-4 font-bold hover:brand-gradient-deep transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
+                   className="inline-flex items-center gap-2 brand-gradient-solid text-white px-8 py-4 font-bold hover:opacity-90 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
                 >
                    {t.business.btn_case}
                 </button>
@@ -229,9 +229,9 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                    { t: t.business.step_4_t, d: t.business.step_4_d },
                    { t: t.business.step_5_t, d: t.business.step_5_d },
                  ].map((step, i) => (
-                    <div key={i} className="relative group">
+                    <div key={i} className="group h-full bg-neutral-50 border border-neutral-200 rounded-xl p-6 text-center hover:bg-brand-50 transition">
                        <div className="text-4xl font-mono font-bold text-brand-800 mb-4 group-hover:text-brand-700 transition">0{i+1}</div>
-                       <h4 className="font-bold text-lg mb-2 brand-gradient-text w-fit">{step.t}</h4>
+                       <h4 className="font-bold text-lg mb-2 brand-gradient-text w-fit mx-auto">{step.t}</h4>
                        <p className="text-xs text-neutral-600 leading-relaxed">{step.d}</p>
                     </div>
                  ))}

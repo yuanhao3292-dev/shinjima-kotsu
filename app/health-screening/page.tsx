@@ -647,7 +647,7 @@ export default function HealthScreeningPage() {
                 <button
                   onClick={handleAnalyzeWithDocument}
                   disabled={isAnalyzingDoc}
-                  className="w-full px-6 py-4 bg-accent-400 hover:bg-accent-300 text-brand-900 text-lg font-medium tracking-wider transition-colors disabled:opacity-50"
+                  className="w-full px-6 py-4 brand-gradient-solid hover:opacity-90 text-white text-lg font-medium tracking-wider transition-colors disabled:opacity-50"
                 >
                   {isAnalyzingDoc ? (
                     <span className="flex flex-col items-center gap-2">
@@ -754,7 +754,7 @@ export default function HealthScreeningPage() {
                 <button
                   onClick={startNewScreening}
                   disabled={isCreating}
-                  className="px-10 py-4 bg-accent-400 hover:bg-accent-300 text-brand-900 text-lg font-medium tracking-wider transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                  className="px-10 py-4 brand-gradient-solid hover:opacity-90 text-white text-lg font-medium tracking-wider transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                 >
                   {isCreating ? (
                     <>

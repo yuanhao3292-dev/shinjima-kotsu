@@ -487,7 +487,7 @@ export default function WhitelabelResultClient({
                 href={`https://line.me/R/ti/p/${contactInfo.line}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-3 brand-gradient-solid text-white rounded-xl hover:bg-brand-500 transition-colors"
+                className="flex items-center gap-2 px-5 py-3 brand-gradient-solid text-white rounded-xl hover:opacity-90 transition-colors"
               >
                 <MessageCircle className="w-5 h-5" />
                 <span>{t('lineConsult', lang)}</span>
