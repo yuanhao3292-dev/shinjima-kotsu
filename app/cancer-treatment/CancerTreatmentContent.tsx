@@ -1228,7 +1228,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                         <ul className="space-y-2.5">
                           {phase.weHandle.map((item, i) => (
                             <li key={i} className="flex items-start gap-2.5 text-sm text-neutral-700">
-                              <CheckCircle size={16} className="text-brand-500 flex-shrink-0 mt-0.5" />
+                              <CheckCircle size={16} className="text-brand-700 flex-shrink-0 mt-0.5" />
                               <span>{item[currentLang]}</span>
                             </li>
                           ))}
@@ -1457,19 +1457,19 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   <p className="text-neutral-600 text-sm mb-6">{CONSULTATION_SERVICES.initial.description[currentLang]}</p>
                   <ul className="space-y-2 mb-6 text-sm text-neutral-600">
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-brand-500 mt-0.5 flex-shrink-0" />
+                      <CheckCircle size={14} className="text-brand-700 mt-0.5 flex-shrink-0" />
                       <span>{t('svcInitial1')}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-brand-500 mt-0.5 flex-shrink-0" />
+                      <CheckCircle size={14} className="text-brand-700 mt-0.5 flex-shrink-0" />
                       <span>{t('svcInitial2')}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-brand-500 mt-0.5 flex-shrink-0" />
+                      <CheckCircle size={14} className="text-brand-700 mt-0.5 flex-shrink-0" />
                       <span>{t('svcInitial3')}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-brand-500 mt-0.5 flex-shrink-0" />
+                      <CheckCircle size={14} className="text-brand-700 mt-0.5 flex-shrink-0" />
                       <span>{t('svcInitial4')}</span>
                     </li>
                   </ul>
@@ -1499,19 +1499,19 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   <p className="text-neutral-600 text-sm mb-6">{CONSULTATION_SERVICES.remote.description[currentLang]}</p>
                   <ul className="space-y-2 mb-6 text-sm text-neutral-600">
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-brand-500 mt-0.5 flex-shrink-0" />
+                      <CheckCircle size={14} className="text-brand-700 mt-0.5 flex-shrink-0" />
                       <span>{t('svcRemote1')}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-brand-500 mt-0.5 flex-shrink-0" />
+                      <CheckCircle size={14} className="text-brand-700 mt-0.5 flex-shrink-0" />
                       <span>{t('svcRemote2')}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-brand-500 mt-0.5 flex-shrink-0" />
+                      <CheckCircle size={14} className="text-brand-700 mt-0.5 flex-shrink-0" />
                       <span>{t('svcRemote3')}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-brand-500 mt-0.5 flex-shrink-0" />
+                      <CheckCircle size={14} className="text-brand-700 mt-0.5 flex-shrink-0" />
                       <span>{t('svcRemote4')}</span>
                     </li>
                   </ul>
