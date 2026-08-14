@@ -363,7 +363,14 @@ export default function HealthScreeningPage() {
   const [followupQuestions, setFollowupQuestions] = useState<string[]>([]);
   const [documentUploaded, setDocumentUploaded] = useState(false);
   const [isAnalyzingDoc, setIsAnalyzingDoc] = useState(false);
-  const [reportLang, setReportLang] = useState<Language>('zh-CN');
+  // 同 g/[slug] 版：默认跟随界面语言（useLanguage 首帧为 'ja'，
+  // cookie 值 effect 后就位），用户手动选择后不再跟随。
+  // 原来写死 'zh-CN'，日语/英语用户默认拿到简中报告。
+  const [reportLang, setReportLang] = useState<Language>(lang);
+  const [reportLangTouched, setReportLangTouched] = useState(false);
+  useEffect(() => {
+    if (!reportLangTouched) setReportLang(lang);
+  }, [lang, reportLangTouched]);
 
   useEffect(() => {
     async function fetchData() {
@@ -632,7 +639,7 @@ export default function HealthScreeningPage() {
                     ]).map(({ code, label }) => (
                       <button
                         key={code}
-                        onClick={() => setReportLang(code)}
+                        onClick={() => { setReportLangTouched(true); setReportLang(code); }}
                         className={`px-3 py-1 text-xs transition-colors ${
                           reportLang === code
                             ? 'bg-brand-900 text-white'
