@@ -227,13 +227,13 @@ type PhaseColor = 'blue' | 'purple' | 'amber' | 'green';
 const PHASE_COLOR_MAP: Record<PhaseColor, { bg: string; light: string; border: string; text: string; ring: string }> = {
   blue:   { bg: 'bg-brand-700',   light: 'bg-brand-50',   border: 'border-brand-700',   text: 'text-brand-700',   ring: 'ring-brand-200' },
   purple: { bg: 'bg-brand-600', light: 'bg-brand-50', border: 'border-brand-600', text: 'text-brand-600', ring: 'ring-brand-200' },
-  amber:  { bg: 'bg-accent-500',  light: 'bg-accent-50',  border: 'border-accent-500',  text: 'text-accent-600',  ring: 'ring-accent-200' },
+  amber:  { bg: 'bg-accent-500',  light: 'bg-accent-50',  border: 'border-brand-500',  text: 'text-accent-600',  ring: 'ring-accent-200' },
   green:  { bg: 'bg-brand-600',  light: 'bg-brand-50',  border: 'border-brand-600',  text: 'text-brand-600',  ring: 'ring-brand-200' },
 };
 const PHASE_LIGHT_BG_MAP: Record<PhaseColor, string> = {
   blue:   'bg-brand-50 border-brand-100',
   purple: 'bg-brand-50 border-brand-100',
-  amber:  'bg-accent-50 border-accent-100',
+  amber:  'bg-accent-50 border-brand-100',
   green:  'bg-brand-50 border-brand-100',
 };
 const PHASE_DOT_MAP: Record<PhaseColor, string> = {
@@ -962,63 +962,25 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
               {t('instDesc')}
             </p>
             {/* 免責聲明 */}
-            <div className="inline-flex items-center gap-2 bg-accent-50 border border-accent-200 px-4 py-2 rounded-lg text-sm text-accent-700">
+            <div className="inline-flex items-center gap-2 bg-accent-50 border border-brand-200 px-4 py-2 rounded-lg text-sm text-accent-700">
               <Info size={16} />
               <span>{t('instDisclaimer')}</span>
             </div>
           </div>
           <div className="space-y-12 max-w-6xl mx-auto">
             {JAPAN_MEDICAL_INSTITUTIONS.map((category, catIndex) => {
-              const colorClasses: Record<string, {
-                headerBg: string;
-                headerText: string;
-                cardBorder: string;
-                badge: string;
-                tagBg: string;
-                tagText: string;
-              }> = {
-                blue: {
-                  headerBg: 'bg-brand-700',
-                  headerText: 'text-white',
-                  cardBorder: 'border-brand-200',
-                  badge: 'bg-brand-100 text-brand-700',
-                  tagBg: 'bg-brand-50',
-                  tagText: 'text-brand-700',
-                },
-                purple: {
-                  headerBg: 'bg-brand-600',
-                  headerText: 'text-white',
-                  cardBorder: 'border-brand-200',
-                  badge: 'bg-brand-100 text-brand-700',
-                  tagBg: 'bg-brand-50',
-                  tagText: 'text-brand-700',
-                },
-                green: {
-                  headerBg: 'bg-brand-600',
-                  headerText: 'text-white',
-                  cardBorder: 'border-brand-200',
-                  badge: 'bg-brand-100 text-brand-700',
-                  tagBg: 'bg-brand-50',
-                  tagText: 'text-brand-700',
-                },
-                orange: {
-                  headerBg: 'bg-accent-500',
-                  headerText: 'text-white',
-                  cardBorder: 'border-accent-200',
-                  badge: 'bg-accent-100 text-accent-700',
-                  tagBg: 'bg-accent-50',
-                  tagText: 'text-accent-700',
-                },
-                red: {
-                  headerBg: 'bg-brand-800',
-                  headerText: 'text-white',
-                  cardBorder: 'border-brand-200',
-                  badge: 'bg-brand-100 text-brand-700',
-                  tagBg: 'bg-brand-50',
-                  tagText: 'text-brand-700',
-                },
+              // 五档（blue/purple/green/orange/red）在三色制之后只剩：
+              //   4 档仅 headerBg 深浅不同，第 5 档（orange）还单独走 accent-*。
+              // 这种差异对读者没有任何含义，只会让相邻分类的页头和边框看起来不一致。
+              // 另：原 headerBg 的 bg-brand-600 配白字仅 4.21:1，未达正文 4.5。
+              const colors = {
+                headerBg: 'brand-gradient-solid',
+                headerText: 'text-white',
+                cardBorder: 'border-brand-200',
+                badge: 'bg-brand-100 text-brand-700',
+                tagBg: 'bg-brand-50',
+                tagText: 'text-brand-700',
               };
-              const colors = colorClasses[category.color];
               return (
                 <div key={catIndex}>
                   {/* Category Header */}
@@ -1304,14 +1266,10 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {STANDARD_TREATMENTS.map((treatment) => {
               const Icon = treatment.icon;
-              const colorClasses: Record<string, { bg: string; text: string; border: string }> = {
-                blue: { bg: 'bg-brand-50', text: 'text-brand-700', border: 'border-brand-200' },
-                green: { bg: 'bg-brand-50', text: 'text-brand-600', border: 'border-brand-200' },
-                purple: { bg: 'bg-brand-50', text: 'text-brand-600', border: 'border-brand-200' },
-                orange: { bg: 'bg-accent-50', text: 'text-accent-600', border: 'border-accent-200' },
-                red: { bg: 'bg-accent-50', text: 'text-accent-600', border: 'border-accent-200' },
-              };
-              const colors = colorClasses[treatment.color];
+              // 同上：五档差异在三色制后已无含义（brand-50/accent-50 两套底、
+              // 600/700 两档字），且 text-brand-600 压 bg-brand-50 仅 3.95:1、
+              // text-accent-600 压 bg-accent-50 仅 4.33:1，都未达正文 4.5。
+              const colors = { bg: 'bg-brand-50', text: 'text-brand-700', border: 'border-brand-200' };
               return (
                 <div
                   key={treatment.id}
