@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { ArrowLeft, ArrowRight, MapPin, Building, Lock, Trophy, Car, Bath, MessageSquare } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, MapPin, Building, Lock, Trophy, Car, Bath, MessageSquare } from 'lucide-react';
 import ContactButtons from '../ContactButtons';
 import type { SubViewProps } from './types';
 
@@ -167,46 +167,42 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
      </div>
 
      {/* ===== PARTNER COURSES SHOWCASE ===== */}
-     <div className="py-20 brand-gradient-deep relative overflow-hidden">
-       {/* Background Pattern */}
-       <div className="absolute inset-0 opacity-5">
-         <div className="absolute inset-0" style={{
-           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-         }}></div>
-       </div>
-
-       <div className="container mx-auto px-6 py-12 md:py-24 relative z-10">
+     <div className="py-20 bg-neutral-50">
+       <div className="container mx-auto px-6 py-12 md:py-24">
          <div className="text-center mb-12">
            <div className="inline-flex items-center gap-4 mb-4">
-             <div className="w-12 h-px bg-gradient-to-r from-transparent to-accent-400"></div>
-             <span className="text-accent-600 text-xs tracking-[0.3em] uppercase font-bold">{currentLang === 'zh-TW' ? '合作球場' : currentLang === 'zh-CN' ? '合作球场' : currentLang === 'ja' ? '提携コース' : 'Partner Courses'}</span>
-             <div className="w-12 h-px bg-gradient-to-l from-transparent to-accent-400"></div>
+             <div className="w-12 h-px bg-gradient-to-r from-transparent to-brand-400"></div>
+             <span className="text-brand-700 text-xs tracking-[0.3em] uppercase font-bold">{currentLang === 'zh-TW' ? '合作球場' : currentLang === 'zh-CN' ? '合作球场' : currentLang === 'ja' ? '提携コース' : 'Partner Courses'}</span>
+             <div className="w-12 h-px bg-gradient-to-l from-transparent to-brand-400"></div>
            </div>
-           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-white">{t.golf.partners_title || '提携名門コース'}</h2>
+           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-brand-900">{t.golf.partners_title || '提携名門コース'}</h2>
          </div>
 
-         {/* Course Grid */}
-         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
+         {/* Course Grid —— 六家球场名称较长（六甲国際ゴルフ倶楽部 等），
+             原本 6 列每格仅约 180px，名称大量折行。改为 3 列横向卡片。
+             「名門」徽章六家完全相同，重复六次是噪点不是信息，已并入区块标题，
+             卡片改以「地区」作为真正的区分项。 */}
+         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
            {partnerCourses.map((course, i) => (
              <a
                key={i}
                href={course.url}
                target="_blank"
                rel="noopener noreferrer"
-               className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 hover:border-accent-400/30 transition-all duration-500 cursor-pointer block"
+               className="group flex items-center gap-4 bg-white border border-neutral-200 rounded-2xl p-5 hover:border-brand-300 hover:shadow-lg hover:shadow-brand-900/5 transition-all duration-300"
              >
-               <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-to-br from-accent-400/20 to-accent-600/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                 <MapPin size={20} className="text-accent-600" />
+               <div className="shrink-0 w-12 h-12 rounded-xl brand-gradient-solid flex items-center justify-center group-hover:scale-105 transition-transform">
+                 <MapPin size={20} className="text-white" />
                </div>
-               <h4 className="text-white font-bold text-sm mb-1 group-hover:text-accent-600 transition-colors">{course.name}</h4>
-               <p className="text-neutral-600 text-xs mb-2">{course.region}</p>
-               <span className="inline-block text-[10px] px-2 py-1 bg-accent-400/20 text-accent-600 rounded-full">{course.rank}</span>
-               {/* External link indicator */}
-               <div className="mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                 <span className="text-[10px] text-accent-600/70 flex items-center justify-center gap-1">
-                   {currentLang === 'zh-TW' ? '官方網站' : currentLang === 'zh-CN' ? '官方网站' : currentLang === 'ja' ? '公式サイト' : 'Official Site'} <ArrowRight size={10} />
-                 </span>
+               <div className="min-w-0 flex-1">
+                 <h4 className="text-brand-900 font-bold text-sm leading-snug group-hover:text-brand-700 transition-colors">{course.name}</h4>
+                 <p className="text-neutral-500 text-xs mt-1">{course.region}</p>
                </div>
+               {/* 外链指示常驻 —— 触屏设备没有 hover，只在 hover 时出现等于没有提示 */}
+               <ArrowUpRight
+                 size={16}
+                 className="shrink-0 text-neutral-400 group-hover:text-brand-700 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all"
+               />
              </a>
            ))}
          </div>
