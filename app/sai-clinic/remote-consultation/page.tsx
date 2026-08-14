@@ -259,10 +259,10 @@ export default function SaiClinicRemoteConsultationPage() {
                 <h4 className="font-bold text-brand-900 mb-3 flex items-center gap-2"><FileText size={16} className="text-brand-700" />{t('prerequisitesTitle')}</h4>
                 <ul className="space-y-2 text-sm text-neutral-600">
                   {[t('prereq1'), t('prereq2'), t('prereq3')].map((prereq, idx) => (
-                    <li key={idx} className="flex gap-2"><span className="text-blue-400">•</span><span>{prereq}</span></li>
+                    <li key={idx} className="flex gap-2"><span className="text-brand-400">•</span><span>{prereq}</span></li>
                   ))}
                 </ul>
-                <p className="text-xs text-orange-600 mt-4">{t('prereqNote')}</p>
+                <p className="text-xs text-brand-600 mt-4">{t('prereqNote')}</p>
               </div>
             </div>
           </div>
@@ -389,7 +389,7 @@ export default function SaiClinicRemoteConsultationPage() {
                 </div>
 
                 <div className="flex flex-wrap justify-center gap-6 text-xs text-neutral-500">
-                  <div className="flex items-center gap-1"><Shield size={14} className="text-green-500" /><span>{t('securePayment')}</span></div>
+                  <div className="flex items-center gap-1"><Shield size={14} className="text-brand-500" /><span>{t('securePayment')}</span></div>
                   <div className="flex items-center gap-1"><Clock size={14} className="text-brand-700" /><span>{t('confirmTime24h')}</span></div>
                 </div>
               </form>

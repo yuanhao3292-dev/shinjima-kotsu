@@ -71,14 +71,14 @@ export default function DistributionNav({
     <div className="flex flex-col">
       <span
         className={`font-serif font-bold text-lg tracking-wide leading-none transition-colors duration-300 ${
-          scrolled ? 'text-gray-900' : 'text-white'
+          scrolled ? 'text-neutral-900' : 'text-white'
         }`}
       >
         {brandName}
       </span>
       <span
         className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors duration-300 ${
-          scrolled ? 'text-gray-400' : 'text-white/60'
+          scrolled ? 'text-neutral-400' : 'text-white/60'
         }`}
       >
         {brandTagline || 'BESPOKE JAPAN TRAVEL'}
@@ -119,8 +119,8 @@ export default function DistributionNav({
             const cls = `py-2 text-sm font-medium transition-colors whitespace-nowrap ${
               scrolled
                 ? active
-                  ? 'text-gray-900'
-                  : 'text-gray-500 hover:text-gray-900'
+                  ? 'text-neutral-900'
+                  : 'text-neutral-500 hover:text-neutral-900'
                 : active
                   ? 'text-white'
                   : 'text-white/70 hover:text-white'
@@ -153,9 +153,9 @@ export default function DistributionNav({
             aria-label={isOpen ? '关闭菜单' : '打开菜单'}
           >
             {isOpen ? (
-              <X size={24} className={scrolled ? 'text-gray-900' : 'text-white'} />
+              <X size={24} className={scrolled ? 'text-neutral-900' : 'text-white'} />
             ) : (
-              <Menu size={24} className={scrolled ? 'text-gray-900' : 'text-white'} />
+              <Menu size={24} className={scrolled ? 'text-neutral-900' : 'text-white'} />
             )}
           </button>
         </div>
@@ -171,7 +171,7 @@ export default function DistributionNav({
           {navItems.map((item) => {
             const active = isActive(item);
             const cls = `block w-full text-left px-4 py-3 rounded-lg transition-colors font-medium ${
-              active ? 'text-gray-900 bg-gray-50' : 'text-gray-700 hover:bg-gray-50'
+              active ? 'text-neutral-900 bg-neutral-50' : 'text-neutral-700 hover:bg-neutral-50'
             }`;
 
             if (item.href) {

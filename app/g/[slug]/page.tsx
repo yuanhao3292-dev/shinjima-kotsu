@@ -77,7 +77,7 @@ export default async function GuideHomePage({ params }: PageProps) {
           </>
         )}
         {!heroCard && (
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" />
+          <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900" />
         )}
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-32 w-full">

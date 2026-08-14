@@ -147,7 +147,7 @@ export default function MyAccountPage() {
 
               <div className="flex items-center gap-6 text-sm">
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                  <div className="w-2 h-2 bg-brand-400 rounded-full animate-pulse" />
                   <span className="text-neutral-600">{t('support24h', lang)}</span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -185,7 +185,7 @@ export default function MyAccountPage() {
                   <Mail className="w-5 h-5 text-neutral-500" />
                   <span className="text-sm">{user.email}</span>
                   {user.email_confirmed_at && (
-                    <span className="inline-flex items-center gap-1 text-xs bg-green-50 text-green-700 px-2 py-0.5 border border-green-200">
+                    <span className="inline-flex items-center gap-1 text-xs bg-brand-50 text-brand-700 px-2 py-0.5 border border-brand-200">
                       <Shield className="w-3 h-3" />
                       {t('verified', lang)}
                     </span>

@@ -517,7 +517,7 @@ export default function InitialConsultationPage() {
                 {/* Trust Indicators */}
                 <div className="flex flex-wrap justify-center gap-6 text-xs text-neutral-500">
                   <div className="flex items-center gap-1">
-                    <Shield size={14} className="text-green-500" />
+                    <Shield size={14} className="text-brand-500" />
                     <span>{t('securePayment')}</span>
                   </div>
                   <div className="flex items-center gap-1">

@@ -87,7 +87,7 @@ const t = (key: keyof typeof translations, lang: Language): string => {
 };
 
 const getStatusConfig = (lang: Language): Record<string, { label: string; color: string; bgColor: string; icon: LucideIcon }> => ({
-  pending: { label: t('statusPending', lang), color: 'text-yellow-700', bgColor: 'bg-yellow-50 border-yellow-200', icon: Clock },
+  pending: { label: t('statusPending', lang), color: 'text-brand-700', bgColor: 'bg-brand-50 border-brand-200', icon: Clock },
   paid: { label: t('statusPaid', lang), color: 'text-brand-700', bgColor: 'bg-brand-50 border-brand-200', icon: CreditCard },
   confirmed: { label: t('statusConfirmed', lang), color: 'text-brand-700', bgColor: 'bg-brand-50 border-brand-200', icon: CheckCircle },
   completed: { label: t('statusCompleted', lang), color: 'text-green-700', bgColor: 'bg-green-50 border-green-200', icon: CheckCircle },

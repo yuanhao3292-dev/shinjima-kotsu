@@ -408,7 +408,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
               return (
                 <div
                   key={tr.key}
-                  className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col"
+                  className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-neutral-100 flex flex-col"
                   style={{ borderTopColor: '#4874cb', borderTopWidth: 3 }}
                 >
                   <div className="relative h-48 overflow-hidden">
@@ -422,7 +422,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
                     <p className="text-sm text-[#666] mb-4 flex-1">{tr.desc[lang]}</p>
                     {treatDetail(tr.key) && (
                       <>
-                        {isOpen && <div className="mb-4 pt-3 border-t border-gray-100">{treatDetail(tr.key)}</div>}
+                        {isOpen && <div className="mb-4 pt-3 border-t border-neutral-100">{treatDetail(tr.key)}</div>}
                         <button
                           onClick={() => setExpandedTreat(isOpen ? null : tr.key)}
                           className="inline-flex items-center gap-1 text-sm font-medium text-[#4874cb] transition-colors"
@@ -548,7 +548,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
                       ? 'border-l-[#4874cb] bg-[#4874cb]/5'
                       : f.floor === '3F'
                       ? 'border-l-[#4874cb]/50 bg-[#4874cb]/5'
-                      : 'border-l-gray-200 hover:bg-[#f6f6f6]'
+                      : 'border-l-neutral-200 hover:bg-[#f6f6f6]'
                   }`}
                 >
                   <span className="text-lg font-bold text-[#4874cb] w-10 flex-shrink-0">{f.floor}</span>
@@ -643,7 +643,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
           </div>
           <div className="flex flex-wrap justify-center gap-2.5">
             {conditionTags[lang].map((tag, i) => (
-              <span key={i} className="bg-white text-[#444] text-sm px-4 py-2 rounded-full border border-gray-200 hover:border-[#4874cb] hover:text-[#4874cb] transition-colors cursor-default shadow-sm">
+              <span key={i} className="bg-white text-[#444] text-sm px-4 py-2 rounded-full border border-neutral-200 hover:border-[#4874cb] hover:text-[#4874cb] transition-colors cursor-default shadow-sm">
                 {tag}
               </span>
             ))}
@@ -702,16 +702,16 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
             {faqData.map((faq, i) => {
               const isOpen = openFaq === i;
               return (
-                <div key={i} className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100">
+                <div key={i} className="bg-white rounded-xl overflow-hidden shadow-sm border border-neutral-100">
                   <button
                     onClick={() => setOpenFaq(isOpen ? null : i)}
-                    className="w-full flex items-center justify-between gap-4 px-6 py-4 text-left hover:bg-gray-50 transition-colors"
+                    className="w-full flex items-center justify-between gap-4 px-6 py-4 text-left hover:bg-neutral-50 transition-colors"
                   >
                     <span className="font-medium text-[#333] text-sm md:text-base">{faq.q[lang]}</span>
                     {isOpen ? <ChevronUp size={18} className="text-[#4874cb] flex-shrink-0" /> : <ChevronDown size={18} className="text-[#999] flex-shrink-0" />}
                   </button>
                   {isOpen && (
-                    <div className="px-6 pb-5 text-sm text-[#555] leading-relaxed border-t border-gray-50 pt-3">
+                    <div className="px-6 pb-5 text-sm text-[#555] leading-relaxed border-t border-neutral-50 pt-3">
                       {faq.a[lang]}
                     </div>
                   )}
@@ -762,9 +762,9 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
       )}
 
       {/* ━━━━━━━━ Medical Disclaimer ━━━━━━━━ */}
-      <section className="py-8 bg-gray-100">
+      <section className="py-8 bg-neutral-100">
         <div className="max-w-4xl mx-auto px-6">
-          <ul className="space-y-1.5 text-xs text-gray-500 leading-relaxed">
+          <ul className="space-y-1.5 text-xs text-neutral-500 leading-relaxed">
             <li>※ {{ ja: '本ページで紹介する治療は再生医療等安全性確保法に基づく自由診療（保険適用外）です。費用は医療機関の基準に従います。', 'zh-TW': '本頁介紹的治療為依據再生醫療等安全性確保法之自費診療（不適用保險）。費用依醫療機構標準。', 'zh-CN': '本页介绍的治疗为依据再生医疗等安全性确保法之自费诊疗（不适用保险）。费用依医疗机构标准。', en: 'Treatments on this page are self-pay regenerative medicine under Japan\'s Act on Safety of Regenerative Medicine (not covered by insurance). Fees follow the facility\'s standards.', ko: '본 페이지에서 소개하는 치료는 재생의료 등 안전성 확보법에 근거한 자유진료(보험 적용 외)입니다. 비용은 의료기관의 기준에 따릅니다.' }[lang]}</li>
             <li>※ {{ ja: '治療効果には個人差があり、すべての患者に同様の効果を保証するものではありません。', 'zh-TW': '治療效果因人而異，不保證所有患者均能獲得相同效果。', 'zh-CN': '治疗效果因人而异，不保证所有患者均能获得相同效果。', en: 'Treatment effects vary by individual and are not guaranteed for all patients.', ko: '치료 효과에는 개인차가 있으며, 모든 환자에게 동일한 효과를 보장하는 것은 아닙니다.' }[lang]}</li>
             <li>※ {{ ja: '当社（新島交通株式会社・大阪府知事登録旅行業 第2-3115号）は旅行業者であり、医療機関ではありません。医療行為は各提携医療機関が提供します。', 'zh-TW': '本公司（新島交通株式會社・大阪府知事登錄旅行業 第2-3115號）為旅行業者，非醫療機構。醫療行為由各合作醫療機構提供。', 'zh-CN': '本公司（新岛交通株式会社・大阪府知事登录旅行业 第2-3115号）为旅行业者，非医疗机构。医疗行为由各合作医疗机构提供。', en: 'Niijima Kotsu Co., Ltd. (Osaka Gov. Registered Travel Agency No. 2-3115) is a travel agency, not a medical institution. Medical services are provided by partner facilities.', ko: '당사(신지마교통주식회사·오사카부 지사 등록 여행업 제2-3115호)는 여행업자이며, 의료기관이 아닙니다. 의료행위는 각 제휴 의료기관이 제공합니다.' }[lang]}</li>

@@ -294,16 +294,16 @@ const TREATMENTS = [
 // Data: Indications
 // ======================================
 const INDICATIONS = [
-  { icon: Heart, name: { ja: '動脈硬化', 'zh-TW': '動脈硬化', 'zh-CN': '动脉硬化', en: 'Arteriosclerosis' } as Record<Language, string>, color: 'bg-red-50 text-red-700' },
-  { icon: Activity, name: { ja: '糖尿病', 'zh-TW': '糖尿病', 'zh-CN': '糖尿病', en: 'Diabetes' } as Record<Language, string>, color: 'bg-blue-50 text-blue-700' },
-  { icon: Zap, name: { ja: '膝関節痛', 'zh-TW': '膝關節痛', 'zh-CN': '膝关节痛', en: 'Knee Pain' } as Record<Language, string>, color: 'bg-amber-50 text-amber-700' },
-  { icon: Brain, name: { ja: '脳梗塞', 'zh-TW': '腦梗塞', 'zh-CN': '脑梗塞', en: 'Stroke' } as Record<Language, string>, color: 'bg-purple-50 text-purple-700' },
-  { icon: Sparkles, name: { ja: '毛髪再生', 'zh-TW': '毛髮再生', 'zh-CN': '毛发再生', en: 'Hair Regeneration' } as Record<Language, string>, color: 'bg-emerald-50 text-emerald-700' },
-  { icon: Eye, name: { ja: '肌再生', 'zh-TW': '肌膚再生', 'zh-CN': '肌肤再生', en: 'Skin Regeneration' } as Record<Language, string>, color: 'bg-pink-50 text-pink-700' },
-  { icon: Microscope, name: { ja: '歯周病', 'zh-TW': '牙周病', 'zh-CN': '牙周病', en: 'Periodontal Disease' } as Record<Language, string>, color: 'bg-teal-50 text-teal-700' },
-  { icon: Shield, name: { ja: '免疫老化', 'zh-TW': '免疫老化', 'zh-CN': '免疫老化', en: 'Immunosenescence' } as Record<Language, string>, color: 'bg-indigo-50 text-indigo-700' },
-  { icon: Star, name: { ja: 'ホルモン失調', 'zh-TW': '荷爾蒙失調', 'zh-CN': '荷尔蒙失调', en: 'Hormonal Imbalance' } as Record<Language, string>, color: 'bg-rose-50 text-rose-700' },
-  { icon: Dna, name: { ja: 'ED（勃起不全）', 'zh-TW': 'ED（勃起功能障礙）', 'zh-CN': 'ED（勃起功能障碍）', en: 'Erectile Dysfunction' } as Record<Language, string>, color: 'bg-slate-50 text-slate-700' },
+  { icon: Heart, name: { ja: '動脈硬化', 'zh-TW': '動脈硬化', 'zh-CN': '动脉硬化', en: 'Arteriosclerosis' } as Record<Language, string>, color: 'bg-brand-50 text-brand-700' },
+  { icon: Activity, name: { ja: '糖尿病', 'zh-TW': '糖尿病', 'zh-CN': '糖尿病', en: 'Diabetes' } as Record<Language, string>, color: 'bg-brand-50 text-brand-700' },
+  { icon: Zap, name: { ja: '膝関節痛', 'zh-TW': '膝關節痛', 'zh-CN': '膝关节痛', en: 'Knee Pain' } as Record<Language, string>, color: 'bg-brand-50 text-brand-700' },
+  { icon: Brain, name: { ja: '脳梗塞', 'zh-TW': '腦梗塞', 'zh-CN': '脑梗塞', en: 'Stroke' } as Record<Language, string>, color: 'bg-brand-50 text-brand-700' },
+  { icon: Sparkles, name: { ja: '毛髪再生', 'zh-TW': '毛髮再生', 'zh-CN': '毛发再生', en: 'Hair Regeneration' } as Record<Language, string>, color: 'bg-brand-50 text-brand-700' },
+  { icon: Eye, name: { ja: '肌再生', 'zh-TW': '肌膚再生', 'zh-CN': '肌肤再生', en: 'Skin Regeneration' } as Record<Language, string>, color: 'bg-brand-50 text-brand-700' },
+  { icon: Microscope, name: { ja: '歯周病', 'zh-TW': '牙周病', 'zh-CN': '牙周病', en: 'Periodontal Disease' } as Record<Language, string>, color: 'bg-brand-50 text-brand-700' },
+  { icon: Shield, name: { ja: '免疫老化', 'zh-TW': '免疫老化', 'zh-CN': '免疫老化', en: 'Immunosenescence' } as Record<Language, string>, color: 'bg-brand-50 text-brand-700' },
+  { icon: Star, name: { ja: 'ホルモン失調', 'zh-TW': '荷爾蒙失調', 'zh-CN': '荷尔蒙失调', en: 'Hormonal Imbalance' } as Record<Language, string>, color: 'bg-brand-50 text-brand-700' },
+  { icon: Dna, name: { ja: 'ED（勃起不全）', 'zh-TW': 'ED（勃起功能障礙）', 'zh-CN': 'ED（勃起功能障碍）', en: 'Erectile Dysfunction' } as Record<Language, string>, color: 'bg-neutral-50 text-neutral-700' },
 ];
 
 // ======================================
@@ -532,14 +532,14 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
         <div className="relative z-10 container mx-auto px-6 py-16 md:py-24">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/25 rounded-full px-4 py-1.5 mb-6">
-              <span className="w-2 h-2 bg-emerald-300 rounded-full animate-pulse" />
+              <span className="w-2 h-2 bg-brand-300 rounded-full animate-pulse" />
               <span className="text-xs font-medium tracking-wide">{t('limitBadge')}</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-3 leading-tight">{t('heroTitle')}</h1>
             <p className="text-xl md:text-2xl text-white/90 font-semibold mb-4">{t('heroSub')}</p>
             <p className="text-sm text-white/70 mb-8">{t('heroDesc')}</p>
             <div className="flex flex-wrap gap-3">
-              <a href="#services" className="inline-flex items-center gap-2 bg-white text-[#007130] font-bold px-6 py-3 rounded-xl hover:bg-green-50 transition shadow-lg">
+              <a href="#services" className="inline-flex items-center gap-2 bg-white text-[#007130] font-bold px-6 py-3 rounded-xl hover:bg-brand-50 transition shadow-lg">
                 <FileText size={18} />
                 {t('consultPlan')}
               </a>
@@ -575,14 +575,14 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <span className="text-[#007130] text-xs tracking-widest uppercase font-bold">{t('statsTag')}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t('statsTitle')}</h2>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-2">{t('statsTitle')}</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {KEY_STATS.map((stat, i) => (
-              <div key={i} className="bg-gray-50 rounded-xl p-5 border border-gray-100 hover:shadow-md transition text-center">
+              <div key={i} className="bg-neutral-50 rounded-xl p-5 border border-neutral-100 hover:shadow-md transition text-center">
                 <div className="text-3xl font-black text-[#007130]">{stat.value}</div>
-                <p className="text-sm font-semibold text-gray-800 mt-2">{stat.label[lang]}</p>
-                <p className="text-xs text-gray-400 mt-1">{stat.sub[lang]}</p>
+                <p className="text-sm font-semibold text-neutral-800 mt-2">{stat.label[lang]}</p>
+                <p className="text-xs text-neutral-400 mt-1">{stat.sub[lang]}</p>
               </div>
             ))}
           </div>
@@ -594,14 +594,14 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
         <div className="container mx-auto px-6 pb-4">
           <div className="text-center mb-10">
             <span className="text-[#007130] text-xs tracking-widest uppercase font-bold">{t('facilityTag')}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t('facilityTitle')}</h2>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-2">{t('facilityTitle')}</h2>
           </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3">
           {FACILITY_GALLERY.map((item, i) => (
             <div key={i} className="relative min-h-[30vh] md:min-h-[40vh] overflow-hidden group">
               <img src={img(item.src, 828)} alt={item.label[lang]} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/80 via-neutral-900/20 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <p className="text-white font-semibold text-lg">{item.label[lang]}</p>
               </div>
@@ -611,22 +611,22 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
       </section>
 
       {/* ============ Treatments ============ */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-neutral-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
             <span className="text-[#007130] text-xs tracking-widest uppercase font-bold">{t('treatTag')}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t('treatTitle')}</h2>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-2">{t('treatTitle')}</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-5">
             {TREATMENTS.map((treat, i) => (
-              <div key={i} className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-all">
+              <div key={i} className="bg-white rounded-xl border border-neutral-200 p-6 hover:shadow-md transition-all">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-xl bg-[#007130] flex items-center justify-center flex-shrink-0">
                     <treat.icon size={22} className="text-white" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-2">{treat.title[lang]}</h3>
-                    <p className="text-sm text-gray-600 leading-relaxed">{treat.desc[lang]}</p>
+                    <h3 className="font-bold text-neutral-900 mb-2">{treat.title[lang]}</h3>
+                    <p className="text-sm text-neutral-600 leading-relaxed">{treat.desc[lang]}</p>
                   </div>
                 </div>
               </div>
@@ -640,8 +640,8 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
             <span className="text-[#007130] text-xs tracking-widest uppercase font-bold">{t('indicTag')}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-3">{t('indicTitle')}</h2>
-            <p className="text-gray-500 max-w-xl mx-auto">{t('indicDesc')}</p>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-2 mb-3">{t('indicTitle')}</h2>
+            <p className="text-neutral-500 max-w-xl mx-auto">{t('indicDesc')}</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
             {INDICATIONS.map((ind, i) => (
@@ -668,11 +668,11 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
       </section>
 
       {/* ============ Technology — 4 sections from stemcells.jp/technique/ ============ */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-neutral-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
             <span className="text-[#007130] text-xs tracking-widest uppercase font-bold">{t('techTag')}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t('techTitle')}</h2>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-2">{t('techTitle')}</h2>
           </div>
           <div className="space-y-16">
             {TECH_SECTIONS.map((sec, si) => (
@@ -683,25 +683,25 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
                     <div className="w-11 h-11 rounded-xl bg-[#007130] flex items-center justify-center flex-shrink-0">
                       <sec.icon size={22} className="text-white" />
                     </div>
-                    <h3 className="text-lg font-bold text-gray-900">{sec.title[lang]}</h3>
+                    <h3 className="text-lg font-bold text-neutral-900">{sec.title[lang]}</h3>
                   </div>
-                  <p className="text-sm text-gray-600 leading-relaxed">{sec.desc[lang]}</p>
+                  <p className="text-sm text-neutral-600 leading-relaxed">{sec.desc[lang]}</p>
                 </div>
                 {/* Images side — constrained to native resolution to avoid pixel stretch */}
                 <div className={`flex flex-col items-center gap-3 ${si % 2 === 1 ? 'md:order-1' : ''}`}>
                   {sec.images.length === 1 ? (
-                    <div className="bg-white rounded-xl border border-gray-200 p-4 inline-block w-full max-w-md">
+                    <div className="bg-white rounded-xl border border-neutral-200 p-4 inline-block w-full max-w-md">
                       <img src={img(sec.images[0].src, sec.images[0].w)} alt={sec.images[0].caption[lang]} className="w-full h-auto object-contain rounded-lg" />
-                      <p className="text-xs text-gray-500 text-center mt-3 font-medium">{sec.images[0].caption[lang]}</p>
+                      <p className="text-xs text-neutral-500 text-center mt-3 font-medium">{sec.images[0].caption[lang]}</p>
                     </div>
                   ) : (
                     <div className="grid grid-cols-2 gap-3 w-full max-w-lg">
                       {sec.images.map((image, ii) => (
-                        <div key={ii} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                        <div key={ii} className="bg-white rounded-xl border border-neutral-200 overflow-hidden">
                           <div className="p-2 flex items-center justify-center">
                             <img src={img(image.src, image.w)} alt={image.caption[lang]} className="max-w-full h-auto object-contain" />
                           </div>
-                          <p className="text-xs text-gray-500 text-center py-2 px-2 font-medium border-t border-gray-100">{image.caption[lang]}</p>
+                          <p className="text-xs text-neutral-500 text-center py-2 px-2 font-medium border-t border-neutral-100">{image.caption[lang]}</p>
                         </div>
                       ))}
                     </div>
@@ -718,18 +718,18 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
             <span className="text-[#007130] text-xs tracking-widest uppercase font-bold">{t('teamTag')}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t('teamTitle')}</h2>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-2">{t('teamTitle')}</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {DOCTORS.map((doc, i) => (
-              <div key={i} className="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-all">
-                <div className="relative aspect-[3/4] bg-gray-100 overflow-hidden">
+              <div key={i} className="group bg-white rounded-xl border border-neutral-200 overflow-hidden hover:shadow-md transition-all">
+                <div className="relative aspect-[3/4] bg-neutral-100 overflow-hidden">
                   <img src={img(doc.photo, 1080)} alt={doc.name[lang]} className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" />
                 </div>
                 <div className="p-4">
-                  <h3 className="font-bold text-gray-900">{doc.name[lang]}</h3>
+                  <h3 className="font-bold text-neutral-900">{doc.name[lang]}</h3>
                   <p className="text-xs text-[#007130] font-semibold mb-2">{doc.role[lang]}</p>
-                  <p className="text-xs text-gray-600 leading-relaxed">{doc.bio[lang]}</p>
+                  <p className="text-xs text-neutral-600 leading-relaxed">{doc.bio[lang]}</p>
                 </div>
               </div>
             ))}
@@ -766,7 +766,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
       </section>
 
       {/* ============ Lab / CPC ============ */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-neutral-50">
         <div className="container mx-auto px-6">
           {/* Lab intro with main photo */}
           <div className="grid md:grid-cols-2 gap-10 items-center mb-12">
@@ -775,8 +775,8 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
             </div>
             <div>
               <span className="text-[#007130] text-xs tracking-widest uppercase font-bold">{t('labTag')}</span>
-              <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-4">{t('labTitle')}</h2>
-              <p className="text-gray-600 leading-relaxed mb-6">{t('labDesc')}</p>
+              <h2 className="text-3xl font-bold text-neutral-900 mt-2 mb-4">{t('labTitle')}</h2>
+              <p className="text-neutral-600 leading-relaxed mb-6">{t('labDesc')}</p>
               <div className="space-y-3">
                 {[
                   { ja: 'ISO Class 5 (Class 100) クリーンルーム', 'zh-TW': 'ISO Class 5 (Class 100) 無塵室', 'zh-CN': 'ISO Class 5 (Class 100) 无尘室', en: 'ISO Class 5 (Class 100) Clean Room' },
@@ -787,7 +787,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-2">
                     <CheckCircle size={16} className="text-[#007130] flex-shrink-0" />
-                    <span className="text-sm text-gray-700">{(item as Record<string, string>)[lang] || (item as Record<string, string>)['ja']}</span>
+                    <span className="text-sm text-neutral-700">{(item as Record<string, string>)[lang] || (item as Record<string, string>)['ja']}</span>
                   </div>
                 ))}
               </div>
@@ -804,8 +804,8 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
           </div>
 
           {/* Equipment grid */}
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <p className="text-center text-sm font-bold text-gray-700 mb-4">
+          <div className="bg-white rounded-xl border border-neutral-200 p-6">
+            <p className="text-center text-sm font-bold text-neutral-700 mb-4">
               {lang === 'ja' ? '主要設備一覧' : lang === 'en' ? 'Key Equipment' : lang === 'zh-TW' ? '主要設備一覽' : '主要设备一览'}
             </p>
             <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
@@ -815,7 +815,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
                 HELENE_IMAGES.equipment7, HELENE_IMAGES.equipment8, HELENE_IMAGES.equipment9,
                 HELENE_IMAGES.equipment10, HELENE_IMAGES.equipment11, HELENE_IMAGES.equipment12,
               ].map((src, i) => (
-                <div key={i} className="bg-gray-50 rounded-lg p-2 flex items-center justify-center aspect-square">
+                <div key={i} className="bg-neutral-50 rounded-lg p-2 flex items-center justify-center aspect-square">
                   <img src={img(src, 384)} alt={`Equipment ${i + 1}`} className="max-h-full max-w-full object-contain" />
                 </div>
               ))}
@@ -829,8 +829,8 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
             <span className="text-[#007130] text-xs tracking-widest uppercase font-bold">{t('flowTag')}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-3">{t('flowTitle')}</h2>
-            <p className="text-gray-500 max-w-xl mx-auto">{t('flowDesc')}</p>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-2 mb-3">{t('flowTitle')}</h2>
+            <p className="text-neutral-500 max-w-xl mx-auto">{t('flowDesc')}</p>
           </div>
           <div className="max-w-2xl mx-auto">
             {FLOW_STEPS.map((step, i) => (
@@ -838,7 +838,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
                 <div className="flex flex-col items-center">
                   <button
                     onClick={() => setExpandedFlow(expandedFlow === i ? -1 : i)}
-                    className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm transition ${expandedFlow === i ? 'bg-[#007130] text-white' : 'bg-gray-100 text-gray-500 hover:bg-green-50'}`}
+                    className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm transition ${expandedFlow === i ? 'bg-[#007130] text-white' : 'bg-neutral-100 text-neutral-500 hover:bg-brand-50'}`}
                   >
                     {step.step}
                   </button>
@@ -849,11 +849,11 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
                     onClick={() => setExpandedFlow(expandedFlow === i ? -1 : i)}
                     className="flex items-center gap-2 w-full text-left"
                   >
-                    <h4 className="font-bold text-gray-900">{step.title[lang]}</h4>
-                    {expandedFlow === i ? <ChevronUp size={16} className="text-gray-400" /> : <ChevronDown size={16} className="text-gray-400" />}
+                    <h4 className="font-bold text-neutral-900">{step.title[lang]}</h4>
+                    {expandedFlow === i ? <ChevronUp size={16} className="text-neutral-400" /> : <ChevronDown size={16} className="text-neutral-400" />}
                   </button>
                   {expandedFlow === i && (
-                    <p className="text-sm text-gray-600 mt-2">{step.desc[lang]}</p>
+                    <p className="text-sm text-neutral-600 mt-2">{step.desc[lang]}</p>
                   )}
                 </div>
               </div>
@@ -863,32 +863,32 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
       </section>
 
       {/* ============ Certifications ============ */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-neutral-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-10">
             <span className="text-[#007130] text-xs tracking-widest uppercase font-bold">{t('certsTag')}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2">{t('certsTitle')}</h2>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-2">{t('certsTitle')}</h2>
           </div>
           {/* Main certification badges with real images */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8">
             {CERTIFICATIONS.map((cert, i) => (
-              <div key={i} className="bg-white rounded-xl border border-gray-200 p-6 text-center hover:shadow-md transition">
+              <div key={i} className="bg-white rounded-xl border border-neutral-200 p-6 text-center hover:shadow-md transition">
                 <div className="h-40 flex items-center justify-center mb-4">
                   <img src={img(cert.image, 384)} alt={cert.title} className="max-h-full max-w-full object-contain" />
                 </div>
-                <p className="font-bold text-gray-900">{cert.title}</p>
-                <p className="text-sm text-gray-500 mt-1">{cert.desc[lang]}</p>
+                <p className="font-bold text-neutral-900">{cert.title}</p>
+                <p className="text-sm text-neutral-500 mt-1">{cert.desc[lang]}</p>
               </div>
             ))}
           </div>
           {/* MHLW license badges row */}
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <p className="text-center text-sm font-bold text-gray-700 mb-4">
+          <div className="bg-white rounded-xl border border-neutral-200 p-6">
+            <p className="text-center text-sm font-bold text-neutral-700 mb-4">
               {lang === 'ja' ? '厚生労働省 再生医療等提供計画 認可証' : lang === 'en' ? 'MHLW Regenerative Medicine Plan Licenses' : lang === 'zh-TW' ? '厚生勞動省 再生醫療等提供計畫 認可證' : '厚生劳动省 再生医疗等提供计划 认可证'}
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {MHLW_LICENSES.map((src, i) => (
-                <div key={i} className="bg-gray-50 rounded-lg p-3 flex items-center justify-center">
+                <div key={i} className="bg-neutral-50 rounded-lg p-3 flex items-center justify-center">
                   <img src={img(src, 384)} alt={`MHLW License ${i + 1}`} className="max-h-48 object-contain" />
                 </div>
               ))}
@@ -902,23 +902,23 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
             <span className="text-[#007130] text-xs tracking-widest uppercase font-bold">{t('pricingTag')}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-3">{t('pricingTitle')}</h2>
-            <p className="text-gray-500 max-w-xl mx-auto">{t('pricingDesc')}</p>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-2 mb-3">{t('pricingTitle')}</h2>
+            <p className="text-neutral-500 max-w-xl mx-auto">{t('pricingDesc')}</p>
           </div>
           <div className="max-w-4xl mx-auto space-y-4">
             {PRICING_CATEGORIES.map((cat, ci) => (
-              <div key={ci} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-                <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                  <h3 className="font-bold text-gray-900">{cat.name[lang]}</h3>
+              <div key={ci} className="bg-white rounded-xl border border-neutral-200 overflow-hidden">
+                <div className="bg-neutral-50 px-6 py-4 border-b border-neutral-200">
+                  <h3 className="font-bold text-neutral-900">{cat.name[lang]}</h3>
                 </div>
-                <div className="divide-y divide-gray-100">
+                <div className="divide-y divide-neutral-100">
                   {cat.items.map((item) => {
                     const pkg = MEDICAL_PACKAGES[item.slug];
                     if (!pkg) return null;
                     return (
-                      <div key={item.slug} className="flex items-center justify-between px-6 py-4 hover:bg-green-50/30 transition">
+                      <div key={item.slug} className="flex items-center justify-between px-6 py-4 hover:bg-brand-50/30 transition">
                         <div className="flex-1">
-                          <p className="text-sm font-medium text-gray-800">{item.label[lang]}</p>
+                          <p className="text-sm font-medium text-neutral-800">{item.label[lang]}</p>
                         </div>
                         <div className="flex items-center gap-4">
                           <span className="text-lg font-black text-[#007130]">¥{pkg.priceJpy.toLocaleString()}</span>
@@ -947,27 +947,27 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
               {t('pricingCta')}
             </Link>
           </div>
-          <p className="text-center text-xs text-gray-400 mt-6">{t('pricingNote')}</p>
+          <p className="text-center text-xs text-neutral-400 mt-6">{t('pricingNote')}</p>
         </div>
       </section>
 
       {/* ============ Services ============ */}
-      <section id="services" className="py-20 bg-gray-50">
+      <section id="services" className="py-20 bg-neutral-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
             <span className="text-[#007130] text-xs tracking-widest uppercase font-bold">{t('svcTag')}</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-2 mb-3">{t('svcTitle')}</h2>
-            <p className="text-gray-500 max-w-xl mx-auto">{t('svcDesc')}</p>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-2 mb-3">{t('svcTitle')}</h2>
+            <p className="text-neutral-500 max-w-xl mx-auto">{t('svcDesc')}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {helenePackages.map((pkg) => (
-              <div key={pkg.slug} className="bg-white rounded-xl border-2 border-gray-200 hover:border-[#007130] p-8 transition shadow-sm hover:shadow-lg">
-                <h3 className="text-lg font-bold text-gray-900 mb-2">{pkg.name[lang]}</h3>
+              <div key={pkg.slug} className="bg-white rounded-xl border-2 border-neutral-200 hover:border-[#007130] p-8 transition shadow-sm hover:shadow-lg">
+                <h3 className="text-lg font-bold text-neutral-900 mb-2">{pkg.name[lang]}</h3>
                 <div className="flex items-baseline gap-1 mb-4">
                   <span className="text-3xl font-black text-[#007130]">¥{pkg.priceJpy.toLocaleString()}</span>
-                  <span className="text-xs text-gray-400">{t('taxIncl')}</span>
+                  <span className="text-xs text-neutral-400">{t('taxIncl')}</span>
                 </div>
-                <p className="text-sm text-gray-600 mb-6">{pkg.desc[lang]}</p>
+                <p className="text-sm text-neutral-600 mb-6">{pkg.desc[lang]}</p>
                 <Link
                   href={guideSlug ? `/helene-clinic/${pkg.ctaPath}?guide=${guideSlug}` : `/helene-clinic/${pkg.ctaPath}`}
                   className="block w-full text-center bg-[#007130] text-white font-bold py-3 rounded-xl hover:bg-[#005a26] transition"
@@ -981,19 +981,19 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
       </section>
 
       {/* ============ Clinic Info ============ */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-neutral-50">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-center">
-            <div className="bg-white rounded-xl border border-gray-200 p-8">
-              <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+            <div className="bg-white rounded-xl border border-neutral-200 p-8">
+              <h3 className="text-xl font-bold text-neutral-900 mb-6 flex items-center gap-2">
                 <MapPin size={20} className="text-[#007130]" />
                 {tr.heroTitle[lang]}
               </h3>
-              <div className="grid gap-5 text-sm text-gray-600">
+              <div className="grid gap-5 text-sm text-neutral-600">
                 <div className="flex items-start gap-3">
                   <MapPin size={16} className="text-[#007130] mt-0.5 flex-shrink-0" />
                   <div>
-                    <p className="font-medium text-gray-800">{lang === 'ja' ? '所在地' : lang === 'en' ? 'Address' : lang === 'zh-TW' ? '地址' : '地址'}</p>
+                    <p className="font-medium text-neutral-800">{lang === 'ja' ? '所在地' : lang === 'en' ? 'Address' : lang === 'zh-TW' ? '地址' : '地址'}</p>
                     <p>〒107-0062</p>
                     <p>{lang === 'ja' ? '東京都港区南青山5-9-15 青山OHMOTOビル3F' : lang === 'en' ? '3F Aoyama OHMOTO Bldg, 5-9-15 Minamiaoyama, Minato-ku, Tokyo' : lang === 'zh-TW' ? '東京都港區南青山5-9-15 青山OHMOTO大樓3F' : '东京都港区南青山5-9-15 青山OHMOTO大楼3F'}</p>
                   </div>
@@ -1001,22 +1001,22 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
                 <div className="flex items-start gap-3">
                   <Train size={16} className="text-[#007130] mt-0.5 flex-shrink-0" />
                   <div>
-                    <p className="font-medium text-gray-800">{lang === 'ja' ? '交通アクセス' : lang === 'en' ? 'Access' : lang === 'zh-TW' ? '交通' : '交通'}</p>
+                    <p className="font-medium text-neutral-800">{lang === 'ja' ? '交通アクセス' : lang === 'en' ? 'Access' : lang === 'zh-TW' ? '交通' : '交通'}</p>
                     <p>{lang === 'ja' ? '表参道駅B1出口 徒歩1分' : lang === 'en' ? '1 min walk from Omotesando Station B1 Exit' : lang === 'zh-TW' ? '表參道站B1出口 步行1分鐘' : '表参道站B1出口 步行1分钟'}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Clock size={16} className="text-[#007130] mt-0.5 flex-shrink-0" />
                   <div>
-                    <p className="font-medium text-gray-800">{lang === 'ja' ? '診療時間' : lang === 'en' ? 'Hours' : lang === 'zh-TW' ? '診療時間' : '诊疗时间'}</p>
+                    <p className="font-medium text-neutral-800">{lang === 'ja' ? '診療時間' : lang === 'en' ? 'Hours' : lang === 'zh-TW' ? '診療時間' : '诊疗时间'}</p>
                     <p>10:00 - 19:00</p>
-                    <p className="text-xs text-gray-400">{lang === 'ja' ? '休診日：水曜・日曜' : lang === 'en' ? 'Closed: Wed & Sun' : lang === 'zh-TW' ? '休診日：週三·週日' : '休诊日：周三·周日'}</p>
+                    <p className="text-xs text-neutral-400">{lang === 'ja' ? '休診日：水曜・日曜' : lang === 'en' ? 'Closed: Wed & Sun' : lang === 'zh-TW' ? '休診日：週三·週日' : '休诊日：周三·周日'}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Globe size={16} className="text-[#007130] mt-0.5 flex-shrink-0" />
                   <div>
-                    <p className="font-medium text-gray-800">{lang === 'ja' ? '対応言語' : lang === 'en' ? 'Languages' : lang === 'zh-TW' ? '對應語言' : '对应语言'}</p>
+                    <p className="font-medium text-neutral-800">{lang === 'ja' ? '対応言語' : lang === 'en' ? 'Languages' : lang === 'zh-TW' ? '對應語言' : '对应语言'}</p>
                     <p>{lang === 'ja' ? '日本語・中国語・英語・ベトナム語・インドネシア語 他' : lang === 'en' ? 'Japanese, Chinese, English, Vietnamese, Indonesian +' : lang === 'zh-TW' ? '日語·中文·英語·越南語·印尼語等15+語言' : '日语·中文·英语·越南语·印尼语等15+语言'}</p>
                   </div>
                 </div>
@@ -1028,7 +1028,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
               </div>
               <div className="relative rounded-xl overflow-hidden shadow-lg">
                 <img src={img(HELENE_IMAGES.multilingualStaff, 1080)} alt="Multilingual Staff" className="w-full object-contain" />
-                <p className="text-center text-xs text-gray-500 mt-2 px-2 pb-2">
+                <p className="text-center text-xs text-neutral-500 mt-2 px-2 pb-2">
                   {lang === 'ja' ? '多国籍スタッフが15以上の言語でサポート' : lang === 'en' ? 'Multilingual staff supporting 15+ languages' : lang === 'zh-TW' ? '多國籍員工支持15+語言' : '多国籍员工支持15+语言'}
                 </p>
               </div>
@@ -1038,9 +1038,9 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
       </section>
 
       {/* ============ Disclaimer ============ */}
-      <section className="py-8 bg-gray-100">
+      <section className="py-8 bg-neutral-100">
         <div className="max-w-4xl mx-auto px-6">
-          <ul className="space-y-1.5 text-xs text-gray-500 leading-relaxed">
+          <ul className="space-y-1.5 text-xs text-neutral-500 leading-relaxed">
             <li>※ {({ ja: '本ページで紹介する治療は再生医療等安全性確保法に基づく自由診療（保険適用外）です。費用は医療機関の基準に従います。', 'zh-TW': '本頁介紹的治療為依據再生醫療等安全性確保法之自費診療（不適用保險）。費用依醫療機構標準。', 'zh-CN': '本页介绍的治疗为依据再生医疗等安全性确保法之自费诊疗（不适用保险）。费用依医疗机构标准。', en: 'Treatments on this page are self-pay regenerative medicine under Japan\'s Act on Safety of Regenerative Medicine (not covered by insurance). Fees follow the facility\'s standards.' } as Record<Language, string>)[lang]}</li>
             <li>※ {({ ja: '治療効果には個人差があり、すべての患者に同様の効果を保証するものではありません。', 'zh-TW': '治療效果因人而異，不保證所有患者均能獲得相同效果。', 'zh-CN': '治疗效果因人而异，不保证所有患者均能获得相同效果。', en: 'Treatment effects vary by individual and are not guaranteed for all patients.' } as Record<Language, string>)[lang]}</li>
             <li>※ {({ ja: '当社（新島交通株式会社・大阪府知事登録旅行業 第2-3115号）は旅行業者であり、医療機関ではありません。医療行為は各提携医療機関が提供します。', 'zh-TW': '本公司（新島交通株式會社・大阪府知事登錄旅行業 第2-3115號）為旅行業者，非醫療機構。醫療行為由各合作醫療機構提供。', 'zh-CN': '本公司（新岛交通株式会社・大阪府知事登录旅行业 第2-3115号）为旅行业者，非医疗机构。医疗行为由各合作医疗机构提供。', en: 'Niijima Kotsu Co., Ltd. (Osaka Gov. Registered Travel Agency No. 2-3115) is a travel agency, not a medical institution. Medical services are provided by partner facilities.' } as Record<Language, string>)[lang]}</li>

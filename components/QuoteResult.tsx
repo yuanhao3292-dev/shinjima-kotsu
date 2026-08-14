@@ -120,11 +120,11 @@ Timestamp: ${new Date().toLocaleString()}
       
       {/* Top Banner Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="bg-gradient-to-br from-indigo-900 to-blue-900 rounded-xl p-6 text-white shadow-xl relative overflow-hidden">
+        <div className="bg-gradient-to-br from-brand-900 to-brand-900 rounded-xl p-6 text-white shadow-xl relative overflow-hidden">
           <div className="relative z-10">
-            <p className="text-blue-200 text-sm font-medium mb-1">預估總價 (不含雜費)</p>
+            <p className="text-brand-200 text-sm font-medium mb-1">預估總價 (不含雜費)</p>
             <h3 className="text-4xl font-bold tracking-tight">¥{quote.estimated_total_jpy.toLocaleString()}</h3>
-            <p className="mt-2 text-indigo-200 text-sm">
+            <p className="mt-2 text-brand-200 text-sm">
               人均： <span className="text-white font-bold">¥{quote.per_person_jpy.toLocaleString()}</span>
             </p>
           </div>
@@ -134,24 +134,24 @@ Timestamp: ${new Date().toLocaleString()}
         </div>
 
         <div className={`rounded-xl p-6 shadow-lg border relative overflow-hidden flex flex-col justify-center ${
-          isArbitrage ? 'bg-green-50 border-green-200' : 'bg-white border-gray-200'
+          isArbitrage ? 'bg-brand-50 border-brand-200' : 'bg-white border-neutral-200'
         }`}>
-           <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">定價策略</p>
+           <p className="text-sm font-semibold text-neutral-500 uppercase tracking-wider mb-2">定價策略</p>
            <div className="flex items-center gap-3">
              {isArbitrage ? (
                 <div className="bg-green-100 p-2 rounded-full text-green-700">
                   <TrendingDown size={24} />
                 </div>
              ) : (
-                <div className="bg-gray-100 p-2 rounded-full text-gray-700">
+                <div className="bg-neutral-100 p-2 rounded-full text-neutral-700">
                   <CheckCircle size={24} />
                 </div>
              )}
              <div>
-               <p className={`font-bold text-lg ${isArbitrage ? 'text-green-800' : 'text-gray-800'}`}>
+               <p className={`font-bold text-lg ${isArbitrage ? 'text-green-800' : 'text-neutral-800'}`}>
                  新島標準合約價
                </p>
-               <p className="text-xs text-gray-500 mt-1 line-clamp-1">{quote.breakdown.sourcing_strategy}</p>
+               <p className="text-xs text-neutral-500 mt-1 line-clamp-1">{quote.breakdown.sourcing_strategy}</p>
              </div>
            </div>
         </div>
@@ -161,11 +161,11 @@ Timestamp: ${new Date().toLocaleString()}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Chart Section */}
-        <div className="lg:col-span-2 bg-white rounded-xl shadow-md border border-gray-100 p-6">
-          <h4 className="font-bold text-gray-800 mb-4 border-b pb-2 flex justify-between items-center">
+        <div className="lg:col-span-2 bg-white rounded-xl shadow-md border border-neutral-100 p-6">
+          <h4 className="font-bold text-neutral-800 mb-4 border-b pb-2 flex justify-between items-center">
              <span>成本結構分析</span>
              {quote.breakdown.extras_note && (
-                <span className="text-xs text-orange-600 bg-orange-50 px-2 py-1 rounded flex items-center gap-1">
+                <span className="text-xs text-brand-600 bg-brand-50 px-2 py-1 rounded flex items-center gap-1">
                    <AlertCircle size={12} /> {quote.breakdown.extras_note}
                 </span>
              )}
@@ -199,20 +199,20 @@ Timestamp: ${new Date().toLocaleString()}
         {/* AI & Actions Section */}
         <div className="space-y-6">
            {/* AI Note */}
-           <div className="bg-gradient-to-b from-purple-50 to-white rounded-xl border border-purple-100 p-5 shadow-sm">
-              <div className="flex items-center gap-2 mb-3 text-purple-800">
+           <div className="bg-gradient-to-b from-brand-50 to-white rounded-xl border border-brand-100 p-5 shadow-sm">
+              <div className="flex items-center gap-2 mb-3 text-brand-800">
                 <Cpu size={18} />
                 <h4 className="font-bold text-sm">系統分析師備註</h4>
               </div>
               <div className="min-h-[80px]">
                 {isAiLoading ? (
                   <div className="flex space-x-1 animate-pulse py-4">
-                    <div className="w-2 h-2 bg-purple-300 rounded-full"></div>
-                    <div className="w-2 h-2 bg-purple-300 rounded-full"></div>
-                    <div className="w-2 h-2 bg-purple-300 rounded-full"></div>
+                    <div className="w-2 h-2 bg-brand-300 rounded-full"></div>
+                    <div className="w-2 h-2 bg-brand-300 rounded-full"></div>
+                    <div className="w-2 h-2 bg-brand-300 rounded-full"></div>
                   </div>
                 ) : (
-                  <p className="text-sm text-gray-700 leading-relaxed italic">
+                  <p className="text-sm text-neutral-700 leading-relaxed italic">
                     &ldquo;{quote.system_note}&rdquo;
                   </p>
                 )}
@@ -223,12 +223,12 @@ Timestamp: ${new Date().toLocaleString()}
            <div className="grid grid-cols-1 gap-3">
              <button 
                 onClick={() => setShowContactModal(true)}
-                className="flex items-center justify-center gap-2 w-full py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition shadow-lg"
+                className="flex items-center justify-center gap-2 w-full py-3 bg-neutral-900 text-white rounded-lg hover:bg-neutral-800 transition shadow-lg"
              >
                 <Send size={18} />
                 提交訂單給 OP
              </button>
-             <button className="flex items-center justify-center gap-2 w-full py-3 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+             <button className="flex items-center justify-center gap-2 w-full py-3 bg-white text-neutral-700 border border-neutral-300 rounded-lg hover:bg-neutral-50 transition">
                 <Download size={18} />
                 匯出 PDF 報價單
              </button>
@@ -243,40 +243,40 @@ Timestamp: ${new Date().toLocaleString()}
            <div className="bg-white rounded-xl shadow-2xl w-full max-w-sm p-6 relative">
               <button 
                 onClick={() => setShowContactModal(false)}
-                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+                className="absolute top-4 right-4 text-neutral-400 hover:text-neutral-600"
               >
                 <X size={20} />
               </button>
               
-              <h3 className="text-lg font-bold text-gray-800 mb-2">確認聯繫方式</h3>
-              <p className="text-sm text-gray-500 mb-6">
-                請填寫您的聯繫資訊，此報價單將同步發送至 <span className="text-blue-600 font-mono">info@niijima-koutsu.com</span>
+              <h3 className="text-lg font-bold text-neutral-800 mb-2">確認聯繫方式</h3>
+              <p className="text-sm text-neutral-500 mb-6">
+                請填寫您的聯繫資訊，此報價單將同步發送至 <span className="text-brand-600 font-mono">info@niijima-koutsu.com</span>
               </p>
               
               <form onSubmit={handleSubmitInquiry} className="space-y-4">
                  <div>
-                    <label className="block text-xs font-bold text-gray-600 uppercase mb-1">聯繫人姓名</label>
+                    <label className="block text-xs font-bold text-neutral-600 uppercase mb-1">聯繫人姓名</label>
                     <div className="relative">
-                       <User className="absolute left-3 top-2.5 text-gray-400 w-4 h-4" />
+                       <User className="absolute left-3 top-2.5 text-neutral-400 w-4 h-4" />
                        <input 
                          type="text" 
                          value={contactForm.name}
                          onChange={(e) => setContactForm({...contactForm, name: e.target.value})}
-                         className="w-full pl-9 p-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none" 
+                         className="w-full pl-9 p-2 border border-neutral-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none" 
                          placeholder="王小明"
                          required
                        />
                     </div>
                  </div>
                  <div>
-                    <label className="block text-xs font-bold text-gray-600 uppercase mb-1">電話 / 微信 / Line</label>
+                    <label className="block text-xs font-bold text-neutral-600 uppercase mb-1">電話 / 微信 / Line</label>
                     <div className="relative">
-                       <Phone className="absolute left-3 top-2.5 text-gray-400 w-4 h-4" />
+                       <Phone className="absolute left-3 top-2.5 text-neutral-400 w-4 h-4" />
                        <input 
                          type="text" 
                          value={contactForm.contact}
                          onChange={(e) => setContactForm({...contactForm, contact: e.target.value})}
-                         className="w-full pl-9 p-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none" 
+                         className="w-full pl-9 p-2 border border-neutral-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none" 
                          placeholder="+886 912 345 678"
                          required
                        />
@@ -286,7 +286,7 @@ Timestamp: ${new Date().toLocaleString()}
                  <button 
                     type="submit" 
                     disabled={isSending}
-                    className="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition shadow-md mt-2 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-brand-600 text-white font-bold py-3 rounded-lg hover:bg-brand-700 transition shadow-md mt-2 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                  >
                     {isSending ? <Loader2 className="animate-spin" size={16} /> : <Send size={16} />}
                     {isSending ? '發送中...' : '確認並發送'}

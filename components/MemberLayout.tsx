@@ -91,25 +91,25 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-800 font-sans selection:bg-blue-100 flex flex-col">
+    <div className="min-h-screen bg-white text-neutral-800 font-sans selection:bg-brand-100 flex flex-col">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 w-full z-50 bg-white shadow-sm">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
           {/* 返回链接 - 会员子页面返回会员中心，会员中心本身和其他页面返回首页 */}
           <Link
             href={isLoggedIn && isMemberPage && pathname !== '/my-account' ? '/my-account' : '/'}
-            className="text-sm font-medium text-gray-600 hover:text-blue-600 transition"
+            className="text-sm font-medium text-neutral-600 hover:text-brand-600 transition"
           >
             {t('back', lang)}
           </Link>
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center gap-8">
-            <Link href="/" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">{t('home', lang)}</Link>
-            <Link href="/medical" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">{t('medicalCheckup', lang)}</Link>
-            <Link href="/cancer-treatment" className="text-sm font-medium text-gray-600 hover:text-rose-600 transition">{t('cancerTreatment', lang)}</Link>
-            <Link href="/login?redirect=/health-screening" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">{t('aiScreening', lang)}</Link>
-            <Link href="/faq" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">{t('faq', lang)}</Link>
+            <Link href="/" className="text-sm font-medium text-neutral-600 hover:text-brand-600 transition">{t('home', lang)}</Link>
+            <Link href="/medical" className="text-sm font-medium text-neutral-600 hover:text-brand-600 transition">{t('medicalCheckup', lang)}</Link>
+            <Link href="/cancer-treatment" className="text-sm font-medium text-neutral-600 hover:text-brand-600 transition">{t('cancerTreatment', lang)}</Link>
+            <Link href="/login?redirect=/health-screening" className="text-sm font-medium text-neutral-600 hover:text-brand-600 transition">{t('aiScreening', lang)}</Link>
+            <Link href="/faq" className="text-sm font-medium text-neutral-600 hover:text-brand-600 transition">{t('faq', lang)}</Link>
           </div>
 
           {/* Actions - 根据登录状态显示不同内容 */}
@@ -118,14 +118,14 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
               <div className="flex items-center gap-3">
                 <Link
                   href="/my-account"
-                  className="hidden md:flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-full text-xs font-bold tracking-wider hover:bg-blue-700 transition shadow-lg"
+                  className="hidden md:flex items-center gap-2 bg-brand-600 text-white px-4 py-2 rounded-full text-xs font-bold tracking-wider hover:bg-brand-700 transition shadow-lg"
                 >
                   <User size={14} />
                   {userName}
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="hidden md:flex items-center gap-1 text-gray-500 hover:text-red-600 transition text-xs"
+                  className="hidden md:flex items-center gap-1 text-neutral-500 hover:text-brand-600 transition text-xs"
                   title={t('logout', lang)}
                 >
                   <LogOut size={16} />
@@ -134,7 +134,7 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
             ) : (
               <Link
                 href="/login"
-                className="hidden md:flex items-center gap-2 bg-black text-white px-5 py-2 rounded-full text-xs font-bold tracking-wider hover:bg-gray-800 transition shadow-lg"
+                className="hidden md:flex items-center gap-2 bg-black text-white px-5 py-2 rounded-full text-xs font-bold tracking-wider hover:bg-neutral-800 transition shadow-lg"
               >
                 {t('memberLogin', lang)}
               </Link>
@@ -150,40 +150,40 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
 
       {/* Footer */}
       {showFooter && (
-        <footer className="bg-gradient-to-b from-[#f8f6f3] to-[#f0ece6] text-gray-800">
+        <footer className="bg-gradient-to-b from-[#f8f6f3] to-[#f0ece6] text-neutral-800">
           <div className="container mx-auto px-6 py-16">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
               {/* Column 1: Brand */}
               <div>
-                <h3 className="text-xl font-serif tracking-[0.2em] mb-1 text-gray-800">NIIJIMA</h3>
-                <p className="text-xs tracking-[0.1em] text-gray-500 mb-4">{t('brandDesc', lang)}</p>
-                <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                <h3 className="text-xl font-serif tracking-[0.2em] mb-1 text-neutral-800">NIIJIMA</h3>
+                <p className="text-xs tracking-[0.1em] text-neutral-500 mb-4">{t('brandDesc', lang)}</p>
+                <p className="text-neutral-600 text-sm leading-relaxed mb-4">
                   {t('hospitalName', lang)}
                 </p>
-                <div className="space-y-1.5 text-sm text-gray-600">
+                <div className="space-y-1.5 text-sm text-neutral-600">
                   <div>{lang === 'en' ? '1-2-21-602 Daikoku, Naniwa-ku, Osaka 556-0014, Japan' : lang === 'zh-TW' ? '〒556-0014 大阪府大阪市浪速區大國1-2-21-602' : lang === 'zh-CN' ? '〒556-0014 大阪府大阪市浪速区大国1-2-21-602' : '〒556-0014 大阪府大阪市浪速区大国1-2-21-602'}</div>
                   <div className="flex items-center gap-3">
-                    <a href="tel:06-6632-8807" className="hover:text-gray-900 transition-colors">TEL: 06-6632-8807</a>
+                    <a href="tel:06-6632-8807" className="hover:text-neutral-900 transition-colors">TEL: 06-6632-8807</a>
                   </div>
                   <div className="flex items-center gap-3">
-                    <a href="mailto:info@niijima-koutsu.jp" className="hover:text-gray-900 transition-colors">info@niijima-koutsu.jp</a>
+                    <a href="mailto:info@niijima-koutsu.jp" className="hover:text-neutral-900 transition-colors">info@niijima-koutsu.jp</a>
                   </div>
                 </div>
               </div>
 
               {/* Column 2: Quick Links */}
               <div>
-                <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">{t('quickLinks', lang)}</h4>
+                <h4 className="text-xs font-medium tracking-wider text-neutral-800 uppercase mb-4">{t('quickLinks', lang)}</h4>
                 <ul className="space-y-2.5">
-                  <li><Link href="/medical" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('medicalCheckup', lang)}</Link></li>
-                  <li><Link href="/login?redirect=/health-screening" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('aiScreening', lang)}</Link></li>
-                  <li><Link href="/cancer-treatment" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('cancerTreatment', lang)}</Link></li>
-                  <li><Link href="/order-lookup" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('orderLookup', lang)}</Link></li>
-                  <li><Link href="/faq" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('faq', lang)}</Link></li>
+                  <li><Link href="/medical" className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors">{t('medicalCheckup', lang)}</Link></li>
+                  <li><Link href="/login?redirect=/health-screening" className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors">{t('aiScreening', lang)}</Link></li>
+                  <li><Link href="/cancer-treatment" className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors">{t('cancerTreatment', lang)}</Link></li>
+                  <li><Link href="/order-lookup" className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors">{t('orderLookup', lang)}</Link></li>
+                  <li><Link href="/faq" className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors">{t('faq', lang)}</Link></li>
                   {isLoggedIn && (
                     <>
-                      <li><Link href="/my-account" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('memberCenter', lang)}</Link></li>
-                      <li><Link href="/my-orders" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('myOrders', lang)}</Link></li>
+                      <li><Link href="/my-account" className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors">{t('memberCenter', lang)}</Link></li>
+                      <li><Link href="/my-orders" className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors">{t('myOrders', lang)}</Link></li>
                     </>
                   )}
                 </ul>
@@ -191,23 +191,23 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
 
               {/* Column 3: Legal */}
               <div>
-                <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4">{t('contactUs', lang)}</h4>
+                <h4 className="text-xs font-medium tracking-wider text-neutral-800 uppercase mb-4">{t('contactUs', lang)}</h4>
                 <ul className="space-y-2.5">
-                  <li><Link href="/company/about" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('legalNotice', lang)}</Link></li>
-                  <li><Link href="/legal/tokushoho" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('tokushoho', lang)}</Link></li>
-                  <li><Link href="/legal/privacy" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('privacy', lang)}</Link></li>
-                  <li><Link href="/legal/terms" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('terms', lang)}</Link></li>
+                  <li><Link href="/company/about" className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors">{t('legalNotice', lang)}</Link></li>
+                  <li><Link href="/legal/tokushoho" className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors">{t('tokushoho', lang)}</Link></li>
+                  <li><Link href="/legal/privacy" className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors">{t('privacy', lang)}</Link></li>
+                  <li><Link href="/legal/terms" className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors">{t('terms', lang)}</Link></li>
                 </ul>
               </div>
 
               {/* Column 4: LINE Support */}
               <div>
-                <h4 className="text-xs font-medium tracking-wider text-gray-800 uppercase mb-4 flex items-center gap-2">
-                  <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                <h4 className="text-xs font-medium tracking-wider text-neutral-800 uppercase mb-4 flex items-center gap-2">
+                  <span className="w-2 h-2 bg-brand-500 rounded-full animate-pulse"></span>
                   {t('lineSupport', lang)}
                 </h4>
-                <div className="bg-white/60 p-5 rounded-xl border border-gray-200">
-                  <p className="text-xs text-gray-500 mb-2">{t('scanQR', lang)}</p>
+                <div className="bg-white/60 p-5 rounded-xl border border-neutral-200">
+                  <p className="text-xs text-neutral-500 mb-2">{t('scanQR', lang)}</p>
                   <a
                     href="https://line.me/ti/p/j3XxBP50j9"
                     target="_blank"
@@ -216,18 +216,18 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
                   >
                     @niijima-medical
                   </a>
-                  <p className="text-xs text-gray-500 mt-3">{t('replyWithin24h', lang)}</p>
+                  <p className="text-xs text-neutral-500 mt-3">{t('replyWithin24h', lang)}</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Bottom Bar */}
-          <div className="border-t border-gray-300/50">
+          <div className="border-t border-neutral-300/50">
             <div className="container mx-auto px-6 py-6">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <p className="text-xs text-gray-500 text-center md:text-left">{t('legalLicense', lang)}</p>
-                <p className="text-xs text-gray-500 text-center md:text-right">© {new Date().getFullYear()} 新島交通株式會社. {t('allRightsReserved', lang)}</p>
+                <p className="text-xs text-neutral-500 text-center md:text-left">{t('legalLicense', lang)}</p>
+                <p className="text-xs text-neutral-500 text-center md:text-right">© {new Date().getFullYear()} 新島交通株式會社. {t('allRightsReserved', lang)}</p>
               </div>
             </div>
           </div>

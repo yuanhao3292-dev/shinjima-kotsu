@@ -70,16 +70,16 @@ interface Story {
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
-  experience: 'bg-blue-100 text-blue-700',
-  tip: 'bg-emerald-100 text-emerald-700',
-  question: 'bg-amber-100 text-amber-700',
-  review: 'bg-purple-100 text-purple-700',
+  experience: 'bg-brand-100 text-brand-700',
+  tip: 'bg-brand-100 text-brand-700',
+  question: 'bg-brand-100 text-brand-700',
+  review: 'bg-brand-100 text-brand-700',
 };
 
 const RISK_COLORS: Record<string, string> = {
-  low: 'bg-emerald-50 text-emerald-600',
-  medium: 'bg-amber-50 text-amber-600',
-  high: 'bg-red-50 text-red-600',
+  low: 'bg-brand-50 text-brand-600',
+  medium: 'bg-brand-50 text-brand-600',
+  high: 'bg-brand-50 text-brand-600',
 };
 
 // ============================================================
@@ -141,8 +141,8 @@ export default function CommunityPage() {
       {/* Hero */}
       <div className="bg-gradient-to-b from-white to-[#faf9f7] py-10">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 rounded-full mb-4">
-            <Heart className="w-8 h-8 text-emerald-600" />
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-100 rounded-full mb-4">
+            <Heart className="w-8 h-8 text-brand-600" />
           </div>
           <h1 className="text-3xl md:text-4xl font-serif text-neutral-900 tracking-wide">
             {t('title', lang)}
@@ -163,7 +163,7 @@ export default function CommunityPage() {
               onClick={() => setCategory(cat)}
               className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition ${
                 category === cat
-                  ? 'bg-emerald-600 text-white'
+                  ? 'bg-brand-600 text-white'
                   : 'bg-white text-neutral-600 border border-neutral-200 hover:bg-neutral-50'
               }`}
             >
@@ -173,7 +173,7 @@ export default function CommunityPage() {
 
           <Link
             href="/community/submit"
-            className="ml-auto inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-600 text-white rounded-full text-sm font-medium hover:bg-emerald-700 transition whitespace-nowrap"
+            className="ml-auto inline-flex items-center gap-1.5 px-4 py-2 bg-brand-600 text-white rounded-full text-sm font-medium hover:bg-brand-700 transition whitespace-nowrap"
           >
             <Plus className="w-4 h-4" />
             {t('shareStory', lang)}
@@ -190,7 +190,7 @@ export default function CommunityPage() {
         {/* Loading */}
         {loading ? (
           <div className="text-center py-16">
-            <Loader2 className="w-8 h-8 animate-spin text-emerald-500 mx-auto mb-3" />
+            <Loader2 className="w-8 h-8 animate-spin text-brand-500 mx-auto mb-3" />
             <p className="text-neutral-500">{t('loading', lang)}</p>
           </div>
         ) : stories.length === 0 ? (
@@ -211,7 +211,7 @@ export default function CommunityPage() {
                   <div className="flex items-center gap-2 mb-3">
                     <span
                       className={`px-2.5 py-0.5 text-xs font-medium rounded-full ${
-                        CATEGORY_COLORS[story.category] || 'bg-gray-100 text-gray-600'
+                        CATEGORY_COLORS[story.category] || 'bg-neutral-100 text-neutral-600'
                       }`}
                     >
                       {t(story.category, lang)}

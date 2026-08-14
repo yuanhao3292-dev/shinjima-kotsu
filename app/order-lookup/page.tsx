@@ -82,7 +82,7 @@ interface OrderInfo {
 }
 
 const getStatusConfig = (lang: Language) => ({
-  pending: { label: t('statusPending', lang), color: 'text-yellow-700', bgColor: 'bg-yellow-50 border-yellow-200', icon: Clock },
+  pending: { label: t('statusPending', lang), color: 'text-brand-700', bgColor: 'bg-brand-50 border-brand-200', icon: Clock },
   confirmed: { label: t('statusConfirmed', lang), color: 'text-brand-700', bgColor: 'bg-brand-50 border-brand-200', icon: CheckCircle },
   completed: { label: t('statusCompleted', lang), color: 'text-green-700', bgColor: 'bg-green-50 border-green-200', icon: CheckCircle },
   cancelled: { label: t('statusCancelled', lang), color: 'text-red-700', bgColor: 'bg-red-50 border-red-200', icon: AlertCircle },
@@ -177,7 +177,7 @@ export default function OrderLookupPage() {
 
               <div className="flex items-center gap-6 text-sm">
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                  <div className="w-2 h-2 bg-brand-400 rounded-full animate-pulse" />
                   <span className="text-neutral-600">{t('support24h', lang)}</span>
                 </div>
                 <div className="flex items-center gap-2">

@@ -48,29 +48,29 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-neutral-50 px-4">
       <div className="max-w-md w-full text-center space-y-6">
-        <div className="text-6xl text-gray-300">⚠</div>
-        <h1 className="text-2xl font-semibold text-gray-800">
+        <div className="text-6xl text-neutral-300">⚠</div>
+        <h1 className="text-2xl font-semibold text-neutral-800">
           {t.title[lang]}
         </h1>
-        <p className="text-gray-500">{t.desc[lang]}</p>
+        <p className="text-neutral-500">{t.desc[lang]}</p>
         <div className="flex gap-3 justify-center">
           <button
             onClick={reset}
-            className="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-6 py-2.5 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors"
           >
             {t.retry[lang]}
           </button>
           <a
             href="/"
-            className="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
+            className="px-6 py-2.5 border border-neutral-300 text-neutral-700 rounded-lg hover:bg-neutral-100 transition-colors"
           >
             {t.home[lang]}
           </a>
         </div>
         {error.digest && (
-          <p className="text-xs text-gray-400">Error ID: {error.digest}</p>
+          <p className="text-xs text-neutral-400">Error ID: {error.digest}</p>
         )}
       </div>
     </div>

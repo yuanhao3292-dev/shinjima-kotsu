@@ -467,7 +467,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
     <div className="animate-fade-in-up">
 
       {/* ━━━━━━━━ 1. HERO ━━━━━━━━ */}
-      <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-gray-950">
+      <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-neutral-950">
         <Image
           src={heroBg?.src || `${SAI}/topFvImg01.jpg`}
           alt={heroBg?.alt || 'SAI CLINIC'}
@@ -476,21 +476,21 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
           priority
           quality={75}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-950/85 via-gray-950/70 to-rose-950/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-neutral-950/85 via-neutral-950/70 to-brand-950/60"></div>
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-24">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <div className="h-[1px] w-12 bg-rose-400"></div>
-                <span className="text-xs tracking-[0.3em] text-rose-300 uppercase">Aesthetic Medicine in Osaka</span>
+                <div className="h-[1px] w-12 bg-brand-400"></div>
+                <span className="text-xs tracking-[0.3em] text-brand-300 uppercase">Aesthetic Medicine in Osaka</span>
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-brand-900 leading-tight mb-6">
                 SAI CLINIC
                 <br />
-                <span className="text-rose-300">{t(TR.location, lang)}</span>
+                <span className="text-brand-300">{t(TR.location, lang)}</span>
               </h1>
-              <p className="text-xl text-rose-200/80 mb-4 font-light">{t(TR.heroSlogan, lang)}</p>
-              <p className="text-base text-gray-300/80 leading-relaxed mb-8 max-w-lg">
+              <p className="text-xl text-brand-200/80 mb-4 font-light">{t(TR.heroSlogan, lang)}</p>
+              <p className="text-base text-neutral-600/80 leading-relaxed mb-8 max-w-lg">
                 {t(TR.heroDesc, lang)}
               </p>
               <div className="flex flex-wrap gap-3 mb-10">
@@ -498,7 +498,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                   <span key={i} className="px-4 py-2 bg-brand-50 rounded-full text-sm text-brand-700 border border-brand-100">{t(tag, lang)}</span>
                 ))}
               </div>
-              <a href="#sai-packages" className="inline-flex items-center gap-3 bg-rose-500 text-brand-900 px-8 py-4 rounded-full font-bold hover:bg-rose-600 transition-all shadow-lg shadow-rose-500/20">
+              <a href="#sai-packages" className="inline-flex items-center gap-3 bg-brand-500 text-brand-900 px-8 py-4 rounded-full font-bold hover:bg-brand-600 transition-all shadow-lg shadow-brand-500/20">
                 {t(TR.viewAll, lang)} <ArrowRight size={18} />
               </a>
             </div>
@@ -510,7 +510,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 text-white">
                       <div className="text-lg font-bold">15+</div>
-                      <div className="text-[11px] text-gray-300">{t(TR.yearsExp, lang)}</div>
+                      <div className="text-[11px] text-neutral-200">{t(TR.yearsExp, lang)}</div>
                     </div>
                   </div>
                   <div className="relative rounded-2xl overflow-hidden h-36 border border-neutral-200">
@@ -518,7 +518,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 text-white">
                       <div className="text-lg font-bold">JSAS</div>
-                      <div className="text-[11px] text-gray-300">{t(TR.jsas, lang)}</div>
+                      <div className="text-[11px] text-neutral-200">{t(TR.jsas, lang)}</div>
                     </div>
                   </div>
                 </div>
@@ -528,7 +528,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 text-white">
                       <div className="text-lg font-bold">KAAS</div>
-                      <div className="text-[11px] text-gray-300">{t(TR.kaas, lang)}</div>
+                      <div className="text-[11px] text-neutral-200">{t(TR.kaas, lang)}</div>
                     </div>
                   </div>
                   <div className="relative rounded-2xl overflow-hidden h-48 border border-neutral-200">
@@ -536,7 +536,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                     <div className="absolute bottom-3 left-3 text-white">
                       <div className="text-lg font-bold">{t(TR.location, lang)}</div>
-                      <div className="text-[11px] text-gray-300">{t(TR.umedaAccess, lang)}</div>
+                      <div className="text-[11px] text-neutral-200">{t(TR.umedaAccess, lang)}</div>
                     </div>
                   </div>
                 </div>
@@ -547,46 +547,46 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
       </section>
 
       {/* ━━━━━━━━ TRUST STATS ━━━━━━━━ */}
-      <section className="py-6 bg-white border-b border-gray-100">
+      <section className="py-6 bg-white border-b border-neutral-100">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div>
-              <div className="text-2xl md:text-3xl font-bold text-rose-600">2,800<span className="text-base">+</span></div>
-              <div className="text-[11px] text-gray-500 mt-1">{t(TR.stats1, lang)}</div>
+              <div className="text-2xl md:text-3xl font-bold text-brand-600">2,800<span className="text-base">+</span></div>
+              <div className="text-[11px] text-neutral-500 mt-1">{t(TR.stats1, lang)}</div>
             </div>
             <div>
-              <div className="text-2xl md:text-3xl font-bold text-rose-600">98.5<span className="text-base">%</span></div>
-              <div className="text-[11px] text-gray-500 mt-1">{t(TR.stats2, lang)}</div>
+              <div className="text-2xl md:text-3xl font-bold text-brand-600">98.5<span className="text-base">%</span></div>
+              <div className="text-[11px] text-neutral-500 mt-1">{t(TR.stats2, lang)}</div>
             </div>
             <div>
-              <div className="text-2xl md:text-3xl font-bold text-rose-600">15<span className="text-base">年+</span></div>
-              <div className="text-[11px] text-gray-500 mt-1">{t(TR.stats3, lang)}</div>
+              <div className="text-2xl md:text-3xl font-bold text-brand-600">15<span className="text-base">年+</span></div>
+              <div className="text-[11px] text-neutral-500 mt-1">{t(TR.stats3, lang)}</div>
             </div>
             <div>
-              <div className="text-2xl md:text-3xl font-bold text-rose-600">0</div>
-              <div className="text-[11px] text-gray-500 mt-1">{t(TR.stats4, lang)}</div>
+              <div className="text-2xl md:text-3xl font-bold text-brand-600">0</div>
+              <div className="text-[11px] text-neutral-500 mt-1">{t(TR.stats4, lang)}</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* ━━━━━━━━ PROMO BANNER ━━━━━━━━ */}
-      <section className="py-3 bg-gray-900 text-white">
+      <section className="py-3 bg-neutral-900 text-brand-900">
         <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span>
             </span>
             <p className="text-sm">
-              <span className="text-rose-400 font-bold">{t(TR.promoCampaign, lang)}</span>
-              <span className="mx-2 text-gray-600">|</span>
-              <span className="text-gray-300">{t(TR.promoDesc, lang)}</span>
+              <span className="text-brand-400 font-bold">{t(TR.promoCampaign, lang)}</span>
+              <span className="mx-2 text-neutral-600">|</span>
+              <span className="text-neutral-600">{t(TR.promoDesc, lang)}</span>
             </p>
           </div>
           <div className="flex items-center gap-2 text-xs font-bold bg-white/10 px-4 py-1.5 rounded-full">
             <Clock size={12} />
-            {t(TR.promoQuota, lang)}<span className="text-rose-400">{t(TR.promoSlots, lang)}</span>
+            {t(TR.promoQuota, lang)}<span className="text-brand-400">{t(TR.promoSlots, lang)}</span>
           </div>
         </div>
       </section>
@@ -595,13 +595,13 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
       <section className="py-24 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-sm tracking-widest text-rose-500 uppercase">Doctor</span>
-            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">{t(TR.doctorSectionTitle, lang)}</h2>
+            <span className="text-sm tracking-widest text-brand-500 uppercase">Doctor</span>
+            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.doctorSectionTitle, lang)}</h2>
           </div>
 
           {/* Philosophy heading */}
           <div className="text-center mb-16">
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 leading-snug whitespace-pre-line">
+            <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 leading-snug whitespace-pre-line">
               {t(TR.doctorPhilosophy, lang)}
             </h3>
           </div>
@@ -612,7 +612,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
               <div className="relative rounded-2xl overflow-hidden mb-8 aspect-[4/5]">
                 <Image src={`${SAI}/aboutDoctorImg2.jpg`} alt="崔煌植 院長" fill className="object-cover" quality={80} />
               </div>
-              <div className="space-y-5 text-[15px] text-gray-600 leading-[1.9]">
+              <div className="space-y-5 text-[15px] text-neutral-600 leading-[1.9]">
                 <p>{t(TR.doctorMsg1, lang)}</p>
                 <p>{t(TR.doctorMsg2, lang)}</p>
                 <p>{t(TR.doctorMsg3, lang)}</p>
@@ -630,17 +630,17 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
               {/* Signature + Name */}
               <div className="text-center mb-10">
                 <Image src={doctorSign?.src || `${SAI}/sign.png`} alt={doctorSign?.alt || '崔煌植 签名'} width={160} height={50} className="mx-auto mb-3 opacity-70" quality={75} />
-                <h4 className="text-2xl font-bold text-gray-900 tracking-wide">崔 煌植</h4>
-                <p className="text-sm text-gray-500 mt-1">Sai Koshoku</p>
+                <h4 className="text-2xl font-bold text-neutral-900 tracking-wide">崔 煌植</h4>
+                <p className="text-sm text-neutral-500 mt-1">Sai Koshoku</p>
               </div>
 
               {/* Career */}
               <div className="mb-8">
-                <h5 className="text-xs tracking-widest text-rose-500 uppercase mb-4">{t(TR.careerLabel, lang)}</h5>
-                <div className="space-y-2.5 text-sm text-gray-600">
+                <h5 className="text-xs tracking-widest text-brand-500 uppercase mb-4">{t(TR.careerLabel, lang)}</h5>
+                <div className="space-y-2.5 text-sm text-neutral-600">
                   {[TR.career1, TR.career2, TR.career3, TR.career4, TR.career5, TR.career6, TR.career7].map((item, i) => (
                     <div key={i} className="flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-rose-300 mt-1.5 shrink-0"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-brand-300 mt-1.5 shrink-0"></span>
                       <span>{t(item, lang)}</span>
                     </div>
                   ))}
@@ -649,11 +649,11 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
 
               {/* Credentials */}
               <div>
-                <h5 className="text-xs tracking-widest text-rose-500 uppercase mb-4">{t(TR.credLabel, lang)}</h5>
-                <div className="space-y-2.5 text-sm text-gray-600">
+                <h5 className="text-xs tracking-widest text-brand-500 uppercase mb-4">{t(TR.credLabel, lang)}</h5>
+                <div className="space-y-2.5 text-sm text-neutral-600">
                   {[TR.cred1, TR.cred2, TR.cred3, TR.cred4, TR.cred5].map((item, i) => (
                     <div key={i} className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-rose-400 mt-0.5 shrink-0" />
+                      <CheckCircle size={14} className="text-brand-400 mt-0.5 shrink-0" />
                       <span>{t(item, lang)}</span>
                     </div>
                   ))}
@@ -665,11 +665,11 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
       </section>
 
       {/* ━━━━━━━━ 3. 特色介绍 ━━━━━━━━ */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-24 bg-neutral-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-sm tracking-widest text-rose-500 uppercase">Why SAI CLINIC</span>
-            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">{t(TR.whyTitle, lang)}</h2>
+            <span className="text-sm tracking-widest text-brand-500 uppercase">Why SAI CLINIC</span>
+            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.whyTitle, lang)}</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
             {[
@@ -688,16 +688,16 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                 tags: TR.feat2Tags,
               },
             ].map((item, i) => (
-              <div key={i} className="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all hover:-translate-y-1">
+              <div key={i} className="bg-white rounded-2xl overflow-hidden border border-neutral-100 hover:shadow-xl transition-all hover:-translate-y-1">
                 <div className="relative h-48">
                   <Image src={item.img} alt={item.imgAlt} fill className="object-cover" quality={75} />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-lg font-bold text-gray-900 mb-3">{item.title}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed mb-4">{item.desc}</p>
+                  <h3 className="text-lg font-bold text-neutral-900 mb-3">{item.title}</h3>
+                  <p className="text-sm text-neutral-500 leading-relaxed mb-4">{item.desc}</p>
                   <div className="flex flex-wrap gap-2">
                     {item.tags.map((tag, j) => (
-                      <span key={j} className="px-3 py-1 bg-gray-50 text-gray-600 text-xs rounded-full">{t(tag, lang)}</span>
+                      <span key={j} className="px-3 py-1 bg-neutral-50 text-neutral-600 text-xs rounded-full">{t(tag, lang)}</span>
                     ))}
                   </div>
                 </div>
@@ -708,29 +708,29 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
       </section>
 
       {/* ━━━━━━━━ 3.5. 服务价值说明 ━━━━━━━━ */}
-      <section className="py-20 bg-white border-t border-gray-100">
+      <section className="py-20 bg-white border-t border-neutral-100">
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-sm tracking-widest text-rose-500 uppercase">Our Service</span>
-            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">{t(TR.serviceTitle, lang)}</h2>
-            <p className="text-gray-500 text-sm mt-2 max-w-xl mx-auto">
+            <span className="text-sm tracking-widest text-brand-500 uppercase">Our Service</span>
+            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.serviceTitle, lang)}</h2>
+            <p className="text-neutral-500 text-sm mt-2 max-w-xl mx-auto">
               {t(TR.serviceDesc, lang)}
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { icon: <Globe size={22} className="text-rose-500" />, title: t(TR.svc1Title, lang), desc: t(TR.svc1Desc, lang) },
-              { icon: <MessageCircle size={22} className="text-blue-500" />, title: t(TR.svc2Title, lang), desc: t(TR.svc2Desc, lang) },
-              { icon: <Stethoscope size={22} className="text-purple-500" />, title: t(TR.svc3Title, lang), desc: t(TR.svc3Desc, lang) },
-              { icon: <Users size={22} className="text-teal-500" />, title: t(TR.svc4Title, lang), desc: t(TR.svc4Desc, lang) },
-              { icon: <Shield size={22} className="text-amber-500" />, title: t(TR.svc5Title, lang), desc: t(TR.svc5Desc, lang) },
-              { icon: <MapPin size={22} className="text-green-500" />, title: t(TR.svc6Title, lang), desc: t(TR.svc6Desc, lang) },
+              { icon: <Globe size={22} className="text-brand-500" />, title: t(TR.svc1Title, lang), desc: t(TR.svc1Desc, lang) },
+              { icon: <MessageCircle size={22} className="text-brand-500" />, title: t(TR.svc2Title, lang), desc: t(TR.svc2Desc, lang) },
+              { icon: <Stethoscope size={22} className="text-brand-500" />, title: t(TR.svc3Title, lang), desc: t(TR.svc3Desc, lang) },
+              { icon: <Users size={22} className="text-brand-500" />, title: t(TR.svc4Title, lang), desc: t(TR.svc4Desc, lang) },
+              { icon: <Shield size={22} className="text-brand-500" />, title: t(TR.svc5Title, lang), desc: t(TR.svc5Desc, lang) },
+              { icon: <MapPin size={22} className="text-brand-500" />, title: t(TR.svc6Title, lang), desc: t(TR.svc6Desc, lang) },
             ].map((item, i) => (
-              <div key={i} className="flex gap-4 p-5 rounded-xl border border-gray-100 hover:border-rose-100 hover:bg-rose-50/30 transition">
+              <div key={i} className="flex gap-4 p-5 rounded-xl border border-neutral-100 hover:border-brand-100 hover:bg-brand-50/30 transition">
                 <div className="shrink-0 mt-0.5">{item.icon}</div>
                 <div>
-                  <h4 className="font-bold text-gray-900 text-sm mb-1">{item.title}</h4>
-                  <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
+                  <h4 className="font-bold text-neutral-900 text-sm mb-1">{item.title}</h4>
+                  <p className="text-xs text-neutral-500 leading-relaxed">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -739,12 +739,12 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
       </section>
 
       {/* ━━━━━━━━ 3.7. 诊所环境 ━━━━━━━━ */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-24 bg-neutral-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-sm tracking-widest text-rose-500 uppercase">Clinic Gallery</span>
-            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">{t(TR.galleryTitle, lang)}</h2>
-            <p className="text-gray-500 text-sm mt-2">{t(TR.galleryDesc, lang)}</p>
+            <span className="text-sm tracking-widest text-brand-500 uppercase">Clinic Gallery</span>
+            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.galleryTitle, lang)}</h2>
+            <p className="text-neutral-500 text-sm mt-2">{t(TR.galleryDesc, lang)}</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             {galleryImages.filter((g) => g.label !== '诊所入口').slice(0, 8).map((item, i) => (
@@ -764,24 +764,24 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
       <section className="py-24 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-sm tracking-widest text-rose-500 uppercase">Case Results</span>
-            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">{t(TR.caseTitle, lang)}</h2>
-            <p className="text-gray-500 text-sm mt-2">{t(TR.caseDesc, lang)}</p>
+            <span className="text-sm tracking-widest text-brand-500 uppercase">Case Results</span>
+            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.caseTitle, lang)}</h2>
+            <p className="text-neutral-500 text-sm mt-2">{t(TR.caseDesc, lang)}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {caseImages.map((item) => (
-              <div key={item.id} className="rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition">
+              <div key={item.id} className="rounded-2xl overflow-hidden border border-neutral-100 hover:shadow-xl transition">
                 <div className="relative h-80">
                   <Image src={item.src} alt={item.alt} fill className="object-cover object-top" quality={75} />
                 </div>
                 <div className="p-5">
-                  <h4 className="font-bold text-gray-900 text-sm mb-2">{item.metadata?.title || item.alt}</h4>
-                  <p className="text-xs text-gray-500 leading-relaxed">{item.metadata?.desc || ''}</p>
+                  <h4 className="font-bold text-neutral-900 text-sm mb-2">{item.metadata?.title || item.alt}</h4>
+                  <p className="text-xs text-neutral-500 leading-relaxed">{item.metadata?.desc || ''}</p>
                 </div>
               </div>
             ))}
           </div>
-          <p className="text-center text-[11px] text-gray-400 mt-8">{t(TR.caseDisclaimer, lang)}</p>
+          <p className="text-center text-[11px] text-neutral-400 mt-8">{t(TR.caseDisclaimer, lang)}</p>
         </div>
       </section>
 
@@ -791,13 +791,13 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
           {/* Thread Lift Hero Banner */}
           <div className="relative rounded-2xl overflow-hidden mb-16 h-64 md:h-80">
             <Image src={threadliftImages[0]?.src || `${SAI_UP}/2025/06/sai_threadlift_title.jpg`} alt={threadliftImages[0]?.alt || 'SAI LIFT'} fill className="object-cover" quality={75} />
-            <div className="absolute inset-0 bg-gradient-to-r from-gray-900/80 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/80 to-transparent"></div>
             <div className="absolute inset-0 flex items-center px-8 md:px-12">
               <div>
-                <span className="text-sm tracking-widest text-rose-400 uppercase">Thread Lift Packages</span>
-                <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mt-2">{t(TR.threadLiftTitle, lang)}</h2>
-                <p className="text-gray-300 text-sm mt-2 max-w-md">{t(TR.threadLiftDesc, lang)}</p>
-                <div className="mt-4 inline-flex items-center gap-2 px-4 py-1.5 bg-rose-500/20 backdrop-blur border border-rose-400/30 rounded-full text-xs font-bold text-rose-300">
+                <span className="text-sm tracking-widest text-brand-400 uppercase">Thread Lift Packages</span>
+                <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-900 mt-2">{t(TR.threadLiftTitle, lang)}</h2>
+                <p className="text-neutral-600 text-sm mt-2 max-w-md">{t(TR.threadLiftDesc, lang)}</p>
+                <div className="mt-4 inline-flex items-center gap-2 px-4 py-1.5 bg-brand-500/20 backdrop-blur border border-brand-400/30 rounded-full text-xs font-bold text-brand-300">
                   <Clock size={12} /> {t(TR.monthlyQuota, lang)}
                 </div>
               </div>
@@ -809,24 +809,24 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                 key={pkg.slug}
                 className={`rounded-2xl p-6 hover:shadow-2xl transition hover:-translate-y-1 relative overflow-hidden flex flex-col ${
                   pkg.flagship
-                    ? 'bg-gray-900 text-white border border-gray-800'
+                    ? 'bg-neutral-900 text-brand-900 border border-neutral-800'
                     : pkg.popular
-                      ? 'bg-gradient-to-br from-rose-50 to-purple-50 border border-rose-200'
-                      : 'bg-white border border-gray-200'
+                      ? 'bg-gradient-to-br from-brand-50 to-brand-50 border border-brand-200'
+                      : 'bg-white border border-neutral-200'
                 }`}
               >
-                {pkg.flagship && <div className="absolute top-0 right-0 bg-amber-500 text-black text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Flagship</div>}
-                {pkg.popular && <div className="absolute top-0 right-0 bg-rose-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">{t(TR.popular, lang)}</div>}
+                {pkg.flagship && <div className="absolute top-0 right-0 bg-brand-500 text-black text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Flagship</div>}
+                {pkg.popular && <div className="absolute top-0 right-0 bg-brand-500 text-brand-900 text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">{t(TR.popular, lang)}</div>}
                 <div className="mb-4">
-                  <h4 className={`text-xl font-bold ${pkg.flagship ? 'text-amber-400' : pkg.popular ? 'text-rose-700' : 'text-gray-900'}`}>{t(pkg.name, lang)}</h4>
-                  <p className={`text-2xl font-bold mt-2 ${pkg.flagship ? 'text-amber-400' : pkg.popular ? 'text-rose-700' : 'text-gray-900'}`}>{formatPrice(pkg.price)}</p>
-                  <p className={`text-[10px] mt-1 ${pkg.flagship ? 'text-gray-500' : 'text-gray-400'}`}>{t(TR.includedServices, lang)}</p>
+                  <h4 className={`text-xl font-bold ${pkg.flagship ? 'text-brand-400' : pkg.popular ? 'text-brand-700' : 'text-neutral-900'}`}>{t(pkg.name, lang)}</h4>
+                  <p className={`text-2xl font-bold mt-2 ${pkg.flagship ? 'text-amber-400' : pkg.popular ? 'text-brand-700' : 'text-neutral-900'}`}>{formatPrice(pkg.price)}</p>
+                  <p className={`text-[10px] mt-1 ${pkg.flagship ? 'text-neutral-500' : 'text-neutral-400'}`}>{t(TR.includedServices, lang)}</p>
                 </div>
                 <div className="space-y-1.5 mb-4 text-xs flex-grow">
                   {pkg.features.map((f, i) => (
                     <div key={i} className="flex gap-2">
-                      <CheckCircle size={14} className={`shrink-0 ${pkg.flagship ? 'text-amber-500' : pkg.popular ? 'text-rose-500' : 'text-gray-400'}`} />
-                      <span className={pkg.flagship ? 'text-gray-300' : 'text-gray-700'}>{t(f, lang)}</span>
+                      <CheckCircle size={14} className={`shrink-0 ${pkg.flagship ? 'text-amber-500' : pkg.popular ? 'text-brand-500' : 'text-neutral-400'}`} />
+                      <span className={pkg.flagship ? 'text-neutral-600' : 'text-neutral-700'}>{t(f, lang)}</span>
                     </div>
                   ))}
                 </div>
@@ -834,10 +834,10 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                   href={checkoutHref(`${checkoutBase}/${pkg.slug}`)}
                   className={`w-full py-3 text-sm font-bold rounded-lg transition text-center block ${
                     pkg.flagship
-                      ? 'bg-amber-500 text-black hover:bg-amber-400'
+                      ? 'bg-brand-500 text-black hover:bg-brand-400'
                       : pkg.popular
-                        ? 'bg-rose-500 text-white hover:bg-rose-600'
-                        : 'border border-gray-300 text-gray-700 hover:bg-gray-50'
+                        ? 'bg-brand-500 text-brand-900 hover:bg-brand-600'
+                        : 'border border-neutral-300 text-neutral-700 hover:bg-neutral-50'
                   }`}
                 >
                   {t(TR.bookNow, lang)}
@@ -849,22 +849,22 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
       </section>
 
       {/* ━━━━━━━━ 5. 组合套餐 ━━━━━━━━ */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-24 bg-neutral-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-sm tracking-widest text-rose-500 uppercase">Combination Sets</span>
-            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">{t(TR.comboTitle, lang)}</h2>
-            <p className="text-gray-500 text-sm mt-2">{t(TR.comboDesc, lang)}</p>
+            <span className="text-sm tracking-widest text-brand-500 uppercase">Combination Sets</span>
+            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.comboTitle, lang)}</h2>
+            <p className="text-neutral-500 text-sm mt-2">{t(TR.comboDesc, lang)}</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {COMBO_PACKAGES.map((pkg) => (
-              <div key={pkg.slug} className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition hover:-translate-y-1 flex flex-col">
-                <h4 className="font-bold text-gray-900 mb-1">{t(pkg.name, lang)}</h4>
-                <p className="text-sm text-gray-500 leading-relaxed mb-4 flex-grow">{t(pkg.desc, lang)}</p>
+              <div key={pkg.slug} className="bg-white rounded-2xl p-6 border border-neutral-100 hover:shadow-xl transition hover:-translate-y-1 flex flex-col">
+                <h4 className="font-bold text-neutral-900 mb-1">{t(pkg.name, lang)}</h4>
+                <p className="text-sm text-neutral-500 leading-relaxed mb-4 flex-grow">{t(pkg.desc, lang)}</p>
                 <div className="mb-3">
-                  <p className="text-xl font-bold text-gray-900">{formatPrice(pkg.price)}</p>
+                  <p className="text-xl font-bold text-neutral-900">{formatPrice(pkg.price)}</p>
                 </div>
-                <Link href={checkoutHref(`${checkoutBase}/${pkg.slug}`)} className="w-full py-2 bg-rose-500 text-white text-sm font-bold rounded-lg hover:bg-rose-600 transition text-center block">{t(TR.bookNow, lang)}</Link>
+                <Link href={checkoutHref(`${checkoutBase}/${pkg.slug}`)} className="w-full py-2 bg-brand-500 text-brand-900 text-sm font-bold rounded-lg hover:bg-brand-600 transition text-center block">{t(TR.bookNow, lang)}</Link>
               </div>
             ))}
           </div>
@@ -878,19 +878,19 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
             {/* Eye */}
             <div>
               <div className="mb-8">
-                <span className="text-sm tracking-widest text-purple-500 uppercase">Eye Surgery</span>
-                <h3 className="text-2xl font-bold text-gray-900 mt-2">{t(TR.eyeTitle, lang)}</h3>
+                <span className="text-sm tracking-widest text-brand-500 uppercase">Eye Surgery</span>
+                <h3 className="text-2xl font-bold text-neutral-900 mt-2">{t(TR.eyeTitle, lang)}</h3>
               </div>
               <div className="space-y-4">
                 {EYE_PACKAGES.map((pkg) => (
-                  <div key={pkg.slug} className="bg-purple-50/50 rounded-xl p-5 border border-purple-100 hover:shadow-lg transition flex flex-col sm:flex-row sm:items-center gap-4">
+                  <div key={pkg.slug} className="bg-brand-50/50 rounded-xl p-5 border border-brand-100 hover:shadow-lg transition flex flex-col sm:flex-row sm:items-center gap-4">
                     <div className="flex-grow">
-                      <h4 className="font-bold text-gray-900">{t(pkg.name, lang)}</h4>
-                      <p className="text-sm text-gray-500">{t(pkg.desc, lang)}</p>
+                      <h4 className="font-bold text-neutral-900">{t(pkg.name, lang)}</h4>
+                      <p className="text-sm text-neutral-500">{t(pkg.desc, lang)}</p>
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="text-xl font-bold text-purple-700">{formatPrice(pkg.price)}</p>
-                      <Link href={checkoutHref(`${checkoutBase}/${pkg.slug}`)} className="inline-block mt-1 px-4 py-1.5 bg-purple-600 text-white text-xs font-bold rounded-lg hover:bg-purple-700 transition">{t(TR.bookNow, lang)}</Link>
+                      <p className="text-xl font-bold text-brand-700">{formatPrice(pkg.price)}</p>
+                      <Link href={checkoutHref(`${checkoutBase}/${pkg.slug}`)} className="inline-block mt-1 px-4 py-1.5 bg-brand-600 text-brand-900 text-xs font-bold rounded-lg hover:bg-brand-700 transition">{t(TR.bookNow, lang)}</Link>
                     </div>
                   </div>
                 ))}
@@ -899,19 +899,19 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
             {/* Nose */}
             <div>
               <div className="mb-8">
-                <span className="text-sm tracking-widest text-blue-500 uppercase">Nose Surgery</span>
-                <h3 className="text-2xl font-bold text-gray-900 mt-2">{t(TR.noseTitle, lang)}</h3>
+                <span className="text-sm tracking-widest text-brand-500 uppercase">Nose Surgery</span>
+                <h3 className="text-2xl font-bold text-neutral-900 mt-2">{t(TR.noseTitle, lang)}</h3>
               </div>
               <div className="space-y-4">
                 {NOSE_PACKAGES.map((pkg) => (
-                  <div key={pkg.slug} className="bg-blue-50/50 rounded-xl p-5 border border-blue-100 hover:shadow-lg transition flex flex-col sm:flex-row sm:items-center gap-4">
+                  <div key={pkg.slug} className="bg-brand-50/50 rounded-xl p-5 border border-brand-100 hover:shadow-lg transition flex flex-col sm:flex-row sm:items-center gap-4">
                     <div className="flex-grow">
-                      <h4 className="font-bold text-gray-900">{t(pkg.name, lang)}</h4>
-                      <p className="text-sm text-gray-500">{t(pkg.desc, lang)}</p>
+                      <h4 className="font-bold text-neutral-900">{t(pkg.name, lang)}</h4>
+                      <p className="text-sm text-neutral-500">{t(pkg.desc, lang)}</p>
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="text-xl font-bold text-blue-700">{formatPrice(pkg.price)}</p>
-                      <Link href={checkoutHref(`${checkoutBase}/${pkg.slug}`)} className="inline-block mt-1 px-4 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg hover:bg-blue-700 transition">{t(TR.bookNow, lang)}</Link>
+                      <p className="text-xl font-bold text-brand-700">{formatPrice(pkg.price)}</p>
+                      <Link href={checkoutHref(`${checkoutBase}/${pkg.slug}`)} className="inline-block mt-1 px-4 py-1.5 bg-brand-600 text-brand-900 text-xs font-bold rounded-lg hover:bg-brand-700 transition">{t(TR.bookNow, lang)}</Link>
                     </div>
                   </div>
                 ))}
@@ -922,21 +922,21 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
       </section>
 
       {/* ━━━━━━━━ 7. 注射 + 脂肪 + 内科 ━━━━━━━━ */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-24 bg-neutral-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-sm tracking-widest text-rose-500 uppercase">More Treatments</span>
-            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">{t(TR.moreTitle, lang)}</h2>
+            <span className="text-sm tracking-widest text-brand-500 uppercase">More Treatments</span>
+            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.moreTitle, lang)}</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...INJECTABLE_PACKAGES, ...FAT_PACKAGES, ...WELLNESS_PACKAGES].map((pkg) => (
-              <div key={pkg.slug} className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-xl transition hover:-translate-y-1 flex flex-col">
-                <h4 className="font-bold text-gray-900 mb-1">{t(pkg.name, lang)}</h4>
-                <p className="text-sm text-gray-500 leading-relaxed mb-4 flex-grow">{t(pkg.desc, lang)}</p>
+              <div key={pkg.slug} className="bg-white rounded-2xl p-6 border border-neutral-100 hover:shadow-xl transition hover:-translate-y-1 flex flex-col">
+                <h4 className="font-bold text-neutral-900 mb-1">{t(pkg.name, lang)}</h4>
+                <p className="text-sm text-neutral-500 leading-relaxed mb-4 flex-grow">{t(pkg.desc, lang)}</p>
                 <div>
                   <div className="flex items-end justify-between mt-1">
-                    <p className="text-xl font-bold text-gray-900">{formatPrice(pkg.price)}</p>
-                    <Link href={checkoutHref(`${checkoutBase}/${pkg.slug}`)} className="px-4 py-2 bg-rose-500 text-white text-xs font-bold rounded-lg hover:bg-rose-600 transition">{t(TR.bookNow, lang)}</Link>
+                    <p className="text-xl font-bold text-neutral-900">{formatPrice(pkg.price)}</p>
+                    <Link href={checkoutHref(`${checkoutBase}/${pkg.slug}`)} className="px-4 py-2 bg-brand-500 text-brand-900 text-xs font-bold rounded-lg hover:bg-brand-600 transition">{t(TR.bookNow, lang)}</Link>
                   </div>
                 </div>
               </div>
@@ -949,9 +949,9 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
       <section className="py-24 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-sm tracking-widest text-rose-500 uppercase">Full Price List</span>
-            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">{t(TR.priceListTitle, lang)}</h2>
-            <p className="text-gray-500 text-sm mt-2">{t(TR.priceListDesc, lang)}</p>
+            <span className="text-sm tracking-widest text-brand-500 uppercase">Full Price List</span>
+            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.priceListTitle, lang)}</h2>
+            <p className="text-neutral-500 text-sm mt-2">{t(TR.priceListDesc, lang)}</p>
           </div>
 
           {/* Tab Switcher */}
@@ -961,7 +961,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                 key={key}
                 onClick={() => setMenuTab(key)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition ${
-                  menuTab === key ? 'bg-rose-500 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  menuTab === key ? 'bg-brand-500 text-brand-900' : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
                 }`}
               >
                 {cat.icon} {t(cat.title, lang)}
@@ -970,18 +970,18 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
           </div>
 
           {/* Price Table */}
-          <div className="bg-gray-50 rounded-2xl border border-gray-200 overflow-hidden">
-            <div className="px-6 py-4 bg-gray-100 border-b border-gray-200 flex items-center justify-between">
-              <h3 className="font-bold text-gray-900">
+          <div className="bg-neutral-50 rounded-2xl border border-neutral-200 overflow-hidden">
+            <div className="px-6 py-4 bg-neutral-100 border-b border-neutral-200 flex items-center justify-between">
+              <h3 className="font-bold text-neutral-900">
                 {t(FULL_MENU[menuTab as keyof typeof FULL_MENU].title, lang)}
               </h3>
-              <span className="text-xs text-gray-400">{FULL_MENU[menuTab as keyof typeof FULL_MENU].items.length} {t(TR.itemCount, lang)}</span>
+              <span className="text-xs text-neutral-400">{FULL_MENU[menuTab as keyof typeof FULL_MENU].items.length} {t(TR.itemCount, lang)}</span>
             </div>
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-neutral-100">
               {FULL_MENU[menuTab as keyof typeof FULL_MENU].items.map((item, i) => (
                 <div key={i} className="px-6 py-3 flex items-center justify-between hover:bg-white transition">
-                  <span className="text-sm text-gray-700">{t(item.name, lang)}</span>
-                  <span className="text-sm font-bold text-gray-900 shrink-0 ml-4">{formatPrice(item.price)}</span>
+                  <span className="text-sm text-neutral-700">{t(item.name, lang)}</span>
+                  <span className="text-sm font-bold text-neutral-900 shrink-0 ml-4">{formatPrice(item.price)}</span>
                 </div>
               ))}
             </div>
@@ -990,14 +990,14 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
       </section>
 
       {/* ━━━━━━━━ 9. 治疗流程 ━━━━━━━━ */}
-      <section className="py-24 text-white relative overflow-hidden">
+      <section className="py-24 text-brand-900 relative overflow-hidden">
         <Image src={flowBg?.src || `${SAI}/topFvImg06.jpg`} alt={flowBg?.alt || 'SAI CLINIC'} fill className="object-cover" quality={75} />
-        <div className="absolute inset-0 bg-gray-900/85"></div>
+        <div className="absolute inset-0 bg-neutral-900/85"></div>
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
-            <span className="text-sm tracking-widest text-rose-400 uppercase">Treatment Flow</span>
+            <span className="text-sm tracking-widest text-brand-400 uppercase">Treatment Flow</span>
             <h2 className="text-3xl font-serif font-bold mt-3">{t(TR.flowTitle, lang)}</h2>
-            <p className="text-gray-400 text-sm mt-2">{t(TR.flowDesc, lang)}</p>
+            <p className="text-neutral-400 text-sm mt-2">{t(TR.flowDesc, lang)}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
             {[
@@ -1008,10 +1008,10 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
               { id: '05', icon: <Clock size={24} />, title: t(TR.flow5, lang), desc: t(TR.flow5Desc, lang) },
             ].map((step, i) => (
               <div key={i} className="bg-white/5 p-6 rounded-xl border border-white/10 hover:bg-white/10 transition text-center">
-                <div className="text-rose-400 font-mono text-xl mb-4 opacity-50">{step.id}</div>
-                <div className="flex justify-center mb-4 text-white opacity-80">{step.icon}</div>
+                <div className="text-brand-400 font-mono text-xl mb-4 opacity-50">{step.id}</div>
+                <div className="flex justify-center mb-4 text-brand-900 opacity-80">{step.icon}</div>
                 <h4 className="font-bold text-lg mb-2">{step.title}</h4>
-                <p className="text-xs text-gray-400 leading-relaxed">{step.desc}</p>
+                <p className="text-xs text-neutral-400 leading-relaxed">{step.desc}</p>
               </div>
             ))}
           </div>
@@ -1022,33 +1022,33 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
       <section className="py-24 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-sm tracking-widest text-rose-500 uppercase">Access</span>
-            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">{t(TR.accessTitle, lang)}</h2>
+            <span className="text-sm tracking-widest text-brand-500 uppercase">Access</span>
+            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.accessTitle, lang)}</h2>
           </div>
           <div className="grid lg:grid-cols-2 gap-12">
-            <div className="bg-gray-50 rounded-2xl overflow-hidden border border-gray-100">
+            <div className="bg-neutral-50 rounded-2xl overflow-hidden border border-neutral-100">
               <div className="relative h-48">
                 <Image src={galleryEntrance?.src || `${SAI}/aboutGalleryImg8.jpg`} alt={galleryEntrance?.alt || 'SAI CLINIC 入口'} fill className="object-cover" quality={75} />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/26 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 flex items-center gap-2 bg-white/90 backdrop-blur px-3 py-1.5 rounded-full">
-                  <MapPin size={14} className="text-rose-500" />
-                  <span className="text-sm font-medium text-gray-800">梅田 YANMAR ビル B2F</span>
+                  <MapPin size={14} className="text-brand-500" />
+                  <span className="text-sm font-medium text-brand-900">梅田 YANMAR ビル B2F</span>
                 </div>
               </div>
               <div className="p-8">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">{t(TR.addressTitle, lang)}</h3>
-              <p className="text-gray-700 mb-2">〒530-0013</p>
-              <p className="text-gray-700 mb-1">大阪府大阪市北区茶屋町1-32</p>
-              <p className="text-gray-700 mb-6">ヤンマー本社ビル 地下2階（B2F）</p>
+              <h3 className="text-lg font-bold text-neutral-900 mb-4">{t(TR.addressTitle, lang)}</h3>
+              <p className="text-neutral-700 mb-2">〒530-0013</p>
+              <p className="text-neutral-700 mb-1">大阪府大阪市北区茶屋町1-32</p>
+              <p className="text-neutral-700 mb-6">ヤンマー本社ビル 地下2階（B2F）</p>
               <div className="space-y-3">
-                <div className="flex items-center gap-2 text-sm text-gray-700">
-                  <Clock size={14} className="text-gray-400" /> {t(TR.hours, lang)}
+                <div className="flex items-center gap-2 text-sm text-neutral-700">
+                  <Clock size={14} className="text-neutral-400" /> {t(TR.hours, lang)}
                 </div>
               </div>
               </div>
             </div>
             <div>
-              <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2"><Train size={20} className="text-rose-500" /> {t(TR.nearestStation, lang)}</h3>
+              <h3 className="text-lg font-bold text-neutral-900 mb-6 flex items-center gap-2"><Train size={20} className="text-brand-500" /> {t(TR.nearestStation, lang)}</h3>
               <div className="space-y-4">
                 {[
                   { station: t(TR.sta1, lang), time: t(TR.sta1Time, lang), line: t(TR.sta1Line, lang), note: t(TR.sta1Note, lang) },
@@ -1057,15 +1057,15 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                   { station: t(TR.sta4, lang), time: t(TR.sta4Time, lang), line: t(TR.sta4Line, lang) },
                   { station: t(TR.sta5, lang), time: t(TR.sta5Time, lang), line: t(TR.sta5Line, lang) },
                 ].map((s, i) => (
-                  <div key={i} className="flex items-center gap-4 bg-gray-50 rounded-xl p-4 border border-gray-100">
-                    <div className="w-10 h-10 bg-rose-100 rounded-full flex items-center justify-center shrink-0">
-                      <Train size={18} className="text-rose-600" />
+                  <div key={i} className="flex items-center gap-4 bg-neutral-50 rounded-xl p-4 border border-neutral-100">
+                    <div className="w-10 h-10 bg-brand-100 rounded-full flex items-center justify-center shrink-0">
+                      <Train size={18} className="text-brand-600" />
                     </div>
                     <div className="flex-grow">
-                      <div className="font-medium text-gray-900">{s.station}</div>
-                      <div className="text-xs text-gray-400">{s.line}{s.note ? ` · ${s.note}` : ''}</div>
+                      <div className="font-medium text-neutral-900">{s.station}</div>
+                      <div className="text-xs text-neutral-400">{s.line}{s.note ? ` · ${s.note}` : ''}</div>
                     </div>
-                    <div className="text-sm font-bold text-rose-600">{s.time}</div>
+                    <div className="text-sm font-bold text-brand-600">{s.time}</div>
                   </div>
                 ))}
               </div>
@@ -1075,76 +1075,76 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
       </section>
 
       {/* ━━━━━━━━ 11. 客户评价 ━━━━━━━━ */}
-      <section className="py-24 bg-gray-50 overflow-hidden">
+      <section className="py-24 bg-neutral-50 overflow-hidden">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-sm tracking-widest text-rose-500 uppercase">Reviews</span>
-            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">{t(TR.reviewsTitle, lang)}</h2>
-            <p className="text-gray-400 text-sm mt-2">{t(TR.reviewsDesc, lang)}</p>
+            <span className="text-sm tracking-widest text-brand-500 uppercase">Reviews</span>
+            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.reviewsTitle, lang)}</h2>
+            <p className="text-neutral-400 text-sm mt-2">{t(TR.reviewsDesc, lang)}</p>
             <div className="flex items-center justify-center gap-1 mt-3">
               {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} size={16} className="text-amber-400 fill-amber-400" />
+                <Star key={i} size={16} className="text-brand-400 fill-brand-400" />
               ))}
-              <span className="text-sm text-gray-600 ml-2 font-medium">4.9 / 5.0</span>
+              <span className="text-sm text-neutral-600 ml-2 font-medium">4.9 / 5.0</span>
             </div>
           </div>
         </div>
         <div className="relative">
           <div className="flex gap-6 animate-scroll-reviews px-6">
             {[...REVIEWS, ...REVIEWS].map((r, i) => (
-              <div key={i} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm min-w-[320px] max-w-[320px] shrink-0">
+              <div key={i} className="bg-white rounded-2xl p-6 border border-neutral-100 shadow-sm min-w-[320px] max-w-[320px] shrink-0">
                 <div className="flex items-center justify-between mb-3">
                   <div>
-                    <div className="font-medium text-gray-900 text-sm">{t(r.name, lang)}</div>
-                    <div className="text-xs text-gray-400">{t(r.loc, lang)} · {t(r.date, lang)}</div>
+                    <div className="font-medium text-neutral-900 text-sm">{t(r.name, lang)}</div>
+                    <div className="text-xs text-neutral-400">{t(r.loc, lang)} · {t(r.date, lang)}</div>
                   </div>
                   <div className="flex gap-0.5">
                     {Array.from({ length: r.stars }).map((_, j) => (
-                      <Star key={j} size={12} className="text-amber-400 fill-amber-400" />
+                      <Star key={j} size={12} className="text-brand-400 fill-brand-400" />
                     ))}
                   </div>
                 </div>
-                <div className="px-2 py-1 bg-rose-50 text-rose-600 text-xs rounded-full inline-block mb-3">{typeof r.treatment === 'string' ? r.treatment : t(r.treatment, lang)}</div>
-                <p className="text-sm text-gray-600 leading-relaxed">{t(r.text, lang)}</p>
+                <div className="px-2 py-1 bg-brand-50 text-brand-600 text-xs rounded-full inline-block mb-3">{typeof r.treatment === 'string' ? r.treatment : t(r.treatment, lang)}</div>
+                <p className="text-sm text-neutral-600 leading-relaxed">{t(r.text, lang)}</p>
               </div>
             ))}
           </div>
         </div>
-        <p className="text-center text-[11px] text-gray-400 mt-6 px-6">
+        <p className="text-center text-[11px] text-neutral-400 mt-6 px-6">
           {({ ja: '※ 上記はサービスの流れや環境に対する個人の感想であり、施術効果を保証するものではありません。', 'zh-TW': '※ 以上為個人對服務流程及環境的感想，並非對療程效果的保證。', 'zh-CN': '※ 以上为个人对服务流程及环境的感想，并非对疗程效果的保证。', en: '※ The above are individual impressions of service and environment, not guarantees of treatment outcomes.' } as Record<Language, string>)[lang]}
         </p>
       </section>
 
       {/* ━━━━━━━━ TRANSFORMATION ━━━━━━━━ */}
-      <section className="py-20 bg-rose-50/50">
+      <section className="py-20 bg-brand-50/50">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <div className="relative w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden border-2 border-rose-200">
+          <div className="relative w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden border-2 border-brand-200">
             <Image src={recommendImg?.src || `${SAI}/a-reccoImg.jpg`} alt={recommendImg?.alt || '推薦'} fill className="object-cover" quality={75} />
           </div>
-          <span className="text-sm tracking-widest text-rose-500 uppercase">Transformation</span>
-          <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3 mb-12">{t(TR.transformTitle, lang)}</h2>
+          <span className="text-sm tracking-widest text-brand-500 uppercase">Transformation</span>
+          <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3 mb-12">{t(TR.transformTitle, lang)}</h2>
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-2xl p-6 border border-gray-100">
-              <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MessageCircle size={24} className="text-gray-400" />
+            <div className="bg-white rounded-2xl p-6 border border-neutral-100">
+              <div className="w-12 h-12 bg-neutral-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <MessageCircle size={24} className="text-neutral-400" />
               </div>
-              <h4 className="font-bold text-gray-400 mb-2 text-sm uppercase tracking-wider">Before</h4>
-              <p className="text-sm text-gray-500 leading-relaxed">{t(TR.transformBefore, lang)}</p>
+              <h4 className="font-bold text-neutral-400 mb-2 text-sm uppercase tracking-wider">Before</h4>
+              <p className="text-sm text-neutral-500 leading-relaxed">{t(TR.transformBefore, lang)}</p>
             </div>
-            <div className="bg-white rounded-2xl p-6 border border-rose-200 shadow-lg relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-rose-500 text-white text-[10px] font-bold px-3 py-1 rounded-full">SAI CLINIC</div>
-              <div className="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4 mt-2">
-                <Sparkles size={24} className="text-rose-500" />
+            <div className="bg-white rounded-2xl p-6 border border-brand-200 shadow-lg relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-500 text-brand-900 text-[10px] font-bold px-3 py-1 rounded-full">SAI CLINIC</div>
+              <div className="w-12 h-12 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-4 mt-2">
+                <Sparkles size={24} className="text-brand-500" />
               </div>
-              <h4 className="font-bold text-rose-600 mb-2 text-sm uppercase tracking-wider">During</h4>
-              <p className="text-sm text-gray-600 leading-relaxed">{t(TR.transformDuring, lang)}</p>
+              <h4 className="font-bold text-brand-600 mb-2 text-sm uppercase tracking-wider">During</h4>
+              <p className="text-sm text-neutral-600 leading-relaxed">{t(TR.transformDuring, lang)}</p>
             </div>
-            <div className="bg-white rounded-2xl p-6 border border-gray-100">
-              <div className="w-12 h-12 bg-rose-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Heart size={24} className="text-rose-500" />
+            <div className="bg-white rounded-2xl p-6 border border-neutral-100">
+              <div className="w-12 h-12 bg-brand-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Heart size={24} className="text-brand-500" />
               </div>
-              <h4 className="font-bold text-rose-500 mb-2 text-sm uppercase tracking-wider">After</h4>
-              <p className="text-sm text-gray-500 leading-relaxed">{t(TR.transformAfter, lang)}</p>
+              <h4 className="font-bold text-brand-500 mb-2 text-sm uppercase tracking-wider">After</h4>
+              <p className="text-sm text-neutral-500 leading-relaxed">{t(TR.transformAfter, lang)}</p>
             </div>
           </div>
         </div>
@@ -1154,21 +1154,21 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
       <section className="py-24 bg-white">
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-sm tracking-widest text-rose-500 uppercase">FAQ</span>
-            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-3">{t(TR.faqTitle, lang)}</h2>
+            <span className="text-sm tracking-widest text-brand-500 uppercase">FAQ</span>
+            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.faqTitle, lang)}</h2>
           </div>
           <div className="space-y-3">
             {FAQ.map((faq, i) => (
-              <div key={i} className="border border-gray-200 rounded-xl overflow-hidden">
+              <div key={i} className="border border-neutral-200 rounded-xl overflow-hidden">
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between p-5 text-left hover:bg-gray-50 transition"
+                  className="w-full flex items-center justify-between p-5 text-left hover:bg-neutral-50 transition"
                 >
-                  <span className="font-medium text-gray-900 text-sm pr-4">{t(faq.q, lang)}</span>
-                  <ChevronDown size={18} className={`text-gray-400 shrink-0 transition-transform ${openFaq === i ? 'rotate-180' : ''}`} />
+                  <span className="font-medium text-neutral-900 text-sm pr-4">{t(faq.q, lang)}</span>
+                  <ChevronDown size={18} className={`text-neutral-400 shrink-0 transition-transform ${openFaq === i ? 'rotate-180' : ''}`} />
                 </button>
                 {openFaq === i && (
-                  <div className="px-5 pb-5 text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-4">{t(faq.a, lang)}</div>
+                  <div className="px-5 pb-5 text-sm text-neutral-600 leading-relaxed border-t border-neutral-100 pt-4">{t(faq.a, lang)}</div>
                 )}
               </div>
             ))}
@@ -1177,30 +1177,30 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
       </section>
 
       {/* ━━━━━━━━ 13. CTA ━━━━━━━━ */}
-      <section className="py-24 text-white text-center relative overflow-hidden">
+      <section className="py-24 text-brand-900 text-center relative overflow-hidden">
         <Image src={ctaBg?.src || `${SAI}/topFvImg04.jpg`} alt={ctaBg?.alt || 'SAI CLINIC'} fill className="object-cover" quality={75} />
-        <div className="absolute inset-0 bg-gradient-to-r from-rose-600/90 to-pink-600/90"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-600/90 to-brand-600/90"></div>
         <div className="max-w-3xl mx-auto px-6 relative z-10">
           <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">{t(TR.ctaTitle, lang)}</h2>
-          <p className="text-rose-100 text-lg mb-6 leading-relaxed">
+          <p className="text-brand-100 text-lg mb-6 leading-relaxed">
             {t(TR.ctaDesc, lang)}
           </p>
-          <div className="flex items-center justify-center gap-2 mb-8 text-sm text-rose-200">
+          <div className="flex items-center justify-center gap-2 mb-8 text-sm text-brand-200">
             <Clock size={14} />
             <span>{t(TR.ctaQuota, lang)}</span>
           </div>
-          <a href="#sai-packages" className="inline-flex items-center gap-3 bg-white text-rose-600 px-10 py-4 rounded-full font-bold hover:bg-rose-50 transition-all shadow-lg shadow-white/20">
+          <a href="#sai-packages" className="inline-flex items-center gap-3 bg-white text-brand-600 px-10 py-4 rounded-full font-bold hover:bg-brand-50 transition-all shadow-lg shadow-white/20">
             {t(TR.ctaButton, lang)} <ArrowRight size={18} />
           </a>
-          <p className="text-xs text-rose-200/60 mt-6">{t(TR.ctaNote, lang)}</p>
+          <p className="text-xs text-brand-200/60 mt-6">{t(TR.ctaNote, lang)}</p>
         </div>
       </section>
 
       {/* ━━━━━━━━ 14. Contact ━━━━━━━━ */}
       {!isGuideEmbed && (
-        <section className="py-20 bg-gray-50">
+        <section className="py-20 bg-neutral-50">
           <div className="max-w-4xl mx-auto px-6 text-center">
-            <h3 className="text-2xl font-bold text-gray-900 mb-8">{t(TR.contactTitle, lang)}</h3>
+            <h3 className="text-2xl font-bold text-neutral-900 mb-8">{t(TR.contactTitle, lang)}</h3>
             <ContactButtons />
           </div>
         </section>
@@ -1208,9 +1208,9 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
 
       {/* ━━━━━━━━ 悬浮 CTA ━━━━━━━━ */}
       {/* ━━━━━━━━ Medical Disclaimer ━━━━━━━━ */}
-      <section className="py-8 bg-gray-100">
+      <section className="py-8 bg-neutral-100">
         <div className="max-w-4xl mx-auto px-6">
-          <ul className="space-y-1.5 text-xs text-gray-500 leading-relaxed">
+          <ul className="space-y-1.5 text-xs text-neutral-500 leading-relaxed">
             <li>※ {({ ja: '本ページの施術は自由診療（保険適用外）です。', 'zh-TW': '本頁療程為自費診療（不適用保險）。', 'zh-CN': '本页疗程为自费诊疗（不适用保险）。', en: 'All treatments on this page are self-pay (not covered by insurance).' } as Record<Language, string>)[lang]}</li>
             <li>※ {({ ja: '施術効果には個人差があり、すべての方に同様の結果を保証するものではありません。', 'zh-TW': '療程效果因人而異，不保證所有人均能獲得相同效果。', 'zh-CN': '疗程效果因人而异，不保证所有人均能获得相同效果。', en: 'Treatment effects vary by individual and are not guaranteed for all patients.' } as Record<Language, string>)[lang]}</li>
             <li>※ {({ ja: '当社（新島交通株式会社・大阪府知事登録旅行業 第2-3115号）は旅行業者であり、医療機関ではありません。施術は提携クリニックが提供します。', 'zh-TW': '本公司（新島交通株式會社・大阪府知事登錄旅行業 第2-3115號）為旅行業者，非醫療機構。療程由合作診所提供。', 'zh-CN': '本公司（新岛交通株式会社・大阪府知事登录旅行业 第2-3115号）为旅行业者，非医疗机构。疗程由合作诊所提供。', en: 'Niijima Kotsu Co., Ltd. (Osaka Gov. Registered Travel Agency No. 2-3115) is a travel agency, not a medical institution. Treatments are provided by partner clinics.' } as Record<Language, string>)[lang]}</li>
@@ -1220,12 +1220,12 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
 
       {!isGuideEmbed && (
         <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
-          <div className="bg-gray-900 text-white text-[10px] px-3 py-1 rounded-full shadow-lg opacity-90">
-            <span className="text-rose-400 font-bold">{t(TR.floatPromo, lang)}</span> · {t(TR.floatSlots, lang)}
+          <div className="bg-neutral-900 text-brand-900 text-[10px] px-3 py-1 rounded-full shadow-lg opacity-90">
+            <span className="text-brand-400 font-bold">{t(TR.floatPromo, lang)}</span> · {t(TR.floatSlots, lang)}
           </div>
           <a
             href="#sai-packages"
-            className="flex items-center gap-2 bg-rose-500 text-white pl-5 pr-4 py-3 rounded-full font-bold shadow-lg shadow-rose-500/30 hover:bg-rose-600 hover:shadow-xl hover:shadow-rose-500/40 transition-all text-sm"
+            className="flex items-center gap-2 bg-brand-500 text-brand-900 pl-5 pr-4 py-3 rounded-full font-bold shadow-lg shadow-brand-500/30 hover:bg-brand-600 hover:shadow-xl hover:shadow-brand-500/40 transition-all text-sm"
           >
             <Sparkles size={16} />
             {t(TR.bookNow, lang)}

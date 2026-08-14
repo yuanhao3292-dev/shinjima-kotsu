@@ -172,11 +172,11 @@ export default function SustainabilityPage() {
   ];
 
   const sdgs = [
-    { num: 3, label: t('sdg3'), color: 'bg-green-500' },
-    { num: 8, label: t('sdg8'), color: 'bg-red-600' },
-    { num: 11, label: t('sdg11'), color: 'bg-amber-500' },
-    { num: 12, label: t('sdg12'), color: 'bg-yellow-600' },
-    { num: 17, label: t('sdg17'), color: 'bg-blue-800' },
+    { num: 3, label: t('sdg3'), color: 'bg-brand-500' },
+    { num: 8, label: t('sdg8'), color: 'bg-brand-600' },
+    { num: 11, label: t('sdg11'), color: 'bg-brand-500' },
+    { num: 12, label: t('sdg12'), color: 'bg-brand-600' },
+    { num: 17, label: t('sdg17'), color: 'bg-brand-800' },
   ];
 
   return (
@@ -188,10 +188,10 @@ export default function SustainabilityPage() {
       <div className="space-y-12">
         {/* トップメッセージ */}
         <section>
-          <h2 className="text-xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-green-600">
+          <h2 className="text-xl font-bold text-neutral-900 mb-6 pb-3 border-b-2 border-brand-600">
             {t('sectionPolicy')}
           </h2>
-          <p className="text-lg text-gray-600 leading-relaxed mb-6">
+          <p className="text-lg text-neutral-600 leading-relaxed mb-6">
             {t('policyIntro')}
           </p>
         </section>
@@ -201,10 +201,10 @@ export default function SustainabilityPage() {
           {policyCards.map((item, index) => {
             const Icon = item.icon;
             const colorClasses: Record<string, { bg: string; icon: string; border: string }> = {
-              green: { bg: 'bg-green-50', icon: 'text-green-600', border: 'border-green-200' },
-              rose: { bg: 'bg-rose-50', icon: 'text-rose-600', border: 'border-rose-200' },
-              blue: { bg: 'bg-blue-50', icon: 'text-blue-600', border: 'border-blue-200' },
-              amber: { bg: 'bg-amber-50', icon: 'text-amber-600', border: 'border-amber-200' },
+              green: { bg: 'bg-brand-50', icon: 'text-brand-600', border: 'border-brand-200' },
+              rose: { bg: 'bg-brand-50', icon: 'text-brand-600', border: 'border-brand-200' },
+              blue: { bg: 'bg-brand-50', icon: 'text-brand-600', border: 'border-brand-200' },
+              amber: { bg: 'bg-brand-50', icon: 'text-brand-600', border: 'border-brand-200' },
             };
             const colors = colorClasses[item.color];
 
@@ -215,13 +215,13 @@ export default function SustainabilityPage() {
                     <Icon size={24} className={colors.icon} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-900">{item.title}</h3>
-                    <p className="text-xs text-gray-500 uppercase">{item.titleEn}</p>
+                    <h3 className="font-bold text-neutral-900">{item.title}</h3>
+                    <p className="text-xs text-neutral-500 uppercase">{item.titleEn}</p>
                   </div>
                 </div>
                 <ul className="space-y-2 mb-4">
                   {item.points.map((point, pIndex) => (
-                    <li key={pIndex} className="flex items-center gap-2 text-sm text-gray-600">
+                    <li key={pIndex} className="flex items-center gap-2 text-sm text-neutral-600">
                       <span className={`w-1.5 h-1.5 rounded-full ${colors.icon.replace('text-', 'bg-')}`} />
                       {point}
                     </li>
@@ -242,10 +242,10 @@ export default function SustainabilityPage() {
 
         {/* SDGs */}
         <section>
-          <h2 className="text-xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-green-600">
+          <h2 className="text-xl font-bold text-neutral-900 mb-6 pb-3 border-b-2 border-brand-600">
             {t('sectionSDGs')}
           </h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-neutral-600 mb-6">
             {t('sdgsIntro')}
           </p>
           <div className="flex flex-wrap gap-3">

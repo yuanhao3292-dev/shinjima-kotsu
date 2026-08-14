@@ -23,7 +23,7 @@ export default function ObfuscatedEmail({
     <button
       type="button"
       onClick={handleClick}
-      className={className || 'hover:text-gray-900 transition-colors underline cursor-pointer'}
+      className={className || 'hover:text-neutral-900 transition-colors underline cursor-pointer'}
       aria-label="Send email"
     >
       {user}&#64;{domain}

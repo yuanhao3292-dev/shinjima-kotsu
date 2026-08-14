@@ -13,12 +13,12 @@ import {
 const StatusIcon = ({ status, currentLang = 'zh-TW' }: { status: ItemStatus; partialNote?: string; currentLang?: Language }) => {
   switch (status) {
     case 'included':
-      return <Check className="w-5 h-5 text-medical-600" />;
+      return <Check className="w-5 h-5 text-brand-600" />;
     case 'optional':
       return <Circle className="w-4 h-4 text-accent-500" />;
     case 'partial':
       return (
-        <span className="text-[10px] text-biz-500 font-medium leading-tight text-center">
+        <span className="text-[10px] text-brand-500 font-medium leading-tight text-center">
           {ui('partial', currentLang)}
         </span>
       );
@@ -151,7 +151,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                         <div className="flex-1 min-w-0">
                           <div className={`text-sm font-medium ${
                             status === 'included' ? 'text-neutral-900' :
-                            status === 'optional' ? 'text-orange-600' :
+                            status === 'optional' ? 'text-brand-600' :
                             status === 'partial' ? 'text-brand-700' :
                             'text-neutral-400'
                           }`}>
@@ -163,7 +163,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                             </div>
                           )}
                           {status === 'partial' && item.partialNote && (
-                            <div className="text-xs text-biz-500 mt-1">
+                            <div className="text-xs text-brand-500 mt-1">
                               {item.partialNote}
                             </div>
                           )}
@@ -204,7 +204,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
         <div className="p-4 bg-neutral-50 border-t">
           <div className="flex gap-4 justify-center text-xs flex-wrap">
             <div className="flex items-center gap-1">
-              <Check className="w-4 h-4 text-medical-600" />
+              <Check className="w-4 h-4 text-brand-600" />
               <span>{ui('included', currentLang)}</span>
             </div>
             <div className="flex items-center gap-1">
@@ -212,7 +212,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
               <span>{ui('optional', currentLang)}</span>
             </div>
             <div className="flex items-center gap-1">
-              <span className="text-[10px] text-biz-500 font-medium">{ui('partial', currentLang)}</span>
+              <span className="text-[10px] text-brand-500 font-medium">{ui('partial', currentLang)}</span>
               <span>{ui('legendPartial', currentLang)}</span>
             </div>
             <div className="flex items-center gap-1">
@@ -339,7 +339,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
         <div className="p-4 bg-neutral-50 border-t-2 border-neutral-200">
           <div className="flex gap-6 justify-center text-sm flex-wrap">
             <div className="flex items-center gap-2">
-              <Check className="w-4 h-4 text-medical-600" />
+              <Check className="w-4 h-4 text-brand-600" />
               <span className="text-neutral-600">{ui('legendIncluded', currentLang)}</span>
             </div>
             <div className="flex items-center gap-2">
@@ -347,7 +347,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
               <span className="text-neutral-600">{ui('legendOptional', currentLang)}</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] text-biz-500 font-medium">{ui('partial', currentLang)}</span>
+              <span className="text-[10px] text-brand-500 font-medium">{ui('partial', currentLang)}</span>
               <span className="text-neutral-600">{ui('legendPartial', currentLang)}</span>
             </div>
             <div className="flex items-center gap-2">

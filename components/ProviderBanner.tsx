@@ -30,10 +30,10 @@ export default function ProviderBanner({ lang }: ProviderBannerProps) {
   const provider = PROVIDERS[providerKey];
 
   return (
-    <div className="bg-blue-50 border-b border-blue-100">
+    <div className="bg-brand-50 border-b border-brand-100">
       <div className="max-w-6xl mx-auto px-4 py-2.5 flex items-center gap-2 text-sm">
-        <Building size={16} className="text-blue-600 shrink-0" />
-        <span className="text-blue-700">
+        <Building size={16} className="text-brand-600 shrink-0" />
+        <span className="text-brand-700">
           {bannerLabel[lang]}:
           <strong className="ml-1">{provider.name[lang]}</strong>
         </span>

@@ -77,7 +77,7 @@ export default function DemoWhiteLabelPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-gray-950">
+      <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-neutral-950">
         <img
           src={heroProduct.heroImage}
           alt={heroProduct.title}
@@ -113,7 +113,7 @@ export default function DemoWhiteLabelPage() {
               ))}
             </div>
 
-            <Link href={heroProduct.href} className="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all">
+            <Link href={heroProduct.href} className="inline-flex items-center gap-3 bg-white text-neutral-900 px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all">
               {heroProduct.ctaText} <ArrowRight size={18} />
             </Link>
           </div>
@@ -167,7 +167,7 @@ export default function DemoWhiteLabelPage() {
                   </div>
                 )}
 
-                <Link href={product.href} className="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all">
+                <Link href={product.href} className="inline-flex items-center gap-3 bg-white text-neutral-900 px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all">
                   {product.ctaText} <ArrowRight size={18} />
                 </Link>
               </div>
@@ -177,29 +177,29 @@ export default function DemoWhiteLabelPage() {
       })}
 
       {/* Trust Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-neutral-50">
         <div className="max-w-5xl mx-auto px-6">
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="w-14 h-14 mx-auto mb-4 bg-white rounded-2xl shadow-sm flex items-center justify-center">
-                <Shield size={24} className="text-blue-600" />
+                <Shield size={24} className="text-brand-600" />
               </div>
-              <h4 className="font-bold text-gray-900 mb-2">持牌旅行社保障</h4>
-              <p className="text-sm text-gray-500">新岛交通株式会社<br />大阪府知事登録旅行業 第2-3115号</p>
+              <h4 className="font-bold text-neutral-900 mb-2">持牌旅行社保障</h4>
+              <p className="text-sm text-neutral-500">新岛交通株式会社<br />大阪府知事登録旅行業 第2-3115号</p>
             </div>
             <div className="text-center">
               <div className="w-14 h-14 mx-auto mb-4 bg-white rounded-2xl shadow-sm flex items-center justify-center">
-                <Award size={24} className="text-amber-600" />
+                <Award size={24} className="text-brand-600" />
               </div>
-              <h4 className="font-bold text-gray-900 mb-2">合作医疗机构</h4>
-              <p className="text-sm text-gray-500">合作医院为日本注册医疗机构</p>
+              <h4 className="font-bold text-neutral-900 mb-2">合作医疗机构</h4>
+              <p className="text-sm text-neutral-500">合作医院为日本注册医疗机构</p>
             </div>
             <div className="text-center">
               <div className="w-14 h-14 mx-auto mb-4 bg-white rounded-2xl shadow-sm flex items-center justify-center">
-                <MapPin size={24} className="text-emerald-600" />
+                <MapPin size={24} className="text-brand-600" />
               </div>
-              <h4 className="font-bold text-gray-900 mb-2">全程中文服务</h4>
-              <p className="text-sm text-gray-500">从咨询到术后跟进<br />全程专业中文陪同</p>
+              <h4 className="font-bold text-neutral-900 mb-2">全程中文服务</h4>
+              <p className="text-sm text-neutral-500">从咨询到术后跟进<br />全程专业中文陪同</p>
             </div>
           </div>
         </div>

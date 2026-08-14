@@ -338,7 +338,7 @@ export default function MedicalDisclaimerPage() {
       <section className="py-16">
         <div className="container mx-auto px-6 max-w-3xl space-y-6">
           {l.legalNote && (
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-amber-800 text-xs">
+            <div className="bg-brand-50 border border-brand-200 rounded-xl p-4 text-brand-800 text-xs">
               {l.legalNote}
             </div>
           )}

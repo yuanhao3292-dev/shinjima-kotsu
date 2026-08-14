@@ -279,17 +279,17 @@ export default function DocumentUpload({
         className={`rounded-xl border-2 p-5 ${
           isLowConfidence
             ? 'border-amber-400/40 bg-amber-50/50'
-            : 'border-medical-400/30 bg-medical-50/50'
+            : 'border-brand-400/30 bg-brand-50/50'
         }`}
       >
         <div className="flex items-start gap-3">
           {isLowConfidence ? (
             <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
           ) : (
-            <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-medical-600" />
+            <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-brand-600" />
           )}
           <div className="min-w-0 flex-1">
-            <p className={`font-medium ${isLowConfidence ? 'text-amber-700' : 'text-medical-700'}`}>
+            <p className={`font-medium ${isLowConfidence ? 'text-amber-700' : 'text-brand-700'}`}>
               {isLowConfidence ? t('successLowConfidence') : t('success')}
             </p>
             <div className="mt-1 flex items-center gap-2 text-sm text-neutral-500">
@@ -305,7 +305,7 @@ export default function DocumentUpload({
                     : t('methodVision')}
             </div>
             {isLowConfidence && (
-              <div className="mt-2 rounded-lg bg-amber-100/70 p-2.5 text-xs leading-relaxed text-amber-800">
+              <div className="mt-2 rounded-lg bg-brand-100/70 p-2.5 text-xs leading-relaxed text-brand-800">
                 {t('lowConfidence')}
               </div>
             )}
@@ -317,7 +317,7 @@ export default function DocumentUpload({
             </div>
             <button
               onClick={handleRemove}
-              className="mt-3 flex items-center gap-1 text-sm text-red-500 transition-colors hover:text-red-700"
+              className="mt-3 flex items-center gap-1 text-sm text-brand-500 transition-colors hover:text-brand-700"
             >
               <X className="h-3.5 w-3.5" />
               {t('remove')}
@@ -353,7 +353,7 @@ export default function DocumentUpload({
         onDrop={handleDrop}
         className={`cursor-pointer rounded-xl border-2 border-dashed p-8 text-center transition-all ${
           isDragOver
-            ? 'border-medical-400 bg-medical-50/50'
+            ? 'border-brand-400 bg-brand-50/50'
             : 'border-neutral-300 bg-neutral-50/50 hover:border-brand-400 hover:bg-brand-50/30'
         }`}
         onClick={() => fileInputRef.current?.click()}

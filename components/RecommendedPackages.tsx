@@ -261,10 +261,10 @@ function QuickCheckoutModal({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 px-6 py-4 flex items-center justify-between">
+        <div className="bg-gradient-to-r from-brand-500 to-brand-600 px-6 py-4 flex items-center justify-between">
           <div>
             <h3 className="text-white font-semibold">{t('quickBook', lang)}</h3>
-            <p className="text-emerald-100 text-sm">{packageName}</p>
+            <p className="text-brand-100 text-sm">{packageName}</p>
           </div>
           <button onClick={onClose} className="text-white/80 hover:text-white">
             <X className="w-5 h-5" />
@@ -274,14 +274,14 @@ function QuickCheckoutModal({
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           {price > 0 && (
             <div className="text-center pb-2">
-              <span className="text-3xl font-bold text-emerald-600">
+              <span className="text-3xl font-bold text-brand-600">
                 {formatPriceJPY(price)}
               </span>
             </div>
           )}
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-neutral-700 mb-1">
               {t('name', lang)} *
             </label>
             <input
@@ -289,31 +289,31 @@ function QuickCheckoutModal({
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-sm"
+              className="w-full px-3 py-2.5 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-neutral-700 mb-1">
               {t('email', lang)}
             </label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-sm"
+              className="w-full px-3 py-2.5 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-neutral-700 mb-1">
               {t('phone', lang)}
             </label>
             <input
               type="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none text-sm"
+              className="w-full px-3 py-2.5 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm"
             />
           </div>
 
@@ -326,7 +326,7 @@ function QuickCheckoutModal({
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl disabled:opacity-60 transition flex items-center justify-center gap-2"
+            className="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl disabled:opacity-60 transition flex items-center justify-center gap-2"
           >
             {submitting ? (
               <>
@@ -366,14 +366,14 @@ export default function RecommendedPackages({ result, lang }: Props) {
     <>
       <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
         <div className="flex items-center gap-3 mb-2">
-          <div className="p-2 bg-emerald-100 rounded-lg">
-            <Package className="w-6 h-6 text-emerald-600" />
+          <div className="p-2 bg-brand-100 rounded-lg">
+            <Package className="w-6 h-6 text-brand-600" />
           </div>
           <h3 className="text-xl font-serif font-semibold text-neutral-900 tracking-wide">
             {t('title', lang)}
           </h3>
         </div>
-        <p className="text-gray-500 text-sm mb-6 ml-[52px]">{t('desc', lang)}</p>
+        <p className="text-neutral-500 text-sm mb-6 ml-[52px]">{t('desc', lang)}</p>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {recommendations.map((rec) => {
@@ -385,17 +385,17 @@ export default function RecommendedPackages({ result, lang }: Props) {
             return (
               <div
                 key={rec.slug}
-                className="border border-gray-200 rounded-xl p-5 hover:border-emerald-300 hover:shadow-md transition-all flex flex-col"
+                className="border border-neutral-200 rounded-xl p-5 hover:border-brand-300 hover:shadow-md transition-all flex flex-col"
               >
                 {/* Match reason badge */}
-                <span className="inline-block px-2.5 py-0.5 bg-emerald-50 text-emerald-700 text-xs font-medium rounded-full mb-3 self-start">
+                <span className="inline-block px-2.5 py-0.5 bg-brand-50 text-brand-700 text-xs font-medium rounded-full mb-3 self-start">
                   {t(rec.matchReasonKey, lang)}
                 </span>
 
                 {/* Name + price */}
-                <h4 className="font-bold text-gray-900 mb-1 leading-snug">{name}</h4>
+                <h4 className="font-bold text-neutral-900 mb-1 leading-snug">{name}</h4>
                 {price > 0 && (
-                  <p className="text-emerald-600 font-semibold text-lg mb-3">
+                  <p className="text-brand-600 font-semibold text-lg mb-3">
                     {formatPriceJPY(price)}
                   </p>
                 )}
@@ -404,8 +404,8 @@ export default function RecommendedPackages({ result, lang }: Props) {
                 {highlights.length > 0 && (
                   <ul className="space-y-1.5 mb-4 flex-1">
                     {highlights.map((h, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
-                        <span className="text-emerald-500 mt-0.5">•</span>
+                      <li key={i} className="flex items-start gap-2 text-sm text-neutral-600">
+                        <span className="text-brand-500 mt-0.5">•</span>
                         {h}
                       </li>
                     ))}
@@ -413,17 +413,17 @@ export default function RecommendedPackages({ result, lang }: Props) {
                 )}
 
                 {/* CTAs */}
-                <div className="flex items-center gap-2 mt-auto pt-3 border-t border-gray-100">
+                <div className="flex items-center gap-2 mt-auto pt-3 border-t border-neutral-100">
                   <button
                     onClick={() => setCheckoutSlug(rec.slug)}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded-lg transition"
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium rounded-lg transition"
                   >
                     <ShoppingCart className="w-3.5 h-3.5" />
                     {t('bookNow', lang)}
                   </button>
                   <Link
                     href={url}
-                    className="inline-flex items-center gap-1 px-3 py-2 text-sm text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-lg transition"
+                    className="inline-flex items-center gap-1 px-3 py-2 text-sm text-brand-600 hover:text-brand-700 hover:bg-brand-50 rounded-lg transition"
                   >
                     {t('viewDetails', lang)}
                     <ArrowRight className="w-3.5 h-3.5" />

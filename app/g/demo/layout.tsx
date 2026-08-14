@@ -19,13 +19,13 @@ export default function DemoLayout({ children }: { children: React.ReactNode }) 
         homeHref="/g/demo"
       />
       <main className="flex-1">{children}</main>
-      <footer className="bg-gray-950 text-white py-12">
+      <footer className="bg-neutral-950 text-white py-12">
         <div className="max-w-5xl mx-auto px-6 text-center">
-          <div className="text-sm text-gray-400 space-y-1">
+          <div className="text-sm text-neutral-400 space-y-1">
             <p>旅行服务由 新岛交通株式会社 提供</p>
             <p>大阪府知事登録旅行業 第2-3115号</p>
           </div>
-          <div className="mt-6 text-xs text-gray-500">
+          <div className="mt-6 text-xs text-neutral-500">
             <p>&copy; {new Date().getFullYear()} 新島交通株式会社. All rights reserved.</p>
           </div>
         </div>

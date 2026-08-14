@@ -229,8 +229,8 @@ export default function WClinicMensRemoteConsultationPage() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <Video size={20} className="text-amber-300" />
-                <span className="text-amber-300 text-sm">{t('videoConsultation')}</span>
+                <Video size={20} className="text-brand-300" />
+                <span className="text-brand-300 text-sm">{t('videoConsultation')}</span>
               </div>
               <h1 className="text-3xl font-serif font-bold text-white">{t('serviceName')}</h1>
               <p className="text-neutral-300 text-sm mt-1">{t('serviceNameEn')}</p>
@@ -258,10 +258,10 @@ export default function WClinicMensRemoteConsultationPage() {
                 <h4 className="font-bold text-brand-900 mb-3 flex items-center gap-2"><FileText size={16} className="text-amber-600" />{t('prerequisitesTitle')}</h4>
                 <ul className="space-y-2 text-sm text-neutral-600">
                   {[t('prereq1'), t('prereq2'), t('prereq3'), t('prereq4')].map((prereq, idx) => (
-                    <li key={idx} className="flex gap-2"><span className="text-amber-400">•</span><span>{prereq}</span></li>
+                    <li key={idx} className="flex gap-2"><span className="text-brand-400">•</span><span>{prereq}</span></li>
                   ))}
                 </ul>
-                <p className="text-xs text-orange-600 mt-4">{t('prereqNote')}</p>
+                <p className="text-xs text-brand-600 mt-4">{t('prereqNote')}</p>
               </div>
             </div>
           </div>
@@ -279,15 +279,15 @@ export default function WClinicMensRemoteConsultationPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('patientName')}</label>
-                      <input type="text" required value={patientInfo.patientName} onChange={(e) => setPatientInfo({ ...patientInfo, patientName: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('patientNamePlaceholder')} />
+                      <input type="text" required value={patientInfo.patientName} onChange={(e) => setPatientInfo({ ...patientInfo, patientName: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" placeholder={t('patientNamePlaceholder')} />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('age')}</label>
-                      <input type="text" value={patientInfo.age} onChange={(e) => setPatientInfo({ ...patientInfo, age: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('agePlaceholder')} />
+                      <input type="text" value={patientInfo.age} onChange={(e) => setPatientInfo({ ...patientInfo, age: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" placeholder={t('agePlaceholder')} />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('gender')}</label>
-                      <select value={patientInfo.gender} onChange={(e) => setPatientInfo({ ...patientInfo, gender: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                      <select value={patientInfo.gender} onChange={(e) => setPatientInfo({ ...patientInfo, gender: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent">
                         <option value="">{t('genderSelect')}</option>
                         <option value={t('male')}>{t('male')}</option>
                         <option value={t('female')}>{t('female')}</option>
@@ -295,34 +295,34 @@ export default function WClinicMensRemoteConsultationPage() {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('diagnosis')}</label>
-                      <input type="text" value={patientInfo.diagnosis} onChange={(e) => setPatientInfo({ ...patientInfo, diagnosis: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('diagnosisPlaceholder')} />
+                      <input type="text" value={patientInfo.diagnosis} onChange={(e) => setPatientInfo({ ...patientInfo, diagnosis: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" placeholder={t('diagnosisPlaceholder')} />
                     </div>
                     <div className="md:col-span-2">
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('previousConsultation')}</label>
-                      <textarea value={patientInfo.previousConsultation} onChange={(e) => setPatientInfo({ ...patientInfo, previousConsultation: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" rows={2} placeholder={t('previousConsultationPlaceholder')} />
+                      <textarea value={patientInfo.previousConsultation} onChange={(e) => setPatientInfo({ ...patientInfo, previousConsultation: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" rows={2} placeholder={t('previousConsultationPlaceholder')} />
                     </div>
                     <div className="md:col-span-2">
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('questionsToAsk')}</label>
-                      <textarea value={patientInfo.questions} onChange={(e) => setPatientInfo({ ...patientInfo, questions: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" rows={3} placeholder={t('questionsToAskPlaceholder')} />
+                      <textarea value={patientInfo.questions} onChange={(e) => setPatientInfo({ ...patientInfo, questions: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" rows={3} placeholder={t('questionsToAskPlaceholder')} />
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-2"><Clock size={18} className="text-amber-600" />{t('preferredTimesTitle')}</h3>
+                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-2"><Clock size={18} className="text-brand-600" />{t('preferredTimesTitle')}</h3>
                   <p className="text-sm text-neutral-500 mb-4">{t('preferredTimesNote')}</p>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('preferredTime1')}</label>
-                      <input type="text" value={preferredTimes.time1} onChange={(e) => setPreferredTimes({ ...preferredTimes, time1: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('preferredTimePlaceholder1')} />
+                      <input type="text" value={preferredTimes.time1} onChange={(e) => setPreferredTimes({ ...preferredTimes, time1: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" placeholder={t('preferredTimePlaceholder1')} />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('preferredTime2')}</label>
-                      <input type="text" value={preferredTimes.time2} onChange={(e) => setPreferredTimes({ ...preferredTimes, time2: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('preferredTimePlaceholder2')} />
+                      <input type="text" value={preferredTimes.time2} onChange={(e) => setPreferredTimes({ ...preferredTimes, time2: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" placeholder={t('preferredTimePlaceholder2')} />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('preferredTime3')}</label>
-                      <input type="text" value={preferredTimes.time3} onChange={(e) => setPreferredTimes({ ...preferredTimes, time3: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('preferredTimePlaceholder3')} />
+                      <input type="text" value={preferredTimes.time3} onChange={(e) => setPreferredTimes({ ...preferredTimes, time3: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" placeholder={t('preferredTimePlaceholder3')} />
                     </div>
                   </div>
                 </div>
@@ -332,11 +332,11 @@ export default function WClinicMensRemoteConsultationPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('contactName')}</label>
-                      <input type="text" required value={customerInfo.name} onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('contactNamePlaceholder')} />
+                      <input type="text" required value={customerInfo.name} onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" placeholder={t('contactNamePlaceholder')} />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('region')}</label>
-                      <select value={customerInfo.country} onChange={(e) => setCustomerInfo({ ...customerInfo, country: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                      <select value={customerInfo.country} onChange={(e) => setCustomerInfo({ ...customerInfo, country: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent">
                         <option value="TW">{t('regionTW')}</option>
                         <option value="CN">{t('regionCN')}</option>
                         <option value="HK">{t('regionHK')}</option>
@@ -347,19 +347,19 @@ export default function WClinicMensRemoteConsultationPage() {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('phone')}</label>
-                      <input type="tel" value={customerInfo.phone} onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('phonePlaceholder')} />
+                      <input type="tel" value={customerInfo.phone} onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" placeholder={t('phonePlaceholder')} />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('email')}</label>
-                      <input type="email" value={customerInfo.email} onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('emailPlaceholder')} />
+                      <input type="email" value={customerInfo.email} onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" placeholder={t('emailPlaceholder')} />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('lineId')}</label>
-                      <input type="text" value={customerInfo.line} onChange={(e) => setCustomerInfo({ ...customerInfo, line: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('lineIdPlaceholder')} />
+                      <input type="text" value={customerInfo.line} onChange={(e) => setCustomerInfo({ ...customerInfo, line: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" placeholder={t('lineIdPlaceholder')} />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('wechat')}</label>
-                      <input type="text" value={customerInfo.wechat} onChange={(e) => setCustomerInfo({ ...customerInfo, wechat: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder={t('wechatPlaceholder')} />
+                      <input type="text" value={customerInfo.wechat} onChange={(e) => setCustomerInfo({ ...customerInfo, wechat: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" placeholder={t('wechatPlaceholder')} />
                     </div>
                   </div>
                   {contactError && <p className="mt-2 text-sm text-red-500">{contactError}</p>}
@@ -368,7 +368,7 @@ export default function WClinicMensRemoteConsultationPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-neutral-700 mb-1">{t('additionalNotes')}</label>
-                  <textarea value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-amber-500 focus:border-transparent" rows={3} placeholder={t('additionalNotesPlaceholder')} />
+                  <textarea value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-transparent" rows={3} placeholder={t('additionalNotesPlaceholder')} />
                 </div>
 
                 <div className="bg-neutral-50 p-6 border border-neutral-200">
@@ -388,8 +388,8 @@ export default function WClinicMensRemoteConsultationPage() {
                 </div>
 
                 <div className="flex flex-wrap justify-center gap-6 text-xs text-neutral-500">
-                  <div className="flex items-center gap-1"><Shield size={14} className="text-green-500" /><span>{t('securePayment')}</span></div>
-                  <div className="flex items-center gap-1"><Clock size={14} className="text-amber-500" /><span>{t('confirmTime24h')}</span></div>
+                  <div className="flex items-center gap-1"><Shield size={14} className="text-brand-500" /><span>{t('securePayment')}</span></div>
+                  <div className="flex items-center gap-1"><Clock size={14} className="text-brand-500" /><span>{t('confirmTime24h')}</span></div>
                 </div>
               </form>
             </div>

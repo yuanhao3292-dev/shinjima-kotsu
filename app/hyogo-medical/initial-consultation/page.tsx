@@ -373,7 +373,7 @@ export default function HyogoInitialConsultationPage() {
                 </div>
 
                 <div className="flex flex-wrap justify-center gap-6 text-xs text-neutral-500">
-                  <div className="flex items-center gap-1"><Shield size={14} className="text-green-500" /><span>{t('securePayment')}</span></div>
+                  <div className="flex items-center gap-1"><Shield size={14} className="text-brand-500" /><span>{t('securePayment')}</span></div>
                   <div className="flex items-center gap-1"><Clock size={14} className="text-brand-700" /><span>{t('contact24h')}</span></div>
                 </div>
                 <div className="flex items-center justify-center gap-2 mt-4">

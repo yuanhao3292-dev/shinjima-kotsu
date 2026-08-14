@@ -117,21 +117,21 @@ export default function FloatingContact() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-4">
-              <h3 className="font-bold text-lg text-gray-900">{ct('wechatTitle')}</h3>
+              <h3 className="font-bold text-lg text-neutral-900">{ct('wechatTitle')}</h3>
               <button
                 onClick={() => setShowWechatQR(false)}
-                className="text-gray-400 hover:text-gray-600 p-1"
+                className="text-neutral-400 hover:text-neutral-600 p-1"
               >
                 <X size={20} />
               </button>
             </div>
 
-            <div className="bg-gray-50 rounded-xl p-4 flex flex-col items-center justify-center">
+            <div className="bg-neutral-50 rounded-xl p-4 flex flex-col items-center justify-center">
               {/* 白标模式显示微信号，官方模式显示二维码 */}
               {displayWechat ? (
                 <div className="text-center py-8">
-                  <p className="text-gray-500 text-sm mb-3">{ct('wechatAddId')}</p>
-                  <p className="text-2xl font-bold text-gray-800 select-all">{displayWechat}</p>
+                  <p className="text-neutral-500 text-sm mb-3">{ct('wechatAddId')}</p>
+                  <p className="text-2xl font-bold text-neutral-800 select-all">{displayWechat}</p>
                 </div>
               ) : (
                 <Image
@@ -145,7 +145,7 @@ export default function FloatingContact() {
               )}
             </div>
 
-            <p className="text-center text-gray-600 mt-4 text-sm">
+            <p className="text-center text-neutral-600 mt-4 text-sm">
               {displayWechat ? ct('wechatAfterAdd') : ct('wechatScanQR')}
             </p>
 
@@ -167,23 +167,23 @@ export default function FloatingContact() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-4">
-              <h3 className="font-bold text-lg text-gray-900">{ct('lineTitle')}</h3>
+              <h3 className="font-bold text-lg text-neutral-900">{ct('lineTitle')}</h3>
               <button
                 onClick={() => setShowLineId(false)}
-                className="text-gray-400 hover:text-gray-600 p-1"
+                className="text-neutral-400 hover:text-neutral-600 p-1"
               >
                 <X size={20} />
               </button>
             </div>
 
-            <div className="bg-gray-50 rounded-xl p-4 flex flex-col items-center justify-center">
+            <div className="bg-neutral-50 rounded-xl p-4 flex flex-col items-center justify-center">
               <div className="text-center py-8">
-                <p className="text-gray-500 text-sm mb-3">{ct('lineAddId')}</p>
-                <p className="text-2xl font-bold text-gray-800 select-all">{displayLine}</p>
+                <p className="text-neutral-500 text-sm mb-3">{ct('lineAddId')}</p>
+                <p className="text-2xl font-bold text-neutral-800 select-all">{displayLine}</p>
               </div>
             </div>
 
-            <p className="text-center text-gray-600 mt-4 text-sm">
+            <p className="text-center text-neutral-600 mt-4 text-sm">
               {ct('lineAfterAdd')}
             </p>
 
@@ -209,18 +209,18 @@ export default function FloatingContact() {
       <div className="fixed bottom-6 right-6 z-50">
         {/* 展开的联系方式菜单 */}
         {isOpen && (
-          <div className="absolute bottom-16 right-0 bg-white rounded-2xl shadow-2xl border border-gray-100 p-4 w-72 animate-fade-in-up">
+          <div className="absolute bottom-16 right-0 bg-white rounded-2xl shadow-2xl border border-neutral-100 p-4 w-72 animate-fade-in-up">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="font-bold text-gray-900">{ct('title')}</h3>
+              <h3 className="font-bold text-neutral-900">{ct('title')}</h3>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-neutral-400 hover:text-neutral-600"
               >
                 <X size={18} />
               </button>
             </div>
 
-            <p className="text-sm text-gray-500 mb-4">
+            <p className="text-sm text-neutral-500 mb-4">
               {ct('subtitle')}
             </p>
 
@@ -229,14 +229,14 @@ export default function FloatingContact() {
               {displayLine ? (
                 <button
                   onClick={() => setShowLineId(true)}
-                  className="w-full flex items-center gap-3 bg-[#06C755] hover:bg-[#05b34c] text-white px-4 py-3 rounded-xl transition-all duration-200 shadow-lg shadow-green-200"
+                  className="w-full flex items-center gap-3 bg-[#06C755] hover:bg-[#05b34c] text-white px-4 py-3 rounded-xl transition-all duration-200 shadow-lg shadow-brand-200"
                 >
                   <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
                   </svg>
                   <div>
                     <div className="font-bold text-sm">{ct('lineConsult')}</div>
-                    <div className="text-xs text-green-100">ID: {displayLine}</div>
+                    <div className="text-xs text-brand-100">ID: {displayLine}</div>
                   </div>
                 </button>
               ) : (
@@ -244,14 +244,14 @@ export default function FloatingContact() {
                   href={lineUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center gap-3 bg-[#06C755] hover:bg-[#05b34c] text-white px-4 py-3 rounded-xl transition-all duration-200 shadow-lg shadow-green-200"
+                  className="w-full flex items-center gap-3 bg-[#06C755] hover:bg-[#05b34c] text-white px-4 py-3 rounded-xl transition-all duration-200 shadow-lg shadow-brand-200"
                 >
                   <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
                   </svg>
                   <div>
                     <div className="font-bold text-sm">{ct('lineConsult')}</div>
-                    <div className="text-xs text-green-100">{ct('lineDesc')}</div>
+                    <div className="text-xs text-brand-100">{ct('lineDesc')}</div>
                   </div>
                 </a>
               )}
@@ -266,41 +266,41 @@ export default function FloatingContact() {
                 </svg>
                 <div>
                   <div className="font-bold text-sm">{ct('wechatConsult')}</div>
-                  <div className="text-xs text-green-100">{ct('wechatDesc')}</div>
+                  <div className="text-xs text-brand-100">{ct('wechatDesc')}</div>
                 </div>
               </button>
 
               {/* 电话 */}
               <a
                 href={`tel:${displayPhone.replace(/[^0-9+]/g, '')}`}
-                className="flex items-center gap-3 bg-gray-50 hover:bg-gray-100 text-gray-700 px-4 py-3 rounded-xl transition-all duration-200"
+                className="flex items-center gap-3 bg-neutral-50 hover:bg-neutral-100 text-neutral-700 px-4 py-3 rounded-xl transition-all duration-200"
               >
-                <Phone size={20} className="text-blue-500" />
+                <Phone size={20} className="text-brand-500" />
                 <div>
                   <div className="font-medium text-sm">{ct('phoneConsult')}</div>
-                  <div className="text-xs text-gray-400">{displayPhone}</div>
+                  <div className="text-xs text-neutral-400">{displayPhone}</div>
                 </div>
               </a>
 
               {/* 邮件 */}
               <a
                 href={`mailto:${displayEmail}`}
-                className="flex items-center gap-3 bg-gray-50 hover:bg-gray-100 text-gray-700 px-4 py-3 rounded-xl transition-all duration-200"
+                className="flex items-center gap-3 bg-neutral-50 hover:bg-neutral-100 text-neutral-700 px-4 py-3 rounded-xl transition-all duration-200"
               >
-                <Mail size={20} className="text-purple-500" />
+                <Mail size={20} className="text-brand-500" />
                 <div>
                   <div className="font-medium text-sm">{ct('emailConsult')}</div>
-                  <div className="text-xs text-gray-400">{displayEmail}</div>
+                  <div className="text-xs text-neutral-400">{displayEmail}</div>
                 </div>
               </a>
             </div>
 
-            <div className="mt-4 pt-4 border-t border-gray-100 space-y-2">
-              <p className="text-xs text-gray-400 text-center">
+            <div className="mt-4 pt-4 border-t border-neutral-100 space-y-2">
+              <p className="text-xs text-neutral-400 text-center">
                 {ct('businessHours')}
               </p>
               {/* 服务提供者声明 - 法律合规必须显示 */}
-              <p className="text-[10px] text-gray-400 text-center leading-tight">
+              <p className="text-[10px] text-neutral-400 text-center leading-tight">
                 {ct('legalProvider')}<br/>
                 {ct('legalLicense')}
               </p>
@@ -315,7 +315,7 @@ export default function FloatingContact() {
             w-14 h-14 rounded-full shadow-2xl flex items-center justify-center
             transition-all duration-300 transform hover:scale-110
             ${isOpen
-              ? 'bg-gray-800 text-white rotate-0'
+              ? 'bg-neutral-800 text-white rotate-0'
               : 'bg-[#06C755] text-white animate-pulse'
             }
           `}
@@ -331,7 +331,7 @@ export default function FloatingContact() {
         {/* 提示气泡 (仅首次显示) */}
         {!isOpen && (
           <div className="absolute bottom-16 right-0 bg-white rounded-lg shadow-lg px-4 py-2 whitespace-nowrap animate-bounce">
-            <div className="text-sm font-medium text-gray-800">{ct('bubble')}</div>
+            <div className="text-sm font-medium text-neutral-800">{ct('bubble')}</div>
             <div className="absolute bottom-0 right-6 transform translate-y-1/2 rotate-45 w-2 h-2 bg-white"></div>
           </div>
         )}

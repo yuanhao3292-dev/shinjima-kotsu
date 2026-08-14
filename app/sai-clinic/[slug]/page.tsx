@@ -347,7 +347,7 @@ export default function SaiClinicCheckoutPage() {
                 <input
                   type="text" required value={customerInfo.name}
                   onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })}
-                  className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none"
+                  className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
                   placeholder="您的姓名"
                 />
               </div>
@@ -358,7 +358,7 @@ export default function SaiClinicCheckoutPage() {
                 <input
                   type="text" value={customerInfo.company}
                   onChange={(e) => setCustomerInfo({ ...customerInfo, company: e.target.value })}
-                  className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none"
+                  className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
                   placeholder="公司名称"
                 />
               </div>
@@ -371,11 +371,11 @@ export default function SaiClinicCheckoutPage() {
                 </label>
                 {contactError && <p className="text-sm text-red-500 mb-2">{contactError}</p>}
                 <div className="grid sm:grid-cols-2 gap-3">
-                  <input type="tel" value={customerInfo.phone} onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none" placeholder="电话号码" />
-                  <input type="email" value={customerInfo.email} onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none" placeholder="邮箱" />
-                  <input type="text" value={customerInfo.line} onChange={(e) => setCustomerInfo({ ...customerInfo, line: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none" placeholder="LINE ID" />
-                  <input type="text" value={customerInfo.wechat} onChange={(e) => setCustomerInfo({ ...customerInfo, wechat: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none" placeholder="微信号" />
-                  <input type="text" value={customerInfo.whatsapp} onChange={(e) => setCustomerInfo({ ...customerInfo, whatsapp: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none" placeholder="WhatsApp" />
+                  <input type="tel" value={customerInfo.phone} onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" placeholder="电话号码" />
+                  <input type="email" value={customerInfo.email} onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" placeholder="邮箱" />
+                  <input type="text" value={customerInfo.line} onChange={(e) => setCustomerInfo({ ...customerInfo, line: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" placeholder="LINE ID" />
+                  <input type="text" value={customerInfo.wechat} onChange={(e) => setCustomerInfo({ ...customerInfo, wechat: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" placeholder="微信号" />
+                  <input type="text" value={customerInfo.whatsapp} onChange={(e) => setCustomerInfo({ ...customerInfo, whatsapp: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" placeholder="WhatsApp" />
                 </div>
               </div>
 
@@ -386,7 +386,7 @@ export default function SaiClinicCheckoutPage() {
                   type="date" value={preferredDate}
                   onChange={(e) => setPreferredDate(e.target.value)}
                   min={new Date().toISOString().split('T')[0]}
-                  className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none"
+                  className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
                 />
               </div>
 
@@ -396,7 +396,7 @@ export default function SaiClinicCheckoutPage() {
                 <textarea
                   value={notes} onChange={(e) => setNotes(e.target.value)}
                   rows={3} maxLength={1000}
-                  className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none resize-none"
+                  className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none resize-none"
                   placeholder="如有特殊需求或问题，请在此备注..."
                 />
               </div>

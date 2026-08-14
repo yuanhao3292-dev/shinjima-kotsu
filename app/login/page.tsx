@@ -264,7 +264,7 @@ function LoginForm() {
 
             <div className="flex items-center gap-6 text-sm">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                <div className="w-2 h-2 bg-brand-400 rounded-full animate-pulse" />
                 <span className="text-neutral-600">{t('support24h', lang)}</span>
               </div>
               <div className="flex items-center gap-2">

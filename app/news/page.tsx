@@ -50,20 +50,20 @@ const categoryConfig = {
   },
   announcement: {
     labels: { ja: 'お知らせ', 'zh-TW': '公告', 'zh-CN': '公告', en: 'Notice' },
-    color: 'bg-blue-600 text-white',
-    lightColor: 'bg-blue-50 text-blue-700 border border-blue-200',
+    color: 'bg-brand-600 text-white',
+    lightColor: 'bg-brand-50 text-brand-700 border border-brand-200',
     icon: Bell
   },
   press: {
     labels: { ja: 'プレスリリース', 'zh-TW': '新聞稿', 'zh-CN': '新闻稿', en: 'Press' },
-    color: 'bg-emerald-600 text-white',
-    lightColor: 'bg-emerald-50 text-emerald-700 border border-emerald-200',
+    color: 'bg-brand-600 text-white',
+    lightColor: 'bg-brand-50 text-brand-700 border border-brand-200',
     icon: Megaphone
   },
   service: {
     labels: { ja: 'サービス', 'zh-TW': '服務', 'zh-CN': '服务', en: 'Service' },
-    color: 'bg-amber-500 text-white',
-    lightColor: 'bg-amber-50 text-amber-700 border border-amber-200',
+    color: 'bg-brand-500 text-white',
+    lightColor: 'bg-brand-50 text-brand-700 border border-brand-200',
     icon: Sparkles
   },
 };
@@ -270,7 +270,7 @@ export default function NewsPage() {
                         {categoryConfig[news.category].labels[lang]}
                       </span>
                       {isNewNews(news.published_at) && (
-                        <span className="px-2 py-0.5 bg-red-500 text-brand-900 rounded text-xs font-bold animate-pulse">
+                        <span className="px-2 py-0.5 bg-brand-500 text-brand-900 rounded text-xs font-bold animate-pulse">
                           {t('newBadge')}
                         </span>
                       )}
@@ -387,7 +387,7 @@ export default function NewsPage() {
                             {config.labels[lang]}
                           </span>
                           {isNewNews(news.published_at) && (
-                            <span className="px-2 py-0.5 bg-red-500 text-white rounded text-xs font-bold animate-pulse">
+                            <span className="px-2 py-0.5 bg-brand-500 text-white rounded text-xs font-bold animate-pulse">
                               {t('newBadge')}
                             </span>
                           )}

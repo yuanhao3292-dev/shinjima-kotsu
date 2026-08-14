@@ -114,7 +114,7 @@ export default function CheckoutLayout({ children }: CheckoutLayoutProps) {
           <div className="flex items-center gap-4">
             {/* Secure badge */}
             <div className="hidden sm:flex items-center gap-1.5 text-xs text-neutral-400">
-              <Lock size={12} className="text-green-500" />
+              <Lock size={12} className="text-brand-500" />
               <span>{securePaymentLabel[currentLang]}</span>
             </div>
 
