@@ -12,6 +12,7 @@ import OpenAI from 'openai';
 import type { StructuredCase, TriageAssessment, AIRunRecord } from './types';
 import { withRetry } from './ai-retry';
 import { aemcLog } from './logger';
+import { salvageTriageAssessment } from './ai-output-schemas';
 import {
   getTriageSystemPrompt,
   buildTriageUserPrompt,
@@ -102,7 +103,7 @@ export async function triageCase(
     }
 
     // 验证关键字段
-    validateTriageAssessment(parsed, structuredCase.case_id);
+    parsed = salvageTriageAssessment(parsed, structuredCase.case_id);
 
     const latencyMs = Date.now() - startTime;
 
@@ -145,43 +146,6 @@ export async function triageCase(
 // 输出验证
 // ============================================================
 
-function validateTriageAssessment(
-  result: TriageAssessment,
-  caseId: string
-): void {
-  if (!result.case_id || result.case_id !== caseId) {
-    aemcLog.warn('triage', `case_id mismatch: expected=${caseId}, got=${result.case_id || 'missing'}`);
-    result.case_id = caseId;
-  }
-
-  // 验证 urgency_level 是有效值
-  const validLevels = ['low', 'medium', 'high', 'emergency'];
-  if (!validLevels.includes(result.urgency_level)) {
-    // fail-safe: 未知等级视为 high
-    result.urgency_level = 'high';
-  }
-
-  // 确保 confidence 在 0-1 范围
-  if (typeof result.confidence !== 'number' || result.confidence < 0 || result.confidence > 1) {
-    aemcLog.warn('triage', `Invalid confidence (type=${typeof result.confidence}, value=${result.confidence}), defaulting to 0.5`);
-    result.confidence = 0.5;
-  }
-
-  // 确保布尔字段有默认值（fail-safe: 偏向保守）
-  result.needs_emergency_evaluation = result.needs_emergency_evaluation ?? false;
-  result.doctor_review_required = result.doctor_review_required ?? true;
-
-  // 确保数组字段不为 undefined
-  result.recommended_departments = result.recommended_departments || [];
-  result.differential_directions = result.differential_directions || [];
-  result.suggested_tests = result.suggested_tests || [];
-  result.do_not_miss_conditions = result.do_not_miss_conditions || [];
-  result.missing_information_impact = result.missing_information_impact || [];
-
-  if (!result.reasoning_summary) {
-    result.reasoning_summary = '无法生成推理摘要';
-  }
-}
 
 // ============================================================
 // 错误类型

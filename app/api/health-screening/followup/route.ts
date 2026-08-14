@@ -236,30 +236,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: '保存分析结果失败' }, { status: 500 });
     }
 
-    // 更新用户使用量（首次 analyze 时未扣减，现在扣减）
-    const { data: usage } = await supabase
-      .from('screening_usage')
-      .select('*')
-      .eq('user_id', user.id)
-      .single();
-
-    if (usage) {
-      await supabase
-        .from('screening_usage')
-        .update({
-          free_remaining: usage.free_remaining - 1,
-          total_used: usage.total_used + 1,
-          last_used_at: new Date().toISOString(),
-        })
-        .eq('user_id', user.id);
-    } else {
-      await supabase.from('screening_usage').insert({
-        user_id: user.id,
-        free_remaining: FREE_SCREENING_LIMIT - 1,
-        total_used: 1,
-        last_used_at: new Date().toISOString(),
-      });
-    }
+    // 更新用户使用量（首次 analyze 时未扣减，现在原子扣减，见迁移 122）
+    await consumeScreeningCredit(supabase, user.id);
 
     return NextResponse.json({
       success: true,
@@ -269,7 +247,55 @@ export async function POST(request: NextRequest) {
       message: '补充信息分析完成',
     });
   } catch (error: unknown) {
-    console.warn('Health screening followup request failed');
+    // 只记录错误类型与消息（框架/DB 层错误，不含患者数据）——
+    // 完全不记错误信息会让线上故障无从排查
+    console.error(
+      'Health screening followup request failed:',
+      error instanceof Error ? `${error.name}: ${error.message}` : typeof error
+    );
     return NextResponse.json({ error: '系统错误，请稍后重试' }, { status: 500 });
+  }
+}
+
+/**
+ * 原子扣减免费额度（RPC consume_screening_credit，见迁移 122）。
+ * RPC 尚未部署时（函数不存在）降级回旧的读-改-写路径，
+ * 保证「先合代码后跑 SQL」的部署顺序失误不会让记账中断 ——
+ * 降级路径仍有并发丢失更新的旧问题，仅作过渡。
+ */
+async function consumeScreeningCredit(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  userId: string
+): Promise<void> {
+  const { error: rpcError } = await supabase.rpc('consume_screening_credit', {
+    p_free_limit: FREE_SCREENING_LIMIT,
+  });
+  if (!rpcError) return;
+
+  console.warn(
+    '[ScreeningCredit] RPC unavailable, falling back to read-modify-write:',
+    rpcError.code, rpcError.message
+  );
+  const { data: usage } = await supabase
+    .from('screening_usage')
+    .select('*')
+    .eq('user_id', userId)
+    .single();
+  if (usage) {
+    await supabase
+      .from('screening_usage')
+      .update({
+        free_remaining: usage.free_remaining - 1,
+        total_used: usage.total_used + 1,
+        last_used_at: new Date().toISOString(),
+      })
+      .eq('user_id', userId);
+  } else {
+    await supabase.from('screening_usage').insert({
+      user_id: userId,
+      free_remaining: FREE_SCREENING_LIMIT - 1,
+      total_used: 1,
+      last_used_at: new Date().toISOString(),
+    });
   }
 }

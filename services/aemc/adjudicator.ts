@@ -18,6 +18,7 @@ import type {
 } from './types';
 import { withRetry } from './ai-retry';
 import { aemcLog } from './logger';
+import { salvageAdjudicatedAssessment } from './ai-output-schemas';
 import {
   getAdjudicatorSystemPrompt,
   buildAdjudicatorUserPrompt,
@@ -118,7 +119,7 @@ export async function adjudicateCase(
     }
 
     // 验证关键字段
-    validateAdjudicatedAssessment(parsed, structuredCase.case_id);
+    parsed = salvageAdjudicatedAssessment(parsed, structuredCase.case_id);
 
     const latencyMs = Date.now() - startTime;
 
@@ -161,42 +162,6 @@ export async function adjudicateCase(
 // 输出验证
 // ============================================================
 
-function validateAdjudicatedAssessment(
-  result: AdjudicatedAssessment,
-  caseId: string
-): void {
-  if (!result.case_id || result.case_id !== caseId) {
-    aemcLog.warn('adjudicator', `case_id mismatch: expected=${caseId}, got=${result.case_id || 'missing'}`);
-    result.case_id = caseId;
-  }
-
-  // 验证 final_risk_level
-  const validLevels = ['low', 'medium', 'high', 'emergency'];
-  if (!validLevels.includes(result.final_risk_level)) {
-    // fail-safe: 未知等级视为 high
-    result.final_risk_level = 'high';
-  }
-
-  // 确保 confidence 在 0-1 范围
-  if (typeof result.confidence !== 'number' || result.confidence < 0 || result.confidence > 1) {
-    aemcLog.warn('adjudicator', `Invalid confidence (type=${typeof result.confidence}, value=${result.confidence}), defaulting to 0.5`);
-    result.confidence = 0.5;
-  }
-
-  // fail-safe: 布尔字段默认偏向保守
-  result.safe_to_auto_display = result.safe_to_auto_display ?? false;
-  result.escalate_to_human = result.escalate_to_human ?? true;
-
-  // 确保字符串字段不为 undefined
-  result.final_summary = result.final_summary || '仲裁官未能生成摘要';
-  result.escalation_reason = result.escalation_reason || '';
-
-  // 确保数组字段不为 undefined
-  result.final_departments = result.final_departments || [];
-  result.critical_reasons = result.critical_reasons || [];
-  result.must_ask_followups = result.must_ask_followups || [];
-  result.conflict_notes = result.conflict_notes || [];
-}
 
 // ============================================================
 // 错误类型
