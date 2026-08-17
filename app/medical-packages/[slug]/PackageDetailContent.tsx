@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, Suspense } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CheckCircle, Car, Building, Check, Shield, Lock, CreditCard, ArrowLeft } from 'lucide-react';
@@ -194,7 +195,7 @@ export default function PackageDetailContent({
   const rawProviderKey = useProviderKey();
   const providerKey = isGuideEmbed ? null : rawProviderKey;
 
-  const [currentLang, setCurrentLang] = useState<Language>('zh-TW');
+  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
 
   useEffect(() => {
     const cookies = document.cookie.split(';');

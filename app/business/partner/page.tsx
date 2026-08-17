@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import Image from 'next/image';
 import PublicLayout from '@/components/PublicLayout';
@@ -1041,7 +1042,7 @@ const featuredReviews: FeaturedReviewItem[] = [
 ];
 
 export default function PartnerBusinessPage() {
-  const [currentLang, setCurrentLang] = useState<Language>('ja');
+  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
   const [formData, setFormData] = useState({
     companyName: '',
     contactPerson: '',

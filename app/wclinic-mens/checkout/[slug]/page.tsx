@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, Suspense } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import { useParams, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import CheckoutLayout from '@/components/CheckoutLayout';
@@ -64,7 +65,7 @@ export default function WClinicMensCheckoutPage() {
 
   const pkg = MEDICAL_PACKAGES[slug];
 
-  const [lang, setLang] = useState<Language>('zh-CN');
+  const [lang, setLang] = useState<Language>(DEFAULT_LANGUAGE);
   const [processing, setProcessing] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [contactError, setContactError] = useState('');

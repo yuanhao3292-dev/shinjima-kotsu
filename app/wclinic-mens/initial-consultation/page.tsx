@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, Suspense } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
@@ -100,7 +101,7 @@ export default function WClinicMensInitialConsultationPage() {
   const fromRaw = searchParams.get('from');
   const fromParam = fromRaw?.startsWith('/') ? fromRaw : null;
   const backHref = fromParam || (guideSlug ? `/g/${guideSlug}/wclinic-mens` : '/wclinic-mens');
-  const [currentLang, setCurrentLang] = useState<Language>('zh-CN');
+  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
   const [processing, setProcessing] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [customerInfo, setCustomerInfo] = useState({

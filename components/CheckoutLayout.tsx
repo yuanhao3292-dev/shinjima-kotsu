@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import { Globe, ChevronDown, Lock } from 'lucide-react';
 
@@ -44,7 +45,7 @@ const securePaymentLabel: Record<Language, string> = {
 };
 
 function getInitialLang(): Language {
-  if (typeof window === 'undefined') return 'zh-CN';
+  if (typeof window === 'undefined') return DEFAULT_LANGUAGE;
   const cookies = document.cookie.split(';');
   for (const cookie of cookies) {
     const [name, value] = cookie.trim().split('=');
@@ -57,7 +58,7 @@ function getInitialLang(): Language {
   if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') return 'zh-TW';
   if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) return 'zh-CN';
   if (browserLang.startsWith('en')) return 'en';
-  return 'zh-CN';
+  return DEFAULT_LANGUAGE;
 }
 
 function persistLang(locale: Language) {
@@ -67,7 +68,7 @@ function persistLang(locale: Language) {
 }
 
 export default function CheckoutLayout({ children }: CheckoutLayoutProps) {
-  const [currentLang, setCurrentLang] = useState<Language>('zh-CN');
+  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
 
   const displayBrandName = 'NIIJIMA';

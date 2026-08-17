@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import PublicLayout from '@/components/PublicLayout';
@@ -8,7 +9,7 @@ import PublicLayout from '@/components/PublicLayout';
 type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
 
 function getInitialLang(): Language {
-  if (typeof window === 'undefined') return 'ja';
+  if (typeof window === 'undefined') return DEFAULT_LANGUAGE;
   const cookies = document.cookie.split(';');
   for (const cookie of cookies) {
     const [name, value] = cookie.trim().split('=');
@@ -16,7 +17,7 @@ function getInitialLang(): Language {
       return value as Language;
     }
   }
-  return 'ja';
+  return DEFAULT_LANGUAGE;
 }
 
 const t: Record<Language, {
@@ -340,7 +341,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 }
 
 export default function YakkanPage() {
-  const [lang, setLang] = useState<Language>('ja');
+  const [lang, setLang] = useState<Language>(DEFAULT_LANGUAGE);
   useEffect(() => { setLang(getInitialLang()); }, []);
   const l = t[lang];
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import Image from 'next/image';
 import { MessageCircle, X, Phone, Mail } from 'lucide-react';
 import { useWhiteLabel } from '@/lib/contexts/WhiteLabelContext';
@@ -59,7 +60,7 @@ export default function FloatingContact() {
   const [isOpen, setIsOpen] = useState(false);
   const [showWechatQR, setShowWechatQR] = useState(false);
   const [showLineId, setShowLineId] = useState(false);
-  const [currentLang, setCurrentLang] = useState<Language>('ja');
+  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
 
   useEffect(() => {
     const cookies = document.cookie.split(';');

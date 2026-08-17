@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import { Globe, ChevronDown, Check } from 'lucide-react';
 
 type Locale = 'ja' | 'zh-TW' | 'zh-CN' | 'en' | 'ko';
@@ -23,7 +24,7 @@ const languages: Language[] = [
 const LOCALE_COOKIE_NAME = 'NEXT_LOCALE';
 
 function getStoredLocale(): Locale {
-  if (typeof window === 'undefined') return 'ja';
+  if (typeof window === 'undefined') return DEFAULT_LANGUAGE;
 
   // Check cookie first
   const cookies = document.cookie.split(';');
@@ -42,7 +43,7 @@ function getStoredLocale(): Locale {
   if (browserLang.startsWith('ko')) return 'ko';
   if (browserLang.startsWith('en')) return 'en';
 
-  return 'ja'; // Default
+  return DEFAULT_LANGUAGE;
 }
 
 function setStoredLocale(locale: Locale) {

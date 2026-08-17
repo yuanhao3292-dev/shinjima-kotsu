@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -45,7 +46,7 @@ interface TIMCContentProps {
 }
 
 export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProps) {
-  const [lang, setLang] = useState<Language>('zh-TW');
+  const [lang, setLang] = useState<Language>(DEFAULT_LANGUAGE);
 
   useEffect(() => {
     const cookies = document.cookie.split(';');

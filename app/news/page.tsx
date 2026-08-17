@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -122,10 +123,10 @@ export default function NewsPage() {
     else if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') setCurrentLang('zh-TW');
     else if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) setCurrentLang('zh-CN');
     else if (browserLang.startsWith('en')) setCurrentLang('en');
-    else setCurrentLang('ja');
+    else setCurrentLang(DEFAULT_LANGUAGE);
   }, []);
 
-  const lang: Language = currentLang || 'ja';
+  const lang: Language = currentLang || DEFAULT_LANGUAGE;
   const t = (key: keyof typeof pageTranslations) => pageTranslations[key][lang];
 
   // 加载新闻数据（仅在语言确定后才请求）

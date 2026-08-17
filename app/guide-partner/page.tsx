@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import PublicLayout from '@/components/PublicLayout';
 import ObfuscatedEmail from '@/components/ObfuscatedEmail';
 import Link from 'next/link';
@@ -651,7 +652,7 @@ const pageTranslations = {
 };
 
 function getInitialLang(): Language {
-  if (typeof window === 'undefined') return 'zh-TW';
+  if (typeof window === 'undefined') return DEFAULT_LANGUAGE;
   const cookies = document.cookie.split(';');
   for (const cookie of cookies) {
     const [name, value] = cookie.trim().split('=');
@@ -664,11 +665,11 @@ function getInitialLang(): Language {
   if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') return 'zh-TW';
   if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) return 'zh-CN';
   if (browserLang.startsWith('en')) return 'en';
-  return 'zh-TW';
+  return DEFAULT_LANGUAGE;
 }
 
 export default function GuidePartnerPage() {
-  const [currentLang, setCurrentLang] = useState<Language>('zh-TW');
+  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
   const [showWechatQR, setShowWechatQR] = useState(false);
 
   useEffect(() => {
