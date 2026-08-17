@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, memo, useMemo } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -25,10 +26,15 @@ import { validatePaymentForm } from '@/lib/validation';
 import type { PageView, SubViewProps } from './landing/types';
 
 // Lazy-loaded view components (code-split for performance)
-const MedicalView = dynamic(() => import('./landing/MedicalView'), { ssr: false });
-const GolfView = dynamic(() => import('./landing/GolfView'), { ssr: false });
-const BusinessView = dynamic(() => import('./landing/BusinessView'), { ssr: false });
-const PartnerView = dynamic(() => import('./landing/PartnerView'), { ssr: false });
+// ⚠️ 这四个视图曾是 { ssr: false } —— /medical、/golf、/business、/partner
+// 的正文因此一个字都不进服务端 HTML，实测初始文档里只有页尾的一个 h3。
+// Google 虽然会执行 JS，但渲染是二次排队的、且不保证完成；这四页恰好是
+// 商业价值最高的着陆页，正文必须进首屏 HTML。
+// 已确认四个组件里仅有的两处 document 调用都在 onClick 回调内，SSR 安全。
+const MedicalView = dynamic(() => import('./landing/MedicalView'));
+const GolfView = dynamic(() => import('./landing/GolfView'));
+const BusinessView = dynamic(() => import('./landing/BusinessView'));
+const PartnerView = dynamic(() => import('./landing/PartnerView'));
 
 // --- IMAGE ASSETS CONFIGURATION ---
 // 仅保留实际上传的真实图片（ibb.co），不使用 Unsplash 占位图
@@ -266,12 +272,14 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               <span className="text-xs tracking-[0.3em] text-brand-600 uppercase">Medical Tourism</span>
             </div>
 
-            {/* 核心标题 - 温暖、给人希望 */}
-            <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-brand-900 mb-4 md:mb-6 leading-tight">
+            {/* 核心标题 - 温暖、给人希望。
+                首页的 h1：本段是全站首屏的主张，其余板块（癌症治疗/高尔夫/
+                商务考察/同业合作）保持 h2 —— 此前首页一个 h1 都没有。 */}
+            <h1 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-brand-900 mb-4 md:mb-6 leading-tight">
               {currentLang === 'zh-TW' ? '把健康交給' : currentLang === 'zh-CN' ? '把健康交给' : currentLang === 'ja' ? '健康を託す' : 'Entrust Your Health'}
               <br />
               <span className="text-brand-600">{currentLang === 'zh-TW' ? '值得信賴的人' : currentLang === 'zh-CN' ? '值得信赖的人' : currentLang === 'ja' ? '信頼できる人へ' : 'To Those You Trust'}</span>
-            </h2>
+            </h1>
 
             <p className="text-sm sm:text-base md:text-xl text-neutral-600 mb-6 md:mb-8 leading-relaxed font-light">
               {currentLang === 'zh-TW' ? '日本醫療技術全球領先，PET-CT可發現5mm早期病變。我們提供專車接送、全程陪診翻譯、報告解讀——讓您專心照顧健康，其他的交給我們。' : currentLang === 'zh-CN' ? '日本医疗技术全球领先，PET-CT可发现5mm早期病变。我们提供专车接送、全程陪诊翻译、报告解读——让您专心照顾健康，其他的交给我们。' : currentLang === 'ja' ? '日本の医療技術は世界トップクラス。PET-CTは5mmの早期病変を発見可能。専用車送迎、全行程通訳同行、レポート解説——健康に専念していただき、他はお任せください。' : 'Japan leads the world in medical technology. PET-CT can detect lesions as small as 5mm. We provide private transfers, full interpretation, and report analysis — focus on your health, and leave the rest to us.'}
@@ -813,12 +821,24 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
   );
 };
 
+/** 路径 → 板块。曾支持 next.config.js 的 rewrite（/medical → /?page=medical），
+ *  现在 /medical 等已是独立路由，这张表同时服务于首帧渲染与后续 URL 变化。 */
+const PATH_PAGE_MAP: Record<string, PageView> = {
+  '/medical': 'medical',
+  '/golf': 'golf',
+  '/business': 'business',
+  '/partner': 'partner',
+};
+
 const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const [currentLang, setCurrentLang] = useState<Language | null>(null);
-  const [currentPage, setCurrentPage] = useState<PageView>('home');
+  // 首帧（含服务端渲染）就按路径定板块 —— usePathname 在 SSR 阶段即可用
+  const [currentPage, setCurrentPage] = useState<PageView>(
+    () => PATH_PAGE_MAP[pathname] ?? 'home'
+  );
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authFormData, setAuthFormData] = useState({ companyName: '', contactPerson: '', email: '' });
   const [authError, setAuthError] = useState('');
@@ -890,22 +910,20 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
     else if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') setCurrentLang('zh-TW');
     else if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) setCurrentLang('zh-CN');
     else if (browserLang.startsWith('en')) setCurrentLang('en');
-    else setCurrentLang('ja');
+    else setCurrentLang(DEFAULT_LANGUAGE);
   }, []);
 
-  const lang: Language = currentLang || 'ja';
+  const lang: Language = currentLang || DEFAULT_LANGUAGE;
   const t = translations[lang];
 
   // 处理 URL 参数和 hash，支持从其他页面跳转回来时切换到指定页面
   // 使用 searchParams 监听 URL 变化，解决点击 Logo 无法返回首页的问题
+  //
+  // ⚠️ 板块的初值在上面的 useState 里就按 pathname 定好了，这里只负责后续
+  // 的 URL 变化。原本初值写死 'home'、全靠本 effect 纠正 —— 服务端渲染时
+  // effect 不跑，于是 /、/medical、/golf、/business 吐出的 HTML 一字不差
+  // （实测去掉 script 后同为 1886 字节），四个 URL 在爬虫眼里是同一页。
   useEffect(() => {
-    // 优先从路径检测页面（支持 next.config.js rewrites: /medical → /?page=medical）
-    const PATH_PAGE_MAP: Record<string, PageView> = {
-      '/medical': 'medical',
-      '/golf': 'golf',
-      '/business': 'business',
-      '/partner': 'partner',
-    };
     const pageFromPath = PATH_PAGE_MAP[pathname];
 
     // 其次从查询参数检测（兼容旧链接 /?page=medical）

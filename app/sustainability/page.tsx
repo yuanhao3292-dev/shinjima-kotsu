@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import CompanyLayout from '@/components/CompanyLayout';
 import { Leaf, Heart, Globe, Users, ChevronRight } from 'lucide-react';
@@ -119,7 +120,7 @@ const pageTranslations = {
 };
 
 export default function SustainabilityPage() {
-  const [currentLang, setCurrentLang] = useState<Language>('ja');
+  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
 
   useEffect(() => {
     const cookies = document.cookie.split(';');

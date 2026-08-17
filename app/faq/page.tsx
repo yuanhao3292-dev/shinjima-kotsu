@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import Image from 'next/image';
 import { ChevronDown, Mail, MessageCircle, ArrowRight, X } from 'lucide-react';
 import PublicLayout from '@/components/PublicLayout';
@@ -406,7 +407,7 @@ export default function FAQPage() {
   const [activeCategory, setActiveCategory] = useState('all');
   const [openItems, setOpenItems] = useState<number[]>([]);
   const [showWechatQR, setShowWechatQR] = useState(false);
-  const [currentLang, setCurrentLang] = useState<Language>('ja');
+  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
 
   useEffect(() => {
     const cookies = document.cookie.split(';');

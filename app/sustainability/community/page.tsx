@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import CompanyLayout from '@/components/CompanyLayout';
 import { MapPin, Users, Building, Heart } from 'lucide-react';
 
@@ -124,7 +125,7 @@ const pageTranslations = {
 };
 
 export default function CommunityPage() {
-  const [currentLang, setCurrentLang] = useState<Language>('ja');
+  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
 
   useEffect(() => {
     const cookies = document.cookie.split(';');

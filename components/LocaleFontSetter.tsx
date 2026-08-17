@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 
 const LOCALE_COOKIE_NAME = 'NEXT_LOCALE';
 
 function getStoredLocale(): string {
-  if (typeof window === 'undefined') return 'ja';
+  if (typeof window === 'undefined') return DEFAULT_LANGUAGE;
 
   const cookies = document.cookie.split(';');
   for (const cookie of cookies) {
@@ -23,7 +24,7 @@ function getStoredLocale(): string {
   if (browserLang.startsWith('ko')) return 'ko';
   if (browserLang.startsWith('en')) return 'en';
 
-  return 'ja';
+  return DEFAULT_LANGUAGE;
 }
 
 export default function LocaleFontSetter() {

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, Suspense } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import CheckoutLayout from '@/components/CheckoutLayout';
@@ -108,7 +109,7 @@ export default function WClinicMensRemoteConsultationPage() {
   const guideSlugParam = searchParams.get('guide');
   const guideSlug = guideSlugParam && isValidSlug(guideSlugParam) ? guideSlugParam : null;
   const backHref = guideSlug ? `/g/${guideSlug}/wclinic-mens` : '/wclinic-mens';
-  const [currentLang, setCurrentLang] = useState<Language>('zh-CN');
+  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
   const [processing, setProcessing] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [customerInfo, setCustomerInfo] = useState({ name: '', email: '', phone: '', line: '', wechat: '', country: 'CN' });

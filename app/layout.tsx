@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { cookies, headers } from 'next/headers'
 import './globals.css'
 import { SITE_URL, SITE_NAME } from '@/lib/seo'
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage'
 import FloatingContact from '@/components/FloatingContact'
 import LocaleFontSetter from '@/components/LocaleFontSetter'
 import WhiteLabelTracker from '@/components/WhiteLabelTracker'
@@ -197,10 +198,14 @@ export default async function RootLayout({
   // 简中用户会先下日文 subset（Noto Sans JP + Shippori Mincho），
   // 水合后再下中文 subset，等于两套都下。
   // 从 cookie 直接读，首屏即用正确字体族，另一套永远不会被请求。
+  //
+  // 无 cookie 时的回退值必须与客户端组件的 DEFAULT_LANGUAGE 一致 ——
+  // 原本这里回退 ja、而导航（PublicLayout）回退 zh-TW，于是 Googlebot
+  // 拿到的是 <html lang="ja"> 配一张导航繁中的混排页。
   const cookieLocale = (await cookies()).get('NEXT_LOCALE')?.value
   const locale = ['ja', 'zh-TW', 'zh-CN', 'en', 'ko'].includes(cookieLocale ?? '')
     ? (cookieLocale as string)
-    : 'ja'
+    : DEFAULT_LANGUAGE
   const htmlLang = locale
 
   return (

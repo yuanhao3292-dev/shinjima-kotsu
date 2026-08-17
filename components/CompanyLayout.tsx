@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import PublicLayout from './PublicLayout';
@@ -74,7 +75,7 @@ interface CompanyLayoutProps {
 
 export default function CompanyLayout({ children, title, titleEn, breadcrumb }: CompanyLayoutProps) {
   const pathname = usePathname();
-  const [currentLang, setCurrentLang] = useState<Language>('ja');
+  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
 
   useEffect(() => {
     const cookies = document.cookie.split(';');

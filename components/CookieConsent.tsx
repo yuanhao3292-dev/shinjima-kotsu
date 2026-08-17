@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import Script from 'next/script';
 
 type Language = 'zh-TW' | 'zh-CN' | 'ja' | 'en';
@@ -38,7 +39,7 @@ const labels: Record<Language, {
 };
 
 function getLang(): Language {
-  if (typeof window === 'undefined') return 'ja';
+  if (typeof window === 'undefined') return DEFAULT_LANGUAGE;
   const cookies = document.cookie.split(';');
   for (const cookie of cookies) {
     const [name, value] = cookie.trim().split('=');
@@ -50,7 +51,7 @@ function getLang(): Language {
   if (nav.startsWith('ja')) return 'ja';
   if (nav.startsWith('en')) return 'en';
   if (nav === 'zh-TW' || nav === 'zh-HK') return 'zh-TW';
-  return 'zh-CN';
+  return DEFAULT_LANGUAGE;
 }
 
 const CONSENT_KEY = 'cookie_consent';
@@ -67,7 +68,7 @@ export function getConsent(): CookieConsentValue {
 export default function CookieConsent() {
   const [consent, setConsent] = useState<CookieConsentValue>(null);
   const [show, setShow] = useState(false);
-  const [lang, setLang] = useState<Language>('ja');
+  const [lang, setLang] = useState<Language>(DEFAULT_LANGUAGE);
 
   useEffect(() => {
     const stored = getConsent();

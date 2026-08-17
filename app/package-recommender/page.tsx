@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, CheckCircle, Sparkles, User, Calendar, Heart, Target, MessageSquare, Briefcase } from 'lucide-react';
 
@@ -916,7 +917,7 @@ export default function PackageRecommenderPage() {
   const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
   const [showResult, setShowResult] = useState(false);
   const [recommendation, setRecommendation] = useState<RecommendationResult | null>(null);
-  const [currentLang, setCurrentLang] = useState<Language>('ja');
+  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
 
   useEffect(() => {
     const cookies = document.cookie.split(';');

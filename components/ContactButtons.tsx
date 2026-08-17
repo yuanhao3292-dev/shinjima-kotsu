@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import Image from 'next/image';
 import { MessageSquare, Mail, X } from 'lucide-react';
 import { DEFAULT_CONTACT } from '@/lib/whitelabel-config';
@@ -22,7 +23,7 @@ interface ContactButtonsProps {
 
 export default function ContactButtons({ className = '' }: ContactButtonsProps) {
   const [showWechatQR, setShowWechatQR] = useState(false);
-  const [currentLang, setCurrentLang] = useState<Language>('ja');
+  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
 
   useEffect(() => {
     const cookies = document.cookie.split(';');

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, Suspense } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { isValidSlug } from '@/lib/whitelabel-config';
@@ -24,7 +25,7 @@ const i18n = {
 };
 
 function detectLanguage(): Language {
-  if (typeof document === 'undefined') return 'zh-TW';
+  if (typeof document === 'undefined') return DEFAULT_LANGUAGE;
   const cookies = document.cookie.split(';');
   for (const cookie of cookies) {
     const [name, value] = cookie.trim().split('=');
@@ -37,7 +38,7 @@ function detectLanguage(): Language {
   if (bl === 'zh-TW' || bl === 'zh-Hant') return 'zh-TW';
   if (bl === 'zh-CN' || bl === 'zh-Hans' || bl.startsWith('zh')) return 'zh-CN';
   if (bl.startsWith('en')) return 'en';
-  return 'zh-TW';
+  return DEFAULT_LANGUAGE;
 }
 
 function PaymentSuccessContent() {
@@ -56,7 +57,7 @@ function PaymentSuccessContent() {
   const [loading, setLoading] = useState(true);
   const [orderId, setOrderId] = useState<string | null>(null);
   const [invoiceToken, setInvoiceToken] = useState<string | null>(null);
-  const [lang, setLang] = useState<Language>('zh-TW');
+  const [lang, setLang] = useState<Language>(DEFAULT_LANGUAGE);
 
   useEffect(() => {
     setLang(detectLanguage());

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -64,10 +65,10 @@ export default function NewsDetailPage() {
     else if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') setCurrentLang('zh-TW');
     else if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) setCurrentLang('zh-CN');
     else if (browserLang.startsWith('en')) setCurrentLang('en');
-    else setCurrentLang('ja');
+    else setCurrentLang(DEFAULT_LANGUAGE);
   }, []);
 
-  const lang: Language = currentLang || 'ja';
+  const lang: Language = currentLang || DEFAULT_LANGUAGE;
   const t = (key: keyof typeof detailTranslations) => detailTranslations[key][lang];
 
   useEffect(() => {

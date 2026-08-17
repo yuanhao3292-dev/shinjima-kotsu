@@ -20,6 +20,26 @@ const LANGUAGE_COOKIE_NAME = 'NEXT_LOCALE';
 const VALID_LANGUAGES: Language[] = ['ja', 'zh-TW', 'zh-CN', 'en', 'ko'];
 
 /**
+ * 服务端渲染 / 首帧的默认语言，也是 Googlebot 实际看到的语言。
+ *
+ * ⚠️ 此前站内并存两套默认值：本 hook 默认 'ja'（正文组件都用它），而
+ * PublicLayout 默认 'zh-TW'（导航与页尾）—— 无 Cookie 的请求因此拿到一张
+ * 导航繁中、正文日文的混排页。线上实测 /medical 的默认渲染里假名 404 个、
+ * 繁体特征字 34 个，Google 无从判定这一页是什么语言。
+ *
+ * 收敛成这一个常量。取 zh-TW 而非 ja 的理由：站点的差异化价值（中文陪同、
+ * 报告翻译、赴日就医代办）对应的是华语检索意图；日文「人間ドック」类查询
+ * 由日本本土医院主导，本站没有胜算。根 metadata 与主力页标题本来也是繁中。
+ * 日语访客在 hydration 后仍会按浏览器语言切回日文。
+ *
+ * 真正的解法是每种语言独立 URL + hreflang；在那之前，先保证爬虫拿到的是
+ * 一张语言自洽的页面。要改回日文优先，只改这一行。
+ */
+// 用 satisfies 而非 `: Language` 标注 —— 保留字面量类型，这样它同时可以
+// 赋给收窄过的 Language4（医院专题页不提供韩语，用的是那个类型）。
+export const DEFAULT_LANGUAGE = 'zh-TW' satisfies Language;
+
+/**
  * 统一的语言检测和管理 Hook
  *
  * 优先级：
@@ -30,7 +50,7 @@ const VALID_LANGUAGES: Language[] = ['ja', 'zh-TW', 'zh-CN', 'en', 'ko'];
  * @returns {Language} 当前语言代码
  */
 export function useLanguage(): Language {
-  const [currentLang, setCurrentLang] = useState<Language>('ja');
+  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
 
   useEffect(() => {
     // 1. 尝试从 Cookie 读取（使用 js-cookie 库，安全且可靠）
@@ -42,7 +62,7 @@ export function useLanguage(): Language {
 
     // 2. 从浏览器语言检测
     const browserLang = navigator.language;
-    let detectedLang: Language = 'ja';
+    let detectedLang: Language = DEFAULT_LANGUAGE;
 
     if (browserLang.startsWith('ja')) {
       detectedLang = 'ja';

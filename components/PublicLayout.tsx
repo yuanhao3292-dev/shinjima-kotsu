@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import { Globe, ChevronDown, LogIn, X, Menu } from 'lucide-react';
 import { useWhiteLabel, useWhiteLabelVisibility } from '@/lib/contexts/WhiteLabelContext';
@@ -176,7 +177,7 @@ const navLabels = {
 };
 
 function getInitialLang(): Language {
-  if (typeof window === 'undefined') return 'zh-TW';
+  if (typeof window === 'undefined') return DEFAULT_LANGUAGE;
   const cookies = document.cookie.split(';');
   for (const cookie of cookies) {
     const [name, value] = cookie.trim().split('=');
@@ -190,7 +191,7 @@ function getInitialLang(): Language {
   if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) return 'zh-CN';
   if (browserLang.startsWith('ko')) return 'ko';
   if (browserLang.startsWith('en')) return 'en';
-  return 'zh-TW';
+  return DEFAULT_LANGUAGE;
 }
 
 function persistLang(locale: Language) {
@@ -200,7 +201,7 @@ function persistLang(locale: Language) {
 }
 
 export default function PublicLayout({ children, showFooter = true, activeNav, transparentNav = true, onLogoClick }: PublicLayoutProps) {
-  const [currentLang, setCurrentLang] = useState<Language>('zh-TW');
+  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [loginMenuOpen, setLoginMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
