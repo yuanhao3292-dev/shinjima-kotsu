@@ -5,6 +5,8 @@ import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
 import Image from 'next/image';
 import { ChevronDown, Mail, MessageCircle, ArrowRight, X } from 'lucide-react';
 import PublicLayout from '@/components/PublicLayout';
+import JsonLd from '@/components/JsonLd';
+import { faqJsonLd } from '@/lib/structured-data';
 
 const WECHAT_QR_URL = '/wechat-qr.png';
 
@@ -441,6 +443,18 @@ export default function FAQPage() {
 
   return (
     <PublicLayout showFooter>
+      {/* FAQPage 结构化数据 —— 取本页渲染用的同一份 FAQ_DATA 和同一个
+          currentLang，保证与用户可见内容逐字一致。
+          用 FAQ_DATA 而非 filteredFAQs：分类筛选是前端交互，
+          结构化数据应覆盖本页全部问答。 */}
+      <JsonLd
+        data={faqJsonLd(
+          FAQ_DATA.map((item) => ({
+            question: item.question[currentLang],
+            answer: item.answer[currentLang],
+          }))
+        )}
+      />
       {/* Hero */}
       <section className="relative min-h-screen flex items-center brand-gradient-deep overflow-hidden">
         {/* Background Image */}
