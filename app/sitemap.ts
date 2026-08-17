@@ -1,7 +1,11 @@
 import { MetadataRoute } from 'next';
+import { SITE_URL } from '@/lib/seo';
 
-// 根据请求域名动态判断 — build 时使用默认值
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.bespoketrip.jp';
+// ⚠️ 此前 fallback 写的是 https://www.bespoketrip.jp —— 线上 Vercel 没设
+// NEXT_PUBLIC_BASE_URL，兜底值直接顶上，导致 niijima-koutsu.jp/sitemap.xml
+// 里 54 条 URL 全指向外域。跨域 sitemap 会被 Google 整份忽略，
+// 等于主域一直没有 sitemap。现统一走 lib/seo 的主域常量。
+const BASE_URL = SITE_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const currentDate = new Date();
@@ -121,6 +125,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.4,
     },
+    {
+      url: `${BASE_URL}/sustainability/community`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.4,
+    },
+    // 导游合伙人招募落地页（robots 只屏蔽 /guide-partner/ 下的后台，
+    // /guide-partner 本身是对外招募页）
+    {
+      url: `${BASE_URL}/guide-partner`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    // 套餐推荐工具
+    {
+      url: `${BASE_URL}/package-recommender`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
     // 法的ページ
     {
       url: `${BASE_URL}/legal/tokushoho`,
@@ -154,5 +179,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  return [...staticPages, ...clinicPages];
+  // TIMC 精密体检套餐详情页 —— 商业价值最高的一批长尾页，此前完全不在 sitemap
+  const checkupPackageSlugs = [
+    'vip-member-course',
+    'premium-cardiac-course',
+    'select-gastro-colonoscopy',
+    'select-gastroscopy',
+    'dwibs-cancer-screening',
+    'basic-checkup',
+  ];
+  const packagePages: MetadataRoute.Sitemap = checkupPackageSlugs.map((slug) => ({
+    url: `${BASE_URL}/medical-packages/${slug}`,
+    lastModified: currentDate,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...clinicPages, ...packagePages];
 }

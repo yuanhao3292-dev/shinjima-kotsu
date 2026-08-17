@@ -69,6 +69,23 @@ function extractSubdomain(hostname: string): string | null {
   return null;
 }
 
+/**
+ * 给页面响应统一打上 SEO 相关的头。页面请求有多个提前 return 的分支，
+ * 逐个补容易漏，集中在这里。
+ *
+ * - x-pathname：Server Component 拿不到 pathname，canonical 只能靠它，
+ *   见 app/layout.tsx 的 generateMetadata
+ * - x-robots-tag：白标店面（白标域名 + /g/[slug]）是主站内容的换皮版本，
+ *   被收录只会与主站互相稀释，一律不进索引
+ */
+function applySeoHeaders(response: NextResponse, pathname: string, noIndex: boolean) {
+  response.headers.set('x-pathname', pathname);
+  if (noIndex) {
+    response.headers.set('x-robots-tag', 'noindex, nofollow');
+  }
+  return response;
+}
+
 export async function middleware(request: NextRequest) {
   const hostname = request.headers.get('host') || '';
   const pathname = request.nextUrl.pathname;
@@ -302,7 +319,7 @@ export async function middleware(request: NextRequest) {
     response.cookies.set(WHITELABEL_COOKIE_NAME, subdomainSlug, COOKIE_OPTIONS);
     response.headers.set('x-whitelabel-mode', 'true');
     response.headers.set('x-whitelabel-slug', subdomainSlug);
-    return response;
+    return applySeoHeaders(response, pathname, true);
   }
 
   // 4. 处理 /g/[slug] 路由
@@ -321,7 +338,7 @@ export async function middleware(request: NextRequest) {
       response.cookies.set(WHITELABEL_COOKIE_NAME, slug, COOKIE_OPTIONS);
       response.headers.set('x-whitelabel-mode', 'true');
       response.headers.set('x-whitelabel-slug', slug);
-      return response;
+      return applySeoHeaders(response, pathname, true);
     }
   }
 
@@ -370,7 +387,7 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  return response;
+  return applySeoHeaders(response, pathname, isWhiteLabelDomain);
 }
 
 export const config = {

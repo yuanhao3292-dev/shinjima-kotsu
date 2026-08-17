@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import './globals.css'
+import { SITE_URL, SITE_NAME } from '@/lib/seo'
 import FloatingContact from '@/components/FloatingContact'
 import LocaleFontSetter from '@/components/LocaleFontSetter'
 import WhiteLabelTracker from '@/components/WhiteLabelTracker'
@@ -106,28 +107,64 @@ const fontVariableClasses = [
   playfairDisplay.variable,
 ].join(' ')
 
-export const metadata: Metadata = {
-  title: 'TIMC OSAKA 體檢預約 | 日本大阪德州會國際醫療中心 - 新島交通',
-  description: 'TIMC OSAKA（德州會國際醫療中心）官方預約代理。提供專業日本高端體檢服務，PET-CT癌症篩查、全身MRI、胃腸鏡等項目。中文服務、專車接送、報告翻譯一站式服務。',
-  keywords: ['日本體檢', 'TIMC', '大阪體檢', '德州會', 'PET-CT', '癌症篩查', '日本醫療旅遊', '高端體檢', '健康檢查'],
-  authors: [{ name: '新島交通株式会社' }],
-  creator: '新島交通株式会社',
-  publisher: '新島交通株式会社',
+// 根 metadata。子页面只写 title / description / canonical，
+// 站名后缀由 title.template 统一补。
+//
+// ⚠️ 原来这里的 title 是「TIMC OSAKA 體檢預約…」，而全站 127 个页面里只有
+// 16 个自己写了 metadata —— 其余 111 个（含 /medical /golf /business
+// /cancer-treatment /guide-partner 等全部主力页）都继承了这一条，线上实测
+// 六个主力页标题一字不差。重复标题会让 Google 只保留其中一个进索引。
+// 根标题因此改成站点级描述，具体页面各自覆盖。
+// ⚠️ 必须是 generateMetadata 而不是静态 metadata —— canonical 要逐页不同。
+// 若在根上写死 alternates.canonical，Next 会让所有未自带 canonical 的子页面
+// 继承它，等于 111 个页面集体声明「我的正规版本是首页」，比没有 canonical
+// 更糟。这里从 middleware 透出的 x-pathname 拼出当前页自己的 canonical；
+// 拿不到 pathname 时宁可不输出 canonical，也不回退到首页。
+export async function generateMetadata(): Promise<Metadata> {
+  const pathname = (await headers()).get('x-pathname');
+  const canonical = pathname ? `${SITE_URL}${pathname === '/' ? '' : pathname}` : undefined;
+
+  return {
+    ...baseMetadata,
+    ...(canonical
+      ? {
+          alternates: { canonical },
+          openGraph: { ...baseMetadata.openGraph, url: canonical },
+        }
+      : {}),
+  };
+}
+
+const baseMetadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} | 日本高端體檢・癌症治療・名門高爾夫・商務考察`,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description:
+    '新島交通株式會社 —— 日本醫療旅遊一站式服務。TIMC OSAKA 精密體檢、PET-CT 癌症篩查、日本綜合治療轉診、名門高爾夫與商務考察安排。全程中文陪同、專車接送、報告翻譯。',
+  keywords: ['日本體檢', 'TIMC', '大阪體檢', '德州會', 'PET-CT', '癌症篩查', '日本醫療旅遊', '高端體檢', '健康檢查', '日本高爾夫', '商務考察'],
+  authors: [{ name: SITE_NAME }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  // canonical 由上面的 generateMetadata 逐页生成（主域收敛：站点同时在
+  // niijima-koutsu.jp 与白标域 bespoketrip.jp 上线，canonical 一律指向主域）
   icons: {
     icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="58" font-size="72" font-weight="600" fill="%232D2D2D" text-anchor="middle" dominant-baseline="central" font-family="Shippori Mincho, serif">新</text></svg>',
   },
   openGraph: {
-    title: 'TIMC OSAKA 體檢預約 | 日本大阪德州會國際醫療中心',
-    description: '專業日本高端體檢服務，PET-CT癌症篩查、全身MRI、胃腸鏡等項目。中文服務一站式體驗。',
-    url: 'https://timc.niijima-koutsu.jp',
-    siteName: 'TIMC OSAKA 體檢預約',
+    title: `${SITE_NAME} | 日本高端體檢・癌症治療・名門高爾夫・商務考察`,
+    description: '日本醫療旅遊一站式服務。精密體檢、PET-CT 癌症篩查、綜合治療轉診，全程中文陪同。',
+    // 原值写死 https://timc.niijima-koutsu.jp —— 该子域现已无法解析（curl 000）
+    url: SITE_URL,
+    siteName: SITE_NAME,
     locale: 'zh_TW',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'TIMC OSAKA 體檢預約 | 日本大阪德州會國際醫療中心',
-    description: '專業日本高端體檢服務，PET-CT癌症篩查、全身MRI、胃腸鏡等項目。',
+    title: `${SITE_NAME} | 日本高端體檢・癌症治療・名門高爾夫・商務考察`,
+    description: '日本醫療旅遊一站式服務。精密體檢、PET-CT 癌症篩查、綜合治療轉診，全程中文陪同。',
   },
   robots: {
     index: true,
