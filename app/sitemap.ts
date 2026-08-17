@@ -70,12 +70,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.9,
     },
-    {
-      url: `${BASE_URL}/health-screening`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
+    // ⚠️ /health-screening 不在此列：它要求登录，匿名访问一律 307 到
+    // /login?redirect=… 。挂在 sitemap 里只会让 Google 反复抓到重定向，
+    // 在 Search Console 里堆积「有重定向的网页」。等它对匿名开放再加回来。
     {
       url: `${BASE_URL}/golf`,
       lastModified: currentDate,
