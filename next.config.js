@@ -104,6 +104,16 @@ const nextConfig = {
 
   // /medical, /golf, /business 现在是独立的 App Router 页面（app/medical/page.tsx 等）
   // 不再需要 rewrites — 旧的 rewrite 方式导致 RSC prefetch 404
+
+  async redirects() {
+    return [
+      // /health-checkup 曾经把导游端 product-center 的 TIMCContent 套进
+      // MemberLayout 对外暴露（且进了 sitemap，已被搜索引擎收录）。
+      // 页面已删除 —— 永久重定向到真正的对客体检页，保住既有搜索权重。
+      // permanent: true 在 Next 里发的是 308（Google 与 301 同等对待）。
+      { source: '/health-checkup', destination: '/medical', permanent: true },
+    ];
+  },
 }
 
 module.exports = withSentryConfig(nextConfig, {
