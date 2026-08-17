@@ -557,18 +557,20 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                 <p className="text-xs font-normal opacity-80">{t.memberLoginDesc}</p>
               </div>
             </Link>
+            {/* 次入口：白底黑字描边 —— 与上面的渐变蓝主入口区分靠「填充 vs 描边」，
+                不再用第二种蓝（原 bg-brand-500）去和主题渐变撞色 */}
             {!hideGuidePartnerContent && (
               <Link
                 href="/guide-partner/login"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-3 bg-brand-500 text-white py-4 px-5 rounded-xl font-bold"
+                className="flex items-center gap-3 bg-white text-neutral-900 border border-neutral-900 py-4 px-5 rounded-xl font-bold"
               >
-                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center">
                   <LogIn size={18} />
                 </div>
                 <div>
                   <p>{t.guideLogin}</p>
-                  <p className="text-xs font-normal opacity-80">{t.guideLoginDesc}</p>
+                  <p className="text-xs font-normal text-neutral-500">{t.guideLoginDesc}</p>
                 </div>
               </Link>
             )}
