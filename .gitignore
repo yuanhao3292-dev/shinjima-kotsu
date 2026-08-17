@@ -51,3 +51,8 @@ out/
 
 # DPC Excel data (large, downloaded from MHLW)
 data/dpc/*.xlsx
+
+# Playwright 本地运行产物
+/test-results/
+/playwright-report/
+/blob-report/
