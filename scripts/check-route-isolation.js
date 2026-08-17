@@ -39,7 +39,6 @@ const PUBLIC_SCAN_DIRS = [
   'app/my-orders',        // 我的订单
   'app/my-account',       // 我的账户
   'app/package-recommender', // 套餐推荐
-  'app/health-checkup',   // 精密健检
   'app/health-screening', // AI 健康筛查
   'app/medical-packages', // 体检套餐详情
   'app/cancer-treatment', // 综合治疗 - 癌症

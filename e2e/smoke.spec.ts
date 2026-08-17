@@ -16,12 +16,19 @@ test.describe('Homepage & Navigation', () => {
     await expect(page.locator('nav').first()).toBeVisible();
   });
 
-  test('health screening page is accessible', async ({ page }) => {
-    await page.goto('/health-checkup');
-    await expect(page).toHaveURL(/health-checkup/);
+  test('medical page is accessible', async ({ page }) => {
+    await page.goto('/medical');
+    await expect(page).toHaveURL(/medical/);
     // 页面有内容（非空白页）
     const body = page.locator('body');
     await expect(body).not.toBeEmpty();
+  });
+
+  // 旧的 /health-checkup 已删除并永久重定向到 /medical —— 它进过 sitemap，
+  // 外部可能仍有链接，这条断言防止 redirect 被误删
+  test('legacy /health-checkup redirects to /medical', async ({ page }) => {
+    await page.goto('/health-checkup');
+    await expect(page).toHaveURL(/\/medical$/);
   });
 
   test('login page renders', async ({ page }) => {
