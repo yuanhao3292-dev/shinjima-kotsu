@@ -267,6 +267,17 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
   const isActive = (nav: string) => activeNav === nav;
 
   // 导航项的样式
+  // 移动菜单项样式 —— 与桌面 getNavLinkClass 同一套判定，只是尺寸放大。
+  // 原本 6 项写死 font-serif（桌面导航是 font-sans，同一组导航在两种视口下
+  // 字体不同），且「日本综合治疗」的 text-brand-700 是硬编码高亮，
+  // 不跟随 activeNav —— 在任何页面它都显示为「当前页」。
+  const getMobileNavLinkClass = (isCurrentActive: boolean, emphasized = false) => {
+    const base = 'text-xl font-sans border-b border-neutral-200 pb-2 transition-colors';
+    if (isCurrentActive) return `${base} font-bold text-brand-700`;
+    if (emphasized) return `${base} font-bold text-brand-700 hover:text-brand-800`;
+    return `${base} font-medium text-neutral-700 hover:text-brand-700`;
+  };
+
   const getNavLinkClass = (nav: string, isCurrentActive: boolean, specialColor?: string) => {
     if (isTransparent) {
       // 透明模式也用深色文字 —— 各页 Hero 已全部翻白，且导航底下有
@@ -517,17 +528,17 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
       {/* Mobile Menu Content */}
       {mobileMenuOpen && (
         <div className="fixed top-20 left-0 w-full h-[calc(100vh-80px)] bg-white z-40 p-6 flex flex-col gap-6 overflow-y-auto animate-fade-in-down">
-          <Link href="/medical" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2">{t.timc}</Link>
-          <Link href="/cancer-treatment" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2 text-brand-700">{t.cancer}</Link>
-          <Link href="/golf" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2">{t.golf}</Link>
-          <Link href="/business" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2">{t.business}</Link>
+          <Link href="/medical" onClick={() => setMobileMenuOpen(false)} className={getMobileNavLinkClass(isActive('medical'))}>{t.timc}</Link>
+          <Link href="/cancer-treatment" onClick={() => setMobileMenuOpen(false)} className={getMobileNavLinkClass(isActive('cancer'))}>{t.cancer}</Link>
+          <Link href="/golf" onClick={() => setMobileMenuOpen(false)} className={getMobileNavLinkClass(isActive('golf'))}>{t.golf}</Link>
+          <Link href="/business" onClick={() => setMobileMenuOpen(false)} className={getMobileNavLinkClass(isActive('business'))}>{t.business}</Link>
           {/* 白标模式下隐藏同业合作链接 */}
           {!hideGuidePartnerContent && (
-            <Link href="/business/partner" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2">{t.partner}</Link>
+            <Link href="/business/partner" onClick={() => setMobileMenuOpen(false)} className={getMobileNavLinkClass(isActive('partner'))}>{t.partner}</Link>
           )}
           {/* 白标模式下隐藏导游合伙人链接 */}
           {!hideGuidePartnerContent && (
-            <Link href="/guide-partner" onClick={() => setMobileMenuOpen(false)} className="text-xl font-serif border-b pb-2 text-brand-700 font-bold">{t.guidePartner}</Link>
+            <Link href="/guide-partner" onClick={() => setMobileMenuOpen(false)} className={getMobileNavLinkClass(false, true)}>{t.guidePartner}</Link>
           )}
 
           {/* 登入入口区域 */}
