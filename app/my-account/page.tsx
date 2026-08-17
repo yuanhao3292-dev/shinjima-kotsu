@@ -211,8 +211,10 @@ export default function MyAccountPage() {
                 <ChevronRight className="w-5 h-5 text-neutral-500" />
               </Link>
 
+              {/* 指向公开的 /medical 体检页；原 /health-checkup 是把导游端
+                  product-center 的 TIMCContent 套进 MemberLayout，不是对客页面 */}
               <Link
-                href="/health-checkup"
+                href="/medical"
                 className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors border-b border-neutral-200"
               >
                 <div>
