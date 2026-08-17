@@ -3,6 +3,8 @@ import { cookies, headers } from 'next/headers'
 import './globals.css'
 import { SITE_URL, SITE_NAME } from '@/lib/seo'
 import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage'
+import JsonLd from '@/components/JsonLd'
+import { organizationJsonLd, webSiteJsonLd } from '@/lib/structured-data'
 import FloatingContact from '@/components/FloatingContact'
 import LocaleFontSetter from '@/components/LocaleFontSetter'
 import WhiteLabelTracker from '@/components/WhiteLabelTracker'
@@ -217,6 +219,11 @@ export default async function RootLayout({
           document.fonts 中该族已加载数为 0，一个字都没渲染过。
           另外 @latest 未锁版本，第三方随时可变更内容。 */}
       <body className="antialiased">
+        {/* 站点级结构化数据 —— 白标店面不输出：那些页面挂的是导游品牌，
+            用主站的 Organization 去标注它们与页面内容不符。 */}
+        {!whiteLabelConfig.isWhiteLabelMode && (
+          <JsonLd data={[organizationJsonLd(), webSiteJsonLd()]} />
+        )}
         <LocaleFontSetter />
         <WhiteLabelProvider initialConfig={{ ...whiteLabelConfig, distributionNavItems }}>
           {children}
