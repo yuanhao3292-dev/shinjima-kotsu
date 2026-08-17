@@ -37,8 +37,12 @@ interface PageMetaInput {
 /**
  * 生成单页 metadata。
  *
- * title 不带站名后缀 —— 根 layout 的 title.template 会统一补 “| 新島交通株式會社”。
- * openGraph.title 则需要完整标题，因为 OG 不走 template。
+ * title 用 { absolute, template } 而不是裸字符串：
+ * - absolute：本页标题就是这一串，不再被上层 template 二次加工。
+ *   裸字符串会依赖「最近一个定义了 template 的祖先」，而 metadata 是按字段
+ *   浅合并的 —— 中间任何一层写了裸 title 就会把根上的 template 一起顶掉。
+ *   实测 /business 写了裸 title 后，/business/partner 的站名后缀就没了。
+ * - template：本页若还有子路由，后缀规则继续往下传。
  */
 export function pageMetadata({
   title,
@@ -54,7 +58,7 @@ export function pageMetadata({
   // 不显式指定 images —— app/opengraph-image.tsx 的文件约定会自动注入，
   // 这里写死反而会覆盖掉它
   return {
-    title,
+    title: { absolute: fullTitle, template: `%s | ${SITE_NAME}` },
     description,
     ...(keywords?.length ? { keywords } : {}),
     alternates: { canonical: url },
