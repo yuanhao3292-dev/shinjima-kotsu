@@ -4,7 +4,7 @@ import { getSupabaseAdmin } from '@/lib/supabase/api';
 /**
  * 到期佣金释放定时任务
  *
- * 对全体导游批量把已过 14 天等待期(commission_available_at <= now)的佣金
+ * 对全体导游批量把已过持有期（lib/commission-config COMMISSION_HOLD_DAYS）(commission_available_at <= now)的佣金
  * 从 'calculated' 释放为 'available',并按净额累加到 available_balance。
  *
  * 此前状态推进只在导游打开提现页时触发,导致不看提现页的导游佣金永远卡在

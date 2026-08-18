@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { commissionAvailableAt } from '@/lib/commission-config';
 import { verifyAdminAuth } from '@/lib/utils/admin-auth';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
 import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
@@ -401,7 +402,7 @@ export async function POST(request: NextRequest) {
         //   税前基数 = actualSpend ÷ 1.1(去 10% 消费税)
         //   毛佣金   = 基数 × 阶梯佣金率(bookings.commission_rate 为小数,如 0.10/0.20)
         //   源泉徴収 = 按导游税务居住地预扣;成熟释放时扣净额入余额
-        //   14 天锁定后由 cron/提现页释放为 available
+        //   COMMISSION_HOLD_DAYS 天锁定后由 cron/提现页释放为 available
         const rate = typedBooking.commission_rate ?? 0;
         const spendBeforeTax = Math.round(actualSpend / 1.1);
         const grossCommission = rate > 0 ? Math.round(spendBeforeTax * rate) : 0;
@@ -420,8 +421,7 @@ export async function POST(request: NextRequest) {
           referrerId = (guideInfo?.referrer_id as string | null) ?? null;
           const wh = calculateWithholdingTax(grossCommission, isResident);
           withholdingAmount = wh.withholdingAmount;
-          const availableAt = new Date();
-          availableAt.setDate(availableAt.getDate() + 14);
+          const availableAt = new Date(commissionAvailableAt());
           availableAtIso = availableAt.toISOString();
           commissionFields.commission_amount = grossCommission;
           commissionFields.commission_status = 'calculated';
@@ -463,7 +463,7 @@ export async function POST(request: NextRequest) {
           }
 
           // 推荐奖励:该导游有推荐人时,按【净佣金】2% 给推荐人建奖励。
-          // 与白标 webhook 同口径,带 available_at 同期成熟(14天),到期由 cron/提现页
+          // 与白标 webhook 同口径,带 available_at 同期成熟(COMMISSION_HOLD_DAYS 天),到期由 cron/提现页
           // 释放进推荐人余额。旧触发器 trigger_create_referral_reward 已在迁移 115 清除,
           // 此处是夜总会推荐奖励的唯一权威来源;upsert onConflict(booking_id) 幂等防重。
           if (referrerId) {

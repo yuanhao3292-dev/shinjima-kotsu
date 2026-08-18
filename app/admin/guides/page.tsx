@@ -28,7 +28,10 @@ interface Guide {
   email: string;
   phone: string;
   wechat_id: string | null;
-  status: 'pending' | 'approved' | 'suspended';
+  status: 'pending' | 'approved' | 'suspended' | 'banned' | 'rejected';
+  status_reason?: string | null;
+  status_changed_at?: string | null;
+  status_changed_by?: string | null;
   level: string;
   kyc_status: string;
   total_commission: number;
@@ -39,6 +42,7 @@ interface Guide {
   updated_at: string;
   referrer?: { id: string; name: string; referral_code: string };
   stats?: { bookingCount: number; referralCount: number };
+  funnel?: { days: number; views: number; visitors: number; leads: number; orders: number; paid_orders: number } | null;
 }
 
 interface Stats {
@@ -57,6 +61,8 @@ const STATUS_CONFIG: Record<string, { label: string; color: string; bgColor: str
   pending: { label: '待審核', color: 'text-yellow-700', bgColor: 'bg-yellow-100' },
   approved: { label: '已認證', color: 'text-green-700', bgColor: 'bg-green-100' },
   suspended: { label: '已停用', color: 'text-red-700', bgColor: 'bg-red-100' },
+  banned: { label: '已封禁', color: 'text-white', bgColor: 'bg-red-700' },
+  rejected: { label: '已拒絕', color: 'text-neutral-700', bgColor: 'bg-neutral-200' },
 };
 
 export default function GuidesPage() {
@@ -132,6 +138,16 @@ export default function GuidesPage() {
 
   const handleAction = async (action: string, level?: string) => {
     if (!selectedGuide) return;
+    // 停用/封禁必须写原因 —— 落到 guides.status_reason，列表与详情直接可见
+    let note: string | undefined;
+    if (action === 'suspend' || action === 'ban') {
+      const label = action === 'ban' ? '封禁（不可恢復）' : '停用';
+      const input = window.prompt(`請填寫${label}原因（必填，將記錄在導遊檔案與審計日誌）：`);
+      if (input === null) return;
+      note = input.trim();
+      if (!note) { setMessage({ type: 'error', text: '必須填寫原因' }); return; }
+      if (action === 'ban' && !window.confirm('封禁後後台不提供恢復入口，確認要封禁此導遊？')) return;
+    }
     setActionLoading(true);
     setMessage(null);
 
@@ -145,7 +161,7 @@ export default function GuidesPage() {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${session.access_token}`,
         },
-        body: JSON.stringify({ guideId: selectedGuide.id, action, level }),
+        body: JSON.stringify({ guideId: selectedGuide.id, action, level, note }),
       });
 
       if (response.ok) {
@@ -265,6 +281,14 @@ export default function GuidesPage() {
                         {LEVEL_CONFIG[selectedGuide.level]?.label}
                       </span>
                     </div>
+                    {(selectedGuide.status === 'suspended' || selectedGuide.status === 'banned' || selectedGuide.status === 'rejected') && selectedGuide.status_reason && (
+                      <p className="mt-2 text-xs text-red-700 bg-red-50 border border-red-100 rounded px-2 py-1 max-w-md">
+                        原因：{selectedGuide.status_reason}
+                        {selectedGuide.status_changed_at && (
+                          <span className="text-red-400"> · {new Date(selectedGuide.status_changed_at).toLocaleDateString('zh-TW')}{selectedGuide.status_changed_by ? ` · ${selectedGuide.status_changed_by}` : ''}</span>
+                        )}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <p className="text-sm text-gray-400">
@@ -292,6 +316,32 @@ export default function GuidesPage() {
                 <p className="text-sm text-gray-500">預約次數</p>
               </div>
             </div>
+
+            {/* 30 天转化漏斗：白标访问 → 独立访客 → AI 问诊 lead → 下单 → 付款 */}
+            {selectedGuide.funnel && (
+              <div className="bg-white rounded-xl border p-4">
+                <p className="text-sm font-medium text-gray-700 mb-3">近 {selectedGuide.funnel.days} 天白標轉化漏斗</p>
+                <div className="grid grid-cols-5 gap-2 text-center">
+                  {([
+                    ['訪問', selectedGuide.funnel.views],
+                    ['獨立訪客', selectedGuide.funnel.visitors],
+                    ['AI 問診', selectedGuide.funnel.leads],
+                    ['下單', selectedGuide.funnel.orders],
+                    ['已付款', selectedGuide.funnel.paid_orders],
+                  ] as const).map(([label, v], i, arr) => {
+                    const prev = i > 0 ? (arr[i - 1][1] as number) : 0;
+                    const rate = i > 0 && prev > 0 ? Math.round((v as number) / prev * 100) : null;
+                    return (
+                      <div key={label} className="rounded-lg bg-gray-50 py-2">
+                        <p className="text-xl font-bold text-gray-900">{v}</p>
+                        <p className="text-xs text-gray-500">{label}</p>
+                        {rate !== null && <p className="text-[10px] text-gray-400">↑{rate}%</p>}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             {/* Info */}
             <div className="bg-white rounded-xl border p-6">
@@ -362,6 +412,17 @@ export default function GuidesPage() {
                   >
                     {actionLoading ? <Loader2 className="animate-spin" size={16} /> : <CheckCircle size={16} />}
                     通過審核
+                  </button>
+                )}
+                {selectedGuide.status === 'approved' && (
+                  <button
+                    onClick={() => handleAction('ban')}
+                    disabled={actionLoading}
+                    className="px-4 py-2 bg-red-800 hover:bg-red-900 disabled:opacity-50 text-white rounded-lg text-sm font-medium flex items-center gap-2"
+                    title="永久封禁，後台不提供恢復入口"
+                  >
+                    {actionLoading ? <Loader2 className="animate-spin" size={16} /> : <Ban size={16} />}
+                    封禁
                   </button>
                 )}
                 {selectedGuide.status === 'approved' && (

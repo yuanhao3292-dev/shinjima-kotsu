@@ -137,7 +137,8 @@ export const WithdrawalActionSchema = z.object({
 
 export const GuideActionSchema = z.object({
   guideId: UUIDSchema,
-  action: z.enum(['approve', 'suspend', 'reactivate', 'update_level'], {
+  // ban 与 suspend 的区别：suspend 可 reactivate，ban 是终局（后台不提供恢复）
+  action: z.enum(['approve', 'suspend', 'ban', 'reactivate', 'update_level'], {
     error: '无效的操作类型',
   }),
   level: z.enum(['bronze', 'silver', 'gold', 'platinum']).optional(),
@@ -145,6 +146,11 @@ export const GuideActionSchema = z.object({
 }).refine(
   (data) => !(data.action === 'update_level' && !data.level),
   { message: '更新等级时必须指定新等级', path: ['level'] }
+).refine(
+  // 停用/封禁必须写原因 —— 落到 guides.status_reason，列表页直接可见，
+  // 不用再去翻 audit_logs
+  (data) => !((data.action === 'suspend' || data.action === 'ban') && !data.note?.trim()),
+  { message: '停用或封禁必须填写原因', path: ['note'] }
 );
 
 // ==================== Admin Venue ====================
