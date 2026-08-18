@@ -574,7 +574,7 @@ export default function AboutPage() {
                   <div className="relative">
                     <div className="absolute inset-0 bg-brand-400/20 transform translate-x-4 translate-y-4 rounded-2xl"></div>
                     <Image
-                      src="https://i.ibb.co/B2mJDvq7/founder.jpg"
+                      src="https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/founder-portrait.jpg"
                       alt="Yuan Hao"
                       width={400}
                       height={533}

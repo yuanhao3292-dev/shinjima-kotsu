@@ -13,7 +13,7 @@ const DEMO_PRODUCTS = [
   {
     componentKey: 'medical_packages',
     href: '/g/demo/medical-packages',
-    heroImage: 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg',
+    heroImage: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/hero-medical.jpg',
     colorTheme: 'teal' as const,
     tagline: 'Premium Health Screening',
     title: '日本精密健康检查',

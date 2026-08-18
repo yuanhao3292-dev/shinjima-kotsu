@@ -42,23 +42,23 @@ const PartnerView = dynamic(() => import('./landing/PartnerView'));
 // 所有图片都可以在数据库 site_images 表中更换
 const DEFAULT_SITE_IMAGES: Record<string, string> = {
   // Medical Page - 实际拍摄/提供的图片
-  medical_hero: "https://i.ibb.co/xS1h4rTM/hero-medical.jpg",
-  tech_ct: "https://i.ibb.co/mFbDmCvg/tech-ct.jpg",
-  tech_mri: "https://i.ibb.co/XxZdfCML/tech-mri.jpg",
-  tech_endo: "https://i.ibb.co/MkkrywCZ/tech-endo.jpg",
-  tech_dental: "https://i.ibb.co/tM1LBQJW/tech-dental.jpg",
+  medical_hero: "https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/hero-medical.jpg",
+  tech_ct: "https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/tech-ct.jpg",
+  tech_mri: "https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/tech-mri.jpg",
+  tech_endo: "https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/tech-endo.jpg",
+  tech_dental: "https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/tech-dental.jpg",
 
   // Golf Page - 仅保留用户上传的富士山图
-  plan_fuji: "https://i.ibb.co/B2L1nxdg/2025-12-16-16-36-41.png",
+  plan_fuji: "https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/plan-fuji.png",
 
   // Homepage Golf Section 背景图
   homepage_golf_bg: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2000&auto=format&fit=crop",
 
   // Founder
-  founder_portrait: "https://i.ibb.co/B2mJDvq7/founder.jpg",
+  founder_portrait: "https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/founder-portrait.jpg",
 
   // Mobile Fallback - 实际拍摄
-  mobile_medical_fallback: "https://i.ibb.co/TDYnsXBb/013-2.jpg",
+  mobile_medical_fallback: "https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/mobile-medical-fallback.jpg",
 };
 
 interface LandingPageProps {
@@ -152,8 +152,8 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
       title: currentLang === 'zh-TW' ? '早一步發現\n多十年安心' : currentLang === 'zh-CN' ? '早一步发现\n多十年安心' : currentLang === 'ja' ? '早期発見が\n安心をつくる' : 'Early Detection\nDecades of Peace',
       subtitle: 'TIMC OSAKA',
       description: currentLang === 'zh-TW' ? '日本最大醫療集團「德州會」旗艦設施：大阪德州會國際體檢中心 TIMC OSAKA' : currentLang === 'zh-CN' ? '日本最大医疗集团「德州会」旗舰设施：大阪德州会国际体检中心 TIMC OSAKA' : currentLang === 'ja' ? '日本最大の医療グループ「徳洲会」のフラッグシップ施設：TIMC OSAKA' : 'Flagship facility of Japan\'s largest medical group Tokushukai: TIMC OSAKA',
-      imageUrl: getImage('hero_slide_2', 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg'),
-      mobileImageUrl: getImage('hero_slide_2_mobile', 'https://i.ibb.co/TDYnsXBb/013-2.jpg'),
+      imageUrl: getImage('hero_slide_2', 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/hero-medical.jpg'),
+      mobileImageUrl: getImage('hero_slide_2_mobile', 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/mobile-medical-fallback.jpg'),
       ctaText: currentLang === 'zh-TW' ? '了解詳情' : currentLang === 'zh-CN' ? '了解详情' : currentLang === 'ja' ? '詳細を見る' : 'Learn More',
       ctaLink: '/medical',
       advertiser: 'TIMC',

@@ -161,7 +161,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
             <video
               className="w-full h-full object-cover"
               controls
-              poster="https://i.ibb.co/xS1h4rTM/hero-medical.jpg"
+              poster="https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/hero-medical.jpg"
               preload="metadata"
             >
               <source src="https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/videos/timc_intro.mp4" type="video/mp4" />
