@@ -42,6 +42,18 @@ const translations = {
     ja: 'ヘルスチェックはまだ完了していません',
     en: 'Screening is not yet complete',
   },
+  needsFollowup: {
+    'zh-CN': 'AI 还需要您回答几个补充问题，才能给出分析结果',
+    'zh-TW': 'AI 還需要您回答幾個補充問題，才能給出分析結果',
+    ja: '分析結果を出すために、AIがいくつか補足質問をしています',
+    en: 'AI needs a few more answers from you before it can give a result',
+  },
+  continueFollowup: {
+    'zh-CN': '继续回答补充问题',
+    'zh-TW': '繼續回答補充問題',
+    ja: '補足質問に答える',
+    en: 'Answer the follow-up questions',
+  },
   analysisNotFound: {
     'zh-CN': '分析结果不存在',
     'zh-TW': '分析結果不存在',
@@ -230,6 +242,7 @@ export default function WhitelabelResultClient({
 }: WhitelabelResultClientProps) {
   const siteLang = useLanguage();
   const [loading, setLoading] = useState(true);
+  const [needsFollowup, setNeedsFollowup] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [screeningData, setScreeningData] = useState<ScreeningData | null>(null);
   const isDownloading = false; // 服务端生成，无需 loading 状态
@@ -258,6 +271,13 @@ export default function WhitelabelResultClient({
 
         const data = await response.json();
 
+        // 安全闸门 Class B：记录停在 needs_followup —— 这不是错误，是流程没走完。
+        // 此前一律当 error 处理，用户被丢在「筛查尚未完成」这句话前面无路可走。
+        if (data.screening.status === 'needs_followup') {
+          setNeedsFollowup(true);
+          setLoading(false);
+          return;
+        }
         if (data.screening.status !== 'completed') {
           setError(t('screeningIncomplete', siteLang));
           setLoading(false);
@@ -322,6 +342,24 @@ export default function WhitelabelResultClient({
         <div className="text-center">
           <Loader2 className="w-10 h-10 animate-spin text-brand-500 mx-auto mb-4" />
           <p className="text-neutral-500">{t('loadingResults', lang)}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (needsFollowup) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-brand-50 to-white">
+        <div className="max-w-lg mx-auto px-4 py-24 text-center">
+          <div className="p-5 bg-white border border-brand-100 rounded-2xl shadow-sm">
+            <p className="text-neutral-700 leading-relaxed">{t('needsFollowup', lang)}</p>
+            <Link
+              href={`/g/${slug}/health-screening?resume=${screeningId}`}
+              className="inline-flex items-center justify-center mt-6 px-6 py-3 rounded-full brand-gradient-solid text-white font-bold hover:opacity-90 transition"
+            >
+              {t('continueFollowup', lang)}
+            </Link>
+          </div>
         </div>
       </div>
     );

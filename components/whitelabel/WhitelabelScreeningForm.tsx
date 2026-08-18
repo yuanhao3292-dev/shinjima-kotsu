@@ -271,6 +271,12 @@ interface WhitelabelScreeningFormProps {
   resultPath: string; // e.g. "/g/slug/health-screening/result"
   initialAnswers?: ScreeningAnswer[];
   bodyMapData?: BodyMapSelectionData;
+  /**
+   * analyze 返回 needsFollowup（安全闸门 Class B）时回调，由页面切到追问步骤。
+   * 不传则退回旧行为（直接跳结果页 —— 结果页对 needs_followup 是死胡同，
+   * 所以白标页面必须传）。
+   */
+  onNeedsFollowup?: (questions: string[]) => void;
 }
 
 export default function WhitelabelScreeningForm({
@@ -279,6 +285,7 @@ export default function WhitelabelScreeningForm({
   resultPath,
   initialAnswers = [],
   bodyMapData,
+  onNeedsFollowup,
 }: WhitelabelScreeningFormProps) {
   const router = useRouter();
   const lang = useLanguage();
@@ -463,6 +470,14 @@ export default function WhitelabelScreeningForm({
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || t('analysisFailed'));
 
+      // Class B：AI 要求补问 —— 交给页面进入追问步骤，而不是把用户送到
+      // 一个会报「筛查尚未完成」的结果页
+      if (data.needsFollowup && Array.isArray(data.followupQuestions) && data.followupQuestions.length > 0 && onNeedsFollowup) {
+        onNeedsFollowup(data.followupQuestions);
+        setIsSubmitting(false);
+        return;
+      }
+
       router.push(`${resultPath}/${screeningId}`);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : t('analysisFailedRetry');
@@ -500,6 +515,14 @@ export default function WhitelabelScreeningForm({
 
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || t('analysisFailed'));
+
+      // Class B：AI 要求补问 —— 交给页面进入追问步骤，而不是把用户送到
+      // 一个会报「筛查尚未完成」的结果页
+      if (data.needsFollowup && Array.isArray(data.followupQuestions) && data.followupQuestions.length > 0 && onNeedsFollowup) {
+        onNeedsFollowup(data.followupQuestions);
+        setIsSubmitting(false);
+        return;
+      }
 
       router.push(`${resultPath}/${screeningId}`);
     } catch (err: unknown) {

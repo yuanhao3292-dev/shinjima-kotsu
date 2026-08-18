@@ -314,14 +314,11 @@ node scripts/test-complete-integration.js
 | 路由 | 用途 |
 |------|------|
 | `GET/POST /api/guide/selected-modules` | 导游模块选择 |
-| `GET/POST /api/guide/whitelabel-page` | 白标页面配置 |
 | `GET/POST /api/guide/product-center` | 产品中心 |
 | `POST /api/guide/register` | 导游注册 |
 | `POST /api/guide/upgrade-to-partner` | 升级合伙人 |
-| `GET/POST /api/guide/subscription` | 订阅管理 |
 | `POST /api/whitelabel/create-subscription` | 创建白标订阅 |
 | `POST /api/whitelabel/track` | 白标追踪 |
-| `GET /api/whitelabel/orders` | 白标订单 |
 | `GET /api/whitelabel/settings` | 白标设置 |
 
 ### 管理后台
