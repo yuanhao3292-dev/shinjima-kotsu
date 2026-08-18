@@ -111,3 +111,22 @@ test.describe('Locale prefixed routes', () => {
     await expect(page).toHaveURL(/\/login/);
   });
 });
+
+test.describe('Localized metadata', () => {
+  // 标题/描述曾经四个语言版本共用同一份繁体中文 —— 日文版在搜索结果里
+  // 显示繁体标题。这里锁住「标题语言跟随 URL 前缀」。
+  const cases = [
+    { path: '/medical', pattern: /精密體檢/, siteName: '新島交通株式會社' },
+    { path: '/ja/medical', pattern: /精密検診/, siteName: '新島交通株式会社' },
+    { path: '/zh-CN/medical', pattern: /精密体检/, siteName: '新岛交通株式会社' },
+    { path: '/en/medical', pattern: /Premium Health Checkup/, siteName: 'Niijima Kotsu Co., Ltd.' },
+  ];
+  for (const { path, pattern, siteName } of cases) {
+    test(`${path} title is localized`, async ({ page }) => {
+      await page.goto(path);
+      await expect(page).toHaveTitle(pattern);
+      // 站名后缀也必须跟着语言变
+      await expect(page).toHaveTitle(new RegExp(siteName.replace(/[.,]/g, '\\$&') + '$'));
+    });
+  }
+});

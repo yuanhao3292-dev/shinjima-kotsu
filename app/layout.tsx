@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import { cookies, headers } from 'next/headers'
 import './globals.css'
-import { SITE_URL, SITE_NAME } from '@/lib/seo'
+import { SITE_URL, SITE_NAME, buildMetadata } from '@/lib/seo'
+import { metaLocale } from '@/lib/seo-server'
+import { HOME_COPY } from '@/lib/seo-copy'
 import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage'
 import JsonLd from '@/components/JsonLd'
 import { organizationJsonLd, webSiteJsonLd } from '@/lib/structured-data'
@@ -126,7 +128,13 @@ const fontVariableClasses = [
 // 拿不到 pathname 时宁可不输出 canonical，也不回退到首页。
 export async function generateMetadata(): Promise<Metadata> {
   const pathname = (await headers()).get('x-pathname');
-  if (!pathname) return baseMetadata;
+  // 标题、描述、站名后缀、og:locale 都跟随当前语言 —— 此前四个语言版本
+  // 共用同一份繁体标题，日文版在搜索结果里显示的是繁体中文。
+  // 子页面各自的 generateMetadata 会覆盖 title/description，
+  // 这里这份服务于首页与没写文案的页面。
+  const locale = await metaLocale();
+  const localized = { ...baseMetadata, ...buildMetadata(HOME_COPY[locale], locale) };
+  if (!pathname) return localized;
 
   const abs = (p: string) => `${SITE_URL}${p === '/' ? '' : p}`;
   // canonical 自指：/ja/medical 的 canonical 就是 /ja/medical，
@@ -143,9 +151,9 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 
   return {
-    ...baseMetadata,
+    ...localized,
     alternates: { canonical, languages },
-    openGraph: { ...baseMetadata.openGraph, url: canonical },
+    openGraph: { ...localized.openGraph, url: canonical },
   };
 }
 

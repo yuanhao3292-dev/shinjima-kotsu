@@ -14,6 +14,7 @@
  */
 
 import type { Metadata } from 'next';
+import { SITE_NAME_BY_LOCALE, type MetaLocale, type MetaCopy } from './seo-copy';
 
 /** 主域（canonical / sitemap 的唯一来源） */
 export const SITE_URL = (
@@ -82,3 +83,36 @@ export function pageMetadata({
     ...(noIndex ? { robots: { index: false, follow: true } } : {}),
   };
 }
+
+
+/** OG 的 locale 写法与 hreflang 不同，单独映射 */
+const OG_LOCALE: Record<MetaLocale, string> = {
+  'zh-TW': 'zh_TW',
+  'zh-CN': 'zh_CN',
+  ja: 'ja_JP',
+  en: 'en_US',
+};
+
+/**
+ * 由文案与语言拼出 metadata（标题后缀、og:locale 都跟着语言走）。
+ * 纯函数，不读请求头 —— 本文件会被客户端组件间接引入
+ * （app/faq/page.tsx 'use client' → lib/structured-data → 本文件），
+ * 一旦 import next/headers，整个构建会失败。读请求头的部分在 lib/seo-server.ts。
+ */
+export function buildMetadata(copy: MetaCopy, locale: MetaLocale): Metadata {
+  const siteName = SITE_NAME_BY_LOCALE[locale];
+  const fullTitle = `${copy.title} | ${siteName}`;
+  return {
+    title: { absolute: fullTitle, template: `%s | ${siteName}` },
+    description: copy.description,
+    openGraph: {
+      title: fullTitle,
+      description: copy.description,
+      siteName,
+      locale: OG_LOCALE[locale],
+      type: 'website',
+    },
+    twitter: { card: 'summary_large_image', title: fullTitle, description: copy.description },
+  };
+}
+

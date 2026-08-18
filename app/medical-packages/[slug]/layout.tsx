@@ -7,7 +7,8 @@
  */
 import type { Metadata } from 'next';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
-import { pageMetadata } from '@/lib/seo';
+import { pageMetadata, buildMetadata } from '@/lib/seo';
+import { metaLocale } from '@/lib/seo-server';
 import JsonLd from '@/components/JsonLd';
 import { breadcrumbJsonLd } from '@/lib/structured-data';
 
@@ -27,11 +28,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     });
   }
 
-  return pageMetadata({
-    title: pkg.nameZhTw,
-    description: `${pkg.nameZhTw} —— ${pkg.descriptionZhTw}。由新島交通代辦預約，全程中文陪同、報告翻譯。`,
-    path: `/medical-packages/${slug}`,
-  });
+  // 套餐名按语言取。配置里有 nameJa / nameEn / nameZhTw ——
+  // 唯独没有简体名，zh-CN 只能沿用繁体（descriptionZhTw 同理）。
+  // 要彻底解决需要给 lib/config/medical-packages 补 nameZhCn 字段。
+  const locale = await metaLocale();
+  const name =
+    locale === 'ja' ? pkg.nameJa : locale === 'en' ? pkg.nameEn : pkg.nameZhTw;
+  const desc: Record<typeof locale, string> = {
+    'zh-TW': `${name} —— ${pkg.descriptionZhTw}。由新島交通代辦預約，全程中文陪同、報告翻譯。`,
+    'zh-CN': `${name} —— ${pkg.descriptionZhTw}。由新岛交通代办预约，全程中文陪同、报告翻译。`,
+    ja: `${name}。新島交通が予約を代行し、全行程の同行とレポート翻訳まで対応します。`,
+    en: `${name}. Booking arranged by Niijima Kotsu, with escort throughout and report translation included.`,
+  };
+  return buildMetadata({ title: name, description: desc[locale] }, locale);
 }
 
 export default async function MedicalPackageLayout({

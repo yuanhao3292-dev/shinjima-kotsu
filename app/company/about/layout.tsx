@@ -5,14 +5,12 @@
  * 因此用同目录的服务端 layout 承载 —— 不改动页面组件本身。
  */
 import type { Metadata } from 'next';
-import { pageMetadata } from '@/lib/seo';
+import { localizedPageMetadata } from '@/lib/seo-server';
 
-export const metadata: Metadata = pageMetadata({
-  title: '公司簡介・會社概要',
-  description: '新島交通株式會社 —— 立足日本的醫療旅遊與商務服務公司。提供精密體檢、綜合治療轉診、名門高爾夫與商務考察的一站式落地服務。',
-  path: '/company/about',
-  keywords: ['新島交通株式會社', '公司簡介', '日本醫療旅遊公司', '會社概要'],
-});
+// 文案见 lib/seo-copy 的 PAGE_COPY['/company/about']（四语言）。
+// 必须是 generateMetadata：要读 middleware 透出的 x-locale，
+// 静态 metadata 在构建期求值，拿不到请求头。
+export const generateMetadata = () => localizedPageMetadata('/company/about');
 
 export default function AboutPageLayout({ children }: { children: React.ReactNode }) {
   return children;
