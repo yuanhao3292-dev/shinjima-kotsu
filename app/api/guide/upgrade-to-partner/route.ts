@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { SITE_URL } from '@/lib/seo';
 import Stripe from "stripe";
 import { createClient } from "@supabase/supabase-js";
 import { createClient as createServerClient } from "@/lib/supabase/server";
@@ -259,10 +260,10 @@ export async function POST(request: NextRequest) {
         },
         success_url:
           successUrl ||
-          `${process.env.NEXT_PUBLIC_BASE_URL || "https://niijima-koutsu.jp"}/guide-partner/dashboard?upgrade=success`,
+          `${SITE_URL}/guide-partner/dashboard?upgrade=success`,
         cancel_url:
           cancelUrl ||
-          `${process.env.NEXT_PUBLIC_BASE_URL || "https://niijima-koutsu.jp"}/guide-partner/subscription?upgrade=cancelled`,
+          `${SITE_URL}/guide-partner/subscription?upgrade=cancelled`,
         metadata: {
           guide_id: guideId,
           type: "partner_entry_fee",
@@ -299,10 +300,10 @@ export async function POST(request: NextRequest) {
         ],
         success_url:
           successUrl ||
-          `${process.env.NEXT_PUBLIC_BASE_URL || "https://niijima-koutsu.jp"}/guide-partner/dashboard?upgrade=success`,
+          `${SITE_URL}/guide-partner/dashboard?upgrade=success`,
         cancel_url:
           cancelUrl ||
-          `${process.env.NEXT_PUBLIC_BASE_URL || "https://niijima-koutsu.jp"}/guide-partner/subscription?upgrade=cancelled`,
+          `${SITE_URL}/guide-partner/subscription?upgrade=cancelled`,
         metadata: {
           guide_id: guideId,
           type: "partner_subscription",

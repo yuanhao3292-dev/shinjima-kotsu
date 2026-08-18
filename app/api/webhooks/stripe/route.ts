@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { SITE_URL } from '@/lib/seo';
 import Stripe from 'stripe';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { sendOrderConfirmationEmail, sendNewOrderNotificationToMerchant, sendGuideCommissionNotification } from '@/lib/email';
@@ -1107,7 +1108,7 @@ async function handleNightclubDepositPaid(supabase: SupabaseClient, session: Str
                 <tr><td style="padding: 8px 12px; font-weight: 600; color: #6b7280;">定金</td><td style="padding: 8px 12px; color: #4f46e5; font-weight: 700;">¥${Number(booking.deposit_amount)}</td></tr>
               </table>
               <div style="text-align: center; margin-top: 20px;">
-                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.niijima-koutsu.jp'}/admin/bookings"
+                <a href="${SITE_URL}/admin/bookings"
                    style="display: inline-block; background: #4f46e5; color: white; padding: 10px 24px; text-decoration: none; border-radius: 6px;">
                   前往管理預約
                 </a>

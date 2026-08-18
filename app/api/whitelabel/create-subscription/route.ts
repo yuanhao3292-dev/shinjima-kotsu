@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { SITE_URL } from '@/lib/seo';
 import Stripe from "stripe";
 import { createClient } from "@supabase/supabase-js";
 import { createClient as createServerClient } from "@/lib/supabase/server";
@@ -173,10 +174,10 @@ export async function POST(request: NextRequest) {
           ],
       success_url:
         successUrl ||
-        `${process.env.NEXT_PUBLIC_BASE_URL || "https://niijima-koutsu.jp"}/guide-partner/dashboard?subscription=success`,
+        `${SITE_URL}/guide-partner/dashboard?subscription=success`,
       cancel_url:
         cancelUrl ||
-        `${process.env.NEXT_PUBLIC_BASE_URL || "https://niijima-koutsu.jp"}/guide-partner/dashboard?subscription=cancelled`,
+        `${SITE_URL}/guide-partner/dashboard?subscription=cancelled`,
       metadata: {
         guide_id: guideId,
         type: "whitelabel_subscription",
