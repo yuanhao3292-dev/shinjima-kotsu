@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
+import { useLanguage4 } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import Image from 'next/image';
 import PublicLayout from '@/components/PublicLayout';
@@ -34,8 +34,7 @@ const pageTranslations = {
     'ja': 'B2B Partnership',
     'zh-TW': 'B2B Partnership',
     'zh-CN': 'B2B Partnership',
-    'en': 'B2B Partnership',
-  },
+    'en': 'B2B Partnership' },
   heroTitle1: {
     'ja': 'パートナーシップ',
     'zh-TW': '攜手合作',
@@ -1042,7 +1041,7 @@ const featuredReviews: FeaturedReviewItem[] = [
 ];
 
 export default function PartnerBusinessPage() {
-  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
+  const currentLang = useLanguage4();
   const [formData, setFormData] = useState({
     companyName: '',
     contactPerson: '',
@@ -1056,21 +1055,6 @@ export default function PartnerBusinessPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [privacyConsent, setPrivacyConsent] = useState(false);
 
-  useEffect(() => {
-    const cookies = document.cookie.split(';');
-    for (const cookie of cookies) {
-      const [name, value] = cookie.trim().split('=');
-      if (name === 'NEXT_LOCALE' && ['ja', 'zh-TW', 'zh-CN', 'en'].includes(value)) {
-        setCurrentLang(value as Language);
-        return;
-      }
-    }
-    const browserLang = navigator.language;
-    if (browserLang.startsWith('ja')) setCurrentLang('ja');
-    else if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') setCurrentLang('zh-TW');
-    else if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) setCurrentLang('zh-CN');
-    else if (browserLang.startsWith('en')) setCurrentLang('en');
-  }, []);
 
   const t = (key: keyof typeof pageTranslations) => pageTranslations[key][currentLang];
 

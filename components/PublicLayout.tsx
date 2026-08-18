@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
+import { DEFAULT_LANGUAGE, localeFromPathname } from '@/hooks/useLanguage';
+import { splitLocalePath, localePath } from '@/lib/i18n-routing';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Globe, ChevronDown, LogIn, X, Menu } from 'lucide-react';
 import { useWhiteLabel, useWhiteLabelVisibility } from '@/lib/contexts/WhiteLabelContext';
 import DistributionNav from '@/components/distribution/DistributionNav';
@@ -178,6 +180,9 @@ const navLabels = {
 
 function getInitialLang(): Language {
   if (typeof window === 'undefined') return DEFAULT_LANGUAGE;
+  // URL 前缀优先 —— /ja/... 必须是日文，与 Cookie 无关
+  const fromPath = localeFromPathname(window.location.pathname);
+  if (fromPath) return fromPath;
   const cookies = document.cookie.split(';');
   for (const cookie of cookies) {
     const [name, value] = cookie.trim().split('=');
@@ -201,23 +206,30 @@ function persistLang(locale: Language) {
 }
 
 export default function PublicLayout({ children, showFooter = true, activeNav, transparentNav = true, onLogoClick }: PublicLayoutProps) {
-  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
+  // 首帧就按 URL 前缀定语言（服务端也走这一条），避免带前缀的页面先渲染
+  // 成默认语言、hydration 后才跳变
+  const pathname = usePathname();
+  const [currentLang, setCurrentLang] = useState<Language>(
+    () => localeFromPathname(pathname) ?? DEFAULT_LANGUAGE
+  );
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [loginMenuOpen, setLoginMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // 从 cookie 读取语言偏好
+  // 无前缀路径才回落到 Cookie / 浏览器语言
   useEffect(() => {
     setCurrentLang(getInitialLang());
-  }, []);
+  }, [pathname]);
 
-  // 切换语言时持久化到 cookie
+  // 切换语言 = 换 URL。这样选择可分享、可被收录，也与 hreflang 声明一致；
+  // 同时仍写 Cookie，供下次直接访问无前缀路径时沿用偏好。
   const handleLangChange = (lang: Language) => {
-    setCurrentLang(lang);
     persistLang(lang);
     setLangMenuOpen(false);
-    window.location.reload();
+    const { basePath } = splitLocalePath(window.location.pathname);
+    window.location.href =
+      localePath(lang, basePath) + window.location.search + window.location.hash;
   };
 
   // 白标模式

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useBasePathname } from '@/hooks/useLanguage';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
@@ -55,7 +56,8 @@ export default function AdminLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const router = useRouter();
-  const pathname = usePathname();
+  // 用去掉语言前缀的路径做路由匹配 —— usePathname() 带 /ja、/zh-CN 前缀
+  const pathname = useBasePathname();
 
   // 使用 useMemo 避免每次渲染都创建新的客户端
   const supabase = useMemo(() => createClient(), []);

@@ -1,12 +1,15 @@
 'use client';
 
 import { useEffect } from 'react';
-import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
+import { DEFAULT_LANGUAGE , localeFromPathname} from '@/hooks/useLanguage';
 
 const LOCALE_COOKIE_NAME = 'NEXT_LOCALE';
 
 function getStoredLocale(): string {
   if (typeof window === 'undefined') return DEFAULT_LANGUAGE;
+  // URL 前缀优先 —— /ja/... 必须是日文，与 Cookie 无关
+  const fromPath = localeFromPathname(window.location.pathname);
+  if (fromPath) return fromPath;
 
   const cookies = document.cookie.split(';');
   for (const cookie of cookies) {

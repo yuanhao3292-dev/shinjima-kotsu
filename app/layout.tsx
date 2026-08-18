@@ -5,6 +5,7 @@ import { SITE_URL, SITE_NAME } from '@/lib/seo'
 import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage'
 import JsonLd from '@/components/JsonLd'
 import { organizationJsonLd, webSiteJsonLd } from '@/lib/structured-data'
+import { splitLocalePath, allLocalePaths, HREFLANG } from '@/lib/i18n-routing'
 import FloatingContact from '@/components/FloatingContact'
 import LocaleFontSetter from '@/components/LocaleFontSetter'
 import WhiteLabelTracker from '@/components/WhiteLabelTracker'
@@ -125,16 +126,26 @@ const fontVariableClasses = [
 // 拿不到 pathname 时宁可不输出 canonical，也不回退到首页。
 export async function generateMetadata(): Promise<Metadata> {
   const pathname = (await headers()).get('x-pathname');
-  const canonical = pathname ? `${SITE_URL}${pathname === '/' ? '' : pathname}` : undefined;
+  if (!pathname) return baseMetadata;
+
+  const abs = (p: string) => `${SITE_URL}${p === '/' ? '' : p}`;
+  // canonical 自指：/ja/medical 的 canonical 就是 /ja/medical，
+  // 若指向无前缀版本，等于告诉 Google 这几个语言版本不必单独收录。
+  const canonical = abs(pathname);
+
+  // hreflang：本页全部语言版本互相声明。x-default 给无前缀版本 ——
+  // 它同时是繁中版，也是语言无法判定时的落点。
+  const { basePath } = splitLocalePath(pathname);
+  const paths = allLocalePaths(basePath);
+  const languages: Record<string, string> = { 'x-default': abs(paths['zh-TW']) };
+  for (const [lang, p] of Object.entries(paths)) {
+    languages[HREFLANG[lang as keyof typeof HREFLANG]] = abs(p);
+  }
 
   return {
     ...baseMetadata,
-    ...(canonical
-      ? {
-          alternates: { canonical },
-          openGraph: { ...baseMetadata.openGraph, url: canonical },
-        }
-      : {}),
+    alternates: { canonical, languages },
+    openGraph: { ...baseMetadata.openGraph, url: canonical },
   };
 }
 
@@ -204,9 +215,13 @@ export default async function RootLayout({
   // 无 cookie 时的回退值必须与客户端组件的 DEFAULT_LANGUAGE 一致 ——
   // 原本这里回退 ja、而导航（PublicLayout）回退 zh-TW，于是 Googlebot
   // 拿到的是 <html lang="ja"> 配一张导航繁中的混排页。
+  // URL 里的语言前缀优先于 Cookie —— /ja/medical 必须渲染成日文，
+  // 哪怕访客的 Cookie 是简中，否则同一个 URL 会因人而异，hreflang 失效。
+  const headerLocale = (await headers()).get('x-locale')
   const cookieLocale = (await cookies()).get('NEXT_LOCALE')?.value
-  const locale = ['ja', 'zh-TW', 'zh-CN', 'en', 'ko'].includes(cookieLocale ?? '')
-    ? (cookieLocale as string)
+  const resolved = headerLocale ?? cookieLocale
+  const locale = ['ja', 'zh-TW', 'zh-CN', 'en', 'ko'].includes(resolved ?? '')
+    ? (resolved as string)
     : DEFAULT_LANGUAGE
   const htmlLang = locale
 

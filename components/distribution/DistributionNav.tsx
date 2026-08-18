@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
-import { useLanguage } from '@/hooks/useLanguage';
+import { useLanguage , useBasePathname} from '@/hooks/useLanguage';
 
 export interface NavItem {
   id: string;
@@ -34,7 +34,8 @@ export default function DistributionNav({
 }: DistributionNavProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(startScrolled);
-  const pathname = usePathname();
+  // 用去掉语言前缀的路径做路由匹配 —— usePathname() 带 /ja、/zh-CN 前缀
+  const pathname = useBasePathname();
   const lang = useLanguage();
 
   /** 解析多语言 label */

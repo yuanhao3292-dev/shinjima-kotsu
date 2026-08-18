@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, Suspense } from 'react';
-import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
+import { DEFAULT_LANGUAGE , localeFromPathname} from '@/hooks/useLanguage';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { isValidSlug } from '@/lib/whitelabel-config';
@@ -20,6 +20,10 @@ const i18n = {
 
 function detectLanguage(): Language {
   if (typeof document === 'undefined') return DEFAULT_LANGUAGE;
+  // URL 前缀优先 —— /ja/... 必须是日文，与 Cookie 无关
+  const fromPath = localeFromPathname(window.location.pathname);
+  // 本页文案不含韩语，ko 回退日语 —— 与 useLanguage4 的约定一致
+  if (fromPath) return fromPath === 'ko' ? 'ja' : fromPath;
   const cookies = document.cookie.split(';');
   for (const cookie of cookies) {
     const [name, value] = cookie.trim().split('=');

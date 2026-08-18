@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import Cookies from 'js-cookie';
 
 export type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en' | 'ko';
@@ -19,40 +20,50 @@ export type Language4 = Exclude<Language, 'ko'>;
 const LANGUAGE_COOKIE_NAME = 'NEXT_LOCALE';
 const VALID_LANGUAGES: Language[] = ['ja', 'zh-TW', 'zh-CN', 'en', 'ko'];
 
+// 默认语言与路径前缀解析都定义在 lib/i18n-routing（无 'use client'）——
+// 服务端 import 本文件的导出只会拿到 client reference。这里 re-export
+// 仅为兼容既有 import 路径。
+export { DEFAULT_LANGUAGE, localeFromPathname } from '@/lib/i18n-routing';
+import { DEFAULT_LANGUAGE, localeFromPathname, splitLocalePath } from '@/lib/i18n-routing';
+
 /**
- * 服务端渲染 / 首帧的默认语言，也是 Googlebot 实际看到的语言。
+ * 去掉语言前缀后的路径。
  *
- * ⚠️ 此前站内并存两套默认值：本 hook 默认 'ja'（正文组件都用它），而
- * PublicLayout 默认 'zh-TW'（导航与页尾）—— 无 Cookie 的请求因此拿到一张
- * 导航繁中、正文日文的混排页。线上实测 /medical 的默认渲染里假名 404 个、
- * 繁体特征字 34 个，Google 无从判定这一页是什么语言。
- *
- * 收敛成这一个常量。取 zh-TW 而非 ja 的理由：站点的差异化价值（中文陪同、
- * 报告翻译、赴日就医代办）对应的是华语检索意图；日文「人間ドック」类查询
- * 由日本本土医院主导，本站没有胜算。根 metadata 与主力页标题本来也是繁中。
- * 日语访客在 hydration 后仍会按浏览器语言切回日文。
- *
- * 真正的解法是每种语言独立 URL + hreflang；在那之前，先保证爬虫拿到的是
- * 一张语言自洽的页面。要改回日文优先，只改这一行。
+ * ⚠️ 凡是拿 pathname 去比对路由字面量的地方都必须用它 —— usePathname()
+ * 返回的是浏览器地址（带 /ja、/zh-CN 前缀），直接与 '/medical' 比对会全部
+ * 落空。实测踩过：/ja/medical 因为匹配不上 PATH_PAGE_MAP，渲染成了首页。
  */
-// 用 satisfies 而非 `: Language` 标注 —— 保留字面量类型，这样它同时可以
-// 赋给收窄过的 Language4（医院专题页不提供韩语，用的是那个类型）。
-export const DEFAULT_LANGUAGE = 'zh-TW' satisfies Language;
+export function useBasePathname(): string {
+  return splitLocalePath(usePathname()).basePath;
+}
 
 /**
  * 统一的语言检测和管理 Hook
  *
  * 优先级：
- * 1. Cookie (NEXT_LOCALE)
- * 2. 浏览器语言
- * 3. 默认日语
+ * 1. URL 路径前缀（/ja/... /zh-CN/... /en/... /ko/...）
+ * 2. Cookie (NEXT_LOCALE)
+ * 3. 浏览器语言
+ * 4. DEFAULT_LANGUAGE
+ *
+ * ⚠️ 路径前缀必须排第一，且带前缀时后面三级一律不参与 ——
+ * /ja/medical 无论访客 Cookie 是什么都必须渲染日文。同一个 URL 因人而异
+ * 会让 hreflang 失效（Google 抓到的版本与声明的对不上）。
  *
  * @returns {Language} 当前语言代码
  */
 export function useLanguage(): Language {
-  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
+  const pathname = usePathname();
+  const pathLang = pathname ? localeFromPathname(pathname) : null;
+  const [currentLang, setCurrentLang] = useState<Language>(pathLang ?? DEFAULT_LANGUAGE);
 
   useEffect(() => {
+    // URL 已指定语言 —— 不再看 Cookie 与浏览器语言
+    if (pathLang) {
+      setCurrentLang(pathLang);
+      return;
+    }
+
     // 1. 尝试从 Cookie 读取（使用 js-cookie 库，安全且可靠）
     const cookieLang = Cookies.get(LANGUAGE_COOKIE_NAME);
     if (cookieLang && VALID_LANGUAGES.includes(cookieLang as Language)) {
@@ -77,7 +88,7 @@ export function useLanguage(): Language {
     }
 
     setCurrentLang(detectedLang);
-  }, []);
+  }, [pathLang]);
 
   return currentLang;
 }

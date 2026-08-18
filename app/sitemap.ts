@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { SITE_URL } from '@/lib/seo';
+import { allLocalePaths, HREFLANG } from '@/lib/i18n-routing';
 
 // ⚠️ 此前 fallback 写的是 https://www.bespoketrip.jp —— 线上 Vercel 没设
 // NEXT_PUBLIC_BASE_URL，兜底值直接顶上，导致 niijima-koutsu.jp/sitemap.xml
@@ -192,5 +193,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...clinicPages, ...packagePages];
+  // 给每条 URL 挂上各语言版本 —— Next 会渲染成 xhtml:link alternate，
+  // 与页面 <head> 里的 hreflang 相互印证。
+  // 注意 alternates 里也要包含自己（Google 要求 hreflang 集合自包含）。
+  return [...staticPages, ...clinicPages, ...packagePages].map((entry) => {
+    const basePath = entry.url.slice(BASE_URL.length) || '/';
+    const paths = allLocalePaths(basePath);
+    const languages: Record<string, string> = {};
+    for (const [lang, p] of Object.entries(paths)) {
+      languages[HREFLANG[lang as keyof typeof HREFLANG]] =
+        `${BASE_URL}${p === '/' ? '' : p}`;
+    }
+    languages['x-default'] = entry.url;
+    return { ...entry, alternates: { languages } };
+  });
 }

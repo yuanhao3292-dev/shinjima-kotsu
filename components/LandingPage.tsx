@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect, memo, useMemo } from 'react';
-import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
+import { DEFAULT_LANGUAGE, localeFromPathname } from '@/hooks/useLanguage';
+import { splitLocalePath } from '@/lib/i18n-routing';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -833,7 +834,10 @@ const PATH_PAGE_MAP: Record<string, PageView> = {
 const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const pathname = usePathname();
+  // rawPathname 带语言前缀（判断语言用），pathname 去掉前缀（匹配板块用）
+  const rawPathname = usePathname();
+  const pathname = splitLocalePath(rawPathname).basePath;
+  const langFromPath = (localeFromPathname(rawPathname) ?? null) as Language | null;
   const [currentLang, setCurrentLang] = useState<Language | null>(null);
   // 首帧（含服务端渲染）就按路径定板块 —— usePathname 在 SSR 阶段即可用
   const [currentPage, setCurrentPage] = useState<PageView>(
@@ -894,8 +898,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
 
   useEffect(() => { emailjs.init(EMAILJS_PUBLIC_KEY); }, []);
 
-  // 从 cookie 读取用户语言偏好
+  // 语言：URL 前缀优先，其次 Cookie，再次浏览器语言
   useEffect(() => {
+    if (langFromPath) { setCurrentLang(langFromPath); return; }
     const cookies = document.cookie.split(';');
     for (const cookie of cookies) {
       const [name, value] = cookie.trim().split('=');
@@ -911,9 +916,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
     else if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) setCurrentLang('zh-CN');
     else if (browserLang.startsWith('en')) setCurrentLang('en');
     else setCurrentLang(DEFAULT_LANGUAGE);
-  }, []);
+  }, [langFromPath]);
 
-  const lang: Language = currentLang || DEFAULT_LANGUAGE;
+  // 首帧（含服务端渲染）就用 URL 前缀里的语言，避免 /ja/medical 先渲染成
+  // 默认语言、hydration 后才跳变 —— 那会让 Google 抓到的与声明的对不上
+  const lang: Language = currentLang || langFromPath || DEFAULT_LANGUAGE;
   const t = translations[lang];
 
   // 处理 URL 参数和 hash，支持从其他页面跳转回来时切换到指定页面

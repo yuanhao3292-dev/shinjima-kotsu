@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
-import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
+import { useState,  Suspense } from 'react';
+import { useLanguage4 } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CheckCircle, Car, Building, Check, Shield, Lock, CreditCard, ArrowLeft } from 'lucide-react';
@@ -30,8 +30,7 @@ const packageColors: Record<string, {
     button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300',
     cardBg: 'bg-brand-900',
     cardBorder: 'border-brand-400/30',
-    badgeBg: 'bg-brand-400 text-neutral-900',
-  },
+    badgeBg: 'bg-brand-400 text-neutral-900' },
   'premium-cardiac-course': {
     headerBg: 'bg-brand-900',
     title: 'text-brand-900',
@@ -195,23 +194,8 @@ export default function PackageDetailContent({
   const rawProviderKey = useProviderKey();
   const providerKey = isGuideEmbed ? null : rawProviderKey;
 
-  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
+  const currentLang = useLanguage4();
 
-  useEffect(() => {
-    const cookies = document.cookie.split(';');
-    for (const cookie of cookies) {
-      const [name, value] = cookie.trim().split('=');
-      if (name === 'NEXT_LOCALE' && ['ja', 'zh-TW', 'zh-CN', 'en'].includes(value)) {
-        setCurrentLang(value as Language);
-        return;
-      }
-    }
-    const browserLang = navigator.language;
-    if (browserLang.startsWith('ja')) setCurrentLang('ja');
-    else if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') setCurrentLang('zh-TW');
-    else if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) setCurrentLang('zh-CN');
-    else if (browserLang.startsWith('en')) setCurrentLang('en');
-  }, []);
 
   const t = translations[currentLang].medical.pkgDetail;
   const packagesData = getPackagesData(currentLang);

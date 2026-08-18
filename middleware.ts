@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { updateSession } from '@/lib/supabase/middleware';
+import { splitLocalePath } from '@/lib/i18n-routing';
 import {
   DOMAINS,
   WHITELABEL_COOKIE_NAME,
@@ -86,9 +87,57 @@ function applySeoHeaders(response: NextResponse, pathname: string, noIndex: bool
   return response;
 }
 
+/**
+ * 语言前缀请求的收尾：把 updateSession 产出的 next() 响应换成指向无前缀
+ * 路由的 rewrite，并把已设好的 Cookie 与响应头一并搬过去。
+ *
+ * 重定向（未登录访问受保护页等）原样放行 —— 那类响应不能被改写成 rewrite。
+ */
+function rewriteToBasePath(
+  response: NextResponse,
+  request: NextRequest,
+  basePath: string
+): NextResponse {
+  if (response.status >= 300 && response.status < 400) return response;
+
+  const url = request.nextUrl.clone();
+  url.pathname = basePath;
+  const rewritten = NextResponse.rewrite(url, { request });
+
+  response.cookies.getAll().forEach((cookie) => rewritten.cookies.set(cookie));
+  response.headers.forEach((value, key) => {
+    // set-cookie 已经由上面的 cookies.set 处理，重复搬运会写出两份
+    if (key.toLowerCase() !== 'set-cookie') rewritten.headers.set(key, value);
+  });
+  return rewritten;
+}
+
 export async function middleware(request: NextRequest) {
   const hostname = request.headers.get('host') || '';
-  const pathname = request.nextUrl.pathname;
+  const rawPathname = request.nextUrl.pathname;
+
+  // ========== 语言前缀 ==========
+  // /ja/medical、/zh-CN/medical … 剥掉前缀后按 /medical 处理，最后 rewrite
+  // 过去 —— 这样不必为每种语言复制一套页面文件。
+  // 剥完立刻写回 request.nextUrl，好让下游（updateSession 的受保护路径判断、
+  // 白标分支等）看到的都是干净路径；否则 /ja/my-account 会绕过登录校验。
+  const { locale: pathLocale, basePath } = splitLocalePath(rawPathname);
+  const pathname = basePath;
+  if (pathLocale) {
+    request.nextUrl.pathname = basePath;
+  }
+
+  // 页面响应的统一收尾：canonical 用带前缀的原始路径（每个语言版本自指），
+  // 语言经 x-locale 交给 app/layout.tsx，最后按需 rewrite 到无前缀路由。
+  // /ko/* 暂不进索引：站内 54 个页面走 useLanguage4()，韩语文案缺失时回退
+  // 日语（实测 /ko/cancer-treatment 是日文页），被收录等于用韩语 URL 装日文
+  // 内容、与 /ja/ 互为近重复。页面本身仍可访问，语言切换器照常能用。
+  // 韩语补齐后，把这里和 lib/i18n-routing 的 HREFLANG_LOCALES 一起放开。
+  const finalize = (response: NextResponse, noIndex: boolean) => {
+    applySeoHeaders(response, rawPathname, noIndex || pathLocale === 'ko');
+    if (pathLocale) response.headers.set('x-locale', pathLocale);
+    return pathLocale ? rewriteToBasePath(response, request, basePath) : response;
+  };
 
   // ========== CSRF Protection for State-Changing API Requests ==========
   const isStateChangingMethod = ['POST', 'PUT', 'PATCH', 'DELETE'].includes(request.method);
@@ -319,7 +368,7 @@ export async function middleware(request: NextRequest) {
     response.cookies.set(WHITELABEL_COOKIE_NAME, subdomainSlug, COOKIE_OPTIONS);
     response.headers.set('x-whitelabel-mode', 'true');
     response.headers.set('x-whitelabel-slug', subdomainSlug);
-    return applySeoHeaders(response, pathname, true);
+    return finalize(response, true);
   }
 
   // 4. 处理 /g/[slug] 路由
@@ -338,7 +387,7 @@ export async function middleware(request: NextRequest) {
       response.cookies.set(WHITELABEL_COOKIE_NAME, slug, COOKIE_OPTIONS);
       response.headers.set('x-whitelabel-mode', 'true');
       response.headers.set('x-whitelabel-slug', slug);
-      return applySeoHeaders(response, pathname, true);
+      return finalize(response, true);
     }
   }
 
@@ -387,7 +436,7 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  return applySeoHeaders(response, pathname, isWhiteLabelDomain);
+  return finalize(response, isWhiteLabelDomain);
 }
 
 export const config = {

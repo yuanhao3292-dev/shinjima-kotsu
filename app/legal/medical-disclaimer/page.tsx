@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
+import { DEFAULT_LANGUAGE , localeFromPathname} from '@/hooks/useLanguage';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import PublicLayout from '@/components/PublicLayout';
@@ -10,6 +10,10 @@ type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
 
 function getInitialLang(): Language {
   if (typeof window === 'undefined') return DEFAULT_LANGUAGE;
+  // URL 前缀优先 —— /ja/... 必须是日文，与 Cookie 无关
+  const fromPath = localeFromPathname(window.location.pathname);
+  // 本页文案不含韩语，ko 回退日语 —— 与 useLanguage4 的约定一致
+  if (fromPath) return fromPath === 'ko' ? 'ja' : fromPath;
   const cookies = document.cookie.split(';');
   for (const cookie of cookies) {
     const [name, value] = cookie.trim().split('=');
