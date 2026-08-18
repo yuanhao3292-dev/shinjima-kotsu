@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import RemoteImage from '@/components/RemoteImage';
 import Link from 'next/link';
 import {
   MapPin, Clock, ChevronDown, ChevronUp,
@@ -314,7 +315,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
 
       {/* ===== 1. HERO ===== */}
       <section className="relative min-h-[600px] md:min-h-[700px] flex items-center overflow-hidden">
-        <img src={IMG.hero1} alt="AC Cell Clinic" className="absolute inset-0 w-full h-full object-cover" />
+        <RemoteImage src={IMG.hero1} alt="AC Cell Clinic" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10" />
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 w-full">
           <div className="max-w-2xl">
@@ -385,9 +386,9 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
-              <img src={IMG.exterior} alt="Japan Cell Building" className="rounded-xl shadow-md w-full h-48 object-cover" />
-              <img src={IMG.hero2} alt="AC Cell Clinic interior" className="rounded-xl shadow-md w-full h-48 object-cover" />
-              <img src={IMG.facility1} alt="Clinic facility" className="rounded-xl shadow-md w-full h-48 object-cover col-span-2" />
+              <RemoteImage src={IMG.exterior} alt="Japan Cell Building" className="rounded-xl shadow-md w-full h-48 object-cover" />
+              <RemoteImage src={IMG.hero2} alt="AC Cell Clinic interior" className="rounded-xl shadow-md w-full h-48 object-cover" />
+              <RemoteImage src={IMG.facility1} alt="Clinic facility" className="rounded-xl shadow-md w-full h-48 object-cover col-span-2" />
             </div>
           </div>
         </div>
@@ -412,7 +413,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
                   style={{ borderTopColor: '#336a8d', borderTopWidth: 3 }}
                 >
                   <div className="relative h-48 overflow-hidden">
-                    <img src={tr.img} alt={tr.name[lang]} className="w-full h-full object-cover" />
+                    <RemoteImage src={tr.img} alt={tr.name[lang]} className="w-full h-full object-cover" />
                     <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-full p-2 text-brand-700">
                       {tr.icon}
                     </div>
@@ -502,7 +503,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
               ))}
             </div>
             <div className="mt-6 text-center">
-              <img src={IMG.stemDiagram} alt="Stem cell diagram" className="mx-auto rounded-xl max-h-64 object-contain" />
+              <RemoteImage src={IMG.stemDiagram} alt="Stem cell diagram" className="mx-auto rounded-xl max-h-64 object-contain" />
             </div>
           </div>
         </div>
@@ -520,9 +521,9 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <p className="text-[#555] leading-relaxed">{t.cpcDesc[lang]}</p>
             <div className="grid grid-cols-3 gap-3">
-              <img src={IMG.cpc1} alt="CPC cleanroom" className="rounded-xl w-full h-32 object-cover shadow-sm" />
-              <img src={IMG.cpc2} alt="CPC equipment" className="rounded-xl w-full h-32 object-cover shadow-sm" />
-              <img src={IMG.cpc3} alt="CPC monitoring" className="rounded-xl w-full h-32 object-cover shadow-sm" />
+              <RemoteImage src={IMG.cpc1} alt="CPC cleanroom" className="rounded-xl w-full h-32 object-cover shadow-sm" />
+              <RemoteImage src={IMG.cpc2} alt="CPC equipment" className="rounded-xl w-full h-32 object-cover shadow-sm" />
+              <RemoteImage src={IMG.cpc3} alt="CPC monitoring" className="rounded-xl w-full h-32 object-cover shadow-sm" />
             </div>
           </div>
         </div>
@@ -566,8 +567,8 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
               ))}
             </div>
             <div className="space-y-4">
-              <img src={IMG.hero2} alt="Clinic environment" className="rounded-2xl shadow-lg w-full h-64 object-cover" />
-              <img src={IMG.facility2} alt="Clinic interior" className="rounded-2xl shadow-lg w-full h-48 object-cover" />
+              <RemoteImage src={IMG.hero2} alt="Clinic environment" className="rounded-2xl shadow-lg w-full h-64 object-cover" />
+              <RemoteImage src={IMG.facility2} alt="Clinic interior" className="rounded-2xl shadow-lg w-full h-48 object-cover" />
             </div>
           </div>
         </div>
@@ -589,7 +590,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
             ].map((feat, i) => (
               <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                 <div className="relative h-48">
-                  <img src={feat.img} alt={feat.title[lang]} className="w-full h-full object-cover" />
+                  <RemoteImage src={feat.img} alt={feat.title[lang]} className="w-full h-full object-cover" />
                   <div className="absolute top-3 right-3 bg-brand-700 text-white rounded-full p-2.5">
                     {feat.icon}
                   </div>
@@ -684,7 +685,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
                 <p className="text-sm text-[#666]">{t.ctaChinese[lang]}</p>
               </div>
             </div>
-            <img src={IMG.mapLocation} alt="Map to AC Cell Clinic" className="rounded-2xl shadow-lg w-full h-64 object-cover" />
+            <RemoteImage src={IMG.mapLocation} alt="Map to AC Cell Clinic" className="rounded-2xl shadow-lg w-full h-64 object-cover" />
           </div>
         </div>
       </section>
@@ -726,7 +727,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
       {!isGuideEmbed && (
       <section id="consultation" className="py-20 bg-neutral-100">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <img src={IMG.logo} alt="AC Cell Clinic" className="h-14 mx-auto mb-6 object-contain" />
+          <RemoteImage src={IMG.logo} alt="AC Cell Clinic" className="h-14 mx-auto mb-6 object-contain" />
           <h2 className="text-3xl md:text-4xl font-bold text-[#333] mb-4">{t.ctaTitle[lang]}</h2>
           <p className="text-lg text-[#555] mb-3">{t.ctaSub[lang]}</p>
           <div className="inline-flex items-center gap-2 bg-brand-700/10 text-brand-700 rounded-full px-4 py-1.5 text-sm mb-4">

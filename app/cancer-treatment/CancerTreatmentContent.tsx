@@ -1545,7 +1545,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
             <p className="text-neutral-500 text-sm mb-6">{t('wechatScan')}</p>
             <div className="bg-neutral-50 rounded-xl p-4 mb-4">
               <Image
-                src="https://i.ibb.co/3yBrDKW5/wechat-qr.jpg"
+                src="https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/wechat-qr.jpg"
                 alt="WeChat QR Code"
                 width={192}
                 height={192}

@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import RemoteImage from '@/components/RemoteImage';
 import Link from 'next/link';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 import {
@@ -543,7 +544,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
       {/* ========== HERO ========== */}
       <section className="relative min-h-[85vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <img
+          <RemoteImage
             src="/images/igtc/gaikan.jpg"
             alt="IGT Clinic"
             className="w-full h-full object-cover"
@@ -612,7 +613,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
             <p className="text-neutral-600 mt-2">{t(tr.perfDesc, lang)}</p>
           </div>
           <div className="bg-white rounded-2xl p-8 border shadow-sm">
-            <img
+            <RemoteImage
               src="https://igtc.jp/images/top_temp/top_jisekigraf-pc.png"
               alt="Treatment Performance Graph"
               className="w-full h-auto"
@@ -688,7 +689,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               {FACILITY_PHOTOS.map((photo, i) => (
                 <div key={i} className="bg-white rounded-xl overflow-hidden border hover:shadow-lg transition group">
                   <div className="aspect-[4/3] bg-neutral-100 relative overflow-hidden">
-                    <img
+                    <RemoteImage
                       src={photo.src}
                       alt={t(photo.title, lang)}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
@@ -718,7 +719,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
             {/* 4-Bed Room */}
             <div className="bg-white rounded-2xl p-6 border-2 border-neutral-200 hover:border-brand-400 transition">
               <div className="aspect-[4/3] bg-neutral-100 rounded-xl overflow-hidden mb-4">
-                <img
+                <RemoteImage
                   src="https://igtc.jp/images/hospitalization/hos_room4.jpg"
                   alt={t(tr.hospStandard, lang)}
                   className="w-full h-full object-cover"
@@ -737,7 +738,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                 {lang === 'ja' ? '人気' : lang === 'en' ? 'Popular' : '熱門'}
               </div>
               <div className="aspect-[4/3] bg-neutral-100 rounded-xl overflow-hidden mb-4">
-                <img
+                <RemoteImage
                   src="https://igtc.jp/images/hospitalization/hos_koshitu_01.jpg"
                   alt={t(tr.hospPrivate, lang)}
                   className="w-full h-full object-cover"
@@ -753,7 +754,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
             {/* Special Room */}
             <div className="bg-white rounded-2xl p-6 border-2 border-brand-400 hover:border-brand-500 transition">
               <div className="aspect-[4/3] bg-neutral-100 rounded-xl overflow-hidden mb-4">
-                <img
+                <RemoteImage
                   src="https://igtc.jp/images/hospitalization/hos_tokubetu_01.jpg"
                   alt={t(tr.hospSpecial, lang)}
                   className="w-full h-full object-cover"
@@ -1359,7 +1360,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
             {DOCTORS.map((doctor, i) => (
               <div key={i} className="bg-white rounded-2xl overflow-hidden border hover:shadow-xl transition">
                 <div className="aspect-[3/4] bg-neutral-100">
-                  <img
+                  <RemoteImage
                     src={doctor.photo}
                     alt={t(doctor.name, lang)}
                     className="w-full h-full object-cover"
@@ -1697,7 +1698,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               </div>
             </div>
             <div className="rounded-2xl overflow-hidden border">
-              <img
+              <RemoteImage
                 src="/images/igtc/access-map.png"
                 alt="IGT Clinic Access Map"
                 className="w-full h-full object-cover"
@@ -1719,7 +1720,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
             {ACCESS_ROUTE_PHOTOS.map((photo, i) => (
               <div key={i} className="bg-white rounded-xl overflow-hidden border hover:shadow-lg transition group">
                 <div className="aspect-[4/3] bg-neutral-100 relative overflow-hidden">
-                  <img
+                  <RemoteImage
                     src={photo.src}
                     alt={t(photo.caption, lang)}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"

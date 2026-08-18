@@ -15,11 +15,11 @@ import { localizeText } from '@/lib/utils/text-converter';
 
 // 图片资源
 const IMAGES: Record<string, string> = {
-  medical_hero: 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg',
+  medical_hero: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/hero-medical.jpg',
   tech_ct: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/CT.JPG',
-  tech_mri: 'https://i.ibb.co/XxZdfCML/tech-mri.jpg',
-  tech_endo: 'https://i.ibb.co/MkkrywCZ/tech-endo.jpg',
-  tech_dental: 'https://i.ibb.co/tM1LBQJW/tech-dental.jpg',
+  tech_mri: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/tech-mri.jpg',
+  tech_endo: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/tech-endo.jpg',
+  tech_dental: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/tech-dental.jpg',
   detail_echo: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/4.JPG',
   detail_mammo: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/5.JPG',
   facility_center: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/dating.JPG',

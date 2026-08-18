@@ -227,7 +227,7 @@ function LoginForm() {
       {/* Left Side — Brand Hero */}
       <div className="hidden lg:flex lg:w-1/2 relative brand-gradient-deep overflow-hidden">
         <Image
-          src={getImage('medical_hero', 'https://i.ibb.co/xS1h4rTM/hero-medical.jpg')}
+          src={getImage('medical_hero', 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/hero-medical.jpg')}
           alt="Medical"
           fill
           className="object-cover"
