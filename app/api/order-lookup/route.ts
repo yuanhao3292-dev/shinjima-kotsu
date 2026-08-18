@@ -1,20 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseAdmin } from '@/lib/supabase/api';
 import { WHITELABEL_COOKIE_NAME, isValidSlug as isValidGuideSlug } from '@/lib/whitelabel-config';
 import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
 import { createErrorResponse, Errors } from '@/lib/utils/api-errors';
 import { generateInvoiceToken } from '@/lib/invoice-token';
 
 // 延迟初始化 Supabase 客户端
-const getSupabase = () => {
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-    throw new Error('Supabase configuration is missing');
-  }
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-  );
-};
 
 // 简单的邮箱格式验证
 const isValidEmail = (email: string): boolean => {
@@ -38,7 +29,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const supabase = getSupabase();
+    const supabase = getSupabaseAdmin();
     const sessionId = request.nextUrl.searchParams.get('session_id');
     const orderId = request.nextUrl.searchParams.get('order_id');
 
@@ -128,7 +119,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const supabase = getSupabase();
+    const supabase = getSupabaseAdmin();
     const body = await request.json();
     const { email, orderId } = body;
 

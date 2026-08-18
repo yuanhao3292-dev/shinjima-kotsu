@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseAdmin } from '@/lib/supabase/api';
 import { WHITELABEL_COOKIE_NAME } from '@/lib/types/whitelabel';
 import { isValidSlug } from '@/lib/whitelabel-config';
 import { validateBody } from '@/lib/validations/validate';
@@ -7,16 +7,6 @@ import { CreateCheckoutSessionSchema } from '@/lib/validations/api-schemas';
 import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
 import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
 import { getStripeServer as getStripe } from '@/lib/stripe-server';
-
-const getSupabase = () => {
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-    throw new Error('Supabase configuration is missing');
-  }
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-  );
-};
 
 export async function POST(request: NextRequest) {
   try {
@@ -34,7 +24,7 @@ export async function POST(request: NextRequest) {
     }
 
     const stripe = getStripe();
-    const supabase = getSupabase();
+    const supabase = getSupabaseAdmin();
 
     // 使用 Zod 验证输入
     const validation = await validateBody(request, CreateCheckoutSessionSchema);

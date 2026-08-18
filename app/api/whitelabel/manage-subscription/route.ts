@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { SITE_URL } from '@/lib/seo';
 import { createClient as createServerClient } from "@/lib/supabase/server";
 import { getSupabaseAdmin } from "@/lib/supabase/api";
 import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
@@ -69,7 +70,7 @@ export async function POST(request: NextRequest) {
     // 验证 returnUrl
     const safeReturnUrl = (returnUrl && isValidReturnUrl(returnUrl))
       ? returnUrl
-      : `${process.env.NEXT_PUBLIC_BASE_URL || "https://niijima-koutsu.jp"}/guide-partner/whitelabel`;
+      : `${SITE_URL}/guide-partner/whitelabel`;
 
     // 创建 Customer Portal Session
     const session = await stripe.billingPortal.sessions.create({

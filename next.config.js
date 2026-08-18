@@ -107,6 +107,17 @@ const nextConfig = {
 
   async redirects() {
     return [
+      // www → apex 永久跳转。此前两个域名都直接 200、互不跳转，等于同一套站
+      // 跑在两个 origin 上：SEO canonical 指 apex，认证回跳却指 www，
+      // Cookie（host-only）也各存一份。2026-08-18 起 apex 为唯一 origin ——
+      // Supabase Site URL / Redirect URLs 已同步改到 apex。
+      // 用 has:host 匹配，只对 www 主机生效，白标域 bespoketrip.jp 不受影响。
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.niijima-koutsu.jp' }],
+        destination: 'https://niijima-koutsu.jp/:path*',
+        permanent: true,
+      },
       // /health-checkup 曾经把导游端 product-center 的 TIMCContent 套进
       // MemberLayout 对外暴露（且进了 sitemap，已被搜索引擎收录）。
       // 页面已删除 —— 永久重定向到真正的对客体检页，保住既有搜索权重。

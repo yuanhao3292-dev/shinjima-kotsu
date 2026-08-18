@@ -4,7 +4,7 @@
  * 管理员通过环境变量 ADMIN_EMAILS 配置（逗号分隔）
  */
 
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseAdmin } from '@/lib/supabase/api';
 
 // 获取管理员邮箱列表
 function getAdminEmails(): string[] {
@@ -39,10 +39,7 @@ export async function verifyAdminAuth(authHeader: string | null): Promise<{
 
   const token = authHeader.substring(7);
 
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+  const supabase = getSupabaseAdmin();
 
   const { data: { user }, error } = await supabase.auth.getUser(token);
 

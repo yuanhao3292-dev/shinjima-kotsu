@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
+import type { SupabaseClient } from '@supabase/supabase-js';
+import { getSupabaseAdmin } from '@/lib/supabase/api';
+import { SITE_URL } from '@/lib/seo';
 import Stripe from 'stripe';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { sendOrderConfirmationEmail, sendNewOrderNotificationToMerchant, sendGuideCommissionNotification } from '@/lib/email';
 import { escapeHtml } from '@/lib/utils/html-escape';
 import { clawbackCommission } from '@/lib/refund';
@@ -12,16 +14,6 @@ const getStripe = () => {
     throw new Error('STRIPE_SECRET_KEY is not configured');
   }
   return new Stripe(process.env.STRIPE_SECRET_KEY);
-};
-
-const getSupabase = () => {
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-    throw new Error('Supabase configuration is missing');
-  }
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-  );
 };
 
 // ============================================
@@ -93,7 +85,7 @@ async function updateEventResult(
 
 export async function POST(request: NextRequest) {
   const stripe = getStripe();
-  const supabase = getSupabase();
+  const supabase = getSupabaseAdmin();
   // 主 Webhook 使用独立的密钥，与订阅 Webhook 分开
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET_MAIN || process.env.STRIPE_WEBHOOK_SECRET;
 
@@ -1107,7 +1099,7 @@ async function handleNightclubDepositPaid(supabase: SupabaseClient, session: Str
                 <tr><td style="padding: 8px 12px; font-weight: 600; color: #6b7280;">定金</td><td style="padding: 8px 12px; color: #4f46e5; font-weight: 700;">¥${Number(booking.deposit_amount)}</td></tr>
               </table>
               <div style="text-align: center; margin-top: 20px;">
-                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.niijima-koutsu.jp'}/admin/bookings"
+                <a href="${SITE_URL}/admin/bookings"
                    style="display: inline-block; background: #4f46e5; color: white; padding: 10px 24px; text-decoration: none; border-radius: 6px;">
                   前往管理預約
                 </a>

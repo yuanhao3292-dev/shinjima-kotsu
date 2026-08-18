@@ -1,25 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getSupabaseAdmin } from '@/lib/supabase/api';
+import { SITE_URL } from '@/lib/seo';
 import Stripe from "stripe";
-import { createClient } from "@supabase/supabase-js";
 import { createClient as createServerClient } from "@/lib/supabase/server";
 import { checkRateLimit, getClientIp, RATE_LIMITS, createRateLimitHeaders } from '@/lib/utils/rate-limiter';
 import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
 import { validateBody } from '@/lib/validations/validate';
 import { WhitelabelSubscriptionSchema } from '@/lib/validations/api-schemas';
 import { getStripeServer as getStripe } from '@/lib/stripe-server';
-
-const getSupabase = () => {
-  if (
-    !process.env.NEXT_PUBLIC_SUPABASE_URL ||
-    !process.env.SUPABASE_SERVICE_ROLE_KEY
-  ) {
-    throw new Error("Supabase configuration is missing");
-  }
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-  );
-};
 
 // Stripe Price IDs（需要在 Stripe Dashboard 创建）
 const GROWTH_PRICE_ID = process.env.STRIPE_WHITELABEL_PRICE_ID; // 初期合伙人（已免费，仅供向后兼容）
@@ -54,7 +42,7 @@ export async function POST(request: NextRequest) {
     }
 
     const stripe = getStripe();
-    const supabase = getSupabase();
+    const supabase = getSupabaseAdmin();
 
     // 使用 Zod Schema 验证输入
     const validation = await validateBody(request, WhitelabelSubscriptionSchema);
@@ -173,10 +161,10 @@ export async function POST(request: NextRequest) {
           ],
       success_url:
         successUrl ||
-        `${process.env.NEXT_PUBLIC_BASE_URL || "https://niijima-koutsu.jp"}/guide-partner/dashboard?subscription=success`,
+        `${SITE_URL}/guide-partner/dashboard?subscription=success`,
       cancel_url:
         cancelUrl ||
-        `${process.env.NEXT_PUBLIC_BASE_URL || "https://niijima-koutsu.jp"}/guide-partner/dashboard?subscription=cancelled`,
+        `${SITE_URL}/guide-partner/dashboard?subscription=cancelled`,
       metadata: {
         guide_id: guideId,
         type: "whitelabel_subscription",
