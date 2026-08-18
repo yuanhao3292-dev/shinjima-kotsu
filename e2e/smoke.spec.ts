@@ -7,6 +7,17 @@
 
 import { test, expect } from '@playwright/test';
 
+// 页面里的图片走 /_next/image，由服务端回源到外部图床（i.ibb.co）。
+// CI 里那个图床经常超时（WebServer 日志里成片的 TimeoutError），
+// page.goto 等的 load 事件因此永远不触发，把 /medical 这类图多的页面全拖挂。
+// 冒烟测试只关心 HTML 与导航，直接放弃图片请求，别让第三方主机决定 CI 成败。
+//
+// ⚠️ 这只是让测试不依赖外部主机 —— 线上用户仍在等 i.ibb.co，
+// hero 图搬到自有存储才是根治。
+test.beforeEach(async ({ page }) => {
+  await page.route('**/_next/image**', (route) => route.abort());
+});
+
 test.describe('Homepage & Navigation', () => {
   test('homepage loads and shows key elements', async ({ page }) => {
     await page.goto('/');
