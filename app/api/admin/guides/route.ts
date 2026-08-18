@@ -80,12 +80,20 @@ export async function GET(request: NextRequest) {
         .select('*', { count: 'exact', head: true })
         .eq('referrer_id', guideId);
 
+      // 30 天转化漏斗：访问 → 独立访客 → AI 问诊 lead → 下单/付款
+      // （迁移 125 的 get_guide_funnel；service_role 调用不受归属限制）
+      const { data: funnel } = await supabase.rpc('get_guide_funnel', {
+        p_guide_id: guideId,
+        p_days: 30,
+      });
+
       return NextResponse.json({
         ...guide,
         stats: {
           bookingCount: bookingCount || 0,
           referralCount: referralCount || 0,
         },
+        funnel: funnel ?? null,
       });
     } else {
       // 获取导游列表（带分页）
@@ -93,7 +101,7 @@ export async function GET(request: NextRequest) {
         .from('guides')
         .select(`
           id, name, email, phone, wechat_id,
-          status, level, kyc_status,
+          status, status_reason, status_changed_at, level, kyc_status,
           total_commission, total_bookings,
           referral_code, referrer_id,
           created_at, updated_at
@@ -191,15 +199,25 @@ export async function POST(request: NextRequest) {
       updated_at: new Date().toISOString(),
     };
 
+    const stampStatus = (status: string) => {
+      updateData.status = status;
+      updateData.status_reason = note?.trim() || null;
+      updateData.status_changed_at = new Date().toISOString();
+      updateData.status_changed_by = authResult.email;
+    };
+
     switch (action) {
       case 'approve':
-        updateData.status = 'approved';
+        stampStatus('approved');
         break;
       case 'suspend':
-        updateData.status = 'suspended';
+        stampStatus('suspended');
+        break;
+      case 'ban':
+        stampStatus('banned');
         break;
       case 'reactivate':
-        updateData.status = 'approved';
+        stampStatus('approved');
         break;
       case 'update_level':
         updateData.level = level;

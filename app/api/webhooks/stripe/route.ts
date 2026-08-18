@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { COMMISSION_HOLD_DAYS, commissionAvailableAt as commissionAvailableAtFrom } from '@/lib/commission-config';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
 import { SITE_URL } from '@/lib/seo';
@@ -890,7 +891,7 @@ async function calculateAndRecordCommission(
     })
     .eq('id', orderId);
 
-  // 2. 计算佣金可提现时间（服务完成日 + 14天等待期）
+  // 2. 计算佣金可提现时间（服务完成日 + COMMISSION_HOLD_DAYS 天持有期）
   // 获取订单的预约日期，作为服务完成日的近似值
   const { data: orderForDate } = await supabase
     .from('orders')
@@ -900,17 +901,13 @@ async function calculateAndRecordCommission(
 
   let commissionAvailableAt: string;
   if (orderForDate?.preferred_date) {
-    // 使用预约日期 + 14天
-    const serviceDate = new Date(orderForDate.preferred_date);
-    serviceDate.setDate(serviceDate.getDate() + 14);
-    commissionAvailableAt = serviceDate.toISOString();
-    console.log(`⏰ 佣金可提现时间: 预约日期=${orderForDate.preferred_date} + 14天 = ${commissionAvailableAt}`);
+    // 使用预约日期 + 持有期
+    commissionAvailableAt = commissionAvailableAtFrom(new Date(orderForDate.preferred_date));
+    console.log(`⏰ 佣金可提现时间: 预约日期=${orderForDate.preferred_date} + ${COMMISSION_HOLD_DAYS}天 = ${commissionAvailableAt}`);
   } else {
-    // 无预约日期，使用付款日期 + 14天
-    const paidDate = orderForDate?.paid_at ? new Date(orderForDate.paid_at) : new Date();
-    paidDate.setDate(paidDate.getDate() + 14);
-    commissionAvailableAt = paidDate.toISOString();
-    console.log(`⏰ 佣金可提现时间: 付款日期 + 14天 = ${commissionAvailableAt}（无预约日期）`);
+    // 无预约日期，使用付款日期 + 持有期
+    commissionAvailableAt = commissionAvailableAtFrom(orderForDate?.paid_at ? new Date(orderForDate.paid_at) : new Date());
+    console.log(`⏰ 佣金可提现时间: 付款日期 + ${COMMISSION_HOLD_DAYS}天 = ${commissionAvailableAt}（无预约日期）`);
   }
 
   // 3. 创建 whitelabel_orders 记录（包含新客奖励信息 + 等待期）
@@ -1013,7 +1010,7 @@ async function calculateAndRecordCommission(
         reward_rate: 0.02,
         reward_amount: referralRewardAmount,
         status: 'pending',
-        // 推荐奖励与被推荐人订单佣金同期成熟(14天),到期由 cron 释放进推荐人可提现余额
+        // 推荐奖励与被推荐人订单佣金同期成熟(COMMISSION_HOLD_DAYS 天),到期由 cron 释放进推荐人可提现余额
         available_at: commissionAvailableAt,
       }, { onConflict: 'booking_id', ignoreDuplicates: true });
 

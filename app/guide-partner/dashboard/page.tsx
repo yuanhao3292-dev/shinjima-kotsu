@@ -46,6 +46,13 @@ const translations = {
   yourReferralCode: { ja: 'あなたの紹介コード', 'zh-CN': '您的推荐码', 'zh-TW': '您的推薦碼', en: 'Your Referral Code' },
   copy: { ja: 'コピー', 'zh-CN': '复制', 'zh-TW': '複製', en: 'Copy' },
   totalBookings: { ja: '総予約数', 'zh-CN': '总预约数', 'zh-TW': '總預約數', en: 'Total Bookings' },
+  funnelTitle: { ja: '直近30日の白ラベル転換ファネル', 'zh-CN': '近 30 天白标转化漏斗', 'zh-TW': '近 30 天白標轉化漏斗', en: 'Last 30 days storefront funnel' },
+  funnelViews: { ja: '訪問', 'zh-CN': '访问', 'zh-TW': '訪問', en: 'Views' },
+  funnelVisitors: { ja: 'ユニーク訪問者', 'zh-CN': '独立访客', 'zh-TW': '獨立訪客', en: 'Visitors' },
+  funnelLeads: { ja: 'AI問診', 'zh-CN': 'AI 问诊', 'zh-TW': 'AI 問診', en: 'AI screenings' },
+  funnelOrders: { ja: '注文', 'zh-CN': '下单', 'zh-TW': '下單', en: 'Orders' },
+  funnelPaid: { ja: '入金済み', 'zh-CN': '已付款', 'zh-TW': '已付款', en: 'Paid' },
+  funnelEmpty: { ja: 'まだ十分なデータがありません。ストアのURLを共有してみましょう。', 'zh-CN': '还没有足够数据，先把店面链接分享出去吧。', 'zh-TW': '還沒有足夠資料，先把店面連結分享出去吧。', en: 'Not enough data yet — share your storefront link to get started.' },
   pending: { ja: '処理中', 'zh-CN': '待完成', 'zh-TW': '待完成', en: 'Pending' },
   totalCommission: { ja: '累計報酬', 'zh-CN': '累计报酬', 'zh-TW': '累計報酬', en: 'Total Commission' },
   referredGuides: { ja: '紹介ガイド', 'zh-CN': '推荐导游', 'zh-TW': '推薦導遊', en: 'Referred Guides' },
@@ -148,6 +155,7 @@ interface Stats {
   pendingCommission: number;
   referralCount: number;
   quarterlySpend: number;
+  funnel: { days: number; views: number; visitors: number; leads: number; orders: number; paid_orders: number } | null;
 }
 
 export default function GuideDashboard() {
@@ -275,6 +283,14 @@ export default function GuideDashboard() {
       const quarterlyWLSpend = (wlOrders || []).reduce((sum, o) => sum + (Number(o.order_amount) || 0), 0);
       const quarterlySpend = quarterlyWLSpend + quarterlyBookingsSpend;
 
+      // 30 天漏斗：访问 → 独立访客 → AI 问诊 lead → 下单 → 付款
+      // 由迁移 125 的 get_guide_funnel 计算；函数内部校验 auth.uid() 归属，
+      // 导游只能看自己的。失败不阻断仪表盘其余部分。
+      const { data: funnel } = await supabase.rpc('get_guide_funnel', {
+        p_guide_id: guideData.id,
+        p_days: 30,
+      });
+
       const statsData: Stats = {
         totalBookings: allBookings?.length || 0,
         pendingBookings: allBookings?.filter(b => b.status === 'pending' || b.status === 'confirmed').length || 0,
@@ -283,6 +299,7 @@ export default function GuideDashboard() {
         pendingCommission: allBookings?.filter(b => b.commission_status === 'calculated').reduce((sum, b) => sum + (b.commission_amount || 0), 0) || 0,
         referralCount: referralCount || 0,
         quarterlySpend,
+        funnel: funnel ?? null,
       };
 
       setStats(statsData);
@@ -437,6 +454,36 @@ export default function GuideDashboard() {
               </div>
             </div>
           </motion.div>
+
+          {/* 30 天白标转化漏斗（lead = AI 问诊完成） */}
+          {stats?.funnel && (
+            <motion.div variants={riseItem} className="bg-white p-5 rounded-xl border border-zinc-200 mb-6">
+              <p className="text-sm font-medium text-zinc-500 mb-4">{t('funnelTitle', lang)}</p>
+              {stats.funnel.views === 0 && stats.funnel.leads === 0 && stats.funnel.orders === 0 ? (
+                <p className="text-sm text-zinc-400">{t('funnelEmpty', lang)}</p>
+              ) : (
+                <div className="grid grid-cols-5 gap-2 text-center">
+                  {([
+                    ['funnelViews', stats.funnel.views],
+                    ['funnelVisitors', stats.funnel.visitors],
+                    ['funnelLeads', stats.funnel.leads],
+                    ['funnelOrders', stats.funnel.orders],
+                    ['funnelPaid', stats.funnel.paid_orders],
+                  ] as const).map(([key, v], i, arr) => {
+                    const prev = i > 0 ? (arr[i - 1][1] as number) : 0;
+                    const rate = i > 0 && prev > 0 ? Math.round((v as number) / prev * 100) : null;
+                    return (
+                      <div key={key} className="rounded-lg bg-zinc-50 py-3">
+                        <p className="text-xl font-bold text-zinc-900">{v}</p>
+                        <p className="text-xs text-zinc-500">{t(key, lang)}</p>
+                        {rate !== null && <p className="text-[10px] text-zinc-400">↑{rate}%</p>}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </motion.div>
+          )}
 
           {/* Stats Grid */}
           <motion.div variants={staggerContainer} className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
