@@ -42,52 +42,38 @@ export default function ContractsOverviewPage() {
               <p className="text-sm text-gray-600 mb-4">
                 与医疗机构签署合作协议，明确紹介料标准和合作条款
               </p>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-500">活跃合同</span>
-                <span className="text-2xl font-bold text-gray-900">3</span>
-              </div>
             </div>
           </Link>
 
           {/* 导游佣金协议 */}
-          <Link href="/admin/contracts/guide">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow cursor-pointer">
+          {/* 目标页面尚未实现，先不做成链接，避免后台里出现 404 入口 */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 opacity-60-shadow cursor-pointer">
               <div className="flex items-center justify-between mb-4">
                 <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
                   <Users size={24} className="text-emerald-600" />
                 </div>
-                <span className="text-sm text-gray-500">导游可见</span>
+                <span className="text-xs px-2 py-0.5 rounded bg-gray-100 text-gray-500">尚未开通</span>
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-2">导游佣金协议</h3>
               <p className="text-sm text-gray-600 mb-4">
                 与导游签署佣金协议，明确合规要求和佣金标准
               </p>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-500">活跃合同</span>
-                <span className="text-2xl font-bold text-gray-900">12</span>
-              </div>
             </div>
-          </Link>
 
           {/* 客户服务合同 */}
-          <Link href="/admin/contracts/customer">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow cursor-pointer">
+          {/* 目标页面尚未实现，先不做成链接，避免后台里出现 404 入口 */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 opacity-60-shadow cursor-pointer">
               <div className="flex items-center justify-between mb-4">
                 <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
                   <ScrollText size={24} className="text-amber-600" />
                 </div>
-                <span className="text-sm text-gray-500">客户在线签署</span>
+                <span className="text-xs px-2 py-0.5 rounded bg-gray-100 text-gray-500">尚未开通</span>
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-2">客户服务合同</h3>
               <p className="text-sm text-gray-600 mb-4">
                 客户医疗旅行服务合同，支持在线签名和移动端访问
               </p>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-500">本月新增</span>
-                <span className="text-2xl font-bold text-gray-900">8</span>
-              </div>
             </div>
-          </Link>
         </div>
 
         {/* 快速操作 */}
@@ -124,15 +110,13 @@ export default function ContractsOverviewPage() {
           <div className="grid md:grid-cols-3 gap-4 text-sm">
             <div>
               <div className="font-medium text-gray-700 mb-1">合同模板</div>
-              <Link href="/contracts" className="text-blue-600 hover:underline">
-                查看 contracts/ 目录
-              </Link>
+              <a href="/contracts/medical-institution-cooperation-agreement.md" target="_blank" rel="noopener" className="text-blue-600 hover:underline">
+                医疗机构合作协议模板
+              </a>
             </div>
             <div>
               <div className="font-medium text-gray-700 mb-1">合规规范</div>
-              <Link href="/CLAUDE.md#医疗旅游业务合规规范" className="text-blue-600 hover:underline">
-                查看 CLAUDE.md
-              </Link>
+              <span className="text-gray-500">见仓库 CLAUDE.md「医疗旅游业务合规规范」</span>
             </div>
             <div>
               <div className="font-medium text-gray-700 mb-1">法律依据</div>
