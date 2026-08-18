@@ -40,6 +40,7 @@ export async function GET(
         answers: screening.answers || [],
         bodyMapData: screening.body_map_data,
         analysisResult: screening.analysis_result,
+        followupQuestions: screening.followup_questions ?? null,
         createdAt: screening.created_at,
         completedAt: screening.completed_at,
       },

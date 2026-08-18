@@ -117,8 +117,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.4,
     },
-    // /community（健康故事社区）暂不进 sitemap：无站内入口、线上 0 条数据、
-    // 投稿页未实现。等功能成型再加回。
     {
       url: `${BASE_URL}/sustainability/community`,
       lastModified: currentDate,

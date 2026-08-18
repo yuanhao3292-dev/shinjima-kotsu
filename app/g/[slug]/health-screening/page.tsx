@@ -2,9 +2,11 @@
 
 import { useState, useEffect, use } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import BodyMapSelector, { type BodyMapSelectionData } from '@/components/BodyMapSelector';
 import WhitelabelScreeningForm from '@/components/whitelabel/WhitelabelScreeningForm';
+import FollowUpQuestionnaire from '@/components/FollowUpQuestionnaire';
+import { SCREENING_SESSION_HEADER } from '@/lib/utils/screening-session';
 import DocumentUpload, { type UploadResult } from '@/components/DocumentUpload';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import {
@@ -110,6 +112,27 @@ const translations: Record<string, Record<Language, string>> = {
     'zh-TW': 'AI 智能健康問診',
     en: 'AI Health Consultation',
     ko: 'AI 건강 문진',
+  },
+  followupBadge: {
+    ja: 'AI 補充問診',
+    'zh-CN': 'AI 补充问诊',
+    'zh-TW': 'AI 補充問診',
+    en: 'AI Follow-up Questions',
+    ko: 'AI 추가 문진',
+  },
+  followupTitle: {
+    ja: '以下の補足質問にお答えください',
+    'zh-CN': '请回答以下补充问题',
+    'zh-TW': '請回答以下補充問題',
+    en: 'Please answer the following questions',
+    ko: '다음 추가 질문에 답해 주세요',
+  },
+  followupDesc: {
+    ja: 'より正確な健康分析のため、AIが追加情報を必要としています',
+    'zh-CN': 'AI 需要更多信息以提供更准确的健康分析',
+    'zh-TW': 'AI 需要更多資訊以提供更準確的健康分析',
+    en: 'AI needs more information to provide a more accurate health analysis',
+    ko: '보다 정확한 건강 분석을 위해 AI가 추가 정보를 필요로 합니다',
   },
   questionnaireDescription: {
     ja: '選択した症状に基づき、AIがカスタマイズされた問診を行います',
@@ -303,7 +326,7 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-type ScreeningStep = 'welcome' | 'body-map' | 'questionnaire' | 'upload-document';
+type ScreeningStep = 'welcome' | 'body-map' | 'questionnaire' | 'upload-document' | 'followup';
 
 function getOrCreateSessionId(): string {
   if (typeof window === 'undefined') return '';
@@ -329,6 +352,9 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
   const [error, setError] = useState<string | null>(null);
   const [documentUploaded, setDocumentUploaded] = useState(false);
   const [isAnalyzingDoc, setIsAnalyzingDoc] = useState(false);
+  // 安全闸门 Class B：AI 要求补问时的问题列表
+  const [followupQuestions, setFollowupQuestions] = useState<string[]>([]);
+  const searchParams = useSearchParams();
   // 报告语言（独立于网站 UI 语言）
   // ⚠️ useLanguage() 首帧固定返回 'ja'，cookie 值在 effect 里才就位。
   //    useState(lang) 只取首帧值 → 简中用户的报告语言被钉死在日语
@@ -342,6 +368,33 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
   useEffect(() => {
     setSessionId(getOrCreateSessionId());
   }, []);
+
+  // 续答：结果页发现记录还在 needs_followup 时，带 ?resume=<id> 回到这里。
+  // 用户中途刷新/关页也靠这条路回来 —— 追问问题已由 analyze 落库。
+  useEffect(() => {
+    const resumeId = searchParams.get('resume');
+    if (!resumeId || !sessionId) return;
+    (async () => {
+      try {
+        // sessionId 是能力令牌，只走请求头，不进 URL（见 lib/utils/screening-session.ts）
+        const res = await fetch(`/api/whitelabel/screening/${resumeId}`, {
+          headers: { [SCREENING_SESSION_HEADER]: sessionId },
+        });
+        if (!res.ok) return;
+        const data = await res.json();
+        const sc = data.screening;
+        if (sc?.status === 'needs_followup' && Array.isArray(sc.followupQuestions) && sc.followupQuestions.length > 0) {
+          setScreeningId(resumeId);
+          setFollowupQuestions(sc.followupQuestions);
+          setCurrentStep('followup');
+        } else if (sc?.status === 'completed') {
+          router.replace(`/g/${slug}/health-screening/result/${resumeId}`);
+        }
+      } catch {
+        // 取不到就当作新开始，不打断用户
+      }
+    })();
+  }, [searchParams, sessionId, slug, router]);
 
   const startNewScreening = async () => {
     if (!sessionId) return;
@@ -422,6 +475,12 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || t('analysisFailed'));
+
+      if (result.needsFollowup && Array.isArray(result.followupQuestions) && result.followupQuestions.length > 0) {
+        setFollowupQuestions(result.followupQuestions);
+        setCurrentStep('followup');
+        return;
+      }
 
       router.push(`/g/${slug}/health-screening/result/${screeningId}`);
     } catch (err: any) {
@@ -574,6 +633,36 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
             sessionId={sessionId}
             resultPath={`/g/${slug}/health-screening/result`}
             bodyMapData={bodyMapData || undefined}
+            onNeedsFollowup={(qs) => {
+              setFollowupQuestions(qs);
+              setCurrentStep('followup');
+            }}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  // 追问步骤（安全闸门 Class B）
+  if (currentStep === 'followup' && screeningId && followupQuestions.length > 0) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-brand-50 to-white">
+        <div className="bg-white border-b border-neutral-100 shadow-sm">
+          <div className="max-w-4xl mx-auto px-4 py-6 text-center">
+            <div className="inline-flex items-center gap-2 text-xs tracking-wider uppercase text-brand-700 mb-3">
+              <span>{t('followupBadge')}</span>
+            </div>
+            <h1 className="text-2xl md:text-3xl font-semibold text-neutral-900">{t('followupTitle')}</h1>
+            <p className="text-neutral-500 mt-2">{t('followupDesc')}</p>
+          </div>
+        </div>
+        <div className="max-w-4xl mx-auto px-4 pb-16 pt-6">
+          <FollowUpQuestionnaire
+            screeningId={screeningId}
+            questions={followupQuestions}
+            endpoint="/api/whitelabel/screening/followup"
+            extraBody={{ sessionId }}
+            resultPath={`/g/${slug}/health-screening/result`}
           />
         </div>
       </div>

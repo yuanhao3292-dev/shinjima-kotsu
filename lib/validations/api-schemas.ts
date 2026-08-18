@@ -149,6 +149,7 @@ export const GuideActionSchema = z.object({
 
 // ==================== Admin Venue ====================
 
+
 export const VenueDataSchema = z.object({
   name: z.string().min(1, '店铺名称不能为空').max(200, '店铺名称最多200个字符'),
   category: z.string().min(1, '分类不能为空'),
@@ -157,7 +158,7 @@ export const VenueDataSchema = z.object({
   phone: PhoneSchema,
   description: z.string().max(2000, '描述最多2000个字符').optional(),
   is_active: z.boolean().default(true),
-}).partial(); // 允许部分更新
+}).partial();
 
 export const VenueActionSchema = z.object({
   action: z.enum(['create', 'update', 'toggle_active', 'delete'], {
@@ -213,11 +214,6 @@ export const HealthScreeningAnalyzeSchema = z.object({
   screeningId: UUIDSchema,
   phase: z.union([z.literal(1), z.literal(2)]).default(2),
   language: z.enum(['zh-CN', 'zh-TW', 'en', 'ja']).optional(),
-});
-
-export const HealthScreeningTranslateSchema = z.object({
-  screeningId: UUIDSchema,
-  language: z.enum(['zh-CN', 'zh-TW', 'en', 'ja']),
 });
 
 // ==================== Whitelabel Subscription ====================
@@ -326,126 +322,11 @@ export const ModuleActionSchema = z.object({
 
 // ==================== Admin Page Template ====================
 
-export const TemplateDataSchema = z.object({
-  moduleType: z.enum(['bio'], {
-    error: '模板类型必须是 bio',
-  }),
-  templateKey: z.string().min(1, '模板标识不能为空').max(50, '模板标识最多50个字符')
-    .regex(/^[a-z][a-z0-9_]*$/, '模板标识只能包含小写字母、数字和下划线，且必须以字母开头'),
-  name: z.string().min(1, '模板名称不能为空').max(100, '模板名称最多100个字符'),
-  nameJa: z.string().max(100, '日文名称最多100个字符').nullable().optional(),
-  nameZh: z.string().max(100, '中文名称最多100个字符').nullable().optional(),
-  previewImageUrl: z.string().url('预览图URL无效').nullable().optional(),
-  templateConfig: z.record(z.string(), z.unknown()).default({}),
-  isDefault: z.boolean().default(false),
-  displayOrder: z.number().int().min(0).default(0),
-}).partial();
-
-export const TemplateActionSchema = z.object({
-  action: z.enum(['create', 'update', 'delete'], {
-    error: '无效的操作类型',
-  }),
-  templateId: UUIDSchema.optional(),
-  templateData: TemplateDataSchema.optional(),
-}).refine(
-  (data) => !(data.action === 'create' && !data.templateData),
-  { message: '创建模板时必须提供模板数据', path: ['templateData'] }
-).refine(
-  (data) => !((['update', 'delete'].includes(data.action)) && !data.templateId),
-  { message: '此操作需要提供模板 ID', path: ['templateId'] }
-);
-
 // ==================== Guide White-Label Page ====================
-
-export const GuideWhiteLabelPageSchema = z.object({
-  slug: z.string().min(3, 'URL标识至少3个字符').max(50, 'URL标识最多50个字符')
-    .regex(/^[a-z][a-z0-9-]*$/, 'URL标识只能包含小写字母、数字和连字符，且必须以字母开头'),
-  isPublished: z.boolean().default(false),
-  displayName: z.string().max(100, '显示名称最多100个字符').nullable().optional(),
-  avatarUrl: z.string().url('头像URL无效').nullable().optional(),
-  bio: z.string().max(2000, '个人简介最多2000个字符').nullable().optional(),
-  contactWechat: z.string().max(100, '微信号最多100个字符').nullable().optional(),
-  contactLine: z.string().max(100, 'LINE ID最多100个字符').nullable().optional(),
-  contactPhone: z.string().max(30, '电话号码最多30位').nullable().optional(),
-  contactEmail: z.string().email('邮箱格式无效').nullable().optional(),
-  bioTemplateId: UUIDSchema.nullable().optional(),
-  themeColor: z.string().max(20, '主题色最多20个字符').optional(),
-  siteTitle: z.string().max(100, '站点标题最多100个字符').nullable().optional(),
-  siteDescription: z.string().max(300, '站点描述最多300个字符').nullable().optional(),
-}).partial();
 
 // ==================== Guide Selected Module ====================
 
-export const GuideSelectedModuleSchema = z.object({
-  moduleId: UUIDSchema,
-  isEnabled: z.boolean().default(true),
-  sortOrder: z.number().int().min(0).default(0),
-  customTitle: z.string().max(200, '自定义标题最多200个字符').nullable().optional(),
-  customDescription: z.string().max(2000, '自定义描述最多2000个字符').nullable().optional(),
-});
-
-export const GuideSelectedModuleActionSchema = z.object({
-  action: z.enum(['add', 'update', 'remove'], {
-    error: '操作必须是 add、update 或 remove',
-  }),
-  moduleId: UUIDSchema,
-  isEnabled: z.boolean().optional(),
-  sortOrder: z.number().int().min(0).optional(),
-  customTitle: z.string().max(200).nullable().optional(),
-  customDescription: z.string().max(2000).nullable().optional(),
-});
-
 // ==================== Distribution Order (分销订单) ====================
-
-/**
- * 分销订单客户信息 Schema
- * 匹配 white_label_orders 表实际列
- */
-export const DistributionOrderCustomerSchema = z.object({
-  name: z.string().min(1, '请填写姓名').max(100, '姓名最多100个字符'),
-  phone: z.string().max(30, '电话号码最多30位').optional().or(z.literal('')),
-  email: z.string().email('邮箱格式无效').max(200).optional().or(z.literal('')),
-  wechat: z.string().max(100, '微信号最多100个字符').optional().or(z.literal('')),
-  line: z.string().max(100, 'LINE ID最多100个字符').optional().or(z.literal('')),
-  notes: z.string().max(2000, '备注最多2000个字符').optional(),
-}).refine(
-  (data) => {
-    return (data.email && data.email.trim() !== '') ||
-           (data.phone && data.phone.trim() !== '') ||
-           (data.wechat && data.wechat.trim() !== '') ||
-           (data.line && data.line.trim() !== '');
-  },
-  { message: '请至少填写一种联系方式（邮箱、电话、微信或LINE）' }
-);
-
-/**
- * 分销订单创建 Schema
- * 匹配 white_label_orders 表（guide_id 直接关联 guides）
- */
-export const CreateDistributionOrderSchema = z.object({
-  guideId: UUIDSchema,
-  moduleId: UUIDSchema.optional(),
-  customer: DistributionOrderCustomerSchema,
-  serviceType: z.string().max(50).optional(),
-  serviceName: z.string().max(200).optional(),
-  serviceDate: z.string().optional(),
-  serviceTime: z.string().max(20).optional(),
-  totalAmount: z.number().int().min(0).optional(),
-});
-
-/**
- * 分销订单状态更新 Schema（管理员操作）
- * 状态流转: pending → confirmed → completed / cancelled
- */
-export const UpdateDistributionOrderSchema = z.object({
-  action: z.enum(['confirm', 'complete', 'cancel'], {
-    error: '操作必须是 confirm、complete 或 cancel',
-  }),
-  totalAmount: z.number().int().min(0).optional(),
-  commissionAmount: z.number().int().min(0).optional(),
-  cancelReason: z.string().max(500).optional(),
-  adminNotes: z.string().max(2000).optional(),
-});
 
 // ==================== 类型导出 ====================
 
@@ -460,16 +341,9 @@ export type BookingAvailabilityCheckInput = z.infer<typeof BookingAvailabilityCh
 export type TicketActionInput = z.infer<typeof TicketActionSchema>;
 export type AuditLogCreateInput = z.infer<typeof AuditLogCreateSchema>;
 export type HealthScreeningAnalyzeInput = z.infer<typeof HealthScreeningAnalyzeSchema>;
-export type HealthScreeningTranslateInput = z.infer<typeof HealthScreeningTranslateSchema>;
 export type WhitelabelSubscriptionInput = z.infer<typeof WhitelabelSubscriptionSchema>;
 export type WhitelabelSettingsInput = z.infer<typeof WhitelabelSettingsSchema>;
 export type CalculateQuoteInput = z.infer<typeof CalculateQuoteSchema>;
 export type BookingActionInput = z.infer<typeof BookingActionSchema>;
 export type AdminImageUploadInput = z.infer<typeof AdminImageUploadSchema>;
 export type ModuleActionInput = z.infer<typeof ModuleActionSchema>;
-export type TemplateActionInput = z.infer<typeof TemplateActionSchema>;
-export type GuideWhiteLabelPageInput = z.infer<typeof GuideWhiteLabelPageSchema>;
-export type GuideSelectedModuleActionInput = z.infer<typeof GuideSelectedModuleActionSchema>;
-export type CreateDistributionOrderInput = z.infer<typeof CreateDistributionOrderSchema>;
-export type UpdateDistributionOrderInput = z.infer<typeof UpdateDistributionOrderSchema>;
-export type DistributionOrderCustomerInput = z.infer<typeof DistributionOrderCustomerSchema>;

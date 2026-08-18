@@ -117,6 +117,15 @@ const t = (key: keyof typeof translations, lang: Language): string =>
 interface FollowUpQuestionnaireProps {
   screeningId: string;
   questions: string[];
+  /**
+   * 追问接口。默认是登录用户的主站接口；白标匿名流程传
+   * '/api/whitelabel/screening/followup'。
+   */
+  endpoint?: string;
+  /** 随每次提交一起发送的额外字段 —— 白标流程需要 sessionId 证明所有权 */
+  extraBody?: Record<string, unknown>;
+  /** 分析完成后跳转的结果页前缀（不含 screeningId），默认主站结果页 */
+  resultPath?: string;
 }
 
 interface FollowupAnswer {
@@ -127,6 +136,9 @@ interface FollowupAnswer {
 export default function FollowUpQuestionnaire({
   screeningId,
   questions,
+  endpoint = '/api/health-screening/followup',
+  extraBody,
+  resultPath = '/health-screening/result',
 }: FollowUpQuestionnaireProps) {
   const router = useRouter();
   const lang = useLanguage();
@@ -160,10 +172,10 @@ export default function FollowUpQuestionnaire({
         answer: answers[i] || '',
       }));
 
-      const response = await fetch('/api/health-screening/followup', {
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ screeningId, followupAnswers }),
+        body: JSON.stringify({ screeningId, followupAnswers, ...extraBody }),
       });
 
       const data = await response.json();
@@ -177,7 +189,7 @@ export default function FollowUpQuestionnaire({
         setIsSubmitting(false);
       } else {
         // 分析完成
-        router.push(`/health-screening/result/${screeningId}`);
+        router.push(`${resultPath}/${screeningId}`);
       }
     } catch (err: unknown) {
       console.warn('Followup submission failed');
@@ -198,10 +210,10 @@ export default function FollowUpQuestionnaire({
         answer: t('notProvided', lang),
       }));
 
-      const response = await fetch('/api/health-screening/followup', {
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ screeningId, followupAnswers }),
+        body: JSON.stringify({ screeningId, followupAnswers, ...extraBody }),
       });
 
       const data = await response.json();
@@ -214,7 +226,7 @@ export default function FollowUpQuestionnaire({
         setFollowupRound((r) => r + 1);
         setIsSubmitting(false);
       } else {
-        router.push(`/health-screening/result/${screeningId}`);
+        router.push(`${resultPath}/${screeningId}`);
       }
     } catch (err: unknown) {
       console.warn('Followup skip failed');

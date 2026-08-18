@@ -112,6 +112,10 @@ const nextConfig = {
       // 页面已删除 —— 永久重定向到真正的对客体检页，保住既有搜索权重。
       // permanent: true 在 Next 里发的是 308（Google 与 301 同等对待）。
       { source: '/health-checkup', destination: '/medical', permanent: true },
+      // /community（健康故事社区，半成品）已删除；它曾以 priority 0.4 进过 sitemap，
+      // 可能已被收录，落到首页而不是 404。
+      { source: '/community', destination: '/', permanent: true },
+      { source: '/community/:path*', destination: '/', permanent: true },
     ];
   },
 }

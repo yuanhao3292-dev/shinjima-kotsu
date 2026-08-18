@@ -229,6 +229,10 @@ export async function POST(request: NextRequest) {
           status: 'needs_followup',
           analysis_result: analysisResult,
           answers_hash: answersHash,
+          // ⚠️ 必须落库：用户中途刷新/关页后靠 GET /[id] 取回问题续答。
+          // 此前只有 followup 端点在第二轮才写这个字段，第一轮的问题只存在于
+          // 一次性 HTTP 响应里，页面一刷新就再也拿不回来。
+          followup_questions: followupQuestions,
         })
         .eq('id', screeningId)
         .eq('session_id', sessionId);
