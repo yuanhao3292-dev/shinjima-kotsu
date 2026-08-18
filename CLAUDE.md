@@ -198,10 +198,8 @@ export const MODULE_DETAIL_ROUTES: Record<string, string> = {
 }
 ```
 
-**验证方法**:
-```bash
-node scripts/test-complete-integration.js
-```
+**验证方法**: 数据库 `page_modules` 有记录 + `product-categories.ts` 已登记 +
+选品中心能看到该模块 —— 三处都对才算集成完成。
 
 **教训**:
 - 数据库配置 + 路由注册 **≠** 完整集成
@@ -2039,12 +2037,20 @@ const backHref = guideSlug ? `/g/${guideSlug}/hyogo-medical` : '/hyogo-medical';
 
 ## 运维脚本 (scripts/)
 
-| 脚本 | 用途 |
-|------|------|
-| `fix-stripe-prices.js` | 修复 cancer/hyogo 咨询套餐 Stripe Price ID |
-| `fix-all-stripe-prices.js` | 修复 6个 TIMC 健检套餐 Stripe Price ID |
-| `check-all-prices.js` | 验证所有活跃套餐的 Stripe Price ID 有效性 |
-| `check-packages.js` | 检查套餐数据库记录 |
+目录里只保留接进流程的两个：
+
+| 脚本 | 谁在跑 | 用途 |
+|------|------|------|
+| `check-route-isolation.js` | husky pre-commit / CI | 公共页面不得引用导游端代码 |
+| `check-migration-numbering.js` | husky pre-commit / CI | 迁移编号不重号 |
+
+历史上堆过 61 个一次性脚本（跑迁移的、造 Stripe 价格的、修数据的、
+调试的，共 13,533 行，其中 56 个直接读生产的 `SERVICE_ROLE_KEY` /
+`STRIPE_SECRET`），2026-08-18 整体删除 —— 一个能改生产数据的脚本躺在
+仓库里，误跑一次就是事故。需要时 `git log -- scripts/` 能找回任何一个。
+
+⚠️ 新加脚本的规矩：只有会被 package.json / husky / CI 反复调用的才进
+`scripts/`；一次性操作写完跑完就删，别提交。
 
 ---
 
@@ -2098,7 +2104,7 @@ TypeScript 严格度现状与推进计划见 `docs/typescript-strictness.md`。
 ### Stripe 注意事项
 - Price ID 必须与当前 `STRIPE_SECRET_KEY` 对应的 Stripe 账户匹配
 - 切换 Stripe 账户后需重新创建 Product + Price 并更新数据库
-- 验证命令: `node scripts/check-all-prices.js`
+- 验证：管理后台或直接查 `medical_packages` 表的 `stripe_price_id`
 
 ### 环境变量要求
 
@@ -2135,110 +2141,6 @@ SUPABASE_SERVICE_ROLE_KEY="eyJ..."  # ⚠️ 关键：缺少此项会导致 /g/[
 - lint-staged 对整个暂存文件运行 `eslint --fix` + `prettier --write`
 - 即使只改一行，也会检查文件中所有预存 lint 错误
 - 如果产生"empty commit"，说明处理后文件与 HEAD 完全一致
-
----
-
-## 调试与测试脚本
-
-### 白标系统集成测试
-
-#### 完整集成测试
-```bash
-node scripts/test-complete-integration.js
-```
-**用途**: 测试模块从数据库 → 选品中心 → 白标页面的完整链路（7个检查点）  
-**输出**: 每个步骤的通过/失败状态，定位问题所在层级  
-**适用场景**: 新增模块后验证是否完全打通
-
-#### 检查导游选中的模块
-```bash
-node scripts/check-yuan-modules.js
-```
-**用途**: 查看特定导游（yuan）选中了哪些模块  
-**输出**: 模块列表（slug, component_key, is_enabled, sort_order）  
-**适用场景**: 验证导游在选品中心的选择是否正确保存
-
-#### 检查模块分类
-```bash
-node scripts/check-categories.js
-```
-**用途**: 查看所有活跃模块按分类（category）分组的情况  
-**输出**: 按 BEAUTY/MEDICAL 等分类分组的模块表  
-**适用场景**: 了解数据库中模块的分类结构
-
-#### 调试产品卡片过滤
-```bash
-node scripts/debug-product-cards.js
-```
-**用途**: 模拟白标首页的 productCards 过滤逻辑  
-**输出**: 每个模块是否通过过滤条件（immersive 模板、DETAIL_MODULES 白名单等）  
-**适用场景**: 排查为什么某个模块在白标页面不显示
-
-#### 验证近畿大学病院集成
-```bash
-node scripts/verify-kindai-integration.js
-# 或使用最终检查脚本
-node scripts/final-check.js
-```
-**用途**: 专门验证 kindai-hospital 模块的完整配置  
-**输出**: 数据库、分类、路由、导游选择等各项检查结果  
-**适用场景**: kindai-hospital 特定问题排查
-
-### Stripe 产品创建
-
-#### 创建近畿大学病院 Stripe 产品
-```bash
-node scripts/create-kindai-hospital-stripe-prices.js
-```
-**用途**: 为近畿大学病院创建 Stripe Products & Prices  
-**输出**: 生成的 product_id 和 price_id，自动更新数据库  
-**配置**: 2个咨询服务包（前期咨询 ¥221,000、远程会诊 ¥243,000）
-
-#### 创建大阪重粒子线中心 Stripe 产品
-```bash
-node scripts/create-osaka-himak-stripe-prices.js
-```
-**用途**: 为大阪重粒子线中心创建 Stripe Products & Prices  
-**输出**: 同上  
-**配置**: 2个咨询服务包（前期咨询 ¥221,000、远程会诊 ¥243,000）
-
-### 配置检查
-
-#### 检查近畿大学病院配置
-```bash
-node scripts/check-kindai-config.js
-```
-**用途**: 查看 kindai-hospital 模块在 page_modules 表的完整配置  
-**输出**: display_config 详细内容（template, colorTheme, stats, sidebar 等）  
-**适用场景**: 验证数据库配置是否正确
-
-#### 检查数据库表结构
-```bash
-node scripts/check-table-schema.js
-```
-**用途**: 查看 page_modules 表的所有字段  
-**输出**: 字段列表 + 示例记录（kindai-hospital）的完整数据  
-**适用场景**: 了解表结构，排查字段缺失问题
-
-### 脚本创建历史记录
-
-| 脚本文件 | 创建日期 | 用途 | 状态 |
-|---------|---------|------|------|
-| check-kindai-config.js | 2026-03-07 | 检查近畿配置 | ✅ 活跃 |
-| check-yuan-modules.js | 2026-03-07 | 检查导游选择 | ✅ 活跃 |
-| create-kindai-hospital-stripe-prices.js | 2026-03-07 | 创建 Stripe 产品 | ✅ 活跃 |
-| create-osaka-himak-stripe-prices.js | 2026-03-07 | 创建 Stripe 产品 | ✅ 活跃 |
-| check-categories.js | 2026-03-07 | 检查模块分类 | ✅ 活跃 |
-| check-table-schema.js | 2026-03-07 | 查看表结构 | ✅ 活跃 |
-| debug-product-cards.js | 2026-03-07 | 调试过滤逻辑 | ✅ 活跃 |
-| verify-kindai-integration.js | 2026-03-07 | 验证集成（旧版） | 📦 归档 |
-| final-check.js | 2026-03-07 | 最终检查 | ✅ 活跃 |
-| test-complete-integration.js | 2026-03-07 | 完整集成测试 | ✅ 推荐使用 |
-
-**推荐工作流**:
-1. 新增模块后，先运行 `test-complete-integration.js` 验证完整链路
-2. 如有问题，根据失败的步骤运行对应的专项脚本深入排查
-3. Stripe 产品创建在数据库配置完成后执行
 
 ---
 

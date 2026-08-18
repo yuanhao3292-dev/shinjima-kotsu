@@ -186,9 +186,8 @@ INSERT INTO medical_packages (...) VALUES (...);
 
 ### Step 4: 创建 Stripe 产品（如需要）
 
-```bash
-node scripts/create-new-hospital-stripe-prices.js
-```
+在 Stripe Dashboard 建 Product + Price，把 `price_id` 写进 `medical_packages` 表对应行。
+（曾经每家医院各写一个建价脚本，2026-08-18 已从仓库移除。）
 
 ---
 
@@ -232,21 +231,9 @@ tags: ['癌症治疗', '重粒子线', ...]
 
 ---
 
-## 🔍 调试工具脚本
+## 🔍 调试
 
-```bash
-# 检查所有模块分类
-node scripts/check-categories.js
-
-# 检查导游选中的模块
-node scripts/check-yuan-modules.js
-
-# 检查特定模块配置
-node scripts/check-kindai-config.js
-
-# 查看表结构
-node scripts/check-table-schema.js
-```
+直接查 `page_modules` / `guide_selected_modules` 两张表；一次性调试脚本已于 2026-08-18 从仓库移除。
 
 ---
 
