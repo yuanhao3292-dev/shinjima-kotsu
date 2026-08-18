@@ -1677,10 +1677,10 @@ export default function PartnerBusinessPage() {
                       className="mt-1 h-4 w-4 rounded border-neutral-300 text-brand-500 focus:ring-brand-500"
                     />
                     <span className="text-sm text-neutral-600">
-                      {currentLang === 'ja' && <><a href="/privacy" target="_blank" className="text-brand-700 underline">プライバシーポリシー</a>に同意の上、送信します</>}
-                      {currentLang === 'zh-TW' && <>我同意<a href="/privacy" target="_blank" className="text-brand-700 underline">隱私政策</a>並提交表單</>}
-                      {currentLang === 'zh-CN' && <>我同意<a href="/privacy" target="_blank" className="text-brand-700 underline">隐私政策</a>并提交表单</>}
-                      {currentLang === 'en' && <>I agree to the <a href="/privacy" target="_blank" className="text-brand-700 underline">Privacy Policy</a> and submit</>}
+                      {currentLang === 'ja' && <><a href="/legal/privacy" target="_blank" className="text-brand-700 underline">プライバシーポリシー</a>に同意の上、送信します</>}
+                      {currentLang === 'zh-TW' && <>我同意<a href="/legal/privacy" target="_blank" className="text-brand-700 underline">隱私政策</a>並提交表單</>}
+                      {currentLang === 'zh-CN' && <>我同意<a href="/legal/privacy" target="_blank" className="text-brand-700 underline">隐私政策</a>并提交表单</>}
+                      {currentLang === 'en' && <>I agree to the <a href="/legal/privacy" target="_blank" className="text-brand-700 underline">Privacy Policy</a> and submit</>}
                     </span>
                   </label>
                   <button

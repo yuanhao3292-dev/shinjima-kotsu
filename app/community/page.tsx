@@ -9,7 +9,6 @@ import {
   ThumbsUp,
   Loader2,
   ArrowLeft,
-  Plus,
   Tag,
   AlertCircle,
 } from 'lucide-react';
@@ -171,13 +170,7 @@ export default function CommunityPage() {
             </button>
           ))}
 
-          <Link
-            href="/community/submit"
-            className="ml-auto inline-flex items-center gap-1.5 px-4 py-2 bg-brand-600 text-white rounded-full text-sm font-medium hover:bg-brand-700 transition whitespace-nowrap"
-          >
-            <Plus className="w-4 h-4" />
-            {t('shareStory', lang)}
-          </Link>
+          {/* 投稿入口暂缓：/community/submit 页面尚未实现，先不放一个 404 按钮 */}
         </div>
 
         {error && (
