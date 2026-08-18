@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
+import { useState } from 'react';
+import { useLanguage4 } from '@/hooks/useLanguage';
 import Image from 'next/image';
 import { ChevronDown, Mail, MessageCircle, ArrowRight, X } from 'lucide-react';
 import PublicLayout from '@/components/PublicLayout';
@@ -409,23 +409,8 @@ export default function FAQPage() {
   const [activeCategory, setActiveCategory] = useState('all');
   const [openItems, setOpenItems] = useState<number[]>([]);
   const [showWechatQR, setShowWechatQR] = useState(false);
-  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
+  const currentLang = useLanguage4();
 
-  useEffect(() => {
-    const cookies = document.cookie.split(';');
-    for (const cookie of cookies) {
-      const [name, value] = cookie.trim().split('=');
-      if (name === 'NEXT_LOCALE' && ['ja', 'zh-TW', 'zh-CN', 'en'].includes(value)) {
-        setCurrentLang(value as Language);
-        return;
-      }
-    }
-    const browserLang = navigator.language;
-    if (browserLang.startsWith('ja')) setCurrentLang('ja');
-    else if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') setCurrentLang('zh-TW');
-    else if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) setCurrentLang('zh-CN');
-    else if (browserLang.startsWith('en')) setCurrentLang('en');
-  }, []);
 
   const t = (key: keyof typeof pageTranslations) => pageTranslations[key][currentLang];
 

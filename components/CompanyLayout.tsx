@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
+import { useLanguage4 , useBasePathname} from '@/hooks/useLanguage';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import PublicLayout from './PublicLayout';
@@ -63,8 +63,7 @@ const navigationStructure = [
 ];
 
 const layoutTranslations = {
-  home: { ja: 'ホーム', 'zh-TW': '首頁', 'zh-CN': '首页', en: 'Home' } as Record<Language, string>,
-};
+  home: { ja: 'ホーム', 'zh-TW': '首頁', 'zh-CN': '首页', en: 'Home' } as Record<Language, string> };
 
 interface CompanyLayoutProps {
   children: React.ReactNode;
@@ -74,24 +73,10 @@ interface CompanyLayoutProps {
 }
 
 export default function CompanyLayout({ children, title, titleEn, breadcrumb }: CompanyLayoutProps) {
-  const pathname = usePathname();
-  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
+  // 用去掉语言前缀的路径做路由匹配 —— usePathname() 带 /ja、/zh-CN 前缀
+  const pathname = useBasePathname();
+  const currentLang = useLanguage4();
 
-  useEffect(() => {
-    const cookies = document.cookie.split(';');
-    for (const cookie of cookies) {
-      const [name, value] = cookie.trim().split('=');
-      if (name === 'NEXT_LOCALE' && ['ja', 'zh-TW', 'zh-CN', 'en'].includes(value)) {
-        setCurrentLang(value as Language);
-        return;
-      }
-    }
-    const browserLang = navigator.language;
-    if (browserLang.startsWith('ja')) setCurrentLang('ja');
-    else if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') setCurrentLang('zh-TW');
-    else if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) setCurrentLang('zh-CN');
-    else if (browserLang.startsWith('en')) setCurrentLang('en');
-  }, []);
 
   const currentCategory = navigationStructure.find(cat =>
     cat.items.some(item => pathname === item.path) || pathname === cat.basePath

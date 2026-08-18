@@ -56,12 +56,16 @@ export function pageMetadata({
   const fullTitle = `${title} | ${SITE_NAME}`;
 
   // 不显式指定 images —— app/opengraph-image.tsx 的文件约定会自动注入，
-  // 这里写死反而会覆盖掉它
+  // 这里写死反而会覆盖掉它。
+  //
+  // ⚠️ 同理不要在这里写 alternates：metadata 按字段浅合并，子页面一写
+  // alternates 就会把根 layout 算好的 canonical + hreflang 整组顶掉
+  // （实测 /ja/medical 的 canonical 变回 /medical、hreflang 一条不剩）。
+  // canonical 与 hreflang 一律由 app/layout.tsx 依 x-pathname 逐页生成。
   return {
     title: { absolute: fullTitle, template: `%s | ${SITE_NAME}` },
     description,
     ...(keywords?.length ? { keywords } : {}),
-    alternates: { canonical: url },
     openGraph: {
       title: fullTitle,
       description,

@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
-import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
+import { useState,  Suspense } from 'react';
+import { useLanguage4 } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import CheckoutLayout from '@/components/CheckoutLayout';
@@ -95,8 +95,7 @@ const pageTranslations = {
   alertPaymentError: { ja: 'お支払い処理でエラーが発生しました', 'zh-TW': '支付流程出現錯誤，請稍後重試', 'zh-CN': '支付流程出现错误，请稍后重试', en: 'Payment error occurred. Please try again later' } as Record<Language, string>,
   alertCreateSessionError: { ja: '支払いセッションの作成に失敗しました', 'zh-TW': '創建支付會話失敗', 'zh-CN': '创建支付会话失败', en: 'Failed to create payment session' } as Record<Language, string>,
   alertNoCheckoutUrl: { ja: '支払いリンクを取得できませんでした', 'zh-TW': '未獲取到支付鏈接', 'zh-CN': '未获取到支付链接', en: 'Failed to retrieve payment link' } as Record<Language, string>,
-  notProvided: { ja: '未記入', 'zh-TW': '未填寫', 'zh-CN': '未填写', en: 'Not provided' } as Record<Language, string>,
-};
+  notProvided: { ja: '未記入', 'zh-TW': '未填寫', 'zh-CN': '未填写', en: 'Not provided' } as Record<Language, string> };
 
 const SERVICE_INFO = {
   id: MEDICAL_PACKAGES['helene-remote-consultation'].slug,
@@ -110,7 +109,7 @@ export default function HeleneRemoteConsultationPage() {
   const guideSlugParam = searchParams.get('guide');
   const guideSlug = guideSlugParam && isValidSlug(guideSlugParam) ? guideSlugParam : null;
   const backHref = guideSlug ? `/g/${guideSlug}/helene-clinic` : '/helene-clinic';
-  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
+  const currentLang = useLanguage4();
   const [processing, setProcessing] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [customerInfo, setCustomerInfo] = useState({ name: '', email: '', phone: '', line: '', wechat: '', country: 'CN' });
@@ -120,21 +119,6 @@ export default function HeleneRemoteConsultationPage() {
   const [contactError, setContactError] = useState('');
   const [consents, setConsents] = useState<Consents>({ cancel: false, tokushoho: false, privacy: false });
 
-  useEffect(() => {
-    const cookies = document.cookie.split(';');
-    for (const cookie of cookies) {
-      const [name, value] = cookie.trim().split('=');
-      if (name === 'NEXT_LOCALE' && ['ja', 'zh-TW', 'zh-CN', 'en'].includes(value)) {
-        setCurrentLang(value as Language);
-        return;
-      }
-    }
-    const browserLang = navigator.language;
-    if (browserLang.startsWith('ja')) setCurrentLang('ja');
-    else if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') setCurrentLang('zh-TW');
-    else if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) setCurrentLang('zh-CN');
-    else if (browserLang.startsWith('en')) setCurrentLang('en');
-  }, []);
 
   const t = (key: keyof typeof pageTranslations): string => {
     return pageTranslations[key][currentLang] || pageTranslations[key]['zh-CN'];

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
+import { DEFAULT_LANGUAGE , localeFromPathname} from '@/hooks/useLanguage';
 import { Globe, ChevronDown, Check } from 'lucide-react';
 
 type Locale = 'ja' | 'zh-TW' | 'zh-CN' | 'en' | 'ko';
@@ -25,6 +25,9 @@ const LOCALE_COOKIE_NAME = 'NEXT_LOCALE';
 
 function getStoredLocale(): Locale {
   if (typeof window === 'undefined') return DEFAULT_LANGUAGE;
+  // URL 前缀优先 —— /ja/... 必须是日文，与 Cookie 无关
+  const fromPath = localeFromPathname(window.location.pathname);
+  if (fromPath) return fromPath;
 
   // Check cookie first
   const cookies = document.cookie.split(';');

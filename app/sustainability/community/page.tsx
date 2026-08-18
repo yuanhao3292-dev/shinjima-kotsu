@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
+import { useLanguage4 } from '@/hooks/useLanguage';
 import CompanyLayout from '@/components/CompanyLayout';
 import { MapPin, Users, Building, Heart } from 'lucide-react';
 
@@ -12,8 +12,7 @@ const pageTranslations = {
     ja: '新島交通は、観光業を通じた地域経済の活性化と、地方創生に取り組んでいます。大都市だけでなく、地方の魅力を海外に発信し、持続可能な観光地づくりに貢献します。',
     'zh-TW': '新島交通致力於透過觀光業活化地方經濟，推動地方創生。不僅限於大城市，更向海外推廣地方魅力，為打造永續觀光地盡一份心力。',
     'zh-CN': '新岛交通致力于通过观光业活化地方经济，推动地方创生。不仅限于大城市，更向海外推广地方魅力，为打造可持续观光地尽一份力。',
-    en: 'NIIJIMA KOTSU is committed to revitalizing regional economies through tourism and promoting regional development. We spread the charm of rural areas internationally, not just major cities, contributing to sustainable tourism destinations.',
-  },
+    en: 'NIIJIMA KOTSU is committed to revitalizing regional economies through tourism and promoting regional development. We spread the charm of rural areas internationally, not just major cities, contributing to sustainable tourism destinations.' },
   sectionInitiatives: {
     ja: '主な取り組み',
     'zh-TW': '主要活動',
@@ -125,23 +124,8 @@ const pageTranslations = {
 };
 
 export default function CommunityPage() {
-  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
+  const currentLang = useLanguage4();
 
-  useEffect(() => {
-    const cookies = document.cookie.split(';');
-    for (const cookie of cookies) {
-      const [name, value] = cookie.trim().split('=');
-      if (name === 'NEXT_LOCALE' && ['ja', 'zh-TW', 'zh-CN', 'en'].includes(value)) {
-        setCurrentLang(value as Language);
-        return;
-      }
-    }
-    const browserLang = navigator.language;
-    if (browserLang.startsWith('ja')) setCurrentLang('ja');
-    else if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') setCurrentLang('zh-TW');
-    else if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) setCurrentLang('zh-CN');
-    else if (browserLang.startsWith('en')) setCurrentLang('en');
-  }, []);
 
   const t = (key: keyof typeof pageTranslations) => pageTranslations[key][currentLang];
 

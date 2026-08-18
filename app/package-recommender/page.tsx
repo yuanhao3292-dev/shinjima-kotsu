@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
-import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
+import { useState, useMemo } from 'react';
+import { useLanguage4 } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, CheckCircle, Sparkles, User, Calendar, Heart, Target, MessageSquare, Briefcase } from 'lucide-react';
 
@@ -917,23 +917,8 @@ export default function PackageRecommenderPage() {
   const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
   const [showResult, setShowResult] = useState(false);
   const [recommendation, setRecommendation] = useState<RecommendationResult | null>(null);
-  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
+  const currentLang = useLanguage4();
 
-  useEffect(() => {
-    const cookies = document.cookie.split(';');
-    for (const cookie of cookies) {
-      const [name, value] = cookie.trim().split('=');
-      if (name === 'NEXT_LOCALE' && ['ja', 'zh-TW', 'zh-CN', 'en'].includes(value)) {
-        setCurrentLang(value as Language);
-        return;
-      }
-    }
-    const browserLang = navigator.language;
-    if (browserLang.startsWith('ja')) setCurrentLang('ja');
-    else if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') setCurrentLang('zh-TW');
-    else if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) setCurrentLang('zh-CN');
-    else if (browserLang.startsWith('en')) setCurrentLang('en');
-  }, []);
 
   const ut = (key: keyof typeof uiTranslations) => uiTranslations[key][currentLang];
   const rs = (s: I18nStr) => resolveStr(s, currentLang);

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
-import { useLanguage, type Language } from '@/hooks/useLanguage';
+import { useLanguage, type Language , useBasePathname} from '@/hooks/useLanguage';
 import {
   LayoutDashboard,
   Store,
@@ -76,7 +76,8 @@ interface GuideSidebarProps {
 
 export default function GuideSidebar({ pageTitle }: GuideSidebarProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const pathname = usePathname();
+  // 用去掉语言前缀的路径做路由匹配 —— usePathname() 带 /ja、/zh-CN 前缀
+  const pathname = useBasePathname();
   const router = useRouter();
   const supabase = createClient();
   const lang = useLanguage();

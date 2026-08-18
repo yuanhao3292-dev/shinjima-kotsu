@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
+import { useLanguage4 } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import CompanyLayout from '@/components/CompanyLayout';
 import { Leaf, Heart, Globe, Users, ChevronRight } from 'lucide-react';
@@ -13,8 +13,7 @@ const pageTranslations = {
     ja: 'サステナビリティへの取り組み',
     'zh-TW': '永續發展理念',
     'zh-CN': '可持续发展理念',
-    en: 'Our Sustainability Commitment',
-  },
+    en: 'Our Sustainability Commitment' },
   policyIntro: {
     ja: '新島交通は、「持続可能な観光」を経営の柱に据え、環境・社会・ガバナンス（ESG）の観点から企業活動を推進しています。旅行業を通じて、地域社会への貢献と地球環境の保全に取り組んでまいります。',
     'zh-TW': '新島交通將「永續觀光」定為經營核心，從環境、社會、公司治理（ESG）的角度推進企業活動。透過旅遊業，致力於地方社會貢獻與地球環境保護。',
@@ -120,23 +119,8 @@ const pageTranslations = {
 };
 
 export default function SustainabilityPage() {
-  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
+  const currentLang = useLanguage4();
 
-  useEffect(() => {
-    const cookies = document.cookie.split(';');
-    for (const cookie of cookies) {
-      const [name, value] = cookie.trim().split('=');
-      if (name === 'NEXT_LOCALE' && ['ja', 'zh-TW', 'zh-CN', 'en'].includes(value)) {
-        setCurrentLang(value as Language);
-        return;
-      }
-    }
-    const browserLang = navigator.language;
-    if (browserLang.startsWith('ja')) setCurrentLang('ja');
-    else if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') setCurrentLang('zh-TW');
-    else if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) setCurrentLang('zh-CN');
-    else if (browserLang.startsWith('en')) setCurrentLang('en');
-  }, []);
 
   const t = (key: keyof typeof pageTranslations) => pageTranslations[key][currentLang];
 

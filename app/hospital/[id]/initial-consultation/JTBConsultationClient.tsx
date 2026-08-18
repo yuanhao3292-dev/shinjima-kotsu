@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
-import { DEFAULT_LANGUAGE } from '@/hooks/useLanguage';
+import { useState,  Suspense } from 'react';
+import { useLanguage4 } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
@@ -11,8 +11,7 @@ import ProviderBanner, { useProviderKey } from '@/components/ProviderBanner';
 import { isValidSlug } from '@/lib/whitelabel-config';
 import {
   ArrowLeft, CheckCircle, FileText, Shield, Clock,
-  Loader2, CreditCard, Users, Phone,
-} from 'lucide-react';
+  Loader2, CreditCard, Users, Phone } from 'lucide-react';
 import ConsentCheckboxes, { allConsented, type Consents } from '@/components/ConsentCheckboxes';
 import OrderConfirmationModal from '@/components/OrderConfirmationModal';
 
@@ -126,7 +125,7 @@ export default function JTBConsultationClient({ hospital }: { hospital: JTBHospi
   const guideSlug = guideSlugParam && isValidSlug(guideSlugParam) ? guideSlugParam : null;
   const price = MEDICAL_PACKAGES[PACKAGE_SLUG]?.priceJpy ?? 221000;
 
-  const [currentLang, setCurrentLang] = useState<Language>(DEFAULT_LANGUAGE);
+  const currentLang = useLanguage4();
   const [processing, setProcessing] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [customerInfo, setCustomerInfo] = useState({
@@ -139,21 +138,6 @@ export default function JTBConsultationClient({ hospital }: { hospital: JTBHospi
   const [contactError, setContactError] = useState('');
   const [consents, setConsents] = useState<Consents>({ cancel: false, tokushoho: false, privacy: false });
 
-  useEffect(() => {
-    const cookies = document.cookie.split(';');
-    for (const cookie of cookies) {
-      const [name, value] = cookie.trim().split('=');
-      if (name === 'NEXT_LOCALE' && ['ja', 'zh-TW', 'zh-CN', 'en'].includes(value)) {
-        setCurrentLang(value as Language);
-        return;
-      }
-    }
-    const browserLang = navigator.language;
-    if (browserLang.startsWith('ja')) setCurrentLang('ja');
-    else if (browserLang === 'zh-TW' || browserLang === 'zh-Hant') setCurrentLang('zh-TW');
-    else if (browserLang === 'zh-CN' || browserLang === 'zh-Hans' || browserLang.startsWith('zh')) setCurrentLang('zh-CN');
-    else if (browserLang.startsWith('en')) setCurrentLang('en');
-  }, []);
 
   const t = (key: keyof typeof pageTranslations): string => {
     return pageTranslations[key][currentLang] || pageTranslations[key]['zh-CN'];

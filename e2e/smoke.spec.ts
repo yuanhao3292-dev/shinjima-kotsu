@@ -89,3 +89,25 @@ test.describe('Medical Venue Pages', () => {
     await expect(page).toHaveURL(/cancer-treatment/);
   });
 });
+
+test.describe('Locale prefixed routes', () => {
+  // 语言前缀由 middleware 剥掉后 rewrite 到无前缀路由。回归重点有三个：
+  // 前缀页要能出内容、要渲染成对应语言、且不能绕过登录校验。
+  for (const [prefix, lang] of [['/ja', 'ja'], ['/zh-CN', 'zh-CN'], ['/en', 'en']] as const) {
+    test(`${prefix}/medical renders in ${lang}`, async ({ page }) => {
+      await page.goto(`${prefix}/medical`);
+      await expect(page.locator('html')).toHaveAttribute('lang', lang);
+      await expect(page.locator('h1').first()).toBeVisible();
+      // canonical 必须自指，否则几个语言版本会被判为同一页
+      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+        'href',
+        new RegExp(`${prefix}/medical$`)
+      );
+    });
+  }
+
+  test('locale prefix does not bypass auth', async ({ page }) => {
+    await page.goto('/ja/my-account');
+    await expect(page).toHaveURL(/\/login/);
+  });
+});
