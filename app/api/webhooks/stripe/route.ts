@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
+import type { SupabaseClient } from '@supabase/supabase-js';
+import { getSupabaseAdmin } from '@/lib/supabase/api';
 import { SITE_URL } from '@/lib/seo';
 import Stripe from 'stripe';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { sendOrderConfirmationEmail, sendNewOrderNotificationToMerchant, sendGuideCommissionNotification } from '@/lib/email';
 import { escapeHtml } from '@/lib/utils/html-escape';
 import { clawbackCommission } from '@/lib/refund';
@@ -13,16 +14,6 @@ const getStripe = () => {
     throw new Error('STRIPE_SECRET_KEY is not configured');
   }
   return new Stripe(process.env.STRIPE_SECRET_KEY);
-};
-
-const getSupabase = () => {
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-    throw new Error('Supabase configuration is missing');
-  }
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-  );
 };
 
 // ============================================
@@ -94,7 +85,7 @@ async function updateEventResult(
 
 export async function POST(request: NextRequest) {
   const stripe = getStripe();
-  const supabase = getSupabase();
+  const supabase = getSupabaseAdmin();
   // 主 Webhook 使用独立的密钥，与订阅 Webhook 分开
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET_MAIN || process.env.STRIPE_WEBHOOK_SECRET;
 

@@ -1,15 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const getSupabase = () => {
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-    throw new Error('Supabase configuration is missing');
-  }
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-  );
-};
+import { getSupabaseAdmin } from '@/lib/supabase/api';
 
 /**
  * 获取佣金等级配置
@@ -17,7 +7,7 @@ const getSupabase = () => {
  */
 export async function GET() {
   try {
-    const supabase = getSupabase();
+    const supabase = getSupabaseAdmin();
 
     const { data: tiers, error } = await supabase
       .from('commission_tiers')

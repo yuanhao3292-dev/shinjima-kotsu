@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getSupabaseAdmin } from '@/lib/supabase/api';
 import { SITE_URL } from '@/lib/seo';
 import Stripe from "stripe";
-import { createClient } from "@supabase/supabase-js";
 import { createClient as createServerClient } from "@/lib/supabase/server";
 import {
   checkRateLimit,
@@ -16,19 +16,6 @@ import {
   Errors,
 } from "@/lib/utils/api-errors";
 import { getStripeServer as getStripe } from '@/lib/stripe-server';
-
-const getSupabase = () => {
-  if (
-    !process.env.NEXT_PUBLIC_SUPABASE_URL ||
-    !process.env.SUPABASE_SERVICE_ROLE_KEY
-  ) {
-    throw new Error("Supabase configuration is missing");
-  }
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-  );
-};
 
 // 套餐配置
 const PLANS = {
@@ -119,7 +106,7 @@ export async function POST(request: NextRequest) {
     }
 
     const stripe = getStripe();
-    const supabase = getSupabase();
+    const supabase = getSupabaseAdmin();
 
     const body = await request.json();
     const { guideId, planCode = 'growth', successUrl, cancelUrl } = body as {

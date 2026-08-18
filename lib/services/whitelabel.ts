@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { getSupabaseAdmin } from '@/lib/supabase/api';
 import {
   GuideWhiteLabelConfig,
   GuideDistributionPage,
@@ -10,21 +10,6 @@ import { DEFAULT_SELECTED_PAGES } from "@/lib/whitelabel-config";
 export type { GuideDistributionPage } from "@/lib/types/whitelabel";
 
 // 服务端 Supabase 客户端（禁用 Next.js fetch 缓存，确保白标设置修改后立即生效）
-function getServiceClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-
-  if (!supabaseUrl || !supabaseServiceKey) {
-    throw new Error("Missing Supabase environment variables");
-  }
-
-  return createClient(supabaseUrl, supabaseServiceKey, {
-    global: {
-      fetch: (url: RequestInfo | URL, init?: RequestInit) =>
-        fetch(url, { ...init, cache: 'no-store' }),
-    },
-  });
-}
 
 /**
  * 🔒 数据隔离锁定 — 见 CLAUDE.md「白标品牌设置与联系方式数据隔离规范」
@@ -34,7 +19,7 @@ function getServiceClient() {
 export async function getGuideBySlug(
   slug: string
 ): Promise<GuideWhiteLabelConfig | null> {
-  const supabase = getServiceClient();
+  const supabase = getSupabaseAdmin();
 
   const { data, error } = await supabase
     .from("guides")
@@ -98,7 +83,7 @@ export async function getGuideBySlug(
 export async function getGuideById(
   guideId: string
 ): Promise<GuideWhiteLabelConfig | null> {
-  const supabase = getServiceClient();
+  const supabase = getSupabaseAdmin();
 
   // 使用 select("*") 获取所有字段
   const { data, error } = await supabase
@@ -172,7 +157,7 @@ export async function updateGuideWhiteLabelSettings(
     selectedPages: string[];
   }>
 ): Promise<{ success: boolean; error?: string }> {
-  const supabase = getServiceClient();
+  const supabase = getSupabaseAdmin();
 
   const updateData: Record<string, unknown> = {
     updated_at: new Date().toISOString(),
@@ -219,7 +204,7 @@ export async function updateGuideWhiteLabelSettings(
 export async function getGuideDistributionPage(
   slug: string
 ): Promise<GuideDistributionPage | null> {
-  const supabase = getServiceClient();
+  const supabase = getSupabaseAdmin();
 
   // 1. 获取导游基本配置
   const guideConfig = await getGuideBySlug(slug);
@@ -319,7 +304,7 @@ export async function getGuideModuleByComponentKey(
   guideSlug: string,
   componentKey: string
 ): Promise<{ guide: GuideWhiteLabelConfig; module: SelectedModuleWithDetails } | null> {
-  const supabase = getServiceClient();
+  const supabase = getSupabaseAdmin();
 
   const guideConfig = await getGuideBySlug(guideSlug);
   if (!guideConfig) return null;
@@ -398,7 +383,7 @@ export async function trackPageView(
     city?: string;
   }
 ): Promise<void> {
-  const supabase = getServiceClient();
+  const supabase = getSupabaseAdmin();
 
   await supabase.from("whitelabel_page_views").insert({
     guide_id: guideId,
