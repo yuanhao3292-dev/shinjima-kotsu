@@ -190,10 +190,10 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
           <button
             onClick={() => onBookNow?.(selectedPackage.id)}
             className={`block w-full text-center py-3 rounded-xl font-bold text-lg transition ${
-              selectedPackage.id === 'vip'
-                ? 'bg-gradient-to-r from-brand-500 to-brand-700 text-black'
-                : 'bg-brand-600 text-white hover:bg-brand-700'
-            }`}
+ selectedPackage.id === 'vip'
+ ? 'brand-gradient-solid text-white hover:opacity-90'
+ : 'bg-brand-600 text-white hover:bg-brand-700'
+ }`}
           >
             {ui('bookNow', currentLang)} {selectedPackage.name}
           </button>
@@ -246,22 +246,22 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                 key={pkg.id}
                 className={`p-3 text-center ${
                   pkg.id === 'vip'
-                    ? 'brand-gradient-deep text-white'
+                    ? 'brand-gradient-solid text-white'
                     : 'bg-neutral-50'
                 }`}
               >
                 <div className={`text-sm font-bold ${
-                  pkg.id === 'vip' ? 'text-brand-300' : 'text-neutral-800'
+                  pkg.id === 'vip' ? 'text-white' : 'text-neutral-800'
                 }`}>
                   {pkg.name}
                 </div>
                 <div className={`text-xs ${
-                  pkg.id === 'vip' ? 'text-neutral-300' : 'text-neutral-500'
+                  pkg.id === 'vip' ? 'text-white/85' : 'text-neutral-500'
                 }`}>
                   {pkg.nameZh}
                 </div>
                 <div className={`text-base font-bold mt-1 ${
-                  pkg.id === 'vip' ? 'text-brand-300' : 'text-neutral-900'
+                  pkg.id === 'vip' ? 'text-white' : 'text-neutral-900'
                 }`}>
                   {formatPrice(pkg.price)}
                 </div>
@@ -269,7 +269,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                   onClick={() => onBookNow?.(pkg.id)}
                   className={`inline-block mt-2 text-xs px-3 py-1 rounded ${
                     pkg.id === 'vip'
-                      ? 'bg-brand-500 text-black hover:bg-brand-400'
+                      ? 'bg-white text-brand-700 hover:bg-neutral-50'
                       : 'bg-brand-600 text-white hover:bg-brand-700'
                   } transition`}
                 >

@@ -853,10 +853,10 @@ export default function WhitelabelScreeningForm({
         <div className="h-2 bg-neutral-200 rounded-full overflow-hidden">
           <div
             className={`h-full transition-all duration-300 ${
-              currentPhase === 1
-                ? 'bg-gradient-to-r from-brand-500 to-brand-600'
-                : 'bg-gradient-to-r from-brand-500 to-brand-600'
-            }`}
+ currentPhase === 1
+ ? 'brand-gradient-solid '
+ : 'bg-gradient-to-r '
+ }`}
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -946,7 +946,7 @@ export default function WhitelabelScreeningForm({
             <button
               onClick={handlePhase1Complete}
               disabled={!canProceed() || isSubmitting}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-brand-600 to-brand-700 text-white rounded-xl hover:from-brand-700 hover:to-brand-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="flex items-center gap-2 px-6 py-3 brand-gradient-solid hover:opacity-90 text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {t('completeScreening')}
               <CheckCircle className="w-5 h-5" />

@@ -261,7 +261,7 @@ function QuickCheckoutModal({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-brand-500 to-brand-600 px-6 py-4 flex items-center justify-between">
+        <div className="brand-gradient-solid px-6 py-4 flex items-center justify-between">
           <div>
             <h3 className="text-white font-semibold">{t('quickBook', lang)}</h3>
             <p className="text-brand-700 text-sm">{packageName}</p>

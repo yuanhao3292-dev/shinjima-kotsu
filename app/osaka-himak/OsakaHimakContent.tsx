@@ -714,7 +714,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
 
       {/* ===== 10. CTA (standalone only) ===== */}
       {!isGuideEmbed && (
-      <section className="py-20 bg-gradient-to-br from-brand-800 to-brand-900">
+      <section className="py-20 brand-gradient-deep">
         <div className="max-w-4xl mx-auto px-6 text-center text-white">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">{t.ctaTitle[lang]}</h2>
           <p className="text-lg text-neutral-600 mb-6">{t.ctaSub[lang]}</p>

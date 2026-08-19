@@ -476,7 +476,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
           priority
           quality={75}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-neutral-950/85 via-neutral-950/70 to-brand-900/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-neutral-950/85 via-neutral-950/70 to-neutral-900/60"></div>
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-24">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>

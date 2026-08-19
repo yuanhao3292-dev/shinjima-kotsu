@@ -436,7 +436,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
           quality={75}
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-900/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/95 via-neutral-900/60 to-transparent" />
         <div className="absolute inset-0 opacity-20 pointer-events-none">
           <div className="absolute w-full h-full bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]" />
         </div>
@@ -471,7 +471,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
       {/* ========================================
           2. Stats — 深色渐变过渡区
           ======================================== */}
-      <div className="bg-gradient-to-r from-brand-900 to-brand-900 py-16 md:py-24">
+      <div className="brand-gradient-deep py-16 md:py-24">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <span className="text-brand-400 text-xs tracking-[0.3em] uppercase font-bold">{t.statsTag[lang]}</span>
@@ -587,7 +587,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
 
             {/* Card 2: Oral Medication */}
             <div className="bg-neutral-50 rounded-2xl border border-neutral-100 overflow-hidden">
-              <div className="bg-gradient-to-r from-brand-900 to-brand-900 px-5 py-3">
+              <div className="brand-gradient-solid px-5 py-3">
                 <span className="text-white text-xs font-bold tracking-wide">
                   {lang === 'ja' ? '口服薬物治療' : lang === 'en' ? 'Oral Medication' : lang === 'zh-TW' ? '口服藥物治療' : '口服药物治疗'}
                 </span>
@@ -609,7 +609,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
 
             {/* Card 3: ICI */}
             <div className="bg-neutral-50 rounded-2xl border border-neutral-100 overflow-hidden">
-              <div className="bg-gradient-to-r from-brand-900 to-brand-900 px-5 py-3">
+              <div className="brand-gradient-solid px-5 py-3">
                 <span className="text-white text-xs font-bold tracking-wide">
                   {lang === 'ja' ? 'ICI 海綿体注射' : lang === 'en' ? 'ICI Injection' : lang === 'zh-TW' ? 'ICI 海綿體注射' : 'ICI 海绵体注射'}
                 </span>
@@ -683,7 +683,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
 
           {/* Treatment Options */}
           <div className="bg-white rounded-2xl border border-neutral-100 overflow-hidden shadow-sm">
-            <div className="bg-gradient-to-r from-brand-900 to-brand-900 px-6 py-4 text-white">
+            <div className="brand-gradient-solid px-6 py-4 text-white">
               <h3 className="font-bold flex items-center gap-2 font-serif">
                 <Award size={18} />
                 {lang === 'ja' ? '治療オプション' : lang === 'en' ? 'Treatment Options' : lang === 'zh-TW' ? '治療方案' : '治疗方案'}
@@ -773,7 +773,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
             {/* Dr. Nakaki */}
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-neutral-100 group">
-              <div className="bg-gradient-to-r from-brand-900 to-brand-800 px-5 py-2.5">
+              <div className="brand-gradient-solid px-5 py-2.5">
                 <span className="text-white text-xs font-bold tracking-wide">
                   {lang === 'ja' ? 'メンズ医師' : lang === 'en' ? 'Physician' : lang === 'zh-TW' ? '男性醫師' : '男性医师'}
                 </span>
@@ -808,7 +808,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
 
             {/* Dr. Uemura — 总监修 */}
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-brand-900/30 group">
-              <div className="bg-gradient-to-r from-brand-900 to-brand-900 px-5 py-2.5 flex items-center justify-between">
+              <div className="brand-gradient-solid px-5 py-2.5 flex items-center justify-between">
                 <span className="text-neutral-700 text-xs font-bold tracking-wide">
                   {lang === 'ja' ? '総合監修' : lang === 'en' ? 'General Supervisor' : lang === 'zh-TW' ? '總監修' : '总监修'}
                 </span>
@@ -843,7 +843,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
 
             {/* Dr. Adachi */}
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-neutral-100 group">
-              <div className="bg-gradient-to-r from-brand-800 to-brand-900 px-5 py-2.5">
+              <div className="brand-gradient-solid px-5 py-2.5">
                 <span className="text-white text-xs font-bold tracking-wide">
                   {lang === 'ja' ? '理事長' : lang === 'en' ? 'Director' : lang === 'zh-TW' ? '理事長' : '理事长'}
                 </span>
@@ -1054,7 +1054,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
           10. CTA Section
           ======================================== */}
       <section id="consultation" className="relative py-20 md:py-28 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-900 to-brand-900" />
+        <div className="absolute inset-0 brand-gradient-solid" />
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/stardust.png')" }} />
         <div className="relative z-10 container mx-auto px-6 text-center text-white">
           <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">{t.ctaTitle[lang]}</h2>
