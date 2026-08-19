@@ -818,15 +818,15 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                 {pkg.flagship && <div className="absolute top-0 right-0 bg-brand-500 text-black text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Flagship</div>}
                 {pkg.popular && <div className="absolute top-0 right-0 bg-brand-500 text-neutral-900 text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">{t(TR.popular, lang)}</div>}
                 <div className="mb-4">
-                  <h4 className={`text-xl font-bold ${pkg.flagship ? 'text-brand-700' : pkg.popular ? 'text-brand-700' : 'text-neutral-900'}`}>{t(pkg.name, lang)}</h4>
+                  <h4 className={`text-xl font-bold ${pkg.flagship ? 'text-white' : pkg.popular ? 'text-brand-700' : 'text-neutral-900'}`}>{t(pkg.name, lang)}</h4>
                   <p className={`text-2xl font-bold mt-2 ${pkg.flagship ? 'text-amber-400' : pkg.popular ? 'text-brand-700' : 'text-neutral-900'}`}>{formatPrice(pkg.price)}</p>
-                  <p className={`text-[10px] mt-1 ${pkg.flagship ? 'text-neutral-500' : 'text-neutral-400'}`}>{t(TR.includedServices, lang)}</p>
+                  <p className={`text-[10px] mt-1 ${pkg.flagship ? 'text-neutral-400' : 'text-neutral-400'}`}>{t(TR.includedServices, lang)}</p>
                 </div>
                 <div className="space-y-1.5 mb-4 text-xs flex-grow">
                   {pkg.features.map((f, i) => (
                     <div key={i} className="flex gap-2">
                       <CheckCircle size={14} className={`shrink-0 ${pkg.flagship ? 'text-amber-500' : pkg.popular ? 'text-brand-700' : 'text-neutral-400'}`} />
-                      <span className={pkg.flagship ? 'text-neutral-600' : 'text-neutral-700'}>{t(f, lang)}</span>
+                      <span className={pkg.flagship ? 'text-neutral-300' : 'text-neutral-700'}>{t(f, lang)}</span>
                     </div>
                   ))}
                 </div>

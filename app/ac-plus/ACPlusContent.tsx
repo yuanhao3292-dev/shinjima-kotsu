@@ -750,7 +750,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
       {/* ===== 14. LEGAL FOOTER ===== */}
       {!isGuideEmbed && (
         <section className="py-6 bg-neutral-800 text-center">
-          <p className="text-xs text-neutral-600">
+          <p className="text-xs text-white/40">
             {lang === 'ja'
               ? '旅行サービスは 新島交通株式会社 が提供 ｜ 大阪府知事登録旅行業 第2-3115号'
               : lang === 'en'
