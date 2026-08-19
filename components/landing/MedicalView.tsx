@@ -358,13 +358,13 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="max-w-xl">
                           <div className="flex items-center gap-3 mb-4">
                               <div className="h-[1px] w-12 bg-brand-400"></div>
-                              <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">01</span>
+                              <span className="text-xs tracking-[0.3em] text-white/80 uppercase">01</span>
                           </div>
-                          <h4 className="text-3xl md:text-4xl lg:text-5xl text-neutral-900 mb-6 font-serif">{t.medical.facility_1_title}</h4>
-                          <p className="text-lg text-neutral-600 leading-relaxed">{t.medical.facility_1_desc}</p>
+                          <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_1_title}</h4>
+                          <p className="text-lg text-white/90 leading-relaxed">{t.medical.facility_1_desc}</p>
                           <div className="mt-6 flex gap-3">
-                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-neutral-900 border border-white/20">4,000&#x33A1;</span>
-                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-neutral-900 border border-white/20">{currentLang === 'zh-TW' ? '大型設施' : currentLang === 'zh-CN' ? '大型设施' : currentLang === 'ja' ? '大規模施設' : 'Large-Scale Facility'}</span>
+                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/30">4,000&#x33A1;</span>
+                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/30">{currentLang === 'zh-TW' ? '大型設施' : currentLang === 'zh-CN' ? '大型设施' : currentLang === 'ja' ? '大規模施設' : 'Large-Scale Facility'}</span>
                           </div>
                       </div>
                   </div>
@@ -388,7 +388,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl ml-auto text-right">
                           <div className="flex items-center justify-end gap-3 mb-4">
-                              <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">02</span>
+                              <span className="text-xs tracking-[0.3em] text-white/80 uppercase">02</span>
                               <div className="h-[1px] w-12 bg-brand-400"></div>
                           </div>
                           <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_2_title}</h4>
@@ -420,14 +420,14 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="max-w-xl">
                           <div className="flex items-center gap-3 mb-4">
                               <div className="h-[1px] w-12 bg-brand-400"></div>
-                              <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">03</span>
+                              <span className="text-xs tracking-[0.3em] text-white/80 uppercase">03</span>
                           </div>
-                          <h4 className="text-3xl md:text-4xl lg:text-5xl text-neutral-900 mb-6 font-serif">{t.medical.facility_3_title}</h4>
-                          <p className="text-lg text-neutral-600 leading-relaxed">{t.medical.facility_3_desc}</p>
+                          <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_3_title}</h4>
+                          <p className="text-lg text-white/90 leading-relaxed">{t.medical.facility_3_desc}</p>
                           <div className="mt-6 flex gap-3 flex-wrap">
-                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-neutral-900 border border-white/20">{currentLang === 'zh-TW' ? '20 間個室' : currentLang === 'zh-CN' ? '20 间个室' : currentLang === 'ja' ? '個室20室' : '20 Rooms'}</span>
-                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-neutral-900 border border-white/20">30&#x33A1;+</span>
-                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-neutral-900 border border-white/20">{currentLang === 'zh-TW' ? '完全隱私' : currentLang === 'zh-CN' ? '完全隐私' : currentLang === 'ja' ? '完全プライバシー' : 'Full Privacy'}</span>
+                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/30">{currentLang === 'zh-TW' ? '20 間個室' : currentLang === 'zh-CN' ? '20 间个室' : currentLang === 'ja' ? '個室20室' : '20 Rooms'}</span>
+                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/30">30&#x33A1;+</span>
+                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/30">{currentLang === 'zh-TW' ? '完全隱私' : currentLang === 'zh-CN' ? '完全隐私' : currentLang === 'ja' ? '完全プライバシー' : 'Full Privacy'}</span>
                           </div>
                       </div>
                   </div>
@@ -451,7 +451,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl ml-auto text-right">
                           <div className="flex items-center justify-end gap-3 mb-4">
-                              <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">04</span>
+                              <span className="text-xs tracking-[0.3em] text-white/80 uppercase">04</span>
                               <div className="h-[1px] w-12 bg-brand-400"></div>
                           </div>
                           <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_4_title}</h4>
