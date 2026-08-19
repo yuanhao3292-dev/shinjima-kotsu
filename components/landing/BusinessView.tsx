@@ -261,15 +261,15 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
 
              {/* Stats Bar */}
              <div className="mt-12 grid grid-cols-2 md:grid-cols-3 gap-4">
-                <div className="brand-gradient-solid text-white p-6 rounded-xl text-center">
+                <div className="brand-gradient-vivid text-white p-6 rounded-xl text-center">
                    <div className="text-3xl font-bold">70+</div>
                    <div className="text-sm">{localizedTexts.bookableCompanies}</div>
                 </div>
-                <div className="brand-gradient-solid text-white p-6 rounded-xl text-center">
+                <div className="brand-gradient-vivid text-white p-6 rounded-xl text-center">
                    <div className="text-3xl font-bold">10</div>
                    <div className="text-sm">{localizedTexts.industryCategories}</div>
                 </div>
-                <div className="brand-gradient-solid text-white p-6 rounded-xl text-center">
+                <div className="brand-gradient-vivid text-white p-6 rounded-xl text-center">
                    <div className="text-3xl font-bold">16</div>
                    <div className="text-sm">{currentLang === 'zh-TW' ? '考察方案' : currentLang === 'zh-CN' ? '考察方案' : currentLang === 'ja' ? '視察プラン' : 'Inspection Plans'}</div>
                 </div>
