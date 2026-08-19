@@ -531,7 +531,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                       onClick={() => toggleSymptom(symptom, partId)}
                       className={`p-3 rounded-lg text-left text-sm transition-all ${
                         isSelected
-                          ? 'bg-brand-100 border-2 border-brand-500 text-brand-900'
+                          ? 'bg-brand-100 border-2 border-brand-500 text-neutral-900'
                           : 'bg-neutral-50 border-2 border-transparent hover:bg-neutral-100'
                       }`}
                     >
@@ -571,7 +571,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                   onClick={() => toggleSymptom(symptom, 'general')}
                   className={`p-3 rounded-lg text-left text-sm transition-all ${
                     isSelected
-                      ? 'bg-brand-100 border-2 border-brand-500 text-brand-900'
+                      ? 'bg-brand-100 border-2 border-brand-500 text-neutral-900'
                       : 'bg-neutral-50 border-2 border-transparent hover:bg-neutral-100'
                   }`}
                 >

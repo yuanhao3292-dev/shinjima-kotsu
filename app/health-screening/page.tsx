@@ -316,7 +316,7 @@ function StepHeader({ onBack, label }: { onBack: () => void; label: string }) {
       <div className="max-w-4xl mx-auto px-4 py-4">
         <button
           onClick={onBack}
-          className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
+          className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-700 transition-colors"
         >
           <ArrowLeft size={18} />
           <span className="text-sm">{label}</span>
@@ -340,7 +340,7 @@ function StepTitleSection({ badge, badgeIcon: BadgeIcon, title, subtitle }: {
           <BadgeIcon className="w-4 h-4" />
           <span>{badge}</span>
         </div>
-        <h1 className="text-2xl md:text-3xl font-serif text-brand-900 tracking-wide">
+        <h1 className="text-2xl md:text-3xl font-serif text-neutral-900 tracking-wide">
           {title}
         </h1>
         <p className="text-neutral-500 mt-2">
@@ -584,7 +584,7 @@ export default function HealthScreeningPage() {
                 <Shield className="w-4 h-4" />
                 <span>{t('freeRemaining', lang)} {data!.freeRemaining} {lang === 'ja' ? '回' : lang === 'en' ? '' : '次'}</span>
               </div>
-              <h1 className="text-2xl md:text-3xl font-serif text-brand-900 tracking-wide">
+              <h1 className="text-2xl md:text-3xl font-serif text-neutral-900 tracking-wide">
                 {t('aiQuestionnaire', lang)}
               </h1>
               <p className="text-neutral-500 mt-2">
@@ -813,10 +813,10 @@ export default function HealthScreeningPage() {
             <div className="text-center mb-10">
               <div className="flex items-center justify-center gap-3 mb-4">
                 <div className="h-[1px] w-8 bg-brand-400" />
-                <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">FEATURES</span>
+                <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">FEATURES</span>
                 <div className="h-[1px] w-8 bg-brand-400" />
               </div>
-              <h2 className="text-2xl font-serif text-brand-900">{t('newFeatures', lang)}</h2>
+              <h2 className="text-2xl font-serif text-neutral-900">{t('newFeatures', lang)}</h2>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -830,7 +830,7 @@ export default function HealthScreeningPage() {
                   <div className="w-12 h-12 bg-neutral-50 border border-neutral-200 flex items-center justify-center mb-4">
                     <Icon className="w-6 h-6 text-brand-700" />
                   </div>
-                  <h3 className="font-semibold text-brand-900 mb-2">{title}</h3>
+                  <h3 className="font-semibold text-neutral-900 mb-2">{title}</h3>
                   <p className="text-neutral-500 text-sm">{desc}</p>
                 </div>
               ))}
@@ -851,7 +851,7 @@ export default function HealthScreeningPage() {
                   <div className="w-12 h-12 bg-neutral-50 border border-neutral-200 flex items-center justify-center mb-4">
                     <Icon className="w-6 h-6 text-brand-700" />
                   </div>
-                  <h3 className="font-semibold text-brand-900 mb-2">{title}</h3>
+                  <h3 className="font-semibold text-neutral-900 mb-2">{title}</h3>
                   <p className="text-neutral-500 text-sm">{desc}</p>
                 </div>
               ))}

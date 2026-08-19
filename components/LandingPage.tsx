@@ -235,7 +235,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             <div className="text-center mt-10">
               <Link
                 href="/news"
-                className="inline-flex items-center text-sm text-neutral-600 hover:text-brand-900 border border-neutral-300 px-8 py-4 rounded hover:border-neutral-400 transition-colors"
+                className="inline-flex items-center text-sm text-neutral-600 hover:text-brand-700 border border-neutral-300 px-8 py-4 rounded hover:border-neutral-400 transition-colors"
               >
                 {currentLang === 'zh-TW' ? '查看全部消息' : currentLang === 'zh-CN' ? '查看全部消息' : currentLang === 'en' ? 'View All News' : 'すべてのお知らせ'}
                 <ArrowRight size={14} className="ml-2" />
@@ -1072,7 +1072,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                   <div className="w-12 h-12 bg-brand-50 text-brand-700 rounded-full flex items-center justify-center mx-auto mb-4">
                      <User size={24} />
                   </div>
-                  <h3 className="text-2xl font-serif font-bold text-brand-900">
+                  <h3 className="text-2xl font-serif font-bold text-neutral-900">
                     {lang === 'zh-TW' ? 'B2B 合作夥伴申請' : lang === 'zh-CN' ? 'B2B 合作伙伴申请' : lang === 'ja' ? 'B2B パートナー登録' : 'Partner Application'}
                   </h3>
                   <p className="text-sm text-neutral-500 mt-2">
@@ -1121,7 +1121,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                   <button
                     type="submit"
                     disabled={isSendingAuth}
-                    className="w-full bg-brand-600 text-brand-900 font-bold py-3 rounded-lg hover:bg-brand-700 transition shadow-lg mt-2 flex items-center justify-center gap-2"
+                    className="w-full bg-brand-600 text-white font-bold py-3 rounded-lg hover:bg-brand-700 transition shadow-lg mt-2 flex items-center justify-center gap-2"
                   >
                     {isSendingAuth ? <Loader2 className="animate-spin" size={16} /> : <ArrowRight size={16} />}
                     {isSendingAuth ? (lang === 'zh-TW' ? '處理中...' : lang === 'zh-CN' ? '处理中...' : lang === 'ja' ? '処理中...' : 'Processing...') : (lang === 'zh-TW' ? '申請加入' : lang === 'zh-CN' ? '申请加入' : lang === 'ja' ? 'アクセス申請' : 'Apply for Access')}
@@ -1148,7 +1148,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                    <div className="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-6">
                      <CheckCircle className="text-brand-700" size={32} />
                    </div>
-                   <h3 className="text-2xl font-serif font-bold text-brand-900 mb-4">
+                   <h3 className="text-2xl font-serif font-bold text-neutral-900 mb-4">
                      {lang === 'zh-TW' ? '申請已提交' : lang === 'zh-CN' ? '申请已提交' : lang === 'ja' ? '申請を送信しました' : 'Application Submitted'}
                    </h3>
                    <p className="text-neutral-600 mb-6">
@@ -1170,7 +1170,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                          <Handshake size={20} />
                        </div>
                        <div>
-                         <h3 className="text-xl font-serif font-bold text-brand-900">
+                         <h3 className="text-xl font-serif font-bold text-neutral-900">
                            {lang === 'zh-TW' ? '同業合作申請' : lang === 'zh-CN' ? '同业合作申请' : lang === 'ja' ? 'パートナー申請' : 'Partner Inquiry'}
                          </h3>
                          <p className="text-sm text-neutral-500">{lang === 'zh-TW' ? '填寫以下資料，我們將盡快與您聯繫' : lang === 'zh-CN' ? '填写以下资料，我们将尽快与您联系' : lang === 'ja' ? '以下の情報をご記入ください。折り返しご連絡いたします' : 'Fill in the form below and we will contact you shortly'}</p>
@@ -1275,7 +1275,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                      <button
                        type="submit"
                        disabled={isSubmittingInquiry}
-                       className="w-full bg-brand-600 text-brand-900 font-bold py-3 rounded-lg hover:bg-brand-700 transition shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                       className="w-full bg-brand-600 text-white font-bold py-3 rounded-lg hover:bg-brand-700 transition shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                      >
                        {isSubmittingInquiry ? (
                          <>
@@ -1332,9 +1332,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
              <div className="flex-1">
                <p
                  className={`text-sm font-medium ${
-                   toast.type === 'error' ? 'text-brand-800' :
-                   toast.type === 'success' ? 'text-brand-800' :
-                   'text-brand-800'
+                   toast.type === 'error' ? 'text-neutral-900' :
+                   toast.type === 'success' ? 'text-neutral-900' :
+                   'text-neutral-900'
                  }`}
                >
                  {toast.message}

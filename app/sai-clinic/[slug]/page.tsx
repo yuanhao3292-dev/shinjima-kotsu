@@ -176,13 +176,13 @@ const SAI_PACKAGES: Record<string, SaiPackage> = {
 };
 
 const COLOR_THEMES: Record<string, { headerBg: string; button: string; cardBg: string; cardBorder: string; check: string; title: string; price: string }> = {
-  rose: { headerBg: 'brand-gradient-deep', button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
-  purple: { headerBg: 'brand-gradient-deep', button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
-  blue: { headerBg: 'brand-gradient-deep', button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
-  amber: { headerBg: 'brand-gradient-deep', button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-800', title: 'text-brand-900', price: 'text-brand-900' },
-  gray: { headerBg: 'brand-gradient-deep', button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
-  teal: { headerBg: 'brand-gradient-deep', button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
-  green: { headerBg: 'brand-gradient-deep', button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-brand-900', price: 'text-brand-900' },
+  rose: { headerBg: 'brand-gradient-deep', button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-neutral-900', price: 'text-neutral-900' },
+  purple: { headerBg: 'brand-gradient-deep', button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-neutral-900', price: 'text-neutral-900' },
+  blue: { headerBg: 'brand-gradient-deep', button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-neutral-900', price: 'text-neutral-900' },
+  amber: { headerBg: 'brand-gradient-deep', button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-neutral-900', title: 'text-neutral-900', price: 'text-neutral-900' },
+  gray: { headerBg: 'brand-gradient-deep', button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-neutral-900', price: 'text-neutral-900' },
+  teal: { headerBg: 'brand-gradient-deep', button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-neutral-900', price: 'text-neutral-900' },
+  green: { headerBg: 'brand-gradient-deep', button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300', cardBg: 'bg-neutral-50', cardBorder: 'border-neutral-200', check: 'text-brand-700', title: 'text-neutral-900', price: 'text-neutral-900' },
 };
 
 export default function SaiClinicCheckoutPage() {
@@ -337,7 +337,7 @@ export default function SaiClinicCheckoutPage() {
           {/* Right: Booking Form */}
           <div className="lg:col-span-2">
             <form onSubmit={handleSubmit} className="bg-white border border-neutral-200 p-6 md:p-8">
-              <h2 className="text-xl font-bold text-brand-900 mb-6">预约信息</h2>
+              <h2 className="text-xl font-bold text-neutral-900 mb-6">预约信息</h2>
 
               {/* Name */}
               <div className="mb-5">
@@ -403,7 +403,7 @@ export default function SaiClinicCheckoutPage() {
 
               {/* Cancellation Policy */}
               <div className="mb-8 bg-neutral-50 p-5 border border-neutral-100">
-                <h4 className="font-medium text-brand-900 text-sm mb-3">预约须知</h4>
+                <h4 className="font-medium text-neutral-900 text-sm mb-3">预约须知</h4>
                 <ul className="space-y-1.5 text-xs text-neutral-500">
                   <li>- SAI CLINIC 采用完全预约制</li>
                   <li>- 预约确认后，如需变更请提前3天联系</li>

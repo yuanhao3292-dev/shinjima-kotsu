@@ -105,7 +105,7 @@ export default function NewsDetailPage() {
       <PublicLayout activeNav="news">
         <div className="min-h-screen flex flex-col items-center justify-center gap-4">
           <p className="text-neutral-500 text-lg">{t('notFound')}</p>
-          <Link href="/news" className="text-brand-700 hover:text-brand-900 flex items-center gap-2 transition-colors">
+          <Link href="/news" className="text-brand-700 hover:text-brand-700 flex items-center gap-2 transition-colors">
             <ArrowLeft size={16} />
             {t('backToListFull')}
           </Link>
@@ -126,7 +126,7 @@ export default function NewsDetailPage() {
           {/* Back button */}
           <Link
             href="/news"
-            className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-900 mb-8 transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-700 mb-8 transition-colors"
           >
             <ArrowLeft size={16} />
             {t('backToList')}
@@ -144,7 +144,7 @@ export default function NewsDetailPage() {
           </div>
 
           {/* Title */}
-          <h1 className="text-2xl md:text-3xl font-serif text-brand-900 mb-8 leading-relaxed">
+          <h1 className="text-2xl md:text-3xl font-serif text-neutral-900 mb-8 leading-relaxed">
             {localizeText(news.title, lang)}
           </h1>
 
@@ -181,7 +181,7 @@ export default function NewsDetailPage() {
           <div className="mt-16 pt-8 border-t border-neutral-200">
             <Link
               href="/news"
-              className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-900 transition-colors"
+              className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-700 transition-colors"
             >
               <ArrowLeft size={16} />
               {t('backToListFull')}

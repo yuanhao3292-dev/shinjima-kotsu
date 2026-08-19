@@ -165,7 +165,7 @@ export default function MyAccountPage() {
             {/* Mobile hero label */}
             <div className="lg:hidden flex items-center gap-3 mb-6">
               <div className="h-[1px] w-8 bg-brand-400" />
-              <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">MY ACCOUNT</span>
+              <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">MY ACCOUNT</span>
             </div>
 
             {/* Profile Section */}
@@ -175,7 +175,7 @@ export default function MyAccountPage() {
                   <UserIcon className="w-8 h-8 text-brand-700" />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-serif text-brand-900">{userName}</h1>
+                  <h1 className="text-2xl font-serif text-neutral-900">{userName}</h1>
                   <p className="text-neutral-500 text-sm">{t('welcomeBackShort', lang)}</p>
                 </div>
               </div>
@@ -205,7 +205,7 @@ export default function MyAccountPage() {
                 className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors border-b border-neutral-200"
               >
                 <div>
-                  <h3 className="font-semibold text-brand-900">{t('myOrders', lang)}</h3>
+                  <h3 className="font-semibold text-neutral-900">{t('myOrders', lang)}</h3>
                   <p className="text-sm text-neutral-500">{t('viewAllOrders', lang)}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-neutral-500" />
@@ -218,7 +218,7 @@ export default function MyAccountPage() {
                 className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors border-b border-neutral-200"
               >
                 <div>
-                  <h3 className="font-semibold text-brand-900">{t('bookCheckup', lang)}</h3>
+                  <h3 className="font-semibold text-neutral-900">{t('bookCheckup', lang)}</h3>
                   <p className="text-sm text-neutral-500">{t('browsePackages', lang)}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-neutral-500" />
@@ -229,9 +229,9 @@ export default function MyAccountPage() {
                 className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors border-b border-neutral-200"
               >
                 <div>
-                  <h3 className="font-semibold text-brand-900 flex items-center gap-2">
+                  <h3 className="font-semibold text-neutral-900 flex items-center gap-2">
                     {t('aiHealthScreening', lang)}
-                    <span className="inline-flex items-center gap-1 text-xs bg-brand-400/10 text-brand-800 px-2 py-0.5 border border-brand-400/30">
+                    <span className="inline-flex items-center gap-1 text-xs bg-brand-400/10 text-neutral-900 px-2 py-0.5 border border-brand-400/30">
                       {t('free', lang)}
                     </span>
                   </h3>
@@ -245,7 +245,7 @@ export default function MyAccountPage() {
                 className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors"
               >
                 <div>
-                  <h3 className="font-semibold text-brand-900">{t('comprehensiveTreatment', lang)}</h3>
+                  <h3 className="font-semibold text-neutral-900">{t('comprehensiveTreatment', lang)}</h3>
                   <p className="text-sm text-neutral-500">{t('treatmentTypes', lang)}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-neutral-500" />

@@ -304,7 +304,7 @@ const t: Record<Language, {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="mb-8">
-      <h2 className="text-lg font-bold text-brand-900 mb-3">{title}</h2>
+      <h2 className="text-lg font-bold text-neutral-900 mb-3">{title}</h2>
       <div className="text-neutral-700 text-sm leading-relaxed space-y-2">
         {children}
       </div>
@@ -343,7 +343,7 @@ export default function MedicalDisclaimerPage() {
       <section className="py-16">
         <div className="container mx-auto px-6 max-w-3xl space-y-6">
           {l.legalNote && (
-            <div className="bg-brand-50 border border-brand-200 rounded-xl p-4 text-brand-800 text-xs">
+            <div className="bg-brand-50 border border-brand-200 rounded-xl p-4 text-neutral-900 text-xs">
               {l.legalNote}
             </div>
           )}
@@ -362,16 +362,16 @@ export default function MedicalDisclaimerPage() {
 
           {/* 関連リンク */}
           <div className="flex flex-wrap gap-6 pt-8 border-t border-neutral-200">
-            <Link href="/legal/yakkan" className="text-brand-700 hover:text-brand-900 text-sm flex items-center gap-1 transition-colors">
+            <Link href="/legal/yakkan" className="text-brand-700 hover:text-brand-700 text-sm flex items-center gap-1 transition-colors">
               {l.linkYakkan} <ArrowRight size={14} />
             </Link>
-            <Link href="/legal/tokushoho" className="text-brand-700 hover:text-brand-900 text-sm flex items-center gap-1 transition-colors">
+            <Link href="/legal/tokushoho" className="text-brand-700 hover:text-brand-700 text-sm flex items-center gap-1 transition-colors">
               {l.linkTokushoho} <ArrowRight size={14} />
             </Link>
-            <Link href="/legal/terms" className="text-brand-700 hover:text-brand-900 text-sm flex items-center gap-1 transition-colors">
+            <Link href="/legal/terms" className="text-brand-700 hover:text-brand-700 text-sm flex items-center gap-1 transition-colors">
               {l.linkTerms} <ArrowRight size={14} />
             </Link>
-            <Link href="/legal/privacy" className="text-brand-700 hover:text-brand-900 text-sm flex items-center gap-1 transition-colors">
+            <Link href="/legal/privacy" className="text-brand-700 hover:text-brand-700 text-sm flex items-center gap-1 transition-colors">
               {l.linkPrivacy} <ArrowRight size={14} />
             </Link>
           </div>

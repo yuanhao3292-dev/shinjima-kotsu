@@ -574,7 +574,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">{t('statsTag')}</span>
+            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{t('statsTag')}</span>
             <h2 className="text-3xl font-bold text-neutral-900 mt-2">{t('statsTitle')}</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -593,7 +593,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
       <section className="bg-white">
         <div className="container mx-auto px-6 pb-4">
           <div className="text-center mb-10">
-            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">{t('facilityTag')}</span>
+            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{t('facilityTag')}</span>
             <h2 className="text-3xl font-bold text-neutral-900 mt-2">{t('facilityTitle')}</h2>
           </div>
         </div>
@@ -614,7 +614,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
       <section className="py-20 bg-neutral-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
-            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">{t('treatTag')}</span>
+            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{t('treatTag')}</span>
             <h2 className="text-3xl font-bold text-neutral-900 mt-2">{t('treatTitle')}</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-5">
@@ -639,7 +639,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
       <section className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
-            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">{t('indicTag')}</span>
+            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{t('indicTag')}</span>
             <h2 className="text-3xl font-bold text-neutral-900 mt-2 mb-3">{t('indicTitle')}</h2>
             <p className="text-neutral-500 max-w-xl mx-auto">{t('indicDesc')}</p>
           </div>
@@ -671,7 +671,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
       <section className="py-20 bg-neutral-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
-            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">{t('techTag')}</span>
+            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{t('techTag')}</span>
             <h2 className="text-3xl font-bold text-neutral-900 mt-2">{t('techTitle')}</h2>
           </div>
           <div className="space-y-16">
@@ -717,7 +717,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
       <section className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
-            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">{t('teamTag')}</span>
+            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{t('teamTag')}</span>
             <h2 className="text-3xl font-bold text-neutral-900 mt-2">{t('teamTitle')}</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -774,7 +774,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
               <img src={img(HELENE_IMAGES.aoLabo, 1080)} alt="HELENE CPC" className="absolute inset-0 w-full h-full object-cover" />
             </div>
             <div>
-              <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">{t('labTag')}</span>
+              <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{t('labTag')}</span>
               <h2 className="text-3xl font-bold text-neutral-900 mt-2 mb-4">{t('labTitle')}</h2>
               <p className="text-neutral-600 leading-relaxed mb-6">{t('labDesc')}</p>
               <div className="space-y-3">
@@ -828,7 +828,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
       <section id="flow" className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
-            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">{t('flowTag')}</span>
+            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{t('flowTag')}</span>
             <h2 className="text-3xl font-bold text-neutral-900 mt-2 mb-3">{t('flowTitle')}</h2>
             <p className="text-neutral-500 max-w-xl mx-auto">{t('flowDesc')}</p>
           </div>
@@ -866,7 +866,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
       <section className="py-16 bg-neutral-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-10">
-            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">{t('certsTag')}</span>
+            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{t('certsTag')}</span>
             <h2 className="text-3xl font-bold text-neutral-900 mt-2">{t('certsTitle')}</h2>
           </div>
           {/* Main certification badges with real images */}
@@ -901,7 +901,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
       <section id="pricing" className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
-            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">{t('pricingTag')}</span>
+            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{t('pricingTag')}</span>
             <h2 className="text-3xl font-bold text-neutral-900 mt-2 mb-3">{t('pricingTitle')}</h2>
             <p className="text-neutral-500 max-w-xl mx-auto">{t('pricingDesc')}</p>
           </div>
@@ -955,7 +955,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
       <section id="services" className="py-20 bg-neutral-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
-            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">{t('svcTag')}</span>
+            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{t('svcTag')}</span>
             <h2 className="text-3xl font-bold text-neutral-900 mt-2 mb-3">{t('svcTitle')}</h2>
             <p className="text-neutral-500 max-w-xl mx-auto">{t('svcDesc')}</p>
           </div>

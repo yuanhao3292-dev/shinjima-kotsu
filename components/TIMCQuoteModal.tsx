@@ -193,7 +193,7 @@ export const TIMCQuoteModal: React.FC<TIMCQuoteModalProps> = ({ isOpen, onClose 
             <div className="p-6 space-y-6">
               {/* 合同主体声明 */}
               <div className="bg-brand-50 border border-brand-200 rounded-lg p-4">
-                <p className="text-sm text-brand-800">
+                <p className="text-sm text-neutral-900">
                   <strong>ご契約について：</strong>本サービスのご契約は、新島交通株式会社（大阪府知事登録旅行業 第2-3115号）との間で締結されます。
                 </p>
               </div>
@@ -314,7 +314,7 @@ export const TIMCQuoteModal: React.FC<TIMCQuoteModalProps> = ({ isOpen, onClose 
                   ))}
                 </select>
                 {selectedPackage && (
-                  <div className="bg-brand-50 rounded-lg p-3 text-sm text-brand-800">
+                  <div className="bg-brand-50 rounded-lg p-3 text-sm text-neutral-900">
                     已選：<strong>{selectedPackage.name} {selectedPackage.nameZh}</strong>
                     <span className="ml-2">×</span>
                     <span className="ml-1">{formData.guestCount} 人</span>
@@ -539,7 +539,7 @@ export const TIMCQuoteModal: React.FC<TIMCQuoteModalProps> = ({ isOpen, onClose 
                   <div className="bg-gradient-to-r from-brand-50 to-brand-100 rounded-xl p-6">
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="text-xl font-bold text-brand-800">報價單已生成</h3>
+                        <h3 className="text-xl font-bold text-neutral-900">報價單已生成</h3>
                         <p className="text-brand-600 text-sm mt-1">編號：{quoteResult.quoteNumber}</p>
                       </div>
                       <div className="text-right">

@@ -99,7 +99,7 @@ export default function TokushohoPage() {
                       <>
                         <a
                           href="https://niijima-koutsu.jp"
-                          className="text-brand-700 hover:text-brand-900 transition-colors"
+                          className="text-brand-700 hover:text-brand-700 transition-colors"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
@@ -108,7 +108,7 @@ export default function TokushohoPage() {
                         <br />
                         <a
                           href="https://bespoketrip.jp"
-                          className="text-brand-700 hover:text-brand-900 transition-colors"
+                          className="text-brand-700 hover:text-brand-700 transition-colors"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
@@ -185,7 +185,7 @@ export default function TokushohoPage() {
 
             {/* クーリング・オフについて */}
             <div className="bg-neutral-50 border border-neutral-200 rounded-2xl p-6">
-              <h2 className="font-bold text-brand-900 mb-2">申込みの撤回等について</h2>
+              <h2 className="font-bold text-neutral-900 mb-2">申込みの撤回等について</h2>
               <p className="text-neutral-700 text-sm leading-relaxed">
                 本サービスは特定商取引法第26条第1項に定める「旅行業法に基づく旅行業者の行う取引」に該当するため、
                 クーリング・オフ制度の適用対象外です。
@@ -195,7 +195,7 @@ export default function TokushohoPage() {
 
             {/* 白标モードの注意書き */}
             <div className="bg-neutral-50 border border-neutral-200 rounded-2xl p-6">
-              <h2 className="font-bold text-brand-900 mb-2">提携パートナー経由でご利用のお客様へ</h2>
+              <h2 className="font-bold text-neutral-900 mb-2">提携パートナー経由でご利用のお客様へ</h2>
               <p className="text-neutral-700 text-sm leading-relaxed">
                 本サービスは新島交通株式会社が提供・運営しております。
                 提携パートナー（ガイド・旅行代理店等）は、お客様への情報提供・ご紹介を行う立場であり、
@@ -211,13 +211,13 @@ export default function TokushohoPage() {
             <div className="flex flex-wrap gap-6">
               <Link
                 href="/legal/privacy"
-                className="text-brand-700 hover:text-brand-900 text-sm flex items-center gap-1 transition-colors"
+                className="text-brand-700 hover:text-brand-700 text-sm flex items-center gap-1 transition-colors"
               >
                 プライバシーポリシー <ArrowRight size={14} />
               </Link>
               <Link
                 href="/legal/terms"
-                className="text-brand-700 hover:text-brand-900 text-sm flex items-center gap-1 transition-colors"
+                className="text-brand-700 hover:text-brand-700 text-sm flex items-center gap-1 transition-colors"
               >
                 利用規約 <ArrowRight size={14} />
               </Link>
@@ -232,7 +232,7 @@ export default function TokushohoPage() {
 function TableRow({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <tr className="flex flex-col md:table-row hover:bg-white transition">
-      <th className="py-5 px-6 text-left font-bold text-brand-900 bg-neutral-100 md:bg-transparent md:w-44 align-top">
+      <th className="py-5 px-6 text-left font-bold text-neutral-900 bg-neutral-100 md:bg-transparent md:w-44 align-top">
         {label}
       </th>
       <td className="py-5 px-6 text-neutral-600">

@@ -82,7 +82,7 @@ const HistoryView: React.FC<HistoryViewProps> = ({ history, onViewQuote }) => {
                     <td className="p-4 text-right">
                       <button 
                         onClick={() => onViewQuote(item)}
-                        className="text-brand-600 hover:text-brand-800 p-2 hover:bg-brand-100 rounded-lg transition"
+                        className="text-brand-600 hover:text-brand-700 p-2 hover:bg-brand-100 rounded-lg transition"
                         title="查看詳情"
                       >
                         <ArrowUpRight size={18} />

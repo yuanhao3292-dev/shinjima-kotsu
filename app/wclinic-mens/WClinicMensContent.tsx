@@ -495,7 +495,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
       <div className="container mx-auto px-6 py-16 md:py-24">
         <div className="mb-24">
           <div className="text-center mb-16">
-            <span className="text-brand-900 text-xs tracking-widest uppercase font-bold">{t.coreServicesTag[lang]}</span>
+            <span className="text-neutral-900 text-xs tracking-widest uppercase font-bold">{t.coreServicesTag[lang]}</span>
             <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.coreServicesTitle[lang]}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -533,7 +533,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
             ======================================== */}
         <div className="mb-24">
           <div className="text-center mb-16">
-            <span className="text-brand-900 text-xs tracking-widest uppercase font-bold">{t.edTag[lang]}</span>
+            <span className="text-neutral-900 text-xs tracking-widest uppercase font-bold">{t.edTag[lang]}</span>
             <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.edTitle[lang]}</h3>
             <p className="text-neutral-500 mt-3 max-w-2xl mx-auto text-sm">{t.edSubtitle[lang]}</p>
           </div>
@@ -593,14 +593,14 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 </span>
               </div>
               <div className="p-6">
-                <div className="w-10 h-10 bg-brand-900/10 text-brand-900 rounded-full flex items-center justify-center mb-4">
+                <div className="w-10 h-10 bg-brand-900/10 text-neutral-900 rounded-full flex items-center justify-center mb-4">
                   <Syringe size={20} />
                 </div>
                 <div className="space-y-0">
                   {ED_ORAL_MEDICATIONS.map((med, j) => (
                     <div key={j} className="flex justify-between items-center py-2.5 border-b border-neutral-100 last:border-0">
                       <span className="text-sm text-neutral-600">{med.name}</span>
-                      <span className="text-sm font-bold text-brand-900">{med.price}</span>
+                      <span className="text-sm font-bold text-neutral-900">{med.price}</span>
                     </div>
                   ))}
                 </div>
@@ -615,7 +615,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 </span>
               </div>
               <div className="p-6">
-                <div className="w-10 h-10 bg-brand-900/10 text-brand-900 rounded-full flex items-center justify-center mb-4">
+                <div className="w-10 h-10 bg-brand-900/10 text-neutral-900 rounded-full flex items-center justify-center mb-4">
                   <Shield size={20} />
                 </div>
                 <ul className="space-y-2 mb-5">
@@ -633,7 +633,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   </li>
                 </ul>
                 <div className="text-center pt-4 border-t border-neutral-100">
-                  <span className="text-2xl font-bold font-serif text-brand-900">¥55,000</span>
+                  <span className="text-2xl font-bold font-serif text-neutral-900">¥55,000</span>
                   <span className="text-sm text-neutral-400">/{lang === 'ja' ? '回' : lang === 'en' ? 'session' : '次'}</span>
                 </div>
               </div>
@@ -646,7 +646,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
             ======================================== */}
         <div className="mb-24">
           <div className="text-center mb-16">
-            <span className="text-brand-900 text-xs tracking-widest uppercase font-bold">{t.lohTag[lang]}</span>
+            <span className="text-neutral-900 text-xs tracking-widest uppercase font-bold">{t.lohTag[lang]}</span>
             <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.lohTitle[lang]}</h3>
           </div>
 
@@ -654,7 +654,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-12">
             {LOH_SYMPTOMS.map((symptom, i) => (
               <div key={i} className="flex items-center gap-2.5 px-4 py-3 rounded-xl bg-neutral-50 border border-neutral-100 text-neutral-700 text-sm font-medium hover:shadow-md transition">
-                <Activity size={16} className="text-brand-900 shrink-0" />
+                <Activity size={16} className="text-neutral-900 shrink-0" />
                 <span>{symptom[lang]}</span>
               </div>
             ))}
@@ -663,7 +663,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
           {/* Diagnostic Flow */}
           <div className="bg-neutral-50 rounded-2xl p-8 mb-10 border border-neutral-100">
             <h3 className="text-lg font-bold text-neutral-900 mb-6 flex items-center gap-2 font-serif">
-              <Stethoscope size={20} className="text-brand-900" />
+              <Stethoscope size={20} className="text-neutral-900" />
               {lang === 'ja' ? '診断・治療の流れ' : lang === 'en' ? 'Diagnostic & Treatment Flow' : lang === 'zh-TW' ? '診斷與治療流程' : '诊断与治疗流程'}
             </h3>
             <div className="flex flex-col md:flex-row gap-4">
@@ -765,7 +765,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
       <div className="bg-neutral-100 py-16 md:py-24">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-brand-900 text-xs tracking-widest uppercase font-bold">{t.doctorTag[lang]}</span>
+            <span className="text-neutral-900 text-xs tracking-widest uppercase font-bold">{t.doctorTag[lang]}</span>
             <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.doctorTitle[lang]}</h3>
           </div>
 
@@ -792,7 +792,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 <h4 className="text-lg font-bold text-neutral-900 font-serif">
                   {lang === 'ja' ? '中木 義浩' : lang === 'en' ? 'Dr. Yoshihiro Nakaki' : '中木 義浩'}
                 </h4>
-                <p className="text-xs text-brand-900 font-medium mt-1 mb-3">
+                <p className="text-xs text-neutral-900 font-medium mt-1 mb-3">
                   {lang === 'ja' ? 'Wクリニック メンズ 医師' : lang === 'en' ? 'W CLINIC men\'s Physician' : lang === 'zh-TW' ? 'W診所 男性 醫師' : 'W诊所 男性 医师'}
                 </p>
                 <div className="flex flex-wrap gap-1.5 pt-3 border-t border-neutral-100">
@@ -809,7 +809,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
             {/* Dr. Uemura — 总监修 */}
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-brand-900/30 group">
               <div className="bg-gradient-to-r from-brand-900 to-brand-900 px-5 py-2.5 flex items-center justify-between">
-                <span className="text-brand-700 text-xs font-bold tracking-wide">
+                <span className="text-neutral-700 text-xs font-bold tracking-wide">
                   {lang === 'ja' ? '総合監修' : lang === 'en' ? 'General Supervisor' : lang === 'zh-TW' ? '總監修' : '总监修'}
                 </span>
                 <Award size={14} className="text-brand-700" />
@@ -828,7 +828,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 <h4 className="text-lg font-bold text-neutral-900 font-serif">
                   {lang === 'ja' ? '植村 天受 教授' : lang === 'en' ? 'Prof. Uemura Tenju' : '植村 天受 教授'}
                 </h4>
-                <p className="text-xs text-brand-900 font-medium mt-1 mb-3">
+                <p className="text-xs text-neutral-900 font-medium mt-1 mb-3">
                   {lang === 'ja' ? '泌尿器科専門医・指導医' : lang === 'en' ? 'Board-Certified Urologist' : lang === 'zh-TW' ? '泌尿器科專科醫生·指導醫生' : '泌尿科专科医生·指导医生'}
                 </p>
                 <div className="flex flex-wrap gap-1.5 pt-3 border-t border-neutral-100">
@@ -862,7 +862,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 <h4 className="text-lg font-bold text-neutral-900 font-serif">
                   {lang === 'ja' ? '足立 真由美' : lang === 'en' ? 'Dr. Mayumi Adachi' : '足立 真由美'}
                 </h4>
-                <p className="text-xs text-brand-900 font-medium mt-1 mb-3">
+                <p className="text-xs text-neutral-900 font-medium mt-1 mb-3">
                   {lang === 'ja' ? '医療法人涼葵会 理事長' : lang === 'en' ? 'Medical Corp. Director' : lang === 'zh-TW' ? '醫療法人涼葵會 理事長' : '医疗法人凉葵会 理事长'}
                 </p>
                 <div className="flex flex-wrap gap-1.5 pt-3 border-t border-neutral-100">
@@ -897,7 +897,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 <h3 className="text-xl font-bold text-neutral-900 mb-1 font-serif">
                   {lang === 'ja' ? '植村天受 教授' : lang === 'en' ? 'Prof. Uemura Tenju' : '植村天受 教授'}
                 </h3>
-                <p className="text-sm text-brand-900 font-medium mb-4 border-l-2 border-brand-400 pl-3">
+                <p className="text-sm text-neutral-900 font-medium mb-4 border-l-2 border-brand-400 pl-3">
                   {lang === 'ja' ? 'Wクリニック メンズ 総合監修' : lang === 'en' ? 'W CLINIC men\'s General Supervisor' : lang === 'zh-TW' ? 'W診所 男性 總監修' : 'W诊所 男性 总监修'}
                 </p>
                 <div className="space-y-2 text-sm text-neutral-600">
@@ -929,7 +929,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
           ======================================== */}
       <div className="container mx-auto px-6 py-16 md:py-24">
         <div className="text-center mb-16">
-          <span className="text-brand-900 text-xs tracking-widest uppercase font-bold">{t.privacyTag[lang]}</span>
+          <span className="text-neutral-900 text-xs tracking-widest uppercase font-bold">{t.privacyTag[lang]}</span>
           <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.privacyTitle[lang]}</h3>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
@@ -954,7 +954,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
       <div className="bg-neutral-100 py-16 md:py-24">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-brand-900 text-xs tracking-widest uppercase font-bold">{t.accessTag[lang]}</span>
+            <span className="text-neutral-900 text-xs tracking-widest uppercase font-bold">{t.accessTag[lang]}</span>
             <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.accessTitle[lang]}</h3>
           </div>
 
@@ -979,7 +979,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
               </div>
               <div className="p-6 space-y-3">
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-brand-900/10 text-brand-900 rounded-full flex items-center justify-center shrink-0"><MapPin size={16} /></div>
+                  <div className="w-8 h-8 bg-brand-900/10 text-neutral-900 rounded-full flex items-center justify-center shrink-0"><MapPin size={16} /></div>
                   <p className="text-sm text-neutral-600">
                     {lang === 'ja' ? '〒530-0001 大阪市北区梅田2-1-21 レイズウメダビル2階' :
                      lang === 'en' ? '2F Rays Umeda Bldg, 2-1-21 Umeda, Kita-ku, Osaka 530-0001' :
@@ -988,7 +988,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-brand-900/10 text-brand-900 rounded-full flex items-center justify-center shrink-0"><Train size={16} /></div>
+                  <div className="w-8 h-8 bg-brand-900/10 text-neutral-900 rounded-full flex items-center justify-center shrink-0"><Train size={16} /></div>
                   <p className="text-sm text-neutral-600">
                     {lang === 'ja' ? '西梅田駅10番出口直結' :
                      lang === 'en' ? 'Directly connected to Nishi-Umeda Station Exit 10' :
@@ -997,7 +997,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-brand-900/10 text-brand-900 rounded-full flex items-center justify-center shrink-0"><Clock size={16} /></div>
+                  <div className="w-8 h-8 bg-brand-900/10 text-neutral-900 rounded-full flex items-center justify-center shrink-0"><Clock size={16} /></div>
                   <p className="text-sm text-neutral-600">10:00 - 19:00</p>
                 </div>
               </div>
@@ -1023,7 +1023,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
               </div>
               <div className="p-6 space-y-3">
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-brand-900/10 text-brand-900 rounded-full flex items-center justify-center shrink-0"><MapPin size={16} /></div>
+                  <div className="w-8 h-8 bg-brand-900/10 text-neutral-900 rounded-full flex items-center justify-center shrink-0"><MapPin size={16} /></div>
                   <p className="text-sm text-neutral-600">
                     {lang === 'ja' ? '〒530-0002 大阪市北区曽根崎新地1丁目7-30 北新地ビル2〜4階' :
                      lang === 'en' ? '2-4F Kitashinchi Bldg, 1-7-30 Sonezaki Shinchi, Kita-ku, Osaka 530-0002' :
@@ -1032,7 +1032,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-brand-900/10 text-brand-900 rounded-full flex items-center justify-center shrink-0"><Train size={16} /></div>
+                  <div className="w-8 h-8 bg-brand-900/10 text-neutral-900 rounded-full flex items-center justify-center shrink-0"><Train size={16} /></div>
                   <p className="text-sm text-neutral-600">
                     {lang === 'ja' ? 'JR北新地駅 F92出口 徒歩2分' :
                      lang === 'en' ? 'JR Kitashinchi Sta. Exit F92, 2 min walk' :
@@ -1041,7 +1041,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-brand-900/10 text-brand-900 rounded-full flex items-center justify-center shrink-0"><Clock size={16} /></div>
+                  <div className="w-8 h-8 bg-brand-900/10 text-neutral-900 rounded-full flex items-center justify-center shrink-0"><Clock size={16} /></div>
                   <p className="text-sm text-neutral-600">10:00 - 19:00</p>
                 </div>
               </div>

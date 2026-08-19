@@ -122,12 +122,12 @@ function PaymentSuccessContent() {
           </div>
         </div>
 
-        <h1 className="text-3xl font-bold text-brand-900 mb-2">{t('title')}</h1>
+        <h1 className="text-3xl font-bold text-neutral-900 mb-2">{t('title')}</h1>
         <p className="text-neutral-600 mb-6">{t('subtitle')}</p>
 
         {/* 微信QR — 主CTA */}
         <div className="bg-brand-50 border border-brand-200/30 p-6 mb-6 text-center">
-          <h2 className="font-bold text-brand-900 mb-1">{t('wechatTitle')}</h2>
+          <h2 className="font-bold text-neutral-900 mb-1">{t('wechatTitle')}</h2>
           <p className="text-sm text-neutral-500 mb-4">{t('wechatScan')}</p>
           <img src="/wechat-qr.png" alt="WeChat QR" className="w-48 h-48 mx-auto object-contain mb-3" />
           <p className="text-xs text-neutral-400">{t('wechatTip')}</p>
@@ -151,7 +151,7 @@ function PaymentSuccessContent() {
               href={`/api/invoices/${orderId}?token=${invoiceToken}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm text-brand-700 hover:text-brand-900 transition-colors border border-neutral-200 rounded-lg px-4 py-2"
+              className="inline-flex items-center gap-2 text-sm text-brand-700 hover:text-brand-700 transition-colors border border-neutral-200 rounded-lg px-4 py-2"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -170,7 +170,7 @@ function PaymentSuccessContent() {
           </Link>
           <Link
             href={backToHomeHref}
-            className="block w-full bg-neutral-100 hover:bg-neutral-200 text-brand-900 font-semibold py-3 px-6 transition-colors"
+            className="block w-full bg-neutral-100 hover:bg-neutral-200 text-neutral-900 font-semibold py-3 px-6 transition-colors"
           >
             {t('backToHome')}
           </Link>

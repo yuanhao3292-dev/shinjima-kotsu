@@ -112,7 +112,7 @@ export default function CookieConsent() {
               <p>{t.message}</p>
               <a
                 href="/legal/privacy"
-                className="text-brand-700 hover:text-brand-900 underline underline-offset-2 text-xs mt-1 inline-block"
+                className="text-brand-700 hover:text-brand-700 underline underline-offset-2 text-xs mt-1 inline-block"
               >
                 {t.detail}
               </a>

@@ -1192,7 +1192,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
             ======================================== */}
         <div className="mb-24">
           <div className="text-center mb-16">
-            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">{t.nationalTag[lang]}</span>
+            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{t.nationalTag[lang]}</span>
             <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.nationalTitle[lang]}</h3>
           </div>
           <div className="space-y-6">
@@ -1223,7 +1223,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
             ======================================== */}
         <div id="expert-team" className="mb-24">
           <div className="text-center mb-12">
-            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">
+            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">
               {({ ja: '合作専門医チーム', 'zh-TW': '合作專科醫療團隊', 'zh-CN': '合作专科医疗团队', en: 'Partner Specialist Team' } as Record<Language, string>)[lang]}
             </span>
             <h3 className="text-3xl font-serif text-neutral-900 mt-2">
@@ -1344,7 +1344,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
             ======================================== */}
         <div className="mb-24">
           <div className="text-center mb-16">
-            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">{t.robotTag[lang]}</span>
+            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{t.robotTag[lang]}</span>
             <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.robotTitle[lang]}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -1398,7 +1398,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
             ======================================== */}
         <div className="mb-24">
           <div className="text-center mb-16">
-            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">{t.certTag[lang]}</span>
+            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{t.certTag[lang]}</span>
             <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.certTitle[lang]}</h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1670,7 +1670,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
             ======================================== */}
         <div className="mb-24">
           <div className="text-center mb-16">
-            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">41 Clinical Departments</span>
+            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">41 Clinical Departments</span>
             <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.deptTitle[lang]}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -1715,7 +1715,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
             ======================================== */}
         <div className="mb-24">
           <div className="text-center mb-16">
-            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">Hospital Information</span>
+            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">Hospital Information</span>
             <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.accessTitle[lang]}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -1774,7 +1774,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
         <div className="container mx-auto px-6">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">{bookingT.flowTag[lang]}</span>
+            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{bookingT.flowTag[lang]}</span>
             <h3 className="text-3xl md:text-4xl font-serif font-bold text-neutral-900 mt-3 mb-4">{bookingT.flowTitle[lang]}</h3>
             <p className="text-neutral-500 max-w-2xl mx-auto">{bookingT.flowDesc[lang]}</p>
           </div>
@@ -1955,7 +1955,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
-              <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">{bookingT.svcTag[lang]}</span>
+              <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{bookingT.svcTag[lang]}</span>
               <h3 className="text-3xl md:text-4xl font-serif font-bold text-neutral-900 mt-3 mb-4">{bookingT.svcTitle[lang]}</h3>
               <p className="text-neutral-500 mb-4">{bookingT.svcDesc[lang]}</p>
               <div className="inline-flex items-center gap-2 bg-neutral-100 border border-neutral-200 px-4 py-2 rounded-full">

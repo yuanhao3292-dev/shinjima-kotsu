@@ -241,7 +241,7 @@ export default function FollowUpQuestionnaire({
       <div className="mb-6 p-4 bg-gradient-to-r from-brand-50 to-brand-50 rounded-xl border border-brand-200">
         <div className="flex items-center gap-2 mb-2">
           <HelpCircle className="w-5 h-5 text-brand-600" />
-          <span className="font-medium text-brand-800">
+          <span className="font-medium text-neutral-900">
             {t('aiNeedsInfo', lang)}
             {followupRound > 1 && t('roundN', lang).replace('{{round}}', String(followupRound))}
           </span>

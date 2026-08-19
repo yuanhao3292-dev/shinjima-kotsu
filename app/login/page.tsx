@@ -282,12 +282,12 @@ function LoginForm() {
           {/* Mobile hero label */}
           <div className="lg:hidden flex items-center gap-3 mb-6">
             <div className="h-[1px] w-8 bg-brand-400" />
-            <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">MEMBER LOGIN</span>
+            <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">MEMBER LOGIN</span>
           </div>
 
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-2xl font-serif text-brand-900 mb-2">{t('heroTitle', lang)}</h1>
+            <h1 className="text-2xl font-serif text-neutral-900 mb-2">{t('heroTitle', lang)}</h1>
             <p className="text-neutral-500 text-sm">{t('heroDesc', lang)}</p>
           </div>
 
@@ -355,7 +355,7 @@ function LoginForm() {
               <div className="mt-2 text-right">
                 <Link
                   href="/forgot-password"
-                  className="text-sm text-brand-700 hover:text-brand-900 font-medium"
+                  className="text-sm text-brand-700 hover:text-brand-700 font-medium"
                 >
                   {t('forgotPassword', lang)}
                 </Link>
@@ -391,7 +391,7 @@ function LoginForm() {
               {t('noAccount', lang)}
               <Link
                 href="/register"
-                className="text-brand-700 hover:text-brand-900 font-medium ml-1"
+                className="text-brand-700 hover:text-brand-700 font-medium ml-1"
               >
                 {t('registerNow', lang)}
               </Link>
@@ -403,7 +403,7 @@ function LoginForm() {
             <p className="text-xs text-neutral-500 mb-2">{t('guestLookup', lang)}</p>
             <Link
               href="/order-lookup"
-              className="text-brand-700 hover:text-brand-900 text-sm font-medium inline-flex items-center gap-1"
+              className="text-brand-700 hover:text-brand-700 text-sm font-medium inline-flex items-center gap-1"
             >
               {t('useOrderNumber', lang)}
             </Link>

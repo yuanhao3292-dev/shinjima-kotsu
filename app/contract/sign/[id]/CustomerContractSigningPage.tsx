@@ -286,7 +286,7 @@ export default function CustomerContractSigningPage({ contract, signingToken }: 
               <div className="bg-brand-50 border border-brand-200 rounded-lg p-4 mb-6">
                 <div className="flex items-start gap-3">
                   <AlertCircle className="text-brand-600 mt-0.5" size={20} />
-                  <div className="text-sm text-brand-800">
+                  <div className="text-sm text-neutral-900">
                     <p className="font-medium mb-1">签名须知</p>
                     <ul className="space-y-1 text-xs">
                       <li>• 请使用手指或鼠标在下方白色区域内签署您的真实姓名</li>

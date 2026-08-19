@@ -386,7 +386,7 @@ function ResetPasswordForm() {
 
                   <p className="text-center text-sm text-neutral-500 mt-5">
                     {t('noCodeYet', lang)}{' '}
-                    <Link href={forgotPath} className="text-brand-700 hover:text-brand-900 font-medium underline">
+                    <Link href={forgotPath} className="text-brand-700 hover:text-brand-700 font-medium underline">
                       {t('requestCode', lang)}
                     </Link>
                   </p>

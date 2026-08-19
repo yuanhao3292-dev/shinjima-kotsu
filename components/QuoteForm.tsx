@@ -69,7 +69,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ request, setRequest, onCalculate,
   return (
     <div className="bg-white rounded-xl shadow-lg border border-neutral-100 p-6 h-full flex flex-col">
       <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center space-x-2 text-brand-900">
+        <div className="flex items-center space-x-2 text-neutral-900">
           <Calculator className="w-6 h-6" />
           <h2 className="text-xl font-bold">新詢價單</h2>
         </div>
@@ -85,7 +85,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ request, setRequest, onCalculate,
       {/* Smart Import Section */}
       {showImport && (
         <div className="mb-6 bg-brand-50 border border-brand-100 rounded-lg p-4 animate-fade-in-down">
-          <label className="block text-sm font-bold text-brand-900 mb-2 flex items-center gap-2">
+          <label className="block text-sm font-bold text-neutral-900 mb-2 flex items-center gap-2">
             <MessageSquare size={16} />
             貼上 Line/微信 需求內容
           </label>
@@ -158,7 +158,7 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ request, setRequest, onCalculate,
 
         {/* Location & Hotel */}
         <div className="p-4 bg-brand-50 rounded-lg border border-brand-100 space-y-4">
-          <h3 className="text-sm font-bold text-brand-800 uppercase tracking-wide flex items-center gap-2">
+          <h3 className="text-sm font-bold text-neutral-900 uppercase tracking-wide flex items-center gap-2">
             <Building size={16}/> 住宿資訊
           </h3>
           

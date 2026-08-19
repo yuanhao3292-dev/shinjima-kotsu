@@ -234,10 +234,10 @@ export default function NewsPage() {
             <div className="text-center mb-12">
               <div className="flex items-center justify-center gap-3 mb-4">
                 <div className="h-[1px] w-12 bg-brand-400"></div>
-                <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">{t('featuredSubtitle')}</span>
+                <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">{t('featuredSubtitle')}</span>
                 <div className="h-[1px] w-12 bg-brand-400"></div>
               </div>
-              <h2 className="text-2xl md:text-3xl font-serif text-brand-900">{t('featuredTitle')}</h2>
+              <h2 className="text-2xl md:text-3xl font-serif text-neutral-900">{t('featuredTitle')}</h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -290,7 +290,7 @@ export default function NewsPage() {
                   {/* Hover 效果 */}
                   <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
                     <div className="w-10 h-10 bg-brand-50 backdrop-blur-md rounded-full flex items-center justify-center">
-                      <ArrowRight size={18} className="text-brand-900" />
+                      <ArrowRight size={18} className="text-neutral-900" />
                     </div>
                   </div>
                 </article>
@@ -309,10 +309,10 @@ export default function NewsPage() {
             <div className="text-center mb-8">
               <div className="flex items-center justify-center gap-3 mb-4">
                 <div className="h-[1px] w-12 bg-brand-400"></div>
-                <span className="text-xs tracking-[0.3em] text-brand-800 uppercase">{t('allNewsSubtitle')}</span>
+                <span className="text-xs tracking-[0.3em] text-neutral-900 uppercase">{t('allNewsSubtitle')}</span>
                 <div className="h-[1px] w-12 bg-brand-400"></div>
               </div>
-              <h2 className="text-2xl md:text-3xl font-serif text-brand-900">{t('allNewsTitle')}</h2>
+              <h2 className="text-2xl md:text-3xl font-serif text-neutral-900">{t('allNewsTitle')}</h2>
             </div>
 
             <div className="flex flex-wrap justify-center gap-3">
@@ -372,7 +372,7 @@ export default function NewsPage() {
                             <Calendar size={18} className="text-neutral-400 group-hover:text-brand-700 transition-colors" />
                           </div>
                           <div>
-                            <div className="text-sm font-bold text-brand-900">
+                            <div className="text-sm font-bold text-neutral-900">
                               {formatDateJP(news.published_at).split('.').slice(1).join('/')}
                             </div>
                             <div className="text-xs text-neutral-400">
@@ -396,7 +396,7 @@ export default function NewsPage() {
 
                         {/* 内容 */}
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-bold text-brand-900 group-hover:text-brand-700 transition-colors mb-2 text-lg">
+                          <h3 className="font-bold text-neutral-900 group-hover:text-brand-700 transition-colors mb-2 text-lg">
                             {localizeText(news.title, lang)}
                           </h3>
                           {news.summary && (
@@ -484,14 +484,14 @@ export default function NewsPage() {
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-white text-brand-900 text-sm font-medium hover:bg-neutral-100 transition-colors tracking-wider"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-white text-neutral-900 text-sm font-medium hover:bg-neutral-100 transition-colors tracking-wider"
             >
               {t('ctaServices')}
               <ArrowRight size={14} />
             </Link>
             <Link
               href="/company/about"
-              className="inline-flex items-center gap-2 px-8 py-3 border border-white/30 text-white text-sm font-medium hover:bg-white hover:text-brand-900 transition-all tracking-wider"
+              className="inline-flex items-center gap-2 px-8 py-3 border border-white/30 text-white text-sm font-medium hover:bg-white hover:text-brand-700 transition-all tracking-wider"
             >
               {t('ctaAbout')}
               <ArrowRight size={14} />

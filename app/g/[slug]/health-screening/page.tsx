@@ -498,7 +498,7 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
           <div className="max-w-4xl mx-auto px-4 py-4">
             <button
               onClick={() => setCurrentStep('welcome')}
-              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
+              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-700 transition-colors"
             >
               <ArrowLeft size={18} />
               <span className="text-sm">{t('back')}</span>
@@ -604,7 +604,7 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
           <div className="max-w-4xl mx-auto px-4 py-4">
             <button
               onClick={() => setCurrentStep('body-map')}
-              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
+              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-700 transition-colors"
             >
               <ArrowLeft size={18} />
               <span className="text-sm">{t('backToSymptomSelection')}</span>
@@ -649,7 +649,7 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
       <div className="min-h-screen bg-gradient-to-b from-brand-50 to-white">
         <div className="bg-white border-b border-neutral-100 shadow-sm">
           <div className="max-w-4xl mx-auto px-4 py-6 text-center">
-            <div className="inline-flex items-center gap-2 text-xs tracking-wider uppercase text-brand-700 mb-3">
+            <div className="inline-flex items-center gap-2 text-xs tracking-wider uppercase text-neutral-700 mb-3">
               <span>{t('followupBadge')}</span>
             </div>
             <h1 className="text-2xl md:text-3xl font-semibold text-neutral-900">{t('followupTitle')}</h1>
@@ -677,7 +677,7 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
           <div className="max-w-4xl mx-auto px-4 py-4">
             <Link
               href={`/g/${slug}`}
-              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
+              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-700 transition-colors"
             >
               <ArrowLeft size={18} />
               <span className="text-sm">{t('backToHome')}</span>
@@ -717,7 +717,7 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
         <div className="max-w-4xl mx-auto px-4 py-4">
           <Link
             href={`/g/${slug}`}
-            className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
+            className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-700 transition-colors"
           >
             <ArrowLeft size={18} />
             <span className="text-sm">{t('backToHome')}</span>

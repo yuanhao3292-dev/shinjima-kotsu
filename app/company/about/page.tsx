@@ -562,10 +562,10 @@ export default function AboutPage() {
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <div className="h-[1px] w-12 bg-brand-400"></div>
-                  <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">{t('ceoSectionLabel')}</span>
+                  <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">{t('ceoSectionLabel')}</span>
                   <div className="h-[1px] w-12 bg-brand-400"></div>
                 </div>
-                <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('ceoSectionTitle')}</h2>
+                <h2 className="text-3xl font-serif text-neutral-900 mt-3">{t('ceoSectionTitle')}</h2>
               </div>
 
               <div className="flex flex-col lg:flex-row gap-12 items-start">
@@ -585,7 +585,7 @@ export default function AboutPage() {
                   </div>
                   <div className="mt-6 text-center">
                     <p className="text-sm text-neutral-500">{t('ceoTitle')}</p>
-                    <p className="text-2xl font-bold text-brand-900 mt-1">員 昊</p>
+                    <p className="text-2xl font-bold text-neutral-900 mt-1">員 昊</p>
                     <p className="text-sm text-neutral-400">Yuan Hao</p>
                   </div>
                 </div>
@@ -594,7 +594,7 @@ export default function AboutPage() {
                 <div className="lg:w-2/3">
                   <div className="relative mb-8">
                     <Quote className="absolute -top-4 -left-6 text-neutral-100 w-20 h-20 transform -scale-x-100" />
-                    <p className="text-2xl text-brand-900 relative z-10 italic font-serif pl-4 border-l-4 border-brand-400 leading-relaxed">
+                    <p className="text-2xl text-neutral-900 relative z-10 italic font-serif pl-4 border-l-4 border-brand-400 leading-relaxed">
                       {t('ceoSlogan')}
                     </p>
                   </div>
@@ -606,13 +606,13 @@ export default function AboutPage() {
                       {t('ceoMessage3')}
                     </p>
                     <p>{t('ceoMessage4')}</p>
-                    <p className="text-lg font-medium text-brand-900 pt-4">
+                    <p className="text-lg font-medium text-neutral-900 pt-4">
                       {t('ceoMessage5')}
                     </p>
                   </div>
 
                   <div className="mt-8 pt-6 border-t border-neutral-200">
-                    <p className="text-brand-900 font-bold">{t('valueCompanyName')}</p>
+                    <p className="text-neutral-900 font-bold">{t('valueCompanyName')}</p>
                     <p className="text-neutral-600">{t('valueCEO')}</p>
                   </div>
                 </div>
@@ -628,10 +628,10 @@ export default function AboutPage() {
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <div className="h-[1px] w-12 bg-brand-400"></div>
-                  <span className="text-xs tracking-[0.3em] text-brand-800 uppercase">{t('philosophyLabel')}</span>
+                  <span className="text-xs tracking-[0.3em] text-neutral-900 uppercase">{t('philosophyLabel')}</span>
                   <div className="h-[1px] w-12 bg-brand-400"></div>
                 </div>
-                <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('philosophyTitle')}</h2>
+                <h2 className="text-3xl font-serif text-neutral-900 mt-3">{t('philosophyTitle')}</h2>
               </div>
 
               <div className="grid md:grid-cols-3 gap-8">
@@ -639,7 +639,7 @@ export default function AboutPage() {
                   <div className="w-16 h-16 brand-gradient-deep rounded-2xl flex items-center justify-center mx-auto mb-6">
                     <Heart className="w-8 h-8 text-brand-400" />
                   </div>
-                  <h3 className="text-xl font-bold text-brand-900 mb-3">{t('philosophy1Title')}</h3>
+                  <h3 className="text-xl font-bold text-neutral-900 mb-3">{t('philosophy1Title')}</h3>
                   <p className="text-neutral-600 text-sm leading-relaxed">
                     {t('philosophy1Desc')}
                   </p>
@@ -649,7 +649,7 @@ export default function AboutPage() {
                   <div className="w-16 h-16 brand-gradient-deep rounded-2xl flex items-center justify-center mx-auto mb-6">
                     <Globe className="w-8 h-8 text-brand-400" />
                   </div>
-                  <h3 className="text-xl font-bold text-brand-900 mb-3">{t('philosophy2Title')}</h3>
+                  <h3 className="text-xl font-bold text-neutral-900 mb-3">{t('philosophy2Title')}</h3>
                   <p className="text-neutral-600 text-sm leading-relaxed">
                     {t('philosophy2Desc')}
                   </p>
@@ -659,7 +659,7 @@ export default function AboutPage() {
                   <div className="w-16 h-16 brand-gradient-deep rounded-2xl flex items-center justify-center mx-auto mb-6">
                     <Target className="w-8 h-8 text-brand-400" />
                   </div>
-                  <h3 className="text-xl font-bold text-brand-900 mb-3">{t('philosophy3Title')}</h3>
+                  <h3 className="text-xl font-bold text-neutral-900 mb-3">{t('philosophy3Title')}</h3>
                   <p className="text-neutral-600 text-sm leading-relaxed">
                     {t('philosophy3Desc')}
                   </p>
@@ -676,10 +676,10 @@ export default function AboutPage() {
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <div className="h-[1px] w-12 bg-brand-400"></div>
-                  <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">{t('medicalLabel')}</span>
+                  <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">{t('medicalLabel')}</span>
                   <div className="h-[1px] w-12 bg-brand-400"></div>
                 </div>
-                <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('medicalTitle')}</h2>
+                <h2 className="text-3xl font-serif text-neutral-900 mt-3">{t('medicalTitle')}</h2>
               </div>
 
               <div className="grid md:grid-cols-3 gap-8">
@@ -696,24 +696,24 @@ export default function AboutPage() {
                 </div>
 
                 <div className="flex flex-col bg-white rounded-2xl p-8 border border-neutral-200 hover:shadow-lg transition">
-                  <Hospital className="w-10 h-10 text-brand-900 mb-5" />
-                  <h3 className="text-lg font-bold text-brand-900 mb-3">{t('medicalNetworkTitle')}</h3>
+                  <Hospital className="w-10 h-10 text-neutral-900 mb-5" />
+                  <h3 className="text-lg font-bold text-neutral-900 mb-3">{t('medicalNetworkTitle')}</h3>
                   <p className="text-neutral-600 text-sm leading-relaxed flex-1">{t('medicalNetworkDesc')}</p>
                   <div className="mt-6 pt-4 border-t border-neutral-100">
                     <div className="flex items-baseline gap-1">
-                      <span className="text-3xl font-bold text-brand-900">20+</span>
+                      <span className="text-3xl font-bold text-neutral-900">20+</span>
                       <span className="text-neutral-400 text-sm">{currentLang === 'en' ? 'partner hospitals' : currentLang === 'ja' ? '提携医療機関' : currentLang === 'zh-TW' ? '合作醫院' : '合作医院'}</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="flex flex-col bg-white rounded-2xl p-8 border border-neutral-200 hover:shadow-lg transition">
-                  <HeartHandshake className="w-10 h-10 text-brand-900 mb-5" />
-                  <h3 className="text-lg font-bold text-brand-900 mb-3">{t('medicalServiceTitle')}</h3>
+                  <HeartHandshake className="w-10 h-10 text-neutral-900 mb-5" />
+                  <h3 className="text-lg font-bold text-neutral-900 mb-3">{t('medicalServiceTitle')}</h3>
                   <p className="text-neutral-600 text-sm leading-relaxed flex-1">{t('medicalServiceDesc')}</p>
                   <div className="mt-6 pt-4 border-t border-neutral-100">
                     <div className="flex items-baseline gap-1">
-                      <span className="text-3xl font-bold text-brand-900">4 AI</span>
+                      <span className="text-3xl font-bold text-neutral-900">4 AI</span>
                       <span className="text-neutral-400 text-sm">{currentLang === 'en' ? 'joint consultation' : currentLang === 'ja' ? '連合会診' : currentLang === 'zh-TW' ? '聯合會診' : '联合会诊'}</span>
                     </div>
                   </div>
@@ -730,10 +730,10 @@ export default function AboutPage() {
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <div className="h-[1px] w-12 bg-brand-400"></div>
-                  <span className="text-xs tracking-[0.3em] text-brand-800 uppercase">{t('profileLabel')}</span>
+                  <span className="text-xs tracking-[0.3em] text-neutral-900 uppercase">{t('profileLabel')}</span>
                   <div className="h-[1px] w-12 bg-brand-400"></div>
                 </div>
-                <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('profileTitle')}</h2>
+                <h2 className="text-3xl font-serif text-neutral-900 mt-3">{t('profileTitle')}</h2>
               </div>
 
               <div className="bg-neutral-50 rounded-2xl overflow-hidden">
@@ -752,7 +752,7 @@ export default function AboutPage() {
                       { label: t('labelBusiness'), value: t('valueBusiness') },
                     ].map((row, index) => (
                       <tr key={index} className="flex flex-col md:table-row hover:bg-white transition">
-                        <th className="py-5 px-6 text-left font-bold text-brand-900 bg-neutral-100 md:bg-transparent md:w-44">
+                        <th className="py-5 px-6 text-left font-bold text-neutral-900 bg-neutral-100 md:bg-transparent md:w-44">
                           {row.label}
                         </th>
                         <td className="py-5 px-6 text-neutral-600 whitespace-pre-line">
@@ -774,10 +774,10 @@ export default function AboutPage() {
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <div className="h-[1px] w-12 bg-brand-400"></div>
-                  <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">{t('licensesLabel')}</span>
+                  <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">{t('licensesLabel')}</span>
                   <div className="h-[1px] w-12 bg-brand-400"></div>
                 </div>
-                <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('licensesTitle')}</h2>
+                <h2 className="text-3xl font-serif text-neutral-900 mt-3">{t('licensesTitle')}</h2>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
@@ -801,7 +801,7 @@ export default function AboutPage() {
                       <div className="w-14 h-14 brand-gradient-deep rounded-xl flex items-center justify-center mb-4">
                         <Icon size={24} className="text-brand-400" />
                       </div>
-                      <h3 className="font-bold text-brand-900 text-lg mb-1">{item.title}</h3>
+                      <h3 className="font-bold text-neutral-900 text-lg mb-1">{item.title}</h3>
                       <p className="text-sm text-neutral-500 mb-2">{item.number}</p>
                       <p className="text-sm text-neutral-600">{item.desc}</p>
                     </div>
@@ -854,7 +854,7 @@ export default function AboutPage() {
                         </div>
                       </div>
                       {/* 中间节点 */}
-                      <div className={`absolute left-6 md:left-1/2 -translate-x-1/2 w-12 h-12 flex items-center justify-center z-10 ${item.active ? 'bg-brand-400 text-neutral-900' : item.done ? 'bg-white/10 border border-white/30 text-white/70' : 'brand-gradient-deep border border-white/20 text-brand-700'}`}>
+                      <div className={`absolute left-6 md:left-1/2 -translate-x-1/2 w-12 h-12 flex items-center justify-center z-10 ${item.active ? 'bg-brand-400 text-neutral-900' : item.done ? 'bg-white/10 border border-white/30 text-white/70' : 'brand-gradient-deep border border-white/20 text-white/60'}`}>
                         <Icon size={20} />
                       </div>
                       {/* 占位 */}
@@ -874,21 +874,21 @@ export default function AboutPage() {
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <div className="h-[1px] w-12 bg-brand-400"></div>
-                  <span className="text-xs tracking-[0.3em] text-brand-800 uppercase">{t('partnersLabel')}</span>
+                  <span className="text-xs tracking-[0.3em] text-neutral-900 uppercase">{t('partnersLabel')}</span>
                   <div className="h-[1px] w-12 bg-brand-400"></div>
                 </div>
-                <h2 className="text-3xl font-serif text-brand-900 mt-3">{t('partnersTitle')}</h2>
+                <h2 className="text-3xl font-serif text-neutral-900 mt-3">{t('partnersTitle')}</h2>
               </div>
 
               {/* Medical Partners */}
               <div className="mb-8">
-                <h3 className="text-sm font-bold text-brand-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                <h3 className="text-sm font-bold text-neutral-900 uppercase tracking-wider mb-4 flex items-center gap-2">
                   <div className="w-2 h-2 bg-brand-400 rounded-full" />
                   {t('partnersMedicalLabel')}
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
                   {medicalPartners.map((partner, index) => (
-                    <div key={index} className="p-5 brand-gradient-deep/5 rounded-xl text-center font-medium text-brand-900 border border-brand-900/10 hover:opacity-90 hover:text-white transition cursor-default">
+                    <div key={index} className="p-5 bg-neutral-50 rounded-xl text-center font-medium text-neutral-800 border border-neutral-200 hover:bg-brand-600 hover:border-brand-600 hover:text-white transition cursor-default">
                       {(partner as Record<Language, string>)[currentLang]}
                     </div>
                   ))}

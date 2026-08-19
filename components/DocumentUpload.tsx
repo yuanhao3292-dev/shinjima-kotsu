@@ -305,7 +305,7 @@ export default function DocumentUpload({
                     : t('methodVision')}
             </div>
             {isLowConfidence && (
-              <div className="mt-2 rounded-lg bg-brand-100/70 p-2.5 text-xs leading-relaxed text-brand-800">
+              <div className="mt-2 rounded-lg bg-brand-100/70 p-2.5 text-xs leading-relaxed text-neutral-900">
                 {t('lowConfidence')}
               </div>
             )}

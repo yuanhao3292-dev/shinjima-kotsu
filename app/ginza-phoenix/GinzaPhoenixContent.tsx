@@ -549,7 +549,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href={checkoutHref('/ginza-phoenix/initial-consultation')}
-                className="inline-flex items-center justify-center gap-3 bg-white text-brand-900 px-8 py-4 rounded-full font-bold hover:bg-neutral-200 transition-all shadow-lg hover:shadow-xl"
+                className="inline-flex items-center justify-center gap-3 bg-white text-neutral-900 px-8 py-4 rounded-full font-bold hover:bg-neutral-200 transition-all shadow-lg hover:shadow-xl"
               >
                 {t.ctaBook[lang]} <ArrowRight size={18} />
               </Link>
@@ -587,7 +587,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block px-4 py-1.5 bg-neutral-200 text-brand-900 text-xs font-medium rounded-full mb-4">
+            <span className="inline-block px-4 py-1.5 bg-neutral-200 text-neutral-900 text-xs font-medium rounded-full mb-4">
               {t.introTag[lang]}
             </span>
             <h2 className="text-3xl font-bold text-neutral-800">{t.introTitle[lang]}</h2>
@@ -603,7 +603,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
                   { ja: '完全予約制', 'zh-TW': '全預約制', 'zh-CN': '全预约制', en: 'Appointment Only' },
                   { ja: '中国語対応', 'zh-TW': '中文服務', 'zh-CN': '中文服务', en: 'Chinese Support' },
                 ].map((tag, i) => (
-                  <span key={i} className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-neutral-100 text-brand-900 text-xs font-medium rounded-full border border-neutral-200">
+                  <span key={i} className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-neutral-100 text-neutral-900 text-xs font-medium rounded-full border border-neutral-200">
                     <CheckCircle size={12} />
                     {(tag as Record<Language, string>)[lang]}
                   </span>
@@ -623,7 +623,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
       <section className="py-20 bg-neutral-100">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-14">
-            <span className="inline-block px-4 py-1.5 bg-white text-brand-900 text-xs font-medium rounded-full mb-4 border border-neutral-200">
+            <span className="inline-block px-4 py-1.5 bg-white text-neutral-900 text-xs font-medium rounded-full mb-4 border border-neutral-200">
               {t.whyTag[lang]}
             </span>
             <h2 className="text-3xl font-bold text-neutral-800">{t.whyTitle[lang]}</h2>
@@ -631,7 +631,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
           <div className="grid md:grid-cols-2 gap-6">
             {WHY_CHOOSE_US.map((item, i) => (
               <div key={i} className="bg-white rounded-2xl p-8 border border-neutral-200 hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 bg-neutral-200 rounded-xl flex items-center justify-center text-brand-900 mb-4">
+                <div className="w-12 h-12 bg-neutral-200 rounded-xl flex items-center justify-center text-neutral-900 mb-4">
                   {item.icon}
                 </div>
                 <h3 className="text-lg font-bold text-neutral-800 mb-2">{item.title[lang]}</h3>
@@ -646,7 +646,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-14">
-            <span className="inline-block px-4 py-1.5 bg-neutral-200 text-brand-900 text-xs font-medium rounded-full mb-4">
+            <span className="inline-block px-4 py-1.5 bg-neutral-200 text-neutral-900 text-xs font-medium rounded-full mb-4">
               {t.therapyTag[lang]}
             </span>
             <h2 className="text-3xl font-bold text-neutral-800">{t.therapyTitle[lang]}</h2>
@@ -686,7 +686,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
       <section className="py-20 bg-neutral-100">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-6">
-            <span className="inline-block px-4 py-1.5 bg-white text-brand-900 text-xs font-medium rounded-full mb-4 border border-neutral-200">
+            <span className="inline-block px-4 py-1.5 bg-white text-neutral-900 text-xs font-medium rounded-full mb-4 border border-neutral-200">
               {t.cancerTag[lang]}
             </span>
             <h2 className="text-3xl font-bold text-neutral-800 mb-3">{t.cancerTitle[lang]}</h2>
@@ -694,7 +694,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mt-10">
             {APPLICABLE_CANCERS.map((item, i) => (
-              <div key={i} className="flex items-center gap-2.5 px-4 py-3 rounded-xl border border-neutral-200 bg-white text-sm font-medium text-brand-900 hover:bg-neutral-200 transition-colors">
+              <div key={i} className="flex items-center gap-2.5 px-4 py-3 rounded-xl border border-neutral-200 bg-white text-sm font-medium text-neutral-900 hover:bg-neutral-200 transition-colors">
                 <span className="text-brand-700">{item.icon}</span>
                 <span>{item.name[lang]}</span>
               </div>
@@ -707,7 +707,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block px-4 py-1.5 bg-neutral-200 text-brand-900 text-xs font-medium rounded-full mb-4">
+            <span className="inline-block px-4 py-1.5 bg-neutral-200 text-neutral-900 text-xs font-medium rounded-full mb-4">
               {t.menuTag[lang]}
             </span>
             <h2 className="text-3xl font-bold text-neutral-800 mb-3">{t.menuTitle[lang]}</h2>
@@ -724,7 +724,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
                     className="w-full flex items-center justify-between px-6 py-4 hover:bg-neutral-100 transition-colors"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-lg bg-neutral-200 flex items-center justify-center text-brand-900">
+                      <div className="w-9 h-9 rounded-lg bg-neutral-200 flex items-center justify-center text-neutral-900">
                         <Icon size={18} />
                       </div>
                       <span className="font-bold text-neutral-800 text-sm md:text-base">{cat.category[lang]}</span>
@@ -743,7 +743,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
                           <div key={j} className="flex items-center justify-between px-6 py-3.5 border-b border-neutral-100 last:border-0 hover:bg-neutral-100/50 transition-colors">
                             <span className="text-sm text-neutral-800">{item.name[lang]}</span>
                             <div className="flex items-center gap-3">
-                              <span className="text-sm font-bold text-brand-900">{priceStr}</span>
+                              <span className="text-sm font-bold text-neutral-900">{priceStr}</span>
                               <Link
                                 href={checkoutHref('/ginza-phoenix/initial-consultation')}
                                 className="hidden sm:inline-flex items-center gap-1 px-3 py-1 brand-gradient-deep text-white text-xs rounded-full hover:bg-brand-700 transition-colors"
@@ -773,7 +773,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
       <section className="py-20 bg-neutral-100">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-14">
-            <span className="inline-block px-4 py-1.5 bg-white text-brand-900 text-xs font-medium rounded-full mb-4 border border-neutral-200">
+            <span className="inline-block px-4 py-1.5 bg-white text-neutral-900 text-xs font-medium rounded-full mb-4 border border-neutral-200">
               {t.flowTag[lang]}
             </span>
             <h2 className="text-3xl font-bold text-neutral-800">{t.flowTitle[lang]}</h2>
@@ -793,7 +793,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
                 {/* Content */}
                 <div className="pb-8 pt-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-brand-900">{step.icon}</span>
+                    <span className="text-neutral-900">{step.icon}</span>
                     <h3 className="text-lg font-bold text-neutral-800">{step.title[lang]}</h3>
                   </div>
                   <p className="text-sm text-neutral-800/70 leading-relaxed">{step.desc[lang]}</p>
@@ -808,7 +808,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block px-4 py-1.5 bg-neutral-200 text-brand-900 text-xs font-medium rounded-full mb-4">
+            <span className="inline-block px-4 py-1.5 bg-neutral-200 text-neutral-900 text-xs font-medium rounded-full mb-4">
               {t.cpcTag[lang]}
             </span>
             <h2 className="text-3xl font-bold text-neutral-800">{t.cpcTitle[lang]}</h2>
@@ -842,7 +842,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
                   { ja: '厳格な品質管理プロトコル', 'zh-TW': '嚴格的品質管理協議', 'zh-CN': '严格的品质管理协议', en: 'Strict quality control protocols' },
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-2.5">
-                    <CheckCircle size={16} className="text-brand-900 mt-0.5 shrink-0" />
+                    <CheckCircle size={16} className="text-neutral-900 mt-0.5 shrink-0" />
                     <p className="text-sm text-neutral-800/80">{(item as Record<Language, string>)[lang]}</p>
                   </div>
                 ))}
@@ -856,7 +856,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
       <section className="py-20 bg-neutral-100">
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block px-4 py-1.5 bg-white text-brand-900 text-xs font-medium rounded-full mb-4 border border-neutral-200">
+            <span className="inline-block px-4 py-1.5 bg-white text-neutral-900 text-xs font-medium rounded-full mb-4 border border-neutral-200">
               {t.doctorTag[lang]}
             </span>
             <h2 className="text-3xl font-bold text-neutral-800">{t.doctorTitle[lang]}</h2>
@@ -882,7 +882,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
 
                 {/* Credentials */}
                 <div className="mb-5">
-                  <h4 className="text-xs font-bold text-brand-900 uppercase tracking-wider mb-2">
+                  <h4 className="text-xs font-bold text-neutral-900 uppercase tracking-wider mb-2">
                     {lang === 'ja' ? '経歴・資格' : lang === 'en' ? 'Credentials' : lang === 'zh-TW' ? '經歷・資格' : '经历・资格'}
                   </h4>
                   <div className="space-y-1.5">
@@ -897,12 +897,12 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
 
                 {/* Specialties */}
                 <div className="mb-5">
-                  <h4 className="text-xs font-bold text-brand-900 uppercase tracking-wider mb-2">
+                  <h4 className="text-xs font-bold text-neutral-900 uppercase tracking-wider mb-2">
                     {lang === 'ja' ? '専門分野' : lang === 'en' ? 'Specialties' : lang === 'zh-TW' ? '專業領域' : '专业领域'}
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {DOCTOR_SPECIALTIES.map((spec, i) => (
-                      <span key={i} className="px-3 py-1 bg-neutral-200 text-brand-900 text-xs rounded-full font-medium">
+                      <span key={i} className="px-3 py-1 bg-neutral-200 text-neutral-900 text-xs rounded-full font-medium">
                         {spec[lang]}
                       </span>
                     ))}
@@ -911,7 +911,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
 
                 {/* Memberships */}
                 <div className="mb-5">
-                  <h4 className="text-xs font-bold text-brand-900 uppercase tracking-wider mb-2">
+                  <h4 className="text-xs font-bold text-neutral-900 uppercase tracking-wider mb-2">
                     {lang === 'ja' ? '学会' : lang === 'en' ? 'Memberships' : lang === 'zh-TW' ? '學會' : '学会'}
                   </h4>
                   <div className="space-y-1">
@@ -926,7 +926,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
 
                 {/* Publications */}
                 <div>
-                  <h4 className="text-xs font-bold text-brand-900 uppercase tracking-wider mb-2">
+                  <h4 className="text-xs font-bold text-neutral-900 uppercase tracking-wider mb-2">
                     {lang === 'ja' ? '論文掲載誌' : lang === 'en' ? 'Publications' : lang === 'zh-TW' ? '論文發表' : '论文发表'}
                   </h4>
                   <p className="text-xs text-neutral-800/60">Cureus, Cancer Medicine etc.</p>
@@ -941,7 +941,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block px-4 py-1.5 bg-neutral-200 text-brand-900 text-xs font-medium rounded-full mb-4">
+            <span className="inline-block px-4 py-1.5 bg-neutral-200 text-neutral-900 text-xs font-medium rounded-full mb-4">
               {t.envTag[lang]}
             </span>
             <h2 className="text-3xl font-bold text-neutral-800">{t.envTitle[lang]}</h2>
@@ -975,7 +975,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
       <section className="py-20 bg-neutral-100">
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center mb-10">
-            <span className="inline-block px-4 py-1.5 bg-white text-brand-900 text-xs font-medium rounded-full mb-4 border border-neutral-200">
+            <span className="inline-block px-4 py-1.5 bg-white text-neutral-900 text-xs font-medium rounded-full mb-4 border border-neutral-200">
               {t.accessTag[lang]}
             </span>
             <h2 className="text-3xl font-bold text-neutral-800">{t.accessTitle[lang]}</h2>
@@ -1066,7 +1066,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block px-4 py-1.5 bg-neutral-200 text-brand-900 text-xs font-medium rounded-full mb-4">
+            <span className="inline-block px-4 py-1.5 bg-neutral-200 text-neutral-900 text-xs font-medium rounded-full mb-4">
               {t.faqTag[lang]}
             </span>
             <h2 className="text-3xl font-bold text-neutral-800">{t.faqTitle[lang]}</h2>
@@ -1126,7 +1126,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 href={checkoutHref('/ginza-phoenix/initial-consultation')}
-                className="inline-flex items-center justify-center gap-3 bg-white text-brand-900 px-8 py-4 rounded-full font-bold hover:bg-neutral-200 transition-all shadow-lg"
+                className="inline-flex items-center justify-center gap-3 bg-white text-neutral-900 px-8 py-4 rounded-full font-bold hover:bg-neutral-200 transition-all shadow-lg"
               >
                 {t.ctaBook[lang]} <ArrowRight size={18} />
               </Link>

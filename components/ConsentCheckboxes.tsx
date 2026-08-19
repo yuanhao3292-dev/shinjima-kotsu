@@ -64,16 +64,16 @@ export default function ConsentCheckboxes({ consents, onChange, lang }: ConsentC
       <p className="text-xs text-neutral-500 leading-relaxed">{t.medicalDisclaimer}</p>
       <div className="space-y-3">
         <label className="flex items-start gap-3 cursor-pointer">
-          <input type="checkbox" checked={consents.cancel} onChange={(e) => onChange({ ...consents, cancel: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-neutral-300 text-brand-900 focus:ring-brand-700" />
+          <input type="checkbox" checked={consents.cancel} onChange={(e) => onChange({ ...consents, cancel: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-neutral-300 text-neutral-900 focus:ring-brand-700" />
           <span className="text-sm text-neutral-700">{t.consentCancel}</span>
         </label>
         <label className="flex items-start gap-3 cursor-pointer">
-          <input type="checkbox" checked={consents.tokushoho} onChange={(e) => onChange({ ...consents, tokushoho: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-neutral-300 text-brand-900 focus:ring-brand-700" />
-          <span className="text-sm text-neutral-700"><Link href="/legal/tokushoho" target="_blank" className="underline hover:text-brand-900">{t.consentTokushoho}</Link></span>
+          <input type="checkbox" checked={consents.tokushoho} onChange={(e) => onChange({ ...consents, tokushoho: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-neutral-300 text-neutral-900 focus:ring-brand-700" />
+          <span className="text-sm text-neutral-700"><Link href="/legal/tokushoho" target="_blank" className="underline hover:text-brand-700">{t.consentTokushoho}</Link></span>
         </label>
         <label className="flex items-start gap-3 cursor-pointer">
-          <input type="checkbox" checked={consents.privacy} onChange={(e) => onChange({ ...consents, privacy: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-neutral-300 text-brand-900 focus:ring-brand-700" />
-          <span className="text-sm text-neutral-700"><Link href="/legal/privacy" target="_blank" className="underline hover:text-brand-900">{t.consentPrivacy}</Link></span>
+          <input type="checkbox" checked={consents.privacy} onChange={(e) => onChange({ ...consents, privacy: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-neutral-300 text-neutral-900 focus:ring-brand-700" />
+          <span className="text-sm text-neutral-700"><Link href="/legal/privacy" target="_blank" className="underline hover:text-brand-700">{t.consentPrivacy}</Link></span>
         </label>
         {!allConsented(consents) && (
           <p className="text-xs text-amber-600">{t.consentRequired}</p>

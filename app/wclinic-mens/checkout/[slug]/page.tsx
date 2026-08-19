@@ -190,7 +190,7 @@ export default function WClinicMensCheckoutPage() {
       {/* Back link */}
       <div className="bg-white border-b border-neutral-100">
         <div className="max-w-4xl mx-auto px-4 py-3">
-          <Link href={backHref} className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-900 transition">
+          <Link href={backHref} className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-700 transition">
             <ArrowLeft size={16} />
             {t('backToMain')}
           </Link>
@@ -202,7 +202,7 @@ export default function WClinicMensCheckoutPage() {
         <div className="max-w-4xl mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <span className="inline-block text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 bg-white/10 text-brand-700">W CLINIC men&apos;s</span>
+              <span className="inline-block text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 bg-white/10 text-white">W CLINIC men&apos;s</span>
               <h1 className="text-2xl md:text-3xl font-serif font-bold text-white">{getName()}</h1>
               <p className="text-neutral-400 text-sm mt-1">{pkg.nameEn}</p>
             </div>
@@ -217,7 +217,7 @@ export default function WClinicMensCheckoutPage() {
       {/* Form */}
       <div className="max-w-4xl mx-auto px-4 py-10">
         <div className="bg-white border border-neutral-200 p-6 md:p-8">
-          <h2 className="text-xl font-serif font-bold text-brand-900 mb-4">{t('bookingInfo')}</h2>
+          <h2 className="text-xl font-serif font-bold text-neutral-900 mb-4">{t('bookingInfo')}</h2>
           <div className="bg-neutral-50 border border-neutral-200 p-4 mb-6">
             <p className="text-sm text-neutral-700">{t('contractNotice')}</p>
           </div>
@@ -280,7 +280,7 @@ export default function WClinicMensCheckoutPage() {
               <div className="flex justify-between items-center mb-4">
                 <span className="text-neutral-600">{t('serviceFee')}</span>
                 <div className="text-right">
-                  <span className="text-2xl font-bold text-brand-900">¥{pkg.priceJpy.toLocaleString()}</span>
+                  <span className="text-2xl font-bold text-neutral-900">¥{pkg.priceJpy.toLocaleString()}</span>
                   <span className="text-xs text-neutral-500 ml-1">{t('taxIncluded')}</span>
                 </div>
               </div>

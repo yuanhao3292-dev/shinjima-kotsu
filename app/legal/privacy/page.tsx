@@ -155,7 +155,7 @@ export default function PrivacyPolicyPage() {
 
             <Section title="10. お問い合わせ窓口">
               <div className="bg-neutral-50 p-6 rounded-2xl">
-                <p className="font-bold text-brand-900">新島交通株式会社</p>
+                <p className="font-bold text-neutral-900">新島交通株式会社</p>
                 <p className="text-sm text-neutral-600">個人情報保護管理者: 代表取締役 員昊</p>
                 <div className="mt-3 text-sm text-neutral-700 space-y-1">
                   <p>〒556-0014 大阪府大阪市浪速区大国1-2-21-602</p>
@@ -174,7 +174,7 @@ export default function PrivacyPolicyPage() {
 
             {/* 白标モードの注意書き */}
             <div className="bg-neutral-50 border border-neutral-200 rounded-2xl p-6">
-              <h2 className="font-bold text-brand-900 mb-2">提携パートナー経由でご利用のお客様へ</h2>
+              <h2 className="font-bold text-neutral-900 mb-2">提携パートナー経由でご利用のお客様へ</h2>
               <p className="text-neutral-700 text-sm leading-relaxed">
                 当社は、導遊（ガイド）の方々と提携し、ホワイトラベルサービスを提供しています。
                 提携パートナーのウェブサイトからご予約いただいた場合も、個人情報の管理主体は当社であり、
@@ -186,13 +186,13 @@ export default function PrivacyPolicyPage() {
             <div className="flex flex-wrap gap-6">
               <Link
                 href="/legal/tokushoho"
-                className="text-brand-700 hover:text-brand-900 text-sm flex items-center gap-1 transition-colors"
+                className="text-brand-700 hover:text-brand-700 text-sm flex items-center gap-1 transition-colors"
               >
                 特定商取引法に基づく表記 <ArrowRight size={14} />
               </Link>
               <Link
                 href="/legal/terms"
-                className="text-brand-700 hover:text-brand-900 text-sm flex items-center gap-1 transition-colors"
+                className="text-brand-700 hover:text-brand-700 text-sm flex items-center gap-1 transition-colors"
               >
                 利用規約 <ArrowRight size={14} />
               </Link>
@@ -207,7 +207,7 @@ export default function PrivacyPolicyPage() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section>
-      <h2 className="text-lg font-bold text-brand-900 mb-3 pb-2 border-b border-neutral-200">
+      <h2 className="text-lg font-bold text-neutral-900 mb-3 pb-2 border-b border-neutral-200">
         {title}
       </h2>
       <div className="text-neutral-700 leading-relaxed">

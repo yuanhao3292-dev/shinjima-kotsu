@@ -33,8 +33,8 @@ const packageColors: Record<string, {
     badgeBg: 'bg-brand-400 text-neutral-900' },
   'premium-cardiac-course': {
     headerBg: 'brand-gradient-deep',
-    title: 'text-brand-900',
-    price: 'text-brand-900',
+    title: 'text-neutral-900',
+    price: 'text-neutral-900',
     check: 'text-brand-700',
     button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300',
     cardBg: 'bg-neutral-50',
@@ -42,8 +42,8 @@ const packageColors: Record<string, {
   },
   'select-gastro-colonoscopy': {
     headerBg: 'brand-gradient-deep',
-    title: 'text-brand-900',
-    price: 'text-brand-900',
+    title: 'text-neutral-900',
+    price: 'text-neutral-900',
     check: 'text-brand-700',
     button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300',
     cardBg: 'bg-neutral-50',
@@ -51,8 +51,8 @@ const packageColors: Record<string, {
   },
   'select-gastroscopy': {
     headerBg: 'brand-gradient-deep',
-    title: 'text-brand-900',
-    price: 'text-brand-900',
+    title: 'text-neutral-900',
+    price: 'text-neutral-900',
     check: 'text-brand-700',
     button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300',
     cardBg: 'bg-neutral-50',
@@ -60,8 +60,8 @@ const packageColors: Record<string, {
   },
   'dwibs-cancer-screening': {
     headerBg: 'brand-gradient-deep',
-    title: 'text-brand-900',
-    price: 'text-brand-900',
+    title: 'text-neutral-900',
+    price: 'text-neutral-900',
     check: 'text-brand-700',
     button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300',
     cardBg: 'bg-neutral-50',
@@ -69,8 +69,8 @@ const packageColors: Record<string, {
   },
   'basic-checkup': {
     headerBg: 'brand-gradient-deep',
-    title: 'text-brand-900',
-    price: 'text-brand-900',
+    title: 'text-neutral-900',
+    price: 'text-neutral-900',
     check: 'text-brand-700',
     button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300',
     cardBg: 'bg-neutral-50',
@@ -343,7 +343,7 @@ export default function PackageDetailContent({
           {isGuideEmbed && backHref ? (
             <Link
               href={backHref}
-              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors text-sm"
+              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-700 transition-colors text-sm"
             >
               <ArrowLeft size={16} />
               {t.backToList}
@@ -407,7 +407,7 @@ export default function PackageDetailContent({
           {/* Right: Booking Form */}
           <div className="lg:col-span-2">
             <div className="bg-white border border-neutral-200 p-8">
-              <h2 className="text-2xl font-serif font-bold text-brand-900 mb-6">{t.bookingTitle}</h2>
+              <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6">{t.bookingTitle}</h2>
               <form onSubmit={handleSubmit}>
                 <div className="grid md:grid-cols-2 gap-5 mb-6">
                   <div>
@@ -471,7 +471,7 @@ export default function PackageDetailContent({
                 </div>
 
                 <div className="mb-8">
-                  <h3 className="text-lg font-semibold text-brand-900 mb-4">{t.addOnTitle}</h3>
+                  <h3 className="text-lg font-semibold text-neutral-900 mb-4">{t.addOnTitle}</h3>
                   <div className="space-y-3">
                     {ADD_ON_SERVICES.map((service) => {
                       const isSelected = selectedAddOns.includes(service.id);
@@ -484,11 +484,11 @@ export default function PackageDetailContent({
                           </div>
                           <div className="flex-grow">
                             <div className="flex items-center justify-between">
-                              <span className={`font-medium ${isSelected ? 'text-brand-900' : 'text-neutral-700'}`}>{service.name}</span>
-                              {isSelected && <Check className="w-5 h-5 text-brand-900" />}
+                              <span className={`font-medium ${isSelected ? 'text-neutral-900' : 'text-neutral-700'}`}>{service.name}</span>
+                              {isSelected && <Check className="w-5 h-5 text-neutral-900" />}
                             </div>
                             <p className="text-sm text-neutral-500 mt-1">{service.description}</p>
-                            <p className="text-sm font-semibold mt-1 text-brand-900">{service.price ? `¥${service.price.toLocaleString()}` : t.addOnFreeConsult}</p>
+                            <p className="text-sm font-semibold mt-1 text-neutral-900">{service.price ? `¥${service.price.toLocaleString()}` : t.addOnFreeConsult}</p>
                           </div>
                         </button>
                       );
@@ -517,16 +517,16 @@ export default function PackageDetailContent({
                 {/* Legal Consent Checkboxes */}
                 <div className="mb-8 space-y-3">
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" checked={consents.cancel} onChange={(e) => setConsents({ ...consents, cancel: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-neutral-300 text-brand-900 focus:ring-brand-700" />
+                    <input type="checkbox" checked={consents.cancel} onChange={(e) => setConsents({ ...consents, cancel: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-neutral-300 text-neutral-900 focus:ring-brand-700" />
                     <span className="text-sm text-neutral-700">{t.consentCancel}</span>
                   </label>
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" checked={consents.tokushoho} onChange={(e) => setConsents({ ...consents, tokushoho: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-neutral-300 text-brand-900 focus:ring-brand-700" />
-                    <span className="text-sm text-neutral-700"><Link href="/legal/tokushoho" target="_blank" className="underline hover:text-brand-900">{t.consentTokushoho}</Link></span>
+                    <input type="checkbox" checked={consents.tokushoho} onChange={(e) => setConsents({ ...consents, tokushoho: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-neutral-300 text-neutral-900 focus:ring-brand-700" />
+                    <span className="text-sm text-neutral-700"><Link href="/legal/tokushoho" target="_blank" className="underline hover:text-brand-700">{t.consentTokushoho}</Link></span>
                   </label>
                   <label className="flex items-start gap-3 cursor-pointer">
-                    <input type="checkbox" checked={consents.privacy} onChange={(e) => setConsents({ ...consents, privacy: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-neutral-300 text-brand-900 focus:ring-brand-700" />
-                    <span className="text-sm text-neutral-700"><Link href="/legal/privacy" target="_blank" className="underline hover:text-brand-900">{t.consentPrivacy}</Link></span>
+                    <input type="checkbox" checked={consents.privacy} onChange={(e) => setConsents({ ...consents, privacy: e.target.checked })} className="mt-0.5 w-4 h-4 rounded border-neutral-300 text-neutral-900 focus:ring-brand-700" />
+                    <span className="text-sm text-neutral-700"><Link href="/legal/privacy" target="_blank" className="underline hover:text-brand-700">{t.consentPrivacy}</Link></span>
                   </label>
                   {!(consents.cancel && consents.tokushoho && consents.privacy) && (
                     <p className="text-xs text-amber-600">{t.consentRequired}</p>

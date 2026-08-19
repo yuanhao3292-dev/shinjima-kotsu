@@ -113,7 +113,7 @@ export default function OrderConfirmationModal({
             </div>
             <div className="flex justify-between items-center">
               <span className="text-sm text-neutral-500">{modalT.priceLabel[lang]}</span>
-              <span className="text-lg font-bold text-brand-900">¥{price.toLocaleString()}</span>
+              <span className="text-lg font-bold text-neutral-900">¥{price.toLocaleString()}</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-sm text-neutral-500">{modalT.customerLabel[lang]}</span>

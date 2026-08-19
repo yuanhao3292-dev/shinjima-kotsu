@@ -954,15 +954,15 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
       <section className="py-24 bg-gradient-to-br from-neutral-50 to-brand-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">Japan Medical Institutions</span>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-900 mt-3 mb-4">
+            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">Japan Medical Institutions</span>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-neutral-900 mt-3 mb-4">
               {t('instTitle')}
             </h2>
             <p className="text-neutral-500 max-w-3xl mx-auto mb-6">
               {t('instDesc')}
             </p>
             {/* 免責聲明 */}
-            <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-200 px-4 py-2 rounded-lg text-sm text-brand-800">
+            <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-200 px-4 py-2 rounded-lg text-sm text-neutral-900">
               <Info size={16} />
               <span>{t('instDisclaimer')}</span>
             </div>
@@ -999,7 +999,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                         >
                           {/* Hospital Name */}
                           <div className="mb-4">
-                            <h4 className="text-lg font-bold text-brand-900 mb-1">{inst.name}</h4>
+                            <h4 className="text-lg font-bold text-neutral-900 mb-1">{inst.name}</h4>
                             <p className="text-sm text-neutral-500">{inst.nameLocal[currentLang]}</p>
                             <div className="flex items-center gap-1 text-xs text-neutral-500 mt-1">
                               <MapPin size={12} />
@@ -1073,8 +1073,8 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
         <div className="container mx-auto px-6">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">Treatment Process</span>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-900 mt-3 mb-4">
+            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">Treatment Process</span>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-neutral-900 mt-3 mb-4">
               {t('flowTitle')}
             </h2>
             <p className="text-neutral-500 max-w-2xl mx-auto">
@@ -1107,7 +1107,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                         PHASE {phase.phaseNumber}
                       </span>
                     </div>
-                    <h3 className={`text-sm font-bold ${isActive ? 'text-brand-900' : 'text-neutral-600'}`}>
+                    <h3 className={`text-sm font-bold ${isActive ? 'text-neutral-900' : 'text-neutral-600'}`}>
                       {phase.title[currentLang]}
                     </h3>
                     <p className="text-xs text-neutral-500 mt-1 flex items-center gap-1">
@@ -1167,7 +1167,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                       <div className={`rounded-xl p-5 border ${PHASE_LIGHT_BG_MAP[phase.color]}`}>
                         <div className="flex items-center gap-2 mb-4">
                           <Users size={18} className="text-neutral-600" />
-                          <h4 className="font-bold text-brand-900 text-sm">{t('flowYouDo')}</h4>
+                          <h4 className="font-bold text-neutral-900 text-sm">{t('flowYouDo')}</h4>
                         </div>
                         <ul className="space-y-2.5">
                           {phase.patientActions.map((action, i) => (
@@ -1182,7 +1182,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                       <div className="rounded-xl p-5 border bg-neutral-50 border-neutral-100">
                         <div className="flex items-center gap-2 mb-4">
                           <Shield size={18} className="text-neutral-600" />
-                          <h4 className="font-bold text-brand-900 text-sm">{t('flowWeHandle')}</h4>
+                          <h4 className="font-bold text-neutral-900 text-sm">{t('flowWeHandle')}</h4>
                         </div>
                         <ul className="space-y-2.5">
                           {phase.weHandle.map((item, i) => (
@@ -1197,7 +1197,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
 
                     {/* Sub-step Timeline */}
                     <div>
-                      <h4 className="font-bold text-brand-900 text-sm mb-4 flex items-center gap-2">
+                      <h4 className="font-bold text-neutral-900 text-sm mb-4 flex items-center gap-2">
                         <FileText size={16} className="text-neutral-500" />
                         {t('flowStepDetail')}
                       </h4>
@@ -1219,9 +1219,9 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                                 <div className="flex flex-wrap items-start justify-between gap-3">
                                   <div className="flex-grow">
                                     <div className="flex items-center gap-2 mb-1">
-                                      <h5 className="text-sm font-bold text-brand-900">{step.title[currentLang]}</h5>
+                                      <h5 className="text-sm font-bold text-neutral-900">{step.title[currentLang]}</h5>
                                       {step.fee && (
-                                        <span className="bg-brand-100 text-brand-800 text-xs font-bold px-2 py-0.5 rounded-full">
+                                        <span className="bg-brand-100 text-neutral-900 text-xs font-bold px-2 py-0.5 rounded-full">
                                           ¥{step.fee}
                                         </span>
                                       )}
@@ -1256,8 +1256,8 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
       <section className="py-24 bg-gradient-to-br from-neutral-50 to-brand-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">Standard Treatment</span>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-900 mt-3 mb-4">
+            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">Standard Treatment</span>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-neutral-900 mt-3 mb-4">
               {t('stdTitle')}
             </h2>
             <p className="text-neutral-500 max-w-2xl mx-auto">
@@ -1279,7 +1279,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   <div className={`w-14 h-14 ${colors.bg} ${colors.text} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
                     <Icon size={28} />
                   </div>
-                  <h3 className="text-xl font-serif font-bold text-brand-900 mb-4">{treatment.title[currentLang]}</h3>
+                  <h3 className="text-xl font-serif font-bold text-neutral-900 mb-4">{treatment.title[currentLang]}</h3>
                   <ul className="space-y-2 mb-4">
                     {treatment.features.map((feature, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-neutral-600">
@@ -1301,8 +1301,8 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">Regenerative Medicine</span>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-900 mt-3 mb-4">
+            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">Regenerative Medicine</span>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-neutral-900 mt-3 mb-4">
               {t('regenTitle')}
             </h2>
             <p className="text-neutral-500 max-w-2xl mx-auto">
@@ -1319,7 +1319,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
               <Leaf size={16} />
               {t('regenHealth')}
             </div>
-            <div className="flex items-center gap-2 bg-brand-100 text-brand-800 px-4 py-2 rounded-full text-sm font-bold">
+            <div className="flex items-center gap-2 bg-brand-100 text-neutral-900 px-4 py-2 rounded-full text-sm font-bold">
               <Shield size={16} />
               {t('regenPrevention')}
             </div>
@@ -1339,7 +1339,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   <div className={`inline-block ${colors.bg} ${colors.text} text-xs font-bold px-3 py-1 rounded-full mb-4`}>
                     {treatment.purpose[currentLang]}
                   </div>
-                  <h3 className="text-xl font-serif font-bold text-brand-900 mb-1">{treatment.title[currentLang]}</h3>
+                  <h3 className="text-xl font-serif font-bold text-neutral-900 mb-1">{treatment.title[currentLang]}</h3>
                   <p className="text-neutral-500 text-sm mb-4">{treatment.subtitle}</p>
                   <ul className="space-y-2">
                     {treatment.features.map((feature, i) => (
@@ -1356,7 +1356,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
         </div>
       </section>
       {/* Partner Institutions */}
-      <section className="py-20 bg-neutral-50 text-brand-900">
+      <section className="py-20 bg-neutral-50 text-neutral-900">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-serif font-bold mb-4">{t('partnerTitle')}</h2>
@@ -1383,8 +1383,8 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
-              <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">Book Service</span>
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-900 mt-3 mb-4">
+              <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">Book Service</span>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-neutral-900 mt-3 mb-4">
                 {t('svcTitle')}
               </h2>
               <p className="text-neutral-600 mb-4">
@@ -1484,7 +1484,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   <Users size={24} className="text-brand-700" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-brand-900 mb-2">{t('memberTitle')}</h4>
+                  <h4 className="font-bold text-neutral-900 mb-2">{t('memberTitle')}</h4>
                   <p className="text-sm text-neutral-600 leading-relaxed">
                     {t('memberDesc')}
                   </p>
@@ -1513,7 +1513,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
       <div className="py-8 bg-white text-center">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition"
+          className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-700 transition"
         >
           <ArrowLeft size={16} />
           {t('backHome')}
@@ -1542,7 +1542,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                 <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178A1.17 1.17 0 014.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178 1.17 1.17 0 01-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 01.598.082l1.584.926a.272.272 0 00.139.045c.133 0 .241-.108.241-.243 0-.06-.024-.118-.04-.177l-.327-1.233a.49.49 0 01-.009-.102c0-.142.062-.28.177-.375C23.116 17.715 24 16.046 24 14.194c0-2.942-2.696-5.336-7.062-5.336zm-2.745 3.086c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.97-.983zm5.49 0c.535 0 .969.44.969.983a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.543.434-.983.969-.983z"/>
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-brand-900 mb-2">{t('wechatTitle')}</h3>
+            <h3 className="text-xl font-bold text-neutral-900 mb-2">{t('wechatTitle')}</h3>
             <p className="text-neutral-500 text-sm mb-6">{t('wechatScan')}</p>
             <div className="bg-neutral-50 rounded-xl p-4 mb-4">
               <Image

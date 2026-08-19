@@ -210,7 +210,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
               <span>{ui('included', currentLang)}</span>
             </div>
             <div className="flex items-center gap-1">
-              <Circle className="w-3 h-3 text-brand-800" />
+              <Circle className="w-3 h-3 text-neutral-900" />
               <span>{ui('optional', currentLang)}</span>
             </div>
             <div className="flex items-center gap-1">
@@ -345,7 +345,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
               <span className="text-neutral-600">{ui('legendIncluded', currentLang)}</span>
             </div>
             <div className="flex items-center gap-2">
-              <Circle className="w-4 h-4 text-brand-800" />
+              <Circle className="w-4 h-4 text-neutral-900" />
               <span className="text-neutral-600">{ui('legendOptional', currentLang)}</span>
             </div>
             <div className="flex items-center gap-2">

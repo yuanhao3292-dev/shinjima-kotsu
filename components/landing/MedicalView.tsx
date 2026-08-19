@@ -68,7 +68,7 @@ const MedicalTechCard = memo(function MedicalTechCard({
            <div className={`h-1 w-6 rounded-full ${colorClass.replace('text-', 'bg-')}`}></div>
            <span className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Advanced Tech</span>
         </div>
-        <h4 className="text-xl font-bold text-brand-900 mb-3 font-serif group-hover:text-brand-700 transition-colors">{title}</h4>
+        <h4 className="text-xl font-bold text-neutral-900 mb-3 font-serif group-hover:text-brand-700 transition-colors">{title}</h4>
         <div className="flex flex-wrap gap-2 mb-4">
            <span className="text-[10px] font-bold text-neutral-500 bg-neutral-50 px-2 py-1 rounded border border-neutral-100 flex items-center gap-1">
               <Cpu size={10} /> {spec1}
@@ -152,8 +152,8 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
     <div className="bg-white py-20">
       <div className="container mx-auto px-6 py-12 md:py-24">
         <div className="text-center mb-12">
-          <span className="text-brand-700 text-xs tracking-[0.3em] uppercase font-bold">{currentLang === 'zh-TW' ? '院內導覽' : currentLang === 'zh-CN' ? '院内导览' : currentLang === 'ja' ? '院内ツアー' : 'Hospital Tour'}</span>
-          <h3 className="text-3xl font-serif text-brand-900 mt-3">{t.medical.video_title}</h3>
+          <span className="text-neutral-700 text-xs tracking-[0.3em] uppercase font-bold">{currentLang === 'zh-TW' ? '院內導覽' : currentLang === 'zh-CN' ? '院内导览' : currentLang === 'ja' ? '院内ツアー' : 'Hospital Tour'}</span>
+          <h3 className="text-3xl font-serif text-neutral-900 mt-3">{t.medical.video_title}</h3>
           <p className="text-neutral-600 text-sm mt-2 max-w-2xl mx-auto">{t.medical.video_subtitle}</p>
         </div>
         <div className="max-w-4xl mx-auto">
@@ -177,7 +177,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       {/* 2. Authority Section */}
       <div className="mb-24">
           <div className="text-center mb-16">
-              <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">{t.medical.auth_tag}</span>
+              <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{t.medical.auth_tag}</span>
               <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.medical.auth_title}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -358,13 +358,13 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="max-w-xl">
                           <div className="flex items-center gap-3 mb-4">
                               <div className="h-[1px] w-12 bg-brand-400"></div>
-                              <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">01</span>
+                              <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">01</span>
                           </div>
-                          <h4 className="text-3xl md:text-4xl lg:text-5xl text-brand-900 mb-6 font-serif">{t.medical.facility_1_title}</h4>
+                          <h4 className="text-3xl md:text-4xl lg:text-5xl text-neutral-900 mb-6 font-serif">{t.medical.facility_1_title}</h4>
                           <p className="text-lg text-neutral-600 leading-relaxed">{t.medical.facility_1_desc}</p>
                           <div className="mt-6 flex gap-3">
-                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-brand-900 border border-white/20">4,000&#x33A1;</span>
-                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-brand-900 border border-white/20">{currentLang === 'zh-TW' ? '大型設施' : currentLang === 'zh-CN' ? '大型设施' : currentLang === 'ja' ? '大規模施設' : 'Large-Scale Facility'}</span>
+                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-neutral-900 border border-white/20">4,000&#x33A1;</span>
+                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-neutral-900 border border-white/20">{currentLang === 'zh-TW' ? '大型設施' : currentLang === 'zh-CN' ? '大型设施' : currentLang === 'ja' ? '大規模施設' : 'Large-Scale Facility'}</span>
                           </div>
                       </div>
                   </div>
@@ -388,7 +388,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl ml-auto text-right">
                           <div className="flex items-center justify-end gap-3 mb-4">
-                              <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">02</span>
+                              <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">02</span>
                               <div className="h-[1px] w-12 bg-brand-400"></div>
                           </div>
                           <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_2_title}</h4>
@@ -420,14 +420,14 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       <div className="max-w-xl">
                           <div className="flex items-center gap-3 mb-4">
                               <div className="h-[1px] w-12 bg-brand-400"></div>
-                              <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">03</span>
+                              <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">03</span>
                           </div>
-                          <h4 className="text-3xl md:text-4xl lg:text-5xl text-brand-900 mb-6 font-serif">{t.medical.facility_3_title}</h4>
+                          <h4 className="text-3xl md:text-4xl lg:text-5xl text-neutral-900 mb-6 font-serif">{t.medical.facility_3_title}</h4>
                           <p className="text-lg text-neutral-600 leading-relaxed">{t.medical.facility_3_desc}</p>
                           <div className="mt-6 flex gap-3 flex-wrap">
-                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-brand-900 border border-white/20">{currentLang === 'zh-TW' ? '20 間個室' : currentLang === 'zh-CN' ? '20 间个室' : currentLang === 'ja' ? '個室20室' : '20 Rooms'}</span>
-                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-brand-900 border border-white/20">30&#x33A1;+</span>
-                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-brand-900 border border-white/20">{currentLang === 'zh-TW' ? '完全隱私' : currentLang === 'zh-CN' ? '完全隐私' : currentLang === 'ja' ? '完全プライバシー' : 'Full Privacy'}</span>
+                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-neutral-900 border border-white/20">{currentLang === 'zh-TW' ? '20 間個室' : currentLang === 'zh-CN' ? '20 间个室' : currentLang === 'ja' ? '個室20室' : '20 Rooms'}</span>
+                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-neutral-900 border border-white/20">30&#x33A1;+</span>
+                              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-neutral-900 border border-white/20">{currentLang === 'zh-TW' ? '完全隱私' : currentLang === 'zh-CN' ? '完全隐私' : currentLang === 'ja' ? '完全プライバシー' : 'Full Privacy'}</span>
                           </div>
                       </div>
                   </div>
@@ -451,7 +451,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                   <div className="relative container mx-auto px-6 py-12 md:py-24 py-16">
                       <div className="max-w-xl ml-auto text-right">
                           <div className="flex items-center justify-end gap-3 mb-4">
-                              <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">04</span>
+                              <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">04</span>
                               <div className="h-[1px] w-12 bg-brand-400"></div>
                           </div>
                           <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_4_title}</h4>
@@ -467,7 +467,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       </div>
 
       {/* 4. Flow Experience */}
-      <div className="mb-24 bg-white border border-neutral-200 text-brand-900 rounded-3xl p-10 md:p-16 relative overflow-hidden">
+      <div className="mb-24 bg-white border border-neutral-200 text-neutral-900 rounded-3xl p-10 md:p-16 relative overflow-hidden">
            <div className="absolute inset-0 opacity-10" style={{backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png')"}}></div>
            <div className="relative z-10 text-center mb-12">
                <h3 className="text-3xl font-serif">{t.medical.flow_title}</h3>
@@ -516,9 +516,9 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               <div className="col-span-1 md:col-span-2 lg:col-span-1 border border-brand-300 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 relative overflow-hidden bg-white flex flex-col">
                   <div className="absolute top-0 right-0 brand-gradient-solid text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">{currentLang === 'zh-TW' ? '旗艦' : currentLang === 'zh-CN' ? '旗舰' : currentLang === 'ja' ? 'フラッグシップ' : 'Flagship'}</div>
                   <div className="mb-4">
-                      <h4 className="text-lg font-serif font-bold text-brand-900">{t.medical.pkg_vip_title}</h4>
+                      <h4 className="text-lg font-serif font-bold text-neutral-900">{t.medical.pkg_vip_title}</h4>
                       <p className="text-xs text-brand-700 mt-1">{currentLang === 'zh-TW' ? 'VIP 會員健診' : currentLang === 'zh-CN' ? 'VIP 会员健诊' : currentLang === 'ja' ? 'VIPメンバーコース' : 'VIP Member Course'}</p>
-                      <p className="text-xl font-bold text-brand-900 mt-2">&yen;1,512,500</p>
+                      <p className="text-xl font-bold text-neutral-900 mt-2">&yen;1,512,500</p>
                       <p className="text-[10px] text-neutral-500">{t.medical.pkg_price_note}</p>
                   </div>
                   <p className="text-xs text-neutral-500 mb-4 leading-relaxed flex-grow">
@@ -538,9 +538,9 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               {/* 2. PREMIUM (Cardiac) */}
               <div className="border border-brand-200 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-white flex flex-col">
                    <div className="mb-4">
-                       <h4 className="text-lg font-serif font-bold text-brand-900">{t.medical.pkg_premium_title}</h4>
+                       <h4 className="text-lg font-serif font-bold text-neutral-900">{t.medical.pkg_premium_title}</h4>
                        <p className="text-xs text-brand-700 mt-1">{currentLang === 'zh-TW' ? '高級心臟健診' : currentLang === 'zh-CN' ? '高级心脏健诊' : currentLang === 'ja' ? 'プレミアム心臓コース' : 'Premium Cardiac Course'}</p>
-                       <p className="text-xl font-bold text-brand-900 mt-2">&yen;825,000</p>
+                       <p className="text-xl font-bold text-neutral-900 mt-2">&yen;825,000</p>
                        <p className="text-[10px] text-neutral-500">{t.medical.pkg_price_note}</p>
                    </div>
                    <p className="text-xs text-neutral-500 mb-4 leading-relaxed flex-grow">
@@ -559,9 +559,9 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               {/* 3. SELECT (Gastro + Colon) */}
               <div className="border border-brand-200 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-white flex flex-col">
                    <div className="mb-4">
-                       <h4 className="text-lg font-serif font-bold text-brand-900">{t.medical.pkg_select_gc_title}</h4>
+                       <h4 className="text-lg font-serif font-bold text-neutral-900">{t.medical.pkg_select_gc_title}</h4>
                        <p className="text-xs text-brand-700 mt-1">{currentLang === 'zh-TW' ? '胃腸鏡健診' : currentLang === 'zh-CN' ? '胃肠镜健诊' : currentLang === 'ja' ? '胃・大腸内視鏡コース' : 'Gastro + Colonoscopy Course'}</p>
-                       <p className="text-xl font-bold text-brand-900 mt-2">&yen;825,000</p>
+                       <p className="text-xl font-bold text-neutral-900 mt-2">&yen;825,000</p>
                        <p className="text-[10px] text-neutral-500">{t.medical.pkg_price_note}</p>
                    </div>
                    <p className="text-xs text-neutral-500 mb-4 leading-relaxed flex-grow">
@@ -580,9 +580,9 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               {/* 4. SELECT (Stomach only) */}
               <div className="border border-brand-200 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-white flex flex-col">
                    <div className="mb-4">
-                       <h4 className="text-lg font-serif font-bold text-brand-900">{t.medical.pkg_select_g_title}</h4>
+                       <h4 className="text-lg font-serif font-bold text-neutral-900">{t.medical.pkg_select_g_title}</h4>
                        <p className="text-xs text-brand-700 mt-1">{currentLang === 'zh-TW' ? '胃鏡健診' : currentLang === 'zh-CN' ? '胃镜健诊' : currentLang === 'ja' ? '胃内視鏡コース' : 'Gastroscopy Course'}</p>
-                       <p className="text-xl font-bold text-brand-900 mt-2">&yen;687,500</p>
+                       <p className="text-xl font-bold text-neutral-900 mt-2">&yen;687,500</p>
                        <p className="text-[10px] text-neutral-500">{t.medical.pkg_price_note}</p>
                    </div>
                    <p className="text-xs text-neutral-500 mb-4 leading-relaxed flex-grow">
@@ -601,9 +601,9 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               {/* 5. DWIBS */}
               <div className="border border-brand-200 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-white flex flex-col">
                    <div className="mb-4">
-                       <h4 className="text-lg font-serif font-bold text-brand-900">{t.medical.pkg_dwibs_title}</h4>
+                       <h4 className="text-lg font-serif font-bold text-neutral-900">{t.medical.pkg_dwibs_title}</h4>
                        <p className="text-xs text-brand-700 mt-1">{currentLang === 'zh-TW' ? 'DWIBS 癌症篩查' : currentLang === 'zh-CN' ? 'DWIBS 癌症筛查' : currentLang === 'ja' ? 'DWIBSがん検診' : 'DWIBS Cancer Screening'}</p>
-                       <p className="text-xl font-bold text-brand-900 mt-2">&yen;275,000</p>
+                       <p className="text-xl font-bold text-neutral-900 mt-2">&yen;275,000</p>
                        <p className="text-[10px] text-neutral-500">{t.medical.pkg_price_note}</p>
                    </div>
                    <p className="text-xs text-neutral-500 mb-4 leading-relaxed flex-grow">
@@ -659,7 +659,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       {/* 客戶評價區塊 - 自動滾動輪播 */}
       <div className="mb-24" id="timc-testimonials">
           <div className="text-center mb-16">
-              <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">{currentLang === 'zh-TW' ? '客戶評價' : currentLang === 'zh-CN' ? '客户评价' : currentLang === 'ja' ? 'お客様の声' : 'Customer Reviews'}</span>
+              <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{currentLang === 'zh-TW' ? '客戶評價' : currentLang === 'zh-CN' ? '客户评价' : currentLang === 'ja' ? 'お客様の声' : 'Customer Reviews'}</span>
               <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.medical.testimonials_title}</h3>
               <p className="text-neutral-500 text-sm mt-2">{t.medical.testimonials_sub}</p>
           </div>
@@ -746,7 +746,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       {/* FAQ 常見問題 */}
       <div className="mb-24" id="timc-faq">
           <div className="text-center mb-16">
-              <span className="text-brand-700 text-xs tracking-widest uppercase font-bold">FAQ</span>
+              <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">FAQ</span>
               <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.medical.faq_title}</h3>
               <p className="text-neutral-500 text-sm mt-2">{t.medical.faq_sub}</p>
           </div>
@@ -792,7 +792,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       </div>
 
       {/* CTA */}
-      <div className="bg-white border border-neutral-200 rounded-3xl p-12 text-center text-brand-900 shadow-xl shadow-neutral-900/5">
+      <div className="bg-white border border-neutral-200 rounded-3xl p-12 text-center text-neutral-900 shadow-xl shadow-neutral-900/5">
           <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif mb-6">{t.medical.cta_title}</h3>
           <p className="text-neutral-600 max-w-2xl mx-auto mb-6 leading-relaxed whitespace-pre-line">
               {t.medical.cta_text}
@@ -815,7 +815,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       </div>
 
       <div className="text-center py-12">
-         <button onClick={() => setCurrentPage('home')} className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition">
+         <button onClick={() => setCurrentPage('home')} className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-700 transition">
             <ArrowLeft size={16} /> {t.about.back}
          </button>
       </div>

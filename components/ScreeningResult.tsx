@@ -424,7 +424,7 @@ export default function ScreeningResult({
               <Clock className="w-7 h-7 text-brand-600" />
             </div>
             <div className="flex-1">
-              <h2 className="text-lg font-bold text-brand-800 mb-2">{t('humanReviewTitle', lang)}</h2>
+              <h2 className="text-lg font-bold text-neutral-900 mb-2">{t('humanReviewTitle', lang)}</h2>
               <p className="text-brand-700 text-sm leading-relaxed">{t('humanReviewDesc', lang)}</p>
             </div>
           </div>
@@ -661,7 +661,7 @@ export default function ScreeningResult({
                   key={index}
                   className="border border-neutral-200 p-5"
                 >
-                  <h4 className="font-bold text-lg text-brand-900 mb-1">
+                  <h4 className="font-bold text-lg text-neutral-900 mb-1">
                     {hospital.name}
                   </h4>
                   <div className="flex items-center gap-1 text-neutral-500 text-sm mb-3">
@@ -709,12 +709,12 @@ export default function ScreeningResult({
                       {packagePrice && (
                         <div className="flex items-center justify-between mb-2">
                           <span className="text-xs text-neutral-500">{t('initialConsultation', lang)}</span>
-                          <span className="text-sm font-bold text-brand-900">¥{packagePrice.toLocaleString()}<span className="text-xs font-normal text-neutral-400 ml-1">({t('taxIncl', lang)})</span></span>
+                          <span className="text-sm font-bold text-neutral-900">¥{packagePrice.toLocaleString()}<span className="text-xs font-normal text-neutral-400 ml-1">({t('taxIncl', lang)})</span></span>
                         </div>
                       )}
                       <Link
                         href={consultUrl}
-                        className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-brand-400 hover:bg-brand-300 text-brand-900 font-medium text-sm tracking-wider transition-colors"
+                        className="flex items-center justify-center gap-2 w-full px-4 py-3 bg-brand-400 hover:bg-brand-300 text-neutral-900 font-medium text-sm tracking-wider transition-colors"
                       >
                         <ShoppingCart className="w-4 h-4" />
                         {t('bookConsultation', lang)}
