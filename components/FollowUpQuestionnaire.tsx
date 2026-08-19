@@ -320,7 +320,7 @@ export default function FollowUpQuestionnaire({
         <button
           onClick={handleSubmit}
           disabled={!allAnswered || isSubmitting}
-          className="order-1 sm:order-2 flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-brand-500 to-brand-600 text-white rounded-xl hover:from-brand-600 hover:to-brand-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+          className="order-1 sm:order-2 flex items-center gap-2 px-6 py-3 brand-gradient-solid hover:opacity-90 text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all"
         >
           {isSubmitting ? (
             <>

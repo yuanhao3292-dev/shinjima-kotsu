@@ -312,7 +312,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                                 <div className="w-10 h-10 border-2 border-neutral-300 border-t-brand-500 rounded-full animate-spin" />
                               </div>
                             )}
-                            <div className="absolute inset-0 bg-brand-900/10 group-hover:bg-transparent transition"></div>
+                            <div className="absolute inset-0 bg-neutral-900/10 group-hover:bg-transparent transition"></div>
                          </div>
                       </div>
 

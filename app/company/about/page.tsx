@@ -683,7 +683,7 @@ export default function AboutPage() {
               </div>
 
               <div className="grid md:grid-cols-3 gap-8">
-                <div className="relative flex flex-col bg-gradient-to-br from-brand-900 to-brand-800 rounded-2xl p-8 text-white">
+                <div className="relative flex flex-col brand-gradient-solid rounded-2xl p-8 text-white">
                   <Brain className="w-10 h-10 text-brand-700 mb-5" />
                   <h3 className="text-lg font-bold mb-3">{t('medicalAiTitle')}</h3>
                   <p className="text-white/80 text-sm leading-relaxed flex-1">{t('medicalAiDesc')}</p>

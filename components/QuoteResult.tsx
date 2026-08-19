@@ -120,7 +120,7 @@ Timestamp: ${new Date().toLocaleString()}
       
       {/* Top Banner Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="bg-gradient-to-br from-brand-900 to-brand-900 rounded-xl p-6 text-white shadow-xl relative overflow-hidden">
+        <div className="brand-gradient-solid rounded-xl p-6 text-white shadow-xl relative overflow-hidden">
           <div className="relative z-10">
             <p className="text-brand-200 text-sm font-medium mb-1">預估總價 (不含雜費)</p>
             <h3 className="text-4xl font-bold tracking-tight">¥{quote.estimated_total_jpy.toLocaleString()}</h3>

@@ -407,7 +407,7 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
           alt="Advanced Cell Medicine"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/95 via-neutral-900/80 to-transparent" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-32 w-full">
           <div className="max-w-2xl">
@@ -638,7 +638,7 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
           alt="iPeace iPS Cell Banking"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-900/95 via-brand-800/90 to-brand-900/95" />
+        <div className="absolute inset-0 bg-gradient-to-br from-neutral-900/95 via-neutral-900/90 to-neutral-900/95" />
         <div className="relative z-10 max-w-6xl mx-auto px-6">
           <div className="flex items-center gap-3 mb-4">
             <div className="h-[1px] w-12 bg-brand-400/40" />

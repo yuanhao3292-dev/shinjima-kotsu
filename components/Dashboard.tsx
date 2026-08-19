@@ -157,7 +157,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout, initialRequestTex
         </nav>
 
         <div className="p-4 border-t border-neutral-100">
-           <div className="bg-gradient-to-br from-brand-900 to-brand-800 rounded-xl p-4 text-white shadow-lg">
+           <div className="brand-gradient-solid rounded-xl p-4 text-white shadow-lg">
              <p className="text-xs font-medium text-brand-700 mb-1">今日匯率</p>
              <div className="flex justify-between items-end">
                <span className="font-bold text-xl">1 TWD</span>

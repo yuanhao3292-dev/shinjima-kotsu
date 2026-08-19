@@ -1167,7 +1167,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
       {/* ========================================
           2. Headline Stats - 核心数字 (暗色背景过渡区)
           ======================================== */}
-      <div className="bg-gradient-to-r from-brand-700 to-brand-700 py-16 md:py-24">
+      <div className="brand-gradient-deep py-16 md:py-24">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <span className="text-neutral-100 text-xs tracking-[0.3em] uppercase font-bold">{t.statsTag[lang]}</span>
@@ -2078,7 +2078,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
           {!isGuideEmbed && (
             <a
               href="#contact-form"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-brand-700 to-brand-700 text-white px-8 py-4 rounded-full font-bold hover:from-brand-800 hover:to-brand-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 brand-gradient-solid hover:opacity-90 text-white px-8 py-4 rounded-full font-bold transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
             >
               <Stethoscope size={20} />
               {bookingT.bookNow[lang]}

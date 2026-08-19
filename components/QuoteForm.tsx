@@ -257,8 +257,8 @@ const QuoteForm: React.FC<QuoteFormProps> = ({ request, setRequest, onCalculate,
           onClick={onCalculate}
           disabled={loading}
           className={`w-full py-4 rounded-xl font-bold text-white shadow-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] ${
-            loading ? 'bg-neutral-400 cursor-not-allowed' : 'bg-gradient-to-r from-brand-600 to-brand-700 hover:shadow-xl'
-          }`}
+ loading ? 'bg-neutral-400 cursor-not-allowed' : 'brand-gradient-solid hover:shadow-xl'
+ }`}
         >
           {loading ? (
             <span className="flex items-center justify-center gap-2">

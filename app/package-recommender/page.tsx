@@ -994,7 +994,7 @@ export default function PackageRecommenderPage() {
         </header>
         <main className="max-w-2xl mx-auto px-4 py-16">
           <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-            <div className="bg-gradient-to-br from-brand-600 via-brand-600 to-brand-700 text-white p-10 text-center relative overflow-hidden">
+            <div className="brand-gradient-deep text-white p-10 text-center relative overflow-hidden">
               <div className="absolute inset-0 opacity-10"><div className="absolute inset-0" style={{backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png')"}}></div></div>
               <div className="relative z-10">
                 <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur"><Sparkles className="w-10 h-10" /></div>
@@ -1043,7 +1043,7 @@ export default function PackageRecommenderPage() {
           <p className="text-neutral-500">{ut('pageDesc')}</p>
         </div>
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-          <div className="h-1.5 bg-neutral-100"><div className="h-full bg-gradient-to-r from-brand-500 to-brand-500 transition-all duration-500" style={{ width: `${progress}%` }} /></div>
+          <div className="h-1.5 bg-neutral-100"><div className="h-full brand-gradient-solid transition-all duration-500" style={{ width: `${progress}%` }} /></div>
           <div className="p-6 border-b border-neutral-100">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">

@@ -1468,7 +1468,7 @@ export default function KindaiHospitalContent({
                 key={index}
                 className="group rounded-3xl border border-neutral-200 bg-white p-6 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
               >
-                <div className="mb-4 inline-flex rounded-2xl bg-gradient-to-br from-brand-900 to-brand-800 p-4 text-white transition-transform duration-300 group-hover:scale-110">
+                <div className="mb-4 inline-flex rounded-2xl brand-gradient-solid p-4 text-white transition-transform duration-300 group-hover:scale-110">
                   <cert.icon className="h-8 w-8" />
                 </div>
                 <h3 className="mb-2 text-lg font-bold text-neutral-900">
@@ -1499,7 +1499,7 @@ export default function KindaiHospitalContent({
                     key={index}
                     className="group rounded-3xl border border-neutral-200 bg-gradient-to-br from-white to-neutral-50 p-8 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
                   >
-                    <div className="mb-4 inline-flex rounded-2xl bg-gradient-to-br from-brand-900 to-brand-800 p-4 text-white transition-transform duration-300 group-hover:scale-110">
+                    <div className="mb-4 inline-flex rounded-2xl brand-gradient-solid p-4 text-white transition-transform duration-300 group-hover:scale-110">
                       <stat.icon className="h-8 w-8" />
                     </div>
                     <div className="mb-2 flex items-baseline gap-2">
@@ -1539,7 +1539,7 @@ export default function KindaiHospitalContent({
                     key={index}
                     className="group rounded-3xl border border-neutral-200 bg-white p-8 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
                   >
-                    <div className="mb-4 inline-flex rounded-2xl bg-gradient-to-br from-brand-900 to-brand-800 p-4 text-white transition-transform duration-300 group-hover:scale-110">
+                    <div className="mb-4 inline-flex rounded-2xl brand-gradient-solid p-4 text-white transition-transform duration-300 group-hover:scale-110">
                       <feature.icon className="h-8 w-8" />
                     </div>
                     <h3 className="mb-3 text-xl font-bold text-neutral-900">
@@ -1584,7 +1584,7 @@ export default function KindaiHospitalContent({
                     )}
                     <div className="p-6">
                       <div className="mb-4 flex items-start gap-3">
-                        <div className="inline-flex rounded-xl bg-gradient-to-br from-brand-900 to-brand-800 p-3 text-white">
+                        <div className="inline-flex rounded-xl brand-gradient-solid p-3 text-white">
                           <equip.icon className="h-6 w-6" />
                         </div>
                         <div className="flex-1">
@@ -1675,7 +1675,7 @@ export default function KindaiHospitalContent({
                     key={index}
                     className="group rounded-3xl border border-neutral-200 bg-white p-8 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
                   >
-                    <div className="mb-4 inline-flex rounded-2xl bg-gradient-to-br from-brand-900 to-brand-800 p-4 text-white transition-transform duration-300 group-hover:scale-110">
+                    <div className="mb-4 inline-flex rounded-2xl brand-gradient-solid p-4 text-white transition-transform duration-300 group-hover:scale-110">
                       <feature.icon className="h-8 w-8" />
                     </div>
                     <h3 className="mb-3 text-xl font-bold text-neutral-900">
@@ -1716,7 +1716,7 @@ export default function KindaiHospitalContent({
                       quality={75}
                     />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-brand-900 to-brand-800">
+                    <div className="flex h-full w-full items-center justify-center brand-gradient-solid">
                       <UserCheck className="h-24 w-24 text-white" />
                     </div>
                   )}
@@ -1800,7 +1800,7 @@ export default function KindaiHospitalContent({
             <div className="overflow-hidden rounded-3xl bg-gradient-to-br from-brand-50 to-brand-50 shadow-2xl">
               <div className="p-8 md:p-12">
                 <div className="mb-6 flex items-center gap-4">
-                  <div className="rounded-2xl bg-gradient-to-br from-brand-500 to-brand-600 p-4 text-white">
+                  <div className="rounded-2xl brand-gradient-solid p-4 text-white">
                     <Heart className="h-10 w-10" />
                   </div>
                   <h3 className="text-2xl font-bold text-neutral-900 md:text-3xl">
@@ -1837,7 +1837,7 @@ export default function KindaiHospitalContent({
             <div className="overflow-hidden rounded-3xl bg-gradient-to-br from-neutral-50 to-white shadow-2xl">
               <div className="p-8 md:p-12">
                 <div className="mb-6 flex items-center gap-4">
-                  <div className="rounded-2xl bg-gradient-to-br from-brand-900 to-brand-800 p-4 text-white">
+                  <div className="rounded-2xl brand-gradient-solid p-4 text-white">
                     <Heart className="h-10 w-10" />
                   </div>
                   <h3 className="text-2xl font-bold text-neutral-900 md:text-3xl">
@@ -1874,7 +1874,7 @@ export default function KindaiHospitalContent({
             <div className="overflow-hidden rounded-3xl bg-gradient-to-br from-brand-50 to-brand-50 shadow-2xl">
               <div className="p-8 md:p-12">
                 <div className="mb-6 flex items-center gap-4">
-                  <div className="rounded-2xl bg-gradient-to-br from-brand-900 to-brand-800 p-4 text-white">
+                  <div className="rounded-2xl brand-gradient-solid p-4 text-white">
                     <Brain className="h-10 w-10" />
                   </div>
                   <h3 className="text-2xl font-bold text-neutral-900 md:text-3xl">
@@ -2175,7 +2175,7 @@ export default function KindaiHospitalContent({
           {!isGuideEmbed && (
             <a
               href="#contact-form"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-brand-900 to-brand-800 text-white px-8 py-4 rounded-full font-bold hover:from-brand-900 hover:to-brand-900 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 brand-gradient-solid hover:opacity-90 text-white px-8 py-4 rounded-full font-bold transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
             >
               <Stethoscope size={20} />
               {bookNow[locale]}
@@ -2247,7 +2247,7 @@ export default function KindaiHospitalContent({
           <div className="grid gap-6 lg:grid-cols-3">
             {/* 电车 */}
             <div className="rounded-3xl border border-neutral-200 bg-white p-8 shadow-lg">
-              <div className="mb-4 inline-flex rounded-2xl bg-gradient-to-br from-brand-500 to-brand-600 p-3 text-white">
+              <div className="mb-4 inline-flex rounded-2xl brand-gradient-solid p-3 text-white">
                 <Train className="h-6 w-6" />
               </div>
               <h3 className="mb-4 text-xl font-bold text-neutral-900">
@@ -2260,7 +2260,7 @@ export default function KindaiHospitalContent({
 
             {/* 巴士 */}
             <div className="rounded-3xl border border-neutral-200 bg-white p-8 shadow-lg">
-              <div className="mb-4 inline-flex rounded-2xl bg-gradient-to-br from-brand-900 to-brand-800 p-3 text-white">
+              <div className="mb-4 inline-flex rounded-2xl brand-gradient-solid p-3 text-white">
                 <Bus className="h-6 w-6" />
               </div>
               <h3 className="mb-4 text-xl font-bold text-neutral-900">
@@ -2281,7 +2281,7 @@ export default function KindaiHospitalContent({
 
             {/* 自驾 */}
             <div className="rounded-3xl border border-neutral-200 bg-white p-8 shadow-lg">
-              <div className="mb-4 inline-flex rounded-2xl bg-gradient-to-br from-brand-900 to-brand-800 p-3 text-white">
+              <div className="mb-4 inline-flex rounded-2xl brand-gradient-solid p-3 text-white">
                 <Car className="h-6 w-6" />
               </div>
               <h3 className="mb-4 text-xl font-bold text-neutral-900">

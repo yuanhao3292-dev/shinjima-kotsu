@@ -645,7 +645,7 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
           alt="Osaka International Cancer Center"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-800/90 via-brand-800/65 to-brand-800/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/90 via-neutral-900/65 to-neutral-900/20" />
 
         <div className="relative z-10 container mx-auto px-6 py-16 md:py-24">
           <div className="max-w-2xl">

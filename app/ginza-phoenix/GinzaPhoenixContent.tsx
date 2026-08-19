@@ -510,8 +510,8 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
           alt="Ginza Phoenix Clinic"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-900/75 to-brand-900/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-900/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/95 via-neutral-900/75 to-neutral-900/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/60 via-transparent to-transparent" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-24 w-full">
           <div className="max-w-2xl">
@@ -565,7 +565,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
       </section>
 
       {/* 2. STATS BAR */}
-      <section className="bg-gradient-to-r from-brand-900 to-brand-800 py-14">
+      <section className="brand-gradient-deep py-14">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {STATS.map((stat, i) => (
@@ -1101,7 +1101,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
       </section>
 
       {/* 14. CONSULTATION CTA */}
-      <section id="consultation" className="py-20 bg-gradient-to-br from-brand-900 via-brand-800 to-brand-900 text-white">
+      <section id="consultation" className="py-20 brand-gradient-deep text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">{t.ctaTitle[lang]}</h2>
           <p className="text-lg text-white/70 mb-3">{t.ctaSubtitle[lang]}</p>

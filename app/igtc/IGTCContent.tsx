@@ -549,7 +549,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
             alt="IGT Clinic"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/75 via-neutral-900/55 to-brand-900/30" />
+          <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/75 via-neutral-900/55 to-neutral-900/30" />
         </div>
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-24">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -797,7 +797,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
 
           <div className="grid md:grid-cols-2 gap-8">
             {/* IGT Technical Details */}
-            <div className="bg-gradient-to-br from-brand-700 to-brand-600 rounded-2xl p-8 text-white">
+            <div className="brand-gradient-solid rounded-2xl p-8 text-white">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
                   <Syringe size={24} className="text-white" />
@@ -826,7 +826,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
             </div>
 
             {/* Hyperthermia Technical Details */}
-            <div className="bg-gradient-to-br from-brand-600 to-brand-500 rounded-2xl p-8 text-white">
+            <div className="brand-gradient-solid rounded-2xl p-8 text-white">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
                   <Thermometer size={24} className="text-white" />
@@ -1462,7 +1462,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
           </div>
           <div className="grid md:grid-cols-2 gap-8">
             {/* Monthly Treatments */}
-            <div className="bg-gradient-to-br from-brand-500 to-brand-600 rounded-2xl p-8 text-white">
+            <div className="brand-gradient-solid rounded-2xl p-8 text-white">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
                   <Activity size={24} className="text-white" />
@@ -1482,7 +1482,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
             </div>
 
             {/* Conference Presentations */}
-            <div className="bg-gradient-to-br from-brand-500 to-brand-600 rounded-2xl p-8 text-white">
+            <div className="brand-gradient-solid rounded-2xl p-8 text-white">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
                   <Award size={24} className="text-white" />
@@ -1561,7 +1561,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               <div key={i} className="bg-white rounded-2xl p-8 border border-brand-200 hover:border-brand-400 hover:shadow-lg transition">
                 <div className="flex items-start gap-6">
                   <div className="flex flex-col items-center shrink-0">
-                    <div className="w-16 h-16 bg-gradient-to-br from-brand-600 to-brand-600 rounded-2xl flex items-center justify-center mb-2">
+                    <div className="w-16 h-16 brand-gradient-solid rounded-2xl flex items-center justify-center mb-2">
                       <achievement.icon size={32} className="text-white" />
                     </div>
                     <div className="text-brand-600 font-bold text-lg">{achievement.year}</div>
@@ -1787,7 +1787,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
         </div>
       </section>
       {/* ========== CTA ========== */}
-      <section id="cta" className="py-16 bg-gradient-to-br from-brand-500 to-brand-600">
+      <section id="cta" className="py-16 brand-gradient-deep">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">{t(tr.ctaTitle, lang)}</h2>
           <p className="text-brand-100 mb-10 max-w-2xl mx-auto">{t(tr.ctaDesc, lang)}</p>

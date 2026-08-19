@@ -241,7 +241,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
           <button
             onClick={handleDownloadPDF}
             disabled={isDownloading}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-brand-600 to-brand-700 text-white rounded-lg hover:from-brand-700 hover:to-brand-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all text-sm font-medium shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 brand-gradient-solid hover:opacity-90 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all text-sm font-medium shadow-sm"
           >
             {isDownloading ? (
               <>
@@ -297,7 +297,7 @@ export default function ScreeningResultPage({ params }: PageProps) {
             <button
               onClick={handleDownloadPDF}
               disabled={isDownloading}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-brand-600 to-brand-700 text-white rounded-xl hover:from-brand-700 hover:to-brand-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-lg shadow-brand-200"
+              className="inline-flex items-center gap-2 px-6 py-3 brand-gradient-solid hover:opacity-90 text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-lg shadow-brand-200"
             >
               {isDownloading ? (
                 <>

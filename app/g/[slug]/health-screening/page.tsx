@@ -562,7 +562,7 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
               <button
                 onClick={handleAnalyzeWithDocument}
                 disabled={isAnalyzingDoc}
-                className="w-full px-6 py-4 bg-gradient-to-r from-brand-600 to-brand-700 text-white text-lg font-medium rounded-xl hover:from-brand-700 hover:to-brand-800 transition-all disabled:opacity-50 shadow-lg"
+                className="w-full px-6 py-4 brand-gradient-solid hover:opacity-90 text-white text-lg font-medium rounded-xl transition-all disabled:opacity-50 shadow-lg"
               >
                 {isAnalyzingDoc ? (
                   <span className="flex items-center justify-center gap-2">
@@ -728,7 +728,7 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
       {/* Hero */}
       <div className="bg-gradient-to-b from-white to-brand-50/30 py-16">
         <div className="max-w-2xl mx-auto px-4 text-center">
-          <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-brand-500 to-brand-600 rounded-full mb-6 shadow-lg shadow-brand-200">
+          <div className="inline-flex items-center justify-center w-24 h-24 brand-gradient-solid rounded-full mb-6 shadow-lg shadow-brand-200">
             <Heart className="w-12 h-12 text-white" />
           </div>
 
@@ -757,7 +757,7 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
             <button
               onClick={startNewScreening}
               disabled={isCreating || !sessionId}
-              className="px-10 py-4 bg-gradient-to-r from-brand-600 to-brand-700 text-white text-lg font-medium rounded-xl hover:from-brand-700 hover:to-brand-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-brand-200 hover:shadow-xl hover:shadow-brand-300 transform hover:-translate-y-0.5"
+              className="px-10 py-4 brand-gradient-solid hover:opacity-90 text-white text-lg font-medium rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-brand-200 hover:shadow-xl hover:shadow-brand-300 transform hover:-translate-y-0.5"
             >
               {isCreating ? (
                 <span className="flex items-center gap-2">
