@@ -344,7 +344,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
       </section>
 
       {/* ===== 2. STATS BAR ===== */}
-      <section className="bg-brand-700 py-8">
+      <section className="bg-brand-600 py-8">
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-white">
           {[
             { val: '30,000+', label: t.stat1[lang], icon: <Users size={20} /> },
@@ -491,7 +491,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
               ].map((step, i, arr) => (
                 <React.Fragment key={i}>
                   <div className="flex flex-col items-center text-center w-36">
-                    <div className="w-14 h-14 rounded-full bg-brand-700 text-white flex items-center justify-center mb-3">
+                    <div className="w-14 h-14 rounded-full bg-brand-600 text-white flex items-center justify-center mb-3">
                       {step.icon}
                     </div>
                     <span className="text-sm font-medium text-[#333] whitespace-pre-line">{step.label[lang]}</span>
@@ -556,7 +556,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
                   <span className="text-brand-700">{f.icon}</span>
                   <span className="text-sm font-medium text-[#333]">{f.label[lang]}</span>
                   {f.floor === '7F' && (
-                    <span className="ml-auto text-xs bg-brand-700 text-white px-2 py-0.5 rounded-full">
+                    <span className="ml-auto text-xs bg-brand-600 text-white px-2 py-0.5 rounded-full">
                       {lang === 'ja' ? 'クリーンルーム' : lang === 'en' ? 'Cleanroom' : '洁净室'}
                     </span>
                   )}
@@ -591,7 +591,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
               <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                 <div className="relative h-48">
                   <RemoteImage src={feat.img} alt={feat.title[lang]} className="w-full h-full object-cover" />
-                  <div className="absolute top-3 right-3 bg-brand-700 text-white rounded-full p-2.5">
+                  <div className="absolute top-3 right-3 bg-brand-600 text-white rounded-full p-2.5">
                     {feat.icon}
                   </div>
                 </div>
@@ -622,7 +622,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
               { year: '2024', text: t.hist2024 },
             ].map((item, i) => (
               <div key={i} className="relative">
-                <div className="absolute -left-[41px] top-0 w-5 h-5 bg-brand-700 rounded-full border-4 border-white shadow" />
+                <div className="absolute -left-[41px] top-0 w-5 h-5 bg-brand-600 rounded-full border-4 border-white shadow" />
                 <div className="bg-neutral-100 rounded-xl p-5">
                   <span className="text-sm font-bold text-brand-700">{item.year}</span>
                   <p className="text-[#555] mt-1">{item.text[lang]}</p>

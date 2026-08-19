@@ -23,16 +23,16 @@ const packageColors: Record<string, {
   badgeBg?: string;
 }> = {
   'vip-member-course': {
-    headerBg: 'bg-brand-900',
+    headerBg: 'brand-gradient-deep',
     title: 'text-brand-400',
     price: 'text-brand-400',
     check: 'text-brand-400',
     button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300',
-    cardBg: 'bg-brand-900',
+    cardBg: 'brand-gradient-deep',
     cardBorder: 'border-brand-400/30',
     badgeBg: 'bg-brand-400 text-neutral-900' },
   'premium-cardiac-course': {
-    headerBg: 'bg-brand-900',
+    headerBg: 'brand-gradient-deep',
     title: 'text-brand-900',
     price: 'text-brand-900',
     check: 'text-brand-700',
@@ -41,7 +41,7 @@ const packageColors: Record<string, {
     cardBorder: 'border-neutral-200',
   },
   'select-gastro-colonoscopy': {
-    headerBg: 'bg-brand-900',
+    headerBg: 'brand-gradient-deep',
     title: 'text-brand-900',
     price: 'text-brand-900',
     check: 'text-brand-700',
@@ -50,7 +50,7 @@ const packageColors: Record<string, {
     cardBorder: 'border-neutral-200',
   },
   'select-gastroscopy': {
-    headerBg: 'bg-brand-900',
+    headerBg: 'brand-gradient-deep',
     title: 'text-brand-900',
     price: 'text-brand-900',
     check: 'text-brand-700',
@@ -59,7 +59,7 @@ const packageColors: Record<string, {
     cardBorder: 'border-neutral-200',
   },
   'dwibs-cancer-screening': {
-    headerBg: 'bg-brand-900',
+    headerBg: 'brand-gradient-deep',
     title: 'text-brand-900',
     price: 'text-brand-900',
     check: 'text-brand-700',
@@ -68,7 +68,7 @@ const packageColors: Record<string, {
     cardBorder: 'border-neutral-200',
   },
   'basic-checkup': {
-    headerBg: 'bg-brand-900',
+    headerBg: 'brand-gradient-deep',
     title: 'text-brand-900',
     price: 'text-brand-900',
     check: 'text-brand-700',
@@ -479,7 +479,7 @@ export default function PackageDetailContent({
                       return (
                         <button key={service.id} type="button" onClick={() => setSelectedAddOns(isSelected ? selectedAddOns.filter(id => id !== service.id) : [...selectedAddOns, service.id])}
                           className={`w-full p-4 border-2 text-left transition-all flex items-start gap-4 ${isSelected ? 'border-brand-900 bg-neutral-50' : 'border-neutral-200 hover:border-neutral-300'}`}>
-                          <div className={`w-10 h-10 flex items-center justify-center flex-shrink-0 ${isSelected ? 'bg-brand-900 text-white' : 'bg-neutral-100 text-neutral-500'}`}>
+                          <div className={`w-10 h-10 flex items-center justify-center flex-shrink-0 ${isSelected ? 'brand-gradient-deep text-white' : 'bg-neutral-100 text-neutral-500'}`}>
                             <ServiceIcon size={20} />
                           </div>
                           <div className="flex-grow">

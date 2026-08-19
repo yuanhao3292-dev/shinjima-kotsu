@@ -2106,7 +2106,7 @@ export default function KindaiHospitalContent({
               <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-200 px-4 py-2 rounded-full">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-900" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 brand-gradient-deep" />
                 </span>
                 <span className="text-brand-900 text-sm">{svcLimit[locale]}</span>
               </div>

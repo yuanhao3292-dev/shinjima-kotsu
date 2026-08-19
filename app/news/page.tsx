@@ -45,7 +45,7 @@ interface NewsStats {
 const categoryConfig = {
   all: {
     labels: { ja: 'すべて', 'zh-TW': '全部', 'zh-CN': '全部', en: 'All' },
-    color: 'bg-brand-900 text-white',
+    color: 'brand-gradient-deep text-white',
     lightColor: 'bg-neutral-100 text-neutral-700',
     icon: Newspaper
   },
@@ -271,7 +271,7 @@ export default function NewsPage() {
                         {categoryConfig[news.category].labels[lang]}
                       </span>
                       {isNewNews(news.published_at) && (
-                        <span className="px-2 py-0.5 bg-brand-700 text-white rounded text-xs font-bold animate-pulse">
+                        <span className="px-2 py-0.5 bg-brand-600 text-white rounded text-xs font-bold animate-pulse">
                           {t('newBadge')}
                         </span>
                       )}
@@ -445,7 +445,7 @@ export default function NewsPage() {
                   onClick={() => setCurrentPage(page)}
                   className={`w-10 h-10 font-medium transition-all ${
                     currentPage === page
-                      ? 'bg-brand-900 text-white'
+                      ? 'brand-gradient-deep text-white'
                       : 'bg-white border border-neutral-200 text-neutral-600 hover:bg-neutral-50'
                   }`}
                 >

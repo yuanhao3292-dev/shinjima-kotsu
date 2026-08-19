@@ -642,7 +642,7 @@ export default function HealthScreeningPage() {
                         onClick={() => { setReportLangTouched(true); setReportLang(code); }}
                         className={`px-3 py-1 text-xs transition-colors ${
                           reportLang === code
-                            ? 'bg-brand-900 text-white'
+                            ? 'brand-gradient-deep text-white'
                             : 'bg-white text-neutral-600 hover:bg-neutral-100 border border-neutral-200'
                         }`}
                       >

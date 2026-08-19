@@ -746,7 +746,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
                               <span className="text-sm font-bold text-brand-900">{priceStr}</span>
                               <Link
                                 href={checkoutHref('/ginza-phoenix/initial-consultation')}
-                                className="hidden sm:inline-flex items-center gap-1 px-3 py-1 bg-brand-900 text-white text-xs rounded-full hover:bg-brand-800 transition-colors"
+                                className="hidden sm:inline-flex items-center gap-1 px-3 py-1 brand-gradient-deep text-white text-xs rounded-full hover:bg-brand-700 transition-colors"
                               >
                                 {t.bookBtn[lang]}
                               </Link>
@@ -783,7 +783,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
               <div key={i} className="flex gap-6">
                 {/* Timeline */}
                 <div className="flex flex-col items-center">
-                  <div className="w-10 h-10 rounded-full bg-brand-900 text-white flex items-center justify-center text-sm font-bold shrink-0">
+                  <div className="w-10 h-10 rounded-full brand-gradient-deep text-white flex items-center justify-center text-sm font-bold shrink-0">
                     {step.step}
                   </div>
                   {i < TREATMENT_FLOW.length - 1 && (
@@ -820,7 +820,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
                 alt="CPC - Cell Processing Center"
                 className="rounded-2xl w-full object-cover shadow-lg"
               />
-              <div className="absolute -bottom-4 -right-4 bg-brand-900 text-white px-5 py-3 rounded-xl shadow-lg">
+              <div className="absolute -bottom-4 -right-4 brand-gradient-deep text-white px-5 py-3 rounded-xl shadow-lg">
                 <p className="text-xs font-medium">GMP Grade</p>
                 <p className="text-lg font-bold">
                   {lang === 'ja' ? 'クリーンルーム完備' :

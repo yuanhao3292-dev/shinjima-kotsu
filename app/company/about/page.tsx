@@ -854,7 +854,7 @@ export default function AboutPage() {
                         </div>
                       </div>
                       {/* 中间节点 */}
-                      <div className={`absolute left-6 md:left-1/2 -translate-x-1/2 w-12 h-12 flex items-center justify-center z-10 ${item.active ? 'bg-brand-400 text-neutral-900' : item.done ? 'bg-white/10 border border-white/30 text-white/70' : 'bg-brand-800 border border-white/20 text-brand-700'}`}>
+                      <div className={`absolute left-6 md:left-1/2 -translate-x-1/2 w-12 h-12 flex items-center justify-center z-10 ${item.active ? 'bg-brand-400 text-neutral-900' : item.done ? 'bg-white/10 border border-white/30 text-white/70' : 'brand-gradient-deep border border-white/20 text-brand-700'}`}>
                         <Icon size={20} />
                       </div>
                       {/* 占位 */}

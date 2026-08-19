@@ -279,7 +279,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
       </section>
 
       {/* ===== 2. STATS BAR ===== */}
-      <section className="bg-brand-800 py-8">
+      <section className="brand-gradient-deep py-8">
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-white">
           {[
             { val: t.stat1[lang], label: t.stat1Label[lang], icon: <Target size={20} /> },
@@ -383,7 +383,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
                   <span className="text-sm text-[#555]">{t.comp1Proton[lang]}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-brand-800"></div>
+                  <div className="w-2 h-2 rounded-full brand-gradient-deep"></div>
                   <span className="text-sm font-bold text-brand-800">{t.comp1Carbon[lang]}</span>
                 </div>
               </div>
@@ -605,7 +605,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
           <div className="grid md:grid-cols-4 gap-6">
             {treatmentSteps.map((step, i) => (
               <div key={i} className="bg-white rounded-xl p-6 shadow-md relative">
-                <div className="flex items-center justify-center w-14 h-14 rounded-full bg-brand-800 text-white font-bold text-xl mb-4 mx-auto">
+                <div className="flex items-center justify-center w-14 h-14 rounded-full brand-gradient-deep text-white font-bold text-xl mb-4 mx-auto">
                   {step.step}
                 </div>
                 <div className="flex items-center justify-center text-brand-800 mb-3">
