@@ -976,7 +976,8 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
               const colors = {
                 headerBg: 'brand-gradient-solid',
                 headerText: 'text-white',
-                cardBorder: 'border-brand-200',
+                // 边框与页头同色系：brand-200 太淡（#fbd5cc），看不出是主题色 —— 用户反馈
+                cardBorder: 'border-brand-500',
                 badge: 'bg-brand-100 text-brand-700',
                 tagBg: 'bg-brand-50',
                 tagText: 'text-brand-700',
