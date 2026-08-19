@@ -507,7 +507,7 @@ export default function FAQPage() {
                 onClick={() => setActiveCategory(key)}
                 className={`px-5 py-2 text-sm font-medium tracking-wide transition-colors ${
                   activeCategory === key
-                    ? 'bg-brand-900 text-white'
+                    ? 'brand-gradient-deep text-white'
                     : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
                 }`}
               >

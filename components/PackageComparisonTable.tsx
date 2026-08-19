@@ -111,7 +111,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                 onClick={() => setSelectedPackageIndex(idx)}
                 className={`w-2 h-2 rounded-full transition-all ${
                   idx === selectedPackageIndex
-                    ? 'bg-brand-700 w-4'
+                    ? 'bg-brand-600 w-4'
                     : 'bg-neutral-300'
                 }`}
               />
@@ -192,7 +192,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
             className={`block w-full text-center py-3 rounded-xl font-bold text-lg transition ${
               selectedPackage.id === 'vip'
                 ? 'bg-gradient-to-r from-brand-500 to-brand-700 text-black'
-                : 'bg-brand-700 text-white hover:bg-brand-800'
+                : 'bg-brand-600 text-white hover:bg-brand-700'
             }`}
           >
             {ui('bookNow', currentLang)} {selectedPackage.name}
@@ -246,7 +246,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                 key={pkg.id}
                 className={`p-3 text-center ${
                   pkg.id === 'vip'
-                    ? 'bg-brand-900 text-white'
+                    ? 'brand-gradient-deep text-white'
                     : 'bg-neutral-50'
                 }`}
               >
@@ -270,7 +270,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                   className={`inline-block mt-2 text-xs px-3 py-1 rounded ${
                     pkg.id === 'vip'
                       ? 'bg-brand-500 text-black hover:bg-brand-400'
-                      : 'bg-brand-700 text-white hover:bg-brand-800'
+                      : 'bg-brand-600 text-white hover:bg-brand-700'
                   } transition`}
                 >
                   {ui('book', currentLang)}

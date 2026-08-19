@@ -161,7 +161,7 @@ export default function SustainabilityPage() {
     { num: 8, label: t('sdg8'), color: 'bg-brand-600' },
     { num: 11, label: t('sdg11'), color: 'bg-brand-500' },
     { num: 12, label: t('sdg12'), color: 'bg-brand-600' },
-    { num: 17, label: t('sdg17'), color: 'bg-brand-800' },
+    { num: 17, label: t('sdg17'), color: 'brand-gradient-deep' },
   ];
 
   return (

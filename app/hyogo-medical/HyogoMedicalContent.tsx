@@ -960,10 +960,10 @@ const TREATMENT_PHASES = [
 
 type PhaseColor = 'blue' | 'purple' | 'amber' | 'green';
 const PHASE_COLORS: Record<PhaseColor, { bg: string; light: string; border: string; text: string; ring: string }> = {
-  blue:   { bg: 'bg-brand-700',   light: 'bg-neutral-100',   border: 'border-brand-700',   text: 'text-brand-700',   ring: 'ring-neutral-100' },
-  purple: { bg: 'bg-brand-700', light: 'bg-neutral-100', border: 'border-brand-700', text: 'text-brand-700', ring: 'ring-neutral-100' },
-  amber:  { bg: 'bg-brand-700',  light: 'bg-neutral-100',  border: 'border-brand-700',  text: 'text-brand-700',  ring: 'ring-neutral-100' },
-  green:  { bg: 'bg-brand-700',  light: 'bg-neutral-100',  border: 'border-brand-700',  text: 'text-brand-700',  ring: 'ring-neutral-100' },
+  blue:   { bg: 'bg-brand-600',   light: 'bg-neutral-100',   border: 'border-brand-700',   text: 'text-brand-700',   ring: 'ring-neutral-100' },
+  purple: { bg: 'bg-brand-600', light: 'bg-neutral-100', border: 'border-brand-700', text: 'text-brand-700', ring: 'ring-neutral-100' },
+  amber:  { bg: 'bg-brand-600',  light: 'bg-neutral-100',  border: 'border-brand-700',  text: 'text-brand-700',  ring: 'ring-neutral-100' },
+  green:  { bg: 'bg-brand-600',  light: 'bg-neutral-100',  border: 'border-brand-700',  text: 'text-brand-700',  ring: 'ring-neutral-100' },
 };
 const PHASE_GRADIENT_MAP: Record<PhaseColor, string> = {
   blue:   'from-brand-700 to-brand-700',
@@ -978,10 +978,10 @@ const PHASE_LIGHT_BG_MAP: Record<PhaseColor, string> = {
   green:  'bg-neutral-100 border-neutral-200',
 };
 const PHASE_DOT_MAP: Record<PhaseColor, string> = {
-  blue: 'bg-brand-700',
-  purple: 'bg-brand-700',
-  amber: 'bg-brand-700',
-  green: 'bg-brand-700',
+  blue: 'bg-brand-600',
+  purple: 'bg-brand-600',
+  amber: 'bg-brand-600',
+  green: 'bg-brand-600',
 };
 
 // 咨询服务（使用兵庫医大专属 packages）
@@ -1156,7 +1156,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
             <div className="mt-8 inline-flex items-center gap-3 bg-brand-700/20 border border-neutral-100/60 px-5 py-3 rounded-full backdrop-blur-md">
               <span className="relative flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neutral-100 opacity-75" />
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-brand-700" />
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-brand-600" />
               </span>
               <span className="text-neutral-100 text-sm font-medium">{t.limitBadge[lang]}</span>
             </div>
@@ -1240,7 +1240,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
               onClick={() => setDoctorCategory(null)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 doctorCategory === null
-                  ? 'bg-brand-700 text-white shadow-lg'
+                  ? 'bg-brand-600 text-white shadow-lg'
                   : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
               }`}
             >
@@ -1254,7 +1254,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                   onClick={() => setDoctorCategory(cat.id)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-1.5 ${
                     doctorCategory === cat.id
-                      ? 'bg-brand-700 text-white shadow-lg'
+                      ? 'bg-brand-600 text-white shadow-lg'
                       : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
                   }`}
                 >
@@ -1353,7 +1353,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
               <div className="relative aspect-[16/10] overflow-hidden">
                 <Image src="https://www.hosp.hyo-med.ac.jp/upload/department/highlevel/urology_02.jpg" fill className="object-cover object-center transition-transform duration-700 group-hover:scale-105" alt="Da Vinci Xi" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
                 <div className="absolute inset-0 bg-black/20" />
-                <div className="absolute top-4 right-4 bg-brand-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                <div className="absolute top-4 right-4 bg-brand-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                   {t.robotDaVinciBadge[lang]}
                 </div>
               </div>
@@ -1374,7 +1374,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
               <div className="relative aspect-[16/10] overflow-hidden">
                 <Image src="https://www.hosp.hyo-med.ac.jp/upload/news/content/hinotori2.png" fill className="object-cover object-center transition-transform duration-700 group-hover:scale-105" alt="hinotori" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
                 <div className="absolute inset-0 bg-black/20" />
-                <div className="absolute top-4 right-4 bg-brand-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                <div className="absolute top-4 right-4 bg-brand-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                   {t.robotHinotoriBadge[lang]}
                 </div>
               </div>
@@ -1421,7 +1421,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
         {/* ========================================
             6. 10+ 专门中心 (TIMC 深色圆角风格)
             ======================================== */}
-        <div className="mb-24 bg-brand-700 text-white rounded-3xl p-10 md:p-16 relative overflow-hidden">
+        <div className="mb-24 bg-brand-600 text-white rounded-3xl p-10 md:p-16 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png')" }} />
           <div className="relative z-10 text-center mb-12">
             <span className="text-neutral-100 text-xs tracking-[0.3em] uppercase font-bold">{t.centersTag[lang]}</span>
@@ -1961,7 +1961,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
               <div className="inline-flex items-center gap-2 bg-neutral-100 border border-neutral-200 px-4 py-2 rounded-full">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neutral-100 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-700" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-600" />
                 </span>
                 <span className="text-brand-700 text-sm">{bookingT.svcLimit[lang]}</span>
               </div>

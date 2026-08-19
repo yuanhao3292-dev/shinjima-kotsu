@@ -551,7 +551,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   quality={75}
                 />
                 <div className="absolute inset-0 bg-black/20" />
-                <div className="absolute top-4 right-4 bg-brand-700 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                <div className="absolute top-4 right-4 bg-brand-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                   {lang === 'ja' ? '衝撃波' : lang === 'en' ? 'Shockwave' : '冲击波'}
                 </div>
               </div>
@@ -669,7 +669,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
             <div className="flex flex-col md:flex-row gap-4">
               {LOH_FLOW.map((step, i) => (
                 <div key={i} className="flex-1 flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-brand-900 text-white flex items-center justify-center text-sm font-bold shrink-0">
+                  <div className="w-8 h-8 rounded-full brand-gradient-deep text-white flex items-center justify-center text-sm font-bold shrink-0">
                     {step.step}
                   </div>
                   <span className="text-sm text-neutral-700 font-medium">{step.title[lang]}</span>
@@ -705,7 +705,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
             ======================================== */}
         <div className="mb-24">
           {/* Dark header */}
-          <div className="bg-brand-900 text-white rounded-t-3xl px-8 py-10 md:px-16 md:py-12 relative overflow-hidden">
+          <div className="brand-gradient-deep text-white rounded-t-3xl px-8 py-10 md:px-16 md:py-12 relative overflow-hidden">
             <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png')" }} />
             <div className="relative z-10 text-center">
               <span className="text-brand-400 text-xs tracking-[0.3em] uppercase font-bold">{t.menuTag[lang]}</span>
@@ -725,7 +725,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                     className="w-full flex items-center justify-between px-5 py-4 md:px-6 md:py-5 hover:bg-neutral-50 transition text-left"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-brand-900 text-brand-400 rounded-full flex items-center justify-center shrink-0">
+                      <div className="w-10 h-10 brand-gradient-deep text-brand-400 rounded-full flex items-center justify-center shrink-0">
                         <CatIcon size={18} />
                       </div>
                       <div>
@@ -743,7 +743,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                           <span className="text-sm font-bold text-brand-700 whitespace-nowrap">{item.price}</span>
                           <Link
                             href={guideSlug ? `/wclinic-mens/checkout/${item.slug}?guide=${guideSlug}` : `/wclinic-mens/checkout/${item.slug}`}
-                            className="shrink-0 text-xs font-bold bg-brand-900 text-white px-3 py-1.5 rounded-full hover:bg-brand-900 transition whitespace-nowrap"
+                            className="shrink-0 text-xs font-bold brand-gradient-deep text-white px-3 py-1.5 rounded-full hover:bg-brand-700 transition whitespace-nowrap"
                           >
                             {lang === 'ja' ? '予約' : lang === 'en' ? 'Book' : '預約'}
                           </Link>
@@ -937,7 +937,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
             const Icon = feature.icon;
             return (
               <div key={i} className="bg-neutral-50 p-6 rounded-xl border border-neutral-100 hover:shadow-lg transition duration-300 group text-center">
-                <div className="w-12 h-12 bg-brand-900 text-brand-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition">
+                <div className="w-12 h-12 brand-gradient-deep text-brand-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition">
                   <Icon size={22} />
                 </div>
                 <h4 className="text-base font-bold text-neutral-800 mb-2 font-serif">{feature.title[lang]}</h4>
@@ -972,7 +972,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/26 to-transparent" />
                 <div className="absolute bottom-4 left-4">
-                  <span className="bg-brand-900 text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                  <span className="brand-gradient-deep text-white text-xs font-bold px-3 py-1.5 rounded-full">
                     {lang === 'ja' ? '梅田院' : lang === 'en' ? 'Umeda Clinic' : '梅田院'}
                   </span>
                 </div>
@@ -1016,7 +1016,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/26 to-transparent" />
                 <div className="absolute bottom-4 left-4">
-                  <span className="bg-brand-900 text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                  <span className="brand-gradient-deep text-white text-xs font-bold px-3 py-1.5 rounded-full">
                     {lang === 'ja' ? '北新地院（メンズヘルスケア外来）' : lang === 'en' ? 'Kitashinchi (Men\'s Healthcare)' : '北新地院（男性健康外来）'}
                   </span>
                 </div>

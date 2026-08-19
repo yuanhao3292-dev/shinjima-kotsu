@@ -225,7 +225,7 @@ const TREATMENT_PHASES = [
 // 阶段颜色映射（提取为静态常量，避免每次渲染重建）
 type PhaseColor = 'blue' | 'purple' | 'amber' | 'green';
 const PHASE_COLOR_MAP: Record<PhaseColor, { bg: string; light: string; border: string; text: string; ring: string }> = {
-  blue:   { bg: 'bg-brand-700',   light: 'bg-brand-50',   border: 'border-brand-700',   text: 'text-brand-700',   ring: 'ring-brand-200' },
+  blue:   { bg: 'bg-brand-600',   light: 'bg-brand-50',   border: 'border-brand-700',   text: 'text-brand-700',   ring: 'ring-brand-200' },
   purple: { bg: 'bg-brand-600', light: 'bg-brand-50', border: 'border-brand-600', text: 'text-brand-600', ring: 'ring-brand-200' },
   amber:  { bg: 'bg-brand-500',  light: 'bg-brand-50',  border: 'border-brand-500',  text: 'text-brand-700',  ring: 'ring-brand-200' },
   green:  { bg: 'bg-brand-600',  light: 'bg-brand-50',  border: 'border-brand-600',  text: 'text-brand-600',  ring: 'ring-brand-200' },

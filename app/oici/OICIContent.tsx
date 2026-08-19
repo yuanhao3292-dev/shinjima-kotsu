@@ -677,7 +677,7 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
       </section>
 
       {/* ============ Designation Bar ============ */}
-      <section className="bg-brand-800">
+      <section className="brand-gradient-deep">
         <div className="container mx-auto px-6 py-4">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-0 sm:divide-x sm:divide-white/30">
             {[
@@ -752,7 +752,7 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
             {SPECIALTY_CENTERS.map((center, i) => (
               <div key={i} className="group bg-white rounded-xl border border-neutral-200 overflow-hidden hover:shadow-md transition-all">
-                <div className="h-1 bg-brand-800" />
+                <div className="h-1 brand-gradient-deep" />
                 <div className="p-5">
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center">
@@ -762,7 +762,7 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
                   </div>
                   <p className="text-xs text-neutral-600 leading-relaxed mb-3">{center.desc[lang]}</p>
                   <div className="flex items-center gap-1.5 text-xs">
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-800" />
+                    <span className="w-1.5 h-1.5 rounded-full brand-gradient-deep" />
                     <span className="text-brand-800 font-medium">{center.stats[lang]}</span>
                   </div>
                 </div>
@@ -782,7 +782,7 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {TREATMENTS.map((treat, i) => (
               <div key={i} className="bg-neutral-50 rounded-xl border border-neutral-100 p-6 hover:shadow-md transition-all">
-                <div className="w-12 h-12 rounded-xl bg-brand-800 flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-xl brand-gradient-deep flex items-center justify-center mb-4">
                   <treat.icon size={22} className="text-white" />
                 </div>
                 <h3 className="font-bold text-neutral-900 mb-2">{treat.title[lang]}</h3>
@@ -831,7 +831,7 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
           <div className="grid md:grid-cols-3 gap-6">
             {RESEARCH_ITEMS.map((item, i) => (
               <div key={i} className="bg-neutral-50 rounded-xl border border-neutral-100 p-6 hover:shadow-md transition-all">
-                <div className="w-12 h-12 rounded-xl bg-brand-800 flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-xl brand-gradient-deep flex items-center justify-center mb-4">
                   <item.icon size={22} className="text-white" />
                 </div>
                 <h3 className="font-bold text-neutral-900 mb-2">{item.title[lang]}</h3>
@@ -911,7 +911,7 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
             {HISTORY_MILESTONES.map((milestone, i) => (
               <div key={i} className="flex gap-4 mb-6 last:mb-0">
                 <div className="flex flex-col items-center">
-                  <div className="w-10 h-10 rounded-full bg-brand-800 text-white flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-full brand-gradient-deep text-white flex items-center justify-center flex-shrink-0">
                     <Clock size={16} />
                   </div>
                   {i < HISTORY_MILESTONES.length - 1 && (
@@ -945,7 +945,7 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
                 onClick={() => setExpandedPhase(i)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition ${
                   expandedPhase === i
-                    ? 'bg-brand-800 text-white shadow-md'
+                    ? 'brand-gradient-deep text-white shadow-md'
                     : 'bg-white text-neutral-600 border border-neutral-200 hover:border-neutral-300'
                 }`}
               >
@@ -961,7 +961,7 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
                   {phase.steps.map((step, j) => (
                     <div key={j} className="bg-white rounded-xl border border-neutral-200 p-5 shadow-sm">
                       <div className="flex items-start gap-4">
-                        <div className="w-8 h-8 rounded-full bg-brand-800 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">
+                        <div className="w-8 h-8 rounded-full brand-gradient-deep text-white flex items-center justify-center font-bold text-sm flex-shrink-0">
                           {j + 1}
                         </div>
                         <div>
@@ -1011,7 +1011,7 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
                 <p className="text-sm text-neutral-600 mb-6">{pkg.desc[lang]}</p>
                 <Link
                   href={guideSlug ? `/cancer-treatment/${pkg.ctaPath}?guide=${guideSlug}` : `/cancer-treatment/${pkg.ctaPath}`}
-                  className="block w-full text-center bg-brand-800 text-white font-bold py-3 rounded-xl hover:bg-brand-900 transition"
+                  className="block w-full text-center brand-gradient-deep text-white font-bold py-3 rounded-xl hover:bg-brand-700 transition"
                 >
                   {t('bookNow')}
                 </Link>

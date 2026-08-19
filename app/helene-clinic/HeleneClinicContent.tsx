@@ -553,7 +553,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
       </section>
 
       {/* ============ Designation Bar ============ */}
-      <section className="bg-brand-700">
+      <section className="bg-brand-600">
         <div className="container mx-auto px-6 py-4">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-0 sm:divide-x sm:divide-white/30">
             {[
@@ -621,7 +621,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
             {TREATMENTS.map((treat, i) => (
               <div key={i} className="bg-white rounded-xl border border-neutral-200 p-6 hover:shadow-md transition-all">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-brand-700 flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-brand-600 flex items-center justify-center flex-shrink-0">
                     <treat.icon size={22} className="text-white" />
                   </div>
                   <div>
@@ -680,7 +680,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
                 {/* Text side */}
                 <div className={si % 2 === 1 ? 'md:order-2' : ''}>
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-11 h-11 rounded-xl bg-brand-700 flex items-center justify-center flex-shrink-0">
+                    <div className="w-11 h-11 rounded-xl bg-brand-600 flex items-center justify-center flex-shrink-0">
                       <sec.icon size={22} className="text-white" />
                     </div>
                     <h3 className="text-lg font-bold text-neutral-900">{sec.title[lang]}</h3>
@@ -743,7 +743,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
           <div className="relative min-h-[40vh] overflow-hidden">
             <img src={img(HELENE_IMAGES.guptaLab, 1200)} alt="Prof. Gupta Research" className="absolute inset-0 w-full h-full object-cover" />
           </div>
-          <div className="bg-brand-700 text-white flex items-center p-10 md:p-14">
+          <div className="bg-brand-600 text-white flex items-center p-10 md:p-14">
             <div>
               <p className="text-xs uppercase tracking-widest text-white/60 mb-2">
                 {lang === 'ja' ? '学術連携' : lang === 'en' ? 'Academic Collaboration' : lang === 'zh-TW' ? '學術合作' : '学术合作'}
@@ -838,7 +838,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
                 <div className="flex flex-col items-center">
                   <button
                     onClick={() => setExpandedFlow(expandedFlow === i ? -1 : i)}
-                    className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm transition ${expandedFlow === i ? 'bg-brand-700 text-white' : 'bg-neutral-100 text-neutral-500 hover:bg-brand-50'}`}
+                    className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm transition ${expandedFlow === i ? 'bg-brand-600 text-white' : 'bg-neutral-100 text-neutral-500 hover:bg-brand-50'}`}
                   >
                     {step.step}
                   </button>
@@ -924,7 +924,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
                           <span className="text-lg font-black text-brand-700">¥{pkg.priceJpy.toLocaleString()}</span>
                           <Link
                             href={guideSlug ? `/helene-clinic/treatment?guide=${guideSlug}` : '/helene-clinic/treatment'}
-                            className="hidden sm:inline-flex items-center gap-1 bg-brand-700 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-brand-800 transition"
+                            className="hidden sm:inline-flex items-center gap-1 bg-brand-600 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-brand-700 transition"
                           >
                             <ArrowRight size={14} />
                             {t('pricingCta')}
@@ -970,7 +970,7 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
                 <p className="text-sm text-neutral-600 mb-6">{pkg.desc[lang]}</p>
                 <Link
                   href={guideSlug ? `/helene-clinic/${pkg.ctaPath}?guide=${guideSlug}` : `/helene-clinic/${pkg.ctaPath}`}
-                  className="block w-full text-center bg-brand-700 text-white font-bold py-3 rounded-xl hover:bg-brand-800 transition"
+                  className="block w-full text-center bg-brand-600 text-white font-bold py-3 rounded-xl hover:bg-brand-700 transition"
                 >
                   {t('bookNow')}
                 </Link>
