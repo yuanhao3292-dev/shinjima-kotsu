@@ -137,7 +137,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
             </div>
 
             {/* Brand overlay gradient */}
-            <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/75 via-neutral-900/55 to-neutral-900/25" />
           </div>
         );
       })}
@@ -154,24 +154,24 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
           <div className="max-w-4xl animate-fade-in-up">
             {currentSlide.subtitle && (
               <div className="flex items-center gap-3 mb-6">
-                <div className="h-[1px] w-12 bg-brand-500"></div>
-                <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">
+                <div className="h-[1px] w-12 bg-white/70"></div>
+                <span className="text-xs tracking-[0.3em] text-white/90 uppercase">
                   {currentSlide.subtitle}
                 </span>
               </div>
             )}
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-brand-900 mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight">
               {currentSlide.title.split('\n').map((line, i) => (
                 <span key={i}>
                   {i > 0 && <br />}
-                  {i > 0 ? <span className="text-brand-700">{line}</span> : line}
+                  {i > 0 ? <span className="text-white/90">{line}</span> : line}
                 </span>
               ))}
             </h1>
 
             {currentSlide.description && (
-              <p className="text-xl text-neutral-600 mb-10 leading-relaxed font-light max-w-2xl">
+              <p className="text-xl text-white/85 mb-10 leading-relaxed font-light max-w-2xl">
                 {currentSlide.description}
               </p>
             )}
@@ -183,7 +183,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
                     href={currentSlide.ctaLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-8 py-4 brand-gradient-solid text-white text-sm font-medium tracking-wider rounded hover:opacity-90 transition-opacity"
+                    className="inline-flex items-center gap-2 px-8 py-4 border-2 border-white text-white bg-transparent hover:bg-white/10 text-sm font-medium tracking-wider rounded  transition-opacity"
                   >
                     {currentSlide.ctaText}
                     <ExternalLink size={18} />
@@ -191,7 +191,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
                 ) : (
                   <Link
                     href={currentSlide.ctaLink}
-                    className="inline-flex items-center gap-2 px-8 py-4 brand-gradient-solid text-white text-sm font-medium tracking-wider rounded hover:opacity-90 transition-opacity"
+                    className="inline-flex items-center gap-2 px-8 py-4 border-2 border-white text-white bg-transparent hover:bg-white/10 text-sm font-medium tracking-wider rounded  transition-opacity"
                   >
                     {currentSlide.ctaText}
                     <ArrowRight size={18} />

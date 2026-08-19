@@ -148,41 +148,41 @@ export default function OrderLookupPage() {
             sizes="50vw"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/75 via-neutral-900/55 to-neutral-900/25" />
 
           {/* Decorative Elements */}
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
-            <div className="absolute w-72 h-72 bg-brand-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
+            <div className="absolute w-96 h-96 bg-white/70/10 rounded-full filter blur-3xl top-1/4 -left-20" />
+            <div className="absolute w-72 h-72 bg-white/70/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
           </div>
 
           <div className="relative z-10 flex flex-col justify-center px-16">
             <div className="max-w-lg">
               <div className="flex items-center gap-3 mb-8">
-                <div className="h-[1px] w-12 bg-brand-400" />
-                <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">
+                <div className="h-[1px] w-12 bg-white/70" />
+                <span className="text-xs tracking-[0.3em] text-white/90 uppercase">
                   {t('heroLabel', lang)}
                 </span>
               </div>
 
-              <h1 className="font-serif text-4xl xl:text-5xl text-brand-900 mb-4 leading-tight">
+              <h1 className="font-serif text-4xl xl:text-5xl text-white mb-4 leading-tight">
                 {t('orderLookupHero', lang)}
                 <br />
-                <span className="text-brand-700">{t('noLoginRequired', lang)}</span>
+                <span className="text-white/90">{t('noLoginRequired', lang)}</span>
               </h1>
 
-              <p className="text-lg text-neutral-600 leading-relaxed font-light mb-10 max-w-md">
+              <p className="text-lg text-white/85 leading-relaxed font-light mb-10 max-w-md">
                 {t('heroDesc', lang)}
               </p>
 
               <div className="flex items-center gap-6 text-sm">
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-brand-400 rounded-full animate-pulse" />
-                  <span className="text-neutral-600">{t('support24h', lang)}</span>
+                  <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse" />
+                  <span className="text-white/85">{t('support24h', lang)}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-brand-400 rounded-full" />
-                  <span className="text-neutral-600">{t('chineseService', lang)}</span>
+                  <div className="w-2 h-2 bg-white/70 rounded-full" />
+                  <span className="text-white/85">{t('chineseService', lang)}</span>
                 </div>
               </div>
             </div>
