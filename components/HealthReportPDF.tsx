@@ -271,10 +271,10 @@ const pdfTranslations: Record<string, Record<PDFLanguage, string>> = {
 
 // 配色方案
 const colors = {
-  primary: '#22455a',
-  primaryLight: '#22455a',
-  gold: '#6fb4da',
-  goldLight: '#9dd3ec',
+  primary: '#6d2e1f',
+  primaryLight: '#6d2e1f',
+  gold: '#f0937c',
+  goldLight: '#f8beaf',
   textPrimary: '#1c1917',
   textSecondary: '#44403c',
   textMuted: '#78716c',
@@ -282,11 +282,11 @@ const colors = {
   bgCream: '#fafaf8',
   bgWarm: '#f5f5f0',
   bgCard: '#fafaf8',
-  riskLow: '#2a566f',
+  riskLow: '#8c3621',
   riskLowBg: '#f5f5f0',
-  riskMedium: '#336a8d',
+  riskMedium: '#b13e22',
   riskMediumBg: '#fafaf8',
-  riskHigh: '#2a566f',
+  riskHigh: '#8c3621',
   riskHighBg: '#e8e6e1',
   divider: '#e8e6e1',
 };

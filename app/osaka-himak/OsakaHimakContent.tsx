@@ -469,9 +469,9 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { icon: <Heart size={32} />, title: t.adv1Title, desc: t.adv1Desc, color: '#2a566f' },
-              { icon: <Target size={32} />, title: t.adv2Title, desc: t.adv2Desc, color: '#4e9ac9' },
-              { icon: <Zap size={32} />, title: t.adv3Title, desc: t.adv3Desc, color: '#6fb4da' },
+              { icon: <Heart size={32} />, title: t.adv1Title, desc: t.adv1Desc, color: '#8c3621' },
+              { icon: <Target size={32} />, title: t.adv2Title, desc: t.adv2Desc, color: '#e76f51' },
+              { icon: <Zap size={32} />, title: t.adv3Title, desc: t.adv3Desc, color: '#f0937c' },
             ].map((adv, i) => (
               <div key={i} className="bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-all">
                 <div className="flex items-center justify-center w-16 h-16 rounded-full mb-6" style={{ backgroundColor: `${adv.color}15` }}>

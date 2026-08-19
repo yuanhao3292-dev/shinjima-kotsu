@@ -23,7 +23,7 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
 
   const { guide, selectedModules } = pageData;
 
-  const brandColor = guide.brandColor || '#336a8d';
+  const brandColor = guide.brandColor || '#b13e22';
   const homeHref = `/g/${slug}`;
 
   // 品牌展示 — 使用当前导游自己的品牌（白标）。未设置时回退官方品牌，避免留白。

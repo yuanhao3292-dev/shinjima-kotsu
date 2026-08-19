@@ -12,7 +12,7 @@ interface QuoteResultProps {
   isAiLoading: boolean;
 }
 
-const COLORS = ['#4e9ac9', '#6fb4da', '#6fb4da', '#3e82ac'];
+const COLORS = ['#e76f51', '#f0937c', '#f0937c', '#db4924'];
 
 const QuoteResult: React.FC<QuoteResultProps> = ({ quote, request, isAiLoading }) => {
   const [showContactModal, setShowContactModal] = useState(false);

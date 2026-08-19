@@ -410,7 +410,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
                 <div
                   key={tr.key}
                   className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-neutral-100 flex flex-col"
-                  style={{ borderTopColor: '#336a8d', borderTopWidth: 3 }}
+                  style={{ borderTopColor: '#b13e22', borderTopWidth: 3 }}
                 >
                   <div className="relative h-48 overflow-hidden">
                     <RemoteImage src={tr.img} alt={tr.name[lang]} className="w-full h-full object-cover" />

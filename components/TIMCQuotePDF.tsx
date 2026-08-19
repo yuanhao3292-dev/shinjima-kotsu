@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 30,
-    borderBottom: '2px solid #336a8d',
+    borderBottom: '2px solid #b13e22',
     paddingBottom: 20,
   },
   headerLeft: {
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   logo: {
     fontSize: 18,
     fontWeight: 700,
-    color: '#336a8d',
+    color: '#b13e22',
     marginBottom: 4,
   },
   subtitle: {
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   },
   summarySection: {
     marginTop: 20,
-    borderTop: '2px solid #336a8d',
+    borderTop: '2px solid #b13e22',
     paddingTop: 15,
   },
   summaryRow: {
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     fontSize: 14,
     fontWeight: 700,
-    color: '#336a8d',
+    color: '#b13e22',
   },
   perPersonRow: {
     flexDirection: 'row',

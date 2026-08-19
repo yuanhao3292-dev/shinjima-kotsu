@@ -25,7 +25,7 @@ export default function OpengraphImage() {
           justifyContent: 'center',
           padding: '0 96px',
           // 与站点主题渐变同值（--grad-brand-solid）
-          backgroundImage: 'linear-gradient(100deg, #2a566f 0%, #3a79a2 100%)',
+          backgroundImage: 'linear-gradient(100deg, #8c3621 0%, #d43d18 100%)',
           color: '#ffffff',
         }}
       >

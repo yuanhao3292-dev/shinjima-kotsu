@@ -291,31 +291,17 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
     return `${base} font-medium text-neutral-700 hover:text-brand-700`;
   };
 
-  const getNavLinkClass = (nav: string, isCurrentActive: boolean, specialColor?: string) => {
-    if (isTransparent) {
-      // 透明模式也用深色文字 —— 各页 Hero 已全部翻白，且导航底下有
-      // from-white/95 的浅色衬底；沿用旧的白字会变成白压白（实测 1:1）。
-      if (isCurrentActive) {
-        return `text-sm font-bold text-brand-700`;
-      }
-      if (specialColor === 'orange') {
-        return `text-sm font-bold text-brand-700 hover:text-brand-800 transition`;
-      }
-      return `text-sm font-medium text-neutral-600 hover:text-brand-700 transition`;
-    } else {
-      // 白色背景模式：深色文字
-      if (isCurrentActive) {
-        // brand-600 压白底仅 4.21:1，未达正文 4.5
-        return `text-sm font-bold text-brand-700`;
-      }
-      if (specialColor === 'orange') {
-        return `text-sm font-bold text-brand-700 hover:text-brand-500 transition`;
-      }
-      if (specialColor === 'red') {
-        return `text-sm font-medium text-neutral-600 hover:text-brand-600 transition`;
-      }
-      return `text-sm font-medium text-neutral-600 hover:text-brand-700 transition`;
+  const getNavLinkClass = (_nav: string, isCurrentActive: boolean, specialColor?: string) => {
+    // 导航是 珊瑚→杏黄 渐变带（见 --grad-brand-nav），菜单落在中段到右端，
+    // 一律深字：neutral-900 在中点 6.4:1、右端 9.6:1。当前页用加粗 + 底线区分，
+    // 不再靠 brand-700 换色 —— 珊瑚字压珊瑚带看不出来。滚动前后同一条带，无需分支。
+    if (isCurrentActive) {
+      return `text-sm font-bold text-neutral-900 underline underline-offset-8 decoration-2 decoration-neutral-900`;
     }
+    if (specialColor === 'orange') {
+      return `text-sm font-bold text-neutral-900 hover:opacity-70 transition`;
+    }
+    return `text-sm font-medium text-neutral-900 hover:opacity-70 transition`;
   };
 
   // 白标模式下使用导游的 DistributionNav，保持全域导航一致
@@ -407,13 +393,13 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
   return (
     <div className="site-shell min-h-screen bg-white text-neutral-800 font-sans selection:bg-brand-100 flex flex-col">
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isTransparent ? 'bg-transparent' : 'bg-white shadow-sm'
+      {/* JTB 式顶部品牌带：整条导航横铺 珊瑚→杏黄 渐变，任何滚动状态都不变，
+          滚动后只加阴影。文字分区见 globals.css 的 --grad-brand-nav 注释：
+          logo 白字压左端珊瑚（大字标准），菜单/语言/汉堡深字压中段到右端。
+          Hero 保持干净照片/白底 —— 品牌色只在这一条带上，不铺 Hero。 */}
+      <nav className={`fixed top-0 left-0 w-full z-50 brand-gradient-nav transition-shadow duration-300 ${
+        isTransparent ? '' : 'shadow-md'
       }`}>
-        {/* 透明导航衬底：各页 Hero 有白底也有深色照片，深色导航字需要一层浅色兜底才能通用 */}
-        {isTransparent && (
-          <div className="absolute inset-x-0 top-0 -bottom-8 bg-gradient-to-b from-white/95 via-white/80 to-transparent pointer-events-none" />
-        )}
         <div className="relative max-w-[1400px] mx-auto px-4 h-20 flex items-center justify-between">
           {/* Logo */}
           {onLogoClick ? (
@@ -423,8 +409,8 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                 <img src={branding.logoUrl} alt={displayBrandName} className="w-10 h-10 object-contain" />
               )}
               <div className="flex flex-col items-center">
-                <span className={`font-serif font-bold text-lg tracking-wide leading-none ${isTransparent ? 'text-neutral-900' : 'text-neutral-900'}`}>{displayBrandName}</span>
-                <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-neutral-500' : 'text-neutral-600 group-hover:text-brand-700'}`}>{displayBrandSub}</span>
+                <span className="font-serif font-bold text-lg tracking-wide leading-none text-white drop-shadow-[0_1px_0_rgba(0,0,0,0.12)]">{displayBrandName}</span>
+                <span className="text-[10px] uppercase tracking-widest leading-none mt-1 text-white/85">{displayBrandSub}</span>
               </div>
             </button>
           ) : (
@@ -434,8 +420,8 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                 <img src={branding.logoUrl} alt={displayBrandName} className="w-10 h-10 object-contain" />
               )}
               <div className="flex flex-col items-center">
-                <span className={`font-serif font-bold text-lg tracking-wide leading-none ${isTransparent ? 'text-neutral-900' : 'text-neutral-900'}`}>{displayBrandName}</span>
-                <span className={`text-[10px] uppercase tracking-widest leading-none mt-1 transition-colors ${isTransparent ? 'text-neutral-500' : 'text-neutral-600 group-hover:text-brand-700'}`}>{displayBrandSub}</span>
+                <span className="font-serif font-bold text-lg tracking-wide leading-none text-white drop-shadow-[0_1px_0_rgba(0,0,0,0.12)]">{displayBrandName}</span>
+                <span className="text-[10px] uppercase tracking-widest leading-none mt-1 text-white/85">{displayBrandSub}</span>
               </div>
             </Link>
           )}
@@ -461,9 +447,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
             <div className="relative lang-dropdown">
               <button
                 onClick={() => setLangMenuOpen(!langMenuOpen)}
-                className={`flex items-center gap-1 text-xs font-bold transition uppercase tracking-wider ${
-                  isTransparent ? 'text-neutral-600 hover:text-neutral-900' : 'text-neutral-600 hover:text-neutral-900'
-                }`}
+                className="flex items-center gap-1 text-xs font-bold transition uppercase tracking-wider text-neutral-900 hover:opacity-70"
               >
                 <Globe size={14} />
                 {currentLang === 'zh-TW' ? '\u7E41\u4F53\u4E2D\u6587' : currentLang === 'zh-CN' ? '\u7B80\u4F53\u4E2D\u6587' : currentLang === 'ko' ? '\uD55C\uAD6D\uC5B4' : currentLang.toUpperCase()}
@@ -484,11 +468,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
             <div className="relative hidden md:block login-dropdown">
               <button
                 onClick={() => setLoginMenuOpen(!loginMenuOpen)}
-                className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold tracking-wider transition shadow-lg ${
-                  isTransparent
-                    ? 'brand-gradient-solid text-white border border-transparent hover:opacity-90'
-                    : 'bg-black text-white border border-transparent hover:bg-neutral-800 hover:border-neutral-600'
-                }`}
+                className="flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold tracking-wider transition shadow-md bg-white text-brand-700 hover:bg-neutral-50"
               >
                 <LogIn size={14} /> {t.login}
                 <ChevronDown size={12} className={`transition-transform ${loginMenuOpen ? 'rotate-180' : ''}`} />
@@ -529,7 +509,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
 
             {/* Mobile Menu Button */}
             <button
-              className={`lg:hidden p-2 ${isTransparent ? 'text-neutral-700' : 'text-neutral-600'}`}
+              className="lg:hidden p-2 text-neutral-900"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
