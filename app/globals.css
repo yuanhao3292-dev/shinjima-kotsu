@@ -8,41 +8,56 @@
   --font-sans: var(--font-noto-sans-jp), 'Noto Sans JP', sans-serif;
   --font-serif: var(--font-shippori-mincho), 'Shippori Mincho', serif;
 
-  /* Brand 晴空 (Soft Sky) — 低饱和、高明度的柔和天空蓝。
-     取代原深蓝(#12384c)+金属金的组合：那套饱和度高、明度低，观感「硬」且压抑。
-     本色阶把饱和度下调约四成、明度整体抬高，取 JTB 首屏淡蓝天空的通透感。
-     主色 brand-500 #4e9ac9；渐变亮端 brand-200 #bfe3f3。
-     按钮/小标题一律走 --grad-brand-solid，不用单档实色 —— 见下方渐变段的对比度说明。
-     ⚠️ 三色制：本站只有 neutral（黑白轴）与 brand（主题蓝）两套色阶。
-        原 accent-* 是金色改蓝后遗留的第二套蓝，与 brand 同色系、肉眼难分，
-        已按明度对齐并入 brand（600→700、700→800、800/900→900）。
-        不要再新增第三套色阶。 */
-  --color-brand-50: #f2f9fd;
-  --color-brand-100: #e3f2fa;
-  --color-brand-200: #bfe3f3;
-  --color-brand-300: #9dd3ec;
-  --color-brand-400: #6fb4da;
-  --color-brand-500: #4e9ac9;
-  --color-brand-600: #3e82ac;
-  --color-brand-700: #336a8d;
-  --color-brand-800: #2a566f;
-  --color-brand-900: #22455a;
+  /* Brand 珊瑚 (Coral) — 暖亮的珊瑚橙红，色相 12°。
+     2026-08-18 由钢蓝换成珊瑚：用户反馈蓝色"太沉重、没有活力"，
+     选定 JTB 式的暖色。设计参照 jtbcorp.jp：品牌色铺在顶部导航带，
+     Hero 保持干净照片/白底；按钮用纯色深端 + 白字。
+     ⚠️ 每一档的相对明度与原钢蓝逐档对齐（Δ<0.003）—— 只改色相不改明度，
+        全站已验证过的几百处对比度关系原样保留。
+     ⚠️ 三色制不变：只有 neutral（黑白轴）与 brand 两套色阶，不要新增第三套。
+     ⚠️ 语义红：brand 是 12° 的暖红，与 tailwind red（0°）几乎同色，
+        故 red-* 整套在下方覆盖为 347° 的玫红（rose），保证「高风险/失败」
+        与主色一眼可分。 */
+  --color-brand-50: #fef6f4;
+  --color-brand-100: #feece8;
+  --color-brand-200: #fbd5cc;
+  --color-brand-300: #f8beaf;
+  --color-brand-400: #f0937c;
+  --color-brand-500: #e76f51;
+  --color-brand-600: #db4924;
+  --color-brand-700: #b13e22;
+  --color-brand-800: #8c3621;
+  --color-brand-900: #6d2e1f;
 
-  /* Cool Neutral — 微冷灰（色相 205°，与主题蓝同源，饱和度 8~30%）
+  /* Warm Neutral — 微暖灰（色相 30°，与珊瑚主色同源，饱和度 6~14%）
      三色制的「黑白轴」。原为暖米灰（#fafaf8…#1c1917），米色调在
      只留 黑/白/渐变蓝 的配色里会读成第四种色感，故整档换冷。
      ⚠️ 每一档的相对明度与原暖灰逐档对齐（Δ<0.002），全站既有的
      对比度关系一处不变 —— 只改色相，不改明度。改明度前须重算对比度。 */
-  --color-neutral-50: #f9fafc;
-  --color-neutral-100: #f3f5f7;
-  --color-neutral-200: #e2e7ea;
-  --color-neutral-300: #ccd2d7;
-  --color-neutral-400: #9ba4ab;
-  --color-neutral-500: #69747b;
-  --color-neutral-600: #4c555b;
-  --color-neutral-700: #3a4247;
-  --color-neutral-800: #21272b;
-  --color-neutral-900: #161a1d;
+  --color-neutral-50: #fbfaf9;
+  --color-neutral-100: #f6f5f3;
+  --color-neutral-200: #e8e6e3;
+  --color-neutral-300: #d4d1cd;
+  --color-neutral-400: #a8a29b;
+  --color-neutral-500: #78716a;
+  --color-neutral-600: #58534e;
+  --color-neutral-700: #44403c;
+  --color-neutral-800: #282623;
+  --color-neutral-900: #1b1917;
+
+  /* 语义红（危险 / 高风险 / 失败）覆盖为 tailwind rose 色阶（色相 347°）。
+     brand 是 12° 暖红，与默认 red（0°）几乎同色，同屏时"高风险"标签和主按钮
+     分不开；改成偏冷的玫红，明度逐档与原 red 相同，全站 red-* 用法零改动。 */
+  --color-red-50: #fff1f2;
+  --color-red-100: #ffe4e6;
+  --color-red-200: #fecdd3;
+  --color-red-300: #fda4af;
+  --color-red-400: #fb7185;
+  --color-red-500: #f43f5e;
+  --color-red-600: #e11d48;
+  --color-red-700: #be123c;
+  --color-red-800: #9f1239;
+  --color-red-900: #881337;
 }
 
 /* 基础样式 */
@@ -152,7 +167,7 @@ body {
 /* ===== GOLF PAGE LUXURY STYLES ===== */
 
 .golf-gold-text {
-  background: linear-gradient(135deg, #4e9ac9 0%, #6fb4da 50%, #6fb4da 100%);
+  background: linear-gradient(135deg, #e76f51 0%, #f0937c 50%, #f0937c 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -229,7 +244,7 @@ body {
   transform: translateX(-50%);
   width: 60px;
   height: 2px;
-  background: linear-gradient(90deg, #6fb4da, #4e9ac9);
+  background: linear-gradient(90deg, #f0937c, #e76f51);
 }
 
 /* 淡入动画 - 延迟版本 */
@@ -340,38 +355,44 @@ body {
   }
 }
 
-/* ── 品牌渐变（晴空）──────────────────────────────────────
+/* ── 品牌渐变（珊瑚）──────────────────────────────────────
    JTB 式做法：渐变只用于「该发光的地方」——色带、按钮、标签下划线、
    统计数字、业务分区块；大面积仍是白底，清爽感来自留白而非色块。
    ⚠️ 按钮/文字用 --grad-brand-solid（深端起手）保证白字可读；
       纯装饰色带才用 --grad-brand-soft（淡端）。 */
 :root {
   /* 装饰用(色带、分区块):最柔和,不承载文字 */
-  --grad-brand-soft: linear-gradient(100deg, #4e9ac9 0%, #bfe3f3 100%);
-  /* 按钮底 + 渐变文字 共用。亮端 #3a79a2 同时满足三种用法的 4.5:1：
-       A 白字压在渐变上            4.73:1
-       B 渐变当文字压白底          4.73:1
-       C 渐变当文字压 neutral-50    4.53:1  ← 最紧的一条
-     ⚠️ 亮端是硬上限（相对明度 ≤0.1734）。brand-500 (#4e9ac9) 只有
-        3.09:1、brand-600 (#3e82ac) 4.21:1，都不够。按钮与小标题文字
+  --grad-brand-soft: linear-gradient(100deg, #e76f51 0%, #fbd5cc 100%);
+  /* 按钮底 + 渐变文字 共用。亮端 #d43d18 同时满足三种用法的 4.5:1：
+       A 白字压在渐变上            4.69:1
+       B 渐变当文字压白底          4.69:1
+       C 渐变当文字压 neutral-50    4.50:1  ← 最紧的一条
+     ⚠️ 亮端是硬上限（相对明度 ≤0.1734）。brand-500 (#e76f51) 只有
+        3.09:1、brand-600 (#db4924) 4.21:1，都不够。按钮与小标题文字
         多为 12~18px，走正文标准 4.5:1 而非大字标准 3:1，故亮端不能再浅。
-        要更亮的蓝只能用于 ≥24px 的大字。 */
-  --grad-brand-solid: linear-gradient(100deg, #2a566f 0%, #3a79a2 100%);
-  /* 深色强调块(卡片/深色分区):保留深底做视觉节奏，但改为晴空色相渐变，与主色统一。
-     两端对白字均安全(#22455a 10.16:1、#336a8d 5.85:1)，故沿用白字无需翻转。 */
-  --grad-brand-deep: linear-gradient(100deg, #22455a 0%, #336a8d 100%);
+        要更亮的珊瑚只能用于 ≥24px 的大字。 */
+  --grad-brand-solid: linear-gradient(100deg, #8c3621 0%, #d43d18 100%);
+  /* 深色强调块(卡片/深色分区):保留深底做视觉节奏，但改为珊瑚色相渐变，与主色统一。
+     两端对白字均安全(#6d2e1f 10.2:1、#b13e22 5.86:1)，故沿用白字无需翻转。 */
+  --grad-brand-deep: linear-gradient(100deg, #6d2e1f 0%, #b13e22 100%);
+  /* 顶部导航带（JTB 式）：左珊瑚 → 右杏黄，横铺整条导航。
+     ⚠️ 亮端杏黄 #FFB03B 白字只有 1.8:1，因此把它压到最右 12%（那里只有反白的
+        登录胶囊）；菜单落在 0~70% 的珊瑚→橙区，白字约 3.3~3.9:1 —— 与 JTB 官网
+        header 持平，低于 4.5 正文标准，是用户明确选择的品牌观感。 */
+  --grad-brand-nav: linear-gradient(100deg, #E8452F 0%, #EC652A 70%, #F5922F 88%, #FFB03B 100%);
 }
+.brand-gradient-nav { background-image: var(--grad-brand-nav); }
 .brand-gradient { background-image: var(--grad-brand-soft); }
 .brand-gradient-solid { background-image: var(--grad-brand-solid); }
 .brand-gradient-deep { background-image: var(--grad-brand-deep); }
 /* 渐变文字 —— 标题、小标、统计数字
-   ⚠️ 必须用 --grad-brand-solid：更浅的中间调（如 #4e9ac9→#8fcbe6）
+   ⚠️ 必须用 --grad-brand-solid：更浅的中间调（如 #e76f51→#f8beaf）
       当文字最差只有 1.77:1，任何字号都不可读（旧 --grad-brand-mid 因此删除）；
-      solid (#2a566f→#3b7ca5) 全程 ≥4.55:1，18px 粗体正文标准也达标。
+      solid (#8c3621→#d43d18) 全程 ≥4.69:1，18px 粗体正文标准也达标。
    兜底：先给实色，仅在浏览器支持 background-clip:text 时才转透明，
         否则不支持的环境会得到一段完全不可见的文字。 */
 .brand-gradient-text {
-  color: #2a566f;
+  color: #8c3621;
 }
 @supports (background-clip: text) or (-webkit-background-clip: text) {
   .brand-gradient-text {

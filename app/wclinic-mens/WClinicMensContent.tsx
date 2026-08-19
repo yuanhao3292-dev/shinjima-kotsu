@@ -883,7 +883,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
           {/* Uemura Detail Card */}
           <div className="bg-white rounded-2xl p-8 border border-neutral-100 shadow-sm">
             <div className="flex flex-col md:flex-row gap-8">
-              <div className="relative w-32 h-32 rounded-2xl overflow-hidden shrink-0 mx-auto md:mx-0" style={{ boxShadow: '8px 8px 0px 0px #22455a' }}>
+              <div className="relative w-32 h-32 rounded-2xl overflow-hidden shrink-0 mx-auto md:mx-0" style={{ boxShadow: '8px 8px 0px 0px #6d2e1f' }}>
                 <Image
                   src="https://mens.wclinic-osaka.jp/wp-content/themes/mens_pc/img/concept/dr_uemura01.png"
                   fill

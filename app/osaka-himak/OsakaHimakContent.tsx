@@ -248,28 +248,28 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
       {/* ===== 1. HERO ===== */}
       <section className="relative min-h-[600px] md:min-h-[700px] flex items-center overflow-hidden">
         <img src={IMG.hero1} alt="Osaka Heavy Ion Therapy Center" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/75 via-neutral-900/55 to-neutral-900/25" />
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 w-full">
           <div className="max-w-2xl">
-            <span className="inline-block bg-brand-800/90 text-brand-900 text-sm font-semibold px-4 py-1 rounded-full mb-4">
+            <span className="inline-block bg-brand-800/90 text-white text-sm font-semibold px-4 py-1 rounded-full mb-4">
               {t.heroTag[lang]}
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-900 mb-4 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
               {t.heroTitle[lang]}
             </h1>
-            <p className="text-lg md:text-xl text-brand-900/85 whitespace-pre-line mb-8 leading-relaxed">
+            <p className="text-lg md:text-xl text-white/85 whitespace-pre-line mb-8 leading-relaxed">
               {t.heroSub[lang]}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href={checkoutHref('/osaka-himak/initial-consultation')}
-                className="inline-flex items-center justify-center gap-2 brand-gradient-solid text-white px-8 py-4 rounded-full font-bold hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
+                className="inline-flex items-center justify-center gap-2 border-2 border-white text-white bg-transparent hover:bg-white/10 px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all shadow-lg hover:shadow-xl"
               >
                 {t.ctaConsult[lang]} <ArrowRight size={18} />
               </Link>
               <a
                 href="#advantages"
-                className="inline-flex items-center justify-center gap-2 bg-white/15 text-brand-900 px-8 py-4 rounded-full font-bold hover:bg-white/25 transition-all border border-neutral-200 backdrop-blur-sm"
+                className="inline-flex items-center justify-center gap-2 bg-white/15 text-white px-8 py-4 rounded-full font-bold hover:bg-white/25 transition-all border border-white/30 backdrop-blur-sm"
               >
                 {t.ctaLearn[lang]}
               </a>
@@ -469,9 +469,9 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { icon: <Heart size={32} />, title: t.adv1Title, desc: t.adv1Desc, color: '#2a566f' },
-              { icon: <Target size={32} />, title: t.adv2Title, desc: t.adv2Desc, color: '#4e9ac9' },
-              { icon: <Zap size={32} />, title: t.adv3Title, desc: t.adv3Desc, color: '#6fb4da' },
+              { icon: <Heart size={32} />, title: t.adv1Title, desc: t.adv1Desc, color: '#8c3621' },
+              { icon: <Target size={32} />, title: t.adv2Title, desc: t.adv2Desc, color: '#e76f51' },
+              { icon: <Zap size={32} />, title: t.adv3Title, desc: t.adv3Desc, color: '#f0937c' },
             ].map((adv, i) => (
               <div key={i} className="bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-all">
                 <div className="flex items-center justify-center w-16 h-16 rounded-full mb-6" style={{ backgroundColor: `${adv.color}15` }}>

@@ -876,73 +876,73 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
             priority
           />
           {/* Dark Overlay with Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/75 via-neutral-900/55 to-neutral-900/25"></div>
         </div>
         {/* Decorative Elements */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
-          <div className="absolute w-72 h-72 bg-brand-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+          <div className="absolute w-96 h-96 bg-white/70/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
+          <div className="absolute w-72 h-72 bg-white/70/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
         </div>
         <div className="container mx-auto px-6 relative z-10 py-32">
           <div className="max-w-4xl">
             <div className="flex items-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-brand-400"></div>
-              <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">CANCER TREATMENT</span>
+              <div className="h-[1px] w-12 bg-white/70"></div>
+              <span className="text-xs tracking-[0.3em] text-white/90 uppercase">CANCER TREATMENT</span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-brand-900 mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight">
               {t('heroDesc')}
               <br />
-              <span className="text-brand-700">{t('heroTitle2')}</span>
+              <span className="text-white/90">{t('heroTitle2')}</span>
             </h1>
-            <p className="text-xl text-neutral-600 mb-8 leading-relaxed font-light max-w-2xl">
+            <p className="text-xl text-white/85 mb-8 leading-relaxed font-light max-w-2xl">
               {t('heroStat')}
             </p>
             <div className="flex flex-wrap gap-4 mb-8">
               <a
                 href="#contact-form"
-                className="inline-flex items-center gap-2 px-8 py-4 brand-gradient-solid text-white text-sm font-medium tracking-wider hover:opacity-90 transition-colors"
+                className="inline-flex items-center gap-2 px-8 py-4 border-2 border-white text-white bg-transparent hover:bg-white/10 text-sm font-medium tracking-wider hover:bg-white/10 transition-colors"
               >
                 <MessageSquare size={20} />
                 {t('heroCTA')}
               </a>
               <a
                 href="#treatment-flow"
-                className="inline-flex items-center px-8 py-4 border border-neutral-200 bg-brand-50 backdrop-blur-sm text-brand-900 text-sm tracking-wider hover:bg-brand-50 transition-colors"
+                className="inline-flex items-center px-8 py-4 border-2 border-white text-white bg-transparent text-sm tracking-wider hover:bg-white/10 transition-colors"
               >
                 {t('heroFlow')}
               </a>
             </div>
             {/* Key Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-white shadow-sm rounded-xl p-4 border border-neutral-200">
-                <div className="text-3xl font-bold text-brand-900 mb-1">7</div>
-                <div className="text-sm text-neutral-600">{t('statHeavyIon')}</div>
-                <div className="text-xs text-neutral-500 mt-1">{t('statHeavyIonSub')}</div>
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/30">
+                <div className="text-3xl font-bold text-white mb-1">7</div>
+                <div className="text-sm text-white/85">{t('statHeavyIon')}</div>
+                <div className="text-xs text-white/75 mt-1">{t('statHeavyIonSub')}</div>
               </div>
-              <div className="bg-white shadow-sm rounded-xl p-4 border border-neutral-200">
-                <div className="text-3xl font-bold text-brand-900 mb-1">2020</div>
-                <div className="text-sm text-neutral-600">{t('statPhotoimmuno')}</div>
-                <div className="text-xs text-neutral-500 mt-1">{t('statPhotoimmunoSub')}</div>
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/30">
+                <div className="text-3xl font-bold text-white mb-1">2020</div>
+                <div className="text-sm text-white/85">{t('statPhotoimmuno')}</div>
+                <div className="text-xs text-white/75 mt-1">{t('statPhotoimmunoSub')}</div>
               </div>
-              <div className="bg-white shadow-sm rounded-xl p-4 border border-neutral-200">
-                <div className="text-3xl font-bold text-brand-900 mb-1">1/3</div>
-                <div className="text-sm text-neutral-600">{t('statCost')}</div>
-                <div className="text-xs text-neutral-500 mt-1">{t('statCostSub')}</div>
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/30">
+                <div className="text-3xl font-bold text-white mb-1">1/3</div>
+                <div className="text-sm text-white/85">{t('statCost')}</div>
+                <div className="text-xs text-white/75 mt-1">{t('statCostSub')}</div>
               </div>
             </div>
-            <p className="text-xs text-neutral-600 mb-4">{t('dataSource')}</p>
+            <p className="text-xs text-white/85 mb-4">{t('dataSource')}</p>
             {/* Trust Points */}
-            <div className="flex flex-wrap gap-6 text-neutral-600">
+            <div className="flex flex-wrap gap-6 text-white/85">
               <div className="flex items-center gap-2">
-                <CheckCircle size={18} className="text-brand-700" />
+                <CheckCircle size={18} className="text-white/90" />
                 <span className="text-sm">{t('trustEarly')}</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle size={18} className="text-brand-700" />
+                <CheckCircle size={18} className="text-white/90" />
                 <span className="text-sm">{t('trustTranslator')}</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle size={18} className="text-brand-700" />
+                <CheckCircle size={18} className="text-white/90" />
                 <span className="text-sm">{t('trustRemote')}</span>
               </div>
             </div>

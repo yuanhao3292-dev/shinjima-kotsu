@@ -316,25 +316,25 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
       {/* ===== 1. HERO ===== */}
       <section className="relative min-h-[600px] md:min-h-[700px] flex items-center overflow-hidden">
         <RemoteImage src={IMG.hero1} alt="AC Cell Clinic" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/75 via-neutral-900/55 to-neutral-900/25" />
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 w-full">
           <div className="max-w-2xl">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-900 mb-4 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
               {t.heroTitle[lang]}
             </h1>
-            <p className="text-lg md:text-xl text-brand-900/85 whitespace-pre-line mb-8 leading-relaxed">
+            <p className="text-lg md:text-xl text-white/85 whitespace-pre-line mb-8 leading-relaxed">
               {t.heroSub[lang]}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href={checkoutHref('/ac-plus/initial-consultation')}
-                className="inline-flex items-center justify-center gap-2 brand-gradient-solid text-white px-8 py-4 rounded-full font-bold hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
+                className="inline-flex items-center justify-center gap-2 border-2 border-white text-white bg-transparent hover:bg-white/10 px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all shadow-lg hover:shadow-xl"
               >
                 {t.ctaConsult[lang]} <ArrowRight size={18} />
               </Link>
               <a
                 href="#treatments"
-                className="inline-flex items-center justify-center gap-2 bg-white/15 text-brand-900 px-8 py-4 rounded-full font-bold hover:bg-white/25 transition-all border border-neutral-200 backdrop-blur-sm"
+                className="inline-flex items-center justify-center gap-2 bg-white/15 text-white px-8 py-4 rounded-full font-bold hover:bg-white/25 transition-all border border-white/30 backdrop-blur-sm"
               >
                 {t.ctaLearn[lang]}
               </a>
@@ -410,7 +410,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
                 <div
                   key={tr.key}
                   className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-neutral-100 flex flex-col"
-                  style={{ borderTopColor: '#336a8d', borderTopWidth: 3 }}
+                  style={{ borderTopColor: '#b13e22', borderTopWidth: 3 }}
                 >
                   <div className="relative h-48 overflow-hidden">
                     <RemoteImage src={tr.img} alt={tr.name[lang]} className="w-full h-full object-cover" />

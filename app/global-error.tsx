@@ -26,17 +26,17 @@ export default function GlobalError({
       >
         <div style={{ textAlign: 'center', maxWidth: 420, padding: 24 }}>
           <div style={{ fontSize: 64, color: '#d5d1c8' }}>⚠</div>
-          <h1 style={{ fontSize: 24, color: '#22455a', marginBottom: 8 }}>
+          <h1 style={{ fontSize: 24, color: '#6d2e1f', marginBottom: 8 }}>
             エラーが発生しました
           </h1>
-          <p style={{ color: '#336a8d', marginBottom: 24 }}>
+          <p style={{ color: '#b13e22', marginBottom: 24 }}>
             ページの読み込み中にエラーが発生しました。もう一度お試しください。
           </p>
           <button
             onClick={reset}
             style={{
               padding: '10px 24px',
-              background: '#336a8d',
+              background: '#b13e22',
               color: '#fff',
               border: 'none',
               borderRadius: 8,
@@ -53,7 +53,7 @@ export default function GlobalError({
               padding: '10px 24px',
               border: '1px solid #d5d1c8',
               borderRadius: 8,
-              color: '#22455a',
+              color: '#6d2e1f',
               textDecoration: 'none',
               fontSize: 16,
             }}
@@ -61,7 +61,7 @@ export default function GlobalError({
             トップページ
           </a>
           {error.digest && (
-            <p style={{ marginTop: 24, fontSize: 12, color: '#6fb4da' }}>
+            <p style={{ marginTop: 24, fontSize: 12, color: '#f0937c' }}>
               Error ID: {error.digest}
             </p>
           )}

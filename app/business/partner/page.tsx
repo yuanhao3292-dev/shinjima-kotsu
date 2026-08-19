@@ -1170,29 +1170,29 @@ export default function PartnerBusinessPage() {
             sizes="100vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/75 via-neutral-900/55 to-neutral-900/25"></div>
         </div>
 
         <div className="relative container mx-auto px-6 py-24">
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-brand-400"></div>
-              <span className="text-xs tracking-[0.3em] text-brand-800 uppercase">{t('heroTagline')}</span>
+              <div className="h-[1px] w-12 bg-white/70"></div>
+              <span className="text-xs tracking-[0.3em] text-white uppercase">{t('heroTagline')}</span>
             </div>
 
-            <h1 className="font-serif text-4xl md:text-6xl text-brand-900 mb-6 leading-tight">
+            <h1 className="font-serif text-4xl md:text-6xl text-white mb-6 leading-tight">
               {t('heroTitle1')}
               <br />
-              <span className="text-brand-700">{t('heroTitle2')}</span>
+              <span className="text-white/90">{t('heroTitle2')}</span>
             </h1>
 
-            <p className="text-xl text-neutral-600 mb-8 leading-relaxed font-light max-w-2xl">
+            <p className="text-xl text-white/85 mb-8 leading-relaxed font-light max-w-2xl">
               {t('heroDesc')}
             </p>
 
             <div className="flex flex-wrap gap-3 mb-10">
               {regionTags.map((region, idx) => (
-                <span key={idx} className="px-4 py-2 bg-brand-50 rounded-full text-sm text-brand-700 border border-brand-100">
+                <span key={idx} className="px-4 py-2 bg-white/10 rounded-full text-sm text-white border border-white/40 backdrop-blur-sm">
                   {region}
                 </span>
               ))}
@@ -1200,7 +1200,7 @@ export default function PartnerBusinessPage() {
 
             <a
               href="#contact-form"
-              className="inline-flex items-center px-8 py-4 brand-gradient-solid text-white text-sm font-medium tracking-wider hover:opacity-90 transition-colors"
+              className="inline-flex items-center px-8 py-4 border-2 border-white text-white bg-transparent hover:bg-white/10 text-sm font-medium tracking-wider hover:bg-white/10 transition-colors"
             >
               {t('heroCta')}
               <ArrowRight size={18} className="ml-3" />
@@ -1209,15 +1209,15 @@ export default function PartnerBusinessPage() {
         </div>
 
         <div className="absolute bottom-12 right-12 hidden lg:block">
-          <div className="bg-brand-50 backdrop-blur-sm border border-neutral-200 p-6 max-w-xs">
-            <div className="text-xs text-brand-800 mb-3 uppercase tracking-wider">{t('heroCredentialLabel')}</div>
-            <div className="space-y-2 text-sm text-neutral-600">
+          <div className="bg-white/10 backdrop-blur-md border border-white/30 p-6 max-w-xs">
+            <div className="text-xs text-white mb-3 uppercase tracking-wider">{t('heroCredentialLabel')}</div>
+            <div className="space-y-2 text-sm text-white/85">
               <div className="flex items-center gap-2">
-                <Shield size={14} className="text-brand-700" />
+                <Shield size={14} className="text-white/90" />
                 {t('heroCredential1')}
               </div>
               <div className="flex items-center gap-2">
-                <Award size={14} className="text-brand-700" />
+                <Award size={14} className="text-white/90" />
                 {t('heroCredential2')}
               </div>
             </div>

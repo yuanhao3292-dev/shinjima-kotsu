@@ -358,12 +358,12 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                   d={part.path}
                   fill={
                     isSelected
-                      ? '#4e9ac9'
+                      ? '#e76f51'
                       : isHovered
-                      ? '#9dd3ec'
+                      ? '#f8beaf'
                       : '#e8e6e1'
                   }
-                  stroke={isSelected ? '#336a8d' : '#6fb4da'}
+                  stroke={isSelected ? '#b13e22' : '#f0937c'}
                   strokeWidth={isSelected ? 2 : 1}
                   className="cursor-pointer transition-all duration-200"
                   onClick={() => toggleBodyPart(part.id)}
@@ -397,7 +397,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                     }
                     r="12"
                     fill="white"
-                    stroke="#336a8d"
+                    stroke="#b13e22"
                     strokeWidth="2"
                   />
                 )}
@@ -427,7 +427,7 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                     }
                     textAnchor="middle"
                     fontSize="14"
-                    fill="#336a8d"
+                    fill="#b13e22"
                     fontWeight="bold"
                   >
                     ✓
@@ -445,12 +445,12 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                 d="M90,180 L210,180 L220,420 L80,420 Z"
                 fill={
                   selectedBodyParts.includes('back')
-                    ? '#4e9ac9'
+                    ? '#e76f51'
                     : hoveredPart === 'back'
-                    ? '#9dd3ec'
+                    ? '#f8beaf'
                     : '#e8e6e1'
                 }
-                stroke={selectedBodyParts.includes('back') ? '#336a8d' : '#6fb4da'}
+                stroke={selectedBodyParts.includes('back') ? '#b13e22' : '#f0937c'}
                 strokeWidth={selectedBodyParts.includes('back') ? 2 : 1}
                 className="cursor-pointer transition-all duration-200"
                 onClick={() => toggleBodyPart('back')}
@@ -465,10 +465,10 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                 ry="60"
                 fill={
                   selectedBodyParts.includes('head')
-                    ? '#4e9ac9'
+                    ? '#e76f51'
                     : '#e8e6e1'
                 }
-                stroke="#6fb4da"
+                stroke="#f0937c"
                 strokeWidth="1"
                 className="cursor-pointer"
                 onClick={() => toggleBodyPart('head')}
@@ -481,10 +481,10 @@ export default function BodyMapSelector({ onComplete, onBack }: BodyMapSelectorP
                 height="40"
                 fill={
                   selectedBodyParts.includes('neck')
-                    ? '#4e9ac9'
+                    ? '#e76f51'
                     : '#e8e6e1'
                 }
-                stroke="#6fb4da"
+                stroke="#f0937c"
                 className="cursor-pointer"
                 onClick={() => toggleBodyPart('neck')}
               />

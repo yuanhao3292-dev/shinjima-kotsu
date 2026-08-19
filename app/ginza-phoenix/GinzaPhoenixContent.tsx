@@ -37,7 +37,7 @@ const IMAGES = {
   treatmentRoom2: 'https://static.wixstatic.com/media/1778a7_92eca6135b954d3382a2675d2c856ed4~mv2.jpg',
 };
 
-// Brand: #22455a (navy), #2a566f (teal-gray), #336a8d (blue-gray), bg: #e8e6e1, #f5f5f0
+// Brand: #6d2e1f (navy), #8c3621 (teal-gray), #b13e22 (blue-gray), bg: #e8e6e1, #f5f5f0
 
 // Translations
 const t = {
@@ -321,21 +321,21 @@ const CORE_THERAPIES = [
     icon: <Dna size={28} />,
     title: { ja: 'WT1樹状細胞ワクチン療法', 'zh-TW': 'WT1樹突狀細胞疫苗療法', 'zh-CN': 'WT1树突状细胞疫苗疗法', en: 'WT1 Dendritic Cell Vaccine Therapy' } as Record<Language, string>,
     desc: { ja: '患者の血液から単核球を採取し、樹状細胞へ培養。WT1抗原（がん特異的ペプチド）と結合させワクチンを製造します。がん細胞を選択的に攻撃する多重免疫メカニズムを活性化し、抗がん免疫力を強化します。α-GalCer（NKT活性化物質）との併用プロトコルもご用意。', 'zh-TW': '從患者血液中提取單核細胞，培養為樹突狀細胞，結合WT1抗原（癌症特異性肽）製成疫苗。激活多重免疫機制選擇性攻擊癌細胞，強化抗癌免疫力。亦可搭配α-GalCer（NKT活化物質）併用方案。', 'zh-CN': '从患者血液中提取单核细胞，培养为树突状细胞，结合WT1抗原（癌症特异性肽）制成疫苗。激活多重免疫机制选择性攻击癌细胞，强化抗癌免疫力。亦可搭配α-GalCer（NKT活化物质）并用方案。', en: 'Monocytes from patient blood are cultured into dendritic cells and combined with WT1 antigen (a cancer-specific peptide) to create a vaccine. Activates multiple immune mechanisms to selectively attack cancer cells. An α-GalCer (NKT activator) combination protocol is also available.' } as Record<Language, string>,
-    accent: '#22455a',
+    accent: '#6d2e1f',
     bg: 'bg-neutral-200',
   },
   {
     icon: <Shield size={28} />,
     title: { ja: '高活性NK細胞療法', 'zh-TW': '高活性NK細胞療法', 'zh-CN': '高活性NK细胞疗法', en: 'Highly Active NK Cell Therapy' } as Record<Language, string>,
     desc: { ja: '患者自身のNK（ナチュラルキラー）細胞を体外で大量に増殖・活性化し、体内に戻す療法です。NK細胞はがん細胞を直接攻撃する能力を持ち、副作用が少なく身体への負担が低いのが特徴。スーパーNK細胞療法では活性度をさらに強化。進行がん患者にも適用可能です。', 'zh-TW': '將患者自身的NK（自然殺傷）細胞在體外大量增殖、活化後回輸體內。NK細胞具有直接攻擊癌細胞的能力，副作用少、身體負擔低。超級NK細胞療法可進一步強化活性度。適用於晚期癌症患者。', 'zh-CN': '将患者自身的NK（自然杀伤）细胞在体外大量增殖、活化后回输体内。NK细胞具有直接攻击癌细胞的能力，副作用少、身体负担低。超级NK细胞疗法可进一步强化活性度。适用于晚期癌症患者。', en: 'Patient\'s own NK (Natural Killer) cells are expanded and activated ex vivo, then reinfused. NK cells can directly attack cancer cells with low side effects and physical burden. Super NK cell therapy further enhances activity. Applicable to advanced cancer patients.' } as Record<Language, string>,
-    accent: '#2a566f',
+    accent: '#8c3621',
     bg: 'bg-neutral-100',
   },
   {
     icon: <Zap size={28} />,
     title: { ja: 'NKT細胞活性化療法', 'zh-TW': 'NKT細胞活化療法', 'zh-CN': 'NKT细胞活化疗法', en: 'NKT Cell Activation Therapy' } as Record<Language, string>,
     desc: { ja: 'NKT細胞は先天免疫と獲得免疫の両方を発揮する特殊な免疫細胞です。二重の免疫機能で包括的にがん細胞を攻撃します。NK細胞・樹状細胞ワクチンとの三種複合療法により、多角的な免疫応答を引き出し、治療効果を最大化します。', 'zh-TW': 'NKT細胞是同時發揮先天免疫和獲得性免疫的特殊免疫細胞。以雙重免疫功能全面攻擊癌細胞。與NK細胞、樹突狀細胞疫苗三種複合療法結合，引發多角度免疫應答，最大化治療效果。', 'zh-CN': 'NKT细胞是同时发挥先天免疫和获得性免疫的特殊免疫细胞。以双重免疫功能全面攻击癌细胞。与NK细胞、树突状细胞疫苗三种复合疗法结合，引发多角度免疫应答，最大化治疗效果。', en: 'NKT cells are unique immune cells that activate both innate and adaptive immunity. They comprehensively attack cancer cells with dual immune functions. Combined with NK cells and DC vaccines in a triple combination therapy, they elicit multi-dimensional immune responses for maximum effect.' } as Record<Language, string>,
-    accent: '#336a8d',
+    accent: '#b13e22',
     bg: 'bg-neutral-200',
   },
 ];

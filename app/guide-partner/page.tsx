@@ -699,27 +699,27 @@ export default function GuidePartnerPage() {
             quality={75}
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/75 via-neutral-900/55 to-neutral-900/25"></div>
         </div>
         {/* Decorative Elements */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
-          <div className="absolute w-72 h-72 bg-brand-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
+          <div className="absolute w-96 h-96 bg-white/70/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
+          <div className="absolute w-72 h-72 bg-white/70/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
         </div>
         <div className="relative z-10 container mx-auto px-6 py-32">
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-brand-400"></div>
-              <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">{t('heroTagline')}</span>
+              <div className="h-[1px] w-12 bg-white/70"></div>
+              <span className="text-xs tracking-[0.3em] text-white/90 uppercase">{t('heroTagline')}</span>
             </div>
 
-            <h1 className="font-serif text-4xl md:text-6xl text-brand-900 mb-6 leading-tight">
+            <h1 className="font-serif text-4xl md:text-6xl text-white mb-6 leading-tight">
               {t('heroTitle1')}
               <br />
               <span className="brand-gradient-text">{t('heroTitle2')}</span>
             </h1>
 
-            <p className="text-xl text-neutral-600 mb-8 leading-relaxed font-light max-w-2xl">
+            <p className="text-xl text-white/85 mb-8 leading-relaxed font-light max-w-2xl">
               {t('heroDesc')}<br />
               {t('heroDesc2')}
             </p>
@@ -727,13 +727,13 @@ export default function GuidePartnerPage() {
             <div className="flex flex-wrap gap-4">
               <Link
                 href="/guide-partner/register"
-                className="inline-flex items-center px-8 py-4 rounded-lg brand-gradient-solid text-white text-sm font-medium tracking-wide hover:opacity-90 transition-opacity"
+                className="inline-flex items-center px-8 py-4 rounded-lg border-2 border-white text-white bg-transparent hover:bg-white/10 text-sm font-medium tracking-wide hover:bg-white/10 transition-opacity"
               >
                 {t('btnWechatApply')}
               </Link>
               <a
                 href="#how-it-works"
-                className="inline-flex items-center px-8 py-4 rounded-lg border border-neutral-200 bg-white backdrop-blur-sm text-brand-900 text-sm tracking-wider hover:bg-white/20 transition-colors"
+                className="inline-flex items-center px-8 py-4 rounded-lg border-2 border-white bg-transparent text-white text-sm tracking-wider hover:bg-white/20 transition-colors"
                 aria-label={t('ariaLearnHow')}
               >
                 {t('btnLearnHow')}

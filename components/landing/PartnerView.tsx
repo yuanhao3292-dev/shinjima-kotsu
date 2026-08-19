@@ -24,7 +24,7 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
            ) : (
              <div className="absolute inset-0 bg-gradient-to-br from-brand-800 to-brand-900 animate-pulse" />
            )}
-           <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/80 to-white/10"></div>
+           <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/75 via-neutral-900/55 to-neutral-900/25"></div>
          </div>
          {/* Decorative Elements */}
          <div className="absolute inset-0">
@@ -33,12 +33,12 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
          </div>
          <div className="relative z-10 text-center px-6 py-12 md:py-24">
              <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full mb-8">
-               <span className="text-xs font-bold text-neutral-600 uppercase tracking-wider">{t.partner.hero_tag}</span>
+               <span className="text-xs font-bold text-white uppercase tracking-wider">{t.partner.hero_tag}</span>
              </span>
-             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl font-serif font-bold text-brand-900 mb-4 md:mb-6 leading-tight">
+             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl font-serif font-bold text-white mb-4 md:mb-6 leading-tight">
                 {t.partner.hero_title}
              </h1>
-             <p className="text-neutral-600 max-w-2xl mx-auto leading-relaxed whitespace-pre-line text-sm md:text-base">
+             <p className="text-white/85 max-w-2xl mx-auto leading-relaxed whitespace-pre-line text-sm md:text-base">
                 {t.partner.hero_text}
              </p>
          </div>

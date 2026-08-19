@@ -112,12 +112,12 @@ const pt = (key: string, lang: PDFLanguage) => T[key]?.[lang] ?? T[key]?.['zh-CN
 // ============================================================
 
 const colors = {
-  primary: '#22455a',
-  gold: '#6fb4da',
-  goldLight: '#9dd3ec',
-  emerald: '#6fb4da',
-  amber: '#6fb4da',
-  red: '#4e9ac9',
+  primary: '#6d2e1f',
+  gold: '#f0937c',
+  goldLight: '#f8beaf',
+  emerald: '#f0937c',
+  amber: '#f0937c',
+  red: '#e76f51',
   textPrimary: '#1c1917',
   textSecondary: '#44403c',
   textMuted: '#78716c',
@@ -126,11 +126,11 @@ const colors = {
   bgCard: '#fafaf8',
   bgWarm: '#f5f5f0',
   divider: '#e8e6e1',
-  riskLow: '#2a566f',
+  riskLow: '#8c3621',
   riskLowBg: '#f5f5f0',
-  riskMedium: '#336a8d',
+  riskMedium: '#b13e22',
   riskMediumBg: '#fafaf8',
-  riskHigh: '#2a566f',
+  riskHigh: '#8c3621',
   riskHighBg: '#e8e6e1',
 };
 
@@ -267,7 +267,7 @@ const HealthPassportDocument: React.FC<{ data: PassportPDFData }> = ({ data }) =
             <View key={idx} style={[styles.breakdownRow, { backgroundColor: idx % 2 === 0 ? colors.bgWarm : colors.bgCard }]}>
               <Text style={styles.breakdownCategory}>{pt(item.category, lang)}</Text>
               <Text style={styles.breakdownLabel}>{item.label}</Text>
-              <Text style={[styles.breakdownDeduction, { color: item.deduction >= 20 ? colors.red : item.deduction >= 8 ? colors.amber : '#4e9ac9' }]}>
+              <Text style={[styles.breakdownDeduction, { color: item.deduction >= 20 ? colors.red : item.deduction >= 8 ? colors.amber : '#e76f51' }]}>
                 -{item.deduction}
               </Text>
             </View>
