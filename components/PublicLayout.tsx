@@ -292,16 +292,18 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
   };
 
   const getNavLinkClass = (_nav: string, isCurrentActive: boolean, specialColor?: string) => {
-    // 导航是 珊瑚→杏黄 渐变带（见 --grad-brand-nav），菜单落在中段到右端，
-    // 一律深字：neutral-900 在中点 6.4:1、右端 9.6:1。当前页用加粗 + 底线区分，
-    // 不再靠 brand-700 换色 —— 珊瑚字压珊瑚带看不出来。滚动前后同一条带，无需分支。
+    // 导航是 珊瑚→橙→杏黄 渐变带（见 --grad-brand-nav），菜单白字压在中段（JTB 同款）。
+    // ⚠️ 白字在中段橙 #EC652A 上约 3.3:1（与 JTB 官网持平），达不到 4.5 的正文标准，
+    //    这是用户明确选择的品牌观感；为此渐变把杏黄压到最右 15%（只有登录胶囊在那），
+    //    并给菜单字加一层极轻的暗影兜底。当前页用加粗 + 白底线区分。
+    const shadow = 'drop-shadow-[0_1px_1px_rgba(0,0,0,0.25)]';
     if (isCurrentActive) {
-      return `text-sm font-bold text-neutral-900 underline underline-offset-8 decoration-2 decoration-neutral-900`;
+      return `text-sm font-bold text-white ${shadow} underline underline-offset-8 decoration-2 decoration-white`;
     }
     if (specialColor === 'orange') {
-      return `text-sm font-bold text-neutral-900 hover:opacity-70 transition`;
+      return `text-sm font-bold text-white ${shadow} hover:opacity-80 transition`;
     }
-    return `text-sm font-medium text-neutral-900 hover:opacity-70 transition`;
+    return `text-sm font-medium text-white ${shadow} hover:opacity-80 transition`;
   };
 
   // 白标模式下使用导游的 DistributionNav，保持全域导航一致
@@ -447,7 +449,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
             <div className="relative lang-dropdown">
               <button
                 onClick={() => setLangMenuOpen(!langMenuOpen)}
-                className="flex items-center gap-1 text-xs font-bold transition uppercase tracking-wider text-neutral-900 hover:opacity-70"
+                className="flex items-center gap-1 text-xs font-bold transition uppercase tracking-wider text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.25)] hover:opacity-80"
               >
                 <Globe size={14} />
                 {currentLang === 'zh-TW' ? '\u7E41\u4F53\u4E2D\u6587' : currentLang === 'zh-CN' ? '\u7B80\u4F53\u4E2D\u6587' : currentLang === 'ko' ? '\uD55C\uAD6D\uC5B4' : currentLang.toUpperCase()}
@@ -509,7 +511,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
 
             {/* Mobile Menu Button */}
             <button
-              className="lg:hidden p-2 text-neutral-900"
+              className="lg:hidden p-2 text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.25)]"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}

@@ -310,7 +310,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 currentLang === 'zh-TW' ? '報告解讀' : currentLang === 'zh-CN' ? '报告解读' : currentLang === 'ja' ? 'レポート解説' : 'Report Analysis',
                 currentLang === 'zh-TW' ? '後續跟進' : currentLang === 'zh-CN' ? '后续跟进' : currentLang === 'ja' ? 'アフターフォロー' : 'Follow-up Care'
               ].map((tag, idx) => (
-                <span key={idx} className="px-4 py-2 bg-brand-50 rounded-full text-sm text-white/90 border border-brand-100">
+                <span key={idx} className="px-4 py-2 bg-white/10 rounded-full text-sm text-white border border-white/40 backdrop-blur-sm">
                   {tag}
                 </span>
               ))}
@@ -337,7 +337,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
         {/* 右下角：检查项目卡片（桌面端） */}
         <div className="hidden lg:block absolute right-8 bottom-8 w-80">
-          <div className="bg-white rounded-2xl p-6 border border-white/30 shadow-sm">
+          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/30">
             <h4 className="text-white font-medium mb-4">{currentLang === 'zh-TW' ? '精密檢查項目' : currentLang === 'zh-CN' ? '精密检查项目' : currentLang === 'ja' ? '精密検査項目' : 'Advanced Screening'}</h4>
             <div className="space-y-3">
               {[
@@ -382,7 +382,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           <div className="max-w-2xl">
             {/* 标签 */}
             <div className="flex items-center gap-3 mb-8">
-              <div className="h-[1px] w-12 bg-brand-300"></div>
+              <div className="h-[1px] w-12 bg-white/70"></div>
               <span className="text-xs tracking-[0.3em] text-white/90 uppercase">Advanced Treatment</span>
             </div>
 
@@ -426,7 +426,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 currentLang === 'zh-TW' ? '心臟手術' : currentLang === 'zh-CN' ? '心脏手术' : currentLang === 'ja' ? '心臓手術' : 'Heart Surgery',
                 currentLang === 'zh-TW' ? '腦血管' : currentLang === 'zh-CN' ? '脑血管' : currentLang === 'ja' ? '脳血管治療' : 'Cerebrovascular'
               ].map((tag, idx) => (
-                <span key={idx} className="px-4 py-2 bg-brand-50 rounded-full text-sm text-white/90 border border-brand-100">
+                <span key={idx} className="px-4 py-2 bg-white/10 rounded-full text-sm text-white border border-white/40 backdrop-blur-sm">
                   {tag}
                 </span>
               ))}
@@ -453,7 +453,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
         {/* 右下角：治疗流程简述（桌面端） */}
         <div className="hidden lg:block absolute right-8 bottom-8 w-80">
-          <div className="bg-white rounded-2xl p-6 border border-white/30 shadow-sm">
+          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/30">
             <h4 className="text-white font-medium mb-4">{currentLang === 'zh-TW' ? '服務流程' : currentLang === 'zh-CN' ? '服务流程' : currentLang === 'ja' ? 'サービスの流れ' : 'Service Flow'}</h4>
             <div className="space-y-3">
               {[
@@ -552,7 +552,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
         {/* 右下角服务标签 */}
         <div className="absolute bottom-12 right-12 hidden lg:block">
-          <div className="bg-brand-50 backdrop-blur-sm border border-white/30 p-6 max-w-xs">
+          <div className="bg-white/10 backdrop-blur-md border border-white/30 p-6 max-w-xs">
             <div className="text-xs text-white/90 mb-2 uppercase tracking-wider">{currentLang === 'zh-TW' ? '尊享服務' : currentLang === 'zh-CN' ? '尊享服务' : currentLang === 'ja' ? 'プレミアムサービス' : 'Premium Services'}</div>
             <div className="space-y-2 text-sm text-white/80">
               <div>✓ {currentLang === 'zh-TW' ? '專屬開球時段' : currentLang === 'zh-CN' ? '专属开球时段' : currentLang === 'ja' ? '専用スタート枠' : 'Reserved Tee Times'}</div>
@@ -766,7 +766,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 currentLang === 'zh-TW' ? '綜合醫療' : currentLang === 'zh-CN' ? '综合医疗' : currentLang === 'ja' ? '総合医療' : 'Comprehensive Medical',
                 currentLang === 'zh-TW' ? '幹細胞·抗衰' : currentLang === 'zh-CN' ? '干细胞·抗衰' : currentLang === 'ja' ? '幹細胞・アンチエイジング' : 'Stem Cell & Anti-aging'
               ].map((tag, idx) => (
-                <span key={idx} className="px-4 py-2 bg-brand-50 rounded-full text-sm text-white/90 border border-brand-100">
+                <span key={idx} className="px-4 py-2 bg-white/10 rounded-full text-sm text-white border border-white/40 backdrop-blur-sm">
                   {tag}
                 </span>
               ))}
@@ -793,7 +793,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
 
         {/* 右下角：合作模式卡片（桌面端） */}
         <div className="hidden lg:block absolute right-8 bottom-8 w-80">
-          <div className="bg-white rounded-2xl p-6 border border-white/30 shadow-sm">
+          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/30">
             <h4 className="text-white font-medium mb-4">{currentLang === 'zh-TW' ? '合作模式' : currentLang === 'zh-CN' ? '合作模式' : currentLang === 'ja' ? '提携モデル' : 'How It Works'}</h4>
             <div className="space-y-3">
               {[

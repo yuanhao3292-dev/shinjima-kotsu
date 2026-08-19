@@ -914,17 +914,17 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
             </div>
             {/* Key Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-white shadow-sm rounded-xl p-4 border border-white/30">
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/30">
                 <div className="text-3xl font-bold text-white mb-1">7</div>
                 <div className="text-sm text-white/85">{t('statHeavyIon')}</div>
                 <div className="text-xs text-white/75 mt-1">{t('statHeavyIonSub')}</div>
               </div>
-              <div className="bg-white shadow-sm rounded-xl p-4 border border-white/30">
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/30">
                 <div className="text-3xl font-bold text-white mb-1">2020</div>
                 <div className="text-sm text-white/85">{t('statPhotoimmuno')}</div>
                 <div className="text-xs text-white/75 mt-1">{t('statPhotoimmunoSub')}</div>
               </div>
-              <div className="bg-white shadow-sm rounded-xl p-4 border border-white/30">
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/30">
                 <div className="text-3xl font-bold text-white mb-1">1/3</div>
                 <div className="text-sm text-white/85">{t('statCost')}</div>
                 <div className="text-xs text-white/75 mt-1">{t('statCostSub')}</div>

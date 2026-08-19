@@ -733,7 +733,7 @@ export default function GuidePartnerPage() {
               </Link>
               <a
                 href="#how-it-works"
-                className="inline-flex items-center px-8 py-4 rounded-lg border border-white/30 bg-white backdrop-blur-sm text-white text-sm tracking-wider hover:bg-white/20 transition-colors"
+                className="inline-flex items-center px-8 py-4 rounded-lg border-2 border-white bg-transparent text-white text-sm tracking-wider hover:bg-white/20 transition-colors"
                 aria-label={t('ariaLearnHow')}
               >
                 {t('btnLearnHow')}

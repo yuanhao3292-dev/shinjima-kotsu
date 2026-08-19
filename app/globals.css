@@ -376,11 +376,10 @@ body {
      两端对白字均安全(#6d2e1f 10.2:1、#b13e22 5.86:1)，故沿用白字无需翻转。 */
   --grad-brand-deep: linear-gradient(100deg, #6d2e1f 0%, #b13e22 100%);
   /* 顶部导航带（JTB 式）：左珊瑚 → 右杏黄，横铺整条导航。
-     ⚠️ 这条渐变的亮端（杏黄 #FFB03B）白字只有 1.8:1，绝不能承载白色小字。
-        用法约定：logo（≥18px 粗体，大字标准 3:1）白色压在左端珊瑚（3.94:1）；
-        菜单文字、语言切换、汉堡一律深色 neutral-900 压在中段到右端
-        （中点 #F47A34 上 6.4:1，右端 9.6:1）。 */
-  --grad-brand-nav: linear-gradient(100deg, #E8452F 0%, #F47A34 55%, #FFB03B 100%);
+     ⚠️ 亮端杏黄 #FFB03B 白字只有 1.8:1，因此把它压到最右 12%（那里只有反白的
+        登录胶囊）；菜单落在 0~70% 的珊瑚→橙区，白字约 3.3~3.9:1 —— 与 JTB 官网
+        header 持平，低于 4.5 正文标准，是用户明确选择的品牌观感。 */
+  --grad-brand-nav: linear-gradient(100deg, #E8452F 0%, #EC652A 70%, #F5922F 88%, #FFB03B 100%);
 }
 .brand-gradient-nav { background-image: var(--grad-brand-nav); }
 .brand-gradient { background-image: var(--grad-brand-soft); }

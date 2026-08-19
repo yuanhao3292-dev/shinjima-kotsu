@@ -1192,7 +1192,7 @@ export default function PartnerBusinessPage() {
 
             <div className="flex flex-wrap gap-3 mb-10">
               {regionTags.map((region, idx) => (
-                <span key={idx} className="px-4 py-2 bg-brand-50 rounded-full text-sm text-white/90 border border-brand-100">
+                <span key={idx} className="px-4 py-2 bg-white/10 rounded-full text-sm text-white border border-white/40 backdrop-blur-sm">
                   {region}
                 </span>
               ))}
@@ -1209,7 +1209,7 @@ export default function PartnerBusinessPage() {
         </div>
 
         <div className="absolute bottom-12 right-12 hidden lg:block">
-          <div className="bg-brand-50 backdrop-blur-sm border border-white/30 p-6 max-w-xs">
+          <div className="bg-white/10 backdrop-blur-md border border-white/30 p-6 max-w-xs">
             <div className="text-xs text-white mb-3 uppercase tracking-wider">{t('heroCredentialLabel')}</div>
             <div className="space-y-2 text-sm text-white/85">
               <div className="flex items-center gap-2">
