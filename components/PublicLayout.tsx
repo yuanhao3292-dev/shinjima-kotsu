@@ -284,26 +284,29 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
   // 原本 6 项写死 font-serif（桌面导航是 font-sans，同一组导航在两种视口下
   // 字体不同），且「日本综合治疗」的 text-brand-700 是硬编码高亮，
   // 不跟随 activeNav —— 在任何页面它都显示为「当前页」。
-  const getMobileNavLinkClass = (isCurrentActive: boolean, emphasized = false) => {
-    const base = 'text-xl font-sans border-b border-neutral-200 pb-2 transition-colors';
-    if (isCurrentActive) return `${base} font-bold text-brand-700`;
-    if (emphasized) return `${base} font-bold text-brand-700 hover:text-brand-700`;
-    return `${base} font-medium text-neutral-700 hover:text-brand-700`;
+  // 2026-08-19：菜单项统一同一字重（font-medium），当前页只用颜色区分 ——
+  // 之前当前页加粗，一行菜单粗细混排，用户看着像"字体不一致"。
+  const getMobileNavLinkClass = (isCurrentActive: boolean) => {
+    const base = 'text-xl font-sans font-medium border-b border-neutral-200 pb-2 transition-colors';
+    if (isCurrentActive) return `${base} text-brand-700`;
+    return `${base} text-neutral-700 hover:text-brand-700`;
   };
 
   const getNavLinkClass = (_nav: string, isCurrentActive: boolean, specialColor?: string) => {
     // 导航是 珊瑚→橙→杏黄 渐变带（见 --grad-brand-nav），菜单白字压在中段（JTB 同款）。
     // ⚠️ 白字在中段橙 #EC652A 上约 3.3:1（与 JTB 官网持平），达不到 4.5 的正文标准，
     //    这是用户明确选择的品牌观感；为此渐变把杏黄压到最右 15%（只有登录胶囊在那），
-    //    并给菜单字加一层极轻的暗影兜底。当前页用加粗 + 白底线区分。
+    //    并给菜单字加一层极轻的暗影兜底。
+    // 所有菜单项同一字重（font-medium，JTB 同款），当前页只用白底线区分，
+    // 不再加粗 —— 粗细混排让整行菜单看起来像字体不一致。
+    // specialColor 参数保留只为调用点兼容（曾让「导游合伙人」永久加粗，已废）。
+    void specialColor;
     const shadow = 'drop-shadow-[0_1px_1px_rgba(0,0,0,0.25)]';
+    const base = `text-sm font-medium text-white ${shadow} transition`;
     if (isCurrentActive) {
-      return `text-sm font-bold text-white ${shadow} underline underline-offset-8 decoration-2 decoration-white`;
+      return `${base} underline underline-offset-8 decoration-2 decoration-white`;
     }
-    if (specialColor === 'orange') {
-      return `text-sm font-bold text-white ${shadow} hover:opacity-80 transition`;
-    }
-    return `text-sm font-medium text-white ${shadow} hover:opacity-80 transition`;
+    return `${base} hover:opacity-80`;
   };
 
   // 白标模式下使用导游的 DistributionNav，保持全域导航一致
@@ -533,7 +536,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
           )}
           {/* 白标模式下隐藏导游合伙人链接 */}
           {!hideGuidePartnerContent && (
-            <Link href="/guide-partner" onClick={() => setMobileMenuOpen(false)} className={getMobileNavLinkClass(false, true)}>{t.guidePartner}</Link>
+            <Link href="/guide-partner" onClick={() => setMobileMenuOpen(false)} className={getMobileNavLinkClass(false)}>{t.guidePartner}</Link>
           )}
 
           {/* 登入入口区域 */}
