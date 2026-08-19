@@ -5,7 +5,7 @@ import Image from 'next/image';
 import PublicLayout from '@/components/PublicLayout';
 import {
   Award, Shield,
-  Quote, Globe, Heart, Target,
+  Quote, Heart,
   Brain, Hospital, HeartHandshake, TrendingUp, Rocket, Building2, Bot, Users, Store, Plane
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
@@ -535,18 +535,25 @@ export default function AboutPage() {
     <PublicLayout>
       <div className="min-h-screen bg-white">
         {/* Hero Section */}
-        <section className="relative min-h-[60vh] flex items-center brand-gradient-deep overflow-hidden">
-          <div className="absolute inset-0">
-            <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20"></div>
-            <div className="absolute w-72 h-72 bg-brand-400/10 rounded-full filter blur-3xl bottom-1/4 right-10"></div>
-          </div>
+        <section className="relative min-h-[60vh] flex items-center bg-neutral-900 overflow-hidden">
+          {/* 大阪・梅田夜景（Unsplash，站内其他 hero 同源直链）。此前是纯色渐变底。 */}
+          <Image
+            src="https://images.unsplash.com/photo-1547965255-b0040206de29?q=80&w=2000&auto=format&fit=crop"
+            alt="Osaka skyline at night"
+            fill
+            priority
+            sizes="100vw"
+            quality={75}
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/60 via-neutral-900/50 to-neutral-900/70"></div>
 
-          <div className="relative container mx-auto px-6 py-24">
+          <div className="relative container mx-auto px-6 py-24 [text-shadow:0_1px_3px_rgba(0,0,0,0.5)]">
             <div className="max-w-3xl mx-auto text-center">
               <div className="flex items-center justify-center gap-3 mb-8">
-                <div className="h-[1px] w-12 bg-brand-400"></div>
-                <span className="text-xs tracking-[0.3em] text-brand-400 uppercase">NIIJIMA KOTSU Co., Ltd.</span>
-                <div className="h-[1px] w-12 bg-brand-400"></div>
+                <div className="h-[1px] w-12 bg-white/70"></div>
+                <span className="text-xs tracking-[0.3em] text-white/85 uppercase">NIIJIMA KOTSU Co., Ltd.</span>
+                <div className="h-[1px] w-12 bg-white/70"></div>
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-white leading-tight">
                 {t('valueCompanyName')}
@@ -636,9 +643,6 @@ export default function AboutPage() {
 
               <div className="grid md:grid-cols-3 gap-8">
                 <div className="bg-white rounded-2xl p-8 border border-neutral-200 text-center hover:shadow-lg transition">
-                  <div className="w-16 h-16 brand-gradient-deep rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <Heart className="w-8 h-8 text-brand-400" />
-                  </div>
                   <h3 className="text-xl font-bold text-neutral-900 mb-3">{t('philosophy1Title')}</h3>
                   <p className="text-neutral-600 text-sm leading-relaxed">
                     {t('philosophy1Desc')}
@@ -646,9 +650,6 @@ export default function AboutPage() {
                 </div>
 
                 <div className="bg-white rounded-2xl p-8 border border-neutral-200 text-center hover:shadow-lg transition">
-                  <div className="w-16 h-16 brand-gradient-deep rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <Globe className="w-8 h-8 text-brand-400" />
-                  </div>
                   <h3 className="text-xl font-bold text-neutral-900 mb-3">{t('philosophy2Title')}</h3>
                   <p className="text-neutral-600 text-sm leading-relaxed">
                     {t('philosophy2Desc')}
@@ -656,9 +657,6 @@ export default function AboutPage() {
                 </div>
 
                 <div className="bg-white rounded-2xl p-8 border border-neutral-200 text-center hover:shadow-lg transition">
-                  <div className="w-16 h-16 brand-gradient-deep rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <Target className="w-8 h-8 text-brand-400" />
-                  </div>
                   <h3 className="text-xl font-bold text-neutral-900 mb-3">{t('philosophy3Title')}</h3>
                   <p className="text-neutral-600 text-sm leading-relaxed">
                     {t('philosophy3Desc')}
