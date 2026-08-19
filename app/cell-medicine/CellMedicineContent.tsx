@@ -469,7 +469,7 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center gap-3 mb-4">
             <div className="h-[1px] w-12 bg-brand-400" />
-            <span className="text-sm tracking-[0.2em] text-brand-700 uppercase font-medium">
+            <span className="text-sm tracking-[0.2em] text-neutral-700 uppercase font-medium">
               {tr('vaccineTag')}
             </span>
           </div>
@@ -544,7 +544,7 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
               { icon: <Star className="w-6 h-6" />, title: tr('flow4'), desc: tr('flow4Desc'), step: 'STEP 4' },
             ].map((item, idx) => (
               <div key={idx} className="text-center">
-                <div className="text-xs font-bold text-brand-700 tracking-wider mb-3">{item.step}</div>
+                <div className="text-xs font-bold text-neutral-700 tracking-wider mb-3">{item.step}</div>
                 <div className="w-16 h-16 mx-auto bg-white border-2 border-brand-400/20 rounded-2xl flex items-center justify-center text-brand-700 mb-4 shadow-sm">
                   {item.icon}
                 </div>
@@ -599,7 +599,7 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
             <div className="flex flex-col items-center gap-1 text-brand-700">
               <ArrowRight className="w-8 h-8 hidden md:block" />
               <ArrowRight className="w-8 h-8 rotate-90 md:hidden" />
-              <span className="text-xs font-bold tracking-wider text-brand-700">{tr('nobelArrow')}</span>
+              <span className="text-xs font-bold tracking-wider text-neutral-700">{tr('nobelArrow')}</span>
             </div>
 
             {/* Tanabe */}
@@ -693,7 +693,7 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center gap-3 mb-4">
             <div className="h-[1px] w-12 bg-brand-400" />
-            <span className="text-sm tracking-[0.2em] text-brand-700 uppercase font-medium">
+            <span className="text-sm tracking-[0.2em] text-neutral-700 uppercase font-medium">
               {tr('teamTag')}
             </span>
           </div>
@@ -724,7 +724,7 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center gap-3 mb-4">
             <div className="h-[1px] w-12 bg-brand-400" />
-            <span className="text-sm tracking-[0.2em] text-brand-700 uppercase font-medium">
+            <span className="text-sm tracking-[0.2em] text-neutral-700 uppercase font-medium">
               {tr('locationTag')}
             </span>
           </div>

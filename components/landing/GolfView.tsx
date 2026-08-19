@@ -127,7 +127,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
          <div className="text-center mb-16">
            <div className="inline-flex items-center gap-4 mb-4">
              <div className="w-12 h-px bg-gradient-to-r from-transparent to-brand-400"></div>
-             <span className="text-brand-700 text-xs tracking-[0.3em] uppercase font-bold">{t.golf.std_title}</span>
+             <span className="text-neutral-700 text-xs tracking-[0.3em] uppercase font-bold">{t.golf.std_title}</span>
              <div className="w-12 h-px bg-gradient-to-l from-transparent to-brand-400"></div>
            </div>
            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-neutral-900 golf-title-decorated">
@@ -150,9 +150,9 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                   {/* Icon with gradient background */}
                   <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500
                     ${item.accent === 'emerald' ? 'bg-brand-50 text-brand-700 group-hover:bg-brand-600 group-hover:text-white' : ''}
-                    ${item.accent === 'amber' ? 'bg-brand-50 text-brand-800 group-hover:bg-brand-700 group-hover:text-white' : ''}
+                    ${item.accent === 'amber' ? 'bg-brand-50 text-neutral-900 group-hover:bg-brand-700 group-hover:text-white' : ''}
                     ${item.accent === 'slate' ? 'bg-neutral-100 text-neutral-600 group-hover:bg-brand-700 group-hover:text-white' : ''}
-                    ${item.accent === 'orange' ? 'bg-brand-50 text-brand-800 group-hover:bg-brand-500 group-hover:text-white' : ''}
+                    ${item.accent === 'orange' ? 'bg-brand-50 text-neutral-900 group-hover:bg-brand-500 group-hover:text-white' : ''}
                   `}>
                     {item.icon}
                   </div>
@@ -172,10 +172,10 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
          <div className="text-center mb-12">
            <div className="inline-flex items-center gap-4 mb-4">
              <div className="w-12 h-px bg-gradient-to-r from-transparent to-brand-400"></div>
-             <span className="text-brand-700 text-xs tracking-[0.3em] uppercase font-bold">{currentLang === 'zh-TW' ? '合作球場' : currentLang === 'zh-CN' ? '合作球场' : currentLang === 'ja' ? '提携コース' : 'Partner Courses'}</span>
+             <span className="text-neutral-700 text-xs tracking-[0.3em] uppercase font-bold">{currentLang === 'zh-TW' ? '合作球場' : currentLang === 'zh-CN' ? '合作球场' : currentLang === 'ja' ? '提携コース' : 'Partner Courses'}</span>
              <div className="w-12 h-px bg-gradient-to-l from-transparent to-brand-400"></div>
            </div>
-           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-brand-900">{t.golf.partners_title || '提携名門コース'}</h2>
+           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-neutral-900">{t.golf.partners_title || '提携名門コース'}</h2>
          </div>
 
          {/* Course Grid —— 六家球场名称较长（六甲国際ゴルフ倶楽部 等），
@@ -195,7 +195,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                  <MapPin size={20} className="text-white" />
                </div>
                <div className="min-w-0 flex-1">
-                 <h4 className="text-brand-900 font-bold text-sm leading-snug group-hover:text-brand-700 transition-colors">{course.name}</h4>
+                 <h4 className="text-neutral-900 font-bold text-sm leading-snug group-hover:text-brand-700 transition-colors">{course.name}</h4>
                  <p className="text-neutral-500 text-xs mt-1">{course.region}</p>
                </div>
                {/* 外链指示常驻 —— 触屏设备没有 hover，只在 hover 时出现等于没有提示 */}
@@ -221,7 +221,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
          <div className="text-center mb-20">
            <div className="inline-flex items-center gap-4 mb-4">
              <div className="w-12 h-px bg-gradient-to-r from-transparent to-brand-400"></div>
-             <span className="text-brand-700 text-xs tracking-[0.3em] uppercase font-bold">{(t.golf as any).plans_section_label || (currentLang === 'zh-TW' ? '精選行程' : currentLang === 'zh-CN' ? '精选行程' : currentLang === 'ja' ? '厳選プラン' : 'Signature Itineraries')}</span>
+             <span className="text-neutral-700 text-xs tracking-[0.3em] uppercase font-bold">{(t.golf as any).plans_section_label || (currentLang === 'zh-TW' ? '精選行程' : currentLang === 'zh-CN' ? '精选行程' : currentLang === 'ja' ? '厳選プラン' : 'Signature Itineraries')}</span>
              <div className="w-12 h-px bg-gradient-to-l from-transparent to-brand-400"></div>
            </div>
            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-neutral-900 mb-4">{(t.golf as any).plans_section_title || (currentLang === 'zh-TW' ? '推薦行程' : currentLang === 'zh-CN' ? '推荐行程' : currentLang === 'ja' ? 'おすすめプラン' : 'Recommended Itineraries')}</h2>
@@ -322,7 +322,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                                    )}
                                  </div>
                                  <div className="flex-1 pb-4">
-                                   <span className="text-xs font-bold text-brand-700 uppercase tracking-wider">{day.day}</span>
+                                   <span className="text-xs font-bold text-neutral-700 uppercase tracking-wider">{day.day}</span>
                                    <p className="text-neutral-700 leading-relaxed mt-1">{day.text}</p>
                                  </div>
                               </div>
@@ -351,7 +351,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
      <div className="py-8 bg-neutral-50">
        <button
          onClick={() => setCurrentPage('home')}
-         className="w-full text-center text-neutral-500 hover:text-brand-900 transition-colors flex justify-center items-center gap-2 group"
+         className="w-full text-center text-neutral-500 hover:text-brand-700 transition-colors flex justify-center items-center gap-2 group"
        >
          <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
          {t.about.back}

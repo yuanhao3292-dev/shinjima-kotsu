@@ -728,7 +728,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               <h3 className="text-xl font-bold text-neutral-900 mb-2">{t(tr.hospStandard, lang)}</h3>
               <p className="text-neutral-600 text-sm mb-4">{t(tr.hospStandardDesc, lang)}</p>
               <div className="bg-brand-50 rounded-lg p-3 text-center">
-                <p className="text-brand-800 font-bold">{lang === 'ja' ? '基本料金' : lang === 'en' ? 'Standard Rate' : '基本費用'}</p>
+                <p className="text-neutral-900 font-bold">{lang === 'ja' ? '基本料金' : lang === 'en' ? 'Standard Rate' : '基本費用'}</p>
               </div>
             </div>
 
@@ -961,10 +961,10 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                       </ul>
                     </div>
                     <div className="bg-brand-50 rounded-lg p-4 border border-brand-100">
-                      <h4 className="font-semibold text-brand-900 mb-2 text-sm">
+                      <h4 className="font-semibold text-neutral-900 mb-2 text-sm">
                         {lang === 'ja' ? '注意事項' : lang === 'en' ? 'Important Notes' : lang === 'zh-TW' ? '注意事項' : '注意事项'}
                       </h4>
-                      <ul className="space-y-1.5 text-sm text-brand-800">
+                      <ul className="space-y-1.5 text-sm text-neutral-900">
                         <li>• {lang === 'ja' ? '治療頻度：一般的に3回治療で1クール、各回約2週間間隔' : lang === 'en' ? 'Frequency: Generally 3 treatments per course, approx. 2-week intervals' : lang === 'zh-TW' ? '治療頻度：一般3次治療為一個療程，每次間隔2週左右' : '治疗频度：一般3次治疗为一个疗程，每次间隔2周左右'}</li>
                         <li>• {lang === 'ja' ? '治療時間：各回2泊3日の入院が必要' : lang === 'en' ? 'Duration: 2 nights, 3 days hospitalization per treatment' : lang === 'zh-TW' ? '治療時間：每次治療需住院兩晚三天' : '治疗时间：每次治疗需住院两晚三天'}</li>
                       </ul>
@@ -1007,10 +1007,10 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                       </p>
                     </div>
                     <div className="bg-brand-50 rounded-lg p-4 border border-brand-100">
-                      <h4 className="font-semibold text-brand-900 mb-2 text-sm">
+                      <h4 className="font-semibold text-neutral-900 mb-2 text-sm">
                         {lang === 'ja' ? '注意事項' : lang === 'en' ? 'Important Notes' : lang === 'zh-TW' ? '注意事項' : '注意事项'}
                       </h4>
-                      <ul className="space-y-1.5 text-sm text-brand-800">
+                      <ul className="space-y-1.5 text-sm text-neutral-900">
                         <li>• {lang === 'ja' ? '医師診察後、個別治療計画を策定' : lang === 'en' ? 'Individual treatment plan after medical consultation' : lang === 'zh-TW' ? '醫生診察後制定指定治療計劃' : '医生诊察后制定指定治疗计划'}</li>
                         <li>• {lang === 'ja' ? '治療頻度：週1-2回、腫瘍血管内介入治療と併用可能' : lang === 'en' ? 'Frequency: 1-2 times/week, combinable with endovascular treatment' : lang === 'zh-TW' ? '治療頻度：每週1-2次，可結合腫瘤血管內介入治療' : '治疗频度：每周1-2次，可结合肿瘤血管内介入治疗'}</li>
                         <li>• {lang === 'ja' ? '治療時間：各回40分、温熱治療時に水素吸入を併用可能' : lang === 'en' ? 'Duration: 40 min/session, hydrogen therapy can be added' : lang === 'zh-TW' ? '治療時間：每次40分鐘；溫熱治療時可結合吸氫治療' : '治疗时间：每次40分钟；温热治疗时可结合吸氢治疗'}</li>
@@ -1081,10 +1081,10 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                       </ul>
                     </div>
                     <div className="bg-brand-50 rounded-lg p-4 border border-brand-100">
-                      <h4 className="font-semibold text-brand-900 mb-2 text-sm">
+                      <h4 className="font-semibold text-neutral-900 mb-2 text-sm">
                         {lang === 'ja' ? '注意事項' : lang === 'en' ? 'Important Notes' : lang === 'zh-TW' ? '注意事項' : '注意事项'}
                       </h4>
-                      <ul className="space-y-1.5 text-sm text-brand-800">
+                      <ul className="space-y-1.5 text-sm text-neutral-900">
                         <li>• {lang === 'ja' ? '総治療期間：約2-3ヶ月' : lang === 'en' ? 'Total duration: approx. 2-3 months' : lang === 'zh-TW' ? '總治療期間：約2-3個月' : '总治疗期间：约2-3个月'}</li>
                         <li>• {lang === 'ja' ? '適応：切除可能な固形がん（組織採取が必要）' : lang === 'en' ? 'Indication: Resectable solid tumors (tissue collection required)' : lang === 'zh-TW' ? '適應症：可切除的實體腫瘤（需採集組織）' : '适应症：可切除的实体肿瘤（需采集组织）'}</li>
                         <li>• {lang === 'ja' ? 'ワクチン投与時は通院、T細胞投与時は1日入院' : lang === 'en' ? 'Vaccine: outpatient; T cell infusion: 1-day hospitalization' : lang === 'zh-TW' ? '疫苗施打為門診，T細胞輸注需住院1天' : '疫苗施打为门诊，T细胞输注需住院1天'}</li>
@@ -1151,10 +1151,10 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                       </ul>
                     </div>
                     <div className="bg-brand-50 rounded-lg p-4 border border-brand-100">
-                      <h4 className="font-semibold text-brand-900 mb-2 text-sm">
+                      <h4 className="font-semibold text-neutral-900 mb-2 text-sm">
                         {lang === 'ja' ? '注意事項' : lang === 'en' ? 'Important Notes' : lang === 'zh-TW' ? '注意事項' : '注意事项'}
                       </h4>
-                      <ul className="space-y-1.5 text-sm text-brand-800">
+                      <ul className="space-y-1.5 text-sm text-neutral-900">
                         <li>• {lang === 'ja' ? '完全通院治療、入院不要' : lang === 'en' ? 'Fully outpatient treatment, no hospitalization required' : lang === 'zh-TW' ? '完全門診治療，無需住院' : '完全门诊治疗，无需住院'}</li>
                         <li>• {lang === 'ja' ? '投与後は通常の生活に戻れる、副作用極少' : lang === 'en' ? 'Can resume normal life after infusion, minimal side effects' : lang === 'zh-TW' ? '輸注後可恢復正常生活，副作用極少' : '输注后可恢复正常生活，副作用极少'}</li>
                         <li>• {lang === 'ja' ? '他の治療（化学療法、放射線）との併用可能' : lang === 'en' ? 'Can be combined with other treatments (chemotherapy, radiation)' : lang === 'zh-TW' ? '可與其他治療（化療、放療）併用' : '可与其他治疗（化疗、放疗）并用'}</li>
@@ -1291,10 +1291,10 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                       </ul>
                     </div>
                     <div className="bg-brand-50 rounded-lg p-4 border border-brand-100">
-                      <h4 className="font-semibold text-brand-900 mb-2 text-sm">
+                      <h4 className="font-semibold text-neutral-900 mb-2 text-sm">
                         {lang === 'ja' ? '注意事項' : lang === 'en' ? 'Important Notes' : lang === 'zh-TW' ? '注意事項' : '注意事项'}
                       </h4>
-                      <ul className="space-y-1.5 text-sm text-brand-800">
+                      <ul className="space-y-1.5 text-sm text-neutral-900">
                         <li>• {lang === 'ja' ? '完全通院治療、入院不要、侵襲的処置なし' : lang === 'en' ? 'Fully outpatient, no hospitalization, non-invasive' : lang === 'zh-TW' ? '完全門診治療，無需住院，無侵入性處置' : '完全门诊治疗，无需住院，无侵入性处置'}</li>
                         <li>• {lang === 'ja' ? '投与後すぐ帰宅可能、日常生活制限なし' : lang === 'en' ? 'Can go home immediately after infusion, no daily life restrictions' : lang === 'zh-TW' ? '輸注後可立即返家，無日常生活限制' : '输注后可立即返家，无日常生活限制'}</li>
                         <li>• {lang === 'ja' ? '他の治療との併用が可能（※副作用には個人差があります）' : lang === 'en' ? 'Can be combined with other treatments (results may vary)' : lang === 'zh-TW' ? '可與其他治療併用（※效果因人而異）' : '可与其他治疗并用（※效果因人而异）'}</li>
@@ -1401,7 +1401,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               </div>
               <p className="text-neutral-600 mb-4 leading-relaxed">{t(tr.lymphedemaDesc, lang)}</p>
               <div className="bg-brand-100 rounded-lg p-4 mb-4">
-                <p className="text-brand-900 font-bold text-sm">{t(tr.lymphedemaPrice, lang)}</p>
+                <p className="text-neutral-900 font-bold text-sm">{t(tr.lymphedemaPrice, lang)}</p>
                 <p className="text-brand-700 text-xs mt-1">
                   {lang === 'ja' ? '第1・第3土曜日 9:00～17:00（予約制）' : lang === 'en' ? '1st & 3rd Sat 9:00-17:00 (By appointment)' : lang === 'zh-TW' ? '每月第1、3週六 9:00-17:00（預約制）' : '每月第1、3周六 9:00-17:00（预约制）'}
                 </p>
@@ -1428,7 +1428,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               </div>
               <p className="text-neutral-600 mb-4 leading-relaxed">{t(tr.cancerScreeningDesc, lang)}</p>
               <div className="bg-brand-100 rounded-lg p-4 mb-4">
-                <p className="text-brand-900 font-bold text-sm">{t(tr.cancerScreeningPrice, lang)}</p>
+                <p className="text-neutral-900 font-bold text-sm">{t(tr.cancerScreeningPrice, lang)}</p>
                 <p className="text-brand-700 text-xs mt-1">
                   {lang === 'ja' ? 'マイクロアレイ血液検査オプション：¥99,000' : lang === 'en' ? 'Microarray blood test option: ¥99,000' : lang === 'zh-TW' ? '微陣列血液檢測選項：¥99,000' : '微阵列血液检测选项：¥99,000'}
                 </p>

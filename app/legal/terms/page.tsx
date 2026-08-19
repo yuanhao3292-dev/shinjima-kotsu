@@ -95,8 +95,8 @@ export default function TermsPage() {
               <table className="w-full border-collapse border border-neutral-200 text-sm mb-4">
                 <thead>
                   <tr className="bg-neutral-50">
-                    <th className="border border-neutral-200 px-4 py-2 text-left text-brand-900">キャンセル時期</th>
-                    <th className="border border-neutral-200 px-4 py-2 text-left text-brand-900">キャンセル料</th>
+                    <th className="border border-neutral-200 px-4 py-2 text-left text-neutral-900">キャンセル時期</th>
+                    <th className="border border-neutral-200 px-4 py-2 text-left text-neutral-900">キャンセル料</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -177,7 +177,7 @@ export default function TermsPage() {
 
             <Section title="第12条（お問い合わせ）">
               <div className="bg-neutral-50 p-6 rounded-2xl">
-                <p className="font-bold text-brand-900">新島交通株式会社</p>
+                <p className="font-bold text-neutral-900">新島交通株式会社</p>
                 <div className="mt-3 text-sm text-neutral-700 space-y-1">
                   <p>〒556-0014 大阪府大阪市浪速区大国1-2-21-602</p>
                   <p>電話: 06-6632-8807</p>
@@ -197,13 +197,13 @@ export default function TermsPage() {
             <div className="flex flex-wrap gap-6">
               <Link
                 href="/legal/tokushoho"
-                className="text-brand-700 hover:text-brand-900 text-sm flex items-center gap-1 transition-colors"
+                className="text-brand-700 hover:text-brand-700 text-sm flex items-center gap-1 transition-colors"
               >
                 特定商取引法に基づく表記 <ArrowRight size={14} />
               </Link>
               <Link
                 href="/legal/privacy"
-                className="text-brand-700 hover:text-brand-900 text-sm flex items-center gap-1 transition-colors"
+                className="text-brand-700 hover:text-brand-700 text-sm flex items-center gap-1 transition-colors"
               >
                 プライバシーポリシー <ArrowRight size={14} />
               </Link>
@@ -218,7 +218,7 @@ export default function TermsPage() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section>
-      <h2 className="text-lg font-bold text-brand-900 mb-3 pb-2 border-b border-neutral-200">
+      <h2 className="text-lg font-bold text-neutral-900 mb-3 pb-2 border-b border-neutral-200">
         {title}
       </h2>
       <div className="text-neutral-700 leading-relaxed">

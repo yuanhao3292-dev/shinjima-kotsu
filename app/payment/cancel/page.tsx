@@ -75,7 +75,7 @@ function PaymentCancelContent() {
           </div>
         </div>
 
-        <h1 className="text-3xl font-bold text-brand-900 mb-4">{t('title')}</h1>
+        <h1 className="text-3xl font-bold text-neutral-900 mb-4">{t('title')}</h1>
         <p className="text-neutral-600 mb-6">{t('subtitle')}</p>
 
         <div className="bg-neutral-50 border border-neutral-200 p-4 mb-6 text-left">
@@ -92,13 +92,13 @@ function PaymentCancelContent() {
           </button>
           <Link
             href={backToPackagesHref}
-            className="block w-full bg-neutral-100 hover:bg-neutral-200 text-brand-900 font-semibold py-3 px-6 transition-colors"
+            className="block w-full bg-neutral-100 hover:bg-neutral-200 text-neutral-900 font-semibold py-3 px-6 transition-colors"
           >
             {t('backToPackages')}
           </Link>
           <Link
             href={backToHomeHref}
-            className="block w-full text-neutral-500 hover:text-brand-900 font-semibold py-3 px-6 transition-colors"
+            className="block w-full text-neutral-500 hover:text-brand-700 font-semibold py-3 px-6 transition-colors"
           >
             {t('backToHome')}
           </Link>

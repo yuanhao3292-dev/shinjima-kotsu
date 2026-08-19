@@ -477,7 +477,7 @@ export default function HeleneTreatmentPage() {
         <div className="max-w-6xl mx-auto px-4 py-3">
           <Link
             href={backHref}
-            className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-900 transition"
+            className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-700 transition"
           >
             <ArrowLeft size={16} />
             {t('backToMain')}
@@ -516,7 +516,7 @@ export default function HeleneTreatmentPage() {
           {/* ── Left sidebar: Treatment selector ── */}
           <div className="lg:col-span-1">
             <div className="bg-neutral-50 p-5 border border-neutral-200 sticky top-8">
-              <h3 className="text-lg font-bold text-brand-900 mb-1">{t('selectTreatment')}</h3>
+              <h3 className="text-lg font-bold text-neutral-900 mb-1">{t('selectTreatment')}</h3>
               <p className="text-xs text-neutral-500 mb-4">{t('selectTreatmentHint')}</p>
 
               {/* Selected treatment summary (top of sidebar) */}
@@ -525,7 +525,7 @@ export default function HeleneTreatmentPage() {
                   <div className="flex items-start gap-2">
                     <CheckCircle size={16} className="shrink-0 mt-0.5 text-brand-700" />
                     <div className="min-w-0">
-                      <p className="text-sm font-medium text-brand-900 break-words">{selectedTreatmentLabel}</p>
+                      <p className="text-sm font-medium text-neutral-900 break-words">{selectedTreatmentLabel}</p>
                       <p className="text-lg font-bold text-brand-700 mt-0.5">
                         ¥{selectedPrice.toLocaleString()}
                         <span className="text-xs font-normal text-neutral-500 ml-1">{t('taxIncluded')}</span>
@@ -548,8 +548,8 @@ export default function HeleneTreatmentPage() {
                         onClick={() => toggleCategory(category.id)}
                         className={`w-full flex items-center justify-between px-4 py-3 text-left transition ${
                           hasSel
-                            ? 'bg-brand-100 text-brand-900'
-                            : 'bg-white text-brand-900 hover:bg-neutral-50'
+                            ? 'bg-brand-100 text-neutral-900'
+                            : 'bg-white text-neutral-900 hover:bg-neutral-50'
                         }`}
                       >
                         <span className="text-sm font-semibold leading-tight pr-2">
@@ -585,7 +585,7 @@ export default function HeleneTreatmentPage() {
                                   className="mt-1 h-4 w-4 text-brand-700 border-neutral-300 focus:ring-brand-700 shrink-0"
                                 />
                                 <div className="min-w-0 flex-1">
-                                  <p className={`text-sm leading-tight ${isSelected ? 'font-semibold text-brand-900' : 'text-neutral-700'}`}>
+                                  <p className={`text-sm leading-tight ${isSelected ? 'font-semibold text-neutral-900' : 'text-neutral-700'}`}>
                                     {item.label[currentLang]}
                                   </p>
                                   <p className={`text-sm mt-0.5 ${isSelected ? 'font-bold text-brand-700' : 'text-neutral-500'}`}>
@@ -607,7 +607,7 @@ export default function HeleneTreatmentPage() {
           {/* ── Right main area: Form ── */}
           <div className="lg:col-span-2">
             <div className="bg-white border border-neutral-200 p-6 md:p-8">
-              <h2 className="text-2xl font-serif font-bold text-brand-900 mb-6">{t('bookingInfo')}</h2>
+              <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6">{t('bookingInfo')}</h2>
 
               {/* Contract notice */}
               <div className="bg-neutral-50 border border-neutral-200 p-4 mb-6">
@@ -621,7 +621,7 @@ export default function HeleneTreatmentPage() {
 
                 {/* Patient info */}
                 <div>
-                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-2">
+                  <h3 className="font-bold text-neutral-900 mb-4 flex items-center gap-2">
                     <Users size={18} className="text-brand-700" />
                     {t('patientInfoTitle')}
                   </h3>
@@ -684,7 +684,7 @@ export default function HeleneTreatmentPage() {
 
                 {/* Contact info */}
                 <div>
-                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-2">
+                  <h3 className="font-bold text-neutral-900 mb-4 flex items-center gap-2">
                     <Phone size={18} className="text-brand-700" />
                     {t('contactInfoTitle')}
                   </h3>
@@ -779,7 +779,7 @@ export default function HeleneTreatmentPage() {
                     <div className="text-right">
                       {selectedSlug ? (
                         <>
-                          <span className="text-2xl font-bold text-brand-900">
+                          <span className="text-2xl font-bold text-neutral-900">
                             ¥{selectedPrice.toLocaleString()}
                           </span>
                           <span className="text-xs text-neutral-500 ml-1">

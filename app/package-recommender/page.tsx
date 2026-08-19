@@ -985,7 +985,7 @@ export default function PackageRecommenderPage() {
       <div className="min-h-screen bg-gradient-to-br from-brand-50 via-white to-brand-50">
         <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
           <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors">
+            <Link href="/" className="flex items-center gap-2 text-neutral-500 hover:text-brand-700 transition-colors">
               <ArrowLeft size={20} /><span>{ut('backHome')}</span>
             </Link>
             <h1 className="text-lg font-bold text-neutral-900">{ut('pageTitle')}</h1>
@@ -1011,13 +1011,13 @@ export default function PackageRecommenderPage() {
               <div className="bg-brand-50 rounded-2xl p-6 mb-8">
                 <div className="flex items-start gap-4">
                   <CheckCircle className="w-6 h-6 text-brand-600 flex-shrink-0 mt-0.5" />
-                  <div><p className="font-semibold text-brand-900 mb-1">{ut('resultReason')}</p><p className="text-sm text-brand-700 leading-relaxed">{rs(recommendation.reason)}</p></div>
+                  <div><p className="font-semibold text-neutral-900 mb-1">{ut('resultReason')}</p><p className="text-sm text-brand-700 leading-relaxed">{rs(recommendation.reason)}</p></div>
                 </div>
               </div>
               <div className="space-y-4">
                 <a href="/medical" className="block w-full brand-gradient-solid hover:opacity-90 text-white font-bold py-4 px-6 rounded-xl transition-colors text-center">{ut('resultViewMedical')}</a>
                 <button onClick={() => { setShowResult(false); setCurrentStep(0); setAnswers({}); }} className="block w-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-medium py-3 px-6 rounded-xl transition-colors text-center">{ut('resultRetry')}</button>
-                <Link href="/" className="block w-full text-center text-neutral-500 hover:text-brand-900 py-2 transition-colors">{ut('resultAllPackages')}</Link>
+                <Link href="/" className="block w-full text-center text-neutral-500 hover:text-brand-700 py-2 transition-colors">{ut('resultAllPackages')}</Link>
               </div>
             </div>
           </div>
@@ -1031,7 +1031,7 @@ export default function PackageRecommenderPage() {
     <div className="min-h-screen bg-gradient-to-br from-brand-50 via-white to-brand-50">
       <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"><ArrowLeft size={20} /><span>{ut('backHome')}</span></Link>
+          <Link href="/" className="flex items-center gap-2 text-neutral-500 hover:text-brand-700 transition-colors"><ArrowLeft size={20} /><span>{ut('backHome')}</span></Link>
           <h1 className="text-lg font-bold text-neutral-900">{ut('pageTitle')}</h1>
           <div className="w-20"></div>
         </div>
@@ -1070,7 +1070,7 @@ export default function PackageRecommenderPage() {
             </div>
           </div>
           <div className="p-6 border-t border-neutral-100 flex justify-between bg-neutral-50">
-            <button onClick={handleBack} disabled={currentStep === 0} className="flex items-center gap-2 text-neutral-500 hover:text-brand-900 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"><ArrowLeft size={18} />{ut('prevQuestion')}</button>
+            <button onClick={handleBack} disabled={currentStep === 0} className="flex items-center gap-2 text-neutral-500 hover:text-brand-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"><ArrowLeft size={18} />{ut('prevQuestion')}</button>
             {currentQuestion.multiple && <button onClick={handleNext} disabled={!canProceed()} className="flex items-center gap-2 brand-gradient-solid hover:opacity-90 disabled:bg-neutral-300 text-white font-semibold px-8 py-3 rounded-xl transition-colors">{currentStep === visibleQuestions.length - 1 ? ut('viewResult') : ut('nextQuestion')}<ArrowRight size={18} /></button>}
           </div>
         </div>

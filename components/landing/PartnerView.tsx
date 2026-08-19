@@ -88,7 +88,7 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
                </button>
             </div>
          </div>
-         <button onClick={() => setCurrentPage('home')} className="mt-16 w-full text-center text-neutral-500 hover:text-brand-900 transition flex justify-center items-center gap-2">
+         <button onClick={() => setCurrentPage('home')} className="mt-16 w-full text-center text-neutral-500 hover:text-brand-700 transition flex justify-center items-center gap-2">
             <ArrowLeft size={16} /> {t.about.back}
          </button>
      </div>

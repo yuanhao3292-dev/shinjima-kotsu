@@ -216,7 +216,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
           </div>
 
           {/* Process Steps */}
-          <div className="mb-24 bg-white border border-neutral-200 rounded-3xl p-10 md:p-16 text-brand-900 overflow-hidden relative">
+          <div className="mb-24 bg-white border border-neutral-200 rounded-3xl p-10 md:p-16 text-neutral-900 overflow-hidden relative">
              <div className="relative z-10 text-center mb-16">
                  <h3 className="text-3xl font-serif">{t.business.process_title}</h3>
                  <p className="text-neutral-600 mt-2 text-sm">{t.business.process_sub}</p>
@@ -230,7 +230,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                    { t: t.business.step_5_t, d: t.business.step_5_d },
                  ].map((step, i) => (
                     <div key={i} className="group h-full bg-neutral-50 border border-neutral-200 rounded-xl p-6 text-center hover:bg-brand-50 transition">
-                       <div className="text-4xl font-mono font-bold text-brand-800 mb-4 group-hover:text-brand-700 transition">0{i+1}</div>
+                       <div className="text-4xl font-mono font-bold text-neutral-900 mb-4 group-hover:text-brand-700 transition">0{i+1}</div>
                        <h4 className="font-bold text-lg mb-2 brand-gradient-text w-fit mx-auto">{step.t}</h4>
                        <p className="text-xs text-neutral-600 leading-relaxed">{step.d}</p>
                     </div>
@@ -277,7 +277,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
 
              {/* Note */}
              <div className="mt-8 p-6 bg-brand-50 rounded-xl border border-brand-100">
-                <p className="text-sm text-brand-800">
+                <p className="text-sm text-neutral-900">
                    <span className="font-bold">{localizedTexts.notice}</span>
                    <br />
                    {localizedTexts.noticeText}
@@ -355,7 +355,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
           </div>
 
           <div className="text-center mt-12">
-             <button onClick={() => setCurrentPage('home')} className="flex items-center gap-2 mx-auto text-neutral-500 hover:text-brand-900 transition">
+             <button onClick={() => setCurrentPage('home')} className="flex items-center gap-2 mx-auto text-neutral-500 hover:text-brand-700 transition">
                 <ArrowLeft size={16} /> {t.about.back}
              </button>
           </div>

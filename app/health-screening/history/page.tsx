@@ -166,7 +166,7 @@ export default function ScreeningHistoryPage() {
           <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
             <Link
               href="/my-account"
-              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors text-sm"
+              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-700 transition-colors text-sm"
             >
               <ArrowLeft size={18} />
               <span>{t('backToAccount', lang)}</span>
@@ -190,7 +190,7 @@ export default function ScreeningHistoryPage() {
               {freeRemaining > 0 && (
                 <Link
                   href="/health-screening"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-brand-400 hover:bg-brand-300 text-brand-900 font-medium text-sm tracking-wider transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-brand-400 hover:bg-brand-300 text-neutral-900 font-medium text-sm tracking-wider transition-colors"
                 >
                   <Plus className="w-4 h-4" />
                   {t('newScreening', lang)}

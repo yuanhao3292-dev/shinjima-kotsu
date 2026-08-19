@@ -45,7 +45,7 @@ export default function SmartBackLink({
   return (
     <Link
       href={href}
-      className={`inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-900 transition-colors ${className}`}
+      className={`inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-700 transition-colors ${className}`}
     >
       <ArrowLeft size={16} />
       <span>{label}</span>

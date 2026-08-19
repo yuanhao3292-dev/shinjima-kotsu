@@ -137,13 +137,13 @@ function ForgotPasswordForm() {
           {/* Mobile hero label */}
           <div className="lg:hidden flex items-center gap-3 mb-6">
             <div className="h-[1px] w-8 bg-brand-400" />
-            <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">PASSWORD RESET</span>
+            <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">PASSWORD RESET</span>
           </div>
 
           {/* Back Link */}
           <Link
             href={loginPath}
-            className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 mb-6 text-sm font-medium transition-colors"
+            className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-700 mb-6 text-sm font-medium transition-colors"
           >
             <ArrowLeft size={16} />
             {t('backToLogin', lang)}
@@ -151,7 +151,7 @@ function ForgotPasswordForm() {
 
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-2xl font-serif text-brand-900 mb-2">{t('forgotPasswordTitle', lang)}</h1>
+            <h1 className="text-2xl font-serif text-neutral-900 mb-2">{t('forgotPasswordTitle', lang)}</h1>
             <p className="text-neutral-500 text-sm">{t('forgotPasswordSubtitle', lang)}</p>
           </div>
 
@@ -202,7 +202,7 @@ function ForgotPasswordForm() {
           <div className="mt-6 text-center">
             <p className="text-neutral-600 text-sm">
               {t('rememberPassword', lang)}
-              <Link href={loginPath} className="text-brand-700 hover:text-brand-900 font-medium ml-1">
+              <Link href={loginPath} className="text-brand-700 hover:text-brand-700 font-medium ml-1">
                 {t('loginNow', lang)}
               </Link>
             </p>

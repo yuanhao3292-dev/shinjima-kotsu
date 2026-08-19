@@ -535,7 +535,7 @@ export default function FAQPage() {
                       <span className="flex-shrink-0 w-8 h-8 bg-brand-400/20 text-brand-700 rounded-full flex items-center justify-center font-bold text-sm">
                         Q
                       </span>
-                      <span className="font-medium text-brand-900">{faq.question[currentLang]}</span>
+                      <span className="font-medium text-neutral-900">{faq.question[currentLang]}</span>
                     </div>
                     <ChevronDown
                       size={20}
@@ -562,7 +562,7 @@ export default function FAQPage() {
 
           {/* Contact Section */}
           <div id="faq-contact" className="mt-16 border border-neutral-200 p-8 text-center">
-            <h2 className="text-2xl font-serif text-brand-900 mb-4">{t('contactTitle')}</h2>
+            <h2 className="text-2xl font-serif text-neutral-900 mb-4">{t('contactTitle')}</h2>
             <p className="text-neutral-600 mb-8">
               {t('contactSubtitle')}
             </p>
@@ -610,7 +610,7 @@ export default function FAQPage() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-4">
-              <h3 className="font-serif text-lg text-brand-900">{t('wechatTitle')}</h3>
+              <h3 className="font-serif text-lg text-neutral-900">{t('wechatTitle')}</h3>
               <button
                 onClick={() => setShowWechatQR(false)}
                 className="text-neutral-500 hover:text-neutral-600 p-1"

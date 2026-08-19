@@ -242,7 +242,7 @@ export default function InitialConsultationPage() {
         <div className="max-w-4xl mx-auto px-4 py-3">
           <Link
             href={backHref}
-            className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-900 transition"
+            className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-700 transition"
           >
             <ArrowLeft size={16} />
             {guideSlug ? t('backToOICI') : t('backToMain')}
@@ -271,7 +271,7 @@ export default function InitialConsultationPage() {
           {/* Left: Service Info */}
           <div className="lg:col-span-1">
             <div className="bg-neutral-50 p-6 border border-neutral-200 sticky top-8">
-              <h3 className="text-lg font-bold text-brand-900 mb-3">{t('featuresTitle')}</h3>
+              <h3 className="text-lg font-bold text-neutral-900 mb-3">{t('featuresTitle')}</h3>
               <p className="text-sm text-neutral-600 mb-6 leading-relaxed">{t('serviceLongDescription')}</p>
               <div className="space-y-2.5 text-sm text-neutral-700">
                 {[t('feature1'), t('feature2'), t('feature3'), t('feature4'), t('feature5')].map((feature, idx) => (
@@ -282,7 +282,7 @@ export default function InitialConsultationPage() {
                 ))}
               </div>
               <div className="mt-6 pt-6 border-t border-neutral-200">
-                <h4 className="font-bold text-brand-900 mb-3 flex items-center gap-2">
+                <h4 className="font-bold text-neutral-900 mb-3 flex items-center gap-2">
                   <FileText size={16} className="text-brand-700" />
                   {t('requiredDocsTitle')}
                 </h4>
@@ -301,7 +301,7 @@ export default function InitialConsultationPage() {
           {/* Right: Booking Form */}
           <div className="lg:col-span-2">
             <div className="bg-white border border-neutral-200 p-8">
-              <h2 className="text-2xl font-serif font-bold text-brand-900 mb-6">{t('bookingInfo')}</h2>
+              <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6">{t('bookingInfo')}</h2>
 
               {/* Contract Notice */}
               <div className="bg-neutral-50 border border-neutral-200 p-4 mb-6">
@@ -313,7 +313,7 @@ export default function InitialConsultationPage() {
               <form onSubmit={handleSubmit} className="space-y-8">
                 {/* Patient Info */}
                 <div>
-                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-2">
+                  <h3 className="font-bold text-neutral-900 mb-4 flex items-center gap-2">
                     <Users size={18} className="text-brand-700" />
                     {t('patientInfoTitle')}
                   </h3>
@@ -376,7 +376,7 @@ export default function InitialConsultationPage() {
 
                 {/* Contact Info */}
                 <div>
-                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-2">
+                  <h3 className="font-bold text-neutral-900 mb-4 flex items-center gap-2">
                     <Phone size={18} className="text-brand-700" />
                     {t('contactInfoTitle')}
                   </h3>
@@ -471,7 +471,7 @@ export default function InitialConsultationPage() {
                   <div className="flex justify-between items-center mb-4">
                     <span className="text-neutral-600">{t('serviceFee')}</span>
                     <div className="text-right">
-                      <span className="text-2xl font-bold text-brand-900">¥{SERVICE_INFO.price.toLocaleString()}</span>
+                      <span className="text-2xl font-bold text-neutral-900">¥{SERVICE_INFO.price.toLocaleString()}</span>
                       <span className="text-xs text-neutral-500 ml-1">{t('taxIncluded')}</span>
                     </div>
                   </div>

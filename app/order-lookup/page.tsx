@@ -195,13 +195,13 @@ export default function OrderLookupPage() {
             {/* Mobile hero label */}
             <div className="lg:hidden flex items-center gap-3 mb-6">
               <div className="h-[1px] w-8 bg-brand-400" />
-              <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">ORDER LOOKUP</span>
+              <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">ORDER LOOKUP</span>
             </div>
 
             {/* Back Link */}
             <Link
               href="/login"
-              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 mb-6 text-sm font-medium transition-colors"
+              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-700 mb-6 text-sm font-medium transition-colors"
             >
               <ArrowLeft size={16} />
               {t('backToLogin', lang)}
@@ -209,7 +209,7 @@ export default function OrderLookupPage() {
 
             {/* Header */}
             <div className="mb-8">
-              <h1 className="text-2xl font-serif text-brand-900 mb-2">{t('orderLookupTitle', lang)}</h1>
+              <h1 className="text-2xl font-serif text-neutral-900 mb-2">{t('orderLookupTitle', lang)}</h1>
               <p className="text-neutral-500 text-sm">{t('orderLookupSubtitle', lang)}</p>
             </div>
 
@@ -274,7 +274,7 @@ export default function OrderLookupPage() {
             <div className="mt-6 text-center">
               <p className="text-neutral-600 text-sm">
                 {t('haveAccount', lang)}
-                <Link href="/login" className="text-brand-700 hover:text-brand-900 font-medium ml-1">
+                <Link href="/login" className="text-brand-700 hover:text-brand-700 font-medium ml-1">
                   {t('loginViewAll', lang)}
                 </Link>
               </p>
@@ -300,7 +300,7 @@ export default function OrderLookupPage() {
                     </div>
                     <div className="text-right">
                       <p className="text-xs opacity-75 mb-1">{t('orderNumber', lang)}</p>
-                      <p className="text-lg font-mono font-bold text-brand-900">
+                      <p className="text-lg font-mono font-bold text-neutral-900">
                         #{order.orderId.slice(-8).toUpperCase()}
                       </p>
                     </div>
@@ -316,7 +316,7 @@ export default function OrderLookupPage() {
                     </div>
                     <div className="flex-grow">
                       <p className="text-xs text-neutral-500 mb-1">{t('package', lang)}</p>
-                      <p className="font-semibold text-brand-900">{order.packageName}</p>
+                      <p className="font-semibold text-neutral-900">{order.packageName}</p>
                       <p className="text-xl font-bold text-brand-700 mt-1">
                         ¥{order.packagePrice.toLocaleString()}
                       </p>
@@ -331,7 +331,7 @@ export default function OrderLookupPage() {
                       </div>
                       <div>
                         <p className="text-xs text-neutral-500 mb-1">{t('appointmentDate', lang)}</p>
-                        <p className="font-semibold text-brand-900 text-sm">
+                        <p className="font-semibold text-neutral-900 text-sm">
                           {order.preferredDate ? formatDateLong(order.preferredDate) : t('toBeConfirmed', lang)}
                         </p>
                       </div>
@@ -343,7 +343,7 @@ export default function OrderLookupPage() {
                       </div>
                       <div>
                         <p className="text-xs text-neutral-500 mb-1">{t('paymentStatus', lang)}</p>
-                        <p className="font-semibold text-brand-900 text-sm">
+                        <p className="font-semibold text-neutral-900 text-sm">
                           {order.paymentStatus === 'paid' ? t('paid', lang) : t('unpaid', lang)}
                         </p>
                       </div>
@@ -363,7 +363,7 @@ export default function OrderLookupPage() {
                       href={`/api/invoices/${order.orderUuid}?token=${order.invoiceToken}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full inline-flex items-center justify-center gap-2 text-sm text-brand-700 hover:text-brand-900 transition-colors border border-neutral-200 px-4 py-2.5"
+                      className="w-full inline-flex items-center justify-center gap-2 text-sm text-brand-700 hover:text-brand-700 transition-colors border border-neutral-200 px-4 py-2.5"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -396,7 +396,7 @@ export default function OrderLookupPage() {
                 <div className="w-16 h-16 bg-neutral-50 border border-neutral-200 flex items-center justify-center mx-auto mb-4">
                   <AlertCircle className="w-8 h-8 text-neutral-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-brand-900 mb-2">{t('orderNotFound', lang)}</h3>
+                <h3 className="text-lg font-semibold text-neutral-900 mb-2">{t('orderNotFound', lang)}</h3>
                 <p className="text-neutral-500 text-sm">
                   {t('checkInput', lang)}
                 </p>

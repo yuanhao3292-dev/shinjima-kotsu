@@ -204,7 +204,7 @@ export default function OICIRemoteConsultationPage() {
       <Suspense fallback={null}><ProviderBanner lang={currentLang} /></Suspense>
       <div className="bg-white border-b border-neutral-100">
         <div className="max-w-4xl mx-auto px-4 py-3">
-          <Link href={backHref} className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-900 transition">
+          <Link href={backHref} className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-700 transition">
             <ArrowLeft size={16} />{t('backToMain')}
           </Link>
         </div>
@@ -233,7 +233,7 @@ export default function OICIRemoteConsultationPage() {
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-1">
             <div className="bg-neutral-50 p-6 border border-neutral-200 sticky top-8">
-              <h3 className="text-lg font-bold text-brand-900 mb-3">{t('featuresTitle')}</h3>
+              <h3 className="text-lg font-bold text-neutral-900 mb-3">{t('featuresTitle')}</h3>
               <p className="text-sm text-neutral-600 mb-6 leading-relaxed">{t('serviceLongDescription')}</p>
               <div className="space-y-2.5 text-sm text-neutral-700">
                 {[t('feature1'), t('feature2'), t('feature3'), t('feature4'), t('feature5'), t('feature6')].map((feature, idx) => (
@@ -241,7 +241,7 @@ export default function OICIRemoteConsultationPage() {
                 ))}
               </div>
               <div className="mt-6 pt-6 border-t border-neutral-200">
-                <h4 className="font-bold text-brand-900 mb-3 flex items-center gap-2"><FileText size={16} className="text-brand-700" />{t('prerequisitesTitle')}</h4>
+                <h4 className="font-bold text-neutral-900 mb-3 flex items-center gap-2"><FileText size={16} className="text-brand-700" />{t('prerequisitesTitle')}</h4>
                 <ul className="space-y-2 text-sm text-neutral-600">
                   {[t('prereq1'), t('prereq2'), t('prereq3')].map((prereq, idx) => (
                     <li key={idx} className="flex gap-2"><span className="text-brand-700">•</span><span>{prereq}</span></li>
@@ -254,14 +254,14 @@ export default function OICIRemoteConsultationPage() {
 
           <div className="lg:col-span-2">
             <div className="bg-white border border-neutral-200 p-8">
-              <h2 className="text-2xl font-serif font-bold text-brand-900 mb-6">{t('bookingInfo')}</h2>
+              <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6">{t('bookingInfo')}</h2>
               <div className="bg-neutral-50 border border-neutral-200 p-4 mb-6">
                 <p className="text-sm text-neutral-700"><strong>{t('contractNotice').split('：')[0]}：</strong>{t('contractNotice').split('：')[1]}</p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-8">
                 <div>
-                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-2"><Users size={18} className="text-brand-700" />{t('patientInfoTitle')}</h3>
+                  <h3 className="font-bold text-neutral-900 mb-4 flex items-center gap-2"><Users size={18} className="text-brand-700" />{t('patientInfoTitle')}</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('patientName')}</label>
@@ -295,7 +295,7 @@ export default function OICIRemoteConsultationPage() {
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-2"><Clock size={18} className="text-brand-700" />{t('preferredTimesTitle')}</h3>
+                  <h3 className="font-bold text-neutral-900 mb-4 flex items-center gap-2"><Clock size={18} className="text-brand-700" />{t('preferredTimesTitle')}</h3>
                   <p className="text-sm text-neutral-500 mb-4">{t('preferredTimesNote')}</p>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
@@ -314,7 +314,7 @@ export default function OICIRemoteConsultationPage() {
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-2"><Phone size={18} className="text-brand-700" />{t('contactInfoTitle')}</h3>
+                  <h3 className="font-bold text-neutral-900 mb-4 flex items-center gap-2"><Phone size={18} className="text-brand-700" />{t('contactInfoTitle')}</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('contactName')}</label>
@@ -361,7 +361,7 @@ export default function OICIRemoteConsultationPage() {
                   <div className="flex justify-between items-center mb-4">
                     <span className="text-neutral-600">{t('serviceFee')}</span>
                     <div className="text-right">
-                      <span className="text-2xl font-bold text-brand-900">¥{SERVICE_INFO.price.toLocaleString()}</span>
+                      <span className="text-2xl font-bold text-neutral-900">¥{SERVICE_INFO.price.toLocaleString()}</span>
                       <span className="text-xs text-neutral-500 ml-1">{t('taxIncluded')}</span>
                     </div>
                   </div>

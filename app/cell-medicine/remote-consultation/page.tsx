@@ -184,7 +184,7 @@ export default function CellMedicineRemoteConsultationPage() {
       <Suspense fallback={null}><ProviderBanner lang={currentLang} /></Suspense>
       <div className="bg-white border-b border-neutral-100">
         <div className="max-w-4xl mx-auto px-4 py-3">
-          <Link href={backHref} className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-900 transition"><ArrowLeft size={16} />{t('backToMain')}</Link>
+          <Link href={backHref} className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-brand-700 transition"><ArrowLeft size={16} />{t('backToMain')}</Link>
         </div>
       </div>
 
@@ -208,7 +208,7 @@ export default function CellMedicineRemoteConsultationPage() {
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-1">
             <div className="bg-neutral-50 p-6 border border-neutral-200 sticky top-8">
-              <h3 className="text-lg font-bold text-brand-900 mb-3">{t('featuresTitle')}</h3>
+              <h3 className="text-lg font-bold text-neutral-900 mb-3">{t('featuresTitle')}</h3>
               <p className="text-sm text-neutral-600 mb-6 leading-relaxed">{t('serviceLongDescription')}</p>
               <div className="space-y-2.5 text-sm text-neutral-700">
                 {[t('feature1'), t('feature2'), t('feature3'), t('feature4'), t('feature5'), t('feature6')].map((f, i) => (
@@ -216,7 +216,7 @@ export default function CellMedicineRemoteConsultationPage() {
                 ))}
               </div>
               <div className="mt-6 pt-6 border-t border-neutral-200">
-                <h4 className="font-bold text-brand-900 mb-3 flex items-center gap-2"><FileText size={16} className="text-brand-700" />{t('prerequisitesTitle')}</h4>
+                <h4 className="font-bold text-neutral-900 mb-3 flex items-center gap-2"><FileText size={16} className="text-brand-700" />{t('prerequisitesTitle')}</h4>
                 <ul className="space-y-2 text-sm text-neutral-600">
                   {[t('prereq1'), t('prereq2'), t('prereq3')].map((p, i) => (
                     <li key={i} className="flex gap-2"><span className="text-brand-700">•</span><span>{p}</span></li>
@@ -229,14 +229,14 @@ export default function CellMedicineRemoteConsultationPage() {
 
           <div className="lg:col-span-2">
             <div className="bg-white border border-neutral-200 p-8">
-              <h2 className="text-2xl font-serif font-bold text-brand-900 mb-6">{t('bookingInfo')}</h2>
+              <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6">{t('bookingInfo')}</h2>
               <div className="bg-neutral-50 border border-neutral-200 p-4 mb-6">
                 <p className="text-sm text-neutral-700"><strong>{t('contractNotice').split('：')[0]}：</strong>{t('contractNotice').split('：')[1]}</p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-8">
                 <div>
-                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-2"><Users size={18} className="text-brand-700" />{t('patientInfoTitle')}</h3>
+                  <h3 className="font-bold text-neutral-900 mb-4 flex items-center gap-2"><Users size={18} className="text-brand-700" />{t('patientInfoTitle')}</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div><label className="block text-sm font-medium text-neutral-700 mb-1">{t('patientName')}</label><input type="text" required value={patientInfo.patientName} onChange={(e) => setPatientInfo({ ...patientInfo, patientName: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent" placeholder={t('patientNamePlaceholder')} /></div>
                     <div><label className="block text-sm font-medium text-neutral-700 mb-1">{t('age')}</label><input type="text" value={patientInfo.age} onChange={(e) => setPatientInfo({ ...patientInfo, age: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent" placeholder={t('agePlaceholder')} /></div>
@@ -248,7 +248,7 @@ export default function CellMedicineRemoteConsultationPage() {
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-2"><Clock size={18} className="text-brand-700" />{t('preferredTimesTitle')}</h3>
+                  <h3 className="font-bold text-neutral-900 mb-4 flex items-center gap-2"><Clock size={18} className="text-brand-700" />{t('preferredTimesTitle')}</h3>
                   <p className="text-sm text-neutral-500 mb-4">{t('preferredTimesNote')}</p>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div><label className="block text-sm font-medium text-neutral-700 mb-1">{t('preferredTime1')}</label><input type="text" value={preferredTimes.time1} onChange={(e) => setPreferredTimes({ ...preferredTimes, time1: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent" placeholder={t('preferredTimePlaceholder1')} /></div>
@@ -258,7 +258,7 @@ export default function CellMedicineRemoteConsultationPage() {
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-brand-900 mb-4 flex items-center gap-2"><Phone size={18} className="text-brand-700" />{t('contactInfoTitle')}</h3>
+                  <h3 className="font-bold text-neutral-900 mb-4 flex items-center gap-2"><Phone size={18} className="text-brand-700" />{t('contactInfoTitle')}</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div><label className="block text-sm font-medium text-neutral-700 mb-1">{t('contactName')}</label><input type="text" required value={customerInfo.name} onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent" placeholder={t('contactNamePlaceholder')} /></div>
                     <div><label className="block text-sm font-medium text-neutral-700 mb-1">{t('region')}</label><select value={customerInfo.country} onChange={(e) => setCustomerInfo({ ...customerInfo, country: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent"><option value="TW">{t('regionTW')}</option><option value="CN">{t('regionCN')}</option><option value="HK">{t('regionHK')}</option><option value="SG">{t('regionSG')}</option><option value="MY">{t('regionMY')}</option><option value="OTHER">{t('regionOther')}</option></select></div>
@@ -276,7 +276,7 @@ export default function CellMedicineRemoteConsultationPage() {
                 <div className="bg-neutral-50 p-6 border border-neutral-200">
                   <div className="flex justify-between items-center mb-4">
                     <span className="text-neutral-600">{t('serviceFee')}</span>
-                    <div className="text-right"><span className="text-2xl font-bold text-brand-900">¥{SERVICE_INFO.price.toLocaleString()}</span><span className="text-xs text-neutral-500 ml-1">{t('taxIncluded')}</span></div>
+                    <div className="text-right"><span className="text-2xl font-bold text-neutral-900">¥{SERVICE_INFO.price.toLocaleString()}</span><span className="text-xs text-neutral-500 ml-1">{t('taxIncluded')}</span></div>
                   </div>
                   <p className="text-xs text-neutral-500 mb-4">{t('paymentNotice')}</p>
                   <ConsentCheckboxes consents={consents} onChange={setConsents} lang={currentLang} />

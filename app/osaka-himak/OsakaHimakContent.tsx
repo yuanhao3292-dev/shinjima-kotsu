@@ -300,7 +300,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block bg-brand-800/10 text-brand-800 text-sm font-semibold px-4 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-800/10 text-neutral-900 text-sm font-semibold px-4 py-1 rounded-full mb-3">
               {t.introTag[lang]}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#333] mb-2">{t.introTitle[lang]}</h2>
@@ -323,7 +323,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
       <section className="py-20 bg-gradient-to-b from-neutral-100 to-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block bg-brand-800/10 text-brand-800 text-sm font-semibold px-4 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-800/10 text-neutral-900 text-sm font-semibold px-4 py-1 rounded-full mb-3">
               {t.scienceTag[lang]}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#333] mb-4">{t.scienceTitle[lang]}</h2>
@@ -335,7 +335,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
             <div className="bg-white rounded-2xl shadow-lg p-8 border-l-4 border-brand-800">
               <div className="flex items-center gap-3 mb-4">
                 <div className="bg-brand-800/10 p-3 rounded-lg">
-                  <Target size={28} className="text-brand-800" />
+                  <Target size={28} className="text-neutral-900" />
                 </div>
                 <h3 className="text-xl font-bold text-[#333]">{t.braggPeakTitle[lang]}</h3>
               </div>
@@ -360,7 +360,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block bg-brand-800/10 text-brand-800 text-sm font-semibold px-4 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-800/10 text-neutral-900 text-sm font-semibold px-4 py-1 rounded-full mb-3">
               {t.comparisonTag[lang]}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#333] mb-2">{t.comparisonTitle[lang]}</h2>
@@ -370,7 +370,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
             {/* Biological Effect */}
             <div className="bg-gradient-to-br from-neutral-100 to-white rounded-xl shadow-md p-6 border-t-4 border-brand-800">
               <h3 className="text-lg font-bold text-[#333] mb-4 flex items-center gap-2">
-                <Activity size={20} className="text-brand-800" />
+                <Activity size={20} className="text-neutral-900" />
                 {t.comp1Metric[lang]}
               </h3>
               <div className="space-y-3">
@@ -384,7 +384,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full brand-gradient-deep"></div>
-                  <span className="text-sm font-bold text-brand-800">{t.comp1Carbon[lang]}</span>
+                  <span className="text-sm font-bold text-neutral-900">{t.comp1Carbon[lang]}</span>
                 </div>
               </div>
             </div>
@@ -462,7 +462,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
       <section id="advantages" className="py-20 bg-neutral-100">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block bg-brand-800/10 text-brand-800 text-sm font-semibold px-4 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-800/10 text-neutral-900 text-sm font-semibold px-4 py-1 rounded-full mb-3">
               {t.advTag[lang]}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#333]">{t.advTitle[lang]}</h2>
@@ -489,7 +489,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block bg-brand-800/10 text-brand-800 text-sm font-semibold px-4 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-800/10 text-neutral-900 text-sm font-semibold px-4 py-1 rounded-full mb-3">
               {t.cancerTag[lang]}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#333] mb-4">{t.cancerTitle[lang]}</h2>
@@ -498,7 +498,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {cancerTypes.map((cancer, i) => (
               <div key={i} className="flex items-center gap-3 bg-neutral-100 rounded-lg px-4 py-3 hover:bg-brand-800/10 transition-all">
-                <div className="text-brand-800">{cancer.icon}</div>
+                <div className="text-neutral-900">{cancer.icon}</div>
                 <span className="text-sm font-medium text-[#333]">
                   {lang === 'ja' ? cancer.ja : lang === 'zh-TW' ? cancer.tw : lang === 'zh-CN' ? cancer.cn : cancer.en}
                 </span>
@@ -512,7 +512,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
       <section className="py-20 bg-gradient-to-b from-white to-neutral-100">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block bg-brand-800/10 text-brand-800 text-sm font-semibold px-4 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-800/10 text-neutral-900 text-sm font-semibold px-4 py-1 rounded-full mb-3">
               {t.consultTag[lang]}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#333] mb-4">{t.consultTitle[lang]}</h2>
@@ -527,7 +527,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
                   <h3 className="text-2xl font-bold text-[#333] mb-2">{t.service1Name[lang]}</h3>
                   <p className="text-sm text-[#666]">{t.service1Desc[lang]}</p>
                 </div>
-                <div className="text-brand-800 flex-shrink-0 ml-4">
+                <div className="text-neutral-900 flex-shrink-0 ml-4">
                   <FileText size={40} />
                 </div>
               </div>
@@ -535,7 +535,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
               <div className="space-y-3 mb-6">
                 {[t.service1Feature1[lang], t.service1Feature2[lang], t.service1Feature3[lang], t.service1Feature4[lang]].map((feature, idx) => (
                   <div key={idx} className="flex items-start gap-3">
-                    <CheckCircle size={18} className="text-brand-800 flex-shrink-0 mt-0.5" />
+                    <CheckCircle size={18} className="text-neutral-900 flex-shrink-0 mt-0.5" />
                     <span className="text-sm text-[#555]">{feature}</span>
                   </div>
                 ))}
@@ -543,7 +543,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
 
               <div className="pt-6 border-t border-neutral-200 flex items-center justify-between">
                 <div>
-                  <p className="text-3xl font-bold text-brand-800">¥221,000</p>
+                  <p className="text-3xl font-bold text-neutral-900">¥221,000</p>
                   <p className="text-xs text-neutral-500 mt-1">{lang === 'ja' ? '税込' : lang === 'zh-CN' ? '含税' : lang === 'zh-TW' ? '税込' : 'tax incl.'}</p>
                 </div>
                 <Link
@@ -597,7 +597,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
       <section className="py-20 bg-neutral-100">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block bg-brand-800/10 text-brand-800 text-sm font-semibold px-4 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-800/10 text-neutral-900 text-sm font-semibold px-4 py-1 rounded-full mb-3">
               {t.processTag[lang]}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#333]">{t.processTitle[lang]}</h2>
@@ -608,7 +608,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
                 <div className="flex items-center justify-center w-14 h-14 rounded-full brand-gradient-deep text-white font-bold text-xl mb-4 mx-auto">
                   {step.step}
                 </div>
-                <div className="flex items-center justify-center text-brand-800 mb-3">
+                <div className="flex items-center justify-center text-neutral-900 mb-3">
                   {step.icon}
                 </div>
                 <h3 className="text-lg font-bold text-[#333] mb-2 text-center">{step.title[lang]}</h3>
@@ -628,7 +628,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block bg-brand-800/10 text-brand-800 text-sm font-semibold px-4 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-800/10 text-neutral-900 text-sm font-semibold px-4 py-1 rounded-full mb-3">
               {t.facilityTag[lang]}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#333] mb-4">{t.facilityTitle[lang]}</h2>
@@ -641,7 +641,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
               { icon: <Award size={24} />, label: { ja: '小型化装置', 'zh-TW': '小型化裝置', 'zh-CN': '小型化装置', en: 'Miniaturized System', ko: '소형화 장치' } },
             ].map((feat, i) => (
               <div key={i} className="bg-neutral-100 rounded-xl p-6 text-center">
-                <div className="flex items-center justify-center text-brand-800 mb-3">
+                <div className="flex items-center justify-center text-neutral-900 mb-3">
                   {feat.icon}
                 </div>
                 <p className="font-semibold text-[#333]">{feat.label[lang]}</p>
@@ -655,21 +655,21 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
       <section className="py-20 bg-neutral-100">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block bg-brand-800/10 text-brand-800 text-sm font-semibold px-4 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-800/10 text-neutral-900 text-sm font-semibold px-4 py-1 rounded-full mb-3">
               {t.accessTag[lang]}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#333]">{t.accessTitle[lang]}</h2>
           </div>
           <div className="bg-white rounded-xl p-8 shadow-md space-y-4">
             <div className="flex items-start gap-3">
-              <MapPin size={20} className="text-brand-800 mt-1 flex-shrink-0" />
+              <MapPin size={20} className="text-neutral-900 mt-1 flex-shrink-0" />
               <div>
                 <p className="font-semibold text-[#333] mb-1">Address</p>
                 <p className="text-[#555]">{t.address[lang]}</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <Train size={20} className="text-brand-800 mt-1 flex-shrink-0" />
+              <Train size={20} className="text-neutral-900 mt-1 flex-shrink-0" />
               <div>
                 <p className="font-semibold text-[#333] mb-1">Access</p>
                 <p className="text-[#555] whitespace-pre-line">{t.accessInfo[lang]}</p>
@@ -683,7 +683,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="inline-block bg-brand-800/10 text-brand-800 text-sm font-semibold px-4 py-1 rounded-full mb-3">
+            <span className="inline-block bg-brand-800/10 text-neutral-900 text-sm font-semibold px-4 py-1 rounded-full mb-3">
               {t.faqTag[lang]}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#333]">{t.faqTitle[lang]}</h2>
@@ -696,7 +696,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
                   className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-neutral-200 transition-all"
                 >
                   <div className="flex items-center gap-3">
-                    <HelpCircle size={20} className="text-brand-800 flex-shrink-0" />
+                    <HelpCircle size={20} className="text-neutral-900 flex-shrink-0" />
                     <span className="font-semibold text-[#333]">{faq.q[lang]}</span>
                   </div>
                   {openFaq === i ? <ChevronUp size={20} className="text-[#666]" /> : <ChevronDown size={20} className="text-[#666]" />}
@@ -726,7 +726,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
           </div>
           <Link
             href={checkoutHref('/osaka-himak/initial-consultation')}
-            className="inline-flex items-center justify-center gap-2 bg-white text-brand-800 px-10 py-4 rounded-full font-bold hover:bg-white/90 transition-all shadow-lg hover:shadow-xl"
+            className="inline-flex items-center justify-center gap-2 bg-white text-neutral-900 px-10 py-4 rounded-full font-bold hover:bg-white/90 transition-all shadow-lg hover:shadow-xl"
           >
             {t.ctaConsult[lang]} <ArrowRight size={18} />
           </Link>

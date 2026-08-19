@@ -200,7 +200,7 @@ Timestamp: ${new Date().toLocaleString()}
         <div className="space-y-6">
            {/* AI Note */}
            <div className="bg-gradient-to-b from-brand-50 to-white rounded-xl border border-brand-100 p-5 shadow-sm">
-              <div className="flex items-center gap-2 mb-3 text-brand-800">
+              <div className="flex items-center gap-2 mb-3 text-neutral-900">
                 <Cpu size={18} />
                 <h4 className="font-bold text-sm">系統分析師備註</h4>
               </div>

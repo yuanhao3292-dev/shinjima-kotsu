@@ -577,7 +577,7 @@ export default function WhitelabelScreeningForm({
               onClick={() => handleSingleSelect(option.value)}
               className={`w-full p-4 text-left rounded-xl border-2 transition-all ${
                 currentAnswer === option.value
-                  ? 'border-brand-500 bg-brand-50 text-brand-900'
+                  ? 'border-brand-500 bg-brand-50 text-neutral-900'
                   : 'border-neutral-200 hover:border-neutral-300 bg-white'
               }`}
             >
@@ -612,7 +612,7 @@ export default function WhitelabelScreeningForm({
               onClick={() => handleMultiSelect(option.value)}
               className={`w-full p-4 text-left rounded-xl border-2 transition-all ${
                 selectedValues.includes(option.value)
-                  ? 'border-brand-500 bg-brand-50 text-brand-900'
+                  ? 'border-brand-500 bg-brand-50 text-neutral-900'
                   : 'border-neutral-200 hover:border-neutral-300 bg-white'
               }`}
             >
@@ -928,7 +928,7 @@ export default function WhitelabelScreeningForm({
         <button
           onClick={handlePrevious}
           disabled={currentQuestionIndex === 0 || isSubmitting}
-          className="flex items-center gap-2 px-4 py-2 text-neutral-500 hover:text-brand-900 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex items-center gap-2 px-4 py-2 text-neutral-500 hover:text-brand-700 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <ChevronLeft className="w-5 h-5" />
           {t('previous')}

@@ -109,7 +109,7 @@ export default function CheckoutLayout({ children }: CheckoutLayoutProps) {
           {/* Brand - minimal, synced with whitelabel settings */}
           <Link href="/" className="flex items-center gap-2 group">
             <div className="flex flex-col">
-              <span className="font-serif font-bold text-sm tracking-wide text-brand-900">{displayBrandName}</span>
+              <span className="font-serif font-bold text-sm tracking-wide text-neutral-900">{displayBrandName}</span>
               <span className="text-[9px] uppercase tracking-widest text-neutral-400 leading-none">
                 {labels.sub}
               </span>

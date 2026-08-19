@@ -175,12 +175,12 @@ export default function RegisterPage() {
             {/* Mobile hero label */}
             <div className="lg:hidden flex items-center gap-3 mb-6">
               <div className="h-[1px] w-8 bg-brand-400" />
-              <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">MEMBER REGISTRATION</span>
+              <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">MEMBER REGISTRATION</span>
             </div>
 
             {/* Header */}
             <div className="mb-8">
-              <h1 className="text-2xl font-serif text-brand-900 mb-2">{t('registerTitle', lang)}</h1>
+              <h1 className="text-2xl font-serif text-neutral-900 mb-2">{t('registerTitle', lang)}</h1>
               <p className="text-neutral-500 text-sm">{t('registerSubtitle', lang)}</p>
             </div>
 
@@ -282,7 +282,7 @@ export default function RegisterPage() {
             <div className="mt-6 text-center">
               <p className="text-neutral-600 text-sm">
                 {t('haveAccount', lang)}
-                <Link href="/login" className="text-brand-700 hover:text-brand-900 font-medium ml-1">
+                <Link href="/login" className="text-brand-700 hover:text-brand-700 font-medium ml-1">
                   {t('loginNow', lang)}
                 </Link>
               </p>

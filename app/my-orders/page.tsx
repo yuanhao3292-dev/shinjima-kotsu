@@ -241,13 +241,13 @@ export default function MyOrdersPage() {
             {/* Mobile hero label */}
             <div className="lg:hidden flex items-center gap-3 mb-6">
               <div className="h-[1px] w-8 bg-brand-400" />
-              <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">MY ORDERS</span>
+              <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">MY ORDERS</span>
             </div>
 
             {/* Back Link */}
             <Link
               href="/my-account"
-              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 mb-6 text-sm font-medium transition-colors"
+              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-700 mb-6 text-sm font-medium transition-colors"
             >
               <ArrowLeft size={16} />
               {t('backToAccount', lang)}
@@ -255,7 +255,7 @@ export default function MyOrdersPage() {
 
             {/* Header */}
             <div className="mb-8">
-              <h1 className="text-2xl font-serif text-brand-900 mb-2">{t('myOrders', lang)}</h1>
+              <h1 className="text-2xl font-serif text-neutral-900 mb-2">{t('myOrders', lang)}</h1>
               <p className="text-neutral-500 text-sm">{t('viewAllOrders', lang)}</p>
             </div>
 
@@ -273,7 +273,7 @@ export default function MyOrdersPage() {
                 <div className="w-16 h-16 bg-neutral-50 border border-neutral-200 flex items-center justify-center mx-auto mb-6">
                   <FileText className="w-8 h-8 text-neutral-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-brand-900 mb-3">{t('noOrders', lang)}</h3>
+                <h3 className="text-lg font-semibold text-neutral-900 mb-3">{t('noOrders', lang)}</h3>
                 <p className="text-neutral-500 text-sm mb-8">{t('noOrdersDesc', lang)}</p>
                 <Link
                   href="/medical"
@@ -312,7 +312,7 @@ export default function MyOrdersPage() {
                       <div className="flex items-start justify-between mb-4">
                         <div>
                           <p className="text-xs text-neutral-500 mb-1">{t('orderNumber', lang)}</p>
-                          <p className="font-mono font-bold text-brand-900">{order.order_number}</p>
+                          <p className="font-mono font-bold text-neutral-900">{order.order_number}</p>
                         </div>
                         <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium border ${status.bgColor} ${status.color}`}>
                           <StatusIcon className="w-4 h-4" />
@@ -325,7 +325,7 @@ export default function MyOrdersPage() {
                           <div className="w-10 h-10 bg-neutral-50 border border-neutral-200 flex items-center justify-center">
                             <Package className="w-5 h-5 text-brand-700" />
                           </div>
-                          <span className="font-semibold text-brand-900">{packageName}</span>
+                          <span className="font-semibold text-neutral-900">{packageName}</span>
                         </div>
                         {order.preferred_date && (
                           <div className="flex items-center gap-3 mb-3">

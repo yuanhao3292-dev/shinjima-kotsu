@@ -372,7 +372,7 @@ export default function WhitelabelResultClient({
           <div className="max-w-4xl mx-auto px-4 py-4">
             <Link
               href={`/g/${slug}/health-screening`}
-              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
+              className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-700 transition-colors"
             >
               <ArrowLeft size={18} />
               <span className="text-sm">{t('goBack', lang)}</span>
@@ -403,7 +403,7 @@ export default function WhitelabelResultClient({
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link
             href={`/g/${slug}`}
-            className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-900 transition-colors"
+            className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-700 transition-colors"
           >
             <ArrowLeft size={18} />
             <span className="text-sm">{t('goHome', lang)}</span>

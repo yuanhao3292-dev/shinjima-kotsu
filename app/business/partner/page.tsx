@@ -1231,7 +1231,7 @@ export default function PartnerBusinessPage() {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <p className="text-xs tracking-[0.3em] text-neutral-500 uppercase mb-3">{t('whyPartnerSubtitle')}</p>
-              <h2 className="font-serif text-3xl md:text-4xl text-brand-900">
+              <h2 className="font-serif text-3xl md:text-4xl text-neutral-900">
                 {t('whyPartnerTitle')}
               </h2>
             </div>
@@ -1239,8 +1239,8 @@ export default function PartnerBusinessPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
               {stats.map((stat, idx) => (
                 <div key={idx} className="text-center p-6 bg-neutral-50 rounded-2xl">
-                  <div className="text-4xl font-light text-brand-900 mb-2">
-                    {stat.value}<span className="text-brand-800">{stat.suffix}</span>
+                  <div className="text-4xl font-light text-neutral-900 mb-2">
+                    {stat.value}<span className="text-neutral-900">{stat.suffix}</span>
                   </div>
                   <div className="text-sm text-neutral-600">{stat.label}</div>
                 </div>
@@ -1256,7 +1256,7 @@ export default function PartnerBusinessPage() {
                     <div className={`w-12 h-12 rounded-xl bg-white flex items-center justify-center mb-6 ${item.color}`}>
                       <Icon size={24} />
                     </div>
-                    <h3 className="text-xl font-bold text-brand-900 mb-3">{item.title}</h3>
+                    <h3 className="text-xl font-bold text-neutral-900 mb-3">{item.title}</h3>
                     <p className="text-neutral-600 leading-relaxed">{item.desc}</p>
                   </div>
                 );
@@ -1267,13 +1267,13 @@ export default function PartnerBusinessPage() {
       </section>
 
       {/* Partnership Models */}
-      <section className="py-20 bg-neutral-50 text-brand-900">
+      <section className="py-20 bg-neutral-50 text-neutral-900">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <div>
-                <p className="text-xs tracking-[0.3em] text-brand-700 uppercase mb-4">{t('partnershipModelSubtitle')}</p>
-                <h2 className="font-serif text-3xl md:text-4xl text-brand-900 mb-6">
+                <p className="text-xs tracking-[0.3em] text-neutral-700 uppercase mb-4">{t('partnershipModelSubtitle')}</p>
+                <h2 className="font-serif text-3xl md:text-4xl text-neutral-900 mb-6">
                   {t('partnershipModelTitle')}
                 </h2>
                 <p className="text-neutral-600 leading-relaxed mb-8">
@@ -1283,7 +1283,7 @@ export default function PartnerBusinessPage() {
                 <div className="space-y-6">
                   {partnershipModels.map((model, idx) => (
                     <div key={idx} className="border-l-2 border-brand-300 pl-6">
-                      <h4 className="text-lg font-medium text-brand-900 mb-2">{model.title}</h4>
+                      <h4 className="text-lg font-medium text-neutral-900 mb-2">{model.title}</h4>
                       <p className="text-neutral-600 text-sm mb-3">{model.desc}</p>
                       <div className="flex flex-wrap gap-2">
                         {model.items.map((item, i) => (
@@ -1319,8 +1319,8 @@ export default function PartnerBusinessPage() {
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <p className="text-xs tracking-[0.3em] text-brand-800 uppercase mb-3">{t('voiceSubtitle')}</p>
-              <h2 className="font-serif text-3xl md:text-4xl text-brand-900 mb-4">
+              <p className="text-xs tracking-[0.3em] text-neutral-900 uppercase mb-3">{t('voiceSubtitle')}</p>
+              <h2 className="font-serif text-3xl md:text-4xl text-neutral-900 mb-4">
                 {t('voiceTitle')}
               </h2>
               <p className="text-lg text-neutral-500">
@@ -1353,7 +1353,7 @@ export default function PartnerBusinessPage() {
                   { region: t('voiceRegionSG'), count: '80+' },
                 ].map((item, idx) => (
                   <div key={idx} className="text-center px-4">
-                    <div className="text-lg font-medium text-brand-900">{item.count}</div>
+                    <div className="text-lg font-medium text-neutral-900">{item.count}</div>
                     <div className="text-xs text-neutral-500">{item.region}</div>
                   </div>
                 ))}
@@ -1378,7 +1378,7 @@ export default function PartnerBusinessPage() {
                     </div>
                     <p className="text-sm text-neutral-600 mb-3">&ldquo;{item.quote[currentLang]}&rdquo;</p>
                     <div className="flex items-center justify-between text-xs">
-                      <span className="font-medium text-brand-900">{item.name[currentLang]}</span>
+                      <span className="font-medium text-neutral-900">{item.name[currentLang]}</span>
                       <span className="text-brand-700">{item.region[currentLang]}</span>
                     </div>
                   </div>
@@ -1398,7 +1398,7 @@ export default function PartnerBusinessPage() {
                     </div>
                     <p className="text-sm text-neutral-600 mb-3">&ldquo;{item.quote[currentLang]}&rdquo;</p>
                     <div className="flex items-center justify-between text-xs">
-                      <span className="font-medium text-brand-900">{item.name[currentLang]}</span>
+                      <span className="font-medium text-neutral-900">{item.name[currentLang]}</span>
                       <span className="text-brand-700">{item.region[currentLang]}</span>
                     </div>
                   </div>
@@ -1418,7 +1418,7 @@ export default function PartnerBusinessPage() {
                     </div>
                     <p className="text-sm text-neutral-600 mb-3">&ldquo;{item.quote[currentLang]}&rdquo;</p>
                     <div className="flex items-center justify-between text-xs">
-                      <span className="font-medium text-brand-900">{item.name[currentLang]}</span>
+                      <span className="font-medium text-neutral-900">{item.name[currentLang]}</span>
                       <span className="text-brand-700">{item.region[currentLang]}</span>
                     </div>
                   </div>
@@ -1443,9 +1443,9 @@ export default function PartnerBusinessPage() {
                       {testimonial.avatar}
                     </div>
                     <div>
-                      <div className="font-medium text-brand-900">{testimonial.name[currentLang]}</div>
+                      <div className="font-medium text-neutral-900">{testimonial.name[currentLang]}</div>
                       <div className="text-sm text-neutral-600">{testimonial.company[currentLang]}</div>
-                      <div className="text-xs text-brand-800 mt-0.5">{testimonial.region[currentLang]}</div>
+                      <div className="text-xs text-neutral-900 mt-0.5">{testimonial.region[currentLang]}</div>
                     </div>
                   </div>
                 </div>
@@ -1477,14 +1477,14 @@ export default function PartnerBusinessPage() {
       `}</style>
 
       {/* Industry Transformation */}
-      <section className="py-20 bg-neutral-50 text-brand-900">
+      <section className="py-20 bg-neutral-50 text-neutral-900">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-16 items-center">
               {/* Left: Pain Points */}
               <div>
-                <p className="text-xs tracking-[0.3em] text-brand-700 uppercase mb-4">{t('industrySubtitle')}</p>
-                <h2 className="font-serif text-3xl md:text-4xl text-brand-900 mb-6 leading-tight">
+                <p className="text-xs tracking-[0.3em] text-neutral-700 uppercase mb-4">{t('industrySubtitle')}</p>
+                <h2 className="font-serif text-3xl md:text-4xl text-neutral-900 mb-6 leading-tight">
                   {t('industryTitle1')}
                   <span className="brand-gradient-text">{t('industryTitle2')}</span>
                 </h2>
@@ -1492,7 +1492,7 @@ export default function PartnerBusinessPage() {
                 <div className="space-y-6 mb-8">
                   {painPoints.map((point, idx) => (
                     <div key={idx} className="border-l-2 border-brand-300 pl-5">
-                      <h4 className="font-medium text-brand-900 mb-1">{point.title}</h4>
+                      <h4 className="font-medium text-neutral-900 mb-1">{point.title}</h4>
                       <p className="text-neutral-600 text-sm">{point.desc}</p>
                     </div>
                   ))}
@@ -1507,7 +1507,7 @@ export default function PartnerBusinessPage() {
               {/* Right: Solution */}
               {/* 右栏方案卡 —— 与左侧「痛点」对立，用描边+投影抬起 */}
               <div className="bg-white rounded-2xl p-8 md:p-10 border border-brand-200 shadow-lg shadow-brand-900/5">
-                <h3 className="text-2xl font-bold text-brand-900 mb-6 whitespace-pre-line">
+                <h3 className="text-2xl font-bold text-neutral-900 mb-6 whitespace-pre-line">
                   {t('solutionTitle')}
                 </h3>
 
@@ -1519,20 +1519,20 @@ export default function PartnerBusinessPage() {
                   {solutionItems.map((item, idx) => (
                     <div key={idx} className="flex items-center gap-3">
                       <CheckCircle2 size={20} className="text-brand-700 flex-shrink-0" />
-                      <span className="text-brand-900 font-medium">{item}</span>
+                      <span className="text-neutral-900 font-medium">{item}</span>
                     </div>
                   ))}
                 </div>
 
                 <div className="bg-neutral-50 rounded-xl p-6">
-                  <div className="text-sm text-brand-900 mb-3 font-medium">{t('solutionReadyLabel')}</div>
+                  <div className="text-sm text-neutral-900 mb-3 font-medium">{t('solutionReadyLabel')}</div>
                   <p className="text-neutral-600 text-sm leading-relaxed">
                     {t('solutionReadyDesc')}
                   </p>
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-neutral-200">
-                  <div className="text-brand-900 font-bold text-lg mb-2">{t('solutionFooterTitle')}</div>
+                  <div className="text-neutral-900 font-bold text-lg mb-2">{t('solutionFooterTitle')}</div>
                   <p className="text-neutral-600 text-sm">{t('solutionFooterDesc')}</p>
                 </div>
               </div>
@@ -1557,7 +1557,7 @@ export default function PartnerBusinessPage() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <p className="text-xs tracking-[0.3em] text-neutral-500 uppercase mb-3">{t('contactSubtitle')}</p>
-              <h2 className="font-serif text-3xl md:text-4xl text-brand-900 mb-4">
+              <h2 className="font-serif text-3xl md:text-4xl text-neutral-900 mb-4">
                 {t('contactTitle')}
               </h2>
               <p className="text-neutral-500">
@@ -1570,7 +1570,7 @@ export default function PartnerBusinessPage() {
                 <div className="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Check size={32} className="text-brand-600" />
                 </div>
-                <h3 className="text-2xl font-bold text-brand-900 mb-2">{t('formSubmitSuccess')}</h3>
+                <h3 className="text-2xl font-bold text-neutral-900 mb-2">{t('formSubmitSuccess')}</h3>
                 <p className="text-neutral-600">{t('formSubmitSuccessDesc')}</p>
               </div>
             ) : (
@@ -1708,7 +1708,7 @@ export default function PartnerBusinessPage() {
       </section>
 
       {/* Contact Info */}
-      <section className="py-16 bg-white border-t border-neutral-200 text-brand-900">
+      <section className="py-16 bg-white border-t border-neutral-200 text-neutral-900">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-3 gap-8 text-center">
@@ -1717,14 +1717,14 @@ export default function PartnerBusinessPage() {
                   <Mail size={24} className="text-white" />
                 </div>
                 <div className="text-sm text-neutral-600 mb-1">{t('contactEmailLabel')}</div>
-                <ObfuscatedEmail user="haoyuan" domain="niijima-koutsu.jp" className="text-brand-900 font-medium hover:text-brand-700 transition-colors" />
+                <ObfuscatedEmail user="haoyuan" domain="niijima-koutsu.jp" className="text-neutral-900 font-medium hover:text-brand-700 transition-colors" />
               </div>
               <div>
                 <div className="w-12 h-12 brand-gradient-solid rounded-full flex items-center justify-center mx-auto mb-4">
                   <Phone size={24} className="text-white" />
                 </div>
                 <div className="text-sm text-neutral-600 mb-1">{t('contactPhoneLabel')}</div>
-                <a href="tel:+81-6-6632-8807" className="text-brand-900 font-medium hover:text-brand-700 transition-colors">
+                <a href="tel:+81-6-6632-8807" className="text-neutral-900 font-medium hover:text-brand-700 transition-colors">
                   +81-6-6632-8807
                 </a>
               </div>
@@ -1733,7 +1733,7 @@ export default function PartnerBusinessPage() {
                   <MapPin size={24} className="text-white" />
                 </div>
                 <div className="text-sm text-neutral-600 mb-1">{t('contactAddressLabel')}</div>
-                <div className="text-brand-900">
+                <div className="text-neutral-900">
                   {currentLang === 'en' ? '1-2-21-602 Daikoku, Naniwa-ku, Osaka 556-0014, Japan' : currentLang === 'zh-TW' ? '大阪府大阪市浪速區大國1-2-21-602' : '大阪府大阪市浪速区大国1-2-21-602'}
                 </div>
               </div>

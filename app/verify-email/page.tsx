@@ -117,7 +117,7 @@ function VerifyEmailForm() {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-50 border border-brand-200 mb-5">
               <MailCheck className="w-8 h-8 text-brand-700" />
             </div>
-            <h1 className="text-2xl font-serif text-brand-900 mb-2">{t('title', lang)}</h1>
+            <h1 className="text-2xl font-serif text-neutral-900 mb-2">{t('title', lang)}</h1>
             <p className="text-sm text-neutral-500">{t('subtitle', lang)}</p>
           </div>
 
@@ -189,12 +189,12 @@ function VerifyEmailForm() {
               type="button"
               onClick={handleResend}
               disabled={resending}
-              className="text-brand-700 hover:text-brand-900 underline disabled:text-neutral-400"
+              className="text-brand-700 hover:text-brand-700 underline disabled:text-neutral-400"
             >
               {resending ? t('resending', lang) : t('resend', lang)}
             </button>
             <span className="text-neutral-300">|</span>
-            <Link href="/login" className="text-brand-700 hover:text-brand-900 underline">
+            <Link href="/login" className="text-brand-700 hover:text-brand-700 underline">
               {t('backToLogin', lang)}
             </Link>
           </div>

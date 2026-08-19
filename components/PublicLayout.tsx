@@ -287,7 +287,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
   const getMobileNavLinkClass = (isCurrentActive: boolean, emphasized = false) => {
     const base = 'text-xl font-sans border-b border-neutral-200 pb-2 transition-colors';
     if (isCurrentActive) return `${base} font-bold text-brand-700`;
-    if (emphasized) return `${base} font-bold text-brand-700 hover:text-brand-800`;
+    if (emphasized) return `${base} font-bold text-brand-700 hover:text-brand-700`;
     return `${base} font-medium text-neutral-700 hover:text-brand-700`;
   };
 
