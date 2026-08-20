@@ -138,7 +138,7 @@ export default function AdminLayout({
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Mobile Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-brand-900 z-50 flex items-center justify-between px-4">
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 brand-gradient-nav z-50 flex items-center justify-between px-4">
         <div className="flex items-center gap-2 text-white">
           <Shield size={24} />
           <span className="font-bold">Admin</span>
@@ -153,11 +153,11 @@ export default function AdminLayout({
         fixed top-0 left-0 h-full w-64 bg-brand-900 z-40 transform transition-transform duration-300
         lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
-        <div className="h-16 flex items-center gap-3 px-6 border-b border-brand-800">
+        <div className="h-16 flex items-center gap-3 px-6 brand-gradient-nav">
           <Logo className="w-8 h-8 text-white" />
           <div>
-            <span className="font-bold text-white">NIIJIMA</span>
-            <p className="text-xs text-brand-300">Admin Panel</p>
+            <span className="font-bold text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.2)]">NIIJIMA</span>
+            <p className="text-xs text-white/85">Admin Panel</p>
           </div>
         </div>
 
