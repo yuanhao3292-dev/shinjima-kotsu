@@ -70,7 +70,17 @@ export const CustomerInfoSchema = z.object({
 export const CreateCheckoutSessionSchema = z.object({
   packageSlug: z.string().min(1, '套餐标识不能为空'),
   customerInfo: CustomerInfoSchema,
-  preferredDate: DateSchema.optional().nullable(),
+  // 预约最少提前 3 天（按 JST 计算）：取消政策按「体检前 X 天」分档，
+  // 提前量不足的日期一下单就落进不可取消档。仅在填了日期时校验。
+  preferredDate: DateSchema.refine(
+    (d) => {
+      const jstNow = new Date(Date.now() + 9 * 60 * 60 * 1000);
+      const minDate = new Date(jstNow.getTime() + 3 * 24 * 60 * 60 * 1000)
+        .toISOString().slice(0, 10);
+      return d >= minDate;
+    },
+    { message: '希望日は3日以上先の日付を指定してください' }
+  ).optional().nullable(),
   preferredTime: TimeSchema.nullable(),
   notes: z.string().max(1000, '备注最多1000个字符').optional().nullable(),
   // 分销归因：从 URL 显式传入，优先于 Cookie（防跨浏览器/设备丢失）

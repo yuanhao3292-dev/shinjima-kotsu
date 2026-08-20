@@ -11,18 +11,26 @@ import Link from 'next/link';
 
 interface Order {
   id: string;
+  order_number: string | null;
   created_at: string;
   status: string;
-  payment_status: string;
-  total_amount: number | null;
+  total_amount_jpy: number | null;
   preferred_date: string | null;
   preferred_time: string | null;
-  special_requests: string | null;
-  customer_name: string;
-  customer_email: string;
-  customer_phone: string | null;
-  confirmed_date: string | null;
-  confirmed_time: string | null;
+  notes: string | null;
+  customer_snapshot: {
+    name?: string;
+    email?: string;
+    phone?: string;
+    company?: string;
+    line?: string;
+    wechat?: string;
+    whatsapp?: string;
+  } | null;
+  paid_at: string | null;
+  confirmed_at: string | null;
+  refunded_at: string | null;
+  referred_by_guide_slug: string | null;
   medical_packages: {
     name_zh_tw: string;
     slug: string;
@@ -117,41 +125,18 @@ export default function AdminOrdersPage() {
   // 醫療訂單 - 數據操作
   // ============================================
 
+  // 真订单在 `orders` 表（RLS 只允许客户读自己的单），必须经服务端 admin API。
+  // 此前这里直接查 `medical_orders`（手工建的空表），后台永远是「暂无订单」。
   async function fetchOrders() {
     setLoading(true);
     try {
-      let query = supabase
-        .from('medical_orders')
-        .select(`
-          id,
-          created_at,
-          status,
-          payment_status,
-          total_amount,
-          preferred_date,
-          preferred_time,
-          special_requests,
-          customer_name,
-          customer_email,
-          customer_phone,
-          confirmed_date,
-          confirmed_time,
-          medical_packages (
-            name_zh_tw,
-            slug,
-            price_jpy
-          )
-        `)
-        .order('created_at', { ascending: false });
-
-      if (filter !== 'all') {
-        query = query.eq('status', filter);
-      }
-
-      const { data, error } = await query;
-
-      if (error) throw error;
-      setOrders((data as unknown as Order[]) || []);
+      const { data: { session } } = await supabase.auth.getSession();
+      const response = await fetch(`/api/admin/orders?status=${filter}`, {
+        headers: { 'Authorization': `Bearer ${session?.access_token}` },
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || '获取订单失败');
+      setOrders((result.orders as Order[]) || []);
     } catch (error) {
       console.error('获取订单失败:', error);
     } finally {
@@ -161,26 +146,30 @@ export default function AdminOrdersPage() {
 
   async function updateOrderStatus(orderId: string, newStatus: string) {
     try {
-      const { error } = await supabase
-        .from('medical_orders')
-        .update({ status: newStatus })
-        .eq('id', orderId);
+      const { data: { session } } = await supabase.auth.getSession();
+      const response = await fetch(`/api/admin/orders/${orderId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session?.access_token}`,
+        },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || '更新失敗');
 
-      if (error) throw error;
-
-      // 刷新订单列表
       fetchOrders();
       setSelectedOrder(null);
       alert('訂單狀態已更新');
     } catch (error) {
       console.error('更新订单状态失败:', error);
-      alert('更新失敗');
+      alert(error instanceof Error ? error.message : '更新失敗');
     }
   }
 
   function openRefundModal(orderId: string) {
     const order = orders.find(o => o.id === orderId);
-    setRefundModal({ visible: true, orderId, amount: order?.total_amount || 0, reason: '' });
+    setRefundModal({ visible: true, orderId, amount: order?.total_amount_jpy || 0, reason: '' });
   }
 
   async function confirmRefund() {
@@ -440,19 +429,19 @@ export default function AdminOrdersPage() {
                     </thead>
                     <tbody className="divide-y divide-gray-100">
                       {orders.map((order) => {
-                        const displayPrice = order.total_amount || order.medical_packages?.price_jpy || 0;
+                        const displayPrice = order.total_amount_jpy || order.medical_packages?.price_jpy || 0;
                         return (
                           <tr key={order.id} className="hover:bg-gray-50">
                             <td className="px-4 py-4">
                               <span className="font-mono text-sm text-gray-900">
-                                #{order.id.slice(-8).toUpperCase()}
+                                {order.order_number || `#${order.id.slice(-8).toUpperCase()}`}
                               </span>
                             </td>
                             <td className="px-4 py-4">
                               <div>
-                                <p className="font-medium text-gray-900">{order.customer_name}</p>
-                                <p className="text-sm text-gray-500">{order.customer_email}</p>
-                                <p className="text-xs text-gray-400">{order.customer_phone || '-'}</p>
+                                <p className="font-medium text-gray-900">{order.customer_snapshot?.name || '-'}</p>
+                                <p className="text-sm text-gray-500">{order.customer_snapshot?.email || '-'}</p>
+                                <p className="text-xs text-gray-400">{order.customer_snapshot?.phone || '-'}</p>
                               </div>
                             </td>
                             <td className="px-4 py-4">
@@ -668,7 +657,7 @@ export default function AdminOrdersPage() {
                 <div className="bg-gray-50 rounded-lg p-4 space-y-2">
                   <div className="flex justify-between">
                     <span className="text-gray-600">訂單編號</span>
-                    <span className="font-mono font-medium">#{selectedOrder.id.slice(-8).toUpperCase()}</span>
+                    <span className="font-mono font-medium">{selectedOrder.order_number || `#${selectedOrder.id.slice(-8).toUpperCase()}`}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">完整ID</span>
@@ -681,7 +670,7 @@ export default function AdminOrdersPage() {
                   <div className="flex justify-between">
                     <span className="text-gray-600">金額</span>
                     <span className="font-medium text-indigo-600">
-                      ¥{(selectedOrder.total_amount || selectedOrder.medical_packages?.price_jpy || 0).toLocaleString()}
+                      ¥{(selectedOrder.total_amount_jpy || selectedOrder.medical_packages?.price_jpy || 0).toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between">
@@ -695,9 +684,9 @@ export default function AdminOrdersPage() {
                   <div className="flex justify-between">
                     <span className="text-gray-600">付款狀態</span>
                     <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                      selectedOrder.payment_status === 'paid' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                      selectedOrder.paid_at ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
                     }`}>
-                      {selectedOrder.payment_status === 'paid' ? '已付款' : '待付款'}
+                      {selectedOrder.paid_at ? '已付款' : '待付款'}
                     </span>
                   </div>
                 </div>
@@ -709,20 +698,52 @@ export default function AdminOrdersPage() {
                 <div className="bg-gray-50 rounded-lg p-4 space-y-2">
                   <div className="flex justify-between">
                     <span className="text-gray-600">姓名</span>
-                    <span className="font-medium">{selectedOrder.customer_name}</span>
+                    <span className="font-medium">{selectedOrder.customer_snapshot?.name || '-'}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">郵箱</span>
-                    <a href={`mailto:${selectedOrder.customer_email}`} className="text-indigo-600 hover:underline">
-                      {selectedOrder.customer_email}
-                    </a>
-                  </div>
-                  {selectedOrder.customer_phone && (
+                  {selectedOrder.customer_snapshot?.company && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">公司</span>
+                      <span>{selectedOrder.customer_snapshot.company}</span>
+                    </div>
+                  )}
+                  {selectedOrder.customer_snapshot?.email && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">郵箱</span>
+                      <a href={`mailto:${selectedOrder.customer_snapshot.email}`} className="text-indigo-600 hover:underline">
+                        {selectedOrder.customer_snapshot.email}
+                      </a>
+                    </div>
+                  )}
+                  {selectedOrder.customer_snapshot?.phone && (
                     <div className="flex justify-between">
                       <span className="text-gray-600">電話</span>
-                      <a href={`tel:${selectedOrder.customer_phone}`} className="text-indigo-600 hover:underline">
-                        {selectedOrder.customer_phone}
+                      <a href={`tel:${selectedOrder.customer_snapshot.phone}`} className="text-indigo-600 hover:underline">
+                        {selectedOrder.customer_snapshot.phone}
                       </a>
+                    </div>
+                  )}
+                  {selectedOrder.customer_snapshot?.line && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">LINE</span>
+                      <span className="font-mono">{selectedOrder.customer_snapshot.line}</span>
+                    </div>
+                  )}
+                  {selectedOrder.customer_snapshot?.wechat && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">微信</span>
+                      <span className="font-mono">{selectedOrder.customer_snapshot.wechat}</span>
+                    </div>
+                  )}
+                  {selectedOrder.customer_snapshot?.whatsapp && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">WhatsApp</span>
+                      <span className="font-mono">{selectedOrder.customer_snapshot.whatsapp}</span>
+                    </div>
+                  )}
+                  {selectedOrder.referred_by_guide_slug && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">分銷來源</span>
+                      <span className="font-mono text-orange-600">{selectedOrder.referred_by_guide_slug}</span>
                     </div>
                   )}
                 </div>
@@ -740,16 +761,16 @@ export default function AdminOrdersPage() {
                     <span className="text-gray-600">希望時段</span>
                     <span>{formatTimeSlot(selectedOrder.preferred_time)}</span>
                   </div>
-                  {selectedOrder.confirmed_date && (
+                  {selectedOrder.confirmed_at && (
                     <div className="flex justify-between">
-                      <span className="text-gray-600">確認日期</span>
-                      <span className="text-green-600 font-medium">{selectedOrder.confirmed_date}</span>
+                      <span className="text-gray-600">確認時間</span>
+                      <span className="text-green-600 font-medium">{formatDateTime(selectedOrder.confirmed_at)}</span>
                     </div>
                   )}
-                  {selectedOrder.special_requests && (
+                  {selectedOrder.notes && (
                     <div>
-                      <span className="text-gray-600 block mb-1">特殊要求</span>
-                      <p className="text-gray-900 bg-white p-2 rounded border">{selectedOrder.special_requests}</p>
+                      <span className="text-gray-600 block mb-1">備注</span>
+                      <p className="text-gray-900 bg-white p-2 rounded border whitespace-pre-line">{selectedOrder.notes}</p>
                     </div>
                   )}
                 </div>

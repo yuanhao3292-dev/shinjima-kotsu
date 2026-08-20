@@ -217,6 +217,9 @@ export default function PackageDetailContent({
     country: 'TW'
   });
   const [preferredDate, setPreferredDate] = useState('');
+  // 预约最少提前 3 天（用户拍板）：取消政策按「体检前 X 天」分档，
+  // 不留提前量的日期一下单就落进不可取消档，政策与流程自相矛盾。
+  const minPreferredDate = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
   const [notes, setNotes] = useState('');
   const [selectedAddOns, setSelectedAddOns] = useState<string[]>([]);
   const [contactError, setContactError] = useState('');
@@ -255,6 +258,9 @@ export default function PackageDetailContent({
     if (customerInfo.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerInfo.email.trim())) {
       errors.email = t.emailInvalid;
     }
+    if (preferredDate && preferredDate < minPreferredDate) {
+      errors.date = t.dateTooSoon;
+    }
 
     setFieldErrors(errors);
 
@@ -281,18 +287,10 @@ export default function PackageDetailContent({
   async function handleConfirmedSubmit() {
     setProcessing(true);
     try {
-      const contactMethods: string[] = [];
-      if (customerInfo.phone) contactMethods.push(`電話: ${customerInfo.phone}`);
-      if (customerInfo.email) contactMethods.push(`郵箱: ${customerInfo.email}`);
-      if (customerInfo.line) contactMethods.push(`LINE: ${customerInfo.line}`);
-      if (customerInfo.wechat) contactMethods.push(`微信: ${customerInfo.wechat}`);
-      if (customerInfo.whatsapp) contactMethods.push(`WhatsApp: ${customerInfo.whatsapp}`);
-
+      // 联系方式不再拼进备注 —— 结构化数据已存 orders.customer_snapshot 与 customers 表，
+      // 后台订单详情按字段展示（电话/邮箱/LINE/微信/WhatsApp）。
       const addOnNames = selectedAddOns.map(id => ADD_ON_SERVICES.find(s => s.id === id)?.name || '').filter(Boolean);
       let fullNotes = '';
-      if (contactMethods.length > 0) {
-        fullNotes += `【聯繫方式】\n${contactMethods.join('\n')}\n\n`;
-      }
       if (addOnNames.length > 0) {
         fullNotes += `【增值服務需求】${addOnNames.join('、')}\n\n`;
       }
@@ -462,7 +460,8 @@ export default function PackageDetailContent({
                 <div className="grid md:grid-cols-2 gap-5 mb-8">
                   <div>
                     <label className="block text-sm font-medium text-neutral-700 mb-2">{t.formDate}</label>
-                    <input type="date" value={preferredDate} onChange={(e) => setPreferredDate(e.target.value)} className="w-full px-4 py-2.5 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent text-sm" />
+                    <input type="date" value={preferredDate} min={minPreferredDate} onChange={(e) => { setPreferredDate(e.target.value); setFieldErrors(prev => { const { date: _, ...rest } = prev; return rest; }); }} className={`w-full px-4 py-2.5 border focus:ring-2 focus:ring-brand-700 focus:border-transparent text-sm ${fieldErrors.date ? 'border-red-300 bg-red-50' : 'border-neutral-200'}`} />
+                    {fieldErrors.date && <p className="mt-1 text-xs text-red-500">{fieldErrors.date}</p>}
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-neutral-700 mb-2">{t.formTime}</label>
