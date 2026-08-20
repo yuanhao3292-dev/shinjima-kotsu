@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import PublicLayout from '@/components/PublicLayout';
 import BodyMapSelector, { type BodyMapSelectionData } from '@/components/BodyMapSelector';
 import DynamicScreeningForm from '@/components/DynamicScreeningForm';
@@ -717,30 +718,37 @@ export default function HealthScreeningPage() {
     // ==================== Welcome Page ====================
     return (
       <div className="min-h-screen bg-white">
-        {/* Hero Section */}
-        <section className="relative brand-gradient-deep overflow-hidden">
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
-            <div className="absolute w-72 h-72 bg-brand-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
-          </div>
+        {/* Hero Section —— 明亮的极简诊疗空间（Unsplash 直链，站内 hero 同源）。
+            用户否掉了深色心电图（"压抑"），改浅底深字。 */}
+        <section className="relative bg-neutral-100 overflow-hidden">
+          <Image
+            src="https://images.unsplash.com/photo-1648775507324-b48dd3791fa5?q=80&w=2000&auto=format&fit=crop"
+            alt="Bright modern clinic"
+            fill
+            priority
+            sizes="100vw"
+            quality={75}
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/60 to-white/85 pointer-events-none" />
 
           <div className="relative z-10 max-w-4xl mx-auto px-6 pt-40 pb-20 text-center">
             <div className="flex items-center justify-center gap-3 mb-8">
               <div className="h-[1px] w-12 bg-brand-400" />
-              <span className="text-xs tracking-[0.3em] text-brand-400 uppercase">AI HEALTH SCREENING</span>
+              <span className="text-xs tracking-[0.3em] text-brand-700 uppercase">AI HEALTH SCREENING</span>
               <div className="h-[1px] w-12 bg-brand-400" />
             </div>
 
-            <h1 className="font-bold text-3xl md:text-4xl xl:text-5xl text-white mb-6 leading-tight">
+            <h1 className="font-bold text-3xl md:text-4xl xl:text-5xl text-neutral-900 mb-6 leading-tight">
               {t('aiScreeningTitle', lang)}
             </h1>
 
-            <p className="text-lg text-neutral-300 leading-relaxed font-light mb-10 max-w-2xl mx-auto">
+            <p className="text-lg text-neutral-700 leading-relaxed font-light mb-10 max-w-2xl mx-auto">
               {t('upgradeDesc', lang)}
             </p>
 
             {/* Free remaining badge */}
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-400/10 text-brand-400 border border-brand-400/30 text-sm mb-10">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/80 text-brand-700 border border-brand-300 text-sm mb-10">
               <Sparkles className="w-4 h-4" />
               <span>
                 {t('freeRemaining', lang)} {data?.freeRemaining ?? FREE_SCREENING_LIMIT} {lang === 'ja' ? '回' : lang === 'en' ? '' : '次'}
@@ -778,7 +786,7 @@ export default function HealthScreeningPage() {
                 <button
                   onClick={startWithDocumentUpload}
                   disabled={isCreating}
-                  className="px-8 py-3 border border-white/20 text-white/80 hover:text-white hover:border-white/40 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 text-sm"
+                  className="px-8 py-3 border border-neutral-400 text-neutral-700 hover:text-neutral-900 hover:border-neutral-600 bg-white/60 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 text-sm"
                 >
                   <Upload className="w-4 h-4" />
                   {t('orUploadDoc', lang)}
@@ -786,10 +794,10 @@ export default function HealthScreeningPage() {
               </div>
             ) : (
               <div className="text-center">
-                <p className="text-neutral-300 mb-4">{t('limitReached', lang)}</p>
+                <p className="text-neutral-700 mb-4">{t('limitReached', lang)}</p>
                 <Link
                   href="/health-screening/history"
-                  className="text-brand-400 hover:text-brand-300"
+                  className="text-brand-700 hover:text-brand-600"
                 >
                   {t('viewHistory', lang)}
                 </Link>
@@ -799,7 +807,7 @@ export default function HealthScreeningPage() {
             <div className="flex justify-center gap-4 mt-6">
               <Link
                 href="/health-screening/history"
-                className="text-sm text-neutral-400 hover:text-white transition-colors"
+                className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors"
               >
                 {t('viewHistory', lang)} →
               </Link>
