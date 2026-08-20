@@ -24,12 +24,14 @@ const packageColors: Record<string, {
 }> = {
   'vip-member-course': {
     headerBg: 'brand-gradient-deep',
-    title: 'text-white',
-    price: 'text-white',
-    check: 'text-white',
+    title: 'text-neutral-900',
+    price: 'text-neutral-900',
+    check: 'text-brand-700',
     button: 'brand-gradient-solid text-white hover:opacity-90',
-    cardBg: 'brand-gradient-deep',
-    cardBorder: 'border-brand-400/30',
+    // 侧栏卡曾整块渐变 + 20 行白字，信息太密（用户："还很乱"）。
+    // 现与其他套餐同款白卡黑字，旗舰感只靠页头渐变 + 品牌描边。
+    cardBg: 'bg-white',
+    cardBorder: 'border-brand-300',
     badgeBg: 'bg-white text-brand-700' },
   'premium-cardiac-course': {
     headerBg: 'brand-gradient-deep',
@@ -369,12 +371,12 @@ export default function PackageDetailContent({
                   {pkg.badge}
                 </span>
               )}
-              <h1 className={`text-3xl md:text-4xl font-serif font-bold text-white`}>{pkg.name}</h1>
-              <p className={`text-sm mt-2 text-white/75`}>{pkg.nameEn}</p>
+              <h1 className="text-3xl md:text-4xl font-serif font-bold text-white">{pkg.name}</h1>
+              <p className="text-sm mt-2 text-white/75">{pkg.nameEn}</p>
             </div>
             <div className="text-right">
-              <p className={`text-4xl md:text-5xl font-bold text-white`}>¥{pkg.price.toLocaleString()}</p>
-              <p className={`text-xs mt-1 text-white/75`}>{t.priceNote}</p>
+              <p className="text-4xl md:text-5xl font-bold text-white">¥{pkg.price.toLocaleString()}</p>
+              <p className="text-xs mt-1 text-white/75">{t.priceNote}</p>
             </div>
           </div>
         </div>
@@ -384,19 +386,19 @@ export default function PackageDetailContent({
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Left: Package Info */}
           <div className="lg:col-span-1">
-            <div className={`p-6 border ${pkg.colors.cardBorder} ${pkg.colors.cardBg} ${pkg.isVIP ? 'text-white' : ''} sticky top-8`}>
+            <div className={`p-6 border ${pkg.colors.cardBorder} ${pkg.colors.cardBg} sticky top-8`}>
               <h3 className={`text-lg font-serif font-bold mb-3 ${pkg.colors.title}`}>{t.pkgIncludes}</h3>
-              <p className={`text-sm mb-6 leading-relaxed ${pkg.isVIP ? 'text-white/85' : 'text-neutral-500'}`}>{pkg.longDescription}</p>
-              <div className={`space-y-2.5 text-sm ${pkg.isVIP ? '' : 'text-neutral-700'}`}>
+              <p className="text-sm mb-6 leading-relaxed text-neutral-500">{pkg.longDescription}</p>
+              <div className="space-y-2.5 text-sm text-neutral-700">
                 {pkg.features.map((feature, idx) => (
                   <div key={idx} className="flex gap-2">
                     <span>{feature}</span>
                   </div>
                 ))}
               </div>
-              <div className={`mt-6 pt-6 border-t ${pkg.isVIP ? 'border-white/25' : 'border-neutral-200'}`}>
+              <div className="mt-6 pt-6 border-t border-neutral-200">
                 <div className="flex justify-between items-center">
-                  <span className={`text-sm ${pkg.isVIP ? 'text-white/75' : 'text-neutral-500'}`}>{t.pkgPrice}</span>
+                  <span className="text-sm text-neutral-500">{t.pkgPrice}</span>
                   <span className={`text-xl font-bold ${pkg.colors.price}`}>¥{pkg.price.toLocaleString()}</span>
                 </div>
               </div>
