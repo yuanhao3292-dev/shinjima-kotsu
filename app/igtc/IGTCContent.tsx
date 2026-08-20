@@ -792,7 +792,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                 </div>
               </div>
               <div className="mt-6 pt-6 border-t border-white/20">
-                <p className="text-sm text-brand-700">
+                <p className="text-sm text-white/90">
                   {lang === 'ja' ? 'カテーテル技術により、がんの栄養血管に選択的に薬剤を投与し、腫瘍を縮小させます。' : lang === 'en' ? 'Catheter technology selectively delivers drugs to tumor feeding vessels to shrink tumors.' : '导管技术选择性地将药物输送到肿瘤供血血管以缩小肿瘤。'}
                 </p>
               </div>
@@ -815,7 +815,7 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                 </div>
               </div>
               <div className="mt-6 pt-6 border-t border-white/20">
-                <p className="text-sm text-brand-700 mb-4">
+                <p className="text-sm text-white/90 mb-4">
                   {lang === 'ja' ? '温熱により、がん細胞を選択的に破壊し、他の治療法の効果を高めます。' : lang === 'en' ? 'Hyperthermia selectively destroys cancer cells and enhances other treatment effects.' : '温热选择性地破坏癌细胞并增强其他治疗效果。'}
                 </p>
                 <div className="grid grid-cols-2 gap-3 text-sm">
@@ -1394,12 +1394,12 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               <div className="flex items-center gap-3 mb-4">
                 <h3 className="text-2xl font-bold">{t(tr.resultsMonthly, lang)}</h3>
               </div>
-              <p className="text-brand-700 leading-relaxed">{t(tr.resultsMonthlyDesc, lang)}</p>
+              <p className="text-white/90 leading-relaxed">{t(tr.resultsMonthlyDesc, lang)}</p>
               <div className="mt-6 pt-6 border-t border-white/20">
                 <div className="flex items-center gap-3">
                   <div className="flex-1">
                     <p className="text-4xl font-bold">60-70</p>
-                    <p className="text-sm text-brand-700 mt-1">{lang === 'ja' ? '件/月' : lang === 'en' ? 'cases/month' : '件/月'}</p>
+                    <p className="text-sm text-white/90 mt-1">{lang === 'ja' ? '件/月' : lang === 'en' ? 'cases/month' : '件/月'}</p>
                   </div>
                 </div>
               </div>
@@ -1410,18 +1410,18 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               <div className="flex items-center gap-3 mb-4">
                 <h3 className="text-2xl font-bold">{t(tr.resultsConference, lang)}</h3>
               </div>
-              <p className="text-brand-700 leading-relaxed">{t(tr.resultsConferenceDesc, lang)}</p>
+              <p className="text-white/90 leading-relaxed">{t(tr.resultsConferenceDesc, lang)}</p>
               <div className="mt-4 bg-white/10 rounded-lg p-4 border border-white/20">
                 <p className="font-bold text-lg mb-1">🏆 {t(tr.resultsAward, lang)}</p>
-                <p className="text-sm text-brand-700">{lang === 'ja' ? 'ポルトガル・リスボンで開催された国際学会CIRSEにて、乳がん治療の研究発表5件を実施し、最高賞を受賞。' : lang === 'en' ? 'Presented 5 breast cancer treatment studies at CIRSE in Lisbon, Portugal. Received highest award.' : lang === 'zh-TW' ? '於葡萄牙里斯本舉行的國際學會CIRSE發表5項乳腺癌治療研究，獲最高獎。' : '于葡萄牙里斯本举行的国际学会CIRSE发表5项乳腺癌治疗研究，获最高奖。'}</p>
+                <p className="text-sm text-white/90">{lang === 'ja' ? 'ポルトガル・リスボンで開催された国際学会CIRSEにて、乳がん治療の研究発表5件を実施し、最高賞を受賞。' : lang === 'en' ? 'Presented 5 breast cancer treatment studies at CIRSE in Lisbon, Portugal. Received highest award.' : lang === 'zh-TW' ? '於葡萄牙里斯本舉行的國際學會CIRSE發表5項乳腺癌治療研究，獲最高獎。' : '于葡萄牙里斯本举行的国际学会CIRSE发表5项乳腺癌治疗研究，获最高奖。'}</p>
               </div>
               <div className="mt-4 pt-4 border-t border-white/20">
                 <div className="flex items-center gap-3">
                   <div className="flex-1">
                     <p className="text-4xl font-bold">{lang === 'ja' ? '継続中' : lang === 'en' ? 'Ongoing' : lang === 'zh-TW' ? '持續中' : '持续中'}</p>
-                    <p className="text-sm text-brand-700 mt-1">{lang === 'ja' ? '国際学会・国内学会' : lang === 'en' ? 'International & Domestic' : lang === 'zh-TW' ? '國際及國內學會' : '国际及国内学会'}</p>
+                    <p className="text-sm text-white/90 mt-1">{lang === 'ja' ? '国際学会・国内学会' : lang === 'en' ? 'International & Domestic' : lang === 'zh-TW' ? '國際及國內學會' : '国际及国内学会'}</p>
                   </div>
-                  <Globe size={40} className="text-brand-700" />
+                  <Globe size={40} className="text-white/90" />
                 </div>
               </div>
             </div>

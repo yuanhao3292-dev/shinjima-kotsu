@@ -1074,7 +1074,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
           <p className="text-lg text-white/70 mb-3">{t.ctaSubtitle[lang]}</p>
 
           {/* Free consultation highlight */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-400/20 border border-brand-400/30 rounded-full text-brand-700 text-sm mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/15 border border-white/40 rounded-full text-white text-sm mb-8">
             {lang === 'ja' ? '初回カウンセリング無料' :
              lang === 'en' ? 'Free Initial Counseling' :
              lang === 'zh-TW' ? '初次諮詢免費' :

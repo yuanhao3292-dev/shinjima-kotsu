@@ -466,15 +466,15 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
       <div className="brand-gradient-deep py-16 md:py-24">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <span className="text-brand-400 text-xs tracking-[0.3em] uppercase font-bold">{t.statsTag[lang]}</span>
+            <span className="text-white/85 text-xs tracking-[0.3em] uppercase font-bold">{t.statsTag[lang]}</span>
             <h3 className="text-3xl font-serif text-white mt-3">{t.statsTitle[lang]}</h3>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {STATS.map((stat, i) => (
               <div key={i} className="text-center bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 transition">
                 <div className="text-3xl md:text-4xl font-bold text-white font-serif">{stat.value}</div>
-                <div className="text-sm text-neutral-300 mt-2 font-medium">{stat.label[lang]}</div>
-                <div className="text-xs text-neutral-500 mt-1">{stat.sub[lang]}</div>
+                <div className="text-sm text-white/85 mt-2 font-medium">{stat.label[lang]}</div>
+                <div className="text-xs text-white/70 mt-1">{stat.sub[lang]}</div>
               </div>
             ))}
           </div>
@@ -684,7 +684,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
           <div className="brand-gradient-deep text-white rounded-t-3xl px-8 py-10 md:px-16 md:py-12 relative overflow-hidden">
             <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png')" }} />
             <div className="relative z-10 text-center">
-              <span className="text-brand-400 text-xs tracking-[0.3em] uppercase font-bold">{t.menuTag[lang]}</span>
+              <span className="text-white/85 text-xs tracking-[0.3em] uppercase font-bold">{t.menuTag[lang]}</span>
               <h3 className="text-3xl font-serif mt-3">{t.menuTitle[lang]}</h3>
               <p className="text-white/50 mt-3 text-sm">{t.menuSubtitle[lang]}</p>
             </div>
