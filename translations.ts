@@ -209,6 +209,7 @@ export const translations = {
         nameRequired: 'お名前を入力してください',
         phoneTooShort: '電話番号は8桁以上で入力してください',
         emailInvalid: '正しいメールアドレスを入力してください',
+        dateTooSoon: 'ご予約は3日以上先の日付をお選びください',
         paymentError: '決済処理中にエラーが発生しました。しばらくしてからもう一度お試しください。',
         paymentLinkError: '決済リンクを取得できませんでした'
       },
@@ -914,6 +915,7 @@ export const translations = {
         nameRequired: '請填寫姓名',
         phoneTooShort: '電話號碼請輸入至少8位',
         emailInvalid: '請輸入正確的郵箱地址',
+        dateTooSoon: '預約日期需在 3 天之後，請重新選擇',
         paymentError: '支付流程出現錯誤，請稍後重試',
         paymentLinkError: '未獲取到支付鏈接'
       },
@@ -1474,6 +1476,7 @@ export const translations = {
         nameRequired: '请填写姓名',
         phoneTooShort: '电话号码请输入至少8位',
         emailInvalid: '请输入正确的邮箱地址',
+        dateTooSoon: '预约日期需在 3 天之后，请重新选择',
         paymentError: '支付流程出现错误，请稍后重试',
         paymentLinkError: '未获取到支付链接'
       },
@@ -2034,6 +2037,7 @@ export const translations = {
         nameRequired: 'Please enter your name',
         phoneTooShort: 'Phone number must be at least 8 digits',
         emailInvalid: 'Please enter a valid email address',
+        dateTooSoon: 'Please choose a date at least 3 days from now',
         paymentError: 'An error occurred during payment. Please try again later.',
         paymentLinkError: 'Could not retrieve payment link'
       },
