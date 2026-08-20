@@ -117,12 +117,15 @@ export default function AdminScreeningsPage() {
   async function fetchAllScreenings() {
     setLoading(true);
     try {
-      const { data, error } = await supabase
-        .from('health_screenings')
-        .select('*')
-        .order('created_at', { ascending: false });
+      // 走 admin API（service role）：RLS 下浏览器端只能读到自己的记录
+      const { data: { session } } = await supabase.auth.getSession();
+      const response = await fetch('/api/admin/screenings', {
+        headers: { 'Authorization': `Bearer ${session?.access_token}` },
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || '获取失败');
+      const data = result.screenings;
 
-      if (error) throw error;
 
       setAllScreenings((data as ScreeningRecord[]) || []);
     } catch (error) {
