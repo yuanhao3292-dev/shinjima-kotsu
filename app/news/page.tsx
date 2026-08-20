@@ -201,7 +201,7 @@ export default function NewsPage() {
             <div className="h-[1px] w-12 bg-brand-400"></div>
           </div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
             {t('heroTitle')}
           </h1>
 
@@ -230,7 +230,7 @@ export default function NewsPage() {
                 <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">{t('featuredSubtitle')}</span>
                 <div className="h-[1px] w-12 bg-brand-400"></div>
               </div>
-              <h2 className="text-2xl md:text-3xl font-serif text-neutral-900">{t('featuredTitle')}</h2>
+              <h2 className="text-2xl md:text-3xl font-bold text-neutral-900">{t('featuredTitle')}</h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -305,7 +305,7 @@ export default function NewsPage() {
                 <span className="text-xs tracking-[0.3em] text-neutral-900 uppercase">{t('allNewsSubtitle')}</span>
                 <div className="h-[1px] w-12 bg-brand-400"></div>
               </div>
-              <h2 className="text-2xl md:text-3xl font-serif text-neutral-900">{t('allNewsTitle')}</h2>
+              <h2 className="text-2xl md:text-3xl font-bold text-neutral-900">{t('allNewsTitle')}</h2>
             </div>
 
             <div className="flex flex-wrap justify-center gap-3">
@@ -462,7 +462,7 @@ export default function NewsPage() {
             <div className="h-[1px] w-12 bg-brand-400"></div>
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-serif mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
             {t('ctaTitle')}
           </h2>
           <p className="text-white/75 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">

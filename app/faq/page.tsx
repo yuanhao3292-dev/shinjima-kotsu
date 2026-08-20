@@ -467,7 +467,7 @@ export default function FAQPage() {
               <span className="text-xs tracking-[0.3em] text-white/90 uppercase">FREQUENTLY ASKED QUESTIONS</span>
             </div>
 
-            <h1 className="font-serif text-4xl md:text-6xl text-white mb-6 leading-tight">
+            <h1 className="font-bold text-4xl md:text-6xl text-white mb-6 leading-tight">
               {t('heroTitle1')}
               <br />
               <span className="text-white/90">{t('heroTitle2')}</span>
@@ -562,7 +562,7 @@ export default function FAQPage() {
 
           {/* Contact Section */}
           <div id="faq-contact" className="mt-16 border border-neutral-200 p-8 text-center">
-            <h2 className="text-2xl font-serif text-neutral-900 mb-4">{t('contactTitle')}</h2>
+            <h2 className="text-2xl font-bold text-neutral-900 mb-4">{t('contactTitle')}</h2>
             <p className="text-neutral-600 mb-8">
               {t('contactSubtitle')}
             </p>
@@ -610,7 +610,7 @@ export default function FAQPage() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-4">
-              <h3 className="font-serif text-lg text-neutral-900">{t('wechatTitle')}</h3>
+              <h3 className="font-bold text-lg text-neutral-900">{t('wechatTitle')}</h3>
               <button
                 onClick={() => setShowWechatQR(false)}
                 className="text-neutral-500 hover:text-neutral-600 p-1"

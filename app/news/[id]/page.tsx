@@ -144,7 +144,7 @@ export default function NewsDetailPage() {
           </div>
 
           {/* Title */}
-          <h1 className="text-2xl md:text-3xl font-serif text-neutral-900 mb-8 leading-relaxed">
+          <h1 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-8 leading-relaxed">
             {localizeText(news.title, lang)}
           </h1>
 

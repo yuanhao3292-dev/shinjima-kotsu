@@ -332,7 +332,7 @@ export default function MedicalDisclaimerPage() {
               <span className="text-xs tracking-[0.3em] text-brand-400 uppercase">{l.heroTag}</span>
               <div className="h-[1px] w-12 bg-brand-400"></div>
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif text-white leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight">
               {l.heroTitle}
             </h1>
           </div>

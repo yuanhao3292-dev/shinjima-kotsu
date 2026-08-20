@@ -190,7 +190,7 @@ const TestimonialWall: React.FC<{ currentLang?: string }> = ({ currentLang = 'ja
     <div className="w-full bg-neutral-50 py-20 border-y border-neutral-200 overflow-hidden relative">
       <div className="container mx-auto px-6 mb-12 text-center">
          <span className="text-brand-700 font-bold tracking-widest text-xs uppercase bg-brand-50 px-3 py-1 rounded-full">{headerLabel}</span>
-         <h2 className="text-3xl font-serif text-neutral-900 mt-4">{headerTitle}</h2>
+         <h2 className="text-3xl font-bold text-neutral-900 mt-4">{headerTitle}</h2>
          <p className="text-neutral-500 text-sm mt-2">{headerSub}</p>
       </div>
 

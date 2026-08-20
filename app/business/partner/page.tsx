@@ -1164,7 +1164,7 @@ export default function PartnerBusinessPage() {
               <span className="text-xs tracking-[0.3em] text-white uppercase">{t('heroTagline')}</span>
             </div>
 
-            <h1 className="font-serif text-4xl md:text-6xl text-white mb-6 leading-tight">
+            <h1 className="font-bold text-4xl md:text-6xl text-white mb-6 leading-tight">
               {t('heroTitle1')}
               <br />
               <span className="text-white/90">{t('heroTitle2')}</span>
@@ -1213,7 +1213,7 @@ export default function PartnerBusinessPage() {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <p className="text-xs tracking-[0.3em] text-neutral-500 uppercase mb-3">{t('whyPartnerSubtitle')}</p>
-              <h2 className="font-serif text-3xl md:text-4xl text-neutral-900">
+              <h2 className="font-bold text-3xl md:text-4xl text-neutral-900">
                 {t('whyPartnerTitle')}
               </h2>
             </div>
@@ -1252,7 +1252,7 @@ export default function PartnerBusinessPage() {
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <div>
                 <p className="text-xs tracking-[0.3em] text-neutral-700 uppercase mb-4">{t('partnershipModelSubtitle')}</p>
-                <h2 className="font-serif text-3xl md:text-4xl text-neutral-900 mb-6">
+                <h2 className="font-bold text-3xl md:text-4xl text-neutral-900 mb-6">
                   {t('partnershipModelTitle')}
                 </h2>
                 <p className="text-neutral-600 leading-relaxed mb-8">
@@ -1298,7 +1298,7 @@ export default function PartnerBusinessPage() {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <p className="text-xs tracking-[0.3em] text-neutral-900 uppercase mb-3">{t('voiceSubtitle')}</p>
-              <h2 className="font-serif text-3xl md:text-4xl text-neutral-900 mb-4">
+              <h2 className="font-bold text-3xl md:text-4xl text-neutral-900 mb-4">
                 {t('voiceTitle')}
               </h2>
               <p className="text-lg text-neutral-500">
@@ -1462,7 +1462,7 @@ export default function PartnerBusinessPage() {
               {/* Left: Pain Points */}
               <div>
                 <p className="text-xs tracking-[0.3em] text-neutral-700 uppercase mb-4">{t('industrySubtitle')}</p>
-                <h2 className="font-serif text-3xl md:text-4xl text-neutral-900 mb-6 leading-tight">
+                <h2 className="font-bold text-3xl md:text-4xl text-neutral-900 mb-6 leading-tight">
                   {t('industryTitle1')}
                   <span className="brand-gradient-text">{t('industryTitle2')}</span>
                 </h2>
@@ -1534,7 +1534,7 @@ export default function PartnerBusinessPage() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <p className="text-xs tracking-[0.3em] text-neutral-500 uppercase mb-3">{t('contactSubtitle')}</p>
-              <h2 className="font-serif text-3xl md:text-4xl text-neutral-900 mb-4">
+              <h2 className="font-bold text-3xl md:text-4xl text-neutral-900 mb-4">
                 {t('contactTitle')}
               </h2>
               <p className="text-neutral-500">

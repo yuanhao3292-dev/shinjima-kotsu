@@ -369,7 +369,7 @@ export default function PackageDetailContent({
                   {pkg.badge}
                 </span>
               )}
-              <h1 className="text-3xl md:text-4xl font-serif font-bold text-white">{pkg.name}</h1>
+              <h1 className="text-3xl md:text-4xl font-bold text-white">{pkg.name}</h1>
               <p className="text-sm mt-2 text-white/75">{pkg.nameEn}</p>
             </div>
             <div className="text-right">
@@ -385,7 +385,7 @@ export default function PackageDetailContent({
           {/* Left: Package Info */}
           <div className="lg:col-span-1">
             <div className={`p-6 border ${pkg.colors.cardBorder} ${pkg.colors.cardBg} sticky top-8`}>
-              <h3 className={`text-lg font-serif font-bold mb-3 ${pkg.colors.title}`}>{t.pkgIncludes}</h3>
+              <h3 className={`text-lg font-bold mb-3 ${pkg.colors.title}`}>{t.pkgIncludes}</h3>
               <p className="text-sm mb-6 leading-relaxed text-neutral-500">{pkg.longDescription}</p>
               <div className="space-y-2.5 text-sm text-neutral-700">
                 {pkg.features.map((feature, idx) => (
@@ -406,7 +406,7 @@ export default function PackageDetailContent({
           {/* Right: Booking Form */}
           <div className="lg:col-span-2">
             <div className="bg-white border border-neutral-200 p-8">
-              <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6">{t.bookingTitle}</h2>
+              <h2 className="text-2xl font-bold text-neutral-900 mb-6">{t.bookingTitle}</h2>
               <form onSubmit={handleSubmit}>
                 <div className="grid md:grid-cols-2 gap-5 mb-6">
                   <div>

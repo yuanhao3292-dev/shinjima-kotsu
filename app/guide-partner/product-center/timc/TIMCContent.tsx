@@ -86,11 +86,11 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
         </div>
         <div className="container mx-auto px-6 py-12 md:py-24 relative z-10">
           <div className="max-w-3xl">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif mb-4 md:mb-6 leading-[1.2]">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 leading-[1.2]">
               {t.medical.hero_title_1}<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white">{t.medical.hero_title_2}</span>
             </h1>
-            <h2 className="text-base sm:text-lg md:text-2xl text-gray-300 font-light mb-6 md:mb-8 font-serif">
+            <h2 className="text-base sm:text-lg md:text-2xl text-gray-300 font-light mb-6 md:mb-8 font-bold">
               {t.medical.hero_subtitle}
             </h2>
             <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base border-l-2 border-blue-500 pl-4 md:pl-6 max-w-2xl whitespace-pre-line">
@@ -105,7 +105,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
         <div className="container mx-auto px-6 py-12 md:py-24">
           <div className="text-center mb-12">
             <span className="text-blue-400 text-xs tracking-[0.3em] uppercase font-bold">Hospital Tour</span>
-            <h3 className="text-3xl font-serif text-white mt-3">{t.medical.video_title}</h3>
+            <h3 className="text-3xl font-bold text-white mt-3">{t.medical.video_title}</h3>
             <p className="text-gray-400 text-sm mt-2 max-w-2xl mx-auto">{t.medical.video_subtitle}</p>
           </div>
           <div className="max-w-4xl mx-auto">
@@ -130,28 +130,28 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
         <div className="mb-24">
           <div className="text-center mb-16">
             <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">{t.medical.auth_tag}</span>
-            <h3 className="text-3xl font-serif text-gray-900 mt-2">{t.medical.auth_title}</h3>
+            <h3 className="text-3xl font-bold text-gray-900 mt-2">{t.medical.auth_title}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             <div className="bg-gray-50 p-8 rounded-xl border border-gray-100 hover:shadow-lg transition duration-300 group">
               <div className="w-12 h-12 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition">
                 <Building size={24} />
               </div>
-              <h4 className="text-xl font-bold text-gray-800 mb-3 font-serif">{t.medical.auth_1_t}</h4>
+              <h4 className="text-xl font-bold text-gray-800 mb-3 font-bold">{t.medical.auth_1_t}</h4>
               <p className="text-sm text-gray-500 leading-relaxed">{t.medical.auth_1_d}</p>
             </div>
             <div className="bg-gray-50 p-8 rounded-xl border border-gray-100 hover:shadow-lg transition duration-300 group">
               <div className="w-12 h-12 bg-purple-100 text-purple-700 rounded-full flex items-center justify-center mb-6 group-hover:bg-purple-600 group-hover:text-white transition">
                 <MapPin size={24} />
               </div>
-              <h4 className="text-xl font-bold text-gray-800 mb-3 font-serif">{t.medical.auth_2_t}</h4>
+              <h4 className="text-xl font-bold text-gray-800 mb-3 font-bold">{t.medical.auth_2_t}</h4>
               <p className="text-sm text-gray-500 leading-relaxed">{t.medical.auth_2_d}</p>
             </div>
             <div className="bg-gray-50 p-8 rounded-xl border border-gray-100 hover:shadow-lg transition duration-300 group">
               <div className="w-12 h-12 bg-gray-200 text-gray-700 rounded-full flex items-center justify-center mb-6 group-hover:bg-gray-800 group-hover:text-white transition">
                 <Shield size={24} />
               </div>
-              <h4 className="text-xl font-bold text-gray-800 mb-3 font-serif">{t.medical.auth_3_t}</h4>
+              <h4 className="text-xl font-bold text-gray-800 mb-3 font-bold">{t.medical.auth_3_t}</h4>
               <p className="text-sm text-gray-500 leading-relaxed">{t.medical.auth_3_d}</p>
             </div>
           </div>
@@ -160,7 +160,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
         {/* 4. Tech Equipment Section */}
         <div className="mb-0">
           <div className="text-center py-20 bg-white">
-            <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif text-gray-900 mb-3">{t.medical.tech_title}</h3>
+            <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3">{t.medical.tech_title}</h3>
             <p className="text-gray-500 text-sm tracking-widest uppercase mb-6">Medical Equipment Lineup</p>
             <p className="text-gray-600 text-sm max-w-2xl mx-auto px-4">{t.medical.tech_sub}</p>
           </div>
@@ -171,7 +171,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
               <Image src={IMAGES.tech_ct} fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="CT Scanner" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
               <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-                <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_ct_t}</h4>
+                <h4 className="text-xl md:text-2xl text-white font-bold mb-4">{t.medical.tech_ct_t}</h4>
                 <p className="text-base text-white/80 leading-relaxed">{t.medical.tech_ct_d}</p>
               </div>
             </div>
@@ -179,7 +179,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
               <Image src={IMAGES.tech_mri} fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="MRI Scanner" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
               <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-                <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_mri_t}</h4>
+                <h4 className="text-xl md:text-2xl text-white font-bold mb-4">{t.medical.tech_mri_t}</h4>
                 <p className="text-base text-white/80 leading-relaxed">{t.medical.tech_mri_d}</p>
               </div>
             </div>
@@ -191,7 +191,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
               <Image src={IMAGES.tech_endo} fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Endoscopy" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
               <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-                <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_endo_t}</h4>
+                <h4 className="text-xl md:text-2xl text-white font-bold mb-4">{t.medical.tech_endo_t}</h4>
                 <p className="text-base text-white/80 leading-relaxed">{t.medical.tech_endo_d}</p>
               </div>
             </div>
@@ -199,7 +199,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
               <Image src={IMAGES.tech_dental} fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Dental" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
               <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-                <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.tech_dental_t}</h4>
+                <h4 className="text-xl md:text-2xl text-white font-bold mb-4">{t.medical.tech_dental_t}</h4>
                 <p className="text-base text-white/80 leading-relaxed">{t.medical.tech_dental_d}</p>
               </div>
             </div>
@@ -211,7 +211,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
               <Image src={IMAGES.detail_echo} fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Ultrasound" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
               <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-                <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.detail_echo_title}</h4>
+                <h4 className="text-xl md:text-2xl text-white font-bold mb-4">{t.medical.detail_echo_title}</h4>
                 <p className="text-base text-white/80 leading-relaxed">{t.medical.detail_echo_desc}</p>
               </div>
             </div>
@@ -219,7 +219,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
               <Image src={IMAGES.detail_mammo} fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Mammography" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/20"></div>
               <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-                <h4 className="text-xl md:text-2xl text-white font-serif mb-4">{t.medical.detail_mammo_title}</h4>
+                <h4 className="text-xl md:text-2xl text-white font-bold mb-4">{t.medical.detail_mammo_title}</h4>
                 <p className="text-base text-white/80 leading-relaxed">{t.medical.detail_mammo_desc}</p>
               </div>
             </div>
@@ -229,7 +229,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
         {/* 5. Facility & Rooms Section */}
         <div className="mb-24">
           <div className="text-center py-20 bg-white">
-            <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif text-gray-900 mb-3">{t.medical.facility_title}</h3>
+            <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">{t.medical.facility_title}</h3>
             <p className="text-gray-500 text-sm tracking-widest uppercase mb-6">Facility & Rooms</p>
             <p className="text-gray-600 text-sm max-w-2xl mx-auto px-4">{t.medical.facility_subtitle}</p>
           </div>
@@ -245,7 +245,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
                     <div className="h-[1px] w-12 bg-amber-400"></div>
                     <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">01</span>
                   </div>
-                  <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_1_title}</h4>
+                  <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-bold">{t.medical.facility_1_title}</h4>
                   <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_1_desc}</p>
                   <div className="mt-6 flex gap-3">
                     <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">4,000㎡</span>
@@ -265,7 +265,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
                     <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">02</span>
                     <div className="h-[1px] w-12 bg-amber-400"></div>
                   </div>
-                  <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_2_title}</h4>
+                  <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-bold">{t.medical.facility_2_title}</h4>
                   <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_2_desc}</p>
                   <div className="mt-6 flex justify-end gap-3">
                     <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">Concierge</span>
@@ -285,7 +285,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
                     <div className="h-[1px] w-12 bg-amber-400"></div>
                     <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">03</span>
                   </div>
-                  <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_3_title}</h4>
+                  <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-bold">{t.medical.facility_3_title}</h4>
                   <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_3_desc}</p>
                   <div className="mt-6 flex gap-3 flex-wrap">
                     <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">20 Rooms</span>
@@ -306,7 +306,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
                     <span className="text-xs tracking-[0.3em] text-amber-400 uppercase">04</span>
                     <div className="h-[1px] w-12 bg-amber-400"></div>
                   </div>
-                  <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.medical.facility_4_title}</h4>
+                  <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-bold">{t.medical.facility_4_title}</h4>
                   <p className="text-lg text-white/80 leading-relaxed">{t.medical.facility_4_desc}</p>
                   <div className="mt-6 flex justify-end gap-3">
                     <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">Private</span>
@@ -322,7 +322,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
         <div className="mb-24 bg-gray-900 text-white rounded-3xl p-10 md:p-16 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png')" }}></div>
           <div className="relative z-10 text-center mb-12">
-            <h3 className="text-3xl font-serif">{t.medical.flow_title}</h3>
+            <h3 className="text-3xl font-bold">{t.medical.flow_title}</h3>
             <p className="text-gray-400 mt-2 text-sm">Experience the Flow</p>
           </div>
           <div className="relative z-10 grid grid-cols-1 md:grid-cols-5 gap-6 text-center">
@@ -346,7 +346,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
         {/* 7. Packages - 6 COURSES */}
         <div className="mb-24" id="timc-packages">
           <div className="text-center mb-16">
-            <h3 className="text-3xl font-serif text-gray-900">{t.medical.pkg_title}</h3>
+            <h3 className="text-3xl font-bold text-gray-900">{t.medical.pkg_title}</h3>
             <p className="text-gray-500 text-sm mt-2">TIMC × NIIJIMA B2B Package Lineup</p>
 
             {!isGuideEmbed && (
@@ -368,7 +368,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
             <div className="col-span-1 md:col-span-2 lg:col-span-1 border border-gray-900 rounded-2xl p-6 hover:shadow-2xl transition hover:-translate-y-1 relative overflow-hidden bg-gray-900 text-white flex flex-col">
               <div className="absolute top-0 right-0 bg-yellow-500 text-black text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Flagship</div>
               <div className="mb-4">
-                <h4 className="text-xl font-serif font-bold text-yellow-400">{t.medical.pkg_vip_title}</h4>
+                <h4 className="text-xl font-bold text-yellow-400">{t.medical.pkg_vip_title}</h4>
                 <p className="text-xs text-gray-400 mt-1">VIP Member Course</p>
                 <p className="text-2xl font-bold text-yellow-400 mt-2">¥1,512,500</p>
                 <p className="text-[10px] text-gray-500">{t.medical.pkg_price_note}</p>
@@ -388,7 +388,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
             {/* PREMIUM (Cardiac) */}
             <div className="border border-blue-100 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-gradient-to-br from-blue-50 to-white flex flex-col">
               <div className="mb-4">
-                <h4 className="text-lg font-serif font-bold text-blue-900">{t.medical.pkg_premium_title}</h4>
+                <h4 className="text-lg font-bold text-blue-900">{t.medical.pkg_premium_title}</h4>
                 <p className="text-xs text-blue-400 mt-1">Premium Cardiac Course</p>
                 <p className="text-xl font-bold text-blue-900 mt-2">¥825,000</p>
                 <p className="text-[10px] text-gray-400">{t.medical.pkg_price_note}</p>
@@ -407,7 +407,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
             {/* SELECT (Gastro + Colon) */}
             <div className="border border-green-100 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-white flex flex-col">
               <div className="mb-4">
-                <h4 className="text-lg font-serif font-bold text-green-900">{t.medical.pkg_select_gc_title}</h4>
+                <h4 className="text-lg font-bold text-green-900">{t.medical.pkg_select_gc_title}</h4>
                 <p className="text-xs text-green-500 mt-1">Gastro + Colonoscopy Course</p>
                 <p className="text-xl font-bold text-green-900 mt-2">¥825,000</p>
                 <p className="text-[10px] text-gray-400">{t.medical.pkg_price_note}</p>
@@ -426,7 +426,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
             {/* SELECT (Stomach only) */}
             <div className="border border-teal-100 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-white flex flex-col">
               <div className="mb-4">
-                <h4 className="text-lg font-serif font-bold text-teal-800">{t.medical.pkg_select_g_title}</h4>
+                <h4 className="text-lg font-bold text-teal-800">{t.medical.pkg_select_g_title}</h4>
                 <p className="text-xs text-teal-500 mt-1">Gastroscopy Course</p>
                 <p className="text-xl font-bold text-teal-800 mt-2">¥687,500</p>
                 <p className="text-[10px] text-gray-400">{t.medical.pkg_price_note}</p>
@@ -445,7 +445,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
             {/* DWIBS */}
             <div className="border border-purple-100 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-white flex flex-col">
               <div className="mb-4">
-                <h4 className="text-lg font-serif font-bold text-purple-900">{t.medical.pkg_dwibs_title}</h4>
+                <h4 className="text-lg font-bold text-purple-900">{t.medical.pkg_dwibs_title}</h4>
                 <p className="text-xs text-purple-500 mt-1">DWIBS Cancer Screening</p>
                 <p className="text-xl font-bold text-purple-900 mt-2">¥275,000</p>
                 <p className="text-[10px] text-gray-400">{t.medical.pkg_price_note}</p>
@@ -464,7 +464,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
             {/* BASIC */}
             <div className="border border-gray-200 rounded-2xl p-6 hover:shadow-xl transition hover:-translate-y-1 bg-gray-50 flex flex-col">
               <div className="mb-4">
-                <h4 className="text-lg font-serif font-bold text-gray-800">{t.medical.pkg_basic_title}</h4>
+                <h4 className="text-lg font-bold text-gray-800">{t.medical.pkg_basic_title}</h4>
                 <p className="text-xs text-gray-500 mt-1">Standard Checkup Course</p>
                 <p className="text-xl font-bold text-gray-800 mt-2">¥550,000</p>
                 <p className="text-[10px] text-gray-400">{t.medical.pkg_price_note}</p>
@@ -485,7 +485,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
         {/* 8. Package Comparison Table */}
         <div className="mb-24" id="timc-comparison">
           <div className="text-center mb-12">
-            <h3 className="text-3xl font-serif text-gray-900">{t.medical.pkg_compare_title}</h3>
+            <h3 className="text-3xl font-bold text-gray-900">{t.medical.pkg_compare_title}</h3>
             <p className="text-gray-500 text-sm mt-2">{t.medical.pkg_compare_sub}</p>
           </div>
           <div className="max-w-7xl mx-auto px-4">
@@ -499,7 +499,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
         <div className="mb-24" id="timc-testimonials">
           <div className="text-center mb-16">
             <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">Customer Reviews</span>
-            <h3 className="text-3xl font-serif text-gray-900 mt-2">{t.medical.testimonials_title}</h3>
+            <h3 className="text-3xl font-bold text-gray-900 mt-2">{t.medical.testimonials_title}</h3>
             <p className="text-gray-500 text-sm mt-2">{t.medical.testimonials_sub}</p>
           </div>
 
@@ -561,7 +561,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
         <div className="mb-24" id="timc-faq">
           <div className="text-center mb-16">
             <span className="text-blue-500 text-xs tracking-widest uppercase font-bold">FAQ</span>
-            <h3 className="text-3xl font-serif text-gray-900 mt-2">{t.medical.faq_title}</h3>
+            <h3 className="text-3xl font-bold text-gray-900 mt-2">{t.medical.faq_title}</h3>
             <p className="text-gray-500 text-sm mt-2">{t.medical.faq_sub}</p>
           </div>
 
@@ -594,7 +594,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <FileText size={28} className="text-blue-600" />
               </div>
-              <h3 className="text-2xl font-serif font-bold text-gray-900 mb-3">{t.medical.order_title}</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">{t.medical.order_title}</h3>
               <p className="text-gray-500 mb-6">{t.medical.order_sub}</p>
               <a
                 href="/order-lookup"
@@ -610,7 +610,7 @@ export default function TIMCContent({ isGuideEmbed, guideSlug }: TIMCContentProp
         {/* 12. CTA (standalone only) */}
         {!isGuideEmbed && (
         <div className="bg-blue-600 rounded-3xl p-12 text-center text-white shadow-2xl shadow-blue-200">
-          <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif mb-6">{t.medical.cta_title}</h3>
+          <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">{t.medical.cta_title}</h3>
           <p className="text-blue-100 max-w-2xl mx-auto mb-6 leading-relaxed whitespace-pre-line">
             {t.medical.cta_text}
           </p>

@@ -365,7 +365,7 @@ export default function RecommendedPackages({ result, lang }: Props) {
     <>
       <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
         <div className="flex items-center gap-3 mb-2">
-          <h3 className="text-xl font-serif font-semibold text-neutral-900 tracking-wide">
+          <h3 className="text-xl font-semibold text-neutral-900 tracking-wide">
             {t('title', lang)}
           </h3>
         </div>

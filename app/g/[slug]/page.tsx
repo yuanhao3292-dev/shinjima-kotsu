@@ -217,7 +217,7 @@ export default async function GuideHomePage({ params }: PageProps) {
         <div className="max-w-6xl mx-auto px-6 py-12 md:py-24">
           <div className="text-center mb-12">
             <p className="text-xs tracking-[0.3em] text-neutral-400 uppercase mb-3">Partners</p>
-            <h2 className="font-serif text-2xl md:text-3xl text-neutral-900 tracking-wide">合作伙伴</h2>
+            <h2 className="font-bold text-2xl md:text-3xl text-neutral-900 tracking-wide">合作伙伴</h2>
           </div>
 
           {/* 医疗合作机构 */}
@@ -262,7 +262,7 @@ export default async function GuideHomePage({ params }: PageProps) {
       <section className="py-24 bg-neutral-900 text-white">
         <div className="max-w-4xl mx-auto px-6 py-12 md:py-24 text-center">
           <p className="text-xs tracking-[0.3em] text-neutral-400 uppercase mb-6">Corporate Philosophy</p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white mb-8 leading-relaxed">
+          <h2 className="font-bold text-3xl md:text-4xl lg:text-5xl text-white mb-8 leading-relaxed">
             用心连结世界与日本
           </h2>
           <p className="text-neutral-400 leading-relaxed mb-10 max-w-2xl mx-auto">

@@ -161,7 +161,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
               </div>
             )}
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               {currentSlide.title.split('\n').map((line, i) => (
                 <span key={i}>
                   {i > 0 && <br />}

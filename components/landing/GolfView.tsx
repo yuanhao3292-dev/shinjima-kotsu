@@ -80,7 +80,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
              <div className="h-[1px] w-12 bg-white/70"></div>
              <span className="text-xs tracking-[0.3em] text-white/90 uppercase">{currentLang === 'zh-TW' ? '頂級高爾夫' : currentLang === 'zh-CN' ? '顶级高尔夫' : currentLang === 'ja' ? 'プレミアムゴルフ' : 'PREMIUM GOLF'}</span>
            </div>
-           <h1 className="text-4xl md:text-6xl font-serif text-white mb-6 leading-tight">
+           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
              {t.golf.title_1}
              <br />
              <span className="text-white/90">{t.golf.title_2}</span>
@@ -132,7 +132,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
              <span className="text-neutral-700 text-xs tracking-[0.3em] uppercase font-bold">{t.golf.std_title}</span>
              <div className="w-12 h-px bg-gradient-to-l from-transparent to-brand-400"></div>
            </div>
-           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-neutral-900 golf-title-decorated">
+           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 golf-title-decorated">
              {currentLang === 'zh-TW' ? '為什麼選擇新島高爾夫？' : currentLang === 'zh-CN' ? '为什么选择新岛高尔夫？' : currentLang === 'ja' ? 'なぜ新島ゴルフ？' : 'Why Choose Niijima Golf?'}
            </h2>
          </div>
@@ -152,7 +152,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                   {/* Icon with gradient background */}
                   {/* Gold top border on hover */}
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-brand-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-t-2xl"></div>
-                  <h3 className="font-bold text-xl mb-4 font-serif text-neutral-900">{item.title}</h3>
+                  <h3 className="font-bold text-xl mb-4 font-bold text-neutral-900">{item.title}</h3>
                   <p className="text-sm text-neutral-500 leading-relaxed">{item.desc}</p>
                </div>
              ))}
@@ -169,7 +169,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
              <span className="text-neutral-700 text-xs tracking-[0.3em] uppercase font-bold">{currentLang === 'zh-TW' ? '合作球場' : currentLang === 'zh-CN' ? '合作球场' : currentLang === 'ja' ? '提携コース' : 'Partner Courses'}</span>
              <div className="w-12 h-px bg-gradient-to-l from-transparent to-brand-400"></div>
            </div>
-           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-neutral-900">{t.golf.partners_title || '提携名門コース'}</h2>
+           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900">{t.golf.partners_title || '提携名門コース'}</h2>
          </div>
 
          {/* Course Grid —— 六家球场名称较长（六甲国際ゴルフ倶楽部 等），
@@ -215,7 +215,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
              <span className="text-neutral-700 text-xs tracking-[0.3em] uppercase font-bold">{(t.golf as any).plans_section_label || (currentLang === 'zh-TW' ? '精選行程' : currentLang === 'zh-CN' ? '精选行程' : currentLang === 'ja' ? '厳選プラン' : 'Signature Itineraries')}</span>
              <div className="w-12 h-px bg-gradient-to-l from-transparent to-brand-400"></div>
            </div>
-           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-neutral-900 mb-4">{(t.golf as any).plans_section_title || (currentLang === 'zh-TW' ? '推薦行程' : currentLang === 'zh-CN' ? '推荐行程' : currentLang === 'ja' ? 'おすすめプラン' : 'Recommended Itineraries')}</h2>
+           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 mb-4">{(t.golf as any).plans_section_title || (currentLang === 'zh-TW' ? '推薦行程' : currentLang === 'zh-CN' ? '推荐行程' : currentLang === 'ja' ? 'おすすめプラン' : 'Recommended Itineraries')}</h2>
            <p className="text-neutral-500 max-w-xl mx-auto">{(t.golf as any).plans_section_subtitle || (currentLang === 'zh-TW' ? '為鑑賞家精心策劃的高爾夫體驗' : currentLang === 'zh-CN' ? '为鉴赏家精心策划的高尔夫体验' : currentLang === 'ja' ? '目の肥えたゴルファーのための厳選体験' : 'Curated experiences for discerning golfers')}</p>
          </div>
 
@@ -283,7 +283,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                         <div className="flex-grow h-px bg-gradient-to-r from-brand-400/50 to-transparent"></div>
                      </div>
 
-                     <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-neutral-900 mb-3 leading-tight">{plan.title}</h3>
+                     <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 mb-3 leading-tight">{plan.title}</h3>
                      <h4 className="text-lg text-brand-700 mb-6 font-medium">{plan.subtitle}</h4>
                      <p className="text-neutral-600 leading-relaxed mb-10 text-lg">{plan.desc}</p>
 
@@ -328,7 +328,7 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
      <div id="golf-contact" className="py-16 bg-white">
        <div className="container mx-auto px-6 py-12 md:py-24">
          <div className="max-w-2xl mx-auto text-center">
-           <h3 className="text-2xl font-serif font-bold text-neutral-900 mb-2">{t.golf.cta_title}</h3>
+           <h3 className="text-2xl font-bold text-neutral-900 mb-2">{t.golf.cta_title}</h3>
            <p className="text-neutral-500 mb-8">{t.golf.cta_desc}</p>
            <ContactButtons />
          </div>

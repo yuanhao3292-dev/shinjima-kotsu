@@ -434,7 +434,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
         </div>
         <div className="container mx-auto px-6 py-12 md:py-24 relative z-10">
           <div className="max-w-3xl animate-fade-in-up">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif mb-4 md:mb-6 leading-[1.2]">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 leading-[1.2]">
               {t.heroTitle[lang]}<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-200">{t.heroSubtitle[lang]}</span>
             </h1>
@@ -467,12 +467,12 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <span className="text-white/85 text-xs tracking-[0.3em] uppercase font-bold">{t.statsTag[lang]}</span>
-            <h3 className="text-3xl font-serif text-white mt-3">{t.statsTitle[lang]}</h3>
+            <h3 className="text-3xl font-bold text-white mt-3">{t.statsTitle[lang]}</h3>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {STATS.map((stat, i) => (
               <div key={i} className="text-center bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 transition">
-                <div className="text-3xl md:text-4xl font-bold text-white font-serif">{stat.value}</div>
+                <div className="text-3xl md:text-4xl font-bold text-white font-bold">{stat.value}</div>
                 <div className="text-sm text-white/85 mt-2 font-medium">{stat.label[lang]}</div>
                 <div className="text-xs text-white/70 mt-1">{stat.sub[lang]}</div>
               </div>
@@ -488,7 +488,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
         <div className="mb-24">
           <div className="text-center mb-16">
             <span className="text-neutral-900 text-xs tracking-widest uppercase font-bold">{t.coreServicesTag[lang]}</span>
-            <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.coreServicesTitle[lang]}</h3>
+            <h3 className="text-3xl font-bold text-neutral-900 mt-2">{t.coreServicesTitle[lang]}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {CORE_SERVICES.map((service, i) => {
@@ -510,7 +510,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                     <div className="absolute inset-0 bg-gradient-to-t from-black/18 to-transparent" />
                   </div>
                   <div className="p-6">
-                    <h4 className="text-lg font-bold text-neutral-900 font-serif mb-2">{service.title[lang]}</h4>
+                    <h4 className="text-lg font-bold text-neutral-900 font-bold mb-2">{service.title[lang]}</h4>
                     <p className="text-sm text-neutral-600 leading-relaxed">{service.desc[lang]}</p>
                   </div>
                 </div>
@@ -525,7 +525,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
         <div className="mb-24">
           <div className="text-center mb-16">
             <span className="text-neutral-900 text-xs tracking-widest uppercase font-bold">{t.edTag[lang]}</span>
-            <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.edTitle[lang]}</h3>
+            <h3 className="text-3xl font-bold text-neutral-900 mt-2">{t.edTitle[lang]}</h3>
             <p className="text-neutral-500 mt-3 max-w-2xl mx-auto text-sm">{t.edSubtitle[lang]}</p>
           </div>
 
@@ -547,7 +547,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 </div>
               </div>
               <div className="p-6">
-                <h4 className="text-lg font-serif font-bold mb-3">
+                <h4 className="text-lg font-bold mb-3">
                   {lang === 'ja' ? 'Morenova 低強度衝撃波治療' :
                    lang === 'en' ? 'Morenova Low-Intensity Shockwave' :
                    lang === 'zh-TW' ? 'Morenova 低強度衝擊波治療' :
@@ -612,7 +612,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   </li>
                 </ul>
                 <div className="text-center pt-4 border-t border-neutral-100">
-                  <span className="text-2xl font-bold font-serif text-neutral-900">¥55,000</span>
+                  <span className="text-2xl font-bold text-neutral-900">¥55,000</span>
                   <span className="text-sm text-neutral-400">/{lang === 'ja' ? '回' : lang === 'en' ? 'session' : '次'}</span>
                 </div>
               </div>
@@ -626,7 +626,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
         <div className="mb-24">
           <div className="text-center mb-16">
             <span className="text-neutral-900 text-xs tracking-widest uppercase font-bold">{t.lohTag[lang]}</span>
-            <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.lohTitle[lang]}</h3>
+            <h3 className="text-3xl font-bold text-neutral-900 mt-2">{t.lohTitle[lang]}</h3>
           </div>
 
           {/* Symptoms Grid */}
@@ -640,7 +640,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
 
           {/* Diagnostic Flow */}
           <div className="bg-neutral-50 rounded-2xl p-8 mb-10 border border-neutral-100">
-            <h3 className="text-lg font-bold text-neutral-900 mb-6 flex items-center gap-2 font-serif">
+            <h3 className="text-lg font-bold text-neutral-900 mb-6 flex items-center gap-2 font-bold">
               {lang === 'ja' ? '診断・治療の流れ' : lang === 'en' ? 'Diagnostic & Treatment Flow' : lang === 'zh-TW' ? '診斷與治療流程' : '诊断与治疗流程'}
             </h3>
             <div className="flex flex-col md:flex-row gap-4">
@@ -661,7 +661,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
           {/* Treatment Options */}
           <div className="bg-white rounded-2xl border border-neutral-100 overflow-hidden shadow-sm">
             <div className="brand-gradient-solid px-6 py-4 text-white">
-              <h3 className="font-bold flex items-center gap-2 font-serif">
+              <h3 className="font-bold flex items-center gap-2 font-bold">
                 {lang === 'ja' ? '治療オプション' : lang === 'en' ? 'Treatment Options' : lang === 'zh-TW' ? '治療方案' : '治疗方案'}
               </h3>
             </div>
@@ -685,7 +685,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
             <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png')" }} />
             <div className="relative z-10 text-center">
               <span className="text-white/85 text-xs tracking-[0.3em] uppercase font-bold">{t.menuTag[lang]}</span>
-              <h3 className="text-3xl font-serif mt-3">{t.menuTitle[lang]}</h3>
+              <h3 className="text-3xl font-bold mt-3">{t.menuTitle[lang]}</h3>
               <p className="text-white/50 mt-3 text-sm">{t.menuSubtitle[lang]}</p>
             </div>
           </div>
@@ -702,7 +702,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   >
                     <div className="flex items-center gap-3">
                       <div>
-                        <span className="font-bold text-neutral-900 font-serif text-sm md:text-base">{cat.category[lang]}</span>
+                        <span className="font-bold text-neutral-900 font-bold text-sm md:text-base">{cat.category[lang]}</span>
                         <span className="text-xs text-neutral-400 ml-2">({cat.items.length})</span>
                       </div>
                     </div>
@@ -739,7 +739,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-neutral-900 text-xs tracking-widest uppercase font-bold">{t.doctorTag[lang]}</span>
-            <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.doctorTitle[lang]}</h3>
+            <h3 className="text-3xl font-bold text-neutral-900 mt-2">{t.doctorTitle[lang]}</h3>
           </div>
 
           {/* 3 Doctor Cards */}
@@ -762,7 +762,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 />
               </div>
               <div className="p-5">
-                <h4 className="text-lg font-bold text-neutral-900 font-serif">
+                <h4 className="text-lg font-bold text-neutral-900 font-bold">
                   {lang === 'ja' ? '中木 義浩' : lang === 'en' ? 'Dr. Yoshihiro Nakaki' : '中木 義浩'}
                 </h4>
                 <p className="text-xs text-neutral-900 font-medium mt-1 mb-3">
@@ -797,7 +797,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 />
               </div>
               <div className="p-5">
-                <h4 className="text-lg font-bold text-neutral-900 font-serif">
+                <h4 className="text-lg font-bold text-neutral-900 font-bold">
                   {lang === 'ja' ? '植村 天受 教授' : lang === 'en' ? 'Prof. Uemura Tenju' : '植村 天受 教授'}
                 </h4>
                 <p className="text-xs text-neutral-900 font-medium mt-1 mb-3">
@@ -831,7 +831,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 />
               </div>
               <div className="p-5">
-                <h4 className="text-lg font-bold text-neutral-900 font-serif">
+                <h4 className="text-lg font-bold text-neutral-900 font-bold">
                   {lang === 'ja' ? '足立 真由美' : lang === 'en' ? 'Dr. Mayumi Adachi' : '足立 真由美'}
                 </h4>
                 <p className="text-xs text-neutral-900 font-medium mt-1 mb-3">
@@ -866,7 +866,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 />
               </div>
               <div className="flex-1">
-                <h3 className="text-xl font-bold text-neutral-900 mb-1 font-serif">
+                <h3 className="text-xl font-bold text-neutral-900 mb-1 font-bold">
                   {lang === 'ja' ? '植村天受 教授' : lang === 'en' ? 'Prof. Uemura Tenju' : '植村天受 教授'}
                 </h3>
                 <p className="text-sm text-neutral-900 font-medium mb-4 border-l-2 border-brand-400 pl-3">
@@ -901,14 +901,14 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
       <div className="container mx-auto px-6 py-16 md:py-24">
         <div className="text-center mb-16">
           <span className="text-neutral-900 text-xs tracking-widest uppercase font-bold">{t.privacyTag[lang]}</span>
-          <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.privacyTitle[lang]}</h3>
+          <h3 className="text-3xl font-bold text-neutral-900 mt-2">{t.privacyTitle[lang]}</h3>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           {PRIVACY_FEATURES.map((feature, i) => {
             const Icon = feature.icon;
             return (
               <div key={i} className="bg-neutral-50 p-6 rounded-xl border border-neutral-100 hover:shadow-lg transition duration-300 group text-center">
-                <h4 className="text-base font-bold text-neutral-800 mb-2 font-serif">{feature.title[lang]}</h4>
+                <h4 className="text-base font-bold text-neutral-800 mb-2 font-bold">{feature.title[lang]}</h4>
                 <p className="text-xs text-neutral-500 leading-relaxed">{feature.desc[lang]}</p>
               </div>
             );
@@ -923,7 +923,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-neutral-900 text-xs tracking-widest uppercase font-bold">{t.accessTag[lang]}</span>
-            <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.accessTitle[lang]}</h3>
+            <h3 className="text-3xl font-bold text-neutral-900 mt-2">{t.accessTitle[lang]}</h3>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -1019,7 +1019,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
         <div className="absolute inset-0 brand-gradient-solid" />
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/stardust.png')" }} />
         <div className="relative z-10 container mx-auto px-6 text-center text-white">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">{t.ctaTitle[lang]}</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t.ctaTitle[lang]}</h2>
           <p className="text-lg text-white/60 mb-10 max-w-2xl mx-auto">
             {lang === 'ja' ? '植村天受教授の専門チームが、あなたのお悩みに対応します' :
              lang === 'en' ? 'Prof. Uemura Tenju\'s expert team is ready to help you' :

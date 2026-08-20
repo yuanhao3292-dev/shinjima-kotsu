@@ -20,15 +20,10 @@ import CookieConsent from '@/components/CookieConsent'
 import ConsentAnalytics from '@/components/ConsentAnalytics'
 import {
   Inter,
-  Playfair_Display,
   Noto_Sans_JP,
   Noto_Sans_TC,
   Noto_Sans_SC,
   Noto_Sans_KR,
-  Noto_Serif_TC,
-  Noto_Serif_SC,
-  Noto_Serif_KR,
-  Shippori_Mincho,
 } from 'next/font/google'
 
 // === 自托管字体（构建时下载，运行时从 Vercel CDN 提供） ===
@@ -38,19 +33,8 @@ const notoSansJP = Noto_Sans_JP({
   variable: '--font-noto-sans-jp',
   display: 'swap',
 })
-// ⚠️ 必须 preload: false —— 这是一款 CJK 字体，next/font 会为它的每个
-// unicode-range subset 各生成一个 <link rel="preload">。实测线上：
-// 244 个预加载 link 中 239 个属于本字体，硬拉 7.37MB（占全部字体流量
-// 99.6%），而非日语页面一个字形都不会用到它（document.fonts 已加载数为 0）。
-// 其余 8 套字体本来就有 preload: false，唯独这里漏了。
-// 关掉后仍可正常使用，只是改为按需取所需 subset。
-const shipporiMincho = Shippori_Mincho({
-  subsets: ['latin'],
-  weight: ['400', '600', '700'],
-  variable: '--font-shippori-mincho',
-  display: 'swap',
-  preload: false,
-})
+// 2026-08-20 起全站单一无衬线族（JTB 式）：4 套宋体 + Playfair 已卸载，
+// --font-serif 在 globals.css 里指向黑体兜底。
 const notoSansTC = Noto_Sans_TC({
   subsets: ['latin'],
   variable: '--font-noto-sans-tc',
@@ -69,48 +53,19 @@ const notoSansKR = Noto_Sans_KR({
   display: 'swap',
   preload: false,
 })
-const notoSerifTC = Noto_Serif_TC({
-  subsets: ['latin'],
-  variable: '--font-noto-serif-tc',
-  display: 'swap',
-  preload: false,
-})
-const notoSerifSC = Noto_Serif_SC({
-  subsets: ['latin'],
-  variable: '--font-noto-serif-sc',
-  display: 'swap',
-  preload: false,
-})
-const notoSerifKR = Noto_Serif_KR({
-  subsets: ['latin'],
-  variable: '--font-noto-serif-kr',
-  display: 'swap',
-  preload: false,
-})
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
   preload: false,
 })
-const playfairDisplay = Playfair_Display({
-  subsets: ['latin'],
-  variable: '--font-playfair-display',
-  display: 'swap',
-  preload: false,
-})
 
 const fontVariableClasses = [
   notoSansJP.variable,
-  shipporiMincho.variable,
   notoSansTC.variable,
   notoSansSC.variable,
   notoSansKR.variable,
-  notoSerifTC.variable,
-  notoSerifSC.variable,
-  notoSerifKR.variable,
   inter.variable,
-  playfairDisplay.variable,
 ].join(' ')
 
 // 根 metadata。子页面只写 title / description / canonical，
@@ -172,7 +127,7 @@ const baseMetadata: Metadata = {
   // canonical 由上面的 generateMetadata 逐页生成（主域收敛：站点同时在
   // niijima-koutsu.jp 与白标域 bespoketrip.jp 上线，canonical 一律指向主域）
   icons: {
-    icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="58" font-size="72" font-weight="600" fill="%232D2D2D" text-anchor="middle" dominant-baseline="central" font-family="Shippori Mincho, serif">新</text></svg>',
+    icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="58" font-size="72" font-weight="600" fill="%232D2D2D" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans JP, sans-serif">新</text></svg>',
   },
   openGraph: {
     title: `${SITE_NAME} | 日本高端體檢・癌症治療・名門高爾夫・商務考察`,
@@ -216,7 +171,7 @@ export default async function RootLayout({
 
   // 服务端就定好语言 —— 原本 lang 写死 ja、data-locale 由客户端
   // LocaleFontSetter 在 useEffect 里补，水合前后各命中一套字体栈：
-  // 简中用户会先下日文 subset（Noto Sans JP + Shippori Mincho），
+  // 简中用户会先下日文 subset（Noto Sans JP），
   // 水合后再下中文 subset，等于两套都下。
   // 从 cookie 直接读，首屏即用正确字体族，另一套永远不会被请求。
   //

@@ -203,7 +203,7 @@ export default function WClinicMensCheckoutPage() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <span className="inline-block text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 bg-white/10 text-white">W CLINIC men&apos;s</span>
-              <h1 className="text-2xl md:text-3xl font-serif font-bold text-white">{getName()}</h1>
+              <h1 className="text-2xl md:text-3xl font-bold text-white">{getName()}</h1>
               <p className="text-neutral-400 text-sm mt-1">{pkg.nameEn}</p>
             </div>
             <div className="text-right">
@@ -217,7 +217,7 @@ export default function WClinicMensCheckoutPage() {
       {/* Form */}
       <div className="max-w-4xl mx-auto px-4 py-10">
         <div className="bg-white border border-neutral-200 p-6 md:p-8">
-          <h2 className="text-xl font-serif font-bold text-neutral-900 mb-4">{t('bookingInfo')}</h2>
+          <h2 className="text-xl font-bold text-neutral-900 mb-4">{t('bookingInfo')}</h2>
           <div className="bg-neutral-50 border border-neutral-200 p-4 mb-6">
             <p className="text-sm text-neutral-700">{t('contractNotice')}</p>
           </div>

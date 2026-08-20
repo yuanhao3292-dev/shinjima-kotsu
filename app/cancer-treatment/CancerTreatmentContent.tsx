@@ -884,7 +884,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
               <div className="h-[1px] w-12 bg-white/70"></div>
               <span className="text-xs tracking-[0.3em] text-white/90 uppercase">CANCER TREATMENT</span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               {t('heroDesc')}
               <br />
               <span className="text-white/90">{t('heroTitle2')}</span>
@@ -947,7 +947,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">Japan Medical Institutions</span>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-neutral-900 mt-3 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mt-3 mb-4">
               {t('instTitle')}
             </h2>
             <p className="text-neutral-500 max-w-3xl mx-auto mb-6">
@@ -1063,7 +1063,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
           {/* Section Header */}
           <div className="text-center mb-16">
             <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">Treatment Process</span>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-neutral-900 mt-3 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mt-3 mb-4">
               {t('flowTitle')}
             </h2>
             <p className="text-neutral-500 max-w-2xl mx-auto">
@@ -1234,7 +1234,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">Standard Treatment</span>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-neutral-900 mt-3 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mt-3 mb-4">
               {t('stdTitle')}
             </h2>
             <p className="text-neutral-500 max-w-2xl mx-auto">
@@ -1253,7 +1253,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   key={treatment.id}
                   className={`bg-white rounded-2xl p-8 border ${colors.border} hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group`}
                 >
-                  <h3 className="text-xl font-serif font-bold text-neutral-900 mb-4">{treatment.title[currentLang]}</h3>
+                  <h3 className="text-xl font-bold text-neutral-900 mb-4">{treatment.title[currentLang]}</h3>
                   <ul className="space-y-2 mb-4">
                     {treatment.features.map((feature, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-neutral-600">
@@ -1275,7 +1275,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">Regenerative Medicine</span>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-neutral-900 mt-3 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mt-3 mb-4">
               {t('regenTitle')}
             </h2>
             <p className="text-neutral-500 max-w-2xl mx-auto">
@@ -1306,7 +1306,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   <div className={`inline-block ${colors.bg} ${colors.text} text-xs font-bold px-3 py-1 rounded-full mb-4`}>
                     {treatment.purpose[currentLang]}
                   </div>
-                  <h3 className="text-xl font-serif font-bold text-neutral-900 mb-1">{treatment.title[currentLang]}</h3>
+                  <h3 className="text-xl font-bold text-neutral-900 mb-1">{treatment.title[currentLang]}</h3>
                   <p className="text-neutral-500 text-sm mb-4">{treatment.subtitle}</p>
                   <ul className="space-y-2">
                     {treatment.features.map((feature, i) => (
@@ -1325,7 +1325,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
       <section className="py-20 bg-neutral-50 text-neutral-900">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-serif font-bold mb-4">{t('partnerTitle')}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('partnerTitle')}</h2>
             <p className="text-neutral-600">{t('partnerDesc')}</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
@@ -1347,7 +1347,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">Book Service</span>
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-neutral-900 mt-3 mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mt-3 mb-4">
                 {t('svcTitle')}
               </h2>
               <p className="text-neutral-600 mb-4">
