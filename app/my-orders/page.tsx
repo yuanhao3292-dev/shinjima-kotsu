@@ -222,7 +222,7 @@ export default function MyOrdersPage() {
                 </span>
               </div>
 
-              <h1 className="font-bold text-4xl xl:text-5xl text-white mb-4 leading-tight">
+              <h1 className="font-serif text-4xl xl:text-5xl text-white mb-4 leading-tight">
                 {t('myOrders', lang)}
                 <br />
                 <span className="text-white/90">{t('bookingRecords', lang)}</span>
@@ -255,7 +255,7 @@ export default function MyOrdersPage() {
 
             {/* Header */}
             <div className="mb-8">
-              <h1 className="text-2xl font-bold text-neutral-900 mb-2">{t('myOrders', lang)}</h1>
+              <h1 className="text-2xl font-serif text-neutral-900 mb-2">{t('myOrders', lang)}</h1>
               <p className="text-neutral-500 text-sm">{t('viewAllOrders', lang)}</p>
             </div>
 
@@ -273,7 +273,7 @@ export default function MyOrdersPage() {
                 <div className="w-16 h-16 bg-neutral-50 border border-neutral-200 flex items-center justify-center mx-auto mb-6">
                   <FileText className="w-8 h-8 text-neutral-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-neutral-900 mb-3">{t('noOrders', lang)}</h3>
+                <h3 className="text-lg font-serif font-bold text-neutral-900 mb-3">{t('noOrders', lang)}</h3>
                 <p className="text-neutral-500 text-sm mb-8">{t('noOrdersDesc', lang)}</p>
                 <Link
                   href="/medical"

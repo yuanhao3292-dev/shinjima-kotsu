@@ -340,7 +340,7 @@ function StepTitleSection({ badge, badgeIcon: BadgeIcon, title, subtitle }: {
           <BadgeIcon className="w-4 h-4" />
           <span>{badge}</span>
         </div>
-        <h1 className="text-2xl md:text-3xl font-bold text-neutral-900 tracking-wide">
+        <h1 className="text-2xl md:text-3xl font-serif text-neutral-900 tracking-wide">
           {title}
         </h1>
         <p className="text-neutral-500 mt-2">
@@ -584,7 +584,7 @@ export default function HealthScreeningPage() {
                 <Shield className="w-4 h-4" />
                 <span>{t('freeRemaining', lang)} {data!.freeRemaining} {lang === 'ja' ? '回' : lang === 'en' ? '' : '次'}</span>
               </div>
-              <h1 className="text-2xl md:text-3xl font-bold text-neutral-900 tracking-wide">
+              <h1 className="text-2xl md:text-3xl font-serif text-neutral-900 tracking-wide">
                 {t('aiQuestionnaire', lang)}
               </h1>
               <p className="text-neutral-500 mt-2">
@@ -731,7 +731,7 @@ export default function HealthScreeningPage() {
               <div className="h-[1px] w-12 bg-brand-400" />
             </div>
 
-            <h1 className="font-bold text-3xl md:text-4xl xl:text-5xl text-white mb-6 leading-tight">
+            <h1 className="font-serif text-3xl md:text-4xl xl:text-5xl text-white mb-6 leading-tight">
               {t('aiScreeningTitle', lang)}
             </h1>
 
@@ -816,7 +816,7 @@ export default function HealthScreeningPage() {
                 <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">FEATURES</span>
                 <div className="h-[1px] w-8 bg-brand-400" />
               </div>
-              <h2 className="text-2xl font-bold text-neutral-900">{t('newFeatures', lang)}</h2>
+              <h2 className="text-2xl font-serif text-neutral-900">{t('newFeatures', lang)}</h2>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
