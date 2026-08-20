@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import PublicLayout from '@/components/PublicLayout';
 import BodyMapSelector, { type BodyMapSelectionData } from '@/components/BodyMapSelector';
 import DynamicScreeningForm from '@/components/DynamicScreeningForm';
@@ -717,12 +718,18 @@ export default function HealthScreeningPage() {
     // ==================== Welcome Page ====================
     return (
       <div className="min-h-screen bg-white">
-        {/* Hero Section */}
-        <section className="relative brand-gradient-deep overflow-hidden">
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute w-96 h-96 bg-brand-500/10 rounded-full filter blur-3xl top-1/4 -left-20" />
-            <div className="absolute w-72 h-72 bg-brand-400/10 rounded-full filter blur-3xl bottom-1/4 right-10" />
-          </div>
+        {/* Hero Section —— 心电监护仪照片（Unsplash 直链，站内 hero 同源），深色底托白字 */}
+        <section className="relative bg-neutral-900 overflow-hidden">
+          <Image
+            src="https://images.unsplash.com/photo-1682706841281-f723c5bfcd83?q=80&w=2000&auto=format&fit=crop"
+            alt="Vital signs monitor"
+            fill
+            priority
+            sizes="100vw"
+            quality={75}
+            className="object-cover opacity-80"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/70 via-neutral-900/55 to-neutral-900/75 pointer-events-none" />
 
           <div className="relative z-10 max-w-4xl mx-auto px-6 pt-40 pb-20 text-center">
             <div className="flex items-center justify-center gap-3 mb-8">
