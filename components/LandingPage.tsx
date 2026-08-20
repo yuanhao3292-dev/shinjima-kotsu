@@ -9,7 +9,9 @@ import Image from 'next/image';
 import Logo from './Logo';
 import { translations, Language } from '../translations';
 import { UserProfile } from '../types';
-import { ArrowLeft, ArrowRight, CheckCircle, MapPin, Building, Activity, Shield, Armchair, FileText, Check, Zap, Coffee, Globe, ChevronDown, Heart, Bus, Utensils, Quote, Lock, Trophy, Car, Bath, Handshake, Mail, X, Phone, Loader2, User, Scan, Cpu, Microscope, Monitor, Map, Award, MessageSquare, Factory, Stethoscope, ExternalLink } from 'lucide-react';
+import {
+  ArrowRight, CheckCircle, Activity, Heart, Quote, Mail, X, Phone, Loader2, Scan
+} from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import { EMAILJS_PUBLIC_KEY } from '@/lib/config/emailjs';
 import HeroCarousel, { CarouselSlide } from './HeroCarousel';
@@ -346,7 +348,6 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 { name: currentLang === 'zh-TW' ? '無痛胃腸鏡' : currentLang === 'zh-CN' ? '无痛胃肠镜' : currentLang === 'ja' ? '無痛内視鏡' : 'Painless Endoscopy', desc: currentLang === 'zh-TW' ? '消化道全面檢查' : currentLang === 'zh-CN' ? '消化道全面检查' : currentLang === 'ja' ? '消化器系総合検査' : 'Complete GI Examination' },
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-3 text-sm">
-                  <CheckCircle size={16} className="text-white/90 flex-shrink-0" />
                   <div>
                     <span className="text-white">{item.name}</span>
                     <span className="text-white/75 ml-2">{item.desc}</span>
@@ -803,7 +804,6 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                 { name: currentLang === 'zh-TW' ? '成功獲得報酬' : currentLang === 'zh-CN' ? '成功获得报酬' : currentLang === 'ja' ? '成約で報酬' : 'Earn Commission', desc: currentLang === 'zh-TW' ? '每月結算介紹報酬' : currentLang === 'zh-CN' ? '每月结算介绍报酬' : currentLang === 'ja' ? '毎月紹介報酬を精算' : 'Monthly referral payouts' },
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-3 text-sm">
-                  <CheckCircle size={16} className="text-white/90 flex-shrink-0" />
                   <div>
                     <span className="text-white">{item.name}</span>
                     <span className="text-white/85 ml-2">{item.desc}</span>
@@ -1069,9 +1069,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                </button>
 
                <div className="mb-8 text-center">
-                  <div className="w-12 h-12 bg-brand-50 text-brand-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                     <User size={24} />
-                  </div>
                   <h3 className="text-2xl font-serif font-bold text-neutral-900">
                     {lang === 'zh-TW' ? 'B2B 合作夥伴申請' : lang === 'zh-CN' ? 'B2B 合作伙伴申请' : lang === 'ja' ? 'B2B パートナー登録' : 'Partner Application'}
                   </h3>
@@ -1145,9 +1142,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                {inquirySubmitStatus === 'success' ? (
                  // Success State
                  <div className="p-8 text-center">
-                   <div className="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                     <CheckCircle className="text-brand-700" size={32} />
-                   </div>
                    <h3 className="text-2xl font-serif font-bold text-neutral-900 mb-4">
                      {lang === 'zh-TW' ? '申請已提交' : lang === 'zh-CN' ? '申请已提交' : lang === 'ja' ? '申請を送信しました' : 'Application Submitted'}
                    </h3>
@@ -1166,9 +1160,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                  <>
                    <div className="p-6 border-b border-neutral-100">
                      <div className="flex items-center gap-3">
-                       <div className="w-10 h-10 bg-brand-50 text-brand-700 rounded-full flex items-center justify-center">
-                         <Handshake size={20} />
-                       </div>
                        <div>
                          <h3 className="text-xl font-serif font-bold text-neutral-900">
                            {lang === 'zh-TW' ? '同業合作申請' : lang === 'zh-CN' ? '同业合作申请' : lang === 'ja' ? 'パートナー申請' : 'Partner Inquiry'}

@@ -4,13 +4,7 @@ import RemoteImage from '@/components/RemoteImage';
 import Link from 'next/link';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 import {
-  MapPin, Phone, Clock, Train,
-  Award, Stethoscope, Activity, Shield,
-  Heart, Microscope, CheckCircle,
-  Zap, Target, Radio,
-  ArrowRight, Globe, Mail,
-  Thermometer, Syringe, BedDouble, CalendarCheck,
-  ChevronDown, ChevronUp, FileText, Droplets, Dna, Beaker,
+  Phone, Award, Stethoscope, Activity, Shield, Heart, Microscope, CheckCircle, Zap, Target, Radio, ArrowRight, Globe, Mail, Thermometer, Syringe, BedDouble, CalendarCheck, ChevronDown, ChevronUp
 } from 'lucide-react';
 import { useLanguage4, type Language } from '@/hooks/useLanguage';
 
@@ -595,7 +589,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {STATS.map((s, i) => (
               <div key={i} className="bg-white rounded-2xl p-6 text-center border hover:shadow-lg transition">
-                <s.icon size={32} className="text-brand-600 mx-auto mb-3" />
                 <p className="text-3xl font-bold text-neutral-900">{s.value}</p>
                 <p className="text-neutral-500 text-sm mt-1">{t(s.label, lang)}</p>
               </div>
@@ -634,9 +627,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
           <div className="grid md:grid-cols-3 gap-6">
             {/* Location */}
             <div className="bg-white rounded-2xl p-8 border hover:shadow-lg transition">
-              <div className="w-16 h-16 bg-brand-50 rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                <MapPin size={32} className="text-brand-600" />
-              </div>
               <h3 className="text-xl font-bold text-neutral-900 mb-3 text-center">{t(tr.facilityLocation, lang)}</h3>
               <p className="text-neutral-600 text-center leading-relaxed">{t(tr.facilityLocationDesc, lang)}</p>
               <div className="mt-6 text-center">
@@ -648,18 +638,13 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
 
             {/* Equipment */}
             <div className="bg-white rounded-2xl p-8 border hover:shadow-lg transition">
-              <div className="w-16 h-16 bg-brand-50 rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                <Microscope size={32} className="text-brand-600" />
-              </div>
               <h3 className="text-xl font-bold text-neutral-900 mb-3 text-center">{t(tr.facilityEquipment, lang)}</h3>
               <p className="text-neutral-600 text-center leading-relaxed">{t(tr.facilityEquipmentDesc, lang)}</p>
               <div className="mt-6 space-y-2">
                 <div className="flex items-center gap-2 text-sm text-neutral-600">
-                  <CheckCircle size={16} className="text-brand-600 shrink-0" />
                   <span>{lang === 'ja' ? '血管造影装置' : lang === 'en' ? 'Angiography System' : '血管造影设备'}</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-neutral-600">
-                  <CheckCircle size={16} className="text-brand-600 shrink-0" />
                   <span>{lang === 'ja' ? '温熱治療機器' : lang === 'en' ? 'Hyperthermia System' : '温热治疗仪器'}</span>
                 </div>
               </div>
@@ -667,9 +652,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
 
             {/* Environment */}
             <div className="bg-white rounded-2xl p-8 border hover:shadow-lg transition">
-              <div className="w-16 h-16 bg-brand-50 rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                <BedDouble size={32} className="text-brand-600" />
-              </div>
               <h3 className="text-xl font-bold text-neutral-900 mb-3 text-center">{t(tr.facilityEnvironment, lang)}</h3>
               <p className="text-neutral-600 text-center leading-relaxed">{t(tr.facilityEnvironmentDesc, lang)}</p>
               <div className="mt-6 text-center">
@@ -771,9 +753,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
           {/* Day Room Info */}
           <div className="mt-8 bg-white rounded-2xl p-6 border">
             <div className="flex items-start gap-4">
-              <div className="w-16 h-16 bg-brand-50 rounded-xl flex items-center justify-center shrink-0">
-                <BedDouble size={28} className="text-brand-600" />
-              </div>
               <div className="flex-1">
                 <h4 className="font-bold text-neutral-900 mb-2">
                   {lang === 'ja' ? '共用デイルーム' : lang === 'en' ? 'Shared Day Room' : lang === 'zh-TW' ? '共用日間活動室' : '共用日间活动室'}
@@ -799,22 +778,16 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
             {/* IGT Technical Details */}
             <div className="brand-gradient-solid rounded-2xl p-8 text-white">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                  <Syringe size={24} className="text-white" />
-                </div>
                 <h3 className="text-2xl font-bold">{t(tr.techIGTDetail, lang)}</h3>
               </div>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <CheckCircle size={20} className="shrink-0 mt-1 text-brand-700" />
                   <p className="leading-relaxed">{t(tr.techIGTPoint1, lang)}</p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle size={20} className="shrink-0 mt-1 text-brand-700" />
                   <p className="leading-relaxed">{t(tr.techIGTPoint2, lang)}</p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle size={20} className="shrink-0 mt-1 text-brand-700" />
                   <p className="leading-relaxed">{t(tr.techIGTPoint3, lang)}</p>
                 </div>
               </div>
@@ -828,22 +801,16 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
             {/* Hyperthermia Technical Details */}
             <div className="brand-gradient-solid rounded-2xl p-8 text-white">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                  <Thermometer size={24} className="text-white" />
-                </div>
                 <h3 className="text-2xl font-bold">{t(tr.techHyperDetail, lang)}</h3>
               </div>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <CheckCircle size={20} className="shrink-0 mt-1 text-brand-700" />
                   <p className="leading-relaxed">{t(tr.techHyperPoint1, lang)}</p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle size={20} className="shrink-0 mt-1 text-brand-700" />
                   <p className="leading-relaxed">{t(tr.techHyperPoint2, lang)}</p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <CheckCircle size={20} className="shrink-0 mt-1 text-brand-700" />
                   <p className="leading-relaxed">{t(tr.techHyperPoint3, lang)}</p>
                 </div>
               </div>
@@ -881,17 +848,11 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
           <div className="grid md:grid-cols-2 gap-8">
             {/* IGT */}
             <div className="bg-gradient-to-br from-brand-50 to-brand-100 rounded-2xl p-8 border border-brand-200">
-              <div className="w-14 h-14 bg-brand-600 rounded-xl flex items-center justify-center mb-4">
-                <Syringe size={28} className="text-white" />
-              </div>
               <h3 className="text-xl font-bold text-neutral-900 mb-3">{t(tr.igtTitle, lang)}</h3>
               <p className="text-neutral-700 leading-relaxed">{t(tr.igtDesc, lang)}</p>
             </div>
             {/* Hyperthermia */}
             <div className="bg-gradient-to-br from-brand-50 to-brand-100 rounded-2xl p-8 border border-brand-200">
-              <div className="w-14 h-14 bg-brand-500 rounded-xl flex items-center justify-center mb-4">
-                <Thermometer size={28} className="text-white" />
-              </div>
               <h3 className="text-xl font-bold text-neutral-900 mb-3">{t(tr.hyperTitle, lang)}</h3>
               <p className="text-neutral-700 leading-relaxed">{t(tr.hyperDesc, lang)}</p>
             </div>
@@ -916,9 +877,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                 className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-neutral-50 transition"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Syringe className="text-brand-600" size={24} />
-                  </div>
                   <div>
                     <h3 className="text-lg font-bold text-neutral-900">
                       {lang === 'ja' ? '肿瘤血管内介入治疗' : lang === 'en' ? 'Tumor Endovascular Intervention' : lang === 'zh-TW' ? '腫瘤血管內介入治療' : '肿瘤血管内介入治疗'}
@@ -981,9 +939,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                 className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-neutral-50 transition"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Thermometer className="text-brand-600" size={24} />
-                  </div>
                   <div>
                     <h3 className="text-lg font-bold text-neutral-900">
                       {lang === 'ja' ? '温熱治療' : lang === 'en' ? 'Hyperthermia Treatment' : lang === 'zh-TW' ? '溫熱治療' : '温热治疗'}
@@ -1028,9 +983,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                 className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-neutral-50 transition"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Shield className="text-brand-600" size={24} />
-                  </div>
                   <div>
                     <h3 className="text-lg font-bold text-neutral-900">
                       {lang === 'ja' ? 'AFTVac治療' : lang === 'en' ? 'AFTVac Therapy' : lang === 'zh-TW' ? 'AFTVac治療' : 'AFTVac治疗'}
@@ -1102,9 +1054,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                 className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-neutral-50 transition"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Beaker className="text-brand-600" size={24} />
-                  </div>
                   <div>
                     <h3 className="text-lg font-bold text-neutral-900">
                       {lang === 'ja' ? '免疫細胞治療' : lang === 'en' ? 'Immune Cell Therapy' : lang === 'zh-TW' ? '免疫細胞治療' : '免疫细胞治疗'}
@@ -1172,9 +1121,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                 className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-neutral-50 transition"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Dna className="text-brand-600" size={24} />
-                  </div>
                   <div>
                     <h3 className="text-lg font-bold text-neutral-900">
                       {lang === 'ja' ? '幹細胞治療' : lang === 'en' ? 'Stem Cell Therapy' : lang === 'zh-TW' ? '幹細胞治療' : '干细胞治疗'}
@@ -1246,9 +1192,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                 className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-neutral-50 transition"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Droplets className="text-brand-600" size={24} />
-                  </div>
                   <div>
                     <h3 className="text-lg font-bold text-neutral-900">
                       {lang === 'ja' ? '幹細胞上清液治療' : lang === 'en' ? 'Stem Cell Supernatant Therapy' : lang === 'zh-TW' ? '幹細胞上清液治療' : '干细胞上清液治疗'}
@@ -1319,7 +1262,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
           <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {CANCERS.map((c, i) => (
               <div key={i} className="bg-white rounded-xl p-4 text-center border hover:border-brand-300 transition">
-                <c.icon size={24} className="text-brand-600 mx-auto mb-2" />
                 <p className="text-sm font-medium text-neutral-700">{t(c.name, lang)}</p>
               </div>
             ))}
@@ -1337,9 +1279,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {ADVANTAGES.map((a, i) => (
               <div key={i} className="bg-white rounded-2xl p-6 border hover:shadow-lg transition">
-                <div className="w-12 h-12 bg-brand-50 rounded-xl flex items-center justify-center mb-4">
-                  <a.icon size={24} className="text-brand-600" />
-                </div>
                 <h3 className="font-bold text-neutral-900 mb-2">{t(a.title, lang)}</h3>
                 <p className="text-neutral-600 text-sm leading-relaxed">{t(a.desc, lang)}</p>
               </div>
@@ -1394,9 +1333,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
             {/* Lymphedema Clinic */}
             <div className="bg-gradient-to-br from-brand-50 to-white rounded-2xl p-8 border border-brand-200 hover:shadow-lg transition">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-14 h-14 bg-brand-600 rounded-2xl flex items-center justify-center">
-                  <Heart size={28} className="text-white" />
-                </div>
                 <h3 className="text-2xl font-bold text-neutral-900">{t(tr.lymphedemaTitle, lang)}</h3>
               </div>
               <p className="text-neutral-600 mb-4 leading-relaxed">{t(tr.lymphedemaDesc, lang)}</p>
@@ -1408,11 +1344,9 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               </div>
               <ul className="space-y-2 text-sm text-neutral-600">
                 <li className="flex items-start gap-2">
-                  <CheckCircle size={16} className="text-brand-600 shrink-0 mt-0.5" />
                   <span>{lang === 'ja' ? '手術・放射線治療後のむくみに対応' : lang === 'en' ? 'Post-surgery & radiation edema care' : lang === 'zh-TW' ? '手術·放射治療後水腫護理' : '手术·放射治疗后水肿护理'}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle size={16} className="text-brand-600 shrink-0 mt-0.5" />
                   <span>{lang === 'ja' ? 'セラピスト（看護師）による専門ケア' : lang === 'en' ? 'Specialized care by therapist (RN)' : lang === 'zh-TW' ? '治療師（護士）專業護理' : '治疗师（护士）专业护理'}</span>
                 </li>
               </ul>
@@ -1421,9 +1355,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
             {/* Cancer Screening */}
             <div className="bg-gradient-to-br from-brand-50 to-white rounded-2xl p-8 border border-brand-200 hover:shadow-lg transition">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-14 h-14 bg-brand-600 rounded-2xl flex items-center justify-center">
-                  <Microscope size={28} className="text-white" />
-                </div>
                 <h3 className="text-2xl font-bold text-neutral-900">{t(tr.cancerScreeningTitle, lang)}</h3>
               </div>
               <p className="text-neutral-600 mb-4 leading-relaxed">{t(tr.cancerScreeningDesc, lang)}</p>
@@ -1435,15 +1366,12 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               </div>
               <ul className="space-y-2 text-sm text-neutral-600">
                 <li className="flex items-start gap-2">
-                  <CheckCircle size={16} className="text-brand-600 shrink-0 mt-0.5" />
                   <span>{lang === 'ja' ? 'CT検査と血液検査の組み合わせ' : lang === 'en' ? 'Combined CT & blood tests' : lang === 'zh-TW' ? 'CT檢查與血液檢查結合' : 'CT检查与血液检查结合'}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle size={16} className="text-brand-600 shrink-0 mt-0.5" />
                   <span>{lang === 'ja' ? '当日に放射線診断専門医が結果説明' : lang === 'en' ? 'Same-day results by radiologist' : lang === 'zh-TW' ? '當天由放射診斷專科醫師說明' : '当天由放射诊断专科医师说明'}</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle size={16} className="text-brand-600 shrink-0 mt-0.5" />
                   <span>{lang === 'ja' ? 'スマホアプリ『MeDaCa』で結果確認' : lang === 'en' ? 'Results via MeDaCa app' : lang === 'zh-TW' ? '透過MeDaCa應用程式確認結果' : '通过MeDaCa应用程序确认结果'}</span>
                 </li>
               </ul>
@@ -1464,9 +1392,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
             {/* Monthly Treatments */}
             <div className="brand-gradient-solid rounded-2xl p-8 text-white">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                  <Activity size={24} className="text-white" />
-                </div>
                 <h3 className="text-2xl font-bold">{t(tr.resultsMonthly, lang)}</h3>
               </div>
               <p className="text-brand-700 leading-relaxed">{t(tr.resultsMonthlyDesc, lang)}</p>
@@ -1476,7 +1401,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                     <p className="text-4xl font-bold">60-70</p>
                     <p className="text-sm text-brand-700 mt-1">{lang === 'ja' ? '件/月' : lang === 'en' ? 'cases/month' : '件/月'}</p>
                   </div>
-                  <CheckCircle size={40} className="text-brand-700" />
                 </div>
               </div>
             </div>
@@ -1484,9 +1408,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
             {/* Conference Presentations */}
             <div className="brand-gradient-solid rounded-2xl p-8 text-white">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                  <Award size={24} className="text-white" />
-                </div>
                 <h3 className="text-2xl font-bold">{t(tr.resultsConference, lang)}</h3>
               </div>
               <p className="text-brand-700 leading-relaxed">{t(tr.resultsConferenceDesc, lang)}</p>
@@ -1527,9 +1448,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                 className="group bg-gradient-to-br from-brand-50 to-white rounded-2xl p-6 border border-brand-200 hover:border-brand-400 hover:shadow-lg transition"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-brand-600 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <Activity size={24} className="text-white" />
-                  </div>
                   <div className="flex-1">
                     <h3 className="text-lg font-bold text-neutral-900 mb-2 group-hover:text-brand-600 transition">
                       {t(media.title, lang)}
@@ -1561,9 +1479,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
               <div key={i} className="bg-white rounded-2xl p-8 border border-brand-200 hover:border-brand-400 hover:shadow-lg transition">
                 <div className="flex items-start gap-6">
                   <div className="flex flex-col items-center shrink-0">
-                    <div className="w-16 h-16 brand-gradient-solid rounded-2xl flex items-center justify-center mb-2">
-                      <achievement.icon size={32} className="text-white" />
-                    </div>
                     <div className="text-brand-600 font-bold text-lg">{achievement.year}</div>
                   </div>
                   <div className="flex-1">
@@ -1615,9 +1530,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
           <div className="grid md:grid-cols-3 gap-6">
             {/* Excellent Access */}
             <div className="bg-gradient-to-br from-brand-50 to-white rounded-2xl p-8 border border-brand-100 hover:shadow-lg transition">
-              <div className="w-14 h-14 bg-brand-600 rounded-2xl flex items-center justify-center mb-4">
-                <MapPin size={28} className="text-white" />
-              </div>
               <h3 className="text-xl font-bold text-neutral-900 mb-3">{t(tr.intlLocation, lang)}</h3>
               <p className="text-neutral-600 text-sm leading-relaxed">{t(tr.intlLocationDesc, lang)}</p>
             </div>
@@ -1633,9 +1545,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
 
             {/* Medical Visa */}
             <div className="bg-gradient-to-br from-brand-50 to-white rounded-2xl p-8 border border-brand-100 hover:shadow-lg transition">
-              <div className="w-14 h-14 bg-brand-600 rounded-2xl flex items-center justify-center mb-4">
-                <CheckCircle size={28} className="text-white" />
-              </div>
               <h3 className="text-xl font-bold text-neutral-900 mb-3">{t(tr.intlVisa, lang)}</h3>
               <p className="text-neutral-600 text-sm leading-relaxed">{t(tr.intlVisaDesc, lang)}</p>
             </div>
@@ -1654,7 +1563,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
             {FLOW_STEPS.map((s, i) => (
               <div key={i} className="relative bg-white rounded-xl p-5 border text-center">
                 <div className="text-xs font-bold text-brand-600 mb-2">STEP {s.step}</div>
-                <s.icon size={28} className="text-brand-600 mx-auto mb-2" />
                 <h4 className="font-bold text-neutral-900 text-sm mb-1">{t(s.title, lang)}</h4>
                 <p className="text-xs text-neutral-500">{t(s.desc, lang)}</p>
                 {i < FLOW_STEPS.length - 1 && (
@@ -1677,7 +1585,6 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
             <div className="bg-neutral-50 rounded-2xl p-6 border">
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <MapPin size={20} className="text-brand-600 mt-1 shrink-0" />
                   <div>
                     <p className="font-medium text-neutral-900">〒598-0047</p>
                     <p className="text-neutral-600 text-sm">{t(tr.accessAddress1, lang)}</p>
@@ -1685,11 +1592,9 @@ export default function IGTCContent({ isGuideEmbed, guideSlug }: Props) {
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Train size={20} className="text-brand-600 shrink-0" />
                   <p className="text-neutral-600 text-sm">{t(tr.accessStation, lang)}</p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Clock size={20} className="text-brand-600 shrink-0" />
                   <div>
                     <p className="text-neutral-600 text-sm">{t(tr.accessHours, lang)}</p>
                     <p className="text-neutral-500 text-xs">{t(tr.accessClosed, lang)}</p>

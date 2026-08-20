@@ -4,7 +4,7 @@ import { useState,  Suspense } from 'react';
 import { useLanguage4 } from '@/hooks/useLanguage';
 import Link from 'next/link';
 import Image from 'next/image';
-import { CheckCircle, Car, Building, Check, Shield, Lock, CreditCard, ArrowLeft } from 'lucide-react';
+import { Car, Building, Check, Lock, ArrowLeft } from 'lucide-react';
 import SmartBackLink from '@/components/SmartBackLink';
 import ProviderBanner, { useProviderKey } from '@/components/ProviderBanner';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
@@ -390,7 +390,6 @@ export default function PackageDetailContent({
               <div className={`space-y-2.5 text-sm ${pkg.isVIP ? '' : 'text-neutral-700'}`}>
                 {pkg.features.map((feature, idx) => (
                   <div key={idx} className="flex gap-2">
-                    <CheckCircle size={16} className={`shrink-0 mt-0.5 ${pkg.colors.check}`} />
                     <span>{feature}</span>
                   </div>
                 ))}
@@ -479,9 +478,6 @@ export default function PackageDetailContent({
                       return (
                         <button key={service.id} type="button" onClick={() => setSelectedAddOns(isSelected ? selectedAddOns.filter(id => id !== service.id) : [...selectedAddOns, service.id])}
                           className={`w-full p-4 border-2 text-left transition-all flex items-start gap-4 ${isSelected ? 'border-brand-900 bg-neutral-50' : 'border-neutral-200 hover:border-neutral-300'}`}>
-                          <div className={`w-10 h-10 flex items-center justify-center flex-shrink-0 ${isSelected ? 'brand-gradient-deep text-white' : 'bg-neutral-100 text-neutral-500'}`}>
-                            <ServiceIcon size={20} />
-                          </div>
                           <div className="flex-grow">
                             <div className="flex items-center justify-between">
                               <span className={`font-medium ${isSelected ? 'text-neutral-900' : 'text-neutral-700'}`}>{service.name}</span>
@@ -552,8 +548,8 @@ export default function PackageDetailContent({
 
                 <div className="mt-6 flex items-center justify-center gap-6 text-xs text-neutral-400">
                   <div className="flex items-center gap-1.5"><Lock size={14} /><span>{t.securitySSL}</span></div>
-                  <div className="flex items-center gap-1.5"><CreditCard size={14} /><span>{t.securityStripe}</span></div>
-                  <div className="flex items-center gap-1.5"><Shield size={14} /><span>{t.securityPrivacy}</span></div>
+                  <div className="flex items-center gap-1.5"><span>{t.securityStripe}</span></div>
+                  <div className="flex items-center gap-1.5"><span>{t.securityPrivacy}</span></div>
                 </div>
               </form>
             </div>

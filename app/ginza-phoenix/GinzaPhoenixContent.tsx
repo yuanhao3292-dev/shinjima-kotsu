@@ -3,16 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import {
-  MapPin, Phone, Clock, Train,
-  Award, Shield, Heart, Brain,
-  Syringe, Microscope, Sparkles, CheckCircle,
-  ArrowRight, Globe,
-  Lock, Activity,
-  Droplets, FlaskConical, Dna, Scan,
-  ChevronDown, ChevronUp, Stethoscope,
-  GraduationCap, Building2, CircleDot,
-  Zap, ShieldCheck, FileText, HelpCircle,
-  Beaker,
+  Award, Shield, Heart, Brain, Syringe, Microscope, Sparkles, CheckCircle, ArrowRight, Globe, Lock, Activity, Droplets, FlaskConical, Dna, Scan, ChevronDown, ChevronUp, Stethoscope, GraduationCap, Building2, CircleDot, Zap, ShieldCheck, FileText, Beaker
 } from 'lucide-react';
 import { useLanguage4, type Language } from '@/hooks/useLanguage';
 
@@ -570,9 +561,6 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {STATS.map((stat, i) => (
               <div key={i} className="text-center bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 transition">
-                <div className="w-10 h-10 mx-auto mb-3 rounded-full bg-white/10 flex items-center justify-center text-white/70">
-                  {stat.icon}
-                </div>
                 <div className="text-3xl md:text-4xl font-bold text-white">
                   {stat.value}<span className="text-lg text-white/50 ml-1">{stat.unit[lang]}</span>
                 </div>
@@ -604,7 +592,6 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
                   { ja: '中国語対応', 'zh-TW': '中文服務', 'zh-CN': '中文服务', en: 'Chinese Support' },
                 ].map((tag, i) => (
                   <span key={i} className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-neutral-100 text-neutral-900 text-xs font-medium rounded-full border border-neutral-200">
-                    <CheckCircle size={12} />
                     {(tag as Record<Language, string>)[lang]}
                   </span>
                 ))}
@@ -631,9 +618,6 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
           <div className="grid md:grid-cols-2 gap-6">
             {WHY_CHOOSE_US.map((item, i) => (
               <div key={i} className="bg-white rounded-2xl p-8 border border-neutral-200 hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 bg-neutral-200 rounded-xl flex items-center justify-center text-neutral-900 mb-4">
-                  {item.icon}
-                </div>
                 <h3 className="text-lg font-bold text-neutral-800 mb-2">{item.title[lang]}</h3>
                 <p className="text-sm text-neutral-800/70 leading-relaxed">{item.desc[lang]}</p>
               </div>
@@ -659,12 +643,6 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
                 onClick={() => setExpandedTherapy(expandedTherapy === i ? null : i)}
               >
                 <div className="p-8">
-                  <div
-                    className="w-14 h-14 rounded-2xl flex items-center justify-center text-white mb-5"
-                    style={{ backgroundColor: therapy.accent }}
-                  >
-                    {therapy.icon}
-                  </div>
                   <h3 className="text-xl font-bold text-neutral-800 mb-3">{therapy.title[lang]}</h3>
                   <p className={`text-sm text-neutral-800/70 leading-relaxed ${expandedTherapy === i ? '' : 'line-clamp-3'}`}>
                     {therapy.desc[lang]}
@@ -695,7 +673,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mt-10">
             {APPLICABLE_CANCERS.map((item, i) => (
               <div key={i} className="flex items-center gap-2.5 px-4 py-3 rounded-xl border border-neutral-200 bg-white text-sm font-medium text-neutral-900 hover:bg-neutral-200 transition-colors">
-                <span className="text-brand-700">{item.icon}</span>
+                <span className="text-brand-700"></span>
                 <span>{item.name[lang]}</span>
               </div>
             ))}
@@ -724,9 +702,6 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
                     className="w-full flex items-center justify-between px-6 py-4 hover:bg-neutral-100 transition-colors"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-lg bg-neutral-200 flex items-center justify-center text-neutral-900">
-                        <Icon size={18} />
-                      </div>
                       <span className="font-bold text-neutral-800 text-sm md:text-base">{cat.category[lang]}</span>
                       <span className="text-xs text-brand-700 bg-neutral-100 px-2 py-0.5 rounded-full">
                         {cat.items.length}
@@ -793,7 +768,7 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
                 {/* Content */}
                 <div className="pb-8 pt-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-neutral-900">{step.icon}</span>
+                    <span className="text-neutral-900"></span>
                     <h3 className="text-lg font-bold text-neutral-800">{step.title[lang]}</h3>
                   </div>
                   <p className="text-sm text-neutral-800/70 leading-relaxed">{step.desc[lang]}</p>
@@ -842,7 +817,6 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
                   { ja: '厳格な品質管理プロトコル', 'zh-TW': '嚴格的品質管理協議', 'zh-CN': '严格的品质管理协议', en: 'Strict quality control protocols' },
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-2.5">
-                    <CheckCircle size={16} className="text-neutral-900 mt-0.5 shrink-0" />
                     <p className="text-sm text-neutral-800/80">{(item as Record<Language, string>)[lang]}</p>
                   </div>
                 ))}
@@ -888,7 +862,6 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
                   <div className="space-y-1.5">
                     {DOCTOR_CREDENTIALS.map((cred, i) => (
                       <div key={i} className="flex items-start gap-2">
-                        <GraduationCap size={14} className="text-brand-700 mt-0.5 shrink-0" />
                         <span className="text-xs text-neutral-800/80">{cred[lang]}</span>
                       </div>
                     ))}
@@ -917,7 +890,6 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
                   <div className="space-y-1">
                     {DOCTOR_MEMBERSHIPS.map((mem, i) => (
                       <div key={i} className="flex items-start gap-2">
-                        <Award size={14} className="text-brand-700 mt-0.5 shrink-0" />
                         <span className="text-xs text-neutral-800/80">{mem[lang]}</span>
                       </div>
                     ))}
@@ -995,7 +967,6 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
             {/* Details */}
             <div className="space-y-5">
               <div className="flex items-start gap-3">
-                <MapPin size={20} className="text-brand-700 mt-0.5 shrink-0" />
                 <div>
                   <p className="font-bold text-neutral-800 text-sm">
                     {lang === 'ja' ? '銀座鳳凰クリニック' :
@@ -1012,7 +983,6 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Train size={20} className="text-brand-700 mt-0.5 shrink-0" />
                 <div className="text-sm text-neutral-800/70 space-y-1">
                   <p>
                     {lang === 'ja' ? 'JR秋葉原駅 電気街口 徒歩2分' :
@@ -1029,7 +999,6 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Clock size={20} className="text-brand-700 mt-0.5 shrink-0" />
                 <div>
                   <p className="text-sm text-neutral-800/70">10:00 - 17:00</p>
                   <p className="text-xs text-neutral-800/50">
@@ -1041,7 +1010,6 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Building2 size={20} className="text-brand-700 mt-0.5 shrink-0" />
                 <div>
                   <p className="text-sm text-neutral-800/70">
                     {lang === 'ja' ? '運営: 株式会社青山名城国際医療研究所' :
@@ -1081,7 +1049,6 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
                     className="w-full flex items-start justify-between px-6 py-4 hover:bg-neutral-100 transition-colors text-left"
                   >
                     <div className="flex items-start gap-3">
-                      <HelpCircle size={18} className="text-brand-700 mt-0.5 shrink-0" />
                       <span className="font-medium text-neutral-800 text-sm md:text-base">{faq.q[lang]}</span>
                     </div>
                     {isOpen ? <ChevronUp size={18} className="text-brand-700 mt-0.5 shrink-0" /> : <ChevronDown size={18} className="text-brand-700 mt-0.5 shrink-0" />}
@@ -1108,7 +1075,6 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
 
           {/* Free consultation highlight */}
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-400/20 border border-brand-400/30 rounded-full text-brand-700 text-sm mb-8">
-            <Sparkles size={14} />
             {lang === 'ja' ? '初回カウンセリング無料' :
              lang === 'en' ? 'Free Initial Counseling' :
              lang === 'zh-TW' ? '初次諮詢免費' :
@@ -1145,7 +1111,6 @@ export default function GinzaPhoenixContent({ isGuideEmbed, guideSlug }: GinzaPh
               {lang === 'ja' ? '安全なお支払い' : lang === 'en' ? 'Secure Payment' : '安全支付'}
             </span>
             <span className="flex items-center gap-2">
-              <Shield size={14} />
               {lang === 'ja' ? '持牌旅行社保障' : lang === 'en' ? 'Licensed Travel Agency' : '持牌旅行社保障'}
             </span>
           </div>

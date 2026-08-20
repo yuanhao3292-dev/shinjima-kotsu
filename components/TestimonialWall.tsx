@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Star, Quote, MapPin } from 'lucide-react';
+import { Star } from 'lucide-react';
 
 // -----------------------------------------------------------------------------
 // Data: 100 Real B2B Reviews
@@ -156,7 +156,6 @@ const ReviewCard: React.FC<{ review: Review }> = ({ review }) => (
         </div>
     </div>
     <div className="relative">
-        <Quote size={16} className="absolute -top-1 -left-1 text-neutral-200 transform -scale-x-100" />
         <p className="text-sm text-neutral-600 leading-relaxed pl-2 relative z-10 line-clamp-3">
             {review.text}
         </p>

@@ -3,11 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import {
-  MapPin, Clock, ChevronDown, ChevronUp,
-  Shield, Zap, Target, CheckCircle, ArrowRight,
-  Activity, Users, Award, Building2, Globe,
-  Heart, Brain, Microscope, HelpCircle, Mail,
-  Calendar, FileText, Stethoscope, Sparkles, Train,
+  Clock, ChevronDown, ChevronUp, Shield, Zap, Target, ArrowRight, Activity, Award, Globe, Heart, Brain, Microscope, FileText, Stethoscope
 } from 'lucide-react';
 import { useLanguage4, type Language } from '@/hooks/useLanguage';
 
@@ -288,7 +284,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
             { val: t.stat4[lang], label: t.stat4Label[lang], icon: <Shield size={20} /> },
           ].map((s, i) => (
             <div key={i} className="flex flex-col items-center gap-2">
-              <div className="opacity-80">{s.icon}</div>
+              <div className="opacity-80"></div>
               <div className="text-2xl md:text-3xl font-bold">{s.val}</div>
               <div className="text-sm text-neutral-600">{s.label}</div>
             </div>
@@ -334,9 +330,6 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
             {/* Bragg Peak Effect */}
             <div className="bg-white rounded-2xl shadow-lg p-8 border-l-4 border-brand-800">
               <div className="flex items-center gap-3 mb-4">
-                <div className="bg-brand-800/10 p-3 rounded-lg">
-                  <Target size={28} className="text-neutral-900" />
-                </div>
                 <h3 className="text-xl font-bold text-[#333]">{t.braggPeakTitle[lang]}</h3>
               </div>
               <p className="text-[#555] leading-relaxed">{t.braggPeakDesc[lang]}</p>
@@ -345,9 +338,6 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
             {/* Carbon Ion Biological Effectiveness */}
             <div className="bg-white rounded-2xl shadow-lg p-8 border-l-4 border-brand-500">
               <div className="flex items-center gap-3 mb-4">
-                <div className="bg-brand-500/10 p-3 rounded-lg">
-                  <Microscope size={28} className="text-brand-700" />
-                </div>
                 <h3 className="text-xl font-bold text-[#333]">{t.carbonIonTitle[lang]}</h3>
               </div>
               <p className="text-[#555] leading-relaxed">{t.carbonIonDesc[lang]}</p>
@@ -370,7 +360,6 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
             {/* Biological Effect */}
             <div className="bg-gradient-to-br from-neutral-100 to-white rounded-xl shadow-md p-6 border-t-4 border-brand-800">
               <h3 className="text-lg font-bold text-[#333] mb-4 flex items-center gap-2">
-                <Activity size={20} className="text-neutral-900" />
                 {t.comp1Metric[lang]}
               </h3>
               <div className="space-y-3">
@@ -392,7 +381,6 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
             {/* Treatment Duration */}
             <div className="bg-gradient-to-br from-neutral-100 to-white rounded-xl shadow-md p-6 border-t-4 border-brand-500">
               <h3 className="text-lg font-bold text-[#333] mb-4 flex items-center gap-2">
-                <Clock size={20} className="text-brand-500" />
                 {t.comp2Metric[lang]}
               </h3>
               <div className="space-y-3">
@@ -414,7 +402,6 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
             {/* Side Effects */}
             <div className="bg-gradient-to-br from-neutral-100 to-white rounded-xl shadow-md p-6 border-t-4 border-brand-500">
               <h3 className="text-lg font-bold text-[#333] mb-4 flex items-center gap-2">
-                <Shield size={20} className="text-brand-500" />
                 {t.comp3Metric[lang]}
               </h3>
               <div className="space-y-3">
@@ -436,7 +423,6 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
             {/* Hypoxic Tumor Effect */}
             <div className="bg-gradient-to-br from-neutral-100 to-white rounded-xl shadow-md p-6 border-t-4 border-brand-500">
               <h3 className="text-lg font-bold text-[#333] mb-4 flex items-center gap-2">
-                <Heart size={20} className="text-brand-500" />
                 {t.comp4Metric[lang]}
               </h3>
               <div className="space-y-3">
@@ -475,7 +461,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
             ].map((adv, i) => (
               <div key={i} className="bg-white rounded-xl p-8 shadow-md hover:shadow-xl transition-all">
                 <div className="flex items-center justify-center w-16 h-16 rounded-full mb-6" style={{ backgroundColor: `${adv.color}15` }}>
-                  <div style={{ color: adv.color }}>{adv.icon}</div>
+                  <div style={{ color: adv.color }}></div>
                 </div>
                 <h3 className="text-xl font-bold text-[#333] mb-3">{adv.title[lang]}</h3>
                 <p className="text-[#555] leading-relaxed">{adv.desc[lang]}</p>
@@ -498,7 +484,7 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {cancerTypes.map((cancer, i) => (
               <div key={i} className="flex items-center gap-3 bg-neutral-100 rounded-lg px-4 py-3 hover:bg-brand-800/10 transition-all">
-                <div className="text-neutral-900">{cancer.icon}</div>
+                <div className="text-neutral-900"></div>
                 <span className="text-sm font-medium text-[#333]">
                   {lang === 'ja' ? cancer.ja : lang === 'zh-TW' ? cancer.tw : lang === 'zh-CN' ? cancer.cn : cancer.en}
                 </span>
@@ -527,15 +513,11 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
                   <h3 className="text-2xl font-bold text-[#333] mb-2">{t.service1Name[lang]}</h3>
                   <p className="text-sm text-[#666]">{t.service1Desc[lang]}</p>
                 </div>
-                <div className="text-neutral-900 flex-shrink-0 ml-4">
-                  <FileText size={40} />
-                </div>
               </div>
 
               <div className="space-y-3 mb-6">
                 {[t.service1Feature1[lang], t.service1Feature2[lang], t.service1Feature3[lang], t.service1Feature4[lang]].map((feature, idx) => (
                   <div key={idx} className="flex items-start gap-3">
-                    <CheckCircle size={18} className="text-neutral-900 flex-shrink-0 mt-0.5" />
                     <span className="text-sm text-[#555]">{feature}</span>
                   </div>
                 ))}
@@ -570,7 +552,6 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
               <div className="space-y-3 mb-6">
                 {[t.service2Feature1[lang], t.service2Feature2[lang], t.service2Feature3[lang], t.service2Feature4[lang]].map((feature, idx) => (
                   <div key={idx} className="flex items-start gap-3">
-                    <CheckCircle size={18} className="text-brand-700 flex-shrink-0 mt-0.5" />
                     <span className="text-sm text-[#555]">{feature}</span>
                   </div>
                 ))}
@@ -608,9 +589,6 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
                 <div className="flex items-center justify-center w-14 h-14 rounded-full brand-gradient-deep text-white font-bold text-xl mb-4 mx-auto">
                   {step.step}
                 </div>
-                <div className="flex items-center justify-center text-neutral-900 mb-3">
-                  {step.icon}
-                </div>
                 <h3 className="text-lg font-bold text-[#333] mb-2 text-center">{step.title[lang]}</h3>
                 <p className="text-sm text-[#555] text-center leading-relaxed">{step.desc[lang]}</p>
                 {i < treatmentSteps.length - 1 && (
@@ -641,9 +619,6 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
               { icon: <Award size={24} />, label: { ja: '小型化装置', 'zh-TW': '小型化裝置', 'zh-CN': '小型化装置', en: 'Miniaturized System', ko: '소형화 장치' } },
             ].map((feat, i) => (
               <div key={i} className="bg-neutral-100 rounded-xl p-6 text-center">
-                <div className="flex items-center justify-center text-neutral-900 mb-3">
-                  {feat.icon}
-                </div>
                 <p className="font-semibold text-[#333]">{feat.label[lang]}</p>
               </div>
             ))}
@@ -662,14 +637,12 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
           </div>
           <div className="bg-white rounded-xl p-8 shadow-md space-y-4">
             <div className="flex items-start gap-3">
-              <MapPin size={20} className="text-neutral-900 mt-1 flex-shrink-0" />
               <div>
                 <p className="font-semibold text-[#333] mb-1">Address</p>
                 <p className="text-[#555]">{t.address[lang]}</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <Train size={20} className="text-neutral-900 mt-1 flex-shrink-0" />
               <div>
                 <p className="font-semibold text-[#333] mb-1">Access</p>
                 <p className="text-[#555] whitespace-pre-line">{t.accessInfo[lang]}</p>
@@ -696,7 +669,6 @@ export default function OsakaHimakContent({ isGuideEmbed, guideSlug }: OsakaHima
                   className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-neutral-200 transition-all"
                 >
                   <div className="flex items-center gap-3">
-                    <HelpCircle size={20} className="text-neutral-900 flex-shrink-0" />
                     <span className="font-semibold text-[#333]">{faq.q[lang]}</span>
                   </div>
                   {openFaq === i ? <ChevronUp size={20} className="text-[#666]" /> : <ChevronDown size={20} className="text-[#666]" />}

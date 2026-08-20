@@ -4,15 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  MapPin, Phone, Clock, Train,
-  Award, Shield, Heart,
-  Syringe, Sparkles, CheckCircle,
-  ArrowRight,
-  Lock, Users, Activity,
-  Zap, Eye,
-  Building2, Scissors,
-  Star, ShieldCheck,
-  Stethoscope, Droplets, ChevronDown,
+  Shield, Syringe, Sparkles, ArrowRight, Lock, Users, Activity, Zap, Scissors, ShieldCheck, Stethoscope, Droplets, ChevronDown
 } from 'lucide-react';
 import { useLanguage4, type Language } from '@/hooks/useLanguage';
 
@@ -505,7 +497,6 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-neutral-100 group">
                   <div className={`bg-gradient-to-r ${service.gradient} px-5 py-2.5 flex items-center justify-between`}>
                     <span className="text-white text-xs font-bold tracking-wide">{service.badge[lang]}</span>
-                    <Icon size={16} className="text-white/60" />
                   </div>
                   <div className="relative aspect-[16/7] overflow-hidden">
                     <Image
@@ -564,15 +555,12 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 </h4>
                 <ul className="space-y-2 mb-5">
                   <li className="flex items-start gap-2 text-sm text-neutral-400">
-                    <CheckCircle size={14} className="text-brand-700 mt-0.5 shrink-0" />
                     <span>{lang === 'ja' ? '薬不要・副作用が少ない物理治療' : lang === 'en' ? 'Drug-free physical therapy with few side effects' : lang === 'zh-TW' ? '無需藥物、副作用較少的物理治療' : '无需药物、副作用较少的物理治疗'}</span>
                   </li>
                   <li className="flex items-start gap-2 text-sm text-neutral-400">
-                    <CheckCircle size={14} className="text-brand-700 mt-0.5 shrink-0" />
                     <span>{lang === 'ja' ? '低強度衝撃波で陰茎血管新生を促進' : lang === 'en' ? 'Promotes penile neovascularization' : lang === 'zh-TW' ? '促進陰莖血管新生' : '促进阴茎血管新生'}</span>
                   </li>
                   <li className="flex items-start gap-2 text-sm text-neutral-400">
-                    <CheckCircle size={14} className="text-brand-700 mt-0.5 shrink-0" />
                     <span>{lang === 'ja' ? '週1回×6回で1サイクル' : lang === 'en' ? 'Once weekly × 6 sessions per cycle' : lang === 'zh-TW' ? '每週1次×6次為1個週期' : '每周1次×6次为1个周期'}</span>
                   </li>
                 </ul>
@@ -593,9 +581,6 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 </span>
               </div>
               <div className="p-6">
-                <div className="w-10 h-10 bg-brand-900/10 text-neutral-900 rounded-full flex items-center justify-center mb-4">
-                  <Syringe size={20} />
-                </div>
                 <div className="space-y-0">
                   {ED_ORAL_MEDICATIONS.map((med, j) => (
                     <div key={j} className="flex justify-between items-center py-2.5 border-b border-neutral-100 last:border-0">
@@ -615,20 +600,14 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 </span>
               </div>
               <div className="p-6">
-                <div className="w-10 h-10 bg-brand-900/10 text-neutral-900 rounded-full flex items-center justify-center mb-4">
-                  <Shield size={20} />
-                </div>
                 <ul className="space-y-2 mb-5">
                   <li className="flex items-start gap-2 text-sm text-neutral-600">
-                    <CheckCircle size={14} className="text-brand-700 mt-0.5 shrink-0" />
                     <span>{lang === 'ja' ? '口服薬が効かない場合の進化形治療' : lang === 'en' ? 'Advanced option when oral meds are ineffective' : lang === 'zh-TW' ? '口服藥物無效時的進階選擇' : '对口服药物无效时的进阶选择'}</span>
                   </li>
                   <li className="flex items-start gap-2 text-sm text-neutral-600">
-                    <CheckCircle size={14} className="text-brand-700 mt-0.5 shrink-0" />
                     <span>{lang === 'ja' ? '血管拡張剤を直接注射' : lang === 'en' ? 'Direct injection of vasodilator' : lang === 'zh-TW' ? '直接注射血管擴張劑' : '直接注射血管扩张剂'}</span>
                   </li>
                   <li className="flex items-start gap-2 text-sm text-neutral-600">
-                    <CheckCircle size={14} className="text-brand-700 mt-0.5 shrink-0" />
                     <span>{lang === 'ja' ? '局所投与による治療法' : lang === 'en' ? 'Localized administration method' : lang === 'zh-TW' ? '局部給藥治療方式' : '局部给药治疗方式'}</span>
                   </li>
                 </ul>
@@ -654,7 +633,6 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-12">
             {LOH_SYMPTOMS.map((symptom, i) => (
               <div key={i} className="flex items-center gap-2.5 px-4 py-3 rounded-xl bg-neutral-50 border border-neutral-100 text-neutral-700 text-sm font-medium hover:shadow-md transition">
-                <Activity size={16} className="text-neutral-900 shrink-0" />
                 <span>{symptom[lang]}</span>
               </div>
             ))}
@@ -663,7 +641,6 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
           {/* Diagnostic Flow */}
           <div className="bg-neutral-50 rounded-2xl p-8 mb-10 border border-neutral-100">
             <h3 className="text-lg font-bold text-neutral-900 mb-6 flex items-center gap-2 font-serif">
-              <Stethoscope size={20} className="text-neutral-900" />
               {lang === 'ja' ? '診断・治療の流れ' : lang === 'en' ? 'Diagnostic & Treatment Flow' : lang === 'zh-TW' ? '診斷與治療流程' : '诊断与治疗流程'}
             </h3>
             <div className="flex flex-col md:flex-row gap-4">
@@ -685,7 +662,6 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
           <div className="bg-white rounded-2xl border border-neutral-100 overflow-hidden shadow-sm">
             <div className="brand-gradient-solid px-6 py-4 text-white">
               <h3 className="font-bold flex items-center gap-2 font-serif">
-                <Award size={18} />
                 {lang === 'ja' ? '治療オプション' : lang === 'en' ? 'Treatment Options' : lang === 'zh-TW' ? '治療方案' : '治疗方案'}
               </h3>
             </div>
@@ -725,9 +701,6 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                     className="w-full flex items-center justify-between px-5 py-4 md:px-6 md:py-5 hover:bg-neutral-50 transition text-left"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 brand-gradient-deep text-brand-400 rounded-full flex items-center justify-center shrink-0">
-                        <CatIcon size={18} />
-                      </div>
                       <div>
                         <span className="font-bold text-neutral-900 font-serif text-sm md:text-base">{cat.category[lang]}</span>
                         <span className="text-xs text-neutral-400 ml-2">({cat.items.length})</span>
@@ -812,7 +785,6 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                 <span className="text-neutral-700 text-xs font-bold tracking-wide">
                   {lang === 'ja' ? '総合監修' : lang === 'en' ? 'General Supervisor' : lang === 'zh-TW' ? '總監修' : '总监修'}
                 </span>
-                <Award size={14} className="text-brand-700" />
               </div>
               <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
@@ -913,7 +885,6 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                     { ja: 'World Journal of Urology, International Journal of Urology 編委', en: 'World Journal of Urology, International Journal of Urology Editorial Board', 'zh-TW': 'World Journal of Urology, International Journal of Urology 編委', 'zh-CN': 'World Journal of Urology, International Journal of Urology 编委' },
                   ].map((cred, i) => (
                     <div key={i} className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-brand-700 mt-0.5 shrink-0" />
                       <span>{(cred as Record<string, string>)[lang]}</span>
                     </div>
                   ))}
@@ -937,9 +908,6 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
             const Icon = feature.icon;
             return (
               <div key={i} className="bg-neutral-50 p-6 rounded-xl border border-neutral-100 hover:shadow-lg transition duration-300 group text-center">
-                <div className="w-12 h-12 brand-gradient-deep text-brand-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition">
-                  <Icon size={22} />
-                </div>
                 <h4 className="text-base font-bold text-neutral-800 mb-2 font-serif">{feature.title[lang]}</h4>
                 <p className="text-xs text-neutral-500 leading-relaxed">{feature.desc[lang]}</p>
               </div>
@@ -979,7 +947,6 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
               </div>
               <div className="p-6 space-y-3">
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-brand-900/10 text-neutral-900 rounded-full flex items-center justify-center shrink-0"><MapPin size={16} /></div>
                   <p className="text-sm text-neutral-600">
                     {lang === 'ja' ? '〒530-0001 大阪市北区梅田2-1-21 レイズウメダビル2階' :
                      lang === 'en' ? '2F Rays Umeda Bldg, 2-1-21 Umeda, Kita-ku, Osaka 530-0001' :
@@ -988,7 +955,6 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-brand-900/10 text-neutral-900 rounded-full flex items-center justify-center shrink-0"><Train size={16} /></div>
                   <p className="text-sm text-neutral-600">
                     {lang === 'ja' ? '西梅田駅10番出口直結' :
                      lang === 'en' ? 'Directly connected to Nishi-Umeda Station Exit 10' :
@@ -997,7 +963,6 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-brand-900/10 text-neutral-900 rounded-full flex items-center justify-center shrink-0"><Clock size={16} /></div>
                   <p className="text-sm text-neutral-600">10:00 - 19:00</p>
                 </div>
               </div>
@@ -1023,7 +988,6 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
               </div>
               <div className="p-6 space-y-3">
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-brand-900/10 text-neutral-900 rounded-full flex items-center justify-center shrink-0"><MapPin size={16} /></div>
                   <p className="text-sm text-neutral-600">
                     {lang === 'ja' ? '〒530-0002 大阪市北区曽根崎新地1丁目7-30 北新地ビル2〜4階' :
                      lang === 'en' ? '2-4F Kitashinchi Bldg, 1-7-30 Sonezaki Shinchi, Kita-ku, Osaka 530-0002' :
@@ -1032,7 +996,6 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-brand-900/10 text-neutral-900 rounded-full flex items-center justify-center shrink-0"><Train size={16} /></div>
                   <p className="text-sm text-neutral-600">
                     {lang === 'ja' ? 'JR北新地駅 F92出口 徒歩2分' :
                      lang === 'en' ? 'JR Kitashinchi Sta. Exit F92, 2 min walk' :
@@ -1041,7 +1004,6 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-brand-900/10 text-neutral-900 rounded-full flex items-center justify-center shrink-0"><Clock size={16} /></div>
                   <p className="text-sm text-neutral-600">10:00 - 19:00</p>
                 </div>
               </div>
@@ -1082,7 +1044,7 @@ export default function WClinicMensContent({ isGuideEmbed, guideSlug }: WClinicM
 
           <div className="flex justify-center gap-8 text-sm text-white/40 mt-8">
             <span className="flex items-center gap-2"><Lock size={14} /> {lang === 'ja' ? '安全なお支払い' : lang === 'en' ? 'Secure Payment' : '安全支付'}</span>
-            <span className="flex items-center gap-2"><Shield size={14} /> {lang === 'ja' ? '持牌旅行社保障' : lang === 'en' ? 'Licensed Travel Agency' : '持牌旅行社保障'}</span>
+            <span className="flex items-center gap-2"> {lang === 'ja' ? '持牌旅行社保障' : lang === 'en' ? 'Licensed Travel Agency' : '持牌旅行社保障'}</span>
           </div>
         </div>
       </section>

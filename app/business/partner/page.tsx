@@ -7,23 +7,7 @@ import Image from 'next/image';
 import PublicLayout from '@/components/PublicLayout';
 import ObfuscatedEmail from '@/components/ObfuscatedEmail';
 import {
-  ArrowRight,
-  CheckCircle2,
-  Users,
-  Globe,
-  Building2,
-  Shield,
-  Handshake,
-  Mail,
-  Phone,
-  MapPin,
-  Award,
-  Briefcase,
-  HeartPulse,
-  Trophy,
-  Factory,
-  Loader2,
-  Check
+  ArrowRight, Mail, Phone, HeartPulse, Trophy, Factory, Loader2, Check
 } from 'lucide-react';
 
 type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
@@ -1213,11 +1197,9 @@ export default function PartnerBusinessPage() {
             <div className="text-xs text-white mb-3 uppercase tracking-wider">{t('heroCredentialLabel')}</div>
             <div className="space-y-2 text-sm text-white/85">
               <div className="flex items-center gap-2">
-                <Shield size={14} className="text-white/90" />
                 {t('heroCredential1')}
               </div>
               <div className="flex items-center gap-2">
-                <Award size={14} className="text-white/90" />
                 {t('heroCredential2')}
               </div>
             </div>
@@ -1253,9 +1235,6 @@ export default function PartnerBusinessPage() {
                 const Icon = item.icon;
                 return (
                   <div key={idx} className={`p-8 rounded-2xl ${item.bg}`}>
-                    <div className={`w-12 h-12 rounded-xl bg-white flex items-center justify-center mb-6 ${item.color}`}>
-                      <Icon size={24} />
-                    </div>
                     <h3 className="text-xl font-bold text-neutral-900 mb-3">{item.title}</h3>
                     <p className="text-neutral-600 leading-relaxed">{item.desc}</p>
                   </div>
@@ -1303,7 +1282,6 @@ export default function PartnerBusinessPage() {
                 <div className="space-y-4">
                   {benefits.map((benefit, idx) => (
                     <div key={idx} className="flex items-center gap-3">
-                      <CheckCircle2 size={18} className="text-white flex-shrink-0" />
                       <span className="text-white">{benefit}</span>
                     </div>
                   ))}
@@ -1518,7 +1496,6 @@ export default function PartnerBusinessPage() {
                 <div className="space-y-4 mb-8">
                   {solutionItems.map((item, idx) => (
                     <div key={idx} className="flex items-center gap-3">
-                      <CheckCircle2 size={20} className="text-brand-700 flex-shrink-0" />
                       <span className="text-neutral-900 font-medium">{item}</span>
                     </div>
                   ))}
@@ -1729,9 +1706,6 @@ export default function PartnerBusinessPage() {
                 </a>
               </div>
               <div>
-                <div className="w-12 h-12 brand-gradient-solid rounded-full flex items-center justify-center mx-auto mb-4">
-                  <MapPin size={24} className="text-white" />
-                </div>
                 <div className="text-sm text-neutral-600 mb-1">{t('contactAddressLabel')}</div>
                 <div className="text-neutral-900">
                   {currentLang === 'en' ? '1-2-21-602 Daikoku, Naniwa-ku, Osaka 556-0014, Japan' : currentLang === 'zh-TW' ? '大阪府大阪市浪速區大國1-2-21-602' : '大阪府大阪市浪速区大国1-2-21-602'}

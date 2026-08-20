@@ -3,17 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import {
-  MapPin, Phone, Clock, Train,
-  Award, Shield, Heart,
-  Syringe, Microscope, CheckCircle,
-  ArrowRight, Globe, Mail, MessageSquare,
-  Activity,
-  Droplets, FlaskConical, Dna, Scan,
-  ChevronDown, ChevronUp,
-  Beaker,
-  Leaf, ShieldCheck, FileText,
-  GraduationCap, Zap, Eye, Brain,
-  Sparkles, Star,
+  Award, Shield, Heart, Syringe, Microscope, ArrowRight, Globe, Activity, Droplets, FlaskConical, Dna, Scan, ChevronDown, ChevronUp, Leaf, ShieldCheck, GraduationCap, Zap, Eye, Brain, Sparkles, Star
 } from 'lucide-react';
 import { useLanguage4, type Language } from '@/hooks/useLanguage';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
@@ -540,7 +530,6 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
             <p className="text-sm text-white/70 mb-8">{t('heroDesc')}</p>
             <div className="flex flex-wrap gap-3">
               <a href="#services" className="inline-flex items-center gap-2 bg-white text-brand-700 font-bold px-6 py-3 rounded-xl hover:bg-brand-50 transition shadow-lg">
-                <FileText size={18} />
                 {t('consultPlan')}
               </a>
               <a href="#flow" className="inline-flex items-center gap-2 border border-white/40 text-white px-6 py-3 rounded-xl hover:bg-white/10 transition">
@@ -562,7 +551,6 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
               { icon: GraduationCap, text: t('desig3') },
             ].map((badge, i) => (
               <div key={i} className="flex items-center gap-2 px-6">
-                <badge.icon size={16} className="text-white/80 flex-shrink-0" />
                 <span className="text-xs text-white/90 font-medium">{badge.text}</span>
               </div>
             ))}
@@ -621,9 +609,6 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
             {TREATMENTS.map((treat, i) => (
               <div key={i} className="bg-white rounded-xl border border-neutral-200 p-6 hover:shadow-md transition-all">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-brand-600 flex items-center justify-center flex-shrink-0">
-                    <treat.icon size={22} className="text-white" />
-                  </div>
                   <div>
                     <h3 className="font-bold text-neutral-900 mb-2">{treat.title[lang]}</h3>
                     <p className="text-sm text-neutral-600 leading-relaxed">{treat.desc[lang]}</p>
@@ -646,7 +631,6 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
             {INDICATIONS.map((ind, i) => (
               <div key={i} className={`${ind.color} rounded-xl p-4 text-center hover:shadow-md transition`}>
-                <ind.icon size={24} className="mx-auto mb-2" />
                 <p className="text-sm font-semibold">{ind.name[lang]}</p>
               </div>
             ))}
@@ -680,9 +664,6 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
                 {/* Text side */}
                 <div className={si % 2 === 1 ? 'md:order-2' : ''}>
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-11 h-11 rounded-xl bg-brand-600 flex items-center justify-center flex-shrink-0">
-                      <sec.icon size={22} className="text-white" />
-                    </div>
                     <h3 className="text-lg font-bold text-neutral-900">{sec.title[lang]}</h3>
                   </div>
                   <p className="text-sm text-neutral-600 leading-relaxed">{sec.desc[lang]}</p>
@@ -786,7 +767,6 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
                   { ja: '液体窒素 -196°C 長期保存', 'zh-TW': '液氮 -196°C 長期保存', 'zh-CN': '液氮 -196°C 长期保存', en: 'Liquid nitrogen -196°C long-term storage' },
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-2">
-                    <CheckCircle size={16} className="text-brand-700 flex-shrink-0" />
                     <span className="text-sm text-neutral-700">{(item as Record<string, string>)[lang] || (item as Record<string, string>)['ja']}</span>
                   </div>
                 ))}
@@ -986,12 +966,10 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-center">
             <div className="bg-white rounded-xl border border-neutral-200 p-8">
               <h3 className="text-xl font-bold text-neutral-900 mb-6 flex items-center gap-2">
-                <MapPin size={20} className="text-brand-700" />
                 {tr.heroTitle[lang]}
               </h3>
               <div className="grid gap-5 text-sm text-neutral-600">
                 <div className="flex items-start gap-3">
-                  <MapPin size={16} className="text-brand-700 mt-0.5 flex-shrink-0" />
                   <div>
                     <p className="font-medium text-neutral-800">{lang === 'ja' ? '所在地' : lang === 'en' ? 'Address' : lang === 'zh-TW' ? '地址' : '地址'}</p>
                     <p>〒107-0062</p>
@@ -999,14 +977,12 @@ export default function HeleneClinicContent({ isGuideEmbed, guideSlug }: HeleneC
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Train size={16} className="text-brand-700 mt-0.5 flex-shrink-0" />
                   <div>
                     <p className="font-medium text-neutral-800">{lang === 'ja' ? '交通アクセス' : lang === 'en' ? 'Access' : lang === 'zh-TW' ? '交通' : '交通'}</p>
                     <p>{lang === 'ja' ? '表参道駅B1出口 徒歩1分' : lang === 'en' ? '1 min walk from Omotesando Station B1 Exit' : lang === 'zh-TW' ? '表參道站B1出口 步行1分鐘' : '表参道站B1出口 步行1分钟'}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Clock size={16} className="text-brand-700 mt-0.5 flex-shrink-0" />
                   <div>
                     <p className="font-medium text-neutral-800">{lang === 'ja' ? '診療時間' : lang === 'en' ? 'Hours' : lang === 'zh-TW' ? '診療時間' : '诊疗时间'}</p>
                     <p>10:00 - 19:00</p>

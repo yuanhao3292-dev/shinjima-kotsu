@@ -4,12 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 import {
-  ArrowLeft, ArrowRight, CheckCircle, Shield, Activity,
-  Target, Dna, Stethoscope,
-  FileText, Mail, Clock, Users, Building, Globe,
-  MessageSquare,
-  Atom, Pill, Radio, FlaskConical, HeartPulse, Leaf, CreditCard,
-  MapPin, Award, Info, ExternalLink
+  ArrowLeft, ArrowRight, Shield, Activity, Target, Dna, Stethoscope, FileText, Building, Globe, MessageSquare, Atom, Pill, Radio, FlaskConical, HeartPulse, Info, ExternalLink
 } from 'lucide-react';
 import { useLanguage4, type Language } from '@/hooks/useLanguage';
 const pageTranslations = {
@@ -934,15 +929,12 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
             {/* Trust Points */}
             <div className="flex flex-wrap gap-6 text-white/85">
               <div className="flex items-center gap-2">
-                <CheckCircle size={18} className="text-white/90" />
                 <span className="text-sm">{t('trustEarly')}</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle size={18} className="text-white/90" />
                 <span className="text-sm">{t('trustTranslator')}</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle size={18} className="text-white/90" />
                 <span className="text-sm">{t('trustRemote')}</span>
               </div>
             </div>
@@ -986,7 +978,6 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                 <div key={catIndex}>
                   {/* Category Header */}
                   <div className={`${colors.headerBg} ${colors.headerText} px-6 py-4 rounded-t-2xl flex items-center gap-3`}>
-                    <Award size={24} />
                     <h3 className="text-xl font-bold">{category.category[currentLang]}</h3>
                   </div>
                   {/* Institutions Grid */}
@@ -1002,7 +993,6 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                             <h4 className="text-lg font-bold text-neutral-900 mb-1">{inst.name}</h4>
                             <p className="text-sm text-neutral-500">{inst.nameLocal[currentLang]}</p>
                             <div className="flex items-center gap-1 text-xs text-neutral-500 mt-1">
-                              <MapPin size={12} />
                               {inst.location[currentLang]}
                             </div>
                           </div>
@@ -1023,7 +1013,6 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                             <ul className="space-y-1">
                               {inst.features.map((feature, i) => (
                                 <li key={i} className="flex items-start gap-2 text-sm text-neutral-600">
-                                  <CheckCircle size={14} className={`${colors.tagText} mt-0.5 flex-shrink-0`} />
                                   <span>{feature[currentLang]}</span>
                                 </li>
                               ))}
@@ -1100,9 +1089,6 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                     }`}
                   >
                     <div className="flex items-center gap-2 mb-2">
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isActive ? c.bg : 'bg-neutral-200'}`}>
-                        <PhaseIcon size={16} className={isActive ? 'text-white' : 'text-neutral-500'} />
-                      </div>
                       <span className={`text-xs font-bold ${isActive ? c.text : 'text-neutral-500'}`}>
                         PHASE {phase.phaseNumber}
                       </span>
@@ -1111,7 +1097,6 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                       {phase.title[currentLang]}
                     </h3>
                     <p className="text-xs text-neutral-500 mt-1 flex items-center gap-1">
-                      <Clock size={10} />
                       {phase.duration[currentLang]}
                     </p>
                   </button>
@@ -1138,9 +1123,6 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   <div className="brand-gradient-solid p-6 md:p-8 text-white">
                     <div className="flex flex-wrap items-center justify-between gap-4">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
-                          <PhaseIcon size={24} />
-                        </div>
                         <div>
                           <div className="text-white text-xs font-bold tracking-wider">PHASE {phase.phaseNumber}</div>
                           <h3 className="text-xl md:text-2xl font-bold">{phase.title[currentLang]}</h3>
@@ -1149,11 +1131,11 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                       </div>
                       <div className="flex flex-wrap items-center gap-3">
                         <span className="bg-white/20 backdrop-blur px-3 py-1.5 rounded-full text-sm flex items-center gap-1.5">
-                          <Clock size={14} /> {phase.duration[currentLang]}
+                           {phase.duration[currentLang]}
                         </span>
                         {phase.feeSummary && (
                           <span className="bg-white/20 backdrop-blur px-3 py-1.5 rounded-full text-sm flex items-center gap-1.5">
-                            <CreditCard size={14} /> {phase.feeSummary[currentLang]}
+                             {phase.feeSummary[currentLang]}
                           </span>
                         )}
                       </div>
@@ -1166,13 +1148,11 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                       {/* Patient Actions */}
                       <div className={`rounded-xl p-5 border ${PHASE_LIGHT_BG_MAP[phase.color]}`}>
                         <div className="flex items-center gap-2 mb-4">
-                          <Users size={18} className="text-neutral-600" />
                           <h4 className="font-bold text-neutral-900 text-sm">{t('flowYouDo')}</h4>
                         </div>
                         <ul className="space-y-2.5">
                           {phase.patientActions.map((action, i) => (
                             <li key={i} className="flex items-start gap-2.5 text-sm text-neutral-700">
-                              <CheckCircle size={16} className="text-brand-700 flex-shrink-0 mt-0.5" />
                               <span>{action[currentLang]}</span>
                             </li>
                           ))}
@@ -1181,13 +1161,11 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                       {/* We Handle */}
                       <div className="rounded-xl p-5 border bg-neutral-50 border-neutral-100">
                         <div className="flex items-center gap-2 mb-4">
-                          <Shield size={18} className="text-neutral-600" />
                           <h4 className="font-bold text-neutral-900 text-sm">{t('flowWeHandle')}</h4>
                         </div>
                         <ul className="space-y-2.5">
                           {phase.weHandle.map((item, i) => (
                             <li key={i} className="flex items-start gap-2.5 text-sm text-neutral-700">
-                              <CheckCircle size={16} className="text-brand-700 flex-shrink-0 mt-0.5" />
                               <span>{item[currentLang]}</span>
                             </li>
                           ))}
@@ -1198,7 +1176,6 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                     {/* Sub-step Timeline */}
                     <div>
                       <h4 className="font-bold text-neutral-900 text-sm mb-4 flex items-center gap-2">
-                        <FileText size={16} className="text-neutral-500" />
                         {t('flowStepDetail')}
                       </h4>
                       <div className="relative">
@@ -1276,14 +1253,10 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   key={treatment.id}
                   className={`bg-white rounded-2xl p-8 border ${colors.border} hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group`}
                 >
-                  <div className={`w-14 h-14 ${colors.bg} ${colors.text} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                    <Icon size={28} />
-                  </div>
                   <h3 className="text-xl font-serif font-bold text-neutral-900 mb-4">{treatment.title[currentLang]}</h3>
                   <ul className="space-y-2 mb-4">
                     {treatment.features.map((feature, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-neutral-600">
-                        <CheckCircle size={14} className={`${colors.text} mt-0.5 flex-shrink-0`} />
                         <span>{feature[currentLang]}</span>
                       </li>
                     ))}
@@ -1312,15 +1285,12 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
           {/* Purpose Tags */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             <div className="flex items-center gap-2 bg-brand-100 text-brand-700 px-4 py-2 rounded-full text-sm font-bold">
-              <HeartPulse size={16} />
               {t('regenRecovery')}
             </div>
             <div className="flex items-center gap-2 bg-brand-100 text-brand-700 px-4 py-2 rounded-full text-sm font-bold">
-              <Leaf size={16} />
               {t('regenHealth')}
             </div>
             <div className="flex items-center gap-2 bg-brand-100 text-neutral-900 px-4 py-2 rounded-full text-sm font-bold">
-              <Shield size={16} />
               {t('regenPrevention')}
             </div>
           </div>
@@ -1333,9 +1303,6 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
               const colors = { gradient: '', bg: 'bg-brand-50', text: 'text-brand-700' };
               return (
                 <div key={treatment.id} className="bg-gradient-to-br from-neutral-50 to-white rounded-2xl p-8 border border-neutral-100 hover:shadow-xl transition-all duration-300 group">
-                  <div className={`w-16 h-16 brand-gradient-solid rounded-2xl flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform shadow-lg`}>
-                    <Icon size={32} />
-                  </div>
                   <div className={`inline-block ${colors.bg} ${colors.text} text-xs font-bold px-3 py-1 rounded-full mb-4`}>
                     {treatment.purpose[currentLang]}
                   </div>
@@ -1344,7 +1311,6 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   <ul className="space-y-2">
                     {treatment.features.map((feature, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-neutral-600">
-                        <CheckCircle size={14} className={`${colors.text} mt-0.5 flex-shrink-0`} />
                         <span>{feature[currentLang]}</span>
                       </li>
                     ))}
@@ -1367,9 +1333,6 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
               const Icon = inst.icon;
               return (
                 <div key={i} className="bg-white rounded-xl p-6 text-center border border-neutral-200 border-white/20 hover:bg-white/20 transition">
-                  <div className="w-12 h-12 brand-gradient-solid rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Icon size={24} className="text-white" />
-                  </div>
                   <p className="text-sm text-neutral-600">{inst.label[currentLang]}</p>
                 </div>
               );
@@ -1410,19 +1373,15 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   <p className="text-neutral-600 text-sm mb-6">{CONSULTATION_SERVICES.initial.description[currentLang]}</p>
                   <ul className="space-y-2 mb-6 text-sm text-neutral-600">
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-brand-700 mt-0.5 flex-shrink-0" />
                       <span>{t('svcInitial1')}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-brand-700 mt-0.5 flex-shrink-0" />
                       <span>{t('svcInitial2')}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-brand-700 mt-0.5 flex-shrink-0" />
                       <span>{t('svcInitial3')}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-brand-700 mt-0.5 flex-shrink-0" />
                       <span>{t('svcInitial4')}</span>
                     </li>
                   </ul>
@@ -1452,19 +1411,15 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
                   <p className="text-neutral-600 text-sm mb-6">{CONSULTATION_SERVICES.remote.description[currentLang]}</p>
                   <ul className="space-y-2 mb-6 text-sm text-neutral-600">
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-brand-700 mt-0.5 flex-shrink-0" />
                       <span>{t('svcRemote1')}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-brand-700 mt-0.5 flex-shrink-0" />
                       <span>{t('svcRemote2')}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-brand-700 mt-0.5 flex-shrink-0" />
                       <span>{t('svcRemote3')}</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-brand-700 mt-0.5 flex-shrink-0" />
                       <span>{t('svcRemote4')}</span>
                     </li>
                   </ul>
@@ -1480,9 +1435,6 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
             {/* Member System Notice */}
             <div className="bg-white rounded-2xl p-6 border border-neutral-200 mb-8">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Users size={24} className="text-brand-700" />
-                </div>
                 <div>
                   <h4 className="font-bold text-neutral-900 mb-2">{t('memberTitle')}</h4>
                   <p className="text-sm text-neutral-600 leading-relaxed">

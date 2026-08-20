@@ -6,11 +6,7 @@ import PublicLayout from '@/components/PublicLayout';
 import ObfuscatedEmail from '@/components/ObfuscatedEmail';
 import Link from 'next/link';
 import Image from 'next/image';
-import {
-  ChevronRight,
-  Shield,
-  X
-} from 'lucide-react';
+import { ChevronRight, X } from 'lucide-react';
 
 // 微信二維碼圖片路徑
 const WECHAT_QR_URL = '/wechat-qr.png';
@@ -1049,7 +1045,6 @@ export default function GuidePartnerPage() {
         <div className="max-w-4xl mx-auto px-6">
           <div className="bg-white rounded-xl shadow-sm p-6 border border-neutral-200">
             <div className="flex items-center gap-2 mb-4">
-              <Shield className="w-5 h-5 text-neutral-600" />
               <h3 className="font-bold text-neutral-900">{t('legalTitle')}</h3>
             </div>
             <div className="text-sm text-neutral-600 leading-relaxed space-y-2">

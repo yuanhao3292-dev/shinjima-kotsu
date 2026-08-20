@@ -2,7 +2,9 @@
 
 import React, { useMemo } from 'react';
 import Image from 'next/image';
-import { ArrowLeft, ArrowRight, Building, Microscope, Heart, Factory, Cpu, Monitor, Stethoscope, Globe, Bus, Utensils, ExternalLink, MessageSquare } from 'lucide-react';
+import {
+  ArrowLeft, Building, Microscope, Heart, Factory, Cpu, Monitor, Stethoscope, Globe, Bus, Utensils, ExternalLink, MessageSquare
+} from 'lucide-react';
 import ContactButtons from '../ContactButtons';
 import { COMPANY_DATA, type Company } from '@/data/companies';
 import { localizeText } from '@/lib/utils/text-converter';
@@ -97,9 +99,6 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
    ) => (
       <div>
          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 brand-gradient-deep rounded-lg flex items-center justify-center">
-               {icon}
-            </div>
             <div>
                <h4 className="font-bold text-neutral-900">{title}</h4>
                <p className="text-xs text-neutral-500">{subtitle}</p>

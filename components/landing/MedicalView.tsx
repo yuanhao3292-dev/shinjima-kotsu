@@ -3,7 +3,9 @@
 import React, { memo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, CheckCircle, MapPin, Building, Activity, Shield, Armchair, FileText, Zap, Coffee, ChevronDown, Cpu, Scan, MessageSquare } from 'lucide-react';
+import {
+  ArrowLeft, ArrowRight, Building, Activity, Armchair, FileText, Coffee, ChevronDown, MessageSquare
+} from 'lucide-react';
 import PackageComparisonTable from '../PackageComparisonTable';
 import ContactButtons from '../ContactButtons';
 import { localizeText } from '@/lib/utils/text-converter';
@@ -54,9 +56,6 @@ const MedicalTechCard = memo(function MedicalTechCard({
            <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-brand-400 to-transparent shadow-[0_0_15px_rgba(59,130,246,0.8)] animate-[scan_2.5s_linear_infinite]"></div>
         </div>
         <div className="absolute top-4 left-4">
-           <div className={`w-8 h-8 rounded backdrop-blur-md bg-white/10 border border-white/20 flex items-center justify-center text-white ${colorClass}`}>
-              <Icon size={16} />
-           </div>
         </div>
         <div className="absolute bottom-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
            <span className="text-[10px] text-white bg-black/50 backdrop-blur px-2 py-1 rounded border border-white/10 uppercase tracking-wider font-mono">AI Analysis</span>
@@ -71,10 +70,10 @@ const MedicalTechCard = memo(function MedicalTechCard({
         <h4 className="text-xl font-bold text-neutral-900 mb-3 font-serif group-hover:text-brand-700 transition-colors">{title}</h4>
         <div className="flex flex-wrap gap-2 mb-4">
            <span className="text-[10px] font-bold text-neutral-500 bg-neutral-50 px-2 py-1 rounded border border-neutral-100 flex items-center gap-1">
-              <Cpu size={10} /> {spec1}
+               {spec1}
            </span>
            <span className="text-[10px] font-bold text-neutral-500 bg-neutral-50 px-2 py-1 rounded border border-neutral-100 flex items-center gap-1">
-              <Scan size={10} /> {spec2}
+               {spec2}
            </span>
         </div>
         <p className="text-neutral-500 text-sm leading-relaxed text-justify line-clamp-4 group-hover:line-clamp-none transition-all">
@@ -133,7 +132,6 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               href="#packages"
               className="inline-flex items-center gap-2 px-8 py-4 border-2 border-white text-white bg-transparent hover:bg-white/10 text-sm font-medium tracking-wider hover:bg-white/10 transition-opacity"
             >
-              <Scan size={20} />
               {currentLang === 'zh-TW' ? '查看體檢套餐' : currentLang === 'zh-CN' ? '查看体检套餐' : currentLang === 'ja' ? '健診プランを見る' : 'View Plans'}
             </a>
             <a
@@ -182,23 +180,14 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
               <div className="bg-neutral-50 p-8 rounded-xl border border-neutral-200 hover:shadow-lg transition duration-300 group">
-                  <div className="w-12 h-12 bg-brand-50 text-brand-700 rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-600 group-hover:text-white transition">
-                      <Building size={24} />
-                  </div>
                   <h4 className="text-xl font-bold text-neutral-800 mb-3 font-serif">{t.medical.auth_1_t}</h4>
                   <p className="text-sm text-neutral-500 leading-relaxed">{t.medical.auth_1_d}</p>
               </div>
               <div className="bg-neutral-50 p-8 rounded-xl border border-neutral-200 hover:shadow-lg transition duration-300 group">
-                  <div className="w-12 h-12 bg-brand-50 text-brand-700 rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-600 group-hover:text-white transition">
-                      <MapPin size={24} />
-                  </div>
                   <h4 className="text-xl font-bold text-neutral-800 mb-3 font-serif">{t.medical.auth_2_t}</h4>
                   <p className="text-sm text-neutral-500 leading-relaxed">{t.medical.auth_2_d}</p>
               </div>
               <div className="bg-neutral-50 p-8 rounded-xl border border-neutral-200 hover:shadow-lg transition duration-300 group">
-                  <div className="w-12 h-12 bg-brand-50 text-brand-700 rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-600 group-hover:text-white transition">
-                      <Shield size={24} />
-                  </div>
                   <h4 className="text-xl font-bold text-neutral-800 mb-3 font-serif">{t.medical.auth_3_t}</h4>
                   <p className="text-sm text-neutral-500 leading-relaxed">{t.medical.auth_3_d}</p>
               </div>
@@ -481,7 +470,6 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
               ].map((step, i) => (
                <div key={i} className="bg-neutral-50 p-6 rounded-xl border border-neutral-200 hover:bg-brand-50 transition group">
                   <div className="text-brand-700 font-mono text-xl mb-4 opacity-70">{step.id}</div>
-                  <div className="flex justify-center mb-4 text-brand-700 opacity-90 group-hover:scale-110 transition">{step.icon}</div>
                   <h4 className="font-bold text-lg mb-2 brand-gradient-text w-fit mx-auto">{step.title}</h4>
                   <p className="text-xs text-neutral-600 leading-relaxed">{step.desc}</p>
                </div>
@@ -523,12 +511,12 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                       {t.medical.pkg_vip_desc}
                   </p>
                   <div className="space-y-1.5 mb-4 text-xs text-neutral-700">
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_vip_item_1}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_vip_item_2}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_vip_item_3}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_vip_item_4}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_vip_item_5}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_vip_item_6}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_vip_item_1}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_vip_item_2}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_vip_item_3}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_vip_item_4}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_vip_item_5}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_vip_item_6}</div>
                   </div>
                   <Link href="/medical-packages/vip-member-course" className="w-full py-2 brand-gradient-solid text-white text-xs font-bold rounded hover:opacity-90 transition text-center block">{t.medical.pkg_consult_btn}</Link>
               </div>
@@ -545,11 +533,11 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                        {t.medical.pkg_premium_desc}
                    </p>
                    <div className="space-y-1.5 mb-4 text-xs text-neutral-700">
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_premium_item_1}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_premium_item_2}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_premium_item_3}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_premium_item_4}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_premium_item_5}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_premium_item_1}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_premium_item_2}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_premium_item_3}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_premium_item_4}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_premium_item_5}</div>
                    </div>
                    <Link href="/medical-packages/premium-cardiac-course" className="w-full py-2 border border-brand-300 text-brand-700 text-xs font-bold rounded hover:bg-brand-50 transition text-center block">{t.medical.pkg_consult_btn}</Link>
               </div>
@@ -566,11 +554,11 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                        {t.medical.pkg_select_gc_desc}
                    </p>
                    <div className="space-y-1.5 mb-4 text-xs text-neutral-700">
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_select_gc_item_1}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_select_gc_item_2}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_select_gc_item_3}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_select_gc_item_4}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_select_gc_item_5}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_select_gc_item_1}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_select_gc_item_2}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_select_gc_item_3}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_select_gc_item_4}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_select_gc_item_5}</div>
                    </div>
                    <Link href="/medical-packages/select-gastro-colonoscopy" className="w-full py-2 border border-brand-300 text-brand-700 text-xs font-bold rounded hover:bg-brand-50 transition text-center block">{t.medical.pkg_consult_btn}</Link>
               </div>
@@ -587,11 +575,11 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                        {t.medical.pkg_select_g_desc}
                    </p>
                    <div className="space-y-1.5 mb-4 text-xs text-neutral-700">
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_select_g_item_1}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_select_g_item_2}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_select_g_item_3}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_select_g_item_4}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_select_g_item_5}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_select_g_item_1}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_select_g_item_2}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_select_g_item_3}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_select_g_item_4}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_select_g_item_5}</div>
                    </div>
                    <Link href="/medical-packages/select-gastroscopy" className="w-full py-2 border border-brand-300 text-brand-700 text-xs font-bold rounded hover:bg-brand-50 transition text-center block">{t.medical.pkg_consult_btn}</Link>
               </div>
@@ -608,11 +596,11 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                        {t.medical.pkg_dwibs_desc}
                    </p>
                    <div className="space-y-1.5 mb-4 text-xs text-neutral-700">
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_dwibs_item_1}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_dwibs_item_2}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_dwibs_item_3}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_dwibs_item_4}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-brand-700 shrink-0" /> {t.medical.pkg_dwibs_item_5}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_dwibs_item_1}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_dwibs_item_2}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_dwibs_item_3}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_dwibs_item_4}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_dwibs_item_5}</div>
                    </div>
                    <Link href="/medical-packages/dwibs-cancer-screening" className="w-full py-2 border border-brand-300 text-brand-700 text-xs font-bold rounded hover:bg-brand-50 transition text-center block">{t.medical.pkg_consult_btn}</Link>
               </div>
@@ -629,11 +617,11 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                        {t.medical.pkg_basic_desc}
                    </p>
                    <div className="space-y-1.5 mb-4 text-xs text-neutral-700">
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-neutral-500 shrink-0" /> {t.medical.pkg_basic_item_1}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-neutral-500 shrink-0" /> {t.medical.pkg_basic_item_2}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-neutral-500 shrink-0" /> {t.medical.pkg_basic_item_3}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-neutral-500 shrink-0" /> {t.medical.pkg_basic_item_4}</div>
-                      <div className="flex gap-2"><CheckCircle size={14} className="text-neutral-500 shrink-0" /> {t.medical.pkg_basic_item_5}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_basic_item_1}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_basic_item_2}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_basic_item_3}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_basic_item_4}</div>
+                      <div className="flex gap-2"> {t.medical.pkg_basic_item_5}</div>
                    </div>
                    <Link href="/medical-packages/basic-checkup" className="w-full py-2 border border-neutral-300 text-neutral-600 text-xs font-bold rounded hover:bg-neutral-100 transition text-center block">{t.medical.pkg_consult_btn}</Link>
               </div>
@@ -709,7 +697,6 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                           <div className="text-xs text-brand-700 font-medium mb-3">{review.pkg}</div>
                           <p className="text-sm text-neutral-600 leading-relaxed mb-4 line-clamp-3">{review.text}</p>
                           <div className="flex items-center gap-2 text-brand-700 text-xs">
-                              <CheckCircle size={12} />
                               <span className="font-medium">{review.highlight}</span>
                           </div>
                       </div>
@@ -732,7 +719,6 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
                           <div className="text-xs text-brand-700 font-medium mb-3">{review.pkg}</div>
                           <p className="text-sm text-neutral-600 leading-relaxed mb-4 line-clamp-3">{review.text}</p>
                           <div className="flex items-center gap-2 text-brand-700 text-xs">
-                              <CheckCircle size={12} />
                               <span className="font-medium">{review.highlight}</span>
                           </div>
                       </div>
@@ -774,16 +760,12 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
       {/* 訂單查詢入口 */}
       <div className="mb-24" id="timc-order-lookup">
           <div className="max-w-2xl mx-auto bg-gradient-to-br from-neutral-50 to-white rounded-2xl border border-neutral-200 p-8 text-center">
-              <div className="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <FileText size={28} className="text-brand-700" />
-              </div>
               <h3 className="text-2xl font-serif font-bold text-neutral-900 mb-3">{t.medical.order_title}</h3>
               <p className="text-neutral-500 mb-6">{t.medical.order_sub}</p>
               <a
                   href="/order-lookup"
                   className="inline-flex items-center gap-2 brand-gradient-solid text-white px-8 py-3 rounded-full font-bold hover:opacity-90 transition"
               >
-                  <FileText size={18} />
                   {t.medical.order_btn}
               </a>
           </div>
@@ -797,7 +779,7 @@ const MedicalView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenTIMCQuot
           </p>
           <div>
               <button onClick={() => { const element = document.getElementById('timc-packages'); element?.scrollIntoView({ behavior: 'smooth' }); }} className="brand-gradient-solid text-white font-bold px-10 py-4 rounded-full hover:opacity-90 transition-opacity shadow-lg inline-flex items-center gap-2">
-                  <Zap size={18} /> {t.medical.cta_btn}
+                   {t.medical.cta_btn}
               </button>
           </div>
       </div>

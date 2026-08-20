@@ -3,13 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import {
-  MapPin, Phone, Clock, Train,
-  Award, Shield, Heart, Brain,
-  Syringe, Microscope, Sparkles, CheckCircle,
-  ArrowRight, Globe, Activity,
-  Dna, FlaskConical, Beaker, ShieldCheck, Droplets,
-  GraduationCap, Building2, CircleDot,
-  Zap, Leaf, Users, Star,
+  Heart, Brain, Syringe, ArrowRight, Dna, FlaskConical, Beaker, ShieldCheck, Droplets, GraduationCap, CircleDot, Zap, Star
 } from 'lucide-react';
 import { useLanguage4, type Language } from '@/hooks/useLanguage';
 
@@ -412,7 +406,6 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-32 w-full">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-400/20 border border-brand-400/30 rounded-full text-sm text-white mb-6">
-              <Dna className="w-4 h-4" />
               {tr('heroBadge')}
             </div>
 
@@ -482,7 +475,6 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
 
           {/* Mechanism */}
           <h3 className="text-xl font-bold text-neutral-900 mb-6 flex items-center gap-2">
-            <Microscope className="w-5 h-5 text-brand-700" />
             {tr('mechanismTitle')}
           </h3>
           <div className="grid md:grid-cols-3 gap-6 mb-16">
@@ -493,9 +485,6 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
             ].map((item, idx) => (
               <div key={idx} className="relative bg-gradient-to-br from-brand-400/5 to-white border border-brand-400/10 rounded-2xl p-6">
                 <div className="absolute top-4 right-4 text-4xl font-bold text-brand-700/10">{item.step}</div>
-                <div className="w-12 h-12 bg-brand-400/10 rounded-xl flex items-center justify-center text-brand-700 mb-4">
-                  {item.icon}
-                </div>
                 <h4 className="font-bold text-neutral-900 mb-2">{item.title}</h4>
                 <p className="text-sm text-brand-700 leading-relaxed">{item.desc}</p>
               </div>
@@ -504,14 +493,12 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
 
           {/* Clinical Evidence */}
           <h3 className="text-xl font-bold text-neutral-900 mb-6 flex items-center gap-2">
-            <Award className="w-5 h-5 text-brand-700" />
             {tr('evidenceTitle')}
           </h3>
           <div className="bg-brand-400/5 border border-brand-400/10 rounded-2xl p-8 mb-12">
             <div className="grid md:grid-cols-2 gap-4">
               {[tr('evidenceLiver'), tr('evidenceBrain'), tr('evidenceSafety'), tr('evidencePublished')].map((item, idx) => (
                 <div key={idx} className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-brand-700 shrink-0 mt-0.5" />
                   <span className="text-brand-700">{item}</span>
                 </div>
               ))}
@@ -521,7 +508,6 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
           {/* Applicable Cancers */}
           <div className="bg-neutral-50 border border-neutral-200 rounded-2xl p-8 mb-12">
             <h3 className="text-lg font-bold text-neutral-900 mb-4 flex items-center gap-2">
-              <Activity className="w-5 h-5 text-brand-700" />
               {tr('cancerTitle')}
             </h3>
             <p className="text-brand-700 mb-3">{tr('cancerList')}</p>
@@ -545,9 +531,6 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
             ].map((item, idx) => (
               <div key={idx} className="text-center">
                 <div className="text-xs font-bold text-neutral-700 tracking-wider mb-3">{item.step}</div>
-                <div className="w-16 h-16 mx-auto bg-white border-2 border-brand-400/20 rounded-2xl flex items-center justify-center text-brand-700 mb-4 shadow-sm">
-                  {item.icon}
-                </div>
                 <h4 className="font-bold text-neutral-900 mb-2">{item.title}</h4>
                 <p className="text-sm text-neutral-500">{item.desc}</p>
                 {idx < 3 && (
@@ -573,7 +556,6 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-50 border border-brand-200 rounded-full text-sm text-brand-700 font-medium mb-6">
-              <Award className="w-4 h-4" />
               Nobel Prize in Physiology or Medicine 2012
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
@@ -588,9 +570,6 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-4">
             {/* Yamanaka */}
             <div className="bg-gradient-to-br from-brand-50 to-brand-50 border-2 border-brand-200 rounded-2xl p-8 text-center w-full md:w-80">
-              <div className="w-20 h-20 mx-auto bg-brand-100 rounded-full flex items-center justify-center mb-4">
-                <GraduationCap className="w-10 h-10 text-brand-600" />
-              </div>
               <h3 className="text-xl font-bold text-neutral-900 mb-2">{tr('nobelYamanaka')}</h3>
               <p className="text-sm text-brand-700 font-medium whitespace-pre-line">{tr('nobelYamanakaRole')}</p>
             </div>
@@ -604,9 +583,6 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
 
             {/* Tanabe */}
             <div className="bg-gradient-to-br from-brand-400/5 to-brand-400/5 border-2 border-brand-400/20 rounded-2xl p-8 text-center w-full md:w-80">
-              <div className="w-20 h-20 mx-auto bg-brand-400/10 rounded-full flex items-center justify-center mb-4">
-                <Dna className="w-10 h-10 text-brand-700" />
-              </div>
               <h3 className="text-xl font-bold text-neutral-900 mb-2">{tr('nobelTanabe')}</h3>
               <p className="text-sm text-brand-700 font-medium whitespace-pre-line">{tr('nobelTanabeRole')}</p>
             </div>
@@ -619,9 +595,6 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
 
             {/* iPeace */}
             <div className="bg-gradient-to-br from-brand-400/5 to-brand-50 border-2 border-brand-400/20 rounded-2xl p-8 text-center w-full md:w-80">
-              <div className="w-20 h-20 mx-auto bg-brand-400/10 rounded-full flex items-center justify-center mb-4">
-                <Shield className="w-10 h-10 text-brand-700" />
-              </div>
               <h3 className="text-xl font-bold text-neutral-900 mb-2">iPeace, Inc.</h3>
               <p className="text-sm text-brand-700 font-medium">
                 {lang === 'ja' ? 'My Peace iPS細胞バンキング\nFDA cGMP認証・京都製造' : lang === 'en' ? 'My Peace iPS Cell Banking\nFDA cGMP Certified · Kyoto' : lang === 'zh-TW' ? 'My Peace iPS細胞儲存\nFDA cGMP認證·京都製造' : 'My Peace iPS细胞储存\nFDA cGMP认证·京都制造'}
@@ -661,9 +634,6 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
               { icon: <GraduationCap className="w-6 h-6" />, title: tr('ipeaceFeature4Title'), desc: tr('ipeaceFeature4Desc') },
             ].map((item, idx) => (
               <div key={idx} className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-                <div className="w-12 h-12 bg-brand-400/20 rounded-xl flex items-center justify-center text-white mb-4">
-                  {item.icon}
-                </div>
                 <h4 className="font-bold text-white mb-2">{item.title}</h4>
                 <p className="text-sm text-white/60 leading-relaxed">{item.desc}</p>
               </div>
@@ -673,13 +643,11 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
           {/* Why Bank Now */}
           <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
             <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-brand-200" />
               {tr('whyIpsTitle')}
             </h3>
             <div className="space-y-4">
               {[tr('whyIps1'), tr('whyIps2'), tr('whyIps3')].map((item, idx) => (
                 <div key={idx} className="flex items-start gap-3">
-                  <Leaf className="w-5 h-5 text-brand-200 shrink-0 mt-0.5" />
                   <span className="text-white/80">{item}</span>
                 </div>
               ))}
@@ -707,9 +675,6 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
               { name: tr('team2Name'), role: tr('team2Role'), desc: tr('team2Desc'), icon: <Dna className="w-6 h-6" /> },
             ].map((member, idx) => (
               <div key={idx} className="bg-neutral-50 border border-neutral-200 rounded-2xl p-8">
-                <div className="w-14 h-14 bg-brand-400/10 rounded-2xl flex items-center justify-center text-brand-700 mb-4">
-                  {member.icon}
-                </div>
                 <h3 className="text-xl font-bold text-neutral-900 mb-1">{member.name}</h3>
                 <p className="text-sm text-brand-700 font-medium mb-4">{member.role}</p>
                 <p className="text-sm text-brand-700 leading-relaxed">{member.desc}</p>
@@ -734,18 +699,13 @@ export default function CellMedicineContent({ isGuideEmbed, guideSlug }: Props) 
 
           <div className="bg-white border border-neutral-200 rounded-2xl p-8">
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-brand-400/10 rounded-xl flex items-center justify-center shrink-0">
-                <Building2 className="w-6 h-6 text-brand-700" />
-              </div>
               <div>
                 <h3 className="text-lg font-bold text-neutral-900 mb-2">{tr('locationName')}</h3>
                 <div className="space-y-2 text-sm text-brand-700">
                   <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-neutral-400" />
                     <span>{tr('locationAddress')}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Train className="w-4 h-4 text-neutral-400" />
                     <span>{tr('locationAccess')}</span>
                   </div>
                 </div>

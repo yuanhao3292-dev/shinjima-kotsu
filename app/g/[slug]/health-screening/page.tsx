@@ -9,19 +9,7 @@ import FollowUpQuestionnaire from '@/components/FollowUpQuestionnaire';
 import { SCREENING_SESSION_HEADER } from '@/lib/utils/screening-session';
 import DocumentUpload, { type UploadResult } from '@/components/DocumentUpload';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
-import {
-  ArrowLeft,
-  Loader2,
-  AlertCircle,
-  Heart,
-  Activity,
-  Sparkles,
-  Shield,
-  FileText,
-  Users,
-  Upload,
-  Globe,
-} from 'lucide-react';
+import { ArrowLeft, Loader2, AlertCircle, Upload, Globe } from 'lucide-react';
 
 const translations: Record<string, Record<Language, string>> = {
   // Common
@@ -571,7 +559,6 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
                   </span>
                 ) : (
                   <span className="flex items-center justify-center gap-2">
-                    <Sparkles className="w-5 h-5" />
                     {t('startAnalysisWithDoc')}
                   </span>
                 )}
@@ -615,7 +602,6 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
         <div className="bg-gradient-to-b from-white to-brand-50/30 py-8">
           <div className="max-w-4xl mx-auto px-4 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-100 text-brand-700 rounded-full text-sm mb-4">
-              <Shield className="w-4 h-4" />
               <span>{t('freeAiAnalysis')}</span>
             </div>
             <h1 className="text-2xl md:text-3xl font-semibold text-neutral-900">
@@ -688,7 +674,6 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
         <div className="bg-gradient-to-b from-white to-brand-50/30 py-8">
           <div className="max-w-4xl mx-auto px-4 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-100 text-brand-700 rounded-full text-sm mb-4">
-              <Activity className="w-4 h-4" />
               <span>{t('stepOneSelectAreas')}</span>
             </div>
             <h1 className="text-2xl md:text-3xl font-semibold text-neutral-900">
@@ -728,9 +713,6 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
       {/* Hero */}
       <div className="bg-gradient-to-b from-white to-brand-50/30 py-16">
         <div className="max-w-2xl mx-auto px-4 text-center">
-          <div className="inline-flex items-center justify-center w-24 h-24 brand-gradient-solid rounded-full mb-6 shadow-lg shadow-brand-200">
-            <Heart className="w-12 h-12 text-white" />
-          </div>
 
           <h1 className="text-3xl md:text-4xl font-semibold text-neutral-900 mb-4">
             {t('aiHealthScreening')}
@@ -742,7 +724,6 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
 
           {/* 无需登录提示 */}
           <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-green-100 text-green-700 rounded-full text-sm mb-8 shadow-sm">
-            <Sparkles className="w-4 h-4" />
             <span>{t('freeNoLoginInstantAi')}</span>
           </div>
 
@@ -766,7 +747,6 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
                 </span>
               ) : (
                 <span className="flex items-center gap-2">
-                  <Activity className="w-5 h-5" />
                   {t('startSmartScreening')}
                 </span>
               )}
@@ -787,16 +767,12 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="text-center mb-10">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-100 text-brand-700 rounded-full text-sm font-medium">
-            <Sparkles className="w-4 h-4" />
             {t('aiPoweredHealthAssessment')}
           </span>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-white rounded-2xl p-5 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
-              <Activity className="w-6 h-6 text-brand-600" />
-            </div>
             <h3 className="font-bold text-neutral-900 mb-2">{t('bodyMapInteraction')}</h3>
             <p className="text-neutral-500 text-sm">
               {t('bodyMapInteractionDesc')}
@@ -804,9 +780,6 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
           </div>
 
           <div className="bg-white rounded-2xl p-5 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
-              <Users className="w-6 h-6 text-brand-600" />
-            </div>
             <h3 className="font-bold text-neutral-900 mb-2">{t('smartDeptRecommendation')}</h3>
             <p className="text-neutral-500 text-sm">
               {t('smartDeptRecommendationDesc')}
@@ -814,9 +787,6 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
           </div>
 
           <div className="bg-white rounded-2xl p-5 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
-              <Sparkles className="w-6 h-6 text-brand-600" />
-            </div>
             <h3 className="font-bold text-neutral-900 mb-2">{t('dynamicConsultation')}</h3>
             <p className="text-neutral-500 text-sm">
               {t('dynamicConsultationDesc')}
@@ -824,9 +794,6 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
           </div>
 
           <div className="bg-white rounded-2xl p-5 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
-              <FileText className="w-6 h-6 text-brand-600" />
-            </div>
             <h3 className="font-bold text-neutral-900 mb-2">{t('pdfReport')}</h3>
             <p className="text-neutral-500 text-sm">
               {t('pdfReportDesc')}
@@ -839,9 +806,6 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
       <div className="max-w-4xl mx-auto px-4 pb-16">
         <div className="grid md:grid-cols-3 gap-6">
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100">
-            <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
-              <Shield className="w-6 h-6 text-brand-600" />
-            </div>
             <h3 className="font-bold text-neutral-900 mb-2">{t('privacyProtection')}</h3>
             <p className="text-neutral-500 text-sm">
               {t('privacyProtectionDesc')}
@@ -849,9 +813,6 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
           </div>
 
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100">
-            <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
-              <Sparkles className="w-6 h-6 text-brand-600" />
-            </div>
             <h3 className="font-bold text-neutral-900 mb-2">{t('aiAnalysis')}</h3>
             <p className="text-neutral-500 text-sm">
               {t('aiAnalysisDesc')}
@@ -859,9 +820,6 @@ export default function WhitelabelHealthScreeningPage({ params }: PageProps) {
           </div>
 
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100">
-            <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
-              <Heart className="w-6 h-6 text-brand-600" />
-            </div>
             <h3 className="font-bold text-neutral-900 mb-2">{t('japanMedicalRecommendation')}</h3>
             <p className="text-neutral-500 text-sm">
               {t('japanMedicalRecommendationDesc')}

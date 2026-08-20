@@ -9,14 +9,7 @@ import PublicLayout from '@/components/PublicLayout';
 import { localizeText } from '@/lib/utils/text-converter';
 import { formatDateJP } from '@/lib/utils/format-date';
 import {
-  Calendar,
-  ChevronRight,
-  Newspaper,
-  Megaphone,
-  Sparkles,
-  ArrowRight,
-  Bell,
-  Loader2,
+  Calendar, ChevronRight, Newspaper, Megaphone, Sparkles, ArrowRight, Bell, Loader2
 } from 'lucide-react';
 
 type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
@@ -332,7 +325,6 @@ export default function NewsPage() {
                         : 'bg-white text-neutral-600 border border-neutral-200 hover:border-neutral-300 hover:shadow-md'
                     }`}
                   >
-                    <Icon size={16} />
                     <span>{config.labels[lang]}</span>
                     <span className={`ml-1 px-2 py-0.5 rounded-full text-xs ${
                       isActive ? 'bg-white/20' : 'bg-neutral-100'
@@ -384,7 +376,6 @@ export default function NewsPage() {
                         {/* 分类标签 */}
                         <div className="flex items-center gap-2 md:w-36 flex-shrink-0">
                           <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold ${config.lightColor}`}>
-                            <Icon size={12} />
                             {config.labels[lang]}
                           </span>
                           {isNewNews(news.published_at) && (
@@ -420,9 +411,6 @@ export default function NewsPage() {
               </div>
             ) : (
               <div className="py-20 text-center">
-                <div className="w-16 h-16 bg-neutral-100 flex items-center justify-center mx-auto mb-4">
-                  <Newspaper size={24} className="text-neutral-400" />
-                </div>
                 <p className="text-neutral-500">{t('noNews')}</p>
               </div>
             )}

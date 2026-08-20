@@ -6,7 +6,7 @@ import { isValidSlug } from '@/lib/whitelabel-config';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
 import Image from 'next/image';
-import { CheckCircle, Shield, Lock, CreditCard } from 'lucide-react';
+import { Lock } from 'lucide-react';
 import CheckoutLayout from '@/components/CheckoutLayout';
 import OrderConfirmationModal from '@/components/OrderConfirmationModal';
 import ConsentCheckboxes, { allConsented, type Consents } from '@/components/ConsentCheckboxes';
@@ -320,7 +320,6 @@ export default function SaiClinicCheckoutPage() {
               <div className={`space-y-2.5 text-sm ${isVIP ? '' : 'text-neutral-700'}`}>
                 {pkg.features.map((f, i) => (
                   <div key={i} className="flex gap-2">
-                    <CheckCircle size={16} className={`shrink-0 mt-0.5 ${theme.check}`} />
                     <span>{f}</span>
                   </div>
                 ))}
@@ -424,7 +423,6 @@ export default function SaiClinicCheckoutPage() {
                   <span className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
                 ) : (
                   <>
-                    <CreditCard size={20} />
                     确认并支付 ¥{pkg.price.toLocaleString()}
                   </>
                 )}
@@ -433,8 +431,8 @@ export default function SaiClinicCheckoutPage() {
               {/* Security badges */}
               <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-neutral-400">
                 <span className="flex items-center gap-1"><Lock size={12} /> SSL加密</span>
-                <span className="flex items-center gap-1"><Shield size={12} /> Stripe安全支付</span>
-                <span className="flex items-center gap-1"><Shield size={12} /> 隐私保护</span>
+                <span className="flex items-center gap-1"> Stripe安全支付</span>
+                <span className="flex items-center gap-1"> 隐私保护</span>
               </div>
 
               {/* Payment method icons */}

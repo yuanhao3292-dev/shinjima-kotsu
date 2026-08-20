@@ -9,10 +9,7 @@ import CheckoutLayout from '@/components/CheckoutLayout';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 import ProviderBanner, { useProviderKey } from '@/components/ProviderBanner';
 import { isValidSlug } from '@/lib/whitelabel-config';
-import {
-  ArrowLeft, CheckCircle, FileText, Shield, Clock,
-  Loader2, CreditCard, Users, Phone, Mail, MessageSquare
-} from 'lucide-react';
+import { ArrowLeft, Loader2, Phone } from 'lucide-react';
 import ConsentCheckboxes, { allConsented, type Consents } from '@/components/ConsentCheckboxes';
 import OrderConfirmationModal from '@/components/OrderConfirmationModal';
 
@@ -202,11 +199,11 @@ export default function CellMedicineInitialConsultationPage() {
               <p className="text-sm text-neutral-600 mb-6 leading-relaxed">{t('serviceLongDescription')}</p>
               <div className="space-y-2.5 text-sm text-neutral-700">
                 {[t('feature1'), t('feature2'), t('feature3'), t('feature4'), t('feature5')].map((f, i) => (
-                  <div key={i} className="flex gap-2"><CheckCircle size={16} className="shrink-0 mt-0.5 text-brand-700" /><span>{f}</span></div>
+                  <div key={i} className="flex gap-2"><span>{f}</span></div>
                 ))}
               </div>
               <div className="mt-6 pt-6 border-t border-neutral-200">
-                <h4 className="font-bold text-neutral-900 mb-3 flex items-center gap-2"><FileText size={16} className="text-brand-700" />{t('requiredDocsTitle')}</h4>
+                <h4 className="font-bold text-neutral-900 mb-3 flex items-center gap-2">{t('requiredDocsTitle')}</h4>
                 <ul className="space-y-2 text-sm text-neutral-600">
                   {[t('doc1'), t('doc2'), t('doc3'), t('doc4'), t('doc5')].map((d, i) => (
                     <li key={i} className="flex gap-2"><span className="text-neutral-400">•</span><span>{d}</span></li>
@@ -225,7 +222,7 @@ export default function CellMedicineInitialConsultationPage() {
 
               <form onSubmit={handleSubmit} className="space-y-8">
                 <div>
-                  <h3 className="font-bold text-neutral-900 mb-4 flex items-center gap-2"><Users size={18} className="text-brand-700" />{t('patientInfoTitle')}</h3>
+                  <h3 className="font-bold text-neutral-900 mb-4 flex items-center gap-2">{t('patientInfoTitle')}</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div><label className="block text-sm font-medium text-neutral-700 mb-1">{t('patientName')}</label><input type="text" required value={patientInfo.patientName} onChange={(e) => setPatientInfo({ ...patientInfo, patientName: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent" placeholder={t('patientNamePlaceholder')} /></div>
                     <div><label className="block text-sm font-medium text-neutral-700 mb-1">{t('age')}</label><input type="text" value={patientInfo.age} onChange={(e) => setPatientInfo({ ...patientInfo, age: e.target.value })} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent" placeholder={t('agePlaceholder')} /></div>
@@ -261,12 +258,12 @@ export default function CellMedicineInitialConsultationPage() {
                   <ConsentCheckboxes consents={consents} onChange={setConsents} lang={currentLang} />
 
                 <button type="submit" disabled={processing || !allConsented(consents)} className="w-full py-4 bg-brand-400 text-neutral-900 font-bold hover:bg-brand-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
-                    {processing ? (<><Loader2 className="animate-spin" size={20} />{t('processing')}</>) : (<><CreditCard size={20} />{t('confirmPayment')}</>)}
+                    {processing ? (<><Loader2 className="animate-spin" size={20} />{t('processing')}</>) : (<>{t('confirmPayment')}</>)}
                   </button>
                 </div>
                 <div className="flex flex-wrap justify-center gap-6 text-xs text-neutral-500">
-                  <div className="flex items-center gap-1"><Shield size={14} className="text-brand-700" /><span>{t('securePayment')}</span></div>
-                  <div className="flex items-center gap-1"><Clock size={14} className="text-brand-700" /><span>{t('contact24h')}</span></div>
+                  <div className="flex items-center gap-1"><span>{t('securePayment')}</span></div>
+                  <div className="flex items-center gap-1"><span>{t('contact24h')}</span></div>
                 </div>
                 <div className="flex items-center justify-center gap-2 mt-4">
                   <Image src="/icons/payment/visa.svg" alt="Visa" width={40} height={25} className="h-6 w-auto" />

@@ -4,32 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import {
-  Award,
-  Users,
-  Building2,
-  Microscope,
-  Heart,
-  Brain,
-  Stethoscope,
-  Activity,
-  CheckCircle2,
-  MapPin,
-  Train,
-  Car,
-  Bus,
-  Shield,
-  GraduationCap,
-  FlaskConical,
-  UserCheck,
-  Clock,
-  ArrowRight,
-  FileText,
-  CreditCard,
-  Lock,
-  MessageSquare,
-  Mail,
-  Globe,
-  CheckCircle,
+  Award, Users, Building2, Microscope, Heart, Brain, Stethoscope, Activity, CheckCircle2, Train, Car, Bus, Shield, GraduationCap, FlaskConical, UserCheck, ArrowRight, FileText, MessageSquare
 } from 'lucide-react'
 import { useLanguage4, type Language } from '@/hooks/useLanguage'
 
@@ -1433,7 +1408,6 @@ export default function KindaiHospitalContent({
           <div className="container mx-auto px-6">
             <div className="max-w-4xl space-y-6">
               <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-white backdrop-blur-sm">
-                <Shield className="h-4 w-4" />
                 <span>{certificationsTitle[locale]}</span>
               </div>
 
@@ -1468,9 +1442,6 @@ export default function KindaiHospitalContent({
                 key={index}
                 className="group rounded-3xl border border-neutral-200 bg-white p-6 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
               >
-                <div className="mb-4 inline-flex rounded-2xl brand-gradient-solid p-4 text-white transition-transform duration-300 group-hover:scale-110">
-                  <cert.icon className="h-8 w-8" />
-                </div>
                 <h3 className="mb-2 text-lg font-bold text-neutral-900">
                   {cert.name[locale]}
                 </h3>
@@ -1499,9 +1470,6 @@ export default function KindaiHospitalContent({
                     key={index}
                     className="group rounded-3xl border border-neutral-200 bg-gradient-to-br from-white to-neutral-50 p-8 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
                   >
-                    <div className="mb-4 inline-flex rounded-2xl brand-gradient-solid p-4 text-white transition-transform duration-300 group-hover:scale-110">
-                      <stat.icon className="h-8 w-8" />
-                    </div>
                     <div className="mb-2 flex items-baseline gap-2">
                       <span className="text-4xl font-bold text-neutral-900">
                         {stat.number}
@@ -1539,9 +1507,6 @@ export default function KindaiHospitalContent({
                     key={index}
                     className="group rounded-3xl border border-neutral-200 bg-white p-8 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
                   >
-                    <div className="mb-4 inline-flex rounded-2xl brand-gradient-solid p-4 text-white transition-transform duration-300 group-hover:scale-110">
-                      <feature.icon className="h-8 w-8" />
-                    </div>
                     <h3 className="mb-3 text-xl font-bold text-neutral-900">
                       {feature.title[locale]}
                     </h3>
@@ -1584,9 +1549,6 @@ export default function KindaiHospitalContent({
                     )}
                     <div className="p-6">
                       <div className="mb-4 flex items-start gap-3">
-                        <div className="inline-flex rounded-xl brand-gradient-solid p-3 text-white">
-                          <equip.icon className="h-6 w-6" />
-                        </div>
                         <div className="flex-1">
                           <h3 className="mb-1 text-xl font-bold text-neutral-900">
                             {equip.name[locale]}
@@ -1627,7 +1589,6 @@ export default function KindaiHospitalContent({
                                 key={idx}
                                 className="flex items-start gap-2 text-xs text-neutral-600"
                               >
-                                <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-neutral-900" />
                                 <span>{advantage[locale]}</span>
                               </li>
                             ))}
@@ -1648,7 +1609,6 @@ export default function KindaiHospitalContent({
                       )}
 
                       <div className="flex items-center gap-2 border-t border-neutral-200 pt-3 text-xs text-neutral-500">
-                        <Activity className="h-4 w-4" />
                         <span>{equip.applications[locale]}</span>
                       </div>
                     </div>
@@ -1675,9 +1635,6 @@ export default function KindaiHospitalContent({
                     key={index}
                     className="group rounded-3xl border border-neutral-200 bg-white p-8 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
                   >
-                    <div className="mb-4 inline-flex rounded-2xl brand-gradient-solid p-4 text-white transition-transform duration-300 group-hover:scale-110">
-                      <feature.icon className="h-8 w-8" />
-                    </div>
                     <h3 className="mb-3 text-xl font-bold text-neutral-900">
                       {feature.title[locale]}
                     </h3>
@@ -1716,9 +1673,7 @@ export default function KindaiHospitalContent({
                       quality={75}
                     />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center brand-gradient-solid">
-                      <UserCheck className="h-24 w-24 text-white" />
-                    </div>
+                    <div className="h-full w-full brand-gradient-solid" />
                   )}
                 </div>
 
@@ -1735,7 +1690,6 @@ export default function KindaiHospitalContent({
 
                     <div>
                       <h4 className="mb-2 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-neutral-600">
-                        <Stethoscope className="h-4 w-4" />
                         {locale === 'ja' && '専門分野'}
                         {locale === 'zh-CN' && '专业领域'}
                         {locale === 'zh-TW' && '專業領域'}
@@ -1755,7 +1709,6 @@ export default function KindaiHospitalContent({
 
                     <div>
                       <h4 className="mb-2 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-neutral-600">
-                        <GraduationCap className="h-4 w-4" />
                         {locale === 'ja' && '資格・認定'}
                         {locale === 'zh-CN' && '资质认证'}
                         {locale === 'zh-TW' && '資質認證'}
@@ -1768,7 +1721,6 @@ export default function KindaiHospitalContent({
 
                     <div>
                       <h4 className="mb-2 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-neutral-600">
-                        <Award className="h-4 w-4" />
                         {locale === 'ja' && '実績'}
                         {locale === 'zh-CN' && '成就'}
                         {locale === 'zh-TW' && '成就'}
@@ -1800,9 +1752,6 @@ export default function KindaiHospitalContent({
             <div className="overflow-hidden rounded-3xl bg-gradient-to-br from-brand-50 to-brand-50 shadow-2xl">
               <div className="p-8 md:p-12">
                 <div className="mb-6 flex items-center gap-4">
-                  <div className="rounded-2xl brand-gradient-solid p-4 text-white">
-                    <Heart className="h-10 w-10" />
-                  </div>
                   <h3 className="text-2xl font-bold text-neutral-900 md:text-3xl">
                     {cancerCenterTitle[locale]}
                   </h3>
@@ -1819,7 +1768,6 @@ export default function KindaiHospitalContent({
                       className="rounded-2xl border border-red-200 bg-white/60 p-4 backdrop-blur-sm transition-all duration-300 hover:bg-white hover:shadow-lg"
                     >
                       <div className="mb-2 flex items-center gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-red-600" />
                         <h4 className="font-bold text-neutral-900">
                           {feature.title[locale]}
                         </h4>
@@ -1837,9 +1785,6 @@ export default function KindaiHospitalContent({
             <div className="overflow-hidden rounded-3xl bg-gradient-to-br from-neutral-50 to-white shadow-2xl">
               <div className="p-8 md:p-12">
                 <div className="mb-6 flex items-center gap-4">
-                  <div className="rounded-2xl brand-gradient-solid p-4 text-white">
-                    <Heart className="h-10 w-10" />
-                  </div>
                   <h3 className="text-2xl font-bold text-neutral-900 md:text-3xl">
                     {cardioCenterTitle[locale]}
                   </h3>
@@ -1856,7 +1801,6 @@ export default function KindaiHospitalContent({
                       className="rounded-2xl border border-brand-200 bg-white/60 p-4 backdrop-blur-sm transition-all duration-300 hover:bg-white hover:shadow-lg"
                     >
                       <div className="mb-2 flex items-center gap-2">
-                        <CheckCircle2 className="h-5 w-5 text-neutral-900" />
                         <h4 className="font-bold text-neutral-900">
                           {feature.title[locale]}
                         </h4>
@@ -1874,9 +1818,6 @@ export default function KindaiHospitalContent({
             <div className="overflow-hidden rounded-3xl bg-gradient-to-br from-brand-50 to-brand-50 shadow-2xl">
               <div className="p-8 md:p-12">
                 <div className="mb-6 flex items-center gap-4">
-                  <div className="rounded-2xl brand-gradient-solid p-4 text-white">
-                    <Brain className="h-10 w-10" />
-                  </div>
                   <h3 className="text-2xl font-bold text-neutral-900 md:text-3xl">
                     {strokeCenterTitle[locale]}
                   </h3>
@@ -1942,9 +1883,6 @@ export default function KindaiHospitalContent({
                     }`}
                   >
                     <div className="flex items-center gap-2 mb-2">
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isActive ? c.bg : 'bg-neutral-200'}`}>
-                        <PhaseIcon size={16} className={isActive ? 'text-white' : 'text-neutral-500'} />
-                      </div>
                       <span className={`text-xs font-bold ${isActive ? c.text : 'text-neutral-400'}`}>
                         PHASE {phase.phaseNumber}
                       </span>
@@ -1953,7 +1891,6 @@ export default function KindaiHospitalContent({
                       {phase.title[locale]}
                     </h4>
                     <p className="text-xs text-neutral-400 mt-1 flex items-center gap-1">
-                      <Clock size={10} />
                       {phase.duration[locale]}
                     </p>
                   </button>
@@ -1978,9 +1915,6 @@ export default function KindaiHospitalContent({
                   <div className={`bg-gradient-to-r ${phaseGradientMap[phase.color]} p-6 md:p-8 text-white`}>
                     <div className="flex flex-wrap items-center justify-between gap-4">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
-                          <PhaseIcon size={24} />
-                        </div>
                         <div>
                           <div className="text-white/70 text-xs font-bold tracking-wider">PHASE {phase.phaseNumber}</div>
                           <h4 className="text-xl md:text-2xl font-bold">{phase.title[locale]}</h4>
@@ -1989,11 +1923,11 @@ export default function KindaiHospitalContent({
                       </div>
                       <div className="flex flex-wrap items-center gap-3">
                         <span className="bg-white/20 backdrop-blur px-3 py-1.5 rounded-full text-sm flex items-center gap-1.5">
-                          <Clock size={14} /> {phase.duration[locale]}
+                           {phase.duration[locale]}
                         </span>
                         {phase.feeSummary && (
                           <span className="bg-white/20 backdrop-blur px-3 py-1.5 rounded-full text-sm flex items-center gap-1.5">
-                            <CreditCard size={14} /> {phase.feeSummary[locale]}
+                             {phase.feeSummary[locale]}
                           </span>
                         )}
                       </div>
@@ -2006,13 +1940,11 @@ export default function KindaiHospitalContent({
                       {/* Patient Actions */}
                       <div className={`rounded-xl p-5 border ${phaseColors[phase.color].light}`}>
                         <div className="flex items-center gap-2 mb-4">
-                          <Users size={18} className="text-neutral-600" />
                           <h5 className="font-bold text-neutral-900 text-sm">{flowYouDo[locale]}</h5>
                         </div>
                         <ul className="space-y-2.5">
                           {phase.patientActions.map((action, i) => (
                             <li key={i} className="flex items-start gap-2.5 text-sm text-neutral-700">
-                              <CheckCircle size={16} className="text-neutral-900 flex-shrink-0 mt-0.5" />
                               <span>{action[locale]}</span>
                             </li>
                           ))}
@@ -2021,13 +1953,11 @@ export default function KindaiHospitalContent({
                       {/* We Handle */}
                       <div className="rounded-xl p-5 border bg-neutral-50 border-neutral-100">
                         <div className="flex items-center gap-2 mb-4">
-                          <Shield size={18} className="text-neutral-600" />
                           <h5 className="font-bold text-neutral-900 text-sm">{flowWeHandle[locale]}</h5>
                         </div>
                         <ul className="space-y-2.5">
                           {phase.weHandle.map((item, i) => (
                             <li key={i} className="flex items-start gap-2.5 text-sm text-neutral-700">
-                              <CheckCircle size={16} className="text-neutral-900 flex-shrink-0 mt-0.5" />
                               <span>{item[locale]}</span>
                             </li>
                           ))}
@@ -2038,7 +1968,6 @@ export default function KindaiHospitalContent({
                     {/* Sub-step Timeline */}
                     <div>
                       <h5 className="font-bold text-neutral-900 text-sm mb-4 flex items-center gap-2">
-                        <FileText size={16} className="text-neutral-400" />
                         {flowStepDetail[locale]}
                       </h5>
                       <div className="relative">
@@ -2133,7 +2062,6 @@ export default function KindaiHospitalContent({
                     <ul className="space-y-2 mb-6 text-sm text-neutral-600">
                       {svc.features.map((feat: any, i: number) => (
                         <li key={i} className="flex items-start gap-2">
-                          <CheckCircle size={14} className={`${svc.checkColor} mt-0.5 shrink-0`} />
                           <span>{feat[locale]}</span>
                         </li>
                       ))}
@@ -2152,9 +2080,6 @@ export default function KindaiHospitalContent({
             {/* Member System Notice */}
             <div className="bg-white rounded-2xl p-6 border border-neutral-200 mb-8">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-brand-50 rounded-xl flex items-center justify-center shrink-0">
-                  <Users size={24} className="text-neutral-900" />
-                </div>
                 <div>
                   <h4 className="font-bold text-neutral-900 mb-2">{memberTitle[locale]}</h4>
                   <p className="text-sm text-neutral-600 leading-relaxed">{memberDesc[locale]}</p>
@@ -2177,7 +2102,6 @@ export default function KindaiHospitalContent({
               href="#contact-form"
               className="inline-flex items-center gap-2 brand-gradient-solid hover:opacity-90 text-white px-8 py-4 rounded-full font-bold transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
             >
-              <Stethoscope size={20} />
               {bookNow[locale]}
               <ArrowRight size={18} />
             </a>
@@ -2196,34 +2120,31 @@ export default function KindaiHospitalContent({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-neutral-50 p-8 rounded-xl border border-neutral-100">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-brand-50 text-neutral-900 rounded-full flex items-center justify-center"><Heart size={20} /></div>
                 <h4 className="text-lg font-bold text-neutral-800 font-serif">{deptInternal[locale]}</h4>
               </div>
               <div className="space-y-2">
                 {departments.internal.map((dept, i) => (
-                  <div key={i} className="flex gap-2 text-sm text-neutral-600"><CheckCircle size={14} className="text-neutral-900 shrink-0 mt-0.5" />{dept[locale]}</div>
+                  <div key={i} className="flex gap-2 text-sm text-neutral-600">{dept[locale]}</div>
                 ))}
               </div>
             </div>
             <div className="bg-neutral-50 p-8 rounded-xl border border-neutral-100">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-brand-50 text-neutral-900 rounded-full flex items-center justify-center"><Activity size={20} /></div>
                 <h4 className="text-lg font-bold text-neutral-800 font-serif">{deptSurgical[locale]}</h4>
               </div>
               <div className="space-y-2">
                 {departments.surgical.map((dept, i) => (
-                  <div key={i} className="flex gap-2 text-sm text-neutral-600"><CheckCircle size={14} className="text-neutral-900 shrink-0 mt-0.5" />{dept[locale]}</div>
+                  <div key={i} className="flex gap-2 text-sm text-neutral-600">{dept[locale]}</div>
                 ))}
               </div>
             </div>
             <div className="bg-neutral-50 p-8 rounded-xl border border-neutral-100">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-neutral-200 text-neutral-700 rounded-full flex items-center justify-center"><Stethoscope size={20} /></div>
                 <h4 className="text-lg font-bold text-neutral-800 font-serif">{deptSpecialty[locale]}</h4>
               </div>
               <div className="space-y-2">
                 {departments.specialty.map((dept, i) => (
-                  <div key={i} className="flex gap-2 text-sm text-neutral-600"><CheckCircle size={14} className="text-neutral-500 shrink-0 mt-0.5" />{dept[locale]}</div>
+                  <div key={i} className="flex gap-2 text-sm text-neutral-600">{dept[locale]}</div>
                 ))}
               </div>
             </div>
@@ -2239,7 +2160,6 @@ export default function KindaiHospitalContent({
               {accessTitle[locale]}
             </h2>
             <p className="flex items-center justify-center gap-2 text-base text-neutral-600">
-              <MapPin className="h-5 w-5" />
               {accessAddress[locale]}
             </p>
           </div>
@@ -2247,9 +2167,6 @@ export default function KindaiHospitalContent({
           <div className="grid gap-6 lg:grid-cols-3">
             {/* 电车 */}
             <div className="rounded-3xl border border-neutral-200 bg-white p-8 shadow-lg">
-              <div className="mb-4 inline-flex rounded-2xl brand-gradient-solid p-3 text-white">
-                <Train className="h-6 w-6" />
-              </div>
               <h3 className="mb-4 text-xl font-bold text-neutral-900">
                 {trainTitle[locale]}
               </h3>
@@ -2260,9 +2177,6 @@ export default function KindaiHospitalContent({
 
             {/* 巴士 */}
             <div className="rounded-3xl border border-neutral-200 bg-white p-8 shadow-lg">
-              <div className="mb-4 inline-flex rounded-2xl brand-gradient-solid p-3 text-white">
-                <Bus className="h-6 w-6" />
-              </div>
               <h3 className="mb-4 text-xl font-bold text-neutral-900">
                 {busTitle[locale]}
               </h3>
@@ -2272,7 +2186,6 @@ export default function KindaiHospitalContent({
                     key={index}
                     className="flex items-start gap-2 text-sm text-neutral-600"
                   >
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-neutral-900" />
                     <span>{route[locale]}</span>
                   </li>
                 ))}
@@ -2281,9 +2194,6 @@ export default function KindaiHospitalContent({
 
             {/* 自驾 */}
             <div className="rounded-3xl border border-neutral-200 bg-white p-8 shadow-lg">
-              <div className="mb-4 inline-flex rounded-2xl brand-gradient-solid p-3 text-white">
-                <Car className="h-6 w-6" />
-              </div>
               <h3 className="mb-4 text-xl font-bold text-neutral-900">
                 {carTitle[locale]}
               </h3>
@@ -2293,7 +2203,6 @@ export default function KindaiHospitalContent({
                     key={index}
                     className="flex items-start gap-2 text-sm text-neutral-600"
                   >
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-neutral-900" />
                     <span>{route[locale]}</span>
                   </li>
                 ))}

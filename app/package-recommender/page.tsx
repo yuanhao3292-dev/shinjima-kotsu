@@ -3,7 +3,9 @@
 import { useState, useMemo } from 'react';
 import { useLanguage4 } from '@/hooks/useLanguage';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, CheckCircle, Sparkles, User, Calendar, Heart, Target, MessageSquare, Briefcase } from 'lucide-react';
+import {
+  ArrowLeft, ArrowRight, CheckCircle, User, Calendar, Heart, Target, MessageSquare, Briefcase
+} from 'lucide-react';
 
 type Language = 'ja' | 'zh-TW' | 'zh-CN' | 'en';
 type I18nStr = string | Record<Language, string>;
@@ -997,7 +999,6 @@ export default function PackageRecommenderPage() {
             <div className="brand-gradient-deep text-white p-10 text-center relative overflow-hidden">
               <div className="absolute inset-0 opacity-10"><div className="absolute inset-0" style={{backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png')"}}></div></div>
               <div className="relative z-10">
-                <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur"><Sparkles className="w-10 h-10" /></div>
                 <h2 className="text-3xl font-serif font-bold mb-3">{ut('resultTitle')}</h2>
                 <p className="text-brand-700 text-sm">{ut('resultSubtitle')}</p>
               </div>
@@ -1010,7 +1011,6 @@ export default function PackageRecommenderPage() {
               </div>
               <div className="bg-brand-50 rounded-2xl p-6 mb-8">
                 <div className="flex items-start gap-4">
-                  <CheckCircle className="w-6 h-6 text-brand-600 flex-shrink-0 mt-0.5" />
                   <div><p className="font-semibold text-neutral-900 mb-1">{ut('resultReason')}</p><p className="text-sm text-brand-700 leading-relaxed">{rs(recommendation.reason)}</p></div>
                 </div>
               </div>
@@ -1047,7 +1047,6 @@ export default function PackageRecommenderPage() {
           <div className="p-6 border-b border-neutral-100">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center"><QuestionIcon className="w-6 h-6 text-brand-600" /></div>
                 <div><span className="text-sm text-neutral-400">{ut('questionPrefix')} {currentStep + 1} / {visibleQuestions.length}</span></div>
               </div>
             </div>
