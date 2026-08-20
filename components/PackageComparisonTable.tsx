@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { localePath } from '@/lib/i18n-routing';
 import { Check, Circle, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Language } from '@/translations';
 import {
@@ -39,6 +41,13 @@ interface PackageComparisonTableProps {
 }
 
 export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW' }: PackageComparisonTableProps) {
+  const router = useRouter();
+  // 预约：外部给了回调就用回调；否则默认跳该套餐的详情/预订页。
+  // 此前 /medical 挂表格时没传 onBookNow，6 个「预约」按钮点了没任何反应。
+  const bookNow = (slug: string) => {
+    if (onBookNow) onBookNow(slug);
+    else router.push(localePath(currentLang, `/medical-packages/${slug}`));
+  };
   const PACKAGES = getPackages(currentLang);
   const CHECK_ITEMS = getCheckItems(currentLang);
 
@@ -188,7 +197,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
         {/* 底部下单按钮 */}
         <div className="sticky bottom-0 p-4 bg-white border-t shadow-lg">
           <button
-            onClick={() => onBookNow?.(selectedPackage.id)}
+            onClick={() => bookNow(selectedPackage.slug)}
             className={`block w-full text-center py-3 rounded-xl font-bold text-lg transition ${
  selectedPackage.id === 'vip'
  ? 'brand-gradient-solid text-white hover:opacity-90'
@@ -266,7 +275,7 @@ export default function PackageComparisonTable({ onBookNow, currentLang = 'zh-TW
                   {formatPrice(pkg.price)}
                 </div>
                 <button
-                  onClick={() => onBookNow?.(pkg.id)}
+                  onClick={() => bookNow(pkg.slug)}
                   className={`inline-block mt-2 text-xs px-3 py-1 rounded ${
                     pkg.id === 'vip'
                       ? 'bg-white text-brand-700 hover:bg-neutral-50'
