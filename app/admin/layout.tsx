@@ -5,7 +5,6 @@ import { useBasePathname } from '@/hooks/useLanguage';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
-import Logo from '@/components/Logo';
 import {
   LayoutDashboard,
   UserCheck,
@@ -137,30 +136,27 @@ export default function AdminLayout({
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Mobile Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 brand-gradient-nav z-50 flex items-center justify-between px-4">
-        <div className="flex items-center gap-2 text-white">
-          <Shield size={24} />
-          <span className="font-bold">Admin</span>
+      {/* 顶栏：与官网主页同一套设计（渐变带 + 同款字标），保持全站统一 */}
+      <header className="fixed top-0 left-0 right-0 h-16 brand-gradient-nav z-50 flex items-center justify-between px-4 lg:px-6">
+        <Link href="/" className="flex items-center gap-3">
+          <div className="flex flex-col items-center">
+            <span className="font-serif font-bold text-lg tracking-wide leading-none text-white drop-shadow-[0_1px_0_rgba(0,0,0,0.12)]">NIIJIMA</span>
+            <span className="text-[10px] uppercase tracking-widest leading-none mt-1 text-white/85">新島交通株式会社</span>
+          </div>
+        </Link>
+        <div className="flex items-center gap-3">
+          <span className="hidden sm:inline-flex px-4 py-1.5 rounded-full text-xs font-bold tracking-wider bg-white text-brand-700 shadow-md">管理後台</span>
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 text-white lg:hidden">
+            {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
-        <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 text-white">
-          {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
+      </header>
 
-      {/* Sidebar */}
+      {/* Sidebar：白底黑字，从顶栏下方开始 */}
       <aside className={`
-        fixed top-0 left-0 h-full w-64 bg-white border-r border-neutral-200 z-40 transform transition-transform duration-300
+        fixed top-16 left-0 bottom-0 w-64 bg-white border-r border-neutral-200 z-40 transform transition-transform duration-300
         lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
-        <div className="h-16 flex items-center gap-3 px-6 brand-gradient-nav">
-          <Logo className="w-8 h-8 text-white" />
-          <div>
-            <span className="font-bold text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.2)]">NIIJIMA</span>
-            <p className="text-xs text-white/85">Admin Panel</p>
-          </div>
-        </div>
-
         <nav className="p-4 space-y-1 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 64px - 100px)' }}>
           {navItems.map((item) => {
             const isActive = pathname === item.href ||
@@ -201,7 +197,7 @@ export default function AdminLayout({
       </aside>
 
       {/* Main Content */}
-      <main className="lg:ml-64 pt-16 lg:pt-0 min-h-screen">
+      <main className="lg:ml-64 pt-16 min-h-screen">
         {children}
       </main>
 
