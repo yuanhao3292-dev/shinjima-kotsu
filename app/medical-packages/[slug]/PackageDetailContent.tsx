@@ -24,19 +24,19 @@ const packageColors: Record<string, {
 }> = {
   'vip-member-course': {
     headerBg: 'brand-gradient-deep',
-    title: 'text-brand-400',
-    price: 'text-brand-400',
-    check: 'text-brand-400',
-    button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300',
+    title: 'text-white',
+    price: 'text-white',
+    check: 'text-white',
+    button: 'brand-gradient-solid text-white hover:opacity-90',
     cardBg: 'brand-gradient-deep',
     cardBorder: 'border-brand-400/30',
-    badgeBg: 'bg-brand-400 text-neutral-900' },
+    badgeBg: 'bg-white text-brand-700' },
   'premium-cardiac-course': {
     headerBg: 'brand-gradient-deep',
     title: 'text-neutral-900',
     price: 'text-neutral-900',
     check: 'text-brand-700',
-    button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300',
+    button: 'brand-gradient-solid text-white hover:opacity-90',
     cardBg: 'bg-neutral-50',
     cardBorder: 'border-neutral-200',
   },
@@ -45,7 +45,7 @@ const packageColors: Record<string, {
     title: 'text-neutral-900',
     price: 'text-neutral-900',
     check: 'text-brand-700',
-    button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300',
+    button: 'brand-gradient-solid text-white hover:opacity-90',
     cardBg: 'bg-neutral-50',
     cardBorder: 'border-neutral-200',
   },
@@ -54,7 +54,7 @@ const packageColors: Record<string, {
     title: 'text-neutral-900',
     price: 'text-neutral-900',
     check: 'text-brand-700',
-    button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300',
+    button: 'brand-gradient-solid text-white hover:opacity-90',
     cardBg: 'bg-neutral-50',
     cardBorder: 'border-neutral-200',
   },
@@ -63,7 +63,7 @@ const packageColors: Record<string, {
     title: 'text-neutral-900',
     price: 'text-neutral-900',
     check: 'text-brand-700',
-    button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300',
+    button: 'brand-gradient-solid text-white hover:opacity-90',
     cardBg: 'bg-neutral-50',
     cardBorder: 'border-neutral-200',
   },
@@ -72,7 +72,7 @@ const packageColors: Record<string, {
     title: 'text-neutral-900',
     price: 'text-neutral-900',
     check: 'text-brand-700',
-    button: 'bg-brand-400 text-neutral-900 hover:bg-brand-300',
+    button: 'brand-gradient-solid text-white hover:opacity-90',
     cardBg: 'bg-neutral-50',
     cardBorder: 'border-neutral-200',
   },
@@ -369,12 +369,12 @@ export default function PackageDetailContent({
                   {pkg.badge}
                 </span>
               )}
-              <h1 className={`text-3xl md:text-4xl font-serif font-bold ${pkg.isVIP ? 'text-brand-700' : 'text-white'}`}>{pkg.name}</h1>
-              <p className={`text-sm mt-2 ${pkg.isVIP ? 'text-neutral-400' : 'text-neutral-300'}`}>{pkg.nameEn}</p>
+              <h1 className={`text-3xl md:text-4xl font-serif font-bold text-white`}>{pkg.name}</h1>
+              <p className={`text-sm mt-2 text-white/75`}>{pkg.nameEn}</p>
             </div>
             <div className="text-right">
-              <p className={`text-4xl md:text-5xl font-bold ${pkg.isVIP ? 'text-brand-700' : 'text-white'}`}>¥{pkg.price.toLocaleString()}</p>
-              <p className={`text-xs mt-1 ${pkg.isVIP ? 'text-neutral-500' : 'text-neutral-300'}`}>{t.priceNote}</p>
+              <p className={`text-4xl md:text-5xl font-bold text-white`}>¥{pkg.price.toLocaleString()}</p>
+              <p className={`text-xs mt-1 text-white/75`}>{t.priceNote}</p>
             </div>
           </div>
         </div>
@@ -386,7 +386,7 @@ export default function PackageDetailContent({
           <div className="lg:col-span-1">
             <div className={`p-6 border ${pkg.colors.cardBorder} ${pkg.colors.cardBg} ${pkg.isVIP ? 'text-white' : ''} sticky top-8`}>
               <h3 className={`text-lg font-serif font-bold mb-3 ${pkg.colors.title}`}>{t.pkgIncludes}</h3>
-              <p className={`text-sm mb-6 leading-relaxed ${pkg.isVIP ? 'text-neutral-300' : 'text-neutral-500'}`}>{pkg.longDescription}</p>
+              <p className={`text-sm mb-6 leading-relaxed ${pkg.isVIP ? 'text-white/85' : 'text-neutral-500'}`}>{pkg.longDescription}</p>
               <div className={`space-y-2.5 text-sm ${pkg.isVIP ? '' : 'text-neutral-700'}`}>
                 {pkg.features.map((feature, idx) => (
                   <div key={idx} className="flex gap-2">
@@ -394,9 +394,9 @@ export default function PackageDetailContent({
                   </div>
                 ))}
               </div>
-              <div className={`mt-6 pt-6 border-t ${pkg.isVIP ? 'border-neutral-700' : 'border-neutral-200'}`}>
+              <div className={`mt-6 pt-6 border-t ${pkg.isVIP ? 'border-white/25' : 'border-neutral-200'}`}>
                 <div className="flex justify-between items-center">
-                  <span className={`text-sm ${pkg.isVIP ? 'text-neutral-400' : 'text-neutral-500'}`}>{t.pkgPrice}</span>
+                  <span className={`text-sm ${pkg.isVIP ? 'text-white/75' : 'text-neutral-500'}`}>{t.pkgPrice}</span>
                   <span className={`text-xl font-bold ${pkg.colors.price}`}>¥{pkg.price.toLocaleString()}</span>
                 </div>
               </div>

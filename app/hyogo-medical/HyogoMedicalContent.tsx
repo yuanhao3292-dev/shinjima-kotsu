@@ -1170,8 +1170,8 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
             {HEADLINE_STATS.map((stat, i) => (
               <div key={i} className="text-center bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 transition">
                 <div className="text-3xl md:text-4xl font-bold text-white font-serif">{stat.value}</div>
-                <div className="text-sm text-neutral-300 mt-2 font-medium">{stat.label[lang]}</div>
-                <div className="text-xs text-neutral-500 mt-1">{stat.sub[lang]}</div>
+                <div className="text-sm text-white/85 mt-2 font-medium">{stat.label[lang]}</div>
+                <div className="text-xs text-white/70 mt-1">{stat.sub[lang]}</div>
               </div>
             ))}
           </div>

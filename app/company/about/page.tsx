@@ -680,7 +680,7 @@ export default function AboutPage() {
                   <p className="text-white/80 text-sm leading-relaxed flex-1">{t('medicalAiDesc')}</p>
                   <div className="mt-6 pt-4 border-t border-white/20">
                     <div className="flex items-baseline gap-1">
-                      <span className="text-3xl font-bold text-brand-700">4</span>
+                      <span className="text-3xl font-bold text-white">4</span>
                       <span className="text-white/60 text-sm">{currentLang === 'en' ? 'languages supported' : currentLang === 'ja' ? '言語対応' : '语言支持'}</span>
                     </div>
                   </div>
@@ -801,12 +801,12 @@ export default function AboutPage() {
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <div className="h-[1px] w-12 bg-brand-400"></div>
-                  <span className="text-xs tracking-[0.3em] text-brand-400 uppercase">{t('ipoLabel')}</span>
-                  <div className="h-[1px] w-12 bg-brand-400"></div>
+                  <div className="h-[1px] w-12 bg-white/60"></div>
+                  <span className="text-xs tracking-[0.3em] text-white/85 uppercase">{t('ipoLabel')}</span>
+                  <div className="h-[1px] w-12 bg-white/60"></div>
                 </div>
                 <h2 className="text-3xl font-serif text-white mt-3">{t('ipoTitle')}</h2>
-                <p className="text-neutral-200 text-sm leading-relaxed mt-4 max-w-2xl mx-auto">{t('ipoDesc')}</p>
+                <p className="text-white/85 text-sm leading-relaxed mt-4 max-w-2xl mx-auto">{t('ipoDesc')}</p>
               </div>
 
               <div className="max-w-2xl mx-auto relative">
@@ -830,13 +830,13 @@ export default function AboutPage() {
                     <div key={index} className={`relative flex items-center mb-8 last:mb-0 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
                       {/* 内容卡片 */}
                       <div className={`ml-16 md:ml-0 md:w-[calc(50%-2rem)] ${isLeft ? 'md:pr-0 md:text-left' : 'md:pl-0 md:text-left'}`}>
-                        <div className={`p-5 border ${item.active ? 'border-brand-400 bg-white/5' : item.done ? 'border-white/20 bg-white/5' : 'border-white/10'}`}>
-                          <h3 className={`text-xl font-bold mb-1 ${item.active ? 'text-brand-700' : item.done ? 'text-white/80' : 'text-white'}`}>{item.year}</h3>
-                          <p className="text-sm text-neutral-300 whitespace-pre-line">{item.desc}</p>
+                        <div className={`p-5 border ${item.active ? 'border-white bg-white/15' : item.done ? 'border-white/25 bg-white/10' : 'border-white/15'}`}>
+                          <h3 className={`text-xl font-bold mb-1 ${item.active ? 'text-white' : item.done ? 'text-white/85' : 'text-white'}`}>{item.year}</h3>
+                          <p className="text-sm text-white/80 whitespace-pre-line">{item.desc}</p>
                         </div>
                       </div>
                       {/* 中间节点 */}
-                      <div className={`absolute left-6 md:left-1/2 -translate-x-1/2 w-12 h-12 flex items-center justify-center z-10 ${item.active ? 'bg-brand-400 text-neutral-900' : item.done ? 'bg-white/10 border border-white/30 text-white/70' : 'brand-gradient-deep border border-white/20 text-white/60'}`}>
+                      <div className={`absolute left-6 md:left-1/2 -translate-x-1/2 w-3 h-3 rounded-full z-10 ${item.active ? 'bg-white ring-4 ring-white/30' : item.done ? 'bg-white/70' : 'bg-transparent border border-white/50'}`}>
                       </div>
                       {/* 占位 */}
                       <div className="hidden md:block md:w-[calc(50%-2rem)]" />

@@ -197,7 +197,7 @@ export default function NewsPage() {
         <div className="relative z-10 container mx-auto px-6 py-20 text-center">
           <div className="flex items-center justify-center gap-3 mb-8">
             <div className="h-[1px] w-12 bg-brand-400"></div>
-            <span className="text-xs tracking-[0.3em] text-brand-400 uppercase">News Room</span>
+            <span className="text-xs tracking-[0.3em] text-white/85 uppercase">News Room</span>
             <div className="h-[1px] w-12 bg-brand-400"></div>
           </div>
 
@@ -212,7 +212,7 @@ export default function NewsPage() {
           </p>
 
           {/* 面包屑 */}
-          <div className="flex items-center justify-center gap-2 text-sm text-neutral-400 mt-8">
+          <div className="flex items-center justify-center gap-2 text-sm text-white/70 mt-8">
             <Link href="/" className="hover:text-white transition">{t('breadcrumbHome')}</Link>
             <ChevronRight size={14} />
             <span className="text-neutral-300">{t('breadcrumbNews')}</span>
@@ -458,14 +458,14 @@ export default function NewsPage() {
         <div className="container mx-auto px-6 text-center">
           <div className="flex items-center justify-center gap-3 mb-8">
             <div className="h-[1px] w-12 bg-brand-400"></div>
-            <span className="text-xs tracking-[0.3em] text-brand-400 uppercase">Stay Updated</span>
+            <span className="text-xs tracking-[0.3em] text-white/85 uppercase">Stay Updated</span>
             <div className="h-[1px] w-12 bg-brand-400"></div>
           </div>
 
           <h2 className="text-3xl md:text-4xl font-serif mb-6">
             {t('ctaTitle')}
           </h2>
-          <p className="text-neutral-400 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-white/75 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
             {t('ctaSubtitle')}
           </p>
 
