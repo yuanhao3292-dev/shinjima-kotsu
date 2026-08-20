@@ -150,7 +150,7 @@ export default function AdminLayout({
 
       {/* Sidebar */}
       <aside className={`
-        fixed top-0 left-0 h-full w-64 bg-brand-900 z-40 transform transition-transform duration-300
+        fixed top-0 left-0 h-full w-64 bg-white border-r border-neutral-200 z-40 transform transition-transform duration-300
         lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         <div className="h-16 flex items-center gap-3 px-6 brand-gradient-nav">
@@ -173,8 +173,8 @@ export default function AdminLayout({
                 className={`
                   flex items-center gap-3 px-4 py-3 rounded-xl transition
                   ${isActive
-                    ? 'bg-brand-800 text-white font-medium'
-                    : 'text-brand-200 hover:bg-brand-800/50'
+                    ? 'bg-neutral-900 text-white font-medium'
+                    : 'text-neutral-900 hover:bg-neutral-100'
                   }
                 `}
               >
@@ -185,14 +185,14 @@ export default function AdminLayout({
           })}
         </nav>
 
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-brand-800">
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-neutral-200 bg-white">
           <div className="px-4 py-2 mb-2">
-            <p className="text-brand-300 text-xs">登入帳號</p>
-            <p className="text-white text-sm truncate">{userEmail}</p>
+            <p className="text-neutral-500 text-xs">登入帳號</p>
+            <p className="text-neutral-900 text-sm truncate">{userEmail}</p>
           </div>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3 w-full text-brand-200 hover:bg-brand-800/50 rounded-xl transition"
+            className="flex items-center gap-3 px-4 py-3 w-full text-neutral-900 hover:bg-neutral-100 rounded-xl transition"
           >
             <LogOut size={20} />
             <span>退出登入</span>
