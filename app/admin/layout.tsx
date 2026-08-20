@@ -140,7 +140,7 @@ export default function AdminLayout({
       <header className="fixed top-0 left-0 right-0 h-16 brand-gradient-nav z-50 flex items-center justify-between px-4 lg:px-6">
         <Link href="/" className="flex items-center gap-3">
           <div className="flex flex-col items-center">
-            <span className="font-serif font-bold text-lg tracking-wide leading-none text-white drop-shadow-[0_1px_0_rgba(0,0,0,0.12)]">NIIJIMA</span>
+            <span className="font-bold text-lg tracking-wide leading-none text-white drop-shadow-[0_1px_0_rgba(0,0,0,0.12)]">NIIJIMA</span>
             <span className="text-[10px] uppercase tracking-widest leading-none mt-1 text-white/85">新島交通株式会社</span>
           </div>
         </Link>

@@ -999,7 +999,7 @@ export default function PackageRecommenderPage() {
             <div className="brand-gradient-deep text-white p-10 text-center relative overflow-hidden">
               <div className="absolute inset-0 opacity-10"><div className="absolute inset-0" style={{backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png')"}}></div></div>
               <div className="relative z-10">
-                <h2 className="text-3xl font-serif font-bold mb-3">{ut('resultTitle')}</h2>
+                <h2 className="text-3xl font-bold mb-3">{ut('resultTitle')}</h2>
                 <p className="text-brand-700 text-sm">{ut('resultSubtitle')}</p>
               </div>
             </div>
@@ -1039,7 +1039,7 @@ export default function PackageRecommenderPage() {
       <main className="max-w-2xl mx-auto px-4 py-12">
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 bg-brand-100 text-brand-700 px-4 py-2 rounded-full text-sm font-medium mb-4"><MessageSquare size={16} />{ut('pageBadge')}</div>
-          <h1 className="text-3xl font-serif font-bold text-neutral-900 mb-3">{ut('pageHeading')}</h1>
+          <h1 className="text-3xl font-bold text-neutral-900 mb-3">{ut('pageHeading')}</h1>
           <p className="text-neutral-500">{ut('pageDesc')}</p>
         </div>
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">

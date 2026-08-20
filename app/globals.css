@@ -68,15 +68,17 @@ body {
   overflow-x: hidden;
 }
 
+ /* 全站单一无衬线族（用户定，JTB 式）。.font-serif 保留为黑体别名，
+    兜住任何漏网的旧 class。 */
 .serif, .font-serif {
-  font-family: var(--font-shippori-mincho), 'Shippori Mincho', serif;
+  font-family: var(--font-noto-sans-jp), 'Noto Sans JP', sans-serif;
 }
 
 /* Locale-specific font overrides */
 /* 通过 CSS 变量覆盖 Tailwind v4 的 --font-sans/--font-serif，确保 html→body→子元素 全链路字体一致 */
 [data-locale="zh-TW"] {
   --font-sans: var(--font-noto-sans-tc), 'Noto Sans TC', sans-serif;
-  --font-serif: var(--font-noto-serif-tc), 'Noto Serif TC', serif;
+  --font-serif: var(--font-noto-sans-tc), 'Noto Sans TC', sans-serif;
 }
 [data-locale="zh-TW"] body,
 [data-locale="zh-TW"] .font-sans {
@@ -84,12 +86,12 @@ body {
 }
 [data-locale="zh-TW"] .serif,
 [data-locale="zh-TW"] .font-serif {
-  font-family: var(--font-noto-serif-tc), 'Noto Serif TC', serif !important;
+  font-family: var(--font-noto-sans-tc), 'Noto Sans TC', sans-serif !important;
 }
 
 [data-locale="zh-CN"] {
   --font-sans: var(--font-noto-sans-sc), 'HarmonyOS Sans SC', 'MiSans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  --font-serif: var(--font-noto-serif-sc), 'FZSongti-S06', 'STZhongsong', 'Source Han Serif SC', 'LXGW WenKai', serif;
+  --font-serif: var(--font-noto-sans-sc), 'HarmonyOS Sans SC', 'MiSans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
 }
 [data-locale="zh-CN"] body,
 [data-locale="zh-CN"] .font-sans {
@@ -97,12 +99,12 @@ body {
 }
 [data-locale="zh-CN"] .serif,
 [data-locale="zh-CN"] .font-serif {
-  font-family: var(--font-noto-serif-sc), 'FZSongti-S06', 'STZhongsong', 'Source Han Serif SC', 'LXGW WenKai', serif !important;
+  font-family: var(--font-noto-sans-sc), 'HarmonyOS Sans SC', 'MiSans', 'PingFang SC', 'Microsoft YaHei', sans-serif !important;
 }
 
 [data-locale="en"] {
   --font-sans: var(--font-inter), 'Inter', sans-serif;
-  --font-serif: var(--font-playfair-display), 'Playfair Display', serif;
+  --font-serif: var(--font-inter), 'Inter', sans-serif;
 }
 [data-locale="en"] body,
 [data-locale="en"] .font-sans {
@@ -110,12 +112,12 @@ body {
 }
 [data-locale="en"] .serif,
 [data-locale="en"] .font-serif {
-  font-family: var(--font-playfair-display), 'Playfair Display', serif !important;
+  font-family: var(--font-inter), 'Inter', sans-serif !important;
 }
 
 [data-locale="ko"] {
   --font-sans: var(--font-noto-sans-kr), 'Noto Sans KR', sans-serif;
-  --font-serif: var(--font-noto-serif-kr), 'Noto Serif KR', serif;
+  --font-serif: var(--font-noto-sans-kr), 'Noto Sans KR', sans-serif;
 }
 [data-locale="ko"] body,
 [data-locale="ko"] .font-sans {
@@ -123,7 +125,7 @@ body {
 }
 [data-locale="ko"] .serif,
 [data-locale="ko"] .font-serif {
-  font-family: var(--font-noto-serif-kr), 'Noto Serif KR', serif !important;
+  font-family: var(--font-noto-sans-kr), 'Noto Sans KR', sans-serif !important;
 }
 
 @keyframes fadeInUp {

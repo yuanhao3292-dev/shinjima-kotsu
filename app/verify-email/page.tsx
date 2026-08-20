@@ -117,7 +117,7 @@ function VerifyEmailForm() {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-50 border border-brand-200 mb-5">
               <MailCheck className="w-8 h-8 text-brand-700" />
             </div>
-            <h1 className="text-2xl font-serif text-neutral-900 mb-2">{t('title', lang)}</h1>
+            <h1 className="text-2xl font-bold text-neutral-900 mb-2">{t('title', lang)}</h1>
             <p className="text-sm text-neutral-500">{t('subtitle', lang)}</p>
           </div>
 

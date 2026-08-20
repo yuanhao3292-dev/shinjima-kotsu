@@ -153,7 +153,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
               <div className="h-[1px] w-12 bg-white/70"></div>
               <span className="text-xs tracking-[0.3em] text-white/90 uppercase">{currentLang === 'zh-TW' ? '商務考察' : currentLang === 'zh-CN' ? '商务考察' : currentLang === 'ja' ? '企業視察' : 'BUSINESS INSPECTION'}</span>
             </div>
-            <h1 className="text-4xl md:text-6xl font-serif text-white mb-6 leading-tight">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
               {t.business.hero_title}
             </h1>
             <p className="text-xl text-white/85 mb-8 leading-relaxed font-light max-w-2xl whitespace-pre-line">
@@ -181,7 +181,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
       <div className="container mx-auto px-6 py-12 md:py-24 py-24">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center mb-12 md:mb-24">
              <div>
-                <h3 className="text-3xl font-serif text-neutral-900 mb-6">{t.business.tag}</h3>
+                <h3 className="text-3xl font-bold text-neutral-900 mb-6">{t.business.tag}</h3>
                 <p className="text-neutral-500 leading-relaxed whitespace-pre-line mb-8">
                    {t.business.desc}
                 </p>
@@ -217,7 +217,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
           {/* Process Steps */}
           <div className="mb-24 bg-white border border-neutral-200 rounded-3xl p-10 md:p-16 text-neutral-900 overflow-hidden relative">
              <div className="relative z-10 text-center mb-16">
-                 <h3 className="text-3xl font-serif">{t.business.process_title}</h3>
+                 <h3 className="text-3xl font-bold">{t.business.process_title}</h3>
                  <p className="text-neutral-600 mt-2 text-sm">{t.business.process_sub}</p>
              </div>
              <div className="relative z-10 grid grid-cols-1 md:grid-cols-5 gap-4">
@@ -240,7 +240,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
           {/* Bookable Japanese Top Companies Section - 100 Companies */}
           <div className="mb-24">
              <div className="text-center mb-12">
-                <h3 className="text-3xl font-serif text-neutral-900 mb-3">{localizedTexts.topCompanies}</h3>
+                <h3 className="text-3xl font-bold text-neutral-900 mb-3">{localizedTexts.topCompanies}</h3>
                 <p className="text-neutral-500 text-sm max-w-2xl mx-auto">{localizedTexts.companyIntro}</p>
              </div>
 
@@ -287,7 +287,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
           {/* New Business Plans Section */}
           <div id="business-plans-section" className="mb-24 scroll-mt-24">
              <div className="text-center mb-16">
-                <h3 className="text-3xl font-serif text-neutral-900">{t.business.itin_title}</h3>
+                <h3 className="text-3xl font-bold text-neutral-900">{t.business.itin_title}</h3>
                 <p className="text-neutral-500 text-sm mt-2">{currentLang === 'zh-TW' ? '為企業高管精心策劃' : currentLang === 'zh-CN' ? '为企业高管精心策划' : currentLang === 'ja' ? 'エグゼクティブ向け厳選プラン' : 'Curated for Executives'}</p>
              </div>
 
@@ -324,7 +324,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
                                </span>
                             ))}
                          </div>
-                         <h3 className="text-2xl font-serif font-bold text-neutral-900 mb-2">{plan.title}</h3>
+                         <h3 className="text-2xl font-bold text-neutral-900 mb-2">{plan.title}</h3>
                          <h4 className="text-sm font-bold text-neutral-500 mb-4">{plan.subtitle}</h4>
                          <p className="text-neutral-600 text-sm leading-relaxed mb-6 border-l-2 border-neutral-200 pl-4">{plan.desc}</p>
 
@@ -347,7 +347,7 @@ const BusinessView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigge
           {/* Contact Buttons */}
           <div id="business-contact" className="py-16 bg-neutral-50 -mx-6 px-6 py-12 md:py-24 mt-16">
             <div className="max-w-2xl mx-auto text-center">
-              <h3 className="text-2xl font-serif font-bold text-neutral-900 mb-2">{localizedTexts.ctaTitle}</h3>
+              <h3 className="text-2xl font-bold text-neutral-900 mb-2">{localizedTexts.ctaTitle}</h3>
               <p className="text-neutral-500 mb-8">{localizedTexts.ctaSubtitle}</p>
               <ContactButtons />
             </div>

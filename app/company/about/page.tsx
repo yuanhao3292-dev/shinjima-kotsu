@@ -550,7 +550,7 @@ export default function AboutPage() {
                 <span className="text-xs tracking-[0.3em] text-white/85 uppercase">NIIJIMA KOTSU Co., Ltd.</span>
                 <div className="h-[1px] w-12 bg-white/70"></div>
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-white leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
                 {t('valueCompanyName')}
               </h1>
             </div>
@@ -567,7 +567,7 @@ export default function AboutPage() {
                   <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">{t('ceoSectionLabel')}</span>
                   <div className="h-[1px] w-12 bg-brand-400"></div>
                 </div>
-                <h2 className="text-3xl font-serif text-neutral-900 mt-3">{t('ceoSectionTitle')}</h2>
+                <h2 className="text-3xl font-bold text-neutral-900 mt-3">{t('ceoSectionTitle')}</h2>
               </div>
 
               <div className="flex flex-col lg:flex-row gap-12 items-start">
@@ -595,7 +595,7 @@ export default function AboutPage() {
                 {/* Message Content */}
                 <div className="lg:w-2/3">
                   <div className="relative mb-8">
-                    <p className="text-2xl text-neutral-900 relative z-10 italic font-serif pl-4 border-l-4 border-brand-400 leading-relaxed">
+                    <p className="text-2xl text-neutral-900 relative z-10 italic font-bold pl-4 border-l-4 border-brand-400 leading-relaxed">
                       {t('ceoSlogan')}
                     </p>
                   </div>
@@ -632,7 +632,7 @@ export default function AboutPage() {
                   <span className="text-xs tracking-[0.3em] text-neutral-900 uppercase">{t('philosophyLabel')}</span>
                   <div className="h-[1px] w-12 bg-brand-400"></div>
                 </div>
-                <h2 className="text-3xl font-serif text-neutral-900 mt-3">{t('philosophyTitle')}</h2>
+                <h2 className="text-3xl font-bold text-neutral-900 mt-3">{t('philosophyTitle')}</h2>
               </div>
 
               <div className="grid md:grid-cols-3 gap-8">
@@ -671,7 +671,7 @@ export default function AboutPage() {
                   <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">{t('medicalLabel')}</span>
                   <div className="h-[1px] w-12 bg-brand-400"></div>
                 </div>
-                <h2 className="text-3xl font-serif text-neutral-900 mt-3">{t('medicalTitle')}</h2>
+                <h2 className="text-3xl font-bold text-neutral-900 mt-3">{t('medicalTitle')}</h2>
               </div>
 
               <div className="grid md:grid-cols-3 gap-8">
@@ -722,7 +722,7 @@ export default function AboutPage() {
                   <span className="text-xs tracking-[0.3em] text-neutral-900 uppercase">{t('profileLabel')}</span>
                   <div className="h-[1px] w-12 bg-brand-400"></div>
                 </div>
-                <h2 className="text-3xl font-serif text-neutral-900 mt-3">{t('profileTitle')}</h2>
+                <h2 className="text-3xl font-bold text-neutral-900 mt-3">{t('profileTitle')}</h2>
               </div>
 
               <div className="bg-neutral-50 rounded-2xl overflow-hidden">
@@ -766,7 +766,7 @@ export default function AboutPage() {
                   <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">{t('licensesLabel')}</span>
                   <div className="h-[1px] w-12 bg-brand-400"></div>
                 </div>
-                <h2 className="text-3xl font-serif text-neutral-900 mt-3">{t('licensesTitle')}</h2>
+                <h2 className="text-3xl font-bold text-neutral-900 mt-3">{t('licensesTitle')}</h2>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
@@ -805,7 +805,7 @@ export default function AboutPage() {
                   <span className="text-xs tracking-[0.3em] text-white/85 uppercase">{t('ipoLabel')}</span>
                   <div className="h-[1px] w-12 bg-white/60"></div>
                 </div>
-                <h2 className="text-3xl font-serif text-white mt-3">{t('ipoTitle')}</h2>
+                <h2 className="text-3xl font-bold text-white mt-3">{t('ipoTitle')}</h2>
                 <p className="text-white/85 text-sm leading-relaxed mt-4 max-w-2xl mx-auto">{t('ipoDesc')}</p>
               </div>
 
@@ -858,7 +858,7 @@ export default function AboutPage() {
                   <span className="text-xs tracking-[0.3em] text-neutral-900 uppercase">{t('partnersLabel')}</span>
                   <div className="h-[1px] w-12 bg-brand-400"></div>
                 </div>
-                <h2 className="text-3xl font-serif text-neutral-900 mt-3">{t('partnersTitle')}</h2>
+                <h2 className="text-3xl font-bold text-neutral-900 mt-3">{t('partnersTitle')}</h2>
               </div>
 
               {/* Medical Partners */}

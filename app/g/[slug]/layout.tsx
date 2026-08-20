@@ -72,7 +72,7 @@ export default async function GuideLayout({ children, params }: LayoutProps) {
             {/* 品牌区域 */}
             <div className="col-span-2">
               <div className="mb-4">
-                <h3 className="text-xl font-serif tracking-[0.2em] mb-1 text-neutral-800">{brandName}</h3>
+                <h3 className="text-xl font-bold tracking-[0.2em] mb-1 text-neutral-800">{brandName}</h3>
                 <p className="text-xs tracking-[0.1em] text-neutral-500">{brandTagline}</p>
               </div>
               <p className="text-neutral-600 text-sm leading-relaxed mb-4 max-w-[280px]">

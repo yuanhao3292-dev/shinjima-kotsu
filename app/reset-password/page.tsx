@@ -246,7 +246,7 @@ function ResetPasswordForm() {
             <div className="inline-flex items-center justify-center w-20 h-20 bg-green-50 rounded-full mb-6">
               <CheckCircle className="w-10 h-10 text-green-600" />
             </div>
-            <h1 className="text-2xl font-serif font-bold text-neutral-900 mb-3">{t('passwordReset', lang)}</h1>
+            <h1 className="text-2xl font-bold text-neutral-900 mb-3">{t('passwordReset', lang)}</h1>
             <p className="text-neutral-600 mb-8 leading-relaxed">
               {t('passwordUpdated', lang)}
             </p>
@@ -279,11 +279,11 @@ function ResetPasswordForm() {
             <div className="flex items-center gap-3 mb-8">
               <Logo className="w-12 h-12 text-white" />
               <div>
-                <span className="font-serif font-bold text-2xl tracking-wide">NIIJIMA</span>
+                <span className="font-bold text-2xl tracking-wide">NIIJIMA</span>
                 <p className="text-xs text-brand-200 uppercase tracking-widest">Medical Tourism</p>
               </div>
             </div>
-            <h1 className="text-4xl font-serif font-bold mb-6 leading-tight">
+            <h1 className="text-4xl font-bold mb-6 leading-tight">
               {t('resetPasswordHero', lang)}<br />
               <span className="text-brand-300">{t('setNewPassword', lang)}</span>
             </h1>
@@ -304,7 +304,7 @@ function ResetPasswordForm() {
             {/* Mobile Logo */}
             <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
               <Logo className="w-10 h-10 text-brand-600" />
-              <span className="font-serif font-bold text-xl">NIIJIMA</span>
+              <span className="font-bold text-xl">NIIJIMA</span>
             </div>
 
             <div className="bg-white rounded-2xl shadow-xl p-8 border border-neutral-100">
@@ -312,7 +312,7 @@ function ResetPasswordForm() {
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-50 rounded-full mb-4">
                   <KeyRound className="w-8 h-8 text-brand-600" />
                 </div>
-                <h1 className="text-2xl font-serif font-bold text-neutral-900">{t('resetPasswordTitle', lang)}</h1>
+                <h1 className="text-2xl font-bold text-neutral-900">{t('resetPasswordTitle', lang)}</h1>
                 <p className="text-neutral-500 mt-2 text-sm">{t('resetPasswordSubtitle', lang)}</p>
               </div>
 

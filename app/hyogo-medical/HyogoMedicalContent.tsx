@@ -1136,11 +1136,11 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
         </div>
         <div className="container mx-auto px-6 py-12 md:py-24 relative z-10">
           <div className="max-w-3xl animate-fade-in-up">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif mb-4 md:mb-6 leading-[1.2]">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 leading-[1.2]">
               {t.heroTitle1[lang]}<br />
               <span className="text-[1.5rem] sm:text-[2rem] md:text-[2.5rem] lg:text-[3.5rem] text-transparent bg-clip-text bg-gradient-to-r from-neutral-100 to-white">{t.heroTitle2[lang]}</span>
             </h1>
-            <h2 className="text-base sm:text-lg md:text-2xl text-neutral-300 font-light mb-6 md:mb-8 font-serif">
+            <h2 className="text-base sm:text-lg md:text-2xl text-neutral-300 font-light mb-6 md:mb-8 font-bold">
               {t.heroSubtitle[lang]}
             </h2>
             <p className="text-neutral-400 font-light leading-relaxed text-sm md:text-base border-l-2 border-neutral-100 pl-4 md:pl-6 max-w-2xl whitespace-pre-line">
@@ -1164,12 +1164,12 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <span className="text-neutral-100 text-xs tracking-[0.3em] uppercase font-bold">{t.statsTag[lang]}</span>
-            <h3 className="text-3xl font-serif text-white mt-3">{t.statsTitle[lang]}</h3>
+            <h3 className="text-3xl font-bold text-white mt-3">{t.statsTitle[lang]}</h3>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             {HEADLINE_STATS.map((stat, i) => (
               <div key={i} className="text-center bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 transition">
-                <div className="text-3xl md:text-4xl font-bold text-white font-serif">{stat.value}</div>
+                <div className="text-3xl md:text-4xl font-bold text-white font-bold">{stat.value}</div>
                 <div className="text-sm text-white/85 mt-2 font-medium">{stat.label[lang]}</div>
                 <div className="text-xs text-white/70 mt-1">{stat.sub[lang]}</div>
               </div>
@@ -1186,7 +1186,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
         <div className="mb-24">
           <div className="text-center mb-16">
             <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{t.nationalTag[lang]}</span>
-            <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.nationalTitle[lang]}</h3>
+            <h3 className="text-3xl font-bold text-neutral-900 mt-2">{t.nationalTitle[lang]}</h3>
           </div>
           <div className="space-y-6">
             {NATIONAL_FIRSTS.map((item, i) => {
@@ -1200,7 +1200,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                       </div>
                     </div>
                     <div className="p-6 md:p-8 flex-1">
-                      <h4 className="text-xl font-bold text-neutral-800 mb-3 font-serif">{item.title[lang]}</h4>
+                      <h4 className="text-xl font-bold text-neutral-800 mb-3 font-bold">{item.title[lang]}</h4>
                       <p className="text-sm text-neutral-600 leading-relaxed">{item.desc[lang]}</p>
                     </div>
                   </div>
@@ -1218,7 +1218,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
             <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">
               {({ ja: '合作専門医チーム', 'zh-TW': '合作專科醫療團隊', 'zh-CN': '合作专科医疗团队', en: 'Partner Specialist Team' } as Record<Language, string>)[lang]}
             </span>
-            <h3 className="text-3xl font-serif text-neutral-900 mt-2">
+            <h3 className="text-3xl font-bold text-neutral-900 mt-2">
               {({ ja: '疾患別 — あなたの名医を見つける', 'zh-TW': '按疾病分類 — 找到您的名醫', 'zh-CN': '按疾病分类 — 找到您的名医', en: 'Find Your Specialist by Condition', ko: '병상별 전문의 찾기' } as Record<Language, string>)[lang]}
             </h3>
             <p className="text-neutral-500 mt-3 max-w-2xl mx-auto text-sm">
@@ -1294,7 +1294,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                           </div>
                         )}
                         <div className="min-w-0">
-                          <h4 className="text-lg font-bold text-neutral-900 font-serif truncate">{doc.name[lang]}</h4>
+                          <h4 className="text-lg font-bold text-neutral-900 font-bold truncate">{doc.name[lang]}</h4>
                           <p className="text-xs text-neutral-500 mt-0.5 line-clamp-1">{doc.title[lang]}</p>
                           <p className="text-xs text-brand-700 font-medium mt-0.5">{doc.dept[lang]}</p>
                         </div>
@@ -1335,7 +1335,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
         <div className="mb-24">
           <div className="text-center mb-16">
             <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{t.robotTag[lang]}</span>
-            <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.robotTitle[lang]}</h3>
+            <h3 className="text-3xl font-bold text-neutral-900 mt-2">{t.robotTitle[lang]}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Da Vinci Xi */}
@@ -1348,7 +1348,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                 </div>
               </div>
               <div className="p-8">
-                <h4 className="text-2xl font-serif font-bold mb-3">Da Vinci Xi</h4>
+                <h4 className="text-2xl font-bold mb-3">Da Vinci Xi</h4>
                 <p className="text-sm text-neutral-400 leading-relaxed mb-4">
                   {t.robotDaVinciDesc[lang]}
                 </p>
@@ -1369,7 +1369,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                 </div>
               </div>
               <div className="p-8">
-                <h4 className="text-2xl font-serif font-bold mb-3">hinotori™</h4>
+                <h4 className="text-2xl font-bold mb-3">hinotori™</h4>
                 <p className="text-sm text-neutral-400 leading-relaxed mb-4">
                   {t.robotHinotoriDesc[lang]}
                 </p>
@@ -1389,7 +1389,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
         <div className="mb-24">
           <div className="text-center mb-16">
             <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{t.certTag[lang]}</span>
-            <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.certTitle[lang]}</h3>
+            <h3 className="text-3xl font-bold text-neutral-900 mt-2">{t.certTitle[lang]}</h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {CERTIFICATIONS.map((cert, i) => {
@@ -1397,7 +1397,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
               const colors = ICON_COLORS[cert.color];
               return (
                 <div key={i} className="bg-neutral-50 p-6 rounded-xl border border-neutral-100 hover:shadow-lg transition duration-300 group">
-                  <h4 className="text-base font-bold text-neutral-800 mb-2 font-serif">{cert.title[lang]}</h4>
+                  <h4 className="text-base font-bold text-neutral-800 mb-2 font-bold">{cert.title[lang]}</h4>
                   <p className="text-xs text-neutral-500 leading-relaxed">{cert.desc[lang]}</p>
                 </div>
               );
@@ -1412,7 +1412,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/cubes.png')" }} />
           <div className="relative z-10 text-center mb-12">
             <span className="text-neutral-100 text-xs tracking-[0.3em] uppercase font-bold">{t.centersTag[lang]}</span>
-            <h3 className="text-3xl font-serif mt-3">{t.centersTitle[lang]}</h3>
+            <h3 className="text-3xl font-bold mt-3">{t.centersTitle[lang]}</h3>
           </div>
           <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             {CENTERS.map((center, i) => {
@@ -1433,7 +1433,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
           ======================================== */}
       <div className="mb-0">
         <div className="text-center py-16 bg-white">
-          <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif text-neutral-900 mb-3">{t.equipTitle[lang]}</h3>
+          <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-neutral-900 mb-3">{t.equipTitle[lang]}</h3>
           <p className="text-neutral-500 text-sm tracking-widest uppercase mb-4">Medical Equipment Lineup</p>
           <p className="text-neutral-600 text-sm max-w-2xl mx-auto px-4">{t.equipSub[lang]}</p>
         </div>
@@ -1444,7 +1444,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
           <Image src="https://hcm-radiology.com/images/mainimg01.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="PET-CT" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
           <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/95 via-neutral-900/50 to-neutral-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipPetCtTitle[lang]}</h4>
+            <h4 className="text-xl md:text-2xl text-white font-bold mb-3">{t.equipPetCtTitle[lang]}</h4>
             <p className="text-sm text-white/80 leading-relaxed">
               {t.equipPetCtDesc[lang]}
             </p>
@@ -1454,7 +1454,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
           <Image src="https://hcm-radiology.com/images/mainimg02.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="MRI" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
           <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/95 via-neutral-900/50 to-neutral-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">3.0T MRI × 3 + 1.5T × 1</h4>
+            <h4 className="text-xl md:text-2xl text-white font-bold mb-3">3.0T MRI × 3 + 1.5T × 1</h4>
             <p className="text-sm text-white/80 leading-relaxed">
               {t.equipMriDesc[lang]}
             </p>
@@ -1467,7 +1467,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
           <Image src="https://hcm-radiology.com/images/mainimg04.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="CT Scanner" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
           <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/95 via-neutral-900/50 to-neutral-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipCtTitle[lang]}</h4>
+            <h4 className="text-xl md:text-2xl text-white font-bold mb-3">{t.equipCtTitle[lang]}</h4>
             <p className="text-sm text-white/80 leading-relaxed">
               {t.equipCtDesc[lang]}
             </p>
@@ -1477,7 +1477,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
           <Image src="https://hcm-radiology.com/images/mainimg05.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Radiation Therapy" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
           <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/95 via-neutral-900/50 to-neutral-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipRadTitle[lang]}</h4>
+            <h4 className="text-xl md:text-2xl text-white font-bold mb-3">{t.equipRadTitle[lang]}</h4>
             <p className="text-sm text-white/80 leading-relaxed">
               {t.equipRadDesc[lang]}
             </p>
@@ -1490,7 +1490,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
           <Image src="https://www.hosp.hyo-med.ac.jp/upload/department/highlevel/1.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="IVR Center" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
           <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/95 via-neutral-900/50 to-neutral-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipIvrTitle[lang]}</h4>
+            <h4 className="text-xl md:text-2xl text-white font-bold mb-3">{t.equipIvrTitle[lang]}</h4>
             <p className="text-sm text-white/80 leading-relaxed">
               {t.equipIvrDesc[lang]}
             </p>
@@ -1500,7 +1500,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
           <Image src="https://www.hosp.hyo-med.ac.jp/img/image03_02.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Endoscopy" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
           <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/95 via-neutral-900/50 to-neutral-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipEndoTitle[lang]}</h4>
+            <h4 className="text-xl md:text-2xl text-white font-bold mb-3">{t.equipEndoTitle[lang]}</h4>
             <p className="text-sm text-white/80 leading-relaxed">
               {t.equipEndoDesc[lang]}
             </p>
@@ -1513,7 +1513,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
           <Image src="https://www.hosp.hyo-med.ac.jp/about/3min/img/latest_medical_equipment01.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Nuclear Medicine" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
           <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/95 via-neutral-900/50 to-neutral-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipNucTitle[lang]}</h4>
+            <h4 className="text-xl md:text-2xl text-white font-bold mb-3">{t.equipNucTitle[lang]}</h4>
             <p className="text-sm text-white/80 leading-relaxed">
               {t.equipNucDesc[lang]}
             </p>
@@ -1523,7 +1523,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
           <Image src="https://www.hosp.hyo-med.ac.jp/upload/department/highlevel/neurosurgery_02.jpg" fill className="object-cover transition-transform duration-700 group-hover:scale-105" alt="Operating Rooms" sizes="(max-width: 768px) 100vw, 50vw" quality={75} />
           <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/95 via-neutral-900/50 to-neutral-900/20" />
           <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-            <h4 className="text-xl md:text-2xl text-white font-serif mb-3">{t.equipOpTitle[lang]}</h4>
+            <h4 className="text-xl md:text-2xl text-white font-bold mb-3">{t.equipOpTitle[lang]}</h4>
             <p className="text-sm text-white/80 leading-relaxed">
               {t.equipOpDesc[lang]}
             </p>
@@ -1543,7 +1543,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
               <div className="h-[1px] w-12 bg-neutral-100" />
               <span className="text-xs tracking-[0.3em] text-neutral-100 uppercase">NEW BUILDING 2026</span>
             </div>
-            <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.newBuildTitle[lang]}</h4>
+            <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-bold">{t.newBuildTitle[lang]}</h4>
             <p className="text-base text-white/80 leading-relaxed whitespace-pre-line">{t.newBuildDesc[lang]}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">15F / ~73m</span>
@@ -1566,7 +1566,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
             <span className="text-neutral-100 text-xs tracking-[0.3em] uppercase font-bold">
               {({ ja: '新病院棟イメージ', 'zh-TW': '新院區內部設計', 'zh-CN': '新院区内部设计', en: 'New Building Interior Design' } as Record<Language, string>)[lang]}
             </span>
-            <h3 className="text-2xl md:text-3xl font-serif text-white mt-3">
+            <h3 className="text-2xl md:text-3xl font-bold text-white mt-3">
               {({ ja: '未来型スマートホスピタルの全貌', 'zh-TW': '未來型智慧醫院全貌', 'zh-CN': '未来型智慧医院全貌', en: 'The Future Smart Hospital Unveiled', ko: '미래형 스마트 호스피탈의 전모' } as Record<Language, string>)[lang]}
             </h3>
           </div>
@@ -1600,7 +1600,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
             <span className="text-neutral-500 text-xs tracking-[0.2em] uppercase font-bold">
               {({ ja: '建設進捗', 'zh-TW': '建設進度', 'zh-CN': '建设进度', en: 'Construction Progress', ko: '건설 진척' } as Record<Language, string>)[lang]}
             </span>
-            <h3 className="text-xl md:text-2xl font-serif text-neutral-900 mt-2">
+            <h3 className="text-xl md:text-2xl font-bold text-neutral-900 mt-2">
               {({ ja: '2025年12月時点 — 完成率91.7%', 'zh-TW': '2025年12月 — 完成率91.7%', 'zh-CN': '2025年12月 — 完成率91.7%', en: 'As of December 2025 — 91.7% Complete', ko: '2025년 12월 기준 — 완성률 91.7%' } as Record<Language, string>)[lang]}
             </h3>
             <p className="text-sm text-neutral-500 mt-2">
@@ -1638,7 +1638,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
               <span className="text-xs tracking-[0.3em] text-neutral-100 uppercase">Emergency & Disaster</span>
               <div className="h-[1px] w-12 bg-neutral-100" />
             </div>
-            <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-serif">{t.emergTitle[lang]}</h4>
+            <h4 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 font-bold">{t.emergTitle[lang]}</h4>
             <p className="text-base text-white/80 leading-relaxed whitespace-pre-line">{t.emergDesc[lang]}</p>
             <div className="mt-6 flex justify-end flex-wrap gap-3">
               <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white border border-white/20">20-bed EICU</span>
@@ -1657,12 +1657,12 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
         <div className="mb-24">
           <div className="text-center mb-16">
             <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">41 Clinical Departments</span>
-            <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.deptTitle[lang]}</h3>
+            <h3 className="text-3xl font-bold text-neutral-900 mt-2">{t.deptTitle[lang]}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-neutral-50 p-8 rounded-xl border border-neutral-100">
               <div className="flex items-center gap-3 mb-6">
-                <h4 className="text-lg font-bold text-neutral-800 font-serif">{t.deptInternal[lang]}</h4>
+                <h4 className="text-lg font-bold text-neutral-800 font-bold">{t.deptInternal[lang]}</h4>
               </div>
               <div className="space-y-2">
                 {DEPARTMENTS.internal.map((dept, i) => (
@@ -1672,7 +1672,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
             </div>
             <div className="bg-neutral-50 p-8 rounded-xl border border-neutral-100">
               <div className="flex items-center gap-3 mb-6">
-                <h4 className="text-lg font-bold text-neutral-800 font-serif">{t.deptSurgical[lang]}</h4>
+                <h4 className="text-lg font-bold text-neutral-800 font-bold">{t.deptSurgical[lang]}</h4>
               </div>
               <div className="space-y-2">
                 {DEPARTMENTS.surgical.map((dept, i) => (
@@ -1682,7 +1682,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
             </div>
             <div className="bg-neutral-50 p-8 rounded-xl border border-neutral-100">
               <div className="flex items-center gap-3 mb-6">
-                <h4 className="text-lg font-bold text-neutral-800 font-serif">{t.deptSpecialty[lang]}</h4>
+                <h4 className="text-lg font-bold text-neutral-800 font-bold">{t.deptSpecialty[lang]}</h4>
               </div>
               <div className="space-y-2">
                 {DEPARTMENTS.other.map((dept, i) => (
@@ -1699,7 +1699,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
         <div className="mb-24">
           <div className="text-center mb-16">
             <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">Hospital Information</span>
-            <h3 className="text-3xl font-serif text-neutral-900 mt-2">{t.accessTitle[lang]}</h3>
+            <h3 className="text-3xl font-bold text-neutral-900 mt-2">{t.accessTitle[lang]}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <div className="bg-neutral-100 rounded-2xl h-80 md:h-[450px] overflow-hidden relative">
@@ -1715,7 +1715,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
               <div className="bg-neutral-50 p-6 rounded-xl border border-neutral-100">
                 <div className="flex items-start gap-4">
                   <div>
-                    <h4 className="font-bold text-neutral-800 mb-1 font-serif">{t.accessLabelAddress[lang]}</h4>
+                    <h4 className="font-bold text-neutral-800 mb-1 font-bold">{t.accessLabelAddress[lang]}</h4>
                     <p className="text-sm text-neutral-500">{t.accessAddress[lang]}</p>
                   </div>
                 </div>
@@ -1723,7 +1723,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
               <div className="bg-neutral-50 p-6 rounded-xl border border-neutral-100">
                 <div className="flex items-start gap-4">
                   <div>
-                    <h4 className="font-bold text-neutral-800 mb-1 font-serif">{t.accessLabelTrain[lang]}</h4>
+                    <h4 className="font-bold text-neutral-800 mb-1 font-bold">{t.accessLabelTrain[lang]}</h4>
                     <p className="text-sm text-neutral-500">{t.accessTrain[lang]}</p>
                   </div>
                 </div>
@@ -1731,7 +1731,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
               <div className="bg-neutral-50 p-6 rounded-xl border border-neutral-100">
                 <div className="flex items-start gap-4">
                   <div>
-                    <h4 className="font-bold text-neutral-800 mb-1 font-serif">{t.accessLabelHours[lang]}</h4>
+                    <h4 className="font-bold text-neutral-800 mb-1 font-bold">{t.accessLabelHours[lang]}</h4>
                     <p className="text-sm text-neutral-500">{t.hoursWeekday[lang]}</p>
                     <p className="text-xs text-neutral-400 mt-1">{t.hoursClosed[lang]}</p>
                   </div>
@@ -1755,7 +1755,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
           {/* Section Header */}
           <div className="text-center mb-16">
             <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{bookingT.flowTag[lang]}</span>
-            <h3 className="text-3xl md:text-4xl font-serif font-bold text-neutral-900 mt-3 mb-4">{bookingT.flowTitle[lang]}</h3>
+            <h3 className="text-3xl md:text-4xl font-bold text-neutral-900 mt-3 mb-4">{bookingT.flowTitle[lang]}</h3>
             <p className="text-neutral-500 max-w-2xl mx-auto">{bookingT.flowDesc[lang]}</p>
           </div>
 
@@ -1924,7 +1924,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">{bookingT.svcTag[lang]}</span>
-              <h3 className="text-3xl md:text-4xl font-serif font-bold text-neutral-900 mt-3 mb-4">{bookingT.svcTitle[lang]}</h3>
+              <h3 className="text-3xl md:text-4xl font-bold text-neutral-900 mt-3 mb-4">{bookingT.svcTitle[lang]}</h3>
               <p className="text-neutral-500 mb-4">{bookingT.svcDesc[lang]}</p>
               <div className="inline-flex items-center gap-2 bg-neutral-100 border border-neutral-200 px-4 py-2 rounded-full">
                 <span className="relative flex h-2 w-2">
@@ -2037,7 +2037,7 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
           ======================================== */}
       <div className="container mx-auto px-6 py-16">
         <div className="text-center">
-          <h3 className="text-3xl font-serif text-neutral-900 mb-4">{t.ctaTitle[lang]}</h3>
+          <h3 className="text-3xl font-bold text-neutral-900 mb-4">{t.ctaTitle[lang]}</h3>
           <p className="text-neutral-500 text-sm max-w-2xl mx-auto whitespace-pre-line mb-8">{t.ctaDesc[lang]}</p>
           {!isGuideEmbed && (
             <a

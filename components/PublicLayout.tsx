@@ -281,7 +281,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
 
   // 导航项的样式
   // 移动菜单项样式 —— 与桌面 getNavLinkClass 同一套判定，只是尺寸放大。
-  // 原本 6 项写死 font-serif（桌面导航是 font-sans，同一组导航在两种视口下
+  // 原本 6 项写死 font-bold（桌面导航是 font-sans，同一组导航在两种视口下
   // 字体不同），且「日本综合治疗」的 text-brand-700 是硬编码高亮，
   // 不跟随 activeNav —— 在任何页面它都显示为「当前页」。
   // 2026-08-19：菜单项统一同一字重（font-medium），当前页只用颜色区分 ——
@@ -329,7 +329,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
               <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 lg:gap-6">
                 <div className="col-span-2">
                   <div className="mb-4">
-                    <h3 className="font-serif font-bold text-lg tracking-wide mb-1 text-neutral-800">NIIJIMA</h3>
+                    <h3 className="font-bold text-lg tracking-wide mb-1 text-neutral-800">NIIJIMA</h3>
                     <p className="text-[10px] uppercase tracking-widest text-neutral-500">新島交通株式会社</p>
                   </div>
                   <p className="text-neutral-600 text-sm leading-relaxed mb-4 max-w-[280px]">
@@ -414,7 +414,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                 <img src={branding.logoUrl} alt={displayBrandName} className="w-10 h-10 object-contain" />
               )}
               <div className="flex flex-col items-center">
-                <span className="font-serif font-bold text-lg tracking-wide leading-none text-white drop-shadow-[0_1px_0_rgba(0,0,0,0.12)]">{displayBrandName}</span>
+                <span className="font-bold text-lg tracking-wide leading-none text-white drop-shadow-[0_1px_0_rgba(0,0,0,0.12)]">{displayBrandName}</span>
                 <span className="text-[10px] uppercase tracking-widest leading-none mt-1 text-white/85">{displayBrandSub}</span>
               </div>
             </button>
@@ -425,7 +425,7 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                 <img src={branding.logoUrl} alt={displayBrandName} className="w-10 h-10 object-contain" />
               )}
               <div className="flex flex-col items-center">
-                <span className="font-serif font-bold text-lg tracking-wide leading-none text-white drop-shadow-[0_1px_0_rgba(0,0,0,0.12)]">{displayBrandName}</span>
+                <span className="font-bold text-lg tracking-wide leading-none text-white drop-shadow-[0_1px_0_rgba(0,0,0,0.12)]">{displayBrandName}</span>
                 <span className="text-[10px] uppercase tracking-widest leading-none mt-1 text-white/85">{displayBrandSub}</span>
               </div>
             </Link>
@@ -594,11 +594,11 @@ export default function PublicLayout({ children, showFooter = true, activeNav, t
                   {hideOfficialBranding && branding.logoUrl ? (
                     <div className="flex items-center gap-3 mb-4">
                       <img src={branding.logoUrl} alt={displayBrandName} className="w-10 h-10 object-contain" />
-                      <span className="text-xl font-serif tracking-wider text-neutral-800">{displayBrandName}</span>
+                      <span className="text-xl font-bold tracking-wider text-neutral-800">{displayBrandName}</span>
                     </div>
                   ) : (
                     <>
-                      <h3 className="font-serif font-bold text-lg tracking-wide mb-1 text-neutral-800">NIIJIMA</h3>
+                      <h3 className="font-bold text-lg tracking-wide mb-1 text-neutral-800">NIIJIMA</h3>
                       <p className="text-[10px] uppercase tracking-widest text-neutral-500">{t.brand_sub}</p>
                     </>
                   )}

@@ -155,7 +155,7 @@ export default function MemberLayout({ children, showFooter = true }: MemberLayo
             <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
               {/* Column 1: Brand */}
               <div>
-                <h3 className="text-xl font-serif tracking-[0.2em] mb-1 text-neutral-800">NIIJIMA</h3>
+                <h3 className="text-xl font-bold tracking-[0.2em] mb-1 text-neutral-800">NIIJIMA</h3>
                 <p className="text-xs tracking-[0.1em] text-neutral-500 mb-4">{t('brandDesc', lang)}</p>
                 <p className="text-neutral-600 text-sm leading-relaxed mb-4">
                   {t('hospitalName', lang)}

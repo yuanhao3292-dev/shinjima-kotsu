@@ -234,7 +234,7 @@ export default function JTBConsultationClient({ hospital }: { hospital: JTBHospi
         <div className="max-w-4xl mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
-              <h1 className="text-3xl font-serif font-bold text-white">{serviceName}</h1>
+              <h1 className="text-3xl font-bold text-white">{serviceName}</h1>
               <p className="text-neutral-200 text-sm mt-1">{t('serviceDescription')}</p>
             </div>
             <div className="text-right">
@@ -273,7 +273,7 @@ export default function JTBConsultationClient({ hospital }: { hospital: JTBHospi
 
           <div className="lg:col-span-2">
             <div className="bg-white border border-neutral-200 p-8">
-              <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6">{t('bookingInfo')}</h2>
+              <h2 className="text-2xl font-bold text-neutral-900 mb-6">{t('bookingInfo')}</h2>
               <div className="bg-neutral-50 border border-neutral-200 p-4 mb-6">
                 <p className="text-sm text-neutral-700">
                   <strong>{t('contractNotice').split('：')[0]}：</strong>{t('contractNotice').split('：')[1]}

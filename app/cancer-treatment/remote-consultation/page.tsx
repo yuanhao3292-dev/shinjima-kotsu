@@ -276,7 +276,7 @@ export default function RemoteConsultationPage() {
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-neutral-200 text-sm">{t('videoConsultation')}</span>
               </div>
-              <h1 className="text-3xl font-serif font-bold text-white">{t('serviceName')}</h1>
+              <h1 className="text-3xl font-bold text-white">{t('serviceName')}</h1>
               <p className="text-neutral-200 text-sm mt-1">{t('serviceNameEn')}</p>
             </div>
             <div className="text-right">
@@ -322,7 +322,7 @@ export default function RemoteConsultationPage() {
           {/* Right: Booking Form */}
           <div className="lg:col-span-2">
             <div className="bg-white border border-neutral-200 p-8">
-              <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6">{t('bookingInfo')}</h2>
+              <h2 className="text-2xl font-bold text-neutral-900 mb-6">{t('bookingInfo')}</h2>
 
               {/* Contract Notice */}
               <div className="bg-neutral-50 border border-neutral-200 p-4 mb-6">

@@ -151,7 +151,7 @@ export default function ScreeningHistoryPage() {
               <div className="h-[1px] w-12 bg-brand-400" />
             </div>
 
-            <h1 className="font-serif text-3xl md:text-4xl xl:text-5xl text-white mb-6 leading-tight">
+            <h1 className="font-bold text-3xl md:text-4xl xl:text-5xl text-white mb-6 leading-tight">
               {t('title', lang)}
             </h1>
 

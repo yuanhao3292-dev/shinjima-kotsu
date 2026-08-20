@@ -135,7 +135,7 @@ export default function MyAccountPage() {
                 </span>
               </div>
 
-              <h1 className="font-serif text-4xl xl:text-5xl text-white mb-4 leading-tight">
+              <h1 className="font-bold text-4xl xl:text-5xl text-white mb-4 leading-tight">
                 {t('welcomeBack', lang)}
                 <br />
                 <span className="text-white/90">{userName}</span>
@@ -169,13 +169,13 @@ export default function MyAccountPage() {
             </div>
 
             {/* Profile Section —— 卡片整体宋体（JTB 式同族原则，族选品牌宋体） */}
-            <div className="border border-neutral-200 p-8 mb-6 font-serif">
+            <div className="border border-neutral-200 p-8 mb-6">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-16 h-16 bg-neutral-50 border border-neutral-200 flex items-center justify-center">
                   <UserIcon className="w-8 h-8 text-brand-700" />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-serif text-neutral-900">{userName}</h1>
+                  <h1 className="text-2xl font-bold text-neutral-900">{userName}</h1>
                   <p className="text-neutral-500 text-sm">{t('welcomeBackShort', lang)}</p>
                 </div>
               </div>
@@ -199,13 +199,13 @@ export default function MyAccountPage() {
             </div>
 
             {/* Quick Actions —— 同上，整卡宋体 */}
-            <div className="border border-neutral-200 overflow-hidden mb-6 font-serif">
+            <div className="border border-neutral-200 overflow-hidden mb-6">
               <Link
                 href="/my-orders"
                 className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors border-b border-neutral-200"
               >
                 <div>
-                  <h3 className="font-serif text-neutral-900">{t('myOrders', lang)}</h3>
+                  <h3 className="font-bold text-neutral-900">{t('myOrders', lang)}</h3>
                   <p className="text-sm text-neutral-500">{t('viewAllOrders', lang)}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-neutral-500" />
@@ -218,7 +218,7 @@ export default function MyAccountPage() {
                 className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors border-b border-neutral-200"
               >
                 <div>
-                  <h3 className="font-serif text-neutral-900">{t('bookCheckup', lang)}</h3>
+                  <h3 className="font-bold text-neutral-900">{t('bookCheckup', lang)}</h3>
                   <p className="text-sm text-neutral-500">{t('browsePackages', lang)}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-neutral-500" />
@@ -229,7 +229,7 @@ export default function MyAccountPage() {
                 className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors border-b border-neutral-200"
               >
                 <div>
-                  <h3 className="font-serif text-neutral-900 flex items-center gap-2">
+                  <h3 className="font-bold text-neutral-900 flex items-center gap-2">
                     {t('aiHealthScreening', lang)}
                     <span className="inline-flex items-center gap-1 text-xs bg-brand-400/10 text-neutral-900 px-2 py-0.5 border border-brand-400/30">
                       {t('free', lang)}
@@ -245,7 +245,7 @@ export default function MyAccountPage() {
                 className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors"
               >
                 <div>
-                  <h3 className="font-serif text-neutral-900">{t('comprehensiveTreatment', lang)}</h3>
+                  <h3 className="font-bold text-neutral-900">{t('comprehensiveTreatment', lang)}</h3>
                   <p className="text-sm text-neutral-500">{t('treatmentTypes', lang)}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-neutral-500" />

@@ -71,7 +71,7 @@ export default function DistributionNav({
   const brandEl = (
     <div className="flex flex-col">
       <span
-        className={`font-serif font-bold text-lg tracking-wide leading-none transition-colors duration-300 ${
+        className={`font-bold text-lg tracking-wide leading-none transition-colors duration-300 ${
           scrolled ? 'text-neutral-900' : 'text-white'
         }`}
       >

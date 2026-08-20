@@ -1069,7 +1069,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                </button>
 
                <div className="mb-8 text-center">
-                  <h3 className="text-2xl font-serif font-bold text-neutral-900">
+                  <h3 className="text-2xl font-bold text-neutral-900">
                     {lang === 'zh-TW' ? 'B2B 合作夥伴申請' : lang === 'zh-CN' ? 'B2B 合作伙伴申请' : lang === 'ja' ? 'B2B パートナー登録' : 'Partner Application'}
                   </h3>
                   <p className="text-sm text-neutral-500 mt-2">
@@ -1142,7 +1142,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                {inquirySubmitStatus === 'success' ? (
                  // Success State
                  <div className="p-8 text-center">
-                   <h3 className="text-2xl font-serif font-bold text-neutral-900 mb-4">
+                   <h3 className="text-2xl font-bold text-neutral-900 mb-4">
                      {lang === 'zh-TW' ? '申請已提交' : lang === 'zh-CN' ? '申请已提交' : lang === 'ja' ? '申請を送信しました' : 'Application Submitted'}
                    </h3>
                    <p className="text-neutral-600 mb-6">
@@ -1161,7 +1161,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLogin }) => {
                    <div className="p-6 border-b border-neutral-100">
                      <div className="flex items-center gap-3">
                        <div>
-                         <h3 className="text-xl font-serif font-bold text-neutral-900">
+                         <h3 className="text-xl font-bold text-neutral-900">
                            {lang === 'zh-TW' ? '同業合作申請' : lang === 'zh-CN' ? '同业合作申请' : lang === 'ja' ? 'パートナー申請' : 'Partner Inquiry'}
                          </h3>
                          <p className="text-sm text-neutral-500">{lang === 'zh-TW' ? '填寫以下資料，我們將盡快與您聯繫' : lang === 'zh-CN' ? '填写以下资料，我们将尽快与您联系' : lang === 'ja' ? '以下の情報をご記入ください。折り返しご連絡いたします' : 'Fill in the form below and we will contact you shortly'}</p>

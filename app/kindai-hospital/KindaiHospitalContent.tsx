@@ -1861,7 +1861,7 @@ export default function KindaiHospitalContent({
           {/* Section Header */}
           <div className="text-center mb-16">
             <span className="text-neutral-900 text-xs tracking-widest uppercase font-bold">{flowTag[locale]}</span>
-            <h3 className="text-3xl md:text-4xl font-serif font-bold text-neutral-900 mt-3 mb-4">{flowTitle[locale]}</h3>
+            <h3 className="text-3xl md:text-4xl font-bold text-neutral-900 mt-3 mb-4">{flowTitle[locale]}</h3>
             <p className="text-neutral-500 max-w-2xl mx-auto">{flowDesc[locale]}</p>
           </div>
 
@@ -2030,7 +2030,7 @@ export default function KindaiHospitalContent({
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <span className="text-neutral-900 text-xs tracking-widest uppercase font-bold">{svcTag[locale]}</span>
-              <h3 className="text-3xl md:text-4xl font-serif font-bold text-neutral-900 mt-3 mb-4">{svcTitle[locale]}</h3>
+              <h3 className="text-3xl md:text-4xl font-bold text-neutral-900 mt-3 mb-4">{svcTitle[locale]}</h3>
               <p className="text-neutral-500 mb-4">{svcDesc[locale]}</p>
               <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-200 px-4 py-2 rounded-full">
                 <span className="relative flex h-2 w-2">
@@ -2095,7 +2095,7 @@ export default function KindaiHospitalContent({
           ======================================== */}
       <div className="container mx-auto px-6 py-16">
         <div className="text-center">
-          <h3 className="text-3xl font-serif text-neutral-900 mb-4">{ctaTitle[locale]}</h3>
+          <h3 className="text-3xl font-bold text-neutral-900 mb-4">{ctaTitle[locale]}</h3>
           <p className="text-neutral-500 text-sm max-w-2xl mx-auto whitespace-pre-line mb-8">{ctaDesc[locale]}</p>
           {!isGuideEmbed && (
             <a
@@ -2115,12 +2115,12 @@ export default function KindaiHospitalContent({
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-neutral-900 text-xs tracking-widest uppercase font-bold">Clinical Departments</span>
-            <h3 className="text-3xl font-serif text-neutral-900 mt-2">{deptTitle[locale]}</h3>
+            <h3 className="text-3xl font-bold text-neutral-900 mt-2">{deptTitle[locale]}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-neutral-50 p-8 rounded-xl border border-neutral-100">
               <div className="flex items-center gap-3 mb-6">
-                <h4 className="text-lg font-bold text-neutral-800 font-serif">{deptInternal[locale]}</h4>
+                <h4 className="text-lg font-bold text-neutral-800 font-bold">{deptInternal[locale]}</h4>
               </div>
               <div className="space-y-2">
                 {departments.internal.map((dept, i) => (
@@ -2130,7 +2130,7 @@ export default function KindaiHospitalContent({
             </div>
             <div className="bg-neutral-50 p-8 rounded-xl border border-neutral-100">
               <div className="flex items-center gap-3 mb-6">
-                <h4 className="text-lg font-bold text-neutral-800 font-serif">{deptSurgical[locale]}</h4>
+                <h4 className="text-lg font-bold text-neutral-800 font-bold">{deptSurgical[locale]}</h4>
               </div>
               <div className="space-y-2">
                 {departments.surgical.map((dept, i) => (
@@ -2140,7 +2140,7 @@ export default function KindaiHospitalContent({
             </div>
             <div className="bg-neutral-50 p-8 rounded-xl border border-neutral-100">
               <div className="flex items-center gap-3 mb-6">
-                <h4 className="text-lg font-bold text-neutral-800 font-serif">{deptSpecialty[locale]}</h4>
+                <h4 className="text-lg font-bold text-neutral-800 font-bold">{deptSpecialty[locale]}</h4>
               </div>
               <div className="space-y-2">
                 {departments.specialty.map((dept, i) => (

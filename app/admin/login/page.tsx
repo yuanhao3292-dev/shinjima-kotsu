@@ -110,7 +110,7 @@ function AdminLoginForm() {
               <p className="text-xs text-brand-300 uppercase tracking-widest">Admin Console</p>
             </div>
           </div>
-          <h1 className="text-4xl font-serif font-bold mb-6 leading-tight">
+          <h1 className="text-4xl font-bold mb-6 leading-tight">
             管理員控制台<br />
             <span className="text-brand-300">系統管理中心</span>
           </h1>

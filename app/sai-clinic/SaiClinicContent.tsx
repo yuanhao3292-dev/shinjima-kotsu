@@ -481,7 +481,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                 <div className="h-[1px] w-12 bg-brand-400"></div>
                 <span className="text-xs tracking-[0.3em] text-brand-300 uppercase">Aesthetic Medicine in Osaka</span>
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
                 SAI CLINIC
                 <br />
                 <span className="text-brand-300">{t(TR.location, lang)}</span>
@@ -592,7 +592,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-neutral-700 uppercase">Doctor</span>
-            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.doctorSectionTitle, lang)}</h2>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-3">{t(TR.doctorSectionTitle, lang)}</h2>
           </div>
 
           {/* Philosophy heading */}
@@ -664,7 +664,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-neutral-700 uppercase">Why SAI CLINIC</span>
-            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.whyTitle, lang)}</h2>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-3">{t(TR.whyTitle, lang)}</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
             {[
@@ -707,7 +707,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center mb-12">
             <span className="text-sm tracking-widest text-neutral-700 uppercase">Our Service</span>
-            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.serviceTitle, lang)}</h2>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-3">{t(TR.serviceTitle, lang)}</h2>
             <p className="text-neutral-500 text-sm mt-2 max-w-xl mx-auto">
               {t(TR.serviceDesc, lang)}
             </p>
@@ -738,7 +738,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-neutral-700 uppercase">Clinic Gallery</span>
-            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.galleryTitle, lang)}</h2>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-3">{t(TR.galleryTitle, lang)}</h2>
             <p className="text-neutral-500 text-sm mt-2">{t(TR.galleryDesc, lang)}</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -760,7 +760,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-neutral-700 uppercase">Case Results</span>
-            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.caseTitle, lang)}</h2>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-3">{t(TR.caseTitle, lang)}</h2>
             <p className="text-neutral-500 text-sm mt-2">{t(TR.caseDesc, lang)}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
@@ -790,7 +790,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
             <div className="absolute inset-0 flex items-center px-8 md:px-12">
               <div>
                 <span className="text-sm tracking-widest text-brand-200 uppercase">Thread Lift Packages</span>
-                <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mt-2">{t(TR.threadLiftTitle, lang)}</h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-white mt-2">{t(TR.threadLiftTitle, lang)}</h2>
                 <p className="text-neutral-200 text-sm mt-2 max-w-md">{t(TR.threadLiftDesc, lang)}</p>
                 <div className="mt-4 inline-flex items-center gap-2 px-4 py-1.5 bg-brand-500/20 backdrop-blur border border-brand-400/30 rounded-full text-xs font-bold text-white">
                    {t(TR.monthlyQuota, lang)}
@@ -847,7 +847,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-neutral-700 uppercase">Combination Sets</span>
-            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.comboTitle, lang)}</h2>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-3">{t(TR.comboTitle, lang)}</h2>
             <p className="text-neutral-500 text-sm mt-2">{t(TR.comboDesc, lang)}</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -920,7 +920,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-neutral-700 uppercase">More Treatments</span>
-            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.moreTitle, lang)}</h2>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-3">{t(TR.moreTitle, lang)}</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...INJECTABLE_PACKAGES, ...FAT_PACKAGES, ...WELLNESS_PACKAGES].map((pkg) => (
@@ -944,7 +944,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-neutral-700 uppercase">Full Price List</span>
-            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.priceListTitle, lang)}</h2>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-3">{t(TR.priceListTitle, lang)}</h2>
             <p className="text-neutral-500 text-sm mt-2">{t(TR.priceListDesc, lang)}</p>
           </div>
 
@@ -990,7 +990,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-brand-400 uppercase">Treatment Flow</span>
-            <h2 className="text-3xl font-serif font-bold mt-3">{t(TR.flowTitle, lang)}</h2>
+            <h2 className="text-3xl font-bold mt-3">{t(TR.flowTitle, lang)}</h2>
             <p className="text-neutral-400 text-sm mt-2">{t(TR.flowDesc, lang)}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
@@ -1016,7 +1016,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-neutral-700 uppercase">Access</span>
-            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.accessTitle, lang)}</h2>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-3">{t(TR.accessTitle, lang)}</h2>
           </div>
           <div className="grid lg:grid-cols-2 gap-12">
             <div className="bg-neutral-50 rounded-2xl overflow-hidden border border-neutral-100">
@@ -1068,7 +1068,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-neutral-700 uppercase">Reviews</span>
-            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.reviewsTitle, lang)}</h2>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-3">{t(TR.reviewsTitle, lang)}</h2>
             <p className="text-neutral-400 text-sm mt-2">{t(TR.reviewsDesc, lang)}</p>
             <div className="flex items-center justify-center gap-1 mt-3">
               {Array.from({ length: 5 }).map((_, i) => (
@@ -1111,7 +1111,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
             <Image src={recommendImg?.src || `${SAI}/a-reccoImg.jpg`} alt={recommendImg?.alt || '推薦'} fill className="object-cover" quality={75} />
           </div>
           <span className="text-sm tracking-widest text-neutral-700 uppercase">Transformation</span>
-          <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3 mb-12">{t(TR.transformTitle, lang)}</h2>
+          <h2 className="text-3xl font-bold text-neutral-900 mt-3 mb-12">{t(TR.transformTitle, lang)}</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white rounded-2xl p-6 border border-neutral-100">
               <div className="w-12 h-12 bg-neutral-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -1138,7 +1138,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-16">
             <span className="text-sm tracking-widest text-neutral-700 uppercase">FAQ</span>
-            <h2 className="text-3xl font-serif font-bold text-neutral-900 mt-3">{t(TR.faqTitle, lang)}</h2>
+            <h2 className="text-3xl font-bold text-neutral-900 mt-3">{t(TR.faqTitle, lang)}</h2>
           </div>
           <div className="space-y-3">
             {FAQ.map((faq, i) => (
@@ -1164,7 +1164,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
         <Image src={ctaBg?.src || `${SAI}/topFvImg04.jpg`} alt={ctaBg?.alt || 'SAI CLINIC'} fill className="object-cover" quality={75} />
         <div className="absolute inset-0 bg-gradient-to-r from-brand-600/90 to-brand-600/90"></div>
         <div className="max-w-3xl mx-auto px-6 relative z-10">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">{t(TR.ctaTitle, lang)}</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t(TR.ctaTitle, lang)}</h2>
           <p className="text-brand-700 text-lg mb-6 leading-relaxed">
             {t(TR.ctaDesc, lang)}
           </p>

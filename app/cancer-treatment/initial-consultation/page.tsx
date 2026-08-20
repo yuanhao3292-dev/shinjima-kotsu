@@ -252,7 +252,7 @@ export default function InitialConsultationPage() {
         <div className="max-w-4xl mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
-              <h1 className="text-3xl font-serif font-bold text-white">{t('serviceName')}</h1>
+              <h1 className="text-3xl font-bold text-white">{t('serviceName')}</h1>
               <p className="text-neutral-200 text-sm mt-1">{t('serviceNameEn')}</p>
             </div>
             <div className="text-right">
@@ -296,7 +296,7 @@ export default function InitialConsultationPage() {
           {/* Right: Booking Form */}
           <div className="lg:col-span-2">
             <div className="bg-white border border-neutral-200 p-8">
-              <h2 className="text-2xl font-serif font-bold text-neutral-900 mb-6">{t('bookingInfo')}</h2>
+              <h2 className="text-2xl font-bold text-neutral-900 mb-6">{t('bookingInfo')}</h2>
 
               {/* Contract Notice */}
               <div className="bg-neutral-50 border border-neutral-200 p-4 mb-6">
