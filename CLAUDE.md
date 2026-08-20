@@ -10,6 +10,18 @@
 
 ---
 
+## 🔒 字体铁律（2026-08-20 用户拍板，PR #109）
+
+**全站 100% 单一无衬线族（JTB 式），任何页面任何组件禁止衬线字体。**
+
+- 禁止写 `font-serif` / `serif` class、禁止任何 `font-family: ... serif` 声明（`sans-serif` 除外）
+- 标题层级只靠 **字重（font-bold=700）/ 字号 / 灰度** 区分，不靠换字体族
+- 衬线字体文件（Shippori Mincho、Noto Serif TC/SC/KR、Playfair Display）已从 `app/layout.tsx` 卸载，**不要加回**
+- `globals.css` 中 `--font-serif` 与 `.font-serif` 已全部指向对应黑体作为兜底 —— 这是防御措施，不是许可
+- 依据：实测 JTB 官网 344 个文字节点 100% 单族；此前衬线/黑体混排被用户多次指出"字体太乱"
+
+---
+
 ## 部署命令
 
 ```bash

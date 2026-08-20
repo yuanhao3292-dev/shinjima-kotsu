@@ -193,7 +193,7 @@ export default async function RootLayout({
       {/* 曾在此引入霞鹜文楷 CDN 样式表作为简中 serif 后备，已移除：
           它是 <head> 里阻塞渲染的第三方样式表，带来 582 条 @font-face
           （LXGW WenKai + Mono 各 291），而它在字体栈里排第 4 位后备，
-          前面的 var(--font-noto-serif-sc) 已覆盖全部字形 —— 线上实测
+          前面的字体栈已覆盖全部字形 —— 线上实测
           document.fonts 中该族已加载数为 0，一个字都没渲染过。
           另外 @latest 未锁版本，第三方随时可变更内容。 */}
       <body className="antialiased">

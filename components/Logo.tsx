@@ -24,7 +24,7 @@ export const Logo: React.FC<LogoProps> = ({ className = "w-10 h-10" }) => (
       fontWeight="700"
       textAnchor="middle"
       dominantBaseline="central"
-      fontFamily="'Times New Roman', serif"
+      fontFamily="'Noto Sans JP', 'Helvetica Neue', sans-serif"
       style={{ letterSpacing: '-0.02em' }}
     >
       N

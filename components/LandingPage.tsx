@@ -180,7 +180,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           <div className="max-w-4xl mx-auto">
             {/* 标题 - 居中 */}
             <div className="text-center mb-12">
-              <h2 className="serif text-2xl md:text-3xl text-neutral-900 tracking-wide mb-2">
+              <h2 className="font-bold text-2xl md:text-3xl text-neutral-900 tracking-wide mb-2">
                 {currentLang === 'zh-TW' ? '最新消息' : currentLang === 'zh-CN' ? '最新消息' : currentLang === 'en' ? 'News' : 'お知らせ'}
               </h2>
               <p className="text-xs tracking-[0.2em] text-neutral-500 uppercase">News Room</p>
@@ -278,7 +278,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             {/* 核心标题 - 温暖、给人希望。
                 首页的 h1：本段是全站首屏的主张，其余板块（癌症治疗/高尔夫/
                 商务考察/同业合作）保持 h2 —— 此前首页一个 h1 都没有。 */}
-            <h1 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
+            <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
               {currentLang === 'zh-TW' ? '把健康交給' : currentLang === 'zh-CN' ? '把健康交给' : currentLang === 'ja' ? '健康を託す' : 'Entrust Your Health'}
               <br />
               <span className="text-white/90">{currentLang === 'zh-TW' ? '值得信賴的人' : currentLang === 'zh-CN' ? '值得信赖的人' : currentLang === 'ja' ? '信頼できる人へ' : 'To Those You Trust'}</span>
@@ -388,7 +388,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             </div>
 
             {/* 核心标题 */}
-            <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
+            <h2 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
               {currentLang === 'zh-TW' ? '面對重疾' : currentLang === 'zh-CN' ? '面对重疾' : currentLang === 'ja' ? '重病と向き合う時' : 'Facing Serious Illness'}
               <br />
               <span className="text-white/90">{currentLang === 'zh-TW' ? '日本醫療給您更多希望' : currentLang === 'zh-CN' ? '日本医疗给您更多希望' : currentLang === 'ja' ? '日本医療がもう一つの希望に' : 'Japan\'s Medicine Offers More Hope'}</span>
@@ -500,7 +500,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
               <span className="text-xs tracking-[0.3em] text-white/90 uppercase">Exclusive Access</span>
             </div>
 
-            <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
+            <h2 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
               {currentLang === 'zh-TW' ? '踏入' : currentLang === 'zh-CN' ? '踏入' : currentLang === 'ja' ? '足を踏み入れる' : 'Step Into'}
               <br />
               <span className="text-white/90">{currentLang === 'zh-TW' ? '傳說中的名門' : currentLang === 'zh-CN' ? '传说中的名门' : currentLang === 'ja' ? '伝説の名門へ' : 'Legendary Championship Courses'}</span>
@@ -590,7 +590,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                   <div className="h-[1px] w-12 bg-white/70"></div>
                   <span className="text-xs tracking-[0.3em] text-white/90 uppercase">Business Inspection</span>
                 </div>
-                <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
+                <h2 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
                   {currentLang === 'zh-TW' ? '對話日本頂尖企業' : currentLang === 'zh-CN' ? '对话日本顶尖企业' : currentLang === 'ja' ? '日本トップ企業との対話' : 'Connect with Japan\'s Leading Companies'}
                 </h2>
                 <p className="text-sm sm:text-base md:text-xl text-white/85 leading-relaxed font-light mb-6 md:mb-8">
@@ -658,7 +658,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <p className="text-xs tracking-[0.3em] text-neutral-500 uppercase mb-3">Partners</p>
-              <h2 className="serif text-2xl md:text-3xl text-neutral-900 tracking-wide">
+              <h2 className="font-bold text-2xl md:text-3xl text-neutral-900 tracking-wide">
                 {currentLang === 'zh-TW' ? '合作夥伴' : currentLang === 'zh-CN' ? '合作伙伴' : currentLang === 'ja' ? '主要取引先' : 'Our Partners'}
               </h2>
             </div>
@@ -738,7 +738,7 @@ const HomeView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
             </div>
 
             {/* 核心标题 */}
-            <h2 className="serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
+            <h2 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
               {currentLang === 'zh-TW' ? '導遊提攜夥伴' : currentLang === 'zh-CN' ? '导游提携伙伴' : currentLang === 'ja' ? 'ガイドパートナー' : 'Guide Partner'}
               <br />
               <span className="text-white/90">{currentLang === 'zh-TW' ? '客戶介紹計劃' : currentLang === 'zh-CN' ? '客户介绍计划' : currentLang === 'ja' ? '顧客紹介プログラム' : 'Client Referral Program'}</span>
