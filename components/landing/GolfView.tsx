@@ -2,7 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { ArrowLeft, ArrowRight, ArrowUpRight, MapPin, Building, Lock, Trophy, Car, Bath, MessageSquare } from 'lucide-react';
+import {
+  ArrowLeft, ArrowUpRight, Lock, Trophy, Car, Bath, MessageSquare
+} from 'lucide-react';
 import ContactButtons from '../ContactButtons';
 import type { SubViewProps } from './types';
 
@@ -148,14 +150,6 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                  className={`golf-luxury-card rounded-2xl p-8 group animate-fade-in-up-delay-${i + 1}`}
                >
                   {/* Icon with gradient background */}
-                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500
-                    ${item.accent === 'emerald' ? 'bg-brand-50 text-brand-700 group-hover:bg-brand-600 group-hover:text-white' : ''}
-                    ${item.accent === 'amber' ? 'bg-brand-50 text-neutral-900 group-hover:bg-brand-700 group-hover:text-white' : ''}
-                    ${item.accent === 'slate' ? 'bg-neutral-100 text-neutral-600 group-hover:bg-brand-700 group-hover:text-white' : ''}
-                    ${item.accent === 'orange' ? 'bg-brand-50 text-neutral-900 group-hover:bg-brand-500 group-hover:text-white' : ''}
-                  `}>
-                    {item.icon}
-                  </div>
                   {/* Gold top border on hover */}
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-brand-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-t-2xl"></div>
                   <h3 className="font-bold text-xl mb-4 font-serif text-neutral-900">{item.title}</h3>
@@ -191,9 +185,6 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                rel="noopener noreferrer"
                className="group flex items-center gap-4 bg-white border border-neutral-200 rounded-2xl p-5 hover:border-brand-300 hover:shadow-lg hover:shadow-brand-900/5 transition-all duration-300"
              >
-               <div className="shrink-0 w-12 h-12 rounded-xl brand-gradient-solid flex items-center justify-center group-hover:scale-105 transition-transform">
-                 <MapPin size={20} className="text-white" />
-               </div>
                <div className="min-w-0 flex-1">
                  <h4 className="text-neutral-900 font-bold text-sm leading-snug group-hover:text-brand-700 transition-colors">{course.name}</h4>
                  <p className="text-neutral-500 text-xs mt-1">{course.region}</p>
@@ -300,9 +291,6 @@ const GolfView: React.FC<SubViewProps> = ({ t, setCurrentPage, onLoginTrigger, c
                      <div className="golf-luxury-card rounded-2xl p-8 mb-10">
                         {/* Hotel Info */}
                         <div className="flex items-center gap-3 mb-6 pb-6 border-b border-neutral-200">
-                           <div className="w-10 h-10 rounded-full bg-brand-50 flex items-center justify-center">
-                             <Building size={18} className="text-brand-600" />
-                           </div>
                            <div>
                              <span className="text-xs text-neutral-500 uppercase tracking-wider">{currentLang === 'zh-TW' ? '住宿' : currentLang === 'zh-CN' ? '住宿' : currentLang === 'ja' ? '宿泊' : 'Accommodation'}</span>
                              <p className="text-neutral-900 font-bold">{plan.hotel}</p>

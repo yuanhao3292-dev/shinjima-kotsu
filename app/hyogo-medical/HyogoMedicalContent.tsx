@@ -4,14 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  MapPin, Phone, Clock, Train,
-  Award, Stethoscope, Activity, Users, Shield,
-  Heart, Brain, Baby, Pill, Eye, Ear,
-  Syringe, Microscope, Sparkles, CheckCircle,
-  ExternalLink, FileText, Flame,
-  CircleDot, Zap, Cross, Gem,
-  HeartPulse, Scan,
-  ArrowRight, Globe, Mail, MessageSquare, CreditCard, Lock
+  Train, Award, Activity, Shield, Heart, Brain, Baby, Pill, Eye, Ear, Syringe, Microscope, Sparkles, CheckCircle, ExternalLink, FileText, Flame, CircleDot, Zap, Cross, Gem, HeartPulse, Scan, ArrowRight, Globe, Mail, MessageSquare, Lock
 } from 'lucide-react';
 import { useLanguage4, type Language } from '@/hooks/useLanguage';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
@@ -1203,7 +1196,6 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                   <div className="flex flex-col md:flex-row items-stretch">
                     <div className={`bg-gradient-to-br ${item.color} p-6 md:p-8 flex items-center justify-center md:min-w-[200px]`}>
                       <div className="text-center text-white">
-                        <Icon size={32} className="mx-auto mb-3" />
                         <div className="text-sm font-bold tracking-wide">{item.rank[lang]}</div>
                       </div>
                     </div>
@@ -1258,7 +1250,6 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                       : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
                   }`}
                 >
-                  <Icon size={14} />
                   {cat.label[lang]}
                 </button>
               );
@@ -1318,7 +1309,6 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                       <ul className="space-y-1.5 mb-4">
                         {doc.highlights.map((h, j) => (
                           <li key={j} className="flex items-start gap-2 text-[13px] text-neutral-600">
-                            <CheckCircle size={13} className="text-brand-700 mt-0.5 flex-shrink-0" />
                             <span>{h[lang]}</span>
                           </li>
                         ))}
@@ -1407,9 +1397,6 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
               const colors = ICON_COLORS[cert.color];
               return (
                 <div key={i} className="bg-neutral-50 p-6 rounded-xl border border-neutral-100 hover:shadow-lg transition duration-300 group">
-                  <div className={`w-10 h-10 ${colors.bg} ${colors.text} rounded-full flex items-center justify-center mb-4 ${colors.hoverBg} group-hover:text-white transition`}>
-                    <Icon size={20} />
-                  </div>
                   <h4 className="text-base font-bold text-neutral-800 mb-2 font-serif">{cert.title[lang]}</h4>
                   <p className="text-xs text-neutral-500 leading-relaxed">{cert.desc[lang]}</p>
                 </div>
@@ -1432,7 +1419,6 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
               const Icon = center.icon;
               return (
                 <div key={i} className="bg-white/5 p-5 rounded-xl border border-white/10 hover:bg-white/10 transition group text-center">
-                  <div className="flex justify-center mb-3 text-neutral-100 group-hover:scale-110 transition"><Icon size={28} /></div>
                   <h4 className="font-bold text-sm mb-1">{center.name[lang]}</h4>
                   <p className="text-[11px] text-neutral-400 leading-relaxed">{center.stat[lang]}</p>
                 </div>
@@ -1676,34 +1662,31 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-neutral-50 p-8 rounded-xl border border-neutral-100">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-neutral-100 text-brand-700 rounded-full flex items-center justify-center"><Heart size={20} /></div>
                 <h4 className="text-lg font-bold text-neutral-800 font-serif">{t.deptInternal[lang]}</h4>
               </div>
               <div className="space-y-2">
                 {DEPARTMENTS.internal.map((dept, i) => (
-                  <div key={i} className="flex gap-2 text-sm text-neutral-600"><CheckCircle size={14} className="text-brand-700 shrink-0 mt-0.5" />{dept[lang]}</div>
+                  <div key={i} className="flex gap-2 text-sm text-neutral-600">{dept[lang]}</div>
                 ))}
               </div>
             </div>
             <div className="bg-neutral-50 p-8 rounded-xl border border-neutral-100">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-neutral-100 text-brand-700 rounded-full flex items-center justify-center"><Syringe size={20} /></div>
                 <h4 className="text-lg font-bold text-neutral-800 font-serif">{t.deptSurgical[lang]}</h4>
               </div>
               <div className="space-y-2">
                 {DEPARTMENTS.surgical.map((dept, i) => (
-                  <div key={i} className="flex gap-2 text-sm text-neutral-600"><CheckCircle size={14} className="text-brand-700 shrink-0 mt-0.5" />{dept[lang]}</div>
+                  <div key={i} className="flex gap-2 text-sm text-neutral-600">{dept[lang]}</div>
                 ))}
               </div>
             </div>
             <div className="bg-neutral-50 p-8 rounded-xl border border-neutral-100">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-neutral-200 text-neutral-700 rounded-full flex items-center justify-center"><Stethoscope size={20} /></div>
                 <h4 className="text-lg font-bold text-neutral-800 font-serif">{t.deptSpecialty[lang]}</h4>
               </div>
               <div className="space-y-2">
                 {DEPARTMENTS.other.map((dept, i) => (
-                  <div key={i} className="flex gap-2 text-sm text-neutral-600"><CheckCircle size={14} className="text-neutral-500 shrink-0 mt-0.5" />{dept[lang]}</div>
+                  <div key={i} className="flex gap-2 text-sm text-neutral-600">{dept[lang]}</div>
                 ))}
               </div>
             </div>
@@ -1731,7 +1714,6 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
             <div className="space-y-4">
               <div className="bg-neutral-50 p-6 rounded-xl border border-neutral-100">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-neutral-100 text-brand-700 rounded-full flex items-center justify-center shrink-0"><MapPin size={20} /></div>
                   <div>
                     <h4 className="font-bold text-neutral-800 mb-1 font-serif">{t.accessLabelAddress[lang]}</h4>
                     <p className="text-sm text-neutral-500">{t.accessAddress[lang]}</p>
@@ -1740,7 +1722,6 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
               </div>
               <div className="bg-neutral-50 p-6 rounded-xl border border-neutral-100">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-neutral-100 text-brand-700 rounded-full flex items-center justify-center shrink-0"><Train size={20} /></div>
                   <div>
                     <h4 className="font-bold text-neutral-800 mb-1 font-serif">{t.accessLabelTrain[lang]}</h4>
                     <p className="text-sm text-neutral-500">{t.accessTrain[lang]}</p>
@@ -1749,7 +1730,6 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
               </div>
               <div className="bg-neutral-50 p-6 rounded-xl border border-neutral-100">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-neutral-100 text-brand-700 rounded-full flex items-center justify-center shrink-0"><Clock size={20} /></div>
                   <div>
                     <h4 className="font-bold text-neutral-800 mb-1 font-serif">{t.accessLabelHours[lang]}</h4>
                     <p className="text-sm text-neutral-500">{t.hoursWeekday[lang]}</p>
@@ -1797,9 +1777,6 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                     }`}
                   >
                     <div className="flex items-center gap-2 mb-2">
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isActive ? c.bg : 'bg-neutral-200'}`}>
-                        <PhaseIcon size={16} className={isActive ? 'text-white' : 'text-neutral-500'} />
-                      </div>
                       <span className={`text-xs font-bold ${isActive ? c.text : 'text-neutral-400'}`}>
                         PHASE {phase.phaseNumber}
                       </span>
@@ -1808,7 +1785,6 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                       {phase.title[lang]}
                     </h4>
                     <p className="text-xs text-neutral-400 mt-1 flex items-center gap-1">
-                      <Clock size={10} />
                       {phase.duration[lang]}
                     </p>
                   </button>
@@ -1833,9 +1809,6 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                   <div className={`bg-gradient-to-r ${PHASE_GRADIENT_MAP[phase.color]} p-6 md:p-8 text-white`}>
                     <div className="flex flex-wrap items-center justify-between gap-4">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
-                          <PhaseIcon size={24} />
-                        </div>
                         <div>
                           <div className="text-white/70 text-xs font-bold tracking-wider">PHASE {phase.phaseNumber}</div>
                           <h4 className="text-xl md:text-2xl font-bold">{phase.title[lang]}</h4>
@@ -1844,11 +1817,11 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                       </div>
                       <div className="flex flex-wrap items-center gap-3">
                         <span className="bg-white/20 backdrop-blur px-3 py-1.5 rounded-full text-sm flex items-center gap-1.5">
-                          <Clock size={14} /> {phase.duration[lang]}
+                           {phase.duration[lang]}
                         </span>
                         {phase.feeSummary && (
                           <span className="bg-white/20 backdrop-blur px-3 py-1.5 rounded-full text-sm flex items-center gap-1.5">
-                            <CreditCard size={14} /> {phase.feeSummary[lang]}
+                             {phase.feeSummary[lang]}
                           </span>
                         )}
                       </div>
@@ -1861,13 +1834,11 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                       {/* Patient Actions */}
                       <div className={`rounded-xl p-5 border ${PHASE_LIGHT_BG_MAP[phase.color]}`}>
                         <div className="flex items-center gap-2 mb-4">
-                          <Users size={18} className="text-neutral-600" />
                           <h5 className="font-bold text-neutral-900 text-sm">{bookingT.flowYouDo[lang]}</h5>
                         </div>
                         <ul className="space-y-2.5">
                           {phase.patientActions.map((action, i) => (
                             <li key={i} className="flex items-start gap-2.5 text-sm text-neutral-700">
-                              <CheckCircle size={16} className="text-brand-700 flex-shrink-0 mt-0.5" />
                               <span>{action[lang]}</span>
                             </li>
                           ))}
@@ -1876,13 +1847,11 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                       {/* We Handle */}
                       <div className="rounded-xl p-5 border bg-neutral-50 border-neutral-100">
                         <div className="flex items-center gap-2 mb-4">
-                          <Shield size={18} className="text-neutral-600" />
                           <h5 className="font-bold text-neutral-900 text-sm">{bookingT.flowWeHandle[lang]}</h5>
                         </div>
                         <ul className="space-y-2.5">
                           {phase.weHandle.map((item, i) => (
                             <li key={i} className="flex items-start gap-2.5 text-sm text-neutral-700">
-                              <CheckCircle size={16} className="text-brand-700 flex-shrink-0 mt-0.5" />
                               <span>{item[lang]}</span>
                             </li>
                           ))}
@@ -1893,7 +1862,6 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                     {/* Sub-step Timeline */}
                     <div>
                       <h5 className="font-bold text-neutral-900 text-sm mb-4 flex items-center gap-2">
-                        <FileText size={16} className="text-neutral-400" />
                         {bookingT.flowStepDetail[lang]}
                       </h5>
                       <div className="relative">
@@ -1988,7 +1956,6 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
                     <ul className="space-y-2 mb-6 text-sm text-neutral-600">
                       {svc.features[lang].map((feat, i) => (
                         <li key={i} className="flex items-start gap-2">
-                          <CheckCircle size={14} className={`${svc.checkColor} mt-0.5 shrink-0`} />
                           <span>{feat}</span>
                         </li>
                       ))}
@@ -2007,9 +1974,6 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
             {/* Member System Notice */}
             <div className="bg-white rounded-2xl p-6 border border-neutral-200 mb-8">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-neutral-100 rounded-xl flex items-center justify-center shrink-0">
-                  <Users size={24} className="text-brand-700" />
-                </div>
                 <div>
                   <h4 className="font-bold text-neutral-900 mb-2">{bookingT.memberTitle[lang]}</h4>
                   <p className="text-sm text-neutral-600 leading-relaxed">{bookingT.memberDesc[lang]}</p>
@@ -2059,8 +2023,8 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
               </div>
               <div className="mt-6 flex items-center justify-center gap-6 text-xs text-neutral-400">
                 <div className="flex items-center gap-1.5"><Lock size={14} /><span>SSL</span></div>
-                <div className="flex items-center gap-1.5"><CreditCard size={14} /><span>Stripe</span></div>
-                <div className="flex items-center gap-1.5"><Shield size={14} /><span>{t.privacyLabel[lang]}</span></div>
+                <div className="flex items-center gap-1.5"><span>Stripe</span></div>
+                <div className="flex items-center gap-1.5"><span>{t.privacyLabel[lang]}</span></div>
               </div>
             </div>
           </div>
@@ -2080,7 +2044,6 @@ export default function HyogoMedicalContent({ isGuideEmbed, guideSlug }: HyogoMe
               href="#contact-form"
               className="inline-flex items-center gap-2 brand-gradient-solid hover:opacity-90 text-white px-8 py-4 rounded-full font-bold transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
             >
-              <Stethoscope size={20} />
               {bookingT.bookNow[lang]}
               <ArrowRight size={18} />
             </a>

@@ -2,14 +2,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import {
-  MapPin, Phone, Train,
-  Award, Stethoscope, Activity, Users, Shield,
-  Heart, Pill,
-  Microscope, CheckCircle,
-  ExternalLink, FileText,
-  HeartPulse, Scan,
-  ArrowRight, Globe, Mail, MessageSquare,
-  Dna, Target, Radio, FlaskConical, Bot, Clock
+  Phone, Award, Stethoscope, Activity, Users, Shield, Heart, Pill, Microscope, ExternalLink, HeartPulse, Scan, ArrowRight, Globe, Mail, MessageSquare, Dna, Target, Radio, FlaskConical, Bot
 } from 'lucide-react';
 import { useLanguage4, type Language } from '@/hooks/useLanguage';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
@@ -664,7 +657,6 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
 
             <div className="flex flex-wrap gap-3">
               <a href="#services" className="inline-flex items-center gap-2 bg-white text-neutral-900 font-bold px-6 py-3 rounded-xl hover:bg-brand-50 transition shadow-lg">
-                <FileText size={18} />
                 {t('consultPlan')}
               </a>
               <a href="#flow" className="inline-flex items-center gap-2 border border-white/40 text-white px-6 py-3 rounded-xl hover:bg-white/10 transition">
@@ -686,7 +678,6 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
               { icon: Users, text: t('designation3') },
             ].map((badge, i) => (
               <div key={i} className="flex items-center gap-2 px-6">
-                <badge.icon size={16} className="text-white/80 flex-shrink-0" />
                 <span className="text-xs text-white/90 font-medium">{badge.text}</span>
               </div>
             ))}
@@ -755,9 +746,6 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
                 <div className="h-1 brand-gradient-deep" />
                 <div className="p-5">
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center">
-                      <CenterIcon type={center.icon} className="w-5 h-5 text-neutral-900" />
-                    </div>
                     <h3 className="font-bold text-neutral-900 text-sm leading-tight">{center.name[lang]}</h3>
                   </div>
                   <p className="text-xs text-neutral-600 leading-relaxed mb-3">{center.desc[lang]}</p>
@@ -782,9 +770,6 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {TREATMENTS.map((treat, i) => (
               <div key={i} className="bg-neutral-50 rounded-xl border border-neutral-100 p-6 hover:shadow-md transition-all">
-                <div className="w-12 h-12 rounded-xl brand-gradient-deep flex items-center justify-center mb-4">
-                  <treat.icon size={22} className="text-white" />
-                </div>
                 <h3 className="font-bold text-neutral-900 mb-2">{treat.title[lang]}</h3>
                 <p className="text-sm text-neutral-600 leading-relaxed">{treat.desc[lang]}</p>
               </div>
@@ -831,9 +816,6 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
           <div className="grid md:grid-cols-3 gap-6">
             {RESEARCH_ITEMS.map((item, i) => (
               <div key={i} className="bg-neutral-50 rounded-xl border border-neutral-100 p-6 hover:shadow-md transition-all">
-                <div className="w-12 h-12 rounded-xl brand-gradient-deep flex items-center justify-center mb-4">
-                  <item.icon size={22} className="text-white" />
-                </div>
                 <h3 className="font-bold text-neutral-900 mb-2">{item.title[lang]}</h3>
                 <p className="text-sm text-neutral-600 leading-relaxed">{item.desc[lang]}</p>
               </div>
@@ -854,9 +836,6 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
             {SUPPORT_ITEMS.map((item, i) => (
               <div key={i} className="bg-white rounded-xl border border-neutral-200 p-6 hover:shadow-md transition-all">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center flex-shrink-0">
-                    <item.icon size={20} className="text-neutral-900" />
-                  </div>
                   <div>
                     <h3 className="font-bold text-neutral-900 mb-2">{item.title[lang]}</h3>
                     <p className="text-sm text-neutral-600 leading-relaxed">{item.desc[lang]}</p>
@@ -882,7 +861,6 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
                 <ul className="space-y-2">
                   {group.depts.map((dept, j) => (
                     <li key={j} className="flex items-start gap-2 text-sm text-neutral-700">
-                      <CheckCircle size={14} className="text-neutral-900 mt-0.5 flex-shrink-0" />
                       <span>
                         <span className="font-medium">{dept.ja}</span>
                         {lang !== 'ja' && (
@@ -911,9 +889,6 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
             {HISTORY_MILESTONES.map((milestone, i) => (
               <div key={i} className="flex gap-4 mb-6 last:mb-0">
                 <div className="flex flex-col items-center">
-                  <div className="w-10 h-10 rounded-full brand-gradient-deep text-white flex items-center justify-center flex-shrink-0">
-                    <Clock size={16} />
-                  </div>
                   {i < HISTORY_MILESTONES.length - 1 && (
                     <div className="w-px flex-1 bg-brand-800/20 mt-2" />
                   )}
@@ -1027,12 +1002,10 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-center">
             <div className="bg-white rounded-xl border border-neutral-200 p-8">
               <h3 className="text-xl font-bold text-neutral-900 mb-6 flex items-center gap-2">
-                <MapPin size={20} className="text-neutral-900" />
                 {tr.heroTitle1[lang]}
               </h3>
               <div className="grid gap-5 text-sm text-neutral-600">
                 <div className="flex items-start gap-3">
-                  <MapPin size={16} className="text-neutral-900 mt-0.5 flex-shrink-0" />
                   <div>
                     <p className="font-medium text-neutral-800">
                       {lang === 'ja' ? '所在地' : lang === 'en' ? 'Address' : '地址'}
@@ -1065,7 +1038,6 @@ export default function OICIContent({ isGuideEmbed, guideSlug }: Props) {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Train size={16} className="text-neutral-900 mt-0.5 flex-shrink-0" />
                   <div>
                     <p className="font-medium text-neutral-800">
                       {lang === 'ja' ? '交通アクセス' : lang === 'en' ? 'Access' : '交通'}

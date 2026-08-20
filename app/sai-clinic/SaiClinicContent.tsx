@@ -4,10 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  ArrowRight, CheckCircle, MapPin, Sparkles, Heart,
-  Shield, Clock, Star, ChevronDown, Scissors, Syringe,
-  Pill, Droplets, Train, Phone, MessageCircle, Globe, Users,
-  Stethoscope,
+  ArrowRight, MapPin, Sparkles, Heart, Shield, Clock, Star, ChevronDown, Scissors, Syringe, Pill, Droplets, Phone, MessageCircle, Globe, Users, Stethoscope
 } from 'lucide-react';
 import ContactButtons from '@/components/ContactButtons';
 import type { SaiClinicImage } from '@/lib/services/sai-clinic-images';
@@ -585,7 +582,6 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
             </p>
           </div>
           <div className="flex items-center gap-2 text-xs font-bold bg-white/10 px-4 py-1.5 rounded-full">
-            <Clock size={12} />
             {t(TR.promoQuota, lang)}<span className="text-brand-700">{t(TR.promoSlots, lang)}</span>
           </div>
         </div>
@@ -653,7 +649,6 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                 <div className="space-y-2.5 text-sm text-neutral-600">
                   {[TR.cred1, TR.cred2, TR.cred3, TR.cred4, TR.cred5].map((item, i) => (
                     <div key={i} className="flex items-start gap-2">
-                      <CheckCircle size={14} className="text-brand-400 mt-0.5 shrink-0" />
                       <span>{t(item, lang)}</span>
                     </div>
                   ))}
@@ -727,7 +722,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
               { icon: <MapPin size={22} className="text-brand-700" />, title: t(TR.svc6Title, lang), desc: t(TR.svc6Desc, lang) },
             ].map((item, i) => (
               <div key={i} className="flex gap-4 p-5 rounded-xl border border-neutral-100 hover:border-brand-100 hover:bg-brand-50/30 transition">
-                <div className="shrink-0 mt-0.5">{item.icon}</div>
+                <div className="shrink-0 mt-0.5"></div>
                 <div>
                   <h4 className="font-bold text-neutral-900 text-sm mb-1">{item.title}</h4>
                   <p className="text-xs text-neutral-500 leading-relaxed">{item.desc}</p>
@@ -798,7 +793,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                 <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mt-2">{t(TR.threadLiftTitle, lang)}</h2>
                 <p className="text-neutral-200 text-sm mt-2 max-w-md">{t(TR.threadLiftDesc, lang)}</p>
                 <div className="mt-4 inline-flex items-center gap-2 px-4 py-1.5 bg-brand-500/20 backdrop-blur border border-brand-400/30 rounded-full text-xs font-bold text-white">
-                  <Clock size={12} /> {t(TR.monthlyQuota, lang)}
+                   {t(TR.monthlyQuota, lang)}
                 </div>
               </div>
             </div>
@@ -825,7 +820,6 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                 <div className="space-y-1.5 mb-4 text-xs flex-grow">
                   {pkg.features.map((f, i) => (
                     <div key={i} className="flex gap-2">
-                      <CheckCircle size={14} className={`shrink-0 ${pkg.flagship ? 'text-amber-500' : pkg.popular ? 'text-brand-700' : 'text-neutral-400'}`} />
                       <span className={pkg.flagship ? 'text-neutral-300' : 'text-neutral-700'}>{t(f, lang)}</span>
                     </div>
                   ))}
@@ -964,7 +958,7 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                   menuTab === key ? 'bg-brand-500 text-neutral-900' : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
                 }`}
               >
-                {cat.icon} {t(cat.title, lang)}
+                 {t(cat.title, lang)}
               </button>
             ))}
           </div>
@@ -1009,7 +1003,6 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
             ].map((step, i) => (
               <div key={i} className="bg-white/5 p-6 rounded-xl border border-white/10 hover:bg-white/10 transition text-center">
                 <div className="text-brand-200 font-mono text-xl mb-4 opacity-50">{step.id}</div>
-                <div className="flex justify-center mb-4 text-white opacity-80">{step.icon}</div>
                 <h4 className="font-bold text-lg mb-2">{step.title}</h4>
                 <p className="text-xs text-neutral-400 leading-relaxed">{step.desc}</p>
               </div>
@@ -1031,7 +1024,6 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                 <Image src={galleryEntrance?.src || `${SAI}/aboutGalleryImg8.jpg`} alt={galleryEntrance?.alt || 'SAI CLINIC 入口'} fill className="object-cover" quality={75} />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/26 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 flex items-center gap-2 bg-white/90 backdrop-blur px-3 py-1.5 rounded-full">
-                  <MapPin size={14} className="text-brand-700" />
                   <span className="text-sm font-medium text-neutral-900">梅田 YANMAR ビル B2F</span>
                 </div>
               </div>
@@ -1042,13 +1034,13 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
               <p className="text-neutral-700 mb-6">ヤンマー本社ビル 地下2階（B2F）</p>
               <div className="space-y-3">
                 <div className="flex items-center gap-2 text-sm text-neutral-700">
-                  <Clock size={14} className="text-neutral-400" /> {t(TR.hours, lang)}
+                   {t(TR.hours, lang)}
                 </div>
               </div>
               </div>
             </div>
             <div>
-              <h3 className="text-lg font-bold text-neutral-900 mb-6 flex items-center gap-2"><Train size={20} className="text-brand-700" /> {t(TR.nearestStation, lang)}</h3>
+              <h3 className="text-lg font-bold text-neutral-900 mb-6 flex items-center gap-2"> {t(TR.nearestStation, lang)}</h3>
               <div className="space-y-4">
                 {[
                   { station: t(TR.sta1, lang), time: t(TR.sta1Time, lang), line: t(TR.sta1Line, lang), note: t(TR.sta1Note, lang) },
@@ -1058,9 +1050,6 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
                   { station: t(TR.sta5, lang), time: t(TR.sta5Time, lang), line: t(TR.sta5Line, lang) },
                 ].map((s, i) => (
                   <div key={i} className="flex items-center gap-4 bg-neutral-50 rounded-xl p-4 border border-neutral-100">
-                    <div className="w-10 h-10 bg-brand-100 rounded-full flex items-center justify-center shrink-0">
-                      <Train size={18} className="text-brand-600" />
-                    </div>
                     <div className="flex-grow">
                       <div className="font-medium text-neutral-900">{s.station}</div>
                       <div className="text-xs text-neutral-400">{s.line}{s.note ? ` · ${s.note}` : ''}</div>
@@ -1133,16 +1122,10 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
             </div>
             <div className="bg-white rounded-2xl p-6 border border-brand-200 shadow-lg relative">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-500 text-neutral-900 text-[10px] font-bold px-3 py-1 rounded-full">SAI CLINIC</div>
-              <div className="w-12 h-12 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-4 mt-2">
-                <Sparkles size={24} className="text-brand-700" />
-              </div>
               <h4 className="font-bold text-brand-600 mb-2 text-sm uppercase tracking-wider">During</h4>
               <p className="text-sm text-neutral-600 leading-relaxed">{t(TR.transformDuring, lang)}</p>
             </div>
             <div className="bg-white rounded-2xl p-6 border border-neutral-100">
-              <div className="w-12 h-12 bg-brand-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Heart size={24} className="text-brand-700" />
-              </div>
               <h4 className="font-bold text-neutral-700 mb-2 text-sm uppercase tracking-wider">After</h4>
               <p className="text-sm text-neutral-500 leading-relaxed">{t(TR.transformAfter, lang)}</p>
             </div>
@@ -1186,7 +1169,6 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
             {t(TR.ctaDesc, lang)}
           </p>
           <div className="flex items-center justify-center gap-2 mb-8 text-sm text-brand-700">
-            <Clock size={14} />
             <span>{t(TR.ctaQuota, lang)}</span>
           </div>
           <a href="#sai-packages" className="inline-flex items-center gap-3 bg-white text-brand-600 px-10 py-4 rounded-full font-bold hover:bg-brand-50 transition-all shadow-lg shadow-white/20">
@@ -1227,7 +1209,6 @@ export default function SaiClinicContent({ isGuideEmbed, guideSlug, images }: Sa
             href="#sai-packages"
             className="flex items-center gap-2 bg-brand-500 text-neutral-900 pl-5 pr-4 py-3 rounded-full font-bold shadow-lg shadow-brand-500/30 hover:bg-brand-600 hover:shadow-xl hover:shadow-brand-500/40 transition-all text-sm"
           >
-            <Sparkles size={16} />
             {t(TR.bookNow, lang)}
             <ArrowRight size={14} />
           </a>

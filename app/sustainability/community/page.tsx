@@ -190,9 +190,6 @@ export default function CommunityPage() {
               return (
                 <div key={index} className="p-6 bg-neutral-50 rounded-xl">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <Icon size={24} className="text-brand-600" />
-                    </div>
                     <div>
                       <h3 className="font-bold text-neutral-900 mb-2">{item.title}</h3>
                       <p className="text-neutral-600 text-sm mb-4">{item.description}</p>

@@ -9,10 +9,7 @@ import CheckoutLayout from '@/components/CheckoutLayout';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 import ProviderBanner, { useProviderKey } from '@/components/ProviderBanner';
 import { isValidSlug } from '@/lib/whitelabel-config';
-import {
-  ArrowLeft, CheckCircle, FileText, Shield, Clock,
-  Loader2, CreditCard, Users, Phone, Mail, MessageSquare
-} from 'lucide-react';
+import { ArrowLeft, Loader2, Phone } from 'lucide-react';
 import ConsentCheckboxes, { allConsented, type Consents } from '@/components/ConsentCheckboxes';
 import OrderConfirmationModal from '@/components/OrderConfirmationModal';
 
@@ -276,14 +273,12 @@ export default function InitialConsultationPage() {
               <div className="space-y-2.5 text-sm text-neutral-700">
                 {[t('feature1'), t('feature2'), t('feature3'), t('feature4'), t('feature5')].map((feature, idx) => (
                   <div key={idx} className="flex gap-2">
-                    <CheckCircle size={16} className="shrink-0 mt-0.5 text-brand-700" />
                     <span>{feature}</span>
                   </div>
                 ))}
               </div>
               <div className="mt-6 pt-6 border-t border-neutral-200">
                 <h4 className="font-bold text-neutral-900 mb-3 flex items-center gap-2">
-                  <FileText size={16} className="text-brand-700" />
                   {t('requiredDocsTitle')}
                 </h4>
                 <ul className="space-y-2 text-sm text-neutral-600">
@@ -314,7 +309,6 @@ export default function InitialConsultationPage() {
                 {/* Patient Info */}
                 <div>
                   <h3 className="font-bold text-neutral-900 mb-4 flex items-center gap-2">
-                    <Users size={18} className="text-brand-700" />
                     {t('patientInfoTitle')}
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -492,7 +486,6 @@ export default function InitialConsultationPage() {
                       </>
                     ) : (
                       <>
-                        <CreditCard size={20} />
                         {t('confirmPayment')}
                       </>
                     )}
@@ -502,11 +495,9 @@ export default function InitialConsultationPage() {
                 {/* Trust Indicators */}
                 <div className="flex flex-wrap justify-center gap-6 text-xs text-neutral-500">
                   <div className="flex items-center gap-1">
-                    <Shield size={14} className="text-brand-700" />
                     <span>{t('securePayment')}</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <Clock size={14} className="text-brand-700" />
                     <span>{t('contact24h')}</span>
                   </div>
                 </div>

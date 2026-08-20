@@ -52,7 +52,7 @@ const PartnerView: React.FC<SubViewProps> = ({ t, setCurrentPage, onOpenPartnerI
                { icon: <Phone size={32} />, title: t.partner.trust_3_t, desc: t.partner.trust_3_d },
              ].map((item, i) => (
                <div key={i} className="p-8 border border-neutral-200 rounded-xl hover:shadow-lg transition">
-                  <div className="text-brand-600 mb-4">{item.icon}</div>
+                  <div className="text-brand-600 mb-4"></div>
                   <h3 className="text-xl font-bold text-neutral-800 mb-3">{item.title}</h3>
                   <p className="text-neutral-500 text-sm leading-relaxed">{item.desc}</p>
                </div>

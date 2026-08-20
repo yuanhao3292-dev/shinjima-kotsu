@@ -196,9 +196,6 @@ export default function SustainabilityPage() {
             return (
               <div key={index} className={`p-6 rounded-xl border ${colors.bg} ${colors.border}`}>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm">
-                    <Icon size={24} className={colors.icon} />
-                  </div>
                   <div>
                     <h3 className="font-bold text-neutral-900">{item.title}</h3>
                     <p className="text-xs text-neutral-500 uppercase">{item.titleEn}</p>

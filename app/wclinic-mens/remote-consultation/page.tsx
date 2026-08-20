@@ -8,10 +8,7 @@ import CheckoutLayout from '@/components/CheckoutLayout';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 import ProviderBanner, { useProviderKey } from '@/components/ProviderBanner';
 import { isValidSlug } from '@/lib/whitelabel-config';
-import {
-  ArrowLeft, CheckCircle, FileText, Shield, Clock,
-  Loader2, CreditCard, Users, Phone, Video
-} from 'lucide-react';
+import { ArrowLeft, Loader2, Phone, Video } from 'lucide-react';
 import ConsentCheckboxes, { allConsented, type Consents } from '@/components/ConsentCheckboxes';
 import OrderConfirmationModal from '@/components/OrderConfirmationModal';
 
@@ -214,7 +211,6 @@ export default function WClinicMensRemoteConsultationPage() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <Video size={20} className="text-brand-300" />
                 <span className="text-brand-300 text-sm">{t('videoConsultation')}</span>
               </div>
               <h1 className="text-3xl font-serif font-bold text-white">{t('serviceName')}</h1>
@@ -236,11 +232,11 @@ export default function WClinicMensRemoteConsultationPage() {
               <p className="text-sm text-neutral-600 mb-6 leading-relaxed">{t('serviceLongDescription')}</p>
               <div className="space-y-2.5 text-sm text-neutral-700">
                 {[t('feature1'), t('feature2'), t('feature3'), t('feature4')].map((feature, idx) => (
-                  <div key={idx} className="flex gap-2"><CheckCircle size={16} className="shrink-0 mt-0.5 text-amber-500" /><span>{feature}</span></div>
+                  <div key={idx} className="flex gap-2"><span>{feature}</span></div>
                 ))}
               </div>
               <div className="mt-6 pt-6 border-t border-neutral-200">
-                <h4 className="font-bold text-neutral-900 mb-3 flex items-center gap-2"><FileText size={16} className="text-amber-600" />{t('prerequisitesTitle')}</h4>
+                <h4 className="font-bold text-neutral-900 mb-3 flex items-center gap-2">{t('prerequisitesTitle')}</h4>
                 <ul className="space-y-2 text-sm text-neutral-600">
                   {[t('prereq1'), t('prereq2'), t('prereq3'), t('prereq4')].map((prereq, idx) => (
                     <li key={idx} className="flex gap-2"><span className="text-brand-700">•</span><span>{prereq}</span></li>
@@ -260,7 +256,7 @@ export default function WClinicMensRemoteConsultationPage() {
 
               <form onSubmit={handleSubmit} className="space-y-8">
                 <div>
-                  <h3 className="font-bold text-neutral-900 mb-4 flex items-center gap-2"><Users size={18} className="text-amber-600" />{t('patientInfoTitle')}</h3>
+                  <h3 className="font-bold text-neutral-900 mb-4 flex items-center gap-2">{t('patientInfoTitle')}</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-neutral-700 mb-1">{t('patientName')}</label>
@@ -294,7 +290,7 @@ export default function WClinicMensRemoteConsultationPage() {
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-neutral-900 mb-4 flex items-center gap-2"><Clock size={18} className="text-brand-600" />{t('preferredTimesTitle')}</h3>
+                  <h3 className="font-bold text-neutral-900 mb-4 flex items-center gap-2">{t('preferredTimesTitle')}</h3>
                   <p className="text-sm text-neutral-500 mb-4">{t('preferredTimesNote')}</p>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
@@ -368,13 +364,13 @@ export default function WClinicMensRemoteConsultationPage() {
                   <ConsentCheckboxes consents={consents} onChange={setConsents} lang={currentLang} />
 
                 <button type="submit" disabled={processing || !allConsented(consents)} className="w-full py-4 bg-brand-400 text-neutral-900 font-bold hover:bg-brand-300 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
-                    {processing ? (<><Loader2 className="animate-spin" size={20} />{t('processing')}</>) : (<><CreditCard size={20} />{t('confirmPayment')}</>)}
+                    {processing ? (<><Loader2 className="animate-spin" size={20} />{t('processing')}</>) : (<>{t('confirmPayment')}</>)}
                   </button>
                 </div>
 
                 <div className="flex flex-wrap justify-center gap-6 text-xs text-neutral-500">
-                  <div className="flex items-center gap-1"><Shield size={14} className="text-brand-700" /><span>{t('securePayment')}</span></div>
-                  <div className="flex items-center gap-1"><Clock size={14} className="text-brand-700" /><span>{t('confirmTime24h')}</span></div>
+                  <div className="flex items-center gap-1"><span>{t('securePayment')}</span></div>
+                  <div className="flex items-center gap-1"><span>{t('confirmTime24h')}</span></div>
                 </div>
               </form>
             </div>

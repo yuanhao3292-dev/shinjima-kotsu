@@ -4,15 +4,7 @@ import React, { useState } from 'react';
 import RemoteImage from '@/components/RemoteImage';
 import Link from 'next/link';
 import {
-  MapPin, Clock, ChevronDown, ChevronUp,
-  Shield, Heart, Brain, Syringe, Microscope,
-  CheckCircle, ArrowRight, Globe,
-  Dna, FlaskConical, ShieldCheck,
-  GraduationCap, Building2, Star,
-  Sparkles, Activity, Droplets,
-  Beaker, Bone, Leaf, Users,
-  Zap, HelpCircle, Building,
-  Thermometer, Eye, Stethoscope,
+  ChevronDown, ChevronUp, Shield, Heart, Brain, Syringe, Microscope, ArrowRight, Globe, Dna, FlaskConical, ShieldCheck, GraduationCap, Building2, Star, Sparkles, Activity, Droplets, Beaker, Bone, Leaf, Users, Zap, Building, Thermometer, Eye, Stethoscope
 } from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 
@@ -353,7 +345,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
             { val: 'ISO 5', label: t.stat4[lang], icon: <Shield size={20} /> },
           ].map((s, i) => (
             <div key={i} className="flex flex-col items-center gap-2">
-              <div className="opacity-80">{s.icon}</div>
+              <div className="opacity-80"></div>
               <div className="text-3xl md:text-4xl font-bold">{s.val}</div>
               <div className="text-sm text-neutral-600">{s.label}</div>
             </div>
@@ -376,11 +368,9 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
               <p className="text-[#555] leading-relaxed">{t.introP2[lang]}</p>
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <div className="flex items-center gap-2 bg-neutral-100 rounded-lg px-4 py-3">
-                  <GraduationCap size={18} className="text-brand-700" />
                   <span className="text-sm font-medium">{t.partnerKyoto[lang]}</span>
                 </div>
                 <div className="flex items-center gap-2 bg-neutral-100 rounded-lg px-4 py-3">
-                  <Building2 size={18} className="text-brand-700" />
                   <span className="text-sm font-medium">{t.partnerOsaka[lang]}</span>
                 </div>
               </div>
@@ -415,7 +405,6 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
                   <div className="relative h-48 overflow-hidden">
                     <RemoteImage src={tr.img} alt={tr.name[lang]} className="w-full h-full object-cover" />
                     <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-full p-2 text-brand-700">
-                      {tr.icon}
                     </div>
                   </div>
                   <div className="p-5 flex flex-col flex-1">
@@ -459,7 +448,6 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
               { title: t.prop3, desc: t.prop3d, icon: <Zap size={28} className="text-brand-700" /> },
             ].map((p, i) => (
               <div key={i} className="bg-brand-700/5 rounded-2xl p-6 text-center">
-                <div className="flex justify-center mb-4">{p.icon}</div>
                 <h3 className="text-lg font-bold text-[#333] mb-2">{p.title[lang]}</h3>
                 <p className="text-sm text-[#666]">{p.desc[lang]}</p>
               </div>
@@ -472,7 +460,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
             <div className="flex flex-wrap justify-center gap-3">
               {clinicalAreas.map((area, i) => (
                 <div key={i} className="flex items-center gap-2 bg-neutral-100 rounded-full px-5 py-2.5 text-sm font-medium text-[#444]">
-                  <span className="text-brand-700">{area.icon}</span>
+                  <span className="text-brand-700"></span>
                   {area.label[lang]}
                 </div>
               ))}
@@ -491,9 +479,6 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
               ].map((step, i, arr) => (
                 <React.Fragment key={i}>
                   <div className="flex flex-col items-center text-center w-36">
-                    <div className="w-14 h-14 rounded-full bg-brand-600 text-white flex items-center justify-center mb-3">
-                      {step.icon}
-                    </div>
                     <span className="text-sm font-medium text-[#333] whitespace-pre-line">{step.label[lang]}</span>
                   </div>
                   {i < arr.length - 1 && (
@@ -553,7 +538,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
                   }`}
                 >
                   <span className="text-lg font-bold text-brand-700 w-10 flex-shrink-0">{f.floor}</span>
-                  <span className="text-brand-700">{f.icon}</span>
+                  <span className="text-brand-700"></span>
                   <span className="text-sm font-medium text-[#333]">{f.label[lang]}</span>
                   {f.floor === '7F' && (
                     <span className="ml-auto text-xs bg-brand-600 text-white px-2 py-0.5 rounded-full">
@@ -592,7 +577,6 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
                 <div className="relative h-48">
                   <RemoteImage src={feat.img} alt={feat.title[lang]} className="w-full h-full object-cover" />
                   <div className="absolute top-3 right-3 bg-brand-600 text-white rounded-full p-2.5">
-                    {feat.icon}
                   </div>
                 </div>
                 <div className="p-6">
@@ -664,20 +648,17 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="space-y-5">
               <div className="flex items-start gap-3">
-                <MapPin size={20} className="text-brand-700 mt-1 flex-shrink-0" />
                 <div>
                   <p className="font-medium text-[#333]">{t.address[lang]}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Clock size={20} className="text-brand-700 mt-1 flex-shrink-0" />
                 <div>
                   <p className="font-medium text-[#333]">{t.hours[lang]}</p>
                   <p className="text-sm text-[#666]">{t.closed[lang]}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Shield size={20} className="text-brand-700 mt-1 flex-shrink-0" />
                 <p className="text-sm text-[#666]">{t.selfPay[lang]}</p>
               </div>
               <div className="flex items-start gap-3">
@@ -695,7 +676,7 @@ export default function ACPlusContent({ isGuideEmbed, guideSlug }: ACPlusContent
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-12">
             <span className="inline-block bg-brand-700/10 text-brand-700 text-sm font-semibold px-4 py-1 rounded-full mb-3">
-              <HelpCircle size={14} className="inline mr-1 -mt-0.5" />{t.faqTag[lang]}
+              {t.faqTag[lang]}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-[#333]">{t.faqTitle[lang]}</h2>
           </div>

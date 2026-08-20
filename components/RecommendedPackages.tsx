@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { Package, ArrowRight, ShoppingCart, X, Loader2 } from 'lucide-react';
+import { ArrowRight, X, Loader2 } from 'lucide-react';
 import OrderConfirmationModal from '@/components/OrderConfirmationModal';
 import { createClient } from '@/lib/supabase/client';
 import type { AnalysisResult } from '@/services/aemc/types';
@@ -335,7 +335,6 @@ function QuickCheckoutModal({
               </>
             ) : (
               <>
-                <ShoppingCart className="w-4 h-4" />
                 {t('bookNow', lang)}
               </>
             )}
@@ -366,9 +365,6 @@ export default function RecommendedPackages({ result, lang }: Props) {
     <>
       <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
         <div className="flex items-center gap-3 mb-2">
-          <div className="p-2 bg-brand-100 rounded-lg">
-            <Package className="w-6 h-6 text-brand-600" />
-          </div>
           <h3 className="text-xl font-serif font-semibold text-neutral-900 tracking-wide">
             {t('title', lang)}
           </h3>
@@ -418,7 +414,6 @@ export default function RecommendedPackages({ result, lang }: Props) {
                     onClick={() => setCheckoutSlug(rec.slug)}
                     className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium rounded-lg transition"
                   >
-                    <ShoppingCart className="w-3.5 h-3.5" />
                     {t('bookNow', lang)}
                   </button>
                   <Link

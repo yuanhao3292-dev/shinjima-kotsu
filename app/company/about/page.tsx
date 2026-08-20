@@ -3,11 +3,6 @@
 import React from 'react';
 import Image from 'next/image';
 import PublicLayout from '@/components/PublicLayout';
-import {
-  Award, Shield,
-  Quote, Heart,
-  Brain, Hospital, HeartHandshake, TrendingUp, Rocket, Building2, Bot, Users, Store, Plane
-} from 'lucide-react';
 import { useLanguage, type Language } from '@/hooks/useLanguage';
 import ObfuscatedEmail from '@/components/ObfuscatedEmail';
 
@@ -600,7 +595,6 @@ export default function AboutPage() {
                 {/* Message Content */}
                 <div className="lg:w-2/3">
                   <div className="relative mb-8">
-                    <Quote className="absolute -top-4 -left-6 text-neutral-100 w-20 h-20 transform -scale-x-100" />
                     <p className="text-2xl text-neutral-900 relative z-10 italic font-serif pl-4 border-l-4 border-brand-400 leading-relaxed">
                       {t('ceoSlogan')}
                     </p>
@@ -682,7 +676,6 @@ export default function AboutPage() {
 
               <div className="grid md:grid-cols-3 gap-8">
                 <div className="relative flex flex-col brand-gradient-solid rounded-2xl p-8 text-white">
-                  <Brain className="w-10 h-10 text-brand-700 mb-5" />
                   <h3 className="text-lg font-bold mb-3">{t('medicalAiTitle')}</h3>
                   <p className="text-white/80 text-sm leading-relaxed flex-1">{t('medicalAiDesc')}</p>
                   <div className="mt-6 pt-4 border-t border-white/20">
@@ -694,7 +687,6 @@ export default function AboutPage() {
                 </div>
 
                 <div className="flex flex-col bg-white rounded-2xl p-8 border border-neutral-200 hover:shadow-lg transition">
-                  <Hospital className="w-10 h-10 text-neutral-900 mb-5" />
                   <h3 className="text-lg font-bold text-neutral-900 mb-3">{t('medicalNetworkTitle')}</h3>
                   <p className="text-neutral-600 text-sm leading-relaxed flex-1">{t('medicalNetworkDesc')}</p>
                   <div className="mt-6 pt-4 border-t border-neutral-100">
@@ -706,7 +698,6 @@ export default function AboutPage() {
                 </div>
 
                 <div className="flex flex-col bg-white rounded-2xl p-8 border border-neutral-200 hover:shadow-lg transition">
-                  <HeartHandshake className="w-10 h-10 text-neutral-900 mb-5" />
                   <h3 className="text-lg font-bold text-neutral-900 mb-3">{t('medicalServiceTitle')}</h3>
                   <p className="text-neutral-600 text-sm leading-relaxed flex-1">{t('medicalServiceDesc')}</p>
                   <div className="mt-6 pt-4 border-t border-neutral-100">
@@ -781,24 +772,18 @@ export default function AboutPage() {
               <div className="grid md:grid-cols-2 gap-6">
                 {[
                   {
-                    icon: Award,
                     title: t('license1Title'),
                     number: t('license1Number'),
                     desc: t('license1Desc'),
                   },
                   {
-                    icon: Shield,
                     title: t('license2Title'),
                     number: t('license2Number'),
                     desc: t('license2Desc'),
                   },
                 ].map((item, index) => {
-                  const Icon = item.icon;
                   return (
                     <div key={index} className="bg-white p-6 rounded-xl border border-neutral-200 hover:shadow-md transition">
-                      <div className="w-14 h-14 brand-gradient-deep rounded-xl flex items-center justify-center mb-4">
-                        <Icon size={24} className="text-brand-400" />
-                      </div>
                       <h3 className="font-bold text-neutral-900 text-lg mb-1">{item.title}</h3>
                       <p className="text-sm text-neutral-500 mb-2">{item.number}</p>
                       <p className="text-sm text-neutral-600">{item.desc}</p>
@@ -829,18 +814,17 @@ export default function AboutPage() {
                 <div className="absolute left-6 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[1px] bg-white/20" />
 
                 {[
-                  { icon: Rocket, year: t('ipoMilestoneATitle'), desc: t('ipoMilestoneADesc'), done: true, active: false },
-                  { icon: Store, year: t('ipoMilestoneBTitle'), desc: t('ipoMilestoneBDesc'), done: true, active: false },
-                  { icon: Plane, year: t('ipoMilestoneCTitle'), desc: t('ipoMilestoneCDesc'), done: true, active: false },
-                  { icon: Heart, year: t('ipoMilestoneDTitle'), desc: t('ipoMilestoneDDesc'), done: true, active: false },
-                  { icon: HeartHandshake, year: t('ipoMilestoneETitle'), desc: t('ipoMilestoneEDesc'), done: true, active: false },
-                  { icon: Building2, year: t('ipoMilestone1Title'), desc: t('ipoMilestone1Desc'), done: false, active: true },
-                  { icon: Hospital, year: t('ipoMilestone2Title'), desc: t('ipoMilestone2Desc'), done: false, active: false },
-                  { icon: Users, year: t('ipoMilestone3Title'), desc: t('ipoMilestone3Desc'), done: false, active: false },
-                  { icon: Bot, year: t('ipoMilestone4Title'), desc: t('ipoMilestone4Desc'), done: false, active: false },
-                  { icon: TrendingUp, year: t('ipoMilestone5Title'), desc: t('ipoMilestone5Desc'), done: false, active: false },
+                  { year: t('ipoMilestoneATitle'), desc: t('ipoMilestoneADesc'), done: true, active: false },
+                  { year: t('ipoMilestoneBTitle'), desc: t('ipoMilestoneBDesc'), done: true, active: false },
+                  { year: t('ipoMilestoneCTitle'), desc: t('ipoMilestoneCDesc'), done: true, active: false },
+                  { year: t('ipoMilestoneDTitle'), desc: t('ipoMilestoneDDesc'), done: true, active: false },
+                  { year: t('ipoMilestoneETitle'), desc: t('ipoMilestoneEDesc'), done: true, active: false },
+                  { year: t('ipoMilestone1Title'), desc: t('ipoMilestone1Desc'), done: false, active: true },
+                  { year: t('ipoMilestone2Title'), desc: t('ipoMilestone2Desc'), done: false, active: false },
+                  { year: t('ipoMilestone3Title'), desc: t('ipoMilestone3Desc'), done: false, active: false },
+                  { year: t('ipoMilestone4Title'), desc: t('ipoMilestone4Desc'), done: false, active: false },
+                  { year: t('ipoMilestone5Title'), desc: t('ipoMilestone5Desc'), done: false, active: false },
                 ].map((item, index) => {
-                  const Icon = item.icon;
                   const isLeft = index % 2 === 0;
                   return (
                     <div key={index} className={`relative flex items-center mb-8 last:mb-0 ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
@@ -853,7 +837,6 @@ export default function AboutPage() {
                       </div>
                       {/* 中间节点 */}
                       <div className={`absolute left-6 md:left-1/2 -translate-x-1/2 w-12 h-12 flex items-center justify-center z-10 ${item.active ? 'bg-brand-400 text-neutral-900' : item.done ? 'bg-white/10 border border-white/30 text-white/70' : 'brand-gradient-deep border border-white/20 text-white/60'}`}>
-                        <Icon size={20} />
                       </div>
                       {/* 占位 */}
                       <div className="hidden md:block md:w-[calc(50%-2rem)]" />
