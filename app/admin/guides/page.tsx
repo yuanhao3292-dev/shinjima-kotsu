@@ -257,7 +257,7 @@ export default function GuidesPage() {
 
         {detailLoading ? (
           <div className="p-12 text-center">
-            <Loader2 className="w-8 h-8 text-indigo-600 animate-spin mx-auto" />
+            <Loader2 className="w-8 h-8 text-brand-600 animate-spin mx-auto" />
           </div>
         ) : (
           <div className="space-y-6">
@@ -265,8 +265,8 @@ export default function GuidesPage() {
             <div className="bg-white rounded-xl border p-6">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center">
-                    <span className="text-2xl font-bold text-indigo-600">
+                  <div className="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center">
+                    <span className="text-2xl font-bold text-brand-600">
                       {selectedGuide.name?.charAt(0) || '?'}
                     </span>
                   </div>
@@ -308,7 +308,7 @@ export default function GuidesPage() {
                 <p className="text-sm text-gray-500">總佣金</p>
               </div>
               <div className="bg-white rounded-xl border p-4 text-center">
-                <p className="text-2xl font-bold text-indigo-600">{selectedGuide.stats?.referralCount || 0}</p>
+                <p className="text-2xl font-bold text-brand-600">{selectedGuide.stats?.referralCount || 0}</p>
                 <p className="text-sm text-gray-500">推薦人數</p>
               </div>
               <div className="bg-white rounded-xl border p-4 text-center">
@@ -391,7 +391,7 @@ export default function GuidesPage() {
                       disabled={actionLoading || selectedGuide.level === key}
                       className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                         selectedGuide.level === key
-                          ? 'bg-indigo-600 text-white'
+                          ? 'bg-brand-600 text-white'
                           : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                       } disabled:opacity-50`}
                     >
@@ -469,7 +469,7 @@ export default function GuidesPage() {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+          className="flex items-center gap-2 px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition"
         >
           <UserPlus size={18} />
           添加導遊
@@ -508,10 +508,10 @@ export default function GuidesPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="搜尋姓名、郵箱、電話、推薦碼..."
-              className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
             />
           </div>
-          <button type="submit" className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+          <button type="submit" className="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition">
             搜尋
           </button>
         </form>
@@ -521,7 +521,7 @@ export default function GuidesPage() {
               key={filter}
               onClick={() => setStatusFilter(filter)}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-                statusFilter === filter ? 'bg-indigo-600 text-white' : 'bg-white text-gray-600 border hover:border-indigo-300'
+                statusFilter === filter ? 'bg-brand-600 text-white' : 'bg-white text-gray-600 border hover:border-brand-300'
               }`}
             >
               {filter === 'all' ? '全部' : filter === 'approved' ? '已認證' : filter === 'pending' ? '待審核' : '已停用'}
@@ -534,7 +534,7 @@ export default function GuidesPage() {
       <div className="bg-white rounded-xl border overflow-hidden">
         {loading ? (
           <div className="p-12 text-center">
-            <Loader2 className="w-8 h-8 text-indigo-600 animate-spin mx-auto" />
+            <Loader2 className="w-8 h-8 text-brand-600 animate-spin mx-auto" />
           </div>
         ) : guides.length > 0 ? (
           <div className="overflow-x-auto">
@@ -576,7 +576,7 @@ export default function GuidesPage() {
                     <td className="px-5 py-4">
                       <button
                         onClick={() => loadGuideDetail(guide.id)}
-                        className="px-3 py-1.5 text-indigo-600 hover:bg-indigo-50 rounded-lg text-sm font-medium transition flex items-center gap-1"
+                        className="px-3 py-1.5 text-brand-600 hover:bg-brand-50 rounded-lg text-sm font-medium transition flex items-center gap-1"
                       >
                         <Eye size={14} /> 詳情
                       </button>
@@ -619,7 +619,7 @@ export default function GuidesPage() {
                     value={newGuideName}
                     onChange={(e) => setNewGuideName(e.target.value)}
                     placeholder="請輸入導遊姓名"
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                     required
                   />
                 </div>
@@ -633,7 +633,7 @@ export default function GuidesPage() {
                     value={newGuideEmail}
                     onChange={(e) => setNewGuideEmail(e.target.value)}
                     placeholder="請輸入導遊郵箱地址"
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                     required
                   />
                   <p className="text-xs text-gray-500 mt-1">
@@ -661,7 +661,7 @@ export default function GuidesPage() {
                   <button
                     type="submit"
                     disabled={addLoading}
-                    className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 transition flex items-center justify-center gap-2"
+                    className="flex-1 px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 disabled:opacity-50 transition flex items-center justify-center gap-2"
                   >
                     {addLoading ? (
                       <>
@@ -709,7 +709,7 @@ export default function GuidesPage() {
                       </div>
                       <button
                         onClick={copyPassword}
-                        className="px-3 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+                        className="px-3 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition"
                         title="複製密碼"
                       >
                         <Copy size={16} />
@@ -729,7 +729,7 @@ export default function GuidesPage() {
 
                 <button
                   onClick={closeAddModal}
-                  className="w-full px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+                  className="w-full px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition"
                 >
                   完成
                 </button>

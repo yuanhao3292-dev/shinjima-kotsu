@@ -128,7 +128,7 @@ function CreateEnterpriseForm({
       >
         <div className="flex items-center justify-between p-5 border-b border-gray-100">
           <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-            <Building2 className="w-5 h-5 text-indigo-600" />
+            <Building2 className="w-5 h-5 text-brand-600" />
             New Enterprise
           </h3>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
@@ -145,7 +145,7 @@ function CreateEnterpriseForm({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
               />
             </div>
             <div>
@@ -155,7 +155,7 @@ function CreateEnterpriseForm({
                 value={stockCode}
                 onChange={(e) => setStockCode(e.target.value)}
                 placeholder="e.g. 600519.SH"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
               />
             </div>
             <div>
@@ -163,7 +163,7 @@ function CreateEnterpriseForm({
               <select
                 value={region}
                 onChange={(e) => setRegion(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
               >
                 <option value="CN">China Mainland</option>
                 <option value="HK">Hong Kong</option>
@@ -183,7 +183,7 @@ function CreateEnterpriseForm({
                 value={contactName}
                 onChange={(e) => setContactName(e.target.value)}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
               />
             </div>
             <div>
@@ -193,7 +193,7 @@ function CreateEnterpriseForm({
                 value={contactTitle}
                 onChange={(e) => setContactTitle(e.target.value)}
                 placeholder="e.g. HR Director"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
               />
             </div>
             <div className="col-span-2">
@@ -203,7 +203,7 @@ function CreateEnterpriseForm({
                 value={contactEmail}
                 onChange={(e) => setContactEmail(e.target.value)}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
               />
             </div>
             <div>
@@ -214,7 +214,7 @@ function CreateEnterpriseForm({
                 onChange={(e) => setMemberLimit(parseInt(e.target.value) || 50)}
                 min={1}
                 max={1000}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
               />
             </div>
           </div>
@@ -226,7 +226,7 @@ function CreateEnterpriseForm({
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl disabled:opacity-60 transition flex items-center justify-center gap-2"
+            className="w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl disabled:opacity-60 transition flex items-center justify-center gap-2"
           >
             {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
             {submitting ? 'Creating...' : 'Create Enterprise'}
@@ -296,7 +296,7 @@ export default function EnterprisesPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="w-8 h-8 animate-spin text-indigo-500" />
+        <Loader2 className="w-8 h-8 animate-spin text-brand-500" />
       </div>
     );
   }
@@ -307,7 +307,7 @@ export default function EnterprisesPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
-            <Building2 className="w-7 h-7 text-indigo-600" />
+            <Building2 className="w-7 h-7 text-brand-600" />
             Enterprise B2B
           </h1>
           <p className="text-sm text-gray-500 mt-1">
@@ -323,7 +323,7 @@ export default function EnterprisesPage() {
           </button>
           <button
             onClick={() => setShowForm(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium hover:bg-indigo-700 transition"
+            className="flex items-center gap-2 px-4 py-2 bg-brand-600 text-white rounded-xl text-sm font-medium hover:bg-brand-700 transition"
           >
             <Plus className="w-4 h-4" />
             New Enterprise
@@ -352,7 +352,7 @@ export default function EnterprisesPage() {
         </div>
         <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
           <p className="text-sm text-gray-500">Total Members</p>
-          <p className="text-2xl font-bold text-indigo-600 mt-1">
+          <p className="text-2xl font-bold text-brand-600 mt-1">
             {enterprises.reduce((s, e) => s + (e.member_count || 0), 0)}
           </p>
         </div>
@@ -383,13 +383,13 @@ export default function EnterprisesPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="搜索名称 / 股票代码..."
-                className="pl-9 pr-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none w-56"
+                className="pl-9 pr-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none w-56"
               />
             </div>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+              className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
             >
               <option value="all">All Status</option>
               <option value="active">Active</option>

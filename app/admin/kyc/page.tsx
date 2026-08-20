@@ -243,7 +243,7 @@ export default function KYCReviewPage() {
                         alt="證件正面"
                         className="w-full h-48 object-cover rounded-lg border hover:opacity-90 transition"
                       />
-                      <p className="text-xs text-indigo-600 mt-1 flex items-center gap-1">
+                      <p className="text-xs text-brand-600 mt-1 flex items-center gap-1">
                         <ExternalLink size={12} /> 點擊查看大圖
                       </p>
                     </a>
@@ -267,7 +267,7 @@ export default function KYCReviewPage() {
                         alt="證件背面"
                         className="w-full h-48 object-cover rounded-lg border hover:opacity-90 transition"
                       />
-                      <p className="text-xs text-indigo-600 mt-1 flex items-center gap-1">
+                      <p className="text-xs text-brand-600 mt-1 flex items-center gap-1">
                         <ExternalLink size={12} /> 點擊查看大圖
                       </p>
                     </a>
@@ -301,7 +301,7 @@ export default function KYCReviewPage() {
                     value={reviewNote}
                     onChange={(e) => setReviewNote(e.target.value)}
                     rows={3}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                     placeholder="例如：照片模糊，請重新上傳"
                   />
                 </div>
@@ -367,8 +367,8 @@ export default function KYCReviewPage() {
             onClick={() => setStatusFilter(filter.value)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2 ${
               statusFilter === filter.value
-                ? 'bg-indigo-600 text-white'
-                : 'bg-white text-gray-600 border hover:border-indigo-300'
+                ? 'bg-brand-600 text-white'
+                : 'bg-white text-gray-600 border hover:border-brand-300'
             }`}
           >
             <filter.icon size={16} />
@@ -391,7 +391,7 @@ export default function KYCReviewPage() {
       <div className="bg-white rounded-xl border overflow-hidden">
         {loading ? (
           <div className="p-12 text-center">
-            <Loader2 className="w-8 h-8 text-indigo-600 animate-spin mx-auto" />
+            <Loader2 className="w-8 h-8 text-brand-600 animate-spin mx-auto" />
           </div>
         ) : items.length > 0 ? (
           <div className="divide-y">
@@ -422,7 +422,7 @@ export default function KYCReviewPage() {
                 <button
                   onClick={() => loadKYCDetail(item.id)}
                   disabled={detailLoading}
-                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 text-white rounded-lg text-sm font-medium transition flex items-center gap-2"
+                  className="px-4 py-2 bg-brand-600 hover:bg-brand-700 disabled:bg-gray-400 text-white rounded-lg text-sm font-medium transition flex items-center gap-2"
                 >
                   {detailLoading ? <Loader2 className="animate-spin" size={16} /> : <Eye size={16} />}
                   查看詳情

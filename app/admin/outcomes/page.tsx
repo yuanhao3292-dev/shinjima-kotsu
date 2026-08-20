@@ -146,7 +146,7 @@ function RecordOutcomeForm({
       >
         <div className="flex items-center justify-between p-5 border-b border-gray-100">
           <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-            <Target className="w-5 h-5 text-indigo-600" />
+            <Target className="w-5 h-5 text-brand-600" />
             Record Outcome
           </h3>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
@@ -166,7 +166,7 @@ function RecordOutcomeForm({
               onChange={(e) => setScreeningId(e.target.value)}
               placeholder="UUID"
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
             />
           </div>
 
@@ -209,7 +209,7 @@ function RecordOutcomeForm({
               value={actualDepartment}
               onChange={(e) => setActualDepartment(e.target.value)}
               placeholder="e.g. Cardiology"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
             />
           </div>
 
@@ -272,7 +272,7 @@ function RecordOutcomeForm({
               value={doctorFeedback}
               onChange={(e) => setDoctorFeedback(e.target.value)}
               rows={2}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none resize-none"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none resize-none"
             />
           </div>
 
@@ -285,7 +285,7 @@ function RecordOutcomeForm({
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               rows={2}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none resize-none"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none resize-none"
             />
           </div>
 
@@ -298,7 +298,7 @@ function RecordOutcomeForm({
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl disabled:opacity-60 transition flex items-center justify-center gap-2"
+            className="w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl disabled:opacity-60 transition flex items-center justify-center gap-2"
           >
             {submitting ? (
               <Loader2 className="w-4 h-4 animate-spin" />
@@ -370,7 +370,7 @@ export default function OutcomesPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="w-8 h-8 animate-spin text-indigo-500" />
+        <Loader2 className="w-8 h-8 animate-spin text-brand-500" />
       </div>
     );
   }
@@ -381,7 +381,7 @@ export default function OutcomesPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
-            <Target className="w-7 h-7 text-indigo-600" />
+            <Target className="w-7 h-7 text-brand-600" />
             Data Flywheel
           </h1>
           <p className="text-sm text-gray-500 mt-1">
@@ -397,7 +397,7 @@ export default function OutcomesPage() {
           </button>
           <button
             onClick={() => setShowForm(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium hover:bg-indigo-700 transition"
+            className="flex items-center gap-2 px-4 py-2 bg-brand-600 text-white rounded-xl text-sm font-medium hover:bg-brand-700 transition"
           >
             <Plus className="w-4 h-4" />
             Record Outcome

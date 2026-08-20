@@ -506,9 +506,9 @@ export default function AdminScreeningsPage() {
             <div className="flex-1 overflow-y-auto">
               {/* Body Map Data Section */}
               {selectedRecord.body_map_data && selectedRecord.body_map_data.selectedBodyParts?.length > 0 && (
-                <div className="px-6 py-5 bg-gradient-to-r from-indigo-50 to-purple-50 border-b border-slate-200">
+                <div className="px-6 py-5 bg-gradient-to-r from-brand-50 to-purple-50 border-b border-slate-200">
                   <div className="flex items-center gap-2 mb-3">
-                    <Heart className="text-indigo-600" size={18} />
+                    <Heart className="text-brand-600" size={18} />
                     <h3 className="font-semibold text-slate-800">症状部位</h3>
                   </div>
 
@@ -517,7 +517,7 @@ export default function AdminScreeningsPage() {
                     {selectedRecord.body_map_data.selectedBodyParts.map((partId: string) => {
                       const part = BODY_PARTS.find(p => p.id === partId);
                       return part ? (
-                        <span key={partId} className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium">
+                        <span key={partId} className="px-3 py-1 bg-brand-100 text-brand-700 rounded-full text-sm font-medium">
                           {part.name}
                         </span>
                       ) : null;

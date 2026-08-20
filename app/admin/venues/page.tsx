@@ -259,7 +259,7 @@ export default function VenuesPage() {
                   type="text"
                   value={editingVenue.name || ''}
                   onChange={(e) => setEditingVenue({ ...editingVenue, name: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                   placeholder="例：銀座俱樂部"
                 />
               </div>
@@ -269,7 +269,7 @@ export default function VenuesPage() {
                   type="text"
                   value={editingVenue.name_ja || ''}
                   onChange={(e) => setEditingVenue({ ...editingVenue, name_ja: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                   placeholder="例：銀座クラブ"
                 />
               </div>
@@ -282,7 +282,7 @@ export default function VenuesPage() {
                   type="text"
                   value={editingVenue.brand || ''}
                   onChange={(e) => setEditingVenue({ ...editingVenue, brand: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                 />
               </div>
               <div>
@@ -290,7 +290,7 @@ export default function VenuesPage() {
                 <select
                   value={editingVenue.category || 'nightclub'}
                   onChange={(e) => setEditingVenue({ ...editingVenue, category: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                 >
                   <option value="nightclub">夜總會</option>
                   <option value="medical">醫療檢查</option>
@@ -305,7 +305,7 @@ export default function VenuesPage() {
                 <select
                   value={editingVenue.city || ''}
                   onChange={(e) => setEditingVenue({ ...editingVenue, city: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                 >
                   <option value="">請選擇</option>
                   {CITIES.filter(c => c !== '全部').map(city => (
@@ -319,7 +319,7 @@ export default function VenuesPage() {
                   type="text"
                   value={editingVenue.area || ''}
                   onChange={(e) => setEditingVenue({ ...editingVenue, area: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                   placeholder="例：銀座"
                 />
               </div>
@@ -332,7 +332,7 @@ export default function VenuesPage() {
                   type="number"
                   value={editingVenue.min_spend || ''}
                   onChange={(e) => setEditingVenue({ ...editingVenue, min_spend: Number(e.target.value) })}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                 />
               </div>
               <div>
@@ -341,7 +341,7 @@ export default function VenuesPage() {
                   type="number"
                   value={editingVenue.avg_spend || ''}
                   onChange={(e) => setEditingVenue({ ...editingVenue, avg_spend: Number(e.target.value) })}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                 />
               </div>
             </div>
@@ -352,7 +352,7 @@ export default function VenuesPage() {
                 value={editingVenue.description || ''}
                 onChange={(e) => setEditingVenue({ ...editingVenue, description: e.target.value })}
                 rows={3}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
               />
             </div>
 
@@ -362,7 +362,7 @@ export default function VenuesPage() {
                 type="text"
                 value={featuresInput}
                 onChange={(e) => setFeaturesInput(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                 placeholder="例：VIP包廂, 中文服務, 高端酒水"
               />
             </div>
@@ -373,7 +373,7 @@ export default function VenuesPage() {
                 id="is_active"
                 checked={editingVenue.is_active ?? true}
                 onChange={(e) => setEditingVenue({ ...editingVenue, is_active: e.target.checked })}
-                className="w-5 h-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                className="w-5 h-5 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
               />
               <label htmlFor="is_active" className="text-sm font-medium text-gray-700">立即上架</label>
             </div>
@@ -389,7 +389,7 @@ export default function VenuesPage() {
               <button
                 onClick={handleSave}
                 disabled={actionLoading || !editingVenue.name || !editingVenue.city || !editingVenue.category}
-                className="flex-1 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-bold py-3 rounded-xl transition flex items-center justify-center gap-2"
+                className="flex-1 bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white font-bold py-3 rounded-xl transition flex items-center justify-center gap-2"
               >
                 {actionLoading ? <Loader2 className="animate-spin" size={20} /> : <Save size={20} />}
                 保存
@@ -423,7 +423,7 @@ export default function VenuesPage() {
         </div>
         <button
           onClick={startCreate}
-          className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition flex items-center gap-2"
+          className="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-medium transition flex items-center gap-2"
         >
           <Plus size={18} />
           新增店鋪
@@ -457,13 +457,13 @@ export default function VenuesPage() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="搜尋店鋪名稱..."
-            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
           />
         </div>
         <select
           value={cityFilter}
           onChange={(e) => setCityFilter(e.target.value)}
-          className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+          className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
         >
           {CITIES.map(city => (
             <option key={city} value={city}>{city}</option>
@@ -472,7 +472,7 @@ export default function VenuesPage() {
         <select
           value={categoryFilter}
           onChange={(e) => setCategoryFilter(e.target.value)}
-          className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+          className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
         >
           {CATEGORIES.map(cat => (
             <option key={cat.value} value={cat.value}>{cat.label}</option>
@@ -492,7 +492,7 @@ export default function VenuesPage() {
       <div className="bg-white rounded-xl border overflow-hidden">
         {loading ? (
           <div className="p-12 text-center">
-            <Loader2 className="w-8 h-8 text-indigo-600 animate-spin mx-auto" />
+            <Loader2 className="w-8 h-8 text-brand-600 animate-spin mx-auto" />
           </div>
         ) : filteredVenues.length > 0 ? (
           <div className="overflow-x-auto">
@@ -545,7 +545,7 @@ export default function VenuesPage() {
                       <div className="flex items-center gap-2 justify-end">
                         <button
                           onClick={() => startEdit(venue)}
-                          className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition"
+                          className="p-2 text-gray-500 hover:text-brand-600 hover:bg-brand-50 rounded-lg transition"
                           title="編輯"
                         >
                           <Edit size={16} />

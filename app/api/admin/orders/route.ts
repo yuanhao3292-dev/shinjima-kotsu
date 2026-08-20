@@ -23,6 +23,8 @@ export async function GET(request: NextRequest) {
     const status = request.nextUrl.searchParams.get('status');
     const supabase = getSupabaseAdmin();
 
+    // 线上库 orders.package_id 没有实际外键（表建于迁移体系之前），
+    // PostgREST 无法隐式 join —— 套餐表只有十几行，取回来手动拼。
     let query = supabase
       .from('orders')
       .select(`
@@ -39,11 +41,7 @@ export async function GET(request: NextRequest) {
         confirmed_at,
         refunded_at,
         referred_by_guide_slug,
-        medical_packages (
-          name_zh_tw,
-          slug,
-          price_jpy
-        )
+        package_id
       `)
       .order('created_at', { ascending: false })
       .limit(500);
@@ -52,10 +50,20 @@ export async function GET(request: NextRequest) {
       query = query.eq('status', status);
     }
 
-    const { data, error } = await query;
+    const [{ data, error }, { data: packages, error: pkgError }] = await Promise.all([
+      query,
+      supabase.from('medical_packages').select('id, name_zh_tw, slug, price_jpy'),
+    ]);
     if (error) throw error;
+    if (pkgError) throw pkgError;
 
-    return NextResponse.json({ orders: data || [] });
+    const pkgById = new Map((packages || []).map((p) => [p.id, p]));
+    const orders = (data || []).map(({ package_id, ...order }) => ({
+      ...order,
+      medical_packages: package_id ? (pkgById.get(package_id) ?? null) : null,
+    }));
+
+    return NextResponse.json({ orders });
   } catch (error) {
     const normalized = normalizeError(error);
     logError(normalized, { path: '/api/admin/orders', method: 'GET' });

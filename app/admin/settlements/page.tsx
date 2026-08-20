@@ -49,7 +49,7 @@ interface Stats {
 const STATUS_CONFIG: Record<string, { label: string; color: string; bgColor: string }> = {
   pending: { label: '待審核', color: 'text-yellow-700', bgColor: 'bg-yellow-100' },
   approved: { label: '已批准', color: 'text-blue-700', bgColor: 'bg-blue-100' },
-  processing: { label: '處理中', color: 'text-indigo-700', bgColor: 'bg-indigo-100' },
+  processing: { label: '處理中', color: 'text-brand-700', bgColor: 'bg-brand-100' },
   completed: { label: '已完成', color: 'text-green-700', bgColor: 'bg-green-100' },
   rejected: { label: '已拒絕', color: 'text-red-700', bgColor: 'bg-red-100' },
 };
@@ -278,7 +278,7 @@ export default function SettlementsPage() {
                       value={reviewNote}
                       onChange={(e) => setReviewNote(e.target.value)}
                       rows={2}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                       placeholder="可選"
                     />
                   </div>
@@ -309,7 +309,7 @@ export default function SettlementsPage() {
                   <button
                     onClick={() => handleAction('process')}
                     disabled={actionLoading}
-                    className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-bold py-3 rounded-xl transition flex items-center justify-center gap-2"
+                    className="w-full bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white font-bold py-3 rounded-xl transition flex items-center justify-center gap-2"
                   >
                     {actionLoading ? <Loader2 className="animate-spin" size={20} /> : <Banknote size={20} />}
                     開始處理打款
@@ -328,7 +328,7 @@ export default function SettlementsPage() {
                       type="text"
                       value={paymentRef}
                       onChange={(e) => setPaymentRef(e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                       placeholder="請輸入銀行轉帳憑證號"
                     />
                   </div>
@@ -388,7 +388,7 @@ export default function SettlementsPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-500">處理中</p>
-                <p className="text-2xl font-bold text-indigo-600">{stats.processing.count}</p>
+                <p className="text-2xl font-bold text-brand-600">{stats.processing.count}</p>
               </div>
               <p className="text-lg font-medium text-gray-400">{formatAmount(stats.processing.amount)}</p>
             </div>
@@ -410,8 +410,8 @@ export default function SettlementsPage() {
             onClick={() => setStatusFilter(filter.value)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2 ${
               statusFilter === filter.value
-                ? 'bg-indigo-600 text-white'
-                : 'bg-white text-gray-600 border hover:border-indigo-300'
+                ? 'bg-brand-600 text-white'
+                : 'bg-white text-gray-600 border hover:border-brand-300'
             }`}
           >
             <filter.icon size={16} />
@@ -432,7 +432,7 @@ export default function SettlementsPage() {
       <div className="bg-white rounded-xl border overflow-hidden">
         {loading ? (
           <div className="p-12 text-center">
-            <Loader2 className="w-8 h-8 text-indigo-600 animate-spin mx-auto" />
+            <Loader2 className="w-8 h-8 text-brand-600 animate-spin mx-auto" />
           </div>
         ) : withdrawals.length > 0 ? (
           <div className="divide-y">
