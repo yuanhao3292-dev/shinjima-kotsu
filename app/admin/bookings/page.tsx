@@ -322,7 +322,7 @@ export default function BookingsPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-indigo-500 rounded-xl flex items-center justify-center">
+          <div className="w-12 h-12 bg-brand-500 rounded-xl flex items-center justify-center">
             <CalendarCheck className="text-white" size={24} />
           </div>
           <div>
@@ -372,8 +372,8 @@ export default function BookingsPage() {
               onClick={() => setStatusFilter(tab.value)}
               className={`px-4 py-2 rounded-xl text-sm font-medium transition ${
                 statusFilter === tab.value
-                  ? 'bg-indigo-600 text-white'
-                  : 'bg-white text-gray-600 border hover:border-indigo-300 hover:text-indigo-600'
+                  ? 'bg-brand-600 text-white'
+                  : 'bg-white text-gray-600 border hover:border-brand-300 hover:text-brand-600'
               }`}
             >
               {tab.label}
@@ -390,7 +390,7 @@ export default function BookingsPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="搜尋店鋪、導遊、客戶..."
-              className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
             />
           </div>
           <div className="flex items-center gap-2">
@@ -399,7 +399,7 @@ export default function BookingsPage() {
               type="date"
               value={dateFilter}
               onChange={(e) => setDateFilter(e.target.value)}
-              className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
             />
             {dateFilter && (
               <button
@@ -432,7 +432,7 @@ export default function BookingsPage() {
       <div className="bg-white rounded-xl border overflow-hidden">
         {loading ? (
           <div className="p-12 text-center">
-            <Loader2 className="w-8 h-8 text-indigo-600 animate-spin mx-auto" />
+            <Loader2 className="w-8 h-8 text-brand-600 animate-spin mx-auto" />
           </div>
         ) : filteredBookings.length > 0 ? (
           <div className="overflow-x-auto">
@@ -641,7 +641,7 @@ export default function BookingsPage() {
                   value={actualSpend}
                   onChange={(e) => setActualSpend(e.target.value)}
                   placeholder="例：50000"
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                 />
               </div>
             )}
@@ -657,7 +657,7 @@ export default function BookingsPage() {
                   value={cancelReason}
                   onChange={(e) => setCancelReason(e.target.value)}
                   placeholder="請輸入取消預約的原因"
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                 />
               </div>
             )}
@@ -672,7 +672,7 @@ export default function BookingsPage() {
                 value={adminNotes}
                 onChange={(e) => setAdminNotes(e.target.value)}
                 placeholder="內部備註，不會顯示給客戶"
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
               />
             </div>
 

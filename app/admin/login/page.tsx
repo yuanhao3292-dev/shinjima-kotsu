@@ -87,9 +87,9 @@ function AdminLoginForm() {
   return (
     <div className="min-h-screen flex">
       {/* Left Side - Hero */}
-      <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-indigo-900 via-indigo-800 to-purple-900">
+      <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-brand-900 via-brand-800 to-purple-900">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000')] bg-cover bg-center opacity-10"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-indigo-950/80 via-transparent to-indigo-950/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-950/80 via-transparent to-brand-950/40"></div>
 
         {/* Grid Pattern */}
         <div className="absolute inset-0 opacity-10">
@@ -103,40 +103,40 @@ function AdminLoginForm() {
         <div className="relative z-10 flex flex-col justify-center px-16 text-white">
           <div className="flex items-center gap-3 mb-8">
             <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-xl flex items-center justify-center border border-white/20">
-              <Shield className="w-6 h-6 text-indigo-300" />
+              <Shield className="w-6 h-6 text-brand-300" />
             </div>
             <div>
               <span className="font-bold text-xl tracking-wide">NIIJIMA</span>
-              <p className="text-xs text-indigo-300 uppercase tracking-widest">Admin Console</p>
+              <p className="text-xs text-brand-300 uppercase tracking-widest">Admin Console</p>
             </div>
           </div>
           <h1 className="text-4xl font-serif font-bold mb-6 leading-tight">
             管理員控制台<br />
-            <span className="text-indigo-300">系統管理中心</span>
+            <span className="text-brand-300">系統管理中心</span>
           </h1>
-          <p className="text-indigo-200 leading-relaxed mb-8 max-w-md">
+          <p className="text-brand-200 leading-relaxed mb-8 max-w-md">
             管理系統核心功能：
           </p>
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-white/5 backdrop-blur-md rounded-xl p-4 border border-white/10">
-              <Users className="w-6 h-6 text-indigo-300 mb-2" />
+              <Users className="w-6 h-6 text-brand-300 mb-2" />
               <h3 className="font-medium text-white mb-1">導遊管理</h3>
-              <p className="text-xs text-indigo-300">KYC審核・等級調整</p>
+              <p className="text-xs text-brand-300">KYC審核・等級調整</p>
             </div>
             <div className="bg-white/5 backdrop-blur-md rounded-xl p-4 border border-white/10">
-              <Database className="w-6 h-6 text-indigo-300 mb-2" />
+              <Database className="w-6 h-6 text-brand-300 mb-2" />
               <h3 className="font-medium text-white mb-1">結算系統</h3>
-              <p className="text-xs text-indigo-300">提現審核・財務管理</p>
+              <p className="text-xs text-brand-300">提現審核・財務管理</p>
             </div>
             <div className="bg-white/5 backdrop-blur-md rounded-xl p-4 border border-white/10">
-              <Server className="w-6 h-6 text-indigo-300 mb-2" />
+              <Server className="w-6 h-6 text-brand-300 mb-2" />
               <h3 className="font-medium text-white mb-1">店鋪管理</h3>
-              <p className="text-xs text-indigo-300">合作店鋪・價格設定</p>
+              <p className="text-xs text-brand-300">合作店鋪・價格設定</p>
             </div>
             <div className="bg-white/5 backdrop-blur-md rounded-xl p-4 border border-white/10">
-              <Shield className="w-6 h-6 text-indigo-300 mb-2" />
+              <Shield className="w-6 h-6 text-brand-300 mb-2" />
               <h3 className="font-medium text-white mb-1">新聞管理</h3>
-              <p className="text-xs text-indigo-300">公告發布・內容管理</p>
+              <p className="text-xs text-brand-300">公告發布・內容管理</p>
             </div>
           </div>
         </div>
@@ -147,7 +147,7 @@ function AdminLoginForm() {
         <div className="w-full max-w-md">
           {/* Mobile Logo */}
           <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
-            <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center">
+            <div className="w-10 h-10 bg-brand-600 rounded-xl flex items-center justify-center">
               <Shield className="w-5 h-5 text-white" />
             </div>
             <span className="font-bold text-xl">Admin Console</span>
@@ -156,8 +156,8 @@ function AdminLoginForm() {
           {/* Login Card */}
           <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-200">
             <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-100 rounded-full mb-4">
-                <Shield className="w-8 h-8 text-indigo-600" />
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-100 rounded-full mb-4">
+                <Shield className="w-8 h-8 text-brand-600" />
               </div>
               <h1 className="text-2xl font-bold text-gray-900">管理員登入</h1>
               <p className="text-gray-500 mt-2 text-sm">請使用管理員帳號登入</p>
@@ -180,7 +180,7 @@ function AdminLoginForm() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
                     placeholder="admin@example.com"
                   />
                 </div>
@@ -195,7 +195,7 @@ function AdminLoginForm() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="w-full pl-10 pr-12 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                    className="w-full pl-10 pr-12 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition"
                     placeholder="••••••••"
                   />
                   <button
@@ -211,7 +211,7 @@ function AdminLoginForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                className="w-full bg-brand-600 hover:bg-brand-700 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
               >
                 {loading ? (
                   <>
@@ -235,7 +235,7 @@ function AdminLoginForm() {
                     <p className="font-medium text-amber-800">注意</p>
                     <p className="text-amber-700 mt-1">
                       此頁面僅供管理員使用。如果您是導遊合夥人，請前往{' '}
-                      <Link href="/guide-partner/login" className="text-indigo-600 hover:underline font-medium">
+                      <Link href="/guide-partner/login" className="text-brand-600 hover:underline font-medium">
                         導遊登入頁面
                       </Link>
                     </p>

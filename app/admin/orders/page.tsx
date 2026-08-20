@@ -306,7 +306,7 @@ export default function AdminOrdersPage() {
           </div>
           <Link
             href="/"
-            className="text-indigo-600 hover:text-indigo-800 text-sm"
+            className="text-brand-600 hover:text-brand-800 text-sm"
           >
             ← 返回首頁
           </Link>
@@ -380,7 +380,7 @@ export default function AdminOrdersPage() {
                   onClick={() => setFilter('all')}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                     filter === 'all'
-                      ? 'bg-indigo-600 text-white'
+                      ? 'bg-brand-600 text-white'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                 >
@@ -392,7 +392,7 @@ export default function AdminOrdersPage() {
                     onClick={() => setFilter(key)}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                       filter === key
-                        ? 'bg-indigo-600 text-white'
+                        ? 'bg-brand-600 text-white'
                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                     }`}
                   >
@@ -473,7 +473,7 @@ export default function AdminOrdersPage() {
                             <td className="px-4 py-4">
                               <button
                                 onClick={() => setSelectedOrder(order)}
-                                className="text-indigo-600 hover:text-indigo-800 text-sm font-medium"
+                                className="text-brand-600 hover:text-brand-800 text-sm font-medium"
                               >
                                 查看詳情
                               </button>
@@ -669,7 +669,7 @@ export default function AdminOrdersPage() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">金額</span>
-                    <span className="font-medium text-indigo-600">
+                    <span className="font-medium text-brand-600">
                       ¥{(selectedOrder.total_amount_jpy || selectedOrder.medical_packages?.price_jpy || 0).toLocaleString()}
                     </span>
                   </div>
@@ -709,7 +709,7 @@ export default function AdminOrdersPage() {
                   {selectedOrder.customer_snapshot?.email && (
                     <div className="flex justify-between">
                       <span className="text-gray-600">郵箱</span>
-                      <a href={`mailto:${selectedOrder.customer_snapshot.email}`} className="text-indigo-600 hover:underline">
+                      <a href={`mailto:${selectedOrder.customer_snapshot.email}`} className="text-brand-600 hover:underline">
                         {selectedOrder.customer_snapshot.email}
                       </a>
                     </div>
@@ -717,7 +717,7 @@ export default function AdminOrdersPage() {
                   {selectedOrder.customer_snapshot?.phone && (
                     <div className="flex justify-between">
                       <span className="text-gray-600">電話</span>
-                      <a href={`tel:${selectedOrder.customer_snapshot.phone}`} className="text-indigo-600 hover:underline">
+                      <a href={`tel:${selectedOrder.customer_snapshot.phone}`} className="text-brand-600 hover:underline">
                         {selectedOrder.customer_snapshot.phone}
                       </a>
                     </div>
@@ -794,7 +794,7 @@ export default function AdminOrdersPage() {
                   {selectedOrder.status === 'paid' && (
                     <button
                       onClick={() => updateOrderStatus(selectedOrder.id, 'confirmed')}
-                      className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium"
+                      className="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 text-sm font-medium"
                     >
                       確認預約
                     </button>
@@ -977,7 +977,7 @@ export default function AdminOrdersPage() {
                   {selectedBooking.status === 'pending' && (
                     <button
                       onClick={() => updateBookingStatus(selectedBooking.id, 'confirmed')}
-                      className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium"
+                      className="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 text-sm font-medium"
                     >
                       確認預約
                     </button>

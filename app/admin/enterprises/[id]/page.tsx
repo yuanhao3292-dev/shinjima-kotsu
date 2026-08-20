@@ -202,23 +202,23 @@ function AddMemberModal({
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">姓名 *</label>
             <input type="text" value={fullName} onChange={e => setFullName(e.target.value)} required
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">English Name</label>
             <input type="text" value={fullNameEn} onChange={e => setFullNameEn(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">职位</label>
               <input type="text" value={title} onChange={e => setTitle(e.target.value)} placeholder="CEO, CFO..."
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">性别</label>
               <select value={gender} onChange={e => setGender(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none">
                 <option value="">--</option>
                 <option value="male">男</option>
                 <option value="female">女</option>
@@ -228,15 +228,15 @@ function AddMemberModal({
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
             <input type="email" value={email} onChange={e => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">电话</label>
             <input type="tel" value={phone} onChange={e => setPhone(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" />
           </div>
           <button type="submit" disabled={submitting || !fullName.trim()}
-            className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl disabled:opacity-60 transition flex items-center justify-center gap-2 mt-4">
+            className="w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl disabled:opacity-60 transition flex items-center justify-center gap-2 mt-4">
             {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
             {submitting ? '添加中...' : '添加成员'}
           </button>
@@ -301,22 +301,22 @@ function EditEnterpriseModal({
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">公司名称 *</label>
               <input type="text" value={name} onChange={e => setName(e.target.value)} required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">English Name</label>
               <input type="text" value={nameEn} onChange={e => setNameEn(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">股票代码</label>
               <input type="text" value={stockCode} onChange={e => setStockCode(e.target.value)} placeholder="600519.SH"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">地区</label>
               <select value={region} onChange={e => setRegion(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none">
                 <option value="CN">中国大陆</option>
                 <option value="HK">香港</option>
                 <option value="MO">澳门</option>
@@ -331,22 +331,22 @@ function EditEnterpriseModal({
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">联系人 *</label>
               <input type="text" value={contactName} onChange={e => setContactName(e.target.value)} required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">职位</label>
               <input type="text" value={contactTitle} onChange={e => setContactTitle(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
               <input type="email" value={contactEmail} onChange={e => setContactEmail(e.target.value)} required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">电话</label>
               <input type="tel" value={contactPhone} onChange={e => setContactPhone(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" />
             </div>
           </div>
 
@@ -356,7 +356,7 @@ function EditEnterpriseModal({
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">合同类型</label>
               <select value={contractType} onChange={e => setContractType(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none">
                 <option value="annual">Annual</option>
                 <option value="per_use">Per Use</option>
                 <option value="trial">Trial</option>
@@ -365,27 +365,27 @@ function EditEnterpriseModal({
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">成员上限</label>
               <input type="number" value={memberLimit} onChange={e => setMemberLimit(parseInt(e.target.value) || 50)} min={1}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">筛查配额</label>
               <input type="number" value={screeningQuota} onChange={e => setScreeningQuota(parseInt(e.target.value) || 200)} min={0}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">年费 (JPY)</label>
               <input type="number" value={annualFeeJpy} onChange={e => setAnnualFeeJpy(parseInt(e.target.value) || 0)} min={0}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">折扣率 (%)</label>
               <input type="number" value={discountRate} onChange={e => setDiscountRate(parseFloat(e.target.value) || 0)} min={0} max={100} step={0.1}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">状态</label>
               <select value={status} onChange={e => setStatus(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none">
                 <option value="active">Active</option>
                 <option value="pending">Pending</option>
                 <option value="suspended">Suspended</option>
@@ -397,11 +397,11 @@ function EditEnterpriseModal({
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">备注</label>
             <textarea value={notes} onChange={e => setNotes(e.target.value)} rows={3}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none resize-none" />
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none resize-none" />
           </div>
 
           <button type="submit" disabled={submitting}
-            className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl disabled:opacity-60 transition flex items-center justify-center gap-2">
+            className="w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl disabled:opacity-60 transition flex items-center justify-center gap-2">
             {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
             {submitting ? '保存中...' : '保存更改'}
           </button>
@@ -534,7 +534,7 @@ export default function EnterpriseDetailPage({ params }: PageProps) {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="w-8 h-8 animate-spin text-indigo-500" />
+        <Loader2 className="w-8 h-8 animate-spin text-brand-500" />
       </div>
     );
   }
@@ -542,7 +542,7 @@ export default function EnterpriseDetailPage({ params }: PageProps) {
   if (!enterprise) {
     return (
       <div className="p-8">
-        <Link href="/admin/enterprises" className="text-indigo-600 hover:underline flex items-center gap-2 mb-4">
+        <Link href="/admin/enterprises" className="text-brand-600 hover:underline flex items-center gap-2 mb-4">
           <ArrowLeft className="w-4 h-4" /> Back
         </Link>
         <p className="text-red-600">Enterprise not found</p>
@@ -563,7 +563,7 @@ export default function EnterpriseDetailPage({ params }: PageProps) {
     <div className="p-6 lg:p-8 max-w-[1200px] mx-auto">
       {/* Back */}
       <Link href="/admin/enterprises"
-        className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-indigo-600 mb-6 transition">
+        className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-brand-600 mb-6 transition">
         <ArrowLeft className="w-4 h-4" /> 企业列表
       </Link>
 
@@ -712,7 +712,7 @@ export default function EnterpriseDetailPage({ params }: PageProps) {
                 </span>
               </h2>
               <button onClick={() => setShowAddMember(true)}
-                className="flex items-center gap-2 px-3 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium hover:bg-indigo-700 transition">
+                className="flex items-center gap-2 px-3 py-2 bg-brand-600 text-white rounded-xl text-sm font-medium hover:bg-brand-700 transition">
                 <Plus className="w-4 h-4" /> 添加成员
               </button>
             </div>
@@ -827,7 +827,7 @@ export default function EnterpriseDetailPage({ params }: PageProps) {
                         <td className="px-4 py-3">
                           {order.payment_status === 'unpaid' && (
                             <button onClick={() => handleUpdateOrder(order.id, { paymentStatus: 'invoiced' })}
-                              className="text-xs text-indigo-600 hover:underline">开票</button>
+                              className="text-xs text-brand-600 hover:underline">开票</button>
                           )}
                           {order.payment_status === 'invoiced' && (
                             <button onClick={() => handleUpdateOrder(order.id, { paymentStatus: 'paid' })}
@@ -849,7 +849,7 @@ export default function EnterpriseDetailPage({ params }: PageProps) {
             <div className="flex items-center justify-between">
               <h2 className="font-semibold text-gray-900">API Key 管理</h2>
               <button onClick={handleGenerateApiKey} disabled={submitting}
-                className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium hover:bg-indigo-700 disabled:opacity-60 transition">
+                className="flex items-center gap-2 px-4 py-2 bg-brand-600 text-white rounded-xl text-sm font-medium hover:bg-brand-700 disabled:opacity-60 transition">
                 <Key className="w-4 h-4" />
                 {apiKey ? '重新生成' : '生成 API Key'}
               </button>
@@ -906,7 +906,7 @@ export default function EnterpriseDetailPage({ params }: PageProps) {
                   <p className="text-xs text-gray-500 mb-1">Scopes</p>
                   <div className="flex gap-1">
                     {apiKey.scopes.map(s => (
-                      <span key={s} className="px-2 py-0.5 bg-indigo-50 text-indigo-700 rounded text-xs font-mono">{s}</span>
+                      <span key={s} className="px-2 py-0.5 bg-brand-50 text-brand-700 rounded text-xs font-mono">{s}</span>
                     ))}
                   </div>
                 </div>

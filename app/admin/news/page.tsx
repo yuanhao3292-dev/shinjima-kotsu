@@ -356,7 +356,7 @@ export default function AdminNewsPage() {
                 type="text"
                 value={editingNews.title || ''}
                 onChange={(e) => setEditingNews({ ...editingNews, title: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                 placeholder="新聞標題"
               />
             </div>
@@ -368,7 +368,7 @@ export default function AdminNewsPage() {
                 <select
                   value={editingNews.category || 'announcement'}
                   onChange={(e) => setEditingNews({ ...editingNews, category: e.target.value as NewsItem['category'] })}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                 >
                   <option value="announcement">お知らせ</option>
                   <option value="press">プレスリリース</option>
@@ -381,7 +381,7 @@ export default function AdminNewsPage() {
                   type="datetime-local"
                   value={editingNews.published_at || ''}
                   onChange={(e) => setEditingNews({ ...editingNews, published_at: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                 />
                 <p className="text-xs text-gray-400 mt-1">留空則使用發布時的當前時間</p>
               </div>
@@ -394,7 +394,7 @@ export default function AdminNewsPage() {
                 value={editingNews.summary || ''}
                 onChange={(e) => setEditingNews({ ...editingNews, summary: e.target.value })}
                 rows={2}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                 placeholder="新聞摘要（將顯示在列表中）"
               />
             </div>
@@ -406,7 +406,7 @@ export default function AdminNewsPage() {
                 value={editingNews.content || ''}
                 onChange={(e) => setEditingNews({ ...editingNews, content: e.target.value })}
                 rows={6}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                 placeholder="新聞完整內容"
               />
             </div>
@@ -464,15 +464,15 @@ export default function AdminNewsPage() {
                     flex flex-col items-center justify-center gap-3
                     transition cursor-pointer
                     ${imageUploading
-                      ? 'border-indigo-300 bg-indigo-50'
-                      : 'border-gray-300 hover:border-indigo-400 hover:bg-gray-50'
+                      ? 'border-brand-300 bg-brand-50'
+                      : 'border-gray-300 hover:border-brand-400 hover:bg-gray-50'
                     }
                   `}
                 >
                   {imageUploading ? (
                     <>
-                      <Loader2 className="w-10 h-10 text-indigo-500 animate-spin" />
-                      <p className="text-sm text-indigo-600 font-medium">上傳中...</p>
+                      <Loader2 className="w-10 h-10 text-brand-500 animate-spin" />
+                      <p className="text-sm text-brand-600 font-medium">上傳中...</p>
                     </>
                   ) : (
                     <>
@@ -498,7 +498,7 @@ export default function AdminNewsPage() {
                     type="url"
                     value={editingNews.image_url || ''}
                     onChange={(e) => setEditingNews({ ...editingNews, image_url: e.target.value })}
-                    className="mt-2 w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="mt-2 w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                     placeholder="https://example.com/image.jpg"
                   />
                 </details>
@@ -512,7 +512,7 @@ export default function AdminNewsPage() {
                   type="checkbox"
                   checked={editingNews.is_published ?? false}
                   onChange={(e) => setEditingNews({ ...editingNews, is_published: e.target.checked })}
-                  className="w-5 h-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                  className="w-5 h-5 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
                 />
                 <span className="text-sm font-medium text-gray-700">立即發布</span>
               </label>
@@ -538,7 +538,7 @@ export default function AdminNewsPage() {
               <button
                 onClick={handleSave}
                 disabled={actionLoading || !editingNews.title || !editingNews.category}
-                className="flex-1 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-bold py-3 rounded-xl transition flex items-center justify-center gap-2"
+                className="flex-1 bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white font-bold py-3 rounded-xl transition flex items-center justify-center gap-2"
               >
                 {actionLoading ? <Loader2 className="animate-spin" size={20} /> : <Save size={20} />}
                 保存
@@ -572,7 +572,7 @@ export default function AdminNewsPage() {
         </div>
         <button
           onClick={startCreate}
-          className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition flex items-center gap-2"
+          className="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-medium transition flex items-center gap-2"
         >
           <Plus size={18} />
           新增新聞
@@ -610,13 +610,13 @@ export default function AdminNewsPage() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="搜尋新聞標題..."
-            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
           />
         </div>
         <select
           value={categoryFilter}
           onChange={(e) => setCategoryFilter(e.target.value)}
-          className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+          className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
         >
           {CATEGORIES.map(cat => (
             <option key={cat.value} value={cat.value}>{cat.label}</option>
@@ -625,7 +625,7 @@ export default function AdminNewsPage() {
         <select
           value={publishedFilter}
           onChange={(e) => setPublishedFilter(e.target.value as typeof publishedFilter)}
-          className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+          className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
         >
           <option value="all">全部狀態</option>
           <option value="published">已發布</option>
@@ -645,7 +645,7 @@ export default function AdminNewsPage() {
       <div className="bg-white rounded-xl border overflow-hidden">
         {loading ? (
           <div className="p-12 text-center">
-            <Loader2 className="w-8 h-8 text-indigo-600 animate-spin mx-auto" />
+            <Loader2 className="w-8 h-8 text-brand-600 animate-spin mx-auto" />
           </div>
         ) : filteredNews.length > 0 ? (
           <div className="overflow-x-auto">
@@ -714,7 +714,7 @@ export default function AdminNewsPage() {
                         <div className="flex items-center gap-1 justify-end">
                           <button
                             onClick={() => startEdit(news)}
-                            className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition"
+                            className="p-2 text-gray-500 hover:text-brand-600 hover:bg-brand-50 rounded-lg transition"
                             title="編輯"
                           >
                             <Edit size={16} />

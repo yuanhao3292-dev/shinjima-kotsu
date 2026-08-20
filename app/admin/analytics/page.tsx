@@ -109,8 +109,8 @@ function KPICard({
   value,
   subtitle,
   trend,
-  iconColor = 'text-indigo-600',
-  iconBg = 'bg-indigo-100',
+  iconColor = 'text-brand-600',
+  iconBg = 'bg-brand-100',
 }: {
   icon: React.ComponentType<{ className?: string }>;
   title: string;
@@ -231,7 +231,7 @@ export default function AnalyticsPage() {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
-          <Loader2 className="w-10 h-10 animate-spin text-indigo-500 mx-auto mb-3" />
+          <Loader2 className="w-10 h-10 animate-spin text-brand-500 mx-auto mb-3" />
           <p className="text-gray-500">データ読み込み中...</p>
         </div>
       </div>
@@ -246,7 +246,7 @@ export default function AnalyticsPage() {
           <p className="text-red-600 font-medium">{error}</p>
           <button
             onClick={() => fetchData()}
-            className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700 transition"
+            className="mt-4 px-4 py-2 bg-brand-600 text-white rounded-lg text-sm hover:bg-brand-700 transition"
           >
             再試行
           </button>
@@ -263,7 +263,7 @@ export default function AnalyticsPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
-            <BarChart3 className="w-7 h-7 text-indigo-600" />
+            <BarChart3 className="w-7 h-7 text-brand-600" />
             CEO Dashboard
           </h1>
           <p className="text-sm text-gray-500 mt-1">
@@ -364,8 +364,8 @@ export default function AnalyticsPage() {
             title="アクティブガイド"
             value={`${data.guides.totalActive}`}
             subtitle={`Gold: ${data.guides.goldPartners} · Growth: ${data.guides.growthPartners} · 審査中: ${data.guides.pendingKYC}`}
-            iconColor="text-indigo-600"
-            iconBg="bg-indigo-100"
+            iconColor="text-brand-600"
+            iconBg="bg-brand-100"
           />
         </div>
       </section>

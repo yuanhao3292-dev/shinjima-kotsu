@@ -269,7 +269,7 @@ export default function PageModulesPage() {
                 <select
                   value={editingModule.module_type || 'medical'}
                   onChange={(e) => setEditingModule({ ...editingModule, module_type: e.target.value as PageModule['module_type'] })}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500"
                   disabled={!isCreating}
                 >
                   <option value="bio">自我介绍</option>
@@ -282,7 +282,7 @@ export default function PageModulesPage() {
                   type="number"
                   value={editingModule.display_order || 0}
                   onChange={(e) => setEditingModule({ ...editingModule, display_order: parseInt(e.target.value) || 0 })}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500"
                 />
               </div>
             </div>
@@ -295,7 +295,7 @@ export default function PageModulesPage() {
                   type="text"
                   value={editingModule.name || ''}
                   onChange={(e) => setEditingModule({ ...editingModule, name: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500"
                   placeholder="TIMC Tokyo"
                 />
               </div>
@@ -305,7 +305,7 @@ export default function PageModulesPage() {
                   type="text"
                   value={editingModule.name_ja || ''}
                   onChange={(e) => setEditingModule({ ...editingModule, name_ja: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500"
                   placeholder="TIMC東京"
                 />
               </div>
@@ -315,7 +315,7 @@ export default function PageModulesPage() {
                   type="text"
                   value={editingModule.name_zh || ''}
                   onChange={(e) => setEditingModule({ ...editingModule, name_zh: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500"
                   placeholder="东京国际医疗中心"
                 />
               </div>
@@ -328,7 +328,7 @@ export default function PageModulesPage() {
                 value={editingModule.description || ''}
                 onChange={(e) => setEditingModule({ ...editingModule, description: e.target.value })}
                 rows={3}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500"
                 placeholder="模块描述..."
               />
             </div>
@@ -340,7 +340,7 @@ export default function PageModulesPage() {
                   value={editingModule.description_ja || ''}
                   onChange={(e) => setEditingModule({ ...editingModule, description_ja: e.target.value })}
                   rows={2}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500"
                 />
               </div>
               <div>
@@ -349,7 +349,7 @@ export default function PageModulesPage() {
                   value={editingModule.description_zh || ''}
                   onChange={(e) => setEditingModule({ ...editingModule, description_zh: e.target.value })}
                   rows={2}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500"
                 />
               </div>
             </div>
@@ -365,7 +365,7 @@ export default function PageModulesPage() {
                   min="0"
                   max="100"
                   step="0.5"
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500"
                 />
                 <p className="mt-1 text-xs text-gray-400">Growth Partner (Free)</p>
               </div>
@@ -378,7 +378,7 @@ export default function PageModulesPage() {
                   min="0"
                   max="100"
                   step="0.5"
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500"
                 />
                 <p className="mt-1 text-xs text-gray-400">Partner (¥200,000 + ¥4,980/月)</p>
               </div>
@@ -392,7 +392,7 @@ export default function PageModulesPage() {
                   id="is_required"
                   checked={editingModule.is_required || false}
                   onChange={(e) => setEditingModule({ ...editingModule, is_required: e.target.checked })}
-                  className="w-5 h-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                  className="w-5 h-5 text-brand-600 border-gray-300 rounded focus:ring-brand-500"
                 />
                 <label htmlFor="is_required" className="text-sm text-gray-700">
                   必选模块（所有导游必须启用）
@@ -404,7 +404,7 @@ export default function PageModulesPage() {
                   id="is_active"
                   checked={editingModule.status === 'active'}
                   onChange={(e) => setEditingModule({ ...editingModule, status: e.target.checked ? 'active' : 'inactive' })}
-                  className="w-5 h-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                  className="w-5 h-5 text-brand-600 border-gray-300 rounded focus:ring-brand-500"
                 />
                 <label htmlFor="is_active" className="text-sm text-gray-700">
                   启用状态
@@ -419,7 +419,7 @@ export default function PageModulesPage() {
                 type="url"
                 value={editingModule.icon_url || ''}
                 onChange={(e) => setEditingModule({ ...editingModule, icon_url: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500"
                 placeholder="https://..."
               />
             </div>
@@ -439,7 +439,7 @@ export default function PageModulesPage() {
               <button
                 onClick={handleSave}
                 disabled={actionLoading || !editingModule.name}
-                className="flex-1 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 text-white font-bold py-3 rounded-xl transition flex items-center justify-center gap-2"
+                className="flex-1 bg-brand-600 hover:bg-brand-700 disabled:bg-gray-400 text-white font-bold py-3 rounded-xl transition flex items-center justify-center gap-2"
               >
                 {actionLoading ? <Loader2 className="animate-spin" size={20} /> : <Save size={20} />}
                 保存
@@ -473,7 +473,7 @@ export default function PageModulesPage() {
         </div>
         <button
           onClick={() => { setEditingModule(emptyModule); setIsCreating(true); }}
-          className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition"
+          className="flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg transition"
         >
           <Plus size={20} />
           新增模块
@@ -508,7 +508,7 @@ export default function PageModulesPage() {
               placeholder="搜索模块名称..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500"
+              className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-500"
             />
           </div>
         </div>
@@ -519,8 +519,8 @@ export default function PageModulesPage() {
               onClick={() => setTypeFilter(type.value)}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2 ${
                 typeFilter === type.value
-                  ? 'bg-indigo-600 text-white'
-                  : 'bg-white text-gray-600 border hover:border-indigo-300'
+                  ? 'bg-brand-600 text-white'
+                  : 'bg-white text-gray-600 border hover:border-brand-300'
               }`}
             >
               <type.icon size={16} />
@@ -544,7 +544,7 @@ export default function PageModulesPage() {
       <div className="bg-white rounded-xl border overflow-hidden">
         {loading ? (
           <div className="p-12 text-center">
-            <Loader2 className="w-8 h-8 text-indigo-600 animate-spin mx-auto" />
+            <Loader2 className="w-8 h-8 text-brand-600 animate-spin mx-auto" />
           </div>
         ) : filteredModules.length > 0 ? (
           <div className="divide-y">
@@ -597,7 +597,7 @@ export default function PageModulesPage() {
                     </button>
                     <button
                       onClick={() => setEditingModule(module)}
-                      className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition"
+                      className="p-2 text-gray-500 hover:text-brand-600 hover:bg-brand-50 rounded-lg transition"
                       title="编辑"
                     >
                       <Edit size={18} />

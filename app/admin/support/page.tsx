@@ -270,10 +270,10 @@ export default function SupportPage() {
                 {replies.map((reply) => (
                   <div
                     key={reply.id}
-                    className={`p-4 rounded-lg ${reply.is_staff ? 'bg-indigo-50 ml-8' : 'bg-gray-50 mr-8'}`}
+                    className={`p-4 rounded-lg ${reply.is_staff ? 'bg-brand-50 ml-8' : 'bg-gray-50 mr-8'}`}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <span className={`text-sm font-medium ${reply.is_staff ? 'text-indigo-600' : 'text-gray-600'}`}>
+                      <span className={`text-sm font-medium ${reply.is_staff ? 'text-brand-600' : 'text-gray-600'}`}>
                         {reply.is_staff ? '客服' : selectedTicket.guide?.name}
                       </span>
                       <span className="text-xs text-gray-400">{formatDateTimeSimple(reply.created_at)}</span>
@@ -293,13 +293,13 @@ export default function SupportPage() {
                   value={replyContent}
                   onChange={(e) => setReplyContent(e.target.value)}
                   rows={3}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent mb-3"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent mb-3"
                   placeholder="輸入回覆內容..."
                 />
                 <button
                   onClick={handleReply}
                   disabled={actionLoading || !replyContent.trim()}
-                  className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white rounded-lg font-medium transition flex items-center gap-2"
+                  className="px-6 py-2 bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white rounded-lg font-medium transition flex items-center gap-2"
                 >
                   {actionLoading ? <Loader2 className="animate-spin" size={18} /> : <Send size={18} />}
                   發送回覆
@@ -340,7 +340,7 @@ export default function SupportPage() {
                     value={resolutionNote}
                     onChange={(e) => setResolutionNote(e.target.value)}
                     rows={2}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent mb-3"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent mb-3"
                     placeholder="描述問題是如何解決的..."
                   />
                   <button
@@ -419,8 +419,8 @@ export default function SupportPage() {
             onClick={() => setStatusFilter(filter.value)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
               statusFilter === filter.value
-                ? 'bg-indigo-600 text-white'
-                : 'bg-white text-gray-600 border hover:border-indigo-300'
+                ? 'bg-brand-600 text-white'
+                : 'bg-white text-gray-600 border hover:border-brand-300'
             }`}
           >
             {filter.label}
@@ -432,7 +432,7 @@ export default function SupportPage() {
       <div className="bg-white rounded-xl border overflow-hidden">
         {loading ? (
           <div className="p-12 text-center">
-            <Loader2 className="w-8 h-8 text-indigo-600 animate-spin mx-auto" />
+            <Loader2 className="w-8 h-8 text-brand-600 animate-spin mx-auto" />
           </div>
         ) : tickets.length > 0 ? (
           <div className="divide-y">
