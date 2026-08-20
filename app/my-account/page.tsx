@@ -168,8 +168,8 @@ export default function MyAccountPage() {
               <span className="text-xs tracking-[0.3em] text-neutral-700 uppercase">MY ACCOUNT</span>
             </div>
 
-            {/* Profile Section */}
-            <div className="border border-neutral-200 p-8 mb-6">
+            {/* Profile Section —— 卡片整体宋体（JTB 式同族原则，族选品牌宋体） */}
+            <div className="border border-neutral-200 p-8 mb-6 font-serif">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-16 h-16 bg-neutral-50 border border-neutral-200 flex items-center justify-center">
                   <UserIcon className="w-8 h-8 text-brand-700" />
@@ -198,8 +198,8 @@ export default function MyAccountPage() {
               </div>
             </div>
 
-            {/* Quick Actions */}
-            <div className="border border-neutral-200 overflow-hidden mb-6">
+            {/* Quick Actions —— 同上，整卡宋体 */}
+            <div className="border border-neutral-200 overflow-hidden mb-6 font-serif">
               <Link
                 href="/my-orders"
                 className="flex items-center justify-between p-5 hover:bg-neutral-50 transition-colors border-b border-neutral-200"

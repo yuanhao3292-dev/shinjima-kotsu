@@ -269,7 +269,7 @@ export default function MyOrdersPage() {
 
             {/* Orders List */}
             {orders.length === 0 ? (
-              <div className="border border-neutral-200 p-8 text-center">
+              <div className="border border-neutral-200 p-8 text-center font-serif">
                 <div className="w-16 h-16 bg-neutral-50 border border-neutral-200 flex items-center justify-center mx-auto mb-6">
                   <FileText className="w-8 h-8 text-neutral-600" />
                 </div>
@@ -307,7 +307,7 @@ export default function MyOrdersPage() {
                   return (
                     <div
                       key={order.id}
-                      className="border border-neutral-200 p-6 hover:bg-neutral-50/50 transition-colors"
+                      className="border border-neutral-200 p-6 hover:bg-neutral-50/50 transition-colors font-serif"
                     >
                       <div className="flex items-start justify-between mb-4">
                         <div>
