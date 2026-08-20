@@ -500,9 +500,9 @@ export default function PackageDetailContent({
                   <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} className="w-full px-4 py-3 border border-neutral-200 focus:ring-2 focus:ring-brand-700 focus:border-transparent text-sm" placeholder={t.formNotesPlaceholder} />
                 </div>
 
-                <div className="mb-8 bg-amber-50 border border-amber-100 p-5">
-                  <h3 className="font-semibold text-amber-800 mb-3 text-sm">{t.cancelPolicy}</h3>
-                  <ul className="text-sm text-amber-700 space-y-1.5">
+                <div className="mb-8 bg-white border border-neutral-200 p-5">
+                  <h3 className="font-semibold text-neutral-900 mb-3 text-sm">{t.cancelPolicy}</h3>
+                  <ul className="text-sm text-neutral-700 space-y-1.5">
                     <li>• {t.cancelPolicy1}</li>
                     <li>• {t.cancelPolicy2}</li>
                     <li>• {t.cancelPolicy3}</li>
