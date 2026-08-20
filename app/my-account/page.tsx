@@ -135,7 +135,7 @@ export default function MyAccountPage() {
                 </span>
               </div>
 
-              <h1 className="font-serif text-4xl xl:text-5xl text-white mb-4 leading-tight">
+              <h1 className="font-bold text-4xl xl:text-5xl text-white mb-4 leading-tight">
                 {t('welcomeBack', lang)}
                 <br />
                 <span className="text-white/90">{userName}</span>
@@ -175,7 +175,7 @@ export default function MyAccountPage() {
                   <UserIcon className="w-8 h-8 text-brand-700" />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-serif text-neutral-900">{userName}</h1>
+                  <h1 className="text-2xl font-bold text-neutral-900">{userName}</h1>
                   <p className="text-neutral-500 text-sm">{t('welcomeBackShort', lang)}</p>
                 </div>
               </div>

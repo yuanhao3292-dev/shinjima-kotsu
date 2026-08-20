@@ -222,7 +222,7 @@ export default function MyOrdersPage() {
                 </span>
               </div>
 
-              <h1 className="font-serif text-4xl xl:text-5xl text-white mb-4 leading-tight">
+              <h1 className="font-bold text-4xl xl:text-5xl text-white mb-4 leading-tight">
                 {t('myOrders', lang)}
                 <br />
                 <span className="text-white/90">{t('bookingRecords', lang)}</span>
@@ -255,7 +255,7 @@ export default function MyOrdersPage() {
 
             {/* Header */}
             <div className="mb-8">
-              <h1 className="text-2xl font-serif text-neutral-900 mb-2">{t('myOrders', lang)}</h1>
+              <h1 className="text-2xl font-bold text-neutral-900 mb-2">{t('myOrders', lang)}</h1>
               <p className="text-neutral-500 text-sm">{t('viewAllOrders', lang)}</p>
             </div>
 
