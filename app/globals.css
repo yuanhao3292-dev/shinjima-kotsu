@@ -6,7 +6,8 @@
 @theme {
   /* 默认字体 — next/font 自托管，CSS 变量由 layout.tsx 注入 */
   --font-sans: var(--font-noto-sans-jp), 'Noto Sans JP', sans-serif;
-  --font-serif: var(--font-shippori-mincho), 'Shippori Mincho', serif;
+  /* 全站单族无衬线：--font-serif 也指向黑体，杜绝任何路径长出衬线 */
+  --font-serif: var(--font-noto-sans-jp), 'Noto Sans JP', sans-serif;
 
   /* Brand 珊瑚 (Coral) — 暖亮的珊瑚橙红，色相 12°。
      2026-08-18 由钢蓝换成珊瑚：用户反馈蓝色"太沉重、没有活力"，
