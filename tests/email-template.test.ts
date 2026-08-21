@@ -14,6 +14,9 @@ import {
 // ============================================================
 
 describe('buildEmailHtml', () => {
+  // 2026-08-20 起统一模板：头部固定品牌渐变 + NIIJIMA 字标，页脚固定公司信息。
+  // headerTitle/headerGradient/bodyBgColor/footerCompanyName 等个性化参数
+  // 保留签名但不再参与渲染 —— 测试锁定的是"不可定制"这一契约本身。
   const minimalOpts = {
     headerTitle: 'Test Title',
     iconEmoji: '✅',
@@ -30,9 +33,28 @@ describe('buildEmailHtml', () => {
     expect(html).toContain('</html>');
   });
 
-  it('includes header title', () => {
+  it('renders unified brand header (NIIJIMA wordmark, not caller title)', () => {
     const html = buildEmailHtml(minimalOpts);
-    expect(html).toContain('Test Title');
+    expect(html).toContain('NIIJIMA');
+    expect(html).toContain('新島交通株式會社');
+    expect(html).not.toContain('Test Title');
+  });
+
+  it('always uses the brand gradient header, ignoring custom gradients', () => {
+    const html = buildEmailHtml({
+      ...minimalOpts,
+      headerGradient: 'linear-gradient(red, blue)',
+    });
+    expect(html).toContain('linear-gradient(100deg, #E8452F 0%, #EC652A 100%)');
+    expect(html).not.toContain('linear-gradient(red, blue)');
+  });
+
+  it('renders unified footer company info, ignoring caller company name', () => {
+    const html = buildEmailHtml(minimalOpts);
+    expect(html).toContain('NIIJIMA KOTSU Co., Ltd.');
+    expect(html).toContain('大阪府大阪市浪速区大国1-2-21-602');
+    expect(html).toContain('+81-6-6632-8807');
+    expect(html).not.toContain('Test Corp');
   });
 
   it('includes status icon emoji', () => {
@@ -50,27 +72,17 @@ describe('buildEmailHtml', () => {
     expect(html).toContain('Content');
   });
 
-  it('includes footer company name', () => {
-    const html = buildEmailHtml(minimalOpts);
-    expect(html).toContain('Test Corp');
-  });
-
   it('includes footer disclaimer', () => {
     const html = buildEmailHtml(minimalOpts);
     expect(html).toContain('This is a test.');
   });
 
-  it('uses default background when not specified', () => {
+  it('uses unified light background', () => {
     const html = buildEmailHtml(minimalOpts);
-    expect(html).toContain('#f5f5f5');
+    expect(html).toContain('#f6f5f3');
   });
 
-  it('uses custom background when specified', () => {
-    const html = buildEmailHtml({ ...minimalOpts, bodyBgColor: '#ffffff' });
-    expect(html).toContain('#ffffff');
-  });
-
-  it('includes CTA button when provided', () => {
+  it('includes CTA button when provided (brand gradient)', () => {
     const html = buildEmailHtml({
       ...minimalOpts,
       ctaText: 'Click Me',
@@ -85,32 +97,9 @@ describe('buildEmailHtml', () => {
     expect(html).not.toContain('Click Me');
   });
 
-  it('includes header subtitle when provided', () => {
-    const html = buildEmailHtml({ ...minimalOpts, headerSubtitle: 'Subtitle' });
-    expect(html).toContain('Subtitle');
-  });
-
-  it('includes header tag when provided', () => {
-    const html = buildEmailHtml({ ...minimalOpts, headerTag: '#12345' });
-    expect(html).toContain('#12345');
-  });
-
   it('includes status subtitle when provided', () => {
     const html = buildEmailHtml({ ...minimalOpts, statusSubtitle: 'Sub-status' });
     expect(html).toContain('Sub-status');
-  });
-
-  it('includes footer subtitle when provided', () => {
-    const html = buildEmailHtml({ ...minimalOpts, footerSubtitle: 'Footer Sub' });
-    expect(html).toContain('Footer Sub');
-  });
-
-  it('uses custom header gradient', () => {
-    const html = buildEmailHtml({
-      ...minimalOpts,
-      headerGradient: 'linear-gradient(red, blue)',
-    });
-    expect(html).toContain('linear-gradient(red, blue)');
   });
 
   it('uses custom icon background color', () => {
@@ -121,6 +110,11 @@ describe('buildEmailHtml', () => {
   it('uses custom status title color', () => {
     const html = buildEmailHtml({ ...minimalOpts, statusTitleColor: '#333333' });
     expect(html).toContain('#333333');
+  });
+
+  it('includes copyright year', () => {
+    const html = buildEmailHtml(minimalOpts);
+    expect(html).toContain(`© ${new Date().getFullYear()}`);
   });
 });
 

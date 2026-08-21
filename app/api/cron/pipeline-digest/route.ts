@@ -9,6 +9,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { EMAIL_FROM, buildEmailHtml } from '@/lib/email-template';
 import { Resend } from 'resend';
 import { queryPipelineMetrics, type PipelineDigest, type RoleMetrics, type AnomalyFlag } from '@/lib/utils/pipeline-metrics';
 
@@ -51,7 +52,7 @@ export async function GET(request: NextRequest) {
     const subject = `${subjectPrefix} Pipeline Digest — ${digest.totalScreenings} screenings, ${digest.roleMetrics.reduce((s, r) => s + r.totalCalls, 0)} AI calls`;
 
     await resend.emails.send({
-      from: 'NIIJIMA System <noreply@niijima-koutsu.jp>',
+      from: EMAIL_FROM.system,
       to: adminEmail,
       subject,
       html,
@@ -78,12 +79,7 @@ function buildDigestHtml(digest: PipelineDigest): string {
   const hasAnomalies = digest.anomalies.length > 0;
   const hasCritical = digest.anomalies.some(a => a.severity === 'critical');
 
-  const headerColor = hasCritical ? '#dc2626' : hasAnomalies ? '#d97706' : '#059669';
-  const headerBg = hasCritical
-    ? 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)'
-    : hasAnomalies
-      ? 'linear-gradient(135deg, #d97706 0%, #92400e 100%)'
-      : 'linear-gradient(135deg, #059669 0%, #047857 100%)';
+  const statusColor = hasCritical ? '#dc2626' : hasAnomalies ? '#b45309' : '#16a34a';
   const statusIcon = hasCritical ? '🔴' : hasAnomalies ? '🟡' : '✅';
   const statusText = hasCritical ? 'Anomalies Detected' : hasAnomalies ? 'Warnings' : 'All Normal';
 
@@ -124,60 +120,35 @@ function buildDigestHtml(digest: PipelineDigest): string {
       </td></tr>`
     : '';
 
-  return `<!DOCTYPE html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
-<body style="margin:0;padding:0;background:#f5f5f5;font-family:'Helvetica Neue',Arial,sans-serif;">
-<table width="100%" cellpadding="0" cellspacing="0" style="background:#f5f5f5;padding:30px 15px;">
-<tr><td align="center">
-<table width="560" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
-
-  <!-- Header -->
-  <tr><td style="background:${headerBg};padding:28px 24px;text-align:center;">
-    <p style="color:rgba(255,255,255,0.8);margin:0;font-size:12px;text-transform:uppercase;letter-spacing:1px;">AEMC Pipeline Digest</p>
-    <p style="color:#fff;margin:8px 0 0;font-size:28px;">${statusIcon} ${statusText}</p>
-    <p style="color:rgba(255,255,255,0.7);margin:8px 0 0;font-size:12px;">${digest.period.from.slice(0, 10)} — ${digest.period.to.slice(0, 10)}</p>
-  </td></tr>
-
-  <!-- Anomalies (if any) -->
-  ${anomalyHtml ? `<tr><td style="padding:20px 0 0;"></td></tr>${anomalyHtml}` : ''}
-
-  <!-- Overview -->
-  <tr><td style="padding:20px 24px 12px;">
-    <p style="margin:0;font-size:14px;font-weight:600;color:#1e293b;">Overview</p>
-  </td></tr>
-  <tr><td style="padding:0 24px 20px;">
-    <table width="100%" style="font-size:13px;">${overviewRows}</table>
-  </td></tr>
-
-  <!-- Role Breakdown -->
-  <tr><td style="padding:0 24px 8px;">
-    <p style="margin:0;font-size:14px;font-weight:600;color:#1e293b;">AI Models</p>
-  </td></tr>
-  <tr><td style="padding:0 24px 20px;">
-    <table width="100%" cellpadding="0" cellspacing="0" style="font-size:12px;border-collapse:collapse;">
-      <tr style="background:#f8fafc;">
-        <th style="text-align:left;padding:8px 6px;color:#6b7280;font-weight:500;">Role</th>
-        <th style="text-align:right;padding:8px 6px;color:#6b7280;font-weight:500;">Calls</th>
-        <th style="text-align:right;padding:8px 6px;color:#6b7280;font-weight:500;">Errors</th>
-        <th style="text-align:right;padding:8px 6px;color:#6b7280;font-weight:500;">Avg ms</th>
-        <th style="text-align:right;padding:8px 6px;color:#6b7280;font-weight:500;">Tokens</th>
-      </tr>
-      ${roleRows}
-    </table>
-  </td></tr>
-
-  <!-- Baseline -->
-  ${baselineHtml}
-
-  <!-- Footer -->
-  <tr><td style="background:#1e293b;padding:20px 24px;text-align:center;">
-    <p style="color:#94a3b8;margin:0;font-size:12px;">NIIJIMA KOUTSU — AEMC Pipeline Monitor</p>
-    <p style="color:#475569;margin:8px 0 0;font-size:11px;">Auto-generated daily digest. Anomalies are flagged based on 7-day baseline.</p>
-  </td></tr>
-
-</table>
-</td></tr></table>
-</body></html>`;
+  return buildEmailHtml({
+    headerTitle: 'NIIJIMA',
+    iconEmoji: statusIcon,
+    iconBgColor: hasCritical ? '#fef2f2' : hasAnomalies ? '#fffbeb' : '#f0fdf4',
+    statusTitle: `AEMC Pipeline Daily Digest`,
+    statusTitleColor: statusColor,
+    statusSubtitle: `${statusText} · ${digest.period.from.slice(0, 10)} — ${digest.period.to.slice(0, 10)}`,
+    contentSections: [
+      anomalyHtml,
+      `<tr><td style="padding:0 30px 8px;"><p style="margin:0;font-size:14px;font-weight:600;color:#1b1917;">Overview</p></td></tr>
+       <tr><td style="padding:0 30px 20px;"><table width="100%" style="font-size:13px;">${overviewRows}</table></td></tr>`,
+      `<tr><td style="padding:0 30px 8px;"><p style="margin:0;font-size:14px;font-weight:600;color:#1b1917;">AI Models</p></td></tr>
+       <tr><td style="padding:0 30px 20px;">
+         <table width="100%" cellpadding="0" cellspacing="0" style="font-size:12px;border-collapse:collapse;">
+           <tr style="background:#fbfaf9;">
+             <th style="text-align:left;padding:8px 6px;color:#78716a;font-weight:500;">Role</th>
+             <th style="text-align:right;padding:8px 6px;color:#78716a;font-weight:500;">Calls</th>
+             <th style="text-align:right;padding:8px 6px;color:#78716a;font-weight:500;">Errors</th>
+             <th style="text-align:right;padding:8px 6px;color:#78716a;font-weight:500;">Avg ms</th>
+             <th style="text-align:right;padding:8px 6px;color:#78716a;font-weight:500;">Tokens</th>
+           </tr>
+           ${roleRows}
+         </table>
+       </td></tr>`,
+      baselineHtml,
+    ].filter(Boolean),
+    footerCompanyName: '新島交通株式會社',
+    footerDisclaimer: 'Auto-generated daily digest. Anomalies are flagged based on 7-day baseline.',
+  });
 }
 
 function buildRoleRow(r: RoleMetrics): string {

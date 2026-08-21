@@ -61,7 +61,8 @@ describe('email module', () => {
       const call = mockSend.mock.calls[0][0];
       expect(call.to).toBe('test@example.com');
       expect(call.subject).toBeTruthy();
-      expect(call.html).toContain('TOKUSHUKAI');
+      // 统一邮件模板后，头部固定为 NIIJIMA 品牌字标（不再按 TIMC/通用切换）
+      expect(call.html).toContain('NIIJIMA');
     });
 
     it('sends email with provider (generic)', async () => {
@@ -71,7 +72,7 @@ describe('email module', () => {
       });
       expect(result.success).toBe(true);
       const call = mockSend.mock.calls[0][0];
-      expect(call.html).toContain('NIIJIMA MEDICAL');
+      expect(call.html).toContain('NIIJIMA');
     });
 
     it('includes preferred date and time', async () => {

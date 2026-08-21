@@ -12,6 +12,7 @@ import {
   guideRegistration,
   refundNotification,
 } from './email-i18n';
+import { EMAIL_FROM } from './email-template';
 import {
   buildEmailHtml,
   buildDetailsTable,
@@ -77,7 +78,7 @@ export async function sendOrderConfirmationEmail(data: OrderConfirmationData) {
     {
       label: t(oc.labelAmount, locale),
       value: `¥${data.packagePrice.toLocaleString()}（税込）`,
-      valueColor: '#1e40af',
+      valueColor: '#b13e22',
       valueFontSize: '18px',
     },
     { label: t(oc.labelCustomer, locale), value: data.customerName, valueBold: false },
@@ -140,7 +141,7 @@ export async function sendOrderConfirmationEmail(data: OrderConfirmationData) {
 
   try {
     const result = await resend.emails.send({
-      from: `${fromName} <noreply@niijima-koutsu.jp>`,
+      from: EMAIL_FROM.system,
       to: data.customerEmail,
       bcc: BCC_EMAIL,
       subject,
@@ -165,23 +166,32 @@ export async function sendNewOrderNotificationToMerchant(data: OrderConfirmation
 
   try {
     await resend.emails.send({
-      from: 'TIMC 體檢預約 <noreply@niijima-koutsu.jp>',
+      from: EMAIL_FROM.system,
       to: BCC_EMAIL,
       subject: `【新訂單】${data.packageName} - ${data.customerName}`,
-      html: `
-        <h2>收到新的體檢預約訂單</h2>
-        <ul>
-          <li><strong>訂單編號:</strong> ${escapeHtml(data.orderId)}</li>
-          <li><strong>套餐:</strong> ${escapeHtml(data.packageName)}</li>
-          <li><strong>金額:</strong> ¥${data.packagePrice.toLocaleString()}（税込）</li>
-          <li><strong>客戶姓名:</strong> ${escapeHtml(data.customerName)}</li>
-          <li><strong>客戶郵箱:</strong> ${escapeHtml(data.customerEmail)}</li>
-          <li><strong>希望日期:</strong> ${escapeHtml(data.preferredDate || '未指定')}</li>
-          <li><strong>希望時段:</strong> ${escapeHtml(data.preferredTime || '未指定')}</li>
-          <li><strong>備註:</strong> ${escapeHtml(data.notes || '無')}</li>
-        </ul>
-        <p>請盡快聯繫客戶確認體檢日期。</p>
-      `,
+      html: buildEmailHtml({
+        headerTitle: 'NIIJIMA',
+        iconEmoji: '&#128276;',
+        iconBgColor: '#fef6f4',
+        statusTitle: '收到新的體檢預約訂單',
+        statusSubtitle: '請盡快聯繫客戶確認體檢日期',
+        contentSections: [
+          buildDetailsTable('訂單詳情', [
+            { label: '訂單編號', value: data.orderId },
+            { label: '套餐', value: data.packageName },
+            { label: '金額', value: `¥${data.packagePrice.toLocaleString()}（税込）`, valueColor: '#b13e22' },
+            { label: '客戶姓名', value: data.customerName },
+            { label: '客戶郵箱', value: data.customerEmail },
+            { label: '希望日期', value: data.preferredDate || '未指定', valueBold: false },
+            { label: '希望時段', value: data.preferredTime || '未指定', valueBold: false },
+            { label: '備註', value: data.notes || '無', valueBold: false },
+          ]),
+        ],
+        ctaText: '查看訂單管理',
+        ctaUrl: 'https://niijima-koutsu.jp/admin/orders',
+        footerCompanyName: '新島交通株式會社',
+        footerDisclaimer: '此郵件由系統自動發送',
+      }),
     });
   } catch (error) {
     console.error('Failed to send merchant notification:', error);
@@ -261,7 +271,6 @@ export async function sendWhitelabelSubscriptionEmail(data: WhitelabelSubscripti
   const html = buildEmailHtml({
     headerTitle: 'NIIJIMA',
     headerSubtitle: 'Guide Partner Program',
-    headerGradient: 'linear-gradient(135deg, #2563eb 0%, #3b82f6 100%)',
     bodyBgColor: '#f0f9ff',
     iconEmoji: '🎉',
     iconBgColor: '#dcfce7',
@@ -270,7 +279,6 @@ export async function sendWhitelabelSubscriptionEmail(data: WhitelabelSubscripti
     contentSections,
     ctaText: t(ws.ctaText, locale),
     ctaUrl: 'https://niijima-koutsu.jp/guide-partner/whitelabel',
-    ctaGradient: 'linear-gradient(135deg, #2563eb 0%, #3b82f6 100%)',
     footerCompanyName: t(common.footerCompany, locale),
     footerSubtitle: 'Guide Partner Program',
     footerDisclaimer: t(common.footerDisclaimer, locale),
@@ -278,7 +286,7 @@ export async function sendWhitelabelSubscriptionEmail(data: WhitelabelSubscripti
 
   try {
     const result = await resend.emails.send({
-      from: 'NIIJIMA Partner <partner@niijima-koutsu.jp>',
+      from: EMAIL_FROM.partner,
       to: data.guideEmail,
       bcc: BCC_EMAIL,
       subject: t(ws.subject, locale),
@@ -348,7 +356,7 @@ export async function sendGuideCommissionNotification(data: GuideCommissionNotif
     rows.push({
       label: t(gc.labelNewCustomerBonus, locale),
       value: `+¥${data.bonusAmount.toLocaleString()}`,
-      valueColor: '#7c3aed',
+      valueColor: '#b13e22',
     });
   }
 
@@ -389,7 +397,6 @@ export async function sendGuideCommissionNotification(data: GuideCommissionNotif
   const html = buildEmailHtml({
     headerTitle: 'NIIJIMA',
     headerSubtitle: 'Guide Partner Program',
-    headerGradient: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)',
     bodyBgColor: '#fff7ed',
     iconEmoji: '💰',
     iconBgColor: '#dcfce7',
@@ -398,7 +405,6 @@ export async function sendGuideCommissionNotification(data: GuideCommissionNotif
     contentSections,
     ctaText: t(gc.ctaText, locale),
     ctaUrl: 'https://niijima-koutsu.jp/guide-partner/commission',
-    ctaGradient: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)',
     footerCompanyName: t(common.footerCompany, locale),
     footerSubtitle: 'Guide Partner Program',
     footerDisclaimer: t(common.footerDisclaimer, locale),
@@ -406,7 +412,7 @@ export async function sendGuideCommissionNotification(data: GuideCommissionNotif
 
   try {
     const result = await resend.emails.send({
-      from: 'NIIJIMA Partner <partner@niijima-koutsu.jp>',
+      from: EMAIL_FROM.partner,
       to: data.guideEmail,
       subject,
       html,
@@ -475,7 +481,6 @@ export async function sendKYCNotification(data: KYCNotificationData) {
   const html = buildEmailHtml({
     headerTitle: 'NIIJIMA',
     headerSubtitle: 'Guide Partner Program',
-    headerGradient: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)',
     iconEmoji: `<span style="color: ${statusColor};">${statusIcon}</span>`,
     iconBgColor: statusBgColor,
     statusTitle: t(isApproved ? kn.statusApproved : kn.statusRejected, locale),
@@ -486,9 +491,6 @@ export async function sendKYCNotification(data: KYCNotificationData) {
     ctaUrl: isApproved
       ? 'https://niijima-koutsu.jp/guide-partner/whitelabel'
       : 'https://niijima-koutsu.jp/guide-partner/settings',
-    ctaGradient: isApproved
-      ? 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)'
-      : 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
     footerCompanyName: t(common.footerCompany, locale),
     footerSubtitle: 'Guide Partner Program',
     footerDisclaimer: t(kn.contactNote, locale),
@@ -496,7 +498,7 @@ export async function sendKYCNotification(data: KYCNotificationData) {
 
   try {
     const result = await resend.emails.send({
-      from: 'NIIJIMA Partner <partner@niijima-koutsu.jp>',
+      from: EMAIL_FROM.partner,
       to: data.guideEmail,
       subject,
       html,
@@ -539,104 +541,35 @@ export async function sendGuideBookingNotificationToAdmin(data: GuideBookingNoti
 
   try {
     const result = await resend.emails.send({
-      from: 'NIIJIMA Partner <partner@niijima-koutsu.jp>',
+      from: EMAIL_FROM.partner,
       to: BCC_EMAIL,
       subject: `【新預約】${data.venueName} - ${data.customerName}（${data.partySize}人）by ${data.guideName}`,
-      html: `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body style="margin: 0; padding: 0; background-color: #fff7ed; font-family: 'Helvetica Neue', Arial, sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #fff7ed; padding: 40px 20px;">
-    <tr>
-      <td align="center">
-        <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-
-          <!-- Header -->
-          <tr>
-            <td style="background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); padding: 30px; text-align: center;">
-              <h1 style="color: #ffffff; margin: 0; font-size: 22px; font-weight: 600;">新導遊預約通知</h1>
-              <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0; font-size: 14px;">Guide Partner Booking</p>
-            </td>
-          </tr>
-
-          <!-- Booking Details -->
-          <tr>
-            <td style="padding: 30px;">
-              <div style="background-color: #f8fafc; border-radius: 12px; padding: 24px; border: 1px solid #e2e8f0;">
-                <h3 style="color: #1e293b; margin: 0 0 16px; font-size: 16px; font-weight: 600;">預約詳情</h3>
-                <table width="100%" style="font-size: 14px;">
-                  <tr>
-                    <td style="color: #64748b; padding: 8px 0;">導遊</td>
-                    <td style="color: #1e293b; text-align: right; font-weight: 600;">${escapeHtml(data.guideName)}</td>
-                  </tr>
-                  <tr>
-                    <td style="color: #64748b; padding: 8px 0;">店舖</td>
-                    <td style="color: #ea580c; text-align: right; font-weight: 600;">${escapeHtml(data.venueName)}</td>
-                  </tr>
-                  <tr>
-                    <td style="color: #64748b; padding: 8px 0;">客戶姓名</td>
-                    <td style="color: #1e293b; text-align: right;">${escapeHtml(data.customerName)}</td>
-                  </tr>
-                  ${data.customerPhone ? `
-                  <tr>
-                    <td style="color: #64748b; padding: 8px 0;">客戶電話</td>
-                    <td style="color: #1e293b; text-align: right;">${escapeHtml(data.customerPhone)}</td>
-                  </tr>
-                  ` : ''}
-                  <tr>
-                    <td style="color: #64748b; padding: 8px 0;">人數</td>
-                    <td style="color: #1e293b; text-align: right; font-weight: 600;">${data.partySize} 人</td>
-                  </tr>
-                  <tr>
-                    <td style="color: #64748b; padding: 8px 0;">預約日期</td>
-                    <td style="color: #1e293b; text-align: right; font-weight: 600;">${escapeHtml(data.bookingDate)}</td>
-                  </tr>
-                  ${data.bookingTime ? `
-                  <tr>
-                    <td style="color: #64748b; padding: 8px 0;">預約時間</td>
-                    <td style="color: #1e293b; text-align: right;">${escapeHtml(data.bookingTime)}</td>
-                  </tr>
-                  ` : ''}
-                  ${data.specialRequests ? `
-                  <tr>
-                    <td colspan="2" style="padding-top: 12px; border-top: 1px solid #e2e8f0;">
-                      <p style="color: #64748b; margin: 0 0 4px; font-size: 12px;">特殊要求</p>
-                      <p style="color: #1e293b; margin: 0;">${escapeHtml(data.specialRequests)}</p>
-                    </td>
-                  </tr>
-                  ` : ''}
-                </table>
-              </div>
-            </td>
-          </tr>
-
-          <!-- CTA -->
-          <tr>
-            <td style="padding: 0 30px 30px; text-align: center;">
-              <a href="https://niijima-koutsu.jp/admin/orders" style="display: inline-block; background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
-                查看預約管理
-              </a>
-            </td>
-          </tr>
-
-          <!-- Footer -->
-          <tr>
-            <td style="background-color: #1e293b; padding: 20px; text-align: center;">
-              <p style="color: #94a3b8; margin: 0; font-size: 12px;">此郵件由系統自動發送</p>
-            </td>
-          </tr>
-
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>
-      `,
+      html: buildEmailHtml({
+        headerTitle: 'NIIJIMA',
+        iconEmoji: '&#128276;',
+        iconBgColor: '#fef6f4',
+        statusTitle: '新導遊預約通知',
+        statusSubtitle: 'Guide Partner Booking',
+        contentSections: [
+          buildDetailsTable('預約詳情', [
+            { label: '導遊', value: data.guideName },
+            { label: '店舖', value: data.venueName, valueColor: '#b13e22' },
+            { label: '客戶姓名', value: data.customerName, valueBold: false },
+            ...(data.customerPhone ? [{ label: '客戶電話', value: data.customerPhone, valueBold: false }] : []),
+            { label: '人數', value: `${data.partySize} 人` },
+            { label: '預約日期', value: data.bookingDate },
+            ...(data.bookingTime ? [{ label: '預約時間', value: data.bookingTime, valueBold: false }] : []),
+          ], data.specialRequests ? `
+                <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #e8e6e3;">
+                  <p style="color: #78716a; margin: 0 0 4px; font-size: 12px;">特殊要求</p>
+                  <p style="color: #1b1917; margin: 0; font-size: 14px;">${escapeHtml(data.specialRequests)}</p>
+                </div>` : undefined),
+        ],
+        ctaText: '查看預約管理',
+        ctaUrl: 'https://niijima-koutsu.jp/admin/bookings',
+        footerCompanyName: '新島交通株式會社',
+        footerDisclaimer: '此郵件由系統自動發送',
+      }),
     });
 
     console.log('Guide booking admin notification sent:', result);
@@ -675,7 +608,7 @@ export async function sendGuideRegistrationEmail(data: GuideRegistrationData) {
       {
         label: t(gr.labelReferralCode, locale),
         value: data.referralCode,
-        valueColor: '#ea580c',
+        valueColor: '#b13e22',
         valueFontSize: '18px',
       },
       {
@@ -696,7 +629,6 @@ export async function sendGuideRegistrationEmail(data: GuideRegistrationData) {
   const html = buildEmailHtml({
     headerTitle: 'NIIJIMA',
     headerSubtitle: 'Guide Partner Program',
-    headerGradient: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)',
     bodyBgColor: '#f0f9ff',
     iconEmoji: '&#127881;',
     iconBgColor: '#dcfce7',
@@ -705,7 +637,6 @@ export async function sendGuideRegistrationEmail(data: GuideRegistrationData) {
     contentSections,
     ctaText: t(gr.ctaText, locale),
     ctaUrl: 'https://niijima-koutsu.jp/login',
-    ctaGradient: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)',
     footerCompanyName: t(common.footerCompany, locale),
     footerSubtitle: 'Guide Partner Program',
     footerDisclaimer: t(common.footerDisclaimer, locale),
@@ -713,7 +644,7 @@ export async function sendGuideRegistrationEmail(data: GuideRegistrationData) {
 
   try {
     const result = await resend.emails.send({
-      from: 'NIIJIMA Partner <partner@niijima-koutsu.jp>',
+      from: EMAIL_FROM.partner,
       to: data.guideEmail,
       bcc: BCC_EMAIL,
       subject: t(gr.subject, locale),
@@ -752,36 +683,34 @@ export async function sendScreeningErrorNotification(data: ScreeningErrorNotific
 
   try {
     const result = await resend.emails.send({
-      from: 'NIIJIMA System <noreply@niijima-koutsu.jp>',
+      from: EMAIL_FROM.system,
       to: BCC_EMAIL,
       subject: `[AEMC ERROR] AI 筛查 Pipeline 故障 - ${data.screeningId.slice(0, 8)}`,
-      html: `
-<!DOCTYPE html>
-<html><head><meta charset="utf-8"></head>
-<body style="font-family: -apple-system, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <div style="background: #DC2626; color: white; padding: 16px 20px; border-radius: 8px 8px 0 0;">
-    <h2 style="margin: 0; font-size: 18px;">⚠️ AEMC Pipeline 故障报告</h2>
-  </div>
-  <div style="border: 1px solid #E5E7EB; border-top: none; padding: 20px; border-radius: 0 0 8px 8px;">
-    <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
-      <tr><td style="padding: 8px 0; color: #6B7280; width: 120px;">时间</td><td style="padding: 8px 0;">${data.timestamp}</td></tr>
-      <tr><td style="padding: 8px 0; color: #6B7280;">筛查 ID</td><td style="padding: 8px 0; font-family: monospace;">${data.screeningId}</td></tr>
-      <tr><td style="padding: 8px 0; color: #6B7280;">用户类型</td><td style="padding: 8px 0;">${data.userType === 'authenticated' ? '注册用户' : '白标访客'}</td></tr>
-      ${data.userId ? `<tr><td style="padding: 8px 0; color: #6B7280;">用户 ID</td><td style="padding: 8px 0; font-family: monospace;">${data.userId}</td></tr>` : ''}
-      ${data.sessionId ? `<tr><td style="padding: 8px 0; color: #6B7280;">Session ID</td><td style="padding: 8px 0; font-family: monospace;">${data.sessionId}</td></tr>` : ''}
-      <tr><td style="padding: 8px 0; color: #6B7280;">端点</td><td style="padding: 8px 0; font-family: monospace;">${data.endpoint}</td></tr>
-      ${data.failedAiRuns !== undefined ? `<tr><td style="padding: 8px 0; color: #6B7280;">已完成 AI</td><td style="padding: 8px 0;">${data.failedAiRuns} 个 AI 模型完成后失败</td></tr>` : ''}
-    </table>
-    <div style="margin-top: 16px; padding: 12px; background: #FEF2F2; border-radius: 6px; border-left: 4px solid #DC2626;">
-      <p style="margin: 0; font-size: 13px; color: #991B1B; font-weight: 600;">错误信息</p>
-      <p style="margin: 8px 0 0; font-size: 13px; color: #7F1D1D; font-family: monospace; word-break: break-all;">${escapeHtml(data.errorMessage)}</p>
-    </div>
-    <p style="margin-top: 16px; font-size: 12px; color: #9CA3AF;">
-      该用户已收到友好的错误提示，建议稍后重试。如果此错误持续出现，请检查 OpenRouter API 状态和额度。
-    </p>
-  </div>
-</body></html>
-      `,
+      html: buildEmailHtml({
+        headerTitle: 'NIIJIMA',
+        iconEmoji: '&#9888;',
+        iconBgColor: '#fef2f2',
+        statusTitle: 'AEMC Pipeline 故障报告',
+        statusTitleColor: '#dc2626',
+        contentSections: [
+          buildDetailsTable('故障信息', [
+            { label: '时间', value: data.timestamp, valueBold: false },
+            { label: '筛查 ID', value: data.screeningId, valueBold: false },
+            { label: '用户类型', value: data.userType === 'authenticated' ? '注册用户' : '白标访客', valueBold: false },
+            ...(data.userId ? [{ label: '用户 ID', value: data.userId, valueBold: false }] : []),
+            ...(data.sessionId ? [{ label: 'Session ID', value: data.sessionId, valueBold: false }] : []),
+            { label: '端点', value: data.endpoint, valueBold: false },
+            ...(data.failedAiRuns !== undefined ? [{ label: '已完成 AI', value: `${data.failedAiRuns} 个 AI 模型完成后失败`, valueBold: false }] : []),
+          ], `
+                <div style="margin-top: 12px; padding: 12px; background: #fef2f2; border-radius: 6px; border-left: 4px solid #dc2626;">
+                  <p style="margin: 0; font-size: 13px; color: #991b1b; font-weight: 600;">错误信息</p>
+                  <p style="margin: 8px 0 0; font-size: 13px; color: #7f1d1d; font-family: monospace; word-break: break-all;">${escapeHtml(data.errorMessage)}</p>
+                </div>`),
+          buildInfoCard('', `<p style="color: #78716a; margin: 0; font-size: 12px;">该用户已收到友好的错误提示，建议稍后重试。如果此错误持续出现，请检查 OpenRouter API 状态和额度。</p>`),
+        ],
+        footerCompanyName: '新島交通株式會社',
+        footerDisclaimer: '此郵件由系統自動發送',
+      }),
     });
 
     console.log('[ScreeningError] Admin notification sent:', result);
@@ -866,7 +795,7 @@ export async function sendRefundNotificationEmail(data: RefundNotificationData) 
 
   try {
     const result = await resend.emails.send({
-      from: `NIIJIMA <noreply@niijima-koutsu.jp>`,
+      from: EMAIL_FROM.system,
       to: data.customerEmail,
       bcc: BCC_EMAIL,
       subject,

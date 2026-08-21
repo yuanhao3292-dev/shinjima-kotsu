@@ -1,6 +1,18 @@
 import { escapeHtml } from './utils/html-escape';
 
 // ============================================
+// 统一发件人（显示名一律 NIIJIMA 新島交通，地址按用途分）
+// ============================================
+export const EMAIL_FROM = {
+  system: 'NIIJIMA 新島交通 <noreply@niijima-koutsu.jp>',
+  partner: 'NIIJIMA 新島交通 <partner@niijima-koutsu.jp>',
+  health: 'NIIJIMA 新島交通 <health@niijima-koutsu.jp>',
+} as const;
+
+// 品牌渐变（与官网导航同源）——所有邮件头部/主按钮唯一用色
+const BRAND_GRADIENT = 'linear-gradient(100deg, #E8452F 0%, #EC652A 100%)';
+
+// ============================================
 // 统一邮件 HTML 模板构建器
 // ============================================
 
@@ -39,25 +51,15 @@ export interface EmailTemplateOptions {
  * 生成统一风格的邮件 HTML
  */
 export function buildEmailHtml(opts: EmailTemplateOptions): string {
-  const headerGradient =
-    opts.headerGradient ||
-    'linear-gradient(135deg, #1e40af 0%, #3b82f6 100%)';
-  const bodyBg = opts.bodyBgColor || '#f5f5f5';
-  const iconBg = opts.iconBgColor || '#dcfce7';
-  const titleColor = opts.statusTitleColor || '#166534';
-  const ctaGradient =
-    opts.ctaGradient ||
-    opts.headerGradient ||
-    'linear-gradient(135deg, #1e40af 0%, #3b82f6 100%)';
+  // 2026-08-20 起统一模板（用户要求所有对外邮件格式高度统一，参考 Google 交易邮件）：
+  // 头部固定为品牌渐变 + NIIJIMA 字标（headerTitle/headerGradient 等参数保留签名
+  // 但不再参与渲染），页脚统一浅色公司信息。此前 17 个发信点五种配色各写各的。
+  const iconBg = opts.iconBgColor || '#f0fdf4';
+  const titleColor = opts.statusTitleColor || '#1b1917';
+  const year = new Date().getFullYear();
 
-  const headerTagHtml = opts.headerTag
-    ? `<p style="color: rgba(255,255,255,0.7); margin: 6px 0 0; font-size: 13px;">${opts.headerTag}</p>`
-    : '';
-  const headerSubHtml = opts.headerSubtitle
-    ? `<p style="color: rgba(255,255,255,0.9); margin: 8px 0 0; font-size: 16px; font-weight: 500;">${opts.headerSubtitle}</p>`
-    : '';
   const subtitleHtml = opts.statusSubtitle
-    ? `<p style="color: #6b7280; margin: 0; font-size: 16px;">${opts.statusSubtitle}</p>`
+    ? `<p style="color: #58534e; margin: 0; font-size: 15px; line-height: 1.7;">${opts.statusSubtitle}</p>`
     : '';
 
   const ctaHtml =
@@ -65,7 +67,7 @@ export function buildEmailHtml(opts: EmailTemplateOptions): string {
       ? `
           <tr>
             <td style="padding: 0 30px 30px; text-align: center;">
-              <a href="${opts.ctaUrl}" style="display: inline-block; background: ${ctaGradient}; color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
+              <a href="${opts.ctaUrl}" style="display: inline-block; background: ${BRAND_GRADIENT}; color: #ffffff; padding: 14px 36px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px;">
                 ${opts.ctaText}
               </a>
             </td>
@@ -80,28 +82,27 @@ export function buildEmailHtml(opts: EmailTemplateOptions): string {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body style="margin: 0; padding: 0; background-color: ${bodyBg}; font-family: 'Helvetica Neue', Arial, sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: ${bodyBg}; padding: 40px 20px;">
+<body style="margin: 0; padding: 0; background-color: #f6f5f3; font-family: 'Helvetica Neue', 'Noto Sans JP', 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f6f5f3; padding: 40px 16px;">
     <tr>
       <td align="center">
-        <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <table width="600" cellpadding="0" cellspacing="0" style="max-width: 600px; width: 100%; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.06);">
 
-          <!-- Header -->
+          <!-- Header：品牌渐变带 + 字标（全部邮件一致） -->
           <tr>
-            <td style="background: ${headerGradient}; padding: 40px 30px; text-align: center;">
-              <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 600;">${opts.headerTitle}</h1>
-              ${headerSubHtml}
-              ${headerTagHtml}
+            <td style="background: ${BRAND_GRADIENT}; padding: 32px 30px; text-align: center;">
+              <div style="color: #ffffff; font-size: 26px; font-weight: 700; letter-spacing: 0.08em;">NIIJIMA</div>
+              <div style="color: rgba(255,255,255,0.9); margin-top: 6px; font-size: 13px; letter-spacing: 0.12em;">新島交通株式會社</div>
             </td>
           </tr>
 
-          <!-- Status Icon -->
+          <!-- Status -->
           <tr>
-            <td style="padding: 40px 30px 20px; text-align: center;">
-              <div style="width: 80px; height: 80px; background-color: ${iconBg}; border-radius: 50%; display: inline-block; line-height: 80px;">
-                <span style="font-size: 40px;">${opts.iconEmoji}</span>
+            <td style="padding: 36px 30px 20px; text-align: center;">
+              <div style="width: 72px; height: 72px; background-color: ${iconBg}; border-radius: 50%; display: inline-block; line-height: 72px;">
+                <span style="font-size: 34px;">${opts.iconEmoji}</span>
               </div>
-              <h2 style="color: ${titleColor}; margin: 20px 0 10px; font-size: 24px;">${opts.statusTitle}</h2>
+              <h2 style="color: ${titleColor}; margin: 20px 0 10px; font-size: 22px; font-weight: 700;">${opts.statusTitle}</h2>
               ${subtitleHtml}
             </td>
           </tr>
@@ -112,14 +113,14 @@ export function buildEmailHtml(opts: EmailTemplateOptions): string {
           <!-- CTA -->
           ${ctaHtml}
 
-          <!-- Footer -->
+          <!-- Footer：统一公司信息 -->
           <tr>
-            <td style="background-color: #1e293b; padding: 30px; text-align: center;">
-              <p style="color: #94a3b8; margin: 0 0 8px; font-size: 14px; font-weight: 600;">${opts.footerCompanyName}</p>
-              ${opts.footerSubtitle ? `<p style="color: #64748b; margin: 0; font-size: 12px;">${opts.footerSubtitle}</p>` : ''}
-              <p style="color: #475569; margin: 16px 0 0; font-size: 11px;">
-                ${opts.footerDisclaimer}
-              </p>
+            <td style="background-color: #fbfaf9; border-top: 1px solid #e8e6e3; padding: 24px 30px; text-align: center;">
+              <p style="color: #1b1917; margin: 0 0 4px; font-size: 13px; font-weight: 600;">新島交通株式會社 NIIJIMA KOTSU Co., Ltd.</p>
+              <p style="color: #78716a; margin: 0 0 4px; font-size: 12px;">〒556-0014 大阪府大阪市浪速区大国1-2-21-602</p>
+              <p style="color: #78716a; margin: 0 0 12px; font-size: 12px;">TEL: +81-6-6632-8807 · <a href="mailto:haoyuan@niijima-koutsu.jp" style="color: #b13e22; text-decoration: none;">haoyuan@niijima-koutsu.jp</a></p>
+              <p style="color: #a8a29b; margin: 0 0 4px; font-size: 11px;">${opts.footerDisclaimer}</p>
+              <p style="color: #a8a29b; margin: 0; font-size: 11px;">© ${year} NIIJIMA KOTSU Co., Ltd. All rights reserved.</p>
             </td>
           </tr>
 
@@ -192,9 +193,9 @@ export function buildStepsSection(
     titleColor?: string;
   }
 ): string {
-  const bgColor = options?.bgColor || '#eff6ff';
-  const borderColor = options?.borderColor || '#bfdbfe';
-  const titleColor = options?.titleColor || '#1e40af';
+  const bgColor = options?.bgColor || '#fbfaf9';
+  const borderColor = options?.borderColor || '#e8e6e3';
+  const titleColor = options?.titleColor || '#1b1917';
 
   const stepsHtml = steps
     .map((step) => `<li>${step}</li>`)
@@ -221,8 +222,8 @@ export function buildInfoCard(
   contentHtml: string,
   options?: { bgColor?: string; borderColor?: string }
 ): string {
-  const bgColor = options?.bgColor || '#f8fafc';
-  const borderColor = options?.borderColor || '#e2e8f0';
+  const bgColor = options?.bgColor || '#fbfaf9';
+  const borderColor = options?.borderColor || '#e8e6e3';
 
   return `
           <tr>
@@ -242,11 +243,9 @@ export function buildBanner(
   html: string,
   options?: { bgGradient?: string; borderColor?: string; textColor?: string }
 ): string {
-  const bg =
-    options?.bgGradient ||
-    'linear-gradient(135deg, #f3e8ff 0%, #fce7f3 100%)';
-  const border = options?.borderColor || '#e9d5ff';
-  const color = options?.textColor || '#7c3aed';
+  const bg = options?.bgGradient || '#fef6f4';
+  const border = options?.borderColor || '#fbd5cc';
+  const color = options?.textColor || '#b13e22';
 
   return `
           <tr>

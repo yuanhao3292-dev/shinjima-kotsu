@@ -8,6 +8,7 @@ import { BookingActionSchema } from '@/lib/validations/api-schemas';
 import { normalizeError, logError, createErrorResponse, Errors } from '@/lib/utils/api-errors';
 import { calculateWithholdingTax } from '@/lib/commission-tax';
 import { Resend } from 'resend';
+import { EMAIL_FROM, buildEmailHtml, buildDetailsTable } from '@/lib/email-template';
 
 /**
  * Nightclub booking management API
@@ -82,51 +83,32 @@ function sendBookingAdminNotification(
   const actionLabel = action === 'confirm' ? 'Confirmed' : 'Completed';
   const subject = `[Booking ${actionLabel}] ${booking.venue_name} - ${booking.customer_name} (${booking.party_size} pax)`;
 
-  const spendSection = action === 'complete' && booking.actual_spend !== undefined
-    ? `<tr><td style="color:#64748b;padding:8px 0;">Actual Spend</td><td style="color:#16a34a;text-align:right;font-weight:600;">\u00a5${booking.actual_spend.toLocaleString()}</td></tr>`
-    : '';
-
-  const html = `
-<!DOCTYPE html>
-<html>
-<head><meta charset="utf-8"></head>
-<body style="margin:0;padding:0;background:#f5f5f5;font-family:'Helvetica Neue',Arial,sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f5f5f5;padding:40px 20px;">
-    <tr><td align="center">
-      <table width="600" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 6px rgba(0,0,0,0.1);">
-        <tr><td style="background:linear-gradient(135deg,#7c3aed 0%,#a855f7 100%);padding:30px;text-align:center;">
-          <h1 style="color:#fff;margin:0;font-size:22px;">Booking ${actionLabel}</h1>
-        </td></tr>
-        <tr><td style="padding:30px;">
-          <div style="background:#f8fafc;border-radius:12px;padding:24px;border:1px solid #e2e8f0;">
-            <table width="100%" style="font-size:14px;">
-              <tr><td style="color:#64748b;padding:8px 0;">Booking ID</td><td style="color:#1e293b;text-align:right;font-weight:600;">${booking.id.slice(0, 8).toUpperCase()}</td></tr>
-              <tr><td style="color:#64748b;padding:8px 0;">Venue</td><td style="color:#7c3aed;text-align:right;font-weight:600;">${booking.venue_name}</td></tr>
-              <tr><td style="color:#64748b;padding:8px 0;">Guide</td><td style="color:#1e293b;text-align:right;">${booking.guide_name}</td></tr>
-              <tr><td style="color:#64748b;padding:8px 0;">Customer</td><td style="color:#1e293b;text-align:right;font-weight:600;">${booking.customer_name}</td></tr>
-              <tr><td style="color:#64748b;padding:8px 0;">Party Size</td><td style="color:#1e293b;text-align:right;">${booking.party_size} pax</td></tr>
-              <tr><td style="color:#64748b;padding:8px 0;">Date</td><td style="color:#1e293b;text-align:right;">${booking.booking_date}${booking.booking_time ? ` ${booking.booking_time}` : ''}</td></tr>
-              ${spendSection}
-            </table>
-          </div>
-        </td></tr>
-        <tr><td style="padding:0 30px 30px;text-align:center;">
-          <a href="https://niijima-koutsu.jp/admin/bookings" style="display:inline-block;background:linear-gradient(135deg,#7c3aed 0%,#a855f7 100%);color:#fff;padding:14px 32px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;">
-            View Bookings
-          </a>
-        </td></tr>
-        <tr><td style="background:#1e293b;padding:20px;text-align:center;">
-          <p style="color:#94a3b8;margin:0;font-size:12px;">Auto-generated notification</p>
-        </td></tr>
-      </table>
-    </td></tr>
-  </table>
-</body>
-</html>`;
+  const html = buildEmailHtml({
+    headerTitle: 'NIIJIMA',
+    iconEmoji: action === 'confirm' ? '&#128197;' : '&#10003;',
+    statusTitle: `Booking ${actionLabel}`,
+    contentSections: [
+      buildDetailsTable('Booking Details', [
+        { label: 'Booking ID', value: booking.id },
+        { label: 'Venue', value: booking.venue_name, valueColor: '#b13e22' },
+        { label: 'Guide', value: booking.guide_name, valueBold: false },
+        { label: 'Customer', value: booking.customer_name },
+        { label: 'Party Size', value: `${booking.party_size} pax`, valueBold: false },
+        { label: 'Date', value: `${booking.booking_date}${booking.booking_time ? ' ' + booking.booking_time : ''}`, valueBold: false },
+        ...(action === 'complete' && booking.actual_spend !== undefined
+          ? [{ label: 'Actual Spend', value: `\u00a5${booking.actual_spend.toLocaleString()}`, valueColor: '#16a34a' }]
+          : []),
+      ]),
+    ],
+    ctaText: 'View Bookings',
+    ctaUrl: 'https://niijima-koutsu.jp/admin/bookings',
+    footerCompanyName: '新島交通株式會社',
+    footerDisclaimer: 'Auto-generated notification',
+  });
 
   // Fire-and-forget
   resend.emails.send({
-    from: 'NIIJIMA Bookings <noreply@niijima-koutsu.jp>',
+    from: EMAIL_FROM.system,
     to: ADMIN_NOTIFICATION_EMAIL,
     subject,
     html,

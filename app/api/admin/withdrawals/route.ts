@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { EMAIL_FROM, buildEmailHtml } from '@/lib/email-template';
 import { verifyAdminAuth } from '@/lib/utils/admin-auth';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
 import { Resend } from 'resend';
@@ -213,7 +214,7 @@ export async function POST(request: NextRequest) {
 
       if (subject && content) {
         await resend.emails.send({
-          from: 'NIIJIMA Partner <partner@niijima-koutsu.jp>',
+          from: EMAIL_FROM.partner,
           to: guide.email,
           subject,
           html: generateWithdrawalEmail(guide.name, subject, content),
@@ -263,56 +264,16 @@ function generateWithdrawalEmail(name: string, title: string, content: string): 
   const safeName = escapeHtml(name || '尊敬的合伙人');
   const safeTitle = escapeHtml(title);
   const safeContent = escapeHtml(content);
-  return `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body style="margin: 0; padding: 0; background-color: #f5f5f5; font-family: 'Helvetica Neue', Arial, sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5; padding: 40px 20px;">
-    <tr>
-      <td align="center">
-        <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-
-          <!-- Header -->
-          <tr>
-            <td style="background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); padding: 40px 30px; text-align: center;">
-              <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 600;">NIIJIMA</h1>
-              <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0; font-size: 16px;">Guide Partner Program</p>
-            </td>
-          </tr>
-
-          <!-- Content -->
-          <tr>
-            <td style="padding: 40px 30px; text-align: center;">
-              <h2 style="color: #1e293b; margin: 0 0 10px; font-size: 24px;">${safeTitle}</h2>
-              <p style="color: #6b7280; margin: 0 0 20px; font-size: 16px;">${safeName}，您好</p>
-              <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 30px;">
-                ${safeContent}
-              </p>
-              <a href="https://niijima-koutsu.jp/guide-partner/commission"
-                 style="display: inline-block; background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600;">
-                查看详情
-              </a>
-            </td>
-          </tr>
-
-          <!-- Footer -->
-          <tr>
-            <td style="background-color: #f8fafc; padding: 20px 30px; text-align: center;">
-              <p style="color: #9ca3af; font-size: 12px; margin: 0;">
-                如有任何问题，请联系我们的客服团队
-              </p>
-            </td>
-          </tr>
-
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>
-  `;
+  return buildEmailHtml({
+    headerTitle: 'NIIJIMA',
+    iconEmoji: '&#128176;',
+    iconBgColor: '#fef6f4',
+    statusTitle: safeTitle,
+    statusSubtitle: `${safeName}，您好<br><br>${safeContent}`,
+    contentSections: [],
+    ctaText: '查看详情',
+    ctaUrl: 'https://niijima-koutsu.jp/guide-partner/commission',
+    footerCompanyName: '新島交通株式會社',
+    footerDisclaimer: '如有任何问题，请联系我们的客服团队',
+  });
 }

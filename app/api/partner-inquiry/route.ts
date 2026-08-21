@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { checkRateLimit, getClientIp, RATE_LIMITS } from '@/lib/utils/rate-limiter';
+import { EMAIL_FROM, buildEmailHtml, buildDetailsTable, buildInfoCard } from '@/lib/email-template';
 
 /** HTML 实体转义 — 防止邮件模板注入 */
 function escapeHtml(str: string): string {
@@ -90,192 +91,57 @@ export async function POST(request: NextRequest) {
 
     // 发送邮件给管理员
     const result = await resend.emails.send({
-      from: '同業合作申請 <partner@niijima-koutsu.jp>',
+      from: EMAIL_FROM.partner,
       to: PARTNER_INQUIRY_EMAIL,
       replyTo: data.email,
       subject: `【同業合作申請】${safe.companyName} - ${safe.contactName}`,
-      html: `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body style="margin: 0; padding: 0; background-color: #f5f5f5; font-family: 'Helvetica Neue', Arial, sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5; padding: 40px 20px;">
-    <tr>
-      <td align="center">
-        <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-
-          <!-- Header -->
-          <tr>
-            <td style="background: linear-gradient(100deg, #E8452F 0%, #EC652A 100%); padding: 40px 30px; text-align: center;">
-              <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 600;">新同業合作申請</h1>
-              <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0; font-size: 14px;">收到新的合作夥伴申請</p>
-            </td>
-          </tr>
-
-          <!-- Content -->
-          <tr>
-            <td style="padding: 40px 30px;">
-              <div style="background-color: #f8fafc; border-radius: 12px; padding: 24px; border: 1px solid #e2e8f0;">
-                <h3 style="color: #1e293b; margin: 0 0 20px; font-size: 18px; font-weight: 600;">申請資料</h3>
-
-                <table width="100%" style="font-size: 14px;">
-                  <tr>
-                    <td style="color: #64748b; padding: 12px 0; border-bottom: 1px solid #e2e8f0; width: 30%;">公司名稱</td>
-                    <td style="color: #1e293b; padding: 12px 0; border-bottom: 1px solid #e2e8f0; font-weight: 600;">${safe.companyName}</td>
-                  </tr>
-                  <tr>
-                    <td style="color: #64748b; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">聯絡人</td>
-                    <td style="color: #1e293b; padding: 12px 0; border-bottom: 1px solid #e2e8f0; font-weight: 600;">${safe.contactName}</td>
-                  </tr>
-                  <tr>
-                    <td style="color: #64748b; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">電子郵件</td>
-                    <td style="color: #1e293b; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">
-                      <a href="mailto:${safe.email}" style="color: #2563eb; text-decoration: none;">${safe.email}</a>
-                    </td>
-                  </tr>
-                  ${data.country ? `
-                  <tr>
-                    <td style="color: #64748b; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">國家/地區</td>
-                    <td style="color: #1e293b; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">${safe.country}</td>
-                  </tr>` : ''}
-                  ${data.phone ? `
-                  <tr>
-                    <td style="color: #64748b; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">聯絡電話</td>
-                    <td style="color: #1e293b; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">${safe.phone}</td>
-                  </tr>
-                  ` : ''}
-                  ${data.businessType ? `
-                  <tr>
-                    <td style="color: #64748b; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">業務類型</td>
-                    <td style="color: #1e293b; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">${safe.businessType}</td>
-                  </tr>
-                  ` : ''}
-                </table>
-
-                ${safe.message ? `
-                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
-                  <p style="color: #64748b; margin: 0 0 8px; font-size: 12px; font-weight: 600;">合作意向說明</p>
-                  <p style="color: #1e293b; margin: 0; font-size: 14px; line-height: 1.8; white-space: pre-wrap;">${safe.message}</p>
-                </div>` : ''}
-              </div>
-            </td>
-          </tr>
-
-          <!-- Action -->
-          <tr>
-            <td style="padding: 0 30px 30px; text-align: center;">
-              <a href="mailto:${safe.email}?subject=Re: 同業合作申請" style="display: inline-block; background-color: #2563eb; color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
-                回覆此申請
-              </a>
-            </td>
-          </tr>
-
-          <!-- Footer -->
-          <tr>
-            <td style="background-color: #1e293b; padding: 30px; text-align: center;">
-              <p style="color: #94a3b8; margin: 0 0 8px; font-size: 14px; font-weight: 600;">新島交通株式會社</p>
-              <p style="color: #64748b; margin: 0; font-size: 12px;">同業合作夥伴系統</p>
-              <p style="color: #475569; margin: 16px 0 0; font-size: 11px;">
-                此郵件由網站自動發送 | 申請時間: ${new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Tokyo' })}
-              </p>
-            </td>
-          </tr>
-
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>
-      `,
+      html: buildEmailHtml({
+        headerTitle: 'NIIJIMA',
+        iconEmoji: '&#129309;',
+        iconBgColor: '#fef6f4',
+        statusTitle: '新同業合作申請',
+        statusSubtitle: '收到新的合作夥伴申請，請盡快跟進',
+        contentSections: [
+          buildDetailsTable('申請資料', [
+            { label: '公司名稱', value: data.companyName },
+            { label: '聯絡人', value: data.contactName },
+            { label: '電子郵件', value: data.email },
+            ...(data.phone ? [{ label: '聯絡電話', value: data.phone, valueBold: false }] : []),
+            ...(data.country ? [{ label: '國家/地區', value: data.country, valueBold: false }] : []),
+            ...(data.businessType ? [{ label: '業務類型', value: data.businessType, valueBold: false }] : []),
+          ], safe.message ? `
+                <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #e8e6e3;">
+                  <p style="color: #78716a; margin: 0 0 8px; font-size: 12px; font-weight: 600;">合作意向說明</p>
+                  <p style="color: #1b1917; margin: 0; font-size: 14px; line-height: 1.8; white-space: pre-wrap;">${safe.message}</p>
+                </div>` : undefined),
+        ],
+        ctaText: '回覆此申請',
+        ctaUrl: `mailto:${safe.email}?subject=Re: 同業合作申請`,
+        footerCompanyName: '新島交通株式會社',
+        footerDisclaimer: `此郵件由網站自動發送 | 申請時間: ${new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Tokyo' })}`,
+      }),
     });
 
     console.log('Partner inquiry email sent:', result);
 
     // 发送确认邮件给申请人
     await resend.emails.send({
-      from: '新島交通 <noreply@niijima-koutsu.jp>',
+      from: EMAIL_FROM.system,
       to: data.email,
       subject: '【新島交通】感謝您的合作申請',
-      html: `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body style="margin: 0; padding: 0; background-color: #f5f5f5; font-family: 'Helvetica Neue', Arial, sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5; padding: 40px 20px;">
-    <tr>
-      <td align="center">
-        <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-
-          <!-- Header -->
-          <tr>
-            <td style="background: linear-gradient(100deg, #E8452F 0%, #EC652A 100%); padding: 40px 30px; text-align: center;">
-              <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 600;">NIIJIMA</h1>
-              <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0; font-size: 16px;">新島交通株式會社</p>
-            </td>
-          </tr>
-
-          <!-- Content -->
-          <tr>
-            <td style="padding: 40px 30px; text-align: center;">
-              <div style="width: 80px; height: 80px; background-color: #dcfce7; border-radius: 50%; display: inline-block; line-height: 80px; margin-bottom: 20px;">
-                <span style="font-size: 40px;">✓</span>
-              </div>
-              <h2 style="color: #166534; margin: 0 0 16px; font-size: 24px;">申請已收到</h2>
-              <p style="color: #6b7280; margin: 0; font-size: 16px; line-height: 1.8;">
-                ${safe.contactName} 您好，<br><br>
-                感謝您對新島交通同業合作的興趣！<br>
-                我們已收到您的申請，將在 1-2 個工作日內與您聯繫。
-              </p>
-            </td>
-          </tr>
-
-          <!-- Summary -->
-          <tr>
-            <td style="padding: 0 30px 30px;">
-              <div style="background-color: #f8fafc; border-radius: 12px; padding: 20px; border: 1px solid #e2e8f0;">
-                <p style="color: #64748b; margin: 0 0 8px; font-size: 12px;">您的申請摘要</p>
-                <p style="color: #1e293b; margin: 0; font-size: 14px;"><strong>公司名稱：</strong>${safe.companyName}</p>
-              </div>
-            </td>
-          </tr>
-
-          <!-- Contact -->
-          <tr>
-            <td style="padding: 0 30px 30px;">
-              <div style="text-align: center; padding: 20px; background-color: #fafafa; border-radius: 12px;">
-                <p style="color: #64748b; margin: 0 0 16px; font-size: 14px;">如有任何問題，歡迎聯繫我們</p>
-                <a href="mailto:haoyuan@niijima-koutsu.jp" style="display: inline-block; background-color: #2563eb; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
-                  聯繫我們
-                </a>
-              </div>
-            </td>
-          </tr>
-
-          <!-- Footer -->
-          <tr>
-            <td style="background-color: #1e293b; padding: 30px; text-align: center;">
-              <p style="color: #94a3b8; margin: 0 0 8px; font-size: 14px; font-weight: 600;">新島交通株式會社</p>
-              <p style="color: #64748b; margin: 0; font-size: 12px;">日本第二類旅行社</p>
-              <p style="color: #475569; margin: 16px 0 0; font-size: 11px;">
-                此郵件由系統自動發送，請勿直接回覆
-              </p>
-            </td>
-          </tr>
-
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>
-      `,
+      html: buildEmailHtml({
+        headerTitle: 'NIIJIMA',
+        iconEmoji: '&#10003;',
+        statusTitle: '申請已收到',
+        statusTitleColor: '#16a34a',
+        statusSubtitle: `${safe.contactName} 您好，<br><br>感謝您對新島交通同業合作的興趣！<br>我們已收到您的申請，將在 1-2 個工作日內與您聯繫。`,
+        contentSections: [
+          buildInfoCard('您的申請摘要', `<p style="color: #1b1917; margin: 0; font-size: 14px;"><strong>公司名稱：</strong>${safe.companyName}</p>`),
+          buildInfoCard('', `<p style="color: #78716a; margin: 0; font-size: 13px; text-align: center;">如有任何問題，歡迎聯繫 <a href="mailto:haoyuan@niijima-koutsu.jp" style="color: #b13e22; text-decoration: none;">haoyuan@niijima-koutsu.jp</a></p>`),
+        ],
+        footerCompanyName: '新島交通株式會社',
+        footerDisclaimer: '此郵件由系統自動發送，請勿直接回覆',
+      }),
     });
 
     return NextResponse.json({
