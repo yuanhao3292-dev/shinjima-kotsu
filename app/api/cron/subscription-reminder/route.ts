@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { EMAIL_FROM, buildEmailHtml, buildBanner, buildInfoCard } from '@/lib/email-template';
 import { Resend } from 'resend';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
 
@@ -83,7 +84,7 @@ export async function GET(request: NextRequest) {
 
       try {
         await resend.emails.send({
-          from: 'NIIJIMA Partner <partner@niijima-koutsu.jp>',
+          from: EMAIL_FROM.partner,
           to: guide.email,
           subject: `⚠️ 紧急提醒：您的白标订阅将在 ${daysLeft} 天后到期`,
           html: generateReminderEmail(guide.name, daysLeft, true),
@@ -106,7 +107,7 @@ export async function GET(request: NextRequest) {
 
       try {
         await resend.emails.send({
-          from: 'NIIJIMA Partner <partner@niijima-koutsu.jp>',
+          from: EMAIL_FROM.partner,
           to: guide.email,
           subject: `📅 提醒：您的白标订阅将在 ${daysLeft} 天后到期`,
           html: generateReminderEmail(guide.name, daysLeft, false),
@@ -135,83 +136,24 @@ export async function GET(request: NextRequest) {
 }
 
 function generateReminderEmail(name: string, daysLeft: number, isUrgent: boolean): string {
-  const urgentBanner = isUrgent ? `
-    <tr>
-      <td style="padding: 0 30px 20px;">
-        <div style="background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 16px; text-align: center;">
-          <span style="font-size: 24px;">⚠️</span>
-          <p style="color: #dc2626; font-weight: 600; margin: 8px 0 0;">订阅即将到期，请尽快续费以避免服务中断</p>
-        </div>
-      </td>
-    </tr>
-  ` : '';
-
-  return `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body style="margin: 0; padding: 0; background-color: #f5f5f5; font-family: 'Helvetica Neue', Arial, sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5; padding: 40px 20px;">
-    <tr>
-      <td align="center">
-        <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-
-          <!-- Header -->
-          <tr>
-            <td style="background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); padding: 40px 30px; text-align: center;">
-              <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 600;">NIIJIMA</h1>
-              <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0; font-size: 16px;">Guide Partner Program</p>
-            </td>
-          </tr>
-
-          <!-- Content -->
-          <tr>
-            <td style="padding: 40px 30px 20px; text-align: center;">
-              <h2 style="color: #1e293b; margin: 0 0 10px; font-size: 24px;">订阅到期提醒</h2>
-              <p style="color: #6b7280; margin: 0; font-size: 16px;">${name || '尊敬的合伙人'}，您好</p>
-            </td>
-          </tr>
-
-          ${urgentBanner}
-
-          <tr>
-            <td style="padding: 0 30px 20px; text-align: center;">
-              <div style="background-color: #fff7ed; border-radius: 12px; padding: 24px;">
-                <p style="color: #9a3412; font-size: 48px; font-weight: 700; margin: 0;">${daysLeft}</p>
-                <p style="color: #c2410c; font-size: 16px; margin: 8px 0 0;">天后到期</p>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td style="padding: 0 30px 30px; text-align: center;">
-              <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px;">
-                您的白标页面订阅将在 ${daysLeft} 天后到期。为了避免服务中断，请及时续费。
-              </p>
-              <a href="https://niijima-koutsu.jp/guide-partner/whitelabel"
-                 style="display: inline-block; background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600;">
-                立即续费
-              </a>
-            </td>
-          </tr>
-
-          <!-- Footer -->
-          <tr>
-            <td style="background-color: #f8fafc; padding: 20px 30px; text-align: center;">
-              <p style="color: #9ca3af; font-size: 12px; margin: 0;">
-                如有任何问题，请联系我们的客服团队
-              </p>
-            </td>
-          </tr>
-
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>
-  `;
+  return buildEmailHtml({
+    headerTitle: 'NIIJIMA',
+    iconEmoji: isUrgent ? '&#9888;' : '&#128197;',
+    iconBgColor: isUrgent ? '#fef2f2' : '#fef6f4',
+    statusTitle: '订阅到期提醒',
+    statusSubtitle: `${name || '尊敬的合伙人'}，您好`,
+    contentSections: [
+      ...(isUrgent ? [buildBanner('⚠️ 订阅即将到期，请尽快续费以避免服务中断', { bgGradient: '#fef2f2', borderColor: '#fecaca', textColor: '#dc2626' })] : []),
+      buildInfoCard('', `
+        <div style="text-align: center;">
+          <p style="color: #b13e22; font-size: 48px; font-weight: 700; margin: 0;">${daysLeft}</p>
+          <p style="color: #78716a; font-size: 16px; margin: 8px 0 0;">天后到期</p>
+        </div>`),
+      buildInfoCard('', `<p style="color: #58534e; font-size: 14px; line-height: 1.7; margin: 0; text-align: center;">您的白标页面订阅将在 ${daysLeft} 天后到期。为了避免服务中断，请及时续费。</p>`),
+    ],
+    ctaText: '立即续费',
+    ctaUrl: 'https://niijima-koutsu.jp/guide-partner/whitelabel',
+    footerCompanyName: '新島交通株式會社',
+    footerDisclaimer: '此邮件由系统自动发送',
+  });
 }

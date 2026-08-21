@@ -10,7 +10,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { getSupabaseAdmin } from '@/lib/supabase/api';
-import { buildEmailHtml } from '@/lib/email-template';
+import { EMAIL_FROM, buildEmailHtml } from '@/lib/email-template';
 import {
   type EmailLocale,
   t,
@@ -116,7 +116,7 @@ export async function GET(request: NextRequest) {
         const html = buildReminderEmail(locale, u.riskLevel, u.healthScore, monthsSince, isHighRisk);
 
         await resend.emails.send({
-          from: 'NIIJIMA Health <health@niijima-koutsu.jp>',
+          from: EMAIL_FROM.health,
           to: email,
           subject,
           html,
@@ -184,7 +184,6 @@ function buildReminderEmail(
   return buildEmailHtml({
     headerTitle: 'NIIJIMA',
     headerSubtitle: 'Health Passport',
-    headerGradient: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
     iconEmoji: isHighRisk ? '⚠️' : '🏥',
     iconBgColor: isHighRisk ? '#fef2f2' : '#ecfdf5',
     statusTitle: t(isHighRisk ? i18n.statusTitleHighRisk : i18n.statusTitle, locale),
@@ -192,7 +191,6 @@ function buildReminderEmail(
     contentSections: [statsSection, messageSection],
     ctaText: t(i18n.ctaText, locale),
     ctaUrl: 'https://niijima-koutsu.jp/health-screening',
-    ctaGradient: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
     footerCompanyName: t(common.footerCompany, locale),
     footerSubtitle: 'Health Passport',
     footerDisclaimer: t(common.footerDisclaimer, locale),
