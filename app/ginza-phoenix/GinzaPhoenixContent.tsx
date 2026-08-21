@@ -10,22 +10,22 @@ import { useLanguage4, type Language } from '@/hooks/useLanguage';
 
 // Hero Image (白标首图映射用)
 export const GINZA_PHOENIX_HERO_IMAGE =
-  'https://static.wixstatic.com/media/1778a7_4417743f0826481297af97cd36d5a362~mv2.jpg';
+  'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/b9d05584d38c.jpg';
 
 // Official Site Image URLs
 const IMAGES = {
   hero: GINZA_PHOENIX_HERO_IMAGE,
-  drNagai: 'https://static.wixstatic.com/media/1778a7_cb8af8e2e028489dae8084f8f548b616~mv2.webp',
-  drNagaiPortrait: 'https://static.wixstatic.com/media/1778a7_4f7f651883cd4a509a481bf39eb059a3~mv2.jpg',
-  reception: 'https://static.wixstatic.com/media/1778a7_61c48104f389482c8870001e2e83b7cd~mv2.jpg',
-  treatmentRoom: 'https://static.wixstatic.com/media/1778a7_404610b56d224e69abdc4075fce5dbcd~mv2.jpg',
-  cpc: 'https://static.wixstatic.com/media/1778a7_2cd3ab97c12a46a18c50661896c1be63~mv2.png',
-  waitingRoom: 'https://static.wixstatic.com/media/1778a7_f4f72df80ce842e1ac29a3f1a581f2f3~mv2.jpg',
-  udxBuilding: 'https://static.wixstatic.com/media/1778a7_df63efd453ef4f25a4c91d96e947f6f9~mv2.webp',
-  consultation: 'https://static.wixstatic.com/media/1778a7_b460ee2df83a4d8687f6bc178162f08a~mv2.webp',
-  entrance: 'https://static.wixstatic.com/media/1778a7_a9bff88a5107440997dee93f5653e549~mv2.jpg',
-  interiorReception: 'https://static.wixstatic.com/media/1778a7_39fcaac5f9a14455b8e99c04779505ae~mv2.jpg',
-  treatmentRoom2: 'https://static.wixstatic.com/media/1778a7_92eca6135b954d3382a2675d2c856ed4~mv2.jpg',
+  drNagai: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/61eb25defce2.jpg',
+  drNagaiPortrait: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/e22fe34fc0c3.jpg',
+  reception: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/b69dbd100d86.jpg',
+  treatmentRoom: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/37abdbed3246.jpg',
+  cpc: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/170cbcda88d5.png',
+  waitingRoom: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/7bb19686ceb1.jpg',
+  udxBuilding: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/acd4c7eef02a.jpg',
+  consultation: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/8c7411eb032e.jpg',
+  entrance: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/cce93cd2d474.jpg',
+  interiorReception: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/c04c14a85bb2.jpg',
+  treatmentRoom2: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/cc0392544df9.jpg',
 };
 
 // Brand: #6d2e1f (navy), #8c3621 (teal-gray), #b13e22 (blue-gray), bg: #e8e6e1, #f5f5f0

@@ -10,25 +10,25 @@ import { useLanguage4, type Language } from '@/hooks/useLanguage';
 // ======================================
 // Hero 图片（白标首图映射用）
 // ======================================
-export const CELL_MEDICINE_HERO_IMAGE = 'https://ipeace.com/wp-content/uploads/2020/05/mv_bg.png';
+export const CELL_MEDICINE_HERO_IMAGE = 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/d3a5e678fbdb.png';
 
 // ======================================
 // iPeace 官网图片（仅使用主站 ipeace.com 图片）
 // ======================================
 const IPEACE_IMAGES = {
   // Hero & Main
-  hero: 'https://ipeace.com/wp-content/uploads/2020/05/mv_bg.png',
-  heroBackground: 'https://ipeace.com/wp-content/uploads/2020/05/mv_bg.png',
+  hero: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/d3a5e678fbdb.png',
+  heroBackground: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/d3a5e678fbdb.png',
 
   // Scientific & Technology
-  ipscImage: 'https://ipeace.com/wp-content/uploads/2020/03/ipsc-image-FIX.jpg',
-  cardImage: 'https://ipeace.com/wp-content/uploads/2020/03/Card-1.jpg',
-  futureTherapy: 'https://ipeace.com/wp-content/uploads/2020/03/ipsc-image-FIX.jpg',
+  ipscImage: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/3471a9a10c8e.jpg',
+  cardImage: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/a586c1eff42c.jpg',
+  futureTherapy: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/3471a9a10c8e.jpg',
 
   // Logos & Branding
-  logo: 'https://ipeace.com/wp-content/uploads/2020/03/logo-2.png',
-  logoAlt: 'https://ipeace.com/wp-content/uploads/2020/03/logo-1.png',
-  textLogo: 'https://ipeace.com/wp-content/uploads/2020/03/IPE_textlogo@2x.png',
+  logo: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/dd0e5edb2821.png',
+  logoAlt: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/e6e0be7c06cb.png',
+  textLogo: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/2f7667a28491.png',
 } as const;
 
 // ======================================

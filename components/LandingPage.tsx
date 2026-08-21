@@ -51,7 +51,7 @@ const DEFAULT_SITE_IMAGES: Record<string, string> = {
   tech_dental: "https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/tech-dental.jpg",
 
   // Golf Page - 仅保留用户上传的富士山图
-  plan_fuji: "https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/plan-fuji.png",
+  plan_fuji: "https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/site/plan-fuji.jpg",
 
   // Homepage Golf Section 背景图
   homepage_golf_bg: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?q=80&w=2000&auto=format&fit=crop",
