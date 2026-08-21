@@ -12,17 +12,17 @@ import { useLanguage4, type Language } from '@/hooks/useLanguage';
 // Hero image export (white-label mapping)
 // ======================================
 export const OSAKA_HIMAK_HERO_IMAGE =
-  'https://www.osaka-himak.or.jp/cn/images/top/sec_slide01_mv_img01_pc.jpg';
+  'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/e394d2ae594f.jpg';
 
 // ======================================
 // Official image URLs
 // ======================================
 const IMG = {
-  hero1: 'https://www.osaka-himak.or.jp/cn/images/top/sec_slide01_mv_img01_pc.jpg',
-  hero2: 'https://www.osaka-himak.or.jp/cn/images/top/sec_slide02_mv_img01_pc.jpg',
-  hero3: 'https://www.osaka-himak.or.jp/cn/images/top/sec_slide03_mv_img01_pc.jpg',
-  hero4: 'https://www.osaka-himak.or.jp/cn/images/top/sec_slide04_mv_img01_pc.jpg',
-  logo: 'https://www.osaka-himak.or.jp/cn/images/common/site_logo.png',
+  hero1: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/e394d2ae594f.jpg',
+  hero2: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/e72e849049dc.jpg',
+  hero3: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/699d14cfc235.jpg',
+  hero4: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/e22845370d64.jpg',
+  logo: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/c56870d2e494.png',
 };
 
 // ======================================

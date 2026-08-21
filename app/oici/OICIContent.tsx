@@ -20,20 +20,20 @@ interface Props {
 // Image Assets
 // ======================================
 const OICI_IMAGES = {
-  exterior:  'https://www.nihonsekkei.co.jp/wp-content/uploads/2017/07/3c692a8b8911831af2d1fd6bfcd4e0e7.jpg',
-  entrance:  'https://www.nihonsekkei.co.jp/wp-content/uploads/2017/07/4745774cffea3ed84559ed19c1439039.jpg',
-  corridor:  'https://www.nihonsekkei.co.jp/wp-content/uploads/2017/07/b218fab3cfbf381734820ea138be5286.jpg',
-  dayRoom:   'https://www.nihonsekkei.co.jp/wp-content/uploads/2017/07/260cfade06cbf22b775b4dc9e67ad9d0.jpg',
-  room:      'https://www.nihonsekkei.co.jp/wp-content/uploads/2017/07/85cfc6f26230ae1a49490969cdb2108e.jpg',
-  building1: 'https://www.takenaka.co.jp/majorworks/images/41404192016_01_l.jpg',
-  building2: 'https://www.takenaka.co.jp/majorworks/images/41404192016_02_l.jpg',
-  interior1: 'https://www.takenaka.co.jp/majorworks/images/41404192016_03_l.jpg',
-  interior2: 'https://www.takenaka.co.jp/majorworks/images/41404192016_04_l.jpg',
-  interior3: 'https://www.takenaka.co.jp/majorworks/images/41404192016_05_l.jpg',
+  exterior:  'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/c71ed2f224a7.jpg',
+  entrance:  'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/1f813a1b2ece.jpg',
+  corridor:  'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/6e6246e46cc3.jpg',
+  dayRoom:   'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/2c5f6aca420f.jpg',
+  room:      'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/64735f3ae1ba.jpg',
+  building1: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/4fbd03adbc61.jpg',
+  building2: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/e2c155ee299d.jpg',
+  interior1: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/06dbc7319e71.jpg',
+  interior2: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/c371fbc80955.jpg',
+  interior3: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/d5a2f779d424.jpg',
   // OICI 官网 da Vinci 机器人手术相关图片
-  daVinciSystem: 'https://oici.jp/file/202011/img_davinci_intro01.png',
-  robotCenter:   'https://oici.jp/file/202509/img_ganrobotcenter01.jpg',
-  daVinciConsole: 'https://oici.jp/file/202011/img_davinci02.png',
+  daVinciSystem: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/4ff2242ad48f.jpg',
+  robotCenter:   'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/7cf54a95af5e.jpg',
+  daVinciConsole: 'https://fcpcjfqxxtxlbtvbjduk.supabase.co/storage/v1/object/public/public-assets/ext/394cdaf2f00a.jpg',
 } as const;
 
 // ======================================
