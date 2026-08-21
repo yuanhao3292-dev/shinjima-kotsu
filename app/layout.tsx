@@ -18,55 +18,13 @@ import { buildDistributionNavItems } from '@/lib/utils/build-distribution-nav'
 import BrowserFingerprint from '@/components/BrowserFingerprint'
 import CookieConsent from '@/components/CookieConsent'
 import ConsentAnalytics from '@/components/ConsentAnalytics'
-import {
-  Inter,
-  Noto_Sans_JP,
-  Noto_Sans_TC,
-  Noto_Sans_SC,
-  Noto_Sans_KR,
-} from 'next/font/google'
 
-// === 自托管字体（构建时下载，运行时从 Vercel CDN 提供） ===
-// 默认语言 (ja) 预加载，其他语言按需加载
-const notoSansJP = Noto_Sans_JP({
-  subsets: ['latin'],
-  variable: '--font-noto-sans-jp',
-  display: 'swap',
-})
-// 2026-08-20 起全站单一无衬线族（JTB 式）：4 套宋体 + Playfair 已卸载，
-// --font-serif 在 globals.css 里指向黑体兜底。
-const notoSansTC = Noto_Sans_TC({
-  subsets: ['latin'],
-  variable: '--font-noto-sans-tc',
-  display: 'swap',
-  preload: false,
-})
-const notoSansSC = Noto_Sans_SC({
-  subsets: ['latin'],
-  variable: '--font-noto-sans-sc',
-  display: 'swap',
-  preload: false,
-})
-const notoSansKR = Noto_Sans_KR({
-  subsets: ['latin'],
-  variable: '--font-noto-sans-kr',
-  display: 'swap',
-  preload: false,
-})
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-  preload: false,
-})
-
-const fontVariableClasses = [
-  notoSansJP.variable,
-  notoSansTC.variable,
-  notoSansSC.variable,
-  notoSansKR.variable,
-  inter.variable,
-].join(' ')
+// === 字体：系统字体栈（2026-08-21，JTB 式） ===
+// 此前自托管 4 套 Noto Sans CJK 可变字体：首页实测 87 个切片 4.5MB、
+// 占页面重量 77%（服务端默认繁中 + 客户端浏览器语言切换 → TC/SC 两套齐下）。
+// 固定字重无效 —— Google 对 CJK 只发可变版。用户字体铁律原文即
+// "Meiryo/系统黑体"：Mac=PingFang/Hiragino、Win=YaHei/Meiryo、移动端=系统黑体，
+// 字体下载量归零，文字即时渲染。栈定义见 globals.css。
 
 // 根 metadata。子页面只写 title / description / canonical，
 // 站名后缀由 title.template 统一补。
@@ -189,7 +147,7 @@ export default async function RootLayout({
   const htmlLang = locale
 
   return (
-    <html lang={htmlLang} data-locale={locale} className={fontVariableClasses}>
+    <html lang={htmlLang} data-locale={locale}>
       {/* 曾在此引入霞鹜文楷 CDN 样式表作为简中 serif 后备，已移除：
           它是 <head> 里阻塞渲染的第三方样式表，带来 582 条 @font-face
           （LXGW WenKai + Mono 各 291），而它在字体栈里排第 4 位后备，
