@@ -5,9 +5,9 @@
    ============================================ */
 @theme {
   /* 默认字体 — next/font 自托管，CSS 变量由 layout.tsx 注入 */
-  --font-sans: var(--font-noto-sans-jp), 'Noto Sans JP', sans-serif;
-  /* 全站单族无衬线：--font-serif 也指向黑体，杜绝任何路径长出衬线 */
-  --font-serif: var(--font-noto-sans-jp), 'Noto Sans JP', sans-serif;
+  /* 系统字体栈（JTB 式）：零下载、即时渲染；各 locale 的覆盖见下方 */
+  --font-sans: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, 'Yu Gothic', 'Noto Sans JP', sans-serif;
+  --font-serif: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, 'Yu Gothic', 'Noto Sans JP', sans-serif;
 
   /* Brand 珊瑚 (Coral) — 暖亮的珊瑚橙红，色相 12°。
      2026-08-18 由钢蓝换成珊瑚：用户反馈蓝色"太沉重、没有活力"，
@@ -63,7 +63,7 @@
 
 /* 基础样式 */
 body {
-  font-family: var(--font-noto-sans-jp), 'Noto Sans JP', sans-serif;
+  font-family: var(--font-sans);
   background-color: #FAFAFA;
   color: #2D2D2D;
   overflow-x: hidden;
@@ -72,61 +72,61 @@ body {
  /* 全站单一无衬线族（用户定，JTB 式）。.font-serif 保留为黑体别名，
     兜住任何漏网的旧 class。 */
 .serif, .font-serif {
-  font-family: var(--font-noto-sans-jp), 'Noto Sans JP', sans-serif;
+  font-family: var(--font-sans);
 }
 
 /* Locale-specific font overrides */
 /* 通过 CSS 变量覆盖 Tailwind v4 的 --font-sans/--font-serif，确保 html→body→子元素 全链路字体一致 */
 [data-locale="zh-TW"] {
-  --font-sans: var(--font-noto-sans-tc), 'Noto Sans TC', sans-serif;
-  --font-serif: var(--font-noto-sans-tc), 'Noto Sans TC', sans-serif;
+  --font-sans: 'PingFang TC', 'Hiragino Sans CNS', 'Microsoft JhengHei', 'Noto Sans TC', sans-serif;
+  --font-serif: 'PingFang TC', 'Hiragino Sans CNS', 'Microsoft JhengHei', 'Noto Sans TC', sans-serif;
 }
 [data-locale="zh-TW"] body,
 [data-locale="zh-TW"] .font-sans {
-  font-family: var(--font-noto-sans-tc), 'Noto Sans TC', sans-serif !important;
+  font-family: 'PingFang TC', 'Hiragino Sans CNS', 'Microsoft JhengHei', 'Noto Sans TC', sans-serif !important;
 }
 [data-locale="zh-TW"] .serif,
 [data-locale="zh-TW"] .font-serif {
-  font-family: var(--font-noto-sans-tc), 'Noto Sans TC', sans-serif !important;
+  font-family: 'PingFang TC', 'Hiragino Sans CNS', 'Microsoft JhengHei', 'Noto Sans TC', sans-serif !important;
 }
 
 [data-locale="zh-CN"] {
-  --font-sans: var(--font-noto-sans-sc), 'HarmonyOS Sans SC', 'MiSans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  --font-serif: var(--font-noto-sans-sc), 'HarmonyOS Sans SC', 'MiSans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-sans: 'PingFang SC', 'HarmonyOS Sans SC', 'MiSans', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  --font-serif: 'PingFang SC', 'HarmonyOS Sans SC', 'MiSans', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
 }
 [data-locale="zh-CN"] body,
 [data-locale="zh-CN"] .font-sans {
-  font-family: var(--font-noto-sans-sc), 'HarmonyOS Sans SC', 'MiSans', 'PingFang SC', 'Microsoft YaHei', sans-serif !important;
+  font-family: 'PingFang SC', 'HarmonyOS Sans SC', 'MiSans', 'Microsoft YaHei', 'Noto Sans SC', sans-serif !important;
 }
 [data-locale="zh-CN"] .serif,
 [data-locale="zh-CN"] .font-serif {
-  font-family: var(--font-noto-sans-sc), 'HarmonyOS Sans SC', 'MiSans', 'PingFang SC', 'Microsoft YaHei', sans-serif !important;
+  font-family: 'PingFang SC', 'HarmonyOS Sans SC', 'MiSans', 'Microsoft YaHei', 'Noto Sans SC', sans-serif !important;
 }
 
 [data-locale="en"] {
-  --font-sans: var(--font-inter), 'Inter', sans-serif;
-  --font-serif: var(--font-inter), 'Inter', sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 [data-locale="en"] body,
 [data-locale="en"] .font-sans {
-  font-family: var(--font-inter), 'Inter', sans-serif !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
 }
 [data-locale="en"] .serif,
 [data-locale="en"] .font-serif {
-  font-family: var(--font-inter), 'Inter', sans-serif !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
 }
 
 [data-locale="ko"] {
-  --font-sans: var(--font-noto-sans-kr), 'Noto Sans KR', sans-serif;
-  --font-serif: var(--font-noto-sans-kr), 'Noto Sans KR', sans-serif;
+  --font-sans: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif;
+  --font-serif: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif;
 }
 [data-locale="ko"] body,
 [data-locale="ko"] .font-sans {
-  font-family: var(--font-noto-sans-kr), 'Noto Sans KR', sans-serif !important;
+  font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif !important;
 }
 [data-locale="ko"] .serif,
 [data-locale="ko"] .font-serif {
-  font-family: var(--font-noto-sans-kr), 'Noto Sans KR', sans-serif !important;
+  font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif !important;
 }
 
 @keyframes fadeInUp {
