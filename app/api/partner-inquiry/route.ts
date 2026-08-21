@@ -29,7 +29,8 @@ interface PartnerInquiryData {
   contactName: string;
   email: string;
   phone?: string;
-  message: string;
+  message?: string;   // 表单上是选填，与 UI 保持一致
+  country?: string;
   businessType?: string;
 }
 
@@ -51,7 +52,7 @@ export async function POST(request: NextRequest) {
     const data: PartnerInquiryData = await request.json();
 
     // 验证必填字段
-    if (!data.companyName || !data.contactName || !data.email || !data.message) {
+    if (!data.companyName || !data.contactName || !data.email) {
       return NextResponse.json(
         { error: '請填寫所有必填欄位' },
         { status: 400 }
@@ -82,7 +83,8 @@ export async function POST(request: NextRequest) {
       contactName: escapeHtml(data.contactName),
       email: escapeHtml(data.email),
       phone: data.phone ? escapeHtml(data.phone) : '',
-      message: escapeHtml(data.message),
+      message: data.message ? escapeHtml(data.message) : '',
+      country: data.country ? escapeHtml(data.country) : '',
       businessType: data.businessType ? escapeHtml(data.businessType) : '',
     };
 
@@ -107,7 +109,7 @@ export async function POST(request: NextRequest) {
 
           <!-- Header -->
           <tr>
-            <td style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); padding: 40px 30px; text-align: center;">
+            <td style="background: linear-gradient(100deg, #E8452F 0%, #EC652A 100%); padding: 40px 30px; text-align: center;">
               <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 600;">新同業合作申請</h1>
               <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0; font-size: 14px;">收到新的合作夥伴申請</p>
             </td>
@@ -134,6 +136,11 @@ export async function POST(request: NextRequest) {
                       <a href="mailto:${safe.email}" style="color: #2563eb; text-decoration: none;">${safe.email}</a>
                     </td>
                   </tr>
+                  ${data.country ? `
+                  <tr>
+                    <td style="color: #64748b; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">國家/地區</td>
+                    <td style="color: #1e293b; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">${safe.country}</td>
+                  </tr>` : ''}
                   ${data.phone ? `
                   <tr>
                     <td style="color: #64748b; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">聯絡電話</td>
@@ -148,10 +155,11 @@ export async function POST(request: NextRequest) {
                   ` : ''}
                 </table>
 
+                ${safe.message ? `
                 <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
                   <p style="color: #64748b; margin: 0 0 8px; font-size: 12px; font-weight: 600;">合作意向說明</p>
                   <p style="color: #1e293b; margin: 0; font-size: 14px; line-height: 1.8; white-space: pre-wrap;">${safe.message}</p>
-                </div>
+                </div>` : ''}
               </div>
             </td>
           </tr>
@@ -207,7 +215,7 @@ export async function POST(request: NextRequest) {
 
           <!-- Header -->
           <tr>
-            <td style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); padding: 40px 30px; text-align: center;">
+            <td style="background: linear-gradient(100deg, #E8452F 0%, #EC652A 100%); padding: 40px 30px; text-align: center;">
               <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 600;">NIIJIMA</h1>
               <p style="color: rgba(255,255,255,0.9); margin: 8px 0 0; font-size: 16px;">新島交通株式會社</p>
             </td>

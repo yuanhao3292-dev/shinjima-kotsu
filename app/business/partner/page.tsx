@@ -788,6 +788,12 @@ const pageTranslations = {
     'zh-CN': '提交合作申请',
     'en': 'Submit Partnership Application',
   },
+  formSubmitFailed: {
+    'ja': '送信に失敗しました。しばらくしてからもう一度お試しください',
+    'zh-TW': '提交失敗，請稍後再試',
+    'zh-CN': '提交失败，请稍后再试',
+    'en': 'Submission failed. Please try again later.',
+  },
 
   // Contact Info Section
   contactEmailLabel: {
@@ -1037,6 +1043,7 @@ export default function PartnerBusinessPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [privacyConsent, setPrivacyConsent] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
 
   const t = (key: keyof typeof pageTranslations) => pageTranslations[key][currentLang];
@@ -1046,17 +1053,32 @@ export default function PartnerBusinessPage() {
     setIsSubmitting(true);
 
     try {
+      // ⚠️ API 的必填字段名是 contactName —— 此前发的是 contactPerson，
+      // 每次提交都 400，且下面没有失败分支，用户以为发成功了。
       const response = await fetch('/api/partner-inquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, type: 'b2b_travel_agency' })
+        body: JSON.stringify({
+          companyName: formData.companyName,
+          contactName: formData.contactPerson,
+          email: formData.email,
+          phone: formData.phone,
+          country: formData.country,
+          businessType: formData.businessType,
+          message: formData.message,
+          type: 'b2b_travel_agency',
+        })
       });
 
       if (response.ok) {
         setIsSubmitted(true);
+      } else {
+        const result = await response.json().catch(() => ({}));
+        setSubmitError(result.error || t('formSubmitFailed'));
       }
     } catch (error) {
       console.error('Submission error:', error);
+      setSubmitError(t('formSubmitFailed'));
     } finally {
       setIsSubmitting(false);
     }
@@ -1659,6 +1681,11 @@ export default function PartnerBusinessPage() {
                       {currentLang === 'en' && <>I agree to the <a href="/legal/privacy" target="_blank" className="text-brand-700 underline">Privacy Policy</a> and submit</>}
                     </span>
                   </label>
+                  {submitError && (
+                    <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg">
+                      {submitError}
+                    </div>
+                  )}
                   <button
                     type="submit"
                     disabled={isSubmitting || !privacyConsent}
