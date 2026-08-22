@@ -12,7 +12,9 @@ const nextConfig = {
   devIndicators: false,
 
   // Turbopack 配置 (Next.js 16+ 默认启用)
-  turbopack: {},
+  // 工作区根写死为本项目目录。否则 Turbopack 会向上找 lockfile 推断根，
+  // 上层残留锁文件会把根算错，导致本地 dev 卡死 / 解析不到依赖。
+  turbopack: { root: __dirname },
 
   // Webpack 配置 (备用)
   webpack: (config) => {

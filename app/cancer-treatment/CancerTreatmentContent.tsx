@@ -893,51 +893,28 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
             <p className="text-xl text-white/85 mb-8 leading-relaxed font-light max-w-2xl">
               {t('heroStat')}
             </p>
-            <div className="flex flex-wrap gap-4 mb-8">
+            {/* 病症搜索 — hero 主交互：输入病症 → AI 定位科室与合作医院 */}
+            <SymptomHospitalMatcher lang={currentLang} variant="hero" />
+            {/* 次级入口 + 信任点 */}
+            <div className="flex flex-wrap items-center gap-4 mt-8 mb-6">
               <a
                 href="#contact-form"
-                className="inline-flex items-center gap-2 px-8 py-4 border-2 border-white text-white bg-transparent hover:bg-white/10 text-sm font-medium tracking-wider hover:bg-white/10 transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 border border-white/60 text-white text-sm tracking-wider hover:bg-white/10 transition-colors"
               >
-                <MessageSquare size={20} />
+                <MessageSquare size={18} />
                 {t('heroCTA')}
               </a>
               <a
                 href="#treatment-flow"
-                className="inline-flex items-center px-8 py-4 border-2 border-white text-white bg-transparent text-sm tracking-wider hover:bg-white/10 transition-colors"
+                className="inline-flex items-center px-6 py-3 border border-white/60 text-white text-sm tracking-wider hover:bg-white/10 transition-colors"
               >
                 {t('heroFlow')}
               </a>
             </div>
-            {/* Key Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/30">
-                <div className="text-3xl font-bold text-white mb-1">7</div>
-                <div className="text-sm text-white/85">{t('statHeavyIon')}</div>
-                <div className="text-xs text-white/75 mt-1">{t('statHeavyIonSub')}</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/30">
-                <div className="text-3xl font-bold text-white mb-1">2020</div>
-                <div className="text-sm text-white/85">{t('statPhotoimmuno')}</div>
-                <div className="text-xs text-white/75 mt-1">{t('statPhotoimmunoSub')}</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/30">
-                <div className="text-3xl font-bold text-white mb-1">1/3</div>
-                <div className="text-sm text-white/85">{t('statCost')}</div>
-                <div className="text-xs text-white/75 mt-1">{t('statCostSub')}</div>
-              </div>
-            </div>
-            <p className="text-xs text-white/85 mb-4">{t('dataSource')}</p>
-            {/* Trust Points */}
             <div className="flex flex-wrap gap-6 text-white/85">
-              <div className="flex items-center gap-2">
-                <span className="text-sm">{t('trustEarly')}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-sm">{t('trustTranslator')}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-sm">{t('trustRemote')}</span>
-              </div>
+              <span className="text-sm">{t('trustEarly')}</span>
+              <span className="text-sm">{t('trustTranslator')}</span>
+              <span className="text-sm">{t('trustRemote')}</span>
             </div>
           </div>
         </div>
@@ -1231,7 +1208,8 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
         </div>
       </section>
       {/* AI 病症匹配医院（综合治疗页入口） */}
-      <SymptomHospitalMatcher lang={currentLang} />
+      {/* 病症搜索已并入 hero；导游嵌入模式下 hero 被隐藏，保留独立区块 */}
+      {isGuideEmbed && <SymptomHospitalMatcher lang={currentLang} />}
 
       {/* Standard Treatments Section */}
       <section className="py-24 bg-gradient-to-br from-neutral-50 to-brand-50">

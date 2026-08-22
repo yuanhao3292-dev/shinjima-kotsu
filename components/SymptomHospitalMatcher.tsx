@@ -38,7 +38,7 @@ const T = {
   err: { ja: 'マッチングに失敗しました。もう一度お試しください。', 'zh-TW': '匹配失敗，請重試。', 'zh-CN': '匹配失败，请重试。', en: 'Match failed. Please try again.', ko: '매칭 실패. 다시 시도해 주세요.' },
 } as const;
 
-export default function SymptomHospitalMatcher({ lang }: { lang: Language }) {
+export default function SymptomHospitalMatcher({ lang, variant = 'section' }: { lang: Language; variant?: 'section' | 'hero' }) {
   const t = (k: keyof typeof T) => T[k][lang] ?? T[k]['zh-CN'];
   const [symptom, setSymptom] = useState('');
   const [loading, setLoading] = useState(false);
@@ -64,6 +64,84 @@ export default function SymptomHospitalMatcher({ lang }: { lang: Language }) {
     }
   };
 
+  // 搜索卡：hero 形态下更大、带厚阴影，浮在深色底图上
+  const searchCard = (
+    <div className={variant === 'hero'
+      ? 'bg-white rounded-2xl p-2.5 md:p-3 shadow-2xl'
+      : 'bg-white border border-neutral-200 rounded-2xl p-5 md:p-6 shadow-sm'}>
+      <div className="flex flex-col sm:flex-row gap-3">
+        <textarea
+          value={symptom}
+          onChange={(e) => setSymptom(e.target.value)}
+          onKeyDown={(e) => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) submit(); }}
+          rows={variant === 'hero' ? 1 : 2}
+          maxLength={500}
+          placeholder={t('placeholder')}
+          className={variant === 'hero'
+            ? 'flex-1 resize-none px-4 py-3.5 rounded-xl text-base text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-brand-500'
+            : 'flex-1 resize-none px-4 py-3 border border-neutral-200 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:border-transparent'}
+        />
+        <button
+          onClick={submit}
+          disabled={loading || symptom.trim().length < 2}
+          className={`shrink-0 self-stretch sm:self-auto brand-gradient-solid text-white font-medium rounded-xl hover:opacity-90 transition disabled:opacity-50 flex items-center justify-center gap-2 ${variant === 'hero' ? 'px-7 py-3.5 text-base' : 'px-6 py-3'}`}
+        >
+          {loading ? <><Loader2 className="w-4 h-4 animate-spin" />{t('matching')}</> : <><Search className="w-4 h-4" />{t('button')}</>}
+        </button>
+      </div>
+      {error && <p className={`mt-3 text-sm text-rose-600 ${variant === 'hero' ? 'px-2 pb-1' : ''}`}>{error}</p>}
+    </div>
+  );
+
+  const results = result && (
+    <div className={variant === 'hero' ? 'mt-4 bg-white/95 backdrop-blur rounded-2xl p-5 md:p-6 shadow-2xl text-left' : 'mt-6'}>
+      {result.needsCoordinator && (
+        <div className="mb-4 flex items-start gap-3 p-4 bg-rose-50 border border-rose-200 rounded-xl text-sm text-rose-700">
+          <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" />
+          <span>{t('emergency')}</span>
+        </div>
+      )}
+      <div className="flex flex-wrap items-center gap-2 mb-4">
+        <span className="text-sm text-neutral-500">{t('deptLabel')}：</span>
+        {result.triage.departments.map((d) => (
+          <span key={d} className="px-3 py-1 bg-brand-50 text-brand-700 text-sm rounded-full border border-brand-200">{d}</span>
+        ))}
+      </div>
+
+      <h3 className="text-lg font-bold text-neutral-900 mb-3">{t('resultTitle')}</h3>
+      <div className="space-y-3">
+        {result.hospitals.map((h) => (
+          <div key={h.id} className={`flex items-center justify-between gap-4 p-4 bg-white border border-neutral-200 rounded-xl hover:border-brand-300 transition`}>
+            <div className="min-w-0">
+              <p className="font-bold text-neutral-900 truncate">{h.name}</p>
+              <p className="text-sm text-neutral-500 mt-0.5">
+                {h.department}{h.location ? ` · ${h.location}` : ''}
+              </p>
+            </div>
+            <a
+              href={variant === 'hero' ? '#contact-form' : '#contact'}
+              className="shrink-0 inline-flex items-center gap-1 px-4 py-2 text-sm font-medium text-brand-700 border border-brand-300 rounded-lg hover:bg-brand-50 transition"
+            >
+              {t('consult')}<ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <p className={`mt-5 text-xs leading-relaxed ${variant === 'hero' ? 'text-neutral-500' : 'text-neutral-400'}`}>{t('disclaimer')}</p>
+    </div>
+  );
+
+  if (variant === 'hero') {
+    // 无 section 外壳，直接嵌进 hero 的内容流
+    return (
+      <div className="w-full max-w-3xl">
+        {searchCard}
+        {results}
+      </div>
+    );
+  }
+
   return (
     <section className="py-16 md:py-24 bg-neutral-50">
       <div className="container mx-auto px-6 max-w-4xl">
@@ -72,67 +150,8 @@ export default function SymptomHospitalMatcher({ lang }: { lang: Language }) {
           <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mt-3 mb-4">{t('title')}</h2>
           <p className="text-neutral-600 text-sm max-w-2xl mx-auto leading-relaxed">{t('sub')}</p>
         </div>
-
-        <div className="bg-white border border-neutral-200 rounded-2xl p-5 md:p-6 shadow-sm">
-          <div className="flex flex-col sm:flex-row gap-3">
-            <textarea
-              value={symptom}
-              onChange={(e) => setSymptom(e.target.value)}
-              onKeyDown={(e) => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) submit(); }}
-              rows={2}
-              maxLength={500}
-              placeholder={t('placeholder')}
-              className="flex-1 resize-none px-4 py-3 border border-neutral-200 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:border-transparent"
-            />
-            <button
-              onClick={submit}
-              disabled={loading || symptom.trim().length < 2}
-              className="shrink-0 self-stretch sm:self-auto px-6 py-3 brand-gradient-solid text-white font-medium rounded-xl hover:opacity-90 transition disabled:opacity-50 flex items-center justify-center gap-2"
-            >
-              {loading ? <><Loader2 className="w-4 h-4 animate-spin" />{t('matching')}</> : <><Search className="w-4 h-4" />{t('button')}</>}
-            </button>
-          </div>
-          {error && <p className="mt-3 text-sm text-rose-600">{error}</p>}
-        </div>
-
-        {result && (
-          <div className="mt-6">
-            {result.needsCoordinator && (
-              <div className="mb-4 flex items-start gap-3 p-4 bg-rose-50 border border-rose-200 rounded-xl text-sm text-rose-700">
-                <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" />
-                <span>{t('emergency')}</span>
-              </div>
-            )}
-            <div className="flex flex-wrap items-center gap-2 mb-4">
-              <span className="text-sm text-neutral-500">{t('deptLabel')}：</span>
-              {result.triage.departments.map((d) => (
-                <span key={d} className="px-3 py-1 bg-brand-50 text-brand-700 text-sm rounded-full border border-brand-200">{d}</span>
-              ))}
-            </div>
-
-            <h3 className="text-lg font-bold text-neutral-900 mb-3">{t('resultTitle')}</h3>
-            <div className="space-y-3">
-              {result.hospitals.map((h) => (
-                <div key={h.id} className="flex items-center justify-between gap-4 p-4 bg-white border border-neutral-200 rounded-xl hover:border-brand-300 transition">
-                  <div className="min-w-0">
-                    <p className="font-bold text-neutral-900 truncate">{h.name}</p>
-                    <p className="text-sm text-neutral-500 mt-0.5">
-                      {h.department}{h.location ? ` · ${h.location}` : ''}
-                    </p>
-                  </div>
-                  <a
-                    href="#contact"
-                    className="shrink-0 inline-flex items-center gap-1 px-4 py-2 text-sm font-medium text-brand-700 border border-brand-300 rounded-lg hover:bg-brand-50 transition"
-                  >
-                    {t('consult')}<ArrowRight className="w-4 h-4" />
-                  </a>
-                </div>
-              ))}
-            </div>
-
-            <p className="mt-5 text-xs text-neutral-400 leading-relaxed">{t('disclaimer')}</p>
-          </div>
-        )}
+        {searchCard}
+        {results}
       </div>
     </section>
   );
