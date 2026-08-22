@@ -17,6 +17,8 @@ export interface SymptomSuggestion {
   dept: string;
   /** 各语言显示词面 */
   t: Record<Language, string>;
+  /** 匹配别名（口语/俗称/近义词，不展示只参与匹配），如 牛皮癣→银屑病 */
+  k?: string[];
 }
 
 /** 科室显示名（下拉右侧的小标签用） */
@@ -40,6 +42,8 @@ export const DEPT_LABELS: Record<string, Record<Language, string>> = {
   康复科: { ja: 'リハビリテーション科', 'zh-TW': '復健科', 'zh-CN': '康复科', en: 'Rehabilitation', ko: '재활의학과' },
   再生医疗: { ja: '再生医療', 'zh-TW': '再生醫療', 'zh-CN': '再生医疗', en: 'Regenerative Medicine', ko: '재생의료' },
   内科: { ja: '内科', 'zh-TW': '內科', 'zh-CN': '内科', en: 'General Medicine', ko: '내과' },
+  脑神经外科: { ja: '脳神経外科', 'zh-TW': '腦神經外科', 'zh-CN': '脑神经外科', en: 'Neurosurgery', ko: '신경외과' },
+  风湿免疫科: { ja: 'リウマチ・膠原病科', 'zh-TW': '風濕免疫科', 'zh-CN': '风湿免疫科', en: 'Rheumatology', ko: '류마티스내과' },
 };
 
 export const SYMPTOM_SUGGESTIONS: SymptomSuggestion[] = [
@@ -52,7 +56,7 @@ export const SYMPTOM_SUGGESTIONS: SymptomSuggestion[] = [
   { dept: '肿瘤科', t: { ja: '肺がん', 'zh-TW': '肺癌', 'zh-CN': '肺癌', en: 'Lung cancer', ko: '폐암' } },
   { dept: '肿瘤科', t: { ja: '胃がん', 'zh-TW': '胃癌', 'zh-CN': '胃癌', en: 'Stomach cancer', ko: '위암' } },
   { dept: '肿瘤科', t: { ja: '肝臓がん', 'zh-TW': '肝癌', 'zh-CN': '肝癌', en: 'Liver cancer', ko: '간암' } },
-  { dept: '肿瘤科', t: { ja: '大腸がん', 'zh-TW': '大腸癌', 'zh-CN': '大肠癌', en: 'Colorectal cancer', ko: '대장암' } },
+  { dept: '肿瘤科', t: { ja: '大腸がん', 'zh-TW': '大腸癌', 'zh-CN': '大肠癌', en: 'Colorectal cancer', ko: '대장암' }, k: ['直肠癌', '结肠癌', '直腸癌', '結腸癌'] },
   { dept: '肿瘤科', t: { ja: '食道がん', 'zh-TW': '食道癌', 'zh-CN': '食道癌', en: 'Esophageal cancer', ko: '식도암' } },
   { dept: '肿瘤科', t: { ja: 'すい臓がん', 'zh-TW': '胰臟癌', 'zh-CN': '胰腺癌', en: 'Pancreatic cancer', ko: '췌장암' } },
   { dept: '肿瘤科', t: { ja: '甲状腺がん', 'zh-TW': '甲狀腺癌', 'zh-CN': '甲状腺癌', en: 'Thyroid cancer', ko: '갑상선암' } },
@@ -67,7 +71,7 @@ export const SYMPTOM_SUGGESTIONS: SymptomSuggestion[] = [
   { dept: '消化内科', t: { ja: '胸やけ・呑酸', 'zh-TW': '胃酸逆流', 'zh-CN': '反酸烧心', en: 'Acid reflux', ko: '속쓰림' } },
   { dept: '消化内科', t: { ja: '黒色便・血便', 'zh-TW': '黑便・血便', 'zh-CN': '黑便・便血', en: 'Black or bloody stool', ko: '흑변·혈변' } },
   { dept: '消化内科', t: { ja: '腹痛', 'zh-TW': '腹痛', 'zh-CN': '腹痛', en: 'Abdominal pain', ko: '복통' } },
-  { dept: '消化内科', t: { ja: '慢性の下痢', 'zh-TW': '長期腹瀉', 'zh-CN': '长期腹泻', en: 'Chronic diarrhea', ko: '만성 설사' } },
+  { dept: '消化内科', t: { ja: '慢性の下痢', 'zh-TW': '長期腹瀉', 'zh-CN': '长期腹泻', en: 'Chronic diarrhea', ko: '만성 설사' }, k: ['拉肚子'] },
   { dept: '消化内科', t: { ja: '便秘', 'zh-TW': '便祕', 'zh-CN': '便秘', en: 'Constipation', ko: '변비' } },
   { dept: '消化内科', t: { ja: '嚥下困難', 'zh-TW': '吞嚥困難', 'zh-CN': '吞咽困难', en: 'Difficulty swallowing', ko: '삼킴 곤란' } },
   { dept: '消化内科', t: { ja: '食欲不振・体重減少', 'zh-TW': '食慾不振・消瘦', 'zh-CN': '食欲不振・消瘦', en: 'Appetite loss, weight loss', ko: '식욕부진·체중감소' } },
@@ -100,7 +104,7 @@ export const SYMPTOM_SUGGESTIONS: SymptomSuggestion[] = [
   { dept: '骨科', t: { ja: '首・肩の痛み', 'zh-TW': '頸肩疼痛', 'zh-CN': '颈肩疼痛', en: 'Neck & shoulder pain', ko: '목·어깨 통증' } },
   { dept: '骨科', t: { ja: '関節の腫れ・痛み', 'zh-TW': '關節腫痛', 'zh-CN': '关节肿痛', en: 'Joint swelling & pain', ko: '관절 통증' } },
   // 泌尿
-  { dept: '泌尿外科', t: { ja: '血尿', 'zh-TW': '血尿', 'zh-CN': '血尿', en: 'Blood in urine', ko: '혈뇨' } },
+  { dept: '泌尿外科', t: { ja: '血尿', 'zh-TW': '血尿', 'zh-CN': '血尿', en: 'Blood in urine', ko: '혈뇨' }, k: ['尿血'] },
   { dept: '泌尿外科', t: { ja: '頻尿・尿意切迫', 'zh-TW': '頻尿', 'zh-CN': '尿频尿急', en: 'Frequent urination', ko: '빈뇨' } },
   { dept: '泌尿外科', t: { ja: '前立腺の悩み', 'zh-TW': '攝護腺問題', 'zh-CN': '前列腺问题', en: 'Prostate issues', ko: '전립선 문제' } },
   // 妇产 / 乳腺
@@ -117,17 +121,62 @@ export const SYMPTOM_SUGGESTIONS: SymptomSuggestion[] = [
   // 皮肤
   { dept: '皮肤科', t: { ja: 'ほくろの変化', 'zh-TW': '痣的變化', 'zh-CN': '痣的变化', en: 'Changing mole', ko: '점 변화' } },
   { dept: '皮肤科', t: { ja: '湿疹・皮疹', 'zh-TW': '濕疹皮疹', 'zh-CN': '湿疹皮疹', en: 'Eczema, rash', ko: '습진·발진' } },
-  { dept: '皮肤科', t: { ja: '抜け毛・薄毛', 'zh-TW': '脫髮', 'zh-CN': '脱发', en: 'Hair loss', ko: '탈모' } },
+  { dept: '皮肤科', t: { ja: '抜け毛・薄毛', 'zh-TW': '脫髮', 'zh-CN': '脱发', en: 'Hair loss', ko: '탈모' }, k: ['掉头发', '掉髮'] },
   // 内分泌 / 血液 / 肾脏
-  { dept: '内分泌科', t: { ja: '糖尿病', 'zh-TW': '糖尿病', 'zh-CN': '糖尿病', en: 'Diabetes', ko: '당뇨병' } },
+  { dept: '内分泌科', t: { ja: '糖尿病', 'zh-TW': '糖尿病', 'zh-CN': '糖尿病', en: 'Diabetes', ko: '당뇨병' }, k: ['血糖'] },
   { dept: '内分泌科', t: { ja: '甲状腺結節', 'zh-TW': '甲狀腺結節', 'zh-CN': '甲状腺结节', en: 'Thyroid nodule', ko: '갑상선 결절' } },
   { dept: '血液内科', t: { ja: '貧血', 'zh-TW': '貧血', 'zh-CN': '贫血', en: 'Anemia', ko: '빈혈' } },
   { dept: '肾脏内科', t: { ja: '蛋白尿・腎機能異常', 'zh-TW': '蛋白尿・腎功能異常', 'zh-CN': '蛋白尿・肾功能异常', en: 'Proteinuria, kidney issues', ko: '단백뇨·신기능 이상' } },
   // 精神 / 康复 / 再生
-  { dept: '精神科', t: { ja: '不眠', 'zh-TW': '失眠', 'zh-CN': '失眠', en: 'Insomnia', ko: '불면증' } },
+  { dept: '精神科', t: { ja: '不眠', 'zh-TW': '失眠', 'zh-CN': '失眠', en: 'Insomnia', ko: '불면증' }, k: ['睡不着', '睡不著'] },
   { dept: '精神科', t: { ja: '不安・気分の落ち込み', 'zh-TW': '焦慮抑鬱', 'zh-CN': '焦虑抑郁', en: 'Anxiety, depression', ko: '불안·우울' } },
   { dept: '康复科', t: { ja: '脳卒中後のリハビリ', 'zh-TW': '中風後復健', 'zh-CN': '中风后康复', en: 'Post-stroke rehab', ko: '뇌졸중 후 재활' } },
   { dept: '再生医疗', t: { ja: '幹細胞治療の相談', 'zh-TW': '幹細胞治療諮詢', 'zh-CN': '干细胞治疗咨询', en: 'Stem cell therapy', ko: '줄기세포 치료 상담' } },
+  // ---- 二期补充：癌种（续） ----
+  { dept: '肿瘤科', t: { ja: '上咽頭がん', 'zh-TW': '鼻咽癌', 'zh-CN': '鼻咽癌', en: 'Nasopharyngeal cancer', ko: '비인두암' } },
+  { dept: '脑神经外科', t: { ja: '脳腫瘍・神経膠腫', 'zh-TW': '腦瘤・膠質瘤', 'zh-CN': '脑瘤・胶质瘤', en: 'Brain tumor, glioma', ko: '뇌종양' } },
+  { dept: '泌尿外科', t: { ja: '腎臓がん', 'zh-TW': '腎癌', 'zh-CN': '肾癌', en: 'Kidney cancer', ko: '신장암' } },
+  { dept: '泌尿外科', t: { ja: '膀胱がん', 'zh-TW': '膀胱癌', 'zh-CN': '膀胱癌', en: 'Bladder cancer', ko: '방광암' } },
+  { dept: '肿瘤科', t: { ja: '胆管がん・胆のうがん', 'zh-TW': '膽管癌・膽囊癌', 'zh-CN': '胆管癌・胆囊癌', en: 'Bile duct / gallbladder cancer', ko: '담관암·담낭암' } },
+  { dept: '皮肤科', t: { ja: 'メラノーマ・皮膚がん', 'zh-TW': '黑色素瘤・皮膚癌', 'zh-CN': '黑色素瘤・皮肤癌', en: 'Melanoma, skin cancer', ko: '흑색종·피부암' } },
+  { dept: '肿瘤科', t: { ja: 'がんの骨転移', 'zh-TW': '癌症骨轉移', 'zh-CN': '癌症骨转移', en: 'Bone metastasis', ko: '암 골전이' }, k: ['转移', '轉移'] },
+  { dept: '血液内科', t: { ja: '多発性骨髄腫', 'zh-TW': '多發性骨髓瘤', 'zh-CN': '多发性骨髓瘤', en: 'Multiple myeloma', ko: '다발성 골수종' } },
+  // ---- 先进治疗方式（本页卖点，用户会直接搜疗法名） ----
+  { dept: '肿瘤科', t: { ja: '陽子線・重粒子線治療', 'zh-TW': '質子・重粒子治療', 'zh-CN': '质子・重离子治疗', en: 'Proton / heavy-ion therapy', ko: '양성자·중입자 치료' }, k: ['重离子', '質子'] },
+  { dept: '肿瘤科', t: { ja: '光免疫療法', 'zh-TW': '光免疫療法', 'zh-CN': '光免疫疗法', en: 'Photoimmunotherapy', ko: '광면역요법' } },
+  { dept: '肿瘤科', t: { ja: 'BNCT（ホウ素中性子捕捉療法）', 'zh-TW': 'BNCT 硼中子治療', 'zh-CN': 'BNCT 硼中子俘获治疗', en: 'BNCT (boron neutron capture)', ko: 'BNCT 붕소중성자치료' }, k: ['硼中子'] },
+  { dept: '肿瘤科', t: { ja: 'CAR-T・免疫細胞療法', 'zh-TW': 'CAR-T・免疫細胞治療', 'zh-CN': 'CAR-T・免疫细胞治疗', en: 'CAR-T, immune cell therapy', ko: 'CAR-T·면역세포치료' }, k: ['免疫治疗', '免疫治療'] },
+  // ---- 体检筛查（赴日就医高频入口） ----
+  { dept: '内科', t: { ja: '人間ドック（精密健診）', 'zh-TW': '全面健檢・精密健檢', 'zh-CN': '全面体检・精密体检', en: 'Comprehensive health screening', ko: '종합검진' }, k: ['体检', '健診'] },
+  { dept: '内科', t: { ja: 'PET-CT がん検診', 'zh-TW': 'PET-CT 癌症篩查', 'zh-CN': 'PET-CT 癌症筛查', en: 'PET-CT cancer screening', ko: 'PET-CT 암 검진' }, k: ['petct', 'pet'] },
+  { dept: '消化内科', t: { ja: '胃・大腸内視鏡検査', 'zh-TW': '胃腸鏡檢查', 'zh-CN': '胃肠镜检查', en: 'Gastroscopy & colonoscopy', ko: '위·대장 내시경' }, k: ['胃镜', '肠镜', '胃鏡', '腸鏡', '内视镜', '內視鏡'] },
+  // ---- 二期补充：高频症状与慢病 ----
+  { dept: '内科', t: { ja: '原因不明の発熱', 'zh-TW': '不明原因發燒', 'zh-CN': '不明原因发热', en: 'Unexplained fever', ko: '원인불명 발열' }, k: ['发烧'] },
+  { dept: '内科', t: { ja: 'だるさ・疲れやすい', 'zh-TW': '容易疲勞', 'zh-CN': '乏力・容易疲劳', en: 'Fatigue', ko: '피로감' } },
+  { dept: '呼吸内科', t: { ja: 'いびき・睡眠時無呼吸', 'zh-TW': '打鼾・睡眠呼吸中止', 'zh-CN': '打鼾・睡眠呼吸暂停', en: 'Snoring, sleep apnea', ko: '코골이·수면무호흡' }, k: ['打呼噜'] },
+  { dept: '呼吸内科', t: { ja: '喘息', 'zh-TW': '氣喘', 'zh-CN': '哮喘', en: 'Asthma', ko: '천식' } },
+  { dept: '循环内科', t: { ja: '狭心症・ステント術後', 'zh-TW': '冠心病・支架術後', 'zh-CN': '冠心病・支架术后', en: 'Coronary disease, post-stent', ko: '관상동맥질환·스텐트 시술 후' }, k: ['心脏病', '心臟病', '心肌梗塞'] },
+  { dept: '循环内科', t: { ja: '不整脈・心房細動', 'zh-TW': '心律不整・房顫', 'zh-CN': '心律不齐・房颤', en: 'Arrhythmia, AFib', ko: '부정맥·심방세동' } },
+  { dept: '神经内科', t: { ja: 'パーキンソン病', 'zh-TW': '帕金森氏症', 'zh-CN': '帕金森病', en: "Parkinson's disease", ko: '파킨슨병' } },
+  { dept: '神经内科', t: { ja: '認知症・アルツハイマー', 'zh-TW': '失智症・阿茲海默', 'zh-CN': '认知症・阿尔茨海默', en: "Dementia, Alzheimer's", ko: '치매·알츠하이머' }, k: ['老年痴呆', '痴呆'] },
+  { dept: '神经内科', t: { ja: 'てんかん', 'zh-TW': '癲癇', 'zh-CN': '癫痫', en: 'Epilepsy', ko: '뇌전증' }, k: ['羊癫疯'] },
+  { dept: '脑神经外科', t: { ja: '脳梗塞・脳出血', 'zh-TW': '腦梗塞・腦出血', 'zh-CN': '脑梗・脑出血', en: 'Stroke, brain hemorrhage', ko: '뇌경색·뇌출혈' }, k: ['脑中风', '腦中風', '脑血管'] },
+  { dept: '骨科', t: { ja: '椎間板ヘルニア', 'zh-TW': '椎間盤突出', 'zh-CN': '椎间盘突出', en: 'Herniated disc', ko: '추간판 탈출증' }, k: ['腰椎', '颈椎', '頸椎', '허리디스크'] },
+  { dept: '骨科', t: { ja: '大腿骨頭壊死', 'zh-TW': '股骨頭壞死', 'zh-CN': '股骨头坏死', en: 'Femoral head necrosis', ko: '대퇴골두 괴사' } },
+  { dept: '骨科', t: { ja: '骨粗しょう症', 'zh-TW': '骨質疏鬆', 'zh-CN': '骨质疏松', en: 'Osteoporosis', ko: '골다공증' } },
+  { dept: '风湿免疫科', t: { ja: '痛風', 'zh-TW': '痛風', 'zh-CN': '痛风', en: 'Gout', ko: '통풍' }, k: ['尿酸'] },
+  { dept: '风湿免疫科', t: { ja: '関節リウマチ', 'zh-TW': '類風濕性關節炎', 'zh-CN': '类风湿关节炎', en: 'Rheumatoid arthritis', ko: '류마티스 관절염' }, k: ['风湿', '風濕'] },
+  { dept: '泌尿外科', t: { ja: '腎結石・尿路結石', 'zh-TW': '腎結石', 'zh-CN': '肾结石', en: 'Kidney stones', ko: '신장결석·요로결석' }, k: ['尿路结石', '尿路結石'] },
+  { dept: '妇产科', t: { ja: '子宮筋腫', 'zh-TW': '子宮肌瘤', 'zh-CN': '子宫肌瘤', en: 'Uterine fibroids', ko: '자궁근종' } },
+  { dept: '妇产科', t: { ja: '卵巣のう腫', 'zh-TW': '卵巢囊腫', 'zh-CN': '卵巢囊肿', en: 'Ovarian cyst', ko: '난소낭종' } },
+  { dept: '妇产科', t: { ja: 'HPV感染・子宮頸部異形成', 'zh-TW': 'HPV 感染・子宮頸病變', 'zh-CN': 'HPV 感染・宫颈病变', en: 'HPV, cervical dysplasia', ko: 'HPV 감염·자궁경부 이형성' } },
+  { dept: '眼科', t: { ja: '緑内障', 'zh-TW': '青光眼', 'zh-CN': '青光眼', en: 'Glaucoma', ko: '녹내장' } },
+  { dept: '眼科', t: { ja: '加齢黄斑変性・眼底疾患', 'zh-TW': '黃斑部病變', 'zh-CN': '黄斑变性・眼底病', en: 'Macular degeneration', ko: '황반변성' } },
+  { dept: '耳鼻喉科', t: { ja: '鼻づまり・副鼻腔炎', 'zh-TW': '鼻塞・鼻竇炎', 'zh-CN': '鼻塞・鼻窦炎', en: 'Sinusitis, nasal congestion', ko: '축농증·코막힘' } },
+  { dept: '皮肤科', t: { ja: '乾癬', 'zh-TW': '乾癬', 'zh-CN': '银屑病', en: 'Psoriasis', ko: '건선' }, k: ['牛皮癣', '牛皮癬'] },
+  { dept: '皮肤科', t: { ja: '白斑（尋常性白斑）', 'zh-TW': '白斑症', 'zh-CN': '白癜风', en: 'Vitiligo', ko: '백반증' } },
+  { dept: '内分泌科', t: { ja: '甲状腺機能亢進症・低下症', 'zh-TW': '甲亢・甲減', 'zh-CN': '甲亢・甲减', en: 'Hyper / hypothyroidism', ko: '갑상선 기능 항진·저하' } },
+  { dept: '内分泌科', t: { ja: '肥満・減量相談', 'zh-TW': '肥胖・減重', 'zh-CN': '肥胖・减重', en: 'Obesity, weight management', ko: '비만·체중감량' }, k: ['减肥', '減肥'] },
 ];
 
 /** 输入为空时展示的高频入口（按本页人群排序；按 zh-CN 词面查找，杜绝下标漂移） */
@@ -152,11 +201,13 @@ export function activeToken(value: string): string {
   return (parts[parts.length - 1] || '').trim();
 }
 
-/** 跨语言子串匹配 */
+/** 跨语言子串匹配（词面 + 别名） */
 export function filterSuggestions(token: string, limit = 8): SymptomSuggestion[] {
   const q = token.trim().toLowerCase();
   if (!q) return [];
-  return SYMPTOM_SUGGESTIONS.filter((s) =>
-    Object.values(s.t).some((v) => v.toLowerCase().includes(q))
+  return SYMPTOM_SUGGESTIONS.filter(
+    (s) =>
+      Object.values(s.t).some((v) => v.toLowerCase().includes(q)) ||
+      (s.k ?? []).some((v) => v.toLowerCase().includes(q))
   ).slice(0, limit);
 }
