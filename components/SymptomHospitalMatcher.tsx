@@ -1,8 +1,16 @@
 'use client';
 
 import { useState } from 'react';
+import { Command } from 'cmdk';
 import { Loader2, Search, ArrowRight, AlertTriangle } from 'lucide-react';
 import type { Language } from '@/hooks/useLanguage';
+import {
+  POPULAR_SUGGESTIONS,
+  DEPT_LABELS,
+  activeToken,
+  filterSuggestions,
+  type SymptomSuggestion,
+} from '@/lib/symptom-suggestions';
 
 // 病症 → 定位医院（综合治疗页原型）。调 /api/hospital-match，
 // 一次轻量 AI 分诊 + 本地匹配 174 家 JTB/直营医院。
@@ -36,6 +44,7 @@ const T = {
   emergency: { ja: '緊急性の可能性があります。重い症状の場合はすぐに現地の救急（119）をご利用ください。', 'zh-TW': '可能具緊急性。若症狀嚴重，請立即撥打當地急救電話。', 'zh-CN': '可能具紧急性。若症状严重，请立即拨打当地急救电话。', en: 'This may be urgent. If severe, contact local emergency services immediately.', ko: '응급 가능성이 있습니다. 심할 경우 즉시 현지 응급 서비스에 연락하세요.' },
   disclaimer: { ja: '※ 本結果は AI による診療科の目安であり、医学的診断ではありません。最終的な受診先はコーディネーターが調整します。', 'zh-TW': '※ 本結果為 AI 判定的就診科別參考，非醫學診斷。最終就診安排由專屬顧問協調。', 'zh-CN': '※ 本结果为 AI 判定的就诊科别参考，非医学诊断。最终就诊安排由专属顾问协调。', en: '※ Results are an AI department guide, not a medical diagnosis. Final arrangements are coordinated by our team.', ko: '※ 본 결과는 AI 진료과 안내이며 의학적 진단이 아닙니다.' },
   err: { ja: 'マッチングに失敗しました。もう一度お試しください。', 'zh-TW': '匹配失敗，請重試。', 'zh-CN': '匹配失败，请重试。', en: 'Match failed. Please try again.', ko: '매칭 실패. 다시 시도해 주세요.' },
+  popular: { ja: 'よくあるご相談', 'zh-TW': '常見諮詢', 'zh-CN': '常见病症', en: 'Common concerns', ko: '자주 찾는 증상' },
 } as const;
 
 export default function SymptomHospitalMatcher({ lang, variant = 'section' }: { lang: Language; variant?: 'section' | 'hero' }) {
@@ -44,9 +53,11 @@ export default function SymptomHospitalMatcher({ lang, variant = 'section' }: { 
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<MatchResult | null>(null);
   const [error, setError] = useState('');
+  const [open, setOpen] = useState(false); // 联想下拉（仅 hero 形态）
 
   const submit = async () => {
     if (symptom.trim().length < 2 || loading) return;
+    setOpen(false);
     setLoading(true); setError(''); setResult(null);
     try {
       const r = await fetch('/api/hospital-match', {
@@ -64,32 +75,95 @@ export default function SymptomHospitalMatcher({ lang, variant = 'section' }: { 
     }
   };
 
-  // 搜索卡：hero 形态下更大、带厚阴影，浮在深色底图上
-  const searchCard = (
-    <div className={variant === 'hero'
-      ? 'bg-white rounded-2xl p-2.5 md:p-3 shadow-2xl'
-      : 'bg-white border border-neutral-200 rounded-2xl p-5 md:p-6 shadow-sm'}>
+  // ---- 病症联想（cmdk）：只在 hero 形态启用 ----
+  const sep = lang === 'ja' ? '、' : lang === 'zh-CN' || lang === 'zh-TW' ? '，' : ', ';
+  const token = activeToken(symptom);
+  const suggestions: SymptomSuggestion[] = open
+    ? (token ? filterSuggestions(token) : POPULAR_SUGGESTIONS)
+    : [];
+
+  const pick = (s: SymptomSuggestion) => {
+    const term = s.t[lang] ?? s.t['zh-CN'];
+    // 用未 trim 的"最后一段"定位要被替换的部分（token 是 trim 过的）
+    const rawLast = symptom.match(/[^，,、;；\n]*$/)?.[0] ?? '';
+    const base = symptom.slice(0, symptom.length - rawLast.length);
+    setSymptom(base + term + sep);
+    setOpen(false); // 关闭下拉：下一次 Enter 直接提交
+  };
+
+  // 搜索卡：hero 形态下更大、带厚阴影，浮在深色底图上，带联想下拉
+  const searchCard = variant === 'hero' ? (
+    <div className="bg-white rounded-2xl p-2.5 md:p-3 shadow-2xl">
+      <div className="flex flex-col sm:flex-row gap-3">
+        <Command shouldFilter={false} loop className="relative flex-1">
+          <Command.Input
+            value={symptom}
+            onValueChange={(v) => { setSymptom(v); setOpen(true); }}
+            onFocus={() => setOpen(true)}
+            onBlur={() => setTimeout(() => setOpen(false), 150)}
+            onKeyDown={(e) => {
+              if (e.key === 'Escape') { setOpen(false); return; }
+              // 下拉开着时 Enter 由 cmdk 选中联想词；关着时 Enter 直接提交
+              if (e.key === 'Enter' && (e.metaKey || e.ctrlKey || suggestions.length === 0)) {
+                e.preventDefault();
+                submit();
+              }
+            }}
+            maxLength={500}
+            placeholder={t('placeholder')}
+            className="w-full px-4 py-3.5 rounded-xl text-base text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-brand-500"
+          />
+          {suggestions.length > 0 && (
+            <Command.List className="absolute left-0 right-0 top-full mt-2 z-30 bg-white rounded-xl shadow-2xl border border-neutral-100 py-2 max-h-72 overflow-auto text-left">
+              {!token && (
+                <div className="px-4 pt-1 pb-2 text-xs text-neutral-400">{t('popular')}</div>
+              )}
+              {suggestions.map((s) => (
+                <Command.Item
+                  key={s.t['zh-CN']}
+                  value={s.t['zh-CN']}
+                  onSelect={() => pick(s)}
+                  onMouseDown={(e) => e.preventDefault()}
+                  className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm cursor-pointer data-[selected=true]:bg-brand-50"
+                >
+                  <span className="text-neutral-800">{s.t[lang] ?? s.t['zh-CN']}</span>
+                  <span className="shrink-0 text-xs text-neutral-400">{DEPT_LABELS[s.dept]?.[lang] ?? s.dept}</span>
+                </Command.Item>
+              ))}
+            </Command.List>
+          )}
+        </Command>
+        <button
+          onClick={submit}
+          disabled={loading || symptom.trim().length < 2}
+          className="shrink-0 self-stretch sm:self-auto brand-gradient-solid text-white font-medium rounded-xl hover:opacity-90 transition disabled:opacity-50 flex items-center justify-center gap-2 px-7 py-3.5 text-base"
+        >
+          {loading ? <><Loader2 className="w-4 h-4 animate-spin" />{t('matching')}</> : <><Search className="w-4 h-4" />{t('button')}</>}
+        </button>
+      </div>
+      {error && <p className="mt-3 text-sm text-rose-600 px-2 pb-1">{error}</p>}
+    </div>
+  ) : (
+    <div className="bg-white border border-neutral-200 rounded-2xl p-5 md:p-6 shadow-sm">
       <div className="flex flex-col sm:flex-row gap-3">
         <textarea
           value={symptom}
           onChange={(e) => setSymptom(e.target.value)}
           onKeyDown={(e) => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) submit(); }}
-          rows={variant === 'hero' ? 1 : 2}
+          rows={2}
           maxLength={500}
           placeholder={t('placeholder')}
-          className={variant === 'hero'
-            ? 'flex-1 resize-none px-4 py-3.5 rounded-xl text-base text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-brand-500'
-            : 'flex-1 resize-none px-4 py-3 border border-neutral-200 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:border-transparent'}
+          className="flex-1 resize-none px-4 py-3 border border-neutral-200 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:border-transparent"
         />
         <button
           onClick={submit}
           disabled={loading || symptom.trim().length < 2}
-          className={`shrink-0 self-stretch sm:self-auto brand-gradient-solid text-white font-medium rounded-xl hover:opacity-90 transition disabled:opacity-50 flex items-center justify-center gap-2 ${variant === 'hero' ? 'px-7 py-3.5 text-base' : 'px-6 py-3'}`}
+          className="shrink-0 self-stretch sm:self-auto brand-gradient-solid text-white font-medium rounded-xl hover:opacity-90 transition disabled:opacity-50 flex items-center justify-center gap-2 px-6 py-3"
         >
           {loading ? <><Loader2 className="w-4 h-4 animate-spin" />{t('matching')}</> : <><Search className="w-4 h-4" />{t('button')}</>}
         </button>
       </div>
-      {error && <p className={`mt-3 text-sm text-rose-600 ${variant === 'hero' ? 'px-2 pb-1' : ''}`}>{error}</p>}
+      {error && <p className="mt-3 text-sm text-rose-600">{error}</p>}
     </div>
   );
 
