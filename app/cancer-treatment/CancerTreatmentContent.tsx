@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { MEDICAL_PACKAGES } from '@/lib/config/medical-packages';
 import {
-  ArrowLeft, ArrowRight, Shield, Activity, Target, Dna, Stethoscope, FileText, Building, Globe, MessageSquare, Atom, Pill, Radio, FlaskConical, HeartPulse, Info, ExternalLink
+  ArrowLeft, ArrowRight, Activity, FileText, Globe, MessageSquare, HeartPulse, Info, ExternalLink
 } from 'lucide-react';
 import { useLanguage4, type Language } from '@/hooks/useLanguage';
 import SymptomHospitalMatcher from '@/components/SymptomHospitalMatcher';
@@ -44,18 +44,6 @@ const pageTranslations = {
   flowWeHandle: { ja: '私たちが担当すること', 'zh-TW': '我們為您處理', 'zh-CN': '我们为您处理', en: 'What We Handle', ko: '저희가 담당하는 일' } as Record<Language, string>,
   flowStepDetail: { ja: '詳細ステップ', 'zh-TW': '詳細步驟', 'zh-CN': '详细步骤', en: 'Detailed Steps', ko: '상세 단계' } as Record<Language, string>,
   flowClickPhase: { ja: 'フェーズをクリックして詳細を確認', 'zh-TW': '點擊階段查看詳情', 'zh-CN': '点击阶段查看详情', en: 'Click a phase to see details', ko: '단계를 클릭하여 상세 내용 확인' } as Record<Language, string>,
-  // Standard Treatment Section
-  stdTitle: { ja: 'がん標準治療', 'zh-TW': '癌症標準治療', 'zh-CN': '癌症标准治疗', en: 'Standard Cancer Treatments', ko: '표준 암 치료' } as Record<Language, string>,
-  stdDesc: { ja: '安全性重視、精密な治療、QOL重視、EBMと多職種連携を強調', 'zh-TW': '重視安全性、治療精準、重視生活質量（QOL）、強調循證醫學與多學科協作', 'zh-CN': '重视安全性、治疗精准、重视生活质量（QOL）、强调循证医学与多学科协作', en: 'Safety-focused, precision treatment, QOL-focused, evidence-based multidisciplinary approach', ko: '안전성 중시, 정밀한 치료, QOL 중시, EBM과 다직종 연계를 강조' } as Record<Language, string>,
-  // Regenerative Section
-  regenTitle: { ja: '再生医療等の補助治療', 'zh-TW': '再生醫療等輔助治療', 'zh-CN': '再生医疗等辅助治疗', en: 'Regenerative Medicine & Supportive Treatments', ko: '재생의료 등 보조 치료' } as Record<Language, string>,
-  regenDesc: { ja: '再生医療分野の技術を活用した補助的アプローチ（※標準治療ではありません。効果には個人差があります）', 'zh-TW': '運用再生醫療領域技術的輔助性方案（※非標準治療，效果因人而異）', 'zh-CN': '运用再生医疗领域技术的辅助性方案（※非标准治疗，效果因人而异）', en: 'Supplementary approaches using regenerative medicine (※Not standard treatment. Results vary by individual)', ko: '재생의료 분야의 기술을 활용한 보조적 접근법(※표준 치료가 아닙니다. 효과에는 개인차가 있습니다)' } as Record<Language, string>,
-  regenRecovery: { ja: '身体ケア', 'zh-TW': '身體調理', 'zh-CN': '身体调理', en: 'Body Care', ko: '신체 관리' } as Record<Language, string>,
-  regenHealth: { ja: '長期健康管理', 'zh-TW': '長期健康管理', 'zh-CN': '长期健康管理', en: 'Long-term Health', ko: '장기 건강 관리' } as Record<Language, string>,
-  regenPrevention: { ja: '治療後の経過観察', 'zh-TW': '治療後追蹤觀察', 'zh-CN': '治疗后追踪观察', en: 'Post-treatment Monitoring', ko: '치료 후 경과 관찰' } as Record<Language, string>,
-  // Partner Section
-  partnerTitle: { ja: '相談可能な医療機関タイプ', 'zh-TW': '可協助諮詢的醫療機構類型', 'zh-CN': '可协助咨询的医疗机构类型', en: 'Types of Partner Medical Institutions', ko: '상담 가능한 의료기관 유형' } as Record<Language, string>,
-  partnerDesc: { ja: '日本各地の主要ながん治療施設をご案内', 'zh-TW': '涵蓋日本各地主要癌症治療設施', 'zh-CN': '涵盖日本各地主要癌症治疗设施', en: 'Covering major cancer treatment facilities across Japan', ko: '일본 각지의 주요 암 치료 시설 안내' } as Record<Language, string>,
   // Service Section
   svcTitle: { ja: 'サービスご予約', 'zh-TW': '諮詢服務預約', 'zh-CN': '咨询服务预约', en: 'Book Consultation Service', ko: '상담 서비스 예약' } as Record<Language, string>,
   svcDesc: { ja: 'ご希望のサービスを選択し、お支払い後24時間以内にご連絡いたします', 'zh-TW': '選擇您需要的服務，在線支付後我們將在 24 小時內與您聯繫', 'zh-CN': '选择您需要的服务，在线支付后我们将在 24 小时内与您联系', en: 'Select your service, we will contact you within 24 hours after payment', ko: '희망하시는 서비스를 선택하시고, 결제 후 24시간 이내에 연락드리겠습니다' } as Record<Language, string>,
@@ -239,118 +227,6 @@ const PHASE_DOT_MAP: Record<PhaseColor, string> = {
   green: 'bg-brand-500',
 };
 
-// 標準治療方式
-const STANDARD_TREATMENTS = [
-  {
-    id: 'surgery',
-    icon: Stethoscope,
-    title: { ja: '手術', 'zh-TW': '手術', 'zh-CN': '手术', en: 'Surgery', ko: '수술' } as Record<Language, string>,
-    color: 'blue',
-    features: [
-      { ja: '低侵襲アプローチで創傷が小さく、回復が早い', 'zh-TW': '微創手術，創傷小、恢復快', 'zh-CN': '微创手术，创伤小、恢复快', en: 'Minimally invasive approach with reduced trauma and faster recovery', ko: '최소 침습 접근법으로 상처가 작고 회복이 빠름' } as Record<Language, string>,
-      { ja: '生存率だけでなく、術後のQOLを重視', 'zh-TW': '不僅追求生存率，更重視術後生活質量', 'zh-CN': '不仅追求生存率，更重视术后生活质量', en: 'Prioritizes post-surgery quality of life', ko: '생존율뿐 아니라 수술 후 QOL을 중시' } as Record<Language, string>,
-      { ja: '食事・排尿・会話等の機能保護', 'zh-TW': '進食、排尿、說話等功能保護', 'zh-CN': '进食、排尿、说话等功能保护', en: 'Protects eating, urinary, speech functions', ko: '식사·배뇨·대화 등의 기능 보호' } as Record<Language, string>,
-    ],
-    desc: { ja: '日本の低侵襲手術技術は高い水準を有し、治療効果を追求しながらQOLの保護を重視しています。', 'zh-TW': '日本微創手術技術水準高，在追求治療效果的同時重視保護患者的生活質量。', 'zh-CN': '日本微创手术技术水准高，在追求治疗效果的同时重视保护患者的生活质量。', en: 'Japanese minimally invasive surgery maintains high standards, emphasizing quality of life alongside treatment outcomes.', ko: '일본의 저침습 수술 기술은 높은 수준을 보유하며, 치료 효과를 추구하면서 QOL 보호를 중시합니다.' } as Record<Language, string>,
-  },
-  {
-    id: 'chemo',
-    icon: Pill,
-    title: { ja: '化学療法', 'zh-TW': '化學治療', 'zh-CN': '化学治疗', en: 'Chemotherapy', ko: '화학요법' } as Record<Language, string>,
-    color: 'green',
-    features: [
-      { ja: '患者の年齢・体力・合併症に応じて投与量を調整', 'zh-TW': '根據患者年齡、體力、合併症調整劑量', 'zh-CN': '根据患者年龄、体力、合并症调整剂量', en: 'Dosage adjusted for age, fitness, comorbidities', ko: '환자의 연령·체력·합병증에 따라 투여량 조정' } as Record<Language, string>,
-      { ja: 'プロトコルに基づく副作用モニタリング', 'zh-TW': '基於規範的副作用監測管理', 'zh-CN': '基于规范的副作用监测管理', en: 'Protocol-based side effect monitoring', ko: '프로토콜에 기반한 부작용 모니터링' } as Record<Language, string>,
-      { ja: '高齢患者や慢性腫瘍患者に最適', 'zh-TW': '適合高齡患者、慢性腫瘤患者', 'zh-CN': '适合高龄患者、慢性肿瘤患者', en: 'Suitable for elderly and chronic tumor patients', ko: '고령 환자나 만성 종양 환자에 적합' } as Record<Language, string>,
-    ],
-    desc: { ja: '最大投与量を追求せず、個体差に基づき最適な方案を策定し、副作用の軽減を目指します。', 'zh-TW': '不一味追求最大劑量，而是根據個體差異制定方案，力求減輕副作用。', 'zh-CN': '不一味追求最大剂量，而是根据个体差异制定方案，力求减轻副作用。', en: 'Plans tailored to individual differences, aiming to reduce side effects rather than maximizing dosage.', ko: '최대 투여량을 추구하지 않고, 개체차에 기반하여 최적의 방안을 수립하며, 부작용 경감을 목표로 합니다.' } as Record<Language, string>,
-  },
-  {
-    id: 'radiation',
-    icon: Radio,
-    title: { ja: '放射線治療', 'zh-TW': '放射線治療', 'zh-CN': '放射线治疗', en: 'Radiation Therapy', ko: '방사선 치료' } as Record<Language, string>,
-    color: 'purple',
-    features: [
-      { ja: '陽子線・重粒子線治療の実績が豊富', 'zh-TW': '陽子線、重離子線治療經驗豐富', 'zh-CN': '质子线、重离子线治疗经验丰富', en: 'Extensive proton and heavy ion therapy experience', ko: '양자선·중입자선 치료 실적이 풍부' } as Record<Language, string>,
-      { ja: '定位放射線治療技術が成熟', 'zh-TW': '立體定向放射治療技術成熟', 'zh-CN': '立体定向放射治疗技术成熟', en: 'Mature stereotactic radiation technology', ko: '정위방사선 치료 기술이 성숙' } as Record<Language, string>,
-      { ja: '正常組織への影響を抑え、合併症リスクの低減を目指す', 'zh-TW': '旨在降低對正常組織的影響，減少併發症風險', 'zh-CN': '旨在降低对正常组织的影响，减少并发症风险', en: 'Aims to reduce impact on normal tissue and lower complication risk', ko: '정상 조직에 대한 영향을 억제하고 합병증 위험 저감을 목표' } as Record<Language, string>,
-    ],
-    desc: { ja: '高精度放射線技術で腫瘍細胞を狙い、周囲の正常組織への影響を抑えることを目指します。', 'zh-TW': '高精度放射線技術旨在精準瞄準腫瘤細胞，盡可能減少對周圍正常組織的影響。', 'zh-CN': '高精度放射线技术旨在精准瞄准肿瘤细胞，尽可能减少对周围正常组织的影响。', en: 'High-precision radiation targets tumor cells, aiming to reduce impact on surrounding tissue.', ko: '고정밀 방사선 기술로 종양 세포를 조준하여, 주위 정상 조직에 대한 영향을 억제하는 것을 목표로 합니다.' } as Record<Language, string>,
-  },
-  {
-    id: 'immune',
-    icon: Shield,
-    title: { ja: '免疫療法', 'zh-TW': '免疫治療', 'zh-CN': '免疫治疗', en: 'Immunotherapy', ko: '면역요법' } as Record<Language, string>,
-    color: 'orange',
-    features: [
-      { ja: '適応症の厳格なスクリーニング', 'zh-TW': '嚴格篩選適應症', 'zh-CN': '严格筛选适应症', en: 'Strict indication screening', ko: '적응증의 엄격한 심사' } as Record<Language, string>,
-      { ja: '免疫関連有害事象に高度に警戒', 'zh-TW': '高度警惕免疫相關不良反應', 'zh-CN': '高度警惕免疫相关不良反应', en: 'Highly vigilant of immune-related adverse events', ko: '면역 관련 유해사상에 고도로 경계' } as Record<Language, string>,
-      { ja: '正常臓器への影響を抑える管理体制', 'zh-TW': '管控對正常器官的影響', 'zh-CN': '管控对正常器官的影响', en: 'Protocols to manage impact on normal organs', ko: '정상 장기에 대한 영향을 억제하는 관리 체제' } as Record<Language, string>,
-    ],
-    desc: { ja: '免疫療法の効果を発揮しながら、精密な管理で免疫系統による正常臓器への攻撃を防ぎます。', 'zh-TW': '在發揮免疫治療效果的同時，通過精細管理避免免疫系統攻擊正常器官。', 'zh-CN': '在发挥免疫治疗效果的同时，通过精细管理避免免疫系统攻击正常器官。', en: 'Leveraging immunotherapy while preventing immune attacks on normal organs through precise management.', ko: '면역요법의 효과를 발휘하면서, 정밀한 관리로 면역 체계에 의한 정상 장기 공격을 방지합니다.' } as Record<Language, string>,
-  },
-  {
-    id: 'targeted',
-    icon: Target,
-    title: { ja: '標的治療', 'zh-TW': '靶向治療', 'zh-CN': '靶向治疗', en: 'Targeted Therapy', ko: '표적 치료' } as Record<Language, string>,
-    color: 'red',
-    features: [
-      { ja: 'がん細胞の特定遺伝子に対する精密治療', 'zh-TW': '針對癌細胞特定基因進行精準治療', 'zh-CN': '针对癌细胞特定基因进行精准治疗', en: 'Precision treatment targeting specific cancer genes', ko: '암 세포의 특정 유전자에 대한 정밀 치료' } as Record<Language, string>,
-      { ja: '「遺伝子エビデンスなければ安易に投薬せず」', 'zh-TW': '「無基因證據，不輕易用藥」', 'zh-CN': '"无基因证据，不轻易用药"', en: '"No genetic evidence, no hasty medication"', ko: '「유전자 증거 없이 안이하게 투약하지 않는다」' } as Record<Language, string>,
-      { ja: '無効な治療と不必要な副作用を回避', 'zh-TW': '避免無效治療和不必要副作用', 'zh-CN': '避免无效治疗和不必要副作用', en: 'Avoid ineffective treatment and unnecessary side effects', ko: '무효한 치료와 불필요한 부작용 회피' } as Record<Language, string>,
-    ],
-    desc: { ja: '遺伝子検査結果に基づき最適な標的薬を選択し、真のプレシジョン・メディシンを実現します。', 'zh-TW': '基於基因檢測結果選擇最適合的靶向藥物，真正做到精準醫療。', 'zh-CN': '基于基因检测结果选择最适合的靶向药物，真正做到精准医疗。', en: 'Selecting optimal targeted drugs based on genetic testing for true precision medicine.', ko: '유전자 검사 결과에 기반하여 최적의 표적약을 선택하고, 진정한 프리시전 메디신을 실현합니다.' } as Record<Language, string>,
-  },
-];
-// 再生醫療輔助治療
-const REGENERATIVE_TREATMENTS = [
-  {
-    id: 'msc',
-    icon: Dna,
-    title: { ja: '間葉系幹細胞', 'zh-TW': '間充質幹細胞', 'zh-CN': '间充质干细胞', en: 'Mesenchymal Stem Cells', ko: '간엽계 줄기세포' } as Record<Language, string>,
-    subtitle: 'MSC Therapy',
-    purpose: { ja: '身体ケア', 'zh-TW': '身體調理', 'zh-CN': '身体调理', en: 'Body Care', ko: '신체 관리' } as Record<Language, string>,
-    color: 'blue',
-    features: [
-      { ja: '抗炎症・免疫調節', 'zh-TW': '抗炎與免疫調節', 'zh-CN': '抗炎与免疫调节', en: 'Anti-inflammation & immune regulation', ko: '항염증·면역 조절' } as Record<Language, string>,
-      { ja: '化学療法・放射線治療後の身体ケア', 'zh-TW': '化療、放療後的身體調理', 'zh-CN': '化疗、放疗后的身体调理', en: 'Post-chemo/radiation body care', ko: '화학요법·방사선 치료 후 신체 관리' } as Record<Language, string>,
-      { ja: '組織修復へのアプローチ', 'zh-TW': '組織修復的輔助探索', 'zh-CN': '组织修复的辅助探索', en: 'Approach to tissue repair support', ko: '조직 수복에 대한 접근' } as Record<Language, string>,
-    ],
-  },
-  {
-    id: 'exosome',
-    icon: Atom,
-    title: { ja: 'エクソソーム', 'zh-TW': '外泌體', 'zh-CN': '外泌体', en: 'Exosomes', ko: '엑소좀' } as Record<Language, string>,
-    subtitle: 'Exosome Therapy',
-    purpose: { ja: '長期健康管理', 'zh-TW': '長期健康管理', 'zh-CN': '长期健康管理', en: 'Long-term Health', ko: '장기 건강 관리' } as Record<Language, string>,
-    color: 'purple',
-    features: [
-      { ja: '細胞修復へのアプローチ', 'zh-TW': '細胞修復的輔助探索', 'zh-CN': '细胞修复的辅助探索', en: 'Approach to cell repair support', ko: '세포 수복에 대한 보조적 접근' } as Record<Language, string>,
-      { ja: '治療後の健康管理を目指す', 'zh-TW': '著眼於治療後的健康管理', 'zh-CN': '着眼于治疗后的健康管理', en: 'Aimed at post-treatment health management', ko: '치료 후 건강 관리를 목표' } as Record<Language, string>,
-      { ja: 'アンチエイジングケア', 'zh-TW': '抗衰老調理', 'zh-CN': '抗衰老调理', en: 'Anti-aging care', ko: '안티에이징 관리' } as Record<Language, string>,
-    ],
-  },
-  {
-    id: 'nk',
-    icon: Shield,
-    title: { ja: 'NK等免疫細胞', 'zh-TW': 'NK等免疫細胞', 'zh-CN': 'NK等免疫细胞', en: 'NK Immune Cells', ko: 'NK 면역세포' } as Record<Language, string>,
-    subtitle: 'NK Cell Therapy',
-    purpose: { ja: '免疫ケア', 'zh-TW': '免疫調理', 'zh-CN': '免疫调理', en: 'Immune Care', ko: '면역 관리' } as Record<Language, string>,
-    color: 'green',
-    features: [
-      { ja: '免疫機能へのアプローチ', 'zh-TW': '免疫功能的輔助探索', 'zh-CN': '免疫功能的辅助探索', en: 'Approach to immune function support', ko: '면역 기능에 대한 보조적 접근' } as Record<Language, string>,
-      { ja: '体の自然防御力に着目したケア', 'zh-TW': '著眼於身體自然防禦力的調理', 'zh-CN': '着眼于身体自然防御力的调理', en: 'Care focused on natural defense capacity', ko: '신체의 자연 방어력에 주목한 관리' } as Record<Language, string>,
-      { ja: '治療後の健康管理の一環', 'zh-TW': '治療後健康管理的一環', 'zh-CN': '治疗后健康管理的一环', en: 'Part of post-treatment health management', ko: '치료 후 건강 관리의 일환' } as Record<Language, string>,
-    ],
-  },
-];
-// 合作醫療機構類型
-const PARTNER_INSTITUTIONS = [
-  { icon: Building, label: { ja: '大学病院・総合病院', 'zh-TW': '大學醫院、綜合醫院', 'zh-CN': '大学医院、综合医院', en: 'University & General Hospitals', ko: '대학병원·종합병원' } as Record<Language, string> },
-  { icon: Atom, label: { ja: '重粒子線・陽子線治療施設', 'zh-TW': '重粒子線、陽子線治療設施', 'zh-CN': '重粒子线、质子线治疗设施', en: 'Heavy Ion & Proton Therapy Facilities', ko: '중입자선·양자선 치료 시설' } as Record<Language, string> },
-  { icon: Stethoscope, label: { ja: '専門クリニック', 'zh-TW': '專門診所', 'zh-CN': '专门诊所', en: 'Specialized Clinics', ko: '전문 클리닉' } as Record<Language, string> },
-  { icon: FlaskConical, label: { ja: '再生医療クリニック', 'zh-TW': '再生醫療診所', 'zh-CN': '再生医疗诊所', en: 'Regenerative Medicine Clinics', ko: '재생의료 클리닉' } as Record<Language, string> },
-];
 // 医疗机构 i18n 辅助函数
 const L = (ja: string, tw: string, cn: string, en: string, ko?: string): Record<Language, string> => ({ ja, 'zh-TW': tw, 'zh-CN': cn, en, ko: ko ?? en });
 // 日本知名癌症治疗医疗机构介绍（纯信息展示，非合作声明）— 关西地区优先置顶
@@ -1211,117 +1087,7 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
       {/* 病症搜索已并入 hero；导游嵌入模式下 hero 被隐藏，保留独立区块 */}
       {isGuideEmbed && <SymptomHospitalMatcher lang={currentLang} />}
 
-      {/* Standard Treatments Section */}
-      <section className="py-24 bg-gradient-to-br from-neutral-50 to-brand-50">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">Standard Treatment</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mt-3 mb-4">
-              {t('stdTitle')}
-            </h2>
-            <p className="text-neutral-500 max-w-2xl mx-auto">
-              {t('stdDesc')}
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {STANDARD_TREATMENTS.map((treatment) => {
-              const Icon = treatment.icon;
-              // 同上：五档差异在三色制后已无含义（brand-50/accent-50 两套底、
-              // 600/700 两档字），且 text-brand-600 压 bg-brand-50 仅 3.95:1、
-              // text-brand-700 压 bg-brand-50 仅 4.33:1，都未达正文 4.5。
-              const colors = { bg: 'bg-brand-50', text: 'text-brand-700', border: 'border-brand-200' };
-              return (
-                <div
-                  key={treatment.id}
-                  className={`bg-white rounded-2xl p-8 border ${colors.border} hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group`}
-                >
-                  <h3 className="text-xl font-bold text-neutral-900 mb-4">{treatment.title[currentLang]}</h3>
-                  <ul className="space-y-2 mb-4">
-                    {treatment.features.map((feature, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-neutral-600">
-                        <span>{feature[currentLang]}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="text-neutral-500 text-sm leading-relaxed border-t border-neutral-100 pt-4">
-                    {treatment.desc[currentLang]}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-      {/* Regenerative Medicine Section */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <span className="text-neutral-700 text-xs tracking-widest uppercase font-bold">Regenerative Medicine</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mt-3 mb-4">
-              {t('regenTitle')}
-            </h2>
-            <p className="text-neutral-500 max-w-2xl mx-auto">
-              {t('regenDesc')}
-            </p>
-          </div>
-          {/* Purpose Tags */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            <div className="flex items-center gap-2 bg-brand-100 text-brand-700 px-4 py-2 rounded-full text-sm font-bold">
-              {t('regenRecovery')}
-            </div>
-            <div className="flex items-center gap-2 bg-brand-100 text-brand-700 px-4 py-2 rounded-full text-sm font-bold">
-              {t('regenHealth')}
-            </div>
-            <div className="flex items-center gap-2 bg-brand-100 text-neutral-900 px-4 py-2 rounded-full text-sm font-bold">
-              {t('regenPrevention')}
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {REGENERATIVE_TREATMENTS.map((treatment) => {
-              const Icon = treatment.icon;
-              // 三色制之后 blue/purple/green 三档只剩深浅之差，区分已无意义，故统一。
-              // 原 gradient 的亮端 brand-400 配白色图标仅 2.28:1，未达图形元素 3:1；
-              // 原 text-brand-600 压 bg-brand-50 仅 3.95:1，未达正文 4.5:1。
-              const colors = { gradient: '', bg: 'bg-brand-50', text: 'text-brand-700' };
-              return (
-                <div key={treatment.id} className="bg-gradient-to-br from-neutral-50 to-white rounded-2xl p-8 border border-neutral-100 hover:shadow-xl transition-all duration-300 group">
-                  <div className={`inline-block ${colors.bg} ${colors.text} text-xs font-bold px-3 py-1 rounded-full mb-4`}>
-                    {treatment.purpose[currentLang]}
-                  </div>
-                  <h3 className="text-xl font-bold text-neutral-900 mb-1">{treatment.title[currentLang]}</h3>
-                  <p className="text-neutral-500 text-sm mb-4">{treatment.subtitle}</p>
-                  <ul className="space-y-2">
-                    {treatment.features.map((feature, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-neutral-600">
-                        <span>{feature[currentLang]}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-      {/* Partner Institutions */}
-      <section className="py-20 bg-neutral-50 text-neutral-900">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('partnerTitle')}</h2>
-            <p className="text-neutral-600">{t('partnerDesc')}</p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-            {PARTNER_INSTITUTIONS.map((inst, i) => {
-              const Icon = inst.icon;
-              return (
-                <div key={i} className="bg-white rounded-xl p-6 text-center border border-neutral-200 border-white/20 hover:bg-white/20 transition">
-                  <p className="text-sm text-neutral-600">{inst.label[currentLang]}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* 标准治疗/再生医疗/机构类型三个区块 2026-08 应用户要求删除（信息价值低的废话板块） */}
       {/* Service / Contact Section - hidden in guide embed mode */}
       {!isGuideEmbed && (<>
       <section id="contact-form" className="py-24 bg-gradient-to-br from-brand-50 to-brand-50">
