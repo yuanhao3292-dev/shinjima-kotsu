@@ -48,6 +48,19 @@ export const SYMPTOM_SUGGESTIONS: SymptomSuggestion[] = [
   { dept: '肿瘤科', t: { ja: 'セカンドオピニオン希望', 'zh-TW': '尋求第二診療意見', 'zh-CN': '寻求第二诊疗意见', en: 'Second opinion', ko: '세컨드 오피니언' } },
   { dept: '肿瘤科', t: { ja: '腫瘍マーカー高値', 'zh-TW': '腫瘤標誌物升高', 'zh-CN': '肿瘤标志物升高', en: 'Elevated tumor markers', ko: '종양표지자 상승' } },
   { dept: '肿瘤科', t: { ja: 'リンパ節の腫れ', 'zh-TW': '淋巴結腫大', 'zh-CN': '淋巴结肿大', en: 'Swollen lymph nodes', ko: '림프절 종대' } },
+  // 常见癌种（本页核心人群会直接打癌种名）
+  { dept: '肿瘤科', t: { ja: '肺がん', 'zh-TW': '肺癌', 'zh-CN': '肺癌', en: 'Lung cancer', ko: '폐암' } },
+  { dept: '肿瘤科', t: { ja: '胃がん', 'zh-TW': '胃癌', 'zh-CN': '胃癌', en: 'Stomach cancer', ko: '위암' } },
+  { dept: '肿瘤科', t: { ja: '肝臓がん', 'zh-TW': '肝癌', 'zh-CN': '肝癌', en: 'Liver cancer', ko: '간암' } },
+  { dept: '肿瘤科', t: { ja: '大腸がん', 'zh-TW': '大腸癌', 'zh-CN': '大肠癌', en: 'Colorectal cancer', ko: '대장암' } },
+  { dept: '肿瘤科', t: { ja: '食道がん', 'zh-TW': '食道癌', 'zh-CN': '食道癌', en: 'Esophageal cancer', ko: '식도암' } },
+  { dept: '肿瘤科', t: { ja: 'すい臓がん', 'zh-TW': '胰臟癌', 'zh-CN': '胰腺癌', en: 'Pancreatic cancer', ko: '췌장암' } },
+  { dept: '肿瘤科', t: { ja: '甲状腺がん', 'zh-TW': '甲狀腺癌', 'zh-CN': '甲状腺癌', en: 'Thyroid cancer', ko: '갑상선암' } },
+  { dept: '乳腺外科', t: { ja: '乳がん', 'zh-TW': '乳癌', 'zh-CN': '乳腺癌', en: 'Breast cancer', ko: '유방암' } },
+  { dept: '泌尿外科', t: { ja: '前立腺がん', 'zh-TW': '攝護腺癌', 'zh-CN': '前列腺癌', en: 'Prostate cancer', ko: '전립선암' } },
+  { dept: '妇产科', t: { ja: '子宮頸がん・子宮がん', 'zh-TW': '子宮頸癌・子宮癌', 'zh-CN': '宫颈癌・子宫癌', en: 'Cervical / uterine cancer', ko: '자궁경부암·자궁암' } },
+  { dept: '妇产科', t: { ja: '卵巣がん', 'zh-TW': '卵巢癌', 'zh-CN': '卵巢癌', en: 'Ovarian cancer', ko: '난소암' } },
+  { dept: '血液内科', t: { ja: '白血病・リンパ腫', 'zh-TW': '白血病・淋巴瘤', 'zh-CN': '白血病・淋巴瘤', en: 'Leukemia, lymphoma', ko: '백혈병·림프종' } },
   // 消化
   { dept: '消化内科', t: { ja: '胃の痛み', 'zh-TW': '胃痛', 'zh-CN': '胃痛', en: 'Stomach pain', ko: '위통' } },
   { dept: '消化内科', t: { ja: '胃もたれ・膨満感', 'zh-TW': '胃脹', 'zh-CN': '胃胀', en: 'Bloating', ko: '속 더부룩함' } },
@@ -59,6 +72,12 @@ export const SYMPTOM_SUGGESTIONS: SymptomSuggestion[] = [
   { dept: '消化内科', t: { ja: '嚥下困難', 'zh-TW': '吞嚥困難', 'zh-CN': '吞咽困难', en: 'Difficulty swallowing', ko: '삼킴 곤란' } },
   { dept: '消化内科', t: { ja: '食欲不振・体重減少', 'zh-TW': '食慾不振・消瘦', 'zh-CN': '食欲不振・消瘦', en: 'Appetite loss, weight loss', ko: '식욕부진·체중감소' } },
   { dept: '消化内科', t: { ja: '黄疸', 'zh-TW': '黃疸', 'zh-CN': '黄疸', en: 'Jaundice', ko: '황달' } },
+  // 肝胆胰
+  { dept: '消化内科', t: { ja: '肝機能異常（健診で指摘）', 'zh-TW': '體檢發現肝功能異常', 'zh-CN': '体检发现肝功能异常', en: 'Abnormal liver function', ko: '간기능 이상' } },
+  { dept: '消化内科', t: { ja: '脂肪肝', 'zh-TW': '脂肪肝', 'zh-CN': '脂肪肝', en: 'Fatty liver', ko: '지방간' } },
+  { dept: '消化内科', t: { ja: 'B型肝炎・肝硬変', 'zh-TW': 'B肝・肝硬化', 'zh-CN': '乙肝・肝硬化', en: 'Hepatitis B, cirrhosis', ko: 'B형 간염·간경변' } },
+  { dept: '消化内科', t: { ja: '胆石・胆のうポリープ', 'zh-TW': '膽結石・膽息肉', 'zh-CN': '胆结石・胆息肉', en: 'Gallstones, gallbladder polyps', ko: '담석·담낭 용종' } },
+  { dept: '消化内科', t: { ja: 'ピロリ菌感染', 'zh-TW': '幽門螺旋桿菌感染', 'zh-CN': '幽门螺杆菌感染', en: 'H. pylori infection', ko: '헬리코박터균 감염' } },
   // 呼吸
   { dept: '呼吸内科', t: { ja: '長引く咳', 'zh-TW': '長期咳嗽', 'zh-CN': '长期咳嗽', en: 'Persistent cough', ko: '오래가는 기침' } },
   { dept: '呼吸内科', t: { ja: '血痰・喀血', 'zh-TW': '咳血', 'zh-CN': '咳血', en: 'Coughing blood', ko: '객혈' } },
