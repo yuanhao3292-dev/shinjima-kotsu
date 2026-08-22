@@ -473,6 +473,34 @@ export async function rematchHospitalsFromCachedResult(
 // 核心匹配引擎（共享逻辑）
 // ============================================================
 
+/**
+ * 轻量病症匹配入口（2026-08，综合治疗页"输入病症→定位医院"用）
+ *
+ * 不跑完整 AEMC 多 AI 管线；调用方（API 层）用一次轻量 LLM 把自由文本
+ * 分诊成科室/症状/风险，构造 features 后调此函数，复用同一份 174 家 DB
+ * 匹配逻辑与 normalizeDepartment 映射。
+ */
+export async function matchBySymptomFeatures(input: {
+  departments: string[];
+  symptoms?: string[];
+  riskLevel?: string;
+  chiefComplaint?: string;
+}, language?: string): Promise<HospitalRecommendation> {
+  const rawDepts = input.departments || [];
+  const features: MatchingFeatures = {
+    normalizedDepartments: rawDepts.map(normalizeDepartment),
+    rawDepartments: rawDepts,
+    symptoms: input.symptoms || [],
+    differentialNames: [],
+    suggestedTests: [],
+    redFlags: [],
+    isEmergency: input.riskLevel === 'emergency',
+    riskLevel: input.riskLevel || 'medium',
+    chiefComplaint: input.chiefComplaint || '',
+  };
+  return matchHospitalsFromFeatures(features, language);
+}
+
 async function matchHospitalsFromFeatures(
   features: MatchingFeatures,
   language?: string

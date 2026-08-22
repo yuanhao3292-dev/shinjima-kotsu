@@ -7,6 +7,7 @@ import {
   ArrowLeft, ArrowRight, Shield, Activity, Target, Dna, Stethoscope, FileText, Building, Globe, MessageSquare, Atom, Pill, Radio, FlaskConical, HeartPulse, Info, ExternalLink
 } from 'lucide-react';
 import { useLanguage4, type Language } from '@/hooks/useLanguage';
+import SymptomHospitalMatcher from '@/components/SymptomHospitalMatcher';
 const pageTranslations = {
   // Hero
   heroBadge: { ja: '日本がん治療', 'zh-TW': '日本癌症治療', 'zh-CN': '日本癌症治疗', en: 'Japan Cancer Treatment', ko: '일본 암 치료' } as Record<Language, string>,
@@ -1229,6 +1230,9 @@ export default function CancerTreatmentContent({ isGuideEmbed, guideSlug }: Canc
           })()}
         </div>
       </section>
+      {/* AI 病症匹配医院（综合治疗页入口） */}
+      <SymptomHospitalMatcher lang={currentLang} />
+
       {/* Standard Treatments Section */}
       <section className="py-24 bg-gradient-to-br from-neutral-50 to-brand-50">
         <div className="container mx-auto px-6">
